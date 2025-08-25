@@ -571,7 +571,7 @@ Where the [XCM format](https://github.com/polkadot-fellows/xcm-format){target=\_
 
 - **Primitive**: Dispatchable functions to execute XCM locally.
 - **High-level**: Functions for asset transfers between chains.
-- **Version negotiation-specific**: Functions for managing XCM version compability.
+- **Version negotiation-specific**: Functions for managing XCM version compatibility.
 
 ### Key Roles of the XCM Pallet
 
@@ -2704,7 +2704,7 @@ As mentioned before, you need to specify the transfer type.
 
     Yes. Fees are important for decentralized systems to prevent spam. Although it is possible to not specify remote fees, this is most likely not what you want when developing applications. Omitting the remote fees will append an [`UnpaidExecution`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm/v5/enum.Instruction.html#variant.UnpaidExecution){target=\_blank} instruction to the remote XCM. This instruction signals to the destination system that there is a reason execution is allowed a message without paying for fees.
 
-    This usually means you're a priviledged origin, like `Root` or the `Fellowship` origin. It's mostly used from the runtime of the Polkadot SDK-based chains instead of from applications.
+    This usually means you're a privileged origin, like `Root` or the `Fellowship` origin. It's mostly used from the runtime of the Polkadot SDK-based chains instead of from applications.
 
 ??? code "Teleport Example"
 
@@ -4773,7 +4773,7 @@ Polkadot is the primary production blockchain network for high-stakes, enterpris
 
 ### Kusama
 
-Kusama is a network built as a risk-taking, fast-moving "canary in the coal mine" for its cousin Polkadot. As it is built on top of the same infrastructure, Kusama often acts as a final testing ground for new features before they are launched on Polkadot. Unlike true TestNets, however, the Kusama KSM native token does have economic value. This incentive encourages paricipants to maintain this robust and performant structure for the benefit of the community.
+Kusama is a network built as a risk-taking, fast-moving "canary in the coal mine" for its cousin Polkadot. As it is built on top of the same infrastructure, Kusama often acts as a final testing ground for new features before they are launched on Polkadot. Unlike true TestNets, however, the Kusama KSM native token does have economic value. This incentive encourages participants to maintain this robust and performant structure for the benefit of the community.
 
 === "Network Details"
 
@@ -6981,7 +6981,7 @@ On-demand coretime allows for flexible, as-needed block production. To purchase:
     - **`maxAmountFor`**: Sufficient funds for the transaction.
     - **`paraId`**: Your registered `ParaID`.
 
-After succesfully executing the extrinsic, your parachain will produce a block.
+After successfully executing the extrinsic, your parachain will produce a block.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/parachains/
@@ -7003,11 +7003,11 @@ With the [Polkadot relay chain](/polkadot-protocol/architecture/polkadot-chain/)
 Polkadot SDK’s FRAME framework provides developers with the tools to do the following:
 
 - **Customize parachain runtimes**: [Runtimes](/polkadot-protocol/glossary/#runtime){target=\_blank} are the core building blocks that define the logic and functionality of Polkadot SDK-based parachains and let developers customize the parameters, rules, and behaviors that shape their blockchain network.
-- **Develop new pallets**: Create custom modular pallets to define runtime behavior and acheive desired blockchain functionality.
+- **Develop new pallets**: Create custom modular pallets to define runtime behavior and achieve desired blockchain functionality.
 - **Add smart contract functionality**: Use specialized pallets to deploy and execute smart contracts, enhancing your chain's functionality and programmability.
 - **Test your build for a confident deployment**: Create a test environment that can simulate runtime and mock transaction execution.
 - **Deploy your blockchain for use**: Take your Polkadot SDK-based blockchain from a local environment to production.
-- **Maintain your network including monitoring and upgrades**: Runtimes can be ugraded through forkless runtime updates, enabling seamless evolution of the parachain.
+- **Maintain your network including monitoring and upgrades**: Runtimes can be upgraded through forkless runtime updates, enabling seamless evolution of the parachain.
 
 New to parachain development? Start with the [Introduction to the Polkadot SDK](/develop/parachains/intro-polkadot-sdk/) to discover how this framework simplifies building custom parachains.
 
@@ -7912,7 +7912,7 @@ graph TD
   localData --> getmetrics[Get Metrics]
 ```
 
-The diagram shows the flow of data from the Substrate node to the monitoring and visualization components. The Substrate node exposes a telemetry stream, which is consumed by Prometheus. Prometheus is configured to collect data every minute and store it. Grafana is then used to visualize the data, allowing the user to open graphs and retrieve specifc metrics from the telemetry stream.
+The diagram shows the flow of data from the Substrate node to the monitoring and visualization components. The Substrate node exposes a telemetry stream, which is consumed by Prometheus. Prometheus is configured to collect data every minute and store it. Grafana is then used to visualize the data, allowing the user to open graphs and retrieve specific metrics from the telemetry stream.
 
 ## Visual Monitoring
 
@@ -10648,7 +10648,7 @@ contract Counter {
 1. To deploy your contract, you need to:
 
     1. Navigate to the **Deploy & Run Transactions** tab (fourth icon in the left sidebar).
-    2. Click the **Enviroment** dropdown.
+    2. Click the **Environment** dropdown.
     3. Select **Customize this list**.
 
         ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-7.webp)
@@ -10657,7 +10657,7 @@ contract Counter {
 
     ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-8.webp)
 
-4. Click again the **Enviroment** dropdown and select **Injected Provider - Talisman**.
+4. Click again the **Environment** dropdown and select **Injected Provider - Talisman**.
 
     ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-9.webp)
 
@@ -10731,7 +10731,7 @@ categories: Smart Contracts
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 !!! note
-    For a list of known incompatibilities, please refer to the [Solidity and Yul IR transaltion incompatibilities](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm/#solidity-and-yul-ir-translation-incompatibilities){target=\_blank} section.
+    For a list of known incompatibilities, please refer to the [Solidity and Yul IR translation incompatibilities](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm/#solidity-and-yul-ir-translation-incompatibilities){target=\_blank} section.
 
 ## General Questions
 
@@ -25942,7 +25942,7 @@ These on-chain collectives will play essential roles in the future of network st
 
 Before parachains, the only way to design a bridge was to put the logic onto the relay chain. Since both networks now support parachains and the isolation they provide, each network can have a parachain dedicated to bridges. 
 
-The Bridge Hub system parachain operates on the relay chain, and is responsible for faciliating bridges to the wider Web3 space. It contains the required bridge [pallets](/polkadot-protocol/glossary/#pallet){target=\_blank} in its runtime, which enable trustless bridging with other blockchain networks like Polkadot, Kusama, and Ethereum. The Bridge Hub uses the native token of the relay chain.
+The Bridge Hub system parachain operates on the relay chain, and is responsible for facilitating bridges to the wider Web3 space. It contains the required bridge [pallets](/polkadot-protocol/glossary/#pallet){target=\_blank} in its runtime, which enable trustless bridging with other blockchain networks like Polkadot, Kusama, and Ethereum. The Bridge Hub uses the native token of the relay chain.
 
 See the [Bridge Hub](/polkadot-protocol/architecture/system-chains/bridge-hub/){target=\_blank} documentation for additional information.
 
@@ -26805,7 +26805,7 @@ In the Polkadot ecosystem, account balances are categorized into different types
 
 The five main balance types are:
 
-- **Free balance**: Represents the total tokens available to the account for any on-chain activity, including staking, governance, and voting. However, it may not be fully spendable or transferrable if portions of it are locked or reserved.
+- **Free balance**: Represents the total tokens available to the account for any on-chain activity, including staking, governance, and voting. However, it may not be fully spendable or transferable if portions of it are locked or reserved.
 - **Locked balance**: Portions of the free balance that cannot be spent or transferred because they are tied up in specific activities like [staking](https://wiki.polkadot.network/learn/learn-staking/#nominating-validators){target=\_blank}, [vesting](https://wiki.polkadot.network/learn/learn-guides-transfers/#vested-transfers-with-the-polkadot-js-ui){target=\_blank}, or participating in [governance](https://wiki.polkadot.network/learn/learn-polkadot-opengov/#voting-on-a-referendum){target=\_blank}. While the tokens remain part of the free balance, they are non-transferable for the duration of the lock.
 - **Reserved balance**: Funds locked by specific system actions, such as setting up an [identity](https://wiki.polkadot.network/learn/learn-identity/){target=\_blank}, creating [proxies](https://wiki.polkadot.network/learn/learn-proxies/){target=\_blank}, or submitting [deposits for governance proposals](https://wiki.polkadot.network/learn/learn-guides-polkadot-opengov/#claiming-opengov-deposits){target=\_blank}. These tokens are not part of the free balance and cannot be spent unless they are unreserved.
 - **Spendable balance**: The portion of the free balance that is available for immediate spending or transfers. It is calculated by subtracting the maximum of locked or reserved amounts from the free balance, ensuring that existential deposit limits are met.
@@ -26836,7 +26836,7 @@ Consider an example where an account has 80 DOT locked for both staking and gove
 - 24 DOT is locked for governance with a 1x conviction and a 7-day lock period.
 - 4 DOT is locked for governance with a 6x conviction and a 224-day lock period.
 
-In this case, the total locked amount is 80 DOT because only the largest lock (80 DOT from staking) governs the locked balance. These 80 DOT will be released at different times based on the lock durations. In this example, the 24 DOT locked for governance will be released first since the shortest lock period is seven days. The 80 DOT stake with a 28-day lock period is released next. Now, all that remains locked is the 4 DOT for governance. After 224 days, all 80 DOT (minus the existential deposit) will be free and transferrable.
+In this case, the total locked amount is 80 DOT because only the largest lock (80 DOT from staking) governs the locked balance. These 80 DOT will be released at different times based on the lock durations. In this example, the 24 DOT locked for governance will be released first since the shortest lock period is seven days. The 80 DOT stake with a 28-day lock period is released next. Now, all that remains locked is the 4 DOT for governance. After 224 days, all 80 DOT (minus the existential deposit) will be free and transferable.
 
 ![Illustration of Lock Example](/images/polkadot-protocol/parachain-basics/accounts/locks-example-2.webp)
 
@@ -26854,7 +26854,7 @@ The most common balance types displayed on Polkadot.js are:
 
 - **Total balance**: The total number of tokens available in the account. This includes all tokens, whether they are transferable, locked, reserved, or vested. However, the total balance does not always reflect what can be spent immediately. In this example, the total balance is 0.6274 KSM.
 
-- **Transferrable balance**: Shows how many tokens are immediately available for transfer. It is calculated by subtracting the locked and reserved balances from the total balance. For example, if an account has a total balance of 0.6274 KSM and a transferrable balance of 0.0106 KSM, only the latter amount can be sent or spent freely.
+- **Transferable balance**: Shows how many tokens are immediately available for transfer. It is calculated by subtracting the locked and reserved balances from the total balance. For example, if an account has a total balance of 0.6274 KSM and a transferable balance of 0.0106 KSM, only the latter amount can be sent or spent freely.
 
 - **Vested balance**: Tokens that allocated to the account but released according to a specific schedule. Vested tokens remain locked and cannot be transferred until fully vested. For example, an account with a vested balance of 0.2500 KSM means that this amount is owned but not yet transferable.
 
@@ -26862,7 +26862,7 @@ The most common balance types displayed on Polkadot.js are:
 
 - **Reserved balance**: Refers to tokens locked for specific on-chain actions, such as setting an identity, creating a proxy, or making governance deposits. Reserved tokens are not part of the free balance, but can be freed by performing certain actions. For example, removing an identity would unreserve those funds.
 
-- **Bonded balance**: The tokens locked for staking purposes. Bonded tokens are not transferrable until they are unbonded after the unbonding period.
+- **Bonded balance**: The tokens locked for staking purposes. Bonded tokens are not transferable until they are unbonded after the unbonding period.
 
 - **Redeemable balance**: The number of tokens that have completed the unbonding period and are ready to be unlocked and transferred again. For example, if an account has a redeemable balance of 0.1000 KSM, those tokens are now available for spending.
 

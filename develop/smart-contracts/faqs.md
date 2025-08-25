@@ -9,7 +9,7 @@ categories: Smart Contracts
 --8<-- 'text/smart-contracts/polkaVM-warning.md'
 
 !!! note
-    For a list of known incompatibilities, please refer to the [Solidity and Yul IR transaltion incompatibilities](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm/#solidity-and-yul-ir-translation-incompatibilities){target=\_blank} section.
+    For a list of known incompatibilities, please refer to the [Solidity and Yul IR translation incompatibilities](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm/#solidity-and-yul-ir-translation-incompatibilities){target=\_blank} section.
 
 ## General Questions
 

@@ -15,11 +15,11 @@ With the [Polkadot relay chain](/polkadot-protocol/architecture/polkadot-chain/)
 Polkadot SDK’s FRAME framework provides developers with the tools to do the following:
 
 - **Customize parachain runtimes**: [Runtimes](/polkadot-protocol/glossary/#runtime){target=\_blank} are the core building blocks that define the logic and functionality of Polkadot SDK-based parachains and let developers customize the parameters, rules, and behaviors that shape their blockchain network.
-- **Develop new pallets**: Create custom modular pallets to define runtime behavior and acheive desired blockchain functionality.
+- **Develop new pallets**: Create custom modular pallets to define runtime behavior and achieve desired blockchain functionality.
 - **Add smart contract functionality**: Use specialized pallets to deploy and execute smart contracts, enhancing your chain's functionality and programmability.
 - **Test your build for a confident deployment**: Create a test environment that can simulate runtime and mock transaction execution.
 - **Deploy your blockchain for use**: Take your Polkadot SDK-based blockchain from a local environment to production.
-- **Maintain your network including monitoring and upgrades**: Runtimes can be ugraded through forkless runtime updates, enabling seamless evolution of the parachain.
+- **Maintain your network including monitoring and upgrades**: Runtimes can be upgraded through forkless runtime updates, enabling seamless evolution of the parachain.
 
 New to parachain development? Start with the [Introduction to the Polkadot SDK](/develop/parachains/intro-polkadot-sdk/) to discover how this framework simplifies building custom parachains.
 

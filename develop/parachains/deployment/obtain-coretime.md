@@ -79,4 +79,4 @@ On-demand coretime allows for flexible, as-needed block production. To purchase:
     - **`maxAmountFor`**: Sufficient funds for the transaction.
     - **`paraId`**: Your registered `ParaID`.
 
-After succesfully executing the extrinsic, your parachain will produce a block.
+After successfully executing the extrinsic, your parachain will produce a block.

@@ -91,9 +91,11 @@ All templates follow a consistent structure:
 - **Be specific**: Replace generic examples with concrete, working code
 - **Test thoroughly**: Ensure all code examples work as described
 - **Include context**: Explain why each step is necessary
+- **Specify versions**: Always include specific versions for dependencies (e.g., `npm install package@1.2.3`)
 - **Add screenshots**: Visual aids improve understanding (use `.webp` format)
   - Desktop screenshots: 1512px width, variable height
   - Browser extensions: 400x600px
+  - Naming: `tutorial-name-01.webp`, `tutorial-name-02.webp`, etc.
 
 ### File Organization
 When using templates, ensure you follow the proper file structure:

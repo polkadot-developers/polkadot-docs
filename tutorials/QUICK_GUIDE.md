@@ -30,6 +30,7 @@ images/tutorials/[category]/[subcategory]/[tutorial-name]/
 
 ### 4. Working Code & Tests (Required)
 - All code examples must be tested and functional
+- **Always specify dependency versions** (e.g., `npm install polkadot-api@1.16.0`)
 - Include verification steps
 - Test on clean environment before submitting
 
@@ -64,8 +65,9 @@ images/tutorials/[category]/[subcategory]/[tutorial-name]/
 
 ## Image Requirements
 
-- **Format**: `.webp` only
+- **Format**: `.webp` only  
 - **Location**: `images/tutorials/[path]/`
+- **Naming**: `tutorial-name-01.webp`, `tutorial-name-02.webp`, etc.
 - **Dimensions**: 
   - Desktop screenshots: 1512px width, variable height
   - Browser extensions: 400x600px  

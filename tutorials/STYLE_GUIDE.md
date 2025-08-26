@@ -2,6 +2,8 @@
 
 Comprehensive guide for tutorial writing standards, formatting, and best practices. For quick reference, see [QUICK_GUIDE.md](QUICK_GUIDE.md).
 
+This guide covers tutorial-specific requirements and formatting. For general writing guidelines that apply to all documentation, refer to the [PaperMoon Documentation Style Guide](https://github.com/papermoonio/documentation-style-guide).
+
 ## Table of Contents
 
 - [Tutorial Structure](#tutorial-structure)
@@ -207,6 +209,9 @@ Store reusable code in the `.snippets` directory:
 - Use `!!!tip` to explain complex code sections
 - Test all code examples before submission
 - Include expected outputs where relevant
+- **Always specify dependency versions** in installation commands
+  - Instead of: `npm install polkadot-api`
+  - Use: `npm install polkadot-api@1.16.0`
 
 ### Language Tags
 
@@ -224,7 +229,9 @@ Common language tags to use:
 
 - **Format**: All images must be in `.webp` format
 - **Location**: Store in `images/tutorials/[category]/[subcategory]/[tutorial-name]/`
-- **Naming**: Use descriptive names (e.g., `setup-wallet-connection.webp`)
+- **Naming**: Use sequential, descriptive names following this pattern:
+  - `tutorial-name-01.webp`, `tutorial-name-02.webp`, etc.
+  - Example: `set-up-a-template-01.webp`, `set-up-a-template-02.webp`
 - **Alt text**: Always include descriptive alt text for accessibility
 
 ### Screenshot Guidelines
@@ -240,7 +247,7 @@ Common language tags to use:
 
 - **Desktop screenshots**: 1512px width, variable height
 - **Browser extension screenshots**: 400x600px
-- **Mobile screenshots**: 375px width (iPhone SE), variable height
+
 
 ### Image Syntax
 

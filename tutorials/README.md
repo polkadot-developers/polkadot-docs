@@ -1,30 +1,30 @@
-# 📍 Tutorial Contributing Guide Moved
+#  Tutorial Contributing Guide Moved
 
 **This file has been restructured to better serve tutorial contributors!**
 
 ## Quick Links
 
-- **🚀 Fast Track**: [QUICK_GUIDE.md](QUICK_GUIDE.md) - Essential requirements for experienced contributors
-- **📖 Detailed Guide**: [STYLE_GUIDE.md](STYLE_GUIDE.md) - Comprehensive style and formatting guide  
-- **📋 Templates**: [templates/](templates/) - Ready-to-use templates for different tutorial types
+- **Fast Track**: [QUICK_GUIDE.md](QUICK_GUIDE.md) - Essential requirements for experienced contributors
+- **Detailed Guide**: [STYLE_GUIDE.md](STYLE_GUIDE.md) - Comprehensive style and formatting guide  
+- **Templates**: [templates/](templates/) - Ready-to-use templates for different tutorial types
 
 ## Choose Your Path
 
-### ⚡ Experienced Contributors
+### Experienced Contributors
 Go directly to [**QUICK_GUIDE.md**](QUICK_GUIDE.md) for the essential requirements:
 - Metadata format
 - File structure
 - Navigation updates
 - Testing requirements
 
-### 📚 New Contributors or Need Details
+###  New Contributors or Need Details
 Start with [**STYLE_GUIDE.md**](STYLE_GUIDE.md) for comprehensive guidance:
 - Writing best practices
 - Detailed formatting rules
 - Testing guidelines
 - Examples and explanations
 
-### 🎯 Quick Start with Templates
+###  Quick Start with Templates
 Browse [**templates/**](templates/) folder for category-specific templates:
 - Polkadot SDK tutorials
 - Smart contracts tutorials

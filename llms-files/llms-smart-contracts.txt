@@ -790,7 +790,7 @@ contract Counter {
 1. To deploy your contract, you need to:
 
     1. Navigate to the **Deploy & Run Transactions** tab (fourth icon in the left sidebar).
-    2. Click the **Enviroment** dropdown.
+    2. Click the **Environment** dropdown.
     3. Select **Customize this list**.
 
         ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-7.webp)
@@ -799,7 +799,7 @@ contract Counter {
 
     ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-8.webp)
 
-4. Click again the **Enviroment** dropdown and select **Injected Provider - Talisman**.
+4. Click again the **Environment** dropdown and select **Injected Provider - Talisman**.
 
     ![](/images/develop/smart-contracts/evm-toolkit/dev-environments/remix/remix-9.webp)
 
@@ -873,7 +873,7 @@ categories: Smart Contracts
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 !!! note
-    For a list of known incompatibilities, please refer to the [Solidity and Yul IR transaltion incompatibilities](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm/#solidity-and-yul-ir-translation-incompatibilities){target=\_blank} section.
+    For a list of known incompatibilities, please refer to the [Solidity and Yul IR translation incompatibilities](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm/#solidity-and-yul-ir-translation-incompatibilities){target=\_blank} section.
 
 ## General Questions
 
@@ -3408,7 +3408,7 @@ Doc-Content: https://docs.polkadot.com/develop/smart-contracts/local-development
 --- BEGIN CONTENT ---
 ---
 title: Local Development Node
-description: Follow this step-by-step guide to install a Substrate node and ETH-RPC adapter for smart contract development in a local environment.
+description: Follow this step-by-step guide to install a Revive Dev node and ETH-RPC adapter for smart contract development in a local environment.
 categories: Smart Contracts
 ---
 
@@ -3423,7 +3423,7 @@ A local development node provides an isolated blockchain environment where you c
 
 By the end of this guide, you'll have:
 
-- A running Substrate node with smart contract support.
+- A running node with smart contract support.
 - An ETH-RPC adapter for Ethereum-compatible tooling integration accessible at `http://localhost:8545`.
 
 ## Prerequisites
@@ -3432,41 +3432,42 @@ Before getting started, ensure you have done the following:
 
 - Completed the [Install Polkadot SDK Dependencies](/develop/parachains/install-polkadot-sdk/){target=\_blank} guide and successfully installed [Rust](https://www.rust-lang.org/){target=\_blank} and the required packages to set up your development environment.
 
-## Install the Substrate Node and ETH-RPC Adapter
+## Install the Revive Dev Node and ETH-RPC Adapter
 
-The Polkadot SDK repository contains both the [Substrate node](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/bin/node){target=\_blank} implementation and the [ETH-RPC adapter](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame/revive/rpc){target=\_blank} required for Ethereum compatibility. Start by cloning the repository and navigating to the project directory:
+The Polkadot SDK repository contains both the [Revive Dev node](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk_contracts_node.commit_dev_node}}/substrate/frame/revive/dev-node){target=\_blank} implementation and the [ETH-RPC adapter](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk_contracts_node.commit_dev_node}}/substrate/frame/revive/rpc){target=\_blank} required for Ethereum compatibility. Start by cloning the repository and navigating to the project directory:
 
 ```bash
-git clone -b {{dependencies.repositories.polkadot_sdk_contracts_node.version}} https://github.com/paritytech/polkadot-sdk.git
+git clone https://github.com/paritytech/polkadot-sdk.git
 cd polkadot-sdk
+git checkout {{dependencies.repositories.polkadot_sdk_contracts_node.commit_dev_node}}
 ```
 
 Next, you need to compile the two essential components for your development environment. The Substrate node provides the core blockchain runtime with smart contract support, while the ETH-RPC adapter enables Ethereum JSON-RPC compatibility for existing tooling:
 
 ```bash
-cargo build --bin substrate-node --release
+cargo build -p revive-dev-node --bin revive-dev-node --release
 cargo build -p pallet-revive-eth-rpc --bin eth-rpc --release
 ```
 
 The compilation process may take some time depending on your system specifications, potentially up to 30 minutes. Release builds are optimized for performance but take longer to compile than debug builds. After successful compilation, you can verify the binaries are available in the `target/release` directory:
 
-- **Substrate node path**: `polkadot-sdk/target/release/substrate-node`
+- **Revive Dev node path**: `polkadot-sdk/target/release/revive-dev-node`
 - **ETH-RPC adapter path**: `polkadot-sdk/target/release/eth-rpc`
 
 ## Run the Local Node
 
 With the binaries compiled, you can now start your local development environment. The setup requires running two processes.
 
-Start the Substrate node first, which will initialize a local blockchain with the `dev` chain specification. This configuration includes `pallet-revive` for smart contract functionality and uses pre-funded development accounts for testing:
+Start the node first, which will initialize a local blockchain with the `dev` chain specification. This configuration includes `pallet-revive` for smart contract functionality and uses pre-funded development accounts for testing:
 
 ```bash
-./target/release/substrate-node --dev
+./target/release/revive-dev-node --dev
 ```
 
 The node will begin producing blocks immediately and display initialization logs:
 
 <div id="termynal" data-termynal>
-  <span data-ty="input"><span class="file-path"></span>./target/release/substrate-node --dev</span>
+  <span data-ty="input"><span class="file-path"></span>./target/release/revive-dev-node --dev</span>
   <br />
   <span data-ty>2025-05-29 10:42:35 Substrate Node</span>
   <span data-ty>2025-05-29 10:42:35 ✌️ version 3.0.0-dev-38b7581fc04</span>
@@ -3506,10 +3507,10 @@ The node will begin producing blocks immediately and display initialization logs
 For debugging purposes or to monitor low-level operations, you can enable detailed logging by setting environment variables before running the command:
 
 ```bash
-RUST_LOG="error,evm=debug,sc_rpc_server=info,runtime::revive=debug" ./target/release/substrate-node --dev
+RUST_LOG="error,evm=debug,sc_rpc_server=info,runtime::revive=debug" ./target/release/revive-dev-node --dev
 ```
 
-Once the Substrate node is running, open a new terminal window and start the ETH-RPC adapter. This component translates Ethereum JSON-RPC calls into Substrate-compatible requests, allowing you to use familiar Ethereum tools like MetaMask, Hardhat, or Ethers.js:
+Once the node is running, open a new terminal window and start the ETH-RPC adapter. This component translates Ethereum JSON-RPC calls into Substrate-compatible requests, allowing you to use familiar Ethereum tools like MetaMask, Hardhat, or Ethers.js:
 
 ```bash
 ./target/release/eth-rpc --dev
@@ -3531,7 +3532,7 @@ You should see logs indicating that the adapter is ready to accept connections:
   <span data-ty>2025-05-29 10:48:48 🔌 Subscribing to new blocks (FinalizedBlocks)</span>
 </div>
 
-Similar to the Substrate node, you can enable detailed logging for the ETH-RPC adapter to troubleshoot issues:
+Similar to the Revive Dev node, you can enable detailed logging for the ETH-RPC adapter to troubleshoot issues:
 
 ```bash
 RUST_LOG="info,eth-rpc=debug" ./target/release/eth-rpc --dev
@@ -5125,7 +5126,7 @@ Where the [XCM format](https://github.com/polkadot-fellows/xcm-format){target=\_
 
 - **Primitive**: Dispatchable functions to execute XCM locally.
 - **High-level**: Functions for asset transfers between chains.
-- **Version negotiation-specific**: Functions for managing XCM version compability.
+- **Version negotiation-specific**: Functions for managing XCM version compatibility.
 
 ### Key Roles of the XCM Pallet
 
@@ -5566,7 +5567,7 @@ Polkadot is the primary production blockchain network for high-stakes, enterpris
 
 ### Kusama
 
-Kusama is a network built as a risk-taking, fast-moving "canary in the coal mine" for its cousin Polkadot. As it is built on top of the same infrastructure, Kusama often acts as a final testing ground for new features before they are launched on Polkadot. Unlike true TestNets, however, the Kusama KSM native token does have economic value. This incentive encourages paricipants to maintain this robust and performant structure for the benefit of the community.
+Kusama is a network built as a risk-taking, fast-moving "canary in the coal mine" for its cousin Polkadot. As it is built on top of the same infrastructure, Kusama often acts as a final testing ground for new features before they are launched on Polkadot. Unlike true TestNets, however, the Kusama KSM native token does have economic value. This incentive encourages participants to maintain this robust and performant structure for the benefit of the community.
 
 === "Network Details"
 
@@ -6605,6 +6606,24 @@ For more details on using Astar xcm-tools, consult the [official documentation](
 ### Chopsticks
 
 The Chopsticks library provides XCM functionality for testing XCM messages across networks, enabling you to fork multiple parachains along with a relay chain. For further details, see the [Chopsticks documentation](/tutorials/polkadot-sdk/testing/fork-live-chains/){target=\_blank} about XCM.
+
+### Moonbeam XCM SDK
+
+The [Moonbeam XCM SDK](https://github.com/moonbeam-foundation/xcm-sdk){target=\_blank} enables developers to easily transfer assets between chains, either between parachains or between a parachain and the relay chain, within the Polkadot/Kusama ecosystem. With the SDK, you don't need to worry about determining the [Multilocation](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#7-universal-consensus-location-identifiers){target=\_blank} of the origin or destination assets or which extrinsics are used on which networks.
+
+The SDK consists of two main packages:
+
+- **[XCM SDK](https://github.com/moonbeam-foundation/xcm-sdk/tree/main/packages/sdk){target=\_blank}**: Core SDK for executing XCM transfers between chains in the Polkadot/Kusama ecosystem.
+- **[MRL SDK](https://github.com/moonbeam-foundation/xcm-sdk/tree/main/packages/mrl){target=\_blank}**: Extension of the XCM SDK for transferring liquidity into and across the Polkadot ecosystem from other ecosystems like Ethereum.
+
+Key features include:
+
+- **Simplified asset transfers**: Abstracts away complex multilocation determinations and extrinsic selection.
+- **Cross-ecosystem support**: Enables transfers between Polkadot/Kusama chains and external ecosystems.
+- **Developer-friendly API**: Provides intuitive interfaces for cross-chain functionality.
+- **Comprehensive documentation**: Includes usage guides and API references for both packages.
+
+For detailed usage examples and API documentation, visit the [official Moonbeam XCM SDK documentation](https://moonbeam-foundation.github.io/xcm-sdk/latest/){target=\_blank}.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime/
@@ -6634,7 +6653,7 @@ First, you'll update the runtime's `Cargo.toml` file to include the Utility pall
     [dependencies]
     ...
     polkadot-sdk = { workspace = true, features = [
-	"pallet-utility",
+  "pallet-utility",
         ...
     ], default-features = false }
     ```
@@ -6692,37 +6711,39 @@ hex-literal = { optional = true, workspace = true, default-features = true }
 log = { workspace = true }
 pallet-parachain-template = { path = "../pallets/template", default-features = false }
 polkadot-sdk = { workspace = true, features = [
-	"pallet-utility", 
-	"cumulus-pallet-aura-ext", 
-	"cumulus-pallet-session-benchmarking", 
-	"cumulus-pallet-weight-reclaim", 
-	"cumulus-pallet-xcm", 
-	"cumulus-pallet-xcmp-queue", 
-	"cumulus-primitives-aura", 
-	"cumulus-primitives-core", 
-	"cumulus-primitives-utility", 
-	"pallet-aura", 
-	"pallet-authorship", 
-	"pallet-balances", 
-	"pallet-collator-selection", 
-	"pallet-message-queue", 
-	"pallet-session", 
-	"pallet-sudo", 
-	"pallet-timestamp", 
-	"pallet-transaction-payment", 
-	"pallet-transaction-payment-rpc-runtime-api", 
-	"pallet-xcm", 
-	"parachains-common", 
-	"polkadot-parachain-primitives", 
-	"polkadot-runtime-common", 
-	"runtime", 
-	"staging-parachain-info", 
-	"staging-xcm", 
-	"staging-xcm-builder", 
-	"staging-xcm-executor"
-	], default-features = false }
+  "pallet-utility",
+  "cumulus-pallet-aura-ext",
+  "cumulus-pallet-session-benchmarking",
+  "cumulus-pallet-weight-reclaim",
+  "cumulus-pallet-xcm",
+  "cumulus-pallet-xcmp-queue",
+  "cumulus-primitives-aura",
+  "cumulus-primitives-core",
+  "cumulus-primitives-utility",
+  "pallet-aura",
+  "pallet-authorship",
+  "pallet-balances",
+  "pallet-collator-selection",
+  "pallet-message-queue",
+  "pallet-session",
+  "pallet-sudo",
+  "pallet-timestamp",
+  "pallet-transaction-payment",
+  "pallet-transaction-payment-rpc-runtime-api",
+  "pallet-xcm",
+  "parachains-common",
+  "polkadot-parachain-primitives",
+  "polkadot-runtime-common",
+  "runtime",
+  "staging-parachain-info",
+  "staging-xcm",
+  "staging-xcm-builder",
+  "staging-xcm-executor",
+], default-features = false }
 scale-info = { features = ["derive"], workspace = true }
-serde_json = { workspace = true, default-features = false, features = ["alloc"] }
+serde_json = { workspace = true, default-features = false, features = [
+  "alloc",
+] }
 smallvec = { workspace = true, default-features = true }
 
 custom-pallet = { path = "../pallets/custom-pallet", default-features = false }
@@ -6730,28 +6751,28 @@ custom-pallet = { path = "../pallets/custom-pallet", default-features = false }
 [features]
 default = ["std"]
 std = [
-	"codec/std",
-	"cumulus-pallet-parachain-system/std",
-	"log/std",
-	"pallet-parachain-template/std",
-	"polkadot-sdk/std",
-	"scale-info/std",
-	"serde_json/std",
-	"substrate-wasm-builder",
-  	"custom-pallet/std",
+  "codec/std",
+  "cumulus-pallet-parachain-system/std",
+  "log/std",
+  "pallet-parachain-template/std",
+  "polkadot-sdk/std",
+  "scale-info/std",
+  "serde_json/std",
+  "substrate-wasm-builder",
+  "custom-pallet/std",
 ]
 
 runtime-benchmarks = [
-	"cumulus-pallet-parachain-system/runtime-benchmarks",
-	"hex-literal",
-	"pallet-parachain-template/runtime-benchmarks",
-	"polkadot-sdk/runtime-benchmarks",
+  "cumulus-pallet-parachain-system/runtime-benchmarks",
+  "hex-literal",
+  "pallet-parachain-template/runtime-benchmarks",
+  "polkadot-sdk/runtime-benchmarks",
 ]
 
 try-runtime = [
-	"cumulus-pallet-parachain-system/try-runtime",
-	"pallet-parachain-template/try-runtime",
-	"polkadot-sdk/try-runtime",
+  "cumulus-pallet-parachain-system/try-runtime",
+  "pallet-parachain-template/try-runtime",
+  "polkadot-sdk/try-runtime",
 ]
 
 # Enable the metadata hash generation.
@@ -9639,7 +9660,7 @@ These on-chain collectives will play essential roles in the future of network st
 
 Before parachains, the only way to design a bridge was to put the logic onto the relay chain. Since both networks now support parachains and the isolation they provide, each network can have a parachain dedicated to bridges. 
 
-The Bridge Hub system parachain operates on the relay chain, and is responsible for faciliating bridges to the wider Web3 space. It contains the required bridge [pallets](/polkadot-protocol/glossary/#pallet){target=\_blank} in its runtime, which enable trustless bridging with other blockchain networks like Polkadot, Kusama, and Ethereum. The Bridge Hub uses the native token of the relay chain.
+The Bridge Hub system parachain operates on the relay chain, and is responsible for facilitating bridges to the wider Web3 space. It contains the required bridge [pallets](/polkadot-protocol/glossary/#pallet){target=\_blank} in its runtime, which enable trustless bridging with other blockchain networks like Polkadot, Kusama, and Ethereum. The Bridge Hub uses the native token of the relay chain.
 
 See the [Bridge Hub](/polkadot-protocol/architecture/system-chains/bridge-hub/){target=\_blank} documentation for additional information.
 
@@ -9929,7 +9950,7 @@ In the Polkadot ecosystem, account balances are categorized into different types
 
 The five main balance types are:
 
-- **Free balance**: Represents the total tokens available to the account for any on-chain activity, including staking, governance, and voting. However, it may not be fully spendable or transferrable if portions of it are locked or reserved.
+- **Free balance**: Represents the total tokens available to the account for any on-chain activity, including staking, governance, and voting. However, it may not be fully spendable or transferable if portions of it are locked or reserved.
 - **Locked balance**: Portions of the free balance that cannot be spent or transferred because they are tied up in specific activities like [staking](https://wiki.polkadot.network/learn/learn-staking/#nominating-validators){target=\_blank}, [vesting](https://wiki.polkadot.network/learn/learn-guides-transfers/#vested-transfers-with-the-polkadot-js-ui){target=\_blank}, or participating in [governance](https://wiki.polkadot.network/learn/learn-polkadot-opengov/#voting-on-a-referendum){target=\_blank}. While the tokens remain part of the free balance, they are non-transferable for the duration of the lock.
 - **Reserved balance**: Funds locked by specific system actions, such as setting up an [identity](https://wiki.polkadot.network/learn/learn-identity/){target=\_blank}, creating [proxies](https://wiki.polkadot.network/learn/learn-proxies/){target=\_blank}, or submitting [deposits for governance proposals](https://wiki.polkadot.network/learn/learn-guides-polkadot-opengov/#claiming-opengov-deposits){target=\_blank}. These tokens are not part of the free balance and cannot be spent unless they are unreserved.
 - **Spendable balance**: The portion of the free balance that is available for immediate spending or transfers. It is calculated by subtracting the maximum of locked or reserved amounts from the free balance, ensuring that existential deposit limits are met.
@@ -9960,7 +9981,7 @@ Consider an example where an account has 80 DOT locked for both staking and gove
 - 24 DOT is locked for governance with a 1x conviction and a 7-day lock period.
 - 4 DOT is locked for governance with a 6x conviction and a 224-day lock period.
 
-In this case, the total locked amount is 80 DOT because only the largest lock (80 DOT from staking) governs the locked balance. These 80 DOT will be released at different times based on the lock durations. In this example, the 24 DOT locked for governance will be released first since the shortest lock period is seven days. The 80 DOT stake with a 28-day lock period is released next. Now, all that remains locked is the 4 DOT for governance. After 224 days, all 80 DOT (minus the existential deposit) will be free and transferrable.
+In this case, the total locked amount is 80 DOT because only the largest lock (80 DOT from staking) governs the locked balance. These 80 DOT will be released at different times based on the lock durations. In this example, the 24 DOT locked for governance will be released first since the shortest lock period is seven days. The 80 DOT stake with a 28-day lock period is released next. Now, all that remains locked is the 4 DOT for governance. After 224 days, all 80 DOT (minus the existential deposit) will be free and transferable.
 
 ![Illustration of Lock Example](/images/polkadot-protocol/parachain-basics/accounts/locks-example-2.webp)
 
@@ -9978,7 +9999,7 @@ The most common balance types displayed on Polkadot.js are:
 
 - **Total balance**: The total number of tokens available in the account. This includes all tokens, whether they are transferable, locked, reserved, or vested. However, the total balance does not always reflect what can be spent immediately. In this example, the total balance is 0.6274 KSM.
 
-- **Transferrable balance**: Shows how many tokens are immediately available for transfer. It is calculated by subtracting the locked and reserved balances from the total balance. For example, if an account has a total balance of 0.6274 KSM and a transferrable balance of 0.0106 KSM, only the latter amount can be sent or spent freely.
+- **Transferable balance**: Shows how many tokens are immediately available for transfer. It is calculated by subtracting the locked and reserved balances from the total balance. For example, if an account has a total balance of 0.6274 KSM and a transferable balance of 0.0106 KSM, only the latter amount can be sent or spent freely.
 
 - **Vested balance**: Tokens that allocated to the account but released according to a specific schedule. Vested tokens remain locked and cannot be transferred until fully vested. For example, an account with a vested balance of 0.2500 KSM means that this amount is owned but not yet transferable.
 
@@ -9986,7 +10007,7 @@ The most common balance types displayed on Polkadot.js are:
 
 - **Reserved balance**: Refers to tokens locked for specific on-chain actions, such as setting an identity, creating a proxy, or making governance deposits. Reserved tokens are not part of the free balance, but can be freed by performing certain actions. For example, removing an identity would unreserve those funds.
 
-- **Bonded balance**: The tokens locked for staking purposes. Bonded tokens are not transferrable until they are unbonded after the unbonding period.
+- **Bonded balance**: The tokens locked for staking purposes. Bonded tokens are not transferable until they are unbonded after the unbonding period.
 
 - **Redeemable balance**: The number of tokens that have completed the unbonding period and are ready to be unlocked and transferred again. For example, if an account has a redeemable balance of 0.1000 KSM, those tokens are now available for spending.
 

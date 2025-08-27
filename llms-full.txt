@@ -16810,7 +16810,7 @@ polkadot-js-signer sign --account <from-account-ss58> --seed <seed> --type <sr25
 
 ### Creating a Transaction, Signing, and Submitting
 
-For the sake of this example, create two accounts using the [Subkey](/polkadot-protocol/basics/accounts/#using-subkey){target=\_blank} CLI tool.
+For the sake of this example, create two accounts using the [Subkey](/polkadot-protocol/parachain-basics/accounts/#using-subkey){target=\_blank} CLI tool.
 
 <div id="termynal" data-termynal>
     <span data-ty="input">subkey generate</span>

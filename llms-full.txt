@@ -23149,6 +23149,7 @@ If you'd like to speed up the process further, you can use a database snapshot. 
 - [Stakeworld](https://stakeworld.io/snapshot){target=\_blank}
 - [Polkachu](https://polkachu.com/substrate_snapshots){target=\_blank}
 - [Polkashots](https://polkashots.io/){target=\_blank}
+- [ITRocket](https://itrocket.net/services/mainnet/polkadot/#snapshot){target=\_blank}
 
 !!!warning
     Although snapshots are convenient, syncing from scratch is recommended for security purposes. If snapshots become corrupted and most nodes rely on them, the network could inadvertently run on a non-canonical chain.

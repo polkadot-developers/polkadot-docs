@@ -22,7 +22,7 @@ Where the [XCM format](https://github.com/polkadot-fellows/xcm-format){target=\_
 
 - **Primitive**: Dispatchable functions to execute XCM locally.
 - **High-level**: Functions for asset transfers between chains.
-- **Version negotiation-specific**: Functions for managing XCM version compability.
+- **Version negotiation-specific**: Functions for managing XCM version compatibility.
 
 ### Key Roles of the XCM Pallet
 

@@ -1,0 +1,336 @@
+---
+title: Write Tests
+...
+description: Write and execute tests for blockchain networks with Zombienet's DSL. Learn to evaluate
+  metrics, logs, events, and more for robust validation.
+...
+categories: Parachains, Tooling
+...
+url: https://docs.polkadot.com/develop/toolkit/parachains/spawn-chains/zombienet/write-tests/
+...
+---
+
+# Write Tests
+
+## Introduction
+
+Testing is a critical step in blockchain development, ensuring reliability, performance, and security. Zombienet simplifies this process with its intuitive Domain Specific Language (DSL), enabling developers to write natural-language test scripts tailored to their network needs.
+
+This guide provides an in-depth look at how to create and execute test scenarios using Zombienet's flexible testing framework. You’ll learn how to define tests for metrics, logs, events, and more, allowing for comprehensive evaluation of your blockchain network’s behavior and performance.
+
+## Testing DSL
+
+Zombienet provides a Domain Specific Language (DSL) for writing tests. The DSL is designed to be human-readable and allows you to write tests using natural language expressions. You can define assertions and tests against the spawned network using this DSL. This way, users can evaluate different metrics, such as:
+
+- **On-chain storage**: The storage of each of the chains running via Zombienet.
+- **Metrics**: The metrics provided by the nodes.
+- **Histograms**: Visual representations of metrics data.
+- **Logs**: Detailed records of system activities and events.
+- **System events**: Notifications of significant occurrences within the network.
+- **Tracing**: Detailed analysis of execution paths and operations.
+- **Custom API calls (through Polkadot.js)**: Personalized interfaces for interacting with the network.
+- **Commands**: Instructions or directives executed by the network.
+
+These abstractions are expressed by sentences defined in a natural language style. Therefore, each test line will be mapped to a test to run. Also, the test file (`*.zndsl`) includes pre-defined header fields used to define information about the suite, such as network configuration and credentials location.
+
+For more details about the Zombienet DSL, see the [Testing DSL](https://paritytech.github.io/zombienet/cli/test-dsl-definition-spec.html){target=\_blank} specification.
+
+## The Test File
+
+The test file is a text file with the extension `.zndsl`. It is divided into two parts: the header and the body. The header contains the network configuration and the credentials to use, while the body contains the tests to run.
+
+The header is defined by the following fields:
+
+- **`description`** ++"string"++: Long description of the test suite (optional).
+- **`network`** ++"string"++: Path to the network definition file, supported in both `.json` and `.toml` formats.
+- **`creds`** ++"string"++: Credentials filename or path to use (available only with Kubernetes provider). Looks in the current directory or `$HOME/.kube/` if a filename is passed.
+
+The body contains the tests to run. Each test is defined by a sentence in the DSL, which is mapped to a test to run. Each test line defines an assertion or a command to be executed against the spawned network.
+
+### Name
+
+The test name in Zombienet is derived from the filename by removing any leading numeric characters before the first hyphen. For example, a file named `0001-zombienet-test.zndsl` will result in a test name of `zombienet-test`, which will be displayed in the test report output of the runner.
+
+### Assertions
+
+Assertions are defined by sentences in the DSL that evaluate different metrics, such as on-chain storage, metrics, histograms, logs, system events, tracing, and custom API calls. Each assertion is defined by a sentence in the DSL, which is mapped to a test to run.
+
+- **`Well known functions`**: Already mapped test function.
+
+    === "Syntax"
+
+        `node-name well-known_defined_test [within x seconds]`
+
+    === "Examples"
+
+        ```bash
+        alice: is up
+        alice: parachain 100 is registered within 225 seconds
+        alice: parachain 100 block height is at least 10 within 250 seconds
+        
+        ```
+
+- **`Histogram`**: Get metrics from Prometheus, calculate the histogram, and assert on the target value.
+
+    === "Syntax"
+
+        `node-name reports histogram metric_name has comparator target_value samples in buckets ["bucket","bucket",...] [within x seconds]`
+
+    === "Example"
+
+        ```bash
+        alice: reports histogram polkadot_pvf_execution_time has at least 2 samples in buckets ["0.1", "0.25", "0.5", "+Inf"] within 100 seconds
+        
+        ```
+
+- **`Metric`**: Get metric from Prometheus and assert on the target value.
+
+    === "Syntax"
+
+        `node-name reports metric_name comparator target_value (e.g "is at least x", "is greater than x") [within x seconds]`
+
+    === "Examples"
+
+        ```bash
+        alice: reports node_roles is 4
+        alice: reports sub_libp2p_is_major_syncing is 0
+        
+        ```
+
+- **`Log line`**: Get logs from nodes and assert on the matching pattern.
+
+    === "Syntax"
+
+        `node-name log line (contains|matches) (regex|glob) "pattern" [within x seconds]`
+
+    === "Example"
+
+        ```bash
+        alice: log line matches glob "rted #1" within 10 seconds
+        
+        ```
+
+- **`Count of log lines`**: Get logs from nodes and assert on the number of lines matching pattern.
+
+    === "Syntax"
+
+        `node-name count of log lines (containing|matching) (regex|glob) "pattern" [within x seconds]`
+
+    === "Example"
+
+        ```bash
+        alice: count of log lines matching glob "rted #1" within 10 seconds
+        ```
+
+- **`System events`**: Find a system event from subscription by matching a pattern.
+
+    === "Syntax"
+
+        `node-name system event (contains|matches)(regex| glob) "pattern" [within x seconds]`
+
+    === "Example"
+
+        ```bash
+        alice: system event matches ""paraId":[0-9]+" within 10 seconds
+        ```
+
+- **`Tracing`**: Match an array of span names from the supplied `traceID`.
+
+    === "Syntax"
+
+        `node-name trace with traceID contains ["name", "name2",...]`
+
+    === "Example"
+
+        ```bash
+        alice: trace with traceID 94c1501a78a0d83c498cc92deec264d9 contains ["answer-chunk-request", "answer-chunk-request"]
+        ```
+
+- **`Custom JS scripts`**: Run a custom JavaScript script and assert on the return value.
+
+    === "Syntax"
+
+        `node-name js-script script_relative_path [return is comparator target_value] [within x seconds]`
+
+    === "Example"
+
+        ```bash
+        alice: js-script ./0008-custom.js return is greater than 1 within 200 seconds
+        ```
+
+- **`Custom TS scripts`**: Run a custom TypeScript script and assert on the return value.
+
+    === "Syntax"
+
+        `node-name ts-script script_relative_path [return is comparator target_value] [within x seconds]`
+
+    === "Example"
+
+        ```bash
+        alice: ts-script ./0008-custom-ts.ts return is greater than 1 within 200 seconds
+        ```
+
+- **`Backchannel`**: Wait for a value and register to use.
+
+    === "Syntax"
+
+        `node-name wait for var name and use as X [within x seconds]`
+
+    === "Example"
+
+        ```bash
+        alice: wait for name and use as X within 30 seconds
+        ```
+
+### Commands
+
+Commands allow interaction with the nodes and can run pre-defined commands or an arbitrary command in the node. Commonly used commands are as follows:
+
+- **`restart`**: Stop the process and start again after the `X` amount of seconds or immediately.
+- **`pause`**: Pause (SIGSTOP) the process.
+- **`resume`**: Resume (SIGCONT) the process.
+- **`sleep`**: Sleep the test-runner for `x` amount of seconds.
+
+## Running a Test
+
+To run a test against the spawned network, you can use the [Zombienet DSL](#testing-dsl) to define the test scenario. Follow these steps to create an example test:
+
+1. Create a file named `spawn-a-basic-network-test.zndsl`.
+
+    ```bash
+    touch spawn-a-basic-network-test.zndsl
+    ```
+
+2. Add the following code to the file you just created.
+
+    ```toml title="spawn-a-basic-network-test.zndsl"
+    -Description = "Test the basic functionality of the network (minimal example)"
+Network = "./spawn-a-basic-network.toml"
+Creds = "config"
+
+# Alice's tasks
+[[tasks]]
+name = "alice"
+is_up = true
+parachain_100_registered = { condition = "within", timeout = 225 }
+parachain_100_block_height = { condition = "at least 10", timeout = 250 }
+
+# Bob's tasks
+[[tasks]]
+name = "bob"
+is_up = true
+parachain_100_registered = { condition = "within", timeout = 225 }
+parachain_100_block_height = { condition = "at least 10", timeout = 250 }
+
+# Metrics
+[[metrics]]
+name = "alice"
+node_roles = 4
+sub_libp2p_is_major_syncing = 0
+
+[[metrics]]
+name = "bob"
+node_roles = 4
+
+[[metrics]]
+name = "collator01"
+node_roles = 4
+
+    ```
+
+This test scenario checks to verify the following:
+
+- Nodes are running.
+- The parachain with ID 100 is registered within a certain timeframe (255 seconds in this example).
+- Parachain block height is at least a certain number within a timeframe (in this case, 10 within 255 seconds).
+- Nodes are reporting metrics.
+
+You can define any test scenario you need following the Zombienet DSL syntax.
+
+To run the test, execute the following command:
+
+```bash
+zombienet -p native test spawn-a-basic-network-test.zndsl
+```
+
+This command will execute the test scenario defined in the `spawn-a-basic-network-test.zndsl` file on the network. If successful, the terminal will display the test output, indicating whether the test passed or failed.
+
+## Example Test Files
+
+The following example test files define two tests, a small network test and a big network test. Each test defines a network configuration file and credentials to use.
+
+The tests define assertions to evaluate the network’s metrics and logs. The assertions are defined by sentences in the DSL, which are mapped to tests to run.
+
+```toml title="small-network-test.zndsl"
+-Description = "Small Network test"
+Network = "./0000-test-config-small-network.toml"
+Creds = "config"
+
+# Metrics
+[[metrics]]
+node_roles = 4
+sub_libp2p_is_major_syncing = 0
+
+# Logs
+[[logs]]
+bob_log_line_glob = "*rted #1*"
+bob_log_line_regex = "Imported #[0-9]+"
+
+```
+
+And the second test file:
+
+```toml title="big-network-test.zndsl"
+-Description = "Big Network test"
+Network = "./0001-test-config-big-network.toml"
+Creds = "config"
+
+# Metrics
+[[metrics]]
+node_roles = 4
+sub_libp2p_is_major_syncing = 0
+
+# Logs
+[[logs]]
+bob_log_line_glob = "*rted #1*"
+bob_log_line_regex = "Imported #[0-9]+"
+
+# Custom JS script
+[[custom_scripts]]
+alice_js_script = { path = "./0008-custom.js", condition = "return is greater than 1", timeout = 200 }
+
+# Custom TS script
+[[custom_scripts]]
+alice_ts_script = { path = "./0008-custom-ts.ts", condition = "return is greater than 1", timeout = 200 }
+
+# Backchannel
+[[backchannel]]
+alice_wait_for_name = { use_as = "X", timeout = 30 }
+
+# Well-known functions
+[[functions]]
+alice_is_up = true
+alice_parachain_100_registered = { condition = "within", timeout = 225 }
+alice_parachain_100_block_height = { condition = "at least 10", timeout = 250 }
+
+# Histogram
+[[histogram]]
+alice_polkadot_pvf_execution_time = { min_samples = 2, buckets = [
+  "0.1",
+  "0.25",
+  "0.5",
+  "+Inf",
+], timeout = 100 }
+
+# System events
+[[system_events]]
+alice_system_event_matches = { pattern = "\"paraId\":[0-9]+", timeout = 10 }
+
+# Tracing
+[[tracing]]
+alice_trace = { traceID = "94c1501a78a0d83c498cc92deec264d9", contains = [
+  "answer-chunk-request",
+  "answer-chunk-request",
+] }
+
+```

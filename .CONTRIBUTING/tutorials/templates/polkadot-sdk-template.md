@@ -1,0 +1,106 @@
+---
+title: [Your Tutorial Title - Max 45 chars]
+description: [Description of what users will build/learn - 120-160 chars]
+tutorial_badge: Beginner | Intermediate | Advanced
+categories: Parachains, Runtime Development, Testing
+---
+
+# [Your Tutorial Title]
+
+## Introduction
+
+[2-3 paragraphs explaining:]
+- What users will build/configure in this tutorial
+- Why this is important for Polkadot SDK development
+- What specific skills or components they'll learn
+
+## Prerequisites
+
+Before starting, ensure you have:
+
+- Rust toolchain installed (latest stable)
+- Polkadot SDK development environment set up
+- [Specific tools/dependencies for this tutorial]
+- Basic understanding of [required concepts]
+- [Tokens/accounts if needed]
+
+## Step 1: Project Setup
+
+[Set up the development environment and project structure]
+
+```bash
+# Commands for initial setup
+cargo install --git https://github.com/paritytech/polkadot-sdk polkadot-parachain-bin --locked
+```
+
+Expected output:
+```
+[Show expected terminal output]
+```
+
+## Step 2: [Main Development Phase]
+
+[Core implementation steps - adjust based on tutorial type:]
+
+### For Parachain Development:
+- Configure runtime
+- Add custom pallets
+- Set up chain specification
+
+### For Pallet Development:
+- Define storage items
+- Implement extrinsics
+- Add tests
+
+```rust
+// Example code with clear comments
+#[pallet::storage]
+pub type SomeValue<T> = StorageValue<_, u32>;
+```
+
+!!!tip
+    Explain key concepts or provide helpful context here.
+
+## Step 3: Testing and Verification
+
+Test your implementation:
+
+```bash
+# Build the project
+cargo build --release
+
+# Run tests
+cargo test
+```
+
+Verify everything works by:
+1. [Specific verification step 1]
+2. [Specific verification step 2]
+3. [Expected behavior/output]
+
+## Step 4: [Advanced Configuration - if applicable]
+
+[Optional advanced steps for intermediate/advanced tutorials]
+
+## Troubleshooting
+
+Common issues and solutions:
+
+- **Issue**: Build fails with dependency errors
+  - **Solution**: Update dependencies and check Rust version
+
+- **Issue**: Runtime compilation errors
+  - **Solution**: Verify pallet configuration in runtime
+
+## Where to Go Next
+
+Continue your Polkadot SDK journey with:
+- [Related tutorial 1 - link]
+- [Related tutorial 2 - link]
+- [Next logical step in learning path]
+
+## Additional Resources
+
+- [Polkadot SDK Documentation](https://paritytech.github.io/polkadot-sdk/)
+- [Substrate Developer Hub](https://docs.substrate.io/)
+- [Polkadot Wiki - Developers](https://wiki.polkadot.network/docs/build-index)

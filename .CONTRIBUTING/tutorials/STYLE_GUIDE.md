@@ -1,6 +1,12 @@
 # Tutorial Style Guide - Detailed Reference
 
-Comprehensive guide for tutorial writing standards, formatting, and best practices. For quick reference, see [QUICK_GUIDE.md](QUICK_GUIDE.md).
+Comprehensive guide for tutorial writing standards, formatting, and best practices. 
+
+**For contributors using the Self-Managed Path:** This guide contains all requirements you must follow.
+
+**For contributors using the Team-Assisted Path:** This guide is recommended reading to create better tutorials from the start, but the team will handle most formatting requirements for you.
+
+Quick reference available at: [TUTORIALS_CONTRIBUTING.md](.CONTRIBUTING.md)
 
 This guide covers tutorial-specific requirements and formatting. For general writing guidelines that apply to all documentation, refer to the [PaperMoon Documentation Style Guide](https://github.com/papermoonio/documentation-style-guide).
 
@@ -385,6 +391,6 @@ Before submission:
 
 For additional help:
 1. Check existing tutorials for examples
-2. Review the [quick contributing guide](QUICK_GUIDE.md)
+2. Review the [main contributing guide](.CONTRIBUTING.md)
 3. Open an issue for clarification
 4. Join the Polkadot developer community discussions

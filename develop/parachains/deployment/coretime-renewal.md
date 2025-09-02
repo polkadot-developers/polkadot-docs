@@ -18,7 +18,7 @@ The bulk sale process consists of three distinct phases:
 2. **Lead-in phase**: Following the interlude phase, a new `start_price` is set, and a Dutch auction begins, lasting for `leadin_length` blocks. During this phase, prices experience downward pressure as the system aims to find market equilibrium. The final price at the end of this phase becomes the `regular_price`, which will be used in the subsequent fixed price phase.
 3. **Fixed price phase**: The final phase where remaining cores are sold at the `regular_price` established during the lead-in phase. This provides a stable and predictable pricing environment for participants who did not purchase during the price discovery period.
 
-For more comprehensive information about the coretime sales process, refer to the [Coretime Sales](https://wiki.polkadot.network/learn/learn-agile-coretime/#coretime-sales){target=\_blank} section in the Polkadot Wiki.
+For more comprehensive information about the coretime sales process, refer to the [Coretime Sales](https://wiki.polkadot.com/learn/learn-agile-coretime/#coretime-sales){target=\_blank} section in the Polkadot Wiki.
 
 ## Renewal Timing
 

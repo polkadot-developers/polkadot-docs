@@ -52,11 +52,11 @@ Before obtaining coretime, ensure you have:
 
 Bulk coretime provides several advantages:
 
-- Monthly allocation of resources.
-- Guaranteed block production slots (every 12 seconds, or 6 seconds with [Asynchronous Backing](https://wiki.polkadot.network/learn/learn-async-backing/#asynchronous-backing){target=\_blank}).
-- Priority renewal rights.
-- Protection against price fluctuations.
-- Ability to split and resell unused coretime.
+- Monthly allocation of resources
+- Guaranteed block production slots (every 12 seconds, or 6 seconds with [Asynchronous Backing](https://wiki.polkadot.com/learn/learn-async-backing/#asynchronous-backing){target=\_blank})
+- Priority renewal rights
+- Protection against price fluctuations
+- Ability to split and resell unused coretime
 
 To purchase bulk coretime:
 
@@ -67,7 +67,7 @@ To purchase bulk coretime:
 
 After successfully obtaining coretime, your parachain will automatically start producing blocks at regular intervals.
 
-For current marketplaces and pricing, consult the [Coretime Marketplaces](https://wiki.polkadot.network/learn/learn-guides-coretime-marketplaces/){target=\_blank} page on the Polkadot Wiki.
+For current marketplaces and pricing, consult the [Coretime Marketplaces](https://wiki.polkadot.com/learn/learn-guides-coretime-marketplaces/){target=\_blank} page on the Polkadot Wiki.
 
 ### On-demand Coretime
 

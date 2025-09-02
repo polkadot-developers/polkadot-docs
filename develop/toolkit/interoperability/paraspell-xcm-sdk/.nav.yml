@@ -1,5 +1,4 @@
-title: ParaSpell SDK
+title: ParaSpell XCM SDK
 hide: false
 nav:
   - index.md
-  - 'Teleport Tokens from Asset Hub to Bridge Hub': teleport-from-asset-hub-to-bridge-hub.md

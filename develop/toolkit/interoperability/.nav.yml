@@ -2,4 +2,5 @@ title: Interoperability
 nav:
   - index.md
   - 'XCM Tools': xcm-tools.md
-  - 'ParaSpell XCM SDK': paraspell-xcm-sdk
+  - asset-transfer-api
+  - paraspell-xcm-sdk

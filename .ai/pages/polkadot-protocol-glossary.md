@@ -1,13 +1,9 @@
 ---
 title: Glossary
-...
-description: Glossary of terms used within the Polkadot ecosystem, Polkadot SDK, its subsequent
-  libraries, and other relevant Web3 terminology.
-...
+description: Glossary of terms used within the Polkadot ecosystem, Polkadot SDK, its
+  subsequent libraries, and other relevant Web3 terminology.
 categories: Reference
-...
 url: https://docs.polkadot.com/polkadot-protocol/glossary/
-...
 ---
 
 # Glossary

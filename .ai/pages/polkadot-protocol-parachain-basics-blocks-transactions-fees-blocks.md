@@ -1,13 +1,9 @@
 ---
 title: Blocks
-...
-description: Understand how blocks are produced, validated, and imported in Polkadot SDK-based
-  blockchains, covering initialization, finalization, and authoring processes.
-...
+description: Understand how blocks are produced, validated, and imported in Polkadot
+  SDK-based blockchains, covering initialization, finalization, and authoring processes.
 categories: Basics, Polkadot Protocol
-...
 url: https://docs.polkadot.com/polkadot-protocol/parachain-basics/blocks-transactions-fees/blocks/
-...
 ---
 
 # Blocks

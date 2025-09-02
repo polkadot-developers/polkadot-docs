@@ -1,13 +1,9 @@
 ---
 title: PAPI Account Watcher Tutorial
-...
-description: Build a CLI app that listens to on-chain events using the Polkadot API and responds
-  to specific messages for a given account.
-...
-categories: Tooling
-...
+description: Build a CLI app that listens to on-chain events using the Polkadot API
+  and responds to specific messages for a given account.
+categories: Tooling, Tutorial
 url: https://docs.polkadot.com/tutorials/dapps/remark-tutorial/
-...
 ---
 
 # PAPI Account Watcher 

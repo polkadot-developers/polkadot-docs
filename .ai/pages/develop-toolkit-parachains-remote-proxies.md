@@ -1,12 +1,9 @@
 ---
 title: Remote Proxies
-...
-description: Remote proxies enable cross-chain proxy functionality within the Polkadot ecosystem,
-  allowing proxy accounts defined on one chain to execute transactions on different
-  chains through cryptographic storage proofs.
-...
+description: Remote proxies enable cross-chain proxy functionality within the Polkadot
+  ecosystem, allowing proxy accounts defined on one chain to execute transactions
+  on different chains through cryptographic storage proofs.
 url: https://docs.polkadot.com/develop/toolkit/parachains/remote-proxies/
-...
 ---
 
 # Remote Proxies

@@ -1,13 +1,9 @@
 ---
 title: Overview
-...
-description: Learn about the role, functionality, and implementation of parachains as a developer
-  in the wider Polkadot architecture.
-...
+description: Learn about the role, functionality, and implementation of parachains
+  as a developer in the wider Polkadot architecture.
 categories: Basics, Polkadot Protocol, Parachains
-...
 url: https://docs.polkadot.com/polkadot-protocol/architecture/parachains/overview/
-...
 ---
 
 ## Introduction 

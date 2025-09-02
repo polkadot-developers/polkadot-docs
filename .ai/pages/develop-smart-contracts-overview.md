@@ -1,13 +1,9 @@
 ---
 title: Smart Contracts Overview
-...
-description: Learn about smart contract development capabilities in the Polkadot ecosystem, either
-  by leveraging Polkadot Hub or other alternatives.
-...
+description: Learn about smart contract development capabilities in the Polkadot ecosystem,
+  either by leveraging Polkadot Hub or other alternatives.
 categories: Basics, Smart Contracts
-...
 url: https://docs.polkadot.com/develop/smart-contracts/overview/
-...
 ---
 
 # Smart Contracts on Polkadot

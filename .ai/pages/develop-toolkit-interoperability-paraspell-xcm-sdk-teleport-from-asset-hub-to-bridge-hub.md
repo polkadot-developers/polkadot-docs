@@ -1,11 +1,8 @@
 ---
 title: Teleport Tokens from Asset Hub to Bridge Hub
-...
-description: A step-by-step guide to building, verifying, and executing a teleport from Asset Hub
-  to Bridge Hub using the ParaSpell XCM SDK.
-...
+description: A step-by-step guide to building, verifying, and executing a teleport
+  from Asset Hub to Bridge Hub using the ParaSpell XCM SDK.
 url: https://docs.polkadot.com/develop/toolkit/interoperability/paraspell-xcm-sdk/teleport-from-asset-hub-to-bridge-hub/
-...
 ---
 
 # Teleport Tokens from Asset Hub to Bridge Hub

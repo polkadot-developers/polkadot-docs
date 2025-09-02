@@ -1,11 +1,9 @@
 ---
 title: Transact
-...
-description: Explore the key changes to the Transact instruction in XCM V5, including automatic
-  weight calculation, improved reliability, and simplified cross-chain execution patterns.
-...
+description: Explore the key changes to the Transact instruction in XCM V5, including
+  automatic weight calculation, improved reliability, and simplified cross-chain execution
+  patterns.
 url: https://docs.polkadot.com/develop/interoperability/versions/v5/transact/
-...
 ---
 
 # Transact (XCM V4 → XCM V5)

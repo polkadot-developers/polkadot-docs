@@ -1,13 +1,9 @@
 ---
 title: Python Substrate Interface
-...
-description: Learn how to connect to Polkadot SDK-based nodes, query data, submit transactions,
-  and manage blockchain interactions using the Python Substrate Interface.
-...
+description: Learn how to connect to Polkadot SDK-based nodes, query data, submit
+  transactions, and manage blockchain interactions using the Python Substrate Interface.
 categories: Tooling, Dapps
-...
 url: https://docs.polkadot.com/develop/toolkit/api-libraries/py-substrate-interface/
-...
 ---
 
 # Python Substrate Interface

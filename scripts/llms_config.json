@@ -12,8 +12,9 @@
         "host": "github",
         "org": "polkadot-developers",
         "repo": "polkadot-docs",
-        "default_branch": "master",
-        "docs_path": "."
+        "default_branch": "dawn/improved-llms",
+        "docs_path": ".",
+        "ai_artifacts_path": ".ai/pages"
     },
 
     "llms_txt_output_path": "llms.txt",
@@ -30,6 +31,7 @@
             "Polkadot Protocol",
             "Infrastructure",
             "Tooling",
+            "Tutorial",
             "Reference"
         ],
         "exclusions": {

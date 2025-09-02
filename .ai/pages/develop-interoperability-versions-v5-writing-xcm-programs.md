@@ -1,11 +1,8 @@
 ---
 title: Writing XCM Programs
-...
-description: Learn how to write XCM programs in version 5, including new execution patterns, instruction
-  syntax, and best practices for cross-chain communication.
-...
+description: Learn how to write XCM programs in version 5, including new execution
+  patterns, instruction syntax, and best practices for cross-chain communication.
 url: https://docs.polkadot.com/develop/interoperability/versions/v5/writing-xcm-programs/
-...
 ---
 
 # Writing XCM Programs (XCM V4 → XCM V5)

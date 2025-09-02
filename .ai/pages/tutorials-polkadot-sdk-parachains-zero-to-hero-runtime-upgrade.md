@@ -1,11 +1,8 @@
 ---
 title: Runtime Upgrades
-...
-description: Learn how to safely perform runtime upgrades for your Polkadot SDK-based blockchain,
-  including step-by-step instructions.
-...
+description: Learn how to safely perform runtime upgrades for your Polkadot SDK-based
+  blockchain, including step-by-step instructions.
 url: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/
-...
 ---
 
 # Runtime Upgrades

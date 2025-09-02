@@ -1,13 +1,9 @@
 ---
 title: Asset Transfer API Reference
-...
-description: Explore the Asset Transfer API Reference for comprehensive details on methods, data
-  types, and functionalities. Essential for cross-chain asset transfers.
-...
+description: Explore the Asset Transfer API Reference for comprehensive details on
+  methods, data types, and functionalities. Essential for cross-chain asset transfers.
 categories: Reference, Dapps
-...
 url: https://docs.polkadot.com/develop/toolkit/interoperability/asset-transfer-api/reference/
-...
 ---
 
 # Asset Transfer API Reference

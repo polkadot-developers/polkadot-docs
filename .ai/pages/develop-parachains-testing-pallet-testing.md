@@ -1,13 +1,9 @@
 ---
 title: Pallet Testing
-...
-description: Learn how to efficiently test pallets in the Polkadot SDK, ensuring the reliability
-  and security of your pallets operations.
-...
+description: Learn how to efficiently test pallets in the Polkadot SDK, ensuring the
+  reliability and security of your pallets operations.
 categories: Parachains
-...
 url: https://docs.polkadot.com/develop/parachains/testing/pallet-testing/
-...
 ---
 
 # Pallet Testing

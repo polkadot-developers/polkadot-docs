@@ -1,13 +1,9 @@
 ---
 title: Add Multiple Pallet Instances
-...
-description: Learn how to implement multiple instances of the same pallet in your Polkadot SDK-based
-  runtime to create and interact with modular blockchain components.
-...
+description: Learn how to implement multiple instances of the same pallet in your
+  Polkadot SDK-based runtime to create and interact with modular blockchain components.
 categories: Parachains
-...
 url: https://docs.polkadot.com/develop/parachains/customize-parachain/add-pallet-instances/
-...
 ---
 
 # Add Multiple Pallet Instances

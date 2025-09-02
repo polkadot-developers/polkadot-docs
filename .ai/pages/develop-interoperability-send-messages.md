@@ -1,13 +1,9 @@
 ---
 title: Send XCM Messages
-...
-description: Send cross-chain messages using XCM, Polkadot's Cross-Consensus Messaging format,
-  designed to support secure communication between chains.
-...
+description: Send cross-chain messages using XCM, Polkadot's Cross-Consensus Messaging
+  format, designed to support secure communication between chains.
 categories: Basics, Polkadot Protocol
-...
 url: https://docs.polkadot.com/develop/interoperability/send-messages/
-...
 ---
 
 # Send XCM Messages

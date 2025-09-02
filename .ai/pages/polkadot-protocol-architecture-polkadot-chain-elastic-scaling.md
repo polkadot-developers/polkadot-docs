@@ -1,13 +1,9 @@
 ---
 title: Elastic Scaling
-...
-description: Learn how elastic scaling in Polkadot boosts parachain throughput, reduces latency,
-  and supports dynamic, cost-efficient resource allocation.
-...
+description: Learn how elastic scaling in Polkadot boosts parachain throughput, reduces
+  latency, and supports dynamic, cost-efficient resource allocation.
 categories: Polkadot Protocol
-...
 url: https://docs.polkadot.com/polkadot-protocol/architecture/polkadot-chain/elastic-scaling/
-...
 ---
 
 # Elastic Scaling

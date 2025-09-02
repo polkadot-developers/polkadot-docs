@@ -1,13 +1,9 @@
 ---
 title: Set Up Secure WebSocket
-...
-description: Instructions on enabling SSL for your node and setting up a secure WebSocket proxy
-  server using nginx for remote connections.
-...
+description: Instructions on enabling SSL for your node and setting up a secure WebSocket
+  proxy server using nginx for remote connections.
 categories: Infrastructure
-...
 url: https://docs.polkadot.com/infrastructure/running-a-node/setup-secure-wss/
-...
 ---
 
 # Set Up Secure WebSocket

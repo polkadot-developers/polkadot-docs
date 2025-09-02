@@ -1,13 +1,9 @@
 ---
 title: Polkadot Hub Smart Contract FAQs
-...
-description: Find answers to common questions about smart contract development, deployment, and
-  compatibility in the Polkadot Hub ecosystem.
-...
+description: Find answers to common questions about smart contract development, deployment,
+  and compatibility in the Polkadot Hub ecosystem.
 categories: Smart Contracts
-...
 url: https://docs.polkadot.com/develop/smart-contracts/faqs/
-...
 ---
 
 # Smart Contracts FAQs

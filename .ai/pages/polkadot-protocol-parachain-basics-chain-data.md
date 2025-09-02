@@ -1,13 +1,9 @@
 ---
 title: Chain Data
-...
-description: Learn how to expose and utilize chain data for blockchain applications. Discover runtime
-  metadata, RPC APIs, and tools for efficient development.
-...
+description: Learn how to expose and utilize chain data for blockchain applications.
+  Discover runtime metadata, RPC APIs, and tools for efficient development.
 categories: Basics, Polkadot Protocol
-...
 url: https://docs.polkadot.com/polkadot-protocol/parachain-basics/chain-data/
-...
 ---
 
 # Chain Data

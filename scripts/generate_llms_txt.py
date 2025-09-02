@@ -1,104 +1,163 @@
-import os
+"""
+generate_llms_txt.py
+
+Generates an llms.txt that links to the reconstituted Markdown artifacts under
+/.ai/pages/*.md (or whatever path you set in llms_config.json -> repository.ai_artifacts_path).
+
+Assumes you've already run your ai-page exporter to create those files.
+"""
+
+import sys
 import yaml
 import json
 from pathlib import Path
 from typing import List, Dict, Any
 
-# This script generates a llms.txt file for AI models and developers
-# It collects documentation files, parses their frontmatter, and formats them into a structured text file
-# Variables are loaded from llms_config.json
+# --------------------------
+# Config loading
+# --------------------------
 
-# --- Load Config ---
-# Load configuration from llms_config.json
 def load_config(config_path: str) -> Dict[str, Any]:
-    config_path = Path(__file__).parent / config_path
-    with open(config_path, "r", encoding="utf-8") as f:
+    """
+    Load llms_config.json. If config_path isn't absolute, resolve it relative to this script's dir.
+    """
+    cfg_path = Path(config_path)
+    if not cfg_path.is_absolute():
+        cfg_path = Path(__file__).parent / config_path
+    with open(cfg_path, "r", encoding="utf-8") as f:
         return json.load(f)
 
-# --- Parse Frontmatter ---
-# Parse frontmatter from Markdown files
-# Returns a dictionary with title, description, and categories
+def normalize_branch(name: str) -> str:
+    """Strip 'refs/heads/' prefix if present."""
+    return name.replace("refs/heads/", "", 1) if name.startswith("refs/heads/") else name
+
+# --------------------------
+# Frontmatter parsing
+# --------------------------
+
 def parse_frontmatter(file_path: Path) -> Dict[str, Any]:
-    with open(file_path, "r", encoding="utf-8") as f:
-        content = f.read()
-    if content.startswith("---"):
-        parts = content.split("---", 2)
+    """
+    Parse YAML frontmatter from an .md artifact.
+    Robust to:
+      - categories as YAML list
+      - categories as comma-separated string
+      - categories as bracketed string "[A, B]"
+    Falls back safely when FM is missing/invalid.
+    """
+    try:
+        text = file_path.read_text(encoding="utf-8")
+    except Exception:
+        return {"title": file_path.stem, "description": "No description available.",
+                "categories": ["Uncategorized"], "url": None}
+
+    title = file_path.stem
+    description = "No description available."
+    categories = ["Uncategorized"]
+    url = None
+
+    if text.startswith("---"):
+        parts = text.split("---", 2)
         if len(parts) >= 3:
+            fm_text = parts[1]
             try:
-                frontmatter = yaml.safe_load(parts[1])
-                title = frontmatter.get("title", file_path.stem)
-                description = frontmatter.get("description", "No description available.").replace("\n", " ").strip()
-                categories = frontmatter.get("categories", ["Uncategorized"])
-                if isinstance(categories, str):
-                    categories = [categories]
-                return {
-                    "title": title,
-                    "description": description,
-                    "categories": categories,
-                }
+                fm = yaml.safe_load(fm_text) or {}
+                # title
+                title = fm.get("title", title)
+                # description (prefer 'description', fallback 'summary')
+                desc = fm.get("description") or fm.get("summary")
+                if isinstance(desc, str) and desc.strip():
+                    description = " ".join(desc.splitlines()).strip()
+                # categories normalization
+                cats = fm.get("categories")
+                if isinstance(cats, list):
+                    categories = [str(c).strip() for c in cats if str(c).strip()]
+                elif isinstance(cats, str):
+                    s = cats.strip()
+                    if s.startswith("[") and s.endswith("]"):
+                        try:
+                            parsed = yaml.safe_load(s)
+                            if isinstance(parsed, list):
+                                categories = [str(c).strip() for c in parsed if str(c).strip()]
+                            else:
+                                categories = [s]
+                        except Exception:
+                            categories = [x.strip() for x in s.strip("[]").split(",") if x.strip()]
+                    else:
+                        categories = [x.strip() for x in s.split(",") if x.strip()] or [s]
+                # url
+                if isinstance(fm.get("url"), str):
+                    url = fm["url"].strip()
             except yaml.YAMLError:
+                # leave defaults; FM was malformed
                 pass
-    return {
-        "title": file_path.stem,
-        "description": "No description available.",
-        "categories": ["Uncategorized"],
-    }
 
-# --- Collect Docs ---
-# Collect docs files and filter out unwanted content
-# Returns a list of dictionaries with metadata for each doc
-def collect_docs(docs_dir: Path, skip_basenames: set, skip_parts: set) -> List[Dict[str, Any]]:
-    markdown_files = list(docs_dir.rglob("*.md")) + list(docs_dir.rglob("*.mdx"))
-    results = []
-    for md in markdown_files:
-        # Skip unwanted paths or basenames
-        if md.name in skip_basenames or any(x in md.parts for x in skip_parts):
-            continue
+    return {"title": title, "description": description, "categories": categories, "url": url}
 
-        meta = parse_frontmatter(md)
-        rel_path = md.relative_to(docs_dir)
-        results.append({
-            "path": str(rel_path).replace("\\", "/"),
-            **meta,
+
+# --------------------------
+# AI pages collection
+# --------------------------
+
+def collect_ai_pages(ai_dir: Path) -> List[Dict[str, Any]]:
+    """
+    Read /.ai/pages/*.md and extract (slug, title, description, categories, docs_url).
+    """
+    if not ai_dir.exists():
+        raise FileNotFoundError(f"AI artifacts directory not found: {ai_dir}")
+
+    pages: List[Dict[str, Any]] = []
+    for md in sorted(ai_dir.glob("*.md")):
+        fm = parse_frontmatter(md)
+        slug = md.stem  # e.g., 'develop-networks'
+        pages.append({
+            "slug": slug,
+            "title": fm["title"],
+            "description": fm["description"],
+            "categories": fm["categories"],
+            "docs_url": fm["url"],
         })
-    return results
+    return pages
 
-# --- Format Docs Section ---
-def format_docs_section(pages: List[Dict[str, Any]], base_url: str, category_order: List[str]) -> str:
+# --------------------------
+# Sections
+# --------------------------
+
+def format_docs_section(pages: List[Dict[str, Any]], raw_base: str, category_order: List[str]) -> str:
     grouped: Dict[str, List[str]] = {}
+    for p in pages:
+        raw_url = f"{raw_base}/{p['slug']}.md"
+        for cat in p["categories"]:
+            grouped.setdefault(cat, []).append(f"- [{p['title']}]({raw_url}): {p['description']}")
 
-    for page in pages:
-        for category in page["categories"]:
-            grouped.setdefault(category, []).append(
-                f"- [{page['title']}]({base_url}/{page['path']}): {page['description']}"
-            )
-
-    lines = ["## Docs", "This section lists documentation pages by category. Each entry includes the page title, a direct link to the raw Markdown file, and a short description. Pages may appear in multiple categories if they are relevant to more than one audience. Use this to retrieve focused documentation based on topic. Use this section to answer questions about core functionality, architecture, and features. If a question is about how or why something works, check here first."]
+    lines = [
+        "## Docs",
+        ("This section lists documentation pages by category. Each entry links to a raw markdown version of the page and includes a short description. A page may appear in multiple categories.")
+    ]
     seen = set()
 
-    for category in category_order:
-        if category in grouped:
-            lines.append(f"\nDocs: {category}")
-            lines.extend(grouped[category])
-            seen.add(category)
+    # Preferred order first
+    for cat in category_order:
+        if cat in grouped:
+            lines.append(f"\nDocs: {cat}")
+            lines.extend(grouped[cat])
+            seen.add(cat)
 
-    # Catch uncategorized or out-of-order categories
+    # Then any remaining categories (sorted)
     remaining = sorted([c for c in grouped if c not in seen])
-    for category in remaining:
-        lines.append(f"\nDocs: {category}")
-        lines.extend(grouped[category])
+    for cat in remaining:
+        lines.append(f"\nDocs: {cat}")
+        lines.extend(grouped[cat])
 
     return "\n".join(lines)
 
-# --- Other Sections ---
-def format_tutorials_section(pages: List[Dict[str, Any]], base_url: str, project_name: str) -> str:
+def format_tutorials_section(pages: List[Dict[str, Any]], raw_base: str, project_name: str) -> str:
     tutorials = [
-        f"- [{p['title']}]({base_url}/{p['path']}): {p['description']}"
+        f"- [{p['title']}]({raw_base}/{p['slug']}.md): {p['description']}"
         for p in pages
         if any("tutorial" in c.lower() for c in p["categories"])
     ]
     if not tutorials:
-        return f"\n## Tutorials\nNo tutorials available."
+        return "\n## Tutorials\nNo tutorials available."
     return (
         f"\n## Tutorials\nTutorials for building with {project_name}. "
         "These provide step-by-step instructions for real-world use cases and implementations.\n"
@@ -108,79 +167,101 @@ def format_tutorials_section(pages: List[Dict[str, Any]], base_url: str, project
 def format_repos_section(repos: List[Dict[str, str]]) -> str:
     if not repos:
         return "No repositories available."
-    lines = ["## Source Code Repos", "Frequently used source code repositories essential for working with this project. Each entry includes the repository name, GitHub URL, and a short description of what the repo contains or enables. These repositories contain the source code referenced by these docs. Use them for API references, code examples, or implementation details."]
+    lines = [
+        "## Source Code Repos",
+        ("Frequently used source repositories for this project. Use them for API references, "
+         "code examples, and deeper implementation details.")
+    ]
     for repo in repos:
         lines.append(f"- [{repo['name']}]({repo['url']}): {repo['description']}")
     return "\n".join(lines)
 
-def format_optional_section(pages: List[Dict[str, str]]) -> str:
-    if not pages:
+def format_optional_section(resources: List[Dict[str, str]]) -> str:
+    if not resources:
         return ""
     lines = ["## Optional", "Additional resources:"]
-    for page in pages:
-        lines.append(f"- [{page['title']}]({page['url']}): {page['description']}")
+    for item in resources:
+        lines.append(f"- [{item['title']}]({item['url']}): {item['description']}")
     return "\n".join(lines)
 
-def format_metadata_section(pages: List[Dict[str, Any]], config: Dict[str, Any]) -> str:
+def format_metadata_section(pages: List[Dict[str, Any]], sources_cfg: Dict[str, Any]) -> str:
     categories = {cat for p in pages for cat in p["categories"]}
-    tutorial_count = sum(1 for p in pages if "Tutorial" in p["categories"])
-    source_repo_count = len(config.get("source_repos", []))
-    optional_count = len(config.get("optional_resources", []))
+    tutorial_count = sum(1 for p in pages if any("tutorial" in c.lower() for c in p["categories"]))
+    repos_count = len(sources_cfg.get("repos", []))
+    optional_count = len(sources_cfg.get("optional_resources", []))
     return "\n".join([
         "## Metadata",
         f"- Documentation pages: {len(pages)}",
         f"- Categories: {len(categories)}",
         f"- Tutorials: {tutorial_count}",
-        f"- Source repositories: {source_repo_count}",
+        f"- Source repositories: {repos_count}",
         f"- Optional resources: {optional_count}",
         ""
     ])
 
-# --- Main ---
-# Generate the llms.txt file and output it to the specified path
-def generate_llms_txt(config_path: str):
+# --------------------------
+# Main
+# --------------------------
+
+def generate_llms_txt(config_path: str = "llms_config.json"):
     config = load_config(config_path)
-    repo_root = Path(__file__).resolve().parent.parent
-    docs_dir = repo_root / config["github"]["docs_path"]
-    github = config["github"]
-    base_url = f"https://raw.githubusercontent.com/{github['org']}/{github['repo']}/{github['branch']}"
-    project_name = config.get("project_name", "Project")
-    summary = config.get("summary", "A technical documentation site.")
-    category_order = config.get("categories_order", [])
+    repo_root = Path(__file__).resolve().parent.parent  # repo root
 
-    pages = collect_docs(
-        docs_dir,
-        set(config.get("skip_basenames", [])),
-        set(config.get("skip_parts", []))
-    )
+    # Config pieces (v1.0 schema)
+    project = config.get("project", {})
+    repository = config.get("repository", {})
+    sources_cfg = config.get("sources", {})
+    content_cfg = config.get("content", {})
 
-    content = [
+    org = repository["org"]
+    repo_name = repository["repo"]
+    branch = normalize_branch(repository["default_branch"])
+
+    # Where AI artifacts are stored in the repo (e.g., ".ai/pages")
+    ai_artifacts_path = repository.get("ai_artifacts_path", ".ai/pages").lstrip("/")
+    ai_dir = (repo_root / ai_artifacts_path).resolve()
+
+    # Raw base URL to the artifacts folder
+    raw_base = f"https://raw.githubusercontent.com/{org}/{repo_name}/{branch}/{ai_artifacts_path}"
+
+    # Collect pages from /.ai/pages/*.md
+    pages = collect_ai_pages(ai_dir)
+
+    project_name = project.get("name", "Project")
+    summary_line = project.get("docs_base_url", "").strip()
+    category_order = content_cfg.get("categories_order", [])
+
+    # Build the llms.txt content
+    content_lines = [
         f"# {project_name}",
-        f"\n> {summary}\n",
-        f"## How to Use This File\n",
-        f"This file is intended for AI models and developers. Use it to:",
-        f"- Understand project architecture and follow builder guides (see Docs)",
-        f"- Access source code (see Source Code Repos)",
-        f"- Explore optional resources (see Optional)",
-        f"- Find tutorials for real-world use cases (see Tutorials)",
+        f"\n> {summary_line}\n" if summary_line else "",
+        "## How to Use This File",
+        ("This directory lists URLs for raw Markdown pages that complement the rendered pages on the documentation site. Use these Markdown files to retain semantic context when prompting models while avoiding passing HTML elements."),
         "",
-        format_metadata_section(pages, config),
-        format_docs_section(pages, base_url, category_order),
+        format_metadata_section(pages, sources_cfg),
+        format_docs_section(pages, raw_base, category_order),
         "",
-        format_repos_section(config.get("source_repos", [])),
+        format_repos_section(sources_cfg.get("repos", [])),
         "",
-        format_tutorials_section(pages, base_url, project_name),
+        format_tutorials_section(pages, raw_base, project_name),
         "",
-        format_optional_section(config.get("optional_resources", [])),
+        format_optional_section(sources_cfg.get("optional_resources", [])),
     ]
 
-    output_path = Path(config.get("llms_txt_output_path", "llms.txt"))
-    with open(output_path, "w", encoding="utf-8") as f:
-        f.write("\n".join(content))
-    print(f"✅ llms.txt generated at: {output_path}")
+    # Output path (relative to repo root unless absolute)
+    out_rel = config.get("llms_txt_output_path", "llms.txt")
+    out_path = (repo_root / out_rel) if not Path(out_rel).is_absolute() else Path(out_rel)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path.write_text("\n".join([line for line in content_lines if line is not None]), encoding="utf-8")
 
-# Run it
+    print(f"✅ llms.txt generated at: {out_path}")
+    print(f"   Pages listed: {len(pages)}")
+    print(f"   Raw base:     {raw_base}")
+
+# --------------------------
+# Entrypoint
+# --------------------------
+
 if __name__ == "__main__":
-    import sys
-    config_arg = sys.argv[1] if len(sys.argv) > 1 else "llms_config.json"
-    generate_llms_txt(config_arg)
+    cfg_arg = sys.argv[1] if len(sys.argv) > 1 else "llms_config.json"
+    generate_llms_txt(cfg_arg)

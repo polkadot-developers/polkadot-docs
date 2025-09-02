@@ -1,6 +1,5 @@
 ---
 url: https://docs.polkadot.com/develop/toolkit/parachains/light-clients/
-...
 ---
 
 # Light Clients

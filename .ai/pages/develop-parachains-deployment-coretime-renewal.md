@@ -1,13 +1,9 @@
 ---
 title: Coretime Renewal
-...
-description: Learn how to renew coretime manually or automatically to ensure uninterrupted parachain
-  operation with predictable pricing and minimal risk.
-...
+description: Learn how to renew coretime manually or automatically to ensure uninterrupted
+  parachain operation with predictable pricing and minimal risk.
 categories: Parachains
-...
 url: https://docs.polkadot.com/develop/parachains/deployment/coretime-renewal/
-...
 ---
 
 # Coretime Renewal

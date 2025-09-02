@@ -1,13 +1,9 @@
 ---
 title: Web3.py
-...
-description: Learn how to interact with Polkadot Hub using the Web3 python library, deploying Solidity
-  contracts, and interacting with deployed smart contracts.
-...
+description: Learn how to interact with Polkadot Hub using the Web3 python library,
+  deploying Solidity contracts, and interacting with deployed smart contracts.
 categories: Smart Contracts, Tooling
-...
 url: https://docs.polkadot.com/develop/smart-contracts/libraries/web3-py/
-...
 ---
 
 # Web3.py

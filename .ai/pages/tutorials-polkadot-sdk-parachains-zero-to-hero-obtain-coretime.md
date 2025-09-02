@@ -1,13 +1,9 @@
 ---
 title: Obtain Coretime
-...
-description: Learn how to obtain coretime for block production with this guide, covering both on-demand
-  and bulk options for smooth operations.
-...
+description: Learn how to obtain coretime for block production with this guide, covering
+  both on-demand and bulk options for smooth operations.
 categories: Parachains
-...
 url: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to-hero/obtain-coretime/
-...
 ---
 
 ## Introduction

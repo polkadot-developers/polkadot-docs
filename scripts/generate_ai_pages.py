@@ -1,5 +1,5 @@
 # generate_ai_pages.py
-# Stage-1 MVP: write resolved per-page Markdown to /.ai/pages/<slug>.md
+# - write resolved per-page Markdown to /.ai/pages/<slug>.md
 # - snippets -> variables -> strip HTML comments
 # - minimal front-matter: title, description, categories, url
 # - Raw URLs will look like:
@@ -233,7 +233,7 @@ def build_raw_url(config: dict, slug: str) -> str:
     branch = config["repository"]["default_branch"]
     public_root = config.get("outputs", {}).get("public_root", "/.ai/").strip("/")
     pages_dirname = config.get("outputs", {}).get("files", {}).get("pages_dir", "pages")
-    return f"https://raw.githubusercontent.com/{org}/{repo}/{branch}/{public_root}/{pages_dirname}/{slug}.md"
+    return f"https://raw.githubusercontent.com/{org}/{repo}/{branch}/{public_root}/{pages_dirname}/{slug}"
 
 # ----------------------------
 # Writer
@@ -242,14 +242,15 @@ def build_raw_url(config: dict, slug: str) -> str:
 def write_ai_page(ai_pages_dir: Path, slug: str, header: dict, body: str):
     ai_pages_dir.mkdir(parents=True, exist_ok=True)
     out_path = ai_pages_dir / f"{slug}.md"
-    # Build YAML front-matter (only include keys that exist)
-    fm_lines = ["---"]
+    # Only include keys that exist & are non-empty
+    fm_obj = {}
     for key in ("title", "description", "categories", "url"):
-        if key in header and header[key] not in (None, "", []):
-            fm_lines.append(f"{key}: {yaml.safe_dump(header[key], allow_unicode=True).strip()}")
-    fm_lines.append("---")
-    fm = "\n".join(fm_lines)
-    content = f"{fm}\n\n{body.strip()}\n"
+        val = header.get(key, None)
+        if val not in (None, "", []):
+            fm_obj[key] = val
+
+    fm_yaml = yaml.safe_dump(fm_obj, sort_keys=False, allow_unicode=True).strip()
+    content = f"---\n{fm_yaml}\n---\n\n{body.strip()}\n"
     with open(out_path, "w", encoding="utf-8") as f:
         f.write(content)
     return out_path

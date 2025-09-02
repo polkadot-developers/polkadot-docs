@@ -1,13 +1,9 @@
 ---
 title: Deploy an NFT to Polkadot Hub
-...
-description: Deploy an NFT on Polkadot Hub using PolkaVM and OpenZeppelin. Learn how to compile,
-  deploy, and interact with your contract using Polkadot Remix IDE.
-...
-categories: Basics, dApps, Smart Contracts
-...
+description: Deploy an NFT on Polkadot Hub using PolkaVM and OpenZeppelin. Learn how
+  to compile, deploy, and interact with your contract using Polkadot Remix IDE.
+categories: Basics, dApps, Smart Contracts, Tutorial
 url: https://docs.polkadot.com/tutorials/smart-contracts/deploy-nft/
-...
 ---
 
 # Deploy an NFT to Polkadot Hub

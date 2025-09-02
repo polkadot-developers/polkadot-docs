@@ -1,13 +1,9 @@
 ---
 title: Connect to Polkadot
-...
-description: Explore how to connect to Polkadot Hub, configure your wallet, and obtain test tokens
-  for developing and testing smart contracts.
-...
+description: Explore how to connect to Polkadot Hub, configure your wallet, and obtain
+  test tokens for developing and testing smart contracts.
 categories: Smart Contracts
-...
 url: https://docs.polkadot.com/develop/smart-contracts/connect-to-polkadot/
-...
 ---
 
 # Connect to Polkadot

@@ -1,13 +1,9 @@
 ---
 title: Add a Pallet to the Runtime
-...
-description: Learn how to include and configure pallets in a Polkadot SDK-based runtime, from adding
-  dependencies to implementing necessary traits.
-...
+description: Learn how to include and configure pallets in a Polkadot SDK-based runtime,
+  from adding dependencies to implementing necessary traits.
 categories: Parachains
-...
 url: https://docs.polkadot.com/develop/parachains/customize-parachain/add-existing-pallets/
-...
 ---
 
 # Add a Pallet to the Runtime

@@ -1,6 +1,7 @@
 ---
 title: XCM Fee Estimation
 description: This tutorial demonstrates how to estimate the fees for teleporting assets from the Paseo Asset Hub parachain to the Paseo Bridge Hub chain.
+categories: Tutorial
 ---
 
 # XCM Fee Estimation

@@ -1,13 +1,9 @@
 ---
 title: Indexers
-...
-description: Discover blockchain indexers. Enhance data access, enable fast and complex queries,
-  and optimize blockchain data for seamless app performance.
-...
+description: Discover blockchain indexers. Enhance data access, enable fast and complex
+  queries, and optimize blockchain data for seamless app performance.
 categories: Tooling, Dapps
-...
 url: https://docs.polkadot.com/develop/toolkit/integrations/indexers/
-...
 ---
 
 # Indexers

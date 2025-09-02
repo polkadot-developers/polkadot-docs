@@ -1,13 +1,9 @@
 ---
 title: Testing and Debugging
-...
-description: Learn how to test and debug cross-chain communication via the XCM Emulator to ensure
-  interoperability and reliable execution.
-...
+description: Learn how to test and debug cross-chain communication via the XCM Emulator
+  to ensure interoperability and reliable execution.
 categories: Basics, Polkadot Protocol
-...
 url: https://docs.polkadot.com/develop/interoperability/test-and-debug/
-...
 ---
 
 # Testing and Debugging

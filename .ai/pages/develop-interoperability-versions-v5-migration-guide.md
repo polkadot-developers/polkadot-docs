@@ -1,11 +1,8 @@
 ---
 title: Migration Guide (XCM V4 → XCM V5)
-...
-description: Step-by-step guide for migrating from XCM V4 to V5, covering breaking changes, new
-  features, and best practices for upgrading your cross-chain applications.
-...
+description: Step-by-step guide for migrating from XCM V4 to V5, covering breaking
+  changes, new features, and best practices for upgrading your cross-chain applications.
 url: https://docs.polkadot.com/develop/interoperability/versions/v5/migration-guide/
-...
 ---
 
 # Migration Guide (XCM V4 → XCM V5)

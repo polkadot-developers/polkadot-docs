@@ -1,13 +1,9 @@
 ---
 title: Oracles
-...
-description: Learn about blockchain oracles, the essential bridges connecting blockchains with
-  real-world data for decentralized applications in the Polkadot ecosystem.
-...
+description: Learn about blockchain oracles, the essential bridges connecting blockchains
+  with real-world data for decentralized applications in the Polkadot ecosystem.
 categories: Tooling, Dapps
-...
 url: https://docs.polkadot.com/develop/toolkit/integrations/oracles/
-...
 ---
 
 # Oracles

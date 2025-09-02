@@ -1,6 +1,7 @@
 ---
 title: Send XCM Messages
 description: Send cross-chain messages using XCM, Polkadot's Cross-Consensus Messaging format, designed to support secure communication between chains.
+categories: Basics, Polkadot Protocol
 ---
 
 # Send XCM Messages
@@ -19,27 +20,20 @@ For further details about the XCM configuration, see the [XCM Configuration](/de
 
 Where the [XCM format](https://github.com/polkadot-fellows/xcm-format){target=\_blank} defines a set of instructions used to construct XCVM programs, `pallet-xcm` defines a set of extrinsics that can be utilized to build XCVM programs, either to target the local or external chains. The `pallet-xcm` functionality is divided into three categories:
 
-- **Primitive** - dispatchable functions to execute XCM locally
-
-- **High-level** - functions for asset transfers between chains
-
-- **Version negotiation-specific** - functions for managing XCM version compability
+- **Primitive**: Dispatchable functions to execute XCM locally.
+- **High-level**: Functions for asset transfers between chains.
+- **Version negotiation-specific**: Functions for managing XCM version compatibility.
 
 ### Key Roles of the XCM Pallet
 
 The XCM pallet plays a central role in managing cross-chain messages, with its primary responsibilities including:
 
-- **Execute XCM messages** - interacts with the XCM executor to validate and execute messages, adhering to predefined security and filter criteria
-
-- **Send messages across chains** - allows authorized origins to send XCM messages, enabling controlled cross-chain communication
-
-- **Reserve-based transfers and teleports** - supports asset movement between chains, governed by filters that restrict operations to authorized origins
-
-- **XCM version negotiation** - ensures compatibility by selecting the appropriate XCM version for inter-chain communication
-
-- **Asset trapping and recovery** - manages trapped assets, enabling safe reallocation or recovery when issues occur during cross-chain transfers
-
-- **Support for XCVM operations** - oversees state and configuration requirements necessary for executing cross-consensus programs within the XCVM framework
+- **Execute XCM messages**: Interacts with the XCM executor to validate and execute messages, adhering to predefined security and filter criteria.
+- **Send messages across chains**: Allows authorized origins to send XCM messages, enabling controlled cross-chain communication.
+- **Reserve-based transfers and teleports**: Supports asset movement between chains, governed by filters that restrict operations to authorized origins.
+- **XCM version negotiation**: Ensures compatibility by selecting the appropriate XCM version for inter-chain communication.
+- **Asset trapping and recovery**: Manages trapped assets, enabling safe reallocation or recovery when issues occur during cross-chain transfers.
+- **Support for XCVM operations**: Oversees state and configuration requirements necessary for executing cross-consensus programs within the XCVM framework.
 
 ## Primary Extrinsics of the XCM Pallet
 
@@ -86,7 +80,7 @@ For further information about the `send` extrinsic, see the [`pallet-xcm` docume
 
 The [`XcmRouter`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/trait.Config.html#associatedtype.XcmRouter){target=\_blank} is a critical component the XCM pallet requires to facilitate sending XCM messages. It defines where messages can be sent and determines the appropriate XCM transport protocol for the operation.
 
-For instance, the Kusama network employs the [`ChildParachainRouter`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_common/xcm_sender/struct.ChildParachainRouter.html){target=\_blank}, which restricts routing to [Downward Message Passing (DMP)](https://wiki.polkadot.network/learn/learn-xcm-transport/#dmp-downward-message-passing){target=\_blank} from the relay chain to parachains, ensuring secure and controlled communication.
+For instance, the Kusama network employs the [`ChildParachainRouter`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_common/xcm_sender/struct.ChildParachainRouter.html){target=\_blank}, which restricts routing to [Downward Message Passing (DMP)](https://wiki.polkadot.com/learn/learn-xcm-transport/#dmp-downward-message-passing){target=\_blank} from the relay chain to parachains, ensuring secure and controlled communication.
 
 ```rust
 --8<-- 'https://raw.githubusercontent.com/polkadot-fellows/runtimes/refs/heads/main/relay/kusama/src/xcm_config.rs:122:125'

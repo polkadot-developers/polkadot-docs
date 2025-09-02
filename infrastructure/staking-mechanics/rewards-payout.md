@@ -1,6 +1,7 @@
 ---
 title: Rewards Payout
 description: Learn how validator rewards work on the network, including era points, payout distribution, running multiple validators, and nominator payments.
+categories: Infrastructure
 ---
 
 # Rewards Payout
@@ -57,7 +58,7 @@ However, despite this increased variance, rewards tend to even out over time due
 
     Then, `v` &#8593; if `w` &#8593;, as this reduces `p` : `w`, with respect to `e`.
 
-    Increased `v` is expected, and initially keeping `p` &#8595; using the same para-validator set for all parachains ensures [availability](https://spec.polkadot.network/chapter-anv){target=\_blank} and [voting](https://wiki.polkadot.network/learn/learn-polkadot-opengov/){target=\_blank}. In addition, despite `v` &#8593; on an `e` to `e` basis, over time, the amount of rewards each validator receives will equal out based on the continuous selection of para-validators.
+    Increased `v` is expected, and initially keeping `p` &#8595; using the same para-validator set for all parachains ensures [availability](https://spec.polkadot.network/chapter-anv){target=\_blank} and [voting](https://wiki.polkadot.com/learn/learn-polkadot-opengov/){target=\_blank}. In addition, despite `v` &#8593; on an `e` to `e` basis, over time, the amount of rewards each validator receives will equal out based on the continuous selection of para-validators.
 
     There are plans to scale the active para-validation set in the future.
 

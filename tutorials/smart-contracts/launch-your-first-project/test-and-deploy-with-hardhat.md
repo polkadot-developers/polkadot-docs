@@ -2,6 +2,7 @@
 title: Test and Deploy with Hardhat
 description: Learn how to set up a Hardhat development environment, write comprehensive tests for Solidity smart contracts, and deploy to local and Polkadot Hub networks.
 tutorial_badge: Intermediate
+categories: dApp, Tooling
 ---
 
 # Test and Deploy with Hardhat
@@ -16,10 +17,10 @@ After creating a smart contract, the next crucial steps are testing and deployme
 
 Before starting, make sure you have:
 
-- The [`Storage.sol` contract](/tutorials/smart-contracts/launch-your-first-project/create-contracts/#create-the-smart-contract){target=\_blank} created in the previous tutorial
-- [Node.js](https://nodejs.org/){target=\_blank} (v16.0.0 or later) and npm installed
-- Basic understanding of JavaScript for writing tests
-- Some PAS test tokens to cover transaction fees (obtained from the [Polkadot faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank})
+- The [`Storage.sol` contract](/tutorials/smart-contracts/launch-your-first-project/create-contracts/#create-the-smart-contract){target=\_blank} created in the previous tutorial.
+- [Node.js](https://nodejs.org/){target=\_blank} (v16.0.0 or later) and npm installed.
+- Basic understanding of JavaScript for writing tests.
+- Some PAS test tokens to cover transaction fees (obtained from the [Polkadot faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}).
 
 ## Setting Up the Development Environment
 
@@ -70,8 +71,8 @@ Let's start by setting up Hardhat for your Storage contract project:
 
     The configuration also defines two network settings: 
 
-    - `localNode` - runs a PolkaVM instance on `http://127.0.0.1:8545` for local development and testing
-    - `passetHub` - connects to the the Polkadot Hub TestNet network using a predefined RPC URL and a private key stored in environment variables
+    - **`localNode`**: Runs a PolkaVM instance on `http://127.0.0.1:8545` for local development and testing.
+    - **`passetHub`**: Connects to the the Polkadot Hub TestNet network using a predefined RPC URL and a private key stored in environment variables.
 
 7. Export your private key and save it in your Hardhat environment:
 
@@ -122,53 +123,53 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
 
     Now, you can add custom unit tests to check your contract functionality. Some example tests are available below:
 
-    a. **Initial state verification** - ensures that the contract starts with a default value of zero, which is a fundamental expectation for the `Storage.sol` contract
+    1. **Initial state verification**: Ensures that the contract starts with a default value of zero, which is a fundamental expectation for the `Storage.sol` contract.
 
-    ```javascript title="Storage.js"
-    --8<-- 'https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.8/storage-hardhat/test/Storage.js:20:22'
-    ```
+        ```javascript title="Storage.js"
+        --8<-- 'https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.8/storage-hardhat/test/Storage.js:20:22'
+        ```
 
-    Explanation:
+        Explanation:
 
-    - Checks the initial state of the contract
-    - Verifies that a newly deployed contract has a default value of 0
-    - Confirms the `retrieve()` method works correctly for a new contract
+        - Checks the initial state of the contract.
+        - Verifies that a newly deployed contract has a default value of 0.
+        - Confirms the `retrieve()` method works correctly for a new contract.
 
-    b. **Value storage test** - validate the core functionality of storing and retrieving a value in the contract
+    2. **Value storage test**: Validate the core functionality of storing and retrieving a value in the contract.
 
-    ```javascript title="Storage.js"
-    --8<-- 'https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.8/storage-hardhat/test/Storage.js:24:30'
-    ```
+        ```javascript title="Storage.js"
+        --8<-- 'https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.8/storage-hardhat/test/Storage.js:24:30'
+        ```
 
-    Explanation:
+        Explanation:
 
-    - Demonstrates the ability to store a specific value
-    - Checks that the stored value can be retrieved correctly
-    - Verifies the basic write and read functionality of the contract
+        - Demonstrates the ability to store a specific value.
+        - Checks that the stored value can be retrieved correctly.
+        - Verifies the basic write and read functionality of the contract.
 
-    c. **Event emission verification** - confirm that the contract emits the correct event when storing a value, which is crucial for off-chain tracking
+    3. **Event emission verification**: Confirm that the contract emits the correct event when storing a value, which is crucial for off-chain tracking.
 
-    ```javascript title="Storage.js"
-    --8<-- 'https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.8/storage-hardhat/test/Storage.js:32:38'
-    ```
+        ```javascript title="Storage.js"
+        --8<-- 'https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.8/storage-hardhat/test/Storage.js:32:38'
+        ```
 
-    Explanation:
+        Explanation:
 
-    - Ensures the `NumberChanged` event is emitted during storage
-    - Verifies that the event contains the correct stored value
-    - Validates the contract's event logging mechanism
+        - Ensures the `NumberChanged` event is emitted during storage.
+        - Verifies that the event contains the correct stored value.
+        - Validates the contract's event logging mechanism.
 
-    d. **Sequential value storage test** - check the contract's ability to store multiple values sequentially and maintain the most recent value
+    4. **Sequential value storage test**: Check the contract's ability to store multiple values sequentially and maintain the most recent value.
 
-    ```javascript title="Storage.js"
-    --8<-- 'https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.8/storage-hardhat/test/Storage.js:40:47'
-    ```
+        ```javascript title="Storage.js"
+        --8<-- 'https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.8/storage-hardhat/test/Storage.js:40:47'
+        ```
 
-    Explanation:
+        Explanation:
 
-    - Verifies that multiple values can be stored in sequence
-    - Confirms that each new store operation updates the contract's state
-    - Demonstrates the contract's ability always to reflect the most recently stored value
+        - Verifies that multiple values can be stored in sequence.
+        - Confirms that each new store operation updates the contract's state.
+        - Demonstrates the contract's ability always to reflect the most recently stored value.
 
     The complete `test/Storage.js` should look like this:
 
@@ -199,33 +200,33 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
 
 2. Deploy to the local network:
 
-    a. First, start a local node:
+    1. First, start a local node:
 
-    ```bash
-    npx hardhat node
-    ```
+        ```bash
+        npx hardhat node
+        ```
 
-    b. Then, in a new terminal window, deploy the contract:
+    2. Then, in a new terminal window, deploy the contract:
 
-    ```bash
-    npx hardhat ignition deploy ./ignition/modules/StorageModule.js --network localNode
-    ```
+        ```bash
+        npx hardhat ignition deploy ./ignition/modules/StorageModule.js --network localNode
+        ```
 
-    c. If successful, output similar to the following will display in your terminal:
+    3. If successful, output similar to the following will display in your terminal:
 
-    --8<-- 'code/tutorials/smart-contracts/launch-your-first-project/test-and-deploy-hardhat/local-deployment-output.html'
+        --8<-- 'code/tutorials/smart-contracts/launch-your-first-project/test-and-deploy-hardhat/local-deployment-output.html'
 
 3. Deploy to the Polkadot Hub TestNet:
 
-    a. Make sure your account has enough PAS tokens for gas fees, then run:
+    1. Make sure your account has enough PAS tokens for gas fees, then run:
 
-    ```bash
-    npx hardhat ignition deploy ./ignition/modules/StorageModule.js --network passetHub
-    ```
+        ```bash
+        npx hardhat ignition deploy ./ignition/modules/StorageModule.js --network passetHub
+        ```
 
-    b. After deployment, you'll see the contract address in the console output. Save this address for future interactions.
+    2. After deployment, you'll see the contract address in the console output. Save this address for future interactions.
 
-    --8<-- 'code/tutorials/smart-contracts/launch-your-first-project/test-and-deploy-hardhat/passet-deployment-output.html'
+        --8<-- 'code/tutorials/smart-contracts/launch-your-first-project/test-and-deploy-hardhat/passet-deployment-output.html'
 
 ## Interacting with Your Deployed Contract
 

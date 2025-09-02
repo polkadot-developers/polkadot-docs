@@ -2,6 +2,7 @@
 title: Deploy an NFT to Polkadot Hub
 description: Deploy an NFT on Polkadot Hub using PolkaVM and OpenZeppelin. Learn how to compile, deploy, and interact with your contract using Polkadot Remix IDE.
 tutorial_badge: Beginner
+categories: Basics, dApps, Smart Contracts
 ---
 
 # Deploy an NFT to Polkadot Hub
@@ -18,20 +19,20 @@ This tutorial guides you through deploying an [ERC-721](https://eips.ethereum.or
 
 Before starting, make sure you have:
 
-- [Talisman](https://talisman.xyz/){target=\_blank} installed and connected to the Polkadot Hub TestNet. Check the [Connect to Polkadot](/develop/smart-contracts/connect-to-polkadot/){target=\_blank} guide for more information
-- A funded account with some PAS tokens (you can get them from the [Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}, noting that the faucet imposes a daily token limit, which may require multiple requests to obtain sufficient funds for testing)
-- Basic understanding of Solidity and NFTs, see the [Solidity Basics](https://soliditylang.org/){target=\_blank} and the [NFT Overview](https://ethereum.org/en/nft/){target=\_blank} guides for more details
+- [Talisman](https://talisman.xyz/){target=\_blank} installed and connected to the Polkadot Hub TestNet. Check the [Connect to Polkadot](/develop/smart-contracts/connect-to-polkadot/){target=\_blank} guide for more information.
+- A funded account with some PAS tokens (you can get them from the [Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}, noting that the faucet imposes a daily token limit, which may require multiple requests to obtain sufficient funds for testing).
+- Basic understanding of Solidity and NFTs, see the [Solidity Basics](https://soliditylang.org/){target=\_blank} and the [NFT Overview](https://ethereum.org/en/nft/){target=\_blank} guides for more details.
 
 ## Create the NFT Contract
 
 To create the NFT contract, you can follow the steps below:
 
-1. Navigate to the [Polkadot Remix IDE](https://remix.polkadot.io/){target=\_blank}
-2. Click in the **Create new file** button under the **contracts** folder, and name your contract as `MyNFT.sol`
+1. Navigate to the [Polkadot Remix IDE](https://remix.polkadot.io/){target=\_blank}.
+2. Click in the **Create new file** button under the **contracts** folder, and name your contract as `MyNFT.sol`.
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-1.webp)
 
-3. Now, paste the following NFT contract code into the editor
+3. Now, paste the following NFT contract code into the editor.
 
     ```solidity title="MyNFT.sol"
     --8<-- 'https://raw.githubusercontent.com/polkadot-developers/polkavm-hardhat-examples/refs/tags/v0.0.4/erc721-hardhat/contracts/MyNFT.sol'
@@ -39,27 +40,27 @@ To create the NFT contract, you can follow the steps below:
 
     The key components of the code above are:
 
-    - Contract imports
+    - Contract imports:
 
-        - [**`ERC721.sol`**]({{ dependencies.repositories.open_zeppelin_contracts.repository_url }}/blob/{{ dependencies.repositories.open_zeppelin_contracts.version }}/contracts/token/ERC721/ERC721.sol){target=\_blank} - the base contract for non-fungible tokens, implementing core NFT functionality like transfers and approvals
-        - [**`Ownable.sol`**]({{ dependencies.repositories.open_zeppelin_contracts.repository_url }}/blob/{{ dependencies.repositories.open_zeppelin_contracts.version }}/contracts/access/Ownable.sol){target=\_blank} - provides basic authorization control, ensuring only the contract owner can mint new tokens
+        - **[`ERC721.sol`]({{ dependencies.repositories.open_zeppelin_contracts.repository_url }}/blob/{{ dependencies.repositories.open_zeppelin_contracts.version }}/contracts/token/ERC721/ERC721.sol){target=\_blank}**: The base contract for non-fungible tokens, implementing core NFT functionality like transfers and approvals.
+        - **[`Ownable.sol`]({{ dependencies.repositories.open_zeppelin_contracts.repository_url }}/blob/{{ dependencies.repositories.open_zeppelin_contracts.version }}/contracts/access/Ownable.sol){target=\_blank}**: Provides basic authorization control, ensuring only the contract owner can mint new tokens.
     
-    - Constructor parameters
+    - Constructor parameters:
 
-        - **`initialOwner`** - sets the address that will have administrative rights over the contract
-        - **`"MyToken"`** - the full name of your NFT collection
-        - **`"MTK"`** - the symbol representing your token in wallets and marketplaces
+        - **`initialOwner`**: Sets the address that will have administrative rights over the contract.
+        - **`"MyToken"`**: The full name of your NFT collection.
+        - **`"MTK"`**: The symbol representing your token in wallets and marketplaces.
 
-    - Key functions
+    - Key functions:
 
-        - [**`_safeMint(to, tokenId)`**]({{ dependencies.repositories.open_zeppelin_contracts.repository_url }}/blob/{{ dependencies.repositories.open_zeppelin_contracts.version }}/contracts/token/ERC721/ERC721.sol#L304){target=\_blank} - an internal function from `ERC721` that safely mints new tokens. It includes checks to ensure the recipient can handle `ERC721` tokens, with the `_nextTokenId` mechanism automatically generating unique sequential token IDs and the `onlyOwner` modifier restricting minting rights to the contract owner
+        - **[`_safeMint(to, tokenId)`]({{ dependencies.repositories.open_zeppelin_contracts.repository_url }}/blob/{{ dependencies.repositories.open_zeppelin_contracts.version }}/contracts/token/ERC721/ERC721.sol#L304){target=\_blank}**: An internal function from `ERC721` that safely mints new tokens. It includes checks to ensure the recipient can handle `ERC721` tokens, with the `_nextTokenId` mechanism automatically generating unique sequential token IDs and the `onlyOwner` modifier restricting minting rights to the contract owner.
         - Inherited [Standard ERC721](https://ethereum.org/en/developers/docs/standards/tokens/erc-721/){target=\_blank} functions provide a standardized set of methods that enable interoperability across different platforms, wallets, and marketplaces, ensuring that your NFT can be easily transferred, traded, and managed by any system that supports the `ERC721` standard:
-            - **`transferFrom(address from, address to, uint256 tokenId)`** - transfers a specific NFT from one address to another
-            - **`safeTransferFrom(address from, address to, uint256 tokenId)`** - safely transfers an NFT, including additional checks to prevent loss
-            - **`approve(address to, uint256 tokenId)`** - grants permission for another address to transfer a specific NFT
-            - **`setApprovalForAll(address operator, bool approved)`** - allows an address to manage all of the owner's NFTs
-            - **`balanceOf(address owner)`** - returns the number of NFTs owned by a specific address
-            - **`ownerOf(uint256 tokenId)`** - returns the current owner of a specific NFT
+            - **`transferFrom(address from, address to, uint256 tokenId)`**: Transfers a specific NFT from one address to another.
+            - **`safeTransferFrom(address from, address to, uint256 tokenId)`**: Safely transfers an NFT, including additional checks to prevent loss.
+            - **`approve(address to, uint256 tokenId)`**: Grants permission for another address to transfer a specific NFT.
+            - **`setApprovalForAll(address operator, bool approved)`**: Allows an address to manage all of the owner's NFTs.
+            - **`balanceOf(address owner)`**: Returns the number of NFTs owned by a specific address.
+            - **`ownerOf(uint256 tokenId)`**: Returns the current owner of a specific NFT.
 
     !!! tip
         Use the [OpenZeppelin Contracts Wizard](https://wizard.openzeppelin.com/){target=\_blank} to generate customized smart contracts quickly. Simply configure your contract, copy the generated code, and paste it into Polkadot Remix IDE for deployment. Below is an example of an ERC-721 token contract created with it:
@@ -71,15 +72,15 @@ To create the NFT contract, you can follow the steps below:
 
 Compilation is a stage that converts your Solidity source code into bytecode suitable for deployment on the blockchain. Throughout this process, the compiler examines your contract for syntax errors, verifies type safety, and produces machine-readable instructions for execution on the blockchain.
 
-1. Select the **Solidity Compiler** plugin from the left panel
+1. Select the **Solidity Compiler** plugin from the left panel.
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-3.webp)
 
-2. Click in the **Compile MyNFT.sol** button
+2. Click in the **Compile MyNFT.sol** button.
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-4.webp)
 
-3. If the compilation succeeded, you can see a green checkmark indicating success in the **Solidity Compiler** icon
+3. If the compilation succeeded, you can see a green checkmark indicating success in the **Solidity Compiler** icon.
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-5.webp)
 
@@ -87,23 +88,25 @@ Compilation is a stage that converts your Solidity source code into bytecode sui
 
 Deployment is the process of uploading your compiled smart contract to the blockchain, allowing for interaction. During deployment, you will instantiate your contract on the blockchain, which involves:
 
-1. Select the **Deploy & Run Transactions** plugin from the left panel
+1. Select the **Deploy & Run Transactions** plugin from the left panel.
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-6.webp)
 
-2. Configure the deployment settings
-    1. From the **ENVIRONMENT** dropdown, select **Injected Provider - Talisman** (check the [Deploying Contracts](/develop/smart-contracts/dev-environments/remix/#deploying-contracts){target=\_blank} section of the Remix IDE guide for more details)
-    2. From the **ACCOUNT** dropdown, select the account you want to use for the deploy
+2. Configure the deployment settings:
+
+    1. From the **ENVIRONMENT** dropdown, select **Injected Provider - Talisman** (check the [Deploying Contracts](/develop/smart-contracts/dev-environments/remix/#deploying-contracts){target=\_blank} section of the Remix IDE guide for more details).
+    2. From the **ACCOUNT** dropdown, select the account you want to use for the deploy.
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-7.webp)
 
-3. Configure the contract parameters
+3. Configure the contract parameters:
+
     1. Enter the address that will own the deployed NFT.
-    2. Click the **Deploy** button to initiate the deployment
+    2. Click the **Deploy** button to initiate the deployment.
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-8.webp)
 
-4. Talisman will pop up - review the transaction details. Click **Approve** to deploy your contract
+4. **Talisman will pop up**: Review the transaction details. Click **Approve** to deploy your contract.
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-9.webp){: .browser-extension}
 
@@ -117,20 +120,20 @@ Deployment is the process of uploading your compiled smart contract to the block
 
 Once deployed, you can interact with your contract through Remix:
 
-1. Find your contract under **Deployed/Unpinned Contracts**, and click it to expand the available methods for the contract
+1. Find your contract under **Deployed/Unpinned Contracts**, and click it to expand the available methods for the contract.
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-11.webp)
 
-2. To mint an NFT
+2. To mint an NFT:
 
-    1. Click on the contract to expand its associated methods
-    2. Expand the **safeMint** function
-    3. Enter the recipient address
-    4. Click **Transact**
+    1. Click on the contract to expand its associated methods.
+    2. Expand the **safeMint** function.
+    3. Enter the recipient address.
+    4. Click **Transact**.
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-12.webp)
 
-3. Click **Approve** to confirm the transaction in the Talisman popup
+3. Click **Approve** to confirm the transaction in the Talisman popup.
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-13.webp){: .browser-extension}
 

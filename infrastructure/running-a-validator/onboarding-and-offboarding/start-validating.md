@@ -1,6 +1,7 @@
 ---
 title: Start Validating
 description: Learn how to start validating on Polkadot by choosing a network, syncing your node, bonding DOT tokens, and activating your validator.
+categories: Infrastructure
 ---
 
 # Start Validating
@@ -62,6 +63,7 @@ If you'd like to speed up the process further, you can use a database snapshot. 
 - [Stakeworld](https://stakeworld.io/snapshot){target=\_blank}
 - [Polkachu](https://polkachu.com/substrate_snapshots){target=\_blank}
 - [Polkashots](https://polkashots.io/){target=\_blank}
+- [ITRocket](https://itrocket.net/services/mainnet/polkadot/#snapshot){target=\_blank}
 
 !!!warning
     Although snapshots are convenient, syncing from scratch is recommended for security purposes. If snapshots become corrupted and most nodes rely on them, the network could inadvertently run on a non-canonical chain.
@@ -139,7 +141,7 @@ This following sections will walk you through creating and managing a systemd se
 Ensure the following requirements are met before proceeding with the systemd setup:
 
 - Confirm your system meets the [requirements](/infrastructure/running-a-validator/requirements/){target=\_blank} for running a validator.
-- Ensure you meet the [minimum bond requirements](https://wiki.polkadot.network/general/chain-state-values/#minimum-validator-bond){target=\_blank} for validating.
+- Ensure you meet the [minimum bond requirements](https://wiki.polkadot.com/general/chain-state-values/#minimum-validator-bond){target=\_blank} for validating.
 - Verify the Polkadot binary is [installed](#install-the-polkadot-binaries).
 
 ### Create the Systemd Service File

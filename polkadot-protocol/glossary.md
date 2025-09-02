@@ -2,6 +2,7 @@
 title: Glossary
 description: Glossary of terms used within the Polkadot ecosystem, Polkadot SDK, its subsequent libraries, and other relevant Web3 terminology.
 template: root-subdirectory-page.html
+categories: Reference
 ---
 
 # Glossary
@@ -10,7 +11,7 @@ Key definitions, concepts, and terminology specific to the Polkadot ecosystem ar
 
 Additional glossaries from around the ecosystem you might find helpful:
 
-- [Polkadot Wiki Glossary](https://wiki.polkadot.network/general/glossary/){target=\_blank}
+- [Polkadot Wiki Glossary](https://wiki.polkadot.com/general/glossary){target=\_blank}
 - [Polkadot SDK Glossary](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/glossary/index.html){target=\_blank}
 
 ## Authority
@@ -69,7 +70,7 @@ A chain specification file defines the properties required to run a node in an a
 An [author](#block-author) of a [parachain](#parachain) network.
 They aren't [authorities](#authority) in themselves, as they require a [relay chain](#relay-chain) to coordinate [consensus](#consensus).
 
-More details are found on the [Polkadot Collator Wiki](https://wiki.polkadot.network/learn/learn-collator/){target=\_blank}.
+More details are found on the [Polkadot Collator Wiki](https://wiki.polkadot.com/learn/learn-collator/){target=\_blank}.
 
 ## Collective
 
@@ -215,7 +216,7 @@ A subsystem for managing keys for the purpose of producing new blocks.
 
 [Kusama](https://kusama.network/){target=\_blank} is a Polkadot SDK-based blockchain that implements a design similar to the [Polkadot](#polkadot) network.
 
-Kusama is a [canary](https://en.wiktionary.org/wiki/canary_in_a_coal_mine){target=\_blank} network and is referred to as [Polkadot's "wild cousin."](https://wiki.polkadot.network/learn/learn-comparisons-kusama/){target=\_blank}
+Kusama is a [canary](https://en.wiktionary.org/wiki/canary_in_a_coal_mine){target=\_blank} network and is referred to as [Polkadot's "wild cousin."](https://wiki.polkadot.com/learn/learn-comparisons-kusama/){target=\_blank}.
 
 As a canary network, Kusama is expected to be more stable than a test network like [Westend](#westend) but less stable than a production network like [Polkadot](#polkadot). Kusama is controlled by its network participants and is intended to be stable enough to encourage meaningful experimentation.
 
@@ -256,11 +257,11 @@ Pallets bundle domain-specific logic with runtime primitives like [events](#even
 ## Parachain
 
 A parachain is a blockchain that derives shared infrastructure and security from a _[relay chain](#relay-chain)_.
-You can learn more about parachains on the [Polkadot Wiki](https://wiki.polkadot.network/learn/learn-parachains/){target=\_blank}.
+You can learn more about parachains on the [Polkadot Wiki](https://wiki.polkadot.com/learn/learn-parachains/){target=\_blank}.
 
 ## Paseo
 
-Paseo TestNet provisions testing on Polkadot's "production" runtime, which means less chance of feature or code mismatch when developing parachain apps. Specifically, after the [Polkadot Technical fellowship](https://wiki.polkadot.network/learn/learn-polkadot-technical-fellowship/){target=\_blank} proposes a runtime upgrade for Polkadot, this TestNet is updated, giving a period where the TestNet will be ahead of Polkadot to allow for testing.
+Paseo TestNet provisions testing on Polkadot's "production" runtime, which means less chance of feature or code mismatch when developing parachain apps. Specifically, after the [Polkadot Technical fellowship](https://wiki.polkadot.com/learn/learn-polkadot-technical-fellowship/){target=\_blank} proposes a runtime upgrade for Polkadot, this TestNet is updated, giving a period where the TestNet will be ahead of Polkadot to allow for testing.
 
 ## Polkadot
 

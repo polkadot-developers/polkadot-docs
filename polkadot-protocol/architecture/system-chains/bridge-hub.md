@@ -1,6 +1,7 @@
 ---
 title: Bridge Hub
 description: Learn about the Bridge Hub system parachain, a parachain that facilitates the interactions from Polkadot to the rest of Web3.
+categories: Polkadot Protocol
 ---
 
 # Bridge Hub
@@ -36,9 +37,9 @@ To view the complete list of which pallets are included in Bridge Hub, visit the
 
 ## Deployed Bridges
 
-- **[Snowbridge](https://wiki.polkadot.network/learn/learn-snowbridge/){target=\_blank}**: A general-purpose, trustless bridge between Polkadot and Ethereum.
-- **[Hyperbridge](https://wiki.polkadot.network/learn/learn-hyperbridge/){target=\_blank}**: A cross-chain solution built as an interoperability coprocessor, providing state-proof-based interoperability across all blockchains.
-- **[Polkadot <> Kusama Bridge](https://wiki.polkadot.network/learn/learn-dot-ksm-bridge/){target=\_blank}**: A bridge that utilizes relayers to bridge the Polkadot and Kusama relay chains trustlessly.
+- [**Snowbridge**](https://wiki.polkadot.com/learn/learn-snowbridge/){target=\_blank}: A general-purpose, trustless bridge between Polkadot and Ethereum.
+- [**Hyperbridge**](https://wiki.polkadot.com/learn/learn-hyperbridge/){target=\_blank}: A cross-chain solution built as an interoperability coprocessor, providing state-proof-based interoperability across all blockchains.
+- [**Polkadot <> Kusama Bridge**](https://wiki.polkadot.com/learn/learn-dot-ksm-bridge/){target=\_blank}: A bridge that utilizes relayers to bridge the Polkadot and Kusama relay chains trustlessly.
 
 ## Where to Go Next
 

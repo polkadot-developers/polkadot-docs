@@ -1,6 +1,7 @@
 ---
 title: Mock Runtime for Pallet Testing
 description: Learn to create a mock environment in the Polkadot SDK for testing intra-pallet functionality and inter-pallet interactions seamlessly.
+categories: Parachains
 ---
 
 # Mock Runtime
@@ -14,7 +15,6 @@ Testing is essential in Polkadot SDK development to ensure your blockchain opera
 ### Testing Module
 
 The mock runtime includes all the necessary pallets and configurations needed for testing. To ensure proper testing, you must create a module that integrates all components, enabling assessment of interactions between pallets and system elements.
-
 
 Here's a simple example of how to create a testing module that simulates these interactions:
 

@@ -10,11 +10,11 @@ Chopsticks is a powerful tool that lets you create local copies of running Polka
 
 ## What Can I Do with Chopsticks?
 
-- Create local forks of live networks
-- Replay blocks to analyze behavior
-- Test XCM interactions
-- Simulate complex scenarios
-- Modify network storage and state
+- Create local forks of live networks.
+- Replay blocks to analyze behavior.
+- Test XCM interactions.
+- Simulate complex scenarios.
+- Modify network storage and state.
 
 Whether you're debugging an issue, testing new features, or exploring cross-chain interactions, Chopsticks provides a safe environment for blockchain experimentation and validation.
 

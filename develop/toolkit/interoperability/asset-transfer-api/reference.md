@@ -1,6 +1,7 @@
 ---
 title: Asset Transfer API Reference
 description: Explore the Asset Transfer API Reference for comprehensive details on methods, data types, and functionalities. Essential for cross-chain asset transfers.
+categories: Reference, Dapps
 ---
 
 # Asset Transfer API Reference
@@ -214,9 +215,9 @@ Fetch estimated fee information for an extrinsic.
 
         The `ConstructedFormat` type is a conditional type that returns a specific type based on the value of the TxResult `format` field.
 
-        - **Payload format** - if the format field is set to `'payload'`, the `ConstructedFormat` type will return a [`GenericExtrinsicPayload`](https://github.com/polkadot-js/api/blob/{{ dependencies.javascript_packages.asset_transfer_api.polkadot_js_api_version}}/packages/types/src/extrinsic/ExtrinsicPayload.ts#L87){target=\_blank}
-        - Call format - if the format field is set to `'call'`, the `ConstructedFormat` type will return a hexadecimal string (`0x${string}`). This is the encoded representation of the extrinsic call
-        - **Submittable format** - if the format field is set to `'submittable'`, the `ConstructedFormat` type will return a [`SubmittableExtrinsic`](https://github.com/polkadot-js/api/blob/{{dependencies.javascript_packages.asset_transfer_api.polkadot_js_api_version}}/packages/api-base/src/types/submittable.ts#L56){target=\_blank}. This is a Polkadot.js type that represents a transaction that can be submitted to the blockchain
+        - **Payload format**: If the format field is set to `'payload'`, the `ConstructedFormat` type will return a [`GenericExtrinsicPayload`](https://github.com/polkadot-js/api/blob/{{ dependencies.javascript_packages.asset_transfer_api.polkadot_js_api_version}}/packages/types/src/extrinsic/ExtrinsicPayload.ts#L87){target=\_blank}.
+        - **Call format**: If the format field is set to `'call'`, the `ConstructedFormat` type will return a hexadecimal string (`0x${string}`). This is the encoded representation of the extrinsic call.
+        - **Submittable format**: If the format field is set to `'submittable'`, the `ConstructedFormat` type will return a [`SubmittableExtrinsic`](https://github.com/polkadot-js/api/blob/{{dependencies.javascript_packages.asset_transfer_api.polkadot_js_api_version}}/packages/api-base/src/types/submittable.ts#L56){target=\_blank}. This is a Polkadot.js type that represents a transaction that can be submitted to the blockchain.
 
     ---
 
@@ -247,7 +248,6 @@ Fetch estimated fee information for an extrinsic.
         ```
 
         For more information on the underlying types and fields of `RuntimeDispatchInfo`, check the [`RuntimeDispatchInfo`](https://github.com/polkadot-js/api/blob/{{ dependencies.javascript_packages.asset_transfer_api.polkadot_js_api_version}}/packages/types/src/interfaces/payment/types.ts#L21){target=\_blank} source code.
-
 
     ??? child "Type `RuntimeDispatchInfoV1`"
 

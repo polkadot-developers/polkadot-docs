@@ -1,0 +1,4064 @@
+# Polkadot Developer Documentation (LLMS Format)
+
+This file contains documentation for Polkadot (https://docs.polkadot.com). Polkadot is an open-source, multichain network protocol that facilitates the secure communication and interoperability of various blockchains. It offers a scalable, sharded architecture that enables the creation of purpose-built chains and provides the necessary tooling for building decentralized applications (dApps) and smart contracts.
+It is intended for use with large language models (LLMs) to support developers working with Polkadot. The content includes selected pages from the official docs, organized by section.
+
+This file includes documentation related to the category: Reference
+
+## List of doc pages:
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/interoperability/xcm-config.md [type: develop]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/interoperability/xcm-runtime-apis.md [type: develop]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/smart-contracts/json-rpc-apis.md [type: develop]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/interoperability/asset-transfer-api/reference.md [type: develop]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/polkadot-protocol/glossary.md [type: other]
+
+## Full content for each doc page
+
+Doc-Content: https://docs.polkadot.com/develop/interoperability/xcm-config/
+--- BEGIN CONTENT ---
+---
+title: XCM Config
+description: Learn how the XCM Executor configuration works for your custom Polkadot SDK-based runtime with detailed guidance and references.
+categories: Reference, Polkadot Protocol
+---
+
+# XCM Config
+
+## Introduction
+
+The [XCM executor](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/index.html){target=\_blank} is a crucial component responsible for interpreting and executing XCM messages (XCMs) with Polkadot SDK-based chains. It processes and manages XCM instructions, ensuring they are executed correctly and in sequentially. Adhering to the [Cross-Consensus Virtual Machine (XCVM) specification](https://paritytech.github.io/xcm-docs/overview/xcvm.html#the-xcvm){target=\_blank}, the XCM executor can be customized or replaced with an alternative that also complies with the [XCVM standards](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#12-the-xcvm){target=\_blank}.
+
+The `XcmExecutor` is not a pallet but a struct parameterized by a `Config` trait. The `Config` trait is the inner configuration, parameterizing the outer `XcmExecutor<Config>` struct. Both configurations are set up within the runtime.
+
+The executor is highly configurable, with the [XCM builder](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_builder/index.html){target=\_blank} offering building blocks to tailor the configuration to specific needs. While they serve as a foundation, users can easily create custom blocks to suit unique configurations. Users can also create their building blocks to address unique needs. This article examines the XCM configuration process, explains each configurable item, and provides examples of the tools and types available to help customize these settings.
+
+## XCM Executor Configuration
+
+The `Config` trait defines the XCM executor’s configuration, which requires several associated types. Each type has specific trait bounds that the concrete implementation must fulfill. Some types, such as `RuntimeCall`, come with a default implementation in most cases, while others use the unit type `()` as the default. For many of these types, selecting the appropriate implementation carefully is crucial. Predefined solutions and building blocks can be adapted to your specific needs. These solutions can be found in the [`xcm-builder`](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}/polkadot/xcm/xcm-builder){target=\_blank} folder.
+
+Each type is explained below, along with an overview of some of its implementations:
+
+```rust
+pub trait Config {
+    type RuntimeCall: Parameter + Dispatchable<PostInfo = PostDispatchInfo> + GetDispatchInfo;
+    type XcmSender: SendXcm;
+    type AssetTransactor: TransactAsset;
+    type OriginConverter: ConvertOrigin<<Self::RuntimeCall as Dispatchable>::RuntimeOrigin>;
+    type IsReserve: ContainsPair<MultiAsset, MultiLocation>;
+    type IsTeleporter: ContainsPair<MultiAsset, MultiLocation>;
+    type Aliasers: ContainsPair<Location, Location>;
+    type UniversalLocation: Get<InteriorMultiLocation>;
+    type Barrier: ShouldExecute;
+    type Weigher: WeightBounds<Self::RuntimeCall>;
+    type Trader: WeightTrader;
+    type ResponseHandler: OnResponse;
+    type AssetTrap: DropAssets;
+    type AssetClaims: ClaimAssets;
+    type AssetLocker: AssetLock;
+    type AssetExchanger: AssetExchange;
+    type SubscriptionService: VersionChangeNotifier;
+    type PalletInstancesInfo: PalletsInfoAccess;
+    type MaxAssetsIntoHolding: Get<u32>;
+    type FeeManager: FeeManager;
+    type MessageExporter: ExportXcm;
+    type UniversalAliases: Contains<(MultiLocation, Junction)>;
+    type CallDispatcher: CallDispatcher<Self::RuntimeCall>;
+    type SafeCallFilter: Contains<Self::RuntimeCall>;
+    type TransactionalProcessor: ProcessTransaction;
+    type HrmpNewChannelOpenRequestHandler: HandleHrmpNewChannelOpenRequest;
+    type HrmpChannelAcceptedHandler: HandleHrmpChannelAccepted;
+    type HrmpChannelClosingHandler: HandleHrmpChannelClosing;
+    type XcmRecorder: RecordXcm;
+}
+```
+
+## Config Items
+
+Each configuration item is explained below, detailing the associated type’s purpose and role in the XCM executor. Many of these types have predefined solutions available in the `xcm-builder`. Therefore, the available configuration items are:
+
+- **[`RuntimeCall`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.RuntimeCall){target=\_blank}**: Defines the runtime's callable functions, created via the [`frame::runtime`](https://paritytech.github.io/polkadot-sdk/master/frame_support/attr.runtime.html){target=\_blank} macro. It represents an enum listing the callable functions of all implemented pallets.
+
+    ```rust
+    type RuntimeCall: Parameter + Dispatchable<PostInfo = PostDispatchInfo> + GetDispatchInfo
+    ```
+   The associated traits signify:
+
+    - **`Parameter`**: Ensures the type is encodable, decodable, and usable as a parameter.
+    - **`Dispatchable`**: Indicates it can be executed in the runtime.
+    - **`GetDispatchInfo`**: Provides weight details, determining how long execution takes.
+
+- **[`XcmSender`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.XcmSender){target=\_blank}**: Implements the [`SendXcm`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm/v4/trait.SendXcm.html){target=\_blank} trait, specifying how the executor sends XCMs using transport layers (e.g., UMP for relay chains or XCMP for sibling chains). If a runtime lacks certain transport layers, such as [HRMP](https://wiki.polkadot.com/learn/learn-xcm-transport/#hrmp-xcmp-lite){target=\_blank} (or [XCMP](https://wiki.polkadot.com/learn/learn-xcm-transport/#xcmp-cross-consensus-message-passing-design-summary){target=\_blank}).
+
+    ```rust
+    type XcmSender: SendXcm;
+    ```
+
+- **[`AssetTransactor`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.AssetTransactor){target=\_blank}**: Implements the [`TransactAsset`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/traits/trait.TransactAsset.html){target=\_blank} trait, handling the conversion and transfer of MultiAssets between accounts or registers. It can be configured to support native tokens, fungibles, and non-fungibles or multiple tokens using pre-defined adapters like [`FungibleAdapter`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_builder/struct.FungibleAdapter.html){target=\_blank} or custom solutions.
+
+    ```rust
+    type AssetTransactor: TransactAsset;
+    ```
+
+- **[`OriginConverter`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.OriginConverter){target=\_blank}**: Implements the [`ConvertOrigin`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/traits/trait.ConvertOrigin.html){target=\_blank} trait to map `MultiLocation` origins to `RuntimeOrigin`. Multiple implementations can be combined, and [`OriginKind`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_builder/test_utils/enum.OriginKind.html){target=\_blank} is used to resolve conflicts. Pre-defined converters like [`SovereignSignedViaLocation`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_builder/struct.SovereignSignedViaLocation.html){target=\_blank} and [`SignedAccountId32AsNative`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_builder/struct.SignedAccountId32AsNative.html){target=\_blank} handle sovereign and local accounts respectively.
+
+    ```rust
+    type OriginConverter: ConvertOrigin<<Self::RuntimeCall as Dispatchable>::RuntimeOrigin>;
+    ```
+
+- **[`IsReserve`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.IsReserve){target=\_blank}**: Specifies trusted `<MultiAsset, MultiLocation>` pairs for depositing reserve assets. Using the unit type `()` blocks reserve deposits. The [`NativeAsset`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_builder/struct.NativeAsset.html){target=\_blank} struct is an example of a reserve implementation.
+
+    ```rust
+    type IsReserve: ContainsPair<MultiAsset, MultiLocation>;
+    ```
+
+- **[`IsTeleporter`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.IsTeleporter){target=\_blank}**: Defines trusted `<MultiAsset, MultiLocation>` pairs for teleporting assets to the chain. Using `()` blocks the [`ReceiveTeleportedAssets`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_builder/test_utils/enum.Instruction.html#variant.ReceiveTeleportedAsset){target=\_blank} instruction. The [`NativeAsset`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_builder/struct.NativeAsset.html){target=\_blank} struct can act as an implementation.
+
+    ```rust
+    type IsTeleporter: ContainsPair<MultiAsset, MultiLocation>;
+    ```
+
+- **[`Aliasers`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.Aliasers){target=\_blank}**: A list of `(Origin, Target)` pairs enabling each `Origin` to be replaced with its corresponding `Target`.
+
+    ```rust
+    type Aliasers: ContainsPair<Location, Location>;
+    ```
+
+- **[`UniversalLocation`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.UniversalLocation){target=\_blank}**: Specifies the runtime's location in the consensus universe.
+
+    ```rust
+    type UniversalLocation: Get<InteriorMultiLocation>;
+    ```
+
+    - Some examples are:
+        - `X1(GlobalConsensus(NetworkId::Polkadot))` for Polkadot
+        - `X1(GlobalConsensus(NetworkId::Kusama))` for Kusama
+        - `X2(GlobalConsensus(NetworkId::Polkadot), Parachain(1000))` for Statemint
+
+- **[`Barrier`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.Barrier){target=\_blank}**: Implements the [`ShouldExecute`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/traits/trait.ShouldExecute.html){target=\_blank} trait, functioning as a firewall for XCM execution. Multiple barriers can be combined in a tuple, where execution halts if one succeeds.
+
+    ```rust
+    type Barrier: ShouldExecute;
+    ```
+
+- **[`Weigher`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.Weigher){target=\_blank}**: Calculates the weight of XCMs and instructions, enforcing limits and refunding unused weight. Common solutions include [`FixedWeightBounds`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_builder/struct.FixedWeightBounds.html){target=\_blank}, which uses a base weight and limits on instructions.
+
+    ```rust
+    type Weigher: WeightBounds<Self::RuntimeCall>;
+    ```
+
+- **[`Trader`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.Trader){target=\_blank}**: Manages asset-based weight purchases and refunds for `BuyExecution` instructions. The [`UsingComponents`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_builder/struct.UsingComponents.html){target=\_blank} trader is a common implementation.
+
+    ```rust
+    type Trader: WeightTrader;
+    ```
+
+- **[`ResponseHandler`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.ResponseHandler){target=\_blank}**: Handles `QueryResponse` instructions, implementing the [`OnResponse`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/traits/trait.OnResponse.html){target=\_blank} trait. FRAME systems typically use the pallet-xcm implementation.
+
+    ```rust
+    type ResponseHandler: OnResponse;
+    ```
+
+- **[`AssetTrap`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.AssetTrap){target=\_blank}**: Handles leftover assets in the holding register after XCM execution, allowing them to be claimed via `ClaimAsset`. If unsupported, assets are burned.
+
+    ```rust
+    type AssetTrap: DropAssets;
+    ```
+
+- **[`AssetClaims`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.AssetClaims){target=\_blank}**: Facilitates the claiming of trapped assets during the execution of the `ClaimAsset` instruction. Commonly implemented via pallet-xcm.
+
+    ```rust
+    type AssetClaims: ClaimAssets;
+    ```
+
+- **[`AssetLocker`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.AssetLocker){target=\_blank}**: Handles the locking and unlocking of assets. Can be omitted using `()` if asset locking is unnecessary.
+
+    ```rust
+    type AssetLocker: AssetLock;
+    ```
+
+- **[`AssetExchanger`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.AssetExchanger){target=\_blank}**: Implements the [`AssetExchange`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/traits/trait.AssetExchange.html){target=\_blank} trait to manage asset exchanges during the `ExchangeAsset` instruction. The unit type `()` disables this functionality.
+
+    ```rust
+    type AssetExchanger: AssetExchange;
+    ```
+
+- **[`SubscriptionService`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.SubscriptionService){target=\_blank}**: Manages `(Un)SubscribeVersion` instructions and returns the XCM version via `QueryResponse`. Typically implemented by pallet-xcm.
+
+    ```rust
+    type SubscriptionService: VersionChangeNotifier;
+    ```
+
+- **[`PalletInstancesInfo`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.PalletInstancesInfo){target=\_blank}**: Provides runtime pallet information for `QueryPallet` and `ExpectPallet` instructions. FRAME-specific systems often use this, or it can be disabled with `()`.
+
+    ```rust
+    type PalletInstancesInfo: PalletsInfoAccess;
+    ```
+
+ <!-- I think `Holding Register` should be linked to https://wiki.polkadot.network/docs/learn/xcm/reference-glossary#holding-register, but since we will have our own glossary, I’m putting this as a TODO -->
+- [**`MaxAssetsIntoHolding`**](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.MaxAssetsIntoHolding){target=\_blank}: Limits the number of assets in the [Holding register](https://wiki.polkadot.com/learn/learn-xcm/#holding-register){target=\_blank}. At most, twice this limit can be held under worst-case conditions.
+    ```rust
+    type MaxAssetsIntoHolding: Get<u32>;
+    ```
+
+- **[`FeeManager`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.FeeManager){target=\_blank}**: Manages fees for XCM instructions, determining whether fees should be paid, waived, or handled in specific ways. Fees can be waived entirely using `()`.
+
+    ```rust
+    type FeeManager: FeeManager;
+    ```
+
+- **[`MessageExporter`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.MessageExporter){target=\_blank}**: Implements the [`ExportXcm`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/traits/trait.ExportXcm.html){target=\_blank} trait, enabling XCMs export to other consensus systems. It can spoof origins for use in bridges. Use `()` to disable exporting.
+
+    ```rust
+    type MessageExporter: ExportXcm;
+    ```
+
+- **[`UniversalAliases`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.UniversalAliases){target=\_blank}**: Lists origin locations and universal junctions allowed to elevate themselves in the `UniversalOrigin` instruction. Using `Nothing` prevents origin aliasing.
+
+    ```rust
+    type UniversalAliases: Contains<(MultiLocation, Junction)>;
+    ```
+
+- **[`CallDispatcher`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.CallDispatcher){target=\_blank}**: Dispatches calls from the `Transact` instruction, adapting the origin or modifying the call as needed. Can default to `RuntimeCall`.
+
+    ```rust
+    type CallDispatcher: CallDispatcher<Self::RuntimeCall>;
+    ```
+
+- **[`SafeCallFilter`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.SafeCallFilter){target=\_blank}**: Whitelists calls permitted in the `Transact` instruction. Using `Everything` allows all calls, though this is temporary until proof size weights are accounted for.
+
+    ```rust
+    type SafeCallFilter: Contains<Self::RuntimeCall>;
+    ```
+
+- **[`TransactionalProcessor`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.TransactionalProcessor){target=\_blank}**: Implements the [`ProccessTransaction`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/traits/trait.ProcessTransaction.html){target=\_blank} trait. It ensures that XCM instructions are executed atomically, meaning they either fully succeed or fully fail without any partial effects. This type allows for non-transactional XCM instruction processing by setting the `()` type.
+
+    ```rust
+    type TransactionalProcessor: ProcessTransaction;
+    ```
+
+- **[`HrmpNewChannelOpenRequestHandler`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.HrmpNewChannelOpenRequestHandler){target=\_blank}**: Enables optional logic execution in response to the `HrmpNewChannelOpenRequest` XCM notification.
+
+    ```rust
+    type HrmpNewChannelOpenRequestHandler: HandleHrmpNewChannelOpenRequest;
+    ```
+
+- **[`HrmpChannelAcceptedHandler`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.HrmpChannelAcceptedHandler){target=\_blank}**: Enables optional logic execution in response to the `HrmpChannelAccepted` XCM notification.
+
+    ```rust
+    type HrmpChannelAcceptedHandler: HandleHrmpChannelAccepted;
+    ```
+
+- **[`HrmpChannelClosingHandler`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.HrmpChannelClosingHandler){target=\_blank}**: Enables optional logic execution in response to the `HrmpChannelClosing` XCM notification.
+
+    ```rust
+    type HrmpChannelClosingHandler: HandleHrmpChannelClosing;
+    ```
+
+- **[`XcmRecorder`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/trait.Config.html#associatedtype.XcmRecorder){target=\_blank}**: Allows tracking of the most recently executed XCM, primarily for use with dry-run runtime APIs.
+
+    ```rust
+    type XcmRecorder: RecordXcm;
+    ```
+
+### Inner Config
+
+The `Config` trait underpins the `XcmExecutor`, defining its core behavior through associated types for asset handling, XCM processing, and permission management. These types are categorized as follows:
+
+- **Handlers**: Manage XCMs sending, asset transactions, and special notifications.
+- **Filters**: Define trusted combinations, origin substitutions, and execution barriers.
+- **Converters**: Handle origin conversion for call execution.
+- **Accessors**: Provide weight determination and pallet information.
+- **Constants**: Specify universal locations and asset limits.
+- **Common Configs**: Include shared settings like `RuntimeCall`.
+
+The following diagram outlines this categorization:
+
+```mermaid
+flowchart LR
+    A[Inner Config] --> B[Handlers]
+    A --> C[Filters]
+    A --> D[Converters]
+    A --> E[Accessors]
+    A --> F[Constants]
+    A --> G[Common Configs]
+
+    B --> H[XcmSender]
+    B --> I[AssetTransactor]
+    B --> J[Trader]
+    B --> K[ResponseHandler]
+    B --> L[AssetTrap]
+    B --> M[AssetLocker]
+    B --> N[AssetExchanger]
+    B --> O[AssetClaims]
+    B --> P[SubscriptionService]
+    B --> Q[FeeManager]
+    B --> R[MessageExporter]
+    B --> S[CallDispatcher]
+    B --> T[HrmpNewChannelOpenRequestHandler]
+    B --> U[HrmpChannelAcceptedHandler]
+    B --> V[HrmpChannelClosingHandler]
+
+    C --> W[IsReserve]
+    C --> X[IsTeleporter]
+    C --> Y[Aliasers]
+    C --> Z[Barrier]
+    C --> AA[UniversalAliases]
+    C --> AB[SafeCallFilter]
+
+    D --> AC[OriginConverter]
+
+    E --> AD[Weigher]
+    E --> AE[PalletInstancesInfo]
+
+    F --> AF[UniversalLocation]
+    F --> AG[MaxAssetsIntoHolding]
+
+    G --> AH[RuntimeCall]
+```
+
+### Outer Config
+
+The `XcmExecutor<Config>` struct extends the functionality of the inner config by introducing fields for execution context, asset handling, error tracking, and operational management. For further details, see the documentation for [`XcmExecutor<Config>`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_executor/struct.XcmExecutor.html#impl-XcmExecutor%3CConfig%3E){target=\_blank}.
+
+## Multiple Implementations
+
+Some associated types in the `Config` trait are highly configurable and may have multiple implementations (e.g., Barrier). These implementations are organized into a tuple `(impl_1, impl_2, ..., impl_n)`, and the execution follows a sequential order. Each item in the tuple is evaluated individually, each being checked to see if it fails. If an item passes (e.g., returns `Ok` or `true`), the execution stops, and the remaining items are not evaluated. The following example of the `Barrier` type demonstrates how this grouping operates (understanding each item in the tuple is unnecessary for this explanation).
+
+In the following example, the system will first check the `TakeWeightCredit` type when evaluating the barrier. If it fails, it will check `AllowTopLevelPaidExecutionFrom`, and so on, until one of them returns a positive result. If all checks fail, a Barrier error will be triggered.
+
+```rust
+pub type Barrier = (
+    TakeWeightCredit,
+    AllowTopLevelPaidExecutionFrom<Everything>,
+    AllowKnownQueryResponses<XcmPallet>,
+    AllowSubscriptionsFrom<Everything>,
+);
+
+pub struct XcmConfig;
+impl xcm_executor::Config for XcmConfig {
+    ...
+    type Barrier = Barrier;
+    ...
+}
+```
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/develop/interoperability/xcm-runtime-apis/
+--- BEGIN CONTENT ---
+---
+title: XCM Runtime APIs
+description: Learn about XCM Runtime APIs in Polkadot for cross-chain communication. Explore the APIs to simulate and test XCM messages before execution on the network.
+categories: Reference, Polkadot Protocol
+---
+
+# XCM Runtime APIs
+
+## Introduction
+
+Runtime APIs allow node-side code to extract information from the runtime state. While simple storage access retrieves stored values directly, runtime APIs enable arbitrary computation, making them a powerful tool for interacting with the chain's state.
+
+Unlike direct storage access, runtime APIs can derive values from storage based on arguments or perform computations that don't require storage access. For example, a runtime API might expose a formula for fee calculation, using only the provided arguments as inputs rather than fetching data from storage.
+
+In general, runtime APIs are used for:
+
+- Accessing a storage item.
+- Retrieving a bundle of related storage items.
+- Deriving a value from storage based on arguments.
+- Exposing formulas for complex computational calculations.
+
+This section will teach you about specific runtime APIs that support XCM processing and manipulation.
+
+## Dry Run API
+
+The [Dry-run API](https://paritytech.github.io/polkadot-sdk/master/xcm_runtime_apis/dry_run/trait.DryRunApi.html){target=\_blank}, given an extrinsic, or an XCM program, returns its effects:
+
+- Execution result
+- Local XCM (in the case of an extrinsic)
+- Forwarded XCMs
+- List of events
+
+This API can be used independently for dry-running, double-checking, or testing. However, it mainly shines when used with the [Xcm Payment API](#xcm-payment-api), given that it only estimates fees if you know the specific XCM you want to execute or send.
+
+### Dry Run Call
+
+This API allows a dry-run of any extrinsic and obtaining the outcome if it fails or succeeds, as well as the local xcm and remote xcm messages sent to other chains.
+
+```rust
+fn dry_run_call(origin: OriginCaller, call: Call, result_xcms_version: XcmVersion) -> Result<CallDryRunEffects<Event>, Error>;
+```
+
+??? interface "Input parameters"
+
+    `origin` ++"OriginCaller"++ <span class="required" markdown>++"required"++</span>
+    
+    The origin used for executing the transaction.
+
+    ---
+
+    `call` ++"Call"++ <span class="required" markdown>++"required"++</span>
+
+    The extrinsic to be executed.
+
+    ---
+
+??? interface "Output parameters"
+
+    ++"Result<CallDryRunEffects<Event>, Error>"++
+
+    Effects of dry-running an extrinsic. If an error occurs, it is returned instead of the effects.
+
+    ??? child "Type `CallDryRunEffects<Event>`"
+
+        `execution_result` ++"DispatchResultWithPostInfo"++
+
+        The result of executing the extrinsic.
+
+        ---
+
+        `emitted_events` ++"Vec<Event>"++
+
+        The list of events fired by the extrinsic.
+
+        ---
+
+        `local_xcm` ++"Option<VersionedXcm<()>>"++
+
+        The local XCM that was attempted to be executed, if any.
+
+        ---
+
+        `forwarded_xcms` ++"Vec<(VersionedLocation, Vec<VersionedXcm<()>>)>"++
+
+        The list of XCMs that were queued for sending.
+
+    ??? child "Type `Error`"
+
+        Enum:
+
+        - **`Unimplemented`**: An API part is unsupported.
+        - **`VersionedConversionFailed`**: Converting a versioned data structure from one version to another failed.
+
+??? interface "Example"
+
+    This example demonstrates how to simulate a cross-chain asset transfer from the Paseo network to the Pop Network using a [reserve transfer](https://wiki.polkadot.com/learn/learn-xcm-usecases/#reserve-asset-transfer){target=\_blank} mechanism. Instead of executing the actual transfer, the code shows how to test and verify the transaction's behavior through a dry run before performing it on the live network.
+
+    Replace `INSERT_USER_ADDRESS` with your SS58 address before running the script.
+
+    ***Usage with PAPI***
+
+    ```js
+    import { paseo } from '@polkadot-api/descriptors';
+import { createClient } from 'polkadot-api';
+import { getWsProvider } from 'polkadot-api/ws-provider/web';
+import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
+import {
+  PolkadotRuntimeOriginCaller,
+  XcmVersionedLocation,
+  XcmVersionedAssets,
+  XcmV3Junction,
+  XcmV3Junctions,
+  XcmV3WeightLimit,
+  XcmV3MultiassetFungibility,
+  XcmV3MultiassetAssetId,
+} from '@polkadot-api/descriptors';
+import { DispatchRawOrigin } from '@polkadot-api/descriptors';
+import { Binary } from 'polkadot-api';
+import { ss58Decode } from '@polkadot-labs/hdkd-helpers';
+
+// Connect to the Paseo relay chain
+const client = createClient(
+  withPolkadotSdkCompat(getWsProvider('wss://paseo-rpc.dwellir.com')),
+);
+
+const paseoApi = client.getTypedApi(paseo);
+
+const popParaID = 4001;
+const userAddress = 'INSERT_USER_ADDRESS';
+const userPublicKey = ss58Decode(userAddress)[0];
+const idBeneficiary = Binary.fromBytes(userPublicKey);
+
+// Define the origin caller
+// This is a regular signed account owned by a user
+let origin = PolkadotRuntimeOriginCaller.system(
+  DispatchRawOrigin.Signed(userAddress),
+);
+
+// Define a transaction to transfer assets from Polkadot to Pop Network using a Reserve Transfer
+const tx = paseoApi.tx.XcmPallet.limited_reserve_transfer_assets({
+  dest: XcmVersionedLocation.V3({
+    parents: 0,
+    interior: XcmV3Junctions.X1(
+      XcmV3Junction.Parachain(popParaID), // Destination is the Pop Network parachain
+    ),
+  }),
+  beneficiary: XcmVersionedLocation.V3({
+    parents: 0,
+    interior: XcmV3Junctions.X1(
+      XcmV3Junction.AccountId32({
+        // Beneficiary address on Pop Network
+        network: undefined,
+        id: idBeneficiary,
+      }),
+    ),
+  }),
+  assets: XcmVersionedAssets.V3([
+    {
+      id: XcmV3MultiassetAssetId.Concrete({
+        parents: 0,
+        interior: XcmV3Junctions.Here(), // Native asset from the sender. In this case PAS
+      }),
+      fun: XcmV3MultiassetFungibility.Fungible(120000000000n), // Asset amount to transfer
+    },
+  ]),
+  fee_asset_item: 0, // Asset used to pay transaction fees
+  weight_limit: XcmV3WeightLimit.Unlimited(), // No weight limit on transaction
+});
+
+// Execute the dry run call to simulate the transaction
+const dryRunResult = await paseoApi.apis.DryRunApi.dry_run_call(
+  origin,
+  tx.decodedCall,
+);
+
+// Extract the data from the dry run result
+const {
+  execution_result: executionResult,
+  emitted_events: emmittedEvents,
+  local_xcm: localXcm,
+  forwarded_xcms: forwardedXcms,
+} = dryRunResult.value;
+
+// Extract the XCM generated by this call
+const xcmsToPop = forwardedXcms.find(
+  ([location, _]) =>
+    location.type === 'V4' &&
+    location.value.parents === 0 &&
+    location.value.interior.type === 'X1' &&
+    location.value.interior.value.type === 'Parachain' &&
+    location.value.interior.value.value === popParaID, // Pop network's ParaID
+);
+const destination = xcmsToPop[0];
+const remoteXcm = xcmsToPop[1][0];
+
+// Print the results
+const resultObject = {
+  execution_result: executionResult,
+  emitted_events: emmittedEvents,
+  local_xcm: localXcm,
+  destination: destination,
+  remote_xcm: remoteXcm,
+};
+
+console.dir(resultObject, { depth: null });
+
+client.destroy();
+    ```
+
+    ***Output***
+
+    <div id="termynal" data-termynal>
+  <pre>
+    {
+      execution_result: {
+        success: true,
+        value: {
+          actual_weight: undefined,
+          pays_fee: { type: 'Yes', value: undefined }
+        }
+      },
+      emitted_events: [
+        {
+          type: 'Balances',
+          value: {
+            type: 'Transfer',
+            value: {
+              from: '12pGtwHPL4tUAUcyeCoJ783NKRspztpWmXv4uxYRwiEnYNET',
+              to: '13YMK2ePPKQeW7ynqLozB65WYjMnNgffQ9uR4AzyGmqnKeLq',
+              amount: 120000000000n
+            }
+          }
+        },
+        {
+          type: 'Balances',
+          value: { type: 'Issued', value: { amount: 0n } }
+        },
+        {
+          type: 'XcmPallet',
+          value: {
+            type: 'Attempted',
+            value: {
+              outcome: {
+                type: 'Complete',
+                value: { used: { ref_time: 251861000n, proof_size: 6196n } }
+              }
+            }
+          }
+        },
+        {
+          type: 'Balances',
+          value: {
+            type: 'Burned',
+            value: {
+              who: '12pGtwHPL4tUAUcyeCoJ783NKRspztpWmXv4uxYRwiEnYNET',
+              amount: 397000000n
+            }
+          }
+        },
+        {
+          type: 'Balances',
+          value: {
+            type: 'Minted',
+            value: {
+              who: '13UVJyLnbVp9RBZYFwFGyDvVd1y27Tt8tkntv6Q7JVPhFsTB',
+              amount: 397000000n
+            }
+          }
+        },
+        {
+          type: 'XcmPallet',
+          value: {
+            type: 'FeesPaid',
+            value: {
+              paying: {
+                parents: 0,
+                interior: {
+                  type: 'X1',
+                  value: {
+                    type: 'AccountId32',
+                    value: {
+                      network: { type: 'Polkadot', value: undefined },
+                      id: FixedSizeBinary {
+                        asText: [Function (anonymous)],
+                        asHex: [Function (anonymous)],
+                        asOpaqueHex: [Function (anonymous)],
+                        asBytes: [Function (anonymous)],
+                        asOpaqueBytes: [Function (anonymous)]
+                      }
+                    }
+                  }
+                }
+              },
+              fees: [
+                {
+                  id: {
+                    parents: 0,
+                    interior: { type: 'Here', value: undefined }
+                  },
+                  fun: { type: 'Fungible', value: 397000000n }
+                }
+              ]
+            }
+          }
+        },
+        {
+          type: 'XcmPallet',
+          value: {
+            type: 'Sent',
+            value: {
+              origin: {
+                parents: 0,
+                interior: {
+                  type: 'X1',
+                  value: {
+                    type: 'AccountId32',
+                    value: {
+                      network: { type: 'Polkadot', value: undefined },
+                      id: FixedSizeBinary {
+                        asText: [Function (anonymous)],
+                        asHex: [Function (anonymous)],
+                        asOpaqueHex: [Function (anonymous)],
+                        asBytes: [Function (anonymous)],
+                        asOpaqueBytes: [Function (anonymous)]
+                      }
+                    }
+                  }
+                }
+              },
+              destination: {
+                parents: 0,
+                interior: { type: 'X1', value: { type: 'Parachain', value: 4001 } }
+              },
+              message: [
+                {
+                  type: 'ReserveAssetDeposited',
+                  value: [
+                    {
+                      id: {
+                        parents: 1,
+                        interior: { type: 'Here', value: undefined }
+                      },
+                      fun: { type: 'Fungible', value: 120000000000n }
+                    }
+                  ]
+                },
+                { type: 'ClearOrigin', value: undefined },
+                {
+                  type: 'BuyExecution',
+                  value: {
+                    fees: {
+                      id: {
+                        parents: 1,
+                        interior: { type: 'Here', value: undefined }
+                      },
+                      fun: { type: 'Fungible', value: 120000000000n }
+                    },
+                    weight_limit: { type: 'Unlimited', value: undefined }
+                  }
+                },
+                {
+                  type: 'DepositAsset',
+                  value: {
+                    assets: {
+                      type: 'Wild',
+                      value: { type: 'AllCounted', value: 1 }
+                    },
+                    beneficiary: {
+                      parents: 0,
+                      interior: {
+                        type: 'X1',
+                        value: {
+                          type: 'AccountId32',
+                          value: {
+                            network: undefined,
+                            id: FixedSizeBinary {
+                              asText: [Function (anonymous)],
+                              asHex: [Function (anonymous)],
+                              asOpaqueHex: [Function (anonymous)],
+                              asBytes: [Function (anonymous)],
+                              asOpaqueBytes: [Function (anonymous)]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              ],
+              message_id: FixedSizeBinary {
+                asText: [Function (anonymous)],
+                asHex: [Function (anonymous)],
+                asOpaqueHex: [Function (anonymous)],
+                asBytes: [Function (anonymous)],
+                asOpaqueBytes: [Function (anonymous)]
+              }
+            }
+          }
+        }
+      ],
+      local_xcm: undefined,
+      destination: {
+        type: 'V4',
+        value: {
+          parents: 0,
+          interior: { type: 'X1', value: { type: 'Parachain', value: 4001 } }
+        }
+      },
+      remote_xcm: {
+        type: 'V3',
+        value: [
+          {
+            type: 'ReserveAssetDeposited',
+            value: [
+              {
+                id: {
+                  type: 'Concrete',
+                  value: {
+                    parents: 1,
+                    interior: { type: 'Here', value: undefined }
+                  }
+                },
+                fun: { type: 'Fungible', value: 120000000000n }
+              }
+            ]
+          },
+          { type: 'ClearOrigin', value: undefined },
+          {
+            type: 'BuyExecution',
+            value: {
+              fees: {
+                id: {
+                  type: 'Concrete',
+                  value: {
+                    parents: 1,
+                    interior: { type: 'Here', value: undefined }
+                  }
+                },
+                fun: { type: 'Fungible', value: 120000000000n }
+              },
+              weight_limit: { type: 'Unlimited', value: undefined }
+            }
+          },
+          {
+            type: 'DepositAsset',
+            value: {
+              assets: { type: 'Wild', value: { type: 'AllCounted', value: 1 } },
+              beneficiary: {
+                parents: 0,
+                interior: {
+                  type: 'X1',
+                  value: {
+                    type: 'AccountId32',
+                    value: {
+                      network: undefined,
+                      id: FixedSizeBinary {
+                        asText: [Function (anonymous)],
+                        asHex: [Function (anonymous)],
+                        asOpaqueHex: [Function (anonymous)],
+                        asBytes: [Function (anonymous)],
+                        asOpaqueBytes: [Function (anonymous)]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            type: 'SetTopic',
+            value: FixedSizeBinary {
+              asText: [Function (anonymous)],
+              asHex: [Function (anonymous)],
+              asOpaqueHex: [Function (anonymous)],
+              asBytes: [Function (anonymous)],
+              asOpaqueBytes: [Function (anonymous)]
+            }
+          }
+        ]
+      }
+    }      
+  </pre>
+</div>
+                ...
+    <div id="termynal" data-termynal>
+  <pre>
+    {
+      execution_result: {
+        success: true,
+        value: {
+          actual_weight: undefined,
+          pays_fee: { type: 'Yes', value: undefined }
+        }
+      },
+      emitted_events: [
+        {
+          type: 'Balances',
+          value: {
+            type: 'Transfer',
+            value: {
+              from: '12pGtwHPL4tUAUcyeCoJ783NKRspztpWmXv4uxYRwiEnYNET',
+              to: '13YMK2ePPKQeW7ynqLozB65WYjMnNgffQ9uR4AzyGmqnKeLq',
+              amount: 120000000000n
+            }
+          }
+        },
+        {
+          type: 'Balances',
+          value: { type: 'Issued', value: { amount: 0n } }
+        },
+        {
+          type: 'XcmPallet',
+          value: {
+            type: 'Attempted',
+            value: {
+              outcome: {
+                type: 'Complete',
+                value: { used: { ref_time: 251861000n, proof_size: 6196n } }
+              }
+            }
+          }
+        },
+        {
+          type: 'Balances',
+          value: {
+            type: 'Burned',
+            value: {
+              who: '12pGtwHPL4tUAUcyeCoJ783NKRspztpWmXv4uxYRwiEnYNET',
+              amount: 397000000n
+            }
+          }
+        },
+        {
+          type: 'Balances',
+          value: {
+            type: 'Minted',
+            value: {
+              who: '13UVJyLnbVp9RBZYFwFGyDvVd1y27Tt8tkntv6Q7JVPhFsTB',
+              amount: 397000000n
+            }
+          }
+        },
+        {
+          type: 'XcmPallet',
+          value: {
+            type: 'FeesPaid',
+            value: {
+              paying: {
+                parents: 0,
+                interior: {
+                  type: 'X1',
+                  value: {
+                    type: 'AccountId32',
+                    value: {
+                      network: { type: 'Polkadot', value: undefined },
+                      id: FixedSizeBinary {
+                        asText: [Function (anonymous)],
+                        asHex: [Function (anonymous)],
+                        asOpaqueHex: [Function (anonymous)],
+                        asBytes: [Function (anonymous)],
+                        asOpaqueBytes: [Function (anonymous)]
+                      }
+                    }
+                  }
+                }
+              },
+              fees: [
+                {
+                  id: {
+                    parents: 0,
+                    interior: { type: 'Here', value: undefined }
+                  },
+                  fun: { type: 'Fungible', value: 397000000n }
+                }
+              ]
+            }
+          }
+        },
+        {
+          type: 'XcmPallet',
+          value: {
+            type: 'Sent',
+            value: {
+              origin: {
+                parents: 0,
+                interior: {
+                  type: 'X1',
+                  value: {
+                    type: 'AccountId32',
+                    value: {
+                      network: { type: 'Polkadot', value: undefined },
+                      id: FixedSizeBinary {
+                        asText: [Function (anonymous)],
+                        asHex: [Function (anonymous)],
+                        asOpaqueHex: [Function (anonymous)],
+                        asBytes: [Function (anonymous)],
+                        asOpaqueBytes: [Function (anonymous)]
+                      }
+                    }
+                  }
+                }
+              },
+              destination: {
+                parents: 0,
+                interior: { type: 'X1', value: { type: 'Parachain', value: 4001 } }
+              },
+              message: [
+                {
+                  type: 'ReserveAssetDeposited',
+                  value: [
+                    {
+                      id: {
+                        parents: 1,
+                        interior: { type: 'Here', value: undefined }
+                      },
+                      fun: { type: 'Fungible', value: 120000000000n }
+                    }
+                  ]
+                },
+                { type: 'ClearOrigin', value: undefined },
+                {
+                  type: 'BuyExecution',
+                  value: {
+                    fees: {
+                      id: {
+                        parents: 1,
+                        interior: { type: 'Here', value: undefined }
+                      },
+                      fun: { type: 'Fungible', value: 120000000000n }
+                    },
+                    weight_limit: { type: 'Unlimited', value: undefined }
+                  }
+                },
+                {
+                  type: 'DepositAsset',
+                  value: {
+                    assets: {
+                      type: 'Wild',
+                      value: { type: 'AllCounted', value: 1 }
+                    },
+                    beneficiary: {
+                      parents: 0,
+                      interior: {
+                        type: 'X1',
+                        value: {
+                          type: 'AccountId32',
+                          value: {
+                            network: undefined,
+                            id: FixedSizeBinary {
+                              asText: [Function (anonymous)],
+                              asHex: [Function (anonymous)],
+                              asOpaqueHex: [Function (anonymous)],
+                              asBytes: [Function (anonymous)],
+                              asOpaqueBytes: [Function (anonymous)]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              ],
+              message_id: FixedSizeBinary {
+                asText: [Function (anonymous)],
+                asHex: [Function (anonymous)],
+                asOpaqueHex: [Function (anonymous)],
+                asBytes: [Function (anonymous)],
+                asOpaqueBytes: [Function (anonymous)]
+              }
+            }
+          }
+        }
+      ],
+      local_xcm: undefined,
+      destination: {
+        type: 'V4',
+        value: {
+          parents: 0,
+          interior: { type: 'X1', value: { type: 'Parachain', value: 4001 } }
+        }
+      },
+      remote_xcm: {
+        type: 'V3',
+        value: [
+          {
+            type: 'ReserveAssetDeposited',
+            value: [
+              {
+                id: {
+                  type: 'Concrete',
+                  value: {
+                    parents: 1,
+                    interior: { type: 'Here', value: undefined }
+                  }
+                },
+                fun: { type: 'Fungible', value: 120000000000n }
+              }
+            ]
+          },
+          { type: 'ClearOrigin', value: undefined },
+          {
+            type: 'BuyExecution',
+            value: {
+              fees: {
+                id: {
+                  type: 'Concrete',
+                  value: {
+                    parents: 1,
+                    interior: { type: 'Here', value: undefined }
+                  }
+                },
+                fun: { type: 'Fungible', value: 120000000000n }
+              },
+              weight_limit: { type: 'Unlimited', value: undefined }
+            }
+          },
+          {
+            type: 'DepositAsset',
+            value: {
+              assets: { type: 'Wild', value: { type: 'AllCounted', value: 1 } },
+              beneficiary: {
+                parents: 0,
+                interior: {
+                  type: 'X1',
+                  value: {
+                    type: 'AccountId32',
+                    value: {
+                      network: undefined,
+                      id: FixedSizeBinary {
+                        asText: [Function (anonymous)],
+                        asHex: [Function (anonymous)],
+                        asOpaqueHex: [Function (anonymous)],
+                        asBytes: [Function (anonymous)],
+                        asOpaqueBytes: [Function (anonymous)]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            type: 'SetTopic',
+            value: FixedSizeBinary {
+              asText: [Function (anonymous)],
+              asHex: [Function (anonymous)],
+              asOpaqueHex: [Function (anonymous)],
+              asBytes: [Function (anonymous)],
+              asOpaqueBytes: [Function (anonymous)]
+            }
+          }
+        ]
+      }
+    }      
+  </pre>
+</div>
+
+    ---
+
+### Dry Run XCM
+
+This API allows the direct dry-run of an xcm message instead of an extrinsic one, checks if it will execute successfully, and determines what other xcm messages will be forwarded to other chains.
+
+```rust
+fn dry_run_xcm(origin_location: VersionedLocation, xcm: VersionedXcm<Call>) -> Result<XcmDryRunEffects<Event>, Error>;
+```
+
+??? interface "Input parameters"
+
+    `origin_location` ++"VersionedLocation"++ <span class="required" markdown>++"required"++</span>
+
+    The location of the origin that will execute the xcm message.
+
+    ---
+
+    `xcm` ++"VersionedXcm<Call>"++ <span class="required" markdown>++"required"++</span>
+
+    A versioned XCM message.
+
+    ---
+
+??? interface "Output parameters"
+
+    ++"Result<XcmDryRunEffects<Event>, Error>"++
+
+    Effects of dry-running an extrinsic. If an error occurs, it is returned instead of the effects.
+
+    ??? child "Type `XcmDryRunEffects<Event>`"
+
+        `execution_result` ++"DispatchResultWithPostInfo"++
+
+        The result of executing the extrinsic.
+
+        ---
+
+        `emitted_events` ++"Vec<Event>"++
+
+        The list of events fired by the extrinsic.
+
+        ---
+
+        `forwarded_xcms` ++"Vec<(VersionedLocation, Vec<VersionedXcm<()>>)>"++
+
+        The list of XCMs that were queued for sending.
+
+    ??? child "Type `Error`"
+
+        Enum:
+
+        - **`Unimplemented`**: An API part is unsupported.
+        - **`VersionedConversionFailed`**: Converting a versioned data structure from one version to another failed.
+
+    ---
+
+??? interface "Example"
+
+    This example demonstrates how to simulate a [teleport asset transfer](https://wiki.polkadot.com/learn/learn-xcm-usecases/#asset-teleportation){target=\_blank} from the Paseo network to the Paseo Asset Hub parachain. The code shows how to test and verify the received XCM message's behavior in the destination chain through a dry run on the live network.
+
+    Replace `INSERT_USER_ADDRESS` with your SS58 address before running the script.
+
+     ***Usage with PAPI***
+
+    ```js
+    import { createClient } from 'polkadot-api';
+import { getWsProvider } from 'polkadot-api/ws-provider/web';
+import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
+import {
+  XcmVersionedXcm,
+  paseoAssetHub,
+  XcmVersionedLocation,
+  XcmV3Junction,
+  XcmV3Junctions,
+  XcmV3WeightLimit,
+  XcmV3MultiassetFungibility,
+  XcmV3MultiassetAssetId,
+  XcmV3Instruction,
+  XcmV3MultiassetMultiAssetFilter,
+  XcmV3MultiassetWildMultiAsset,
+} from '@polkadot-api/descriptors';
+import { Binary } from 'polkadot-api';
+import { ss58Decode } from '@polkadot-labs/hdkd-helpers';
+
+// Connect to Paseo Asset Hub
+const client = createClient(
+  withPolkadotSdkCompat(getWsProvider('wss://asset-hub-paseo-rpc.dwellir.com')),
+);
+
+const paseoAssetHubApi = client.getTypedApi(paseoAssetHub);
+
+const userAddress = 'INSERT_USER_ADDRESS';
+const userPublicKey = ss58Decode(userAddress)[0];
+const idBeneficiary = Binary.fromBytes(userPublicKey);
+
+// Define the origin
+const origin = XcmVersionedLocation.V3({
+  parents: 1,
+  interior: XcmV3Junctions.Here(),
+});
+
+// Define a xcm message comming from the Paseo relay chain to Asset Hub to Teleport some tokens
+const xcm = XcmVersionedXcm.V3([
+  XcmV3Instruction.ReceiveTeleportedAsset([
+    {
+      id: XcmV3MultiassetAssetId.Concrete({
+        parents: 1,
+        interior: XcmV3Junctions.Here(),
+      }),
+      fun: XcmV3MultiassetFungibility.Fungible(12000000000n),
+    },
+  ]),
+  XcmV3Instruction.ClearOrigin(),
+  XcmV3Instruction.BuyExecution({
+    fees: {
+      id: XcmV3MultiassetAssetId.Concrete({
+        parents: 1,
+        interior: XcmV3Junctions.Here(),
+      }),
+      fun: XcmV3MultiassetFungibility.Fungible(BigInt(12000000000n)),
+    },
+    weight_limit: XcmV3WeightLimit.Unlimited(),
+  }),
+  XcmV3Instruction.DepositAsset({
+    assets: XcmV3MultiassetMultiAssetFilter.Wild(
+      XcmV3MultiassetWildMultiAsset.All(),
+    ),
+    beneficiary: {
+      parents: 0,
+      interior: XcmV3Junctions.X1(
+        XcmV3Junction.AccountId32({
+          network: undefined,
+          id: idBeneficiary,
+        }),
+      ),
+    },
+  }),
+]);
+
+// Execute dry run xcm
+const dryRunResult = await paseoAssetHubApi.apis.DryRunApi.dry_run_xcm(
+  origin,
+  xcm,
+);
+
+// Print the results
+console.dir(dryRunResult.value, { depth: null });
+
+client.destroy();
+    ```
+
+    ***Output***
+
+    <div id="termynal" data-termynal>
+  <pre>
+    {
+      execution_result: {
+        type: 'Complete',
+        value: { used: { ref_time: 15574200000n, proof_size: 359300n } }
+      },
+      emitted_events: [
+        {
+          type: 'System',
+          value: {
+            type: 'NewAccount',
+            value: { account: '12pGtwHPL4tUAUcyeCoJ783NKRspztpWmXv4uxYRwiEnYNET' }
+          }
+        },
+        {
+          type: 'Balances',
+          value: {
+            type: 'Endowed',
+            value: {
+              account: '12pGtwHPL4tUAUcyeCoJ783NKRspztpWmXv4uxYRwiEnYNET',
+              free_balance: 10203500000n
+            }
+          }
+        },
+        {
+          type: 'Balances',
+          value: {
+            type: 'Minted',
+            value: {
+              who: '12pGtwHPL4tUAUcyeCoJ783NKRspztpWmXv4uxYRwiEnYNET',
+              amount: 10203500000n
+            }
+          }
+        },
+        {
+          type: 'Balances',
+          value: { type: 'Issued', value: { amount: 1796500000n } }
+        },
+        {
+          type: 'Balances',
+          value: {
+            type: 'Deposit',
+            value: {
+              who: '13UVJyLgBASGhE2ok3TvxUfaQBGUt88JCcdYjHvUhvQkFTTx',
+              amount: 1796500000n
+            }
+          }
+        }
+      ],
+      forwarded_xcms: [
+        [
+          {
+            type: 'V4',
+            value: { parents: 1, interior: { type: 'Here', value: undefined } }
+          },
+          []
+        ]
+      ]
+    }
+  </pre>
+</div>
+
+    ---
+
+## XCM Payment API
+
+The [XCM Payment API](https://paritytech.github.io/polkadot-sdk/master/xcm_runtime_apis/fees/trait.XcmPaymentApi.html){target=\_blank} provides a standardized way to determine the costs and payment options for executing XCM messages. Specifically, it enables clients to:
+
+- Retrieve the [weight](/polkadot-protocol/glossary/#weight) required to execute an XCM message.
+- Obtain a list of acceptable `AssetIds` for paying execution fees.
+- Calculate the cost of the weight in a specified `AssetId`.
+- Estimate the fees for XCM message delivery.
+
+This API eliminates the need for clients to guess execution fees or identify acceptable assets manually. Instead, clients can query the list of supported asset IDs formatted according to the XCM version they understand. With this information, they can weigh the XCM program they intend to execute and convert the computed weight into its cost using one of the acceptable assets.
+
+To use the API effectively, the client must already know the XCM program to be executed and the chains involved in the program's execution.
+
+### Query Acceptable Payment Assets
+
+Retrieves the list of assets that are acceptable for paying fees when using a specific XCM version
+
+```rust
+fn query_acceptable_payment_assets(xcm_version: Version) -> Result<Vec<VersionedAssetId>, Error>;
+```
+
+??? interface "Input parameters"
+
+    `xcm_version` ++"Version"++ <span class="required" markdown>++"required"++</span>
+
+    Specifies the XCM version that will be used to send the XCM message.
+
+    ---
+
+??? interface "Output parameters"
+
+    ++"Result<Vec<VersionedAssetId>, Error>"++
+
+    A list of acceptable payment assets. Each asset is provided in a versioned format (`VersionedAssetId`) that matches the specified XCM version. If an error occurs, it is returned instead of the asset list.
+
+    ??? child "Type `Error`"
+
+        Enum:
+
+        - **`Unimplemented`**: An API part is unsupported.
+        - **`VersionedConversionFailed`**: Converting a versioned data structure from one version to another failed.
+        - **`WeightNotComputable`**: XCM message weight calculation failed.
+        - **`UnhandledXcmVersion`**: XCM version not able to be handled.
+        - **`AssetNotFound`**: The given asset is not handled as a fee asset.
+        - **`Unroutable`**: Destination is known to be unroutable.
+
+    ---
+
+??? interface "Example"
+
+    This example demonstrates how to query the acceptable payment assets for executing XCM messages on the Paseo Asset Hub network using XCM version 3.
+
+    ***Usage with PAPI***
+
+    ```js
+    import { paseoAssetHub } from '@polkadot-api/descriptors';
+import { createClient } from 'polkadot-api';
+import { getWsProvider } from 'polkadot-api/ws-provider/web';
+import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
+
+// Connect to the polkadot relay chain
+const client = createClient(
+  withPolkadotSdkCompat(getWsProvider('wss://asset-hub-paseo-rpc.dwellir.com')),
+);
+
+const paseoAssetHubApi = client.getTypedApi(paseoAssetHub);
+
+// Define the xcm version to use
+const xcmVersion = 3;
+
+// Execute the runtime call to query the assets
+const result =
+  await paseoAssetHubApi.apis.XcmPaymentApi.query_acceptable_payment_assets(
+    xcmVersion,
+  );
+
+// Print the assets
+console.dir(result.value, { depth: null });
+
+client.destroy();
+    ```
+
+    ***Output***
+
+    <div id="termynal" data-termynal>
+  <pre>
+    [
+      {
+        type: 'V3',
+        value: {
+          type: 'Concrete',
+          value: { parents: 1, interior: { type: 'Here', value: undefined } }
+        }
+      }
+    ]
+  </pre>
+</div>
+
+    ---
+
+### Query XCM Weight
+
+Calculates the weight required to execute a given XCM message. It is useful for estimating the execution cost of a cross-chain message in the destination chain before sending it.
+
+```rust
+fn query_xcm_weight(message: VersionedXcm<()>) -> Result<Weight, Error>;
+```
+
+??? interface "Input parameters"
+
+    `message` ++"VersionedXcm<()>"++ <span class="required" markdown>++"required"++</span>
+    
+    A versioned XCM message whose execution weight is being queried.
+
+    ---
+
+??? interface "Output parameters"
+
+    ++"Result<Weight, Error>"++
+    
+    The calculated weight required to execute the provided XCM message. If the calculation fails, an error is returned instead.
+
+    ??? child "Type `Weight`"
+
+        `ref_time` ++"u64"++
+
+        The weight of computational time used based on some reference hardware.
+
+        ---
+
+        `proof_size` ++"u64"++
+
+        The weight of storage space used by proof of validity.
+
+        ---
+
+    ??? child "Type `Error`"
+
+        Enum:
+
+        - **`Unimplemented`**: An API part is unsupported.
+        - **`VersionedConversionFailed`**: Converting a versioned data structure from one version to another failed.
+        - **`WeightNotComputable`**: XCM message weight calculation failed.
+        - **`UnhandledXcmVersion`**: XCM version not able to be handled.
+        - **`AssetNotFound`**: The given asset is not handled as a fee asset.
+        - **`Unroutable`**: Destination is known to be unroutable.
+
+    ---
+
+??? interface "Example"
+
+    This example demonstrates how to calculate the weight needed to execute a [teleport transfer](https://wiki.polkadot.com/learn/learn-xcm-usecases/#asset-teleportation){target=\_blank} from the Paseo network to the Paseo Asset Hub parachain using the XCM Payment API. The result shows the required weight in terms of reference time and proof size needed in the destination chain.
+
+    Replace `INSERT_USER_ADDRESS` with your SS58 address before running the script.
+
+    ***Usage with PAPI***
+
+    ```js
+    import { createClient } from 'polkadot-api';
+import { getWsProvider } from 'polkadot-api/ws-provider/web';
+import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
+import {
+  XcmVersionedXcm,
+  paseoAssetHub,
+  XcmV3Junction,
+  XcmV3Junctions,
+  XcmV3WeightLimit,
+  XcmV3MultiassetFungibility,
+  XcmV3MultiassetAssetId,
+  XcmV3Instruction,
+  XcmV3MultiassetMultiAssetFilter,
+  XcmV3MultiassetWildMultiAsset,
+} from '@polkadot-api/descriptors';
+import { Binary } from 'polkadot-api';
+import { ss58Decode } from '@polkadot-labs/hdkd-helpers';
+
+// Connect to Paseo Asset Hub
+const client = createClient(
+  withPolkadotSdkCompat(getWsProvider('wss://asset-hub-paseo-rpc.dwellir.com')),
+);
+
+const paseoAssetHubApi = client.getTypedApi(paseoAssetHub);
+
+const userAddress = 'INSERT_USER_ADDRESS';
+const userPublicKey = ss58Decode(userAddress)[0];
+const idBeneficiary = Binary.fromBytes(userPublicKey);
+
+// Define a xcm message comming from the Paseo relay chain to Asset Hub to Teleport some tokens
+const xcm = XcmVersionedXcm.V3([
+  XcmV3Instruction.ReceiveTeleportedAsset([
+    {
+      id: XcmV3MultiassetAssetId.Concrete({
+        parents: 1,
+        interior: XcmV3Junctions.Here(),
+      }),
+      fun: XcmV3MultiassetFungibility.Fungible(12000000000n),
+    },
+  ]),
+  XcmV3Instruction.ClearOrigin(),
+  XcmV3Instruction.BuyExecution({
+    fees: {
+      id: XcmV3MultiassetAssetId.Concrete({
+        parents: 1,
+        interior: XcmV3Junctions.Here(),
+      }),
+      fun: XcmV3MultiassetFungibility.Fungible(BigInt(12000000000n)),
+    },
+    weight_limit: XcmV3WeightLimit.Unlimited(),
+  }),
+  XcmV3Instruction.DepositAsset({
+    assets: XcmV3MultiassetMultiAssetFilter.Wild(
+      XcmV3MultiassetWildMultiAsset.All(),
+    ),
+    beneficiary: {
+      parents: 0,
+      interior: XcmV3Junctions.X1(
+        XcmV3Junction.AccountId32({
+          network: undefined,
+          id: idBeneficiary,
+        }),
+      ),
+    },
+  }),
+]);
+
+// Execute the query weight runtime call
+const result = await paseoAssetHubApi.apis.XcmPaymentApi.query_xcm_weight(xcm);
+
+// Print the results
+console.dir(result.value, { depth: null });
+
+client.destroy();
+    ```
+
+    ***Output***
+
+    <div id="termynal" data-termynal>
+  <span data-ty>{ ref_time: 15574200000n, proof_size: 359300n }</span>
+</div>
+
+    ---
+
+### Query Weight to Asset Fee
+
+Converts a given weight into the corresponding fee for a specified `AssetId`. It allows clients to determine the cost of execution in terms of the desired asset.
+
+```rust
+fn query_weight_to_asset_fee(weight: Weight, asset: VersionedAssetId) -> Result<u128, Error>;
+```
+
+??? interface "Input parameters"
+
+    `weight` ++"Weight"++ <span class="required" markdown>++"required"++</span>
+    
+    The execution weight to be converted into a fee.
+
+    ??? child "Type `Weight`"
+
+        `ref_time` ++"u64"++
+
+        The weight of computational time used based on some reference hardware.
+
+        ---
+
+        `proof_size` ++"u64"++
+
+        The weight of storage space used by proof of validity.
+
+        ---
+
+    ---
+
+    `asset` ++"VersionedAssetId"++ <span class="required" markdown>++"required"++</span>
+    
+    The asset in which the fee will be calculated. This must be a versioned asset ID compatible with the runtime.
+
+    ---
+
+??? interface "Output parameters"
+
+    ++"Result<u128, Error>"++
+    
+    The fee needed to pay for the execution for the given `AssetId.`
+
+    ??? child "Type `Error`"
+
+        Enum:
+
+        - **`Unimplemented`**: An API part is unsupported.
+        - **`VersionedConversionFailed`**: Converting a versioned data structure from one version to another failed.
+        - **`WeightNotComputable`**: XCM message weight calculation failed.
+        - **`UnhandledXcmVersion`**: XCM version not able to be handled.
+        - **`AssetNotFound`**: The given asset is not handled as a fee asset.
+        - **`Unroutable`**: Destination is known to be unroutable.
+
+    ---
+
+??? interface "Example"
+
+    This example demonstrates how to calculate the fee for a given execution weight using a specific versioned asset ID (PAS token) on Paseo Asset Hub.
+
+    ***Usage with PAPI***
+
+    ```js
+    import { paseoAssetHub } from '@polkadot-api/descriptors';
+import { createClient } from 'polkadot-api';
+import { getWsProvider } from 'polkadot-api/ws-provider/web';
+import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
+
+// Connect to the polkadot relay chain
+const client = createClient(
+  withPolkadotSdkCompat(getWsProvider('wss://asset-hub-paseo-rpc.dwellir.com')),
+);
+
+const paseoAssetHubApi = client.getTypedApi(paseoAssetHub);
+
+// Define the weight to convert to fee
+const weight = { ref_time: 15574200000n, proof_size: 359300n };
+
+// Define the versioned asset id
+const versionedAssetId = {
+  type: 'V4',
+  value: { parents: 1, interior: { type: 'Here', value: undefined } },
+};
+
+// Execute the runtime call to convert the weight to fee
+const result =
+  await paseoAssetHubApi.apis.XcmPaymentApi.query_weight_to_asset_fee(
+    weight,
+    versionedAssetId,
+  );
+
+// Print the fee
+console.dir(result.value, { depth: null });
+
+client.destroy();
+    ```
+
+    ***Output***
+
+    <div id="termynal" data-termynal>
+  <span data-ty>1796500000n</span>
+</div>
+    ---
+
+### Query Delivery Fees
+
+Retrieves the delivery fees for sending a specific XCM message to a designated destination. The fees are always returned in a specific asset defined by the destination chain.
+
+```rust
+fn query_delivery_fees(destination: VersionedLocation, message: VersionedXcm<()>) -> Result<VersionedAssets, Error>;
+```
+
+??? interface "Input parameters"
+
+    `destination` ++"VersionedLocation"++ <span class="required" markdown>++"required"++</span>
+    
+    The target location where the message will be sent. Fees may vary depending on the destination, as different destinations often have unique fee structures and sender mechanisms.
+
+    ---
+
+    `message` ++"VersionedXcm<()>"++ <span class="required" markdown>++"required"++</span>
+    
+    The XCM message to be sent. The delivery fees are calculated based on the message's content and size, which can influence the cost.
+
+    ---
+
+??? interface "Output parameters"
+
+    ++"Result<VersionedAssets, Error>"++
+    
+    The calculated delivery fees expressed in a specific asset supported by the destination chain. If an error occurs during the query, it returns an error instead.
+
+    ??? child "Type `Error`"
+
+        Enum:
+
+        - **`Unimplemented`**: An API part is unsupported.
+        - **`VersionedConversionFailed`**: Converting a versioned data structure from one version to another failed.
+        - **`WeightNotComputable`**: XCM message weight calculation failed.
+        - **`UnhandledXcmVersion`**: XCM version not able to be handled.
+        - **`AssetNotFound`**: The given asset is not handled as a fee asset.
+        - **`Unroutable`**: Destination is known to be unroutable.
+
+    ---
+
+??? interface "Example"
+
+    This example demonstrates how to query the delivery fees for sending an XCM message from Paseo to Paseo Asset Hub.
+
+    Replace `INSERT_USER_ADDRESS` with your SS58 address before running the script.
+
+    ***Usage with PAPI***
+
+    ```js
+    import { createClient } from 'polkadot-api';
+import { getWsProvider } from 'polkadot-api/ws-provider/web';
+import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
+import {
+  XcmVersionedXcm,
+  paseo,
+  XcmVersionedLocation,
+  XcmV3Junction,
+  XcmV3Junctions,
+  XcmV3WeightLimit,
+  XcmV3MultiassetFungibility,
+  XcmV3MultiassetAssetId,
+  XcmV3Instruction,
+  XcmV3MultiassetMultiAssetFilter,
+  XcmV3MultiassetWildMultiAsset,
+} from '@polkadot-api/descriptors';
+import { Binary } from 'polkadot-api';
+import { ss58Decode } from '@polkadot-labs/hdkd-helpers';
+
+const client = createClient(
+  withPolkadotSdkCompat(getWsProvider('wss://paseo-rpc.dwellir.com')),
+);
+
+const paseoApi = client.getTypedApi(paseo);
+
+const paseoAssetHubParaID = 1000;
+const userAddress = 'INSERT_USER_ADDRESS';
+const userPublicKey = ss58Decode(userAddress)[0];
+const idBeneficiary = Binary.fromBytes(userPublicKey);
+
+// Define the destination
+const destination = XcmVersionedLocation.V3({
+  parents: 0,
+  interior: XcmV3Junctions.X1(XcmV3Junction.Parachain(paseoAssetHubParaID)),
+});
+
+// Define the xcm message that will be sent to the destination
+const xcm = XcmVersionedXcm.V3([
+  XcmV3Instruction.ReceiveTeleportedAsset([
+    {
+      id: XcmV3MultiassetAssetId.Concrete({
+        parents: 1,
+        interior: XcmV3Junctions.Here(),
+      }),
+      fun: XcmV3MultiassetFungibility.Fungible(12000000000n),
+    },
+  ]),
+  XcmV3Instruction.ClearOrigin(),
+  XcmV3Instruction.BuyExecution({
+    fees: {
+      id: XcmV3MultiassetAssetId.Concrete({
+        parents: 1,
+        interior: XcmV3Junctions.Here(),
+      }),
+      fun: XcmV3MultiassetFungibility.Fungible(BigInt(12000000000n)),
+    },
+    weight_limit: XcmV3WeightLimit.Unlimited(),
+  }),
+  XcmV3Instruction.DepositAsset({
+    assets: XcmV3MultiassetMultiAssetFilter.Wild(
+      XcmV3MultiassetWildMultiAsset.All(),
+    ),
+    beneficiary: {
+      parents: 0,
+      interior: XcmV3Junctions.X1(
+        XcmV3Junction.AccountId32({
+          network: undefined,
+          id: idBeneficiary,
+        }),
+      ),
+    },
+  }),
+]);
+
+// Execute the query delivery fees runtime call
+const result = await paseoApi.apis.XcmPaymentApi.query_delivery_fees(
+  destination,
+  xcm,
+);
+
+// Print the results
+console.dir(result.value, { depth: null });
+
+client.destroy();
+    ```
+
+    ***Output***
+
+    <div id="termynal" data-termynal>
+  <pre>
+    {
+      type: 'V3',
+      value: [
+        {
+          id: {
+            type: 'Concrete',
+            value: { parents: 0, interior: { type: 'Here', value: undefined } }
+          },
+          fun: { type: 'Fungible', value: 396000000n }
+        }
+      ]
+    }
+  </pre>
+</div>
+    ---
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/develop/smart-contracts/json-rpc-apis/
+--- BEGIN CONTENT ---
+---
+title: JSON-RPC APIs
+description: JSON-RPC APIs guide for Polkadot Hub, covering supported methods, parameters, and examples for interacting with the chain.
+categories: Reference
+---
+
+# JSON-RPC APIs
+
+!!! smartcontract "PolkaVM Preview Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+
+## Introduction
+
+Polkadot Hub provides Ethereum compatibility through its JSON-RPC interface, allowing developers to interact with the chain using familiar Ethereum tooling and methods. This document outlines the supported [Ethereum JSON-RPC methods](https://ethereum.org/en/developers/docs/apis/json-rpc/#json-rpc-methods){target=\_blank} and provides examples of how to use them.
+
+This guide uses the Polkadot Hub TestNet endpoint:
+
+```text
+https://testnet-passet-hub-eth-rpc.polkadot.io
+```
+
+## Available Methods
+
+### eth_accounts
+
+Returns a list of addresses owned by the client. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_accounts){target=\_blank}.
+
+**Parameters**:
+
+None.
+
+**Example**:
+
+```bash title="eth_accounts"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_accounts",
+    "params":[],
+    "id":1
+}'
+```
+
+---
+
+### eth_blockNumber
+
+Returns the number of the most recent block. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_blocknumber){target=\_blank}.
+
+**Parameters**:
+
+None.
+
+**Example**:
+
+```bash title="eth_blockNumber"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_blockNumber",
+    "params":[],
+    "id":1
+}'
+```
+
+---
+
+### eth_call
+
+Executes a new message call immediately without creating a transaction. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_call){target=\_blank}.
+
+**Parameters**:
+
+- **`transaction` ++"object"++**: The transaction call object.
+    - **`to` ++"string"++**: Recipient address of the call. Must be a [20-byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string.
+    - **`data` ++"string"++**: Hash of the method signature and encoded parameters. Must be a [data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string.
+    - **`from` ++"string"++**: (Optional) Sender's address for the call. Must be a [20-byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string.
+    - **`gas` ++"string"++**: (Optional) Gas limit to execute the call. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string.
+    - **`gasPrice` ++"string"++**: (Optional) Gas price per unit of gas. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string.
+    - **`value` ++"string"++**: (Optional) Value in wei to send with the call. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string.
+- **`blockValue` ++"string"++**: (Optional) Block tag or block number to execute the call at. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string or a [default block parameter](https://ethereum.org/en/developers/docs/apis/json-rpc/#default-block){target=\_blank}.
+
+**Example**:
+
+```bash title="eth_call"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_call",
+    "params":[{
+        "to": "INSERT_RECIPIENT_ADDRESS",
+        "data": "INSERT_ENCODED_CALL"
+    }, "INSERT_BLOCK_VALUE"],
+    "id":1
+}'
+```
+
+Ensure to replace the `INSERT_RECIPIENT_ADDRESS`, `INSERT_ENCODED_CALL`, and `INSERT_BLOCK_VALUE` with the proper values.
+
+---
+
+### eth_chainId
+
+Returns the chain ID used for signing transactions. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_chainid){target=\_blank}.
+
+**Parameters**:
+
+None.
+
+**Example**:
+
+```bash title="eth_chainId"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_chainId",
+    "params":[],
+    "id":1
+}'
+```
+
+---
+
+### eth_estimateGas
+
+Estimates gas required for a transaction. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_estimategas){target=\_blank}.
+
+**Parameters**:
+
+- **`transaction` ++"object"++**: The transaction call object.
+    - **`to` ++"string"++**: Recipient address of the call. Must be a [20-byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string.
+    - **`data` ++"string"++**: Hash of the method signature and encoded parameters. Must be a [data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string.
+    - **`from` ++"string"++**: (Optional) Sender's address for the call. Must be a [20-byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string.
+    - **`gas` ++"string"++**: (Optional) Gas limit to execute the call. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string.
+    - **`gasPrice` ++"string"++**: (Optional) Gas price per unit of gas. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string.
+    - **`value` ++"string"++**: (Optional) Value in wei to send with the call. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string.
+- **`blockValue` ++"string"++**: (Optional) Block tag or block number to execute the call at. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string or a [default block parameter](https://ethereum.org/en/developers/docs/apis/json-rpc/#default-block){target=\_blank}.
+
+**Example**:
+
+```bash title="eth_estimateGas"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_estimateGas",
+    "params":[{
+        "to": "INSERT_RECIPIENT_ADDRESS",
+        "data": "INSERT_ENCODED_FUNCTION_CALL"
+    }],
+    "id":1
+}'
+```
+
+Ensure to replace the `INSERT_RECIPIENT_ADDRESS` and `INSERT_ENCODED_CALL` with the proper values.
+
+---
+
+### eth_gasPrice
+
+Returns the current gas price in Wei. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_gasprice){target=\_blank}.
+
+**Parameters**:
+
+None.
+
+**Example**:
+
+```bash title="eth_gasPrice"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_gasPrice",
+    "params":[],
+    "id":1
+}'
+```
+
+---
+
+### eth_getBalance
+
+Returns the balance of a given address. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getbalance){target=\_blank}.
+
+**Parameters**:
+
+- **`address` ++"string"++**: Address to query balance. Must be a [20-byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string.
+- **`blockValue` ++"string"++**: (Optional) The block value to be fetched. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string or a [default block parameter](https://ethereum.org/en/developers/docs/apis/json-rpc/#default-block){target=\_blank}.
+
+**Example**:
+
+```bash title="eth_getBalance"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_getBalance",
+    "params":["INSERT_ADDRESS", "INSERT_BLOCK_VALUE"],
+    "id":1
+}'
+```
+
+Ensure to replace the `INSERT_ADDRESS` and `INSERT_BLOCK_VALUE` with the proper values.
+
+---
+
+### eth_getBlockByHash
+
+Returns information about a block by its hash. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getblockbyhash){target=\_blank}.
+
+**Parameters**:
+
+- **`blockHash` ++"string"++**: The hash of the block to retrieve. Must be a [32 byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string.
+- **`fullTransactions` ++"boolean"++**: If `true`, returns full transaction details; if `false`, returns only transaction hashes.
+
+**Example**:
+
+```bash title="eth_getBlockByHash"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_getBlockByHash",
+    "params":["INSERT_BLOCK_HASH", INSERT_BOOLEAN],
+    "id":1
+}'
+```
+
+Ensure to replace the `INSERT_BLOCK_HASH` and `INSERT_BOOLEAN` with the proper values.
+
+---
+
+### eth_getBlockByNumber
+
+Returns information about a block by its number. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getblockbynumber){target=\_blank}.
+
+**Parameters**:
+
+- **`blockValue` ++"string"++**: (Optional) The block value to be fetched. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string or a [default block parameter](https://ethereum.org/en/developers/docs/apis/json-rpc/#default-block){target=\_blank}.
+- **`fullTransactions` ++"boolean"++**: If `true`, returns full transaction details; if `false`, returns only transaction hashes.
+
+**Example**:
+
+```bash title="eth_getBlockByNumber"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_getBlockByNumber",
+    "params":["INSERT_BLOCK_VALUE", INSERT_BOOLEAN],
+    "id":1
+}'
+```
+
+Ensure to replace the `INSERT_BLOCK_VALUE` and `INSERT_BOOLEAN` with the proper values.
+
+---
+
+### eth_getBlockTransactionCountByNumber
+
+Returns the number of transactions in a block from a block number. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getblocktransactioncountbynumber){target=\_blank}.
+
+**Parameters**:
+
+- **`blockValue` ++"string"++**: The block value to be fetched. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string or a [default block parameter](https://ethereum.org/en/developers/docs/apis/json-rpc/#default-block){target=\_blank}.
+
+**Example**:
+
+```bash title="eth_getBlockTransactionCountByNumber"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_getBlockTransactionCountByNumber",
+    "params":["INSERT_BLOCK_VALUE"],
+    "id":1
+}'
+```
+
+Ensure to replace the `INSERT_BLOCK_VALUE` with the proper values.
+
+---
+
+### eth_getBlockTransactionCountByHash
+
+Returns the number of transactions in a block from a block hash. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getblocktransactioncountbyhash){target=\_blank}.
+
+**Parameters**:
+
+- **`blockHash` ++"string"++**: The hash of the block to retrieve. Must be a [32 byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string.
+
+**Example**:
+
+```bash title="eth_getBlockTransactionCountByHash"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_getBlockTransactionCountByHash",
+    "params":["INSERT_BLOCK_HASH"],
+    "id":1
+}'
+```
+
+Ensure to replace the `INSERT_BLOCK_HASH` with the proper values.
+
+---
+
+### eth_getCode
+
+Returns the code at a given address. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getcode){target=\_blank}.
+
+**Parameters**:
+
+- **`address` ++"string"++**: Contract or account address to query code. Must be a [20-byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string.
+- **`blockValue` ++"string"++**: (Optional) The block value to be fetched. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string or a [default block parameter](https://ethereum.org/en/developers/docs/apis/json-rpc/#default-block).
+
+**Example**:
+
+```bash title="eth_getCode"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_getCode",
+    "params":["INSERT_ADDRESS", "INSERT_BLOCK_VALUE"],
+    "id":1
+}'
+```
+
+Ensure to replace the `INSERT_ADDRESS` and `INSERT_BLOCK_VALUE` with the proper values.
+
+---
+
+### eth_getLogs
+
+Returns an array of all logs matching a given filter object. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getlogs){target=\_blank}.
+
+**Parameters**:
+
+- **`filter` ++"object"++**: The filter object.
+    - **`fromBlock` ++"string"++**: (Optional) Block number or tag to start from. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string or a [default block parameter](https://ethereum.org/en/developers/docs/apis/json-rpc/#default-block){target=\_blank}.
+    - **`toBlock` ++"string"++**: (Optional) Block number or tag to end at. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string or a [default block parameter](https://ethereum.org/en/developers/docs/apis/json-rpc/#default-block){target=\_blank}.
+    - **`address` ++"string" or "array of strings"++**: (Optional) Contract address or a list of addresses from which to get logs. Must be a [20-byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string.
+    - **`topics` ++"array of strings"++**: (Optional) Array of topics for filtering logs. Each topic can be a single [32 byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string or an array of such strings (meaning OR).
+    - **`blockhash` ++"string"++**: (Optional) Hash of a specific block. Cannot be used with `fromBlock` or `toBlock`. Must be a [32 byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string.
+
+**Example**:
+
+```bash title="eth_getLogs"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_getLogs",
+    "params":[{
+        "fromBlock": "latest",
+        "toBlock": "latest"
+    }],
+    "id":1
+}'
+```
+
+---
+
+### eth_getStorageAt
+
+Returns the value from a storage position at a given address. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getstorageat){target=\_blank}.
+
+**Parameters**:
+
+- **`address` ++"string"++**: Contract or account address to query code. Must be a [20-byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string.
+- **`storageKey` ++"string"++**: Position in storage to retrieve data from. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string.
+- **`blockValue` ++"string"++**: (Optional) The block value to be fetched. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string or a [default block parameter](https://ethereum.org/en/developers/docs/apis/json-rpc/#default-block).
+
+**Example**:
+
+```bash title="eth_getStorageAt"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_getStorageAt",
+    "params":["INSERT_ADDRESS", "INSERT_STORAGE_KEY", "INSERT_BLOCK_VALUE"],
+    "id":1
+}'
+```
+
+Ensure to replace the `INSERT_ADDRESS`, `INSERT_STORAGE_KEY`, and `INSERT_BLOCK_VALUE` with the proper values.
+
+---
+
+### eth_getTransactionCount
+
+Returns the number of transactions sent from an address (nonce). [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_gettransactioncount){target=\_blank}.
+
+**Parameters**:
+
+- **`address` ++"string"++**: Address to query balance. Must be a [20-byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string.
+- **`blockValue` ++"string"++**: (Optional) The block value to be fetched. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string or a [default block parameter](https://ethereum.org/en/developers/docs/apis/json-rpc/#default-block).
+
+**Example**:
+
+```bash title="eth_getTransactionCount"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_getTransactionCount",
+    "params":["INSERT_ADDRESS", "INSERT_BLOCK_VALUE"],
+    "id":1
+}'
+```
+
+Ensure to replace the `INSERT_ADDRESS` and `INSERT_BLOCK_VALUE` with the proper values.
+
+---
+
+### eth_getTransactionByHash
+
+Returns information about a transaction by its hash. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_gettransactionbyhash){target=\_blank}.
+
+**Parameters**:
+
+- **`transactionHash` ++"string"++**: The hash of the transaction. Must be a [32 byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string.
+
+**Example**:
+
+```bash title="eth_getTransactionByHash"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_getTransactionByHash",
+    "params":["INSERT_TRANSACTION_HASH"],
+    "id":1
+}'
+```
+
+Ensure to replace the `INSERT_TRANSACTION_HASH` with the proper values.
+
+---
+
+### eth_getTransactionByBlockNumberAndIndex
+
+Returns information about a transaction by block number and transaction index. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_gettransactionbyblocknumberandindex){target=\_blank}.
+
+**Parameters**:
+
+- **`blockValue` ++"string"++**: The block value to be fetched. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string or a [default block parameter](https://ethereum.org/en/developers/docs/apis/json-rpc/#default-block){target=\_blank}.
+- **`transactionIndex` ++"string"++**: The index of the transaction in the block. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string.
+
+**Example**:
+
+```bash title="eth_getTransactionByBlockNumberAndIndex"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_getTransactionByBlockNumberAndIndex",
+    "params":["INSERT_BLOCK_VALUE", "INSERT_TRANSACTION_INDEX"],
+    "id":1
+}'
+```
+
+Ensure to replace the `INSERT_BLOCK_VALUE` and `INSERT_TRANSACTION_INDEX` with the proper values.
+
+---
+
+### eth_getTransactionByBlockHashAndIndex
+
+Returns information about a transaction by block hash and transaction index. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_gettransactionbyblockhashandindex){target=\_blank}.
+
+**Parameters**:
+
+- **`blockHash` ++"string"++**: The hash of the block. Must be a [32 byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string.
+- **`transactionIndex` ++"string"++**: The index of the transaction in the block. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string.
+
+**Example**:
+
+```bash title="eth_getTransactionByBlockHashAndIndex"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_getTransactionByBlockHashAndIndex",
+    "params":["INSERT_BLOCK_HASH", "INSERT_TRANSACTION_INDEX"],
+    "id":1
+}'
+```
+
+Ensure to replace the `INSERT_BLOCK_HASH` and `INSERT_TRANSACTION_INDEX` with the proper values.
+
+---
+
+### eth_getTransactionReceipt
+
+Returns the receipt of a transaction by transaction hash. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_gettransactionreceipt){target=\_blank}.
+
+**Parameters**:
+
+- **`transactionHash` ++"string"++**: The hash of the transaction. Must be a [32 byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string.
+
+**Example**:
+
+```bash title="eth_getTransactionReceipt"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_getTransactionReceipt",
+    "params":["INSERT_TRANSACTION_HASH"],
+    "id":1
+}'
+```
+
+Ensure to replace the `INSERT_TRANSACTION_HASH` with the proper values.
+
+---
+
+### eth_maxPriorityFeePerGas
+
+Returns an estimate of the current priority fee per gas, in Wei, to be included in a block.
+
+**Parameters**:
+
+None.
+
+**Example**:
+
+```bash title="eth_maxPriorityFeePerGas"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_maxPriorityFeePerGas",
+    "params":[],
+    "id":1
+}'
+```
+
+---
+
+### eth_sendRawTransaction
+
+Submits a raw transaction. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_sendrawtransaction){target=\_blank}.
+
+**Parameters**:
+
+- **`callData` ++"string"++**: Signed transaction data. Must be a [data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string.
+
+**Example**:
+
+```bash title="eth_sendRawTransaction"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_sendRawTransaction",
+    "params":["INSERT_CALL_DATA"],
+    "id":1
+}'
+```
+
+Ensure to replace the `INSERT_CALL_DATA` with the proper values.
+
+---
+
+### eth_sendTransaction
+
+Creates and sends a new transaction. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_sendtransaction){target=\_blank}.
+
+**Parameters**:
+
+- **`transaction` ++"object"++**: The transaction object.
+    - **`from` ++"string"++**: Address sending the transaction. Must be a [20-byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string.
+    - **`to` ++"string"++**: (Optional) Recipient address. No need to provide this value when deploying a contract. Must be a [20-byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string.
+    - **`gas` ++"string"++**: (optional, default: `90000`) gas limit for execution. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string.
+    - **`gasPrice` ++"string"++**: (Optional) Gas price per unit. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string.
+    - **`value` ++"string"++**: (Optional) Amount of Ether to send. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string.
+    - **`data` ++"string"++**: (Optional) Contract bytecode or encoded method call. Must be a [data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string.
+    - **`nonce` ++"string"++**: (Optional) Transaction nonce. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string.
+
+**Example**:
+
+```bash title="eth_sendTransaction"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_sendTransaction",
+    "params":[{
+        "from": "INSERT_SENDER_ADDRESS",
+        "to": "INSERT_RECIPIENT_ADDRESS",
+        "gas": "INSERT_GAS_LIMIT",
+        "gasPrice": "INSERT_GAS_PRICE",
+        "value": "INSERT_VALUE",
+        "input": "INSERT_INPUT_DATA",
+        "nonce": "INSERT_NONCE"
+    }],
+    "id":1
+}'
+```
+
+Ensure to replace the `INSERT_SENDER_ADDRESS`, `INSERT_RECIPIENT_ADDRESS`, `INSERT_GAS_LIMIT`, `INSERT_GAS_PRICE`, `INSERT_VALUE`, `INSERT_INPUT_DATA`, and `INSERT_NONCE` with the proper values.
+
+---
+
+### eth_syncing
+
+Returns an object with syncing data or `false` if not syncing. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_syncing){target=\_blank}.
+
+**Parameters**:
+
+None.
+
+**Example**:
+
+```bash title="eth_syncing"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_syncing",
+    "params":[],
+    "id":1
+}'
+```
+
+---
+
+### net_listening
+
+Returns `true` if the client is currently listening for network connections, otherwise `false`. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#net_listening){target=\_blank}.
+
+**Parameters**:
+
+None.
+
+**Example**:
+
+```bash title="net_listening"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"net_listening",
+    "params":[],
+    "id":1
+}'
+```
+
+---
+
+### net_peerCount
+
+Returns the number of peers currently connected to the client.
+
+**Parameters**:
+
+None.
+
+**Example**:
+
+```bash title="net_peerCount"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"net_peerCount",
+    "params":[],
+    "id":1
+}'
+```
+
+---
+
+### net_version
+
+Returns the current network ID as a string. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#net_version){target=\_blank}.
+
+**Parameters**:
+
+None.
+
+**Example**:
+
+```bash title="net_version"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"net_version",
+    "params":[],
+    "id":1
+}'
+```
+
+---
+
+### system_health
+
+Returns information about the health of the system.
+
+**Parameters**:
+
+None.
+
+**Example**:
+
+```bash title="system_health"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"system_health",
+    "params":[],
+    "id":1
+}'
+```
+
+---
+
+### web3_clientVersion
+
+Returns the current client version. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#web3_clientversion){target=\_blank}.
+
+**Parameters**:
+
+None.
+
+**Example**:
+
+```bash title="web3_clientVersion"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"web3_clientVersion",
+    "params":[],
+    "id":1
+}'
+```
+
+---
+
+### debug_traceBlockByNumber 
+
+Traces a block's execution by its number and returns a detailed execution trace for each transaction.
+
+**Parameters**:
+
+- **`blockValue` ++"string"++**: The block number or tag to trace. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string or a [default block parameter](https://ethereum.org/en/developers/docs/apis/json-rpc/#default-block){target=\_blank}.
+- **`options` ++"object"++**: (Optional) An object containing tracer options.
+    - **`tracer` ++"string"++**: The name of the tracer to use (e.g., `"callTracer"`, `"opTracer"`).
+    - Other tracer-specific options may be supported.
+
+**Example**:
+
+```bash title="debug_traceBlockByNumber"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"debug_traceBlockByNumber",
+    "params":["INSERT_BLOCK_VALUE", {"tracer": "callTracer"}],
+    "id":1
+}'
+```
+
+Ensure to replace `INSERT_BLOCK_VALUE` with a proper block number if needed.
+
+---
+
+### debug_traceTransaction
+
+Traces the execution of a single transaction by its hash and returns a detailed execution trace.
+
+**Parameters**:
+
+- **`transactionHash` ++"string"++**: The hash of the transaction to trace. Must be a [32 byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string.
+- **`options` ++"object"++**: (Optional) An object containing tracer options (e.g., `tracer: "callTracer"`).
+
+**Example**:
+
+```bash title="debug_traceTransaction"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"debug_traceTransaction",
+    "params":["INSERT_TRANSACTION_HASH", {"tracer": "callTracer"}],
+    "id":1
+}'
+```
+
+Ensure to replace the `INSERT_TRANSACTION_HASH` with the proper value.
+
+---
+
+### debug_traceCall
+
+Executes a new message call and returns a detailed execution trace without creating a transaction on the blockchain.
+
+**Parameters**:
+
+- **`transaction` ++"object"++**: The transaction call object, similar to `eth_call` parameters.
+    - **`to` ++"string"++**: Recipient address of the call. Must be a [20-byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string.
+    - **`data` ++"string"++**: Hash of the method signature and encoded parameters. Must be a [data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string.
+    - **`from` ++"string"++**: (Optional) Sender's address for the call. Must be a [20-byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string.
+    - **`gas` ++"string"++**: (Optional) Gas limit to execute the call. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string.
+    - **`gasPrice` ++"string"++**: (Optional) Gas price per unit of gas. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string.
+    - **`value` ++"string"++**: (Optional) Value in wei to send with the call. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string.
+- **`blockValue` ++"string"++**: (Optional) Block tag or block number to execute the call at. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string or a [default block parameter](https://ethereum.org/en/developers/docs/apis/json-rpc/#default-block){target=\_blank}.
+- **`options` ++"object"++**: (Optional) An object containing tracer options (e.g., `tracer: "callTracer"`).
+
+**Example**:
+
+```bash title="debug_traceCall"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"debug_traceCall",
+    "params":[{
+        "from": "INSERT_SENDER_ADDRESS",
+        "to": "INSERT_RECIPIENT_ADDRESS",
+        "data": "INSERT_ENCODED_CALL"
+    }, "INSERT_BLOCK_VALUE", {"tracer": "callTracer"}],
+    "id":1
+}'
+```
+
+Ensure to replace the `INSERT_SENDER_ADDRESS`, `INSERT_RECIPIENT_ADDRESS`, `INSERT_ENCODED_CALL`, and `INSERT_BLOCK_VALUE` with the proper value.
+
+---
+
+## Response Format
+
+All responses follow the standard JSON-RPC 2.0 format:
+
+```json
+{
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": ... // The return value varies by method
+}
+```
+
+## Error Handling
+
+If an error occurs, the response will include an error object:
+
+```json
+{
+    "jsonrpc": "2.0",
+    "id": 1,
+    "error": {
+        "code": -32000,
+        "message": "Error message here"
+    }
+}
+```
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/develop/toolkit/interoperability/asset-transfer-api/reference/
+--- BEGIN CONTENT ---
+---
+title: Asset Transfer API Reference
+description: Explore the Asset Transfer API Reference for comprehensive details on methods, data types, and functionalities. Essential for cross-chain asset transfers.
+categories: Reference, Dapps
+---
+
+# Asset Transfer API Reference
+
+<br>
+<div class="grid cards" markdown>
+-   :octicons-download-16:{ .lg .middle } __Install the Asset Transfer API__
+
+    ---
+
+    Learn how to install [`asset-transfer-api`](https://github.com/paritytech/asset-transfer-api){target=\_blank} into a new or existing project.
+
+    <br>
+    [:octicons-arrow-right-24: Get started](/develop/toolkit/interoperability/asset-transfer-api/overview/#install-asset-transfer-api){target=\_blank}
+
+-   :octicons-code-16:{ .lg .middle } __Dive in with a tutorial__
+
+    ---
+
+    Ready to start coding? Follow along with a step-by-step tutorial.
+
+    <br>
+    [:octicons-arrow-right-24: How to use the Asset Transfer API](/develop/toolkit/interoperability/asset-transfer-api/overview/#examples)
+</div>
+<br>
+
+
+## Asset Transfer API Class
+
+Holds open an API connection to a specified chain within the `ApiPromise` to help construct transactions for assets and estimate fees.
+
+For a more in-depth explanation of the Asset Transfer API class structure, check the [source code](https://github.com/paritytech/asset-transfer-api/blob/{{dependencies.repositories.asset_transfer_api.version}}/src/AssetTransferApi.ts#L128){target=\_blank}.
+
+### Methods
+
+#### Create Transfer Transaction
+
+Generates an XCM transaction for transferring assets between chains. It simplifies the process by inferring what type of transaction is required given the inputs, ensuring that the assets are valid, and that the transaction details are correctly formatted.
+
+After obtaining the transaction, you must handle the signing and submission process separately.
+
+```ts
+public async createTransferTransaction<T extends Format>(
+		destChainId: string,
+		destAddr: string,
+		assetIds: string[],
+		amounts: string[],
+		opts: TransferArgsOpts<T> = {},
+	): Promise<TxResult<T>> {
+```
+
+??? interface "Request parameters"
+
+    `destChainId` ++"string"++ <span class="required" markdown>++"required"++</span>
+    
+    ID of the destination chain (`'0'` for relay chain, other values for parachains).
+
+    ---
+
+    `destAddr` ++"string"++ <span class="required" markdown>++"required"++</span>
+
+    Address of the recipient account on the destination chain.
+
+    ---
+
+    `assetIds` ++"string[]"++ <span class="required" markdown>++"required"++</span>
+
+    Array of asset IDs to be transferred.
+
+    When asset IDs are provided, the API dynamically selects the appropriate pallet for the current chain to handle these specific assets. If the array is empty, the API defaults to using the `balances` pallet.
+
+    ---
+
+    `amounts` ++"string[]"++ <span class="required" markdown>++"required"++</span>
+
+    Array of amounts corresponding to each asset in `assetIds`.
+
+    ---
+
+    `opts` ++"TransferArgsOpts<T>"++
+
+    Options for customizing the claim assets transaction. These options allow you to specify the transaction format, fee payment details, weight limits, XCM versions, and more.
+
+??? child "Show more"
+
+    `format` ++"T extends Format"++ 
+        
+    Specifies the format for returning a transaction.
+
+    ??? child "Type `Format`"
+
+        ```ts
+        export type Format = 'payload' | 'call' | 'submittable';
+        ```
+
+    ---
+
+    `paysWithFeeOrigin` ++"string"++
+    
+    The Asset ID to pay fees on the current common good parachain. The defaults are as follows:
+
+    - **Polkadot Asset Hub**: `'DOT'`
+    - **Kusama Asset Hub**: `'KSM'`
+
+    ---
+
+    `paysWithFeeDest` ++"string"++
+    
+    Asset ID to pay fees on the destination parachain.
+
+    ---
+
+    `weightLimit` ++"{ refTime?: string, proofSize?: string }"++
+    
+    Custom weight limit option. If not provided, it will default to unlimited.
+
+    ---
+
+    `xcmVersion` ++"number"++
+    
+    Sets the XCM version for message construction. If this is not present a supported version will be queried, and if there is no supported version a safe version will be queried.
+
+    ---
+
+    `keepAlive` ++"boolean"++
+    
+    Enables `transferKeepAlive` for local asset transfers. For creating local asset transfers, if `true` this will allow for a `transferKeepAlive` as opposed to a `transfer`.
+
+    ---
+
+    `transferLiquidToken` ++"boolean"++
+    
+    Declares if this will transfer liquidity tokens. Default is `false`.
+
+    ---
+
+    `assetTransferType` ++"string"++
+    
+    The XCM transfer type used to transfer assets. The `AssetTransferType` type defines the possible values for this parameter.
+
+    ??? child "Type `AssetTransferType`"
+
+        ```ts
+        export type AssetTransferType = LocalReserve | DestinationReserve | Teleport | RemoteReserve;
+        ```
+        
+        !!! note
+            To use the `assetTransferType` parameter, which is a string, you should use the `AssetTransferType` type as if each of its variants are strings. For example: `assetTransferType = 'LocalReserve'`.
+
+
+    ---
+
+    `remoteReserveAssetTransferTypeLocation` ++"string"++
+    
+    The remove reserve location for the XCM transfer. Should be provided when specifying an `assetTransferType` of `RemoteReserve`.
+
+    ---
+
+    `feesTransferType` ++"string"++
+    
+    XCM TransferType used to pay fees for XCM transfer. The `AssetTransferType` type defines the possible values for this parameter.
+
+    ??? child "Type `AssetTransferType`"
+
+        ```ts
+        export type AssetTransferType = LocalReserve | DestinationReserve | Teleport | RemoteReserve;
+        ```
+        
+        !!! note
+            To use the `feesTransferType` parameter, which is a string, you should use the `AssetTransferType` type as if each of its variants are strings. For example: `feesTransferType = 'LocalReserve'`.
+
+    ---
+
+    `remoteReserveFeesTransferTypeLocation` ++"string"++
+    
+    The remote reserve location for the XCM transfer fees. Should be provided when specifying a `feesTransferType` of `RemoteReserve`.
+
+    ---
+
+    `customXcmOnDest` ++"string"++
+    
+    A custom XCM message to be executed on the destination chain. Should be provided if a custom XCM message is needed after transferring assets. Defaults to:
+
+    ```bash
+    Xcm(vec![DepositAsset { assets: Wild(AllCounted(assets.len())), beneficiary }])
+    ```
+
+??? interface "Response parameters"
+
+    ++"Promise<TxResult<T>"++
+
+    A promise containing the result of constructing the transaction.
+
+??? child "Show more"
+
+    `dest` ++"string"++
+
+    The destination `specName` of the transaction.
+
+    ---
+
+    `origin` ++"string"++
+
+    The origin `specName` of the transaction.
+
+    ---
+
+    `format` ++"Format | 'local'"++
+
+    The format type the transaction is outputted in.
+
+    ??? child "Type `Format`"
+
+        ```ts
+        export type Format = 'payload' | 'call' | 'submittable';
+        ```
+
+    ---
+
+    `xcmVersion` ++"number | null"++
+
+    The XCM version that was used to construct the transaction.
+
+    ---
+
+    `direction` ++"Direction | 'local'"++
+
+    The direction of the cross-chain transfer.
+
+    ??? child "Enum `Direction` values"
+
+        `Local`
+
+        Local transaction.
+
+        ---
+
+        `SystemToPara`
+
+        System parachain to parachain.
+
+        ---
+
+        `SystemToRelay`
+
+        System paracahin to system relay chain.
+
+        ---
+
+        `SystemToSystem`
+
+        System parachain to System parachain chain.
+
+        ---
+
+        `SystemToBridge`
+
+        System parachain to an external `GlobalConsensus` chain.
+        
+        ---
+
+        `ParaToPara`
+
+        Parachain to Parachain.
+
+        ---
+
+        `ParaToRelay`
+
+        Parachain to Relay chain.
+
+        ---
+        
+        `ParaToSystem`
+
+        Parachain to System parachain.
+
+        ---
+
+        `RelayToSystem`
+
+        Relay to System Parachain.
+
+        ---
+
+        `RelayToPara`
+
+        Relay chain to Parachain.
+
+        ---
+
+        `RelayToBridge`
+
+        Relay chain to an external `GlobalConsensus` chain.
+
+    `method` ++"Methods"++
+
+    The method used in the transaction.
+
+    ??? child "Type `Methods`"
+
+        ```ts
+        export type Methods =
+	| LocalTransferTypes
+	| 'transferAssets'
+	| 'transferAssetsUsingTypeAndThen'
+	| 'limitedReserveTransferAssets'
+	| 'limitedTeleportAssets'
+	| 'transferMultiasset'
+	| 'transferMultiassets'
+	| 'transferMultiassetWithFee'
+	| 'claimAssets';
+        ```
+
+        ??? child "Type `LocalTransferTypes`"
+
+
+            ```ts
+            export type LocalTransferTypes =
+	| 'assets::transfer'
+	| 'assets::transferKeepAlive'
+	| 'assets::transferAll'
+	| 'foreignAssets::transfer'
+	| 'foreignAssets::transferKeepAlive'
+	| 'foreignAssets::transferAll'
+	| 'balances::transfer'
+	| 'balances::transferKeepAlive'
+	| 'balances::transferAll'
+	| 'poolAssets::transfer'
+	| 'poolAssets::transferKeepAlive'
+	| 'poolAssets::transferAll'
+	| 'tokens::transfer'
+	| 'tokens::transferKeepAlive'
+	| 'tokens::transferAll';
+            ```
+
+    ---
+
+    `tx` ++"ConstructedFormat<T>"++
+
+    The constructed transaction.
+
+    ??? child "Type `ConstructedFormat<T>`"
+
+        ```ts
+        export type ConstructedFormat<T> = T extends 'payload'
+	? GenericExtrinsicPayload
+	: T extends 'call'
+		? `0x${string}`
+		: T extends 'submittable'
+			? SubmittableExtrinsic<'promise', ISubmittableResult>
+			: never;
+        ```
+
+        The `ConstructedFormat` type is a conditional type that returns a specific type based on the value of the TxResult `format` field.
+
+        - **Payload format**: If the format field is set to `'payload'`, the `ConstructedFormat` type will return a [`GenericExtrinsicPayload`](https://github.com/polkadot-js/api/blob/v15.8.1/packages/types/src/extrinsic/ExtrinsicPayload.ts#L87){target=\_blank}.
+        - **Call format**: If the format field is set to `'call'`, the `ConstructedFormat` type will return a hexadecimal string (`0x${string}`). This is the encoded representation of the extrinsic call.
+        - **Submittable format**: If the format field is set to `'submittable'`, the `ConstructedFormat` type will return a [`SubmittableExtrinsic`](https://github.com/polkadot-js/api/blob/v15.8.1/packages/api-base/src/types/submittable.ts#L56){target=\_blank}. This is a Polkadot.js type that represents a transaction that can be submitted to the blockchain.
+
+??? interface "Example"
+
+    ***Request***
+
+    ```ts
+    import {
+  AssetTransferApi,
+  constructApiPromise,
+} from '@substrate/asset-transfer-api';
+
+async function main() {
+  const { api, specName, safeXcmVersion } = await constructApiPromise(
+    'wss://wss.api.moonbeam.network',
+  );
+  const assetsApi = new AssetTransferApi(api, specName, safeXcmVersion);
+
+  let callInfo;
+  try {
+    callInfo = await assetsApi.createTransferTransaction(
+      '2004',
+      '0xF977814e90dA44bFA03b6295A0616a897441aceC',
+      [],
+      ['1000000000000000000'],
+      {
+        format: 'call',
+        keepAlive: true,
+      },
+    );
+
+    console.log(`Call data:\n${JSON.stringify(callInfo, null, 4)}`);
+  } catch (e) {
+    console.error(e);
+    throw Error(e as string);
+  }
+}
+
+main()
+  .catch((err) => console.error(err))
+  .finally(() => process.exit());
+    ```
+
+    ***Response***
+
+    <div id="termynal" data-termynal>
+    <span data-ty>Call data:</span>
+    <span data-ty>{</span>
+    <span data-ty>    "origin": "moonbeam",</span>
+    <span data-ty>    "dest": "moonbeam",</span>
+    <span data-ty>    "direction": "local",</span>
+    <span data-ty>    "xcmVersion": null,</span>
+    <span data-ty>    "method": "balances::transferKeepAlive",</span>
+    <span data-ty>    "format": "call",</span>
+    <span data-ty>    "tx": "0x0a03f977814e90da44bfa03b6295a0616a897441acec821a0600"</span>
+    <span data-ty>}</span>
+<div>
+
+#### Claim Assets
+
+Creates a local XCM transaction to retrieve trapped assets. This function can be used to claim assets either locally on a system parachain, on the relay chain, or on any chain that supports the `claimAssets` runtime call.
+
+
+```ts
+public async claimAssets<T extends Format>(
+		assetIds: string[],
+		amounts: string[],
+		beneficiary: string,
+		opts: TransferArgsOpts<T>,
+	): Promise<TxResult<T>> {
+```
+
+??? interface "Request parameters"
+
+    `assetIds` ++"string[]"++ <span class="required" markdown>++"required"++</span>
+
+    Array of asset IDs to be claimed from the `AssetTrap`.
+
+    ---
+
+    `amounts` ++"string[]"++ <span class="required" markdown>++"required"++</span>
+
+    Array of amounts corresponding to each asset in `assetIds`.
+
+    ---
+
+    `beneficiary` ++"string"++ <span class="required" markdown>++"required"++</span>
+
+    Address of the account to receive the trapped assets.
+
+    ---
+
+    `opts` ++"TransferArgsOpts<T>"++
+
+    Options for customizing the claim assets transaction. These options allow you to specify the transaction format, fee payment details, weight limits, XCM versions, and more.
+
+??? child "Show more"
+
+    `format` ++"T extends Format"++ 
+        
+    Specifies the format for returning a transaction.
+
+    ??? child "Type `Format`"
+
+        ```ts
+        export type Format = 'payload' | 'call' | 'submittable';
+        ```
+
+    ---
+
+    `paysWithFeeOrigin` ++"string"++
+    
+    The Asset ID to pay fees on the current common good parachain. The defaults are as follows:
+
+    - **Polkadot Asset Hub**: `'DOT'`
+    - **Kusama Asset Hub**: `'KSM'`
+
+    ---
+
+    `paysWithFeeDest` ++"string"++
+    
+    Asset ID to pay fees on the destination parachain.
+
+    ---
+
+    `weightLimit` ++"{ refTime?: string, proofSize?: string }"++
+    
+    Custom weight limit option. If not provided, it will default to unlimited.
+
+    ---
+
+    `xcmVersion` ++"number"++
+    
+    Sets the XCM version for message construction. If this is not present a supported version will be queried, and if there is no supported version a safe version will be queried.
+
+    ---
+
+    `keepAlive` ++"boolean"++
+    
+    Enables `transferKeepAlive` for local asset transfers. For creating local asset transfers, if `true` this will allow for a `transferKeepAlive` as opposed to a `transfer`.
+
+    ---
+
+    `transferLiquidToken` ++"boolean"++
+    
+    Declares if this will transfer liquidity tokens. Default is `false`.
+
+    ---
+
+    `assetTransferType` ++"string"++
+    
+    The XCM transfer type used to transfer assets. The `AssetTransferType` type defines the possible values for this parameter.
+
+    ??? child "Type `AssetTransferType`"
+
+        ```ts
+        export type AssetTransferType = LocalReserve | DestinationReserve | Teleport | RemoteReserve;
+        ```
+        
+        !!! note
+            To use the `assetTransferType` parameter, which is a string, you should use the `AssetTransferType` type as if each of its variants are strings. For example: `assetTransferType = 'LocalReserve'`.
+
+
+    ---
+
+    `remoteReserveAssetTransferTypeLocation` ++"string"++
+    
+    The remove reserve location for the XCM transfer. Should be provided when specifying an `assetTransferType` of `RemoteReserve`.
+
+    ---
+
+    `feesTransferType` ++"string"++
+    
+    XCM TransferType used to pay fees for XCM transfer. The `AssetTransferType` type defines the possible values for this parameter.
+
+    ??? child "Type `AssetTransferType`"
+
+        ```ts
+        export type AssetTransferType = LocalReserve | DestinationReserve | Teleport | RemoteReserve;
+        ```
+        
+        !!! note
+            To use the `feesTransferType` parameter, which is a string, you should use the `AssetTransferType` type as if each of its variants are strings. For example: `feesTransferType = 'LocalReserve'`.
+
+    ---
+
+    `remoteReserveFeesTransferTypeLocation` ++"string"++
+    
+    The remote reserve location for the XCM transfer fees. Should be provided when specifying a `feesTransferType` of `RemoteReserve`.
+
+    ---
+
+    `customXcmOnDest` ++"string"++
+    
+    A custom XCM message to be executed on the destination chain. Should be provided if a custom XCM message is needed after transferring assets. Defaults to:
+
+    ```bash
+    Xcm(vec![DepositAsset { assets: Wild(AllCounted(assets.len())), beneficiary }])
+    ```
+
+??? interface "Response parameters"
+
+    ++"Promise<TxResult<T>>"++
+
+    A promise containing the result of constructing the transaction.
+
+??? child "Show more"
+
+    `dest` ++"string"++
+
+    The destination `specName` of the transaction.
+
+    ---
+
+    `origin` ++"string"++
+
+    The origin `specName` of the transaction.
+
+    ---
+
+    `format` ++"Format | 'local'"++
+
+    The format type the transaction is outputted in.
+
+    ??? child "Type `Format`"
+
+        ```ts
+        export type Format = 'payload' | 'call' | 'submittable';
+        ```
+
+    ---
+
+    `xcmVersion` ++"number | null"++
+
+    The XCM version that was used to construct the transaction.
+
+    ---
+
+    `direction` ++"Direction | 'local'"++
+
+    The direction of the cross-chain transfer.
+
+    ??? child "Enum `Direction` values"
+
+        `Local`
+
+        Local transaction.
+
+        ---
+
+        `SystemToPara`
+
+        System parachain to parachain.
+
+        ---
+
+        `SystemToRelay`
+
+        System paracahin to system relay chain.
+
+        ---
+
+        `SystemToSystem`
+
+        System parachain to System parachain chain.
+
+        ---
+
+        `SystemToBridge`
+
+        System parachain to an external `GlobalConsensus` chain.
+        
+        ---
+
+        `ParaToPara`
+
+        Parachain to Parachain.
+
+        ---
+
+        `ParaToRelay`
+
+        Parachain to Relay chain.
+
+        ---
+        
+        `ParaToSystem`
+
+        Parachain to System parachain.
+
+        ---
+
+        `RelayToSystem`
+
+        Relay to System Parachain.
+
+        ---
+
+        `RelayToPara`
+
+        Relay chain to Parachain.
+
+        ---
+
+        `RelayToBridge`
+
+        Relay chain to an external `GlobalConsensus` chain.
+
+    `method` ++"Methods"++
+
+    The method used in the transaction.
+
+    ??? child "Type `Methods`"
+
+        ```ts
+        export type Methods =
+	| LocalTransferTypes
+	| 'transferAssets'
+	| 'transferAssetsUsingTypeAndThen'
+	| 'limitedReserveTransferAssets'
+	| 'limitedTeleportAssets'
+	| 'transferMultiasset'
+	| 'transferMultiassets'
+	| 'transferMultiassetWithFee'
+	| 'claimAssets';
+        ```
+
+        ??? child "Type `LocalTransferTypes`"
+
+
+            ```ts
+            export type LocalTransferTypes =
+	| 'assets::transfer'
+	| 'assets::transferKeepAlive'
+	| 'assets::transferAll'
+	| 'foreignAssets::transfer'
+	| 'foreignAssets::transferKeepAlive'
+	| 'foreignAssets::transferAll'
+	| 'balances::transfer'
+	| 'balances::transferKeepAlive'
+	| 'balances::transferAll'
+	| 'poolAssets::transfer'
+	| 'poolAssets::transferKeepAlive'
+	| 'poolAssets::transferAll'
+	| 'tokens::transfer'
+	| 'tokens::transferKeepAlive'
+	| 'tokens::transferAll';
+            ```
+
+    ---
+
+    `tx` ++"ConstructedFormat<T>"++
+
+    The constructed transaction.
+
+    ??? child "Type `ConstructedFormat<T>`"
+
+        ```ts
+        export type ConstructedFormat<T> = T extends 'payload'
+	? GenericExtrinsicPayload
+	: T extends 'call'
+		? `0x${string}`
+		: T extends 'submittable'
+			? SubmittableExtrinsic<'promise', ISubmittableResult>
+			: never;
+        ```
+
+        The `ConstructedFormat` type is a conditional type that returns a specific type based on the value of the TxResult `format` field.
+
+        - **Payload format**: If the format field is set to `'payload'`, the `ConstructedFormat` type will return a [`GenericExtrinsicPayload`](https://github.com/polkadot-js/api/blob/v15.8.1/packages/types/src/extrinsic/ExtrinsicPayload.ts#L87){target=\_blank}.
+        - **Call format**: If the format field is set to `'call'`, the `ConstructedFormat` type will return a hexadecimal string (`0x${string}`). This is the encoded representation of the extrinsic call.
+        - **Submittable format**: If the format field is set to `'submittable'`, the `ConstructedFormat` type will return a [`SubmittableExtrinsic`](https://github.com/polkadot-js/api/blob/v15.8.1/packages/api-base/src/types/submittable.ts#L56){target=\_blank}. This is a Polkadot.js type that represents a transaction that can be submitted to the blockchain.
+
+??? interface "Example"
+
+    ***Request***
+
+    ```ts
+    import {
+  AssetTransferApi,
+  constructApiPromise,
+} from '@substrate/asset-transfer-api';
+
+async function main() {
+  const { api, specName, safeXcmVersion } = await constructApiPromise(
+    'wss://westend-rpc.polkadot.io',
+  );
+  const assetsApi = new AssetTransferApi(api, specName, safeXcmVersion);
+
+  let callInfo;
+  try {
+    callInfo = await assetsApi.claimAssets(
+      [
+        `{"parents":"0","interior":{"X2":[{"PalletInstance":"50"},{"GeneralIndex":"1984"}]}}`,
+      ],
+      ['1000000000000'],
+      '0xf5d5714c084c112843aca74f8c498da06cc5a2d63153b825189baa51043b1f0b',
+      {
+        format: 'call',
+        xcmVersion: 2,
+      },
+    );
+
+    console.log(`Call data:\n${JSON.stringify(callInfo, null, 4)}`);
+  } catch (e) {
+    console.error(e);
+    throw Error(e as string);
+  }
+}
+
+main()
+  .catch((err) => console.error(err))
+  .finally(() => process.exit());
+    ```
+
+    ***Response***
+
+    <div id="termynal" data-termynal>
+    <span data-ty>Call data:</span>
+    <span data-ty>{</span>
+    <span data-ty>    "origin": "0",</span>
+    <span data-ty>    "dest": "westend",</span>
+    <span data-ty>    "direction": "local",</span>
+    <span data-ty>    "xcmVersion": 2,</span>
+    <span data-ty>    "method": "claimAssets",</span>
+    <span data-ty>    "format": "call",</span>
+    <span data-ty>    "tx": "0x630c0104000002043205011f00070010a5d4e80100010100f5d5714c084c112843aca74f8c498da06cc5a2d63153b825189baa51043b1f0b"</span>
+    <span data-ty>}</span>
+<div>
+
+
+#### Decode Extrinsic
+
+Decodes the hex of an extrinsic into a string readable format.
+
+```ts
+public decodeExtrinsic<T extends Format>(encodedTransaction: string, format: T): string {
+```
+
+??? interface "Request parameters"
+
+    `encodedTransaction` ++"string"++ <span class="required" markdown>++"required"++</span>
+
+    A hex encoded extrinsic.
+
+    ---
+
+    `format` ++"T extends Format"++ <span class="required" markdown>++"required"++</span>
+    
+    Specifies the format for returning a transaction.
+
+    ??? child "Type `Format`"
+
+        ```ts
+        export type Format = 'payload' | 'call' | 'submittable';
+        ```
+
+??? interface "Response parameters"
+
+    ++"string"++
+
+    Decoded extrinsic in string readable format.
+
+??? interface "Example"
+
+    ***Request***
+
+    ```ts
+    import {
+  AssetTransferApi,
+  constructApiPromise,
+} from '@substrate/asset-transfer-api';
+
+async function main() {
+  const { api, specName, safeXcmVersion } = await constructApiPromise(
+    'wss://wss.api.moonbeam.network',
+  );
+  const assetsApi = new AssetTransferApi(api, specName, safeXcmVersion);
+
+  const encodedExt = '0x0a03f977814e90da44bfa03b6295a0616a897441acec821a0600';
+
+  try {
+    const decodedExt = assetsApi.decodeExtrinsic(encodedExt, 'call');
+    console.log(
+      `Decoded tx:\n ${JSON.stringify(JSON.parse(decodedExt), null, 4)}`,
+    );
+  } catch (e) {
+    console.error(e);
+    throw Error(e as string);
+  }
+}
+
+main()
+  .catch((err) => console.error(err))
+  .finally(() => process.exit());
+    ```
+
+    ***Response***
+
+    <div id='termynal' data-termynal>
+	<span data-ty>Decoded tx:</span>
+	<span data-ty> {</span>
+	<span data-ty>    "args": {</span>
+	<span data-ty>        "dest": "0xF977814e90dA44bFA03b6295A0616a897441aceC",</span>
+	<span data-ty>        "value": "100,000"</span>
+	<span data-ty>    },</span>
+	<span data-ty>    "method": "transferKeepAlive",</span>
+	<span data-ty>    "section": "balances"</span>
+	<span data-ty>}</span>
+</div>
+
+#### Fetch Fee Info
+
+Fetch estimated fee information for an extrinsic.
+
+```ts
+public async fetchFeeInfo<T extends Format>(
+		tx: ConstructedFormat<T>,
+		format: T,
+	): Promise<RuntimeDispatchInfo | RuntimeDispatchInfoV1 | null> {
+```
+
+??? interface "Request parameters"
+
+    `tx` ++"ConstructedFormat<T>"++ <span class="required" markdown>++"required"++</span>
+
+    The constructed transaction.
+
+    ??? child "Type `ConstructedFormat<T>`"
+
+        ```ts
+        export type ConstructedFormat<T> = T extends 'payload'
+	? GenericExtrinsicPayload
+	: T extends 'call'
+		? `0x${string}`
+		: T extends 'submittable'
+			? SubmittableExtrinsic<'promise', ISubmittableResult>
+			: never;
+        ```
+
+        The `ConstructedFormat` type is a conditional type that returns a specific type based on the value of the TxResult `format` field.
+
+        - **Payload format**: If the format field is set to `'payload'`, the `ConstructedFormat` type will return a [`GenericExtrinsicPayload`](https://github.com/polkadot-js/api/blob/{{ dependencies.javascript_packages.asset_transfer_api.polkadot_js_api_version}}/packages/types/src/extrinsic/ExtrinsicPayload.ts#L87){target=\_blank}.
+        - **Call format**: If the format field is set to `'call'`, the `ConstructedFormat` type will return a hexadecimal string (`0x${string}`). This is the encoded representation of the extrinsic call.
+        - **Submittable format**: If the format field is set to `'submittable'`, the `ConstructedFormat` type will return a [`SubmittableExtrinsic`](https://github.com/polkadot-js/api/blob/{{dependencies.javascript_packages.asset_transfer_api.polkadot_js_api_version}}/packages/api-base/src/types/submittable.ts#L56){target=\_blank}. This is a Polkadot.js type that represents a transaction that can be submitted to the blockchain.
+
+    ---
+
+    `format` ++"T extends Format"++ <span class="required" markdown>++"required"++</span>
+
+    Specifies the format for returning a transaction.
+
+    ??? child "Type `Format`"
+
+        ```ts
+        export type Format = 'payload' | 'call' | 'submittable';
+        ```
+
+??? interface "Response parameters"
+
+    ++"Promise<RuntimeDispatchInfo | RuntimeDispatchInfoV1 | null>"++
+
+    A promise containing the estimated fee information for the provided extrinsic.
+
+    ??? child "Type `RuntimeDispatchInfo`"
+
+        ```ts
+        export interface RuntimeDispatchInfo extends Struct {
+          readonly weight: Weight;
+          readonly class: DispatchClass;
+          readonly partialFee: Balance;
+        }
+        ```
+
+        For more information on the underlying types and fields of `RuntimeDispatchInfo`, check the [`RuntimeDispatchInfo`](https://github.com/polkadot-js/api/blob/{{ dependencies.javascript_packages.asset_transfer_api.polkadot_js_api_version}}/packages/types/src/interfaces/payment/types.ts#L21){target=\_blank} source code.
+
+    ??? child "Type `RuntimeDispatchInfoV1`"
+
+        ```ts
+        export interface RuntimeDispatchInfoV1 extends Struct {
+          readonly weight: WeightV1;
+          readonly class: DispatchClass;
+          readonly partialFee: Balance;
+        }
+        ```
+
+        For more information on the underlying types and fields of `RuntimeDispatchInfoV1`, check the [`RuntimeDispatchInfoV1`](https://github.com/polkadot-js/api/blob/{{dependencies.javascript_packages.asset_transfer_api.polkadot_js_api_version}}/packages/types/src/interfaces/payment/types.ts#L28){target=\_blank} source code.
+
+??? interface "Example"
+
+    ***Request***
+
+    ```ts
+    import {
+  AssetTransferApi,
+  constructApiPromise,
+} from '@substrate/asset-transfer-api';
+
+async function main() {
+  const { api, specName, safeXcmVersion } = await constructApiPromise(
+    'wss://wss.api.moonbeam.network',
+  );
+  const assetsApi = new AssetTransferApi(api, specName, safeXcmVersion);
+
+  const encodedExt = '0x0a03f977814e90da44bfa03b6295a0616a897441acec821a0600';
+
+  try {
+    const decodedExt = await assetsApi.fetchFeeInfo(encodedExt, 'call');
+    console.log(`Fee info:\n${JSON.stringify(decodedExt, null, 4)}`);
+  } catch (e) {
+    console.error(e);
+    throw Error(e as string);
+  }
+}
+
+main()
+  .catch((err) => console.error(err))
+  .finally(() => process.exit());
+    ```
+
+    ***Response***
+
+    <div id='termynal' data-termynal>
+    <span data-ty>Fee info:</span>
+    <span data-ty>{</span>
+    <span data-ty>    "weight": {</span>
+    <span data-ty>        "refTime": 163777000,</span>
+    <span data-ty>        "proofSize": 3581</span>
+    <span data-ty>    },</span>
+    <span data-ty>    "class": "Normal",</span>
+    <span data-ty>    "partialFee": 0</span>
+    <span data-ty>}</span>
+</div>
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/polkadot-protocol/glossary/
+--- BEGIN CONTENT ---
+---
+title: Glossary
+description: Glossary of terms used within the Polkadot ecosystem, Polkadot SDK, its subsequent libraries, and other relevant Web3 terminology.
+template: root-subdirectory-page.html
+categories: Reference
+---
+
+# Glossary
+
+Key definitions, concepts, and terminology specific to the Polkadot ecosystem are included here.
+
+Additional glossaries from around the ecosystem you might find helpful:
+
+- [Polkadot Wiki Glossary](https://wiki.polkadot.com/general/glossary){target=\_blank}
+- [Polkadot SDK Glossary](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/glossary/index.html){target=\_blank}
+
+## Authority
+
+The role in a blockchain that can participate in consensus mechanisms. 
+
+- **[GRANDPA](#grandpa)**: The authorities vote on chains they consider final.
+- **[Blind Assignment of Blockchain Extension](#blind-assignment-of-blockchain-extension-babe) (BABE)**: The authorities are also [block authors](#block-author).
+
+Authority sets can be used as a basis for consensus mechanisms such as the [Nominated Proof of Stake (NPoS)](#nominated-proof-of-stake-npos) protocol.
+
+## Authority Round (Aura)
+
+A deterministic [consensus](#consensus) protocol where block production is limited to a rotating list of [authorities](#authority) that take turns creating blocks. In authority round (Aura) consensus, most online authorities are assumed to be honest. It is often used in combination with [GRANDPA](#grandpa) as a [hybrid consensus](#hybrid-consensus) protocol.
+
+Learn more by reading the official [Aura consensus algorithm](https://openethereum.github.io/Aura){target=\_blank} wiki article.
+
+## Blind Assignment of Blockchain Extension (BABE)
+
+A [block authoring](#block-author) protocol similar to [Aura](#authority-round-aura), except [authorities](#authority) win [slots](#slot) based on a Verifiable Random Function (VRF) instead of the round-robin selection method. The winning authority can select a chain and submit a new block.
+
+Learn more by reading the official Web3 Foundation [BABE research document](https://research.web3.foundation/Polkadot/protocols/block-production/Babe){target=\_blank}.
+
+## Block Author
+
+The node responsible for the creation of a block, also called _block producers_. In a Proof of Work (PoW) blockchain, these nodes are called _miners_.
+
+## Byzantine Fault Tolerance (BFT)
+
+The ability of a distributed computer network to remain operational if a certain proportion of its nodes or [authorities](#authority) are defective or behaving maliciously. A distributed network is typically considered Byzantine fault tolerant if it can remain functional, with up to one-third of nodes assumed to be defective, offline, actively malicious, and part of a coordinated attack.
+
+### Byzantine Failure
+
+The loss of a network service due to node failures that exceed the proportion of nodes required to reach consensus.
+
+### Practical Byzantine Fault Tolerance (pBFT)
+
+An early approach to Byzantine fault tolerance (BFT), practical Byzantine fault tolerance (pBFT) systems tolerate Byzantine behavior from up to one-third of participants.
+
+The communication overhead for such systems is `O(n²)`, where `n` is the number of nodes (participants) in the system.
+
+### Preimage
+
+A preimage is the data that is input into a hash function to calculate a hash. Since a hash function is a [one-way function](https://en.wikipedia.org/wiki/One-way_function){target=\_blank}, the output, the hash, cannot be used to reveal the input, the preimage.
+
+## Call
+
+In the context of pallets containing functions to be dispatched to the runtime, `Call` is an enumeration data type that describes the functions that can be dispatched with one variant per pallet. A `Call` represents a [dispatch](#dispatchable) data structure object.
+
+## Chain Specification 
+
+A chain specification file defines the properties required to run a node in an active or new Polkadot SDK-built network. It often contains the initial genesis runtime code, network properties (such as the network's name), the initial state for some pallets, and the boot node list. The chain specification file makes it easy to use a single Polkadot SDK codebase as the foundation for multiple independently configured chains.
+
+## Collator
+
+An [author](#block-author) of a [parachain](#parachain) network.
+They aren't [authorities](#authority) in themselves, as they require a [relay chain](#relay-chain) to coordinate [consensus](#consensus).
+
+More details are found on the [Polkadot Collator Wiki](https://wiki.polkadot.com/learn/learn-collator/){target=\_blank}.
+
+## Collective
+
+Most often used to refer to an instance of the Collective pallet on Polkadot SDK-based networks such as [Kusama](#kusama) or [Polkadot](#polkadot) if the Collective pallet is part of the FRAME-based runtime for the network.
+
+## Consensus
+
+Consensus is the process blockchain nodes use to agree on a chain's canonical fork. It is composed of [authorship](#block-author), finality, and [fork-choice rule](#fork-choice-rulestrategy). In the Polkadot ecosystem, these three components are usually separate and the term consensus often refers specifically to authorship.
+
+See also [hybrid consensus](#hybrid-consensus).
+
+## Consensus Algorithm
+
+Ensures a set of [actors](#authority)—who don't necessarily trust each other—can reach an agreement about the state as the result of some computation. Most consensus algorithms assume that up to one-third of the actors or nodes can be [Byzantine fault tolerant](#byzantine-fault-tolerance-bft).
+
+Consensus algorithms are generally concerned with ensuring two properties:
+
+- **Safety**: Indicating that all honest nodes eventually agreed on the state of the chain.
+- **Liveness**: Indicating the ability of the chain to keep progressing.
+
+## Consensus Engine
+
+The node subsystem responsible for consensus tasks.
+
+For detailed information about the consensus strategies of the [Polkadot](#polkadot) network, see the [Polkadot Consensus](/polkadot-protocol/architecture/polkadot-chain/pos-consensus/){target=\_blank} blog series.
+
+See also [hybrid consensus](#hybrid-consensus).
+
+## Coretime
+
+The time allocated for utilizing a core, measured in relay chain blocks. There are two types of coretime: *on-demand* and *bulk*.
+
+On-demand coretime refers to coretime acquired through bidding in near real-time for the validation of a single parachain block on one of the cores reserved specifically for on-demand orders. They are available as an on-demand coretime pool. Set of cores that are available on-demand. Cores reserved through bulk coretime could also be made available in the on-demand coretime pool, in parts or in entirety.
+
+Bulk coretime is a fixed duration of continuous coretime represented by an NFT that can be split, shared, or resold. It is managed by the [Broker pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/index.html){target=\_blank}.
+
+## Development Phrase
+
+A [mnemonic phrase](https://en.wikipedia.org/wiki/Mnemonic#For_numerical_sequences_and_mathematical_operations){target=\_blank} that is intentionally made public.
+
+Well-known development accounts, such as Alice, Bob, Charlie, Dave, Eve, and Ferdie, are generated from the same secret phrase:
+
+```
+bottom drive obey lake curtain smoke basket hold race lonely fit walk
+```
+
+Many tools in the Polkadot SDK ecosystem, such as [`subkey`](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}/substrate/bin/utils/subkey){target=\_blank}, allow you to implicitly specify an account using a derivation path such as `//Alice`.
+
+## Digest
+
+An extensible field of the [block header](#header) that encodes information needed by several actors in a blockchain network, including:
+
+- [Light clients](#light-client) for chain synchronization.
+- Consensus engines for block verification.
+- The runtime itself, in the case of pre-runtime digests.
+
+## Dispatchable
+
+Function objects that act as the entry points in FRAME [pallets](#pallet). Internal or external entities can call them to interact with the blockchain’s state. They are a core aspect of the runtime logic, handling [transactions](#transaction) and other state-changing operations.
+
+## Events
+
+A means of recording that some particular [state](#state) transition happened.
+
+In the context of [FRAME](#frame-framework-for-runtime-aggregation-of-modularized-entities), events are composable data types that each [pallet](#pallet) can individually define. Events in FRAME are implemented as a set of transient storage items inspected immediately after a block has been executed and reset during block initialization.
+
+## Executor
+
+A means of executing a function call in a given [runtime](#runtime) with a set of dependencies.
+There are two orchestration engines in Polkadot SDK, _WebAssembly_ and _native_.
+
+- The _native executor_ uses a natively compiled runtime embedded in the node to execute calls. This is a performance optimization available to up-to-date nodes.
+
+- The _WebAssembly executor_ uses a [Wasm](#webassembly-wasm) binary and a Wasm interpreter to execute calls. The binary is guaranteed to be up-to-date regardless of the version of the blockchain node because it is persisted in the [state](#state) of the Polkadot SDK-based chain.
+
+## Existential Deposit
+
+The minimum balance an account is allowed to have in the [Balances pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_balances/index.html){target=\_blank}. Accounts cannot be created with a balance less than the existential deposit amount. 
+
+If an account balance drops below this amount, the Balances pallet uses [a FRAME System API](https://paritytech.github.io/substrate/master/frame_system/pallet/struct.Pallet.html#method.dec_ref){target=\_blank} to drop its references to that account.
+
+If the Balances pallet reference to an account is dropped, the account can be [reaped](https://paritytech.github.io/substrate/master/frame_system/pallet/struct.Pallet.html#method.allow_death){target=\_blank}.
+
+## Extrinsic
+
+A general term for data that originates outside the runtime, is included in a block, and leads to some action. This includes user-initiated transactions and inherent transactions placed into the block by the block builder.
+
+It is a SCALE-encoded array typically consisting of a version number, signature, and varying data types indicating the resulting runtime function to be called. Extrinsics can take two forms: [inherents](#inherent-transactions) and [transactions](#transaction). 
+
+For more technical details, see the [Polkadot spec](https://spec.polkadot.network/id-extrinsics){target=\_blank}.
+
+## Fork Choice Rule/Strategy
+
+A fork choice rule or strategy helps determine which chain is valid when reconciling several network forks. A common fork choice rule is the [longest chain](https://paritytech.github.io/polkadot-sdk/master/sc_consensus/struct.LongestChain.html){target=\_blank}, in which the chain with the most blocks is selected.
+
+## FRAME (Framework for Runtime Aggregation of Modularized Entities)
+
+Enables developers to create blockchain [runtime](#runtime) environments from a modular set of components called [pallets](#pallet). It utilizes a set of procedural macros to construct runtimes.
+
+[Visit the Polkadot SDK docs for more details on FRAME.](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/frame_runtime/index.html){target=\_blank}
+
+## Full Node
+
+A node that prunes historical states, keeping only recently finalized block states to reduce storage needs. Full nodes provide current chain state access and allow direct submission and validation of [extrinsics](#extrinsic), maintaining network decentralization.
+
+## Genesis Configuration
+
+A mechanism for specifying the initial state of a blockchain. By convention, this initial state or first block is commonly referred to as the genesis state or genesis block. The genesis configuration for Polkadot SDK-based chains is accomplished by way of a [chain specification](#chain-specification) file.
+
+## GRANDPA
+
+A deterministic finality mechanism for blockchains that is implemented in the [Rust](https://www.rust-lang.org/){target=\_blank} programming language.
+
+The [formal specification](https://github.com/w3f/consensus/blob/master/pdf/grandpa-old.pdf){target=\_blank} is maintained by the [Web3 Foundation](https://web3.foundation/){target=\_blank}.
+
+## Header
+
+A structure that aggregates the information used to summarize a block. Primarily, it consists of cryptographic information used by [light clients](#light-client) to get minimally secure but very efficient chain synchronization.
+
+## Hybrid Consensus
+
+A blockchain consensus protocol that consists of independent or loosely coupled mechanisms for [block production](#block-author) and finality.
+
+Hybrid consensus allows the chain to grow as fast as probabilistic consensus protocols, such as [Aura](#authority-round-aura), while maintaining the same level of security as deterministic finality consensus protocols, such as [GRANDPA](#grandpa).
+
+## Inherent Transactions
+
+A special type of unsigned transaction, referred to as _inherents_, that enables a block authoring node to insert information that doesn't require validation directly into a block.
+
+Only the block-authoring node that calls the inherent transaction function can insert data into its block. In general, validators assume the data inserted using an inherent transaction is valid and reasonable even if it can't be deterministically verified.
+
+## JSON-RPC
+
+A stateless, lightweight remote procedure call protocol encoded in JavaScript Object Notation (JSON). JSON-RPC provides a standard way to call functions on a remote system by using JSON.
+
+For Polkadot SDK, this protocol is implemented through the [Parity JSON-RPC](https://github.com/paritytech/jsonrpc){target=\_blank} crate.
+
+## Keystore
+
+A subsystem for managing keys for the purpose of producing new blocks.
+
+## Kusama
+
+[Kusama](https://kusama.network/){target=\_blank} is a Polkadot SDK-based blockchain that implements a design similar to the [Polkadot](#polkadot) network.
+
+Kusama is a [canary](https://en.wiktionary.org/wiki/canary_in_a_coal_mine){target=\_blank} network and is referred to as [Polkadot's "wild cousin."](https://wiki.polkadot.com/learn/learn-comparisons-kusama/){target=\_blank}.
+
+As a canary network, Kusama is expected to be more stable than a test network like [Westend](#westend) but less stable than a production network like [Polkadot](#polkadot). Kusama is controlled by its network participants and is intended to be stable enough to encourage meaningful experimentation.
+
+## libp2p
+
+A peer-to-peer networking stack that allows the use of many transport mechanisms, including WebSockets (usable in a web browser).
+
+Polkadot SDK uses the [Rust implementation](https://github.com/libp2p/rust-libp2p){target=\_blank} of the `libp2p` networking stack.
+
+## Light Client
+
+A type of blockchain node that doesn't store the [chain state](#state) or produce blocks.
+
+A light client can verify cryptographic primitives and provides a [remote procedure call (RPC)](https://en.wikipedia.org/wiki/Remote_procedure_call){target=\_blank} server, enabling blockchain users to interact with the network.
+
+## Metadata
+
+Data that provides information about one or more aspects of a system.
+The metadata that exposes information about a Polkadot SDK blockchain enables you to interact with that system.
+
+## Nominated Proof of Stake (NPoS)
+
+A method for determining [validators](#validator) or _[authorities](#authority)_ based on a willingness to commit their stake to the proper functioning of one or more block-producing nodes.
+
+## Oracle
+
+An entity that connects a blockchain to a non-blockchain data source. Oracles enable the blockchain to access and act upon information from existing data sources and incorporate data from non-blockchain systems and services.
+
+## Origin
+
+A [FRAME](#frame-framework-for-runtime-aggregation-of-modularized-entities) primitive that identifies the source of a [dispatched](#dispatchable) function call into the [runtime](#runtime). The FRAME System pallet defines three built-in [origins](#origin). As a [pallet](#pallet) developer, you can also define custom origins, such as those defined by the [Collective pallet](https://paritytech.github.io/substrate/master/pallet_collective/enum.RawOrigin.html){target=\_blank}.
+
+## Pallet
+
+A module that can be used to extend the capabilities of a [FRAME](#frame-framework-for-runtime-aggregation-of-modularized-entities)-based [runtime](#runtime).
+Pallets bundle domain-specific logic with runtime primitives like [events](#events) and [storage items](#storage-item).
+
+## Parachain
+
+A parachain is a blockchain that derives shared infrastructure and security from a _[relay chain](#relay-chain)_.
+You can learn more about parachains on the [Polkadot Wiki](https://wiki.polkadot.com/learn/learn-parachains/){target=\_blank}.
+
+## Paseo
+
+Paseo TestNet provisions testing on Polkadot's "production" runtime, which means less chance of feature or code mismatch when developing parachain apps. Specifically, after the [Polkadot Technical fellowship](https://wiki.polkadot.com/learn/learn-polkadot-technical-fellowship/){target=\_blank} proposes a runtime upgrade for Polkadot, this TestNet is updated, giving a period where the TestNet will be ahead of Polkadot to allow for testing.
+
+## Polkadot
+
+The [Polkadot network](https://polkadot.com/){target=\_blank} is a blockchain that serves as the central hub of a heterogeneous blockchain network. It serves the role of the [relay chain](#relay-chain) and provides shared infrastructure and security to support [parachains](#parachain).
+
+## Polkadot Cloud
+
+Polkadot Cloud is a platform for deploying resilient, customizable and scalable Web3 applications through Polkadot's functionality. It encompasses the wider Polkadot network infrastructure and security layer where parachains operate. The platform enables users to launch Ethereum-compatible chains, build specialized blockchains, and flexibly manage computing resources through on-demand or bulk coretime purchases. Initially launched with basic parachain functionality, Polkadot Cloud has evolved to offer enhanced flexibility with features like coretime, elastic scaling, and async backing for improved performance.
+
+## Polkadot Hub
+
+Polkadot Hub is a Layer 1 platform that serves as the primary entry point to the Polkadot ecosystem, providing essential functionality without requiring parachain deployment. It offers core services including smart contracts, identity management, staking, governance, and interoperability with other ecosystems, making it simple and fast for both builders and users to get started in Web3.
+
+## PolkaVM
+
+PolkaVM is a custom virtual machine optimized for performance, leveraging a RISC-V-based architecture to support Solidity and any language that compiles to RISC-V. It is specifically designed for the Polkadot ecosystem, enabling smart contract deployment and execution.
+
+## Relay Chain
+
+Relay chains are blockchains that provide shared infrastructure and security to the [parachains](#parachain) in the network. In addition to providing [consensus](#consensus) capabilities, relay chains allow parachains to communicate and exchange digital assets without needing to trust one another.
+
+## Rococo
+
+A [parachain](#parachain) test network for the Polkadot network. The [Rococo](#rococo) network is a Polkadot SDK-based blockchain with an October 14, 2024 deprecation date. Development teams are encouraged to use the Paseo TestNet instead.
+
+## Runtime
+
+The runtime represents the [state transition function](#state-transition-function-stf) for a blockchain. In Polkadot SDK, the runtime is stored as a [Wasm](#webassembly-wasm) binary in the chain state. The Runtime is stored under a unique state key and can be modified during the execution of the state transition function.
+
+## Slot
+
+A fixed, equal interval of time used by consensus engines such as [Aura](#authority-round-aura) and [BABE](#blind-assignment-of-blockchain-extension-babe). In each slot, a subset of [authorities](#authority) is permitted, or obliged, to [author](#block-author) a block.
+
+## Sovereign Account
+
+The unique account identifier for each chain in the relay chain ecosystem. It is often used in cross-consensus (XCM) interactions to sign XCM messages sent to the relay chain or other chains in the ecosystem.
+
+The sovereign account for each chain is a root-level account that can only be accessed using the Sudo pallet or through governance. The account identifier is calculated by concatenating the Blake2 hash of a specific text string and the registered parachain identifier.
+
+## SS58 Address Format
+
+A public key address based on the Bitcoin [`Base-58-check`](https://en.bitcoin.it/wiki/Base58Check_encoding){target=\_blank} encoding. Each Polkadot SDK SS58 address uses a `base-58` encoded value to identify a specific account on a specific Polkadot SDK-based chain
+
+The [canonical `ss58-registry`](https://github.com/paritytech/ss58-registry){target=\_blank} provides additional details about the address format used by different Polkadot SDK-based chains, including the network prefix and website used for different networks
+
+## State Transition Function (STF)
+
+The logic of a blockchain that determines how the state changes when a block is processed. In Polkadot SDK, the state transition function is effectively equivalent to the [runtime](#runtime).
+
+## Storage Item
+
+[FRAME](#frame-framework-for-runtime-aggregation-of-modularized-entities) primitives that provide type-safe data persistence capabilities to the [runtime](#runtime).
+Learn more in the [storage items](https://paritytech.github.io/polkadot-sdk/master/frame_support/storage/types/index.html){target=\_blank} reference document in the Polkadot SDK.
+
+## Substrate
+
+A flexible framework for building modular, efficient, and upgradeable blockchains. Substrate is written in the [Rust](https://www.rust-lang.org/){target=\_blank} programming language and is maintained by [Parity Technologies](https://www.parity.io/){target=\_blank}.
+
+## Transaction
+
+An [extrinsic](#extrinsic) that includes a signature that can be used to verify the account authorizing it inherently or via [signed extensions](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/signed_extensions/index.html){target=\_blank}.
+
+## Transaction Era
+
+A definable period expressed as a range of block numbers during which a transaction can be included in a block.
+Transaction eras are used to protect against transaction replay attacks if an account is reaped and its replay-protecting nonce is reset to zero.
+
+## Trie (Patricia Merkle Tree)
+
+A data structure used to represent sets of key-value pairs and enables the items in the data set to be stored and retrieved using a cryptographic hash. Because incremental changes to the data set result in a new hash, retrieving data is efficient even if the data set is very large. With this data structure, you can also prove whether the data set includes any particular key-value pair without access to the entire data set.
+
+In Polkadot SDK-based blockchains, state is stored in a trie data structure that supports the efficient creation of incremental digests. This trie is exposed to the [runtime](#runtime) as [a simple key/value map](#storage-item) where both keys and values can be arbitrary byte arrays.
+
+## Validator
+
+A validator is a node that participates in the consensus mechanism of the network. Its roles include block production, transaction validation, network integrity, and security maintenance.
+
+## WebAssembly (Wasm)
+
+An execution architecture that allows for the efficient, platform-neutral expression of
+deterministic, machine-executable logic.
+
+[Wasm](https://webassembly.org/){target=\_blank} can be compiled from many languages, including
+the [Rust](https://www.rust-lang.org/){target=\_blank} programming language. Polkadot SDK-based chains use a Wasm binary to provide portable [runtimes](#runtime) that can be included as part of the chain's state.
+
+## Weight
+
+A convention used in Polkadot SDK-based blockchains to measure and manage the time it takes to validate a block.
+Polkadot SDK defines one unit of weight as one picosecond of execution time on reference hardware.
+
+The maximum block weight should be equivalent to one-third of the target block time with an allocation of one-third each for:
+
+- Block construction
+- Network propagation
+- Import and verification
+
+By defining weights, you can trade-off the number of transactions per second and the hardware required to maintain the target block time appropriate for your use case. Weights are defined in the runtime, meaning you can tune them using runtime updates to keep up with hardware and software improvements.
+
+## Westend
+
+Westend is a Parity-maintained, Polkadot SDK-based blockchain that serves as a test network for the [Polkadot](#polkadot) network.
+--- END CONTENT ---

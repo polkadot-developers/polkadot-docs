@@ -2,6 +2,7 @@
 title: Add Pallets to the Runtime
 description: Add pallets to your runtime for custom functionality. Learn to configure and integrate pallets in Polkadot SDK-based blockchains.
 tutorial_badge: Beginner
+categories: Basics, Parachains
 ---
 
 # Add Pallets to the Runtime
@@ -44,7 +45,7 @@ First, you'll update the runtime's `Cargo.toml` file to include the Utility pall
     ]
     ```
 
-3. Save the changes and close the `Cargo.toml` file
+3. Save the changes and close the `Cargo.toml` file.
 
     Once you have saved your file, it should look like the following:
 
@@ -136,6 +137,7 @@ Launch your parachain locally and start producing blocks:
     ```
 
 3. Verify you can interact with the new pallets using the [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9944#/extrinsics){target=\_blank} interface. Navigate to the **Extrinsics** tab and check that you can see both pallets:
+
     - Utility pallet
 
         ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime/add-pallets-to-runtime-1.webp)

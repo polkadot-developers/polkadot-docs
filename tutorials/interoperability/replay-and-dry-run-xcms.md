@@ -9,10 +9,10 @@ description: Replay and dry-run XCMs using Chopsticks with full logging enabled.
 
 In this tutorial, you'll learn how to replay and dry-run XCMs using [Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/){target=\_blank}, a powerful tool for forking live Polkadot SDK-based chains in your local environment. These techniques are essential for:
 
-- Debugging cross-chain message failures
-- Tracing execution across relay chains and parachains
-- Analyzing weight usage, error types, and message flow
-- Safely simulating XCMs without committing state changes
+- Debugging cross-chain message failures.
+- Tracing execution across relay chains and parachains.
+- Analyzing weight usage, error types, and message flow.
+- Safely simulating XCMs without committing state changes.
 
 By the end of this guide, you'll be able to set up a local fork, capture and replay real XCMs, and use dry-run features to diagnose and resolve complex cross-chain issues.
 
@@ -20,12 +20,12 @@ By the end of this guide, you'll be able to set up a local fork, capture and rep
 
 Before you begin, make sure you have:
 
-- [Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/){target=\_blank} installed (`npm i -g @acala-network/chopsticks`)
-- Access to the endpoint or genesis file of the parachain you want to fork
-- The block number or hash where the XCM was sent
-- (Optional) A Chopsticks config file for repeated setups
+- [Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/){target=\_blank} installed (`npm i -g @acala-network/chopsticks`).
+- Access to the endpoint or genesis file of the parachain you want to fork.
+- The block number or hash where the XCM was sent.
+- (Optional) A Chopsticks config file for repeated setups.
 
-If you haven't forked a chain before, see the [Fork a Chain with Chopsticks guide](/tutorials/polkadot-sdk/testing/fork-live-chains/){target=\_blank} or [Fork a Network Locally using Chopsticks](https://wiki.polkadot.network/learn/learn-guides-test-opengov-proposals/#fork-a-network-locally-using-chopsticks){target=\_blank} for step-by-step instructions.
+If you haven't forked a chain before, see the [Fork a Chain with Chopsticks guide](/tutorials/polkadot-sdk/testing/fork-live-chains/){target=\_blank} or [Fork a Network Locally using Chopsticks](https://wiki.polkadot.com/learn/learn-guides-test-opengov-proposals/#fork-a-network-locally-using-chopsticks){target=\_blank} for step-by-step instructions.
 
 ## Set Up Your Project
 
@@ -72,9 +72,9 @@ Let's start by creating a dedicated workspace for your XCM replay and dry-run ex
 
 To replay a specific XCM, identify:
 
-- The source and destination chains involved
-- The block number or height where the XCM was sent
-- Optionally, the call payload (if you plan to simulate it manually via development commands)
+- The source and destination chains involved.
+- The block number or height where the XCM was sent.
+- Optionally, the call payload (if you plan to simulate it manually via development commands).
 
 You can use [Polkadot.js Apps](/tutorials/polkadot-sdk/testing/fork-live-chains/#use-polkadotjs-apps){target=\_blank}, [papi console](https://dev.papi.how/){target=\_blank}, or indexers such as [Subscan](https://polkadot.subscan.io/xcm_dashboard){target=\_blank} to locate and inspect the original XCM execution.
 
@@ -194,9 +194,9 @@ Once your project is set up, you're ready to replay the XCM locally.
 
 This is useful for:
 
-- Diagnosing execution failures or weight limits
-- Inspecting all emitted events
-- Verifying behaviour before submitting a real transaction
+- Diagnosing execution failures or weight limits.
+- Inspecting all emitted events.
+- Verifying behaviour before submitting a real transaction.
 
 ### Add the Asset Hub Descriptor
 
@@ -267,9 +267,9 @@ For more information, see:
 
 Replaying XCMs with full logging provides fine-grained control and visibility into cross-chain message behaviour. Chopsticks makes this possible in a safe, local environment – empowering developers to:
 
-- Debug complex message flows
-- Identify root causes of XCM failures
-- Improve observability for future integrations
+- Debug complex message flows.
+- Identify root causes of XCM failures.
+- Improve observability for future integrations.
 
 ## Where to Go Next
 

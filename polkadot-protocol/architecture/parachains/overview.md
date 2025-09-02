@@ -1,6 +1,7 @@
 ---
 title: Overview
 description: Learn about the role, functionality, and implementation of parachains as a developer in the wider Polkadot architecture.
+categories: Basics, Polkadot Protocol, Parachains
 ---
 
 ## Introduction 
@@ -97,7 +98,7 @@ For more information on the Wasm meta protocol that powers runtimes, see the [WA
 
 The relay chain provides a layer of economic security for its parachains. Parachains submit proof of validation (PoV) data to the relay chain for validation through [collators](/polkadot-protocol/glossary/#collator), upon which the relay chains' validators ensure the validity of this data in accordance with the STF for that particular parachain. In other words, the consensus for a parachain follows the relay chain. While parachains choose how a block is authored, what it contains, and who authors it, the relay chain ultimately provides finality and consensus for those blocks.
 
-For more information about the parachain and relay chain validation process, see the [Parachains' Protocol Overview: Protocols' Summary](https://wiki.polkadot.network/learn/learn-parachains-protocol/#protocols-summary){target=\blank} entry in the Polkadot Wiki.
+For more information about the parachain and relay chain validation process, see the [Parachains' Protocol Overview: Protocols' Summary](https://wiki.polkadot.com/learn/learn-parachains-protocol/#protocols-summary){target=\blank} entry in the Polkadot Wiki.
 
 Parachains need at least one honest collator to submit PoV data to the relay chain. Without this, the parachain can't progress. The mechanisms that facilitate this are found in the Cumulus portion of the Polkadot SDK, some of which are found in the [`cumulus_pallet_parachain_system`](https://paritytech.github.io/polkadot-sdk/master/cumulus_pallet_parachain_system/index.html){target=\blank}
 

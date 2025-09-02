@@ -1,6 +1,7 @@
 ---
 title: Polkadot Hub Smart Contract FAQs
 description: Find answers to common questions about smart contract development, deployment, and compatibility in the Polkadot Hub ecosystem.
+categories: Smart Contracts
 ---
 
 # Smart Contracts FAQs
@@ -8,7 +9,7 @@ description: Find answers to common questions about smart contract development, 
 --8<-- 'text/smart-contracts/polkaVM-warning.md'
 
 !!! note
-    For a list of known incompatibilities, please refer to the [Solidity and Yul IR transaltion incompatibilities](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm/#solidity-and-yul-ir-translation-incompatibilities){target=\_blank} section.
+    For a list of known incompatibilities, please refer to the [Solidity and Yul IR translation incompatibilities](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm/#solidity-and-yul-ir-translation-incompatibilities){target=\_blank} section.
 
 ## General Questions
 
@@ -153,7 +154,6 @@ The latest MetaMask update affects the extension’s ability to deploy large con
 ### I found a bug, where can I log it?
 
 Please log any bugs in the [`contracts-issues`](https://github.com/paritytech/contract-issues/issues){target=\_blank} repository so developers are aware of them and can address them.
-
 
 ## Known Issues
 

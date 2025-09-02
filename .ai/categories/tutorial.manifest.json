@@ -1,0 +1,570 @@
+{
+  "category": "Tutorial",
+  "category_slug": "tutorial",
+  "includes_base": true,
+  "base_categories": [
+    "Basics",
+    "Reference"
+  ],
+  "count": 50,
+  "generated_at": "2025-09-02T16:47:14+00:00",
+  "pages": [
+    {
+      "title": "Accounts in Asset Hub Smart Contracts",
+      "slug": "polkadot-protocol-smart-contract-basics-accounts",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/polkadot-protocol-smart-contract-basics-accounts.md",
+      "html_url": "https://docs.polkadot.com/polkadot-protocol/smart-contract-basics/accounts/",
+      "description": "Bridges Ethereum's 20-byte addresses with Polkadot's 32-byte accounts, enabling seamless interaction while maintaining compatibility with Ethereum tooling.",
+      "categories": [
+        "Basics",
+        "Polkadot Protocol"
+      ]
+    },
+    {
+      "title": "Add Pallets to the Runtime",
+      "slug": "tutorials-polkadot-sdk-parachains-zero-to-hero-add-pallets-to-runtime",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/tutorials-polkadot-sdk-parachains-zero-to-hero-add-pallets-to-runtime.md",
+      "html_url": "https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime/",
+      "description": "Add pallets to your runtime for custom functionality. Learn to configure and integrate pallets in Polkadot SDK-based blockchains.",
+      "categories": [
+        "Basics",
+        "Parachains"
+      ]
+    },
+    {
+      "title": "Asset Transfer API",
+      "slug": "develop-toolkit-interoperability-asset-transfer-api-overview",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/develop-toolkit-interoperability-asset-transfer-api-overview.md",
+      "html_url": "https://docs.polkadot.com/develop/toolkit/interoperability/asset-transfer-api/overview/",
+      "description": "Asset Transfer API is a library that simplifies the transfer of assets for Polkadot SDK-based chains. It provides methods for cross-chain and local transfers.",
+      "categories": [
+        "Basics",
+        "Tooling",
+        "Dapps"
+      ]
+    },
+    {
+      "title": "Asset Transfer API Reference",
+      "slug": "develop-toolkit-interoperability-asset-transfer-api-reference",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/develop-toolkit-interoperability-asset-transfer-api-reference.md",
+      "html_url": "https://docs.polkadot.com/develop/toolkit/interoperability/asset-transfer-api/reference/",
+      "description": "Explore the Asset Transfer API Reference for comprehensive details on methods, data types, and functionalities. Essential for cross-chain asset transfers.",
+      "categories": [
+        "Reference",
+        "Dapps"
+      ]
+    },
+    {
+      "title": "Blocks",
+      "slug": "polkadot-protocol-parachain-basics-blocks-transactions-fees-blocks",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/polkadot-protocol-parachain-basics-blocks-transactions-fees-blocks.md",
+      "html_url": "https://docs.polkadot.com/polkadot-protocol/parachain-basics/blocks-transactions-fees/blocks/",
+      "description": "Understand how blocks are produced, validated, and imported in Polkadot SDK-based blockchains, covering initialization, finalization, and authoring processes.",
+      "categories": [
+        "Basics",
+        "Polkadot Protocol"
+      ]
+    },
+    {
+      "title": "Build a Custom Pallet",
+      "slug": "tutorials-polkadot-sdk-parachains-zero-to-hero-build-custom-pallet",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/tutorials-polkadot-sdk-parachains-zero-to-hero-build-custom-pallet.md",
+      "html_url": "https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/",
+      "description": "Learn how to build a custom pallet for Polkadot SDK-based blockchains with this step-by-step guide. Create and configure a simple counter pallet from scratch.",
+      "categories": [
+        "Basics",
+        "Parachains"
+      ]
+    },
+    {
+      "title": "Chain Data",
+      "slug": "polkadot-protocol-parachain-basics-chain-data",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/polkadot-protocol-parachain-basics-chain-data.md",
+      "html_url": "https://docs.polkadot.com/polkadot-protocol/parachain-basics/chain-data/",
+      "description": "Learn how to expose and utilize chain data for blockchain applications. Discover runtime metadata, RPC APIs, and tools for efficient development.",
+      "categories": [
+        "Basics",
+        "Polkadot Protocol"
+      ]
+    },
+    {
+      "title": "Create a Smart Contract",
+      "slug": "tutorials-smart-contracts-launch-your-first-project-create-contracts",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/tutorials-smart-contracts-launch-your-first-project-create-contracts.md",
+      "html_url": "https://docs.polkadot.com/tutorials/smart-contracts/launch-your-first-project/create-contracts/",
+      "description": "Learn how to write a basic smart contract using just a text editor. This guide covers creating and preparing a contract for deployment on Polkadot Hub.",
+      "categories": [
+        "Basics",
+        "Smart Contracts"
+      ]
+    },
+    {
+      "title": "Cryptography",
+      "slug": "polkadot-protocol-parachain-basics-cryptography",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/polkadot-protocol-parachain-basics-cryptography.md",
+      "html_url": "https://docs.polkadot.com/polkadot-protocol/parachain-basics/cryptography/",
+      "description": "A concise guide to cryptography in blockchain, covering hash functions, encryption types, digital signatures, and elliptic curve applications.",
+      "categories": [
+        "Basics",
+        "Polkadot Protocol"
+      ]
+    },
+    {
+      "title": "Data Encoding",
+      "slug": "polkadot-protocol-parachain-basics-data-encoding",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/polkadot-protocol-parachain-basics-data-encoding.md",
+      "html_url": "https://docs.polkadot.com/polkadot-protocol/parachain-basics/data-encoding/",
+      "description": "SCALE codec enables fast, efficient data encoding, ideal for resource-constrained environments like Wasm, supporting custom types and compact encoding.",
+      "categories": [
+        "Basics",
+        "Polkadot Protocol"
+      ]
+    },
+    {
+      "title": "Deploy an ERC-20 to Polkadot Hub",
+      "slug": "tutorials-smart-contracts-deploy-erc20",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/tutorials-smart-contracts-deploy-erc20.md",
+      "html_url": "https://docs.polkadot.com/tutorials/smart-contracts/deploy-erc20/",
+      "description": "Deploy an ERC-20 token on Polkadot Hub using PolkaVM. This guide covers contract creation, compilation, deployment, and interaction via Polkadot Remix IDE.",
+      "categories": [
+        "Basics",
+        "dApps",
+        "Smart Contracts",
+        "Tutorial"
+      ]
+    },
+    {
+      "title": "Deploy an NFT to Polkadot Hub",
+      "slug": "tutorials-smart-contracts-deploy-nft",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/tutorials-smart-contracts-deploy-nft.md",
+      "html_url": "https://docs.polkadot.com/tutorials/smart-contracts/deploy-nft/",
+      "description": "Deploy an NFT on Polkadot Hub using PolkaVM and OpenZeppelin. Learn how to compile, deploy, and interact with your contract using Polkadot Remix IDE.",
+      "categories": [
+        "Basics",
+        "dApps",
+        "Smart Contracts",
+        "Tutorial"
+      ]
+    },
+    {
+      "title": "EVM vs PolkaVM",
+      "slug": "polkadot-protocol-smart-contract-basics-evm-vs-polkavm",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/polkadot-protocol-smart-contract-basics-evm-vs-polkavm.md",
+      "html_url": "https://docs.polkadot.com/polkadot-protocol/smart-contract-basics/evm-vs-polkavm/",
+      "description": "Compares EVM and PolkaVM, highlighting key architectural differences, gas models, memory management, and account handling while ensuring Solidity compatibility.",
+      "categories": [
+        "Basics",
+        "Polkadot Protocol"
+      ]
+    },
+    {
+      "title": "Fast Track a Governance Proposal",
+      "slug": "tutorials-onchain-governance-fast-track-gov-proposal",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/tutorials-onchain-governance-fast-track-gov-proposal.md",
+      "html_url": "https://docs.polkadot.com/tutorials/onchain-governance/fast-track-gov-proposal/",
+      "description": "Learn how to fast-track governance proposals in Polkadot's OpenGov using Chopsticks. Simulate, test, and execute proposals confidently.",
+      "categories": [
+        "Tooling",
+        "Tutorial"
+      ]
+    },
+    {
+      "title": "Fork a Chain with Chopsticks",
+      "slug": "tutorials-polkadot-sdk-testing-fork-live-chains",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/tutorials-polkadot-sdk-testing-fork-live-chains.md",
+      "html_url": "https://docs.polkadot.com/tutorials/polkadot-sdk/testing/fork-live-chains/",
+      "description": "Learn how to fork live Polkadot SDK chains with Chopsticks. Configure forks, replay blocks, test XCM, and interact programmatically or via UI.",
+      "categories": [
+        "Basics",
+        "dApps",
+        "Tooling"
+      ]
+    },
+    {
+      "title": "Glossary",
+      "slug": "polkadot-protocol-glossary",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/polkadot-protocol-glossary.md",
+      "html_url": "https://docs.polkadot.com/polkadot-protocol/glossary/",
+      "description": "Glossary of terms used within the Polkadot ecosystem, Polkadot SDK, its subsequent libraries, and other relevant Web3 terminology.",
+      "categories": [
+        "Reference"
+      ]
+    },
+    {
+      "title": "Install Polkadot SDK Dependencies",
+      "slug": "develop-parachains-install-polkadot-sdk",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/develop-parachains-install-polkadot-sdk.md",
+      "html_url": "https://docs.polkadot.com/develop/parachains/install-polkadot-sdk/",
+      "description": "Install everything you need to begin working with Substrated-based blockchains and the Polkadot SDK, the framework for building blockchains.",
+      "categories": [
+        "Basics",
+        "Tooling"
+      ]
+    },
+    {
+      "title": "Interoperability",
+      "slug": "polkadot-protocol-parachain-basics-interoperability",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/polkadot-protocol-parachain-basics-interoperability.md",
+      "html_url": "https://docs.polkadot.com/polkadot-protocol/parachain-basics/interoperability/",
+      "description": "Explore the importance of interoperability in the Polkadot ecosystem, covering XCM, bridges, and cross-chain communication.",
+      "categories": [
+        "Basics",
+        "Polkadot Protocol"
+      ]
+    },
+    {
+      "title": "Introduction to Polkadot SDK",
+      "slug": "develop-parachains-intro-polkadot-sdk",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/develop-parachains-intro-polkadot-sdk.md",
+      "html_url": "https://docs.polkadot.com/develop/parachains/intro-polkadot-sdk/",
+      "description": "Learn about the Polkadot SDK, a robust developer toolkit for building custom blockchains. Explore its components and how it powers the Polkadot protocol.",
+      "categories": [
+        "Basics",
+        "Tooling"
+      ]
+    },
+    {
+      "title": "Introduction to XCM",
+      "slug": "develop-interoperability-intro-to-xcm",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/develop-interoperability-intro-to-xcm.md",
+      "html_url": "https://docs.polkadot.com/develop/interoperability/intro-to-xcm/",
+      "description": "Unlock blockchain interoperability with XCM — Polkadot's Cross-Consensus Messaging format for cross-chain interactions.",
+      "categories": [
+        "Basics",
+        "Polkadot Protocol"
+      ]
+    },
+    {
+      "title": "JSON-RPC APIs",
+      "slug": "develop-smart-contracts-json-rpc-apis",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/develop-smart-contracts-json-rpc-apis.md",
+      "html_url": "https://docs.polkadot.com/develop/smart-contracts/json-rpc-apis/",
+      "description": "JSON-RPC APIs guide for Polkadot Hub, covering supported methods, parameters, and examples for interacting with the chain.",
+      "categories": [
+        "Reference"
+      ]
+    },
+    {
+      "title": "Networks",
+      "slug": "develop-networks",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/develop-networks.md",
+      "html_url": "https://docs.polkadot.com/develop/networks/",
+      "description": "Explore the Polkadot ecosystem networks and learn the unique purposes of each, tailored for blockchain innovation, testing, and enterprise-grade solutions.",
+      "categories": [
+        "Basics",
+        "Networks"
+      ]
+    },
+    {
+      "title": "Networks",
+      "slug": "polkadot-protocol-parachain-basics-networks",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/polkadot-protocol-parachain-basics-networks.md",
+      "html_url": "https://docs.polkadot.com/polkadot-protocol/parachain-basics/networks/",
+      "description": "Explore Polkadot's testing and production networks, including Westend, Kusama, and Paseo, for efficient development, deployment, and testing.",
+      "categories": [
+        "Basics",
+        "Polkadot Protocol",
+        "Networks"
+      ]
+    },
+    {
+      "title": "Networks for Polkadot Hub Smart Contracts",
+      "slug": "polkadot-protocol-smart-contract-basics-networks",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/polkadot-protocol-smart-contract-basics-networks.md",
+      "html_url": "https://docs.polkadot.com/polkadot-protocol/smart-contract-basics/networks/",
+      "description": "Explore the available networks for smart contract development on Polkadot Hub, including Westend Hub, Kusama Hub, and Polkadot Hub.",
+      "categories": [
+        "Basics",
+        "Polkadot Protocol"
+      ]
+    },
+    {
+      "title": "Node and Runtime",
+      "slug": "polkadot-protocol-parachain-basics-node-and-runtime",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/polkadot-protocol-parachain-basics-node-and-runtime.md",
+      "html_url": "https://docs.polkadot.com/polkadot-protocol/parachain-basics/node-and-runtime/",
+      "description": "Learn how Polkadot SDK-based nodes function, how the client and runtime are separated, and how they communicate using SCALE-encoded data.",
+      "categories": [
+        "Basics",
+        "Polkadot Protocol"
+      ]
+    },
+    {
+      "title": "On-Chain Governance Overview",
+      "slug": "polkadot-protocol-onchain-governance-overview",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/polkadot-protocol-onchain-governance-overview.md",
+      "html_url": "https://docs.polkadot.com/polkadot-protocol/onchain-governance/overview/",
+      "description": "Discover Polkadot’s cutting-edge OpenGov system, enabling transparent, decentralized decision-making through direct democracy and flexible governance tracks.",
+      "categories": [
+        "Basics",
+        "Polkadot Protocol"
+      ]
+    },
+    {
+      "title": "Overview",
+      "slug": "polkadot-protocol-architecture-parachains-overview",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/polkadot-protocol-architecture-parachains-overview.md",
+      "html_url": "https://docs.polkadot.com/polkadot-protocol/architecture/parachains/overview/",
+      "description": "Learn about the role, functionality, and implementation of parachains as a developer in the wider Polkadot architecture.",
+      "categories": [
+        "Basics",
+        "Polkadot Protocol",
+        "Parachains"
+      ]
+    },
+    {
+      "title": "Overview of FRAME",
+      "slug": "develop-parachains-customize-parachain-overview",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/develop-parachains-customize-parachain-overview.md",
+      "html_url": "https://docs.polkadot.com/develop/parachains/customize-parachain/overview/",
+      "description": "Learn how Polkadot SDK’s FRAME framework simplifies blockchain development with modular pallets and support libraries for efficient runtime design.",
+      "categories": [
+        "Basics",
+        "Parachains"
+      ]
+    },
+    {
+      "title": "Overview of Polkadot's System Chains",
+      "slug": "polkadot-protocol-architecture-system-chains-overview",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/polkadot-protocol-architecture-system-chains-overview.md",
+      "html_url": "https://docs.polkadot.com/polkadot-protocol/architecture/system-chains/overview/",
+      "description": "Discover how system parachains enhance Polkadot's scalability and performance by offloading tasks like governance, asset management, and bridging from the relay chain.",
+      "categories": [
+        "Basics",
+        "Polkadot Protocol"
+      ]
+    },
+    {
+      "title": "Overview of the Polkadot Relay Chain",
+      "slug": "polkadot-protocol-architecture-polkadot-chain-overview",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/polkadot-protocol-architecture-polkadot-chain-overview.md",
+      "html_url": "https://docs.polkadot.com/polkadot-protocol/architecture/polkadot-chain/overview/",
+      "description": "Explore Polkadot's core architecture, including its multi-chain vision, shared security, and the DOT token's governance and staking roles.",
+      "categories": [
+        "Basics",
+        "Polkadot Protocol",
+        "Parachains"
+      ]
+    },
+    {
+      "title": "PAPI Account Watcher Tutorial",
+      "slug": "tutorials-dapps-remark-tutorial",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/tutorials-dapps-remark-tutorial.md",
+      "html_url": "https://docs.polkadot.com/tutorials/dapps/remark-tutorial/",
+      "description": "Build a CLI app that listens to on-chain events using the Polkadot API and responds to specific messages for a given account.",
+      "categories": [
+        "Tooling",
+        "Tutorial"
+      ]
+    },
+    {
+      "title": "Polkadot SDK Accounts",
+      "slug": "polkadot-protocol-parachain-basics-accounts",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/polkadot-protocol-parachain-basics-accounts.md",
+      "html_url": "https://docs.polkadot.com/polkadot-protocol/parachain-basics/accounts/",
+      "description": "Learn about account structures, balances, and address formats in the Polkadot SDK, including how to manage lifecycle, references, and balances.",
+      "categories": [
+        "Basics",
+        "Polkadot Protocol"
+      ]
+    },
+    {
+      "title": "PolkaVM Design",
+      "slug": "polkadot-protocol-smart-contract-basics-polkavm-design",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/polkadot-protocol-smart-contract-basics-polkavm-design.md",
+      "html_url": "https://docs.polkadot.com/polkadot-protocol/smart-contract-basics/polkavm-design/",
+      "description": "Discover PolkaVM, a high-performance smart contract VM for Polkadot, enabling Ethereum compatibility via pallet_revive, Solidity support & optimized execution.",
+      "categories": [
+        "Basics",
+        "Polkadot Protocol"
+      ]
+    },
+    {
+      "title": "Randomness",
+      "slug": "polkadot-protocol-parachain-basics-randomness",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/polkadot-protocol-parachain-basics-randomness.md",
+      "html_url": "https://docs.polkadot.com/polkadot-protocol/parachain-basics/randomness/",
+      "description": "Explore the importance of randomness in PoS blockchains, focusing on Polkadot’s VRF-based approach to ensure fairness and security in validator selection.",
+      "categories": [
+        "Basics",
+        "Polkadot Protocol"
+      ]
+    },
+    {
+      "title": "Register a Local Asset",
+      "slug": "tutorials-polkadot-sdk-system-chains-asset-hub-register-local-asset",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/tutorials-polkadot-sdk-system-chains-asset-hub-register-local-asset.md",
+      "html_url": "https://docs.polkadot.com/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-asset/",
+      "description": "Comprehensive guide to registering a local asset on the Asset Hub system parachain, including step-by-step instructions.",
+      "categories": [
+        "Basics",
+        "dApps"
+      ]
+    },
+    {
+      "title": "Replay and Dry Run XCMs",
+      "slug": "tutorials-interoperability-replay-and-dry-run-xcms",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/tutorials-interoperability-replay-and-dry-run-xcms.md",
+      "html_url": "https://docs.polkadot.com/tutorials/interoperability/replay-and-dry-run-xcms/",
+      "description": "Replay and dry-run XCMs using Chopsticks with full logging enabled. Diagnose issues, trace message flow, and debug complex cross-chain interactions.",
+      "categories": [
+        "Tutorial"
+      ]
+    },
+    {
+      "title": "Send XCM Messages",
+      "slug": "develop-interoperability-send-messages",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/develop-interoperability-send-messages.md",
+      "html_url": "https://docs.polkadot.com/develop/interoperability/send-messages/",
+      "description": "Send cross-chain messages using XCM, Polkadot's Cross-Consensus Messaging format, designed to support secure communication between chains.",
+      "categories": [
+        "Basics",
+        "Polkadot Protocol"
+      ]
+    },
+    {
+      "title": "Set Up a Template",
+      "slug": "tutorials-polkadot-sdk-parachains-zero-to-hero-set-up-a-template",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/tutorials-polkadot-sdk-parachains-zero-to-hero-set-up-a-template.md",
+      "html_url": "https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template/",
+      "description": "Learn to compile and run a local parachain node using Polkadot SDK. Launch, run, and interact with a pre-configured runtime template.",
+      "categories": [
+        "Basics",
+        "Parachains"
+      ]
+    },
+    {
+      "title": "Smart Contracts Basics Overview",
+      "slug": "polkadot-protocol-smart-contract-basics-overview",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/polkadot-protocol-smart-contract-basics-overview.md",
+      "html_url": "https://docs.polkadot.com/polkadot-protocol/smart-contract-basics/overview/",
+      "description": "Learn how developers can build smart contracts on Polkadot by leveraging either Wasm/ink! or EVM contracts across many parachains.",
+      "categories": [
+        "Basics",
+        "Polkadot Protocol"
+      ]
+    },
+    {
+      "title": "Smart Contracts Overview",
+      "slug": "develop-smart-contracts-overview",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/develop-smart-contracts-overview.md",
+      "html_url": "https://docs.polkadot.com/develop/smart-contracts/overview/",
+      "description": "Learn about smart contract development capabilities in the Polkadot ecosystem, either by leveraging Polkadot Hub or other alternatives.",
+      "categories": [
+        "Basics",
+        "Smart Contracts"
+      ]
+    },
+    {
+      "title": "Spawn a Basic Chain with Zombienet",
+      "slug": "tutorials-polkadot-sdk-testing-spawn-basic-chain",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/tutorials-polkadot-sdk-testing-spawn-basic-chain.md",
+      "html_url": "https://docs.polkadot.com/tutorials/polkadot-sdk/testing/spawn-basic-chain/",
+      "description": "Learn to spawn, connect to and monitor a basic blockchain network with Zombienet, using customizable configurations for streamlined development and debugging.",
+      "categories": [
+        "Basics",
+        "dApps",
+        "Tooling"
+      ]
+    },
+    {
+      "title": "Testing and Debugging",
+      "slug": "develop-interoperability-test-and-debug",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/develop-interoperability-test-and-debug.md",
+      "html_url": "https://docs.polkadot.com/develop/interoperability/test-and-debug/",
+      "description": "Learn how to test and debug cross-chain communication via the XCM Emulator to ensure interoperability and reliable execution.",
+      "categories": [
+        "Basics",
+        "Polkadot Protocol"
+      ]
+    },
+    {
+      "title": "Transactions",
+      "slug": "polkadot-protocol-parachain-basics-blocks-transactions-fees-transactions",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/polkadot-protocol-parachain-basics-blocks-transactions-fees-transactions.md",
+      "html_url": "https://docs.polkadot.com/polkadot-protocol/parachain-basics/blocks-transactions-fees/transactions/",
+      "description": "Learn how to construct, submit, and validate transactions in the Polkadot SDK, covering signed, unsigned, and inherent types of transactions.",
+      "categories": [
+        "Basics",
+        "Polkadot Protocol"
+      ]
+    },
+    {
+      "title": "Transactions and Fees on Asset Hub",
+      "slug": "polkadot-protocol-smart-contract-basics-blocks-transactions-fees",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/polkadot-protocol-smart-contract-basics-blocks-transactions-fees.md",
+      "html_url": "https://docs.polkadot.com/polkadot-protocol/smart-contract-basics/blocks-transactions-fees/",
+      "description": "Explore how Asset Hub smart contracts handle blocks, transactions, and fees with EVM compatibility, supporting various Ethereum transaction types.",
+      "categories": [
+        "Basics",
+        "Polkadot Protocol"
+      ]
+    },
+    {
+      "title": "Transactions Weights and Fees",
+      "slug": "polkadot-protocol-parachain-basics-blocks-transactions-fees-fees",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/polkadot-protocol-parachain-basics-blocks-transactions-fees-fees.md",
+      "html_url": "https://docs.polkadot.com/polkadot-protocol/parachain-basics/blocks-transactions-fees/fees/",
+      "description": "Overview of transaction weights and fees in Polkadot SDK chains, detailing how fees are calculated using a defined formula and runtime specifics.",
+      "categories": [
+        "Basics",
+        "Polkadot Protocol"
+      ]
+    },
+    {
+      "title": "XCM Channels",
+      "slug": "develop-interoperability-xcm-channels",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/develop-interoperability-xcm-channels.md",
+      "html_url": "https://docs.polkadot.com/develop/interoperability/xcm-channels/",
+      "description": "Learn how Polkadot's cross-consensus messaging (XCM) channels connect parachains, facilitating communication and blockchain interaction.",
+      "categories": [
+        "Basics",
+        "Polkadot Protocol"
+      ]
+    },
+    {
+      "title": "XCM Config",
+      "slug": "develop-interoperability-xcm-config",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/develop-interoperability-xcm-config.md",
+      "html_url": "https://docs.polkadot.com/develop/interoperability/xcm-config/",
+      "description": "Learn how the XCM Executor configuration works for your custom Polkadot SDK-based runtime with detailed guidance and references.",
+      "categories": [
+        "Reference",
+        "Polkadot Protocol"
+      ]
+    },
+    {
+      "title": "XCM Fee Estimation",
+      "slug": "tutorials-interoperability-xcm-fee-estimation",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/tutorials-interoperability-xcm-fee-estimation.md",
+      "html_url": "https://docs.polkadot.com/tutorials/interoperability/xcm-fee-estimation/",
+      "description": "This tutorial demonstrates how to estimate the fees for teleporting assets from the Paseo Asset Hub parachain to the Paseo Bridge Hub chain.",
+      "categories": [
+        "Tutorial"
+      ]
+    },
+    {
+      "title": "XCM Runtime APIs",
+      "slug": "develop-interoperability-xcm-runtime-apis",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/develop-interoperability-xcm-runtime-apis.md",
+      "html_url": "https://docs.polkadot.com/develop/interoperability/xcm-runtime-apis/",
+      "description": "Learn about XCM Runtime APIs in Polkadot for cross-chain communication. Explore the APIs to simulate and test XCM messages before execution on the network.",
+      "categories": [
+        "Reference",
+        "Polkadot Protocol"
+      ]
+    },
+    {
+      "title": "XCM Tools",
+      "slug": "develop-toolkit-interoperability-xcm-tools",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/develop-toolkit-interoperability-xcm-tools.md",
+      "html_url": "https://docs.polkadot.com/develop/toolkit/interoperability/xcm-tools/",
+      "description": "Explore essential XCM tools across Polkadot, crafted to enhance cross-chain functionality and integration within the ecosystem.",
+      "categories": [
+        "Basics",
+        "Tooling",
+        "Dapps"
+      ]
+    }
+  ]
+}

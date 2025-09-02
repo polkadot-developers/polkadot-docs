@@ -1,0 +1,66 @@
+{
+  "category": "Reference",
+  "category_slug": "reference",
+  "includes_base": false,
+  "base_categories": [
+    "Basics",
+    "Reference"
+  ],
+  "count": 5,
+  "generated_at": "2025-09-02T16:47:14+00:00",
+  "pages": [
+    {
+      "title": "Asset Transfer API Reference",
+      "slug": "develop-toolkit-interoperability-asset-transfer-api-reference",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/develop-toolkit-interoperability-asset-transfer-api-reference.md",
+      "html_url": "https://docs.polkadot.com/develop/toolkit/interoperability/asset-transfer-api/reference/",
+      "description": "Explore the Asset Transfer API Reference for comprehensive details on methods, data types, and functionalities. Essential for cross-chain asset transfers.",
+      "categories": [
+        "Reference",
+        "Dapps"
+      ]
+    },
+    {
+      "title": "Glossary",
+      "slug": "polkadot-protocol-glossary",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/polkadot-protocol-glossary.md",
+      "html_url": "https://docs.polkadot.com/polkadot-protocol/glossary/",
+      "description": "Glossary of terms used within the Polkadot ecosystem, Polkadot SDK, its subsequent libraries, and other relevant Web3 terminology.",
+      "categories": [
+        "Reference"
+      ]
+    },
+    {
+      "title": "JSON-RPC APIs",
+      "slug": "develop-smart-contracts-json-rpc-apis",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/develop-smart-contracts-json-rpc-apis.md",
+      "html_url": "https://docs.polkadot.com/develop/smart-contracts/json-rpc-apis/",
+      "description": "JSON-RPC APIs guide for Polkadot Hub, covering supported methods, parameters, and examples for interacting with the chain.",
+      "categories": [
+        "Reference"
+      ]
+    },
+    {
+      "title": "XCM Config",
+      "slug": "develop-interoperability-xcm-config",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/develop-interoperability-xcm-config.md",
+      "html_url": "https://docs.polkadot.com/develop/interoperability/xcm-config/",
+      "description": "Learn how the XCM Executor configuration works for your custom Polkadot SDK-based runtime with detailed guidance and references.",
+      "categories": [
+        "Reference",
+        "Polkadot Protocol"
+      ]
+    },
+    {
+      "title": "XCM Runtime APIs",
+      "slug": "develop-interoperability-xcm-runtime-apis",
+      "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/develop-interoperability-xcm-runtime-apis.md",
+      "html_url": "https://docs.polkadot.com/develop/interoperability/xcm-runtime-apis/",
+      "description": "Learn about XCM Runtime APIs in Polkadot for cross-chain communication. Explore the APIs to simulate and test XCM messages before execution on the network.",
+      "categories": [
+        "Reference",
+        "Polkadot Protocol"
+      ]
+    }
+  ]
+}

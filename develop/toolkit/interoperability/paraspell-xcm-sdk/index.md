@@ -18,7 +18,7 @@ The ParaSpell suite includes:
 - **[XCM API](https://paraspell.github.io/docs/api/g-started.html){target=\_blank}**: A lightweight alternative to the SDK for package-less integration.
 - **[XCM Router](https://paraspell.github.io/docs/router/getting-strtd.html){target=\_blank}**: A tool for enabling cross-chain swaps of different assets in a single transaction.
 - **[XCM Analyser](https://paraspell.github.io/docs/analyser/getng-strtd.html){target=\_blank}**: A utility for decoding and translating complex XCM data into a human-readable format.
-- **[XCM Visualizator](https://paraspell.github.io/docs/visualizator/getting-start.html){target=\_blank}**: A tool for visualizing XCM activity across the Polkadot ecosystem.
+- **[XCM Visualizator](https://paraspell.github.io/docs/visualizer/getting-start.html){target=\_blank}**: A tool for visualizing XCM activity across the Polkadot ecosystem.
 - **[XCM Playground](https://paraspell.github.io/docs/tools/playground.html){target=\_blank}**: A tool for testing different XCM scenarios.
 
 ### ParaSpell XCM SDK

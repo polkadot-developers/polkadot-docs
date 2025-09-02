@@ -16,7 +16,7 @@ Ready to contribute a tutorial? Get started here:
 ## Tutorial Categories
 
 - **polkadot-sdk/** - Parachains, pallets, runtime development
-- **smart-contracts/** - EVM, ink!, demo applications  
+- **smart-contracts/** - Solidity (EVM, Revm, PVM), demo applications  
 - **interoperability/** - XCM operations, cross-chain workflows
 - **dapps/** - Frontend integration, API usage
 - **onchain-governance/** - Proposals, OpenGov operations

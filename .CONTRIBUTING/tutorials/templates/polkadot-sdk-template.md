@@ -30,7 +30,7 @@ Before starting, ensure you have:
 
 ```bash
 # Commands for initial setup
-cargo install --git https://github.com/paritytech/polkadot-sdk polkadot-parachain-bin --locked
+git clone -b INSERT_TAG_HERE https://github.com/paritytech/polkadot-sdk-parachain-template.git parachain-template
 ```
 
 Expected output:

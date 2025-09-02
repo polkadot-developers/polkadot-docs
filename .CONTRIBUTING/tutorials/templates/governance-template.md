@@ -175,19 +175,6 @@ Analyze the outcome of your governance participation:
 - Regularly review delegate performance
 - Maintain some direct voting for important issues
 
-## Troubleshooting
-
-Common governance participation issues:
-
-- **Issue**: Transaction fails with "VotingPeriodLow"
-  - **Solution**: Increase conviction or voting balance
-
-- **Issue**: Cannot submit proposal
-  - **Solution**: Check minimum deposit requirements and account balance
-
-- **Issue**: Voting transaction rejected
-  - **Solution**: Verify referendum is in voting period and parameters are correct
-
 ## Where to Go Next
 
 Continue your governance journey:

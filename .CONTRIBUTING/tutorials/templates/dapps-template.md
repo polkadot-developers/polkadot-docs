@@ -53,7 +53,7 @@ my-polkadot-dapp/
 
 ## Step 2: API Connection Setup
 
-Create a connection to the Polkadot/Substrate network:
+Create a connection to the Polkadot network:
 
 ```typescript
 // src/hooks/usePolkadotApi.ts
@@ -290,18 +290,6 @@ const networks = {
 };
 ```
 
-## Troubleshooting
-
-Common dApp development issues:
-
-- **Issue**: Extension not detected
-  - **Solution**: Check if Polkadot.js extension is installed and enabled
-
-- **Issue**: API connection fails
-  - **Solution**: Verify WebSocket endpoint and network connectivity
-
-- **Issue**: Transaction fails with "Invalid transaction"
-  - **Solution**: Check account balance, nonce, and transaction parameters
 
 ## Deployment
 
@@ -323,7 +311,7 @@ Enhance your dApp development skills:
 
 ## Additional Resources
 
-- [Polkadot.js API Documentation](https://polkadot.js.org/docs/)
+- [Polkadot.js API Documentation](https://polkadot.js.org/docs/) 
 - [PAPI Documentation](https://papi.how/)
 - [Polkadot Developer Console](https://console.polkadot.io/)
 - [Substrate Connect](https://substrate.io/developers/substrate-connect/)

@@ -138,19 +138,6 @@ fn test_cross_chain_transfer() {
 }
 ```
 
-## Troubleshooting
-
-Common XCM issues and solutions:
-
-- **Issue**: XCM execution failed with `TooExpensive`
-  - **Solution**: Increase fee asset amount or adjust weight limit
-
-- **Issue**: Assets stuck in sovereign account
-  - **Solution**: Check destination chain configuration and asset registration
-
-- **Issue**: Transaction not appearing on destination
-  - **Solution**: Verify network connectivity and chain synchronization
-
 ## Advanced XCM Patterns [For Advanced Tutorials]
 
 [Include for intermediate/advanced tutorials:]

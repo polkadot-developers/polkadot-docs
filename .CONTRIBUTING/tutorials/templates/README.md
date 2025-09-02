@@ -9,7 +9,7 @@ For tutorials covering:
 - Parachain development
 - Custom pallet creation  
 - Runtime configuration
-- Substrate chain setup
+- Polkadot SDK chain setup
 - Testing and benchmarking
 
 ### 💎 [Smart Contracts Template](smart-contracts-template.md)

@@ -61,30 +61,6 @@ contract YourContract {
         // Implementation
     }
 }
-```
-
-```rust
-// For ink! contracts - example structure
-#[ink::contract]
-mod your_contract {
-    #[ink(storage)]
-    pub struct YourContract {
-        value: bool,
-    }
-
-    impl YourContract {
-        #[ink(constructor)]
-        pub fn new(init_value: bool) -> Self {
-            Self { value: init_value }
-        }
-
-        #[ink(message)]
-        pub fn flip(&mut self) {
-            self.value = !self.value;
-        }
-    }
-}
-```
 
 ## Step 3: Contract Implementation
 
@@ -146,13 +122,6 @@ Deploy your contract:
 npx hardhat run scripts/deploy.js --network [testnet-name]
 ```
 
-### For ink! Contracts:
-```bash
-# Build contract
-cargo contract build
-
-# Deploy to testnet (using contracts UI or CLI)
-```
 
 ## Step 6: Interaction and Verification
 
@@ -175,15 +144,7 @@ Test contract functionality:
 - Cross-contract calls
 - Upgradeable patterns
 
-## Troubleshooting
 
-Common deployment and interaction issues:
-
-- **Issue**: Gas estimation failed
-  - **Solution**: Check contract logic and increase gas limit
-
-- **Issue**: Transaction reverts
-  - **Solution**: Verify function parameters and contract state
 
 ## Where to Go Next
 

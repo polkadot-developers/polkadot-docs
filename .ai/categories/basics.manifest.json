@@ -7,7 +7,9 @@
     "Reference"
   ],
   "count": 41,
-  "generated_at": "2025-09-02T16:47:14+00:00",
+  "estimated_token_count_total": 98780,
+  "token_estimator": "heuristic-v1",
+  "generated_at": "2025-09-03T13:39:50+00:00",
   "pages": [
     {
       "title": "Accounts in Asset Hub Smart Contracts",
@@ -18,7 +20,8 @@
       "categories": [
         "Basics",
         "Polkadot Protocol"
-      ]
+      ],
+      "estimated_token_count": 1862
     },
     {
       "title": "Add Pallets to the Runtime",
@@ -29,7 +32,8 @@
       "categories": [
         "Basics",
         "Parachains"
-      ]
+      ],
+      "estimated_token_count": 3121
     },
     {
       "title": "Asset Transfer API",
@@ -41,7 +45,8 @@
         "Basics",
         "Tooling",
         "Dapps"
-      ]
+      ],
+      "estimated_token_count": 4322
     },
     {
       "title": "Blocks",
@@ -52,7 +57,8 @@
       "categories": [
         "Basics",
         "Polkadot Protocol"
-      ]
+      ],
+      "estimated_token_count": 1401
     },
     {
       "title": "Build a Custom Pallet",
@@ -63,7 +69,8 @@
       "categories": [
         "Basics",
         "Parachains"
-      ]
+      ],
+      "estimated_token_count": 6767
     },
     {
       "title": "Chain Data",
@@ -74,7 +81,8 @@
       "categories": [
         "Basics",
         "Polkadot Protocol"
-      ]
+      ],
+      "estimated_token_count": 3789
     },
     {
       "title": "Create a Smart Contract",
@@ -85,7 +93,8 @@
       "categories": [
         "Basics",
         "Smart Contracts"
-      ]
+      ],
+      "estimated_token_count": 1800
     },
     {
       "title": "Cryptography",
@@ -96,7 +105,8 @@
       "categories": [
         "Basics",
         "Polkadot Protocol"
-      ]
+      ],
+      "estimated_token_count": 1799
     },
     {
       "title": "Data Encoding",
@@ -107,7 +117,8 @@
       "categories": [
         "Basics",
         "Polkadot Protocol"
-      ]
+      ],
+      "estimated_token_count": 3217
     },
     {
       "title": "Deploy an ERC-20 to Polkadot Hub",
@@ -120,7 +131,8 @@
         "dApps",
         "Smart Contracts",
         "Tutorial"
-      ]
+      ],
+      "estimated_token_count": 2099
     },
     {
       "title": "Deploy an NFT to Polkadot Hub",
@@ -133,7 +145,8 @@
         "dApps",
         "Smart Contracts",
         "Tutorial"
-      ]
+      ],
+      "estimated_token_count": 2261
     },
     {
       "title": "EVM vs PolkaVM",
@@ -144,7 +157,8 @@
       "categories": [
         "Basics",
         "Polkadot Protocol"
-      ]
+      ],
+      "estimated_token_count": 5340
     },
     {
       "title": "Fork a Chain with Chopsticks",
@@ -156,7 +170,8 @@
         "Basics",
         "dApps",
         "Tooling"
-      ]
+      ],
+      "estimated_token_count": 2747
     },
     {
       "title": "Install Polkadot SDK Dependencies",
@@ -167,7 +182,8 @@
       "categories": [
         "Basics",
         "Tooling"
-      ]
+      ],
+      "estimated_token_count": 2767
     },
     {
       "title": "Interoperability",
@@ -178,7 +194,8 @@
       "categories": [
         "Basics",
         "Polkadot Protocol"
-      ]
+      ],
+      "estimated_token_count": 782
     },
     {
       "title": "Introduction to Polkadot SDK",
@@ -189,7 +206,8 @@
       "categories": [
         "Basics",
         "Tooling"
-      ]
+      ],
+      "estimated_token_count": 1895
     },
     {
       "title": "Introduction to XCM",
@@ -200,7 +218,8 @@
       "categories": [
         "Basics",
         "Polkadot Protocol"
-      ]
+      ],
+      "estimated_token_count": 1513
     },
     {
       "title": "Networks",
@@ -211,7 +230,8 @@
       "categories": [
         "Basics",
         "Networks"
-      ]
+      ],
+      "estimated_token_count": 1522
     },
     {
       "title": "Networks",
@@ -223,7 +243,8 @@
         "Basics",
         "Polkadot Protocol",
         "Networks"
-      ]
+      ],
+      "estimated_token_count": 1476
     },
     {
       "title": "Networks for Polkadot Hub Smart Contracts",
@@ -234,7 +255,8 @@
       "categories": [
         "Basics",
         "Polkadot Protocol"
-      ]
+      ],
+      "estimated_token_count": 926
     },
     {
       "title": "Node and Runtime",
@@ -245,7 +267,8 @@
       "categories": [
         "Basics",
         "Polkadot Protocol"
-      ]
+      ],
+      "estimated_token_count": 918
     },
     {
       "title": "On-Chain Governance Overview",
@@ -256,7 +279,8 @@
       "categories": [
         "Basics",
         "Polkadot Protocol"
-      ]
+      ],
+      "estimated_token_count": 1614
     },
     {
       "title": "Overview",
@@ -268,7 +292,8 @@
         "Basics",
         "Polkadot Protocol",
         "Parachains"
-      ]
+      ],
+      "estimated_token_count": 1867
     },
     {
       "title": "Overview of FRAME",
@@ -279,7 +304,8 @@
       "categories": [
         "Basics",
         "Parachains"
-      ]
+      ],
+      "estimated_token_count": 2008
     },
     {
       "title": "Overview of Polkadot's System Chains",
@@ -290,7 +316,8 @@
       "categories": [
         "Basics",
         "Polkadot Protocol"
-      ]
+      ],
+      "estimated_token_count": 1655
     },
     {
       "title": "Overview of the Polkadot Relay Chain",
@@ -302,7 +329,8 @@
         "Basics",
         "Polkadot Protocol",
         "Parachains"
-      ]
+      ],
+      "estimated_token_count": 2593
     },
     {
       "title": "Polkadot SDK Accounts",
@@ -313,7 +341,8 @@
       "categories": [
         "Basics",
         "Polkadot Protocol"
-      ]
+      ],
+      "estimated_token_count": 6528
     },
     {
       "title": "PolkaVM Design",
@@ -324,7 +353,8 @@
       "categories": [
         "Basics",
         "Polkadot Protocol"
-      ]
+      ],
+      "estimated_token_count": 1030
     },
     {
       "title": "Randomness",
@@ -335,7 +365,8 @@
       "categories": [
         "Basics",
         "Polkadot Protocol"
-      ]
+      ],
+      "estimated_token_count": 1396
     },
     {
       "title": "Register a Local Asset",
@@ -346,7 +377,8 @@
       "categories": [
         "Basics",
         "dApps"
-      ]
+      ],
+      "estimated_token_count": 1579
     },
     {
       "title": "Send XCM Messages",
@@ -357,7 +389,8 @@
       "categories": [
         "Basics",
         "Polkadot Protocol"
-      ]
+      ],
+      "estimated_token_count": 1660
     },
     {
       "title": "Set Up a Template",
@@ -368,7 +401,8 @@
       "categories": [
         "Basics",
         "Parachains"
-      ]
+      ],
+      "estimated_token_count": 3208
     },
     {
       "title": "Smart Contracts Basics Overview",
@@ -379,7 +413,8 @@
       "categories": [
         "Basics",
         "Polkadot Protocol"
-      ]
+      ],
+      "estimated_token_count": 2614
     },
     {
       "title": "Smart Contracts Overview",
@@ -390,7 +425,8 @@
       "categories": [
         "Basics",
         "Smart Contracts"
-      ]
+      ],
+      "estimated_token_count": 1156
     },
     {
       "title": "Spawn a Basic Chain with Zombienet",
@@ -402,7 +438,8 @@
         "Basics",
         "dApps",
         "Tooling"
-      ]
+      ],
+      "estimated_token_count": 2590
     },
     {
       "title": "Testing and Debugging",
@@ -413,7 +450,8 @@
       "categories": [
         "Basics",
         "Polkadot Protocol"
-      ]
+      ],
+      "estimated_token_count": 1481
     },
     {
       "title": "Transactions",
@@ -424,7 +462,8 @@
       "categories": [
         "Basics",
         "Polkadot Protocol"
-      ]
+      ],
+      "estimated_token_count": 4708
     },
     {
       "title": "Transactions and Fees on Asset Hub",
@@ -435,7 +474,8 @@
       "categories": [
         "Basics",
         "Polkadot Protocol"
-      ]
+      ],
+      "estimated_token_count": 1218
     },
     {
       "title": "Transactions Weights and Fees",
@@ -446,7 +486,8 @@
       "categories": [
         "Basics",
         "Polkadot Protocol"
-      ]
+      ],
+      "estimated_token_count": 4472
     },
     {
       "title": "XCM Channels",
@@ -457,7 +498,8 @@
       "categories": [
         "Basics",
         "Polkadot Protocol"
-      ]
+      ],
+      "estimated_token_count": 1376
     },
     {
       "title": "XCM Tools",
@@ -469,7 +511,8 @@
         "Basics",
         "Tooling",
         "Dapps"
-      ]
+      ],
+      "estimated_token_count": 1703
     }
   ]
 }

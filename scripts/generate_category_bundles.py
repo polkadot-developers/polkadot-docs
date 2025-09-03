@@ -18,6 +18,8 @@ Outputs (written under /.ai/categories/):
       "includes_base": true,
       "base_categories": ["Basics","Reference"],
       "count": 12,
+      "estimated_token_count_total": 12345,
+      "token_estimator": "heuristic-v1",
       "generated_at": "2025-09-02T12:34:56Z",
       "pages": [
         {
@@ -26,14 +28,15 @@ Outputs (written under /.ai/categories/):
           "raw_md_url": "https://raw.githubusercontent.com/<org>/<repo>/<branch>/.ai/pages/<slug>.md",
           "html_url": "https://docs.example.com/develop/interoperability/intro-to-xcm/",
           "description": "Short lede…",
-          "categories": ["Basics","Networks"]
+          "categories": ["Basics","Networks"],
+          "estimated_token_count": 678
         }
       ]
     }
 
   - <category-slug>.bundle.jsonl    (when --format jsonl/all)
     # One JSON object per line, INCLUDING full page content
-    {"title":"…","slug":"…","html_url":"…","raw_md_url":"…","categories":[…],"description":"…","content":"<full markdown>"}
+    {"title":"…","slug":"…","html_url":"…","raw_md_url":"…","categories":[…],"description":"…","estimated_token_count":210,"token_estimator":"heuristic-v1","content":"<full markdown>"}
 
   - <category-slug>.bundle.md       (when --format md/all)
     # A single concatenated Markdown file with page boundaries and titles
@@ -169,6 +172,39 @@ def load_all_pages(ai_dir: Path) -> List[AiPage]:
 
 
 # ----------------------------
+# Token estimation
+# ----------------------------
+
+def _heuristic_token_count(s: str) -> int:
+    """
+    Dependency-free token estimate:
+      - counts words and standalone punctuation
+      - decent for prose and code; model-agnostic
+    """
+    return len(re.findall(r"\w+|[^\s\w]", s, flags=re.UNICODE))
+
+def _cl100k_token_count(s: str) -> int:
+    """
+    Optional: if tiktoken is installed and estimator name is 'cl100k',
+    compute tokens via cl100k_base; otherwise fall back to heuristic.
+    """
+    try:
+        import tiktoken  # type: ignore
+        enc = tiktoken.get_encoding("cl100k_base")
+        return len(enc.encode(s))
+    except Exception:
+        return _heuristic_token_count(s)
+
+def estimate_tokens(text: str, estimator: str = "heuristic-v1") -> int:
+    if estimator == "heuristic-v1":
+        return _heuristic_token_count(text)
+    if estimator == "cl100k":
+        return _cl100k_token_count(text)
+    # Unknown/custom estimator name → compute via heuristic but keep the label in outputs.
+    return _heuristic_token_count(text)
+
+
+# ----------------------------
 # Category logic
 # ----------------------------
 
@@ -201,13 +237,17 @@ def union_pages(sets: List[List[AiPage]]) -> List[AiPage]:
 
 def write_manifest(out_path: Path, category: str, category_slug: str,
                    includes_base: bool, base_categories: List[str],
-                   pages: List[AiPage], raw_base: str) -> None:
+                   pages: List[AiPage], raw_base: str,
+                   estimator_label: str, page_tokens: Dict[str, int]) -> None:
+    est_total = sum(page_tokens.get(p.slug, 0) for p in pages)
     record = {
         "category": category,
         "category_slug": category_slug,
         "includes_base": includes_base,
         "base_categories": base_categories,
         "count": len(pages),
+        "estimated_token_count_total": est_total,
+        "token_estimator": estimator_label,
         "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "pages": [
             {
@@ -217,6 +257,7 @@ def write_manifest(out_path: Path, category: str, category_slug: str,
                 "html_url": p.html_url,
                 "description": p.description,
                 "categories": p.categories,
+                "estimated_token_count": page_tokens.get(p.slug, 0),
             }
             for p in pages
         ],
@@ -225,7 +266,8 @@ def write_manifest(out_path: Path, category: str, category_slug: str,
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(record, f, indent=2, ensure_ascii=False)
 
-def write_jsonl(out_path: Path, pages: List[AiPage], raw_base: str) -> None:
+def write_jsonl(out_path: Path, pages: List[AiPage], raw_base: str,
+                estimator_label: str, page_tokens: Dict[str, int]) -> None:
     out_path.parent.mkdir(parents=True, exist_ok=True)
     with open(out_path, "w", encoding="utf-8") as f:
         for p in pages:
@@ -236,6 +278,8 @@ def write_jsonl(out_path: Path, pages: List[AiPage], raw_base: str) -> None:
                 "html_url": p.html_url,
                 "categories": p.categories,
                 "description": p.description,
+                "estimated_token_count": page_tokens.get(p.slug, 0),
+                "token_estimator": estimator_label,
                 "content": p.body,
             }
             f.write(json.dumps(obj, ensure_ascii=False) + "\n")
@@ -270,7 +314,8 @@ def write_markdown(out_path: Path, category: str, includes_base: bool,
 # Main
 # ----------------------------
 
-def build_category_bundles(config_path: str, fmt: str, dry_run: bool, limit: int):
+def build_category_bundles(config_path: str, fmt: str, dry_run: bool, limit: int,
+                           token_estimator: str):
     config = load_config(config_path)
     repo_root = Path(__file__).resolve().parent.parent
     ai_dir = resolve_ai_dir(repo_root, config)
@@ -287,6 +332,9 @@ def build_category_bundles(config_path: str, fmt: str, dry_run: bool, limit: int
     if limit > 0:
         pages = pages[:limit]
 
+    # Precompute token counts once per page
+    page_tokens: Dict[str, int] = {p.slug: estimate_tokens(p.body, token_estimator) for p in pages}
+
     out_root = (repo_root / config.get("outputs", {}).get("public_root", "/.ai/").strip("/") / "categories").resolve()
 
     if dry_run:
@@ -294,9 +342,10 @@ def build_category_bundles(config_path: str, fmt: str, dry_run: bool, limit: int
         print(f"[dry-run] total_pages={len(pages)}")
         print(f"[dry-run] categories={categories_order}")
         print(f"[dry-run] base_context={base_cats}")
+        print(f"[dry-run] token_estimator={token_estimator}")
         if pages:
             sample = pages[0]
-            print(f"[dry-run] sample_page: slug={sample.slug} title={sample.title} cats={sample.categories}")
+            print(f"[dry-run] sample_page: slug={sample.slug} title={sample.title} cats={sample.categories} est_tokens={page_tokens.get(sample.slug)}")
         print(f"[dry-run] output_dir={out_root}")
         print(f"[dry-run] raw_base={raw_base}")
 
@@ -317,12 +366,11 @@ def build_category_bundles(config_path: str, fmt: str, dry_run: bool, limit: int
             if dry_run:
                 print(f"[dry-run] base bundle: {cat} ({len(pages_out)} pages)")
             else:
-                # Write files per requested format
                 out_root.mkdir(parents=True, exist_ok=True)
                 if fmt in ("manifest", "all"):
-                    write_manifest(out_root / f"{cat_slug}.manifest.json", cat, cat_slug, False, base_cats, pages_out, raw_base)
+                    write_manifest(out_root / f"{cat_slug}.manifest.json", cat, cat_slug, False, base_cats, pages_out, raw_base, token_estimator, page_tokens)
                 if fmt in ("jsonl", "all"):
-                    write_jsonl(out_root / f"{cat_slug}.bundle.jsonl", pages_out, raw_base)
+                    write_jsonl(out_root / f"{cat_slug}.bundle.jsonl", pages_out, raw_base, token_estimator, page_tokens)
                 if fmt in ("md", "all"):
                     write_markdown(out_root / f"{cat_slug}.bundle.md", cat, False, base_cats, pages_out, raw_base)
             continue
@@ -337,9 +385,9 @@ def build_category_bundles(config_path: str, fmt: str, dry_run: bool, limit: int
         else:
             out_root.mkdir(parents=True, exist_ok=True)
             if fmt in ("manifest", "all"):
-                write_manifest(out_root / f"{cat_slug}.manifest.json", cat, cat_slug, True, base_cats, pages_out, raw_base)
+                write_manifest(out_root / f"{cat_slug}.manifest.json", cat, cat_slug, True, base_cats, pages_out, raw_base, token_estimator, page_tokens)
             if fmt in ("jsonl", "all"):
-                write_jsonl(out_root / f"{cat_slug}.bundle.jsonl", pages_out, raw_base)
+                write_jsonl(out_root / f"{cat_slug}.bundle.jsonl", pages_out, raw_base, token_estimator, page_tokens)
             if fmt in ("md", "all"):
                 write_markdown(out_root / f"{cat_slug}.bundle.md", cat, True, base_cats, pages_out, raw_base)
 
@@ -356,6 +404,9 @@ def main():
                         help="Output format to generate (default: manifest)")
     parser.add_argument("--dry-run", action="store_true", help="Show what would be generated; do not write files")
     parser.add_argument("--limit", type=int, default=0, help="Limit pages loaded (0=all) for dry-run sanity")
+    parser.add_argument("--token-estimator", default="heuristic-v1",
+                        help="Estimator label. 'heuristic-v1' (default) uses a fast regex heuristic; "
+                             "'cl100k' uses tiktoken cl100k_base if installed; any other name falls back to heuristic but is labeled as provided.")
     args = parser.parse_args()
 
     build_category_bundles(
@@ -363,6 +414,7 @@ def main():
         fmt=args.format,
         dry_run=args.dry_run,
         limit=args.limit,
+        token_estimator=args.token_estimator,
     )
 
 if __name__ == "__main__":

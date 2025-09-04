@@ -184,7 +184,7 @@ Continue your governance journey:
 
 ## Additional Resources
 
-- [Polkadot Governance Wiki](https://wiki.polkadot.network/docs/learn-governance)
-- [OpenGov Documentation](https://wiki.polkadot.network/docs/learn-opengov)
-- [Polkassembly](https://polkadot.polkassembly.io/) - Governance discussion platform
-- [Subsquare](https://www.subsquare.io/) - Alternative governance interface
+- [Polkadot Governance Wiki](https://wiki.polkadot.network/docs/learn-governance){target=\_blank}
+- [OpenGov Documentation](https://wiki.polkadot.network/docs/learn-opengov){target=\_blank}
+- [Polkassembly](https://polkadot.polkassembly.io/){target=\_blank} - Governance discussion platform
+- [Subsquare](https://www.subsquare.io/){target=\_blank} - Alternative governance interface

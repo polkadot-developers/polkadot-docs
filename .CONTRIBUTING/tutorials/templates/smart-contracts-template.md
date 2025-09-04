@@ -90,18 +90,6 @@ describe("YourContract", function () {
 });
 ```
 
-### For ink! Contracts:
-```rust
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[ink::test]
-    fn default_works() {
-        // Test implementation
-    }
-}
-```
 
 Run tests:
 ```bash
@@ -155,7 +143,6 @@ Extend your smart contract skills:
 
 ## Additional Resources
 
-- [Remix IDE](https://remix.ethereum.org/)
-- [ink! Documentation](https://use.ink/)
-- [OpenZeppelin Contracts](https://openzeppelin.com/contracts/)
-- [Hardhat Documentation](https://hardhat.org/)
+- [Polkadot Remix IDE](https://remix.polkadot.io/){target=\_blank} 
+- [OpenZeppelin Contracts](https://openzeppelin.com/contracts/){target=\_blank} 
+- [Hardhat Documentation](https://hardhat.org/){target=\_blank} 

@@ -82,15 +82,6 @@ Verify everything works by:
 
 [Optional advanced steps for intermediate/advanced tutorials]
 
-## Troubleshooting
-
-Common issues and solutions:
-
-- **Issue**: Build fails with dependency errors
-  - **Solution**: Update dependencies and check Rust version
-
-- **Issue**: Runtime compilation errors
-  - **Solution**: Verify pallet configuration in runtime
 
 ## Where to Go Next
 
@@ -101,6 +92,6 @@ Continue your Polkadot SDK journey with:
 
 ## Additional Resources
 
-- [Polkadot SDK Documentation](https://paritytech.github.io/polkadot-sdk/)
-- [Substrate Developer Hub](https://docs.substrate.io/)
-- [Polkadot Wiki - Developers](https://wiki.polkadot.network/docs/build-index)
+- [Polkadot SDK Documentation](https://paritytech.github.io/polkadot-sdk/){target=\_blank} 
+- [Polkadot Docs](https://docs.polkadot.com){target=\_blank} 
+- [Polkadot Wiki - Developers](https://wiki.polkadot.network/docs/build-index){target=\_blank} 

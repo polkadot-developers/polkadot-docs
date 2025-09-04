@@ -351,7 +351,6 @@ Use these for important information:
 - `!!!tip` - Helpful tips and shortcuts
 - `!!!note` - Important information to remember
 - `!!!warning` - Potential issues or caveats
-- `!!!danger` - Critical warnings about destructive actions
 
 ### Lists and Procedures
 

@@ -311,7 +311,7 @@ Enhance your dApp development skills:
 
 ## Additional Resources
 
-- [Polkadot.js API Documentation](https://polkadot.js.org/docs/) 
-- [PAPI Documentation](https://papi.how/)
-- [Polkadot Developer Console](https://console.polkadot.io/)
-- [Substrate Connect](https://substrate.io/developers/substrate-connect/)
+- [Polkadot.js API Documentation](https://polkadot.js.org/docs/){target=\_blank}  
+- [PAPI Documentation](https://papi.how/){target=\_blank}
+- [Polkadot Developer Console](https://console.polkadot.io/){target=\_blank}
+- [Substrate Connect](https://substrate.io/developers/substrate-connect/){target=\_blank}

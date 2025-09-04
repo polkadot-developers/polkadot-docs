@@ -9,6 +9,8 @@ Behavior:
   - Categories listed in content.base_context_categories:
       * get their own standalone bundle
       * and are also INCLUDED in every non-base category bundle (shared base context)
+  - If category information is missing or empty in llms_config.json, no bundles are created.
+
 
 Outputs (written under /.ai/categories/):
   - <category-slug>.manifest.json  (when --format manifest/all)
@@ -56,7 +58,6 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
-
 import yaml
 
 
@@ -400,8 +401,8 @@ def build_category_bundles(config_path: str, fmt: str, dry_run: bool, limit: int
 def main():
     parser = argparse.ArgumentParser(description="Build category-based bundles from /.ai/pages/*.md")
     parser.add_argument("--config", default="llms_config.json", help="Path to llms_config.json (default: scripts/llms_config.json)")
-    parser.add_argument("--format", choices=["manifest", "jsonl", "md", "all"], default="manifest",
-                        help="Output format to generate (default: manifest)")
+    parser.add_argument("--format", choices=["manifest", "jsonl", "md", "all"], default="md",
+                        help="Output format to generate (default: md)")
     parser.add_argument("--dry-run", action="store_true", help="Show what would be generated; do not write files")
     parser.add_argument("--limit", type=int, default=0, help="Limit pages loaded (0=all) for dry-run sanity")
     parser.add_argument("--token-estimator", default="heuristic-v1",

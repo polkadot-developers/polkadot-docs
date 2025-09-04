@@ -1,15 +1,31 @@
+#!/usr/bin/env python3
 """
 generate_site_index.py
 
-Builds a compact site index from reconstituted Markdown artifacts under /.ai/pages/*.md.
+Builds compact site catalogs from reconstituted Markdown artifacts under /.ai/pages/*.md.
 
-Outputs:
-  - /.ai/site-index.json      (array: one object per page)
-  - [optional] /.ai/sections.jsonl  (JSON Lines: one object per H2/H3 section)
+Default outputs (always written):
+  - /.ai/site-index.json      (array: one object per page with outline/preview/stats)
+  - /.ai/llms-full.jsonl      (JSON Lines: one object per H2/H3 section)
+
+llms-full.jsonl line schema (per section):
+  {
+    "page_id": "<slug>",
+    "page_title": "<page title from frontmatter>",
+    "index": <0-based section index on the page>,
+    "depth": 2|3,
+    "title": "<heading text>",
+    "anchor": "<heading anchor slug>",
+    "start_char": <char offset in page body>,
+    "end_char": <char offset in page body>,
+    "estimated_token_count": <int>,
+    "token_estimator": "heuristic-v1|cl100k|<custom label>",
+    "text": "<raw markdown for the section (trimmed)>"
+  }
 
 Usage:
   python3 scripts/generate_site_index.py
-  python3 scripts/generate_site_index.py --dry-run --limit 5 --sections
+  python3 scripts/generate_site_index.py --dry-run --limit 5 --token-estimator cl100k
 """
 
 from __future__ import annotations
@@ -17,9 +33,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
-import os
 import re
-import sys
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
@@ -82,13 +96,11 @@ def read_ai_page(md_path: Path) -> AiPage:
         description = " ".join(desc_val.splitlines()).strip()
     else:
         description = str(desc_val).strip() if desc_val is not None else ""
-
     if not description:
         description = "No description available."
 
     # categories: allow list or comma-separated string
     cats = fm.get("categories")
-    categories: List[str]
     if isinstance(cats, list):
         categories = [str(c).strip() for c in cats if str(c).strip()]
     elif isinstance(cats, str):
@@ -116,19 +128,16 @@ def read_ai_page(md_path: Path) -> AiPage:
 # Markdown parsing helpers
 # ----------------------------
 
-HEADING_RE = re.compile(r"^(#{2,6})\s+(.+?)\s*#*\s*$")  # capture ## .. ###### (trim trailing #'s)
+HEADING_RE = re.compile(r"^(#{2,6})\s+(.+?)\s*#*\s*$")  # ## .. ######
 
 def slugify_anchor(text: str, seen: Dict[str, int]) -> str:
-    """Approximate Material/MkDocs anchor slugification."""
     t = text.strip().lower()
-    # Remove inline code backticks, punctuation (keep hyphens/spaces)
     t = re.sub(r"`+", "", t)
     t = re.sub(r"[^\w\s\-]", "", t, flags=re.UNICODE)
     t = re.sub(r"\s+", "-", t)
     t = re.sub(r"-{2,}", "-", t).strip("-")
     if not t:
         t = "section"
-    # de-dup
     if t in seen:
         seen[t] += 1
         t = f"{t}-{seen[t]}"
@@ -147,7 +156,7 @@ def extract_outline_and_sections(body: str, max_depth: int = 3) -> Tuple[List[Di
     in_code = False
     fence = None
 
-    # Precompute char offsets per line start
+    # precompute char offsets per line start
     starts = [0]
     for ln in lines[:-1]:
         starts.append(starts[-1] + len(ln))
@@ -157,7 +166,7 @@ def extract_outline_and_sections(body: str, max_depth: int = 3) -> Tuple[List[Di
     anchors_seen: Dict[str, int] = {}
 
     for i, ln in enumerate(lines):
-        # toggle code fences (``` or ~~~) – naïve but effective
+        # code fence toggles
         m_fence = re.match(r"^(\s*)(`{3,}|~{3,})", ln)
         if m_fence:
             token = m_fence.group(2)
@@ -182,11 +191,10 @@ def extract_outline_and_sections(body: str, max_depth: int = 3) -> Tuple[List[Di
         outline.append({"depth": depth, "title": text, "anchor": anchor})
         sections_meta.append((depth, i, text, anchor))
 
-    # Build sections: from each H2/H3 until next H2/H3 or EOF
+    # Build sections
     sections: List[Dict[str, Any]] = []
     for idx, (depth, line_idx, title, anchor) in enumerate(sections_meta):
         start_char = starts[line_idx]
-        # end at next section start (or EOF)
         next_start_char = len(body)
         if idx + 1 < len(sections_meta):
             next_start_char = starts[sections_meta[idx + 1][1]]
@@ -204,16 +212,12 @@ def extract_outline_and_sections(body: str, max_depth: int = 3) -> Tuple[List[Di
     return outline, sections
 
 def extract_preview(body: str, max_chars: int = 500) -> str:
-    """
-    First good paragraph not a heading/list/blockquote/code, outside fenced code.
-    Collapses whitespace; caps at max_chars.
-    """
     lines = body.splitlines()
     in_code = False
     fence = None
     para: List[str] = []
 
-    def is_bad_start(s: str) -> bool:
+    def bad_start(s: str) -> bool:
         s = s.lstrip()
         return (
             not s
@@ -233,7 +237,6 @@ def extract_preview(body: str, max_chars: int = 500) -> str:
             in_code = not in_code
             fence = None if not in_code else "fenced"
             if para:
-                # stop at the first paragraph we’ve been collecting
                 break
             continue
 
@@ -246,38 +249,29 @@ def extract_preview(body: str, max_chars: int = 500) -> str:
             else:
                 continue
 
-        if not para and is_bad_start(ln):
+        if not para and bad_start(ln):
             continue
 
         para.append(ln)
 
-    preview = finish(para) if para else ""
-    return preview
+    return finish(para) if para else ""
 
 
 # ----------------------------
-# Hash & stats + token estimation
+# Hash, counts, tokens
 # ----------------------------
 
 def sha256_text(s: str) -> str:
-    return "sha256:" + hashlib.sha256(s.encode("utf-8")).hexdigest()
+    import hashlib as _hashlib
+    return "sha256:" + _hashlib.sha256(s.encode("utf-8")).hexdigest()
 
 def word_count(s: str) -> int:
     return len(re.findall(r"\b\w+\b", s, flags=re.UNICODE))
 
 def _heuristic_token_count(s: str) -> int:
-    """
-    Dependency-free token estimate:
-      - counts words and standalone punctuation
-      - decent for prose and code; model-agnostic
-    """
     return len(re.findall(r"\w+|[^\s\w]", s, flags=re.UNICODE))
 
 def _cl100k_token_count(s: str) -> int:
-    """
-    Optional: if tiktoken is installed and estimator name is 'cl100k',
-    compute tokens via cl100k_base; otherwise fall back to heuristic.
-    """
     try:
         import tiktoken  # type: ignore
         enc = tiktoken.get_encoding("cl100k_base")
@@ -285,28 +279,17 @@ def _cl100k_token_count(s: str) -> int:
     except Exception:
         return _heuristic_token_count(s)
 
-def estimate_tokens(s: str, estimator: str) -> int:
-    """
-    Returns an estimated token count for string s.
-    - 'heuristic-v1' -> regex heuristic (default; no deps)
-    - 'cl100k'       -> tiktoken cl100k if available, else heuristic fallback
-    - any other name -> heuristic count but label will still reflect the custom name
-    - written to be future proof if we want to change/add estimators
-    """
-    if estimator == "heuristic-v1":
-        return _heuristic_token_count(s)
+def estimate_tokens(text: str, estimator: str = "heuristic-v1") -> int:
     if estimator == "cl100k":
-        return _cl100k_token_count(s)
-    # Unknown/custom estimator label: compute via heuristic, but honor the label in outputs.
-    return _heuristic_token_count(s)
+        return _cl100k_token_count(text)
+    return _heuristic_token_count(text)
 
 
 # ----------------------------
-# Main build
+# Paths
 # ----------------------------
 
 def resolve_ai_dir(repo_root: Path, config: Dict[str, Any]) -> Path:
-    # Prefer repository.ai_artifacts_path; fallback to outputs.public_root + outputs.files.pages_dir
     repo = config.get("repository", {})
     ai_path = repo.get("ai_artifacts_path")
     if not ai_path:
@@ -328,8 +311,13 @@ def build_raw_base(config: Dict[str, Any]) -> str:
     ai_path = ai_path.strip("/")
     return f"https://raw.githubusercontent.com/{org}/{name}/{branch}/{ai_path}"
 
+
+# ----------------------------
+# Main build
+# ----------------------------
+
 def build_site_index(config_path: str, dry_run: bool = False, limit: int = 0,
-                     sections_out: bool = False, preview_chars: int = 500, max_depth: int = 3,
+                     preview_chars: int = 500, max_depth: int = 3,
                      token_estimator: str = "heuristic-v1"):
     config = load_config(config_path)
     repo_root = Path(__file__).resolve().parent.parent
@@ -337,30 +325,46 @@ def build_site_index(config_path: str, dry_run: bool = False, limit: int = 0,
     ai_dir = resolve_ai_dir(repo_root, config)
     raw_base = build_raw_base(config)
     pages_files = sorted(ai_dir.glob("*.md"))
-
     if limit > 0:
         pages_files = pages_files[:limit]
 
     site_index: List[Dict[str, Any]] = []
-    sections_lines: List[str] = []
+    jsonl_lines: List[str] = []
 
     for md_path in pages_files:
         page = read_ai_page(md_path)
         outline, sections = extract_outline_and_sections(page.body, max_depth=max_depth)
         preview = extract_preview(page.body, max_chars=preview_chars) or page.description
 
-        est_tokens_page = estimate_tokens(page.body, token_estimator)
+        # per-section JSONL with token estimates
+        total_tokens = 0
+        for sec in sections:
+            est = estimate_tokens(sec["text"], token_estimator)
+            total_tokens += est
+            jsonl_lines.append(json.dumps({
+                "page_id": page.slug,
+                "page_title": page.title,          # << added page-level metadata
+                "index": sec["index"],
+                "depth": sec["depth"],
+                "title": sec["title"],
+                "anchor": sec["anchor"],
+                "start_char": sec["start_char"],
+                "end_char": sec["end_char"],
+                "estimated_token_count": est,
+                "token_estimator": token_estimator,
+                "text": sec["text"],
+            }, ensure_ascii=False))
 
+        # compact per-page index
         body_chars = len(page.body)
         stats = {
             "chars": body_chars,
             "words": word_count(page.body),
             "headings": len(outline),
-            "estimated_token_count": est_tokens_page,
-            "token_estimator": token_estimator,
+            "estimated_token_count_total": total_tokens,
         }
         file_mtime = datetime.fromtimestamp(md_path.stat().st_mtime, tz=timezone.utc).isoformat(timespec="seconds")
-        record = {
+        site_index.append({
             "id": page.slug,
             "title": page.title,
             "slug": page.slug,
@@ -372,57 +376,40 @@ def build_site_index(config_path: str, dry_run: bool = False, limit: int = 0,
             "stats": stats,
             "hash": sha256_text(page.body),
             "last_modified": file_mtime,
-        }
-        site_index.append(record)
-
-        if sections_out:
-            for sec in sections:
-                # keep text reasonably bounded in JSONL lines (still raw; consumers can re-trim)
-                sec_obj = {
-                    "page_id": page.slug,
-                    "index": sec["index"],
-                    "depth": sec["depth"],
-                    "title": sec["title"],
-                    "anchor": sec["anchor"],
-                    "start_char": sec["start_char"],
-                    "end_char": sec["end_char"],
-                    "estimated_token_count": estimate_tokens(sec["text"], token_estimator),
-                    "token_estimator": token_estimator,
-                    "text": sec["text"]
-                }
-                sections_lines.append(json.dumps(sec_obj, ensure_ascii=False))
+            "token_estimator": token_estimator,
+        })
 
     # Output paths
     public_root = config.get("outputs", {}).get("public_root", "/.ai/").strip("/")
     index_out = (repo_root / public_root / "site-index.json").resolve()
-    sections_out_path = (repo_root / public_root / "llms-full.jsonl").resolve()
+    jsonl_out = (repo_root / public_root / "llms-full.jsonl").resolve()
 
     if dry_run:
         print(f"[dry-run] ai_dir={ai_dir}")
         print(f"[dry-run] pages={len(pages_files)}  (limit={limit or 'all'})")
         if site_index:
-            print("[dry-run] sample record:")
             sample = site_index[0].copy()
             sample["preview"] = sample["preview"][:120] + ("…" if len(sample["preview"]) > 120 else "")
+            print("[dry-run] sample site-index record:")
             print(json.dumps(sample, indent=2, ensure_ascii=False))
+        if jsonl_lines:
+            print(f"[dry-run] sample llms-full.jsonl line:\n{jsonl_lines[0][:300]}{'…' if len(jsonl_lines[0])>300 else ''}")
         print(f"[dry-run] would write: {index_out}")
-        if sections_out:
-            print(f"[dry-run] would write: {sections_out_path}  (lines={len(sections_lines)})")
+        print(f"[dry-run] would write: {jsonl_out}  (lines={len(jsonl_lines)})")
         return
 
     # Write files
     index_out.parent.mkdir(parents=True, exist_ok=True)
     with open(index_out, "w", encoding="utf-8") as f:
         json.dump(site_index, f, indent=2, ensure_ascii=False)
-    if sections_out:
-        with open(sections_out_path, "w", encoding="utf-8") as f:
-            for line in sections_lines:
-                f.write(line + "\n")
+
+    jsonl_out.parent.mkdir(parents=True, exist_ok=True)
+    with open(jsonl_out, "w", encoding="utf-8") as f:
+        for line in jsonl_lines:
+            f.write(line + "\n")
 
     print(f"✅ site-index.json written: {index_out}  (pages={len(site_index)})")
-    if sections_out:
-        print(f"✅ sections.jsonl written: {sections_out_path}  (lines={len(sections_lines)})")
-    print(f"raw base: {raw_base}")
+    print(f"✅ llms-full.jsonl written: {jsonl_out}  (lines={len(jsonl_lines)})")
 
 
 # ----------------------------
@@ -430,27 +417,20 @@ def build_site_index(config_path: str, dry_run: bool = False, limit: int = 0,
 # ----------------------------
 
 def main():
-    parser = argparse.ArgumentParser(description="Generate a compact site index from /.ai/pages/*.md")
+    parser = argparse.ArgumentParser(description="Generate site catalogs from /.ai/pages/*.md")
     parser.add_argument("--config", default="llms_config.json", help="Path to llms_config.json (default: scripts/llms_config.json)")
     parser.add_argument("--dry-run", action="store_true", help="Show what would be generated; do not write files")
     parser.add_argument("--limit", type=int, default=0, help="Process at most N pages (0=all)")
-    parser.add_argument("--sections", action="store_true", help="Also write sections.jsonl (one object per H2/H3 section)")
     parser.add_argument("--preview-chars", type=int, default=500, help="Max characters for the preview field")
     parser.add_argument("--max-depth", type=int, default=3, help="Max heading depth to index (2..6)")
-    parser.add_argument(
-        "--token-estimator",
-        default="heuristic-v1",
-        help="Estimator label to use. 'heuristic-v1' (default) uses a fast regex heuristic. "
-             "'cl100k' uses tiktoken cl100k_base if installed, else falls back to heuristic. "
-             "Any other custom name will compute via heuristic but be labeled as provided."
-    )
+    parser.add_argument("--token-estimator", default="heuristic-v1",
+                        help="Estimator for token counts (heuristic-v1|cl100k|<custom label>)")
     args = parser.parse_args()
 
     build_site_index(
         config_path=args.config,
         dry_run=args.dry_run,
         limit=args.limit,
-        sections_out=args.sections,
         preview_chars=args.preview_chars,
         max_depth=args.max_depth,
         token_estimator=args.token_estimator,

@@ -24,7 +24,7 @@ Before starting, ensure you have:
 - Basic understanding of [required concepts]
 - [Tokens/accounts if needed]
 
-## Environment Setup
+## Step 1: Project Setup
 
 [Set up the development environment and project structure]
 

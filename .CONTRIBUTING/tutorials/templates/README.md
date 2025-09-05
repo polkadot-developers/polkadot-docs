@@ -129,7 +129,7 @@ Feel free to add sections relevant to your tutorial:
 Replace template code with your specific examples:
 - Use real, tested code snippets
 - Include error handling where appropriate
-- Show expected outputs
+- Show expected outputs (use `termynal` element for terminal outputs)
 - Provide alternative approaches when relevant
 
 ## Questions and Support

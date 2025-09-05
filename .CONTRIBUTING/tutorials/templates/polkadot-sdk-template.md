@@ -24,7 +24,7 @@ Before starting, ensure you have:
 - Basic understanding of [required concepts]
 - [Tokens/accounts if needed]
 
-## Step 1: Project Setup
+## Environment Setup
 
 [Set up the development environment and project structure]
 
@@ -32,6 +32,9 @@ Before starting, ensure you have:
 # Commands for initial setup
 git clone -b INSERT_TAG_HERE https://github.com/paritytech/polkadot-sdk-parachain-template.git parachain-template
 ```
+
+!!! note
+    Replace `INSERT_TAG_HERE` with the actual tag or branch of the parachain template you want to use (e.g., `polkadot-stable2412`).
 
 Expected output:
 ```

@@ -71,20 +71,15 @@ Before writing, determine:
 
 ### Writing Best Practices
 
+**Note**: For comprehensive writing guidelines, refer to the [PaperMoon Documentation Style Guide](https://github.com/papermoonio/documentation-style-guide). The following are tutorial-specific essentials:
+
 1. **Use active voice**: "You will build..." instead of "A blockchain will be built..."
 2. **Be specific**: Provide exact commands, file paths, and parameter values
 3. **Include context**: Explain why each step is necessary
 4. **Use consistent terminology**: Follow established Polkadot vocabulary
-5. **Provide alternatives**: When multiple approaches exist, mention them
-6. **Add warnings**: Use `!!!warning` for important caveats
-
-### Tone and Style
-
-- Write in second person ("you will", "your application")
-- Use clear, concise sentences
-- Break up long paragraphs
-- Use bullet points for lists and options
-- Number steps for procedures
+5. **Tutorial language**: Use "you" when addressing the reader, "we" when working through steps together
+6. **Structure clearly**: Use bullet points for lists, number steps for procedures
+7. **Break up content**: Keep paragraphs concise and readable
 
 ## Metadata Requirements
 
@@ -220,7 +215,8 @@ You can also use line numbers and include specific lines:
 
 - Always specify language for syntax highlighting
 - Include file names when showing file contents
-- Use `!!!tip` to explain complex code sections
+- Use `!!!tip` sparingly to explain complex code sections (avoid admonitions when possible)
+- For collapsible code sections, use: `??? code "<Title>"`
 - Test all code examples before submission
 - Include expected outputs where relevant
 - **Always specify dependency versions** in installation commands
@@ -257,6 +253,7 @@ Common language tags to use:
 - Update screenshots when UI changes
 
 #### Image Dimensions
+
 **Important**: Use these specific dimensions to avoid rework during review:
 
 - **Desktop screenshots**: 1512px width, variable height
@@ -329,13 +326,13 @@ categories: [Categories]
 ## Overview
 [Architecture or process overview]
 
-## Part 1: [Section Title]
-### Step 1: [Substep]
-### Step 2: [Substep]
+## [Action-Oriented Section Title]
+### [Specific Task or Setup]
+### [Another Specific Task]
 
-## Part 2: [Section Title]
-### Step 1: [Substep]
-### Step 2: [Substep]
+## [Another Action-Oriented Section]
+### [Implementation Task]
+### [Testing or Verification]
 
 ## Testing and Verification
 [Comprehensive testing instructions]

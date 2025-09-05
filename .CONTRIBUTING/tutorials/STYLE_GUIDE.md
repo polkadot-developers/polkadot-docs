@@ -202,11 +202,19 @@ Store reusable code in the `.snippets` directory:
 
 ### Including Code Snippets
 
-```markdown
+
 ```bash
 --8<-- 'code/tutorials/polkadot-sdk/parachains/setup.sh'
 ```
+
+
+You can also use line numbers and include specific lines:
+
+
+```bash linenums="1"
+--8<-- 'code/tutorials/polkadot-sdk/parachains/setup.sh:10:20'
 ```
+
 
 ### Code Block Guidelines
 

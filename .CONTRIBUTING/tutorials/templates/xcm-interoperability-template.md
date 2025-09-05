@@ -25,9 +25,19 @@ Before starting, ensure you have:
 - Basic understanding of XCM concepts
 - Access to testnet networks (if applicable)
 
-## Step 1: Network Setup and Configuration
+## Step 1: Chopsticks Environment Setup
 
-[Configure networks and prepare for cross-chain operations]
+First, we'll set up Chopsticks to simulate the network environment for XCM testing.
+
+### Install Chopsticks
+
+```bash
+npm install @acala-network/chopsticks@latest
+```
+
+### Configure Networks
+
+Create a chopsticks configuration file for your networks:
 
 ### Network Configuration
 ```javascript

@@ -31,7 +31,7 @@ Before submitting this PR, please verify:
 
 - [ ] I have tested my changes locally (if applicable)
 - [ ] I have followed the [style guidelines](https://github.com/papermoonio/documentation-style-guide/blob/main/style-guide.md)
-- [ ] I have regenerated AI documentation files using `python scripts/generate_llms_standard.py` (if content changed)
+- [ ] I have regenerated AI documentation files using `python3 scripts/generate_llms_standard.py` (if content changed)
 - [ ] My changes are focused and atomic (single logical change per PR)
 - [ ] I have updated the table of contents or navigation files (if adding new pages)
 

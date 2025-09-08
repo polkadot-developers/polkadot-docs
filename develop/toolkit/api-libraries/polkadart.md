@@ -26,7 +26,7 @@ Add Polkadart to your `pubspec.yaml`:
 
 For type-safe API generation, add the following to your `pubspec.yaml`:
 
-```yaml
+```yaml title="pubspec.yaml"
 polkadart:
   output_dir: lib/generated
   chains:

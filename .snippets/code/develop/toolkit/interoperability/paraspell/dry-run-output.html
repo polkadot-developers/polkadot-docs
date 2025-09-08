@@ -6,13 +6,23 @@
   origin: {
     success: true,
     fee: 17965000n,
+    currency: 'PAS',
+    asset: {
+      symbol: 'PAS',
+      isNative: true,
+      decimals: 10,
+      existentialDeposit: '100000000',
+      location: { parents: 1, interior: { Here: null } },
+      isFeeAsset: true,
+      amount: 100000000000n
+    },
     weight: undefined,
     forwardedXcms: [
       {
         type: 'V3',
         value: {
           parents: 1,
-          interior: { type: 'X1', value: { type: 'Parachain', value: 1002 } }
+          interior: { type: 'X1', value: { type: 'Parachain', value: 1004 } }
         }
       },
       [
@@ -93,18 +103,25 @@
         }
       ]
     ],
-    destParaId: 1002,
-    currency: 'PAS'
+    destParaId: 1004
   },
   assetHub: undefined,
   bridgeHub: undefined,
   destination: {
     success: true,
-    fee: 17965000n,
-    weight: { refTime: 164770000n, proofSize: 3593n },
+    fee: 817598n,
+    currency: 'PAS',
+    asset: {
+      symbol: 'PAS',
+      isNative: true,
+      decimals: 10,
+      existentialDeposit: '1000000000',
+      location: { parents: 1, interior: { Here: null } },
+      isFeeAsset: true
+    },
+    weight: { refTime: 176858000n, proofSize: 0n },
     forwardedXcms: [],
-    destParaId: undefined,
-    currency: 'PAS'
+    destParaId: undefined
   },
   hops: []
 }</span>

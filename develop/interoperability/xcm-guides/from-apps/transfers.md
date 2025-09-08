@@ -110,7 +110,7 @@ As mentioned before, you need to specify the transfer type.
 
     Yes. Fees are important for decentralized systems to prevent spam. Although it is possible to not specify remote fees, this is most likely not what you want when developing applications. Omitting the remote fees will append an [`UnpaidExecution`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm/v5/enum.Instruction.html#variant.UnpaidExecution){target=\_blank} instruction to the remote XCM. This instruction signals to the destination system that there is a reason execution is allowed a message without paying for fees.
 
-    This usually means you're a priviledged origin, like `Root` or the `Fellowship` origin. It's mostly used from the runtime of the Polkadot SDK-based chains instead of from applications.
+    This usually means you're a privileged origin, like `Root` or the `Fellowship` origin. It's mostly used from the runtime of the Polkadot SDK-based chains instead of from applications.
 
 ??? code "Teleport Example"
 

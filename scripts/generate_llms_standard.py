@@ -50,6 +50,10 @@ def get_all_markdown_files(directory):
         if '.github' in root.split(os.sep):
             continue
 
+        # Skip '.CONTRIBUTING'
+        if '.CONTRIBUTING' in root.split(os.sep):
+            continue
+
         # Skip 'node_modules'
         if 'node_modules' in root.split(os.sep):
             continue

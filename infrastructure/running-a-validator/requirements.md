@@ -79,6 +79,6 @@ Before bonding DOT, ensure you meet the minimum bond requirement to start a vali
 
 For example, on November 19, 2024, the minimum stake backing a validator in Polkadot's era 1632 was 1,159,434.248 DOT. You can check the current minimum stake required using these tools:
 
-- [Chain State Values](https://wiki.polkadot.network/general/chain-state-values/){target=\_blank}
-- [Subscan](https://polkadot.subscan.io/validator_list?status=validator){target=\_blank}
-- [Staking Dashboard](https://staking.polkadot.cloud/#/overview){target=\_blank}
+- [**Chain State Values**](https://wiki.polkadot.com/general/chain-state-values/){target=\_blank}
+- [**Subscan**](https://polkadot.subscan.io/validator_list?status=validator){target=\_blank}
+- [**Staking Dashboard**](https://staking.polkadot.cloud/#/overview){target=\_blank}

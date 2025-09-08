@@ -5,9 +5,6 @@ dependencies:
       repository_url: https://github.com/paritytech/zombienet
       version: v1.3.133
       architecture: macos-arm64
-    asset_transfer_api:
-      repository_url: https://github.com/paritytech/asset-transfer-api
-      version: v1.0.0
     polkadot_sdk_solochain_template:
       repository_url: https://github.com/paritytech/polkadot-sdk-solochain-template
       version: v0.0.2
@@ -26,6 +23,7 @@ dependencies:
     polkadot_sdk_contracts_node:
       repository_url: https://github.com/paritytech/polkadot-sdk
       version: polkadot-stable2503-6
+      commit_dev_node: 8e2b6f742a38bb13688e12abacded0aab2dbbb23
       ignore_updates: true
     polkadot_sdk_parachain_template:
       repository_url: https://github.com/paritytech/polkadot-sdk-parachain-template
@@ -55,19 +53,15 @@ dependencies:
     chopsticks:
       name: '@acala-network/chopsticks'
       version: 1.2.1
-    asset_transfer_api:
-      name: '@substrate/asset-transfer-api'
-      version: 1.0.0
-      polkadot_js_api_version: v16.2.2 # Check changelog for pjs version bumps
     moonwall:
       name: '@moonwall/cli'
       version: 5.13.5
     polkadot_js_api:
       name: '@polkadot/api'
-      version: 16.4.3
+      version: 16.4.5
     polkadot_api:
       name: polkadot-api
-      version: 1.15.2
+      version: 1.16.2
     hardhat_resolc: 
       name: '@hardhat-resolc'
       version: 0.0.7  
@@ -88,5 +82,5 @@ dependencies:
       version: 6.13.5
     paraspell_sdk:
       name: '@paraspell/sdk'
-      version: 10.11.5
+      version: 11.1.1
 #   python_packages:

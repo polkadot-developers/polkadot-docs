@@ -8,6 +8,8 @@ categories: Tooling, Dapps
 
 Polkadart is the most comprehensive Dart/Flutter SDK for interacting with Polkadot, Substrate, and other compatible blockchain networks. Designed with a Dart-first approach and type-safe APIs, it provides everything developers need to build powerful decentralized applications.
 
+This page will outline some of the core components of Polkadart. Fore more details, refer to the [official documentation](https://polkadart.dev){target=\_blank}.
+
 ## Installation
 
 Add Polkadart to your `pubspec.yaml`:
@@ -35,9 +37,39 @@ polkadart:
     custom: wss://your-node.example.com
 ```
 
-## Quick Start
+## Get Started
 
-### 1. Creating an API Instance
+## Type Generation
+
+Polkadart provides a CLI tool to generate type definitions from any Polkadot-SDK compatible blockchain network. This allows you to build type-safe Dart applications without dealing with the low-level details of the blockchain.
+
+### Run Generator
+
+```bash
+dart run polkadart_cli:generate -v
+```
+
+### Use Generated Types
+
+```dart
+import 'package:your_app/generated/polkadot/polkadot.dart';
+import 'package:polkadart/polkadart.dart';
+import 'package:ss58/ss58.dart';
+
+final provider = Provider.fromUri(Uri.parse('wss://rpc.polkadot.io'));
+final polkadot = Polkadot(provider);
+  
+// Account from SS58 address
+final account = Address.decode('19t9Q2ay58hMDaeg6eeBhqmHsRnc2jDMV3cYYw9zbc59HLj');
+
+// Retrieve Account Balance
+final accountInfo = await polkadot.query.system.account(account.pubkey);
+print('Balance: ${accountInfo.data.free}')
+```
+
+### Creating an API Instance
+
+An API instance is required to interact with the blockchain. Polkadart provides a `Provider` class that allows you to connect to any network.
 
 #### Polkadot
 ```dart
@@ -50,7 +82,9 @@ Future<void> main(List<String> arguments) async {
 }
 ```
 
-### 2. Reading Chain Data
+### Reading Chain Data
+
+Besides querying the data using the `query` from the generated API, you can also use the State API for querying storage data, metadata, runtime information, and others.
 
 ```dart
 final stateApi = StateApi(provider);
@@ -64,7 +98,9 @@ final metadata = await stateApi.getMetadata();
 print('Metadata version: ${metadata.version}');
 ```
 
-### 3. Subscribe to New Blocks
+### Subscribe to New Blocks
+
+You can subscribe to new blocks on the blockchain using the `subscribe` method.
 
 ```dart
 final subscription = await provider.subscribe('chain_subscribeNewHeads', []);
@@ -74,7 +110,9 @@ subscription.stream.forEach((response) {
 });
 ```
 
-### 4. Send a Transaction
+### Send a Transaction
+
+Perhaps the most common operation done in any blockchain is transferring funds. Here you can see how that can be done using Polkadart.
 
 ```dart
 final wallet = await KeyPair.sr25519.fromUri("//Alice");
@@ -121,32 +159,6 @@ final author = AuthorApi(provider);
 await author.submitAndWatchExtrinsic(extrinsic, (data) {
   print(data);
 });
-```
-
-## Type Generation
-
-### 1. Run Generator
-
-```bash
-dart run polkadart_cli:generate -v
-```
-
-### 2. Use Generated Types
-
-```dart
-import 'package:your_app/generated/polkadot/polkadot.dart';
-import 'package:polkadart/polkadart.dart';
-import 'package:ss58/ss58.dart';
-
-final provider = Provider.fromUri(Uri.parse('wss://rpc.polkadot.io'));
-final polkadot = Polkadot(provider);
-  
-// Account from SS58 address
-final account = Address.decode('19t9Q2ay58hMDaeg6eeBhqmHsRnc2jDMV3cYYw9zbc59HLj');
-
-// Retrieve Account Balance
-final accountInfo = await polkadot.query.system.account(account.pubkey);
-print('Balance: ${accountInfo.data.free}')
 ```
 
 ## Where to Go Next

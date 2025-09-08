@@ -1,18 +1,192 @@
-# Bundle: Basics
+# Polkadot Developer Documentation (LLMS Format)
 
+This file contains documentation for Polkadot (https://docs.polkadot.com). Polkadot is an open-source, multichain network protocol that facilitates the secure communication and interoperability of various blockchains. It offers a scalable, sharded architecture that enables the creation of purpose-built chains and provides the necessary tooling for building decentralized applications (dApps) and smart contracts.
+It is intended for use with large language models (LLMs) to support developers working with Polkadot. The content includes selected pages from the official docs, organized by section.
 
+This file includes documentation related to the category: Basics
+
+## List of doc pages:
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/interoperability/intro-to-xcm.md [type: develop]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/interoperability/send-messages.md [type: develop]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/interoperability/test-and-debug.md [type: develop]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/interoperability/xcm-channels.md [type: develop]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/networks.md [type: develop]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/parachains/customize-parachain/overview.md [type: develop]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/parachains/install-polkadot-sdk.md [type: develop]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/parachains/intro-polkadot-sdk.md [type: develop]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/smart-contracts/overview.md [type: develop]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/interoperability/asset-transfer-api/overview.md [type: develop]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/interoperability/xcm-tools.md [type: develop]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime.md [type: tutorials]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet.md [type: tutorials]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template.md [type: tutorials]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-asset.md [type: tutorials]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/polkadot-sdk/testing/fork-live-chains.md [type: tutorials]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/polkadot-sdk/testing/spawn-basic-chain.md [type: tutorials]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/smart-contracts/deploy-erc20.md [type: tutorials]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/smart-contracts/deploy-nft.md [type: tutorials]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/smart-contracts/launch-your-first-project/create-contracts.md [type: tutorials]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/polkadot-protocol/architecture/parachains/overview.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/polkadot-protocol/architecture/polkadot-chain/overview.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/polkadot-protocol/architecture/system-chains/overview.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/polkadot-protocol/onchain-governance/overview.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/polkadot-protocol/parachain-basics/accounts.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/polkadot-protocol/parachain-basics/blocks-transactions-fees/blocks.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/polkadot-protocol/parachain-basics/blocks-transactions-fees/fees.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/polkadot-protocol/parachain-basics/blocks-transactions-fees/transactions.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/polkadot-protocol/parachain-basics/chain-data.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/polkadot-protocol/parachain-basics/cryptography.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/polkadot-protocol/parachain-basics/data-encoding.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/polkadot-protocol/parachain-basics/interoperability.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/polkadot-protocol/parachain-basics/networks.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/polkadot-protocol/parachain-basics/node-and-runtime.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/polkadot-protocol/parachain-basics/randomness.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/polkadot-protocol/smart-contract-basics/accounts.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/polkadot-protocol/smart-contract-basics/blocks-transactions-fees.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/polkadot-protocol/smart-contract-basics/evm-vs-polkavm.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/polkadot-protocol/smart-contract-basics/networks.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/polkadot-protocol/smart-contract-basics/overview.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/polkadot-protocol/smart-contract-basics/polkavm-design.md [type: other]
+
+## Full content for each doc page
+
+Doc-Content: https://docs.polkadot.com/develop/interoperability/intro-to-xcm/
+--- BEGIN CONTENT ---
+---
+title: Introduction to XCM
+description: Unlock blockchain interoperability with XCM — Polkadot's Cross-Consensus Messaging format for cross-chain interactions.
+categories: Basics, Polkadot Protocol
 ---
 
-# Accounts in Asset Hub Smart Contracts
+# Introduction to XCM
 
-> Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/polkadot-protocol-smart-contract-basics-accounts.md
-> Canonical (HTML): https://docs.polkadot.com/polkadot-protocol/smart-contract-basics/accounts/
-> Summary: Bridges Ethereum's 20-byte addresses with Polkadot's 32-byte accounts, enabling seamless interaction while maintaining compatibility with Ethereum tooling.
+## Introduction
 
-# Accounts on Asset Hub Smart Contracts
+Polkadot’s unique value lies in its ability to enable interoperability between parachains and other blockchain systems. At the core of this capability is XCM (Cross-Consensus Messaging)—a flexible messaging format that facilitates communication and collaboration between independent consensus systems.
 
--!!! smartcontract "PolkaVM Preview Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+With XCM, one chain can send intents to another one, fostering a more interconnected ecosystem. Although it was developed specifically for Polkadot, XCM is a universal format, usable in any blockchain environment. This guide provides an overview of XCM’s core principles, design, and functionality, alongside practical examples of its implementation.
+
+## Messaging Format
+
+XCM is not a protocol but a standardized [messaging format](https://github.com/polkadot-fellows/xcm-format){target=\_blank}. It defines the structure and behavior of messages but does not handle their delivery. This separation allows developers to focus on crafting instructions for target systems without worrying about transmission mechanics.
+
+XCM messages are intent-driven, outlining desired actions for the receiving blockchain to consider and potentially alter its state. These messages do not directly execute changes; instead, they rely on the host chain's environment to interpret and implement them. By utilizing asynchronous composability, XCM facilitates efficient execution where messages can be processed independently of their original order, similar to how RESTful services handle HTTP requests without requiring sequential processing.
+
+## The Four Principles of XCM
+
+XCM adheres to four guiding principles that ensure robust and reliable communication across consensus systems:
+
+- **Asynchronous**: XCM messages operate independently of sender acknowledgment, avoiding delays due to blocked processes.
+- **Absolute**: XCM messages are guaranteed to be delivered and interpreted accurately, in order, and timely. Once a message is sent, one can be sure it will be processed as intended.
+- **Asymmetric**: XCM messages follow the 'fire and forget' paradigm meaning no automatic feedback is provided to the sender. Any results must be communicated separately to the sender with an additional message back to the origin.
+- **Agnostic**: XCM operates independently of the specific consensus mechanisms, making it compatible across diverse systems.
+
+These principles guarantee that XCM provides a reliable framework for cross-chain communication, even in complex environments.
+
+## The XCM Tech Stack
+
+![Diagram of the XCM tech stack](/images/develop/interoperability/intro-to-xcm/intro-to-xcm-01.webp)
+
+The XCM tech stack is designed to facilitate seamless interoperable communication between chains that reside within the Polkadot ecosystem. XCM can be used to express the meaning of the messages over each of the communication channels.
+
+## Core Functionalities of XCM
+
+XCM enhances cross-consensus communication by introducing several powerful features:
+
+- **Programmability**: Supports dynamic message handling, allowing for more comprehensive use cases. Includes branching logic, safe dispatches for version checks, and asset operations like NFT management.
+- **Functional Multichain Decomposition**: Enables mechanisms such as remote asset locking, asset namespacing, and inter-chain state referencing, with contextual message identification.
+- **Bridging**: Establishes a universal reference framework for multi-hop setups, connecting disparate systems like Ethereum and Bitcoin with the Polkadot relay chain acting as a universal location.
+
+The standardized format for messages allows parachains to handle tasks like user balances, governance, and staking, freeing the Polkadot relay chain to focus on shared security. These features make XCM indispensable for implementing scalable and interoperable blockchain applications. 
+
+## XCM Example
+
+The following is a simplified XCM message demonstrating a token transfer from Alice to Bob on the same chain (ParaA).
+
+```rust
+let message = Xcm(vec![
+    WithdrawAsset((Here, amount).into()),
+    BuyExecution { 
+        fees: (Here, amount).into(), 
+        weight_limit: WeightLimit::Unlimited 
+    },
+    DepositAsset {
+        assets: All.into(),
+        beneficiary: MultiLocation {
+            parents: 0,
+            interior: Junction::AccountId32 {
+                network: None,
+                id: BOB.clone().into()
+            }.into(),
+        }.into()
+    }
+]);
+```
+
+The message consists of three instructions described as follows:
+
+- **[WithdrawAsset](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#withdrawasset){target=\_blank}**: Transfers a specified number of tokens from Alice's account to a holding register.
+
+    ```rust
+    WithdrawAsset((Here, amount).into()),
+    ```
+
+    - **`Here`**: The native parachain token.
+    - **`amount`**: The number of tokens that are transferred.
+
+    The first instruction takes as an input the MultiAsset that should be withdrawn. The MultiAsset describes the native parachain token with the `Here` keyword. The `amount` parameter is the number of tokens that are transferred. The withdrawal account depends on the origin of the message. In this example the origin of the message is Alice. The `WithdrawAsset` instruction moves `amount` number of native tokens from Alice's account into the holding register.
+
+- **[BuyExecution](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#buyexecution){target=\_blank}**: Allocates fees to cover the execution [weight](/polkadot-protocol/glossary/#weight){target=\_blank} of the XCM instructions.
+
+    ```rust
+    BuyExecution { 
+        fees: (Here, amount).into(), 
+        weight_limit: WeightLimit::Unlimited 
+    },
+    ```
+
+    - **`fees`**: Describes the asset in the holding register that should be used to pay for the weight.
+    - **`weight_limit`**: Defines the maximum fees that can be used to buy weight.
+
+- **[DepositAsset](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#depositasset){target=\_blank}**: Moves the remaining tokens from the holding register to Bob’s account.
+
+    ```rust
+    DepositAsset {
+        assets: All.into(),
+        beneficiary: MultiLocation {
+            parents: 0,
+            interior: Junction::AccountId32 {
+                network: None,
+                id: BOB.clone().into()
+            }.into(),
+        }.into()
+    }
+    ```
+
+    - **`All`**: The wildcard for the asset(s) to be deposited. In this case, all assets in the holding register should be deposited.
+    
+This step-by-step process showcases how XCM enables precise state changes within a blockchain system. You can find a complete XCM message example in the [XCM repository](https://github.com/paritytech/xcm-docs/blob/main/examples/src/0_first_look/mod.rs){target=\_blank}.
+
+## Overview
+
+XCM revolutionizes cross-chain communication by enabling use cases such as:
+
+- Token transfers between blockchains.
+- Asset locking for cross-chain smart contract interactions.
+- Remote execution of functions on other blockchains.
+
+These functionalities empower developers to build innovative, multi-chain applications, leveraging the strengths of various blockchain networks. To stay updated on XCM’s evolving format or contribute, visit the [XCM repository](https://github.com/paritytech/xcm-docs/blob/main/examples/src/0_first_look/mod.rs){target=\_blank}.
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/develop/interoperability/send-messages/
+--- BEGIN CONTENT ---
+---
+title: Send XCM Messages
+description: Send cross-chain messages using XCM, Polkadot's Cross-Consensus Messaging format, designed to support secure communication between chains.
+categories: Basics, Polkadot Protocol
+---
+
+# Send XCM Messages
 
 ## Introduction
 
@@ -473,15 +647,15 @@ Launch your parachain locally and start producing blocks:
     [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/)
 
 </div>
+--- END CONTENT ---
 
-
+Doc-Content: https://docs.polkadot.com/develop/toolkit/interoperability/asset-transfer-api/overview/
+--- BEGIN CONTENT ---
 ---
-
-# Asset Transfer API
-
-> Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/develop-toolkit-interoperability-asset-transfer-api-overview.md
-> Canonical (HTML): https://docs.polkadot.com/develop/toolkit/interoperability/asset-transfer-api/overview/
-> Summary: Asset Transfer API is a library that simplifies the transfer of assets for Polkadot SDK-based chains. It provides methods for cross-chain and local transfers.
+title: Asset Transfer API
+description: Asset Transfer API is a library that simplifies the transfer of assets for Polkadot SDK-based chains. It provides methods for cross-chain and local transfers.
+categories: Basics, Tooling, Dapps
+---
 
 # Asset Transfer API
 
@@ -503,7 +677,7 @@ Before you begin, ensure you have the following installed:
 - [Node.js](https://nodejs.org/en/){target=\_blank} (recommended version 21 or greater).
 - A package manager like [npm](https://www.npmjs.com/){target=\_blank} should be installed with Node.js by default. Alternatively, you can use other package managers like [Yarn](https://yarnpkg.com/){target=\_blank}.
 
-This documentation covers version `1.0.0` of Asset Transfer API. 
+This documentation covers version `{{dependencies.javascript_packages.asset_transfer_api.version}}` of Asset Transfer API. 
 
 ## Install Asset Transfer API
 
@@ -527,7 +701,7 @@ To use `asset-transfer-api`, you need a TypeScript project. If you don't have on
 Once you have a project set up, you can install the `asset-transfer-api` package. Run the following command to install the package:
 
 ```bash
-npm install @substrate/asset-transfer-api@1.0.0
+npm install @substrate/asset-transfer-api@{{dependencies.javascript_packages.asset_transfer_api.version}}
 ```
 
 ## Set Up Asset Transfer API
@@ -543,7 +717,7 @@ To initialize the Asset Transfer API, you need three key components:
 Leverage the `constructApiPromise` helper function provided by the library for the simplest setup process. It not only constructs a Polkadot.js `ApiPromise` but also automatically retrieves the chain's `specName` and fetches a safe XCM version. By using this function, developers can significantly reduce boilerplate code and potential configuration errors, making the initial setup both quicker and more robust.
 
 ```ts
--import {
+import {
   AssetTransferApi,
   constructApiPromise,
 } from '@substrate/asset-transfer-api';
@@ -559,7 +733,6 @@ async function main() {
 }
 
 main();
-
 ```
 
 !!!warning
@@ -576,7 +749,7 @@ For detailed information on the Asset Transfer API, including available methods,
 This example demonstrates how to initiate a cross-chain token transfer from a relay chain to a system parachain. Specifically, 1 WND will be transferred from a Westend (relay chain) account to a Westmint (system parachain) account.
 
 ```ts
--import {
+import {
   AssetTransferApi,
   constructApiPromise,
 } from '@substrate/asset-transfer-api';
@@ -612,12 +785,11 @@ async function main() {
 main()
   .catch((err) => console.error(err))
   .finally(() => process.exit());
-
 ```
 
 After running the script, you'll see the following output in the terminal, which shows the call data for the cross-chain transfer and its decoded extrinsic details:
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
     <span data-ty="input"><span class="file-path"></span>ts-node relayToSystem.ts</span>
     <br>
 	<span data-ty>Call data:</span>
@@ -685,7 +857,7 @@ After running the script, you'll see the following output in the terminal, which
 The following example demonstrates a local GLMR transfer within Moonbeam, using the `balances` pallet. It transfers 1 GLMR token from one account to another account, where both the sender and recipient accounts are located on the same parachain.
 
 ```ts
--import {
+import {
   AssetTransferApi,
   constructApiPromise,
 } from '@substrate/asset-transfer-api';
@@ -722,12 +894,11 @@ async function main() {
 main()
   .catch((err) => console.error(err))
   .finally(() => process.exit());
-
 ```
 
 Upon executing this script, the terminal will display the following output, illustrating the encoded extrinsic for the cross-chain message and its corresponding decoded format:
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
     <span data-ty="input"><span class="file-path"></span>ts-node localParachainTx.ts</span>
     <br>
 	<span data-ty>Call data:</span>
@@ -757,7 +928,7 @@ Upon executing this script, the terminal will display the following output, illu
 This example demonstrates creating a cross-chain asset transfer between two parachains. It shows how to send vMOVR and vBNC from a Moonriver account to a Bifrost Kusama account using the safe XCM version. It connects to Moonriver, initializes the API, and uses the `createTransferTransaction` method to prepare a transaction.
 
 ```ts
--import {
+import {
   AssetTransferApi,
   constructApiPromise,
 } from '@substrate/asset-transfer-api';
@@ -793,12 +964,11 @@ async function main() {
 main()
   .catch((err) => console.error(err))
   .finally(() => process.exit());
-
 ```
 
 After running this script, you'll see the following output in your terminal. This output presents the encoded extrinsic for the cross-chain message, along with its decoded format, providing a clear view of the transaction details.
 
--<div id='termynal' data-termynal>
+<div id='termynal' data-termynal>
     <span data-ty='input'><span class='file-path'></span>ts-node paraToPara.ts</span>
 
     <br>
@@ -885,17 +1055,114 @@ After running this script, you'll see the following output in your terminal. Thi
     <span data-ty>    "section": "xTokens"</span>
     <span data-ty>}</span>
 </div>
+--- END CONTENT ---
 
-
+Doc-Content: https://docs.polkadot.com/develop/toolkit/interoperability/xcm-tools/
+--- BEGIN CONTENT ---
+---
+title: XCM Tools
+description: Explore essential XCM tools across Polkadot, crafted to enhance cross-chain functionality and integration within the ecosystem.
+categories: Basics, Tooling, Dapps
 ---
 
-# Blocks
+# XCM Tools
 
-> Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/dawn/improved-llms/.ai/pages/polkadot-protocol-parachain-basics-blocks-transactions-fees-blocks.md
-> Canonical (HTML): https://docs.polkadot.com/polkadot-protocol/parachain-basics/blocks-transactions-fees/blocks/
-> Summary: Understand how blocks are produced, validated, and imported in Polkadot SDK-based blockchains, covering initialization, finalization, and authoring processes.
+## Introduction
 
-# Blocks
+As described in the [Interoperability](/develop/interoperability){target=\_blank} section, XCM (Cross-Consensus Messaging) is a protocol used in the Polkadot and Kusama ecosystems to enable communication and interaction between chains. It facilitates cross-chain communication, allowing assets, data, and messages to flow seamlessly across the ecosystem.
+
+As XCM is central to enabling communication between blockchains, developers need robust tools to help interact with, build, and test XCM messages. Several XCM tools simplify working with the protocol by providing libraries, frameworks, and utilities that enhance the development process, ensuring that applications built within the Polkadot ecosystem can efficiently use cross-chain functionalities.
+
+## Popular XCM Tools
+
+### Moonsong Labs XCM Tools
+
+[Moonsong Labs XCM Tools](https://github.com/Moonsong-Labs/xcm-tools){target=\_blank} provides a collection of scripts for managing and testing XCM operations between Polkadot SDK-based runtimes. These tools allow performing tasks like asset registration, channel setup, and XCM initialization. Key features include:
+
+- **Asset registration**: Registers assets, setting units per second (up-front fees), and configuring error (revert) codes.
+- **XCM initializer**: Initializes XCM, sets default XCM versions, and configures revert codes for XCM-related precompiles.
+- **HRMP manipulator**: Manages HRMP channel actions, including opening, accepting, or closing channels.
+- **XCM-Transactor-Info-Setter**: Configures transactor information, including extra weight and fee settings.
+- **Decode XCM**: Decodes XCM messages on the relay chain or parachains to help interpret cross-chain communication.
+
+To get started, clone the repository and install the required dependencies:
+
+```bash
+git clone https://github.com/Moonsong-Labs/xcm-tools && 
+cd xcm-tools &&
+yarn install
+```
+
+For a full overview of each script, visit the [scripts](https://github.com/Moonsong-Labs/xcm-tools/tree/main/scripts){target=\_blank} directory or refer to the [official documentation](https://github.com/Moonsong-Labs/xcm-tools/blob/main/README.md){target=\_blank} on GitHub.
+
+### ParaSpell
+
+[ParaSpell](https://paraspell.xyz/){target=\_blank} is a collection of open-source XCM tools designed to streamline cross-chain asset transfers and interactions within the Polkadot and Kusama ecosystems. It equips developers with an intuitive interface to manage and optimize XCM-based functionalities. Some key points included by ParaSpell are:
+
+- **[XCM SDK](https://paraspell.xyz/#xcm-sdk){target=\_blank}**: Provides a unified layer to incorporate XCM into decentralized applications, simplifying complex cross-chain interactions.
+- **[XCM API](https://paraspell.xyz/#xcm-api){target=\_blank}**: Offers an efficient, package-free approach to integrating XCM functionality while offloading heavy computing tasks, minimizing costs and improving application performance.
+- **[XCM router](https://paraspell.xyz/#xcm-router){target=\_blank}**: Enables cross-chain asset swaps in a single command, allowing developers to send one asset type (such as DOT on Polkadot) and receive a different asset on another chain (like ASTR on Astar).
+- **[XCM analyser](https://paraspell.xyz/#xcm-analyser){target=\_blank}**: Decodes and translates complex XCM multilocation data into readable information, supporting easier troubleshooting and debugging.
+- **[XCM visualizator](https://paraspell.xyz/#xcm-visualizator){target=\_blank}**: A tool designed to give developers a clear, interactive view of XCM activity across the Polkadot ecosystem, providing insights into cross-chain communication flow.
+
+ParaSpell's tools make it simple for developers to build, test, and deploy cross-chain solutions without needing extensive knowledge of the XCM protocol. With features like message composition, decoding, and practical utility functions for parachain interactions, ParaSpell is especially useful for debugging and optimizing cross-chain communications.
+
+### Astar XCM Tools
+
+The [Astar parachain](https://github.com/AstarNetwork/Astar/tree/master){target=\_blank} offers a crate with a set of utilities for interacting with the XCM protocol. The [xcm-tools](https://github.com/AstarNetwork/Astar/tree/master/bin/xcm-tools){target=\_blank} crate provides a straightforward method for users to locate a sovereign account or calculate an XC20 asset ID. Some commands included by the xcm-tools crate allow users to perform the following tasks:
+
+- **Sovereign accounts**: Obtain the sovereign account address for any parachain, either on the Relay Chain or for sibling parachains, using a simple command.
+- **XC20 EVM addresses**: Generate XC20-compatible Ethereum addresses for assets by entering the asset ID, making it easy to integrate assets across Ethereum-compatible environments.
+- **Remote accounts**: Retrieve remote account addresses needed for multi-location compatibility, using flexible options to specify account types and parachain IDs.
+
+To start using these tools, clone the [Astar repository](https://github.com/AstarNetwork/Astar){target=\_blank} and compile the xcm-tools package:
+
+```bash
+git clone https://github.com/AstarNetwork/Astar &&
+cd Astar &&
+cargo build --release -p xcm-tools
+```
+
+After compiling, verify the setup with the following command:
+
+```bash
+./target/release/xcm-tools --help
+```
+For more details on using Astar xcm-tools, consult the [official documentation](https://docs.astar.network/docs/learn/interoperability/xcm/integration/tools/){target=\_blank}.
+
+### Chopsticks
+
+The Chopsticks library provides XCM functionality for testing XCM messages across networks, enabling you to fork multiple parachains along with a relay chain. For further details, see the [Chopsticks documentation](/tutorials/polkadot-sdk/testing/fork-live-chains/){target=\_blank} about XCM.
+
+### Moonbeam XCM SDK
+
+The [Moonbeam XCM SDK](https://github.com/moonbeam-foundation/xcm-sdk){target=\_blank} enables developers to easily transfer assets between chains, either between parachains or between a parachain and the relay chain, within the Polkadot/Kusama ecosystem. With the SDK, you don't need to worry about determining the [Multilocation](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#7-universal-consensus-location-identifiers){target=\_blank} of the origin or destination assets or which extrinsics are used on which networks.
+
+The SDK consists of two main packages:
+
+- **[XCM SDK](https://github.com/moonbeam-foundation/xcm-sdk/tree/main/packages/sdk){target=\_blank}**: Core SDK for executing XCM transfers between chains in the Polkadot/Kusama ecosystem.
+- **[MRL SDK](https://github.com/moonbeam-foundation/xcm-sdk/tree/main/packages/mrl){target=\_blank}**: Extension of the XCM SDK for transferring liquidity into and across the Polkadot ecosystem from other ecosystems like Ethereum.
+
+Key features include:
+
+- **Simplified asset transfers**: Abstracts away complex multilocation determinations and extrinsic selection.
+- **Cross-ecosystem support**: Enables transfers between Polkadot/Kusama chains and external ecosystems.
+- **Developer-friendly API**: Provides intuitive interfaces for cross-chain functionality.
+- **Comprehensive documentation**: Includes usage guides and API references for both packages.
+
+For detailed usage examples and API documentation, visit the [official Moonbeam XCM SDK documentation](https://moonbeam-foundation.github.io/xcm-sdk/latest/){target=\_blank}.
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime/
+--- BEGIN CONTENT ---
+---
+title: Add Pallets to the Runtime
+description: Add pallets to your runtime for custom functionality. Learn to configure and integrate pallets in Polkadot SDK-based blockchains.
+tutorial_badge: Beginner
+categories: Basics, Parachains
+---
+
+# Add Pallets to the Runtime
 
 ## Introduction
 

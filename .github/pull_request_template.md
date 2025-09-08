@@ -4,17 +4,7 @@ Please provide a clear and concise description of your changes:
 
 - What does this PR do?
 - What problem does it solve?
-- Are there any breaking changes?
 
-## Type of Contribution
-
-Please check the type of contribution:
-
-- [ ] **Documentation fix** (correcting errors, typos, outdated information)
-- [ ] **Documentation improvement** (enhancing clarity, adding missing information)
-- [ ] **New documentation** (adding new pages or sections)
-- [ ] **Tutorial** (new tutorial content)
-- [ ] **Other** (please describe):
 
 ## Review Process Preference
 

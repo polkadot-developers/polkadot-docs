@@ -169,7 +169,7 @@ Continue exploring cross-chain operations:
 
 ## Additional Resources
 
-- [XCM Format Documentation](https://github.com/paritytech/xcm-format)
-- [Polkadot.js XCM Tools](https://polkadot.js.org/apps/)
-- [XCM Simulator](https://github.com/paritytech/polkadot/tree/master/xcm/xcm-simulator)
-- [Cross-Chain Asset Registry](https://github.com/paritytech/asset-registry)
+- [XCM Format Documentation](https://github.com/paritytech/xcm-format){target=\_blank} 
+- [Polkadot.js XCM Tools](https://polkadot.js.org/apps/){target=\_blank} 
+- [XCM Simulator](https://github.com/paritytech/polkadot/tree/master/xcm/xcm-simulator){target=\_blank} 
+- [Cross-Chain Asset Registry](https://github.com/paritytech/asset-registry){target=\_blank} 

@@ -15,7 +15,6 @@ For tutorials covering:
 ### 💎 [Smart Contracts Template](smart-contracts-template.md)
 For tutorials covering:
 - EVM smart contracts (Solidity)
-- ink! smart contracts (Rust)
 - Contract deployment and interaction
 - DeFi applications
 - Token contracts

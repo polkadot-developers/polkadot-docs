@@ -2,7 +2,7 @@
 title: [Your Smart Contract Tutorial Title - Max 45 chars]
 description: [Description of the smart contract functionality - 120-160 chars]
 tutorial_badge: Beginner | Intermediate | Advanced
-categories: Smart Contracts, EVM, ink!, DeFi
+categories: Smart Contracts, EVM, PVM, DeFi
 ---
 
 # [Your Smart Contract Tutorial Title]
@@ -18,8 +18,7 @@ categories: Smart Contracts, EVM, ink!, DeFi
 
 Before starting, ensure you have:
 
-- **For EVM contracts**: Remix IDE or local development setup
-- **For ink! contracts**: ink! development environment
+- **For EVM/PVM contracts**: Remix IDE or local development setup
 - MetaMask wallet configured for [specific network]
 - Test tokens for deployment and testing
 - Basic understanding of [Solidity/Rust/relevant language]
@@ -31,7 +30,7 @@ Before starting, ensure you have:
 ### For EVM Contracts:
 ```bash
 # Install required tools
-npm install -g @openzeppelin/cli
+npm install -g @openzeppelin/cli@VERSION
 npm install hardhat
 ```
 
@@ -90,9 +89,6 @@ Run tests:
 # For EVM contracts
 npx hardhat test
 
-# For ink! contracts
-cargo test
-```
 
 ## Step 5: Deployment
 

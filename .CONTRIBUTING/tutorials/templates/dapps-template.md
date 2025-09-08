@@ -34,7 +34,7 @@ npx create-react-app my-polkadot-dapp --template typescript
 cd my-polkadot-dapp
 
 # Install Polkadot dependencies
-npm install @polkadot/api @polkadot/extension-dapp @polkadot/util
+npm install @polkadot/api@VERSION @polkadot/extension-dapp@VERSION @polkadot/util@VERSION
 ```
 
 ### Project Structure

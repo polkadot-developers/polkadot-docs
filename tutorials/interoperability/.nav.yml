@@ -5,3 +5,4 @@ nav:
   - xcm-transfers
   - 'Replay and Dry Run XCMs': replay-and-dry-run-xcms.md
   - 'XCM Fee Estimation': xcm-fee-estimation.md
+  - 'Pay Transaction Fees with Different Tokens': pay-tx-with-different-fees.md

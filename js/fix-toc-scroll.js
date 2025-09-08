@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     const SCROLL_OFFSET = 70; // Adjust based on your header height
     const TOC_SELECTOR_LEFT = '.md-nav__link'; // Left nav links
-    const TOC_SELECTOR_RIGHT = '.md-nav__item--active ~ .md-nav__link'; // Adjust for right nav if you have one
+    const TOC_SELECTOR_RIGHT = '.md-nav--right .md-nav__link'; // Right nav links (update selector as needed)
 
     // Smooth scroll with offset
     function scrollToHash(hash) {
@@ -18,7 +18,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Update active TOC link
     function updateTOC() {
-        const headings = document.querySelectorAll('.md-content__inner h1, .md-content__inner h2, .md-content__inner h3');
+       const headings = document.querySelectorAll('.md-content__inner h1, .md-content__inner h2, .md-content__inner h3');
+        if (headings.length === 0) {
+            return;
+        }
         const scrollPosition = window.scrollY + SCROLL_OFFSET + 5; // small buffer
 
         let activeHeading = headings[0];

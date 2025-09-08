@@ -16,14 +16,12 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Update active TOC link
+    // Update right TOC only (left nav will not change)
     function updateTOC() {
-       const headings = document.querySelectorAll('.md-content__inner h1, .md-content__inner h2, .md-content__inner h3');
-        if (headings.length === 0) {
-            return;
-        }
-        const scrollPosition = window.scrollY + SCROLL_OFFSET + 5; // small buffer
+        const headings = document.querySelectorAll('.md-content__inner h1, .md-content__inner h2, .md-content__inner h3');
+        if (headings.length === 0) return;
 
+        const scrollPosition = window.scrollY + SCROLL_OFFSET + 5; // small buffer
         let activeHeading = headings[0];
 
         for (const heading of headings) {
@@ -34,15 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
 
-        // Left nav
-        document.querySelectorAll(TOC_SELECTOR_LEFT).forEach(link => {
-            link.classList.remove('md-nav__link--active');
-            if (link.getAttribute('href') === `#${activeHeading.id}`) {
-                link.classList.add('md-nav__link--active');
-            }
-        });
-
-        // Right nav (optional)
+        // Right nav only
         document.querySelectorAll(TOC_SELECTOR_RIGHT).forEach(link => {
             link.classList.remove('md-nav__link--active');
             if (link.getAttribute('href') === `#${activeHeading.id}`) {
@@ -67,9 +57,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Update TOC on scroll
+    // Update TOC on scroll (only right nav)
     window.addEventListener('scroll', updateTOC);
-
-    // Triple verification: check periodically in case of delayed rendering
-    setInterval(updateTOC, 500);
 });

@@ -275,4 +275,4 @@ process.exit(0);
 
 ## Additional Resources
 
-You can perform these operations using the Asset Transfer API for an alternative approach. Refer to the [Asset Transfer API](/develop/toolkit/interoperability/asset-transfer-api/){target=\_blank} guide in the documentation for more details.
+You can perform these operations using [ParaSpell](https://paraspell.xyz/){target=\_blank} for an alternative approach.

@@ -54,7 +54,7 @@
       "estimated_token_count_total": 1509
     },
     "hash": "sha256:c9de69abad81ee6e5cd9b395eed71f918c378d87c5503527e73f959efa8e8f17",
-    "last_modified": "2025-09-04T20:11:39+00:00",
+    "last_modified": "2025-09-08T17:10:20+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -112,7 +112,7 @@
       "estimated_token_count_total": 1656
     },
     "hash": "sha256:660b44a94d7d8a4fd349c3c1b34b290d71284f1b88a5b0bafd1fe656472bc378",
-    "last_modified": "2025-09-04T20:11:39+00:00",
+    "last_modified": "2025-09-08T17:10:20+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -155,7 +155,7 @@
       "estimated_token_count_total": 1477
     },
     "hash": "sha256:71e2de53836732187a6eb7f379b3cc55e8c19516ab0ecf241af15678d6743856",
-    "last_modified": "2025-09-04T20:11:40+00:00",
+    "last_modified": "2025-09-08T17:10:21+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -222,7 +222,7 @@
       "estimated_token_count_total": 955
     },
     "hash": "sha256:72ee7394fd1308c111a8d548cb4dc63c6b9bc5b6e2bb556dd1baacbaedb92286",
-    "last_modified": "2025-09-04T20:11:40+00:00",
+    "last_modified": "2025-09-08T17:10:21+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -274,7 +274,7 @@
       "estimated_token_count_total": 876
     },
     "hash": "sha256:d6cb22337280a19bdf24981dcba98f337d48ee4f79ce7ac040466ef1cb4b330b",
-    "last_modified": "2025-09-04T20:11:40+00:00",
+    "last_modified": "2025-09-08T17:10:21+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -356,7 +356,7 @@
       "estimated_token_count_total": 2744
     },
     "hash": "sha256:1a2d34ccab19bd71263763bbc294977acf34f5800398f51398753594cfc7d7a6",
-    "last_modified": "2025-09-04T20:11:40+00:00",
+    "last_modified": "2025-09-08T17:10:21+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -428,7 +428,7 @@
       "estimated_token_count_total": 608
     },
     "hash": "sha256:7bba6105d99721373aa6f494627d20af97b1851c19703f26be26c32f0c83524b",
-    "last_modified": "2025-09-04T20:11:40+00:00",
+    "last_modified": "2025-09-08T17:10:21+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -495,7 +495,7 @@
       "estimated_token_count_total": 558
     },
     "hash": "sha256:b79fe56c9604712825bdf30d17667fd8f237fce9691be0d8d042d38691dbba7a",
-    "last_modified": "2025-09-04T20:11:40+00:00",
+    "last_modified": "2025-09-08T17:10:21+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -547,7 +547,7 @@
       "estimated_token_count_total": 348
     },
     "hash": "sha256:11cd8d428fa9c3e70490da5c63ce4597cd89ec46306d2bb49b016ced6aa68c3d",
-    "last_modified": "2025-09-04T20:11:40+00:00",
+    "last_modified": "2025-09-08T17:10:21+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -595,7 +595,7 @@
       "estimated_token_count_total": 1373
     },
     "hash": "sha256:fc85c27ad58c1ca6d0e1fcded4b8e2b6e3d0e888ed4aa99158e21a5e799f5e6b",
-    "last_modified": "2025-09-04T20:11:40+00:00",
+    "last_modified": "2025-09-08T17:10:21+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -648,7 +648,7 @@
       "estimated_token_count_total": 4979
     },
     "hash": "sha256:d3786d3aeabd22b02628218897364b4ae98554d002cd4ffb040e7913f1550c67",
-    "last_modified": "2025-09-04T20:11:40+00:00",
+    "last_modified": "2025-09-08T17:10:21+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -705,7 +705,7 @@
       "estimated_token_count_total": 1781
     },
     "hash": "sha256:35c71a215558cd0642d363e4515ad240093995d42720e6495cd2994c859243e4",
-    "last_modified": "2025-09-04T20:11:40+00:00",
+    "last_modified": "2025-09-08T17:10:21+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -752,7 +752,7 @@
       "estimated_token_count_total": 1449
     },
     "hash": "sha256:346061a3b851699f815068b42a949f7a2259f6ece083c97cf35538cb7bd4e547",
-    "last_modified": "2025-09-04T20:11:40+00:00",
+    "last_modified": "2025-09-08T17:10:21+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -799,7 +799,7 @@
       "estimated_token_count_total": 1082
     },
     "hash": "sha256:ec82957c768c2c07a272e7a28659c812b223df836e21372b1642f0bb249d7b39",
-    "last_modified": "2025-09-04T20:11:40+00:00",
+    "last_modified": "2025-09-08T17:10:21+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -841,7 +841,7 @@
       "estimated_token_count_total": 4184
     },
     "hash": "sha256:ad45627514165a74fe5f89f2b8e452dad923d0bc41ab658a7d2dd8673656f260",
-    "last_modified": "2025-09-04T20:11:40+00:00",
+    "last_modified": "2025-09-08T17:10:21+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -909,7 +909,7 @@
       "estimated_token_count_total": 8555
     },
     "hash": "sha256:3d273c6be347276288816aa15c181584420a5217f820cba1aed06cb7cc53e88d",
-    "last_modified": "2025-09-04T20:11:41+00:00",
+    "last_modified": "2025-09-08T17:10:22+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -972,7 +972,7 @@
       "estimated_token_count_total": 1520
     },
     "hash": "sha256:ed09ef7a6abe21204006186fd5791ada7597688fad67e30244dc449c51330309",
-    "last_modified": "2025-09-04T20:11:41+00:00",
+    "last_modified": "2025-09-08T17:10:22+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -1034,7 +1034,7 @@
       "estimated_token_count_total": 2601
     },
     "hash": "sha256:bf32264b8ec9dc3024674f1b929916d21fe509e51f2749e3bac5f1b576a45852",
-    "last_modified": "2025-09-04T20:11:41+00:00",
+    "last_modified": "2025-09-08T17:10:22+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -1091,7 +1091,7 @@
       "estimated_token_count_total": 1217
     },
     "hash": "sha256:b36cbc321ea4f0f9619bd10a1ffd9d788a8698da1408f0123ed2f8c1a995ec89",
-    "last_modified": "2025-09-04T20:11:41+00:00",
+    "last_modified": "2025-09-08T17:10:22+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -1133,7 +1133,7 @@
       "estimated_token_count_total": 905
     },
     "hash": "sha256:ad8e6d9c77d5451c5f4d17f8e6311b21e6ad24eae8780fd4c3ae6013744822cf",
-    "last_modified": "2025-09-04T20:11:41+00:00",
+    "last_modified": "2025-09-08T17:10:22+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -1200,7 +1200,7 @@
       "estimated_token_count_total": 4003
     },
     "hash": "sha256:7135b6b69abed4487aee0cade5904b62ecfc3ec53856cae71a42818556a92a3e",
-    "last_modified": "2025-09-04T20:11:41+00:00",
+    "last_modified": "2025-09-08T17:10:22+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -1268,7 +1268,7 @@
       "estimated_token_count_total": 2006
     },
     "hash": "sha256:06e6be7081025af7ed27c05664886a2e1d1dd3352d0036641d167c53ca09907b",
-    "last_modified": "2025-09-04T20:11:41+00:00",
+    "last_modified": "2025-09-08T17:10:22+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -1335,7 +1335,7 @@
       "estimated_token_count_total": 1936
     },
     "hash": "sha256:e3cb407504ea00cd721e29a51483b4d8a7c3eea78b3702648e6ad4cc1dbd4dc9",
-    "last_modified": "2025-09-04T20:11:41+00:00",
+    "last_modified": "2025-09-08T17:10:22+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -1407,7 +1407,7 @@
       "estimated_token_count_total": 3072
     },
     "hash": "sha256:ea36f84c753f4671c27d2d5ad1f785ddadb6b333a7436208dc9b61d5b079cf21",
-    "last_modified": "2025-09-04T20:11:41+00:00",
+    "last_modified": "2025-09-08T17:10:22+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -1489,7 +1489,7 @@
       "estimated_token_count_total": 3023
     },
     "hash": "sha256:1748a7daced9ff59b3086470b8859150a871f96e8b6f02418cc734e934940e03",
-    "last_modified": "2025-09-04T20:11:41+00:00",
+    "last_modified": "2025-09-08T17:10:22+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -1541,7 +1541,7 @@
       "estimated_token_count_total": 1287
     },
     "hash": "sha256:9686bce57413e86675e88ef7a2ce1e1f70226d10c7df8125f3c2bc7f729fcedd",
-    "last_modified": "2025-09-04T20:11:41+00:00",
+    "last_modified": "2025-09-08T17:10:22+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -1593,7 +1593,7 @@
       "estimated_token_count_total": 744
     },
     "hash": "sha256:358ed14147b96b47deb61df9a1ea0e1103a139ea5edb78c5d50a48d5a779b80d",
-    "last_modified": "2025-09-04T20:11:41+00:00",
+    "last_modified": "2025-09-08T17:10:22+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -1676,7 +1676,7 @@
       "estimated_token_count_total": 2711
     },
     "hash": "sha256:19480a02d5aa9ba1c6b7e7767eae8595fb0b7289a878cc240f7166fdda35ceb1",
-    "last_modified": "2025-09-04T20:11:41+00:00",
+    "last_modified": "2025-09-08T17:10:22+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -1734,7 +1734,7 @@
       "estimated_token_count_total": 1890
     },
     "hash": "sha256:f2bd92d33316878cc45b3fe676c6a085b7c6991d7439b55c1049cf9aadfc576b",
-    "last_modified": "2025-09-04T20:11:41+00:00",
+    "last_modified": "2025-09-08T17:10:22+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -1786,7 +1786,7 @@
       "estimated_token_count_total": 4748
     },
     "hash": "sha256:792c8a4905667687605da13ae2f894a14e922893425299edf7121843221c9a28",
-    "last_modified": "2025-09-04T20:11:41+00:00",
+    "last_modified": "2025-09-08T17:10:22+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -1848,7 +1848,7 @@
       "estimated_token_count_total": 1819
     },
     "hash": "sha256:b0c1535fa8e969a9bdeee426a5a35a42b4649121fb8ce6fd2b15fdeba35b5d5f",
-    "last_modified": "2025-09-04T20:11:41+00:00",
+    "last_modified": "2025-09-08T17:10:22+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -1895,7 +1895,7 @@
       "estimated_token_count_total": 1162
     },
     "hash": "sha256:419364fe4f5bf69f610accf5e2cdcac38e3df857cdebf669dd8caee11346ac70",
-    "last_modified": "2025-09-04T20:11:41+00:00",
+    "last_modified": "2025-09-08T17:10:22+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -1967,7 +1967,7 @@
       "estimated_token_count_total": 4021
     },
     "hash": "sha256:bc7967d3664bce347bf2af45c524f97f45d42c1fe7070cda9ddad907b5b00b2a",
-    "last_modified": "2025-09-04T20:11:41+00:00",
+    "last_modified": "2025-09-08T17:10:22+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -2019,7 +2019,7 @@
       "estimated_token_count_total": 2030
     },
     "hash": "sha256:f4964f894f7cd2fdfd699c017b4bd25cffc322b03a5a88a36c682cf952832ccc",
-    "last_modified": "2025-09-04T20:11:41+00:00",
+    "last_modified": "2025-09-08T17:10:22+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -2086,7 +2086,7 @@
       "estimated_token_count_total": 3468
     },
     "hash": "sha256:9aeab17ca2ce56999e9ecb060a5285b7395dc55d4f20b7d6703ac0d687eb8a40",
-    "last_modified": "2025-09-04T20:11:41+00:00",
+    "last_modified": "2025-09-08T17:10:22+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -2138,7 +2138,7 @@
       "estimated_token_count_total": 1577
     },
     "hash": "sha256:ae485d81d8e03372c1f112dc8c1c19d2aef1e625f512071d39f2b7e210dfb26b",
-    "last_modified": "2025-09-04T20:11:41+00:00",
+    "last_modified": "2025-09-08T17:10:22+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -2195,7 +2195,7 @@
       "estimated_token_count_total": 1563
     },
     "hash": "sha256:c8c5f50c59b35c7eaff1b12446c705e675654953e163b3a5e140edc3ac08fb59",
-    "last_modified": "2025-09-04T20:11:41+00:00",
+    "last_modified": "2025-09-08T17:10:22+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -2232,7 +2232,7 @@
       "estimated_token_count_total": 508
     },
     "hash": "sha256:68ea3fe8d3652925190cee0b4bc7dfb8c2e59ab2949b9c5114ad06ab0e32f731",
-    "last_modified": "2025-09-04T20:11:41+00:00",
+    "last_modified": "2025-09-08T17:10:22+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -2269,7 +2269,7 @@
       "estimated_token_count_total": 570
     },
     "hash": "sha256:cf5eb5f55dfd4038aea86869a9d1734db238b3e5cd92f8e29811552c8daf7842",
-    "last_modified": "2025-09-04T20:11:41+00:00",
+    "last_modified": "2025-09-08T17:10:22+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -2346,7 +2346,7 @@
       "estimated_token_count_total": 6230
     },
     "hash": "sha256:984352e58e7938c9249f37fd2f28b61cf1e8735b7fb35842d1a566cca3474f67",
-    "last_modified": "2025-09-04T20:11:41+00:00",
+    "last_modified": "2025-09-08T17:10:22+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -2424,7 +2424,7 @@
       "estimated_token_count_total": 4182
     },
     "hash": "sha256:8f7f2399eaeebd4eebf470b884a4e320bd721f01524075175e69a07331b524c3",
-    "last_modified": "2025-09-04T20:11:41+00:00",
+    "last_modified": "2025-09-08T17:10:22+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -2487,7 +2487,7 @@
       "estimated_token_count_total": 1376
     },
     "hash": "sha256:079af31ac1e0f70e73f2a38aff14a2d390a23873d43b61736b9cf76a0783fab9",
-    "last_modified": "2025-09-04T20:11:41+00:00",
+    "last_modified": "2025-09-08T17:10:22+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -2634,7 +2634,7 @@
       "estimated_token_count_total": 1605
     },
     "hash": "sha256:38fe29a7604c91ed01ff6411ab547681245059592931cda825bb51151af7c46f",
-    "last_modified": "2025-09-04T20:11:41+00:00",
+    "last_modified": "2025-09-08T17:10:22+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -2831,7 +2831,7 @@
       "estimated_token_count_total": 9750
     },
     "hash": "sha256:de8bda204eb08eaa65ed4df214aae77e4d1fb26a0ec3a4d37e583d9e73f8dd46",
-    "last_modified": "2025-09-04T20:11:41+00:00",
+    "last_modified": "2025-09-08T17:10:22+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -2919,7 +2919,7 @@
       "estimated_token_count_total": 4487
     },
     "hash": "sha256:1a664dc5828508a7ab7681cb31252f87585f1a89d1ef5589068ecef90ca2db79",
-    "last_modified": "2025-09-04T20:11:41+00:00",
+    "last_modified": "2025-09-08T17:10:22+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -3012,7 +3012,7 @@
       "estimated_token_count_total": 3909
     },
     "hash": "sha256:429f66b305b5e2972e6acf00b629a658264ddbd655f06a03e9b9b7c82cca0180",
-    "last_modified": "2025-09-04T20:11:41+00:00",
+    "last_modified": "2025-09-08T17:10:22+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -3085,7 +3085,7 @@
       "estimated_token_count_total": 3258
     },
     "hash": "sha256:8b24eff159e91105decca9a88bace93432857d0869d250c0fd64135a524c0075",
-    "last_modified": "2025-09-04T20:11:41+00:00",
+    "last_modified": "2025-09-08T17:10:22+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -3158,7 +3158,7 @@
       "estimated_token_count_total": 3040
     },
     "hash": "sha256:4b0cae5e64c9c13f7b83166cae6e88c564645560fe22106eb0abd5bddc1455dd",
-    "last_modified": "2025-09-04T20:11:41+00:00",
+    "last_modified": "2025-09-08T17:10:22+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -3211,7 +3211,7 @@
       "estimated_token_count_total": 2518
     },
     "hash": "sha256:29e7ee17a4b833bee17c196b4c9bb1ca8080704d9477e99cd11c8aef401f9a78",
-    "last_modified": "2025-09-04T20:11:41+00:00",
+    "last_modified": "2025-09-08T17:10:22+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -3253,7 +3253,7 @@
       "estimated_token_count_total": 2434
     },
     "hash": "sha256:eaac5b1ac3a623cda3be47ada2def87d0de37b652e3af87a2eee397ef5229010",
-    "last_modified": "2025-09-04T20:11:41+00:00",
+    "last_modified": "2025-09-08T17:10:22+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -3326,7 +3326,7 @@
       "estimated_token_count_total": 1118
     },
     "hash": "sha256:dcb13b86724993c4a69e418d294a2560eeb0043d16f37e3d4616e6967957feb0",
-    "last_modified": "2025-09-04T20:11:41+00:00",
+    "last_modified": "2025-09-08T17:10:22+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -3408,7 +3408,7 @@
       "estimated_token_count_total": 3829
     },
     "hash": "sha256:fcf6dcdc8b075fdaa8eda71ba9d5a3bc31fe6087fe3cb8ae0c21443cbe81c396",
-    "last_modified": "2025-09-04T20:11:42+00:00",
+    "last_modified": "2025-09-08T17:10:23+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -3475,7 +3475,7 @@
       "estimated_token_count_total": 2318
     },
     "hash": "sha256:950f60a3077db392a726d3b743187049180c2a3747941340cc2dc217b6357487",
-    "last_modified": "2025-09-04T20:11:43+00:00",
+    "last_modified": "2025-09-08T17:10:23+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -3528,7 +3528,7 @@
       "estimated_token_count_total": 1638
     },
     "hash": "sha256:4dd9b17317d080cd8115dfce1065c0e7d0d2e9e5dd3428912f7f893050f4a9e8",
-    "last_modified": "2025-09-04T20:11:43+00:00",
+    "last_modified": "2025-09-08T17:10:23+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -3596,7 +3596,7 @@
       "estimated_token_count_total": 2311
     },
     "hash": "sha256:a1f2b62f3648c816935cd151dbe3802b17daa2e11c3824b0f9f541083b1d75ac",
-    "last_modified": "2025-09-04T20:11:43+00:00",
+    "last_modified": "2025-09-08T17:10:23+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -3649,7 +3649,7 @@
       "estimated_token_count_total": 1992
     },
     "hash": "sha256:0447566289f96486c20b3d3ea8f39056636e988ead20a767614c90d531be1875",
-    "last_modified": "2025-09-04T20:11:43+00:00",
+    "last_modified": "2025-09-08T17:10:23+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -3717,7 +3717,7 @@
       "estimated_token_count_total": 1170
     },
     "hash": "sha256:1a0eb72406e6c8972f1cbce57abef1247e48027a113665767bab005dbf92e688",
-    "last_modified": "2025-09-04T20:11:43+00:00",
+    "last_modified": "2025-09-08T17:10:23+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -3775,7 +3775,7 @@
       "estimated_token_count_total": 945
     },
     "hash": "sha256:8ab4e27c8ddc12bc6f8a4e5bae2fc71011458c29a33a742c5c5957ec09b197c2",
-    "last_modified": "2025-09-04T20:11:43+00:00",
+    "last_modified": "2025-09-08T17:10:23+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -3828,7 +3828,7 @@
       "estimated_token_count_total": 1948
     },
     "hash": "sha256:899449520b52cceeb4cfb7a8566c7c0ff8b6be57a744c98ec662d72ee01f03e2",
-    "last_modified": "2025-09-04T20:11:43+00:00",
+    "last_modified": "2025-09-08T17:10:23+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -3901,7 +3901,7 @@
       "estimated_token_count_total": 2630
     },
     "hash": "sha256:9353b2514d4cef878483856d27bb4af631b996b0e374ee1078b3a0f3b426dc34",
-    "last_modified": "2025-09-04T20:11:43+00:00",
+    "last_modified": "2025-09-08T17:10:23+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -3939,7 +3939,7 @@
       "estimated_token_count_total": 428
     },
     "hash": "sha256:cfcc76bb24779c9b613f2c046b6f99a0f2529c25fd82287d804f6b945b936227",
-    "last_modified": "2025-09-04T20:11:43+00:00",
+    "last_modified": "2025-09-08T17:10:23+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -3972,7 +3972,7 @@
       "estimated_token_count_total": 245
     },
     "hash": "sha256:6d8e01281a5895fd2bc4438b24c170c72a496de0b838626a53e87685aea4aa25",
-    "last_modified": "2025-09-04T20:11:43+00:00",
+    "last_modified": "2025-09-08T17:10:23+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4029,7 +4029,7 @@
       "estimated_token_count_total": 847
     },
     "hash": "sha256:a206dd86fc3d80aed22384000839ca0c9c75c69ad461abd9810d96c03cf6a3bd",
-    "last_modified": "2025-09-04T20:11:43+00:00",
+    "last_modified": "2025-09-08T17:10:23+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4101,7 +4101,7 @@
       "estimated_token_count_total": 6317
     },
     "hash": "sha256:42b1ee63a4abdf697fd60384b1c2b16972ed6d946417605f0f9d9265a0aeadfb",
-    "last_modified": "2025-09-04T20:11:43+00:00",
+    "last_modified": "2025-09-08T17:10:23+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4139,7 +4139,7 @@
       "estimated_token_count_total": 633
     },
     "hash": "sha256:62c5ad101282227f79eac0e30a3ba9ce3ae1bf9e358bd58c0b17ef45db29c2ff",
-    "last_modified": "2025-09-04T20:11:43+00:00",
+    "last_modified": "2025-09-08T17:10:23+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4213,7 +4213,7 @@
       "estimated_token_count_total": 4318
     },
     "hash": "sha256:1e5951e02eb2e0521513937dd8820c888b97eac9cadb5fd9e4198651fc210ced",
-    "last_modified": "2025-09-04T20:11:43+00:00",
+    "last_modified": "2025-09-08T16:26:59+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4246,7 +4246,7 @@
       "estimated_token_count_total": 6343
     },
     "hash": "sha256:72fc8d0a9d33ac6a3cfc620b972daaef82f58e266fdce0ed8036b83affad6f2a",
-    "last_modified": "2025-09-04T20:11:44+00:00",
+    "last_modified": "2025-09-08T16:26:59+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4308,7 +4308,7 @@
       "estimated_token_count_total": 4235
     },
     "hash": "sha256:da355506be7b1c3610ee17864f540ec8d89c0d038b70c745b4ecd4511efb6ec9",
-    "last_modified": "2025-09-02T16:54:01+00:00",
+    "last_modified": "2025-09-08T16:26:59+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4367,7 +4367,7 @@
       "estimated_token_count_total": 1700
     },
     "hash": "sha256:47328231d6ff4dc52cd93aaf1baf5d0bc2d9fc372f3d79339d87aafa0dabd1b8",
-    "last_modified": "2025-09-04T20:11:44+00:00",
+    "last_modified": "2025-09-08T17:10:23+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4435,7 +4435,7 @@
       "estimated_token_count_total": 2458
     },
     "hash": "sha256:d828ba5a039ab055d7c83dcf12358b1fb44a3b33455c7e6ccbacf858eafc0f1e",
-    "last_modified": "2025-09-04T20:11:44+00:00",
+    "last_modified": "2025-09-08T17:10:23+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4508,7 +4508,7 @@
       "estimated_token_count_total": 2611
     },
     "hash": "sha256:27d444cb54e4ccd5d2ee61396d72c14d2a46ca1d2560197a80a8ebd5243a8451",
-    "last_modified": "2025-09-04T20:11:44+00:00",
+    "last_modified": "2025-09-08T17:10:23+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4565,7 +4565,7 @@
       "estimated_token_count_total": 1430
     },
     "hash": "sha256:1284c42be692167e01bcc44e2e134ec20615402675fac26df246c00aa1588d80",
-    "last_modified": "2025-09-04T20:11:44+00:00",
+    "last_modified": "2025-09-08T17:10:23+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4633,7 +4633,7 @@
       "estimated_token_count_total": 2018
     },
     "hash": "sha256:49866761ef638dd0683bb5558f5319b9568ff136295b3359580a6f478172c73f",
-    "last_modified": "2025-09-04T20:11:44+00:00",
+    "last_modified": "2025-09-08T17:10:23+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4681,7 +4681,7 @@
       "estimated_token_count_total": 1004
     },
     "hash": "sha256:e94ada8684dc4a021b6cb12008739ee12eeb1e6529fcaac0e5151570c4b35309",
-    "last_modified": "2025-09-04T20:11:44+00:00",
+    "last_modified": "2025-09-08T17:10:23+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4743,7 +4743,7 @@
       "estimated_token_count_total": 1870
     },
     "hash": "sha256:6b2e668ac67732ff570cca8c1a9fef6eff3589046c2c88305e6090eccc304f30",
-    "last_modified": "2025-09-04T20:11:44+00:00",
+    "last_modified": "2025-09-08T17:10:23+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4830,7 +4830,7 @@
       "estimated_token_count_total": 1870
     },
     "hash": "sha256:3b766e00e55a224201bc6744386a6dabc7da54ed9199b16abab3b94cff449eca",
-    "last_modified": "2025-09-04T20:11:44+00:00",
+    "last_modified": "2025-09-08T17:10:23+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4923,7 +4923,7 @@
       "estimated_token_count_total": 9883
     },
     "hash": "sha256:f4a6423c877eae3e85b17ed98202ef89fcf4ee6f8885794368381d40140df5a4",
-    "last_modified": "2025-09-04T20:11:44+00:00",
+    "last_modified": "2025-09-08T17:10:23+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4986,7 +4986,7 @@
       "estimated_token_count_total": 2664
     },
     "hash": "sha256:ed0eb5028d99e6baf76092568e4e8f0129a3b2dbfe4510fbdfdfe7aa22b219ce",
-    "last_modified": "2025-09-04T20:11:44+00:00",
+    "last_modified": "2025-09-08T17:10:23+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5018,7 +5018,7 @@
       "estimated_token_count_total": 2012
     },
     "hash": "sha256:4be80744e6021e95120245fe0f15bf0f6fc1cf4719c0032f6d9f3ca60fab71c7",
-    "last_modified": "2025-09-04T20:11:44+00:00",
+    "last_modified": "2025-09-08T17:10:23+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5090,7 +5090,7 @@
       "estimated_token_count_total": 579
     },
     "hash": "sha256:4c33d0ec5026128b3bfdb1dfc1f4b29487404eaa8043071d536e8638356c6e1f",
-    "last_modified": "2025-09-04T20:11:44+00:00",
+    "last_modified": "2025-09-08T17:10:23+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5132,7 +5132,7 @@
       "estimated_token_count_total": 557
     },
     "hash": "sha256:993e93b05c8fbdfc2f7510c61ac86bc4c2ff0f03e573695b2f260933c8b62f78",
-    "last_modified": "2025-09-04T20:11:44+00:00",
+    "last_modified": "2025-09-08T17:10:23+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5199,7 +5199,7 @@
       "estimated_token_count_total": 1045
     },
     "hash": "sha256:219cfa8542b0053b8b3a1d6a5d466c2ae158d72cf3ddbcdede6321df31ab5901",
-    "last_modified": "2025-09-04T20:11:44+00:00",
+    "last_modified": "2025-09-08T17:10:23+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5266,7 +5266,7 @@
       "estimated_token_count_total": 4232
     },
     "hash": "sha256:17294fb30140aeb9472c30fe84e4330ff62c7454364c70d2f17d2b27bfa8b03d",
-    "last_modified": "2025-09-04T20:11:44+00:00",
+    "last_modified": "2025-09-08T17:10:23+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5303,7 +5303,7 @@
       "estimated_token_count_total": 1291
     },
     "hash": "sha256:3ba288f1f72753401faa9ee9fea427c50ffd5ea1c9c2036c2f3e1245020897f1",
-    "last_modified": "2025-09-04T20:11:44+00:00",
+    "last_modified": "2025-09-08T17:10:23+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5365,7 +5365,7 @@
       "estimated_token_count_total": 1829
     },
     "hash": "sha256:ab9c5982b3394bd0ec73d5e98cad9ceeacaedf5ac05a3ca034c317a0f6779bc4",
-    "last_modified": "2025-09-04T20:11:44+00:00",
+    "last_modified": "2025-09-08T17:10:23+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5447,7 +5447,7 @@
       "estimated_token_count_total": 2544
     },
     "hash": "sha256:32ac11adda1305ac195a7c5149e69c9956aa57745f93cb15b8bdae1426e5cd25",
-    "last_modified": "2025-09-04T20:11:44+00:00",
+    "last_modified": "2025-09-08T17:10:23+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5534,7 +5534,7 @@
       "estimated_token_count_total": 3877
     },
     "hash": "sha256:5c86d11c543c57ff31f51ff7de61116e33861de6e15b49b9944caebc9464f970",
-    "last_modified": "2025-09-04T20:11:45+00:00",
+    "last_modified": "2025-09-08T17:10:24+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5581,7 +5581,7 @@
       "estimated_token_count_total": 625
     },
     "hash": "sha256:9ab570299106336e5d75923b876247e8eb4a71851a77e84d68e0335e9da5e0a8",
-    "last_modified": "2025-09-04T20:11:45+00:00",
+    "last_modified": "2025-09-08T17:10:24+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5693,7 +5693,7 @@
       "estimated_token_count_total": 5776
     },
     "hash": "sha256:21a3bdf2363c9e3ba2c4885fb51f830007e292cae133b2af115ae5fc5c01ec43",
-    "last_modified": "2025-09-04T20:11:45+00:00",
+    "last_modified": "2025-09-08T17:10:24+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5745,7 +5745,7 @@
       "estimated_token_count_total": 861
     },
     "hash": "sha256:97655248c65e816fdf3d85dab4ace7ca0c145c50f671c25c24627cfd7660c7a6",
-    "last_modified": "2025-09-04T20:11:45+00:00",
+    "last_modified": "2025-09-08T17:10:24+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5802,7 +5802,7 @@
       "estimated_token_count_total": 1168
     },
     "hash": "sha256:0763bb5d3ce16e3007359e2f225fe8ac7ab64011f35c592e7df58bdf7817835f",
-    "last_modified": "2025-09-04T20:11:45+00:00",
+    "last_modified": "2025-09-08T17:10:24+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5849,7 +5849,7 @@
       "estimated_token_count_total": 1476
     },
     "hash": "sha256:7673201fe53809f0bdcd937212fa30327996e52cb08d4bb44a5a64e1a14ad5fe",
-    "last_modified": "2025-09-04T20:11:45+00:00",
+    "last_modified": "2025-09-08T17:10:24+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5916,7 +5916,7 @@
       "estimated_token_count_total": 3409
     },
     "hash": "sha256:abe6bedab04f463ec07f554977b8d6355a5d2fad9bcda01cbe58568152295daa",
-    "last_modified": "2025-09-04T20:11:45+00:00",
+    "last_modified": "2025-09-08T17:10:24+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5968,7 +5968,7 @@
       "estimated_token_count_total": 2617
     },
     "hash": "sha256:7d43408276d811c96b7b081a7b9f4d884893282a230b564c9eb3be2fc7857565",
-    "last_modified": "2025-09-04T20:11:45+00:00",
+    "last_modified": "2025-09-08T17:10:24+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -6016,7 +6016,7 @@
       "estimated_token_count_total": 1127
     },
     "hash": "sha256:a476a8f00a86860deb76ceb77de6eecc3d5ed17601841165a53176512ef7d1a6",
-    "last_modified": "2025-09-04T20:11:45+00:00",
+    "last_modified": "2025-09-08T17:10:24+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -6080,7 +6080,7 @@
       "estimated_token_count_total": 1867
     },
     "hash": "sha256:4681fa2a9a5e44a52035ac9e58fb2f5e2abb667c36df94bfb1d4575293129134",
-    "last_modified": "2025-09-04T20:11:45+00:00",
+    "last_modified": "2025-09-08T17:10:24+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -6127,7 +6127,7 @@
       "estimated_token_count_total": 619
     },
     "hash": "sha256:00be43ac8d666bbe15c5c2fa5a5085697d0bb5a6f341ebbb943a209f0be355df",
-    "last_modified": "2025-09-04T20:11:45+00:00",
+    "last_modified": "2025-09-08T17:10:24+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -6189,7 +6189,7 @@
       "estimated_token_count_total": 1440
     },
     "hash": "sha256:2d228c52844df8952520fafdd3e6f0e26bfd2f32b5ee60c6241cf7d38603643c",
-    "last_modified": "2025-09-04T20:11:45+00:00",
+    "last_modified": "2025-09-08T17:10:24+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -6268,7 +6268,7 @@
       "estimated_token_count_total": 2591
     },
     "hash": "sha256:201e7efa0ad6b24890dd06f69714e19d9700ab7f7a51a33fe6d6e0664b7170b2",
-    "last_modified": "2025-09-04T20:11:45+00:00",
+    "last_modified": "2025-09-08T17:10:24+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -6355,7 +6355,7 @@
       "estimated_token_count_total": 2532
     },
     "hash": "sha256:5cc00e67dab617ab6f39d32e944fe39de111485a987c4931d4f83b870ac0d4d1",
-    "last_modified": "2025-09-04T20:11:45+00:00",
+    "last_modified": "2025-09-08T17:10:24+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -6441,8 +6441,8 @@
       },
       {
         "depth": 3,
-        "title": "Asset Transfer API",
-        "anchor": "asset-transfer-api"
+        "title": "ParaSpell",
+        "anchor": "paraspell"
       },
       {
         "depth": 3,
@@ -6481,13 +6481,13 @@
       }
     ],
     "stats": {
-      "chars": 19115,
-      "words": 2782,
+      "chars": 20098,
+      "words": 2909,
       "headings": 22,
-      "estimated_token_count_total": 3875
+      "estimated_token_count_total": 4103
     },
-    "hash": "sha256:bdf84d2ce59772a80da19cdce73e952351b0c40c24b2026345eb049994fbb2ca",
-    "last_modified": "2025-09-04T20:11:45+00:00",
+    "hash": "sha256:d4a6af97b12618da3d250a00576ed38651ec68ef7cce9f91d70be80adef772e4",
+    "last_modified": "2025-09-08T17:10:24+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -6539,7 +6539,7 @@
       "estimated_token_count_total": 1212
     },
     "hash": "sha256:cb8c0a1d9d05434e41b9051cb24482a82e7407fa71456ce976d85ef1206c0e8e",
-    "last_modified": "2025-09-04T20:11:45+00:00",
+    "last_modified": "2025-09-08T17:10:24+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -6571,7 +6571,7 @@
       "estimated_token_count_total": 424
     },
     "hash": "sha256:59ec351fbb8d3a392e90f4f5bf6b62f58b21d6d7a900c5e367e5d2e09ecb3aca",
-    "last_modified": "2025-09-04T20:11:45+00:00",
+    "last_modified": "2025-09-08T17:10:24+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -6613,7 +6613,7 @@
       "estimated_token_count_total": 1238
     },
     "hash": "sha256:6340c8a885d03adf633ae30438d8f21c195c276a48082657bb22dd53341f1cfb",
-    "last_modified": "2025-09-04T20:11:45+00:00",
+    "last_modified": "2025-09-08T17:10:24+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -6681,7 +6681,7 @@
       "estimated_token_count_total": 1655
     },
     "hash": "sha256:5f58eb1200eff8e4c3995d31addd9856a69da6bc38a12524a844343e161f0394",
-    "last_modified": "2025-09-04T20:11:45+00:00",
+    "last_modified": "2025-09-08T17:10:24+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -6743,7 +6743,7 @@
       "estimated_token_count_total": 876
     },
     "hash": "sha256:8239d1e8d8642cb7c10e9e5f971c99b999e9e4a87373b50bf4a691225c1e4702",
-    "last_modified": "2025-09-04T20:11:45+00:00",
+    "last_modified": "2025-09-08T17:10:24+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -7080,7 +7080,7 @@
       "estimated_token_count_total": 5269
     },
     "hash": "sha256:03c65c291e4365250df34053d501d6055691eb10441dfb461fad937f791c6ebf",
-    "last_modified": "2025-09-04T20:11:45+00:00",
+    "last_modified": "2025-09-08T17:10:24+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -7122,7 +7122,7 @@
       "estimated_token_count_total": 631
     },
     "hash": "sha256:baba9dd41091b792d09005d55d3df0bf65b35f42b40ebe63caf425a0978a22b0",
-    "last_modified": "2025-09-04T20:11:45+00:00",
+    "last_modified": "2025-09-08T17:10:24+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -7190,7 +7190,7 @@
       "estimated_token_count_total": 1609
     },
     "hash": "sha256:57e7e5e225225460ae89ebbe60310e6bf3dd12e570b032ba3ed67e3b760d3255",
-    "last_modified": "2025-09-04T20:11:45+00:00",
+    "last_modified": "2025-09-08T17:10:24+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -7288,7 +7288,7 @@
       "estimated_token_count_total": 6526
     },
     "hash": "sha256:58f269c0836080e59e93ee911ea423d705c0515939ffc54ffc7524d8d8377ace",
-    "last_modified": "2025-09-04T20:11:45+00:00",
+    "last_modified": "2025-09-08T17:10:24+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -7351,7 +7351,7 @@
       "estimated_token_count_total": 1399
     },
     "hash": "sha256:bcad23a74d962cab72b54cdc090bf9ee0cd5ecf79f70fb642f154668c2743983",
-    "last_modified": "2025-09-04T20:11:45+00:00",
+    "last_modified": "2025-09-08T17:10:24+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -7449,7 +7449,7 @@
       "estimated_token_count_total": 4467
     },
     "hash": "sha256:e5d2941f9364a0bbcc287e3146e8ac006efe6fce125e58e0412dc62b7954cf1f",
-    "last_modified": "2025-09-04T20:11:45+00:00",
+    "last_modified": "2025-09-08T17:10:24+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -7582,7 +7582,7 @@
       "estimated_token_count_total": 4706
     },
     "hash": "sha256:bee505032851410eda182a09c5ee309d8e9a1dfae14cc0a31edb8ef382ddbb3d",
-    "last_modified": "2025-09-04T20:11:45+00:00",
+    "last_modified": "2025-09-08T17:10:24+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -7680,7 +7680,7 @@
       "estimated_token_count_total": 3786
     },
     "hash": "sha256:be0dabe8ca4fdec04cccdbee41efb431fbc448de69d8de5d7c839067bc031107",
-    "last_modified": "2025-09-04T20:11:45+00:00",
+    "last_modified": "2025-09-08T17:10:24+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -7763,7 +7763,7 @@
       "estimated_token_count_total": 1797
     },
     "hash": "sha256:259dcef86aadc513675258b665cc3940db65af6eb32a5db85da6ac339966fa60",
-    "last_modified": "2025-09-04T20:11:45+00:00",
+    "last_modified": "2025-09-08T17:10:24+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -7836,7 +7836,7 @@
       "estimated_token_count_total": 3214
     },
     "hash": "sha256:1abd5003cddcb7bbba6eed3ca4866b2f6a4c100cdfc4f48d82d6380c9613425b",
-    "last_modified": "2025-09-04T20:11:45+00:00",
+    "last_modified": "2025-09-08T17:10:24+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -7894,7 +7894,7 @@
       "estimated_token_count_total": 780
     },
     "hash": "sha256:077e7e5bfc9509cf09f455959a5da7a74b7af69836b3c4b334692f32e306ddf1",
-    "last_modified": "2025-09-04T20:11:45+00:00",
+    "last_modified": "2025-09-08T17:10:24+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -7968,7 +7968,7 @@
       "estimated_token_count_total": 1474
     },
     "hash": "sha256:7241780e85c670cf9cf1788fe207d86f1b8ac84626ae851c288c25e9aec65ec1",
-    "last_modified": "2025-09-04T20:11:45+00:00",
+    "last_modified": "2025-09-08T17:10:24+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -8041,7 +8041,7 @@
       "estimated_token_count_total": 914
     },
     "hash": "sha256:8122e21c149d0863cfe3b37fc5606bcdb91668e9d265f0f05451a61ff70e4e93",
-    "last_modified": "2025-09-04T20:11:45+00:00",
+    "last_modified": "2025-09-08T17:10:24+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -8094,7 +8094,7 @@
       "estimated_token_count_total": 1394
     },
     "hash": "sha256:217a79109aff1607594a0238fd91bfa812827620887c4f063c7e0a7a37f967d6",
-    "last_modified": "2025-09-04T20:11:45+00:00",
+    "last_modified": "2025-09-08T17:10:24+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -8162,7 +8162,7 @@
       "estimated_token_count_total": 1822
     },
     "hash": "sha256:69b904862135ad18ff58ef5f917d6279472375d997b3fe3e2c96f9009efb7015",
-    "last_modified": "2025-09-04T20:11:45+00:00",
+    "last_modified": "2025-09-08T17:10:24+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -8225,7 +8225,7 @@
       "estimated_token_count_total": 1178
     },
     "hash": "sha256:9560b711f0ee8342e97e3171609ddfe1a2084726c586628294d38c28a7e3e54d",
-    "last_modified": "2025-09-04T20:11:45+00:00",
+    "last_modified": "2025-09-08T17:10:24+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -8338,7 +8338,7 @@
       "estimated_token_count_total": 5303
     },
     "hash": "sha256:05f538c20c048c851006309de2e753945874f83f7d3a26f1348dfb7ed0f47b32",
-    "last_modified": "2025-09-04T20:11:45+00:00",
+    "last_modified": "2025-09-08T17:10:24+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -8406,7 +8406,7 @@
       "estimated_token_count_total": 891
     },
     "hash": "sha256:7e0fb00d13010a8eec2a14989d5403f7e1e50a42494be8dab7627438b80bf00e",
-    "last_modified": "2025-09-04T20:11:45+00:00",
+    "last_modified": "2025-09-08T17:10:24+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -8459,7 +8459,7 @@
       "estimated_token_count_total": 2571
     },
     "hash": "sha256:553737302a0729b8a599bf1458e187793857811d46e0d53a4e51b9688c400cec",
-    "last_modified": "2025-09-04T20:11:45+00:00",
+    "last_modified": "2025-09-08T17:10:24+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -8512,7 +8512,7 @@
       "estimated_token_count_total": 994
     },
     "hash": "sha256:f1c53cff72e32550b0e6e6d27b2f3e5c92c197a0b45067c3d88b3e653789a933",
-    "last_modified": "2025-09-04T20:11:45+00:00",
+    "last_modified": "2025-09-08T17:10:24+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -8580,7 +8580,7 @@
       "estimated_token_count_total": 2256
     },
     "hash": "sha256:538079a93c535955f5071e621fa55dbd57216fb241363457b8bdd95b0152d3df",
-    "last_modified": "2025-09-04T20:11:45+00:00",
+    "last_modified": "2025-09-08T17:10:24+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -8692,7 +8692,7 @@
       "estimated_token_count_total": 4840
     },
     "hash": "sha256:daafccba1ffc82c44e440831d3ec464f1c086a3bfcf43540761fee01ed27afa8",
-    "last_modified": "2025-09-04T20:11:45+00:00",
+    "last_modified": "2025-09-08T17:10:24+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -8764,7 +8764,7 @@
       "estimated_token_count_total": 2375
     },
     "hash": "sha256:61bc251929352f2299ca1d413d05aa9c3672b914575a285d73c7ba53dbd75bff",
-    "last_modified": "2025-09-04T20:11:45+00:00",
+    "last_modified": "2025-09-08T17:10:24+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -8816,7 +8816,7 @@
       "estimated_token_count_total": 1462
     },
     "hash": "sha256:ecf77fddb94ed9b6f88957d72391fb221f0158ec865c858efc3c9e5ea824df5a",
-    "last_modified": "2025-09-04T20:11:45+00:00",
+    "last_modified": "2025-09-08T17:10:24+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -8888,7 +8888,7 @@
       "estimated_token_count_total": 9746
     },
     "hash": "sha256:fe2379c4239a4a1b0c857c453e8590e1a67d34eec1cd87dd867f67ca3f3d1aae",
-    "last_modified": "2025-09-04T20:11:45+00:00",
+    "last_modified": "2025-09-08T17:10:24+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -8944,13 +8944,13 @@
       }
     ],
     "stats": {
-      "chars": 12372,
-      "words": 1584,
+      "chars": 12251,
+      "words": 1565,
       "headings": 8,
-      "estimated_token_count_total": 2794
+      "estimated_token_count_total": 2772
     },
-    "hash": "sha256:2bd300aef99c813e918cf042e4a55c5e259d2115daf862136d58556d318c6328",
-    "last_modified": "2025-09-04T20:11:45+00:00",
+    "hash": "sha256:94ae5c26e580d04ee292b315d4e13967b8d679dc0fbf575f123de6d8e0031597",
+    "last_modified": "2025-09-08T17:10:24+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -9033,7 +9033,7 @@
       "estimated_token_count_total": 34535
     },
     "hash": "sha256:bd0ece3ed39941568f54d0ac40d9cfc2557cf3a540dc6b8de576ef5603b9cea3",
-    "last_modified": "2025-09-04T20:11:45+00:00",
+    "last_modified": "2025-09-08T17:10:24+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -9086,7 +9086,7 @@
       "estimated_token_count_total": 3115
     },
     "hash": "sha256:732e428a8829d11de342f4f9d2bb7234ea4c27a529765c30cbb28c0fcad8e629",
-    "last_modified": "2025-09-04T20:11:45+00:00",
+    "last_modified": "2025-09-08T17:10:25+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -9179,7 +9179,7 @@
       "estimated_token_count_total": 6762
     },
     "hash": "sha256:4fb69a1530ec1de2d9cf552ba7353905b51db664c846adbdd59188b3fb84edf2",
-    "last_modified": "2025-09-04T20:11:45+00:00",
+    "last_modified": "2025-09-08T17:10:25+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -9251,7 +9251,7 @@
       "estimated_token_count_total": 4366
     },
     "hash": "sha256:2b6223530a6f5fe12879c60944318644777842fe3e0fbcb0e1951494f6daa6db",
-    "last_modified": "2025-09-04T20:11:45+00:00",
+    "last_modified": "2025-09-08T17:10:25+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -9308,7 +9308,7 @@
       "estimated_token_count_total": 2139
     },
     "hash": "sha256:3a6edadbb265a41bfebbdfef17e5b1c9bf34352c0660e158f72078f7fa73c203",
-    "last_modified": "2025-09-04T20:11:45+00:00",
+    "last_modified": "2025-09-08T17:10:25+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -9360,7 +9360,7 @@
       "estimated_token_count_total": 3259
     },
     "hash": "sha256:9847e91b172a179975cca8e4064e9b126a1df24a665b8323943f5a66a333bd02",
-    "last_modified": "2025-09-04T20:11:46+00:00",
+    "last_modified": "2025-09-08T17:10:25+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -9452,7 +9452,7 @@
       "estimated_token_count_total": 5895
     },
     "hash": "sha256:2ec93282369dd7f5e147a9ee7634a13661405543746313698ea5137559c40011",
-    "last_modified": "2025-09-04T20:11:46+00:00",
+    "last_modified": "2025-09-08T17:10:25+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -9534,7 +9534,7 @@
       "estimated_token_count_total": 2560
     },
     "hash": "sha256:b678fa44ec703083262a9347c79b84f469a0b82a96866857d0cc84ada575abde",
-    "last_modified": "2025-09-04T20:11:46+00:00",
+    "last_modified": "2025-09-08T17:10:25+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -9597,7 +9597,7 @@
       "estimated_token_count_total": 3203
     },
     "hash": "sha256:ffd211e230faba6e8614cd00879dcbbbba8cd28dc56e892961ec43911eda44dc",
-    "last_modified": "2025-09-04T20:11:46+00:00",
+    "last_modified": "2025-09-08T17:10:25+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -9664,7 +9664,7 @@
       "estimated_token_count_total": 4240
     },
     "hash": "sha256:7d9e0febb048e9cbf4763e271e685ddcacf1e5e8442f5b380655665b27ce9f80",
-    "last_modified": "2025-09-04T20:11:46+00:00",
+    "last_modified": "2025-09-08T17:10:25+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -9721,7 +9721,7 @@
       "estimated_token_count_total": 2263
     },
     "hash": "sha256:a6a535f4f5e145d3e2a7518739f752ee3ed37b7745483f414e21c97792331d18",
-    "last_modified": "2025-09-04T20:11:46+00:00",
+    "last_modified": "2025-09-08T17:10:25+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -9769,7 +9769,7 @@
       "estimated_token_count_total": 1571
     },
     "hash": "sha256:3ad540d8ad636304705cccb08bc1fdf21fe2fc7dc0f99bd509b23ae96d20e0ba",
-    "last_modified": "2025-09-04T20:11:46+00:00",
+    "last_modified": "2025-09-08T17:10:25+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -9838,7 +9838,7 @@
       "estimated_token_count_total": 2741
     },
     "hash": "sha256:31cc848794b5e92a44316f06dadfc79012ec84c7be907d1ad9c7454fa834734c",
-    "last_modified": "2025-09-04T20:11:46+00:00",
+    "last_modified": "2025-09-08T17:10:25+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -9907,7 +9907,7 @@
       "estimated_token_count_total": 2583
     },
     "hash": "sha256:e1d803d600950c93badec9ccbaadd8ef97219ce96af815c39206456e39950964",
-    "last_modified": "2025-09-04T20:11:46+00:00",
+    "last_modified": "2025-09-08T17:10:25+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -9965,7 +9965,7 @@
       "estimated_token_count_total": 2673
     },
     "hash": "sha256:ad71f4c28acfa0ecbfdf72e21b5137ed01f483d1926af047b520d50f7d99039e",
-    "last_modified": "2025-09-04T20:11:46+00:00",
+    "last_modified": "2025-09-08T17:10:25+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -10020,7 +10020,7 @@
       "estimated_token_count_total": 2057
     },
     "hash": "sha256:b4bfe432282015ca100c019c907af34cc60ba47a59e5ec26ae0b98772ba87755",
-    "last_modified": "2025-09-04T20:11:46+00:00",
+    "last_modified": "2025-09-08T17:10:25+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -10075,7 +10075,7 @@
       "estimated_token_count_total": 2221
     },
     "hash": "sha256:4f7f2b2721f062dce60aa54becfcf4c23d317a789ae772d8e95888818ffab792",
-    "last_modified": "2025-09-04T20:11:46+00:00",
+    "last_modified": "2025-09-08T17:10:25+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -10128,7 +10128,7 @@
       "estimated_token_count_total": 1762
     },
     "hash": "sha256:b0e527e7452a8bbae9158f47cdd25d57cb36b49882ad93a15702cc34dbb54fb6",
-    "last_modified": "2025-09-04T20:11:46+00:00",
+    "last_modified": "2025-09-08T17:10:25+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -10201,7 +10201,7 @@
       "estimated_token_count_total": 5141
     },
     "hash": "sha256:e927931ad31eb69936a5a3b1765ce828abbffe3fbc2a6a4035e31e1440ac24c6",
-    "last_modified": "2025-09-04T20:11:48+00:00",
+    "last_modified": "2025-09-08T17:10:27+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -10284,7 +10284,7 @@
       "estimated_token_count_total": 6227
     },
     "hash": "sha256:850a510bef2666b56c827e61e4bcf8782582848a50c1b57a29351cc385e97bb8",
-    "last_modified": "2025-09-04T20:11:49+00:00",
+    "last_modified": "2025-09-08T17:10:28+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -10347,7 +10347,7 @@
       "estimated_token_count_total": 4030
     },
     "hash": "sha256:590397c0ddcccea6cc299fac5fe00637c6a3b926c98257c42d08c9c5cbcab02e",
-    "last_modified": "2025-09-04T20:11:50+00:00",
+    "last_modified": "2025-09-08T17:10:29+00:00",
     "token_estimator": "heuristic-v1"
   }
 ]

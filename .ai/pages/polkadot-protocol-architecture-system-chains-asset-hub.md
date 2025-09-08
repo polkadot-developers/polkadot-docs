@@ -151,16 +151,17 @@ These public instances are primarily for ad-hoc testing and quick checks.
 
 `TxWrapper` provides the flexibility needed to integrate asset operations into custom applications while maintaining the security and efficiency of Polkadot's transaction model.
 
-### Asset Transfer API
+### ParaSpell
 
-[Asset Transfer API](https://github.com/paritytech/asset-transfer-api){target=\_blank} is a library focused on simplifying the construction of asset transfers for Polkadot SDK-based chains that involve system parachains like Asset Hub. It exposes a reduced set of methods that facilitate users sending transfers to other parachains or locally. Refer to the [cross-chain support table](https://github.com/paritytech/asset-transfer-api/tree/main#current-cross-chain-support){target=\_blank} for the current status of cross-chain support development.
+[ParaSpell](https://paraspell.xyz/){target=\_blank} is a collection of open-source XCM tools designed to streamline cross-chain asset transfers and interactions within the Polkadot and Kusama ecosystems. It equips developers with an intuitive interface to manage and optimize XCM-based functionalities. Some key points included by ParaSpell are:
 
-Key features include:
+- **[XCM SDK](https://paraspell.xyz/#xcm-sdk){target=\_blank}**: Provides a unified layer to incorporate XCM into decentralized applications, simplifying complex cross-chain interactions.
+- **[XCM API](https://paraspell.xyz/#xcm-api){target=\_blank}**: Offers an efficient, package-free approach to integrating XCM functionality while offloading heavy computing tasks, minimizing costs and improving application performance.
+- **[XCM router](https://paraspell.xyz/#xcm-router){target=\_blank}**: Enables cross-chain asset swaps in a single command, allowing developers to send one asset type (such as DOT on Polkadot) and receive a different asset on another chain (like ASTR on Astar).
+- **[XCM analyser](https://paraspell.xyz/#xcm-analyser){target=\_blank}**: Decodes and translates complex XCM multilocation data into readable information, supporting easier troubleshooting and debugging.
+- **[XCM visualizator](https://paraspell.xyz/#xcm-visualizator){target=\_blank}**: A tool designed to give developers a clear, interactive view of XCM activity across the Polkadot ecosystem, providing insights into cross-chain communication flow.
 
-- Support for cross-chain transfers between parachains.
-- Streamlined transaction construction with support for the necessary parachain metadata.
-
-The API supports various asset operations, such as paying transaction fees with non-native tokens and managing asset liquidity.
+ParaSpell's tools make it simple for developers to build, test, and deploy cross-chain solutions without needing extensive knowledge of the XCM protocol. With features like message composition, decoding, and practical utility functions for parachain interactions, ParaSpell is especially useful for debugging and optimizing cross-chain communications.
 
 ### Parachain Node
 

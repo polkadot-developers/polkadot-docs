@@ -35,12 +35,6 @@ npm install -g @openzeppelin/cli
 npm install hardhat
 ```
 
-### For ink! Contracts:
-```bash
-# Install ink! CLI
-cargo install --force --locked cargo-contract --version 4.0.0-alpha
-```
-
 ## Step 2: Contract Design and Structure
 
 [Explain the contract architecture and key components]

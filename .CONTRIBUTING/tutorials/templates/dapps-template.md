@@ -24,7 +24,7 @@ Before starting, ensure you have:
 - Test tokens on [relevant network]
 - Code editor of your choice
 
-## Step 1: Project Setup
+## Project Setup
 
 Set up the development environment:
 
@@ -33,11 +33,12 @@ Set up the development environment:
 npx create-react-app my-polkadot-dapp --template typescript
 cd my-polkadot-dapp
 
-# Install Polkadot dependencies
+# Install required dependencies
 npm install @polkadot/api@VERSION @polkadot/extension-dapp@VERSION @polkadot/util@VERSION
 ```
 
 ### Project Structure
+
 ```
 my-polkadot-dapp/
 ├── src/
@@ -51,12 +52,11 @@ my-polkadot-dapp/
 └── README.md
 ```
 
-## Step 2: API Connection Setup
+## API Connection Setup
 
 Create a connection to the Polkadot network:
 
-```typescript
-// src/hooks/usePolkadotApi.ts
+```typescript title="usePolkadotApi.ts"
 import { ApiPromise, WsProvider } from '@polkadot/api';
 import { useEffect, useState } from 'react';
 
@@ -80,12 +80,11 @@ export const usePolkadotApi = () => {
 };
 ```
 
-## Step 3: Wallet Integration
+## Wallet Integration
 
 Implement wallet connection functionality:
 
-```typescript
-// src/components/WalletConnect.tsx
+```typescript title="src/components/WalletConnect.tsx"
 import { web3Accounts, web3Enable, web3FromAddress } from '@polkadot/extension-dapp';
 import { InjectedAccountWithMeta } from '@polkadot/extension-inject/types';
 import { useState, useEffect } from 'react';
@@ -124,12 +123,11 @@ export const WalletConnect = () => {
 };
 ```
 
-## Step 4: Chain Interaction Component
+## Chain Interaction Component
 
 Create components for interacting with the blockchain:
 
-```typescript
-// src/components/ChainInteraction.tsx
+```typescript title="src/components/ChainInteraction.tsx"
 import { ApiPromise } from '@polkadot/api';
 import { InjectedAccountWithMeta } from '@polkadot/extension-inject/types';
 import { web3FromAddress } from '@polkadot/extension-dapp';
@@ -194,12 +192,11 @@ export const ChainInteraction = ({ api, account }: Props) => {
 };
 ```
 
-## Step 5: Main App Component
+## Main App Component
 
 Bring everything together:
 
-```typescript
-// src/App.tsx
+```typescript title="src/App.tsx"
 import React, { useState } from 'react';
 import { usePolkadotApi } from './hooks/usePolkadotApi';
 import { WalletConnect } from './components/WalletConnect';
@@ -231,7 +228,7 @@ function App() {
 export default App;
 ```
 
-## Step 6: Testing Your dApp
+## Testing Your dApp
 
 Test the application:
 
@@ -243,6 +240,7 @@ npm start
 ```
 
 ### Testing Checklist
+
 1. **Wallet Connection**: Verify extension detection and account selection
 2. **API Connection**: Check network connection status
 3. **Balance Queries**: Test balance retrieval functionality
@@ -254,12 +252,13 @@ npm start
 !!!tip "Screenshot Dimensions"
     Use 1512px width for desktop screenshots, 400x600px for browser extensions.
 
-## Step 7: Advanced Features [Optional]
+## Advanced Features [Optional]
 
 Enhance your dApp with additional features:
 
 ### Real-time Updates
-```typescript
+
+```typescript title="realtime-updates.ts"
 // Subscribe to balance changes
 const unsubscribe = await api.query.system.account(address, (account) => {
   setBalance(account.data.free.toHuman());
@@ -267,7 +266,8 @@ const unsubscribe = await api.query.system.account(address, (account) => {
 ```
 
 ### Error Handling
-```typescript
+
+```typescript title="error-handling.ts"
 // Robust error handling
 try {
   // API calls
@@ -281,7 +281,8 @@ try {
 ```
 
 ### Multiple Network Support
-```typescript
+
+```typescript title="network-config.ts"
 // Support for multiple networks
 const networks = {
   polkadot: 'wss://rpc.polkadot.io',
@@ -295,7 +296,7 @@ const networks = {
 
 Deploy your dApp:
 
-```bash
+```bash 
 # Build for production
 npm run build
 

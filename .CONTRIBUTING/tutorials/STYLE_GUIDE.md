@@ -37,25 +37,30 @@ tutorials/
 ### Category Details
 
 #### Polkadot SDK Tutorials (`polkadot-sdk/`)
+
 - **Parachains**: Zero-to-hero guides, custom pallets, runtime development
 - **System Chains**: Asset Hub, Bridge Hub operations
 - **Testing**: Chain forking, spawning networks, benchmarking
 
 #### Smart Contracts (`smart-contracts/`)
+
 - **EVM Contracts**: ERC-20, NFTs, DeFi applications
 - **Native Contracts**: ink! smart contracts
 - **Demo Applications**: Complex application deployments
 
 #### Interoperability (`interoperability/`)
+
 - **XCM Operations**: Cross-chain messaging, asset transfers
 - **Channel Management**: HRMP channel operations
 - **Testing and Debugging**: XCM testing, replay, dry-run
 
 #### dApps (`dapps/`)
+
 - **Frontend Integration**: Wallet connections, chain interactions
 - **API Usage**: PAPI, Polkadot.js integrations
 
 #### On-chain Governance (`onchain-governance/`)
+
 - **Proposal Management**: Creating, voting, tracking proposals
 - **OpenGov Operations**: Delegation, conviction voting
 
@@ -64,14 +69,13 @@ tutorials/
 ### Target Audience Considerations
 
 Before writing, determine:
+
 1. **Target audience**: Beginners, intermediate, or advanced users
 2. **Prerequisites**: Required knowledge, tools, and setup
 3. **Learning objectives**: What users will accomplish
 4. **Category fit**: Ensure tutorial belongs in the appropriate category
 
 ### Writing Best Practices
-
-**Note**: For comprehensive writing guidelines, refer to the [PaperMoon Documentation Style Guide](https://github.com/papermoonio/documentation-style-guide). The following are tutorial-specific essentials:
 
 1. **Use active voice**: "You will build..." instead of "A blockchain will be built..."
 2. **Be specific**: Provide exact commands, file paths, and parameter values
@@ -104,6 +108,7 @@ categories: Category1, Category2, Category3
 ### Common Categories
 
 Use these standardized categories:
+
 - `Basics`, `Parachains`, `Smart Contracts`, `dApps`, `Interoperability`
 - `Testing`, `Governance`, `System Chains`, `XCM`, `Runtime Development`
 
@@ -137,6 +142,7 @@ images/tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template/
 ### Navigation File Structure
 
 Each directory contains a `.nav.yml` file defining navigation:
+
 - `/tutorials/.nav.yml` - Main tutorials navigation
 - `/tutorials/[category]/.nav.yml` - Category-specific navigation  
 - `/tutorials/[category]/[subcategory]/.nav.yml` - Subcategory navigation
@@ -154,6 +160,7 @@ nav:
 ### Navigation Examples
 
 **Main tutorials navigation** (`/tutorials/.nav.yml`):
+
 ```yaml
 title: Tutorials
 nav:
@@ -165,6 +172,7 @@ nav:
 ```
 
 **Category-specific navigation** (`/tutorials/polkadot-sdk/parachains/zero-to-hero/.nav.yml`):
+
 ```yaml
 title: Zero to Hero
 nav:
@@ -197,19 +205,15 @@ Store reusable code in the `.snippets` directory:
 
 ### Including Code Snippets
 
-
 ```bash
 --8<-- 'code/tutorials/polkadot-sdk/parachains/setup.sh'
 ```
 
-
 You can also use line numbers and include specific lines:
-
 
 ```bash linenums="1"
 --8<-- 'code/tutorials/polkadot-sdk/parachains/setup.sh:10:20'
 ```
-
 
 ### Code Block Guidelines
 
@@ -226,6 +230,7 @@ You can also use line numbers and include specific lines:
 ### Language Tags
 
 Common language tags to use:
+
 - `bash` - Terminal commands
 - `rust` - Rust code
 - `javascript` - JavaScript/TypeScript
@@ -259,7 +264,6 @@ Common language tags to use:
 - **Desktop screenshots**: 1512px width, variable height
 - **Browser extension screenshots**: 400x600px
 
-
 ### Image Syntax
 
 ```markdown
@@ -290,10 +294,6 @@ Before submitting, test your tutorial thoroughly:
 - [ ] All commands execute successfully
 - [ ] All downloads and installations work
 - [ ] Screenshots match current interface versions
-- [ ] Code examples compile and run
-- [ ] Expected outputs are produced
-- [ ] External links are functional
-- [ ] Tutorial works on different environments
 
 ### Common Testing Issues
 
@@ -318,32 +318,43 @@ categories: [Categories]
 # Tutorial Title
 
 ## Introduction
+
 [Context and objectives]
 
 ## Prerequisites
+
 [Required knowledge and tools]
 
 ## Overview
+
 [Architecture or process overview]
 
 ## [Action-Oriented Section Title]
+
 ### [Specific Task or Setup]
+
 ### [Another Specific Task]
 
 ## [Another Action-Oriented Section]
+
 ### [Implementation Task]
+
 ### [Testing or Verification]
 
 ## Testing and Verification
+
 [Comprehensive testing instructions]
 
 ## Troubleshooting
+
 [Common issues and solutions]
 
 ## Where to Go Next
+
 [Advanced topics and related tutorials]
 
 ## Additional Resources
+
 [External links and documentation]
 ```
 
@@ -383,6 +394,7 @@ Use these for important information:
 ### Review Process
 
 Before submission:
+
 1. Self-review for completeness and accuracy
 2. Test on clean environment
 3. Check all links and references
@@ -394,6 +406,7 @@ Before submission:
 ## Questions or Issues?
 
 For additional help:
+
 1. Check existing tutorials for examples
 2. Review the [main contributing guide](.CONTRIBUTING.md)
 3. Open an issue for clarification

@@ -6,6 +6,13 @@
   'use strict';
 
   // Helper function to format code for LLM consumption
+
+  // TODO: use as example for context to add to 'copy for AI'
+  // code block dropdown in future iterations
+  
+  /* This is not needed because we will use resolved
+  markdown files from /.ai/pages with code blocks
+  in place and formatted correctly 
   function formatCodeForLLM(codeElement, language) {
     const code = codeElement.textContent;
     const context = getPageContext();
@@ -22,6 +29,11 @@ URL: ${context.url}
 ${code}
 \`\`\``;
   }
+*/
+
+/* We will not be making each section of content click to copy
+on the page as it adds a lot of noise to the UI without giving 
+an LLM much context to inform an answer.
 
   // Helper function to format content section for LLM
   function formatSectionForLLM(sectionElement) {
@@ -37,12 +49,13 @@ URL: ${context.url}
 
 ${content}`;
   }
+*/
 
   // Get site name from meta tag
   function getSiteName() {
     const metaSiteName = document.querySelector('meta[name="mkdocs-site-name"]');
     return metaSiteName ? metaSiteName.content : '';
-  }
+  } 
 
   // Check if analytics is enabled
   function isAnalyticsEnabled() {
@@ -197,7 +210,8 @@ ${content}`;
     // If no closing --- found, return original content
     return content;
   }
-
+/* This is not needed as we will serve resolved Markdown files with these
+adjustments in place
   // Clean content for LLM (remove extra UI elements)
   function cleanContentForLLM(element) {
     const clone = element.cloneNode(true);
@@ -224,7 +238,7 @@ ${content}`;
     // Clean up extra whitespace
     return text.replace(/\n{3,}/g, '\n\n').trim();
   }
-
+*/
   // Copy to clipboard with fallback
   async function copyToClipboard(text, button, eventType = 'unknown') {
     try {
@@ -436,6 +450,7 @@ ${content}`;
   }
 
   // Add copy buttons to code blocks
+  // TODO: modify this so it is a single element with drop down options: copy code, copy for LLM
   function addCodeCopyButtons() {
     const codeBlocks = document.querySelectorAll('.highlight');
 
@@ -579,15 +594,17 @@ ${content}`;
 
         try {
           // Fetch the raw Markdown content
+          // TODO: Update this to work with the /.ai/pages resolved markdown files
           const mdUrl = getMdFileUrl();
           const response = await fetch(mdUrl);
 
           if (response.ok) {
             let markdownContent = await response.text();
 
+            /* Won't need this as md is already resolved with metadata in place
             // Remove front matter (metadata) if present
             markdownContent = removeFrontMatter(markdownContent);
-
+            */
             await copyToClipboard(markdownContent, copyButton, 'markdown_content');
 
             // Change to check icon and make it green
@@ -687,11 +704,13 @@ ${content}`;
         switch(action) {
           case 'copy-markdown-link':
             // Copy the raw Markdown file URL
+            // TODO: Update this to work with the /.ai/pages resolved markdown files
             contentToCopy = getMdFileUrl();
             break;
 
           case 'view-markdown':
             // Open the raw Markdown file directly
+            // TODO: Update this to work with the /.ai/pages resolved markdown files
             const mdUrl = getMdFileUrl();
             window.open(mdUrl, '_blank');
             dropdownMenu.classList.remove('show');
@@ -700,7 +719,12 @@ ${content}`;
             return; // Don't copy, just view
 
           case 'open-chatgpt':
+            // TODO: Decide what else to pass with this for context. Models are only going
+            // to check the page exists and crawl the metadata so this really 
+            // doesn't add much value as written versus just passing the URL manually, etc.
+
             // Get the Markdown file URL
+            // TODO: Update this to work with the /.ai/pages resolved markdown files
             const mdUrlForChatGPT = getMdFileUrl();
             const chatGPTPrompt = `Read ${mdUrlForChatGPT} so I can ask questions about it.`;
             const chatGPTUrl = `https://chatgpt.com/?hints=search&q=${encodeURIComponent(chatGPTPrompt)}`;
@@ -711,7 +735,12 @@ ${content}`;
             return; // Don't copy, just open
 
           case 'open-claude':
+            // TODO: Decide what else to pass with this for context. Models are only going
+            // to check the page exists and crawl the metadata so this really 
+            // doesn't add much value as written versus just passing the URL manually, etc.
+
             // Get the Markdown file URL
+            // TODO: Update this to work with the /.ai/pages resolved markdown files
             const mdUrlForClaude = getMdFileUrl();
             const claudePrompt = `Read ${mdUrlForClaude} so I can ask questions about it.`;
             const claudeUrl = `https://claude.ai/new?q=${encodeURIComponent(claudePrompt)}`;
@@ -767,6 +796,9 @@ ${content}`;
 
     return content;
   }
+
+  // Commented out `addCodeCopyButtons` pending UI updates
+  // to clear visual clutter while iterating
 
   // Initialize on DOM ready
   function initialize() {

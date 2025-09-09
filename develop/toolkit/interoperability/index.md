@@ -1,6 +1,6 @@
 ---
 title: Interoperability
-description: Explore Polkadot's XCM tooling ecosystem, featuring the Asset Transfer API and other utilities for implementing cross-chain messaging and transfers.
+description: Explore Polkadot's XCM tooling ecosystem, featuring utilities for implementing cross-chain messaging and transfers.
 template: index-page.html
 ---
 

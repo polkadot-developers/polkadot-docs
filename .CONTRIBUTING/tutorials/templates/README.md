@@ -1,11 +1,13 @@
 # Tutorial Templates
 
-This folder contains templates for different types of Polkadot tutorials to help you get started quickly and maintain consistency across all documentation.
+This folder includes templates for various types of Polkadot tutorials to help you get started quickly and keep consistency throughout all documentation.
 
 ## Available Templates
 
 ### 📦 [Polkadot SDK Template](polkadot-sdk-template.md)
+
 For tutorials covering:
+
 - Parachain development
 - Custom pallet creation  
 - Runtime configuration
@@ -13,14 +15,18 @@ For tutorials covering:
 - Testing and benchmarking
 
 ### 💎 [Smart Contracts Template](smart-contracts-template.md)
+
 For tutorials covering:
+
 - EVM smart contracts (Solidity)
 - Contract deployment and interaction
 - DeFi applications
 - Token contracts
 
 ### 🌐 [XCM/Interoperability Template](xcm-interoperability-template.md)
+
 For tutorials covering:
+
 - Cross-chain asset transfers
 - XCM message construction
 - Channel management (HRMP)
@@ -28,7 +34,9 @@ For tutorials covering:
 - Multi-chain workflows
 
 ### 🖥️ [dApps Template](dapps-template.md)
+
 For tutorials covering:
+
 - Frontend development
 - Wallet integration  
 - API connections (Polkadot.js, PAPI)
@@ -36,7 +44,9 @@ For tutorials covering:
 - Chain interaction
 
 ### 🗳️ [Governance Template](governance-template.md)
+
 For tutorials covering:
+
 - Proposal creation and submission
 - Voting and delegation
 - OpenGov participation
@@ -58,7 +68,9 @@ For tutorials covering:
 ## Template Structure Explained
 
 ### Frontmatter Metadata
+
 Every template includes the required metadata fields:
+
 ```yaml
 ---
 title: [Keep under 45 characters for SEO]
@@ -69,6 +81,7 @@ categories: [Relevant, Comma, Separated, Categories]
 ```
 
 ### Common Sections
+
 All templates follow a consistent structure:
 
 1. **Introduction**: Context and learning objectives
@@ -79,30 +92,14 @@ All templates follow a consistent structure:
 6. **Where to Go Next**: Related tutorials and next steps
 7. **Additional Resources**: External links and references
 
-### Placeholder Format
-- `[Square brackets]`: Replace with your specific content
-- `[Optional sections]`: Include only if relevant to your tutorial
-- Code comments: Replace example code with your implementations
-
 ## Best Practices
 
 ### Content Guidelines
+
 - **Be specific**: Replace generic examples with concrete, working code
 - **Test thoroughly**: Ensure all code examples work as described
 - **Include context**: Explain why each step is necessary
 - **Specify versions**: Always include specific versions for dependencies (e.g., `npm install package@1.2.3`)
-- **Add screenshots**: Visual aids improve understanding (use `.webp` format)
-  - Desktop screenshots: 1512px width, variable height
-  - Browser extensions: 400x600px
-  - Naming: `tutorial-name-01.webp`, `tutorial-name-02.webp`, etc.
-
-### File Organization
-When using templates, ensure you follow the proper file structure:
-```
-tutorials/[category]/[subcategory]/[tutorial-name].md
-images/tutorials/[category]/[subcategory]/[tutorial-name]/
-.snippets/code/tutorials/[category]/[subcategory]/[tutorial-name]/
-```
 
 ### Navigation
 **Critical**: Always update the appropriate `.nav.yml` files when adding a new tutorial:
@@ -128,7 +125,6 @@ Feel free to add sections relevant to your tutorial:
 Replace template code with your specific examples:
 - Use real, tested code snippets
 - Include error handling where appropriate
-- Show expected outputs (use `termynal` element for terminal outputs)
 - Provide alternative approaches when relevant
 
 ## Questions and Support

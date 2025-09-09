@@ -21,4 +21,4 @@ Ready to contribute a tutorial? Get started here:
 - **dapps/** - Frontend integration, API usage
 - **onchain-governance/** - Proposals, OpenGov operations
 
-Start with working code, clear steps, and we'll help you polish the rest! 
+Start with working code, clear steps, and the team will help you polish the rest!

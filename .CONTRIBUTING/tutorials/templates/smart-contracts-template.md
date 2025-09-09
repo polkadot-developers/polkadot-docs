@@ -19,26 +19,27 @@ categories: Smart Contracts, EVM, PVM, DeFi
 Before starting, ensure you have:
 
 - **For EVM/PVM contracts**: Remix IDE or local development setup
-- MetaMask wallet configured for [specific network]
+- Ethereum-compatible wallet set up for [specific network]
 - Test tokens for deployment and testing
 - Basic understanding of [Solidity/Rust/relevant language]
 
-## Step 1: Development Environment Setup
+## Development Environment Setup
 
 [Set up the appropriate development environment]
 
 ### For EVM Contracts:
+
 ```bash
 # Install required tools
 npm install -g @openzeppelin/cli@VERSION
 npm install hardhat
 ```
 
-## Step 2: Contract Design and Structure
+## Contract Design and Structure
 
 [Explain the contract architecture and key components]
 
-```solidity
+```solidity  title="Contract.sol"
 // For EVM contracts - example structure
 pragma solidity ^0.8.19;
 
@@ -55,7 +56,7 @@ contract YourContract {
     }
 }
 
-## Step 3: Contract Implementation
+## Contract Implementation
 
 [Step-by-step implementation of core functionality]
 
@@ -69,7 +70,7 @@ contract YourContract {
 !!!warning
     Important security considerations specific to this contract type.
 
-## Step 4: Testing
+## Testing
 
 Write comprehensive tests:
 
@@ -90,7 +91,7 @@ Run tests:
 npx hardhat test
 
 
-## Step 5: Deployment
+## Deployment
 
 Deploy your contract:
 
@@ -101,7 +102,7 @@ npx hardhat run scripts/deploy.js --network [testnet-name]
 ```
 
 
-## Step 6: Interaction and Verification
+## Interaction and Verification
 
 Test contract functionality:
 
@@ -113,16 +114,6 @@ Test contract functionality:
 4. **Check transaction history**
 
 ![Contract interaction screenshot](/images/tutorials/smart-contracts/[category]/[tutorial-name]/contract-interaction.webp)
-
-## Advanced Features [Optional]
-
-[For intermediate/advanced tutorials - additional features like:]
-- Integration with oracles
-- Advanced token mechanics
-- Cross-contract calls
-- Upgradeable patterns
-
-
 
 ## Where to Go Next
 

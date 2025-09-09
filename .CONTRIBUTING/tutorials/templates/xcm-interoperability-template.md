@@ -25,7 +25,7 @@ Before starting, ensure you have:
 - Basic understanding of XCM concepts
 - Access to testnet networks (if applicable)
 
-## Step 1: Chopsticks Environment Setup
+## Chopsticks Environment Setup
 
 First, we'll set up Chopsticks to simulate the network environment for XCM testing.
 
@@ -53,7 +53,7 @@ const networks = {
 2. Fund accounts with necessary tokens
 3. Verify account balances
 
-## Step 2: Understanding the Cross-Chain Flow
+## Understanding the Cross-Chain Flow
 
 [Explain the specific XCM operation being performed]
 
@@ -76,7 +76,7 @@ let xcm = Xcm(vec![
 2. **Relay Chain**: [How the relay chain processes the message]
 3. **Destination Chain**: [What happens on the destination chain]
 
-## Step 3: [Specific XCM Operation - e.g., Asset Transfer]
+## [Specific XCM Operation - e.g., Asset Transfer]
 
 [Detailed steps for the specific cross-chain operation]
 
@@ -99,12 +99,7 @@ const transfer = api.tx.xcmPallet.limitedReserveTransferAssets(
 );
 ```
 
-![XCM transaction setup](/images/tutorials/interoperability/[category]/[tutorial-name]/xcm-setup.webp)
-
-!!!tip "Screenshot Dimensions"
-    Desktop screenshots: 1512px width, variable height. Browser extensions: 400x600px.
-
-## Step 4: Execution and Monitoring
+## Execution and Monitoring
 
 Execute the cross-chain operation:
 
@@ -120,7 +115,7 @@ Execute the cross-chain operation:
 cargo run -- monitor-xcm --transaction-hash [hash]
 ```
 
-## Step 5: Verification
+## Verification
 
 Verify the successful cross-chain operation:
 
@@ -133,24 +128,6 @@ Expected results:
 - Origin chain balance: [Expected change]
 - Destination chain balance: [Expected change]
 - XCM execution status: Success
-
-## Testing with XCM Simulator [Optional]
-
-For development and testing:
-
-```rust
-// XCM Simulator test setup
-use xcm_simulator::*;
-
-#[test]
-fn test_cross_chain_transfer() {
-    // Test implementation
-}
-```
-
-## Advanced XCM Patterns [For Advanced Tutorials]
-
-[Include for intermediate/advanced tutorials:]
 
 ### Multi-hop XCM
 - Routing through multiple chains

@@ -24,7 +24,7 @@ Before starting, ensure you have:
 - Basic understanding of [required concepts]
 - [Tokens/accounts if needed]
 
-## Step 1: Project Setup
+## Project Setup
 
 [Set up the development environment and project structure]
 
@@ -41,7 +41,7 @@ Expected output:
 [Show expected terminal output]
 ```
 
-## Step 2: [Main Development Phase]
+## [Main Development Phase]
 
 [Core implementation steps - adjust based on tutorial type:]
 
@@ -55,7 +55,7 @@ Expected output:
 - Implement extrinsics
 - Add tests
 
-```rust
+```rust title="lib.rs"
 // Example code with clear comments
 #[pallet::storage]
 pub type SomeValue<T> = StorageValue<_, u32>;
@@ -64,7 +64,7 @@ pub type SomeValue<T> = StorageValue<_, u32>;
 !!!tip
     Explain key concepts or provide helpful context here.
 
-## Step 3: Testing and Verification
+## Testing and Verification
 
 Test your implementation:
 
@@ -80,11 +80,6 @@ Verify everything works by:
 1. [Specific verification step 1]
 2. [Specific verification step 2]
 3. [Expected behavior/output]
-
-## Step 4: [Advanced Configuration - if applicable]
-
-[Optional advanced steps for intermediate/advanced tutorials]
-
 
 ## Where to Go Next
 

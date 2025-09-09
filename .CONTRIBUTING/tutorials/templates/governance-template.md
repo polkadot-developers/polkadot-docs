@@ -24,7 +24,7 @@ Before starting, ensure you have:
 - Access to Polkadot.js Apps or governance interface
 - [Specific requirements based on tutorial type]
 
-## Step 1: Understanding the Governance System
+## Understanding the Governance System
 
 [Explain the specific governance mechanism being used]
 
@@ -40,7 +40,7 @@ For this tutorial, we'll focus on:
 - **Decision Period**: [Timeline information]
 - **Required Approval**: [Approval/support thresholds]
 
-## Step 2: [Specific Governance Action Setup]
+## [Specific Governance Action Setup]
 
 ### For Creating Proposals:
 [Steps to create and submit a proposal]
@@ -111,7 +111,7 @@ const delegate = api.tx.convictionVoting.delegate(
 !!!tip "Screenshot Guidelines"
     Use 1512px width for desktop screenshots. Crop to show only relevant interface elements.
 
-## Step 4: Monitoring and Participation
+## Monitoring and Participation
 
 Track the progress of governance actions:
 
@@ -128,7 +128,7 @@ Track the progress of governance actions:
 - **Turnout**: Total voting power participating
 - **Time Remaining**: Decision period countdown
 
-## Step 5: Understanding Results and Next Steps
+## Understanding Results and Next Steps
 
 Analyze the outcome of your governance participation:
 

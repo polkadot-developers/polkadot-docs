@@ -1,13 +1,13 @@
 ---
-title: Teleport Tokens from Asset Hub to People Chain
-description: A step-by-step guide to building, verifying, and executing a teleport from Asset Hub to People Chain using the ParaSpell XCM SDK.
+title: Teleport Tokens Between Polkadot Rollups
+description: A step-by-step guide to building, verifying, and executing a teleport from one Polkadot Rollup to another using the ParaSpell XCM SDK.
 ---
 
-# Teleport Tokens from Asset Hub to People Chain
+# eleport Tokens Between Polkadot Rollups
 
 ## Introduction
 
-This guide will walk you through the process of teleporting tokens from Asset Hub to the [People Chain](/polkadot-protocol/architecture/system-chains/people/){target=\_blank} using the [ParaSpell XCM SDK](https://paraspell.github.io/docs/){target=\_blank}.
+This guide walks you through teleporting tokens between two Polkadot Rollups—[Asset Hub](/polkadot-protocol/architecture/system-chains/asset-hub/){target=\_blank} and the [People Chain](/polkadot-protocol/architecture/system-chains/people/){target=\_blank}—using the [ParaSpell XCM SDK](https://paraspell.github.io/docs/){target=\_blank}.
 
 For development purposes, this guide will use the [Paseo TestNet](/develop/networks/#paseo){target=\_blank}, so the teleport will be from Paseo's Asset Hub to Paseo's People Chain.
 

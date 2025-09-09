@@ -2,4 +2,4 @@ title: ParaSpell XCM SDK
 hide: false
 nav:
   - index.md
-  - 'Teleport Tokens from Asset Hub to People Chain': teleport-from-asset-hub-to-people-chain.md
+  - 'Teleport Tokens Between Polkadot Rollups': teleport-tokens-between-polkadot-rollups.md

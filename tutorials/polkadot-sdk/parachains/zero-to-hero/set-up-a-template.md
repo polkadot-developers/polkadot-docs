@@ -33,22 +33,22 @@ Before getting started, ensure you have done the following:
 
 For this tutorial series, you need to use Rust `1.86`. Newer versions of the compiler may not work with this parachain template version.
 
-### macOS
+=== "macOS"
 
-```bash
-rustup default 1.86
-rustup target add wasm32-unknown-unknown --toolchain 1.86-aarch64-apple-darwin
-rustup component add rust-src --toolchain 1.86-aarch64-apple-darwin
-```
+    ```bash
+    rustup default 1.86
+    rustup target add wasm32-unknown-unknown --toolchain 1.86-aarch64-apple-darwin
+    rustup component add rust-src --toolchain 1.86-aarch64-apple-darwin
+    ```
 
-### Ubuntu
+=== "Ubuntu"
 
-```bash
-rustup toolchain install 1.86.0
-rustup default 1.86.0
-rustup target add wasm32-unknown-unknown --toolchain 1.86.0
-rustup component add rust-src --toolchain 1.86.0
-```
+    ```bash
+    rustup toolchain install 1.86.0
+    rustup default 1.86.0
+    rustup target add wasm32-unknown-unknown --toolchain 1.86.0
+    rustup component add rust-src --toolchain 1.86.0
+    ```
 
 ## Utility Tools
 

@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
   const SCROLL_OFFSET = 70; // Adjust based on your header height
-  const TOC_SELECTOR_LEFT = '.md-nav__link'; // Left nav links
   const TOC_SELECTOR_RIGHT = '.md-nav--right .md-nav__link'; // Right nav links (update selector as needed)
 
   // Smooth scroll with offset

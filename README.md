@@ -1,18 +1,72 @@
 # Polkadot Developer Documentation
 
-# Documentation for Polkadot
-
 This repository contains documentation for Polkadot, a decentralized protocol that enables interoperability, scalability, and shared security across multiple blockchains. It provides a comprehensive range of resources and technical information to support developers in building and deploying the Polkadot ecosystem.
 
-## About This Site
+The documentation source files are written in [Markdown](https://daringfireball.net/projects/markdown) and generally follow the [PaperMoon style guide](https://github.com/papermoonio/documentation-style-guide/blob/main/style-guide.md).
 
-The content in this repository is displayed on the Polkadot documentation site generated using <a href="https://www.mkdocs.org/" target="_blank">mkdocs</a>. The theme used is <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank">Material for MkDocs</a>.
+## Run Polkadot Docs Locally
+
+You may want to spin up a local version of the documentation site to preview your changes. This guide will cover the steps needed to serve a local version.
+
+### Clone Repositories
+
+Building and serving the site requires cloning two repositories:
+
+- **[Polkadot MkDocs](https://github.com/papermoonio/polkadot-mkdocs)**: Contains the MkDocs configuration files, theme overrides, and custom CSS for the Polkadot documentation site.
+
+- **[Polkadot Docs](https://github.com/polkadot-developers/polkadot-docs)**: The actual content is stored in the `polkadot-docs` repository and pulled into the `polkadot-mkdocs` directory during build.
+
+For everything to work correctly, the file structure needs to be as follows:
+
+```bash
+polkadot-mkdocs
+|--- /material-overrides/ (folder)
+|--- /polkadot-docs/ (repository)
+|--- mkdocs.yml
+```
+
+To set up the structure, follow these steps:
+
+1. Clone this repository:
+
+    ```bash
+    git clone https://github.com/papermoonio/polkadot-mkdocs
+    ```
+
+2. Inside the folder just created, clone the `polkadot-docs` repository:
+
+    ```bash
+    cd polkadot-mkdocs
+    git clone https://github.com/polkadot-developers/polkadot-docs.git
+    ```
+
+### Install Dependencies and Serve Site
+
+1. Now that the repositories are cloned and properly nested, use the [pip](https://pypi.org/project/pip/) package installer to install [mkdocs](https://www.mkdocs.org/) and other required dependencies by running the command:
+
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+    This command will install all dependencies listed in the `requirements.txt` file.
+
+2. Switch to the `polkadot-docs` directory and use [npm](https://docs.npmjs.com/about-npm) to install dependencies:
+
+    ```bash
+    cd polkadot-docs && npm install
+    ```
+
+3. Navigate back to the `polkadot-mkdocs` folder, then build the site:
+
+    ```bash
+    mkdocs serve
+    ```
+
+After a successful build, the site should be available at http://127.0.0.1:8000.
 
 ## Contributing
 
-If you're interested in contributing to this repository, please clone the repo, make changes, and open a PR ✨. Please review the guidelines in the [CONTRIBUTING file](.CONTRIBUTING/.CONTRIBUTING.md) before making any changes.
-
-Thank you for taking the time to contribute to this repository 💜.
+See [.CONTRIBUTING.md](./CONTRIBUTING.md) for how to contribute to this repository.
 
 ## Disclaimer
 

@@ -3,7 +3,7 @@ title: Teleport Tokens Between Polkadot Rollups
 description: A step-by-step guide to building, verifying, and executing a teleport from one Polkadot Rollup to another using the ParaSpell XCM SDK.
 ---
 
-# eleport Tokens Between Polkadot Rollups
+# Teleport Tokens Between Polkadot Rollups
 
 ## Introduction
 

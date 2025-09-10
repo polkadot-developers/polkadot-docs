@@ -2,4 +2,4 @@ title: ParaSpell XCM SDK
 hide: false
 nav:
   - index.md
-  - 'Teleport Tokens Between Polkadot Rollups': teleport-tokens-between-polkadot-rollups.md
+  - 'Transfer Tokens Between Parachains': transfer-tokens-between-parachains.md

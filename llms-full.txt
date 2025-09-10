@@ -92,7 +92,7 @@ Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/re
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/integrations/wallets.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/interoperability/index.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/interoperability/paraspell-xcm-sdk/index.md
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/interoperability/paraspell-xcm-sdk/teleport-tokens-between-polkadot-rollups.md
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/interoperability/paraspell-xcm-sdk/transfer-tokens-between-parachains.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/interoperability/xcm-tools.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/parachains/e2e-testing/index.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/parachains/e2e-testing/moonwall.md
@@ -17247,25 +17247,25 @@ By using the ParaSpell XCM SDK, developers can significantly accelerate their de
 :::INSERT_IN_THIS_SECTION:::
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/toolkit/interoperability/paraspell-xcm-sdk/teleport-tokens-between-polkadot-rollups/
+Doc-Content: https://docs.polkadot.com/develop/toolkit/interoperability/paraspell-xcm-sdk/transfer-tokens-between-parachains/
 --- BEGIN CONTENT ---
 ---
-title: Teleport Tokens Between Polkadot Rollups
-description: A step-by-step guide to building, verifying, and executing a teleport from one Polkadot Rollup to another using the ParaSpell XCM SDK.
+title: Transfer Tokens Between Parachains
+description: A step-by-step guide to building, verifying, and executing a transfer from one Parachain to another Parachain using the ParaSpell XCM SDK.
 ---
 
-# Teleport Tokens Between Polkadot Rollups
+# Transfer Tokens Between Parachains
 
 ## Introduction
 
-This guide walks you through teleporting tokens between two Polkadot Rollups—[Asset Hub](/polkadot-protocol/architecture/system-chains/asset-hub/){target=\_blank} and the [People Chain](/polkadot-protocol/architecture/system-chains/people/){target=\_blank}—using the [ParaSpell XCM SDK](https://paraspell.github.io/docs/){target=\_blank}.
+This guide walks you through transferring tokens between two Parachains—[Asset Hub](/polkadot-protocol/architecture/system-chains/asset-hub/){target=\_blank} and the [People Chain](/polkadot-protocol/architecture/system-chains/people/){target=\_blank}—using the [ParaSpell XCM SDK](https://paraspell.github.io/docs/){target=\_blank}.
 
-For development purposes, this guide will use the [Paseo TestNet](/develop/networks/#paseo){target=\_blank}, so the teleport will be from Paseo's Asset Hub to Paseo's People Chain.
+For development purposes, this guide will use the [Paseo TestNet](/develop/networks/#paseo){target=\_blank}, so the token transfer will be from Paseo's Asset Hub to Paseo's People Chain.
 
 You’ll learn how to:
 
-- Build a teleport transaction.
-- Perform a dry run to validate it.
+- Build an XCM transfer transaction using ParaSpell XCM SDK.
+- Perform a dry run to validate the transfer.
 - Verify the [Existential Deposit (ED)](/polkadot-protocol/glossary/#existential-deposit){target=\_blank} requirement on the destination chain.
 - Retrieve information regarding the transfer, along with fee estimates.
 - Submit the transaction.
@@ -17280,8 +17280,8 @@ You’ll learn how to:
 Create the project folder:
 
 ```bash
-mkdir paraspell-teleport
-cd paraspell-teleport
+mkdir paraspell-transfer
+cd paraspell-transfer
 ```
 
 Initialize the JavaScript project:
@@ -17335,7 +17335,7 @@ Be sure to fund this account with some PAS tokens on Passeo's Asset Hub using th
 !!!note "Security Warning"
     Never commit your mnemonic phrase in production code. Use environment variables or secure key management systems.
 
-## Build a Teleport Transaction
+## Build a Token Transfer Transaction
 
 The next step is to build the transaction that you intend to execute.
 
@@ -17344,7 +17344,7 @@ In this example, you will teleport 10 PAS tokens from Paseo's Asset Hub to Paseo
 Add the ParaSpell transaction code to your `index.ts` file:
 
 ```ts title="index.ts"
-async function teleport() {
+async function transfer() {
   const signer = getSigner();
 
   const tx = await Builder()
@@ -17373,7 +17373,7 @@ Dry runs simulate the transaction without broadcasting it, allowing you to confi
 Add the following dry run code to your `index.ts` script:
 
 ```ts title="index.ts"
-async function dryRunTeleport() {
+async function dryRunTransfer() {
   if (!hasDryRunSupport('AssetHubPaseo')) {
     console.log('Dry run is not supported on AssetHubPaseo.');
     return;
@@ -17393,7 +17393,7 @@ async function dryRunTeleport() {
   console.log(inspect(tx, { colors: true, depth: null }));
 }
 
-dryRunTeleport();
+dryRunTransfer();
 ```
 Go ahead and run the script.
 
@@ -17661,7 +17661,7 @@ Now you can execute the teleport function by adding the following statement:
 Add the following code:
 
 ```typescript title="index.ts"
-teleport();
+transfer();
 ```
 
 And execute your teleport:
@@ -17995,7 +17995,7 @@ Once the transaction is successfully included in a block, you will see the recip
 }</span>
 </div>
 
-After executing the teleport, check the account balance on [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fsys.turboflakes.io%2Fasset-hub-paseo){target=\_blank} for [Paseo's Asset Hub](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fsys.turboflakes.io%2Fasset-hub-paseo#/accounts){target=\_blank} and [Paseo's People Chain](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fsys.ibp.network%2Fpeople-paseo#/accounts){target=\_blank}.
+After executing the transfer, check the account balance on [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fsys.turboflakes.io%2Fasset-hub-paseo){target=\_blank} for [Paseo's Asset Hub](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fsys.turboflakes.io%2Fasset-hub-paseo#/accounts){target=\_blank} and [Paseo's People Chain](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fsys.ibp.network%2Fpeople-paseo#/accounts){target=\_blank}.
 
 You should see:
 

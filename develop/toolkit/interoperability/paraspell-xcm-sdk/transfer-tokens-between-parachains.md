@@ -1,20 +1,20 @@
 ---
-title: Teleport Tokens Between Polkadot Rollups
-description: A step-by-step guide to building, verifying, and executing a teleport from one Polkadot Rollup to another using the ParaSpell XCM SDK.
+title: Transfer Tokens Between Parachains
+description: A step-by-step guide to building, verifying, and executing a transfer from one Parachain to another Parachain using the ParaSpell XCM SDK.
 ---
 
-# Teleport Tokens Between Polkadot Rollups
+# Transfer Tokens Between Parachains
 
 ## Introduction
 
-This guide walks you through teleporting tokens between two Polkadot Rollups—[Asset Hub](/polkadot-protocol/architecture/system-chains/asset-hub/){target=\_blank} and the [People Chain](/polkadot-protocol/architecture/system-chains/people/){target=\_blank}—using the [ParaSpell XCM SDK](https://paraspell.github.io/docs/){target=\_blank}.
+This guide walks you through transferring tokens between two Parachains—[Asset Hub](/polkadot-protocol/architecture/system-chains/asset-hub/){target=\_blank} and the [People Chain](/polkadot-protocol/architecture/system-chains/people/){target=\_blank}—using the [ParaSpell XCM SDK](https://paraspell.github.io/docs/){target=\_blank}.
 
-For development purposes, this guide will use the [Paseo TestNet](/develop/networks/#paseo){target=\_blank}, so the teleport will be from Paseo's Asset Hub to Paseo's People Chain.
+For development purposes, this guide will use the [Paseo TestNet](/develop/networks/#paseo){target=\_blank}, so the token transfer will be from Paseo's Asset Hub to Paseo's People Chain.
 
 You’ll learn how to:
 
-- Build a teleport transaction.
-- Perform a dry run to validate it.
+- Build an XCM transfer transaction using ParaSpell XCM SDK.
+- Perform a dry run to validate the transfer.
 - Verify the [Existential Deposit (ED)](/polkadot-protocol/glossary/#existential-deposit){target=\_blank} requirement on the destination chain.
 - Retrieve information regarding the transfer, along with fee estimates.
 - Submit the transaction.
@@ -29,8 +29,8 @@ You’ll learn how to:
 Create the project folder:
 
 ```bash
-mkdir paraspell-teleport
-cd paraspell-teleport
+mkdir paraspell-transfer
+cd paraspell-transfer
 ```
 
 Initialize the JavaScript project:
@@ -58,7 +58,7 @@ Be sure to fund this account with some PAS tokens on Passeo's Asset Hub using th
 !!!note "Security Warning"
     Never commit your mnemonic phrase in production code. Use environment variables or secure key management systems.
 
-## Build a Teleport Transaction
+## Build a Token Transfer Transaction
 
 The next step is to build the transaction that you intend to execute.
 
@@ -150,16 +150,16 @@ bun run index.ts
 
 Your `teleport` function will submit the transaction, and you will get the following output:
 
---8<-- 'code/develop/toolkit/interoperability/paraspell/teleport-output.html'
+--8<-- 'code/develop/toolkit/interoperability/paraspell/transfer-output.html'
 
 Once the transaction is successfully included in a block, you will see the recipient's account balance updated, and you will receive output similar to the one below.
 
 ???- code "Successful Transaction Submission"
     This output will be returned once the transaction has been successfully included in a block.
 
-    --8<-- 'code/develop/toolkit/interoperability/paraspell/teleport-callback-output.html'
+    --8<-- 'code/develop/toolkit/interoperability/paraspell/transfer-callback-output.html'
 
-After executing the teleport, check the account balance on [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fsys.turboflakes.io%2Fasset-hub-paseo){target=\_blank} for [Paseo's Asset Hub](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fsys.turboflakes.io%2Fasset-hub-paseo#/accounts){target=\_blank} and [Paseo's People Chain](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fsys.ibp.network%2Fpeople-paseo#/accounts){target=\_blank}.
+After executing the transfer, check the account balance on [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fsys.turboflakes.io%2Fasset-hub-paseo){target=\_blank} for [Paseo's Asset Hub](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fsys.turboflakes.io%2Fasset-hub-paseo#/accounts){target=\_blank} and [Paseo's People Chain](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fsys.ibp.network%2Fpeople-paseo#/accounts){target=\_blank}.
 
 You should see:
 

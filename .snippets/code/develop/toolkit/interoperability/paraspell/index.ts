@@ -26,7 +26,7 @@ function getSigner() {
 const RECIPIENT_ADDRESS = ss58Address(getSigner().publicKey);
 const SENDER_ADDRESS = ss58Address(getSigner().publicKey);
 
-async function teleport() {
+async function transfer() {
   const signer = getSigner();
 
   const tx = await Builder()
@@ -45,7 +45,7 @@ async function teleport() {
   console.log(inspect(result, { colors: true, depth: null }));
 }
 
-async function dryRunTeleport() {
+async function dryRunTransfer() {
   if (!hasDryRunSupport('AssetHubPaseo')) {
     console.log('Dry run is not supported on AssetHubPaseo.');
     return;
@@ -65,7 +65,7 @@ async function dryRunTeleport() {
   console.log(inspect(tx, { colors: true, depth: null }));
 }
 
-dryRunTeleport();
+dryRunTransfer();
 
 async function verifyED() {
   const isValid = await Builder()
@@ -101,4 +101,4 @@ async function XcmTransferInfo() {
 
 XcmTransferInfo();
 
-teleport();
+transfer();

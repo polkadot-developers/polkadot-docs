@@ -66,7 +66,7 @@ Before running the script, you'll need to fork the Asset Hub locally using Chops
 chopsticks -c polkadot-asset-hub
 ```
 
-This command will fork the Asset Hub chain and make it available at `ws://localhost:8000`.
+This command forks the Asset Hub chain, making it available at `ws://localhost:8000`. By running `polkadot-asset-hub`, you're using the Asset Hub fork with the configuration specified in the [`polkadot-asset-hub.yml`](https://github.com/AcalaNetwork/chopsticks/blob/master/configs/polkadot-asset-hub.yml){target=_blank} file.  This configuration defines the Alice account with USDT assets. If you want to use a different chain, ensure the account you're using has the necessary assets.
 
 ## Implementation
 
@@ -77,7 +77,7 @@ Now let's implement the fee payment transaction step by step.
 Add the following imports to your `fee-payment-transaction.ts` file:
 
 ```typescript title="fee-payment-transaction.ts"
---8<-- "code/tutorials/interoperability/pay-tx-with-different-fees/fee-payment-transaction.ts:1:12"
+--8<-- "code/tutorials/polkadot-sdk/parachains/system-chains/asset-hub/send-tx-paying-fees-with-different-tokens/fee-payment-transaction.ts:1:12"
 ```
 
 ### Define Constants
@@ -85,7 +85,7 @@ Add the following imports to your `fee-payment-transaction.ts` file:
 Define the constants for your transaction:
 
 ```typescript title="fee-payment-transaction.ts"
---8<-- "code/tutorials/interoperability/pay-tx-with-different-fees/fee-payment-transaction.ts:14:16"
+--8<-- "code/tutorials/polkadot-sdk/parachains/system-chains/asset-hub/send-tx-paying-fees-with-different-tokens/fee-payment-transaction.ts:14:16"
 ```
 
 ### Create Signer
@@ -93,7 +93,7 @@ Define the constants for your transaction:
 Create a signer using Alice's development account:
 
 ```typescript title="fee-payment-transaction.ts"
---8<-- "code/tutorials/interoperability/pay-tx-with-different-fees/fee-payment-transaction.ts:18:29"
+--8<-- "code/tutorials/polkadot-sdk/parachains/system-chains/asset-hub/send-tx-paying-fees-with-different-tokens/fee-payment-transaction.ts:18:29"
 ```
 
 This function will return a signer that can be used to sign the transaction.
@@ -103,7 +103,7 @@ This function will return a signer that can be used to sign the transaction.
 Create the client connection to the local Asset Hub:
 
 ```typescript title="fee-payment-transaction.ts"
---8<-- "code/tutorials/interoperability/pay-tx-with-different-fees/fee-payment-transaction.ts:31:37"
+--8<-- "code/tutorials/polkadot-sdk/parachains/system-chains/asset-hub/send-tx-paying-fees-with-different-tokens/fee-payment-transaction.ts:31:37"
 ```
 
 ### Create the Transaction
@@ -111,7 +111,7 @@ Create the client connection to the local Asset Hub:
 Create a standard DOT transfer transaction:
 
 ```typescript title="fee-payment-transaction.ts"
---8<-- "code/tutorials/interoperability/pay-tx-with-different-fees/fee-payment-transaction.ts:39:42"
+--8<-- "code/tutorials/polkadot-sdk/parachains/system-chains/asset-hub/send-tx-paying-fees-with-different-tokens/fee-payment-transaction.ts:39:42"
 ```
 
 This creates a transaction that transfers 3 DOT to Bob's address while keeping Alice's account alive.
@@ -121,7 +121,7 @@ This creates a transaction that transfers 3 DOT to Bob's address while keeping A
 The key part of this tutorial is specifying an alternative asset for fee payment. This is done through the `asset` parameter in the `signAndSubmit` options:
 
 ```typescript title="fee-payment-transaction.ts"
---8<-- "code/tutorials/interoperability/pay-tx-with-different-fees/fee-payment-transaction.ts:44:69"
+--8<-- "code/tutorials/polkadot-sdk/parachains/system-chains/asset-hub/send-tx-paying-fees-with-different-tokens/fee-payment-transaction.ts:44:69"
 ```
 
 This specifies that the fees should be paid using the USDT asset.
@@ -133,28 +133,22 @@ The full code for the complete implementation is the following:
 ??? code "Complete Code"
 
     ```typescript title="fee-payment-transaction.ts"
-    --8<-- "code/tutorials/interoperability/pay-tx-with-different-fees/fee-payment-transaction.ts"
+    --8<-- "code/tutorials/polkadot-sdk/parachains/system-chains/asset-hub/send-tx-paying-fees-with-different-tokens/fee-payment-transaction.ts"
     ```
 
 ## Running the Script
 
-1. Make sure Chopsticks is running with the Asset Hub fork:
+To run the script:
 
-    ```bash
-    chopsticks -c polkadot-asset-hub
-    ```
-
-2. Run the script:
-
-    ```bash
-    npx ts-node fee-payment-transaction.ts
-    ```
+```bash
+npx ts-node fee-payment-transaction.ts
+```
 
 ## Expected Output
 
 When you run the script successfully, you should see output similar to:
 
---8<-- "code/tutorials/interoperability/pay-tx-with-different-fees/fee-payment-transaction-output.html"
+--8<-- "code/tutorials/polkadot-sdk/parachains/system-chains/asset-hub/send-tx-paying-fees-with-different-tokens/fee-payment-transaction-output.html"
 
 The key events to look for are:
 

@@ -42,7 +42,7 @@ bun init -y
 Install the required dependencies:
 
 ```bash
-bun add @paraspell/sdk polkadot-api @polkadot-labs/hdkd-helpers @polkadot-labs/hdkd
+bun add @paraspell/sdk@11.3.2 polkadot-api@1.17.1 @polkadot-labs/hdkd-helpers@0.0.25 @polkadot-labs/hdkd@0.0.24
 ```
 
 Now add the following setup code to `index.ts`:

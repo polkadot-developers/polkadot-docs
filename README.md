@@ -6,7 +6,7 @@ The documentation source files are written in [Markdown](https://daringfireball.
 
 ## Run Polkadot Docs Locally
 
-You may want to spin up a local version of the documentation site to preview your changes. This guide will cover the steps needed to serve a local version.
+Follow these steps to run the documentation site locally and preview your changes.
 
 ### Clone Repositories
 
@@ -40,23 +40,26 @@ To set up the structure, follow these steps:
     git clone https://github.com/polkadot-developers/polkadot-docs.git
     ```
 
+### Set Up Python Environment
+
+Navigate to the `polkadot-mkdocs` directory and create a Python virtual environment:
+
+```bash
+cd polkadot-mkdocs
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+pip install -r requirements.txt
+```
+
 ### Install Dependencies and Serve Site
 
-1. Now that the repositories are cloned and properly nested, use the [pip](https://pypi.org/project/pip/) package installer to install [mkdocs](https://www.mkdocs.org/) and other required dependencies by running the command:
+1. Install Node.js dependencies:
 
     ```bash
-    pip install -r requirements.txt
+    cd polkadot-docs && npm install && cd ..
     ```
 
-    This command will install all dependencies listed in the `requirements.txt` file.
-
-2. Switch to the `polkadot-docs` directory and use [npm](https://docs.npmjs.com/about-npm) to install dependencies:
-
-    ```bash
-    cd polkadot-docs && npm install
-    ```
-
-3. Navigate back to the `polkadot-mkdocs` folder, then build the site:
+2. Serve the site:
 
     ```bash
     mkdocs serve
@@ -64,9 +67,29 @@ To set up the structure, follow these steps:
 
 After a successful build, the site should be available at http://127.0.0.1:8000.
 
+### Deactivating the Virtual Environment
+
+When you're done working on the documentation, you can deactivate the virtual environment by running:
+
+```bash
+deactivate
+```
+
+### Next Time You Work on the Docs
+
+When you return to work on the documentation:
+
+1. Navigate to the `polkadot-mkdocs` directory
+2. Activate the virtual environment:
+   - macOS/Linux: `source venv/bin/activate`
+   - Windows: `venv\Scripts\activate`
+3. Run `mkdocs serve` to start the development server
+
 ## Contributing
 
 See [.CONTRIBUTING.md](./CONTRIBUTING.md) for how to contribute to this repository.
+
+We're excited to have you contribute to the **Polkadot Docs** and help improve our ecosystem! 🚀 Every contribution, whether it's fixing a typo, improving documentation, or adding new content, helps make Polkadot more accessible to developers worldwide. Thank you for being part of our community! 🙏✨
 
 ## Disclaimer
 

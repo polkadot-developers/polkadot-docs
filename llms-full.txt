@@ -3187,7 +3187,7 @@ For a hands-on walkthrough, see the companion tutorial: [XCM Observability in Ac
 
 ### What is `SetTopic`?
 
-When executing XCMs (via [`limited_reserve_transfer_assets`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/struct.Pallet.html#method.limited_reserve_transfer_assets){target=\_blank}, other extrinsics, or raw calls from the [`PolkadotXcm` pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/struct.Pallet.html){target=\_blank}), the runtime automatically appends a [`SetTopic([u8; 32])`](https://github.com/polkadot-fellows/xcm-format#settopic){target=\_blank} instruction if one is missing.
+When executing XCMs (via [`limited_reserve_transfer_assets`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/struct.Pallet.html#method.limited_reserve_transfer_assets){target=\_blank}, other extrinsics, or raw calls from the [`PolkadotXcm` pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/struct.Pallet.html){target=\_blank}) on system chains, the runtime automatically appends a [`SetTopic([u8; 32])`](https://github.com/polkadot-fellows/xcm-format#settopic){target=\_blank} instruction if one is missing.
 
 - **[`SetTopic([u8; 32])`](https://github.com/polkadot-fellows/xcm-format#settopic){target=\_blank}** is an XCM instruction that sets a 32-byte topic register inside the message.
 - The topic acts as a **logical identifier** (`message_id`) for the XCM, allowing you to group and trace related messages across chains.

@@ -256,7 +256,6 @@ def generate_llms_txt(config_path: str = "llms_config.json"):
 
     print(f"✅ llms.txt generated at: {out_path}")
     print(f"   Pages listed: {len(pages)}")
-    print(f"   Raw base:     {raw_base}")
 
 # --------------------------
 # Entrypoint

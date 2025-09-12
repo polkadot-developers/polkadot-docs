@@ -31,7 +31,7 @@ graph TD
   localData --> getmetrics[Get Metrics]
 ```
 
-The diagram shows the flow of data from the Substrate node to the monitoring and visualization components. The Substrate node exposes a telemetry stream, which is consumed by Prometheus. Prometheus is configured to collect data every minute and store it. Grafana is then used to visualize the data, allowing the user to open graphs and retrieve specifc metrics from the telemetry stream.
+The diagram shows the flow of data from the Substrate node to the monitoring and visualization components. The Substrate node exposes a telemetry stream, which is consumed by Prometheus. Prometheus is configured to collect data every minute and store it. Grafana is then used to visualize the data, allowing the user to open graphs and retrieve specific metrics from the telemetry stream.
 
 ## Visual Monitoring
 

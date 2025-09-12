@@ -164,38 +164,14 @@ def format_tutorials_section(pages: List[Dict[str, Any]], raw_base: str, project
         + "\n".join(tutorials)
     )
 
-def format_repos_section(repos: List[Dict[str, str]]) -> str:
-    if not repos:
-        return "No repositories available."
-    lines = [
-        "## Source Code Repos",
-        ("Frequently used source repositories for this project. Use them for API references, "
-         "code examples, and deeper implementation details.")
-    ]
-    for repo in repos:
-        lines.append(f"- [{repo['name']}]({repo['url']}): {repo['description']}")
-    return "\n".join(lines)
-
-def format_optional_section(resources: List[Dict[str, str]]) -> str:
-    if not resources:
-        return ""
-    lines = ["## Optional", "Additional resources:"]
-    for item in resources:
-        lines.append(f"- [{item['title']}]({item['url']}): {item['description']}")
-    return "\n".join(lines)
-
-def format_metadata_section(pages: List[Dict[str, Any]], sources_cfg: Dict[str, Any]) -> str:
+def format_metadata_section(pages: List[Dict[str, Any]]) -> str:
     categories = {cat for p in pages for cat in p["categories"]}
     tutorial_count = sum(1 for p in pages if any("tutorial" in c.lower() for c in p["categories"]))
-    repos_count = len(sources_cfg.get("repos", []))
-    optional_count = len(sources_cfg.get("optional_resources", []))
     return "\n".join([
         "## Metadata",
         f"- Documentation pages: {len(pages)}",
         f"- Categories: {len(categories)}",
         f"- Tutorials: {tutorial_count}",
-        f"- Source repositories: {repos_count}",
-        f"- Optional resources: {optional_count}",
         ""
     ])
 
@@ -210,7 +186,6 @@ def generate_llms_txt(config_path: str = "llms_config.json"):
     # Config pieces (v1.0 schema)
     project = config.get("project", {})
     repository = config.get("repository", {})
-    sources_cfg = config.get("sources", {})
     content_cfg = config.get("content", {})
 
     org = repository["org"]
@@ -238,14 +213,11 @@ def generate_llms_txt(config_path: str = "llms_config.json"):
         "## How to Use This File",
         ("This directory lists URLs for raw Markdown pages that complement the rendered pages on the documentation site. Use these Markdown files to retain semantic context when prompting models while avoiding passing HTML elements."),
         "",
-        format_metadata_section(pages, sources_cfg),
+        format_metadata_section(pages),
         format_docs_section(pages, raw_base, category_order),
         "",
-        format_repos_section(sources_cfg.get("repos", [])),
-        "",
         format_tutorials_section(pages, raw_base, project_name),
-        "",
-        format_optional_section(sources_cfg.get("optional_resources", [])),
+        ""
     ]
 
     # Output path (relative to repo root unless absolute)

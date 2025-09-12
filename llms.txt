@@ -9,8 +9,6 @@ This directory lists URLs for raw Markdown pages that complement the rendered pa
 - Documentation pages: 150
 - Categories: 13
 - Tutorials: 6
-- Source repositories: 0
-- Optional resources: 0
 
 ## Docs
 This section lists documentation pages by category. Each entry links to a raw markdown version of the page and includes a short description. A page may appear in multiple categories.
@@ -273,8 +271,6 @@ Docs: dApp
 - [Create a dApp With Viem](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/tutorials-smart-contracts-launch-your-first-project-create-dapp-viem.md): Learn how to build a decentralized application on Polkadot Hub using Viem and Next.js by creating a simple dApp that interacts with a smart contract.
 - [Test and Deploy with Hardhat](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/tutorials-smart-contracts-launch-your-first-project-test-and-deploy-with-hardhat.md): Learn how to set up a Hardhat development environment, write comprehensive tests for Solidity smart contracts, and deploy to local and Polkadot Hub networks.
 
-No repositories available.
-
 
 ## Tutorials
 Tutorials for building with Polkadot. These provide step-by-step instructions for real-world use cases and implementations.
@@ -284,4 +280,3 @@ Tutorials for building with Polkadot. These provide step-by-step instructions fo
 - [Fast Track a Governance Proposal](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/tutorials-onchain-governance-fast-track-gov-proposal.md): Learn how to fast-track governance proposals in Polkadot's OpenGov using Chopsticks. Simulate, test, and execute proposals confidently.
 - [Deploy an ERC-20 to Polkadot Hub](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/tutorials-smart-contracts-deploy-erc20.md): Deploy an ERC-20 token on Polkadot Hub using PolkaVM. This guide covers contract creation, compilation, deployment, and interaction via Polkadot Remix IDE.
 - [Deploy an NFT to Polkadot Hub](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/tutorials-smart-contracts-deploy-nft.md): Deploy an NFT on Polkadot Hub using PolkaVM and OpenZeppelin. Learn how to compile, deploy, and interact with your contract using Polkadot Remix IDE.
-

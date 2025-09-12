@@ -1,0 +1,29 @@
+<div id="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>python3 scripts/generate_llms.py</span>
+  <br />
+  <span data-ty>▶️  Generate AI pages</span>
+  <span data-ty>$ python3 /polkadot-mkdocs/polkadot-docs/scripts/generate_ai_pages.py</span>
+  <span data-ty>ai-pages] processed=150 skipped=0</span>
+  <span data-ty>ai-pages] output dir: /polkadot-mkdocs/polkadot-docs/.ai/pages</span>
+  <span data-ty>✅ Generate AI pages complete</span>
+  <span data-ty> </span>
+  <span data-ty>▶️  Generate llms.txt</span>
+  <span data-ty>$ python3 /polkadot-mkdocs/polkadot-docs/scripts/generate_llms_txt.py /polkadot-mkdocs/polkadot-docs/scripts/llms_config.json</span>
+  <span data-ty>✅ llms.txt generated at: /polkadot-mkdocs/polkadot-docs/llms.txt</span>
+  <span data-ty> Pages listed: 150</span>
+  <span data-ty>✅ Generate llms.txt complete</span>
+  <span data-ty> </span>
+  <span data-ty>▶️  Generate site-index and full site content files</span>
+  <span data-ty> python3 /polkadot-mkdocs/polkadot-docs/scripts/generate_site_index.py --config /polkadot-mkdocs/polkadot-docs/scripts/llms_config.json --token-estimator heuristic-v1</span>
+  <span data-ty>✅ site-index.json written: /polkadot-mkdocs/polkadot-docs/.ai/site-index.json  (pages=150)</span>
+  <span data-ty>✅ llms-full.jsonl written: /polkadot-mkdocs/polkadot-docs/.ai/llms-full.jsonl  (lines=1360)</span>
+  <span data-ty>✅ Generate site-index and full site content files complete</span>
+  <span data-ty> </span>
+  <span data-ty>▶️  Generate category bundles</span>
+  <span data-ty>$ python3 /polkadot-mkdocs/polkadot-docs/scripts/generate_category_bundles.py --config /polkadot-mkdocs/polkadot-docs/scripts/llms_config.json --format md --token-estimator heuristic-v1</span>
+  <span data-ty>✅ Category bundles written to: /polkadot-mkdocs/polkadot-docs/.ai/categories</span>
+  <span data-ty>✅ Generate category bundles complete</span>
+  <span data-ty> </span>
+  <span data-ty>🎉 All steps finished successfully.</span>
+  <span data-ty></span>
+</div>

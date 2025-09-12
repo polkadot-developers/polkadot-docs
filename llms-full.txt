@@ -17258,7 +17258,7 @@ description: A step-by-step guide to building, verifying, and executing a transf
 
 ## Introduction
 
-This guide walks you through transferring tokens between two Parachains—[Asset Hub](/polkadot-protocol/architecture/system-chains/asset-hub/){target=\_blank} and the [People Chain](/polkadot-protocol/architecture/system-chains/people/){target=\_blank}—using the [ParaSpell XCM SDK](https://paraspell.github.io/docs/){target=\_blank}.
+This guide walks you through transferring tokens between two parachains using the [ParaSpell XCM SDK](https://paraspell.github.io/docs/){target=\_blank}. This example uses [Asset Hub](/polkadot-protocol/architecture/system-chains/asset-hub/){target=\_blank} and the [People Chain](/polkadot-protocol/architecture/system-chains/people/){target=\_blank}, but the same approach applies to transfers between any parachain.
 
 For development purposes, this guide will use the [Paseo TestNet](/develop/networks/#paseo){target=\_blank}, so the token transfer will be from Paseo's Asset Hub to Paseo's People Chain.
 

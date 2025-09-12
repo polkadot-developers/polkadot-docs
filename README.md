@@ -12,9 +12,9 @@ Follow these steps to run the documentation site locally and preview your change
 
 Building and serving the site requires cloning two repositories:
 
-- **[Polkadot MkDocs](https://github.com/papermoonio/polkadot-mkdocs)**: Contains the MkDocs configuration files, theme overrides, and custom CSS for the Polkadot documentation site.
+- **[Polkadot MkDocs](https://github.com/papermoonio/polkadot-mkdocs)**: Contains the "engine" (MkDocs configuration, theme overrides, and custom CSS) for the Polkadot documentation site.
 
-- **[Polkadot Docs](https://github.com/polkadot-developers/polkadot-docs)**: The actual content is stored in the `polkadot-docs` repository and pulled into the `polkadot-mkdocs` directory during build.
+- **[Polkadot Docs](https://github.com/polkadot-developers/polkadot-docs)**: Contains the "content" (documentation pages, tutorials, and images) that gets built into the site.
 
 For everything to work correctly, the file structure needs to be as follows:
 
@@ -71,23 +71,14 @@ pip install -r requirements.txt
 
 After a successful build, the site should be available at http://127.0.0.1:8000.
 
-### Deactivating the Virtual Environment
+### Working with the Docs
 
-When you're done working on the documentation, you can deactivate the virtual environment by running:
+When you're done working, run `deactivate` to exit the virtual environment.
 
-```bash
-deactivate
-```
-
-### Next Time You Work on the Docs
-
-When you return to work on the documentation:
-
-1. Navigate to the `polkadot-mkdocs` directory
-2. Activate the virtual environment:
-   - macOS/Linux: `source venv/bin/activate`
-   - Windows: `venv\Scripts\activate`
-3. Run `mkdocs serve` to start the development server
+To work on the docs again:
+1. Navigate to `polkadot-mkdocs` 
+2. Activate the environment: `source venv/bin/activate` (Windows: `venv\Scripts\activate`)
+3. Run `mkdocs serve`
 
 ## Contributing
 

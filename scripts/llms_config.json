@@ -17,8 +17,6 @@
         "ai_artifacts_path": ".ai/pages"
     },
 
-    "llms_txt_output_path": "llms.txt",
-
     "content": {
         "docs_dir": ".",
         "base_context_categories": ["Basics", "Reference"],
@@ -48,24 +46,6 @@
             ],
             "skip_paths": [".snippets", ".github", "node_modules", "venv", ".ai", "scripts"],
             "frontmatter_flag": "ai_exclude"
-        },
-        "frontmatter_mappings": {
-            "title": ["title"],
-            "slug": ["slug"],
-            "summary": ["summary", "description"],
-            "categories": ["categories"],
-            "type": ["type", "page_type"],
-            "audience": ["audience", "level"],
-            "applies_to": ["applies_to", "scope"],
-            "entities": ["entities", "mentions"],
-            "answers": ["answers", "faq", "faqs"],
-            "related": ["related", "see_also", "see-also"]
-        },
-        "frontmatter_rules": {
-            "allowed_values": {
-                "type": ["concept", "guide", "tutorial", "reference", "faq"],
-                "audience": ["beginner", "intermediate", "advanced"]
-            }
         }
     },
 
@@ -73,52 +53,7 @@
         "public_root": "/.ai/",
         "files": {
             "llms_full": "llms-full.txt",
-            "topics": "topics.json",
-            "manifest": "manifest.json",
             "pages_dir": "pages"
         }
-    },
-
-    "sources": {
-        "repos": [
-            {
-                "name": "Polkadot SDK",
-                "url": "https://github.com/polkadot-developers/polkadot-sdk",
-                "description": "The core SDK for interacting with Polkadot."
-            },
-            {
-                "name": "Polkadot Runtimes",
-                "url": "https://github.com/polkadot-fellows/runtimes",
-                "description": "Runtimes for Polkadot and its system chains managed by the fellowship."
-            },
-            {
-                "name": "Polkadot Parachain Template",
-                "url": "https://github.com/paritytech/polkadot-sdk-parachain-template",
-                "description": "Template for building a Polkadot parachain."
-            },
-            {
-                "name": "Polkadot API Library",
-                "url": "https://github.com/polkadot-api/polkadot-api",
-                "description": "TypeScript library to interact with Polkadot."
-            }
-        ],
-        "optional_resources": [
-            {
-                "title": "Support: Get In Touch Directly",
-                "url": "https://docs.polkadot.com/get-support/get-in-touch/",
-                "description": "Options to get live technical support or ask questions."
-            },
-            {
-                "title": "Support: Ask the Community and Explore Resources",
-                "url": "https://docs.polkadot.com/get-support/explore-resources/",
-                "description": "Community channels and additional resources."
-            }
-        ]
-    },
-
-    "chunking_hint": {
-        "strategy": "by_heading",
-        "max_tokens": 1200,
-        "heading_level": 2
     }
 }

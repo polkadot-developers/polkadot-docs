@@ -11,14 +11,10 @@ Polkadot provides files to make documentation content available in a structure o
 
 ## How to Use These Files
 
-- **Full site content**: Multiple options are available for sharing full site content with LLMs.
-    - **`llms.txt`**: Compact site index including a URL index for Markdown versions of individual pages, links to essential source code, and additional resources. Best for providing a high-level map of the site.
-    - **`site-index.json`**: Lightweight site index of one JSON object per page with metadata, heading outline, and content preview. Best suited for smaller context windows, allowing the model to retrieve only what is needed to answer the user's request.
-    - **`llms-full.jsonl`**: Full content of documentation site enhanced with metadata. Best for models with either large context windows or built-in indexing functionality. Also helpful for chunking and embedding for RAG-based applications.
-
-- **Category bundles**: These files group pages together around specific topics, tools, or tasks.
-    - Each category file includes foundational content from the **Basics** and **Reference** categories to ensure essential context. 
-    - Best for limiting content to a specific theme or task to allow a model to create more focused responses.
+- **Quick navigation**: Use `llms.txt` to give models a high-level map of the site.
+- **Lightweight context**: Use `site-index.json` for smaller context windows or when you only need targeted retrieval.
+- **Full content**: Use `llms-full.jsonl` for large-context models or preparing data for RAG pipelines.
+- **Focused bundles**: Use category files (e.g., `basics.bundle.md`, `parachains.bundle.md`) to limit content to a specific theme or task for more focused responses.
 
 These AI-ready files do not include any persona or system prompts. They are purely informational and can be used without conflicting with your existing agent or tool prompting. 
 
@@ -27,7 +23,7 @@ These AI-ready files do not include any persona or system prompts. They are pure
 | Category                   | Description                                                                                                                                         | File                          | Actions                                                                                                                                                                                                                         |
 |----------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `llms.txt`                 | Markdown URL index for documentation pages, links to essential repos, and additional resources in the llms.txt standard format.                     | `llms.txt`                    | [:octicons-copy-16:](){ .llms-copy data-path="/llms.txt" } [:octicons-download-16:](){ .llms-dl data-path="/llms.txt" data-filename="llms.txt" }                                                                                |
-| Site index (JSON)          | Lightweight site index of one JSON object per page with metadata and content previews.                                                             | `site-index.json`             | [:octicons-copy-16:](){ .llms-copy data-path="/site-index.json" } [:octicons-download-16:](){ .llms-dl data-path="/site-index.json" data-filename="site-index.json" }                                                           |
+| Site index (JSON)          | Lightweight site index of JSON objects (one per page) with metadata and content previews.                                                             | `site-index.json`             | [:octicons-copy-16:](){ .llms-copy data-path="/site-index.json" } [:octicons-download-16:](){ .llms-dl data-path="/site-index.json" data-filename="site-index.json" }                                                           |
 | Full site contents (JSONL) | Full content of documentation site enhanced with metadata.                                                                                          | `llms-full.jsonl`             | [:octicons-copy-16:](){ .llms-copy data-path="/llms-full.jsonl" } [:octicons-download-16:](){ .llms-dl data-path="/llms-full.jsonl" data-filename="llms-full.jsonl" }                                                           |
 | Basics                     | Polkadot general knowledge base to provide context around overview and beginner-level content.                                                      | `basics.bundle.md`            | [:octicons-copy-16:](){ .llms-copy data-path="/categories/basics.bundle.md" } [:octicons-download-16:](){ .llms-dl data-path="/categories/basics.bundle.md" data-filename="basics.bundle.md" }                                  |
 | Reference                  | Reference material including key functions and glossary.                                                                                            | `reference.bundle.md`         | [:octicons-copy-16:](){ .llms-copy data-path="/categories/reference.bundle.md" } [:octicons-download-16:](){ .llms-dl data-path="/categories/reference.bundle.md" data-filename="reference.bundle.md" }                         |

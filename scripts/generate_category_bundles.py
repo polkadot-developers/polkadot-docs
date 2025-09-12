@@ -373,7 +373,7 @@ def build_category_bundles(config_path: str, fmt: str, dry_run: bool, limit: int
                 if fmt in ("jsonl", "all"):
                     write_jsonl(out_root / f"{cat_slug}.bundle.jsonl", pages_out, raw_base, token_estimator, page_tokens)
                 if fmt in ("md", "all"):
-                    write_markdown(out_root / f"{cat_slug}.bundle.md", cat, False, base_cats, pages_out, raw_base)
+                    write_markdown(out_root / f"{cat_slug}.md", cat, False, base_cats, pages_out, raw_base)
             continue
 
         # Non-base category: include base union + this category's pages (dedup)
@@ -390,7 +390,7 @@ def build_category_bundles(config_path: str, fmt: str, dry_run: bool, limit: int
             if fmt in ("jsonl", "all"):
                 write_jsonl(out_root / f"{cat_slug}.bundle.jsonl", pages_out, raw_base, token_estimator, page_tokens)
             if fmt in ("md", "all"):
-                write_markdown(out_root / f"{cat_slug}.bundle.md", cat, True, base_cats, pages_out, raw_base)
+                write_markdown(out_root / f"{cat_slug}.md", cat, True, base_cats, pages_out, raw_base)
 
     if dry_run:
         print("[dry-run] No files were written.")

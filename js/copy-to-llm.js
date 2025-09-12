@@ -9,7 +9,7 @@
 
   // TODO: use as example for context to add to 'copy for AI'
   // code block dropdown in future iterations
-  
+
   /* This is not needed because we will use resolved
   markdown files from /.ai/pages with code blocks
   in place and formatted correctly 
@@ -492,7 +492,7 @@ adjustments in place
     return match ? match[1] : null;
   }
 
-  // Add copy buttons to article sections
+  // Add copy page dropdown menu element next to H1 titles
   function addSectionCopyButtons() {
     // Only add to the main h1 title
     const mainTitle = document.querySelector('.md-content h1');

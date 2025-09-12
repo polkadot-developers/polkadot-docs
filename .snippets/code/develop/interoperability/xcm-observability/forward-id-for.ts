@@ -1,22 +1,22 @@
-import {blake2AsU8a} from "@polkadot/util-crypto";
-import {hexToU8a, stringToU8a, u8aConcat, u8aToHex} from "@polkadot/util";
+import {blake2b} from "@noble/hashes/blake2";
+import {fromHex, mergeUint8, toHex} from "@polkadot-api/utils";
+import {Binary} from "polkadot-api";
 
 function forwardIdFor(originalMessageId: string): string {
     // Decode the hex original_id into bytes
-    const messageIdBytes = hexToU8a(originalMessageId);
+    const messageIdBytes = fromHex(originalMessageId);
 
     // Create prefixed input: b"forward_id_for" + original_id
-    const prefix = stringToU8a("forward_id_for");
-    const input = u8aConcat(prefix, messageIdBytes);
+    const prefix = Binary.fromText("forward_id_for").asBytes();
+    const input = mergeUint8([prefix, messageIdBytes]);
 
-    // Hash it using blake2_256
-    const forwardedIdBytes = blake2AsU8a(input);
-
+    // Hash it using blake2b with 32-byte output
+    const forwardedIdBytes = blake2b(input, {dkLen: 32});
     // Convert to hex
-    return u8aToHex(forwardedIdBytes);
+    return toHex(forwardedIdBytes);
 }
 
-// Example: Forwarded ID from a original_id
+// Example: Forwarded ID from an original_id
 const originalMessageId = "0x5c082b4750ee8c34986eb22ce6e345bad2360f3682cda3e99de94b0d9970cb3e";
 
 // Create the forwarded ID

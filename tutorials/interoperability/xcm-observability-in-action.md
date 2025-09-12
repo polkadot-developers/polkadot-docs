@@ -86,7 +86,8 @@ If you're new to replay or dry-run XCMs, see [Replay and Dry Run XCMs Using Chop
 
     ```bash
     npm install --save-dev typescript @types/node tsx
-    npm install polkadot-api @polkadot-labs/hdkd @polkadot-labs/hdkd-helpers
+    npm install  polkadot-api @polkadot-labs/hdkd @polkadot-labs/hdkd-helpers
+    npm install @noble/hashes
     ```
 
 9. Initialise TypeScript:

@@ -1,23 +1,20 @@
-## Description
+## 📝 Description
 
 Provide a clear and concise description of your changes.
 
-## Review Process Preference
+## 🔍 Review Preference
 
-Select your preference for the review process:
+Choose one:
+- [ ] ✅ I have time to handle formatting/style feedback myself 
+- [ ] ⚡ Docs team handles formatting (check "Allow edits from maintainers")  
 
-- [ ] I have time to handle formatting and style review feedback myself
-- [ ] Please have the Polkadot Docs team take over for formatting review to expedite the process (you must also check "Allow edits from maintainers" at the bottom of this page)
+## 🤖 AI Docs
 
-## Checklist
+If content changed, regenerate AI files:
+- [ ] ✅ I ran `python3 scripts/generate_llms.py`  
+- [ ] ⚡ Docs team will regenerate (check "Allow edits from maintainers")  
 
-Before submitting this PR, please verify:
+## ✅ Checklist
 
-- [ ] I have tested my changes locally
-- [ ] I have followed the [PaperMoon Documentation Style Guide](https://github.com/papermoonio/documentation-style-guide) (required)
-- [ ] I have run `python3 scripts/generate_llms.py` to update AI documentation files (if applicable)
-
-**For content with images:**
-
-- [ ] Images are in `.webp` format
-- [ ] Images follow size requirements (1512px width for desktop screenshots, 400x600px for browser extensions)
+- [ ] Changes tested  
+- [ ] [PaperMoon Style Guide](https://github.com/papermoonio/documentation-style-guide) followed  

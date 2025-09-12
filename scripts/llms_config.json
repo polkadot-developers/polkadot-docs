@@ -44,7 +44,7 @@
                 "terms-of-use.md",
                 "privacy-policy.md"
             ],
-            "skip_paths": [".snippets", ".github", "node_modules", "venv", ".ai", "scripts"],
+            "skip_paths": [".snippets", ".github", ".ai"],
             "frontmatter_flag": "ai_exclude"
         }
     },
@@ -52,7 +52,7 @@
     "outputs": {
         "public_root": "/.ai/",
         "files": {
-            "llms_full": "llms-full.txt",
+            "llms_full": "llms-full.jsonl",
             "pages_dir": "pages"
         }
     }

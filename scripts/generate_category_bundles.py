@@ -40,7 +40,7 @@ Outputs (written under /.ai/categories/):
     # One JSON object per line, INCLUDING full page content
     {"title":"…","slug":"…","html_url":"…","raw_md_url":"…","categories":[…],"description":"…","estimated_token_count":210,"token_estimator":"heuristic-v1","content":"<full markdown>"}
 
-  - <category-slug>.bundle.md       (when --format md/all)
+  - <category-slug>.md       (when --format md/all)
     # A single concatenated Markdown file with page boundaries and titles
 
 Usage:

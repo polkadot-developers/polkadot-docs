@@ -12,7 +12,7 @@
         "host": "github",
         "org": "polkadot-developers",
         "repo": "polkadot-docs",
-        "default_branch": "dawn/improved-llms",
+        "default_branch": "master",
         "docs_path": ".",
         "ai_artifacts_path": ".ai/pages"
     },

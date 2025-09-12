@@ -3192,7 +3192,7 @@ When executing XCMs (via [`limited_reserve_transfer_assets`](https://paritytech.
 - **[`SetTopic([u8; 32])`](https://github.com/polkadot-fellows/xcm-format#settopic){target=\_blank}** is an XCM instruction that sets a 32-byte topic register inside the message.
 - The topic acts as a **logical identifier** (`message_id`) for the XCM, allowing you to group and trace related messages across chains.
 
-> ⚠️ **Note:** The topic is **not guaranteed to be unique**. If uniqueness is required (e.g. for deduplication), it must be enforced by the message creator.
+⚠️ **Note:** When using [`WithUniqueTopic`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_builder/struct.WithUniqueTopic.html){target=\_blank}, the topic ID is guaranteed to be unique if `WithUniqueTopic` automatically appends the `SetTopic` instruction. However, if the message already includes a `SetTopic` instruction, the uniqueness of the ID depends on the message creator and is not guaranteed.
 
 ### Observability Features
 

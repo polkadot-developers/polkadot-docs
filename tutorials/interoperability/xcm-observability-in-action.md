@@ -131,7 +131,7 @@ Follow these steps to complete the implicit `SetTopic` flow:
 
 ### Forwarded XCM Example
 
-The runtime adds a `SetTopic` to the forwarded XCM automatically:
+The following example illustrates the runtime adding a `SetTopic` to the forwarded XCM automatically:
 
 --8<-- 'code/tutorials/interoperability/xcm-observability-in-action/forwarded-xcm.html'
 
@@ -168,84 +168,84 @@ Follow these steps to complete the manual `SetTopic` flow:
     npx tsx deposit-reserve-asset-with-set-topic.ts
     ```
 
+3. You will see terminal output similar to the following:
+
+    --8<-- 'code/tutorials/interoperability/xcm-observability-in-action/deposit-reserve-asset-with-set-topic-result.html'
+
 ### Forwarded XCM Example
 
-Your manual `SetTopic` is preserved by the runtime:
+The following example illustrates that the runtime preserves the manual `SetTopic` value:
 
 --8<-- 'code/tutorials/interoperability/xcm-observability-in-action/forwarded-xcm-custom-topic.html'
 
-### Message Trace Output
+## Multi-hop XCM Transfer with Manual `SetTopic`
 
---8<-- 'code/tutorials/interoperability/xcm-observability-in-action/deposit-reserve-asset-with-set-topic-result.html'
+Assume the following values for this scenario:
 
-## Scenario 3: Multi-hop XCM Transfer with Manual `SetTopic`
+- **Origin**: Polkadot Hub
+- **Destination**: Hydration
+- **Topic**: Manually assigned and preserved over multiple hops (including remote XCMs)
+- **Goal**: Enable consistent tracing across multi-hop XCM flows
 
-### Overview
+Follow these steps to complete the multi-hop manual `SetTopic` flow:
 
-- **Origin:** Polkadot Hub
-- **Destination:** Hydration
-- **Topic:** Manually assigned and preserved over multiple hops (including remote XCMs)
-- **Goal:** Enable consistent tracing across multi-hop XCM flows
+1. Create a new file named `initiate-reserve-withdraw-with-set-topic.ts` and add the following code:
 
-### Run the Script
+    ```ts
+    --8<-- 'code/tutorials/interoperability/xcm-observability-in-action/initiate-reserve-withdraw-with-set-topic.ts'
+    ```
 
-Create and run `initiate-reserve-withdraw-with-set-topic.ts`:
+2. Run your script with the following command: 
 
-```ts
---8<-- 'code/tutorials/interoperability/xcm-observability-in-action/initiate-reserve-withdraw-with-set-topic.ts'
-```
+    ```bash
+    npx tsx initiate-reserve-withdraw-with-set-topic.ts
+    ```
 
-```bash
-npx tsx initiate-reserve-withdraw-with-set-topic.ts
-```
+3. You will see terminal output similar to the following. Note, the same `message_id` is present in all relevant events across chains:
+
+    --8<-- 'code/tutorials/interoperability/xcm-observability-in-action/initiate-reserve-withdraw-with-set-topic-result.html'
 
 ### Forwarded XCM Example (Hydration)
 
-The runtime preserves your `SetTopic` throughout the multi-hop flow:
+The following example illustrates how runtime preserves your `SetTopic` throughout the multi-hop flow:
 
 --8<-- 'code/tutorials/interoperability/xcm-observability-in-action/forwarded-xcm-remote-topic.html'
 
-### End-to-End Message Trace Output
+## Script Troubleshooting Tips
 
-The same `message_id` is present in all relevant events across chains:
+### Error: "Processed Message ID is `undefined`"
 
---8<-- 'code/tutorials/interoperability/xcm-observability-in-action/initiate-reserve-withdraw-with-set-topic-result.html'
-
-## Troubleshooting on Running Scripts
-
-### Processed Message ID is `undefined`
-
-If you see the following error when running a script:
+This error usually means that the message has not yet been processed within the default retry window. If you see the following error when running a script:
 
 > ❌ Processed Message ID on Hydration is undefined. Try increasing MAX_RETRIES to wait for block finalisation.
 
-This usually means that the message has not yet been processed within the default retry window.
-
-Increase the `MAX_RETRIES` value in your script to give the chain more time:
+Update your script to increase the `MAX_RETRIES` value to give the chain more time:
 
 ```ts
 const MAX_RETRIES = 8; // Number of attempts to wait for block finalisation
 ```
 
-### `PolkadotXcm.Sent` Event Not Found
+### Error: `PolkadotXcm.Sent` Event Not Found
 
-If you encounter an error indicating that `PolkadotXcm.Sent` is unavailable:
+If you encounter an error indicating that `PolkadotXcm.Sent` is unavailable, like the following:
 
 > ⚠️ PolkadotXcm.Sent is only available in runtimes built from stable2503-5 or later.
 
-Ensure that `wasm-override` is updated to runtime version 1.6.0+, or to any runtime built from `stable2503-5` or later.
+This error usually means that your runtime needs to be updated. Ensure that `wasm-override` is updated to runtime version 1.6.0+, or to any runtime built from `stable2503-5` or later.
 
 For details on updating your workspace, see [Setting Up Your Workspace](#setting-up-your-workspace).
 
-## Summary
+## Conclusion
 
-This guide demonstrated:
+Congratulations! By completing this guide, you should now understand:
 
-- How `SetTopic` and `message_id` enable tracing and correlating XCMs across chains
-- How to interpret and debug XCM failure cases
-- How to manually and automatically manage topics for multi-hop flows
-- The legacy workaround for older runtimes with derived IDs
+- How `SetTopic` and `message_id` enable tracing and correlating XCMs across chains.
+- How to interpret and debug XCM failure cases.
+- How to manually and automatically manage topics for multi-hop flows.
+- How to use the legacy workaround for older runtimes with derived IDs.
 
 With these scenarios and debugging steps, you can confidently develop, trace, and troubleshoot XCM workflows across chains.
 
-To learn more before you begin, see the companion page: [XCM Observability](/develop/interoperability/xcm-observability){target=\_blank}.
+## Additional Resources
+
+To learn more about XCM Observability features and best practices, see [XCM Observability](/develop/interoperability/xcm-observability){target=\_blank}.

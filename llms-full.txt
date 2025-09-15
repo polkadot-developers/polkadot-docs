@@ -27,6 +27,7 @@ Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/re
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/interoperability/xcm-guides/from-apps/transact.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/interoperability/xcm-guides/from-apps/transfers.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/interoperability/xcm-guides/index.md
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/interoperability/xcm-observability.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/interoperability/xcm-runtime-apis.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/networks.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/parachains/customize-parachain/add-existing-pallets.md
@@ -183,6 +184,7 @@ Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/re
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/interoperability/xcm-channels/para-to-para.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/interoperability/xcm-channels/para-to-system.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/interoperability/xcm-fee-estimation.md
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/interoperability/xcm-observability-in-action.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/interoperability/xcm-transfers/from-relaychain-to-parachain.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/interoperability/xcm-transfers/index.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/onchain-governance/fast-track-gov-proposal.md
@@ -3155,6 +3157,208 @@ Whether you're building applications that need to interact with multiple chains,
     </a>
   </div>
 </div>
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/develop/interoperability/xcm-observability/
+--- BEGIN CONTENT ---
+---
+title: XCM Observability
+description: A conceptual overview of XCM observability in Polkadot, covering message correlation, tracing, and debugging features in modern runtimes.
+---
+
+# XCM Observability
+
+## Introduction
+
+Cross-Consensus Messaging (XCM) powers interoperability across the Polkadot ecosystem, but tracing and debugging these flows across multiple chains is challenging.
+
+This guide introduces the observability features in modern Polkadot runtimes and the Polkadot SDK that make XCMs easier to trace and debug.
+
+You'll learn how to:
+
+- Use the [`SetTopic([u8; 32])`](https://github.com/polkadot-fellows/xcm-format#settopic){target=\_blank} instruction and `message_id` to track XCMs across chains
+- Correlate messages through [`PolkadotXcm.Sent`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/enum.Event.html#variant.Sent){target=\_blank} and [`MessageQueue.Processed`](https://paritytech.github.io/polkadot-sdk/master/pallet_message_queue/pallet/enum.Event.html#variant.Processed){target=\_blank} events
+- Apply derived message ID workarounds for older runtimes
+- Diagnose failed or incomplete XCMs with indexers and Chopsticks replay
+
+For a hands-on walkthrough, see the companion tutorial: [XCM Observability in Action](/tutorials/interoperability/xcm-observability-in-action){target=\_blank}.
+
+## Core Concepts
+
+### What is `SetTopic`?
+
+When executing XCMs (via [`limited_reserve_transfer_assets`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/struct.Pallet.html#method.limited_reserve_transfer_assets){target=\_blank}, other extrinsics, or raw calls from the [`PolkadotXcm` pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/struct.Pallet.html){target=\_blank}) on system chains, the runtime automatically appends a [`SetTopic([u8; 32])`](https://github.com/polkadot-fellows/xcm-format#settopic){target=\_blank} instruction if one is missing.
+
+- **[`SetTopic([u8; 32])`](https://github.com/polkadot-fellows/xcm-format#settopic){target=\_blank}** is an XCM instruction that sets a 32-byte topic register inside the message.
+- The topic acts as a **logical identifier** (`message_id`) for the XCM, allowing you to group and trace related messages across chains.
+
+⚠️ **Note:** When using [`WithUniqueTopic`](https://paritytech.github.io/polkadot-sdk/master/staging_xcm_builder/struct.WithUniqueTopic.html){target=\_blank}, the topic ID is guaranteed to be unique if `WithUniqueTopic` automatically appends the `SetTopic` instruction. However, if the message already includes a `SetTopic` instruction, the uniqueness of the ID depends on the message creator and is not guaranteed.
+
+### Observability Features
+
+Runtimes built from **`stable2503-5` or later** provide key observability features for tracing and correlating XCMs across chains:
+
+- **[`PolkadotXcm.Sent`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/enum.Event.html#variant.Sent){target=\_blank}** emitted on the origin chain when an XCM is sent.
+- **[`MessageQueue.Processed`](https://paritytech.github.io/polkadot-sdk/master/pallet_message_queue/pallet/enum.Event.html#variant.Processed){target=\_blank}** emitted on the destination chain when the XCM is processed.
+- The **`message_id` in the `Sent` event matches the `id` in the `Processed` event**, enabling reliable cross-chain correlation. This `message_id` is derived from the `SetTopic` instruction.
+
+| Chain Role        | Event                    | Field        | Purpose                            |
+|-------------------|--------------------------|--------------|------------------------------------|
+| Origin chain      | `PolkadotXcm.Sent`       | `message_id` | Identifies the sent XCM            |
+| Destination chain | `MessageQueue.Processed` | `id`         | Confirms processing of the message |
+
+Matching these IDs lets you **correlate** an origin message with its destination processing.
+
+### Why Not `XcmpQueue.XcmpMessageSent`?
+
+- The event [`XcmpQueue.XcmpMessageSent`](https://paritytech.github.io/polkadot-sdk/master/cumulus_pallet_xcmp_queue/pallet/enum.Event.html#variant.XcmpMessageSent){target=\_blank} contains a `message_hash` unrelated to `SetTopic`.
+- It is **not reliable for cross-chain tracing** and should be avoided for observability purposes.
+
+### Automatic vs Manual `SetTopic`
+
+- The runtime **automatically appends a `SetTopic` instruction** if one is missing at the end of an XCM.
+- When using high-level extrinsics such as `limited_reserve_transfer_assets`, **you do not need to set a topic manually**; the runtime handles it for you.
+- If you **manually craft an XCM** (e.g., via [`execute`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/struct.Pallet.html#method.execute){target=\_blank} or [`send`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/struct.Pallet.html#method.send){target=\_blank}), you **can supply your own `SetTopic`**, but it **must be the final instruction** to be respected.
+- In **multi-hop XCM flows**, manually setting the topic ensures **consistent tracing across all hops**. Any **remote XCM calls** embedded inside the XCM must also include a `SetTopic` at the end to preserve the same `message_id` throughout the cross-chain flow.
+
+## Message Lifecycle
+
+Here is a high-level overview of an XCM lifecycle with observability events:
+
+```mermaid
+flowchart TD
+    subgraph Origin["Origin Chain"]
+        direction LR
+        A["User submits extrinsic"] --> B["Appends SetTopic if missing"]
+        B --> C["XCM forwarded to destination"]
+        C --> D["Sends XCM"]
+        D --> E["PolkadotXcm.Sent emitted with message_id"]
+    end
+
+    subgraph Destination["Destination Chain"]
+        direction LR
+        F["Process message payload"] --> G["MessageQueue.Processed emitted with matching id"]
+        G --> H["Success/failure logged; further hops if any"]
+    end
+
+   Origin --> Destination
+```
+
+* The `SetTopic` ensures a consistent `message_id` is passed and visible in these events.
+* For multi-hop flows, the same `message_id` travels through all chains.
+
+## Workaround for Older Runtimes
+
+* Runtimes prior to **`stable2503-5`** emit a **derived `forwarded_id`** instead of the original topic in downstream `Processed` events.
+* The forwarded ID is calculated as:
+
+```rust
+fn forward_id_for(original_id: &XcmHash) -> XcmHash { 
+    (b"forward_id_for", original_id).using_encoded(sp_io::hashing::blake2_256)
+}
+```
+
+### Example
+
+| Original `message_id` | Forwarded `message_id`                                        |
+|-----------------------|---------------------------------------------------------------|
+| `0x5c082b47...`       | `0xb3ae32fd...` == blake2_256("forward_id_for" + original_id) |
+
+Tools and indexers tracing messages across mixed runtime versions should check **both** the original and forwarded IDs.
+
+```ts
+import {blake2b} from "@noble/hashes/blake2";
+import {fromHex, mergeUint8, toHex} from "@polkadot-api/utils";
+import {Binary} from "polkadot-api";
+
+function forwardIdFor(originalMessageId: string): string {
+    // Decode the hex original_id into bytes
+    const messageIdBytes = fromHex(originalMessageId);
+
+    // Create prefixed input: b"forward_id_for" + original_id
+    const prefix = Binary.fromText("forward_id_for").asBytes();
+    const input = mergeUint8([prefix, messageIdBytes]);
+
+    // Hash it using blake2b with 32-byte output
+    const forwardedIdBytes = blake2b(input, {dkLen: 32});
+    // Convert to hex
+    return toHex(forwardedIdBytes);
+}
+
+// Example: Forwarded ID from an original_id
+const originalMessageId = "0x5c082b4750ee8c34986eb22ce6e345bad2360f3682cda3e99de94b0d9970cb3e";
+
+// Create the forwarded ID
+const forwardedIdHex = forwardIdFor(originalMessageId);
+
+console.log("🔄 Forwarded ID:", forwardedIdHex);
+
+const expectedForwardedId = "0xb3ae32fd2e2f798e8215865a8950d19df8330843608d4ee44e9f86849029724a";
+if (forwardedIdHex === expectedForwardedId) {
+    console.log("✅ Forwarded ID matches expected value.");
+} else {
+    console.error("❌ Forwarded ID does not match expected value.");
+}
+```
+
+## Failure Event Handling
+
+When an XCM fails, the transaction **rolls back** and no explicit failure event is emitted on-chain.
+
+### How to Detect Failures
+
+1. **View Nested Dispatch Errors via Indexers**
+
+   Most indexers display nested errors indicating why an XCM failed, e.g.:
+
+   <div class="termynal" data-termynal>
+  <pre data-ty>
+"error": {
+  "type": "Module",
+  "value": {
+    "type": "PolkadotXcm",
+    "value": {
+      "type": "LocalExecutionIncompleteWithError",
+      "value": {
+        "index": 0,
+        "error": {
+          "type": "FailedToTransactAsset"
+        }
+      }
+    }
+  }
+}
+  </pre>
+</div>
+
+   Common errors include missing assets, exceeded execution limits, or invalid asset locations. This nested error reporting, introduced in runtimes from **`stable2506` onward**, usually suffices to diagnose typical issues.
+
+2. **Replay Using Chopsticks for Full Logs**
+
+   For detailed troubleshooting:
+
+    - Replay the failing extrinsic with logging enabled
+    - See exactly which instruction failed and why
+    - View complete error chains like `FailedToTransactAsset` or `AssetNotFound`
+
+   This approach is invaluable for multi-hop flows and complex custom XCMs.
+
+### Recommended Debugging Workflow
+
+1. Start with indexer or API error output
+2. If unclear, use Chopsticks to replay the exact transaction
+3. Inspect logs for the failing XCM instruction and reason
+4. Adjust weight limits, asset locations, or message construction as needed
+
+→ See [Replay and Dry Run XCMs Using Chopsticks](/tutorials/interoperability/replay-and-dry-run-xcms/){target=\_blank} for replay instructions.
+
+## Best Practices
+
+- When manually setting `SetTopic`, **always place it as the final instruction** in your XCM to ensure it is respected by the runtime.
+- Prefer **automatic topic insertion** via high-level extrinsics for simplicity.
+- If your use case involves multi-hop or custom XCMs, **manually set `SetTopic`** (including remote XCM calls) to guarantee consistent tracing.
+- Ensure your `message_id` values are unique **if** you require deduplication or strict correlation.
+- When supporting legacy runtimes, be aware of the `forward_id_for` pattern.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/interoperability/xcm-runtime-apis/
@@ -30864,6 +31068,1087 @@ Ready to submit!
 This approach provides accurate fee estimation for XCM teleports from Asset Hub to Bridge Hub Chain by properly simulating execution on both chains and utilizing dedicated runtime APIs for fee calculation. The fee breakdown helps you understand the cost structure of reverse cross-chain operations (parachain → bridge hub chain) and ensures your transactions have sufficient funds to complete successfully.
 
 The key insight is understanding how asset references change based on the perspective of each chain in the XCM ecosystem, which is crucial for proper fee estimation and XCM construction.
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/tutorials/interoperability/xcm-observability-in-action/
+--- BEGIN CONTENT ---
+---
+title: XCM Observability in Action
+description: A hands-on guide to tracing, correlating, and debugging cross-chain XCMs using observability tools in the Polkadot SDK.
+---
+
+# XCM Observability in Action
+
+## Introduction
+
+Cross-Consensus Messaging (XCM) powers interoperability in the Polkadot ecosystem, but tracing flows across multiple chains is challenging in practice.
+
+This tutorial walks through a **hands-on scenario**: sending assets between parachains and tracing the resulting XCM across origin and destination chains. Along the way, you will:
+
+- Capture `message_id` and [`SetTopic([u8; 32])`](https://github.com/polkadot-fellows/xcm-format#settopic){target=\_blank} for tracking
+- Correlate [`PolkadotXcm.Sent`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/enum.Event.html#variant.Sent){target=\_blank} and [`MessageQueue.Processed`](https://paritytech.github.io/polkadot-sdk/master/pallet_message_queue/pallet/enum.Event.html#variant.Processed){target=\_blank} events across chains
+- Apply manual topic tagging for custom multi-hop flows
+
+For background concepts and best practices, see the companion page: [XCM Observability](/develop/interoperability/xcm-observability){target=\_blank}.
+
+## Prerequisites
+
+Before you begin, make sure you've:
+
+- [Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/){target=\_blank} installed
+- Access to local or remote parachain endpoints
+- An origin chain running runtime **`stable2503-5`** or later
+- A TypeScript development environment with essential tools
+- Familiarity with replaying or dry-running XCMs
+
+If you're new to replay or dry-run XCMs, see [Replay and Dry Run XCMs Using Chopsticks](/tutorials/interoperability/replay-and-dry-run-xcms/){target=\_blank}.
+
+## Setting Up Your Workspace
+
+1. Create a project directory:
+
+    ```bash
+    mkdir -p xcm-obs-demo && cd xcm-obs-demo
+    ```
+
+2. Install Chopsticks globally:
+
+    ```bash
+    npm install -g @acala-network/chopsticks@latest
+    ```
+
+3. Download 1.6.0 runtime, which is built from **`stable2503-5` or later**:
+
+    ```bash
+    mkdir -p wasms
+    wget https://github.com/polkadot-fellows/runtimes/releases/download/v1.6.0/asset-hub-polkadot_runtime-v1006000.compact.compressed.wasm -O wasms/asset-hub-polkadot_v1.6.0.wasm
+    ```
+
+4. Download config of Polkadot Hub:
+
+    ```bash
+    mkdir -p configs
+    wget https://raw.githubusercontent.com/AcalaNetwork/chopsticks/master/configs/polkadot-asset-hub.yml -O configs/polkadot-hub-override.yaml
+    ```
+
+5. Edit `configs/polkadot-hub-override.yaml` to include:
+
+    ```yaml title="configs/polkadot-hub-override.yaml"
+    ...
+    db: ./db.sqlite
+    wasm-override: wasms/asset-hub-polkadot_v1.6.0.wasm
+    
+    import-storage:
+    ...
+    ```
+
+6. Fork the relevant chains locally using Chopsticks:
+
+    ```bash
+    npx @acala-network/chopsticks xcm -r polkadot -p configs/polkadot-hub-override.yaml -p hydradx
+    ```
+
+   → See the [Fork a Chain with Chopsticks guide](/tutorials/polkadot-sdk/testing/fork-live-chains/){target=\_blank} for detailed instructions.
+
+7. Open a **new terminal** in the same folder and initialise a Node.js project:
+
+    ```bash
+    npm init -y && npm pkg set type="module"
+    ```
+
+8. Install TypeScript and Polkadot dependencies:
+
+    ```bash
+    npm install --save-dev typescript @types/node tsx
+    npm install  polkadot-api @polkadot-labs/hdkd @polkadot-labs/hdkd-helpers
+    npm install @noble/hashes
+    ```
+
+9. Initialise TypeScript:
+
+    ```bash
+    npx tsc --init
+    ```
+
+10. Add descriptors:
+
+    ```bash
+    npx papi add assetHub -w ws://localhost:8000
+    npx papi add hydration -w ws://localhost:8001
+    ```
+
+## Scenario 1: XCM Flow with Implicit `SetTopic`
+
+### Overview
+
+- **Origin:** Polkadot Hub
+- **Destination:** Hydration
+- **Extrinsic:** `limited_reserve_transfer_assets` (high-level)
+- **Topic:** Set automatically by the runtime
+
+### Run the Script
+
+Create and run `limited-reserve-transfer-assets.ts`:
+
+```ts
+import {Binary, createClient, Enum, type BlockInfo, type PolkadotClient} from "polkadot-api";
+import {withPolkadotSdkCompat} from "polkadot-api/polkadot-sdk-compat";
+import {getPolkadotSigner} from "polkadot-api/signer";
+import {getWsProvider} from "polkadot-api/ws-provider/web";
+import {
+    assetHub,
+    hydration,
+    XcmV3MultiassetFungibility,
+    XcmV3WeightLimit,
+    XcmV5Junction,
+    XcmV5Junctions,
+    XcmVersionedAssets,
+    XcmVersionedLocation,
+} from "@polkadot-api/descriptors";
+import {sr25519CreateDerive} from "@polkadot-labs/hdkd";
+import {
+    DEV_PHRASE,
+    entropyToMiniSecret,
+    mnemonicToEntropy,
+    ss58Address,
+} from "@polkadot-labs/hdkd-helpers";
+
+const XCM_VERSION = 5;
+const MAX_RETRIES = 8; // Number of attempts to wait for block finalisation
+
+const toHuman = (_key: any, value: any) => {
+    if (typeof value === "bigint") {
+        return Number(value);
+    }
+
+    if (value && typeof value === "object" && typeof value.asHex === "function") {
+        return value.asHex();
+    }
+
+    return value;
+};
+
+async function assertProcessedMessageId(
+    client: PolkadotClient,
+    api: any,
+    name: String,
+    blockBefore: BlockInfo,
+    expectedMessageId: String,
+) {
+    let processedMessageId = undefined;
+    for (let i = 0; i < MAX_RETRIES; i++) {
+        const blockAfter = await client.getFinalizedBlock();
+        if (blockAfter.number == blockBefore.number) {
+            const waiting = 1_000 * (2 ** i);
+            console.log(`⏳ Waiting ${waiting / 1_000}s for ${name} block to be finalised (${i + 1}/${MAX_RETRIES})...`);
+            await new Promise((resolve) => setTimeout(resolve, waiting));
+            continue;
+        }
+
+        console.log(`📦 Finalised on ${name} in block #${blockAfter.number}: ${blockAfter.hash}`);
+        const processedEvents = await api.event.MessageQueue.Processed.pull();
+        const processingFailedEvents = await api.event.MessageQueue.ProcessingFailed.pull();
+        if (processedEvents.length > 0) {
+            processedMessageId = processedEvents[0].payload.id.asHex();
+            console.log(`📣 Last message processed on ${name}: ${processedMessageId}`);
+            break;
+        } else if (processingFailedEvents.length > 0) {
+            processedMessageId = processingFailedEvents[0].payload.id.asHex();
+            console.log(`📣 Last message ProcessingFailed on ${name}: ${processedMessageId}`);
+            break;
+        } else {
+            console.log(`📣 No Processed events on ${name} found.`);
+            blockBefore = blockAfter; // Update the block before to the latest one
+        }
+    }
+
+    if (processedMessageId === expectedMessageId) {
+        console.log(`✅ Processed Message ID on ${name} matched.`);
+    } else if (processedMessageId === undefined) {
+        console.error(`❌ Processed Message ID on ${name} is undefined. Try increasing MAX_RETRIES to wait for block finalisation.`);
+    } else {
+        console.error(`❌ Processed Message ID [${processedMessageId}] on ${name} doesn't match expected Message ID [${expectedMessageId}].`);
+    }
+}
+
+async function main() {
+    const para1Name = "Polkadot Hub";
+    const para1Client = createClient(
+        withPolkadotSdkCompat(getWsProvider("ws://localhost:8000")),
+    );
+    const para1Api = para1Client.getTypedApi(assetHub);
+
+    const para2Name = "Hydration";
+    const para2Client = createClient(
+        withPolkadotSdkCompat(getWsProvider("ws://localhost:8001")),
+    );
+    const para2Api = para2Client.getTypedApi(hydration);
+
+    const entropy = mnemonicToEntropy(DEV_PHRASE);
+    const miniSecret = entropyToMiniSecret(entropy);
+    const derive = sr25519CreateDerive(miniSecret);
+    const alice = derive("//Alice");
+    const alicePublicKey = alice.publicKey;
+    const aliceSigner = getPolkadotSigner(alicePublicKey, "Sr25519", alice.sign);
+    const aliceAddress = ss58Address(alicePublicKey);
+
+    const origin = Enum("system", Enum("Signed", aliceAddress));
+    const beneficiary = {
+        parents: 0,
+        interior: XcmV5Junctions.X1(XcmV5Junction.AccountId32({
+            id: Binary.fromHex("0x9818ff3c27d256631065ecabf0c50e02551e5c5342b8669486c1e566fcbf847f")
+        })),
+    }
+
+    const tx: any = para1Api.tx.PolkadotXcm.limited_reserve_transfer_assets({
+        dest: XcmVersionedLocation.V5({
+            parents: 1,
+            interior: XcmV5Junctions.X1(XcmV5Junction.Parachain(2034)),
+        }),
+        beneficiary: XcmVersionedLocation.V5(beneficiary),
+        assets: XcmVersionedAssets.V5([
+            {
+                id: {
+                    parents: 0,
+                    interior: XcmV5Junctions.X2([
+                        XcmV5Junction.PalletInstance(50),
+                        XcmV5Junction.GeneralIndex(1984n),
+                    ]),
+                },
+                fun: XcmV3MultiassetFungibility.Fungible(500_000_000n),
+            },
+        ]),
+        fee_asset_item: 0,
+        weight_limit: XcmV3WeightLimit.Unlimited(),
+    });
+    const decodedCall: any = tx.decodedCall;
+    console.log("👀 Executing XCM:", JSON.stringify(decodedCall, toHuman, 2));
+
+    try {
+        const dryRunResult: any = await para1Api.apis.DryRunApi.dry_run_call(
+            origin,
+            decodedCall,
+            XCM_VERSION,
+        );
+        console.log("📦 Dry run result:", JSON.stringify(dryRunResult.value, toHuman, 2));
+
+        const executionResult = dryRunResult.value.execution_result;
+        if (!dryRunResult.success || !executionResult.success) {
+            console.error("❌ Local dry run failed!");
+        } else {
+            console.log("✅ Local dry run successful.");
+
+            const emittedEvents: [any] = dryRunResult.value.emitted_events;
+            const polkadotXcmSentEvent = emittedEvents.find(event =>
+                event.type === "PolkadotXcm" && event.value.type === "Sent"
+            );
+            if (polkadotXcmSentEvent === undefined) {
+                console.log(`⚠️ PolkadotXcm.Sent is only available in runtimes built from stable2503-5 or later.`);
+            } else {
+                let para2BlockBefore = await para2Client.getFinalizedBlock();
+                const extrinsic = await tx.signAndSubmit(aliceSigner);
+                const para1Block = extrinsic.block;
+                console.log(`📦 Finalised on ${para1Name} in block #${para1Block.number}: ${para1Block.hash}`);
+
+                if (!extrinsic.ok) {
+                    const dispatchError = extrinsic.dispatchError;
+                    if (dispatchError.type === "Module") {
+                        const modErr: any = dispatchError.value;
+                        console.error(`❌ Dispatch error in module: ${modErr.type} → ${modErr.value?.type}`);
+                    } else {
+                        console.error("❌ Dispatch error:", JSON.stringify(dispatchError, toHuman, 2));
+                    }
+                }
+
+                const sentEvents: any = await para1Api.event.PolkadotXcm.Sent.pull();
+                if (sentEvents.length > 0) {
+                    const sentMessageId = sentEvents[0].payload.message_id.asHex();
+                    console.log(`📣 Last message sent on ${para1Name}: ${sentMessageId}`);
+                    await assertProcessedMessageId(para2Client, para2Api, para2Name, para2BlockBefore, sentMessageId);
+                } else {
+                    console.log(`📣 No Sent events on ${para1Name} found.`);
+                }
+            }
+        }
+    } finally {
+        para1Client.destroy();
+        para2Client.destroy();
+    }
+}
+
+main().catch(console.error);
+```
+
+```bash
+npx tsx limited-reserve-transfer-assets.ts
+```
+
+### Forwarded XCM Example
+
+The runtime adds a `SetTopic` to the forwarded XCM automatically:
+
+<div class="termynal" data-termynal>
+  <pre data-ty>
+[
+  {
+    "type": "ReserveAssetDeposited",
+    "value": [...]
+  },
+  {
+    "type": "ClearOrigin"
+  },
+  {
+    "type": "BuyExecution",
+    "value": {...}
+  },
+  {
+    "type": "DepositAsset",
+    "value": {...}
+  },
+  {
+    "type": "SetTopic",
+    "value": "0x3b5650b78230aebb8f2573d2c5e8356494ab01e39e716087c177bf871dce70b9"
+  }
+]
+  </pre>
+</div>
+
+### Trace Events
+
+| Chain        | Event                    | Field        | Notes                                  |
+|--------------|--------------------------|--------------|----------------------------------------|
+| Polkadot Hub | `PolkadotXcm.Sent`       | `message_id` | Matches the topic in the forwarded XCM |
+| Hydration    | `MessageQueue.Processed` | `id`         | Matches origin's `message_id`          |
+
+> ⚠️ Dry run generated topics may differ from actual execution.
+
+### Message Trace Output
+
+<div class="termynal" data-termynal>
+  <span data-ty="input">npx tsx limited-reserve-transfer-assets.ts</span>
+  <span data-ty>✅ Local dry run successful.</span>
+  <span data-ty>📦 Finalised on Polkadot Hub in block #9477291: 0xf54cecc017762c714bbdf3e82d72ed90886257ca17d32ec6dc8ea20e28110af8</span>
+  <span data-ty>📣 Last message sent on Polkadot Hub: 0x20432393771dc049cea4900565a936d169b8ebdd64efa351890766df918615a4</span>
+  <span data-ty>📦 Finalised on Hydration in block #8761211: 0xa4c493ba9328f38174aa7a9ade0779654839e9d3c83b2bafc60d4e5b7de6a00f</span>
+  <span data-ty>📣 Last message processed on Hydration: 0x20432393771dc049cea4900565a936d169b8ebdd64efa351890766df918615a4</span>
+  <span data-ty>✅ Processed Message ID on Hydration matched.</span>
+</div>
+
+## Scenario 2: XCM Transfer with Manual `SetTopic`
+
+### Overview
+
+- **Origin:** Polkadot Hub
+- **Destination:** Hydration
+- **Topic:** Manually assigned
+- **Goal:** Ensure traceability in custom multi-hop flows
+
+### Run the Script
+
+Create and run `deposit-reserve-asset-with-set-topic.ts`:
+
+```ts
+import {Binary, createClient, Enum, type BlockInfo, type PolkadotClient} from "polkadot-api";
+import {withPolkadotSdkCompat} from "polkadot-api/polkadot-sdk-compat";
+import {getPolkadotSigner} from "polkadot-api/signer";
+import {getWsProvider} from "polkadot-api/ws-provider/web";
+import {
+    assetHub,
+    hydration,
+    XcmV3MultiassetFungibility,
+    XcmV3WeightLimit,
+    XcmV5AssetFilter,
+    XcmV5Instruction,
+    XcmV5Junction,
+    XcmV5Junctions,
+    XcmV5WildAsset,
+    XcmVersionedXcm,
+} from "@polkadot-api/descriptors";
+import {sr25519CreateDerive} from "@polkadot-labs/hdkd";
+import {
+    DEV_PHRASE,
+    entropyToMiniSecret,
+    mnemonicToEntropy,
+    ss58Address,
+} from "@polkadot-labs/hdkd-helpers";
+
+const XCM_VERSION = 5;
+const MAX_RETRIES = 8; // Number of attempts to wait for block finalisation
+
+const toHuman = (_key: any, value: any) => {
+    if (typeof value === "bigint") {
+        return Number(value);
+    }
+
+    if (value && typeof value === "object" && typeof value.asHex === "function") {
+        return value.asHex();
+    }
+
+    return value;
+};
+
+async function assertProcessedMessageId(
+    client: PolkadotClient,
+    api: any,
+    name: String,
+    blockBefore: BlockInfo,
+    expectedMessageId: String,
+) {
+    let processedMessageId = undefined;
+    for (let i = 0; i < MAX_RETRIES; i++) {
+        const blockAfter = await client.getFinalizedBlock();
+        if (blockAfter.number == blockBefore.number) {
+            const waiting = 1_000 * (2 ** i);
+            console.log(`⏳ Waiting ${waiting / 1_000}s for ${name} block to be finalised (${i + 1}/${MAX_RETRIES})...`);
+            await new Promise((resolve) => setTimeout(resolve, waiting));
+            continue;
+        }
+
+        console.log(`📦 Finalised on ${name} in block #${blockAfter.number}: ${blockAfter.hash}`);
+        const processedEvents = await api.event.MessageQueue.Processed.pull();
+        const processingFailedEvents = await api.event.MessageQueue.ProcessingFailed.pull();
+        if (processedEvents.length > 0) {
+            processedMessageId = processedEvents[0].payload.id.asHex();
+            console.log(`📣 Last message processed on ${name}: ${processedMessageId}`);
+            break;
+        } else if (processingFailedEvents.length > 0) {
+            processedMessageId = processingFailedEvents[0].payload.id.asHex();
+            console.log(`📣 Last message ProcessingFailed on ${name}: ${processedMessageId}`);
+            break;
+        } else {
+            console.log(`📣 No Processed events on ${name} found.`);
+            blockBefore = blockAfter; // Update the block before to the latest one
+        }
+    }
+
+    if (processedMessageId === expectedMessageId) {
+        console.log(`✅ Processed Message ID on ${name} matched.`);
+    } else if (processedMessageId === undefined) {
+        console.error(`❌ Processed Message ID on ${name} is undefined. Try increasing MAX_RETRIES to wait for block finalisation.`);
+    } else {
+        console.error(`❌ Processed Message ID [${processedMessageId}] on ${name} doesn't match expected Message ID [${expectedMessageId}].`);
+    }
+}
+
+async function main() {
+    const para1Name = "Polkadot Hub";
+    const para1Client = createClient(
+        withPolkadotSdkCompat(getWsProvider("ws://localhost:8000")),
+    );
+    const para1Api = para1Client.getTypedApi(assetHub);
+
+    const para2Name = "Hydration";
+    const para2Client = createClient(
+        withPolkadotSdkCompat(getWsProvider("ws://localhost:8001")),
+    );
+    const para2Api = para2Client.getTypedApi(hydration);
+
+    const entropy = mnemonicToEntropy(DEV_PHRASE);
+    const miniSecret = entropyToMiniSecret(entropy);
+    const derive = sr25519CreateDerive(miniSecret);
+    const alice = derive("//Alice");
+    const alicePublicKey = alice.publicKey;
+    const aliceSigner = getPolkadotSigner(alicePublicKey, "Sr25519", alice.sign);
+    const aliceAddress = ss58Address(alicePublicKey);
+
+    const origin = Enum("system", Enum("Signed", aliceAddress));
+    const beneficiary = {
+        parents: 0,
+        interior: XcmV5Junctions.X1(XcmV5Junction.AccountId32({
+            id: Binary.fromHex("0x9818ff3c27d256631065ecabf0c50e02551e5c5342b8669486c1e566fcbf847f")
+        })),
+    }
+    const expectedMessageId = "0xd60225f721599cb7c6e23cdf4fab26f205e30cd7eb6b5ccf6637cdc80b2339b2";
+
+    const message = XcmVersionedXcm.V5([
+        XcmV5Instruction.WithdrawAsset([
+            {
+                id: {
+                    parents: 1,
+                    interior: XcmV5Junctions.Here(),
+                },
+                fun: XcmV3MultiassetFungibility.Fungible(1_000_000_000n),
+            },
+        ]),
+
+        XcmV5Instruction.ClearOrigin(),
+
+        XcmV5Instruction.BuyExecution({
+            fees: {
+                id: {
+                    parents: 1,
+                    interior: XcmV5Junctions.Here(),
+                },
+                fun: XcmV3MultiassetFungibility.Fungible(500_000_000n),
+            },
+            weight_limit: XcmV3WeightLimit.Unlimited(),
+        }),
+
+        XcmV5Instruction.DepositReserveAsset({
+            assets: XcmV5AssetFilter.Wild(XcmV5WildAsset.All()),
+            dest: {
+                parents: 1,
+                interior: XcmV5Junctions.X1(XcmV5Junction.Parachain(2034)),
+            },
+            xcm: [
+                XcmV5Instruction.BuyExecution({
+                    fees: {
+                        id: {
+                            parents: 1,
+                            interior: XcmV5Junctions.Here(),
+                        },
+                        fun: XcmV3MultiassetFungibility.Fungible(500_000_000n),
+                    },
+                    weight_limit: XcmV3WeightLimit.Unlimited(),
+                }),
+
+                XcmV5Instruction.DepositAsset({
+                    assets: XcmV5AssetFilter.Wild(XcmV5WildAsset.All()),
+                    beneficiary,
+                }),
+            ],
+        }),
+
+        XcmV5Instruction.SetTopic(Binary.fromHex(expectedMessageId)),
+    ]);
+
+    const weight: any = await para1Api.apis.XcmPaymentApi.query_xcm_weight(message);
+    if (weight.success !== true) {
+        console.error("❌ Failed to query XCM weight:", weight.error);
+        para1Client.destroy();
+        return;
+    }
+
+    const tx: any = para1Api.tx.PolkadotXcm.execute({
+        message,
+        max_weight: weight.value,
+    });
+    const decodedCall: any = tx.decodedCall;
+    console.log("👀 Executing XCM:", JSON.stringify(decodedCall, toHuman, 2));
+
+    try {
+        const dryRunResult: any = await para1Api.apis.DryRunApi.dry_run_call(
+            origin,
+            decodedCall,
+            XCM_VERSION,
+        );
+        console.log("📦 Dry run result:", JSON.stringify(dryRunResult.value, toHuman, 2));
+
+        const executionResult = dryRunResult.value.execution_result;
+        if (!dryRunResult.success || !executionResult.success) {
+            console.error("❌ Local dry run failed!");
+        } else {
+            console.log("✅ Local dry run successful.");
+
+            const emittedEvents: [any] = dryRunResult.value.emitted_events;
+            const polkadotXcmSentEvent = emittedEvents.find(event =>
+                event.type === "PolkadotXcm" && event.value.type === "Sent"
+            );
+            if (polkadotXcmSentEvent === undefined) {
+                console.log(`⚠️ PolkadotXcm.Sent is only available in runtimes built from stable2503-5 or later.`);
+            } else {
+                let para2BlockBefore = await para2Client.getFinalizedBlock();
+                const extrinsic = await tx.signAndSubmit(aliceSigner);
+                const para1Block = extrinsic.block;
+                console.log(`📦 Finalised on ${para1Name} in block #${para1Block.number}: ${para1Block.hash}`);
+
+                if (!extrinsic.ok) {
+                    const dispatchError = extrinsic.dispatchError;
+                    if (dispatchError.type === "Module") {
+                        const modErr: any = dispatchError.value;
+                        console.error(`❌ Dispatch error in module: ${modErr.type} → ${modErr.value?.type}`);
+                    } else {
+                        console.error("❌ Dispatch error:", JSON.stringify(dispatchError, toHuman, 2));
+                    }
+                }
+
+                const sentEvents: any = await para1Api.event.PolkadotXcm.Sent.pull();
+                if (sentEvents.length > 0) {
+                    const sentMessageId = sentEvents[0].payload.message_id.asHex();
+                    console.log(`📣 Last message sent on ${para1Name}: ${sentMessageId}`);
+                    if (sentMessageId === expectedMessageId) {
+                        console.log(`✅ Sent Message ID on ${para1Name} matched.`);
+                    } else {
+                        console.error(`❌ Sent Message ID [${sentMessageId}] on ${para1Name} doesn't match expected Message ID [${expectedMessageId}].`);
+                    }
+                    await assertProcessedMessageId(para2Client, para2Api, para2Name, para2BlockBefore, expectedMessageId);
+                } else {
+                    console.log(`📣 No Sent events on ${para1Name} found.`);
+                }
+            }
+        }
+    } finally {
+        para1Client.destroy();
+        para2Client.destroy();
+    }
+}
+
+main().catch(console.error);
+```
+
+```bash
+npx tsx deposit-reserve-asset-with-set-topic.ts
+```
+
+### Forwarded XCM Example
+
+Your manual `SetTopic` is preserved by the runtime:
+
+<div class="termynal" data-termynal>
+  <pre data-ty>
+[
+  {
+    "type": "ReserveAssetDeposited",
+    "value": [...]
+  },
+  {
+    "type": "ClearOrigin"
+  },
+  {
+    "type": "BuyExecution",
+    "value": {...}
+  },
+  {
+    "type": "DepositAsset",
+    "value": {...}
+  },
+  {
+    "type": "SetTopic",
+    "value": "0xd60225f721599cb7c6e23cdf4fab26f205e30cd7eb6b5ccf6637cdc80b2339b2"
+  }
+]
+  </pre>
+</div>
+
+### Message Trace Output
+
+<div class="termynal" data-termynal>
+  <span data-ty="input">npx tsx limited-reserve-transfer-assets.ts</span>
+  <span data-ty>✅ Local dry run successful.</span>
+  <span data-ty>📦 Finalised on Polkadot Hub in block #9471830: 0x98bd858739b3b5dd558def60cbd85d5e7fb2f4e33b0c00e1895e316541d727d9</span>
+  <span data-ty>📣 Last message sent on Polkadot Hub: 0xd60225f721599cb7c6e23cdf4fab26f205e30cd7eb6b5ccf6637cdc80b2339b2</span>
+  <span data-ty>✅ Sent Message ID on Polkadot Hub matched.</span>
+  <span data-ty>📦 Finalised on Hydration in block #8749233: 0xe1413c5126698d7189d6f55a38e62d07ea4915078c2b1f3914d70f670e79e162</span>
+  <span data-ty>📣 Last message processed on Hydration: 0xd60225f721599cb7c6e23cdf4fab26f205e30cd7eb6b5ccf6637cdc80b2339b2</span>
+  <span data-ty>✅ Processed Message ID on Hydration matched.</span>
+</div>
+
+## Scenario 3: Multi-hop XCM Transfer with Manual `SetTopic`
+
+### Overview
+
+- **Origin:** Polkadot Hub
+- **Destination:** Hydration
+- **Topic:** Manually assigned and preserved over multiple hops (including remote XCMs)
+- **Goal:** Enable consistent tracing across multi-hop XCM flows
+
+### Run the Script
+
+Create and run `initiate-reserve-withdraw-with-set-topic.ts`:
+
+```ts
+import {Binary, createClient, Enum, type BlockInfo, type PolkadotClient} from "polkadot-api";
+import {withPolkadotSdkCompat} from "polkadot-api/polkadot-sdk-compat";
+import {getPolkadotSigner} from "polkadot-api/signer";
+import {getWsProvider} from "polkadot-api/ws-provider/web";
+import {
+    assetHub,
+    hydration,
+    XcmV2MultiassetWildFungibility,
+    XcmV3MultiassetFungibility,
+    XcmV3WeightLimit,
+    XcmV5AssetFilter,
+    XcmV5Instruction,
+    XcmV5Junction,
+    XcmV5Junctions,
+    XcmV5WildAsset,
+    XcmVersionedXcm,
+} from "@polkadot-api/descriptors";
+import {sr25519CreateDerive} from "@polkadot-labs/hdkd";
+import {
+    DEV_PHRASE,
+    entropyToMiniSecret,
+    mnemonicToEntropy,
+    ss58Address,
+} from "@polkadot-labs/hdkd-helpers";
+
+const XCM_VERSION = 5;
+const MAX_RETRIES = 8; // Number of attempts to wait for block finalisation
+
+const toHuman = (_key: any, value: any) => {
+    if (typeof value === "bigint") {
+        return Number(value);
+    }
+
+    if (value && typeof value === "object" && typeof value.asHex === "function") {
+        return value.asHex();
+    }
+
+    return value;
+};
+
+async function assertProcessedMessageId(
+    client: PolkadotClient,
+    api: any,
+    name: String,
+    blockBefore: BlockInfo,
+    expectedMessageId: String,
+) {
+    let processedMessageId = undefined;
+    for (let i = 0; i < MAX_RETRIES; i++) {
+        const blockAfter = await client.getFinalizedBlock();
+        if (blockAfter.number == blockBefore.number) {
+            const waiting = 1_000 * (2 ** i);
+            console.log(`⏳ Waiting ${waiting / 1_000}s for ${name} block to be finalised (${i + 1}/${MAX_RETRIES})...`);
+            await new Promise((resolve) => setTimeout(resolve, waiting));
+            continue;
+        }
+
+        console.log(`📦 Finalised on ${name} in block #${blockAfter.number}: ${blockAfter.hash}`);
+        const processedEvents = await api.event.MessageQueue.Processed.pull();
+        const processingFailedEvents = await api.event.MessageQueue.ProcessingFailed.pull();
+        if (processedEvents.length > 0) {
+            processedMessageId = processedEvents[0].payload.id.asHex();
+            console.log(`📣 Last message processed on ${name}: ${processedMessageId}`);
+            break;
+        } else if (processingFailedEvents.length > 0) {
+            processedMessageId = processingFailedEvents[0].payload.id.asHex();
+            console.log(`📣 Last message ProcessingFailed on ${name}: ${processedMessageId}`);
+            break;
+        } else {
+            console.log(`📣 No Processed events on ${name} found.`);
+            blockBefore = blockAfter; // Update the block before to the latest one
+        }
+    }
+
+    if (processedMessageId === expectedMessageId) {
+        console.log(`✅ Processed Message ID on ${name} matched.`);
+    } else if (processedMessageId === undefined) {
+        console.error(`❌ Processed Message ID on ${name} is undefined. Try increasing MAX_RETRIES to wait for block finalisation.`);
+    } else {
+        console.error(`❌ Processed Message ID [${processedMessageId}] on ${name} doesn't match expected Message ID [${expectedMessageId}].`);
+    }
+}
+
+async function main() {
+    const para1Name = "Polkadot Hub";
+    const para1Client = createClient(
+        withPolkadotSdkCompat(getWsProvider("ws://localhost:8000")),
+    );
+    const para1Api = para1Client.getTypedApi(assetHub);
+
+    const para2Name = "Hydration";
+    const para2Client = createClient(
+        withPolkadotSdkCompat(getWsProvider("ws://localhost:8001")),
+    );
+    const para2Api = para2Client.getTypedApi(hydration);
+
+    const entropy = mnemonicToEntropy(DEV_PHRASE);
+    const miniSecret = entropyToMiniSecret(entropy);
+    const derive = sr25519CreateDerive(miniSecret);
+    const alice = derive("//Alice");
+    const alicePublicKey = alice.publicKey;
+    const aliceSigner = getPolkadotSigner(alicePublicKey, "Sr25519", alice.sign);
+    const aliceAddress = ss58Address(alicePublicKey);
+
+    const origin = Enum("system", Enum("Signed", aliceAddress));
+    const beneficiary = {
+        parents: 0,
+        interior: XcmV5Junctions.X1(XcmV5Junction.AccountId32({
+            id: Binary.fromHex("0x9818ff3c27d256631065ecabf0c50e02551e5c5342b8669486c1e566fcbf847f")
+        })),
+    }
+    const tokenId = XcmV5Junction.GeneralIndex(1337n); // Change to another token if FailedToTransactAsset("Funds are unavailable")
+    const assetId = {
+        parents: 0,
+        interior: XcmV5Junctions.X2([
+            XcmV5Junction.PalletInstance(50),
+            tokenId,
+        ]),
+    };
+    const giveId = {
+        parents: 1,
+        interior: XcmV5Junctions.X3([
+            XcmV5Junction.Parachain(1000),
+            XcmV5Junction.PalletInstance(50),
+            tokenId,
+        ]),
+    };
+    const giveFun = XcmV3MultiassetFungibility.Fungible(1_000_000n);
+    const dest = {
+        parents: 1,
+        interior: XcmV5Junctions.X1(XcmV5Junction.Parachain(2034)),
+    };
+    const wantId = {
+        parents: 1,
+        interior: XcmV5Junctions.Here(),
+    };
+    const wantFun = XcmV3MultiassetFungibility.Fungible(2_000_000_000n); // Adjust the exchange rate if xcm_error is NoDeal
+    const expectedMessageId = "0xd60225f721599cb7c6e23cdf4fab26f205e30cd7eb6b5ccf6637cdc80b2339b2";
+
+    const message = XcmVersionedXcm.V5([
+        XcmV5Instruction.WithdrawAsset([{
+            id: assetId,
+            fun: giveFun,
+        }]),
+
+        XcmV5Instruction.SetFeesMode({jit_withdraw: true}),
+
+        XcmV5Instruction.DepositReserveAsset({
+            assets: XcmV5AssetFilter.Wild(
+                XcmV5WildAsset.AllOf({
+                    id: assetId,
+                    fun: XcmV2MultiassetWildFungibility.Fungible(),
+                })),
+            dest,
+            xcm: [
+                XcmV5Instruction.BuyExecution({
+                    fees: {
+                        id: giveId,
+                        fun: giveFun,
+                    },
+                    weight_limit: XcmV3WeightLimit.Unlimited(),
+                }),
+
+                XcmV5Instruction.ExchangeAsset({
+                    give: XcmV5AssetFilter.Wild(
+                        XcmV5WildAsset.AllOf({
+                            id: giveId,
+                            fun: XcmV2MultiassetWildFungibility.Fungible(),
+                        }),
+                    ),
+                    want: [{
+                        id: wantId,
+                        fun: wantFun,
+                    }],
+                    maximal: false,
+                }),
+
+                XcmV5Instruction.InitiateReserveWithdraw({
+                    assets: XcmV5AssetFilter.Wild(
+                        XcmV5WildAsset.AllOf({
+                            id: wantId,
+                            fun: XcmV2MultiassetWildFungibility.Fungible(),
+                        }),
+                    ),
+                    reserve: {
+                        parents: 1,
+                        interior: XcmV5Junctions.X1(
+                            XcmV5Junction.Parachain(1000),
+                        ),
+                    },
+                    xcm: [
+                        XcmV5Instruction.BuyExecution({
+                            fees: {
+                                id: wantId,
+                                fun: wantFun,
+                            },
+                            weight_limit: XcmV3WeightLimit.Unlimited(),
+                        }),
+
+                        XcmV5Instruction.DepositAsset({
+                            assets: XcmV5AssetFilter.Wild(
+                                XcmV5WildAsset.AllOf({
+                                    id: wantId,
+                                    fun: XcmV2MultiassetWildFungibility.Fungible(),
+                                }),
+                            ),
+                            beneficiary,
+                        }),
+
+                        XcmV5Instruction.SetTopic(Binary.fromHex(expectedMessageId)), // Ensure the same topic is also set on remote XCM calls
+                    ],
+                }),
+            ],
+        }),
+
+        XcmV5Instruction.SetTopic(Binary.fromHex(expectedMessageId)),
+    ]);
+
+    const weight: any = await para1Api.apis.XcmPaymentApi.query_xcm_weight(message);
+    if (weight.success !== true) {
+        console.error("❌ Failed to query XCM weight:", weight.error);
+        para1Client.destroy();
+        return;
+    }
+
+    const tx: any = para1Api.tx.PolkadotXcm.execute({
+        message,
+        max_weight: weight.value,
+    });
+    const decodedCall: any = tx.decodedCall;
+    console.log("👀 Executing XCM:", JSON.stringify(decodedCall, toHuman, 2));
+
+    try {
+        const dryRunResult: any = await para1Api.apis.DryRunApi.dry_run_call(
+            origin,
+            decodedCall,
+            XCM_VERSION,
+        );
+        console.log("📦 Dry run result:", JSON.stringify(dryRunResult.value, toHuman, 2));
+
+        const executionResult = dryRunResult.value.execution_result;
+        if (!dryRunResult.success || !executionResult.success) {
+            console.error("❌ Local dry run failed!");
+        } else {
+            console.log("✅ Local dry run successful.");
+
+            const emittedEvents: [any] = dryRunResult.value.emitted_events;
+            const polkadotXcmSentEvent = emittedEvents.find(event =>
+                event.type === "PolkadotXcm" && event.value.type === "Sent"
+            );
+            if (polkadotXcmSentEvent === undefined) {
+                console.log(`⚠️ PolkadotXcm.Sent is only available in runtimes built from stable2503-5 or later.`);
+            } else {
+                let para2BlockBefore = await para2Client.getFinalizedBlock();
+                const extrinsic = await tx.signAndSubmit(aliceSigner);
+                const para1Block = extrinsic.block;
+                console.log(`📦 Finalised on ${para1Name} in block #${para1Block.number}: ${para1Block.hash}`);
+
+                if (!extrinsic.ok) {
+                    const dispatchError = extrinsic.dispatchError;
+                    if (dispatchError.type === "Module") {
+                        const modErr: any = dispatchError.value;
+                        console.error(`❌ Dispatch error in module: ${modErr.type} → ${modErr.value?.type}`);
+                    } else {
+                        console.error("❌ Dispatch error:", JSON.stringify(dispatchError, toHuman, 2));
+                    }
+                }
+
+                const sentEvents: any = await para1Api.event.PolkadotXcm.Sent.pull();
+                if (sentEvents.length > 0) {
+                    const sentMessageId = sentEvents[0].payload.message_id.asHex();
+                    console.log(`📣 Last message sent on ${para1Name}: ${sentMessageId}`);
+                    if (sentMessageId === expectedMessageId) {
+                        console.log(`✅ Sent Message ID on ${para1Name} matched.`);
+                    } else {
+                        console.error(`❌ Sent Message ID [${sentMessageId}] on ${para1Name} doesn't match expected Message ID [${expectedMessageId}].`);
+                    }
+                    await assertProcessedMessageId(para2Client, para2Api, para2Name, para2BlockBefore, expectedMessageId);
+                    await assertProcessedMessageId(para1Client, para1Api, para1Name, para1Block, expectedMessageId);
+                } else {
+                    console.log(`📣 No Sent events on ${para1Name} found.`);
+                }
+            }
+        }
+    } finally {
+        para1Client.destroy();
+        para2Client.destroy();
+    }
+}
+
+main().catch(console.error);
+```
+
+```bash
+npx tsx initiate-reserve-withdraw-with-set-topic.ts
+```
+
+### Forwarded XCM Example (Hydration)
+
+The runtime preserves your `SetTopic` throughout the multi-hop flow:
+
+<div class="termynal" data-termynal>
+  <pre data-ty>
+[
+  {
+    "type": "ReserveAssetDeposited",
+    "value": [...]
+  },
+  {
+    "type": "ClearOrigin"
+  },
+  {
+    "type": "BuyExecution",
+    "value": {...}
+  },
+  {
+    "type": "ExchangeAsset",
+    "value": {...}
+  },
+  {
+    "type": "InitiateReserveWithdraw",
+    "value": {
+      "assets": {...},
+      "reserve": {...},
+      "xcm": [
+        {
+          "type": "BuyExecution",
+          "value": {...}
+        },
+        {
+          "type": "DepositAsset",
+          "value": {...}
+        },
+        {
+          "type": "SetTopic",
+          "value": "0xd60225f721599cb7c6e23cdf4fab26f205e30cd7eb6b5ccf6637cdc80b2339b2"
+        }
+      ]
+    }
+  },
+  {
+    "type": "SetTopic",
+    "value": "0xd60225f721599cb7c6e23cdf4fab26f205e30cd7eb6b5ccf6637cdc80b2339b2"
+  }
+]
+  </pre>
+</div>
+
+### End-to-End Message Trace Output
+
+The same `message_id` is present in all relevant events across chains:
+
+<div class="termynal" data-termynal>
+  <span data-ty="input">npx tsx initiate-reserve-withdraw-with-set-topic.ts</span>
+  <span data-ty>✅ Local dry run successful.</span>
+  <span data-ty>📦 Finalised on Polkadot Hub in block #9471831: 0x2620f7e29765fc953263b7835711011616702c9d82ef5306fe3ef4196cb75cab</span>
+  <span data-ty>📣 Last message sent on Polkadot Hub: 0xd60225f721599cb7c6e23cdf4fab26f205e30cd7eb6b5ccf6637cdc80b2339b2</span>
+  <span data-ty>✅ Sent Message ID on Polkadot Hub matched.</span>
+  <span data-ty>📦 Finalised on Hydration in block #8749235: 0xafe7f6149b1773a8d3d229040cda414aafd64baaeffa37fb4a5b2a542308b2d6</span>
+  <span data-ty>📣 Last message processed on Hydration: 0xd60225f721599cb7c6e23cdf4fab26f205e30cd7eb6b5ccf6637cdc80b2339b2</span>
+  <span data-ty>✅ Processed Message ID on Hydration matched.</span>
+  <span data-ty>📦 Finalised on Polkadot Hub in block #9471832: 0x7c150b69e3562694f0573e4fee73dfb86f3ab71b808679a1777586ff24643e9a</span>
+  <span data-ty>📣 Last message processed on Polkadot Hub: 0xd60225f721599cb7c6e23cdf4fab26f205e30cd7eb6b5ccf6637cdc80b2339b2</span>
+  <span data-ty>✅ Processed Message ID on Polkadot Hub matched.</span>
+</div>
+
+## Troubleshooting on Running Scripts
+
+### Processed Message ID is `undefined`
+
+If you see the following error when running a script:
+
+> ❌ Processed Message ID on Hydration is undefined. Try increasing MAX_RETRIES to wait for block finalisation.
+
+This usually means that the message has not yet been processed within the default retry window.
+
+Increase the `MAX_RETRIES` value in your script to give the chain more time:
+
+```ts
+const MAX_RETRIES = 8; // Number of attempts to wait for block finalisation
+```
+
+### `PolkadotXcm.Sent` Event Not Found
+
+If you encounter an error indicating that `PolkadotXcm.Sent` is unavailable:
+
+> ⚠️ PolkadotXcm.Sent is only available in runtimes built from stable2503-5 or later.
+
+Ensure that `wasm-override` is updated to runtime version 1.6.0+, or to any runtime built from `stable2503-5` or later.
+
+For details on updating your workspace, see [Setting Up Your Workspace](#setting-up-your-workspace).
+
+## Summary
+
+This guide demonstrated:
+
+- How `SetTopic` and `message_id` enable tracing and correlating XCMs across chains
+- How to interpret and debug XCM failure cases
+- How to manually and automatically manage topics for multi-hop flows
+- The legacy workaround for older runtimes with derived IDs
+
+With these scenarios and debugging steps, you can confidently develop, trace, and troubleshoot XCM workflows across chains.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/tutorials/interoperability/xcm-transfers/from-relaychain-to-parachain/

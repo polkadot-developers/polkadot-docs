@@ -163,4 +163,4 @@ await author.submitAndWatchExtrinsic(extrinsic, (data) {
 
 ## Where to Go Next
 
-To dive deeper into Polkadart refer to the [official Polkadart documentation](https://polkadart.dev){target=\_blank}. They provide comprehensive guides for common use-cases and advanced usage.
+To dive deeper into Polkadart, refer to the [official Polkadart documentation](https://polkadart.dev/){target=\_blank}, where you can find comprehensive guides for common use cases and advanced usage.

@@ -43,6 +43,7 @@ async function transfer() {
 
   const result = await tx.signAndSubmit(signer);
   console.log(inspect(result, { colors: true, depth: null }));
+  process.exit(0);
 }
 
 async function dryRunTransfer() {
@@ -63,6 +64,7 @@ async function dryRunTransfer() {
     .dryRun();
 
   console.log(inspect(tx, { colors: true, depth: null }));
+  process.exit(0);
 }
 
 dryRunTransfer();
@@ -80,6 +82,7 @@ async function verifyED() {
     .verifyEdOnDestination();
 
   console.log(`ED verification ${isValid ? 'successful' : 'failed'}.`);
+  process.exit(0);
 }
 
 verifyED();
@@ -97,6 +100,7 @@ async function XcmTransferInfo() {
     .getTransferInfo();
 
   console.log('Transfer Info:', info);
+  process.exit(0);
 }
 
 XcmTransferInfo();

@@ -17258,11 +17258,11 @@ description: A step-by-step guide to building, verifying, and executing a transf
 
 ## Introduction
 
-This guide walks you through transferring tokens between two parachains using the [ParaSpell XCM SDK](https://paraspell.github.io/docs/){target=\_blank}. This example uses [Asset Hub](/polkadot-protocol/architecture/system-chains/asset-hub/){target=\_blank} and the [People Chain](/polkadot-protocol/architecture/system-chains/people/){target=\_blank}, but the same approach applies to transfers between any parachain.
+This guide walks you through transferring tokens between two parachains using the [ParaSpell XCM SDK](https://paraspell.github.io/docs/){target=\_blank}. This example uses [Asset Hub](/polkadot-protocol/architecture/system-chains/asset-hub/){target=\_blank} and the [People Chain](/polkadot-protocol/architecture/system-chains/people/){target=\_blank}, but the same approach can apply to transfers between other parachains.
 
 For development purposes, this guide will use the [Polkadot TestNet](/develop/networks/#paseo){target=\_blank}, so the transferred token will be PAS.
 
-You’ll learn how to:
+In this guide, you’ll learn how to:
 
 - Build an XCM transfer transaction using ParaSpell XCM SDK.
 - Perform a dry run to validate the transfer.
@@ -17275,7 +17275,7 @@ You’ll learn how to:
 - Knowledge of the [fundamentals of Polkadot](/polkadot-protocol/parachain-basics/){target=\_blank}
 - Basic understanding of [XCM](/develop/interoperability/intro-to-xcm/){target=\_blank}
 - Basic familiarity with JavaScript/TypeScript
-- Install [bun](https://bun.com/docs/installation){target=\_blank}, a fast JavaScript/TypeScript runtime and package manager
+- Install [bun](https://bun.com/docs/installation){target=\_blank}, a JavaScript/TypeScript package manager
 
 ## Initialize Your Project
 
@@ -17363,6 +17363,7 @@ async function transfer() {
 
   const result = await tx.signAndSubmit(signer);
   console.log(inspect(result, { colors: true, depth: null }));
+  process.exit(0);
 }
 ```
 
@@ -17393,6 +17394,7 @@ async function dryRunTransfer() {
     .dryRun();
 
   console.log(inspect(tx, { colors: true, depth: null }));
+  process.exit(0);
 }
 
 dryRunTransfer();
@@ -17552,11 +17554,12 @@ async function verifyED() {
     .verifyEdOnDestination();
 
   console.log(`ED verification ${isValid ? 'successful' : 'failed'}.`);
+  process.exit(0);
 }
 
 verifyED();
 ```
-Comment out the `dryRunTransfer()` and execute the code by running:
+Comment out the `dryRunTransfer()` and execute the `verifyED()` by running:
 
 ```bash
 bun run index.ts
@@ -17589,12 +17592,13 @@ async function XcmTransferInfo() {
     .getTransferInfo();
 
   console.log('Transfer Info:', info);
+  process.exit(0);
 }
 
 XcmTransferInfo();
 ```
 
-Comment out the `verifyED()` and execute the script:
+Comment out the `verifyED()` and execute the `XcmTransferInfo()` by running:
 
 ```bash
 bun run index.ts
@@ -18054,6 +18058,7 @@ async function transfer() {
 
   const result = await tx.signAndSubmit(signer);
   console.log(inspect(result, { colors: true, depth: null }));
+  process.exit(0);
 }
 
 async function dryRunTransfer() {
@@ -18074,6 +18079,7 @@ async function dryRunTransfer() {
     .dryRun();
 
   console.log(inspect(tx, { colors: true, depth: null }));
+  process.exit(0);
 }
 
 dryRunTransfer();
@@ -18091,6 +18097,7 @@ async function verifyED() {
     .verifyEdOnDestination();
 
   console.log(`ED verification ${isValid ? 'successful' : 'failed'}.`);
+  process.exit(0);
 }
 
 verifyED();
@@ -18108,6 +18115,7 @@ async function XcmTransferInfo() {
     .getTransferInfo();
 
   console.log('Transfer Info:', info);
+  process.exit(0);
 }
 
 XcmTransferInfo();

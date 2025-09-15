@@ -7,11 +7,11 @@ description: A step-by-step guide to building, verifying, and executing a transf
 
 ## Introduction
 
-This guide walks you through transferring tokens between two parachains using the [ParaSpell XCM SDK](https://paraspell.github.io/docs/){target=\_blank}. This example uses [Asset Hub](/polkadot-protocol/architecture/system-chains/asset-hub/){target=\_blank} and the [People Chain](/polkadot-protocol/architecture/system-chains/people/){target=\_blank}, but the same approach applies to transfers between any parachain.
+This guide walks you through transferring tokens between two parachains using the [ParaSpell XCM SDK](https://paraspell.github.io/docs/){target=\_blank}. This example uses [Asset Hub](/polkadot-protocol/architecture/system-chains/asset-hub/){target=\_blank} and the [People Chain](/polkadot-protocol/architecture/system-chains/people/){target=\_blank}, but the same approach can apply to transfers between other parachains.
 
 For development purposes, this guide will use the [Polkadot TestNet](/develop/networks/#paseo){target=\_blank}, so the transferred token will be PAS.
 
-You’ll learn how to:
+In this guide, you’ll learn how to:
 
 - Build an XCM transfer transaction using ParaSpell XCM SDK.
 - Perform a dry run to validate the transfer.
@@ -24,7 +24,7 @@ You’ll learn how to:
 - Knowledge of the [fundamentals of Polkadot](/polkadot-protocol/parachain-basics/){target=\_blank}
 - Basic understanding of [XCM](/develop/interoperability/intro-to-xcm/){target=\_blank}
 - Basic familiarity with JavaScript/TypeScript
-- Install [bun](https://bun.com/docs/installation){target=\_blank}, a fast JavaScript/TypeScript runtime and package manager
+- Install [bun](https://bun.com/docs/installation){target=\_blank}, a JavaScript/TypeScript package manager
 
 ## Initialize Your Project
 
@@ -69,7 +69,7 @@ In this example, you will transfer 10 PAS tokens from Paseo's Asset Hub to Paseo
 Add the ParaSpell transaction code to your `index.ts` file:
 
 ```ts title="index.ts"
---8<-- 'code/develop/toolkit/interoperability/paraspell/index.ts:29:46'
+--8<-- 'code/develop/toolkit/interoperability/paraspell/index.ts:29:47'
 ```
 
 Do not execute it just yet. You will perform a dry run of this transaction first to ensure it works as expected.
@@ -81,7 +81,7 @@ Dry runs simulate the transaction without broadcasting it, allowing you to confi
 Add the following dry run code to your `index.ts` script:
 
 ```ts title="index.ts"
---8<-- 'code/develop/toolkit/interoperability/paraspell/index.ts:48:68'
+--8<-- 'code/develop/toolkit/interoperability/paraspell/index.ts:49:70'
 ```
 Go ahead and run the script.
 
@@ -98,9 +98,9 @@ The result of the dry run will be similar to this:
 Check if the recipient account meets the [Existential Deposit (ED)](/polkadot-protocol/glossary/#existential-deposit){target=\_blank} requirement before sending by using [`verifyEdOnDestination`](https://paraspell.github.io/docs/sdk/xcmUtils.html#verify-ed-on-destination){target=\_blank}:
 
 ```ts title="index.ts"
---8<-- 'code/develop/toolkit/interoperability/paraspell/index.ts:70:85'
+--8<-- 'code/develop/toolkit/interoperability/paraspell/index.ts:72:88'
 ```
-Comment out the `dryRunTransfer()` and execute the code by running:
+Comment out the `dryRunTransfer()` and execute the `verifyED()` by running:
 
 ```bash
 bun run index.ts
@@ -117,10 +117,10 @@ Before sending an XCM transaction, it is helpful to estimate the fees associated
 ParaSpell has a helpful function for this: [`getTransferInfo()`](https://paraspell.github.io/docs/sdk/xcmUtils.html#xcm-transfer-info){target=\_blank}. This function returns an estimate of the associated XCM fees, along with the account's balance before and after the fees are paid.
 
 ```ts title="index.ts"
---8<-- 'code/develop/toolkit/interoperability/paraspell/index.ts:87:102'
+--8<-- 'code/develop/toolkit/interoperability/paraspell/index.ts:90:106'
 ```
 
-Comment out the `verifyED()` and execute the script:
+Comment out the `verifyED()` and execute the `XcmTransferInfo()` by running:
 
 ```bash
 bun run index.ts
@@ -141,7 +141,7 @@ Now you can execute the transfer function by adding the following statement:
 Add the following code:
 
 ```typescript title="index.ts"
---8<-- 'code/develop/toolkit/interoperability/paraspell/index.ts:104:104'
+--8<-- 'code/develop/toolkit/interoperability/paraspell/index.ts:108:108'
 ```
 
 Comment out the `XcmTransferInfo()` and execute the transfer:

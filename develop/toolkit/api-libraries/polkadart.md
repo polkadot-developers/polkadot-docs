@@ -112,7 +112,7 @@ subscription.stream.forEach((response) {
 
 ### Send a Transaction
 
-Perhaps the most common operation done in any blockchain is transferring funds. Here you can see how that can be done using Polkadart.
+Perhaps the most common operation done in any blockchain is transferring funds. Here you can see how that can be done using Polkadart:
 
 ```dart
 final wallet = await KeyPair.sr25519.fromUri("//Alice");

@@ -46,5 +46,28 @@ python scripts/generate_llms.py
 
 The scripts for LLM-related files generation are located in `polkadot-docs/scripts` which contains the following:
 
-- **`llms_config.json`**: single point of configuration for the LLM files. 
+- **`llms_config.json`**: Single point of configuration for the LLM files. 
+- **`generate_llms.py`**: Pipeline for generating updated LLM files.
+- **`generate_ai_pages.py`**: Creates one resolved Markdown file per documentation page and outputs them to the `/.ai/pages` directory.
+- **`generate_llms_txt.py`**: Creates the `llms.txt` site index file using the Markdown file URLs and outputs it to the `/polkadot-docs/` directory.
+- **`generate_site_index.py`**: Creates two full-site content related files:
+    - `llms-full.jsonl`: This file contains the entire documentation site, enhanced with metadata for improved indexing and chunking, and replaces the previous `llms-full.txt` file perviously used.
+    - `site-index.json`: This lightweight version of the full documentation site uses content previews rather than full content bodies to allow for a smaller file size.
+- **`generate_category_bundles.py`**: Bundles pages with the same category tag together, along with context via Basics and Reference categories, and outputs them to `/.ai/categories/` as Markdown files.
+
+## FAQs
+
+### Why are we now using Markdown instead of `.txt` files?
+
+- LLMs see a Markdown file and automatically know which semantic clues to look for to identify headings, bullet lists, and other structural elements. In comparison, a `.txt` file presents as a flattened sequence of words where the model has to work harder to identify the structure of the content. 
+
+### What do you mean by "resolved Markdown" files?
+
+- The resolved Markdown files are those which are processed to replace all of the code snippet and variable placeholders with their intended contents and strip any HTML comments.
+
+### Why use the `/.ai/pages` and `/.ai/categories` directories rather than ouputting the files to '/llms-files/' like before?
+
+- The Markdown files must be located in a directory that is not included in the site build to prevent Mkdocs from converting the Markdown to HTML elements when building the site.
+
+
 

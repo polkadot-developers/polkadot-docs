@@ -6,7 +6,7 @@ Builds compact site catalogs from reconstituted Markdown artifacts under /.ai/pa
 
 Default outputs (always written):
   - /.ai/site-index.json      (array: one object per page with outline/preview/stats)
-  - /.ai/llms-full.jsonl      (JSON Lines: one object per H2/H3 section)
+  - llms-full.jsonl      (JSON Lines: one object per H2/H3 section)
 
 llms-full.jsonl line schema (per section):
   {
@@ -382,7 +382,7 @@ def build_site_index(config_path: str, dry_run: bool = False, limit: int = 0,
     # Output paths
     public_root = config.get("outputs", {}).get("public_root", "/.ai/").strip("/")
     index_out = (repo_root / public_root / "site-index.json").resolve()
-    jsonl_out = (repo_root / public_root / "llms-full.jsonl").resolve()
+    jsonl_out = (repo_root / "llms-full.jsonl").resolve()
 
     if dry_run:
         print(f"[dry-run] ai_dir={ai_dir}")

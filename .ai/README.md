@@ -46,5 +46,5 @@ python scripts/generate_llms.py
 
 The scripts for LLM-related files generation are located in `polkadot-docs/scripts` which contains the following:
 
-- **`llms_config.json`**: single point of configuration for the LLM 
+- **`llms_config.json`**: single point of configuration for the LLM files. 
 

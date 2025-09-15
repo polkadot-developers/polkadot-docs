@@ -8,7 +8,7 @@ import { getPolkadotSigner } from 'polkadot-api/signer';
 import { sr25519CreateDerive } from '@polkadot-labs/hdkd';
 import { inspect } from 'util';
 
-// DOT/PAS has 10 decimals
+// PAS token has 10 decimals
 const PAS_UNITS = 10_000_000_000n;
 
 const SEED_PHRASE =

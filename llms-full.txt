@@ -17260,7 +17260,7 @@ description: A step-by-step guide to building, verifying, and executing a transf
 
 This guide walks you through transferring tokens between two parachains using the [ParaSpell XCM SDK](https://paraspell.github.io/docs/){target=\_blank}. This example uses [Asset Hub](/polkadot-protocol/architecture/system-chains/asset-hub/){target=\_blank} and the [People Chain](/polkadot-protocol/architecture/system-chains/people/){target=\_blank}, but the same approach applies to transfers between any parachain.
 
-For development purposes, this guide will use the [Paseo TestNet](/develop/networks/#paseo){target=\_blank}, so the token transfer will be from Paseo's Asset Hub to Paseo's People Chain.
+For development purposes, this guide will use the [Polkadot TestNet](/develop/networks/#paseo){target=\_blank}, so the transferred token will be PAS.
 
 You’ll learn how to:
 
@@ -17272,8 +17272,10 @@ You’ll learn how to:
 
 ### Prerequisites
 
-- Basic familiarity with JavaScript/TypeScript
 - Knowledge of the [fundamentals of Polkadot](/polkadot-protocol/parachain-basics/){target=\_blank}
+- Basic understanding of [XCM](/develop/interoperability/intro-to-xcm/){target=\_blank}
+- Basic familiarity with JavaScript/TypeScript
+- Install [bun](https://bun.com/docs/installation){target=\_blank}, a fast JavaScript/TypeScript runtime and package manager
 
 ## Initialize Your Project
 
@@ -17309,7 +17311,7 @@ import { getPolkadotSigner } from 'polkadot-api/signer';
 import { sr25519CreateDerive } from '@polkadot-labs/hdkd';
 import { inspect } from 'util';
 
-// DOT/PAS has 10 decimals
+// PAS token has 10 decimals
 const PAS_UNITS = 10_000_000_000n;
 
 const SEED_PHRASE =
@@ -17328,7 +17330,7 @@ const RECIPIENT_ADDRESS = ss58Address(getSigner().publicKey);
 const SENDER_ADDRESS = ss58Address(getSigner().publicKey);
 ```
 
-Replace the `INSERT_YOUR_SEED_PHRASE ` with the seed phrase from your Polkadot development account.
+Replace the `INSERT_YOUR_SEED_PHRASE` with the seed phrase from your Polkadot development account.
 
 Be sure to fund this account with some PAS tokens on Paseo's Asset Hub using the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1000){target=\_blank}.
 
@@ -17339,7 +17341,7 @@ Be sure to fund this account with some PAS tokens on Paseo's Asset Hub using the
 
 The next step is to build the transaction that you intend to execute.
 
-In this example, you will teleport 10 PAS tokens from Paseo's Asset Hub to Paseo's People Chain system parachain.
+In this example, you will transfer 10 PAS tokens from Paseo's Asset Hub to Paseo's People Chain system parachain.
 
 Add the ParaSpell transaction code to your `index.ts` file:
 
@@ -17554,7 +17556,7 @@ async function verifyED() {
 
 verifyED();
 ```
-Execute the code by running:
+Comment out the `dryRunTransfer()` and execute the code by running:
 
 ```bash
 bun run index.ts
@@ -17592,7 +17594,7 @@ async function XcmTransferInfo() {
 XcmTransferInfo();
 ```
 
-Go ahead and execute the script:
+Comment out the `verifyED()` and execute the script:
 
 ```bash
 bun run index.ts
@@ -17656,7 +17658,7 @@ Now that you have:
 - Verified the existential deposit on the recipient account
 - Obtained an estimate of the associated XCM fees
 
-Now you can execute the teleport function by adding the following statement:
+Now you can execute the transfer function by adding the following statement:
 
 Add the following code:
 
@@ -17664,13 +17666,13 @@ Add the following code:
 transfer();
 ```
 
-And execute your teleport:
+Comment out the `XcmTransferInfo()` and execute the transfer:
 
 ```bash
 bun run index.ts
 ```
 
-Your `teleport` function will submit the transaction, and you will get the following output:
+Your `transfer` function will submit the transaction, and you will get the following output:
 
 <div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>bun run index.ts</span>
@@ -18003,6 +18005,115 @@ You should see:
 - The sender account has the transfer amount (10 PAS) + the fees amount debited from their account balance.
 
 You have now successfully created and sent a cross-chain transfer using the ParaSpell XCM SDK!
+
+???- code "Full Code"
+
+    ```typescript title="index.ts"
+    import { Builder, hasDryRunSupport } from '@paraspell/sdk';
+import {
+  entropyToMiniSecret,
+  mnemonicToEntropy,
+  ss58Address,
+} from '@polkadot-labs/hdkd-helpers';
+import { getPolkadotSigner } from 'polkadot-api/signer';
+import { sr25519CreateDerive } from '@polkadot-labs/hdkd';
+import { inspect } from 'util';
+
+// PAS token has 10 decimals
+const PAS_UNITS = 10_000_000_000n;
+
+const SEED_PHRASE =
+  'INSERT_YOUR_SEED_PHRASE';
+
+// Create Sr25519 signer from mnemonic
+function getSigner() {
+  const entropy = mnemonicToEntropy(SEED_PHRASE);
+  const miniSecret = entropyToMiniSecret(entropy);
+  const derive = sr25519CreateDerive(miniSecret);
+  const keyPair = derive('');
+  return getPolkadotSigner(keyPair.publicKey, 'Sr25519', keyPair.sign);
+}
+
+const RECIPIENT_ADDRESS = ss58Address(getSigner().publicKey);
+const SENDER_ADDRESS = ss58Address(getSigner().publicKey);
+
+async function transfer() {
+  const signer = getSigner();
+
+  const tx = await Builder()
+    .from('AssetHubPaseo')
+    .to('PeoplePaseo')
+    .currency({
+      symbol: 'PAS',
+      amount: 10n * PAS_UNITS, // 10 PAS
+    })
+    .address(RECIPIENT_ADDRESS)
+    .build();
+
+  console.log('Built transaction:', inspect(tx, { colors: true, depth: null }));
+
+  const result = await tx.signAndSubmit(signer);
+  console.log(inspect(result, { colors: true, depth: null }));
+}
+
+async function dryRunTransfer() {
+  if (!hasDryRunSupport('AssetHubPaseo')) {
+    console.log('Dry run is not supported on AssetHubPaseo.');
+    return;
+  }
+
+  const tx = await Builder()
+    .from('AssetHubPaseo')
+    .to('PeoplePaseo')
+    .currency({
+      symbol: 'PAS',
+      amount: 10n * PAS_UNITS,
+    })
+    .address(RECIPIENT_ADDRESS)
+    .senderAddress(SENDER_ADDRESS)
+    .dryRun();
+
+  console.log(inspect(tx, { colors: true, depth: null }));
+}
+
+dryRunTransfer();
+
+async function verifyED() {
+  const isValid = await Builder()
+    .from('AssetHubPaseo')
+    .to('PeoplePaseo')
+    .currency({
+      symbol: 'PAS',
+      amount: 10n * PAS_UNITS,
+    })
+    .address(RECIPIENT_ADDRESS)
+    .senderAddress(SENDER_ADDRESS)
+    .verifyEdOnDestination();
+
+  console.log(`ED verification ${isValid ? 'successful' : 'failed'}.`);
+}
+
+verifyED();
+
+async function XcmTransferInfo() {
+  const info = await Builder()
+    .from('AssetHubPaseo')
+    .to('PeoplePaseo')
+    .currency({
+      symbol: 'PAS',
+      amount: 10n * PAS_UNITS,
+    })
+    .address(RECIPIENT_ADDRESS)
+    .senderAddress(SENDER_ADDRESS)
+    .getTransferInfo();
+
+  console.log('Transfer Info:', info);
+}
+
+XcmTransferInfo();
+
+transfer();
+    ```
 
 ## Next Steps
 

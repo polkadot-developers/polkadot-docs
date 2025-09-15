@@ -9,7 +9,7 @@ description: A step-by-step guide to building, verifying, and executing a transf
 
 This guide walks you through transferring tokens between two parachains using the [ParaSpell XCM SDK](https://paraspell.github.io/docs/){target=\_blank}. This example uses [Asset Hub](/polkadot-protocol/architecture/system-chains/asset-hub/){target=\_blank} and the [People Chain](/polkadot-protocol/architecture/system-chains/people/){target=\_blank}, but the same approach applies to transfers between any parachain.
 
-For development purposes, this guide will use the [Paseo TestNet](/develop/networks/#paseo){target=\_blank}, so the token transfer will be from Paseo's Asset Hub to Paseo's People Chain.
+For development purposes, this guide will use the [Polkadot TestNet](/develop/networks/#paseo){target=\_blank}, so the transferred token will be PAS.
 
 You’ll learn how to:
 
@@ -21,8 +21,10 @@ You’ll learn how to:
 
 ### Prerequisites
 
-- Basic familiarity with JavaScript/TypeScript
 - Knowledge of the [fundamentals of Polkadot](/polkadot-protocol/parachain-basics/){target=\_blank}
+- Basic understanding of [XCM](/develop/interoperability/intro-to-xcm/){target=\_blank}
+- Basic familiarity with JavaScript/TypeScript
+- Install [bun](https://bun.com/docs/installation){target=\_blank}, a fast JavaScript/TypeScript runtime and package manager
 
 ## Initialize Your Project
 
@@ -51,7 +53,7 @@ Now add the following setup code to `index.ts`:
 --8<-- 'code/develop/toolkit/interoperability/paraspell/index.ts:1:27'
 ```
 
-Replace the `INSERT_YOUR_SEED_PHRASE ` with the seed phrase from your Polkadot development account.
+Replace the `INSERT_YOUR_SEED_PHRASE` with the seed phrase from your Polkadot development account.
 
 Be sure to fund this account with some PAS tokens on Paseo's Asset Hub using the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1000){target=\_blank}.
 
@@ -62,7 +64,7 @@ Be sure to fund this account with some PAS tokens on Paseo's Asset Hub using the
 
 The next step is to build the transaction that you intend to execute.
 
-In this example, you will teleport 10 PAS tokens from Paseo's Asset Hub to Paseo's People Chain system parachain.
+In this example, you will transfer 10 PAS tokens from Paseo's Asset Hub to Paseo's People Chain system parachain.
 
 Add the ParaSpell transaction code to your `index.ts` file:
 
@@ -98,7 +100,7 @@ Check if the recipient account meets the [Existential Deposit (ED)](/polkadot-pr
 ```ts title="index.ts"
 --8<-- 'code/develop/toolkit/interoperability/paraspell/index.ts:70:85'
 ```
-Execute the code by running:
+Comment out the `dryRunTransfer()` and execute the code by running:
 
 ```bash
 bun run index.ts
@@ -118,7 +120,7 @@ ParaSpell has a helpful function for this: [`getTransferInfo()`](https://paraspe
 --8<-- 'code/develop/toolkit/interoperability/paraspell/index.ts:87:102'
 ```
 
-Go ahead and execute the script:
+Comment out the `verifyED()` and execute the script:
 
 ```bash
 bun run index.ts
@@ -134,7 +136,7 @@ Now that you have:
 - Verified the existential deposit on the recipient account
 - Obtained an estimate of the associated XCM fees
 
-Now you can execute the teleport function by adding the following statement:
+Now you can execute the transfer function by adding the following statement:
 
 Add the following code:
 
@@ -142,13 +144,13 @@ Add the following code:
 --8<-- 'code/develop/toolkit/interoperability/paraspell/index.ts:104:104'
 ```
 
-And execute your teleport:
+Comment out the `XcmTransferInfo()` and execute the transfer:
 
 ```bash
 bun run index.ts
 ```
 
-Your `teleport` function will submit the transaction, and you will get the following output:
+Your `transfer` function will submit the transaction, and you will get the following output:
 
 --8<-- 'code/develop/toolkit/interoperability/paraspell/transfer-output.html'
 
@@ -167,6 +169,12 @@ You should see:
 - The sender account has the transfer amount (10 PAS) + the fees amount debited from their account balance.
 
 You have now successfully created and sent a cross-chain transfer using the ParaSpell XCM SDK!
+
+???- code "Full Code"
+
+    ```typescript title="index.ts"
+    --8<-- 'code/develop/toolkit/interoperability/paraspell/index.ts'
+    ```
 
 ## Next Steps
 

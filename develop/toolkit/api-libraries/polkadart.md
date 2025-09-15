@@ -71,7 +71,6 @@ print('Balance: ${accountInfo.data.free}')
 
 An API instance is required to interact with the blockchain. Polkadart provides a `Provider` class that allows you to connect to any network.
 
-#### Polkadot
 ```dart
 import 'package:demo/generated/polkadot/polkadot.dart';
 import 'package:polkadart/provider.dart';

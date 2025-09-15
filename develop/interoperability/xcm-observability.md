@@ -1,6 +1,6 @@
 ---
 title: XCM Observability
-description: This conceptual overview of XCM observability in Polkadot covers message correlation, tracing, and debugging features in modern runtimes.
+description: A conceptual overview of XCM observability in Polkadot covers message correlation, tracing, and debugging features in modern runtimes.
 ---
 
 # XCM Observability

@@ -47,7 +47,7 @@ Before you begin, ensure you have the following:
     wget https://github.com/polkadot-fellows/runtimes/releases/download/v1.6.0/asset-hub-polkadot_runtime-v1006000.compact.compressed.wasm -O wasms/asset-hub-polkadot_v1.6.0.wasm
     ```
 
-4. Download the config for Polkadot Hub:
+4. Download the config file for Polkadot Hub:
 
     ```bash
     mkdir -p configs

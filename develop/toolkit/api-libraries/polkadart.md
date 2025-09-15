@@ -8,7 +8,7 @@ categories: Tooling, Dapps
 
 Polkadart is the most comprehensive Dart/Flutter SDK for interacting with Polkadot, Substrate, and other compatible blockchain networks. Designed with a Dart-first approach and type-safe APIs, it provides everything developers need to build powerful decentralized applications.
 
-This page will outline some of the core components of Polkadart. Fore more details, refer to the [official documentation](https://polkadart.dev){target=\_blank}.
+This page will outline some of the core components of Polkadart. For more details, refer to the [official documentation](https://polkadart.dev){target=\_blank}.
 
 ## Installation
 

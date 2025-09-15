@@ -39,7 +39,7 @@ polkadart:
 
 ## Get Started
 
-## Type Generation
+### Type Generation
 
 Polkadart provides a CLI tool to generate type definitions from any Polkadot-SDK compatible blockchain network. This allows you to build type-safe Dart applications without dealing with the low-level details of the blockchain.
 

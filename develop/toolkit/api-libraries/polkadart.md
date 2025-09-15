@@ -84,7 +84,7 @@ Future<void> main(List<String> arguments) async {
 
 ### Reading Chain Data
 
-Besides querying the data using the `query` from the generated API, you can also use the State API for querying storage data, metadata, runtime information, and others.
+Besides querying the data using the `query` from the generated API, you can also use the State API for querying storage data, metadata, runtime information, and other chain information.
 
 ```dart
 final stateApi = StateApi(provider);

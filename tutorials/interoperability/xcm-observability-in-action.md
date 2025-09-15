@@ -1,56 +1,53 @@
 ---
 title: XCM Observability in Action
-description: A hands-on guide to tracing, correlating, and debugging cross-chain XCMs using observability tools in the Polkadot SDK.
+description: Follow this step-by-step guide to trace, correlate, and debug cross-chain XCMs using observability tools in the Polkadot SDK.
 ---
 
 # XCM Observability in Action
 
 ## Introduction
 
-Cross-Consensus Messaging (XCM) powers interoperability in the Polkadot ecosystem, but tracing flows across multiple chains is challenging in practice.
+Cross-Consensus Messaging (XCM) enables interoperability within the Polkadot ecosystem; however, tracing flows across multiple chains is challenging in practice.
 
-This tutorial walks through a **hands-on scenario**: sending assets between parachains and tracing the resulting XCM across origin and destination chains. Along the way, you will:
+Follow this tutorial to send assets between parachains and trace the resulting XCM across the origin and destination chains. By completing this tutorial, you will:
 
-- Capture `message_id` and [`SetTopic([u8; 32])`](https://github.com/polkadot-fellows/xcm-format#settopic){target=\_blank} for tracking
-- Correlate [`PolkadotXcm.Sent`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/enum.Event.html#variant.Sent){target=\_blank} and [`MessageQueue.Processed`](https://paritytech.github.io/polkadot-sdk/master/pallet_message_queue/pallet/enum.Event.html#variant.Processed){target=\_blank} events across chains
-- Apply manual topic tagging for custom multi-hop flows
-
-For background concepts and best practices, see the companion page: [XCM Observability](/develop/interoperability/xcm-observability){target=\_blank}.
+- Capture `message_id` and [`SetTopic([u8; 32])`](https://github.com/polkadot-fellows/xcm-format#settopic){target=\_blank} for tracking.
+- Correlate [`PolkadotXcm.Sent`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/enum.Event.html#variant.Sent){target=\_blank} and [`MessageQueue.Processed`](https://paritytech.github.io/polkadot-sdk/master/pallet_message_queue/pallet/enum.Event.html#variant.Processed){target=\_blank} events across chains.
+- Apply manual topic tagging for custom multi-hop flows.
 
 ## Prerequisites
 
-Before you begin, make sure you've:
+Before you begin, ensure you have the following:
 
-- [Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/){target=\_blank} installed
-- Access to local or remote parachain endpoints
-- An origin chain running runtime **`stable2503-5`** or later
-- A TypeScript development environment with essential tools
-- Familiarity with replaying or dry-running XCMs
+- [Node.js and npm installed](https://nodejs.org/en/download){target=\_blank}.
+- [Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/){target=\_blank} installed.
+- Access to local or remote parachain endpoints.
+- An origin chain running runtime `stable2503-5` or later.
+- A TypeScript development environment with essential tools.
+- Familiarity with [replaying or dry-running XCMs](/tutorials/interoperability/replay-and-dry-run-xcms/){target=\_blank}.
 
-If you're new to replay or dry-run XCMs, see [Replay and Dry Run XCMs Using Chopsticks](/tutorials/interoperability/replay-and-dry-run-xcms/){target=\_blank}.
+## Set Up Your Workspace
 
-## Setting Up Your Workspace
-
-1. Create a project directory:
+1. Run the following command to create a new project directory:
 
     ```bash
     mkdir -p xcm-obs-demo && cd xcm-obs-demo
     ```
 
-2. Install Chopsticks globally:
+2. Install Chopsticks globally using the command:
 
     ```bash
     npm install -g @acala-network/chopsticks@latest
     ```
 
-3. Download 1.6.0 runtime, which is built from **`stable2503-5` or later**:
+3. Next, use the following command to download the 1.6.0 runtime, which is built from `stable2503-5` or later:
 
     ```bash
     mkdir -p wasms
     wget https://github.com/polkadot-fellows/runtimes/releases/download/v1.6.0/asset-hub-polkadot_runtime-v1006000.compact.compressed.wasm -O wasms/asset-hub-polkadot_v1.6.0.wasm
     ```
 
-4. Download config of Polkadot Hub:
+4. Download the config for Polkadot Hub:
 
     ```bash
     mkdir -p configs
@@ -68,15 +65,17 @@ If you're new to replay or dry-run XCMs, see [Replay and Dry Run XCMs Using Chop
     ...
     ```
 
-6. Fork the relevant chains locally using Chopsticks:
+6. Use the following command to fork the relevant chains locally using Chopsticks:
 
     ```bash
     npx @acala-network/chopsticks xcm -r polkadot -p configs/polkadot-hub-override.yaml -p hydradx
     ```
 
-   → See the [Fork a Chain with Chopsticks guide](/tutorials/polkadot-sdk/testing/fork-live-chains/){target=\_blank} for detailed instructions.
+    !!! tip
+   
+        See the [Fork a Chain with Chopsticks](/tutorials/polkadot-sdk/testing/fork-live-chains/){target=\_blank} guide for detailed instructions.
 
-7. Open a **new terminal** in the same folder and initialise a Node.js project:
+7. Open a new terminal in the same folder and initialize a Node.js project:
 
     ```bash
     npm init -y && npm pkg set type="module"
@@ -90,7 +89,7 @@ If you're new to replay or dry-run XCMs, see [Replay and Dry Run XCMs Using Chop
     npm install @noble/hashes
     ```
 
-9. Initialise TypeScript:
+9. Initialize TypeScript using the command:
 
     ```bash
     npx tsc --init
@@ -103,26 +102,32 @@ If you're new to replay or dry-run XCMs, see [Replay and Dry Run XCMs Using Chop
     npx papi add hydration -w ws://localhost:8001
     ```
 
-## Scenario 1: XCM Flow with Implicit `SetTopic`
+## XCM Flow with Implicit `SetTopic`
 
-### Overview
+Assume the following values for this scenario:
 
-- **Origin:** Polkadot Hub
-- **Destination:** Hydration
-- **Extrinsic:** `limited_reserve_transfer_assets` (high-level)
-- **Topic:** Set automatically by the runtime
+- **Origin**: Polkadot Hub
+- **Destination**: Hydration
+- **Extrinsic**: `limited_reserve_transfer_assets` (high-level)
+- **Topic**: Set automatically by the runtime
 
-### Run the Script
+Follow these steps to complete the implicit `SetTopic` flow:
 
-Create and run `limited-reserve-transfer-assets.ts`:
+1. Create a file named `limited-reserve-transfer-assets.ts` and add the following code: 
 
-```ts
---8<-- 'code/tutorials/interoperability/xcm-observability-in-action/limited-reserve-transfer-assets.ts'
-```
+    ```ts
+    --8<-- 'code/tutorials/interoperability/xcm-observability-in-action/limited-reserve-transfer-assets.ts'
+    ```
 
-```bash
-npx tsx limited-reserve-transfer-assets.ts
-```
+2. Run your script with the following command:
+
+    ```bash
+    npx tsx limited-reserve-transfer-assets.ts
+    ```
+
+3. You will see terminal output similar to the following:
+
+    --8<-- 'code/tutorials/interoperability/xcm-observability-in-action/limited-reserve-transfer-assets-result.html'
 
 ### Forwarded XCM Example
 
@@ -137,32 +142,31 @@ The runtime adds a `SetTopic` to the forwarded XCM automatically:
 | Polkadot Hub | `PolkadotXcm.Sent`       | `message_id` | Matches the topic in the forwarded XCM |
 | Hydration    | `MessageQueue.Processed` | `id`         | Matches origin's `message_id`          |
 
-> ⚠️ Dry run generated topics may differ from actual execution.
+!!! note
+    Dry run-generated topics may differ from actual execution.
 
-### Message Trace Output
+## XCM Flow with Manual `SetTopic`
 
---8<-- 'code/tutorials/interoperability/xcm-observability-in-action/limited-reserve-transfer-assets-result.html'
+Assume the following values for this scenario:
 
-## Scenario 2: XCM Transfer with Manual `SetTopic`
+- **Origin**: Polkadot Hub
+- **Destination**: Hydration
+- **Topic**: Manually assigned
+- **Goal**: Ensure traceability in custom multi-hop flows
 
-### Overview
+Follow these steps to complete the manual `SetTopic` flow:
 
-- **Origin:** Polkadot Hub
-- **Destination:** Hydration
-- **Topic:** Manually assigned
-- **Goal:** Ensure traceability in custom multi-hop flows
+1. Create a new file named `deposit-reserve-asset-with-set-topic.ts` and add the following code:
 
-### Run the Script
+    ```ts
+    --8<-- 'code/tutorials/interoperability/xcm-observability-in-action/deposit-reserve-asset-with-set-topic.ts'
+    ```
 
-Create and run `deposit-reserve-asset-with-set-topic.ts`:
+2. Run your script with the following command:
 
-```ts
---8<-- 'code/tutorials/interoperability/xcm-observability-in-action/deposit-reserve-asset-with-set-topic.ts'
-```
-
-```bash
-npx tsx deposit-reserve-asset-with-set-topic.ts
-```
+    ```bash
+    npx tsx deposit-reserve-asset-with-set-topic.ts
+    ```
 
 ### Forwarded XCM Example
 
@@ -243,3 +247,5 @@ This guide demonstrated:
 - The legacy workaround for older runtimes with derived IDs
 
 With these scenarios and debugging steps, you can confidently develop, trace, and troubleshoot XCM workflows across chains.
+
+To learn more before you begin, see the companion page: [XCM Observability](/develop/interoperability/xcm-observability){target=\_blank}.

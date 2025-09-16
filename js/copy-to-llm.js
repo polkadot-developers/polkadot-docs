@@ -1,55 +1,10 @@
 // Copy to LLM functionality
 // From: https://github.com/leonardocustodio/mkdocs-copy-to-llm/blob/main/mkdocs_copy_to_llm/assets/js/copy-to-llm.js
 
-// This script adds "Copy to LLM" buttons to code blocks and content sections
+// This script adds per-page LLM functionality with a click to copy, 
+// download, or open Markdown page in ChatGPT/Claude code 
 (function() {
   'use strict';
-
-  // Helper function to format code for LLM consumption
-
-  // TODO: use as example for context to add to 'copy for AI'
-  // code block dropdown in future iterations
-
-  /* This is not needed because we will use resolved
-  markdown files from /.ai/pages with code blocks
-  in place and formatted correctly 
-  function formatCodeForLLM(codeElement, language) {
-    const code = codeElement.textContent;
-    const context = getPageContext();
-    const siteName = getSiteName();
-
-    const contextHeader = siteName ? `# Context from ${siteName}` : '# Context';
-
-    return `${contextHeader}
-Page: ${context.title}
-Section: ${context.section}
-URL: ${context.url}
-
-\`\`\`${language}
-${code}
-\`\`\``;
-  }
-*/
-
-/* We will not be making each section of content click to copy
-on the page as it adds a lot of noise to the UI without giving 
-an LLM much context to inform an answer.
-
-  // Helper function to format content section for LLM
-  function formatSectionForLLM(sectionElement) {
-    const context = getPageContext();
-    const content = cleanContentForLLM(sectionElement);
-    const siteName = getSiteName();
-
-    const header = siteName ? `# ${siteName} Section` : '# Documentation Section';
-
-    return `${header}
-Page: ${context.title}
-URL: ${context.url}
-
-${content}`;
-  }
-*/
 
   // Get site name from meta tag
   function getSiteName() {
@@ -116,129 +71,79 @@ ${content}`;
 
   // Get the raw Markdown file URL
   function getMdFileUrl() {
-    // Try to get the edit URL from MkDocs if available
-    const editLink = document.querySelector('a[href*="edit/"]');
-    if (editLink && editLink.href) {
-      // Convert edit URL to raw URL
-      // GitHub edit URL: https://github.com/owner/repo/edit/branch/path/to/file.md
-      // Raw URL: https://raw.githubusercontent.com/owner/repo/branch/path/to/file.md
-      const editUrl = editLink.href;
-      if (editUrl.includes('github.com')) {
-        return editUrl
-          .replace('github.com', 'raw.githubusercontent.com')
-          .replace('/edit/', '/')
-          .replace('/blob/', '/');
+    const canonicalLink = document.querySelector('link[rel="canonical"]');
+    let pathname = window.location.pathname;
+
+    if (canonicalLink && canonicalLink.href) {
+      try {
+        pathname = new URL(canonicalLink.href, window.location.origin).pathname;
+      } catch (error) {
+        console.warn('Copy to LLM: failed to parse canonical URL, falling back to location pathname.', error);
       }
     }
 
-    // Fallback: construct URL from current path
-    const currentPath = window.location.pathname;
+    const normalizedPath = normalizePathname(pathname);
+    const slug = buildSlugFromPath(normalizedPath);
 
-    // Remove the trailing slash if present
-    let path = currentPath.endsWith('/') ? currentPath.slice(0, -1) : currentPath;
-
-    // Handle root and index pages
-    if (!path || path === '') {
-      path = '/index';
-    } else if (path.endsWith('/index')) {
-      // Already ends with index, keep it
-    } else if (!path.includes('.')) {
-      // If path doesn't have an extension and doesn't end with index, it's likely a directory
-      // MkDocs serves directory/index.md as directory/
-      path = path + '/index';
-    }
-
-    // Try to get the repository URL from the page
-    const repoLink = document.querySelector('a[href*="github.com"][href$="/tree/"]') ||
-                     document.querySelector('a[href*="github.com"][href*="/tree/"]');
-
-    let baseUrl = '';
-    if (repoLink && repoLink.href) {
-      // Extract base URL from repository link
-      const match = repoLink.href.match(/github\.com\/([^\/]+\/[^\/]+)\/tree\/([^\/]+)/);
-      if (match) {
-        const [, repo, branch] = match;
-        baseUrl = `https://raw.githubusercontent.com/${repo}/${branch}`;
-      }
-    }
-
-    // Check for a configured base URL in meta tag or data attribute
-    if (!baseUrl) {
-      const metaRepo = document.querySelector('meta[name="mkdocs-copy-to-llm-repo-url"]');
-      if (metaRepo && metaRepo.content) {
-        baseUrl = metaRepo.content;
-      }
-    }
-
-    // Fallback to a default (you might want to make this configurable)
-    if (!baseUrl) {
-      // This is a fallback - ideally this should be configurable
-      console.warn('Copy to LLM: Could not determine repository URL. Using fallback.');
-      baseUrl = 'https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master';
-    }
-
-    const mdPath = path + '.md';
-
-    return baseUrl + mdPath;
+    return `${window.location.origin}/.ai/pages/${slug}.md`;
   }
 
-  // Remove front matter (metadata) from Markdown content
-  function removeFrontMatter(content) {
-    // Check if the content starts with ---
-    if (!content.startsWith('---')) {
-      return content;
+  function normalizePathname(pathname) {
+    let path = decodeURIComponent(pathname || '/');
+
+    const hashIndex = path.indexOf('#');
+    if (hashIndex !== -1) {
+      path = path.slice(0, hashIndex);
     }
 
-    // Find the second --- that closes the front matter
-    const lines = content.split('\n');
-    let endIndex = -1;
-
-    // Start from line 1 (skip the first ---)
-    for (let i = 1; i < lines.length; i++) {
-      if (lines[i].trim() === '---') {
-        endIndex = i;
-        break;
-      }
+    const queryIndex = path.indexOf('?');
+    if (queryIndex !== -1) {
+      path = path.slice(0, queryIndex);
     }
 
-    // If we found the closing ---, remove everything up to and including it
-    if (endIndex > 0) {
-      // Join the remaining lines after the front matter
-      return lines.slice(endIndex + 1).join('\n').trim();
+    path = path.replace(/index\.html$/i, '');
+    path = path.replace(/\/+/g, '/');
+
+    if (path.length > 1 && path.endsWith('/')) {
+      path = path.slice(0, -1);
     }
 
-    // If no closing --- found, return original content
-    return content;
+    return path || '/';
   }
-/* This is not needed as we will serve resolved Markdown files with these
-adjustments in place
-  // Clean content for LLM (remove extra UI elements)
-  function cleanContentForLLM(element) {
-    const clone = element.cloneNode(true);
 
-    // Remove buttons and UI elements
-    clone.querySelectorAll('.md-clipboard, .copy-to-llm, .headerlink').forEach(el => el.remove());
+  function buildSlugFromPath(pathname) {
+    if (!pathname || pathname === '/') {
+      return 'index';
+    }
 
-    // Convert to markdown-like format
-    let text = clone.innerHTML
-      .replace(/<h1[^>]*>(.*?)<\/h1>/gi, '# $1\n\n')
-      .replace(/<h2[^>]*>(.*?)<\/h2>/gi, '## $1\n\n')
-      .replace(/<h3[^>]*>(.*?)<\/h3>/gi, '### $1\n\n')
-      .replace(/<h4[^>]*>(.*?)<\/h4>/gi, '#### $1\n\n')
-      .replace(/<pre[^>]*><code[^>]*>(.*?)<\/code><\/pre>/gs, '```\n$1\n```\n\n')
-      .replace(/<code[^>]*>(.*?)<\/code>/g, '`$1`')
-      .replace(/<strong[^>]*>(.*?)<\/strong>/g, '**$1**')
-      .replace(/<em[^>]*>(.*?)<\/em>/g, '*$1*')
-      .replace(/<a[^>]*href="([^"]*)"[^>]*>(.*?)<\/a>/g, '[$2]($1)')
-      .replace(/<li[^>]*>(.*?)<\/li>/g, '- $1\n')
-      .replace(/<p[^>]*>(.*?)<\/p>/g, '$1\n\n')
-      .replace(/<br[^>]*>/g, '\n')
-      .replace(/<[^>]+>/g, '');
+    let route = pathname;
+    if (route.endsWith('/index')) {
+      route = route.slice(0, -'/index'.length);
+    }
 
-    // Clean up extra whitespace
-    return text.replace(/\n{3,}/g, '\n\n').trim();
+    route = route.replace(/^\/+/, '');
+    if (!route) {
+      return 'index';
+    }
+
+    const segments = route.split('/').filter(Boolean);
+    if (!segments.length) {
+      return 'index';
+    }
+
+    const slug = segments
+      .map((segment) => segment.trim())
+      .filter(Boolean)
+      .map((segment) => segment.replace(/\s+/g, '-'))
+      .map((segment) => segment.replace(/[^a-zA-Z0-9_-]/g, '-'))
+      .map((segment) => segment.replace(/-+/g, '-'))
+      .join('-')
+      .toLowerCase()
+      .replace(/^-+|-+$/g, '');
+
+    return slug || 'index';
   }
-*/
+
   // Copy to clipboard with fallback
   async function copyToClipboard(text, button, eventType = 'unknown') {
     try {
@@ -343,31 +248,8 @@ adjustments in place
     }, 2000);
   }
 
-  // Create copy to LLM button for code blocks
-  function createCodeCopyButton() {
-    const button = document.createElement('button');
-    button.className = 'md-clipboard md-icon copy-to-llm copy-to-llm-code';
-    button.title = 'Copy to LLM';
-    button.setAttribute('aria-label', 'Copy code to clipboard for LLM usage');
-    button.setAttribute('role', 'button');
-    button.innerHTML = `
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
-      </svg>
-    `;
-
-    // Add keyboard navigation
-    button.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        button.click();
-      }
-    });
-
-    return button;
-  }
-
-  // Create a copy to LLM button for sections
+// Set up for the per page LLM UI widget
+  // Create copy to LLM button for UI widget
   function createSectionCopyButton() {
     // Create container for split button
     const container = document.createElement('div');
@@ -449,48 +331,6 @@ adjustments in place
     return { container, copyButton, dropdownButton, dropdownMenu };
   }
 
-  // Add copy buttons to code blocks
-  // TODO: modify this so it is a single element with drop down options: copy code, copy for LLM
-  function addCodeCopyButtons() {
-    const codeBlocks = document.querySelectorAll('.highlight');
-
-    codeBlocks.forEach(block => {
-      // Skip if the button already exists
-      if (block.querySelector('.copy-to-llm-code')) return;
-
-      const preElement = block.querySelector('pre');
-      if (!preElement) return;
-
-      // Get language from class
-      const codeElement = preElement.querySelector('code');
-      const language = getLanguageFromClass(codeElement) || 'text';
-
-      // Create and add a button
-      const button = createCodeCopyButton();
-      button.addEventListener('click', (e) => {
-        e.preventDefault();
-        const formattedCode = formatCodeForLLM(codeElement, language);
-        copyToClipboard(formattedCode, button, 'code_block');
-      });
-
-      // Insert after the existing copy button if it exists
-      const existingCopyBtn = block.querySelector('.md-clipboard');
-      if (existingCopyBtn) {
-        existingCopyBtn.parentNode.insertBefore(button, existingCopyBtn.nextSibling);
-      } else {
-        // Otherwise add to the code block
-        block.appendChild(button);
-      }
-    });
-  }
-
-  // Get language from a code element class
-  function getLanguageFromClass(codeElement) {
-    if (!codeElement || !codeElement.className) return null;
-
-    const match = codeElement.className.match(/language-(\w+)/);
-    return match ? match[1] : null;
-  }
 
   // Add copy page dropdown menu element next to H1 titles
   function addSectionCopyButtons() {

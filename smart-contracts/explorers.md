@@ -33,7 +33,7 @@ Subscan is the flagship Polkadot ecosystem block explorer with comprehensive sup
 
 - [Westend Hub Subscan](https://assethub-westend.subscan.io/){target=\_blank}
 
-![](/images/develop/smart-contracts/block-explorers/block-explorers-1.webp) -->
+![](/images/smart-contracts/explorers/block-explorers-1.webp) -->
 
 ### BlockScout
 
@@ -41,7 +41,7 @@ BlockScout is an open-source explorer platform with a user-friendly interface ad
 
 - [Polkadot Hub TestNet BlockScout](https://blockscout-passet-hub.parity-testnet.parity.io/){target=\_blank}
 
-![](/images/develop/smart-contracts/block-explorers/block-explorers-2.webp)
+![](/images/smart-contracts/explorers/block-explorers-2.webp)
 
 <!-- ### Routescan
 
@@ -49,4 +49,4 @@ Routescan delivers multi-chain explorer capabilities with specialized support fo
 
 - [Westend Hub Routescan](https://420420421.testnet.routescan.io/){target=\_blank}
 
-![](/images/develop/smart-contracts/block-explorers/block-explorers-3.webp) -->
+![](/images/smart-contracts/explorers/block-explorers-3.webp) -->

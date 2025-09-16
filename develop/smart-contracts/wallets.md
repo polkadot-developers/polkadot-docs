@@ -71,7 +71,7 @@ To connect to Polkadot Hub TestNet using SubWallet, follow these steps:
 
     ![](/images/develop/smart-contracts/wallets/subwallet-03.webp){: .browser-extension}
 
-   You are now ready to use SubWallet to interact with [Polkadot Hub TestNet](/develop/smart-contracts/connect-to-polkadot/#networks-details){target=\_blank} seamlessly!
+   You are now ready to use SubWallet to interact with [Polkadot Hub TestNet](/smart-contracts/connect/#networks-details){target=\_blank} seamlessly!
 
 ![](/images/develop/smart-contracts/wallets/subwallet-04.webp){: .browser-extension}
 

@@ -30,7 +30,7 @@ To create the ERC-20 contract, you can follow the steps below:
 1. Navigate to the [Polkadot Remix IDE](https://remix.polkadot.io){target=\_blank}.
 2. Click in the **Create new file** button under the **contracts** folder, and name your contract as `MyToken.sol`.
 
-    ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-1.webp)
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/deploy-erc20-1.webp)
 
 3. Now, paste the following ERC-20 contract code into the editor:
 
@@ -64,7 +64,7 @@ To create the ERC-20 contract, you can follow the steps below:
     !!! tip
         Use the [OpenZeppelin Contracts Wizard](https://wizard.openzeppelin.com/){target=\_blank} to quickly generate customized smart contracts. Simply configure your contract, copy the generated code, and paste it into Polkadot Remix IDE for deployment. Below is an example of an ERC-20 token contract created with it:
 
-        ![Screenshot of the OpenZeppelin Contracts Wizard showing an ERC-20 contract configuration.](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-2.webp)
+        ![Screenshot of the OpenZeppelin Contracts Wizard showing an ERC-20 contract configuration.](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/deploy-erc20-2.webp)
         
 
 ## Compile the Contract
@@ -73,15 +73,15 @@ The compilation transforms your Solidity source code into bytecode that can be d
 
 1. Select the **Solidity Compiler** plugin from the left panel.
 
-    ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-3.webp)
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/deploy-erc20-3.webp)
 
 2. Click the **Compile MyToken.sol** button.
 
-    ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-4.webp)
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/deploy-erc20-4.webp)
 
 3. If the compilation succeeded, you'll see a green checkmark indicating success in the **Solidity Compiler** icon.
 
-    ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-5.webp)
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/deploy-erc20-5.webp)
 
 ## Deploy the Contract
 
@@ -89,28 +89,28 @@ Deployment is the process of publishing your compiled smart contract to the bloc
 
 1. Select the **Deploy & Run Transactions** plugin from the left panel.
 
-    ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-6.webp)
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/deploy-erc20-6.webp)
 
 2. Configure the deployment settings.
     1. From the **ENVIRONMENT** dropdown, select **Injected Provider - Talisman** (check the [Deploying Contracts](/develop/smart-contracts/dev-environments/remix/#deploying-contracts){target=\_blank} section of the Remix IDE guide for more details).
     2. From the **ACCOUNT** dropdown, select the account you want to use for the deploy.
 
-    ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-7.webp)
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/deploy-erc20-7.webp)
 
 3. Configure the contract parameters:
 
     1. Enter the address that will own the deployed token contract.
     2. Click the **Deploy** button to initiate the deployment.
 
-    ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-8.webp)
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/deploy-erc20-8.webp)
 
 4. **Talisman will pop up**: Review the transaction details. Click **Approve** to deploy your contract.
 
-     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-9.webp){: .browser-extension}
+     ![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/deploy-erc20-9.webp){: .browser-extension}
 
     If the deployment process succeeded, you will see the transaction details in the terminal, including the contract address and deployment transaction hash:
 
-    ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-10.webp)
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/deploy-erc20-10.webp)
 
 ## Interact with Your ERC-20 Contract
 
@@ -118,7 +118,7 @@ Once deployed, you can interact with your contract through Remix:
 
 1. Find your contract under **Deployed/Unpinned Contracts**, and click it to expand the available methods.
 
-    ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-11.webp)
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/deploy-erc20-11.webp)
 
 2. To mint new tokens:
 
@@ -129,15 +129,15 @@ Once deployed, you can interact with your contract through Remix:
         - The amount (remember to add 18 zeros for 1 whole token).
     4. Click **Transact**.
 
-    ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-12.webp)
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/deploy-erc20-12.webp)
 
 3. Click **Approve** to confirm the transaction in the Talisman popup.
 
-    ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-13.webp){: .browser-extension}
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/deploy-erc20-13.webp){: .browser-extension}
 
     If the transaction succeeds, you will see the following output in the terminal:
 
-    ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-14.webp)
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/deploy-erc20-14.webp)
 
 Other common functions you can use:
 

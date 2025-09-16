@@ -1,0 +1,7 @@
+nav:
+- 'Overview': index.md
+- 'Get Started': get-started.md
+- 'Connect to Polkadot': connect.md
+- 'Explorers': explorers.md
+- 'Faucets': faucets.md
+- 'Polkadot for Ethereum Developers': for-eth-devs

@@ -1,0 +1,6 @@
+nav:
+- 'Overview': index.md
+- 'Faucet': /smart-contracts/faucets.md 
+- 'EVM/PVM Smart Contracts': smart-contracts
+- 'Create a DApp': dapps
+- 'Port Ethereum DApps': eth-dapps

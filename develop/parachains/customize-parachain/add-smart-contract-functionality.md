@@ -45,7 +45,7 @@ Now that you understand how to enable smart contract functionality in your block
 
     Learn how developers can build smart contracts on Polkadot by leveraging the PolkaVM, Wasm/ink! or EVM contracts across many parachains.
 
-    [:octicons-arrow-right-24: Reference](/develop/smart-contracts/overview/)
+    [:octicons-arrow-right-24: Reference](/smart-contracts/)
 
 -   <span class="badge guide">Guide</span> __Wasm (ink!) Contracts__
 

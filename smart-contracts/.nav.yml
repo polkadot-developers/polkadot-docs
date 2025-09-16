@@ -5,3 +5,4 @@ nav:
 - 'Explorers': explorers.md
 - 'Faucets': faucets.md
 - 'Polkadot for Ethereum Developers': for-eth-devs
+- 'Cookbook': cookbook

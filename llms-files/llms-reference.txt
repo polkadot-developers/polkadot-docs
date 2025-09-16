@@ -6,14 +6,14 @@ It is intended for use with large language models (LLMs) to support developers w
 This file includes documentation related to the category: Reference
 
 ## List of doc pages:
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop\interoperability\xcm-config.md [type: other]
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop\interoperability\xcm-runtime-apis.md [type: other]
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop\smart-contracts\json-rpc-apis.md [type: other]
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/polkadot-protocol\glossary.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/interoperability/xcm-config.md [type: develop]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/interoperability/xcm-runtime-apis.md [type: develop]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/smart-contracts/json-rpc-apis.md [type: develop]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/polkadot-protocol/glossary.md [type: other]
 
 ## Full content for each doc page
 
-Doc-Content: https://docs.polkadot.com/develop\interoperability\xcm-config/
+Doc-Content: https://docs.polkadot.com/develop/interoperability/xcm-config/
 --- BEGIN CONTENT ---
 ---
 title: XCM Config
@@ -342,7 +342,7 @@ impl xcm_executor::Config for XcmConfig {
 ```
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop\interoperability\xcm-runtime-apis/
+Doc-Content: https://docs.polkadot.com/develop/interoperability/xcm-runtime-apis/
 --- BEGIN CONTENT ---
 ---
 title: XCM Runtime APIs
@@ -1822,7 +1822,7 @@ client.destroy();
     ---
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop\smart-contracts\json-rpc-apis/
+Doc-Content: https://docs.polkadot.com/develop/smart-contracts/json-rpc-apis/
 --- BEGIN CONTENT ---
 ---
 title: JSON-RPC APIs
@@ -2694,7 +2694,7 @@ If an error occurs, the response will include an error object:
 ```
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/polkadot-protocol\glossary/
+Doc-Content: https://docs.polkadot.com/polkadot-protocol/glossary/
 --- BEGIN CONTENT ---
 ---
 title: Glossary

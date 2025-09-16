@@ -53,7 +53,7 @@ Now that you understand how to enable smart contract functionality in your block
 
     Learn to build Wasm smart contracts with ink!, a Rust-based eDSL. Explore installation, contract structure, and key features.
 
-    [:octicons-arrow-right-24: Reference](/develop/smart-contracts/overview#wasm-ink)
+    [:octicons-arrow-right-24: Reference](/smart-contracts/overview/#wasm-ink)
     
 -   <span class="badge guide">Guide</span> __EVM Contracts__
 
@@ -61,6 +61,6 @@ Now that you understand how to enable smart contract functionality in your block
 
     Learn how Polkadot parachains such as Moonbeam, Astar, Acala, and Manta leverage the Ethereum Virtual Machine (EVM) and integrate it into their parachains.
 
-    [:octicons-arrow-right-24: Reference](/develop/smart-contracts/overview#parachain-contracts)
+    [:octicons-arrow-right-24: Reference](/smart-contracts/overview/#parachain-contracts)
 
 </div>

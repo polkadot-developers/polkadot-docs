@@ -14,7 +14,6 @@ Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/re
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/parachains/customize-parachain/overview.md [type: develop]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/parachains/install-polkadot-sdk.md [type: develop]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/parachains/intro-polkadot-sdk.md [type: develop]
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/smart-contracts/overview.md [type: develop]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/interoperability/xcm-tools.md [type: develop]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime.md [type: tutorials]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet.md [type: tutorials]
@@ -22,8 +21,6 @@ Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/re
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-asset.md [type: tutorials]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/polkadot-sdk/testing/fork-live-chains.md [type: tutorials]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/polkadot-sdk/testing/spawn-basic-chain.md [type: tutorials]
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/smart-contracts/deploy-erc20.md [type: tutorials]
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/smart-contracts/deploy-nft.md [type: tutorials]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/smart-contracts/launch-your-first-project/create-contracts.md [type: tutorials]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/polkadot-protocol/architecture/parachains/overview.md [type: other]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/polkadot-protocol/architecture/polkadot-chain/overview.md [type: other]
@@ -40,12 +37,15 @@ Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/re
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/polkadot-protocol/parachain-basics/networks.md [type: other]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/polkadot-protocol/parachain-basics/node-and-runtime.md [type: other]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/polkadot-protocol/parachain-basics/randomness.md [type: other]
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/polkadot-protocol/smart-contract-basics/accounts.md [type: other]
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/polkadot-protocol/smart-contract-basics/blocks-transactions-fees.md [type: other]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/polkadot-protocol/smart-contract-basics/evm-vs-polkavm.md [type: other]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/polkadot-protocol/smart-contract-basics/networks.md [type: other]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/polkadot-protocol/smart-contract-basics/overview.md [type: other]
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/polkadot-protocol/smart-contract-basics/polkavm-design.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/cookbook/smart-contracts/deploy-erc20.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/cookbook/smart-contracts/deploy-nft.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/for-eth-devs.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/for-eth-devs/accounts.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/for-eth-devs/blocks-transactions-fees.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/overview.md [type: other]
 
 ## Full content for each doc page
 
@@ -1502,109 +1502,6 @@ graph LR
 3. **[Deploy the chain](/develop/parachains/deployment)**: Follow the steps to launch your blockchain, whether as a standalone network or as a parachain on Polkadot.
 
 Each stage is covered in detail in its respective guide, walking you through the process from initial setup to final deployment.
---- END CONTENT ---
-
-Doc-Content: https://docs.polkadot.com/develop/smart-contracts/overview/
---- BEGIN CONTENT ---
----
-title: Smart Contracts Overview
-description: Learn about smart contract development capabilities in the Polkadot ecosystem, either by leveraging Polkadot Hub or other alternatives.
-categories: Basics, Smart Contracts
----
-
-# Smart Contracts on Polkadot
-
-!!! smartcontract "PolkaVM Preview Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
-
-## Introduction
-
-Polkadot offers developers multiple approaches to building and deploying smart contracts within its ecosystem. As a multi-chain network designed for interoperability, Polkadot provides various environments optimized for different developer preferences and application requirements. From native smart contract support on Polkadot Hub to specialized parachain environments, developers can choose the platform that best suits their technical needs while benefiting from Polkadot's shared security model and cross-chain messaging capabilities.
-
-Whether you're looking for Ethereum compatibility through EVM-based parachains like [Moonbeam](https://docs.moonbeam.network/){target=\_blank}, [Astar](https://docs.astar.network/){target=\_blank}, and [Acala](https://evmdocs.acala.network/){target=\_blank} or prefer PolkaVM-based development with [ink!](https://use.ink/docs/v6/){target=\_blank}, the Polkadot ecosystem accommodates a range of diverse developers.
-
-These guides explore the diverse smart contract options available in the Polkadot ecosystem, helping developers understand the unique advantages of each approach and make informed decisions about where to deploy their decentralized applications.
-
-## Native Smart Contracts
-
-### Introduction
-
-Polkadot Hub enables smart contract deployment and execution through PolkaVM, a cutting-edge virtual machine designed specifically for the Polkadot ecosystem. This native integration allows developers to deploy smart contracts directly on Polkadot's system chain while maintaining compatibility with Ethereum development tools and workflows.
-
-### Smart Contract Development
-
-The smart contract platform on Polkadot Hub combines _Polkadot's robust security and scalability_ with the extensive Ethereum development ecosystem. Developers can utilize familiar Ethereum libraries for contract interactions and leverage industry-standard development environments for writing and testing smart contracts.
-
-Polkadot Hub provides _full Ethereum JSON-RPC API compatibility_, ensuring seamless integration with existing development tools and services. This compatibility enables developers to maintain their preferred workflows while building on Polkadot's native infrastructure.
-
-### Technical Architecture
-
-PolkaVM, the underlying virtual machine, utilizes a RISC-V-based register architecture _optimized for the Polkadot ecosystem_. This design choice offers several advantages:
-
-- Enhanced performance for smart contract execution.
-- Improved gas efficiency for complex operations.
-- Native compatibility with Polkadot's runtime environment.
-- Optimized storage and state management.
-
-### Development Tools and Resources
-
-Polkadot Hub supports a comprehensive suite of development tools familiar to Ethereum developers. The platform integrates with popular development frameworks, testing environments, and deployment tools. Key features include:
-
-- Contract development in Solidity or Rust.
-- Support for standard Ethereum development libraries.
-- Integration with widely used development environments.
-- Access to blockchain explorers and indexing solutions.
-- Compatibility with contract monitoring and management tools.
-
-### Cross-Chain Capabilities
-
-Smart contracts deployed on Polkadot Hub can leverage Polkadot's [cross-consensus messaging (XCM) protocol](/develop/interoperability/intro-to-xcm/){target=\_blank} protocol to seamlessly _transfer tokens and call functions on other blockchain networks_ within the Polkadot ecosystem, all without complex bridging infrastructure or third-party solutions. For further references, check the [Interoperability](/develop/interoperability/){target=\_blank} section.
-
-### Use Cases
-
-Polkadot Hub's smart contract platform is suitable for a wide range of applications:
-
-- DeFi protocols leveraging _cross-chain capabilities_.
-- NFT platforms utilizing Polkadot's native token standards.
-- Governance systems integrated with Polkadot's democracy mechanisms.
-- Cross-chain bridges and asset management solutions.
-
-## Other Smart Contract Environments
-
-Beyond Polkadot Hub's native PolkaVM support, the ecosystem offers two main alternatives for smart contract development:
-
-- **EVM-compatible parachains**: Provide access to Ethereum's extensive developer ecosystem, smart contract portability, and established tooling like Hardhat, Remix, Foundry, and OpenZeppelin. The main options include Moonbeam (the first full Ethereum-compatible parachain serving as an interoperability hub), Astar (featuring dual VM support for both EVM and WebAssembly contracts), and Acala (DeFi-focused with enhanced Acala EVM+ offering advanced DeFi primitives).
-
-- **Rust (ink!)**: ink! is a Rust-based framework that can compile to PolkaVM. It uses [`#[ink(...)]`](https://use.ink/docs/v6/macros-attributes/){target=\_blank} attribute macros to create Polkadot SDK-compatible PolkaVM bytecode, offering strong memory safety from Rust, an advanced type system, high-performance PolkaVM execution, and platform independence with sandboxed security.
-
-
-Each environment provides unique advantages based on developer preferences and application requirements.
-
-## Where to Go Next
-
-Developers can use their existing Ethereum development tools and connect to Polkadot Hub's RPC endpoints. The platform's Ethereum compatibility layer ensures a smooth transition for teams already building on Ethereum-compatible chains.
-
-Subsequent sections of this guide provide detailed information about specific development tools, advanced features, and best practices for building on Polkadot Hub.
-
-<div class="grid cards" markdown>
-
--   <span class="badge guide">Guide</span> __Libraries__
-
-    ---
-
-    Explore essential libraries to optimize smart contract development and interaction.
-
-    [:octicons-arrow-right-24: Reference](/develop/smart-contracts/libraries/)
-
--   <span class="badge guide">Guide</span> __Dev Environments__
-
-    ---
-
-    Set up your development environment for seamless contract deployment and testing.
-
-    [:octicons-arrow-right-24: Reference](/develop/smart-contracts/dev-environments/)
-
-</div>
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/toolkit/interoperability/xcm-tools/
@@ -3845,343 +3742,6 @@ tail -f  /tmp/zombie-794af21178672e1ff32c612c3c7408dc_-2397036-6717MXDxcS55/alic
 After running this command, you will see the logs of the `alice` node in real-time, which can be useful for debugging purposes. The logs of the `bob` and `collator01` nodes can be checked similarly.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/tutorials/smart-contracts/deploy-erc20/
---- BEGIN CONTENT ---
----
-title: Deploy an ERC-20 to Polkadot Hub
-description: Deploy an ERC-20 token on Polkadot Hub using PolkaVM. This guide covers contract creation, compilation, deployment, and interaction via Polkadot Remix IDE.
-tutorial_badge: Beginner
-categories: Basics, dApps, Smart Contracts
----
-
-# Deploy an ERC-20 to Polkadot Hub
-
-!!! smartcontract "PolkaVM Preview Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
-
-## Introduction
-
-[ERC-20](https://eips.ethereum.org/EIPS/eip-20){target=\_blank} tokens are fungible tokens commonly used for creating cryptocurrencies, governance tokens, and staking mechanisms. Polkadot Hub enables easy token deployment with Ethereum-compatible smart contracts via PolkaVM.
-
-This tutorial covers deploying an ERC-20 contract on the Polkadot Hub TestNet using [Polkadot Remix IDE](https://remix.polkadot.io){target=\_blank}, a web-based development tool. [OpenZeppelin's ERC-20 contracts]({{ dependencies.repositories.open_zeppelin_contracts.repository_url}}/tree/{{ dependencies.repositories.open_zeppelin_contracts.version}}/contracts/token/ERC20){target=\_blank} are used for security and compliance.
-
-## Prerequisites
-
-Before starting, make sure you have:
-
-- [MetaMask](https://metamask.io/){target=\_blank} installed and connected to Polkadot Hub. For detailed instructions, see the [Connect Your Wallet](/develop/smart-contracts/wallets){target=\_blank} section.
-- A funded account with some PAS tokens (you can get them from the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}). To learn how to get test tokens, check out the [Test Tokens](/develop/smart-contracts/connect-to-polkadot#test-tokens){target=\_blank} section.
-- Basic understanding of Solidity and fungible tokens.
-
-## Create the ERC-20 Contract
-
-To create the ERC-20 contract, you can follow the steps below:
-
-1. Navigate to the [Polkadot Remix IDE](https://remix.polkadot.io){target=\_blank}.
-2. Click in the **Create new file** button under the **contracts** folder, and name your contract as `MyToken.sol`.
-
-    ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-1.webp)
-
-3. Now, paste the following ERC-20 contract code into the editor:
-
-    ```solidity title="MyToken.sol"
-    // SPDX-License-Identifier: MIT
-// Compatible with OpenZeppelin Contracts ^5.0.0
-pragma solidity ^0.8.22;
-
-import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
-
-contract MyToken is ERC20, Ownable {
-    constructor(address initialOwner)
-        ERC20("MyToken", "MTK")
-        Ownable(initialOwner)
-    {}
-
-    function mint(address to, uint256 amount) public onlyOwner {
-        _mint(to, amount);
-    }
-}
-    ```
-
-    The key components of the code above are:
-
-    - Contract imports:
-
-        - **[`ERC20.sol`]({{ dependencies.repositories.open_zeppelin_contracts.repository_url}}/tree/{{ dependencies.repositories.open_zeppelin_contracts.version}}/contracts/token/ERC20/ERC20.sol){target=\_blank}**: The base contract for fungible tokens, implementing core functionality like transfers, approvals, and balance tracking.
-        - **[`Ownable.sol`]({{ dependencies.repositories.open_zeppelin_contracts.repository_url}}/tree/{{ dependencies.repositories.open_zeppelin_contracts.version}}/contracts/access/Ownable.sol){target=\_blank}**: Provides basic authorization control, ensuring only the contract owner can mint new tokens.
-    
-    - Constructor parameters:
-
-        - **`initialOwner`**: Sets the address that will have administrative rights over the contract.
-        - **`"MyToken"`**: The full name of your token.
-        - **`"MTK"`**: The symbol representing your token in wallets and exchanges.
-
-    - Key functions:
-
-        - **`mint(address to, uint256 amount)`**: Allows the contract owner to create new tokens for any address. The amount should include 18 decimals (e.g., 1 token = 1000000000000000000).
-        - Inherited [Standard ERC-20](https://ethereum.org/en/developers/docs/standards/tokens/erc-20/){target=\_blank} functions:
-            - **`transfer(address recipient, uint256 amount)`**: Sends a specified amount of tokens to another address.
-            - **`approve(address spender, uint256 amount)`**: Grants permission for another address to spend a specific number of tokens on behalf of the token owner.
-            - **`transferFrom(address sender, address recipient, uint256 amount)`**: Transfers tokens from one address to another, if previously approved.
-            - **`balanceOf(address account)`**: Returns the token balance of a specific address.
-            - **`allowance(address owner, address spender)`**: Checks how many tokens an address is allowed to spend on behalf of another address.
-
-    !!! tip
-        Use the [OpenZeppelin Contracts Wizard](https://wizard.openzeppelin.com/){target=\_blank} to quickly generate customized smart contracts. Simply configure your contract, copy the generated code, and paste it into Polkadot Remix IDE for deployment. Below is an example of an ERC-20 token contract created with it:
-
-        ![Screenshot of the OpenZeppelin Contracts Wizard showing an ERC-20 contract configuration.](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-2.webp)
-        
-
-## Compile the Contract
-
-The compilation transforms your Solidity source code into bytecode that can be deployed on the blockchain. During this process, the compiler checks your contract for syntax errors, ensures type safety, and generates the machine-readable instructions needed for blockchain execution. To compile your contract, follow the instructions below:
-
-1. Select the **Solidity Compiler** plugin from the left panel.
-
-    ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-3.webp)
-
-2. Click the **Compile MyToken.sol** button.
-
-    ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-4.webp)
-
-3. If the compilation succeeded, you'll see a green checkmark indicating success in the **Solidity Compiler** icon.
-
-    ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-5.webp)
-
-## Deploy the Contract
-
-Deployment is the process of publishing your compiled smart contract to the blockchain, making it permanently available for interaction. During deployment, you'll create a new instance of your contract on the blockchain, which involves:
-
-1. Select the **Deploy & Run Transactions** plugin from the left panel.
-
-    ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-6.webp)
-
-2. Configure the deployment settings.
-    1. From the **ENVIRONMENT** dropdown, select **Injected Provider - Talisman** (check the [Deploying Contracts](/develop/smart-contracts/dev-environments/remix/#deploying-contracts){target=\_blank} section of the Remix IDE guide for more details).
-    2. From the **ACCOUNT** dropdown, select the account you want to use for the deploy.
-
-    ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-7.webp)
-
-3. Configure the contract parameters:
-
-    1. Enter the address that will own the deployed token contract.
-    2. Click the **Deploy** button to initiate the deployment.
-
-    ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-8.webp)
-
-4. **Talisman will pop up**: Review the transaction details. Click **Approve** to deploy your contract.
-
-     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-9.webp){: .browser-extension}
-
-    If the deployment process succeeded, you will see the transaction details in the terminal, including the contract address and deployment transaction hash:
-
-    ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-10.webp)
-
-## Interact with Your ERC-20 Contract
-
-Once deployed, you can interact with your contract through Remix:
-
-1. Find your contract under **Deployed/Unpinned Contracts**, and click it to expand the available methods.
-
-    ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-11.webp)
-
-2. To mint new tokens:
-
-    1. Click in the contract to expand its associated methods.
-    2. Expand the **mint** function.
-    3. Enter:
-        - The recipient address.
-        - The amount (remember to add 18 zeros for 1 whole token).
-    4. Click **Transact**.
-
-    ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-12.webp)
-
-3. Click **Approve** to confirm the transaction in the Talisman popup.
-
-    ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-13.webp){: .browser-extension}
-
-    If the transaction succeeds, you will see the following output in the terminal:
-
-    ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-14.webp)
-
-Other common functions you can use:
-
-- **`balanceOf(address)`**: Check token balance of any address.
-- **`transfer(address to, uint256 amount)`**: Send tokens to another address.
-- **`approve(address spender, uint256 amount)`**: Allow another address to spend your tokens.
-
-Feel free to explore and interact with the contract's other functions using the same approach - selecting the method, providing any required parameters, and confirming the transaction through Talisman when needed.
---- END CONTENT ---
-
-Doc-Content: https://docs.polkadot.com/tutorials/smart-contracts/deploy-nft/
---- BEGIN CONTENT ---
----
-title: Deploy an NFT to Polkadot Hub
-description: Deploy an NFT on Polkadot Hub using PolkaVM and OpenZeppelin. Learn how to compile, deploy, and interact with your contract using Polkadot Remix IDE.
-tutorial_badge: Beginner
-categories: Basics, dApps, Smart Contracts
----
-
-# Deploy an NFT to Polkadot Hub
-
-!!! smartcontract "PolkaVM Preview Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
-
-## Introduction
-
-Non-Fungible Tokens (NFTs) represent unique digital assets commonly used for digital art, collectibles, gaming, and identity verification. Polkadot Hub supports Ethereum-compatible smart contracts through PolkaVM, enabling straightforward NFT deployment.
-
-This tutorial guides you through deploying an [ERC-721](https://eips.ethereum.org/EIPS/eip-721){target=\_blank} NFT contract on the Polkadot Hub TestNet using the [Polkadot Remix IDE](https://remix.polkadot.io){target=\_blank}, a web-based development environment. To ensure security and standard compliance, it uses [OpenZeppelin's NFT contracts]({{ dependencies.repositories.open_zeppelin_contracts.repository_url}}/tree/{{ dependencies.repositories.open_zeppelin_contracts.version}}){target=\_blank} implementation.
-
-## Prerequisites
-
-Before starting, make sure you have:
-
-- [Talisman](https://talisman.xyz/){target=\_blank} installed and connected to the Polkadot Hub TestNet. Check the [Connect to Polkadot](/develop/smart-contracts/connect-to-polkadot/){target=\_blank} guide for more information.
-- A funded account with some PAS tokens (you can get them from the [Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}, noting that the faucet imposes a daily token limit, which may require multiple requests to obtain sufficient funds for testing).
-- Basic understanding of Solidity and NFTs, see the [Solidity Basics](https://soliditylang.org/){target=\_blank} and the [NFT Overview](https://ethereum.org/en/nft/){target=\_blank} guides for more details.
-
-## Create the NFT Contract
-
-To create the NFT contract, you can follow the steps below:
-
-1. Navigate to the [Polkadot Remix IDE](https://remix.polkadot.io/){target=\_blank}.
-2. Click in the **Create new file** button under the **contracts** folder, and name your contract as `MyNFT.sol`.
-
-    ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-1.webp)
-
-3. Now, paste the following NFT contract code into the editor.
-
-    ```solidity title="MyNFT.sol"
-    // SPDX-License-Identifier: MIT
-// Compatible with OpenZeppelin Contracts ^5.0.0
-pragma solidity ^0.8.22;
-
-import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
-
-contract MyToken is ERC721, Ownable {
-    uint256 private _nextTokenId;
-
-    constructor(address initialOwner)
-        ERC721("MyToken", "MTK")
-        Ownable(initialOwner)
-    {}
-
-    function safeMint(address to) public onlyOwner {
-        uint256 tokenId = _nextTokenId++;
-        _safeMint(to, tokenId);
-    }
-}
-    ```
-
-    The key components of the code above are:
-
-    - Contract imports:
-
-        - **[`ERC721.sol`]({{ dependencies.repositories.open_zeppelin_contracts.repository_url }}/blob/{{ dependencies.repositories.open_zeppelin_contracts.version }}/contracts/token/ERC721/ERC721.sol){target=\_blank}**: The base contract for non-fungible tokens, implementing core NFT functionality like transfers and approvals.
-        - **[`Ownable.sol`]({{ dependencies.repositories.open_zeppelin_contracts.repository_url }}/blob/{{ dependencies.repositories.open_zeppelin_contracts.version }}/contracts/access/Ownable.sol){target=\_blank}**: Provides basic authorization control, ensuring only the contract owner can mint new tokens.
-    
-    - Constructor parameters:
-
-        - **`initialOwner`**: Sets the address that will have administrative rights over the contract.
-        - **`"MyToken"`**: The full name of your NFT collection.
-        - **`"MTK"`**: The symbol representing your token in wallets and marketplaces.
-
-    - Key functions:
-
-        - **[`_safeMint(to, tokenId)`]({{ dependencies.repositories.open_zeppelin_contracts.repository_url }}/blob/{{ dependencies.repositories.open_zeppelin_contracts.version }}/contracts/token/ERC721/ERC721.sol#L304){target=\_blank}**: An internal function from `ERC721` that safely mints new tokens. It includes checks to ensure the recipient can handle `ERC721` tokens, with the `_nextTokenId` mechanism automatically generating unique sequential token IDs and the `onlyOwner` modifier restricting minting rights to the contract owner.
-        - Inherited [Standard ERC721](https://ethereum.org/en/developers/docs/standards/tokens/erc-721/){target=\_blank} functions provide a standardized set of methods that enable interoperability across different platforms, wallets, and marketplaces, ensuring that your NFT can be easily transferred, traded, and managed by any system that supports the `ERC721` standard:
-            - **`transferFrom(address from, address to, uint256 tokenId)`**: Transfers a specific NFT from one address to another.
-            - **`safeTransferFrom(address from, address to, uint256 tokenId)`**: Safely transfers an NFT, including additional checks to prevent loss.
-            - **`approve(address to, uint256 tokenId)`**: Grants permission for another address to transfer a specific NFT.
-            - **`setApprovalForAll(address operator, bool approved)`**: Allows an address to manage all of the owner's NFTs.
-            - **`balanceOf(address owner)`**: Returns the number of NFTs owned by a specific address.
-            - **`ownerOf(uint256 tokenId)`**: Returns the current owner of a specific NFT.
-
-    !!! tip
-        Use the [OpenZeppelin Contracts Wizard](https://wizard.openzeppelin.com/){target=\_blank} to generate customized smart contracts quickly. Simply configure your contract, copy the generated code, and paste it into Polkadot Remix IDE for deployment. Below is an example of an ERC-721 token contract created with it:
-
-        ![Screenshot of the OpenZeppelin Contracts Wizard showing an ERC-721 contract configuration.](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-2.webp)
-
-
-## Compile the Contract
-
-Compilation is a stage that converts your Solidity source code into bytecode suitable for deployment on the blockchain. Throughout this process, the compiler examines your contract for syntax errors, verifies type safety, and produces machine-readable instructions for execution on the blockchain.
-
-1. Select the **Solidity Compiler** plugin from the left panel.
-
-    ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-3.webp)
-
-2. Click in the **Compile MyNFT.sol** button.
-
-    ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-4.webp)
-
-3. If the compilation succeeded, you can see a green checkmark indicating success in the **Solidity Compiler** icon.
-
-    ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-5.webp)
-
-## Deploy the Contract
-
-Deployment is the process of uploading your compiled smart contract to the blockchain, allowing for interaction. During deployment, you will instantiate your contract on the blockchain, which involves:
-
-1. Select the **Deploy & Run Transactions** plugin from the left panel.
-
-    ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-6.webp)
-
-2. Configure the deployment settings:
-
-    1. From the **ENVIRONMENT** dropdown, select **Injected Provider - Talisman** (check the [Deploying Contracts](/develop/smart-contracts/dev-environments/remix/#deploying-contracts){target=\_blank} section of the Remix IDE guide for more details).
-    2. From the **ACCOUNT** dropdown, select the account you want to use for the deploy.
-
-    ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-7.webp)
-
-3. Configure the contract parameters:
-
-    1. Enter the address that will own the deployed NFT.
-    2. Click the **Deploy** button to initiate the deployment.
-
-    ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-8.webp)
-
-4. **Talisman will pop up**: Review the transaction details. Click **Approve** to deploy your contract.
-
-    ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-9.webp){: .browser-extension}
-
-    Deploying this contract requires paying gas fees in PAS tokens on the Polkadot Hub TestNet. Ensure your Talisman account is funded with sufficient PAS tokens from the faucet before confirming the transaction, check the [Test Tokens](/develop/smart-contracts/connect-to-polkadot/#test-tokens){target=\_blank} section for more information. Gas fees cover the computational resources needed to deploy and execute the smart contract on the blockchain.
-
-    If the deployment process succeeded, you will see the following output in the terminal:
-
-    ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-10.webp)
-
-## Interact with Your NFT Contract
-
-Once deployed, you can interact with your contract through Remix:
-
-1. Find your contract under **Deployed/Unpinned Contracts**, and click it to expand the available methods for the contract.
-
-    ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-11.webp)
-
-2. To mint an NFT:
-
-    1. Click on the contract to expand its associated methods.
-    2. Expand the **safeMint** function.
-    3. Enter the recipient address.
-    4. Click **Transact**.
-
-    ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-12.webp)
-
-3. Click **Approve** to confirm the transaction in the Talisman popup.
-
-    ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-13.webp){: .browser-extension}
-
-    If the transaction is successful, the terminal will display the following output, which details the information about the transaction, including the transaction hash, the block number, the associated logs, and so on.
-
-    ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-14.webp)
-
-Feel free to explore and interact with the contract's other functions using the same approach - selecting the method, providing any required parameters, and confirming the transaction through Talisman when needed.
---- END CONTENT ---
-
 Doc-Content: https://docs.polkadot.com/tutorials/smart-contracts/launch-your-first-project/create-contracts/
 --- BEGIN CONTENT ---
 ---
@@ -4198,7 +3758,7 @@ categories: Basics, Smart Contracts
 
 ## Introduction
 
-Creating [smart contracts](/develop/smart-contracts/overview/){target=\_blank} is fundamental to blockchain development. While many frameworks and tools are available, understanding how to write a contract from scratch with just a text editor is essential knowledge.
+Creating [smart contracts](/smart-contracts/){target=\_blank} is fundamental to blockchain development. While many frameworks and tools are available, understanding how to write a contract from scratch with just a text editor is essential knowledge.
 
 This tutorial will guide you through creating a basic smart contract that can be used with other tutorials for deployment and integration on Polkadot Hub. To understand how smart contracts work in Polkadot Hub, check the [Smart Contract Basics](/polkadot-protocol/smart-contract-basics/){target=\_blank} guide for more information.
 
@@ -6923,231 +6483,6 @@ For more information about the reasoning for choices made along with proofs, see
 For a discussion with Web3 Foundation researchers about when and under what conditions Polkadot's randomness can be utilized, see the [Discussion on Randomness used in Polkadot](https://github.com/use-ink/ink/issues/57){target=\_blank} issue on GitHub.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/polkadot-protocol/smart-contract-basics/accounts/
---- BEGIN CONTENT ---
----
-title: Accounts in Asset Hub Smart Contracts
-description: Bridges Ethereum's 20-byte addresses with Polkadot's 32-byte accounts, enabling seamless interaction while maintaining compatibility with Ethereum tooling.
-categories: Basics, Polkadot Protocol
----
-
-# Accounts on Asset Hub Smart Contracts
-
-!!! smartcontract "PolkaVM Preview Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
-
-## Introduction
-
-Asset Hub natively utilizes Polkadot's 32-byte account system while providing interoperability with Ethereum's 20-byte addresses through an automatic conversion system. When interacting with smart contracts:
-
-- Ethereum-compatible wallets (like MetaMask) can use their familiar 20-byte addresses.
-- Polkadot accounts continue using their native 32-byte format.
-- The Asset Hub chain automatically handles conversion between the two formats behind the scenes:
-
-    - 20-byte Ethereum addresses are padded with `0xEE` bytes to create valid 32-byte Polkadot accounts.
-    - 32-byte Polkadot accounts can optionally register a mapping to a 20-byte address for Ethereum compatibility.
-
-This dual-format approach enables Asset Hub to maintain compatibility with Ethereum tooling while fully integrating with the Polkadot ecosystem.
-
-## Address Types and Mappings
-
-The platform handles two distinct address formats:
-
-- [Ethereum-style addresses (20 bytes)](https://ethereum.org/en/developers/docs/accounts/#account-creation){target=\_blank}
-- [Polkadot native account IDs (32 bytes)](/polkadot-protocol/parachain-basics/accounts/){target=\_blank}
-
-### Ethereum to Polkadot Mapping
-
-The [`AccountId32Mapper`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/struct.AccountId32Mapper.html){target=\_blank} implementation in [`pallet_revive`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/index.html){target=\_blank} handles the core address conversion logic. For converting a 20-byte Ethereum address to a 32-byte Polkadot address, the pallet uses a simple concatenation approach:
-
-- [**Core mechanism**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/trait.AddressMapper.html#tymethod.to_fallback_account_id){target=\_blank}: Takes a 20-byte Ethereum address and extends it to 32 bytes by adding twelve `0xEE` bytes at the end. The key benefits of this approach are:
-    - Able to fully revert, allowing a smooth transition back to the Ethereum format.
-    - Provides clear identification of Ethereum-controlled accounts through the `0xEE` suffix pattern.
-    - Maintains cryptographic security with a `2^96` difficulty for pattern reproduction.
-
-### Polkadot to Ethereum Mapping
-
-The conversion from 32-byte Polkadot accounts to 20-byte Ethereum addresses is more complex than the reverse direction due to the lossy nature of the conversion. The [`AccountId32Mapper`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/struct.AccountId32Mapper.html){target=\_blank} handles this through two distinct approaches:
-
-- **For Ethereum-derived accounts**: The system uses the [`is_eth_derived`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/fn.is_eth_derived.html){target=\_blank} function to detect accounts that were originally Ethereum addresses (identified by the `0xEE` suffix pattern). For these accounts, the conversion strips the last 12 bytes to recover the original 20-byte Ethereum address.
-
-- **For native Polkadot accounts**: Since these accounts utilize the whole 32-byte space and weren't derived from Ethereum addresses, direct truncation would result in lost information. Instead, the system:
-
-    1. Hashes the entire 32-byte account using Keccak-256.
-    2. Takes the last 20 bytes of the hash to create the Ethereum address.
-    3. This ensures a deterministic mapping while avoiding simple truncation.
-
-The conversion process is implemented through the [`to_address`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/trait.AddressMapper.html#tymethod.to_address){target=\_blank} function, which automatically detects the account type and applies the appropriate conversion method.
-
-**Stateful Mapping for Reversibility** : Since the conversion from 32-byte to 20-byte addresses is inherently lossy, the system provides an optional stateful mapping through the [`OriginalAccount`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/pallet/storage_types/struct.OriginalAccount.html){target=\_blank} storage. When a Polkadot account registers a mapping (via the [`map`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/trait.AddressMapper.html#tymethod.map){target=\_blank} function), the system stores the original 32-byte account ID, enabling the [`to_account_id`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/trait.AddressMapper.html#tymethod.to_account_id){target=\_blank} function to recover the exact original account rather than falling back to a default conversion.
-
-
-### Account Mapping for Native Polkadot Accounts
-
-If you have a native Polkadot account (32-byte format) that was created with a Polkadot/Substrate keypair (Ed25519/Sr25519) rather than an Ethereum-compatible keypair (secp256k1), you'll need to map your account to enable Ethereum compatibility.
-
-To map your account, call the [`map_account`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/pallet/dispatchables/fn.map_account.html){target=\_blank} extrinsic of the [`pallet_revive`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/index.html){target=\_blank} pallet using your original Substrate account. This creates a stateful mapping that allows your 32-byte account to interact with the Ethereum-compatible smart contract system.
-
-Once mapped, you'll be able to:
-
-- Transfer funds between 20-byte format addresses.
-- Interact with smart contracts using Ethereum-compatible tools like MetaMask.
-- Maintain full reversibility to your original 32-byte account format.
-
-!!! warning "Mapping Requirement"
-    Without this mapping, native Polkadot accounts cannot transfer funds or interact with the Ethereum-compatible layer on the Hub.
-
-## Account Registration
-
-The registration process is implemented through the [`map`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/trait.AddressMapper.html#tymethod.map){target=\_blank} function. This process involves:
-
-- Checking if the account is already mapped.
-- Calculating and collecting required deposits based on data size.
-- Storing the address suffix for future reference.
-- Managing the currency holds for security.
-
-## Fallback Accounts
-
-The fallback mechanism is integrated into the [`to_account_id`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/trait.AddressMapper.html#tymethod.to_account_id){target=\_blank} function. It provides a safety net for address conversion by:
-
-- First, attempting to retrieve stored mapping data.
-- Falling back to the default conversion method if no mapping exists.
-- Maintaining consistency in address representation.
-
-## Contract Address Generation
-
-The system supports two methods for generating contract addresses:
-
-- [CREATE1 method](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/fn.create1.html){target=\_blank}:
-
-    - Uses the deployer address and nonce.
-    - Generates deterministic addresses for standard contract deployment.
-
-- [CREATE2 method](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/fn.create2.html){target=\_blank}:
-
-    - Uses the deployer address, initialization code, input data, and salt.
-    - Enables predictable address generation for advanced use cases.
-
-## Security Considerations
-
-The address mapping system maintains security through several design choices evident in the implementation:
-
-- The stateless mapping requires no privileged operations, as shown in the [`to_fallback_account_id`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/trait.AddressMapper.html#tymethod.to_fallback_account_id){target=\_blank} implementation.
-- The stateful mapping requires a deposit managed through the [`Currency`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/pallet/trait.Config.html#associatedtype.Currency){target=\_blank} trait.
-- Mapping operations are protected against common errors through explicit checks.
-- The system prevents double-mapping through the [`ensure!(!Self::is_mapped(account_id))`](https://github.com/paritytech/polkadot-sdk/blob/stable2412/substrate/frame/revive/src/address.rs#L125){target=\_blank} check.
-
-All source code references are from the [`address.rs`](https://github.com/paritytech/polkadot-sdk/blob/stable2412/substrate/frame/revive/src/address.rs){target=\_blank} file in the Revive pallet of the Polkadot SDK repository.
---- END CONTENT ---
-
-Doc-Content: https://docs.polkadot.com/polkadot-protocol/smart-contract-basics/blocks-transactions-fees/
---- BEGIN CONTENT ---
----
-title: Transactions and Fees on Asset Hub
-description: Explore how Asset Hub smart contracts handle blocks, transactions, and fees with EVM compatibility, supporting various Ethereum transaction types.
-categories: Basics, Polkadot Protocol
----
-
-# Blocks, Transactions, and Fees
-
-!!! smartcontract "PolkaVM Preview Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
-
-## Introduction
-
-Asset Hub smart contracts operate within the Polkadot ecosystem using the [`pallet_revive`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/){target=\_blank} implementation, which provides EVM compatibility. While many aspects of blocks and transactions are inherited from the underlying parachain architecture, there are specific considerations and mechanisms unique to smart contract operations on Asset Hub.
-
-## Smart Contract Blocks
-
-Smart contract blocks in Asset Hub follow the same fundamental structure as parachain blocks, inheriting all standard parachain block components. The `pallet_revive` implementation maintains this consistency while adding necessary [EVM-specific features](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/evm){target=\_blank}. For detailed implementation specifics, the [`Block`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/evm/struct.Block.html){target=\_blank} struct in `pallet_revive` demonstrates how parachain and smart contract block implementations align.
-
-## Smart Contract Transactions
-
-Asset Hub implements a sophisticated transaction system that supports various transaction types and formats, encompassing both traditional parachain operations and EVM-specific interactions.
-
-### EVM Transaction Types
-
-The system provides a fundamental [`eth_transact`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/pallet/dispatchables/fn.eth_transact.html){target=\_blank} interface for processing raw EVM transactions dispatched through [Ethereum JSON-RPC APIs](/develop/smart-contracts/json-rpc-apis/){target=\_blank}. This interface acts as a wrapper for Ethereum transactions, requiring an encoded signed transaction payload, though it cannot be dispatched directly. Building upon this foundation, the system supports multiple transaction formats to accommodate different use cases and optimization needs:
-
-- **[Legacy transactions](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/evm/struct.TransactionLegacyUnsigned.html){target=\_blank}**: The original Ethereum transaction format, providing basic transfer and contract interaction capabilities. These transactions use a simple pricing mechanism and are supported for backward compatibility.
-
-- **[EIP-1559 transactions](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/evm/struct.Transaction1559Unsigned.html){target=\_blank}**: An improved transaction format that introduces a more predictable fee mechanism with base fee and priority fee components. This format helps optimize gas fee estimation and network congestion management.
-
-- **[EIP-2930 transactions](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/evm/struct.Transaction2930Unsigned.html){target=\_blank}**: Introduces access lists to optimize gas costs for contract interactions by pre-declaring accessed addresses and storage slots.
-
-- **[EIP-4844 transactions](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/evm/struct.Transaction4844Unsigned.html){target=\_blank}**: Implements blob-carrying transactions, designed to optimize Layer 2 scaling solutions by providing dedicated space for roll-up data.
-
-Each transaction type can exist in both signed and unsigned states, with appropriate validation and processing mechanisms for each.
-
-## Fees and Gas
-
-Asset Hub implements a sophisticated resource management system that combines parachain transaction fees with EVM gas mechanics, providing both Ethereum compatibility and enhanced features.
-
-### Gas Model Overview
-
-Gas serves as the fundamental unit for measuring computational costs, with each network operation consuming a specified amount. This implementation maintains compatibility with Ethereum's approach while adding parachain-specific optimizations.
-
-- **Dynamic gas scaling**: Asset Hub implements a dynamic pricing mechanism that reflects actual execution performance. This results in:
-
-    - More efficient pricing for computational instructions relative to I/O operations.
-    - Better correlation between gas costs and actual resource consumption.
-    - Need for developers to implement flexible gas calculation rather than hardcoding values.
-
-- **Multi-dimensional resource metering**: Asset Hub extends beyond the traditional single-metric gas model to track three distinct resources.
-
-    - `ref_time` (computation time):
-
-        - Functions as traditional gas equivalent.
-        - Measures actual computational resource usage.
-        - Primary metric for basic operation costs.
-
-
-    - `proof_size` (verification overhead):
-
-        - Tracks state proof size required for validator verification.
-        - Helps manage consensus-related resource consumption.
-        - Important for cross-chain operations.
-
-
-    - `storage_deposit` (state management):
-
-        - Manages blockchain state growth.
-        - Implements a deposit-based system for long-term storage.
-        - Refundable when storage is freed.
-
-These resources can be limited at both transaction and contract levels, similar to Ethereum's gas limits. For more information, check the [Gas Model](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm#gas-model){target=\_blank} section in the [EVM vs PolkaVM](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm/){target=\_blank} article.
-
-### Fee Components
-
-- Base fees:
-
-    - Storage deposit for contract deployment.
-    - Minimum transaction fee for network access.
-    - Network maintenance costs.
-
-- Execution fees:
-
-    - Computed based on gas consumption.
-    - Converted to native currency using network-defined rates.
-    - Reflects actual computational resource usage.
-
-- Storage fees:
-
-    - Deposit for long-term storage usage.
-    - Refundable when storage is freed.
-    - Helps prevent state bloat.
-
-### Gas Calculation and Conversion
-
-The system maintains precise conversion mechanisms between:
-
-- Substrate weights and EVM gas units.
-- Native currency and gas costs.
-- Different resource metrics within the multi-dimensional model.
-
-This ensures accurate fee calculation while maintaining compatibility with existing Ethereum tools and workflows.
---- END CONTENT ---
-
 Doc-Content: https://docs.polkadot.com/polkadot-protocol/smart-contract-basics/evm-vs-polkavm/
 --- BEGIN CONTENT ---
 ---
@@ -7163,7 +6498,7 @@ categories: Basics, Polkadot Protocol
 
 ## Introduction
 
-While [PolkaVM](/polkadot-protocol/smart-contract-basics/polkavm-design/){target=\_blank} strives for maximum Ethereum compatibility, several fundamental design decisions create necessary divergences from the [EVM](https://ethereum.org/en/developers/docs/evm/){target=\_blank}. These differences represent trade-offs that enhance performance and resource management while maintaining accessibility for Solidity developers.
+While [PolkaVM](/smart-contracts/for-eth-devs/){target=\_blank} strives for maximum Ethereum compatibility, several fundamental design decisions create necessary divergences from the [EVM](https://ethereum.org/en/developers/docs/evm/){target=\_blank}. These differences represent trade-offs that enhance performance and resource management while maintaining accessibility for Solidity developers.
 
 ## Core Virtual Machine Architecture
 
@@ -7610,7 +6945,7 @@ The Polkadot SDK supports multiple smart contract execution environments:
 
 ### PolkaVM Contracts
 
-A component of the Asset Hub parachain, PolkaVM helps enable the deployment of Solidity-based smart contracts directly on Asset Hub. Learn more about how this cutting edge virtual machine facilitates using familiar Ethereum-compatible contracts and tools with Asset Hub by visiting the [Native Smart Contracts](/develop/smart-contracts/overview#native-smart-contracts){target=\_blank} guide.
+A component of the Asset Hub parachain, PolkaVM helps enable the deployment of Solidity-based smart contracts directly on Asset Hub. Learn more about how this cutting edge virtual machine facilitates using familiar Ethereum-compatible contracts and tools with Asset Hub by visiting the [Native Smart Contracts](/smart-contracts/overview/#native-smart-contracts){target=\_blank} guide.
 
 ### EVM Contracts
 
@@ -7687,7 +7022,344 @@ flowchart TD
 ```
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/polkadot-protocol/smart-contract-basics/polkavm-design/
+Doc-Content: https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-erc20/
+--- BEGIN CONTENT ---
+---
+title: Deploy an ERC-20 to Polkadot Hub
+description: Deploy an ERC-20 token on Polkadot Hub using PolkaVM. This guide covers contract creation, compilation, deployment, and interaction via Polkadot Remix IDE.
+tutorial_badge: Beginner
+categories: Basics, dApps, Smart Contracts
+---
+
+# Deploy an ERC-20 to Polkadot Hub
+
+!!! smartcontract "PolkaVM Preview Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+
+## Introduction
+
+[ERC-20](https://eips.ethereum.org/EIPS/eip-20){target=\_blank} tokens are fungible tokens commonly used for creating cryptocurrencies, governance tokens, and staking mechanisms. Polkadot Hub enables easy token deployment with Ethereum-compatible smart contracts via PolkaVM.
+
+This tutorial covers deploying an ERC-20 contract on the Polkadot Hub TestNet using [Polkadot Remix IDE](https://remix.polkadot.io){target=\_blank}, a web-based development tool. [OpenZeppelin's ERC-20 contracts]({{ dependencies.repositories.open_zeppelin_contracts.repository_url}}/tree/{{ dependencies.repositories.open_zeppelin_contracts.version}}/contracts/token/ERC20){target=\_blank} are used for security and compliance.
+
+## Prerequisites
+
+Before starting, make sure you have:
+
+- [MetaMask](https://metamask.io/){target=\_blank} installed and connected to Polkadot Hub. For detailed instructions, see the [Connect Your Wallet](/develop/smart-contracts/wallets){target=\_blank} section.
+- A funded account with some PAS tokens (you can get them from the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}). To learn how to get test tokens, check out the [Test Tokens](/smart-contracts/connect/#test-tokens){target=\_blank} section.
+- Basic understanding of Solidity and fungible tokens.
+
+## Create the ERC-20 Contract
+
+To create the ERC-20 contract, you can follow the steps below:
+
+1. Navigate to the [Polkadot Remix IDE](https://remix.polkadot.io){target=\_blank}.
+2. Click in the **Create new file** button under the **contracts** folder, and name your contract as `MyToken.sol`.
+
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/deploy-erc20-1.webp)
+
+3. Now, paste the following ERC-20 contract code into the editor:
+
+    ```solidity title="MyToken.sol"
+    // SPDX-License-Identifier: MIT
+// Compatible with OpenZeppelin Contracts ^5.0.0
+pragma solidity ^0.8.22;
+
+import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
+
+contract MyToken is ERC20, Ownable {
+    constructor(address initialOwner)
+        ERC20("MyToken", "MTK")
+        Ownable(initialOwner)
+    {}
+
+    function mint(address to, uint256 amount) public onlyOwner {
+        _mint(to, amount);
+    }
+}
+    ```
+
+    The key components of the code above are:
+
+    - Contract imports:
+
+        - **[`ERC20.sol`]({{ dependencies.repositories.open_zeppelin_contracts.repository_url}}/tree/{{ dependencies.repositories.open_zeppelin_contracts.version}}/contracts/token/ERC20/ERC20.sol){target=\_blank}**: The base contract for fungible tokens, implementing core functionality like transfers, approvals, and balance tracking.
+        - **[`Ownable.sol`]({{ dependencies.repositories.open_zeppelin_contracts.repository_url}}/tree/{{ dependencies.repositories.open_zeppelin_contracts.version}}/contracts/access/Ownable.sol){target=\_blank}**: Provides basic authorization control, ensuring only the contract owner can mint new tokens.
+    
+    - Constructor parameters:
+
+        - **`initialOwner`**: Sets the address that will have administrative rights over the contract.
+        - **`"MyToken"`**: The full name of your token.
+        - **`"MTK"`**: The symbol representing your token in wallets and exchanges.
+
+    - Key functions:
+
+        - **`mint(address to, uint256 amount)`**: Allows the contract owner to create new tokens for any address. The amount should include 18 decimals (e.g., 1 token = 1000000000000000000).
+        - Inherited [Standard ERC-20](https://ethereum.org/en/developers/docs/standards/tokens/erc-20/){target=\_blank} functions:
+            - **`transfer(address recipient, uint256 amount)`**: Sends a specified amount of tokens to another address.
+            - **`approve(address spender, uint256 amount)`**: Grants permission for another address to spend a specific number of tokens on behalf of the token owner.
+            - **`transferFrom(address sender, address recipient, uint256 amount)`**: Transfers tokens from one address to another, if previously approved.
+            - **`balanceOf(address account)`**: Returns the token balance of a specific address.
+            - **`allowance(address owner, address spender)`**: Checks how many tokens an address is allowed to spend on behalf of another address.
+
+    !!! tip
+        Use the [OpenZeppelin Contracts Wizard](https://wizard.openzeppelin.com/){target=\_blank} to quickly generate customized smart contracts. Simply configure your contract, copy the generated code, and paste it into Polkadot Remix IDE for deployment. Below is an example of an ERC-20 token contract created with it:
+
+        ![Screenshot of the OpenZeppelin Contracts Wizard showing an ERC-20 contract configuration.](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/deploy-erc20-2.webp)
+        
+
+## Compile the Contract
+
+The compilation transforms your Solidity source code into bytecode that can be deployed on the blockchain. During this process, the compiler checks your contract for syntax errors, ensures type safety, and generates the machine-readable instructions needed for blockchain execution. To compile your contract, follow the instructions below:
+
+1. Select the **Solidity Compiler** plugin from the left panel.
+
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/deploy-erc20-3.webp)
+
+2. Click the **Compile MyToken.sol** button.
+
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/deploy-erc20-4.webp)
+
+3. If the compilation succeeded, you'll see a green checkmark indicating success in the **Solidity Compiler** icon.
+
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/deploy-erc20-5.webp)
+
+## Deploy the Contract
+
+Deployment is the process of publishing your compiled smart contract to the blockchain, making it permanently available for interaction. During deployment, you'll create a new instance of your contract on the blockchain, which involves:
+
+1. Select the **Deploy & Run Transactions** plugin from the left panel.
+
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/deploy-erc20-6.webp)
+
+2. Configure the deployment settings.
+    1. From the **ENVIRONMENT** dropdown, select **Injected Provider - Talisman** (check the [Deploying Contracts](/develop/smart-contracts/dev-environments/remix/#deploying-contracts){target=\_blank} section of the Remix IDE guide for more details).
+    2. From the **ACCOUNT** dropdown, select the account you want to use for the deploy.
+
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/deploy-erc20-7.webp)
+
+3. Configure the contract parameters:
+
+    1. Enter the address that will own the deployed token contract.
+    2. Click the **Deploy** button to initiate the deployment.
+
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/deploy-erc20-8.webp)
+
+4. **Talisman will pop up**: Review the transaction details. Click **Approve** to deploy your contract.
+
+     ![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/deploy-erc20-9.webp){: .browser-extension}
+
+    If the deployment process succeeded, you will see the transaction details in the terminal, including the contract address and deployment transaction hash:
+
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/deploy-erc20-10.webp)
+
+## Interact with Your ERC-20 Contract
+
+Once deployed, you can interact with your contract through Remix:
+
+1. Find your contract under **Deployed/Unpinned Contracts**, and click it to expand the available methods.
+
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/deploy-erc20-11.webp)
+
+2. To mint new tokens:
+
+    1. Click in the contract to expand its associated methods.
+    2. Expand the **mint** function.
+    3. Enter:
+        - The recipient address.
+        - The amount (remember to add 18 zeros for 1 whole token).
+    4. Click **Transact**.
+
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/deploy-erc20-12.webp)
+
+3. Click **Approve** to confirm the transaction in the Talisman popup.
+
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/deploy-erc20-13.webp){: .browser-extension}
+
+    If the transaction succeeds, you will see the following output in the terminal:
+
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/deploy-erc20-14.webp)
+
+Other common functions you can use:
+
+- **`balanceOf(address)`**: Check token balance of any address.
+- **`transfer(address to, uint256 amount)`**: Send tokens to another address.
+- **`approve(address spender, uint256 amount)`**: Allow another address to spend your tokens.
+
+Feel free to explore and interact with the contract's other functions using the same approach - selecting the method, providing any required parameters, and confirming the transaction through Talisman when needed.
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-nft/
+--- BEGIN CONTENT ---
+---
+title: Deploy an NFT to Polkadot Hub
+description: Deploy an NFT on Polkadot Hub using PolkaVM and OpenZeppelin. Learn how to compile, deploy, and interact with your contract using Polkadot Remix IDE.
+tutorial_badge: Beginner
+categories: Basics, dApps, Smart Contracts
+---
+
+# Deploy an NFT to Polkadot Hub
+
+!!! smartcontract "PolkaVM Preview Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+
+## Introduction
+
+Non-Fungible Tokens (NFTs) represent unique digital assets commonly used for digital art, collectibles, gaming, and identity verification. Polkadot Hub supports Ethereum-compatible smart contracts through PolkaVM, enabling straightforward NFT deployment.
+
+This tutorial guides you through deploying an [ERC-721](https://eips.ethereum.org/EIPS/eip-721){target=\_blank} NFT contract on the Polkadot Hub TestNet using the [Polkadot Remix IDE](https://remix.polkadot.io){target=\_blank}, a web-based development environment. To ensure security and standard compliance, it uses [OpenZeppelin's NFT contracts]({{ dependencies.repositories.open_zeppelin_contracts.repository_url}}/tree/{{ dependencies.repositories.open_zeppelin_contracts.version}}){target=\_blank} implementation.
+
+## Prerequisites
+
+Before starting, make sure you have:
+
+- [Talisman](https://talisman.xyz/){target=\_blank} installed and connected to the Polkadot Hub TestNet. Check the [Connect to Polkadot](/smart-contracts/connect/){target=\_blank} guide for more information.
+- A funded account with some PAS tokens (you can get them from the [Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}, noting that the faucet imposes a daily token limit, which may require multiple requests to obtain sufficient funds for testing).
+- Basic understanding of Solidity and NFTs, see the [Solidity Basics](https://soliditylang.org/){target=\_blank} and the [NFT Overview](https://ethereum.org/en/nft/){target=\_blank} guides for more details.
+
+## Create the NFT Contract
+
+To create the NFT contract, you can follow the steps below:
+
+1. Navigate to the [Polkadot Remix IDE](https://remix.polkadot.io/){target=\_blank}.
+2. Click in the **Create new file** button under the **contracts** folder, and name your contract as `MyNFT.sol`.
+
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/deploy-nft-1.webp)
+
+3. Now, paste the following NFT contract code into the editor.
+
+    ```solidity title="MyNFT.sol"
+    // SPDX-License-Identifier: MIT
+// Compatible with OpenZeppelin Contracts ^5.0.0
+pragma solidity ^0.8.22;
+
+import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
+
+contract MyToken is ERC721, Ownable {
+    uint256 private _nextTokenId;
+
+    constructor(address initialOwner)
+        ERC721("MyToken", "MTK")
+        Ownable(initialOwner)
+    {}
+
+    function safeMint(address to) public onlyOwner {
+        uint256 tokenId = _nextTokenId++;
+        _safeMint(to, tokenId);
+    }
+}
+    ```
+
+    The key components of the code above are:
+
+    - Contract imports:
+
+        - **[`ERC721.sol`]({{ dependencies.repositories.open_zeppelin_contracts.repository_url }}/blob/{{ dependencies.repositories.open_zeppelin_contracts.version }}/contracts/token/ERC721/ERC721.sol){target=\_blank}**: The base contract for non-fungible tokens, implementing core NFT functionality like transfers and approvals.
+        - **[`Ownable.sol`]({{ dependencies.repositories.open_zeppelin_contracts.repository_url }}/blob/{{ dependencies.repositories.open_zeppelin_contracts.version }}/contracts/access/Ownable.sol){target=\_blank}**: Provides basic authorization control, ensuring only the contract owner can mint new tokens.
+    
+    - Constructor parameters:
+
+        - **`initialOwner`**: Sets the address that will have administrative rights over the contract.
+        - **`"MyToken"`**: The full name of your NFT collection.
+        - **`"MTK"`**: The symbol representing your token in wallets and marketplaces.
+
+    - Key functions:
+
+        - **[`_safeMint(to, tokenId)`]({{ dependencies.repositories.open_zeppelin_contracts.repository_url }}/blob/{{ dependencies.repositories.open_zeppelin_contracts.version }}/contracts/token/ERC721/ERC721.sol#L304){target=\_blank}**: An internal function from `ERC721` that safely mints new tokens. It includes checks to ensure the recipient can handle `ERC721` tokens, with the `_nextTokenId` mechanism automatically generating unique sequential token IDs and the `onlyOwner` modifier restricting minting rights to the contract owner.
+        - Inherited [Standard ERC721](https://ethereum.org/en/developers/docs/standards/tokens/erc-721/){target=\_blank} functions provide a standardized set of methods that enable interoperability across different platforms, wallets, and marketplaces, ensuring that your NFT can be easily transferred, traded, and managed by any system that supports the `ERC721` standard:
+            - **`transferFrom(address from, address to, uint256 tokenId)`**: Transfers a specific NFT from one address to another.
+            - **`safeTransferFrom(address from, address to, uint256 tokenId)`**: Safely transfers an NFT, including additional checks to prevent loss.
+            - **`approve(address to, uint256 tokenId)`**: Grants permission for another address to transfer a specific NFT.
+            - **`setApprovalForAll(address operator, bool approved)`**: Allows an address to manage all of the owner's NFTs.
+            - **`balanceOf(address owner)`**: Returns the number of NFTs owned by a specific address.
+            - **`ownerOf(uint256 tokenId)`**: Returns the current owner of a specific NFT.
+
+    !!! tip
+        Use the [OpenZeppelin Contracts Wizard](https://wizard.openzeppelin.com/){target=\_blank} to generate customized smart contracts quickly. Simply configure your contract, copy the generated code, and paste it into Polkadot Remix IDE for deployment. Below is an example of an ERC-721 token contract created with it:
+
+        ![Screenshot of the OpenZeppelin Contracts Wizard showing an ERC-721 contract configuration.](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/deploy-nft-2.webp)
+
+
+## Compile the Contract
+
+Compilation is a stage that converts your Solidity source code into bytecode suitable for deployment on the blockchain. Throughout this process, the compiler examines your contract for syntax errors, verifies type safety, and produces machine-readable instructions for execution on the blockchain.
+
+1. Select the **Solidity Compiler** plugin from the left panel.
+
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/deploy-nft-3.webp)
+
+2. Click in the **Compile MyNFT.sol** button.
+
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/deploy-nft-4.webp)
+
+3. If the compilation succeeded, you can see a green checkmark indicating success in the **Solidity Compiler** icon.
+
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/deploy-nft-5.webp)
+
+## Deploy the Contract
+
+Deployment is the process of uploading your compiled smart contract to the blockchain, allowing for interaction. During deployment, you will instantiate your contract on the blockchain, which involves:
+
+1. Select the **Deploy & Run Transactions** plugin from the left panel.
+
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/deploy-nft-6.webp)
+
+2. Configure the deployment settings:
+
+    1. From the **ENVIRONMENT** dropdown, select **Injected Provider - Talisman** (check the [Deploying Contracts](/develop/smart-contracts/dev-environments/remix/#deploying-contracts){target=\_blank} section of the Remix IDE guide for more details).
+    2. From the **ACCOUNT** dropdown, select the account you want to use for the deploy.
+
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/deploy-nft-7.webp)
+
+3. Configure the contract parameters:
+
+    1. Enter the address that will own the deployed NFT.
+    2. Click the **Deploy** button to initiate the deployment.
+
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/deploy-nft-8.webp)
+
+4. **Talisman will pop up**: Review the transaction details. Click **Approve** to deploy your contract.
+
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/deploy-nft-9.webp){: .browser-extension}
+
+    Deploying this contract requires paying gas fees in PAS tokens on the Polkadot Hub TestNet. Ensure your Talisman account is funded with sufficient PAS tokens from the faucet before confirming the transaction, check the [Test Tokens](/smart-contracts/connect/#test-tokens){target=\_blank} section for more information. Gas fees cover the computational resources needed to deploy and execute the smart contract on the blockchain.
+
+    If the deployment process succeeded, you will see the following output in the terminal:
+
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/deploy-nft-10.webp)
+
+## Interact with Your NFT Contract
+
+Once deployed, you can interact with your contract through Remix:
+
+1. Find your contract under **Deployed/Unpinned Contracts**, and click it to expand the available methods for the contract.
+
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/deploy-nft-11.webp)
+
+2. To mint an NFT:
+
+    1. Click on the contract to expand its associated methods.
+    2. Expand the **safeMint** function.
+    3. Enter the recipient address.
+    4. Click **Transact**.
+
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/deploy-nft-12.webp)
+
+3. Click **Approve** to confirm the transaction in the Talisman popup.
+
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/deploy-nft-13.webp){: .browser-extension}
+
+    If the transaction is successful, the terminal will display the following output, which details the information about the transaction, including the transaction hash, the block number, the associated logs, and so on.
+
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/deploy-nft-14.webp)
+
+Feel free to explore and interact with the contract's other functions using the same approach - selecting the method, providing any required parameters, and confirming the transaction through Talisman when needed.
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/smart-contracts/for-eth-devs/
 --- BEGIN CONTENT ---
 ---
 title: PolkaVM Design
@@ -7801,4 +7473,332 @@ The compilation process integrates several specialized components:
 2. **Revive Compiler**: Takes YUL IR and transforms it to [LLVM IR](https://llvm.org/){target=\_blank}.
 3. **LLVM**: A compiler infrastructure that optimizes the code and generates RISC-V ELF objects.
 4. **PVM linker**: Links the RISC-V ELF object into a final PolkaVM blob with metadata.
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/smart-contracts/for-eth-devs/accounts/
+--- BEGIN CONTENT ---
+---
+title: Accounts in Asset Hub Smart Contracts
+description: Bridges Ethereum's 20-byte addresses with Polkadot's 32-byte accounts, enabling seamless interaction while maintaining compatibility with Ethereum tooling.
+categories: Basics, Polkadot Protocol
+---
+
+# Accounts on Asset Hub Smart Contracts
+
+!!! smartcontract "PolkaVM Preview Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+
+## Introduction
+
+Asset Hub natively utilizes Polkadot's 32-byte account system while providing interoperability with Ethereum's 20-byte addresses through an automatic conversion system. When interacting with smart contracts:
+
+- Ethereum-compatible wallets (like MetaMask) can use their familiar 20-byte addresses.
+- Polkadot accounts continue using their native 32-byte format.
+- The Asset Hub chain automatically handles conversion between the two formats behind the scenes:
+
+    - 20-byte Ethereum addresses are padded with `0xEE` bytes to create valid 32-byte Polkadot accounts.
+    - 32-byte Polkadot accounts can optionally register a mapping to a 20-byte address for Ethereum compatibility.
+
+This dual-format approach enables Asset Hub to maintain compatibility with Ethereum tooling while fully integrating with the Polkadot ecosystem.
+
+## Address Types and Mappings
+
+The platform handles two distinct address formats:
+
+- [Ethereum-style addresses (20 bytes)](https://ethereum.org/en/developers/docs/accounts/#account-creation){target=\_blank}
+- [Polkadot native account IDs (32 bytes)](/polkadot-protocol/parachain-basics/accounts/){target=\_blank}
+
+### Ethereum to Polkadot Mapping
+
+The [`AccountId32Mapper`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/struct.AccountId32Mapper.html){target=\_blank} implementation in [`pallet_revive`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/index.html){target=\_blank} handles the core address conversion logic. For converting a 20-byte Ethereum address to a 32-byte Polkadot address, the pallet uses a simple concatenation approach:
+
+- [**Core mechanism**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/trait.AddressMapper.html#tymethod.to_fallback_account_id){target=\_blank}: Takes a 20-byte Ethereum address and extends it to 32 bytes by adding twelve `0xEE` bytes at the end. The key benefits of this approach are:
+    - Able to fully revert, allowing a smooth transition back to the Ethereum format.
+    - Provides clear identification of Ethereum-controlled accounts through the `0xEE` suffix pattern.
+    - Maintains cryptographic security with a `2^96` difficulty for pattern reproduction.
+
+### Polkadot to Ethereum Mapping
+
+The conversion from 32-byte Polkadot accounts to 20-byte Ethereum addresses is more complex than the reverse direction due to the lossy nature of the conversion. The [`AccountId32Mapper`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/struct.AccountId32Mapper.html){target=\_blank} handles this through two distinct approaches:
+
+- **For Ethereum-derived accounts**: The system uses the [`is_eth_derived`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/fn.is_eth_derived.html){target=\_blank} function to detect accounts that were originally Ethereum addresses (identified by the `0xEE` suffix pattern). For these accounts, the conversion strips the last 12 bytes to recover the original 20-byte Ethereum address.
+
+- **For native Polkadot accounts**: Since these accounts utilize the whole 32-byte space and weren't derived from Ethereum addresses, direct truncation would result in lost information. Instead, the system:
+
+    1. Hashes the entire 32-byte account using Keccak-256.
+    2. Takes the last 20 bytes of the hash to create the Ethereum address.
+    3. This ensures a deterministic mapping while avoiding simple truncation.
+
+The conversion process is implemented through the [`to_address`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/trait.AddressMapper.html#tymethod.to_address){target=\_blank} function, which automatically detects the account type and applies the appropriate conversion method.
+
+**Stateful Mapping for Reversibility** : Since the conversion from 32-byte to 20-byte addresses is inherently lossy, the system provides an optional stateful mapping through the [`OriginalAccount`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/pallet/storage_types/struct.OriginalAccount.html){target=\_blank} storage. When a Polkadot account registers a mapping (via the [`map`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/trait.AddressMapper.html#tymethod.map){target=\_blank} function), the system stores the original 32-byte account ID, enabling the [`to_account_id`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/trait.AddressMapper.html#tymethod.to_account_id){target=\_blank} function to recover the exact original account rather than falling back to a default conversion.
+
+
+### Account Mapping for Native Polkadot Accounts
+
+If you have a native Polkadot account (32-byte format) that was created with a Polkadot/Substrate keypair (Ed25519/Sr25519) rather than an Ethereum-compatible keypair (secp256k1), you'll need to map your account to enable Ethereum compatibility.
+
+To map your account, call the [`map_account`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/pallet/dispatchables/fn.map_account.html){target=\_blank} extrinsic of the [`pallet_revive`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/index.html){target=\_blank} pallet using your original Substrate account. This creates a stateful mapping that allows your 32-byte account to interact with the Ethereum-compatible smart contract system.
+
+Once mapped, you'll be able to:
+
+- Transfer funds between 20-byte format addresses.
+- Interact with smart contracts using Ethereum-compatible tools like MetaMask.
+- Maintain full reversibility to your original 32-byte account format.
+
+!!! warning "Mapping Requirement"
+    Without this mapping, native Polkadot accounts cannot transfer funds or interact with the Ethereum-compatible layer on the Hub.
+
+## Account Registration
+
+The registration process is implemented through the [`map`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/trait.AddressMapper.html#tymethod.map){target=\_blank} function. This process involves:
+
+- Checking if the account is already mapped.
+- Calculating and collecting required deposits based on data size.
+- Storing the address suffix for future reference.
+- Managing the currency holds for security.
+
+## Fallback Accounts
+
+The fallback mechanism is integrated into the [`to_account_id`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/trait.AddressMapper.html#tymethod.to_account_id){target=\_blank} function. It provides a safety net for address conversion by:
+
+- First, attempting to retrieve stored mapping data.
+- Falling back to the default conversion method if no mapping exists.
+- Maintaining consistency in address representation.
+
+## Contract Address Generation
+
+The system supports two methods for generating contract addresses:
+
+- [CREATE1 method](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/fn.create1.html){target=\_blank}:
+
+    - Uses the deployer address and nonce.
+    - Generates deterministic addresses for standard contract deployment.
+
+- [CREATE2 method](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/fn.create2.html){target=\_blank}:
+
+    - Uses the deployer address, initialization code, input data, and salt.
+    - Enables predictable address generation for advanced use cases.
+
+## Security Considerations
+
+The address mapping system maintains security through several design choices evident in the implementation:
+
+- The stateless mapping requires no privileged operations, as shown in the [`to_fallback_account_id`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/trait.AddressMapper.html#tymethod.to_fallback_account_id){target=\_blank} implementation.
+- The stateful mapping requires a deposit managed through the [`Currency`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/pallet/trait.Config.html#associatedtype.Currency){target=\_blank} trait.
+- Mapping operations are protected against common errors through explicit checks.
+- The system prevents double-mapping through the [`ensure!(!Self::is_mapped(account_id))`](https://github.com/paritytech/polkadot-sdk/blob/stable2412/substrate/frame/revive/src/address.rs#L125){target=\_blank} check.
+
+All source code references are from the [`address.rs`](https://github.com/paritytech/polkadot-sdk/blob/stable2412/substrate/frame/revive/src/address.rs){target=\_blank} file in the Revive pallet of the Polkadot SDK repository.
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/smart-contracts/for-eth-devs/blocks-transactions-fees/
+--- BEGIN CONTENT ---
+---
+title: Transactions and Fees on Asset Hub
+description: Explore how Asset Hub smart contracts handle blocks, transactions, and fees with EVM compatibility, supporting various Ethereum transaction types.
+categories: Basics, Polkadot Protocol
+---
+
+# Blocks, Transactions, and Fees
+
+!!! smartcontract "PolkaVM Preview Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+
+## Introduction
+
+Asset Hub smart contracts operate within the Polkadot ecosystem using the [`pallet_revive`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/){target=\_blank} implementation, which provides EVM compatibility. While many aspects of blocks and transactions are inherited from the underlying parachain architecture, there are specific considerations and mechanisms unique to smart contract operations on Asset Hub.
+
+## Smart Contract Blocks
+
+Smart contract blocks in Asset Hub follow the same fundamental structure as parachain blocks, inheriting all standard parachain block components. The `pallet_revive` implementation maintains this consistency while adding necessary [EVM-specific features](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/evm){target=\_blank}. For detailed implementation specifics, the [`Block`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/evm/struct.Block.html){target=\_blank} struct in `pallet_revive` demonstrates how parachain and smart contract block implementations align.
+
+## Smart Contract Transactions
+
+Asset Hub implements a sophisticated transaction system that supports various transaction types and formats, encompassing both traditional parachain operations and EVM-specific interactions.
+
+### EVM Transaction Types
+
+The system provides a fundamental [`eth_transact`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/pallet/dispatchables/fn.eth_transact.html){target=\_blank} interface for processing raw EVM transactions dispatched through [Ethereum JSON-RPC APIs](/smart-contracts/for-eth-devs/json-rpc-apis/){target=\_blank}. This interface acts as a wrapper for Ethereum transactions, requiring an encoded signed transaction payload, though it cannot be dispatched directly. Building upon this foundation, the system supports multiple transaction formats to accommodate different use cases and optimization needs:
+
+- **[Legacy transactions](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/evm/struct.TransactionLegacyUnsigned.html){target=\_blank}**: The original Ethereum transaction format, providing basic transfer and contract interaction capabilities. These transactions use a simple pricing mechanism and are supported for backward compatibility.
+
+- **[EIP-1559 transactions](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/evm/struct.Transaction1559Unsigned.html){target=\_blank}**: An improved transaction format that introduces a more predictable fee mechanism with base fee and priority fee components. This format helps optimize gas fee estimation and network congestion management.
+
+- **[EIP-2930 transactions](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/evm/struct.Transaction2930Unsigned.html){target=\_blank}**: Introduces access lists to optimize gas costs for contract interactions by pre-declaring accessed addresses and storage slots.
+
+- **[EIP-4844 transactions](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/evm/struct.Transaction4844Unsigned.html){target=\_blank}**: Implements blob-carrying transactions, designed to optimize Layer 2 scaling solutions by providing dedicated space for roll-up data.
+
+Each transaction type can exist in both signed and unsigned states, with appropriate validation and processing mechanisms for each.
+
+## Fees and Gas
+
+Asset Hub implements a sophisticated resource management system that combines parachain transaction fees with EVM gas mechanics, providing both Ethereum compatibility and enhanced features.
+
+### Gas Model Overview
+
+Gas serves as the fundamental unit for measuring computational costs, with each network operation consuming a specified amount. This implementation maintains compatibility with Ethereum's approach while adding parachain-specific optimizations.
+
+- **Dynamic gas scaling**: Asset Hub implements a dynamic pricing mechanism that reflects actual execution performance. This results in:
+
+    - More efficient pricing for computational instructions relative to I/O operations.
+    - Better correlation between gas costs and actual resource consumption.
+    - Need for developers to implement flexible gas calculation rather than hardcoding values.
+
+- **Multi-dimensional resource metering**: Asset Hub extends beyond the traditional single-metric gas model to track three distinct resources.
+
+    - `ref_time` (computation time):
+
+        - Functions as traditional gas equivalent.
+        - Measures actual computational resource usage.
+        - Primary metric for basic operation costs.
+
+
+    - `proof_size` (verification overhead):
+
+        - Tracks state proof size required for validator verification.
+        - Helps manage consensus-related resource consumption.
+        - Important for cross-chain operations.
+
+
+    - `storage_deposit` (state management):
+
+        - Manages blockchain state growth.
+        - Implements a deposit-based system for long-term storage.
+        - Refundable when storage is freed.
+
+These resources can be limited at both transaction and contract levels, similar to Ethereum's gas limits. For more information, check the [Gas Model](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm#gas-model){target=\_blank} section in the [EVM vs PolkaVM](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm/){target=\_blank} article.
+
+### Fee Components
+
+- Base fees:
+
+    - Storage deposit for contract deployment.
+    - Minimum transaction fee for network access.
+    - Network maintenance costs.
+
+- Execution fees:
+
+    - Computed based on gas consumption.
+    - Converted to native currency using network-defined rates.
+    - Reflects actual computational resource usage.
+
+- Storage fees:
+
+    - Deposit for long-term storage usage.
+    - Refundable when storage is freed.
+    - Helps prevent state bloat.
+
+### Gas Calculation and Conversion
+
+The system maintains precise conversion mechanisms between:
+
+- Substrate weights and EVM gas units.
+- Native currency and gas costs.
+- Different resource metrics within the multi-dimensional model.
+
+This ensures accurate fee calculation while maintaining compatibility with existing Ethereum tools and workflows.
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/smart-contracts/overview/
+--- BEGIN CONTENT ---
+---
+title: Smart Contracts Overview
+description: Learn about smart contract development capabilities in the Polkadot ecosystem, either by leveraging Polkadot Hub or other alternatives.
+categories: Basics, Smart Contracts
+---
+
+# Smart Contracts on Polkadot
+
+!!! smartcontract "PolkaVM Preview Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+
+## Introduction
+
+Polkadot offers developers multiple approaches to building and deploying smart contracts within its ecosystem. As a multi-chain network designed for interoperability, Polkadot provides various environments optimized for different developer preferences and application requirements. From native smart contract support on Polkadot Hub to specialized parachain environments, developers can choose the platform that best suits their technical needs while benefiting from Polkadot's shared security model and cross-chain messaging capabilities.
+
+Whether you're looking for Ethereum compatibility through EVM-based parachains like [Moonbeam](https://docs.moonbeam.network/){target=\_blank}, [Astar](https://docs.astar.network/){target=\_blank}, and [Acala](https://evmdocs.acala.network/){target=\_blank} or prefer PolkaVM-based development with [ink!](https://use.ink/docs/v6/){target=\_blank}, the Polkadot ecosystem accommodates a range of diverse developers.
+
+These guides explore the diverse smart contract options available in the Polkadot ecosystem, helping developers understand the unique advantages of each approach and make informed decisions about where to deploy their decentralized applications.
+
+## Native Smart Contracts
+
+### Introduction
+
+Polkadot Hub enables smart contract deployment and execution through PolkaVM, a cutting-edge virtual machine designed specifically for the Polkadot ecosystem. This native integration allows developers to deploy smart contracts directly on Polkadot's system chain while maintaining compatibility with Ethereum development tools and workflows.
+
+### Smart Contract Development
+
+The smart contract platform on Polkadot Hub combines _Polkadot's robust security and scalability_ with the extensive Ethereum development ecosystem. Developers can utilize familiar Ethereum libraries for contract interactions and leverage industry-standard development environments for writing and testing smart contracts.
+
+Polkadot Hub provides _full Ethereum JSON-RPC API compatibility_, ensuring seamless integration with existing development tools and services. This compatibility enables developers to maintain their preferred workflows while building on Polkadot's native infrastructure.
+
+### Technical Architecture
+
+PolkaVM, the underlying virtual machine, utilizes a RISC-V-based register architecture _optimized for the Polkadot ecosystem_. This design choice offers several advantages:
+
+- Enhanced performance for smart contract execution.
+- Improved gas efficiency for complex operations.
+- Native compatibility with Polkadot's runtime environment.
+- Optimized storage and state management.
+
+### Development Tools and Resources
+
+Polkadot Hub supports a comprehensive suite of development tools familiar to Ethereum developers. The platform integrates with popular development frameworks, testing environments, and deployment tools. Key features include:
+
+- Contract development in Solidity or Rust.
+- Support for standard Ethereum development libraries.
+- Integration with widely used development environments.
+- Access to blockchain explorers and indexing solutions.
+- Compatibility with contract monitoring and management tools.
+
+### Cross-Chain Capabilities
+
+Smart contracts deployed on Polkadot Hub can leverage Polkadot's [cross-consensus messaging (XCM) protocol](/develop/interoperability/intro-to-xcm/){target=\_blank} protocol to seamlessly _transfer tokens and call functions on other blockchain networks_ within the Polkadot ecosystem, all without complex bridging infrastructure or third-party solutions. For further references, check the [Interoperability](/develop/interoperability/){target=\_blank} section.
+
+### Use Cases
+
+Polkadot Hub's smart contract platform is suitable for a wide range of applications:
+
+- DeFi protocols leveraging _cross-chain capabilities_.
+- NFT platforms utilizing Polkadot's native token standards.
+- Governance systems integrated with Polkadot's democracy mechanisms.
+- Cross-chain bridges and asset management solutions.
+
+## Other Smart Contract Environments
+
+Beyond Polkadot Hub's native PolkaVM support, the ecosystem offers two main alternatives for smart contract development:
+
+- **EVM-compatible parachains**: Provide access to Ethereum's extensive developer ecosystem, smart contract portability, and established tooling like Hardhat, Remix, Foundry, and OpenZeppelin. The main options include Moonbeam (the first full Ethereum-compatible parachain serving as an interoperability hub), Astar (featuring dual VM support for both EVM and WebAssembly contracts), and Acala (DeFi-focused with enhanced Acala EVM+ offering advanced DeFi primitives).
+
+- **Rust (ink!)**: ink! is a Rust-based framework that can compile to PolkaVM. It uses [`#[ink(...)]`](https://use.ink/docs/v6/macros-attributes/){target=\_blank} attribute macros to create Polkadot SDK-compatible PolkaVM bytecode, offering strong memory safety from Rust, an advanced type system, high-performance PolkaVM execution, and platform independence with sandboxed security.
+
+
+Each environment provides unique advantages based on developer preferences and application requirements.
+
+## Where to Go Next
+
+Developers can use their existing Ethereum development tools and connect to Polkadot Hub's RPC endpoints. The platform's Ethereum compatibility layer ensures a smooth transition for teams already building on Ethereum-compatible chains.
+
+Subsequent sections of this guide provide detailed information about specific development tools, advanced features, and best practices for building on Polkadot Hub.
+
+<div class="grid cards" markdown>
+
+-   <span class="badge guide">Guide</span> __Libraries__
+
+    ---
+
+    Explore essential libraries to optimize smart contract development and interaction.
+
+    [:octicons-arrow-right-24: Reference](/develop/smart-contracts/libraries/)
+
+-   <span class="badge guide">Guide</span> __Dev Environments__
+
+    ---
+
+    Set up your development environment for seamless contract deployment and testing.
+
+    [:octicons-arrow-right-24: Reference](/develop/smart-contracts/dev-environments/)
+
+</div>
 --- END CONTENT ---

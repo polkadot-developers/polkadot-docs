@@ -39,7 +39,7 @@ Choose a parachain if:
 
 ### What's the difference between Polkadot Hub smart contracts and other EVM chains?
 
-Polkadot Hub contracts run on [PolkaVM](/polkadot-protocol/smart-contract-basics/polkavm-design){target=\_blank} instead of EVM:
+Polkadot Hub contracts run on [PolkaVM](/smart-contracts/for-eth-devs/){target=\_blank} instead of EVM:
 
 - **Performance**: RISC-V register-based architecture vs. stack-based EVM.
 - **Resource metering**: Three dimensions (`ref_time`, `proof_size`, `storage_deposit`) vs. single gas metric.

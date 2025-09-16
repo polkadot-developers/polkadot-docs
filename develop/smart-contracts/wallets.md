@@ -30,7 +30,7 @@ For example, to connect to the Polkadot Hub TestNet via MetaMask, you need to fo
 
     ![](/images/develop/smart-contracts/wallets/wallets-2.webp){: .browser-extension}
 
-3. Complete the necessary fields, then click the **Save** button (refer to the [Networks](/develop/smart-contracts/connect-to-polkadot#networks-details){target=\_blank} section for copy and paste parameters).
+3. Complete the necessary fields, then click the **Save** button (refer to the [Networks](/smart-contracts/connect/#networks-details){target=\_blank} section for copy and paste parameters).
 
     ![](/images/develop/smart-contracts/wallets/wallets-3.webp){: .browser-extension}
 

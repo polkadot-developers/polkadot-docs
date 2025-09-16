@@ -1,6 +1,6 @@
 nav:
-- 'Overview': index.md
-- 'Get Started': get-started.md
+- 'Get Started': index.md
+- 'Overview': overview.md
 - 'Connect to Polkadot': connect.md
 - 'Explorers': explorers.md
 - 'Faucets': faucets.md

@@ -80,7 +80,7 @@ The Polkadot smart contract ecosystem is in active development. Please expect fr
 
 - <h3>:octicons-book-16:{ .lg .middle } Learn</h3>
     <hr>
-    - [Overview - Smart Contracts on Polkadot](/smart-contracts/){target=\_blank}
+    - [Overview - Smart Contracts on Polkadot](/smart-contracts/overview/){target=\_blank}
     - [Smart Contract Basics](/polkadot-protocol/smart-contract-basics/){target=\_blank}
 
 - <h3>:octicons-rocket-16:{.lg .middle} Build</h3>

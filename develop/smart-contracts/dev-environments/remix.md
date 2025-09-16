@@ -155,7 +155,7 @@ Explore more about smart contracts through these resources:
 
     Dive into advanced smart contract concepts.
 
-    [:octicons-arrow-right-24: Get Started](/develop/smart-contracts/)
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/)
 
 -   <span class="badge external">External</span> __OpenZeppelin Contracts__
 

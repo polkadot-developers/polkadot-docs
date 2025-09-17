@@ -7,7 +7,7 @@ This directory lists URLs for raw Markdown pages that complement the rendered pa
 
 ## Metadata
 - Documentation pages: 150
-- Categories: 13
+- Categories: 12
 
 ## Docs
 This section lists documentation pages by category. Each entry links to a raw markdown version of the page and includes a short description. A page may appear in multiple categories.
@@ -233,14 +233,6 @@ Docs: Dapps
 - [Wallets](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-toolkit-integrations-wallets.md): Explore blockchain wallets. Securely manage digital assets with hot wallets for online access or cold wallets for offline, enhanced security.
 - [XCM Tools](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-toolkit-interoperability-xcm-tools.md): Explore essential XCM tools across Polkadot, crafted to enhance cross-chain functionality and integration within the ecosystem.
 
-Docs: Tutorial
-- [PAPI Account Watcher Tutorial](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/tutorials-dapps-remark-tutorial.md): Build a CLI app that listens to on-chain events using the Polkadot API and responds to specific messages for a given account.
-- [Replay and Dry Run XCMs](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/tutorials-interoperability-replay-and-dry-run-xcms.md): Replay and dry-run XCMs using Chopsticks with full logging enabled. Diagnose issues, trace message flow, and debug complex cross-chain interactions.
-- [XCM Fee Estimation](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/tutorials-interoperability-xcm-fee-estimation.md): This tutorial demonstrates how to estimate the fees for teleporting assets from the Paseo Asset Hub parachain to the Paseo Bridge Hub chain.
-- [Fast Track a Governance Proposal](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/tutorials-onchain-governance-fast-track-gov-proposal.md): Learn how to fast-track governance proposals in Polkadot's OpenGov using Chopsticks. Simulate, test, and execute proposals confidently.
-- [Deploy an ERC-20 to Polkadot Hub](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/tutorials-smart-contracts-deploy-erc20.md): Deploy an ERC-20 token on Polkadot Hub using PolkaVM. This guide covers contract creation, compilation, deployment, and interaction via Polkadot Remix IDE.
-- [Deploy an NFT to Polkadot Hub](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/tutorials-smart-contracts-deploy-nft.md): Deploy an NFT on Polkadot Hub using PolkaVM and OpenZeppelin. Learn how to compile, deploy, and interact with your contract using Polkadot Remix IDE.
-
 Docs: Uncategorized
 - [Asset claimer](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-interoperability-versions-v5-asset-claimer.md): Learn how the AssetClaimer hint improves trapped asset recovery in XCM V5, enabling automated recovery and reducing the need for governance intervention.
 - [Fees](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-interoperability-versions-v5-fees.md): Explore the key differences in fee handling between XCM V4 and V5, including new payment mechanisms, delivery fees, and improved predictability for cross-chain transactions.
@@ -263,6 +255,8 @@ Docs: Uncategorized
 - [AI Ready Docs](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/get-support-ai-ready-docs.md): Download LLM-optimized files of the Polkadot documentation, including full content and category-specific resources for AI agents.
 - [Subscribe to Updates](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/get-support-explore-resources.md): Find Polkadot developer resources, tutorials, forums, governance proposals, and community platforms like StackExchange, Reddit, and YouTube.
 - [Get in Touch](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/get-support-get-in-touch.md): Developer support for Polkadot via Telegram, Matrix, and Discord. Get help with parachains, smart contracts, nodes, and ecosystem tools.
+- [Replay and Dry Run XCMs](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/tutorials-interoperability-replay-and-dry-run-xcms.md): Replay and dry-run XCMs using Chopsticks with full logging enabled. Diagnose issues, trace message flow, and debug complex cross-chain interactions.
+- [XCM Fee Estimation](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/tutorials-interoperability-xcm-fee-estimation.md): This tutorial demonstrates how to estimate the fees for teleporting assets from the Paseo Asset Hub parachain to the Paseo Bridge Hub chain.
 - [Runtime Upgrades](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/tutorials-polkadot-sdk-parachains-zero-to-hero-runtime-upgrade.md): Learn how to safely perform runtime upgrades for your Polkadot SDK-based blockchain, including step-by-step instructions.
 
 Docs: dApp

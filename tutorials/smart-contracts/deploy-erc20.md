@@ -2,7 +2,7 @@
 title: Deploy an ERC-20 to Polkadot Hub
 description: Deploy an ERC-20 token on Polkadot Hub using PolkaVM. This guide covers contract creation, compilation, deployment, and interaction via Polkadot Remix IDE.
 tutorial_badge: Beginner
-categories: Basics, dApps, Smart Contracts, Tutorial
+categories: Basics, dApps, Smart Contracts
 ---
 
 # Deploy an ERC-20 to Polkadot Hub

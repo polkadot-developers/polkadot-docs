@@ -150,28 +150,12 @@ def format_docs_section(pages: List[Dict[str, Any]], raw_base: str, category_ord
 
     return "\n".join(lines)
 
-def format_tutorials_section(pages: List[Dict[str, Any]], raw_base: str, project_name: str) -> str:
-    tutorials = [
-        f"- [{p['title']}]({raw_base}/{p['slug']}.md): {p['description']}"
-        for p in pages
-        if any("tutorial" in c.lower() for c in p["categories"])
-    ]
-    if not tutorials:
-        return "\n## Tutorials\nNo tutorials available."
-    return (
-        f"\n## Tutorials\nTutorials for building with {project_name}. "
-        "These provide step-by-step instructions for real-world use cases and implementations.\n"
-        + "\n".join(tutorials)
-    )
-
 def format_metadata_section(pages: List[Dict[str, Any]]) -> str:
     categories = {cat for p in pages for cat in p["categories"]}
-    tutorial_count = sum(1 for p in pages if any("tutorial" in c.lower() for c in p["categories"]))
     return "\n".join([
         "## Metadata",
         f"- Documentation pages: {len(pages)}",
         f"- Categories: {len(categories)}",
-        f"- Tutorials: {tutorial_count}",
         ""
     ])
 
@@ -216,8 +200,6 @@ def generate_llms_txt(config_path: str = "llms_config.json"):
         format_metadata_section(pages),
         format_docs_section(pages, raw_base, category_order),
         "",
-        format_tutorials_section(pages, raw_base, project_name),
-        ""
     ]
 
     # Output path (relative to repo root unless absolute)

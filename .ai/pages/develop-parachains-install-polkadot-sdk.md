@@ -45,7 +45,7 @@ To install Homebrew:
 
     The command displays output similar to the following:
 
-    -<div id="termynal" data-termynal markdown>
+    <div id="termynal" data-termynal markdown>
   <span data-ty="input"><span class="file-path"></span>brew --version</span>
   <span data-ty>Homebrew 4.3.15</span>
 </div>
@@ -309,7 +309,7 @@ rustup show
 
 The command displays output similar to the following:
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>rustup show</span>
   <span data-ty>...</span>
   <br />

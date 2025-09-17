@@ -8,7 +8,7 @@ url: https://docs.polkadot.com/develop/smart-contracts/dev-environments/remix/
 
 # Remix IDE
 
--!!! smartcontract "PolkaVM Preview Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 <div class="grid cards" markdown>
@@ -73,7 +73,7 @@ To create a new contract using the Polkadot Remix IDE, you can follow these step
     ???- "Counter.sol"
         
         ```solidity
-        -// SPDX-License-Identifier: MIT
+        // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
 contract Counter {

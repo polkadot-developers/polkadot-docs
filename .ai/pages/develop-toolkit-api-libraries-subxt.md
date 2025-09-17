@@ -55,7 +55,7 @@ To use subxt in your project, you must install the necessary dependencies. Each 
     After adding the dependencies, your `Cargo.toml` should look like this:
 
     ```toml
-    -[package]
+    [package]
 name = "my_project"
 version = "0.1.0"
 edition = "2021"
@@ -84,7 +84,7 @@ subxt metadata --url INSERT_NODE_URL > polkadot_metadata.scale
 Use the `#[subxt::subxt]` macro to generate a type-safe Rust interface from the downloaded metadata:
 
 ```rust
--// Generate an interface that we can use from the node's metadata.
+// Generate an interface that we can use from the node's metadata.
 #[subxt::subxt(runtime_metadata_path = "./polkadot_metadata.scale")]
 pub mod polkadot {}
 ```
@@ -105,7 +105,7 @@ Once subxt interfaces are generated, you can interact with your node in the foll
 To interact with a blockchain node using subxt, create an asynchronous main function and initialize the client. Replace `INSERT_NODE_URL` with the URL of your target node:
 
 ```rust
--use std::str::FromStr;
+use std::str::FromStr;
 use subxt::utils::AccountId32;
 use subxt::{OnlineClient, PolkadotConfig};
 use subxt_signer::{bip39::Mnemonic,sr25519::Keypair};
@@ -181,7 +181,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     Ok(())
 }
     // Your code here...
--
+
     Ok(())
 }
 ```
@@ -195,7 +195,7 @@ subxt provides multiple ways to access on-chain data:
     For example, to retrieve the existential deposit, use:
     
     ```rust
-    -    // A query to obtain some constant.
+        // A query to obtain some constant.
     let constant_query = polkadot::constants().balances().existential_deposit();
 
     // Obtain the value.
@@ -209,7 +209,7 @@ subxt provides multiple ways to access on-chain data:
     To fetch account information, replace `INSERT_ADDRESS` with the address you want to fetch data from and use:
 
     ```rust
-    -    // Define the target account address.
+        // Define the target account address.
     const ADDRESS: &str = "INSERT_ADDRESS";
     let account = AccountId32::from_str(ADDRESS).unwrap();
 
@@ -233,7 +233,7 @@ subxt provides multiple ways to access on-chain data:
 To submit a transaction, you must construct an extrinsic, sign it with your private key, and send it to the blockchain. Replace `INSERT_DEST_ADDRESS` with the recipient's address, `INSERT_AMOUNT` with the amount to transfer, and `INSERT_SECRET_PHRASE` with the sender's mnemonic phrase:
 
 ```rust
--    // Define the recipient address and transfer amount.
+    // Define the recipient address and transfer amount.
     const DEST_ADDRESS: &str = "INSERT_DEST_ADDRESS";
     const AMOUNT: u128 = INSERT_AMOUNT;
 

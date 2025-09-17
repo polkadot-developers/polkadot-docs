@@ -21,7 +21,7 @@ The mock runtime includes all the necessary pallets and configurations needed fo
 Here's a simple example of how to create a testing module that simulates these interactions:
 
 ```rust
--pub mod tests {
+pub mod tests {
     use crate::*;
     // ...
 }
@@ -32,7 +32,7 @@ The `crate::*;` snippet imports all the components from your crate (including ru
 Once the testing module is configured, you can craft your mock runtime using the [`frame_support::runtime`](https://paritytech.github.io/polkadot-sdk/master/frame_support/attr.runtime.html){target=\_blank} macro. This macro allows you to define a runtime environment that will be created for testing purposes:
 
 ```rust
--pub mod tests {
+pub mod tests {
     use crate::*;
 
     #[frame_support::runtime]
@@ -69,7 +69,7 @@ The function `new_test_ext()` demonstrates setting up this environment. It uses 
 Here's the code that sets the genesis storage configuration:
 
 ```rust
--pub mod tests {
+pub mod tests {
     use crate::*;
     use sp_runtime::BuildStorage;
 
@@ -107,7 +107,7 @@ Here's the code that sets the genesis storage configuration:
 You can also customize the genesis storage to set initial values for your runtime pallets. For example, you can set the initial balance for accounts like this:
 
 ```rust
--// Build genesis storage according to the runtime's configuration
+// Build genesis storage according to the runtime's configuration
 pub fn new_test_ext() -> sp_io::TestExternalities {
     // Define the initial balances for accounts
     let initial_balances: Vec<(AccountId32, u128)> = vec![
@@ -137,7 +137,7 @@ For a more idiomatic approach, see the [Your First Pallet](https://paritytech.gi
 Each pallet in the mocked runtime requires an associated configuration, specifying the types and values it depends on to function. These configurations often use basic or primitive types (e.g., u32, bool) instead of more complex types like structs or traits, ensuring the setup remains straightforward and manageable.
 
 ```rust
--#[derive_impl(frame_system::config_preludes::TestDefaultConfig)]
+#[derive_impl(frame_system::config_preludes::TestDefaultConfig)]
 impl frame_system::Config for Test {
     ...
     type Index = u64;

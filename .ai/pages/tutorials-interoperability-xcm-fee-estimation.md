@@ -88,7 +88,7 @@ First, you need to set up your environment:
 8. Import the necessary modules. Add the following code to the `teleport-ah-to-bridge-hub.ts` file:
 
     ```typescript title="teleport-ah-to-bridge-hub.ts"
-    -import { paseoAssetHub, paseoBridgeHub } from '@polkadot-api/descriptors';
+    import { paseoAssetHub, paseoBridgeHub } from '@polkadot-api/descriptors';
 import { createClient, FixedSizeBinary, Enum } from 'polkadot-api';
 import { getWsProvider } from 'polkadot-api/ws-provider/node';
 import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
@@ -406,7 +406,7 @@ main().catch(console.error);
 9. Define constants and a `main` function where you will implement all the logic:
 
     ```typescript title="teleport-ah-to-bridge-hub.ts"
-    -// 1 PAS = 10^10 units
+    // 1 PAS = 10^10 units
 const PAS_UNITS = 10_000_000_000n; // 1 PAS
 const PAS_CENTS = 100_000_000n; // 0.01 PAS
 
@@ -433,7 +433,7 @@ Now you are ready to start implementing the logic for the fee estimation for the
 Create the API client. You will need to create a client for the Paseo Asset Hub parachain:
 
 ```typescript title="teleport-ah-to-bridge-hub.ts"
--  // Connect to the Asset Hub parachain
+  // Connect to the Asset Hub parachain
   const assetHubClient = createClient(
     withPolkadotSdkCompat(getWsProvider(PASEO_ASSET_HUB_RPC_ENDPOINT)),
   );
@@ -449,7 +449,7 @@ Ensure that you replace the endpoint URLs with the actual WebSocket endpoints. T
 Now, you can construct a proper XCM message using the new XCM V5 instructions for teleporting from Asset Hub to the Bridge Hub Chain:
 
 ```typescript title="teleport-ah-to-bridge-hub.ts"
--function createTeleportXcmToBridgeHub(paraId: number) {
+function createTeleportXcmToBridgeHub(paraId: number) {
   return XcmVersionedXcm.V5([
     // Withdraw PAS from Asset Hub (PAS on parachains is parents:1, interior: Here)
     XcmV5Instruction.WithdrawAsset([
@@ -510,7 +510,7 @@ Below is a four-step breakdown of the logic needed to estimate the fees for the 
 First, you need to create the function that will estimate the fees for the teleport:
 
 ```typescript title="teleport-ah-to-bridge-hub.ts"
--async function estimateXcmFeesFromAssetHubToBridgeHub(
+async function estimateXcmFeesFromAssetHubToBridgeHub(
   xcm: any,
   assetHubApi: any,
 ) {
@@ -521,7 +521,7 @@ First, you need to create the function that will estimate the fees for the telep
 1. **Local execution fees on Asset Hub**: Compute the XCM weight locally, then convert that weight to PAS using Asset Hub's view of PAS (`parents: 1, interior: Here`). Add the code to the function:
 
     ```typescript title="teleport-ah-to-bridge-hub.ts"
-    -  console.log('=== Fee Estimation Process (Asset Hub → Bridge Hub) ===');
+      console.log('=== Fee Estimation Process (Asset Hub → Bridge Hub) ===');
 
   // 1. LOCAL EXECUTION FEES on Asset Hub
   console.log('1. Calculating local execution fees on Asset Hub...');
@@ -566,7 +566,7 @@ First, you need to create the function that will estimate the fees for the telep
 2. **Dry-run and delivery fees to Bridge Hub**: Dry-run the XCM on Asset Hub to capture forwarded messages, locate the one targeting Bridge Hub (`parents: 1, interior: Here`), and ask for delivery fees. Add the code to the function:
 
     ```typescript title="teleport-ah-to-bridge-hub.ts"
-    -  // 2. DELIVERY FEES + REMOTE EXECUTION FEES
+      // 2. DELIVERY FEES + REMOTE EXECUTION FEES
   console.log('\n2. Calculating delivery and remote execution fees...');
   let deliveryFees = 0n;
   let remoteExecutionFees = 0n; // Skipped (Bridge Hub descriptor not available)
@@ -634,7 +634,7 @@ First, you need to create the function that will estimate the fees for the telep
 3. **Remote execution fees on Bridge Hub**: Connect to Bridge Hub, recompute the forwarded XCM weight there, and convert weight to PAS (`parents: 0, interior: Here`). Add the code to the function:
 
     ```typescript title="teleport-ah-to-bridge-hub.ts"
-    -      // 3. REMOTE EXECUTION FEES on Bridge Hub
+          // 3. REMOTE EXECUTION FEES on Bridge Hub
       console.log('\n3. Calculating remote execution fees on Bridge Hub');
       try {
         const bridgeHubClient = createClient(
@@ -678,7 +678,7 @@ First, you need to create the function that will estimate the fees for the telep
 4. **Sum and return totals**: Aggregate all parts, print a short summary, and return a structured result. Add the code to the function:
 
     ```typescript title="teleport-ah-to-bridge-hub.ts"
-    -  // 4. TOTAL FEES
+      // 4. TOTAL FEES
   const totalFees = localExecutionFees + deliveryFees + remoteExecutionFees;
 
   console.log('\n=== Fee Summary (Asset Hub → Bridge Hub) ===');
@@ -714,7 +714,7 @@ The full code for the fee estimation function is the following:
 ??? code "Fee Estimation Function"
 
     ```typescript title="teleport-ah-to-bridge-hub.ts"
-    -async function estimateXcmFeesFromAssetHubToBridgeHub(
+    async function estimateXcmFeesFromAssetHubToBridgeHub(
   xcm: any,
   assetHubApi: any,
 ) {
@@ -899,7 +899,7 @@ The full code for the fee estimation function is the following:
 Now put it all together in the main function:
 
 ```typescript title="teleport-ah-to-bridge-hub.ts"
--async function main() {
+async function main() {
   // Connect to the Asset Hub parachain
   const assetHubClient = createClient(
     withPolkadotSdkCompat(getWsProvider(PASEO_ASSET_HUB_RPC_ENDPOINT)),
@@ -954,7 +954,7 @@ The full code for the complete implementation is the following:
 ??? code "Teleport from Asset Hub to Bridge Hub"
 
     ```typescript title="teleport-ah-to-bridge-hub.ts"
-    -import { paseoAssetHub, paseoBridgeHub } from '@polkadot-api/descriptors';
+    import { paseoAssetHub, paseoBridgeHub } from '@polkadot-api/descriptors';
 import { createClient, FixedSizeBinary, Enum } from 'polkadot-api';
 import { getWsProvider } from 'polkadot-api/ws-provider/node';
 import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
@@ -1278,7 +1278,7 @@ Before running the script, you can use chopsticks to fork the Paseo Asset Hub an
     ??? code "paseo-bridge-hub.yml"
 
         ```yaml title=".chopsticks/paseo-bridge-hub.yml"
-        -endpoint: wss://bridge-hub-paseo.dotters.network
+        endpoint: wss://bridge-hub-paseo.dotters.network
 mock-signature-host: true
 block: ${env.PASEO_BRIDGE_HUB_BLOCK_NUMBER}
 db: ./db.sqlite
@@ -1299,7 +1299,7 @@ import-storage:
     ??? code "paseo-asset-hub.yml"
 
         ```yaml title=".chopsticks/paseo-asset-hub.yml"
-        -endpoint: wss://asset-hub-paseo-rpc.n.dwellir.com
+        endpoint: wss://asset-hub-paseo-rpc.n.dwellir.com
 mock-signature-host: true
 block: ${env.PASEO_ASSET_HUB_BLOCK_NUMBER}
 db: ./db.sqlite
@@ -1325,7 +1325,7 @@ import-storage:
 
     After running the command, you will see the following output:
 
-    -<div id="termynal" data-termynal>
+    <div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>chopsticks --config=.chopsticks/paseo-bridge-hub.yml</span>
   <span data-ty="output">[15:55:22.770] INFO: Paseo Bridge Hub RPC listening on http://[::]:8000 and ws://[::]:8000</span>
   <span data-ty="output">app: "chopsticks"</span>
@@ -1340,7 +1340,7 @@ import-storage:
 
     After running the commands, you will see the following output:
 
-    -<div id="termynal" data-termynal>
+    <div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>chopsticks --config=.chopsticks/paseo-asset-hub.yml</span>
   <span data-ty="output">[15:55:22.770] INFO: Paseo Asset Hub Testnet RPC listening on http://[::]:8001 and ws://[::]:8001</span>
   <span data-ty="output">app: "chopsticks"</span>
@@ -1355,7 +1355,7 @@ import-storage:
 
 After running the script, you will see the following output:
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>npx ts-node teleport-ah-to-bridge-hub.ts</span>
   <pre>
 === XCM Teleport: Paseo Asset Hub → Bridge Hub ===

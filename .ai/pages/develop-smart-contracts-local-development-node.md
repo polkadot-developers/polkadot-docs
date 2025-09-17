@@ -8,7 +8,7 @@ url: https://docs.polkadot.com/develop/smart-contracts/local-development-node/
 
 # Local Development Node
 
--!!! smartcontract "PolkaVM Preview Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -60,7 +60,7 @@ Start the node first, which will initialize a local blockchain with the `dev` ch
 
 The node will begin producing blocks immediately and display initialization logs:
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>./target/release/revive-dev-node --dev</span>
   <br />
   <span data-ty>2025-05-29 10:42:35 Substrate Node</span>
@@ -113,7 +113,7 @@ Once the node is running, open a new terminal window and start the ETH-RPC adapt
 
 You should see logs indicating that the adapter is ready to accept connections:
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>./target/release/eth-rpc --dev</span>
   <br />
   <span data-ty>2025-05-29 10:48:48 Running in --dev mode, RPC CORS has been disabled.</span>

@@ -8,7 +8,7 @@ url: https://docs.polkadot.com/tutorials/smart-contracts/launch-your-first-proje
 
 # Test and Deploy with Hardhat
 
--!!! smartcontract "PolkaVM Preview Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -64,7 +64,7 @@ Let's start by setting up Hardhat for your Storage contract project:
 6. Configure Hardhat by updating the `hardhat.config.js` file:
 
     ```javascript title="hardhat.config.js"
-    -require("@nomicfoundation/hardhat-toolbox");
+    require("@nomicfoundation/hardhat-toolbox");
 
 require("@parity/hardhat-polkadot");
 
@@ -129,7 +129,7 @@ module.exports = {
 1. Create a new folder called `contracts` and create a `Storage.sol` file. Add the contract code from the previous tutorial:
 
     ```solidity title="Storage.sol"
-    -// SPDX-License-Identifier: MIT
+    // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.28;
 
 contract Storage {
@@ -160,7 +160,7 @@ contract Storage {
 
 3. If successful, you will see the following output in your terminal:
 
-    -<div id="termynal" data-termynal>
+    <div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>npx hardhat compile</span>
   <span data-ty>Compiling 1 Solidity file</span>
   <span data-ty>Successfully compiled 1 Solidity file</span>
@@ -176,9 +176,9 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
 1. Create a folder for testing called `test`. Inside that directory, create a file named `Storage.js` and add the following code:
 
     ```javascript title="Storage.js" 
-    -
+    
         // Add your logic here
-    -});
+    });
 });
     ```
 
@@ -189,7 +189,7 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
     1. **Initial state verification**: Ensures that the contract starts with a default value of zero, which is a fundamental expectation for the `Storage.sol` contract.
 
         ```javascript title="Storage.js"
-        -it('Should return 0 initially', async function () {
+        it('Should return 0 initially', async function () {
       expect(await storage.retrieve()).to.equal(0);
     });
         ```
@@ -203,7 +203,7 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
     2. **Value storage test**: Validate the core functionality of storing and retrieving a value in the contract.
 
         ```javascript title="Storage.js"
-        -it('Should update when store is called', async function () {
+        it('Should update when store is called', async function () {
       const testValue = 42;
       // Store a value
       await storage.store(testValue);
@@ -221,7 +221,7 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
     3. **Event emission verification**: Confirm that the contract emits the correct event when storing a value, which is crucial for off-chain tracking.
 
         ```javascript title="Storage.js"
-        -it('Should emit an event when storing a value', async function () {
+        it('Should emit an event when storing a value', async function () {
       const testValue = 100;
       // Check if the NumberChanged event is emitted with the correct value
       await expect(storage.store(testValue))
@@ -239,7 +239,7 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
     4. **Sequential value storage test**: Check the contract's ability to store multiple values sequentially and maintain the most recent value.
 
         ```javascript title="Storage.js"
-        -it('Should allow storing sequentially increasing values', async function () {
+        it('Should allow storing sequentially increasing values', async function () {
       const values = [10, 20, 30, 40];
 
       for (const value of values) {
@@ -259,7 +259,7 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
 
     ???--- code "View complete script"
         ```javascript title="Storage.js"
-        -const { expect } = require('chai');
+        const { expect } = require('chai');
 const { ethers } = require('hardhat');
 
 describe('Storage', function () {
@@ -318,7 +318,7 @@ describe('Storage', function () {
 
 3. After running the above command, you will see the output showing that all tests have passed:
 
-    -<div id="termynal" data-termynal>
+    <div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>npx hardhat test</span>
   <span data-ty>Storage</span>
   <span data-ty>Basic functionality</span>
@@ -337,7 +337,7 @@ describe('Storage', function () {
 1. Create a new folder called`ignition/modules`. Add a new file named `StorageModule.js` with the following logic:
 
     ```javascript title="StorageModule.js"
-    -const { buildModule } = require('@nomicfoundation/hardhat-ignition/modules');
+    const { buildModule } = require('@nomicfoundation/hardhat-ignition/modules');
 
 module.exports = buildModule('StorageModule', (m) => {
   const storage = m.contract('Storage');
@@ -362,7 +362,7 @@ module.exports = buildModule('StorageModule', (m) => {
 
     3. If successful, output similar to the following will display in your terminal:
 
-        -<div id="termynal" data-termynal>
+        <div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>npx hardhat ignition deploy ./ignition/modules/Storage.js --network localNode</span>
   <span data-ty>✔ Confirm deploy to network localNode (420420422)? … yes</span>
   <span data-ty></span>
@@ -391,7 +391,7 @@ module.exports = buildModule('StorageModule', (m) => {
 
     2. After deployment, you'll see the contract address in the console output. Save this address for future interactions.
 
-        -<div id="termynal" data-termynal>
+        <div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>npx hardhat ignition deploy ./ignition/modules/Storage.js --network passetHub</span>
   <span data-ty>✔ Confirm deploy to network localNode (420420422)? … yes</span>
   <span data-ty></span>
@@ -417,7 +417,7 @@ To interact with your deployed contract:
 1. Create a new folder named `scripts` and add the `interact.js` with the following content:
 
     ```javascript title="interact.js"
-    -const hre = require('hardhat');
+    const hre = require('hardhat');
 
 async function main() {
   // Replace with your deployed contract address
@@ -463,7 +463,7 @@ main()
 
 3. If successful, the terminal will show the following output:
 
-    -<div id="termynal" data-termynal>
+    <div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>npx hardhat run scripts/interact.js --network passetHub</span>
   <span data-ty>Current stored value: 0</span>
   <span data-ty>Storing new value: 42...</span>

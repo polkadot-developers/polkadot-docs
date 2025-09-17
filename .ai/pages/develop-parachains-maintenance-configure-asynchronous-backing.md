@@ -19,7 +19,7 @@ This guide applies to parachain projects based on Cumulus that started in 2023 o
 The relay chain must have async backing enabled; therefore, double-check the relay's runtime to verify that the following three parameters are included in the relay chain configuration (especially when testing locally with tools like [Zombienet](/develop/toolkit/parachains/spawn-chains/zombienet/get-started/){target=\_blank}):
 
 ```rust title="runtimes/relay/polkadot/src/genesis_config_presets.rs"
--...
+...
 "async_backing_params": {
     "max_candidate_depth": 3,
     "allowed_ancestry_len": 2
@@ -45,7 +45,7 @@ This phase involves configuring your parachain's runtime `/runtime/src/lib.rs` t
 2. Verify the constant relay chain slot duration measured in milliseconds is equal to `6000` in the runtime.
 
     ```rust title="lib.rs"
-    -// Maximum number of blocks simultaneously accepted by the runtime, not yet included into the
+    // Maximum number of blocks simultaneously accepted by the runtime, not yet included into the
 // relay chain.
 pub const UNINCLUDED_SEGMENT_CAPACITY: u32 = 1;
 // How many parachain blocks are processed by the relay chain per parent. Limits the number of
@@ -60,7 +60,7 @@ pub const RELAY_chain_SLOT_DURATION_MILLIS: u32 = 6000;
     - `MILLISECS_PER_BLOCK` will be decreased to `6000` later in this guide.
 
     ```rust title="lib.rs"
-    -// `SLOT_DURATION` is picked up by `pallet_timestamp` which is in turn picked
+    // `SLOT_DURATION` is picked up by `pallet_timestamp` which is in turn picked
 // up by `pallet_aura` to implement `fn slot_duration()`.
 //
 // Change this to adjust the block time.
@@ -73,7 +73,7 @@ pub const SLOT_DURATION: u64 = MILLISECS_PER_BLOCK;
     a. Define a [`FixedVelocityConsensusHook`](https://paritytech.github.io/polkadot-sdk/master/cumulus_pallet_aura_ext/consensus_hook/struct.FixedVelocityConsensusHook.html){target=\_blank} using our capacity, velocity, and relay slot duration constants.
 
         ```rust title="lib.rs"
-        -type ConsensusHook = cumulus_pallet_aura_ext::FixedVelocityConsensusHook<
+        type ConsensusHook = cumulus_pallet_aura_ext::FixedVelocityConsensusHook<
     Runtime,
     RELAY_CHAIN_SLOT_DURATION_MILLIS,
     BLOCK_PROCESSING_VELOCITY,
@@ -84,7 +84,7 @@ pub const SLOT_DURATION: u64 = MILLISECS_PER_BLOCK;
     b. Use this to set the parachain system [`ConsensusHook`](https://paritytech.github.io/polkadot-sdk/master/cumulus_pallet_parachain_system/pallet/trait.Config.html#associatedtype.ConsensusHook){target=\_blank} property.
 
         ```rust title="lib.rs"
-        -impl cumulus_pallet_parachain_system::Config for Runtime {
+        impl cumulus_pallet_parachain_system::Config for Runtime {
     ...
     type ConsensusHook = ConsensusHook;
     ...
@@ -94,7 +94,7 @@ pub const SLOT_DURATION: u64 = MILLISECS_PER_BLOCK;
     c. Set the parachain system property [`CheckAssociatedRelayNumber`](https://paritytech.github.io/polkadot-sdk/master/cumulus_pallet_parachain_system/pallet/trait.Config.html#associatedtype.CheckAssociatedRelayNumber){target=\_blank} to [`RelayNumberMonotonicallyIncreases`](https://paritytech.github.io/polkadot-sdk/master/cumulus_pallet_parachain_system/struct.RelayNumberMonotonicallyIncreases.html){target=\_blank}.
 
         ```rust title="lib.rs"
-        -impl cumulus_pallet_parachain_system::Config for Runtime {
+        impl cumulus_pallet_parachain_system::Config for Runtime {
     ...
     type CheckAssociatedRelayNumber = RelayNumberMonotonicallyIncreases;
     ...
@@ -110,7 +110,7 @@ pub const SLOT_DURATION: u64 = MILLISECS_PER_BLOCK;
     b. Define [`pallet_aura::SlotDuration`](https://paritytech.github.io/polkadot-sdk/master/pallet_aura/pallet/trait.Config.html#associatedtype.SlotDuration){target=\_blank} using our constant [`SLOT_DURATION`](https://github.com/polkadot-fellows/runtimes/blob/d49a9f33d0ea85ce51c26c84a70b61624ec06901/system-parachains/constants/src/lib.rs#L38-L40){target=\_blank}.
 
         ```rust title="lib.rs"
-        -impl pallet_aura::Config for Runtime {
+        impl pallet_aura::Config for Runtime {
     ...
     type AllowMultipleBlocksPerSlot = ConstBool<false>;
     #[cfg(feature = "experimental")]
@@ -126,7 +126,7 @@ pub const SLOT_DURATION: u64 = MILLISECS_PER_BLOCK;
 6. Update `sp_consensus_aura::AuraApi::slot_duration` in `sp_api::impl_runtime_apis` to match the constant [`SLOT_DURATION`](https://github.com/polkadot-fellows/runtimes/blob/d49a9f33d0ea85ce51c26c84a70b61624ec06901/system-parachains/constants/src/lib.rs#L38-L40){target=\_blank}.
 
     ```rust title="apis.rs"
-    -fn impl_slot_duration() -> sp_consensus_aura::SlotDuration {
+    fn impl_slot_duration() -> sp_consensus_aura::SlotDuration {
     sp_consensus_aura::SlotDuration::from_millis(SLOT_DURATION)
 }
     ```
@@ -136,7 +136,7 @@ pub const SLOT_DURATION: u64 = MILLISECS_PER_BLOCK;
     a. Add the dependency [`cumulus-primitives-aura`](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_aura/index.html){target=\_blank} to the `runtime/Cargo.toml` file for your runtime.
 
         ```rust title="Cargo.toml"
-        -...
+        ...
 cumulus-primitives-aura = { path = "../../../../primitives/aura", default-features = false }
 ...
         ```
@@ -146,7 +146,7 @@ cumulus-primitives-aura = { path = "../../../../primitives/aura", default-featur
     c. Inside the [`impl_runtime_apis!`](https://github.com/paritytech/polkadot-sdk/blob/6b17df5ae96f7970109ec3934c7d288f05baa23b/templates/parachain/runtime/src/apis.rs#L87-L91){target=\_blank} block for your runtime, implement the [`cumulus_primitives_aura::AuraUnincludedSegmentApi`](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_aura/trait.AuraUnincludedSegmentApi.html){target=\_blank} as shown below.
         
         ```rust title="apis.rs"
-        -impl cumulus_primitives_aura::AuraUnincludedSegmentApi<Block> for Runtime {
+        impl cumulus_primitives_aura::AuraUnincludedSegmentApi<Block> for Runtime {
     fn can_build_upon(
         included_hash: <Block as BlockT>::Hash,
         slot: cumulus_primitives_aura::Slot,
@@ -162,7 +162,7 @@ cumulus-primitives-aura = { path = "../../../../primitives/aura", default-featur
 8. If your `runtime/src/lib.rs` provides a [`CheckInherents`](https://paritytech.github.io/polkadot-sdk/master/cumulus_pallet_parachain_system/macro.register_validate_block.html){target=\_blank} type to [`register_validate_block`](https://paritytech.github.io/polkadot-sdk/master/cumulus_pallet_parachain_system/macro.register_validate_block.html), remove it. [`FixedVelocityConsensusHook`](https://paritytech.github.io/polkadot-sdk/master/cumulus_pallet_aura_ext/consensus_hook/struct.FixedVelocityConsensusHook.html){target=\_blank} makes it unnecessary. The following example shows how `register_validate_block` should look after removing `CheckInherents`.
 
     ```rust title="lib.rs"
-    -cumulus_pallet_parachain_system::register_validate_block! {
+    cumulus_pallet_parachain_system::register_validate_block! {
     Runtime = Runtime,
     BlockExecutor = cumulus_pallet_aura_ext::BlockExecutor::<Runtime, Executive>,
 }
@@ -175,7 +175,7 @@ This phase consists of plugging in the new lookahead collator node.
 1. Import [`cumulus_primitives_core::ValidationCode`](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/relay_chain/struct.ValidationCode.html){target=\_blank} to `node/src/service.rs`.
 
     ```rust title="node/src/service.rs"
-    -use cumulus_primitives_core::{
+    use cumulus_primitives_core::{
     relay_chain::{CollatorPair, ValidationCode},
     GetParachainInfo, ParaId,
 };
@@ -184,7 +184,7 @@ This phase consists of plugging in the new lookahead collator node.
 2. In `node/src/service.rs`, modify [`sc_service::spawn_tasks`](https://github.com/paritytech/polkadot-sdk/blob/6b17df5ae96f7970109ec3934c7d288f05baa23b/templates/parachain/node/src/service.rs#L340-L347){target=\_blank} to use a clone of `Backend` rather than the original.
 
     ```rust title="node/src/service.rs"
-    -sc_service::spawn_tasks(sc_service::SpawnTasksParams {
+    sc_service::spawn_tasks(sc_service::SpawnTasksParams {
     ...
     backend: backend.clone(),
     ...
@@ -194,14 +194,14 @@ This phase consists of plugging in the new lookahead collator node.
 3. Add `backend` as a parameter to [`start_consensus()`](https://paritytech.github.io/polkadot-sdk/master/parachain_template_node/service/fn.start_consensus.html){target=\_blank} in `node/src/service.rs`.
 
     ```rust title="node/src/service.rs"
-    -fn start_consensus(
+    fn start_consensus(
     ...
     backend: Arc<ParachainBackend>,
     ...
     ```
 
     ```rust title="node/src/service.rs"
-    -if validator {
+    if validator {
     start_consensus(
         ...
         backend.clone(),
@@ -213,7 +213,7 @@ This phase consists of plugging in the new lookahead collator node.
 4. In `node/src/service.rs` [import the lookahead collator](https://github.com/paritytech/polkadot-sdk/blob/6b17df5ae96f7970109ec3934c7d288f05baa23b/templates/parachain/node/src/service.rs#L19){target=\_blank} rather than the basic collator.
 
     ```rust title="node/src/service.rs"
-    -use cumulus_client_consensus_aura::collators::lookahead::{self as aura, Params as AuraParams};
+    use cumulus_client_consensus_aura::collators::lookahead::{self as aura, Params as AuraParams};
     ```
 
 5. In `start_consensus()` replace the `BasicAuraParams` struct with [`AuraParams`](https://github.com/paritytech/polkadot-sdk/blob/6b17df5ae96f7970109ec3934c7d288f05baa23b/templates/parachain/node/src/service.rs#L206){target=\_blank} as follows:
@@ -229,7 +229,7 @@ This phase consists of plugging in the new lookahead collator node.
     e. Increase [`authoring_duration`](https://github.com/paritytech/polkadot-sdk/blob/6b17df5ae96f7970109ec3934c7d288f05baa23b/templates/parachain/node/src/service.rs#L206-L225){target=\_blank} from 500 milliseconds to 2000.
 
     ```rust title="node/src/service.rs"
-    -let params = AuraParams {
+    let params = AuraParams {
     ...
     para_client: client.clone(),
     para_backend: backend.clone(),
@@ -249,7 +249,7 @@ This phase consists of plugging in the new lookahead collator node.
 6. In [`start_consensus()`](https://github.com/paritytech/polkadot-sdk/blob/6b17df5ae96f7970109ec3934c7d288f05baa23b/templates/parachain/node/src/service.rs#L173) replace `basic_aura::run` with [`aura::run`](https://github.com/paritytech/polkadot-sdk/blob/6b17df5ae96f7970109ec3934c7d288f05baa23b/templates/parachain/node/src/service.rs#L226){target=\_blank}.
 
     ```rust title="node/src/service.rs"
-	-let fut = aura::run::<Block, sp_consensus_aura::sr25519::AuthorityPair, _, _, _, _, _, _, _, _>(
+	let fut = aura::run::<Block, sp_consensus_aura::sr25519::AuthorityPair, _, _, _, _, _, _, _, _>(
     params,
 );
 task_manager.spawn_essential_handle().spawn("aura", None, fut);
@@ -262,7 +262,7 @@ This phase involves changes to your parachain's runtime that activate the asynch
 1. Configure [`pallet_aura`](https://paritytech.github.io/polkadot-sdk/master/pallet_aura/index.html){target=\_blank}, setting [`AllowMultipleBlocksPerSlot`](https://paritytech.github.io/polkadot-sdk/master/pallet_aura/pallet/trait.Config.html#associatedtype.AllowMultipleBlocksPerSlot){target=\_blank} to true in `runtime/src/lib.rs`.
 
     ```rust title="runtime/src/lib.rs"
-    -impl pallet_aura::Config for Runtime {
+    impl pallet_aura::Config for Runtime {
     type AuthorityId = AuraId;
     type DisabledValidators = ();
     type MaxAuthorities = ConstU32<100_000>;
@@ -274,7 +274,7 @@ This phase involves changes to your parachain's runtime that activate the asynch
 2. Increase the maximum [`UNINCLUDED_SEGMENT_CAPACITY`](https://github.com/paritytech/polkadot-sdk/blob/6b17df5ae96f7970109ec3934c7d288f05baa23b/templates/parachain/runtime/src/lib.rs#L226-L235){target=\_blank} in `runtime/src/lib.rs`.
 
     ```rust title="runtime/src/lib.rs"
-    -mod async_backing_params {
+    mod async_backing_params {
     /// Maximum number of blocks simultaneously accepted by the Runtime, not yet included
     /// into the relay chain.
     pub(crate) const UNINCLUDED_SEGMENT_CAPACITY: u32 = 3;
@@ -292,7 +292,7 @@ This phase involves changes to your parachain's runtime that activate the asynch
         For a parachain that measures time in terms of its own block number, rather than by relay block number, it may be preferable to increase velocity. Changing block time may cause complications, requiring additional changes. See the section [Timing by Block Number](#timing-by-block-number){target=\_blank}.
 
     ```rust title="runtime/src/lib.rs"
-    -mod block_times {
+    mod block_times {
     /// This determines the average expected block time that we are targeting. Blocks will be
     /// produced at a minimum duration defined by `SLOT_DURATION`. `SLOT_DURATION` is picked up by
     /// `pallet_timestamp` which is in turn picked up by `pallet_aura` to implement `fn
@@ -310,7 +310,7 @@ This phase involves changes to your parachain's runtime that activate the asynch
 4. Update [`MAXIMUM_BLOCK_WEIGHT`](https://github.com/paritytech/polkadot-sdk/blob/6b17df5ae96f7970109ec3934c7d288f05baa23b/templates/parachain/runtime/src/lib.rs#L219-L223){target=\_blank} to reflect the increased time available for block production.
 
     ```rust title="runtime/src/lib.rs"
-    -const MAXIMUM_BLOCK_WEIGHT: Weight = Weight::from_parts(
+    const MAXIMUM_BLOCK_WEIGHT: Weight = Weight::from_parts(
     WEIGHT_REF_TIME_PER_SECOND.saturating_mul(2),
     cumulus_primitives_core::relay_chain::MAX_POV_SIZE as u64,
 );
@@ -319,7 +319,7 @@ This phase involves changes to your parachain's runtime that activate the asynch
 5. For [`MinimumPeriod`](https://paritytech.github.io/polkadot-sdk/master/pallet_timestamp/pallet/trait.Config.html#associatedtype.MinimumPeriod) in [`pallet_timestamp`](https://paritytech.github.io/polkadot-sdk/master/pallet_timestamp/index.html){target=\_blank} the type should be [`ConstU64<0>`](https://github.com/paritytech/polkadot-sdk/blob/6b17df5ae96f7970109ec3934c7d288f05baa23b/templates/parachain/runtime/src/configs/mod.rs#L141){target=\_blank}.
 
     ```rust title="runtime/src/lib.rs"
-    -impl pallet_timestamp::Config for Runtime {
+    impl pallet_timestamp::Config for Runtime {
     ...
     type MinimumPeriod = ConstU64<0>;
     ...

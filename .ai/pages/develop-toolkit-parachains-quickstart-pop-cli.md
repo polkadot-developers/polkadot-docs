@@ -46,7 +46,7 @@ pop install
 
 This command provides an interactive experience that checks and installs all necessary dependencies for you. It’s the fastest and easiest way to prepare your development environment for building parachains with Pop CLI.
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>pop install</span>
   <span data-ty>┌ Pop CLI : Install dependencies for development</span>
   <span data-ty>│ </span>
@@ -64,7 +64,7 @@ This command provides an interactive experience that checks and installs all nec
 
 Start a new project quickly using Pop CLI's `pop new parachain` command:
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <img src="/images/develop/toolkit/parachains/quickstart/pop-new.gif" alt="pop new" style="max-width: 100%" />
 </div>
 
@@ -91,7 +91,7 @@ This command will automatically fetch the necessary binaries and spin up a Polka
 
 You can also interact with your local network using Pop CLI's `pop call chain` command:
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <img src="/images/develop/toolkit/parachains/quickstart/call-chain.gif" alt="pop call" style="max-width: 100%" />
 </div>
 

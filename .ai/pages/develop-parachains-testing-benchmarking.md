@@ -36,7 +36,7 @@ Because weight is a generic unit of measurement based on computation time for a 
 Within FRAME, each function call that is dispatched must have a `#[pallet::weight]` annotation that can return the expected weight for the worst-case scenario execution of that function given its inputs:
 
 ```rust hl_lines="2"
--#[pallet::call_index(0)]
+#[pallet::call_index(0)]
 #[pallet::weight(T::WeightInfo::do_something())]
 pub fn do_something(origin: OriginFor<T>) -> DispatchResultWithPostInfo { Ok(()) }
 ```
@@ -64,7 +64,7 @@ cargo install frame-omni-bencher
 Before writing benchmark tests, you need to ensure the `frame-benchmarking` crate is included in your pallet's `Cargo.toml` similar to the following:
 
 ```toml title="Cargo.toml"
--frame-benchmarking = { version = "37.0.0", default-features = false }
+frame-benchmarking = { version = "37.0.0", default-features = false }
 runtime-benchmarks = [
   "frame-benchmarking/runtime-benchmarks",
   "frame-support/runtime-benchmarks",
@@ -82,7 +82,7 @@ std = [
 You must also ensure that you add the `runtime-benchmarks` feature flag as follows under the `[features]` section of your pallet's `Cargo.toml`:
 
 ```toml title="Cargo.toml"
--runtime-benchmarks = [
+runtime-benchmarks = [
   "frame-benchmarking/runtime-benchmarks",
   "frame-support/runtime-benchmarks",
   "frame-system/runtime-benchmarks",
@@ -93,7 +93,7 @@ You must also ensure that you add the `runtime-benchmarks` feature flag as follo
 Lastly, ensure that `frame-benchmarking` is included in `std = []`: 
 
 ```toml title="Cargo.toml"
--std = [
+std = [
   # ...
   "frame-benchmarking?/std",
   # ...
@@ -117,7 +117,7 @@ my-pallet/
 With the directory structure set, you can use the [`polkadot-sdk-parachain-template`](https://github.com/paritytech/polkadot-sdk-parachain-template/tree/master/pallets){target=\_blank} to get started as follows:
 
 ```rust title="benchmarking.rs (starter template)"
--//! Benchmarking setup for pallet-template
+//! Benchmarking setup for pallet-template
 #![cfg(feature = "runtime-benchmarks")]
 
 use super::*;
@@ -173,7 +173,7 @@ Before running the benchmarking tool, you must integrate benchmarks with your ru
 1. Navigate to your `runtime/src` directory and check if a `benchmarks.rs` file exists. If not, create one. This file will contain the macro that registers all pallets for benchmarking along with their respective configurations:
 
     ```rust title="benchmarks.rs"
-    -frame_benchmarking::define_benchmarks!(
+    frame_benchmarking::define_benchmarks!(
     [frame_system, SystemBench::<Runtime>]
     [pallet_parachain_template, TemplatePallet]
     [pallet_balances, Balances]
@@ -189,7 +189,7 @@ Before running the benchmarking tool, you must integrate benchmarks with your ru
 
     For example, to add a new pallet named `pallet_parachain_template` for benchmarking, include it in the macro as shown:
     ```rust title="benchmarks.rs" hl_lines="3"
-    -frame_benchmarking::define_benchmarks!(
+    frame_benchmarking::define_benchmarks!(
     [frame_system, SystemBench::<Runtime>]
     [pallet_parachain_template, TemplatePallet]
     [pallet_balances, Balances]
@@ -219,7 +219,7 @@ Before running the benchmarking tool, you must integrate benchmarks with your ru
 3. Enable runtime benchmarking for your pallet in `runtime/Cargo.toml`:
 
     ```toml
-    -runtime-benchmarks = [
+    runtime-benchmarks = [
   # ...
   "pallet_parachain_template/runtime-benchmarks",
 ]
@@ -269,7 +269,7 @@ You can now compile your runtime with the `runtime-benchmarks` feature flag. Thi
 
 The generated `weights.rs` file contains weight annotations for your extrinsics, ready to be added to your pallet. The output should be similar to the following. Some output is omitted for brevity:
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>frame-omni-bencher v1 benchmark pallet \</span>
   <span data-ty>--runtime INSERT_PATH_TO_WASM_RUNTIME \</span>
   <span data-ty>--pallet "INSERT_NAME_OF_PALLET" \</span>
@@ -292,7 +292,7 @@ Once the `weights.rs` is generated, you must integrate it with your pallet.
 1. To begin the integration, import the `weights` module and the `WeightInfo` trait, then add both to your pallet's `Config` trait. Complete the following steps to set up the configuration:
 
     ```rust title="lib.rs"
-    -pub mod weights;
+    pub mod weights;
 use crate::weights::WeightInfo;
 
 /// Configure the pallet by specifying the parameters and types on which it depends.
@@ -307,7 +307,7 @@ pub trait Config: frame_system::Config {
 2. Next, you must add this to the `#[pallet::weight]` annotation in all the extrinsics via the `Config` as follows:
 
     ```rust hl_lines="2" title="lib.rs"
-    -#[pallet::call_index(0)]
+    #[pallet::call_index(0)]
 #[pallet::weight(T::WeightInfo::do_something())]
 pub fn do_something(origin: OriginFor<T>) -> DispatchResultWithPostInfo { Ok(()) }
     ```
@@ -315,7 +315,7 @@ pub fn do_something(origin: OriginFor<T>) -> DispatchResultWithPostInfo { Ok(())
 3. Finally, configure the actual weight values in your runtime. In `runtime/src/config/mod.rs`, add the following code:
 
     ```rust title="mod.rs"
-    -// Configure pallet.
+    // Configure pallet.
 impl pallet_parachain_template::Config for Runtime {
     // ...
     type WeightInfo = pallet_parachain_template::weights::SubstrateWeight<Runtime>;

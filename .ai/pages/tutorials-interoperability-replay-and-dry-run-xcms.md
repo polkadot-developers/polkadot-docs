@@ -167,7 +167,7 @@ Full execution logs only work if the runtime was compiled with logging enabled. 
 
     You'll also see runtime logs such as:
 
-    -<div class="termynal" data-termynal>
+    <div class="termynal" data-termynal>
   <span data-ty="input">npx @acala-network/chopsticks xcm \ -r polkadot \ -p configs/polkadot-asset-hub-override.yaml \ -p acala</span>
   <span data-ty>[09:29:14.988] INFO: Polkadot Asset Hub RPC listening on http://[::]:8000 and ws://[::]:8000</span>
   <span data-ty>[09:29:14.988] INFO: Loading config file https://raw.githubusercontent.com/AcalaNetwork/chopsticks/master/configs/acala.yml</span>
@@ -227,7 +227,7 @@ The script assumes the Polkadot Asset Hub is served on `ws://localhost:8000`. If
 Create a file named `replay-xcm.ts` and copy the following code into it:
 
 ```ts
--import { Binary, createClient, Transaction } from 'polkadot-api';
+import { Binary, createClient, Transaction } from 'polkadot-api';
 import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
 import { getPolkadotSigner } from 'polkadot-api/signer';
 import { getWsProvider } from 'polkadot-api/ws-provider/web';
@@ -332,7 +332,7 @@ npx tsx replay-xcm.ts
 
 If everything is working, you'll see logs like:
 
--<div class="termynal" data-termynal>
+<div class="termynal" data-termynal>
   <span data-ty="input">npx tsx replay-xcm.ts</span>
   <pre data-ty>
 executing xcm: {
@@ -375,7 +375,7 @@ To simulate the XCM without actually sending it, you can use the `dry_run_call` 
 Assuming you've the `tx` transaction from the previous step, you can create a new script, `dry-run-call.ts`, then paste in the following code:
 
 ```ts
--import { Binary, createClient, Enum } from 'polkadot-api';
+import { Binary, createClient, Enum } from 'polkadot-api';
 import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
 import { getWsProvider } from 'polkadot-api/ws-provider/web';
 import { assetHub } from '@polkadot-api/descriptors';
@@ -429,7 +429,7 @@ npx tsx dry-run-call.ts
 
 If successful, the dry run confirms that the XCM would execute correctly:
 
--<div class="termynal" data-termynal>
+<div class="termynal" data-termynal>
   <span data-ty="input">npx tsx dry-run-call.ts</span>
   <pre data-ty>
 execution_result: {
@@ -450,7 +450,7 @@ forwarded_xcms: []
 
 If it fails, you'll receive detailed error information:
 
--<div class="termynal" data-termynal>
+<div class="termynal" data-termynal>
   <span data-ty="input">npx tsx dry-run-call.ts</span>
   <pre data-ty>
 execution_result: {

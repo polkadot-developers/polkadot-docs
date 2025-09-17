@@ -129,7 +129,7 @@ A signed transaction in the Polkadot SDK includes various pieces of data to ensu
 The following is an example of how a signed transaction might look:
 
 ``` rust
--node_runtime::UncheckedExtrinsic::new_signed(
+node_runtime::UncheckedExtrinsic::new_signed(
     function.clone(),                                      // some call
     sp_runtime::AccountId32::from(sender.public()).into(), // some sending account
     node_runtime::Signature::Sr25519(signature.clone()),   // the account's signature

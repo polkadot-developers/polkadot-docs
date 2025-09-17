@@ -7,7 +7,7 @@ url: https://docs.polkadot.com/develop/smart-contracts/connect-to-kusama/
 
 # Connect to Kusama
 
--!!! smartcontract "PolkaVM Preview Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 <div class="button-wrapper">

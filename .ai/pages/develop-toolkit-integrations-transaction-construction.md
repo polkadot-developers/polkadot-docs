@@ -94,7 +94,7 @@ polkadot-js-signer sign --account <from-account-ss58> --seed <seed> --type <sr25
 
 For the sake of this example, create two accounts using the [Subkey](/polkadot-protocol/parachain-basics/accounts/#using-subkey){target=\_blank} CLI tool.
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
     <span data-ty="input">subkey generate</span>
     <span data-ty>Secret phrase:       south ladder exile ... grape rival settle coil</span>
     <span data-ty>  Network ID:        substrate</span>
@@ -127,7 +127,7 @@ polkadot-js-signer submit --account 5F4c8mNz6schf2WMXQZiz1eyR1GGxrMf2coXpAn8mNjx
 
 This will return a payload to sign and an input waiting for a signature.
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
     <span data-ty="input"><span class="file-path"></span>polkadot-js-signer submit --account 5F4c8mNz6schf2WMXQZiz1eyR1GGxrMf2coXpAn8mNjxyzp2 --ws wss://asset-hub-westend-rpc.n.dwellir.com balances.transferKeepAlive 5FnudgwK8xJvmujsXXP35pF2xwskhHQzBSRM8KZhXjnEz5gD 1000000000000</span>
     <span data-ty>Payload: 0x040300ff4a83f1...a8239139ff3ff7c3f6</span>
     <span data-ty>Signature></span>
@@ -141,7 +141,7 @@ polkadot-js-signer sign --account 5F4c8mNz6schf2WMXQZiz1eyR1GGxrMf2coXpAn8mNjxyz
 
 This will output the transaction's signature. 
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
     <span data-ty="input"><span class="file-path"></span>polkadot-js-signer sign --account 5F4c8mNz6schf2WMXQZiz1eyR1GGxrMf2coXpAn8mNjxyzp2 --seed "south ladder exile ... grape rival settle coil" --type sr25519 0x040300ff4a83f1...a8239139ff3ff7c3f6</span>
     <span data-ty>Signature: 0xe6facf194a8e...413ce3155c2d1240b</span>
 </div>
@@ -155,7 +155,7 @@ Assuming a six-second block time, you will have five minutes to go offline, sign
 You will get useful output in the terminal with details like the events that were fired off, as well as the block in which the extrinsic is in. 
 
 ??? code "Full example output"
-    -<div id="termynal" data-termynal>
+    <div id="termynal" data-termynal>
     <span data-ty="input"><span class="file-path"></span>polkadot-js-signer submit --account 5F4c8mNz6schf2WMXQZiz1eyR1GGxrMf2coXpAn8mNjxyzp2 --ws wss://westend-asset-hub-rpc.polkadot.io balances.transferKeepAlive 5FnudgwK8xJvmujsXXP35pF2xwskhHQzBSRM8KZhXjnEz5gD 1000000000000</span>
     <span data-ty>    2025-07-16 16:00:12        REGISTRY: Unknown signed extensions AuthorizeCall, StorageWeightReclaim found, treating them as no-effect</span>
     <span data-ty>    2025-07-16 16:00:12        API/INIT: RPC methods not decorated: archive_v1_body, archive_v1_call, archive_v1_finalizedHeight, archive_v1_genesisHash, archive_v1_hashByHeight, archive_v1_header, archive_v1_stopStorage, archive_v1_storage, archive_v1_storageDiff, archive_v1_storageDiff_stopStorageDiff, chainHead_v1_body, chainHead_v1_call, chainHead_v1_continue, chainHead_v1_follow, chainHead_v1_header, chainHead_v1_stopOperation, chainHead_v1_storage, chainHead_v1_unfollow, chainHead_v1_unpin, chainSpec_v1_chainName, chainSpec_v1_genesisHash, chainSpec_v1_properties, transactionWatch_v1_submitAndWatch, transactionWatch_v1_unwatch, transaction_v1_broadcast, transaction_v1_stop</span>
@@ -368,7 +368,7 @@ yarn run build
 yarn run polkadot
 ```
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
     <span data-ty="input"><span class="file-path"></span>yarn run polkadot</span>
     <span data-ty>Alice's SS58-Encoded Address: 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY</span>
     <span data-ty></span>

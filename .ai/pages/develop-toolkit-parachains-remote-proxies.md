@@ -99,7 +99,7 @@ touch remote-proxy-example.js
 Here is a complete implementation example of a remote proxy transaction:
 
 ```javascript title="remote-proxy-example.js"
--import { ApiPromise, WsProvider } from '@polkadot/api';
+import { ApiPromise, WsProvider } from '@polkadot/api';
 
 // Account configuration - replace with your addresses
 const RECIPIENT_ACCOUNT = 'INSERT_RECIPIENT_ACCOUNT';

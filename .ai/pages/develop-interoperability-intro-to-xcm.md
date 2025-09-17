@@ -52,7 +52,7 @@ The standardized format for messages allows parachains to handle tasks like user
 The following is a simplified XCM message demonstrating a token transfer from Alice to Bob on the same chain (ParaA).
 
 ```rust
--let message = Xcm(vec![
+let message = Xcm(vec![
     WithdrawAsset((Here, amount).into()),
     BuyExecution { 
         fees: (Here, amount).into(), 
@@ -76,7 +76,7 @@ The message consists of three instructions described as follows:
 - **[WithdrawAsset](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#withdrawasset){target=\_blank}**: Transfers a specified number of tokens from Alice's account to a holding register.
 
     ```rust
-    -    WithdrawAsset((Here, amount).into()),
+        WithdrawAsset((Here, amount).into()),
     ```
 
     - **`Here`**: The native parachain token.
@@ -87,7 +87,7 @@ The message consists of three instructions described as follows:
 - **[BuyExecution](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#buyexecution){target=\_blank}**: Allocates fees to cover the execution [weight](/polkadot-protocol/glossary/#weight){target=\_blank} of the XCM instructions.
 
     ```rust
-    -    BuyExecution { 
+        BuyExecution { 
         fees: (Here, amount).into(), 
         weight_limit: WeightLimit::Unlimited 
     },
@@ -99,7 +99,7 @@ The message consists of three instructions described as follows:
 - **[DepositAsset](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#depositasset){target=\_blank}**: Moves the remaining tokens from the holding register to Bob’s account.
 
     ```rust
-    -    DepositAsset {
+        DepositAsset {
         assets: All.into(),
         beneficiary: MultiLocation {
             parents: 0,

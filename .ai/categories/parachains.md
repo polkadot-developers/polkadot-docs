@@ -12,7 +12,7 @@
 
 # Accounts on Asset Hub Smart Contracts
 
--!!! smartcontract "PolkaVM Preview Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -226,7 +226,7 @@ You can inspect any pallet’s `Config` trait by reviewing its Rust documentatio
 At its core, the `Config` trait typically looks like this:
 
 ```rust
--#[pallet::config]
+#[pallet::config]
 pub trait Config: frame_system::Config {
     /// Event type used by the pallet.
     type RuntimeEvent: From<Event> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
@@ -243,7 +243,7 @@ This basic structure shows that every pallet must define certain types, such as 
 For instance, in the [`utility`](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2506/substrate/frame/utility){target=\_blank} pallet, the `Config` trait is implemented with the following types:
 
 ```rust
--#[pallet::config]
+#[pallet::config]
 pub trait Config: frame_system::Config {
     /// The overarching event type.
     type RuntimeEvent: From<Event> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
@@ -276,7 +276,7 @@ Traits in Rust define shared behavior, and within the Polkadot SDK, they allow r
 For example, the following code snippet shows how the solochain template configures certain parameters through the [`parameter_types!`](https://github.com/paritytech/polkadot-sdk-solochain-template/blob/v0.0.2/runtime/src/lib.rs#L138){target=\_blank} macro in the `runtime/lib.rs` file:
 
 ```rust
--parameter_types! {
+parameter_types! {
     pub const BlockHashCount: BlockNumber = 2400;
     pub const Version: RuntimeVersion = VERSION;
     /// We allow for 2 seconds of compute with a 6 second average block time.
@@ -296,7 +296,7 @@ For example, the following code snippet shows how the solochain template configu
 To integrate a new pallet into the runtime, you must implement its `Config` trait in the `runtime/lib.rs` file. This is done by specifying the necessary types and parameters in Rust, as shown below:
 
 ```rust
--impl pallet_example::Config for Runtime {
+impl pallet_example::Config for Runtime {
     type RuntimeEvent = RuntimeEvent;
     type WeightInfo = pallet_template::weights::SubstrateWeight<Runtime>;
     ...
@@ -308,7 +308,7 @@ Finally, to compose the runtime, update the list of pallets in the same file by 
 Use the following format when adding your pallet:
 
 ```rust
--#[frame_support::runtime]
+#[frame_support::runtime]
 mod runtime {
     #[runtime::runtime]
     #[runtime::derive(
@@ -539,30 +539,30 @@ First, you'll update the runtime's `Cargo.toml` file to include the Utility pall
 1. Open the `runtime/Cargo.toml` file and locate the `[dependencies]` section. Add pallet-utility as one of the features for the `polkadot-sdk` dependency with the following line:
 
     ```toml hl_lines="4" title="runtime/Cargo.toml"
-    -[dependencies]
+    [dependencies]
     ...
-    -polkadot-sdk = { workspace = true, features = [
+    polkadot-sdk = { workspace = true, features = [
   "pallet-utility",
         ...
-    -], default-features = false }
+    ], default-features = false }
     ```
 
 2. In the same `[dependencies]` section, add the custom pallet that you built from scratch with the following line:
 
     ```toml hl_lines="3" title="Cargo.toml"
-    -[dependencies]
+    [dependencies]
     ...
-    -custom-pallet = { path = "../pallets/custom-pallet", default-features = false }
+    custom-pallet = { path = "../pallets/custom-pallet", default-features = false }
     ```
 
 3. In the `[features]` section, add the custom pallet to the `std` feature list:
 
     ```toml hl_lines="5" title="Cargo.toml"
-    -[features]
+    [features]
 default = ["std"]
 std = [
       ...
-      -"custom-pallet/std",
+      "custom-pallet/std",
       ...
     ]
     ```
@@ -574,7 +574,7 @@ std = [
     ???- code "runtime/Cargo.toml"
         
         ```rust title="runtime/Cargo.toml"
-        -[package]
+        [package]
 name = "parachain-template-runtime"
 description = "A parachain runtime template built with Substrate and Cumulus, part of Polkadot Sdk."
 version = "0.1.0"
@@ -686,7 +686,7 @@ Update your root parachain template's `Cargo.toml` file to include your custom p
     Make sure the `custom-pallet` is a member of the workspace:
 
     ```toml hl_lines="4" title="Cargo.toml"
-     -[workspace]
+     [workspace]
 default-members = ["pallets/template", "runtime"]
 members = [
     "node", "pallets/custom-pallet",
@@ -698,7 +698,7 @@ members = [
 ???- code "./Cargo.toml"
 
     ```rust title="./Cargo.toml"
-    -[workspace.package]
+    [workspace.package]
 license = "MIT-0"
 authors = ["Parity Technologies <admin@parity.io>"]
 homepage = "https://paritytech.github.io/polkadot-sdk/"
@@ -753,7 +753,7 @@ Configure the pallets by implementing their `Config` trait and update the runtim
 1. Add the `OriginCaller` import:
 
     ```rust title="mod.rs" hl_lines="8"
-    -// Local module imports
+    // Local module imports
 use super::OriginCaller;
     ...
     ```
@@ -762,7 +762,7 @@ use super::OriginCaller;
 
     ```rust title="mod.rs" hl_lines="8-25"
     ...
-    -/// Configure the pallet template in pallets/template.
+    /// Configure the pallet template in pallets/template.
 impl pallet_parachain_template::Config for Runtime {
     type RuntimeEvent = RuntimeEvent;
     type WeightInfo = pallet_parachain_template::weights::SubstrateWeight<Runtime>;
@@ -775,7 +775,7 @@ impl pallet_utility::Config for Runtime {
     type PalletsOrigin = OriginCaller;
     type WeightInfo = pallet_utility::weights::SubstrateWeight<Runtime>;
 }
-    -// Define counter max value runtime constant.
+    // Define counter max value runtime constant.
 parameter_types! {
     pub const CounterMaxValue: u32 = 500;
 }
@@ -790,15 +790,15 @@ impl custom_pallet::Config for Runtime {
 3. Locate the `#[frame_support::runtime]` macro in the `runtime/src/lib.rs` file and add the pallets:
 
     ```rust hl_lines="9-14" title="lib.rs"
-    -#[frame_support::runtime]
+    #[frame_support::runtime]
 mod runtime {
     #[runtime::runtime]
     #[runtime::derive(
             ...
-        -    )]
+            )]
     pub struct Runtime;
 
-    -    #[runtime::pallet_index(51)]
+        #[runtime::pallet_index(51)]
     pub type Utility = pallet_utility;
 
     #[runtime::pallet_index(52)]
@@ -981,7 +981,7 @@ Because weight is a generic unit of measurement based on computation time for a 
 Within FRAME, each function call that is dispatched must have a `#[pallet::weight]` annotation that can return the expected weight for the worst-case scenario execution of that function given its inputs:
 
 ```rust hl_lines="2"
--#[pallet::call_index(0)]
+#[pallet::call_index(0)]
 #[pallet::weight(T::WeightInfo::do_something())]
 pub fn do_something(origin: OriginFor<T>) -> DispatchResultWithPostInfo { Ok(()) }
 ```
@@ -1009,7 +1009,7 @@ cargo install frame-omni-bencher
 Before writing benchmark tests, you need to ensure the `frame-benchmarking` crate is included in your pallet's `Cargo.toml` similar to the following:
 
 ```toml title="Cargo.toml"
--frame-benchmarking = { version = "37.0.0", default-features = false }
+frame-benchmarking = { version = "37.0.0", default-features = false }
 runtime-benchmarks = [
   "frame-benchmarking/runtime-benchmarks",
   "frame-support/runtime-benchmarks",
@@ -1027,7 +1027,7 @@ std = [
 You must also ensure that you add the `runtime-benchmarks` feature flag as follows under the `[features]` section of your pallet's `Cargo.toml`:
 
 ```toml title="Cargo.toml"
--runtime-benchmarks = [
+runtime-benchmarks = [
   "frame-benchmarking/runtime-benchmarks",
   "frame-support/runtime-benchmarks",
   "frame-system/runtime-benchmarks",
@@ -1038,7 +1038,7 @@ You must also ensure that you add the `runtime-benchmarks` feature flag as follo
 Lastly, ensure that `frame-benchmarking` is included in `std = []`: 
 
 ```toml title="Cargo.toml"
--std = [
+std = [
   # ...
   "frame-benchmarking?/std",
   # ...
@@ -1062,7 +1062,7 @@ my-pallet/
 With the directory structure set, you can use the [`polkadot-sdk-parachain-template`](https://github.com/paritytech/polkadot-sdk-parachain-template/tree/master/pallets){target=\_blank} to get started as follows:
 
 ```rust title="benchmarking.rs (starter template)"
--//! Benchmarking setup for pallet-template
+//! Benchmarking setup for pallet-template
 #![cfg(feature = "runtime-benchmarks")]
 
 use super::*;
@@ -1118,7 +1118,7 @@ Before running the benchmarking tool, you must integrate benchmarks with your ru
 1. Navigate to your `runtime/src` directory and check if a `benchmarks.rs` file exists. If not, create one. This file will contain the macro that registers all pallets for benchmarking along with their respective configurations:
 
     ```rust title="benchmarks.rs"
-    -frame_benchmarking::define_benchmarks!(
+    frame_benchmarking::define_benchmarks!(
     [frame_system, SystemBench::<Runtime>]
     [pallet_parachain_template, TemplatePallet]
     [pallet_balances, Balances]
@@ -1134,7 +1134,7 @@ Before running the benchmarking tool, you must integrate benchmarks with your ru
 
     For example, to add a new pallet named `pallet_parachain_template` for benchmarking, include it in the macro as shown:
     ```rust title="benchmarks.rs" hl_lines="3"
-    -frame_benchmarking::define_benchmarks!(
+    frame_benchmarking::define_benchmarks!(
     [frame_system, SystemBench::<Runtime>]
     [pallet_parachain_template, TemplatePallet]
     [pallet_balances, Balances]
@@ -1164,7 +1164,7 @@ Before running the benchmarking tool, you must integrate benchmarks with your ru
 3. Enable runtime benchmarking for your pallet in `runtime/Cargo.toml`:
 
     ```toml
-    -runtime-benchmarks = [
+    runtime-benchmarks = [
   # ...
   "pallet_parachain_template/runtime-benchmarks",
 ]
@@ -1214,7 +1214,7 @@ You can now compile your runtime with the `runtime-benchmarks` feature flag. Thi
 
 The generated `weights.rs` file contains weight annotations for your extrinsics, ready to be added to your pallet. The output should be similar to the following. Some output is omitted for brevity:
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>frame-omni-bencher v1 benchmark pallet \</span>
   <span data-ty>--runtime INSERT_PATH_TO_WASM_RUNTIME \</span>
   <span data-ty>--pallet "INSERT_NAME_OF_PALLET" \</span>
@@ -1237,7 +1237,7 @@ Once the `weights.rs` is generated, you must integrate it with your pallet.
 1. To begin the integration, import the `weights` module and the `WeightInfo` trait, then add both to your pallet's `Config` trait. Complete the following steps to set up the configuration:
 
     ```rust title="lib.rs"
-    -pub mod weights;
+    pub mod weights;
 use crate::weights::WeightInfo;
 
 /// Configure the pallet by specifying the parameters and types on which it depends.
@@ -1252,7 +1252,7 @@ pub trait Config: frame_system::Config {
 2. Next, you must add this to the `#[pallet::weight]` annotation in all the extrinsics via the `Config` as follows:
 
     ```rust hl_lines="2" title="lib.rs"
-    -#[pallet::call_index(0)]
+    #[pallet::call_index(0)]
 #[pallet::weight(T::WeightInfo::do_something())]
 pub fn do_something(origin: OriginFor<T>) -> DispatchResultWithPostInfo { Ok(()) }
     ```
@@ -1260,7 +1260,7 @@ pub fn do_something(origin: OriginFor<T>) -> DispatchResultWithPostInfo { Ok(())
 3. Finally, configure the actual weight values in your runtime. In `runtime/src/config/mod.rs`, add the following code:
 
     ```rust title="mod.rs"
-    -// Configure pallet.
+    // Configure pallet.
 impl pallet_parachain_template::Config for Runtime {
     // ...
     type WeightInfo = pallet_parachain_template::weights::SubstrateWeight<Runtime>;
@@ -1414,7 +1414,7 @@ To build and integrate your custom pallet into a Polkadot SDK-based runtime, you
 2. Add the required dependencies in the `[dependencies]` section:
 
     ```toml
-    -[dependencies]
+    [dependencies]
 codec = { features = ["derive"], workspace = true }
 scale-info = { features = ["derive"], workspace = true }
 frame = { features = ["experimental", "runtime"], workspace = true }
@@ -1423,7 +1423,7 @@ frame = { features = ["experimental", "runtime"], workspace = true }
 3. Enable `std` features:
 
     ```toml
-    -[features]
+    [features]
 default = ["std"]
 std = ["codec/std", "frame/std", "scale-info/std"]
     ```
@@ -1433,7 +1433,7 @@ The final `Cargo.toml` file should resemble the following:
 ??? code "Cargo.toml"
 
     ```toml
-    -[package]
+    [package]
 name = "custom-pallet"
 version = "0.1.0"
 license.workspace = true
@@ -1467,11 +1467,11 @@ You now have the bare minimum of package dependencies that your pallet requires 
 2. Prepare the scaffolding for the pallet by adding the following:
 
     ```rust title="lib.rs"
-    -#![cfg_attr(not(feature = "std"), no_std)]
+    #![cfg_attr(not(feature = "std"), no_std)]
 
 pub use pallet::*;
 
-    -#[frame::pallet]
+    #[frame::pallet]
 pub mod pallet {
     use super::*;
     use frame::prelude::*;
@@ -1482,8 +1482,8 @@ pub mod pallet {
     #[pallet::config]
     pub trait Config: frame_system::Config {
         // Defines the event type for the pallet.
-        -    }
-    -}
+            }
+    }
     ```
 
 3. Verify that it compiles by running the following command:
@@ -1505,7 +1505,7 @@ In this step, you will configure two essential components that are critical for 
 Add the following `Config` trait definition to your pallet:
 
 ```rust title="lib.rs"
--    #[pallet::config]
+    #[pallet::config]
     pub trait Config: frame_system::Config {
         // Defines the event type for the pallet.
         type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
@@ -1513,7 +1513,7 @@ Add the following `Config` trait definition to your pallet:
         // Defines the maximum value the counter can hold.
         #[pallet::constant]
         type CounterMaxValue: Get<u32>;
--    }
+    }
 ```
 
 ### Add Events
@@ -1539,7 +1539,7 @@ Below are the events defined for this pallet:
 Define the events in the pallet as follows:
 
 ```rust title="lib.rs"
--    #[pallet::event]
+    #[pallet::event]
     #[pallet::generate_deposit(pub(super) fn deposit_event)]
     pub enum Event<T: Config> {
         /// The counter value has been set to a new value by Root.
@@ -1580,7 +1580,7 @@ Storage items are used to manage the pallet's state. This pallet defines two ite
 Define the storage items as follows:
 
 ```rust title="lib.rs"
--    #[pallet::storage]
+    #[pallet::storage]
     pub type CounterValue<T> = StorageValue<_, u32>;
 
     /// Storage map to track the number of interactions performed by each account.
@@ -1598,7 +1598,7 @@ To add custom errors, use the `#[pallet::error]` macro to define the `Error` enu
 Add the following errors to the pallet:
 
 ```rust title="lib.rs"
--    #[pallet::error]
+    #[pallet::error]
     pub enum Error<T> {
         /// The counter value exceeds the maximum allowed value.
         CounterValueExceedsMax,
@@ -1619,7 +1619,7 @@ The `#[pallet::call]` macro defines the dispatchable functions (or calls) the pa
 The structure of the dispatchable calls in this pallet is as follows:
 
 ```rust title="lib.rs"
--    #[pallet::call]
+    #[pallet::call]
     impl<T: Config> Pallet<T> {
         /// Set the value of the counter.
         ///
@@ -1630,10 +1630,10 @@ The structure of the dispatchable calls in this pallet is as follows:
         /// Emits `CounterValueSet` event when successful.
         #[pallet::call_index(0)]
     #[pallet::weight(0)]
-    -        pub fn set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult {
-    -        }
+            pub fn set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult {
+            }
 
-    -        /// Increment the counter by a specified amount.
+            /// Increment the counter by a specified amount.
         ///
         /// This function can be called by any signed account.
         ///
@@ -1642,10 +1642,10 @@ The structure of the dispatchable calls in this pallet is as follows:
         /// Emits `CounterIncremented` event when successful.
         #[pallet::call_index(1)]
     #[pallet::weight(0)]
-    -        pub fn increment(origin: OriginFor<T>, amount_to_increment: u32) -> DispatchResult {
-    -        }
+            pub fn increment(origin: OriginFor<T>, amount_to_increment: u32) -> DispatchResult {
+            }
 
-    -        /// Decrement the counter by a specified amount.
+            /// Decrement the counter by a specified amount.
         ///
         /// This function can be called by any signed account.
         ///
@@ -1654,9 +1654,9 @@ The structure of the dispatchable calls in this pallet is as follows:
         /// Emits `CounterDecremented` event when successful.
         #[pallet::call_index(2)]
     #[pallet::weight(0)]
-    -        pub fn decrement(origin: OriginFor<T>, amount_to_decrement: u32) -> DispatchResult {
-    -    }
--}
+            pub fn decrement(origin: OriginFor<T>, amount_to_decrement: u32) -> DispatchResult {
+        }
+}
 ```
 
 Expand the following items to view the implementations of each dispatchable call in this pallet.
@@ -1673,7 +1673,7 @@ Expand the following items to view the implementations of each dispatchable call
         - Emits a `CounterValueSet` event on success.
 
     ```rust title="lib.rs"
-    -        /// Set the value of the counter.
+            /// Set the value of the counter.
         ///
         /// The dispatch origin of this call must be _Root_.
         ///
@@ -1682,7 +1682,7 @@ Expand the following items to view the implementations of each dispatchable call
         /// Emits `CounterValueSet` event when successful.
         #[pallet::call_index(0)]
     #[pallet::weight(0)]
-    -        pub fn set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult {
+            pub fn set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult {
             ensure_root(origin)?;
 
             ensure!(
@@ -1714,7 +1714,7 @@ Expand the following items to view the implementations of each dispatchable call
         - Emits a `CounterIncremented` event on success.
 
     ```rust title="lib.rs"
-    -        /// Increment the counter by a specified amount.
+            /// Increment the counter by a specified amount.
         ///
         /// This function can be called by any signed account.
         ///
@@ -1723,7 +1723,7 @@ Expand the following items to view the implementations of each dispatchable call
         /// Emits `CounterIncremented` event when successful.
         #[pallet::call_index(1)]
     #[pallet::weight(0)]
-    -        pub fn increment(origin: OriginFor<T>, amount_to_increment: u32) -> DispatchResult {
+            pub fn increment(origin: OriginFor<T>, amount_to_increment: u32) -> DispatchResult {
             let who = ensure_signed(origin)?;
 
             let current_value = CounterValue::<T>::get().unwrap_or(0);
@@ -1773,7 +1773,7 @@ Expand the following items to view the implementations of each dispatchable call
         - Emits a `CounterDecremented` event on success.
 
     ```rust title="lib.rs"
-    -        /// Decrement the counter by a specified amount.
+            /// Decrement the counter by a specified amount.
         ///
         /// This function can be called by any signed account.
         ///
@@ -1782,7 +1782,7 @@ Expand the following items to view the implementations of each dispatchable call
         /// Emits `CounterDecremented` event when successful.
         #[pallet::call_index(2)]
     #[pallet::weight(0)]
-    -        pub fn decrement(origin: OriginFor<T>, amount_to_decrement: u32) -> DispatchResult {
+            pub fn decrement(origin: OriginFor<T>, amount_to_decrement: u32) -> DispatchResult {
             let who = ensure_signed(origin)?;
 
             let current_value = CounterValue::<T>::get().unwrap_or(0);
@@ -1832,11 +1832,11 @@ Expand the following item to review this implementation and the complete pallet 
 ???- code "src/lib.rs"
 
     ```rust title="lib.rs"
-    -#![cfg_attr(not(feature = "std"), no_std)]
+    #![cfg_attr(not(feature = "std"), no_std)]
 
 pub use pallet::*;
 
-    -#[frame::pallet]
+    #[frame::pallet]
 pub mod pallet {
     use super::*;
     use frame::prelude::*;
@@ -1852,7 +1852,7 @@ pub mod pallet {
         // Defines the maximum value the counter can hold.
         #[pallet::constant]
         type CounterMaxValue: Get<u32>;
-        -    }
+            }
 
     #[pallet::event]
     #[pallet::generate_deposit(pub(super) fn deposit_event)]
@@ -1913,7 +1913,7 @@ pub mod pallet {
         /// Emits `CounterValueSet` event when successful.
         #[pallet::call_index(0)]
             #[pallet::weight(0)]
-            -        pub fn set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult {
+                    pub fn set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult {
             ensure_root(origin)?;
 
             ensure!(
@@ -1939,7 +1939,7 @@ pub mod pallet {
         /// Emits `CounterIncremented` event when successful.
         #[pallet::call_index(1)]
             #[pallet::weight(0)]
-            -        pub fn increment(origin: OriginFor<T>, amount_to_increment: u32) -> DispatchResult {
+                    pub fn increment(origin: OriginFor<T>, amount_to_increment: u32) -> DispatchResult {
             let who = ensure_signed(origin)?;
 
             let current_value = CounterValue::<T>::get().unwrap_or(0);
@@ -1983,7 +1983,7 @@ pub mod pallet {
         /// Emits `CounterDecremented` event when successful.
         #[pallet::call_index(2)]
             #[pallet::weight(0)]
-    -// This file is part of 'custom-pallet'.
+    // This file is part of 'custom-pallet'.
 
 // SPDX-License-Identifier: MIT-0
 
@@ -2268,7 +2268,7 @@ To prepare the environment:
 
     If Docker is installed, the command will display version information:
 
-    -<div id="termynal" data-termynal>
+    <div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>docker --version</span>
   <span data-ty>Docker version 20.10.17, build 100c701</span>
 </div>
@@ -2327,7 +2327,7 @@ To add a GitHub workflow for building the runtime:
     ??? interface "`basic.yml`"
 
         ```yml
-        -name: Srtool build
+        name: Srtool build
 
 on: push
 
@@ -2496,7 +2496,7 @@ In general, the metadata includes the following information:
 The following example illustrates a condensed and annotated section of metadata decoded and converted to JSON:
 
 ```json
--[
+[
     1635018093,
     {
         "V14": {
@@ -2529,7 +2529,7 @@ Different extrinsic versions can have varying formats, especially when consideri
 The following is a condensed and annotated example of metadata for a single element in the `pallets` array (the [`sudo`](https://paritytech.github.io/polkadot-sdk/master/pallet_sudo/index.html){target=\_blank} pallet):
 
 ```json
--{
+{
     "name": "Sudo",
     "storage": {
         "prefix": "Sudo",
@@ -2565,7 +2565,7 @@ Every element metadata contains the name of the pallet it represents and informa
 For example, the following is a condensed excerpt of the calls for the Sudo pallet:
 
 ```json
--{
+{
     "id": 117,
     "type": {
         "path": ["pallet_sudo", "pallet", "Call"],
@@ -2670,7 +2670,7 @@ The runtime generates extrinsic metadata and provides useful information about t
 For example:
 
 ```json
--{
+{
     "extrinsic": {
         "ty": 126,
         "version": 4,
@@ -3022,7 +3022,7 @@ You can find this event in the list of recent events. It should look similar to 
 
 # Create a Smart Contract
 
--!!! smartcontract "PolkaVM Preview Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -3110,7 +3110,7 @@ To build the smart contract, follow the steps below:
 6. Add the getter and setter functions:
 
     ```solidity
-    -// SPDX-License-Identifier: MIT
+    // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.28;
 
 contract Storage {
@@ -3136,7 +3136,7 @@ contract Storage {
 ??? code "Complete Storage.sol contract"
 
     ```solidity title="Storage.sol"
-    -// SPDX-License-Identifier: MIT
+    // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.28;
 
 contract Storage {
@@ -3423,7 +3423,7 @@ Here's how the `Encode` and `Decode` traits are implemented:
 
 
 ```rust
--use parity_scale_codec::{Encode, Decode};
+use parity_scale_codec::{Encode, Decode};
 
 [derive(Debug, PartialEq, Encode, Decode)]
 enum EnumType {
@@ -3492,7 +3492,7 @@ Several SCALE codec implementations are available in various languages. Here's a
 
 # Deploy an ERC-20 to Polkadot Hub
 
--!!! smartcontract "PolkaVM Preview Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -3521,7 +3521,7 @@ To create the ERC-20 contract, you can follow the steps below:
 3. Now, paste the following ERC-20 contract code into the editor:
 
     ```solidity title="MyToken.sol"
-    -// SPDX-License-Identifier: MIT
+    // SPDX-License-Identifier: MIT
 // Compatible with OpenZeppelin Contracts ^5.0.0
 pragma solidity ^0.8.22;
 
@@ -3660,7 +3660,7 @@ Feel free to explore and interact with the contract's other functions using the 
 
 # Deploy an NFT to Polkadot Hub
 
--!!! smartcontract "PolkaVM Preview Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -3689,7 +3689,7 @@ To create the NFT contract, you can follow the steps below:
 3. Now, paste the following NFT contract code into the editor.
 
     ```solidity title="MyNFT.sol"
-    -// SPDX-License-Identifier: MIT
+    // SPDX-License-Identifier: MIT
 // Compatible with OpenZeppelin Contracts ^5.0.0
 pragma solidity ^0.8.22;
 
@@ -3911,7 +3911,7 @@ docker run -it parity/subkey:latest generate --scheme sr25519
 
 The output should look similar to the following:
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>docker run -it parity/subkey:latest generate --scheme sr25519</span>
   <span> <br />Secret phrase: lemon play remain picture leopard frog mad bridge hire hazard best buddy <br />Network ID: substrate <br />Secret seed: 0xb748b501de061bae1fcab1c0b814255979d74d9637b84e06414a57a1a149c004 <br />Public key (hex): 0xf4ec62ec6e70a3c0f8dcbe0531e2b1b8916cf16d30635bbe9232f6ed3f0bf422 <br />Account ID: 0xf4ec62ec6e70a3c0f8dcbe0531e2b1b8916cf16d30635bbe9232f6ed3f0bf422 <br />Public key (SS58): 5HbqmBBJ5ALUzho7tw1k1jEgKBJM7dNsQwrtfSfUskT1a3oe <br />SS58 Address: 5HbqmBBJ5ALUzho7tw1k1jEgKBJM7dNsQwrtfSfUskT1a3oe </span>
 </div>
@@ -3953,7 +3953,7 @@ To define your chain specification:
     - Modify the `sudo` value to specify the account that will have sudo access to the parachain.
   
     ```json
-    -{
+    {
     "bootNodes": [],
     "chainType": "Live",
     "codeSubstitutes": {},
@@ -4021,7 +4021,7 @@ To define your chain specification:
     ??? code "View complete script"
 
         ```json title="plain_chain_spec.json"
-        -{
+        {
     "bootNodes": [],
     "chainType": "Live",
     "codeSubstitutes": {},
@@ -4161,7 +4161,7 @@ polkadot-omni-node key generate-node-key \
 
 After running the command, you should see the following output, indicating the base path now has a suitable node key: 
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>polkadot-omni-node key generate-node-key --base-path data --chain raw_chain_spec.json</span>
   <br />
   <span data-ty="progress">Generating key in "/data/chains/custom/network/secret_ed25519"</span>
@@ -4347,7 +4347,7 @@ During setup, you will see prompts for the following parameters:
 
 Select `Enter` to accept defaults or input custom values. You should see something like this:
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>moonwall init</span>
   <span data-ty>✔ Provide a label for the config file moonwall_config</span>
   <span data-ty>✔ Provide a global timeout value 30000</span>
@@ -4361,7 +4361,7 @@ Select `Enter` to accept defaults or input custom values. You should see somethi
 The wizard generates a `moonwall.config` file:
 
 ```json
--{
+{
     "label": "moonwall_config",
     "defaultTestTimeout": 30000,
     "environments": [
@@ -4390,7 +4390,7 @@ The default configuration requires specific details about your blockchain node a
 Here's a complete configuration example for testing a local node using Polkadot.js as a provider:
 
 ```json
--{
+{
     "label": "moonwall_config",
     "defaultTestTimeout": 30000,
     "environments": [
@@ -4432,7 +4432,7 @@ Moonwall uses the [`describeSuite`](https://github.com/Moonsong-Labs/moonwall/bl
 The following example shows how to test a balance transfer between two accounts:
 
 ```ts
--import '@polkadot/api-augment';
+import '@polkadot/api-augment';
 import { describeSuite, expect } from '@moonwall/cli';
 import { Keyring } from '@polkadot/api';
 
@@ -4507,7 +4507,7 @@ The test runner will output detailed results showing:
 - Detailed logs and error messages (if any).
 
 Example output:
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>moonwall test default_env -c moonwall.config</span>
   <span data-ty>stdout | tests/test1.ts > 🗃️ D1 Demo suite > 📁 D1T1 Test Case</span>
   <span data-ty>2025-01-21T19:27:55.624Z test:default_env Balance before: 0</span>
@@ -4542,7 +4542,7 @@ For a comprehensive guide to Moonwall's full capabilities, available configurati
 
 # EVM vs PolkaVM
 
--!!! smartcontract "PolkaVM Preview Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -4885,7 +4885,7 @@ To run Chopsticks using a configuration file, utilize the `--config` flag. You c
 
 Regardless of which method you choose from the preceding examples, you'll see an output similar to the following:
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>npx @acala-network/chopsticks --config=polkadot</span>
   <br />
   <span data-ty>[18:38:26.155] INFO: Loading config file https://raw.githubusercontent.com/AcalaNetwork/chopsticks/master/configs/polkadot.yml</span>
@@ -4951,7 +4951,7 @@ You should now be connected to your local fork and can interact with it as you w
 For programmatic interaction, you can use the Polkadot.js library. The following is a basic example:
 
 ```js
--import { ApiPromise, WsProvider } from '@polkadot/api';
+import { ApiPromise, WsProvider } from '@polkadot/api';
 
 async function connectToFork() {
   const wsProvider = new WsProvider('ws://localhost:8000');
@@ -4986,7 +4986,7 @@ npx @acala-network/chopsticks run-block  \
 ??? code "polkadot-output.json"
 
     ```json
-    -{
+    {
     "Call": {
         "result": "0xba754e7478944d07a1f7e914422b4d973b0855abeb6f81138fdca35beb474b44a10f6fc59a4d90c3b78e38fac100fc6adc6f9e69a07565ec8abce6165bd0d24078cc7bf34f450a2cc7faacc1fa1e244b959f0ed65437f44208876e1e5eefbf8dd34c040642414245b501030100000083e2cc0f00000000d889565422338aa58c0fd8ebac32234149c7ce1f22ac2447a02ef059b58d4430ca96ba18fbf27d06fe92ec86d8b348ef42f6d34435c791b952018d0a82cae40decfe5faf56203d88fdedee7b25f04b63f41f23da88c76c876db5c264dad2f70c",
         "storageDiff": [
@@ -5153,7 +5153,7 @@ npx @acala-network/chopsticks xcm \
 
 After running it, you should see output similar to the following:
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>npx @acala-network/chopsticks xcm \</span>
   <span data-ty>--r polkadot \</span>
   <span data-ty>--p moonbeam \</span>
@@ -5254,7 +5254,7 @@ Users generally work with the JSON format of the chain specification. Internally
 For example, the following JSON shows a basic chain specification file:
 
 ```json
--{
+{
     "name": "chainName",
     "id": "chainId",
     "chainType": "Local",
@@ -5345,7 +5345,7 @@ docker run -it parity/subkey:latest generate --scheme sr25519
 
 The output should look similar to the following:
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>docker run -it parity/subkey:latest generate --scheme sr25519</span>
   <span> <br />Secret phrase: lemon play remain picture leopard frog mad bridge hire hazard best buddy <br />Network ID: substrate <br />Secret seed: 0xb748b501de061bae1fcab1c0b814255979d74d9637b84e06414a57a1a149c004 <br />Public key (hex): 0xf4ec62ec6e70a3c0f8dcbe0531e2b1b8916cf16d30635bbe9232f6ed3f0bf422 <br />Account ID: 0xf4ec62ec6e70a3c0f8dcbe0531e2b1b8916cf16d30635bbe9232f6ed3f0bf422 <br />Public key (SS58): 5HbqmBBJ5ALUzho7tw1k1jEgKBJM7dNsQwrtfSfUskT1a3oe <br />SS58 Address: 5HbqmBBJ5ALUzho7tw1k1jEgKBJM7dNsQwrtfSfUskT1a3oe </span>
 </div>
@@ -5360,7 +5360,7 @@ After generating the plain chain specification, you need to edit this file by in
 In the `collatorSelection.invulnerables` array, add the SS58 addresses (account keys) of your collators. These addresses will be automatically included in the active collator set:
 
 ```json
--    "collatorSelection": {
+    "collatorSelection": {
         "candidacyBond": 16000000000,
         "desiredCandidates": 0,
         "invulnerables": [
@@ -5380,7 +5380,7 @@ In the `collatorSelection.invulnerables` array, add the SS58 addresses (account 
 For each invulnerable collator, add a corresponding entry in the `session.keys` array. This maps each collator's account ID to their session keys:
 
 ```json
--    "session": {
+    "session": {
         "keys": [
             [
                 "INSERT_ACCOUNT_ID_COLLATOR_1",
@@ -5532,7 +5532,7 @@ The Chopsticks source repository includes a collection of [YAML](https://yaml.or
 An example of a configuration file for Polkadot is as follows:
 
 ```yaml
--endpoint:
+endpoint:
   - wss://rpc.ibp.network/polkadot
   - wss://polkadot-rpc.dwellir.com
 mock-signature-host: true
@@ -5581,7 +5581,7 @@ These are the methods that can be invoked and their parameters:
     === "Example"
 
         ```js
-        -import { ApiPromise, WsProvider } from '@polkadot/api';
+        import { ApiPromise, WsProvider } from '@polkadot/api';
 
 async function main() {
   const wsProvider = new WsProvider('ws://localhost:8000');
@@ -5611,7 +5611,7 @@ main();
     === "Example"
 
         ```js
-        -import { ApiPromise, WsProvider } from '@polkadot/api';
+        import { ApiPromise, WsProvider } from '@polkadot/api';
 
 async function main() {
   const wsProvider = new WsProvider('ws://localhost:8000');
@@ -5633,7 +5633,7 @@ main();
     === "Example"
 
         ```js
-        -import { ApiPromise, WsProvider } from '@polkadot/api';
+        import { ApiPromise, WsProvider } from '@polkadot/api';
 
 async function main() {
   const wsProvider = new WsProvider('ws://localhost:8000');
@@ -5655,7 +5655,7 @@ main();
     === "Example"
 
         ```js
-        -import { ApiPromise, WsProvider } from '@polkadot/api';
+        import { ApiPromise, WsProvider } from '@polkadot/api';
 
 async function main() {
   const wsProvider = new WsProvider('ws://localhost:8000');
@@ -5678,7 +5678,7 @@ main();
     === "Example"
 
         ```js
-        -import { ApiPromise, WsProvider } from '@polkadot/api';
+        import { ApiPromise, WsProvider } from '@polkadot/api';
 
 import { Keyring } from '@polkadot/keyring';
 async function main() {
@@ -5708,7 +5708,7 @@ main();
     === "Example"
 
         ```js
-        -import { ApiPromise, WsProvider } from '@polkadot/api';
+        import { ApiPromise, WsProvider } from '@polkadot/api';
 
 async function main() {
   const wsProvider = new WsProvider('ws://localhost:8000');
@@ -6043,7 +6043,7 @@ For example, the following configuration file defines a minimal example for the 
 === "TOML"
 
     ```toml title="base-example.toml"
-    -[settings]
+    [settings]
 timeout = 1000
 bootnode = false
 provider = "kubernetes"
@@ -6055,7 +6055,7 @@ backchannel = false
 === "JSON"
 
     ```json title="base-example.json"
-    -{
+    {
     "settings": {
         "timeout": 1000,
         "bootnode": false,
@@ -6215,7 +6215,7 @@ The following configuration file defines a minimal example for the relay chain, 
 === "TOML"
 
     ```toml title="relaychain-example-nodes.toml"
-    -[relaychain]
+    [relaychain]
 default_command = "polkadot"
 default_image = "polkadot-debug:master"
 chain = "rococo-local"
@@ -6238,7 +6238,7 @@ balance = 1000000000000
 === "JSON"
 
     ```json title="relaychain-example-nodes.json"
-    -{
+    {
     "relaychain": {
         "default_command": "polkadot",
         "default_image": "polkadot-debug:master",
@@ -6340,7 +6340,7 @@ The following configuration file defines a minimal example for the relay chain, 
 === "TOML"
 
     ```toml title="relaychain-example-node-groups.toml"
-    -[relaychain]
+    [relaychain]
 default_command = "polkadot"
 default_image = "polkadot-debug:master"
 chain = "rococo-local"
@@ -6360,7 +6360,7 @@ args = ["--chain", "rococo-local"]
 === "JSON"
 
     ```json title="relaychain-example-node-groups.json"
-    -{
+    {
     "relaychain": {
         "default_command": "polkadot",
         "default_image": "polkadot-debug:master",
@@ -6423,7 +6423,7 @@ For example, the following configuration file defines a minimal example for the 
 === "TOML"
 
     ```toml title="parachain-example.toml"
-    -[parachain]
+    [parachain]
 id = 100
 add_to_genesis = true
 cumulus_based = true
@@ -6436,7 +6436,7 @@ genesis_state_path = "INSERT_PATH_TO_STATE"
 === "JSON"
 
     ```json title="parachain-example.json"
-    -{
+    {
     "parachain": {
         "id": 100,
         "add_to_genesis": true,
@@ -6539,7 +6539,7 @@ The configuration file below defines a minimal example for the collator:
 === "TOML"
 
     ```toml title="collator-example.toml"
-    -[parachain]
+    [parachain]
 id = 100
 add_to_genesis = true
 cumulus_based = true
@@ -6557,7 +6557,7 @@ command = "polkadot-parachain"
 === "JSON"
 
     ```json title="collator-example.json"
-    -{
+    {
     "parachain": {
         "id": 100,
         "add_to_genesis": true,
@@ -6656,7 +6656,7 @@ For instance, the configuration file below defines a minimal example for the col
 === "TOML"
 
     ```toml title="collator-groups-example.toml"
-    -[parachain]
+    [parachain]
 id = 100
 add_to_genesis = true
 cumulus_based = true
@@ -6675,7 +6675,7 @@ command = "polkadot-parachain"
 === "JSON"
 
     ```json title="collator-groups-example.json"
-    -{
+    {
     "parachain": {
         "id": 100,
         "add_to_genesis": true,
@@ -7162,7 +7162,7 @@ To install Homebrew:
 
     The command displays output similar to the following:
 
-    -<div id="termynal" data-termynal markdown>
+    <div id="termynal" data-termynal markdown>
   <span data-ty="input"><span class="file-path"></span>brew --version</span>
   <span data-ty>Homebrew 4.3.15</span>
 </div>
@@ -7426,7 +7426,7 @@ rustup show
 
 The command displays output similar to the following:
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>rustup show</span>
   <span data-ty>...</span>
   <br />
@@ -7731,7 +7731,7 @@ The standardized format for messages allows parachains to handle tasks like user
 The following is a simplified XCM message demonstrating a token transfer from Alice to Bob on the same chain (ParaA).
 
 ```rust
--let message = Xcm(vec![
+let message = Xcm(vec![
     WithdrawAsset((Here, amount).into()),
     BuyExecution { 
         fees: (Here, amount).into(), 
@@ -7755,7 +7755,7 @@ The message consists of three instructions described as follows:
 - **[WithdrawAsset](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#withdrawasset){target=\_blank}**: Transfers a specified number of tokens from Alice's account to a holding register.
 
     ```rust
-    -    WithdrawAsset((Here, amount).into()),
+        WithdrawAsset((Here, amount).into()),
     ```
 
     - **`Here`**: The native parachain token.
@@ -7766,7 +7766,7 @@ The message consists of three instructions described as follows:
 - **[BuyExecution](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#buyexecution){target=\_blank}**: Allocates fees to cover the execution [weight](/polkadot-protocol/glossary/#weight){target=\_blank} of the XCM instructions.
 
     ```rust
-    -    BuyExecution { 
+        BuyExecution { 
         fees: (Here, amount).into(), 
         weight_limit: WeightLimit::Unlimited 
     },
@@ -7778,7 +7778,7 @@ The message consists of three instructions described as follows:
 - **[DepositAsset](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#depositasset){target=\_blank}**: Moves the remaining tokens from the holding register to Bob’s account.
 
     ```rust
-    -    DepositAsset {
+        DepositAsset {
         assets: All.into(),
         beneficiary: MultiLocation {
             parents: 0,
@@ -7815,7 +7815,7 @@ These functionalities empower developers to build innovative, multi-chain applic
 
 # JSON-RPC APIs
 
--!!! smartcontract "PolkaVM Preview Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -8726,7 +8726,7 @@ This section will guide you through the initial steps of creating the foundation
 2.  Configure the dependencies required for FRAME pallet development in the `Cargo.toml` file as follows:
 
     ```toml
-    -[package]
+    [package]
 name = "custom-pallet"
 version = "0.1.0"
 edition = "2021"
@@ -8770,7 +8770,7 @@ std = [
 3.  Initialize the pallet structure by replacing the contents of `src/lib.rs` with the following scaffold code:
 
     ```rust
-    -pub use pallet::*;
+    pub use pallet::*;
 
 #[frame_support::pallet]
 pub mod pallet {
@@ -8802,7 +8802,7 @@ In this step, you'll only configure the common types used by all pallets:
 Replace the line containing the [`#[pallet::config]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.config.html){target=\_blank} macro with the following code block:
 
 ```rust
--#[pallet::config]
+#[pallet::config]
 pub trait Config: frame_system::Config {
     /// The overarching runtime event type.
     type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
@@ -8822,7 +8822,7 @@ This step adds an event called `SomethingStored`, which is triggered when a user
 To define events, replace the [`#[pallet::event]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.event.html){target=\_blank} line with the following code block:
 
 ```rust
--#[pallet::event]
+#[pallet::event]
 #[pallet::generate_deposit(pub(super) fn deposit_event)]
 pub enum Event<T: Config> {
     /// A user has successfully set a new value.
@@ -8846,7 +8846,7 @@ This step defines two basic errors: one for handling cases where no value has be
 To define errors, replace the [`#[pallet::error]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.error.html){target=\_blank} line with the following code block:
 
 ```rust
--#[pallet::error]
+#[pallet::error]
 pub enum Error<T> {
     /// The value retrieved was `None` as no value was previously set.
     NoneValue,
@@ -8864,7 +8864,7 @@ This step adds a simple storage item, `Something`, which stores a single `u32` v
 To define storage, replace the [`#[pallet::storage]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.storage.html){target=\_blank} line with the following code block:
 
 ```rust
--#[pallet::storage]
+#[pallet::storage]
 pub type Something<T> = StorageValue<_, u32>;
 ```
 
@@ -8884,7 +8884,7 @@ This section adds two dispatchable functions:
 To implement these calls, replace the [`#[pallet::call]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.call.html){target=\_blank} line with the following code block:
 
 ```rust
--#[pallet::call]
+#[pallet::call]
 impl<T: Config> Pallet<T> {
     #[pallet::call_index(0)]
     #[pallet::weight(Weight::default())]
@@ -8930,7 +8930,7 @@ After following all the previous steps, the pallet is now fully implemented. Bel
 
 ???code
     ```rust
-    -pub use pallet::*;
+    pub use pallet::*;
 
 #[frame_support::pallet]
 pub mod pallet {
@@ -9173,7 +9173,7 @@ The mock runtime includes all the necessary pallets and configurations needed fo
 Here's a simple example of how to create a testing module that simulates these interactions:
 
 ```rust
--pub mod tests {
+pub mod tests {
     use crate::*;
     // ...
 }
@@ -9184,7 +9184,7 @@ The `crate::*;` snippet imports all the components from your crate (including ru
 Once the testing module is configured, you can craft your mock runtime using the [`frame_support::runtime`](https://paritytech.github.io/polkadot-sdk/master/frame_support/attr.runtime.html){target=\_blank} macro. This macro allows you to define a runtime environment that will be created for testing purposes:
 
 ```rust
--pub mod tests {
+pub mod tests {
     use crate::*;
 
     #[frame_support::runtime]
@@ -9221,7 +9221,7 @@ The function `new_test_ext()` demonstrates setting up this environment. It uses 
 Here's the code that sets the genesis storage configuration:
 
 ```rust
--pub mod tests {
+pub mod tests {
     use crate::*;
     use sp_runtime::BuildStorage;
 
@@ -9259,7 +9259,7 @@ Here's the code that sets the genesis storage configuration:
 You can also customize the genesis storage to set initial values for your runtime pallets. For example, you can set the initial balance for accounts like this:
 
 ```rust
--// Build genesis storage according to the runtime's configuration
+// Build genesis storage according to the runtime's configuration
 pub fn new_test_ext() -> sp_io::TestExternalities {
     // Define the initial balances for accounts
     let initial_balances: Vec<(AccountId32, u128)> = vec![
@@ -9289,7 +9289,7 @@ For a more idiomatic approach, see the [Your First Pallet](https://paritytech.gi
 Each pallet in the mocked runtime requires an associated configuration, specifying the types and values it depends on to function. These configurations often use basic or primitive types (e.g., u32, bool) instead of more complex types like structs or traits, ensuring the setup remains straightforward and manageable.
 
 ```rust
--#[derive_impl(frame_system::config_preludes::TestDefaultConfig)]
+#[derive_impl(frame_system::config_preludes::TestDefaultConfig)]
 impl frame_system::Config for Test {
     ...
     type Index = u64;
@@ -9808,7 +9808,7 @@ Chopsticks provides a controlled environment for developers to safely explore th
 
 # Networks
 
--!!! smartcontract "PolkaVM Preview Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -10121,7 +10121,7 @@ To produce a block in your parachain, navigate to Polkadot.js Apps and ensure yo
 
 With each successful on-demand extrinsic, the parachain will produce a new block. You can verify this by checking the collator logs. If the extrinsic is successful, you should see output similar to the following:
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <span data-ty="progress">2024-12-11 18:03:29 [Parachain] 🙌 Starting consensus session on top of parent </span>
   <span data-ty="progress">0x860e5e37dbc04e736e76c4a42c64e71e069084548862d4007d32958578b26d87 (#214) </span>
   <span data-ty="progress">2024-12-11 18:03:30 [Parachain] 🎁 Prepared block for proposing at 215 (701 ms) hash: </span>
@@ -10583,7 +10583,7 @@ To verify this, wait for the next session and then follow these steps:
 3. Examine the query results. You should see output similar to the following:
 
     ```json
-    -[
+    [
     [
         [
             {
@@ -10810,7 +10810,7 @@ Polkadot SDK heavily utilizes Rust macros, allowing developers to focus on speci
 A typical pallet skeleton looks like this:
 
 ```rust
--pub use pallet::*;
+pub use pallet::*;
 
 #[frame_support::pallet]
 pub mod pallet {
@@ -11182,7 +11182,7 @@ Follow these steps to prepare your environment for pallet benchmarking:
 2. Update your pallet's `Cargo.toml` file in the `pallets/custom-pallet` directory by adding the `runtime-benchmarks` feature flag:
 
     ```toml hl_lines="4" title="Cargo.toml"
-    -[package]
+    [package]
 name = "custom-pallet"
 version = "0.1.0"
 license.workspace = true
@@ -11208,7 +11208,7 @@ runtime-benchmarks = ["frame/runtime-benchmarks"]
     1.  Register your pallet in `runtime/src/benchmarks.rs`:
 
         ```rust hl_lines="11" title="benchmarks.rs"
-        -polkadot_sdk::frame_benchmarking::define_benchmarks!(
+        polkadot_sdk::frame_benchmarking::define_benchmarks!(
     [frame_system, SystemBench::<Runtime>]
     [pallet_balances, Balances]
     [pallet_session, SessionBench::<Runtime>]
@@ -11225,7 +11225,7 @@ runtime-benchmarks = ["frame/runtime-benchmarks"]
     2. Enable runtime benchmarking for your pallet in `runtime/Cargo.toml`:
 
         ```toml hl_lines="6" title="Cargo.toml"
-        -runtime-benchmarks = [
+        runtime-benchmarks = [
 	"cumulus-pallet-parachain-system/runtime-benchmarks",
 	"hex-literal",
 	"pallet-parachain-template/runtime-benchmarks",
@@ -11244,7 +11244,7 @@ runtime-benchmarks = ["frame/runtime-benchmarks"]
     2. Add the benchmarking module to your pallet. In the pallet `lib.rs` file add the following:
 
         ```rust hl_lines="9-10" title="lib.rs"
-        -
+        
 pub use pallet::*;
 
 #[cfg(test)]
@@ -11273,7 +11273,7 @@ Every benchmark test must follow a three-step pattern:
 Check the following example on how to benchmark the `increment` extrinsic:
 
 ```rust
--    #[benchmark]
+    #[benchmark]
     fn increment() {
         let caller: T::AccountId = whitelisted_caller();
 
@@ -11301,7 +11301,7 @@ This example demonstrates how to properly set up state, execute an extrinsic, an
 Now, implement the complete set of benchmark tests. Copy the following content in the `benchmarking.rs` file:
 
 ```rust title="benchmarking.rs"
--// This file is part of 'custom-pallet'.
+// This file is part of 'custom-pallet'.
 
 // SPDX-License-Identifier: MIT-0
 
@@ -11426,7 +11426,7 @@ After generating the weight calculations, you need to integrate these weights in
 First, add the necessary module imports to your pallet. These imports make the weights available to your code:
 
 ```rust hl_lines="4-5" title="lib.rs"
--#[cfg(feature = "runtime-benchmarks")]
+#[cfg(feature = "runtime-benchmarks")]
 mod benchmarking;
 
 pub mod weights;
@@ -11436,7 +11436,7 @@ use crate::weights::WeightInfo;
 Next, update your pallet's `Config` trait to include weight information. Define the `WeightInfo` type:
 
 ```rust hl_lines="9-10" title="lib.rs"
--    pub trait Config: frame_system::Config {
+    pub trait Config: frame_system::Config {
         // Defines the event type for the pallet.
         type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
 
@@ -11452,7 +11452,7 @@ Next, update your pallet's `Config` trait to include weight information. Define 
 Now you can assign weights to your extrinsics. Here's how to add weight calculations to the `set_counter_value` function:
 
 ```rust hl_lines="1" title="lib.rs"
--        #[pallet::weight(T::WeightInfo::set_counter_value())]
+        #[pallet::weight(T::WeightInfo::set_counter_value())]
         pub fn set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult {
             ensure_root(origin)?;
 
@@ -11477,7 +11477,7 @@ You must apply similar weight annotations to the other extrinsics in your pallet
 For testing purposes, you must implement the weight calculations in your mock runtime. Open `custom-pallet/src/mock.rs` and add:
 
 ```rust hl_lines="4" title="mock.rs"
--impl custom_pallet::Config for Test {
+impl custom_pallet::Config for Test {
     type RuntimeEvent = RuntimeEvent;
     type CounterMaxValue = CounterMaxValue;
     type WeightInfo = custom_pallet::weights::SubstrateWeight<Test>;
@@ -11487,7 +11487,7 @@ For testing purposes, you must implement the weight calculations in your mock ru
 Finally, configure the actual weight values in your production runtime. In `runtime/src/config/mod.rs`, add:
 
 ```rust hl_lines="5" title="mod.rs"
--
+
 // Define counter max value runtime constant.
 parameter_types! {
     pub const CounterMaxValue: u32 = 500;
@@ -11549,7 +11549,7 @@ This approach provides a comprehensive view of the runtime's functionality, ensu
 Each test starts by initializing the runtime environment, typically using the `new_test_ext()` function, which sets up the mock storage and environment.
 
 ```rust
--#[test]
+#[test]
 fn test_pallet_functionality() {
     new_test_ext().execute_with(|| {
         // Test logic goes here
@@ -11562,7 +11562,7 @@ fn test_pallet_functionality() {
 Call the pallet's extrinsics or functions to simulate user interaction or internal logic. Use the `assert_ok!` macro to check for successful execution and `assert_err!` to verify that errors are correctly handled.
 
 ```rust
--#[test]
+#[test]
 fn it_works_for_valid_input() {
     new_test_ext().execute_with(|| {
         // Call an extrinsic or function
@@ -11589,7 +11589,7 @@ After calling a function or extrinsic in your pallet, it's essential to verify t
 The following example shows how to test the storage behavior before and after the function call:
 
 ```rust
--#[test]
+#[test]
 fn test_storage_update_on_extrinsic_call() {
     new_test_ext().execute_with(|| {
         // Check the initial storage state (before the call)
@@ -11612,7 +11612,7 @@ It's also crucial to test the events that your pallet emits during execution. By
 Here's an example of testing events in a mock runtime:
 
 ```rust
--#[test]
+#[test]
 fn it_emits_events_on_success() {
     new_test_ext().execute_with(|| {
         // Call an extrinsic or function
@@ -11693,7 +11693,7 @@ To effectively create the test environment for your pallet, you'll need to follo
 3. Include them in your `lib.rs` module:
 
     ```rust hl_lines="5-9" title="lib.rs"
-    -#![cfg_attr(not(feature = "std"), no_std)]
+    #![cfg_attr(not(feature = "std"), no_std)]
 
 pub use pallet::*;
 
@@ -11709,7 +11709,7 @@ mod tests;
 The following portion of code sets up a mock runtime (`Test`) to test the `custom-pallet` in an isolated environment. Using [`frame_support`](https://paritytech.github.io/polkadot-sdk/master/frame_support/index.html){target=\_blank} macros, it defines a minimal runtime configuration with traits such as `RuntimeCall` and `RuntimeEvent` to simulate runtime behavior. The mock runtime integrates the [`System pallet`](https://paritytech.github.io/polkadot-sdk/master/frame_system/index.html){target=\_blank}, which provides core functionality, and the `custom pallet` under specific indices. Copy and paste the following snippet of code into your `mock.rs` file:
 
 ```rust title="mock.rs"
--use crate as custom_pallet;
+use crate as custom_pallet;
 use frame::{prelude::*, runtime::prelude::*, testing_prelude::*};
 
 type Block = frame_system::mocking::MockBlock<Test>;
@@ -11742,7 +11742,7 @@ mod runtime {
 Once you have your mock runtime set up, you can customize it by implementing the configuration traits for the `System pallet` and your `custom-pallet`, along with additional constants and initial states for testing. Here's an example of how to extend the runtime configuration. Copy and paste the following snippet of code below the previous one you added to `mock.rs`:
 
 ```rust title="mock.rs"
--// System pallet configuration
+// System pallet configuration
 #[derive_impl(frame_system::config_preludes::TestDefaultConfig)]
 impl frame_system::Config for Test {
     type Block = Block;
@@ -11756,7 +11756,7 @@ parameter_types! {
 impl custom_pallet::Config for Test {
     type RuntimeEvent = RuntimeEvent;
     type CounterMaxValue = CounterMaxValue;
--// This file is part of 'custom-pallet'.
+// This file is part of 'custom-pallet'.
 
 // SPDX-License-Identifier: MIT-0
 
@@ -11844,7 +11844,7 @@ Expand the following item to see the complete `mock.rs` implementation for the m
 ??? code "mock.rs"
 
     ```rust title="mock.rs"
-    -use crate as custom_pallet;
+    use crate as custom_pallet;
 use frame::{prelude::*, runtime::prelude::*, testing_prelude::*};
 
 type Block = frame_system::mocking::MockBlock<Test>;
@@ -11887,7 +11887,7 @@ parameter_types! {
 impl custom_pallet::Config for Test {
     type RuntimeEvent = RuntimeEvent;
     type CounterMaxValue = CounterMaxValue;
-    -// This file is part of 'custom-pallet'.
+    // This file is part of 'custom-pallet'.
 
 // SPDX-License-Identifier: MIT-0
 
@@ -11971,7 +11971,7 @@ Expand the following item to see the pallet calls to be tested.
 ??? code "Custom pallet calls"
 
     ```rust
-    -    #[pallet::call]
+        #[pallet::call]
     impl<T: Config> Pallet<T> {
         /// Set the value of the counter.
         ///
@@ -11982,7 +11982,7 @@ Expand the following item to see the pallet calls to be tested.
         /// Emits `CounterValueSet` event when successful.
         #[pallet::call_index(0)]
         #[pallet::weight(0)]
-        -        pub fn set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult {
+                pub fn set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult {
             ensure_root(origin)?;
 
             ensure!(
@@ -12008,7 +12008,7 @@ Expand the following item to see the pallet calls to be tested.
         /// Emits `CounterIncremented` event when successful.
         #[pallet::call_index(1)]
         #[pallet::weight(0)]
-        -        pub fn increment(origin: OriginFor<T>, amount_to_increment: u32) -> DispatchResult {
+                pub fn increment(origin: OriginFor<T>, amount_to_increment: u32) -> DispatchResult {
             let who = ensure_signed(origin)?;
 
             let current_value = CounterValue::<T>::get().unwrap_or(0);
@@ -12052,7 +12052,7 @@ Expand the following item to see the pallet calls to be tested.
         /// Emits `CounterDecremented` event when successful.
         #[pallet::call_index(2)]
         #[pallet::weight(0)]
-    -        pub fn decrement(origin: OriginFor<T>, amount_to_decrement: u32) -> DispatchResult {
+            pub fn decrement(origin: OriginFor<T>, amount_to_decrement: u32) -> DispatchResult {
             let who = ensure_signed(origin)?;
 
             let current_value = CounterValue::<T>::get().unwrap_or(0);
@@ -12092,7 +12092,7 @@ The following sub-sections outline various scenarios in which the `custom-pallet
 Verify that the counter can be successfully incremented under normal conditions, ensuring the increment works and the correct event is emitted.
 
 ```rust title="tests.rs"
--// Test successful counter increment
+// Test successful counter increment
 #[test]
 fn it_works_for_increment() {
     new_test_ext().execute_with(|| {
@@ -12120,7 +12120,7 @@ fn it_works_for_increment() {
 Test that the pallet prevents incrementing beyond the maximum allowed value, protecting against unintended state changes.
 
 ```rust title="tests.rs"
--// Verify increment is blocked when it would exceed max value
+// Verify increment is blocked when it would exceed max value
 #[test]
 fn increment_fails_for_max_value_exceeded() {
     new_test_ext().execute_with(|| {
@@ -12141,7 +12141,7 @@ fn increment_fails_for_max_value_exceeded() {
 Confirm that sensitive operations like setting counter value are restricted to authorized origins, preventing unauthorized modifications.
 
 ```rust title="tests.rs"
--// Ensure non-root accounts cannot set counter value
+// Ensure non-root accounts cannot set counter value
 #[test]
 fn set_counter_value_fails_for_non_root() {
     new_test_ext().execute_with(|| {
@@ -12160,7 +12160,7 @@ fn set_counter_value_fails_for_non_root() {
 Ensure the pallet gracefully handles edge cases, such as preventing increment operations that would cause overflow.
 
 ```rust title="tests.rs"
--// Ensure increment fails on u32 overflow
+// Ensure increment fails on u32 overflow
 #[test]
 fn increment_handles_overflow() {
     new_test_ext().execute_with(|| {
@@ -12180,7 +12180,7 @@ fn increment_handles_overflow() {
 Test that pallet operations modify the internal state correctly and maintain expected storage values across different interactions.
 
 ```rust title="tests.rs"
--// Check that user interactions are correctly tracked
+// Check that user interactions are correctly tracked
 #[test]
 fn user_interactions_increment() {
     new_test_ext().execute_with(|| {
@@ -12205,7 +12205,7 @@ Expand the following item to see the complete `tests.rs` implementation for the 
 ??? code "tests.rs"
 
     ```rust title="tests.rs"
-    -// This file is part of 'custom-pallet'.
+    // This file is part of 'custom-pallet'.
 
 // SPDX-License-Identifier: MIT-0
 
@@ -12401,7 +12401,7 @@ cargo test --package custom-pallet
 
 After running the test suite, you should see the following output in your terminal:
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>cargo test --package custom-pallet</span>
   <pre>
 running 12 tests
@@ -12780,7 +12780,7 @@ The [`Account` data type](https://paritytech.github.io/polkadot-sdk/master/frame
 The code snippet below shows how accounts are defined:
 
 ```rs
- -/// The full account information for a particular account ID.
+ /// The full account information for a particular account ID.
 	#[pallet::storage]
 	#[pallet::getter(fn account)]
 	pub type Account<T: Config> = StorageMap<
@@ -12813,7 +12813,7 @@ For a detailed explanation of storage maps, see the [`StorageMap`](https://parit
 The `AccountInfo` structure is another key element within the [System pallet](https://paritytech.github.io/polkadot-sdk/master/src/frame_system/lib.rs.html){target=\_blank}, providing more granular details about each account's state. This structure tracks vital data, such as the number of transactions and the account’s relationships with other modules.
 
 ```rs
--/// Information of an account.
+/// Information of an account.
 #[derive(Clone, Eq, PartialEq, Default, RuntimeDebug, Encode, Decode, TypeInfo, MaxEncodedLen)]
 pub struct AccountInfo<Nonce, AccountData> {
 	/// The number of transactions this account has sent.
@@ -13078,7 +13078,7 @@ subkey inspect "caution juice atom organ advance problem want pledge someone sen
 
 The command displays output similar to the following:
 
--<div id="termynal" data-termynal markdown>
+<div id="termynal" data-termynal markdown>
   <span data-ty="input"><span class="file-path"></span>subkey inspect "caution juice atom organ advance problem want pledge someone senior holiday very"</span>
   <span data-ty>Secret phrase `caution juice atom organ advance problem want pledge someone senior holiday very` is account:</span>
   <span data-ty> Secret seed: 0xc8fa03532fb22ee1f7f6908b9c02b4e72483f0dbd66e4cd456b8f34c6230b849</span>
@@ -13101,7 +13101,7 @@ subkey inspect "12bzRJfh7arnnfPPUZHeJUaE62QLEwhK48QnH9LXeK2m1iZU"
 
 The command displays output similar to the following:
 
--<div id="termynal" data-termynal markdown>
+<div id="termynal" data-termynal markdown>
   <span data-ty="input"><span class="file-path"></span>subkey inspect "12bzRJfh7arnnfPPUZHeJUaE62QLEwhK48QnH9LXeK2m1iZU"</span>
   <span data-ty>Public Key URI `12bzRJfh7arnnfPPUZHeJUaE62QLEwhK48QnH9LXeK2m1iZU` is account:</span>
   <span data-ty> Network ID/Version: polkadot</span>
@@ -13117,7 +13117,7 @@ The command displays output similar to the following:
 To verify an address in JavaScript or TypeScript projects, you can use the functions built into the [Polkadot.js API](https://polkadot.js.org/docs/){target=\_blank}. For example:
 
 ```js
--// Import Polkadot.js API dependencies
+// Import Polkadot.js API dependencies
 const { decodeAddress, encodeAddress } = require('@polkadot/keyring');
 const { hexToU8a, isHex } = require('@polkadot/util');
 
@@ -13163,7 +13163,7 @@ Support for encoding and decoding Polkadot SDK SS58 addresses has been implement
 
 # PolkaVM Design
 
--!!! smartcontract "PolkaVM Preview Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -13317,7 +13317,7 @@ pop install
 
 This command provides an interactive experience that checks and installs all necessary dependencies for you. It’s the fastest and easiest way to prepare your development environment for building parachains with Pop CLI.
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>pop install</span>
   <span data-ty>┌ Pop CLI : Install dependencies for development</span>
   <span data-ty>│ </span>
@@ -13335,7 +13335,7 @@ This command provides an interactive experience that checks and installs all nec
 
 Start a new project quickly using Pop CLI's `pop new parachain` command:
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <img src="/images/develop/toolkit/parachains/quickstart/pop-new.gif" alt="pop new" style="max-width: 100%" />
 </div>
 
@@ -13362,7 +13362,7 @@ This command will automatically fetch the necessary binaries and spin up a Polka
 
 You can also interact with your local network using Pop CLI's `pop call chain` command:
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <img src="/images/develop/toolkit/parachains/quickstart/call-chain.gif" alt="pop call" style="max-width: 100%" />
 </div>
 
@@ -13703,7 +13703,7 @@ The executor is the component that selects the runtime execution environment to 
 The runtime includes a [runtime version struct](https://paritytech.github.io/polkadot-sdk/master/sp_version/struct.RuntimeVersion.html){target=\_blank} to provide the needed parameter information to the executor process. A sample runtime version struct might look as follows:
 
 ```rust
--pub const VERSION: RuntimeVersion = RuntimeVersion {
+pub const VERSION: RuntimeVersion = RuntimeVersion {
     spec_name: create_runtime_str!("node-template"),
     impl_name: create_runtime_str!("node-template"),
     authoring_version: 1,
@@ -13826,7 +13826,7 @@ The [`XcmRouter`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pa
 For instance, the Kusama network employs the [`ChildParachainRouter`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_common/xcm_sender/struct.ChildParachainRouter.html){target=\_blank}, which restricts routing to [Downward Message Passing (DMP)](https://wiki.polkadot.com/learn/learn-xcm-transport/#dmp-downward-message-passing){target=\_blank} from the relay chain to parachains, ensuring secure and controlled communication.
 
 ```rust
--pub type XcmRouter = WithUniqueTopic<(
+pub type XcmRouter = WithUniqueTopic<(
 	// Only one router so far - use DMP to communicate with child parachains.
 	ChildParachainRouter<Runtime, XcmPallet, PriceForChildParachainDelivery>,
 )>;
@@ -13932,7 +13932,7 @@ The [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk
 
 4. Upon successful compilation, you should see output similar to:
 
-    -<div id="termynal" data-termynal>
+    <div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>cargo build --release --locked</span>
   <span data-ty>...</span>
   <span data-ty>Finished `release` profile [optimized] target(s) in 1.79s</span>
@@ -13969,7 +13969,7 @@ Follow these steps to launch your node in development mode:
 
 3. Verify that your node is running by reviewing the terminal output. You should see something similar to:
 
-    -<div id="termynal" data-termynal>
+    <div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>polkadot-omni-node --chain ./chain_spec.json --dev</span>
   <br />
   <span data-ty>2024-12-12 12:44:02 polkadot-omni-node</span>
@@ -14000,7 +14000,7 @@ Follow these steps to launch your node in development mode:
 
 4. Confirm that your blockchain is producing new blocks by checking if the number after `finalized` is increasing.
 
-    -<div id="termynal" data-termynal>
+    <div id="termynal" data-termynal>
   <span data-ty>...</span>
   <span data-ty>2024-12-12 12:49:20 [Parachain] 💤 Idle (0 peers), best: #1 (0x6fbe…e34b), finalized #1 (0x6fbe…e34b), ⬇ 0 ⬆ 0</span>
   <span data-ty>...</span>
@@ -14074,7 +14074,7 @@ To stop the local node:
 
 # An Overview of the Smart Contract Landscape on Polkadot
 
--!!! smartcontract "PolkaVM Preview Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -14227,7 +14227,7 @@ flowchart TD
 
 # Smart Contracts on Polkadot
 
--!!! smartcontract "PolkaVM Preview Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -14385,7 +14385,7 @@ Zombienet uses a [configuration file](/develop/toolkit/parachains/spawn-chains/z
 2. Add the following code to the file you just created:
 
     ```toml title="spawn-a-basic-network.toml"
-    -[settings]
+    [settings]
 timeout = 120
 
 [relaychain]
@@ -14425,7 +14425,7 @@ This command will spawn the network defined in the `spawn-a-basic-network.toml` 
 
 If successful, you will see the following output:
 
--<div id="termynal" class="table-termynal" data-termynal>
+<div id="termynal" class="table-termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>zombienet -p native spawn spawn-a-basic-network.toml</span>
   <table>
     <thead>
@@ -14524,7 +14524,7 @@ Use the [55308 port address](https://polkadot.js.org/apps/?rpc=ws://127.0.0.1:55
 If you want to interact with the nodes more programmatically, you can also use the [Polkadot.js API](https://polkadot.js.org/docs/api/){target=\_blank}. For example, the following code snippet shows how to connect to the `alice` node using the Polkadot.js API and log some information about the chain and node:
 
 ```typescript
--import { ApiPromise, WsProvider } from '@polkadot/api';
+import { ApiPromise, WsProvider } from '@polkadot/api';
 
 async function main() {
   const wsProvider = new WsProvider('ws://127.0.0.1:55308');
@@ -14609,7 +14609,7 @@ The following are some common scenarios where a storage migration is needed:
 - **Changing data types**: Changing the underlying data type requires a migration to convert the existing values.
 
     ```rust
-    -#[pallet::storage]
+    #[pallet::storage]
 pub type FooValue = StorageValue<_, Foo>;
 // old
 pub struct Foo(u32)
@@ -14620,7 +14620,7 @@ pub struct Foo(u64)
 - **Changing data representation**: Modifying the representation of the stored data, even if the size appears unchanged, requires a migration to ensure the runtime can correctly interpret the existing values.
 
     ```rust
-    -#[pallet::storage]
+    #[pallet::storage]
 pub type FooValue = StorageValue<_, Foo>;
 // old
 pub struct Foo(u32)
@@ -14633,7 +14633,7 @@ pub struct Foo(u16, u16)
 - **Extending an enum**: Adding new variants to an enum requires a migration if you reorder existing variants, insert new variants between existing ones, or change the data type of existing variants. No migration is required when adding new variants at the end of the enum.
 
     ```rust
-    -#[pallet::storage]
+    #[pallet::storage]
 pub type FooValue = StorageValue<_, Foo>;
 // old
 pub enum Foo { A(u32), B(u32) }
@@ -14646,7 +14646,7 @@ pub enum Foo { A(u32), C(u128), B(u32) }
 - **Changing the storage key**: Modifying the storage key, even if the underlying data type remains the same, requires a migration to ensure the runtime can locate the correct stored values.
 
     ```rust
-    -#[pallet::storage]
+    #[pallet::storage]
 pub type FooValue = StorageValue<_, u32>;
 // new
 #[pallet::storage]
@@ -14661,7 +14661,7 @@ pub type BarValue = StorageValue<_, u32>;
 The [`OnRuntimeUpgrade`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/trait.OnRuntimeUpgrade.html){target=\_blank} trait provides the foundation for implementing storage migrations in your runtime. Here's a detailed look at its essential functions:
 
 ```rust
--pub trait OnRuntimeUpgrade {
+pub trait OnRuntimeUpgrade {
     fn on_runtime_upgrade() -> Weight { ... }
     fn try_on_runtime_upgrade(checks: bool) -> Result<Weight, TryRuntimeError> { ... }
     fn pre_upgrade() -> Result<Vec<u8>, TryRuntimeError> { ... }
@@ -14721,7 +14721,7 @@ Examine the following migration example that transforms a simple `StorageValue` 
 - New `StorageValue` format:
 
     ```rust
-    -/// Example struct holding the most recently set [`u32`] and the
+    /// Example struct holding the most recently set [`u32`] and the
 /// second most recently set [`u32`] (if one existed).
 #[docify::export]
 #[derive(
@@ -14734,14 +14734,14 @@ pub struct CurrentAndPreviousValue {
 	pub previous: Option<u32>,
 }
 
-    -#[pallet::storage]
+    #[pallet::storage]
 	pub type Value<T: Config> = StorageValue<_, CurrentAndPreviousValue>;
     ```
 
 - Migration:
 
     ```rust
-    -use frame_support::{
+    use frame_support::{
 	storage_alias,
 	traits::{Get, UncheckedOnRuntimeUpgrade},
 };
@@ -14875,7 +14875,7 @@ This structure provides several benefits:
 To execute migrations during a runtime upgrade, you must configure them in your runtime's Executive pallet. Add your migrations in `runtime/src/lib.rs`:
 
 ```rust
--/// Tuple of migrations (structs that implement `OnRuntimeUpgrade`)
+/// Tuple of migrations (structs that implement `OnRuntimeUpgrade`)
 type Migrations = (
     pallet_my_pallet::migrations::v1::Migration,
     // More migrations can be added here
@@ -14976,7 +14976,7 @@ The `xcm-emulator` provides macros for defining a mocked testing environment. Ch
 - **[`decl_test_relay_chains`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506/cumulus/xcm/xcm-emulator/src/lib.rs#L361){target=\_blank}**: Defines runtime and configuration for the relay chains. Example:
 
     ```rust
-    -decl_test_relay_chains! {
+    decl_test_relay_chains! {
 	#[api_version(13)]
 	pub struct Westend {
 		genesis = genesis::genesis(),
@@ -15002,7 +15002,7 @@ The `xcm-emulator` provides macros for defining a mocked testing environment. Ch
 - **[`decl_test_parachains`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506/cumulus/xcm/xcm-emulator/src/lib.rs#L596){target=\_blank}**: Defines runtime and configuration for parachains. Example:
 
     ```rust
-    -decl_test_parachains! {
+    decl_test_parachains! {
 	pub struct AssetHubWestend {
 		genesis = genesis::genesis(),
 		on_init = {
@@ -15033,7 +15033,7 @@ The `xcm-emulator` provides macros for defining a mocked testing environment. Ch
 - **[`decl_test_bridges`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506/cumulus/xcm/xcm-emulator/src/lib.rs#L1221){target=\_blank}**: Creates bridges between chains, specifying the source, target, and message handler. Example:
 
     ```rust
-    -decl_test_bridges! {
+    decl_test_bridges! {
 	pub struct RococoWestendMockBridge {
 		source = BridgeHubRococoPara,
 		target = BridgeHubWestendPara,
@@ -15050,7 +15050,7 @@ The `xcm-emulator` provides macros for defining a mocked testing environment. Ch
 - **[`decl_test_networks`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506/cumulus/xcm/xcm-emulator/src/lib.rs#L958){target=\_blank}**: Defines a testing network with relay chains, parachains, and bridges, implementing message transport and processing logic. Example:
 
     ```rust
-    -decl_test_networks! {
+    decl_test_networks! {
 	pub struct WestendMockNet {
 		relay_chain = Westend,
 		parachains = vec![
@@ -15205,7 +15205,7 @@ A signed transaction in the Polkadot SDK includes various pieces of data to ensu
 The following is an example of how a signed transaction might look:
 
 ``` rust
--node_runtime::UncheckedExtrinsic::new_signed(
+node_runtime::UncheckedExtrinsic::new_signed(
     function.clone(),                                      // some call
     sp_runtime::AccountId32::from(sender.public()).into(), // some sending account
     node_runtime::Signature::Sr25519(signature.clone()),   // the account's signature
@@ -15351,7 +15351,7 @@ For a video overview of the lifecycle of transactions and the types of transacti
 
 # Blocks, Transactions, and Fees
 
--!!! smartcontract "PolkaVM Preview Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -15559,7 +15559,7 @@ It is important to note that if you query the chain for a transaction fee, it on
 All dispatchable functions in the Polkadot SDK must specify a weight. The way of doing that is using the annotation-based system that lets you combine fixed values for database read/write weight and/or fixed values based on benchmarks. The most basic example would look like this:
 
 ```rust
--#[pallet::weight(100_000)]
+#[pallet::weight(100_000)]
 fn my_dispatchable() {
     // ...
 }
@@ -15572,7 +15572,7 @@ Note that the [`ExtrinsicBaseWeight`](https://crates.parity.io/frame_support/we
 To make weight annotations independent of the deployed database backend, they are defined as a constant and then used in the annotations when expressing database accesses performed by the dispatchable:
 
 ```rust
--#[pallet::weight(T::DbWeight::get().reads_writes(1, 2) + 20_000)]
+#[pallet::weight(T::DbWeight::get().reads_writes(1, 2) + 20_000)]
 fn my_dispatchable() {
     // ...
 }
@@ -15596,7 +15596,7 @@ Dispatches are broken into three classes:
 If a dispatch is not defined as `Operational` or `Mandatory` in the weight annotation, the dispatch is identified as `Normal` by default. You can specify that the dispatchable uses another class like this:
 
 ```rust
--#[pallet::dispatch((DispatchClass::Operational))]
+#[pallet::dispatch((DispatchClass::Operational))]
 fn my_dispatchable() {
     // ...
 }
@@ -15605,7 +15605,7 @@ fn my_dispatchable() {
 This tuple notation also allows you to specify a final argument determining whether the user is charged based on the annotated weight. If you don't specify otherwise, `Pays::Yes` is assumed:
 
 ```rust
--#[pallet::dispatch(DispatchClass::Normal, Pays::No)]
+#[pallet::dispatch(DispatchClass::Normal, Pays::No)]
 fn my_dispatchable() {
     // ...
 }
@@ -15633,7 +15633,7 @@ To make it more difficult for malicious nodes to abuse mandatory dispatches, the
 In addition to purely fixed weights and constants, the weight calculation can consider the input arguments of a dispatchable. The weight should be trivially computable from the input arguments with some basic arithmetic:
 
 ```rust
--use frame_support:: {
+use frame_support:: {
     dispatch:: {
         DispatchClass::Normal,
         Pays::Yes,
@@ -15655,7 +15655,7 @@ fn handle_users(origin, calls: Vec<User>) {
 Depending on the execution logic, a dispatchable function might consume less weight than was prescribed pre-dispatch. To correct weight, the function declares a different return type and returns its actual weight:
 
 ```rust
--#[pallet::weight(10_000 + 500_000_000)]
+#[pallet::weight(10_000 + 500_000_000)]
 fn expensive_or_cheap(input: u64) -> DispatchResultWithPostInfo {
     let was_heavy = do_calculation(input);
 
@@ -15686,7 +15686,7 @@ The Polkadot SDK then bundles the output information of the three traits into th
 `ClassifyDispatch`, `WeighData`, and `PaysFee` are generic over T, which gets resolved into the tuple of all dispatch arguments except for the origin. The following example illustrates a struct that calculates the weight as `m * len(args)`, where `m` is a given multiplier and args is the concatenated tuple of all dispatch arguments. In this example, the dispatch class is `Operational` if the transaction has more than 100 bytes of length in arguments and will pay fees if the encoded length exceeds 10 bytes.
 
 ```rust
--struct LenWeight(u32);
+struct LenWeight(u32);
 impl<T> WeighData<T> for LenWeight {
     fn weigh_data(&self, target: T) -> Weight {
         let multiplier = self.0;
@@ -15721,7 +15721,7 @@ impl<T> PaysFee<T> {
 A weight calculator function can also be coerced to the final type of the argument instead of defining it as a vague type that can be encoded. The code would roughly look like this:
 
 ```rust
--struct CustomWeight;
+struct CustomWeight;
 impl WeighData<(&u32, &u64)> for CustomWeight {
     fn weigh_data(&self, target: (&u32, &u64)) -> Weight {
         ...
@@ -15743,7 +15743,7 @@ In this example, the `CustomWeight` can only be used in conjunction with a dispa
 The following example illustrates how to customize your inclusion fee. You must configure the appropriate associated types in the respective module.
 
 ```rust
--// Assume this is the balance type
+// Assume this is the balance type
 type Balance = u64;
 
 // Assume we want all the weights to have a `100 + 2 * w` conversion to fees
@@ -16155,7 +16155,7 @@ To run a test against the spawned network, you can use the [Zombienet DSL](#test
 2. Add the following code to the file you just created.
 
     ```toml title="spawn-a-basic-network-test.zndsl"
-    -Description = "Test the basic functionality of the network (minimal example)"
+    Description = "Test the basic functionality of the network (minimal example)"
 Network = "./spawn-a-basic-network.toml"
 Creds = "config"
 
@@ -16213,7 +16213,7 @@ The following example test files define two tests, a small network test and a bi
 The tests define assertions to evaluate the network’s metrics and logs. The assertions are defined by sentences in the DSL, which are mapped to tests to run.
 
 ```toml title="small-network-test.zndsl"
--Description = "Small Network test"
+Description = "Small Network test"
 Network = "./0000-test-config-small-network.toml"
 Creds = "config"
 
@@ -16232,7 +16232,7 @@ bob_log_line_regex = "Imported #[0-9]+"
 And the second test file:
 
 ```toml title="big-network-test.zndsl"
--Description = "Big Network test"
+Description = "Big Network test"
 Network = "./0001-test-config-big-network.toml"
 Creds = "config"
 
@@ -16398,7 +16398,7 @@ The `Config` trait defines the XCM executor’s configuration, which requires se
 Each type is explained below, along with an overview of some of its implementations:
 
 ```rust
--pub trait Config {
+pub trait Config {
     type RuntimeCall: Parameter + Dispatchable<PostInfo = PostDispatchInfo> + GetDispatchInfo;
     type XcmSender: SendXcm;
     type AssetTransactor: TransactAsset;
@@ -16686,7 +16686,7 @@ Some associated types in the `Config` trait are highly configurable and may have
 In the following example, the system will first check the `TakeWeightCredit` type when evaluating the barrier. If it fails, it will check `AllowTopLevelPaidExecutionFrom`, and so on, until one of them returns a positive result. If all checks fail, a Barrier error will be triggered.
 
 ```rust
--pub type Barrier = (
+pub type Barrier = (
     TakeWeightCredit,
     AllowTopLevelPaidExecutionFrom<Everything>,
     AllowKnownQueryResponses<XcmPallet>,
@@ -16743,7 +16743,7 @@ This API can be used independently for dry-running, double-checking, or testing.
 This API allows a dry-run of any extrinsic and obtaining the outcome if it fails or succeeds, as well as the local xcm and remote xcm messages sent to other chains.
 
 ```rust
--fn dry_run_call(origin: OriginCaller, call: Call, result_xcms_version: XcmVersion) -> Result<CallDryRunEffects<Event>, Error>;
+fn dry_run_call(origin: OriginCaller, call: Call, result_xcms_version: XcmVersion) -> Result<CallDryRunEffects<Event>, Error>;
 ```
 
 ??? interface "Input parameters"
@@ -16806,7 +16806,7 @@ This API allows a dry-run of any extrinsic and obtaining the outcome if it fails
     ***Usage with PAPI***
 
     ```js
-    -import { paseo } from '@polkadot-api/descriptors';
+    import { paseo } from '@polkadot-api/descriptors';
 import { createClient } from 'polkadot-api';
 import { getWsProvider } from 'polkadot-api/ws-provider/web';
 import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
@@ -16916,7 +16916,7 @@ client.destroy();
 
     ***Output***
 
-    -<div id="termynal" data-termynal>
+    <div id="termynal" data-termynal>
   <pre>
     {
       execution_result: {
@@ -17190,7 +17190,7 @@ client.destroy();
 </div>
 
                 ...
-    -<div id="termynal" data-termynal>
+    <div id="termynal" data-termynal>
   <pre>
     {
       execution_result: {
@@ -17471,7 +17471,7 @@ client.destroy();
 This API allows the direct dry-run of an xcm message instead of an extrinsic one, checks if it will execute successfully, and determines what other xcm messages will be forwarded to other chains.
 
 ```rust
--fn dry_run_xcm(origin_location: VersionedLocation, xcm: VersionedXcm<Call>) -> Result<XcmDryRunEffects<Event>, Error>;
+fn dry_run_xcm(origin_location: VersionedLocation, xcm: VersionedXcm<Call>) -> Result<XcmDryRunEffects<Event>, Error>;
 ```
 
 ??? interface "Input parameters"
@@ -17530,7 +17530,7 @@ This API allows the direct dry-run of an xcm message instead of an extrinsic one
      ***Usage with PAPI***
 
     ```js
-    -import { createClient } from 'polkadot-api';
+    import { createClient } from 'polkadot-api';
 import { getWsProvider } from 'polkadot-api/ws-provider/web';
 import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
 import {
@@ -17619,7 +17619,7 @@ client.destroy();
 
     ***Output***
 
-    -<div id="termynal" data-termynal>
+    <div id="termynal" data-termynal>
   <pre>
     {
       execution_result: {
@@ -17703,7 +17703,7 @@ To use the API effectively, the client must already know the XCM program to be e
 Retrieves the list of assets that are acceptable for paying fees when using a specific XCM version
 
 ```rust
--fn query_acceptable_payment_assets(xcm_version: Version) -> Result<Vec<VersionedAssetId>, Error>;
+fn query_acceptable_payment_assets(xcm_version: Version) -> Result<Vec<VersionedAssetId>, Error>;
 ```
 
 ??? interface "Input parameters"
@@ -17740,7 +17740,7 @@ Retrieves the list of assets that are acceptable for paying fees when using a sp
     ***Usage with PAPI***
 
     ```js
-    -import { paseoAssetHub } from '@polkadot-api/descriptors';
+    import { paseoAssetHub } from '@polkadot-api/descriptors';
 import { createClient } from 'polkadot-api';
 import { getWsProvider } from 'polkadot-api/ws-provider/web';
 import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
@@ -17770,7 +17770,7 @@ client.destroy();
 
     ***Output***
 
-    -<div id="termynal" data-termynal>
+    <div id="termynal" data-termynal>
   <pre>
     [
       {
@@ -17792,7 +17792,7 @@ client.destroy();
 Calculates the weight required to execute a given XCM message. It is useful for estimating the execution cost of a cross-chain message in the destination chain before sending it.
 
 ```rust
--fn query_xcm_weight(message: VersionedXcm<()>) -> Result<Weight, Error>;
+fn query_xcm_weight(message: VersionedXcm<()>) -> Result<Weight, Error>;
 ```
 
 ??? interface "Input parameters"
@@ -17845,7 +17845,7 @@ Calculates the weight required to execute a given XCM message. It is useful for 
     ***Usage with PAPI***
 
     ```js
-    -import { createClient } from 'polkadot-api';
+    import { createClient } from 'polkadot-api';
 import { getWsProvider } from 'polkadot-api/ws-provider/web';
 import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
 import {
@@ -17924,7 +17924,7 @@ client.destroy();
 
     ***Output***
 
-    -<div id="termynal" data-termynal>
+    <div id="termynal" data-termynal>
   <span data-ty>{ ref_time: 15574200000n, proof_size: 359300n }</span>
 </div>
 
@@ -17936,7 +17936,7 @@ client.destroy();
 Converts a given weight into the corresponding fee for a specified `AssetId`. It allows clients to determine the cost of execution in terms of the desired asset.
 
 ```rust
--fn query_weight_to_asset_fee(weight: Weight, asset: VersionedAssetId) -> Result<u128, Error>;
+fn query_weight_to_asset_fee(weight: Weight, asset: VersionedAssetId) -> Result<u128, Error>;
 ```
 
 ??? interface "Input parameters"
@@ -17993,7 +17993,7 @@ Converts a given weight into the corresponding fee for a specified `AssetId`. It
     ***Usage with PAPI***
 
     ```js
-    -import { paseoAssetHub } from '@polkadot-api/descriptors';
+    import { paseoAssetHub } from '@polkadot-api/descriptors';
 import { createClient } from 'polkadot-api';
 import { getWsProvider } from 'polkadot-api/ws-provider/web';
 import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
@@ -18030,7 +18030,7 @@ client.destroy();
 
     ***Output***
 
-    -<div id="termynal" data-termynal>
+    <div id="termynal" data-termynal>
   <span data-ty>1796500000n</span>
 </div>
 
@@ -18041,7 +18041,7 @@ client.destroy();
 Retrieves the delivery fees for sending a specific XCM message to a designated destination. The fees are always returned in a specific asset defined by the destination chain.
 
 ```rust
--fn query_delivery_fees(destination: VersionedLocation, message: VersionedXcm<()>) -> Result<VersionedAssets, Error>;
+fn query_delivery_fees(destination: VersionedLocation, message: VersionedXcm<()>) -> Result<VersionedAssets, Error>;
 ```
 
 ??? interface "Input parameters"
@@ -18086,7 +18086,7 @@ Retrieves the delivery fees for sending a specific XCM message to a designated d
     ***Usage with PAPI***
 
     ```js
-    -import { createClient } from 'polkadot-api';
+    import { createClient } from 'polkadot-api';
 import { getWsProvider } from 'polkadot-api/ws-provider/web';
 import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
 import {
@@ -18175,7 +18175,7 @@ client.destroy();
 
     ***Output***
 
-    -<div id="termynal" data-termynal>
+    <div id="termynal" data-termynal>
   <pre>
     {
       type: 'V3',
@@ -18426,7 +18426,7 @@ To programmatically execute the reserve-backed asset transfer between the relay 
 4. Create a `index.js` file and insert the following code to configure the clients and handle the asset transfer:
 
     ```js
-    -// Import necessary modules from Polkadot API and helpers
+    // Import necessary modules from Polkadot API and helpers
 import {
   astar, // Astar chain metadata
   dot, // Polkadot chain metadata
@@ -18558,7 +18558,7 @@ process.exit(0);
 
 5. Check the terminal output. If the operation is successful, you should see the following message:
 
-    -<div id="termynal" data-termynal>
+    <div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>node index.js</span>
   <span data-ty> Asset balance before tx: 0</span>
   <span data-ty> Transaction completed successfully</span>

@@ -54,7 +54,7 @@ To run Chopsticks using a configuration file, utilize the `--config` flag. You c
 
 Regardless of which method you choose from the preceding examples, you'll see an output similar to the following:
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>npx @acala-network/chopsticks --config=polkadot</span>
   <br />
   <span data-ty>[18:38:26.155] INFO: Loading config file https://raw.githubusercontent.com/AcalaNetwork/chopsticks/master/configs/polkadot.yml</span>
@@ -120,7 +120,7 @@ You should now be connected to your local fork and can interact with it as you w
 For programmatic interaction, you can use the Polkadot.js library. The following is a basic example:
 
 ```js
--import { ApiPromise, WsProvider } from '@polkadot/api';
+import { ApiPromise, WsProvider } from '@polkadot/api';
 
 async function connectToFork() {
   const wsProvider = new WsProvider('ws://localhost:8000');
@@ -155,7 +155,7 @@ npx @acala-network/chopsticks run-block  \
 ??? code "polkadot-output.json"
 
     ```json
-    -{
+    {
     "Call": {
         "result": "0xba754e7478944d07a1f7e914422b4d973b0855abeb6f81138fdca35beb474b44a10f6fc59a4d90c3b78e38fac100fc6adc6f9e69a07565ec8abce6165bd0d24078cc7bf34f450a2cc7faacc1fa1e244b959f0ed65437f44208876e1e5eefbf8dd34c040642414245b501030100000083e2cc0f00000000d889565422338aa58c0fd8ebac32234149c7ce1f22ac2447a02ef059b58d4430ca96ba18fbf27d06fe92ec86d8b348ef42f6d34435c791b952018d0a82cae40decfe5faf56203d88fdedee7b25f04b63f41f23da88c76c876db5c264dad2f70c",
         "storageDiff": [
@@ -322,7 +322,7 @@ npx @acala-network/chopsticks xcm \
 
 After running it, you should see output similar to the following:
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>npx @acala-network/chopsticks xcm \</span>
   <span data-ty>--r polkadot \</span>
   <span data-ty>--p moonbeam \</span>

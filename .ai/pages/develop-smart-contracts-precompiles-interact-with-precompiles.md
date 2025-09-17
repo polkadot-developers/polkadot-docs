@@ -8,7 +8,7 @@ url: https://docs.polkadot.com/develop/smart-contracts/precompiles/interact-with
 
 # Interact with Precompiles
 
--!!! smartcontract "PolkaVM Preview Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -46,7 +46,7 @@ Now, you'll explore how to use each precompile available in Polkadot Hub.
 ECRecover recovers an Ethereum address associated with the public key used to sign a message.
 
 ```solidity title="ECRecover.sol"
--// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
 contract ECRecoverExample {
@@ -83,7 +83,7 @@ To interact with the ECRecover precompile, you can deploy the `ECRecoverExample`
 The SHA-256 precompile computes the SHA-256 hash of the input data.
 
 ```solidity title="SHA256.sol"
--// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
 contract SHA256Example {
@@ -116,7 +116,7 @@ To use it, you can deploy the `SHA256Example` contract in [Remix](/develop/smart
 The RIPEMD-160 precompile computes the RIPEMD-160 hash of the input data.
 
 ```solidity title="RIPEMD160.sol"
--// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
 contract RIPEMD160Example {
@@ -151,7 +151,7 @@ To use it, you can deploy the `RIPEMD160Example` contract in [Remix](/develop/sm
 The Identity precompile simply returns the input data as output. While seemingly trivial, it can be useful for testing and certain specialized scenarios.
 
 ```solidity title="Identity.sol"
--// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
 contract IdentityExample {
@@ -184,7 +184,7 @@ To use it, you can deploy the `IdentityExample` contract in [Remix](/develop/sma
 The ModExp precompile performs modular exponentiation, which is an operation commonly needed in cryptographic algorithms.
 
 ```solidity title="ModExp.sol"
--// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
 contract ModExpExample {
@@ -223,7 +223,7 @@ To use it, you can deploy the `ModExpExample` contract in [Remix](/develop/smart
 The BN128Add precompile performs addition on the alt_bn128 elliptic curve, which is essential for zk-SNARK operations.
 
 ```solidity title="BN128Add.sol"
--// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
 contract BN128AddExample {
@@ -264,7 +264,7 @@ To use it, you can deploy the `BN128AddExample` contract in [Remix](/develop/sma
 The BN128Mul precompile performs scalar multiplication on the alt_bn128 curve.
 
 ```solidity title="BN128Mul.sol"
--// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
 contract BN128MulExample {
@@ -309,7 +309,7 @@ To use it, deploy `BN128MulExample` in [Remix](/develop/smart-contracts/dev-envi
 The BN128Pairing precompile verifies a pairing equation on the alt_bn128 curve, which is critical for zk-SNARK verification.
 
 ```solidity title="BN128Pairing.sol"
--// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
 contract BN128PairingExample {
@@ -350,7 +350,7 @@ You can deploy `BN128PairingExample` in [Remix](/develop/smart-contracts/dev-env
 The Blake2F precompile performs the Blake2 compression function F, which is the core of the Blake2 hash function.
 
 ```solidity title="Blake2F.sol"
--// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
 contract Blake2FExample {

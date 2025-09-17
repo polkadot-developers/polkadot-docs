@@ -47,7 +47,7 @@ This section will guide you through the initial steps of creating the foundation
 2.  Configure the dependencies required for FRAME pallet development in the `Cargo.toml` file as follows:
 
     ```toml
-    -[package]
+    [package]
 name = "custom-pallet"
 version = "0.1.0"
 edition = "2021"
@@ -91,7 +91,7 @@ std = [
 3.  Initialize the pallet structure by replacing the contents of `src/lib.rs` with the following scaffold code:
 
     ```rust
-    -pub use pallet::*;
+    pub use pallet::*;
 
 #[frame_support::pallet]
 pub mod pallet {
@@ -123,7 +123,7 @@ In this step, you'll only configure the common types used by all pallets:
 Replace the line containing the [`#[pallet::config]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.config.html){target=\_blank} macro with the following code block:
 
 ```rust
--#[pallet::config]
+#[pallet::config]
 pub trait Config: frame_system::Config {
     /// The overarching runtime event type.
     type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
@@ -143,7 +143,7 @@ This step adds an event called `SomethingStored`, which is triggered when a user
 To define events, replace the [`#[pallet::event]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.event.html){target=\_blank} line with the following code block:
 
 ```rust
--#[pallet::event]
+#[pallet::event]
 #[pallet::generate_deposit(pub(super) fn deposit_event)]
 pub enum Event<T: Config> {
     /// A user has successfully set a new value.
@@ -167,7 +167,7 @@ This step defines two basic errors: one for handling cases where no value has be
 To define errors, replace the [`#[pallet::error]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.error.html){target=\_blank} line with the following code block:
 
 ```rust
--#[pallet::error]
+#[pallet::error]
 pub enum Error<T> {
     /// The value retrieved was `None` as no value was previously set.
     NoneValue,
@@ -185,7 +185,7 @@ This step adds a simple storage item, `Something`, which stores a single `u32` v
 To define storage, replace the [`#[pallet::storage]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.storage.html){target=\_blank} line with the following code block:
 
 ```rust
--#[pallet::storage]
+#[pallet::storage]
 pub type Something<T> = StorageValue<_, u32>;
 ```
 
@@ -205,7 +205,7 @@ This section adds two dispatchable functions:
 To implement these calls, replace the [`#[pallet::call]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.call.html){target=\_blank} line with the following code block:
 
 ```rust
--#[pallet::call]
+#[pallet::call]
 impl<T: Config> Pallet<T> {
     #[pallet::call_index(0)]
     #[pallet::weight(Weight::default())]
@@ -251,7 +251,7 @@ After following all the previous steps, the pallet is now fully implemented. Bel
 
 ???code
     ```rust
-    -pub use pallet::*;
+    pub use pallet::*;
 
 #[frame_support::pallet]
 pub mod pallet {

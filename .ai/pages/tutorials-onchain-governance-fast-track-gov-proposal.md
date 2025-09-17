@@ -66,7 +66,7 @@ Follow these steps to set up your project:
 
 5. Open the `tsconfig.json` file and ensure it includes these compiler options:
     ```json
-    -{
+    {
     "compilerOptions": {
         "module": "CommonJS",
         "esModuleInterop": true,
@@ -106,7 +106,7 @@ Once your forked network is up and running, you can proceed with the following s
 Begin by adding the necessary imports and a basic structure to the `test-proposal.ts` file:
 
 ```typescript
--// --8<-- [start:imports]
+// --8<-- [start:imports]
 import '@polkadot/api-augment/polkadot';
 import { FrameSupportPreimagesBounded } from '@polkadot/types/lookup';
 import { blake2AsHex } from '@polkadot/util-crypto';
@@ -417,7 +417,7 @@ const main = async () => {
   process.exit(0);
 }
 
--// --8<-- [start:imports]
+// --8<-- [start:imports]
 import '@polkadot/api-augment/polkadot';
 import { FrameSupportPreimagesBounded } from '@polkadot/types/lookup';
 import { blake2AsHex } from '@polkadot/util-crypto';
@@ -730,7 +730,7 @@ This structure provides the foundation for your script. It imports all the neces
 Create a `connectToFork` function outside the `main` function to connect your locally forked chain to the Polkadot.js API:
 
 ```typescript
-    -// --8<-- [start:imports]
+    // --8<-- [start:imports]
 import '@polkadot/api-augment/polkadot';
 import { FrameSupportPreimagesBounded } from '@polkadot/types/lookup';
 import { blake2AsHex } from '@polkadot/util-crypto';
@@ -1039,7 +1039,7 @@ try {
 Inside the `main` function, add the code to establish a connection to your local Polkadot fork:
 
 ```typescript hl_lines="2-3"
--const main = async () => {
+const main = async () => {
   // Connect to the forked chain
   const api = await connectToFork();
   ...
@@ -1051,7 +1051,7 @@ Inside the `main` function, add the code to establish a connection to your local
 Create a `generateProposal` function that will be responsible for preparing and submitting the on-chain proposal:
 
 ```typescript
--async function generateProposal(
+async function generateProposal(
   api: ApiPromise,
   call: SubmittableExtrinsic<'promise', ISubmittableResult>,
   origin: any
@@ -1065,7 +1065,7 @@ Now, you need to implement the following logic:
 1. Set up the keyring and use the Alice development account:
 
     ```typescript
-    -  // Initialize the keyring
+      // Initialize the keyring
   const keyring = new Keyring({ type: 'sr25519' });
 
   // Set up Alice development account
@@ -1078,7 +1078,7 @@ Now, you need to implement the following logic:
 2. Retrieve the proposal index:
 
     ```typescript
-    -  // Get the next available proposal index
+      // Get the next available proposal index
   const proposalIndex = (
     await api.query.referenda.referendumCount()
   ).toNumber();
@@ -1096,7 +1096,7 @@ Now, you need to implement the following logic:
     3. **`referenda.placeDecisionDeposit`**: Places the required decision deposit for the referendum. This deposit is required to move the referendum from the preparing phase to the deciding phase.
 
     ```typescript
-    -  // Execute the batch transaction
+      // Execute the batch transaction
   await new Promise<void>(async (resolve) => {
     const unsub = await api.tx.utility
       .batch([
@@ -1128,14 +1128,14 @@ Now, you need to implement the following logic:
 4. Return the proposal index:
 
     ```typescript
-    -  return proposalIndex;
+      return proposalIndex;
     ```
 
 If you followed all the steps correctly, the function should look like this:
 
 ??? code "`generateProposal` code"
     ```typescript
-    -// --8<-- [start:imports]
+    // --8<-- [start:imports]
 import '@polkadot/api-augment/polkadot';
 import { FrameSupportPreimagesBounded } from '@polkadot/types/lookup';
 import { blake2AsHex } from '@polkadot/util-crypto';
@@ -1444,7 +1444,7 @@ try {
 Then, within the `main` function, define the specific call you want to execute and its corresponding origin, then invoke the `generateProposal` method:
 
 ```typescript hl_lines="5-14"
--const main = async () => {
+const main = async () => {
   // Connect to the forked chain
   const api = await connectToFork();
 
@@ -1472,7 +1472,7 @@ After submitting your proposal, you can test its execution by directly manipulat
 Create a new function called `forceProposalExecution`:
 
 ```typescript
--async function forceProposalExecution(api: ApiPromise, proposalIndex: number) {
+async function forceProposalExecution(api: ApiPromise, proposalIndex: number) {
   ...
 }
 ```
@@ -1486,7 +1486,7 @@ Implement the functionality through the following steps:
 
 1. Get the referendum information and its hash:
     ```typescript
-    -  // Retrieve the referendum data for the given proposal index
+      // Retrieve the referendum data for the given proposal index
   const referendumData = await api.query.referenda.referendumInfoFor(
     proposalIndex
   );
@@ -1521,13 +1521,13 @@ Implement the functionality through the following steps:
 
 2. Determine the total amount of existing native tokens:
     ```typescript
-    -  // Get the total issuance of the native token
+      // Get the total issuance of the native token
   const totalIssuance = (await api.query.balances.totalIssuance()).toBigInt();
     ```
 
 3. Fetch the current block number:
     ```typescript
-    -  // Get the current block number
+      // Get the current block number
   const proposalBlockTarget = (
     await api.rpc.chain.getHeader()
   ).number.toNumber();
@@ -1535,7 +1535,7 @@ Implement the functionality through the following steps:
 
 4. Modify the proposal data and overwrite the storage:
     ```typescript
-    -  // Create a new proposal data object with the updated fields
+      // Create a new proposal data object with the updated fields
   const fastProposalData = {
     ongoing: {
       ...ongoingJson,
@@ -1575,7 +1575,7 @@ Implement the functionality through the following steps:
 
 5. Manipulate the scheduler to execute the proposal in the next blocks:
     ```typescript
-    -  // Fast forward the nudge referendum to the next block to get the refendum to be scheduled
+      // Fast forward the nudge referendum to the next block to get the refendum to be scheduled
   await moveScheduledCallTo(api, 1, (call) => {
     if (!call.isInline) {
       return false;
@@ -1610,7 +1610,7 @@ Implement the functionality through the following steps:
 
         ??? code "`moveScheduledCallTo`"
             ```typescript
-            -// --8<-- [start:imports]
+            // --8<-- [start:imports]
 import '@polkadot/api-augment/polkadot';
 import { FrameSupportPreimagesBounded } from '@polkadot/types/lookup';
 import { blake2AsHex } from '@polkadot/util-crypto';
@@ -1920,7 +1920,7 @@ After implementing the complete logic, your function will resemble:
 
 ??? code "`forceProposalExecution`"
     ```typescript
-    -// --8<-- [start:imports]
+    // --8<-- [start:imports]
 import '@polkadot/api-augment/polkadot';
 import { FrameSupportPreimagesBounded } from '@polkadot/types/lookup';
 import { blake2AsHex } from '@polkadot/util-crypto';
@@ -2229,7 +2229,7 @@ try {
 Invoke `forceProposalExecution` from the `main` function using the `proposalIndex` obtained from the previous `generateProposal` call:
 
 ```typescript hl_lines="16-17"
--// --8<-- [start:imports]
+// --8<-- [start:imports]
 import '@polkadot/api-augment/polkadot';
 import { FrameSupportPreimagesBounded } from '@polkadot/types/lookup';
 import { blake2AsHex } from '@polkadot/util-crypto';
@@ -2569,7 +2569,7 @@ Here's the complete code for the `test-proposal.ts` file, incorporating all the 
 
 ??? code "`test-proposal.ts`"
     ```typescript
-    -// --8<-- [start:imports]
+    // --8<-- [start:imports]
 import '@polkadot/api-augment/polkadot';
 import { FrameSupportPreimagesBounded } from '@polkadot/types/lookup';
 import { blake2AsHex } from '@polkadot/util-crypto';
@@ -2874,7 +2874,7 @@ try {
 // --8<-- [end:try-catch-block]
 
 
-    -// --8<-- [start:imports]
+    // --8<-- [start:imports]
 import '@polkadot/api-augment/polkadot';
 import { FrameSupportPreimagesBounded } from '@polkadot/types/lookup';
 import { blake2AsHex } from '@polkadot/util-crypto';
@@ -3179,7 +3179,7 @@ try {
 // --8<-- [end:try-catch-block]
 
 
-    -// --8<-- [start:imports]
+    // --8<-- [start:imports]
 import '@polkadot/api-augment/polkadot';
 import { FrameSupportPreimagesBounded } from '@polkadot/types/lookup';
 import { blake2AsHex } from '@polkadot/util-crypto';
@@ -3484,7 +3484,7 @@ try {
 // --8<-- [end:try-catch-block]
 
 
-    -// --8<-- [start:imports]
+    // --8<-- [start:imports]
 import '@polkadot/api-augment/polkadot';
 import { FrameSupportPreimagesBounded } from '@polkadot/types/lookup';
 import { blake2AsHex } from '@polkadot/util-crypto';
@@ -3789,7 +3789,7 @@ try {
 // --8<-- [end:try-catch-block]
 
 
-    -// --8<-- [start:imports]
+    // --8<-- [start:imports]
 import '@polkadot/api-augment/polkadot';
 import { FrameSupportPreimagesBounded } from '@polkadot/types/lookup';
 import { blake2AsHex } from '@polkadot/util-crypto';
@@ -4094,7 +4094,7 @@ try {
 // --8<-- [end:try-catch-block]
 
 
-    -// --8<-- [start:imports]
+    // --8<-- [start:imports]
 import '@polkadot/api-augment/polkadot';
 import { FrameSupportPreimagesBounded } from '@polkadot/types/lookup';
 import { blake2AsHex } from '@polkadot/util-crypto';
@@ -4399,7 +4399,7 @@ try {
 // --8<-- [end:try-catch-block]
 
 
-    -// --8<-- [start:imports]
+    // --8<-- [start:imports]
 import '@polkadot/api-augment/polkadot';
 import { FrameSupportPreimagesBounded } from '@polkadot/types/lookup';
 import { blake2AsHex } from '@polkadot/util-crypto';

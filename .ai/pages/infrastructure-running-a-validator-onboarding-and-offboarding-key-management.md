@@ -55,7 +55,7 @@ There are multiple ways to create the session keys. It can be done by interactin
 
     When you run the command, it produces output similar to this example:
 
-    -<div id="termynal" data-termynal>
+    <div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>subkey generate</span>
   <pre>
 Secret phrase:       twist buffalo mixture excess device drastic vague mammal fitness punch match hammer
@@ -110,7 +110,7 @@ Validators on Polkadot need a static network key (also known as the node key) to
 
 Starting with Polkadot version 1.11, validators without a stable network key may encounter the following error on startup:
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>polkadot --validator --name "INSERT_NAME_FROM_TELEMETRY"</span>
   <span data-ty>Error:</span>
   <span data-ty>0: Starting an authority without network key</span>

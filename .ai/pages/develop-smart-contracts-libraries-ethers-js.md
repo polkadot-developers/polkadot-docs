@@ -8,7 +8,7 @@ url: https://docs.polkadot.com/develop/smart-contracts/libraries/ethers-js/
 
 # Ethers.js
 
--!!! smartcontract "PolkaVM Preview Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -75,7 +75,7 @@ A [`Provider`](https://docs.ethers.org/v6/api/providers/#Provider){target=\_blan
 To interact with Polkadot Hub, you must set up an Ethers.js provider. This provider connects to a blockchain node, allowing you to query blockchain data and interact with smart contracts. In the root of your project, create a file named `connectToProvider.js` and add the following code:
 
 ```js title="scripts/connectToProvider.js"
--const { JsonRpcProvider } = require('ethers');
+const { JsonRpcProvider } = require('ethers');
 
 const createProvider = (rpcUrl, chainId, chainName) => {
   const provider = new JsonRpcProvider(rpcUrl, {
@@ -118,7 +118,7 @@ With the provider set up, you can start querying the blockchain. For instance, t
 ??? code "Fetch Last Block code"
 
     ```js title="scripts/fetchLastBlock.js"
-    -const { JsonRpcProvider } = require('ethers');
+    const { JsonRpcProvider } = require('ethers');
 
 const createProvider = (rpcUrl, chainId, chainName) => {
   const provider = new JsonRpcProvider(rpcUrl, {
@@ -155,7 +155,7 @@ main();
 
 ## Compile Contracts
 
--!!! note "Contracts Code Blob Size Disclaimer"
+!!! note "Contracts Code Blob Size Disclaimer"
     The maximum contract code blob size on Polkadot Hub networks is _100 kilobytes_, significantly larger than Ethereum’s EVM limit of 24 kilobytes.
 
     For detailed comparisons and migration guidelines, see the [EVM vs. PolkaVM](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm/#current-memory-limits){target=\_blank} documentation page.
@@ -178,7 +178,7 @@ This guide uses `@parity/resolc` version `0.2.0`.
 This example demonstrates compiling a `Storage.sol` Solidity contract for deployment to Polkadot Hub. The contract's functionality stores a number and permits users to update it with a new value.
 
 ```solidity title="contracts/Storage.sol"
--//SPDX-License-Identifier: MIT
+//SPDX-License-Identifier: MIT
 
 // Solidity files have to start with this pragma.
 // It will be used by the Solidity compiler to validate its version.
@@ -206,7 +206,7 @@ contract Storage {
 To compile this contract, use the following script:
 
 ```js title="scripts/compile.js"
--const { compile } = require('@parity/resolc');
+const { compile } = require('@parity/resolc');
 const { readFileSync, writeFileSync } = require('fs');
 const { basename, join } = require('path');
 
@@ -277,7 +277,7 @@ You can create a `deploy.js` script in the root of your project to achieve this.
 1. Set up the required imports and utilities:
 
     ```js title="scripts/deploy.js"
-    -// Deploy an EVM-compatible smart contract using ethers.js
+    // Deploy an EVM-compatible smart contract using ethers.js
 const { writeFileSync, existsSync, readFileSync } = require('fs');
 const { join } = require('path');
 const { ethers, JsonRpcProvider } = require('ethers');
@@ -288,7 +288,7 @@ const codegenDir = join(__dirname);
 2. Create a provider to connect to Polkadot Hub:
 
     ```js title="scripts/deploy.js"
-    -
+    
 // Creates an Ethereum provider with specified RPC URL and chain details
 const createProvider = (rpcUrl, chainId, chainName) => {
   const provider = new JsonRpcProvider(rpcUrl, {
@@ -302,7 +302,7 @@ const createProvider = (rpcUrl, chainId, chainName) => {
 3. Set up functions to read contract artifacts:
 
     ```js title="scripts/deploy.js"
-    -// Reads and parses the ABI file for a given contract
+    // Reads and parses the ABI file for a given contract
 const getAbi = (contractName) => {
   try {
     return JSON.parse(
@@ -339,7 +339,7 @@ const getByteCode = (contractName) => {
 4. Create the main deployment function:
 
     ```js title="scripts/deploy.js"
-    -
+    
 const deployContract = async (contractName, mnemonic, providerConfig) => {
   console.log(`Deploying ${contractName}...`);
 
@@ -381,7 +381,7 @@ const deployContract = async (contractName, mnemonic, providerConfig) => {
 5. Configure and execute the deployment:
 
     ```js title="scripts/deploy.js"
-    -const providerConfig = {
+    const providerConfig = {
   rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
   chainId: 420420422,
   name: 'polkadot-hub-testnet',
@@ -400,7 +400,7 @@ deployContract('Storage', mnemonic, providerConfig);
 ??? code "View complete script"
 
     ```js title="scripts/deploy.js"
-    -// Deploy an EVM-compatible smart contract using ethers.js
+    // Deploy an EVM-compatible smart contract using ethers.js
 const { writeFileSync, existsSync, readFileSync } = require('fs');
 const { join } = require('path');
 const { ethers, JsonRpcProvider } = require('ethers');
@@ -511,7 +511,7 @@ After running this script, your contract will be deployed to Polkadot Hub, and i
 Once the contract is deployed, you can interact with it by calling its functions. For example, to set a number, read it and then modify that number by its double, you can create a file named `checkStorage.js` in the root of your project and add the following code:
 
 ```js title="scripts/checkStorage.js"
--const { ethers } = require('ethers');
+const { ethers } = require('ethers');
 const { readFileSync } = require('fs');
 const { join } = require('path');
 

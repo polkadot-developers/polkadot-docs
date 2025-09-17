@@ -305,7 +305,7 @@ For example, the following configuration file defines a minimal example for the 
 === "TOML"
 
     ```toml title="base-example.toml"
-    -[settings]
+    [settings]
 timeout = 1000
 bootnode = false
 provider = "kubernetes"
@@ -317,7 +317,7 @@ backchannel = false
 === "JSON"
 
     ```json title="base-example.json"
-    -{
+    {
     "settings": {
         "timeout": 1000,
         "bootnode": false,
@@ -477,7 +477,7 @@ The following configuration file defines a minimal example for the relay chain, 
 === "TOML"
 
     ```toml title="relaychain-example-nodes.toml"
-    -[relaychain]
+    [relaychain]
 default_command = "polkadot"
 default_image = "polkadot-debug:master"
 chain = "rococo-local"
@@ -500,7 +500,7 @@ balance = 1000000000000
 === "JSON"
 
     ```json title="relaychain-example-nodes.json"
-    -{
+    {
     "relaychain": {
         "default_command": "polkadot",
         "default_image": "polkadot-debug:master",
@@ -602,7 +602,7 @@ The following configuration file defines a minimal example for the relay chain, 
 === "TOML"
 
     ```toml title="relaychain-example-node-groups.toml"
-    -[relaychain]
+    [relaychain]
 default_command = "polkadot"
 default_image = "polkadot-debug:master"
 chain = "rococo-local"
@@ -622,7 +622,7 @@ args = ["--chain", "rococo-local"]
 === "JSON"
 
     ```json title="relaychain-example-node-groups.json"
-    -{
+    {
     "relaychain": {
         "default_command": "polkadot",
         "default_image": "polkadot-debug:master",
@@ -685,7 +685,7 @@ For example, the following configuration file defines a minimal example for the 
 === "TOML"
 
     ```toml title="parachain-example.toml"
-    -[parachain]
+    [parachain]
 id = 100
 add_to_genesis = true
 cumulus_based = true
@@ -698,7 +698,7 @@ genesis_state_path = "INSERT_PATH_TO_STATE"
 === "JSON"
 
     ```json title="parachain-example.json"
-    -{
+    {
     "parachain": {
         "id": 100,
         "add_to_genesis": true,
@@ -801,7 +801,7 @@ The configuration file below defines a minimal example for the collator:
 === "TOML"
 
     ```toml title="collator-example.toml"
-    -[parachain]
+    [parachain]
 id = 100
 add_to_genesis = true
 cumulus_based = true
@@ -819,7 +819,7 @@ command = "polkadot-parachain"
 === "JSON"
 
     ```json title="collator-example.json"
-    -{
+    {
     "parachain": {
         "id": 100,
         "add_to_genesis": true,
@@ -918,7 +918,7 @@ For instance, the configuration file below defines a minimal example for the col
 === "TOML"
 
     ```toml title="collator-groups-example.toml"
-    -[parachain]
+    [parachain]
 id = 100
 add_to_genesis = true
 cumulus_based = true
@@ -937,7 +937,7 @@ command = "polkadot-parachain"
 === "JSON"
 
     ```json title="collator-groups-example.json"
-    -{
+    {
     "parachain": {
         "id": 100,
         "add_to_genesis": true,

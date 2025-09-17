@@ -193,7 +193,7 @@ Once the Polkadot binaries are installed, it's essential to verify that everythi
 
     The output should show the version numbers for each of the binaries. Ensure that the versions match and are consistent, similar to the following example (the specific version may vary):
 
-    -<div id="termynal" data-termynal>
+    <div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>polkadot --version polkadot-execute-worker --version polkadot-prepare-worker --version</span>
   <span data-ty>1.16.1-36264cb36db</span>
   <span data-ty>1.16.1-36264cb36db</span>

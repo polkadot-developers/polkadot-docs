@@ -39,7 +39,7 @@ This API can be used independently for dry-running, double-checking, or testing.
 This API allows a dry-run of any extrinsic and obtaining the outcome if it fails or succeeds, as well as the local xcm and remote xcm messages sent to other chains.
 
 ```rust
--fn dry_run_call(origin: OriginCaller, call: Call, result_xcms_version: XcmVersion) -> Result<CallDryRunEffects<Event>, Error>;
+fn dry_run_call(origin: OriginCaller, call: Call, result_xcms_version: XcmVersion) -> Result<CallDryRunEffects<Event>, Error>;
 ```
 
 ??? interface "Input parameters"
@@ -102,7 +102,7 @@ This API allows a dry-run of any extrinsic and obtaining the outcome if it fails
     ***Usage with PAPI***
 
     ```js
-    -import { paseo } from '@polkadot-api/descriptors';
+    import { paseo } from '@polkadot-api/descriptors';
 import { createClient } from 'polkadot-api';
 import { getWsProvider } from 'polkadot-api/ws-provider/web';
 import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
@@ -212,7 +212,7 @@ client.destroy();
 
     ***Output***
 
-    -<div id="termynal" data-termynal>
+    <div id="termynal" data-termynal>
   <pre>
     {
       execution_result: {
@@ -486,7 +486,7 @@ client.destroy();
 </div>
 
                 ...
-    -<div id="termynal" data-termynal>
+    <div id="termynal" data-termynal>
   <pre>
     {
       execution_result: {
@@ -767,7 +767,7 @@ client.destroy();
 This API allows the direct dry-run of an xcm message instead of an extrinsic one, checks if it will execute successfully, and determines what other xcm messages will be forwarded to other chains.
 
 ```rust
--fn dry_run_xcm(origin_location: VersionedLocation, xcm: VersionedXcm<Call>) -> Result<XcmDryRunEffects<Event>, Error>;
+fn dry_run_xcm(origin_location: VersionedLocation, xcm: VersionedXcm<Call>) -> Result<XcmDryRunEffects<Event>, Error>;
 ```
 
 ??? interface "Input parameters"
@@ -826,7 +826,7 @@ This API allows the direct dry-run of an xcm message instead of an extrinsic one
      ***Usage with PAPI***
 
     ```js
-    -import { createClient } from 'polkadot-api';
+    import { createClient } from 'polkadot-api';
 import { getWsProvider } from 'polkadot-api/ws-provider/web';
 import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
 import {
@@ -915,7 +915,7 @@ client.destroy();
 
     ***Output***
 
-    -<div id="termynal" data-termynal>
+    <div id="termynal" data-termynal>
   <pre>
     {
       execution_result: {
@@ -999,7 +999,7 @@ To use the API effectively, the client must already know the XCM program to be e
 Retrieves the list of assets that are acceptable for paying fees when using a specific XCM version
 
 ```rust
--fn query_acceptable_payment_assets(xcm_version: Version) -> Result<Vec<VersionedAssetId>, Error>;
+fn query_acceptable_payment_assets(xcm_version: Version) -> Result<Vec<VersionedAssetId>, Error>;
 ```
 
 ??? interface "Input parameters"
@@ -1036,7 +1036,7 @@ Retrieves the list of assets that are acceptable for paying fees when using a sp
     ***Usage with PAPI***
 
     ```js
-    -import { paseoAssetHub } from '@polkadot-api/descriptors';
+    import { paseoAssetHub } from '@polkadot-api/descriptors';
 import { createClient } from 'polkadot-api';
 import { getWsProvider } from 'polkadot-api/ws-provider/web';
 import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
@@ -1066,7 +1066,7 @@ client.destroy();
 
     ***Output***
 
-    -<div id="termynal" data-termynal>
+    <div id="termynal" data-termynal>
   <pre>
     [
       {
@@ -1088,7 +1088,7 @@ client.destroy();
 Calculates the weight required to execute a given XCM message. It is useful for estimating the execution cost of a cross-chain message in the destination chain before sending it.
 
 ```rust
--fn query_xcm_weight(message: VersionedXcm<()>) -> Result<Weight, Error>;
+fn query_xcm_weight(message: VersionedXcm<()>) -> Result<Weight, Error>;
 ```
 
 ??? interface "Input parameters"
@@ -1141,7 +1141,7 @@ Calculates the weight required to execute a given XCM message. It is useful for 
     ***Usage with PAPI***
 
     ```js
-    -import { createClient } from 'polkadot-api';
+    import { createClient } from 'polkadot-api';
 import { getWsProvider } from 'polkadot-api/ws-provider/web';
 import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
 import {
@@ -1220,7 +1220,7 @@ client.destroy();
 
     ***Output***
 
-    -<div id="termynal" data-termynal>
+    <div id="termynal" data-termynal>
   <span data-ty>{ ref_time: 15574200000n, proof_size: 359300n }</span>
 </div>
 
@@ -1232,7 +1232,7 @@ client.destroy();
 Converts a given weight into the corresponding fee for a specified `AssetId`. It allows clients to determine the cost of execution in terms of the desired asset.
 
 ```rust
--fn query_weight_to_asset_fee(weight: Weight, asset: VersionedAssetId) -> Result<u128, Error>;
+fn query_weight_to_asset_fee(weight: Weight, asset: VersionedAssetId) -> Result<u128, Error>;
 ```
 
 ??? interface "Input parameters"
@@ -1289,7 +1289,7 @@ Converts a given weight into the corresponding fee for a specified `AssetId`. It
     ***Usage with PAPI***
 
     ```js
-    -import { paseoAssetHub } from '@polkadot-api/descriptors';
+    import { paseoAssetHub } from '@polkadot-api/descriptors';
 import { createClient } from 'polkadot-api';
 import { getWsProvider } from 'polkadot-api/ws-provider/web';
 import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
@@ -1326,7 +1326,7 @@ client.destroy();
 
     ***Output***
 
-    -<div id="termynal" data-termynal>
+    <div id="termynal" data-termynal>
   <span data-ty>1796500000n</span>
 </div>
 
@@ -1337,7 +1337,7 @@ client.destroy();
 Retrieves the delivery fees for sending a specific XCM message to a designated destination. The fees are always returned in a specific asset defined by the destination chain.
 
 ```rust
--fn query_delivery_fees(destination: VersionedLocation, message: VersionedXcm<()>) -> Result<VersionedAssets, Error>;
+fn query_delivery_fees(destination: VersionedLocation, message: VersionedXcm<()>) -> Result<VersionedAssets, Error>;
 ```
 
 ??? interface "Input parameters"
@@ -1382,7 +1382,7 @@ Retrieves the delivery fees for sending a specific XCM message to a designated d
     ***Usage with PAPI***
 
     ```js
-    -import { createClient } from 'polkadot-api';
+    import { createClient } from 'polkadot-api';
 import { getWsProvider } from 'polkadot-api/ws-provider/web';
 import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
 import {
@@ -1471,7 +1471,7 @@ client.destroy();
 
     ***Output***
 
-    -<div id="termynal" data-termynal>
+    <div id="termynal" data-termynal>
   <pre>
     {
       type: 'V3',

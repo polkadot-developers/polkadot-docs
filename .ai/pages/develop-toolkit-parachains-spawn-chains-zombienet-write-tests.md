@@ -200,7 +200,7 @@ To run a test against the spawned network, you can use the [Zombienet DSL](#test
 2. Add the following code to the file you just created.
 
     ```toml title="spawn-a-basic-network-test.zndsl"
-    -Description = "Test the basic functionality of the network (minimal example)"
+    Description = "Test the basic functionality of the network (minimal example)"
 Network = "./spawn-a-basic-network.toml"
 Creds = "config"
 
@@ -258,7 +258,7 @@ The following example test files define two tests, a small network test and a bi
 The tests define assertions to evaluate the network’s metrics and logs. The assertions are defined by sentences in the DSL, which are mapped to tests to run.
 
 ```toml title="small-network-test.zndsl"
--Description = "Small Network test"
+Description = "Small Network test"
 Network = "./0000-test-config-small-network.toml"
 Creds = "config"
 
@@ -277,7 +277,7 @@ bob_log_line_regex = "Imported #[0-9]+"
 And the second test file:
 
 ```toml title="big-network-test.zndsl"
--Description = "Big Network test"
+Description = "Big Network test"
 Network = "./0001-test-config-big-network.toml"
 Creds = "config"
 

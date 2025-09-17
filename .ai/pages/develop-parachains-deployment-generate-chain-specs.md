@@ -65,7 +65,7 @@ Users generally work with the JSON format of the chain specification. Internally
 For example, the following JSON shows a basic chain specification file:
 
 ```json
--{
+{
     "name": "chainName",
     "id": "chainId",
     "chainType": "Local",
@@ -156,7 +156,7 @@ docker run -it parity/subkey:latest generate --scheme sr25519
 
 The output should look similar to the following:
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>docker run -it parity/subkey:latest generate --scheme sr25519</span>
   <span> <br />Secret phrase: lemon play remain picture leopard frog mad bridge hire hazard best buddy <br />Network ID: substrate <br />Secret seed: 0xb748b501de061bae1fcab1c0b814255979d74d9637b84e06414a57a1a149c004 <br />Public key (hex): 0xf4ec62ec6e70a3c0f8dcbe0531e2b1b8916cf16d30635bbe9232f6ed3f0bf422 <br />Account ID: 0xf4ec62ec6e70a3c0f8dcbe0531e2b1b8916cf16d30635bbe9232f6ed3f0bf422 <br />Public key (SS58): 5HbqmBBJ5ALUzho7tw1k1jEgKBJM7dNsQwrtfSfUskT1a3oe <br />SS58 Address: 5HbqmBBJ5ALUzho7tw1k1jEgKBJM7dNsQwrtfSfUskT1a3oe </span>
 </div>
@@ -171,7 +171,7 @@ After generating the plain chain specification, you need to edit this file by in
 In the `collatorSelection.invulnerables` array, add the SS58 addresses (account keys) of your collators. These addresses will be automatically included in the active collator set:
 
 ```json
--    "collatorSelection": {
+    "collatorSelection": {
         "candidacyBond": 16000000000,
         "desiredCandidates": 0,
         "invulnerables": [
@@ -191,7 +191,7 @@ In the `collatorSelection.invulnerables` array, add the SS58 addresses (account 
 For each invulnerable collator, add a corresponding entry in the `session.keys` array. This maps each collator's account ID to their session keys:
 
 ```json
--    "session": {
+    "session": {
         "keys": [
             [
                 "INSERT_ACCOUNT_ID_COLLATOR_1",

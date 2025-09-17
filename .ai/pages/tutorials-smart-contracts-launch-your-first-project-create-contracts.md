@@ -8,7 +8,7 @@ url: https://docs.polkadot.com/tutorials/smart-contracts/launch-your-first-proje
 
 # Create a Smart Contract
 
--!!! smartcontract "PolkaVM Preview Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -96,7 +96,7 @@ To build the smart contract, follow the steps below:
 6. Add the getter and setter functions:
 
     ```solidity
-    -// SPDX-License-Identifier: MIT
+    // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.28;
 
 contract Storage {
@@ -122,7 +122,7 @@ contract Storage {
 ??? code "Complete Storage.sol contract"
 
     ```solidity title="Storage.sol"
-    -// SPDX-License-Identifier: MIT
+    // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.28;
 
 contract Storage {

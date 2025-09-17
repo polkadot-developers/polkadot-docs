@@ -170,7 +170,7 @@ For more information about runtime versioning, check the [Runtime Upgrades](/dev
 
 If you can see the following elements, it means that you are ready to submit the runtime upgrade to your running chain:
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>ls -la target/release/wbuild/parachain-template-runtime/</span>
   <br />
   <span data-ty>parachain_template_runtime.wasm</span>

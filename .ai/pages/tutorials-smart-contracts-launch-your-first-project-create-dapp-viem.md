@@ -8,7 +8,7 @@ url: https://docs.polkadot.com/tutorials/smart-contracts/launch-your-first-proje
 
 # Create a DApp with Viem
 
--!!! smartcontract "PolkaVM Preview Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 Decentralized applications (dApps) are a key component of the Web3 ecosystem, enabling developers to build applications that communicate directly with blockchain networks. Polkadot Hub, a blockchain with smart contract support, serves as a robust platform for deploying and interacting with dApps.
@@ -79,7 +79,7 @@ npm install --save-dev typescript @types/node
 To interact with Polkadot Hub, you need to set up a [Public Client](https://viem.sh/docs/clients/public#public-client){target=\_blank} that connects to the blockchain. In this example, you will interact with the Polkadot Hub TestNet, so you can experiment safely. Start by creating a new file called `utils/viem.ts` and add the following code:
 
 ```typescript title="viem.ts"
--import { createPublicClient, http, createWalletClient, custom } from 'viem'
+import { createPublicClient, http, createWalletClient, custom } from 'viem'
 import 'viem/window';
 
 
@@ -132,7 +132,7 @@ Create a folder called `abis` at the root of your project, then create a file na
 
 ??? code "Storage.sol ABI"
     ```json title="Storage.json"
-    -[
+    [
     {
         "inputs": [
             {
@@ -165,7 +165,7 @@ Create a folder called `abis` at the root of your project, then create a file na
 Next, create a file called `utils/contract.ts`:
 
 ```typescript title="contract.ts"
--import { getContract } from 'viem';
+import { getContract } from 'viem';
 import { publicClient, getWalletClient } from './viem';
 import StorageABI from '../../abis/Storage.json';
 
@@ -199,7 +199,7 @@ This file defines the contract address, ABI, and functions to create a viem [con
 Now, let's create a component to handle wallet connections. Create a new file called `components/WalletConnect.tsx`:
 
 ```typescript title="WalletConnect.tsx"
--"use client";
+"use client";
 
 import React, { useState, useEffect } from "react";
 import { passetHub } from "../utils/viem";
@@ -380,10 +380,10 @@ This component handles connecting to the wallet, switching networks if necessary
 To use this component in your dApp, replace the existing boilerplate in `app/page.tsx` with the following code:
 
 ```typescript title="page.tsx"
--
--import { useState } from "react";
+
+import { useState } from "react";
 import WalletConnect from "./components/WalletConnect";
--export default function Home() {
+export default function Home() {
   const [account, setAccount] = useState<string | null>(null);
 
   const handleConnect = (connectedAccount: string) => {
@@ -396,7 +396,7 @@ import WalletConnect from "./components/WalletConnect";
         Viem dApp - Passet Hub Smart Contracts
       </h1>
       <WalletConnect onConnect={handleConnect} />
--</section>
+</section>
   );
 }
 ```
@@ -416,7 +416,7 @@ Navigate to `http://localhost:3000` in your browser, and you should see your dAp
 Now, let's create a component to read data from the contract. Create a file called `components/ReadContract.tsx`:
 
 ```typescript title="ReadContract.tsx"
--'use client';
+'use client';
 
 import React, { useState, useEffect } from 'react';
 import { publicClient } from '../utils/viem';
@@ -487,11 +487,11 @@ This component reads the `storedNumber` value from the contract and displays it 
 To reflect this change in your dApp, incorporate this component into the `app/page.tsx` file.
 
 ```typescript title="page.tsx"
--
--import { useState } from "react";
+
+import { useState } from "react";
 import WalletConnect from "./components/WalletConnect";
 import ReadContract from "./components/ReadContract";
--export default function Home() {
+export default function Home() {
   const [account, setAccount] = useState<string | null>(null);
 
   const handleConnect = (connectedAccount: string) => {
@@ -505,7 +505,7 @@ import ReadContract from "./components/ReadContract";
       </h1>
       <WalletConnect onConnect={handleConnect} />
       <ReadContract />
--</section>
+</section>
   );
 }
 ```
@@ -519,7 +519,7 @@ And you will see in your browser:
 Finally, let's create a component that allows users to update the stored number. Create a file called `components/WriteContract.tsx`:
 
 ```typescript title="WriteContract.tsx"
--"use client";
+"use client";
 
 import React, { useState, useEffect } from "react";
 import { publicClient, getWalletClient } from "../utils/viem";
@@ -743,7 +743,7 @@ This component allows users to input a new number and send a transaction to upda
 Update the `app/page.tsx` file to integrate all components:
 
 ```typescript title="page.tsx"
--"use client";
+"use client";
 
 import { useState } from "react";
 import WalletConnect from "./components/WalletConnect";

@@ -122,7 +122,7 @@ As mentioned before, you need to specify the transfer type.
     `bun papi add ahp -n polkadot_asset_hub`
 
     ```typescript title="teleport-example.ts"
-    -// `ahp` is the name given to `npx papi add`
+    // `ahp` is the name given to `npx papi add`
 import {
   ahp,
   XcmV3Junction,
@@ -321,7 +321,7 @@ To enable this feature, the [`preserve_origin`](https://paritytech.github.io/pol
     `bun papi add ahp -n polkadot_asset_hub && bun papi add people -n polkadot_people`
 
     ```typescript title="teleport-and-transact.ts"
-    -// `ahp` is the name given to `npx papi add`
+    // `ahp` is the name given to `npx papi add`
 import {
   ahp,
   people,

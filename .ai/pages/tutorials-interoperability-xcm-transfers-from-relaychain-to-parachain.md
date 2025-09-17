@@ -133,7 +133,7 @@ To programmatically execute the reserve-backed asset transfer between the relay 
 4. Create a `index.js` file and insert the following code to configure the clients and handle the asset transfer:
 
     ```js
-    -// Import necessary modules from Polkadot API and helpers
+    // Import necessary modules from Polkadot API and helpers
 import {
   astar, // Astar chain metadata
   dot, // Polkadot chain metadata
@@ -265,7 +265,7 @@ process.exit(0);
 
 5. Check the terminal output. If the operation is successful, you should see the following message:
 
-    -<div id="termynal" data-termynal>
+    <div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>node index.js</span>
   <span data-ty> Asset balance before tx: 0</span>
   <span data-ty> Transaction completed successfully</span>

@@ -8,7 +8,7 @@ url: https://docs.polkadot.com/polkadot-protocol/smart-contract-basics/overview/
 
 # An Overview of the Smart Contract Landscape on Polkadot
 
--!!! smartcontract "PolkaVM Preview Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction

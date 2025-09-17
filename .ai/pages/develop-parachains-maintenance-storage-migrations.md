@@ -40,7 +40,7 @@ The following are some common scenarios where a storage migration is needed:
 - **Changing data types**: Changing the underlying data type requires a migration to convert the existing values.
 
     ```rust
-    -#[pallet::storage]
+    #[pallet::storage]
 pub type FooValue = StorageValue<_, Foo>;
 // old
 pub struct Foo(u32)
@@ -51,7 +51,7 @@ pub struct Foo(u64)
 - **Changing data representation**: Modifying the representation of the stored data, even if the size appears unchanged, requires a migration to ensure the runtime can correctly interpret the existing values.
 
     ```rust
-    -#[pallet::storage]
+    #[pallet::storage]
 pub type FooValue = StorageValue<_, Foo>;
 // old
 pub struct Foo(u32)
@@ -64,7 +64,7 @@ pub struct Foo(u16, u16)
 - **Extending an enum**: Adding new variants to an enum requires a migration if you reorder existing variants, insert new variants between existing ones, or change the data type of existing variants. No migration is required when adding new variants at the end of the enum.
 
     ```rust
-    -#[pallet::storage]
+    #[pallet::storage]
 pub type FooValue = StorageValue<_, Foo>;
 // old
 pub enum Foo { A(u32), B(u32) }
@@ -77,7 +77,7 @@ pub enum Foo { A(u32), C(u128), B(u32) }
 - **Changing the storage key**: Modifying the storage key, even if the underlying data type remains the same, requires a migration to ensure the runtime can locate the correct stored values.
 
     ```rust
-    -#[pallet::storage]
+    #[pallet::storage]
 pub type FooValue = StorageValue<_, u32>;
 // new
 #[pallet::storage]
@@ -92,7 +92,7 @@ pub type BarValue = StorageValue<_, u32>;
 The [`OnRuntimeUpgrade`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/trait.OnRuntimeUpgrade.html){target=\_blank} trait provides the foundation for implementing storage migrations in your runtime. Here's a detailed look at its essential functions:
 
 ```rust
--pub trait OnRuntimeUpgrade {
+pub trait OnRuntimeUpgrade {
     fn on_runtime_upgrade() -> Weight { ... }
     fn try_on_runtime_upgrade(checks: bool) -> Result<Weight, TryRuntimeError> { ... }
     fn pre_upgrade() -> Result<Vec<u8>, TryRuntimeError> { ... }
@@ -152,7 +152,7 @@ Examine the following migration example that transforms a simple `StorageValue` 
 - New `StorageValue` format:
 
     ```rust
-    -/// Example struct holding the most recently set [`u32`] and the
+    /// Example struct holding the most recently set [`u32`] and the
 /// second most recently set [`u32`] (if one existed).
 #[docify::export]
 #[derive(
@@ -165,14 +165,14 @@ pub struct CurrentAndPreviousValue {
 	pub previous: Option<u32>,
 }
 
-    -#[pallet::storage]
+    #[pallet::storage]
 	pub type Value<T: Config> = StorageValue<_, CurrentAndPreviousValue>;
     ```
 
 - Migration:
 
     ```rust
-    -use frame_support::{
+    use frame_support::{
 	storage_alias,
 	traits::{Get, UncheckedOnRuntimeUpgrade},
 };
@@ -306,7 +306,7 @@ This structure provides several benefits:
 To execute migrations during a runtime upgrade, you must configure them in your runtime's Executive pallet. Add your migrations in `runtime/src/lib.rs`:
 
 ```rust
--/// Tuple of migrations (structs that implement `OnRuntimeUpgrade`)
+/// Tuple of migrations (structs that implement `OnRuntimeUpgrade`)
 type Migrations = (
     pallet_my_pallet::migrations::v1::Migration,
     // More migrations can be added here

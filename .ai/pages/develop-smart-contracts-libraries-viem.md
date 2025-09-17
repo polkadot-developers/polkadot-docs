@@ -8,7 +8,7 @@ url: https://docs.polkadot.com/develop/smart-contracts/libraries/viem/
 
 # viem
 
--!!! smartcontract "PolkaVM Preview Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -99,7 +99,7 @@ mkdir src
 The first step is to set up the chain configuration. Create a new file at `src/chainConfig.ts`:
 
 ```typescript title="src/chainConfig.ts"
--import { http } from 'viem';
+import { http } from 'viem';
 
 export const TRANSPORT = http('INSERT_RPC_URL');
 
@@ -128,7 +128,7 @@ Ensure to replace `INSERT_RPC_URL`, `INSERT_CHAIN_ID`, `INSERT_CHAIN_NAME`, `INS
 To interact with the chain, you need to create a client that is used solely for reading data. To accomplish this, create a new file at `src/createClient.ts`:
 
 ```typescript title="src/createClient.ts"
--import { createPublicClient, createWalletClient, http } from 'viem';
+import { createPublicClient, createWalletClient, http } from 'viem';
 
 const transport = http('INSERT_RPC_URL');
 
@@ -162,7 +162,7 @@ After setting up the [Public Client](https://viem.sh/docs/clients/public#public-
 ??? code "Fetch Last Block code"
 
     ```js title="src/fetchLastBlock.ts"
-    -import { createPublicClient, http } from 'viem';
+    import { createPublicClient, http } from 'viem';
 
 const transport = http('https://testnet-passet-hub-eth-rpc.polkadot.io');
 
@@ -206,7 +206,7 @@ main();
 In case you need to sign transactions, you will need to instantiate a [Wallet Client](https://viem.sh/docs/clients/wallet#wallet-client){target=\_blank} object within your project. To do so, create `src/createWallet.ts`:
 
 ```typescript title="src/createWallet.ts"
--import { privateKeyToAccount } from 'viem/accounts';
+import { privateKeyToAccount } from 'viem/accounts';
 import { createWalletClient, http } from 'viem';
 
 const transport = http('INSERT_RPC_URL');
@@ -256,7 +256,7 @@ mkdir contracts artifacts
 You can use the following contract to interact with the blockchain. Paste the following contract in `contracts/Storage.sol`:
 
 ```solidity title="contracts/Storage.sol"
--//SPDX-License-Identifier: MIT
+//SPDX-License-Identifier: MIT
 
 // Solidity files have to start with this pragma.
 // It will be used by the Solidity compiler to validate its version.
@@ -281,7 +281,7 @@ contract Storage {
 
 ## Compile the Contract
 
--!!! note "Contracts Code Blob Size Disclaimer"
+!!! note "Contracts Code Blob Size Disclaimer"
     The maximum contract code blob size on Polkadot Hub networks is _100 kilobytes_, significantly larger than Ethereum’s EVM limit of 24 kilobytes.
 
     For detailed comparisons and migration guidelines, see the [EVM vs. PolkaVM](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm/#current-memory-limits){target=\_blank} documentation page.
@@ -290,7 +290,7 @@ contract Storage {
 Create a new file at `src/compile.ts` for handling contract compilation:
 
 ```typescript title="src/compile.ts"
--import { compile } from '@parity/resolc';
+import { compile } from '@parity/resolc';
 import { readFileSync, writeFileSync } from 'fs';
 import { basename, join } from 'path';
 
@@ -362,7 +362,7 @@ After executing this script, you will see the compilation results including the 
 Create a new file at `src/deploy.ts` for handling contract deployment:
 
 ```typescript title="src/deploy.ts"
--import { readFileSync } from 'fs';
+import { readFileSync } from 'fs';
 import { join } from 'path';
 import { createWallet } from './createWallet';
 import { publicClient } from './createClient';
@@ -429,7 +429,7 @@ If everything is successful, you will see the address of your deployed contract 
 Create a new file at `src/interact.ts` for interacting with your deployed contract:
 
 ```typescript title="src/interact.ts"
--import { publicClient } from './createClient';
+import { publicClient } from './createClient';
 import { createWallet } from './createWallet';
 import { readFileSync } from 'fs';
 

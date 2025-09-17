@@ -58,7 +58,7 @@ You can now set up a [`PolkadotClient`](https://github.com/polkadot-api/polkadot
 === "Smoldot (WebWorker)"
 
     ```typescript
-    -// `dot` is the identifier assigned during `npx papi add`
+    // `dot` is the identifier assigned during `npx papi add`
 import { dot } from '@polkadot-api/descriptors';
 import { createClient } from 'polkadot-api';
 import { getSmProvider } from 'polkadot-api/sm-provider';
@@ -82,7 +82,7 @@ const dotApi = client.getTypedApi(dot);
 === "Smoldot (Node.js)"
 
     ```typescript
-    -// `dot` is the alias assigned during `npx papi add`
+    // `dot` is the alias assigned during `npx papi add`
 import { dot } from '@polkadot-api/descriptors';
 import { createClient } from 'polkadot-api';
 import { getSmProvider } from 'polkadot-api/sm-provider';
@@ -112,7 +112,7 @@ const dotApi = client.getTypedApi(dot);
 === "Smoldot"
 
     ```typescript
-    -// `dot` is the alias assigned when running `npx papi add`
+    // `dot` is the alias assigned when running `npx papi add`
 import { dot } from '@polkadot-api/descriptors';
 import { createClient } from 'polkadot-api';
 import { getSmProvider } from 'polkadot-api/sm-provider';
@@ -134,7 +134,7 @@ const dotApi = client.getTypedApi(dot);
 === "WSS"
 
     ```typescript
-    -// `dot` is the identifier assigned when executing `npx papi add`
+    // `dot` is the identifier assigned when executing `npx papi add`
 import { dot } from '@polkadot-api/descriptors';
 import { createClient } from 'polkadot-api';
 // Use this import for Node.js environments
@@ -196,7 +196,7 @@ In PAPI, the `TypedApi` provides the `tx` and `txFromCallData` methods to send t
     For instance, to execute the `balances.transferKeepAlive` call, you can use the following snippet:
 
     ```typescript
-    -import { MultiAddress } from '@polkadot-api/descriptors';
+    import { MultiAddress } from '@polkadot-api/descriptors';
 
 const tx: Transaction = typedApi.tx.Balances.transfer_keep_alive({
   dest: MultiAddress.Id('INSERT_DESTINATION_ADDRESS'),

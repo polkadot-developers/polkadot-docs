@@ -106,7 +106,7 @@ To verify this, wait for the next session and then follow these steps:
 3. Examine the query results. You should see output similar to the following:
 
     ```json
-    -[
+    [
     [
         [
             {

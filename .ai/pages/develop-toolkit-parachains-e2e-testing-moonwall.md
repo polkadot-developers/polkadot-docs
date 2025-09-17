@@ -106,7 +106,7 @@ During setup, you will see prompts for the following parameters:
 
 Select `Enter` to accept defaults or input custom values. You should see something like this:
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>moonwall init</span>
   <span data-ty>✔ Provide a label for the config file moonwall_config</span>
   <span data-ty>✔ Provide a global timeout value 30000</span>
@@ -120,7 +120,7 @@ Select `Enter` to accept defaults or input custom values. You should see somethi
 The wizard generates a `moonwall.config` file:
 
 ```json
--{
+{
     "label": "moonwall_config",
     "defaultTestTimeout": 30000,
     "environments": [
@@ -149,7 +149,7 @@ The default configuration requires specific details about your blockchain node a
 Here's a complete configuration example for testing a local node using Polkadot.js as a provider:
 
 ```json
--{
+{
     "label": "moonwall_config",
     "defaultTestTimeout": 30000,
     "environments": [
@@ -191,7 +191,7 @@ Moonwall uses the [`describeSuite`](https://github.com/Moonsong-Labs/moonwall/bl
 The following example shows how to test a balance transfer between two accounts:
 
 ```ts
--import '@polkadot/api-augment';
+import '@polkadot/api-augment';
 import { describeSuite, expect } from '@moonwall/cli';
 import { Keyring } from '@polkadot/api';
 
@@ -266,7 +266,7 @@ The test runner will output detailed results showing:
 - Detailed logs and error messages (if any).
 
 Example output:
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>moonwall test default_env -c moonwall.config</span>
   <span data-ty>stdout | tests/test1.ts > 🗃️ D1 Demo suite > 📁 D1T1 Test Case</span>
   <span data-ty>2025-01-21T19:27:55.624Z test:default_env Balance before: 0</span>

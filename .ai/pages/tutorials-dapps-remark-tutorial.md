@@ -46,7 +46,7 @@ npm install
 After opening the repository, you will find the following code (excluding imports):
 
 ```typescript title="index.ts"
--async function withLightClient(): Promise<PolkadotClient> {
+async function withLightClient(): Promise<PolkadotClient> {
   // Start the light client
   const smoldot = start();
   // The Westend Relay Chain
@@ -69,7 +69,7 @@ The `withLightClient` function is particularly important. It uses the built-in [
 The CLI functionality is implemented within the `main` function. The CLI includes an option (`-a` / `--account`) to specify the account to monitor for remarks:
 
 ```typescript title="index.ts"
--const program = new Command();
+const program = new Command();
 console.log(chalk.white.dim(figlet.textSync('Web3 Mail Watcher')));
 program
   .version('0.0.1')
@@ -89,7 +89,7 @@ const options = program.opts();
 The application monitors the Westend network for remarks sent to the specified account. The following code, placed within the `main` function, implements this functionality:
 
 ```typescript title="index.ts"
--if (options.account) {
+if (options.account) {
   console.log(
     chalk.black.bgRed('Watching account:'),
     chalk.bold.whiteBright(options.account)
@@ -140,7 +140,7 @@ npm start -- --account 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY
 
 The output should look like this:
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>npm start -- --account 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY</span>
   <span data-ty> __ __ _ _____ __ __ _ _ __ __ _ _</span>
   <span data-ty> \ \ / /__| |__|___ / | \/ | __ _(_) | \ \ / /_ _| |_ ___| |__ ___ _ __</span>
@@ -165,7 +165,7 @@ To test the application, navigate to the [**Extrinsics** page of the PAPI Dev Co
 
 Submit the extrinsic and sign it using the Polkadot.js browser wallet. The CLI will display the following output and play the "You've Got Mail!" sound:
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>npm start -- --account 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY</span>
   <span data-ty> __ __ _ _____ __ __ _ _ __ __ _ _</span>
   <span data-ty> \ \ / /__| |__|___ / | \/ | __ _(_) | \ \ / /_ _| |_ ___| |__ ___ _ __</span>

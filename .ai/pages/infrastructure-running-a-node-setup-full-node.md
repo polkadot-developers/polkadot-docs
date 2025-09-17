@@ -58,7 +58,7 @@ This section will walk you through installing and building the Polkadot binary f
 
     You should see output similar to the following:
 
-    -<div id="termynal" data-termynal>
+    <div id="termynal" data-termynal>
   <span data-ty="input"
     ><span class="file-path"></span>rustup show <br />
     rustup +nightly show</span
@@ -144,7 +144,7 @@ This section will walk you through installing and building the Polkadot binary f
 
     You should see output similar to the following:
 
-    -<div id="termynal" data-termynal>
+    <div id="termynal" data-termynal>
   <span data-ty="input"
     ><span class="file-path"></span>rustup show <br />
     rustup +nightly show</span
@@ -299,7 +299,7 @@ The syncing process will take a while, depending on your capacity, processing po
 
 A healthy node syncing blocks will output logs like the following:
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <span data-ty>2024-11-19 23:49:57 Parity Polkadot</span>
   <span data-ty>2024-11-19 23:49:57 ✌️ version 1.14.1-7c4cd60da6d</span>
   <span data-ty>2024-11-19 23:49:57 ❤️ by Parity Technologies &lt;admin@parity.io&gt;, 2017-2024</span>

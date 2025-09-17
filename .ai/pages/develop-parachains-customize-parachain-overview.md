@@ -41,7 +41,7 @@ Polkadot SDK heavily utilizes Rust macros, allowing developers to focus on speci
 A typical pallet skeleton looks like this:
 
 ```rust
--pub use pallet::*;
+pub use pallet::*;
 
 #[frame_support::pallet]
 pub mod pallet {

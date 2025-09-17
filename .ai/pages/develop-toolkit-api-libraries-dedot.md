@@ -78,7 +78,7 @@ Use the following snippets to connect to Polkadot using `DedotClient`:
 === "WebSocket"
 
     ```typescript
-    -import { DedotClient, WsProvider } from 'dedot';
+    import { DedotClient, WsProvider } from 'dedot';
 import type { PolkadotApi } from '@dedot/chaintypes';
 
 // Initialize providers & clients
@@ -90,7 +90,7 @@ const client = await DedotClient.new<PolkadotApi>(provider);
 === "Light Client (Smoldot)"
 
     ```typescript
-    -import { DedotClient, SmoldotProvider } from 'dedot';
+    import { DedotClient, SmoldotProvider } from 'dedot';
 import type { PolkadotApi } from '@dedot/chaintypes';
 import * as smoldot from 'smoldot';
 
@@ -110,7 +110,7 @@ const client = await DedotClient.new<PolkadotApi>(provider);
 If the node doesn't support new JSON-RPC APIs yet, you can connect to the network using the `LegacyClient`, which is built on top of the legacy JSON-RPC APIs.
 
 ```typescript
--import { LegacyClient, WsProvider } from 'dedot';
+import { LegacyClient, WsProvider } from 'dedot';
 import type { PolkadotApi } from '@dedot/chaintypes';
 
 const provider = new WsProvider('wss://rpc.polkadot.io');
@@ -123,7 +123,7 @@ const client = await LegacyClient.new<PolkadotApi>(provider);
 It is recommended to specify the `ChainApi` interface (e.g., `PolkadotApi` in the example in the previous section) of the chain you want to interact with. This enables type and API suggestions/autocompletion for that particular chain (via IntelliSense). If you don't specify a `ChainApi` interface, a default `SubstrateApi` interface will be used.
 
 ```typescript
--import { DedotClient, WsProvider } from 'dedot';
+import { DedotClient, WsProvider } from 'dedot';
 import type { PolkadotApi, KusamaApi } from '@dedot/chaintypes';
 
 const polkadotClient = await DedotClient.new<PolkadotApi>(
@@ -154,7 +154,7 @@ Dedot provides several ways to read data from the chain:
 - **Access runtime constants**: Use the syntax `client.consts.<pallet>.<constantName>` to inspect runtime constants (parameter types).
 
     ```typescript
-    -const ss58Prefix = client.consts.system.ss58Prefix;
+    const ss58Prefix = client.consts.system.ss58Prefix;
 console.log('Polkadot ss58Prefix:', ss58Prefix);
 
     ```
@@ -162,7 +162,7 @@ console.log('Polkadot ss58Prefix:', ss58Prefix);
 - **Storage queries**: Use the syntax `client.query.<pallet>.<storgeEntry>` to query on-chain storage.
 
     ```typescript
-    -const balance = await client.query.system.account('INSERT_ADDRESS');
+    const balance = await client.query.system.account('INSERT_ADDRESS');
 console.log('Balance:', balance.data.free);
 
     ```
@@ -170,7 +170,7 @@ console.log('Balance:', balance.data.free);
 - **Subscribe to storage changes**:
 
     ```typescript
-    -const unsub = await client.query.system.number((blockNumber) => {
+    const unsub = await client.query.system.number((blockNumber) => {
   console.log(`Current block number: ${blockNumber}`);
 });
 
@@ -179,7 +179,7 @@ console.log('Balance:', balance.data.free);
 - **Call Runtime APIs**: Use the syntax `client.call.<runtimeApi>.<methodName>` to execute Runtime APIs.
 
     ```typescript
-    -const metadata = await client.call.metadata.metadataAtVersion(15);
+    const metadata = await client.call.metadata.metadataAtVersion(15);
 console.log('Metadata V15', metadata);
 
     ```
@@ -187,7 +187,7 @@ console.log('Metadata V15', metadata);
 - **Watch on-chain events**: Use the syntax `client.events.<pallet>.<eventName>` to access pallet events.
     
     ```typescript
-    -const unsub = await client.events.system.NewAccount.watch((events) => {
+    const unsub = await client.events.system.NewAccount.watch((events) => {
   console.log('New Account Created', events);
 });
 
@@ -198,7 +198,7 @@ console.log('Metadata V15', metadata);
 Sign the transaction using `IKeyringPair` from Keyring ([`@polkadot/keyring`](https://polkadot.js.org/docs/keyring/start/sign-verify/){target=\_blank}) and send the transaction.
 
 ```typescript
--import { cryptoWaitReady } from '@polkadot/util-crypto';
+import { cryptoWaitReady } from '@polkadot/util-crypto';
 import { Keyring } from '@polkadot/keyring';
 // Setup keyring
 await cryptoWaitReady();
@@ -225,7 +225,7 @@ const unsub = await client.tx.balances
 You can also use `Signer` from wallet extensions:
 
 ```typescript
--const injected = await window.injectedWeb3['polkadot-js'].enable('My dApp');
+const injected = await window.injectedWeb3['polkadot-js'].enable('My dApp');
 const account = (await injected.accounts.get())[0];
 const signer = injected.signer;
 const unsub = await client.tx.balances

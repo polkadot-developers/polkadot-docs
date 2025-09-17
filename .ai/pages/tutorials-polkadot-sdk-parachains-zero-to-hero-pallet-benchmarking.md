@@ -35,7 +35,7 @@ Follow these steps to prepare your environment for pallet benchmarking:
 2. Update your pallet's `Cargo.toml` file in the `pallets/custom-pallet` directory by adding the `runtime-benchmarks` feature flag:
 
     ```toml hl_lines="4" title="Cargo.toml"
-    -[package]
+    [package]
 name = "custom-pallet"
 version = "0.1.0"
 license.workspace = true
@@ -61,7 +61,7 @@ runtime-benchmarks = ["frame/runtime-benchmarks"]
     1.  Register your pallet in `runtime/src/benchmarks.rs`:
 
         ```rust hl_lines="11" title="benchmarks.rs"
-        -polkadot_sdk::frame_benchmarking::define_benchmarks!(
+        polkadot_sdk::frame_benchmarking::define_benchmarks!(
     [frame_system, SystemBench::<Runtime>]
     [pallet_balances, Balances]
     [pallet_session, SessionBench::<Runtime>]
@@ -78,7 +78,7 @@ runtime-benchmarks = ["frame/runtime-benchmarks"]
     2. Enable runtime benchmarking for your pallet in `runtime/Cargo.toml`:
 
         ```toml hl_lines="6" title="Cargo.toml"
-        -runtime-benchmarks = [
+        runtime-benchmarks = [
 	"cumulus-pallet-parachain-system/runtime-benchmarks",
 	"hex-literal",
 	"pallet-parachain-template/runtime-benchmarks",
@@ -97,7 +97,7 @@ runtime-benchmarks = ["frame/runtime-benchmarks"]
     2. Add the benchmarking module to your pallet. In the pallet `lib.rs` file add the following:
 
         ```rust hl_lines="9-10" title="lib.rs"
-        -
+        
 pub use pallet::*;
 
 #[cfg(test)]
@@ -126,7 +126,7 @@ Every benchmark test must follow a three-step pattern:
 Check the following example on how to benchmark the `increment` extrinsic:
 
 ```rust
--    #[benchmark]
+    #[benchmark]
     fn increment() {
         let caller: T::AccountId = whitelisted_caller();
 
@@ -154,7 +154,7 @@ This example demonstrates how to properly set up state, execute an extrinsic, an
 Now, implement the complete set of benchmark tests. Copy the following content in the `benchmarking.rs` file:
 
 ```rust title="benchmarking.rs"
--// This file is part of 'custom-pallet'.
+// This file is part of 'custom-pallet'.
 
 // SPDX-License-Identifier: MIT-0
 
@@ -279,7 +279,7 @@ After generating the weight calculations, you need to integrate these weights in
 First, add the necessary module imports to your pallet. These imports make the weights available to your code:
 
 ```rust hl_lines="4-5" title="lib.rs"
--#[cfg(feature = "runtime-benchmarks")]
+#[cfg(feature = "runtime-benchmarks")]
 mod benchmarking;
 
 pub mod weights;
@@ -289,7 +289,7 @@ use crate::weights::WeightInfo;
 Next, update your pallet's `Config` trait to include weight information. Define the `WeightInfo` type:
 
 ```rust hl_lines="9-10" title="lib.rs"
--    pub trait Config: frame_system::Config {
+    pub trait Config: frame_system::Config {
         // Defines the event type for the pallet.
         type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
 
@@ -305,7 +305,7 @@ Next, update your pallet's `Config` trait to include weight information. Define 
 Now you can assign weights to your extrinsics. Here's how to add weight calculations to the `set_counter_value` function:
 
 ```rust hl_lines="1" title="lib.rs"
--        #[pallet::weight(T::WeightInfo::set_counter_value())]
+        #[pallet::weight(T::WeightInfo::set_counter_value())]
         pub fn set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult {
             ensure_root(origin)?;
 
@@ -330,7 +330,7 @@ You must apply similar weight annotations to the other extrinsics in your pallet
 For testing purposes, you must implement the weight calculations in your mock runtime. Open `custom-pallet/src/mock.rs` and add:
 
 ```rust hl_lines="4" title="mock.rs"
--impl custom_pallet::Config for Test {
+impl custom_pallet::Config for Test {
     type RuntimeEvent = RuntimeEvent;
     type CounterMaxValue = CounterMaxValue;
     type WeightInfo = custom_pallet::weights::SubstrateWeight<Test>;
@@ -340,7 +340,7 @@ For testing purposes, you must implement the weight calculations in your mock ru
 Finally, configure the actual weight values in your production runtime. In `runtime/src/config/mod.rs`, add:
 
 ```rust hl_lines="5" title="mod.rs"
--
+
 // Define counter max value runtime constant.
 parameter_types! {
     pub const CounterMaxValue: u32 = 500;

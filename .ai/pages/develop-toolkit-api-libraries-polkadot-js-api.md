@@ -74,7 +74,7 @@ To interact with a Polkadot SDK-based chain, you must establish a connection thr
 To create an API connection:
 
 ```js
--import { ApiPromise, WsProvider } from '@polkadot/api';
+import { ApiPromise, WsProvider } from '@polkadot/api';
 
 // Create a WebSocket provider
 const wsProvider = new WsProvider('wss://rpc.polkadot.io');
@@ -97,7 +97,7 @@ The API provides several ways to read data from the chain. You can access:
 - **Constants**: Values that are fixed in the runtime and don't change without a runtime upgrade.
 
     ```js
-    -// Get the minimum balance required for a new account
+    // Get the minimum balance required for a new account
 const minBalance = api.consts.balances.existentialDeposit.toNumber();
 
     ```
@@ -105,7 +105,7 @@ const minBalance = api.consts.balances.existentialDeposit.toNumber();
 - **State**: Current chain state that updates with each block.
 
     ```js
-    -// Example address
+    // Example address
 const address = '5DTestUPts3kjeXSTMyerHihn1uwMfLj8vU8sqF7qYrFabHE';
 
 // Get current timestamp
@@ -132,7 +132,7 @@ Transactions (also called extrinsics) modify the chain state. Before sending a t
 To make a transfer:
 
 ```js
--// Assuming you have an `alice` keypair from the Keyring
+// Assuming you have an `alice` keypair from the Keyring
 const recipient = 'INSERT_RECIPIENT_ADDRESS';
 const amount = 'INSERT_VALUE'; // Amount in the smallest unit (e.g., Planck for DOT)
 

@@ -92,7 +92,7 @@ docker run -it parity/subkey:latest generate --scheme sr25519
 
 The output should look similar to the following:
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>docker run -it parity/subkey:latest generate --scheme sr25519</span>
   <span> <br />Secret phrase: lemon play remain picture leopard frog mad bridge hire hazard best buddy <br />Network ID: substrate <br />Secret seed: 0xb748b501de061bae1fcab1c0b814255979d74d9637b84e06414a57a1a149c004 <br />Public key (hex): 0xf4ec62ec6e70a3c0f8dcbe0531e2b1b8916cf16d30635bbe9232f6ed3f0bf422 <br />Account ID: 0xf4ec62ec6e70a3c0f8dcbe0531e2b1b8916cf16d30635bbe9232f6ed3f0bf422 <br />Public key (SS58): 5HbqmBBJ5ALUzho7tw1k1jEgKBJM7dNsQwrtfSfUskT1a3oe <br />SS58 Address: 5HbqmBBJ5ALUzho7tw1k1jEgKBJM7dNsQwrtfSfUskT1a3oe </span>
 </div>
@@ -134,7 +134,7 @@ To define your chain specification:
     - Modify the `sudo` value to specify the account that will have sudo access to the parachain.
   
     ```json
-    -{
+    {
     "bootNodes": [],
     "chainType": "Live",
     "codeSubstitutes": {},
@@ -202,7 +202,7 @@ To define your chain specification:
     ??? code "View complete script"
 
         ```json title="plain_chain_spec.json"
-        -{
+        {
     "bootNodes": [],
     "chainType": "Live",
     "codeSubstitutes": {},
@@ -342,7 +342,7 @@ polkadot-omni-node key generate-node-key \
 
 After running the command, you should see the following output, indicating the base path now has a suitable node key: 
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>polkadot-omni-node key generate-node-key --base-path data --chain raw_chain_spec.json</span>
   <br />
   <span data-ty="progress">Generating key in "/data/chains/custom/network/secret_ed25519"</span>

@@ -105,7 +105,7 @@ You can inspect any pallet’s `Config` trait by reviewing its Rust documentatio
 At its core, the `Config` trait typically looks like this:
 
 ```rust
--#[pallet::config]
+#[pallet::config]
 pub trait Config: frame_system::Config {
     /// Event type used by the pallet.
     type RuntimeEvent: From<Event> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
@@ -122,7 +122,7 @@ This basic structure shows that every pallet must define certain types, such as 
 For instance, in the [`utility`](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2506/substrate/frame/utility){target=\_blank} pallet, the `Config` trait is implemented with the following types:
 
 ```rust
--#[pallet::config]
+#[pallet::config]
 pub trait Config: frame_system::Config {
     /// The overarching event type.
     type RuntimeEvent: From<Event> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
@@ -155,7 +155,7 @@ Traits in Rust define shared behavior, and within the Polkadot SDK, they allow r
 For example, the following code snippet shows how the solochain template configures certain parameters through the [`parameter_types!`](https://github.com/paritytech/polkadot-sdk-solochain-template/blob/v0.0.2/runtime/src/lib.rs#L138){target=\_blank} macro in the `runtime/lib.rs` file:
 
 ```rust
--parameter_types! {
+parameter_types! {
     pub const BlockHashCount: BlockNumber = 2400;
     pub const Version: RuntimeVersion = VERSION;
     /// We allow for 2 seconds of compute with a 6 second average block time.
@@ -175,7 +175,7 @@ For example, the following code snippet shows how the solochain template configu
 To integrate a new pallet into the runtime, you must implement its `Config` trait in the `runtime/lib.rs` file. This is done by specifying the necessary types and parameters in Rust, as shown below:
 
 ```rust
--impl pallet_example::Config for Runtime {
+impl pallet_example::Config for Runtime {
     type RuntimeEvent = RuntimeEvent;
     type WeightInfo = pallet_template::weights::SubstrateWeight<Runtime>;
     ...
@@ -187,7 +187,7 @@ Finally, to compose the runtime, update the list of pallets in the same file by 
 Use the following format when adding your pallet:
 
 ```rust
--#[frame_support::runtime]
+#[frame_support::runtime]
 mod runtime {
     #[runtime::runtime]
     #[runtime::derive(

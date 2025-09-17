@@ -30,7 +30,7 @@ The executor is the component that selects the runtime execution environment to 
 The runtime includes a [runtime version struct](https://paritytech.github.io/polkadot-sdk/master/sp_version/struct.RuntimeVersion.html){target=\_blank} to provide the needed parameter information to the executor process. A sample runtime version struct might look as follows:
 
 ```rust
--pub const VERSION: RuntimeVersion = RuntimeVersion {
+pub const VERSION: RuntimeVersion = RuntimeVersion {
     spec_name: create_runtime_str!("node-template"),
     impl_name: create_runtime_str!("node-template"),
     authoring_version: 1,

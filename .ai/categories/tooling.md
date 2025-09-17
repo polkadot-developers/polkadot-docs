@@ -12,7 +12,7 @@
 
 # Accounts on Asset Hub Smart Contracts
 
--!!! smartcontract "PolkaVM Preview Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -142,30 +142,30 @@ First, you'll update the runtime's `Cargo.toml` file to include the Utility pall
 1. Open the `runtime/Cargo.toml` file and locate the `[dependencies]` section. Add pallet-utility as one of the features for the `polkadot-sdk` dependency with the following line:
 
     ```toml hl_lines="4" title="runtime/Cargo.toml"
-    -[dependencies]
+    [dependencies]
     ...
-    -polkadot-sdk = { workspace = true, features = [
+    polkadot-sdk = { workspace = true, features = [
   "pallet-utility",
         ...
-    -], default-features = false }
+    ], default-features = false }
     ```
 
 2. In the same `[dependencies]` section, add the custom pallet that you built from scratch with the following line:
 
     ```toml hl_lines="3" title="Cargo.toml"
-    -[dependencies]
+    [dependencies]
     ...
-    -custom-pallet = { path = "../pallets/custom-pallet", default-features = false }
+    custom-pallet = { path = "../pallets/custom-pallet", default-features = false }
     ```
 
 3. In the `[features]` section, add the custom pallet to the `std` feature list:
 
     ```toml hl_lines="5" title="Cargo.toml"
-    -[features]
+    [features]
 default = ["std"]
 std = [
       ...
-      -"custom-pallet/std",
+      "custom-pallet/std",
       ...
     ]
     ```
@@ -177,7 +177,7 @@ std = [
     ???- code "runtime/Cargo.toml"
         
         ```rust title="runtime/Cargo.toml"
-        -[package]
+        [package]
 name = "parachain-template-runtime"
 description = "A parachain runtime template built with Substrate and Cumulus, part of Polkadot Sdk."
 version = "0.1.0"
@@ -289,7 +289,7 @@ Update your root parachain template's `Cargo.toml` file to include your custom p
     Make sure the `custom-pallet` is a member of the workspace:
 
     ```toml hl_lines="4" title="Cargo.toml"
-     -[workspace]
+     [workspace]
 default-members = ["pallets/template", "runtime"]
 members = [
     "node", "pallets/custom-pallet",
@@ -301,7 +301,7 @@ members = [
 ???- code "./Cargo.toml"
 
     ```rust title="./Cargo.toml"
-    -[workspace.package]
+    [workspace.package]
 license = "MIT-0"
 authors = ["Parity Technologies <admin@parity.io>"]
 homepage = "https://paritytech.github.io/polkadot-sdk/"
@@ -356,7 +356,7 @@ Configure the pallets by implementing their `Config` trait and update the runtim
 1. Add the `OriginCaller` import:
 
     ```rust title="mod.rs" hl_lines="8"
-    -// Local module imports
+    // Local module imports
 use super::OriginCaller;
     ...
     ```
@@ -365,7 +365,7 @@ use super::OriginCaller;
 
     ```rust title="mod.rs" hl_lines="8-25"
     ...
-    -/// Configure the pallet template in pallets/template.
+    /// Configure the pallet template in pallets/template.
 impl pallet_parachain_template::Config for Runtime {
     type RuntimeEvent = RuntimeEvent;
     type WeightInfo = pallet_parachain_template::weights::SubstrateWeight<Runtime>;
@@ -378,7 +378,7 @@ impl pallet_utility::Config for Runtime {
     type PalletsOrigin = OriginCaller;
     type WeightInfo = pallet_utility::weights::SubstrateWeight<Runtime>;
 }
-    -// Define counter max value runtime constant.
+    // Define counter max value runtime constant.
 parameter_types! {
     pub const CounterMaxValue: u32 = 500;
 }
@@ -393,15 +393,15 @@ impl custom_pallet::Config for Runtime {
 3. Locate the `#[frame_support::runtime]` macro in the `runtime/src/lib.rs` file and add the pallets:
 
     ```rust hl_lines="9-14" title="lib.rs"
-    -#[frame_support::runtime]
+    #[frame_support::runtime]
 mod runtime {
     #[runtime::runtime]
     #[runtime::derive(
             ...
-        -    )]
+            )]
     pub struct Runtime;
 
-    -    #[runtime::pallet_index(51)]
+        #[runtime::pallet_index(51)]
     pub type Utility = pallet_utility;
 
     #[runtime::pallet_index(52)]
@@ -617,7 +617,7 @@ To build and integrate your custom pallet into a Polkadot SDK-based runtime, you
 2. Add the required dependencies in the `[dependencies]` section:
 
     ```toml
-    -[dependencies]
+    [dependencies]
 codec = { features = ["derive"], workspace = true }
 scale-info = { features = ["derive"], workspace = true }
 frame = { features = ["experimental", "runtime"], workspace = true }
@@ -626,7 +626,7 @@ frame = { features = ["experimental", "runtime"], workspace = true }
 3. Enable `std` features:
 
     ```toml
-    -[features]
+    [features]
 default = ["std"]
 std = ["codec/std", "frame/std", "scale-info/std"]
     ```
@@ -636,7 +636,7 @@ The final `Cargo.toml` file should resemble the following:
 ??? code "Cargo.toml"
 
     ```toml
-    -[package]
+    [package]
 name = "custom-pallet"
 version = "0.1.0"
 license.workspace = true
@@ -670,11 +670,11 @@ You now have the bare minimum of package dependencies that your pallet requires 
 2. Prepare the scaffolding for the pallet by adding the following:
 
     ```rust title="lib.rs"
-    -#![cfg_attr(not(feature = "std"), no_std)]
+    #![cfg_attr(not(feature = "std"), no_std)]
 
 pub use pallet::*;
 
-    -#[frame::pallet]
+    #[frame::pallet]
 pub mod pallet {
     use super::*;
     use frame::prelude::*;
@@ -685,8 +685,8 @@ pub mod pallet {
     #[pallet::config]
     pub trait Config: frame_system::Config {
         // Defines the event type for the pallet.
-        -    }
-    -}
+            }
+    }
     ```
 
 3. Verify that it compiles by running the following command:
@@ -708,7 +708,7 @@ In this step, you will configure two essential components that are critical for 
 Add the following `Config` trait definition to your pallet:
 
 ```rust title="lib.rs"
--    #[pallet::config]
+    #[pallet::config]
     pub trait Config: frame_system::Config {
         // Defines the event type for the pallet.
         type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
@@ -716,7 +716,7 @@ Add the following `Config` trait definition to your pallet:
         // Defines the maximum value the counter can hold.
         #[pallet::constant]
         type CounterMaxValue: Get<u32>;
--    }
+    }
 ```
 
 ### Add Events
@@ -742,7 +742,7 @@ Below are the events defined for this pallet:
 Define the events in the pallet as follows:
 
 ```rust title="lib.rs"
--    #[pallet::event]
+    #[pallet::event]
     #[pallet::generate_deposit(pub(super) fn deposit_event)]
     pub enum Event<T: Config> {
         /// The counter value has been set to a new value by Root.
@@ -783,7 +783,7 @@ Storage items are used to manage the pallet's state. This pallet defines two ite
 Define the storage items as follows:
 
 ```rust title="lib.rs"
--    #[pallet::storage]
+    #[pallet::storage]
     pub type CounterValue<T> = StorageValue<_, u32>;
 
     /// Storage map to track the number of interactions performed by each account.
@@ -801,7 +801,7 @@ To add custom errors, use the `#[pallet::error]` macro to define the `Error` enu
 Add the following errors to the pallet:
 
 ```rust title="lib.rs"
--    #[pallet::error]
+    #[pallet::error]
     pub enum Error<T> {
         /// The counter value exceeds the maximum allowed value.
         CounterValueExceedsMax,
@@ -822,7 +822,7 @@ The `#[pallet::call]` macro defines the dispatchable functions (or calls) the pa
 The structure of the dispatchable calls in this pallet is as follows:
 
 ```rust title="lib.rs"
--    #[pallet::call]
+    #[pallet::call]
     impl<T: Config> Pallet<T> {
         /// Set the value of the counter.
         ///
@@ -833,10 +833,10 @@ The structure of the dispatchable calls in this pallet is as follows:
         /// Emits `CounterValueSet` event when successful.
         #[pallet::call_index(0)]
     #[pallet::weight(0)]
-    -        pub fn set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult {
-    -        }
+            pub fn set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult {
+            }
 
-    -        /// Increment the counter by a specified amount.
+            /// Increment the counter by a specified amount.
         ///
         /// This function can be called by any signed account.
         ///
@@ -845,10 +845,10 @@ The structure of the dispatchable calls in this pallet is as follows:
         /// Emits `CounterIncremented` event when successful.
         #[pallet::call_index(1)]
     #[pallet::weight(0)]
-    -        pub fn increment(origin: OriginFor<T>, amount_to_increment: u32) -> DispatchResult {
-    -        }
+            pub fn increment(origin: OriginFor<T>, amount_to_increment: u32) -> DispatchResult {
+            }
 
-    -        /// Decrement the counter by a specified amount.
+            /// Decrement the counter by a specified amount.
         ///
         /// This function can be called by any signed account.
         ///
@@ -857,9 +857,9 @@ The structure of the dispatchable calls in this pallet is as follows:
         /// Emits `CounterDecremented` event when successful.
         #[pallet::call_index(2)]
     #[pallet::weight(0)]
-    -        pub fn decrement(origin: OriginFor<T>, amount_to_decrement: u32) -> DispatchResult {
-    -    }
--}
+            pub fn decrement(origin: OriginFor<T>, amount_to_decrement: u32) -> DispatchResult {
+        }
+}
 ```
 
 Expand the following items to view the implementations of each dispatchable call in this pallet.
@@ -876,7 +876,7 @@ Expand the following items to view the implementations of each dispatchable call
         - Emits a `CounterValueSet` event on success.
 
     ```rust title="lib.rs"
-    -        /// Set the value of the counter.
+            /// Set the value of the counter.
         ///
         /// The dispatch origin of this call must be _Root_.
         ///
@@ -885,7 +885,7 @@ Expand the following items to view the implementations of each dispatchable call
         /// Emits `CounterValueSet` event when successful.
         #[pallet::call_index(0)]
     #[pallet::weight(0)]
-    -        pub fn set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult {
+            pub fn set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult {
             ensure_root(origin)?;
 
             ensure!(
@@ -917,7 +917,7 @@ Expand the following items to view the implementations of each dispatchable call
         - Emits a `CounterIncremented` event on success.
 
     ```rust title="lib.rs"
-    -        /// Increment the counter by a specified amount.
+            /// Increment the counter by a specified amount.
         ///
         /// This function can be called by any signed account.
         ///
@@ -926,7 +926,7 @@ Expand the following items to view the implementations of each dispatchable call
         /// Emits `CounterIncremented` event when successful.
         #[pallet::call_index(1)]
     #[pallet::weight(0)]
-    -        pub fn increment(origin: OriginFor<T>, amount_to_increment: u32) -> DispatchResult {
+            pub fn increment(origin: OriginFor<T>, amount_to_increment: u32) -> DispatchResult {
             let who = ensure_signed(origin)?;
 
             let current_value = CounterValue::<T>::get().unwrap_or(0);
@@ -976,7 +976,7 @@ Expand the following items to view the implementations of each dispatchable call
         - Emits a `CounterDecremented` event on success.
 
     ```rust title="lib.rs"
-    -        /// Decrement the counter by a specified amount.
+            /// Decrement the counter by a specified amount.
         ///
         /// This function can be called by any signed account.
         ///
@@ -985,7 +985,7 @@ Expand the following items to view the implementations of each dispatchable call
         /// Emits `CounterDecremented` event when successful.
         #[pallet::call_index(2)]
     #[pallet::weight(0)]
-    -        pub fn decrement(origin: OriginFor<T>, amount_to_decrement: u32) -> DispatchResult {
+            pub fn decrement(origin: OriginFor<T>, amount_to_decrement: u32) -> DispatchResult {
             let who = ensure_signed(origin)?;
 
             let current_value = CounterValue::<T>::get().unwrap_or(0);
@@ -1035,11 +1035,11 @@ Expand the following item to review this implementation and the complete pallet 
 ???- code "src/lib.rs"
 
     ```rust title="lib.rs"
-    -#![cfg_attr(not(feature = "std"), no_std)]
+    #![cfg_attr(not(feature = "std"), no_std)]
 
 pub use pallet::*;
 
-    -#[frame::pallet]
+    #[frame::pallet]
 pub mod pallet {
     use super::*;
     use frame::prelude::*;
@@ -1055,7 +1055,7 @@ pub mod pallet {
         // Defines the maximum value the counter can hold.
         #[pallet::constant]
         type CounterMaxValue: Get<u32>;
-        -    }
+            }
 
     #[pallet::event]
     #[pallet::generate_deposit(pub(super) fn deposit_event)]
@@ -1116,7 +1116,7 @@ pub mod pallet {
         /// Emits `CounterValueSet` event when successful.
         #[pallet::call_index(0)]
             #[pallet::weight(0)]
-            -        pub fn set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult {
+                    pub fn set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult {
             ensure_root(origin)?;
 
             ensure!(
@@ -1142,7 +1142,7 @@ pub mod pallet {
         /// Emits `CounterIncremented` event when successful.
         #[pallet::call_index(1)]
             #[pallet::weight(0)]
-            -        pub fn increment(origin: OriginFor<T>, amount_to_increment: u32) -> DispatchResult {
+                    pub fn increment(origin: OriginFor<T>, amount_to_increment: u32) -> DispatchResult {
             let who = ensure_signed(origin)?;
 
             let current_value = CounterValue::<T>::get().unwrap_or(0);
@@ -1186,7 +1186,7 @@ pub mod pallet {
         /// Emits `CounterDecremented` event when successful.
         #[pallet::call_index(2)]
             #[pallet::weight(0)]
-    -// This file is part of 'custom-pallet'.
+    // This file is part of 'custom-pallet'.
 
 // SPDX-License-Identifier: MIT-0
 
@@ -1530,7 +1530,7 @@ In general, the metadata includes the following information:
 The following example illustrates a condensed and annotated section of metadata decoded and converted to JSON:
 
 ```json
--[
+[
     1635018093,
     {
         "V14": {
@@ -1563,7 +1563,7 @@ Different extrinsic versions can have varying formats, especially when consideri
 The following is a condensed and annotated example of metadata for a single element in the `pallets` array (the [`sudo`](https://paritytech.github.io/polkadot-sdk/master/pallet_sudo/index.html){target=\_blank} pallet):
 
 ```json
--{
+{
     "name": "Sudo",
     "storage": {
         "prefix": "Sudo",
@@ -1599,7 +1599,7 @@ Every element metadata contains the name of the pallet it represents and informa
 For example, the following is a condensed excerpt of the calls for the Sudo pallet:
 
 ```json
--{
+{
     "id": 117,
     "type": {
         "path": ["pallet_sudo", "pallet", "Call"],
@@ -1704,7 +1704,7 @@ The runtime generates extrinsic metadata and provides useful information about t
 For example:
 
 ```json
--{
+{
     "extrinsic": {
         "ty": 126,
         "version": 4,
@@ -1789,7 +1789,7 @@ The following tools can help you locate and decode metadata:
 
 # Create a DApp With Ethers.js
 
--!!! smartcontract "PolkaVM Preview Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -1860,7 +1860,7 @@ npm install ethers@6.13.5
 To interact with the Polkadot Hub, you need to set up an [Ethers.js Provider](/develop/smart-contracts/libraries/ethers-js/#set-up-the-ethersjs-provider){target=\_blank} that connects to the blockchain. In this example, you will interact with the Polkadot Hub TestNet, so you can experiment safely. Start by creating a new file called `utils/ethers.js` and add the following code:
 
 ```javascript title="app/utils/ethers.js"
--import { JsonRpcProvider } from 'ethers';
+import { JsonRpcProvider } from 'ethers';
 
 export const PASSET_HUB_CONFIG = {
   name: 'Passet Hub',
@@ -1896,7 +1896,7 @@ For this dApp, you'll use a simple Storage contract already deployed. So, you ne
 ???+ code "Storage.sol ABI"
 
     ```json title="abis/Storage.json"
-    -[
+    [
     {
         "inputs": [
             {
@@ -1929,7 +1929,7 @@ For this dApp, you'll use a simple Storage contract already deployed. So, you ne
 Now, create a file called `app/utils/contract.js`:
 
 ```javascript title="app/utils/contract.js"
--import { Contract } from 'ethers';
+import { Contract } from 'ethers';
 import { getProvider } from './ethers';
 import StorageABI from '../../abis/Storage.json';
 
@@ -1954,7 +1954,7 @@ This file defines the contract address, ABI, and functions to create instances o
 Next, let's create a component to handle wallet connections. Create a new file called `app/components/WalletConnect.js`:
 
 ```javascript title="app/components/WalletConnect.js"
--'use client';
+'use client';
 
 import React, { useState, useEffect } from 'react';
 import { PASSET_HUB_CONFIG } from '../utils/ethers';
@@ -2122,11 +2122,11 @@ This component handles connecting to the wallet, switching networks if necessary
 To integrate this component to your dApp, you need to overwrite the existing boilerplate in `app/page.js` with the following code:
 
 ```javascript title="app/page.js"
--
--import { useState } from 'react';
+
+import { useState } from 'react';
 
 import WalletConnect from './components/WalletConnect';
--export default function Home() {
+export default function Home() {
   const [account, setAccount] = useState(null);
 
   const handleConnect = (connectedAccount) => {
@@ -2139,7 +2139,7 @@ import WalletConnect from './components/WalletConnect';
         Ethers.js dApp - Passet Hub Smart Contracts
       </h1>
       <WalletConnect onConnect={handleConnect} />
--</section>
+</section>
   );
 }
 ```
@@ -2159,7 +2159,7 @@ And you will see the following:
 Now, let's create a component to read data from the contract. Create a file called `app/components/ReadContract.js`:
 
 ```javascript title="app/components/ReadContract.js"
--'use client';
+'use client';
 
 import React, { useState, useEffect } from 'react';
 import { getContract } from '../utils/contract';
@@ -2224,12 +2224,12 @@ This component reads the `storedNumber` value from the contract and displays it 
 To see this change in your dApp, you need to integrate this component into the `app/page.js` file:
 
 ```javascript title="app/page.js"
--
--import { useState } from 'react';
+
+import { useState } from 'react';
 
 import WalletConnect from './components/WalletConnect';
 import ReadContract from './components/ReadContract';
--export default function Home() {
+export default function Home() {
   const [account, setAccount] = useState(null);
 
   const handleConnect = (connectedAccount) => {
@@ -2243,7 +2243,7 @@ import ReadContract from './components/ReadContract';
       </h1>
       <WalletConnect onConnect={handleConnect} />
       <ReadContract />
--</section>
+</section>
   );
 }
 ```
@@ -2257,7 +2257,7 @@ Your dApp will automatically be updated to the following:
 Finally, let's create a component that allows users to update the stored number. Create a file called `app/components/WriteContract.js`:
 
 ```javascript title="app/components/WriteContract.js"
--'use client';
+'use client';
 
 import { useState } from 'react';
 import { getSignedContract } from '../utils/contract';
@@ -2377,7 +2377,7 @@ This component allows users to input a new number and send a transaction to upda
 Update the `app/page.js` file to integrate all components:
 
 ```javascript title="app/page.js"
--'use client';
+'use client';
 
 import { useState } from 'react';
 
@@ -2437,7 +2437,7 @@ cd polkavm-storage-contract-dapps/ethers-dapp
 
 # Create a DApp with Viem
 
--!!! smartcontract "PolkaVM Preview Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 Decentralized applications (dApps) are a key component of the Web3 ecosystem, enabling developers to build applications that communicate directly with blockchain networks. Polkadot Hub, a blockchain with smart contract support, serves as a robust platform for deploying and interacting with dApps.
@@ -2508,7 +2508,7 @@ npm install --save-dev typescript @types/node
 To interact with Polkadot Hub, you need to set up a [Public Client](https://viem.sh/docs/clients/public#public-client){target=\_blank} that connects to the blockchain. In this example, you will interact with the Polkadot Hub TestNet, so you can experiment safely. Start by creating a new file called `utils/viem.ts` and add the following code:
 
 ```typescript title="viem.ts"
--import { createPublicClient, http, createWalletClient, custom } from 'viem'
+import { createPublicClient, http, createWalletClient, custom } from 'viem'
 import 'viem/window';
 
 
@@ -2561,7 +2561,7 @@ Create a folder called `abis` at the root of your project, then create a file na
 
 ??? code "Storage.sol ABI"
     ```json title="Storage.json"
-    -[
+    [
     {
         "inputs": [
             {
@@ -2594,7 +2594,7 @@ Create a folder called `abis` at the root of your project, then create a file na
 Next, create a file called `utils/contract.ts`:
 
 ```typescript title="contract.ts"
--import { getContract } from 'viem';
+import { getContract } from 'viem';
 import { publicClient, getWalletClient } from './viem';
 import StorageABI from '../../abis/Storage.json';
 
@@ -2628,7 +2628,7 @@ This file defines the contract address, ABI, and functions to create a viem [con
 Now, let's create a component to handle wallet connections. Create a new file called `components/WalletConnect.tsx`:
 
 ```typescript title="WalletConnect.tsx"
--"use client";
+"use client";
 
 import React, { useState, useEffect } from "react";
 import { passetHub } from "../utils/viem";
@@ -2809,10 +2809,10 @@ This component handles connecting to the wallet, switching networks if necessary
 To use this component in your dApp, replace the existing boilerplate in `app/page.tsx` with the following code:
 
 ```typescript title="page.tsx"
--
--import { useState } from "react";
+
+import { useState } from "react";
 import WalletConnect from "./components/WalletConnect";
--export default function Home() {
+export default function Home() {
   const [account, setAccount] = useState<string | null>(null);
 
   const handleConnect = (connectedAccount: string) => {
@@ -2825,7 +2825,7 @@ import WalletConnect from "./components/WalletConnect";
         Viem dApp - Passet Hub Smart Contracts
       </h1>
       <WalletConnect onConnect={handleConnect} />
--</section>
+</section>
   );
 }
 ```
@@ -2845,7 +2845,7 @@ Navigate to `http://localhost:3000` in your browser, and you should see your dAp
 Now, let's create a component to read data from the contract. Create a file called `components/ReadContract.tsx`:
 
 ```typescript title="ReadContract.tsx"
--'use client';
+'use client';
 
 import React, { useState, useEffect } from 'react';
 import { publicClient } from '../utils/viem';
@@ -2916,11 +2916,11 @@ This component reads the `storedNumber` value from the contract and displays it 
 To reflect this change in your dApp, incorporate this component into the `app/page.tsx` file.
 
 ```typescript title="page.tsx"
--
--import { useState } from "react";
+
+import { useState } from "react";
 import WalletConnect from "./components/WalletConnect";
 import ReadContract from "./components/ReadContract";
--export default function Home() {
+export default function Home() {
   const [account, setAccount] = useState<string | null>(null);
 
   const handleConnect = (connectedAccount: string) => {
@@ -2934,7 +2934,7 @@ import ReadContract from "./components/ReadContract";
       </h1>
       <WalletConnect onConnect={handleConnect} />
       <ReadContract />
--</section>
+</section>
   );
 }
 ```
@@ -2948,7 +2948,7 @@ And you will see in your browser:
 Finally, let's create a component that allows users to update the stored number. Create a file called `components/WriteContract.tsx`:
 
 ```typescript title="WriteContract.tsx"
--"use client";
+"use client";
 
 import React, { useState, useEffect } from "react";
 import { publicClient, getWalletClient } from "../utils/viem";
@@ -3172,7 +3172,7 @@ This component allows users to input a new number and send a transaction to upda
 Update the `app/page.tsx` file to integrate all components:
 
 ```typescript title="page.tsx"
--"use client";
+"use client";
 
 import { useState } from "react";
 import WalletConnect from "./components/WalletConnect";
@@ -3267,7 +3267,7 @@ cd polkavm-storage-contract-dapps/viem-dapp
 
 # Create a Smart Contract
 
--!!! smartcontract "PolkaVM Preview Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -3355,7 +3355,7 @@ To build the smart contract, follow the steps below:
 6. Add the getter and setter functions:
 
     ```solidity
-    -// SPDX-License-Identifier: MIT
+    // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.28;
 
 contract Storage {
@@ -3381,7 +3381,7 @@ contract Storage {
 ??? code "Complete Storage.sol contract"
 
     ```solidity title="Storage.sol"
-    -// SPDX-License-Identifier: MIT
+    // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.28;
 
 contract Storage {
@@ -3668,7 +3668,7 @@ Here's how the `Encode` and `Decode` traits are implemented:
 
 
 ```rust
--use parity_scale_codec::{Encode, Decode};
+use parity_scale_codec::{Encode, Decode};
 
 [derive(Debug, PartialEq, Encode, Decode)]
 enum EnumType {
@@ -3807,7 +3807,7 @@ Use the following snippets to connect to Polkadot using `DedotClient`:
 === "WebSocket"
 
     ```typescript
-    -import { DedotClient, WsProvider } from 'dedot';
+    import { DedotClient, WsProvider } from 'dedot';
 import type { PolkadotApi } from '@dedot/chaintypes';
 
 // Initialize providers & clients
@@ -3819,7 +3819,7 @@ const client = await DedotClient.new<PolkadotApi>(provider);
 === "Light Client (Smoldot)"
 
     ```typescript
-    -import { DedotClient, SmoldotProvider } from 'dedot';
+    import { DedotClient, SmoldotProvider } from 'dedot';
 import type { PolkadotApi } from '@dedot/chaintypes';
 import * as smoldot from 'smoldot';
 
@@ -3839,7 +3839,7 @@ const client = await DedotClient.new<PolkadotApi>(provider);
 If the node doesn't support new JSON-RPC APIs yet, you can connect to the network using the `LegacyClient`, which is built on top of the legacy JSON-RPC APIs.
 
 ```typescript
--import { LegacyClient, WsProvider } from 'dedot';
+import { LegacyClient, WsProvider } from 'dedot';
 import type { PolkadotApi } from '@dedot/chaintypes';
 
 const provider = new WsProvider('wss://rpc.polkadot.io');
@@ -3852,7 +3852,7 @@ const client = await LegacyClient.new<PolkadotApi>(provider);
 It is recommended to specify the `ChainApi` interface (e.g., `PolkadotApi` in the example in the previous section) of the chain you want to interact with. This enables type and API suggestions/autocompletion for that particular chain (via IntelliSense). If you don't specify a `ChainApi` interface, a default `SubstrateApi` interface will be used.
 
 ```typescript
--import { DedotClient, WsProvider } from 'dedot';
+import { DedotClient, WsProvider } from 'dedot';
 import type { PolkadotApi, KusamaApi } from '@dedot/chaintypes';
 
 const polkadotClient = await DedotClient.new<PolkadotApi>(
@@ -3883,7 +3883,7 @@ Dedot provides several ways to read data from the chain:
 - **Access runtime constants**: Use the syntax `client.consts.<pallet>.<constantName>` to inspect runtime constants (parameter types).
 
     ```typescript
-    -const ss58Prefix = client.consts.system.ss58Prefix;
+    const ss58Prefix = client.consts.system.ss58Prefix;
 console.log('Polkadot ss58Prefix:', ss58Prefix);
 
     ```
@@ -3891,7 +3891,7 @@ console.log('Polkadot ss58Prefix:', ss58Prefix);
 - **Storage queries**: Use the syntax `client.query.<pallet>.<storgeEntry>` to query on-chain storage.
 
     ```typescript
-    -const balance = await client.query.system.account('INSERT_ADDRESS');
+    const balance = await client.query.system.account('INSERT_ADDRESS');
 console.log('Balance:', balance.data.free);
 
     ```
@@ -3899,7 +3899,7 @@ console.log('Balance:', balance.data.free);
 - **Subscribe to storage changes**:
 
     ```typescript
-    -const unsub = await client.query.system.number((blockNumber) => {
+    const unsub = await client.query.system.number((blockNumber) => {
   console.log(`Current block number: ${blockNumber}`);
 });
 
@@ -3908,7 +3908,7 @@ console.log('Balance:', balance.data.free);
 - **Call Runtime APIs**: Use the syntax `client.call.<runtimeApi>.<methodName>` to execute Runtime APIs.
 
     ```typescript
-    -const metadata = await client.call.metadata.metadataAtVersion(15);
+    const metadata = await client.call.metadata.metadataAtVersion(15);
 console.log('Metadata V15', metadata);
 
     ```
@@ -3916,7 +3916,7 @@ console.log('Metadata V15', metadata);
 - **Watch on-chain events**: Use the syntax `client.events.<pallet>.<eventName>` to access pallet events.
     
     ```typescript
-    -const unsub = await client.events.system.NewAccount.watch((events) => {
+    const unsub = await client.events.system.NewAccount.watch((events) => {
   console.log('New Account Created', events);
 });
 
@@ -3927,7 +3927,7 @@ console.log('Metadata V15', metadata);
 Sign the transaction using `IKeyringPair` from Keyring ([`@polkadot/keyring`](https://polkadot.js.org/docs/keyring/start/sign-verify/){target=\_blank}) and send the transaction.
 
 ```typescript
--import { cryptoWaitReady } from '@polkadot/util-crypto';
+import { cryptoWaitReady } from '@polkadot/util-crypto';
 import { Keyring } from '@polkadot/keyring';
 // Setup keyring
 await cryptoWaitReady();
@@ -3954,7 +3954,7 @@ const unsub = await client.tx.balances
 You can also use `Signer` from wallet extensions:
 
 ```typescript
--const injected = await window.injectedWeb3['polkadot-js'].enable('My dApp');
+const injected = await window.injectedWeb3['polkadot-js'].enable('My dApp');
 const account = (await injected.accounts.get())[0];
 const signer = injected.signer;
 const unsub = await client.tx.balances
@@ -3989,7 +3989,7 @@ For more detailed information about Dedot, check the [official documentation](ht
 
 # Deploy an ERC-20 to Polkadot Hub
 
--!!! smartcontract "PolkaVM Preview Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -4018,7 +4018,7 @@ To create the ERC-20 contract, you can follow the steps below:
 3. Now, paste the following ERC-20 contract code into the editor:
 
     ```solidity title="MyToken.sol"
-    -// SPDX-License-Identifier: MIT
+    // SPDX-License-Identifier: MIT
 // Compatible with OpenZeppelin Contracts ^5.0.0
 pragma solidity ^0.8.22;
 
@@ -4157,7 +4157,7 @@ Feel free to explore and interact with the contract's other functions using the 
 
 # Deploy an NFT to Polkadot Hub
 
--!!! smartcontract "PolkaVM Preview Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -4186,7 +4186,7 @@ To create the NFT contract, you can follow the steps below:
 3. Now, paste the following NFT contract code into the editor.
 
     ```solidity title="MyNFT.sol"
-    -// SPDX-License-Identifier: MIT
+    // SPDX-License-Identifier: MIT
 // Compatible with OpenZeppelin Contracts ^5.0.0
 pragma solidity ^0.8.22;
 
@@ -4324,7 +4324,7 @@ Feel free to explore and interact with the contract's other functions using the 
 
 # Ethers.js
 
--!!! smartcontract "PolkaVM Preview Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -4391,7 +4391,7 @@ A [`Provider`](https://docs.ethers.org/v6/api/providers/#Provider){target=\_blan
 To interact with Polkadot Hub, you must set up an Ethers.js provider. This provider connects to a blockchain node, allowing you to query blockchain data and interact with smart contracts. In the root of your project, create a file named `connectToProvider.js` and add the following code:
 
 ```js title="scripts/connectToProvider.js"
--const { JsonRpcProvider } = require('ethers');
+const { JsonRpcProvider } = require('ethers');
 
 const createProvider = (rpcUrl, chainId, chainName) => {
   const provider = new JsonRpcProvider(rpcUrl, {
@@ -4434,7 +4434,7 @@ With the provider set up, you can start querying the blockchain. For instance, t
 ??? code "Fetch Last Block code"
 
     ```js title="scripts/fetchLastBlock.js"
-    -const { JsonRpcProvider } = require('ethers');
+    const { JsonRpcProvider } = require('ethers');
 
 const createProvider = (rpcUrl, chainId, chainName) => {
   const provider = new JsonRpcProvider(rpcUrl, {
@@ -4471,7 +4471,7 @@ main();
 
 ## Compile Contracts
 
--!!! note "Contracts Code Blob Size Disclaimer"
+!!! note "Contracts Code Blob Size Disclaimer"
     The maximum contract code blob size on Polkadot Hub networks is _100 kilobytes_, significantly larger than Ethereum’s EVM limit of 24 kilobytes.
 
     For detailed comparisons and migration guidelines, see the [EVM vs. PolkaVM](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm/#current-memory-limits){target=\_blank} documentation page.
@@ -4494,7 +4494,7 @@ This guide uses `@parity/resolc` version `0.2.0`.
 This example demonstrates compiling a `Storage.sol` Solidity contract for deployment to Polkadot Hub. The contract's functionality stores a number and permits users to update it with a new value.
 
 ```solidity title="contracts/Storage.sol"
--//SPDX-License-Identifier: MIT
+//SPDX-License-Identifier: MIT
 
 // Solidity files have to start with this pragma.
 // It will be used by the Solidity compiler to validate its version.
@@ -4522,7 +4522,7 @@ contract Storage {
 To compile this contract, use the following script:
 
 ```js title="scripts/compile.js"
--const { compile } = require('@parity/resolc');
+const { compile } = require('@parity/resolc');
 const { readFileSync, writeFileSync } = require('fs');
 const { basename, join } = require('path');
 
@@ -4593,7 +4593,7 @@ You can create a `deploy.js` script in the root of your project to achieve this.
 1. Set up the required imports and utilities:
 
     ```js title="scripts/deploy.js"
-    -// Deploy an EVM-compatible smart contract using ethers.js
+    // Deploy an EVM-compatible smart contract using ethers.js
 const { writeFileSync, existsSync, readFileSync } = require('fs');
 const { join } = require('path');
 const { ethers, JsonRpcProvider } = require('ethers');
@@ -4604,7 +4604,7 @@ const codegenDir = join(__dirname);
 2. Create a provider to connect to Polkadot Hub:
 
     ```js title="scripts/deploy.js"
-    -
+    
 // Creates an Ethereum provider with specified RPC URL and chain details
 const createProvider = (rpcUrl, chainId, chainName) => {
   const provider = new JsonRpcProvider(rpcUrl, {
@@ -4618,7 +4618,7 @@ const createProvider = (rpcUrl, chainId, chainName) => {
 3. Set up functions to read contract artifacts:
 
     ```js title="scripts/deploy.js"
-    -// Reads and parses the ABI file for a given contract
+    // Reads and parses the ABI file for a given contract
 const getAbi = (contractName) => {
   try {
     return JSON.parse(
@@ -4655,7 +4655,7 @@ const getByteCode = (contractName) => {
 4. Create the main deployment function:
 
     ```js title="scripts/deploy.js"
-    -
+    
 const deployContract = async (contractName, mnemonic, providerConfig) => {
   console.log(`Deploying ${contractName}...`);
 
@@ -4697,7 +4697,7 @@ const deployContract = async (contractName, mnemonic, providerConfig) => {
 5. Configure and execute the deployment:
 
     ```js title="scripts/deploy.js"
-    -const providerConfig = {
+    const providerConfig = {
   rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
   chainId: 420420422,
   name: 'polkadot-hub-testnet',
@@ -4716,7 +4716,7 @@ deployContract('Storage', mnemonic, providerConfig);
 ??? code "View complete script"
 
     ```js title="scripts/deploy.js"
-    -// Deploy an EVM-compatible smart contract using ethers.js
+    // Deploy an EVM-compatible smart contract using ethers.js
 const { writeFileSync, existsSync, readFileSync } = require('fs');
 const { join } = require('path');
 const { ethers, JsonRpcProvider } = require('ethers');
@@ -4827,7 +4827,7 @@ After running this script, your contract will be deployed to Polkadot Hub, and i
 Once the contract is deployed, you can interact with it by calling its functions. For example, to set a number, read it and then modify that number by its double, you can create a file named `checkStorage.js` in the root of your project and add the following code:
 
 ```js title="scripts/checkStorage.js"
--const { ethers } = require('ethers');
+const { ethers } = require('ethers');
 const { readFileSync } = require('fs');
 const { join } = require('path');
 
@@ -4940,7 +4940,7 @@ Now that you have the foundational knowledge to use Ethers.js with Polkadot Hub,
 
 # Deploy Uniswap V2
 
--!!! smartcontract "PolkaVM Preview Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -5013,7 +5013,7 @@ Let's start by cloning the Uniswap V2 project:
 
 If the compilation is successful, you should see the following output:
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>npx hardhat compile</span>
   <span data-ty>Compiling 12 Solidity files</span>
   <span data-ty>Successfully compiled 12 Solidity files</span>
@@ -5094,7 +5094,7 @@ To test it locally, you can run the following commands:
 
 The result should look like this:
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>npx hardhat test --network localNode</span>
   <span data-ty>Compiling 12 Solidity files</span>
   <span data-ty>Successfully compiled 12 Solidity files</span>
@@ -5157,7 +5157,7 @@ The command above deploys to the actual Polkadot TestNet. It requires PAS test t
 
 The deployment script will output the addresses of the deployed contracts. Save these addresses, as you will need them to interact with the contracts. For example, the output should look like this:
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>npx hardhat run scripts/deploy.js --network localNode</span>
   <span data-ty>Successfully compiled 12 Solidity files</span>
   <span data-ty>Deploying contracts using 0xf24FF3a9CF04c71Dbc94D0b566f7A27B94566cac</span>
@@ -5294,7 +5294,7 @@ During setup, you will see prompts for the following parameters:
 
 Select `Enter` to accept defaults or input custom values. You should see something like this:
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>moonwall init</span>
   <span data-ty>✔ Provide a label for the config file moonwall_config</span>
   <span data-ty>✔ Provide a global timeout value 30000</span>
@@ -5308,7 +5308,7 @@ Select `Enter` to accept defaults or input custom values. You should see somethi
 The wizard generates a `moonwall.config` file:
 
 ```json
--{
+{
     "label": "moonwall_config",
     "defaultTestTimeout": 30000,
     "environments": [
@@ -5337,7 +5337,7 @@ The default configuration requires specific details about your blockchain node a
 Here's a complete configuration example for testing a local node using Polkadot.js as a provider:
 
 ```json
--{
+{
     "label": "moonwall_config",
     "defaultTestTimeout": 30000,
     "environments": [
@@ -5379,7 +5379,7 @@ Moonwall uses the [`describeSuite`](https://github.com/Moonsong-Labs/moonwall/bl
 The following example shows how to test a balance transfer between two accounts:
 
 ```ts
--import '@polkadot/api-augment';
+import '@polkadot/api-augment';
 import { describeSuite, expect } from '@moonwall/cli';
 import { Keyring } from '@polkadot/api';
 
@@ -5454,7 +5454,7 @@ The test runner will output detailed results showing:
 - Detailed logs and error messages (if any).
 
 Example output:
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>moonwall test default_env -c moonwall.config</span>
   <span data-ty>stdout | tests/test1.ts > 🗃️ D1 Demo suite > 📁 D1T1 Test Case</span>
   <span data-ty>2025-01-21T19:27:55.624Z test:default_env Balance before: 0</span>
@@ -5489,7 +5489,7 @@ For a comprehensive guide to Moonwall's full capabilities, available configurati
 
 # EVM vs PolkaVM
 
--!!! smartcontract "PolkaVM Preview Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -5844,7 +5844,7 @@ Follow these steps to set up your project:
 
 5. Open the `tsconfig.json` file and ensure it includes these compiler options:
     ```json
-    -{
+    {
     "compilerOptions": {
         "module": "CommonJS",
         "esModuleInterop": true,
@@ -5884,7 +5884,7 @@ Once your forked network is up and running, you can proceed with the following s
 Begin by adding the necessary imports and a basic structure to the `test-proposal.ts` file:
 
 ```typescript
--// --8<-- [start:imports]
+// --8<-- [start:imports]
 import '@polkadot/api-augment/polkadot';
 import { FrameSupportPreimagesBounded } from '@polkadot/types/lookup';
 import { blake2AsHex } from '@polkadot/util-crypto';
@@ -6195,7 +6195,7 @@ const main = async () => {
   process.exit(0);
 }
 
--// --8<-- [start:imports]
+// --8<-- [start:imports]
 import '@polkadot/api-augment/polkadot';
 import { FrameSupportPreimagesBounded } from '@polkadot/types/lookup';
 import { blake2AsHex } from '@polkadot/util-crypto';
@@ -6508,7 +6508,7 @@ This structure provides the foundation for your script. It imports all the neces
 Create a `connectToFork` function outside the `main` function to connect your locally forked chain to the Polkadot.js API:
 
 ```typescript
-    -// --8<-- [start:imports]
+    // --8<-- [start:imports]
 import '@polkadot/api-augment/polkadot';
 import { FrameSupportPreimagesBounded } from '@polkadot/types/lookup';
 import { blake2AsHex } from '@polkadot/util-crypto';
@@ -6817,7 +6817,7 @@ try {
 Inside the `main` function, add the code to establish a connection to your local Polkadot fork:
 
 ```typescript hl_lines="2-3"
--const main = async () => {
+const main = async () => {
   // Connect to the forked chain
   const api = await connectToFork();
   ...
@@ -6829,7 +6829,7 @@ Inside the `main` function, add the code to establish a connection to your local
 Create a `generateProposal` function that will be responsible for preparing and submitting the on-chain proposal:
 
 ```typescript
--async function generateProposal(
+async function generateProposal(
   api: ApiPromise,
   call: SubmittableExtrinsic<'promise', ISubmittableResult>,
   origin: any
@@ -6843,7 +6843,7 @@ Now, you need to implement the following logic:
 1. Set up the keyring and use the Alice development account:
 
     ```typescript
-    -  // Initialize the keyring
+      // Initialize the keyring
   const keyring = new Keyring({ type: 'sr25519' });
 
   // Set up Alice development account
@@ -6856,7 +6856,7 @@ Now, you need to implement the following logic:
 2. Retrieve the proposal index:
 
     ```typescript
-    -  // Get the next available proposal index
+      // Get the next available proposal index
   const proposalIndex = (
     await api.query.referenda.referendumCount()
   ).toNumber();
@@ -6874,7 +6874,7 @@ Now, you need to implement the following logic:
     3. **`referenda.placeDecisionDeposit`**: Places the required decision deposit for the referendum. This deposit is required to move the referendum from the preparing phase to the deciding phase.
 
     ```typescript
-    -  // Execute the batch transaction
+      // Execute the batch transaction
   await new Promise<void>(async (resolve) => {
     const unsub = await api.tx.utility
       .batch([
@@ -6906,14 +6906,14 @@ Now, you need to implement the following logic:
 4. Return the proposal index:
 
     ```typescript
-    -  return proposalIndex;
+      return proposalIndex;
     ```
 
 If you followed all the steps correctly, the function should look like this:
 
 ??? code "`generateProposal` code"
     ```typescript
-    -// --8<-- [start:imports]
+    // --8<-- [start:imports]
 import '@polkadot/api-augment/polkadot';
 import { FrameSupportPreimagesBounded } from '@polkadot/types/lookup';
 import { blake2AsHex } from '@polkadot/util-crypto';
@@ -7222,7 +7222,7 @@ try {
 Then, within the `main` function, define the specific call you want to execute and its corresponding origin, then invoke the `generateProposal` method:
 
 ```typescript hl_lines="5-14"
--const main = async () => {
+const main = async () => {
   // Connect to the forked chain
   const api = await connectToFork();
 
@@ -7250,7 +7250,7 @@ After submitting your proposal, you can test its execution by directly manipulat
 Create a new function called `forceProposalExecution`:
 
 ```typescript
--async function forceProposalExecution(api: ApiPromise, proposalIndex: number) {
+async function forceProposalExecution(api: ApiPromise, proposalIndex: number) {
   ...
 }
 ```
@@ -7264,7 +7264,7 @@ Implement the functionality through the following steps:
 
 1. Get the referendum information and its hash:
     ```typescript
-    -  // Retrieve the referendum data for the given proposal index
+      // Retrieve the referendum data for the given proposal index
   const referendumData = await api.query.referenda.referendumInfoFor(
     proposalIndex
   );
@@ -7299,13 +7299,13 @@ Implement the functionality through the following steps:
 
 2. Determine the total amount of existing native tokens:
     ```typescript
-    -  // Get the total issuance of the native token
+      // Get the total issuance of the native token
   const totalIssuance = (await api.query.balances.totalIssuance()).toBigInt();
     ```
 
 3. Fetch the current block number:
     ```typescript
-    -  // Get the current block number
+      // Get the current block number
   const proposalBlockTarget = (
     await api.rpc.chain.getHeader()
   ).number.toNumber();
@@ -7313,7 +7313,7 @@ Implement the functionality through the following steps:
 
 4. Modify the proposal data and overwrite the storage:
     ```typescript
-    -  // Create a new proposal data object with the updated fields
+      // Create a new proposal data object with the updated fields
   const fastProposalData = {
     ongoing: {
       ...ongoingJson,
@@ -7353,7 +7353,7 @@ Implement the functionality through the following steps:
 
 5. Manipulate the scheduler to execute the proposal in the next blocks:
     ```typescript
-    -  // Fast forward the nudge referendum to the next block to get the refendum to be scheduled
+      // Fast forward the nudge referendum to the next block to get the refendum to be scheduled
   await moveScheduledCallTo(api, 1, (call) => {
     if (!call.isInline) {
       return false;
@@ -7388,7 +7388,7 @@ Implement the functionality through the following steps:
 
         ??? code "`moveScheduledCallTo`"
             ```typescript
-            -// --8<-- [start:imports]
+            // --8<-- [start:imports]
 import '@polkadot/api-augment/polkadot';
 import { FrameSupportPreimagesBounded } from '@polkadot/types/lookup';
 import { blake2AsHex } from '@polkadot/util-crypto';
@@ -7698,7 +7698,7 @@ After implementing the complete logic, your function will resemble:
 
 ??? code "`forceProposalExecution`"
     ```typescript
-    -// --8<-- [start:imports]
+    // --8<-- [start:imports]
 import '@polkadot/api-augment/polkadot';
 import { FrameSupportPreimagesBounded } from '@polkadot/types/lookup';
 import { blake2AsHex } from '@polkadot/util-crypto';
@@ -8007,7 +8007,7 @@ try {
 Invoke `forceProposalExecution` from the `main` function using the `proposalIndex` obtained from the previous `generateProposal` call:
 
 ```typescript hl_lines="16-17"
--// --8<-- [start:imports]
+// --8<-- [start:imports]
 import '@polkadot/api-augment/polkadot';
 import { FrameSupportPreimagesBounded } from '@polkadot/types/lookup';
 import { blake2AsHex } from '@polkadot/util-crypto';
@@ -8347,7 +8347,7 @@ Here's the complete code for the `test-proposal.ts` file, incorporating all the 
 
 ??? code "`test-proposal.ts`"
     ```typescript
-    -// --8<-- [start:imports]
+    // --8<-- [start:imports]
 import '@polkadot/api-augment/polkadot';
 import { FrameSupportPreimagesBounded } from '@polkadot/types/lookup';
 import { blake2AsHex } from '@polkadot/util-crypto';
@@ -8652,7 +8652,7 @@ try {
 // --8<-- [end:try-catch-block]
 
 
-    -// --8<-- [start:imports]
+    // --8<-- [start:imports]
 import '@polkadot/api-augment/polkadot';
 import { FrameSupportPreimagesBounded } from '@polkadot/types/lookup';
 import { blake2AsHex } from '@polkadot/util-crypto';
@@ -8957,7 +8957,7 @@ try {
 // --8<-- [end:try-catch-block]
 
 
-    -// --8<-- [start:imports]
+    // --8<-- [start:imports]
 import '@polkadot/api-augment/polkadot';
 import { FrameSupportPreimagesBounded } from '@polkadot/types/lookup';
 import { blake2AsHex } from '@polkadot/util-crypto';
@@ -9262,7 +9262,7 @@ try {
 // --8<-- [end:try-catch-block]
 
 
-    -// --8<-- [start:imports]
+    // --8<-- [start:imports]
 import '@polkadot/api-augment/polkadot';
 import { FrameSupportPreimagesBounded } from '@polkadot/types/lookup';
 import { blake2AsHex } from '@polkadot/util-crypto';
@@ -9567,7 +9567,7 @@ try {
 // --8<-- [end:try-catch-block]
 
 
-    -// --8<-- [start:imports]
+    // --8<-- [start:imports]
 import '@polkadot/api-augment/polkadot';
 import { FrameSupportPreimagesBounded } from '@polkadot/types/lookup';
 import { blake2AsHex } from '@polkadot/util-crypto';
@@ -9872,7 +9872,7 @@ try {
 // --8<-- [end:try-catch-block]
 
 
-    -// --8<-- [start:imports]
+    // --8<-- [start:imports]
 import '@polkadot/api-augment/polkadot';
 import { FrameSupportPreimagesBounded } from '@polkadot/types/lookup';
 import { blake2AsHex } from '@polkadot/util-crypto';
@@ -10177,7 +10177,7 @@ try {
 // --8<-- [end:try-catch-block]
 
 
-    -// --8<-- [start:imports]
+    // --8<-- [start:imports]
 import '@polkadot/api-augment/polkadot';
 import { FrameSupportPreimagesBounded } from '@polkadot/types/lookup';
 import { blake2AsHex } from '@polkadot/util-crypto';
@@ -10540,7 +10540,7 @@ To run Chopsticks using a configuration file, utilize the `--config` flag. You c
 
 Regardless of which method you choose from the preceding examples, you'll see an output similar to the following:
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>npx @acala-network/chopsticks --config=polkadot</span>
   <br />
   <span data-ty>[18:38:26.155] INFO: Loading config file https://raw.githubusercontent.com/AcalaNetwork/chopsticks/master/configs/polkadot.yml</span>
@@ -10606,7 +10606,7 @@ You should now be connected to your local fork and can interact with it as you w
 For programmatic interaction, you can use the Polkadot.js library. The following is a basic example:
 
 ```js
--import { ApiPromise, WsProvider } from '@polkadot/api';
+import { ApiPromise, WsProvider } from '@polkadot/api';
 
 async function connectToFork() {
   const wsProvider = new WsProvider('ws://localhost:8000');
@@ -10641,7 +10641,7 @@ npx @acala-network/chopsticks run-block  \
 ??? code "polkadot-output.json"
 
     ```json
-    -{
+    {
     "Call": {
         "result": "0xba754e7478944d07a1f7e914422b4d973b0855abeb6f81138fdca35beb474b44a10f6fc59a4d90c3b78e38fac100fc6adc6f9e69a07565ec8abce6165bd0d24078cc7bf34f450a2cc7faacc1fa1e244b959f0ed65437f44208876e1e5eefbf8dd34c040642414245b501030100000083e2cc0f00000000d889565422338aa58c0fd8ebac32234149c7ce1f22ac2447a02ef059b58d4430ca96ba18fbf27d06fe92ec86d8b348ef42f6d34435c791b952018d0a82cae40decfe5faf56203d88fdedee7b25f04b63f41f23da88c76c876db5c264dad2f70c",
         "storageDiff": [
@@ -10808,7 +10808,7 @@ npx @acala-network/chopsticks xcm \
 
 After running it, you should see output similar to the following:
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>npx @acala-network/chopsticks xcm \</span>
   <span data-ty>--r polkadot \</span>
   <span data-ty>--p moonbeam \</span>
@@ -10931,7 +10931,7 @@ The Chopsticks source repository includes a collection of [YAML](https://yaml.or
 An example of a configuration file for Polkadot is as follows:
 
 ```yaml
--endpoint:
+endpoint:
   - wss://rpc.ibp.network/polkadot
   - wss://polkadot-rpc.dwellir.com
 mock-signature-host: true
@@ -10980,7 +10980,7 @@ These are the methods that can be invoked and their parameters:
     === "Example"
 
         ```js
-        -import { ApiPromise, WsProvider } from '@polkadot/api';
+        import { ApiPromise, WsProvider } from '@polkadot/api';
 
 async function main() {
   const wsProvider = new WsProvider('ws://localhost:8000');
@@ -11010,7 +11010,7 @@ main();
     === "Example"
 
         ```js
-        -import { ApiPromise, WsProvider } from '@polkadot/api';
+        import { ApiPromise, WsProvider } from '@polkadot/api';
 
 async function main() {
   const wsProvider = new WsProvider('ws://localhost:8000');
@@ -11032,7 +11032,7 @@ main();
     === "Example"
 
         ```js
-        -import { ApiPromise, WsProvider } from '@polkadot/api';
+        import { ApiPromise, WsProvider } from '@polkadot/api';
 
 async function main() {
   const wsProvider = new WsProvider('ws://localhost:8000');
@@ -11054,7 +11054,7 @@ main();
     === "Example"
 
         ```js
-        -import { ApiPromise, WsProvider } from '@polkadot/api';
+        import { ApiPromise, WsProvider } from '@polkadot/api';
 
 async function main() {
   const wsProvider = new WsProvider('ws://localhost:8000');
@@ -11077,7 +11077,7 @@ main();
     === "Example"
 
         ```js
-        -import { ApiPromise, WsProvider } from '@polkadot/api';
+        import { ApiPromise, WsProvider } from '@polkadot/api';
 
 import { Keyring } from '@polkadot/keyring';
 async function main() {
@@ -11107,7 +11107,7 @@ main();
     === "Example"
 
         ```js
-        -import { ApiPromise, WsProvider } from '@polkadot/api';
+        import { ApiPromise, WsProvider } from '@polkadot/api';
 
 async function main() {
   const wsProvider = new WsProvider('ws://localhost:8000');
@@ -11442,7 +11442,7 @@ For example, the following configuration file defines a minimal example for the 
 === "TOML"
 
     ```toml title="base-example.toml"
-    -[settings]
+    [settings]
 timeout = 1000
 bootnode = false
 provider = "kubernetes"
@@ -11454,7 +11454,7 @@ backchannel = false
 === "JSON"
 
     ```json title="base-example.json"
-    -{
+    {
     "settings": {
         "timeout": 1000,
         "bootnode": false,
@@ -11614,7 +11614,7 @@ The following configuration file defines a minimal example for the relay chain, 
 === "TOML"
 
     ```toml title="relaychain-example-nodes.toml"
-    -[relaychain]
+    [relaychain]
 default_command = "polkadot"
 default_image = "polkadot-debug:master"
 chain = "rococo-local"
@@ -11637,7 +11637,7 @@ balance = 1000000000000
 === "JSON"
 
     ```json title="relaychain-example-nodes.json"
-    -{
+    {
     "relaychain": {
         "default_command": "polkadot",
         "default_image": "polkadot-debug:master",
@@ -11739,7 +11739,7 @@ The following configuration file defines a minimal example for the relay chain, 
 === "TOML"
 
     ```toml title="relaychain-example-node-groups.toml"
-    -[relaychain]
+    [relaychain]
 default_command = "polkadot"
 default_image = "polkadot-debug:master"
 chain = "rococo-local"
@@ -11759,7 +11759,7 @@ args = ["--chain", "rococo-local"]
 === "JSON"
 
     ```json title="relaychain-example-node-groups.json"
-    -{
+    {
     "relaychain": {
         "default_command": "polkadot",
         "default_image": "polkadot-debug:master",
@@ -11822,7 +11822,7 @@ For example, the following configuration file defines a minimal example for the 
 === "TOML"
 
     ```toml title="parachain-example.toml"
-    -[parachain]
+    [parachain]
 id = 100
 add_to_genesis = true
 cumulus_based = true
@@ -11835,7 +11835,7 @@ genesis_state_path = "INSERT_PATH_TO_STATE"
 === "JSON"
 
     ```json title="parachain-example.json"
-    -{
+    {
     "parachain": {
         "id": 100,
         "add_to_genesis": true,
@@ -11938,7 +11938,7 @@ The configuration file below defines a minimal example for the collator:
 === "TOML"
 
     ```toml title="collator-example.toml"
-    -[parachain]
+    [parachain]
 id = 100
 add_to_genesis = true
 cumulus_based = true
@@ -11956,7 +11956,7 @@ command = "polkadot-parachain"
 === "JSON"
 
     ```json title="collator-example.json"
-    -{
+    {
     "parachain": {
         "id": 100,
         "add_to_genesis": true,
@@ -12055,7 +12055,7 @@ For instance, the configuration file below defines a minimal example for the col
 === "TOML"
 
     ```toml title="collator-groups-example.toml"
-    -[parachain]
+    [parachain]
 id = 100
 add_to_genesis = true
 cumulus_based = true
@@ -12074,7 +12074,7 @@ command = "polkadot-parachain"
 === "JSON"
 
     ```json title="collator-groups-example.json"
-    -{
+    {
     "parachain": {
         "id": 100,
         "add_to_genesis": true,
@@ -12613,7 +12613,7 @@ To install Homebrew:
 
     The command displays output similar to the following:
 
-    -<div id="termynal" data-termynal markdown>
+    <div id="termynal" data-termynal markdown>
   <span data-ty="input"><span class="file-path"></span>brew --version</span>
   <span data-ty>Homebrew 4.3.15</span>
 </div>
@@ -12877,7 +12877,7 @@ rustup show
 
 The command displays output similar to the following:
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>rustup show</span>
   <span data-ty>...</span>
   <br />
@@ -13182,7 +13182,7 @@ The standardized format for messages allows parachains to handle tasks like user
 The following is a simplified XCM message demonstrating a token transfer from Alice to Bob on the same chain (ParaA).
 
 ```rust
--let message = Xcm(vec![
+let message = Xcm(vec![
     WithdrawAsset((Here, amount).into()),
     BuyExecution { 
         fees: (Here, amount).into(), 
@@ -13206,7 +13206,7 @@ The message consists of three instructions described as follows:
 - **[WithdrawAsset](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#withdrawasset){target=\_blank}**: Transfers a specified number of tokens from Alice's account to a holding register.
 
     ```rust
-    -    WithdrawAsset((Here, amount).into()),
+        WithdrawAsset((Here, amount).into()),
     ```
 
     - **`Here`**: The native parachain token.
@@ -13217,7 +13217,7 @@ The message consists of three instructions described as follows:
 - **[BuyExecution](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#buyexecution){target=\_blank}**: Allocates fees to cover the execution [weight](/polkadot-protocol/glossary/#weight){target=\_blank} of the XCM instructions.
 
     ```rust
-    -    BuyExecution { 
+        BuyExecution { 
         fees: (Here, amount).into(), 
         weight_limit: WeightLimit::Unlimited 
     },
@@ -13229,7 +13229,7 @@ The message consists of three instructions described as follows:
 - **[DepositAsset](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#depositasset){target=\_blank}**: Moves the remaining tokens from the holding register to Bob’s account.
 
     ```rust
-    -    DepositAsset {
+        DepositAsset {
         assets: All.into(),
         beneficiary: MultiLocation {
             parents: 0,
@@ -13266,7 +13266,7 @@ These functionalities empower developers to build innovative, multi-chain applic
 
 # JSON-RPC APIs
 
--!!! smartcontract "PolkaVM Preview Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -14606,7 +14606,7 @@ Chopsticks provides a controlled environment for developers to safely explore th
 
 # Networks
 
--!!! smartcontract "PolkaVM Preview Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -15088,7 +15088,7 @@ Polkadot SDK heavily utilizes Rust macros, allowing developers to focus on speci
 A typical pallet skeleton looks like this:
 
 ```rust
--pub use pallet::*;
+pub use pallet::*;
 
 #[frame_support::pallet]
 pub mod pallet {
@@ -15471,7 +15471,7 @@ npm install
 After opening the repository, you will find the following code (excluding imports):
 
 ```typescript title="index.ts"
--async function withLightClient(): Promise<PolkadotClient> {
+async function withLightClient(): Promise<PolkadotClient> {
   // Start the light client
   const smoldot = start();
   // The Westend Relay Chain
@@ -15494,7 +15494,7 @@ The `withLightClient` function is particularly important. It uses the built-in [
 The CLI functionality is implemented within the `main` function. The CLI includes an option (`-a` / `--account`) to specify the account to monitor for remarks:
 
 ```typescript title="index.ts"
--const program = new Command();
+const program = new Command();
 console.log(chalk.white.dim(figlet.textSync('Web3 Mail Watcher')));
 program
   .version('0.0.1')
@@ -15514,7 +15514,7 @@ const options = program.opts();
 The application monitors the Westend network for remarks sent to the specified account. The following code, placed within the `main` function, implements this functionality:
 
 ```typescript title="index.ts"
--if (options.account) {
+if (options.account) {
   console.log(
     chalk.black.bgRed('Watching account:'),
     chalk.bold.whiteBright(options.account)
@@ -15565,7 +15565,7 @@ npm start -- --account 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY
 
 The output should look like this:
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>npm start -- --account 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY</span>
   <span data-ty> __ __ _ _____ __ __ _ _ __ __ _ _</span>
   <span data-ty> \ \ / /__| |__|___ / | \/ | __ _(_) | \ \ / /_ _| |_ ___| |__ ___ _ __</span>
@@ -15590,7 +15590,7 @@ To test the application, navigate to the [**Extrinsics** page of the PAPI Dev Co
 
 Submit the extrinsic and sign it using the Polkadot.js browser wallet. The CLI will display the following output and play the "You've Got Mail!" sound:
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>npm start -- --account 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY</span>
   <span data-ty> __ __ _ _____ __ __ _ _ __ __ _ _</span>
   <span data-ty> \ \ / /__| |__|___ / | \/ | __ _(_) | \ \ / /_ _| |_ ___| |__ ___ _ __</span>
@@ -15829,7 +15829,7 @@ The [`Account` data type](https://paritytech.github.io/polkadot-sdk/master/frame
 The code snippet below shows how accounts are defined:
 
 ```rs
- -/// The full account information for a particular account ID.
+ /// The full account information for a particular account ID.
 	#[pallet::storage]
 	#[pallet::getter(fn account)]
 	pub type Account<T: Config> = StorageMap<
@@ -15862,7 +15862,7 @@ For a detailed explanation of storage maps, see the [`StorageMap`](https://parit
 The `AccountInfo` structure is another key element within the [System pallet](https://paritytech.github.io/polkadot-sdk/master/src/frame_system/lib.rs.html){target=\_blank}, providing more granular details about each account's state. This structure tracks vital data, such as the number of transactions and the account’s relationships with other modules.
 
 ```rs
--/// Information of an account.
+/// Information of an account.
 #[derive(Clone, Eq, PartialEq, Default, RuntimeDebug, Encode, Decode, TypeInfo, MaxEncodedLen)]
 pub struct AccountInfo<Nonce, AccountData> {
 	/// The number of transactions this account has sent.
@@ -16127,7 +16127,7 @@ subkey inspect "caution juice atom organ advance problem want pledge someone sen
 
 The command displays output similar to the following:
 
--<div id="termynal" data-termynal markdown>
+<div id="termynal" data-termynal markdown>
   <span data-ty="input"><span class="file-path"></span>subkey inspect "caution juice atom organ advance problem want pledge someone senior holiday very"</span>
   <span data-ty>Secret phrase `caution juice atom organ advance problem want pledge someone senior holiday very` is account:</span>
   <span data-ty> Secret seed: 0xc8fa03532fb22ee1f7f6908b9c02b4e72483f0dbd66e4cd456b8f34c6230b849</span>
@@ -16150,7 +16150,7 @@ subkey inspect "12bzRJfh7arnnfPPUZHeJUaE62QLEwhK48QnH9LXeK2m1iZU"
 
 The command displays output similar to the following:
 
--<div id="termynal" data-termynal markdown>
+<div id="termynal" data-termynal markdown>
   <span data-ty="input"><span class="file-path"></span>subkey inspect "12bzRJfh7arnnfPPUZHeJUaE62QLEwhK48QnH9LXeK2m1iZU"</span>
   <span data-ty>Public Key URI `12bzRJfh7arnnfPPUZHeJUaE62QLEwhK48QnH9LXeK2m1iZU` is account:</span>
   <span data-ty> Network ID/Version: polkadot</span>
@@ -16166,7 +16166,7 @@ The command displays output similar to the following:
 To verify an address in JavaScript or TypeScript projects, you can use the functions built into the [Polkadot.js API](https://polkadot.js.org/docs/){target=\_blank}. For example:
 
 ```js
--// Import Polkadot.js API dependencies
+// Import Polkadot.js API dependencies
 const { decodeAddress, encodeAddress } = require('@polkadot/keyring');
 const { hexToU8a, isHex } = require('@polkadot/util');
 
@@ -16261,7 +16261,7 @@ You can now set up a [`PolkadotClient`](https://github.com/polkadot-api/polkadot
 === "Smoldot (WebWorker)"
 
     ```typescript
-    -// `dot` is the identifier assigned during `npx papi add`
+    // `dot` is the identifier assigned during `npx papi add`
 import { dot } from '@polkadot-api/descriptors';
 import { createClient } from 'polkadot-api';
 import { getSmProvider } from 'polkadot-api/sm-provider';
@@ -16285,7 +16285,7 @@ const dotApi = client.getTypedApi(dot);
 === "Smoldot (Node.js)"
 
     ```typescript
-    -// `dot` is the alias assigned during `npx papi add`
+    // `dot` is the alias assigned during `npx papi add`
 import { dot } from '@polkadot-api/descriptors';
 import { createClient } from 'polkadot-api';
 import { getSmProvider } from 'polkadot-api/sm-provider';
@@ -16315,7 +16315,7 @@ const dotApi = client.getTypedApi(dot);
 === "Smoldot"
 
     ```typescript
-    -// `dot` is the alias assigned when running `npx papi add`
+    // `dot` is the alias assigned when running `npx papi add`
 import { dot } from '@polkadot-api/descriptors';
 import { createClient } from 'polkadot-api';
 import { getSmProvider } from 'polkadot-api/sm-provider';
@@ -16337,7 +16337,7 @@ const dotApi = client.getTypedApi(dot);
 === "WSS"
 
     ```typescript
-    -// `dot` is the identifier assigned when executing `npx papi add`
+    // `dot` is the identifier assigned when executing `npx papi add`
 import { dot } from '@polkadot-api/descriptors';
 import { createClient } from 'polkadot-api';
 // Use this import for Node.js environments
@@ -16399,7 +16399,7 @@ In PAPI, the `TypedApi` provides the `tx` and `txFromCallData` methods to send t
     For instance, to execute the `balances.transferKeepAlive` call, you can use the following snippet:
 
     ```typescript
-    -import { MultiAddress } from '@polkadot-api/descriptors';
+    import { MultiAddress } from '@polkadot-api/descriptors';
 
 const tx: Transaction = typedApi.tx.Balances.transfer_keep_alive({
   dest: MultiAddress.Id('INSERT_DESTINATION_ADDRESS'),
@@ -16507,7 +16507,7 @@ To interact with a Polkadot SDK-based chain, you must establish a connection thr
 To create an API connection:
 
 ```js
--import { ApiPromise, WsProvider } from '@polkadot/api';
+import { ApiPromise, WsProvider } from '@polkadot/api';
 
 // Create a WebSocket provider
 const wsProvider = new WsProvider('wss://rpc.polkadot.io');
@@ -16530,7 +16530,7 @@ The API provides several ways to read data from the chain. You can access:
 - **Constants**: Values that are fixed in the runtime and don't change without a runtime upgrade.
 
     ```js
-    -// Get the minimum balance required for a new account
+    // Get the minimum balance required for a new account
 const minBalance = api.consts.balances.existentialDeposit.toNumber();
 
     ```
@@ -16538,7 +16538,7 @@ const minBalance = api.consts.balances.existentialDeposit.toNumber();
 - **State**: Current chain state that updates with each block.
 
     ```js
-    -// Example address
+    // Example address
 const address = '5DTestUPts3kjeXSTMyerHihn1uwMfLj8vU8sqF7qYrFabHE';
 
 // Get current timestamp
@@ -16565,7 +16565,7 @@ Transactions (also called extrinsics) modify the chain state. Before sending a t
 To make a transfer:
 
 ```js
--// Assuming you have an `alice` keypair from the Keyring
+// Assuming you have an `alice` keypair from the Keyring
 const recipient = 'INSERT_RECIPIENT_ADDRESS';
 const amount = 'INSERT_VALUE'; // Amount in the smallest unit (e.g., Planck for DOT)
 
@@ -16595,7 +16595,7 @@ For more detailed information about the Polkadot.js API, check the [official doc
 
 # PolkaVM Design
 
--!!! smartcontract "PolkaVM Preview Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -16740,7 +16740,7 @@ This guide will walk you through the basic operations with the Python Substrate 
 The first step is to establish a connection to a Polkadot SDK-based node. You can connect to either a local or remote node:
 
 ```py
--from substrateinterface import SubstrateInterface
+from substrateinterface import SubstrateInterface
 
 # Connect to a node using websocket
 substrate = SubstrateInterface(
@@ -16766,7 +16766,7 @@ You can query various on-chain storage items. To retrieve data, you need to spec
 Here's an example of how to check an account's balance and other details:
 
 ```py
--# ...
+# ...
 
 # Query account balance and info
 account_info = substrate.query(
@@ -16801,7 +16801,7 @@ To modify the chain state, you need to submit transactions (extrinsics). Before 
 Here's how to create and submit a balance transfer:
 
 ```py
--#...
+#...
 
 # Compose the transfer call
 call = substrate.compose_call(
@@ -16897,7 +16897,7 @@ pop install
 
 This command provides an interactive experience that checks and installs all necessary dependencies for you. It’s the fastest and easiest way to prepare your development environment for building parachains with Pop CLI.
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>pop install</span>
   <span data-ty>┌ Pop CLI : Install dependencies for development</span>
   <span data-ty>│ </span>
@@ -16915,7 +16915,7 @@ This command provides an interactive experience that checks and installs all nec
 
 Start a new project quickly using Pop CLI's `pop new parachain` command:
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <img src="/images/develop/toolkit/parachains/quickstart/pop-new.gif" alt="pop new" style="max-width: 100%" />
 </div>
 
@@ -16942,7 +16942,7 @@ This command will automatically fetch the necessary binaries and spin up a Polka
 
 You can also interact with your local network using Pop CLI's `pop call chain` command:
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <img src="/images/develop/toolkit/parachains/quickstart/call-chain.gif" alt="pop call" style="max-width: 100%" />
 </div>
 
@@ -17230,7 +17230,7 @@ The [`XcmRouter`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pa
 For instance, the Kusama network employs the [`ChildParachainRouter`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_common/xcm_sender/struct.ChildParachainRouter.html){target=\_blank}, which restricts routing to [Downward Message Passing (DMP)](https://wiki.polkadot.com/learn/learn-xcm-transport/#dmp-downward-message-passing){target=\_blank} from the relay chain to parachains, ensuring secure and controlled communication.
 
 ```rust
--pub type XcmRouter = WithUniqueTopic<(
+pub type XcmRouter = WithUniqueTopic<(
 	// Only one router so far - use DMP to communicate with child parachains.
 	ChildParachainRouter<Runtime, XcmPallet, PriceForChildParachainDelivery>,
 )>;
@@ -17336,7 +17336,7 @@ The [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk
 
 4. Upon successful compilation, you should see output similar to:
 
-    -<div id="termynal" data-termynal>
+    <div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>cargo build --release --locked</span>
   <span data-ty>...</span>
   <span data-ty>Finished `release` profile [optimized] target(s) in 1.79s</span>
@@ -17373,7 +17373,7 @@ Follow these steps to launch your node in development mode:
 
 3. Verify that your node is running by reviewing the terminal output. You should see something similar to:
 
-    -<div id="termynal" data-termynal>
+    <div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>polkadot-omni-node --chain ./chain_spec.json --dev</span>
   <br />
   <span data-ty>2024-12-12 12:44:02 polkadot-omni-node</span>
@@ -17404,7 +17404,7 @@ Follow these steps to launch your node in development mode:
 
 4. Confirm that your blockchain is producing new blocks by checking if the number after `finalized` is increasing.
 
-    -<div id="termynal" data-termynal>
+    <div id="termynal" data-termynal>
   <span data-ty>...</span>
   <span data-ty>2024-12-12 12:49:20 [Parachain] 💤 Idle (0 peers), best: #1 (0x6fbe…e34b), finalized #1 (0x6fbe…e34b), ⬇ 0 ⬆ 0</span>
   <span data-ty>...</span>
@@ -17551,7 +17551,7 @@ To use the Sidecar API, you have two options:
 
 Once the Sidecar API is running, you’ll see output similar to this:
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
     <span data-ty='input'><span class='file-path'></span>SAS_SUBSTRATE_URL=wss://polkadot-asset-hub-rpc.polkadot.io substrate-api-sidecar</span>
     <br>
     <span data-ty>SAS:</span>
@@ -17599,7 +17599,7 @@ Sidecar API provides a set of REST endpoints that allow you to query different a
 For example, to retrieve the version of the node, use the `/node/version` endpoint:
 
 ```bash
--curl -X 'GET' \
+curl -X 'GET' \
   'http://127.0.0.1:8080/node/version' \
   -H 'accept: application/json'
 ```
@@ -17608,7 +17608,7 @@ Alternatively, you can access `http://127.0.0.1:8080/node/version` directly in a
 
 In response, you’ll see output similar to this (assuming you’re connected to Polkadot Asset Hub):
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
     <span data-ty="input"><span class="file-path"></span>curl -X 'GET' 'http://127.0.0.1:8080/node/version' -H 'accept: application/json'</span>
     <br>
     <span data-ty>{</span>
@@ -17635,7 +17635,7 @@ To dive deeper, refer to the [official Sidecar documentation](https://github.com
 
 # An Overview of the Smart Contract Landscape on Polkadot
 
--!!! smartcontract "PolkaVM Preview Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -17788,7 +17788,7 @@ flowchart TD
 
 # Smart Contracts on Polkadot
 
--!!! smartcontract "PolkaVM Preview Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -17946,7 +17946,7 @@ Zombienet uses a [configuration file](/develop/toolkit/parachains/spawn-chains/z
 2. Add the following code to the file you just created:
 
     ```toml title="spawn-a-basic-network.toml"
-    -[settings]
+    [settings]
 timeout = 120
 
 [relaychain]
@@ -17986,7 +17986,7 @@ This command will spawn the network defined in the `spawn-a-basic-network.toml` 
 
 If successful, you will see the following output:
 
--<div id="termynal" class="table-termynal" data-termynal>
+<div id="termynal" class="table-termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>zombienet -p native spawn spawn-a-basic-network.toml</span>
   <table>
     <thead>
@@ -18085,7 +18085,7 @@ Use the [55308 port address](https://polkadot.js.org/apps/?rpc=ws://127.0.0.1:55
 If you want to interact with the nodes more programmatically, you can also use the [Polkadot.js API](https://polkadot.js.org/docs/api/){target=\_blank}. For example, the following code snippet shows how to connect to the `alice` node using the Polkadot.js API and log some information about the chain and node:
 
 ```typescript
--import { ApiPromise, WsProvider } from '@polkadot/api';
+import { ApiPromise, WsProvider } from '@polkadot/api';
 
 async function main() {
   const wsProvider = new WsProvider('ws://127.0.0.1:55308');
@@ -18185,7 +18185,7 @@ To use subxt in your project, you must install the necessary dependencies. Each 
     After adding the dependencies, your `Cargo.toml` should look like this:
 
     ```toml
-    -[package]
+    [package]
 name = "my_project"
 version = "0.1.0"
 edition = "2021"
@@ -18214,7 +18214,7 @@ subxt metadata --url INSERT_NODE_URL > polkadot_metadata.scale
 Use the `#[subxt::subxt]` macro to generate a type-safe Rust interface from the downloaded metadata:
 
 ```rust
--// Generate an interface that we can use from the node's metadata.
+// Generate an interface that we can use from the node's metadata.
 #[subxt::subxt(runtime_metadata_path = "./polkadot_metadata.scale")]
 pub mod polkadot {}
 ```
@@ -18235,7 +18235,7 @@ Once subxt interfaces are generated, you can interact with your node in the foll
 To interact with a blockchain node using subxt, create an asynchronous main function and initialize the client. Replace `INSERT_NODE_URL` with the URL of your target node:
 
 ```rust
--use std::str::FromStr;
+use std::str::FromStr;
 use subxt::utils::AccountId32;
 use subxt::{OnlineClient, PolkadotConfig};
 use subxt_signer::{bip39::Mnemonic,sr25519::Keypair};
@@ -18311,7 +18311,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     Ok(())
 }
     // Your code here...
--
+
     Ok(())
 }
 ```
@@ -18325,7 +18325,7 @@ subxt provides multiple ways to access on-chain data:
     For example, to retrieve the existential deposit, use:
     
     ```rust
-    -    // A query to obtain some constant.
+        // A query to obtain some constant.
     let constant_query = polkadot::constants().balances().existential_deposit();
 
     // Obtain the value.
@@ -18339,7 +18339,7 @@ subxt provides multiple ways to access on-chain data:
     To fetch account information, replace `INSERT_ADDRESS` with the address you want to fetch data from and use:
 
     ```rust
-    -    // Define the target account address.
+        // Define the target account address.
     const ADDRESS: &str = "INSERT_ADDRESS";
     let account = AccountId32::from_str(ADDRESS).unwrap();
 
@@ -18363,7 +18363,7 @@ subxt provides multiple ways to access on-chain data:
 To submit a transaction, you must construct an extrinsic, sign it with your private key, and send it to the blockchain. Replace `INSERT_DEST_ADDRESS` with the recipient's address, `INSERT_AMOUNT` with the amount to transfer, and `INSERT_SECRET_PHRASE` with the sender's mnemonic phrase:
 
 ```rust
--    // Define the recipient address and transfer amount.
+    // Define the recipient address and transfer amount.
     const DEST_ADDRESS: &str = "INSERT_DEST_ADDRESS";
     const AMOUNT: u128 = INSERT_AMOUNT;
 
@@ -18409,7 +18409,7 @@ Now that you've covered the basics dive into the official [subxt documentation](
 
 # Test and Deploy with Hardhat
 
--!!! smartcontract "PolkaVM Preview Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -18465,7 +18465,7 @@ Let's start by setting up Hardhat for your Storage contract project:
 6. Configure Hardhat by updating the `hardhat.config.js` file:
 
     ```javascript title="hardhat.config.js"
-    -require("@nomicfoundation/hardhat-toolbox");
+    require("@nomicfoundation/hardhat-toolbox");
 
 require("@parity/hardhat-polkadot");
 
@@ -18530,7 +18530,7 @@ module.exports = {
 1. Create a new folder called `contracts` and create a `Storage.sol` file. Add the contract code from the previous tutorial:
 
     ```solidity title="Storage.sol"
-    -// SPDX-License-Identifier: MIT
+    // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.28;
 
 contract Storage {
@@ -18561,7 +18561,7 @@ contract Storage {
 
 3. If successful, you will see the following output in your terminal:
 
-    -<div id="termynal" data-termynal>
+    <div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>npx hardhat compile</span>
   <span data-ty>Compiling 1 Solidity file</span>
   <span data-ty>Successfully compiled 1 Solidity file</span>
@@ -18577,9 +18577,9 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
 1. Create a folder for testing called `test`. Inside that directory, create a file named `Storage.js` and add the following code:
 
     ```javascript title="Storage.js" 
-    -
+    
         // Add your logic here
-    -});
+    });
 });
     ```
 
@@ -18590,7 +18590,7 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
     1. **Initial state verification**: Ensures that the contract starts with a default value of zero, which is a fundamental expectation for the `Storage.sol` contract.
 
         ```javascript title="Storage.js"
-        -it('Should return 0 initially', async function () {
+        it('Should return 0 initially', async function () {
       expect(await storage.retrieve()).to.equal(0);
     });
         ```
@@ -18604,7 +18604,7 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
     2. **Value storage test**: Validate the core functionality of storing and retrieving a value in the contract.
 
         ```javascript title="Storage.js"
-        -it('Should update when store is called', async function () {
+        it('Should update when store is called', async function () {
       const testValue = 42;
       // Store a value
       await storage.store(testValue);
@@ -18622,7 +18622,7 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
     3. **Event emission verification**: Confirm that the contract emits the correct event when storing a value, which is crucial for off-chain tracking.
 
         ```javascript title="Storage.js"
-        -it('Should emit an event when storing a value', async function () {
+        it('Should emit an event when storing a value', async function () {
       const testValue = 100;
       // Check if the NumberChanged event is emitted with the correct value
       await expect(storage.store(testValue))
@@ -18640,7 +18640,7 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
     4. **Sequential value storage test**: Check the contract's ability to store multiple values sequentially and maintain the most recent value.
 
         ```javascript title="Storage.js"
-        -it('Should allow storing sequentially increasing values', async function () {
+        it('Should allow storing sequentially increasing values', async function () {
       const values = [10, 20, 30, 40];
 
       for (const value of values) {
@@ -18660,7 +18660,7 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
 
     ???--- code "View complete script"
         ```javascript title="Storage.js"
-        -const { expect } = require('chai');
+        const { expect } = require('chai');
 const { ethers } = require('hardhat');
 
 describe('Storage', function () {
@@ -18719,7 +18719,7 @@ describe('Storage', function () {
 
 3. After running the above command, you will see the output showing that all tests have passed:
 
-    -<div id="termynal" data-termynal>
+    <div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>npx hardhat test</span>
   <span data-ty>Storage</span>
   <span data-ty>Basic functionality</span>
@@ -18738,7 +18738,7 @@ describe('Storage', function () {
 1. Create a new folder called`ignition/modules`. Add a new file named `StorageModule.js` with the following logic:
 
     ```javascript title="StorageModule.js"
-    -const { buildModule } = require('@nomicfoundation/hardhat-ignition/modules');
+    const { buildModule } = require('@nomicfoundation/hardhat-ignition/modules');
 
 module.exports = buildModule('StorageModule', (m) => {
   const storage = m.contract('Storage');
@@ -18763,7 +18763,7 @@ module.exports = buildModule('StorageModule', (m) => {
 
     3. If successful, output similar to the following will display in your terminal:
 
-        -<div id="termynal" data-termynal>
+        <div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>npx hardhat ignition deploy ./ignition/modules/Storage.js --network localNode</span>
   <span data-ty>✔ Confirm deploy to network localNode (420420422)? … yes</span>
   <span data-ty></span>
@@ -18792,7 +18792,7 @@ module.exports = buildModule('StorageModule', (m) => {
 
     2. After deployment, you'll see the contract address in the console output. Save this address for future interactions.
 
-        -<div id="termynal" data-termynal>
+        <div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>npx hardhat ignition deploy ./ignition/modules/Storage.js --network passetHub</span>
   <span data-ty>✔ Confirm deploy to network localNode (420420422)? … yes</span>
   <span data-ty></span>
@@ -18818,7 +18818,7 @@ To interact with your deployed contract:
 1. Create a new folder named `scripts` and add the `interact.js` with the following content:
 
     ```javascript title="interact.js"
-    -const hre = require('hardhat');
+    const hre = require('hardhat');
 
 async function main() {
   // Replace with your deployed contract address
@@ -18864,7 +18864,7 @@ main()
 
 3. If successful, the terminal will show the following output:
 
-    -<div id="termynal" data-termynal>
+    <div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>npx hardhat run scripts/interact.js --network passetHub</span>
   <span data-ty>Current stored value: 0</span>
   <span data-ty>Storing new value: 42...</span>
@@ -18939,7 +18939,7 @@ The `xcm-emulator` provides macros for defining a mocked testing environment. Ch
 - **[`decl_test_relay_chains`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506/cumulus/xcm/xcm-emulator/src/lib.rs#L361){target=\_blank}**: Defines runtime and configuration for the relay chains. Example:
 
     ```rust
-    -decl_test_relay_chains! {
+    decl_test_relay_chains! {
 	#[api_version(13)]
 	pub struct Westend {
 		genesis = genesis::genesis(),
@@ -18965,7 +18965,7 @@ The `xcm-emulator` provides macros for defining a mocked testing environment. Ch
 - **[`decl_test_parachains`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506/cumulus/xcm/xcm-emulator/src/lib.rs#L596){target=\_blank}**: Defines runtime and configuration for parachains. Example:
 
     ```rust
-    -decl_test_parachains! {
+    decl_test_parachains! {
 	pub struct AssetHubWestend {
 		genesis = genesis::genesis(),
 		on_init = {
@@ -18996,7 +18996,7 @@ The `xcm-emulator` provides macros for defining a mocked testing environment. Ch
 - **[`decl_test_bridges`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506/cumulus/xcm/xcm-emulator/src/lib.rs#L1221){target=\_blank}**: Creates bridges between chains, specifying the source, target, and message handler. Example:
 
     ```rust
-    -decl_test_bridges! {
+    decl_test_bridges! {
 	pub struct RococoWestendMockBridge {
 		source = BridgeHubRococoPara,
 		target = BridgeHubWestendPara,
@@ -19013,7 +19013,7 @@ The `xcm-emulator` provides macros for defining a mocked testing environment. Ch
 - **[`decl_test_networks`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506/cumulus/xcm/xcm-emulator/src/lib.rs#L958){target=\_blank}**: Defines a testing network with relay chains, parachains, and bridges, implementing message transport and processing logic. Example:
 
     ```rust
-    -decl_test_networks! {
+    decl_test_networks! {
 	pub struct WestendMockNet {
 		relay_chain = Westend,
 		parachains = vec![
@@ -19168,7 +19168,7 @@ A signed transaction in the Polkadot SDK includes various pieces of data to ensu
 The following is an example of how a signed transaction might look:
 
 ``` rust
--node_runtime::UncheckedExtrinsic::new_signed(
+node_runtime::UncheckedExtrinsic::new_signed(
     function.clone(),                                      // some call
     sp_runtime::AccountId32::from(sender.public()).into(), // some sending account
     node_runtime::Signature::Sr25519(signature.clone()),   // the account's signature
@@ -19314,7 +19314,7 @@ For a video overview of the lifecycle of transactions and the types of transacti
 
 # Blocks, Transactions, and Fees
 
--!!! smartcontract "PolkaVM Preview Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -19522,7 +19522,7 @@ It is important to note that if you query the chain for a transaction fee, it on
 All dispatchable functions in the Polkadot SDK must specify a weight. The way of doing that is using the annotation-based system that lets you combine fixed values for database read/write weight and/or fixed values based on benchmarks. The most basic example would look like this:
 
 ```rust
--#[pallet::weight(100_000)]
+#[pallet::weight(100_000)]
 fn my_dispatchable() {
     // ...
 }
@@ -19535,7 +19535,7 @@ Note that the [`ExtrinsicBaseWeight`](https://crates.parity.io/frame_support/we
 To make weight annotations independent of the deployed database backend, they are defined as a constant and then used in the annotations when expressing database accesses performed by the dispatchable:
 
 ```rust
--#[pallet::weight(T::DbWeight::get().reads_writes(1, 2) + 20_000)]
+#[pallet::weight(T::DbWeight::get().reads_writes(1, 2) + 20_000)]
 fn my_dispatchable() {
     // ...
 }
@@ -19559,7 +19559,7 @@ Dispatches are broken into three classes:
 If a dispatch is not defined as `Operational` or `Mandatory` in the weight annotation, the dispatch is identified as `Normal` by default. You can specify that the dispatchable uses another class like this:
 
 ```rust
--#[pallet::dispatch((DispatchClass::Operational))]
+#[pallet::dispatch((DispatchClass::Operational))]
 fn my_dispatchable() {
     // ...
 }
@@ -19568,7 +19568,7 @@ fn my_dispatchable() {
 This tuple notation also allows you to specify a final argument determining whether the user is charged based on the annotated weight. If you don't specify otherwise, `Pays::Yes` is assumed:
 
 ```rust
--#[pallet::dispatch(DispatchClass::Normal, Pays::No)]
+#[pallet::dispatch(DispatchClass::Normal, Pays::No)]
 fn my_dispatchable() {
     // ...
 }
@@ -19596,7 +19596,7 @@ To make it more difficult for malicious nodes to abuse mandatory dispatches, the
 In addition to purely fixed weights and constants, the weight calculation can consider the input arguments of a dispatchable. The weight should be trivially computable from the input arguments with some basic arithmetic:
 
 ```rust
--use frame_support:: {
+use frame_support:: {
     dispatch:: {
         DispatchClass::Normal,
         Pays::Yes,
@@ -19618,7 +19618,7 @@ fn handle_users(origin, calls: Vec<User>) {
 Depending on the execution logic, a dispatchable function might consume less weight than was prescribed pre-dispatch. To correct weight, the function declares a different return type and returns its actual weight:
 
 ```rust
--#[pallet::weight(10_000 + 500_000_000)]
+#[pallet::weight(10_000 + 500_000_000)]
 fn expensive_or_cheap(input: u64) -> DispatchResultWithPostInfo {
     let was_heavy = do_calculation(input);
 
@@ -19649,7 +19649,7 @@ The Polkadot SDK then bundles the output information of the three traits into th
 `ClassifyDispatch`, `WeighData`, and `PaysFee` are generic over T, which gets resolved into the tuple of all dispatch arguments except for the origin. The following example illustrates a struct that calculates the weight as `m * len(args)`, where `m` is a given multiplier and args is the concatenated tuple of all dispatch arguments. In this example, the dispatch class is `Operational` if the transaction has more than 100 bytes of length in arguments and will pay fees if the encoded length exceeds 10 bytes.
 
 ```rust
--struct LenWeight(u32);
+struct LenWeight(u32);
 impl<T> WeighData<T> for LenWeight {
     fn weigh_data(&self, target: T) -> Weight {
         let multiplier = self.0;
@@ -19684,7 +19684,7 @@ impl<T> PaysFee<T> {
 A weight calculator function can also be coerced to the final type of the argument instead of defining it as a vague type that can be encoded. The code would roughly look like this:
 
 ```rust
--struct CustomWeight;
+struct CustomWeight;
 impl WeighData<(&u32, &u64)> for CustomWeight {
     fn weigh_data(&self, target: (&u32, &u64)) -> Weight {
         ...
@@ -19706,7 +19706,7 @@ In this example, the `CustomWeight` can only be used in conjunction with a dispa
 The following example illustrates how to customize your inclusion fee. You must configure the appropriate associated types in the respective module.
 
 ```rust
--// Assume this is the balance type
+// Assume this is the balance type
 type Balance = u64;
 
 // Assume we want all the weights to have a `100 + 2 * w` conversion to fees
@@ -19767,7 +19767,7 @@ You now know the weight system, how it affects transaction fee computation, and 
 
 # Hardhat
 
--!!! smartcontract "PolkaVM Preview Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 <div class="grid cards" markdown>
@@ -19782,7 +19782,7 @@ You now know the weight system, how it affects transaction fee computation, and 
 
 </div>
 
--!!! note "Contracts Code Blob Size Disclaimer"
+!!! note "Contracts Code Blob Size Disclaimer"
     The maximum contract code blob size on Polkadot Hub networks is _100 kilobytes_, significantly larger than Ethereum’s EVM limit of 24 kilobytes.
 
     For detailed comparisons and migration guidelines, see the [EVM vs. PolkaVM](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm/#current-memory-limits){target=\_blank} documentation page.
@@ -19862,7 +19862,7 @@ To compile your project, follow these instructions:
     === "npm Configuration"
 
         ```javascript title="hardhat.config.js" hl_lines="9-11 14"
-        -// hardhat.config.js
+        // hardhat.config.js
 require('@nomicfoundation/hardhat-toolbox');
 
 require('@parity/hardhat-polkadot');
@@ -19876,7 +19876,7 @@ module.exports = {
   networks: {
     hardhat: {
       polkavm: true,
-        -    },
+            },
   },
 };
         ```
@@ -19884,7 +19884,7 @@ module.exports = {
     === "Binary Configuration"
 
         ```javascript title="hardhat.config.js" hl_lines="9-14 17"
-        -// hardhat.config.js
+        // hardhat.config.js
 require('@nomicfoundation/hardhat-toolbox');
 
 require('@parity/hardhat-polkadot');
@@ -19901,7 +19901,7 @@ module.exports = {
   networks: {
     hardhat: {
       polkavm: true,
-        -    },
+            },
   },
 };
         ```
@@ -19951,15 +19951,15 @@ For complete isolation and control over the testing environment, you can configu
 Configure a local node setup by adding the node binary path along with the ETH-RPC adapter path:
 
 ```javascript title="hardhat.config.js" hl_lines="12-20"
--// hardhat.config.js
+// hardhat.config.js
 require('@nomicfoundation/hardhat-toolbox');
 
 require('@parity/hardhat-polkadot');
 
--/** @type import('hardhat/config').HardhatUserConfig */
+/** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
     ...
-    -  networks: {
+      networks: {
     hardhat: {
       polkavm: true,
       nodeConfig: {
@@ -19972,7 +19972,7 @@ module.exports = {
         dev: true,
       },
     },
--  },
+  },
 };
 ```
 
@@ -19991,7 +19991,7 @@ This command will launch either the forked network or local node (depending on y
 
 The output will be something like this:
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>npx hardhat node</span>
   <br />
   <span data-ty>Starting server at 127.0.0.1:8000</span>
@@ -20034,23 +20034,23 @@ Before deploying to a live network, you can deploy your contract to a local node
 1. Update the Hardhat configuration file to add the local network as a target for local deployment:
 
     ```javascript title="hardhat.config.js" hl_lines="13-16"
-    -// hardhat.config.js
+    // hardhat.config.js
 require('@nomicfoundation/hardhat-toolbox');
 
 require('@parity/hardhat-polkadot');
 
-    -/** @type import('hardhat/config').HardhatUserConfig */
+    /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
         ...
-        -  networks: {
+          networks: {
     hardhat: {
             ...
-          -    },
+              },
     localNode: {
       polkavm: true,
       url: `http://127.0.0.1:8545`,
     },
-    -    },
+        },
   },
 };
     ```
@@ -20095,29 +20095,29 @@ After testing your contract locally, you can deploy it to a live network. This g
 4. Update your Hardhat configuration file with network settings for the Polkadot network you want to target:
 
     ```javascript title="hardhat.config.js" hl_lines="18-22"
-    -// hardhat.config.js
+    // hardhat.config.js
 require('@nomicfoundation/hardhat-toolbox');
 
 require('@parity/hardhat-polkadot');
 
     const { vars } = require('hardhat/config');
 
-    -/** @type import('hardhat/config').HardhatUserConfig */
+    /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
         ...
-        -  networks: {
+          networks: {
     hardhat: {
             ...
-          -    },
-          -    localNode: {
+              },
+              localNode: {
             ...
-          -    },
+              },
     polkadotHubTestnet: {
       polkavm: true,
       url: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
       accounts: [vars.get('PRIVATE_KEY')],
     },
-    -    },
+        },
   },
 };
     ```
@@ -20135,7 +20135,7 @@ Once deployed, you can create a script to interact with your contract. To do so,
 For example, for the default `MyToken.sol` contract, you can use the following file that connects to the contract at its address and retrieves the `unlockTime`, which represents when funds can be withdrawn. The script converts this timestamp into a readable date and logs it. It then checks the contract's balance and displays it. Finally, it attempts to call the withdrawal function on the contract, but it catches and logs the error message if the withdrawal is not yet allowed (e.g., before `unlockTime`).
 
 ```javascript title="interact.js"
--const hre = require('hardhat');
+const hre = require('hardhat');
 
 async function main() {
   // Get the contract factory
@@ -20240,7 +20240,7 @@ Explore more about smart contracts through these resources:
 
 # Remix IDE
 
--!!! smartcontract "PolkaVM Preview Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 <div class="grid cards" markdown>
@@ -20305,7 +20305,7 @@ To create a new contract using the Polkadot Remix IDE, you can follow these step
     ???- "Counter.sol"
         
         ```solidity
-        -// SPDX-License-Identifier: MIT
+        // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
 contract Counter {
@@ -20430,7 +20430,7 @@ Explore more about smart contracts through these resources:
 
 # viem
 
--!!! smartcontract "PolkaVM Preview Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -20521,7 +20521,7 @@ mkdir src
 The first step is to set up the chain configuration. Create a new file at `src/chainConfig.ts`:
 
 ```typescript title="src/chainConfig.ts"
--import { http } from 'viem';
+import { http } from 'viem';
 
 export const TRANSPORT = http('INSERT_RPC_URL');
 
@@ -20550,7 +20550,7 @@ Ensure to replace `INSERT_RPC_URL`, `INSERT_CHAIN_ID`, `INSERT_CHAIN_NAME`, `INS
 To interact with the chain, you need to create a client that is used solely for reading data. To accomplish this, create a new file at `src/createClient.ts`:
 
 ```typescript title="src/createClient.ts"
--import { createPublicClient, createWalletClient, http } from 'viem';
+import { createPublicClient, createWalletClient, http } from 'viem';
 
 const transport = http('INSERT_RPC_URL');
 
@@ -20584,7 +20584,7 @@ After setting up the [Public Client](https://viem.sh/docs/clients/public#public-
 ??? code "Fetch Last Block code"
 
     ```js title="src/fetchLastBlock.ts"
-    -import { createPublicClient, http } from 'viem';
+    import { createPublicClient, http } from 'viem';
 
 const transport = http('https://testnet-passet-hub-eth-rpc.polkadot.io');
 
@@ -20628,7 +20628,7 @@ main();
 In case you need to sign transactions, you will need to instantiate a [Wallet Client](https://viem.sh/docs/clients/wallet#wallet-client){target=\_blank} object within your project. To do so, create `src/createWallet.ts`:
 
 ```typescript title="src/createWallet.ts"
--import { privateKeyToAccount } from 'viem/accounts';
+import { privateKeyToAccount } from 'viem/accounts';
 import { createWalletClient, http } from 'viem';
 
 const transport = http('INSERT_RPC_URL');
@@ -20678,7 +20678,7 @@ mkdir contracts artifacts
 You can use the following contract to interact with the blockchain. Paste the following contract in `contracts/Storage.sol`:
 
 ```solidity title="contracts/Storage.sol"
--//SPDX-License-Identifier: MIT
+//SPDX-License-Identifier: MIT
 
 // Solidity files have to start with this pragma.
 // It will be used by the Solidity compiler to validate its version.
@@ -20703,7 +20703,7 @@ contract Storage {
 
 ## Compile the Contract
 
--!!! note "Contracts Code Blob Size Disclaimer"
+!!! note "Contracts Code Blob Size Disclaimer"
     The maximum contract code blob size on Polkadot Hub networks is _100 kilobytes_, significantly larger than Ethereum’s EVM limit of 24 kilobytes.
 
     For detailed comparisons and migration guidelines, see the [EVM vs. PolkaVM](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm/#current-memory-limits){target=\_blank} documentation page.
@@ -20712,7 +20712,7 @@ contract Storage {
 Create a new file at `src/compile.ts` for handling contract compilation:
 
 ```typescript title="src/compile.ts"
--import { compile } from '@parity/resolc';
+import { compile } from '@parity/resolc';
 import { readFileSync, writeFileSync } from 'fs';
 import { basename, join } from 'path';
 
@@ -20784,7 +20784,7 @@ After executing this script, you will see the compilation results including the 
 Create a new file at `src/deploy.ts` for handling contract deployment:
 
 ```typescript title="src/deploy.ts"
--import { readFileSync } from 'fs';
+import { readFileSync } from 'fs';
 import { join } from 'path';
 import { createWallet } from './createWallet';
 import { publicClient } from './createClient';
@@ -20851,7 +20851,7 @@ If everything is successful, you will see the address of your deployed contract 
 Create a new file at `src/interact.ts` for interacting with your deployed contract:
 
 ```typescript title="src/interact.ts"
--import { publicClient } from './createClient';
+import { publicClient } from './createClient';
 import { createWallet } from './createWallet';
 import { readFileSync } from 'fs';
 
@@ -20977,7 +20977,7 @@ Now that you have the foundation for using viem with Polkadot Hub, consider expl
 
 # Wagmi
 
--!!! smartcontract "PolkaVM Preview Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -21010,7 +21010,7 @@ npm install wagmi viem @tanstack/react-query
 Create a configuration file to initialize Wagmi with Polkadot Hub. In your project, create a file named `src/lib/wagmi.ts` and add the code below. Be sure to replace `INSERT_RPC_URL`, `INSERT_CHAIN_ID`, `INSERT_CHAIN_NAME`, `INSERT_NETWORK_NAME`, `INSERT_CHAIN_DECIMALS`, `INSERT_CURRENCY_NAME`, and `INSERT_CURRENCY_SYMBOL` with your specific values.
 
 ```typescript title="src/lib/wagmi.ts"
--import { http, createConfig } from 'wagmi'
+import { http, createConfig } from 'wagmi'
 
 // Configure the Polkadot Hub chain
 const assetHub = {
@@ -21041,7 +21041,7 @@ export const config = createConfig({
 ??? code "Example Polkadot Hub TestNet Configuration"
 
     ```typescript title="src/lib/wagmi.ts"
-    -import { http, createConfig } from 'wagmi';
+    import { http, createConfig } from 'wagmi';
 
 // Configure the Polkadot Hub chain
 const assetHub = {
@@ -21074,7 +21074,7 @@ export const config = createConfig({
 To enable Wagmi in your React application, you need to wrap your app with the [`WagmiProvider`](https://wagmi.sh/react/api/WagmiProvider#wagmiprovider){target=\_blank}. Update your `app/layout.tsx` file (for Next.js app router) with the following code:
 
 ```typescript title="app/layout.tsx"
--// For app router (src/app/layout.tsx)
+// For app router (src/app/layout.tsx)
 "use client";
 
 import { WagmiProvider } from "wagmi";
@@ -21112,7 +21112,7 @@ export default function RootLayout({
 Create a component to connect wallets to your dApp. Create a file named `app/components/ConnectWallet.tsx`:
 
 ```typescript title="app/components/ConnectWallet.tsx"
--"use client";
+"use client";
 
 import React from "react";
 import { useConnect, useAccount, useDisconnect } from "wagmi";
@@ -21152,7 +21152,7 @@ This component uses the following React hooks:
 Wagmi provides various hooks to fetch blockchain data. Here's an example component that demonstrates some of these hooks:
 
 ```typescript title="app/components/BlockchainInfo.tsx"
--"use client";
+"use client";
 
 import { useBlockNumber, useBalance, useAccount } from "wagmi";
 
@@ -21200,7 +21200,7 @@ This guide uses a simple Storage contract already deployed to the Polkadot Hub T
 ??? code "Storage.sol"
 
     ```solidity title="Storage.sol"
-    -//SPDX-License-Identifier: MIT
+    //SPDX-License-Identifier: MIT
 
 // Solidity files have to start with this pragma.
 // It will be used by the Solidity compiler to validate its version.
@@ -21226,7 +21226,7 @@ contract Storage {
 Create a component to interact with your deployed contract. Create a file named `app/components/StorageContract.tsx`:
 
 ```typescript title="app/components/StorageContract.tsx"
--"use client";
+"use client";
 
 import { useState } from "react";
 import {
@@ -21343,7 +21343,7 @@ The component also includes proper state handling to:
 Update your main page to combine all the components. Create or update the file `src/app/page.tsx`:
 
 ```typescript title="src/app/page.tsx"
--"use client";
+"use client";
 
 import { BlockchainInfo } from "./components/BlockchainInfo";
 import { ConnectWallet } from "./components/ConnectWallet";
@@ -21490,7 +21490,7 @@ Wallet types fall into two categories based on their connection to the internet:
 
 # Wallets for Polkadot Hub
 
--!!! smartcontract "PolkaVM Preview Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -21617,7 +21617,7 @@ Choosing the right wallet for Polkadot Hub interactions depends on your specific
 
 # Web3.js
 
--!!! smartcontract "PolkaVM Preview Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 !!! warning
@@ -21684,7 +21684,7 @@ This guide uses `web3` version `4.16.0`.
 The provider configuration is the foundation of any Web3.js application. The following example establishes a connection to Polkadot Hub. To use the example script, replace `INSERT_RPC_URL`, `INSERT_CHAIN_ID`, and `INSERT_CHAIN_NAME` with the appropriate values. The provider connection script should look something like this:
 
 ```javascript title="scripts/connectToProvider.js"
--const { Web3 } = require('web3');
+const { Web3 } = require('web3');
 
 const createProvider = (rpcUrl) => {
   const web3 = new Web3(rpcUrl);
@@ -21718,7 +21718,7 @@ For instance, to fetch the latest block number of the chain, you can use the fol
 ???+ code "View complete script"
 
     ```javascript title="scripts/fetchLastBlock.js"
-    -const { Web3 } = require('web3');
+    const { Web3 } = require('web3');
 
 const createProvider = (rpcUrl) => {
   const web3 = new Web3(rpcUrl);
@@ -21747,7 +21747,7 @@ main();
 
 ## Compile Contracts
 
--!!! note "Contracts Code Blob Size Disclaimer"
+!!! note "Contracts Code Blob Size Disclaimer"
     The maximum contract code blob size on Polkadot Hub networks is _100 kilobytes_, significantly larger than Ethereum’s EVM limit of 24 kilobytes.
 
     For detailed comparisons and migration guidelines, see the [EVM vs. PolkaVM](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm/#current-memory-limits){target=\_blank} documentation page.
@@ -21764,7 +21764,7 @@ This guide uses `@parity/resolc` version `0.2.0`.
 Here's a simple storage contract that you can use to follow the process:
 
 ```solidity title="contracts/Storage.sol"
--//SPDX-License-Identifier: MIT
+//SPDX-License-Identifier: MIT
 pragma solidity ^0.8.9;
 
 contract Storage {
@@ -21787,7 +21787,7 @@ contract Storage {
 With that, you can now create a `compile.js` snippet that transforms your solidity code into PolkaVM bytecode:
 
 ```javascript title="scripts/compile.js"
--const { compile } = require('@parity/resolc');
+const { compile } = require('@parity/resolc');
 const { readFileSync, writeFileSync } = require('fs');
 const { basename, join } = require('path');
 
@@ -21849,7 +21849,7 @@ After compilation, you'll have two key files: an ABI (`.json`) file, which provi
 To deploy your compiled contract to Polkadot Hub using Web3.js, you'll need an account with a private key to sign the deployment transaction. The deployment process is exactly the same as for any Ethereum-compatible chain, involving creating a contract instance, estimating gas, and sending a deployment transaction. Here's how to deploy the contract, ensure replacing the `INSERT_RPC_URL`, `INSERT_PRIVATE_KEY`, and `INSERT_CONTRACT_NAME` with the appropriate values:
 
 ```javascript title="scripts/deploy.js"
--import { readFileSync } from 'fs';
+import { readFileSync } from 'fs';
 import { Web3 } from 'web3';
 
 const getAbi = (contractName) => {
@@ -21947,7 +21947,7 @@ node deploy
 Once deployed, you can interact with your contract using Web3.js methods. Here's how to set a number and read it back, ensure replacing `INSERT_RPC_URL`, `INSERT_PRIVATE_KEY`, and `INSERT_CONTRACT_ADDRESS` with the appropriate values:
 
 ```javascript title="scripts/updateStorage.js"
--import { readFileSync } from 'fs';
+import { readFileSync } from 'fs';
 import { Web3 } from 'web3';
 
 const getAbi = (contractName) => {
@@ -22050,7 +22050,7 @@ Now that you’ve learned how to use Web3.js with Polkadot Hub, explore more adv
 
 # Web3.py
 
--!!! smartcontract "PolkaVM Preview Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -22094,7 +22094,7 @@ The [provider](https://web3py.readthedocs.io/en/stable/providers.html){target=\_
     The provider connection script should look something like this:
 
     ```python title="connect_to_provider.py"
-    -from web3 import Web3
+    from web3 import Web3
 
 def create_provider(rpc_url):
     web3 = Web3(Web3.HTTPProvider(rpc_url))
@@ -22108,7 +22108,7 @@ create_provider(PROVIDER_RPC)
 1. With the Web3 provider set up, start querying the blockchain. For instance, you can use the following code snippet to fetch the latest block number of the chain:
 
     ```python title="fetch_last_block.py"
-    -def main():
+    def main():
     try:
         web3 = create_provider(PROVIDER_RPC)
         latest_block = web3.eth.block_number
@@ -22123,7 +22123,7 @@ if __name__ == "__main__":
     ??? code "View complete script"
 
         ```python title="fetch_last_block.py"
-        -from web3 import Web3
+        from web3 import Web3
 
 def create_provider(rpc_url):
     web3 = Web3(Web3.HTTPProvider(rpc_url))
@@ -22153,7 +22153,7 @@ Before deploying your contracts, make sure you've compiled them and obtained two
 To follow this guide, you can use the following solidity contract as an example:
 
 ```solidity title="Storage.sol"
--//SPDX-License-Identifier: MIT
+//SPDX-License-Identifier: MIT
 
 // Solidity files have to start with this pragma.
 // It will be used by the Solidity compiler to validate its version.
@@ -22179,7 +22179,7 @@ contract Storage {
 To deploy your compiled contract to Polkadot Hub using Web3.py, you'll need an account with a private key to sign the deployment transaction. The deployment process is exactly the same as for any Ethereum-compatible chain, involving creating a contract instance, estimating gas, and sending a deployment transaction. Here's how to deploy the contract. Replace `INSERT_RPC_URL` and `INSERT_PRIVATE_KEY` with the appropriate values:
 
 ```python title="deploy.py"
--from web3 import Web3
+from web3 import Web3
 import json
 
 def get_abi(contract_name):
@@ -22262,7 +22262,7 @@ if __name__ == "__main__":
 After deployment, interact with your contract using Web3.py methods. The example below demonstrates how to set and retrieve a number. Be sure to replace the `INSERT_RPC_URL`, `INSERT_PRIVATE_KEY`, and `INSERT_CONTRACT_ADDRESS` placeholders with your specific values:
 
 ```python title="update_storage.py"
--from web3 import Web3
+from web3 import Web3
 import json
 
 def get_abi(contract_name):
@@ -22585,7 +22585,7 @@ To run a test against the spawned network, you can use the [Zombienet DSL](#test
 2. Add the following code to the file you just created.
 
     ```toml title="spawn-a-basic-network-test.zndsl"
-    -Description = "Test the basic functionality of the network (minimal example)"
+    Description = "Test the basic functionality of the network (minimal example)"
 Network = "./spawn-a-basic-network.toml"
 Creds = "config"
 
@@ -22643,7 +22643,7 @@ The following example test files define two tests, a small network test and a bi
 The tests define assertions to evaluate the network’s metrics and logs. The assertions are defined by sentences in the DSL, which are mapped to tests to run.
 
 ```toml title="small-network-test.zndsl"
--Description = "Small Network test"
+Description = "Small Network test"
 Network = "./0000-test-config-small-network.toml"
 Creds = "config"
 
@@ -22662,7 +22662,7 @@ bob_log_line_regex = "Imported #[0-9]+"
 And the second test file:
 
 ```toml title="big-network-test.zndsl"
--Description = "Big Network test"
+Description = "Big Network test"
 Network = "./0001-test-config-big-network.toml"
 Creds = "config"
 
@@ -22828,7 +22828,7 @@ The `Config` trait defines the XCM executor’s configuration, which requires se
 Each type is explained below, along with an overview of some of its implementations:
 
 ```rust
--pub trait Config {
+pub trait Config {
     type RuntimeCall: Parameter + Dispatchable<PostInfo = PostDispatchInfo> + GetDispatchInfo;
     type XcmSender: SendXcm;
     type AssetTransactor: TransactAsset;
@@ -23116,7 +23116,7 @@ Some associated types in the `Config` trait are highly configurable and may have
 In the following example, the system will first check the `TakeWeightCredit` type when evaluating the barrier. If it fails, it will check `AllowTopLevelPaidExecutionFrom`, and so on, until one of them returns a positive result. If all checks fail, a Barrier error will be triggered.
 
 ```rust
--pub type Barrier = (
+pub type Barrier = (
     TakeWeightCredit,
     AllowTopLevelPaidExecutionFrom<Everything>,
     AllowKnownQueryResponses<XcmPallet>,
@@ -23173,7 +23173,7 @@ This API can be used independently for dry-running, double-checking, or testing.
 This API allows a dry-run of any extrinsic and obtaining the outcome if it fails or succeeds, as well as the local xcm and remote xcm messages sent to other chains.
 
 ```rust
--fn dry_run_call(origin: OriginCaller, call: Call, result_xcms_version: XcmVersion) -> Result<CallDryRunEffects<Event>, Error>;
+fn dry_run_call(origin: OriginCaller, call: Call, result_xcms_version: XcmVersion) -> Result<CallDryRunEffects<Event>, Error>;
 ```
 
 ??? interface "Input parameters"
@@ -23236,7 +23236,7 @@ This API allows a dry-run of any extrinsic and obtaining the outcome if it fails
     ***Usage with PAPI***
 
     ```js
-    -import { paseo } from '@polkadot-api/descriptors';
+    import { paseo } from '@polkadot-api/descriptors';
 import { createClient } from 'polkadot-api';
 import { getWsProvider } from 'polkadot-api/ws-provider/web';
 import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
@@ -23346,7 +23346,7 @@ client.destroy();
 
     ***Output***
 
-    -<div id="termynal" data-termynal>
+    <div id="termynal" data-termynal>
   <pre>
     {
       execution_result: {
@@ -23620,7 +23620,7 @@ client.destroy();
 </div>
 
                 ...
-    -<div id="termynal" data-termynal>
+    <div id="termynal" data-termynal>
   <pre>
     {
       execution_result: {
@@ -23901,7 +23901,7 @@ client.destroy();
 This API allows the direct dry-run of an xcm message instead of an extrinsic one, checks if it will execute successfully, and determines what other xcm messages will be forwarded to other chains.
 
 ```rust
--fn dry_run_xcm(origin_location: VersionedLocation, xcm: VersionedXcm<Call>) -> Result<XcmDryRunEffects<Event>, Error>;
+fn dry_run_xcm(origin_location: VersionedLocation, xcm: VersionedXcm<Call>) -> Result<XcmDryRunEffects<Event>, Error>;
 ```
 
 ??? interface "Input parameters"
@@ -23960,7 +23960,7 @@ This API allows the direct dry-run of an xcm message instead of an extrinsic one
      ***Usage with PAPI***
 
     ```js
-    -import { createClient } from 'polkadot-api';
+    import { createClient } from 'polkadot-api';
 import { getWsProvider } from 'polkadot-api/ws-provider/web';
 import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
 import {
@@ -24049,7 +24049,7 @@ client.destroy();
 
     ***Output***
 
-    -<div id="termynal" data-termynal>
+    <div id="termynal" data-termynal>
   <pre>
     {
       execution_result: {
@@ -24133,7 +24133,7 @@ To use the API effectively, the client must already know the XCM program to be e
 Retrieves the list of assets that are acceptable for paying fees when using a specific XCM version
 
 ```rust
--fn query_acceptable_payment_assets(xcm_version: Version) -> Result<Vec<VersionedAssetId>, Error>;
+fn query_acceptable_payment_assets(xcm_version: Version) -> Result<Vec<VersionedAssetId>, Error>;
 ```
 
 ??? interface "Input parameters"
@@ -24170,7 +24170,7 @@ Retrieves the list of assets that are acceptable for paying fees when using a sp
     ***Usage with PAPI***
 
     ```js
-    -import { paseoAssetHub } from '@polkadot-api/descriptors';
+    import { paseoAssetHub } from '@polkadot-api/descriptors';
 import { createClient } from 'polkadot-api';
 import { getWsProvider } from 'polkadot-api/ws-provider/web';
 import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
@@ -24200,7 +24200,7 @@ client.destroy();
 
     ***Output***
 
-    -<div id="termynal" data-termynal>
+    <div id="termynal" data-termynal>
   <pre>
     [
       {
@@ -24222,7 +24222,7 @@ client.destroy();
 Calculates the weight required to execute a given XCM message. It is useful for estimating the execution cost of a cross-chain message in the destination chain before sending it.
 
 ```rust
--fn query_xcm_weight(message: VersionedXcm<()>) -> Result<Weight, Error>;
+fn query_xcm_weight(message: VersionedXcm<()>) -> Result<Weight, Error>;
 ```
 
 ??? interface "Input parameters"
@@ -24275,7 +24275,7 @@ Calculates the weight required to execute a given XCM message. It is useful for 
     ***Usage with PAPI***
 
     ```js
-    -import { createClient } from 'polkadot-api';
+    import { createClient } from 'polkadot-api';
 import { getWsProvider } from 'polkadot-api/ws-provider/web';
 import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
 import {
@@ -24354,7 +24354,7 @@ client.destroy();
 
     ***Output***
 
-    -<div id="termynal" data-termynal>
+    <div id="termynal" data-termynal>
   <span data-ty>{ ref_time: 15574200000n, proof_size: 359300n }</span>
 </div>
 
@@ -24366,7 +24366,7 @@ client.destroy();
 Converts a given weight into the corresponding fee for a specified `AssetId`. It allows clients to determine the cost of execution in terms of the desired asset.
 
 ```rust
--fn query_weight_to_asset_fee(weight: Weight, asset: VersionedAssetId) -> Result<u128, Error>;
+fn query_weight_to_asset_fee(weight: Weight, asset: VersionedAssetId) -> Result<u128, Error>;
 ```
 
 ??? interface "Input parameters"
@@ -24423,7 +24423,7 @@ Converts a given weight into the corresponding fee for a specified `AssetId`. It
     ***Usage with PAPI***
 
     ```js
-    -import { paseoAssetHub } from '@polkadot-api/descriptors';
+    import { paseoAssetHub } from '@polkadot-api/descriptors';
 import { createClient } from 'polkadot-api';
 import { getWsProvider } from 'polkadot-api/ws-provider/web';
 import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
@@ -24460,7 +24460,7 @@ client.destroy();
 
     ***Output***
 
-    -<div id="termynal" data-termynal>
+    <div id="termynal" data-termynal>
   <span data-ty>1796500000n</span>
 </div>
 
@@ -24471,7 +24471,7 @@ client.destroy();
 Retrieves the delivery fees for sending a specific XCM message to a designated destination. The fees are always returned in a specific asset defined by the destination chain.
 
 ```rust
--fn query_delivery_fees(destination: VersionedLocation, message: VersionedXcm<()>) -> Result<VersionedAssets, Error>;
+fn query_delivery_fees(destination: VersionedLocation, message: VersionedXcm<()>) -> Result<VersionedAssets, Error>;
 ```
 
 ??? interface "Input parameters"
@@ -24516,7 +24516,7 @@ Retrieves the delivery fees for sending a specific XCM message to a designated d
     ***Usage with PAPI***
 
     ```js
-    -import { createClient } from 'polkadot-api';
+    import { createClient } from 'polkadot-api';
 import { getWsProvider } from 'polkadot-api/ws-provider/web';
 import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
 import {
@@ -24605,7 +24605,7 @@ client.destroy();
 
     ***Output***
 
-    -<div id="termynal" data-termynal>
+    <div id="termynal" data-termynal>
   <pre>
     {
       type: 'V3',

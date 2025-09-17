@@ -221,7 +221,7 @@ After setting up the environment, install and configure the latest version of Pr
     ```
 
     ```yaml title="prometheus-config.yml"
-    -global:
+    global:
   scrape_interval: 15s
   evaluation_interval: 15s
 
@@ -284,7 +284,7 @@ scrape_configs:
     ```
 
     ```bash title="prometheus.service"
-    -[Unit]
+    [Unit]
 Description=Prometheus Monitoring
 Wants=network-online.target
 After=network-online.target
@@ -556,7 +556,7 @@ Complete the integration by following these steps to enable communication betwee
 1. Update the `etc/prometheus/prometheus.yml` configuration file to include the following code:
 
     ```yml title="prometheus.yml"
-    -rule_files:
+    rule_files:
   - 'rules.yml'
 
 alerting:
@@ -571,7 +571,7 @@ alerting:
     ??? code "prometheus.yml"
 
         ```yml title="prometheus.yml"
-        -global:
+        global:
   scrape_interval: 15s
   evaluation_interval: 15s
 

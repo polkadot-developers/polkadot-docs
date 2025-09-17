@@ -110,7 +110,7 @@ forge inspect Counter bytecode --resolc
 
 If successful, you will see the following output:
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>forge inspect Counter bytecode --resolc</span>
   <span data-ty>0x50564d00008213000000000000010700c13000c0008004808f08000000000e0000001c0000002a0000003500000040000000520000005d00000063616c6c5f646174615f636f707963616c6c5f646174615f6c6f616463616c6c5f646174615f73697a65676574...</span>
 </div>
@@ -129,7 +129,7 @@ forge create Counter \
 
 If the operation completes successfully, you'll see the following output (for example, to deploy to the Passet Hub chain):
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>forge create Counter &bsol;</span>
   <span data-ty>&nbsp;&nbsp;--rpc-url https://testnet-passet-hub-eth-rpc.polkadot.io &bsol;</span>
   <span data-ty>&nbsp;&nbsp;--private-key &lt;INSERT_PRIVATE_KEY&gt; &bsol;</span>

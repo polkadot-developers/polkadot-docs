@@ -35,7 +35,7 @@ This approach provides a comprehensive view of the runtime's functionality, ensu
 Each test starts by initializing the runtime environment, typically using the `new_test_ext()` function, which sets up the mock storage and environment.
 
 ```rust
--#[test]
+#[test]
 fn test_pallet_functionality() {
     new_test_ext().execute_with(|| {
         // Test logic goes here
@@ -48,7 +48,7 @@ fn test_pallet_functionality() {
 Call the pallet's extrinsics or functions to simulate user interaction or internal logic. Use the `assert_ok!` macro to check for successful execution and `assert_err!` to verify that errors are correctly handled.
 
 ```rust
--#[test]
+#[test]
 fn it_works_for_valid_input() {
     new_test_ext().execute_with(|| {
         // Call an extrinsic or function
@@ -75,7 +75,7 @@ After calling a function or extrinsic in your pallet, it's essential to verify t
 The following example shows how to test the storage behavior before and after the function call:
 
 ```rust
--#[test]
+#[test]
 fn test_storage_update_on_extrinsic_call() {
     new_test_ext().execute_with(|| {
         // Check the initial storage state (before the call)
@@ -98,7 +98,7 @@ It's also crucial to test the events that your pallet emits during execution. By
 Here's an example of testing events in a mock runtime:
 
 ```rust
--#[test]
+#[test]
 fn it_emits_events_on_success() {
     new_test_ext().execute_with(|| {
         // Call an extrinsic or function

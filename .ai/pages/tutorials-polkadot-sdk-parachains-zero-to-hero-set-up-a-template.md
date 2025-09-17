@@ -95,7 +95,7 @@ The [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk
 
 4. Upon successful compilation, you should see output similar to:
 
-    -<div id="termynal" data-termynal>
+    <div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>cargo build --release --locked</span>
   <span data-ty>...</span>
   <span data-ty>Finished `release` profile [optimized] target(s) in 1.79s</span>
@@ -132,7 +132,7 @@ Follow these steps to launch your node in development mode:
 
 3. Verify that your node is running by reviewing the terminal output. You should see something similar to:
 
-    -<div id="termynal" data-termynal>
+    <div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>polkadot-omni-node --chain ./chain_spec.json --dev</span>
   <br />
   <span data-ty>2024-12-12 12:44:02 polkadot-omni-node</span>
@@ -163,7 +163,7 @@ Follow these steps to launch your node in development mode:
 
 4. Confirm that your blockchain is producing new blocks by checking if the number after `finalized` is increasing.
 
-    -<div id="termynal" data-termynal>
+    <div id="termynal" data-termynal>
   <span data-ty>...</span>
   <span data-ty>2024-12-12 12:49:20 [Parachain] 💤 Idle (0 peers), best: #1 (0x6fbe…e34b), finalized #1 (0x6fbe…e34b), ⬇ 0 ⬆ 0</span>
   <span data-ty>...</span>

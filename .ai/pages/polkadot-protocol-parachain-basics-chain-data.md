@@ -108,7 +108,7 @@ In general, the metadata includes the following information:
 The following example illustrates a condensed and annotated section of metadata decoded and converted to JSON:
 
 ```json
--[
+[
     1635018093,
     {
         "V14": {
@@ -141,7 +141,7 @@ Different extrinsic versions can have varying formats, especially when consideri
 The following is a condensed and annotated example of metadata for a single element in the `pallets` array (the [`sudo`](https://paritytech.github.io/polkadot-sdk/master/pallet_sudo/index.html){target=\_blank} pallet):
 
 ```json
--{
+{
     "name": "Sudo",
     "storage": {
         "prefix": "Sudo",
@@ -177,7 +177,7 @@ Every element metadata contains the name of the pallet it represents and informa
 For example, the following is a condensed excerpt of the calls for the Sudo pallet:
 
 ```json
--{
+{
     "id": 117,
     "type": {
         "path": ["pallet_sudo", "pallet", "Call"],
@@ -282,7 +282,7 @@ The runtime generates extrinsic metadata and provides useful information about t
 For example:
 
 ```json
--{
+{
     "extrinsic": {
         "ty": 126,
         "version": 4,

@@ -8,7 +8,7 @@ url: https://docs.polkadot.com/develop/smart-contracts/dev-environments/hardhat/
 
 # Hardhat
 
--!!! smartcontract "PolkaVM Preview Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 <div class="grid cards" markdown>
@@ -23,7 +23,7 @@ url: https://docs.polkadot.com/develop/smart-contracts/dev-environments/hardhat/
 
 </div>
 
--!!! note "Contracts Code Blob Size Disclaimer"
+!!! note "Contracts Code Blob Size Disclaimer"
     The maximum contract code blob size on Polkadot Hub networks is _100 kilobytes_, significantly larger than Ethereum’s EVM limit of 24 kilobytes.
 
     For detailed comparisons and migration guidelines, see the [EVM vs. PolkaVM](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm/#current-memory-limits){target=\_blank} documentation page.
@@ -103,7 +103,7 @@ To compile your project, follow these instructions:
     === "npm Configuration"
 
         ```javascript title="hardhat.config.js" hl_lines="9-11 14"
-        -// hardhat.config.js
+        // hardhat.config.js
 require('@nomicfoundation/hardhat-toolbox');
 
 require('@parity/hardhat-polkadot');
@@ -117,7 +117,7 @@ module.exports = {
   networks: {
     hardhat: {
       polkavm: true,
-        -    },
+            },
   },
 };
         ```
@@ -125,7 +125,7 @@ module.exports = {
     === "Binary Configuration"
 
         ```javascript title="hardhat.config.js" hl_lines="9-14 17"
-        -// hardhat.config.js
+        // hardhat.config.js
 require('@nomicfoundation/hardhat-toolbox');
 
 require('@parity/hardhat-polkadot');
@@ -142,7 +142,7 @@ module.exports = {
   networks: {
     hardhat: {
       polkavm: true,
-        -    },
+            },
   },
 };
         ```
@@ -192,15 +192,15 @@ For complete isolation and control over the testing environment, you can configu
 Configure a local node setup by adding the node binary path along with the ETH-RPC adapter path:
 
 ```javascript title="hardhat.config.js" hl_lines="12-20"
--// hardhat.config.js
+// hardhat.config.js
 require('@nomicfoundation/hardhat-toolbox');
 
 require('@parity/hardhat-polkadot');
 
--/** @type import('hardhat/config').HardhatUserConfig */
+/** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
     ...
-    -  networks: {
+      networks: {
     hardhat: {
       polkavm: true,
       nodeConfig: {
@@ -213,7 +213,7 @@ module.exports = {
         dev: true,
       },
     },
--  },
+  },
 };
 ```
 
@@ -232,7 +232,7 @@ This command will launch either the forked network or local node (depending on y
 
 The output will be something like this:
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>npx hardhat node</span>
   <br />
   <span data-ty>Starting server at 127.0.0.1:8000</span>
@@ -275,23 +275,23 @@ Before deploying to a live network, you can deploy your contract to a local node
 1. Update the Hardhat configuration file to add the local network as a target for local deployment:
 
     ```javascript title="hardhat.config.js" hl_lines="13-16"
-    -// hardhat.config.js
+    // hardhat.config.js
 require('@nomicfoundation/hardhat-toolbox');
 
 require('@parity/hardhat-polkadot');
 
-    -/** @type import('hardhat/config').HardhatUserConfig */
+    /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
         ...
-        -  networks: {
+          networks: {
     hardhat: {
             ...
-          -    },
+              },
     localNode: {
       polkavm: true,
       url: `http://127.0.0.1:8545`,
     },
-    -    },
+        },
   },
 };
     ```
@@ -336,29 +336,29 @@ After testing your contract locally, you can deploy it to a live network. This g
 4. Update your Hardhat configuration file with network settings for the Polkadot network you want to target:
 
     ```javascript title="hardhat.config.js" hl_lines="18-22"
-    -// hardhat.config.js
+    // hardhat.config.js
 require('@nomicfoundation/hardhat-toolbox');
 
 require('@parity/hardhat-polkadot');
 
     const { vars } = require('hardhat/config');
 
-    -/** @type import('hardhat/config').HardhatUserConfig */
+    /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
         ...
-        -  networks: {
+          networks: {
     hardhat: {
             ...
-          -    },
-          -    localNode: {
+              },
+              localNode: {
             ...
-          -    },
+              },
     polkadotHubTestnet: {
       polkavm: true,
       url: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
       accounts: [vars.get('PRIVATE_KEY')],
     },
-    -    },
+        },
   },
 };
     ```
@@ -376,7 +376,7 @@ Once deployed, you can create a script to interact with your contract. To do so,
 For example, for the default `MyToken.sol` contract, you can use the following file that connects to the contract at its address and retrieves the `unlockTime`, which represents when funds can be withdrawn. The script converts this timestamp into a readable date and logs it. It then checks the contract's balance and displays it. Finally, it attempts to call the withdrawal function on the contract, but it catches and logs the error message if the withdrawal is not yet allowed (e.g., before `unlockTime`).
 
 ```javascript title="interact.js"
--const hre = require('hardhat');
+const hre = require('hardhat');
 
 async function main() {
   // Get the contract factory

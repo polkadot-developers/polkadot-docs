@@ -37,7 +37,7 @@ This guide will walk you through the basic operations with the Python Substrate 
 The first step is to establish a connection to a Polkadot SDK-based node. You can connect to either a local or remote node:
 
 ```py
--from substrateinterface import SubstrateInterface
+from substrateinterface import SubstrateInterface
 
 # Connect to a node using websocket
 substrate = SubstrateInterface(
@@ -63,7 +63,7 @@ You can query various on-chain storage items. To retrieve data, you need to spec
 Here's an example of how to check an account's balance and other details:
 
 ```py
--# ...
+# ...
 
 # Query account balance and info
 account_info = substrate.query(
@@ -98,7 +98,7 @@ To modify the chain state, you need to submit transactions (extrinsics). Before 
 Here's how to create and submit a balance transfer:
 
 ```py
--#...
+#...
 
 # Compose the transfer call
 call = substrate.compose_call(

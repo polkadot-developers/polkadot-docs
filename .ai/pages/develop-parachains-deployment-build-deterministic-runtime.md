@@ -49,7 +49,7 @@ To prepare the environment:
 
     If Docker is installed, the command will display version information:
 
-    -<div id="termynal" data-termynal>
+    <div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>docker --version</span>
   <span data-ty>Docker version 20.10.17, build 100c701</span>
 </div>
@@ -108,7 +108,7 @@ To add a GitHub workflow for building the runtime:
     ??? interface "`basic.yml`"
 
         ```yml
-        -name: Srtool build
+        name: Srtool build
 
 on: push
 

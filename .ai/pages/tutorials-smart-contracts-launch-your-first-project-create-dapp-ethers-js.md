@@ -8,7 +8,7 @@ url: https://docs.polkadot.com/tutorials/smart-contracts/launch-your-first-proje
 
 # Create a DApp With Ethers.js
 
--!!! smartcontract "PolkaVM Preview Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -79,7 +79,7 @@ npm install ethers@6.13.5
 To interact with the Polkadot Hub, you need to set up an [Ethers.js Provider](/develop/smart-contracts/libraries/ethers-js/#set-up-the-ethersjs-provider){target=\_blank} that connects to the blockchain. In this example, you will interact with the Polkadot Hub TestNet, so you can experiment safely. Start by creating a new file called `utils/ethers.js` and add the following code:
 
 ```javascript title="app/utils/ethers.js"
--import { JsonRpcProvider } from 'ethers';
+import { JsonRpcProvider } from 'ethers';
 
 export const PASSET_HUB_CONFIG = {
   name: 'Passet Hub',
@@ -115,7 +115,7 @@ For this dApp, you'll use a simple Storage contract already deployed. So, you ne
 ???+ code "Storage.sol ABI"
 
     ```json title="abis/Storage.json"
-    -[
+    [
     {
         "inputs": [
             {
@@ -148,7 +148,7 @@ For this dApp, you'll use a simple Storage contract already deployed. So, you ne
 Now, create a file called `app/utils/contract.js`:
 
 ```javascript title="app/utils/contract.js"
--import { Contract } from 'ethers';
+import { Contract } from 'ethers';
 import { getProvider } from './ethers';
 import StorageABI from '../../abis/Storage.json';
 
@@ -173,7 +173,7 @@ This file defines the contract address, ABI, and functions to create instances o
 Next, let's create a component to handle wallet connections. Create a new file called `app/components/WalletConnect.js`:
 
 ```javascript title="app/components/WalletConnect.js"
--'use client';
+'use client';
 
 import React, { useState, useEffect } from 'react';
 import { PASSET_HUB_CONFIG } from '../utils/ethers';
@@ -341,11 +341,11 @@ This component handles connecting to the wallet, switching networks if necessary
 To integrate this component to your dApp, you need to overwrite the existing boilerplate in `app/page.js` with the following code:
 
 ```javascript title="app/page.js"
--
--import { useState } from 'react';
+
+import { useState } from 'react';
 
 import WalletConnect from './components/WalletConnect';
--export default function Home() {
+export default function Home() {
   const [account, setAccount] = useState(null);
 
   const handleConnect = (connectedAccount) => {
@@ -358,7 +358,7 @@ import WalletConnect from './components/WalletConnect';
         Ethers.js dApp - Passet Hub Smart Contracts
       </h1>
       <WalletConnect onConnect={handleConnect} />
--</section>
+</section>
   );
 }
 ```
@@ -378,7 +378,7 @@ And you will see the following:
 Now, let's create a component to read data from the contract. Create a file called `app/components/ReadContract.js`:
 
 ```javascript title="app/components/ReadContract.js"
--'use client';
+'use client';
 
 import React, { useState, useEffect } from 'react';
 import { getContract } from '../utils/contract';
@@ -443,12 +443,12 @@ This component reads the `storedNumber` value from the contract and displays it 
 To see this change in your dApp, you need to integrate this component into the `app/page.js` file:
 
 ```javascript title="app/page.js"
--
--import { useState } from 'react';
+
+import { useState } from 'react';
 
 import WalletConnect from './components/WalletConnect';
 import ReadContract from './components/ReadContract';
--export default function Home() {
+export default function Home() {
   const [account, setAccount] = useState(null);
 
   const handleConnect = (connectedAccount) => {
@@ -462,7 +462,7 @@ import ReadContract from './components/ReadContract';
       </h1>
       <WalletConnect onConnect={handleConnect} />
       <ReadContract />
--</section>
+</section>
   );
 }
 ```
@@ -476,7 +476,7 @@ Your dApp will automatically be updated to the following:
 Finally, let's create a component that allows users to update the stored number. Create a file called `app/components/WriteContract.js`:
 
 ```javascript title="app/components/WriteContract.js"
--'use client';
+'use client';
 
 import { useState } from 'react';
 import { getSignedContract } from '../utils/contract';
@@ -596,7 +596,7 @@ This component allows users to input a new number and send a transaction to upda
 Update the `app/page.js` file to integrate all components:
 
 ```javascript title="app/page.js"
--'use client';
+'use client';
 
 import { useState } from 'react';
 

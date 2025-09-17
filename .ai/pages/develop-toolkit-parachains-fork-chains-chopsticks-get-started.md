@@ -87,7 +87,7 @@ The Chopsticks source repository includes a collection of [YAML](https://yaml.or
 An example of a configuration file for Polkadot is as follows:
 
 ```yaml
--endpoint:
+endpoint:
   - wss://rpc.ibp.network/polkadot
   - wss://polkadot-rpc.dwellir.com
 mock-signature-host: true
@@ -136,7 +136,7 @@ These are the methods that can be invoked and their parameters:
     === "Example"
 
         ```js
-        -import { ApiPromise, WsProvider } from '@polkadot/api';
+        import { ApiPromise, WsProvider } from '@polkadot/api';
 
 async function main() {
   const wsProvider = new WsProvider('ws://localhost:8000');
@@ -166,7 +166,7 @@ main();
     === "Example"
 
         ```js
-        -import { ApiPromise, WsProvider } from '@polkadot/api';
+        import { ApiPromise, WsProvider } from '@polkadot/api';
 
 async function main() {
   const wsProvider = new WsProvider('ws://localhost:8000');
@@ -188,7 +188,7 @@ main();
     === "Example"
 
         ```js
-        -import { ApiPromise, WsProvider } from '@polkadot/api';
+        import { ApiPromise, WsProvider } from '@polkadot/api';
 
 async function main() {
   const wsProvider = new WsProvider('ws://localhost:8000');
@@ -210,7 +210,7 @@ main();
     === "Example"
 
         ```js
-        -import { ApiPromise, WsProvider } from '@polkadot/api';
+        import { ApiPromise, WsProvider } from '@polkadot/api';
 
 async function main() {
   const wsProvider = new WsProvider('ws://localhost:8000');
@@ -233,7 +233,7 @@ main();
     === "Example"
 
         ```js
-        -import { ApiPromise, WsProvider } from '@polkadot/api';
+        import { ApiPromise, WsProvider } from '@polkadot/api';
 
 import { Keyring } from '@polkadot/keyring';
 async function main() {
@@ -263,7 +263,7 @@ main();
     === "Example"
 
         ```js
-        -import { ApiPromise, WsProvider } from '@polkadot/api';
+        import { ApiPromise, WsProvider } from '@polkadot/api';
 
 async function main() {
   const wsProvider = new WsProvider('ws://localhost:8000');

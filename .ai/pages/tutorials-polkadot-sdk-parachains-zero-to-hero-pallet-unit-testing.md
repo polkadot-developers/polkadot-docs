@@ -43,7 +43,7 @@ To effectively create the test environment for your pallet, you'll need to follo
 3. Include them in your `lib.rs` module:
 
     ```rust hl_lines="5-9" title="lib.rs"
-    -#![cfg_attr(not(feature = "std"), no_std)]
+    #![cfg_attr(not(feature = "std"), no_std)]
 
 pub use pallet::*;
 
@@ -59,7 +59,7 @@ mod tests;
 The following portion of code sets up a mock runtime (`Test`) to test the `custom-pallet` in an isolated environment. Using [`frame_support`](https://paritytech.github.io/polkadot-sdk/master/frame_support/index.html){target=\_blank} macros, it defines a minimal runtime configuration with traits such as `RuntimeCall` and `RuntimeEvent` to simulate runtime behavior. The mock runtime integrates the [`System pallet`](https://paritytech.github.io/polkadot-sdk/master/frame_system/index.html){target=\_blank}, which provides core functionality, and the `custom pallet` under specific indices. Copy and paste the following snippet of code into your `mock.rs` file:
 
 ```rust title="mock.rs"
--use crate as custom_pallet;
+use crate as custom_pallet;
 use frame::{prelude::*, runtime::prelude::*, testing_prelude::*};
 
 type Block = frame_system::mocking::MockBlock<Test>;
@@ -92,7 +92,7 @@ mod runtime {
 Once you have your mock runtime set up, you can customize it by implementing the configuration traits for the `System pallet` and your `custom-pallet`, along with additional constants and initial states for testing. Here's an example of how to extend the runtime configuration. Copy and paste the following snippet of code below the previous one you added to `mock.rs`:
 
 ```rust title="mock.rs"
--// System pallet configuration
+// System pallet configuration
 #[derive_impl(frame_system::config_preludes::TestDefaultConfig)]
 impl frame_system::Config for Test {
     type Block = Block;
@@ -106,7 +106,7 @@ parameter_types! {
 impl custom_pallet::Config for Test {
     type RuntimeEvent = RuntimeEvent;
     type CounterMaxValue = CounterMaxValue;
--// This file is part of 'custom-pallet'.
+// This file is part of 'custom-pallet'.
 
 // SPDX-License-Identifier: MIT-0
 
@@ -194,7 +194,7 @@ Expand the following item to see the complete `mock.rs` implementation for the m
 ??? code "mock.rs"
 
     ```rust title="mock.rs"
-    -use crate as custom_pallet;
+    use crate as custom_pallet;
 use frame::{prelude::*, runtime::prelude::*, testing_prelude::*};
 
 type Block = frame_system::mocking::MockBlock<Test>;
@@ -237,7 +237,7 @@ parameter_types! {
 impl custom_pallet::Config for Test {
     type RuntimeEvent = RuntimeEvent;
     type CounterMaxValue = CounterMaxValue;
-    -// This file is part of 'custom-pallet'.
+    // This file is part of 'custom-pallet'.
 
 // SPDX-License-Identifier: MIT-0
 
@@ -321,7 +321,7 @@ Expand the following item to see the pallet calls to be tested.
 ??? code "Custom pallet calls"
 
     ```rust
-    -    #[pallet::call]
+        #[pallet::call]
     impl<T: Config> Pallet<T> {
         /// Set the value of the counter.
         ///
@@ -332,7 +332,7 @@ Expand the following item to see the pallet calls to be tested.
         /// Emits `CounterValueSet` event when successful.
         #[pallet::call_index(0)]
         #[pallet::weight(0)]
-        -        pub fn set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult {
+                pub fn set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult {
             ensure_root(origin)?;
 
             ensure!(
@@ -358,7 +358,7 @@ Expand the following item to see the pallet calls to be tested.
         /// Emits `CounterIncremented` event when successful.
         #[pallet::call_index(1)]
         #[pallet::weight(0)]
-        -        pub fn increment(origin: OriginFor<T>, amount_to_increment: u32) -> DispatchResult {
+                pub fn increment(origin: OriginFor<T>, amount_to_increment: u32) -> DispatchResult {
             let who = ensure_signed(origin)?;
 
             let current_value = CounterValue::<T>::get().unwrap_or(0);
@@ -402,7 +402,7 @@ Expand the following item to see the pallet calls to be tested.
         /// Emits `CounterDecremented` event when successful.
         #[pallet::call_index(2)]
         #[pallet::weight(0)]
-    -        pub fn decrement(origin: OriginFor<T>, amount_to_decrement: u32) -> DispatchResult {
+            pub fn decrement(origin: OriginFor<T>, amount_to_decrement: u32) -> DispatchResult {
             let who = ensure_signed(origin)?;
 
             let current_value = CounterValue::<T>::get().unwrap_or(0);
@@ -442,7 +442,7 @@ The following sub-sections outline various scenarios in which the `custom-pallet
 Verify that the counter can be successfully incremented under normal conditions, ensuring the increment works and the correct event is emitted.
 
 ```rust title="tests.rs"
--// Test successful counter increment
+// Test successful counter increment
 #[test]
 fn it_works_for_increment() {
     new_test_ext().execute_with(|| {
@@ -470,7 +470,7 @@ fn it_works_for_increment() {
 Test that the pallet prevents incrementing beyond the maximum allowed value, protecting against unintended state changes.
 
 ```rust title="tests.rs"
--// Verify increment is blocked when it would exceed max value
+// Verify increment is blocked when it would exceed max value
 #[test]
 fn increment_fails_for_max_value_exceeded() {
     new_test_ext().execute_with(|| {
@@ -491,7 +491,7 @@ fn increment_fails_for_max_value_exceeded() {
 Confirm that sensitive operations like setting counter value are restricted to authorized origins, preventing unauthorized modifications.
 
 ```rust title="tests.rs"
--// Ensure non-root accounts cannot set counter value
+// Ensure non-root accounts cannot set counter value
 #[test]
 fn set_counter_value_fails_for_non_root() {
     new_test_ext().execute_with(|| {
@@ -510,7 +510,7 @@ fn set_counter_value_fails_for_non_root() {
 Ensure the pallet gracefully handles edge cases, such as preventing increment operations that would cause overflow.
 
 ```rust title="tests.rs"
--// Ensure increment fails on u32 overflow
+// Ensure increment fails on u32 overflow
 #[test]
 fn increment_handles_overflow() {
     new_test_ext().execute_with(|| {
@@ -530,7 +530,7 @@ fn increment_handles_overflow() {
 Test that pallet operations modify the internal state correctly and maintain expected storage values across different interactions.
 
 ```rust title="tests.rs"
--// Check that user interactions are correctly tracked
+// Check that user interactions are correctly tracked
 #[test]
 fn user_interactions_increment() {
     new_test_ext().execute_with(|| {
@@ -555,7 +555,7 @@ Expand the following item to see the complete `tests.rs` implementation for the 
 ??? code "tests.rs"
 
     ```rust title="tests.rs"
-    -// This file is part of 'custom-pallet'.
+    // This file is part of 'custom-pallet'.
 
 // SPDX-License-Identifier: MIT-0
 
@@ -751,7 +751,7 @@ cargo test --package custom-pallet
 
 After running the test suite, you should see the following output in your terminal:
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>cargo test --package custom-pallet</span>
   <pre>
 running 12 tests

@@ -93,7 +93,7 @@ Here's how the `Encode` and `Decode` traits are implemented:
 
 
 ```rust
--use parity_scale_codec::{Encode, Decode};
+use parity_scale_codec::{Encode, Decode};
 
 [derive(Debug, PartialEq, Encode, Decode)]
 enum EnumType {

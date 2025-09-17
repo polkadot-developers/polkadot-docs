@@ -8,7 +8,7 @@ url: https://docs.polkadot.com/develop/smart-contracts/libraries/web3-py/
 
 # Web3.py
 
--!!! smartcontract "PolkaVM Preview Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -52,7 +52,7 @@ The [provider](https://web3py.readthedocs.io/en/stable/providers.html){target=\_
     The provider connection script should look something like this:
 
     ```python title="connect_to_provider.py"
-    -from web3 import Web3
+    from web3 import Web3
 
 def create_provider(rpc_url):
     web3 = Web3(Web3.HTTPProvider(rpc_url))
@@ -66,7 +66,7 @@ create_provider(PROVIDER_RPC)
 1. With the Web3 provider set up, start querying the blockchain. For instance, you can use the following code snippet to fetch the latest block number of the chain:
 
     ```python title="fetch_last_block.py"
-    -def main():
+    def main():
     try:
         web3 = create_provider(PROVIDER_RPC)
         latest_block = web3.eth.block_number
@@ -81,7 +81,7 @@ if __name__ == "__main__":
     ??? code "View complete script"
 
         ```python title="fetch_last_block.py"
-        -from web3 import Web3
+        from web3 import Web3
 
 def create_provider(rpc_url):
     web3 = Web3(Web3.HTTPProvider(rpc_url))
@@ -111,7 +111,7 @@ Before deploying your contracts, make sure you've compiled them and obtained two
 To follow this guide, you can use the following solidity contract as an example:
 
 ```solidity title="Storage.sol"
--//SPDX-License-Identifier: MIT
+//SPDX-License-Identifier: MIT
 
 // Solidity files have to start with this pragma.
 // It will be used by the Solidity compiler to validate its version.
@@ -137,7 +137,7 @@ contract Storage {
 To deploy your compiled contract to Polkadot Hub using Web3.py, you'll need an account with a private key to sign the deployment transaction. The deployment process is exactly the same as for any Ethereum-compatible chain, involving creating a contract instance, estimating gas, and sending a deployment transaction. Here's how to deploy the contract. Replace `INSERT_RPC_URL` and `INSERT_PRIVATE_KEY` with the appropriate values:
 
 ```python title="deploy.py"
--from web3 import Web3
+from web3 import Web3
 import json
 
 def get_abi(contract_name):
@@ -220,7 +220,7 @@ if __name__ == "__main__":
 After deployment, interact with your contract using Web3.py methods. The example below demonstrates how to set and retrieve a number. Be sure to replace the `INSERT_RPC_URL`, `INSERT_PRIVATE_KEY`, and `INSERT_CONTRACT_ADDRESS` placeholders with your specific values:
 
 ```python title="update_storage.py"
--from web3 import Web3
+from web3 import Web3
 import json
 
 def get_abi(contract_name):

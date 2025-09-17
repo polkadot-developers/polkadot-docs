@@ -81,7 +81,7 @@ To use the Sidecar API, you have two options:
 
 Once the Sidecar API is running, you’ll see output similar to this:
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
     <span data-ty='input'><span class='file-path'></span>SAS_SUBSTRATE_URL=wss://polkadot-asset-hub-rpc.polkadot.io substrate-api-sidecar</span>
     <br>
     <span data-ty>SAS:</span>
@@ -129,7 +129,7 @@ Sidecar API provides a set of REST endpoints that allow you to query different a
 For example, to retrieve the version of the node, use the `/node/version` endpoint:
 
 ```bash
--curl -X 'GET' \
+curl -X 'GET' \
   'http://127.0.0.1:8080/node/version' \
   -H 'accept: application/json'
 ```
@@ -138,7 +138,7 @@ Alternatively, you can access `http://127.0.0.1:8080/node/version` directly in a
 
 In response, you’ll see output similar to this (assuming you’re connected to Polkadot Asset Hub):
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
     <span data-ty="input"><span class="file-path"></span>curl -X 'GET' 'http://127.0.0.1:8080/node/version' -H 'accept: application/json'</span>
     <br>
     <span data-ty>{</span>

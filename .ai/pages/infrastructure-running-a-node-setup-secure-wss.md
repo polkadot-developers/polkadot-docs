@@ -31,7 +31,7 @@ When connecting, you can generate a self-signed certificate and rely on your nod
 
 Use the following command to generate a self-signed certificate using OpenSSL:
 
--```bash
+```bash
 sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/selfsigned.key -out /etc/ssl/certs/selfsigned.crt
 sudo openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
 ```
@@ -48,7 +48,7 @@ There are a lot of different implementations of a WebSocket proxy; some of the m
     ```
 
 2. In an SSL-enabled virtual host, add:
-    -```conf
+    ```conf
 server {
     (...)
     location / {
@@ -64,7 +64,7 @@ server {
 ```
 
 3. Optionally, you can introduce some form of rate limiting:
-    -```conf
+    ```conf
 http {
     limit_req_zone  "$http_x_forwarded_for" zone=zone:10m rate=2r/s;
     (...)
@@ -80,7 +80,7 @@ location / {
 Apache2 can run in various modes, including `prefork`, `worker`, and `event`. In this example, the [`event`](https://httpd.apache.org/docs/2.4/mod/event.html){target=\_blank} mode is recommended for handling higher traffic loads, as it is optimized for performance in such environments. However, depending on the specific requirements of your setup, other modes like `prefork` or `worker` may also be appropriate.
 
 1. Install the `apache2` web server:
-    -```bash
+    ```bash
 apt install apache2
 a2dismod mpm_prefork
 a2enmod mpm_event proxy proxy_html proxy_http proxy_wstunnel rewrite ssl
@@ -88,7 +88,7 @@ a2enmod mpm_event proxy proxy_html proxy_http proxy_wstunnel rewrite ssl
 
 2. The [`mod_proxy_wstunnel`](https://httpd.apache.org/docs/2.4/mod/mod_proxy_wstunnel.html){target=\_blank} provides support for the tunneling of WebSocket connections to a backend WebSocket server. The connection is automatically upgraded to a WebSocket connection. In an SSL-enabled virtual host add:
 
-    -```apacheconf
+    ```apacheconf
 # (...)
 SSLProxyEngine on
 ProxyRequests off

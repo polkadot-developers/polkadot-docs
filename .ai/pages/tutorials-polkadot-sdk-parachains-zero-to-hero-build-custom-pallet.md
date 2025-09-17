@@ -65,7 +65,7 @@ To build and integrate your custom pallet into a Polkadot SDK-based runtime, you
 2. Add the required dependencies in the `[dependencies]` section:
 
     ```toml
-    -[dependencies]
+    [dependencies]
 codec = { features = ["derive"], workspace = true }
 scale-info = { features = ["derive"], workspace = true }
 frame = { features = ["experimental", "runtime"], workspace = true }
@@ -74,7 +74,7 @@ frame = { features = ["experimental", "runtime"], workspace = true }
 3. Enable `std` features:
 
     ```toml
-    -[features]
+    [features]
 default = ["std"]
 std = ["codec/std", "frame/std", "scale-info/std"]
     ```
@@ -84,7 +84,7 @@ The final `Cargo.toml` file should resemble the following:
 ??? code "Cargo.toml"
 
     ```toml
-    -[package]
+    [package]
 name = "custom-pallet"
 version = "0.1.0"
 license.workspace = true
@@ -118,11 +118,11 @@ You now have the bare minimum of package dependencies that your pallet requires 
 2. Prepare the scaffolding for the pallet by adding the following:
 
     ```rust title="lib.rs"
-    -#![cfg_attr(not(feature = "std"), no_std)]
+    #![cfg_attr(not(feature = "std"), no_std)]
 
 pub use pallet::*;
 
-    -#[frame::pallet]
+    #[frame::pallet]
 pub mod pallet {
     use super::*;
     use frame::prelude::*;
@@ -133,8 +133,8 @@ pub mod pallet {
     #[pallet::config]
     pub trait Config: frame_system::Config {
         // Defines the event type for the pallet.
-        -    }
-    -}
+            }
+    }
     ```
 
 3. Verify that it compiles by running the following command:
@@ -156,7 +156,7 @@ In this step, you will configure two essential components that are critical for 
 Add the following `Config` trait definition to your pallet:
 
 ```rust title="lib.rs"
--    #[pallet::config]
+    #[pallet::config]
     pub trait Config: frame_system::Config {
         // Defines the event type for the pallet.
         type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
@@ -164,7 +164,7 @@ Add the following `Config` trait definition to your pallet:
         // Defines the maximum value the counter can hold.
         #[pallet::constant]
         type CounterMaxValue: Get<u32>;
--    }
+    }
 ```
 
 ### Add Events
@@ -190,7 +190,7 @@ Below are the events defined for this pallet:
 Define the events in the pallet as follows:
 
 ```rust title="lib.rs"
--    #[pallet::event]
+    #[pallet::event]
     #[pallet::generate_deposit(pub(super) fn deposit_event)]
     pub enum Event<T: Config> {
         /// The counter value has been set to a new value by Root.
@@ -231,7 +231,7 @@ Storage items are used to manage the pallet's state. This pallet defines two ite
 Define the storage items as follows:
 
 ```rust title="lib.rs"
--    #[pallet::storage]
+    #[pallet::storage]
     pub type CounterValue<T> = StorageValue<_, u32>;
 
     /// Storage map to track the number of interactions performed by each account.
@@ -249,7 +249,7 @@ To add custom errors, use the `#[pallet::error]` macro to define the `Error` enu
 Add the following errors to the pallet:
 
 ```rust title="lib.rs"
--    #[pallet::error]
+    #[pallet::error]
     pub enum Error<T> {
         /// The counter value exceeds the maximum allowed value.
         CounterValueExceedsMax,
@@ -270,7 +270,7 @@ The `#[pallet::call]` macro defines the dispatchable functions (or calls) the pa
 The structure of the dispatchable calls in this pallet is as follows:
 
 ```rust title="lib.rs"
--    #[pallet::call]
+    #[pallet::call]
     impl<T: Config> Pallet<T> {
         /// Set the value of the counter.
         ///
@@ -281,10 +281,10 @@ The structure of the dispatchable calls in this pallet is as follows:
         /// Emits `CounterValueSet` event when successful.
         #[pallet::call_index(0)]
     #[pallet::weight(0)]
-    -        pub fn set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult {
-    -        }
+            pub fn set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult {
+            }
 
-    -        /// Increment the counter by a specified amount.
+            /// Increment the counter by a specified amount.
         ///
         /// This function can be called by any signed account.
         ///
@@ -293,10 +293,10 @@ The structure of the dispatchable calls in this pallet is as follows:
         /// Emits `CounterIncremented` event when successful.
         #[pallet::call_index(1)]
     #[pallet::weight(0)]
-    -        pub fn increment(origin: OriginFor<T>, amount_to_increment: u32) -> DispatchResult {
-    -        }
+            pub fn increment(origin: OriginFor<T>, amount_to_increment: u32) -> DispatchResult {
+            }
 
-    -        /// Decrement the counter by a specified amount.
+            /// Decrement the counter by a specified amount.
         ///
         /// This function can be called by any signed account.
         ///
@@ -305,9 +305,9 @@ The structure of the dispatchable calls in this pallet is as follows:
         /// Emits `CounterDecremented` event when successful.
         #[pallet::call_index(2)]
     #[pallet::weight(0)]
-    -        pub fn decrement(origin: OriginFor<T>, amount_to_decrement: u32) -> DispatchResult {
-    -    }
--}
+            pub fn decrement(origin: OriginFor<T>, amount_to_decrement: u32) -> DispatchResult {
+        }
+}
 ```
 
 Expand the following items to view the implementations of each dispatchable call in this pallet.
@@ -324,7 +324,7 @@ Expand the following items to view the implementations of each dispatchable call
         - Emits a `CounterValueSet` event on success.
 
     ```rust title="lib.rs"
-    -        /// Set the value of the counter.
+            /// Set the value of the counter.
         ///
         /// The dispatch origin of this call must be _Root_.
         ///
@@ -333,7 +333,7 @@ Expand the following items to view the implementations of each dispatchable call
         /// Emits `CounterValueSet` event when successful.
         #[pallet::call_index(0)]
     #[pallet::weight(0)]
-    -        pub fn set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult {
+            pub fn set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult {
             ensure_root(origin)?;
 
             ensure!(
@@ -365,7 +365,7 @@ Expand the following items to view the implementations of each dispatchable call
         - Emits a `CounterIncremented` event on success.
 
     ```rust title="lib.rs"
-    -        /// Increment the counter by a specified amount.
+            /// Increment the counter by a specified amount.
         ///
         /// This function can be called by any signed account.
         ///
@@ -374,7 +374,7 @@ Expand the following items to view the implementations of each dispatchable call
         /// Emits `CounterIncremented` event when successful.
         #[pallet::call_index(1)]
     #[pallet::weight(0)]
-    -        pub fn increment(origin: OriginFor<T>, amount_to_increment: u32) -> DispatchResult {
+            pub fn increment(origin: OriginFor<T>, amount_to_increment: u32) -> DispatchResult {
             let who = ensure_signed(origin)?;
 
             let current_value = CounterValue::<T>::get().unwrap_or(0);
@@ -424,7 +424,7 @@ Expand the following items to view the implementations of each dispatchable call
         - Emits a `CounterDecremented` event on success.
 
     ```rust title="lib.rs"
-    -        /// Decrement the counter by a specified amount.
+            /// Decrement the counter by a specified amount.
         ///
         /// This function can be called by any signed account.
         ///
@@ -433,7 +433,7 @@ Expand the following items to view the implementations of each dispatchable call
         /// Emits `CounterDecremented` event when successful.
         #[pallet::call_index(2)]
     #[pallet::weight(0)]
-    -        pub fn decrement(origin: OriginFor<T>, amount_to_decrement: u32) -> DispatchResult {
+            pub fn decrement(origin: OriginFor<T>, amount_to_decrement: u32) -> DispatchResult {
             let who = ensure_signed(origin)?;
 
             let current_value = CounterValue::<T>::get().unwrap_or(0);
@@ -483,11 +483,11 @@ Expand the following item to review this implementation and the complete pallet 
 ???- code "src/lib.rs"
 
     ```rust title="lib.rs"
-    -#![cfg_attr(not(feature = "std"), no_std)]
+    #![cfg_attr(not(feature = "std"), no_std)]
 
 pub use pallet::*;
 
-    -#[frame::pallet]
+    #[frame::pallet]
 pub mod pallet {
     use super::*;
     use frame::prelude::*;
@@ -503,7 +503,7 @@ pub mod pallet {
         // Defines the maximum value the counter can hold.
         #[pallet::constant]
         type CounterMaxValue: Get<u32>;
-        -    }
+            }
 
     #[pallet::event]
     #[pallet::generate_deposit(pub(super) fn deposit_event)]
@@ -564,7 +564,7 @@ pub mod pallet {
         /// Emits `CounterValueSet` event when successful.
         #[pallet::call_index(0)]
             #[pallet::weight(0)]
-            -        pub fn set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult {
+                    pub fn set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult {
             ensure_root(origin)?;
 
             ensure!(
@@ -590,7 +590,7 @@ pub mod pallet {
         /// Emits `CounterIncremented` event when successful.
         #[pallet::call_index(1)]
             #[pallet::weight(0)]
-            -        pub fn increment(origin: OriginFor<T>, amount_to_increment: u32) -> DispatchResult {
+                    pub fn increment(origin: OriginFor<T>, amount_to_increment: u32) -> DispatchResult {
             let who = ensure_signed(origin)?;
 
             let current_value = CounterValue::<T>::get().unwrap_or(0);
@@ -634,7 +634,7 @@ pub mod pallet {
         /// Emits `CounterDecremented` event when successful.
         #[pallet::call_index(2)]
             #[pallet::weight(0)]
-    -// This file is part of 'custom-pallet'.
+    // This file is part of 'custom-pallet'.
 
 // SPDX-License-Identifier: MIT-0
 

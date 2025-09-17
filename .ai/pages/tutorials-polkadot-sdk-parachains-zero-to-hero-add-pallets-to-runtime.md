@@ -21,30 +21,30 @@ First, you'll update the runtime's `Cargo.toml` file to include the Utility pall
 1. Open the `runtime/Cargo.toml` file and locate the `[dependencies]` section. Add pallet-utility as one of the features for the `polkadot-sdk` dependency with the following line:
 
     ```toml hl_lines="4" title="runtime/Cargo.toml"
-    -[dependencies]
+    [dependencies]
     ...
-    -polkadot-sdk = { workspace = true, features = [
+    polkadot-sdk = { workspace = true, features = [
   "pallet-utility",
         ...
-    -], default-features = false }
+    ], default-features = false }
     ```
 
 2. In the same `[dependencies]` section, add the custom pallet that you built from scratch with the following line:
 
     ```toml hl_lines="3" title="Cargo.toml"
-    -[dependencies]
+    [dependencies]
     ...
-    -custom-pallet = { path = "../pallets/custom-pallet", default-features = false }
+    custom-pallet = { path = "../pallets/custom-pallet", default-features = false }
     ```
 
 3. In the `[features]` section, add the custom pallet to the `std` feature list:
 
     ```toml hl_lines="5" title="Cargo.toml"
-    -[features]
+    [features]
 default = ["std"]
 std = [
       ...
-      -"custom-pallet/std",
+      "custom-pallet/std",
       ...
     ]
     ```
@@ -56,7 +56,7 @@ std = [
     ???- code "runtime/Cargo.toml"
         
         ```rust title="runtime/Cargo.toml"
-        -[package]
+        [package]
 name = "parachain-template-runtime"
 description = "A parachain runtime template built with Substrate and Cumulus, part of Polkadot Sdk."
 version = "0.1.0"
@@ -168,7 +168,7 @@ Update your root parachain template's `Cargo.toml` file to include your custom p
     Make sure the `custom-pallet` is a member of the workspace:
 
     ```toml hl_lines="4" title="Cargo.toml"
-     -[workspace]
+     [workspace]
 default-members = ["pallets/template", "runtime"]
 members = [
     "node", "pallets/custom-pallet",
@@ -180,7 +180,7 @@ members = [
 ???- code "./Cargo.toml"
 
     ```rust title="./Cargo.toml"
-    -[workspace.package]
+    [workspace.package]
 license = "MIT-0"
 authors = ["Parity Technologies <admin@parity.io>"]
 homepage = "https://paritytech.github.io/polkadot-sdk/"
@@ -235,7 +235,7 @@ Configure the pallets by implementing their `Config` trait and update the runtim
 1. Add the `OriginCaller` import:
 
     ```rust title="mod.rs" hl_lines="8"
-    -// Local module imports
+    // Local module imports
 use super::OriginCaller;
     ...
     ```
@@ -244,7 +244,7 @@ use super::OriginCaller;
 
     ```rust title="mod.rs" hl_lines="8-25"
     ...
-    -/// Configure the pallet template in pallets/template.
+    /// Configure the pallet template in pallets/template.
 impl pallet_parachain_template::Config for Runtime {
     type RuntimeEvent = RuntimeEvent;
     type WeightInfo = pallet_parachain_template::weights::SubstrateWeight<Runtime>;
@@ -257,7 +257,7 @@ impl pallet_utility::Config for Runtime {
     type PalletsOrigin = OriginCaller;
     type WeightInfo = pallet_utility::weights::SubstrateWeight<Runtime>;
 }
-    -// Define counter max value runtime constant.
+    // Define counter max value runtime constant.
 parameter_types! {
     pub const CounterMaxValue: u32 = 500;
 }
@@ -272,15 +272,15 @@ impl custom_pallet::Config for Runtime {
 3. Locate the `#[frame_support::runtime]` macro in the `runtime/src/lib.rs` file and add the pallets:
 
     ```rust hl_lines="9-14" title="lib.rs"
-    -#[frame_support::runtime]
+    #[frame_support::runtime]
 mod runtime {
     #[runtime::runtime]
     #[runtime::derive(
             ...
-        -    )]
+            )]
     pub struct Runtime;
 
-    -    #[runtime::pallet_index(51)]
+        #[runtime::pallet_index(51)]
     pub type Utility = pallet_utility;
 
     #[runtime::pallet_index(52)]

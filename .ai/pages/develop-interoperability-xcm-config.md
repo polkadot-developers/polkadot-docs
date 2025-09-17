@@ -23,7 +23,7 @@ The `Config` trait defines the XCM executor’s configuration, which requires se
 Each type is explained below, along with an overview of some of its implementations:
 
 ```rust
--pub trait Config {
+pub trait Config {
     type RuntimeCall: Parameter + Dispatchable<PostInfo = PostDispatchInfo> + GetDispatchInfo;
     type XcmSender: SendXcm;
     type AssetTransactor: TransactAsset;
@@ -311,7 +311,7 @@ Some associated types in the `Config` trait are highly configurable and may have
 In the following example, the system will first check the `TakeWeightCredit` type when evaluating the barrier. If it fails, it will check `AllowTopLevelPaidExecutionFrom`, and so on, until one of them returns a positive result. If all checks fail, a Barrier error will be triggered.
 
 ```rust
--pub type Barrier = (
+pub type Barrier = (
     TakeWeightCredit,
     AllowTopLevelPaidExecutionFrom<Everything>,
     AllowKnownQueryResponses<XcmPallet>,

@@ -8,7 +8,7 @@ url: https://docs.polkadot.com/develop/smart-contracts/libraries/web3-js/
 
 # Web3.js
 
--!!! smartcontract "PolkaVM Preview Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 !!! warning
@@ -75,7 +75,7 @@ This guide uses `web3` version `4.16.0`.
 The provider configuration is the foundation of any Web3.js application. The following example establishes a connection to Polkadot Hub. To use the example script, replace `INSERT_RPC_URL`, `INSERT_CHAIN_ID`, and `INSERT_CHAIN_NAME` with the appropriate values. The provider connection script should look something like this:
 
 ```javascript title="scripts/connectToProvider.js"
--const { Web3 } = require('web3');
+const { Web3 } = require('web3');
 
 const createProvider = (rpcUrl) => {
   const web3 = new Web3(rpcUrl);
@@ -109,7 +109,7 @@ For instance, to fetch the latest block number of the chain, you can use the fol
 ???+ code "View complete script"
 
     ```javascript title="scripts/fetchLastBlock.js"
-    -const { Web3 } = require('web3');
+    const { Web3 } = require('web3');
 
 const createProvider = (rpcUrl) => {
   const web3 = new Web3(rpcUrl);
@@ -138,7 +138,7 @@ main();
 
 ## Compile Contracts
 
--!!! note "Contracts Code Blob Size Disclaimer"
+!!! note "Contracts Code Blob Size Disclaimer"
     The maximum contract code blob size on Polkadot Hub networks is _100 kilobytes_, significantly larger than Ethereum’s EVM limit of 24 kilobytes.
 
     For detailed comparisons and migration guidelines, see the [EVM vs. PolkaVM](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm/#current-memory-limits){target=\_blank} documentation page.
@@ -155,7 +155,7 @@ This guide uses `@parity/resolc` version `0.2.0`.
 Here's a simple storage contract that you can use to follow the process:
 
 ```solidity title="contracts/Storage.sol"
--//SPDX-License-Identifier: MIT
+//SPDX-License-Identifier: MIT
 pragma solidity ^0.8.9;
 
 contract Storage {
@@ -178,7 +178,7 @@ contract Storage {
 With that, you can now create a `compile.js` snippet that transforms your solidity code into PolkaVM bytecode:
 
 ```javascript title="scripts/compile.js"
--const { compile } = require('@parity/resolc');
+const { compile } = require('@parity/resolc');
 const { readFileSync, writeFileSync } = require('fs');
 const { basename, join } = require('path');
 
@@ -240,7 +240,7 @@ After compilation, you'll have two key files: an ABI (`.json`) file, which provi
 To deploy your compiled contract to Polkadot Hub using Web3.js, you'll need an account with a private key to sign the deployment transaction. The deployment process is exactly the same as for any Ethereum-compatible chain, involving creating a contract instance, estimating gas, and sending a deployment transaction. Here's how to deploy the contract, ensure replacing the `INSERT_RPC_URL`, `INSERT_PRIVATE_KEY`, and `INSERT_CONTRACT_NAME` with the appropriate values:
 
 ```javascript title="scripts/deploy.js"
--import { readFileSync } from 'fs';
+import { readFileSync } from 'fs';
 import { Web3 } from 'web3';
 
 const getAbi = (contractName) => {
@@ -338,7 +338,7 @@ node deploy
 Once deployed, you can interact with your contract using Web3.js methods. Here's how to set a number and read it back, ensure replacing `INSERT_RPC_URL`, `INSERT_PRIVATE_KEY`, and `INSERT_CONTRACT_ADDRESS` with the appropriate values:
 
 ```javascript title="scripts/updateStorage.js"
--import { readFileSync } from 'fs';
+import { readFileSync } from 'fs';
 import { Web3 } from 'web3';
 
 const getAbi = (contractName) => {

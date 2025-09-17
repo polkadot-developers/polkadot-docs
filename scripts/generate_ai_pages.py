@@ -124,7 +124,7 @@ def remove_html_comments(content: str) -> str:
 # Snippet handling
 # ----------------------------
 
-SNIPPET_REGEX = r"-?8<--\s*['\"]([^'\"]+)['\"]"
+SNIPPET_REGEX = r"-{1,}8<-{2,}\s*['\"]([^'\"]+)['\"]"
 
 def parse_line_range(snippet_path):
     parts = snippet_path.split(":")

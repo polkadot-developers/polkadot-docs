@@ -8,7 +8,7 @@ url: https://docs.polkadot.com/tutorials/smart-contracts/demo-aplications/deploy
 
 # Deploy Uniswap V2
 
--!!! smartcontract "PolkaVM Preview Release"
+!!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
@@ -81,7 +81,7 @@ Let's start by cloning the Uniswap V2 project:
 
 If the compilation is successful, you should see the following output:
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>npx hardhat compile</span>
   <span data-ty>Compiling 12 Solidity files</span>
   <span data-ty>Successfully compiled 12 Solidity files</span>
@@ -162,7 +162,7 @@ To test it locally, you can run the following commands:
 
 The result should look like this:
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>npx hardhat test --network localNode</span>
   <span data-ty>Compiling 12 Solidity files</span>
   <span data-ty>Successfully compiled 12 Solidity files</span>
@@ -225,7 +225,7 @@ The command above deploys to the actual Polkadot TestNet. It requires PAS test t
 
 The deployment script will output the addresses of the deployed contracts. Save these addresses, as you will need them to interact with the contracts. For example, the output should look like this:
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>npx hardhat run scripts/deploy.js --network localNode</span>
   <span data-ty>Successfully compiled 12 Solidity files</span>
   <span data-ty>Deploying contracts using 0xf24FF3a9CF04c71Dbc94D0b566f7A27B94566cac</span>

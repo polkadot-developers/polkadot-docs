@@ -54,7 +54,7 @@ The next step is to sync your node with the chosen blockchain network. Synchroni
 
 2. **Monitor sync progress**: Once the sync starts, you will see a stream of logs providing information about the node's status and progress. Here's an example of what the output might look like:
 
-    -<div id="termynal" data-termynal>
+    <div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>polkadot</span>
   <span data-ty>2021-06-17 03:07:07 Parity Polkadot</span>
   <span data-ty>2021-06-17 03:07:07 ✌️ version 0.9.5-95f6aa201-x86_64-linux-gnu</span>
@@ -86,7 +86,7 @@ If you'd like to speed up the process further, you can use a database snapshot. 
 !!!warning
     Although snapshots are convenient, syncing from scratch is recommended for security purposes. If snapshots become corrupted and most nodes rely on them, the network could inadvertently run on a non-canonical chain.
 
--<div id="termynal" data-termynal>
+<div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>polkadot</span>
   <span data-ty>2021-06-17 03:07:07 Idle (0 peers), best: #0 (0x3fd7...5baf), finalized #0 (0x3fd7...5baf), ⬇ 2.9kiB/s ⬆ 3.7kiB/s</span>
   <span data-ty>2021-06-17 03:07:12 Idle (0 peers), best: #0 (0x3fd7...5baf), finalized #0 (0x3fd7...5baf), ⬇ 1.7kiB/s ⬆ 2.0kiB/s</span>
@@ -183,7 +183,7 @@ touch /etc/systemd/system/polkadot-validator.service
 In this unit file, you will write the commands that you want to run on server boot/restart:
 
 ```systemd title="/etc/systemd/system/polkadot-validator.service"
--[Unit]
+[Unit]
 Description=Polkadot Node
 After=network.target
 Documentation=https://github.com/paritytech/polkadot-sdk

@@ -63,7 +63,7 @@ Zombienet uses a [configuration file](/develop/toolkit/parachains/spawn-chains/z
 2. Add the following code to the file you just created:
 
     ```toml title="spawn-a-basic-network.toml"
-    -[settings]
+    [settings]
 timeout = 120
 
 [relaychain]
@@ -103,7 +103,7 @@ This command will spawn the network defined in the `spawn-a-basic-network.toml` 
 
 If successful, you will see the following output:
 
--<div id="termynal" class="table-termynal" data-termynal>
+<div id="termynal" class="table-termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>zombienet -p native spawn spawn-a-basic-network.toml</span>
   <table>
     <thead>
@@ -202,7 +202,7 @@ Use the [55308 port address](https://polkadot.js.org/apps/?rpc=ws://127.0.0.1:55
 If you want to interact with the nodes more programmatically, you can also use the [Polkadot.js API](https://polkadot.js.org/docs/api/){target=\_blank}. For example, the following code snippet shows how to connect to the `alice` node using the Polkadot.js API and log some information about the chain and node:
 
 ```typescript
--import { ApiPromise, WsProvider } from '@polkadot/api';
+import { ApiPromise, WsProvider } from '@polkadot/api';
 
 async function main() {
   const wsProvider = new WsProvider('ws://127.0.0.1:55308');

@@ -47,8 +47,8 @@ The scripts for LLM-related files generation are located in `polkadot-docs/scrip
 - **`generate_ai_pages.py`**: Creates one resolved Markdown file per documentation page and outputs them to the `/.ai/pages` directory.
 - **`generate_llms_txt.py`**: Creates the `llms.txt` site index file using the Markdown file URLs and outputs it to the `/polkadot-docs/` directory.
 - **`generate_site_index.py`**: Creates two full-site content related files:
-    - `llms-full.jsonl`: This file contains the entire documentation site, enhanced with metadata for improved indexing and chunking, and replaces the previous `llms-full.txt` file perviously used.
-    - `site-index.json`: This lightweight version of the full documentation site uses content previews rather than full content bodies to allow for a smaller file size.
+    - **`llms-full.jsonl`**: This file contains the entire documentation site, enhanced with metadata for improved indexing and chunking, and replaces the previous `llms-full.txt` file perviously used.
+    - **`site-index.json`**: This lightweight version of the full documentation site uses content previews rather than full content bodies to allow for a smaller file size.
 - **`generate_category_bundles.py`**: Bundles pages with the same category tag together, along with context via Basics and Reference categories, and outputs them to `/.ai/categories/` as Markdown files.
 
 ## FAQs

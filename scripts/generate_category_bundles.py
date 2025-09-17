@@ -13,32 +13,6 @@ Behavior:
 
 
 Outputs (written under /.ai/categories/):
-  - <category-slug>.manifest.json  (when --format manifest/all)
-    {
-      "category": "Smart Contracts",
-      "category_slug": "smart-contracts",
-      "includes_base": true,
-      "base_categories": ["Basics","Reference"],
-      "count": 12,
-      "estimated_token_count_total": 12345,
-      "token_estimator": "heuristic-v1",
-      "generated_at": "2025-09-02T12:34:56Z",
-      "pages": [
-        {
-          "title": "Intro to XCM",
-          "slug": "develop-interoperability-intro-to-xcm",
-          "raw_md_url": "https://raw.githubusercontent.com/<org>/<repo>/<branch>/.ai/pages/<slug>.md",
-          "html_url": "https://docs.example.com/develop/interoperability/intro-to-xcm/",
-          "description": "Short lede…",
-          "categories": ["Basics","Networks"],
-          "estimated_token_count": 678
-        }
-      ]
-    }
-
-  - <category-slug>.bundle.jsonl    (when --format jsonl/all)
-    # One JSON object per line, INCLUDING full page content
-    {"title":"…","slug":"…","html_url":"…","raw_md_url":"…","categories":[…],"description":"…","estimated_token_count":210,"token_estimator":"heuristic-v1","content":"<full markdown>"}
 
   - <category-slug>.md       (when --format md/all)
     # A single concatenated Markdown file with page boundaries and titles
@@ -233,57 +207,8 @@ def union_pages(sets: List[List[AiPage]]) -> List[AiPage]:
 
 
 # ----------------------------
-# Writers
+# Writer
 # ----------------------------
-
-def write_manifest(out_path: Path, category: str, category_slug: str,
-                   includes_base: bool, base_categories: List[str],
-                   pages: List[AiPage], raw_base: str,
-                   estimator_label: str, page_tokens: Dict[str, int]) -> None:
-    est_total = sum(page_tokens.get(p.slug, 0) for p in pages)
-    record = {
-        "category": category,
-        "category_slug": category_slug,
-        "includes_base": includes_base,
-        "base_categories": base_categories,
-        "count": len(pages),
-        "estimated_token_count_total": est_total,
-        "token_estimator": estimator_label,
-        "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-        "pages": [
-            {
-                "title": p.title,
-                "slug": p.slug,
-                "raw_md_url": f"{raw_base}/{p.slug}.md",
-                "html_url": p.html_url,
-                "description": p.description,
-                "categories": p.categories,
-                "estimated_token_count": page_tokens.get(p.slug, 0),
-            }
-            for p in pages
-        ],
-    }
-    out_path.parent.mkdir(parents=True, exist_ok=True)
-    with open(out_path, "w", encoding="utf-8") as f:
-        json.dump(record, f, indent=2, ensure_ascii=False)
-
-def write_jsonl(out_path: Path, pages: List[AiPage], raw_base: str,
-                estimator_label: str, page_tokens: Dict[str, int]) -> None:
-    out_path.parent.mkdir(parents=True, exist_ok=True)
-    with open(out_path, "w", encoding="utf-8") as f:
-        for p in pages:
-            obj = {
-                "title": p.title,
-                "slug": p.slug,
-                "raw_md_url": f"{raw_base}/{p.slug}.md",
-                "html_url": p.html_url,
-                "categories": p.categories,
-                "description": p.description,
-                "estimated_token_count": page_tokens.get(p.slug, 0),
-                "token_estimator": estimator_label,
-                "content": p.body,
-            }
-            f.write(json.dumps(obj, ensure_ascii=False) + "\n")
 
 def write_markdown(out_path: Path, category: str, includes_base: bool,
                    base_categories: List[str], pages: List[AiPage], raw_base: str) -> None:
@@ -368,10 +293,6 @@ def build_category_bundles(config_path: str, fmt: str, dry_run: bool, limit: int
                 print(f"[dry-run] base bundle: {cat} ({len(pages_out)} pages)")
             else:
                 out_root.mkdir(parents=True, exist_ok=True)
-                if fmt in ("manifest", "all"):
-                    write_manifest(out_root / f"{cat_slug}.manifest.json", cat, cat_slug, False, base_cats, pages_out, raw_base, token_estimator, page_tokens)
-                if fmt in ("jsonl", "all"):
-                    write_jsonl(out_root / f"{cat_slug}.bundle.jsonl", pages_out, raw_base, token_estimator, page_tokens)
                 if fmt in ("md", "all"):
                     write_markdown(out_root / f"{cat_slug}.md", cat, False, base_cats, pages_out, raw_base)
             continue
@@ -385,10 +306,6 @@ def build_category_bundles(config_path: str, fmt: str, dry_run: bool, limit: int
             print(f"[dry-run] category bundle: {cat} (base+cat={len(pages_out)} pages; base={len(base_union)} cat_only={len(pages_cat)})")
         else:
             out_root.mkdir(parents=True, exist_ok=True)
-            if fmt in ("manifest", "all"):
-                write_manifest(out_root / f"{cat_slug}.manifest.json", cat, cat_slug, True, base_cats, pages_out, raw_base, token_estimator, page_tokens)
-            if fmt in ("jsonl", "all"):
-                write_jsonl(out_root / f"{cat_slug}.bundle.jsonl", pages_out, raw_base, token_estimator, page_tokens)
             if fmt in ("md", "all"):
                 write_markdown(out_root / f"{cat_slug}.md", cat, True, base_cats, pages_out, raw_base)
 
@@ -401,7 +318,7 @@ def build_category_bundles(config_path: str, fmt: str, dry_run: bool, limit: int
 def main():
     parser = argparse.ArgumentParser(description="Build category-based bundles from /.ai/pages/*.md")
     parser.add_argument("--config", default="llms_config.json", help="Path to llms_config.json (default: scripts/llms_config.json)")
-    parser.add_argument("--format", choices=["manifest", "jsonl", "md", "all"], default="md",
+    parser.add_argument("--format", choices=["md", "all"], default="md",
                         help="Output format to generate (default: md)")
     parser.add_argument("--dry-run", action="store_true", help="Show what would be generated; do not write files")
     parser.add_argument("--limit", type=int, default=0, help="Limit pages loaded (0=all) for dry-run sanity")

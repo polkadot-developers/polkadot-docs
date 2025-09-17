@@ -7886,6 +7886,7 @@ For this tutorial series, you need to use Rust `1.86`. Newer versions of the com
 Run the following commands to set up the correct Rust version:
 
 ```bash
+rustup install 1.86
 rustup default 1.86
 rustup target add wasm32-unknown-unknown --toolchain 1.86-aarch64-apple-darwin
 rustup component add rust-src --toolchain 1.86-aarch64-apple-darwin

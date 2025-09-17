@@ -14,31 +14,27 @@ python scripts/generate_llms.py
 
 2. Successful file generation will result in output similar to the following:
 
-<div id="termynal" data-termynal>
-    <span data-ty="input"><span class="file-path"></span>python3 scripts/generate_llms.py</span>
-  <br />
-    <span data-ty>▶️  Generate AI pages</span><br />
-    <span data-ty>[ai-pages] processed=150 skipped=0</span><br />
-    <span data-ty>[ai-pages] output dir: /polkadot-mkdocs/polkadot-docs/.ai/pages</span><br />
-    <span data-ty>✅ Generate AI pages complete</span><br />
-    <span data-ty> </span><br />
-    <span data-ty>▶️  Generate llms.txt</span><br />
-    <span data-ty>✅ llms.txt generated at: /polkadot-mkdocs/polkadot-docs/llms.txt</span><br />
-    <span data-ty> Pages listed: 150</span><br />
-    <span data-ty>✅ Generate llms.txt complete</span><br />
-    <span data-ty> </span><br />
-    <span data-ty>▶️  Generate site-index and full site content files</span><br />
-    <span data-ty>✅ site-index.json written: /polkadot-mkdocs/polkadot-docs/.ai/site-index.json  (pages=150)</span><br />
-    <span data-ty>✅ llms-full.jsonl written: /polkadot-mkdocs/polkadot-docs/.ai/llms-full.jsonl  (lines=1360)</span><br />
-    <span data-ty>✅ Generate site-index and full site content files complete</span><br />
-    <span data-ty> </span><br />
-    <span data-ty>▶️  Generate category bundles</span><br />
-    <span data-ty>✅ Category bundles written to: /polkadot-mkdocs/polkadot-docs/.ai/categories</span><br />
-    <span data-ty>✅ Generate category bundles complete</span>
-    <span data-ty> </span><br />
-    <span data-ty>🎉 All steps finished successfully.</span>
-    <span data-ty></span><br />
-    </div><br /><br />
+    ▶️  Generate AI pages<br />
+    [ai-pages] processed=150 skipped=0<br />
+    [ai-pages] output dir: /polkadot-mkdocs/polkadot-docs/.ai/pages<br />
+    ✅ Generate AI pages complete<br />
+     <br />
+    ▶️  Generate llms.txt<br />
+    ✅ llms.txt generated at: /polkadot-mkdocs/polkadot-docs/llms.txt<br />
+     Pages listed: 150<br />
+    ✅ Generate llms.txt complete<br />
+     <br />
+    ▶️  Generate site-index and full site content files<br />
+    ✅ site-index.json written: /polkadot-mkdocs/polkadot-docs/.ai/site-index.json  (pages=150)<br />
+    ✅ llms-full.jsonl written: /polkadot-mkdocs/polkadot-docs/.ai/llms-full.jsonl  (lines=1360)<br />
+    ✅ Generate site-index and full site content files complete<br />
+     <br />
+    ▶️  Generate category bundles<br />
+    ✅ Category bundles written to: /polkadot-mkdocs/polkadot-docs/.ai/categories<br />
+    ✅ Generate category bundles complete
+     <br />
+    🎉 All steps finished successfully.
+    <br />
 
 3. Commit the updated `/.ai/` files with your content changes and open your PR as you usually do.
 
@@ -67,7 +63,7 @@ The scripts for LLM-related files generation are located in `polkadot-docs/scrip
 
 ### Why use the `/.ai/pages` and `/.ai/categories` directories rather than ouputting the files to '/llms-files/' like before?
 
-- The Markdown files must be located in a directory that is not included in the site build to prevent Mkdocs from converting the Markdown to HTML elements when building the site.
+- The Markdown files are located in a directory that is not included in the site build to prevent doubling the size of the website (one HTML file + one Markdown file for every page). This arrangement also prevents the resolved Markdown being converted into HTML elements, making them less effective for LLM consumption.
 
 
 

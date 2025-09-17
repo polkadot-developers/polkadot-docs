@@ -43,8 +43,7 @@
                 "terms-of-use.md",
                 "privacy-policy.md"
             ],
-            "skip_paths": [".snippets", ".github", ".ai"],
-            "frontmatter_flag": "ai_exclude"
+            "skip_paths": [".snippets", ".github", ".ai"]
         }
     },
 

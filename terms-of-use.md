@@ -5,7 +5,6 @@ hide:
 - toc
 - feedback
 - navigation
-ai_exclude: true
 ---
 
 --8<-- 'https://raw.githubusercontent.com/papermoonio/polkadot-mkdocs/refs/heads/main/policies/terms-of-use.md'

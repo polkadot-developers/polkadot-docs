@@ -5,7 +5,6 @@ hide:
 - toc
 - feedback
 - navigation
-ai_exclude: true
 ---
 
 # AI Chatbot Policy

@@ -642,12 +642,10 @@
 
   // Initialize on DOM ready
   function initialize() {
-    addCodeCopyButtons();
     addSectionCopyButtons();
 
     // Re-run when content changes (for dynamic content)
     const observer = new MutationObserver(() => {
-      addCodeCopyButtons();
       addSectionCopyButtons();
     });
 

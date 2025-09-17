@@ -64,6 +64,3 @@ The scripts for LLM-related files generation are located in `polkadot-docs/scrip
 ### Why use the `/.ai/pages` and `/.ai/categories` directories rather than ouputting the files to '/llms-files/' like before?
 
 - The Markdown files are located in a directory that is not included in the site build to prevent doubling the size of the website (one HTML file + one Markdown file for every page). This arrangement also prevents the resolved Markdown being converted into HTML elements, making them less effective for LLM consumption.
-
-
-

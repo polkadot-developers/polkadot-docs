@@ -330,11 +330,6 @@ def main():
         # Split FM and body
         fm, body = split_front_matter(raw)
 
-        # Respect ai_exclude front-matter flag if present
-        if isinstance(fm, dict) and fm.get(fm_flag) is True:
-            skipped += 1
-            continue
-
         # Resolve snippets -> variables -> strip comments
         body = replace_snippet_placeholders(body, str(snippet_dir), variables)
         body = resolve_markdown_placeholders(body, variables)

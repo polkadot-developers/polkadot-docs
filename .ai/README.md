@@ -8,9 +8,9 @@ Follow these steps to generate a fresh set of files after updating documentation
 
 1. From the `polkadot-docs` directory, run:
 
-```
-python scripts/generate_llms.py
-```
+  ```
+  python scripts/generate_llms.py
+  ```
 
 2. Successful file generation will result in output similar to the following:
 

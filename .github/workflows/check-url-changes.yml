@@ -1,9 +1,11 @@
-name: Check Documentation URL Changes
+name: Check Documentation URL Moves/Deletions
 
 on:
   pull_request:
     branches:
       - master
+    paths:
+      - '**/*.md'   # Only trigger if markdown files are touched
 
 jobs:
   check-url-changes:

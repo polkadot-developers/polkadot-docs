@@ -84,7 +84,7 @@ To work on the docs again:
 
 See [.CONTRIBUTING.md](./CONTRIBUTING.md) for how to contribute to this repository.
 
-We're excited to have you contribute to the **Polkadot Docs** and help improve our ecosystem! 🚀 Every contribution, whether it's fixing a typo, improving documentation, or adding new content, helps make Polkadot more accessible to developers worldwide. Thank you for being part of our community! 🙏✨
+We're excited to have you contribute to the Polkadot docs and help improve our ecosystem! 🚀 Every contribution, whether it's fixing a typo, improving documentation, or adding new content, helps make Polkadot more accessible to developers worldwide. Thank you for being part of our community! 🙏✨
 
 ## Disclaimer
 

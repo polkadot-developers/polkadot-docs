@@ -6,9 +6,8 @@ on:
       - master
     paths:
       - '**/*.md'
-      - '**/*.nav.yml'
-      - '!**/.*.yml'
-      - '!**/.*.yaml'
+      - '.nav.yml'
+
 
 jobs:
   check-url-changes:

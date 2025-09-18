@@ -7,7 +7,7 @@ description: Replay and dry-run XCMs using Chopsticks with full logging enabled.
 
 ## Introduction
 
-In this tutorial, you'll learn how to replay and dry-run XCMs using [Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/){target=\_blank}, a powerful tool for forking live Polkadot SDK-based chains in your local environment. These techniques are essential for:
+In this tutorial, you'll learn how to replay and dry-run XCMs using [Chopsticks](/rollups/testing/){target=\_blank}, a powerful tool for forking live Polkadot SDK-based chains in your local environment. These techniques are essential for:
 
 - Debugging cross-chain message failures.
 - Tracing execution across relay chains and parachains.
@@ -20,7 +20,7 @@ By the end of this guide, you'll be able to set up a local fork, capture and rep
 
 Before you begin, make sure you have:
 
-- [Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/){target=\_blank} installed (`npm i -g @acala-network/chopsticks`).
+- [Chopsticks](/rollups/testing/){target=\_blank} installed (`npm i -g @acala-network/chopsticks`).
 - Access to the endpoint or genesis file of the parachain you want to fork.
 - The block number or hash where the XCM was sent.
 - (Optional) A Chopsticks config file for repeated setups.
@@ -289,7 +289,7 @@ Replaying XCMs with full logging provides fine-grained control and visibility in
 
     Learn how to use XCM effectively.
 
-    [:octicons-arrow-right-24: Get Started](/develop/interoperability/intro-to-xcm/)
+    [:octicons-arrow-right-24: Get Started](/rollups/interoperability/)
 
 -   <span class="badge tutorial">Tutorial</span> __XCM Runtime APIs__
 

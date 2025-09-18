@@ -51,7 +51,7 @@ The Zero to Hero series offers step-by-step guidance to development across the P
     </a>
   </div>
     <div class="card">
-    <a href="/tutorials/interoperability/xcm-channels/para-to-para/">
+    <a href="/rollups/interoperability/channels-between-rollups/">
       <h2 class="title">Open an XCM Channel</h2>
       <hr>
       <p class="description">Learn how to open HRMP channels between parachains on Polkadot. Discover the step-by-step process for establishing uni- and bidirectional communication.</p>

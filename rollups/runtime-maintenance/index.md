@@ -27,7 +27,7 @@ The executor is the component that selects the runtime execution environment to 
 The runtime includes a [runtime version struct](https://paritytech.github.io/polkadot-sdk/master/sp_version/struct.RuntimeVersion.html){target=\_blank} to provide the needed parameter information to the executor process. A sample runtime version struct might look as follows:
 
 ```rust
---8<-- 'code/develop/parachains/maintenance/runtime-upgrades/runtime_version.rs'
+--8<-- 'code/rollups/runtime-maintenance/index/runtime_version.rs'
 ```
 
 The struct provides the following parameter information to the executor:
@@ -52,4 +52,4 @@ The runtime metadata should only change when the chain's [runtime `spec_version`
 
 Some runtime upgrades require updating how data is stored to match new formats or layouts. This process is called a Storage Migration. It ensures the runtime can interpret existing state correctly after an upgrade.
 
-For detailed guidance, scenarios, and implementation patterns, see the [Storage Migrations](/develop/parachains/maintenance/storage-migrations/){target=\_blank} page.
+For detailed guidance, scenarios, and implementation patterns, see the [Storage Migrations](/rollups/runtime-maintenance/storage-migrations/){target=\_blank} page.

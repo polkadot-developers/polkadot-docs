@@ -39,7 +39,7 @@ Through XCM, decentralized applications can:
 - Enable seamless user experiences where underlying blockchain differences are invisible.
 - XCM exemplifies Polkadot’s commitment to creating a robust and interoperable ecosystem.
 
-For further information about XCM, check the [Introduction to XCM](/develop/interoperability/intro-to-xcm/){target=\_blank} article.
+For further information about XCM, check the [Introduction to XCM](/rollups/interoperability/){target=\_blank} article.
 
 ### Bridges: Connecting External Networks
 

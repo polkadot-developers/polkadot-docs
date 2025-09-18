@@ -67,7 +67,7 @@ To enable auto-renewal for your parachain, you must configure several components
 
 A Horizontal Relay-routed Message Passing (HRMP) channel must be opened between your parachain and the Coretime system chain before configuring auto-renewal. 
 
-For instructions on establishing this connection, consult the [Opening HRMP Channels with System Parachains](/tutorials/interoperability/xcm-channels/para-to-system/){target=\_blank} guide.
+For instructions on establishing this connection, consult the [Opening HRMP Channels with System Parachains](/rollups/interoperability/channels-with-system-rollups/){target=\_blank} guide.
 
 ### Fund Sovereign Account
 

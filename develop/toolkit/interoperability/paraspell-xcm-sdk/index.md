@@ -8,7 +8,7 @@ template: index-page.html
 
 ## Introduction
 
-[ParaSpell](https://paraspell.github.io/docs/){target=\_blank} is a comprehensive suite of open-source tools designed to simplify cross-chain interactions within the Polkadot ecosystem. At its core, ParaSpell is dedicated to enhancing the functionality of the [XCM (Cross-Consensus Messaging)](/develop/interoperability/intro-to-xcm/){target=\_blank} protocol by providing developers with a unified and streamlined experience for building interoperable decentralized applications (dApps).
+[ParaSpell](https://paraspell.github.io/docs/){target=\_blank} is a comprehensive suite of open-source tools designed to simplify cross-chain interactions within the Polkadot ecosystem. At its core, ParaSpell is dedicated to enhancing the functionality of the [XCM (Cross-Consensus Messaging)](/rollups/interoperability/){target=\_blank} protocol by providing developers with a unified and streamlined experience for building interoperable decentralized applications (dApps).
 
 The primary goal of ParaSpell is to abstract away the complexities of the XCM protocol. While XCM is a powerful feature of the Polkadot network, its implementation can vary significantly between different parachains. ParaSpell addresses this challenge by providing a standardized set of tools that enable developers to easily integrate cross-chain functionality into their applications, saving valuable time and effort. ParaSpell is a "common good" software, meaning it is free, open-source, and dedicated to the growth of the Polkadot ecosystem.
 

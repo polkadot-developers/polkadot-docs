@@ -303,13 +303,13 @@ For example, the following configuration file defines a minimal example for the 
 === "TOML"
 
     ```toml title="base-example.toml"
-    --8<-- 'code/develop/toolkit/parachains/spawn-chains/zombienet/get-started/base-example.toml'
+    --8<-- 'code/rollups/testing/run-a-rollup-network/base-example.toml'
     ```
 
 === "JSON"
 
     ```json title="base-example.json"
-    --8<-- 'code/develop/toolkit/parachains/spawn-chains/zombienet/get-started/base-example.json'
+    --8<-- 'code/rollups/testing/run-a-rollup-network/base-example.json'
     ```
 
 ### Relay Chain Configuration
@@ -459,13 +459,13 @@ The following configuration file defines a minimal example for the relay chain, 
 === "TOML"
 
     ```toml title="relaychain-example-nodes.toml"
-    --8<-- 'code/develop/toolkit/parachains/spawn-chains/zombienet/get-started/relaychain-example-nodes.toml'
+    --8<-- 'code/rollups/testing/run-a-rollup-network/relaychain-example-nodes.toml'
     ```
 
 === "JSON"
 
     ```json title="relaychain-example-nodes.json"
-    --8<-- 'code/develop/toolkit/parachains/spawn-chains/zombienet/get-started/relaychain-example-nodes.json'
+    --8<-- 'code/rollups/testing/run-a-rollup-network/relaychain-example-nodes.json'
     ```
 
 #### Node Group Configuration
@@ -546,13 +546,13 @@ The following configuration file defines a minimal example for the relay chain, 
 === "TOML"
 
     ```toml title="relaychain-example-node-groups.toml"
-    --8<-- 'code/develop/toolkit/parachains/spawn-chains/zombienet/get-started/relaychain-example-node-groups.toml'
+    --8<-- 'code/rollups/testing/run-a-rollup-network/relaychain-example-node-groups.toml'
     ```
 
 === "JSON"
 
     ```json title="relaychain-example-node-groups.json"
-    --8<-- 'code/develop/toolkit/parachains/spawn-chains/zombienet/get-started/relaychain-example-node-groups.json'
+    --8<-- 'code/rollups/testing/run-a-rollup-network/relaychain-example-node-groups.json'
     ```
 
 ### Parachain Configuration
@@ -595,13 +595,13 @@ For example, the following configuration file defines a minimal example for the 
 === "TOML"
 
     ```toml title="parachain-example.toml"
-    --8<-- 'code/develop/toolkit/parachains/spawn-chains/zombienet/get-started/parachain-example.toml'
+    --8<-- 'code/rollups/testing/run-a-rollup-network/parachain-example.toml'
     ```
 
 === "JSON"
 
     ```json title="parachain-example.json"
-    --8<-- 'code/develop/toolkit/parachains/spawn-chains/zombienet/get-started/parachain-example.json'
+    --8<-- 'code/rollups/testing/run-a-rollup-network/parachain-example.json'
     ```
 
 #### Collator Configuration
@@ -693,13 +693,13 @@ The configuration file below defines a minimal example for the collator:
 === "TOML"
 
     ```toml title="collator-example.toml"
-    --8<-- 'code/develop/toolkit/parachains/spawn-chains/zombienet/get-started/collator-example.toml'
+    --8<-- 'code/rollups/testing/run-a-rollup-network/collator-example.toml'
     ```
 
 === "JSON"
 
     ```json title="collator-example.json"
-    --8<-- 'code/develop/toolkit/parachains/spawn-chains/zombienet/get-started/collator-example.json'
+    --8<-- 'code/rollups/testing/run-a-rollup-network/collator-example.json'
     ```
 
 #### Collator Groups Configuration
@@ -780,13 +780,13 @@ For instance, the configuration file below defines a minimal example for the col
 === "TOML"
 
     ```toml title="collator-groups-example.toml"
-    --8<-- 'code/develop/toolkit/parachains/spawn-chains/zombienet/get-started/collator-groups-example.toml'
+    --8<-- 'code/rollups/testing/run-a-rollup-network/collator-groups-example.toml'
     ```
 
 === "JSON"
 
     ```json title="collator-groups-example.json"
-    --8<-- 'code/develop/toolkit/parachains/spawn-chains/zombienet/get-started/collator-groups-example.json'
+    --8<-- 'code/rollups/testing/run-a-rollup-network/collator-groups-example.json'
     ```
 
 ### XCM Configuration

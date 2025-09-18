@@ -183,4 +183,4 @@ Your runtime must include and properly configure the following pallets:
     pub type ParachainInfo = parachain_info::Pallet<Runtime>;
     ```
 
-If you're migrating an existing parachain to use the `polkadot-omni-node`, you may need to perform runtime upgrades to add the required runtime APIs and pallets. Follow the standard parachain [runtime upgrade](/develop/parachains/maintenance/runtime-upgrades/){target=\_blank} procedures to implement these changes on your live network.
+If you're migrating an existing parachain to use the `polkadot-omni-node`, you may need to perform runtime upgrades to add the required runtime APIs and pallets. Follow the standard parachain [runtime upgrade](/rollups/runtime-maintenance/){target=\_blank} procedures to implement these changes on your live network.

@@ -8,7 +8,7 @@ template: index-page.html
 
 Establishing [XCM channels](/develop/interoperability/xcm-channels/) is essential to unlocking Polkadot's native interoperability. Before bridging assets or sending cross-chain contract calls, the necessary XCM channels must be established.
 
-These tutorials guide you through the process of setting up [Horizontal Relay-routed Message Passing (HRMP)](/develop/interoperability/xcm-channels/#establishing-hrmp-channels) channels for cross-chain messaging. Learn how to configure unidirectional channels [between parachains](/tutorials/interoperability/xcm-channels/para-to-para/) and the simplified single-message process for bidirectional channels with [system parachains like Asset Hub](/tutorials/interoperability/xcm-channels/para-to-system/).
+These tutorials guide you through the process of setting up [Horizontal Relay-routed Message Passing (HRMP)](/develop/interoperability/xcm-channels/#establishing-hrmp-channels) channels for cross-chain messaging. Learn how to configure unidirectional channels [between parachains](/rollups/interoperability/channels-between-rollups/) and the simplified single-message process for bidirectional channels with [system parachains like Asset Hub](/rollups/interoperability/channels-with-system-rollups/).
 
 ## Understand the Process of Opening Channels
 

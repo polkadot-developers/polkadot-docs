@@ -3293,6 +3293,8 @@ if (forwardedIdHex === expectedForwardedId) {
 }
 ```
 
+> Note: `@noble/hashes` and `polkadot-api` are required dependencies for this code to work.
+
 ## Failure Event Handling
 
 When an XCM fails, the transaction rolls back and no explicit failure event is emitted on-chain. The following are some ways to check for XCM failure:
@@ -31148,7 +31150,7 @@ Before you begin, ensure you have the following:
 
     ```bash
     npm install --save-dev typescript @types/node tsx
-    npm install  polkadot-api @polkadot-labs/hdkd @polkadot-labs/hdkd-helpers
+    npm install polkadot-api @polkadot-labs/hdkd @polkadot-labs/hdkd-helpers
     npm install @noble/hashes
     ```
 

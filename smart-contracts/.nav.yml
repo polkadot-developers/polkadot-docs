@@ -7,3 +7,6 @@ nav:
 - 'Polkadot for Ethereum Developers': for-eth-devs
 - 'Cookbook': cookbook
 - 'Precompiles': precompiles
+- 'Dev Environments': dev-environments
+- 'Libraries': libraries
+- 'Integrations': integrations

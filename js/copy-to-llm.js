@@ -6,12 +6,6 @@
 (function() {
   'use strict';
 
-  // Get site name from meta tag
-  function getSiteName() {
-    const metaSiteName = document.querySelector('meta[name="mkdocs-site-name"]');
-    return metaSiteName ? metaSiteName.content : '';
-  } 
-
   // Check if analytics is enabled
   function isAnalyticsEnabled() {
     const metaAnalytics = document.querySelector('meta[name="mkdocs-copy-to-llm-analytics"]');
@@ -38,8 +32,6 @@
       }
     }
 
-    // Support for other analytics platforms can be added here
-    // For example: Plausible, Matomo, etc.
     if (typeof window.plausible === 'function') {
       try {
         window.plausible('Copy to LLM', { props: { type: eventType, length: contentLength } });
@@ -47,26 +39,8 @@
         console.error('Error tracking copy event with Plausible:', error);
       }
     }
-  }
 
-  // Get current page context
-  function getPageContext() {
-    return {
-      title: document.title,
-      section: getCurrentSection(),
-      url: window.location.href
-    };
-  }
-
-  // Get the current section heading
-  function getCurrentSection() {
-    const headings = document.querySelectorAll('h1, h2, h3');
-    for (let heading of headings) {
-      if (heading.getBoundingClientRect().top > 0) {
-        return heading.textContent.trim();
-      }
-    }
-    return 'Main Content';
+    // TODO: add support for other analytics providers if needed
   }
 
   // Get the raw Markdown file URL
@@ -142,6 +116,27 @@
       .replace(/^-+|-+$/g, '');
 
     return slug || 'index';
+  }
+
+  async function loadResolvedMarkdown() {
+    try {
+      const mdUrl = getMdFileUrl();
+      const response = await fetch(mdUrl);
+
+      if (!response.ok) {
+        return null;
+      }
+
+      return await response.text();
+    } catch (error) {
+      console.error('Failed to fetch resolved markdown:', error);
+      return null;
+    }
+  }
+
+  function getFallbackPageContent() {
+    const articleContent = document.querySelector('.md-content__inner .md-typeset');
+    return articleContent ? articleContent.innerText.trim() : '';
   }
 
   // Copy to clipboard with fallback
@@ -432,72 +427,59 @@
           </svg>
         `;
 
+        let copySucceeded = false;
+        let attemptedCopy = false;
+
         try {
-          // Fetch the raw Markdown content
-          // TODO: Update this to work with the /.ai/pages resolved markdown files
-          const mdUrl = getMdFileUrl();
-          const response = await fetch(mdUrl);
+          const markdownContent = await loadResolvedMarkdown();
 
-          if (response.ok) {
-            let markdownContent = await response.text();
-
-            /* Won't need this as md is already resolved with metadata in place
-            // Remove front matter (metadata) if present
-            markdownContent = removeFrontMatter(markdownContent);
-            */
+          if (markdownContent) {
+            attemptedCopy = true;
             await copyToClipboard(markdownContent, copyButton, 'markdown_content');
-
-            // Change to check icon and make it green
-            const checkIconSVG = `
-              <svg class="copy-icon copy-success-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-              </svg>
-            `;
-            copyButton.querySelector('.copy-icon').outerHTML = checkIconSVG;
-
-            // Restore the original icon after 3 seconds
-            setTimeout(() => {
-              copyButton.querySelector('.copy-icon').outerHTML = originalIconHTML;
-            }, 3000);
+            copySucceeded = true;
           } else {
-            // Fallback to formatted content if fetch fails
-            const articleContent = document.querySelector('.md-content__inner .md-typeset');
-            if (articleContent) {
-              const formattedContent = formatSectionForLLM(articleContent);
-              await copyToClipboard(formattedContent, copyButton, 'page_content');
-
-              // Restore original icon
-              copyButton.querySelector('.copy-icon').outerHTML = originalIconHTML;
-
-              // Show success by making the icon green after a small delay to ensure DOM updates
-              setTimeout(() => {
-                copyButton.classList.add('copy-success-icon');
-                setTimeout(() => {
-                  copyButton.classList.remove('copy-success-icon');
-                }, 3000);
-              }, 50);
+            const fallbackContent = getFallbackPageContent();
+            if (fallbackContent) {
+              attemptedCopy = true;
+              await copyToClipboard(fallbackContent, copyButton, 'page_content');
+              copySucceeded = true;
             }
           }
         } catch (error) {
-          // Fallback to formatted content if fetch fails
-          console.error('Failed to fetch markdown:', error);
-          const articleContent = document.querySelector('.md-content__inner .md-typeset');
-          if (articleContent) {
-            const formattedContent = formatSectionForLLM(articleContent);
-            await copyToClipboard(formattedContent, copyButton, 'page_content');
+          console.error('Copy to LLM failed, falling back to rendered content:', error);
+          const fallbackContent = getFallbackPageContent();
+          if (fallbackContent) {
+            try {
+              attemptedCopy = true;
+              await copyToClipboard(fallbackContent, copyButton, 'page_content');
+              copySucceeded = true;
+            } catch (fallbackError) {
+              console.error('Fallback copy failed:', fallbackError);
+            }
+          }
+        }
 
-            // Change to check icon and make it green
-            const checkIconSVG = `
-              <svg class="copy-icon copy-success-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-              </svg>
-            `;
-            copyButton.querySelector('.copy-icon').outerHTML = checkIconSVG;
+        if (copySucceeded) {
+          const checkIconSVG = `
+            <svg class="copy-icon copy-success-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+            </svg>
+          `;
+          copyButton.querySelector('.copy-icon').outerHTML = checkIconSVG;
 
-            // Restore the original icon after 3 seconds
-            setTimeout(() => {
-              copyButton.querySelector('.copy-icon').outerHTML = originalIconHTML;
-            }, 3000);
+          setTimeout(() => {
+            const icon = copyButton.querySelector('.copy-icon');
+            if (icon) {
+              icon.outerHTML = originalIconHTML;
+            }
+          }, 3000);
+        } else {
+          if (!attemptedCopy) {
+            showCopyError(copyButton);
+          }
+          const icon = copyButton.querySelector('.copy-icon');
+          if (icon) {
+            icon.outerHTML = originalIconHTML;
           }
         }
       });
@@ -506,7 +488,6 @@
       dropdownButton.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
-        console.log('Dropdown clicked!'); // Debug log
         dropdownMenu.classList.toggle('show');
 
         // Toggle active state on button
@@ -538,19 +519,16 @@
         if (!item) return;
 
         const action = item.dataset.action;
-        const articleContent = document.querySelector('.md-content__inner .md-typeset');
         let contentToCopy = '';
 
         switch(action) {
           case 'copy-markdown-link':
-            // Copy the raw Markdown file URL
-            // TODO: Update this to work with the /.ai/pages resolved markdown files
+            // Copy the resolved Markdown file URL from /.ai/pages
             contentToCopy = getMdFileUrl();
             break;
 
           case 'view-markdown':
             // Open the raw Markdown file directly
-            // TODO: Update this to work with the /.ai/pages resolved markdown files
             const mdUrl = getMdFileUrl();
             window.open(mdUrl, '_blank');
             dropdownMenu.classList.remove('show');
@@ -564,7 +542,6 @@
             // doesn't add much value as written versus just passing the URL manually, etc.
 
             // Get the Markdown file URL
-            // TODO: Update this to work with the /.ai/pages resolved markdown files
             const mdUrlForChatGPT = getMdFileUrl();
             const chatGPTPrompt = `Read ${mdUrlForChatGPT} so I can ask questions about it.`;
             const chatGPTUrl = `https://chatgpt.com/?hints=search&q=${encodeURIComponent(chatGPTPrompt)}`;
@@ -580,7 +557,6 @@
             // doesn't add much value as written versus just passing the URL manually, etc.
 
             // Get the Markdown file URL
-            // TODO: Update this to work with the /.ai/pages resolved markdown files
             const mdUrlForClaude = getMdFileUrl();
             const claudePrompt = `Read ${mdUrlForClaude} so I can ask questions about it.`;
             const claudeUrl = `https://claude.ai/new?q=${encodeURIComponent(claudePrompt)}`;
@@ -623,22 +599,8 @@
     }
   }
 
-  // Get content of a section starting from a heading
-  function getSectionContent(heading) {
-    const content = document.createElement('div');
-    content.appendChild(heading.cloneNode(true));
-
-    let sibling = heading.nextElementSibling;
-    while (sibling && !sibling.matches('h1, h2')) {
-      content.appendChild(sibling.cloneNode(true));
-      sibling = sibling.nextElementSibling;
-    }
-
-    return content;
-  }
-
-  // Commented out `addCodeCopyButtons` pending UI updates
-  // to clear visual clutter while iterating
+  // Code block copy buttons from the original script were removed to keep
+  // the H1 widget focused and avoid UI clutter while we validate the flow.
 
   // Initialize on DOM ready
   function initialize() {

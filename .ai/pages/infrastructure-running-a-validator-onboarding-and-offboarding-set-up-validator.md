@@ -88,10 +88,10 @@ You can also download the binaries by using the following direct links:
 
     ``` bash
     # Download the binary
-    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/polkadot-stable2506/polkadot
+    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/polkadot-stable2506-2/polkadot
 
     # Verify signature
-    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/polkadot-stable2506/polkadot.asc
+    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/polkadot-stable2506-2/polkadot.asc
     
     gpg --keyserver hkps://keyserver.ubuntu.com --receive-keys 90BD75EBBB8E95CB3DA6078F94A4029AB4B35DAE
 
@@ -102,10 +102,10 @@ You can also download the binaries by using the following direct links:
 
     ``` bash
     # Download the binary
-    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/polkadot-stable2506/polkadot-prepare-worker
+    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/polkadot-stable2506-2/polkadot-prepare-worker
 
     # Verify signature
-    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/polkadot-stable2506/polkadot-prepare-worker.asc
+    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/polkadot-stable2506-2/polkadot-prepare-worker.asc
 
     gpg --keyserver hkps://keyserver.ubuntu.com --receive-keys 90BD75EBBB8E95CB3DA6078F94A4029AB4B35DAE
 
@@ -116,10 +116,10 @@ You can also download the binaries by using the following direct links:
 
     ``` bash
     # Download the binary
-    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/polkadot-stable2506/polkadot-execute-worker
+    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/polkadot-stable2506-2/polkadot-execute-worker
 
     # Verify signature
-    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/polkadot-stable2506/polkadot-execute-worker.asc
+    curl -LO https://github.com/paritytech/polkadot-sdk/releases/download/polkadot-stable2506-2/polkadot-execute-worker.asc
 
     gpg --keyserver hkps://keyserver.ubuntu.com --receive-keys 90BD75EBBB8E95CB3DA6078F94A4029AB4B35DAE
 
@@ -129,8 +129,8 @@ You can also download the binaries by using the following direct links:
 
 Signature verification cryptographically ensures the downloaded binaries are authentic and have not been tampered with by using GPG signing keys. Polkadot releases use two different signing keys:
 
-- ParityReleases (release-team@parity.io) with key [`90BD75EBBB8E95CB3DA6078F94A4029AB4B35DAE`](https://keyserver.ubuntu.com/pks/lookup?search=9D4B2B6EB8F97156D19669A9FF0812D491B96798&fingerprint=on&op=index){target=\_blank} for current and new releases.
-- Parity Security Team (security@parity.io) with key [`9D4B2B6EB8F97156D19669A9FF0812D491B96798`](https://keyserver.ubuntu.com/pks/lookup?search=90BD75EBBB8E95CB3DA6078F94A4029AB4B35DAE&fingerprint=on&op=index){target=\_blank} for old releases.
+- ParityReleases (release-team@parity.io) with key [`90BD75EBBB8E95CB3DA6078F94A4029AB4B35DAE`](https://keyserver.ubuntu.com/pks/lookup?search=90BD75EBBB8E95CB3DA6078F94A4029AB4B35DAE&fingerprint=on&op=index){target=\_blank} for current and new releases.
+- Parity Security Team (security@parity.io) with key [`9D4B2B6EB8F97156D19669A9FF0812D491B96798`](https://keyserver.ubuntu.com/pks/lookup?search=9D4B2B6EB8F97156D19669A9FF0812D491B96798&fingerprint=on&op=index){target=\_blank} for old releases.
 
     !!!warning
         When verifying a signature, a "Good signature" message indicates successful verification, while any other output signals a potential security risk.
@@ -171,12 +171,12 @@ If you prefer using Docker or an OCI-compatible container runtime, the official 
 To pull the latest stable image, run the following command:
 
 ```bash
-docker pull parity/polkadot:stable2506
+docker pull parity/polkadot:stable2506-2
 ```
 
 ### Build from Sources
 
-You may build the binaries from source by following the instructions on the [Polkadot SDK repository](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2506/polkadot#building){target=\_blank}.
+You may build the binaries from source by following the instructions on the [Polkadot SDK repository](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2506-2/polkadot#building){target=\_blank}.
 
 ## Verify Installation
 

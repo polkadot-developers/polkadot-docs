@@ -31,7 +31,7 @@ Before you begin, ensure you have the following installed:
 Moonwall can be installed globally for system-wide access or locally within specific projects. This section covers both installation methods.
 
 !!! tip
-    This documentation corresponds to Moonwall version `5.13.5`. To avoid compatibility issues with the documented features, ensure you're using the matching version.
+    This documentation corresponds to Moonwall version `5.15.0`. To avoid compatibility issues with the documented features, ensure you're using the matching version.
 
 ### Global Installation
 
@@ -40,19 +40,19 @@ Global installation provides system-wide access to the Moonwall CLI, making it i
 === "npm"
 
     ```bash
-    npm install -g @moonwall/cli@5.13.5
+    npm install -g @moonwall/cli@5.15.0
     ```
 
 === "pnpm"
 
     ```bash
-    pnpm -g install @moonwall/cli@5.13.5
+    pnpm -g install @moonwall/cli@5.15.0
     ```
 
 === "yarn"
 
     ```bash
-    yarn global add @moonwall/cli@5.13.5
+    yarn global add @moonwall/cli@5.15.0
     ```
 
 Now, you can run the `moonwall` command from your terminal.
@@ -72,19 +72,19 @@ Then, install it as a local dependency:
 === "npm"
 
     ```bash
-    npm install @moonwall/cli@5.13.5
+    npm install @moonwall/cli@5.15.0
     ```
 
 === "pnpm"
 
     ```bash
-    pnpm install @moonwall/cli@5.13.5
+    pnpm install @moonwall/cli@5.15.0
     ```
 
 === "yarn"
 
     ```bash
-    yarn add @moonwall/cli@5.13.5
+    yarn add @moonwall/cli@5.15.0
     ```
 
 ## Initialize Moonwall

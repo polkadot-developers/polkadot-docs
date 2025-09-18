@@ -22,19 +22,19 @@ To instantiate the API, you can install the package by using the following comma
 === "npm"
 
     ```bash
-    npm i polkadot-api@1.16.2
+    npm i polkadot-api@1.17.2
     ```
 
 === "pnpm"
 
     ```bash
-    pnpm add polkadot-api@1.16.2
+    pnpm add polkadot-api@1.17.2
     ```
 
 === "yarn"
 
     ```bash
-    yarn add polkadot-api@1.16.2
+    yarn add polkadot-api@1.17.2
     ```
 
 Then, obtain the latest metadata from the target chain and generate the necessary types:

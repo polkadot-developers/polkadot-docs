@@ -27,7 +27,7 @@ The instantiation generic also appears throughout the pallet's components, inclu
 
 ## Adding Instantiable Pallets to Your Runtime
 
-The process resembles adding a standard pallet with some key differences. In this example you will see how adding two instances of the [pallet-collective](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2506/substrate/frame/collective){target=\_blank} is implemented.
+The process resembles adding a standard pallet with some key differences. In this example you will see how adding two instances of the [pallet-collective](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2506-2/substrate/frame/collective){target=\_blank} is implemented.
 
 ### Define Pallet Parameters
 

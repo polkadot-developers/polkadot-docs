@@ -1,7 +1,6 @@
 ---
 title: Networks for Polkadot Hub Smart Contracts
-description: Explore the available networks for smart contract development on Polkadot
-  Hub, including Westend Hub, Kusama Hub, and Polkadot Hub.
+description: Explore the available networks for smart contract development on Polkadot Hub, including Westend Hub, Kusama Hub, and Polkadot Hub.
 categories: Basics, Polkadot Protocol
 url: https://docs.polkadot.com/polkadot-protocol/smart-contract-basics/networks/
 ---

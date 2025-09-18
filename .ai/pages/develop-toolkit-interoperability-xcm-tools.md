@@ -1,7 +1,6 @@
 ---
 title: XCM Tools
-description: Explore essential XCM tools across Polkadot, crafted to enhance cross-chain
-  functionality and integration within the ecosystem.
+description: Explore essential XCM tools across Polkadot, crafted to enhance cross-chain functionality and integration within the ecosystem.
 categories: Basics, Tooling, Dapps
 url: https://docs.polkadot.com/develop/toolkit/interoperability/xcm-tools/
 ---

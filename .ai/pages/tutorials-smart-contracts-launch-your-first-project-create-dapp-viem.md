@@ -1,7 +1,6 @@
 ---
 title: Create a dApp With Viem
-description: Learn how to build a decentralized application on Polkadot Hub using
-  Viem and Next.js by creating a simple dApp that interacts with a smart contract.
+description: Learn how to build a decentralized application on Polkadot Hub using Viem and Next.js by creating a simple dApp that interacts with a smart contract.
 categories: dApp, Tooling
 url: https://docs.polkadot.com/tutorials/smart-contracts/launch-your-first-project/create-dapp-viem/
 ---

@@ -1,8 +1,6 @@
 ---
 title: Storage
-description: Explore decentralized storage solutions for your Polkadot dApp. Discover
-  key integrations, such as Crust and IPFS, for robust, censorship-resistant data
-  storage.
+description: Explore decentralized storage solutions for your Polkadot dApp. Discover key integrations, such as Crust and IPFS, for robust, censorship-resistant data storage.
 url: https://docs.polkadot.com/develop/toolkit/integrations/storage/
 ---
 

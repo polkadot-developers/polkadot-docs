@@ -1,7 +1,6 @@
 ---
 title: Transaction Construction
-description: Understand how to construct, sign, and broadcast transactions in the
-  Polkadot ecosystem using various tools and libraries.
+description: Understand how to construct, sign, and broadcast transactions in the Polkadot ecosystem using various tools and libraries.
 url: https://docs.polkadot.com/develop/toolkit/integrations/transaction-construction/
 ---
 

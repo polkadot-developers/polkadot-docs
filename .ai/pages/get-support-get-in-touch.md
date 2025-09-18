@@ -1,7 +1,6 @@
 ---
 title: Get in Touch
-description: Developer support for Polkadot via Telegram, Matrix, and Discord. Get
-  help with parachains, smart contracts, nodes, and ecosystem tools.
+description: Developer support for Polkadot via Telegram, Matrix, and Discord. Get help with parachains, smart contracts, nodes, and ecosystem tools.
 url: https://docs.polkadot.com/get-support/get-in-touch/
 ---
 

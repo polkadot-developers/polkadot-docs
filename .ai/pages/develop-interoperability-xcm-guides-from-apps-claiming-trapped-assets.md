@@ -1,7 +1,6 @@
 ---
 title: Claiming Trapped Assets
-description: How to claim assets that become trapped on-chain due to an XCM execution
-  failure. This guide details the process and required steps.
+description: How to claim assets that become trapped on-chain due to an XCM execution failure. This guide details the process and required steps.
 url: https://docs.polkadot.com/develop/interoperability/xcm-guides/from-apps/claiming-trapped-assets/
 ---
 

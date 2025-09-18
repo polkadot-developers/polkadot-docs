@@ -1,7 +1,6 @@
 ---
 title: Connect to Kusama
-description: Explore how to connect to Kusama Hub for developing and testing smart
-  contracts in a live environment with real monetary value.
+description: Explore how to connect to Kusama Hub for developing and testing smart contracts in a live environment with real monetary value.
 url: https://docs.polkadot.com/develop/smart-contracts/connect-to-kusama/
 ---
 

@@ -249,7 +249,7 @@ def write_ai_page(ai_pages_dir: Path, slug: str, header: dict, body: str):
         if val not in (None, "", []):
             fm_obj[key] = val
 
-    fm_yaml = yaml.safe_dump(fm_obj, sort_keys=False, allow_unicode=True).strip()
+    fm_yaml = yaml.safe_dump(fm_obj, sort_keys=False, allow_unicode=True, width=4096).strip()
     content = f"---\n{fm_yaml}\n---\n\n{body.strip()}\n"
     with open(out_path, "w", encoding="utf-8") as f:
         f.write(content)

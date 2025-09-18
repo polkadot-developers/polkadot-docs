@@ -1,7 +1,6 @@
 ---
 title: Interact with Precompiles
-description: Learn how to interact with Polkadot Hub’s precompiles from Solidity to
-  access native, low-level functions like hashing, pairing, EC ops, etc.
+description: Learn how to interact with Polkadot Hub’s precompiles from Solidity to access native, low-level functions like hashing, pairing, EC ops, etc.
 categories: Smart Contracts
 url: https://docs.polkadot.com/develop/smart-contracts/precompiles/interact-with-precompiles/
 ---

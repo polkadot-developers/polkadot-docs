@@ -1,7 +1,6 @@
 ---
 title: Benchmarking FRAME Pallets
-description: Learn how to use FRAME's benchmarking framework to measure extrinsic
-  execution costs and provide accurate weights for on-chain computations.
+description: Learn how to use FRAME's benchmarking framework to measure extrinsic execution costs and provide accurate weights for on-chain computations.
 categories: Parachains
 url: https://docs.polkadot.com/develop/parachains/testing/benchmarking/
 ---

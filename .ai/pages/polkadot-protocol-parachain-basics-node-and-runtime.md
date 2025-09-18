@@ -1,7 +1,6 @@
 ---
 title: Node and Runtime
-description: Learn how Polkadot SDK-based nodes function, how the client and runtime
-  are separated, and how they communicate using SCALE-encoded data.
+description: Learn how Polkadot SDK-based nodes function, how the client and runtime are separated, and how they communicate using SCALE-encoded data.
 categories: Basics, Polkadot Protocol
 url: https://docs.polkadot.com/polkadot-protocol/parachain-basics/node-and-runtime/
 ---

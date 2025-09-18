@@ -1,7 +1,6 @@
 ---
 title: Create a Smart Contract
-description: Learn how to write a basic smart contract using just a text editor. This
-  guide covers creating and preparing a contract for deployment on Polkadot Hub.
+description: Learn how to write a basic smart contract using just a text editor. This guide covers creating and preparing a contract for deployment on Polkadot Hub.
 categories: Basics, Smart Contracts
 url: https://docs.polkadot.com/tutorials/smart-contracts/launch-your-first-project/create-contracts/
 ---

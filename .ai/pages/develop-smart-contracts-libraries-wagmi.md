@@ -1,7 +1,6 @@
 ---
 title: Wagmi for Polkadot Hub Smart Contracts
-description: Learn how to use Wagmi React Hooks to fetch and interact with smart contracts
-  on Polkadot Hub for seamless dApp integration.
+description: Learn how to use Wagmi React Hooks to fetch and interact with smart contracts on Polkadot Hub for seamless dApp integration.
 categories: Smart Contracts, Tooling
 url: https://docs.polkadot.com/develop/smart-contracts/libraries/wagmi/
 ---

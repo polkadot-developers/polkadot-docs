@@ -1,7 +1,6 @@
 ---
 title: Collectives Chain
-description: Learn how the Collectives chain provides infrastructure for governance
-  organizations, enabling decentralized network stewardship and decision-making.
+description: Learn how the Collectives chain provides infrastructure for governance organizations, enabling decentralized network stewardship and decision-making.
 categories: Polkadot Protocol
 url: https://docs.polkadot.com/polkadot-protocol/architecture/system-chains/collectives/
 ---

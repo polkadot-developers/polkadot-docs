@@ -1,7 +1,6 @@
 ---
 title: XCM Transfers from Relay Chain to Parachain
-description: Learn how to perform a reserve-backed asset transfer between a relay
-  chain and a parachain using XCM for cross-chain interoperability.
+description: Learn how to perform a reserve-backed asset transfer between a relay chain and a parachain using XCM for cross-chain interoperability.
 categories: Parachains
 url: https://docs.polkadot.com/tutorials/interoperability/xcm-transfers/from-relaychain-to-parachain/
 ---

@@ -1,7 +1,6 @@
 ---
 title: Fast Track a Governance Proposal
-description: Learn how to fast-track governance proposals in Polkadot's OpenGov using
-  Chopsticks. Simulate, test, and execute proposals confidently.
+description: Learn how to fast-track governance proposals in Polkadot's OpenGov using Chopsticks. Simulate, test, and execute proposals confidently.
 categories: Tooling
 url: https://docs.polkadot.com/tutorials/onchain-governance/fast-track-gov-proposal/
 ---

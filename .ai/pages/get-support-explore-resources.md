@@ -1,7 +1,6 @@
 ---
 title: Subscribe to Updates
-description: Find Polkadot developer resources, tutorials, forums, governance proposals,
-  and community platforms like StackExchange, Reddit, and YouTube.
+description: Find Polkadot developer resources, tutorials, forums, governance proposals, and community platforms like StackExchange, Reddit, and YouTube.
 url: https://docs.polkadot.com/get-support/explore-resources/
 ---
 

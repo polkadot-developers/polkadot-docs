@@ -1,7 +1,6 @@
 ---
 title: Get Started
-description: Quickly install and configure Zombienet to deploy and test Polkadot-based
-  blockchain networks with this comprehensive getting-started guide.
+description: Quickly install and configure Zombienet to deploy and test Polkadot-based blockchain networks with this comprehensive getting-started guide.
 categories: Parachains, Tooling
 url: https://docs.polkadot.com/develop/toolkit/parachains/spawn-chains/zombienet/get-started/
 ---

@@ -1,7 +1,6 @@
 ---
 title: Bridge Hub
-description: Learn about the Bridge Hub system parachain, a parachain that facilitates
-  the interactions from Polkadot to the rest of Web3.
+description: Learn about the Bridge Hub system parachain, a parachain that facilitates the interactions from Polkadot to the rest of Web3.
 categories: Polkadot Protocol
 url: https://docs.polkadot.com/polkadot-protocol/architecture/system-chains/bridge-hub/
 ---

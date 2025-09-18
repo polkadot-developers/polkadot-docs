@@ -1,7 +1,6 @@
 ---
 title: Transact
-description: Learn how to execute arbitrary calls on remote chains using the Transact
-  instruction, enabling cross-chain function execution and remote pallet interactions.
+description: Learn how to execute arbitrary calls on remote chains using the Transact instruction, enabling cross-chain function execution and remote pallet interactions.
 url: https://docs.polkadot.com/develop/interoperability/xcm-guides/from-apps/transact/
 ---
 

@@ -1,7 +1,6 @@
 ---
 title: Add Pallets to the Runtime
-description: Add pallets to your runtime for custom functionality. Learn to configure
-  and integrate pallets in Polkadot SDK-based blockchains.
+description: Add pallets to your runtime for custom functionality. Learn to configure and integrate pallets in Polkadot SDK-based blockchains.
 categories: Basics, Parachains
 url: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime/
 ---

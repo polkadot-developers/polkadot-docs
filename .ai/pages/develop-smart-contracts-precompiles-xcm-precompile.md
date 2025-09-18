@@ -1,7 +1,6 @@
 ---
 title: Interact with the XCM Precompile
-description: Learn how to use the XCM precompile to send cross-chain messages, execute
-  XCM instructions, and estimate costs from your smart contracts.
+description: Learn how to use the XCM precompile to send cross-chain messages, execute XCM instructions, and estimate costs from your smart contracts.
 categories: Smart Contracts
 url: https://docs.polkadot.com/develop/smart-contracts/precompiles/xcm-precompile/
 ---

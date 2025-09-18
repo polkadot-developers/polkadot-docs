@@ -1,7 +1,6 @@
 ---
 title: EVM vs PolkaVM
-description: Compares EVM and PolkaVM, highlighting key architectural differences,
-  gas models, memory management, and account handling while ensuring Solidity compatibility.
+description: Compares EVM and PolkaVM, highlighting key architectural differences, gas models, memory management, and account handling while ensuring Solidity compatibility.
 categories: Basics, Polkadot Protocol
 url: https://docs.polkadot.com/polkadot-protocol/smart-contract-basics/evm-vs-polkavm/
 ---

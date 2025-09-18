@@ -1,7 +1,6 @@
 ---
 title: Deploy on Paseo TestNet
-description: This guide walks you through the journey of deploying your Polkadot SDK
-  blockchain on Paseo, detailing each step to a successful TestNet deployment.
+description: This guide walks you through the journey of deploying your Polkadot SDK blockchain on Paseo, detailing each step to a successful TestNet deployment.
 categories: Parachains
 url: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/
 ---

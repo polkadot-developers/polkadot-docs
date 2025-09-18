@@ -1,7 +1,6 @@
 ---
 title: Proof of Stake Consensus
-description: Explore Polkadot's consensus protocols for secure, scalable, and decentralized
-  network operation, including NPoS, BABE, GRANDPA, and BEEFY.
+description: Explore Polkadot's consensus protocols for secure, scalable, and decentralized network operation, including NPoS, BABE, GRANDPA, and BEEFY.
 categories: Polkadot Protocol
 url: https://docs.polkadot.com/polkadot-protocol/architecture/polkadot-chain/pos-consensus/
 ---

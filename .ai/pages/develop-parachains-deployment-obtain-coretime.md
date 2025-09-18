@@ -1,7 +1,6 @@
 ---
 title: Obtain Coretime
-description: Learn how to obtain and manage coretime for your Polkadot parachain.
-  Explore bulk and on-demand options, prerequisites, and initial setup.
+description: Learn how to obtain and manage coretime for your Polkadot parachain. Explore bulk and on-demand options, prerequisites, and initial setup.
 categories: Parachains
 url: https://docs.polkadot.com/develop/parachains/deployment/obtain-coretime/
 ---

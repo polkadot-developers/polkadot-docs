@@ -1,8 +1,6 @@
 ---
 title: Upgrade a Validator Node
-description: Guide to seamlessly upgrading your Polkadot validator node, managing
-  session keys, and executing server maintenance while avoiding downtime and slashing
-  risks.
+description: Guide to seamlessly upgrading your Polkadot validator node, managing session keys, and executing server maintenance while avoiding downtime and slashing risks.
 categories: Infrastructure
 url: https://docs.polkadot.com/infrastructure/running-a-validator/operational-tasks/upgrade-your-node/
 ---

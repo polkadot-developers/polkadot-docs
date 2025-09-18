@@ -1,7 +1,6 @@
 ---
 title: Pallet Unit Testing
-description: Discover how to create thorough unit tests for pallets built with the
-  Polkadot SDK, using a custom pallet as a practical example.
+description: Discover how to create thorough unit tests for pallets built with the Polkadot SDK, using a custom pallet as a practical example.
 categories: Parachains
 url: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-unit-testing/
 ---

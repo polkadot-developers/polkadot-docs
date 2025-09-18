@@ -38,7 +38,7 @@ jobs:
 
           NAV_CHANGES=""
           for FILE in $NAV_FILES; do
-            DIFF=$(git diff origin/master ${{ github.event.pull_request.head.sha }} -- "$FILE" | grep -E '^[+-]' | grep -vE '^\+\+\+|^---' || true)
+            DIFF=$(git diff origin/master ${{ github.event.pull_request.head.sha }} -- "$FILE" | grep -vE '^\+\+\+|^---' || true)
             if [ ! -z "$DIFF" ]; then
               NAV_CHANGES+="$FILE:\n$DIFF\n\n"
             fi

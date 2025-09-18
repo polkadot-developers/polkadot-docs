@@ -4,6 +4,11 @@ on:
   pull_request:
     branches:
       - master
+    paths:
+      - '**/*.md'
+      - '**/*.nav.yml'
+      - '!**/.*.yml'
+      - '!**/.*.yaml'
 
 jobs:
   check-url-changes:
@@ -14,43 +19,52 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Identify deleted and renamed files
+      - name: Identify deleted, renamed, and nav changes
         run: |
-          # Store deleted files
+          # Deleted markdown files
           DELETED_FILES=$(git diff --name-status origin/master ${{ github.event.pull_request.head.sha }} | grep '^D.*\.md$' | cut -f2- || true)
           echo "DELETED_FILES<<EOF" >> $GITHUB_ENV
           echo "$DELETED_FILES" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
           
-          # Store renamed/moved files
+          # Renamed markdown files
           RENAMED_FILES=$(git diff --name-status origin/master ${{ github.event.pull_request.head.sha }} | grep '^R.*\.md$' | awk '{print $2 " -> " $3}' || true)
           echo "RENAMED_FILES<<EOF" >> $GITHUB_ENV
           echo "$RENAMED_FILES" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
+
+          # Nav file changes (mkdocs.yml or *.nav.yml/yaml only)
+          NAV_FILES=$(git diff --name-only origin/master ${{ github.event.pull_request.head.sha }} | grep -E '(mkdocs\.yml$|\.nav\.ya?ml$)' | grep -vE '/\.[^/]+\.ya?ml$' || true)
+
+          NAV_CHANGES=""
+          for FILE in $NAV_FILES; do
+            DIFF=$(git diff origin/master ${{ github.event.pull_request.head.sha }} -- "$FILE" | grep -vE '^\+\+\+|^---' || true)
+            if [ ! -z "$DIFF" ]; then
+              NAV_CHANGES+="$FILE:\n$DIFF\n\n"
+            fi
+          done
+
+          echo "NAV_CHANGES<<EOF" >> $GITHUB_ENV
+          echo -e "$NAV_CHANGES" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
           
-          # Set warning flag if there are any changes
-          if [ ! -z "$DELETED_FILES" ] || [ ! -z "$RENAMED_FILES" ]; then
+          # Set warning flag if anything risky is found
+          if [ -n "$DELETED_FILES" ] || [ -n "$RENAMED_FILES" ] || [ -n "$NAV_CHANGES" ]; then
             echo "warning=true" >> $GITHUB_ENV
           else
             echo "warning=false" >> $GITHUB_ENV
           fi
-          
-          # Print to console for logging
-          echo "Deleted files:"
-          echo "$DELETED_FILES"
-          echo -e "\nRenamed/Moved files:"
-          echo "$RENAMED_FILES"
 
       - name: Post PR warning
         if: env.warning == 'true'
         uses: actions/github-script@v7
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const issue_number = context.payload.pull_request.number;
             const repo = context.repo;
             const deletedFiles = `${process.env.DELETED_FILES}`.trim();
             const renamedFiles = `${process.env.RENAMED_FILES}`.trim();
+            const navChanges = `${process.env.NAV_CHANGES}`.trim();
             
             let message = `🔍 **Documentation URL Checker**\n\nThis PR modifies documentation files in ways that could potentially create broken links.\n\n`;
             
@@ -61,8 +75,12 @@ jobs:
             if (renamedFiles) {
               message += `**Renamed/Moved files:**\n\`\`\`\n${renamedFiles}\n\`\`\`\n\n`;
             }
+
+            if (navChanges) {
+              message += `**Modified navigation files (possible URL changes):**\n\`\`\`\n${navChanges}\n\`\`\`\n\n`;
+            }
             
-            message += `🚨 Please review these changes carefully 🚨\n\n If not handled properly, broken links (404 errors) could appear. To maintain a smooth user experience, consider:\n- Adding redirects in the \`mkdocs.yml\` file from the old URLs to the new ones\n- Updating internal references to these files`;
+            message += `🚨 Please review these changes carefully 🚨\n\nIf not handled properly, broken links (404 errors) could appear. To maintain a smooth user experience, consider:\n- Adding redirects in the \`mkdocs.yml\` file from the old URLs to the new ones\n- Updating internal references to these files\n- Verifying that the navigation structure still matches the intended URLs.`;
             
             github.rest.issues.createComment({
               owner: repo.owner,

@@ -1793,7 +1793,7 @@ The following tools can help you locate and decode metadata:
 
 Asset Conversion is an Automated Market Maker (AMM) utilizing [Uniswap V2](https://github.com/Uniswap/v2-core){target=\_blank} logic and implemented as a pallet on Polkadot's Asset Hub. For more details about this feature, please visit the [Asset Conversion on Asset Hub](/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/){target=\_blank} wiki page.
 
-This guide will provide detailed information about the key functionalities offered by the [Asset Conversion](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2506-2/substrate/frame/asset-conversion){target=\_blank} pallet on Asset Hub, including:
+This guide will provide detailed information about the key functionalities offered by the [Asset Conversion](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2506/substrate/frame/asset-conversion){target=\_blank} pallet on Asset Hub, including:
 
 - Creating a liquidity pool.
 - Adding liquidity to a pool.
@@ -4226,7 +4226,7 @@ Well-known development accounts, such as Alice, Bob, Charlie, Dave, Eve, and Fer
 bottom drive obey lake curtain smoke basket hold race lonely fit walk
 ```
 
-Many tools in the Polkadot SDK ecosystem, such as [`subkey`](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2506-2/substrate/bin/utils/subkey){target=\_blank}, allow you to implicitly specify an account using a derivation path such as `//Alice`.
+Many tools in the Polkadot SDK ecosystem, such as [`subkey`](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2506/substrate/bin/utils/subkey){target=\_blank}, allow you to implicitly specify an account using a derivation path such as `//Alice`.
 
 ## Digest
 
@@ -4938,7 +4938,7 @@ Polkadot’s vision of interoperability extends beyond technical functionality, 
 
 ## Introduction
 
-The [Polkadot SDK](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2506-2){target=\_blank} is a powerful and versatile developer kit designed to facilitate building on the Polkadot network. It provides the necessary components for creating custom blockchains, parachains, generalized rollups, and more. Written in the Rust programming language, it puts security and robustness at the forefront of its design.
+The [Polkadot SDK](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2506){target=\_blank} is a powerful and versatile developer kit designed to facilitate building on the Polkadot network. It provides the necessary components for creating custom blockchains, parachains, generalized rollups, and more. Written in the Rust programming language, it puts security and robustness at the forefront of its design.
 
 Whether you're building a standalone chain or deploying a parachain on Polkadot, this SDK equips developers with the libraries and tools needed to manage runtime logic, compile the codebase, and utilize core features like staking, governance, and Cross-Consensus Messaging (XCM). It also provides a means for building generalized peer-to-peer systems beyond blockchains. The Polkadot SDK houses the following overall functionality:
 
@@ -6104,412 +6104,685 @@ The Polkadot ecosystem consists of multiple networks designed to support differe
 
 This section includes essential network information such as RPC endpoints, currency symbols and decimals, and how to acquire TestNet tokens for the Polkadot ecosystem of networks.
 
-## Production Networks
+## Prerequisites
 
-### Polkadot
+Before getting started, ensure you have done the following:
 
-Polkadot is the primary production blockchain network for high-stakes, enterprise-grade applications. Polkadot MainNet has been running since May 2020 and has implementations in various programming languages ranging from Rust to JavaScript.
+- Completed the [Install Polkadot SDK Dependencies](/develop/parachains/install-polkadot-sdk/){target=\_blank} guide and successfully installed [Rust](https://www.rust-lang.org/){target=\_blank} and the required packages to set up your development environment.
 
-=== "Network Details"
+For this tutorial series, you need to use Rust `1.86`. Newer versions of the compiler may not work with this parachain template version.
 
-    **Currency symbol**: `DOT`
+Run the following commands to set up the correct Rust version:
 
-    ---
+```bash
+rustup default 1.86
+rustup target add wasm32-unknown-unknown --toolchain 1.86-aarch64-apple-darwin
+rustup component add rust-src --toolchain 1.86-aarch64-apple-darwin
+```
+
+## Utility Tools
+
+This tutorial requires two essential tools:
+
+- [**Chain spec builder**](https://crates.io/crates/staging-chain-spec-builder/{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.chain_spec_builder_version}}){target=\_blank}: A Polkadot SDK utility for generating chain specifications. Refer to the [Generate Chain Specs](/develop/parachains/deployment/generate-chain-specs/){target=\_blank} documentation for detailed usage.
     
-    **Currency decimals**: 10
-
-    ---
-
-    **Block explorer**: [Polkadot Subscan](https://polkadot.subscan.io/){target=\_blank}
-
-=== "RPC Endpoints"
-
-    Blockops
-
-    ```
-    wss://polkadot-public-rpc.blockops.network/ws
-    ```
-
-    ---
-
-    Dwellir
-
-    ```
-    wss://polkadot-rpc.dwellir.com
-    ```
-
-    ---
-
-    Dwellir Tunisia
-
-    ```
-    wss://polkadot-rpc-tn.dwellir.com
-    ```
-
-    ---
-
-    IBP1
-
-    ```
-    wss://rpc.ibp.network/polkadot
-    ```
-
-    ---
-
-    IBP2
-
-    ```
-    wss://polkadot.dotters.network
-    ```
-
-    ---
-
-    LuckyFriday
-
-    ```
-    wss://rpc-polkadot.luckyfriday.io
-    ```
-
-    ---
-
-    OnFinality
-
-    ```
-    wss://polkadot.api.onfinality.io/public-ws
-    ```
-
-    ---
-
-    RadiumBlock
-
-    ```
-    wss://polkadot.public.curie.radiumblock.co/ws
-    ```
-
-    ---
-
-    RockX
-
-    ```
-    wss://rockx-dot.w3node.com/polka-public-dot/ws
-    ```
-
-    ---
-
-    Stakeworld
-
-    ```
-    wss://dot-rpc.stakeworld.io
-    ```
-
-    ---
-
-    SubQuery
-
-    ```
-    wss://polkadot.rpc.subquery.network/public/ws
-    ```
-
-    ---
-
-    Light client
-
-    ```
-    light://substrate-connect/polkadot
-    ```
-
-### Kusama
-
-Kusama is a network built as a risk-taking, fast-moving "canary in the coal mine" for its cousin Polkadot. As it is built on top of the same infrastructure, Kusama often acts as a final testing ground for new features before they are launched on Polkadot. Unlike true TestNets, however, the Kusama KSM native token does have economic value. This incentive encourages participants to maintain this robust and performant structure for the benefit of the community.
-
-=== "Network Details"
-
-    **Currency symbol**: `KSM`
-
-    ---
-
-    **Currency decimals**: 12
-
-    ---
+    Install it by executing the following command:
     
-    **Block explorer**: [Kusama Subscan](https://kusama.subscan.io/){target=\_blank}
-
-=== "RPC Endpoints"
-
-    Dwellir
-
-    ```
-    wss://kusama-rpc.dwellir.com
+    ```bash
+    cargo install --locked staging-chain-spec-builder@{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.chain_spec_builder_version}}
     ```
 
-    ---
+    This installs the `chain-spec-builder` binary.
 
-    Dwellir Tunisia
+- [**Polkadot Omni Node**](https://crates.io/crates/polkadot-omni-node/{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.polkadot_omni_node_version}}){target=\_blank}: A white-labeled binary, released as a part of Polkadot SDK that can act as the collator of a parachain in production, with all the related auxiliary functionalities that a normal collator node has: RPC server, archiving state, etc. Moreover, it can also run the wasm blob of the parachain locally for testing and development.
 
-    ```
-    wss://kusama-rpc-tn.dwellir.com
-    ```
+    To install it, run the following command:
 
-    ---
-
-    IBP1
-
-    ```
-    wss://rpc.ibp.network/kusama
+    ```bash
+    cargo install --locked polkadot-omni-node@{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.polkadot_omni_node_version}}
     ```
 
-    ---
+    This installs the `polkadot-omni-node` binary.
 
-    IBP2
+## Compile the Runtime
 
-    ```
-    wss://kusama.dotters.network
-    ```
+The [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk/tree/master/templates/parachain){target=\_blank} provides a ready-to-use development environment for building using the [Polkadot SDK](https://github.com/paritytech/polkadot-sdk){target=\_blank}. Follow these steps to compile the runtime:
 
-    ---
+1. Clone the template repository:
 
-    LuckyFriday
-
-    ```
-    wss://rpc-kusama.luckyfriday.io
+    ```bash
+    git clone -b v0.0.4 https://github.com/paritytech/polkadot-sdk-parachain-template.git parachain-template
     ```
 
-    ---
+2. Navigate into the project directory:
 
-    OnFinality
-
-    ```
-    wss://kusama.api.onfinality.io/public-ws
+    ```bash
+    cd parachain-template
     ```
 
-    ---
+3. Compile the runtime:
 
-    RadiumBlock
-
-    ```
-    wss://kusama.public.curie.radiumblock.co/ws
+    ```bash
+    cargo build --release --locked
     ```
 
-    ---
+    !!!tip
+        Initial compilation may take several minutes, depending on your machine specifications. Use the `--release` flag for improved runtime performance compared to the default `--debug` build. If you need to troubleshoot issues, the `--debug` build provides better diagnostics.
+        
+        For production deployments, consider using a dedicated [`--profile production`](https://github.com/paritytech/polkadot-sdk-parachain-template/blob/v0.0.4/Cargo.toml#L42-L45){target=\_blank} flag - this can provide an additional 15-30% performance improvement over the standard `--release` profile.
 
-    RockX
+4. Upon successful compilation, you should see output similar to:
 
+    <div id="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>cargo build --release --locked</span>
+  <span data-ty>...</span>
+  <span data-ty>Finished `release` profile [optimized] target(s) in 1.79s</span>
+  <span data-ty="input"><span class="file-path"></span></span>
+</div>
+
+## Start the Local Chain
+
+After successfully compiling your runtime, you can spin up a local chain and produce blocks. This process will start your local parachain and allow you to interact with it. You'll first need to generate a chain specification that defines your network's identity, initial connections, and genesis state, providing the foundational configuration for how your nodes connect and what initial state they agree upon, and then run the chain. 
+
+Follow these steps to launch your node in development mode:
+
+1. Generate the chain specification file of your parachain:
+
+    ```bash
+    chain-spec-builder create -t development \
+    --relay-chain paseo \
+    --para-id 1000 \
+    --runtime ./target/release/wbuild/parachain-template-runtime/parachain_template_runtime.compact.compressed.wasm \
+    named-preset development
     ```
-    wss://rockx-ksm.w3node.com/polka-public-ksm/ws
+
+2. Start the omni node with the generated chain spec. You'll start it in development mode (without a relay chain config), producing and finalizing blocks:
+
+    ```bash
+    polkadot-omni-node --chain ./chain_spec.json --dev
     ```
 
-    ---
+    The `--dev` option does the following:
 
-    Stakeworld
+    - Deletes all active data (keys, blockchain database, networking information) when stopped.
+    - Ensures a clean working state each time you restart the node.
 
-    ```
-    wss://rockx-ksm.w3node.com/polka-public-ksm/ws
-    ```
+3. Verify that your node is running by reviewing the terminal output. You should see something similar to:
 
-    ---
+    <div id="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>polkadot-omni-node --chain ./chain_spec.json --dev</span>
+  <br />
+  <span data-ty>2024-12-12 12:44:02 polkadot-omni-node</span>
+  <span data-ty>2024-12-12 12:44:02 ✌️ version 0.1.0-da2dd9b7737</span>
+  <span data-ty>2024-12-12 12:44:02 ❤️ by Parity Technologies admin@parity.io, 2017-2024</span>
+  <span data-ty>2024-12-12 12:44:02 📋 Chain specification: Custom</span>
+  <span data-ty>2024-12-12 12:44:02 🏷 Node name: grieving-drum-1926</span>
+  <span data-ty>2024-12-12 12:44:02 👤 Role: AUTHORITY</span>
+  <span data-ty>2024-12-12 12:44:02 💾 Database: RocksDb at /var/folders/x0/xl_kjddj3ql3bx7752yr09hc0000gn/T/substrateoUrZMQ/chains/custom/db/full</span>
+  <span data-ty>2024-12-12 12:44:03 [Parachain] assembling new collators for new session 0 at #0</span>
+  <span data-ty>2024-12-12 12:44:03 [Parachain] assembling new collators for new session 1 at #0</span>
+  <span data-ty>2024-12-12 12:44:03 [Parachain] 🔨 Initializing Genesis block/state (state: 0xa6f8…5b46, header-hash: 0x0579…2153)</span>
+  <span data-ty>2024-12-12 12:44:03 [Parachain] creating SingleState txpool Limit { count: 8192, total_bytes: 20971520 }/Limit { count: 819, total_bytes: 2097152 }.</span>
+  <span data-ty>2024-12-12 12:44:03 [Parachain] Using default protocol ID "sup" because none is configured in the chain specs</span>
+  <span data-ty>2024-12-12 12:44:03 [Parachain] 🏷 Local node identity is: 12D3KooWCSXy6rBuJVsn5mx8uyNqkdfNfFzEbToi4hR31v3PwdgX</span>
+  <span data-ty>2024-12-12 12:44:03 [Parachain] Running libp2p network backend</span>
+  <span data-ty>2024-12-12 12:44:03 [Parachain] 💻 Operating system: macos</span>
+  <span data-ty>2024-12-12 12:44:03 [Parachain] 💻 CPU architecture: aarch64</span>
+  <span data-ty>2024-12-12 12:44:03 [Parachain] 📦 Highest known block at #0</span>
+  <span data-ty>2024-12-12 12:44:03 [Parachain] 〽️ Prometheus exporter started at 127.0.0.1:9615</span>
+  <span data-ty>2024-12-12 12:44:03 [Parachain] Running JSON-RPC server: addr=127.0.0.1:9944,[::1]:9944</span>
+  <span data-ty>2024-12-12 12:44:06 [Parachain] 🙌 Starting consensus session on top of parent 0x05794f9adcdaa23a5edd335e8310637d3a7e6e9393f2b0794af7d3e219f62153 (#0)</span>
+  <span data-ty>2024-12-12 12:44:06 [Parachain] 🎁 Prepared block for proposing at 1 (2 ms) hash: 0x6fbea46711e9b38bab8e7877071423cd03feab03d3f4a0d578a03ab42dcee34b; parent_hash: 0x0579…2153; end: NoMoreTransactions; extrinsics_count: 2</span>
+  <span data-ty>2024-12-12 12:44:06 [Parachain] 🏆 Imported #1 (0x0579…2153 → 0x6fbe…e34b)</span>
+  <span data-ty>...</span>
+</div>
 
-    Light client
+4. Confirm that your blockchain is producing new blocks by checking if the number after `finalized` is increasing.
 
-    ```
-    light://substrate-connect/kusama
-    ```
+    <div id="termynal" data-termynal>
+  <span data-ty>...</span>
+  <span data-ty>2024-12-12 12:49:20 [Parachain] 💤 Idle (0 peers), best: #1 (0x6fbe…e34b), finalized #1 (0x6fbe…e34b), ⬇ 0 ⬆ 0</span>
+  <span data-ty>...</span>
+  <span data-ty>2024-12-12 12:49:25 [Parachain] 💤 Idle (0 peers), best: #3 (0x7543…bcfc), finalized #3 (0x7543…bcfc), ⬇ 0 ⬆ 0</span>
+  <span data-ty>...</span>
+  <span data-ty>2024-12-12 12:49:30 [Parachain] 💤 Idle (0 peers), best: #4 (0x0478…8d63), finalized #4 (0x0478…8d63), ⬇ 0 ⬆ 0</span>
+  <span data-ty>...</span>
+</div>
 
-## Test Networks
+The details of the log output will be explored in a later tutorial. For now, knowing that your node is running and producing blocks is sufficient.
 
-### Westend
+## Interact with the Node
 
-Westend is the primary test network that mirrors Polkadot's functionality for protocol-level feature development. As a true TestNet, the WND native token intentionally does not have any economic value. Use the faucet information in the following section to obtain WND tokens.
+When running the template node, it's accessible by default at `ws://localhost:9944`. To interact with your node using the [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} interface, follow these steps:
 
-=== "Network Information"
-
-    **Currency symbol**: `WND`
-
-    ---
-
-    **Currency decimals**: 12
-
-    ---
+1. Open [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} in your web browser and click the network icon (which should be the Polkadot logo) in the top left corner as shown in the image below:
     
-    **Block explorer**: [Westend Subscan](https://westend.subscan.io/){target=\_blank}
+    ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template/set-up-a-template-1.webp)
+
+2. Connect to your local node:
+
+    1. Scroll to the bottom and select **Development**.
+    2. Choose **Custom**.
+    3. **Enter `ws**: //localhost:9944` in the input field.
+    4. Click the **Switch** button.
+    
+    ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template/set-up-a-template-2.webp)
+
+3. Verify connection:
+
+    - Once connected, you should see **parachain-template-runtime** in the top left corner.
+    - The interface will display information about your local blockchain.
+    
+    ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template/set-up-a-template-3.webp)
+
+You are now connected to your local node and can now interact with it through the Polkadot.js Apps interface. This tool enables you to explore blocks, execute transactions, and interact with your blockchain's features. For in-depth guidance on using the interface effectively, refer to the [Polkadot.js Guides](https://wiki.polkadot.com/general/polkadotjs/){target=\_blank} available on the Polkadot Wiki.
+
+## Stop the Node
+
+When you're done exploring your local node, you can stop it to remove any state changes you've made. Since you started the node with the `--dev` option, stopping the node will purge all persistent block data, allowing you to start fresh the next time.
+
+To stop the local node:
+
+1. Return to the terminal window where the node output is displayed.
+2. Press `Control-C` to stop the running process.
+3. Verify that your terminal returns to the prompt in the `parachain-template` directory.
+
+## Where to Go Next
+
+<div class="grid cards" markdown>
+
+-   <span class="badge tutorial">Tutorial</span> __Build a Custom Pallet__
 
     ---
 
-    **Faucet**: [Official Westend faucet](https://faucet.polkadot.io/westend){target=\_blank}
+    Build your own custom pallet for Polkadot SDK-based blockchains! Follow this step-by-step guide to create and configure a simple counter pallet from scratch.
 
+    [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/)
 
-=== "RPC Endpoints"
+</div>
+--- END CONTENT ---
 
-    Dwellir
-
-    ```
-    wss://westend-rpc.dwellir.com
-    ```
-
-    ---
-
-    Dwellir Tunisia
-
-    ```
-    wss://westend-rpc-tn.dwellir.com
-    ```
-
-    ---
-
-    IBP1
-
-    ```
-    wss://rpc.ibp.network/westend
-    ```
-
-    ---
-
-    IBP2
-
-    ```
-    wss://westend.dotters.network
-    ```
-
-    ---
-
-    OnFinality
-
-    ```
-    wss://westend.api.onfinality.io/public-ws
-    ```
-
-    ---
-
-    Parity
-
-    ```
-    wss://westend-rpc.polkadot.io
-    ```
-
-    ---
-
-    Light client
-
-    ```
-    light://substrate-connect/westend
-    ```
-
-### Paseo
-
-Paseo is a decentralised, community run, stable testnet for parachain and dapp developers to build and test their applications. Unlike Westend, Paseo is not intended for protocol-level testing. As a true TestNet, the PAS native token intentionally does not have any economic value. Use the faucet information in the following section to obtain PAS tokens.
-
-=== "Network Information"
-
-    **Currency symbol**: `PAS`
-
-    ---
-
-    **Currency decimals**: 10
-
-    ---
-    
-    **Block explorer**: [Paseo Subscan](https://paseo.subscan.io/){target=\_blank}
-
-    ---
-
-    **Faucet**: [Official Paseo faucet](https://faucet.polkadot.io/){target=\_blank}
-
-=== "RPC Endpoints"
-
-    Amforc
-    
-    ```
-    wss://paseo.rpc.amforc.com
-    ```
-    
-    ---
-    
-    Dwellir
-    
-    ```
-    wss://paseo-rpc.dwellir.com
-    ```
-    
-    ---
-    
-    IBP1
-    
-    ```
-    wss://rpc.ibp.network/paseo
-    ```
-    
-    ---
-    
-    IBP2
-    
-    ```
-    wss://paseo.dotters.network
-    ```
-    
-    ---
-    
-    StakeWorld
-    
-    ```
-    wss://pas-rpc.stakeworld.io
-    ```
-
-## Additional Resources
-
-- [**Polkadot Fellowship runtimes repository**](https://github.com/polkadot-fellows/runtimes){target=\_blank}: Find a collection of runtimes for Polkadot, Kusama, and their system-parachains as maintained by the community via the [Polkadot Technical Fellowship](https://wiki.polkadot.com/learn/learn-polkadot-technical-fellowship/){target=\_blank}.
-
-
+Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-asset/
+--- BEGIN CONTENT ---
+---
+title: Register a Local Asset
+description: Comprehensive guide to registering a local asset on the Asset Hub system parachain, including step-by-step instructions.
+tutorial_badge: Beginner
+categories: Basics, dApps
 ---
 
-# Networks
-
-> Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/polkadot-protocol-parachain-basics-networks.md
-> Canonical (HTML): https://docs.polkadot.com/polkadot-protocol/parachain-basics/networks/
-> Summary: Explore Polkadot's testing and production networks, including Westend, Kusama, and Paseo, for efficient development, deployment, and testing.
-
-# Networks
+# Register a Local Asset on Asset Hub
 
 ## Introduction
 
-The Polkadot ecosystem is built on a robust set of networks designed to enable secure and scalable development. Whether you are testing new features or deploying to live production, Polkadot offers several layers of networks tailored for each stage of the development process. From local environments to experimental networks like Kusama and community-run TestNets such as Paseo, developers can thoroughly test, iterate, and validate their applications. This guide will introduce you to Polkadot's various networks and explain how they fit into the development workflow.
+As detailed in the [Asset Hub Overview](/polkadot-protocol/architecture/system-chains/asset-hub){target=\_blank} page, Asset Hub accommodates two types of assets: local and foreign. Local assets are those that were created in Asset Hub and are identifiable by an integer ID. On the other hand, foreign assets originate from a sibling parachain and are identified by a Multilocation.
 
-## Network Overview 
+This guide will take you through the steps of registering a local asset on the Asset Hub parachain.
 
-Polkadot's development process is structured to ensure new features and upgrades are rigorously tested before being deployed on live production networks. The progression follows a well-defined path, starting from local environments and advancing through TestNets, ultimately reaching the Polkadot MainNet. The diagram below outlines the typical progression of the Polkadot development cycle:
+## Prerequisites
 
-``` mermaid
+Before you begin, ensure you have access to the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} interface and a funded wallet with DOT or KSM.
 
-flowchart LR
-    id1[Local] --> id2[Westend] --> id4[Kusama] --> id5[Polkadot]  
-    id1[Local] --> id3[Paseo] --> id5[Polkadot] 
+- For Polkadot Asset Hub, you would need a deposit of 10 DOT and around 0.201 DOT for the metadata.
+- For Kusama Asset Hub, the deposit is 0.1 KSM and around 0.000669 KSM for the metadata.
+
+You need to ensure that your Asset Hub account balance is a bit more than the sum of those two deposits, which should seamlessly account for the required deposits and transaction fees.
+
+## Steps to Register a Local Asset
+
+To register a local asset on the Asset Hub parachain, follow these steps:
+
+1. Open the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} interface and connect to the Asset Hub parachain using the network selector in the top left corner.
+
+      - You may prefer to test local asset registration on TestNet before registering the asset on a MainNet hub. If you still need to set up a local testing environment, review the [Environment setup](#test-setup-environment) section for instructions. Once the local environment is set up, connect to the Local Node (Chopsticks) available on `ws://127.0.0.1:8000`.
+      - For the live network, connect to the **Asset Hub** parachain. Either Polkadot or Kusama Asset Hub can be selected from the dropdown list, choosing the desired RPC provider.
+
+2. Click on the **Network** tab on the top navigation bar and select **Assets** from the dropdown list.
+
+      ![Access to Asset Hub through Polkadot.JS](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-assets/register-a-local-asset-1.webp)
+
+3. Now, you need to examine all the registered asset IDs. This step is crucial to ensure that the asset ID you are about to register is unique. Asset IDs are displayed in the **assets** column.
+
+      ![Asset IDs on Asset Hub](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-assets/register-a-local-asset-2.webp)
+
+4. Once you have confirmed that the asset ID is unique, click on the **Create** button on the top right corner of the page.
+
+      ![Create a new asset](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-assets/register-a-local-asset-3.webp)
+
+5. Fill in the required fields in the **Create Asset** form:
+
+    1. **creator account**: The account to be used for creating this asset and setting up the initial metadata.
+    2. **asset name**: The descriptive name of the asset you are registering.
+    3. **asset symbol**: The symbol that will be used to represent the asset.
+    4. **asset decimals**: The number of decimal places for this token, with a maximum of 20 allowed through the user interface.
+    5. **minimum balance**: The minimum balance for the asset. This is specified in the units and decimals as requested.
+    6. **asset ID**: The selected id for the asset. This should not match an already-existing asset id.
+    7. Click on the **Next** button.
+ 
+    ![Create Asset Form](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-assets/register-a-local-asset-4.webp)
+
+6. Choose the accounts for the roles listed below:
+
+    1. **admin account**: The account designated for continuous administration of the token.
+    2. **issuer account**: The account that will be used for issuing this token.
+    3. **freezer account**: The account that will be used for performing token freezing operations.
+    4. Click on the **Create** button.
+
+    ![Admin, Issuer, Freezer accounts](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-assets/register-a-local-asset-5.webp)
+
+7. Click on the **Sign and Submit** button to complete the asset registration process.
+
+    ![Sign and Submit](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-assets/register-a-local-asset-6.webp)
+
+## Verify Asset Registration
+
+After completing these steps, the asset will be successfully registered. You can now view your asset listed on the [**Assets**](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fasset-hub-polkadot-rpc.dwellir.com#/assets){target=\_blank} section of the Polkadot.js Apps interface.
+
+![Asset listed on Polkadot.js Apps](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-assets/register-a-local-asset-7.webp)
+
+!!! tip
+    Take into consideration that the **Assets** section’s link may differ depending on the network you are using. For the local environment, enter `ws://127.0.0.1:8000` into the **Custom Endpoint** field.
+
+In this way, you have successfully registered a local asset on the Asset Hub parachain.
+
+For an in-depth explanation about Asset Hub and its features, see the [Asset Hub](/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/){target=\_blank} entry in the Polkadot Wiki.
+
+## Test Setup Environment
+
+You can set up a local parachain environment to test the asset registration process before deploying it on the live network. This guide uses Chopsticks to simulate that process. For further information on chopsticks usage, refer to the [Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started){target=\_blank} documentation.
+
+To set up a test environment, execute the following command:
+
+```bash
+npx @acala-network/chopsticks \
+--config=https://raw.githubusercontent.com/AcalaNetwork/chopsticks/master/configs/polkadot-asset-hub.yml
 ```
-This flow ensures developers can thoroughly test and iterate without risking real tokens or affecting production networks. Testing tools like [Chopsticks](#chopsticks) and various TestNets make it easier to experiment safely before releasing to production.
 
-A typical journey through the Polkadot core protocol development process might look like this:
+The above command will spawn a lazy fork of Polkadot Asset Hub with the latest block data from the network. If you need to test Kusama Asset Hub, replace `polkadot-asset-hub.yml` with `kusama-asset-hub.yml` in the command.
 
-1. **Local development node**: Development starts in a local environment, where developers can create, test, and iterate on upgrades or new features using a local development node. This stage allows rapid experimentation in an isolated setup without any external dependencies.
+An Asset Hub instance is now running locally, and you can proceed with the asset registration process. Note that the local registration process does not differ from the live network process. Once you have a successful TestNet transaction, you can use the same steps to register the asset on MainNet.
+--- END CONTENT ---
 
-2. **Westend**: After testing locally, upgrades are deployed to [Westend](#westend), Polkadot's primary TestNet. Westend simulates real-world conditions without using real tokens, making it the ideal place for rigorous feature testing before moving on to production networks.
+Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/testing/fork-live-chains/
+--- BEGIN CONTENT ---
+---
+title: Fork a Chain with Chopsticks
+description: Learn how to fork live Polkadot SDK chains with Chopsticks. Configure forks, replay blocks, test XCM, and interact programmatically or via UI.
+tutorial_badge: Beginner
+categories: Basics, dApps, Tooling
+---
 
-3. **Kusama**: Once features have passed extensive testing on Westend, they move to Kusama, Polkadot's experimental and fast-moving "canary" network. Kusama operates as a high-fidelity testing ground with actual economic incentives, giving developers insights into how their features will perform in a real-world environment.
+# Fork a Chain with Chopsticks
 
-4. **Polkadot**: After passing tests on Westend and Kusama, features are considered ready for deployment to Polkadot, the live production network.
+## Introduction
 
-    In addition, parachain developers can leverage local TestNets like [Zombienet](#zombienet) and deploy upgrades on parachain TestNets.
+Chopsticks is an innovative tool that simplifies the process of forking live Polkadot SDK chains. This guide provides step-by-step instructions to configure and fork chains, enabling developers to:
 
-5. **Paseo**: For parachain and dApp developers, Paseo serves as a community-run TestNet that mirrors Polkadot's runtime. Like Westend for core protocol development, Paseo provides a testing ground for parachain development without affecting live networks.
+- Replay blocks for state analysis.
+- Test cross-chain messaging (XCM).
+- Simulate blockchain environments for debugging and experimentation.
 
-!!!note
-    The Rococo TestNet deprecation date was October 14, 2024. Teams should use Westend for Polkadot protocol and feature testing and Paseo for chain development-related testing.
+With support for both configuration files and CLI commands, Chopsticks offers flexibility for diverse development workflows. Whether you're testing locally or exploring complex blockchain scenarios, Chopsticks empowers developers to gain deeper insights and accelerate application development.
 
-## Polkadot Development Networks
+Chopsticks uses the [Smoldot](https://github.com/smol-dot/smoldot){target=\_blank} light client, which does not support calls made through the Ethereum JSON-RPC. As a result, you can't fork your chain using Chopsticks and then interact with it using tools like MetaMask.
 
-Development and testing are crucial to building robust dApps and parachains and performing network upgrades within the Polkadot ecosystem. To achieve this, developers can leverage various networks and tools that provide a risk-free environment for experimentation and validation before deploying features to live networks. These networks help avoid the costs and risks associated with real tokens, enabling testing for functionalities like governance, cross-chain messaging, and runtime upgrades.
+For additional support and information, please reach out through [GitHub Issues](https://github.com/AcalaNetwork/chopsticks/issues){target=\_blank}.
+
+## Prerequisites
+
+To follow this tutorial, ensure you have completed the following:
+
+- **Installed Chopsticks**: If you still need to do so, see the [Install Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/#install-chopsticks){target=\_blank} guide for assistance.
+- **Reviewed** [Configure Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/#configure-chopsticks){target=\_blank}: And understand how forked chains are configured.
+
+## Configuration File 
+
+To run Chopsticks using a configuration file, utilize the `--config` flag. You can use a raw GitHub URL, a path to a local file, or simply the chain's name. The following commands all look different but they use the `polkadot` configuration in the same way:
+
+=== "GitHub URL"
+
+    ```bash
+    npx @acala-network/chopsticks \
+    --config=https://raw.githubusercontent.com/AcalaNetwork/chopsticks/master/configs/polkadot.yml
+    ```
+
+=== "Local File Path"
+
+    ```bash
+    npx @acala-network/chopsticks --config=configs/polkadot.yml
+    ```
+
+=== "Chain Name"
+
+    ```bash
+    npx @acala-network/chopsticks --config=polkadot
+    ```
+
+Regardless of which method you choose from the preceding examples, you'll see an output similar to the following:
+
+<div id="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>npx @acala-network/chopsticks --config=polkadot</span>
+  <br />
+  <span data-ty>[18:38:26.155] INFO: Loading config file https://raw.githubusercontent.com/AcalaNetwork/chopsticks/master/configs/polkadot.yml</span>
+  <span data-ty> app: "chopsticks"</span>
+  <span data-ty> chopsticks::executor TRACE: Calling Metadata_metadata</span>
+  <span data-ty> chopsticks::executor TRACE: Completed Metadata_metadata</span>
+  <span data-ty>[18:38:28.186] INFO: Polkadot RPC listening on port 8000</span>
+  <span data-ty> app: "chopsticks"</span>
+</div>
+
+If using a file path, make sure you've downloaded the [Polkadot configuration file](https://github.com/AcalaNetwork/chopsticks/blob/master/configs/polkadot.yml){target=\_blank}, or have created your own.
+
+## Create a Fork
+
+Once you've configured Chopsticks, use the following command to fork Polkadot at block 100:
+
+```bash
+npx @acala-network/chopsticks \
+--endpoint wss://polkadot-rpc.dwellir.com \
+--block 100
+```
+
+If the fork is successful, you will see output similar to the following:
+
+-8<-- 'code/tutorials/polkadot-sdk/testing/fork-live-chains/polkadot-fork-01.html'
+
+Access the running Chopsticks fork using the default address.
+
+```bash
+ws://localhost:8000
+```
+
+## Interact with a Fork
+
+You can interact with the forked chain using various [libraries](/develop/toolkit/#libraries){target=\_blank} such as [Polkadot.js](https://polkadot.js.org/docs/){target=\_blank} and its user interface, [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank}.
+
+### Use Polkadot.js Apps
+
+To interact with Chopsticks via the hosted user interface, visit [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} and follow these steps:
+
+1. Select the network icon in the top left corner.
+
+    ![](/images/tutorials/polkadot-sdk/testing/fork-live-chains/chopsticks-1.webp)
+
+2. Scroll to the bottom and select **Development**.
+3. Choose **Custom**.
+4. Enter `ws://localhost:8000` in the input field.
+5. Select the **Switch** button.
+
+    ![](/images/tutorials/polkadot-sdk/testing/fork-live-chains/chopsticks-2.webp)
+
+You should now be connected to your local fork and can interact with it as you would with a real chain.
+
+### Use Polkadot.js Library
+
+For programmatic interaction, you can use the Polkadot.js library. The following is a basic example:
+
+```js
+import { ApiPromise, WsProvider } from '@polkadot/api';
+
+async function connectToFork() {
+  const wsProvider = new WsProvider('ws://localhost:8000');
+  const api = await ApiPromise.create({ provider: wsProvider });
+  await api.isReady;
+
+  // Now you can use 'api' to interact with your fork
+  console.log(`Connected to chain: ${await api.rpc.system.chain()}`);
+}
+
+connectToFork();
+```
+
+## Replay Blocks
+
+Chopsticks allows you to replay specific blocks from a chain, which is useful for debugging and analyzing state changes. You can use the parameters in the [Configuration](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/#configure-chopsticks){target=\_blank} section to set up the chain configuration, and then use the run-block subcommand with the following additional options:
+
+- **`output-path`**: Path to print output.
+- **`html`**: Generate HTML with storage diff.
+- **`open`**: Open generated HTML.
+
+For example, the command to replay block 1000 from Polkadot and save the output to a JSON file would be as follows:
+
+```bash
+npx @acala-network/chopsticks run-block  \
+--endpoint wss://polkadot-rpc.dwellir.com  \
+--output-path ./polkadot-output.json  \
+--block 1000
+```
+
+??? code "polkadot-output.json"
+
+    ```json
+    {
+    "Call": {
+        "result": "0xba754e7478944d07a1f7e914422b4d973b0855abeb6f81138fdca35beb474b44a10f6fc59a4d90c3b78e38fac100fc6adc6f9e69a07565ec8abce6165bd0d24078cc7bf34f450a2cc7faacc1fa1e244b959f0ed65437f44208876e1e5eefbf8dd34c040642414245b501030100000083e2cc0f00000000d889565422338aa58c0fd8ebac32234149c7ce1f22ac2447a02ef059b58d4430ca96ba18fbf27d06fe92ec86d8b348ef42f6d34435c791b952018d0a82cae40decfe5faf56203d88fdedee7b25f04b63f41f23da88c76c876db5c264dad2f70c",
+        "storageDiff": [
+            [
+                "0x0b76934f4cc08dee01012d059e1b83eebbd108c4899964f707fdaffb82636065",
+                "0x00"
+            ],
+            [
+                "0x1cb6f36e027abb2091cfb5110ab5087f0323475657e0890fbdbf66fb24b4649e",
+                null
+            ],
+            [
+                "0x1cb6f36e027abb2091cfb5110ab5087f06155b3cd9a8c9e5e9a23fd5dc13a5ed",
+                "0x83e2cc0f00000000"
+            ],
+            [
+                "0x1cb6f36e027abb2091cfb5110ab5087ffa92de910a7ce2bd58e99729c69727c1",
+                null
+            ],
+            [
+                "0x26aa394eea5630e07c48ae0c9558cef702a5c1b19ab7a04f536c519aca4983ac",
+                null
+            ],
+            [
+                "0x26aa394eea5630e07c48ae0c9558cef70a98fdbe9ce6c55837576c60c7af3850",
+                "0x02000000"
+            ],
+            [
+                "0x26aa394eea5630e07c48ae0c9558cef734abf5cb34d6244378cddbf18e849d96",
+                "0xc03b86ae010000000000000000000000"
+            ],
+            [
+                "0x26aa394eea5630e07c48ae0c9558cef780d41e5e16056765bc8461851072c9d7",
+                "0x080000000000000080e36a09000000000200000001000000000000ca9a3b00000000020000"
+            ],
+            [
+                "0x26aa394eea5630e07c48ae0c9558cef78a42f33323cb5ced3b44dd825fda9fcc",
+                null
+            ],
+            [
+                "0x26aa394eea5630e07c48ae0c9558cef799e7f93fc6a98f0874fd057f111c4d2d",
+                null
+            ],
+            [
+                "0x26aa394eea5630e07c48ae0c9558cef7a44704b568d21667356a5a050c118746d366e7fe86e06375e7030000",
+                "0xba754e7478944d07a1f7e914422b4d973b0855abeb6f81138fdca35beb474b44"
+            ],
+            [
+                "0x26aa394eea5630e07c48ae0c9558cef7a86da5a932684f199539836fcb8c886f",
+                null
+            ],
+            [
+                "0x26aa394eea5630e07c48ae0c9558cef7b06c3320c6ac196d813442e270868d63",
+                null
+            ],
+            [
+                "0x26aa394eea5630e07c48ae0c9558cef7bdc0bd303e9855813aa8a30d4efc5112",
+                null
+            ],
+            [
+                "0x26aa394eea5630e07c48ae0c9558cef7df1daeb8986837f21cc5d17596bb78d15153cb1f00942ff401000000",
+                null
+            ],
+            [
+                "0x26aa394eea5630e07c48ae0c9558cef7df1daeb8986837f21cc5d17596bb78d1b4def25cfda6ef3a00000000",
+                null
+            ],
+            [
+                "0x26aa394eea5630e07c48ae0c9558cef7ff553b5a9862a516939d82b3d3d8661a",
+                null
+            ],
+            [
+                "0x2b06af9719ac64d755623cda8ddd9b94b1c371ded9e9c565e89ba783c4d5f5f9b4def25cfda6ef3a000000006f3d6b177c8acbd8dc9974cdb3cebfac4d31333c30865ff66c35c1bf898df5c5dd2924d3280e7201",
+                "0x9b000000"
+            ],
+            ["0x3a65787472696e7369635f696e646578", null],
+            [
+                "0x3f1467a096bcd71a5b6a0c8155e208103f2edf3bdf381debe331ab7446addfdc",
+                "0x550057381efedcffffffffffffffffff"
+            ],
+            [
+                "0x3fba98689ebed1138735e0e7a5a790ab0f41321f75df7ea5127be2db4983c8b2",
+                "0x00"
+            ],
+            [
+                "0x3fba98689ebed1138735e0e7a5a790ab21a5051453bd3ae7ed269190f4653f3b",
+                "0x080000"
+            ],
+            [
+                "0x3fba98689ebed1138735e0e7a5a790abb984cfb497221deefcefb70073dcaac1",
+                "0x00"
+            ],
+            [
+                "0x5f3e4907f716ac89b6347d15ececedca80cc6574281671b299c1727d7ac68cabb4def25cfda6ef3a00000000",
+                "0x204e0000183887050ecff59f58658b3df63a16d03a00f92890f1517f48c2f6ccd215e5450e380e00005809fd84af6483070acbb92378e3498dbc02fb47f8e97f006bb83f60d7b2b15d980d000082104c22c383925323bf209d771dec6e1388285abe22c22d50de968467e0bb6ce00b000088ee494d719d68a18aade04903839ea37b6be99552ceceb530674b237afa9166480d0000dc9974cdb3cebfac4d31333c30865ff66c35c1bf898df5c5dd2924d3280e72011c0c0000e240d12c7ad07bb0e7785ee6837095ddeebb7aef84d6ed7ea87da197805b343a0c0d0000"
+            ],
+            [
+                "0xae394d879ddf7f99595bc0dd36e355b5bbd108c4899964f707fdaffb82636065",
+                null
+            ],
+            [
+                "0xbd2a529379475088d3e29a918cd478721a39ec767bd5269111e6492a1675702a",
+                "0x4501407565175cfbb5dca18a71e2433f838a3d946ef532c7bff041685db1a7c13d74252fffe343a960ef84b15187ea0276687d8cb3168aeea5202ea6d651cb646517102b81ff629ee6122430db98f2cadf09db7f298b49589b265dae833900f24baa8fb358d87e12f3e9f7986a9bf920c2fb48ce29886199646d2d12c6472952519463e80b411adef7e422a1595f1c1af4b5dd9b30996fba31fa6a30bd94d2022d6b35c8bc5a8a51161d47980bf4873e01d15afc364f8939a6ce5a09454ab7f2dd53bf4ee59f2c418e85aa6eb764ad218d0097fb656900c3bdd859771858f87bf7f06fc9b6db154e65d50d28e8b2374898f4f519517cd0bedc05814e0f5297dc04beb307b296a93cc14d53afb122769dfd402166568d8912a4dff9c2b1d4b6b34d811b40e5f3763e5f3ab5cd1da60d75c0ff3c12bcef3639f5f792a85709a29b752ffd1233c2ccae88ed3364843e2fa92bdb49021ee36b36c7cdc91b3e9ad32b9216082b6a2728fccd191a5cd43896f7e98460859ca59afbf7c7d93cd48da96866f983f5ff8e9ace6f47ee3e6c6edb074f578efbfb0907673ebca82a7e1805bc5c01cd2fa5a563777feeb84181654b7b738847c8e48d4f575c435ad798aec01631e03cf30fe94016752b5f087f05adf1713910767b7b0e6521013be5370776471191641c282fdfe7b7ccf3b2b100a83085cd3af2b0ad4ab3479448e71fc44ff987ec3a26be48161974b507fb3bc8ad23838f2d0c54c9685de67dc6256e71e739e9802d0e6e3b456f6dca75600bc04a19b3cc1605784f46595bfb10d5e077ce9602ae3820436166aa1905a7686b31a32d6809686462bc9591c0bc82d9e49825e5c68352d76f1ac6e527d8ac02db3213815080afad4c2ecb95b0386e3e9ab13d4f538771dac70d3059bd75a33d0b9b581ec33bb16d0e944355d4718daccb35553012adfcdacb1c5200a2aec3756f6ad5a2beffd30018c439c1b0c4c0f86dbf19d0ad59b1c9efb7fe90906febdb9001af1e7e15101089c1ab648b199a40794d30fe387894db25e614b23e833291a604d07eec2ade461b9b139d51f9b7e88475f16d6d23de6fe7831cc1dbba0da5efb22e3b26cd2732f45a2f9a5d52b6d6eaa38782357d9ae374132d647ef60816d5c98e6959f8858cfa674c8b0d340a8f607a68398a91b3a965585cc91e46d600b1310b8f59c65b7c19e9d14864a83c4ad6fa4ba1f75bba754e7478944d07a1f7e914422b4d973b0855abeb6f81138fdca35beb474b44c7736fc3ab2969878810153aa3c93fc08c99c478ed1bb57f647d3eb02f25cee122c70424643f4b106a7643acaa630a5c4ac39364c3cb14453055170c01b44e8b1ef007c7727494411958932ae8b3e0f80d67eec8e94dd2ff7bbe8c9e51ba7e27d50bd9f52cbaf9742edecb6c8af1aaf3e7c31542f7d946b52e0c37d194b3dd13c3fddd39db0749755c7044b3db1143a027ad428345d930afcefc0d03c3a0217147900bdea1f5830d826f7e75ecd1c4e2bc8fd7de3b35c6409acae1b2215e9e4fd7e360d6825dc712cbf9d87ae0fd4b349b624d19254e74331d66a39657da81e73d7b13adc1e5efa8efd65aa32c1a0a0315913166a590ae551c395c476116156cf9d872fd863893edb41774f33438161f9b973e3043f819d087ba18a0f1965e189012496b691f342f7618fa9db74e8089d4486c8bd1993efd30ff119976f5cc0558e29b417115f60fd8897e13b6de1a48fbeee38ed812fd267ae25bffea0caa71c09309899b34235676d5573a8c3cf994a3d7f0a5dbd57ab614c6caf2afa2e1a860c6307d6d9341884f1b16ef22945863335bb4af56e5ef5e239a55dbd449a4d4d3555c8a3ec5bd3260f88cabca88385fe57920d2d2dfc5d70812a8934af5691da5b91206e29df60065a94a0a8178d118f1f7baf768d934337f570f5ec68427506391f51ab4802c666cc1749a84b5773b948fcbe460534ed0e8d48a15c149d27d67deb8ea637c4cc28240ee829c386366a0b1d6a275763100da95374e46528a0adefd4510c38c77871e66aeda6b6bfd629d32af9b2fad36d392a1de23a683b7afd13d1e3d45dad97c740106a71ee308d8d0f94f6771164158c6cd3715e72ccfbc49a9cc49f21ead8a3c5795d64e95c15348c6bf8571478650192e52e96dd58f95ec2c0fb4f2ccc05b0ab749197db8d6d1c6de07d6e8cb2620d5c308881d1059b50ffef3947c273eaed7e56c73848e0809c4bd93619edd9fd08c8c5c88d5f230a55d2c6a354e5dd94440e7b5bf99326cf4a112fe843e7efdea56e97af845761d98f40ed2447bd04a424976fcf0fe0a0c72b97619f85cf431fe4c3aa6b3a4f61df8bc1179c11e77783bfedb7d374bd1668d0969333cb518bd20add8329462f2c9a9f04d150d60413fdd27271586405fd85048481fc2ae25b6826cb2c947e4231dc7b9a0d02a9a03f88460bced3fef5d78f732684bd218a1954a4acfc237d79ccf397913ab6864cd8a07e275b82a8a72520624738368d1c5f7e0eaa2b445cf6159f2081d3483618f7fc7b16ec4e6e4d67ab5541bcda0ca1af40efd77ef8653e223191448631a8108c5e50e340cd405767ecf932c1015aa8856b834143dc81fa0e8b9d1d8c32278fca390f2ff08181df0b74e2d13c9b7b1d85543416a0dae3a77530b9cd1366213fcf3cd12a9cd3ae0a006d6b29b5ffc5cdc1ab24343e2ab882abfd719892fca5bf2134731332c5d3bef6c6e4013d84a853cb03d972146b655f0f8541bcd36c3c0c8a775bb606edfe50d07a5047fd0fe01eb125e83673930bc89e91609fd6dfe97132679374d3de4a0b3db8d3f76f31bed53e247da591401d508d65f9ee01d3511ee70e3644f3ab5d333ca7dbf737fe75217b4582d50d98b5d59098ea11627b7ed3e3e6ee3012eadd326cf74ec77192e98619427eb0591e949bf314db0fb932ed8be58258fb4f08e0ccd2cd18b997fb5cf50c90d5df66a9f3bb203bd22061956128b800e0157528d45c7f7208c65d0592ad846a711fa3c5601d81bb318a45cc1313b122d4361a7d7a954645b04667ff3f81d3366109772a41f66ece09eb93130abe04f2a51bb30e767dd37ec6ee6a342a4969b8b342f841193f4f6a9f0fac4611bc31b6cab1d25262feb31db0b8889b6f8d78be23f033994f2d3e18e00f3b0218101e1a7082782aa3680efc8502e1536c30c8c336b06ae936e2bcf9bbfb20dd514ed2867c03d4f44954867c97db35677d30760f37622b85089cc5d182a89e29ab0c6b9ef18138b16ab91d59c2312884172afa4874e6989172014168d3ed8db3d9522d6cbd631d581d166787c93209bec845d112e0cbd825f6df8b64363411270921837cfb2f9e7f2e74cdb9cd0d2b02058e5efd9583e2651239654b887ea36ce9537c392fc5dfca8c5a0facbe95b87dfc4232f229bd12e67937d32b7ffae2e837687d2d292c08ff6194a2256b17254748857c7e3c871c3fff380115e6f7faf435a430edf9f8a589f6711720cfc5cec6c8d0d94886a39bb9ac6c50b2e8ef6cf860415192ca4c1c3aaa97d36394021a62164d5a63975bcd84b8e6d74f361c17101e3808b4d8c31d1ee1a5cf3a2feda1ca2c0fd5a50edc9d95e09fb5158c9f9b0eb5e2c90a47deb0459cea593201ae7597e2e9245aa5848680f546256f3"
+            ],
+            [
+                "0xd57bce545fb382c34570e5dfbf338f5e326d21bc67a4b34023d577585d72bfd7",
+                null
+            ],
+            [
+                "0xd57bce545fb382c34570e5dfbf338f5ea36180b5cfb9f6541f8849df92a6ec93",
+                "0x00"
+            ],
+            [
+                "0xd57bce545fb382c34570e5dfbf338f5ebddf84c5eb23e6f53af725880d8ffe90",
+                null
+            ],
+            [
+                "0xd5c41b52a371aa36c9254ce34324f2a53b996bb988ea8ee15bad3ffd2f68dbda",
+                "0x00"
+            ],
+            [
+                "0xf0c365c3cf59d671eb72da0e7a4113c49f1f0515f462cdcf84e0f1d6045dfcbb",
+                "0x50defc5172010000"
+            ],
+            [
+                "0xf0c365c3cf59d671eb72da0e7a4113c4bbd108c4899964f707fdaffb82636065",
+                null
+            ],
+            [
+                "0xf68f425cf5645aacb2ae59b51baed90420d49a14a763e1cbc887acd097f92014",
+                "0x9501800300008203000082030000840300008503000086030000870300008703000089030000890300008b0300008b0300008d0300008d0300008f0300008f0300009103000092030000920300009403000094030000960300009603000098030000990300009a0300009b0300009b0300009d0300009d0300009f0300009f030000a1030000a2030000a3030000a4030000a5030000a6030000a6030000a8030000a8030000aa030000ab030000ac030000ad030000ae030000af030000b0030000b1030000b1030000b3030000b3030000b5030000b6030000b7030000b8030000b9030000ba030000ba030000bc030000bc030000be030000be030000c0030000c1030000c2030000c2030000c4030000c5030000c5030000c7030000c7030000c9030000c9030000cb030000cc030000cd030000ce030000cf030000d0030000d0030000d2030000d2030000d4030000d4030000d6030000d7030000d8030000d9030000da030000db030000db030000dd030000dd030000df030000e0030000e1030000e2030000e3030000e4030000e4030000"
+            ],
+            [
+                "0xf68f425cf5645aacb2ae59b51baed9049b58374218f48eaf5bc23b7b3e7cf08a",
+                "0xb3030000"
+            ],
+            [
+                "0xf68f425cf5645aacb2ae59b51baed904b97380ce5f4e70fbf9d6b5866eb59527",
+                "0x9501800300008203000082030000840300008503000086030000870300008703000089030000890300008b0300008b0300008d0300008d0300008f0300008f0300009103000092030000920300009403000094030000960300009603000098030000990300009a0300009b0300009b0300009d0300009d0300009f0300009f030000a1030000a2030000a3030000a4030000a5030000a6030000a6030000a8030000a8030000aa030000ab030000ac030000ad030000ae030000af030000b0030000b1030000b1030000b3030000b3030000b5030000b6030000b7030000b8030000b9030000ba030000ba030000bc030000bc030000be030000be030000c0030000c1030000c2030000c2030000c4030000c5030000c5030000c7030000c7030000c9030000c9030000cb030000cc030000cd030000ce030000cf030000d0030000d0030000d2030000d2030000d4030000d4030000d6030000d7030000d8030000d9030000da030000db030000db030000dd030000dd030000df030000e0030000e1030000e2030000e3030000e4030000e4030000"
+            ]
+        ],
+        "offchainStorageDiff": [],
+        "runtimeLogs": []
+    }
+}
+    ```
+
+## XCM Testing
+
+To test XCM (Cross-Consensus Messaging) messages between networks, you can fork multiple parachains and a relay chain locally using Chopsticks.
+
+- **`relaychain`**: Relay chain config file.
+- **`parachain`**: Parachain config file.
+
+For example, to fork Moonbeam, Astar, and Polkadot enabling XCM between them, you can use the following command:
+
+```bash
+npx @acala-network/chopsticks xcm \
+--r polkadot \
+--p moonbeam \
+--p astar
+```
+
+After running it, you should see output similar to the following:
+
+<div id="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>npx @acala-network/chopsticks xcm \</span>
+  <span data-ty>--r polkadot \</span>
+  <span data-ty>--p moonbeam \</span>
+  <span data-ty>--p astar</span>
+  <br />
+  <span data-ty>[13:46:07.901] INFO: Loading config file https://raw.githubusercontent.com/AcalaNetwork/chopsticks/master/configs/moonbeam.yml</span>
+  <span data-ty> app: "chopsticks"</span>
+  <span data-ty>[13:46:12.631] INFO: Moonbeam RPC listening on port 8000</span>
+  <span data-ty> app: "chopsticks"</span>
+  <span data-ty>[13:46:12.632] INFO: Loading config file https://raw.githubusercontent.com/AcalaNetwork/chopsticks/master/configs/astar.yml</span>
+  <span data-ty> app: "chopsticks"</span>
+  <span data-ty> chopsticks::executor TRACE: Calling Metadata_metadata</span>
+  <span data-ty> chopsticks::executor TRACE: Completed Metadata_metadata</span>
+  <span data-ty>[13:46:23.669] INFO: Astar RPC listening on port 8001</span>
+  <span data-ty> app: "chopsticks"</span>
+  <span data-ty>[13:46:25.144] INFO (xcm): Connected parachains [2004,2006]</span>
+  <span data-ty> app: "chopsticks"</span>
+  <span data-ty>[13:46:25.144] INFO: Loading config file https://raw.githubusercontent.com/AcalaNetwork/chopsticks/master/configs/polkadot.yml</span>
+  <span data-ty> app: "chopsticks"</span>
+  <span data-ty> chopsticks::executor TRACE: Calling Metadata_metadata</span>
+  <span data-ty> chopsticks::executor TRACE: Completed Metadata_metadata</span>
+  <span data-ty>[13:46:53.320] INFO: Polkadot RPC listening on port 8002</span>
+  <span data-ty> app: "chopsticks"</span>
+  <span data-ty>[13:46:54.038] INFO (xcm): Connected relaychain 'Polkadot' with parachain 'Moonbeam'</span>
+  <span data-ty> app: "chopsticks"</span>
+  <span data-ty>[13:46:55.028] INFO (xcm): Connected relaychain 'Polkadot' with parachain 'Astar'</span>
+  <span data-ty> app: "chopsticks"</span>
+</div>
+
+Now you can interact with your forked chains using the ports specified in the output.
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/testing/spawn-basic-chain/
+--- BEGIN CONTENT ---
+---
+title: Spawn a Basic Chain with Zombienet
+description: Learn to spawn, connect to and monitor a basic blockchain network with Zombienet, using customizable configurations for streamlined development and debugging.
+tutorial_badge: Beginner
+categories: Basics, dApps, Tooling
+---
+
+# Spawn a Basic Chain with Zombienet
+
+## Introduction
+
+Zombienet simplifies blockchain development by enabling developers to create temporary, customizable networks for testing and validation. These ephemeral chains are ideal for experimenting with configurations, debugging applications, and validating functionality in a controlled environment.
+
+In this guide, you'll learn how to define a basic network configuration file, spawn a blockchain network using Zombienet's CLI, and interact with nodes and monitor network activity using tools like Polkadot.js Apps and Prometheus
+
+By the end of this tutorial, you'll be equipped to deploy and test your own blockchain networks, paving the way for more advanced setups and use cases.
+
+## Prerequisites
+
+To successfully complete this tutorial, you must ensure you've first:
+
+- [Installed Zombienet](/develop/toolkit/parachains/spawn-chains/zombienet/get-started/#install-zombienet){target=\_blank}. This tutorial requires Zombienet version `{{ dependencies.repositories.zombienet.version }}`. Verify that you're using the specified version to ensure compatibility with the instructions.
+- Reviewed the information in [Configure Zombienet](/develop/toolkit/parachains/spawn-chains/zombienet/get-started/#configure-zombienet){target=\_blank} and understand how to customize a spawned network.
 
 ## Kusama Network
 
 Kusama is the experimental version of Polkadot, designed for developers who want to move quickly and test their applications in a real-world environment with economic incentives. Kusama serves as a production-grade testing ground where developers can deploy features and upgrades with the pressure of game theory and economics in mind. It mirrors Polkadot but operates as a more flexible space for innovation.
 
-The native token for Kusama is KSM. For more information about KSM, visit the [Native Assets](https://wiki.polkadot.com/kusama/kusama-getting-started/){target=\_blank} page.
+The native token for Kusama is KSM. For more information about KSM, visit the [Native Assets](https://guide.kusama.network/docs/learn-DOT#kusama-tokens){target=\_blank} page.
 
 ## Test Networks
 
@@ -6832,7 +7105,7 @@ See [Cancelling, Killing, and Blacklisting](https://wiki.polkadot.com/learn/lear
 
 ## Additional Resources
 
-- **[Democracy pallet](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2506-2/substrate/frame/democracy/src){target=\_blank}**: Handles administration of general stakeholder voting.
+- **[Democracy pallet](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2506/substrate/frame/democracy/src){target=\_blank}**: Handles administration of general stakeholder voting.
 - **[Gov2: Polkadot’s Next Generation of Decentralised Governance](https://medium.com/polkadot-network/gov2-polkadots-next-generation-of-decentralised-governance-4d9ef657d11b){target=\_blank}**: Medium article by Gavin Wood.
 - **[Polkadot Direction](https://matrix.to/#/#Polkadot-Direction:parity.io){target=\_blank}**: Matrix Element client.
 - **[Polkassembly](https://polkadot.polkassembly.io/){target=\_blank}**: OpenGov dashboard and UI.
@@ -7039,7 +7312,7 @@ Developers have the flexibility to implement any desired behavior in the core lo
 - Storing information.
 - Enforcing business rules.
 
-Pallets also include necessary wiring code to ensure proper integration and functionality within the runtime. FRAME provides a range of [pre-built pallets](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2506-2/substrate/frame){target=\_blank} for standard and common blockchain functionalities, including consensus algorithms, staking mechanisms, governance systems, and more. These pre-existing pallets serve as building blocks or templates, which developers can use as-is, modify, or reference when creating custom functionalities. 
+Pallets also include necessary wiring code to ensure proper integration and functionality within the runtime. FRAME provides a range of [pre-built pallets](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2506/substrate/frame){target=\_blank} for standard and common blockchain functionalities, including consensus algorithms, staking mechanisms, governance systems, and more. These pre-existing pallets serve as building blocks or templates, which developers can use as-is, modify, or reference when creating custom functionalities. 
 
 #### Pallet Structure
 
@@ -7195,7 +7468,7 @@ All system parachains are on both Polkadot and Kusama with the following excepti
 
 ### Asset Hub
 
-The [Asset Hub](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2506-2/cumulus#asset-hub-){target=\_blank} is an asset portal for the entire network. It helps asset creators, such as reserve-backed stablecoin issuers, track the total issuance of an asset in the network, including amounts transferred to other parachains. It also serves as the hub where asset creators can perform on-chain operations, such as minting and burning, to manage their assets effectively.
+The [Asset Hub](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2506/cumulus#asset-hub-){target=\_blank} is an asset portal for the entire network. It helps asset creators, such as reserve-backed stablecoin issuers, track the total issuance of an asset in the network, including amounts transferred to other parachains. It also serves as the hub where asset creators can perform on-chain operations, such as minting and burning, to manage their assets effectively.
 
 This asset management logic is encoded directly in the runtime of the chain rather than in smart contracts. The efficiency of executing logic in a parachain allows for fees and deposits that are about 1/10th of what is required on the relay chain. These low fees mean that the Asset Hub is well suited for handling the frequent transactions required when managing balances, transfers, and on-chain assets.
 
@@ -7808,19 +8081,19 @@ To instantiate the API, you can install the package by using the following comma
 === "npm"
 
     ```bash
-    npm i polkadot-api@1.17.2
+    npm i polkadot-api@1.16.2
     ```
 
 === "pnpm"
 
     ```bash
-    pnpm add polkadot-api@1.17.2
+    pnpm add polkadot-api@1.16.2
     ```
 
 === "yarn"
 
     ```bash
-    yarn add polkadot-api@1.17.2
+    yarn add polkadot-api@1.16.2
     ```
 
 Then, obtain the latest metadata from the target chain and generate the necessary types:
@@ -8060,21 +8333,21 @@ The available methods and interfaces will automatically reflect what's possible 
 
 ## Installation
 
-To add the Polkadot.js API to your project, use the following command to install the version `16.4.7` which supports any Polkadot SDK-based chain:
+To add the Polkadot.js API to your project, use the following command to install the version `16.4.5` which supports any Polkadot SDK-based chain:
 
 === "npm"
     ```bash
-    npm i @polkadot/api@16.4.7
+    npm i @polkadot/api@16.4.5
     ```
 
 === "pnpm"
     ```bash
-    pnpm add @polkadot/api@16.4.7
+    pnpm add @polkadot/api@16.4.5
     ```
 
 === "yarn"
     ```bash
-    yarn add @polkadot/api@16.4.7
+    yarn add @polkadot/api@16.4.5
     ```
 
 For more detailed information about installation, see the [Installation](https://polkadot.js.org/docs/api/start/install/){target=\_blank} section in the official Polkadot.js API documentation.
@@ -8892,22 +9165,13 @@ Before getting started, ensure you have done the following:
 
 For this tutorial series, you need to use Rust `1.86`. Newer versions of the compiler may not work with this parachain template version.
 
-=== "macOS"
+Run the following commands to set up the correct Rust version:
 
-    ```bash
-    rustup default 1.86
-    rustup target add wasm32-unknown-unknown --toolchain 1.86-aarch64-apple-darwin
-    rustup component add rust-src --toolchain 1.86-aarch64-apple-darwin
-    ```
-
-=== "Ubuntu"
-
-    ```bash
-    rustup toolchain install 1.86.0
-    rustup default 1.86.0
-    rustup target add wasm32-unknown-unknown --toolchain 1.86.0
-    rustup component add rust-src --toolchain 1.86.0
-    ```
+```bash
+rustup default 1.86
+rustup target add wasm32-unknown-unknown --toolchain 1.86-aarch64-apple-darwin
+rustup component add rust-src --toolchain 1.86-aarch64-apple-darwin
+```
 
 ## Utility Tools
 
@@ -9299,7 +9563,7 @@ flowchart LR
 
 In addition, because smart contracts are programs that execute on top of existing chains, teams don't have to think about the underlying consensus they are built on.
 
-These strengths do come with certain limitations. Some smart contracts environments, like EVM, tend to be immutable by default. Developers have developed different [proxy strategies](https://www.openzeppelin.com/news/proxy-patterns){target=\_blank} to be able to upgrade smart contracts over time. The typical pattern relies on a proxy contract which holds the program storage forwarding a call to an implementation contract where the execution logic resides. Smart contract upgrades require changing the implementation contract while retaining the same storage structure, necessitating careful planning.
+These strengths do come with certain limitations. Some smart contracts environments, like EVM, tend to be immutable by default. Developers have developed different [proxy strategies](https://blog.openzeppelin.com/proxy-patterns){target=\_blank} to be able to upgrade smart contracts over time. The typical pattern relies on a proxy contract which holds the program storage forwarding a call to an implementation contract where the execution logic resides. Smart contract upgrades require changing the implementation contract while retaining the same storage structure, necessitating careful planning.
 
 Another downside is that smart contracts often follow a gas metering model, where program execution is associated with a given unit and a marketplace is set up to pay for such an execution unit. This fee system is often very rigid, and some complex flows, like account abstraction, have been developed to circumvent this problem.
 
@@ -9600,169 +9864,70 @@ This configuration file defines a network with the following chains:
 
 Settings also defines a timeout of 120 seconds for the network to be ready.
 
-## Spawn the Network
+## Polkadot Development Networks
 
-To spawn the network, run the following command:
+Development and testing are crucial to building robust dApps and parachains and performing network upgrades within the Polkadot ecosystem. To achieve this, developers can leverage various networks and tools that provide a risk-free environment for experimentation and validation before deploying features to live networks. These networks help avoid the costs and risks associated with real tokens, enabling testing for functionalities like governance, cross-chain messaging, and runtime upgrades.
 
-```bash
-zombienet -p native spawn spawn-a-basic-network.toml
-```
+## Kusama Network
 
-This command will spawn the network defined in the `spawn-a-basic-network.toml` configuration file. The `-p native` flag specifies that the network will be spawned using the native provider.
+Kusama is the experimental version of Polkadot, designed for developers who want to move quickly and test their applications in a real-world environment with economic incentives. Kusama serves as a production-grade testing ground where developers can deploy features and upgrades with the pressure of game theory and economics in mind. It mirrors Polkadot but operates as a more flexible space for innovation.
 
-If successful, you will see the following output:
+The native token for Kusama is KSM. For more information about KSM, visit the [Native Assets](https://guide.kusama.network/docs/learn-DOT#kusama-tokens){target=\_blank} page.
 
-<div id="termynal" class="table-termynal" data-termynal>
-  <span data-ty="input"><span class="file-path"></span>zombienet -p native spawn spawn-a-basic-network.toml</span>
-  <table>
-    <thead>
-      <tr>
-        <th colspan="2" class="center-header">Network launched 🚀🚀</th>
-      </tr>
-    </thead>
-    <tr>
-      <th class="left-header">Namespace</th>
-      <td>zombie-75a01b93c92d571f6198a67bcb380fcd</td>
-    </tr>
-    <tr>
-      <th class="left-header">Provider</th>
-      <td>native</td>
-    </tr>
-    <tr>
-      <th colspan="3" class="center-header">Node Information</th>
-    </tr>
-    <tr>
-      <th class="left-header">Name</th>
-      <td>alice</td>
-    </tr>
-    <tr>
-      <th class="left-header">Direct Link</th>
-      <td><a href="https://polkadot.js.org/apps/?rpc=ws://127.0.0.1:55308#explorer">https://polkadot.js.org/apps/?rpc=ws://127.0.0.1:55308#explorer</a></td>
-    </tr>
-    <tr>
-      <th class="left-header">Prometheus Link</th>
-      <td>http://127.0.0.1:55310/metrics</td>
-    </tr>
-    <tr>
-      <th class="left-header">Log Cmd</th>
-      <td>tail -f /tmp/zombie-794af21178672e1ff32c612c3c7408dc_-2397036-6717MXDxcS55/alice.log</td>
-    </tr>
-    <tr>
-      <th colspan="3" class="center-header">Node Information</th>
-    </tr>
-    <tr>
-      <th class="left-header">Name</th>
-      <td>bob</td>
-    </tr>
-    <tr>
-      <th class="left-header">Direct Link</th>
-      <td><a href="https://polkadot.js.org/apps/?rpc=ws://127.0.0.1:50312#explorer">https://polkadot.js.org/apps/?rpc=ws://127.0.0.1:55312#explorer</a></td>
-    </tr>
-    <tr>
-      <th class="left-header">Prometheus Link</th>
-      <td>http://127.0.0.1:50634/metrics</td>
-    </tr>
-    <tr>
-      <th class="left-header">Log Cmd</th>
-      <td>tail -f /tmp/zombie-794af21178672e1ff32c612c3c7408dc_-2397036-6717MXDxcS55/bob.log</td>
-    </tr>
-    <tr>
-      <th colspan="3" class="center-header">Node Information</th>
-    </tr>
-    <tr>
-      <th class="left-header">Name</th>
-      <td>collator01</td>
-    </tr>
-    <tr>
-      <th class="left-header">Direct Link</th>
-      <td><a href="https://polkadot.js.org/apps/?rpc=ws://127.0.0.1:55316#explorer">https://polkadot.js.org/apps/?rpc=ws://127.0.0.1:55316#explorer</a></td>
-    </tr>
-    <tr>
-      <th class="left-header">Prometheus Link</th>
-      <td>http://127.0.0.1:55318/metrics</td>
-    </tr>
-    <tr>
-      <th class="left-header">Log Cmd</th>
-      <td>tail -f /tmp/zombie-794af21178672e1ff32c612c3c7408dc_-2397036-6717MXDxcS55/collator01.log</td>
-    </tr>
-    <tr>
-      <th class="left-header">Parachain ID</th>
-      <td>100</td>
-    </tr>
-    <tr>
-      <th class="left-header">ChainSpec Path</th>
-      <td>/tmp/zombie-794af21178672e1ff32c612c3c7408dc_-2397036-6717MXDxcS55/100-rococo-local.json</td>
-    </tr>
-  </table>
-</div>
+## Test Networks
 
+The following test networks provide controlled environments for testing upgrades and new features. TestNet tokens are available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}.
 
-!!! note 
-    If the IPs and ports aren't explicitly defined in the configuration file, they may change each time the network is started, causing the links provided in the output to differ from the example.
+### Westend
 
-## Interact with the Spawned Network
+Westend is Polkadot's primary permanent TestNet. Unlike temporary test networks, Westend is not reset to the genesis block, making it an ongoing environment for testing Polkadot core features. Managed by Parity Technologies, Westend ensures that developers can test features in a real-world simulation without using actual tokens.
 
-After the network is launched, you can interact with it using [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank}. To do so, open your browser and use the provided links listed by the output as `Direct Link`.
+The native token for Westend is WND. More details about WND can be found on the [Native Assets](https://wiki.polkadot.com/learn/learn-dot/#__tabbed_2_2){target=\_blank} page.
 
-### Connect to the Nodes
+### Paseo
 
-Use the [55308 port address](https://polkadot.js.org/apps/?rpc=ws://127.0.0.1:55308#explorer){target=\_blank} to interact with the same `alice` node used for this tutorial. Ports can change from spawn to spawn so be sure to locate the link in the output when spawning your own node to ensure you are accessing the correct port.
+[Paseo](https://github.com/paseo-network){target=\_blank} is a community-managed TestNet designed for parachain and dApp developers. It mirrors Polkadot's runtime and is maintained by Polkadot community members. Paseo provides a dedicated space for parachain developers to test their applications in a Polkadot-like environment without the risks associated with live networks.
 
-If you want to interact with the nodes more programmatically, you can also use the [Polkadot.js API](https://polkadot.js.org/docs/api/){target=\_blank}. For example, the following code snippet shows how to connect to the `alice` node using the Polkadot.js API and log some information about the chain and node:
+The native token for Paseo is PAS. Additional information on PAS is available on the [Native Assets](https://wiki.polkadot.com/learn/learn-dot/#__tabbed_2_1){target=\_blank} page.
 
-```typescript
-import { ApiPromise, WsProvider } from '@polkadot/api';
+## Local Test Networks
 
-async function main() {
-  const wsProvider = new WsProvider('ws://127.0.0.1:55308');
-  const api = await ApiPromise.create({ provider: wsProvider });
+Local test networks are an essential part of the development cycle for blockchain developers using the Polkadot SDK. They allow for fast, iterative testing in controlled, private environments without connecting to public TestNets. Developers can quickly spin up local instances to experiment, debug, and validate their code before deploying to larger TestNets like Westend or Paseo. Two key tools for local network testing are Zombienet and Chopsticks.
 
-  // Retrieve the chain & node information via rpc calls
-  const [chain, nodeName, nodeVersion] = await Promise.all([
-    api.rpc.system.chain(),
-    api.rpc.system.name(),
-    api.rpc.system.version(),
-  ]);
+### Zombienet
 
-  console.log(
-    `You are connected to chain ${chain} using ${nodeName} v${nodeVersion}`
-  );
-}
+[Zombienet](https://github.com/paritytech/zombienet){target=\_blank} is a flexible testing framework for Polkadot SDK-based blockchains. It enables developers to create and manage ephemeral, short-lived networks. This feature makes Zombienet particularly useful for quick iterations, as it allows you to run multiple local networks concurrently, mimicking different runtime conditions. Whether you're developing a parachain or testing your custom blockchain logic, Zombienet gives you the tools to automate local testing.
 
-main()
-  .catch(console.error)
-  .finally(() => process.exit());
+Key features of Zombienet include:
 
-```
+- Creating dynamic, local networks with different configurations.
+- Running parachains and relay chains in a simulated environment.
+- Efficient testing of network components like cross-chain messaging and governance.
 
-Both methods allow you to interact easily with the network and its nodes.
+Zombienet is ideal for developers looking to test quickly and thoroughly before moving to more resource-intensive public TestNets.
 
-### Check Metrics
+### Chopsticks
 
-You can also check the metrics of the nodes by accessing the links provided in the output as `Prometheus Link`. [Prometheus](https://prometheus.io/){target=\_blank} is a monitoring and alerting toolkit that collects metrics from the nodes. By accessing the provided links, you can see the metrics of the nodes in a web interface. So, for example, the following image shows the Prometheus metrics for Bob's node from the Zombienet test:
+[Chopsticks](https://github.com/AcalaNetwork/chopsticks){target=\_blank} is a tool designed to create forks of Polkadot SDK-based blockchains, allowing developers to interact with network forks as part of their testing process. This capability makes Chopsticks a powerful option for testing upgrades, runtime changes, or cross-chain applications in a forked network environment.
 
-![](/images/tutorials/polkadot-sdk/testing/spawn-basic-chain/spawn-basic-network-01.webp)
+Key features of Chopsticks include:
 
-### Check Logs
+- Forking live Polkadot SDK-based blockchains for isolated testing.
+- Simulating cross-chain messages in a private, controlled setup.
+- Debugging network behavior by interacting with the fork in real-time.
 
-To view individual node logs, locate the `Log Cmd` command in Zombienet's startup output. For example, to see what the alice node is doing, find the log command that references `alice.log` in its file path. Note that Zombienet will show you the correct path for your instance when it starts up, so use that path rather than copying from the below example:
+Chopsticks provides a controlled environment for developers to safely explore the effects of runtime changes. It ensures that network behavior is tested and verified before upgrades are deployed to live networks.
+--- END CONTENT ---
 
-```bash
-tail -f  /tmp/zombie-794af21178672e1ff32c612c3c7408dc_-2397036-6717MXDxcS55/alice.log
-```
-
-After running this command, you will see the logs of the `alice` node in real-time, which can be useful for debugging purposes. The logs of the `bob` and `collator01` nodes can be checked similarly.
-
-
+Doc-Content: https://docs.polkadot.com/polkadot-protocol/parachain-basics/node-and-runtime/
+--- BEGIN CONTENT ---
+---
+title: Node and Runtime
+description: Learn how Polkadot SDK-based nodes function, how the client and runtime are separated, and how they communicate using SCALE-encoded data.
+categories: Basics, Polkadot Protocol
 ---
 
-# Subxt Rust API
-
-> Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-toolkit-api-libraries-subxt.md
-> Canonical (HTML): https://docs.polkadot.com/develop/toolkit/api-libraries/subxt/
-> Summary: Subxt is a Rust library for type-safe interaction with Polkadot SDK blockchains, enabling transactions, state queries, runtime API access, and more.
-
-# Subxt Rust API
+# Node and Runtime
 
 ## Introduction
 
@@ -9785,7 +9950,7 @@ To use subxt in your project, you must install the necessary dependencies. Each 
 1. **Install the subxt CLI**: [`subxt-cli`](https://crates.io/crates/subxt-cli){target=\_blank} is a command-line tool that provides utilities for working with Polkadot SDK metadata. In the context of subxt, it is essential to download chain metadata, which is required to generate type-safe Rust interfaces for interacting with the blockchain. Install it using the following:
 
     ```bash
-    cargo install subxt-cli@0.44.0
+    cargo install subxt-cli@0.43.0
     ```
 
 2. **Add core dependencies**: These dependencies are essential for interacting with the blockchain.
@@ -9793,13 +9958,13 @@ To use subxt in your project, you must install the necessary dependencies. Each 
     - **[subxt](https://crates.io/crates/subxt){target=\_blank}**: The main library for communicating with Polkadot SDK nodes. It handles RPC requests, encoding/decoding, and type generation.
 
         ```bash
-        cargo add subxt@0.44.0
+        cargo add subxt@0.43.0
         ```
 
     - **[subxt-signer](https://crates.io/crates/subxt-signer){target=\_blank}**: Provides cryptographic functionality for signing transactions. Without this, you can only read data but cannot submit transactions.
 
         ```bash
-        cargo add subxt-signer@0.44.0
+        cargo add subxt-signer@0.43.0
         ```
 
     - **[tokio](https://crates.io/crates/tokio){target=\_blank}**: An asynchronous runtime for Rust. Since blockchain operations are async, Tokio enables the efficient handling of network requests. The `rt` feature enables Tokio's runtime, including the current-thread single-threaded scheduler, which is necessary for async execution. The `macros` feature provides procedural macros like `#[tokio::main]` to simplify runtime setup.
@@ -10051,7 +10216,7 @@ For scenarios where real blockchain state is required, [Chopsticks](/tutorials/p
 
 Setting up a live network with multiple interconnected parachains for XCM testing can be complex and resource-intensive. 
 
-The [`xcm-emulator`](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2506-2/cumulus/xcm/xcm-emulator){target=\_blank} is a tool designed to simulate the execution of XCM programs using predefined runtime configurations. These configurations include those utilized by live networks like Kusama, Polkadot, and Asset Hub.
+The [`xcm-emulator`](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2506/cumulus/xcm/xcm-emulator){target=\_blank} is a tool designed to simulate the execution of XCM programs using predefined runtime configurations. These configurations include those utilized by live networks like Kusama, Polkadot, and Asset Hub.
 
 This tool enables testing of cross-chain message passing, providing a way to verify outcomes, weights, and side effects efficiently. It achieves this by utilizing mocked runtimes for both the relay chain and connected parachains, enabling developers to focus on message logic and configuration without needing a live network.
 
@@ -10074,9 +10239,9 @@ The XCM Emulator provides both advantages and limitations when testing cross-cha
 
 ### How Does It Work?
 
-The `xcm-emulator` provides macros for defining a mocked testing environment. Check all the existing macros and functionality in the [XCM Emulator source code](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/cumulus/xcm/xcm-emulator/src/lib.rs){target=\_blank}. The most important macros are:
+The `xcm-emulator` provides macros for defining a mocked testing environment. Check all the existing macros and functionality in the [XCM Emulator source code](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506/cumulus/xcm/xcm-emulator/src/lib.rs){target=\_blank}. The most important macros are:
 
-- **[`decl_test_relay_chains`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/cumulus/xcm/xcm-emulator/src/lib.rs#L361){target=\_blank}**: Defines runtime and configuration for the relay chains. Example:
+- **[`decl_test_relay_chains`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506/cumulus/xcm/xcm-emulator/src/lib.rs#L361){target=\_blank}**: Defines runtime and configuration for the relay chains. Example:
 
     ```rust
     decl_test_relay_chains! {
@@ -10102,7 +10267,7 @@ The `xcm-emulator` provides macros for defining a mocked testing environment. Ch
 }
     ```
 
-- **[`decl_test_parachains`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/cumulus/xcm/xcm-emulator/src/lib.rs#L596){target=\_blank}**: Defines runtime and configuration for parachains. Example:
+- **[`decl_test_parachains`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506/cumulus/xcm/xcm-emulator/src/lib.rs#L596){target=\_blank}**: Defines runtime and configuration for parachains. Example:
 
     ```rust
     decl_test_parachains! {
@@ -10133,7 +10298,7 @@ The `xcm-emulator` provides macros for defining a mocked testing environment. Ch
 }
     ```
 
-- **[`decl_test_bridges`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/cumulus/xcm/xcm-emulator/src/lib.rs#L1221){target=\_blank}**: Creates bridges between chains, specifying the source, target, and message handler. Example:
+- **[`decl_test_bridges`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506/cumulus/xcm/xcm-emulator/src/lib.rs#L1221){target=\_blank}**: Creates bridges between chains, specifying the source, target, and message handler. Example:
 
     ```rust
     decl_test_bridges! {
@@ -10150,7 +10315,7 @@ The `xcm-emulator` provides macros for defining a mocked testing environment. Ch
 }
     ```
 
-- **[`decl_test_networks`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/cumulus/xcm/xcm-emulator/src/lib.rs#L958){target=\_blank}**: Defines a testing network with relay chains, parachains, and bridges, implementing message transport and processing logic. Example:
+- **[`decl_test_networks`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506/cumulus/xcm/xcm-emulator/src/lib.rs#L958){target=\_blank}**: Defines a testing network with relay chains, parachains, and bridges, implementing message transport and processing logic. Example:
 
     ```rust
     decl_test_networks! {
@@ -10174,7 +10339,7 @@ By leveraging these macros, developers can customize their testing networks by d
 
 This framework enables thorough testing of runtime and cross-chain interactions, enabling developers to effectively design, test, and optimize cross-chain functionality.
 
-To see a complete example of implementing and executing tests, refer to the [integration tests](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2506-2/cumulus/parachains/integration-tests/emulated){target=\_blank} in the Polkadot SDK repository.
+To see a complete example of implementing and executing tests, refer to the [integration tests](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2506/cumulus/parachains/integration-tests/emulated){target=\_blank} in the Polkadot SDK repository.
 
 
 ---
@@ -10599,7 +10764,7 @@ Transaction fees are withdrawn before the transaction is executed. After the tra
 
 ## Using the Transaction Payment Pallet
 
-The [Transaction Payment pallet](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2506-2/substrate/frame/transaction-payment){target=\_blank} provides the basic logic for calculating the inclusion fee. You can also use the Transaction Payment pallet to:
+The [Transaction Payment pallet](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2506/substrate/frame/transaction-payment){target=\_blank} provides the basic logic for calculating the inclusion fee. You can also use the Transaction Payment pallet to:
 
 - Convert a weight value into a deductible fee based on a currency type using [`Config::WeightToFee`](https://docs.rs/pallet-transaction-payment/latest/pallet_transaction_payment/pallet/trait.Config.html#associatedtype.WeightToFee){target=\_blank}.
 - Update the fee for the next block by defining a multiplier based on the chain’s final state at the end of the previous block using [`Config::FeeMultiplierUpdate`](https://docs.rs/pallet-transaction-payment/latest/pallet_transaction_payment/pallet/trait.Config.html#associatedtype.FeeMultiplierUpdate){target=\_blank}.
@@ -10653,7 +10818,7 @@ Inclusion fees must be computable before execution and can only represent fixed 
 - Bonds are a type of fee that might be returned or slashed after some on-chain event. For example, you might want to require users to place a bond to participate in a vote. The bond might then be returned at the end of the referendum or slashed if the voter attempted malicious behavior.
 - Deposits are fees that might be returned later. For example, you might require users to pay a deposit to execute an operation that uses storage. The user’s deposit could be returned if a subsequent operation frees up storage.
 - Burn operations are used to pay for a transaction based on its internal logic. For example, a transaction might burn funds from the sender if the transaction creates new storage items to pay for the increased state size.
-- Limits enable you to enforce constant or configurable limits on specific operations. For example, the default [Staking pallet](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2506-2/substrate/frame/staking){target=\_blank} only allows nominators to nominate 16 validators to limit the complexity of the validator election process.
+- Limits enable you to enforce constant or configurable limits on specific operations. For example, the default [Staking pallet](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2506/substrate/frame/staking){target=\_blank} only allows nominators to nominate 16 validators to limit the complexity of the validator election process.
 
 It is important to note that if you query the chain for a transaction fee, it only returns the inclusion fee.
 
@@ -10893,7 +11058,7 @@ You now know the weight system, how it affects transaction fee computation, and 
 
 - [Benchmark](/develop/parachains/testing/benchmarking/)
 - [`SignedExtension`](https://paritytech.github.io/polkadot-sdk/master/sp_runtime/traits/trait.SignedExtension.html){target=\_blank}
-- [Custom weights for the Example pallet](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/substrate/frame/examples/basic/src/weights.rs){target=\_blank}
+- [Custom weights for the Example pallet](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506/substrate/frame/examples/basic/src/weights.rs){target=\_blank}
 - [Web3 Foundation Research](https://research.web3.foundation/Polkadot/overview/token-economics#relay-chain-transaction-fees-and-per-block-transaction-limits){target=\_blank}
 
 
@@ -10913,155 +11078,275 @@ A wallet serves as your gateway to interacting with blockchain networks. Rather 
 
 Wallet types fall into two categories based on their connection to the internet:
 
-- **[Hot wallets](#hot-wallets)**: Online storage through websites, browser extensions or smartphone apps.
-- **[Cold wallets](#cold-wallets)**: Offline storage using hardware devices or air-gapped systems.
+- **PolkaVM-compatible contracts**: Support Solidity and any language that compiles down to RISC-V while maintaining compatibility with Ethereum based tools.
+- **EVM-compatible contracts**: Support languages like [Solidity](https://soliditylang.org/){target=\_blank} and [Vyper](https://vyperlang.org/){target=\_blank}, offering compatibility with popular Ethereum tools and wallets.
+- **Wasm-based smart contracts**: Using [ink!](https://use.ink/){target=\_blank}, a Rust-based embedded domain-specific language (eDSL), enabling developers to leverage Rust’s safety and tooling.
 
-## Hot Wallets
+You'll explore the key differences between these development paths, along with considerations for parachain developers integrating smart contract functionality.
 
-<div class="grid cards" markdown>
+!!!note "Parachain Developer?"
+    If you are a parachain developer looking to add smart contract functionality to your chain, please refer to the [Add Smart Contract Functionality](/develop/parachains/customize-parachain/add-smart-contract-functionality/){target=\_blank} page, which covers both Wasm and EVM-based contract implementations.
 
--   __Nova Wallet__
+## Smart Contracts Versus Parachains
 
-    ---
+A smart contract is a program that executes specific logic isolated to the chain on which it is being executed. All the logic executed is bound to the same state transition rules determined by the underlying virtual machine (VM). Consequently, smart contracts are more streamlined to develop, and programs can easily interact with each other through similar interfaces.
 
-    A non-custodial, mobile-first wallet for managing assets and interacting with the Polkadot and Kusama ecosystems. It supports staking, governance, cross-chain transfers, and crowdloans. With advanced features, seamless multi-network support, and strong security, Nova Wallet empowers users to explore the full potential of Polkadot parachains on the go.
+``` mermaid
+flowchart LR
+  subgraph A[Chain State]
+    direction LR
+    B["Program Logic and Storage<br/>(Smart Contract)"]
+    C["Tx Relevant Storage"]
+  end
+  A --> D[[Virtual Machine]]
+  E[Transaction] --> D
+  D --> F[(New State)]
+  D --> G[Execution Logs]
+  style A fill:#ffffff,stroke:#000000,stroke-width:1px
+```
 
-    [:octicons-arrow-right-24: Reference](https://novawallet.io/){target=\_blank}
+In addition, because smart contracts are programs that execute on top of existing chains, teams don't have to think about the underlying consensus they are built on.
 
--   __Talisman__
+These strengths do come with certain limitations. Some smart contracts environments, like EVM, tend to be immutable by default. Developers have developed different [proxy strategies](https://blog.openzeppelin.com/proxy-patterns){target=\_blank} to be able to upgrade smart contracts over time. The typical pattern relies on a proxy contract which holds the program storage forwarding a call to an implementation contract where the execution logic resides. Smart contract upgrades require changing the implementation contract while retaining the same storage structure, necessitating careful planning.
 
-    ---
+Another downside is that smart contracts often follow a gas metering model, where program execution is associated with a given unit and a marketplace is set up to pay for such an execution unit. This fee system is often very rigid, and some complex flows, like account abstraction, have been developed to circumvent this problem.
 
-    A non-custodial web browser extension that allows you to manage your portfolio and interact with Polkadot and Ethereum applications. It supports Web3 apps, asset storage, and account management across over 150 Polkadot SDK-based and EVM networks. Features include NFT management, Ledger support, fiat on-ramp, and portfolio tracking.
+In contrast, parachains can create their own custom logics (known as pallets or modules), and combine them as the state transition function (STF or runtime) thanks to the modularity provided by the [Polkadot-SDK](https://github.com/paritytech/polkadot-sdk/){target=\_blank}. The different pallets within the parachain runtime can give developers a lot of flexibility when building applications on top of it.
 
-    [:octicons-arrow-right-24: Reference](https://talisman.xyz/){target=\_blank}
+``` mermaid
+flowchart LR
+    A[(Chain State)] --> B[["STF<br/>[Pallet 1]<br/>[Pallet 2]<br/>...<br/>[Pallet N]"]]
+    C[Transaction<br/>Targeting Pallet 2] --> B
+    B --> E[(New State)]
+    B --> F[Execution Logs]
+```
 
--  __Subwallet__
+Parachains inherently offer features such as logic upgradeability, flexible transaction fee mechanisms, and chain abstraction logic. More so, by using Polkadot, parachains can benefit from robust consensus guarantees with little engineering overhead.
 
-    ---
+To read more about the differences between smart contracts and parachain runtimes, see the [Runtime vs. Smart Contracts](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/runtime_vs_smart_contract/index.html){target=\_blank} section of the Polkadot SDK Rust docs. For a more in-depth discussion about choosing between runtime development and smart contract development, see the Stack Overflow post on [building a Polkadot SDK runtime versus a smart contract](https://stackoverflow.com/a/56041305){target=\_blank}.
 
-    A non-custodial web browser extension and mobile wallet for Polkadot and Ethereum. Track, send, receive, and monitor multi-chain assets on 150+ networks. Import account with seed phrase, private key, QR code, and JSON file. Import token & NFT, attach read-only account. XCM Transfer, NFT Management, Parity Signer & Ledger support, light clients support, EVM dApp support, MetaMask compatibility, custom endpoints, fiat on-ramp, phishing detection, transaction history.
+## Building a Smart Contract
 
-    [:octicons-arrow-right-24: Reference](https://www.subwallet.app/){target=\_blank}
+The Polkadot SDK supports multiple smart contract execution environments:
 
-</div>
+- **PolkaVM**: A cutting-edge virtual machine tailored to optimize smart contract execution on Polkadot. Unlike traditional EVMs, PolkaVM is built with a [RISC-V-based register architecture](https://en.wikipedia.org/wiki/RISC-V){target=\_blank} for increased performance and scalability.
+- **EVM**: Through [Frontier](https://github.com/polkadot-evm/frontier){target=\_blank}. It consists of a full Ethereum JSON RPC compatible client, an Ethereum emulation layer, and a [Rust-based EVM](https://github.com/rust-ethereum/evm){target=\_blank}. This is used by chains like [Acala](https://acala.network/){target=\_blank}, [Astar](https://astar.network/){target=\_blank}, [Moonbeam](https://moonbeam.network){target=\_blank} and more.
+- **Wasm**: [ink!](https://use.ink/){target=\_blank} is a domain-specific language (DSL) for Rust smart contract development that uses the [Contracts pallet](https://github.com/paritytech/polkadot-sdk/blob/master/substrate/frame/contracts/){target=\_blank} with [`cargo-contract`](https://github.com/use-ink/cargo-contract){target=\_blank} serving as the compiler to WebAssembly. Wasm contracts can be used by chains like [Astar](https://astar.network/){target=\_blank}.
 
-## Cold Wallets
+### PolkaVM Contracts
 
-<div class="grid cards" markdown>
+A component of the Asset Hub parachain, PolkaVM helps enable the deployment of Solidity-based smart contracts directly on Asset Hub. Learn more about how this cutting edge virtual machine facilitates using familiar Ethereum-compatible contracts and tools with Asset Hub by visiting the [Native Smart Contracts](/develop/smart-contracts/overview#native-smart-contracts){target=\_blank} guide.
 
--   __Ledger__
+### EVM Contracts
 
-    ---
+The [Frontier](https://github.com/polkadot-evm/frontier){target=\_blank} project provides a set of modules that enables a Polkadot SDK-based chain to run an Ethereum emulation layer that allows the execution of EVM smart contracts natively with the same API/RPC interface.
 
-    A hardware wallet that securely stores cryptocurrency private keys offline, protecting them from online threats. Using a secure chip and the Ledger Live app allows safe transactions and asset management while keeping keys secure.
+[Ethereum addresses (ECDSA)](https://ethereum.org/en/glossary/#address){target=\_blank} can also be mapped directly to and from the Polkadot SDK's SS58 scheme from existing accounts. Moreover, you can modify Polkadot SDK to use the ECDSA signature scheme directly to avoid any mapping.
 
-    [:octicons-arrow-right-24: Reference](https://www.ledger.com/){target=\_blank}
+At a high level, [Frontier](https://github.com/polkadot-evm/frontier){target=\_blank} is composed of three main components:
 
--   __Polkadot Vault__
+- **[Ethereum Client](https://github.com/polkadot-evm/frontier/tree/master/client){target=\_blank}**: An Ethereum JSON RPC compliant client that allows any request coming from an Ethereum tool, such as [Remix](https://remix.ethereum.org/){target=\_blank}, [Hardhat](https://hardhat.org/){target=\_blank} or [Foundry](https://getfoundry.sh/){target=\_blank}, to be admitted by the network.
+- **[Pallet Ethereum](https://docs.rs/pallet-ethereum/latest/pallet_ethereum/){target=\_blank}**: A block emulation and Ethereum transaction validation layer that works jointly with the Ethereum client to ensure compatibility with Ethereum tools.
+- **[Pallet EVM](https://docs.rs/pallet-evm/latest/pallet_evm/){target=\_blank}**: Access layer to the [Rust-based EVM](https://github.com/rust-ethereum/evm){target=\_blank}, enabling the execution of EVM smart contract logic natively.
 
-    ---
+The following diagram illustrates a high-level overview of the path an EVM transaction follows when using this configuration:
 
-    This cold storage solution lets you use a phone in airplane mode as an air-gapped wallet, turning any spare phone, tablet, or iOS/Android device into a hardware wallet.
+``` mermaid
+flowchart TD
+    A[Users and Devs] -->|Send Tx| B[Frontier RPC Ext]
+    subgraph C[Pallet Ethereum]
+        D[Validate Tx]
+        E[Send<br/>Valid Tx]    
+    end
+    B -->|Interact with| C
+    D --> E
+    subgraph F[Pallet EVM]
+        G[Rust EVM]
+    end
+    I[(Current EVM<br/>Emulated State)]
 
-    [:octicons-arrow-right-24: Reference](https://vault.novasama.io/){target=\_blank}
+    H[Smart Contract<br/>Solidity, Vyper...] <-->|Compiled to EVM<br/>Bytecode| I
 
-</div>
+    C --> F
+    I --> F
+    F --> J[(New Ethereum<br/>Emulated State)]
+    F --> K[Execution Logs]
 
+    style C fill:#ffffff,stroke:#000000,stroke-width:1px
+    style F fill:#ffffff,stroke:#000000,stroke-width:1px
+```
 
+Although it seems complex, users and developers are abstracted of that complexity, and tools can easily interact with the parachain as they would with any other Ethereum-compatible environment.
+
+The Rust EVM is capable of executing regular [EVM bytecode](https://www.ethervm.io/){target=\_blank}. Consequently, any language that compiles to EVM bytecode can be used to create programs that the parachain can execute.
+
+### Wasm Contracts
+
+The [`pallet_contracts`](https://docs.rs/pallet-contracts/latest/pallet_contracts/index.html#contracts-pallet){target=\_blank} provides the execution environment for Wasm-based smart contracts. Consequently, any smart contract language that compiles to Wasm can be executed in a parachain that enables this module.
+
+At the time of writing there are two main languages that can be used for Wasm programs:
+
+- **[ink!](https://use.ink/){target=\_blank}**: A Rust-based language that compiles to Wasm. It allows developers to inherit all its safety guarantees and use normal Rust tooling, being the dedicated domain-specific language.
+- **Solidity**: Can be compiled to Wasm via the [Solang](https://github.com/hyperledger-solang/solang/){target=\_blank} compiler. Consequently, developers can write Solidity 0.8 smart contracts that can be executed as Wasm programs in parachains.
+
+The following diagram illustrates a high-level overview of the path a transaction follows when using [`pallet_contracts`](https://docs.rs/pallet-contracts/latest/pallet_contracts/index.html#contracts-pallet){target=\_blank}:
+
+``` mermaid
+flowchart TD
+    
+    subgraph A[Wasm Bytecode API]
+        C[Pallet Contracts]
+    end
+
+    B[Users and Devs] -- Interact with ---> A
+    
+    D[(Current State)]
+
+    E[Smart Contract<br/>ink!, Solidity...] <-->|Compiled to Wasm<br/>Bytecode| D
+
+    D --> A
+    A --> F[(New State)]
+    A --> G[Execution Logs]
+
+    style A fill:#ffffff,stroke:#000000,stroke-width:1px
+```
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/polkadot-protocol/smart-contract-basics/polkavm-design/
+--- BEGIN CONTENT ---
+---
+title: PolkaVM Design
+description: Discover PolkaVM, a high-performance smart contract VM for Polkadot, enabling Ethereum compatibility via pallet_revive, Solidity support & optimized execution.
+categories: Basics, Polkadot Protocol
 ---
 
-# XCM Channels
+# PolkaVM Design
 
-> Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-interoperability-xcm-channels.md
-> Canonical (HTML): https://docs.polkadot.com/develop/interoperability/xcm-channels/
-> Summary: Learn how Polkadot's cross-consensus messaging (XCM) channels connect parachains, facilitating communication and blockchain interaction.
-
-# XCM Channels
+!!! smartcontract "PolkaVM Preview Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 ## Introduction
 
-Polkadot is designed to enable interoperability between its connected parachains. At the core of this interoperability is the [Cross-Consensus Message Format (XCM)](/develop/interoperability/intro-to-xcm/){target=\_blank}, a standard language that allows parachains to communicate and interact with each other.
+The Asset Hub smart contracts solution includes multiple components to ensure Ethereum compatibility and high performance. Its architecture allows for integration with current Ethereum tools, while its innovative virtual machine design enhances performance characteristics.
 
-The network-layer protocol responsible for delivering XCM-formatted messages between parachains is the [Cross-Chain Message Passing (XCMP)](https://wiki.polkadot.com/learn/learn-xcm-transport/#xcmp-cross-chain-message-passing){target=\_blank} protocol. XCMP maintains messaging queues on the relay chain, serving as a bridge to facilitate cross-chain interactions.
+## PolkaVM
 
-As XCMP is still under development, Polkadot has implemented a temporary alternative called [Horizontal Relay-routed Message Passing (HRMP)](https://wiki.polkadot.com/learn/learn-xcm-transport/#hrmp-xcmp-lite){target=\_blank}. HRMP offers the same interface and functionality as the planned XCMP but it has a crucial difference, it stores all messages directly in the relay chain's storage, which is more resource-intensive.
+[**PolkaVM**](https://github.com/paritytech/polkavm){target=\_blank} is a custom virtual machine optimized for performance with [RISC-V-based](https://en.wikipedia.org/wiki/RISC-V){target=\_blank} architecture, supporting Solidity and additional high-performance languages. It serves as the core execution environment, integrated directly within the runtime. It features:
 
-Once XCMP is fully implemented, HRMP will be deprecated in favor of the native XCMP protocol. XCMP will offer a more efficient and scalable solution for cross-chain message passing, as it will not require the relay chain to store all the messages.
+- An efficient interpreter for immediate code execution.
+- A planned JIT compiler for optimized performance.
+- Dual-mode execution capability, allowing selection of the most appropriate backend for specific workloads.
+- Optimized performance for short-running contract calls through the interpreter.
 
-## Establishing HRMP Channels
+The interpreter remains particularly beneficial for contracts with minimal code execution, as it eliminates JIT compilation overhead and enables immediate code execution through lazy interpretation.
 
-To enable communication between parachains using the HRMP protocol, the parachains must explicitly establish communication channels by registering them on the relay chain.
+## Architecture
 
-Downward and upward channels from and to the relay chain are implicitly available, meaning they do not need to be explicitly opened.
+The smart contract solution consists of the following key components that work together to enable Ethereum compatibility on Polkadot-based chains.
 
-Opening an HRMP channel requires the parachains involved to make a deposit on the relay chain. This deposit serves a specific purpose, it covers the costs associated with using the relay chain's storage for the message queues linked to the channel. The amount of this deposit varies based on parameters defined by the specific relay chain being used.
+### Pallet Revive
 
-### Relay Chain Parameters
+[**`pallet_revive`**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/index.html){target=\_blank} is a runtime module that executes smart contracts by adding extrinsics, runtime APIs, and logic to convert Ethereum-style transactions into formats compatible with Polkadot SDK-based blockchains. It processes Ethereum-style transactions through the following workflow:
 
-Each Polkadot relay chain has a set of configurable parameters that control the behavior of the message channels between parachains. These parameters include [`hrmpSenderDeposit`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/configuration/struct.HostConfiguration.html#structfield.hrmp_sender_deposit){target=\_blank}, [`hrmpRecipientDeposit`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/configuration/struct.HostConfiguration.html#structfield.hrmp_recipient_deposit){target=\_blank}, [`hrmpChannelMaxMessageSize`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/configuration/struct.HostConfiguration.html#structfield.hrmp_channel_max_message_size){target=\_blank}, [`hrmpChannelMaxCapacity`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/configuration/struct.HostConfiguration.html#structfield.hrmp_channel_max_capacity){target=\_blank}, and more.
+```mermaid
+sequenceDiagram
+    participant User as User/dApp
+    participant Proxy as Ethereum JSON RPC Proxy
+    participant Chain as Blockchain Node
+    participant Pallet as pallet_revive
+    
+    User->>Proxy: Submit Ethereum Transaction
+    Proxy->>Chain: Repackage as Polkadot Compatible Transaction
+    Chain->>Pallet: Process Transaction
+    Pallet->>Pallet: Decode Ethereum Transaction
+    Pallet->>Pallet: Execute Contract via PolkaVM
+    Pallet->>Chain: Return Results
+    Chain->>Proxy: Forward Results
+    Proxy->>User: Return Ethereum-compatible Response
+```
 
-When a parachain wants to open a new channel, it must consider these parameter values to ensure the channel is configured correctly.
+This proxy-based approach eliminates the need for node binary modifications, maintaining compatibility across different client implementations. Preserving the original Ethereum transaction payload simplifies adapting existing tools, which can continue processing familiar transaction formats.
 
-To view the current values of these parameters in the Polkadot network:
+### PolkaVM Design Fundamentals
 
-1. Visit [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fpolkadot.api.onfinality.io%2Fpublic-ws#/explorer), navigate to the **Developer** dropdown and select the **Chain state** option.
+PolkaVM introduces two fundamental architectural differences compared to the Ethereum Virtual Machine (EVM):
 
-    ![](/images/develop/interoperability/xcm-channels/xcm-channels-1.webp)
+```mermaid
+flowchart TB
+    subgraph "EVM Architecture"
+        EVMStack[Stack-Based]
+        EVM256[256-bit Word Size]
+    end
+    
+    subgraph "PolkaVM Architecture"
+        PVMReg[Register-Based]
+        PVM64[64-bit Word Size]
+    end
+```
 
-2. Query the chain configuration parameters. The result will display the current settings for all the Polkadot network parameters, including the HRMP channel settings.
+- **Register-based design**: PolkaVM utilizes a RISC-V register-based approach. This design:
 
-    1. Select **`configuration`**.
-    2. Choose the **`activeConfig()`** call.
-    3. Click the **+** button to execute the query.
-    4. Check the chain configuration.
+    - Employs a finite set of registers for argument passing instead of an infinite stack.
+    - Facilitates efficient translation to underlying hardware architectures.
+    - Optimizes register allocation through careful register count selection.
+    - Enables simple 1:1 mapping to x86-64 instruction sets.
+    - Reduces compilation complexity through strategic register limitation.
+    - Improves overall execution performance through hardware-aligned design.
 
-        ![](/images/develop/interoperability/xcm-channels/xcm-channels-2.webp)
+- **64-bit word size**: PolkaVM operates with a 64-bit word size. This design:
 
-### Dispatching Extrinsics
+    - Enables direct hardware-supported arithmetic operations.
+    - Maintains compatibility with Solidity's 256-bit operations through YUL translation.
+    - Allows integration of performance-critical components written in lower-level languages.
+    - Optimizes computation-intensive operations through native word size alignment.
+    - Reduces overhead for operations not requiring extended precision.
+    - Facilitates efficient integration with modern CPU architectures.
 
-Establishing new HRMP channels between parachains requires dispatching specific extrinsic calls on the Polkadot Relay Chain from the parachain's origin.
+## Compilation Process
 
-The most straightforward approach is to implement the channel opening logic off-chain, then use the XCM pallet's [`send`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/dispatchables/fn.send.html){target=\_blank} extrinsic to submit the necessary instructions to the relay chain. However, the ability to send arbitrary programs through the [`Transact`](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#transact){target=\_blank} instruction in XCM is typically restricted to privileged origins, such as the [`sudo`](https://paritytech.github.io/polkadot-sdk/master/pallet_sudo/pallet/dispatchables/fn.sudo.html){target=\_blank} pallet or governance mechanisms.
+When compiling a Solidity smart contract, the code passes through the following stages:
 
-Parachain developers have a few options for triggering the required extrinsic calls from their parachain's origin, depending on the configuration and access controls defined:
+```mermaid
+flowchart LR
+    Dev[Developer] --> |Solidity<br>Source<br>Code| Solc
+    
+    subgraph "Compilation Process"
+        direction LR
+        Solc[solc] --> |YUL<br>IR| Revive
+        Revive[Revive Compiler] --> |LLVM<br>IR| LLVM
+        LLVM[LLVM<br>Optimizer] --> |RISC-V ELF<br>Shared Object| PVMLinker
+    end
+    
+    PVMLinker[PVM Linker] --> PVM[PVM Blob<br>with Metadata]
+```
 
-- **Sudo**: If the parachain has a `sudo` pallet configured, the sudo key holder can use the sudo extrinsic to dispatch the necessary channel opening calls.
-- **Governance**: The parachain's governance system, such as a council or OpenGov, can be used to authorize the channel opening calls.
-- **Privileged accounts**: The parachain may have other designated privileged accounts that are allowed to dispatch the HRMP channel opening extrinsics.
+The compilation process integrates several specialized components:
 
-## Where to Go Next
+1. **Solc**: The standard Ethereum Solidity compiler that translates Solidity source code to [YUL IR](https://docs.soliditylang.org/en/latest/yul.html){target=\_blank}.
+2. **Revive Compiler**: Takes YUL IR and transforms it to [LLVM IR](https://llvm.org/){target=\_blank}.
+3. **LLVM**: A compiler infrastructure that optimizes the code and generates RISC-V ELF objects.
+4. **PVM linker**: Links the RISC-V ELF object into a final PolkaVM blob with metadata.
+--- END CONTENT ---
 
-Explore the following tutorials for detailed, step-by-step guidance on setting up cross-chain communication channels in Polkadot:
+## Reference Concepts [shared: true]
 
-<div class="grid cards" markdown>
-
--   <span class="badge tutorial">Tutorial</span> __Opening HRMP Channels Between Parachains__
-
-    ---
-
-    Learn how to open HRMP channels between parachains on Polkadot. Discover the step-by-step process for establishing uni- and bidirectional communication.
-
-    [:octicons-arrow-right-24: Reference](/tutorials/interoperability/xcm-channels/para-to-para/)
-
--   <span class="badge tutorial">Tutorial</span> __Opening HRMP Channels with System Parachains__
-
-    ---
-
-    Learn how to open HRMP channels with Polkadot system parachains. Discover the process for establishing bi-directional communication using a single XCM message.
-
-    [:octicons-arrow-right-24: Reference](/tutorials/interoperability/xcm-channels/para-to-system/)
-
-</div>
-
+The following section contains reference material for Polkadot.
+While it may not be required for all use cases, it offers a deeper technical layer for advanced development work.
 
 ---
 
-# XCM Config
+## List of shared concept pages:
 
-> Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-interoperability-xcm-config.md
-> Canonical (HTML): https://docs.polkadot.com/develop/interoperability/xcm-config/
-> Summary: Learn how the XCM Executor configuration works for your custom Polkadot SDK-based runtime with detailed guidance and references.
+
+## Full content for shared concepts:
+
+Doc-Content: https://docs.polkadot.com/develop/interoperability/xcm-config/
+--- BEGIN CONTENT ---
+---
+title: XCM Config
+description: Learn how the XCM Executor configuration works for your custom Polkadot SDK-based runtime with detailed guidance and references.
+categories: Reference, Polkadot Protocol
+---
 
 # XCM Config
 
@@ -11075,7 +11360,7 @@ The executor is highly configurable, with the [XCM builder](https://paritytech.g
 
 ## XCM Executor Configuration
 
-The `Config` trait defines the XCM executor’s configuration, which requires several associated types. Each type has specific trait bounds that the concrete implementation must fulfill. Some types, such as `RuntimeCall`, come with a default implementation in most cases, while others use the unit type `()` as the default. For many of these types, selecting the appropriate implementation carefully is crucial. Predefined solutions and building blocks can be adapted to your specific needs. These solutions can be found in the [`xcm-builder`](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2506-2/polkadot/xcm/xcm-builder){target=\_blank} folder.
+The `Config` trait defines the XCM executor’s configuration, which requires several associated types. Each type has specific trait bounds that the concrete implementation must fulfill. Some types, such as `RuntimeCall`, come with a default implementation in most cases, while others use the unit type `()` as the default. For many of these types, selecting the appropriate implementation carefully is crucial. Predefined solutions and building blocks can be adapted to your specific needs. These solutions can be found in the [`xcm-builder`](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2506/polkadot/xcm/xcm-builder){target=\_blank} folder.
 
 Each type is explained below, along with an overview of some of its implementations:
 

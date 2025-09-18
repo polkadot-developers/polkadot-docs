@@ -99,6 +99,8 @@ Tools and indexers tracing messages across mixed runtime versions should check b
 --8<-- 'code/develop/interoperability/xcm-observability/forward-id-for.ts'
 ```
 
+> Note: `@noble/hashes` and `polkadot-api` are required dependencies for this code to work.
+
 ## Failure Event Handling
 
 When an XCM fails, the transaction rolls back and no explicit failure event is emitted on-chain. The following are some ways to check for XCM failure:

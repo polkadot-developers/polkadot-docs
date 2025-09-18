@@ -85,7 +85,7 @@ Before you begin, ensure you have the following:
 
     ```bash
     npm install --save-dev typescript @types/node tsx
-    npm install  polkadot-api @polkadot-labs/hdkd @polkadot-labs/hdkd-helpers
+    npm install polkadot-api @polkadot-labs/hdkd @polkadot-labs/hdkd-helpers
     npm install @noble/hashes
     ```
 

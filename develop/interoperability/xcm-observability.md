@@ -48,7 +48,7 @@ Matching these IDs allows you to correlate an origin message with its destinatio
 
 - The runtime automatically appends a `SetTopic` instruction if one is missing at the end of an XCM.
 - When using high-level extrinsics such as `limited_reserve_transfer_assets`, you do not need to set a topic manually; the runtime handles it for you.
-- If you manually craft an XCM (e.g., via [`execute`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/struct.Pallet.html#method.execute){target=\_blank} or [`send`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/struct.Pallet.html#method.send){target=\_blank}), you can supply your own `SetTopic`, but it must be the final instruction to be respected.
+- When manually crafting an XCM via [`execute`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/struct.Pallet.html#method.execute){target=\_blank} or [`send`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pallet/struct.Pallet.html#method.send){target=\_blank}), you can include a `SetTopic` as the final instruction; otherwise, `WithUniqueTopic` will append its own unique ID, overriding earlier `SetTopic` instructions.
 - In multi-hop XCM flows, manually setting the topic ensures consistent tracing across all hops. Any remote XCM calls embedded inside the XCM must also include a `SetTopic` at the end to preserve the same `message_id` throughout the cross-chain flow.
 
 ## Message Lifecycle

@@ -1,57 +1,10 @@
 {
-    "schema_version": "1.1",
-
-    "project": {
-        "id": "polkadot",
-        "name": "Polkadot",
-        "project_url": "https://polkadot.network/",
-        "docs_base_url": "https://docs.polkadot.com/"
-    },
-
-    "repository": {
-        "host": "github",
-        "org": "polkadot-developers",
-        "repo": "polkadot-docs",
-        "default_branch": "master",
-        "docs_path": ".",
-        "ai_artifacts_path": ".ai/pages"
-    },
-
-    "content": {
-        "docs_dir": ".",
-        "base_context_categories": ["Basics", "Reference"],
-        "categories_order": [
-            "Basics",
-            "Smart Contracts",
-            "Parachains",
-            "dApps",
-            "Networks",
-            "Polkadot Protocol",
-            "Infrastructure",
-            "Tooling",
-            "Reference"
-        ],
-        "exclusions": {
-            "skip_basenames": [
-                "README.md",
-                "index.md",
-                ".CONTRIBUTING.md",
-                "pull-request-template.md",
-                "cookie-policy.md",
-                "LICENSE.md",
-                "ai-chatbot-policy.md",
-                "terms-of-use.md",
-                "privacy-policy.md"
-            ],
-            "skip_paths": [".snippets", ".github", ".ai"]
-        }
-    },
-
-    "outputs": {
-        "public_root": "/.ai/",
-        "files": {
-            "llms_full": "llms-full.jsonl",
-            "pages_dir": "pages"
-        }
-    }
+  "projectName": "Polkadot",
+  "projectUrl": "https://docs.polkadot.com",
+  "projectDescription": "Polkadot is an open-source, multichain network protocol that facilitates the secure communication and interoperability of various blockchains. It offers a scalable, sharded architecture that enables the creation of purpose-built chains and provides the necessary tooling for building decentralized applications (dApps) and smart contracts.",
+  "sectionPriority": ["develop", "tutorials", "protocol"],
+  "categories": ["Smart Contracts", "Parachains", "dApps", "Networks", "Polkadot Protocol", "Infrastructure", "Tooling"],
+  "aiPromptTemplate": "## AI Prompt Template\n\nYou are an AI developer assistant for {PROJECT_NAME} ({PROJECT_URL}). Your task is to assist developers in understanding and using the product described in this file.\n- Provide accurate answers based on the included documentation.\n- Do not assume undocumented features, behaviors, or APIs.\n- If unsure, respond with “Not specified in the documentation.\n\n",
+  "coreContextDescription": "The following section contains foundational documentation shared across all {PROJECT_NAME} products.\nIt describes the architecture and infrastructure that serve as the backbone for all integrations built with {PROJECT_NAME}.\nThis includes developing and deploying solidity smart contracts on the Polkadot Hub, building, customizing, deploying, and maintaining a parachain, and integrating with the Polkadot ecosystem.\nThis context is provided to help understand how the system works under the hood, but responses should stay focused on the specific product unless the user explicitly asks about the general architecture.\n",
+  "referenceContextDescription": "The following section contains reference material for {PROJECT_NAME}.\nWhile it may not be required for all use cases, it offers a deeper technical layer for advanced development work.\n"
 }

@@ -1,0 +1,5 @@
+nav:
+ - 'Get Started': index.md
+ - 'Deploy a Contract': deploy-a-contract.md
+ - 'Verify a Contract': verify-a-contract.md
+ - 'Troubleshooting': troubleshooting.md

@@ -31,7 +31,7 @@ The dApp will interact with a simple Storage contract. For a step-by-step guide 
 - Reading a stored number from the blockchain.
 - Updating the stored number with a new value.
 
-The contract has already been deployed to the Polkadot Hub TestNet for testing purposes: `0x58053f0e8ede1a47a1af53e43368cd04ddcaf66f`. If you want to deploy your own, follow the [Deploying Contracts](/develop/smart-contracts/dev-environments/remix/#deploying-contracts){target=\_blank} section.
+The contract has already been deployed to the Polkadot Hub TestNet for testing purposes: `0x58053f0e8ede1a47a1af53e43368cd04ddcaf66f`. If you want to deploy your own, follow the [Deploying Contracts](/smart-contracts/dev-environments/remix/deploy-a-contract){target=\_blank} section.
 
 Here's a simplified view of what you'll be building:
 
@@ -74,7 +74,7 @@ npm install ethers@{{ dependencies.javascript_packages.ethersjs.version }}
 
 ## Connect to Polkadot Hub
 
-To interact with the Polkadot Hub, you need to set up an [Ethers.js Provider](/develop/smart-contracts/libraries/ethers-js/#set-up-the-ethersjs-provider){target=\_blank} that connects to the blockchain. In this example, you will interact with the Polkadot Hub TestNet, so you can experiment safely. Start by creating a new file called `utils/ethers.js` and add the following code:
+To interact with the Polkadot Hub, you need to set up an [Ethers.js Provider](/smart-contracts/libraries/#set-up-the-ethersjs-provider){target=\_blank} that connects to the blockchain. In this example, you will interact with the Polkadot Hub TestNet, so you can experiment safely. Start by creating a new file called `utils/ethers.js` and add the following code:
 
 ```javascript title="app/utils/ethers.js"
 --8<-- "https://raw.githubusercontent.com/polkadot-developers/polkavm-storage-contract-dapps/refs/tags/v0.0.2/ethers-dapp/app/utils/ethers.js"

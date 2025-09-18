@@ -45,7 +45,7 @@ This section will guide you through the initial steps of creating the foundation
 2.  Configure the dependencies required for FRAME pallet development in the `Cargo.toml` file as follows:
 
     ```toml
-    --8<-- 'code/develop/parachains/customize-parachain/make-custom-pallets/Cargo.toml'
+    --8<-- 'code/rollups/pallet-development/index/Cargo.toml'
     ```
 
     !!!note
@@ -59,12 +59,12 @@ This section will guide you through the initial steps of creating the foundation
 
         - Regularly check for updates to FRAME and Polkadot SDK dependencies to benefit from the latest features, performance improvements, and security patches.
 
-    For detailed information about workspace inheritance and how to properly integrate your pallet with the runtime, see the [Add an Existing Pallet to the Runtime](/develop/parachains/customize-parachain/add-existing-pallets/){target=\_blank} page.
+    For detailed information about workspace inheritance and how to properly integrate your pallet with the runtime, see the [Add an Existing Pallet to the Runtime](/rollups/customize-runtime/add-existing-pallets/){target=\_blank} page.
 
 3.  Initialize the pallet structure by replacing the contents of `src/lib.rs` with the following scaffold code:
 
     ```rust
-    --8<-- 'code/develop/parachains/customize-parachain/make-custom-pallets/barebone-pallet-template.rs'
+    --8<-- 'code/rollups/pallet-development/index/barebone-pallet-template.rs'
     ```
 
     With this scaffold in place, you're ready to start implementing your custom pallet's specific logic and features. The subsequent sections of this guide will walk you through populating each of these components with the necessary code for your pallet's functionality.
@@ -81,7 +81,7 @@ In this step, you'll only configure the common types used by all pallets:
 Replace the line containing the [`#[pallet::config]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.config.html){target=\_blank} macro with the following code block:
 
 ```rust
---8<-- 'code/develop/parachains/customize-parachain/make-custom-pallets/pallet-config.rs'
+--8<-- 'code/rollups/pallet-development/index/pallet-config.rs'
 ```
 
 ## Pallet Events
@@ -95,7 +95,7 @@ This step adds an event called `SomethingStored`, which is triggered when a user
 To define events, replace the [`#[pallet::event]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.event.html){target=\_blank} line with the following code block:
 
 ```rust
---8<-- 'code/develop/parachains/customize-parachain/make-custom-pallets/pallet-event.rs'
+--8<-- 'code/rollups/pallet-development/index/pallet-event.rs'
 ```
 
 ## Pallet Errors
@@ -109,7 +109,7 @@ This step defines two basic errors: one for handling cases where no value has be
 To define errors, replace the [`#[pallet::error]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.error.html){target=\_blank} line with the following code block:
 
 ```rust
---8<-- 'code/develop/parachains/customize-parachain/make-custom-pallets/pallet-error.rs'
+--8<-- 'code/rollups/pallet-development/index/pallet-error.rs'
 ```
 
 ## Pallet Storage
@@ -121,7 +121,7 @@ This step adds a simple storage item, `Something`, which stores a single `u32` v
 To define storage, replace the [`#[pallet::storage]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.storage.html){target=\_blank} line with the following code block:
 
 ```rust
---8<-- 'code/develop/parachains/customize-parachain/make-custom-pallets/pallet-storage.rs'
+--8<-- 'code/rollups/pallet-development/index/pallet-storage.rs'
 ```
 
 ## Pallet Dispatchable Extrinsics
@@ -140,7 +140,7 @@ This section adds two dispatchable functions:
 To implement these calls, replace the [`#[pallet::call]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.call.html){target=\_blank} line with the following code block:
 
 ```rust
---8<-- 'code/develop/parachains/customize-parachain/make-custom-pallets/pallet-call.rs'
+--8<-- 'code/rollups/pallet-development/index/pallet-call.rs'
 ```
 
 ## Pallet Implementation Overview
@@ -149,7 +149,7 @@ After following all the previous steps, the pallet is now fully implemented. Bel
 
 ???code
     ```rust
-    --8<-- 'code/develop/parachains/customize-parachain/make-custom-pallets/full-pallet.rs'
+    --8<-- 'code/rollups/pallet-development/index/full-pallet.rs'
     ```
 
 ## Where to Go Next
@@ -180,6 +180,6 @@ With the pallet implemented, the next steps involve ensuring its reliability and
 
     Follow this guide to include your pallet in a Polkadot SDK-based runtime, making it ready for use in your blockchain.
 
-    [:octicons-arrow-right-24: Reference](/develop/parachains/customize-parachain/add-existing-pallets/)
+    [:octicons-arrow-right-24: Reference](/rollups/customize-runtime/add-existing-pallets/)
 
 </div>

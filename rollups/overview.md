@@ -25,7 +25,7 @@ For an in-depth look at the monorepo, see the [Polkadot SDK Rust documentation](
 
 The Polkadot SDK is composed of five major components:
 
-![](/images/develop/parachains/intro-polkadot-sdk/intro-polkadot-sdk-1.webp)
+![](/images/rollups/overview/overview-01.webp)
 
 - **[Substrate](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/substrate/index.html){target=\_blank}**: A set of libraries and primitives for building blockchains.
 - **[FRAME](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/frame_runtime/index.html){target=\_blank}**: A blockchain development framework built on top of Substrate.

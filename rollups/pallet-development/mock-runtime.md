@@ -19,7 +19,7 @@ The mock runtime includes all the necessary pallets and configurations needed fo
 Here's a simple example of how to create a testing module that simulates these interactions:
 
 ```rust
---8<-- 'code/develop/parachains/testing/mock-runtime/integration-testing-module.rs'
+--8<-- 'code/rollups/pallet-development/mock-runtime/integration-testing-module.rs'
 ```
 
 The `crate::*;` snippet imports all the components from your crate (including runtime configurations, pallet modules, and utility functions) into the `tests` module. This allows you to write tests without manually importing each piece, making the code more concise and readable. You can opt to instead create a separate `mock.rs` file to define the configuration for your mock runtime and a companion `tests.rs` file to house the specific logic for each test.
@@ -27,7 +27,7 @@ The `crate::*;` snippet imports all the components from your crate (including ru
 Once the testing module is configured, you can craft your mock runtime using the [`frame_support::runtime`](https://paritytech.github.io/polkadot-sdk/master/frame_support/attr.runtime.html){target=\_blank} macro. This macro allows you to define a runtime environment that will be created for testing purposes:
 
 ```rust
---8<-- 'code/develop/parachains/testing/mock-runtime/mock-runtime.rs'
+--8<-- 'code/rollups/pallet-development/mock-runtime/mock-runtime.rs'
 ```
 ### Genesis Storage
 
@@ -40,13 +40,13 @@ The function `new_test_ext()` demonstrates setting up this environment. It uses 
 Here's the code that sets the genesis storage configuration:
 
 ```rust
---8<-- 'code/develop/parachains/testing/mock-runtime/genesis-config.rs'
+--8<-- 'code/rollups/pallet-development/mock-runtime/genesis-config.rs'
 ```
 
 You can also customize the genesis storage to set initial values for your runtime pallets. For example, you can set the initial balance for accounts like this:
 
 ```rust
---8<-- 'code/develop/parachains/testing/mock-runtime/genesis-config-custom.rs'
+--8<-- 'code/rollups/pallet-development/mock-runtime/genesis-config-custom.rs'
 ```
 
 For a more idiomatic approach, see the [Your First Pallet](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/guides/your_first_pallet/index.html#better-test-setup){target=\_blank} guide from the Polkadot SDK Rust documentation.
@@ -56,7 +56,7 @@ For a more idiomatic approach, see the [Your First Pallet](https://paritytech.gi
 Each pallet in the mocked runtime requires an associated configuration, specifying the types and values it depends on to function. These configurations often use basic or primitive types (e.g., u32, bool) instead of more complex types like structs or traits, ensuring the setup remains straightforward and manageable.
 
 ```rust
---8<-- 'code/develop/parachains/testing/mock-runtime/pallets-configurations.rs'
+--8<-- 'code/rollups/pallet-development/mock-runtime/pallets-configurations.rs'
 ```
 
 The configuration should be set for each pallet existing in the mocked runtime. The simplification of types is for simplifying the testing process. For example, `AccountId` is `u64`, meaning a valid account address can be an unsigned integer:
@@ -77,6 +77,6 @@ With the mock environment in place, developers can now test and explore how pall
 
     Learn how to efficiently test pallets in the Polkadot SDK, ensuring your pallet operations are reliable and secure.
 
-    [:octicons-arrow-right-24: Reference](/develop/parachains/testing/pallet-testing/)
+    [:octicons-arrow-right-24: Reference](/rollups/pallet-development/pallet-testing/)
 
 </div>

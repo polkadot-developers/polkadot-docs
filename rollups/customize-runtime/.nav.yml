@@ -1,0 +1,5 @@
+nav:
+ - 'Overview': index.md
+ - 'Add Existing Pallets': add-existing-pallets.md
+ - 'Add Multiple Instances of a Pallet': add-pallet-instances.md
+ - 'Add Smart Contract Functionality': add-smart-contract-functionality.md

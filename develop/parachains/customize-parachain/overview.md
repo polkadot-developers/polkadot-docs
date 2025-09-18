@@ -108,5 +108,5 @@ Choosing a suitable template depends on your project’s unique requirements, le
 
 For more detailed information on implementing this process, refer to the following sections:
 
-- [Add a Pallet to Your Runtime](/develop/parachains/customize-parachain/add-existing-pallets/)
-- [Create a Custom Pallet](/develop/parachains/customize-parachain/make-custom-pallet/)
+- [Add a Pallet to Your Runtime](/rollups/customize-runtime/add-existing-pallets/)
+- [Create a Custom Pallet](/rollups/pallet-development/)

@@ -103,7 +103,7 @@ You can inspect any pallet’s `Config` trait by reviewing its Rust documentatio
 At its core, the `Config` trait typically looks like this:
 
 ```rust
---8<-- 'code/develop/parachains/customize-parachain/add-existing-pallets/pallet-basic-config-trait.rs'
+--8<-- 'code/rollups/customize-runtime/add-existing-pallets/pallet-basic-config-trait.rs'
 ```
 
 This basic structure shows that every pallet must define certain types, such as `RuntimeEvent` and `WeightInfo`, to function within the runtime. The actual implementation can vary depending on the pallet’s specific needs.
@@ -113,7 +113,7 @@ This basic structure shows that every pallet must define certain types, such as 
 For instance, in the [`utility`](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}/substrate/frame/utility){target=\_blank} pallet, the `Config` trait is implemented with the following types:
 
 ```rust
---8<-- 'code/develop/parachains/customize-parachain/add-existing-pallets/utility-pallet-config-trait.rs'
+--8<-- 'code/rollups/customize-runtime/add-existing-pallets/utility-pallet-config-trait.rs'
 ```
 
 This example shows how the `Config` trait defines types like `RuntimeEvent`, `RuntimeCall`, `PalletsOrigin`, and `WeightInfo`, which the pallet will use when interacting with the runtime.
@@ -125,7 +125,7 @@ Traits in Rust define shared behavior, and within the Polkadot SDK, they allow r
 For example, the following code snippet shows how the solochain template configures certain parameters through the [`parameter_types!`]({{ dependencies.repositories.polkadot_sdk_solochain_template.repository_url }}/blob/{{dependencies.repositories.polkadot_sdk_solochain_template.version}}/runtime/src/lib.rs#L138){target=\_blank} macro in the `runtime/lib.rs` file:
 
 ```rust
---8<-- 'code/develop/parachains/customize-parachain/add-existing-pallets/parameter-types-example.rs'
+--8<-- 'code/rollups/customize-runtime/add-existing-pallets/parameter-types-example.rs'
 ```
 
 ## Pallet Config in the Runtime
@@ -133,7 +133,7 @@ For example, the following code snippet shows how the solochain template configu
 To integrate a new pallet into the runtime, you must implement its `Config` trait in the `runtime/lib.rs` file. This is done by specifying the necessary types and parameters in Rust, as shown below:
 
 ```rust
---8<-- 'code/develop/parachains/customize-parachain/add-existing-pallets/impl-pallet-example-in-runtime.rs'
+--8<-- 'code/rollups/customize-runtime/add-existing-pallets/impl-pallet-example-in-runtime.rs'
 ```
 
 Finally, to compose the runtime, update the list of pallets in the same file by modifying the [`#[frame_support::runtime]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/attr.runtime.html){target=\_blank} section. This Rust macro constructs the runtime with your specified name and pallets, wraps the runtime's configuration, and automatically generates boilerplate code for pallet inclusion. 
@@ -141,7 +141,7 @@ Finally, to compose the runtime, update the list of pallets in the same file by 
 Use the following format when adding your pallet:
 
 ```rust
---8<-- 'code/develop/parachains/customize-parachain/add-existing-pallets/frame-support-runtime-macro.rs'
+--8<-- 'code/rollups/customize-runtime/add-existing-pallets/frame-support-runtime-macro.rs'
 ```
 
 ## Where to Go Next
@@ -156,7 +156,7 @@ With the pallet successfully added and configured, the runtime is ready to be co
 
     Learn how to implement multiple instances of the same pallet in your Polkadot SDK-based runtime to create and interact with modular blockchain components.
 
-    [:octicons-arrow-right-24: Reference](/develop/parachains/customize-parachain/add-pallet-instances/)
+    [:octicons-arrow-right-24: Reference](/rollups/customize-runtime/add-pallet-instances/)
 
 -   <span class="badge guide">Guide</span> __Make a Custom Pallet__
 
@@ -164,7 +164,7 @@ With the pallet successfully added and configured, the runtime is ready to be co
 
     Learn how to create custom pallets using FRAME, allowing for flexible, modular, and scalable blockchain development. Follow the step-by-step guide.
 
-    [:octicons-arrow-right-24: Reference](/develop/parachains/customize-parachain/make-custom-pallet/)
+    [:octicons-arrow-right-24: Reference](/rollups/pallet-development/)
 
 -   <span class="badge guide">Guide</span> __Pallet Testing__
 

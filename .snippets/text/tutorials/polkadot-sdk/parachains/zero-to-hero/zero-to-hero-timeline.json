@@ -15,7 +15,7 @@
         "icon": ":fontawesome-solid-3:"
     },
     {
-        "title": "[Add Pallets to the Runtime](/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime/)",
+        "title": "[Add Pallets to the Runtime](/rollups/pallet-development/add-pallet-to-runtime/)",
         "content": "Add pallets to your runtime for custom functionality. Learn to configure and integrate pallets in Polkadot SDK-based blockchains.",
         "icon": ":fontawesome-solid-4:"
     },

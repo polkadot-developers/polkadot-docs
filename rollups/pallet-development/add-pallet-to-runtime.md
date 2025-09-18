@@ -22,9 +22,9 @@ First, you'll update the runtime's `Cargo.toml` file to include the Utility pall
     ```toml hl_lines="4" title="runtime/Cargo.toml"
     --8<-- 'https://raw.githubusercontent.com/papermoonio/zero-to-hero-tutorial/refs/heads/v0.0.4-complete-tutorial/runtime/Cargo.toml:19:19'
     ...
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/Cargo.toml:26:27'
+    --8<-- 'code/rollups/pallet-development/add-pallet-to-runtime/Cargo.toml:26:27'
         ...
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/Cargo.toml:55:55'
+    --8<-- 'code/rollups/pallet-development/add-pallet-to-runtime/Cargo.toml:55:55'
     ```
 
 2. In the same `[dependencies]` section, add the custom pallet that you built from scratch with the following line:
@@ -52,7 +52,7 @@ First, you'll update the runtime's `Cargo.toml` file to include the Utility pall
     ???- code "runtime/Cargo.toml"
         
         ```rust title="runtime/Cargo.toml"
-        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/Cargo.toml'
+        --8<-- 'code/rollups/pallet-development/add-pallet-to-runtime/Cargo.toml'
         ```
 
 Update your root parachain template's `Cargo.toml` file to include your custom pallet as a dependency. Follow these steps:
@@ -79,7 +79,7 @@ Configure the pallets by implementing their `Config` trait and update the runtim
 1. Add the `OriginCaller` import:
 
     ```rust title="mod.rs" hl_lines="8"
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/configs/mod.rs:59:60'
+    --8<-- 'code/rollups/pallet-development/add-pallet-to-runtime/src/configs/mod.rs:59:60'
     ...
     ```
 
@@ -87,19 +87,19 @@ Configure the pallets by implementing their `Config` trait and update the runtim
 
     ```rust title="mod.rs" hl_lines="8-25"
     ...
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/configs/mod.rs:320:332'
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/configs/mod.rs:334:342'
+    --8<-- 'code/rollups/pallet-development/add-pallet-to-runtime/src/configs/mod.rs:320:332'
+    --8<-- 'code/rollups/pallet-development/add-pallet-to-runtime/src/configs/mod.rs:334:342'
     }
     ```
 
 3. Locate the `#[frame_support::runtime]` macro in the `runtime/src/lib.rs` file and add the pallets:
 
     ```rust hl_lines="9-14" title="lib.rs"
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/lib.rs:256:259'
+    --8<-- 'code/rollups/pallet-development/add-pallet-to-runtime/src/lib.rs:256:259'
             ...
-        --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/lib.rs:270:271'
+        --8<-- 'code/rollups/pallet-development/add-pallet-to-runtime/src/lib.rs:270:271'
 
-    --8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime/src/lib.rs:320:324'
+    --8<-- 'code/rollups/pallet-development/add-pallet-to-runtime/src/lib.rs:320:324'
     }
     ```
 
@@ -140,12 +140,12 @@ Launch your parachain locally and start producing blocks:
 
     - Utility pallet
 
-        ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime/add-pallets-to-runtime-1.webp)
+        ![](/images/rollups/pallet-development/add-pallet-to-runtime/add-pallets-to-runtime-1.webp)
     
 
     - Custom pallet
 
-        ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime/add-pallets-to-runtime-2.webp)
+        ![](/images/rollups/pallet-development/add-pallet-to-runtime/add-pallets-to-runtime-2.webp)
 
 ## Where to Go Next
 

@@ -169,7 +169,7 @@ For more information about runtime versioning, check the [Runtime Upgrades](/dev
 
 If you can see the following elements, it means that you are ready to submit the runtime upgrade to your running chain:
 
---8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-compilation.html'
+--8<-- 'code/rollups/pallet-development/add-pallet-to-runtime-upgrade/runtime-compilation.html'
 
 ## Submit the Runtime Upgrade
 

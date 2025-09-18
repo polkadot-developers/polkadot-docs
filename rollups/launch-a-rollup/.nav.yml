@@ -1,0 +1,4 @@
+nav:
+ - 'Choose a Template': index.md
+ - 'Deploy to Polkadot': deploy-to-polkadot.md
+ - 'Obtain Coretime': obtain-coretime.md

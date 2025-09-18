@@ -4,6 +4,12 @@ The `/.ai/` directory contains files generated for use with LLM-driven tools lik
 
 ## Generate Updated Files
 
+### Prerequisites
+
+Ensure you have cloned the `polkadot-mkdocs` repo and installed Mkdocs requirements or you will not have access to the modules needed to use the scripts. See the `polkadot-mkdocs` [README.md](./README) for instructions if needed.
+
+### Get Started
+
 Follow these steps to generate a fresh set of files after updating documentation content:
 
 1. From the `polkadot-docs` directory, run:

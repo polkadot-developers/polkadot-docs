@@ -28,3 +28,7 @@ The [ParaSpell XCM SDK](https://paraspell.github.io/docs/sdk/getting-started.htm
 The SDK simplifies the process of creating and sending XCM messages by providing a user-friendly builder pattern. This allows developers to construct complex XCM calls with just a few lines of code, reducing the likelihood of errors and ensuring that messages are constructed correctly.
 
 By using the ParaSpell XCM SDK, developers can significantly accelerate their development workflow and build powerful, interoperable dApps that take full advantage of the Polkadot network's cross-chain capabilities.
+
+## In This Section
+
+:::INSERT_IN_THIS_SECTION:::

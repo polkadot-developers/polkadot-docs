@@ -13,12 +13,12 @@ You are an AI developer assistant for Polkadot (https://docs.polkadot.com). Your
 - If unsure, respond with “Not specified in the documentation.
 
 ## List of doc pages:
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/interoperability/intro-to-xcm.md [type: develop]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/interoperability/send-messages.md [type: develop]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/interoperability/test-and-debug.md [type: develop]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/interoperability/xcm-channels.md [type: develop]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/interoperability/xcm-config.md [type: develop]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/interoperability/xcm-runtime-apis.md [type: develop]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/interoperability.md [type: other]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/polkadot-protocol/architecture/parachains/consensus.md [type: other]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/polkadot-protocol/architecture/parachains/overview.md [type: other]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/polkadot-protocol/architecture/polkadot-chain/agile-coretime.md [type: other]
@@ -52,134 +52,6 @@ Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/re
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/polkadot-protocol/smart-contract-basics/polkavm-design.md [type: other]
 
 ## Full content for each doc page
-
-Doc-Content: https://docs.polkadot.com/develop/interoperability/intro-to-xcm/
---- BEGIN CONTENT ---
----
-title: Introduction to XCM
-description: Unlock blockchain interoperability with XCM — Polkadot's Cross-Consensus Messaging format for cross-chain interactions.
-categories: Basics, Polkadot Protocol
----
-
-# Introduction to XCM
-
-## Introduction
-
-Polkadot’s unique value lies in its ability to enable interoperability between parachains and other blockchain systems. At the core of this capability is XCM (Cross-Consensus Messaging)—a flexible messaging format that facilitates communication and collaboration between independent consensus systems.
-
-With XCM, one chain can send intents to another one, fostering a more interconnected ecosystem. Although it was developed specifically for Polkadot, XCM is a universal format, usable in any blockchain environment. This guide provides an overview of XCM’s core principles, design, and functionality, alongside practical examples of its implementation.
-
-## Messaging Format
-
-XCM is not a protocol but a standardized [messaging format](https://github.com/polkadot-fellows/xcm-format){target=\_blank}. It defines the structure and behavior of messages but does not handle their delivery. This separation allows developers to focus on crafting instructions for target systems without worrying about transmission mechanics.
-
-XCM messages are intent-driven, outlining desired actions for the receiving blockchain to consider and potentially alter its state. These messages do not directly execute changes; instead, they rely on the host chain's environment to interpret and implement them. By utilizing asynchronous composability, XCM facilitates efficient execution where messages can be processed independently of their original order, similar to how RESTful services handle HTTP requests without requiring sequential processing.
-
-## The Four Principles of XCM
-
-XCM adheres to four guiding principles that ensure robust and reliable communication across consensus systems:
-
-- **Asynchronous**: XCM messages operate independently of sender acknowledgment, avoiding delays due to blocked processes.
-- **Absolute**: XCM messages are guaranteed to be delivered and interpreted accurately, in order, and timely. Once a message is sent, one can be sure it will be processed as intended.
-- **Asymmetric**: XCM messages follow the 'fire and forget' paradigm meaning no automatic feedback is provided to the sender. Any results must be communicated separately to the sender with an additional message back to the origin.
-- **Agnostic**: XCM operates independently of the specific consensus mechanisms, making it compatible across diverse systems.
-
-These principles guarantee that XCM provides a reliable framework for cross-chain communication, even in complex environments.
-
-## The XCM Tech Stack
-
-![Diagram of the XCM tech stack](/images/develop/interoperability/intro-to-xcm/intro-to-xcm-01.webp)
-
-The XCM tech stack is designed to facilitate seamless interoperable communication between chains that reside within the Polkadot ecosystem. XCM can be used to express the meaning of the messages over each of the communication channels.
-
-## Core Functionalities of XCM
-
-XCM enhances cross-consensus communication by introducing several powerful features:
-
-- **Programmability**: Supports dynamic message handling, allowing for more comprehensive use cases. Includes branching logic, safe dispatches for version checks, and asset operations like NFT management.
-- **Functional Multichain Decomposition**: Enables mechanisms such as remote asset locking, asset namespacing, and inter-chain state referencing, with contextual message identification.
-- **Bridging**: Establishes a universal reference framework for multi-hop setups, connecting disparate systems like Ethereum and Bitcoin with the Polkadot relay chain acting as a universal location.
-
-The standardized format for messages allows parachains to handle tasks like user balances, governance, and staking, freeing the Polkadot relay chain to focus on shared security. These features make XCM indispensable for implementing scalable and interoperable blockchain applications. 
-
-## XCM Example
-
-The following is a simplified XCM message demonstrating a token transfer from Alice to Bob on the same chain (ParaA).
-
-```rust
-let message = Xcm(vec![
-    WithdrawAsset((Here, amount).into()),
-    BuyExecution { 
-        fees: (Here, amount).into(), 
-        weight_limit: WeightLimit::Unlimited 
-    },
-    DepositAsset {
-        assets: All.into(),
-        beneficiary: MultiLocation {
-            parents: 0,
-            interior: Junction::AccountId32 {
-                network: None,
-                id: BOB.clone().into()
-            }.into(),
-        }.into()
-    }
-]);
-```
-
-The message consists of three instructions described as follows:
-
-- **[WithdrawAsset](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#withdrawasset){target=\_blank}**: Transfers a specified number of tokens from Alice's account to a holding register.
-
-    ```rust
-    WithdrawAsset((Here, amount).into()),
-    ```
-
-    - **`Here`**: The native parachain token.
-    - **`amount`**: The number of tokens that are transferred.
-
-    The first instruction takes as an input the MultiAsset that should be withdrawn. The MultiAsset describes the native parachain token with the `Here` keyword. The `amount` parameter is the number of tokens that are transferred. The withdrawal account depends on the origin of the message. In this example the origin of the message is Alice. The `WithdrawAsset` instruction moves `amount` number of native tokens from Alice's account into the holding register.
-
-- **[BuyExecution](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#buyexecution){target=\_blank}**: Allocates fees to cover the execution [weight](/polkadot-protocol/glossary/#weight){target=\_blank} of the XCM instructions.
-
-    ```rust
-    BuyExecution { 
-        fees: (Here, amount).into(), 
-        weight_limit: WeightLimit::Unlimited 
-    },
-    ```
-
-    - **`fees`**: Describes the asset in the holding register that should be used to pay for the weight.
-    - **`weight_limit`**: Defines the maximum fees that can be used to buy weight.
-
-- **[DepositAsset](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#depositasset){target=\_blank}**: Moves the remaining tokens from the holding register to Bob’s account.
-
-    ```rust
-    DepositAsset {
-        assets: All.into(),
-        beneficiary: MultiLocation {
-            parents: 0,
-            interior: Junction::AccountId32 {
-                network: None,
-                id: BOB.clone().into()
-            }.into(),
-        }.into()
-    }
-    ```
-
-    - **`All`**: The wildcard for the asset(s) to be deposited. In this case, all assets in the holding register should be deposited.
-    
-This step-by-step process showcases how XCM enables precise state changes within a blockchain system. You can find a complete XCM message example in the [XCM repository](https://github.com/paritytech/xcm-docs/blob/main/examples/src/0_first_look/mod.rs){target=\_blank}.
-
-## Overview
-
-XCM revolutionizes cross-chain communication by enabling use cases such as:
-
-- Token transfers between blockchains.
-- Asset locking for cross-chain smart contract interactions.
-- Remote execution of functions on other blockchains.
-
-These functionalities empower developers to build innovative, multi-chain applications, leveraging the strengths of various blockchain networks. To stay updated on XCM’s evolving format or contribute, visit the [XCM repository](https://github.com/paritytech/xcm-docs/blob/main/examples/src/0_first_look/mod.rs){target=\_blank}.
---- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/interoperability/send-messages/
 --- BEGIN CONTENT ---
@@ -441,7 +313,7 @@ categories: Basics, Polkadot Protocol
 
 ## Introduction
 
-Polkadot is designed to enable interoperability between its connected parachains. At the core of this interoperability is the [Cross-Consensus Message Format (XCM)](/develop/interoperability/intro-to-xcm/){target=\_blank}, a standard language that allows parachains to communicate and interact with each other.
+Polkadot is designed to enable interoperability between its connected parachains. At the core of this interoperability is the [Cross-Consensus Message Format (XCM)](/parachains/interoperability/){target=\_blank}, a standard language that allows parachains to communicate and interact with each other.
 
 The network-layer protocol responsible for delivering XCM-formatted messages between parachains is the [Cross-Chain Message Passing (XCMP)](https://wiki.polkadot.com/learn/learn-xcm-transport/#xcmp-cross-chain-message-passing){target=\_blank} protocol. XCMP maintains messaging queues on the relay chain, serving as a bridge to facilitate cross-chain interactions.
 
@@ -496,13 +368,13 @@ Explore the following tutorials for detailed, step-by-step guidance on setting u
 
 <div class="grid cards" markdown>
 
--   <span class="badge tutorial">Tutorial</span> __Opening HRMP Channels Between Parachains__
+-   <span class="badge guide">Guide</span> __Opening HRMP Channels Between Parachains__
 
     ---
 
     Learn how to open HRMP channels between parachains on Polkadot. Discover the step-by-step process for establishing uni- and bidirectional communication.
 
-    [:octicons-arrow-right-24: Reference](/tutorials/interoperability/xcm-channels/para-to-para/)
+    [:octicons-arrow-right-24: Reference](/parachains/interoperability/channels-between-parachains/)
 
 -   <span class="badge tutorial">Tutorial</span> __Opening HRMP Channels with System Parachains__
 
@@ -510,7 +382,7 @@ Explore the following tutorials for detailed, step-by-step guidance on setting u
 
     Learn how to open HRMP channels with Polkadot system parachains. Discover the process for establishing bi-directional communication using a single XCM message.
 
-    [:octicons-arrow-right-24: Reference](/tutorials/interoperability/xcm-channels/para-to-system/)
+    [:octicons-arrow-right-24: Reference](/parachains/interoperability/channels-with-system-parachains/)
 
 </div>
 --- END CONTENT ---
@@ -2324,6 +2196,134 @@ client.destroy();
     ---
 --- END CONTENT ---
 
+Doc-Content: https://docs.polkadot.com/parachains/interoperability/
+--- BEGIN CONTENT ---
+---
+title: Introduction to XCM
+description: Unlock blockchain interoperability with XCM — Polkadot's Cross-Consensus Messaging format for cross-chain interactions.
+categories: Basics, Polkadot Protocol
+---
+
+# Introduction to XCM
+
+## Introduction
+
+Polkadot’s unique value lies in its ability to enable interoperability between parachains and other blockchain systems. At the core of this capability is XCM (Cross-Consensus Messaging)—a flexible messaging format that facilitates communication and collaboration between independent consensus systems.
+
+With XCM, one chain can send intents to another one, fostering a more interconnected ecosystem. Although it was developed specifically for Polkadot, XCM is a universal format, usable in any blockchain environment. This guide provides an overview of XCM’s core principles, design, and functionality, alongside practical examples of its implementation.
+
+## Messaging Format
+
+XCM is not a protocol but a standardized [messaging format](https://github.com/polkadot-fellows/xcm-format){target=\_blank}. It defines the structure and behavior of messages but does not handle their delivery. This separation allows developers to focus on crafting instructions for target systems without worrying about transmission mechanics.
+
+XCM messages are intent-driven, outlining desired actions for the receiving blockchain to consider and potentially alter its state. These messages do not directly execute changes; instead, they rely on the host chain's environment to interpret and implement them. By utilizing asynchronous composability, XCM facilitates efficient execution where messages can be processed independently of their original order, similar to how RESTful services handle HTTP requests without requiring sequential processing.
+
+## The Four Principles of XCM
+
+XCM adheres to four guiding principles that ensure robust and reliable communication across consensus systems:
+
+- **Asynchronous**: XCM messages operate independently of sender acknowledgment, avoiding delays due to blocked processes.
+- **Absolute**: XCM messages are guaranteed to be delivered and interpreted accurately, in order, and timely. Once a message is sent, one can be sure it will be processed as intended.
+- **Asymmetric**: XCM messages follow the 'fire and forget' paradigm meaning no automatic feedback is provided to the sender. Any results must be communicated separately to the sender with an additional message back to the origin.
+- **Agnostic**: XCM operates independently of the specific consensus mechanisms, making it compatible across diverse systems.
+
+These principles guarantee that XCM provides a reliable framework for cross-chain communication, even in complex environments.
+
+## The XCM Tech Stack
+
+![Diagram of the XCM tech stack](/images/parachains/interoperability/index/intro-to-xcm-01.webp)
+
+The XCM tech stack is designed to facilitate seamless interoperable communication between chains that reside within the Polkadot ecosystem. XCM can be used to express the meaning of the messages over each of the communication channels.
+
+## Core Functionalities of XCM
+
+XCM enhances cross-consensus communication by introducing several powerful features:
+
+- **Programmability**: Supports dynamic message handling, allowing for more comprehensive use cases. Includes branching logic, safe dispatches for version checks, and asset operations like NFT management.
+- **Functional Multichain Decomposition**: Enables mechanisms such as remote asset locking, asset namespacing, and inter-chain state referencing, with contextual message identification.
+- **Bridging**: Establishes a universal reference framework for multi-hop setups, connecting disparate systems like Ethereum and Bitcoin with the Polkadot relay chain acting as a universal location.
+
+The standardized format for messages allows parachains to handle tasks like user balances, governance, and staking, freeing the Polkadot relay chain to focus on shared security. These features make XCM indispensable for implementing scalable and interoperable blockchain applications. 
+
+## XCM Example
+
+The following is a simplified XCM message demonstrating a token transfer from Alice to Bob on the same chain (ParaA).
+
+```rust
+let message = Xcm(vec![
+    WithdrawAsset((Here, amount).into()),
+    BuyExecution { 
+        fees: (Here, amount).into(), 
+        weight_limit: WeightLimit::Unlimited 
+    },
+    DepositAsset {
+        assets: All.into(),
+        beneficiary: MultiLocation {
+            parents: 0,
+            interior: Junction::AccountId32 {
+                network: None,
+                id: BOB.clone().into()
+            }.into(),
+        }.into()
+    }
+]);
+```
+
+The message consists of three instructions described as follows:
+
+- **[WithdrawAsset](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#withdrawasset){target=\_blank}**: Transfers a specified number of tokens from Alice's account to a holding register.
+
+    ```rust
+    WithdrawAsset((Here, amount).into()),
+    ```
+
+    - **`Here`**: The native parachain token.
+    - **`amount`**: The number of tokens that are transferred.
+
+    The first instruction takes as an input the MultiAsset that should be withdrawn. The MultiAsset describes the native parachain token with the `Here` keyword. The `amount` parameter is the number of tokens that are transferred. The withdrawal account depends on the origin of the message. In this example the origin of the message is Alice. The `WithdrawAsset` instruction moves `amount` number of native tokens from Alice's account into the holding register.
+
+- **[BuyExecution](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#buyexecution){target=\_blank}**: Allocates fees to cover the execution [weight](/polkadot-protocol/glossary/#weight){target=\_blank} of the XCM instructions.
+
+    ```rust
+    BuyExecution { 
+        fees: (Here, amount).into(), 
+        weight_limit: WeightLimit::Unlimited 
+    },
+    ```
+
+    - **`fees`**: Describes the asset in the holding register that should be used to pay for the weight.
+    - **`weight_limit`**: Defines the maximum fees that can be used to buy weight.
+
+- **[DepositAsset](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#depositasset){target=\_blank}**: Moves the remaining tokens from the holding register to Bob’s account.
+
+    ```rust
+    DepositAsset {
+        assets: All.into(),
+        beneficiary: MultiLocation {
+            parents: 0,
+            interior: Junction::AccountId32 {
+                network: None,
+                id: BOB.clone().into()
+            }.into(),
+        }.into()
+    }
+    ```
+
+    - **`All`**: The wildcard for the asset(s) to be deposited. In this case, all assets in the holding register should be deposited.
+    
+This step-by-step process showcases how XCM enables precise state changes within a blockchain system. You can find a complete XCM message example in the [XCM repository](https://github.com/paritytech/xcm-docs/blob/main/examples/src/0_first_look/mod.rs){target=\_blank}.
+
+## Overview
+
+XCM revolutionizes cross-chain communication by enabling use cases such as:
+
+- Token transfers between blockchains.
+- Asset locking for cross-chain smart contract interactions.
+- Remote execution of functions on other blockchains.
+
+These functionalities empower developers to build innovative, multi-chain applications, leveraging the strengths of various blockchain networks. To stay updated on XCM’s evolving format or contribute, visit the [XCM repository](https://github.com/paritytech/xcm-docs/blob/main/examples/src/0_first_look/mod.rs){target=\_blank}.
+--- END CONTENT ---
+
 Doc-Content: https://docs.polkadot.com/polkadot-protocol/architecture/parachains/consensus/
 --- BEGIN CONTENT ---
 ---
@@ -2489,7 +2489,7 @@ Parachains are coherent, as they are self-contained environments with domain-spe
 
 ## Flexible Ecosystem
 
-Parachains enable parallelization of different services within the same network. However, unlike most layer two rollups, parachains don't suffer the same interoperability pitfalls that most rollups suffer. [Cross-Consensus Messaging (XCM)](/develop/interoperability/intro-to-xcm/){target=\_blank} provides a common communication format for each parachain and can be configured to allow a parachain to communicate with just the relay chain or certain parachains. 
+Parachains enable parallelization of different services within the same network. However, unlike most layer two rollups, parachains don't suffer the same interoperability pitfalls that most rollups suffer. [Cross-Consensus Messaging (XCM)](/parachains/interoperability/){target=\_blank} provides a common communication format for each parachain and can be configured to allow a parachain to communicate with just the relay chain or certain parachains. 
 
 The diagram below highlights the flexibility of the Polkadot ecosystem, where each parachain specializes in a distinct domain. This example illustrates how parachains, like DeFi and GameFi, leverage XCM for cross-chain operations such as asset transfers and credential verification.
 
@@ -2559,7 +2559,7 @@ Validators are incentivized through staking and penalized for malicious or erron
 
 ## Interoperability
 
-Polkadot's interoperability framework allows parachains to communicate with each other, fostering a diverse ecosystem of interconnected blockchains. Through [Cross-Consensus Messaging (XCM)](/develop/interoperability/intro-to-xcm/){target=_blank}, parachains can transfer assets, share data, and invoke functionalities on other chains securely. This standardized messaging protocol ensures that parachains can interact with the relay chain and each other, supporting efficient cross-chain operations.
+Polkadot's interoperability framework allows parachains to communicate with each other, fostering a diverse ecosystem of interconnected blockchains. Through [Cross-Consensus Messaging (XCM)](/parachains/interoperability/){target=_blank}, parachains can transfer assets, share data, and invoke functionalities on other chains securely. This standardized messaging protocol ensures that parachains can interact with the relay chain and each other, supporting efficient cross-chain operations.
 
 The XCM protocol mitigates common interoperability challenges in isolated blockchain networks, such as fragmented ecosystems and limited collaboration. By enabling decentralized applications to leverage resources and functionality across parachains, Polkadot promotes a scalable, cooperative blockchain environment that benefits all participants.
 
@@ -2774,7 +2774,7 @@ categories: Basics, Polkadot Protocol, Parachains
 
 ## Introduction
 
-Polkadot is a next-generation blockchain protocol designed to support a multi-chain future by enabling secure communication and interoperability between different blockchains. Built as a Layer-0 protocol, Polkadot introduces innovations like application-specific Layer-1 chains ([parachains](/polkadot-protocol/architecture/parachains/){targe=\_blank}), shared security through [Nominated Proof of Stake (NPoS)](/polkadot-protocol/glossary/#nominated-proof-of-stake-npos){target=\_blank}, and cross-chain interactions via its native [Cross-Consensus Messaging Format (XCM)](/develop/interoperability/intro-to-xcm/){target=\_blank}.
+Polkadot is a next-generation blockchain protocol designed to support a multi-chain future by enabling secure communication and interoperability between different blockchains. Built as a Layer-0 protocol, Polkadot introduces innovations like application-specific Layer-1 chains ([parachains](/polkadot-protocol/architecture/parachains/){targe=\_blank}), shared security through [Nominated Proof of Stake (NPoS)](/polkadot-protocol/glossary/#nominated-proof-of-stake-npos){target=\_blank}, and cross-chain interactions via its native [Cross-Consensus Messaging Format (XCM)](/parachains/interoperability/){target=\_blank}.
 
 This guide covers key aspects of Polkadot’s architecture, including its high-level protocol structure, blockspace commoditization, and the role of its native token, DOT, in governance, staking, and resource allocation.
 
@@ -2812,7 +2812,7 @@ Here’s a high-level overview of the Polkadot protocol architecture:
 
 Parachains propose blocks to Polkadot validators, who check for availability and validity before finalizing them. With the relay chain providing security, collators—full nodes of parachains—can focus on their tasks without needing strong incentives.
 
-The [Cross-Consensus Messaging Format (XCM)](/develop/interoperability/intro-to-xcm/){target=\_blank} allows parachains to exchange messages freely, leveraging the chain's security for trust-free communication.
+The [Cross-Consensus Messaging Format (XCM)](/parachains/interoperability/){target=\_blank} allows parachains to exchange messages freely, leveraging the chain's security for trust-free communication.
 
 In order to interact with chains that want to use their own finalization process (e.g., Bitcoin), Polkadot has [bridges](/polkadot-protocol/parachain-basics/interoperability/#bridges-connecting-external-networks){target=\_blank} that offer two-way compatibility, meaning that transactions can be made between different parachains.
 
@@ -3368,7 +3368,7 @@ categories: Polkadot Protocol
 
 The Coretime system chain facilitates the allocation, procurement, sale, and scheduling of bulk [coretime](/polkadot-protocol/glossary/#coretime){target=\_blank}, enabling tasks (such as [parachains](/polkadot-protocol/glossary/#parachain){target=\_blank}) to utilize the computation and security provided by Polkadot. 
 
-The [Broker pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/index.html){target=\_blank}, along with [Cross Consensus Messaging (XCM)](/develop/interoperability/intro-to-xcm/){target=\_blank}, enables this functionality to be delegated to the system chain rather than the relay chain. Using [XCMP's Upward Message Passing (UMP)](https://wiki.polkadot.com/learn/learn-xcm-transport/#ump-upward-message-passing){target=\_blank} to the relay chain allows for core assignments to take place for a task registered on the relay chain.
+The [Broker pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/index.html){target=\_blank}, along with [Cross Consensus Messaging (XCM)](/parachains/interoperability/){target=\_blank}, enables this functionality to be delegated to the system chain rather than the relay chain. Using [XCMP's Upward Message Passing (UMP)](https://wiki.polkadot.com/learn/learn-xcm-transport/#ump-upward-message-passing){target=\_blank} to the relay chain allows for core assignments to take place for a task registered on the relay chain.
 
 The Fellowship RFC [RFC-1: Agile Coretime](https://github.com/polkadot-fellows/RFCs/blob/main/text/0001-agile-coretime.md){target=\_blank} contains the specification for the Coretime system chain and coretime as a concept.
 
@@ -5522,7 +5522,7 @@ Through XCM, decentralized applications can:
 - Enable seamless user experiences where underlying blockchain differences are invisible.
 - XCM exemplifies Polkadot’s commitment to creating a robust and interoperable ecosystem.
 
-For further information about XCM, check the [Introduction to XCM](/develop/interoperability/intro-to-xcm/){target=\_blank} article.
+For further information about XCM, check the [Introduction to XCM](/parachains/interoperability/){target=\_blank} article.
 
 ### Bridges: Connecting External Networks
 
@@ -6729,134 +6729,6 @@ This context is provided to help understand how the system works under the hood,
 
 ## Full content for shared concepts:
 
-Doc-Content: https://docs.polkadot.com/develop/interoperability/intro-to-xcm/
---- BEGIN CONTENT ---
----
-title: Introduction to XCM
-description: Unlock blockchain interoperability with XCM — Polkadot's Cross-Consensus Messaging format for cross-chain interactions.
-categories: Basics, Polkadot Protocol
----
-
-# Introduction to XCM
-
-## Introduction
-
-Polkadot’s unique value lies in its ability to enable interoperability between parachains and other blockchain systems. At the core of this capability is XCM (Cross-Consensus Messaging)—a flexible messaging format that facilitates communication and collaboration between independent consensus systems.
-
-With XCM, one chain can send intents to another one, fostering a more interconnected ecosystem. Although it was developed specifically for Polkadot, XCM is a universal format, usable in any blockchain environment. This guide provides an overview of XCM’s core principles, design, and functionality, alongside practical examples of its implementation.
-
-## Messaging Format
-
-XCM is not a protocol but a standardized [messaging format](https://github.com/polkadot-fellows/xcm-format){target=\_blank}. It defines the structure and behavior of messages but does not handle their delivery. This separation allows developers to focus on crafting instructions for target systems without worrying about transmission mechanics.
-
-XCM messages are intent-driven, outlining desired actions for the receiving blockchain to consider and potentially alter its state. These messages do not directly execute changes; instead, they rely on the host chain's environment to interpret and implement them. By utilizing asynchronous composability, XCM facilitates efficient execution where messages can be processed independently of their original order, similar to how RESTful services handle HTTP requests without requiring sequential processing.
-
-## The Four Principles of XCM
-
-XCM adheres to four guiding principles that ensure robust and reliable communication across consensus systems:
-
-- **Asynchronous**: XCM messages operate independently of sender acknowledgment, avoiding delays due to blocked processes.
-- **Absolute**: XCM messages are guaranteed to be delivered and interpreted accurately, in order, and timely. Once a message is sent, one can be sure it will be processed as intended.
-- **Asymmetric**: XCM messages follow the 'fire and forget' paradigm meaning no automatic feedback is provided to the sender. Any results must be communicated separately to the sender with an additional message back to the origin.
-- **Agnostic**: XCM operates independently of the specific consensus mechanisms, making it compatible across diverse systems.
-
-These principles guarantee that XCM provides a reliable framework for cross-chain communication, even in complex environments.
-
-## The XCM Tech Stack
-
-![Diagram of the XCM tech stack](/images/develop/interoperability/intro-to-xcm/intro-to-xcm-01.webp)
-
-The XCM tech stack is designed to facilitate seamless interoperable communication between chains that reside within the Polkadot ecosystem. XCM can be used to express the meaning of the messages over each of the communication channels.
-
-## Core Functionalities of XCM
-
-XCM enhances cross-consensus communication by introducing several powerful features:
-
-- **Programmability**: Supports dynamic message handling, allowing for more comprehensive use cases. Includes branching logic, safe dispatches for version checks, and asset operations like NFT management.
-- **Functional Multichain Decomposition**: Enables mechanisms such as remote asset locking, asset namespacing, and inter-chain state referencing, with contextual message identification.
-- **Bridging**: Establishes a universal reference framework for multi-hop setups, connecting disparate systems like Ethereum and Bitcoin with the Polkadot relay chain acting as a universal location.
-
-The standardized format for messages allows parachains to handle tasks like user balances, governance, and staking, freeing the Polkadot relay chain to focus on shared security. These features make XCM indispensable for implementing scalable and interoperable blockchain applications. 
-
-## XCM Example
-
-The following is a simplified XCM message demonstrating a token transfer from Alice to Bob on the same chain (ParaA).
-
-```rust
-let message = Xcm(vec![
-    WithdrawAsset((Here, amount).into()),
-    BuyExecution { 
-        fees: (Here, amount).into(), 
-        weight_limit: WeightLimit::Unlimited 
-    },
-    DepositAsset {
-        assets: All.into(),
-        beneficiary: MultiLocation {
-            parents: 0,
-            interior: Junction::AccountId32 {
-                network: None,
-                id: BOB.clone().into()
-            }.into(),
-        }.into()
-    }
-]);
-```
-
-The message consists of three instructions described as follows:
-
-- **[WithdrawAsset](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#withdrawasset){target=\_blank}**: Transfers a specified number of tokens from Alice's account to a holding register.
-
-    ```rust
-    WithdrawAsset((Here, amount).into()),
-    ```
-
-    - **`Here`**: The native parachain token.
-    - **`amount`**: The number of tokens that are transferred.
-
-    The first instruction takes as an input the MultiAsset that should be withdrawn. The MultiAsset describes the native parachain token with the `Here` keyword. The `amount` parameter is the number of tokens that are transferred. The withdrawal account depends on the origin of the message. In this example the origin of the message is Alice. The `WithdrawAsset` instruction moves `amount` number of native tokens from Alice's account into the holding register.
-
-- **[BuyExecution](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#buyexecution){target=\_blank}**: Allocates fees to cover the execution [weight](/polkadot-protocol/glossary/#weight){target=\_blank} of the XCM instructions.
-
-    ```rust
-    BuyExecution { 
-        fees: (Here, amount).into(), 
-        weight_limit: WeightLimit::Unlimited 
-    },
-    ```
-
-    - **`fees`**: Describes the asset in the holding register that should be used to pay for the weight.
-    - **`weight_limit`**: Defines the maximum fees that can be used to buy weight.
-
-- **[DepositAsset](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#depositasset){target=\_blank}**: Moves the remaining tokens from the holding register to Bob’s account.
-
-    ```rust
-    DepositAsset {
-        assets: All.into(),
-        beneficiary: MultiLocation {
-            parents: 0,
-            interior: Junction::AccountId32 {
-                network: None,
-                id: BOB.clone().into()
-            }.into(),
-        }.into()
-    }
-    ```
-
-    - **`All`**: The wildcard for the asset(s) to be deposited. In this case, all assets in the holding register should be deposited.
-    
-This step-by-step process showcases how XCM enables precise state changes within a blockchain system. You can find a complete XCM message example in the [XCM repository](https://github.com/paritytech/xcm-docs/blob/main/examples/src/0_first_look/mod.rs){target=\_blank}.
-
-## Overview
-
-XCM revolutionizes cross-chain communication by enabling use cases such as:
-
-- Token transfers between blockchains.
-- Asset locking for cross-chain smart contract interactions.
-- Remote execution of functions on other blockchains.
-
-These functionalities empower developers to build innovative, multi-chain applications, leveraging the strengths of various blockchain networks. To stay updated on XCM’s evolving format or contribute, visit the [XCM repository](https://github.com/paritytech/xcm-docs/blob/main/examples/src/0_first_look/mod.rs){target=\_blank}.
---- END CONTENT ---
-
 Doc-Content: https://docs.polkadot.com/develop/interoperability/send-messages/
 --- BEGIN CONTENT ---
 ---
@@ -7117,7 +6989,7 @@ categories: Basics, Polkadot Protocol
 
 ## Introduction
 
-Polkadot is designed to enable interoperability between its connected parachains. At the core of this interoperability is the [Cross-Consensus Message Format (XCM)](/develop/interoperability/intro-to-xcm/){target=\_blank}, a standard language that allows parachains to communicate and interact with each other.
+Polkadot is designed to enable interoperability between its connected parachains. At the core of this interoperability is the [Cross-Consensus Message Format (XCM)](/parachains/interoperability/){target=\_blank}, a standard language that allows parachains to communicate and interact with each other.
 
 The network-layer protocol responsible for delivering XCM-formatted messages between parachains is the [Cross-Chain Message Passing (XCMP)](https://wiki.polkadot.com/learn/learn-xcm-transport/#xcmp-cross-chain-message-passing){target=\_blank} protocol. XCMP maintains messaging queues on the relay chain, serving as a bridge to facilitate cross-chain interactions.
 
@@ -7172,13 +7044,13 @@ Explore the following tutorials for detailed, step-by-step guidance on setting u
 
 <div class="grid cards" markdown>
 
--   <span class="badge tutorial">Tutorial</span> __Opening HRMP Channels Between Parachains__
+-   <span class="badge guide">Guide</span> __Opening HRMP Channels Between Parachains__
 
     ---
 
     Learn how to open HRMP channels between parachains on Polkadot. Discover the step-by-step process for establishing uni- and bidirectional communication.
 
-    [:octicons-arrow-right-24: Reference](/tutorials/interoperability/xcm-channels/para-to-para/)
+    [:octicons-arrow-right-24: Reference](/parachains/interoperability/channels-between-parachains/)
 
 -   <span class="badge tutorial">Tutorial</span> __Opening HRMP Channels with System Parachains__
 
@@ -7186,7 +7058,7 @@ Explore the following tutorials for detailed, step-by-step guidance on setting u
 
     Learn how to open HRMP channels with Polkadot system parachains. Discover the process for establishing bi-directional communication using a single XCM message.
 
-    [:octicons-arrow-right-24: Reference](/tutorials/interoperability/xcm-channels/para-to-system/)
+    [:octicons-arrow-right-24: Reference](/parachains/interoperability/channels-with-system-parachains/)
 
 </div>
 --- END CONTENT ---
@@ -8238,7 +8110,7 @@ Polkadot Hub supports a comprehensive suite of development tools familiar to Eth
 
 ### Cross-Chain Capabilities
 
-Smart contracts deployed on Polkadot Hub can leverage Polkadot's [cross-consensus messaging (XCM) protocol](/develop/interoperability/intro-to-xcm/){target=\_blank} protocol to seamlessly _transfer tokens and call functions on other blockchain networks_ within the Polkadot ecosystem, all without complex bridging infrastructure or third-party solutions. For further references, check the [Interoperability](/develop/interoperability/){target=\_blank} section.
+Smart contracts deployed on Polkadot Hub can leverage Polkadot's [cross-consensus messaging (XCM) protocol](/parachains/interoperability/){target=\_blank} protocol to seamlessly _transfer tokens and call functions on other blockchain networks_ within the Polkadot ecosystem, all without complex bridging infrastructure or third-party solutions. For further references, check the [Interoperability](/develop/interoperability/){target=\_blank} section.
 
 ### Use Cases
 
@@ -9960,8 +9832,8 @@ For additional support and information, please reach out through [GitHub Issues]
 
 To follow this tutorial, ensure you have completed the following:
 
-- **Installed Chopsticks**: If you still need to do so, see the [Install Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/#install-chopsticks){target=\_blank} guide for assistance.
-- **Reviewed** [Configure Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/#configure-chopsticks){target=\_blank}: And understand how forked chains are configured.
+- **Installed Chopsticks**: If you still need to do so, see the [Install Chopsticks](/parachains/testing/#install-chopsticks){target=\_blank} instructions for assistance.
+- **Reviewed [Configure Chopsticks](/parachains/testing/#configure-chopsticks){target=\_blank}**: You should understand how forked chains are configured.
 
 ## Configuration File 
 
@@ -10063,7 +9935,7 @@ connectToFork();
 
 ## Replay Blocks
 
-Chopsticks allows you to replay specific blocks from a chain, which is useful for debugging and analyzing state changes. You can use the parameters in the [Configuration](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/#configure-chopsticks){target=\_blank} section to set up the chain configuration, and then use the run-block subcommand with the following additional options:
+Chopsticks allows you to replay specific blocks from a chain, which is useful for debugging and analyzing state changes. You can use the parameters in the [Configuration](/parachains/testing/#configure-chopsticks){target=\_blank} section to set up the chain configuration, and then use the run-block subcommand with the following additional options:
 
 - **`output-path`**: Path to print output.
 - **`html`**: Generate HTML with storage diff.
@@ -10303,12 +10175,12 @@ By the end of this tutorial, you'll be equipped to deploy and test your own bloc
 
 To successfully complete this tutorial, you must ensure you've first:
 
-- [Installed Zombienet](/develop/toolkit/parachains/spawn-chains/zombienet/get-started/#install-zombienet){target=\_blank}. This tutorial requires Zombienet version `{{ dependencies.repositories.zombienet.version }}`. Verify that you're using the specified version to ensure compatibility with the instructions.
-- Reviewed the information in [Configure Zombienet](/develop/toolkit/parachains/spawn-chains/zombienet/get-started/#configure-zombienet){target=\_blank} and understand how to customize a spawned network.
+- [Installed Zombienet](/parachains/testing/run-a-rollup-network/#install-zombienet){target=\_blank}. This tutorial requires Zombienet version `{{ dependencies.repositories.zombienet.version }}`. Verify that you're using the specified version to ensure compatibility with the instructions.
+- Reviewed the information in [Configure Zombienet](/parachains/testing/run-a-rollup-network/#configure-zombienet){target=\_blank} and understand how to customize a spawned network.
 
 ## Set Up Local Provider
 
-In this tutorial, you will use the Zombienet [local provider](/develop/toolkit/parachains/spawn-chains/zombienet/get-started/#local-provider){target=\_blank} (also called native provider) that enables you to run nodes as local processes in your development environment.
+In this tutorial, you will use the Zombienet [local provider](/parachains/testing/run-a-rollup-network/#local-provider){target=\_blank} (also called native provider) that enables you to run nodes as local processes in your development environment.
 
 You must have the necessary binaries installed (such as `polkadot` and `polkadot-parachain`) to spin up your network successfully.
 
@@ -10335,7 +10207,7 @@ sudo mv ./polkadot ./polkadot-execute-worker ./polkadot-parachain ./polkadot-pre
 
 ## Define the Network
 
-Zombienet uses a [configuration file](/develop/toolkit/parachains/spawn-chains/zombienet/get-started/#configuration-files){target=\_blank} to define the ephemeral network that will be spawned. Follow these steps to create and define the configuration file:
+Zombienet uses a [configuration file](/parachains/testing/run-a-rollup-network/#configuration-files){target=\_blank} to define the ephemeral network that will be spawned. Follow these steps to create and define the configuration file:
 
 1. Create a file named `spawn-a-basic-network.toml`:
 
@@ -11059,6 +10931,134 @@ For more detailed information about Solidity types, functions, and best practice
 </div>
 --- END CONTENT ---
 
+Doc-Content: https://docs.polkadot.com/parachains/interoperability/
+--- BEGIN CONTENT ---
+---
+title: Introduction to XCM
+description: Unlock blockchain interoperability with XCM — Polkadot's Cross-Consensus Messaging format for cross-chain interactions.
+categories: Basics, Polkadot Protocol
+---
+
+# Introduction to XCM
+
+## Introduction
+
+Polkadot’s unique value lies in its ability to enable interoperability between parachains and other blockchain systems. At the core of this capability is XCM (Cross-Consensus Messaging)—a flexible messaging format that facilitates communication and collaboration between independent consensus systems.
+
+With XCM, one chain can send intents to another one, fostering a more interconnected ecosystem. Although it was developed specifically for Polkadot, XCM is a universal format, usable in any blockchain environment. This guide provides an overview of XCM’s core principles, design, and functionality, alongside practical examples of its implementation.
+
+## Messaging Format
+
+XCM is not a protocol but a standardized [messaging format](https://github.com/polkadot-fellows/xcm-format){target=\_blank}. It defines the structure and behavior of messages but does not handle their delivery. This separation allows developers to focus on crafting instructions for target systems without worrying about transmission mechanics.
+
+XCM messages are intent-driven, outlining desired actions for the receiving blockchain to consider and potentially alter its state. These messages do not directly execute changes; instead, they rely on the host chain's environment to interpret and implement them. By utilizing asynchronous composability, XCM facilitates efficient execution where messages can be processed independently of their original order, similar to how RESTful services handle HTTP requests without requiring sequential processing.
+
+## The Four Principles of XCM
+
+XCM adheres to four guiding principles that ensure robust and reliable communication across consensus systems:
+
+- **Asynchronous**: XCM messages operate independently of sender acknowledgment, avoiding delays due to blocked processes.
+- **Absolute**: XCM messages are guaranteed to be delivered and interpreted accurately, in order, and timely. Once a message is sent, one can be sure it will be processed as intended.
+- **Asymmetric**: XCM messages follow the 'fire and forget' paradigm meaning no automatic feedback is provided to the sender. Any results must be communicated separately to the sender with an additional message back to the origin.
+- **Agnostic**: XCM operates independently of the specific consensus mechanisms, making it compatible across diverse systems.
+
+These principles guarantee that XCM provides a reliable framework for cross-chain communication, even in complex environments.
+
+## The XCM Tech Stack
+
+![Diagram of the XCM tech stack](/images/parachains/interoperability/index/intro-to-xcm-01.webp)
+
+The XCM tech stack is designed to facilitate seamless interoperable communication between chains that reside within the Polkadot ecosystem. XCM can be used to express the meaning of the messages over each of the communication channels.
+
+## Core Functionalities of XCM
+
+XCM enhances cross-consensus communication by introducing several powerful features:
+
+- **Programmability**: Supports dynamic message handling, allowing for more comprehensive use cases. Includes branching logic, safe dispatches for version checks, and asset operations like NFT management.
+- **Functional Multichain Decomposition**: Enables mechanisms such as remote asset locking, asset namespacing, and inter-chain state referencing, with contextual message identification.
+- **Bridging**: Establishes a universal reference framework for multi-hop setups, connecting disparate systems like Ethereum and Bitcoin with the Polkadot relay chain acting as a universal location.
+
+The standardized format for messages allows parachains to handle tasks like user balances, governance, and staking, freeing the Polkadot relay chain to focus on shared security. These features make XCM indispensable for implementing scalable and interoperable blockchain applications. 
+
+## XCM Example
+
+The following is a simplified XCM message demonstrating a token transfer from Alice to Bob on the same chain (ParaA).
+
+```rust
+let message = Xcm(vec![
+    WithdrawAsset((Here, amount).into()),
+    BuyExecution { 
+        fees: (Here, amount).into(), 
+        weight_limit: WeightLimit::Unlimited 
+    },
+    DepositAsset {
+        assets: All.into(),
+        beneficiary: MultiLocation {
+            parents: 0,
+            interior: Junction::AccountId32 {
+                network: None,
+                id: BOB.clone().into()
+            }.into(),
+        }.into()
+    }
+]);
+```
+
+The message consists of three instructions described as follows:
+
+- **[WithdrawAsset](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#withdrawasset){target=\_blank}**: Transfers a specified number of tokens from Alice's account to a holding register.
+
+    ```rust
+    WithdrawAsset((Here, amount).into()),
+    ```
+
+    - **`Here`**: The native parachain token.
+    - **`amount`**: The number of tokens that are transferred.
+
+    The first instruction takes as an input the MultiAsset that should be withdrawn. The MultiAsset describes the native parachain token with the `Here` keyword. The `amount` parameter is the number of tokens that are transferred. The withdrawal account depends on the origin of the message. In this example the origin of the message is Alice. The `WithdrawAsset` instruction moves `amount` number of native tokens from Alice's account into the holding register.
+
+- **[BuyExecution](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#buyexecution){target=\_blank}**: Allocates fees to cover the execution [weight](/polkadot-protocol/glossary/#weight){target=\_blank} of the XCM instructions.
+
+    ```rust
+    BuyExecution { 
+        fees: (Here, amount).into(), 
+        weight_limit: WeightLimit::Unlimited 
+    },
+    ```
+
+    - **`fees`**: Describes the asset in the holding register that should be used to pay for the weight.
+    - **`weight_limit`**: Defines the maximum fees that can be used to buy weight.
+
+- **[DepositAsset](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#depositasset){target=\_blank}**: Moves the remaining tokens from the holding register to Bob’s account.
+
+    ```rust
+    DepositAsset {
+        assets: All.into(),
+        beneficiary: MultiLocation {
+            parents: 0,
+            interior: Junction::AccountId32 {
+                network: None,
+                id: BOB.clone().into()
+            }.into(),
+        }.into()
+    }
+    ```
+
+    - **`All`**: The wildcard for the asset(s) to be deposited. In this case, all assets in the holding register should be deposited.
+    
+This step-by-step process showcases how XCM enables precise state changes within a blockchain system. You can find a complete XCM message example in the [XCM repository](https://github.com/paritytech/xcm-docs/blob/main/examples/src/0_first_look/mod.rs){target=\_blank}.
+
+## Overview
+
+XCM revolutionizes cross-chain communication by enabling use cases such as:
+
+- Token transfers between blockchains.
+- Asset locking for cross-chain smart contract interactions.
+- Remote execution of functions on other blockchains.
+
+These functionalities empower developers to build innovative, multi-chain applications, leveraging the strengths of various blockchain networks. To stay updated on XCM’s evolving format or contribute, visit the [XCM repository](https://github.com/paritytech/xcm-docs/blob/main/examples/src/0_first_look/mod.rs){target=\_blank}.
+--- END CONTENT ---
+
 Doc-Content: https://docs.polkadot.com/polkadot-protocol/architecture/parachains/overview/
 --- BEGIN CONTENT ---
 ---
@@ -11103,7 +11103,7 @@ Parachains are coherent, as they are self-contained environments with domain-spe
 
 ## Flexible Ecosystem
 
-Parachains enable parallelization of different services within the same network. However, unlike most layer two rollups, parachains don't suffer the same interoperability pitfalls that most rollups suffer. [Cross-Consensus Messaging (XCM)](/develop/interoperability/intro-to-xcm/){target=\_blank} provides a common communication format for each parachain and can be configured to allow a parachain to communicate with just the relay chain or certain parachains. 
+Parachains enable parallelization of different services within the same network. However, unlike most layer two rollups, parachains don't suffer the same interoperability pitfalls that most rollups suffer. [Cross-Consensus Messaging (XCM)](/parachains/interoperability/){target=\_blank} provides a common communication format for each parachain and can be configured to allow a parachain to communicate with just the relay chain or certain parachains. 
 
 The diagram below highlights the flexibility of the Polkadot ecosystem, where each parachain specializes in a distinct domain. This example illustrates how parachains, like DeFi and GameFi, leverage XCM for cross-chain operations such as asset transfers and credential verification.
 
@@ -11173,7 +11173,7 @@ Validators are incentivized through staking and penalized for malicious or erron
 
 ## Interoperability
 
-Polkadot's interoperability framework allows parachains to communicate with each other, fostering a diverse ecosystem of interconnected blockchains. Through [Cross-Consensus Messaging (XCM)](/develop/interoperability/intro-to-xcm/){target=_blank}, parachains can transfer assets, share data, and invoke functionalities on other chains securely. This standardized messaging protocol ensures that parachains can interact with the relay chain and each other, supporting efficient cross-chain operations.
+Polkadot's interoperability framework allows parachains to communicate with each other, fostering a diverse ecosystem of interconnected blockchains. Through [Cross-Consensus Messaging (XCM)](/parachains/interoperability/){target=_blank}, parachains can transfer assets, share data, and invoke functionalities on other chains securely. This standardized messaging protocol ensures that parachains can interact with the relay chain and each other, supporting efficient cross-chain operations.
 
 The XCM protocol mitigates common interoperability challenges in isolated blockchain networks, such as fragmented ecosystems and limited collaboration. By enabling decentralized applications to leverage resources and functionality across parachains, Polkadot promotes a scalable, cooperative blockchain environment that benefits all participants.
 
@@ -11206,7 +11206,7 @@ categories: Basics, Polkadot Protocol, Parachains
 
 ## Introduction
 
-Polkadot is a next-generation blockchain protocol designed to support a multi-chain future by enabling secure communication and interoperability between different blockchains. Built as a Layer-0 protocol, Polkadot introduces innovations like application-specific Layer-1 chains ([parachains](/polkadot-protocol/architecture/parachains/){targe=\_blank}), shared security through [Nominated Proof of Stake (NPoS)](/polkadot-protocol/glossary/#nominated-proof-of-stake-npos){target=\_blank}, and cross-chain interactions via its native [Cross-Consensus Messaging Format (XCM)](/develop/interoperability/intro-to-xcm/){target=\_blank}.
+Polkadot is a next-generation blockchain protocol designed to support a multi-chain future by enabling secure communication and interoperability between different blockchains. Built as a Layer-0 protocol, Polkadot introduces innovations like application-specific Layer-1 chains ([parachains](/polkadot-protocol/architecture/parachains/){targe=\_blank}), shared security through [Nominated Proof of Stake (NPoS)](/polkadot-protocol/glossary/#nominated-proof-of-stake-npos){target=\_blank}, and cross-chain interactions via its native [Cross-Consensus Messaging Format (XCM)](/parachains/interoperability/){target=\_blank}.
 
 This guide covers key aspects of Polkadot’s architecture, including its high-level protocol structure, blockspace commoditization, and the role of its native token, DOT, in governance, staking, and resource allocation.
 
@@ -11244,7 +11244,7 @@ Here’s a high-level overview of the Polkadot protocol architecture:
 
 Parachains propose blocks to Polkadot validators, who check for availability and validity before finalizing them. With the relay chain providing security, collators—full nodes of parachains—can focus on their tasks without needing strong incentives.
 
-The [Cross-Consensus Messaging Format (XCM)](/develop/interoperability/intro-to-xcm/){target=\_blank} allows parachains to exchange messages freely, leveraging the chain's security for trust-free communication.
+The [Cross-Consensus Messaging Format (XCM)](/parachains/interoperability/){target=\_blank} allows parachains to exchange messages freely, leveraging the chain's security for trust-free communication.
 
 In order to interact with chains that want to use their own finalization process (e.g., Bitcoin), Polkadot has [bridges](/polkadot-protocol/parachain-basics/interoperability/#bridges-connecting-external-networks){target=\_blank} that offer two-way compatibility, meaning that transactions can be made between different parachains.
 
@@ -13290,7 +13290,7 @@ Through XCM, decentralized applications can:
 - Enable seamless user experiences where underlying blockchain differences are invisible.
 - XCM exemplifies Polkadot’s commitment to creating a robust and interoperable ecosystem.
 
-For further information about XCM, check the [Introduction to XCM](/develop/interoperability/intro-to-xcm/){target=\_blank} article.
+For further information about XCM, check the [Introduction to XCM](/parachains/interoperability/){target=\_blank} article.
 
 ### Bridges: Connecting External Networks
 

@@ -1,0 +1,4 @@
+nav:
+ - 'Get Started': index.md
+ - 'Open HRMP Channels Between Parachains': channels-between-parachains.md
+ - 'Open HRMP Channels With System Parachains': channels-with-system-parachains.md

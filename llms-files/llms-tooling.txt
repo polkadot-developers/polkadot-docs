@@ -30,16 +30,11 @@ Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/re
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/api-libraries/py-substrate-interface.md [type: develop]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/api-libraries/sidecar.md [type: develop]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/api-libraries/subxt.md [type: develop]
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/integrations/indexers.md [type: develop]
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/integrations/oracles.md [type: develop]
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/integrations/wallets.md [type: develop]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/interoperability/xcm-tools.md [type: develop]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/parachains/e2e-testing/moonwall.md [type: develop]
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/parachains/fork-chains/chopsticks/get-started.md [type: develop]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/parachains/light-clients.md [type: develop]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/parachains/polkadot-omni-node.md [type: develop]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/parachains/quickstart/pop-cli.md [type: develop]
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/parachains/spawn-chains/zombienet/get-started.md [type: develop]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/parachains/spawn-chains/zombienet/write-tests.md [type: develop]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/dapps/remark-tutorial.md [type: tutorials]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/onchain-governance/fast-track-gov-proposal.md [type: tutorials]
@@ -49,6 +44,11 @@ Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/re
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/smart-contracts/launch-your-first-project/create-dapp-ethers-js.md [type: tutorials]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/smart-contracts/launch-your-first-project/create-dapp-viem.md [type: tutorials]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/smart-contracts/launch-your-first-project/test-and-deploy-with-hardhat.md [type: tutorials]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/integrations.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/integrations/indexers.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/integrations/oracles.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/testing.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/testing/run-a-parachain-network.md [type: other]
 
 ## Full content for each doc page
 
@@ -4930,161 +4930,6 @@ To submit a transaction, you must construct an extrinsic, sign it with your priv
 Now that you've covered the basics dive into the official [subxt documentation](https://docs.rs/subxt/latest/subxt/book/index.html){target=\_blank} for comprehensive reference materials and advanced features.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/toolkit/integrations/indexers/
---- BEGIN CONTENT ---
----
-title: Indexers
-description: Discover blockchain indexers. Enhance data access, enable fast and complex queries, and optimize blockchain data for seamless app performance.
-categories: Tooling, Dapps
----
-
-# Indexers
-
-## The Challenge of Blockchain Data Access
-
-Blockchain data is inherently sequential and distributed, with information stored chronologically across numerous blocks. While retrieving data from a single block through JSON-RPC API calls is straightforward, more complex queries that span multiple blocks present significant challenges:
-
-- Data is scattered and unorganized across the blockchain.
-- Retrieving large datasets can take days or weeks to sync.
-- Complex operations (like aggregations, averages, or cross-chain queries) require additional processing.
-- Direct blockchain queries can impact dApp performance and responsiveness.
-
-## What is a Blockchain Indexer?
-
-A blockchain indexer is a specialized infrastructure tool that processes, organizes, and stores blockchain data in an optimized format for efficient querying. Think of it as a search engine for blockchain data that:
-
-- Continuously monitors the blockchain for new blocks and transactions.
-- Processes and categorizes this data according to predefined schemas.
-- Stores the processed data in an easily queryable database.
-- Provides efficient APIs (typically [GraphQL](https://graphql.org/){target=\_blank}) for data retrieval.
-
-## Indexer Implementations
-
-<div class="grid cards" markdown>
-
--   __Subsquid__
-
-    ---
-
-    Subsquid is a data network that allows rapid and cost-efficient retrieval of blockchain data from 100+ chains using Subsquid's decentralized data lake and open-source SDK. In simple terms, Subsquid can be considered an ETL (extract, transform, and load) tool with a GraphQL server included. It enables comprehensive filtering, pagination, and even full-text search capabilities. Subsquid has native and full support for EVM and Substrate data, even within the same project.
-
-    [:octicons-arrow-right-24: Reference](https://www.sqd.ai/){target=\_blank}
-
--   __Subquery__
-
-    ---
-
-    SubQuery is a fast, flexible, and reliable open-source data decentralised infrastructure network that provides both RPC and indexed data to consumers worldwide.
-    It provides custom APIs for your web3 project across multiple supported chains.
-
-    [:octicons-arrow-right-24: Reference](https://subquery.network/){target=\_blank}
-
-</div>
---- END CONTENT ---
-
-Doc-Content: https://docs.polkadot.com/develop/toolkit/integrations/oracles/
---- BEGIN CONTENT ---
----
-title: Oracles
-description: Learn about blockchain oracles, the essential bridges connecting blockchains with real-world data for decentralized applications in the Polkadot ecosystem.
-categories: Tooling, Dapps
----
-
-# Oracles
-
-## What is a Blockchain Oracle?
-
-Oracles enable blockchains to access external data sources. Since blockchains operate as isolated networks, they cannot natively interact with external systems - this limitation is known as the "blockchain oracle problem." Oracles solves this by extracting data from external sources (like APIs, IoT devices, or other blockchains), validating it, and submitting it on-chain.
-
-While simple oracle implementations may rely on a single trusted provider, more sophisticated solutions use decentralized networks where multiple providers stake assets and reach consensus on data validity. Typical applications include DeFi price feeds, weather data for insurance contracts, and cross-chain asset verification.
-
-## Oracle Implementations
-
-<div class="grid cards" markdown>
-
--   __Acurast__
-
-    ---
-
-    Acurast is a decentralized, serverless cloud platform that uses a distributed network of mobile devices for oracle services, addressing centralized trust and data ownership issues. In the Polkadot ecosystem, it allows developers to define off-chain data and computation needs, which are processed by these devices acting as decentralized oracle nodes, delivering results to Substrate (Wasm) and EVM environments.
-
-    [:octicons-arrow-right-24: Reference](https://acurast.com/){target=\_blank}
-
-</div>
---- END CONTENT ---
-
-Doc-Content: https://docs.polkadot.com/develop/toolkit/integrations/wallets/
---- BEGIN CONTENT ---
----
-title: Wallets
-description: Explore blockchain wallets. Securely manage digital assets with hot wallets for online access or cold wallets for offline, enhanced security.
-categories: Tooling, Dapps
----
-
-# Wallets
-
-## What is a Blockchain Wallet?
-
-A wallet serves as your gateway to interacting with blockchain networks. Rather than storing funds, wallets secure your private keys, controlling access to your blockchain assets. Your private key provides complete control over all permitted transactions on your blockchain account, making it essential to keep it secure.
-
-Wallet types fall into two categories based on their connection to the internet:
-
-- **[Hot wallets](#hot-wallets)**: Online storage through websites, browser extensions or smartphone apps.
-- **[Cold wallets](#cold-wallets)**: Offline storage using hardware devices or air-gapped systems.
-
-## Hot Wallets
-
-<div class="grid cards" markdown>
-
--   __Nova Wallet__
-
-    ---
-
-    A non-custodial, mobile-first wallet for managing assets and interacting with the Polkadot and Kusama ecosystems. It supports staking, governance, cross-chain transfers, and crowdloans. With advanced features, seamless multi-network support, and strong security, Nova Wallet empowers users to explore the full potential of Polkadot parachains on the go.
-
-    [:octicons-arrow-right-24: Reference](https://novawallet.io/){target=\_blank}
-
--   __Talisman__
-
-    ---
-
-    A non-custodial web browser extension that allows you to manage your portfolio and interact with Polkadot and Ethereum applications. It supports Web3 apps, asset storage, and account management across over 150 Polkadot SDK-based and EVM networks. Features include NFT management, Ledger support, fiat on-ramp, and portfolio tracking.
-
-    [:octicons-arrow-right-24: Reference](https://talisman.xyz/){target=\_blank}
-
--  __Subwallet__
-
-    ---
-
-    A non-custodial web browser extension and mobile wallet for Polkadot and Ethereum. Track, send, receive, and monitor multi-chain assets on 150+ networks. Import account with seed phrase, private key, QR code, and JSON file. Import token & NFT, attach read-only account. XCM Transfer, NFT Management, Parity Signer & Ledger support, light clients support, EVM dApp support, MetaMask compatibility, custom endpoints, fiat on-ramp, phishing detection, transaction history.
-
-    [:octicons-arrow-right-24: Reference](https://www.subwallet.app/){target=\_blank}
-
-</div>
-
-## Cold Wallets
-
-<div class="grid cards" markdown>
-
--   __Ledger__
-
-    ---
-
-    A hardware wallet that securely stores cryptocurrency private keys offline, protecting them from online threats. Using a secure chip and the Ledger Live app allows safe transactions and asset management while keeping keys secure.
-
-    [:octicons-arrow-right-24: Reference](https://www.ledger.com/){target=\_blank}
-
--   __Polkadot Vault__
-
-    ---
-
-    This cold storage solution lets you use a phone in airplane mode as an air-gapped wallet, turning any spare phone, tablet, or iOS/Android device into a hardware wallet.
-
-    [:octicons-arrow-right-24: Reference](https://vault.novasama.io/){target=\_blank}
-
-</div>
---- END CONTENT ---
-
 Doc-Content: https://docs.polkadot.com/develop/toolkit/interoperability/xcm-tools/
 --- BEGIN CONTENT ---
 ---
@@ -5469,292 +5314,6 @@ Example output:
 For a comprehensive guide to Moonwall's full capabilities, available configurations, and advanced usage, see the official [Moonwall](https://moonsong-labs.github.io/moonwall/){target=\_blank} documentation.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/toolkit/parachains/fork-chains/chopsticks/get-started/
---- BEGIN CONTENT ---
----
-title: Get Started
-description: Simplify Polkadot SDK development with Chopsticks. Learn essential features, how to install Chopsticks, and how to configure local blockchain forks.
-categories: Parachains, Tooling
----
-
-# Get Started
-
-## Introduction
-
-[Chopsticks](https://github.com/AcalaNetwork/chopsticks/){target=\_blank}, developed by the [Acala Foundation](https://github.com/AcalaNetwork){target=\_blank}, is a versatile tool tailored for developers working on Polkadot SDK-based blockchains. With Chopsticks, you can fork live chains locally, replay blocks to analyze extrinsics, and simulate complex scenarios like XCM interactions all without deploying to a live network.
-
-This guide walks you through installing Chopsticks and provides information on configuring a local blockchain fork. By streamlining testing and experimentation, Chopsticks empowers developers to innovate and accelerate their blockchain projects within the Polkadot ecosystem.
-
-For additional support and information, please reach out through [GitHub Issues](https://github.com/AcalaNetwork/chopsticks/issues){target=_blank}.
-
-!!! warning
-    Chopsticks uses [Smoldot](https://github.com/smol-dot/smoldot){target=_blank} light client, which only supports the native Polkadot SDK API. Consequently, a Chopsticks-based fork doesn't support Ethereum JSON-RPC calls, meaning you cannot use it to fork your chain and connect Metamask.
-
-## Prerequisites
-
-Before you begin, ensure you have the following installed:
-
-- [Node.js](https://nodejs.org/en/){target=\_blank}.
-- A package manager such as [npm](https://www.npmjs.com/){target=\_blank}, which should be installed with Node.js by default, or [Yarn](https://yarnpkg.com/){target=\_blank}.
-
-## Install Chopsticks
-
-You can install Chopsticks globally or locally in your project. Choose the option that best fits your development workflow. This documentation explains the features of Chopsticks version `{{ dependencies.javascript_packages.chopsticks.version }}`. Make sure you're using the correct version to match these instructions.
-
-### Global Installation
-
-To install Chopsticks globally, allowing you to use it across multiple projects, run:
-
-```bash
-npm i -g @acala-network/chopsticks@{{ dependencies.javascript_packages.chopsticks.version }}
-```
-
-Now, you should be able to run the `chopsticks` command from your terminal.
-
-### Local Installation
-
-To use Chopsticks in a specific project, first create a new directory and initialize a Node.js project:
-
-```bash
-mkdir my-chopsticks-project
-cd my-chopsticks-project
-npm init -y
-```
-
-Then, install Chopsticks as a local dependency:
-
-```bash
-npm i @acala-network/chopsticks@{{ dependencies.javascript_packages.chopsticks.version }}
-```
-
-Finally, you can run Chopsticks using the `npx` command. To see all available options and commands, run it with the `--help` flag:
-
-```bash
-npx @acala-network/chopsticks --help
-```
-
-## Configure Chopsticks
-
-To run Chopsticks, you need to configure some parameters. This can be set either through using a configuration file or the command line interface (CLI). The parameters that can be configured are as follows:
-
-- **`genesis`**: The link to a parachain's raw genesis file to build the fork from, instead of an endpoint.
-- **`timestamp`**: Timestamp of the block to fork from.
-- **`endpoint`**: The endpoint of the parachain to fork.
-- **`block`**: Use to specify at which block hash or number to replay the fork.
-- **`wasm-override`**: Path of the Wasm to use as the parachain runtime, instead of an endpoint's runtime.
-- **`db`**: Path to the name of the file that stores or will store the parachain's database.
-- **`config`**: Path or URL of the config file.
-- **`port`**: The port to expose an endpoint on.
-- **`build-block-mode`**: How blocks should be built in the fork: batch, manual, instant.
-- **`import-storage`**: A pre-defined JSON/YAML storage path to override in the parachain's storage.
-- **`allow-unresolved-imports`**: Whether to allow Wasm unresolved imports when using a Wasm to build the parachain.
-- **`html`**: Include to generate storage diff preview between blocks.
-- **`mock-signature-host`**: Mock signature host so that any signature starts with `0xdeadbeef` and filled by `0xcd` is considered valid.
-
-### Configuration File
-
-The Chopsticks source repository includes a collection of [YAML](https://yaml.org/){target=\_blank} files that can be used to set up various Polkadot SDK chains locally. You can download these configuration files from the [repository's `configs` folder](https://github.com/AcalaNetwork/chopsticks/tree/master/configs){target=\_blank}.
-
-An example of a configuration file for Polkadot is as follows:
-
-```yaml
-endpoint:
-  - wss://rpc.ibp.network/polkadot
-  - wss://polkadot-rpc.dwellir.com
-mock-signature-host: true
-block: ${env.POLKADOT_BLOCK_NUMBER}
-db: ./db.sqlite
-runtime-log-level: 5
-
-import-storage:
-  System:
-    Account:
-      - - - 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY
-        - providers: 1
-          data:
-            free: '10000000000000000000'
-  ParasDisputes:
-    $removePrefix: ['disputes'] # those can makes block building super slow
-```
-
-The configuration file allows you to modify the storage of the forked network by rewriting the pallet, state component and value that you want to change. For example, Polkadot's file rewrites Alice's `system.Account` storage so that the free balance is set to `10000000000000000000`.
-
-### CLI Flags
-
-Alternatively, all settings (except for genesis and timestamp) can be configured via command-line flags, providing a comprehensive method to set up the environment.
-
-## WebSocket Commands
-
-Chopstick's internal WebSocket server has special endpoints that allow the manipulation of the local Polkadot SDK chain.
-
-These are the methods that can be invoked and their parameters:
-
-- **dev_newBlock** (newBlockParams): Generates one or more new blocks.
-
-    === "Parameters"
-
-        - **`newBlockParams` ++"NewBlockParams"++**: The parameters to build the new block with. Where the `NewBlockParams` interface includes the following properties.
-
-            - **`count` ++"number"++**: The number of blocks to build.
-            - **`dmp` ++"{ msg: string, sentAt: number }[]"++**: The downward messages to include in the block.
-            - **`hrmp` ++"Record<string | number, { data: string, sentAt: number }[]>"++**: The horizontal messages to include in the block.
-            - **`to` ++"number"++**: The block number to build to.
-            - **`transactions` ++"string[]"++**: The transactions to include in the block.
-            - **`ump` ++"Record<number, string[]>"++**: The upward messages to include in the block.
-            - **`unsafeBlockHeight` ++"number"++**: Build block using a specific block height (unsafe).
-
-    === "Example"
-
-        ```js
-        import { ApiPromise, WsProvider } from '@polkadot/api';
-
-async function main() {
-  const wsProvider = new WsProvider('ws://localhost:8000');
-  const api = await ApiPromise.create({ provider: wsProvider });
-  await api.isReady;
-  await api.rpc('dev_newBlock', { count: 1 });
-}
-
-main();
-        ```
-
-- **dev_setBlockBuildMode** (buildBlockMode): Sets block build mode.
-
-    === "Parameter"
-    
-        - **`buildBlockMode` ++"BuildBlockMode"++**: The build mode. Can be any of the following modes:
-
-            ```ts
-            export enum BuildBlockMode {
-              Batch = 'Batch', /** One block per batch (default) */
-              Instant = 'Instant', /** One block per transaction */
-              Manual = 'Manual', /** Only build when triggered */
-            }
-            ```
-            
-    === "Example"
-
-        ```js
-        import { ApiPromise, WsProvider } from '@polkadot/api';
-
-async function main() {
-  const wsProvider = new WsProvider('ws://localhost:8000');
-  const api = await ApiPromise.create({ provider: wsProvider });
-  await api.isReady;
-  await api.rpc('dev_setBlockBuildMode', 'Instant');
-}
-
-main();
-        ```
-
-- **dev_setHead** (hashOrNumber): Sets the head of the blockchain to a specific hash or number.
-
-    === "Parameter"
-
-        - **`hashOrNumber` ++"string | number"++**: The block hash or number to set as head.
-
-    === "Example"
-
-        ```js
-        import { ApiPromise, WsProvider } from '@polkadot/api';
-
-async function main() {
-  const wsProvider = new WsProvider('ws://localhost:8000');
-  const api = await ApiPromise.create({ provider: wsProvider });
-  await api.isReady;
-  await api.rpc('dev_setHead', 500);
-}
-
-main();
-        ```
-
-- **dev_setRuntimeLogLevel** (runtimeLogLevel): Sets the runtime log level.
-
-    === "Parameter"
-
-        - **`runtimeLogLevel` ++"number"++**: The runtime log level to set.
-
-    === "Example"
-
-        ```js
-        import { ApiPromise, WsProvider } from '@polkadot/api';
-
-async function main() {
-  const wsProvider = new WsProvider('ws://localhost:8000');
-  const api = await ApiPromise.create({ provider: wsProvider });
-  await api.isReady;
-  await api.rpc('dev_setRuntimeLogLevel', 1);
-}
-
-main();
-        ```
-
-- **dev_setStorage** (values, blockHash): Creates or overwrites the value of any storage.
-
-    === "Parameters"
-
-        - **`values` ++"object"++**: JSON object resembling the path to a storage value.
-        - **`blockHash` ++"string"++**: The block hash to set the storage value.
-
-    === "Example"
-
-        ```js
-        import { ApiPromise, WsProvider } from '@polkadot/api';
-
-import { Keyring } from '@polkadot/keyring';
-async function main() {
-  const wsProvider = new WsProvider('ws://localhost:8000');
-  const api = await ApiPromise.create({ provider: wsProvider });
-  await api.isReady;
-  const keyring = new Keyring({ type: 'ed25519' });
-  const bob = keyring.addFromUri('//Bob');
-  const storage = {
-    System: {
-      Account: [[[bob.address], { data: { free: 100000 }, nonce: 1 }]],
-    },
-  };
-  await api.rpc('dev_setStorage', storage);
-}
-
-main();
-        ```
-
-- **dev_timeTravel** (date): Sets the timestamp of the block to a specific date".
-
-    === "Parameter"
-
-        - **`date` ++"string"++**: Timestamp or date string to set. All future blocks will be sequentially created after this point in time.
-
-    === "Example"
-
-        ```js
-        import { ApiPromise, WsProvider } from '@polkadot/api';
-
-async function main() {
-  const wsProvider = new WsProvider('ws://localhost:8000');
-  const api = await ApiPromise.create({ provider: wsProvider });
-  await api.isReady;
-  await api.rpc('dev_timeTravel', '2030-08-15T00:00:00');
-}
-
-main();
-        ```
-
-## Where to Go Next
-
-<div class="grid cards" markdown>
-
--   <span class="badge tutorial">Tutorial</span> __Fork a Chain with Chopsticks__
-
-    ---
-
-    Visit this guide for step-by-step instructions for configuring and interacting with your forked chain.
-
-    [:octicons-arrow-right-24: Reference](/tutorials/polkadot-sdk/testing/fork-live-chains/)
-
-</div>
---- END CONTENT ---
-
 Doc-Content: https://docs.polkadot.com/develop/toolkit/parachains/light-clients/
 --- BEGIN CONTENT ---
 ---
@@ -6028,7 +5587,7 @@ Your runtime must include and properly configure the following pallets:
     pub type ParachainInfo = parachain_info::Pallet<Runtime>;
     ```
 
-If you're migrating an existing parachain to use the `polkadot-omni-node`, you may need to perform runtime upgrades to add the required runtime APIs and pallets. Follow the standard parachain [runtime upgrade](/develop/parachains/maintenance/runtime-upgrades/){target=\_blank} procedures to implement these changes on your live network.
+If you're migrating an existing parachain to use the `polkadot-omni-node`, you may need to perform runtime upgrades to add the required runtime APIs and pallets. Follow the standard parachain [runtime upgrade](/parachains/runtime-maintenance/){target=\_blank} procedures to implement these changes on your live network.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/toolkit/parachains/quickstart/pop-cli/
@@ -6132,1005 +5691,6 @@ For a comprehensive guide to all Pop CLI features and advanced usage, see the of
 
 !!! tip
     Pop CLI also offers powerful solutions for smart contract developers. If you're interested in that path, check out the [Pop CLI Smart Contracts](https://learn.onpop.io/contracts) documentation.
---- END CONTENT ---
-
-Doc-Content: https://docs.polkadot.com/develop/toolkit/parachains/spawn-chains/zombienet/get-started/
---- BEGIN CONTENT ---
----
-title: Get Started 
-description: Quickly install and configure Zombienet to deploy and test Polkadot-based blockchain networks with this comprehensive getting-started guide.
-categories: Parachains, Tooling
----
-
-# Get Started
-
-## Introduction
-
-Zombienet is a robust testing framework designed for Polkadot SDK-based blockchain networks. It enables developers to efficiently deploy and test ephemeral blockchain environments on platforms like Kubernetes, Podman, and native setups. With its simple and versatile CLI, Zombienet provides an all-in-one solution for spawning networks, running tests, and validating performance.
-
-This guide will outline the different installation methods for Zombienet, provide step-by-step instructions for setting up on various platforms, and highlight essential provider-specific features and requirements.
-
-By following this guide, Zombienet will be up and running quickly, ready to streamline your blockchain testing and development workflows.
-
-## Install Zombienet
-
-Zombienet releases are available on the [Zombienet repository](https://github.com/paritytech/zombienet){target=\_blank}.
-
-Multiple options are available for installing Zombienet, depending on the user's preferences and the environment where it will be used. The following section will guide you through the installation process for each option.
-
-=== "Use the executable"
-
-    Install Zombienet using executables by visiting the [latest release](https://github.com/paritytech/zombienet/releases){target=\_blank} page and selecting the appropriate asset for your operating system. You can download the executable and move it to a directory in your PATH. 
-
-    Each release includes executables for Linux and macOS. Executables are generated using [pkg](https://github.com/vercel/pkg){target=\_blank}, which allows the Zombienet CLI to operate without requiring Node.js to be installed. 
-
-    Then, ensure the downloaded file is executable:
-
-    ```bash
-    chmod +x zombienet-{{ dependencies.repositories.zombienet.architecture }}
-    ```
-
-    Finally, you can run the following command to check if the installation was successful. If so, it will display the version of the installed Zombienet:
-
-    ```bash
-    ./zombienet-{{ dependencies.repositories.zombienet.architecture }} version
-    ```
-
-    If you want to add the `zombienet` executable to your PATH, you can move it to a directory in your PATH, such as `/usr/local/bin`:
-
-    ```bash
-    mv zombienet-{{ dependencies.repositories.zombienet.architecture }} /usr/local/bin/zombienet
-    ```
-
-    Now you can refer to the `zombienet` executable directly.
-
-    ```bash
-    zombienet version
-    ```
-
-=== "Use Nix"
-
-    For Nix users, the Zombienet repository provides a [`flake.nix`](https://github.com/paritytech/zombienet/blob/main/flake.nix){target=\_blank} file to install Zombienet making it easy to incorporate Zombienet into Nix-based projects.
-    
-    To install Zombienet utilizing Nix, users can run the following command, triggering the fetching of the flake and subsequently installing the Zombienet package:
-
-    ```bash
-    nix run github:paritytech/zombienet/INSERT_ZOMBIENET_VERSION -- \
-    spawn INSERT_ZOMBIENET_CONFIG_FILE_NAME.toml
-    ```
-
-    Replace the `INSERT_ZOMBIENET_VERSION` with the desired version of Zombienet and the `INSERT_ZOMBIENET_CONFIG_FILE_NAME` with the name of the configuration file you want to use.
-
-    To run the command above, you need to have [Flakes](https://nixos.wiki/wiki/Flakes#Enable_flakes){target=\_blank} enabled.
-
-    Alternatively, you can also include the Zombienet binary in the PATH for the current shell using the following command:
-    
-    ```bash
-    nix shell github:paritytech/zombienet/INSERT_ZOMBIENET_VERSION
-    ```
-
-=== "Use Docker"
-
-    Zombienet can also be run using Docker. The Zombienet repository provides a Docker image that can be used to run the Zombienet CLI. To run Zombienet using Docker, you can use the following command:
-
-    ```bash
-    docker run -it --rm \
-    -v $(pwd):/home/nonroot/zombie-net/host-current-files \
-    paritytech/zombienet
-    ```
-
-    The command above will run the Zombienet CLI inside a Docker container and mount the current directory to the `/home/nonroot/zombie-net/host-current-files` directory. This allows Zombienet to access the configuration file and other files in the current directory. If you want to mount a different directory, replace `$(pwd)` with the desired directory path.
-
-    Inside the Docker container, you can run the Zombienet CLI commands. First, you need to set up Zombienet to download the necessary binaries:
-
-    ```bash
-    npm run zombie -- setup polkadot polkadot-parachain
-    ```
-
-    After that, you need to add those binaries to the PATH:
-
-    ```bash
-    export PATH=/home/nonroot/zombie-net:$PATH
-    ```
-
-    Finally, you can run the Zombienet CLI commands. For example, to spawn a network using a specific configuration file, you can run the following command:
-
-    ```bash
-    npm run zombie -- -p native spawn host-current-files/minimal.toml
-    ```
-
-    The command above mounts the current directory to the `/workspace` directory inside the Docker container, allowing Zombienet to access the configuration file and other files in the current directory. If you want to mount a different directory, replace `$(pwd)` with the desired directory path.
-
-## Providers
-
-Zombienet supports different backend providers for running the nodes. At this moment, [Kubernetes](https://kubernetes.io/){target=\_blank}, [Podman](https://podman.io/){target=\_blank}, and local providers are supported, which can be declared as `kubernetes`, `podman`, or `native`, respectively.
-
-To use a particular provider, you can specify it in the network file or use the `--provider` flag in the CLI:
-
-```bash
-zombienet spawn network.toml --provider INSERT_PROVIDER
-```
-
-Alternatively, you can set the provider in the network file:
-
-```toml
-[settings]
-provider = "INSERT_PROVIDER"
-...
-```
-
-It's important to note that each provider has specific requirements and associated features. The following sections cover each provider's requirements and added features.
-
-### Kubernetes
-
-Kubernetes is a portable, extensible, open-source platform for managing containerized workloads and services. Zombienet is designed to be compatible with a variety of Kubernetes clusters, including: 
-
-- [Google Kubernetes Engine (GKE)](https://cloud.google.com/kubernetes-engine){target=\_blank}
-- [Docker Desktop](https://docs.docker.com/desktop/features/kubernetes/){target=\_blank}
-- [kind](https://kind.sigs.k8s.io/){target=\_blank}
-
-#### Requirements
-    
-To effectively interact with your cluster, you'll need to ensure that [`kubectl`](https://kubernetes.io/docs/reference/kubectl/){target=\_blank} is installed on your system. This Kubernetes command-line tool allows you to run commands against Kubernetes clusters. If you don't have `kubectl` installed, you can follow the instructions provided in the [Kubernetes documentation](https://kubernetes.io/docs/tasks/tools/#kubectl){target=\_blank}.
-
-To create resources such as namespaces, pods, and CronJobs within the target cluster, you must grant your user or service account the appropriate permissions. These permissions are essential for managing and deploying applications effectively within Kubernetes.
-
-#### Features
-    
-If available, Zombienet uses the Prometheus operator to oversee monitoring and visibility. This configuration ensures that only essential networking-related pods are deployed. Using the Prometheus operator, Zombienet improves its ability to monitor and manage network activities within the Kubernetes cluster efficiently.  
-
-### Podman
-
-Podman is a daemonless container engine for developing, managing, and running Open Container Initiative (OCI) containers and container images on Linux-based systems. Zombienet supports Podman rootless as a provider on Linux machines. Although Podman has support for macOS through an internal virtual machine (VM), the Zombienet provider code requires Podman to run natively on Linux.
-
-#### Requirements
-     
-To use Podman as a provider, you need to have Podman installed on your system. You can install Podman by following the instructions provided on the [Podman website](https://podman.io/getting-started/installation){target=\_blank}.
-
-#### Features
-    
-Using Podman, Zombienet deploys additional pods to enhance the monitoring and visibility of the active network. Specifically, pods for [Prometheus](https://prometheus.io/){target=\_blank}, [Tempo](https://grafana.com/docs/tempo/latest/operations/monitor/){target=\_blank}, and [Grafana](https://grafana.com/){target=\_blank} are included in the deployment. Grafana is configured with Prometheus and Tempo as data sources.
-
-Upon launching Zombienet, access to these monitoring services is facilitated through specific URLs provided in the output:
-
-- **Prometheus**: `http://127.0.0.1:34123`
-- **Tempo**: `http://127.0.0.1:34125`
-- **Grafana**: `http://127.0.0.1:41461`
-
-It's important to note that Grafana is deployed with default administrator access. 
-    
-When network operations cease, either from halting a running spawn with the `Ctrl+C` command or test completion, Zombienet automatically removes all associated pods.
-
-### Local Provider
-
-The Zombienet local provider, also called native, enables you to run nodes as local processes in your environment.
-
-#### Requirements
-     
-You must have the necessary binaries for your network (such as `polkadot` and `polkadot-parachain`). These binaries should be available in your PATH, allowing Zombienet to spawn the nodes as local processes.
-
-To install the necessary binaries, you can use the Zombienet CLI command:
-
-```bash
-zombienet setup polkadot polkadot-parachain
-```
-
-This command will download and prepare the necessary binaries for Zombienet's use.
-
-If you need to use a custom binary, ensure the binary is available in your PATH. You can also specify the binary path in the network configuration file. The following example uses the custom [OpenZeppelin template](https://github.com/OpenZeppelin/polkadot-runtime-templates){target=\_blank}:
-
-First, clone the OpenZeppelin template repository using the following command:
-
-```bash
-git clone https://github.com/OpenZeppelin/polkadot-runtime-templates \
-&& cd polkadot-runtime-templates/generic-template
-```
-
-Next, run the command to build the custom binary:
-
-```bash
-cargo build --release
-```
-
-Finally, add the custom binary to your PATH as follows:
-
-```bash
-export PATH=$PATH:INSERT_PATH_TO_RUNTIME_TEMPLATES/parachain-template-node/target/release
-```
-
-Alternatively, you can specify the binary path in the network configuration file. The local provider exclusively utilizes the command configuration for nodes, which supports both relative and absolute paths. You can employ the `default_command` configuration to specify the binary for spawning all nodes in the relay chain.
-
-```toml
-[relaychain]
-chain = "rococo-local"
-default_command = "./bin-v1.6.0/polkadot"
-
-[parachain]
-id = 1000
-
-    [parachain.collators]
-    name = "collator01"
-    command = "./target/release/parachain-template-node"
-```
-
-#### Features
-
-The local provider does not offer any additional features.
-
-## Configure Zombienet
-
-Effective network configuration is crucial for deploying and managing blockchain systems. Zombienet simplifies this process by offering versatile configuration options in both JSON and TOML formats. Whether setting up a simple test network or a complex multi-node system, Zombienet's tools provide the flexibility to customize every aspect of your network's setup.
-
-The following sections will explore the structure and usage of Zombienet configuration files, explain key settings for network customization, and walk through CLI commands and flags to optimize your development workflow.
-
-### Configuration Files
-
-The network configuration file can be either JSON or TOML format. The Zombienet repository also provides a collection of [example configuration files](https://github.com/paritytech/zombienet/tree/main/examples){target=\_blank} that can be used as a reference.
-
-Each section may include provider-specific keys that aren't recognized by other providers. For example, if you use the local provider, any references to images for nodes will be disregarded.
-
-### CLI Usage
-
-Zombienet provides a CLI that allows interaction with the tool. The CLI can receive commands and flags to perform different kinds of operations. These operations use the following syntax:
-
-```bash
-zombienet <arguments> <commands>
-```
-
-The following sections will guide you through the primary usage of the Zombienet CLI and the available commands and flags.
-
-#### CLI Commands
-
-- **`spawn <networkConfig>`**: Spawn the network defined in the [configuration file](#configuration-files).
-- **`test <testFile>`**: Run tests on the spawned network using the assertions and tests defined in the [test file](/develop/toolkit/parachains/spawn-chains/zombienet/write-tests/#the-test-file){target=\_blank}.
-- **`setup <binaries>`**: Set up the Zombienet development environment to download and use the `polkadot` or `polkadot-parachain` executable.
-- **`convert <filePath>`**: Transforms a [polkadot-launch](https://github.com/paritytech/polkadot-launch){target=\_blank} configuration file with a `.js` or `.json` extension into a Zombienet configuration file.
-- **`version`**: Prints Zombienet version.
-- **`help`**: Prints help information.
-
-#### CLI Flags
-
-You can use the following flags to customize the behavior of the CLI:
-
-- **`-p`, `--provider`**: Override the [provider](#providers) to use.
-- **`-d`, `--dir`**: Specify a directory path for placing the network files instead of using the default temporary path.
-- **`-f`, `--force`**: Force override all prompt commands.
-- **`-l`, `--logType`**: Type of logging on the console. Defaults to `table`.
-- **`-m`, `--monitor`**: Start as monitor and don't auto clean up network.
-- **`-c`, `--spawn-concurrency`**: Number of concurrent spawning processes to launch. Defaults to `1`.
-- **`-h`, `--help`**: Display help for command.
-
-### Settings
-
-Through the keyword `settings`, it's possible to define the general settings for the network. The available keys are:
-
-- **`global_volumes?`** ++"GlobalVolume[]"++: A list of global volumes to use.
-
-    ??? child "`GlobalVolume` interface definition"
-        ```js
-        export interface GlobalVolume {
-          name: string;
-          fs_type: string;
-          mount_path: string;
-        }
-        ```
-
-- **`bootnode`** ++"boolean"++: Add bootnode to network. Defaults to `true`.
-- **`bootnode_domain?`** ++"string"++: Domain to use for bootnode.
-- **`timeout`** ++"number"++: Global timeout to use for spawning the whole network.
-- **`node_spawn_timeout?`** ++"number"++: Timeout to spawn pod/process.
-- **`grafana?`** ++"boolean"++: Deploy an instance of Grafana.
-- **`prometheus?`** ++"boolean"++: Deploy an instance of Prometheus.
-- **`telemetry?`** ++"boolean"++: Enable telemetry for the network.
-- **`jaeger_agent?`** ++"string"++: The Jaeger agent endpoint passed to the nodes. Only available on Kubernetes.
-- **`tracing_collator_url?`** ++"string"++: The URL of the tracing collator used to query by the tracing assertion. Should be tempo query compatible.
-- **`tracing_collator_service_name?`** ++"string"++: Service name for tempo query frontend. Only available on Kubernetes. Defaults to `tempo-tempo-distributed-query-frontend`.
-- **`tracing_collator_service_namespace?`** ++"string"++: Namespace where tempo is running. Only available on Kubernetes. Defaults to `tempo`.
-- **`tracing_collator_service_port?`** ++"number"++: Port of the query instance of tempo. Only available on Kubernetes. Defaults to `3100`.
-- **`enable_tracing?`** ++"boolean"++: Enable the tracing system. Only available on Kubernetes. Defaults to `true`.
-- **`provider`** ++"string"++: Provider to use. Default is `kubernetes`".
-- **`polkadot_introspector?`** ++"boolean"++: Deploy an instance of polkadot-introspector. Only available on Podman and Kubernetes. Defaults to `false`.
-- **`backchannel?`** ++"boolean"++: Deploy an instance of backchannel server. Only available on Kubernetes. Defaults to `false`.
-- **`image_pull_policy?`** ++"string"++: Image pull policy to use in the network. Possible values are `Always`, `IfNotPresent`, and `Never`.
-- **`local_ip?`** ++"string"++: IP used for exposing local services (rpc/metrics/monitors). Defaults to `"127.0.0.1"`.
-- **`global_delay_network_global_settings?`** ++"number"++: Delay in seconds to apply to the network.
-- **`node_verifier?`** ++"string"++: Specify how to verify node readiness or deactivate by using `None`. Possible values are `None` and `Metric`. Defaults to `Metric`.
-
-For example, the following configuration file defines a minimal example for the settings:
-
-=== "TOML"
-
-    ```toml title="base-example.toml"
-    [settings]
-timeout = 1000
-bootnode = false
-provider = "kubernetes"
-backchannel = false
-# ...
-    ```
-
-=== "JSON"
-
-    ```json title="base-example.json"
-    {
-    "settings": {
-        "timeout": 1000,
-        "bootnode": false,
-        "provider": "kubernetes",
-        "backchannel": false,
-        "...": {}
-    },
-    "...": {}
-}
-    ```
-
-### Relay Chain Configuration
-
-You can use the `relaychain` keyword to define further parameters for the relay chain at start-up. The available keys are:
-
-- **`default_command?`** ++"string"++: The default command to run. Defaults to `polkadot`.
-- **`default_image?`** ++"string"++: The default Docker image to use.
-- **`default_resources?`** ++"Resources"++: Represents the resource limits/reservations the nodes need by default. Only available on Kubernetes.
-
-    ??? child "`Resources` interface definition"
-        ```js
-        export interface Resources {
-          resources: {
-            requests?: {
-              memory?: string;
-              cpu?: string;
-            };
-            limits?: {
-              memory?: string;
-              cpu?: string;
-            };
-          };
-        }
-        ```
-
-- **`default_db_snapshot?`** ++"string"++: The default database snapshot to use.
-- **`default_prometheus_prefix`** ++"string"++: A parameter for customizing the metric's prefix. Defaults to `substrate`.
-- **`default_substrate_cli_args_version?`** ++"SubstrateCliArgsVersion"++: Set the Substrate CLI arguments version.
-
-    ??? child "`SubstrateCliArgsVersion` enum definition"
-        ```js
-        export enum SubstrateCliArgsVersion {
-          V0 = 0,
-          V1 = 1,
-          V2 = 2,
-          V3 = 3,
-        }
-        ```
-
-- **`default_keystore_key_types?`** ++"string[]"++: Defines which keystore keys should be created.
-- **`chain`** ++"string"++: The chain name.
-- **`chain_spec_path?`** ++"string"++: Path to the chain spec file. Should be the plain version to allow customizations.
-- **`chain_spec_command?`** ++"string"++: Command to generate the chain spec. It can't be used in combination with `chain_spec_path`.
-- **`default_args?`** ++"string[]"++: An array of arguments to use as default to pass to the command.
-- **`default_overrides?`** ++"Override[]"++: An array of overrides to upload to the node.
-
-    ??? child "`Override` interface definition"
-        ```js
-        export interface Override {
-          local_path: string;
-          remote_name: string;
-        } 
-        ```
-
-- **`random_nominators_count?`** ++"number"++: If set and the stacking pallet is enabled, Zombienet will generate the input quantity of nominators and inject them into the genesis.
-- **`max_nominations`** ++"number"++: The max number of nominations allowed by a nominator. Should match the value set in the runtime. Defaults to `24`.
-- **`nodes?`** ++"Node[]"++: An array of nodes to spawn. It is further defined in the [Node Configuration](#node-configuration) section.
-- **`node_groups?`** ++"NodeGroup[]"++: An array of node groups to spawn. It is further defined in the [Node Group Configuration](#node-group-configuration) section.
-- **`total_node_in_group?`** ++"number"++: The total number of nodes in the group. Defaults to `1`.
-- **`genesis`** ++"JSON"++: The genesis configuration.
-- **`default_delay_network_settings?`** ++"DelayNetworkSettings"++: Sets the expected configuration to delay the network.
-
-    ??? child "`DelayNetworkSettings` interface definition"
-        ```js
-        export interface DelayNetworkSettings {
-          latency: string;
-          correlation?: string; // should be parsable as float by k8s
-          jitter?: string;
-        }
-        ```
-
-#### Node Configuration
-
-One specific key capable of receiving more subkeys is the `nodes` key. This key is used to define further parameters for the nodes. The available keys:
-
-- **`name`** ++"string"++: Name of the node. Any whitespace will be replaced with a dash (for example, `new alice` will be converted to `new-alice`).
-- **`image?`** ++"string"++: Override default Docker image to use for this node.
-- **`command?`** ++"string"++: Override default command to run.
-- **`command_with_args?`** ++"string"++: Override default command and arguments.
-- **`args?`** ++"string[]"++: Arguments to be passed to the command.
-- **`env?`** ++"envVars[]"++: Environment variables to set in the container.
-
-    ??? child "`envVars` interface definition"
-        ```js
-        export interface EnvVars {
-          name: string;
-          value: string;
-        }
-        ```
-
-- **`prometheus_prefix?`** ++"string"++: Customizes the metric's prefix for the specific node. Defaults to `substrate`.
-- **`db_snapshot?`** ++"string"++: Database snapshot to use.
-- **`substrate_cli_args_version?`** ++"SubstrateCliArgsVersion"++: Set the Substrate CLI arguments version directly to skip binary evaluation overhead.
-
-    ??? child "`SubstrateCliArgsVersion` enum definition"
-        ```js
-        export enum SubstrateCliArgsVersion {
-          V0 = 0,
-          V1 = 1,
-          V2 = 2,
-          V3 = 3,
-        }
-        ```
-
-- **`resources?`** ++"Resources"++: Represent the resources limits/reservations needed by the node.
-
-    ??? child "`Resources` interface definition"
-        ```js
-        export interface Resources {
-          resources: {
-            requests?: {
-              memory?: string;
-              cpu?: string;
-            };
-            limits?: {
-              memory?: string;
-              cpu?: string;
-            };
-          };
-        }
-        ```
-
-- **`keystore_key_types?`** ++"string[]"++: Defines which keystore keys should be created.
-- **`validator`** ++"boolean"++: Pass the `--validator` flag to the command. Defaults to `true`.
-- **`invulnerable`** ++"boolean"++: If true, add the node to invulnerables in the chain spec. Defaults to `false`.
-- **`balance`** ++"number"++: Balance to set in balances for node's account. Defaults to `2000000000000`.
-- **`bootnodes?`** ++"string[]"++: Array of bootnodes to use.
-- **`add_to_bootnodes?`** ++"boolean"++: Add this node to the bootnode list. Defaults to `false`.
-- **`ws_port?`** ++"number"++: WS port to use.
-- **`rpc_port?`** ++"number"++: RPC port to use.
-- **`prometheus_port?`** ++"number"++: Prometheus port to use.
-- **`p2p_cert_hash?`** ++"string"++: Libp2p certhash to use with webRTC transport.
-- **`delay_network_settings?`** ++"DelayNetworkSettings"++: Sets the expected configuration to delay the network.
-
-    ??? child "`DelayNetworkSettings` interface definition"
-        ```js
-        export interface DelayNetworkSettings {
-          latency: string;
-          correlation?: string; // should be parsable as float by k8s
-          jitter?: string;
-        }
-        ```
-
-The following configuration file defines a minimal example for the relay chain, including the `nodes` key:
-
-=== "TOML"
-
-    ```toml title="relaychain-example-nodes.toml"
-    [relaychain]
-default_command = "polkadot"
-default_image = "polkadot-debug:master"
-chain = "rococo-local"
-chain_spec_path = "INSERT_PATH_TO_CHAIN_SPEC"
-default_args = ["--chain", "rococo-local"]
-
-[[relaychain.nodes]]
-name = "alice"
-validator = true
-balance = 1000000000000
-
-[[relaychain.nodes]]
-name = "bob"
-validator = true
-balance = 1000000000000
-# ...
-    ```
-
-=== "JSON"
-
-    ```json title="relaychain-example-nodes.json"
-    {
-    "relaychain": {
-        "default_command": "polkadot",
-        "default_image": "polkadot-debug:master",
-        "chain": "rococo-local",
-        "chain_spec_path": "INSERT_PATH_TO_CHAIN-SPEC.JSON",
-        "default_args": ["--chain", "rococo-local"],
-        "nodes": [
-            {
-                "name": "alice",
-                "validator": true,
-                "balance": 1000000000000
-            },
-            {
-                "name": "bob",
-                "validator": true,
-                "balance": 1000000000000
-            }
-        ]
-    }
-}
-    ```
-
-#### Node Group Configuration
-
-The `node_groups` key defines further parameters for the node groups. The available keys are:
-
-- **`name`** ++"string"++: Name of the node. Any whitespace will be replaced with a dash (for example, `new alice` will be converted to `new-alice`).
-- **`image?`** ++"string"++: Override default Docker image to use for this node.
-- **`command?`** ++"string"++: Override default command to run.
-- **`args?`** ++"string[]"++: Arguments to be passed to the command.
-- **`env?`** ++"envVars[]"++: Environment variables to set in the container.
-    
-    ??? child "`envVars` interface definition"
-        ```js
-        export interface EnvVars {
-          name: string;
-          value: string;
-        }
-        ```
-
-- **`overrides?`** ++"Override[]"++: Array of overrides definitions.
-
-    ??? child "`Override` interface definition"
-        ```js
-        export interface Override {
-          local_path: string;
-          remote_name: string;
-        }
-        ```
-
-- **`prometheus_prefix?`** ++"string"++: Customizes the metric's prefix for the specific node. Defaults to `substrate`.
-- **`db_snapshot?`** ++"string"++: Database snapshot to use.
-- **`substrate_cli_args_version?`** ++"SubstrateCliArgsVersion"++: Set the Substrate CLI arguments version directly to skip binary evaluation overhead.
-
-    ??? child "`SubstrateCliArgsVersion` enum definition"
-        ```js
-        export enum SubstrateCliArgsVersion {
-          V0 = 0,
-          V1 = 1,
-          V2 = 2,
-          V3 = 3,
-        }
-        ```
-
-- **`resources?`** ++"Resources"++: Represent the resources limits/reservations needed by the node.
-
-    ??? child "`Resources` interface definition"
-        ```js
-        export interface Resources {
-          resources: {
-            requests?: {
-              memory?: string;
-              cpu?: string;
-            };
-            limits?: {
-              memory?: string;
-              cpu?: string;
-            };
-          };
-        }
-        ```
-
-- **`keystore_key_types?`** ++"string[]"++: Defines which keystore keys should be created.
-- **`count`** ++"number | string"++: Number of nodes to launch for this group.
-- **`delay_network_settings?`** ++"DelayNetworkSettings"++: Sets the expected configuration to delay the network.
-
-    ??? child "`DelayNetworkSettings` interface definition"
-        ```js
-        export interface DelayNetworkSettings {
-          latency: string;
-          correlation?: string; // should be parsable as float by k8s
-          jitter?: string;
-        }
-        ```
-
-The following configuration file defines a minimal example for the relay chain, including the `node_groups` key:
-
-=== "TOML"
-
-    ```toml title="relaychain-example-node-groups.toml"
-    [relaychain]
-default_command = "polkadot"
-default_image = "polkadot-debug:master"
-chain = "rococo-local"
-chain_spec_path = "INSERT_PATH_TO_CHAIN_SPEC"
-default_args = ["--chain", "rococo-local"]
-
-[[relaychain.node_groups]]
-name = "group-1"
-count = 2
-image = "polkadot-debug:master"
-command = "polkadot"
-args = ["--chain", "rococo-local"]
-# ...
-    ```
-
-=== "JSON"
-
-    ```json title="relaychain-example-node-groups.json"
-    {
-    "relaychain": {
-        "default_command": "polkadot",
-        "default_image": "polkadot-debug:master",
-        "chain": "rococo-local",
-        "chain_spec_path": "INSERT_PATH_TO_CHAIN-SPEC.JSON",
-        "default_args": ["--chain", "rococo-local"],
-        "node_groups": [
-            {
-                "name": "group-1",
-                "count": 2,
-                "image": "polkadot-debug:master",
-                "command": "polkadot",
-                "args": ["--chain", "rococo-local"]
-            }
-        ],
-        "...": {}
-    },
-    "...": {}
-}
-    ```
-
-### Parachain Configuration
-
-The `parachain` keyword defines further parameters for the parachain. The available keys are:
-
-- **`id`** ++"number"++: The id to assign to this parachain. Must be unique.
-- **`chain?`** ++"string"++: The chain name.
-- **`force_decorator?`** ++"string"++: Force the use of a specific decorator.
-- **`genesis?`** ++"JSON"++: The genesis configuration.
-- **`balance?`** ++"number"++: Balance to set in balances for parachain's account.
-- **`delay_network_settings?`** ++"DelayNetworkSettings"++: Sets the expected configuration to delay the network.
-
-    ??? child "`DelayNetworkSettings` interface definition"
-        ```js
-        export interface DelayNetworkSettings {
-          latency: string;
-          correlation?: string; // should be parsable as float by k8s
-          jitter?: string;
-        }
-        ```
-
-- **`add_to_genesis?`** ++"boolean"++: Flag to add parachain to genesis or register in runtime. Defaults to `true`.
-- **`register_para?`** ++"boolean"++: Flag to specify whether the para should be registered. The `add_to_genesis` flag must be set to false for this flag to have any effect. Defaults to `true`.
-- **`onboard_as_parachain?`** ++"boolean"++: Flag to specify whether the para should be onboarded as a parachain, rather than remaining a parathread. Defaults to `true`.
-- **`genesis_wasm_path?`** ++"string"++: Path to the Wasm file to use.
-- **`genesis_wasm_generator?`** ++"string"++: Command to generate the Wasm file.
-- **`genesis_state_path?`** ++"string"++: Path to the state file to use.
-- **`genesis_state_generator?`** ++"string"++: Command to generate the state file.
-- **`chain_spec_path?`** ++"string"++: Path to the chain spec file.
-- **`chain_spec_command?`** ++"string"++: Command to generate the chain spec.
-- **`cumulus_based?`** ++"boolean"++: Flag to use cumulus command generation. Defaults to `true`.
-- **`bootnodes?`** ++"string[]"++: Array of bootnodes to use.
-- **`prometheus_prefix?`** ++"string"++: Parameter for customizing the metric's prefix for all parachain nodes/collators. Defaults to `substrate`.
-- **`collator?`** ++"Collator"++: Further defined in the [Collator Configuration](#collator-configuration) section.
-- **`collator_groups?`** ++"CollatorGroup[]"++: An array of collator groups to spawn. It is further defined in the [Collator Groups Configuration](#collator-groups-configuration) section.
- 
-For example, the following configuration file defines a minimal example for the parachain:
-
-=== "TOML"
-
-    ```toml title="parachain-example.toml"
-    [parachain]
-id = 100
-add_to_genesis = true
-cumulus_based = true
-genesis_wasm_path = "INSERT_PATH_TO_WASM"
-genesis_state_path = "INSERT_PATH_TO_STATE"
-# ...
-    ```
-
-=== "JSON"
-
-    ```json title="parachain-example.json"
-    {
-    "parachain": {
-        "id": 100,
-        "add_to_genesis": true,
-        "cumulus_based": true,
-        "genesis_wasm_path": "INSERT_PATH_TO_WASM",
-        "genesis_state_path": "INSERT_PATH_TO_STATE",
-        "...": {}
-    },
-    "...": {}
-}
-    ```
-
-#### Collator Configuration
-
-One specific key capable of receiving more subkeys is the `collator` key. This key defines further parameters for the nodes. The available keys are:
-
-- **`name`** ++"string"++: Name of the collator. Any whitespace will be replaced with a dash (for example, `new alice` will be converted to `new-alice`).
-- **`image?`** ++"string"++: Image to use for the collator.
-- **`command_with_args?`** ++"string"++: Overrides both command and arguments for the collator.
-- **`validator`** ++"boolean"++: Pass the `--validator` flag to the command. Defaults to `true`.
-- **`invulnerable`** ++"boolean"++: If true, add the collator to invulnerables in the chain spec. Defaults to `false`.
-- **`balance`** ++"number"++: Balance to set in balances for collator's account. Defaults to `2000000000000`.
-- **`bootnodes?`** ++"string[]"++: Array of bootnodes to use.
-- **`add_to_bootnodes?`** ++"boolean"++: Add this collator to the bootnode list. Defaults to `false`.
-- **`ws_port?`** ++"number"++: WS port to use.
-- **`rpc_port?`** ++"number"++: RPC port to use.
-- **`prometheus_port?`** ++"number"++: Prometheus port to use.
-- **`p2p_port?`** ++"number"++: P2P port to use.
-- **`p2p_cert_hash?`** ++"string"++: Libp2p certhash to use with webRTC transport.
-- **`delay_network_settings?`** ++"DelayNetworkSettings"++: Sets the expected configuration to delay the network.
-
-    ??? child "`DelayNetworkSettings` interface definition"
-        ```js
-        export interface DelayNetworkSettings {
-          latency: string;
-          correlation?: string; // should be parsable as float by k8s
-          jitter?: string;
-        }
-        ```
-
-- **`command?`** ++"string"++: Override default command to run.
-- **`args?`** ++"string[]"++: Arguments to be passed to the command.
-- **`env?`** ++"envVars[]"++: Environment variables to set in the container.
-
-    ??? child "`envVars` interface definition"
-        ```js
-        export interface EnvVars {
-          name: string;
-          value: string;
-        }
-        ```
-
-- **`overrides?`** ++"Override[]"++: Array of overrides definitions.
-
-    ??? child "`Override` interface definition"
-        ```js
-        export interface Override {
-          local_path: string;
-          remote_name: string;
-        }
-        ```
-
-- **`prometheus_prefix?`** ++"string"++: Customizes the metric's prefix for the specific node. Defaults to `substrate`.
-- **`db_snapshot?`** ++"string"++: Database snapshot to use.
-- **`substrate_cli_args_version?`** ++"SubstrateCliArgsVersion"++: Set the Substrate CLI arguments version directly to skip binary evaluation overhead.
-
-    ??? child "`SubstrateCliArgsVersion` enum definition"
-        ```js
-        export enum SubstrateCliArgsVersion {
-          V0 = 0,
-          V1 = 1,
-          V2 = 2,
-          V3 = 3,
-        }
-        ```
-
-- **`resources?`** ++"Resources"++: Represent the resources limits/reservations needed by the node.
-
-    ??? child "`Resources` interface definition"
-        ```js
-        export interface Resources {
-          resources: {
-            requests?: {
-              memory?: string;
-              cpu?: string;
-            };
-            limits?: {
-              memory?: string;
-              cpu?: string;
-            };
-          };
-        }
-        ```
-
-- **`keystore_key_types?`** ++"string[]"++: Defines which keystore keys should be created.
-
-The configuration file below defines a minimal example for the collator:
-
-=== "TOML"
-
-    ```toml title="collator-example.toml"
-    [parachain]
-id = 100
-add_to_genesis = true
-cumulus_based = true
-genesis_wasm_path = "INSERT_PATH_TO_WASM"
-genesis_state_path = "INSERT_PATH_TO_STATE"
-
-[[parachain.collators]]
-name = "alice"
-image = "polkadot-parachain"
-command = "polkadot-parachain"
-# ...
-    ```
-
-=== "JSON"
-
-    ```json title="collator-example.json"
-    {
-    "parachain": {
-        "id": 100,
-        "add_to_genesis": true,
-        "cumulus_based": true,
-        "genesis_wasm_path": "INSERT_PATH_TO_WASM",
-        "genesis_state_path": "INSERT_PATH_TO_STATE",
-        "collators": [
-            {
-                "name": "alice",
-                "image": "polkadot-parachain",
-                "command": "polkadot-parachain",
-                "...": {}
-            }
-        ]
-    },
-    "...": {}
-}
-    ```
-
-#### Collator Groups Configuration
-
-The `collator_groups` key defines further parameters for the collator groups. The available keys are:
-
-- **`name`** ++"string"++: Name of the node. Any whitespace will be replaced with a dash (for example, `new alice` will be converted to `new-alice`).
-- **`image?`** ++"string"++: Override default Docker image to use for this node.
-- **`command?`** ++"string"++: Override default command to run.
-- **`args?`** ++"string[]"++: Arguments to be passed to the command.
-- **`env?`** ++"envVars[]"++: Environment variables to set in the container.
-
-    ??? child "`envVars` interface definition"
-        ```js
-        export interface EnvVars {
-          name: string;
-          value: string;
-        }
-        ```
-
-- **`overrides?`** ++"Override[]"++: Array of overrides definitions.
-
-    ??? child "`Override` interface definition"
-        ```js
-        export interface Override {
-          local_path: string;
-          remote_name: string;
-        }
-        ```
-
-- **`prometheus_prefix?`** ++"string"++: Customizes the metric's prefix for the specific node. Defaults to `substrate`.
-- **`db_snapshot?`** ++"string"++: Database snapshot to use.
-- **`substrate_cli_args_version?`** ++"SubstrateCliArgsVersion"++: Set the Substrate CLI arguments version directly to skip binary evaluation overhead.
-
-    ??? child "`SubstrateCliArgsVersion` enum definition"
-        ```js
-        export enum SubstrateCliArgsVersion {
-          V0 = 0,
-          V1 = 1,
-          V2 = 2,
-          V3 = 3,
-        }
-        ```
-
-- **`resources?`** ++"Resources"++: Represent the resources limits/reservations needed by the node.
-
-    ??? child "`Resources` interface definition"
-        ```js
-        export interface Resources {
-          resources: {
-            requests?: {
-              memory?: string;
-              cpu?: string;
-            };
-            limits?: {
-              memory?: string;
-              cpu?: string;
-            };
-          };
-        }
-        ```
-
-- **`keystore_key_types?`** ++"string[]"++: Defines which keystore keys should be created.
-- **`count`** ++"number | string"++: Number of nodes to launch for this group.
-- **`delay_network_settings?`** ++"DelayNetworkSettings"++: Sets the expected configuration to delay the network.
-
-    ??? child "`DelayNetworkSettings` interface definition"
-        ```js
-        export interface DelayNetworkSettings {
-          latency: string;
-          correlation?: string; // should be parsable as float by k8s
-          jitter?: string;
-        }
-        ```
-
-For instance, the configuration file below defines a minimal example for the collator groups:
-
-=== "TOML"
-
-    ```toml title="collator-groups-example.toml"
-    [parachain]
-id = 100
-add_to_genesis = true
-cumulus_based = true
-genesis_wasm_path = "INSERT_PATH_TO_WASM"
-genesis_state_path = "INSERT_PATH_TO_STATE"
-
-[[parachain.collator_groups]]
-name = "group-1"
-count = 2
-image = "polkadot-parachain"
-command = "polkadot-parachain"
-# ...
-    ```
-
-=== "JSON"
-
-    ```json title="collator-groups-example.json"
-    {
-    "parachain": {
-        "id": 100,
-        "add_to_genesis": true,
-        "cumulus_based": true,
-        "genesis_wasm_path": "INSERT_PATH_TO_WASM",
-        "genesis_state_path": "INSERT_PATH_TO_STATE",
-        "collator_groups": [
-            {
-                "name": "group-1",
-                "count": 2,
-                "image": "polkadot-parachain",
-                "command": "polkadot-parachain",
-                "...": {}
-            }
-        ]
-    },
-    "...": {}
-}
-    ```
-
-### XCM Configuration
-
-You can use the `hrmp_channels` keyword to define further parameters for the XCM channels at start-up. The available keys are:
-
-- **`hrmp_channels`** ++"HrmpChannelsConfig[]"++: Array of Horizontal Relay-routed Message Passing (HRMP) channel configurations.
-
-    ??? child "`HrmpChannelsConfig` interface definition"
-        ```js
-        export interface HrmpChannelsConfig {
-          sender: number;
-          recipient: number;
-          max_capacity: number;
-          max_message_size: number;
-        }
-        ```
-        Each of the `HrmpChannelsConfig` keys are defined as follows:
-
-        - **`sender` ++"number"++**: Parachain ID of the sender.
-        - **`recipient` ++"number"++**: Parachain ID of the recipient.
-        - **`max_capacity` ++"number"++**: Maximum capacity of the HRMP channel.
-        - **`max_message_size` ++"number"++**: Maximum message size allowed in the HRMP channel.
-
-## Where to Go Next
-
-<div class="grid cards" markdown>
-
--  <span class="badge external">External</span> __Zombienet Support__
-
-    ---
-
-    [Parity Technologies](https://www.parity.io/){target=\_blank} has designed and developed this framework, now maintained by the Zombienet team. 
-
-    For further support and information, refer to the following contact points:
-
-    [:octicons-arrow-right-24: Zombienet repository](https://github.com/paritytech/zombienet){target=\_blank}
-
-    [:octicons-arrow-right-24: Element public channel](https://matrix.to/#/!FWyuEyNvIFygLnWNMh:parity.io?via=parity.io&via=matrix.org&via=web3.foundation){target=\_blank}
-
-
--   <span class="badge tutorial">Tutorial</span> __Spawn a Basic Chain with Zombienet__
-
-    ---
-
-    Learn to spawn, connect to and monitor a basic blockchain network with Zombienet, using customizable configurations for streamlined development and debugging.
-
-    [:octicons-arrow-right-24: Reference](/tutorials/polkadot-sdk/testing/spawn-basic-chain/)
-
-</div>
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/toolkit/parachains/spawn-chains/zombienet/write-tests/
@@ -7678,7 +6238,7 @@ This tutorial will guide you through using Chopsticks to test OpenGov proposals 
 
 Before proceeding, ensure the following prerequisites are met:
 
-- **Chopsticks installation**: If you have not installed Chopsticks yet, refer to the [Install Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/#install-chopsticks){target=\_blank} guide for detailed instructions.
+- **Chopsticks installation**: If you have not installed Chopsticks yet, refer to the [Install Chopsticks](/parachains/testing/#install-chopsticks){target=\_blank} instructions.
 - **Familiarity with key concepts**:
     - [Polkadot.js](/develop/toolkit/api-libraries/polkadot-js-api){target=\_blank}
     - [OpenGov](/polkadot-protocol/onchain-governance/overview){target=\_blank}
@@ -12371,8 +10931,8 @@ For additional support and information, please reach out through [GitHub Issues]
 
 To follow this tutorial, ensure you have completed the following:
 
-- **Installed Chopsticks**: If you still need to do so, see the [Install Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/#install-chopsticks){target=\_blank} guide for assistance.
-- **Reviewed** [Configure Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/#configure-chopsticks){target=\_blank}: And understand how forked chains are configured.
+- **Installed Chopsticks**: If you still need to do so, see the [Install Chopsticks](/parachains/testing/#install-chopsticks){target=\_blank} instructions for assistance.
+- **Reviewed [Configure Chopsticks](/parachains/testing/#configure-chopsticks){target=\_blank}**: You should understand how forked chains are configured.
 
 ## Configuration File 
 
@@ -12474,7 +11034,7 @@ connectToFork();
 
 ## Replay Blocks
 
-Chopsticks allows you to replay specific blocks from a chain, which is useful for debugging and analyzing state changes. You can use the parameters in the [Configuration](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/#configure-chopsticks){target=\_blank} section to set up the chain configuration, and then use the run-block subcommand with the following additional options:
+Chopsticks allows you to replay specific blocks from a chain, which is useful for debugging and analyzing state changes. You can use the parameters in the [Configuration](/parachains/testing/#configure-chopsticks){target=\_blank} section to set up the chain configuration, and then use the run-block subcommand with the following additional options:
 
 - **`output-path`**: Path to print output.
 - **`html`**: Generate HTML with storage diff.
@@ -12714,12 +11274,12 @@ By the end of this tutorial, you'll be equipped to deploy and test your own bloc
 
 To successfully complete this tutorial, you must ensure you've first:
 
-- [Installed Zombienet](/develop/toolkit/parachains/spawn-chains/zombienet/get-started/#install-zombienet){target=\_blank}. This tutorial requires Zombienet version `{{ dependencies.repositories.zombienet.version }}`. Verify that you're using the specified version to ensure compatibility with the instructions.
-- Reviewed the information in [Configure Zombienet](/develop/toolkit/parachains/spawn-chains/zombienet/get-started/#configure-zombienet){target=\_blank} and understand how to customize a spawned network.
+- [Installed Zombienet](/parachains/testing/run-a-rollup-network/#install-zombienet){target=\_blank}. This tutorial requires Zombienet version `{{ dependencies.repositories.zombienet.version }}`. Verify that you're using the specified version to ensure compatibility with the instructions.
+- Reviewed the information in [Configure Zombienet](/parachains/testing/run-a-rollup-network/#configure-zombienet){target=\_blank} and understand how to customize a spawned network.
 
 ## Set Up Local Provider
 
-In this tutorial, you will use the Zombienet [local provider](/develop/toolkit/parachains/spawn-chains/zombienet/get-started/#local-provider){target=\_blank} (also called native provider) that enables you to run nodes as local processes in your development environment.
+In this tutorial, you will use the Zombienet [local provider](/parachains/testing/run-a-rollup-network/#local-provider){target=\_blank} (also called native provider) that enables you to run nodes as local processes in your development environment.
 
 You must have the necessary binaries installed (such as `polkadot` and `polkadot-parachain`) to spin up your network successfully.
 
@@ -12746,7 +11306,7 @@ sudo mv ./polkadot ./polkadot-execute-worker ./polkadot-parachain ./polkadot-pre
 
 ## Define the Network
 
-Zombienet uses a [configuration file](/develop/toolkit/parachains/spawn-chains/zombienet/get-started/#configuration-files){target=\_blank} to define the ephemeral network that will be spawned. Follow these steps to create and define the configuration file:
+Zombienet uses a [configuration file](/parachains/testing/run-a-rollup-network/#configuration-files){target=\_blank} to define the ephemeral network that will be spawned. Follow these steps to create and define the configuration file:
 
 1. Create a file named `spawn-a-basic-network.toml`:
 
@@ -15169,6 +13729,1446 @@ cd polkavm-hardhat-examples/storage-hardhat
 ```
 --- END CONTENT ---
 
+Doc-Content: https://docs.polkadot.com/parachains/integrations/
+--- BEGIN CONTENT ---
+---
+title: Wallets
+description: Explore blockchain wallets. Securely manage digital assets with hot wallets for online access or cold wallets for offline, enhanced security.
+categories: Tooling, Dapps
+---
+
+# Wallets
+
+## What is a Blockchain Wallet?
+
+A wallet serves as your gateway to interacting with blockchain networks. Rather than storing funds, wallets secure your private keys, controlling access to your blockchain assets. Your private key provides complete control over all permitted transactions on your blockchain account, making it essential to keep it secure.
+
+Wallet types fall into two categories based on their connection to the internet:
+
+- **[Hot wallets](#hot-wallets)**: Online storage through websites, browser extensions or smartphone apps.
+- **[Cold wallets](#cold-wallets)**: Offline storage using hardware devices or air-gapped systems.
+
+## Hot Wallets
+
+<div class="grid cards" markdown>
+
+-   __Nova Wallet__
+
+    ---
+
+    A non-custodial, mobile-first wallet for managing assets and interacting with the Polkadot and Kusama ecosystems. It supports staking, governance, cross-chain transfers, and crowdloans. With advanced features, seamless multi-network support, and strong security, Nova Wallet empowers users to explore the full potential of Polkadot parachains on the go.
+
+    [:octicons-arrow-right-24: Reference](https://novawallet.io/){target=\_blank}
+
+-   __Talisman__
+
+    ---
+
+    A non-custodial web browser extension that allows you to manage your portfolio and interact with Polkadot and Ethereum applications. It supports Web3 apps, asset storage, and account management across over 150 Polkadot SDK-based and EVM networks. Features include NFT management, Ledger support, fiat on-ramp, and portfolio tracking.
+
+    [:octicons-arrow-right-24: Reference](https://talisman.xyz/){target=\_blank}
+
+-  __Subwallet__
+
+    ---
+
+    A non-custodial web browser extension and mobile wallet for Polkadot and Ethereum. Track, send, receive, and monitor multi-chain assets on 150+ networks. Import account with seed phrase, private key, QR code, and JSON file. Import token & NFT, attach read-only account. XCM Transfer, NFT Management, Parity Signer & Ledger support, light clients support, EVM dApp support, MetaMask compatibility, custom endpoints, fiat on-ramp, phishing detection, transaction history.
+
+    [:octicons-arrow-right-24: Reference](https://www.subwallet.app/){target=\_blank}
+
+</div>
+
+## Cold Wallets
+
+<div class="grid cards" markdown>
+
+-   __Ledger__
+
+    ---
+
+    A hardware wallet that securely stores cryptocurrency private keys offline, protecting them from online threats. Using a secure chip and the Ledger Live app allows safe transactions and asset management while keeping keys secure.
+
+    [:octicons-arrow-right-24: Reference](https://www.ledger.com/){target=\_blank}
+
+-   __Polkadot Vault__
+
+    ---
+
+    This cold storage solution lets you use a phone in airplane mode as an air-gapped wallet, turning any spare phone, tablet, or iOS/Android device into a hardware wallet.
+
+    [:octicons-arrow-right-24: Reference](https://vault.novasama.io/){target=\_blank}
+
+</div>
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/parachains/integrations/indexers/
+--- BEGIN CONTENT ---
+---
+title: Indexers
+description: Discover blockchain indexers. Enhance data access, enable fast and complex queries, and optimize blockchain data for seamless app performance.
+categories: Tooling, Dapps
+---
+
+# Indexers
+
+## The Challenge of Blockchain Data Access
+
+Blockchain data is inherently sequential and distributed, with information stored chronologically across numerous blocks. While retrieving data from a single block through JSON-RPC API calls is straightforward, more complex queries that span multiple blocks present significant challenges:
+
+- Data is scattered and unorganized across the blockchain.
+- Retrieving large datasets can take days or weeks to sync.
+- Complex operations (like aggregations, averages, or cross-chain queries) require additional processing.
+- Direct blockchain queries can impact dApp performance and responsiveness.
+
+## What is a Blockchain Indexer?
+
+A blockchain indexer is a specialized infrastructure tool that processes, organizes, and stores blockchain data in an optimized format for efficient querying. Think of it as a search engine for blockchain data that:
+
+- Continuously monitors the blockchain for new blocks and transactions.
+- Processes and categorizes this data according to predefined schemas.
+- Stores the processed data in an easily queryable database.
+- Provides efficient APIs (typically [GraphQL](https://graphql.org/){target=\_blank}) for data retrieval.
+
+## Indexer Implementations
+
+<div class="grid cards" markdown>
+
+-   __Subsquid__
+
+    ---
+
+    Subsquid is a data network that allows rapid and cost-efficient retrieval of blockchain data from 100+ chains using Subsquid's decentralized data lake and open-source SDK. In simple terms, Subsquid can be considered an ETL (extract, transform, and load) tool with a GraphQL server included. It enables comprehensive filtering, pagination, and even full-text search capabilities. Subsquid has native and full support for EVM and Substrate data, even within the same project.
+
+    [:octicons-arrow-right-24: Reference](https://www.sqd.ai/){target=\_blank}
+
+-   __Subquery__
+
+    ---
+
+    SubQuery is a fast, flexible, and reliable open-source data decentralised infrastructure network that provides both RPC and indexed data to consumers worldwide.
+    It provides custom APIs for your web3 project across multiple supported chains.
+
+    [:octicons-arrow-right-24: Reference](https://subquery.network/){target=\_blank}
+
+</div>
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/parachains/integrations/oracles/
+--- BEGIN CONTENT ---
+---
+title: Oracles
+description: Learn about blockchain oracles, the essential bridges connecting blockchains with real-world data for decentralized applications in the Polkadot ecosystem.
+categories: Tooling, Dapps
+---
+
+# Oracles
+
+## What is a Blockchain Oracle?
+
+Oracles enable blockchains to access external data sources. Since blockchains operate as isolated networks, they cannot natively interact with external systems - this limitation is known as the "blockchain oracle problem." Oracles solves this by extracting data from external sources (like APIs, IoT devices, or other blockchains), validating it, and submitting it on-chain.
+
+While simple oracle implementations may rely on a single trusted provider, more sophisticated solutions use decentralized networks where multiple providers stake assets and reach consensus on data validity. Typical applications include DeFi price feeds, weather data for insurance contracts, and cross-chain asset verification.
+
+## Oracle Implementations
+
+<div class="grid cards" markdown>
+
+-   __Acurast__
+
+    ---
+
+    Acurast is a decentralized, serverless cloud platform that uses a distributed network of mobile devices for oracle services, addressing centralized trust and data ownership issues. In the Polkadot ecosystem, it allows developers to define off-chain data and computation needs, which are processed by these devices acting as decentralized oracle nodes, delivering results to Substrate (Wasm) and EVM environments.
+
+    [:octicons-arrow-right-24: Reference](https://acurast.com/){target=\_blank}
+
+</div>
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/parachains/testing/
+--- BEGIN CONTENT ---
+---
+title: Get Started
+description: Simplify Polkadot SDK development with Chopsticks. Learn essential features, how to install Chopsticks, and how to configure local blockchain forks.
+categories: Parachains, Tooling
+---
+
+# Get Started
+
+## Introduction
+
+[Chopsticks](https://github.com/AcalaNetwork/chopsticks/){target=\_blank}, developed by the [Acala Foundation](https://github.com/AcalaNetwork){target=\_blank}, is a versatile tool tailored for developers working on Polkadot SDK-based blockchains. With Chopsticks, you can fork live chains locally, replay blocks to analyze extrinsics, and simulate complex scenarios like XCM interactions all without deploying to a live network.
+
+This guide walks you through installing Chopsticks and provides information on configuring a local blockchain fork. By streamlining testing and experimentation, Chopsticks empowers developers to innovate and accelerate their blockchain projects within the Polkadot ecosystem.
+
+For additional support and information, please reach out through [GitHub Issues](https://github.com/AcalaNetwork/chopsticks/issues){target=_blank}.
+
+!!! warning
+    Chopsticks uses [Smoldot](https://github.com/smol-dot/smoldot){target=_blank} light client, which only supports the native Polkadot SDK API. Consequently, a Chopsticks-based fork doesn't support Ethereum JSON-RPC calls, meaning you cannot use it to fork your chain and connect Metamask.
+
+## Prerequisites
+
+Before you begin, ensure you have the following installed:
+
+- [Node.js](https://nodejs.org/en/){target=\_blank}.
+- A package manager such as [npm](https://www.npmjs.com/){target=\_blank}, which should be installed with Node.js by default, or [Yarn](https://yarnpkg.com/){target=\_blank}.
+
+## Install Chopsticks
+
+You can install Chopsticks globally or locally in your project. Choose the option that best fits your development workflow. This documentation explains the features of Chopsticks version `{{ dependencies.javascript_packages.chopsticks.version }}`. Make sure you're using the correct version to match these instructions.
+
+### Global Installation
+
+To install Chopsticks globally, allowing you to use it across multiple projects, run:
+
+```bash
+npm i -g @acala-network/chopsticks@{{ dependencies.javascript_packages.chopsticks.version }}
+```
+
+Now, you should be able to run the `chopsticks` command from your terminal.
+
+### Local Installation
+
+To use Chopsticks in a specific project, first create a new directory and initialize a Node.js project:
+
+```bash
+mkdir my-chopsticks-project
+cd my-chopsticks-project
+npm init -y
+```
+
+Then, install Chopsticks as a local dependency:
+
+```bash
+npm i @acala-network/chopsticks@{{ dependencies.javascript_packages.chopsticks.version }}
+```
+
+Finally, you can run Chopsticks using the `npx` command. To see all available options and commands, run it with the `--help` flag:
+
+```bash
+npx @acala-network/chopsticks --help
+```
+
+## Configure Chopsticks
+
+To run Chopsticks, you need to configure some parameters. This can be set either through using a configuration file or the command line interface (CLI). The parameters that can be configured are as follows:
+
+- **`genesis`**: The link to a parachain's raw genesis file to build the fork from, instead of an endpoint.
+- **`timestamp`**: Timestamp of the block to fork from.
+- **`endpoint`**: The endpoint of the parachain to fork.
+- **`block`**: Use to specify at which block hash or number to replay the fork.
+- **`wasm-override`**: Path of the Wasm to use as the parachain runtime, instead of an endpoint's runtime.
+- **`db`**: Path to the name of the file that stores or will store the parachain's database.
+- **`config`**: Path or URL of the config file.
+- **`port`**: The port to expose an endpoint on.
+- **`build-block-mode`**: How blocks should be built in the fork: batch, manual, instant.
+- **`import-storage`**: A pre-defined JSON/YAML storage path to override in the parachain's storage.
+- **`allow-unresolved-imports`**: Whether to allow Wasm unresolved imports when using a Wasm to build the parachain.
+- **`html`**: Include to generate storage diff preview between blocks.
+- **`mock-signature-host`**: Mock signature host so that any signature starts with `0xdeadbeef` and filled by `0xcd` is considered valid.
+
+### Configuration File
+
+The Chopsticks source repository includes a collection of [YAML](https://yaml.org/){target=\_blank} files that can be used to set up various Polkadot SDK chains locally. You can download these configuration files from the [repository's `configs` folder](https://github.com/AcalaNetwork/chopsticks/tree/master/configs){target=\_blank}.
+
+An example of a configuration file for Polkadot is as follows:
+
+```yaml
+endpoint:
+  - wss://rpc.ibp.network/polkadot
+  - wss://polkadot-rpc.dwellir.com
+mock-signature-host: true
+block: ${env.POLKADOT_BLOCK_NUMBER}
+db: ./db.sqlite
+runtime-log-level: 5
+
+import-storage:
+  System:
+    Account:
+      - - - 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY
+        - providers: 1
+          data:
+            free: '10000000000000000000'
+  ParasDisputes:
+    $removePrefix: ['disputes'] # those can makes block building super slow
+```
+
+The configuration file allows you to modify the storage of the forked network by rewriting the pallet, state component and value that you want to change. For example, Polkadot's file rewrites Alice's `system.Account` storage so that the free balance is set to `10000000000000000000`.
+
+### CLI Flags
+
+Alternatively, all settings (except for genesis and timestamp) can be configured via command-line flags, providing a comprehensive method to set up the environment.
+
+## WebSocket Commands
+
+Chopstick's internal WebSocket server has special endpoints that allow the manipulation of the local Polkadot SDK chain.
+
+These are the methods that can be invoked and their parameters:
+
+- **dev_newBlock** (newBlockParams): Generates one or more new blocks.
+
+    === "Parameters"
+
+        - **`newBlockParams` ++"NewBlockParams"++**: The parameters to build the new block with. Where the `NewBlockParams` interface includes the following properties.
+
+            - **`count` ++"number"++**: The number of blocks to build.
+            - **`dmp` ++"{ msg: string, sentAt: number }[]"++**: The downward messages to include in the block.
+            - **`hrmp` ++"Record<string | number, { data: string, sentAt: number }[]>"++**: The horizontal messages to include in the block.
+            - **`to` ++"number"++**: The block number to build to.
+            - **`transactions` ++"string[]"++**: The transactions to include in the block.
+            - **`ump` ++"Record<number, string[]>"++**: The upward messages to include in the block.
+            - **`unsafeBlockHeight` ++"number"++**: Build block using a specific block height (unsafe).
+
+    === "Example"
+
+        ```js
+        import { ApiPromise, WsProvider } from '@polkadot/api';
+
+async function main() {
+  const wsProvider = new WsProvider('ws://localhost:8000');
+  const api = await ApiPromise.create({ provider: wsProvider });
+  await api.isReady;
+  await api.rpc('dev_newBlock', { count: 1 });
+}
+
+main();
+        ```
+
+- **dev_setBlockBuildMode** (buildBlockMode): Sets block build mode.
+
+    === "Parameter"
+    
+        - **`buildBlockMode` ++"BuildBlockMode"++**: The build mode. Can be any of the following modes:
+
+            ```ts
+            export enum BuildBlockMode {
+              Batch = 'Batch', /** One block per batch (default) */
+              Instant = 'Instant', /** One block per transaction */
+              Manual = 'Manual', /** Only build when triggered */
+            }
+            ```
+            
+    === "Example"
+
+        ```js
+        import { ApiPromise, WsProvider } from '@polkadot/api';
+
+async function main() {
+  const wsProvider = new WsProvider('ws://localhost:8000');
+  const api = await ApiPromise.create({ provider: wsProvider });
+  await api.isReady;
+  await api.rpc('dev_setBlockBuildMode', 'Instant');
+}
+
+main();
+        ```
+
+- **dev_setHead** (hashOrNumber): Sets the head of the blockchain to a specific hash or number.
+
+    === "Parameter"
+
+        - **`hashOrNumber` ++"string | number"++**: The block hash or number to set as head.
+
+    === "Example"
+
+        ```js
+        import { ApiPromise, WsProvider } from '@polkadot/api';
+
+async function main() {
+  const wsProvider = new WsProvider('ws://localhost:8000');
+  const api = await ApiPromise.create({ provider: wsProvider });
+  await api.isReady;
+  await api.rpc('dev_setHead', 500);
+}
+
+main();
+        ```
+
+- **dev_setRuntimeLogLevel** (runtimeLogLevel): Sets the runtime log level.
+
+    === "Parameter"
+
+        - **`runtimeLogLevel` ++"number"++**: The runtime log level to set.
+
+    === "Example"
+
+        ```js
+        import { ApiPromise, WsProvider } from '@polkadot/api';
+
+async function main() {
+  const wsProvider = new WsProvider('ws://localhost:8000');
+  const api = await ApiPromise.create({ provider: wsProvider });
+  await api.isReady;
+  await api.rpc('dev_setRuntimeLogLevel', 1);
+}
+
+main();
+        ```
+
+- **dev_setStorage** (values, blockHash): Creates or overwrites the value of any storage.
+
+    === "Parameters"
+
+        - **`values` ++"object"++**: JSON object resembling the path to a storage value.
+        - **`blockHash` ++"string"++**: The block hash to set the storage value.
+
+    === "Example"
+
+        ```js
+        import { ApiPromise, WsProvider } from '@polkadot/api';
+
+import { Keyring } from '@polkadot/keyring';
+async function main() {
+  const wsProvider = new WsProvider('ws://localhost:8000');
+  const api = await ApiPromise.create({ provider: wsProvider });
+  await api.isReady;
+  const keyring = new Keyring({ type: 'ed25519' });
+  const bob = keyring.addFromUri('//Bob');
+  const storage = {
+    System: {
+      Account: [[[bob.address], { data: { free: 100000 }, nonce: 1 }]],
+    },
+  };
+  await api.rpc('dev_setStorage', storage);
+}
+
+main();
+        ```
+
+- **dev_timeTravel** (date): Sets the timestamp of the block to a specific date".
+
+    === "Parameter"
+
+        - **`date` ++"string"++**: Timestamp or date string to set. All future blocks will be sequentially created after this point in time.
+
+    === "Example"
+
+        ```js
+        import { ApiPromise, WsProvider } from '@polkadot/api';
+
+async function main() {
+  const wsProvider = new WsProvider('ws://localhost:8000');
+  const api = await ApiPromise.create({ provider: wsProvider });
+  await api.isReady;
+  await api.rpc('dev_timeTravel', '2030-08-15T00:00:00');
+}
+
+main();
+        ```
+
+## Where to Go Next
+
+<div class="grid cards" markdown>
+
+-   <span class="badge tutorial">Tutorial</span> __Fork a Chain with Chopsticks__
+
+    ---
+
+    Visit this guide for step-by-step instructions for configuring and interacting with your forked chain.
+
+    [:octicons-arrow-right-24: Reference](/tutorials/polkadot-sdk/testing/fork-live-chains/)
+
+</div>
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/parachains/testing/run-a-parachain-network/
+--- BEGIN CONTENT ---
+---
+title: Get Started 
+description: Quickly install and configure Zombienet to deploy and test Polkadot-based blockchain networks with this comprehensive getting-started guide.
+categories: Parachains, Tooling
+---
+
+# Get Started
+
+## Introduction
+
+Zombienet is a robust testing framework designed for Polkadot SDK-based blockchain networks. It enables developers to efficiently deploy and test ephemeral blockchain environments on platforms like Kubernetes, Podman, and native setups. With its simple and versatile CLI, Zombienet provides an all-in-one solution for spawning networks, running tests, and validating performance.
+
+This guide will outline the different installation methods for Zombienet, provide step-by-step instructions for setting up on various platforms, and highlight essential provider-specific features and requirements.
+
+By following this guide, Zombienet will be up and running quickly, ready to streamline your blockchain testing and development workflows.
+
+## Install Zombienet
+
+Zombienet releases are available on the [Zombienet repository](https://github.com/paritytech/zombienet){target=\_blank}.
+
+Multiple options are available for installing Zombienet, depending on the user's preferences and the environment where it will be used. The following section will guide you through the installation process for each option.
+
+=== "Use the executable"
+
+    Install Zombienet using executables by visiting the [latest release](https://github.com/paritytech/zombienet/releases){target=\_blank} page and selecting the appropriate asset for your operating system. You can download the executable and move it to a directory in your PATH. 
+
+    Each release includes executables for Linux and macOS. Executables are generated using [pkg](https://github.com/vercel/pkg){target=\_blank}, which allows the Zombienet CLI to operate without requiring Node.js to be installed. 
+
+    Then, ensure the downloaded file is executable:
+
+    ```bash
+    chmod +x zombienet-{{ dependencies.repositories.zombienet.architecture }}
+    ```
+
+    Finally, you can run the following command to check if the installation was successful. If so, it will display the version of the installed Zombienet:
+
+    ```bash
+    ./zombienet-{{ dependencies.repositories.zombienet.architecture }} version
+    ```
+
+    If you want to add the `zombienet` executable to your PATH, you can move it to a directory in your PATH, such as `/usr/local/bin`:
+
+    ```bash
+    mv zombienet-{{ dependencies.repositories.zombienet.architecture }} /usr/local/bin/zombienet
+    ```
+
+    Now you can refer to the `zombienet` executable directly.
+
+    ```bash
+    zombienet version
+    ```
+
+=== "Use Nix"
+
+    For Nix users, the Zombienet repository provides a [`flake.nix`](https://github.com/paritytech/zombienet/blob/main/flake.nix){target=\_blank} file to install Zombienet making it easy to incorporate Zombienet into Nix-based projects.
+    
+    To install Zombienet utilizing Nix, users can run the following command, triggering the fetching of the flake and subsequently installing the Zombienet package:
+
+    ```bash
+    nix run github:paritytech/zombienet/INSERT_ZOMBIENET_VERSION -- \
+    spawn INSERT_ZOMBIENET_CONFIG_FILE_NAME.toml
+    ```
+
+    Replace the `INSERT_ZOMBIENET_VERSION` with the desired version of Zombienet and the `INSERT_ZOMBIENET_CONFIG_FILE_NAME` with the name of the configuration file you want to use.
+
+    To run the command above, you need to have [Flakes](https://nixos.wiki/wiki/Flakes#Enable_flakes){target=\_blank} enabled.
+
+    Alternatively, you can also include the Zombienet binary in the PATH for the current shell using the following command:
+    
+    ```bash
+    nix shell github:paritytech/zombienet/INSERT_ZOMBIENET_VERSION
+    ```
+
+=== "Use Docker"
+
+    Zombienet can also be run using Docker. The Zombienet repository provides a Docker image that can be used to run the Zombienet CLI. To run Zombienet using Docker, you can use the following command:
+
+    ```bash
+    docker run -it --rm \
+    -v $(pwd):/home/nonroot/zombie-net/host-current-files \
+    paritytech/zombienet
+    ```
+
+    The command above will run the Zombienet CLI inside a Docker container and mount the current directory to the `/home/nonroot/zombie-net/host-current-files` directory. This allows Zombienet to access the configuration file and other files in the current directory. If you want to mount a different directory, replace `$(pwd)` with the desired directory path.
+
+    Inside the Docker container, you can run the Zombienet CLI commands. First, you need to set up Zombienet to download the necessary binaries:
+
+    ```bash
+    npm run zombie -- setup polkadot polkadot-parachain
+    ```
+
+    After that, you need to add those binaries to the PATH:
+
+    ```bash
+    export PATH=/home/nonroot/zombie-net:$PATH
+    ```
+
+    Finally, you can run the Zombienet CLI commands. For example, to spawn a network using a specific configuration file, you can run the following command:
+
+    ```bash
+    npm run zombie -- -p native spawn host-current-files/minimal.toml
+    ```
+
+    The command above mounts the current directory to the `/workspace` directory inside the Docker container, allowing Zombienet to access the configuration file and other files in the current directory. If you want to mount a different directory, replace `$(pwd)` with the desired directory path.
+
+## Providers
+
+Zombienet supports different backend providers for running the nodes. At this moment, [Kubernetes](https://kubernetes.io/){target=\_blank}, [Podman](https://podman.io/){target=\_blank}, and local providers are supported, which can be declared as `kubernetes`, `podman`, or `native`, respectively.
+
+To use a particular provider, you can specify it in the network file or use the `--provider` flag in the CLI:
+
+```bash
+zombienet spawn network.toml --provider INSERT_PROVIDER
+```
+
+Alternatively, you can set the provider in the network file:
+
+```toml
+[settings]
+provider = "INSERT_PROVIDER"
+...
+```
+
+It's important to note that each provider has specific requirements and associated features. The following sections cover each provider's requirements and added features.
+
+### Kubernetes
+
+Kubernetes is a portable, extensible, open-source platform for managing containerized workloads and services. Zombienet is designed to be compatible with a variety of Kubernetes clusters, including: 
+
+- [Google Kubernetes Engine (GKE)](https://cloud.google.com/kubernetes-engine){target=\_blank}
+- [Docker Desktop](https://docs.docker.com/desktop/features/kubernetes/){target=\_blank}
+- [kind](https://kind.sigs.k8s.io/){target=\_blank}
+
+#### Requirements
+    
+To effectively interact with your cluster, you'll need to ensure that [`kubectl`](https://kubernetes.io/docs/reference/kubectl/){target=\_blank} is installed on your system. This Kubernetes command-line tool allows you to run commands against Kubernetes clusters. If you don't have `kubectl` installed, you can follow the instructions provided in the [Kubernetes documentation](https://kubernetes.io/docs/tasks/tools/#kubectl){target=\_blank}.
+
+To create resources such as namespaces, pods, and CronJobs within the target cluster, you must grant your user or service account the appropriate permissions. These permissions are essential for managing and deploying applications effectively within Kubernetes.
+
+#### Features
+    
+If available, Zombienet uses the Prometheus operator to oversee monitoring and visibility. This configuration ensures that only essential networking-related pods are deployed. Using the Prometheus operator, Zombienet improves its ability to monitor and manage network activities within the Kubernetes cluster efficiently.  
+
+### Podman
+
+Podman is a daemonless container engine for developing, managing, and running Open Container Initiative (OCI) containers and container images on Linux-based systems. Zombienet supports Podman rootless as a provider on Linux machines. Although Podman has support for macOS through an internal virtual machine (VM), the Zombienet provider code requires Podman to run natively on Linux.
+
+#### Requirements
+     
+To use Podman as a provider, you need to have Podman installed on your system. You can install Podman by following the instructions provided on the [Podman website](https://podman.io/getting-started/installation){target=\_blank}.
+
+#### Features
+    
+Using Podman, Zombienet deploys additional pods to enhance the monitoring and visibility of the active network. Specifically, pods for [Prometheus](https://prometheus.io/){target=\_blank}, [Tempo](https://grafana.com/docs/tempo/latest/operations/monitor/){target=\_blank}, and [Grafana](https://grafana.com/){target=\_blank} are included in the deployment. Grafana is configured with Prometheus and Tempo as data sources.
+
+Upon launching Zombienet, access to these monitoring services is facilitated through specific URLs provided in the output:
+
+- **Prometheus**: `http://127.0.0.1:34123`
+- **Tempo**: `http://127.0.0.1:34125`
+- **Grafana**: `http://127.0.0.1:41461`
+
+It's important to note that Grafana is deployed with default administrator access. 
+    
+When network operations cease, either from halting a running spawn with the `Ctrl+C` command or test completion, Zombienet automatically removes all associated pods.
+
+### Local Provider
+
+The Zombienet local provider, also called native, enables you to run nodes as local processes in your environment.
+
+#### Requirements
+     
+You must have the necessary binaries for your network (such as `polkadot` and `polkadot-parachain`). These binaries should be available in your PATH, allowing Zombienet to spawn the nodes as local processes.
+
+To install the necessary binaries, you can use the Zombienet CLI command:
+
+```bash
+zombienet setup polkadot polkadot-parachain
+```
+
+This command will download and prepare the necessary binaries for Zombienet's use.
+
+If you need to use a custom binary, ensure the binary is available in your PATH. You can also specify the binary path in the network configuration file. The following example uses the custom [OpenZeppelin template](https://github.com/OpenZeppelin/polkadot-runtime-templates){target=\_blank}:
+
+First, clone the OpenZeppelin template repository using the following command:
+
+```bash
+git clone https://github.com/OpenZeppelin/polkadot-runtime-templates \
+&& cd polkadot-runtime-templates/generic-template
+```
+
+Next, run the command to build the custom binary:
+
+```bash
+cargo build --release
+```
+
+Finally, add the custom binary to your PATH as follows:
+
+```bash
+export PATH=$PATH:INSERT_PATH_TO_RUNTIME_TEMPLATES/parachain-template-node/target/release
+```
+
+Alternatively, you can specify the binary path in the network configuration file. The local provider exclusively utilizes the command configuration for nodes, which supports both relative and absolute paths. You can employ the `default_command` configuration to specify the binary for spawning all nodes in the relay chain.
+
+```toml
+[relaychain]
+chain = "rococo-local"
+default_command = "./bin-v1.6.0/polkadot"
+
+[parachain]
+id = 1000
+
+    [parachain.collators]
+    name = "collator01"
+    command = "./target/release/parachain-template-node"
+```
+
+#### Features
+
+The local provider does not offer any additional features.
+
+## Configure Zombienet
+
+Effective network configuration is crucial for deploying and managing blockchain systems. Zombienet simplifies this process by offering versatile configuration options in both JSON and TOML formats. Whether setting up a simple test network or a complex multi-node system, Zombienet's tools provide the flexibility to customize every aspect of your network's setup.
+
+The following sections will explore the structure and usage of Zombienet configuration files, explain key settings for network customization, and walk through CLI commands and flags to optimize your development workflow.
+
+### Configuration Files
+
+The network configuration file can be either JSON or TOML format. The Zombienet repository also provides a collection of [example configuration files](https://github.com/paritytech/zombienet/tree/main/examples){target=\_blank} that can be used as a reference.
+
+Each section may include provider-specific keys that aren't recognized by other providers. For example, if you use the local provider, any references to images for nodes will be disregarded.
+
+### CLI Usage
+
+Zombienet provides a CLI that allows interaction with the tool. The CLI can receive commands and flags to perform different kinds of operations. These operations use the following syntax:
+
+```bash
+zombienet <arguments> <commands>
+```
+
+The following sections will guide you through the primary usage of the Zombienet CLI and the available commands and flags.
+
+#### CLI Commands
+
+- **`spawn <networkConfig>`**: Spawn the network defined in the [configuration file](#configuration-files).
+- **`test <testFile>`**: Run tests on the spawned network using the assertions and tests defined in the [test file](/develop/toolkit/parachains/spawn-chains/zombienet/write-tests/#the-test-file){target=\_blank}.
+- **`setup <binaries>`**: Set up the Zombienet development environment to download and use the `polkadot` or `polkadot-parachain` executable.
+- **`convert <filePath>`**: Transforms a [polkadot-launch](https://github.com/paritytech/polkadot-launch){target=\_blank} configuration file with a `.js` or `.json` extension into a Zombienet configuration file.
+- **`version`**: Prints Zombienet version.
+- **`help`**: Prints help information.
+
+#### CLI Flags
+
+You can use the following flags to customize the behavior of the CLI:
+
+- **`-p`, `--provider`**: Override the [provider](#providers) to use.
+- **`-d`, `--dir`**: Specify a directory path for placing the network files instead of using the default temporary path.
+- **`-f`, `--force`**: Force override all prompt commands.
+- **`-l`, `--logType`**: Type of logging on the console. Defaults to `table`.
+- **`-m`, `--monitor`**: Start as monitor and don't auto clean up network.
+- **`-c`, `--spawn-concurrency`**: Number of concurrent spawning processes to launch. Defaults to `1`.
+- **`-h`, `--help`**: Display help for command.
+
+### Settings
+
+Through the keyword `settings`, it's possible to define the general settings for the network. The available keys are:
+
+- **`global_volumes?`** ++"GlobalVolume[]"++: A list of global volumes to use.
+
+    ??? child "`GlobalVolume` interface definition"
+        ```js
+        export interface GlobalVolume {
+          name: string;
+          fs_type: string;
+          mount_path: string;
+        }
+        ```
+
+- **`bootnode`** ++"boolean"++: Add bootnode to network. Defaults to `true`.
+- **`bootnode_domain?`** ++"string"++: Domain to use for bootnode.
+- **`timeout`** ++"number"++: Global timeout to use for spawning the whole network.
+- **`node_spawn_timeout?`** ++"number"++: Timeout to spawn pod/process.
+- **`grafana?`** ++"boolean"++: Deploy an instance of Grafana.
+- **`prometheus?`** ++"boolean"++: Deploy an instance of Prometheus.
+- **`telemetry?`** ++"boolean"++: Enable telemetry for the network.
+- **`jaeger_agent?`** ++"string"++: The Jaeger agent endpoint passed to the nodes. Only available on Kubernetes.
+- **`tracing_collator_url?`** ++"string"++: The URL of the tracing collator used to query by the tracing assertion. Should be tempo query compatible.
+- **`tracing_collator_service_name?`** ++"string"++: Service name for tempo query frontend. Only available on Kubernetes. Defaults to `tempo-tempo-distributed-query-frontend`.
+- **`tracing_collator_service_namespace?`** ++"string"++: Namespace where tempo is running. Only available on Kubernetes. Defaults to `tempo`.
+- **`tracing_collator_service_port?`** ++"number"++: Port of the query instance of tempo. Only available on Kubernetes. Defaults to `3100`.
+- **`enable_tracing?`** ++"boolean"++: Enable the tracing system. Only available on Kubernetes. Defaults to `true`.
+- **`provider`** ++"string"++: Provider to use. Default is `kubernetes`".
+- **`polkadot_introspector?`** ++"boolean"++: Deploy an instance of polkadot-introspector. Only available on Podman and Kubernetes. Defaults to `false`.
+- **`backchannel?`** ++"boolean"++: Deploy an instance of backchannel server. Only available on Kubernetes. Defaults to `false`.
+- **`image_pull_policy?`** ++"string"++: Image pull policy to use in the network. Possible values are `Always`, `IfNotPresent`, and `Never`.
+- **`local_ip?`** ++"string"++: IP used for exposing local services (rpc/metrics/monitors). Defaults to `"127.0.0.1"`.
+- **`global_delay_network_global_settings?`** ++"number"++: Delay in seconds to apply to the network.
+- **`node_verifier?`** ++"string"++: Specify how to verify node readiness or deactivate by using `None`. Possible values are `None` and `Metric`. Defaults to `Metric`.
+
+For example, the following configuration file defines a minimal example for the settings:
+
+=== "TOML"
+
+    ```toml title="base-example.toml"
+    [settings]
+timeout = 1000
+bootnode = false
+provider = "kubernetes"
+backchannel = false
+# ...
+    ```
+
+=== "JSON"
+
+    ```json title="base-example.json"
+    {
+    "settings": {
+        "timeout": 1000,
+        "bootnode": false,
+        "provider": "kubernetes",
+        "backchannel": false,
+        "...": {}
+    },
+    "...": {}
+}
+    ```
+
+### Relay Chain Configuration
+
+You can use the `relaychain` keyword to define further parameters for the relay chain at start-up. The available keys are:
+
+- **`default_command?`** ++"string"++: The default command to run. Defaults to `polkadot`.
+- **`default_image?`** ++"string"++: The default Docker image to use.
+- **`default_resources?`** ++"Resources"++: Represents the resource limits/reservations the nodes need by default. Only available on Kubernetes.
+
+    ??? child "`Resources` interface definition"
+        ```js
+        export interface Resources {
+          resources: {
+            requests?: {
+              memory?: string;
+              cpu?: string;
+            };
+            limits?: {
+              memory?: string;
+              cpu?: string;
+            };
+          };
+        }
+        ```
+
+- **`default_db_snapshot?`** ++"string"++: The default database snapshot to use.
+- **`default_prometheus_prefix`** ++"string"++: A parameter for customizing the metric's prefix. Defaults to `substrate`.
+- **`default_substrate_cli_args_version?`** ++"SubstrateCliArgsVersion"++: Set the Substrate CLI arguments version.
+
+    ??? child "`SubstrateCliArgsVersion` enum definition"
+        ```js
+        export enum SubstrateCliArgsVersion {
+          V0 = 0,
+          V1 = 1,
+          V2 = 2,
+          V3 = 3,
+        }
+        ```
+
+- **`default_keystore_key_types?`** ++"string[]"++: Defines which keystore keys should be created.
+- **`chain`** ++"string"++: The chain name.
+- **`chain_spec_path?`** ++"string"++: Path to the chain spec file. Should be the plain version to allow customizations.
+- **`chain_spec_command?`** ++"string"++: Command to generate the chain spec. It can't be used in combination with `chain_spec_path`.
+- **`default_args?`** ++"string[]"++: An array of arguments to use as default to pass to the command.
+- **`default_overrides?`** ++"Override[]"++: An array of overrides to upload to the node.
+
+    ??? child "`Override` interface definition"
+        ```js
+        export interface Override {
+          local_path: string;
+          remote_name: string;
+        } 
+        ```
+
+- **`random_nominators_count?`** ++"number"++: If set and the stacking pallet is enabled, Zombienet will generate the input quantity of nominators and inject them into the genesis.
+- **`max_nominations`** ++"number"++: The max number of nominations allowed by a nominator. Should match the value set in the runtime. Defaults to `24`.
+- **`nodes?`** ++"Node[]"++: An array of nodes to spawn. It is further defined in the [Node Configuration](#node-configuration) section.
+- **`node_groups?`** ++"NodeGroup[]"++: An array of node groups to spawn. It is further defined in the [Node Group Configuration](#node-group-configuration) section.
+- **`total_node_in_group?`** ++"number"++: The total number of nodes in the group. Defaults to `1`.
+- **`genesis`** ++"JSON"++: The genesis configuration.
+- **`default_delay_network_settings?`** ++"DelayNetworkSettings"++: Sets the expected configuration to delay the network.
+
+    ??? child "`DelayNetworkSettings` interface definition"
+        ```js
+        export interface DelayNetworkSettings {
+          latency: string;
+          correlation?: string; // should be parsable as float by k8s
+          jitter?: string;
+        }
+        ```
+
+#### Node Configuration
+
+One specific key capable of receiving more subkeys is the `nodes` key. This key is used to define further parameters for the nodes. The available keys:
+
+- **`name`** ++"string"++: Name of the node. Any whitespace will be replaced with a dash (for example, `new alice` will be converted to `new-alice`).
+- **`image?`** ++"string"++: Override default Docker image to use for this node.
+- **`command?`** ++"string"++: Override default command to run.
+- **`command_with_args?`** ++"string"++: Override default command and arguments.
+- **`args?`** ++"string[]"++: Arguments to be passed to the command.
+- **`env?`** ++"envVars[]"++: Environment variables to set in the container.
+
+    ??? child "`envVars` interface definition"
+        ```js
+        export interface EnvVars {
+          name: string;
+          value: string;
+        }
+        ```
+
+- **`prometheus_prefix?`** ++"string"++: Customizes the metric's prefix for the specific node. Defaults to `substrate`.
+- **`db_snapshot?`** ++"string"++: Database snapshot to use.
+- **`substrate_cli_args_version?`** ++"SubstrateCliArgsVersion"++: Set the Substrate CLI arguments version directly to skip binary evaluation overhead.
+
+    ??? child "`SubstrateCliArgsVersion` enum definition"
+        ```js
+        export enum SubstrateCliArgsVersion {
+          V0 = 0,
+          V1 = 1,
+          V2 = 2,
+          V3 = 3,
+        }
+        ```
+
+- **`resources?`** ++"Resources"++: Represent the resources limits/reservations needed by the node.
+
+    ??? child "`Resources` interface definition"
+        ```js
+        export interface Resources {
+          resources: {
+            requests?: {
+              memory?: string;
+              cpu?: string;
+            };
+            limits?: {
+              memory?: string;
+              cpu?: string;
+            };
+          };
+        }
+        ```
+
+- **`keystore_key_types?`** ++"string[]"++: Defines which keystore keys should be created.
+- **`validator`** ++"boolean"++: Pass the `--validator` flag to the command. Defaults to `true`.
+- **`invulnerable`** ++"boolean"++: If true, add the node to invulnerables in the chain spec. Defaults to `false`.
+- **`balance`** ++"number"++: Balance to set in balances for node's account. Defaults to `2000000000000`.
+- **`bootnodes?`** ++"string[]"++: Array of bootnodes to use.
+- **`add_to_bootnodes?`** ++"boolean"++: Add this node to the bootnode list. Defaults to `false`.
+- **`ws_port?`** ++"number"++: WS port to use.
+- **`rpc_port?`** ++"number"++: RPC port to use.
+- **`prometheus_port?`** ++"number"++: Prometheus port to use.
+- **`p2p_cert_hash?`** ++"string"++: Libp2p certhash to use with webRTC transport.
+- **`delay_network_settings?`** ++"DelayNetworkSettings"++: Sets the expected configuration to delay the network.
+
+    ??? child "`DelayNetworkSettings` interface definition"
+        ```js
+        export interface DelayNetworkSettings {
+          latency: string;
+          correlation?: string; // should be parsable as float by k8s
+          jitter?: string;
+        }
+        ```
+
+The following configuration file defines a minimal example for the relay chain, including the `nodes` key:
+
+=== "TOML"
+
+    ```toml title="relaychain-example-nodes.toml"
+    [relaychain]
+default_command = "polkadot"
+default_image = "polkadot-debug:master"
+chain = "rococo-local"
+chain_spec_path = "INSERT_PATH_TO_CHAIN_SPEC"
+default_args = ["--chain", "rococo-local"]
+
+[[relaychain.nodes]]
+name = "alice"
+validator = true
+balance = 1000000000000
+
+[[relaychain.nodes]]
+name = "bob"
+validator = true
+balance = 1000000000000
+# ...
+    ```
+
+=== "JSON"
+
+    ```json title="relaychain-example-nodes.json"
+    {
+    "relaychain": {
+        "default_command": "polkadot",
+        "default_image": "polkadot-debug:master",
+        "chain": "rococo-local",
+        "chain_spec_path": "INSERT_PATH_TO_CHAIN-SPEC.JSON",
+        "default_args": ["--chain", "rococo-local"],
+        "nodes": [
+            {
+                "name": "alice",
+                "validator": true,
+                "balance": 1000000000000
+            },
+            {
+                "name": "bob",
+                "validator": true,
+                "balance": 1000000000000
+            }
+        ]
+    }
+}
+    ```
+
+#### Node Group Configuration
+
+The `node_groups` key defines further parameters for the node groups. The available keys are:
+
+- **`name`** ++"string"++: Name of the node. Any whitespace will be replaced with a dash (for example, `new alice` will be converted to `new-alice`).
+- **`image?`** ++"string"++: Override default Docker image to use for this node.
+- **`command?`** ++"string"++: Override default command to run.
+- **`args?`** ++"string[]"++: Arguments to be passed to the command.
+- **`env?`** ++"envVars[]"++: Environment variables to set in the container.
+    
+    ??? child "`envVars` interface definition"
+        ```js
+        export interface EnvVars {
+          name: string;
+          value: string;
+        }
+        ```
+
+- **`overrides?`** ++"Override[]"++: Array of overrides definitions.
+
+    ??? child "`Override` interface definition"
+        ```js
+        export interface Override {
+          local_path: string;
+          remote_name: string;
+        }
+        ```
+
+- **`prometheus_prefix?`** ++"string"++: Customizes the metric's prefix for the specific node. Defaults to `substrate`.
+- **`db_snapshot?`** ++"string"++: Database snapshot to use.
+- **`substrate_cli_args_version?`** ++"SubstrateCliArgsVersion"++: Set the Substrate CLI arguments version directly to skip binary evaluation overhead.
+
+    ??? child "`SubstrateCliArgsVersion` enum definition"
+        ```js
+        export enum SubstrateCliArgsVersion {
+          V0 = 0,
+          V1 = 1,
+          V2 = 2,
+          V3 = 3,
+        }
+        ```
+
+- **`resources?`** ++"Resources"++: Represent the resources limits/reservations needed by the node.
+
+    ??? child "`Resources` interface definition"
+        ```js
+        export interface Resources {
+          resources: {
+            requests?: {
+              memory?: string;
+              cpu?: string;
+            };
+            limits?: {
+              memory?: string;
+              cpu?: string;
+            };
+          };
+        }
+        ```
+
+- **`keystore_key_types?`** ++"string[]"++: Defines which keystore keys should be created.
+- **`count`** ++"number | string"++: Number of nodes to launch for this group.
+- **`delay_network_settings?`** ++"DelayNetworkSettings"++: Sets the expected configuration to delay the network.
+
+    ??? child "`DelayNetworkSettings` interface definition"
+        ```js
+        export interface DelayNetworkSettings {
+          latency: string;
+          correlation?: string; // should be parsable as float by k8s
+          jitter?: string;
+        }
+        ```
+
+The following configuration file defines a minimal example for the relay chain, including the `node_groups` key:
+
+=== "TOML"
+
+    ```toml title="relaychain-example-node-groups.toml"
+    [relaychain]
+default_command = "polkadot"
+default_image = "polkadot-debug:master"
+chain = "rococo-local"
+chain_spec_path = "INSERT_PATH_TO_CHAIN_SPEC"
+default_args = ["--chain", "rococo-local"]
+
+[[relaychain.node_groups]]
+name = "group-1"
+count = 2
+image = "polkadot-debug:master"
+command = "polkadot"
+args = ["--chain", "rococo-local"]
+# ...
+    ```
+
+=== "JSON"
+
+    ```json title="relaychain-example-node-groups.json"
+    {
+    "relaychain": {
+        "default_command": "polkadot",
+        "default_image": "polkadot-debug:master",
+        "chain": "rococo-local",
+        "chain_spec_path": "INSERT_PATH_TO_CHAIN-SPEC.JSON",
+        "default_args": ["--chain", "rococo-local"],
+        "node_groups": [
+            {
+                "name": "group-1",
+                "count": 2,
+                "image": "polkadot-debug:master",
+                "command": "polkadot",
+                "args": ["--chain", "rococo-local"]
+            }
+        ],
+        "...": {}
+    },
+    "...": {}
+}
+    ```
+
+### Parachain Configuration
+
+The `parachain` keyword defines further parameters for the parachain. The available keys are:
+
+- **`id`** ++"number"++: The id to assign to this parachain. Must be unique.
+- **`chain?`** ++"string"++: The chain name.
+- **`force_decorator?`** ++"string"++: Force the use of a specific decorator.
+- **`genesis?`** ++"JSON"++: The genesis configuration.
+- **`balance?`** ++"number"++: Balance to set in balances for parachain's account.
+- **`delay_network_settings?`** ++"DelayNetworkSettings"++: Sets the expected configuration to delay the network.
+
+    ??? child "`DelayNetworkSettings` interface definition"
+        ```js
+        export interface DelayNetworkSettings {
+          latency: string;
+          correlation?: string; // should be parsable as float by k8s
+          jitter?: string;
+        }
+        ```
+
+- **`add_to_genesis?`** ++"boolean"++: Flag to add parachain to genesis or register in runtime. Defaults to `true`.
+- **`register_para?`** ++"boolean"++: Flag to specify whether the para should be registered. The `add_to_genesis` flag must be set to false for this flag to have any effect. Defaults to `true`.
+- **`onboard_as_parachain?`** ++"boolean"++: Flag to specify whether the para should be onboarded as a parachain, rather than remaining a parathread. Defaults to `true`.
+- **`genesis_wasm_path?`** ++"string"++: Path to the Wasm file to use.
+- **`genesis_wasm_generator?`** ++"string"++: Command to generate the Wasm file.
+- **`genesis_state_path?`** ++"string"++: Path to the state file to use.
+- **`genesis_state_generator?`** ++"string"++: Command to generate the state file.
+- **`chain_spec_path?`** ++"string"++: Path to the chain spec file.
+- **`chain_spec_command?`** ++"string"++: Command to generate the chain spec.
+- **`cumulus_based?`** ++"boolean"++: Flag to use cumulus command generation. Defaults to `true`.
+- **`bootnodes?`** ++"string[]"++: Array of bootnodes to use.
+- **`prometheus_prefix?`** ++"string"++: Parameter for customizing the metric's prefix for all parachain nodes/collators. Defaults to `substrate`.
+- **`collator?`** ++"Collator"++: Further defined in the [Collator Configuration](#collator-configuration) section.
+- **`collator_groups?`** ++"CollatorGroup[]"++: An array of collator groups to spawn. It is further defined in the [Collator Groups Configuration](#collator-groups-configuration) section.
+ 
+For example, the following configuration file defines a minimal example for the parachain:
+
+=== "TOML"
+
+    ```toml title="parachain-example.toml"
+    [parachain]
+id = 100
+add_to_genesis = true
+cumulus_based = true
+genesis_wasm_path = "INSERT_PATH_TO_WASM"
+genesis_state_path = "INSERT_PATH_TO_STATE"
+# ...
+    ```
+
+=== "JSON"
+
+    ```json title="parachain-example.json"
+    {
+    "parachain": {
+        "id": 100,
+        "add_to_genesis": true,
+        "cumulus_based": true,
+        "genesis_wasm_path": "INSERT_PATH_TO_WASM",
+        "genesis_state_path": "INSERT_PATH_TO_STATE",
+        "...": {}
+    },
+    "...": {}
+}
+    ```
+
+#### Collator Configuration
+
+One specific key capable of receiving more subkeys is the `collator` key. This key defines further parameters for the nodes. The available keys are:
+
+- **`name`** ++"string"++: Name of the collator. Any whitespace will be replaced with a dash (for example, `new alice` will be converted to `new-alice`).
+- **`image?`** ++"string"++: Image to use for the collator.
+- **`command_with_args?`** ++"string"++: Overrides both command and arguments for the collator.
+- **`validator`** ++"boolean"++: Pass the `--validator` flag to the command. Defaults to `true`.
+- **`invulnerable`** ++"boolean"++: If true, add the collator to invulnerables in the chain spec. Defaults to `false`.
+- **`balance`** ++"number"++: Balance to set in balances for collator's account. Defaults to `2000000000000`.
+- **`bootnodes?`** ++"string[]"++: Array of bootnodes to use.
+- **`add_to_bootnodes?`** ++"boolean"++: Add this collator to the bootnode list. Defaults to `false`.
+- **`ws_port?`** ++"number"++: WS port to use.
+- **`rpc_port?`** ++"number"++: RPC port to use.
+- **`prometheus_port?`** ++"number"++: Prometheus port to use.
+- **`p2p_port?`** ++"number"++: P2P port to use.
+- **`p2p_cert_hash?`** ++"string"++: Libp2p certhash to use with webRTC transport.
+- **`delay_network_settings?`** ++"DelayNetworkSettings"++: Sets the expected configuration to delay the network.
+
+    ??? child "`DelayNetworkSettings` interface definition"
+        ```js
+        export interface DelayNetworkSettings {
+          latency: string;
+          correlation?: string; // should be parsable as float by k8s
+          jitter?: string;
+        }
+        ```
+
+- **`command?`** ++"string"++: Override default command to run.
+- **`args?`** ++"string[]"++: Arguments to be passed to the command.
+- **`env?`** ++"envVars[]"++: Environment variables to set in the container.
+
+    ??? child "`envVars` interface definition"
+        ```js
+        export interface EnvVars {
+          name: string;
+          value: string;
+        }
+        ```
+
+- **`overrides?`** ++"Override[]"++: Array of overrides definitions.
+
+    ??? child "`Override` interface definition"
+        ```js
+        export interface Override {
+          local_path: string;
+          remote_name: string;
+        }
+        ```
+
+- **`prometheus_prefix?`** ++"string"++: Customizes the metric's prefix for the specific node. Defaults to `substrate`.
+- **`db_snapshot?`** ++"string"++: Database snapshot to use.
+- **`substrate_cli_args_version?`** ++"SubstrateCliArgsVersion"++: Set the Substrate CLI arguments version directly to skip binary evaluation overhead.
+
+    ??? child "`SubstrateCliArgsVersion` enum definition"
+        ```js
+        export enum SubstrateCliArgsVersion {
+          V0 = 0,
+          V1 = 1,
+          V2 = 2,
+          V3 = 3,
+        }
+        ```
+
+- **`resources?`** ++"Resources"++: Represent the resources limits/reservations needed by the node.
+
+    ??? child "`Resources` interface definition"
+        ```js
+        export interface Resources {
+          resources: {
+            requests?: {
+              memory?: string;
+              cpu?: string;
+            };
+            limits?: {
+              memory?: string;
+              cpu?: string;
+            };
+          };
+        }
+        ```
+
+- **`keystore_key_types?`** ++"string[]"++: Defines which keystore keys should be created.
+
+The configuration file below defines a minimal example for the collator:
+
+=== "TOML"
+
+    ```toml title="collator-example.toml"
+    [parachain]
+id = 100
+add_to_genesis = true
+cumulus_based = true
+genesis_wasm_path = "INSERT_PATH_TO_WASM"
+genesis_state_path = "INSERT_PATH_TO_STATE"
+
+[[parachain.collators]]
+name = "alice"
+image = "polkadot-parachain"
+command = "polkadot-parachain"
+# ...
+    ```
+
+=== "JSON"
+
+    ```json title="collator-example.json"
+    {
+    "parachain": {
+        "id": 100,
+        "add_to_genesis": true,
+        "cumulus_based": true,
+        "genesis_wasm_path": "INSERT_PATH_TO_WASM",
+        "genesis_state_path": "INSERT_PATH_TO_STATE",
+        "collators": [
+            {
+                "name": "alice",
+                "image": "polkadot-parachain",
+                "command": "polkadot-parachain",
+                "...": {}
+            }
+        ]
+    },
+    "...": {}
+}
+    ```
+
+#### Collator Groups Configuration
+
+The `collator_groups` key defines further parameters for the collator groups. The available keys are:
+
+- **`name`** ++"string"++: Name of the node. Any whitespace will be replaced with a dash (for example, `new alice` will be converted to `new-alice`).
+- **`image?`** ++"string"++: Override default Docker image to use for this node.
+- **`command?`** ++"string"++: Override default command to run.
+- **`args?`** ++"string[]"++: Arguments to be passed to the command.
+- **`env?`** ++"envVars[]"++: Environment variables to set in the container.
+
+    ??? child "`envVars` interface definition"
+        ```js
+        export interface EnvVars {
+          name: string;
+          value: string;
+        }
+        ```
+
+- **`overrides?`** ++"Override[]"++: Array of overrides definitions.
+
+    ??? child "`Override` interface definition"
+        ```js
+        export interface Override {
+          local_path: string;
+          remote_name: string;
+        }
+        ```
+
+- **`prometheus_prefix?`** ++"string"++: Customizes the metric's prefix for the specific node. Defaults to `substrate`.
+- **`db_snapshot?`** ++"string"++: Database snapshot to use.
+- **`substrate_cli_args_version?`** ++"SubstrateCliArgsVersion"++: Set the Substrate CLI arguments version directly to skip binary evaluation overhead.
+
+    ??? child "`SubstrateCliArgsVersion` enum definition"
+        ```js
+        export enum SubstrateCliArgsVersion {
+          V0 = 0,
+          V1 = 1,
+          V2 = 2,
+          V3 = 3,
+        }
+        ```
+
+- **`resources?`** ++"Resources"++: Represent the resources limits/reservations needed by the node.
+
+    ??? child "`Resources` interface definition"
+        ```js
+        export interface Resources {
+          resources: {
+            requests?: {
+              memory?: string;
+              cpu?: string;
+            };
+            limits?: {
+              memory?: string;
+              cpu?: string;
+            };
+          };
+        }
+        ```
+
+- **`keystore_key_types?`** ++"string[]"++: Defines which keystore keys should be created.
+- **`count`** ++"number | string"++: Number of nodes to launch for this group.
+- **`delay_network_settings?`** ++"DelayNetworkSettings"++: Sets the expected configuration to delay the network.
+
+    ??? child "`DelayNetworkSettings` interface definition"
+        ```js
+        export interface DelayNetworkSettings {
+          latency: string;
+          correlation?: string; // should be parsable as float by k8s
+          jitter?: string;
+        }
+        ```
+
+For instance, the configuration file below defines a minimal example for the collator groups:
+
+=== "TOML"
+
+    ```toml title="collator-groups-example.toml"
+    [parachain]
+id = 100
+add_to_genesis = true
+cumulus_based = true
+genesis_wasm_path = "INSERT_PATH_TO_WASM"
+genesis_state_path = "INSERT_PATH_TO_STATE"
+
+[[parachain.collator_groups]]
+name = "group-1"
+count = 2
+image = "polkadot-parachain"
+command = "polkadot-parachain"
+# ...
+    ```
+
+=== "JSON"
+
+    ```json title="collator-groups-example.json"
+    {
+    "parachain": {
+        "id": 100,
+        "add_to_genesis": true,
+        "cumulus_based": true,
+        "genesis_wasm_path": "INSERT_PATH_TO_WASM",
+        "genesis_state_path": "INSERT_PATH_TO_STATE",
+        "collator_groups": [
+            {
+                "name": "group-1",
+                "count": 2,
+                "image": "polkadot-parachain",
+                "command": "polkadot-parachain",
+                "...": {}
+            }
+        ]
+    },
+    "...": {}
+}
+    ```
+
+### XCM Configuration
+
+You can use the `hrmp_channels` keyword to define further parameters for the XCM channels at start-up. The available keys are:
+
+- **`hrmp_channels`** ++"HrmpChannelsConfig[]"++: Array of Horizontal Relay-routed Message Passing (HRMP) channel configurations.
+
+    ??? child "`HrmpChannelsConfig` interface definition"
+        ```js
+        export interface HrmpChannelsConfig {
+          sender: number;
+          recipient: number;
+          max_capacity: number;
+          max_message_size: number;
+        }
+        ```
+        Each of the `HrmpChannelsConfig` keys are defined as follows:
+
+        - **`sender` ++"number"++**: Parachain ID of the sender.
+        - **`recipient` ++"number"++**: Parachain ID of the recipient.
+        - **`max_capacity` ++"number"++**: Maximum capacity of the HRMP channel.
+        - **`max_message_size` ++"number"++**: Maximum message size allowed in the HRMP channel.
+
+## Where to Go Next
+
+<div class="grid cards" markdown>
+
+-  <span class="badge external">External</span> __Zombienet Support__
+
+    ---
+
+    [Parity Technologies](https://www.parity.io/){target=\_blank} has designed and developed this framework, now maintained by the Zombienet team. 
+
+    For further support and information, refer to the following contact points:
+
+    [:octicons-arrow-right-24: Zombienet repository](https://github.com/paritytech/zombienet){target=\_blank}
+
+    [:octicons-arrow-right-24: Element public channel](https://matrix.to/#/!FWyuEyNvIFygLnWNMh:parity.io?via=parity.io&via=matrix.org&via=web3.foundation){target=\_blank}
+
+
+-   <span class="badge tutorial">Tutorial</span> __Spawn a Basic Chain with Zombienet__
+
+    ---
+
+    Learn to spawn, connect to and monitor a basic blockchain network with Zombienet, using customizable configurations for streamlined development and debugging.
+
+    [:octicons-arrow-right-24: Reference](/tutorials/polkadot-sdk/testing/spawn-basic-chain/)
+
+</div>
+--- END CONTENT ---
+
 ## Basics Concepts [shared: true]
 
 The following section contains foundational documentation shared across all Polkadot products.
@@ -15182,134 +15182,6 @@ This context is provided to help understand how the system works under the hood,
 
 
 ## Full content for shared concepts:
-
-Doc-Content: https://docs.polkadot.com/develop/interoperability/intro-to-xcm/
---- BEGIN CONTENT ---
----
-title: Introduction to XCM
-description: Unlock blockchain interoperability with XCM — Polkadot's Cross-Consensus Messaging format for cross-chain interactions.
-categories: Basics, Polkadot Protocol
----
-
-# Introduction to XCM
-
-## Introduction
-
-Polkadot’s unique value lies in its ability to enable interoperability between parachains and other blockchain systems. At the core of this capability is XCM (Cross-Consensus Messaging)—a flexible messaging format that facilitates communication and collaboration between independent consensus systems.
-
-With XCM, one chain can send intents to another one, fostering a more interconnected ecosystem. Although it was developed specifically for Polkadot, XCM is a universal format, usable in any blockchain environment. This guide provides an overview of XCM’s core principles, design, and functionality, alongside practical examples of its implementation.
-
-## Messaging Format
-
-XCM is not a protocol but a standardized [messaging format](https://github.com/polkadot-fellows/xcm-format){target=\_blank}. It defines the structure and behavior of messages but does not handle their delivery. This separation allows developers to focus on crafting instructions for target systems without worrying about transmission mechanics.
-
-XCM messages are intent-driven, outlining desired actions for the receiving blockchain to consider and potentially alter its state. These messages do not directly execute changes; instead, they rely on the host chain's environment to interpret and implement them. By utilizing asynchronous composability, XCM facilitates efficient execution where messages can be processed independently of their original order, similar to how RESTful services handle HTTP requests without requiring sequential processing.
-
-## The Four Principles of XCM
-
-XCM adheres to four guiding principles that ensure robust and reliable communication across consensus systems:
-
-- **Asynchronous**: XCM messages operate independently of sender acknowledgment, avoiding delays due to blocked processes.
-- **Absolute**: XCM messages are guaranteed to be delivered and interpreted accurately, in order, and timely. Once a message is sent, one can be sure it will be processed as intended.
-- **Asymmetric**: XCM messages follow the 'fire and forget' paradigm meaning no automatic feedback is provided to the sender. Any results must be communicated separately to the sender with an additional message back to the origin.
-- **Agnostic**: XCM operates independently of the specific consensus mechanisms, making it compatible across diverse systems.
-
-These principles guarantee that XCM provides a reliable framework for cross-chain communication, even in complex environments.
-
-## The XCM Tech Stack
-
-![Diagram of the XCM tech stack](/images/develop/interoperability/intro-to-xcm/intro-to-xcm-01.webp)
-
-The XCM tech stack is designed to facilitate seamless interoperable communication between chains that reside within the Polkadot ecosystem. XCM can be used to express the meaning of the messages over each of the communication channels.
-
-## Core Functionalities of XCM
-
-XCM enhances cross-consensus communication by introducing several powerful features:
-
-- **Programmability**: Supports dynamic message handling, allowing for more comprehensive use cases. Includes branching logic, safe dispatches for version checks, and asset operations like NFT management.
-- **Functional Multichain Decomposition**: Enables mechanisms such as remote asset locking, asset namespacing, and inter-chain state referencing, with contextual message identification.
-- **Bridging**: Establishes a universal reference framework for multi-hop setups, connecting disparate systems like Ethereum and Bitcoin with the Polkadot relay chain acting as a universal location.
-
-The standardized format for messages allows parachains to handle tasks like user balances, governance, and staking, freeing the Polkadot relay chain to focus on shared security. These features make XCM indispensable for implementing scalable and interoperable blockchain applications. 
-
-## XCM Example
-
-The following is a simplified XCM message demonstrating a token transfer from Alice to Bob on the same chain (ParaA).
-
-```rust
-let message = Xcm(vec![
-    WithdrawAsset((Here, amount).into()),
-    BuyExecution { 
-        fees: (Here, amount).into(), 
-        weight_limit: WeightLimit::Unlimited 
-    },
-    DepositAsset {
-        assets: All.into(),
-        beneficiary: MultiLocation {
-            parents: 0,
-            interior: Junction::AccountId32 {
-                network: None,
-                id: BOB.clone().into()
-            }.into(),
-        }.into()
-    }
-]);
-```
-
-The message consists of three instructions described as follows:
-
-- **[WithdrawAsset](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#withdrawasset){target=\_blank}**: Transfers a specified number of tokens from Alice's account to a holding register.
-
-    ```rust
-    WithdrawAsset((Here, amount).into()),
-    ```
-
-    - **`Here`**: The native parachain token.
-    - **`amount`**: The number of tokens that are transferred.
-
-    The first instruction takes as an input the MultiAsset that should be withdrawn. The MultiAsset describes the native parachain token with the `Here` keyword. The `amount` parameter is the number of tokens that are transferred. The withdrawal account depends on the origin of the message. In this example the origin of the message is Alice. The `WithdrawAsset` instruction moves `amount` number of native tokens from Alice's account into the holding register.
-
-- **[BuyExecution](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#buyexecution){target=\_blank}**: Allocates fees to cover the execution [weight](/polkadot-protocol/glossary/#weight){target=\_blank} of the XCM instructions.
-
-    ```rust
-    BuyExecution { 
-        fees: (Here, amount).into(), 
-        weight_limit: WeightLimit::Unlimited 
-    },
-    ```
-
-    - **`fees`**: Describes the asset in the holding register that should be used to pay for the weight.
-    - **`weight_limit`**: Defines the maximum fees that can be used to buy weight.
-
-- **[DepositAsset](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#depositasset){target=\_blank}**: Moves the remaining tokens from the holding register to Bob’s account.
-
-    ```rust
-    DepositAsset {
-        assets: All.into(),
-        beneficiary: MultiLocation {
-            parents: 0,
-            interior: Junction::AccountId32 {
-                network: None,
-                id: BOB.clone().into()
-            }.into(),
-        }.into()
-    }
-    ```
-
-    - **`All`**: The wildcard for the asset(s) to be deposited. In this case, all assets in the holding register should be deposited.
-    
-This step-by-step process showcases how XCM enables precise state changes within a blockchain system. You can find a complete XCM message example in the [XCM repository](https://github.com/paritytech/xcm-docs/blob/main/examples/src/0_first_look/mod.rs){target=\_blank}.
-
-## Overview
-
-XCM revolutionizes cross-chain communication by enabling use cases such as:
-
-- Token transfers between blockchains.
-- Asset locking for cross-chain smart contract interactions.
-- Remote execution of functions on other blockchains.
-
-These functionalities empower developers to build innovative, multi-chain applications, leveraging the strengths of various blockchain networks. To stay updated on XCM’s evolving format or contribute, visit the [XCM repository](https://github.com/paritytech/xcm-docs/blob/main/examples/src/0_first_look/mod.rs){target=\_blank}.
---- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/interoperability/send-messages/
 --- BEGIN CONTENT ---
@@ -15571,7 +15443,7 @@ categories: Basics, Polkadot Protocol
 
 ## Introduction
 
-Polkadot is designed to enable interoperability between its connected parachains. At the core of this interoperability is the [Cross-Consensus Message Format (XCM)](/develop/interoperability/intro-to-xcm/){target=\_blank}, a standard language that allows parachains to communicate and interact with each other.
+Polkadot is designed to enable interoperability between its connected parachains. At the core of this interoperability is the [Cross-Consensus Message Format (XCM)](/parachains/interoperability/){target=\_blank}, a standard language that allows parachains to communicate and interact with each other.
 
 The network-layer protocol responsible for delivering XCM-formatted messages between parachains is the [Cross-Chain Message Passing (XCMP)](https://wiki.polkadot.com/learn/learn-xcm-transport/#xcmp-cross-chain-message-passing){target=\_blank} protocol. XCMP maintains messaging queues on the relay chain, serving as a bridge to facilitate cross-chain interactions.
 
@@ -15626,13 +15498,13 @@ Explore the following tutorials for detailed, step-by-step guidance on setting u
 
 <div class="grid cards" markdown>
 
--   <span class="badge tutorial">Tutorial</span> __Opening HRMP Channels Between Parachains__
+-   <span class="badge guide">Guide</span> __Opening HRMP Channels Between Parachains__
 
     ---
 
     Learn how to open HRMP channels between parachains on Polkadot. Discover the step-by-step process for establishing uni- and bidirectional communication.
 
-    [:octicons-arrow-right-24: Reference](/tutorials/interoperability/xcm-channels/para-to-para/)
+    [:octicons-arrow-right-24: Reference](/parachains/interoperability/channels-between-parachains/)
 
 -   <span class="badge tutorial">Tutorial</span> __Opening HRMP Channels with System Parachains__
 
@@ -15640,7 +15512,7 @@ Explore the following tutorials for detailed, step-by-step guidance on setting u
 
     Learn how to open HRMP channels with Polkadot system parachains. Discover the process for establishing bi-directional communication using a single XCM message.
 
-    [:octicons-arrow-right-24: Reference](/tutorials/interoperability/xcm-channels/para-to-system/)
+    [:octicons-arrow-right-24: Reference](/parachains/interoperability/channels-with-system-parachains/)
 
 </div>
 --- END CONTENT ---
@@ -16692,7 +16564,7 @@ Polkadot Hub supports a comprehensive suite of development tools familiar to Eth
 
 ### Cross-Chain Capabilities
 
-Smart contracts deployed on Polkadot Hub can leverage Polkadot's [cross-consensus messaging (XCM) protocol](/develop/interoperability/intro-to-xcm/){target=\_blank} protocol to seamlessly _transfer tokens and call functions on other blockchain networks_ within the Polkadot ecosystem, all without complex bridging infrastructure or third-party solutions. For further references, check the [Interoperability](/develop/interoperability/){target=\_blank} section.
+Smart contracts deployed on Polkadot Hub can leverage Polkadot's [cross-consensus messaging (XCM) protocol](/parachains/interoperability/){target=\_blank} protocol to seamlessly _transfer tokens and call functions on other blockchain networks_ within the Polkadot ecosystem, all without complex bridging infrastructure or third-party solutions. For further references, check the [Interoperability](/develop/interoperability/){target=\_blank} section.
 
 ### Use Cases
 
@@ -18414,8 +18286,8 @@ For additional support and information, please reach out through [GitHub Issues]
 
 To follow this tutorial, ensure you have completed the following:
 
-- **Installed Chopsticks**: If you still need to do so, see the [Install Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/#install-chopsticks){target=\_blank} guide for assistance.
-- **Reviewed** [Configure Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/#configure-chopsticks){target=\_blank}: And understand how forked chains are configured.
+- **Installed Chopsticks**: If you still need to do so, see the [Install Chopsticks](/parachains/testing/#install-chopsticks){target=\_blank} instructions for assistance.
+- **Reviewed [Configure Chopsticks](/parachains/testing/#configure-chopsticks){target=\_blank}**: You should understand how forked chains are configured.
 
 ## Configuration File 
 
@@ -18517,7 +18389,7 @@ connectToFork();
 
 ## Replay Blocks
 
-Chopsticks allows you to replay specific blocks from a chain, which is useful for debugging and analyzing state changes. You can use the parameters in the [Configuration](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/#configure-chopsticks){target=\_blank} section to set up the chain configuration, and then use the run-block subcommand with the following additional options:
+Chopsticks allows you to replay specific blocks from a chain, which is useful for debugging and analyzing state changes. You can use the parameters in the [Configuration](/parachains/testing/#configure-chopsticks){target=\_blank} section to set up the chain configuration, and then use the run-block subcommand with the following additional options:
 
 - **`output-path`**: Path to print output.
 - **`html`**: Generate HTML with storage diff.
@@ -18757,12 +18629,12 @@ By the end of this tutorial, you'll be equipped to deploy and test your own bloc
 
 To successfully complete this tutorial, you must ensure you've first:
 
-- [Installed Zombienet](/develop/toolkit/parachains/spawn-chains/zombienet/get-started/#install-zombienet){target=\_blank}. This tutorial requires Zombienet version `{{ dependencies.repositories.zombienet.version }}`. Verify that you're using the specified version to ensure compatibility with the instructions.
-- Reviewed the information in [Configure Zombienet](/develop/toolkit/parachains/spawn-chains/zombienet/get-started/#configure-zombienet){target=\_blank} and understand how to customize a spawned network.
+- [Installed Zombienet](/parachains/testing/run-a-rollup-network/#install-zombienet){target=\_blank}. This tutorial requires Zombienet version `{{ dependencies.repositories.zombienet.version }}`. Verify that you're using the specified version to ensure compatibility with the instructions.
+- Reviewed the information in [Configure Zombienet](/parachains/testing/run-a-rollup-network/#configure-zombienet){target=\_blank} and understand how to customize a spawned network.
 
 ## Set Up Local Provider
 
-In this tutorial, you will use the Zombienet [local provider](/develop/toolkit/parachains/spawn-chains/zombienet/get-started/#local-provider){target=\_blank} (also called native provider) that enables you to run nodes as local processes in your development environment.
+In this tutorial, you will use the Zombienet [local provider](/parachains/testing/run-a-rollup-network/#local-provider){target=\_blank} (also called native provider) that enables you to run nodes as local processes in your development environment.
 
 You must have the necessary binaries installed (such as `polkadot` and `polkadot-parachain`) to spin up your network successfully.
 
@@ -18789,7 +18661,7 @@ sudo mv ./polkadot ./polkadot-execute-worker ./polkadot-parachain ./polkadot-pre
 
 ## Define the Network
 
-Zombienet uses a [configuration file](/develop/toolkit/parachains/spawn-chains/zombienet/get-started/#configuration-files){target=\_blank} to define the ephemeral network that will be spawned. Follow these steps to create and define the configuration file:
+Zombienet uses a [configuration file](/parachains/testing/run-a-rollup-network/#configuration-files){target=\_blank} to define the ephemeral network that will be spawned. Follow these steps to create and define the configuration file:
 
 1. Create a file named `spawn-a-basic-network.toml`:
 
@@ -19513,6 +19385,134 @@ For more detailed information about Solidity types, functions, and best practice
 </div>
 --- END CONTENT ---
 
+Doc-Content: https://docs.polkadot.com/parachains/interoperability/
+--- BEGIN CONTENT ---
+---
+title: Introduction to XCM
+description: Unlock blockchain interoperability with XCM — Polkadot's Cross-Consensus Messaging format for cross-chain interactions.
+categories: Basics, Polkadot Protocol
+---
+
+# Introduction to XCM
+
+## Introduction
+
+Polkadot’s unique value lies in its ability to enable interoperability between parachains and other blockchain systems. At the core of this capability is XCM (Cross-Consensus Messaging)—a flexible messaging format that facilitates communication and collaboration between independent consensus systems.
+
+With XCM, one chain can send intents to another one, fostering a more interconnected ecosystem. Although it was developed specifically for Polkadot, XCM is a universal format, usable in any blockchain environment. This guide provides an overview of XCM’s core principles, design, and functionality, alongside practical examples of its implementation.
+
+## Messaging Format
+
+XCM is not a protocol but a standardized [messaging format](https://github.com/polkadot-fellows/xcm-format){target=\_blank}. It defines the structure and behavior of messages but does not handle their delivery. This separation allows developers to focus on crafting instructions for target systems without worrying about transmission mechanics.
+
+XCM messages are intent-driven, outlining desired actions for the receiving blockchain to consider and potentially alter its state. These messages do not directly execute changes; instead, they rely on the host chain's environment to interpret and implement them. By utilizing asynchronous composability, XCM facilitates efficient execution where messages can be processed independently of their original order, similar to how RESTful services handle HTTP requests without requiring sequential processing.
+
+## The Four Principles of XCM
+
+XCM adheres to four guiding principles that ensure robust and reliable communication across consensus systems:
+
+- **Asynchronous**: XCM messages operate independently of sender acknowledgment, avoiding delays due to blocked processes.
+- **Absolute**: XCM messages are guaranteed to be delivered and interpreted accurately, in order, and timely. Once a message is sent, one can be sure it will be processed as intended.
+- **Asymmetric**: XCM messages follow the 'fire and forget' paradigm meaning no automatic feedback is provided to the sender. Any results must be communicated separately to the sender with an additional message back to the origin.
+- **Agnostic**: XCM operates independently of the specific consensus mechanisms, making it compatible across diverse systems.
+
+These principles guarantee that XCM provides a reliable framework for cross-chain communication, even in complex environments.
+
+## The XCM Tech Stack
+
+![Diagram of the XCM tech stack](/images/parachains/interoperability/index/intro-to-xcm-01.webp)
+
+The XCM tech stack is designed to facilitate seamless interoperable communication between chains that reside within the Polkadot ecosystem. XCM can be used to express the meaning of the messages over each of the communication channels.
+
+## Core Functionalities of XCM
+
+XCM enhances cross-consensus communication by introducing several powerful features:
+
+- **Programmability**: Supports dynamic message handling, allowing for more comprehensive use cases. Includes branching logic, safe dispatches for version checks, and asset operations like NFT management.
+- **Functional Multichain Decomposition**: Enables mechanisms such as remote asset locking, asset namespacing, and inter-chain state referencing, with contextual message identification.
+- **Bridging**: Establishes a universal reference framework for multi-hop setups, connecting disparate systems like Ethereum and Bitcoin with the Polkadot relay chain acting as a universal location.
+
+The standardized format for messages allows parachains to handle tasks like user balances, governance, and staking, freeing the Polkadot relay chain to focus on shared security. These features make XCM indispensable for implementing scalable and interoperable blockchain applications. 
+
+## XCM Example
+
+The following is a simplified XCM message demonstrating a token transfer from Alice to Bob on the same chain (ParaA).
+
+```rust
+let message = Xcm(vec![
+    WithdrawAsset((Here, amount).into()),
+    BuyExecution { 
+        fees: (Here, amount).into(), 
+        weight_limit: WeightLimit::Unlimited 
+    },
+    DepositAsset {
+        assets: All.into(),
+        beneficiary: MultiLocation {
+            parents: 0,
+            interior: Junction::AccountId32 {
+                network: None,
+                id: BOB.clone().into()
+            }.into(),
+        }.into()
+    }
+]);
+```
+
+The message consists of three instructions described as follows:
+
+- **[WithdrawAsset](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#withdrawasset){target=\_blank}**: Transfers a specified number of tokens from Alice's account to a holding register.
+
+    ```rust
+    WithdrawAsset((Here, amount).into()),
+    ```
+
+    - **`Here`**: The native parachain token.
+    - **`amount`**: The number of tokens that are transferred.
+
+    The first instruction takes as an input the MultiAsset that should be withdrawn. The MultiAsset describes the native parachain token with the `Here` keyword. The `amount` parameter is the number of tokens that are transferred. The withdrawal account depends on the origin of the message. In this example the origin of the message is Alice. The `WithdrawAsset` instruction moves `amount` number of native tokens from Alice's account into the holding register.
+
+- **[BuyExecution](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#buyexecution){target=\_blank}**: Allocates fees to cover the execution [weight](/polkadot-protocol/glossary/#weight){target=\_blank} of the XCM instructions.
+
+    ```rust
+    BuyExecution { 
+        fees: (Here, amount).into(), 
+        weight_limit: WeightLimit::Unlimited 
+    },
+    ```
+
+    - **`fees`**: Describes the asset in the holding register that should be used to pay for the weight.
+    - **`weight_limit`**: Defines the maximum fees that can be used to buy weight.
+
+- **[DepositAsset](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#depositasset){target=\_blank}**: Moves the remaining tokens from the holding register to Bob’s account.
+
+    ```rust
+    DepositAsset {
+        assets: All.into(),
+        beneficiary: MultiLocation {
+            parents: 0,
+            interior: Junction::AccountId32 {
+                network: None,
+                id: BOB.clone().into()
+            }.into(),
+        }.into()
+    }
+    ```
+
+    - **`All`**: The wildcard for the asset(s) to be deposited. In this case, all assets in the holding register should be deposited.
+    
+This step-by-step process showcases how XCM enables precise state changes within a blockchain system. You can find a complete XCM message example in the [XCM repository](https://github.com/paritytech/xcm-docs/blob/main/examples/src/0_first_look/mod.rs){target=\_blank}.
+
+## Overview
+
+XCM revolutionizes cross-chain communication by enabling use cases such as:
+
+- Token transfers between blockchains.
+- Asset locking for cross-chain smart contract interactions.
+- Remote execution of functions on other blockchains.
+
+These functionalities empower developers to build innovative, multi-chain applications, leveraging the strengths of various blockchain networks. To stay updated on XCM’s evolving format or contribute, visit the [XCM repository](https://github.com/paritytech/xcm-docs/blob/main/examples/src/0_first_look/mod.rs){target=\_blank}.
+--- END CONTENT ---
+
 Doc-Content: https://docs.polkadot.com/polkadot-protocol/architecture/parachains/overview/
 --- BEGIN CONTENT ---
 ---
@@ -19557,7 +19557,7 @@ Parachains are coherent, as they are self-contained environments with domain-spe
 
 ## Flexible Ecosystem
 
-Parachains enable parallelization of different services within the same network. However, unlike most layer two rollups, parachains don't suffer the same interoperability pitfalls that most rollups suffer. [Cross-Consensus Messaging (XCM)](/develop/interoperability/intro-to-xcm/){target=\_blank} provides a common communication format for each parachain and can be configured to allow a parachain to communicate with just the relay chain or certain parachains. 
+Parachains enable parallelization of different services within the same network. However, unlike most layer two rollups, parachains don't suffer the same interoperability pitfalls that most rollups suffer. [Cross-Consensus Messaging (XCM)](/parachains/interoperability/){target=\_blank} provides a common communication format for each parachain and can be configured to allow a parachain to communicate with just the relay chain or certain parachains. 
 
 The diagram below highlights the flexibility of the Polkadot ecosystem, where each parachain specializes in a distinct domain. This example illustrates how parachains, like DeFi and GameFi, leverage XCM for cross-chain operations such as asset transfers and credential verification.
 
@@ -19627,7 +19627,7 @@ Validators are incentivized through staking and penalized for malicious or erron
 
 ## Interoperability
 
-Polkadot's interoperability framework allows parachains to communicate with each other, fostering a diverse ecosystem of interconnected blockchains. Through [Cross-Consensus Messaging (XCM)](/develop/interoperability/intro-to-xcm/){target=_blank}, parachains can transfer assets, share data, and invoke functionalities on other chains securely. This standardized messaging protocol ensures that parachains can interact with the relay chain and each other, supporting efficient cross-chain operations.
+Polkadot's interoperability framework allows parachains to communicate with each other, fostering a diverse ecosystem of interconnected blockchains. Through [Cross-Consensus Messaging (XCM)](/parachains/interoperability/){target=_blank}, parachains can transfer assets, share data, and invoke functionalities on other chains securely. This standardized messaging protocol ensures that parachains can interact with the relay chain and each other, supporting efficient cross-chain operations.
 
 The XCM protocol mitigates common interoperability challenges in isolated blockchain networks, such as fragmented ecosystems and limited collaboration. By enabling decentralized applications to leverage resources and functionality across parachains, Polkadot promotes a scalable, cooperative blockchain environment that benefits all participants.
 
@@ -19660,7 +19660,7 @@ categories: Basics, Polkadot Protocol, Parachains
 
 ## Introduction
 
-Polkadot is a next-generation blockchain protocol designed to support a multi-chain future by enabling secure communication and interoperability between different blockchains. Built as a Layer-0 protocol, Polkadot introduces innovations like application-specific Layer-1 chains ([parachains](/polkadot-protocol/architecture/parachains/){targe=\_blank}), shared security through [Nominated Proof of Stake (NPoS)](/polkadot-protocol/glossary/#nominated-proof-of-stake-npos){target=\_blank}, and cross-chain interactions via its native [Cross-Consensus Messaging Format (XCM)](/develop/interoperability/intro-to-xcm/){target=\_blank}.
+Polkadot is a next-generation blockchain protocol designed to support a multi-chain future by enabling secure communication and interoperability between different blockchains. Built as a Layer-0 protocol, Polkadot introduces innovations like application-specific Layer-1 chains ([parachains](/polkadot-protocol/architecture/parachains/){targe=\_blank}), shared security through [Nominated Proof of Stake (NPoS)](/polkadot-protocol/glossary/#nominated-proof-of-stake-npos){target=\_blank}, and cross-chain interactions via its native [Cross-Consensus Messaging Format (XCM)](/parachains/interoperability/){target=\_blank}.
 
 This guide covers key aspects of Polkadot’s architecture, including its high-level protocol structure, blockspace commoditization, and the role of its native token, DOT, in governance, staking, and resource allocation.
 
@@ -19698,7 +19698,7 @@ Here’s a high-level overview of the Polkadot protocol architecture:
 
 Parachains propose blocks to Polkadot validators, who check for availability and validity before finalizing them. With the relay chain providing security, collators—full nodes of parachains—can focus on their tasks without needing strong incentives.
 
-The [Cross-Consensus Messaging Format (XCM)](/develop/interoperability/intro-to-xcm/){target=\_blank} allows parachains to exchange messages freely, leveraging the chain's security for trust-free communication.
+The [Cross-Consensus Messaging Format (XCM)](/parachains/interoperability/){target=\_blank} allows parachains to exchange messages freely, leveraging the chain's security for trust-free communication.
 
 In order to interact with chains that want to use their own finalization process (e.g., Bitcoin), Polkadot has [bridges](/polkadot-protocol/parachain-basics/interoperability/#bridges-connecting-external-networks){target=\_blank} that offer two-way compatibility, meaning that transactions can be made between different parachains.
 
@@ -21744,7 +21744,7 @@ Through XCM, decentralized applications can:
 - Enable seamless user experiences where underlying blockchain differences are invisible.
 - XCM exemplifies Polkadot’s commitment to creating a robust and interoperable ecosystem.
 
-For further information about XCM, check the [Introduction to XCM](/develop/interoperability/intro-to-xcm/){target=\_blank} article.
+For further information about XCM, check the [Introduction to XCM](/parachains/interoperability/){target=\_blank} article.
 
 ### Bridges: Connecting External Networks
 

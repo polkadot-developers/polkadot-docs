@@ -11,7 +11,7 @@ description: Explore how to connect to Kusama Hub for developing and testing sma
     <a href="#" class="md-button connectMetaMask" value="kusamaHub">Connect to Kusama Hub</a>
 </div>
 
-For more information about how to connect to a Polkadot network, please check the [Wallets](/develop/smart-contracts/wallets/){target=\_blank} guide.
+For more information about how to connect to a Polkadot network, please check the [Wallets](/smart-contracts/integrations/){target=\_blank} guide.
 
 !!! info "Production Environment"
     Kusama Hub offers a live environment for deploying smart contracts. Please note that the most recent version of Polkadot's Ethereum-compatible stack is available on the TestNet; however, you can also deploy it to the Kusama Hub for production use.
@@ -85,7 +85,7 @@ For your next steps, explore the various smart contract guides demonstrating how
     
     Explore the recommended smart contract development and deployment process on Kusama Hub using Hardhat.
     
-    [:octicons-arrow-right-24: Build with HardHat](/develop/smart-contracts/dev-environments/hardhat/)
+    [:octicons-arrow-right-24: Build with HardHat](/smart-contracts/dev-environments/hardhat/)
 
 -   <span class="badge guide">Guide</span> **Interact with the blockchain using viem**
     
@@ -93,6 +93,6 @@ For your next steps, explore the various smart contract guides demonstrating how
     
     Use viem for interacting with Ethereum-compatible chains to deploy and interact with smart contracts on Kusama Hub.
     
-    [:octicons-arrow-right-24: Build with viem](/develop/smart-contracts/libraries/viem/)
+    [:octicons-arrow-right-24: Build with viem](/smart-contracts/libraries/viem/)
 
 </div>

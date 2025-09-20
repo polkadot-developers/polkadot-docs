@@ -12,7 +12,7 @@ categories: Smart Contracts
     <a href="#" class="md-button connectMetaMask" value="passetHub">Connect to Polkadot Hub TestNet</a>
 </div>
 
-For more information about how to connect to Polkadot Hub, please check the [Wallets for Polkadot Hub](/develop/smart-contracts/wallets/){target=\_blank} guide.
+For more information about how to connect to Polkadot Hub, please check the [Wallets for Polkadot Hub](/smart-contracts/integrations/){target=\_blank} guide.
 
 !!! warning "Account Mapping"
     If you are using a native Polkadot account (32-byte format) that was created with a Polkadot/Substrate keypair (Ed25519/Sr25519) rather than an Ethereum-compatible keypair (secp256k1), you'll need to map your account to enable Ethereum compatibility. See the [Account Mapping](/polkadot-protocol/smart-contract-basics/accounts#account-mapping-for-native-polkadot-accounts){target=\_blank} section for more details.
@@ -90,7 +90,7 @@ For your next steps, explore the various smart contract guides demonstrating how
 
     Explore the smart contract development and deployment process on Polkadot Hub using the Remix IDE.
 
-    [:octicons-arrow-right-24: Build with Remix IDE](/develop/smart-contracts/dev-environments/remix/)
+    [:octicons-arrow-right-24: Build with Remix IDE](/smart-contracts/dev-environments/remix/)
 
 -   <span class="badge guide">Guide</span> __Interact with the blockchain with viem__
 
@@ -98,7 +98,7 @@ For your next steps, explore the various smart contract guides demonstrating how
 
     Use viem for interacting with Ethereum-compatible chains, to deploy and interact with smart contracts on Polkadot Hub.
 
-    [:octicons-arrow-right-24: Build with viem](/develop/smart-contracts/libraries/viem/)
+    [:octicons-arrow-right-24: Build with viem](/smart-contracts/libraries/viem/)
 
 </div>
 

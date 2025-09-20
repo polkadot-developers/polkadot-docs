@@ -9,7 +9,7 @@ categories: dApps
 
 ## Introduction
 
-Asset Conversion is an Automated Market Maker (AMM) utilizing [Uniswap V2](https://github.com/Uniswap/v2-core){target=\_blank} logic and implemented as a pallet on Polkadot's Asset Hub. For more details about this feature, please visit the [Asset Conversion on Asset Hub](/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/){target=\_blank} wiki page.
+Asset Conversion is an Automated Market Maker (AMM) utilizing [Uniswap V2](https://github.com/Uniswap/v2-core){target=\_blank} logic and implemented as a pallet on Polkadot's Asset Hub. For more details about this feature, please visit the [Asset Conversion on Asset Hub](/chain-interactions/token-operations/convert-assets/){target=\_blank} wiki page.
 
 This guide will provide detailed information about the key functionalities offered by the [Asset Conversion](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}/substrate/frame/asset-conversion){target=\_blank} pallet on Asset Hub, including:
 
@@ -24,7 +24,7 @@ Before converting assets on Asset Hub, you must ensure you have:
 
 - Access to the [Polkadot.js Apps](https://polkadot.js.org/apps){target=\_blank} interface and a connection with the intended blockchain.
 - A funded wallet containing the assets you wish to convert and enough available funds to cover the transaction fees.
-- An asset registered on Asset Hub that you want to convert. If you haven't created an asset on Asset Hub yet, refer to the [Register a Local Asset](/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-asset/){target=\_blank} or [Register a Foreign Asset](/tutorials/polkadot-sdk/system-chains/asset-hub/register-foreign-asset/){target=\_blank} documentation to create an asset.
+- An asset registered on Asset Hub that you want to convert. If you haven't created an asset on Asset Hub yet, refer to the [Register a Local Asset](/chain-interactions/token-operations/){target=\_blank} or [Register a Foreign Asset](/chain-interactions/token-operations/register-foreign-asset/){target=\_blank} documentation to create an asset.
 
 ## Create a Liquidity Pool
 
@@ -57,14 +57,14 @@ To create the liquidity pool, you can follow these steps:
     1. Select **Developer** from the top menu.
     2. Click on **Extrinsics** from the dropdown menu.
 
-    ![Extrinsics Section](/images/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/asset-conversion-1.webp)
+    ![Extrinsics Section](/images/chain-interactions/token-operations/convert-assets/convert-assets-01.webp)
 
 2. Select extrinsic to create the pool:
 
     1. Select the **`AssetConversion`** pallet.
     2. Choose the **`createPool`** extrinsic from the list of available extrinsics.
 
-    ![Create Pool Extrinsic](/images/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/asset-conversion-2.webp)
+    ![Create Pool Extrinsic](/images/chain-interactions/token-operations/convert-assets/convert-assets-02.webp)
 
 3. Fill in the required fields:
 
@@ -90,11 +90,11 @@ To create the liquidity pool, you can follow these steps:
 
     3. Click on **Submit Transaction** to create the liquidity pool.
 
-    ![Create Pool Fields](/images/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/asset-conversion-3.webp)
+    ![Create Pool Fields](/images/chain-interactions/token-operations/convert-assets/convert-assets-03.webp)
 
 Signing and submitting the transaction triggers the creation of the liquidity pool. To verify the new pool's creation, check the **Explorer** section on the Polkadot.js Apps interface and ensure that the **`PoolCreated`** event was emitted.
 
-![Pool Created Event](/images/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/asset-conversion-4.webp)
+![Pool Created Event](/images/chain-interactions/token-operations/convert-assets/convert-assets-04.webp)
 
 As the preceding image shows, the **`lpToken`** ID created for this pool is 19. This ID is essential to identify the liquidity pool and associated LP tokens.
 
@@ -109,14 +109,14 @@ To add liquidity to a pool, follow these steps:
     1. Select **Developer** from the top menu.
     2. Click on **Extrinsics** from the dropdown menu.
 
-    ![Extrinsics Section](/images/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/asset-conversion-1.webp)
+    ![Extrinsics Section](/images/chain-interactions/token-operations/convert-assets/convert-assets-01.webp)
 
 2. Select extrinsic to add liqudity:
 
     1. Select the **`assetConversion`** pallet.
     2. Choose the **`addLiquidity`** extrinsic from the list of available extrinsics.
 
-    ![Add Liquidity Extrinsic](/images/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/asset-conversion-5.webp)
+    ![Add Liquidity Extrinsic](/images/chain-interactions/token-operations/convert-assets/convert-assets-05.webp)
 
 3. Fill in the required fields:
 
@@ -147,7 +147,7 @@ To add liquidity to a pool, follow these steps:
     7. **`mintTo`**: The account to which the liquidity tokens will be minted.
     8. Click on **Submit Transaction** to add liquidity to the pool.
 
-    ![Add Liquidity Fields](/images/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/asset-conversion-6.webp)
+    ![Add Liquidity Fields](/images/chain-interactions/token-operations/convert-assets/convert-assets-06.webp)
 
     !!! warning
         Ensure that the appropriate amount of tokens provided has been minted previously and is available in your account before adding liquidity to the pool.
@@ -156,7 +156,7 @@ To add liquidity to a pool, follow these steps:
 
 Signing and submitting the transaction adds liquidity to the pool. To verify the liquidity addition, check the **Explorer** section on the Polkadot.js Apps interface and ensure that the **`LiquidityAdded`** event was emitted.
 
-![Liquidity Added Event](/images/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/asset-conversion-7.webp)
+![Liquidity Added Event](/images/chain-interactions/token-operations/convert-assets/convert-assets-07.webp)
 
 ## Swap Assets
 
@@ -171,14 +171,14 @@ To swap assets for an exact amount of tokens, follow these steps:
     1. Select **Developer** from the top menu.
     2. Click on **Extrinsics** from the dropdown menu.
 
-    ![Extrinsics Section](/images/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/asset-conversion-1.webp)
+    ![Extrinsics Section](/images/chain-interactions/token-operations/convert-assets/convert-assets-01.webp)
 
 2. Select extrinsic to swap assets:
 
     1. Select the **`AssetConversion`** pallet.
     2. Choose the **`swapExactTokensForTokens`** extrinsic from the list of available extrinsics.
 
-    ![Swap From Exact Tokens Extrinsic](/images/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/asset-conversion-8.webp)
+    ![Swap From Exact Tokens Extrinsic](/images/chain-interactions/token-operations/convert-assets/convert-assets-08.webp)
 
 3. Fill in the required fields:
 
@@ -210,7 +210,7 @@ To swap assets for an exact amount of tokens, follow these steps:
     5. **`keepAlive`**: A boolean value that determines whether the pool should be kept alive after the swap.
     6. Click on **Submit Transaction** to swap assets for an exact amount of tokens.
 
-    ![Swap For Exact Tokens Fields](/images/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/asset-conversion-9.webp)
+    ![Swap For Exact Tokens Fields](/images/chain-interactions/token-operations/convert-assets/convert-assets-09.webp)
 
     !!! warning
         Ensure that the appropriate amount of tokens provided has been minted previously and is available in your account before adding liquidity to the pool.
@@ -219,7 +219,7 @@ To swap assets for an exact amount of tokens, follow these steps:
 
 Signing and submitting the transaction will execute the swap. To verify execution, check the **Explorer** section on the Polkadot.js Apps interface and make sure that the **`SwapExecuted`** event was emitted.
 
-![Swap From Exact Tokens Event](/images/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/asset-conversion-10.webp)
+![Swap From Exact Tokens Event](/images/chain-interactions/token-operations/convert-assets/convert-assets-10.webp)
 
 ### Swap to an Exact Amount of Tokens
 
@@ -232,14 +232,14 @@ To swap assets for an exact amount of tokens, follow these steps:
     1. Select **Developer** from the top menu.
     2. Click on **Extrinsics** from the dropdown menu.
 
-    ![Extrinsics Section](/images/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/asset-conversion-1.webp)
+    ![Extrinsics Section](/images/chain-interactions/token-operations/convert-assets/convert-assets-01.webp)
 
 2. Select extrinsic to swap tokens:
 
     1. Select the **`AssetConversion`** pallet.
     2. Choose the **`swapTokensForExactTokens`** extrinsic from the list of available extrinsics.
 
-    ![Swap Tokens For Exact Tokens Extrinsic](/images/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/asset-conversion-11.webp)
+    ![Swap Tokens For Exact Tokens Extrinsic](/images/chain-interactions/token-operations/convert-assets/convert-assets-11.webp)
 
 3. Fill in the required fields:
 
@@ -270,7 +270,7 @@ To swap assets for an exact amount of tokens, follow these steps:
     5. **`keepAlive`**: A boolean value that determines whether the pool should be kept alive after the swap.
     6. Click on **Submit Transaction** to swap assets for an exact amount of tokens.
 
-    ![Swap Tokens For Exact Tokens Fields](/images/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/asset-conversion-12.webp)
+    ![Swap Tokens For Exact Tokens Fields](/images/chain-interactions/token-operations/convert-assets/convert-assets-12.webp)
 
     !!! warning
         Before swapping assets, ensure that the tokens provided have been minted previously and are available in your account.
@@ -279,7 +279,7 @@ To swap assets for an exact amount of tokens, follow these steps:
 
 Signing and submitting the transaction will execute the swap. To verify execution, check the **Explorer** section on the Polkadot.js Apps interface and make sure that the **`SwapExecuted`** event was emitted.
 
-![Swap Tokens For Exact Tokens Event](/images/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/asset-conversion-13.webp)
+![Swap Tokens For Exact Tokens Event](/images/chain-interactions/token-operations/convert-assets/convert-assets-13.webp)
 
 ## Withdraw Liquidity from a Pool
 
@@ -292,14 +292,14 @@ To withdraw liquidity from a pool, follow these steps:
     1. Select **Developer** from the top menu.
     2. Click on **Extrinsics** from the dropdown menu.
 
-    ![Extrinsics Section](/images/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/asset-conversion-1.webp)
+    ![Extrinsics Section](/images/chain-interactions/token-operations/convert-assets/convert-assets-01.webp)
 
 2. Select extrinsic to withdraw liqudity from a pool:
 
     1. Select the **`AssetConversion`** pallet.
     2. Choose the **`removeLiquidity`** extrinsic from the list of available extrinsics.
 
-    ![Remove Liquidity Extrinsic](/images/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/asset-conversion-14.webp)
+    ![Remove Liquidity Extrinsic](/images/chain-interactions/token-operations/convert-assets/convert-assets-14.webp)
 
 3. Fill in the required fields:
 
@@ -329,7 +329,7 @@ To withdraw liquidity from a pool, follow these steps:
     6. **`withdrawTo`**: The account to which the withdrawn assets will be sent.
     7. Click on **Submit Transaction** to withdraw liquidity from the pool.
 
-    ![Remove Liquidity Fields](/images/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/asset-conversion-15.webp)
+    ![Remove Liquidity Fields](/images/chain-interactions/token-operations/convert-assets/convert-assets-15.webp)
 
     !!! warning
         Ensure that the tokens provided have been minted previously and are available in your account before withdrawing liquidity from the pool.
@@ -338,7 +338,7 @@ To withdraw liquidity from a pool, follow these steps:
 
 Signing and submitting the transaction will initiate the withdrawal of liquidity from the pool. To verify the withdrawal, check the **Explorer** section on the Polkadot.js Apps interface and ensure that the **`LiquidityRemoved`** event was emitted.
 
-![Remove Liquidity Event](/images/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/asset-conversion-16.webp)
+![Remove Liquidity Event](/images/chain-interactions/token-operations/convert-assets/convert-assets-16.webp)
 
 ## Test Environment Setup
 

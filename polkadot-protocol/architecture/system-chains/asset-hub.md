@@ -214,7 +214,7 @@ For detailed error management in XCM, see Gavin Wood's blog post on [XCM Executi
 
     Comprehensive guide to registering a local asset on the Asset Hub system parachain, including step-by-step instructions.
 
-    [:octicons-arrow-right-24: Reference](/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-asset/)
+    [:octicons-arrow-right-24: Reference](/chain-interactions/token-operations/)
 
 -   <span class="badge tutorial">Tutorial</span> __Register a Foreign Asset__
 
@@ -222,7 +222,7 @@ For detailed error management in XCM, see Gavin Wood's blog post on [XCM Executi
 
     An in-depth guide to registering a foreign asset on the Asset Hub parachain, providing clear, step-by-step instructions.
 
-    [:octicons-arrow-right-24: Reference](/tutorials/polkadot-sdk/system-chains/asset-hub/register-foreign-asset/)
+    [:octicons-arrow-right-24: Reference](/chain-interactions/token-operations/register-foreign-asset/)
 
 -   <span class="badge tutorial">Tutorial</span> __Convert Assets__
 
@@ -230,6 +230,6 @@ For detailed error management in XCM, see Gavin Wood's blog post on [XCM Executi
 
     A guide detailing the step-by-step process of converting assets on Asset Hub, helping users efficiently navigate asset management on the platform.
 
-    [:octicons-arrow-right-24: Reference](/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/)
+    [:octicons-arrow-right-24: Reference](/chain-interactions/token-operations/convert-assets/)
 
 </div>

@@ -67,7 +67,7 @@ A bootnode can be run as follows:
 This assigns the p2p to port 30310 and p2p/ws to port 30311. For the p2p/wss port, a proxy must be set up with a DNS name and a corresponding certificate. The following example is for the popular nginx server and enables p2p/wss on port 30312 by adding a proxy to the p2p/ws port 30311:
 
 ``` conf title="/etc/nginx/sites-enabled/dot-bootnode"
---8<-- 'code/infrastructure/running-a-node/setup-bootnode/bootnode.conf'
+--8<-- 'code/nodes-and-validators/run-a-node/bootnode/bootnode.conf'
 ```
 
 ## Testing Bootnode Connection

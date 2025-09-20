@@ -39,7 +39,7 @@ Take the following steps to deactivate every other (vCPU) core:
     ```
 
     ```config title="/etc/default/grub"
-    -8<-- 'code/infrastructure/running-a-validator/operational-tasks/general-management/grub-config-01.js:1:7'
+    -8<-- 'code/nodes-and-validators/run-a-validator/operational-tasks/index/grub-config-01.js:1:7'
     ```
 
 3. Update GRUB to apply changes:
@@ -74,7 +74,7 @@ Follow these stpes:
     ```
 
     ```config title="/etc/default/grub"
-    -8<-- 'code/infrastructure/running-a-validator/operational-tasks/general-management/grub-config-01.js:9:15'
+    -8<-- 'code/nodes-and-validators/run-a-validator/operational-tasks/index/grub-config-01.js:9:15'
     ```
 
 3. Update GRUB to apply changes:
@@ -107,7 +107,7 @@ To selectively deactivate the Spectre mitigations, take these steps:
     ```
 
     ```config title="/etc/default/grub"
-    -8<-- 'code/infrastructure/running-a-validator/operational-tasks/general-management/grub-config-01.js:17:23'
+    -8<-- 'code/nodes-and-validators/run-a-validator/operational-tasks/index/grub-config-01.js:17:23'
     ```
 
 2. Update GRUB to apply changes and then reboot:
@@ -200,7 +200,7 @@ After setting up the environment, install and configure the latest version of Pr
     ```
 
     ```yaml title="prometheus-config.yml"
-    --8<-- 'code/infrastructure/running-a-validator/operational-tasks/general-management/prometheus-config.yml'
+    --8<-- 'code/nodes-and-validators/run-a-validator/operational-tasks/index/prometheus-config.yml'
     ```
 
     Prometheus is scraped every 5 seconds in this example configuration file, ensuring detailed internal metrics. Node metrics with customizable intervals are scraped from port `9615` by default.
@@ -230,7 +230,7 @@ After setting up the environment, install and configure the latest version of Pr
 
     If you set the server up properly, you should see terminal output similar to the following:
 
-    -8<-- 'code/infrastructure/running-a-validator/operational-tasks/general-management/terminal-ouput-01.html'
+    -8<-- 'code/nodes-and-validators/run-a-validator/operational-tasks/index/terminal-ouput-01.html'
 
 2. Verify you can access the Prometheus interface by navigating to:
 
@@ -247,7 +247,7 @@ After setting up the environment, install and configure the latest version of Pr
     ```
 
     ```bash title="prometheus.service"
-    --8<-- 'code/infrastructure/running-a-validator/operational-tasks/general-management/systemd-config.md'
+    --8<-- 'code/nodes-and-validators/run-a-validator/operational-tasks/index/systemd-config.md'
     ```
 
 4. Reload systemd and enable the service to start on boot:
@@ -336,28 +336,28 @@ To configure Grafana, take these steps:
         sudo systemctl restart grafana-server
         ```
 
-![Grafana login screen](/images/infrastructure/running-a-validator/operational-tasks/general-management/general-management-1.webp)
+![Grafana login screen](/images/nodes-and-validators/run-a-validator/operational-tasks/index/general-management-01.webp)
 
 To visualize node metrics, follow these steps:
 
 1. Select the gear icon to access **Data Sources** settings.
 2. Select **Add data source** to define the data source.
 
-    ![Select Prometheus](/images/infrastructure/running-a-validator/operational-tasks/general-management/general-management-2.webp)
+    ![Select Prometheus](/images/nodes-and-validators/run-a-validator/operational-tasks/index/general-management-02.webp)
 
 3. Select **Prometheus**.
 
-    ![Save and test](/images/infrastructure/running-a-validator/operational-tasks/general-management/general-management-3.webp)
+    ![Save and test](/images/nodes-and-validators/run-a-validator/operational-tasks/index/general-management-03.webp)
 
 4. Enter `http://localhost:9090` in the **URL** field and click **Save & Test**. If **"Data source is working"** appears, your connection is configured correctly.
 
-    ![Import dashboard](/images/infrastructure/running-a-validator/operational-tasks/general-management/general-management-4.webp)
+    ![Import dashboard](/images/nodes-and-validators/run-a-validator/operational-tasks/index/general-management-04.webp)
 
 5. Select **Import** from the left menu, choose **Prometheus** from the dropdown, and click **Import**.
 
 6. Start your Polkadot node by running `./polkadot`. You should now be able to monitor node performance, block height, network traffic, and tasks tasks on the Grafana dashboard.
 
-    ![Live dashboard](/images/infrastructure/running-a-validator/operational-tasks/general-management/general-management-5.webp)
+    ![Live dashboard](/images/nodes-and-validators/run-a-validator/operational-tasks/index/general-management-05.webp)
 
 The [Grafana dashboards](https://grafana.com/grafana/dashboards){target=\_blank} page features user created dashboards made available for public use. For an example, see the [Substrate Node Metrics](https://grafana.com/grafana/dashboards/21715-substrate-node-metrics/){target=\_blank} dashboard.
 
@@ -394,7 +394,7 @@ Follow these steps to install and configure Alertmanager:
     Generate an [app password in your Google account](https://support.google.com/accounts/answer/185833?hl=en){target=\_blank} to enable email notifications from Alertmanager. Then, add the following code to the configuration file to define email notifications using your  email and app password: 
 
     ```yml title="alertmanager.yml"
-    -8<-- 'code/infrastructure/running-a-validator/operational-tasks/general-management/alertmanager.yml'
+    -8<-- 'code/nodes-and-validators/run-a-validator/operational-tasks/index/alertmanager.yml'
     ```
 
 
@@ -409,7 +409,7 @@ Follow these steps to install and configure Alertmanager:
     ```
 
     ```yml title="alertmanager.service"
-    -8<-- 'code/infrastructure/running-a-validator/operational-tasks/general-management/systemd-alert-config.md'
+    -8<-- 'code/nodes-and-validators/run-a-validator/operational-tasks/index/systemd-alert-config.md'
     ```
 
 5. Reload and enable the service:
@@ -428,7 +428,7 @@ Follow these steps to install and configure Alertmanager:
 
     If you have configured Alertmanager properly, the **Active** field should display **active (running)** similar to below:
 
-    -8<-- 'code/infrastructure/running-a-validator/operational-tasks/general-management/alertmanager-status.html'
+    -8<-- 'code/nodes-and-validators/run-a-validator/operational-tasks/index/alertmanager-status.html'
 
 #### Grafana Plugin
 
@@ -462,7 +462,7 @@ Complete the integration by following these steps to enable communication betwee
 1. Update the `etc/prometheus/prometheus.yml` configuration file to include the following code:
 
     ```yml title="prometheus.yml"
-    --8<-- 'code/infrastructure/running-a-validator/operational-tasks/general-management/update-prometheus.yml:5:12'
+    --8<-- 'code/nodes-and-validators/run-a-validator/operational-tasks/index/update-prometheus.yml:5:12'
     ```
 
     Expand the following item to view the complete `prometheus.yml` file.
@@ -470,7 +470,7 @@ Complete the integration by following these steps to enable communication betwee
     ??? code "prometheus.yml"
 
         ```yml title="prometheus.yml"
-        --8<-- 'code/infrastructure/running-a-validator/operational-tasks/general-management/update-prometheus.yml'
+        --8<-- 'code/nodes-and-validators/run-a-validator/operational-tasks/index/update-prometheus.yml'
         ```
 
 2. Create the rules file for detection and alerts:
@@ -482,7 +482,7 @@ Complete the integration by following these steps to enable communication betwee
     Add a sample rule to trigger email notifications for node downtime over five minutes:
 
     ```yml title="rules.yml"
-    -8<-- 'code/infrastructure/running-a-validator/operational-tasks/general-management/instance-down.yml'
+    -8<-- 'code/nodes-and-validators/run-a-validator/operational-tasks/index/instance-down.yml'
     ```
 
     If any of the conditions defined in the rules file are met, an alert will be triggered. For more on alert rules, refer to [Alerting Rules](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/){target=\_blank} and [additional alerts](https://samber.github.io/awesome-prometheus-alerts/rules.html){target=\_blank}.
@@ -513,13 +513,13 @@ Validators in Polkadot's Proof of Stake (PoS) network play a critical role in ma
 
 ### Key Management
 
-Though they don't transfer funds, session keys are essential for validators as they sign messages related to consensus and parachains. Securing session keys is crucial as allowing them to be exploited or used across multiple nodes can lead to a loss of staked funds via [slashing](/infrastructure/staking-mechanics/offenses-and-slashes/){target=\_blank}.
+Though they don't transfer funds, session keys are essential for validators as they sign messages related to consensus and parachains. Securing session keys is crucial as allowing them to be exploited or used across multiple nodes can lead to a loss of staked funds via [slashing](/nodes-and-validators/run-a-validator/staking-mechanics/offenses-and-slashes/){target=\_blank}.
 
 Given the current limitations in high-availability setups and the risks associated with double-signing, it’s recommended to run only a single validator instance. Keys should be securely managed, and processes automated to minimize human error.
 
 There are two approaches for generating session keys:
 
-- **Generate and store in node**: Using the `author.rotateKeys` RPC call. For most users, generating keys directly within the client is recommended. You must submit a session certificate from your staking proxy to register new keys. See the [How to Validate](/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/){target=\_blank} guide for instructions on setting keys.
+- **Generate and store in node**: Using the `author.rotateKeys` RPC call. For most users, generating keys directly within the client is recommended. You must submit a session certificate from your staking proxy to register new keys. See the [How to Validate](/nodes-and-validators/run-a-validator/onboarding-and-offboarding/set-up-validator/){target=\_blank} guide for instructions on setting keys.
 
 - **Generate outside node and insert**: Using the `author.setKeys` RPC call. This flexibility accommodates advanced security setups and should only be used by experienced validator operators.
 

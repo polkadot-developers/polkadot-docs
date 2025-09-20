@@ -29,7 +29,7 @@ When connecting, you can generate a self-signed certificate and rely on your nod
 
 Use the following command to generate a self-signed certificate using OpenSSL:
 
---8<-- 'code/infrastructure/running-a-node/setup-secure-wss/install-openssl.md'
+--8<-- 'code/nodes-and-validators/run-a-node/secure-wss/install-openssl.md'
 
 ## Install a Proxy Server
 
@@ -43,21 +43,21 @@ There are a lot of different implementations of a WebSocket proxy; some of the m
     ```
 
 2. In an SSL-enabled virtual host, add:
-    --8<-- 'code/infrastructure/running-a-node/setup-secure-wss/nginx-config.md'
+    --8<-- 'code/nodes-and-validators/run-a-node/secure-wss/nginx-config.md'
 
 3. Optionally, you can introduce some form of rate limiting:
-    --8<-- 'code/infrastructure/running-a-node/setup-secure-wss/nginx-rate-limit.md'
+    --8<-- 'code/nodes-and-validators/run-a-node/secure-wss/nginx-rate-limit.md'
 
 ### Use Apache2
 
 Apache2 can run in various modes, including `prefork`, `worker`, and `event`. In this example, the [`event`](https://httpd.apache.org/docs/2.4/mod/event.html){target=\_blank} mode is recommended for handling higher traffic loads, as it is optimized for performance in such environments. However, depending on the specific requirements of your setup, other modes like `prefork` or `worker` may also be appropriate.
 
 1. Install the `apache2` web server:
-    --8<-- 'code/infrastructure/running-a-node/setup-secure-wss/install-apache2.md'
+    --8<-- 'code/nodes-and-validators/run-a-node/secure-wss/install-apache2.md'
 
 2. The [`mod_proxy_wstunnel`](https://httpd.apache.org/docs/2.4/mod/mod_proxy_wstunnel.html){target=\_blank} provides support for the tunneling of WebSocket connections to a backend WebSocket server. The connection is automatically upgraded to a WebSocket connection. In an SSL-enabled virtual host add:
 
-    --8<-- 'code/infrastructure/running-a-node/setup-secure-wss/apache2-config.md'
+    --8<-- 'code/nodes-and-validators/run-a-node/secure-wss/apache2-config.md'
 
     !!!warning 
         Older versions of `mod_proxy_wstunnel` don't upgrade the connection automatically and will need the following config added:
@@ -91,4 +91,4 @@ Apache2 can run in various modes, including `prefork`, `worker`, and `event`. In
     wss://example.com:443
     ```
 
-![A sync-in-progress chain connected to Polkadot.js UI](/images/infrastructure/running-a-validator/running-a-node/setup-secure-wss/setup-secure-wss-1.webp)
+![A sync-in-progress chain connected to Polkadot.js UI](/images/nodes-and-validators/run-a-node/secure-wss/secure-wss-01.webp)

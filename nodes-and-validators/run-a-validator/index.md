@@ -17,8 +17,8 @@ This guide covers everything you need to know about becoming a validator, includ
 Running a validator requires solid system administration skills and a secure, well-maintained infrastructure. Below are the primary requirements you need to be aware of before getting started:
 
 - **System administration expertise**: Handling technical anomalies and maintaining node infrastructure is critical. Validators must be able to troubleshoot and optimize their setup.
-- **Security**: Ensure your setup follows best practices for securing your node. Refer to the [Secure Your Validator](/infrastructure/running-a-validator/operational-tasks/general-management/#secure-your-validator){target=\_blank} section to learn about important security measures.
-- **Network choice**: Start with [Kusama](/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/#run-a-kusama-validator){target=\_blank} to gain experience. Look for "Adjustments for Kusama" throughout these guides for tips on adapting the provided instructions for the Kusama network.
+- **Security**: Ensure your setup follows best practices for securing your node. Refer to the [Secure Your Validator](/nodes-and-validators/run-a-validator/operational-tasks/#secure-your-validator){target=\_blank} section to learn about important security measures.
+- **Network choice**: Start with [Kusama](/nodes-and-validators/run-a-validator/onboarding-and-offboarding/set-up-validator/#run-a-kusama-validator){target=\_blank} to gain experience. Look for "Adjustments for Kusama" throughout these guides for tips on adapting the provided instructions for the Kusama network.
 - **Staking requirements**: A minimum amount of native token (KSM or DOT) is required to be elected into the validator set. The required stake can come from your own holdings or from nominators.
 - **Risk of slashing**: Any DOT you stake is at risk if your setup fails or your validator misbehaves. If you’re unsure of your ability to maintain a reliable validator, consider nominating your DOT to a trusted validator.
 

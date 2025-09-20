@@ -56,7 +56,7 @@ This section will walk you through installing and building the Polkadot binary f
 
     You should see output similar to the following:
 
-    --8<-- 'code/infrastructure/running-a-node/setup-full-node/setup-full-node-1.html'
+    --8<-- 'code/nodes-and-validators/run-a-node/index/setup-full-node-1.html'
 
     Then, run the following commands to clone and build the Polkadot binary:
   
@@ -124,7 +124,7 @@ This section will walk you through installing and building the Polkadot binary f
 
     You should see output similar to the following:
 
-    --8<-- 'code/infrastructure/running-a-node/setup-full-node/setup-full-node-2.html'
+    --8<-- 'code/nodes-and-validators/run-a-node/index/setup-full-node-2.html'
 
     Once Rust is configured, run the following commands to clone and build Polkadot:
   
@@ -268,7 +268,7 @@ The syncing process will take a while, depending on your capacity, processing po
 
 A healthy node syncing blocks will output logs like the following:
 
---8<-- 'code/infrastructure/running-a-node/setup-full-node/run-node.html'
+--8<-- 'code/nodes-and-validators/run-a-node/index/run-node.html'
 
 Congratulations, you're now syncing a Polkadot full node! Remember that the process is identical when using any other Polkadot SDK-based chain, although individual chains may have chain-specific flag requirements.
 

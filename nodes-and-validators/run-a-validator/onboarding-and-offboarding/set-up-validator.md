@@ -16,10 +16,10 @@ Running a validator requires a commitment to maintaining a stable, secure infras
 
 To get the most from this guide, ensure you've done the following before going forward:
 
-- Read [Validator Requirements](/infrastructure/running-a-validator/requirements/){target=\_blank} and understand the recommended minimum skill level and hardware needs.
-- Read [General Management](/infrastructure/running-a-validator/operational-tasks/general-management){target=\_blank}, [Upgrade Your Node](/infrastructure/running-a-validator/operational-tasks/upgrade-your-node/){target=\_blank}, and [Pause Validating](/infrastructure/running-a-validator/onboarding-and-offboarding/stop-validating/){target=\_blank} and understand the tasks required to keep your validator operational.
-- Read [Rewards Payout](/infrastructure/staking-mechanics/rewards-payout/){target=\_blank} and understand how validator rewards are determined and paid out.
-- Read [Offenses and Slashes](/infrastructure/staking-mechanics/offenses-and-slashes/){target=\_blank} and understand how validator performance and security can affect tokens staked by you or your nominators.
+- Read [Validator Requirements](/nodes-and-validators/run-a-validator/){target=\_blank} and understand the recommended minimum skill level and hardware needs.
+- Read [General Management](/infrastructure/running-a-validator/operational-tasks/general-management){target=\_blank}, [Upgrade Your Node](/nodes-and-validators/run-a-validator/operational-tasks/upgrade-your-node/){target=\_blank}, and [Pause Validating](/nodes-and-validators/run-a-validator/onboarding-and-offboarding/stop-validating/){target=\_blank} and understand the tasks required to keep your validator operational.
+- Read [Rewards Payout](/nodes-and-validators/run-a-validator/staking-mechanics/){target=\_blank} and understand how validator rewards are determined and paid out.
+- Read [Offenses and Slashes](/nodes-and-validators/run-a-validator/staking-mechanics/offenses-and-slashes/){target=\_blank} and understand how validator performance and security can affect tokens staked by you or your nominators.
 
 ## Initial Setup
 
@@ -191,7 +191,7 @@ Once the Polkadot binaries are installed, it's essential to verify that everythi
 
     The output should show the version numbers for each of the binaries. Ensure that the versions match and are consistent, similar to the following example (the specific version may vary):
 
-    --8<-- 'code/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/terminal-output-01.html'
+    --8<-- 'code/nodes-and-validators/run-a-validator/onboarding-and-offboarding/set-up-validator/terminal-output-01.html'
 
     If the versions do not match or if there is an error, double-check that all the binaries were correctly installed and are accessible within your `$PATH`.
 

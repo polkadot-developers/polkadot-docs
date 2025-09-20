@@ -18,14 +18,14 @@ This section provides guidance on how to set up, activate, and deactivate your v
 
 <div class="subsection-wrapper">
   <div class="card">
-    <a href="/infrastructure/running-a-validator/requirements/" target="_blank">
+    <a href="/nodes-and-validators/run-a-validator/" target="_blank">
       <h2 class="title">Review the Requirements</h2>
       <hr>
       <p class="description">Explore the technical and system requirements for running a Polkadot validator, including setup, hardware, staking prerequisites, and security best practices.</p>
     </a>
   </div>
   <div class="card">
-    <a href="/infrastructure/staking-mechanics/rewards-payout/" target="_blank">
+    <a href="/nodes-and-validators/run-a-validator/staking-mechanics/" target="_blank">
       <h2 class="title">Learn About Staking Mechanics</h2>
       <hr>
       <p class="description">Explore the staking mechanics in Polkadot, focusing on how they relate to validators, including offenses and slashes, as well as reward payouts.</p>

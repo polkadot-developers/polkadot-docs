@@ -16,7 +16,7 @@ This guide will allow validators to seamlessly substitute an active validator se
 
 Before beginning the upgrade process for your validator node, ensure the following:
 
-- You have a fully functional validator setup with all required binaries installed. See [Set Up a Validator](/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator/){target=\_blank} and [Validator Requirements](/infrastructure/running-a-validator/requirements/){target=\_blank} for additional guidance.
+- You have a fully functional validator setup with all required binaries installed. See [Set Up a Validator](/nodes-and-validators/run-a-validator/onboarding-and-offboarding/set-up-validator/){target=\_blank} and [Validator Requirements](/nodes-and-validators/run-a-validator/){target=\_blank} for additional guidance.
 - Your VPS infrastructure has enough capacity to run a secondary validator instance temporarily for the upgrade process.
 
 ## Session Keys
@@ -27,7 +27,7 @@ Remembering this delayed effect when planning upgrades is crucial to ensure that
 
 ## Keystore
 
-Your validator server's `keystore` folder holds the private keys needed for signing network-level transactions. It is important not to duplicate or transfer this folder between validator instances. Doing so could result in multiple validators signing with the duplicate keys, leading to severe consequences such as [equivocation slashing](/infrastructure/staking-mechanics/offenses-and-slashes/#equivocation-slash){target=\_blank}. Instead, always generate new session keys for each validator instance.
+Your validator server's `keystore` folder holds the private keys needed for signing network-level transactions. It is important not to duplicate or transfer this folder between validator instances. Doing so could result in multiple validators signing with the duplicate keys, leading to severe consequences such as [equivocation slashing](/nodes-and-validators/run-a-validator/staking-mechanics/offenses-and-slashes/#equivocation-slash){target=\_blank}. Instead, always generate new session keys for each validator instance.
 
 The default path to the `keystore` is as follows:
 
@@ -66,4 +66,4 @@ Complete the following steps when you are ready to bring Validator A back online
 
 Keep Validator B active until the session during which you executed the `set-key` extrinsic completes plus two additional full sessions have passed. Once Validator A has successfully taken over, you can safely stop Validator B. This process helps ensure a smooth handoff between nodes and minimizes the risk of downtime or penalties. Verify the transition by checking for finalized blocks in the new session. The logs should indicate the successful change, similar to the example below:
 
---8<-- 'code/infrastructure/running-a-validator/operational-tasks/upgrade-your-node/verify-session-change.md'
+--8<-- 'code/nodes-and-validators/run-a-validator/operational-tasks/upgrade-your-node/verify-session-change.md'

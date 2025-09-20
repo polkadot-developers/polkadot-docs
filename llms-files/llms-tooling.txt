@@ -47,7 +47,7 @@ Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/re
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/smart-contracts/launch-your-first-project/create-dapp-ethers-js.md [type: tutorials]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/smart-contracts/launch-your-first-project/create-dapp-viem.md [type: tutorials]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/smart-contracts/launch-your-first-project/test-and-deploy-with-hardhat.md [type: tutorials]
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/cookbook/eth-dapps.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/cookbook/eth-dapps/uniswap-v2.md [type: other]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/explorers.md [type: other]
 
 ## Full content for each doc page
@@ -14859,7 +14859,7 @@ cd polkavm-hardhat-examples/storage-hardhat
 ```
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/smart-contracts/cookbook/eth-dapps/
+Doc-Content: https://docs.polkadot.com/smart-contracts/cookbook/eth-dapps/uniswap-v2/
 --- BEGIN CONTENT ---
 ---
 title: Deploying Uniswap V2 on Polkadot

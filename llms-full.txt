@@ -169,7 +169,7 @@ Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/re
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/polkadot-protocol/smart-contract-basics/overview.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/connect.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/cookbook/dapps/index.md
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/cookbook/eth-dapps/index.md
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/cookbook/eth-dapps/uniswap-v2.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/cookbook/index.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/cookbook/smart-contracts/deploy-erc20.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/cookbook/smart-contracts/deploy-nft.md
@@ -26873,7 +26873,7 @@ Doc-Content: https://docs.polkadot.com/smart-contracts/cookbook/dapps/
 TODO
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/smart-contracts/cookbook/eth-dapps/
+Doc-Content: https://docs.polkadot.com/smart-contracts/cookbook/eth-dapps/uniswap-v2/
 --- BEGIN CONTENT ---
 ---
 title: Deploying Uniswap V2 on Polkadot

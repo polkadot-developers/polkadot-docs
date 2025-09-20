@@ -164,7 +164,7 @@ Full execution logs only work if the runtime was compiled with logging enabled. 
 
     You'll also see runtime logs such as:
 
-    --8<-- 'code/tutorials/interoperability/replay-and-dry-run-xcms/launch-chopsticks.html'
+    --8<-- 'code/chain-interactions/send-transactions/interoperability/debug-and-preview-xcms/launch-chopsticks.html'
 
 ## Identify and Extract the XCM
 
@@ -213,7 +213,7 @@ The script assumes the Polkadot Asset Hub is served on `ws://localhost:8000`. If
 Create a file named `replay-xcm.ts` and copy the following code into it:
 
 ```ts
---8<-- 'code/tutorials/interoperability/replay-and-dry-run-xcms/replay-xcm.ts'
+--8<-- 'code/chain-interactions/send-transactions/interoperability/debug-and-preview-xcms/replay-xcm.ts'
 ```
 
 ### Execute the Replay Script
@@ -228,7 +228,7 @@ npx tsx replay-xcm.ts
 
 If everything is working, you'll see logs like:
 
---8<-- 'code/tutorials/interoperability/replay-and-dry-run-xcms/replay-xcm-result.html'
+--8<-- 'code/chain-interactions/send-transactions/interoperability/debug-and-preview-xcms/replay-xcm-result.html'
 
 ## Dry Run the XCM
 
@@ -239,7 +239,7 @@ To simulate the XCM without actually sending it, you can use the `dry_run_call` 
 Assuming you've the `tx` transaction from the previous step, you can create a new script, `dry-run-call.ts`, then paste in the following code:
 
 ```ts
---8<-- 'code/tutorials/interoperability/replay-and-dry-run-xcms/dry-run-call.ts'
+--8<-- 'code/chain-interactions/send-transactions/interoperability/debug-and-preview-xcms/dry-run-call.ts'
 ```
 
 Ensure your local Chopsticks fork is running and the ports match those used in the script.
@@ -252,11 +252,11 @@ npx tsx dry-run-call.ts
 
 If successful, the dry run confirms that the XCM would execute correctly:
 
---8<-- 'code/tutorials/interoperability/replay-and-dry-run-xcms/dry-run-success.html'
+--8<-- 'code/chain-interactions/send-transactions/interoperability/debug-and-preview-xcms/dry-run-success.html'
 
 If it fails, you'll receive detailed error information:
 
---8<-- 'code/tutorials/interoperability/replay-and-dry-run-xcms/dry-run-failure.html'
+--8<-- 'code/chain-interactions/send-transactions/interoperability/debug-and-preview-xcms/dry-run-failure.html'
 
 For more information, see:
 

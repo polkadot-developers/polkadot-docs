@@ -85,13 +85,13 @@ First, you need to set up your environment:
 8. Import the necessary modules. Add the following code to the `teleport-ah-to-bridge-hub.ts` file:
 
     ```typescript title="teleport-ah-to-bridge-hub.ts"
-    --8<-- "code/tutorials/interoperability/xcm-fee-estimation/teleport-ah-to-bridge-hub.ts::16"
+    --8<-- "code/chain-interactions/send-transactions/interoperability/estimate-xcm-fees/teleport-ah-to-bridge-hub.ts::16"
     ```
 
 9. Define constants and a `main` function where you will implement all the logic:
 
     ```typescript title="teleport-ah-to-bridge-hub.ts"
-    --8<-- "code/tutorials/interoperability/xcm-fee-estimation/teleport-ah-to-bridge-hub.ts:18:29"
+    --8<-- "code/chain-interactions/send-transactions/interoperability/estimate-xcm-fees/teleport-ah-to-bridge-hub.ts:18:29"
 
     async function main() {
       // Code will go here
@@ -107,7 +107,7 @@ Now you are ready to start implementing the logic for the fee estimation for the
 Create the API client. You will need to create a client for the Paseo Asset Hub parachain:
 
 ```typescript title="teleport-ah-to-bridge-hub.ts"
---8<-- "code/tutorials/interoperability/xcm-fee-estimation/teleport-ah-to-bridge-hub.ts:266:272"
+--8<-- "code/chain-interactions/send-transactions/interoperability/estimate-xcm-fees/teleport-ah-to-bridge-hub.ts:266:272"
 ```
 
 Ensure that you replace the endpoint URLs with the actual WebSocket endpoints. This example uses local chopsticks endpoints, but you can use public endpoints or run local nodes.
@@ -117,7 +117,7 @@ Ensure that you replace the endpoint URLs with the actual WebSocket endpoints. T
 Now, you can construct a proper XCM message using the new XCM V5 instructions for teleporting from Asset Hub to the Bridge Hub Chain:
 
 ```typescript title="teleport-ah-to-bridge-hub.ts"
---8<-- "code/tutorials/interoperability/xcm-fee-estimation/teleport-ah-to-bridge-hub.ts:33:84"
+--8<-- "code/chain-interactions/send-transactions/interoperability/estimate-xcm-fees/teleport-ah-to-bridge-hub.ts:33:84"
 ```
 
 ## Fee Estimation Function
@@ -127,7 +127,7 @@ Below is a four-step breakdown of the logic needed to estimate the fees for the 
 First, you need to create the function that will estimate the fees for the teleport:
 
 ```typescript title="teleport-ah-to-bridge-hub.ts"
---8<-- "code/tutorials/interoperability/xcm-fee-estimation/teleport-ah-to-bridge-hub.ts:86:89"
+--8<-- "code/chain-interactions/send-transactions/interoperability/estimate-xcm-fees/teleport-ah-to-bridge-hub.ts:86:89"
   // Code will go here
 }
 ```
@@ -135,25 +135,25 @@ First, you need to create the function that will estimate the fees for the telep
 1. **Local execution fees on Asset Hub**: Compute the XCM weight locally, then convert that weight to PAS using Asset Hub's view of PAS (`parents: 1, interior: Here`). Add the code to the function:
 
     ```typescript title="teleport-ah-to-bridge-hub.ts"
-    --8<-- "code/tutorials/interoperability/xcm-fee-estimation/teleport-ah-to-bridge-hub.ts:90:129"
+    --8<-- "code/chain-interactions/send-transactions/interoperability/estimate-xcm-fees/teleport-ah-to-bridge-hub.ts:90:129"
     ```
 
 2. **Dry-run and delivery fees to Bridge Hub**: Dry-run the XCM on Asset Hub to capture forwarded messages, locate the one targeting Bridge Hub (`parents: 1, interior: Here`), and ask for delivery fees. Add the code to the function:
 
     ```typescript title="teleport-ah-to-bridge-hub.ts"
-    --8<-- "code/tutorials/interoperability/xcm-fee-estimation/teleport-ah-to-bridge-hub.ts:131:193"
+    --8<-- "code/chain-interactions/send-transactions/interoperability/estimate-xcm-fees/teleport-ah-to-bridge-hub.ts:131:193"
     ```
 
 3. **Remote execution fees on Bridge Hub**: Connect to Bridge Hub, recompute the forwarded XCM weight there, and convert weight to PAS (`parents: 0, interior: Here`). Add the code to the function:
 
     ```typescript title="teleport-ah-to-bridge-hub.ts"
-    --8<-- "code/tutorials/interoperability/xcm-fee-estimation/teleport-ah-to-bridge-hub.ts:195:233"
+    --8<-- "code/chain-interactions/send-transactions/interoperability/estimate-xcm-fees/teleport-ah-to-bridge-hub.ts:195:233"
     ```
 
 4. **Sum and return totals**: Aggregate all parts, print a short summary, and return a structured result. Add the code to the function:
 
     ```typescript title="teleport-ah-to-bridge-hub.ts"
-    --8<-- "code/tutorials/interoperability/xcm-fee-estimation/teleport-ah-to-bridge-hub.ts:235:263"
+    --8<-- "code/chain-interactions/send-transactions/interoperability/estimate-xcm-fees/teleport-ah-to-bridge-hub.ts:235:263"
     ```
 
 The full code for the fee estimation function is the following:
@@ -161,7 +161,7 @@ The full code for the fee estimation function is the following:
 ??? code "Fee Estimation Function"
 
     ```typescript title="teleport-ah-to-bridge-hub.ts"
-    --8<-- "code/tutorials/interoperability/xcm-fee-estimation/teleport-ah-to-bridge-hub.ts:86:263"
+    --8<-- "code/chain-interactions/send-transactions/interoperability/estimate-xcm-fees/teleport-ah-to-bridge-hub.ts:86:263"
     ```
 
 ## Complete Implementation
@@ -169,7 +169,7 @@ The full code for the fee estimation function is the following:
 Now put it all together in the main function:
 
 ```typescript title="teleport-ah-to-bridge-hub.ts"
---8<-- "code/tutorials/interoperability/xcm-fee-estimation/teleport-ah-to-bridge-hub.ts:265:310"
+--8<-- "code/chain-interactions/send-transactions/interoperability/estimate-xcm-fees/teleport-ah-to-bridge-hub.ts:265:310"
 ```
 
 ## Full Code
@@ -179,7 +179,7 @@ The full code for the complete implementation is the following:
 ??? code "Teleport from Asset Hub to Bridge Hub"
 
     ```typescript title="teleport-ah-to-bridge-hub.ts"
-    --8<-- "code/tutorials/interoperability/xcm-fee-estimation/teleport-ah-to-bridge-hub.ts"
+    --8<-- "code/chain-interactions/send-transactions/interoperability/estimate-xcm-fees/teleport-ah-to-bridge-hub.ts"
     ```
 
 ## Running the Script
@@ -191,13 +191,13 @@ Before running the script, you can use chopsticks to fork the Paseo Asset Hub an
     ??? code "paseo-bridge-hub.yml"
 
         ```yaml title=".chopsticks/paseo-bridge-hub.yml"
-        --8<-- "code/tutorials/interoperability/xcm-fee-estimation/paseo-bridge-hub.yml"
+        --8<-- "code/chain-interactions/send-transactions/interoperability/estimate-xcm-fees/paseo-bridge-hub.yml"
         ```
     
     ??? code "paseo-asset-hub.yml"
 
         ```yaml title=".chopsticks/paseo-asset-hub.yml"
-        --8<-- "code/tutorials/interoperability/xcm-fee-estimation/paseo-asset-hub.yml"
+        --8<-- "code/chain-interactions/send-transactions/interoperability/estimate-xcm-fees/paseo-asset-hub.yml"
         ```
 
 2. Run the following command to fork the Paseo Bridge Hub chain:
@@ -208,7 +208,7 @@ Before running the script, you can use chopsticks to fork the Paseo Asset Hub an
 
     After running the command, you will see the following output:
 
-    --8<-- "code/tutorials/interoperability/xcm-fee-estimation/paseo-terminal-output-chopsticks.html"
+    --8<-- "code/chain-interactions/send-transactions/interoperability/estimate-xcm-fees/paseo-terminal-output-chopsticks.html"
 
 3. Run the following command to fork the Paseo Asset Hub chain:
 
@@ -218,7 +218,7 @@ Before running the script, you can use chopsticks to fork the Paseo Asset Hub an
 
     After running the commands, you will see the following output:
 
-    --8<-- "code/tutorials/interoperability/xcm-fee-estimation/paseo-asset-hub-terminal-output-chopsticks.html"
+    --8<-- "code/chain-interactions/send-transactions/interoperability/estimate-xcm-fees/paseo-asset-hub-terminal-output-chopsticks.html"
 
 4. Run the script:
 
@@ -228,7 +228,7 @@ Before running the script, you can use chopsticks to fork the Paseo Asset Hub an
 
 After running the script, you will see the following output:
 
---8<-- "code/tutorials/interoperability/xcm-fee-estimation/teleport-output.html"
+--8<-- "code/chain-interactions/send-transactions/interoperability/estimate-xcm-fees/teleport-output.html"
 
 ## Conclusion
 

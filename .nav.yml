@@ -1,7 +1,7 @@
 nav:
   - 'Home': index.md
   - 'Smart Contracts': smart-contracts
-  - 'Rollups': rollups
-  - 'Chain Interctions': chain-interactions
+  - 'Parachains': parachains
+  - 'Chain Interactions': chain-interactions
   # 'Get Supported': get-support
   - 'Technical Reference': reference

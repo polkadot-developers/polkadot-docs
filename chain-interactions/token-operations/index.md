@@ -33,15 +33,15 @@ To register a local asset on the Asset Hub parachain, follow these steps:
 
 2. Click on the **Network** tab on the top navigation bar and select **Assets** from the dropdown list.
 
-      ![Access to Asset Hub through Polkadot.JS](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-assets/register-a-local-asset-1.webp)
+      ![Access to Asset Hub through Polkadot.JS](/images/chain-interactions/token-operations/index/register-a-local-asset-01.webp)
 
 3. Now, you need to examine all the registered asset IDs. This step is crucial to ensure that the asset ID you are about to register is unique. Asset IDs are displayed in the **assets** column.
 
-      ![Asset IDs on Asset Hub](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-assets/register-a-local-asset-2.webp)
+      ![Asset IDs on Asset Hub](/images/chain-interactions/token-operations/index/register-a-local-asset-02.webp)
 
 4. Once you have confirmed that the asset ID is unique, click on the **Create** button on the top right corner of the page.
 
-      ![Create a new asset](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-assets/register-a-local-asset-3.webp)
+      ![Create a new asset](/images/chain-interactions/token-operations/index/register-a-local-asset-03.webp)
 
 5. Fill in the required fields in the **Create Asset** form:
 
@@ -53,7 +53,7 @@ To register a local asset on the Asset Hub parachain, follow these steps:
     6. **asset ID**: The selected id for the asset. This should not match an already-existing asset id.
     7. Click on the **Next** button.
  
-    ![Create Asset Form](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-assets/register-a-local-asset-4.webp)
+    ![Create Asset Form](/images/chain-interactions/token-operations/index/register-a-local-asset-04.webp)
 
 6. Choose the accounts for the roles listed below:
 
@@ -62,24 +62,24 @@ To register a local asset on the Asset Hub parachain, follow these steps:
     3. **freezer account**: The account that will be used for performing token freezing operations.
     4. Click on the **Create** button.
 
-    ![Admin, Issuer, Freezer accounts](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-assets/register-a-local-asset-5.webp)
+    ![Admin, Issuer, Freezer accounts](/images/chain-interactions/token-operations/index/register-a-local-asset-05.webp)
 
 7. Click on the **Sign and Submit** button to complete the asset registration process.
 
-    ![Sign and Submit](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-assets/register-a-local-asset-6.webp)
+    ![Sign and Submit](/images/chain-interactions/token-operations/index/register-a-local-asset-06.webp)
 
 ## Verify Asset Registration
 
 After completing these steps, the asset will be successfully registered. You can now view your asset listed on the [**Assets**](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fasset-hub-polkadot-rpc.dwellir.com#/assets){target=\_blank} section of the Polkadot.js Apps interface.
 
-![Asset listed on Polkadot.js Apps](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-assets/register-a-local-asset-7.webp)
+![Asset listed on Polkadot.js Apps](/images/chain-interactions/token-operations/index/register-a-local-asset-07.webp)
 
 !!! tip
     Take into consideration that the **Assets** section’s link may differ depending on the network you are using. For the local environment, enter `ws://127.0.0.1:8000` into the **Custom Endpoint** field.
 
 In this way, you have successfully registered a local asset on the Asset Hub parachain.
 
-For an in-depth explanation about Asset Hub and its features, see the [Asset Hub](/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/){target=\_blank} entry in the Polkadot Wiki.
+For an in-depth explanation about Asset Hub and its features, see the [Asset Hub](/chain-interactions/token-operations/convert-assets/){target=\_blank} entry in the Polkadot Wiki.
 
 ## Test Setup Environment
 

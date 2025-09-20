@@ -1,0 +1,4 @@
+nav:
+ - 'General Management': index.md
+ - 'Upgrade Your Node': upgrade-your-node.md
+ - 'Pause Validating': pause-validating.md

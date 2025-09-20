@@ -70,11 +70,11 @@ You will need testnet tokens to perform transactions and engage with smart contr
 
 2. Copy your address linked to the TestNet and paste it into the designated field.
 
-    ![](/images/develop/smart-contracts/connect-to-polkadot/connect-to-polkadot-1.webp)
+    ![](/images/smart-contracts/connect/connect-to-polkadot-1.webp)
 
 3. Click the **Get Some PASs** button to request free test PAS tokens. These tokens will be sent to your wallet shortly.
 
-    ![](/images/develop/smart-contracts/connect-to-polkadot/connect-to-polkadot-2.webp)
+    ![](/images/smart-contracts/connect/connect-to-polkadot-2.webp)
 
 Now that you have obtained PAS tokens in your wallet, you’re ready to deploy and interact with smart contracts on Polkadot Hub TestNet! These tokens will allow you to pay for gas fees when executing transactions, deploying contracts, and testing your dApp functionality in a secure testnet environment. 
 

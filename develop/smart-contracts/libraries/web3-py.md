@@ -69,7 +69,7 @@ The [provider](https://web3py.readthedocs.io/en/stable/providers.html){target=\_
 Before deploying your contracts, make sure you've compiled them and obtained two key files:
 
 - An ABI (.json) file, which provides a JSON interface describing the contract's functions and how to interact with it.
-- A bytecode (.polkavm) file, which contains the low-level machine code executable on [PolkaVM](/polkadot-protocol/smart-contract-basics/polkavm-design#polkavm){target=\_blank} that represents the compiled smart contract ready for blockchain deployment.
+- A bytecode (.polkavm) file, which contains the low-level machine code executable on [PolkaVM](/smart-contracts/for-eth-devs/#polkavm){target=\_blank} that represents the compiled smart contract ready for blockchain deployment.
 
 To follow this guide, you can use the following solidity contract as an example:
 

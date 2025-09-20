@@ -1,12 +1,12 @@
 [
     {
         "title": "Choose a Smart Contract Platform",
-        "content": "Select the platform that best fits your project requirements and development expertise: <br><br> - [**PolkaVM**](/develop/smart-contracts/overview#native-smart-contracts){target=_blank}: Native smart contracts on Polkadot Hub <br> - [**EVM (parachain-based)**](/develop/smart-contracts/overview#parachain-contracts){target=_blank}: Ethereum Virtual Machine compatibility on parachains <br> - [**Rust (ink!)**](/develop/smart-contracts/overview#other-smart-contract-environments){target=_blank}: Contracts using Rust and ink!",
+        "content": "Select the platform that best fits your project requirements and development expertise: <br><br> - [**PolkaVM**](/smart-contracts/overview/#native-smart-contracts){target=_blank}: Native smart contracts on Polkadot Hub <br> - [**EVM (parachain-based)**](/smart-contracts/overview/#parachain-contracts){target=_blank}: Ethereum Virtual Machine compatibility on parachains <br> - [**Rust (ink!)**](/smart-contracts/overview/#other-smart-contract-environments){target=_blank}: Contracts using Rust and ink!",
         "icon": ":fontawesome-solid-1:"
     },
     {
         "title": "Get Network Configuration Details",
-        "content": "Configure your development environment with the appropriate network settings for your chosen platform: <br><br> - **PolkaVM**: [Connect to Polkadot](/develop/smart-contracts/connect-to-polkadot/){target=_blank} <br> - **EVM**: [Moonbeam documentation](https://docs.moonbeam.network/){target=_blank}, [Astar documentation](https://docs.astar.network/){target=_blank}, [Acala documentation](https://wiki.acala.network/){target=_blank} <br> - **Rust (ink!)**: For more information, check the [ink! documentation](https://use.ink){target=_blank}",
+        "content": "Configure your development environment with the appropriate network settings for your chosen platform: <br><br> - **PolkaVM**: [Connect to Polkadot](/smart-contracts/connect/){target=_blank} <br> - **EVM**: [Moonbeam documentation](https://docs.moonbeam.network/){target=_blank}, [Astar documentation](https://docs.astar.network/){target=_blank}, [Acala documentation](https://wiki.acala.network/){target=_blank} <br> - **Rust (ink!)**: For more information, check the [ink! documentation](https://use.ink){target=_blank}",
         "icon": ":fontawesome-solid-2:"
     },
     {

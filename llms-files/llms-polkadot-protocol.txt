@@ -422,7 +422,7 @@ The `xcm-emulator` provides macros for defining a mocked testing environment. Ch
 }
     ```
 
-By leveraging these macros, developers can customize their testing networks by defining relay chains and parachains tailored to their needs. For guidance on implementing a mock runtime for a Polkadot SDK-based chain, refer to the [Pallet Testing](/develop/parachains/testing/pallet-testing/){target=\_blank} article. 
+By leveraging these macros, developers can customize their testing networks by defining relay chains and parachains tailored to their needs. For guidance on implementing a mock runtime for a Polkadot SDK-based chain, refer to the [Pallet Testing](/parachains/pallet-development/pallet-testing/){target=\_blank} article. 
 
 This framework enables thorough testing of runtime and cross-chain interactions, enabling developers to effectively design, test, and optimize cross-chain functionality.
 
@@ -2792,7 +2792,7 @@ As a Layer-0 blockchain, Polkadot contributes to the multi-chain vision through 
 
 - **Resilient infrastructure**: Decentralized and scalable, Polkadot ensures ongoing support for development and community initiatives via its on-chain [treasury](https://wiki.polkadot.com/learn/learn-polkadot-opengov-treasury/){target=\_blank} and governance.
 
-- **Rapid L1 development**: The [Polkadot SDK](/develop/parachains/intro-polkadot-sdk/){target=\_blank} allows fast, flexible creation and deployment of Layer-1 chains.
+- **Rapid L1 development**: The [Polkadot SDK](/parachains/overview/){target=\_blank} allows fast, flexible creation and deployment of Layer-1 chains.
 
 - **Cultivating the next generation of Web3 developers**: Polkadot supports the growth of Web3 core developers through initiatives such as.
 
@@ -4577,7 +4577,7 @@ impl<T: Get<Perquintill>> WeightToFee<Fixed128, Fixed128> for TargetedFeeAdjustm
 
 You now know the weight system, how it affects transaction fee computation, and how to specify weights for your dispatchable calls. The next step is determining the correct weight for your dispatchable operations. You can use Substrate benchmarking functions and frame-benchmarking calls to test your functions with different parameters and empirically determine the proper weight in their worst-case scenarios.
 
-- [Benchmark](/develop/parachains/testing/benchmarking/)
+- [Benchmark](/parachains/pallet-development/benchmark-pallet/)
 - [`SignedExtension`](https://paritytech.github.io/polkadot-sdk/master/sp_runtime/traits/trait.SignedExtension.html){target=\_blank}
 - [Custom weights for the Example pallet](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/substrate/frame/examples/basic/src/weights.rs){target=\_blank}
 - [Web3 Foundation Research](https://research.web3.foundation/Polkadot/overview/token-economics#relay-chain-transaction-fees-and-per-block-transaction-limits){target=\_blank}
@@ -6472,7 +6472,7 @@ This guide outlines the primary approaches to developing smart contracts in the 
 You'll explore the key differences between these development paths, along with considerations for parachain developers integrating smart contract functionality.
 
 !!!note "Parachain Developer?"
-    If you are a parachain developer looking to add smart contract functionality to your chain, please refer to the [Add Smart Contract Functionality](/develop/parachains/customize-parachain/add-smart-contract-functionality/){target=\_blank} page, which covers both Wasm and EVM-based contract implementations.
+    If you are a parachain developer looking to add smart contract functionality to your chain, please refer to the [Add Smart Contract Functionality](/parachains/customize-runtime/add-smart-contract-functionality/){target=\_blank} page, which covers both Wasm and EVM-based contract implementations.
 
 ## Smart Contracts Versus Parachains
 
@@ -7098,7 +7098,7 @@ The `xcm-emulator` provides macros for defining a mocked testing environment. Ch
 }
     ```
 
-By leveraging these macros, developers can customize their testing networks by defining relay chains and parachains tailored to their needs. For guidance on implementing a mock runtime for a Polkadot SDK-based chain, refer to the [Pallet Testing](/develop/parachains/testing/pallet-testing/){target=\_blank} article. 
+By leveraging these macros, developers can customize their testing networks by defining relay chains and parachains tailored to their needs. For guidance on implementing a mock runtime for a Polkadot SDK-based chain, refer to the [Pallet Testing](/parachains/pallet-development/pallet-testing/){target=\_blank} article. 
 
 This framework enables thorough testing of runtime and cross-chain interactions, enabling developers to effectively design, test, and optimize cross-chain functionality.
 
@@ -7690,8 +7690,8 @@ Choosing a suitable template depends on your project’s unique requirements, le
 
 For more detailed information on implementing this process, refer to the following sections:
 
-- [Add a Pallet to Your Runtime](/develop/parachains/customize-parachain/add-existing-pallets/)
-- [Create a Custom Pallet](/develop/parachains/customize-parachain/make-custom-pallet/)
+- [Add a Pallet to Your Runtime](/parachains/customize-runtime/add-existing-pallets/)
+- [Create a Custom Pallet](/parachains/pallet-development/)
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/parachains/install-polkadot-sdk/
@@ -8022,168 +8022,6 @@ The command displays output similar to the following:
 - **[Parachain Zero to Hero Tutorials](/tutorials/polkadot-sdk/parachains/zero-to-hero/){target=\_blank}**: A series of step-by-step guides to building, testing, and deploying custom pallets and runtimes using the Polkadot SDK.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/develop/parachains/intro-polkadot-sdk/
---- BEGIN CONTENT ---
----
-title: Introduction to Polkadot SDK
-description: Learn about the Polkadot SDK, a robust developer toolkit for building custom blockchains. Explore its components and how it powers the Polkadot protocol.
-categories: Basics, Tooling
----
-
-# Introduction to Polkadot SDK
-
-## Introduction
-
-The [Polkadot SDK](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}){target=\_blank} is a powerful and versatile developer kit designed to facilitate building on the Polkadot network. It provides the necessary components for creating custom blockchains, parachains, generalized rollups, and more. Written in the Rust programming language, it puts security and robustness at the forefront of its design.
-
-Whether you're building a standalone chain or deploying a parachain on Polkadot, this SDK equips developers with the libraries and tools needed to manage runtime logic, compile the codebase, and utilize core features like staking, governance, and Cross-Consensus Messaging (XCM). It also provides a means for building generalized peer-to-peer systems beyond blockchains. The Polkadot SDK houses the following overall functionality:
-
-- Networking and peer-to-peer communication (powered by [Libp2p](/polkadot-protocol/glossary#libp2p){target=\_blank}).
-- Consensus protocols, such as [BABE](/polkadot-protocol/glossary#blind-assignment-of-blockchain-extension-babe){target=\_blank}, [GRANDPA](/polkadot-protocol/glossary#grandpa){target=\_blank}, or [Aura](/polkadot-protocol/glossary#authority-round-aura){target=\_blank}.
-- Cryptography.
-- The ability to create portable Wasm runtimes.
-- A selection of pre-built modules, called [pallets](/polkadot-protocol/glossary#pallet){target=\_blank}.
-- Benchmarking and testing suites.
-
-For an in-depth look at the monorepo, see the [Polkadot SDK Rust documentation](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/index.html){target=\_blank}.
-
-## Polkadot SDK Overview
-
-The Polkadot SDK is composed of five major components:
-
-![](/images/develop/parachains/intro-polkadot-sdk/intro-polkadot-sdk-1.webp)
-
-- **[Substrate](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/substrate/index.html){target=\_blank}**: A set of libraries and primitives for building blockchains.
-- **[FRAME](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/frame_runtime/index.html){target=\_blank}**: A blockchain development framework built on top of Substrate.
-- **[Cumulus](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/cumulus/index.html){target=\_blank}**: A set of libraries and pallets to add parachain capabilities to a Substrate/FRAME runtime.
-- **[XCM (Cross Consensus Messaging)](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/xcm/index.html){target=\_blank}**: The primary format for conveying messages between parachains.
-- **[Polkadot](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/polkadot/index.html){target=\_blank}**: The node implementation for the Polkadot protocol.
-
-### Substrate
-
-Substrate is a Software Development Kit (SDK) that uses Rust-based libraries and tools to enable you to build application-specific blockchains from modular and extensible components. Application-specific blockchains built with Substrate can run as standalone services or in parallel with other chains to take advantage of the shared security provided by the Polkadot ecosystem. Substrate includes default implementations of the core components of the blockchain infrastructure to allow you to focus on the application logic.
-
-Every blockchain platform relies on a decentralized network of computers—called nodes—that communicate with each other about transactions and blocks. In general, a node in this context is the software running on the connected devices rather than the physical or virtual machine in the network. As software, Substrate-based nodes consist of two main parts with separate responsibilities:
-
-- **Client**: Services to handle network and blockchain infrastructure activity.
-
-    - Native binary.
-    - Executes the Wasm runtime.
-    - Manages components like database, networking, mempool, consensus, and others.
-    - Also known as "Host".
-
-- **Runtime**: Business logic for state transitions.
-
-    - Application logic.
-    - Compiled to [Wasm](https://webassembly.org/){target=\_blank}.
-    - Stored as a part of the chain state.
-    - Also known as State Transition Function (STF).
-
-```mermaid
-%%{init: {'flowchart': {'padding': 5, 'nodeSpacing': 50, 'rankSpacing': 10}}}%%
-graph TB
-    classDef title font-size:20px,font-weight:bold,stroke-width:0px
-    classDef clientStyle font-size:16px,font-weight:bold
-    classDef clientSubNodeStyle margin-top:10px
-    classDef runtimeCallExecutorStyle padding-top:10px
-
-    subgraph sg1[Substrate<br /> Node]
-        direction TB
-
-        I[RuntimeCall Executor]
-        B[Wasm Runtime - STF]
-
-        subgraph sg2[Client]
-            direction TB
-            C[Network and Blockchain<br/>Infrastructure Services]
-        end
-
-        I --> B
-    end
-
-    class sg1 title
-    class sg2 clientStyle
-    class C clientSubNodeStyle
-    class I runtimeCallExecutorStyle
-
-```
-
-### FRAME
-
-FRAME provides the core modular and extensible components that make the Substrate SDK flexible and adaptable to different use cases. FRAME includes Rust-based libraries that simplify the development of application-specific logic. Most of the functionality that FRAME provides takes the form of plug-in modules called [pallets](/polkadot-protocol/glossary#pallet){target=\_blank} that you can add and configure to suit your requirements for a custom runtime.
-
-```mermaid
-graph LR
-    subgraph SP["<b style='font-size:18px;'>Runtime</b>"]
-        direction LR
-        Timestamp ~~~ Aura ~~~ GRANDPA
-        Balances ~~~ TransactionPayment ~~~ Sudo
-        subgraph Timestamp["Timestamp"]
-            SS1[Custom Config]
-        end
-        subgraph Aura["Aura"]
-            SS2[Custom Config]
-        end
-        subgraph GRANDPA["GRANDPA"]
-            SS3[Custom Config]
-        end
-        subgraph Balances["Balances"]
-            SS4[Custom Config]
-        end
-        subgraph TransactionPayment["Transaction Payment"]
-            SS5[Custom Config]
-        end
-        subgraph Sudo["Sudo"]
-            SS6[Custom Config]
-        end
-        style Timestamp stroke:#FF69B4
-        style Aura stroke:#FF69B4
-        style GRANDPA stroke:#FF69B4
-        style Balances stroke:#FF69B4
-        style TransactionPayment stroke:#FF69B4
-        style Sudo stroke:#FF69B4
-        style SS1 stroke-dasharray: 5
-        style SS2 stroke-dasharray: 5
-        style SS3 stroke-dasharray: 5
-        style SS4 stroke-dasharray: 5
-        style SS5 stroke-dasharray: 5
-        style SS6 stroke-dasharray: 5
-
-    end
-    subgraph AP["<b style='font-size:18px;'>FRAME Pallets</b>"]
-        direction LR
-        A1[Aura]~~~A2[BABE]~~~A3[GRANDPA]~~~A4[Transaction<br>Payment]
-        B1[Identity]~~~B2[Balances]~~~B3[Sudo]~~~B4[EVM]
-        C1[Timestamp]~~~C2[Assets]~~~C3[Contracts]~~~C4[and more...]
-    end
-    AP --> SP
-```
-
-### Cumulus
-
-Cumulus provides utilities and libraries to turn FRAME-based runtimes into runtimes that can be a parachain on Polkadot. Cumulus runtimes are still FRAME runtimes but contain the necessary functionality that allows that runtime to become a parachain on a relay chain.
-
-## Why Use Polkadot SDK?
-
-Using the Polkadot SDK, you can build application-specific blockchains without the complexity of building a blockchain from scratch or the limitations of building on a general-purpose blockchain. You can focus on crafting the business logic that makes your chain unique and innovative with the additional benefits of flexibility, upgradeability, open-source licensing, and cross-consensus interoperability.
-
-## Create a Custom Blockchain Using the SDK
-
-Before starting your blockchain development journey, you'll need to decide whether you want to build a standalone chain or a parachain that connects to the Polkadot network. Each path has its considerations and requirements. Once you've made this decision, follow these development stages:
-
-```mermaid
-graph LR
-    A[Install the Polkadot SDK] --> B[Build the Chain]
-    B --> C[Deploy the Chain]
-```
-
-1. **[Install the Polkadot SDK](/develop/parachains/install-polkadot-sdk/)**: Set up your development environment with all necessary dependencies and tools.
-2. **[Build the chain](/develop/parachains/customize-parachain)**: Learn how to create and customize your blockchain's runtime, configure pallets, and implement your chain's unique features.
-3. **[Deploy the chain](/develop/parachains/deployment)**: Follow the steps to launch your blockchain, whether as a standalone network or as a parachain on Polkadot.
-
-Each stage is covered in detail in its respective guide, walking you through the process from initial setup to final deployment.
---- END CONTENT ---
-
 Doc-Content: https://docs.polkadot.com/develop/smart-contracts/overview/
 --- BEGIN CONTENT ---
 ---
@@ -8381,363 +8219,6 @@ Key features include:
 - **Comprehensive documentation**: Includes usage guides and API references for both packages.
 
 For detailed usage examples and API documentation, visit the [official Moonbeam XCM SDK documentation](https://moonbeam-foundation.github.io/xcm-sdk/latest/){target=\_blank}.
---- END CONTENT ---
-
-Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime/
---- BEGIN CONTENT ---
----
-title: Add Pallets to the Runtime
-description: Add pallets to your runtime for custom functionality. Learn to configure and integrate pallets in Polkadot SDK-based blockchains.
-tutorial_badge: Beginner
-categories: Basics, Parachains
----
-
-# Add Pallets to the Runtime
-
-## Introduction
-
-In previous tutorials, you learned how to [create a custom pallet](/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/){target=\_blank} and [test it](/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-unit-testing/){target=\_blank}. The next step is to include this pallet in your runtime, integrating it into the core logic of your blockchain.
-
-This tutorial will guide you through adding two pallets to your runtime: the custom pallet you previously developed and the [utility pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_utility/index.html){target=\_blank}. This standard Polkadot SDK pallet provides powerful dispatch functionality. The utility pallet offers, for example, batch dispatch, a stateless operation that enables executing multiple calls in a single transaction.
-
-## Add the Pallets as Dependencies
-
-First, you'll update the runtime's `Cargo.toml` file to include the Utility pallet and your custom pallets as dependencies for the runtime. Follow these steps:
-
-1. Open the `runtime/Cargo.toml` file and locate the `[dependencies]` section. Add pallet-utility as one of the features for the `polkadot-sdk` dependency with the following line:
-
-    ```toml hl_lines="4" title="runtime/Cargo.toml"
-    [dependencies]
-    ...
-    polkadot-sdk = { workspace = true, features = [
-  "pallet-utility",
-        ...
-    ], default-features = false }
-    ```
-
-2. In the same `[dependencies]` section, add the custom pallet that you built from scratch with the following line:
-
-    ```toml hl_lines="3" title="Cargo.toml"
-    [dependencies]
-    ...
-    custom-pallet = { path = "../pallets/custom-pallet", default-features = false }
-    ```
-
-3. In the `[features]` section, add the custom pallet to the `std` feature list:
-
-    ```toml hl_lines="5" title="Cargo.toml"
-    [features]
-default = ["std"]
-std = [
-      ...
-      "custom-pallet/std",
-      ...
-    ]
-    ```
-
-3. Save the changes and close the `Cargo.toml` file.
-
-    Once you have saved your file, it should look like the following:
-
-    ???- code "runtime/Cargo.toml"
-        
-        ```rust title="runtime/Cargo.toml"
-        [package]
-name = "parachain-template-runtime"
-description = "A parachain runtime template built with Substrate and Cumulus, part of Polkadot Sdk."
-version = "0.1.0"
-license = "Unlicense"
-authors.workspace = true
-homepage.workspace = true
-repository.workspace = true
-edition.workspace = true
-publish = false
-
-[package.metadata.docs.rs]
-targets = ["x86_64-unknown-linux-gnu"]
-
-[build-dependencies]
-docify = { workspace = true }
-substrate-wasm-builder = { optional = true, workspace = true, default-features = true }
-
-[dependencies]
-codec = { features = ["derive"], workspace = true }
-cumulus-pallet-parachain-system.workspace = true
-docify = { workspace = true }
-hex-literal = { optional = true, workspace = true, default-features = true }
-log = { workspace = true }
-pallet-parachain-template = { path = "../pallets/template", default-features = false }
-polkadot-sdk = { workspace = true, features = [
-  "pallet-utility",
-  "cumulus-pallet-aura-ext",
-  "cumulus-pallet-session-benchmarking",
-  "cumulus-pallet-weight-reclaim",
-  "cumulus-pallet-xcm",
-  "cumulus-pallet-xcmp-queue",
-  "cumulus-primitives-aura",
-  "cumulus-primitives-core",
-  "cumulus-primitives-utility",
-  "pallet-aura",
-  "pallet-authorship",
-  "pallet-balances",
-  "pallet-collator-selection",
-  "pallet-message-queue",
-  "pallet-session",
-  "pallet-sudo",
-  "pallet-timestamp",
-  "pallet-transaction-payment",
-  "pallet-transaction-payment-rpc-runtime-api",
-  "pallet-xcm",
-  "parachains-common",
-  "polkadot-parachain-primitives",
-  "polkadot-runtime-common",
-  "runtime",
-  "staging-parachain-info",
-  "staging-xcm",
-  "staging-xcm-builder",
-  "staging-xcm-executor",
-], default-features = false }
-scale-info = { features = ["derive"], workspace = true }
-serde_json = { workspace = true, default-features = false, features = [
-  "alloc",
-] }
-smallvec = { workspace = true, default-features = true }
-
-custom-pallet = { path = "../pallets/custom-pallet", default-features = false }
-
-[features]
-default = ["std"]
-std = [
-  "codec/std",
-  "cumulus-pallet-parachain-system/std",
-  "log/std",
-  "pallet-parachain-template/std",
-  "polkadot-sdk/std",
-  "scale-info/std",
-  "serde_json/std",
-  "substrate-wasm-builder",
-  "custom-pallet/std",
-]
-
-runtime-benchmarks = [
-  "cumulus-pallet-parachain-system/runtime-benchmarks",
-  "hex-literal",
-  "pallet-parachain-template/runtime-benchmarks",
-  "polkadot-sdk/runtime-benchmarks",
-]
-
-try-runtime = [
-  "cumulus-pallet-parachain-system/try-runtime",
-  "pallet-parachain-template/try-runtime",
-  "polkadot-sdk/try-runtime",
-]
-
-# Enable the metadata hash generation.
-#
-# This is hidden behind a feature because it increases the compile time.
-# The wasm binary needs to be compiled twice, once to fetch the metadata,
-# generate the metadata hash and then a second time with the
-# `RUNTIME_METADATA_HASH` environment variable set for the `CheckMetadataHash`
-# extension.
-metadata-hash = ["substrate-wasm-builder/metadata-hash"]
-
-# A convenience feature for enabling things when doing a build
-# for an on-chain release.
-on-chain-release-build = ["metadata-hash"]
-        ```
-
-Update your root parachain template's `Cargo.toml` file to include your custom pallet as a dependency. Follow these steps:
-
-1. Open the `./Cargo.toml` file and locate the `[workspace]` section. 
-    
-    Make sure the `custom-pallet` is a member of the workspace:
-
-    ```toml hl_lines="4" title="Cargo.toml"
-     [workspace]
-default-members = ["pallets/template", "runtime"]
-members = [
-    "node", "pallets/custom-pallet",
-    "pallets/template",
-    "runtime",
-]
-    ```
-
-???- code "./Cargo.toml"
-
-    ```rust title="./Cargo.toml"
-    [workspace.package]
-license = "MIT-0"
-authors = ["Parity Technologies <admin@parity.io>"]
-homepage = "https://paritytech.github.io/polkadot-sdk/"
-repository = "https://github.com/paritytech/polkadot-sdk-parachain-template.git"
-edition = "2021"
-
-[workspace]
-default-members = ["pallets/template", "runtime"]
-members = [
-    "node", "pallets/custom-pallet",
-    "pallets/template",
-    "runtime",
-]
-resolver = "2"
-
-[workspace.dependencies]
-parachain-template-runtime = { path = "./runtime", default-features = false }
-pallet-parachain-template = { path = "./pallets/template", default-features = false }
-clap = { version = "4.5.13" }
-color-print = { version = "0.3.4" }
-docify = { version = "0.2.9" }
-futures = { version = "0.3.31" }
-jsonrpsee = { version = "0.24.3" }
-log = { version = "0.4.22", default-features = false }
-polkadot-sdk = { version = "2503.0.1", default-features = false }
-prometheus-endpoint = { version = "0.17.2", default-features = false, package = "substrate-prometheus-endpoint" }
-serde = { version = "1.0.214", default-features = false }
-codec = { version = "3.7.4", default-features = false, package = "parity-scale-codec" }
-cumulus-pallet-parachain-system = { version = "0.20.0", default-features = false }
-hex-literal = { version = "0.4.1", default-features = false }
-scale-info = { version = "2.11.6", default-features = false }
-serde_json = { version = "1.0.132", default-features = false }
-smallvec = { version = "1.11.0", default-features = false }
-substrate-wasm-builder = { version = "26.0.1", default-features = false }
-frame = { version = "0.9.1", default-features = false, package = "polkadot-sdk-frame" }
-
-[profile.release]
-opt-level = 3
-panic = "unwind"
-
-[profile.production]
-codegen-units = 1
-inherits = "release"
-lto = true
-    ```
-
-
-### Update the Runtime Configuration
-
-Configure the pallets by implementing their `Config` trait and update the runtime macro to include the new pallets:
-
-1. Add the `OriginCaller` import:
-
-    ```rust title="mod.rs" hl_lines="8"
-    // Local module imports
-use super::OriginCaller;
-    ...
-    ```
-
-2. Implement the [`Config`](https://paritytech.github.io/polkadot-sdk/master/pallet_utility/pallet/trait.Config.html){target=\_blank} trait for both pallets at the end of the `runtime/src/config/mod.rs` file:
-
-    ```rust title="mod.rs" hl_lines="8-25"
-    ...
-    /// Configure the pallet template in pallets/template.
-impl pallet_parachain_template::Config for Runtime {
-    type RuntimeEvent = RuntimeEvent;
-    type WeightInfo = pallet_parachain_template::weights::SubstrateWeight<Runtime>;
-}
-
-// Configure utility pallet.
-impl pallet_utility::Config for Runtime {
-    type RuntimeEvent = RuntimeEvent;
-    type RuntimeCall = RuntimeCall;
-    type PalletsOrigin = OriginCaller;
-    type WeightInfo = pallet_utility::weights::SubstrateWeight<Runtime>;
-}
-    // Define counter max value runtime constant.
-parameter_types! {
-    pub const CounterMaxValue: u32 = 500;
-}
-
-// Configure custom pallet.
-impl custom_pallet::Config for Runtime {
-    type RuntimeEvent = RuntimeEvent;
-    type CounterMaxValue = CounterMaxValue;
-    }
-    ```
-
-3. Locate the `#[frame_support::runtime]` macro in the `runtime/src/lib.rs` file and add the pallets:
-
-    ```rust hl_lines="9-14" title="lib.rs"
-    #[frame_support::runtime]
-mod runtime {
-    #[runtime::runtime]
-    #[runtime::derive(
-            ...
-        )]
-    pub struct Runtime;
-
-    #[runtime::pallet_index(51)]
-    pub type Utility = pallet_utility;
-
-    #[runtime::pallet_index(52)]
-    pub type CustomPallet = custom_pallet;
-    }
-    ```
-
-## Recompile the Runtime
-
-After adding and configuring your pallets in the runtime, the next step is to ensure everything is set up correctly. To do this, recompile the runtime with the following command (make sure you're in the project's root directory):
-
-```bash
-cargo build --release
-```
-
-This command ensures the runtime compiles without errors, validates the pallet configurations, and prepares the build for subsequent testing or deployment.
-
-## Run Your Chain Locally
-
-Launch your parachain locally and start producing blocks:
-
-!!!tip
-    Generated chain TestNet specifications include development accounts "Alice" and "Bob." These accounts are pre-funded with native parachain currency, allowing you to sign and send TestNet transactions. Take a look at the [Polkadot.js Accounts section](https://polkadot.js.org/apps/#/accounts){target=\_blank} to view the development accounts for your chain.
-
-1. Create a new chain specification file with the updated runtime:
-
-    ```bash
-    chain-spec-builder create -t development \
-    --relay-chain paseo \
-    --para-id 1000 \
-    --runtime ./target/release/wbuild/parachain-template-runtime/parachain_template_runtime.compact.compressed.wasm \
-    named-preset development
-    ```
-
-2. Start the omni node with the generated chain specification:
-
-    ```bash
-    polkadot-omni-node --chain ./chain_spec.json --dev
-    ```
-
-3. Verify you can interact with the new pallets using the [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9944#/extrinsics){target=\_blank} interface. Navigate to the **Extrinsics** tab and check that you can see both pallets:
-
-    - Utility pallet
-
-        ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime/add-pallets-to-runtime-1.webp)
-    
-
-    - Custom pallet
-
-        ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime/add-pallets-to-runtime-2.webp)
-
-## Where to Go Next
-
-<div class="grid cards" markdown>
-
--   <span class="badge tutorial">Tutorial</span> __Deploy on Paseo TestNet__
-
-    ---
-
-    Deploy your Polkadot SDK blockchain on Paseo! Follow this step-by-step guide for a seamless journey to a successful TestNet deployment.
-
-    [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/)
-
--   <span class="badge tutorial">Tutorial</span> __Pallet Benchmarking (Optional)__
-
-    ---
-
-    Discover how to measure extrinsic costs and assign precise weights to optimize your pallet for accurate fees and runtime performance.
-
-    [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/)
-
-</div>
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/
@@ -11059,6 +10540,525 @@ For more detailed information about Solidity types, functions, and best practice
 </div>
 --- END CONTENT ---
 
+Doc-Content: https://docs.polkadot.com/parachains/overview/
+--- BEGIN CONTENT ---
+---
+title: Introduction to Polkadot SDK
+description: Learn about the Polkadot SDK, a robust developer toolkit for building custom blockchains. Explore its components and how it powers the Polkadot protocol.
+categories: Basics, Tooling
+---
+
+# Introduction to Polkadot SDK
+
+## Introduction
+
+The [Polkadot SDK](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}){target=\_blank} is a powerful and versatile developer kit designed to facilitate building on the Polkadot network. It provides the necessary components for creating custom blockchains, parachains, generalized rollups, and more. Written in the Rust programming language, it puts security and robustness at the forefront of its design.
+
+Whether you're building a standalone chain or deploying a parachain on Polkadot, this SDK equips developers with the libraries and tools needed to manage runtime logic, compile the codebase, and utilize core features like staking, governance, and Cross-Consensus Messaging (XCM). It also provides a means for building generalized peer-to-peer systems beyond blockchains. The Polkadot SDK houses the following overall functionality:
+
+- Networking and peer-to-peer communication (powered by [Libp2p](/polkadot-protocol/glossary#libp2p){target=\_blank}).
+- Consensus protocols, such as [BABE](/polkadot-protocol/glossary#blind-assignment-of-blockchain-extension-babe){target=\_blank}, [GRANDPA](/polkadot-protocol/glossary#grandpa){target=\_blank}, or [Aura](/polkadot-protocol/glossary#authority-round-aura){target=\_blank}.
+- Cryptography.
+- The ability to create portable Wasm runtimes.
+- A selection of pre-built modules, called [pallets](/polkadot-protocol/glossary#pallet){target=\_blank}.
+- Benchmarking and testing suites.
+
+For an in-depth look at the monorepo, see the [Polkadot SDK Rust documentation](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/index.html){target=\_blank}.
+
+## Polkadot SDK Overview
+
+The Polkadot SDK is composed of five major components:
+
+![](/images/parachains/overview/overview-01.webp)
+
+- **[Substrate](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/substrate/index.html){target=\_blank}**: A set of libraries and primitives for building blockchains.
+- **[FRAME](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/frame_runtime/index.html){target=\_blank}**: A blockchain development framework built on top of Substrate.
+- **[Cumulus](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/cumulus/index.html){target=\_blank}**: A set of libraries and pallets to add parachain capabilities to a Substrate/FRAME runtime.
+- **[XCM (Cross Consensus Messaging)](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/xcm/index.html){target=\_blank}**: The primary format for conveying messages between parachains.
+- **[Polkadot](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/polkadot/index.html){target=\_blank}**: The node implementation for the Polkadot protocol.
+
+### Substrate
+
+Substrate is a Software Development Kit (SDK) that uses Rust-based libraries and tools to enable you to build application-specific blockchains from modular and extensible components. Application-specific blockchains built with Substrate can run as standalone services or in parallel with other chains to take advantage of the shared security provided by the Polkadot ecosystem. Substrate includes default implementations of the core components of the blockchain infrastructure to allow you to focus on the application logic.
+
+Every blockchain platform relies on a decentralized network of computers—called nodes—that communicate with each other about transactions and blocks. In general, a node in this context is the software running on the connected devices rather than the physical or virtual machine in the network. As software, Substrate-based nodes consist of two main parts with separate responsibilities:
+
+- **Client**: Services to handle network and blockchain infrastructure activity.
+
+    - Native binary.
+    - Executes the Wasm runtime.
+    - Manages components like database, networking, mempool, consensus, and others.
+    - Also known as "Host".
+
+- **Runtime**: Business logic for state transitions.
+
+    - Application logic.
+    - Compiled to [Wasm](https://webassembly.org/){target=\_blank}.
+    - Stored as a part of the chain state.
+    - Also known as State Transition Function (STF).
+
+```mermaid
+%%{init: {'flowchart': {'padding': 5, 'nodeSpacing': 50, 'rankSpacing': 10}}}%%
+graph TB
+    classDef title font-size:20px,font-weight:bold,stroke-width:0px
+    classDef clientStyle font-size:16px,font-weight:bold
+    classDef clientSubNodeStyle margin-top:10px
+    classDef runtimeCallExecutorStyle padding-top:10px
+
+    subgraph sg1[Substrate<br /> Node]
+        direction TB
+
+        I[RuntimeCall Executor]
+        B[Wasm Runtime - STF]
+
+        subgraph sg2[Client]
+            direction TB
+            C[Network and Blockchain<br/>Infrastructure Services]
+        end
+
+        I --> B
+    end
+
+    class sg1 title
+    class sg2 clientStyle
+    class C clientSubNodeStyle
+    class I runtimeCallExecutorStyle
+
+```
+
+### FRAME
+
+FRAME provides the core modular and extensible components that make the Substrate SDK flexible and adaptable to different use cases. FRAME includes Rust-based libraries that simplify the development of application-specific logic. Most of the functionality that FRAME provides takes the form of plug-in modules called [pallets](/polkadot-protocol/glossary#pallet){target=\_blank} that you can add and configure to suit your requirements for a custom runtime.
+
+```mermaid
+graph LR
+    subgraph SP["<b style='font-size:18px;'>Runtime</b>"]
+        direction LR
+        Timestamp ~~~ Aura ~~~ GRANDPA
+        Balances ~~~ TransactionPayment ~~~ Sudo
+        subgraph Timestamp["Timestamp"]
+            SS1[Custom Config]
+        end
+        subgraph Aura["Aura"]
+            SS2[Custom Config]
+        end
+        subgraph GRANDPA["GRANDPA"]
+            SS3[Custom Config]
+        end
+        subgraph Balances["Balances"]
+            SS4[Custom Config]
+        end
+        subgraph TransactionPayment["Transaction Payment"]
+            SS5[Custom Config]
+        end
+        subgraph Sudo["Sudo"]
+            SS6[Custom Config]
+        end
+        style Timestamp stroke:#FF69B4
+        style Aura stroke:#FF69B4
+        style GRANDPA stroke:#FF69B4
+        style Balances stroke:#FF69B4
+        style TransactionPayment stroke:#FF69B4
+        style Sudo stroke:#FF69B4
+        style SS1 stroke-dasharray: 5
+        style SS2 stroke-dasharray: 5
+        style SS3 stroke-dasharray: 5
+        style SS4 stroke-dasharray: 5
+        style SS5 stroke-dasharray: 5
+        style SS6 stroke-dasharray: 5
+
+    end
+    subgraph AP["<b style='font-size:18px;'>FRAME Pallets</b>"]
+        direction LR
+        A1[Aura]~~~A2[BABE]~~~A3[GRANDPA]~~~A4[Transaction<br>Payment]
+        B1[Identity]~~~B2[Balances]~~~B3[Sudo]~~~B4[EVM]
+        C1[Timestamp]~~~C2[Assets]~~~C3[Contracts]~~~C4[and more...]
+    end
+    AP --> SP
+```
+
+### Cumulus
+
+Cumulus provides utilities and libraries to turn FRAME-based runtimes into runtimes that can be a parachain on Polkadot. Cumulus runtimes are still FRAME runtimes but contain the necessary functionality that allows that runtime to become a parachain on a relay chain.
+
+## Why Use Polkadot SDK?
+
+Using the Polkadot SDK, you can build application-specific blockchains without the complexity of building a blockchain from scratch or the limitations of building on a general-purpose blockchain. You can focus on crafting the business logic that makes your chain unique and innovative with the additional benefits of flexibility, upgradeability, open-source licensing, and cross-consensus interoperability.
+
+## Create a Custom Blockchain Using the SDK
+
+Before starting your blockchain development journey, you'll need to decide whether you want to build a standalone chain or a parachain that connects to the Polkadot network. Each path has its considerations and requirements. Once you've made this decision, follow these development stages:
+
+```mermaid
+graph LR
+    A[Install the Polkadot SDK] --> B[Build the Chain]
+    B --> C[Deploy the Chain]
+```
+
+1. **[Install the Polkadot SDK](/develop/parachains/install-polkadot-sdk/)**: Set up your development environment with all necessary dependencies and tools.
+2. **[Build the chain](/develop/parachains/customize-parachain)**: Learn how to create and customize your blockchain's runtime, configure pallets, and implement your chain's unique features.
+3. **[Deploy the chain](/develop/parachains/deployment)**: Follow the steps to launch your blockchain, whether as a standalone network or as a parachain on Polkadot.
+
+Each stage is covered in detail in its respective guide, walking you through the process from initial setup to final deployment.
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/parachains/pallet-development/add-pallet-to-runtime/
+--- BEGIN CONTENT ---
+---
+title: Add Pallets to the Runtime
+description: Add pallets to your runtime for custom functionality. Learn to configure and integrate pallets in Polkadot SDK-based blockchains.
+tutorial_badge: Beginner
+categories: Basics, Parachains
+---
+
+# Add Pallets to the Runtime
+
+## Introduction
+
+In previous tutorials, you learned how to [create a custom pallet](/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/){target=\_blank} and [test it](/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-unit-testing/){target=\_blank}. The next step is to include this pallet in your runtime, integrating it into the core logic of your blockchain.
+
+This tutorial will guide you through adding two pallets to your runtime: the custom pallet you previously developed and the [utility pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_utility/index.html){target=\_blank}. This standard Polkadot SDK pallet provides powerful dispatch functionality. The utility pallet offers, for example, batch dispatch, a stateless operation that enables executing multiple calls in a single transaction.
+
+## Add the Pallets as Dependencies
+
+First, you'll update the runtime's `Cargo.toml` file to include the Utility pallet and your custom pallets as dependencies for the runtime. Follow these steps:
+
+1. Open the `runtime/Cargo.toml` file and locate the `[dependencies]` section. Add pallet-utility as one of the features for the `polkadot-sdk` dependency with the following line:
+
+    ```toml hl_lines="4" title="runtime/Cargo.toml"
+    [dependencies]
+    ...
+    polkadot-sdk = { workspace = true, features = [
+  "pallet-utility",
+        ...
+    ], default-features = false }
+    ```
+
+2. In the same `[dependencies]` section, add the custom pallet that you built from scratch with the following line:
+
+    ```toml hl_lines="3" title="Cargo.toml"
+    [dependencies]
+    ...
+    custom-pallet = { path = "../pallets/custom-pallet", default-features = false }
+    ```
+
+3. In the `[features]` section, add the custom pallet to the `std` feature list:
+
+    ```toml hl_lines="5" title="Cargo.toml"
+    [features]
+default = ["std"]
+std = [
+      ...
+      "custom-pallet/std",
+      ...
+    ]
+    ```
+
+3. Save the changes and close the `Cargo.toml` file.
+
+    Once you have saved your file, it should look like the following:
+
+    ???- code "runtime/Cargo.toml"
+        
+        ```rust title="runtime/Cargo.toml"
+        [package]
+name = "parachain-template-runtime"
+description = "A parachain runtime template built with Substrate and Cumulus, part of Polkadot Sdk."
+version = "0.1.0"
+license = "Unlicense"
+authors.workspace = true
+homepage.workspace = true
+repository.workspace = true
+edition.workspace = true
+publish = false
+
+[package.metadata.docs.rs]
+targets = ["x86_64-unknown-linux-gnu"]
+
+[build-dependencies]
+docify = { workspace = true }
+substrate-wasm-builder = { optional = true, workspace = true, default-features = true }
+
+[dependencies]
+codec = { features = ["derive"], workspace = true }
+cumulus-pallet-parachain-system.workspace = true
+docify = { workspace = true }
+hex-literal = { optional = true, workspace = true, default-features = true }
+log = { workspace = true }
+pallet-parachain-template = { path = "../pallets/template", default-features = false }
+polkadot-sdk = { workspace = true, features = [
+  "pallet-utility",
+  "cumulus-pallet-aura-ext",
+  "cumulus-pallet-session-benchmarking",
+  "cumulus-pallet-weight-reclaim",
+  "cumulus-pallet-xcm",
+  "cumulus-pallet-xcmp-queue",
+  "cumulus-primitives-aura",
+  "cumulus-primitives-core",
+  "cumulus-primitives-utility",
+  "pallet-aura",
+  "pallet-authorship",
+  "pallet-balances",
+  "pallet-collator-selection",
+  "pallet-message-queue",
+  "pallet-session",
+  "pallet-sudo",
+  "pallet-timestamp",
+  "pallet-transaction-payment",
+  "pallet-transaction-payment-rpc-runtime-api",
+  "pallet-xcm",
+  "parachains-common",
+  "polkadot-parachain-primitives",
+  "polkadot-runtime-common",
+  "runtime",
+  "staging-parachain-info",
+  "staging-xcm",
+  "staging-xcm-builder",
+  "staging-xcm-executor",
+], default-features = false }
+scale-info = { features = ["derive"], workspace = true }
+serde_json = { workspace = true, default-features = false, features = [
+  "alloc",
+] }
+smallvec = { workspace = true, default-features = true }
+
+custom-pallet = { path = "../pallets/custom-pallet", default-features = false }
+
+[features]
+default = ["std"]
+std = [
+  "codec/std",
+  "cumulus-pallet-parachain-system/std",
+  "log/std",
+  "pallet-parachain-template/std",
+  "polkadot-sdk/std",
+  "scale-info/std",
+  "serde_json/std",
+  "substrate-wasm-builder",
+  "custom-pallet/std",
+]
+
+runtime-benchmarks = [
+  "cumulus-pallet-parachain-system/runtime-benchmarks",
+  "hex-literal",
+  "pallet-parachain-template/runtime-benchmarks",
+  "polkadot-sdk/runtime-benchmarks",
+]
+
+try-runtime = [
+  "cumulus-pallet-parachain-system/try-runtime",
+  "pallet-parachain-template/try-runtime",
+  "polkadot-sdk/try-runtime",
+]
+
+# Enable the metadata hash generation.
+#
+# This is hidden behind a feature because it increases the compile time.
+# The wasm binary needs to be compiled twice, once to fetch the metadata,
+# generate the metadata hash and then a second time with the
+# `RUNTIME_METADATA_HASH` environment variable set for the `CheckMetadataHash`
+# extension.
+metadata-hash = ["substrate-wasm-builder/metadata-hash"]
+
+# A convenience feature for enabling things when doing a build
+# for an on-chain release.
+on-chain-release-build = ["metadata-hash"]
+        ```
+
+Update your root parachain template's `Cargo.toml` file to include your custom pallet as a dependency. Follow these steps:
+
+1. Open the `./Cargo.toml` file and locate the `[workspace]` section. 
+    
+    Make sure the `custom-pallet` is a member of the workspace:
+
+    ```toml hl_lines="4" title="Cargo.toml"
+     [workspace]
+default-members = ["pallets/template", "runtime"]
+members = [
+    "node", "pallets/custom-pallet",
+    "pallets/template",
+    "runtime",
+]
+    ```
+
+???- code "./Cargo.toml"
+
+    ```rust title="./Cargo.toml"
+    [workspace.package]
+license = "MIT-0"
+authors = ["Parity Technologies <admin@parity.io>"]
+homepage = "https://paritytech.github.io/polkadot-sdk/"
+repository = "https://github.com/paritytech/polkadot-sdk-parachain-template.git"
+edition = "2021"
+
+[workspace]
+default-members = ["pallets/template", "runtime"]
+members = [
+    "node", "pallets/custom-pallet",
+    "pallets/template",
+    "runtime",
+]
+resolver = "2"
+
+[workspace.dependencies]
+parachain-template-runtime = { path = "./runtime", default-features = false }
+pallet-parachain-template = { path = "./pallets/template", default-features = false }
+clap = { version = "4.5.13" }
+color-print = { version = "0.3.4" }
+docify = { version = "0.2.9" }
+futures = { version = "0.3.31" }
+jsonrpsee = { version = "0.24.3" }
+log = { version = "0.4.22", default-features = false }
+polkadot-sdk = { version = "2503.0.1", default-features = false }
+prometheus-endpoint = { version = "0.17.2", default-features = false, package = "substrate-prometheus-endpoint" }
+serde = { version = "1.0.214", default-features = false }
+codec = { version = "3.7.4", default-features = false, package = "parity-scale-codec" }
+cumulus-pallet-parachain-system = { version = "0.20.0", default-features = false }
+hex-literal = { version = "0.4.1", default-features = false }
+scale-info = { version = "2.11.6", default-features = false }
+serde_json = { version = "1.0.132", default-features = false }
+smallvec = { version = "1.11.0", default-features = false }
+substrate-wasm-builder = { version = "26.0.1", default-features = false }
+frame = { version = "0.9.1", default-features = false, package = "polkadot-sdk-frame" }
+
+[profile.release]
+opt-level = 3
+panic = "unwind"
+
+[profile.production]
+codegen-units = 1
+inherits = "release"
+lto = true
+    ```
+
+
+### Update the Runtime Configuration
+
+Configure the pallets by implementing their `Config` trait and update the runtime macro to include the new pallets:
+
+1. Add the `OriginCaller` import:
+
+    ```rust title="mod.rs" hl_lines="8"
+    // Local module imports
+use super::OriginCaller;
+    ...
+    ```
+
+2. Implement the [`Config`](https://paritytech.github.io/polkadot-sdk/master/pallet_utility/pallet/trait.Config.html){target=\_blank} trait for both pallets at the end of the `runtime/src/config/mod.rs` file:
+
+    ```rust title="mod.rs" hl_lines="8-25"
+    ...
+    /// Configure the pallet template in pallets/template.
+impl pallet_parachain_template::Config for Runtime {
+    type RuntimeEvent = RuntimeEvent;
+    type WeightInfo = pallet_parachain_template::weights::SubstrateWeight<Runtime>;
+}
+
+// Configure utility pallet.
+impl pallet_utility::Config for Runtime {
+    type RuntimeEvent = RuntimeEvent;
+    type RuntimeCall = RuntimeCall;
+    type PalletsOrigin = OriginCaller;
+    type WeightInfo = pallet_utility::weights::SubstrateWeight<Runtime>;
+}
+    // Define counter max value runtime constant.
+parameter_types! {
+    pub const CounterMaxValue: u32 = 500;
+}
+
+// Configure custom pallet.
+impl custom_pallet::Config for Runtime {
+    type RuntimeEvent = RuntimeEvent;
+    type CounterMaxValue = CounterMaxValue;
+    }
+    ```
+
+3. Locate the `#[frame_support::runtime]` macro in the `runtime/src/lib.rs` file and add the pallets:
+
+    ```rust hl_lines="9-14" title="lib.rs"
+    #[frame_support::runtime]
+mod runtime {
+    #[runtime::runtime]
+    #[runtime::derive(
+            ...
+        )]
+    pub struct Runtime;
+
+    #[runtime::pallet_index(51)]
+    pub type Utility = pallet_utility;
+
+    #[runtime::pallet_index(52)]
+    pub type CustomPallet = custom_pallet;
+    }
+    ```
+
+## Recompile the Runtime
+
+After adding and configuring your pallets in the runtime, the next step is to ensure everything is set up correctly. To do this, recompile the runtime with the following command (make sure you're in the project's root directory):
+
+```bash
+cargo build --release
+```
+
+This command ensures the runtime compiles without errors, validates the pallet configurations, and prepares the build for subsequent testing or deployment.
+
+## Run Your Chain Locally
+
+Launch your parachain locally and start producing blocks:
+
+!!!tip
+    Generated chain TestNet specifications include development accounts "Alice" and "Bob." These accounts are pre-funded with native parachain currency, allowing you to sign and send TestNet transactions. Take a look at the [Polkadot.js Accounts section](https://polkadot.js.org/apps/#/accounts){target=\_blank} to view the development accounts for your chain.
+
+1. Create a new chain specification file with the updated runtime:
+
+    ```bash
+    chain-spec-builder create -t development \
+    --relay-chain paseo \
+    --para-id 1000 \
+    --runtime ./target/release/wbuild/parachain-template-runtime/parachain_template_runtime.compact.compressed.wasm \
+    named-preset development
+    ```
+
+2. Start the omni node with the generated chain specification:
+
+    ```bash
+    polkadot-omni-node --chain ./chain_spec.json --dev
+    ```
+
+3. Verify you can interact with the new pallets using the [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9944#/extrinsics){target=\_blank} interface. Navigate to the **Extrinsics** tab and check that you can see both pallets:
+
+    - Utility pallet
+
+        ![](/images/parachains/pallet-development/add-pallet-to-runtime/add-pallets-to-runtime-1.webp)
+    
+
+    - Custom pallet
+
+        ![](/images/parachains/pallet-development/add-pallet-to-runtime/add-pallets-to-runtime-2.webp)
+
+## Where to Go Next
+
+<div class="grid cards" markdown>
+
+-   <span class="badge tutorial">Tutorial</span> __Deploy on Paseo TestNet__
+
+    ---
+
+    Deploy your Polkadot SDK blockchain on Paseo! Follow this step-by-step guide for a seamless journey to a successful TestNet deployment.
+
+    [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/)
+
+-   <span class="badge tutorial">Tutorial</span> __Pallet Benchmarking (Optional)__
+
+    ---
+
+    Discover how to measure extrinsic costs and assign precise weights to optimize your pallet for accurate fees and runtime performance.
+
+    [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/)
+
+</div>
+--- END CONTENT ---
+
 Doc-Content: https://docs.polkadot.com/polkadot-protocol/architecture/parachains/overview/
 --- BEGIN CONTENT ---
 ---
@@ -11224,7 +11224,7 @@ As a Layer-0 blockchain, Polkadot contributes to the multi-chain vision through 
 
 - **Resilient infrastructure**: Decentralized and scalable, Polkadot ensures ongoing support for development and community initiatives via its on-chain [treasury](https://wiki.polkadot.com/learn/learn-polkadot-opengov-treasury/){target=\_blank} and governance.
 
-- **Rapid L1 development**: The [Polkadot SDK](/develop/parachains/intro-polkadot-sdk/){target=\_blank} allows fast, flexible creation and deployment of Layer-1 chains.
+- **Rapid L1 development**: The [Polkadot SDK](/parachains/overview/){target=\_blank} allows fast, flexible creation and deployment of Layer-1 chains.
 
 - **Cultivating the next generation of Web3 developers**: Polkadot supports the growth of Web3 core developers through initiatives such as.
 
@@ -12345,7 +12345,7 @@ impl<T: Get<Perquintill>> WeightToFee<Fixed128, Fixed128> for TargetedFeeAdjustm
 
 You now know the weight system, how it affects transaction fee computation, and how to specify weights for your dispatchable calls. The next step is determining the correct weight for your dispatchable operations. You can use Substrate benchmarking functions and frame-benchmarking calls to test your functions with different parameters and empirically determine the proper weight in their worst-case scenarios.
 
-- [Benchmark](/develop/parachains/testing/benchmarking/)
+- [Benchmark](/parachains/pallet-development/benchmark-pallet/)
 - [`SignedExtension`](https://paritytech.github.io/polkadot-sdk/master/sp_runtime/traits/trait.SignedExtension.html){target=\_blank}
 - [Custom weights for the Example pallet](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/substrate/frame/examples/basic/src/weights.rs){target=\_blank}
 - [Web3 Foundation Research](https://research.web3.foundation/Polkadot/overview/token-economics#relay-chain-transaction-fees-and-per-block-transaction-limits){target=\_blank}
@@ -14240,7 +14240,7 @@ This guide outlines the primary approaches to developing smart contracts in the 
 You'll explore the key differences between these development paths, along with considerations for parachain developers integrating smart contract functionality.
 
 !!!note "Parachain Developer?"
-    If you are a parachain developer looking to add smart contract functionality to your chain, please refer to the [Add Smart Contract Functionality](/develop/parachains/customize-parachain/add-smart-contract-functionality/){target=\_blank} page, which covers both Wasm and EVM-based contract implementations.
+    If you are a parachain developer looking to add smart contract functionality to your chain, please refer to the [Add Smart Contract Functionality](/parachains/customize-runtime/add-smart-contract-functionality/){target=\_blank} page, which covers both Wasm and EVM-based contract implementations.
 
 ## Smart Contracts Versus Parachains
 

@@ -8,7 +8,7 @@ categories: Infrastructure
 
 ## Introduction
 
-After configuring your node keys as shown in the [Key Management](/infrastructure/running-a-validator/onboarding-and-offboarding/key-management){target=\_blank} section and ensuring your system is set up, you're ready to begin the validator setup process. This guide will walk you through choosing a network, synchronizing your node with the blockchain, bonding your DOT tokens, and starting your validator.
+After configuring your node keys as shown in the [Key Management](/nodes-and-validators/run-a-validator/onboarding-and-offboarding/key-management/){target=\_blank} section and ensuring your system is set up, you're ready to begin the validator setup process. This guide will walk you through choosing a network, synchronizing your node with the blockchain, bonding your DOT tokens, and starting your validator.
 
 ## Choose a Network
 

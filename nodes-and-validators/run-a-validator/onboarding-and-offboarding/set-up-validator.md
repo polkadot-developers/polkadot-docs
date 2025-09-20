@@ -17,7 +17,7 @@ Running a validator requires a commitment to maintaining a stable, secure infras
 To get the most from this guide, ensure you've done the following before going forward:
 
 - Read [Validator Requirements](/nodes-and-validators/run-a-validator/){target=\_blank} and understand the recommended minimum skill level and hardware needs.
-- Read [General Management](/infrastructure/running-a-validator/operational-tasks/general-management){target=\_blank}, [Upgrade Your Node](/nodes-and-validators/run-a-validator/operational-tasks/upgrade-your-node/){target=\_blank}, and [Pause Validating](/nodes-and-validators/run-a-validator/onboarding-and-offboarding/stop-validating/){target=\_blank} and understand the tasks required to keep your validator operational.
+- Read [General Management](/nodes-and-validators/run-a-validator/operational-tasks/){target=\_blank}, [Upgrade Your Node](/nodes-and-validators/run-a-validator/operational-tasks/upgrade-your-node/){target=\_blank}, and [Pause Validating](/nodes-and-validators/run-a-validator/onboarding-and-offboarding/stop-validating/){target=\_blank} and understand the tasks required to keep your validator operational.
 - Read [Rewards Payout](/nodes-and-validators/run-a-validator/staking-mechanics/){target=\_blank} and understand how validator rewards are determined and paid out.
 - Read [Offenses and Slashes](/nodes-and-validators/run-a-validator/staking-mechanics/offenses-and-slashes/){target=\_blank} and understand how validator performance and security can affect tokens staked by you or your nominators.
 

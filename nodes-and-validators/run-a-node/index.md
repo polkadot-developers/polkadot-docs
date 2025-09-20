@@ -26,7 +26,7 @@ Before getting started, ensure the following prerequisites are met:
 - [Install the necessary dependencies for the Polkadot SDK](/develop/parachains/install-polkadot-sdk/){target=\_blank}.
 
 !!! warning
-    This setup is not recommended for validators. If you plan to run a validator, refer to the [Running a Validator](/infrastructure/running-a-validator/){target=\_blank} guide for proper instructions.
+    This setup is not recommended for validators. If you plan to run a validator, refer to the [Running a Validator](/nodes-and-validators/run-a-validator/){target=\_blank} guide for proper instructions.
 
 ### Install and Build the Polkadot Binary
 
@@ -204,8 +204,6 @@ docker run --platform linux/amd64 -p 9944:9944 -p 9615:9615 parity/polkadot:v1.1
 Now that you've installed and built the Polkadot binary, the next step is to configure the start-up command depending on the type of node that you want to run. You'll need to modify the start-up command accordingly based on the location of the binary. In some cases, it may be located within the `./target/release/` folder, so you'll need to replace polkadot with `./target/release/polkadot` in the following commands.
 
 Also, note that you can use the same binary for Polkadot as you would for Kusama or any other relay chain. You'll need to use the `--chain` flag to differentiate between chains.
-
-If you aren't sure which type of node to run, see the [Types of Full Nodes](/infrastructure/running-a-node/#types-of-nodes){target=\_blank} section.
 
 The base commands for running a Polkadot node are as follows:
 

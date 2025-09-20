@@ -10,7 +10,7 @@ categories: Parachains
 
 Unit testing in the Polkadot SDK helps ensure that the functions provided by a pallet behave as expected. It also confirms that data and events associated with a pallet are processed correctly during interactions. The Polkadot SDK offers a set of APIs to create a test environment to simulate runtime and mock transaction execution for extrinsics and queries.
 
-To begin unit testing, you must first set up a mock runtime that simulates blockchain behavior, incorporating the necessary pallets. For a deeper understanding, consult the [Mock Runtime](/rollups/pallet-development/mock-runtime/){target=\_blank} guide.
+To begin unit testing, you must first set up a mock runtime that simulates blockchain behavior, incorporating the necessary pallets. For a deeper understanding, consult the [Mock Runtime](/parachains/pallet-development/mock-runtime/){target=\_blank} guide.
 
 ## Writing Unit Tests
 
@@ -33,7 +33,7 @@ This approach provides a comprehensive view of the runtime's functionality, ensu
 Each test starts by initializing the runtime environment, typically using the `new_test_ext()` function, which sets up the mock storage and environment.
 
 ```rust
---8<-- 'code/rollups/pallet-development/pallet-testing/test-initialization.rs'
+--8<-- 'code/parachains/pallet-development/pallet-testing/test-initialization.rs'
 ```
 
 ### Function Call Testing
@@ -41,7 +41,7 @@ Each test starts by initializing the runtime environment, typically using the `n
 Call the pallet's extrinsics or functions to simulate user interaction or internal logic. Use the `assert_ok!` macro to check for successful execution and `assert_err!` to verify that errors are correctly handled.
 
 ```rust
---8<-- 'code/rollups/pallet-development/pallet-testing/function-call-testing.rs'
+--8<-- 'code/parachains/pallet-development/pallet-testing/function-call-testing.rs'
 ```
 
 ### Storage Testing
@@ -51,7 +51,7 @@ After calling a function or extrinsic in your pallet, it's essential to verify t
 The following example shows how to test the storage behavior before and after the function call:
 
 ```rust
---8<-- 'code/rollups/pallet-development/pallet-testing/storage-testing.rs'
+--8<-- 'code/parachains/pallet-development/pallet-testing/storage-testing.rs'
 ```
 
 ### Event Testing
@@ -61,7 +61,7 @@ It's also crucial to test the events that your pallet emits during execution. By
 Here's an example of testing events in a mock runtime:
 
 ```rust
---8<-- 'code/rollups/pallet-development/pallet-testing/event-testing.rs'
+--8<-- 'code/parachains/pallet-development/pallet-testing/event-testing.rs'
 ```
 
 Some key considerations are:

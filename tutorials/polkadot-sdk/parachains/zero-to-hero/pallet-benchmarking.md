@@ -7,7 +7,7 @@ categories: Parachains
 
 ## Introduction
 
-After validating your pallet through testing and integrating it into your runtime, the next crucial step is benchmarking. Testing procedures were detailed in the [Pallet Unit Testing](/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-unit-testing/){target=\_blank} tutorial, while runtime integration was covered in the [Add Pallets to the Runtime](/rollups/pallet-development/add-pallet-to-runtime/){target=\_blank} guide.
+After validating your pallet through testing and integrating it into your runtime, the next crucial step is benchmarking. Testing procedures were detailed in the [Pallet Unit Testing](/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-unit-testing/){target=\_blank} tutorial, while runtime integration was covered in the [Add Pallets to the Runtime](/parachains/pallet-development/add-pallet-to-runtime/){target=\_blank} guide.
 
 Benchmarking assigns precise [weight](/polkadot-protocol/glossary/#weight){target=\_blank} to each extrinsic, 
 measuring their computational and storage costs. These derived weights enable accurate fee calculation and resource 
@@ -19,7 +19,7 @@ This tutorial demonstrates how to:
 - Create and implement benchmark tests for your extrinsics.
 - Apply benchmark results to your pallet's extrinsics.
 
-For comprehensive information about benchmarking concepts, refer to the [Benchmarking](/rollups/pallet-development/benchmark-pallet/){target=\_blank} guide.
+For comprehensive information about benchmarking concepts, refer to the [Benchmarking](/parachains/pallet-development/benchmark-pallet/){target=\_blank} guide.
 
 ## Environment Setup
 
@@ -42,7 +42,7 @@ Follow these steps to prepare your environment for pallet benchmarking:
     1.  Register your pallet in `runtime/src/benchmarks.rs`:
 
         ```rust hl_lines="11" title="benchmarks.rs"
-        --8<-- 'code/rollups/pallet-development/add-pallet-to-runtime/src/benchmarks.rs:26:37'
+        --8<-- 'code/parachains/pallet-development/add-pallet-to-runtime/src/benchmarks.rs:26:37'
         ```
 
     2. Enable runtime benchmarking for your pallet in `runtime/Cargo.toml`:
@@ -170,7 +170,7 @@ For testing purposes, you must implement the weight calculations in your mock ru
 Finally, configure the actual weight values in your production runtime. In `runtime/src/config/mod.rs`, add:
 
 ```rust hl_lines="5" title="mod.rs"
---8<-- 'code/rollups/pallet-development/add-pallet-to-runtime/src/configs/mod.rs:333:338'
+--8<-- 'code/parachains/pallet-development/add-pallet-to-runtime/src/configs/mod.rs:333:338'
 ```
 
 Your pallet is now complete with full testing and benchmarking support, ready for production use.

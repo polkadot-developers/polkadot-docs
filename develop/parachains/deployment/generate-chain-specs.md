@@ -179,7 +179,7 @@ After generating a chain specification, you can use it to initialize the genesis
 
     Learn how to obtain the necessary coretime configuration to synchronize your blockchain’s timestamping and enhance its performance.
 
-    [:octicons-arrow-right-24: Reference](/rollups/launch-a-rollup/obtain-coretime/)
+    [:octicons-arrow-right-24: Reference](/parachains/launch-a-rollup/obtain-coretime/)
 
 -   <span class="badge guide">Guide</span> __Deployment__
 

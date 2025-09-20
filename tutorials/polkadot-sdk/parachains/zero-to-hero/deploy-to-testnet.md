@@ -9,7 +9,7 @@ categories: Parachains
 
 ## Introduction
 
-Previously, you learned how to [build and run a blockchain locally](/rollups/pallet-development/add-pallet-to-runtime/){target=\_blank}. Now, you'll take the next step towards a production-like environment by deploying your parachain to a public test network.
+Previously, you learned how to [build and run a blockchain locally](/parachains/pallet-development/add-pallet-to-runtime/){target=\_blank}. Now, you'll take the next step towards a production-like environment by deploying your parachain to a public test network.
 
 This tutorial guides you through deploying a parachain on the Paseo network, a public TestNet that provides a more realistic blockchain ecosystem. While public testnets have a higher barrier to entry compared to private networks, they are crucial for validating your parachain's functionality and preparing it for eventual mainnet deployment.
 

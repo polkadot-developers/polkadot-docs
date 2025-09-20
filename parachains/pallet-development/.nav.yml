@@ -1,0 +1,6 @@
+nav:
+ - 'Create a Custom Pallet': index.md
+ - 'Mock Your Runtime': mock-runtime.md
+ - 'Pallet Unit Testing': pallet-testing.md
+ - 'Add a Custom Pallet to Your Runtime': add-pallet-to-runtime.md
+ - 'Benchmark a Custom Pallet': benchmark-pallet.md

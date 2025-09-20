@@ -38,7 +38,7 @@ The [sovereign account](https://github.com/polkadot-fellows/xcm-format/blob/1072
 
 Use [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} UI to connect to the relay chain and transfer funds from your account to the parachain 2500 sovereign account.
 
-![](/images/rollups/interoperability/channels-common/channels-01.webp)
+![](/images/parachains/interoperability/channels-common/channels-01.webp)
 
 ??? note "Calculating Parachain Sovereign Account"
     To generate the sovereign account address for a parachain, you'll need to follow these steps:
@@ -63,7 +63,7 @@ Use [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} 
 
 1. In Polkadot.js Apps, connect to the relay chain, navigate to the **Developer** dropdown and select the **Extrinsics** option.
 
-    ![](/images/rollups/interoperability/channels-common/channels-02.webp)
+    ![](/images/parachains/interoperability/channels-common/channels-02.webp)
 
 2. Construct an `hrmpInitOpenChannel` extrinsic call:
 
@@ -75,7 +75,7 @@ Use [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} 
         - **`proposedMaxMessageSize`**: Max message size that could be put into the channel.
     4. Copy the encoded call data.
 
-    ![](/images/rollups/interoperability/channels-between-rollups/rollups-01.webp)
+    ![](/images/parachains/interoperability/channels-between-parachains/parachains-01.webp)
 
     The encoded call data for opening a channel with parachain 2600 is `0x3c00280a00000800000000001000`.
 
@@ -104,7 +104,7 @@ To send the XCM message to the relay chain, connect to parachain 2500 in Polkado
 2. Use the correct beneficiary information.
 3. Click the **Submit Transaction** button to dispatch the XCM message to the relay chain.
 
-![](/images/rollups/interoperability/channels-between-rollups/rollups-02.webp)
+![](/images/parachains/interoperability/channels-between-parachains/parachains-02.webp)
 
 !!! note
     The exact process and parameters for submitting this XCM message may vary depending on your specific parachain and relay chain configurations. Always refer to the most current documentation for your particular network setup.
@@ -113,7 +113,7 @@ After submitting the XCM message to initiate the HRMP channel opening, you shoul
 
 1. Using Polkadot.js Apps, connect to the relay chain and navigate to the **Developer** dropdown, then select the **Chain state** option.
 
-    ![](/images/rollups/interoperability/channels-common/channels-03.webp)
+    ![](/images/parachains/interoperability/channels-common/channels-03.webp)
 
 2. Query the HRMP open channel requests:
 
@@ -122,7 +122,7 @@ After submitting the XCM message to initiate the HRMP channel opening, you shoul
     3. Click the **+** button to execute the query.
     4. Check the status of all pending channel requests.
 
-    ![](/images/rollups/interoperability/channels-between-rollups/rollups-03.webp)
+    ![](/images/parachains/interoperability/channels-between-parachains/parachains-03.webp)
 
 If your channel request was successful, you should see an entry for your parachain ID in the list of open channel requests. This confirms that your request has been properly registered on the relay chain and is awaiting acceptance by the target parachain.
 
@@ -139,7 +139,7 @@ To fund the account, follow the same process described in the previous section, 
 
 1. In Polkadot.js Apps, connect to the relay chain, navigate to the **Developer** dropdown and select the **Extrinsics** option.
 
-    ![](/images/rollups/interoperability/channels-common/channels-02.webp)
+    ![](/images/parachains/interoperability/channels-common/channels-02.webp)
 
 2. Construct an `hrmpAcceptOpenChannel` extrinsic call:
 
@@ -149,7 +149,7 @@ To fund the account, follow the same process described in the previous section, 
         - **`sender`**: Parachain ID of the requesting chain (in this case, 2500).
     4. Copy the encoded call data.
 
-    ![](/images/rollups/interoperability/channels-between-rollups/rollups-04.webp)
+    ![](/images/parachains/interoperability/channels-between-parachains/parachains-04.webp)
     
     The encoded call data for accepting a channel with parachain 2500 should be `0x3c01c4090000`.
 
@@ -166,13 +166,13 @@ To send the XCM message to the relay chain, connect to parachain 2600 in Polkado
 2. Use the correct beneficiary information.
 3. Click the **Submit Transaction** button to dispatch the XCM message to the relay chain.
 
-![](/images/rollups/interoperability/channels-between-rollups/rollups-05.webp)
+![](/images/parachains/interoperability/channels-between-parachains/parachains-05.webp)
 
 After submitting the XCM message to accept the HRMP channel opening, verify that the channel has been set up correctly.
 
 1. Using Polkadot.js Apps, connect to the relay chain and navigate to the **Developer** dropdown, then select the **Chain state** option.
 
-    ![](/images/rollups/interoperability/channels-common/channels-01.webp)
+    ![](/images/parachains/interoperability/channels-common/channels-01.webp)
 
 2. Query the HRMP channels:
 
@@ -181,7 +181,7 @@ After submitting the XCM message to accept the HRMP channel opening, verify that
     3. Click the **+** button to execute the query.
     4. Check the status of the opened channel.
 
-    ![](/images/rollups/interoperability/channels-between-rollups/rollups-06.webp)
+    ![](/images/parachains/interoperability/channels-between-parachains/parachains-06.webp)
 
 If the channel has been successfully established, you should see the channel details in the query results.
 

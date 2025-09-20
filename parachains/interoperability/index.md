@@ -31,7 +31,7 @@ These principles guarantee that XCM provides a reliable framework for cross-chai
 
 ## The XCM Tech Stack
 
-![Diagram of the XCM tech stack](/images/rollups/interoperability/index/intro-to-xcm-01.webp)
+![Diagram of the XCM tech stack](/images/parachains/interoperability/index/intro-to-xcm-01.webp)
 
 The XCM tech stack is designed to facilitate seamless interoperable communication between chains that reside within the Polkadot ecosystem. XCM can be used to express the meaning of the messages over each of the communication channels.
 
@@ -50,7 +50,7 @@ The standardized format for messages allows parachains to handle tasks like user
 The following is a simplified XCM message demonstrating a token transfer from Alice to Bob on the same chain (ParaA).
 
 ```rust
---8<-- 'code/rollups/interoperability/index/XCM-first-look.rs'
+--8<-- 'code/parachains/interoperability/index/XCM-first-look.rs'
 ```
 
 The message consists of three instructions described as follows:
@@ -58,7 +58,7 @@ The message consists of three instructions described as follows:
 - **[WithdrawAsset](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#withdrawasset){target=\_blank}**: Transfers a specified number of tokens from Alice's account to a holding register.
 
     ```rust
-    --8<-- 'code/rollups/interoperability/index/XCM-first-look.rs:2:2'
+    --8<-- 'code/parachains/interoperability/index/XCM-first-look.rs:2:2'
     ```
 
     - **`Here`**: The native parachain token.
@@ -69,7 +69,7 @@ The message consists of three instructions described as follows:
 - **[BuyExecution](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#buyexecution){target=\_blank}**: Allocates fees to cover the execution [weight](/polkadot-protocol/glossary/#weight){target=\_blank} of the XCM instructions.
 
     ```rust
-    --8<-- 'code/rollups/interoperability/index/XCM-first-look.rs:3:6'
+    --8<-- 'code/parachains/interoperability/index/XCM-first-look.rs:3:6'
     ```
 
     - **`fees`**: Describes the asset in the holding register that should be used to pay for the weight.
@@ -78,7 +78,7 @@ The message consists of three instructions described as follows:
 - **[DepositAsset](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#depositasset){target=\_blank}**: Moves the remaining tokens from the holding register to Bob’s account.
 
     ```rust
-    --8<-- 'code/rollups/interoperability/index/XCM-first-look.rs:7:16'
+    --8<-- 'code/parachains/interoperability/index/XCM-first-look.rs:7:16'
     ```
 
     - **`All`**: The wildcard for the asset(s) to be deposited. In this case, all assets in the holding register should be deposited.

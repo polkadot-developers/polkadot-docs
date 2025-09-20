@@ -6,7 +6,7 @@ template: index-page.html
 
 # XCM Transfers
 
-Discover comprehensive tutorials that guide you through performing asset transfers between distinct consensus systems. These tutorials leverage [XCM (Cross-Consensus Messaging)](/rollups/interoperability/){target=\_blank} technology, that enables cross-chain communication and asset exchanges across different blockchain networks. Whether you're working within the same ecosystem or bridging multiple systems, XCM ensures secure, efficient, and interoperable solutions.
+Discover comprehensive tutorials that guide you through performing asset transfers between distinct consensus systems. These tutorials leverage [XCM (Cross-Consensus Messaging)](/parachains/interoperability/){target=\_blank} technology, that enables cross-chain communication and asset exchanges across different blockchain networks. Whether you're working within the same ecosystem or bridging multiple systems, XCM ensures secure, efficient, and interoperable solutions.
 
 By mastering XCM-based transfers, you'll unlock new possibilities for building cross-chain applications and expanding blockchain utility. Learn the methods, tools, and best practices for testing XCM-powered transfers, ensuring your systems achieve robust interoperability.
 

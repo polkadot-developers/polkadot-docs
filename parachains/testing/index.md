@@ -85,7 +85,7 @@ The Chopsticks source repository includes a collection of [YAML](https://yaml.or
 An example of a configuration file for Polkadot is as follows:
 
 ```yaml
---8<-- 'code/rollups/testing/index/example-config.yml'
+--8<-- 'code/parachains/testing/index/example-config.yml'
 ```
 
 The configuration file allows you to modify the storage of the forked network by rewriting the pallet, state component and value that you want to change. For example, Polkadot's file rewrites Alice's `system.Account` storage so that the free balance is set to `10000000000000000000`.
@@ -117,7 +117,7 @@ These are the methods that can be invoked and their parameters:
     === "Example"
 
         ```js
-        --8<-- 'code/rollups/testing/index/dev-newblock-example.js'
+        --8<-- 'code/parachains/testing/index/dev-newblock-example.js'
         ```
 
 - **dev_setBlockBuildMode** (buildBlockMode): Sets block build mode.
@@ -137,7 +137,7 @@ These are the methods that can be invoked and their parameters:
     === "Example"
 
         ```js
-        --8<-- 'code/rollups/testing/index/dev-setBlockBuildMode-example.js'
+        --8<-- 'code/parachains/testing/index/dev-setBlockBuildMode-example.js'
         ```
 
 - **dev_setHead** (hashOrNumber): Sets the head of the blockchain to a specific hash or number.
@@ -149,7 +149,7 @@ These are the methods that can be invoked and their parameters:
     === "Example"
 
         ```js
-        --8<-- 'code/rollups/testing/index/dev-setHead-example.js'
+        --8<-- 'code/parachains/testing/index/dev-setHead-example.js'
         ```
 
 - **dev_setRuntimeLogLevel** (runtimeLogLevel): Sets the runtime log level.
@@ -161,7 +161,7 @@ These are the methods that can be invoked and their parameters:
     === "Example"
 
         ```js
-        --8<-- 'code/rollups/testing/index/dev-setRuntimeLogLevel-example.js'
+        --8<-- 'code/parachains/testing/index/dev-setRuntimeLogLevel-example.js'
         ```
 
 - **dev_setStorage** (values, blockHash): Creates or overwrites the value of any storage.
@@ -174,7 +174,7 @@ These are the methods that can be invoked and their parameters:
     === "Example"
 
         ```js
-        --8<-- 'code/rollups/testing/index/dev-setStorage-example.js'
+        --8<-- 'code/parachains/testing/index/dev-setStorage-example.js'
         ```
 
 - **dev_timeTravel** (date): Sets the timestamp of the block to a specific date".
@@ -186,7 +186,7 @@ These are the methods that can be invoked and their parameters:
     === "Example"
 
         ```js
-        --8<-- 'code/rollups/testing/index/dev-timeTravel-example.js'
+        --8<-- 'code/parachains/testing/index/dev-timeTravel-example.js'
         ```
 
 ## Where to Go Next

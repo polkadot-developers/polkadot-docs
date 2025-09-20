@@ -1,4 +1,0 @@
-nav:
- - 'Get Started': index.md
- - 'Open HRMP Channels Between Rollups': channels-between-rollups.md
- - 'Open HRMP Channels With System Rollups': channels-with-system-rollups.md

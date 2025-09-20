@@ -8,7 +8,7 @@ categories: Polkadot Protocol
 
 The Coretime system chain facilitates the allocation, procurement, sale, and scheduling of bulk [coretime](/polkadot-protocol/glossary/#coretime){target=\_blank}, enabling tasks (such as [parachains](/polkadot-protocol/glossary/#parachain){target=\_blank}) to utilize the computation and security provided by Polkadot. 
 
-The [Broker pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/index.html){target=\_blank}, along with [Cross Consensus Messaging (XCM)](/rollups/interoperability/){target=\_blank}, enables this functionality to be delegated to the system chain rather than the relay chain. Using [XCMP's Upward Message Passing (UMP)](https://wiki.polkadot.com/learn/learn-xcm-transport/#ump-upward-message-passing){target=\_blank} to the relay chain allows for core assignments to take place for a task registered on the relay chain.
+The [Broker pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/index.html){target=\_blank}, along with [Cross Consensus Messaging (XCM)](/parachains/interoperability/){target=\_blank}, enables this functionality to be delegated to the system chain rather than the relay chain. Using [XCMP's Upward Message Passing (UMP)](https://wiki.polkadot.com/learn/learn-xcm-transport/#ump-upward-message-passing){target=\_blank} to the relay chain allows for core assignments to take place for a task registered on the relay chain.
 
 The Fellowship RFC [RFC-1: Agile Coretime](https://github.com/polkadot-fellows/RFCs/blob/main/text/0001-agile-coretime.md){target=\_blank} contains the specification for the Coretime system chain and coretime as a concept.
 

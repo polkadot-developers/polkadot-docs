@@ -36,7 +36,7 @@ graph TD
 
 All three pathways can leverage Cross-Consensus Messaging (XCM) to create innovative cross-chain workflows and applications. To get started with XCM, see these resources:
 
-- **[Introduction to XCM](/rollups/interoperability/){target=\_blank}**: Introduces key concepts, core function definitions, and code examples.
+- **[Introduction to XCM](/parachains/interoperability/){target=\_blank}**: Introduces key concepts, core function definitions, and code examples.
 - **[XCM Tools](/develop/toolkit/interoperability/xcm-tools/){target=\_blank}**: Provides an overview of popular XCM tools.
 - **[Tutorials for Managing XCM Channels](/tutorials/interoperability/xcm-channels/){target=\_blank}**: Guides for using [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} UI to establish cross-chain messaging channels.
 
@@ -109,9 +109,9 @@ Integrate with the Polkadot blockchain's underlying protocol features to create 
 
 - <h3>:octicons-book-16:{ .lg .middle } Learn</h3>
     <hr>
-    - [Options for Wallet Integration](/rollups/integrations/){target=\_blank}
-    - [Options for Indexer Integration](/rollups/integrations/indexers/){target=\_blank}
-    - [Options for Oracle Integration](/rollups/integrations/oracles/){target=\_blank}
+    - [Options for Wallet Integration](/parachains/integrations/){target=\_blank}
+    - [Options for Indexer Integration](/parachains/integrations/indexers/){target=\_blank}
+    - [Options for Oracle Integration](/parachains/integrations/oracles/){target=\_blank}
 
 - <h3>:octicons-rocket-16:{.lg .middle} Build</h3>
     <hr>

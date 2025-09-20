@@ -14,7 +14,7 @@ This guide applies to parachain projects based on Cumulus that started in 2023 o
 
 ## Prerequisite
 
-The relay chain must have async backing enabled; therefore, double-check the relay's runtime to verify that the following three parameters are included in the relay chain configuration (especially when testing locally with tools like [Zombienet](/rollups/testing/run-a-rollup-network/){target=\_blank}):
+The relay chain must have async backing enabled; therefore, double-check the relay's runtime to verify that the following three parameters are included in the relay chain configuration (especially when testing locally with tools like [Zombienet](/parachains/testing/run-a-rollup-network/){target=\_blank}):
 
 ```rust title="runtimes/relay/polkadot/src/genesis_config_presets.rs"
 --8<-- 'code/develop/parachains/maintenance/configure-asynchronous-backing/genesis_config_preset_snippet.rs'

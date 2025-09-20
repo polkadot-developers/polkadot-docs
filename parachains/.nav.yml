@@ -1,7 +1,7 @@
 nav:
  - 'Get Started': index.md
  - 'Overview': overview.md
- - 'Launch a Simple Rollup': launch-a-rollup
+ - 'Launch a Simple Parachain': launch-a-parachain
  - 'Customize Your Runtime': customize-runtime
  - 'Pallet Development': pallet-development
  - 'Testing': testing

@@ -1,4 +1,4 @@
 nav:
  - 'Runtime Upgrades': index.md
  - 'Storage Migrations': storage-migrations.md
- - 'Unlock Rollups': unlock-rollups.md
+ - 'Unlock Parachains': unlock-parachains.md

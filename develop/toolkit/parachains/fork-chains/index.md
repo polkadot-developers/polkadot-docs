@@ -8,7 +8,7 @@ template: index-page.html
 
 Explore tools for forking live blockchain networks. These tools enable you to replicate real-world conditions in a local environment for accurate testing and debugging. They also allow you to analyze network behavior, test new features, and simulate complex scenarios in a controlled environment without affecting production systems.
 
-Ready to get started? Jump straight to the [Chopsticks getting started](/rollups/testing/) guide.
+Ready to get started? Jump straight to the [Chopsticks getting started](/parachains/testing/) guide.
 
 ## Why Fork a Live Chain?
 

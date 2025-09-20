@@ -38,25 +38,25 @@ The following are some common scenarios where a storage migration is needed:
 - **Changing data types**: Changing the underlying data type requires a migration to convert the existing values.
 
     ```rust
-    --8<-- 'code/rollups/runtime-maintenance/storage-migrations/example-1.rs'
+    --8<-- 'code/parachains/runtime-maintenance/storage-migrations/example-1.rs'
     ```
 
 - **Changing data representation**: Modifying the representation of the stored data, even if the size appears unchanged, requires a migration to ensure the runtime can correctly interpret the existing values.
 
     ```rust
-    --8<-- 'code/rollups/runtime-maintenance/storage-migrations/example-2.rs'
+    --8<-- 'code/parachains/runtime-maintenance/storage-migrations/example-2.rs'
     ```
 
 - **Extending an enum**: Adding new variants to an enum requires a migration if you reorder existing variants, insert new variants between existing ones, or change the data type of existing variants. No migration is required when adding new variants at the end of the enum.
 
     ```rust
-    --8<-- 'code/rollups/runtime-maintenance/storage-migrations/example-3.rs'
+    --8<-- 'code/parachains/runtime-maintenance/storage-migrations/example-3.rs'
     ```
 
 - **Changing the storage key**: Modifying the storage key, even if the underlying data type remains the same, requires a migration to ensure the runtime can locate the correct stored values.
 
     ```rust
-    --8<-- 'code/rollups/runtime-maintenance/storage-migrations/example-4.rs'
+    --8<-- 'code/parachains/runtime-maintenance/storage-migrations/example-4.rs'
     ```
 
 !!!warning
@@ -67,7 +67,7 @@ The following are some common scenarios where a storage migration is needed:
 The [`OnRuntimeUpgrade`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/trait.OnRuntimeUpgrade.html){target=\_blank} trait provides the foundation for implementing storage migrations in your runtime. Here's a detailed look at its essential functions:
 
 ```rust
---8<-- 'code/rollups/runtime-maintenance/storage-migrations/on-runtime-upgrade-trait.rs'
+--8<-- 'code/parachains/runtime-maintenance/storage-migrations/on-runtime-upgrade-trait.rs'
 ```
 
 ### Core Migration Function
@@ -160,7 +160,7 @@ This structure provides several benefits:
 To execute migrations during a runtime upgrade, you must configure them in your runtime's Executive pallet. Add your migrations in `runtime/src/lib.rs`:
 
 ```rust
---8<-- 'code/rollups/runtime-maintenance/storage-migrations/executive.rs'
+--8<-- 'code/parachains/runtime-maintenance/storage-migrations/executive.rs'
 ```
 
 ## Single-Block Migrations

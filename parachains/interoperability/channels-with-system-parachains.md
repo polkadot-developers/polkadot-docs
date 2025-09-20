@@ -35,7 +35,7 @@ The [sovereign account](https://github.com/polkadot-fellows/xcm-format/blob/1072
 
 Use [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} UI to connect to the relay chain and transfer funds from your account to the parachain 2500 sovereign account.
 
-![](/images/rollups/interoperability/channels-common/channels-01.webp)
+![](/images/parachains/interoperability/channels-common/channels-01.webp)
 
 ??? note "Calculating Parachain Sovereign Account"
     To generate the sovereign account address for a parachain, you'll need to follow these steps:
@@ -60,7 +60,7 @@ Use [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} 
 
 1. In Polkadot.js Apps, connect to the relay chain, navigate to the **Developer** dropdown and select the **Extrinsics** option.
 
-    ![](/images/rollups/interoperability/channels-common/channels-02.webp)
+    ![](/images/parachains/interoperability/channels-common/channels-02.webp)
 
 2. Construct an `establish_channel_with_system` extrinsic call:
 
@@ -69,7 +69,7 @@ Use [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} 
     3. Fill in the parameters:
         - **`target_system_chain`**: Parachain ID of the target system chain (in this case, 1000).
     4. Copy the encoded call data.
-    ![](/images/rollups/interoperability/channels-with-system-rollups/system-rollups-01.webp)
+    ![](/images/parachains/interoperability/channels-with-system-parachains/system-parachains-01.webp)
 
     The encoded call data for establishing a channel with system parachain 1000 should be `0x3c0ae8030000`.
 
@@ -81,7 +81,7 @@ Connect to parachain 2500 using Polkadot.js Apps to send the XCM message to the 
 2. Provide beneficiary details.
 3. Dispatch the XCM message to the relay chain by clicking the **Submit Transaction** button.
 
-![](/images/rollups/interoperability/channels-with-system-rollups/system-rollups-02.webp)
+![](/images/parachains/interoperability/channels-with-system-parachains/system-parachains-02.webp)
 
 !!! note
     The exact process and parameters for submitting this XCM message may vary depending on your specific parachain and relay chain configurations. Always refer to the most current documentation for your particular network setup.
@@ -92,7 +92,7 @@ To verify this, wait for the next session and then follow these steps:
 
 1. Using Polkadot.js Apps, connect to the relay chain and navigate to the **Developer** dropdown, then select **Chain state**.
 
-    ![](/images/rollups/interoperability/channels-common/channels-03.webp)
+    ![](/images/parachains/interoperability/channels-common/channels-03.webp)
 
 2. Query the HRMP channels:
 
@@ -100,12 +100,12 @@ To verify this, wait for the next session and then follow these steps:
     2. Choose the **`hrmpChannels`** call.
     3. Click the **+** button to execute the query.
 
-    ![](/images/rollups/interoperability/channels-with-system-rollups/system-rollups-03.webp)
+    ![](/images/parachains/interoperability/channels-with-system-parachains/system-parachains-03.webp)
     
 3. Examine the query results. You should see output similar to the following:
 
     ```json
-    --8<-- 'code/rollups/interoperability/channels-with-system-rollups/hrmp-query-output.json'
+    --8<-- 'code/parachains/interoperability/channels-with-system-parachains/hrmp-query-output.json'
     ```
 
 The output confirms the successful establishment of two HRMP channels:

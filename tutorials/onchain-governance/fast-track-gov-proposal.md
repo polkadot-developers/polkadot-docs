@@ -26,7 +26,7 @@ This tutorial will guide you through using Chopsticks to test OpenGov proposals 
 
 Before proceeding, ensure the following prerequisites are met:
 
-- **Chopsticks installation**: If you have not installed Chopsticks yet, refer to the [Install Chopsticks](/rollups/testing/#install-chopsticks){target=\_blank} instructions.
+- **Chopsticks installation**: If you have not installed Chopsticks yet, refer to the [Install Chopsticks](/parachains/testing/#install-chopsticks){target=\_blank} instructions.
 - **Familiarity with key concepts**:
     - [Polkadot.js](/develop/toolkit/api-libraries/polkadot-js-api){target=\_blank}
     - [OpenGov](/polkadot-protocol/onchain-governance/overview){target=\_blank}

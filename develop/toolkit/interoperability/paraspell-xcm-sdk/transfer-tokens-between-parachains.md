@@ -1,6 +1,6 @@
 ---
 title: Transfer Tokens Between Parachains
-description: A step-by-step guide to building, verifying, and executing a transfer from one Parachain to another Parachain using the ParaSpell XCM SDK.
+description: A step-by-step guide to using the ParaSpell XCM SDK to build, verify, and execute a transfer from one Parachain to another.
 ---
 
 # Transfer Tokens Between Parachains

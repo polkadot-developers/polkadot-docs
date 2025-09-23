@@ -58,7 +58,7 @@ Replace the `INSERT_YOUR_SEED_PHRASE` with the seed phrase from your Polkadot de
 Be sure to fund this account with some PAS tokens on Paseo's Asset Hub using the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1000){target=\_blank}.
 
 !!!warning "Security Warning"
-    Never commit your mnemonic phrase in production code. Use environment variables or secure key management systems.
+    Never commit your mnemonic phrase to production code. Use environment variables or secure key management systems.
 
 ## Build a Token Transfer Transaction
 

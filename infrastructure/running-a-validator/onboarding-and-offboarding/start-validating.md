@@ -105,7 +105,7 @@ To confirm that your validator is live and synchronized with the Polkadot networ
 
 Follow these steps to use Polkadot.js Apps to activate your validator:
 
-1. Go to the **Validator** tab in the Polkadot.js Apps UI and locate the section where you input the keys generated from `rotateKeys`. Paste the output from `author_rotateKeys`, which is a hex-encoded key that links your validator with its session keys.
+1. In Polkadot.js Apps, navigate to **Network** > **Staking**, open the **Accounts** tab and click on **+ Validator**, then click **Set session keys**. Paste the output from `author_rotateKeys` (hex-encoded) to link your validator with its session keys. Then click **+ Validator** to continue.
 
 2. Set a reward commission percentage if desired. You can set a percentage of the rewards to pay to your validator and the remainder pays to your nominators. A 100% commission rate indicates the validator intends to keep all rewards and is seen as a signal the validator is not seeking nominators.
 

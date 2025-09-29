@@ -122,7 +122,7 @@ ParaSpell has a helpful function for this: [`getTransferInfo()`](https://paraspe
 --8<-- 'code/develop/toolkit/interoperability/paraspell/index.ts:90:106'
 ```
 
-Comment out the `verifyED()` and execute the `XcmTransferInfo()` by running:
+Comment out the `verifyED()` function so it doesn't execute again. Then, execute the `XcmTransferInfo()` function by running the following command:
 
 ```bash
 bun run index.ts

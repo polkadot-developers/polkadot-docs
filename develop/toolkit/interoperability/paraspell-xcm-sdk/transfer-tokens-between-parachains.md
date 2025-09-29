@@ -11,7 +11,7 @@ This guide walks you through transferring tokens between two parachains using th
 
 For development purposes, this guide will use the [Polkadot TestNet](/develop/networks/#paseo){target=\_blank}, so the transferred token will be PAS.
 
-In this guide, you’ll learn how to:
+In this guide, you will:
 
 - Build an XCM transfer transaction using ParaSpell XCM SDK.
 - Perform a dry run to validate the transfer.

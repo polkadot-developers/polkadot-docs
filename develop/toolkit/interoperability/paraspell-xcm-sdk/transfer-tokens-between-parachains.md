@@ -146,7 +146,7 @@ Add the following code:
 --8<-- 'code/develop/toolkit/interoperability/paraspell/index.ts:108:108'
 ```
 
-Comment out the `XcmTransferInfo()` and execute the transfer:
+Comment out the `XcmTransferInfo()` function so it doesn't execute again. Then, execute the transfer by running the following command: 
 
 ```bash
 bun run index.ts

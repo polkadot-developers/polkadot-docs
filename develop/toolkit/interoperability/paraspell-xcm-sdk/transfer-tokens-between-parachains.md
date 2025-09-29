@@ -102,7 +102,7 @@ Check if the recipient account meets the [Existential Deposit (ED)](/polkadot-pr
 ```ts title="index.ts"
 --8<-- 'code/develop/toolkit/interoperability/paraspell/index.ts:72:88'
 ```
-Comment out the `dryRunTransfer()` and execute the `verifyED()` by running:
+Comment out the `dryRunTransfer()` function so that it is not executed again. Then, execute the `verifyED()` by running the following command:
 
 ```bash
 bun run index.ts

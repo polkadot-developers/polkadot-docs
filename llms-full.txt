@@ -631,10 +631,8 @@ The [`XcmRouter`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pa
 For instance, the Kusama network employs the [`ChildParachainRouter`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_common/xcm_sender/struct.ChildParachainRouter.html){target=\_blank}, which restricts routing to [Downward Message Passing (DMP)](https://wiki.polkadot.com/learn/learn-xcm-transport/#dmp-downward-message-passing){target=\_blank} from the relay chain to parachains, ensuring secure and controlled communication.
 
 ```rust
-pub type XcmRouter = WithUniqueTopic<(
-	// Only one router so far - use DMP to communicate with child parachains.
-	ChildParachainRouter<Runtime, XcmPallet, PriceForChildParachainDelivery>,
-)>;
+pub type PriceForChildParachainDelivery =
+	ExponentialPrice<FeeAssetId, BaseDeliveryFee, TransactionByteFee, Dmp>;
 ```
 
 For more details about XCM transport protocols, see the [XCM Channels](/develop/interoperability/xcm-channels/){target=\_blank} page.
@@ -17262,7 +17260,7 @@ This guide walks you through transferring tokens between two parachains using th
 
 For development purposes, this guide will use the [Polkadot TestNet](/develop/networks/#paseo){target=\_blank}, so the transferred token will be PAS.
 
-In this guide, you’ll learn how to:
+In this guide, you will:
 
 - Build an XCM transfer transaction using ParaSpell XCM SDK.
 - Perform a dry run to validate the transfer.
@@ -17272,10 +17270,12 @@ In this guide, you’ll learn how to:
 
 ### Prerequisites
 
-- Knowledge of the [fundamentals of Polkadot](/polkadot-protocol/parachain-basics/){target=\_blank}
-- Basic understanding of [XCM](/develop/interoperability/intro-to-xcm/){target=\_blank}
-- Basic familiarity with JavaScript/TypeScript
-- Install [bun](https://bun.com/docs/installation){target=\_blank}, a JavaScript/TypeScript package manager
+Before you begin, ensure you have the following:
+
+- Knowledge of the [fundamentals of Polkadot](/polkadot-protocol/parachain-basics/){target=\_blank}.
+- Basic understanding of [XCM](/develop/interoperability/intro-to-xcm/){target=\_blank}.
+- Basic familiarity with JavaScript or TypeScript.
+- Installed [bun](https://bun.com/docs/installation){target=\_blank}, a JavaScript and TypeScript package manager.
 
 ## Initialize Your Project
 
@@ -17399,13 +17399,13 @@ async function dryRunTransfer() {
 
 dryRunTransfer();
 ```
-Go ahead and run the script.
+Run the script using the following command:
 
 ```bash
 bun run index.ts
 ```
 
-The result of the dry run will be similar to this:
+The result of the dry run will look similar to the following example output:
 
 <div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>bun run index.ts</span>
@@ -17559,13 +17559,13 @@ async function verifyED() {
 
 verifyED();
 ```
-Comment out the `dryRunTransfer()` and execute the `verifyED()` by running:
+Comment out the `dryRunTransfer()` function so that it is not executed again. Then, execute the `verifyED()` by running the following command:
 
 ```bash
 bun run index.ts
 ```
 
-After that, you will get output confirming the ED:
+After that, you will get output confirming the ED which will look similar to the following:
 
 <div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>bun run index.ts</span>
@@ -17598,13 +17598,13 @@ async function XcmTransferInfo() {
 XcmTransferInfo();
 ```
 
-Comment out the `verifyED()` and execute the `XcmTransferInfo()` by running:
+Comment out the `verifyED()` function so it doesn't execute again. Then, execute the `XcmTransferInfo()` function by running the following command:
 
 ```bash
 bun run index.ts
 ```
 
-You should be able to see all the information for your transfer:
+You will see all the information for your transfer similar to the following example:
 
 <div id="termynal" data-termynal>
   <span data-ty="input"><span class="file-path"></span>bun run index.ts</span>
@@ -17658,19 +17658,17 @@ You should be able to see all the information for your transfer:
 
 Now that you have:
 
-- Completed a successful dry run of the transaction
-- Verified the existential deposit on the recipient account
-- Obtained an estimate of the associated XCM fees
+- Completed a successful dry run of the transaction.
+- Verified the existential deposit on the recipient account.
+- Obtained an estimate of the associated XCM fees.
 
-Now you can execute the transfer function by adding the following statement:
-
-Add the following code:
+You can execute the transfer function by adding the following function call:
 
 ```typescript title="index.ts"
 transfer();
 ```
 
-Comment out the `XcmTransferInfo()` and execute the transfer:
+Comment out the `XcmTransferInfo()` function so it doesn't execute again. Then, execute the transfer by running the following command: 
 
 ```bash
 bun run index.ts
@@ -17739,7 +17737,7 @@ Your `transfer` function will submit the transaction, and you will get the follo
 }</span>
 </div>
 
-Once the transaction is successfully included in a block, you will see the recipient's account balance updated, and you will receive output similar to the one below.
+Once the transaction is successfully included in a block, you will see the recipient's account balance updated, and you will receive output similar to the following.
 
 ???- code "Successful Transaction Submission"
     This output will be returned once the transaction has been successfully included in a block.

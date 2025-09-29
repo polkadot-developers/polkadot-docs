@@ -138,9 +138,7 @@ Now that you have:
 - Verified the existential deposit on the recipient account.
 - Obtained an estimate of the associated XCM fees.
 
-Now you can execute the transfer function by adding the following statement:
-
-Add the following code:
+You can execute the transfer function by adding the following function call:
 
 ```typescript title="index.ts"
 --8<-- 'code/develop/toolkit/interoperability/paraspell/index.ts:108:108'

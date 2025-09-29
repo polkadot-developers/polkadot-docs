@@ -85,7 +85,7 @@ Add the following dry run code to your `index.ts` script:
 ```ts title="index.ts"
 --8<-- 'code/develop/toolkit/interoperability/paraspell/index.ts:49:70'
 ```
-Go ahead and run the script.
+Run the script using the following command:
 
 ```bash
 bun run index.ts

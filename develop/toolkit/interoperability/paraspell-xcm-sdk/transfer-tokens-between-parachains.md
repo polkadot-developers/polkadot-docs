@@ -108,7 +108,7 @@ Comment out the `dryRunTransfer()` function so that it is not executed again. Th
 bun run index.ts
 ```
 
-After that, you will get output confirming the ED:
+After that, you will get output confirming the ED which will look similar to the following:
 
 --8<-- 'code/develop/toolkit/interoperability/paraspell/ed-verification-output.html'
 

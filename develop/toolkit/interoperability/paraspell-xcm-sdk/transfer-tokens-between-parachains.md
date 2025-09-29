@@ -21,6 +21,8 @@ In this guide, you will:
 
 ### Prerequisites
 
+Before you begin, ensure you have the following:
+
 - Knowledge of the [fundamentals of Polkadot](/polkadot-protocol/parachain-basics/){target=\_blank}
 - Basic understanding of [XCM](/develop/interoperability/intro-to-xcm/){target=\_blank}
 - Basic familiarity with JavaScript/TypeScript

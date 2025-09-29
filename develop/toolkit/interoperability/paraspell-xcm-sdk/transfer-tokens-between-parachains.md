@@ -136,7 +136,7 @@ Now that you have:
 
 - Completed a successful dry run of the transaction.
 - Verified the existential deposit on the recipient account.
-- Obtained an estimate of the associated XCM fees
+- Obtained an estimate of the associated XCM fees.
 
 Now you can execute the transfer function by adding the following statement:
 

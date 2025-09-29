@@ -91,7 +91,7 @@ Run the script using the following command:
 bun run index.ts
 ```
 
-The result of the dry run will be similar to this:
+The result of the dry run will look similar to the following example output:
 
 --8<-- 'code/develop/toolkit/interoperability/paraspell/dry-run-output.html'
 

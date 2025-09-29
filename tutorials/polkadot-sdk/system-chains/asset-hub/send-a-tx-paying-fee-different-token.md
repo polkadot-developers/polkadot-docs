@@ -43,8 +43,10 @@ Let's set up the development environment for this tutorial:
 5. Create TypeScript configuration:
 
     ```bash
-    npx tsc --init
+    npx tsc --init && npm pkg set type=module
     ```
+
+    The command `npm pkg set type=module` is used to set the type of the project to module. This is necessary to use the `import` statement in the TypeScript code.
 
 6. Generate the types for the Polkadot API for Asset Hub:
 

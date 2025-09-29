@@ -25,7 +25,7 @@ Before you begin, ensure you have the following:
 
 - Knowledge of the [fundamentals of Polkadot](/polkadot-protocol/parachain-basics/){target=\_blank}.
 - Basic understanding of [XCM](/develop/interoperability/intro-to-xcm/){target=\_blank}.
-- Basic familiarity with JavaScript/TypeScript
+- Basic familiarity with JavaScript or TypeScript.
 - Install [bun](https://bun.com/docs/installation){target=\_blank}, a JavaScript/TypeScript package manager
 
 ## Initialize Your Project

@@ -128,7 +128,7 @@ Comment out the `verifyED()` function so it doesn't execute again. Then, execute
 bun run index.ts
 ```
 
-You should be able to see all the information for your transfer:
+You will see all the information for your transfer similar to the following example:
 
 --8<-- 'code/develop/toolkit/interoperability/paraspell/transfer-info-output.html'
 

@@ -85,7 +85,7 @@ Subsequent sections of this guide provide detailed information about specific de
 
     Explore essential libraries to optimize smart contract development and interaction.
 
-    [:octicons-arrow-right-24: Reference](/develop/smart-contracts/libraries/)
+    [:octicons-arrow-right-24: Reference](/smart-contracts/libraries/ethers-js/)
 
 -   <span class="badge guide">Guide</span> __Dev Environments__
 
@@ -93,6 +93,6 @@ Subsequent sections of this guide provide detailed information about specific de
 
     Set up your development environment for seamless contract deployment and testing.
 
-    [:octicons-arrow-right-24: Reference](/develop/smart-contracts/dev-environments/)
+    [:octicons-arrow-right-24: Reference](/smart-contracts/dev-environments/local-dev-node/)
 
 </div>

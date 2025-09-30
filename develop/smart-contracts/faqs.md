@@ -50,11 +50,11 @@ Polkadot Hub contracts run on [PolkaVM](/smart-contracts/for-eth-devs/dual-vm-st
 
 ### Can I use my existing Ethereum development tools?
 
-Yes, check out the [Wallets](/develop/smart-contracts/wallets){target=\_blank} page, the [Development Environments](/develop/smart-contracts/dev-environments/){target=\_blank}, and the [Libraries](/develop/smart-contracts/libraries/){target=\_blank} sections for more information.
+Yes, check out the [Wallets](/smart-contracts/integrations/wallets/){target=\_blank} page, the [Development Environments](/smart-contracts/dev-environments/local-dev-node/){target=\_blank}, and the [Libraries](/smart-contracts/libraries/ethers-js/){target=\_blank} sections for more information.
 
 ### How do I set up local development?
 
-Check the [Local Development Node](/develop/smart-contracts/local-development-node){target=\_blank} for further instructions.
+Check the [Local Development Node](/smart-contracts/dev-environments/local-dev-node/){target=\_blank} for further instructions.
 
 ### What networks are available for testing and deployment?
 
@@ -149,7 +149,7 @@ PolkaVM uses dynamic gas scaling:
 
 ### I deployed a contract with MetaMask, and got a `code size` error - why?
 
-The latest MetaMask update affects the extension’s ability to deploy large contracts. Check the [Wallets](/develop/smart-contracts/wallets){target=\_blank} page for more details.
+The latest MetaMask update affects the extension’s ability to deploy large contracts. Check the [Wallets](/smart-contracts/integrations/wallets){target=\_blank} page for more details.
 
 ### I found a bug, where can I log it?
 

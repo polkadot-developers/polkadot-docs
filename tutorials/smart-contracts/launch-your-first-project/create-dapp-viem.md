@@ -222,6 +222,6 @@ cd polkavm-storage-contract-dapps/viem-dapp
 
     Learn how to build a decentralized application by using the Wagmi framework.
 
-    [:octicons-arrow-right-24: Get Started](/develop/smart-contracts/libraries/wagmi)
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/libraries/wagmi/)
 
 </div>

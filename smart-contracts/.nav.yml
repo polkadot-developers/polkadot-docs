@@ -6,3 +6,7 @@ nav:
 - 'Faucets': faucets.md
 - 'Polkadot for Ethereum Developers': for-eth-devs
 - 'Cookbook': cookbook
+- 'Precompiles': precompiles
+- 'Development Environments': dev-environments
+- 'Libraries': libraries
+- 'Integrations': integrations

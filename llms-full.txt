@@ -204,7 +204,7 @@ Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/re
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/polkadot-sdk/system-chains/asset-hub/index.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/polkadot-sdk/system-chains/asset-hub/register-foreign-asset.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-asset.md
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/polkadot-sdk/system-chains/asset-hub/send-tx-paying-fees-with-different-tokens.md
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/polkadot-sdk/system-chains/asset-hub/send-a-tx-paying-fee-different-token.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/polkadot-sdk/system-chains/index.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/polkadot-sdk/testing/fork-live-chains.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/polkadot-sdk/testing/index.md
@@ -633,10 +633,8 @@ The [`XcmRouter`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pa
 For instance, the Kusama network employs the [`ChildParachainRouter`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_common/xcm_sender/struct.ChildParachainRouter.html){target=\_blank}, which restricts routing to [Downward Message Passing (DMP)](https://wiki.polkadot.network/learn/learn-xcm-transport/#dmp-downward-message-passing){target=\_blank} from the relay chain to parachains, ensuring secure and controlled communication.
 
 ```rust
-pub type XcmRouter = WithUniqueTopic<(
-	// Only one router so far - use DMP to communicate with child parachains.
-	ChildParachainRouter<Runtime, XcmPallet, PriceForChildParachainDelivery>,
-)>;
+pub type PriceForChildParachainDelivery =
+	ExponentialPrice<FeeAssetId, BaseDeliveryFee, TransactionByteFee, Dmp>;
 ```
 
 For more details about XCM transport protocols, see the [XCM Channels](/develop/interoperability/xcm-channels/){target=\_blank} page.
@@ -41457,14 +41455,14 @@ The above command will spawn a lazy fork of Polkadot Asset Hub with the latest b
 An Asset Hub instance is now running locally, and you can proceed with the asset registration process. Note that the local registration process does not differ from the live network process. Once you have a successful TestNet transaction, you can use the same steps to register the asset on MainNet.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/system-chains/asset-hub/send-tx-paying-fees-with-different-tokens/
+Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/system-chains/asset-hub/send-a-tx-paying-fee-different-token/
 --- BEGIN CONTENT ---
 ---
-title: Send Transaction Paying Fees with Different Tokens
+title: Send a Transaction Paying the Fee With a Different Token
 description: This tutorial demonstrates how to send a DOT transfer transaction while paying the fees using a different token on the Asset Hub.
 ---
 
-# Send Transaction Paying Fees with Different Tokens
+# Send a Transaction Paying the Fee With a Different Token
 
 ## Introduction
 
@@ -41504,8 +41502,10 @@ Let's set up the development environment for this tutorial:
 5. Create TypeScript configuration:
 
     ```bash
-    npx tsc --init
+    npx tsc --init && npm pkg set type=module
     ```
+
+    The command `npm pkg set type=module` is used to set the type of the project to module. This is necessary to use the `import` statement in the TypeScript code.
 
 6. Generate the types for the Polkadot API for Asset Hub:
 

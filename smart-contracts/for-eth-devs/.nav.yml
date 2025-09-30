@@ -1,5 +1,5 @@
 nav:
-- 'Dual Virtual Machine Stack': index.md
+- 'Dual Virtual Machine Stack': dual-vm-stack.md
 - 'Accounts': accounts.md
 - 'Gas Model': gas-model.md
 - 'Contract Deployment': contract-deployment.md

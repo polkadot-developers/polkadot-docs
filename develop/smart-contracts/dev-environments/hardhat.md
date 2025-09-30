@@ -310,13 +310,13 @@ Explore more about smart contracts through these resources:
 
 <div class="grid cards" markdown>
 
--   <span class="badge guide">Guide</span> __Smart Contracts on Polkadot__
+-   <span class="badge guide">Guide</span> __Get Started with Smart Contracts__
 
     ---
 
-    Dive into advanced smart contract concepts.
+    Learn how to get started with smart contracts
 
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/)
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/get-started/)
 
 -   <span class="badge external">External</span> __Hardhat Documentation__
 

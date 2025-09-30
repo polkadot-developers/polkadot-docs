@@ -6,7 +6,7 @@ template: index-page.html
 
 # System Chains Tutorials
 
-In this section, you'll gain hands-on experience building solutions that integrate with [system chains](/polkadot-protocol/architecture/system-chains/){target=\_blank} on Polkadot using the Polkadot SDK. System chains like the [Asset Hub](/polkadot-protocol/architecture/system-chains/asset-hub/){target=\_blank} provide essential infrastructure for enabling cross-chain interoperability and asset management across the Polkadot ecosystem. 
+In this section, you'll gain hands-on experience building solutions that integrate with [system chains](/polkadot-protocol/architecture/system-chains/){target=\_blank} on Polkadot using the Polkadot SDK. System chains like the [Asset Hub](/reference/polkadot-hub/assets-and-smart-contracts/){target=\_blank} provide essential infrastructure for enabling cross-chain interoperability and asset management across the Polkadot ecosystem. 
 
 Through these tutorials, you'll learn how to leverage these system chains to enhance the functionality and security of your blockchain applications.
 

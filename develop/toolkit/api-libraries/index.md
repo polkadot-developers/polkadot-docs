@@ -16,7 +16,7 @@ Explore the powerful API libraries designed for interacting with the Polkadot ne
 
 <div class="subsection-wrapper">
   <div class="card">
-    <a href="/polkadot-protocol/parachain-basics/chain-data/"> 
+    <a href="/reference/parachains/chain-data/"> 
       <h2 class="title">Understand Chain Data</h2>
       <hr>
       <p class="description">Familiarize yourself with the data provided by the APIs, including available calls, events, types, and storage items.</p>

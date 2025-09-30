@@ -30,7 +30,7 @@ For example, to connect to the Polkadot Hub TestNet via MetaMask, you need to fo
 
     ![](/images/smart-contracts/integrations/index/wallets-2.webp){: .browser-extension}
 
-3. Complete the necessary fields, then click the **Save** button (refer to the [Networks](/develop/smart-contracts/connect-to-polkadot#networks-details){target=\_blank} section for copy and paste parameters).
+3. Complete the necessary fields, then click the **Save** button (refer to the [Networks](/smart-contracts/connect/#networks-details){target=\_blank} section for copy and paste parameters).
 
     ![](/images/smart-contracts/integrations/index/wallets-3.webp){: .browser-extension}
 
@@ -71,7 +71,7 @@ To connect to Polkadot Hub TestNet using SubWallet, follow these steps:
 
     ![](/images/smart-contracts/integrations/index/subwallet-03.webp){: .browser-extension}
 
-   You are now ready to use SubWallet to interact with [Polkadot Hub TestNet](/develop/smart-contracts/connect-to-polkadot/#networks-details){target=\_blank} seamlessly!
+   You are now ready to use SubWallet to interact with [Polkadot Hub TestNet](/smart-contracts/connect/#networks-details){target=\_blank} seamlessly!
 
 ![](/images/smart-contracts/integrations/index/subwallet-04.webp){: .browser-extension}
 

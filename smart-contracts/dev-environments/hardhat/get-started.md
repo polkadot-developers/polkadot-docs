@@ -32,7 +32,7 @@ Before getting started, ensure you have:
 
 - [Node.js](https://nodejs.org/){target=\_blank} (v16.0.0 or later) and npm installed.
 - Basic understanding of Solidity programming.
-- Some PAS test tokens to cover transaction fees (easily obtainable from the [Polkadot faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}). To learn how to get test tokens, check out the [Test Tokens](/develop/smart-contracts/connect-to-polkadot#test-tokens){target=\_blank} section.
+- Some PAS test tokens to cover transaction fees (easily obtainable from the [Polkadot faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}). To learn how to get test tokens, check out the [Test Tokens](/smart-contracts/connect/#test-tokens){target=\_blank} section.
 
 ## Set Up Hardhat
 
@@ -310,13 +310,13 @@ Explore more about smart contracts through these resources:
 
 <div class="grid cards" markdown>
 
--   <span class="badge guide">Guide</span> __Smart Contracts on Polkadot__
+-   <span class="badge guide">Guide</span> __Get Started with Smart Contracts__
 
     ---
 
-    Dive into advanced smart contract concepts.
+    Learn how to get started with smart contracts
 
-    [:octicons-arrow-right-24: Get Started](/develop/smart-contracts/)
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/get-started/)
 
 -   <span class="badge external">External</span> __Hardhat Documentation__
 

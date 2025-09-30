@@ -20,7 +20,7 @@ In this tutorial, you'll build a complete dApp that interacts with a smart contr
 Before you begin, make sure you have:
 
 - [Node.js](https://nodejs.org/en){target=\_blank} v16 or newer installed on your machine.
-- A crypto wallet (like MetaMask) with some test tokens. For further information, check the [Connect to Polkadot](/develop/smart-contracts/connect-to-polkadot){target=\_blank} guide.
+- A crypto wallet (like MetaMask) with some test tokens. For further information, check the [Connect to Polkadot](/smart-contracts/connect/){target=\_blank} guide.
 - Basic understanding of React and JavaScript.
 - Familiarity with blockchain concepts and Solidity (helpful but not mandatory).
 

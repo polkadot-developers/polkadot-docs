@@ -48,7 +48,7 @@ Let's set up the development environment for this tutorial:
 
     The command `npm pkg set type=module` is used to set the type of the project to module. This is necessary to use the `import` statement in the TypeScript code.
 
-6. Generate the types for the Polkadot API for Asset Hub:
+6. Generate Polkadot API types for Asset Hub:
 
     ```bash
     npx papi add assetHub -n polkadot_asset_hub
@@ -68,7 +68,7 @@ Before running the script, you'll need to fork the Asset Hub locally using Chops
 chopsticks -c polkadot-asset-hub
 ```
 
-This command forks the Asset Hub chain, making it available at `ws://localhost:8000`. By running `polkadot-asset-hub`, you're using the Asset Hub fork with the configuration specified in the [`polkadot-asset-hub.yml`](https://github.com/AcalaNetwork/chopsticks/blob/master/configs/polkadot-asset-hub.yml){target=_blank} file.  This configuration defines the Alice account with USDT assets. If you want to use a different chain, ensure the account you're using has the necessary assets.
+This command forks the Asset Hub chain, making it available at `ws://localhost:8000`. By running `polkadot-asset-hub`, you're using the Asset Hub fork with the configuration specified in the [`polkadot-asset-hub.yml`](https://github.com/AcalaNetwork/chopsticks/blob/master/configs/polkadot-asset-hub.yml){target=_blank} file.  This configuration defines Alice's account with USDT assets. If you want to use a different chain, ensure the account you're using has the necessary assets.
 
 ## Implementation
 
@@ -90,7 +90,7 @@ Define the constants for your transaction:
 --8<-- "code/tutorials/polkadot-sdk/parachains/system-chains/asset-hub/send-tx-paying-fees-with-different-tokens/fee-payment-transaction.ts:14:16"
 ```
 
-### Create Signer
+### Create a Signer
 
 Create a signer using Alice's development account:
 
@@ -154,11 +154,11 @@ When you run the script successfully, you should see output similar to:
 
 The key events to look for are:
 
-- **Assets**: The asset was transferred
-- **Balances**: The fees were paid using the alternative asset
-- **AssetConversion**: The fees were converted to the alternative asset
-- **AssetTxPayment**: The fees were paid using the alternative asset
-- **System**: The transaction was successful
+- **Assets**: The asset was transferred.
+- **Balances**: The fees were paid using the alternative asset.
+- **AssetConversion**: The fees were converted to the alternative asset.
+- **AssetTxPayment**: The fees were paid using the alternative asset.
+- **System**: The transaction was successful.
 
 ## Conclusion
 

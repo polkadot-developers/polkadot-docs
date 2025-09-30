@@ -41,7 +41,7 @@ To set up the structure, follow these steps:
     ```
     > **📋 Contributing?** If you plan to [contribute](./CONTRIBUTING.md) to the documentation, fork the `polkadot-docs` repository first and clone your fork instead:
     > ```bash
-    > git clone https://github.com/your-username/polkadot-docs.git
+    > git clone https://github.com/YOUR_USERNAME/polkadot-docs.git
     > ```
 
 ### Set Up Python Environment

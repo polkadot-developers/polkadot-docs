@@ -168,22 +168,22 @@ Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/re
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/polkadot-protocol/smart-contract-basics/networks.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/polkadot-protocol/smart-contract-basics/overview.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/connect.md
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/cookbook/dapps/index.md
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/cookbook/dapps/zero-to-hero.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/cookbook/eth-dapps/uniswap-v2.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/cookbook/index.md
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/cookbook/smart-contracts/deploy-basic.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/cookbook/smart-contracts/deploy-erc20.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/cookbook/smart-contracts/deploy-nft.md
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/cookbook/smart-contracts/index.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/explorers.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/faucets.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/for-eth-devs/accounts.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/for-eth-devs/blocks-transactions-fees.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/for-eth-devs/contract-deployment.md
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/for-eth-devs/dual-vm-stack.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/for-eth-devs/gas-model.md
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/for-eth-devs/index.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/for-eth-devs/json-rpc-apis.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/for-eth-devs/migration.md
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/index.md
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/get-started.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/overview.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/dapps/index.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/dapps/remark-tutorial.md
@@ -638,10 +638,8 @@ The [`XcmRouter`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pa
 For instance, the Kusama network employs the [`ChildParachainRouter`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_common/xcm_sender/struct.ChildParachainRouter.html){target=\_blank}, which restricts routing to [Downward Message Passing (DMP)](https://wiki.polkadot.com/learn/learn-xcm-transport/#dmp-downward-message-passing){target=\_blank} from the relay chain to parachains, ensuring secure and controlled communication.
 
 ```rust
-pub type XcmRouter = WithUniqueTopic<(
-	// Only one router so far - use DMP to communicate with child parachains.
-	ChildParachainRouter<Runtime, XcmPallet, PriceForChildParachainDelivery>,
-)>;
+pub type PriceForChildParachainDelivery =
+	ExponentialPrice<FeeAssetId, BaseDeliveryFee, TransactionByteFee, Dmp>;
 ```
 
 For more details about XCM transport protocols, see the [XCM Channels](/develop/interoperability/xcm-channels/){target=\_blank} page.
@@ -5456,13 +5454,13 @@ Now that you understand how to enable smart contract functionality in your block
 
 <div class="grid cards" markdown>
 
--   <span class="badge guide">Guide</span> __Smart Contracts Overview__
+-   <span class="badge guide">Guide</span> __Get Started with Smart Contracts__
 
     ---
 
     Learn how developers can build smart contracts on Polkadot by leveraging the PolkaVM, Wasm/ink! or EVM contracts across many parachains.
 
-    [:octicons-arrow-right-24: Reference](/smart-contracts/)
+    [:octicons-arrow-right-24: Reference](/smart-contracts/get-started/)
 
 -   <span class="badge guide">Guide</span> __Wasm (ink!) Contracts__
 
@@ -10311,13 +10309,13 @@ Explore more about smart contracts through these resources:
 
 <div class="grid cards" markdown>
 
--   <span class="badge guide">Guide</span> __Smart Contracts on Polkadot__
+-   <span class="badge guide">Guide</span> __Get Started with Smart Contracts__
 
     ---
 
-    Dive into advanced smart contract concepts.
+    Learn how to get started with smart contracts
 
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/)
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/get-started/)
 
 -   <span class="badge external">External</span> __Hardhat Documentation__
 
@@ -10601,7 +10599,7 @@ Choose a parachain if:
 
 ### What's the difference between Polkadot Hub smart contracts and other EVM chains?
 
-Polkadot Hub contracts run on [PolkaVM](/smart-contracts/for-eth-devs/){target=\_blank} instead of EVM:
+Polkadot Hub contracts run on [PolkaVM](/smart-contracts/for-eth-devs/dual-vm-stack/){target=\_blank} instead of EVM:
 
 - **Performance**: RISC-V register-based architecture vs. stack-based EVM.
 - **Resource metering**: Three dimensions (`ref_time`, `proof_size`, `storage_deposit`) vs. single gas metric.
@@ -12557,7 +12555,7 @@ main();
 
     For detailed comparisons and migration guidelines, see the [EVM vs. PolkaVM](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm/#current-memory-limits){target=\_blank} documentation page.
 
-Polkadot Hub requires contracts to be compiled to [PolkaVM](/smart-contracts/for-eth-devs/){target=\_blank} bytecode. This is achieved using the [`revive`](https://github.com/paritytech/revive/tree/v0.2.0/js/resolc){target=\_blank} compiler. Install the [`@parity/resolc`](https://github.com/paritytech/revive){target=\_blank} library as a development dependency:
+Polkadot Hub requires contracts to be compiled to [PolkaVM](/smart-contracts/for-eth-devs/dual-vm-stack/){target=\_blank} bytecode. This is achieved using the [`revive`](https://github.com/paritytech/revive/tree/v0.2.0/js/resolc){target=\_blank} compiler. Install the [`@parity/resolc`](https://github.com/paritytech/revive){target=\_blank} library as a development dependency:
 
 ```bash
 npm install --save-dev @parity/resolc
@@ -26204,7 +26202,7 @@ categories: Basics, Polkadot Protocol
 
 ## Introduction
 
-While [PolkaVM](/smart-contracts/for-eth-devs/){target=\_blank} strives for maximum Ethereum compatibility, several fundamental design decisions create necessary divergences from the [EVM](https://ethereum.org/en/developers/docs/evm/){target=\_blank}. These differences represent trade-offs that enhance performance and resource management while maintaining accessibility for Solidity developers.
+While [PolkaVM](/smart-contracts/for-eth-devs/dual-vm-stack/){target=\_blank} strives for maximum Ethereum compatibility, several fundamental design decisions create necessary divergences from the [EVM](https://ethereum.org/en/developers/docs/evm/){target=\_blank}. These differences represent trade-offs that enhance performance and resource management while maintaining accessibility for Solidity developers.
 
 ## Core Virtual Machine Architecture
 
@@ -26868,7 +26866,7 @@ For your next steps, explore the various smart contract guides demonstrating how
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/smart-contracts/cookbook/dapps/
+Doc-Content: https://docs.polkadot.com/smart-contracts/cookbook/dapps/zero-to-hero/
 --- BEGIN CONTENT ---
 TODO
 --- END CONTENT ---
@@ -27127,6 +27125,11 @@ This knowledge can be leveraged to build more complex DeFi applications or to in
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/smart-contracts/cookbook/
+--- BEGIN CONTENT ---
+TODO
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-basic/
 --- BEGIN CONTENT ---
 TODO
 --- END CONTENT ---
@@ -27468,11 +27471,6 @@ Once deployed, you can interact with your contract through Remix:
 Feel free to explore and interact with the contract's other functions using the same approach - selecting the method, providing any required parameters, and confirming the transaction through Talisman when needed.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/
---- BEGIN CONTENT ---
-TODO
---- END CONTENT ---
-
 Doc-Content: https://docs.polkadot.com/smart-contracts/explorers/
 --- BEGIN CONTENT ---
 ---
@@ -27765,12 +27763,7 @@ Doc-Content: https://docs.polkadot.com/smart-contracts/for-eth-devs/contract-dep
 TODO
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/smart-contracts/for-eth-devs/gas-model/
---- BEGIN CONTENT ---
-TODO
---- END CONTENT ---
-
-Doc-Content: https://docs.polkadot.com/smart-contracts/for-eth-devs/
+Doc-Content: https://docs.polkadot.com/smart-contracts/for-eth-devs/dual-vm-stack/
 --- BEGIN CONTENT ---
 ---
 title: PolkaVM Design
@@ -27884,6 +27877,11 @@ The compilation process integrates several specialized components:
 2. **Revive Compiler**: Takes YUL IR and transforms it to [LLVM IR](https://llvm.org/){target=\_blank}.
 3. **LLVM**: A compiler infrastructure that optimizes the code and generates RISC-V ELF objects.
 4. **PVM linker**: Links the RISC-V ELF object into a final PolkaVM blob with metadata.
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/smart-contracts/for-eth-devs/gas-model/
+--- BEGIN CONTENT ---
+TODO
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/smart-contracts/for-eth-devs/json-rpc-apis/
@@ -28763,7 +28761,7 @@ Doc-Content: https://docs.polkadot.com/smart-contracts/for-eth-devs/migration/
 TODO
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/smart-contracts/
+Doc-Content: https://docs.polkadot.com/smart-contracts/get-started/
 --- BEGIN CONTENT ---
 TODO
 --- END CONTENT ---
@@ -41404,7 +41402,7 @@ categories: Basics, Smart Contracts
 
 ## Introduction
 
-Creating [smart contracts](/smart-contracts/){target=\_blank} is fundamental to blockchain development. While many frameworks and tools are available, understanding how to write a contract from scratch with just a text editor is essential knowledge.
+Creating [smart contracts](/smart-contracts/get-started/){target=\_blank} is fundamental to blockchain development. While many frameworks and tools are available, understanding how to write a contract from scratch with just a text editor is essential knowledge.
 
 This tutorial will guide you through creating a basic smart contract that can be used with other tutorials for deployment and integration on Polkadot Hub. To understand how smart contracts work in Polkadot Hub, check the [Smart Contract Basics](/polkadot-protocol/smart-contract-basics/){target=\_blank} guide for more information.
 

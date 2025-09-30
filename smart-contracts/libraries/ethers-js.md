@@ -72,7 +72,7 @@ A [`Provider`](https://docs.ethers.org/v6/api/providers/#Provider){target=\_blan
 To interact with Polkadot Hub, you must set up an Ethers.js provider. This provider connects to a blockchain node, allowing you to query blockchain data and interact with smart contracts. In the root of your project, create a file named `connectToProvider.js` and add the following code:
 
 ```js title="scripts/connectToProvider.js"
---8<-- 'code/smart-contracts/libraries/index/connectToProvider.js'
+--8<-- 'code/smart-contracts/libraries/ethers-js/connectToProvider.js'
 ```
 
 !!! note
@@ -97,7 +97,7 @@ With the provider set up, you can start querying the blockchain. For instance, t
 ??? code "Fetch Last Block code"
 
     ```js title="scripts/fetchLastBlock.js"
-    --8<-- 'code/smart-contracts/libraries/index/fetchLastBlock.js'
+    --8<-- 'code/smart-contracts/libraries/ethers-js/fetchLastBlock.js'
     ```
 
 ## Compile Contracts
@@ -121,7 +121,7 @@ This guide uses `@parity/resolc` version `{{ dependencies.javascript_packages.re
 This example demonstrates compiling a `Storage.sol` Solidity contract for deployment to Polkadot Hub. The contract's functionality stores a number and permits users to update it with a new value.
 
 ```solidity title="contracts/Storage.sol"
---8<-- 'code/smart-contracts/libraries/index/Storage.sol'
+--8<-- 'code/smart-contracts/libraries/ethers-js/Storage.sol'
 ```
 
 ### Compile the Smart Contract
@@ -129,7 +129,7 @@ This example demonstrates compiling a `Storage.sol` Solidity contract for deploy
 To compile this contract, use the following script:
 
 ```js title="scripts/compile.js"
---8<-- 'code/smart-contracts/libraries/index/compile.js'
+--8<-- 'code/smart-contracts/libraries/ethers-js/compile.js'
 ```
 
 !!! note 
@@ -154,31 +154,31 @@ You can create a `deploy.js` script in the root of your project to achieve this.
 1. Set up the required imports and utilities:
 
     ```js title="scripts/deploy.js"
-    --8<-- 'code/smart-contracts/libraries/index/deploy.js:1:6'
+    --8<-- 'code/smart-contracts/libraries/ethers-js/deploy.js:1:6'
     ```
 
 2. Create a provider to connect to Polkadot Hub:
 
     ```js title="scripts/deploy.js"
-    --8<-- 'code/smart-contracts/libraries/index/deploy.js:7:15'
+    --8<-- 'code/smart-contracts/libraries/ethers-js/deploy.js:7:15'
     ```
  
 3. Set up functions to read contract artifacts:
 
     ```js title="scripts/deploy.js"
-    --8<-- 'code/smart-contracts/libraries/index/deploy.js:17:48'
+    --8<-- 'code/smart-contracts/libraries/ethers-js/deploy.js:17:48'
     ```
 
 4. Create the main deployment function:
 
     ```js title="scripts/deploy.js"
-    --8<-- 'code/smart-contracts/libraries/index/deploy.js:49:85'
+    --8<-- 'code/smart-contracts/libraries/ethers-js/deploy.js:49:85'
     ```
 
 5. Configure and execute the deployment:
 
     ```js title="scripts/deploy.js"
-    --8<-- 'code/smart-contracts/libraries/index/deploy.js:87:95'
+    --8<-- 'code/smart-contracts/libraries/ethers-js/deploy.js:87:95'
     ```
 
     !!! note
@@ -189,7 +189,7 @@ You can create a `deploy.js` script in the root of your project to achieve this.
 ??? code "View complete script"
 
     ```js title="scripts/deploy.js"
-    --8<-- 'code/smart-contracts/libraries/index/deploy.js:1'
+    --8<-- 'code/smart-contracts/libraries/ethers-js/deploy.js:1'
     ```
 
 To run the script, execute the following command:
@@ -205,7 +205,7 @@ After running this script, your contract will be deployed to Polkadot Hub, and i
 Once the contract is deployed, you can interact with it by calling its functions. For example, to set a number, read it and then modify that number by its double, you can create a file named `checkStorage.js` in the root of your project and add the following code:
 
 ```js title="scripts/checkStorage.js"
---8<-- 'code/smart-contracts/libraries/index/checkStorage.js'
+--8<-- 'code/smart-contracts/libraries/ethers-js/checkStorage.js'
 ```
 
 Ensure you replace the `INSERT_MNEMONIC`, `INSERT_CONTRACT_ADDRESS`, and `INSERT_ADDRESS_TO_CHECK` placeholders with actual values. Also, ensure the contract ABI file (`Storage.json`) is correctly referenced.

@@ -96,15 +96,15 @@ To compile your project, follow these instructions:
     === "npm Configuration"
 
         ```javascript title="hardhat.config.js" hl_lines="9-11 14"
-        --8<-- 'code/smart-contracts/dev-environments/hardhat/index/hardhat.config.js:1:14'
-        --8<-- 'code/smart-contracts/dev-environments/hardhat/index/hardhat.config.js:33:35'
+        --8<-- 'code/smart-contracts/dev-environments/hardhat/get-started/hardhat.config.js:1:14'
+        --8<-- 'code/smart-contracts/dev-environments/hardhat/get-started/hardhat.config.js:33:35'
         ```
 
     === "Binary Configuration"
 
         ```javascript title="hardhat.config.js" hl_lines="9-14 17"
-        --8<-- 'code/smart-contracts/dev-environments/hardhat/index/binary-hardhat.config.js:1:17'
-        --8<-- 'code/smart-contracts/dev-environments/hardhat/index/binary-hardhat.config.js:36:38'
+        --8<-- 'code/smart-contracts/dev-environments/hardhat/get-started/binary-hardhat.config.js:1:17'
+        --8<-- 'code/smart-contracts/dev-environments/hardhat/get-started/binary-hardhat.config.js:36:38'
         ```
 
     For the binary configuration, replace `INSERT_PATH_TO_RESOLC_COMPILER` with the proper path to the binary. To obtain the binary, check the [releases](https://github.com/paritytech/revive/releases){target=\_blank} section of the `resolc` compiler, and download the latest version.
@@ -152,15 +152,15 @@ For complete isolation and control over the testing environment, you can configu
 Configure a local node setup by adding the node binary path along with the ETH-RPC adapter path:
 
 ```javascript title="hardhat.config.js" hl_lines="12-20"
---8<-- 'code/smart-contracts/dev-environments/hardhat/index/hardhat.config.js:1:4'
+--8<-- 'code/smart-contracts/dev-environments/hardhat/get-started/hardhat.config.js:1:4'
 
---8<-- 'code/smart-contracts/dev-environments/hardhat/index/hardhat.config.js:6:7'
+--8<-- 'code/smart-contracts/dev-environments/hardhat/get-started/hardhat.config.js:6:7'
     ...
-    --8<-- 'code/smart-contracts/dev-environments/hardhat/index/hardhat.config.js:12:24'
---8<-- 'code/smart-contracts/dev-environments/hardhat/index/hardhat.config.js:34:35'
+    --8<-- 'code/smart-contracts/dev-environments/hardhat/get-started/hardhat.config.js:12:24'
+--8<-- 'code/smart-contracts/dev-environments/hardhat/get-started/hardhat.config.js:34:35'
 ```
 
-Replace `INSERT_PATH_TO_SUBSTRATE_NODE` and `INSERT_PATH_TO_ETH_RPC_ADAPTER` with the actual paths to your compiled binaries. The `dev: true` flag configures both the node and adapter for development mode. To obtain these binaries, check the [Installation](/develop/smart-contracts/local-development-node#install-the-substrate-node-and-eth-rpc-adapter){target=\_blank} section on the Local Development Node page.
+Replace `INSERT_PATH_TO_SUBSTRATE_NODE` and `INSERT_PATH_TO_ETH_RPC_ADAPTER` with the actual paths to your compiled binaries. The `dev: true` flag configures both the node and adapter for development mode. To obtain these binaries, check the [Installation](/smart-contracts/dev-environments/local-dev-node/#install-the-substrate-node-and-eth-rpc-adapter){target=\_blank} section on the Local Development Node page.
 
 !!! warning
     If you're using the default `hardhat.config.js` created by the `hardhat-polkadot` plugin, it includes a `forking` section pointing to the Polkadot Hub TestNet. When you run `npx hardhat node`, Hardhat will start a fork of that network. To use your local node instead, comment out the `forking` section; otherwise, `npx hardhat node` will continue to use the forked network even if a local node is defined in the configuration.
@@ -175,7 +175,7 @@ This command will launch either the forked network or local node (depending on y
 
 The output will be something like this:
 
---8<-- 'code/smart-contracts/dev-environments/hardhat/index/hardhat-node-output.html'
+--8<-- 'code/smart-contracts/dev-environments/hardhat/get-started/hardhat-node-output.html'
 
 ## Test Your Contract
 
@@ -198,14 +198,14 @@ Before deploying to a live network, you can deploy your contract to a local node
 1. Update the Hardhat configuration file to add the local network as a target for local deployment:
 
     ```javascript title="hardhat.config.js" hl_lines="13-16"
-    --8<-- 'code/smart-contracts/dev-environments/hardhat/index/hardhat.config.js:1:4'
+    --8<-- 'code/smart-contracts/dev-environments/hardhat/get-started/hardhat.config.js:1:4'
 
-    --8<-- 'code/smart-contracts/dev-environments/hardhat/index/hardhat.config.js:6:7'
+    --8<-- 'code/smart-contracts/dev-environments/hardhat/get-started/hardhat.config.js:6:7'
         ...
-        --8<-- 'code/smart-contracts/dev-environments/hardhat/index/hardhat.config.js:12:13'
+        --8<-- 'code/smart-contracts/dev-environments/hardhat/get-started/hardhat.config.js:12:13'
             ...
-          --8<-- 'code/smart-contracts/dev-environments/hardhat/index/hardhat.config.js:24:28'
-    --8<-- 'code/smart-contracts/dev-environments/hardhat/index/hardhat.config.js:33:35'
+          --8<-- 'code/smart-contracts/dev-environments/hardhat/get-started/hardhat.config.js:24:28'
+    --8<-- 'code/smart-contracts/dev-environments/hardhat/get-started/hardhat.config.js:33:35'
     ```
 
 2. Start a local node:
@@ -248,19 +248,19 @@ After testing your contract locally, you can deploy it to a live network. This g
 4. Update your Hardhat configuration file with network settings for the Polkadot network you want to target:
 
     ```javascript title="hardhat.config.js" hl_lines="18-22"
-    --8<-- 'code/smart-contracts/dev-environments/hardhat/index/hardhat.config.js:1:4'
+    --8<-- 'code/smart-contracts/dev-environments/hardhat/get-started/hardhat.config.js:1:4'
 
     const { vars } = require('hardhat/config');
 
-    --8<-- 'code/smart-contracts/dev-environments/hardhat/index/hardhat.config.js:6:7'
+    --8<-- 'code/smart-contracts/dev-environments/hardhat/get-started/hardhat.config.js:6:7'
         ...
-        --8<-- 'code/smart-contracts/dev-environments/hardhat/index/hardhat.config.js:12:13'
+        --8<-- 'code/smart-contracts/dev-environments/hardhat/get-started/hardhat.config.js:12:13'
             ...
-          --8<-- 'code/smart-contracts/dev-environments/hardhat/index/hardhat.config.js:24:24'
-          --8<-- 'code/smart-contracts/dev-environments/hardhat/index/hardhat.config.js:25:25'
+          --8<-- 'code/smart-contracts/dev-environments/hardhat/get-started/hardhat.config.js:24:24'
+          --8<-- 'code/smart-contracts/dev-environments/hardhat/get-started/hardhat.config.js:25:25'
             ...
-          --8<-- 'code/smart-contracts/dev-environments/hardhat/index/hardhat.config.js:28:33'
-    --8<-- 'code/smart-contracts/dev-environments/hardhat/index/hardhat.config.js:33:35'
+          --8<-- 'code/smart-contracts/dev-environments/hardhat/get-started/hardhat.config.js:28:33'
+    --8<-- 'code/smart-contracts/dev-environments/hardhat/get-started/hardhat.config.js:33:35'
     ```
 
 6. Deploy your contract using Ignition:
@@ -276,7 +276,7 @@ Once deployed, you can create a script to interact with your contract. To do so,
 For example, for the default `MyToken.sol` contract, you can use the following file that connects to the contract at its address and retrieves the `unlockTime`, which represents when funds can be withdrawn. The script converts this timestamp into a readable date and logs it. It then checks the contract's balance and displays it. Finally, it attempts to call the withdrawal function on the contract, but it catches and logs the error message if the withdrawal is not yet allowed (e.g., before `unlockTime`).
 
 ```javascript title="interact.js"
---8<-- 'code/smart-contracts/dev-environments/hardhat/index/interact.js'
+--8<-- 'code/smart-contracts/dev-environments/hardhat/get-started/interact.js'
 ```
 
 Run your interaction script:

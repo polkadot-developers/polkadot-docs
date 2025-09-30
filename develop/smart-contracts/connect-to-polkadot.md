@@ -90,7 +90,7 @@ For your next steps, explore the various smart contract guides demonstrating how
 
     Explore the smart contract development and deployment process on Polkadot Hub using the Remix IDE.
 
-    [:octicons-arrow-right-24: Build with Remix IDE](/smart-contracts/dev-environments/remix/)
+    [:octicons-arrow-right-24: Build with Remix IDE](/smart-contracts/dev-environments/remix/get-started/)
 
 -   <span class="badge guide">Guide</span> __Interact with the blockchain with viem__
 

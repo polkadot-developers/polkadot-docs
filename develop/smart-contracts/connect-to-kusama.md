@@ -67,9 +67,9 @@ Developers can leverage smart contracts on Kusama Hub for live production deploy
 
 While the compatibility with regular EVM codebases is still being maximized, some recommendations include:
     
-- Leverage [Hardhat](/develop/smart-contracts/dev-environments/hardhat){target=\_blank} to compile, deploy, and interact with your contract.
+- Leverage [Hardhat](/smart-contracts/dev-environments/hardhat/get-started/){target=\_blank} to compile, deploy, and interact with your contract.
 - Use MetaMask to interact with your dApp (note that using MetaMask can sometimes lead to `Invalid transaction` errors. This is actively being worked on and will be fixed soon).
-- Avoid Remix for deployment as MetaMask enforces a 48kb size limit when using the [Remix IDE](/develop/smart-contracts/dev-environments/remix){target=\_blank}, which is why Hardhat Polkadot is recommended for deployment.
+- Avoid Remix for deployment as MetaMask enforces a 48kb size limit when using the [Remix IDE](/smart-contracts/dev-environments/remix/get-started/){target=\_blank}, which is why Hardhat Polkadot is recommended for deployment.
 
 Kusama Hub is a live environment. Ensure your contracts are thoroughly tested before deployment, as transactions on Kusama Hub involve real KSM tokens and **cannot be reversed**.
 
@@ -85,7 +85,7 @@ For your next steps, explore the various smart contract guides demonstrating how
     
     Explore the recommended smart contract development and deployment process on Kusama Hub using Hardhat.
     
-    [:octicons-arrow-right-24: Build with HardHat](/smart-contracts/dev-environments/hardhat/)
+    [:octicons-arrow-right-24: Build with HardHat](/smart-contracts/dev-environments/hardhat/get-started/)
 
 -   <span class="badge guide">Guide</span> **Interact with the blockchain using viem**
     

@@ -47,7 +47,7 @@ Before getting started, ensure you have:
 
 Navigate to [https://remix.polkadot.io/](https://remix.polkadot.io/){target=\_blank}. The interface will load with a default workspace containing sample contracts.
 
-![](/images/smart-contracts/dev-environments/index/remix-1.webp)
+![](/images/smart-contracts/dev-environments/remix/get-started/remix-1.webp)
 
 In this interface, you can access a file explorer, edit your code, interact with various plugins for development, and use a terminal.
 
@@ -57,11 +57,11 @@ To create a new contract using the Polkadot Remix IDE, you can follow these step
 
 1. Select the **Create a new file** button in the `contracts` folder.
 
-    ![](/images/smart-contracts/dev-environments/index/remix-2.webp)
+    ![](/images/smart-contracts/dev-environments/remix/get-started/remix-2.webp)
 
 2. Name your file with a `.sol` extension, in this case, `Counter.sol`.
 
-    ![](/images/smart-contracts/dev-environments/index/remix-3.webp)
+    ![](/images/smart-contracts/dev-environments/remix/get-started/remix-3.webp)
 
 3. Write your Solidity code in the editor.
 
@@ -70,10 +70,10 @@ To create a new contract using the Polkadot Remix IDE, you can follow these step
     ???- "Counter.sol"
         
         ```solidity
-        --8<-- 'code/smart-contracts/dev-environments/index/Counter.sol'
+        --8<-- 'code/smart-contracts/dev-environments/remix/get-started/Counter.sol'
         ```
 
-    ![](/images/smart-contracts/dev-environments/index/remix-4.webp)
+    ![](/images/smart-contracts/dev-environments/remix/get-started/remix-4.webp)
 
 
 ## Compiling Your Contract
@@ -83,7 +83,7 @@ To create a new contract using the Polkadot Remix IDE, you can follow these step
     1. Navigate to the **Solidity Compiler** tab (third icon in the left sidebar).
     2. Select **Compile** or use `Ctrl+S`.
 
-        ![](/images/smart-contracts/dev-environments/index/remix-5.webp)
+        ![](/images/smart-contracts/dev-environments/remix/get-started/remix-5.webp)
     
         !!! note
             Compilation errors and warnings appear in the terminal panel at the bottom of the screen.
@@ -92,7 +92,7 @@ To create a new contract using the Polkadot Remix IDE, you can follow these step
     1. The `artifact` folder is present.
     2. The `Counter_metadata.json` and the `Counter.json` files have been generated.
 
-        ![](/images/smart-contracts/dev-environments/index/remix-6.webp)
+        ![](/images/smart-contracts/dev-environments/remix/get-started/remix-6.webp)
 
 ## Deploying Contracts
 
@@ -102,23 +102,23 @@ To create a new contract using the Polkadot Remix IDE, you can follow these step
     2. Click the **Environment** dropdown.
     3. Select **Customize this list**.
 
-        ![](/images/smart-contracts/dev-environments/index/remix-7.webp)
+        ![](/images/smart-contracts/dev-environments/remix/get-started/remix-7.webp)
 
 2. Enable the **Injected Provider - Talisman** option.
 
-    ![](/images/smart-contracts/dev-environments/index/remix-8.webp)
+    ![](/images/smart-contracts/dev-environments/remix/get-started/remix-8.webp)
 
 4. Click again the **Environment** dropdown and select **Injected Provider - Talisman**.
 
-    ![](/images/smart-contracts/dev-environments/index/remix-9.webp)
+    ![](/images/smart-contracts/dev-environments/remix/get-started/remix-9.webp)
 
 4. Click the **Deploy** button and then click **Approve** in the Talisman wallet popup.
 
-    ![](/images/smart-contracts/dev-environments/index/remix-10.webp)
+    ![](/images/smart-contracts/dev-environments/remix/get-started/remix-10.webp)
 
 5. Once your contract is deployed successfully, you will see the following output in the Remix terminal:
 
-    ![](/images/smart-contracts/dev-environments/index/remix-11.webp)
+    ![](/images/smart-contracts/dev-environments/remix/get-started/remix-11.webp)
 
 ## Interacting with Contracts
 
@@ -126,14 +126,14 @@ Once deployed, your contract appears in the **Deployed/Unpinned Contracts** sect
 
 1. Expand the contract to view available methods.
 
-    ![](/images/smart-contracts/dev-environments/index/remix-12.webp)
+    ![](/images/smart-contracts/dev-environments/remix/get-started/remix-12.webp)
 
     !!! tip
         Pin your frequently used contracts to the **Pinned Contracts** section for easy access.
 
 2. To interact with the contract, you can select any of the exposed methods.
 
-    ![](/images/smart-contracts/dev-environments/index/remix-13.webp)
+    ![](/images/smart-contracts/dev-environments/remix/get-started/remix-13.webp)
 
     In this way, you can interact with your deployed contract by reading its state or writing to it. The button color indicates the type of interaction available:
 

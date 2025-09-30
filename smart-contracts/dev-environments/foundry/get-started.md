@@ -108,7 +108,7 @@ forge inspect Counter bytecode --resolc
 
 If successful, you will see the following output:
 
---8<-- 'code/smart-contracts/dev-environments/foundry/index/foundry-compilation.html'
+--8<-- 'code/smart-contracts/dev-environments/foundry/get-started/foundry-compilation.html'
 
 ## Deploy a Contract
 
@@ -123,7 +123,7 @@ forge create Counter \
 
 If the operation completes successfully, you'll see the following output (for example, to deploy to the Passet Hub chain):
 
---8<-- 'code/smart-contracts/dev-environments/foundry/index/foundry-deployment.html'
+--8<-- 'code/smart-contracts/dev-environments/foundry/get-started/foundry-deployment.html'
 
 For contracts with constructor arguments:
 

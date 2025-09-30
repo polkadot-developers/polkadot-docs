@@ -41458,11 +41458,11 @@ An Asset Hub instance is now running locally, and you can proceed with the asset
 Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/system-chains/asset-hub/send-a-tx-paying-fee-different-token/
 --- BEGIN CONTENT ---
 ---
-title: Send a Transaction Paying the Fee With a Different Token
+title: Send a Transaction While Paying the Fee With a Different Token
 description: This tutorial demonstrates how to send a DOT transfer transaction while paying the fees using a different token on the Asset Hub.
 ---
 
-# Send a Transaction Paying the Fee With a Different Token
+# Send a Transaction While Paying the Fee With a Different Token
 
 ## Introduction
 
@@ -41507,7 +41507,7 @@ Let's set up the development environment for this tutorial:
 
     The command `npm pkg set type=module` is used to set the type of the project to module. This is necessary to use the `import` statement in the TypeScript code.
 
-6. Generate the types for the Polkadot API for Asset Hub:
+6. Generate Polkadot API types for Asset Hub:
 
     ```bash
     npx papi add assetHub -n polkadot_asset_hub
@@ -41527,7 +41527,7 @@ Before running the script, you'll need to fork the Asset Hub locally using Chops
 chopsticks -c polkadot-asset-hub
 ```
 
-This command forks the Asset Hub chain, making it available at `ws://localhost:8000`. By running `polkadot-asset-hub`, you're using the Asset Hub fork with the configuration specified in the [`polkadot-asset-hub.yml`](https://github.com/AcalaNetwork/chopsticks/blob/master/configs/polkadot-asset-hub.yml){target=_blank} file.  This configuration defines the Alice account with USDT assets. If you want to use a different chain, ensure the account you're using has the necessary assets.
+This command forks the Asset Hub chain, making it available at `ws://localhost:8000`. By running `polkadot-asset-hub`, you're using the Asset Hub fork with the configuration specified in the [`polkadot-asset-hub.yml`](https://github.com/AcalaNetwork/chopsticks/blob/master/configs/polkadot-asset-hub.yml){target=_blank} file.  This configuration defines Alice's account with USDT assets. If you want to use a different chain, ensure the account you're using has the necessary assets.
 
 ## Implementation
 
@@ -41562,7 +41562,7 @@ const TRANSFER_AMOUNT = 3_000_000_000n; // 3 DOT
 const USD_ASSET_ID = 1337;
 ```
 
-### Create Signer
+### Create a Signer
 
 Create a signer using Alice's development account:
 
@@ -41754,11 +41754,11 @@ Events:
 
 The key events to look for are:
 
-- **Assets**: The asset was transferred
-- **Balances**: The fees were paid using the alternative asset
-- **AssetConversion**: The fees were converted to the alternative asset
-- **AssetTxPayment**: The fees were paid using the alternative asset
-- **System**: The transaction was successful
+- **Assets**: The asset was transferred.
+- **Balances**: The fees were paid using the alternative asset.
+- **AssetConversion**: The fees were converted to the alternative asset.
+- **AssetTxPayment**: The fees were paid using the alternative asset.
+- **System**: The transaction was successful.
 
 ## Conclusion
 

@@ -7567,7 +7567,7 @@ description: Explore how to connect to Kusama Hub for developing and testing sma
     <a href="#" class="md-button connectMetaMask" value="kusamaHub">Connect to Kusama Hub</a>
 </div>
 
-For more information about how to connect to a Polkadot network, please check the [Wallets](/smart-contracts/integrations/){target=\_blank} guide.
+For more information about how to connect to a Polkadot network, please check the [Wallets](/smart-contracts/integrations/wallets/){target=\_blank} guide.
 
 !!! info "Production Environment"
     Kusama Hub offers a live environment for deploying smart contracts. Please note that the most recent version of Polkadot's Ethereum-compatible stack is available on the TestNet; however, you can also deploy it to the Kusama Hub for production use.
@@ -23124,7 +23124,7 @@ categories: Smart Contracts
     <a href="#" class="md-button connectMetaMask" value="passetHub">Connect to Polkadot Hub TestNet</a>
 </div>
 
-For more information about how to connect to Polkadot Hub, please check the [Wallets for Polkadot Hub](/smart-contracts/integrations/){target=\_blank} guide.
+For more information about how to connect to Polkadot Hub, please check the [Wallets for Polkadot Hub](/smart-contracts/integrations/wallets/){target=\_blank} guide.
 
 !!! warning "Account Mapping"
     If you are using a native Polkadot account (32-byte format) that was created with a Polkadot/Substrate keypair (Ed25519/Sr25519) rather than an Ethereum-compatible keypair (secp256k1), you'll need to map your account to enable Ethereum compatibility. See the [Account Mapping](/polkadot-protocol/smart-contract-basics/accounts#account-mapping-for-native-polkadot-accounts){target=\_blank} section for more details.
@@ -26527,19 +26527,19 @@ For example, to connect to the Polkadot Hub TestNet via MetaMask, you need to fo
 
 1. Open the MetaMask extension and click on the network icon to switch to the Polkadot Hub TestNet.
 
-    ![](/images/smart-contracts/integrations/index/wallets-1.webp){: .browser-extension}
+    ![](/images/smart-contracts/integrations/wallets/wallets-1.webp){: .browser-extension}
 
 2. Click on the **Add a custom network** button.
 
-    ![](/images/smart-contracts/integrations/index/wallets-2.webp){: .browser-extension}
+    ![](/images/smart-contracts/integrations/wallets/wallets-2.webp){: .browser-extension}
 
 3. Complete the necessary fields, then click the **Save** button (refer to the [Networks](/smart-contracts/connect/#networks-details){target=\_blank} section for copy and paste parameters).
 
-    ![](/images/smart-contracts/integrations/index/wallets-3.webp){: .browser-extension}
+    ![](/images/smart-contracts/integrations/wallets/wallets-3.webp){: .browser-extension}
 
 4. Click on **Polkadot Hub TestNet** to switch the network.
 
-    ![](/images/smart-contracts/integrations/index/wallets-4.webp){: .browser-extension}
+    ![](/images/smart-contracts/integrations/wallets/wallets-4.webp){: .browser-extension}
 
 The steps in the preceding section can be used to connect to any chain by modifying the network specification and endpoint parameters.
 
@@ -26556,7 +26556,7 @@ You can easily view and manage your Paseo native token (PAS) using the Ethereum 
     The ETH RPC endpoint will let you send transactions that follow an ETH format, while the Substrate endpoint will follow a Substrate transaction format.
     Note the PAS token, which is the native token of the Polkadot Hub TestNet.
 
-    ![](/images/smart-contracts/integrations/index/subwallet-PAS.webp){: .browser-extension}
+    ![](/images/smart-contracts/integrations/wallets/subwallet-PAS.webp){: .browser-extension}
 
 To connect to Polkadot Hub TestNet using SubWallet, follow these steps:
 
@@ -26564,19 +26564,19 @@ To connect to Polkadot Hub TestNet using SubWallet, follow these steps:
 
 2. After setting up your wallet, click the List icon at the top left corner of the extension window to open **Settings**.
 
-    ![](/images/smart-contracts/integrations/index/subwallet-01.webp){: .browser-extension}
+    ![](/images/smart-contracts/integrations/wallets/subwallet-01.webp){: .browser-extension}
 
 3. Scroll down and select **Manage networks**.
 
-    ![](/images/smart-contracts/integrations/index/subwallet-02.webp){: .browser-extension}
+    ![](/images/smart-contracts/integrations/wallets/subwallet-02.webp){: .browser-extension}
 
 4. In the Manage network screen, either scroll down or type in the search bar to find the networks. Once done, enable the toggle next to the network name.
 
-    ![](/images/smart-contracts/integrations/index/subwallet-03.webp){: .browser-extension}
+    ![](/images/smart-contracts/integrations/wallets/subwallet-03.webp){: .browser-extension}
 
    You are now ready to use SubWallet to interact with [Polkadot Hub TestNet](/smart-contracts/connect/#networks-details){target=\_blank} seamlessly!
 
-![](/images/smart-contracts/integrations/index/subwallet-04.webp){: .browser-extension}
+![](/images/smart-contracts/integrations/wallets/subwallet-04.webp){: .browser-extension}
 
 ### Talisman
 
@@ -26588,31 +26588,31 @@ To use Talisman with Polkadot Hub TestNet:
 
 2. Once installed, click on the Talisman icon in your browser extensions and click on the **Settings** button.
 
-    ![](/images/smart-contracts/integrations/index/wallets-5.webp){: .browser-extension}
+    ![](/images/smart-contracts/integrations/wallets/wallets-5.webp){: .browser-extension}
 
 3. Click the button **All settings**.
 
-    ![](/images/smart-contracts/integrations/index/wallets-6.webp){: .browser-extension}
+    ![](/images/smart-contracts/integrations/wallets/wallets-6.webp){: .browser-extension}
 
 4. Go to the **Networks & Tokens** section.
 
-    ![](/images/smart-contracts/integrations/index/wallets-7.webp)
+    ![](/images/smart-contracts/integrations/wallets/wallets-7.webp)
 
 5. Click the **Manage networks** button.
 
-    ![](/images/smart-contracts/integrations/index/wallets-8.webp)
+    ![](/images/smart-contracts/integrations/wallets/wallets-8.webp)
 
 6. Click the **+ Add network** button.
 
-    ![](/images/smart-contracts/integrations/index/wallets-9.webp)
+    ![](/images/smart-contracts/integrations/wallets/wallets-9.webp)
 
 7. Fill in the form with the required parameters and click the **Add network** button.
 
-    ![](/images/smart-contracts/integrations/index/wallets-10.webp)
+    ![](/images/smart-contracts/integrations/wallets/wallets-10.webp)
 
 8. After that, you can switch to the Polkadot Hub TestNet by clicking on the network icon and selecting **Polkadot Hub TestNet**.
 
-    ![](/images/smart-contracts/integrations/index/wallets-11.webp)
+    ![](/images/smart-contracts/integrations/wallets/wallets-11.webp)
 
 After selecting the network, Talisman will automatically configure the necessary RPC URL and chain ID for you. You can now use Talisman to interact with the Polkadot Hub TestNet.
 

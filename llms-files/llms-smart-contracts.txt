@@ -16,16 +16,16 @@ You are an AI developer assistant for Polkadot (https://docs.polkadot.com). Your
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/smart-contracts/block-explorers.md [type: develop]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/smart-contracts/connect-to-polkadot.md [type: develop]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/smart-contracts/faqs.md [type: develop]
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/smart-contracts/local-development-node.md [type: develop]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/smart-contracts/overview.md [type: develop]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/smart-contracts/precompiles/interact-with-precompiles.md [type: develop]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/smart-contracts/deploy-erc20.md [type: tutorials]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/smart-contracts/deploy-nft.md [type: tutorials]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/smart-contracts/launch-your-first-project/create-contracts.md [type: tutorials]
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/dev-environments/hardhat.md [type: other]
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/dev-environments/remix.md [type: other]
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/integrations.md [type: other]
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/libraries.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/dev-environments/hardhat/get-started.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/dev-environments/local-dev-node.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/dev-environments/remix/get-started.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/integrations/wallets.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/libraries/ethers-js.md [type: other]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/libraries/viem.md [type: other]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/libraries/wagmi.md [type: other]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/libraries/web3-js.md [type: other]
@@ -186,7 +186,7 @@ For your next steps, explore the various smart contract guides demonstrating how
 
     Explore the smart contract development and deployment process on Polkadot Hub using the Remix IDE.
 
-    [:octicons-arrow-right-24: Build with Remix IDE](/smart-contracts/dev-environments/remix/)
+    [:octicons-arrow-right-24: Build with Remix IDE](/smart-contracts/dev-environments/remix/get-started/)
 
 -   <span class="badge guide">Guide</span> __Interact with the blockchain with viem__
 
@@ -254,11 +254,11 @@ Polkadot Hub contracts run on [PolkaVM](/polkadot-protocol/smart-contract-basics
 
 ### Can I use my existing Ethereum development tools?
 
-Yes, check out the [Wallets](/develop/smart-contracts/wallets){target=\_blank} page, the [Development Environments](/develop/smart-contracts/dev-environments/){target=\_blank}, and the [Libraries](/develop/smart-contracts/libraries/){target=\_blank} sections for more information.
+Yes, check out the [Wallets](/smart-contracts/integrations/wallets/){target=\_blank} page, the [Development Environments](/smart-contracts/dev-environments/local-dev-node/){target=\_blank}, and the [Libraries](/smart-contracts/libraries/ethers-js/){target=\_blank} sections for more information.
 
 ### How do I set up local development?
 
-Check the [Local Development Node](/develop/smart-contracts/local-development-node){target=\_blank} for further instructions.
+Check the [Local Development Node](/smart-contracts/dev-environments/local-dev-node/){target=\_blank} for further instructions.
 
 ### What networks are available for testing and deployment?
 
@@ -353,7 +353,7 @@ PolkaVM uses dynamic gas scaling:
 
 ### I deployed a contract with MetaMask, and got a `code size` error - why?
 
-The latest MetaMask update affects the extension’s ability to deploy large contracts. Check the [Wallets](/develop/smart-contracts/wallets){target=\_blank} page for more details.
+The latest MetaMask update affects the extension’s ability to deploy large contracts. Check the [Wallets](/smart-contracts/integrations/wallets){target=\_blank} page for more details.
 
 ### I found a bug, where can I log it?
 
@@ -384,145 +384,6 @@ Please log any bugs in the [`contracts-issues`](https://github.com/paritytech/co
 
 - **`SDIV` opcode crash**: Compiler crashes with `Unsupported SDIV` assertion failure.
     - [Issue #342](https://github.com/paritytech/revive/issues/342){target=\_blank}
---- END CONTENT ---
-
-Doc-Content: https://docs.polkadot.com/develop/smart-contracts/local-development-node/
---- BEGIN CONTENT ---
----
-title: Local Development Node
-description: Follow this step-by-step guide to install a Revive Dev node and ETH-RPC adapter for smart contract development in a local environment.
-categories: Smart Contracts
----
-
-# Local Development Node
-
-!!! smartcontract "PolkaVM Preview Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
-
-## Introduction
-
-A local development node provides an isolated blockchain environment where you can deploy, test, and debug smart contracts without incurring network fees or waiting for block confirmations. This guide demonstrates how to set up a local Polkadot SDK-based node with smart contract capabilities.
-
-By the end of this guide, you'll have:
-
-- A running node with smart contract support.
-- An ETH-RPC adapter for Ethereum-compatible tooling integration accessible at `http://localhost:8545`.
-
-## Prerequisites
-
-Before getting started, ensure you have done the following:
-
-- Completed the [Install Polkadot SDK Dependencies](/develop/parachains/install-polkadot-sdk/){target=\_blank} guide and successfully installed [Rust](https://www.rust-lang.org/){target=\_blank} and the required packages to set up your development environment.
-
-## Install the Revive Dev Node and ETH-RPC Adapter
-
-The Polkadot SDK repository contains both the [Revive Dev node](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk_contracts_node.commit_dev_node}}/substrate/frame/revive/dev-node){target=\_blank} implementation and the [ETH-RPC adapter](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk_contracts_node.commit_dev_node}}/substrate/frame/revive/rpc){target=\_blank} required for Ethereum compatibility. Start by cloning the repository and navigating to the project directory:
-
-```bash
-git clone https://github.com/paritytech/polkadot-sdk.git
-cd polkadot-sdk
-git checkout {{dependencies.repositories.polkadot_sdk_contracts_node.commit_dev_node}}
-```
-
-Next, you need to compile the two essential components for your development environment. The Substrate node provides the core blockchain runtime with smart contract support, while the ETH-RPC adapter enables Ethereum JSON-RPC compatibility for existing tooling:
-
-```bash
-cargo build -p revive-dev-node --bin revive-dev-node --release
-cargo build -p pallet-revive-eth-rpc --bin eth-rpc --release
-```
-
-The compilation process may take some time depending on your system specifications, potentially up to 30 minutes. Release builds are optimized for performance but take longer to compile than debug builds. After successful compilation, you can verify the binaries are available in the `target/release` directory:
-
-- **Revive Dev node path**: `polkadot-sdk/target/release/revive-dev-node`
-- **ETH-RPC adapter path**: `polkadot-sdk/target/release/eth-rpc`
-
-## Run the Local Node
-
-With the binaries compiled, you can now start your local development environment. The setup requires running two processes.
-
-Start the node first, which will initialize a local blockchain with the `dev` chain specification. This configuration includes `pallet-revive` for smart contract functionality and uses pre-funded development accounts for testing:
-
-```bash
-./target/release/revive-dev-node --dev
-```
-
-The node will begin producing blocks immediately and display initialization logs:
-
-<div id="termynal" data-termynal>
-  <span data-ty="input"><span class="file-path"></span>./target/release/revive-dev-node --dev</span>
-  <br />
-  <span data-ty>2025-05-29 10:42:35 Substrate Node</span>
-  <span data-ty>2025-05-29 10:42:35 ✌️ version 3.0.0-dev-38b7581fc04</span>
-  <span data-ty>2025-05-29 10:42:35 ❤️ by Parity Technologies &lt;admin@parity.io&gt;, 2017-2025</span>
-  <span data-ty>2025-05-29 10:42:35 📋 Chain specification: Development</span>
-  <span data-ty>2025-05-29 10:42:35 🏷 Node name: annoyed-aunt-3163</span>
-  <span data-ty>2025-05-29 10:42:35 👤 Role: AUTHORITY</span>
-  <span data-ty>2025-05-29 10:42:35 💾 Database: RocksDb at /var/folders/x0/xl_kjddj3ql3bx7752yr09hc0000gn/T/substrate2P85EF/chains/dev/db/full</span>
-  <span data-ty>2025-05-29 10:42:40 🔨 Initializing Genesis block/state (state: 0xfc05…482e, header-hash: 0x1ae1…b8b4)</span>
-  <span data-ty>2025-05-29 10:42:40 Creating transaction pool txpool_type=SingleState ready=Limit { count: 8192, total_bytes: 20971520 } future=Limit { count: 819, total_bytes: 2097152 }</span>
-  <span data-ty>2025-05-29 10:42:40 👴 Loading GRANDPA authority set from genesis on what appears to be first startup.</span>
-  <span data-ty>2025-05-29 10:42:40 👶 Creating empty BABE epoch changes on what appears to be first startup.</span>
-  <span data-ty>2025-05-29 10:42:40 Using default protocol ID "sup" because none is configured in the chain specs</span>
-  <span data-ty>2025-05-29 10:42:40 🏷 Local node identity is: 12D3KooWAH8fgJv3hce7Yv4yKG4YXQiRqESFu6755DBnfZQU8Znm</span>
-  <span data-ty>2025-05-29 10:42:40 Running libp2p network backend</span>
-  <span data-ty>2025-05-29 10:42:40 local_peer_id=12D3KooWAH8fgJv3hce7Yv4yKG4YXQiRqESFu6755DBnfZQU8Znm</span>
-  <span data-ty>2025-05-29 10:42:40 💻 Operating system: macos</span>
-  <span data-ty>2025-05-29 10:42:40 💻 CPU architecture: aarch64</span>
-  <span data-ty>2025-05-29 10:42:40 📦 Highest known block at #0</span>
-  <span data-ty>2025-05-29 10:42:40 Error binding to '127.0.0.1:9615': Os { code: 48, kind: AddrInUse, message: "Address already in use" }</span>
-  <span data-ty>2025-05-29 10:42:40 Running JSON-RPC server: addr=127.0.0.1:63333,[::1]:63334</span>
-  <span data-ty>2025-05-29 10:42:40 🏁 CPU single core score: 1.24 GiBs, parallelism score: 1.08 GiBs with expected cores: 8</span>
-  <span data-ty>2025-05-29 10:42:40 🏁 Memory score: 49.42 GiBs</span>
-  <span data-ty>2025-05-29 10:42:40 🏁 Disk score (seq. writes): 1.91 GiBs</span>
-  <span data-ty>2025-05-29 10:42:40 🏁 Disk score (rand. writes): 529.02 MiBs</span>
-  <span data-ty>2025-05-29 10:42:40 👶 Starting BABE Authorship worker</span>
-  <span data-ty>2025-05-29 10:42:40 🥩 BEEFY gadget waiting for BEEFY pallet to become available...</span>
-  <span data-ty>2025-05-29 10:42:40 Failed to trigger bootstrap: No known peers.</span>
-  <span data-ty>2025-05-29 10:42:42 🙌 Starting consensus session on top of parent 0x1ae19030b13592b5e6fd326f26efc7b31a4f588303d348ef89ae9ebca613b8b4 (#0)</span>
-  <span data-ty>2025-05-29 10:42:42 🎁 Prepared block for proposing at 1 (5 ms) hash: 0xe046f22307fba58a3bd0cc21b1a057843d4342da8876fd44aba206f124528df0; parent_hash: 0x1ae1…b8b4; end: NoMoreTransactions; extrinsics_count: 2</span>
-  <span data-ty>2025-05-29 10:42:42 🔖 Pre-sealed block for proposal at 1. Hash now 0xa88d36087e7bf8ee59c1b17e0003092accf131ff8353a620410d7283657ce36a, previously 0xe046f22307fba58a3bd0cc21b1a057843d4342da8876fd44aba206f124528df0.</span>
-  <span data-ty>2025-05-29 10:42:42 👶 New epoch 0 launching at block 0xa88d…e36a (block slot 582842054 >= start slot 582842054).</span>
-  <span data-ty>2025-05-29 10:42:42 👶 Next epoch starts at slot 582842254</span>
-  <span data-ty>2025-05-29 10:42:42 🏆 Imported #1 (0x1ae1…b8b4 → 0xa88d…e36a)</span>
-</div>
-
-For debugging purposes or to monitor low-level operations, you can enable detailed logging by setting environment variables before running the command:
-
-```bash
-RUST_LOG="error,evm=debug,sc_rpc_server=info,runtime::revive=debug" ./target/release/revive-dev-node --dev
-```
-
-Once the node is running, open a new terminal window and start the ETH-RPC adapter. This component translates Ethereum JSON-RPC calls into Substrate-compatible requests, allowing you to use familiar Ethereum tools like MetaMask, Hardhat, or Ethers.js:
-
-```bash
-./target/release/eth-rpc --dev
-```
-
-You should see logs indicating that the adapter is ready to accept connections:
-
-<div id="termynal" data-termynal>
-  <span data-ty="input"><span class="file-path"></span>./target/release/eth-rpc --dev</span>
-  <br />
-  <span data-ty>2025-05-29 10:48:48 Running in --dev mode, RPC CORS has been disabled.</span>
-  <span data-ty>2025-05-29 10:48:48 Running in --dev mode, RPC CORS has been disabled.</span>
-  <span data-ty>2025-05-29 10:48:48 🌐 Connecting to node at: ws://127.0.0.1:9944 ...</span>
-  <span data-ty>2025-05-29 10:48:48 🌟 Connected to node at: ws://127.0.0.1:9944</span>
-  <span data-ty>2025-05-29 10:48:48 💾 Using in-memory database, keeping only 256 blocks in memory</span>
-  <span data-ty>2025-05-29 10:48:48 〽️ Prometheus exporter started at 127.0.0.1:9616</span>
-  <span data-ty>2025-05-29 10:48:48 Running JSON-RPC server: addr=127.0.0.1:8545,[::1]:8545</span>
-  <span data-ty>2025-05-29 10:48:48 🔌 Subscribing to new blocks (BestBlocks)</span>
-  <span data-ty>2025-05-29 10:48:48 🔌 Subscribing to new blocks (FinalizedBlocks)</span>
-</div>
-
-Similar to the Revive Dev node, you can enable detailed logging for the ETH-RPC adapter to troubleshoot issues:
-
-```bash
-RUST_LOG="info,eth-rpc=debug" ./target/release/eth-rpc --dev
-```
-
-Your local development environment is now active and accessible at `http://localhost:8545`. This endpoint accepts standard Ethereum JSON-RPC requests, enabling seamless integration with existing Ethereum development tools and workflows. 
-
-You can connect wallets, deploy contracts using Remix or Hardhat, and interact with your smart contracts as you would on any Ethereum-compatible network.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/smart-contracts/overview/
@@ -615,7 +476,7 @@ Subsequent sections of this guide provide detailed information about specific de
 
     Explore essential libraries to optimize smart contract development and interaction.
 
-    [:octicons-arrow-right-24: Reference](/develop/smart-contracts/libraries/)
+    [:octicons-arrow-right-24: Reference](/smart-contracts/libraries/ethers-js/)
 
 -   <span class="badge guide">Guide</span> __Dev Environments__
 
@@ -623,7 +484,7 @@ Subsequent sections of this guide provide detailed information about specific de
 
     Set up your development environment for seamless contract deployment and testing.
 
-    [:octicons-arrow-right-24: Reference](/develop/smart-contracts/dev-environments/)
+    [:octicons-arrow-right-24: Reference](/smart-contracts/dev-environments/local-dev-node/)
 
 </div>
 --- END CONTENT ---
@@ -706,7 +567,7 @@ contract ECRecoverExample {
 }
 ```
 
-To interact with the ECRecover precompile, you can deploy the `ECRecoverExample` contract in [Remix](/develop/smart-contracts/dev-environments/remix){target=\_blank} or any Solidity-compatible environment. The `callECRecover` function takes a 128-byte input combining the message `hash`, `v`, `r`, and `s` signature values. Check this [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/ECRecover.js){target=\_blank} that shows how to format this input and verify that the recovered address matches the expected result.
+To interact with the ECRecover precompile, you can deploy the `ECRecoverExample` contract in [Remix](/smart-contracts/dev-environments/remix/get-started/){target=\_blank} or any Solidity-compatible environment. The `callECRecover` function takes a 128-byte input combining the message `hash`, `v`, `r`, and `s` signature values. Check this [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/ECRecover.js){target=\_blank} that shows how to format this input and verify that the recovered address matches the expected result.
 
 ## SHA-256 (0x02)
 
@@ -739,7 +600,7 @@ contract SHA256Example {
 }
 ```
 
-To use it, you can deploy the `SHA256Example` contract in [Remix](/develop/smart-contracts/dev-environments/remix){target=\_blank} or any Solidity-compatible environment and call callH256 with arbitrary bytes. Check out this [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/SHA256.js){target=\_blank} shows how to pass a UTF-8 string, hash it using the precompile, and compare it with the expected hash from Node.js's [crypto](https://www.npmjs.com/package/crypto-js){target=\_blank} module.
+To use it, you can deploy the `SHA256Example` contract in [Remix](/smart-contracts/dev-environments/remix/get-started/){target=\_blank} or any Solidity-compatible environment and call callH256 with arbitrary bytes. Check out this [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/SHA256.js){target=\_blank} shows how to pass a UTF-8 string, hash it using the precompile, and compare it with the expected hash from Node.js's [crypto](https://www.npmjs.com/package/crypto-js){target=\_blank} module.
 
 ## RIPEMD-160 (0x03)
 
@@ -774,7 +635,7 @@ contract RIPEMD160Example {
 }
 ```
 
-To use it, you can deploy the `RIPEMD160Example` contract in [Remix](/develop/smart-contracts/dev-environments/remix){target=\_blank} or any Solidity-compatible environment and call `calculateRIPEMD160` with arbitrary bytes. This [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/RIPEMD160.js){target=\_blank} shows how to hash a UTF-8 string, pad the 20-byte result to 32 bytes, and verify it against the expected output.
+To use it, you can deploy the `RIPEMD160Example` contract in [Remix](/smart-contracts/dev-environments/remix/get-started/){target=\_blank} or any Solidity-compatible environment and call `calculateRIPEMD160` with arbitrary bytes. This [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/RIPEMD160.js){target=\_blank} shows how to hash a UTF-8 string, pad the 20-byte result to 32 bytes, and verify it against the expected output.
 
 ## Identity (Data Copy) (0x04)
 
@@ -807,7 +668,7 @@ contract IdentityExample {
 }
 ```
 
-To use it, you can deploy the `IdentityExample` contract in [Remix](/develop/smart-contracts/dev-environments/remix){target=\_blank} or any Solidity-compatible environment and call `callIdentity` with arbitrary bytes. This [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/Identity.js){target=\_blank} shows how to pass input data and verify that the precompile returns it unchanged.
+To use it, you can deploy the `IdentityExample` contract in [Remix](/smart-contracts/dev-environments/remix/get-started/){target=\_blank} or any Solidity-compatible environment and call `callIdentity` with arbitrary bytes. This [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/Identity.js){target=\_blank} shows how to pass input data and verify that the precompile returns it unchanged.
 
 ## Modular Exponentiation (0x05)
 
@@ -846,7 +707,7 @@ contract ModExpExample {
 }
 ```
 
-To use it, you can deploy the `ModExpExample` contract in [Remix](/develop/smart-contracts/dev-environments/remix){target=\_blank} or any Solidity-compatible environment and call `modularExponentiation` with encoded `base`, `exponent`, and `modulus` bytes. This [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/ModExp.js){target=\_blank} shows how to test modular exponentiation like (4 ** 13) % 497 = 445.
+To use it, you can deploy the `ModExpExample` contract in [Remix](/smart-contracts/dev-environments/remix/get-started/){target=\_blank} or any Solidity-compatible environment and call `modularExponentiation` with encoded `base`, `exponent`, and `modulus` bytes. This [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/ModExp.js){target=\_blank} shows how to test modular exponentiation like (4 ** 13) % 497 = 445.
 
 ## BN128 Addition (0x06)
 
@@ -887,7 +748,7 @@ contract BN128AddExample {
 }
 ```
 
-To use it, you can deploy the `BN128AddExample` contract in [Remix](/develop/smart-contracts/dev-environments/remix){target=\_blank} or any Solidity-compatible environment and call `callBN128Add` with valid `alt_bn128` points. This [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/BN128Add.js){target=\_blank} demonstrates a valid curve addition and checks the result against known expected values.
+To use it, you can deploy the `BN128AddExample` contract in [Remix](/smart-contracts/dev-environments/remix/get-started/){target=\_blank} or any Solidity-compatible environment and call `callBN128Add` with valid `alt_bn128` points. This [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/BN128Add.js){target=\_blank} demonstrates a valid curve addition and checks the result against known expected values.
 
 ## BN128 Scalar Multiplication (0x07)
 
@@ -932,7 +793,7 @@ contract BN128MulExample {
 }
 ```
 
-To use it, deploy `BN128MulExample` in [Remix](/develop/smart-contracts/dev-environments/remix){target=\_blank} or any Solidity-compatible environment and call `bn128ScalarMul` with a valid point and scalar. This [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/BN128Mul.js){target=\_blank} shows how to test the operation and verify the expected scalar multiplication result on `alt_bn128`.
+To use it, deploy `BN128MulExample` in [Remix](/smart-contracts/dev-environments/remix/get-started/){target=\_blank} or any Solidity-compatible environment and call `bn128ScalarMul` with a valid point and scalar. This [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/BN128Mul.js){target=\_blank} shows how to test the operation and verify the expected scalar multiplication result on `alt_bn128`.
 
 ## BN128 Pairing Check (0x08)
 
@@ -973,7 +834,7 @@ contract BN128PairingExample {
 }
 ```
 
-You can deploy `BN128PairingExample` in [Remix](/develop/smart-contracts/dev-environments/remix){target=\_blank} or your preferred environment. Check out this [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/BN128Pairing.js){target=\_blank} contains these tests with working examples.
+You can deploy `BN128PairingExample` in [Remix](/smart-contracts/dev-environments/remix/get-started/){target=\_blank} or your preferred environment. Check out this [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/BN128Pairing.js){target=\_blank} contains these tests with working examples.
 
 ## Blake2F (0x09)
 
@@ -1081,7 +942,7 @@ contract Blake2FExample {
 }
 ```
 
-To use it, deploy `Blake2FExample` in [Remix](/develop/smart-contracts/dev-environments/remix){target=\_blank} or any Solidity-compatible environment and call `callBlake2F` with the properly formatted input parameters for rounds, state vector, message block, offset counters, and final block flag. This [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/Blake2.js){target=\_blank} demonstrates how to perform Blake2 compression with different rounds and verify the correctness of the output against known test vectors.
+To use it, deploy `Blake2FExample` in [Remix](/smart-contracts/dev-environments/remix/get-started/){target=\_blank} or any Solidity-compatible environment and call `callBlake2F` with the properly formatted input parameters for rounds, state vector, message block, offset counters, and final block flag. This [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/Blake2.js){target=\_blank} demonstrates how to perform Blake2 compression with different rounds and verify the correctness of the output against known test vectors.
 
 ## Conclusion
 
@@ -1114,7 +975,7 @@ This tutorial covers deploying an ERC-20 contract on the Polkadot Hub TestNet us
 
 Before starting, make sure you have:
 
-- [MetaMask](https://metamask.io/){target=\_blank} installed and connected to Polkadot Hub. For detailed instructions, see the [Connect Your Wallet](/develop/smart-contracts/wallets){target=\_blank} section.
+- [MetaMask](https://metamask.io/){target=\_blank} installed and connected to Polkadot Hub. For detailed instructions, see the [Connect Your Wallet](/smart-contracts/integrations/wallets){target=\_blank} section.
 - A funded account with some PAS tokens (you can get them from the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}). To learn how to get test tokens, check out the [Test Tokens](/develop/smart-contracts/connect-to-polkadot#test-tokens){target=\_blank} section.
 - Basic understanding of Solidity and fungible tokens.
 
@@ -1203,7 +1064,7 @@ Deployment is the process of publishing your compiled smart contract to the bloc
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-6.webp)
 
 2. Configure the deployment settings.
-    1. From the **ENVIRONMENT** dropdown, select **Injected Provider - Talisman** (check the [Deploying Contracts](/smart-contracts/dev-environments/remix/deploy-a-contract){target=\_blank} section of the Remix IDE guide for more details).
+    1. From the **ENVIRONMENT** dropdown, select **Injected Provider - Talisman** (check the [Deploying Contracts](/smart-contracts/dev-environments/remix/deploy-a-contract/){target=\_blank} section of the Remix IDE guide for more details).
     2. From the **ACCOUNT** dropdown, select the account you want to use for the deploy.
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-7.webp)
@@ -1377,7 +1238,7 @@ Deployment is the process of uploading your compiled smart contract to the block
 
 2. Configure the deployment settings:
 
-    1. From the **ENVIRONMENT** dropdown, select **Injected Provider - Talisman** (check the [Deploying Contracts](/smart-contracts/dev-environments/remix/deploy-a-contract){target=\_blank} section of the Remix IDE guide for more details).
+    1. From the **ENVIRONMENT** dropdown, select **Injected Provider - Talisman** (check the [Deploying Contracts](/smart-contracts/dev-environments/remix/deploy-a-contract/){target=\_blank} section of the Remix IDE guide for more details).
     2. From the **ACCOUNT** dropdown, select the account you want to use for the deploy.
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-7.webp)
@@ -1624,7 +1485,7 @@ For more detailed information about Solidity types, functions, and best practice
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/smart-contracts/dev-environments/hardhat/
+Doc-Content: https://docs.polkadot.com/smart-contracts/dev-environments/hardhat/get-started/
 --- BEGIN CONTENT ---
 ---
 title: Use Hardhat with Polkadot Hub
@@ -1842,7 +1703,7 @@ module.exports = {
 };
 ```
 
-Replace `INSERT_PATH_TO_SUBSTRATE_NODE` and `INSERT_PATH_TO_ETH_RPC_ADAPTER` with the actual paths to your compiled binaries. The `dev: true` flag configures both the node and adapter for development mode. To obtain these binaries, check the [Installation](/develop/smart-contracts/local-development-node#install-the-substrate-node-and-eth-rpc-adapter){target=\_blank} section on the Local Development Node page.
+Replace `INSERT_PATH_TO_SUBSTRATE_NODE` and `INSERT_PATH_TO_ETH_RPC_ADAPTER` with the actual paths to your compiled binaries. The `dev: true` flag configures both the node and adapter for development mode. To obtain these binaries, check the [Installation](/smart-contracts/dev-environments/local-dev-node/#install-the-substrate-node-and-eth-rpc-adapter){target=\_blank} section on the Local Development Node page.
 
 !!! warning
     If you're using the default `hardhat.config.js` created by the `hardhat-polkadot` plugin, it includes a `forking` section pointing to the Polkadot Hub TestNet. When you run `npx hardhat node`, Hardhat will start a fork of that network. To use your local node instead, comment out the `forking` section; otherwise, `npx hardhat node` will continue to use the forked network even if a local node is defined in the configuration.
@@ -2094,7 +1955,146 @@ Explore more about smart contracts through these resources:
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/smart-contracts/dev-environments/remix/
+Doc-Content: https://docs.polkadot.com/smart-contracts/dev-environments/local-dev-node/
+--- BEGIN CONTENT ---
+---
+title: Local Development Node
+description: Follow this step-by-step guide to install a Revive Dev node and ETH-RPC adapter for smart contract development in a local environment.
+categories: Smart Contracts
+---
+
+# Local Development Node
+
+!!! smartcontract "PolkaVM Preview Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+
+## Introduction
+
+A local development node provides an isolated blockchain environment where you can deploy, test, and debug smart contracts without incurring network fees or waiting for block confirmations. This guide demonstrates how to set up a local Polkadot SDK-based node with smart contract capabilities.
+
+By the end of this guide, you'll have:
+
+- A running node with smart contract support.
+- An ETH-RPC adapter for Ethereum-compatible tooling integration accessible at `http://localhost:8545`.
+
+## Prerequisites
+
+Before getting started, ensure you have done the following:
+
+- Completed the [Install Polkadot SDK Dependencies](/develop/parachains/install-polkadot-sdk/){target=\_blank} guide and successfully installed [Rust](https://www.rust-lang.org/){target=\_blank} and the required packages to set up your development environment.
+
+## Install the Revive Dev Node and ETH-RPC Adapter
+
+The Polkadot SDK repository contains both the [Revive Dev node](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk_contracts_node.commit_dev_node}}/substrate/frame/revive/dev-node){target=\_blank} implementation and the [ETH-RPC adapter](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk_contracts_node.commit_dev_node}}/substrate/frame/revive/rpc){target=\_blank} required for Ethereum compatibility. Start by cloning the repository and navigating to the project directory:
+
+```bash
+git clone https://github.com/paritytech/polkadot-sdk.git
+cd polkadot-sdk
+git checkout {{dependencies.repositories.polkadot_sdk_contracts_node.commit_dev_node}}
+```
+
+Next, you need to compile the two essential components for your development environment. The Substrate node provides the core blockchain runtime with smart contract support, while the ETH-RPC adapter enables Ethereum JSON-RPC compatibility for existing tooling:
+
+```bash
+cargo build -p revive-dev-node --bin revive-dev-node --release
+cargo build -p pallet-revive-eth-rpc --bin eth-rpc --release
+```
+
+The compilation process may take some time depending on your system specifications, potentially up to 30 minutes. Release builds are optimized for performance but take longer to compile than debug builds. After successful compilation, you can verify the binaries are available in the `target/release` directory:
+
+- **Revive Dev node path**: `polkadot-sdk/target/release/revive-dev-node`
+- **ETH-RPC adapter path**: `polkadot-sdk/target/release/eth-rpc`
+
+## Run the Local Node
+
+With the binaries compiled, you can now start your local development environment. The setup requires running two processes.
+
+Start the node first, which will initialize a local blockchain with the `dev` chain specification. This configuration includes `pallet-revive` for smart contract functionality and uses pre-funded development accounts for testing:
+
+```bash
+./target/release/revive-dev-node --dev
+```
+
+The node will begin producing blocks immediately and display initialization logs:
+
+<div id="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>./target/release/revive-dev-node --dev</span>
+  <br />
+  <span data-ty>2025-05-29 10:42:35 Substrate Node</span>
+  <span data-ty>2025-05-29 10:42:35 ✌️ version 3.0.0-dev-38b7581fc04</span>
+  <span data-ty>2025-05-29 10:42:35 ❤️ by Parity Technologies &lt;admin@parity.io&gt;, 2017-2025</span>
+  <span data-ty>2025-05-29 10:42:35 📋 Chain specification: Development</span>
+  <span data-ty>2025-05-29 10:42:35 🏷 Node name: annoyed-aunt-3163</span>
+  <span data-ty>2025-05-29 10:42:35 👤 Role: AUTHORITY</span>
+  <span data-ty>2025-05-29 10:42:35 💾 Database: RocksDb at /var/folders/x0/xl_kjddj3ql3bx7752yr09hc0000gn/T/substrate2P85EF/chains/dev/db/full</span>
+  <span data-ty>2025-05-29 10:42:40 🔨 Initializing Genesis block/state (state: 0xfc05…482e, header-hash: 0x1ae1…b8b4)</span>
+  <span data-ty>2025-05-29 10:42:40 Creating transaction pool txpool_type=SingleState ready=Limit { count: 8192, total_bytes: 20971520 } future=Limit { count: 819, total_bytes: 2097152 }</span>
+  <span data-ty>2025-05-29 10:42:40 👴 Loading GRANDPA authority set from genesis on what appears to be first startup.</span>
+  <span data-ty>2025-05-29 10:42:40 👶 Creating empty BABE epoch changes on what appears to be first startup.</span>
+  <span data-ty>2025-05-29 10:42:40 Using default protocol ID "sup" because none is configured in the chain specs</span>
+  <span data-ty>2025-05-29 10:42:40 🏷 Local node identity is: 12D3KooWAH8fgJv3hce7Yv4yKG4YXQiRqESFu6755DBnfZQU8Znm</span>
+  <span data-ty>2025-05-29 10:42:40 Running libp2p network backend</span>
+  <span data-ty>2025-05-29 10:42:40 local_peer_id=12D3KooWAH8fgJv3hce7Yv4yKG4YXQiRqESFu6755DBnfZQU8Znm</span>
+  <span data-ty>2025-05-29 10:42:40 💻 Operating system: macos</span>
+  <span data-ty>2025-05-29 10:42:40 💻 CPU architecture: aarch64</span>
+  <span data-ty>2025-05-29 10:42:40 📦 Highest known block at #0</span>
+  <span data-ty>2025-05-29 10:42:40 Error binding to '127.0.0.1:9615': Os { code: 48, kind: AddrInUse, message: "Address already in use" }</span>
+  <span data-ty>2025-05-29 10:42:40 Running JSON-RPC server: addr=127.0.0.1:63333,[::1]:63334</span>
+  <span data-ty>2025-05-29 10:42:40 🏁 CPU single core score: 1.24 GiBs, parallelism score: 1.08 GiBs with expected cores: 8</span>
+  <span data-ty>2025-05-29 10:42:40 🏁 Memory score: 49.42 GiBs</span>
+  <span data-ty>2025-05-29 10:42:40 🏁 Disk score (seq. writes): 1.91 GiBs</span>
+  <span data-ty>2025-05-29 10:42:40 🏁 Disk score (rand. writes): 529.02 MiBs</span>
+  <span data-ty>2025-05-29 10:42:40 👶 Starting BABE Authorship worker</span>
+  <span data-ty>2025-05-29 10:42:40 🥩 BEEFY gadget waiting for BEEFY pallet to become available...</span>
+  <span data-ty>2025-05-29 10:42:40 Failed to trigger bootstrap: No known peers.</span>
+  <span data-ty>2025-05-29 10:42:42 🙌 Starting consensus session on top of parent 0x1ae19030b13592b5e6fd326f26efc7b31a4f588303d348ef89ae9ebca613b8b4 (#0)</span>
+  <span data-ty>2025-05-29 10:42:42 🎁 Prepared block for proposing at 1 (5 ms) hash: 0xe046f22307fba58a3bd0cc21b1a057843d4342da8876fd44aba206f124528df0; parent_hash: 0x1ae1…b8b4; end: NoMoreTransactions; extrinsics_count: 2</span>
+  <span data-ty>2025-05-29 10:42:42 🔖 Pre-sealed block for proposal at 1. Hash now 0xa88d36087e7bf8ee59c1b17e0003092accf131ff8353a620410d7283657ce36a, previously 0xe046f22307fba58a3bd0cc21b1a057843d4342da8876fd44aba206f124528df0.</span>
+  <span data-ty>2025-05-29 10:42:42 👶 New epoch 0 launching at block 0xa88d…e36a (block slot 582842054 >= start slot 582842054).</span>
+  <span data-ty>2025-05-29 10:42:42 👶 Next epoch starts at slot 582842254</span>
+  <span data-ty>2025-05-29 10:42:42 🏆 Imported #1 (0x1ae1…b8b4 → 0xa88d…e36a)</span>
+</div>
+
+For debugging purposes or to monitor low-level operations, you can enable detailed logging by setting environment variables before running the command:
+
+```bash
+RUST_LOG="error,evm=debug,sc_rpc_server=info,runtime::revive=debug" ./target/release/revive-dev-node --dev
+```
+
+Once the node is running, open a new terminal window and start the ETH-RPC adapter. This component translates Ethereum JSON-RPC calls into Substrate-compatible requests, allowing you to use familiar Ethereum tools like MetaMask, Hardhat, or Ethers.js:
+
+```bash
+./target/release/eth-rpc --dev
+```
+
+You should see logs indicating that the adapter is ready to accept connections:
+
+<div id="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>./target/release/eth-rpc --dev</span>
+  <br />
+  <span data-ty>2025-05-29 10:48:48 Running in --dev mode, RPC CORS has been disabled.</span>
+  <span data-ty>2025-05-29 10:48:48 Running in --dev mode, RPC CORS has been disabled.</span>
+  <span data-ty>2025-05-29 10:48:48 🌐 Connecting to node at: ws://127.0.0.1:9944 ...</span>
+  <span data-ty>2025-05-29 10:48:48 🌟 Connected to node at: ws://127.0.0.1:9944</span>
+  <span data-ty>2025-05-29 10:48:48 💾 Using in-memory database, keeping only 256 blocks in memory</span>
+  <span data-ty>2025-05-29 10:48:48 〽️ Prometheus exporter started at 127.0.0.1:9616</span>
+  <span data-ty>2025-05-29 10:48:48 Running JSON-RPC server: addr=127.0.0.1:8545,[::1]:8545</span>
+  <span data-ty>2025-05-29 10:48:48 🔌 Subscribing to new blocks (BestBlocks)</span>
+  <span data-ty>2025-05-29 10:48:48 🔌 Subscribing to new blocks (FinalizedBlocks)</span>
+</div>
+
+Similar to the Revive Dev node, you can enable detailed logging for the ETH-RPC adapter to troubleshoot issues:
+
+```bash
+RUST_LOG="info,eth-rpc=debug" ./target/release/eth-rpc --dev
+```
+
+Your local development environment is now active and accessible at `http://localhost:8545`. This endpoint accepts standard Ethereum JSON-RPC requests, enabling seamless integration with existing Ethereum development tools and workflows. 
+
+You can connect wallets, deploy contracts using Remix or Hardhat, and interact with your smart contracts as you would on any Ethereum-compatible network.
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/smart-contracts/dev-environments/remix/get-started/
 --- BEGIN CONTENT ---
 ---
 title: Use the Polkadot Remix IDE
@@ -2146,7 +2146,7 @@ Before getting started, ensure you have:
 
 Navigate to [https://remix.polkadot.io/](https://remix.polkadot.io/){target=\_blank}. The interface will load with a default workspace containing sample contracts.
 
-![](/images/smart-contracts/dev-environments/index/remix-1.webp)
+![](/images/smart-contracts/dev-environments/remix/get-started/remix-1.webp)
 
 In this interface, you can access a file explorer, edit your code, interact with various plugins for development, and use a terminal.
 
@@ -2156,11 +2156,11 @@ To create a new contract using the Polkadot Remix IDE, you can follow these step
 
 1. Select the **Create a new file** button in the `contracts` folder.
 
-    ![](/images/smart-contracts/dev-environments/index/remix-2.webp)
+    ![](/images/smart-contracts/dev-environments/remix/get-started/remix-2.webp)
 
 2. Name your file with a `.sol` extension, in this case, `Counter.sol`.
 
-    ![](/images/smart-contracts/dev-environments/index/remix-3.webp)
+    ![](/images/smart-contracts/dev-environments/remix/get-started/remix-3.webp)
 
 3. Write your Solidity code in the editor.
 
@@ -2189,7 +2189,7 @@ contract Counter {
 }
         ```
 
-    ![](/images/smart-contracts/dev-environments/index/remix-4.webp)
+    ![](/images/smart-contracts/dev-environments/remix/get-started/remix-4.webp)
 
 
 ## Compiling Your Contract
@@ -2199,7 +2199,7 @@ contract Counter {
     1. Navigate to the **Solidity Compiler** tab (third icon in the left sidebar).
     2. Select **Compile** or use `Ctrl+S`.
 
-        ![](/images/smart-contracts/dev-environments/index/remix-5.webp)
+        ![](/images/smart-contracts/dev-environments/remix/get-started/remix-5.webp)
     
         !!! note
             Compilation errors and warnings appear in the terminal panel at the bottom of the screen.
@@ -2208,7 +2208,7 @@ contract Counter {
     1. The `artifact` folder is present.
     2. The `Counter_metadata.json` and the `Counter.json` files have been generated.
 
-        ![](/images/smart-contracts/dev-environments/index/remix-6.webp)
+        ![](/images/smart-contracts/dev-environments/remix/get-started/remix-6.webp)
 
 ## Deploying Contracts
 
@@ -2218,23 +2218,23 @@ contract Counter {
     2. Click the **Environment** dropdown.
     3. Select **Customize this list**.
 
-        ![](/images/smart-contracts/dev-environments/index/remix-7.webp)
+        ![](/images/smart-contracts/dev-environments/remix/get-started/remix-7.webp)
 
 2. Enable the **Injected Provider - Talisman** option.
 
-    ![](/images/smart-contracts/dev-environments/index/remix-8.webp)
+    ![](/images/smart-contracts/dev-environments/remix/get-started/remix-8.webp)
 
 4. Click again the **Environment** dropdown and select **Injected Provider - Talisman**.
 
-    ![](/images/smart-contracts/dev-environments/index/remix-9.webp)
+    ![](/images/smart-contracts/dev-environments/remix/get-started/remix-9.webp)
 
 4. Click the **Deploy** button and then click **Approve** in the Talisman wallet popup.
 
-    ![](/images/smart-contracts/dev-environments/index/remix-10.webp)
+    ![](/images/smart-contracts/dev-environments/remix/get-started/remix-10.webp)
 
 5. Once your contract is deployed successfully, you will see the following output in the Remix terminal:
 
-    ![](/images/smart-contracts/dev-environments/index/remix-11.webp)
+    ![](/images/smart-contracts/dev-environments/remix/get-started/remix-11.webp)
 
 ## Interacting with Contracts
 
@@ -2242,14 +2242,14 @@ Once deployed, your contract appears in the **Deployed/Unpinned Contracts** sect
 
 1. Expand the contract to view available methods.
 
-    ![](/images/smart-contracts/dev-environments/index/remix-12.webp)
+    ![](/images/smart-contracts/dev-environments/remix/get-started/remix-12.webp)
 
     !!! tip
         Pin your frequently used contracts to the **Pinned Contracts** section for easy access.
 
 2. To interact with the contract, you can select any of the exposed methods.
 
-    ![](/images/smart-contracts/dev-environments/index/remix-13.webp)
+    ![](/images/smart-contracts/dev-environments/remix/get-started/remix-13.webp)
 
     In this way, you can interact with your deployed contract by reading its state or writing to it. The button color indicates the type of interaction available:
 
@@ -2284,7 +2284,7 @@ Explore more about smart contracts through these resources:
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/smart-contracts/integrations/
+Doc-Content: https://docs.polkadot.com/smart-contracts/integrations/wallets/
 --- BEGIN CONTENT ---
 ---
 title: Wallets for Polkadot Hub
@@ -2411,7 +2411,7 @@ Choosing the right wallet for Polkadot Hub interactions depends on your specific
     Remember to always verify network parameters when connecting to ensure a secure and reliable connection to the Polkadot ecosystem.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/smart-contracts/libraries/
+Doc-Content: https://docs.polkadot.com/smart-contracts/libraries/ethers-js/
 --- BEGIN CONTENT ---
 ---
 title: Deploy Contracts to Polkadot Hub with Ethers.js
@@ -4013,7 +4013,7 @@ categories: Smart Contracts, Tooling
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 !!! warning
-    Web3.js has been [sunset](https://blog.chainsafe.io/web3-js-sunset/){target=\_blank}. You can find guides on using [Ethers.js](/develop/smart-contracts/libraries/ethers-js){target=\_blank} and [viem](/develop/smart-contracts/libraries/viem){target=\_blank} in the [Libraries](/develop/smart-contracts/libraries/){target=\_blank} section. 
+    Web3.js has been [sunset](https://blog.chainsafe.io/web3-js-sunset/){target=\_blank}. You can find guides on using [Ethers.js](/smart-contracts/libraries/ethers-js/){target=\_blank} and [viem](/smart-contracts/libraries/viem/){target=\_blank} in the Libraries section. 
 
 ## Introduction
 
@@ -4789,7 +4789,7 @@ Located at the fixed address `0x00000000000000000000000000000000000a0000`, the X
 - **`send`**: For cross-chain message transmission.
 - **`weighMessage`**: For cost estimation.
 
-This guide demonstrates how to interact with the XCM precompile through Solidity smart contracts using [Remix IDE](/develop/smart-contracts/dev-environments/remix){target=\_blank}.
+This guide demonstrates how to interact with the XCM precompile through Solidity smart contracts using [Remix IDE](/smart-contracts/dev-environments/remix/get-started/){target=\_blank}.
 
 !!!note
     The XCM precompile provides the barebones XCM functionality. While it provides a lot of flexibility, it doesn't provide abstractions to hide away XCM details. These have to be built on top.
@@ -4853,7 +4853,7 @@ For further information, check the [`precompiles/IXCM.sol`](https://github.com/p
 
 ## Interact with the XCM Precompile
 
-To interact with the XCM precompile, you can use the precompile interface directly in [Remix IDE](/smart-contracts/dev-environments/remix/){target=\_blank}:
+To interact with the XCM precompile, you can use the precompile interface directly in [Remix IDE](/smart-contracts/dev-environments/remix/get-started/){target=\_blank}:
 
 1. Create a new file called `IXcm.sol` in Remix.
 2. Copy and paste the `IXcm` interface code into the file.
@@ -5187,10 +5187,8 @@ The [`XcmRouter`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pa
 For instance, the Kusama network employs the [`ChildParachainRouter`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_common/xcm_sender/struct.ChildParachainRouter.html){target=\_blank}, which restricts routing to [Downward Message Passing (DMP)](https://wiki.polkadot.com/learn/learn-xcm-transport/#dmp-downward-message-passing){target=\_blank} from the relay chain to parachains, ensuring secure and controlled communication.
 
 ```rust
-pub type XcmRouter = WithUniqueTopic<(
-	// Only one router so far - use DMP to communicate with child parachains.
-	ChildParachainRouter<Runtime, XcmPallet, PriceForChildParachainDelivery>,
-)>;
+pub type PriceForChildParachainDelivery =
+	ExponentialPrice<FeeAssetId, BaseDeliveryFee, TransactionByteFee, Dmp>;
 ```
 
 For more details about XCM transport protocols, see the [XCM Channels](/develop/interoperability/xcm-channels/){target=\_blank} page.
@@ -6517,7 +6515,7 @@ Subsequent sections of this guide provide detailed information about specific de
 
     Explore essential libraries to optimize smart contract development and interaction.
 
-    [:octicons-arrow-right-24: Reference](/develop/smart-contracts/libraries/)
+    [:octicons-arrow-right-24: Reference](/smart-contracts/libraries/ethers-js/)
 
 -   <span class="badge guide">Guide</span> __Dev Environments__
 
@@ -6525,7 +6523,7 @@ Subsequent sections of this guide provide detailed information about specific de
 
     Set up your development environment for seamless contract deployment and testing.
 
-    [:octicons-arrow-right-24: Reference](/develop/smart-contracts/dev-environments/)
+    [:octicons-arrow-right-24: Reference](/smart-contracts/dev-environments/local-dev-node/)
 
 </div>
 --- END CONTENT ---
@@ -8792,7 +8790,7 @@ This tutorial covers deploying an ERC-20 contract on the Polkadot Hub TestNet us
 
 Before starting, make sure you have:
 
-- [MetaMask](https://metamask.io/){target=\_blank} installed and connected to Polkadot Hub. For detailed instructions, see the [Connect Your Wallet](/develop/smart-contracts/wallets){target=\_blank} section.
+- [MetaMask](https://metamask.io/){target=\_blank} installed and connected to Polkadot Hub. For detailed instructions, see the [Connect Your Wallet](/smart-contracts/integrations/wallets){target=\_blank} section.
 - A funded account with some PAS tokens (you can get them from the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}). To learn how to get test tokens, check out the [Test Tokens](/develop/smart-contracts/connect-to-polkadot#test-tokens){target=\_blank} section.
 - Basic understanding of Solidity and fungible tokens.
 
@@ -8881,7 +8879,7 @@ Deployment is the process of publishing your compiled smart contract to the bloc
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-6.webp)
 
 2. Configure the deployment settings.
-    1. From the **ENVIRONMENT** dropdown, select **Injected Provider - Talisman** (check the [Deploying Contracts](/smart-contracts/dev-environments/remix/deploy-a-contract){target=\_blank} section of the Remix IDE guide for more details).
+    1. From the **ENVIRONMENT** dropdown, select **Injected Provider - Talisman** (check the [Deploying Contracts](/smart-contracts/dev-environments/remix/deploy-a-contract/){target=\_blank} section of the Remix IDE guide for more details).
     2. From the **ACCOUNT** dropdown, select the account you want to use for the deploy.
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-7.webp)
@@ -9055,7 +9053,7 @@ Deployment is the process of uploading your compiled smart contract to the block
 
 2. Configure the deployment settings:
 
-    1. From the **ENVIRONMENT** dropdown, select **Injected Provider - Talisman** (check the [Deploying Contracts](/smart-contracts/dev-environments/remix/deploy-a-contract){target=\_blank} section of the Remix IDE guide for more details).
+    1. From the **ENVIRONMENT** dropdown, select **Injected Provider - Talisman** (check the [Deploying Contracts](/smart-contracts/dev-environments/remix/deploy-a-contract/){target=\_blank} section of the Remix IDE guide for more details).
     2. From the **ACCOUNT** dropdown, select the account you want to use for the deploy.
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-7.webp)

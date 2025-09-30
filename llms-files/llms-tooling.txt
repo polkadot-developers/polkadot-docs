@@ -41,10 +41,10 @@ Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/re
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/smart-contracts/launch-your-first-project/create-dapp-ethers-js.md [type: tutorials]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/smart-contracts/launch-your-first-project/create-dapp-viem.md [type: tutorials]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/smart-contracts/launch-your-first-project/test-and-deploy-with-hardhat.md [type: tutorials]
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/dev-environments/hardhat.md [type: other]
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/dev-environments/remix.md [type: other]
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/integrations.md [type: other]
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/libraries.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/dev-environments/hardhat/get-started.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/dev-environments/remix/get-started.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/integrations/wallets.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/libraries/ethers-js.md [type: other]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/libraries/viem.md [type: other]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/libraries/wagmi.md [type: other]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/libraries/web3-js.md [type: other]
@@ -9816,7 +9816,7 @@ Before starting, make sure you have:
 
 - Node.js (v16.0.0 or later) and npm installed.
 - Basic understanding of Solidity and JavaScript.
-- Familiarity with [`hardhat-polkadot`](/develop/smart-contracts/dev-environments/hardhat){target=\_blank} development environment.
+- Familiarity with [`hardhat-polkadot`](/smart-contracts/dev-environments/hardhat/get-started/){target=\_blank} development environment.
 - Some PAS test tokens to cover transaction fees (obtained from the [Polkadot faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}).
 - Basic understanding of how AMMs and liquidity pools work.
 
@@ -10062,7 +10062,7 @@ categories: dApp, Tooling
 
 Decentralized applications (dApps) have become a cornerstone of the Web3 ecosystem, allowing developers to create applications that interact directly with blockchain networks. Polkadot Hub, a blockchain that supports smart contract functionality, provides an excellent platform for deploying and interacting with dApps.
 
-In this tutorial, you'll build a complete dApp that interacts with a smart contract deployed on the Polkadot Hub TestNet. It will use [Ethers.js](/develop/smart-contracts/libraries/ethers-js){target=\_blank} to interact with the blockchain and [Next.js](https://nextjs.org/){target=\_blank} as the frontend framework. By the end of this tutorial, you'll have a functional dApp that allows users to connect their wallets, read data from the blockchain, and execute transactions.
+In this tutorial, you'll build a complete dApp that interacts with a smart contract deployed on the Polkadot Hub TestNet. It will use [Ethers.js](/smart-contracts/libraries/ethers-js/){target=\_blank} to interact with the blockchain and [Next.js](https://nextjs.org/){target=\_blank} as the frontend framework. By the end of this tutorial, you'll have a functional dApp that allows users to connect their wallets, read data from the blockchain, and execute transactions.
 
 ## Prerequisites
 
@@ -10080,7 +10080,7 @@ The dApp will interact with a simple Storage contract. For a step-by-step guide 
 - Reading a stored number from the blockchain.
 - Updating the stored number with a new value.
 
-The contract has already been deployed to the Polkadot Hub TestNet for testing purposes: `0x58053f0e8ede1a47a1af53e43368cd04ddcaf66f`. If you want to deploy your own, follow the [Deploying Contracts](/smart-contracts/dev-environments/remix/deploy-a-contract){target=\_blank} section.
+The contract has already been deployed to the Polkadot Hub TestNet for testing purposes: `0x58053f0e8ede1a47a1af53e43368cd04ddcaf66f`. If you want to deploy your own, follow the [Deploying Contracts](/smart-contracts/dev-environments/remix/deploy-a-contract/){target=\_blank} section.
 
 Here's a simplified view of what you'll be building:
 
@@ -10123,7 +10123,7 @@ npm install ethers@{{ dependencies.javascript_packages.ethersjs.version }}
 
 ## Connect to Polkadot Hub
 
-To interact with the Polkadot Hub, you need to set up an [Ethers.js Provider](/smart-contracts/libraries/#set-up-the-ethersjs-provider){target=\_blank} that connects to the blockchain. In this example, you will interact with the Polkadot Hub TestNet, so you can experiment safely. Start by creating a new file called `utils/ethers.js` and add the following code:
+To interact with the Polkadot Hub, you need to set up an [Ethers.js Provider](/smart-contracts/libraries/ethers-js/#set-up-the-ethersjs-provider){target=\_blank} that connects to the blockchain. In this example, you will interact with the Polkadot Hub TestNet, so you can experiment safely. Start by creating a new file called `utils/ethers.js` and add the following code:
 
 ```javascript title="app/utils/ethers.js"
 import { JsonRpcProvider } from 'ethers';
@@ -11519,7 +11519,7 @@ cd polkavm-storage-contract-dapps/viem-dapp
 
     Learn how to build a decentralized application by using the Wagmi framework.
 
-    [:octicons-arrow-right-24: Get Started](/develop/smart-contracts/libraries/wagmi)
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/libraries/wagmi/)
 
 </div>
 --- END CONTENT ---
@@ -11540,7 +11540,7 @@ categories: dApp, Tooling
 
 ## Introduction
 
-After creating a smart contract, the next crucial steps are testing and deployment. Proper testing ensures your contract behaves as expected, while deployment makes your contract available on the blockchain. This tutorial will guide you through using Hardhat, a popular development environment, to test and deploy the `Storage.sol` contract you created in the [Create a Smart Contract](/tutorials/smart-contracts/launch-your-first-project/create-contracts/){target=\_blank} tutorial. For more information about Hardhat usage, check the [Hardhat section](/smart-contracts/dev-environments/hardhat/){target=\_blank}.
+After creating a smart contract, the next crucial steps are testing and deployment. Proper testing ensures your contract behaves as expected, while deployment makes your contract available on the blockchain. This tutorial will guide you through using Hardhat, a popular development environment, to test and deploy the `Storage.sol` contract you created in the [Create a Smart Contract](/tutorials/smart-contracts/launch-your-first-project/create-contracts/){target=\_blank} tutorial. For more information about Hardhat usage, check the [Hardhat section](/smart-contracts/dev-environments/hardhat/get-started/){target=\_blank}.
 
 ## Prerequisites
 
@@ -11631,7 +11631,7 @@ module.exports = {
 
     Ensure that `INSERT_PATH_TO_SUBSTRATE_NODE` and `INSERT_PATH_TO_ETH_RPC_ADAPTER` are replaced with the proper paths to the compiled binaries. 
 
-    If you need to build these binaries, follow the [Installation](/develop/smart-contracts/local-development-node#install-the-substrate-node-and-eth-rpc-adapter){target=\_blank} section on the Local Development Node page.
+    If you need to build these binaries, follow the [Installation](/smart-contracts/dev-environments/local-dev-node/#install-the-substrate-node-and-eth-rpc-adapter){target=\_blank} section on the Local Development Node page.
 
     The configuration also defines two network settings: 
 
@@ -12024,7 +12024,7 @@ cd polkavm-hardhat-examples/storage-hardhat
 ```
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/smart-contracts/dev-environments/hardhat/
+Doc-Content: https://docs.polkadot.com/smart-contracts/dev-environments/hardhat/get-started/
 --- BEGIN CONTENT ---
 ---
 title: Use Hardhat with Polkadot Hub
@@ -12242,7 +12242,7 @@ module.exports = {
 };
 ```
 
-Replace `INSERT_PATH_TO_SUBSTRATE_NODE` and `INSERT_PATH_TO_ETH_RPC_ADAPTER` with the actual paths to your compiled binaries. The `dev: true` flag configures both the node and adapter for development mode. To obtain these binaries, check the [Installation](/develop/smart-contracts/local-development-node#install-the-substrate-node-and-eth-rpc-adapter){target=\_blank} section on the Local Development Node page.
+Replace `INSERT_PATH_TO_SUBSTRATE_NODE` and `INSERT_PATH_TO_ETH_RPC_ADAPTER` with the actual paths to your compiled binaries. The `dev: true` flag configures both the node and adapter for development mode. To obtain these binaries, check the [Installation](/smart-contracts/dev-environments/local-dev-node/#install-the-substrate-node-and-eth-rpc-adapter){target=\_blank} section on the Local Development Node page.
 
 !!! warning
     If you're using the default `hardhat.config.js` created by the `hardhat-polkadot` plugin, it includes a `forking` section pointing to the Polkadot Hub TestNet. When you run `npx hardhat node`, Hardhat will start a fork of that network. To use your local node instead, comment out the `forking` section; otherwise, `npx hardhat node` will continue to use the forked network even if a local node is defined in the configuration.
@@ -12494,7 +12494,7 @@ Explore more about smart contracts through these resources:
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/smart-contracts/dev-environments/remix/
+Doc-Content: https://docs.polkadot.com/smart-contracts/dev-environments/remix/get-started/
 --- BEGIN CONTENT ---
 ---
 title: Use the Polkadot Remix IDE
@@ -12546,7 +12546,7 @@ Before getting started, ensure you have:
 
 Navigate to [https://remix.polkadot.io/](https://remix.polkadot.io/){target=\_blank}. The interface will load with a default workspace containing sample contracts.
 
-![](/images/smart-contracts/dev-environments/index/remix-1.webp)
+![](/images/smart-contracts/dev-environments/remix/get-started/remix-1.webp)
 
 In this interface, you can access a file explorer, edit your code, interact with various plugins for development, and use a terminal.
 
@@ -12556,11 +12556,11 @@ To create a new contract using the Polkadot Remix IDE, you can follow these step
 
 1. Select the **Create a new file** button in the `contracts` folder.
 
-    ![](/images/smart-contracts/dev-environments/index/remix-2.webp)
+    ![](/images/smart-contracts/dev-environments/remix/get-started/remix-2.webp)
 
 2. Name your file with a `.sol` extension, in this case, `Counter.sol`.
 
-    ![](/images/smart-contracts/dev-environments/index/remix-3.webp)
+    ![](/images/smart-contracts/dev-environments/remix/get-started/remix-3.webp)
 
 3. Write your Solidity code in the editor.
 
@@ -12589,7 +12589,7 @@ contract Counter {
 }
         ```
 
-    ![](/images/smart-contracts/dev-environments/index/remix-4.webp)
+    ![](/images/smart-contracts/dev-environments/remix/get-started/remix-4.webp)
 
 
 ## Compiling Your Contract
@@ -12599,7 +12599,7 @@ contract Counter {
     1. Navigate to the **Solidity Compiler** tab (third icon in the left sidebar).
     2. Select **Compile** or use `Ctrl+S`.
 
-        ![](/images/smart-contracts/dev-environments/index/remix-5.webp)
+        ![](/images/smart-contracts/dev-environments/remix/get-started/remix-5.webp)
     
         !!! note
             Compilation errors and warnings appear in the terminal panel at the bottom of the screen.
@@ -12608,7 +12608,7 @@ contract Counter {
     1. The `artifact` folder is present.
     2. The `Counter_metadata.json` and the `Counter.json` files have been generated.
 
-        ![](/images/smart-contracts/dev-environments/index/remix-6.webp)
+        ![](/images/smart-contracts/dev-environments/remix/get-started/remix-6.webp)
 
 ## Deploying Contracts
 
@@ -12618,23 +12618,23 @@ contract Counter {
     2. Click the **Environment** dropdown.
     3. Select **Customize this list**.
 
-        ![](/images/smart-contracts/dev-environments/index/remix-7.webp)
+        ![](/images/smart-contracts/dev-environments/remix/get-started/remix-7.webp)
 
 2. Enable the **Injected Provider - Talisman** option.
 
-    ![](/images/smart-contracts/dev-environments/index/remix-8.webp)
+    ![](/images/smart-contracts/dev-environments/remix/get-started/remix-8.webp)
 
 4. Click again the **Environment** dropdown and select **Injected Provider - Talisman**.
 
-    ![](/images/smart-contracts/dev-environments/index/remix-9.webp)
+    ![](/images/smart-contracts/dev-environments/remix/get-started/remix-9.webp)
 
 4. Click the **Deploy** button and then click **Approve** in the Talisman wallet popup.
 
-    ![](/images/smart-contracts/dev-environments/index/remix-10.webp)
+    ![](/images/smart-contracts/dev-environments/remix/get-started/remix-10.webp)
 
 5. Once your contract is deployed successfully, you will see the following output in the Remix terminal:
 
-    ![](/images/smart-contracts/dev-environments/index/remix-11.webp)
+    ![](/images/smart-contracts/dev-environments/remix/get-started/remix-11.webp)
 
 ## Interacting with Contracts
 
@@ -12642,14 +12642,14 @@ Once deployed, your contract appears in the **Deployed/Unpinned Contracts** sect
 
 1. Expand the contract to view available methods.
 
-    ![](/images/smart-contracts/dev-environments/index/remix-12.webp)
+    ![](/images/smart-contracts/dev-environments/remix/get-started/remix-12.webp)
 
     !!! tip
         Pin your frequently used contracts to the **Pinned Contracts** section for easy access.
 
 2. To interact with the contract, you can select any of the exposed methods.
 
-    ![](/images/smart-contracts/dev-environments/index/remix-13.webp)
+    ![](/images/smart-contracts/dev-environments/remix/get-started/remix-13.webp)
 
     In this way, you can interact with your deployed contract by reading its state or writing to it. The button color indicates the type of interaction available:
 
@@ -12684,7 +12684,7 @@ Explore more about smart contracts through these resources:
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/smart-contracts/integrations/
+Doc-Content: https://docs.polkadot.com/smart-contracts/integrations/wallets/
 --- BEGIN CONTENT ---
 ---
 title: Wallets for Polkadot Hub
@@ -12811,7 +12811,7 @@ Choosing the right wallet for Polkadot Hub interactions depends on your specific
     Remember to always verify network parameters when connecting to ensure a secure and reliable connection to the Polkadot ecosystem.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/smart-contracts/libraries/
+Doc-Content: https://docs.polkadot.com/smart-contracts/libraries/ethers-js/
 --- BEGIN CONTENT ---
 ---
 title: Deploy Contracts to Polkadot Hub with Ethers.js
@@ -14413,7 +14413,7 @@ categories: Smart Contracts, Tooling
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 !!! warning
-    Web3.js has been [sunset](https://blog.chainsafe.io/web3-js-sunset/){target=\_blank}. You can find guides on using [Ethers.js](/develop/smart-contracts/libraries/ethers-js){target=\_blank} and [viem](/develop/smart-contracts/libraries/viem){target=\_blank} in the [Libraries](/develop/smart-contracts/libraries/){target=\_blank} section. 
+    Web3.js has been [sunset](https://blog.chainsafe.io/web3-js-sunset/){target=\_blank}. You can find guides on using [Ethers.js](/smart-contracts/libraries/ethers-js/){target=\_blank} and [viem](/smart-contracts/libraries/viem/){target=\_blank} in the Libraries section. 
 
 ## Introduction
 
@@ -15398,10 +15398,8 @@ The [`XcmRouter`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pa
 For instance, the Kusama network employs the [`ChildParachainRouter`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_common/xcm_sender/struct.ChildParachainRouter.html){target=\_blank}, which restricts routing to [Downward Message Passing (DMP)](https://wiki.polkadot.com/learn/learn-xcm-transport/#dmp-downward-message-passing){target=\_blank} from the relay chain to parachains, ensuring secure and controlled communication.
 
 ```rust
-pub type XcmRouter = WithUniqueTopic<(
-	// Only one router so far - use DMP to communicate with child parachains.
-	ChildParachainRouter<Runtime, XcmPallet, PriceForChildParachainDelivery>,
-)>;
+pub type PriceForChildParachainDelivery =
+	ExponentialPrice<FeeAssetId, BaseDeliveryFee, TransactionByteFee, Dmp>;
 ```
 
 For more details about XCM transport protocols, see the [XCM Channels](/develop/interoperability/xcm-channels/){target=\_blank} page.
@@ -16728,7 +16726,7 @@ Subsequent sections of this guide provide detailed information about specific de
 
     Explore essential libraries to optimize smart contract development and interaction.
 
-    [:octicons-arrow-right-24: Reference](/develop/smart-contracts/libraries/)
+    [:octicons-arrow-right-24: Reference](/smart-contracts/libraries/ethers-js/)
 
 -   <span class="badge guide">Guide</span> __Dev Environments__
 
@@ -16736,7 +16734,7 @@ Subsequent sections of this guide provide detailed information about specific de
 
     Set up your development environment for seamless contract deployment and testing.
 
-    [:octicons-arrow-right-24: Reference](/develop/smart-contracts/dev-environments/)
+    [:octicons-arrow-right-24: Reference](/smart-contracts/dev-environments/local-dev-node/)
 
 </div>
 --- END CONTENT ---
@@ -19003,7 +19001,7 @@ This tutorial covers deploying an ERC-20 contract on the Polkadot Hub TestNet us
 
 Before starting, make sure you have:
 
-- [MetaMask](https://metamask.io/){target=\_blank} installed and connected to Polkadot Hub. For detailed instructions, see the [Connect Your Wallet](/develop/smart-contracts/wallets){target=\_blank} section.
+- [MetaMask](https://metamask.io/){target=\_blank} installed and connected to Polkadot Hub. For detailed instructions, see the [Connect Your Wallet](/smart-contracts/integrations/wallets){target=\_blank} section.
 - A funded account with some PAS tokens (you can get them from the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}). To learn how to get test tokens, check out the [Test Tokens](/develop/smart-contracts/connect-to-polkadot#test-tokens){target=\_blank} section.
 - Basic understanding of Solidity and fungible tokens.
 
@@ -19092,7 +19090,7 @@ Deployment is the process of publishing your compiled smart contract to the bloc
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-6.webp)
 
 2. Configure the deployment settings.
-    1. From the **ENVIRONMENT** dropdown, select **Injected Provider - Talisman** (check the [Deploying Contracts](/smart-contracts/dev-environments/remix/deploy-a-contract){target=\_blank} section of the Remix IDE guide for more details).
+    1. From the **ENVIRONMENT** dropdown, select **Injected Provider - Talisman** (check the [Deploying Contracts](/smart-contracts/dev-environments/remix/deploy-a-contract/){target=\_blank} section of the Remix IDE guide for more details).
     2. From the **ACCOUNT** dropdown, select the account you want to use for the deploy.
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-7.webp)
@@ -19266,7 +19264,7 @@ Deployment is the process of uploading your compiled smart contract to the block
 
 2. Configure the deployment settings:
 
-    1. From the **ENVIRONMENT** dropdown, select **Injected Provider - Talisman** (check the [Deploying Contracts](/smart-contracts/dev-environments/remix/deploy-a-contract){target=\_blank} section of the Remix IDE guide for more details).
+    1. From the **ENVIRONMENT** dropdown, select **Injected Provider - Talisman** (check the [Deploying Contracts](/smart-contracts/dev-environments/remix/deploy-a-contract/){target=\_blank} section of the Remix IDE guide for more details).
     2. From the **ACCOUNT** dropdown, select the account you want to use for the deploy.
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-7.webp)

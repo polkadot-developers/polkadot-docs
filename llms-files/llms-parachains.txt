@@ -9907,10 +9907,8 @@ The [`XcmRouter`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pa
 For instance, the Kusama network employs the [`ChildParachainRouter`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_common/xcm_sender/struct.ChildParachainRouter.html){target=\_blank}, which restricts routing to [Downward Message Passing (DMP)](https://wiki.polkadot.com/learn/learn-xcm-transport/#dmp-downward-message-passing){target=\_blank} from the relay chain to parachains, ensuring secure and controlled communication.
 
 ```rust
-pub type XcmRouter = WithUniqueTopic<(
-	// Only one router so far - use DMP to communicate with child parachains.
-	ChildParachainRouter<Runtime, XcmPallet, PriceForChildParachainDelivery>,
-)>;
+pub type PriceForChildParachainDelivery =
+	ExponentialPrice<FeeAssetId, BaseDeliveryFee, TransactionByteFee, Dmp>;
 ```
 
 For more details about XCM transport protocols, see the [XCM Channels](/develop/interoperability/xcm-channels/){target=\_blank} page.
@@ -11237,7 +11235,7 @@ Subsequent sections of this guide provide detailed information about specific de
 
     Explore essential libraries to optimize smart contract development and interaction.
 
-    [:octicons-arrow-right-24: Reference](/develop/smart-contracts/libraries/)
+    [:octicons-arrow-right-24: Reference](/smart-contracts/libraries/ethers-js/)
 
 -   <span class="badge guide">Guide</span> __Dev Environments__
 
@@ -11245,7 +11243,7 @@ Subsequent sections of this guide provide detailed information about specific de
 
     Set up your development environment for seamless contract deployment and testing.
 
-    [:octicons-arrow-right-24: Reference](/develop/smart-contracts/dev-environments/)
+    [:octicons-arrow-right-24: Reference](/smart-contracts/dev-environments/local-dev-node/)
 
 </div>
 --- END CONTENT ---
@@ -13512,7 +13510,7 @@ This tutorial covers deploying an ERC-20 contract on the Polkadot Hub TestNet us
 
 Before starting, make sure you have:
 
-- [MetaMask](https://metamask.io/){target=\_blank} installed and connected to Polkadot Hub. For detailed instructions, see the [Connect Your Wallet](/develop/smart-contracts/wallets){target=\_blank} section.
+- [MetaMask](https://metamask.io/){target=\_blank} installed and connected to Polkadot Hub. For detailed instructions, see the [Connect Your Wallet](/smart-contracts/integrations/wallets){target=\_blank} section.
 - A funded account with some PAS tokens (you can get them from the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}). To learn how to get test tokens, check out the [Test Tokens](/develop/smart-contracts/connect-to-polkadot#test-tokens){target=\_blank} section.
 - Basic understanding of Solidity and fungible tokens.
 
@@ -13601,7 +13599,7 @@ Deployment is the process of publishing your compiled smart contract to the bloc
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-6.webp)
 
 2. Configure the deployment settings.
-    1. From the **ENVIRONMENT** dropdown, select **Injected Provider - Talisman** (check the [Deploying Contracts](/smart-contracts/dev-environments/remix/deploy-a-contract){target=\_blank} section of the Remix IDE guide for more details).
+    1. From the **ENVIRONMENT** dropdown, select **Injected Provider - Talisman** (check the [Deploying Contracts](/smart-contracts/dev-environments/remix/deploy-a-contract/){target=\_blank} section of the Remix IDE guide for more details).
     2. From the **ACCOUNT** dropdown, select the account you want to use for the deploy.
 
     ![](/images/tutorials/smart-contracts/deploy-erc20/deploy-erc20-7.webp)
@@ -13775,7 +13773,7 @@ Deployment is the process of uploading your compiled smart contract to the block
 
 2. Configure the deployment settings:
 
-    1. From the **ENVIRONMENT** dropdown, select **Injected Provider - Talisman** (check the [Deploying Contracts](/smart-contracts/dev-environments/remix/deploy-a-contract){target=\_blank} section of the Remix IDE guide for more details).
+    1. From the **ENVIRONMENT** dropdown, select **Injected Provider - Talisman** (check the [Deploying Contracts](/smart-contracts/dev-environments/remix/deploy-a-contract/){target=\_blank} section of the Remix IDE guide for more details).
     2. From the **ACCOUNT** dropdown, select the account you want to use for the deploy.
 
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-7.webp)

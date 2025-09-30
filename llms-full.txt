@@ -133,11 +133,11 @@ Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/re
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/launch-a-parachain/index.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/launch-a-parachain/obtain-coretime.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/overview.md
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/pallet-development/add-pallet-to-runtime.md
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/pallet-development/benchmark-pallet.md
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/pallet-development/index.md
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/pallet-development/mock-runtime.md
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/pallet-development/pallet-testing.md
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/customize-runtime/pallet-development/add-pallet-to-runtime.md
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/customize-runtime/pallet-development/benchmark-pallet.md
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/customize-runtime/pallet-development/index.md
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/customize-runtime/pallet-development/mock-runtime.md
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/customize-runtime/pallet-development/pallet-testing.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/polkadot-protocol/architecture/index.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/polkadot-protocol/architecture/parachains/consensus.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/polkadot-protocol/architecture/parachains/index.md
@@ -788,7 +788,7 @@ The `xcm-emulator` provides macros for defining a mocked testing environment. Ch
 }
     ```
 
-By leveraging these macros, developers can customize their testing networks by defining relay chains and parachains tailored to their needs. For guidance on implementing a mock runtime for a Polkadot SDK-based chain, refer to the [Pallet Testing](/parachains/pallet-development/pallet-testing/){target=\_blank} article. 
+By leveraging these macros, developers can customize their testing networks by defining relay chains and parachains tailored to their needs. For guidance on implementing a mock runtime for a Polkadot SDK-based chain, refer to the [Pallet Testing](/parachains/customize-runtime/pallet-development/pallet-testing/){target=\_blank} article. 
 
 This framework enables thorough testing of runtime and cross-chain interactions, enabling developers to effectively design, test, and optimize cross-chain functionality.
 
@@ -5186,7 +5186,7 @@ Choosing a suitable template depends on your project’s unique requirements, le
 For more detailed information on implementing this process, refer to the following sections:
 
 - [Add a Pallet to Your Runtime](/parachains/customize-runtime/add-existing-pallets/)
-- [Create a Custom Pallet](/parachains/pallet-development/)
+- [Create a Custom Pallet](/parachains/customize-runtime/pallet-development/)
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/parachains/deployment/build-deterministic-runtime/
@@ -21783,7 +21783,7 @@ With the pallet successfully added and configured, the runtime is ready to be co
 
     Learn how to create custom pallets using FRAME, allowing for flexible, modular, and scalable blockchain development. Follow the step-by-step guide.
 
-    [:octicons-arrow-right-24: Reference](/parachains/pallet-development/)
+    [:octicons-arrow-right-24: Reference](/parachains/customize-runtime/pallet-development/)
 
 -   <span class="badge guide">Guide</span> __Pallet Testing__
 
@@ -21943,7 +21943,7 @@ Now that you've mastered implementing multiple pallet instances, the next step i
 
     Learn how to create custom pallets using FRAME, allowing for flexible, modular, and scalable blockchain development. Follow the step-by-step guide.
 
-    [:octicons-arrow-right-24: Reference](/parachains/pallet-development/)
+    [:octicons-arrow-right-24: Reference](/parachains/customize-runtime/pallet-development/)
 
 </div>
 --- END CONTENT ---
@@ -22286,7 +22286,7 @@ graph LR
 Each stage is covered in detail in its respective guide, walking you through the process from initial setup to final deployment.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/parachains/pallet-development/add-pallet-to-runtime/
+Doc-Content: https://docs.polkadot.com/parachains/customize-runtime/pallet-development/add-pallet-to-runtime/
 --- BEGIN CONTENT ---
 ---
 title: Add Pallets to the Runtime
@@ -22613,12 +22613,12 @@ Launch your parachain locally and start producing blocks:
 
     - Utility pallet
 
-        ![](/images/parachains/pallet-development/add-pallet-to-runtime/add-pallets-to-runtime-1.webp)
+        ![](/images/parachains/customize-runtime/pallet-development/add-pallet-to-runtime/add-pallets-to-runtime-1.webp)
     
 
     - Custom pallet
 
-        ![](/images/parachains/pallet-development/add-pallet-to-runtime/add-pallets-to-runtime-2.webp)
+        ![](/images/parachains/customize-runtime/pallet-development/add-pallet-to-runtime/add-pallets-to-runtime-2.webp)
 
 ## Where to Go Next
 
@@ -22643,7 +22643,7 @@ Launch your parachain locally and start producing blocks:
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/parachains/pallet-development/benchmark-pallet/
+Doc-Content: https://docs.polkadot.com/parachains/customize-runtime/pallet-development/benchmark-pallet/
 --- BEGIN CONTENT ---
 ---
 title: Benchmarking FRAME Pallets
@@ -22970,7 +22970,7 @@ impl pallet_parachain_template::Config for Runtime {
 - Read the [FRAME Benchmarking and Weights](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/frame_benchmarking_weight/index.html){target=_blank} reference document, a concise guide which details how weights and benchmarking work.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/parachains/pallet-development/
+Doc-Content: https://docs.polkadot.com/parachains/customize-runtime/pallet-development/
 --- BEGIN CONTENT ---
 ---
 title: Make a Custom Pallet
@@ -23337,7 +23337,7 @@ With the pallet implemented, the next steps involve ensuring its reliability and
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/parachains/pallet-development/mock-runtime/
+Doc-Content: https://docs.polkadot.com/parachains/customize-runtime/pallet-development/mock-runtime/
 --- BEGIN CONTENT ---
 ---
 title: Mock Runtime for Pallet Testing
@@ -23512,12 +23512,12 @@ With the mock environment in place, developers can now test and explore how pall
 
     Learn how to efficiently test pallets in the Polkadot SDK, ensuring your pallet operations are reliable and secure.
 
-    [:octicons-arrow-right-24: Reference](/parachains/pallet-development/pallet-testing/)
+    [:octicons-arrow-right-24: Reference](/parachains/customize-runtime/pallet-development/pallet-testing/)
 
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/parachains/pallet-development/pallet-testing/
+Doc-Content: https://docs.polkadot.com/parachains/customize-runtime/pallet-development/pallet-testing/
 --- BEGIN CONTENT ---
 ---
 title: Pallet Testing
@@ -23531,7 +23531,7 @@ categories: Parachains
 
 Unit testing in the Polkadot SDK helps ensure that the functions provided by a pallet behave as expected. It also confirms that data and events associated with a pallet are processed correctly during interactions. The Polkadot SDK offers a set of APIs to create a test environment to simulate runtime and mock transaction execution for extrinsics and queries.
 
-To begin unit testing, you must first set up a mock runtime that simulates blockchain behavior, incorporating the necessary pallets. For a deeper understanding, consult the [Mock Runtime](/parachains/pallet-development/mock-runtime/){target=\_blank} guide.
+To begin unit testing, you must first set up a mock runtime that simulates blockchain behavior, incorporating the necessary pallets. For a deeper understanding, consult the [Mock Runtime](/parachains/customize-runtime/pallet-development/mock-runtime/){target=\_blank} guide.
 
 ## Writing Unit Tests
 
@@ -26406,7 +26406,7 @@ impl<T: Get<Perquintill>> WeightToFee<Fixed128, Fixed128> for TargetedFeeAdjustm
 
 You now know the weight system, how it affects transaction fee computation, and how to specify weights for your dispatchable calls. The next step is determining the correct weight for your dispatchable operations. You can use Substrate benchmarking functions and frame-benchmarking calls to test your functions with different parameters and empirically determine the proper weight in their worst-case scenarios.
 
-- [Benchmark](/parachains/pallet-development/benchmark-pallet/)
+- [Benchmark](/parachains/customize-runtime/pallet-development/benchmark-pallet/)
 - [`SignedExtension`](https://paritytech.github.io/polkadot-sdk/master/sp_runtime/traits/trait.SignedExtension.html){target=\_blank}
 - [Custom weights for the Example pallet](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/substrate/frame/examples/basic/src/weights.rs){target=\_blank}
 - [Web3 Foundation Research](https://research.web3.foundation/Polkadot/overview/token-economics#relay-chain-transaction-fees-and-per-block-transaction-limits){target=\_blank}
@@ -37218,7 +37218,7 @@ categories: Parachains
 
 ## Introduction
 
-Previously, you learned how to [build and run a blockchain locally](/parachains/pallet-development/add-pallet-to-runtime/){target=\_blank}. Now, you'll take the next step towards a production-like environment by deploying your parachain to a public test network.
+Previously, you learned how to [build and run a blockchain locally](/parachains/customize-runtime/pallet-development/add-pallet-to-runtime/){target=\_blank}. Now, you'll take the next step towards a production-like environment by deploying your parachain to a public test network.
 
 This tutorial guides you through deploying a parachain on the Paseo network, a public TestNet that provides a more realistic blockchain ecosystem. While public testnets have a higher barrier to entry compared to private networks, they are crucial for validating your parachain's functionality and preparing it for eventual mainnet deployment.
 
@@ -37769,7 +37769,7 @@ categories: Parachains
 
 ## Introduction
 
-After validating your pallet through testing and integrating it into your runtime, the next crucial step is benchmarking. Testing procedures were detailed in the [Pallet Unit Testing](/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-unit-testing/){target=\_blank} tutorial, while runtime integration was covered in the [Add Pallets to the Runtime](/parachains/pallet-development/add-pallet-to-runtime/){target=\_blank} guide.
+After validating your pallet through testing and integrating it into your runtime, the next crucial step is benchmarking. Testing procedures were detailed in the [Pallet Unit Testing](/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-unit-testing/){target=\_blank} tutorial, while runtime integration was covered in the [Add Pallets to the Runtime](/parachains/customize-runtime/pallet-development/add-pallet-to-runtime/){target=\_blank} guide.
 
 Benchmarking assigns precise [weight](/polkadot-protocol/glossary/#weight){target=\_blank} to each extrinsic, 
 measuring their computational and storage costs. These derived weights enable accurate fee calculation and resource 
@@ -37781,7 +37781,7 @@ This tutorial demonstrates how to:
 - Create and implement benchmark tests for your extrinsics.
 - Apply benchmark results to your pallet's extrinsics.
 
-For comprehensive information about benchmarking concepts, refer to the [Benchmarking](/parachains/pallet-development/benchmark-pallet/){target=\_blank} guide.
+For comprehensive information about benchmarking concepts, refer to the [Benchmarking](/parachains/customize-runtime/pallet-development/benchmark-pallet/){target=\_blank} guide.
 
 ## Environment Setup
 
@@ -38132,7 +38132,7 @@ categories: Parachains
 
 ## Introduction
 
-You have learned how to create a new pallet in the [Build a Custom Pallet](/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/){target=\_blank} tutorial; now you will see how to test the pallet to ensure that it works as expected. As stated in the [Pallet Testing](/parachains/pallet-development/pallet-testing/){target=\_blank} article, unit testing is crucial for ensuring the reliability and correctness of pallets in Polkadot SDK-based blockchains. Comprehensive testing helps validate pallet functionality, prevent potential bugs, and maintain the integrity of your blockchain logic.
+You have learned how to create a new pallet in the [Build a Custom Pallet](/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/){target=\_blank} tutorial; now you will see how to test the pallet to ensure that it works as expected. As stated in the [Pallet Testing](/parachains/customize-runtime/pallet-development/pallet-testing/){target=\_blank} article, unit testing is crucial for ensuring the reliability and correctness of pallets in Polkadot SDK-based blockchains. Comprehensive testing helps validate pallet functionality, prevent potential bugs, and maintain the integrity of your blockchain logic.
 
 This tutorial will guide you through creating a unit testing suite for a custom pallet created in the [Build a Custom Pallet](/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/){target=\_blank} tutorial, covering essential testing aspects and steps.
 
@@ -38905,7 +38905,7 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; fini
 
     Learn how to add and integrate custom pallets in your Polkadot SDK-based blockchain
 
-    [:octicons-arrow-right-24: Get Started](/parachains/pallet-development/add-pallet-to-runtime/)
+    [:octicons-arrow-right-24: Get Started](/parachains/customize-runtime/pallet-development/add-pallet-to-runtime/)
 
 </div>
 --- END CONTENT ---
@@ -39083,7 +39083,7 @@ For more information about runtime versioning, check the [Runtime Upgrades](/dev
 
 If you can see the following elements, it means that you are ready to submit the runtime upgrade to your running chain:
 
-code/parachains/pallet-development/add-pallet-to-runtime-upgrade/runtime-compilation.html
+code/parachains/customize-runtime/pallet-development/add-pallet-to-runtime-upgrade/runtime-compilation.html
 
 ## Submit the Runtime Upgrade
 

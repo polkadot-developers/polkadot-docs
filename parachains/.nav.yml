@@ -1,6 +1,5 @@
 nav:
  - 'Overview': overview.md
- - 'Get Started': index.md
+ - 'Get Started': get-started.md
  - 'Launch a Simple Parachain': launch-a-parachain
  - 'Customize Your Runtime': customize-runtime
- - 'Pallet Development': pallet-development

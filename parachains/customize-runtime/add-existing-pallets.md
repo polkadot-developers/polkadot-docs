@@ -164,7 +164,7 @@ With the pallet successfully added and configured, the runtime is ready to be co
 
     Learn how to create custom pallets using FRAME, allowing for flexible, modular, and scalable blockchain development. Follow the step-by-step guide.
 
-    [:octicons-arrow-right-24: Reference](/parachains/pallet-development/)
+    [:octicons-arrow-right-24: Reference](/parachains/customize-runtime/pallet-development/create-a-pallet/)
 
 -   <span class="badge guide">Guide</span> __Pallet Testing__
 

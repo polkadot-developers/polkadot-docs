@@ -5341,7 +5341,7 @@ The `xcm-emulator` provides macros for defining a mocked testing environment. Ch
 }
     ```
 
-By leveraging these macros, developers can customize their testing networks by defining relay chains and parachains tailored to their needs. For guidance on implementing a mock runtime for a Polkadot SDK-based chain, refer to the [Pallet Testing](/parachains/pallet-development/pallet-testing/){target=\_blank} article. 
+By leveraging these macros, developers can customize their testing networks by defining relay chains and parachains tailored to their needs. For guidance on implementing a mock runtime for a Polkadot SDK-based chain, refer to the [Pallet Testing](/parachains/customize-runtime/pallet-development/pallet-testing/){target=\_blank} article. 
 
 This framework enables thorough testing of runtime and cross-chain interactions, enabling developers to effectively design, test, and optimize cross-chain functionality.
 
@@ -5934,7 +5934,7 @@ Choosing a suitable template depends on your project’s unique requirements, le
 For more detailed information on implementing this process, refer to the following sections:
 
 - [Add a Pallet to Your Runtime](/parachains/customize-runtime/add-existing-pallets/)
-- [Create a Custom Pallet](/parachains/pallet-development/)
+- [Create a Custom Pallet](/parachains/customize-runtime/pallet-development/)
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/parachains/install-polkadot-sdk/
@@ -8945,7 +8945,7 @@ graph LR
 Each stage is covered in detail in its respective guide, walking you through the process from initial setup to final deployment.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/parachains/pallet-development/add-pallet-to-runtime/
+Doc-Content: https://docs.polkadot.com/parachains/customize-runtime/pallet-development/add-pallet-to-runtime/
 --- BEGIN CONTENT ---
 ---
 title: Add Pallets to the Runtime
@@ -9272,12 +9272,12 @@ Launch your parachain locally and start producing blocks:
 
     - Utility pallet
 
-        ![](/images/parachains/pallet-development/add-pallet-to-runtime/add-pallets-to-runtime-1.webp)
+        ![](/images/parachains/customize-runtime/pallet-development/add-pallet-to-runtime/add-pallets-to-runtime-1.webp)
     
 
     - Custom pallet
 
-        ![](/images/parachains/pallet-development/add-pallet-to-runtime/add-pallets-to-runtime-2.webp)
+        ![](/images/parachains/customize-runtime/pallet-development/add-pallet-to-runtime/add-pallets-to-runtime-2.webp)
 
 ## Where to Go Next
 
@@ -10588,7 +10588,7 @@ impl<T: Get<Perquintill>> WeightToFee<Fixed128, Fixed128> for TargetedFeeAdjustm
 
 You now know the weight system, how it affects transaction fee computation, and how to specify weights for your dispatchable calls. The next step is determining the correct weight for your dispatchable operations. You can use Substrate benchmarking functions and frame-benchmarking calls to test your functions with different parameters and empirically determine the proper weight in their worst-case scenarios.
 
-- [Benchmark](/parachains/pallet-development/benchmark-pallet/)
+- [Benchmark](/parachains/customize-runtime/pallet-development/benchmark-pallet/)
 - [`SignedExtension`](https://paritytech.github.io/polkadot-sdk/master/sp_runtime/traits/trait.SignedExtension.html){target=\_blank}
 - [Custom weights for the Example pallet](https://github.com/paritytech/polkadot-sdk/blob/{{dependencies.repositories.polkadot_sdk.version}}/substrate/frame/examples/basic/src/weights.rs){target=\_blank}
 - [Web3 Foundation Research](https://research.web3.foundation/Polkadot/overview/token-economics#relay-chain-transaction-fees-and-per-block-transaction-limits){target=\_blank}

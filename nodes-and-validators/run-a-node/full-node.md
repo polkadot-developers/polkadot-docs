@@ -26,7 +26,7 @@ Before getting started, ensure the following prerequisites are met:
 - [Install the necessary dependencies for the Polkadot SDK](/develop/parachains/install-polkadot-sdk/){target=\_blank}.
 
 !!! warning
-    This setup is not recommended for validators. If you plan to run a validator, refer to the [Running a Validator](/nodes-and-validators/run-a-validator/){target=\_blank} guide for proper instructions.
+    This setup is not recommended for validators. If you plan to run a validator, refer to the [Running a Validator](/nodes-and-validators/run-a-validator/onboarding-and-offboarding/set-up-validator/){target=\_blank} guide for proper instructions.
 
 ### Install and Build the Polkadot Binary
 
@@ -56,7 +56,7 @@ This section will walk you through installing and building the Polkadot binary f
 
     You should see output similar to the following:
 
-    --8<-- 'code/nodes-and-validators/run-a-node/index/setup-full-node-1.html'
+    --8<-- 'code/nodes-and-validators/run-a-node/full-node/setup-full-node-1.html'
 
     Then, run the following commands to clone and build the Polkadot binary:
   
@@ -124,7 +124,7 @@ This section will walk you through installing and building the Polkadot binary f
 
     You should see output similar to the following:
 
-    --8<-- 'code/nodes-and-validators/run-a-node/index/setup-full-node-2.html'
+    --8<-- 'code/nodes-and-validators/run-a-node/full-node/setup-full-node-2.html'
 
     Once Rust is configured, run the following commands to clone and build Polkadot:
   
@@ -266,7 +266,7 @@ The syncing process will take a while, depending on your capacity, processing po
 
 A healthy node syncing blocks will output logs like the following:
 
---8<-- 'code/nodes-and-validators/run-a-node/index/run-node.html'
+--8<-- 'code/nodes-and-validators/run-a-node/full-node/run-node.html'
 
 Congratulations, you're now syncing a Polkadot full node! Remember that the process is identical when using any other Polkadot SDK-based chain, although individual chains may have chain-specific flag requirements.
 

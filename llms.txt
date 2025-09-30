@@ -4,22 +4,22 @@
 
 ## Docs
 
-- [Untitled](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/chain-interactions/accounts/index.md): No description available.
+- [Untitled](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/chain-interactions/accounts/create-account.md): No description available.
 - [Untitled](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/chain-interactions/accounts/query-accounts.md): No description available.
 - [Untitled](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/chain-interactions/index.md): No description available.
-- [Untitled](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/chain-interactions/query-data/index.md): No description available.
 - [Untitled](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/chain-interactions/query-data/query-rest.md): No description available.
+- [Untitled](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/chain-interactions/query-data/query-sdks.md): No description available.
 - [Untitled](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/chain-interactions/query-data/runtime-api-calls.md): No description available.
 - [Untitled](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/chain-interactions/send-transactions/calculate-transaction-fees.md): No description available.
-- [Untitled](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/chain-interactions/send-transactions/index.md): No description available.
 - [Replay and Dry Run XCMs](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/chain-interactions/send-transactions/interoperability/debug-and-preview-xcms.md): Replay and dry-run XCMs using Chopsticks with full logging enabled. Diagnose issues, trace message flow, and debug complex cross-chain interactions.
 - [XCM Fee Estimation](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/chain-interactions/send-transactions/interoperability/estimate-xcm-fees.md): This tutorial demonstrates how to estimate the fees for teleporting assets from the Paseo Asset Hub parachain to the Paseo Bridge Hub chain.
-- [Untitled](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/chain-interactions/send-transactions/interoperability/index.md): No description available.
 - [Untitled](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/chain-interactions/send-transactions/interoperability/transfer-assets-out-of-polkadot.md): No description available.
+- [Untitled](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/chain-interactions/send-transactions/interoperability/transfer-assets-parachains.md): No description available.
 - [Untitled](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/chain-interactions/send-transactions/pay-fees-with-different-tokens.md): No description available.
+- [Untitled](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/chain-interactions/send-transactions/with-sdks.md): No description available.
 - [Convert Assets on Asset Hub](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/chain-interactions/token-operations/convert-assets.md): A guide detailing the step-by-step process of converting assets on Asset Hub, helping users efficiently navigate asset management on the platform.
-- [Register a Local Asset](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/chain-interactions/token-operations/index.md): Comprehensive guide to registering a local asset on the Asset Hub system parachain, including step-by-step instructions.
 - [Register a Foreign Asset on Asset Hub](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/chain-interactions/token-operations/register-foreign-asset.md): An in-depth guide to registering a foreign asset on the Asset Hub parachain, providing clear, step-by-step instructions.
+- [Register a Local Asset](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/chain-interactions/token-operations/register-local-asset.md): Comprehensive guide to registering a local asset on the Asset Hub system parachain, including step-by-step instructions.
 - [Develop](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/index.md): Explore and learn how to build in the Polkadot ecosystem, from a custom parachain to smart contracts, supported by robust integrations and developer tools.
 - [Interoperability](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/interoperability/index.md): Learn how Polkadot enables blockchain interoperability through Cross-Consensus Messaging (XCM), powering secure cross-chain communication.
 - [Introduction to XCM](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/interoperability/intro-to-xcm.md): Unlock blockchain interoperability with XCM — Polkadot's Cross-Consensus Messaging format for cross-chain interactions.

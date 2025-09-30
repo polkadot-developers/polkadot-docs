@@ -128,16 +128,16 @@ Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/re
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/customize-runtime/add-pallet-instances.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/customize-runtime/add-smart-contract-functionality.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/customize-runtime/index.md
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/index.md
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/launch-a-parachain/deploy-to-polkadot.md
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/launch-a-parachain/index.md
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/launch-a-parachain/obtain-coretime.md
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/overview.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/customize-runtime/pallet-development/add-pallet-to-runtime.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/customize-runtime/pallet-development/benchmark-pallet.md
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/customize-runtime/pallet-development/index.md
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/customize-runtime/pallet-development/create-a-pallet.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/customize-runtime/pallet-development/mock-runtime.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/customize-runtime/pallet-development/pallet-testing.md
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/get-started.md
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/launch-a-parachain/choose-a-template.md
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/launch-a-parachain/deploy-to-polkadot.md
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/launch-a-parachain/obtain-coretime.md
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/overview.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/polkadot-protocol/architecture/index.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/polkadot-protocol/architecture/parachains/consensus.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/polkadot-protocol/architecture/parachains/index.md
@@ -634,10 +634,8 @@ The [`XcmRouter`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pa
 For instance, the Kusama network employs the [`ChildParachainRouter`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_common/xcm_sender/struct.ChildParachainRouter.html){target=\_blank}, which restricts routing to [Downward Message Passing (DMP)](https://wiki.polkadot.com/learn/learn-xcm-transport/#dmp-downward-message-passing){target=\_blank} from the relay chain to parachains, ensuring secure and controlled communication.
 
 ```rust
-pub type XcmRouter = WithUniqueTopic<(
-	// Only one router so far - use DMP to communicate with child parachains.
-	ChildParachainRouter<Runtime, XcmPallet, PriceForChildParachainDelivery>,
-)>;
+pub type PriceForChildParachainDelivery =
+	ExponentialPrice<FeeAssetId, BaseDeliveryFee, TransactionByteFee, Dmp>;
 ```
 
 For more details about XCM transport protocols, see the [XCM Channels](/develop/interoperability/xcm-channels/){target=\_blank} page.
@@ -5186,7 +5184,7 @@ Choosing a suitable template depends on your project’s unique requirements, le
 For more detailed information on implementing this process, refer to the following sections:
 
 - [Add a Pallet to Your Runtime](/parachains/customize-runtime/add-existing-pallets/)
-- [Create a Custom Pallet](/parachains/customize-runtime/pallet-development/)
+- [Create a Custom Pallet](/parachains/customize-runtime/pallet-development/create-a-pallet/)
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/parachains/deployment/build-deterministic-runtime/
@@ -21783,7 +21781,7 @@ With the pallet successfully added and configured, the runtime is ready to be co
 
     Learn how to create custom pallets using FRAME, allowing for flexible, modular, and scalable blockchain development. Follow the step-by-step guide.
 
-    [:octicons-arrow-right-24: Reference](/parachains/customize-runtime/pallet-development/)
+    [:octicons-arrow-right-24: Reference](/parachains/customize-runtime/pallet-development/create-a-pallet/)
 
 -   <span class="badge guide">Guide</span> __Pallet Testing__
 
@@ -21943,7 +21941,7 @@ Now that you've mastered implementing multiple pallet instances, the next step i
 
     Learn how to create custom pallets using FRAME, allowing for flexible, modular, and scalable blockchain development. Follow the step-by-step guide.
 
-    [:octicons-arrow-right-24: Reference](/parachains/customize-runtime/pallet-development/)
+    [:octicons-arrow-right-24: Reference](/parachains/customize-runtime/pallet-development/create-a-pallet/)
 
 </div>
 --- END CONTENT ---
@@ -22021,269 +22019,6 @@ Now that you understand how to enable smart contract functionality in your block
 Doc-Content: https://docs.polkadot.com/parachains/customize-runtime/
 --- BEGIN CONTENT ---
 TODO
---- END CONTENT ---
-
-Doc-Content: https://docs.polkadot.com/parachains/
---- BEGIN CONTENT ---
-TODO
---- END CONTENT ---
-
-Doc-Content: https://docs.polkadot.com/parachains/launch-a-parachain/deploy-to-polkadot/
---- BEGIN CONTENT ---
-TODO
---- END CONTENT ---
-
-Doc-Content: https://docs.polkadot.com/parachains/launch-a-parachain/
---- BEGIN CONTENT ---
-TODO
---- END CONTENT ---
-
-Doc-Content: https://docs.polkadot.com/parachains/launch-a-parachain/obtain-coretime/
---- BEGIN CONTENT ---
----
-title: Obtain Coretime
-description: Learn how to obtain and manage coretime for your Polkadot parachain. Explore bulk and on-demand options, prerequisites, and initial setup.
-categories: Parachains
----
-
-# Obtain Coretime
-
-## Introduction
-
-Securing coretime is essential for operating a parachain on Polkadot. It provides your parachain with guaranteed computational resources and access to Polkadot's shared security model, ensuring your blockchain can process transactions, maintain its state, and interact securely with other parachains in the network. Without coretime, a parachain cannot participate in the ecosystem or leverage the relay chain's validator set for security.
-
-Coretime represents the computational resources allocated to your parachain on the Polkadot network. It determines when and how often your parachain can produce blocks and have them validated by the relay chain.
-
-There are two primary methods to obtain coretime:
-
-- **Bulk coretime**: Purchase computational resources in advance for a full month.
-- **On-demand coretime**: Buy computational resources as needed for individual block production.
-
-This guide explains the different methods of obtaining coretime and walks through the necessary steps to get your parachain running. 
-
-## Prerequisites
-
-Before obtaining coretime, ensure you have:
-
-- Developed your parachain runtime using the Polkadot SDK.
-- Set up and configured a parachain collator for your target relay chain.
-- Successfully compiled your parachain collator node.
-- Generated and exported your parachain's genesis state.
-- Generated and exported your parachain's validation code (Wasm).
-
-## Initial Setup Steps
-
-1. Reserve a unique identifier, `ParaID`, for your parachain:
-
-    1. Connect to the relay chain.
-    2. Submit the [`registrar.reserve`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_common/paras_registrar/pallet/dispatchables/fn.reserve.html){target=\_blank} extrinsic.
-
-    Upon success, you'll receive a registered `ParaID`.
-
-2. Register your parachain's essential information by submitting the [`registrar.register`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_common/paras_registrar/pallet/dispatchables/fn.register.html){target=\_blank} extrinsic with the following parameters:
-
-    - **`id`**: Your reserved `ParaID`.
-    - **`genesisHead`**: Your exported genesis state.
-    - **`validationCode`**: Your exported Wasm validation code.
-
-3. Start your parachain collator and begin synchronization with the relay chain.
-
-## Obtaining Coretime
-
-### Bulk Coretime
-
-Bulk coretime provides several advantages:
-
-- Monthly allocation of resources
-- Guaranteed block production slots (every 12 seconds, or 6 seconds with [Asynchronous Backing](https://wiki.polkadot.com/learn/learn-async-backing/#asynchronous-backing){target=\_blank})
-- Priority renewal rights
-- Protection against price fluctuations
-- Ability to split and resell unused coretime
-
-To purchase bulk coretime:
-
-1. Access the Coretime system parachain.
-2. Interact with the Broker pallet.
-3. Purchase your desired amount of coretime.
-4. Assign the purchased core to your registered `ParaID`.
-
-After successfully obtaining coretime, your parachain will automatically start producing blocks at regular intervals.
-
-For current marketplaces and pricing, consult the [Coretime Marketplaces](https://wiki.polkadot.com/learn/learn-guides-coretime-marketplaces/){target=\_blank} page on the Polkadot Wiki.
-
-### On-demand Coretime
-
-On-demand coretime allows for flexible, as-needed block production. To purchase:
-
-1. Ensure your collator node is fully synchronized with the relay chain.
-2. Submit the `onDemand.placeOrderAllowDeath` extrinsic on the relay chain with:
-
-    - **`maxAmountFor`**: Sufficient funds for the transaction.
-    - **`paraId`**: Your registered `ParaID`.
-
-After successfully executing the extrinsic, your parachain will produce a block.
---- END CONTENT ---
-
-Doc-Content: https://docs.polkadot.com/parachains/overview/
---- BEGIN CONTENT ---
----
-title: Introduction to Polkadot SDK
-description: Learn about the Polkadot SDK, a robust developer toolkit for building custom blockchains. Explore its components and how it powers the Polkadot protocol.
-categories: Basics, Tooling
----
-
-# Introduction to Polkadot SDK
-
-## Introduction
-
-The [Polkadot SDK](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}){target=\_blank} is a powerful and versatile developer kit designed to facilitate building on the Polkadot network. It provides the necessary components for creating custom blockchains, parachains, generalized rollups, and more. Written in the Rust programming language, it puts security and robustness at the forefront of its design.
-
-Whether you're building a standalone chain or deploying a parachain on Polkadot, this SDK equips developers with the libraries and tools needed to manage runtime logic, compile the codebase, and utilize core features like staking, governance, and Cross-Consensus Messaging (XCM). It also provides a means for building generalized peer-to-peer systems beyond blockchains. The Polkadot SDK houses the following overall functionality:
-
-- Networking and peer-to-peer communication (powered by [Libp2p](/polkadot-protocol/glossary#libp2p){target=\_blank}).
-- Consensus protocols, such as [BABE](/polkadot-protocol/glossary#blind-assignment-of-blockchain-extension-babe){target=\_blank}, [GRANDPA](/polkadot-protocol/glossary#grandpa){target=\_blank}, or [Aura](/polkadot-protocol/glossary#authority-round-aura){target=\_blank}.
-- Cryptography.
-- The ability to create portable Wasm runtimes.
-- A selection of pre-built modules, called [pallets](/polkadot-protocol/glossary#pallet){target=\_blank}.
-- Benchmarking and testing suites.
-
-For an in-depth look at the monorepo, see the [Polkadot SDK Rust documentation](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/index.html){target=\_blank}.
-
-## Polkadot SDK Overview
-
-The Polkadot SDK is composed of five major components:
-
-![](/images/parachains/overview/overview-01.webp)
-
-- **[Substrate](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/substrate/index.html){target=\_blank}**: A set of libraries and primitives for building blockchains.
-- **[FRAME](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/frame_runtime/index.html){target=\_blank}**: A blockchain development framework built on top of Substrate.
-- **[Cumulus](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/cumulus/index.html){target=\_blank}**: A set of libraries and pallets to add parachain capabilities to a Substrate/FRAME runtime.
-- **[XCM (Cross Consensus Messaging)](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/xcm/index.html){target=\_blank}**: The primary format for conveying messages between parachains.
-- **[Polkadot](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/polkadot/index.html){target=\_blank}**: The node implementation for the Polkadot protocol.
-
-### Substrate
-
-Substrate is a Software Development Kit (SDK) that uses Rust-based libraries and tools to enable you to build application-specific blockchains from modular and extensible components. Application-specific blockchains built with Substrate can run as standalone services or in parallel with other chains to take advantage of the shared security provided by the Polkadot ecosystem. Substrate includes default implementations of the core components of the blockchain infrastructure to allow you to focus on the application logic.
-
-Every blockchain platform relies on a decentralized network of computers—called nodes—that communicate with each other about transactions and blocks. In general, a node in this context is the software running on the connected devices rather than the physical or virtual machine in the network. As software, Substrate-based nodes consist of two main parts with separate responsibilities:
-
-- **Client**: Services to handle network and blockchain infrastructure activity.
-
-    - Native binary.
-    - Executes the Wasm runtime.
-    - Manages components like database, networking, mempool, consensus, and others.
-    - Also known as "Host".
-
-- **Runtime**: Business logic for state transitions.
-
-    - Application logic.
-    - Compiled to [Wasm](https://webassembly.org/){target=\_blank}.
-    - Stored as a part of the chain state.
-    - Also known as State Transition Function (STF).
-
-```mermaid
-%%{init: {'flowchart': {'padding': 5, 'nodeSpacing': 50, 'rankSpacing': 10}}}%%
-graph TB
-    classDef title font-size:20px,font-weight:bold,stroke-width:0px
-    classDef clientStyle font-size:16px,font-weight:bold
-    classDef clientSubNodeStyle margin-top:10px
-    classDef runtimeCallExecutorStyle padding-top:10px
-
-    subgraph sg1[Substrate<br /> Node]
-        direction TB
-
-        I[RuntimeCall Executor]
-        B[Wasm Runtime - STF]
-
-        subgraph sg2[Client]
-            direction TB
-            C[Network and Blockchain<br/>Infrastructure Services]
-        end
-
-        I --> B
-    end
-
-    class sg1 title
-    class sg2 clientStyle
-    class C clientSubNodeStyle
-    class I runtimeCallExecutorStyle
-
-```
-
-### FRAME
-
-FRAME provides the core modular and extensible components that make the Substrate SDK flexible and adaptable to different use cases. FRAME includes Rust-based libraries that simplify the development of application-specific logic. Most of the functionality that FRAME provides takes the form of plug-in modules called [pallets](/polkadot-protocol/glossary#pallet){target=\_blank} that you can add and configure to suit your requirements for a custom runtime.
-
-```mermaid
-graph LR
-    subgraph SP["<b style='font-size:18px;'>Runtime</b>"]
-        direction LR
-        Timestamp ~~~ Aura ~~~ GRANDPA
-        Balances ~~~ TransactionPayment ~~~ Sudo
-        subgraph Timestamp["Timestamp"]
-            SS1[Custom Config]
-        end
-        subgraph Aura["Aura"]
-            SS2[Custom Config]
-        end
-        subgraph GRANDPA["GRANDPA"]
-            SS3[Custom Config]
-        end
-        subgraph Balances["Balances"]
-            SS4[Custom Config]
-        end
-        subgraph TransactionPayment["Transaction Payment"]
-            SS5[Custom Config]
-        end
-        subgraph Sudo["Sudo"]
-            SS6[Custom Config]
-        end
-        style Timestamp stroke:#FF69B4
-        style Aura stroke:#FF69B4
-        style GRANDPA stroke:#FF69B4
-        style Balances stroke:#FF69B4
-        style TransactionPayment stroke:#FF69B4
-        style Sudo stroke:#FF69B4
-        style SS1 stroke-dasharray: 5
-        style SS2 stroke-dasharray: 5
-        style SS3 stroke-dasharray: 5
-        style SS4 stroke-dasharray: 5
-        style SS5 stroke-dasharray: 5
-        style SS6 stroke-dasharray: 5
-
-    end
-    subgraph AP["<b style='font-size:18px;'>FRAME Pallets</b>"]
-        direction LR
-        A1[Aura]~~~A2[BABE]~~~A3[GRANDPA]~~~A4[Transaction<br>Payment]
-        B1[Identity]~~~B2[Balances]~~~B3[Sudo]~~~B4[EVM]
-        C1[Timestamp]~~~C2[Assets]~~~C3[Contracts]~~~C4[and more...]
-    end
-    AP --> SP
-```
-
-### Cumulus
-
-Cumulus provides utilities and libraries to turn FRAME-based runtimes into runtimes that can be a parachain on Polkadot. Cumulus runtimes are still FRAME runtimes but contain the necessary functionality that allows that runtime to become a parachain on a relay chain.
-
-## Why Use Polkadot SDK?
-
-Using the Polkadot SDK, you can build application-specific blockchains without the complexity of building a blockchain from scratch or the limitations of building on a general-purpose blockchain. You can focus on crafting the business logic that makes your chain unique and innovative with the additional benefits of flexibility, upgradeability, open-source licensing, and cross-consensus interoperability.
-
-## Create a Custom Blockchain Using the SDK
-
-Before starting your blockchain development journey, you'll need to decide whether you want to build a standalone chain or a parachain that connects to the Polkadot network. Each path has its considerations and requirements. Once you've made this decision, follow these development stages:
-
-```mermaid
-graph LR
-    A[Install the Polkadot SDK] --> B[Build the Chain]
-    B --> C[Deploy the Chain]
-```
-
-1. **[Install the Polkadot SDK](/develop/parachains/install-polkadot-sdk/)**: Set up your development environment with all necessary dependencies and tools.
-2. **[Build the chain](/develop/parachains/customize-parachain)**: Learn how to create and customize your blockchain's runtime, configure pallets, and implement your chain's unique features.
-3. **[Deploy the chain](/develop/parachains/deployment)**: Follow the steps to launch your blockchain, whether as a standalone network or as a parachain on Polkadot.
-
-Each stage is covered in detail in its respective guide, walking you through the process from initial setup to final deployment.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/parachains/customize-runtime/pallet-development/add-pallet-to-runtime/
@@ -22970,7 +22705,7 @@ impl pallet_parachain_template::Config for Runtime {
 - Read the [FRAME Benchmarking and Weights](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/frame_benchmarking_weight/index.html){target=_blank} reference document, a concise guide which details how weights and benchmarking work.
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/parachains/customize-runtime/pallet-development/
+Doc-Content: https://docs.polkadot.com/parachains/customize-runtime/pallet-development/create-a-pallet/
 --- BEGIN CONTENT ---
 ---
 title: Make a Custom Pallet
@@ -23650,6 +23385,269 @@ Some key considerations are:
     [:octicons-arrow-right-24: Reference](/develop/parachains/testing/benchmarking)
 
 </div>
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/parachains/get-started/
+--- BEGIN CONTENT ---
+TODO
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/parachains/launch-a-parachain/choose-a-template/
+--- BEGIN CONTENT ---
+TODO
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/parachains/launch-a-parachain/deploy-to-polkadot/
+--- BEGIN CONTENT ---
+TODO
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/parachains/launch-a-parachain/obtain-coretime/
+--- BEGIN CONTENT ---
+---
+title: Obtain Coretime
+description: Learn how to obtain and manage coretime for your Polkadot parachain. Explore bulk and on-demand options, prerequisites, and initial setup.
+categories: Parachains
+---
+
+# Obtain Coretime
+
+## Introduction
+
+Securing coretime is essential for operating a parachain on Polkadot. It provides your parachain with guaranteed computational resources and access to Polkadot's shared security model, ensuring your blockchain can process transactions, maintain its state, and interact securely with other parachains in the network. Without coretime, a parachain cannot participate in the ecosystem or leverage the relay chain's validator set for security.
+
+Coretime represents the computational resources allocated to your parachain on the Polkadot network. It determines when and how often your parachain can produce blocks and have them validated by the relay chain.
+
+There are two primary methods to obtain coretime:
+
+- **Bulk coretime**: Purchase computational resources in advance for a full month.
+- **On-demand coretime**: Buy computational resources as needed for individual block production.
+
+This guide explains the different methods of obtaining coretime and walks through the necessary steps to get your parachain running. 
+
+## Prerequisites
+
+Before obtaining coretime, ensure you have:
+
+- Developed your parachain runtime using the Polkadot SDK.
+- Set up and configured a parachain collator for your target relay chain.
+- Successfully compiled your parachain collator node.
+- Generated and exported your parachain's genesis state.
+- Generated and exported your parachain's validation code (Wasm).
+
+## Initial Setup Steps
+
+1. Reserve a unique identifier, `ParaID`, for your parachain:
+
+    1. Connect to the relay chain.
+    2. Submit the [`registrar.reserve`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_common/paras_registrar/pallet/dispatchables/fn.reserve.html){target=\_blank} extrinsic.
+
+    Upon success, you'll receive a registered `ParaID`.
+
+2. Register your parachain's essential information by submitting the [`registrar.register`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_common/paras_registrar/pallet/dispatchables/fn.register.html){target=\_blank} extrinsic with the following parameters:
+
+    - **`id`**: Your reserved `ParaID`.
+    - **`genesisHead`**: Your exported genesis state.
+    - **`validationCode`**: Your exported Wasm validation code.
+
+3. Start your parachain collator and begin synchronization with the relay chain.
+
+## Obtaining Coretime
+
+### Bulk Coretime
+
+Bulk coretime provides several advantages:
+
+- Monthly allocation of resources
+- Guaranteed block production slots (every 12 seconds, or 6 seconds with [Asynchronous Backing](https://wiki.polkadot.com/learn/learn-async-backing/#asynchronous-backing){target=\_blank})
+- Priority renewal rights
+- Protection against price fluctuations
+- Ability to split and resell unused coretime
+
+To purchase bulk coretime:
+
+1. Access the Coretime system parachain.
+2. Interact with the Broker pallet.
+3. Purchase your desired amount of coretime.
+4. Assign the purchased core to your registered `ParaID`.
+
+After successfully obtaining coretime, your parachain will automatically start producing blocks at regular intervals.
+
+For current marketplaces and pricing, consult the [Coretime Marketplaces](https://wiki.polkadot.com/learn/learn-guides-coretime-marketplaces/){target=\_blank} page on the Polkadot Wiki.
+
+### On-demand Coretime
+
+On-demand coretime allows for flexible, as-needed block production. To purchase:
+
+1. Ensure your collator node is fully synchronized with the relay chain.
+2. Submit the `onDemand.placeOrderAllowDeath` extrinsic on the relay chain with:
+
+    - **`maxAmountFor`**: Sufficient funds for the transaction.
+    - **`paraId`**: Your registered `ParaID`.
+
+After successfully executing the extrinsic, your parachain will produce a block.
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/parachains/overview/
+--- BEGIN CONTENT ---
+---
+title: Introduction to Polkadot SDK
+description: Learn about the Polkadot SDK, a robust developer toolkit for building custom blockchains. Explore its components and how it powers the Polkadot protocol.
+categories: Basics, Tooling
+---
+
+# Introduction to Polkadot SDK
+
+## Introduction
+
+The [Polkadot SDK](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}){target=\_blank} is a powerful and versatile developer kit designed to facilitate building on the Polkadot network. It provides the necessary components for creating custom blockchains, parachains, generalized rollups, and more. Written in the Rust programming language, it puts security and robustness at the forefront of its design.
+
+Whether you're building a standalone chain or deploying a parachain on Polkadot, this SDK equips developers with the libraries and tools needed to manage runtime logic, compile the codebase, and utilize core features like staking, governance, and Cross-Consensus Messaging (XCM). It also provides a means for building generalized peer-to-peer systems beyond blockchains. The Polkadot SDK houses the following overall functionality:
+
+- Networking and peer-to-peer communication (powered by [Libp2p](/polkadot-protocol/glossary#libp2p){target=\_blank}).
+- Consensus protocols, such as [BABE](/polkadot-protocol/glossary#blind-assignment-of-blockchain-extension-babe){target=\_blank}, [GRANDPA](/polkadot-protocol/glossary#grandpa){target=\_blank}, or [Aura](/polkadot-protocol/glossary#authority-round-aura){target=\_blank}.
+- Cryptography.
+- The ability to create portable Wasm runtimes.
+- A selection of pre-built modules, called [pallets](/polkadot-protocol/glossary#pallet){target=\_blank}.
+- Benchmarking and testing suites.
+
+For an in-depth look at the monorepo, see the [Polkadot SDK Rust documentation](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/index.html){target=\_blank}.
+
+## Polkadot SDK Overview
+
+The Polkadot SDK is composed of five major components:
+
+![](/images/parachains/overview/overview-01.webp)
+
+- **[Substrate](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/substrate/index.html){target=\_blank}**: A set of libraries and primitives for building blockchains.
+- **[FRAME](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/frame_runtime/index.html){target=\_blank}**: A blockchain development framework built on top of Substrate.
+- **[Cumulus](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/cumulus/index.html){target=\_blank}**: A set of libraries and pallets to add parachain capabilities to a Substrate/FRAME runtime.
+- **[XCM (Cross Consensus Messaging)](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/xcm/index.html){target=\_blank}**: The primary format for conveying messages between parachains.
+- **[Polkadot](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/polkadot/index.html){target=\_blank}**: The node implementation for the Polkadot protocol.
+
+### Substrate
+
+Substrate is a Software Development Kit (SDK) that uses Rust-based libraries and tools to enable you to build application-specific blockchains from modular and extensible components. Application-specific blockchains built with Substrate can run as standalone services or in parallel with other chains to take advantage of the shared security provided by the Polkadot ecosystem. Substrate includes default implementations of the core components of the blockchain infrastructure to allow you to focus on the application logic.
+
+Every blockchain platform relies on a decentralized network of computers—called nodes—that communicate with each other about transactions and blocks. In general, a node in this context is the software running on the connected devices rather than the physical or virtual machine in the network. As software, Substrate-based nodes consist of two main parts with separate responsibilities:
+
+- **Client**: Services to handle network and blockchain infrastructure activity.
+
+    - Native binary.
+    - Executes the Wasm runtime.
+    - Manages components like database, networking, mempool, consensus, and others.
+    - Also known as "Host".
+
+- **Runtime**: Business logic for state transitions.
+
+    - Application logic.
+    - Compiled to [Wasm](https://webassembly.org/){target=\_blank}.
+    - Stored as a part of the chain state.
+    - Also known as State Transition Function (STF).
+
+```mermaid
+%%{init: {'flowchart': {'padding': 5, 'nodeSpacing': 50, 'rankSpacing': 10}}}%%
+graph TB
+    classDef title font-size:20px,font-weight:bold,stroke-width:0px
+    classDef clientStyle font-size:16px,font-weight:bold
+    classDef clientSubNodeStyle margin-top:10px
+    classDef runtimeCallExecutorStyle padding-top:10px
+
+    subgraph sg1[Substrate<br /> Node]
+        direction TB
+
+        I[RuntimeCall Executor]
+        B[Wasm Runtime - STF]
+
+        subgraph sg2[Client]
+            direction TB
+            C[Network and Blockchain<br/>Infrastructure Services]
+        end
+
+        I --> B
+    end
+
+    class sg1 title
+    class sg2 clientStyle
+    class C clientSubNodeStyle
+    class I runtimeCallExecutorStyle
+
+```
+
+### FRAME
+
+FRAME provides the core modular and extensible components that make the Substrate SDK flexible and adaptable to different use cases. FRAME includes Rust-based libraries that simplify the development of application-specific logic. Most of the functionality that FRAME provides takes the form of plug-in modules called [pallets](/polkadot-protocol/glossary#pallet){target=\_blank} that you can add and configure to suit your requirements for a custom runtime.
+
+```mermaid
+graph LR
+    subgraph SP["<b style='font-size:18px;'>Runtime</b>"]
+        direction LR
+        Timestamp ~~~ Aura ~~~ GRANDPA
+        Balances ~~~ TransactionPayment ~~~ Sudo
+        subgraph Timestamp["Timestamp"]
+            SS1[Custom Config]
+        end
+        subgraph Aura["Aura"]
+            SS2[Custom Config]
+        end
+        subgraph GRANDPA["GRANDPA"]
+            SS3[Custom Config]
+        end
+        subgraph Balances["Balances"]
+            SS4[Custom Config]
+        end
+        subgraph TransactionPayment["Transaction Payment"]
+            SS5[Custom Config]
+        end
+        subgraph Sudo["Sudo"]
+            SS6[Custom Config]
+        end
+        style Timestamp stroke:#FF69B4
+        style Aura stroke:#FF69B4
+        style GRANDPA stroke:#FF69B4
+        style Balances stroke:#FF69B4
+        style TransactionPayment stroke:#FF69B4
+        style Sudo stroke:#FF69B4
+        style SS1 stroke-dasharray: 5
+        style SS2 stroke-dasharray: 5
+        style SS3 stroke-dasharray: 5
+        style SS4 stroke-dasharray: 5
+        style SS5 stroke-dasharray: 5
+        style SS6 stroke-dasharray: 5
+
+    end
+    subgraph AP["<b style='font-size:18px;'>FRAME Pallets</b>"]
+        direction LR
+        A1[Aura]~~~A2[BABE]~~~A3[GRANDPA]~~~A4[Transaction<br>Payment]
+        B1[Identity]~~~B2[Balances]~~~B3[Sudo]~~~B4[EVM]
+        C1[Timestamp]~~~C2[Assets]~~~C3[Contracts]~~~C4[and more...]
+    end
+    AP --> SP
+```
+
+### Cumulus
+
+Cumulus provides utilities and libraries to turn FRAME-based runtimes into runtimes that can be a parachain on Polkadot. Cumulus runtimes are still FRAME runtimes but contain the necessary functionality that allows that runtime to become a parachain on a relay chain.
+
+## Why Use Polkadot SDK?
+
+Using the Polkadot SDK, you can build application-specific blockchains without the complexity of building a blockchain from scratch or the limitations of building on a general-purpose blockchain. You can focus on crafting the business logic that makes your chain unique and innovative with the additional benefits of flexibility, upgradeability, open-source licensing, and cross-consensus interoperability.
+
+## Create a Custom Blockchain Using the SDK
+
+Before starting your blockchain development journey, you'll need to decide whether you want to build a standalone chain or a parachain that connects to the Polkadot network. Each path has its considerations and requirements. Once you've made this decision, follow these development stages:
+
+```mermaid
+graph LR
+    A[Install the Polkadot SDK] --> B[Build the Chain]
+    B --> C[Deploy the Chain]
+```
+
+1. **[Install the Polkadot SDK](/develop/parachains/install-polkadot-sdk/)**: Set up your development environment with all necessary dependencies and tools.
+2. **[Build the chain](/develop/parachains/customize-parachain)**: Learn how to create and customize your blockchain's runtime, configure pallets, and implement your chain's unique features.
+3. **[Deploy the chain](/develop/parachains/deployment)**: Follow the steps to launch your blockchain, whether as a standalone network or as a parachain on Polkadot.
+
+Each stage is covered in detail in its respective guide, walking you through the process from initial setup to final deployment.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/polkadot-protocol/architecture/

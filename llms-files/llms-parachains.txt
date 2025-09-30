@@ -41,12 +41,12 @@ Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/re
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/customize-runtime/add-existing-pallets.md [type: other]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/customize-runtime/add-pallet-instances.md [type: other]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/customize-runtime/add-smart-contract-functionality.md [type: other]
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/launch-a-parachain/obtain-coretime.md [type: other]
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/customize-runtime/pallet-development.md [type: other]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/customize-runtime/pallet-development/add-pallet-to-runtime.md [type: other]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/customize-runtime/pallet-development/benchmark-pallet.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/customize-runtime/pallet-development/create-a-pallet.md [type: other]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/customize-runtime/pallet-development/mock-runtime.md [type: other]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/customize-runtime/pallet-development/pallet-testing.md [type: other]
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/launch-a-parachain/obtain-coretime.md [type: other]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/polkadot-protocol/architecture/parachains/consensus.md [type: other]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/polkadot-protocol/architecture/parachains/overview.md [type: other]
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/polkadot-protocol/architecture/polkadot-chain/overview.md [type: other]
@@ -182,7 +182,7 @@ Choosing a suitable template depends on your project’s unique requirements, le
 For more detailed information on implementing this process, refer to the following sections:
 
 - [Add a Pallet to Your Runtime](/parachains/customize-runtime/add-existing-pallets/)
-- [Create a Custom Pallet](/parachains/customize-runtime/pallet-development/)
+- [Create a Custom Pallet](/parachains/customize-runtime/pallet-development/create-a-pallet/)
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/parachains/deployment/build-deterministic-runtime/
@@ -7589,7 +7589,7 @@ With the pallet successfully added and configured, the runtime is ready to be co
 
     Learn how to create custom pallets using FRAME, allowing for flexible, modular, and scalable blockchain development. Follow the step-by-step guide.
 
-    [:octicons-arrow-right-24: Reference](/parachains/customize-runtime/pallet-development/)
+    [:octicons-arrow-right-24: Reference](/parachains/customize-runtime/pallet-development/create-a-pallet/)
 
 -   <span class="badge guide">Guide</span> __Pallet Testing__
 
@@ -7749,7 +7749,7 @@ Now that you've mastered implementing multiple pallet instances, the next step i
 
     Learn how to create custom pallets using FRAME, allowing for flexible, modular, and scalable blockchain development. Follow the step-by-step guide.
 
-    [:octicons-arrow-right-24: Reference](/parachains/customize-runtime/pallet-development/)
+    [:octicons-arrow-right-24: Reference](/parachains/customize-runtime/pallet-development/create-a-pallet/)
 
 </div>
 --- END CONTENT ---
@@ -7820,459 +7820,6 @@ Now that you understand how to enable smart contract functionality in your block
     Learn how Polkadot parachains such as Moonbeam, Astar, Acala, and Manta leverage the Ethereum Virtual Machine (EVM) and integrate it into their parachains.
 
     [:octicons-arrow-right-24: Reference](/develop/smart-contracts/overview#parachain-contracts)
-
-</div>
---- END CONTENT ---
-
-Doc-Content: https://docs.polkadot.com/parachains/launch-a-parachain/obtain-coretime/
---- BEGIN CONTENT ---
----
-title: Obtain Coretime
-description: Learn how to obtain and manage coretime for your Polkadot parachain. Explore bulk and on-demand options, prerequisites, and initial setup.
-categories: Parachains
----
-
-# Obtain Coretime
-
-## Introduction
-
-Securing coretime is essential for operating a parachain on Polkadot. It provides your parachain with guaranteed computational resources and access to Polkadot's shared security model, ensuring your blockchain can process transactions, maintain its state, and interact securely with other parachains in the network. Without coretime, a parachain cannot participate in the ecosystem or leverage the relay chain's validator set for security.
-
-Coretime represents the computational resources allocated to your parachain on the Polkadot network. It determines when and how often your parachain can produce blocks and have them validated by the relay chain.
-
-There are two primary methods to obtain coretime:
-
-- **Bulk coretime**: Purchase computational resources in advance for a full month.
-- **On-demand coretime**: Buy computational resources as needed for individual block production.
-
-This guide explains the different methods of obtaining coretime and walks through the necessary steps to get your parachain running. 
-
-## Prerequisites
-
-Before obtaining coretime, ensure you have:
-
-- Developed your parachain runtime using the Polkadot SDK.
-- Set up and configured a parachain collator for your target relay chain.
-- Successfully compiled your parachain collator node.
-- Generated and exported your parachain's genesis state.
-- Generated and exported your parachain's validation code (Wasm).
-
-## Initial Setup Steps
-
-1. Reserve a unique identifier, `ParaID`, for your parachain:
-
-    1. Connect to the relay chain.
-    2. Submit the [`registrar.reserve`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_common/paras_registrar/pallet/dispatchables/fn.reserve.html){target=\_blank} extrinsic.
-
-    Upon success, you'll receive a registered `ParaID`.
-
-2. Register your parachain's essential information by submitting the [`registrar.register`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_common/paras_registrar/pallet/dispatchables/fn.register.html){target=\_blank} extrinsic with the following parameters:
-
-    - **`id`**: Your reserved `ParaID`.
-    - **`genesisHead`**: Your exported genesis state.
-    - **`validationCode`**: Your exported Wasm validation code.
-
-3. Start your parachain collator and begin synchronization with the relay chain.
-
-## Obtaining Coretime
-
-### Bulk Coretime
-
-Bulk coretime provides several advantages:
-
-- Monthly allocation of resources
-- Guaranteed block production slots (every 12 seconds, or 6 seconds with [Asynchronous Backing](https://wiki.polkadot.com/learn/learn-async-backing/#asynchronous-backing){target=\_blank})
-- Priority renewal rights
-- Protection against price fluctuations
-- Ability to split and resell unused coretime
-
-To purchase bulk coretime:
-
-1. Access the Coretime system parachain.
-2. Interact with the Broker pallet.
-3. Purchase your desired amount of coretime.
-4. Assign the purchased core to your registered `ParaID`.
-
-After successfully obtaining coretime, your parachain will automatically start producing blocks at regular intervals.
-
-For current marketplaces and pricing, consult the [Coretime Marketplaces](https://wiki.polkadot.com/learn/learn-guides-coretime-marketplaces/){target=\_blank} page on the Polkadot Wiki.
-
-### On-demand Coretime
-
-On-demand coretime allows for flexible, as-needed block production. To purchase:
-
-1. Ensure your collator node is fully synchronized with the relay chain.
-2. Submit the `onDemand.placeOrderAllowDeath` extrinsic on the relay chain with:
-
-    - **`maxAmountFor`**: Sufficient funds for the transaction.
-    - **`paraId`**: Your registered `ParaID`.
-
-After successfully executing the extrinsic, your parachain will produce a block.
---- END CONTENT ---
-
-Doc-Content: https://docs.polkadot.com/parachains/customize-runtime/pallet-development/
---- BEGIN CONTENT ---
----
-title: Make a Custom Pallet
-description: Learn how to create custom pallets using FRAME, allowing for flexible, modular, and scalable blockchain development. Follow the step-by-step guide.
-categories: Parachains
----
-
-# Make a Custom Pallet
-
-## Introduction
-
-FRAME provides a powerful set of tools for blockchain development, including a library of pre-built pallets. However, its true strength lies in the ability to create custom pallets tailored to your specific needs. This section will guide you through creating your own custom pallet, allowing you to extend your blockchain's functionality in unique ways.
-
-To get the most out of this guide, ensure you're familiar with [FRAME concepts](/develop/parachains/customize-parachain/overview/){target=\_blank}.
-
-Creating custom pallets offers several advantages over relying on pre-built pallets:
-
-- **Flexibility**: Define runtime behavior that precisely matches your project requirements.
-- **Modularity**: Combine pre-built and custom pallets to achieve the desired blockchain functionality.
-- **Scalability**: Add or modify features as your project evolves.
-
-As you follow this guide to create your custom pallet, you'll work with the following key sections:
-
-1. **Imports and dependencies**: Bring in necessary FRAME libraries and external modules.
-2. **Runtime configuration trait**: Specify the types and constants required for your pallet to interact with the runtime.
-3. **Runtime events**: Define events that your pallet can emit to communicate state changes.
-4. **Runtime errors**: Define the error types that can be returned from the function calls dispatched to the runtime.
-5. **Runtime storage**: Declare on-chain storage items for your pallet's state.
-6. **Extrinsics (function calls)**: Create callable functions that allow users to interact with your pallet and execute transactions.
-
-For additional macros you can include in a pallet, beyond those covered in this guide, refer to the [pallet_macros](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/index.html){target=\_blank} section of the Polkadot SDK Docs.
-
-## Initial Setup
-
-This section will guide you through the initial steps of creating the foundation for your custom FRAME pallet. You'll create a new Rust library project and set up the necessary dependencies.
-
-1. Create a new Rust library project using the following `cargo` command:
-
-    ```bash
-    cargo new --lib custom-pallet \
-    && cd custom-pallet
-    ```
-
-    This command creates a new library project named `custom-pallet` and navigates into its directory.
-
-2.  Configure the dependencies required for FRAME pallet development in the `Cargo.toml` file as follows:
-
-    ```toml
-    [package]
-name = "custom-pallet"
-version = "0.1.0"
-edition = "2021"
-
-[dependencies]
-frame-support = { version = "37.0.0", default-features = false }
-frame-system = { version = "37.0.0", default-features = false }
-codec = { version = "3.6.12", default-features = false, package = "parity-scale-codec", features = [
-  "derive",
-] }
-scale-info = { version = "2.11.1", default-features = false, features = [
-  "derive",
-] }
-sp-runtime = { version = "39.0.0", default-features = false }
-
-[features]
-default = ["std"]
-std = [
-  "frame-support/std",
-  "frame-system/std",
-  "codec/std",
-  "scale-info/std",
-  "sp-runtime/std",
-]
-    ```
-
-    !!!note
-        Proper version management is crucial for ensuring compatibility and reducing potential conflicts in your project. Carefully select the versions of the packages according to your project's specific requirements:
-
-        - When developing for a specific Polkadot SDK runtime, ensure that your pallet's dependency versions match those of the target runtime.
-        - If you're creating this pallet within a Polkadot SDK workspace:
-
-            - Define the actual versions in the root `Cargo.toml` file.
-            - Use workspace inheritance in your pallet's `Cargo.toml` to maintain consistency across your project.
-
-        - Regularly check for updates to FRAME and Polkadot SDK dependencies to benefit from the latest features, performance improvements, and security patches.
-
-    For detailed information about workspace inheritance and how to properly integrate your pallet with the runtime, see the [Add an Existing Pallet to the Runtime](/parachains/customize-runtime/add-existing-pallets/){target=\_blank} page.
-
-3.  Initialize the pallet structure by replacing the contents of `src/lib.rs` with the following scaffold code:
-
-    ```rust
-    pub use pallet::*;
-
-#[frame_support::pallet]
-pub mod pallet {
-    use frame_support::pallet_prelude::*;
-    use frame_system::pallet_prelude::*;
-
-    #[pallet::pallet]
-    pub struct Pallet<T>(_);
-
-    #[pallet::config]  // snip
-    #[pallet::event]   // snip
-    #[pallet::error]   // snip
-    #[pallet::storage] // snip
-    #[pallet::call]    // snip
-}
-    ```
-
-    With this scaffold in place, you're ready to start implementing your custom pallet's specific logic and features. The subsequent sections of this guide will walk you through populating each of these components with the necessary code for your pallet's functionality.
-
-## Pallet Configuration
-
-Every pallet includes a Rust trait called [`Config`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/trait.Config.html){target=\_blank}, which exposes configurable options and links your pallet to other parts of the runtime. All types and constants the pallet depends on must be declared within this trait. These types are defined generically and made concrete when the pallet is instantiated in the `runtime/src/lib.rs` file of your blockchain.
-
-In this step, you'll only configure the common types used by all pallets:
-
-- **`RuntimeEvent`**: Since this pallet emits events, the runtime event type is required to handle them. This ensures that events generated by the pallet can be correctly processed and interpreted by the runtime.
-- **`WeightInfo`**: This type defines the weights associated with the pallet's callable functions (also known as dispatchables). Weights help measure the computational cost of executing these functions. However, the `WeightInfo` type will be left unconfigured since setting up custom weights is outside the scope of this guide.
-
-Replace the line containing the [`#[pallet::config]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.config.html){target=\_blank} macro with the following code block:
-
-```rust
-#[pallet::config]
-pub trait Config: frame_system::Config {
-    /// The overarching runtime event type.
-    type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
-    /// A type representing the weights required by the dispatchables of this pallet.
-    type WeightInfo;
-}
-```
-
-## Pallet Events
-
-After configuring the pallet to emit events, the next step is to define the events that can be triggered by functions within the pallet. Events provide a straightforward way to inform external entities, such as dApps, chain explorers, or users, that a significant change has occurred in the runtime. In a FRAME pallet, the details of each event and its parameters are included in the node’s metadata, making them accessible to external tools and interfaces.
-
-The [`generate_deposit`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.generate_deposit.html){target=\_blank} macro generates a `deposit_event` function on the `Pallet`, which converts the pallet’s event type into the [`RuntimeEvent`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/trait.Config.html#associatedtype.RuntimeEvent){target=\_blank} (as specified in the `Config` trait) and deposits it using [`frame_system::Pallet::deposit_event`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.deposit_event){target=\_blank}.
-
-This step adds an event called `SomethingStored`, which is triggered when a user successfully stores a value in the pallet. The event records both the value and the account that performed the action.
-
-To define events, replace the [`#[pallet::event]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.event.html){target=\_blank} line with the following code block:
-
-```rust
-#[pallet::event]
-#[pallet::generate_deposit(pub(super) fn deposit_event)]
-pub enum Event<T: Config> {
-    /// A user has successfully set a new value.
-    SomethingStored {
-        /// The new value set.
-        something: u32,
-        /// The account who set the new value.
-        who: T::AccountId,
-    },
-}
-```
-
-## Pallet Errors
-
-While events signal the successful completion of calls, errors indicate when and why a call has failed. It's essential to use informative names for errors to clearly communicate the cause of failure. Like events, error documentation is included in the node's metadata, so providing helpful descriptions is crucial.
-
-Errors are defined as an enum named `Error` with a generic type. Variants can have fields or be fieldless. Any field type specified in the error must implement the [`TypeInfo`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_prelude/trait.TypeInfo.html){target=\_blank} trait, and the encoded size of each field should be as small as possible. Runtime errors can be up to 4 bytes in size, allowing the return of additional information when needed.
-
-This step defines two basic errors: one for handling cases where no value has been set and another for managing arithmetic overflow.
-
-To define errors, replace the [`#[pallet::error]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.error.html){target=\_blank} line with the following code block:
-
-```rust
-#[pallet::error]
-pub enum Error<T> {
-    /// The value retrieved was `None` as no value was previously set.
-    NoneValue,
-    /// There was an attempt to increment the value in storage over `u32::MAX`.
-    StorageOverflow,
-}
-```
-
-## Pallet Storage
-
-To persist and store state/data within the pallet (and subsequently, the blockchain you are building), the `#[pallet::storage]` macro is used. This macro allows the definition of abstract storage within the runtime and sets metadata for that storage. It can be applied multiple times to define different storage items. Several types are available for defining storage, which you can explore in the [Polkadot SDK documentation](https://paritytech.github.io/polkadot-sdk/master/frame_support/storage/types/index.html){target=\_blank}.
-
-This step adds a simple storage item, `Something`, which stores a single `u32` value in the pallet's runtime storage
-
-To define storage, replace the [`#[pallet::storage]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.storage.html){target=\_blank} line with the following code block:
-
-```rust
-#[pallet::storage]
-pub type Something<T> = StorageValue<_, u32>;
-```
-
-## Pallet Dispatchable Extrinsics
-
-Dispatchable functions enable users to interact with the pallet and trigger state changes. These functions are represented as "extrinsics," which are similar to transactions. They must return a [`DispatchResult`](https://paritytech.github.io/polkadot-sdk/master/frame_support/dispatch/type.DispatchResult.html){target=\_blank} and be annotated with a weight and a call index.
-
-The `#[pallet::call_index]` macro is used to explicitly define an index for calls in the `Call` enum. This is useful for maintaining backward compatibility in the event of new dispatchables being introduced, as changing the order of dispatchables would otherwise alter their index.
-
-The `#[pallet::weight]` macro assigns a weight to each call, determining its execution cost.
-
-This section adds two dispatchable functions:
-
-- **`do_something`**: Takes a single `u32` value, stores it in the pallet's storage, and emits an event.
-- **`cause_error`**: Checks if a value exists in storage. If the value is found, it increments and is stored back. If no value is present or an overflow occurs, a custom error is returned.
-
-To implement these calls, replace the [`#[pallet::call]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.call.html){target=\_blank} line with the following code block:
-
-```rust
-#[pallet::call]
-impl<T: Config> Pallet<T> {
-    #[pallet::call_index(0)]
-    #[pallet::weight(Weight::default())]
-    pub fn do_something(origin: OriginFor<T>, something: u32) -> DispatchResult {
-        // Check that the extrinsic was signed and get the signer.
-        let who = ensure_signed(origin)?;
-
-        // Update storage.
-        Something::<T>::put(something);
-
-        // Emit an event.
-        Self::deposit_event(Event::SomethingStored { something, who });
-
-        // Return a successful `DispatchResult`
-        Ok(())
-    }
-
-    #[pallet::call_index(1)]
-    #[pallet::weight(Weight::default())]
-    pub fn cause_error(origin: OriginFor<T>) -> DispatchResult {
-        let _who = ensure_signed(origin)?;
-
-        // Read a value from storage.
-        match Something::<T>::get() {
-            // Return an error if the value has not been set.
-            None => Err(Error::<T>::NoneValue.into()),
-            Some(old) => {
-                // Increment the value read from storage. This will cause an error in the event
-                // of overflow.
-                let new = old.checked_add(1).ok_or(Error::<T>::StorageOverflow)?;
-                // Update the value in storage with the incremented result.
-                Something::<T>::put(new);
-                Ok(())
-            },
-        }
-    }
-}
-```
-
-## Pallet Implementation Overview
-
-After following all the previous steps, the pallet is now fully implemented. Below is the complete code, combining the configuration, events, errors, storage, and dispatchable functions:
-
-???code
-    ```rust
-    pub use pallet::*;
-
-#[frame_support::pallet]
-pub mod pallet {
-    use frame_support::pallet_prelude::*;
-    use frame_system::pallet_prelude::*;
-
-    #[pallet::pallet]
-    pub struct Pallet<T>(_);
-
-    #[pallet::config]
-    pub trait Config: frame_system::Config {
-        /// The overarching runtime event type.
-        type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
-        /// A type representing the weights required by the dispatchables of this pallet.
-        type WeightInfo;
-    }
-
-    #[pallet::event]
-    #[pallet::generate_deposit(pub(super) fn deposit_event)]
-    pub enum Event<T: Config> {
-        /// A user has successfully set a new value.
-        SomethingStored {
-            /// The new value set.
-            something: u32,
-            /// The account who set the new value.
-            who: T::AccountId,
-        },
-    }
-    
-    #[pallet::error]
-    pub enum Error<T> {
-        /// The value retrieved was `None` as no value was previously set.
-        NoneValue,
-        /// There was an attempt to increment the value in storage over `u32::MAX`.
-        StorageOverflow,
-    }
-
-    #[pallet::storage]
-    pub type Something<T> = StorageValue<_, u32>;
-
-    #[pallet::call]
-    impl<T: Config> Pallet<T> {
-        #[pallet::call_index(0)]
-        #[pallet::weight(Weight::default())]
-        pub fn do_something(origin: OriginFor<T>, something: u32) -> DispatchResult {
-            // Check that the extrinsic was signed and get the signer.
-            let who = ensure_signed(origin)?;
-    
-            // Update storage.
-            Something::<T>::put(something);
-    
-            // Emit an event.
-            Self::deposit_event(Event::SomethingStored { something, who });
-    
-            // Return a successful `DispatchResult`
-            Ok(())
-        }
-    
-        #[pallet::call_index(1)]
-        #[pallet::weight(Weight::default())]
-        pub fn cause_error(origin: OriginFor<T>) -> DispatchResult {
-            let _who = ensure_signed(origin)?;
-    
-            // Read a value from storage.
-            match Something::<T>::get() {
-                // Return an error if the value has not been set.
-                None => Err(Error::<T>::NoneValue.into()),
-                Some(old) => {
-                    // Increment the value read from storage. This will cause an error in the event
-                    // of overflow.
-                    let new = old.checked_add(1).ok_or(Error::<T>::StorageOverflow)?;
-                    // Update the value in storage with the incremented result.
-                    Something::<T>::put(new);
-                    Ok(())
-                },
-            }
-        }
-    }
-}
-    ```
-
-## Where to Go Next
-
-With the pallet implemented, the next steps involve ensuring its reliability and performance before integrating it into a runtime. Check the following sections:
-
-<div class="grid cards" markdown>
-
--   <span class="badge guide">Guide</span> __Testing__
-
-    ---
-
-    Learn how to effectively test the functionality and reliability of your pallet to ensure it behaves as expected.
-
-    [:octicons-arrow-right-24: Reference](/develop/parachains/testing/)
-
--   <span class="badge guide">Guide</span> __Benchmarking__
-
-    ---
-
-    Explore methods to measure the performance and execution cost of your pallet.
-
-    [:octicons-arrow-right-24: Reference](/develop/parachains/testing/benchmarking)
-
--   <span class="badge guide">Guide</span> __Add a Pallet to the Runtime__
-
-    ---
-
-    Follow this guide to include your pallet in a Polkadot SDK-based runtime, making it ready for use in your blockchain.
-
-    [:octicons-arrow-right-24: Reference](/parachains/customize-runtime/add-existing-pallets/)
 
 </div>
 --- END CONTENT ---
@@ -8961,6 +8508,373 @@ impl pallet_parachain_template::Config for Runtime {
 - Read the [FRAME Benchmarking and Weights](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/frame_benchmarking_weight/index.html){target=_blank} reference document, a concise guide which details how weights and benchmarking work.
 --- END CONTENT ---
 
+Doc-Content: https://docs.polkadot.com/parachains/customize-runtime/pallet-development/create-a-pallet/
+--- BEGIN CONTENT ---
+---
+title: Make a Custom Pallet
+description: Learn how to create custom pallets using FRAME, allowing for flexible, modular, and scalable blockchain development. Follow the step-by-step guide.
+categories: Parachains
+---
+
+# Make a Custom Pallet
+
+## Introduction
+
+FRAME provides a powerful set of tools for blockchain development, including a library of pre-built pallets. However, its true strength lies in the ability to create custom pallets tailored to your specific needs. This section will guide you through creating your own custom pallet, allowing you to extend your blockchain's functionality in unique ways.
+
+To get the most out of this guide, ensure you're familiar with [FRAME concepts](/develop/parachains/customize-parachain/overview/){target=\_blank}.
+
+Creating custom pallets offers several advantages over relying on pre-built pallets:
+
+- **Flexibility**: Define runtime behavior that precisely matches your project requirements.
+- **Modularity**: Combine pre-built and custom pallets to achieve the desired blockchain functionality.
+- **Scalability**: Add or modify features as your project evolves.
+
+As you follow this guide to create your custom pallet, you'll work with the following key sections:
+
+1. **Imports and dependencies**: Bring in necessary FRAME libraries and external modules.
+2. **Runtime configuration trait**: Specify the types and constants required for your pallet to interact with the runtime.
+3. **Runtime events**: Define events that your pallet can emit to communicate state changes.
+4. **Runtime errors**: Define the error types that can be returned from the function calls dispatched to the runtime.
+5. **Runtime storage**: Declare on-chain storage items for your pallet's state.
+6. **Extrinsics (function calls)**: Create callable functions that allow users to interact with your pallet and execute transactions.
+
+For additional macros you can include in a pallet, beyond those covered in this guide, refer to the [pallet_macros](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/index.html){target=\_blank} section of the Polkadot SDK Docs.
+
+## Initial Setup
+
+This section will guide you through the initial steps of creating the foundation for your custom FRAME pallet. You'll create a new Rust library project and set up the necessary dependencies.
+
+1. Create a new Rust library project using the following `cargo` command:
+
+    ```bash
+    cargo new --lib custom-pallet \
+    && cd custom-pallet
+    ```
+
+    This command creates a new library project named `custom-pallet` and navigates into its directory.
+
+2.  Configure the dependencies required for FRAME pallet development in the `Cargo.toml` file as follows:
+
+    ```toml
+    [package]
+name = "custom-pallet"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+frame-support = { version = "37.0.0", default-features = false }
+frame-system = { version = "37.0.0", default-features = false }
+codec = { version = "3.6.12", default-features = false, package = "parity-scale-codec", features = [
+  "derive",
+] }
+scale-info = { version = "2.11.1", default-features = false, features = [
+  "derive",
+] }
+sp-runtime = { version = "39.0.0", default-features = false }
+
+[features]
+default = ["std"]
+std = [
+  "frame-support/std",
+  "frame-system/std",
+  "codec/std",
+  "scale-info/std",
+  "sp-runtime/std",
+]
+    ```
+
+    !!!note
+        Proper version management is crucial for ensuring compatibility and reducing potential conflicts in your project. Carefully select the versions of the packages according to your project's specific requirements:
+
+        - When developing for a specific Polkadot SDK runtime, ensure that your pallet's dependency versions match those of the target runtime.
+        - If you're creating this pallet within a Polkadot SDK workspace:
+
+            - Define the actual versions in the root `Cargo.toml` file.
+            - Use workspace inheritance in your pallet's `Cargo.toml` to maintain consistency across your project.
+
+        - Regularly check for updates to FRAME and Polkadot SDK dependencies to benefit from the latest features, performance improvements, and security patches.
+
+    For detailed information about workspace inheritance and how to properly integrate your pallet with the runtime, see the [Add an Existing Pallet to the Runtime](/parachains/customize-runtime/add-existing-pallets/){target=\_blank} page.
+
+3.  Initialize the pallet structure by replacing the contents of `src/lib.rs` with the following scaffold code:
+
+    ```rust
+    pub use pallet::*;
+
+#[frame_support::pallet]
+pub mod pallet {
+    use frame_support::pallet_prelude::*;
+    use frame_system::pallet_prelude::*;
+
+    #[pallet::pallet]
+    pub struct Pallet<T>(_);
+
+    #[pallet::config]  // snip
+    #[pallet::event]   // snip
+    #[pallet::error]   // snip
+    #[pallet::storage] // snip
+    #[pallet::call]    // snip
+}
+    ```
+
+    With this scaffold in place, you're ready to start implementing your custom pallet's specific logic and features. The subsequent sections of this guide will walk you through populating each of these components with the necessary code for your pallet's functionality.
+
+## Pallet Configuration
+
+Every pallet includes a Rust trait called [`Config`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/trait.Config.html){target=\_blank}, which exposes configurable options and links your pallet to other parts of the runtime. All types and constants the pallet depends on must be declared within this trait. These types are defined generically and made concrete when the pallet is instantiated in the `runtime/src/lib.rs` file of your blockchain.
+
+In this step, you'll only configure the common types used by all pallets:
+
+- **`RuntimeEvent`**: Since this pallet emits events, the runtime event type is required to handle them. This ensures that events generated by the pallet can be correctly processed and interpreted by the runtime.
+- **`WeightInfo`**: This type defines the weights associated with the pallet's callable functions (also known as dispatchables). Weights help measure the computational cost of executing these functions. However, the `WeightInfo` type will be left unconfigured since setting up custom weights is outside the scope of this guide.
+
+Replace the line containing the [`#[pallet::config]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.config.html){target=\_blank} macro with the following code block:
+
+```rust
+#[pallet::config]
+pub trait Config: frame_system::Config {
+    /// The overarching runtime event type.
+    type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
+    /// A type representing the weights required by the dispatchables of this pallet.
+    type WeightInfo;
+}
+```
+
+## Pallet Events
+
+After configuring the pallet to emit events, the next step is to define the events that can be triggered by functions within the pallet. Events provide a straightforward way to inform external entities, such as dApps, chain explorers, or users, that a significant change has occurred in the runtime. In a FRAME pallet, the details of each event and its parameters are included in the node’s metadata, making them accessible to external tools and interfaces.
+
+The [`generate_deposit`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.generate_deposit.html){target=\_blank} macro generates a `deposit_event` function on the `Pallet`, which converts the pallet’s event type into the [`RuntimeEvent`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/trait.Config.html#associatedtype.RuntimeEvent){target=\_blank} (as specified in the `Config` trait) and deposits it using [`frame_system::Pallet::deposit_event`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.deposit_event){target=\_blank}.
+
+This step adds an event called `SomethingStored`, which is triggered when a user successfully stores a value in the pallet. The event records both the value and the account that performed the action.
+
+To define events, replace the [`#[pallet::event]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.event.html){target=\_blank} line with the following code block:
+
+```rust
+#[pallet::event]
+#[pallet::generate_deposit(pub(super) fn deposit_event)]
+pub enum Event<T: Config> {
+    /// A user has successfully set a new value.
+    SomethingStored {
+        /// The new value set.
+        something: u32,
+        /// The account who set the new value.
+        who: T::AccountId,
+    },
+}
+```
+
+## Pallet Errors
+
+While events signal the successful completion of calls, errors indicate when and why a call has failed. It's essential to use informative names for errors to clearly communicate the cause of failure. Like events, error documentation is included in the node's metadata, so providing helpful descriptions is crucial.
+
+Errors are defined as an enum named `Error` with a generic type. Variants can have fields or be fieldless. Any field type specified in the error must implement the [`TypeInfo`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_prelude/trait.TypeInfo.html){target=\_blank} trait, and the encoded size of each field should be as small as possible. Runtime errors can be up to 4 bytes in size, allowing the return of additional information when needed.
+
+This step defines two basic errors: one for handling cases where no value has been set and another for managing arithmetic overflow.
+
+To define errors, replace the [`#[pallet::error]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.error.html){target=\_blank} line with the following code block:
+
+```rust
+#[pallet::error]
+pub enum Error<T> {
+    /// The value retrieved was `None` as no value was previously set.
+    NoneValue,
+    /// There was an attempt to increment the value in storage over `u32::MAX`.
+    StorageOverflow,
+}
+```
+
+## Pallet Storage
+
+To persist and store state/data within the pallet (and subsequently, the blockchain you are building), the `#[pallet::storage]` macro is used. This macro allows the definition of abstract storage within the runtime and sets metadata for that storage. It can be applied multiple times to define different storage items. Several types are available for defining storage, which you can explore in the [Polkadot SDK documentation](https://paritytech.github.io/polkadot-sdk/master/frame_support/storage/types/index.html){target=\_blank}.
+
+This step adds a simple storage item, `Something`, which stores a single `u32` value in the pallet's runtime storage
+
+To define storage, replace the [`#[pallet::storage]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.storage.html){target=\_blank} line with the following code block:
+
+```rust
+#[pallet::storage]
+pub type Something<T> = StorageValue<_, u32>;
+```
+
+## Pallet Dispatchable Extrinsics
+
+Dispatchable functions enable users to interact with the pallet and trigger state changes. These functions are represented as "extrinsics," which are similar to transactions. They must return a [`DispatchResult`](https://paritytech.github.io/polkadot-sdk/master/frame_support/dispatch/type.DispatchResult.html){target=\_blank} and be annotated with a weight and a call index.
+
+The `#[pallet::call_index]` macro is used to explicitly define an index for calls in the `Call` enum. This is useful for maintaining backward compatibility in the event of new dispatchables being introduced, as changing the order of dispatchables would otherwise alter their index.
+
+The `#[pallet::weight]` macro assigns a weight to each call, determining its execution cost.
+
+This section adds two dispatchable functions:
+
+- **`do_something`**: Takes a single `u32` value, stores it in the pallet's storage, and emits an event.
+- **`cause_error`**: Checks if a value exists in storage. If the value is found, it increments and is stored back. If no value is present or an overflow occurs, a custom error is returned.
+
+To implement these calls, replace the [`#[pallet::call]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.call.html){target=\_blank} line with the following code block:
+
+```rust
+#[pallet::call]
+impl<T: Config> Pallet<T> {
+    #[pallet::call_index(0)]
+    #[pallet::weight(Weight::default())]
+    pub fn do_something(origin: OriginFor<T>, something: u32) -> DispatchResult {
+        // Check that the extrinsic was signed and get the signer.
+        let who = ensure_signed(origin)?;
+
+        // Update storage.
+        Something::<T>::put(something);
+
+        // Emit an event.
+        Self::deposit_event(Event::SomethingStored { something, who });
+
+        // Return a successful `DispatchResult`
+        Ok(())
+    }
+
+    #[pallet::call_index(1)]
+    #[pallet::weight(Weight::default())]
+    pub fn cause_error(origin: OriginFor<T>) -> DispatchResult {
+        let _who = ensure_signed(origin)?;
+
+        // Read a value from storage.
+        match Something::<T>::get() {
+            // Return an error if the value has not been set.
+            None => Err(Error::<T>::NoneValue.into()),
+            Some(old) => {
+                // Increment the value read from storage. This will cause an error in the event
+                // of overflow.
+                let new = old.checked_add(1).ok_or(Error::<T>::StorageOverflow)?;
+                // Update the value in storage with the incremented result.
+                Something::<T>::put(new);
+                Ok(())
+            },
+        }
+    }
+}
+```
+
+## Pallet Implementation Overview
+
+After following all the previous steps, the pallet is now fully implemented. Below is the complete code, combining the configuration, events, errors, storage, and dispatchable functions:
+
+???code
+    ```rust
+    pub use pallet::*;
+
+#[frame_support::pallet]
+pub mod pallet {
+    use frame_support::pallet_prelude::*;
+    use frame_system::pallet_prelude::*;
+
+    #[pallet::pallet]
+    pub struct Pallet<T>(_);
+
+    #[pallet::config]
+    pub trait Config: frame_system::Config {
+        /// The overarching runtime event type.
+        type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
+        /// A type representing the weights required by the dispatchables of this pallet.
+        type WeightInfo;
+    }
+
+    #[pallet::event]
+    #[pallet::generate_deposit(pub(super) fn deposit_event)]
+    pub enum Event<T: Config> {
+        /// A user has successfully set a new value.
+        SomethingStored {
+            /// The new value set.
+            something: u32,
+            /// The account who set the new value.
+            who: T::AccountId,
+        },
+    }
+    
+    #[pallet::error]
+    pub enum Error<T> {
+        /// The value retrieved was `None` as no value was previously set.
+        NoneValue,
+        /// There was an attempt to increment the value in storage over `u32::MAX`.
+        StorageOverflow,
+    }
+
+    #[pallet::storage]
+    pub type Something<T> = StorageValue<_, u32>;
+
+    #[pallet::call]
+    impl<T: Config> Pallet<T> {
+        #[pallet::call_index(0)]
+        #[pallet::weight(Weight::default())]
+        pub fn do_something(origin: OriginFor<T>, something: u32) -> DispatchResult {
+            // Check that the extrinsic was signed and get the signer.
+            let who = ensure_signed(origin)?;
+    
+            // Update storage.
+            Something::<T>::put(something);
+    
+            // Emit an event.
+            Self::deposit_event(Event::SomethingStored { something, who });
+    
+            // Return a successful `DispatchResult`
+            Ok(())
+        }
+    
+        #[pallet::call_index(1)]
+        #[pallet::weight(Weight::default())]
+        pub fn cause_error(origin: OriginFor<T>) -> DispatchResult {
+            let _who = ensure_signed(origin)?;
+    
+            // Read a value from storage.
+            match Something::<T>::get() {
+                // Return an error if the value has not been set.
+                None => Err(Error::<T>::NoneValue.into()),
+                Some(old) => {
+                    // Increment the value read from storage. This will cause an error in the event
+                    // of overflow.
+                    let new = old.checked_add(1).ok_or(Error::<T>::StorageOverflow)?;
+                    // Update the value in storage with the incremented result.
+                    Something::<T>::put(new);
+                    Ok(())
+                },
+            }
+        }
+    }
+}
+    ```
+
+## Where to Go Next
+
+With the pallet implemented, the next steps involve ensuring its reliability and performance before integrating it into a runtime. Check the following sections:
+
+<div class="grid cards" markdown>
+
+-   <span class="badge guide">Guide</span> __Testing__
+
+    ---
+
+    Learn how to effectively test the functionality and reliability of your pallet to ensure it behaves as expected.
+
+    [:octicons-arrow-right-24: Reference](/develop/parachains/testing/)
+
+-   <span class="badge guide">Guide</span> __Benchmarking__
+
+    ---
+
+    Explore methods to measure the performance and execution cost of your pallet.
+
+    [:octicons-arrow-right-24: Reference](/develop/parachains/testing/benchmarking)
+
+-   <span class="badge guide">Guide</span> __Add a Pallet to the Runtime__
+
+    ---
+
+    Follow this guide to include your pallet in a Polkadot SDK-based runtime, making it ready for use in your blockchain.
+
+    [:octicons-arrow-right-24: Reference](/parachains/customize-runtime/add-existing-pallets/)
+
+</div>
+--- END CONTENT ---
+
 Doc-Content: https://docs.polkadot.com/parachains/customize-runtime/pallet-development/mock-runtime/
 --- BEGIN CONTENT ---
 ---
@@ -9274,6 +9188,92 @@ Some key considerations are:
     [:octicons-arrow-right-24: Reference](/develop/parachains/testing/benchmarking)
 
 </div>
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/parachains/launch-a-parachain/obtain-coretime/
+--- BEGIN CONTENT ---
+---
+title: Obtain Coretime
+description: Learn how to obtain and manage coretime for your Polkadot parachain. Explore bulk and on-demand options, prerequisites, and initial setup.
+categories: Parachains
+---
+
+# Obtain Coretime
+
+## Introduction
+
+Securing coretime is essential for operating a parachain on Polkadot. It provides your parachain with guaranteed computational resources and access to Polkadot's shared security model, ensuring your blockchain can process transactions, maintain its state, and interact securely with other parachains in the network. Without coretime, a parachain cannot participate in the ecosystem or leverage the relay chain's validator set for security.
+
+Coretime represents the computational resources allocated to your parachain on the Polkadot network. It determines when and how often your parachain can produce blocks and have them validated by the relay chain.
+
+There are two primary methods to obtain coretime:
+
+- **Bulk coretime**: Purchase computational resources in advance for a full month.
+- **On-demand coretime**: Buy computational resources as needed for individual block production.
+
+This guide explains the different methods of obtaining coretime and walks through the necessary steps to get your parachain running. 
+
+## Prerequisites
+
+Before obtaining coretime, ensure you have:
+
+- Developed your parachain runtime using the Polkadot SDK.
+- Set up and configured a parachain collator for your target relay chain.
+- Successfully compiled your parachain collator node.
+- Generated and exported your parachain's genesis state.
+- Generated and exported your parachain's validation code (Wasm).
+
+## Initial Setup Steps
+
+1. Reserve a unique identifier, `ParaID`, for your parachain:
+
+    1. Connect to the relay chain.
+    2. Submit the [`registrar.reserve`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_common/paras_registrar/pallet/dispatchables/fn.reserve.html){target=\_blank} extrinsic.
+
+    Upon success, you'll receive a registered `ParaID`.
+
+2. Register your parachain's essential information by submitting the [`registrar.register`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_common/paras_registrar/pallet/dispatchables/fn.register.html){target=\_blank} extrinsic with the following parameters:
+
+    - **`id`**: Your reserved `ParaID`.
+    - **`genesisHead`**: Your exported genesis state.
+    - **`validationCode`**: Your exported Wasm validation code.
+
+3. Start your parachain collator and begin synchronization with the relay chain.
+
+## Obtaining Coretime
+
+### Bulk Coretime
+
+Bulk coretime provides several advantages:
+
+- Monthly allocation of resources
+- Guaranteed block production slots (every 12 seconds, or 6 seconds with [Asynchronous Backing](https://wiki.polkadot.com/learn/learn-async-backing/#asynchronous-backing){target=\_blank})
+- Priority renewal rights
+- Protection against price fluctuations
+- Ability to split and resell unused coretime
+
+To purchase bulk coretime:
+
+1. Access the Coretime system parachain.
+2. Interact with the Broker pallet.
+3. Purchase your desired amount of coretime.
+4. Assign the purchased core to your registered `ParaID`.
+
+After successfully obtaining coretime, your parachain will automatically start producing blocks at regular intervals.
+
+For current marketplaces and pricing, consult the [Coretime Marketplaces](https://wiki.polkadot.com/learn/learn-guides-coretime-marketplaces/){target=\_blank} page on the Polkadot Wiki.
+
+### On-demand Coretime
+
+On-demand coretime allows for flexible, as-needed block production. To purchase:
+
+1. Ensure your collator node is fully synchronized with the relay chain.
+2. Submit the `onDemand.placeOrderAllowDeath` extrinsic on the relay chain with:
+
+    - **`maxAmountFor`**: Sufficient funds for the transaction.
+    - **`paraId`**: Your registered `ParaID`.
+
+After successfully executing the extrinsic, your parachain will produce a block.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/polkadot-protocol/architecture/parachains/consensus/
@@ -9907,10 +9907,8 @@ The [`XcmRouter`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pa
 For instance, the Kusama network employs the [`ChildParachainRouter`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_common/xcm_sender/struct.ChildParachainRouter.html){target=\_blank}, which restricts routing to [Downward Message Passing (DMP)](https://wiki.polkadot.com/learn/learn-xcm-transport/#dmp-downward-message-passing){target=\_blank} from the relay chain to parachains, ensuring secure and controlled communication.
 
 ```rust
-pub type XcmRouter = WithUniqueTopic<(
-	// Only one router so far - use DMP to communicate with child parachains.
-	ChildParachainRouter<Runtime, XcmPallet, PriceForChildParachainDelivery>,
-)>;
+pub type PriceForChildParachainDelivery =
+	ExponentialPrice<FeeAssetId, BaseDeliveryFee, TransactionByteFee, Dmp>;
 ```
 
 For more details about XCM transport protocols, see the [XCM Channels](/develop/interoperability/xcm-channels/){target=\_blank} page.
@@ -10654,7 +10652,7 @@ Choosing a suitable template depends on your project’s unique requirements, le
 For more detailed information on implementing this process, refer to the following sections:
 
 - [Add a Pallet to Your Runtime](/parachains/customize-runtime/add-existing-pallets/)
-- [Create a Custom Pallet](/parachains/customize-runtime/pallet-development/)
+- [Create a Custom Pallet](/parachains/customize-runtime/pallet-development/create-a-pallet/)
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/parachains/install-polkadot-sdk/
@@ -13503,168 +13501,6 @@ For more detailed information about Solidity types, functions, and best practice
 </div>
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/parachains/overview/
---- BEGIN CONTENT ---
----
-title: Introduction to Polkadot SDK
-description: Learn about the Polkadot SDK, a robust developer toolkit for building custom blockchains. Explore its components and how it powers the Polkadot protocol.
-categories: Basics, Tooling
----
-
-# Introduction to Polkadot SDK
-
-## Introduction
-
-The [Polkadot SDK](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}){target=\_blank} is a powerful and versatile developer kit designed to facilitate building on the Polkadot network. It provides the necessary components for creating custom blockchains, parachains, generalized rollups, and more. Written in the Rust programming language, it puts security and robustness at the forefront of its design.
-
-Whether you're building a standalone chain or deploying a parachain on Polkadot, this SDK equips developers with the libraries and tools needed to manage runtime logic, compile the codebase, and utilize core features like staking, governance, and Cross-Consensus Messaging (XCM). It also provides a means for building generalized peer-to-peer systems beyond blockchains. The Polkadot SDK houses the following overall functionality:
-
-- Networking and peer-to-peer communication (powered by [Libp2p](/polkadot-protocol/glossary#libp2p){target=\_blank}).
-- Consensus protocols, such as [BABE](/polkadot-protocol/glossary#blind-assignment-of-blockchain-extension-babe){target=\_blank}, [GRANDPA](/polkadot-protocol/glossary#grandpa){target=\_blank}, or [Aura](/polkadot-protocol/glossary#authority-round-aura){target=\_blank}.
-- Cryptography.
-- The ability to create portable Wasm runtimes.
-- A selection of pre-built modules, called [pallets](/polkadot-protocol/glossary#pallet){target=\_blank}.
-- Benchmarking and testing suites.
-
-For an in-depth look at the monorepo, see the [Polkadot SDK Rust documentation](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/index.html){target=\_blank}.
-
-## Polkadot SDK Overview
-
-The Polkadot SDK is composed of five major components:
-
-![](/images/parachains/overview/overview-01.webp)
-
-- **[Substrate](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/substrate/index.html){target=\_blank}**: A set of libraries and primitives for building blockchains.
-- **[FRAME](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/frame_runtime/index.html){target=\_blank}**: A blockchain development framework built on top of Substrate.
-- **[Cumulus](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/cumulus/index.html){target=\_blank}**: A set of libraries and pallets to add parachain capabilities to a Substrate/FRAME runtime.
-- **[XCM (Cross Consensus Messaging)](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/xcm/index.html){target=\_blank}**: The primary format for conveying messages between parachains.
-- **[Polkadot](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/polkadot/index.html){target=\_blank}**: The node implementation for the Polkadot protocol.
-
-### Substrate
-
-Substrate is a Software Development Kit (SDK) that uses Rust-based libraries and tools to enable you to build application-specific blockchains from modular and extensible components. Application-specific blockchains built with Substrate can run as standalone services or in parallel with other chains to take advantage of the shared security provided by the Polkadot ecosystem. Substrate includes default implementations of the core components of the blockchain infrastructure to allow you to focus on the application logic.
-
-Every blockchain platform relies on a decentralized network of computers—called nodes—that communicate with each other about transactions and blocks. In general, a node in this context is the software running on the connected devices rather than the physical or virtual machine in the network. As software, Substrate-based nodes consist of two main parts with separate responsibilities:
-
-- **Client**: Services to handle network and blockchain infrastructure activity.
-
-    - Native binary.
-    - Executes the Wasm runtime.
-    - Manages components like database, networking, mempool, consensus, and others.
-    - Also known as "Host".
-
-- **Runtime**: Business logic for state transitions.
-
-    - Application logic.
-    - Compiled to [Wasm](https://webassembly.org/){target=\_blank}.
-    - Stored as a part of the chain state.
-    - Also known as State Transition Function (STF).
-
-```mermaid
-%%{init: {'flowchart': {'padding': 5, 'nodeSpacing': 50, 'rankSpacing': 10}}}%%
-graph TB
-    classDef title font-size:20px,font-weight:bold,stroke-width:0px
-    classDef clientStyle font-size:16px,font-weight:bold
-    classDef clientSubNodeStyle margin-top:10px
-    classDef runtimeCallExecutorStyle padding-top:10px
-
-    subgraph sg1[Substrate<br /> Node]
-        direction TB
-
-        I[RuntimeCall Executor]
-        B[Wasm Runtime - STF]
-
-        subgraph sg2[Client]
-            direction TB
-            C[Network and Blockchain<br/>Infrastructure Services]
-        end
-
-        I --> B
-    end
-
-    class sg1 title
-    class sg2 clientStyle
-    class C clientSubNodeStyle
-    class I runtimeCallExecutorStyle
-
-```
-
-### FRAME
-
-FRAME provides the core modular and extensible components that make the Substrate SDK flexible and adaptable to different use cases. FRAME includes Rust-based libraries that simplify the development of application-specific logic. Most of the functionality that FRAME provides takes the form of plug-in modules called [pallets](/polkadot-protocol/glossary#pallet){target=\_blank} that you can add and configure to suit your requirements for a custom runtime.
-
-```mermaid
-graph LR
-    subgraph SP["<b style='font-size:18px;'>Runtime</b>"]
-        direction LR
-        Timestamp ~~~ Aura ~~~ GRANDPA
-        Balances ~~~ TransactionPayment ~~~ Sudo
-        subgraph Timestamp["Timestamp"]
-            SS1[Custom Config]
-        end
-        subgraph Aura["Aura"]
-            SS2[Custom Config]
-        end
-        subgraph GRANDPA["GRANDPA"]
-            SS3[Custom Config]
-        end
-        subgraph Balances["Balances"]
-            SS4[Custom Config]
-        end
-        subgraph TransactionPayment["Transaction Payment"]
-            SS5[Custom Config]
-        end
-        subgraph Sudo["Sudo"]
-            SS6[Custom Config]
-        end
-        style Timestamp stroke:#FF69B4
-        style Aura stroke:#FF69B4
-        style GRANDPA stroke:#FF69B4
-        style Balances stroke:#FF69B4
-        style TransactionPayment stroke:#FF69B4
-        style Sudo stroke:#FF69B4
-        style SS1 stroke-dasharray: 5
-        style SS2 stroke-dasharray: 5
-        style SS3 stroke-dasharray: 5
-        style SS4 stroke-dasharray: 5
-        style SS5 stroke-dasharray: 5
-        style SS6 stroke-dasharray: 5
-
-    end
-    subgraph AP["<b style='font-size:18px;'>FRAME Pallets</b>"]
-        direction LR
-        A1[Aura]~~~A2[BABE]~~~A3[GRANDPA]~~~A4[Transaction<br>Payment]
-        B1[Identity]~~~B2[Balances]~~~B3[Sudo]~~~B4[EVM]
-        C1[Timestamp]~~~C2[Assets]~~~C3[Contracts]~~~C4[and more...]
-    end
-    AP --> SP
-```
-
-### Cumulus
-
-Cumulus provides utilities and libraries to turn FRAME-based runtimes into runtimes that can be a parachain on Polkadot. Cumulus runtimes are still FRAME runtimes but contain the necessary functionality that allows that runtime to become a parachain on a relay chain.
-
-## Why Use Polkadot SDK?
-
-Using the Polkadot SDK, you can build application-specific blockchains without the complexity of building a blockchain from scratch or the limitations of building on a general-purpose blockchain. You can focus on crafting the business logic that makes your chain unique and innovative with the additional benefits of flexibility, upgradeability, open-source licensing, and cross-consensus interoperability.
-
-## Create a Custom Blockchain Using the SDK
-
-Before starting your blockchain development journey, you'll need to decide whether you want to build a standalone chain or a parachain that connects to the Polkadot network. Each path has its considerations and requirements. Once you've made this decision, follow these development stages:
-
-```mermaid
-graph LR
-    A[Install the Polkadot SDK] --> B[Build the Chain]
-    B --> C[Deploy the Chain]
-```
-
-1. **[Install the Polkadot SDK](/develop/parachains/install-polkadot-sdk/)**: Set up your development environment with all necessary dependencies and tools.
-2. **[Build the chain](/develop/parachains/customize-parachain)**: Learn how to create and customize your blockchain's runtime, configure pallets, and implement your chain's unique features.
-3. **[Deploy the chain](/develop/parachains/deployment)**: Follow the steps to launch your blockchain, whether as a standalone network or as a parachain on Polkadot.
-
-Each stage is covered in detail in its respective guide, walking you through the process from initial setup to final deployment.
---- END CONTENT ---
-
 Doc-Content: https://docs.polkadot.com/parachains/customize-runtime/pallet-development/add-pallet-to-runtime/
 --- BEGIN CONTENT ---
 ---
@@ -14020,6 +13856,168 @@ Launch your parachain locally and start producing blocks:
     [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/)
 
 </div>
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/parachains/overview/
+--- BEGIN CONTENT ---
+---
+title: Introduction to Polkadot SDK
+description: Learn about the Polkadot SDK, a robust developer toolkit for building custom blockchains. Explore its components and how it powers the Polkadot protocol.
+categories: Basics, Tooling
+---
+
+# Introduction to Polkadot SDK
+
+## Introduction
+
+The [Polkadot SDK](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}){target=\_blank} is a powerful and versatile developer kit designed to facilitate building on the Polkadot network. It provides the necessary components for creating custom blockchains, parachains, generalized rollups, and more. Written in the Rust programming language, it puts security and robustness at the forefront of its design.
+
+Whether you're building a standalone chain or deploying a parachain on Polkadot, this SDK equips developers with the libraries and tools needed to manage runtime logic, compile the codebase, and utilize core features like staking, governance, and Cross-Consensus Messaging (XCM). It also provides a means for building generalized peer-to-peer systems beyond blockchains. The Polkadot SDK houses the following overall functionality:
+
+- Networking and peer-to-peer communication (powered by [Libp2p](/polkadot-protocol/glossary#libp2p){target=\_blank}).
+- Consensus protocols, such as [BABE](/polkadot-protocol/glossary#blind-assignment-of-blockchain-extension-babe){target=\_blank}, [GRANDPA](/polkadot-protocol/glossary#grandpa){target=\_blank}, or [Aura](/polkadot-protocol/glossary#authority-round-aura){target=\_blank}.
+- Cryptography.
+- The ability to create portable Wasm runtimes.
+- A selection of pre-built modules, called [pallets](/polkadot-protocol/glossary#pallet){target=\_blank}.
+- Benchmarking and testing suites.
+
+For an in-depth look at the monorepo, see the [Polkadot SDK Rust documentation](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/index.html){target=\_blank}.
+
+## Polkadot SDK Overview
+
+The Polkadot SDK is composed of five major components:
+
+![](/images/parachains/overview/overview-01.webp)
+
+- **[Substrate](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/substrate/index.html){target=\_blank}**: A set of libraries and primitives for building blockchains.
+- **[FRAME](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/frame_runtime/index.html){target=\_blank}**: A blockchain development framework built on top of Substrate.
+- **[Cumulus](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/cumulus/index.html){target=\_blank}**: A set of libraries and pallets to add parachain capabilities to a Substrate/FRAME runtime.
+- **[XCM (Cross Consensus Messaging)](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/xcm/index.html){target=\_blank}**: The primary format for conveying messages between parachains.
+- **[Polkadot](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/polkadot/index.html){target=\_blank}**: The node implementation for the Polkadot protocol.
+
+### Substrate
+
+Substrate is a Software Development Kit (SDK) that uses Rust-based libraries and tools to enable you to build application-specific blockchains from modular and extensible components. Application-specific blockchains built with Substrate can run as standalone services or in parallel with other chains to take advantage of the shared security provided by the Polkadot ecosystem. Substrate includes default implementations of the core components of the blockchain infrastructure to allow you to focus on the application logic.
+
+Every blockchain platform relies on a decentralized network of computers—called nodes—that communicate with each other about transactions and blocks. In general, a node in this context is the software running on the connected devices rather than the physical or virtual machine in the network. As software, Substrate-based nodes consist of two main parts with separate responsibilities:
+
+- **Client**: Services to handle network and blockchain infrastructure activity.
+
+    - Native binary.
+    - Executes the Wasm runtime.
+    - Manages components like database, networking, mempool, consensus, and others.
+    - Also known as "Host".
+
+- **Runtime**: Business logic for state transitions.
+
+    - Application logic.
+    - Compiled to [Wasm](https://webassembly.org/){target=\_blank}.
+    - Stored as a part of the chain state.
+    - Also known as State Transition Function (STF).
+
+```mermaid
+%%{init: {'flowchart': {'padding': 5, 'nodeSpacing': 50, 'rankSpacing': 10}}}%%
+graph TB
+    classDef title font-size:20px,font-weight:bold,stroke-width:0px
+    classDef clientStyle font-size:16px,font-weight:bold
+    classDef clientSubNodeStyle margin-top:10px
+    classDef runtimeCallExecutorStyle padding-top:10px
+
+    subgraph sg1[Substrate<br /> Node]
+        direction TB
+
+        I[RuntimeCall Executor]
+        B[Wasm Runtime - STF]
+
+        subgraph sg2[Client]
+            direction TB
+            C[Network and Blockchain<br/>Infrastructure Services]
+        end
+
+        I --> B
+    end
+
+    class sg1 title
+    class sg2 clientStyle
+    class C clientSubNodeStyle
+    class I runtimeCallExecutorStyle
+
+```
+
+### FRAME
+
+FRAME provides the core modular and extensible components that make the Substrate SDK flexible and adaptable to different use cases. FRAME includes Rust-based libraries that simplify the development of application-specific logic. Most of the functionality that FRAME provides takes the form of plug-in modules called [pallets](/polkadot-protocol/glossary#pallet){target=\_blank} that you can add and configure to suit your requirements for a custom runtime.
+
+```mermaid
+graph LR
+    subgraph SP["<b style='font-size:18px;'>Runtime</b>"]
+        direction LR
+        Timestamp ~~~ Aura ~~~ GRANDPA
+        Balances ~~~ TransactionPayment ~~~ Sudo
+        subgraph Timestamp["Timestamp"]
+            SS1[Custom Config]
+        end
+        subgraph Aura["Aura"]
+            SS2[Custom Config]
+        end
+        subgraph GRANDPA["GRANDPA"]
+            SS3[Custom Config]
+        end
+        subgraph Balances["Balances"]
+            SS4[Custom Config]
+        end
+        subgraph TransactionPayment["Transaction Payment"]
+            SS5[Custom Config]
+        end
+        subgraph Sudo["Sudo"]
+            SS6[Custom Config]
+        end
+        style Timestamp stroke:#FF69B4
+        style Aura stroke:#FF69B4
+        style GRANDPA stroke:#FF69B4
+        style Balances stroke:#FF69B4
+        style TransactionPayment stroke:#FF69B4
+        style Sudo stroke:#FF69B4
+        style SS1 stroke-dasharray: 5
+        style SS2 stroke-dasharray: 5
+        style SS3 stroke-dasharray: 5
+        style SS4 stroke-dasharray: 5
+        style SS5 stroke-dasharray: 5
+        style SS6 stroke-dasharray: 5
+
+    end
+    subgraph AP["<b style='font-size:18px;'>FRAME Pallets</b>"]
+        direction LR
+        A1[Aura]~~~A2[BABE]~~~A3[GRANDPA]~~~A4[Transaction<br>Payment]
+        B1[Identity]~~~B2[Balances]~~~B3[Sudo]~~~B4[EVM]
+        C1[Timestamp]~~~C2[Assets]~~~C3[Contracts]~~~C4[and more...]
+    end
+    AP --> SP
+```
+
+### Cumulus
+
+Cumulus provides utilities and libraries to turn FRAME-based runtimes into runtimes that can be a parachain on Polkadot. Cumulus runtimes are still FRAME runtimes but contain the necessary functionality that allows that runtime to become a parachain on a relay chain.
+
+## Why Use Polkadot SDK?
+
+Using the Polkadot SDK, you can build application-specific blockchains without the complexity of building a blockchain from scratch or the limitations of building on a general-purpose blockchain. You can focus on crafting the business logic that makes your chain unique and innovative with the additional benefits of flexibility, upgradeability, open-source licensing, and cross-consensus interoperability.
+
+## Create a Custom Blockchain Using the SDK
+
+Before starting your blockchain development journey, you'll need to decide whether you want to build a standalone chain or a parachain that connects to the Polkadot network. Each path has its considerations and requirements. Once you've made this decision, follow these development stages:
+
+```mermaid
+graph LR
+    A[Install the Polkadot SDK] --> B[Build the Chain]
+    B --> C[Deploy the Chain]
+```
+
+1. **[Install the Polkadot SDK](/develop/parachains/install-polkadot-sdk/)**: Set up your development environment with all necessary dependencies and tools.
+2. **[Build the chain](/develop/parachains/customize-parachain)**: Learn how to create and customize your blockchain's runtime, configure pallets, and implement your chain's unique features.
+3. **[Deploy the chain](/develop/parachains/deployment)**: Follow the steps to launch your blockchain, whether as a standalone network or as a parachain on Polkadot.
+
+Each stage is covered in detail in its respective guide, walking you through the process from initial setup to final deployment.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/polkadot-protocol/architecture/parachains/overview/

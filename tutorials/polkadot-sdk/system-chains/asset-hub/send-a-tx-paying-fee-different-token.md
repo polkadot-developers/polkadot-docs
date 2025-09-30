@@ -1,9 +1,9 @@
 ---
-title: Send a Transaction Paying the Fee With a Different Token
+title: Send a Transaction While Paying the Fee With a Different Token
 description: This tutorial demonstrates how to send a DOT transfer transaction while paying the fees using a different token on the Asset Hub.
 ---
 
-# Send a Transaction Paying the Fee With a Different Token
+# Send a Transaction While Paying the Fee With a Different Token
 
 ## Introduction
 

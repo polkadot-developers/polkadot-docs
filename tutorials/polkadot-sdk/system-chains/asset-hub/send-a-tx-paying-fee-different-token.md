@@ -72,7 +72,7 @@ This command forks the Asset Hub chain, making it available at `ws://localhost:8
 
 ## Implementation
 
-Now let's implement the fee payment transaction step by step.
+In the following sub-sections, you’ll set the stage with imports and a few constants, introduce the transaction signer, and connect to the Polkadot Asset Hub chain. Then you’ll craft a simple DOT transfer and send it, asking the network to charge the fee in USDT instead of DOT.
 
 ### Import Dependencies
 

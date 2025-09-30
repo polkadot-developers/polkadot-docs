@@ -14448,7 +14448,7 @@ A suggested path to get started with smart contract development on the Polkadot 
 
     Add the network, fund your account, and verify activity in the explorer.
 
-    [:octicons-arrow-right-24: Connect](/develop/smart-contracts/connect/)
+    [:octicons-arrow-right-24: Connect](/smart-contracts/connect/)
 
 -   <span class="badge guide">Guide</span> __Cookbook__
 
@@ -14456,7 +14456,7 @@ A suggested path to get started with smart contract development on the Polkadot 
 
     Learn by doing with ERC‑20, NFT, and dApp deployment tutorials.
 
-    [:octicons-arrow-right-24: Explore recipes](/develop/smart-contracts/cookbook/)
+    [:octicons-arrow-right-24: Explore recipes](/smart-contracts/cookbook/)
 
 </div>
 --- END CONTENT ---

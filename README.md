@@ -30,7 +30,7 @@ To set up the structure, follow these steps:
 1. Clone this repository:
 
     ```bash
-    git clone https://github.com/papermoonio/polkadot-mkdocs
+    git clone https://github.com/papermoonio/polkadot-mkdocs.git
     ```
 
 2. Inside the folder just created, clone the `polkadot-docs` repository:

@@ -9,7 +9,7 @@ categories: dApps
 
 ## Introduction
 
-Asset Conversion is an Automated Market Maker (AMM) utilizing [Uniswap V2](https://github.com/Uniswap/v2-core){target=\_blank} logic and implemented as a pallet on Polkadot's Asset Hub. For more details about this feature, please visit the [Asset Conversion on Asset Hub](/chain-interactions/token-operations/convert-assets/){target=\_blank} wiki page.
+Asset Conversion is an Automated Market Maker (AMM) utilizing [Uniswap V2](https://github.com/Uniswap/v2-core){target=\_blank} logic and implemented as a pallet on Polkadot's Asset Hub.
 
 This guide will provide detailed information about the key functionalities offered by the [Asset Conversion](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}/substrate/frame/asset-conversion){target=\_blank} pallet on Asset Hub, including:
 
@@ -24,7 +24,7 @@ Before converting assets on Asset Hub, you must ensure you have:
 
 - Access to the [Polkadot.js Apps](https://polkadot.js.org/apps){target=\_blank} interface and a connection with the intended blockchain.
 - A funded wallet containing the assets you wish to convert and enough available funds to cover the transaction fees.
-- An asset registered on Asset Hub that you want to convert. If you haven't created an asset on Asset Hub yet, refer to the [Register a Local Asset](/chain-interactions/token-operations/){target=\_blank} or [Register a Foreign Asset](/chain-interactions/token-operations/register-foreign-asset/){target=\_blank} documentation to create an asset.
+- An asset registered on Asset Hub that you want to convert. If you haven't created an asset on Asset Hub yet, refer to the [Register a Local Asset](/chain-interactions/token-operations/register-local-asset/){target=\_blank} or [Register a Foreign Asset](/chain-interactions/token-operations/register-foreign-asset/){target=\_blank} documentation to create an asset.
 
 ## Create a Liquidity Pool
 

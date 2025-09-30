@@ -1,4 +1,4 @@
 nav:
- - 'Register a Local Asset': index.md
+ - 'Register a Local Asset': register-local-asset.md
  - 'Register a Foreign Asset': register-foreign-asset.md
  - 'Convert Assets': convert-assets.md

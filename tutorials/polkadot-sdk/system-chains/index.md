@@ -20,7 +20,7 @@ Enhance cross-chain interoperability and expand your parachain’s functionality
 
 Unlock new possibilities by tapping into Polkadot’s system chains:
 
-- **[Register a new asset on Asset Hub](/chain-interactions/token-operations/)**: Create and customize assets directly on Asset Hub (local assets) with parameters like metadata, minimum balances, and more.
+- **[Register a new asset on Asset Hub](/chain-interactions/token-operations/register-local-asset/)**: Create and customize assets directly on Asset Hub (local assets) with parameters like metadata, minimum balances, and more.
 
 - **[Convert Assets](/chain-interactions/token-operations/convert-assets/)**: Use Asset Hub's AMM functionality to swap between different assets, provide liquidity to pools, and manage LP tokens.
 

@@ -1,5 +1,5 @@
 nav:
- - 'Send a Transaction with SDKs': 'index.md'
+ - 'Send a Transaction with SDKs': 'with-sdks.md'
  - 'Calculate Transaction Fees': 'calculate-transaction-fees.md'
  - 'Pay Transaction Fees with Different Tokens': 'pay-fees-with-different-tokens.md' # TODO: Revisit name
  - 'Interoperability': interoperability

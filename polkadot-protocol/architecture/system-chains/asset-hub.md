@@ -214,7 +214,7 @@ For detailed error management in XCM, see Gavin Wood's blog post on [XCM Executi
 
     Comprehensive guide to registering a local asset on the Asset Hub system parachain, including step-by-step instructions.
 
-    [:octicons-arrow-right-24: Reference](/chain-interactions/token-operations/)
+    [:octicons-arrow-right-24: Reference](/chain-interactions/token-operations/register-local-asset/)
 
 -   <span class="badge tutorial">Tutorial</span> __Register a Foreign Asset__
 

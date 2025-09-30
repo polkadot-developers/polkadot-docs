@@ -76,9 +76,9 @@ After a successful build, the site should be available at http://127.0.0.1:8000.
 When you're done working, run `deactivate` to exit the virtual environment.
 
 To work on the docs again:
-1. Navigate to `polkadot-mkdocs` 
-2. Activate the environment: `source venv/bin/activate` (Windows: `venv\Scripts\activate`)
-3. Run `mkdocs serve`
+1. Navigate to `polkadot-mkdocs`.
+2. Activate the environment: `source venv/bin/activate` (Windows: `venv\Scripts\activate`).
+3. Run `mkdocs serve`.
 
 ## Contributing
 

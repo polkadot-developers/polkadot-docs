@@ -22,7 +22,7 @@ Similarly, unlocking a parachain follows controlled procedures:
 - Relay chain governance retains the authority to unlock any parachain.
 - A parachain can unlock its own lock.
 
-This document guides you through checking a parachain's lock status and safely executing the unlock procedure from a parachain using [XCM (Cross-Consensus Messaging)](/parachains/interoperability/){target=\_blank}.
+This document guides you through checking a parachain's lock status and safely executing the unlock procedure from a parachain using [XCM (Cross-Consensus Messaging)](/parachains/interoperability/get-started/){target=\_blank}.
 
 ## Check If the Parachain Is Locked
 

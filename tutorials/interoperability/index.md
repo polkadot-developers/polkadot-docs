@@ -6,7 +6,7 @@ template: index-page.html
 
 # Cross-Chain Interoperability Tutorials
 
-This section introduces you to the core interoperability solutions within the Polkadot ecosystem through practical, hands-on tutorials. These resources are designed to help you master cross-chain communication techniques, from setting up messaging channels between parachains to leveraging Polkadot's advanced features of the [XCM protocol](/parachains/interoperability/){target=\_blank}.
+This section introduces you to the core interoperability solutions within the Polkadot ecosystem through practical, hands-on tutorials. These resources are designed to help you master cross-chain communication techniques, from setting up messaging channels between parachains to leveraging Polkadot's advanced features of the [XCM protocol](/parachains/interoperability/get-started/){target=\_blank}.
 
 By following these guides, you’ll gain the skills needed to implement seamless integration and interaction across diverse blockchains, unlocking the full potential of Polkadot's interconnected network.
 

@@ -27,7 +27,7 @@ The executor is the component that selects the runtime execution environment to 
 The runtime includes a [runtime version struct](https://paritytech.github.io/polkadot-sdk/master/sp_version/struct.RuntimeVersion.html){target=\_blank} to provide the needed parameter information to the executor process. A sample runtime version struct might look as follows:
 
 ```rust
---8<-- 'code/parachains/runtime-maintenance/index/runtime_version.rs'
+--8<-- 'code/parachains/runtime-maintenance/runtime-upgrades/runtime_version.rs'
 ```
 
 The struct provides the following parameter information to the executor:

@@ -19,7 +19,7 @@ This tutorial guides you through deploying an [ERC-721](https://eips.ethereum.or
 
 Before starting, make sure you have:
 
-- [Talisman](https://talisman.xyz/){target=\_blank} installed and connected to the Polkadot Hub TestNet. Check the [Connect to Polkadot](/develop/smart-contracts/connect-to-polkadot/){target=\_blank} guide for more information.
+- [Talisman](https://talisman.xyz/){target=\_blank} installed and connected to the Polkadot Hub TestNet. Check the [Connect to Polkadot](/smart-contracts/connect/){target=\_blank} guide for more information.
 - A funded account with some PAS tokens (you can get them from the [Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}, noting that the faucet imposes a daily token limit, which may require multiple requests to obtain sufficient funds for testing).
 - Basic understanding of Solidity and NFTs, see the [Solidity Basics](https://soliditylang.org/){target=\_blank} and the [NFT Overview](https://ethereum.org/en/nft/){target=\_blank} guides for more details.
 
@@ -30,7 +30,7 @@ To create the NFT contract, you can follow the steps below:
 1. Navigate to the [Polkadot Remix IDE](https://remix.polkadot.io/){target=\_blank}.
 2. Click in the **Create new file** button under the **contracts** folder, and name your contract as `MyNFT.sol`.
 
-    ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-1.webp)
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/deploy-nft-1.webp)
 
 3. Now, paste the following NFT contract code into the editor.
 
@@ -65,7 +65,7 @@ To create the NFT contract, you can follow the steps below:
     !!! tip
         Use the [OpenZeppelin Contracts Wizard](https://wizard.openzeppelin.com/){target=\_blank} to generate customized smart contracts quickly. Simply configure your contract, copy the generated code, and paste it into Polkadot Remix IDE for deployment. Below is an example of an ERC-721 token contract created with it:
 
-        ![Screenshot of the OpenZeppelin Contracts Wizard showing an ERC-721 contract configuration.](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-2.webp)
+        ![Screenshot of the OpenZeppelin Contracts Wizard showing an ERC-721 contract configuration.](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/deploy-nft-2.webp)
 
 
 ## Compile the Contract
@@ -74,15 +74,15 @@ Compilation is a stage that converts your Solidity source code into bytecode sui
 
 1. Select the **Solidity Compiler** plugin from the left panel.
 
-    ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-3.webp)
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/deploy-nft-3.webp)
 
 2. Click in the **Compile MyNFT.sol** button.
 
-    ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-4.webp)
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/deploy-nft-4.webp)
 
 3. If the compilation succeeded, you can see a green checkmark indicating success in the **Solidity Compiler** icon.
 
-    ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-5.webp)
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/deploy-nft-5.webp)
 
 ## Deploy the Contract
 
@@ -90,31 +90,31 @@ Deployment is the process of uploading your compiled smart contract to the block
 
 1. Select the **Deploy & Run Transactions** plugin from the left panel.
 
-    ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-6.webp)
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/deploy-nft-6.webp)
 
 2. Configure the deployment settings:
 
     1. From the **ENVIRONMENT** dropdown, select **Injected Provider - Talisman** (check the [Deploying Contracts](/develop/smart-contracts/dev-environments/remix/#deploying-contracts){target=\_blank} section of the Remix IDE guide for more details).
     2. From the **ACCOUNT** dropdown, select the account you want to use for the deploy.
 
-    ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-7.webp)
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/deploy-nft-7.webp)
 
 3. Configure the contract parameters:
 
     1. Enter the address that will own the deployed NFT.
     2. Click the **Deploy** button to initiate the deployment.
 
-    ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-8.webp)
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/deploy-nft-8.webp)
 
 4. **Talisman will pop up**: Review the transaction details. Click **Approve** to deploy your contract.
 
-    ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-9.webp){: .browser-extension}
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/deploy-nft-9.webp){: .browser-extension}
 
-    Deploying this contract requires paying gas fees in PAS tokens on the Polkadot Hub TestNet. Ensure your Talisman account is funded with sufficient PAS tokens from the faucet before confirming the transaction, check the [Test Tokens](/develop/smart-contracts/connect-to-polkadot/#test-tokens){target=\_blank} section for more information. Gas fees cover the computational resources needed to deploy and execute the smart contract on the blockchain.
+    Deploying this contract requires paying gas fees in PAS tokens on the Polkadot Hub TestNet. Ensure your Talisman account is funded with sufficient PAS tokens from the faucet before confirming the transaction, check the [Test Tokens](/smart-contracts/connect/#test-tokens){target=\_blank} section for more information. Gas fees cover the computational resources needed to deploy and execute the smart contract on the blockchain.
 
     If the deployment process succeeded, you will see the following output in the terminal:
 
-    ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-10.webp)
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/deploy-nft-10.webp)
 
 ## Interact with Your NFT Contract
 
@@ -122,7 +122,7 @@ Once deployed, you can interact with your contract through Remix:
 
 1. Find your contract under **Deployed/Unpinned Contracts**, and click it to expand the available methods for the contract.
 
-    ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-11.webp)
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/deploy-nft-11.webp)
 
 2. To mint an NFT:
 
@@ -131,14 +131,14 @@ Once deployed, you can interact with your contract through Remix:
     3. Enter the recipient address.
     4. Click **Transact**.
 
-    ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-12.webp)
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/deploy-nft-12.webp)
 
 3. Click **Approve** to confirm the transaction in the Talisman popup.
 
-    ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-13.webp){: .browser-extension}
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/deploy-nft-13.webp){: .browser-extension}
 
     If the transaction is successful, the terminal will display the following output, which details the information about the transaction, including the transaction hash, the block number, the associated logs, and so on.
 
-    ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-14.webp)
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/deploy-nft-14.webp)
 
 Feel free to explore and interact with the contract's other functions using the same approach - selecting the method, providing any required parameters, and confirming the transaction through Talisman when needed.

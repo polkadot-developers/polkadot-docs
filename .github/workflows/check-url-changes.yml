@@ -21,7 +21,9 @@ jobs:
           HEAD=${{ github.event.pull_request.head.sha }}
 
           # Markdown changes
+          ADDED_MD=$(git diff --name-status $BASE $HEAD | grep '^A.*\.md$' | cut -f2- || true)
           DELETED_MD=$(git diff --name-status $BASE $HEAD | grep '^D.*\.md$' | cut -f2- || true)
+          MODIFIED_MD=$(git diff --name-status $BASE $HEAD | grep '^M.*\.md$' | cut -f2- || true)
           RENAMED_MD=$(git diff --name-status $BASE $HEAD | grep '^R.*\.md$' | awk '{print $2 " -> " $3}' || true)
 
           # Nav changes
@@ -33,8 +35,14 @@ jobs:
           for f in $DELETED_NAV; do NAV_CHANGES+="$f: [DELETED]\n\n"; done
           for f in $MODIFIED_NAV; do DIFF=$(git diff $BASE $HEAD -- "$f" | grep -vE '^\+\+\+|^---'); NAV_CHANGES+="$f:\n$DIFF\n\n"; done
           for f in $RENAMED_NAV; do NAV_CHANGES+="$f [RENAMED]\n\n"; done
+          echo "ADDED_MD<<EOF" >> $GITHUB_ENV
+          echo "$ADDED_MD" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
           echo "DELETED_MD<<EOF" >> $GITHUB_ENV
           echo "$DELETED_MD" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+          echo "MODIFIED_MD<<EOF" >> $GITHUB_ENV
+          echo "$MODIFIED_MD" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
           echo "RENAMED_MD<<EOF" >> $GITHUB_ENV
           echo "$RENAMED_MD" >> $GITHUB_ENV
@@ -42,7 +50,7 @@ jobs:
           echo "NAV_CHANGES<<EOF" >> $GITHUB_ENV
           echo -e "$NAV_CHANGES" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
-          if [ -n "$DELETED_MD$RENAMED_MD$NAV_CHANGES" ]; then
+          if [ -n "$ADDED_MD$DELETED_MD$MODIFIED_MD$RENAMED_MD$NAV_CHANGES" ]; then
             echo "warning=true" >> $GITHUB_ENV
           else
             echo "warning=false" >> $GITHUB_ENV
@@ -53,12 +61,16 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
+            const addedMd = `${process.env.ADDED_MD}`.trim();
             const deletedMd = `${process.env.DELETED_MD}`.trim();
+            const modifiedMd = `${process.env.MODIFIED_MD}`.trim();
             const renamedMd = `${process.env.RENAMED_MD}`.trim();
             const navChanges = `${process.env.NAV_CHANGES}`.trim();
 
             let message = "🔍 **Documentation & Navigation Checker**\n\nThis PR modifies `.md` or `.nav.yml` files.\n\n";
+            if (addedMd) message += `**Added Markdown files:**\n\`\`\`\n${addedMd}\n\`\`\`\n\n`;
             if (deletedMd) message += `**Deleted Markdown files:**\n\`\`\`\n${deletedMd}\n\`\`\`\n\n`;
+            if (modifiedMd) message += `**Modified Markdown files:**\n\`\`\`\n${modifiedMd}\n\`\`\`\n\n`;
             if (renamedMd) message += `**Renamed Markdown files:**\n\`\`\`\n${renamedMd}\n\`\`\`\n\n`;
             if (navChanges) message += `**Navigation file changes:**\n\`\`\`\n${navChanges}\n\`\`\`\n\n`;
 

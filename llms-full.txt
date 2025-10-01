@@ -7416,7 +7416,7 @@ This guide applies to parachain projects based on Cumulus that started in 2023 o
 
 ## Prerequisite
 
-The relay chain must have async backing enabled; therefore, double-check the relay's runtime to verify that the following three parameters are included in the relay chain configuration (especially when testing locally with tools like [Zombienet](/parachains/testing/run-a-rollup-network/){target=\_blank}):
+The relay chain must have async backing enabled; therefore, double-check the relay's runtime to verify that the following three parameters are included in the relay chain configuration (especially when testing locally with tools like [Zombienet](/parachains/testing/run-a-parachain-network/){target=\_blank}):
 
 ```rust title="runtimes/relay/polkadot/src/genesis_config_presets.rs"
 ...
@@ -11715,7 +11715,7 @@ This section explores essential tools for blockchain testing, forking live netwo
 ## Quick Links
 
 - [Use Pop CLI to start your parachain project](/develop/toolkit/parachains/quickstart/pop-cli/)
-- [Use Zombienet to spawn a chain](/parachains/testing/run-a-rollup-network/)
+- [Use Zombienet to spawn a chain](/parachains/testing/run-a-parachain-network/)
 - [Use Chopsticks to fork a chain](/parachains/testing/fork-a-parachain/)
 - [Use Moonwall to execute E2E testing](/develop/toolkit/parachains/e2e-testing/moonwall/)
 
@@ -12533,7 +12533,7 @@ template: index-page.html
 
 Testing blockchain networks in a controlled environment is essential for development and validation. The Polkadot ecosystem provides specialized tools that enable you to spawn test networks, helping you verify functionality and catch issues before deploying to production.
 
-Ready to get started? Jump straight to the [Zombienet getting started](/parachains/testing/run-a-rollup-network/) guide.
+Ready to get started? Jump straight to the [Zombienet getting started](/parachains/testing/run-a-parachain-network/) guide.
 
 ## Why Spawn a Network?
 
@@ -41211,12 +41211,12 @@ By the end of this tutorial, you'll be equipped to deploy and test your own bloc
 
 To successfully complete this tutorial, you must ensure you've first:
 
-- [Installed Zombienet](/parachains/testing/run-a-rollup-network/#install-zombienet){target=\_blank}. This tutorial requires Zombienet version `{{ dependencies.repositories.zombienet.version }}`. Verify that you're using the specified version to ensure compatibility with the instructions.
-- Reviewed the information in [Configure Zombienet](/parachains/testing/run-a-rollup-network/#configure-zombienet){target=\_blank} and understand how to customize a spawned network.
+- [Installed Zombienet](/parachains/testing/run-a-parachain-network/#install-zombienet){target=\_blank}. This tutorial requires Zombienet version `{{ dependencies.repositories.zombienet.version }}`. Verify that you're using the specified version to ensure compatibility with the instructions.
+- Reviewed the information in [Configure Zombienet](/parachains/testing/run-a-parachain-network/#configure-zombienet){target=\_blank} and understand how to customize a spawned network.
 
 ## Set Up Local Provider
 
-In this tutorial, you will use the Zombienet [local provider](/parachains/testing/run-a-rollup-network/#local-provider){target=\_blank} (also called native provider) that enables you to run nodes as local processes in your development environment.
+In this tutorial, you will use the Zombienet [local provider](/parachains/testing/run-a-parachain-network/#local-provider){target=\_blank} (also called native provider) that enables you to run nodes as local processes in your development environment.
 
 You must have the necessary binaries installed (such as `polkadot` and `polkadot-parachain`) to spin up your network successfully.
 
@@ -41243,7 +41243,7 @@ sudo mv ./polkadot ./polkadot-execute-worker ./polkadot-parachain ./polkadot-pre
 
 ## Define the Network
 
-Zombienet uses a [configuration file](/parachains/testing/run-a-rollup-network/#configuration-files){target=\_blank} to define the ephemeral network that will be spawned. Follow these steps to create and define the configuration file:
+Zombienet uses a [configuration file](/parachains/testing/run-a-parachain-network/#configuration-files){target=\_blank} to define the ephemeral network that will be spawned. Follow these steps to create and define the configuration file:
 
 1. Create a file named `spawn-a-basic-network.toml`:
 

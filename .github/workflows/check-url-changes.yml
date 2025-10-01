@@ -57,7 +57,7 @@ jobs:
             const renamedMd = `${process.env.RENAMED_MD}`.trim();
             const navChanges = `${process.env.NAV_CHANGES}`.trim();
             
-            let message = "🔍 **Documentation & Navigation Checker**\n\nThis PR modifies `.md` or `.nav.yml/.nav.yaml` files.\n\n";
+            let message = "🔍 **Documentation & Navigation Checker**\n\nThis PR modifies `.md` or `.nav.yml` files.\n\n";
             if (deletedMd) message += `**Deleted Markdown files:**\n\`\`\`\n${deletedMd}\n\`\`\`\n\n`;
             if (renamedMd) message += `**Renamed Markdown files:**\n\`\`\`\n${renamedMd}\n\`\`\`\n\n`;
             if (navChanges) message += `**Navigation file changes:**\n\`\`\`\n${navChanges}\n\`\`\`\n\n`;

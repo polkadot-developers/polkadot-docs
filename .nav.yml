@@ -3,5 +3,5 @@ nav:
   - 'Smart Contracts': smart-contracts
   - 'Rollups': rollups
   - 'Chain Interctions': chain-interactions
-  # 'Get Supported': get-support
-  - 'Technical Reference': reference
+  # 'Get Support': get-support
+  - 'Nodes and Validators': nodes-and-validators

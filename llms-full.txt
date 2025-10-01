@@ -300,8 +300,7 @@ Build, deploy, and maintain custom parachains with the Polkadot SDK.
 
 - <h3>:octicons-book-16:{ .lg .middle } Learn</h3>
     <hr>
-    - [Parachains Overview](/polkadot-protocol/architecture/parachains/overview/){target=\_blank}
-    - [Rollups Overview](/parachains/overview/){target=\_blank}
+    - [Parachains Overview](/parachains/overview/){target=\_blank}
     - [Customize Your Parachain](/develop/parachains/customize-parachain/){target=\_blank}
 
 - <h3>:octicons-rocket-16:{ .lg .middle } Build</h3>
@@ -5878,7 +5877,7 @@ After generating a chain specification, you can use it to initialize the genesis
 
     Learn how to obtain the necessary coretime configuration to synchronize your blockchain’s timestamping and enhance its performance.
 
-    [:octicons-arrow-right-24: Reference](/parachains/launch-a-rollup/obtain-coretime/)
+    [:octicons-arrow-right-24: Reference](/parachains/launch-a-parachain/obtain-coretime/)
 
 -   <span class="badge guide">Guide</span> __Deployment__
 
@@ -5995,7 +5994,7 @@ categories: Parachains
 
 ## Introduction
 
-Coretime management involves manipulating [bulk coretime](/parachains/launch-a-rollup/obtain-coretime/#bulk-coretime){target=\_blank} regions to optimize resource allocation and usage. Regions represent allocated computational resources on cores and can be modified through various operations to meet different project requirements. This guide covers the essential operations for managing your coretime regions effectively.
+Coretime management involves manipulating [bulk coretime](/parachains/launch-a-parachain/obtain-coretime/#bulk-coretime){target=\_blank} regions to optimize resource allocation and usage. Regions represent allocated computational resources on cores and can be modified through various operations to meet different project requirements. This guide covers the essential operations for managing your coretime regions effectively.
 
 ## Transfer
 
@@ -6113,7 +6112,7 @@ Polkadot SDK’s FRAME framework provides developers with the tools to do the fo
 - **Deploy your blockchain for use**: Take your Polkadot SDK-based blockchain from a local environment to production.
 - **Maintain your network including monitoring and upgrades**: Runtimes can be upgraded through forkless runtime updates, enabling seamless evolution of the parachain.
 
-New to parachain development? Start with the [Rollups Overview](/parachains/overview/) to discover how this framework simplifies building custom parachains.
+New to parachain development? Start with the [Parachains Overview](/parachains/overview/) to discover how this framework simplifies building custom parachains.
 
 ## In This Section
 

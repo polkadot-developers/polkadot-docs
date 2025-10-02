@@ -32,7 +32,7 @@ If you're coming from Ethereum, these guides will help you understand how famili
 
 - **[Migration](/develop/smart-contracts/for-eth-devs/migration/)**: Get practical guidance for porting existing apps and tooling to Polkadot Hub. Find migration tips for contracts and integrations.
 
-## Learn the Platform
+## Learn About the Polkadot Hub
 
 Dive deeper into the architecture and capabilities that make Polkadot Hub unique for smart contract development.
 

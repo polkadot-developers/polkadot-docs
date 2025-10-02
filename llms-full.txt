@@ -21786,15 +21786,15 @@ Follow these steps to use Polkadot.js Apps to activate your validator:
 
     ![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/start-validating/start-validating-02.webp)
 
-3. Set a bond amount in the **value bonded** field and then click **next**.
+3. Set a bond amount in the **value bonded** field and then click **next**:
 
     ![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/start-validating/start-validating-03.webp)
 
-4.  **Set session keys**. Paste the output from `author_rotateKeys` (hex-encoded) to link your validator with its session keys. Then click **Bond & Validate** to continue.
+4.  **Set session keys**. Paste the output from `author_rotateKeys` (hex-encoded) to link your validator with its session keys. Then click **Bond & Validate** to continue:
 
     ![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/start-validating/start-validating-04.webp)
 
-You can set the **commission** and the **blocked** option via `staking.validate` extrinsic. By default, the blocked option is set to FALSE (i.e., the validator accepts nominations).
+You can set the **commission** and the **blocked** option via `staking.validate` extrinsic. By default, the blocked option is set to FALSE (i.e., the validator accepts nominations):
 
 ![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/start-validating/start-validating-05.webp)
 

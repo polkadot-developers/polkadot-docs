@@ -512,7 +512,7 @@ categories: Tooling, Dapps
 
 Polkadart is the most comprehensive Dart/Flutter SDK for interacting with Polkadot, Substrate, and other compatible blockchain networks. Designed with a Dart-first approach and type-safe APIs, it provides everything developers need to build powerful decentralized applications.
 
-This page will outline some of the core components of Polkadart. Fore more details, refer to the [official documentation](https://polkadart.dev){target=\_blank}.
+This page will outline some of the core components of Polkadart. For more details, refer to the [official documentation](https://polkadart.dev){target=\_blank}.
 
 ## Installation
 
@@ -532,7 +532,7 @@ Add Polkadart to your `pubspec.yaml`:
 
 For type-safe API generation, add the following to your `pubspec.yaml`:
 
-```yaml
+```yaml title="pubspec.yaml"
 polkadart:
   output_dir: lib/generated
   chains:
@@ -543,7 +543,7 @@ polkadart:
 
 ## Get Started
 
-## Type Generation
+### Type Generation
 
 Polkadart provides a CLI tool to generate type definitions from any Polkadot-SDK compatible blockchain network. This allows you to build type-safe Dart applications without dealing with the low-level details of the blockchain.
 
@@ -575,7 +575,6 @@ print('Balance: ${accountInfo.data.free}')
 
 An API instance is required to interact with the blockchain. Polkadart provides a `Provider` class that allows you to connect to any network.
 
-#### Polkadot
 ```dart
 import 'package:demo/generated/polkadot/polkadot.dart';
 import 'package:polkadart/provider.dart';
@@ -588,7 +587,7 @@ Future<void> main(List<String> arguments) async {
 
 ### Reading Chain Data
 
-Besides querying the data using the `query` from the generated API, you can also use the State API for querying storage data, metadata, runtime information, and others.
+Besides querying the data using the `query` from the generated API, you can also use the State API for querying storage data, metadata, runtime information, and other chain information.
 
 ```dart
 final stateApi = StateApi(provider);
@@ -616,7 +615,7 @@ subscription.stream.forEach((response) {
 
 ### Send a Transaction
 
-Perhaps the most common operation done in any blockchain is transferring funds. Here you can see how that can be done using Polkadart.
+Perhaps the most common operation done in any blockchain is transferring funds. Here you can see how that can be done using Polkadart:
 
 ```dart
 final wallet = await KeyPair.sr25519.fromUri("//Alice");
@@ -667,7 +666,7 @@ await author.submitAndWatchExtrinsic(extrinsic, (data) {
 
 ## Where to Go Next
 
-To dive deeper into Polkadart refer to the [official Polkadart documentation](https://polkadart.dev){target=\_blank}. They provide comprehensive guides for common use-cases and advanced usage.
+To dive deeper into Polkadart, refer to the [official Polkadart documentation](https://polkadart.dev/){target=\_blank}, where you can find comprehensive guides for common use cases and advanced usage.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/toolkit/api-libraries/polkadot-js-api/

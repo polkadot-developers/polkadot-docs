@@ -111,8 +111,8 @@ This section will walk you through installing and building the Polkadot binary f
     rustup default stable
     rustup update
     rustup update nightly
-    rustup target add wasm32-unknown-unknown --toolchain nightly
-    rustup target add wasm32-unknown-unknown --toolchain stable-x86_64-unknown-linux-gnu
+    rustup target add wasm32v1-none --toolchain nightly
+    rustup target add wasm32v1-none --toolchain stable-aarch64-apple-darwin
     rustup component add rust-src --toolchain stable-x86_64-unknown-linux-gnu
     ```
 

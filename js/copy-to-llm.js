@@ -1,50 +1,76 @@
 // Copy to LLM functionality
 // From: https://github.com/leonardocustodio/mkdocs-copy-to-llm/blob/main/mkdocs_copy_to_llm/assets/js/copy-to-llm.js
 
-// This script adds per-page LLM functionality with a click to copy, 
-// download, or open Markdown page in ChatGPT/Claude code 
+// This script adds per-page LLM functionality with a click to copy,
+// download, or open Markdown page in ChatGPT/Claude
 (function() {
   'use strict';
 
-  // Check if analytics is enabled
+  if (typeof window === 'undefined') {
+    return;
+  }
+
+  window.__copyToLlmDebug = window.__copyToLlmDebug || {};
+
+  const LLMS = window.LLMS;
+  if (!LLMS) {
+    console.warn('Copy to LLM: shared LLMS helpers not available.');
+    return;
+  }
+
+  // Trigger config preload without blocking UI
+  LLMS.ready();
+
+  // ---------- Analytics helpers ----------
   function isAnalyticsEnabled() {
     const metaAnalytics = document.querySelector('meta[name="mkdocs-copy-to-llm-analytics"]');
     return metaAnalytics && metaAnalytics.content === 'true';
   }
 
-  // Track copy event to analytics
-  function trackCopyEvent(eventType, contentLength) {
-    // Only track if analytics is explicitly enabled via configuration
+  function sendAnalytics(eventName, gaData, plausibleData) {
     if (!isAnalyticsEnabled()) {
       return;
     }
 
-    // Check if Google Analytics is available
     if (typeof window.gtag === 'function') {
       try {
-        window.gtag('event', 'copy_to_llm', {
-          'event_category': 'engagement',
-          'event_label': eventType,
-          'value': contentLength
-        });
+        window.gtag('event', eventName, Object.assign({
+          event_category: 'engagement'
+        }, gaData));
       } catch (error) {
-        console.error('Error tracking copy event:', error);
+        console.error('Error tracking analytics event:', error);
       }
     }
 
     if (typeof window.plausible === 'function') {
       try {
-        window.plausible('Copy to LLM', { props: { type: eventType, length: contentLength } });
+        window.plausible(eventName, { props: plausibleData });
       } catch (error) {
-        console.error('Error tracking copy event with Plausible:', error);
+        console.error('Error tracking analytics event with Plausible:', error);
       }
     }
-
-    // TODO: add support for other analytics providers if needed
   }
 
-  // Get the raw Markdown file URL
-  function getMdFileUrl() {
+  function trackCopyEvent(eventType, contentLength) {
+    sendAnalytics('copy_to_llm', {
+      event_label: eventType,
+      value: contentLength
+    }, {
+      type: eventType,
+      length: contentLength
+    });
+  }
+
+  function trackButtonClick(eventType) {
+    sendAnalytics('copy_to_llm_click', {
+      event_label: eventType
+    }, {
+      type: eventType
+    });
+  }
+
+  // ---------- Page helpers ----------
+  function getPageSlug() {
     const canonicalLink = document.querySelector('link[rel="canonical"]');
     let pathname = window.location.pathname;
 
@@ -56,82 +82,8 @@
       }
     }
 
-    const normalizedPath = normalizePathname(pathname);
-    const slug = buildSlugFromPath(normalizedPath);
-
-    return `${window.location.origin}/.ai/pages/${slug}.md`;
-  }
-
-  function normalizePathname(pathname) {
-    let path = decodeURIComponent(pathname || '/');
-
-    const hashIndex = path.indexOf('#');
-    if (hashIndex !== -1) {
-      path = path.slice(0, hashIndex);
-    }
-
-    const queryIndex = path.indexOf('?');
-    if (queryIndex !== -1) {
-      path = path.slice(0, queryIndex);
-    }
-
-    path = path.replace(/index\.html$/i, '');
-    path = path.replace(/\/+/g, '/');
-
-    if (path.length > 1 && path.endsWith('/')) {
-      path = path.slice(0, -1);
-    }
-
-    return path || '/';
-  }
-
-  function buildSlugFromPath(pathname) {
-    if (!pathname || pathname === '/') {
-      return 'index';
-    }
-
-    let route = pathname;
-    if (route.endsWith('/index')) {
-      route = route.slice(0, -'/index'.length);
-    }
-
-    route = route.replace(/^\/+/, '');
-    if (!route) {
-      return 'index';
-    }
-
-    const segments = route.split('/').filter(Boolean);
-    if (!segments.length) {
-      return 'index';
-    }
-
-    const slug = segments
-      .map((segment) => segment.trim())
-      .filter(Boolean)
-      .map((segment) => segment.replace(/\s+/g, '-'))
-      .map((segment) => segment.replace(/[^a-zA-Z0-9_-]/g, '-'))
-      .map((segment) => segment.replace(/-+/g, '-'))
-      .join('-')
-      .toLowerCase()
-      .replace(/^-+|-+$/g, '');
-
-    return slug || 'index';
-  }
-
-  async function loadResolvedMarkdown() {
-    try {
-      const mdUrl = getMdFileUrl();
-      const response = await fetch(mdUrl);
-
-      if (!response.ok) {
-        return null;
-      }
-
-      return await response.text();
-    } catch (error) {
-      console.error('Failed to fetch resolved markdown:', error);
-      return null;
-    }
+    const normalized = LLMS.normalizePathname(pathname);
+    return LLMS.buildSlugFromPath(normalized);
   }
 
   function getFallbackPageContent() {
@@ -139,54 +91,72 @@
     return articleContent ? articleContent.innerText.trim() : '';
   }
 
-  // Copy to clipboard with fallback
-  async function copyToClipboard(text, button, eventType = 'unknown') {
+  // ---------- Clipboard helpers ----------
+  async function copyToClipboard(text, button, eventType) {
+    let copied = false;
     try {
       await navigator.clipboard.writeText(text);
-      showCopySuccess(button);
-
-      // Track the copy event
-      trackCopyEvent(eventType, text.length);
-    } catch (err) {
-      // Fallback for older browsers
+      copied = true;
+    } catch (error) {
       const textarea = document.createElement('textarea');
       textarea.value = text;
       textarea.style.position = 'fixed';
       textarea.style.opacity = '0';
       document.body.appendChild(textarea);
       textarea.select();
-
       try {
         document.execCommand('copy');
-        showCopySuccess(button);
-
-        // Track the copy event
-        trackCopyEvent(eventType, text.length);
-      } catch (fallbackErr) {
-        console.error('Failed to copy:', fallbackErr);
-        showCopyError(button);
+        copied = true;
+      } catch (fallbackError) {
+        console.error('Copy to LLM: clipboard fallback failed', fallbackError);
       }
-
       document.body.removeChild(textarea);
     }
+
+    if (copied) {
+      showCopySuccess(button);
+      trackCopyEvent(eventType, text.length);
+    }
+
+    return copied;
   }
 
-  // Show success feedback
+  function showToast(message) {
+    const existingToast = document.querySelector('.copy-to-llm-toast');
+    if (existingToast) {
+      existingToast.remove();
+    }
+
+    const toast = document.createElement('div');
+    toast.className = 'copy-to-llm-toast';
+    toast.textContent = message;
+    document.body.appendChild(toast);
+
+    setTimeout(() => {
+      toast.classList.add('show');
+    }, 10);
+
+    setTimeout(() => {
+      toast.classList.remove('show');
+      setTimeout(() => {
+        toast.remove();
+      }, 300);
+    }, 2500);
+  }
+
   function showCopySuccess(button) {
     const originalTitle = button.title;
     const textElement = button.querySelector('.button-text');
     const originalText = textElement ? textElement.textContent : '';
+    const action = button.dataset ? button.dataset.action || '' : '';
+    const successLabel = action === 'download-markdown' ? 'Downloading...' : 'Copied!';
 
-    // Only change text for dropdown items, not the main copy button
     if (button.classList.contains('copy-to-llm-dropdown-item')) {
       button.classList.add('copy-success');
-      button.title = 'Copied!';
-
-      // If button has text, update it
+      button.title = successLabel;
       if (textElement) {
-        textElement.textContent = 'Copied!';
+        textElement.textContent = successLabel;
       }
-
       setTimeout(() => {
         button.classList.remove('copy-success');
         button.title = originalTitle;
@@ -196,61 +166,34 @@
       }, 2000);
     }
 
-    // Create and show toast notification
-    const isMarkdownLink = button.classList.contains('copy-to-llm-dropdown-item') &&
-                          button.dataset.action === 'copy-markdown-link';
-    showToast(isMarkdownLink ? 'Link copied to clipboard!' : 'Content copied to clipboard!');
+    const message = action === 'download-markdown'
+      ? 'Download starting...'
+      : 'Content copied to clipboard!';
+    showToast(message);
   }
 
-  // Show toast notification
-  function showToast(message) {
-    // Remove any existing toast
-    const existingToast = document.querySelector('.copy-to-llm-toast');
-    if (existingToast) {
-      existingToast.remove();
-    }
-
-    // Create toast element
-    const toast = document.createElement('div');
-    toast.className = 'copy-to-llm-toast';
-    toast.textContent = message;
-
-    // Add to body
-    document.body.appendChild(toast);
-
-    // Trigger animation
-    setTimeout(() => {
-      toast.classList.add('show');
-    }, 10);
-
-    // Remove after delay
-    setTimeout(() => {
-      toast.classList.remove('show');
-      setTimeout(() => {
-        toast.remove();
-      }, 300);
-    }, 2500);
-  }
-
-  // Show error feedback
   function showCopyError(button) {
+    const originalTitle = button.getAttribute('data-original-title') || button.getAttribute('title') || '';
+    button.setAttribute('data-original-title', originalTitle);
     button.classList.add('copy-error');
     button.title = 'Copy failed';
 
     setTimeout(() => {
       button.classList.remove('copy-error');
-      button.title = 'Copy to LLM';
+      if (originalTitle) {
+        button.title = originalTitle;
+      } else {
+        button.removeAttribute('title');
+      }
+      button.removeAttribute('data-original-title');
     }, 2000);
   }
 
-// Set up for the per page LLM UI widget
-  // Create copy to LLM button for UI widget
+  // ---------- UI creation ----------
   function createSectionCopyButton() {
-    // Create container for split button
     const container = document.createElement('div');
     container.className = 'copy-to-llm-split-container';
 
-    // Left button (copy)
     const copyButton = document.createElement('button');
     copyButton.className = 'copy-to-llm copy-to-llm-section copy-to-llm-left';
     copyButton.title = 'Copy entire page to LLM';
@@ -263,11 +206,10 @@
       <span class="button-text">Copy page</span>
     `;
 
-    // Right button (dropdown)
     const dropdownButton = document.createElement('button');
     dropdownButton.className = 'copy-to-llm copy-to-llm-section copy-to-llm-right';
     dropdownButton.title = 'Copy options';
-    dropdownButton.type = 'button'; // Explicitly set type
+    dropdownButton.type = 'button';
     dropdownButton.setAttribute('aria-label', 'Copy options menu');
     dropdownButton.setAttribute('aria-haspopup', 'true');
     dropdownButton.setAttribute('aria-expanded', 'false');
@@ -278,26 +220,16 @@
       </svg>
     `;
 
-    // Create dropdown menu
     const dropdownMenu = document.createElement('div');
     dropdownMenu.className = 'copy-to-llm-dropdown';
     dropdownMenu.setAttribute('role', 'menu');
     dropdownMenu.setAttribute('aria-labelledby', 'dropdown-button');
     dropdownMenu.innerHTML = `
-      <button class="copy-to-llm-dropdown-item" data-action="copy-markdown-link" role="menuitem" tabindex="-1">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 1024 1024" aria-hidden="true">
-          <path fill="currentColor" d="M295.664 732.448c6.256 6.256 14.432 9.376 22.624 9.376s16.368-3.12 22.624-9.376L728.576 341.76c12.496-12.496 12.496-32.752 0-45.248s-32.752-12.496-45.248 0L295.664 687.2c-12.512 12.496-12.512 32.752 0 45.248m180.208-68.143c10.576 46.624-.834 92.4-36.866 128.432L309.758 917.985c-27.2 27.184-63.36 42.16-101.824 42.16s-74.624-14.976-101.808-42.16c-56.144-56.16-56.144-147.536-.336-203.344l126.256-130.256c27.2-27.184 63.36-42.176 101.824-42.176c13.152 0 25.824 2.352 38.176 5.743L421.998 498c-27.872-13.024-57.952-19.792-88.128-19.792c-53.233 0-106.465 20.32-147.073 60.929L60.86 669.073c-81.216 81.216-81.216 212.912 0 294.16c40.608 40.624 93.84 60.912 147.073 60.912s106.465-20.288 147.073-60.912L483.95 838.289c62.128-62.128 75.568-148.72 42.656-224.72zM963.134 60.784C922.51 20.176 869.294-.145 816.077-.145c-53.248 0-106.496 20.32-147.088 60.929L540.061 185.728c-64.4 64.4-77.536 160.465-39.792 238.033l49.664-49.648c-14.704-49.104-3.408-104.336 35.056-142.832l129.248-125.248c27.216-27.184 63.344-42.176 101.84-42.176c38.431 0 74.624 14.992 101.808 42.176c56.128 56.16 56.128 147.536.32 203.344L788.957 438.625c-27.183 27.183-63.376 42.159-101.808 42.159c-9.808 0-18.431.992-27.84-.928l-50.975 51.008c25.471 10.592 51.632 13.935 78.815 13.935c53.216 0 106.432-20.303 147.056-60.927L963.15 354.928c81.2-81.216 81.2-212.896-.015-294.144z"/>
-        </svg>
-        Copy markdown link
-      </button>
-      <button class="copy-to-llm-dropdown-item" data-action="view-markdown" role="menuitem" tabindex="-1">
+      <button class="copy-to-llm-dropdown-item" data-action="download-markdown" role="menuitem" tabindex="-1">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
-          <path fill="currentColor" d="M22.27 19.385H1.73A1.73 1.73 0 0 1 0 17.655V6.345a1.73 1.73 0 0 1 1.73-1.73h20.54A1.73 1.73 0 0 1 24 6.345v11.308a1.73 1.73 0 0 1-1.73 1.731zM5.769 15.923v-4.5l2.308 2.885l2.307-2.885v4.5h2.308V8.078h-2.308l-2.307 2.885l-2.308-2.885H3.46v7.847zM21.232 12h-2.309V8.077h-2.307V12h-2.308l3.461 4.039z"/>
+          <path fill="currentColor" d="M5 20h14v-2H5v2zm7-18l-6 6h4v6h4v-6h4l-6-6z"/>
         </svg>
-        <span>View as markdown</span>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="external-icon" aria-hidden="true">
-          <path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
-        </svg>
+        <span>Download Page in Markdown</span>
       </button>
       <button class="copy-to-llm-dropdown-item" data-action="open-chatgpt" role="menuitem" tabindex="-1">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
@@ -326,27 +258,17 @@
     return { container, copyButton, dropdownButton, dropdownMenu };
   }
 
-
-  // Add copy page dropdown menu element next to H1 titles
   function addSectionCopyButtons() {
-    // Only add to the main h1 title
     const mainTitle = document.querySelector('.md-content h1');
     if (mainTitle && !document.querySelector('.copy-to-llm-split-container')) {
-      // Create a wrapper div for h1 and button
       const wrapper = document.createElement('div');
       wrapper.className = 'h1-copy-wrapper';
-
-      // Insert wrapper before h1
       mainTitle.parentNode.insertBefore(wrapper, mainTitle);
-
-      // Move h1 into wrapper
       wrapper.appendChild(mainTitle);
 
-      // Create and add a split button
       const { container, copyButton, dropdownButton, dropdownMenu } = createSectionCopyButton();
 
-      // Add keyboard navigation to buttons
-      [copyButton, dropdownButton].forEach(button => {
+      [copyButton, dropdownButton].forEach((button) => {
         button.addEventListener('keydown', (e) => {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
@@ -355,243 +277,163 @@
         });
       });
 
-      // Add keyboard navigation to dropdown menu
       dropdownMenu.addEventListener('keydown', (e) => {
         const items = Array.from(dropdownMenu.querySelectorAll('.copy-to-llm-dropdown-item'));
-        const currentIndex = items.findIndex(item => item === document.activeElement);
-
-        switch(e.key) {
+        const currentIndex = items.findIndex((item) => item === document.activeElement);
+        switch (e.key) {
           case 'ArrowDown':
             e.preventDefault();
-            const nextIndex = currentIndex < items.length - 1 ? currentIndex + 1 : 0;
-            items[nextIndex].tabIndex = 0;
-            items[nextIndex].focus();
-            if (currentIndex >= 0) items[currentIndex].tabIndex = -1;
+            if (!items.length) break;
+            items[(currentIndex + 1) % items.length].focus();
             break;
-
           case 'ArrowUp':
             e.preventDefault();
-            const prevIndex = currentIndex > 0 ? currentIndex - 1 : items.length - 1;
-            items[prevIndex].tabIndex = 0;
-            items[prevIndex].focus();
-            if (currentIndex >= 0) items[currentIndex].tabIndex = -1;
+            if (!items.length) break;
+            items[(currentIndex - 1 + items.length) % items.length].focus();
             break;
-
           case 'Escape':
             e.preventDefault();
             dropdownMenu.classList.remove('show');
             dropdownButton.classList.remove('active');
             dropdownButton.setAttribute('aria-expanded', 'false');
             dropdownButton.focus();
-            // Reset chevron
-            const chevron = dropdownButton.querySelector('.chevron-icon');
-            if (chevron) {
-              chevron.style.transform = '';
-            }
-            break;
-
-          case 'Home':
-            e.preventDefault();
-            if (items.length > 0) {
-              items[0].tabIndex = 0;
-              items[0].focus();
-              if (currentIndex >= 0) items[currentIndex].tabIndex = -1;
-            }
-            break;
-
-          case 'End':
-            e.preventDefault();
-            if (items.length > 0) {
-              items[items.length - 1].tabIndex = 0;
-              items[items.length - 1].focus();
-              if (currentIndex >= 0) items[currentIndex].tabIndex = -1;
-            }
+            resetChevron(dropdownButton);
             break;
         }
       });
 
-      // Copy button click handler
-      copyButton.addEventListener('click', async (e) => {
-        e.preventDefault();
+      copyButton.addEventListener('click', async (event) => {
+        event.preventDefault();
+        trackButtonClick('copy_page_markdown');
 
-        // Save original icon HTML
-        const copyIcon = copyButton.querySelector('.copy-icon');
-        const originalIconHTML = copyIcon.outerHTML;
-
-        // Replace icon with loading spinner
-        copyIcon.outerHTML = `
-          <svg class="copy-icon loading-spinner" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none" stroke-dasharray="31.4" stroke-dashoffset="0">
-              <animate attributeName="stroke-dashoffset" dur="1s" repeatCount="indefinite" from="0" to="62.8"/>
-            </circle>
-          </svg>
-        `;
-
-        let copySucceeded = false;
-        let attemptedCopy = false;
-
-        try {
-          const markdownContent = await loadResolvedMarkdown();
-
-          if (markdownContent) {
-            attemptedCopy = true;
-            await copyToClipboard(markdownContent, copyButton, 'markdown_content');
-            copySucceeded = true;
-          } else {
-            const fallbackContent = getFallbackPageContent();
-            if (fallbackContent) {
-              attemptedCopy = true;
-              await copyToClipboard(fallbackContent, copyButton, 'page_content');
-              copySucceeded = true;
-            }
-          }
-        } catch (error) {
-          console.error('Copy to LLM failed, falling back to rendered content:', error);
-          const fallbackContent = getFallbackPageContent();
-          if (fallbackContent) {
-            try {
-              attemptedCopy = true;
-              await copyToClipboard(fallbackContent, copyButton, 'page_content');
-              copySucceeded = true;
-            } catch (fallbackError) {
-              console.error('Fallback copy failed:', fallbackError);
-            }
-          }
-        }
-
-        if (copySucceeded) {
-          const checkIconSVG = `
-            <svg class="copy-icon copy-success-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+        const icon = copyButton.querySelector('.copy-icon');
+        const originalIconHTML = icon ? icon.outerHTML : '';
+        if (icon) {
+          icon.outerHTML = `
+            <svg class="copy-icon loading-spinner" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none" stroke-dasharray="31.4" stroke-dashoffset="0">
+                <animate attributeName="stroke-dashoffset" dur="1s" repeatCount="indefinite" from="0" to="62.8"/>
+              </circle>
             </svg>
           `;
-          copyButton.querySelector('.copy-icon').outerHTML = checkIconSVG;
+        }
 
-          setTimeout(() => {
-            const icon = copyButton.querySelector('.copy-icon');
-            if (icon) {
-              icon.outerHTML = originalIconHTML;
-            }
-          }, 3000);
-        } else {
-          if (!attemptedCopy) {
-            showCopyError(copyButton);
+        let copySucceeded = false;
+        const slug = getPageSlug();
+
+        try {
+          const result = await LLMS.fetchSlugContent(slug);
+          if (result && result.text) {
+            copySucceeded = await copyToClipboard(result.text, copyButton, 'markdown_content');
           }
-          const icon = copyButton.querySelector('.copy-icon');
-          if (icon) {
-            icon.outerHTML = originalIconHTML;
+        } catch (error) {
+          console.error('Copy to LLM: failed to copy markdown content', error);
+        }
+
+        if (!copySucceeded) {
+          const fallback = getFallbackPageContent();
+          if (fallback) {
+            try {
+              copySucceeded = await copyToClipboard(fallback, copyButton, 'page_content');
+            } catch (fallbackError) {
+              console.error('Copy to LLM: fallback copy failed', fallbackError);
+            }
+          }
+        }
+
+        if (!copySucceeded) {
+          showCopyError(copyButton);
+        }
+
+        const currentIcon = copyButton.querySelector('.copy-icon');
+        if (currentIcon) {
+          if (copySucceeded) {
+            currentIcon.outerHTML = `
+              <svg class="copy-icon copy-success-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+            `;
+            setTimeout(() => {
+              const iconAfter = copyButton.querySelector('.copy-icon');
+              if (iconAfter) {
+                iconAfter.outerHTML = originalIconHTML;
+              }
+            }, 3000);
+          } else {
+            currentIcon.outerHTML = originalIconHTML;
           }
         }
       });
 
-      // Dropdown button click handler
-      dropdownButton.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
+      dropdownButton.addEventListener('click', (event) => {
+        event.preventDefault();
+        event.stopPropagation();
         dropdownMenu.classList.toggle('show');
-
-        // Toggle active state on button
-        if (dropdownMenu.classList.contains('show')) {
-          dropdownButton.classList.add('active');
-          dropdownButton.setAttribute('aria-expanded', 'true');
-          // Focus first menu item
+        const isOpen = dropdownMenu.classList.contains('show');
+        dropdownButton.classList.toggle('active', isOpen);
+        dropdownButton.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        resetChevron(dropdownButton);
+        if (isOpen) {
           const firstItem = dropdownMenu.querySelector('.copy-to-llm-dropdown-item');
           if (firstItem) {
-            firstItem.tabIndex = 0;
             firstItem.focus();
           }
-        } else {
-          dropdownButton.classList.remove('active');
-          dropdownButton.setAttribute('aria-expanded', 'false');
-        }
-
-        // Toggle chevron rotation
-        const chevron = dropdownButton.querySelector('.chevron-icon');
-        if (chevron) {
-          chevron.style.transform = dropdownMenu.classList.contains('show') ? 'rotate(180deg)' : '';
         }
       });
 
-      // Dropdown menu item handlers
-      dropdownMenu.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const item = e.target.closest('.copy-to-llm-dropdown-item');
-        if (!item) return;
+      dropdownMenu.addEventListener('click', async (event) => {
+        event.stopPropagation();
+        const item = event.target.closest('.copy-to-llm-dropdown-item');
+        if (!item) {
+          return;
+        }
 
         const action = item.dataset.action;
-        let contentToCopy = '';
+        const slug = getPageSlug();
 
-        switch(action) {
-          case 'copy-markdown-link':
-            // Copy the resolved Markdown file URL from /.ai/pages
-            contentToCopy = getMdFileUrl();
+        switch (action) {
+          case 'download-markdown': {
+            trackButtonClick('download_page_markdown');
+            const success = await LLMS.downloadSlug(slug, `${slug}.md`);
+            if (!success) {
+              showCopyError(item);
+            } else {
+              showCopySuccess(item);
+            }
             break;
-
-          case 'view-markdown':
-            // Open the raw Markdown file directly
-            const mdUrl = getMdFileUrl();
-            window.open(mdUrl, '_blank');
-            dropdownMenu.classList.remove('show');
-            dropdownButton.classList.remove('active');
-            resetChevron();
-            return; // Don't copy, just view
-
-          case 'open-chatgpt':
-            // TODO: Decide what else to pass with this for context. Models are only going
-            // to check the page exists and crawl the metadata so this really 
-            // doesn't add much value as written versus just passing the URL manually, etc.
-
-            // Get the Markdown file URL
-            const mdUrlForChatGPT = getMdFileUrl();
-            const chatGPTPrompt = `Read ${mdUrlForChatGPT} so I can ask questions about it.`;
-            const chatGPTUrl = `https://chatgpt.com/?hints=search&q=${encodeURIComponent(chatGPTPrompt)}`;
+          }
+          case 'open-chatgpt': {
+            trackButtonClick('open_chatgpt');
+            const candidates = LLMS.getSlugCandidates(slug);
+            const mdUrl = candidates.length ? candidates[0] : window.location.href;
+            const prompt = `Read ${mdUrl} so I can ask questions about it.`;
+            const chatGPTUrl = `https://chatgpt.com/?hints=search&q=${encodeURIComponent(prompt)}`;
             window.open(chatGPTUrl, '_blank');
-            dropdownMenu.classList.remove('show');
-            dropdownButton.classList.remove('active');
-            resetChevron();
-            return; // Don't copy, just open
-
-          case 'open-claude':
-            // TODO: Decide what else to pass with this for context. Models are only going
-            // to check the page exists and crawl the metadata so this really 
-            // doesn't add much value as written versus just passing the URL manually, etc.
-
-            // Get the Markdown file URL
-            const mdUrlForClaude = getMdFileUrl();
-            const claudePrompt = `Read ${mdUrlForClaude} so I can ask questions about it.`;
-            const claudeUrl = `https://claude.ai/new?q=${encodeURIComponent(claudePrompt)}`;
+            break;
+          }
+          case 'open-claude': {
+            trackButtonClick('open_claude');
+            const candidates = LLMS.getSlugCandidates(slug);
+            const mdUrl = candidates.length ? candidates[0] : window.location.href;
+            const prompt = `Read ${mdUrl} so I can ask questions about it.`;
+            const claudeUrl = `https://claude.ai/new?q=${encodeURIComponent(prompt)}`;
             window.open(claudeUrl, '_blank');
-            dropdownMenu.classList.remove('show');
-            dropdownButton.classList.remove('active');
-            resetChevron();
-            return; // Don't copy, just open
-        }
-
-        if (contentToCopy) {
-          copyToClipboard(contentToCopy, item, 'markdown_link');
-          dropdownMenu.classList.remove('show');
-          dropdownButton.classList.remove('active');
-          resetChevron();
-        }
-
-        function resetChevron() {
-          const chevron = dropdownButton.querySelector('.chevron-icon');
-          if (chevron) {
-            chevron.style.transform = '';
+            break;
           }
         }
+
+        dropdownMenu.classList.remove('show');
+        dropdownButton.classList.remove('active');
+        dropdownButton.setAttribute('aria-expanded', 'false');
+        resetChevron(dropdownButton);
       });
 
-      // Close dropdown when clicking outside
-      document.addEventListener('click', (e) => {
-        if (!container.contains(e.target)) {
+      document.addEventListener('click', (event) => {
+        if (!container.contains(event.target)) {
           dropdownMenu.classList.remove('show');
           dropdownButton.classList.remove('active');
-          // Reset chevron rotation
-          const chevron = dropdownButton.querySelector('.chevron-icon');
-          if (chevron) {
-            chevron.style.transform = '';
-          }
+          dropdownButton.setAttribute('aria-expanded', 'false');
+          resetChevron(dropdownButton);
         }
       });
 
@@ -599,14 +441,16 @@
     }
   }
 
-  // Code block copy buttons from the original script were removed to keep
-  // the H1 widget focused and avoid UI clutter while we validate the flow.
+  function resetChevron(button) {
+    const chevron = button.querySelector('.chevron-icon');
+    if (chevron) {
+      chevron.style.transform = button.classList.contains('active') ? 'rotate(180deg)' : '';
+    }
+  }
 
-  // Initialize on DOM ready
   function initialize() {
     addSectionCopyButtons();
 
-    // Re-run when content changes (for dynamic content)
     const observer = new MutationObserver(() => {
       addSectionCopyButtons();
     });
@@ -620,11 +464,15 @@
     }
   }
 
-  // Wait for DOM to be ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initialize);
   } else {
     initialize();
   }
 
+  Object.assign(window.__copyToLlmDebug, {
+    getPageSlug,
+    getMarkdownCandidates: LLMS.getSlugCandidates,
+    getLlmsConfig: LLMS.getConfig
+  });
 })();

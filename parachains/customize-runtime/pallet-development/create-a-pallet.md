@@ -164,7 +164,7 @@ With the pallet implemented, the next steps involve ensuring its reliability and
 
     Learn how to effectively test the functionality and reliability of your pallet to ensure it behaves as expected.
 
-    [:octicons-arrow-right-24: Reference](/develop/parachains/testing/)
+    [:octicons-arrow-right-24: Reference](/develop/parachains/testing/fork-a-parachain/)
 
 -   <span class="badge guide">Guide</span> __Benchmarking__
 

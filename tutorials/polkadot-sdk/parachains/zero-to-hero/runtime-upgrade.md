@@ -145,7 +145,7 @@ version = "0.2.0" # <-- increment this version
 # ... rest of your Cargo.toml
 ```
 
-For more information about runtime versioning, check the [Runtime Upgrades](/develop/parachains/maintenance/runtime-upgrades#runtime-versioning){target=\_blank} guide.
+For more information about runtime versioning, check the [Runtime Upgrades](/parachains/runtime-maintenance/runtime-upgrades#runtime-versioning){target=\_blank} guide.
 
 ### Build the New Runtime
 

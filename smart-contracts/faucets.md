@@ -12,10 +12,10 @@ Test tokens allow you to experiment with smart contracts, test transactions, and
 
 Faucets are services that distribute small amounts of cryptocurrency or tokens for free, typically on TestNet networks. They serve as the primary method for developers to obtain the necessary tokens to:
 
-- Execute transactions on TestNet networks
-- Pay for gas fees when deploying smart contracts
-- Test dApp functionality before MainNet deployment
-- Experiment with blockchain interactions without financial risk
+- Execute transactions on TestNet networks.
+- Pay for gas fees when deploying smart contracts.
+- Test dApp functionality before MainNet deployment.
+- Experiment with blockchain interactions without financial risk.
 
 ## Get Test Tokens
 

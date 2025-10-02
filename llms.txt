@@ -4,6 +4,7 @@
 
 ## Docs
 
+- [Untitled](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/.venv/lib/python3.13/site-packages/idna-3.10.dist-info/LICENSE.md): No description available.
 - [Develop](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/index.md): Explore and learn how to build in the Polkadot ecosystem, from a custom parachain to smart contracts, supported by robust integrations and developer tools.
 - [Interoperability](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/interoperability/index.md): Learn how Polkadot enables blockchain interoperability through Cross-Consensus Messaging (XCM), powering secure cross-chain communication.
 - [Introduction to XCM](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/interoperability/intro-to-xcm.md): Unlock blockchain interoperability with XCM — Polkadot's Cross-Consensus Messaging format for cross-chain interactions.
@@ -77,6 +78,7 @@
 - [Dedot](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/api-libraries/dedot.md): Dedot is a next-gen JavaScript client for Polkadot and Polkadot SDK-based blockchains, offering lightweight, tree-shakable APIs with strong TypeScript support.
 - [API Libraries](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/api-libraries/index.md): Dive into APIs for interacting with the Polkadot network, including Polkadot-API, Polkadot.js, Python Substrate Interface, and Sidecar REST services.
 - [Polkadot-API](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/api-libraries/papi.md): Polkadot-API (PAPI) is a modular, composable library set designed for efficient interaction with Polkadot chains, prioritizing a "light-client first" approach.
+- [Polkadart](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/api-libraries/polkadart.md): Polkadart is a type-safe, native Dart, SDK for Polkadot and any compatible Polkadot-SDK blockchain network.
 - [Polkadot.js API](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/api-libraries/polkadot-js-api.md): Interact with Polkadot SDK-based chains easily using the Polkadot.js API. Query chain data, submit transactions, and more via JavaScript or Typescript.
 - [Python Substrate Interface](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/api-libraries/py-substrate-interface.md): Learn how to connect to Polkadot SDK-based nodes, query data, submit transactions, and manage blockchain interactions using the Python Substrate Interface.
 - [Sidecar Rest API](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/api-libraries/sidecar.md): Learn about Substrate API Sidecar, a REST service that provides endpoints for interacting with Polkadot SDK-based chains and simplifies blockchain interactions.

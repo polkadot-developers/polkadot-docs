@@ -8,7 +8,7 @@ categories: Smart Contracts
 
 Test tokens allow you to experiment with smart contracts, test transactions, and validate your dApp functionality without using real cryptocurrency. Polkadot has a reliable faucet that distributes free TestNet tokens to developers for testing purposes.
 
-## What are Faucets?
+## Faucet Basics
 
 Faucets are services that distribute small amounts of cryptocurrency or tokens for free, typically on TestNet networks. They serve as the primary method for developers to obtain the necessary tokens to:
 

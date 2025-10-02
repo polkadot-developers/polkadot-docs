@@ -17367,17 +17367,17 @@ If you're coming from Ethereum, these guides will help you understand how famili
 
 - **[Accounts](/smart-contracts/for-eth-devs/accounts/)**: Understand the relationship between 20‑byte Ethereum addresses and 32‑byte Polkadot accounts. Learn about address mapping, reversibility, and when mapping is required.
 
-- **[Blocks, Transactions, and Fees](/develop/smart-contracts/for-eth-devs/blocks-transactions-fees/)**: Explore transaction types and the fee/gas model on Polkadot Hub. Understand Legacy, EIP‑1559, EIP‑2930, EIP‑4844 formats and multi‑dimensional metering.
+- **[Blocks, Transactions, and Fees](/smart-contracts/for-eth-devs/blocks-transactions-fees/)**: Explore transaction types and the fee/gas model on Polkadot Hub. Understand Legacy, EIP‑1559, EIP‑2930, EIP‑4844 formats and multi‑dimensional metering.
 
-- **[Gas Model](/develop/smart-contracts/for-eth-devs/gas-model/)**: Learn how gas relates to computation, proof size, and storage deposit. Understand resource dimensions and conversions to EVM units.
+- **[Gas Model](/smart-contracts/for-eth-devs/gas-model/)**: Learn how gas relates to computation, proof size, and storage deposit. Understand resource dimensions and conversions to EVM units.
 
-- **[Contract Deployment](/develop/smart-contracts/for-eth-devs/contract-deployment/)**: Master deployment patterns and tooling specific to the Polkadot Hub.
+- **[Contract Deployment](/smart-contracts/for-eth-devs/contract-deployment/)**: Master deployment patterns and tooling specific to the Polkadot Hub.
 
-- **[JSON‑RPC APIs](/develop/smart-contracts/for-eth-devs/json-rpc-apis/)**: Reference supported Ethereum JSON‑RPC methods with practical examples. Some of the methods available are `eth_call`, `eth_sendRawTransaction`, tracing endpoints, and more.
+- **[JSON‑RPC APIs](/smart-contracts/for-eth-devs/json-rpc-apis/)**: Reference supported Ethereum JSON‑RPC methods with practical examples. Some of the methods available are `eth_call`, `eth_sendRawTransaction`, tracing endpoints, and more.
 
-- **[Migration](/develop/smart-contracts/for-eth-devs/migration/)**: Get practical guidance for porting existing apps and tooling to Polkadot Hub. Find migration tips for contracts and integrations.
+- **[Migration](/smart-contracts/for-eth-devs/migration/)**: Get practical guidance for porting existing apps and tooling to Polkadot Hub. Find migration tips for contracts and integrations.
 
-## Learn the Platform
+## Learn About the Polkadot Hub
 
 Dive deeper into the architecture and capabilities that make Polkadot Hub unique for smart contract development.
 

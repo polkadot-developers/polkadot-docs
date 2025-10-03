@@ -1,9 +1,9 @@
 ---
-title: Send a Transaction While Paying the Fee With a Different Token
+title: Send a Transaction While Paying the Fee with a Different Token
 description: This tutorial demonstrates how to send a DOT transfer transaction while paying the fees using a different token on the Asset Hub.
 ---
 
-# Send a Transaction While Paying the Fee With a Different Token
+# Send a Transaction While Paying the Fee with a Different Token
 
 ## Introduction
 
@@ -100,7 +100,7 @@ Create a signer using Alice's development account:
 
 This function will return a signer that can be used to sign the transaction.
 
-### Setup Client and API
+### Setup the Client and API
 
 Create the client connection to the local Asset Hub:
 

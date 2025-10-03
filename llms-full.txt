@@ -6,7 +6,6 @@ Polkadot. Polkadot is an open-source, multichain network protocol that facilitat
 Documentation: https://docs.polkadot.com/
 
 ## List of doc pages:
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/.venv/lib/python3.13/site-packages/idna-3.10.dist-info/LICENSE.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/index.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/interoperability/index.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/interoperability/intro-to-xcm.md
@@ -220,41 +219,6 @@ Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/re
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/smart-contracts/launch-your-first-project/test-and-deploy-with-hardhat.md
 
 ## Full content for each doc page
-
-Doc-Content: https://docs.polkadot.com/.venv/lib/python3.13/site-packages/idna-3.10.dist-info/LICENSE/
---- BEGIN CONTENT ---
-BSD 3-Clause License
-
-Copyright (c) 2013-2024, Kim Davies and contributors.
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are
-met:
-
-1. Redistributions of source code must retain the above copyright
-   notice, this list of conditions and the following disclaimer.
-
-2. Redistributions in binary form must reproduce the above copyright
-   notice, this list of conditions and the following disclaimer in the
-   documentation and/or other materials provided with the distribution.
-
-3. Neither the name of the copyright holder nor the names of its
-   contributors may be used to endorse or promote products derived from
-   this software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
-TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
---- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/
 --- BEGIN CONTENT ---
@@ -15849,7 +15813,7 @@ categories: Tooling, Dapps
 
 Polkadart is the most comprehensive Dart/Flutter SDK for interacting with Polkadot, Substrate, and other compatible blockchain networks. Designed with a Dart-first approach and type-safe APIs, it provides everything developers need to build powerful decentralized applications.
 
-This page will outline some of the core components of Polkadart. Fore more details, refer to the [official documentation](https://polkadart.dev){target=\_blank}.
+This page will outline some of the core components of Polkadart. For more details, refer to the [official documentation](https://polkadart.dev){target=\_blank}.
 
 ## Installation
 
@@ -15869,7 +15833,7 @@ Add Polkadart to your `pubspec.yaml`:
 
 For type-safe API generation, add the following to your `pubspec.yaml`:
 
-```yaml
+```yaml title="pubspec.yaml"
 polkadart:
   output_dir: lib/generated
   chains:
@@ -15880,7 +15844,7 @@ polkadart:
 
 ## Get Started
 
-## Type Generation
+### Type Generation
 
 Polkadart provides a CLI tool to generate type definitions from any Polkadot-SDK compatible blockchain network. This allows you to build type-safe Dart applications without dealing with the low-level details of the blockchain.
 
@@ -15912,7 +15876,6 @@ print('Balance: ${accountInfo.data.free}')
 
 An API instance is required to interact with the blockchain. Polkadart provides a `Provider` class that allows you to connect to any network.
 
-#### Polkadot
 ```dart
 import 'package:demo/generated/polkadot/polkadot.dart';
 import 'package:polkadart/provider.dart';
@@ -15925,7 +15888,7 @@ Future<void> main(List<String> arguments) async {
 
 ### Reading Chain Data
 
-Besides querying the data using the `query` from the generated API, you can also use the State API for querying storage data, metadata, runtime information, and others.
+Besides querying the data using the `query` from the generated API, you can also use the State API for querying storage data, metadata, runtime information, and other chain information.
 
 ```dart
 final stateApi = StateApi(provider);
@@ -15953,7 +15916,7 @@ subscription.stream.forEach((response) {
 
 ### Send a Transaction
 
-Perhaps the most common operation done in any blockchain is transferring funds. Here you can see how that can be done using Polkadart.
+Perhaps the most common operation done in any blockchain is transferring funds. Here you can see how that can be done using Polkadart:
 
 ```dart
 final wallet = await KeyPair.sr25519.fromUri("//Alice");
@@ -16004,7 +15967,7 @@ await author.submitAndWatchExtrinsic(extrinsic, (data) {
 
 ## Where to Go Next
 
-To dive deeper into Polkadart refer to the [official Polkadart documentation](https://polkadart.dev){target=\_blank}. They provide comprehensive guides for common use-cases and advanced usage.
+To dive deeper into Polkadart, refer to the [official Polkadart documentation](https://polkadart.dev/){target=\_blank}, where you can find comprehensive guides for common use cases and advanced usage.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/toolkit/api-libraries/polkadot-js-api/
@@ -21981,35 +21944,36 @@ Once your validator node is fully synced and ready, the next step is to ensure i
 
 To confirm that your validator is live and synchronized with the Polkadot network, visit the [Telemetry](https://telemetry.polkadot.io/#list/Polkadot%20CC1){target=\_blank} page. Telemetry provides real-time information on node performance and can help you check if your validator is connected properly. Search for your node by name. You can search all nodes currently active on the network, which is why you should use a unique name for easy recognition. Now, confirm that your node is fully synced by comparing the block height of your node with the network's latest block. Nodes that are fully synced will appear white in the list, while nodes that are not yet fully synced will appear gray.
 
-In the following example, a node named `techedtest` is successfully located and synchronized, ensuring it's prepared to participate in the network:
-
-![Polkadot telemetry dashboard](/images/infrastructure/running-a-validator/onboarding-and-offboarding/start-validating/start-validating-01.webp)
 
 ### Activate using Polkadot.js Apps
 
 Follow these steps to use Polkadot.js Apps to activate your validator:
 
-1. Go to the **Validator** tab in the Polkadot.js Apps UI and locate the section where you input the keys generated from `rotateKeys`. Paste the output from `author_rotateKeys`, which is a hex-encoded key that links your validator with its session keys:
+1. In Polkadot.js Apps, navigate to **Network** and select **Staking**:
+
+    ![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/start-validating/start-validating-01.webp)
+
+2. Open the **Accounts** tab and click on **+ Validator**:
 
     ![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/start-validating/start-validating-02.webp)
 
-2. Set a reward commission percentage if desired. You can set a percentage of the rewards to pay to your validator and the remainder pays to your nominators. A 100% commission rate indicates the validator intends to keep all rewards and is seen as a signal the validator is not seeking nominators.
-
-3. Toggle the **allows new nominations** option if your validator is open to more nominations from DOT holders.
-
-4. Once everything is configured, select **Bond & Validate** to activate your validator status.
+3. Set a bond amount in the **value bonded** field and then click **next**:
 
     ![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/start-validating/start-validating-03.webp)
 
-5. Edit the **commission** and the **blocked** option via `staking.validate` extrinsic. By default, the blocked option is set to FALSE (i.e., the validator accepts nominations).
+4.  **Set session keys**. Paste the output from `author_rotateKeys` (hex-encoded) to link your validator with its session keys. Then click **Bond & Validate** to continue:
 
     ![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/start-validating/start-validating-04.webp)
+
+You can set the **commission** and the **blocked** option via `staking.validate` extrinsic. By default, the blocked option is set to FALSE (i.e., the validator accepts nominations):
+
+![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/start-validating/start-validating-05.webp)
 
 ### Monitor Validation Status and Slots
 
 On the [**Staking**](https://polkadot.js.org/apps/#/staking){target=\_blank} tab in Polkadot.js Apps, you can see your validator's status, the number of available validator slots, and the nodes that have signaled their intent to validate. Your node may initially appear in the waiting queue, especially if the validator slots are full. The following is an example view of the **Staking** tab:
 
-![staking queue](/images/infrastructure/running-a-validator/onboarding-and-offboarding/start-validating/start-validating-05.webp)
+![staking queue](/images/infrastructure/running-a-validator/onboarding-and-offboarding/start-validating/start-validating-06.webp)
 
 The validator set refreshes each era. If there's an available slot in the next era, your node may be selected to move from the waiting queue to the active validator set, allowing it to start validating blocks. If your validator is not selected, it remains in the waiting queue. Increasing your stake or gaining more nominators may improve your chance of being selected in future eras.
 

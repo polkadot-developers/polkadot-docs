@@ -40,10 +40,6 @@ Here is a graphical representation:
 
 The VRF produces two outputs: a result (the random number) and a proof (verifying that the number was generated correctly).
 
-The result is checked by the validator against a protocol threshold. If it's below the threshold, the validator becomes a candidate for block production in that slot. 
-
-The validator then attempts to create a block, submitting it along with the `PROOF` and `RESULT`.
-
 So, VRF can be expressed like:
 
 `(RESULT, PROOF) = VRF(SECRET, EPOCH_RANDOMNESS_VALUE, CURRENT_SLOT_NUMBER)`
@@ -51,6 +47,8 @@ So, VRF can be expressed like:
 Put simply, performing a "VRF roll" generates a random number along with proof that the number was genuinely produced and not arbitrarily chosen.
 
 After executing the VRF, the `RESULT` is compared to a protocol-defined `THRESHOLD`. If the `RESULT` is below the `THRESHOLD`, the validator becomes a valid candidate to propose a block for that slot. Otherwise, the validator skips the slot.
+
+The validator then attempts to create a block, submitting it along with the `PROOF` and `RESULT`.
 
 As a result, there may be multiple validators eligible to propose a block for a slot. In this case, the block accepted by other nodes will prevail, provided it is on the chain with the latest finalized block as determined by the GRANDPA finality gadget. It's also possible for no block producers to be available for a slot, in which case the AURA consensus takes over. AURA is a fallback mechanism that randomly selects a validator to produce a block, running in parallel with BABE and only stepping in when no block producers exist for a slot. Otherwise, it remains inactive.
 

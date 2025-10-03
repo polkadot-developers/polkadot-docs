@@ -37,7 +37,7 @@ graph TD
 All three pathways can leverage Cross-Consensus Messaging (XCM) to create innovative cross-chain workflows and applications. To get started with XCM, see these resources:
 
 - **[Introduction to XCM](/parachains/interoperability/get-started/){target=\_blank}**: Introduces key concepts, core function definitions, and code examples.
-- **[XCM Tools](/develop/toolkit/interoperability/xcm-tools/){target=\_blank}**: Provides an overview of popular XCM tools.
+- **[XCM Tools](/reference/tools/xcm-tools/){target=\_blank}**: Provides an overview of popular XCM tools.
 - **[Tutorials for Managing XCM Channels](/tutorials/interoperability/xcm-channels/){target=\_blank}**: Guides for using [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} UI to establish cross-chain messaging channels.
 
 ### Parachain Developers
@@ -114,10 +114,10 @@ Integrate with the Polkadot blockchain's underlying protocol features to create 
 
 - <h3>:octicons-rocket-16:{.lg .middle} Build</h3>
     <hr>
-    - [Install and Get Started with Polkadot.js API](/develop/toolkit/api-libraries/polkadot-js-api/){target=\_blank}
-    - [Install and Get Started with Polkadot-API (PAPI)](/develop/toolkit/api-libraries/papi/){target=\_blank}
-    - [Install and Get Started with Dedot](/develop/toolkit/api-libraries/dedot/){target=\_blank}
-    - [Install and Get Started with Python Substrate Interface](/develop/toolkit/api-libraries/py-substrate-interface/){target=\_blank}
+    - [Install and Get Started with Polkadot.js API](/reference/tools/polkadot-js-api/){target=\_blank}
+    - [Install and Get Started with Polkadot-API (PAPI)](/reference/tools/papi/){target=\_blank}
+    - [Install and Get Started with Dedot](/reference/tools/dedot/){target=\_blank}
+    - [Install and Get Started with Python Substrate Interface](/reference/tools/py-substrate-interface/){target=\_blank}
 
 - <h3>:octicons-tools-16:{.lg .middle} Tools</h3>
     <hr>

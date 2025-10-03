@@ -55,7 +55,7 @@ The coretime auto-renewal feature simplifies maintaining continuous coretime all
 When auto-renewal is enabled, the system follows this process at the start of each sale:
 
 1. The system scans all registered auto-renewal records.
-2. For each record, it attempts to process renewal payments from the task's [sovereign account](/polkadot-protocol/glossary/#sovereign-account){target=\_blank} (which is the sibling account on the Coretime chain derived from the parachain ID).
+2. For each record, it attempts to process renewal payments from the task's [sovereign account](/reference/glossary/#sovereign-account){target=\_blank} (which is the sibling account on the Coretime chain derived from the parachain ID).
 3. Upon successful payment, the system emits a `Renewed` event and secures the core for the next period.
 4. If payment fails due to insufficient funds or other issues, the system emits an `AutoRenewalFailed` event.
 

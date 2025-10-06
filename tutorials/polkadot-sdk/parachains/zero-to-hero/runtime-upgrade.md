@@ -145,7 +145,7 @@ version = "0.2.0" # <-- increment this version
 # ... rest of your Cargo.toml
 ```
 
-For more information about runtime versioning, check the [Runtime Upgrades](/develop/parachains/maintenance/runtime-upgrades#runtime-versioning){target=\_blank} guide.
+For more information about runtime versioning, check the [Runtime Upgrades](/parachains/runtime-maintenance/runtime-upgrades#runtime-versioning){target=\_blank} guide.
 
 ### Build the New Runtime
 
@@ -169,7 +169,7 @@ For more information about runtime versioning, check the [Runtime Upgrades](/dev
 
 If you can see the following elements, it means that you are ready to submit the runtime upgrade to your running chain:
 
---8<-- 'code/tutorials/polkadot-sdk/parachains/zero-to-hero/runtime-upgrade/runtime-compilation.html'
+--8<-- 'code/parachains/customize-runtime/pallet-development/add-pallet-to-runtime-upgrade/runtime-compilation.html'
 
 ## Submit the Runtime Upgrade
 

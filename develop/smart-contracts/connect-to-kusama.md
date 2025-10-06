@@ -11,7 +11,7 @@ description: Explore how to connect to Kusama Hub for developing and testing sma
     <a href="#" class="md-button connectMetaMask" value="kusamaHub">Connect to Kusama Hub</a>
 </div>
 
-For more information about how to connect to a Polkadot network, please check the [Wallets](/smart-contracts/integrations/){target=\_blank} guide.
+For more information about how to connect to a Polkadot network, please check the [Wallets](/smart-contracts/integrations/wallets/){target=\_blank} guide.
 
 !!! info "Production Environment"
     Kusama Hub offers a live environment for deploying smart contracts. Please note that the most recent version of Polkadot's Ethereum-compatible stack is available on the TestNet; however, you can also deploy it to the Kusama Hub for production use.

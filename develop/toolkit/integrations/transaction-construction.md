@@ -11,23 +11,23 @@ This page will discuss the transaction format in Polkadot and how to create, sig
 
 Always refer to each tool's documentation when integrating.
 
-For further reading, refer to [blocks, transactions, and fees](/polkadot-protocol/parachain-basics/blocks-transactions-fees/){target=\_blank} to learn more about the basics.
+For further reading, refer to [blocks, transactions, and fees](/reference/parachains/blocks-transactions-fees/blocks/){target=\_blank} to learn more about the basics.
 
 ## Transaction Format
 
 Polkadot has some basic transaction information that is common to all transactions.
 
-- **Address**: The [SS58-encoded address](/polkadot-protocol/glossary/#ss58-address-format){target=\_blank} of the sending account.
-- **Block hash**: The hash of the [checkpoint](/polkadot-protocol/parachain-basics/blocks-transactions-fees/transactions/#transaction-mortality){target=\_blank} block.
+- **Address**: The [SS58-encoded address](/reference/glossary/#ss58-address-format){target=\_blank} of the sending account.
+- **Block hash**: The hash of the [checkpoint](/reference/parachains/blocks-transactions-fees/transactions/#transaction-mortality){target=\_blank} block.
 - **Block number**: The number of the checkpoint block.
 - **Genesis hash**: The genesis hash of the chain.
-- **Metadata**: The [SCALE-encoded](/polkadot-protocol/parachain-basics/data-encoding/){target=\_blank} metadata for the runtime when submitted.
+- **Metadata**: The [SCALE-encoded](/reference/parachains/data-encoding/){target=\_blank} metadata for the runtime when submitted.
 - **Nonce**: The nonce for this transaction.
 - **Spec version**: The current spec version for the runtime.
 - **Transaction version**: The current version of the transaction format.
-- **Tip**: The [tip](/polkadot-protocol/parachain-basics/blocks-transactions-fees/fees/#how-fees-are-calculated){target=\_blank} to increase transaction priority. This is optional when constructing the transaction.
+- **Tip**: The [tip](/reference/parachains/blocks-transactions-fees/fees/#how-fees-are-calculated){target=\_blank} to increase transaction priority. This is optional when constructing the transaction.
 - **Mode**: The flag indicating whether to verify the metadata hash or not.
-- **Era period**: The number of blocks after the checkpoint for which a transaction is valid. If zero, the transaction is [immortal](/polkadot-protocol/parachain-basics/blocks-transactions-fees/transactions/#transaction-mortality){target=\_blank}. This is optional when constructing the transaction.
+- **Era period**: The number of blocks after the checkpoint for which a transaction is valid. If zero, the transaction is [immortal](/reference/parachains/blocks-transactions-fees/transactions/#transaction-mortality){target=\_blank}. This is optional when constructing the transaction.
 - **Metadata hash**: The metadata hash which should match the [`RUNTIME_METADATA_HASH`](https://paritytech.github.io/polkadot-sdk/master/frame_metadata_hash_extension/struct.CheckMetadataHash.html){target=\_blank} environment variable. This is optional when constructing the transaction.
 
 !!!warning
@@ -48,7 +48,7 @@ The [`mode`](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/
 
 ### Serialized Transactions and Metadata
 
-Before being submitted, transactions are serialized. Serialized transactions are hex encoded SCALE-encoded bytes. The relay chain runtimes are upgradable, and therefore, any interfaces are subject to change. The metadata allows developers to structure any extrinsics or storage entries accordingly and provides you with all of the information required to construct the serialized call data specific to your transaction. You can read more about the metadata, its format and how to get it in the [Subxt documentation](/polkadot-protocol/parachain-basics/chain-data/#use-subxt){target=\_blank}.
+Before being submitted, transactions are serialized. Serialized transactions are hex encoded SCALE-encoded bytes. The relay chain runtimes are upgradable, and therefore, any interfaces are subject to change. The metadata allows developers to structure any extrinsics or storage entries accordingly and provides you with all of the information required to construct the serialized call data specific to your transaction. You can read more about the metadata, its format and how to get it in the [Subxt documentation](/reference/parachains/chain-data/#use-subxt){target=\_blank}.
 
 ### Transaction Flow
 
@@ -90,7 +90,7 @@ polkadot-js-signer sign --account <from-account-ss58> --seed <seed> --type <sr25
 
 ### Creating a Transaction, Signing, and Submitting
 
-For the sake of this example, create two accounts using the [Subkey](/polkadot-protocol/parachain-basics/accounts/#using-subkey){target=\_blank} CLI tool.
+For the sake of this example, create two accounts using the [Subkey](/reference/parachains/accounts/#using-subkey){target=\_blank} CLI tool.
 
 --8<-- 'code/develop/toolkit/integrations/subkey-generate-output.html'
 
@@ -175,4 +175,4 @@ The [`txwrapper` example script](https://github.com/paritytech/txwrapper-core/bl
 
 ## Additional Libraries for Submitting a Transaction
 
-Other than Polkadot JS Tools and txwrapper, there are several other libraries that can also be used to submit a signed payload, such as the [Sidecar API](/develop/toolkit/api-libraries/sidecar/#sidecar-api){target=\_blank} or using RPC calls with [`author_submitExtrinsic`](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/author/trait.AuthorApiServer.html#tymethod.submit_extrinsic){target=\_blank} or [`author_submitAndWatchExtrinsic`](https://github.com/paritytech/polkadot-sdk/blob/0ae5c5bbd96a600aed81358339be2f16bade4a81/substrate/client/rpc-api/src/author/mod.rs#L69-L78){target=\_blank}, the latter of which will subscribe you to events to be notified as a transaction gets validated and included in the chain. You can see all the available libraries in the [API Libraries](/develop/toolkit/api-libraries/){target=\_blank} section of the Polkadot Docs.
+Other than Polkadot JS Tools and txwrapper, there are several other libraries that can also be used to submit a signed payload, such as the [Sidecar API](/reference/tools/sidecar/#sidecar-api){target=\_blank} or using RPC calls with [`author_submitExtrinsic`](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/author/trait.AuthorApiServer.html#tymethod.submit_extrinsic){target=\_blank} or [`author_submitAndWatchExtrinsic`](https://github.com/paritytech/polkadot-sdk/blob/0ae5c5bbd96a600aed81358339be2f16bade4a81/substrate/client/rpc-api/src/author/mod.rs#L69-L78){target=\_blank}, the latter of which will subscribe you to events to be notified as a transaction gets validated and included in the chain. You can see all the available libraries in the [API Libraries](/develop/toolkit/api-libraries/){target=\_blank} section of the Polkadot Docs.

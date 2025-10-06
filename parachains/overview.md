@@ -14,7 +14,7 @@ Unlike standalone blockchains that must bootstrap their own validator sets and s
 
 Key capabilities that parachains provide include:
 
-- **Shared Security**: Inherit security from Polkadot's validator set without maintaining your own
+- **Shared Security**: Inherit security from Polkadot's validator set without maintaining your own.
 - **Interoperability**: Communicate trustlessly with other parachains via XCM
 - **Scalability**: Process transactions in parallel with other parachains
 - **Customization**: Build application-specific logic tailored to your use case

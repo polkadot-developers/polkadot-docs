@@ -159,7 +159,7 @@ Building a parachain offers several compelling advantages over building a standa
 
 ## Getting Started with Parachain Development
 
-Building a parachain requires understanding the relationship between your chain and the Polkadot relay chain. Key considerations include:
+Building a parachain requires understanding the relationship between your chain and the Polkadot-SDK-based relay chain. Key considerations include:
 
 - Designing your runtime logic and choosing appropriate pallets
 - Implementing XCM for cross-chain communication

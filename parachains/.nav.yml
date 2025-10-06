@@ -3,7 +3,6 @@ nav:
  - 'Overview': overview.md
  - 'Launch a Simple Parachain': launch-a-parachain
  - 'Customize Your Runtime': customize-runtime
- - 'Pallet Development': pallet-development
  - 'Testing': testing
  - 'Runtime Upgrades and Maintenance': runtime-maintenance
  - 'Interoperability': interoperability

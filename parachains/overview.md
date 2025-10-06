@@ -137,7 +137,7 @@ graph LR
 
 ### Cumulus: Parachain-Specific Functionality
 
-Cumulus is what transforms a Substrate-based runtime into a parachain-capable runtime. It provides the essential components for communicating with the relay chain, participating in Polkadot's consensus, and handling parachain-specific operations like block validation and collation.
+Cumulus is what transforms a Polkadot SDK-based runtime into a parachain-capable runtime. It provides the essential components for communicating with the relay chain, participating in Polkadot's consensus, and handling parachain-specific operations like block validation and collation.
 
 Key Cumulus components include:
 

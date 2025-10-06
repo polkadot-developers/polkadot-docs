@@ -15,31 +15,28 @@ Unlike standalone blockchains that must bootstrap their own validator sets and s
 Key capabilities that parachains provide include:
 
 - **Shared Security**: Inherit security from Polkadot's validator set without maintaining your own.
-- **Interoperability**: Communicate trustlessly with other parachains via XCM
-- **Scalability**: Process transactions in parallel with other parachains
-- **Customization**: Build application-specific logic tailored to your use case
-- **Upgradeability**: Upgrade runtime logic without hard forks
-- **Flexibility**: Choose your own governance, token economics, and features
+- **Interoperability**: Communicate trustlessly with other parachains via XCM.
+- **Scalability**: Process transactions in parallel with other parachains.
+- **Customization**: Build application-specific logic tailored to your use case.
+- **Upgradeability**: Upgrade runtime logic without hard forks.
 
-For a comprehensive understanding of how parachains fit into the broader ecosystem, see the [Polkadot SDK Rust documentation](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/index.html){target=\_blank}.
-
-## Parachain Architecture
+## Polkadot SDK: Parachain Architecture
 
 Building a parachain involves understanding and utilizing several key components of the Polkadot SDK:
 
 ![](/images/develop/parachains/intro-polkadot-sdk/intro-polkadot-sdk-1.webp)
 
-- **[Substrate](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/substrate/index.html){target=\_blank}**: The foundation providing core blockchain primitives and libraries
-- **[FRAME](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/frame_runtime/index.html){target=\_blank}**: A modular framework for building your parachain's runtime logic
-- **[Cumulus](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/cumulus/index.html){target=\_blank}**: Essential libraries and pallets that enable parachain functionality
-- **[XCM (Cross Consensus Messaging)](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/xcm/index.html){target=\_blank}**: The messaging format for communicating with other parachains and the relay chain
-- **[Polkadot](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/polkadot/index.html){target=\_blank}**: The relay chain that provides security and coordination
+- **[Substrate](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/substrate/index.html){target=\_blank}**: The foundation providing core blockchain primitives and libraries.
+- **[FRAME](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/frame_runtime/index.html){target=\_blank}**: A modular framework for building your parachain's runtime logic.
+- **[Cumulus](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/cumulus/index.html){target=\_blank}**: Essential libraries and pallets that enable parachain functionality.
+- **[XCM (Cross Consensus Messaging)](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/xcm/index.html){target=\_blank}**: The messaging format for communicating with other parachains and the relay chain.
+- **[Polkadot](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/polkadot/index.html){target=\_blank}**: The relay chain that provides security and coordination.
 
 ### Substrate: The Foundation
 
 Substrate provides the core infrastructure that every parachain is built upon. It handles the low-level blockchain functionality, allowing you to focus on your application's unique features. Substrate includes implementations for networking, database management, consensus participation, and the execution environment for your runtime.
 
-Every parachain node consists of two main components:
+Every Polkadot SDK node consists of two main components:
 
 - **Client (Host)**: Handles infrastructure services
 
@@ -50,10 +47,9 @@ Every parachain node consists of two main components:
 
 - **Runtime (State Transition Function)**: Contains your business logic
 
-    - Defines how your parachain processes transactions
+    - Defines how your Polkadot SDK node processes transactions
     - Compiled to [Wasm](https://webassembly.org/){target=\_blank} for deterministic execution
     - Stored on-chain and upgradeable via governance
-    - Validated by Polkadot's relay chain validators
 
 ```mermaid
 %%{init: {'flowchart': {'padding': 5, 'nodeSpacing': 50, 'rankSpacing': 10}}}%%
@@ -86,14 +82,14 @@ graph TB
 
 ### FRAME: Building Blocks for Your Runtime
 
-FRAME provides modular components called [pallets](/polkadot-protocol/glossary#pallet){target=\_blank} that you can compose to build your parachain's runtime. Each pallet provides specific functionality that you can customize and configure for your needs. This modular approach allows you to quickly assemble complex functionality without writing everything from scratch.
+FRAME provides modular components called [pallets](/reference/glossary#pallet){target=\_blank} that you can compose to build your parachain's runtime. Each pallet provides specific functionality that you can customize and configure for your needs. This modular approach allows you to quickly assemble complex functionality without writing everything from scratch.
 
 ```mermaid
 graph LR
     subgraph SP["<b style='font-size:18px;'>Parachain Runtime</b>"]
         direction LR
         Timestamp ~~~ Aura ~~~ ParachainSystem
-        Balances ~~~ TransactionPayment ~~~ XcmHandler
+        Balances ~~~ TransactionPayment ~~~ Sudo
         subgraph Timestamp["Timestamp"]
             SS1[Custom Config]
         end
@@ -109,7 +105,7 @@ graph LR
         subgraph TransactionPayment["Transaction Payment"]
             SS5[Custom Config]
         end
-        subgraph XcmHandler["XCM Handler"]
+        subgraph Sudo["Sudo"]
             SS6[Custom Config]
         end
         style Timestamp stroke:#FF69B4
@@ -117,7 +113,7 @@ graph LR
         style ParachainSystem stroke:#FF69B4
         style Balances stroke:#FF69B4
         style TransactionPayment stroke:#FF69B4
-        style XcmHandler stroke:#FF69B4
+        style Sudo stroke:#FF69B4
         style SS1 stroke-dasharray: 5
         style SS2 stroke-dasharray: 5
         style SS3 stroke-dasharray: 5
@@ -128,7 +124,7 @@ graph LR
     end
     subgraph AP["<b style='font-size:18px;'>Available FRAME Pallets</b>"]
         direction LR
-        A1[Aura]~~~A2[Parachain<br>System]~~~A3[XCM<br>Handler]~~~A4[Transaction<br>Payment]
+        A1[Aura]~~~A2[Parachain<br>System]~~~A3[Transaction<br>Payment]~~~A4[Sudo]
         B1[Identity]~~~B2[Balances]~~~B3[Assets]~~~B4[EVM]
         C1[Timestamp]~~~C2[Staking]~~~C3[Contracts]~~~C4[and more...]
     end
@@ -141,31 +137,20 @@ Cumulus is what transforms a Polkadot SDK-based runtime into a parachain-capable
 
 Key Cumulus components include:
 
-- **Parachain System Pallet**: Core parachain functionality and relay chain communication
-- **Collator Consensus**: Block production logic for parachain collators
-- **Relay Chain Interface**: APIs for interacting with the Polkadot relay chain
-- **Validation Data**: Handling proof-of-validity data required by relay chain validators
-
-## Why Build a Parachain?
-
-Building a parachain offers several compelling advantages over building a standalone blockchain or deploying on a general-purpose smart contract platform:
-
-- **Shared Security**: Leverage Polkadot's robust validator set from day one without bootstrapping your own security
-- **Native Interoperability**: Communicate trustlessly with other parachains through XCM without bridges
-- **Flexibility**: Full control over your blockchain's logic, governance, and economics
-- **Forkless Upgrades**: Update your runtime logic through governance without requiring validators to upgrade their nodes
-- **Scalability**: Process transactions in parallel with other parachains while maintaining composability
-- **Open Source**: Built on open-source technology with a vibrant developer community
+- **Parachain System Pallet**: Core parachain functionality and relay chain communication.
+- **Collator Consensus**: Block production logic for parachain collators.
+- **Relay Chain Interface**: APIs for interacting with the Polkadot relay chain.
+- **Validation Data**: Handling proof-of-validity data required by relay chain validators.
 
 ## Getting Started with Parachain Development
 
 Building a parachain requires understanding the relationship between your chain and the Polkadot-SDK-based relay chain. Key considerations include:
 
-- Designing your runtime logic and choosing appropriate pallets
-- Implementing XCM for cross-chain communication
-- Setting up collator infrastructure for block production
-- Deploying your parachain by obtaining coretime
-- Configuring governance and upgrade mechanisms
+- [Designing your runtime logic and choosing appropriate pallets](/parachains/customize-your-runtime){target=\_blank}
+- [Implementing XCM for cross-chain communication](/parachains/interoperability){target=\_blank}
+- [Setting up collator infrastructure for block production](/nodes-and-validators){target=\_blank}
+- [Deploying your parachain by obtaining coretime](/parachains/launch-a-parachain){target=\_blank}
+- [Upgrading your parachain's runtime](/parachains/runtime-maintenance/runtime-upgrades){target=\_blank}
 
 ## In This Section
 

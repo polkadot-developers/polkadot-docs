@@ -1,4 +1,4 @@
-name: Documentation & Navigation Change Checker
+name: Nav Validator
 on:
   pull_request:
     branches:
@@ -31,7 +31,7 @@ jobs:
           
           NAV_CHANGES=""
           for f in $DELETED_NAV; do NAV_CHANGES+="$f: [DELETED]\n\n"; done
-          for f in $MODIFIED_NAV; do DIFF=$(git diff $BASE $HEAD -- "$f" | grep -vE '^\+\+\+|^---'); NAV_CHANGES+="$f:\n$DIFF\n\n"; done
+          for f in $MODIFIED_NAV; do DIFF=$(git diff $BASE $HEAD -- "$f" | grep -E '^[+-]' | grep -vE '^\+\+\+|^---'); NAV_CHANGES+="$f:\n$DIFF\n\n"; done
           for f in $RENAMED_NAV; do NAV_CHANGES+="$f [RENAMED]\n\n"; done
           echo "DELETED_MD<<EOF" >> $GITHUB_ENV
           echo "$DELETED_MD" >> $GITHUB_ENV
@@ -62,7 +62,7 @@ jobs:
             if (renamedMd) message += `**Renamed Markdown files:**\n\`\`\`\n${renamedMd}\n\`\`\`\n\n`;
             if (navChanges) message += `**Navigation file changes:**\n\`\`\`\n${navChanges}\n\`\`\`\n\n`;
 
-            message += "🚨 Please verify:\n- Links are correct\n- TOC matches expected structure\n- Deleted/renamed entries are handled. \n\n 🚨 If not handled properly, broken links (404 errors) could appear. To maintain a smooth user experience, consider:\n- Adding redirects in the \`mkdocs.yml\` file from the old URLs to the new ones\n- Updating internal references to these files";
+            message += "🚨 Please verify:\n- Links are correct\n- Deleted/renamed entries are handled. \n\n 🚨 If not handled properly, broken links (404 errors) could appear. Consider:\n- Adding redirects in the \`mkdocs.yml\` file from the old URLs to the new ones\n- Updating internal references to these files";
            
             github.rest.issues.createComment({
               owner: context.repo.owner,

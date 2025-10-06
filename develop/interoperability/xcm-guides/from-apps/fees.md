@@ -41,11 +41,11 @@ XcmV5Instruction.PayFees({
 
 This mechanism is simple and flexible. The user requires no knowledge of the different types of fees. New fees might arise in the future and they'll be taken using this same mechanism, without the need for any modification.
 
-Which assets can be used for fee payment depends on the destination chain's configuration. For example, on [Asset Hub](/polkadot-protocol/architecture/system-chains/asset-hub/){target=\_blank}, fees can be paid with any asset that has a liquidity pool with DOT, allowing the chain to automatically convert the fee asset to DOT for actual fee payment. Other chains may have different fee payment policies, so it's important to understand the specific requirements of the destination chain before selecting fee assets.
+Which assets can be used for fee payment depends on the destination chain's configuration. For example, on [Asset Hub](/reference/polkadot-hub/assets-and-smart-contracts/){target=\_blank}, fees can be paid with any asset that has a liquidity pool with DOT, allowing the chain to automatically convert the fee asset to DOT for actual fee payment. Other chains may have different fee payment policies, so it's important to understand the specific requirements of the destination chain before selecting fee assets.
 
 !!! note "Sufficient assets vs fee payment assets"
 
-    It's important to distinguish between "sufficient" assets and assets eligible for fee payment. Sufficient assets can be used to satisfy the [Existential Deposit](/polkadot-protocol/glossary/#existential-deposit){target=\_blank} requirement for account creation and maintenance, but this doesn't automatically make them eligible for fee payment. While sufficient assets are generally also usable for fee payment, this isn't guaranteed and depends on the chain's specific configuration. The terms are related but serve different purposes in system.
+    It's important to distinguish between "sufficient" assets and assets eligible for fee payment. Sufficient assets can be used to satisfy the [Existential Deposit](/reference/glossary/#existential-deposit){target=\_blank} requirement for account creation and maintenance, but this doesn't automatically make them eligible for fee payment. While sufficient assets are generally also usable for fee payment, this isn't guaranteed and depends on the chain's specific configuration. The terms are related but serve different purposes in system.
 
 ## Estimations
 

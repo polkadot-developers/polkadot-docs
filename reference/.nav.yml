@@ -1,0 +1,7 @@
+nav:
+ - 'Overview': index.md
+ - 'Polkadot Hub': polkadot-hub
+ - 'Parachains': parachains
+ - 'On-Chain Governance': governance
+ - 'Glossary': glossary.md
+ - 'Tools': tools

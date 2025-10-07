@@ -93,8 +93,8 @@ Integrate your parachain with essential ecosystem tools and services.
 
 ## Additional Resources
 
-- [Polkadot SDK Documentation](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/index.html)
-- [Polkadot Wiki - Parachains](https://wiki.polkadot.network/docs/learn-parachains)
+- [Polkadot SDK Documentation](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/index.html){target=\_blank}
+- [Polkadot Wiki - Parachains](https://wiki.polkadot.network/docs/learn-parachains){target=\_blank}
 
 ## Community Support
 

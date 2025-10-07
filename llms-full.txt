@@ -79,6 +79,7 @@ Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/re
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/api-libraries/dedot.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/api-libraries/index.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/api-libraries/papi.md
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/api-libraries/polkadart.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/api-libraries/polkadot-js-api.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/api-libraries/py-substrate-interface.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/api-libraries/sidecar.md
@@ -92,6 +93,7 @@ Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/re
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/integrations/wallets.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/interoperability/index.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/interoperability/paraspell-xcm-sdk/index.md
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/interoperability/paraspell-xcm-sdk/transfer-tokens-between-parachains.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/interoperability/xcm-tools.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/parachains/e2e-testing/index.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/toolkit/parachains/e2e-testing/moonwall.md
@@ -202,6 +204,7 @@ Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/re
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/polkadot-sdk/system-chains/asset-hub/index.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/polkadot-sdk/system-chains/asset-hub/register-foreign-asset.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-asset.md
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/polkadot-sdk/system-chains/asset-hub/send-a-tx-paying-fee-different-token.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/polkadot-sdk/system-chains/index.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/polkadot-sdk/testing/fork-live-chains.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/polkadot-sdk/testing/index.md
@@ -630,10 +633,8 @@ The [`XcmRouter`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pa
 For instance, the Kusama network employs the [`ChildParachainRouter`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_common/xcm_sender/struct.ChildParachainRouter.html){target=\_blank}, which restricts routing to [Downward Message Passing (DMP)](https://wiki.polkadot.com/learn/learn-xcm-transport/#dmp-downward-message-passing){target=\_blank} from the relay chain to parachains, ensuring secure and controlled communication.
 
 ```rust
-pub type XcmRouter = WithUniqueTopic<(
-	// Only one router so far - use DMP to communicate with child parachains.
-	ChildParachainRouter<Runtime, XcmPallet, PriceForChildParachainDelivery>,
-)>;
+pub type PriceForChildParachainDelivery =
+	ExponentialPrice<FeeAssetId, BaseDeliveryFee, TransactionByteFee, Dmp>;
 ```
 
 For more details about XCM transport protocols, see the [XCM Channels](/develop/interoperability/xcm-channels/){target=\_blank} page.
@@ -10064,6 +10065,7 @@ Hardhat is a robust development environment for Ethereum-compatible chains that 
 Before getting started, ensure you have:
 
 - [Node.js](https://nodejs.org/){target=\_blank} (v16.0.0 or later) and npm installed.
+    - Note: Use Node.js 22.5+ and npm version 10.9.0+ to avoid issues with the Polkadot plugin.
 - Basic understanding of Solidity programming.
 - Some PAS test tokens to cover transaction fees (easily obtainable from the [Polkadot faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}). To learn how to get test tokens, check out the [Test Tokens](/develop/smart-contracts/connect-to-polkadot#test-tokens){target=\_blank} section.
 
@@ -15801,6 +15803,175 @@ For more information about sending transactions, refer to the [Transactions](htt
 For an in-depth guide on how to use PAPI, refer to the official [PAPI](https://papi.how/){target=\_blank} documentation.
 --- END CONTENT ---
 
+Doc-Content: https://docs.polkadot.com/develop/toolkit/api-libraries/polkadart/
+--- BEGIN CONTENT ---
+---
+title: Polkadart
+description: Polkadart is a type-safe, native Dart, SDK for Polkadot and any compatible Polkadot-SDK blockchain network.
+categories: Tooling, Dapps
+---
+
+# Polkadart
+
+Polkadart is the most comprehensive Dart/Flutter SDK for interacting with Polkadot, Substrate, and other compatible blockchain networks. Designed with a Dart-first approach and type-safe APIs, it provides everything developers need to build powerful decentralized applications.
+
+This page will outline some of the core components of Polkadart. For more details, refer to the [official documentation](https://polkadart.dev){target=\_blank}.
+
+## Installation
+
+Add Polkadart to your `pubspec.yaml`:
+
+=== "All packages"
+
+    ```bash
+    dart pub add polkadart polkadart_cli polkadart_keyring polkadart_scale_codec secp256k1_ecdsa sr25519 ss58 substrate_bip39 substrate_metadata
+    ```
+
+=== "Core only"
+
+    ```bash
+    dart pub add polkadart polkadart_cli polkadart_keyring
+    ```
+
+For type-safe API generation, add the following to your `pubspec.yaml`:
+
+```yaml title="pubspec.yaml"
+polkadart:
+  output_dir: lib/generated
+  chains:
+    polkadot: wss://rpc.polkadot.io
+    kusama: wss://kusama-rpc.polkadot.io
+    custom: wss://your-node.example.com
+```
+
+## Get Started
+
+### Type Generation
+
+Polkadart provides a CLI tool to generate type definitions from any Polkadot-SDK compatible blockchain network. This allows you to build type-safe Dart applications without dealing with the low-level details of the blockchain.
+
+### Run Generator
+
+```bash
+dart run polkadart_cli:generate -v
+```
+
+### Use Generated Types
+
+```dart
+import 'package:your_app/generated/polkadot/polkadot.dart';
+import 'package:polkadart/polkadart.dart';
+import 'package:ss58/ss58.dart';
+
+final provider = Provider.fromUri(Uri.parse('wss://rpc.polkadot.io'));
+final polkadot = Polkadot(provider);
+  
+// Account from SS58 address
+final account = Address.decode('19t9Q2ay58hMDaeg6eeBhqmHsRnc2jDMV3cYYw9zbc59HLj');
+
+// Retrieve Account Balance
+final accountInfo = await polkadot.query.system.account(account.pubkey);
+print('Balance: ${accountInfo.data.free}')
+```
+
+### Creating an API Instance
+
+An API instance is required to interact with the blockchain. Polkadart provides a `Provider` class that allows you to connect to any network.
+
+```dart
+import 'package:demo/generated/polkadot/polkadot.dart';
+import 'package:polkadart/provider.dart';
+
+Future<void> main(List<String> arguments) async {
+  final provider = Provider.fromUri(Uri.parse('wss://rpc.polkadot.io'));
+  final polkadot = Polkadot(provider);
+}
+```
+
+### Reading Chain Data
+
+Besides querying the data using the `query` from the generated API, you can also use the State API for querying storage data, metadata, runtime information, and other chain information.
+
+```dart
+final stateApi = StateApi(provider);
+
+// Get current runtime version
+final runtimeVersion = await stateApi.getRuntimeVersion();
+print(runtimeVersion.toJson());
+
+// Get metadata
+final metadata = await stateApi.getMetadata();
+print('Metadata version: ${metadata.version}');
+```
+
+### Subscribe to New Blocks
+
+You can subscribe to new blocks on the blockchain using the `subscribe` method.
+
+```dart
+final subscription = await provider.subscribe('chain_subscribeNewHeads', []);
+
+subscription.stream.forEach((response) {
+  print('New head: ${response.result}');
+});
+```
+
+### Send a Transaction
+
+Perhaps the most common operation done in any blockchain is transferring funds. Here you can see how that can be done using Polkadart:
+
+```dart
+final wallet = await KeyPair.sr25519.fromUri("//Alice");
+print('Alice\' wallet: ${wallet.address}');
+
+// Get information necessary to build a proper extrinsic
+final runtimeVersion = await polkadot.rpc.state.getRuntimeVersion();
+final currentBlockNumber = (await polkadot.query.system.number()) - 1;
+final currentBlockHash = await polkadot.query.system.blockHash(currentBlockNumber);
+final genesisHash = await polkadot.query.system.blockHash(0);
+final nonce = await polkadot.rpc.system.accountNextIndex(wallet.address);
+
+// Make the encoded call
+final multiAddress = $MultiAddress().id(wallet.publicKey.bytes);
+final transferCall = polkadot.tx.balances.transferKeepAlive(dest: multiAddress, value: BigInt.one).encode();
+
+// Make the payload
+final payload = SigningPayload(
+    method: transferCall,
+    specVersion: runtimeVersion.specVersion,
+    transactionVersion: runtimeVersion.transactionVersion,
+    genesisHash: encodeHex(genesisHash),
+    blockHash: encodeHex(currentBlockHash),
+    blockNumber: currentBlockNumber,
+    eraPeriod: 64,
+    nonce: nonce,
+    tip: 0,
+).encode(polkadot.registry);
+
+// Sign the payload and build the final extrinsic
+final signature = wallet.sign(payload);
+final extrinsic = ExtrinsicPayload(
+  signer: wallet.bytes(),
+  method: transferCall,
+  signature: signature,
+  eraPeriod: 64,
+  blockNumber: currentBlockNumber,
+  nonce: nonce,
+  tip: 0,
+).encode(polkadot.registry, SignatureType.sr25519);
+
+// Send the extrinsic to the blockchain
+final author = AuthorApi(provider);
+await author.submitAndWatchExtrinsic(extrinsic, (data) {
+  print(data);
+});
+```
+
+## Where to Go Next
+
+To dive deeper into Polkadart, refer to the [official Polkadart documentation](https://polkadart.dev/){target=\_blank}, where you can find comprehensive guides for common use cases and advanced usage.
+--- END CONTENT ---
+
 Doc-Content: https://docs.polkadot.com/develop/toolkit/api-libraries/polkadot-js-api/
 --- BEGIN CONTENT ---
 ---
@@ -17240,6 +17411,893 @@ The [ParaSpell XCM SDK](https://paraspell.github.io/docs/sdk/getting-started.htm
 The SDK simplifies the process of creating and sending XCM messages by providing a user-friendly builder pattern. This allows developers to construct complex XCM calls with just a few lines of code, reducing the likelihood of errors and ensuring that messages are constructed correctly.
 
 By using the ParaSpell XCM SDK, developers can significantly accelerate their development workflow and build powerful, interoperable dApps that take full advantage of the Polkadot network's cross-chain capabilities.
+
+## In This Section
+
+:::INSERT_IN_THIS_SECTION:::
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/develop/toolkit/interoperability/paraspell-xcm-sdk/transfer-tokens-between-parachains/
+--- BEGIN CONTENT ---
+---
+title: Transfer Tokens Between Parachains
+description: A step-by-step guide to using the ParaSpell XCM SDK to build, verify, and execute a transfer from one Parachain to another.
+---
+
+# Transfer Tokens Between Parachains
+
+## Introduction
+
+This guide walks you through transferring tokens between two parachains using the [ParaSpell XCM SDK](https://paraspell.github.io/docs/){target=\_blank}. This example utilizes [Asset Hub](/polkadot-protocol/architecture/system-chains/asset-hub/){target=\_blank} and the [People Chain](/polkadot-protocol/architecture/system-chains/people/){target=\_blank}. However, the same approach can be applied to transfers between other parachains.
+
+For development purposes, this guide will use the [Polkadot TestNet](/develop/networks/#paseo){target=\_blank}, so the transferred token will be PAS.
+
+In this guide, you will:
+
+- Build an XCM transfer transaction using ParaSpell XCM SDK.
+- Perform a dry run to validate the transfer.
+- Verify the [Existential Deposit (ED)](/polkadot-protocol/glossary/#existential-deposit){target=\_blank} requirement on the destination chain.
+- Retrieve information regarding the transfer, along with fee estimates.
+- Submit the transaction.
+
+### Prerequisites
+
+Before you begin, ensure you have the following:
+
+- Knowledge of the [fundamentals of Polkadot](/polkadot-protocol/parachain-basics/){target=\_blank}.
+- Basic understanding of [XCM](/develop/interoperability/intro-to-xcm/){target=\_blank}.
+- Basic familiarity with JavaScript or TypeScript.
+- Installed [bun](https://bun.com/docs/installation){target=\_blank}, a JavaScript and TypeScript package manager.
+
+## Initialize Your Project
+
+Create the project folder:
+
+```bash
+mkdir paraspell-transfer
+cd paraspell-transfer
+```
+
+Initialize the JavaScript project:
+
+```bash
+bun init -y
+```
+
+Install the required dependencies:
+
+```bash
+bun add @paraspell/sdk@11.3.2 polkadot-api@1.17.1 @polkadot-labs/hdkd-helpers@0.0.25 @polkadot-labs/hdkd@0.0.24
+```
+
+Now add the following setup code to `index.ts`:
+
+```ts title="index.ts"
+import { Builder, hasDryRunSupport } from '@paraspell/sdk';
+import {
+  entropyToMiniSecret,
+  mnemonicToEntropy,
+  ss58Address,
+} from '@polkadot-labs/hdkd-helpers';
+import { getPolkadotSigner } from 'polkadot-api/signer';
+import { sr25519CreateDerive } from '@polkadot-labs/hdkd';
+import { inspect } from 'util';
+
+// PAS token has 10 decimals
+const PAS_UNITS = 10_000_000_000n;
+
+const SEED_PHRASE =
+  'INSERT_YOUR_SEED_PHRASE';
+
+// Create Sr25519 signer from mnemonic
+function getSigner() {
+  const entropy = mnemonicToEntropy(SEED_PHRASE);
+  const miniSecret = entropyToMiniSecret(entropy);
+  const derive = sr25519CreateDerive(miniSecret);
+  const keyPair = derive('');
+  return getPolkadotSigner(keyPair.publicKey, 'Sr25519', keyPair.sign);
+}
+
+const RECIPIENT_ADDRESS = ss58Address(getSigner().publicKey);
+const SENDER_ADDRESS = ss58Address(getSigner().publicKey);
+```
+
+Replace the `INSERT_YOUR_SEED_PHRASE` with the seed phrase from your Polkadot development account.
+
+Be sure to fund this account with some PAS tokens on Paseo's Asset Hub using the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1000){target=\_blank}.
+
+!!!warning "Security Warning"
+    Never commit your mnemonic phrase to production code. Use environment variables or secure key management systems.
+
+## Build a Token Transfer Transaction
+
+The next step is to build the transaction that you intend to execute.
+
+In this example, you will transfer 10 PAS tokens from Paseo's Asset Hub to Paseo's People Chain system parachain.
+
+Add the ParaSpell transaction code to your `index.ts` file:
+
+```ts title="index.ts"
+async function transfer() {
+  const signer = getSigner();
+
+  const tx = await Builder()
+    .from('AssetHubPaseo')
+    .to('PeoplePaseo')
+    .currency({
+      symbol: 'PAS',
+      amount: 10n * PAS_UNITS, // 10 PAS
+    })
+    .address(RECIPIENT_ADDRESS)
+    .build();
+
+  console.log('Built transaction:', inspect(tx, { colors: true, depth: null }));
+
+  const result = await tx.signAndSubmit(signer);
+  console.log(inspect(result, { colors: true, depth: null }));
+  process.exit(0);
+}
+```
+
+Do not execute it just yet. You will perform a dry run of this transaction first to ensure it works as expected.
+
+## Perform a Dry Run
+
+Dry runs simulate the transaction without broadcasting it, allowing you to confirm success in advance.
+
+Add the following dry run code to your `index.ts` script:
+
+```ts title="index.ts"
+async function dryRunTransfer() {
+  if (!hasDryRunSupport('AssetHubPaseo')) {
+    console.log('Dry run is not supported on AssetHubPaseo.');
+    return;
+  }
+
+  const tx = await Builder()
+    .from('AssetHubPaseo')
+    .to('PeoplePaseo')
+    .currency({
+      symbol: 'PAS',
+      amount: 10n * PAS_UNITS,
+    })
+    .address(RECIPIENT_ADDRESS)
+    .senderAddress(SENDER_ADDRESS)
+    .dryRun();
+
+  console.log(inspect(tx, { colors: true, depth: null }));
+  process.exit(0);
+}
+
+dryRunTransfer();
+```
+Run the script using the following command:
+
+```bash
+bun run index.ts
+```
+
+The result of the dry run will look similar to the following example output:
+
+<div id="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>bun run index.ts</span>
+  <span data-ty>{
+  failureReason: undefined,
+  failureChain: undefined,
+  origin: {
+    success: true,
+    fee: 17965000n,
+    currency: 'PAS',
+    asset: {
+      symbol: 'PAS',
+      isNative: true,
+      decimals: 10,
+      existentialDeposit: '100000000',
+      location: { parents: 1, interior: { Here: null } },
+      isFeeAsset: true,
+      amount: 100000000000n
+    },
+    weight: undefined,
+    forwardedXcms: [
+      {
+        type: 'V3',
+        value: {
+          parents: 1,
+          interior: { type: 'X1', value: { type: 'Parachain', value: 1004 } }
+        }
+      },
+      [
+        {
+          type: 'V3',
+          value: [
+            {
+              type: 'ReceiveTeleportedAsset',
+              value: [
+                {
+                  id: {
+                    type: 'Concrete',
+                    value: {
+                      parents: 1,
+                      interior: { type: 'Here', value: undefined }
+                    }
+                  },
+                  fun: { type: 'Fungible', value: 100000000000n }
+                }
+              ]
+            },
+            { type: 'ClearOrigin', value: undefined },
+            {
+              type: 'BuyExecution',
+              value: {
+                fees: {
+                  id: {
+                    type: 'Concrete',
+                    value: {
+                      parents: 1,
+                      interior: { type: 'Here', value: undefined }
+                    }
+                  },
+                  fun: { type: 'Fungible', value: 100000000000n }
+                },
+                weight_limit: { type: 'Unlimited', value: undefined }
+              }
+            },
+            {
+              type: 'DepositAsset',
+              value: {
+                assets: {
+                  type: 'Wild',
+                  value: { type: 'AllCounted', value: 1 }
+                },
+                beneficiary: {
+                  parents: 0,
+                  interior: {
+                    type: 'X1',
+                    value: {
+                      type: 'AccountId32',
+                      value: {
+                        network: undefined,
+                        id: FixedSizeBinary {
+                          asText: [Function (anonymous)],
+                          asHex: [Function (anonymous)],
+                          asOpaqueHex: [Function (anonymous)],
+                          asBytes: [Function (anonymous)],
+                          asOpaqueBytes: [Function (anonymous)]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              type: 'SetTopic',
+              value: FixedSizeBinary {
+                asText: [Function (anonymous)],
+                asHex: [Function (anonymous)],
+                asOpaqueHex: [Function (anonymous)],
+                asBytes: [Function (anonymous)],
+                asOpaqueBytes: [Function (anonymous)]
+              }
+            }
+          ]
+        }
+      ]
+    ],
+    destParaId: 1004
+  },
+  assetHub: undefined,
+  bridgeHub: undefined,
+  destination: {
+    success: true,
+    fee: 817598n,
+    currency: 'PAS',
+    asset: {
+      symbol: 'PAS',
+      isNative: true,
+      decimals: 10,
+      existentialDeposit: '1000000000',
+      location: { parents: 1, interior: { Here: null } },
+      isFeeAsset: true
+    },
+    weight: { refTime: 176858000n, proofSize: 0n },
+    forwardedXcms: [],
+    destParaId: undefined
+  },
+  hops: []
+}</span>
+</div>
+
+## Verify the Existential Deposit
+
+Check if the recipient account meets the [Existential Deposit (ED)](/polkadot-protocol/glossary/#existential-deposit){target=\_blank} requirement before sending by using [`verifyEdOnDestination`](https://paraspell.github.io/docs/sdk/xcmUtils.html#verify-ed-on-destination){target=\_blank}:
+
+```ts title="index.ts"
+async function verifyED() {
+  const isValid = await Builder()
+    .from('AssetHubPaseo')
+    .to('PeoplePaseo')
+    .currency({
+      symbol: 'PAS',
+      amount: 10n * PAS_UNITS,
+    })
+    .address(RECIPIENT_ADDRESS)
+    .senderAddress(SENDER_ADDRESS)
+    .verifyEdOnDestination();
+
+  console.log(`ED verification ${isValid ? 'successful' : 'failed'}.`);
+  process.exit(0);
+}
+
+verifyED();
+```
+Comment out the `dryRunTransfer()` function so that it is not executed again. Then, execute the `verifyED()` by running the following command:
+
+```bash
+bun run index.ts
+```
+
+After that, you will get output confirming the ED which will look similar to the following:
+
+<div id="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>bun run index.ts</span>
+  <span data-ty>ED verification successful.</span>
+</div>
+
+## Get Transfer Info and Fee Estimates
+
+Before sending an XCM transaction, it is helpful to estimate the fees associated with executing and delivering the cross-chain message.
+
+ParaSpell has a helpful function for this: [`getTransferInfo()`](https://paraspell.github.io/docs/sdk/xcmUtils.html#xcm-transfer-info){target=\_blank}. This function returns an estimate of the associated XCM fees, along with the account's balance before and after the fees are paid.
+
+```ts title="index.ts"
+async function XcmTransferInfo() {
+  const info = await Builder()
+    .from('AssetHubPaseo')
+    .to('PeoplePaseo')
+    .currency({
+      symbol: 'PAS',
+      amount: 10n * PAS_UNITS,
+    })
+    .address(RECIPIENT_ADDRESS)
+    .senderAddress(SENDER_ADDRESS)
+    .getTransferInfo();
+
+  console.log('Transfer Info:', info);
+  process.exit(0);
+}
+
+XcmTransferInfo();
+```
+
+Comment out the `verifyED()` function so it doesn't execute again. Then, execute the `XcmTransferInfo()` function by running the following command:
+
+```bash
+bun run index.ts
+```
+
+You will see all the information for your transfer similar to the following example:
+
+<div id="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>bun run index.ts</span>
+  <span data-ty>Transfer Info: {
+  chain: {
+    origin: "AssetHubPaseo",
+    destination: "PeoplePaseo",
+    ecosystem: "PAS",
+  },
+  origin: {
+    selectedCurrency: {
+      sufficient: true,
+      balance: 9799197260420n,
+      balanceAfter: 9699197260420n,
+      currencySymbol: "PAS",
+      asset: [Object ...],
+      existentialDeposit: 100000000n,
+    },
+    xcmFee: {
+      sufficient: true,
+      fee: 17965000n,
+      balance: 9799197260420n,
+      balanceAfter: 9799179295420n,
+      currencySymbol: "PAS",
+      asset: [Object ...],
+    },
+  },
+  assetHub: undefined,
+  bridgeHub: undefined,
+  hops: [],
+  destination: {
+    receivedCurrency: {
+      sufficient: true,
+      receivedAmount: 99999182402n,
+      balance: 199998364804n,
+      balanceAfter: 299997547206n,
+      currencySymbol: "PAS",
+      asset: [Object ...],
+      existentialDeposit: 1000000000n,
+    },
+    xcmFee: {
+      fee: 817598n,
+      balance: 199998364804n,
+      balanceAfter: 299997547206n,
+      currencySymbol: "PAS",
+      asset: [Object ...],
+    },
+  },
+}</span>
+</div>
+
+Now that you have:
+
+- Completed a successful dry run of the transaction.
+- Verified the existential deposit on the recipient account.
+- Obtained an estimate of the associated XCM fees.
+
+You can execute the transfer function by adding the following function call:
+
+```typescript title="index.ts"
+transfer();
+```
+
+Comment out the `XcmTransferInfo()` function so it doesn't execute again. Then, execute the transfer by running the following command: 
+
+```bash
+bun run index.ts
+```
+
+Your `transfer` function will submit the transaction, and you will get the following output:
+
+<div id="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>bun run index.ts</span>
+  <span data-ty>...</span>
+  <span data-ty>Built transaction: {
+  getPaymentInfo: [AsyncFunction: getPaymentInfo],
+  getEstimatedFees: [AsyncFunction: getEstimatedFees],
+  decodedCall: {
+    type: 'PolkadotXcm',
+    value: {
+      type: 'limited_teleport_assets',
+      value: {
+        dest: {
+          type: 'V5',
+          value: {
+            parents: 1,
+            interior: { type: 'X1', value: { type: 'Parachain', value: 1004 } }
+          }
+        },
+        beneficiary: {
+          type: 'V5',
+          value: {
+            parents: 0,
+            interior: {
+              type: 'X1',
+              value: {
+                type: 'AccountId32',
+                value: {
+                  network: undefined,
+                  id: FixedSizeBinary {
+                    asText: [Function (anonymous)],
+                    asHex: [Function (anonymous)],
+                    asOpaqueHex: [Function (anonymous)],
+                    asBytes: [Function (anonymous)],
+                    asOpaqueBytes: [Function (anonymous)]
+                  }
+                }
+              }
+            }
+          }
+        },
+        assets: {
+          type: 'V5',
+          value: [
+            {
+              id: { parents: 1, interior: { type: 'Here', value: null } },
+              fun: { type: 'Fungible', value: 100000000000n }
+            }
+          ]
+        },
+        fee_asset_item: 0,
+        weight_limit: { type: 'Unlimited' }
+      }
+    }
+  },
+  getEncodedData: [Function: getEncodedData],
+  sign: [Function: sign],
+  signSubmitAndWatch: [Function: signSubmitAndWatch],
+  signAndSubmit: [Function: signAndSubmit]
+}</span>
+</div>
+
+Once the transaction is successfully included in a block, you will see the recipient's account balance updated, and you will receive output similar to the following.
+
+???- code "Successful Transaction Submission"
+    This output will be returned once the transaction has been successfully included in a block.
+
+    <div id="termynal" data-termynal>
+  <span data-ty>...</span>
+  <span data-ty>{
+  txHash: '0x6fbecc0b284adcff46ab39872659c2567395c865adef5f8cbea72f25b6042609',
+  block: {
+    index: 2,
+    number: 2524809,
+    hash: '0xa39a96d5921402c6e8f67e48b8395d6b21382c72d4d30f8497a0e9f890bc0d4c'
+  },
+  ok: true,
+  events: [
+    {
+      type: 'Balances',
+      value: {
+        type: 'Withdraw',
+        value: {
+          who: '15DMtB5BDCJqw4uZtByTWXGqViAVx7XjRsxWbTH5tfrHLe8j',
+          amount: 15668864n
+        }
+      },
+      topics: []
+    },
+    {
+      type: 'Balances',
+      value: {
+        type: 'Burned',
+        value: {
+          who: '15DMtB5BDCJqw4uZtByTWXGqViAVx7XjRsxWbTH5tfrHLe8j',
+          amount: 100000000000n
+        }
+      },
+      topics: []
+    },
+    {
+      type: 'PolkadotXcm',
+      value: {
+        type: 'Attempted',
+        value: {
+          outcome: {
+            type: 'Complete',
+            value: { used: { ref_time: 190990000n, proof_size: 3593n } }
+          }
+        }
+      },
+      topics: []
+    },
+    {
+      type: 'Balances',
+      value: {
+        type: 'Burned',
+        value: {
+          who: '15DMtB5BDCJqw4uZtByTWXGqViAVx7XjRsxWbTH5tfrHLe8j',
+          amount: 304850000n
+        }
+      },
+      topics: []
+    },
+    {
+      type: 'Balances',
+      value: {
+        type: 'Minted',
+        value: {
+          who: '14xmwinmCEz6oRrFdczHKqHgWNMiCysE2KrA4jXXAAM1Eogk',
+          amount: 304850000n
+        }
+      },
+      topics: []
+    },
+    {
+      type: 'PolkadotXcm',
+      value: {
+        type: 'FeesPaid',
+        value: {
+          paying: {
+            parents: 0,
+            interior: {
+              type: 'X1',
+              value: {
+                type: 'AccountId32',
+                value: {
+                  network: { type: 'Polkadot', value: undefined },
+                  id: FixedSizeBinary {
+                    asText: [Function (anonymous)],
+                    asHex: [Function (anonymous)],
+                    asOpaqueHex: [Function (anonymous)],
+                    asBytes: [Function (anonymous)],
+                    asOpaqueBytes: [Function (anonymous)]
+                  }
+                }
+              }
+            }
+          },
+          fees: [
+            {
+              id: {
+                parents: 1,
+                interior: { type: 'Here', value: undefined }
+              },
+              fun: { type: 'Fungible', value: 304850000n }
+            }
+          ]
+        }
+      },
+      topics: []
+    },
+    {
+      type: 'XcmpQueue',
+      value: {
+        type: 'XcmpMessageSent',
+        value: {
+          message_hash: FixedSizeBinary {
+            asText: [Function (anonymous)],
+            asHex: [Function (anonymous)],
+            asOpaqueHex: [Function (anonymous)],
+            asBytes: [Function (anonymous)],
+            asOpaqueBytes: [Function (anonymous)]
+          }
+        }
+      },
+      topics: []
+    },
+    {
+      type: 'PolkadotXcm',
+      value: {
+        type: 'Sent',
+        value: {
+          origin: {
+            parents: 0,
+            interior: {
+              type: 'X1',
+              value: {
+                type: 'AccountId32',
+                value: {
+                  network: { type: 'Polkadot', value: undefined },
+                  id: FixedSizeBinary {
+                    asText: [Function (anonymous)],
+                    asHex: [Function (anonymous)],
+                    asOpaqueHex: [Function (anonymous)],
+                    asBytes: [Function (anonymous)],
+                    asOpaqueBytes: [Function (anonymous)]
+                  }
+                }
+              }
+            }
+          },
+          destination: {
+            parents: 1,
+            interior: { type: 'X1', value: { type: 'Parachain', value: 1002 } }
+          },
+          message: [
+            {
+              type: 'ReceiveTeleportedAsset',
+              value: [
+                {
+                  id: {
+                    parents: 1,
+                    interior: { type: 'Here', value: undefined }
+                  },
+                  fun: { type: 'Fungible', value: 100000000000n }
+                }
+              ]
+            },
+            { type: 'ClearOrigin', value: undefined },
+            {
+              type: 'BuyExecution',
+              value: {
+                fees: {
+                  id: {
+                    parents: 1,
+                    interior: { type: 'Here', value: undefined }
+                  },
+                  fun: { type: 'Fungible', value: 100000000000n }
+                },
+                weight_limit: { type: 'Unlimited', value: undefined }
+              }
+            },
+            {
+              type: 'DepositAsset',
+              value: {
+                assets: {
+                  type: 'Wild',
+                  value: { type: 'AllCounted', value: 1 }
+                },
+                beneficiary: {
+                  parents: 0,
+                  interior: {
+                    type: 'X1',
+                    value: {
+                      type: 'AccountId32',
+                      value: {
+                        network: undefined,
+                        id: FixedSizeBinary {
+                          asText: [Function (anonymous)],
+                          asHex: [Function (anonymous)],
+                          asOpaqueHex: [Function (anonymous)],
+                          asBytes: [Function (anonymous)],
+                          asOpaqueBytes: [Function (anonymous)]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          message_id: FixedSizeBinary {
+            asText: [Function (anonymous)],
+            asHex: [Function (anonymous)],
+            asOpaqueHex: [Function (anonymous)],
+            asBytes: [Function (anonymous)],
+            asOpaqueBytes: [Function (anonymous)]
+          }
+        }
+      },
+      topics: []
+    },
+    {
+      type: 'Balances',
+      value: {
+        type: 'Deposit',
+        value: {
+          who: '13UVJyLgBASGhE2ok3TvxUfaQBGUt88JCcdYjHvUhvQkFTTx',
+          amount: 15668864n
+        }
+      },
+      topics: []
+    },
+    {
+      type: 'TransactionPayment',
+      value: {
+        type: 'TransactionFeePaid',
+        value: {
+          who: '15DMtB5BDCJqw4uZtByTWXGqViAVx7XjRsxWbTH5tfrHLe8j',
+          actual_fee: 15668864n,
+          tip: 0n
+        }
+      },
+      topics: []
+    },
+    {
+      type: 'System',
+      value: {
+        type: 'ExtrinsicSuccess',
+        value: {
+          dispatch_info: {
+            weight: { ref_time: 952851000n, proof_size: 13382n },
+            class: { type: 'Normal', value: undefined },
+            pays_fee: { type: 'Yes', value: undefined }
+          }
+        }
+      },
+      topics: []
+    }
+  ]
+}</span>
+</div>
+
+After executing the transfer, check the account balance on [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fsys.turboflakes.io%2Fasset-hub-paseo){target=\_blank} for [Paseo's Asset Hub](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fsys.turboflakes.io%2Fasset-hub-paseo#/accounts){target=\_blank} and [Paseo's People Chain](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fsys.ibp.network%2Fpeople-paseo#/accounts){target=\_blank}.
+
+You should see:
+
+- The recipient account now has 10 more PAS tokens.
+- The sender account has the transfer amount (10 PAS) + the fees amount debited from their account balance.
+
+You have now successfully created and sent a cross-chain transfer using the ParaSpell XCM SDK!
+
+???- code "Full Code"
+
+    ```typescript title="index.ts"
+    import { Builder, hasDryRunSupport } from '@paraspell/sdk';
+import {
+  entropyToMiniSecret,
+  mnemonicToEntropy,
+  ss58Address,
+} from '@polkadot-labs/hdkd-helpers';
+import { getPolkadotSigner } from 'polkadot-api/signer';
+import { sr25519CreateDerive } from '@polkadot-labs/hdkd';
+import { inspect } from 'util';
+
+// PAS token has 10 decimals
+const PAS_UNITS = 10_000_000_000n;
+
+const SEED_PHRASE =
+  'INSERT_YOUR_SEED_PHRASE';
+
+// Create Sr25519 signer from mnemonic
+function getSigner() {
+  const entropy = mnemonicToEntropy(SEED_PHRASE);
+  const miniSecret = entropyToMiniSecret(entropy);
+  const derive = sr25519CreateDerive(miniSecret);
+  const keyPair = derive('');
+  return getPolkadotSigner(keyPair.publicKey, 'Sr25519', keyPair.sign);
+}
+
+const RECIPIENT_ADDRESS = ss58Address(getSigner().publicKey);
+const SENDER_ADDRESS = ss58Address(getSigner().publicKey);
+
+async function transfer() {
+  const signer = getSigner();
+
+  const tx = await Builder()
+    .from('AssetHubPaseo')
+    .to('PeoplePaseo')
+    .currency({
+      symbol: 'PAS',
+      amount: 10n * PAS_UNITS, // 10 PAS
+    })
+    .address(RECIPIENT_ADDRESS)
+    .build();
+
+  console.log('Built transaction:', inspect(tx, { colors: true, depth: null }));
+
+  const result = await tx.signAndSubmit(signer);
+  console.log(inspect(result, { colors: true, depth: null }));
+  process.exit(0);
+}
+
+async function dryRunTransfer() {
+  if (!hasDryRunSupport('AssetHubPaseo')) {
+    console.log('Dry run is not supported on AssetHubPaseo.');
+    return;
+  }
+
+  const tx = await Builder()
+    .from('AssetHubPaseo')
+    .to('PeoplePaseo')
+    .currency({
+      symbol: 'PAS',
+      amount: 10n * PAS_UNITS,
+    })
+    .address(RECIPIENT_ADDRESS)
+    .senderAddress(SENDER_ADDRESS)
+    .dryRun();
+
+  console.log(inspect(tx, { colors: true, depth: null }));
+  process.exit(0);
+}
+
+dryRunTransfer();
+
+async function verifyED() {
+  const isValid = await Builder()
+    .from('AssetHubPaseo')
+    .to('PeoplePaseo')
+    .currency({
+      symbol: 'PAS',
+      amount: 10n * PAS_UNITS,
+    })
+    .address(RECIPIENT_ADDRESS)
+    .senderAddress(SENDER_ADDRESS)
+    .verifyEdOnDestination();
+
+  console.log(`ED verification ${isValid ? 'successful' : 'failed'}.`);
+  process.exit(0);
+}
+
+verifyED();
+
+async function XcmTransferInfo() {
+  const info = await Builder()
+    .from('AssetHubPaseo')
+    .to('PeoplePaseo')
+    .currency({
+      symbol: 'PAS',
+      amount: 10n * PAS_UNITS,
+    })
+    .address(RECIPIENT_ADDRESS)
+    .senderAddress(SENDER_ADDRESS)
+    .getTransferInfo();
+
+  console.log('Transfer Info:', info);
+  process.exit(0);
+}
+
+XcmTransferInfo();
+
+transfer();
+    ```
+
+## Next Steps
+
+- Read the Docs: Dive deeper into the features of the [ParaSpell XCM SDK](https://paraspell.github.io/docs/sdk/getting-started.html){target=\_blank} documentation.
+
+- Learn about XCM: Understand the underlying protocol by visiting the [Introduction to XCM page](/develop/interoperability/intro-to-xcm/) in the Polkadot Docs.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/develop/toolkit/interoperability/xcm-tools/
@@ -21563,8 +22621,8 @@ You can also download the binaries by using the following direct links:
 
 Signature verification cryptographically ensures the downloaded binaries are authentic and have not been tampered with by using GPG signing keys. Polkadot releases use two different signing keys:
 
-- ParityReleases (release-team@parity.io) with key [`90BD75EBBB8E95CB3DA6078F94A4029AB4B35DAE`](https://keyserver.ubuntu.com/pks/lookup?search=9D4B2B6EB8F97156D19669A9FF0812D491B96798&fingerprint=on&op=index){target=\_blank} for current and new releases.
-- Parity Security Team (security@parity.io) with key [`9D4B2B6EB8F97156D19669A9FF0812D491B96798`](https://keyserver.ubuntu.com/pks/lookup?search=90BD75EBBB8E95CB3DA6078F94A4029AB4B35DAE&fingerprint=on&op=index){target=\_blank} for old releases.
+- ParityReleases (release-team@parity.io) with key [`90BD75EBBB8E95CB3DA6078F94A4029AB4B35DAE`](https://keyserver.ubuntu.com/pks/lookup?search=90BD75EBBB8E95CB3DA6078F94A4029AB4B35DAE&fingerprint=on&op=index){target=\_blank} for current and new releases.
+- Parity Security Team (security@parity.io) with key [`9D4B2B6EB8F97156D19669A9FF0812D491B96798`](https://keyserver.ubuntu.com/pks/lookup?search=9D4B2B6EB8F97156D19669A9FF0812D491B96798&fingerprint=on&op=index){target=\_blank} for old releases.
 
     !!!warning
         When verifying a signature, a "Good signature" message indicates successful verification, while any other output signals a potential security risk.
@@ -21775,35 +22833,36 @@ Once your validator node is fully synced and ready, the next step is to ensure i
 
 To confirm that your validator is live and synchronized with the Polkadot network, visit the [Telemetry](https://telemetry.polkadot.io/#list/Polkadot%20CC1){target=\_blank} page. Telemetry provides real-time information on node performance and can help you check if your validator is connected properly. Search for your node by name. You can search all nodes currently active on the network, which is why you should use a unique name for easy recognition. Now, confirm that your node is fully synced by comparing the block height of your node with the network's latest block. Nodes that are fully synced will appear white in the list, while nodes that are not yet fully synced will appear gray.
 
-In the following example, a node named `techedtest` is successfully located and synchronized, ensuring it's prepared to participate in the network:
-
-![Polkadot telemetry dashboard](/images/infrastructure/running-a-validator/onboarding-and-offboarding/start-validating/start-validating-01.webp)
 
 ### Activate using Polkadot.js Apps
 
 Follow these steps to use Polkadot.js Apps to activate your validator:
 
-1. Go to the **Validator** tab in the Polkadot.js Apps UI and locate the section where you input the keys generated from `rotateKeys`. Paste the output from `author_rotateKeys`, which is a hex-encoded key that links your validator with its session keys:
+1. In Polkadot.js Apps, navigate to **Network** and select **Staking**:
+
+    ![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/start-validating/start-validating-01.webp)
+
+2. Open the **Accounts** tab and click on **+ Validator**:
 
     ![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/start-validating/start-validating-02.webp)
 
-2. Set a reward commission percentage if desired. You can set a percentage of the rewards to pay to your validator and the remainder pays to your nominators. A 100% commission rate indicates the validator intends to keep all rewards and is seen as a signal the validator is not seeking nominators.
-
-3. Toggle the **allows new nominations** option if your validator is open to more nominations from DOT holders.
-
-4. Once everything is configured, select **Bond & Validate** to activate your validator status.
+3. Set a bond amount in the **value bonded** field and then click **next**:
 
     ![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/start-validating/start-validating-03.webp)
 
-5. Edit the **commission** and the **blocked** option via `staking.validate` extrinsic. By default, the blocked option is set to FALSE (i.e., the validator accepts nominations).
+4.  **Set session keys**. Paste the output from `author_rotateKeys` (hex-encoded) to link your validator with its session keys. Then click **Bond & Validate** to continue:
 
     ![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/start-validating/start-validating-04.webp)
+
+You can set the **commission** and the **blocked** option via `staking.validate` extrinsic. By default, the blocked option is set to FALSE (i.e., the validator accepts nominations):
+
+![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/start-validating/start-validating-05.webp)
 
 ### Monitor Validation Status and Slots
 
 On the [**Staking**](https://polkadot.js.org/apps/#/staking){target=\_blank} tab in Polkadot.js Apps, you can see your validator's status, the number of available validator slots, and the nodes that have signaled their intent to validate. Your node may initially appear in the waiting queue, especially if the validator slots are full. The following is an example view of the **Staking** tab:
 
-![staking queue](/images/infrastructure/running-a-validator/onboarding-and-offboarding/start-validating/start-validating-05.webp)
+![staking queue](/images/infrastructure/running-a-validator/onboarding-and-offboarding/start-validating/start-validating-06.webp)
 
 The validator set refreshes each era. If there's an available slot in the next era, your node may be selected to move from the waiting queue to the active validator set, allowing it to start validating blocks. If your validator is not selected, it remains in the waiting queue. Increasing your stake or gaining more nominators may improve your chance of being selected in future eras.
 
@@ -22827,7 +23886,7 @@ Be aware that some providers may overprovision the underlying host and use share
 - **[Vultr](https://www.vultr.com/){target=\_blank}**: Offers flexibility with plans that may meet validator requirements, especially for high-bandwidth needs.
 - **[Linode](https://www.linode.com/){target=\_blank}**: Provides detailed documentation, which can be helpful for setup.
 - **[Scaleway](https://www.scaleway.com/en/){target=\_blank}**: Offers high-performance cloud instances that can be suitable for validator nodes.
-- **[OnFinality](https://onfinality.io/){target=\_blank}**: Specialized in blockchain infrastructure, OnFinality provides validator-specific support and configurations.
+- **[OnFinality](https://onfinality.io/en){target=\_blank}**: Specialized in blockchain infrastructure, OnFinality provides validator-specific support and configurations.
 
 !!! warning "Acceptable use policies"
     Different VPS providers have varying acceptable use policies, and not all allow cryptocurrency-related activities. 
@@ -27086,7 +28145,7 @@ Development and testing are crucial to building robust dApps and parachains and 
 
 Kusama is the experimental version of Polkadot, designed for developers who want to move quickly and test their applications in a real-world environment with economic incentives. Kusama serves as a production-grade testing ground where developers can deploy features and upgrades with the pressure of game theory and economics in mind. It mirrors Polkadot but operates as a more flexible space for innovation.
 
-The native token for Kusama is KSM. For more information about KSM, visit the [Native Assets](https://guide.kusama.network/docs/learn-DOT#kusama-tokens){target=\_blank} page.
+The native token for Kusama is KSM. For more information about KSM, visit the [Native Assets](https://wiki.polkadot.com/kusama/kusama-getting-started/){target=\_blank} page.
 
 ## Test Networks
 
@@ -28012,7 +29071,7 @@ flowchart LR
 
 In addition, because smart contracts are programs that execute on top of existing chains, teams don't have to think about the underlying consensus they are built on.
 
-These strengths do come with certain limitations. Some smart contracts environments, like EVM, tend to be immutable by default. Developers have developed different [proxy strategies](https://blog.openzeppelin.com/proxy-patterns){target=\_blank} to be able to upgrade smart contracts over time. The typical pattern relies on a proxy contract which holds the program storage forwarding a call to an implementation contract where the execution logic resides. Smart contract upgrades require changing the implementation contract while retaining the same storage structure, necessitating careful planning.
+These strengths do come with certain limitations. Some smart contracts environments, like EVM, tend to be immutable by default. Developers have developed different [proxy strategies](https://www.openzeppelin.com/news/proxy-patterns){target=\_blank} to be able to upgrade smart contracts over time. The typical pattern relies on a proxy contract which holds the program storage forwarding a call to an implementation contract where the execution logic resides. Smart contract upgrades require changing the implementation contract while retaining the same storage structure, necessitating careful planning.
 
 Another downside is that smart contracts often follow a gas metering model, where program execution is associated with a given unit and a marketplace is set up to pay for such an execution unit. This fee system is often very rigid, and some complex flows, like account abstraction, have been developed to circumvent this problem.
 
@@ -39198,13 +40257,23 @@ Before getting started, ensure you have done the following:
 
 For this tutorial series, you need to use Rust `1.86`. Newer versions of the compiler may not work with this parachain template version.
 
-Run the following commands to set up the correct Rust version:
+=== "macOS"
 
-```bash
-rustup default 1.86
-rustup target add wasm32-unknown-unknown --toolchain 1.86-aarch64-apple-darwin
-rustup component add rust-src --toolchain 1.86-aarch64-apple-darwin
-```
+    ```bash
+    rustup install 1.86
+    rustup default 1.86
+    rustup target add wasm32-unknown-unknown --toolchain 1.86-aarch64-apple-darwin
+    rustup component add rust-src --toolchain 1.86-aarch64-apple-darwin
+    ```
+
+=== "Ubuntu"
+
+    ```bash
+    rustup toolchain install 1.86.0
+    rustup default 1.86.0
+    rustup target add wasm32-unknown-unknown --toolchain 1.86.0
+    rustup component add rust-src --toolchain 1.86.0
+    ```
 
 ## Utility Tools
 
@@ -40036,6 +41105,318 @@ npx @acala-network/chopsticks \
 The above command will spawn a lazy fork of Polkadot Asset Hub with the latest block data from the network. If you need to test Kusama Asset Hub, replace `polkadot-asset-hub.yml` with `kusama-asset-hub.yml` in the command.
 
 An Asset Hub instance is now running locally, and you can proceed with the asset registration process. Note that the local registration process does not differ from the live network process. Once you have a successful TestNet transaction, you can use the same steps to register the asset on MainNet.
+--- END CONTENT ---
+
+Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/system-chains/asset-hub/send-a-tx-paying-fee-different-token/
+--- BEGIN CONTENT ---
+---
+title: Send a Transaction While Paying the Fee with a Different Token
+description: This tutorial demonstrates how to send a DOT transfer transaction while paying the fees using a different token on the Asset Hub.
+---
+
+# Send a Transaction While Paying the Fee with a Different Token
+
+## Introduction
+
+The Asset Hub provides a powerful feature that allows users to pay transaction fees using alternative tokens instead of the native token of the chain.
+
+This tutorial demonstrates how to send a DOT transfer transaction while paying the fees using a different token (USDT in this example) on the Asset Hub.
+
+## Environment Setup
+
+Let's set up the development environment for this tutorial:
+
+1. Create a new directory and initialize the project:
+
+    ```bash
+    mkdir fee-payment-tutorial && \
+    cd fee-payment-tutorial
+    ```
+
+2. Initialize the project:
+
+    ```bash
+    npm init -y
+    ```
+
+3. Install dev dependencies:
+
+    ```bash
+    npm install --save-dev @types/node@^22.12.0 ts-node@^10.9.2 typescript@^5.7.3
+    ```
+
+4. Install dependencies:
+
+    ```bash
+    npm install --save @polkadot-labs/hdkd@^0.0.13 @polkadot-labs/hdkd-helpers@^0.0.13 polkadot-api@1.9.5
+    ```
+
+5. Create TypeScript configuration:
+
+    ```bash
+    npx tsc --init && npm pkg set type=module
+    ```
+
+    The command `npm pkg set type=module` is used to set the type of the project to module. This is necessary to use the `import` statement in the TypeScript code.
+
+6. Generate Polkadot API types for Asset Hub:
+
+    ```bash
+    npx papi add assetHub -n polkadot_asset_hub
+    ```
+
+7. Create a new file called `fee-payment-transaction.ts`:
+
+    ```bash
+    touch fee-payment-transaction.ts
+    ```
+
+## Local Asset Hub Setup
+
+Before running the script, you'll need to fork the Asset Hub locally using Chopsticks:
+
+```bash
+chopsticks -c polkadot-asset-hub
+```
+
+This command forks the Asset Hub chain, making it available at `ws://localhost:8000`. By running `polkadot-asset-hub`, you're using the Asset Hub fork with the configuration specified in the [`polkadot-asset-hub.yml`](https://github.com/AcalaNetwork/chopsticks/blob/master/configs/polkadot-asset-hub.yml){target=_blank} file.  This configuration defines Alice's account with USDT assets. If you want to use a different chain, ensure the account you're using has the necessary assets.
+
+## Implementation
+
+In the following sub-sections, you’ll set the stage with imports and a few constants, introduce the transaction signer, and connect to the Polkadot Asset Hub chain. Then you’ll craft a simple DOT transfer and send it, asking the network to charge the fee in USDT instead of DOT.
+
+### Import Dependencies
+
+Add the following imports to your `fee-payment-transaction.ts` file:
+
+```typescript title="fee-payment-transaction.ts"
+import { sr25519CreateDerive } from "@polkadot-labs/hdkd";
+import {
+  DEV_PHRASE,
+  entropyToMiniSecret,
+  mnemonicToEntropy,
+} from "@polkadot-labs/hdkd-helpers";
+import { getPolkadotSigner } from "polkadot-api/signer";
+import { createClient } from "polkadot-api";
+import { assetHub } from "@polkadot-api/descriptors";
+import { withPolkadotSdkCompat } from "polkadot-api/polkadot-sdk-compat";
+import { getWsProvider } from "polkadot-api/ws-provider/node";
+import { MultiAddress } from "@polkadot-api/descriptors";
+```
+
+### Define Constants
+
+Define the constants for your transaction:
+
+```typescript title="fee-payment-transaction.ts"
+const TARGET_ADDRESS = "14E5nqKAp3oAJcmzgZhUD2RcptBeUBScxKHgJKU4HPNcKVf3"; // Bob's address
+const TRANSFER_AMOUNT = 3_000_000_000n; // 3 DOT
+const USD_ASSET_ID = 1337;
+```
+
+### Create a Signer
+
+Create a signer using Alice's development account:
+
+```typescript title="fee-payment-transaction.ts"
+const createSigner = async () => {
+  const entropy = mnemonicToEntropy(DEV_PHRASE);
+  const miniSecret = entropyToMiniSecret(entropy);
+  const derive = sr25519CreateDerive(miniSecret);
+  const hdkdKeyPair = derive("//Alice");
+  const polkadotSigner = getPolkadotSigner(
+    hdkdKeyPair.publicKey,
+    "Sr25519",
+    hdkdKeyPair.sign
+  );
+  return polkadotSigner;
+};
+```
+
+This function will return a signer that can be used to sign the transaction.
+
+### Setup the Client and API
+
+Create the client connection to the local Asset Hub:
+
+```typescript title="fee-payment-transaction.ts"
+const client = createClient(
+  withPolkadotSdkCompat(
+    getWsProvider("ws://localhost:8000") // Chopsticks Asset Hub
+  )
+);
+
+const api = client.getTypedApi(assetHub);
+```
+
+### Create the Transaction
+
+Create a standard DOT transfer transaction:
+
+```typescript title="fee-payment-transaction.ts"
+const tx = api.tx.Balances.transfer_keep_alive({
+  dest: MultiAddress.Id(TARGET_ADDRESS),
+  value: BigInt(TRANSFER_AMOUNT),
+});
+```
+
+This creates a transaction that transfers 3 DOT to Bob's address while keeping Alice's account alive.
+
+### Sign and Submit with Alternative Fee Payment
+
+The key part of this tutorial is specifying an alternative asset for fee payment. This is done through the `asset` parameter in the `signAndSubmit` options:
+
+```typescript title="fee-payment-transaction.ts"
+const signer = await createSigner();
+
+const result = await tx.signAndSubmit(signer, {
+  asset: {
+    parents: 0,
+    interior: {
+      type: "X2",
+      value: [
+        { type: "PalletInstance", value: 50 },
+        { type: "GeneralIndex", value: BigInt(USD_ASSET_ID) },
+      ],
+    },
+  },
+});
+
+const { txHash, ok, block, events } = result;
+console.log(`Tx finalized: ${txHash} (ok=${ok})`);
+console.log(`Block: #${block.number} ${block.hash} [tx index ${block.index}]`);
+
+console.log("Events:");
+for (const ev of events) {
+  const type = (ev as any).type ?? "unknown";
+  console.log(`- ${type}`);
+}
+
+process.exit(0);
+```
+
+This specifies that the fees should be paid using the USDT asset.
+
+## Full Code
+
+The full code for the complete implementation is the following:
+
+??? code "Complete Code"
+
+    ```typescript title="fee-payment-transaction.ts"
+    import { sr25519CreateDerive } from "@polkadot-labs/hdkd";
+import {
+  DEV_PHRASE,
+  entropyToMiniSecret,
+  mnemonicToEntropy,
+} from "@polkadot-labs/hdkd-helpers";
+import { getPolkadotSigner } from "polkadot-api/signer";
+import { createClient } from "polkadot-api";
+import { assetHub } from "@polkadot-api/descriptors";
+import { withPolkadotSdkCompat } from "polkadot-api/polkadot-sdk-compat";
+import { getWsProvider } from "polkadot-api/ws-provider/node";
+import { MultiAddress } from "@polkadot-api/descriptors";
+
+const TARGET_ADDRESS = "14E5nqKAp3oAJcmzgZhUD2RcptBeUBScxKHgJKU4HPNcKVf3"; // Bob's address
+const TRANSFER_AMOUNT = 3_000_000_000n; // 3 DOT
+const USD_ASSET_ID = 1337;
+
+const createSigner = async () => {
+  const entropy = mnemonicToEntropy(DEV_PHRASE);
+  const miniSecret = entropyToMiniSecret(entropy);
+  const derive = sr25519CreateDerive(miniSecret);
+  const hdkdKeyPair = derive("//Alice");
+  const polkadotSigner = getPolkadotSigner(
+    hdkdKeyPair.publicKey,
+    "Sr25519",
+    hdkdKeyPair.sign
+  );
+  return polkadotSigner;
+};
+
+const client = createClient(
+  withPolkadotSdkCompat(
+    getWsProvider("ws://localhost:8000") // Chopsticks Asset Hub
+  )
+);
+
+const api = client.getTypedApi(assetHub);
+
+const tx = api.tx.Balances.transfer_keep_alive({
+  dest: MultiAddress.Id(TARGET_ADDRESS),
+  value: BigInt(TRANSFER_AMOUNT),
+});
+
+const signer = await createSigner();
+
+const result = await tx.signAndSubmit(signer, {
+  asset: {
+    parents: 0,
+    interior: {
+      type: "X2",
+      value: [
+        { type: "PalletInstance", value: 50 },
+        { type: "GeneralIndex", value: BigInt(USD_ASSET_ID) },
+      ],
+    },
+  },
+});
+
+const { txHash, ok, block, events } = result;
+console.log(`Tx finalized: ${txHash} (ok=${ok})`);
+console.log(`Block: #${block.number} ${block.hash} [tx index ${block.index}]`);
+
+console.log("Events:");
+for (const ev of events) {
+  const type = (ev as any).type ?? "unknown";
+  console.log(`- ${type}`);
+}
+
+process.exit(0);
+    ```
+
+## Running the Script
+
+To run the script:
+
+```bash
+npx ts-node fee-payment-transaction.ts
+```
+
+## Expected Output
+
+When you run the script successfully, you should see output similar to:
+
+<div id="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>npx ts-node fee-payment-transaction.ts</span>
+  <pre>
+Tx finalized: 0x771956fdf40b3741bdc3c1e981a6daacbe5521877ad1915542e7413bb4a820bc (ok=true)
+Block: #9645060 0x57710514f168b5c444c8e47b1e1a31dd9e7bc7e9a51d8d25ccdbc6053e159f6b [tx index 2]
+Events:
+- Assets
+- Balances
+- Assets
+- AssetConversion
+- Balances
+- Balances
+- AssetTxPayment
+- System
+</pre>
+</div>
+
+The key events to look for are:
+
+- **Assets**: The asset was transferred.
+- **Balances**: The fees were paid using the alternative asset.
+- **AssetConversion**: The fees were converted to the alternative asset.
+- **AssetTxPayment**: The fees were paid using the alternative asset.
+- **System**: The transaction was successful.
+
+## Conclusion
+
+Paying transaction fees with alternative tokens on Asset Hub provides significant flexibility for users and applications. 
+
+The key takeaway is understanding how to specify alternative assets using the XCM location format, which opens up possibilities for building applications that can operate entirely using specific token ecosystems while still leveraging the full power of the network.
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/tutorials/polkadot-sdk/system-chains/

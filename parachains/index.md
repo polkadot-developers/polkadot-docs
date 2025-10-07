@@ -1,6 +1,6 @@
 ---
 title: Get Started
-description: Practical examples and tutorials for building and deploying parachains on Polkadot, from launching to customization and cross-chain messaging.
+description: Practical examples and tutorials for building and deploying Polkadot parachains, covering everything from launch to customization and cross-chain messaging.
 categories: Basics, Parachains
 ---
 

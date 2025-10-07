@@ -17177,13 +17177,13 @@ These functionalities empower developers to build innovative, multi-chain applic
 Doc-Content: https://docs.polkadot.com/parachains/launch-a-parachain/choose-a-template/
 --- BEGIN CONTENT ---
 ---
-title: Choose a Template
+title: Choose a Parachain Template
 description: Learn about available parachain templates and set up the Polkadot SDK Parachain Template to start building your custom blockchain.
 tutorial_badge: Beginner
 categories: Basics, Parachains
 ---
 
-# Choose a Template
+# Choose a Parachain Template
 
 ## Introduction
 

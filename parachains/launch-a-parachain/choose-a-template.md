@@ -1,11 +1,11 @@
 ---
-title: Choose a Template
+title: Choose a Parachain Template
 description: Learn about available parachain templates and set up the Polkadot SDK Parachain Template to start building your custom blockchain.
 tutorial_badge: Beginner
 categories: Basics, Parachains
 ---
 
-# Choose a Template
+# Choose a Parachain Template
 
 ## Introduction
 

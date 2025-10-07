@@ -100,5 +100,5 @@ Integrate your parachain with essential ecosystem tools and services.
 
 Need help? Connect with the parachain developer community:
 
-- [Polkadot Stack Exchange](https://polkadot.stackexchange.com/)
-- [Polkadot Discord](https://dot.li/discord)
+- [Polkadot Stack Exchange](https://polkadot.stackexchange.com/){target=\_blank}
+- [Polkadot Discord](https://dot.li/discord){target=\_blank}

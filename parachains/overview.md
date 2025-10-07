@@ -1,10 +1,10 @@
 ---
-title: Overview
+title: Parachains Overview
 description: Learn about parachains, specialized blockchains on Polkadot that gain shared security and interoperability. Discover how they work and the tools to build them.
 categories: Basics, Parachains
 ---
 
-# Overview
+# Parachains Overview
 
 ## Introduction
 
@@ -14,7 +14,7 @@ Unlike standalone blockchains that must bootstrap their own validator sets and s
 
 Key capabilities that parachains provide include:
 
-- **Shared Security**: Inherit security from Polkadot's validator set without maintaining your own.
+- **Shared security**: Inherit security from Polkadot's validator set without maintaining your own.
 - **Interoperability**: Communicate trustlessly with other parachains via XCM.
 - **Scalability**: Process transactions in parallel with other parachains.
 - **Customization**: Build application-specific logic tailored to your use case.
@@ -24,7 +24,7 @@ Key capabilities that parachains provide include:
 
 Building a parachain involves understanding and utilizing several key components of the Polkadot SDK:
 
-![](/images/develop/parachains/intro-polkadot-sdk/intro-polkadot-sdk-1.webp)
+![](/images/parachains/overview/overview-01.webp)
 
 - **[Substrate](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/substrate/index.html){target=\_blank}**: The foundation providing core blockchain primitives and libraries.
 - **[FRAME](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/frame_runtime/index.html){target=\_blank}**: A modular framework for building your parachain's runtime logic.
@@ -38,18 +38,18 @@ Substrate provides the core infrastructure that every parachain is built upon. I
 
 Every Polkadot SDK node consists of two main components:
 
-- **Client (Host)**: Handles infrastructure services
+- **Client (Host)**: Handles infrastructure services.
 
-    - Native binary that runs on validator and collator nodes
-    - Executes the Wasm-compiled runtime
-    - Manages networking, database, mempool, and block production
-    - Interfaces with the relay chain for validation
+    - Native binary that runs on validator and collator nodes.
+    - Executes the Wasm-compiled runtime.
+    - Manages networking, database, mempool, and block production.
+    - Interfaces with the relay chain for validation.
 
-- **Runtime (State Transition Function)**: Contains your business logic
+- **Runtime (State Transition Function)**: Contains your business logic.
 
-    - Defines how your Polkadot SDK node processes transactions
-    - Compiled to [Wasm](https://webassembly.org/){target=\_blank} for deterministic execution
-    - Stored on-chain and upgradeable via governance
+    - Defines how your Polkadot SDK node processes transactions.
+    - Compiled to [Wasm](https://webassembly.org/){target=\_blank} for deterministic execution.
+    - Stored on-chain and upgradeable via governance.
 
 ```mermaid
 %%{init: {'flowchart': {'padding': 5, 'nodeSpacing': 50, 'rankSpacing': 10}}}%%
@@ -137,21 +137,57 @@ Cumulus is what transforms a Polkadot SDK-based runtime into a parachain-capable
 
 Key Cumulus components include:
 
-- **Parachain System Pallet**: Core parachain functionality and relay chain communication.
-- **Collator Consensus**: Block production logic for parachain collators.
-- **Relay Chain Interface**: APIs for interacting with the Polkadot relay chain.
-- **Validation Data**: Handling proof-of-validity data required by relay chain validators.
+- **Parachain system pallet**: Core parachain functionality and relay chain communication.
+- **Collator consensus**: Block production logic for parachain collators.
+- **Relay chain interface**: APIs for interacting with the Polkadot relay chain.
+- **Validation data**: Handling proof-of-validity data required by relay chain validators.
 
-## Getting Started with Parachain Development
+## Where to Go Next
 
-Building a parachain requires understanding the relationship between your chain and the Polkadot-SDK-based relay chain. Key considerations include:
+Building a parachain requires understanding the relationship between your chain and the Polkadot relay chain. The Polkadot SDK provides all the tools needed to design custom runtime logic, enable cross-chain communication, and deploy your parachain to production.
 
-- [Designing your runtime logic and choosing appropriate pallets](/parachains/customize-your-runtime){target=\_blank}
-- [Implementing XCM for cross-chain communication](/parachains/interoperability){target=\_blank}
-- [Setting up collator infrastructure for block production](/nodes-and-validators){target=\_blank}
-- [Deploying your parachain by obtaining coretime](/parachains/launch-a-parachain){target=\_blank}
-- [Upgrading your parachain's runtime](/parachains/runtime-maintenance/runtime-upgrades){target=\_blank}
+The following sections provide detailed guidance on each aspect of parachain development, from initial design through deployment and ongoing maintenance.
 
-## In This Section
+<div class="grid cards" markdown>
 
-:::INSERT_IN_THIS_SECTION:::
+-   <span class="badge guide">Guide</span> __Customize Your Runtime__
+
+    ---
+
+    Design your parachain's runtime logic and choose appropriate pallets for your use case.
+
+    [:octicons-arrow-right-24: Get Started](/parachains/customize-runtime/)
+
+-   <span class="badge guide">Guide</span> __Interoperability__
+
+    ---
+
+    Implement XCM for trustless cross-chain communication with other parachains.
+
+    [:octicons-arrow-right-24: Learn More](/parachains/interoperability/)
+
+-   <span class="badge guide">Guide</span> __Nodes & Validators__
+
+    ---
+
+    Set up collator infrastructure for block production and network participation.
+
+    [:octicons-arrow-right-24: Reference](/nodes-and-validators/)
+
+-   <span class="badge guide">Guide</span> __Launch a Parachain__
+
+    ---
+
+    Deploy your parachain to Polkadot by obtaining coretime and connecting to the relay chain.
+
+    [:octicons-arrow-right-24: Deploy](/parachains/launch-a-parachain/)
+
+-   <span class="badge guide">Guide</span> __Runtime Upgrades__
+
+    ---
+
+    Upgrade your parachain's runtime without hard forks using forkless upgrade mechanisms.
+
+    [:octicons-arrow-right-24: Maintain](/parachains/runtime-maintenance/runtime-upgrades/)
+
+</div>

@@ -44,7 +44,7 @@ The gas estimate also includes a small safety buffer to account for slight diffe
 
 ## Dynamic Gas Pricing
 
-PolkaVM uses dynamic pricing through a "fee multiplier" that adjusts based on network congestion:
+Pallet revive uses dynamic pricing through a "fee multiplier" that adjusts based on network congestion:
 
 - When blocks are full, the multiplier increases, making transactions more expensive
 - When blocks are empty, the multiplier decreases, making transactions cheaper

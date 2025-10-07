@@ -147,8 +147,10 @@ def fetch_local_snippet(snippet_ref, snippet_directory, _variables):
         snippet_content = snippet_file.read()
 
     lines = snippet_content.split("\n")
-    if line_start is not None and line_end is not None:
-        snippet_content = "\n".join(lines[line_start - 1 : line_end])
+    if line_start is not None or line_end is not None:
+        start_idx = max(line_start - 1, 0) if line_start is not None else 0
+        end_idx = line_end if line_end is not None else len(lines)
+        snippet_content = "\n".join(lines[start_idx:end_idx])
 
     return snippet_content
 
@@ -168,9 +170,11 @@ def fetch_remote_snippet(snippet_ref):
         resp = requests.get(url, timeout=10)
         resp.raise_for_status()
         snippet_content = resp.text
-        if line_start is not None and line_end is not None:
+        if line_start is not None or line_end is not None:
             lines = snippet_content.split("\n")
-            snippet_content = "\n".join(lines[line_start - 1 : line_end])
+            start_idx = max(line_start - 1, 0) if line_start is not None else 0
+            end_idx = line_end if line_end is not None else len(lines)
+            snippet_content = "\n".join(lines[start_idx:end_idx])
         return snippet_content.strip()
     except requests.RequestException:
         return f"<!-- ERROR FETCHING REMOTE SNIPPET {snippet_ref} -->"

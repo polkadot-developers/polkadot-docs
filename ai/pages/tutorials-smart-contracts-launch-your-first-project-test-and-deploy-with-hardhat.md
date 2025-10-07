@@ -173,7 +173,25 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
 1. Create a folder for testing called `test`. Inside that directory, create a file named `Storage.js` and add the following code:
 
     ```javascript title="Storage.js" 
+    const { expect } = require('chai');
+    const { ethers } = require('hardhat');
 
+    describe('Storage', function () {
+      let storage;
+      let owner;
+      let addr1;
+
+      beforeEach(async function () {
+        // Get signers
+        [owner, addr1] = await ethers.getSigners();
+
+        // Deploy the Storage contract
+        const Storage = await ethers.getContractFactory('Storage');
+        storage = await Storage.deploy();
+        await storage.waitForDeployment();
+      });
+
+      describe('Basic functionality', function () {
         // Add your logic here
     });
     });

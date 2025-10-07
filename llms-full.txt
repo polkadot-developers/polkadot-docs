@@ -28375,7 +28375,7 @@ When your wallet requests a gas estimate (`eth_estimateGas`), the Polkadot Hub p
 
 The system then calculates a gas estimate that covers all these costs, including:
 
-- Base transaction overhead
+- Base transaction overhead (intrinsic costs like signature verification, nonce/account checks, and dispatch setup)
 - Transaction length fees (cost per byte)
 - The actual contract execution costs
 - Any storage deposits
@@ -28384,7 +28384,7 @@ The gas estimate also includes a small safety buffer to account for slight diffe
 
 ## Dynamic Gas Pricing
 
-PolkaVM uses dynamic pricing through a "fee multiplier" that adjusts based on network congestion:
+Pallet revive uses dynamic pricing through a "fee multiplier" that adjusts based on network congestion:
 
 - When blocks are full, the multiplier increases, making transactions more expensive
 - When blocks are empty, the multiplier decreases, making transactions cheaper

@@ -7,5 +7,5 @@ nav:
   - ':simple-dart: Polkadart': polkadart.md
   - ':simple-python: Python Substrate Interface': py-substrate-interface.md
   - ':simple-javascript: Sidecar Rest API': sidecar.md
-  - ':simple-rust: Subxt': subxt.md
+  - ':simple-rust: Subxt': subat.md
 

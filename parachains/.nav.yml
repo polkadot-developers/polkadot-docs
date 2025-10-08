@@ -1,5 +1,5 @@
 nav:
- - 'Get Started': index.md
+ - 'Get Started': get-started.md
  - 'Overview': overview.md
  - 'Launch a Simple Parachain': launch-a-parachain
  - 'Customize Your Runtime': customize-runtime

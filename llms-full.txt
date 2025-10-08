@@ -204,7 +204,7 @@ Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/re
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/dev-environments/remix/troubleshooting.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/dev-environments/remix/verify-a-contract.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/explorers.md
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/faucets.md
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/faucet.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/for-eth-devs/accounts.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/for-eth-devs/blocks-transactions-fees.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/for-eth-devs/contract-deployment.md
@@ -25917,7 +25917,9 @@ Doc-Content: https://docs.polkadot.com/smart-contracts/cookbook/eth-dapps/uniswa
 ---
 title: Deploying Uniswap V2 on Polkadot
 description: Learn how to deploy and test Uniswap V2 on Polkadot Hub using Hardhat, bringing AMM-based token swaps to the Polkadot ecosystem.
+tutorial_badge: Intermediate
 categories: dApps, Tooling
+tools: Hardhat
 ---
 
 # Deploy Uniswap V2
@@ -26167,7 +26169,41 @@ This knowledge can be leveraged to build more complex DeFi applications or to in
 
 Doc-Content: https://docs.polkadot.com/smart-contracts/cookbook/
 --- BEGIN CONTENT ---
-TODO
+---
+title: Overview
+description: Explore our full collection of tutorials and guides to learn step-by-step how to build, deploy, and work with Smart Contracts on Polkadot.
+categories: Basics, dApps, Smart Contracts
+---
+
+# Smart Contracts Cookbook
+
+Welcome to the Polkadot Smart Contracts cookbook index! 👋
+
+This page contains a list of all relevant tutorials and guides to help you get started coding Smart Contracts and dApps in Polkadot!
+
+
+<!-- START OF AUTOMATICALLY GENERATED CONTENT -->
+
+## Faucet
+
+| Title | Difficulty | Tools | Description |
+|-------|:----------:|-------|-------------|
+| [Faucet](/smart-contracts/faucet) | 🟢 Beginner | N/A | Learn how to obtain test tokens from Polkadot faucets for development and testing purposes across different networks. |
+
+## EVM/PVM Smart Contracts
+
+| Title | Difficulty | Tools | Description |
+|-------|:----------:|-------|-------------|
+| [Deploy an ERC-20 to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-erc20) | 🟢 Beginner | EVM Wallet, Polkadot Remix IDE | Deploy an ERC-20 token on Polkadot Hub using PolkaVM. This guide covers contract creation, compilation, deployment, and interaction via Polkadot Remix IDE. |
+| [Deploy an NFT to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-nft) | 🟢 Beginner | EVM Wallet, Polkadot Remix IDE | Deploy an NFT on Polkadot Hub using PolkaVM and OpenZeppelin. Learn how to compile, deploy, and interact with your contract using Polkadot Remix IDE. |
+
+## Port Ethereum DApps
+
+| Title | Difficulty | Tools | Description |
+|-------|:----------:|-------|-------------|
+| [Deploying Uniswap V2 on Polkadot](/smart-contracts/cookbook/eth-dapps/uniswap-v2) | 🟡 Intermediate | Hardhat | Learn how to deploy and test Uniswap V2 on Polkadot Hub using Hardhat, bringing AMM-based token swaps to the Polkadot ecosystem. |
+
+<!-- END OF AUTOMATICALLY GENERATED CONTENT -->
 --- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-basic/
@@ -26182,6 +26218,7 @@ title: Deploy an ERC-20 to Polkadot Hub
 description: Deploy an ERC-20 token on Polkadot Hub using PolkaVM. This guide covers contract creation, compilation, deployment, and interaction via Polkadot Remix IDE.
 tutorial_badge: Beginner
 categories: Basics, dApps, Smart Contracts
+tools: EVM Wallet, Polkadot Remix IDE,
 ---
 
 # Deploy an ERC-20 to Polkadot Hub
@@ -26351,6 +26388,7 @@ title: Deploy an NFT to Polkadot Hub
 description: Deploy an NFT on Polkadot Hub using PolkaVM and OpenZeppelin. Learn how to compile, deploy, and interact with your contract using Polkadot Remix IDE.
 tutorial_badge: Beginner
 categories: Basics, dApps, Smart Contracts
+tools: EVM Wallet, Polkadot Remix IDE,
 ---
 
 # Deploy an NFT to Polkadot Hub
@@ -27942,40 +27980,36 @@ Routescan delivers multi-chain explorer capabilities with specialized support fo
 ![](/images/smart-contracts/explorers/block-explorers-3.webp) -->
 --- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/smart-contracts/faucets/
+Doc-Content: https://docs.polkadot.com/smart-contracts/faucet/
 --- BEGIN CONTENT ---
 ---
-title: Faucets
+title: Faucet
 description: Learn how to obtain test tokens from Polkadot faucets for development and testing purposes across different networks.
+tutorial_badge: Beginner
 categories: Smart Contracts
 ---
 
-# Faucets
+# Faucet
 
-Test tokens allow you to experiment with smart contracts, test transactions, and validate your dApp functionality without using real cryptocurrency. Polkadot has a reliable faucet that distributes free TestNet tokens to developers for testing purposes.
+Test tokens allow you to experiment with smart contracts, test transactions, and validate your dApp functionality without using real cryptocurrency. 
 
-## Faucet Basics
-
-Faucets are services that distribute small amounts of cryptocurrency or tokens for free, typically on TestNet networks. They serve as the primary method for developers to obtain the necessary tokens to:
+Polkadot has a faucet that distributes free TestNet tokens to developers for testing purposes:
 
 - Execute transactions on TestNet networks.
 - Pay for gas fees when deploying smart contracts.
 - Test dApp functionality before MainNet deployment.
 - Experiment with blockchain interactions without financial risk.
 
+
 ## Get Test Tokens
 
 For Polkadot Hub TestNet, you can use the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank} to obtain test tokens. Here's how to do it:
 
 1. Navigate to the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}. If the desired network is not already selected, choose it from the Network drop-down. This example uses the Polkadot Hub TestNet.
-
 2. Copy your address linked to the TestNet and paste it into the designated field.
-
-    ![](/images/smart-contracts/faucets/faucets-1.webp)
-
 3. Click the **Get Some PASs** button to request free test PAS tokens. These tokens will be sent to your wallet shortly.
 
-    ![](/images/smart-contracts/faucets/faucets-2.webp)
+![Polkadot Faucet](/images/smart-contracts/faucet/faucet-1.gif)
 
 ## Things to Consider
 

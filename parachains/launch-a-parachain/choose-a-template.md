@@ -31,7 +31,7 @@ Before diving into the setup, let's explore the main parachain templates availab
 
 The [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk-parachain-template){target=\_blank} is the recommended starting point for most developers. It provides:
 
-- Pre-configured pallets for common blockchain functionality
+- Pre-configured pallets for common blockchain functionality (like balances handling, block production, governance, etc.)
 - A complete runtime setup ready for customization
 - Example implementations demonstrating best practices
 - Built-in support for parachain consensus mechanisms

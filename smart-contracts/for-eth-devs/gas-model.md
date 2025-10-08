@@ -74,7 +74,7 @@ graph TD
 
 The transaction execution flow is as follows:
 
-- **Pool and pre-dispatch**: The transaction enters the pool, `gas` is mapped to `weight`, and a temporary hold is created for the maximum fee exposure.
+- **Pool and pre-dispatch**: The transaction enters the pool, `gas` is mapped to `weight`, and a temporary hold is created for the maximum fee exposure. Weight is a two-dimensional tuple (`ref_time`, `proof_size`). Each dimension is tracked independently. The [`WeightToFee`](https://docs.rs/pallet-transaction-payment/latest/pallet_transaction_payment/pallet/trait.Config.html#associatedtype.WeightToFee){target=\_blank} conversion takes the maximum of the two dimensions (after applying their respective coefficients) to determine the fee.
 - **Funds check**: If the hold is insufficient, the transaction is rejected before any execution.
 - **Execution**: If sufficient, the contract runs within the derived weight limits; a `storage_deposit` may be reserved when new storage is created.
 - **Settlement**: Fees are charged from the actual `weight` used plus the length fee; any unused hold is refunded.

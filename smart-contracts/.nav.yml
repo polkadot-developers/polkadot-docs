@@ -3,7 +3,7 @@ nav:
 - 'Get Started': get-started.md
 - 'Connect to Polkadot': connect.md
 - 'Explorers': explorers.md
-- 'Faucets': faucets.md
+- 'Faucet': faucet.md
 - 'Polkadot for Ethereum Developers': for-eth-devs
 - 'Cookbook': cookbook
 - 'Precompiles': precompiles

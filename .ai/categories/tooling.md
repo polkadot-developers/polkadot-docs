@@ -120,6 +120,1476 @@ All source code references are from the [`address.rs`](https://github.com/parity
 
 ---
 
+Page Title: Add Pallets to the Runtime
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/tutorials-polkadot-sdk-parachains-zero-to-hero-add-pallets-to-runtime.md
+- Canonical (HTML): https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime/
+- Summary: Add pallets to your runtime for custom functionality. Learn to configure and integrate pallets in Polkadot SDK-based blockchains.
+
+# Add Pallets to the Runtime
+
+## Introduction
+
+In previous tutorials, you learned how to [create a custom pallet](/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/){target=\_blank} and [test it](/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-unit-testing/){target=\_blank}. The next step is to include this pallet in your runtime, integrating it into the core logic of your blockchain.
+
+This tutorial will guide you through adding two pallets to your runtime: the custom pallet you previously developed and the [utility pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_utility/index.html){target=\_blank}. This standard Polkadot SDK pallet provides powerful dispatch functionality. The utility pallet offers, for example, batch dispatch, a stateless operation that enables executing multiple calls in a single transaction.
+
+## Add the Pallets as Dependencies
+
+First, you'll update the runtime's `Cargo.toml` file to include the Utility pallet and your custom pallets as dependencies for the runtime. Follow these steps:
+
+1. Open the `runtime/Cargo.toml` file and locate the `[dependencies]` section. Add pallet-utility as one of the features for the `polkadot-sdk` dependency with the following line:
+
+    ```toml hl_lines="4" title="runtime/Cargo.toml"
+    [dependencies]
+    ...
+    polkadot-sdk = { workspace = true, features = [
+      "pallet-utility",
+        ...
+    ], default-features = false }
+    ```
+
+2. In the same `[dependencies]` section, add the custom pallet that you built from scratch with the following line:
+
+    ```toml hl_lines="3" title="Cargo.toml"
+    [dependencies]
+    ...
+    custom-pallet = { path = "../pallets/custom-pallet", default-features = false }
+    ```
+
+3. In the `[features]` section, add the custom pallet to the `std` feature list:
+
+    ```toml hl_lines="5" title="Cargo.toml"
+    [features]
+    default = ["std"]
+    std = [
+      ...
+      "custom-pallet/std",
+      ...
+    ]
+    ```
+
+3. Save the changes and close the `Cargo.toml` file.
+
+    Once you have saved your file, it should look like the following:
+
+    ???- code "runtime/Cargo.toml"
+        
+        ```rust title="runtime/Cargo.toml"
+        [package]
+        name = "parachain-template-runtime"
+        description = "A parachain runtime template built with Substrate and Cumulus, part of Polkadot Sdk."
+        version = "0.1.0"
+        license = "Unlicense"
+        authors.workspace = true
+        homepage.workspace = true
+        repository.workspace = true
+        edition.workspace = true
+        publish = false
+
+        [package.metadata.docs.rs]
+        targets = ["x86_64-unknown-linux-gnu"]
+
+        [build-dependencies]
+        docify = { workspace = true }
+        substrate-wasm-builder = { optional = true, workspace = true, default-features = true }
+
+        [dependencies]
+        codec = { features = ["derive"], workspace = true }
+        cumulus-pallet-parachain-system.workspace = true
+        docify = { workspace = true }
+        hex-literal = { optional = true, workspace = true, default-features = true }
+        log = { workspace = true }
+        pallet-parachain-template = { path = "../pallets/template", default-features = false }
+        polkadot-sdk = { workspace = true, features = [
+          "pallet-utility",
+          "cumulus-pallet-aura-ext",
+          "cumulus-pallet-session-benchmarking",
+          "cumulus-pallet-weight-reclaim",
+          "cumulus-pallet-xcm",
+          "cumulus-pallet-xcmp-queue",
+          "cumulus-primitives-aura",
+          "cumulus-primitives-core",
+          "cumulus-primitives-utility",
+          "pallet-aura",
+          "pallet-authorship",
+          "pallet-balances",
+          "pallet-collator-selection",
+          "pallet-message-queue",
+          "pallet-session",
+          "pallet-sudo",
+          "pallet-timestamp",
+          "pallet-transaction-payment",
+          "pallet-transaction-payment-rpc-runtime-api",
+          "pallet-xcm",
+          "parachains-common",
+          "polkadot-parachain-primitives",
+          "polkadot-runtime-common",
+          "runtime",
+          "staging-parachain-info",
+          "staging-xcm",
+          "staging-xcm-builder",
+          "staging-xcm-executor",
+        ], default-features = false }
+        scale-info = { features = ["derive"], workspace = true }
+        serde_json = { workspace = true, default-features = false, features = [
+          "alloc",
+        ] }
+        smallvec = { workspace = true, default-features = true }
+
+        custom-pallet = { path = "../pallets/custom-pallet", default-features = false }
+
+        [features]
+        default = ["std"]
+        std = [
+          "codec/std",
+          "cumulus-pallet-parachain-system/std",
+          "log/std",
+          "pallet-parachain-template/std",
+          "polkadot-sdk/std",
+          "scale-info/std",
+          "serde_json/std",
+          "substrate-wasm-builder",
+          "custom-pallet/std",
+        ]
+
+        runtime-benchmarks = [
+          "cumulus-pallet-parachain-system/runtime-benchmarks",
+          "hex-literal",
+          "pallet-parachain-template/runtime-benchmarks",
+          "polkadot-sdk/runtime-benchmarks",
+        ]
+
+        try-runtime = [
+          "cumulus-pallet-parachain-system/try-runtime",
+          "pallet-parachain-template/try-runtime",
+          "polkadot-sdk/try-runtime",
+        ]
+
+        # Enable the metadata hash generation.
+        #
+        # This is hidden behind a feature because it increases the compile time.
+        # The wasm binary needs to be compiled twice, once to fetch the metadata,
+        # generate the metadata hash and then a second time with the
+        # `RUNTIME_METADATA_HASH` environment variable set for the `CheckMetadataHash`
+        # extension.
+        metadata-hash = ["substrate-wasm-builder/metadata-hash"]
+
+        # A convenience feature for enabling things when doing a build
+        # for an on-chain release.
+        on-chain-release-build = ["metadata-hash"]
+
+        ```
+
+Update your root parachain template's `Cargo.toml` file to include your custom pallet as a dependency. Follow these steps:
+
+1. Open the `./Cargo.toml` file and locate the `[workspace]` section. 
+    
+    Make sure the `custom-pallet` is a member of the workspace:
+
+    ```toml hl_lines="4" title="Cargo.toml"
+     [workspace]
+     default-members = ["pallets/template", "runtime"]
+     members = [
+         "node", "pallets/custom-pallet",
+         "pallets/template",
+         "runtime",
+     ]
+    ```
+
+???- code "./Cargo.toml"
+
+    ```rust title="./Cargo.toml"
+    [workspace.package]
+    license = "MIT-0"
+    authors = ["Parity Technologies <admin@parity.io>"]
+    homepage = "https://paritytech.github.io/polkadot-sdk/"
+    repository = "https://github.com/paritytech/polkadot-sdk-parachain-template.git"
+    edition = "2021"
+
+    [workspace]
+    default-members = ["pallets/template", "runtime"]
+    members = [
+        "node", "pallets/custom-pallet",
+        "pallets/template",
+        "runtime",
+    ]
+    resolver = "2"
+
+    [workspace.dependencies]
+    parachain-template-runtime = { path = "./runtime", default-features = false }
+    pallet-parachain-template = { path = "./pallets/template", default-features = false }
+    clap = { version = "4.5.13" }
+    color-print = { version = "0.3.4" }
+    docify = { version = "0.2.9" }
+    futures = { version = "0.3.31" }
+    jsonrpsee = { version = "0.24.3" }
+    log = { version = "0.4.22", default-features = false }
+    polkadot-sdk = { version = "2503.0.1", default-features = false }
+    prometheus-endpoint = { version = "0.17.2", default-features = false, package = "substrate-prometheus-endpoint" }
+    serde = { version = "1.0.214", default-features = false }
+    codec = { version = "3.7.4", default-features = false, package = "parity-scale-codec" }
+    cumulus-pallet-parachain-system = { version = "0.20.0", default-features = false }
+    hex-literal = { version = "0.4.1", default-features = false }
+    scale-info = { version = "2.11.6", default-features = false }
+    serde_json = { version = "1.0.132", default-features = false }
+    smallvec = { version = "1.11.0", default-features = false }
+    substrate-wasm-builder = { version = "26.0.1", default-features = false }
+    frame = { version = "0.9.1", default-features = false, package = "polkadot-sdk-frame" }
+
+    [profile.release]
+    opt-level = 3
+    panic = "unwind"
+
+    [profile.production]
+    codegen-units = 1
+    inherits = "release"
+    lto = true
+    ```
+
+
+### Update the Runtime Configuration
+
+Configure the pallets by implementing their `Config` trait and update the runtime macro to include the new pallets:
+
+1. Add the `OriginCaller` import:
+
+    ```rust title="mod.rs" hl_lines="8"
+    // Local module imports
+    use super::OriginCaller;
+    ...
+    ```
+
+2. Implement the [`Config`](https://paritytech.github.io/polkadot-sdk/master/pallet_utility/pallet/trait.Config.html){target=\_blank} trait for both pallets at the end of the `runtime/src/config/mod.rs` file:
+
+    ```rust title="mod.rs" hl_lines="8-25"
+    ...
+    /// Configure the pallet template in pallets/template.
+    impl pallet_parachain_template::Config for Runtime {
+        type RuntimeEvent = RuntimeEvent;
+        type WeightInfo = pallet_parachain_template::weights::SubstrateWeight<Runtime>;
+    }
+
+    // Configure utility pallet.
+    impl pallet_utility::Config for Runtime {
+        type RuntimeEvent = RuntimeEvent;
+        type RuntimeCall = RuntimeCall;
+        type PalletsOrigin = OriginCaller;
+        type WeightInfo = pallet_utility::weights::SubstrateWeight<Runtime>;
+    }
+    // Define counter max value runtime constant.
+    parameter_types! {
+        pub const CounterMaxValue: u32 = 500;
+    }
+
+    // Configure custom pallet.
+    impl custom_pallet::Config for Runtime {
+        type RuntimeEvent = RuntimeEvent;
+        type CounterMaxValue = CounterMaxValue;
+    }
+    ```
+
+3. Locate the `#[frame_support::runtime]` macro in the `runtime/src/lib.rs` file and add the pallets:
+
+    ```rust hl_lines="9-14" title="lib.rs"
+    #[frame_support::runtime]
+    mod runtime {
+        #[runtime::runtime]
+        #[runtime::derive(
+            ...
+            )]
+            pub struct Runtime;
+        #[runtime::pallet_index(51)]
+        pub type Utility = pallet_utility;
+
+        #[runtime::pallet_index(52)]
+        pub type CustomPallet = custom_pallet;
+    }
+    ```
+
+## Recompile the Runtime
+
+After adding and configuring your pallets in the runtime, the next step is to ensure everything is set up correctly. To do this, recompile the runtime with the following command (make sure you're in the project's root directory):
+
+```bash
+cargo build --release
+```
+
+This command ensures the runtime compiles without errors, validates the pallet configurations, and prepares the build for subsequent testing or deployment.
+
+## Run Your Chain Locally
+
+Launch your parachain locally and start producing blocks:
+
+!!!tip
+    Generated chain TestNet specifications include development accounts "Alice" and "Bob." These accounts are pre-funded with native parachain currency, allowing you to sign and send TestNet transactions. Take a look at the [Polkadot.js Accounts section](https://polkadot.js.org/apps/#/accounts){target=\_blank} to view the development accounts for your chain.
+
+1. Create a new chain specification file with the updated runtime:
+
+    ```bash
+    chain-spec-builder create -t development \
+    --relay-chain paseo \
+    --para-id 1000 \
+    --runtime ./target/release/wbuild/parachain-template-runtime/parachain_template_runtime.compact.compressed.wasm \
+    named-preset development
+    ```
+
+2. Start the omni node with the generated chain specification:
+
+    ```bash
+    polkadot-omni-node --chain ./chain_spec.json --dev
+    ```
+
+3. Verify you can interact with the new pallets using the [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9944#/extrinsics){target=\_blank} interface. Navigate to the **Extrinsics** tab and check that you can see both pallets:
+
+    - Utility pallet
+
+        ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime/add-pallets-to-runtime-1.webp)
+    
+
+    - Custom pallet
+
+        ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime/add-pallets-to-runtime-2.webp)
+
+## Where to Go Next
+
+<div class="grid cards" markdown>
+
+-   <span class="badge tutorial">Tutorial</span> __Deploy on Paseo TestNet__
+
+    ---
+
+    Deploy your Polkadot SDK blockchain on Paseo! Follow this step-by-step guide for a seamless journey to a successful TestNet deployment.
+
+    [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/)
+
+-   <span class="badge tutorial">Tutorial</span> __Pallet Benchmarking (Optional)__
+
+    ---
+
+    Discover how to measure extrinsic costs and assign precise weights to optimize your pallet for accurate fees and runtime performance.
+
+    [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/)
+
+</div>
+
+
+---
+
+Page Title: Blocks
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/polkadot-protocol-parachain-basics-blocks-transactions-fees-blocks.md
+- Canonical (HTML): https://docs.polkadot.com/polkadot-protocol/parachain-basics/blocks-transactions-fees/blocks/
+- Summary: Understand how blocks are produced, validated, and imported in Polkadot SDK-based blockchains, covering initialization, finalization, and authoring processes.
+
+# Blocks
+
+## Introduction
+
+In the Polkadot SDK, blocks are fundamental to the functioning of the blockchain, serving as containers for [transactions](/polkadot-protocol/parachain-basics/blocks-transactions-fees/transactions/){target=\_blank} and changes to the chain's state. Blocks consist of headers and an array of transactions, ensuring the integrity and validity of operations on the network. This guide explores the essential components of a block, the process of block production, and how blocks are validated and imported across the network. By understanding these concepts, developers can better grasp how blockchains maintain security, consistency, and performance within the Polkadot ecosystem.
+
+## What is a Block?
+
+In the Polkadot SDK, a block is a fundamental unit that encapsulates both the header and an array of transactions. The block header includes critical metadata to ensure the integrity and sequence of the blockchain. Here's a breakdown of its components:
+
+- **Block height**: Indicates the number of blocks created in the chain so far.
+- **Parent hash**: The hash of the previous block, providing a link to maintain the blockchain's immutability.
+- **Transaction root**: Cryptographic digest summarizing all transactions in the block.
+- **State root**: A cryptographic digest representing the post-execution state.
+- **Digest**: Additional information that can be attached to a block, such as consensus-related messages.
+
+Each transaction is part of a series that is executed according to the runtime's rules. The transaction root is a cryptographic digest of this series, which prevents alterations and enables succinct verification by light clients. This verification process allows light clients to confirm whether a transaction exists in a block with only the block header, avoiding downloading the entire block.
+
+## Block Production
+
+When an authoring node is authorized to create a new block, it selects transactions from the transaction queue based on priority. This step, known as block production, relies heavily on the executive module to manage the initialization and finalization of blocks. The process is summarized as follows:
+
+### Initialize Block
+
+The block initialization process begins with a series of function calls that prepare the block for transaction execution:
+
+1. **Call `on_initialize`**: The executive module calls the [`on_initialize`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/trait.Hooks.html#method.on_initialize){target=\_blank} hook from the system pallet and other runtime pallets to prepare for the block's transactions.
+2. **Coordinate runtime calls**: Coordinates function calls in the order defined by the transaction queue.
+3. **Verify information**: Once [`on_initialize`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/trait.Hooks.html#method.on_initialize){target=\_blank} functions are executed, the executive module checks the parent hash in the block header and the trie root to verify information is consistent.
+
+### Finalize Block
+
+Once transactions are processed, the block must be finalized before being broadcast to the network. The finalization steps are as follows:
+
+1. **Call `on_finalize`**: The executive module calls the [`on_finalize`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/trait.Hooks.html#method.on_finalize){target=\_blank} hooks in each pallet to ensure any remaining state updates or checks are completed before the block is sealed and published.
+2. **Verify information**: The block's digest and storage root in the header are checked against the initialized block to ensure consistency.
+3. **Call `on_idle`**: The [`on_idle`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/trait.Hooks.html#method.on_idle){target=\_blank} hook is triggered to process any remaining tasks using the leftover weight from the block.
+
+## Block Authoring and Import
+
+Once the block is finalized, it is gossiped to other nodes in the network. Nodes follow this procedure:
+
+1. **Receive transactions**: The authoring node collects transactions from the network.
+2. **Validate**: Transactions are checked for validity.
+3. **Queue**: Valid transactions are placed in the transaction pool for execution.
+4. **Execute**: State changes are made as the transactions are executed.
+5. **Publish**: The finalized block is broadcast to the network.
+
+### Block Import Queue
+
+After a block is published, other nodes on the network can import it into their chain state. The block import queue is part of the outer node in every Polkadot SDK-based node and ensures incoming blocks are valid before adding them to the node's state.
+
+In most cases, you don't need to know details about how transactions are gossiped or how other nodes on the network import blocks. The following traits are relevant, however, if you plan to write any custom consensus logic or want a deeper dive into the block import queue:
+
+- **[`ImportQueue`](https://paritytech.github.io/polkadot-sdk/master/sc_consensus/import_queue/trait.ImportQueue.html){target=\_blank}**: The trait that defines the block import queue.
+- **[`Link`](https://paritytech.github.io/polkadot-sdk/master/sc_consensus/import_queue/trait.Link.html){target=\_blank}**: The trait that defines the link between the block import queue and the network.
+- **[`BasicQueue`](https://paritytech.github.io/polkadot-sdk/master/sc_consensus/import_queue/struct.BasicQueue.html){target=\_blank}**: A basic implementation of the block import queue.
+- **[`Verifier`](https://paritytech.github.io/polkadot-sdk/master/sc_consensus/import_queue/trait.Verifier.html){target=\_blank}**: The trait that defines the block verifier.
+- **[`BlockImport`](https://paritytech.github.io/polkadot-sdk/master/sc_consensus/block_import/trait.BlockImport.html){target=\_blank}**: The trait that defines the block import process.
+
+These traits govern how blocks are validated and imported across the network, ensuring consistency and security.
+
+## Additional Resources
+
+To learn more about the block structure in the Polkadot SDK runtime, see the [`Block` reference](https://paritytech.github.io/polkadot-sdk/master/sp_runtime/traits/trait.Block.html){target=\_blank} entry in the Rust Docs.
+
+
+---
+
+Page Title: Build a Custom Pallet
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/tutorials-polkadot-sdk-parachains-zero-to-hero-build-custom-pallet.md
+- Canonical (HTML): https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/
+- Summary: Learn how to build a custom pallet for Polkadot SDK-based blockchains with this step-by-step guide. Create and configure a simple counter pallet from scratch.
+
+# Build a Custom Pallet
+
+## Introduction
+
+In Polkadot SDK-based blockchains, runtime functionality is built through modular components called [pallets](/polkadot-protocol/glossary#pallet){target=\_blank}. These pallets are Rust-based runtime modules created using [FRAME (Framework for Runtime Aggregation of Modular Entities)](/develop/parachains/customize-parachain/overview/){target=\_blank}, a powerful library that simplifies blockchain development by providing specialized macros and standardized patterns for building blockchain logic.
+A pallet encapsulates a specific set of blockchain functionalities, such as managing token balances, implementing governance mechanisms, or creating custom state transitions.
+
+In this tutorial, you'll learn how to create a custom pallet from scratch. You will develop a simple counter pallet with the following features:
+
+- Users can increment and decrement a counter.
+- Only a [root origin](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/type.Origin.html#variant.Root){target=\_blank} can set an arbitrary counter value.
+
+## Prerequisites
+
+You'll use the [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk/tree/master/templates/parachain){target=\_blank} created in the [Set Up a Template](/tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template/){target=\_blank} tutorial. 
+
+## Create a New Project
+
+In this tutorial, you'll build a custom pallet from scratch to demonstrate the complete workflow, rather than starting with the pre-built `pallet-template`. The first step is to create a new Rust package for your pallet:
+
+1. Navigate to the `pallets` directory in your workspace:
+
+    ```bash
+    cd pallets
+    ```
+
+2. Create a new Rust library project for your custom pallet by running the following command:
+
+    ```bash
+    cargo new --lib custom-pallet
+    ```
+
+3. Enter the new project directory:
+
+    ```bash
+    cd custom-pallet
+    ```
+
+4. Ensure the project was created successfully by checking its structure. The file layout should resemble the following:
+
+    ```
+    custom-pallet 
+    ├── Cargo.toml
+    └── src
+        └── lib.rs
+    ```
+
+    If the files are in place, your project setup is complete, and you're ready to start building your custom pallet.
+
+## Add Dependencies
+
+To build and integrate your custom pallet into a Polkadot SDK-based runtime, you must add specific dependencies to the `Cargo.toml` file of your pallet's project. These dependencies provide essential modules and features required for pallet development. Since your custom pallet is part of a workspace that includes other components, such as the runtime, the configuration must align with the workspace structure. Follow the steps below to set up your `Cargo.toml` file properly:
+
+1. Open your `Cargo.toml` file.
+
+2. Add the required dependencies in the `[dependencies]` section:
+
+    ```toml
+    [dependencies]
+    codec = { features = ["derive"], workspace = true }
+    scale-info = { features = ["derive"], workspace = true }
+    frame = { features = ["experimental", "runtime"], workspace = true }
+    ```
+
+3. Enable `std` features:
+
+    ```toml
+    [features]
+    default = ["std"]
+    std = ["codec/std", "frame/std", "scale-info/std"]
+    ```
+
+The final `Cargo.toml` file should resemble the following:
+
+??? code "Cargo.toml"
+
+    ```toml
+    [package]
+    name = "custom-pallet"
+    version = "0.1.0"
+    license.workspace = true
+    authors.workspace = true
+    homepage.workspace = true
+    repository.workspace = true
+    edition.workspace = true
+
+    [dependencies]
+    codec = { features = ["derive"], workspace = true }
+    scale-info = { features = ["derive"], workspace = true }
+    frame = { features = ["experimental", "runtime"], workspace = true }
+
+    [features]
+    default = ["std"]
+    std = ["codec/std", "frame/std", "scale-info/std"]
+    ```
+
+## Implement the Pallet Logic
+
+In this section, you will construct the core structure of your custom pallet, starting with setting up its basic scaffold. This scaffold acts as the foundation, enabling you to later add functionality such as storage items, events, errors, and dispatchable calls.
+
+### Add Scaffold Pallet Structure
+
+You now have the bare minimum of package dependencies that your pallet requires specified in the `Cargo.toml` file. The next step is to prepare the scaffolding for your new pallet.
+
+1. Open `src/lib.rs` in a text editor and delete all the content.
+   
+2. Prepare the scaffolding for the pallet by adding the following:
+
+    ```rust title="lib.rs"
+    #![cfg_attr(not(feature = "std"), no_std)]
+
+    pub use pallet::*;
+
+    #[frame::pallet]
+    pub mod pallet {
+        use super::*;
+        use frame::prelude::*;
+        #[pallet::pallet]
+        pub struct Pallet<T>(_);
+
+        // Configuration trait for the pallet.
+        #[pallet::config]
+        pub trait Config: frame_system::Config {
+            // Defines the event type for the pallet.
+            }
+    }
+    ```
+
+3. Verify that it compiles by running the following command:
+
+    ```bash
+    cargo build --package custom-pallet
+    ```
+
+### Pallet Configuration
+
+Implementing the `#[pallet::config]` macro is mandatory and sets the module's dependency on other modules and the types and values specified by the runtime-specific settings.
+
+In this step, you will configure two essential components that are critical for the pallet's functionality:
+
+- **`RuntimeEvent`**: Since this pallet emits events, the [`RuntimeEvent`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/trait.Config.html#associatedtype.RuntimeEvent){target=\_blank} type is required to handle them. This ensures that events generated by the pallet can be correctly processed and interpreted by the runtime.
+
+- **`CounterMaxValue`**: A constant that sets an upper limit on the value of the counter, ensuring that the counter remains within a predefined range.
+
+Add the following `Config` trait definition to your pallet:
+
+```rust title="lib.rs"
+    #[pallet::config]
+    pub trait Config: frame_system::Config {
+        // Defines the event type for the pallet.
+        type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
+
+        // Defines the maximum value the counter can hold.
+        #[pallet::constant]
+        type CounterMaxValue: Get<u32>;
+    }
+```
+
+### Add Events
+
+Events allow the pallet to communicate with the outside world by emitting signals when specific actions occur. These events are critical for transparency, debugging, and integration with external systems such as UIs or monitoring tools.
+
+Below are the events defined for this pallet:
+
+- **`CounterValueSet`**: Is emitted when the counter is explicitly set to a new value. This event includes the counter's updated value.
+
+- **`CounterIncremented`**: Is emitted after a successful increment operation. It includes.
+
+    - The new counter value.
+    - The account responsible for the increment.
+    - The amount by which the counter was incremented.
+
+- **`CounterDecremented`**: Is emitted after a successful decrement operation. It includes.
+
+    - The new counter value.
+    - The account responsible for the decrement.
+    - The amount by which the counter was decremented.
+
+Define the events in the pallet as follows:
+
+```rust title="lib.rs"
+    #[pallet::event]
+    #[pallet::generate_deposit(pub(super) fn deposit_event)]
+    pub enum Event<T: Config> {
+        /// The counter value has been set to a new value by Root.
+        CounterValueSet {
+            /// The new value set.
+            counter_value: u32,
+        },
+        /// A user has successfully incremented the counter.
+        CounterIncremented {
+            /// The new value set.
+            counter_value: u32,
+            /// The account who incremented the counter.
+            who: T::AccountId,
+            /// The amount by which the counter was incremented.
+            incremented_amount: u32,
+        },
+        /// A user has successfully decremented the counter.
+        CounterDecremented {
+            /// The new value set.
+            counter_value: u32,
+            /// The account who decremented the counter.
+            who: T::AccountId,
+            /// The amount by which the counter was decremented.
+            decremented_amount: u32,
+        },
+    }
+
+```
+
+### Add Storage Items
+
+Storage items are used to manage the pallet's state. This pallet defines two items to handle the counter's state and user interactions:
+
+- **`CounterValue`**: A single storage value that keeps track of the current value of the counter. This value is the core state variable manipulated by the pallet's functions.
+
+- **`UserInteractions`**: A storage map that tracks the number of times each account interacts with the counter.
+  
+Define the storage items as follows:
+
+```rust title="lib.rs"
+    #[pallet::storage]
+    pub type CounterValue<T> = StorageValue<_, u32>;
+
+    /// Storage map to track the number of interactions performed by each account.
+    #[pallet::storage]
+    pub type UserInteractions<T: Config> = StorageMap<_, Twox64Concat, T::AccountId, u32>;
+
+```
+
+### Implement Custom Errors
+
+The `#[pallet::error]` macro defines a custom `Error` enum to handle specific failure conditions within the pallet. Errors help provide meaningful feedback to users and external systems when an extrinsic cannot be completed successfully. They are critical for maintaining the pallet's clarity and robustness.
+
+To add custom errors, use the `#[pallet::error]` macro to define the `Error` enum. Each variant represents a unique error that the pallet can emit, and these errors should align with the logic and constraints of the pallet. 
+
+Add the following errors to the pallet:
+
+```rust title="lib.rs"
+    #[pallet::error]
+    pub enum Error<T> {
+        /// The counter value exceeds the maximum allowed value.
+        CounterValueExceedsMax,
+        /// The counter value cannot be decremented below zero.
+        CounterValueBelowZero,
+        /// Overflow occurred in the counter.
+        CounterOverflow,
+        /// Overflow occurred in user interactions.
+        UserInteractionOverflow,
+    }
+
+```
+
+### Implement Calls
+
+The `#[pallet::call]` macro defines the dispatchable functions (or calls) the pallet exposes. These functions allow users or the runtime to interact with the pallet's logic and state. Each call includes comprehensive validations, modifies the state, and optionally emits events to signal successful execution.
+
+The structure of the dispatchable calls in this pallet is as follows:
+
+```rust title="lib.rs"
+    #[pallet::call]
+    impl<T: Config> Pallet<T> {
+        /// Set the value of the counter.
+        ///
+        /// The dispatch origin of this call must be _Root_.
+        ///
+        /// - `new_value`: The new value to set for the counter.
+        ///
+        /// Emits `CounterValueSet` event when successful.
+        #[pallet::call_index(0)]
+    #[pallet::weight(0)]
+            pub fn set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult {
+            }
+            /// Increment the counter by a specified amount.
+            ///
+            /// This function can be called by any signed account.
+            ///
+            /// - `amount_to_increment`: The amount by which to increment the counter.
+            ///
+            /// Emits `CounterIncremented` event when successful.
+            #[pallet::call_index(1)]
+    #[pallet::weight(0)]
+            pub fn increment(origin: OriginFor<T>, amount_to_increment: u32) -> DispatchResult {
+            }
+            /// Decrement the counter by a specified amount.
+            ///
+            /// This function can be called by any signed account.
+            ///
+            /// - `amount_to_decrement`: The amount by which to decrement the counter.
+            ///
+            /// Emits `CounterDecremented` event when successful.
+            #[pallet::call_index(2)]
+    #[pallet::weight(0)]
+            pub fn decrement(origin: OriginFor<T>, amount_to_decrement: u32) -> DispatchResult {
+        }
+}
+```
+
+Expand the following items to view the implementations of each dispatchable call in this pallet.
+
+???- code "set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult"
+    This call sets the counter to a specific value. It is restricted to the Root origin, meaning it can only be invoked by privileged users or entities.
+
+    - Parameters:
+        - **`new_value`**: The value to set the counter to.
+    - Validations:
+        - The new value must not exceed the maximum allowed counter value (`CounterMaxValue`).
+    - Behavior:
+        - Updates the `CounterValue` storage item.
+        - Emits a `CounterValueSet` event on success.
+
+    ```rust title="lib.rs"
+            /// Set the value of the counter.
+            ///
+            /// The dispatch origin of this call must be _Root_.
+            ///
+            /// - `new_value`: The new value to set for the counter.
+            ///
+            /// Emits `CounterValueSet` event when successful.
+            #[pallet::call_index(0)]
+    #[pallet::weight(0)]
+            pub fn set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult {
+                ensure_root(origin)?;
+
+                ensure!(
+                    new_value <= T::CounterMaxValue::get(),
+                    Error::<T>::CounterValueExceedsMax
+                );
+
+                CounterValue::<T>::put(new_value);
+
+                Self::deposit_event(Event::<T>::CounterValueSet {
+                    counter_value: new_value,
+                });
+
+                Ok(())
+            }
+    ```
+
+???- code "increment(origin: OriginFor<T>, amount_to_increment: u32) -> DispatchResult"
+    This call increments the counter by a specified amount. It is accessible to any signed account.
+
+    - Parameters:
+        - **`amount_to_increment`**: The amount to add to the counter.
+    - Validations:
+        - Prevents overflow during the addition.
+        - Ensures the resulting counter value does not exceed `CounterMaxValue`.
+    - Behavior:
+        - Updates the `CounterValue` storage item.
+        - Tracks the number of interactions by the user in the `UserInteractions` storage map.
+        - Emits a `CounterIncremented` event on success.
+
+    ```rust title="lib.rs"
+            /// Increment the counter by a specified amount.
+            ///
+            /// This function can be called by any signed account.
+            ///
+            /// - `amount_to_increment`: The amount by which to increment the counter.
+            ///
+            /// Emits `CounterIncremented` event when successful.
+            #[pallet::call_index(1)]
+    #[pallet::weight(0)]
+            pub fn increment(origin: OriginFor<T>, amount_to_increment: u32) -> DispatchResult {
+                let who = ensure_signed(origin)?;
+
+                let current_value = CounterValue::<T>::get().unwrap_or(0);
+
+                let new_value = current_value
+                    .checked_add(amount_to_increment)
+                    .ok_or(Error::<T>::CounterOverflow)?;
+
+                ensure!(
+                    new_value <= T::CounterMaxValue::get(),
+                    Error::<T>::CounterValueExceedsMax
+                );
+
+                CounterValue::<T>::put(new_value);
+
+                UserInteractions::<T>::try_mutate(&who, |interactions| -> Result<_, Error<T>> {
+                    let new_interactions = interactions
+                        .unwrap_or(0)
+                        .checked_add(1)
+                        .ok_or(Error::<T>::UserInteractionOverflow)?;
+                    *interactions = Some(new_interactions); // Store the new value.
+
+                    Ok(())
+                })?;
+
+                Self::deposit_event(Event::<T>::CounterIncremented {
+                    counter_value: new_value,
+                    who,
+                    incremented_amount: amount_to_increment,
+                });
+
+                Ok(())
+            }
+    ```
+
+???- code "decrement(origin: OriginFor<T>, amount_to_decrement: u32) -> DispatchResult"
+    This call decrements the counter by a specified amount. It is accessible to any signed account.
+
+    - Parameters:
+        - **`amount_to_decrement`**: The amount to subtract from the counter.
+    - Validations:
+        - Prevents underflow during the subtraction.
+        - Ensures the counter does not drop below zero.
+    - Behavior:
+        - Updates the `CounterValue` storage item.
+        - Tracks the number of interactions by the user in the `UserInteractions` storage map.
+        - Emits a `CounterDecremented` event on success.
+
+    ```rust title="lib.rs"
+            /// Decrement the counter by a specified amount.
+            ///
+            /// This function can be called by any signed account.
+            ///
+            /// - `amount_to_decrement`: The amount by which to decrement the counter.
+            ///
+            /// Emits `CounterDecremented` event when successful.
+            #[pallet::call_index(2)]
+    #[pallet::weight(0)]
+            pub fn decrement(origin: OriginFor<T>, amount_to_decrement: u32) -> DispatchResult {
+                let who = ensure_signed(origin)?;
+
+                let current_value = CounterValue::<T>::get().unwrap_or(0);
+
+                let new_value = current_value
+                    .checked_sub(amount_to_decrement)
+                    .ok_or(Error::<T>::CounterValueBelowZero)?;
+
+                CounterValue::<T>::put(new_value);
+
+                UserInteractions::<T>::try_mutate(&who, |interactions| -> Result<_, Error<T>> {
+                    let new_interactions = interactions
+                        .unwrap_or(0)
+                        .checked_add(1)
+                        .ok_or(Error::<T>::UserInteractionOverflow)?;
+                    *interactions = Some(new_interactions); // Store the new value.
+
+                    Ok(())
+                })?;
+
+                Self::deposit_event(Event::<T>::CounterDecremented {
+                    counter_value: new_value,
+                    who,
+                    decremented_amount: amount_to_decrement,
+                });
+
+                Ok(())
+            }
+    ```
+
+## Verify Compilation
+
+After implementing all the pallet components, verifying that the code still compiles successfully is crucial. Run the following command in your terminal to ensure there are no errors:
+
+```bash
+cargo build --package custom-pallet
+```
+
+If you encounter any errors or warnings, carefully review your code to resolve the issues. Once the build is complete without errors, your pallet implementation is ready.
+
+## Key Takeaways
+
+In this tutorial, you learned how to create a custom pallet by defining storage, implementing errors, adding dispatchable calls, and emitting events. These are the foundational building blocks for developing robust Polkadot SDK-based blockchain logic.
+
+Expand the following item to review this implementation and the complete pallet code.
+
+???- code "src/lib.rs"
+
+    ```rust title="lib.rs"
+    #![cfg_attr(not(feature = "std"), no_std)]
+
+    pub use pallet::*;
+
+    #[frame::pallet]
+    pub mod pallet {
+        use super::*;
+        use frame::prelude::*;
+        #[pallet::pallet]
+        pub struct Pallet<T>(_);
+
+        // Configuration trait for the pallet.
+        #[pallet::config]
+        pub trait Config: frame_system::Config {
+            // Defines the event type for the pallet.
+            type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
+
+            // Defines the maximum value the counter can hold.
+            #[pallet::constant]
+            type CounterMaxValue: Get<u32>;
+            }
+
+            #[pallet::event]
+            #[pallet::generate_deposit(pub(super) fn deposit_event)]
+            pub enum Event<T: Config> {
+                /// The counter value has been set to a new value by Root.
+                CounterValueSet {
+                    /// The new value set.
+                    counter_value: u32,
+                },
+                /// A user has successfully incremented the counter.
+                CounterIncremented {
+                    /// The new value set.
+                    counter_value: u32,
+                    /// The account who incremented the counter.
+                    who: T::AccountId,
+                    /// The amount by which the counter was incremented.
+                    incremented_amount: u32,
+                },
+                /// A user has successfully decremented the counter.
+                CounterDecremented {
+                    /// The new value set.
+                    counter_value: u32,
+                    /// The account who decremented the counter.
+                    who: T::AccountId,
+                    /// The amount by which the counter was decremented.
+                    decremented_amount: u32,
+                },
+            }
+
+            /// Storage for the current value of the counter.
+            #[pallet::storage]
+            pub type CounterValue<T> = StorageValue<_, u32>;
+
+            /// Storage map to track the number of interactions performed by each account.
+            #[pallet::storage]
+            pub type UserInteractions<T: Config> = StorageMap<_, Twox64Concat, T::AccountId, u32>;
+
+            #[pallet::error]
+            pub enum Error<T> {
+                /// The counter value exceeds the maximum allowed value.
+                CounterValueExceedsMax,
+                /// The counter value cannot be decremented below zero.
+                CounterValueBelowZero,
+                /// Overflow occurred in the counter.
+                CounterOverflow,
+                /// Overflow occurred in user interactions.
+                UserInteractionOverflow,
+            }
+
+            #[pallet::call]
+            impl<T: Config> Pallet<T> {
+                /// Set the value of the counter.
+                ///
+                /// The dispatch origin of this call must be _Root_.
+                ///
+                /// - `new_value`: The new value to set for the counter.
+                ///
+                /// Emits `CounterValueSet` event when successful.
+                #[pallet::call_index(0)]
+            #[pallet::weight(0)]
+                    pub fn set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult {
+                        ensure_root(origin)?;
+
+                        ensure!(
+                            new_value <= T::CounterMaxValue::get(),
+                            Error::<T>::CounterValueExceedsMax
+                        );
+
+                        CounterValue::<T>::put(new_value);
+
+                        Self::deposit_event(Event::<T>::CounterValueSet {
+                            counter_value: new_value,
+                        });
+
+                        Ok(())
+                    }
+
+                    /// Increment the counter by a specified amount.
+                    ///
+                    /// This function can be called by any signed account.
+                    ///
+                    /// - `amount_to_increment`: The amount by which to increment the counter.
+                    ///
+                    /// Emits `CounterIncremented` event when successful.
+                    #[pallet::call_index(1)]
+            #[pallet::weight(0)]
+                    pub fn increment(origin: OriginFor<T>, amount_to_increment: u32) -> DispatchResult {
+                        let who = ensure_signed(origin)?;
+
+                        let current_value = CounterValue::<T>::get().unwrap_or(0);
+
+                        let new_value = current_value
+                            .checked_add(amount_to_increment)
+                            .ok_or(Error::<T>::CounterOverflow)?;
+
+                        ensure!(
+                            new_value <= T::CounterMaxValue::get(),
+                            Error::<T>::CounterValueExceedsMax
+                        );
+
+                        CounterValue::<T>::put(new_value);
+
+                        UserInteractions::<T>::try_mutate(&who, |interactions| -> Result<_, Error<T>> {
+                            let new_interactions = interactions
+                                .unwrap_or(0)
+                                .checked_add(1)
+                                .ok_or(Error::<T>::UserInteractionOverflow)?;
+                            *interactions = Some(new_interactions); // Store the new value.
+
+                            Ok(())
+                        })?;
+
+                        Self::deposit_event(Event::<T>::CounterIncremented {
+                            counter_value: new_value,
+                            who,
+                            incremented_amount: amount_to_increment,
+                        });
+
+                        Ok(())
+                    }
+
+                    /// Decrement the counter by a specified amount.
+                    ///
+                    /// This function can be called by any signed account.
+                    ///
+                    /// - `amount_to_decrement`: The amount by which to decrement the counter.
+                    ///
+                    /// Emits `CounterDecremented` event when successful.
+                    #[pallet::call_index(2)]
+            #[pallet::weight(0)]
+            pub fn decrement(origin: OriginFor<T>, amount_to_decrement: u32) -> DispatchResult {
+                let who = ensure_signed(origin)?;
+
+                let current_value = CounterValue::<T>::get().unwrap_or(0);
+
+                let new_value = current_value
+                    .checked_sub(amount_to_decrement)
+                    .ok_or(Error::<T>::CounterValueBelowZero)?;
+
+                CounterValue::<T>::put(new_value);
+
+                UserInteractions::<T>::try_mutate(&who, |interactions| -> Result<_, Error<T>> {
+                    let new_interactions = interactions
+                        .unwrap_or(0)
+                        .checked_add(1)
+                        .ok_or(Error::<T>::UserInteractionOverflow)?;
+                    *interactions = Some(new_interactions); // Store the new value.
+
+                    Ok(())
+                })?;
+
+                Self::deposit_event(Event::<T>::CounterDecremented {
+                    counter_value: new_value,
+                    who,
+                    decremented_amount: amount_to_decrement,
+                });
+
+                Ok(())
+            }
+        }
+    }
+
+    ```
+
+## Where to Go Next
+
+<div class="grid cards" markdown>
+
+-   <span class="badge tutorial">Tutorial</span> __Pallet Unit Testing__
+
+    ---
+
+    Learn to write effective unit tests for Polkadot SDK pallets! Use a custom pallet as a practical example in this comprehensive guide.
+
+    [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-unit-testing/)
+
+</div>
+
+
+---
+
+Page Title: Chain Data
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/polkadot-protocol-parachain-basics-chain-data.md
+- Canonical (HTML): https://docs.polkadot.com/polkadot-protocol/parachain-basics/chain-data/
+- Summary: Learn how to expose and utilize chain data for blockchain applications. Discover runtime metadata, RPC APIs, and tools for efficient development.
+
+# Chain Data
+
+## Introduction
+
+Understanding and leveraging on-chain data is a fundamental aspect of blockchain development. Whether you're building frontend applications or backend systems, accessing and decoding runtime metadata is vital to interacting with the blockchain. This guide introduces you to the tools and processes for generating and retrieving metadata, explains its role in application development, and outlines the additional APIs available for interacting with a Polkadot node. By mastering these components, you can ensure seamless communication between your applications and the blockchain.
+
+## Application Development
+
+You might not be directly involved in building frontend applications as a blockchain developer. However, most applications that run on a blockchain require some form of frontend or user-facing client to enable users or other programs to access and modify the data that the blockchain stores. For example, you might develop a browser-based, mobile, or desktop application that allows users to submit transactions, post articles, view their assets, or track previous activity. The backend for that application is configured in the runtime logic for your blockchain, but the frontend client makes the runtime features accessible to your users.
+
+For your custom chain to be useful to others, you'll need to provide a client application that allows users to view, interact with, or update information that the blockchain keeps track of. In this article, you'll learn how to expose information about your runtime so that client applications can use it, see examples of the information exposed, and explore tools and libraries that use it.
+
+## Understand Metadata
+
+Polkadot SDK-based blockchain networks are designed to expose their runtime information, allowing developers to learn granular details regarding pallets, RPC calls, and runtime APIs. The metadata also exposes their related documentation. The chain's metadata is [SCALE-encoded](/polkadot-protocol/parachain-basics/data-encoding/){target=\_blank}, allowing for the development of browser-based, mobile, or desktop applications to support the chain's runtime upgrades seamlessly. It is also possible to develop applications compatible with multiple Polkadot SDK-based chains simultaneously.
+
+## Expose Runtime Information as Metadata
+
+To interact with a node or the state of the blockchain, you need to know how to connect to the chain and access the exposed runtime features. This interaction involves a Remote Procedure Call (RPC) through a node endpoint address, commonly through a secure web socket connection.
+
+An application developer typically needs to know the contents of the runtime logic, including the following details:
+
+- Version of the runtime the application is connecting to.
+- Supported APIs.
+- Implemented pallets.
+- Defined functions and corresponding type signatures.
+- Defined custom types.
+- Exposed parameters users can set.
+
+As the Polkadot SDK is modular and provides a composable framework for building blockchains, there are limitless opportunities to customize the schema of properties. Each runtime can be configured with its properties, including function calls and types, which can be changed over time with runtime upgrades.
+
+The Polkadot SDK enables you to generate the runtime metadata schema to capture information unique to a runtime. The metadata for a runtime describes the pallets in use and types defined for a specific runtime version. The metadata includes information about each pallet's storage items, functions, events, errors, and constants. The metadata also provides type definitions for any custom types included in the runtime.
+
+Metadata provides a complete inventory of a chain's runtime. It is key to enabling client applications to interact with the node, parse responses, and correctly format message payloads sent back to that chain.
+
+## Generate Metadata
+
+To efficiently use the blockchain's networking resources and minimize the data transmitted over the network, the metadata schema is encoded using the [Parity SCALE Codec](https://github.com/paritytech/parity-scale-codec?tab=readme-ov-file#parity-scale-codec){target=\_blank}. This encoding is done automatically through the [`scale-info`](https://docs.rs/scale-info/latest/scale_info/){target=\_blank}crate.
+
+At a high level, generating the metadata involves the following steps:
+
+1. The pallets in the runtime logic expose callable functions, types, parameters, and documentation that need to be encoded in the metadata.
+2. The `scale-info` crate collects type information for the pallets in the runtime, builds a registry of the pallets that exist in a particular runtime, and the relevant types for each pallet in the registry. The type information is detailed enough to enable encoding and decoding for every type.
+3. The [`frame-metadata`](https://github.com/paritytech/frame-metadata){target=\_blank} crate describes the structure of the runtime based on the registry provided by the `scale-info` crate.
+4. Nodes provide the RPC method `state_getMetadata` to return a complete description of all the types in the current runtime as a hex-encoded vector of SCALE-encoded bytes.
+
+## Retrieve Runtime Metadata
+
+The type information provided by the metadata enables applications to communicate with nodes using different runtime versions and across chains that expose different calls, events, types, and storage items. The metadata also allows libraries to generate a substantial portion of the code needed to communicate with a given node, enabling libraries like [`subxt`](https://github.com/paritytech/subxt){target=\_blank} to generate frontend interfaces that are specific to a target chain.
+
+### Use Polkadot.js
+
+Visit the [Polkadot.js Portal](https://polkadot.js.org/apps/#/rpc){target=\_blank} and select the **Developer** dropdown in the top banner. Select **RPC Calls** to make the call to request metadata. Follow these steps to make the RPC call:
+
+1. Select **state** as the endpoint to call.
+2. Select **`getMetadata(at)`** as the method to call.
+3. Click **Submit RPC call** to submit the call and return the metadata in JSON format.
+
+### Use Curl 
+
+You can fetch the metadata for the network by calling the node's RPC endpoint. This request returns the metadata in bytes rather than human-readable JSON:
+
+```sh
+curl -H "Content-Type: application/json" \
+-d '{"id":1, "jsonrpc":"2.0", "method": "state_getMetadata"}' \
+https://rpc.polkadot.io
+
+```
+
+### Use Subxt
+
+[`subxt`](https://github.com/paritytech/subxt){target=\_blank} may also be used to fetch the metadata of any data in a human-readable JSON format: 
+
+```sh
+subxt metadata  --url wss://rpc.polkadot.io --format json > spec.json
+```
+
+Another option is to use the [`subxt` explorer web UI](https://paritytech.github.io/subxt-explorer/#/){target=\_blank}.
+
+## Client Applications and Metadata
+
+The metadata exposes the expected way to decode each type, meaning applications can send, retrieve, and process application information without manual encoding and decoding. Client applications must use the [SCALE codec library](https://github.com/paritytech/parity-scale-codec?tab=readme-ov-file#parity-scale-codec){target=\_blank} to encode and decode RPC payloads to use the metadata. Client applications use the metadata to interact with the node, parse responses, and format message payloads sent to the node.
+
+## Metadata Format
+
+Although the SCALE-encoded bytes can be decoded using the `frame-metadata` and [`parity-scale-codec`](https://github.com/paritytech/parity-scale-codec){target=\_blank} libraries, there are other tools, such as `subxt` and the Polkadot-JS API, that can convert the raw data to human-readable JSON format.
+
+The types and type definitions included in the metadata returned by the `state_getMetadata` RPC call depend on the runtime's metadata version.
+
+In general, the metadata includes the following information:
+
+- A constant identifying the file as containing metadata.
+- The version of the metadata format used in the runtime.
+- Type definitions for all types used in the runtime and generated by the `scale-info` crate.
+- Pallet information for the pallets included in the runtime in the order that they are defined in the `construct_runtime` macro.
+
+!!!tip 
+    Depending on the frontend library used (such as the [Polkadot API](https://papi.how/){target=\_blank}), they may format the metadata differently than the raw format shown.
+
+The following example illustrates a condensed and annotated section of metadata decoded and converted to JSON:
+
+```json
+[
+    1635018093,
+    {
+        "V14": {
+            "types": {
+                "types": [{}]
+            },
+            "pallets": [{}],
+            "extrinsic": {
+                "ty": 126,
+                "version": 4,
+                "signed_extensions": [{}]
+            },
+            "ty": 141
+        }
+    }
+]
+
+```
+
+The constant `1635018093` is a magic number that identifies the file as a metadata file. The rest of the metadata is divided into the `types`, `pallets`, and `extrinsic` sections:
+
+- The `types` section contains an index of the types and information about each type's type signature.
+- The `pallets` section contains information about each pallet in the runtime.
+- The `extrinsic` section describes the type identifier and transaction format version that the runtime uses.
+
+Different extrinsic versions can have varying formats, especially when considering [signed transactions](/polkadot-protocol/parachain-basics/blocks-transactions-fees/transactions/#signed-transactions){target=\_blank}. 
+
+### Pallets
+
+The following is a condensed and annotated example of metadata for a single element in the `pallets` array (the [`sudo`](https://paritytech.github.io/polkadot-sdk/master/pallet_sudo/index.html){target=\_blank} pallet):
+
+```json
+{
+    "name": "Sudo",
+    "storage": {
+        "prefix": "Sudo",
+        "entries": [
+            {
+                "name": "Key",
+                "modifier": "Optional",
+                "ty": {
+                    "Plain": 0
+                },
+                "default": [0],
+                "docs": ["The `AccountId` of the sudo key."]
+            }
+        ]
+    },
+    "calls": {
+        "ty": 117
+    },
+    "event": {
+        "ty": 42
+    },
+    "constants": [],
+    "error": {
+        "ty": 124
+    },
+    "index": 8
+}
+
+```
+
+Every element metadata contains the name of the pallet it represents and information about its storage, calls, events, and errors. You can look up details about the definition of the calls, events, and errors by viewing the type index identifier. The type index identifier is the `u32` integer used to access the type information for that item. For example, the type index identifier for calls in the Sudo pallet is 117. If you view information for that type identifier in the `types` section of the metadata, it provides information about the available calls, including the documentation for each call.
+
+For example, the following is a condensed excerpt of the calls for the Sudo pallet:
+
+```json
+{
+    "id": 117,
+    "type": {
+        "path": ["pallet_sudo", "pallet", "Call"],
+        "params": [
+            {
+                "name": "T",
+                "type": null
+            }
+        ],
+        "def": {
+            "variant": {
+                "variants": [
+                    {
+                        "name": "sudo",
+                        "fields": [
+                            {
+                                "name": "call",
+                                "type": 114,
+                                "typeName": "Box<<T as Config>::RuntimeCall>"
+                            }
+                        ],
+                        "index": 0,
+                        "docs": [
+                            "Authenticates sudo key, dispatches a function call with `Root` origin"
+                        ]
+                    },
+                    {
+                        "name": "sudo_unchecked_weight",
+                        "fields": [
+                            {
+                                "name": "call",
+                                "type": 114,
+                                "typeName": "Box<<T as Config>::RuntimeCall>"
+                            },
+                            {
+                                "name": "weight",
+                                "type": 8,
+                                "typeName": "Weight"
+                            }
+                        ],
+                        "index": 1,
+                        "docs": [
+                            "Authenticates sudo key, dispatches a function call with `Root` origin"
+                        ]
+                    },
+                    {
+                        "name": "set_key",
+                        "fields": [
+                            {
+                                "name": "new",
+                                "type": 103,
+                                "typeName": "AccountIdLookupOf<T>"
+                            }
+                        ],
+                        "index": 2,
+                        "docs": [
+                            "Authenticates current sudo key, sets the given AccountId (`new`) as the new sudo"
+                        ]
+                    },
+                    {
+                        "name": "sudo_as",
+                        "fields": [
+                            {
+                                "name": "who",
+                                "type": 103,
+                                "typeName": "AccountIdLookupOf<T>"
+                            },
+                            {
+                                "name": "call",
+                                "type": 114,
+                                "typeName": "Box<<T as Config>::RuntimeCall>"
+                            }
+                        ],
+                        "index": 3,
+                        "docs": [
+                            "Authenticates sudo key, dispatches a function call with `Signed` origin from a given account"
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+}
+
+```
+
+For each field, you can access type information and metadata for the following:
+
+- **Storage metadata**: Provides the information required to enable applications to get information for specific storage items.
+- **Call metadata**: Includes information about the runtime calls defined by the `#[pallet]` macro including call names, arguments and documentation.
+- **Event metadata**: Provides the metadata generated by the `#[pallet::event]` macro, including the name, arguments, and documentation for each pallet event.
+- **Constants metadata**: Provides metadata generated by the `#[pallet::constant]` macro, including the name, type, and hex-encoded value of the constant.
+- **Error metadata**: Provides metadata generated by the `#[pallet::error]` macro, including the name and documentation for each pallet error.
+
+!!!tip
+    Type identifiers change from time to time, so you should avoid relying on specific type identifiers in your applications.
+
+### Extrinsic
+
+The runtime generates extrinsic metadata and provides useful information about transaction format. When decoded, the metadata contains the transaction version and the list of signed extensions.
+
+For example:
+
+```json
+{
+    "extrinsic": {
+        "ty": 126,
+        "version": 4,
+        "signed_extensions": [
+            {
+                "identifier": "CheckNonZeroSender",
+                "ty": 132,
+                "additional_signed": 41
+            },
+            {
+                "identifier": "CheckSpecVersion",
+                "ty": 133,
+                "additional_signed": 4
+            },
+            {
+                "identifier": "CheckTxVersion",
+                "ty": 134,
+                "additional_signed": 4
+            },
+            {
+                "identifier": "CheckGenesis",
+                "ty": 135,
+                "additional_signed": 11
+            },
+            {
+                "identifier": "CheckMortality",
+                "ty": 136,
+                "additional_signed": 11
+            },
+            {
+                "identifier": "CheckNonce",
+                "ty": 138,
+                "additional_signed": 41
+            },
+            {
+                "identifier": "CheckWeight",
+                "ty": 139,
+                "additional_signed": 41
+            },
+            {
+                "identifier": "ChargeTransactionPayment",
+                "ty": 140,
+                "additional_signed": 41
+            }
+        ]
+    },
+    "ty": 141
+}
+
+```
+
+The type system is [composite](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/frame_runtime_types/index.html){target=\_blank}, meaning each type identifier contains a reference to a specific type or to another type identifier that provides information about the associated primitive types.
+
+For example, you can encode the `BitVec<Order, Store>` type, but to decode it properly, you must know the types used for the `Order` and `Store` types. To find type information for `Order` and `Store`, you can use the path in the decoded JSON to locate their type identifiers.
+
+## Included RPC APIs
+
+A standard node comes with the following APIs to interact with a node:
+
+- **[`AuthorApiServer`](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/author/trait.AuthorApiServer.html){target=\_blank}**: Make calls into a full node, including authoring extrinsics and verifying session keys.
+- **[`ChainApiServer`](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/chain/trait.ChainApiServer.html){target=\_blank}**: Retrieve block header and finality information.
+- **[`OffchainApiServer`](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/offchain/trait.OffchainApiServer.html){target=\_blank}**: Make RPC calls for off-chain workers.
+- **[`StateApiServer`](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/state/trait.StateApiServer.html){target=\_blank}**: Query information about on-chain state such as runtime version, storage items, and proofs.
+- **[`SystemApiServer`](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/system/trait.SystemApiServer.html){target=\_blank}**: Retrieve information about network state, such as connected peers and node roles.
+
+## Additional Resources
+
+The following tools can help you locate and decode metadata:
+
+- [Subxt Explorer](https://paritytech.github.io/subxt-explorer/#/){target=\_blank}
+- [Metadata Portal 🌗](https://github.com/paritytech/metadata-portal){target=\_blank}
+- [De[code] Sub[strate]](https://github.com/paritytech/desub){target=\_blank}
+
+
+---
+
 Page Title: Create a dApp With Ethers.js
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/tutorials-smart-contracts-launch-your-first-project-create-dapp-ethers-js.md
@@ -1791,6 +3261,280 @@ For more detailed information about Solidity types, functions, and best practice
 
 ---
 
+Page Title: Cryptography
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/polkadot-protocol-parachain-basics-cryptography.md
+- Canonical (HTML): https://docs.polkadot.com/polkadot-protocol/parachain-basics/cryptography/
+- Summary: A concise guide to cryptography in blockchain, covering hash functions, encryption types, digital signatures, and elliptic curve applications.
+
+# Cryptography
+
+## Introduction
+
+Cryptography forms the backbone of blockchain technology, providing the mathematical verifiability crucial for consensus systems, data integrity, and user security. While a deep understanding of the underlying mathematical processes isn't necessary for most blockchain developers, grasping the fundamental applications of cryptography is essential. This page comprehensively overviews cryptographic implementations used across Polkadot SDK-based chains and the broader blockchain ecosystem.
+
+## Hash Functions
+
+Hash functions are fundamental to blockchain technology, creating a unique digital fingerprint for any piece of data, including simple text, images, or any other form of file. They map input data of any size to a fixed-size output (typically 32 bytes) using complex mathematical operations. Hashing is used to verify data integrity, create digital signatures, and provide a secure way to store passwords. This form of mapping is known as the ["pigeonhole principle,"](https://en.wikipedia.org/wiki/Pigeonhole_principle){target=\_blank} it is primarily implemented to efficiently and verifiably identify data from large sets.
+
+### Key Properties of Hash Functions
+
+- **Deterministic**: The same input always produces the same output.
+- **Quick computation**: It's easy to calculate the hash value for any given input.
+- **Pre-image resistance**: It's infeasible to generate the input data from its hash.
+- **Small changes in input yield large changes in output**: Known as the ["avalanche effect"](https://en.wikipedia.org/wiki/Avalanche_effect){target=\_blank}.
+- **Collision resistance**: The probabilities are extremely low to find two different inputs with the same hash.
+
+### Blake2
+
+The Polkadot SDK utilizes Blake2, a state-of-the-art hashing method that offers:
+
+- Equal or greater security compared to [SHA-2](https://en.wikipedia.org/wiki/SHA-2){target=\_blank}.
+- Significantly faster performance than other algorithms.
+
+These properties make Blake2 ideal for blockchain systems, reducing sync times for new nodes and lowering the resources required for validation. For detailed technical specifications about Blake2, see the [official Blake2 paper](https://www.blake2.net/blake2.pdf){target=\_blank}.
+
+## Types of Cryptography
+
+There are two different ways that cryptographic algorithms are implemented: symmetric cryptography and asymmetric cryptography.
+
+### Symmetric Cryptography
+
+Symmetric encryption is a branch of cryptography that isn't based on one-way functions, unlike asymmetric cryptography. It uses the same cryptographic key to encrypt plain text and decrypt the resulting ciphertext.
+
+Symmetric cryptography is a type of encryption that has been used throughout history, such as the Enigma Cipher and the Caesar Cipher. It is still widely used today and can be found in Web2 and Web3 applications alike. There is only one single key, and a recipient must also have access to it to access the contained information.
+
+#### Advantages {: #symmetric-advantages }
+
+- Fast and efficient for large amounts of data.
+- Requires less computational power.
+
+#### Disadvantages {: #symmetric-disadvantages }
+
+- Key distribution can be challenging.
+- Scalability issues in systems with many users.
+
+### Asymmetric Cryptography
+
+Asymmetric encryption is a type of cryptography that uses two different keys, known as a keypair: a public key, used to encrypt plain text, and a private counterpart, used to decrypt the ciphertext.
+
+The public key encrypts a fixed-length message that can only be decrypted with the recipient's private key and, sometimes, a set password. The public key can be used to cryptographically verify that the corresponding private key was used to create a piece of data without compromising the private key, such as with digital signatures. This has obvious implications for identity, ownership, and properties and is used in many different protocols across Web2 and Web3.
+
+#### Advantages {: #asymmetric-advantages }
+
+- Solves the key distribution problem.
+- Enables digital signatures and secure key exchange.
+
+#### Disadvantages {: #asymmetric-disadvantages }
+
+- Slower than symmetric encryption.
+- Requires more computational resources.
+
+### Trade-offs and Compromises
+
+Symmetric cryptography is faster and requires fewer bits in the key to achieve the same level of security that asymmetric cryptography provides. However, it requires a shared secret before communication can occur, which poses issues to its integrity and a potential compromise point. On the other hand, asymmetric cryptography doesn't require the secret to be shared ahead of time, allowing for far better end-user security.
+
+Hybrid symmetric and asymmetric cryptography is often used to overcome the engineering issues of asymmetric cryptography, as it is slower and requires more bits in the key to achieve the same level of security. It encrypts a key and then uses the comparatively lightweight symmetric cipher to do the "heavy lifting" with the message.
+
+## Digital Signatures
+
+Digital signatures are a way of verifying the authenticity of a document or message using asymmetric keypairs. They are used to ensure that a sender or signer's document or message hasn't been tampered with in transit, and for recipients to verify that the data is accurate and from the expected sender.
+
+Signing digital signatures only requires a low-level understanding of mathematics and cryptography. For a conceptual example -- when signing a check, it is expected that it cannot be cashed multiple times. This isn't a feature of the signature system but rather the check serialization system. The bank will check that the serial number on the check hasn't already been used. Digital signatures essentially combine these two concepts, allowing the signature to provide the serialization via a unique cryptographic fingerprint that cannot be reproduced.
+
+Unlike pen-and-paper signatures, knowledge of a digital signature cannot be used to create other signatures. Digital signatures are often used in bureaucratic processes, as they are more secure than simply scanning in a signature and pasting it onto a document.
+
+Polkadot SDK provides multiple different cryptographic schemes and is generic so that it can support anything that implements the [`Pair` trait](https://paritytech.github.io/polkadot-sdk/master/sp_core/crypto/trait.Pair.html){target=\_blank}.
+
+### Example of Creating a Digital Signature
+
+The process of creating and verifying a digital signature involves several steps:
+
+1. The sender creates a hash of the message.
+2. The hash is encrypted using the sender's private key, creating the signature.
+3. The message and signature are sent to the recipient.
+4. The recipient decrypts the signature using the sender's public key.
+5. The recipient hashes the received message and compares it to the decrypted hash.
+
+If the hashes match, the signature is valid, confirming the message's integrity and the sender's identity.
+
+## Elliptic Curve
+
+Blockchain technology requires the ability to have multiple keys creating a signature for block proposal and validation. To this end, Elliptic Curve Digital Signature Algorithm (ECDSA) and Schnorr signatures are two of the most commonly used methods. While ECDSA is a far simpler implementation, Schnorr signatures are more efficient when it comes to multi-signatures.
+
+Schnorr signatures bring some noticeable features over the ECDSA/EdDSA schemes:
+
+- It is better for hierarchical deterministic key derivations.
+- It allows for native multi-signature through [signature aggregation](https://bitcoincore.org/en/2017/03/23/schnorr-signature-aggregation/){target=\_blank}.
+- It is generally more resistant to misuse.
+
+One sacrifice that is made when using Schnorr signatures over ECDSA is that both require 64 bytes, but only ECDSA signatures communicate their public key.
+
+### Various Implementations
+
+- **[ECDSA](https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm){target=\_blank}**: Polkadot SDK provides an ECDSA signature scheme using the [secp256k1](https://en.bitcoin.it/wiki/Secp256k1){target=\_blank} curve. This is the same cryptographic algorithm used to secure [Bitcoin](https://en.wikipedia.org/wiki/Bitcoin){target=\_blank} and [Ethereum](https://en.wikipedia.org/wiki/Ethereum){target=\_blank}.
+
+- **[Ed25519](https://en.wikipedia.org/wiki/EdDSA#Ed25519){target=\_blank}**: An EdDSA signature scheme using [Curve25519](https://en.wikipedia.org/wiki/Curve25519){target=\_blank}. It is carefully engineered at several levels of design and implementation to achieve very high speeds without compromising security.
+
+- **[SR25519](https://research.web3.foundation/Polkadot/security/keys/accounts-more){target=\_blank}**: Based on the same underlying curve as Ed25519. However, it uses Schnorr signatures instead of the EdDSA scheme.
+
+
+---
+
+Page Title: Data Encoding
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/polkadot-protocol-parachain-basics-data-encoding.md
+- Canonical (HTML): https://docs.polkadot.com/polkadot-protocol/parachain-basics/data-encoding/
+- Summary: SCALE codec enables fast, efficient data encoding, ideal for resource-constrained environments like Wasm, supporting custom types and compact encoding.
+
+# Data Encoding
+
+## Introduction
+
+The Polkadot SDK uses a lightweight and efficient encoding/decoding mechanism to optimize data transmission across the network. This mechanism, known as the _SCALE_ codec, is used for serializing and deserializing data.
+
+The SCALE codec enables communication between the runtime and the outer node. This mechanism is designed for high-performance, copy-free data encoding and decoding in resource-constrained environments like the Polkadot SDK [Wasm runtime](/develop/parachains/deployment/build-deterministic-runtime/#introduction){target=\_blank}.
+
+It is not self-describing, meaning the decoding context must fully know the encoded data types. 
+
+Parity's libraries utilize the [`parity-scale-codec`](https://github.com/paritytech/parity-scale-codec){target=\_blank} crate (a Rust implementation of the SCALE codec) to handle encoding and decoding for interactions between RPCs and the runtime.
+
+The `codec` mechanism is ideal for Polkadot SDK-based chains because:
+
+- It is lightweight compared to generic serialization frameworks like [`serde`](https://serde.rs/){target=\_blank}, which add unnecessary bulk to binaries.
+- It doesn’t rely on Rust’s `libstd`, making it compatible with `no_std` environments like Wasm runtime.
+- It integrates seamlessly with Rust, allowing easy derivation of encoding and decoding logic for new types using `#[derive(Encode, Decode)]`.
+
+Defining a custom encoding scheme in the Polkadot SDK-based chains, rather than using an existing Rust codec library, is crucial for enabling cross-platform and multi-language support. 
+
+## SCALE Codec
+
+The codec is implemented using the following traits:
+
+- [`Encode`](#encode)
+- [`Decode`](#decode)
+- [`CompactAs`](#compactas)
+- [`HasCompact`](#hascompact)
+- [`EncodeLike`](#encodelike)
+
+### Encode
+
+The [`Encode`](https://docs.rs/parity-scale-codec/latest/parity_scale_codec/trait.Encode.html){target=\_blank} trait handles data encoding into SCALE format and includes the following key functions:
+
+- **`size_hint(&self) -> usize`**: Estimates the number of bytes required for encoding to prevent multiple memory allocations. This should be inexpensive and avoid complex operations. Optional if the size isn’t known.
+- **`encode_to<T: Output>(&self, dest: &mut T)`**: Encodes the data, appending it to a destination buffer.
+- **`encode(&self) -> Vec<u8>`**: Encodes the data and returns it as a byte vector.
+- **`using_encoded<R, F: FnOnce(&[u8]) -> R>(&self, f: F) -> R`**: Encodes the data and passes it to a closure, returning the result.
+- **`encoded_size(&self) -> usize`**: Calculates the encoded size. Should be used when the encoded data isn’t required.
+
+!!!tip
+    For best performance, value types should override `using_encoded`, and allocating types should override `encode_to`. It's recommended to implement `size_hint` for all types where possible.
+
+### Decode
+
+The [`Decode`](https://docs.rs/parity-scale-codec/latest/parity_scale_codec/trait.Decode.html){target=\_blank} trait handles decoding SCALE-encoded data back into the appropriate types:
+
+- **`fn decode<I: Input>(value: &mut I) -> Result<Self, Error>`**: Decodes data from the SCALE format, returning an error if decoding fails.
+
+### CompactAs
+
+The [`CompactAs`](https://docs.rs/parity-scale-codec/latest/parity_scale_codec/trait.CompactAs.html){target=\_blank} trait wraps custom types for compact encoding:
+
+- **`encode_as(&self) -> &Self::As`**: Encodes the type as a compact type.
+- **`decode_from(_: Self::As) -> Result<Self, Error>`**: decodes from a compact encoded type.
+
+### HasCompact
+
+The [`HasCompact`](https://docs.rs/parity-scale-codec/latest/parity_scale_codec/trait.HasCompact.html){target=\_blank} trait indicates a type supports compact encoding.
+
+### EncodeLike
+
+The [`EncodeLike`](https://docs.rs/parity-scale-codec/latest/parity_scale_codec/trait.EncodeLike.html){target=\_blank} trait is used to ensure multiple types that encode similarly are accepted by the same function. When using `derive`, it is automatically implemented.
+
+### Data Types
+
+The table below outlines how the Rust implementation of the Parity SCALE codec encodes different data types.
+
+| Type                          | Description                                                                                                                                                                                                                                                                                                                | Example SCALE Decoded Value                                                                                                                        | SCALE Encoded Value                                                     |
+|-------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| Boolean                       | Boolean values are encoded using the least significant bit of a single byte.                                                                                                                                                                                                                                               | `false` / `true`                                                                                                                                   | `0x00` / `0x01`                                                         |
+| Compact/general integers      | A "compact" or general integer encoding is sufficient for encoding large integers (up to 2^536) and is more efficient at encoding most values than the fixed-width version.                                                                                                                                                | `unsigned integer 0` / `unsigned integer 1` / `unsigned integer 42` / `unsigned integer 69` / `unsigned integer 65535` / `BigInt(100000000000000)` | `0x00` / `0x04` / `0xa8` / `0x1501` / `0xfeff0300` / `0x0b00407a10f35a` |
+| Enumerations (tagged-unions)  | A fixed number of variants, each mutually exclusive and potentially implying a further value or series of values. Encoded as the first byte identifying the index of the variant that the value is. Any further bytes are used to encode any data that the variant implies. Thus, no more than 256 variants are supported. | `Int(42)` and `Bool(true)` where `enum IntOrBool { Int(u8), Bool(bool) }`                                                                          | `0x002a` and `0x0101`                                                   |
+| Fixed-width integers          | Basic integers are encoded using a fixed-width little-endian (LE) format.                                                                                                                                                                                                                                                  | `signed 8-bit integer 69` / `unsigned 16-bit integer 42` / `unsigned 32-bit integer 16777215`                                                      | `0x45` / `0x2a00` / `0xffffff00`                                        |
+| Options                       | One or zero values of a particular type.                                                                                                                                                                                                                                                                                   | `Some` / `None`                                                                                                                                    | `0x01` followed by the encoded value / `0x00`                           |
+| Results                       | Results are commonly used enumerations which indicate whether certain operations were successful or unsuccessful.                                                                                                                                                                                                          | `Ok(42)` / `Err(false)`                                                                                                                            | `0x002a` / `0x0100`                                                     |
+| Strings                       | Strings are Vectors of bytes (Vec<u8>) containing a valid UTF8 sequence.                                                                                                                                                                                                                                                   |                                                                                                                                                    |                                                                         |
+| Structs                       | For structures, the values are named, but that is irrelevant for the encoding (names are ignored - only order matters).                                                                                                                                                                                                    | `SortedVecAsc::from([3, 5, 2, 8])`                                                                                                                 | `[3, 2, 5, 8] `                                                         |
+| Tuples                        | A fixed-size series of values, each with a possibly different but predetermined and fixed type. This is simply the concatenation of each encoded value.                                                                                                                                                                    | Tuple of compact unsigned integer and boolean: `(3, false)`                                                                                        | `0x0c00`                                                                |
+| Vectors (lists, series, sets) | A collection of same-typed values is encoded, prefixed with a compact encoding of the number of items, followed by each item's encoding concatenated in turn.                                                                                                                                                              | Vector of unsigned `16`-bit integers: `[4, 8, 15, 16, 23, 42]`                                                                                     | `0x18040008000f00100017002a00`                                          |
+
+## Encode and Decode Rust Trait Implementations
+
+Here's how the `Encode` and `Decode` traits are implemented:
+
+
+```rust
+use parity_scale_codec::{Encode, Decode};
+
+[derive(Debug, PartialEq, Encode, Decode)]
+enum EnumType {
+    #[codec(index = 15)]
+    A,
+    B(u32, u64),
+    C {
+        a: u32,
+        b: u64,
+    },
+}
+
+let a = EnumType::A;
+let b = EnumType::B(1, 2);
+let c = EnumType::C { a: 1, b: 2 };
+
+a.using_encoded(|ref slice| {
+    assert_eq!(slice, &b"\x0f");
+});
+
+b.using_encoded(|ref slice| {
+    assert_eq!(slice, &b"\x01\x01\0\0\0\x02\0\0\0\0\0\0\0");
+});
+
+c.using_encoded(|ref slice| {
+    assert_eq!(slice, &b"\x02\x01\0\0\0\x02\0\0\0\0\0\0\0");
+});
+
+let mut da: &[u8] = b"\x0f";
+assert_eq!(EnumType::decode(&mut da).ok(), Some(a));
+
+let mut db: &[u8] = b"\x01\x01\0\0\0\x02\0\0\0\0\0\0\0";
+assert_eq!(EnumType::decode(&mut db).ok(), Some(b));
+
+let mut dc: &[u8] = b"\x02\x01\0\0\0\x02\0\0\0\0\0\0\0";
+assert_eq!(EnumType::decode(&mut dc).ok(), Some(c));
+
+let mut dz: &[u8] = &[0];
+assert_eq!(EnumType::decode(&mut dz).ok(), None);
+```
+
+## SCALE Codec Libraries
+
+Several SCALE codec implementations are available in various languages. Here's a list of them:
+
+- **AssemblyScript**: [`LimeChain/as-scale-codec`](https://github.com/LimeChain/as-scale-codec){target=\_blank}
+- **C**: [`MatthewDarnell/cScale`](https://github.com/MatthewDarnell/cScale){target=\_blank}
+- **C++**: [`qdrvm/scale-codec-cpp`](https://github.com/qdrvm/scale-codec-cpp){target=\_blank}
+- **JavaScript**: [`polkadot-js/api`](https://github.com/polkadot-js/api){target=\_blank}
+- **Dart**: [`leonardocustodio/polkadart`](https://github.com/leonardocustodio/polkadart){target=\_blank}
+- **Haskell**: [`airalab/hs-web3`](https://github.com/airalab/hs-web3/tree/master/packages/scale){target=\_blank}
+- **Golang**: [`itering/scale.go`](https://github.com/itering/scale.go){target=\_blank}
+- **Java**: [`splix/polkaj`](https://github.com/splix/polkaj){target=\_blank}
+- **Python**: [`polkascan/py-scale-codec`](https://github.com/polkascan/py-scale-codec){target=\_blank}
+- **Ruby**: [` wuminzhe/scale_rb`](https://github.com/wuminzhe/scale_rb){target=\_blank}
+- **TypeScript**: [`parity-scale-codec-ts`](https://github.com/tjjfvi/subshape){target=\_blank}, [`scale-ts`](https://github.com/unstoppablejs/unstoppablejs/tree/main/packages/scale-ts#scale-ts){target=\_blank}, [`soramitsu/scale-codec-js-library`](https://github.com/soramitsu/scale-codec-js-library){target=\_blank}, [`subsquid/scale-codec`](https://github.com/subsquid/squid-sdk/tree/master/substrate/scale-codec){target=\_blank}
+
+
+---
+
 Page Title: Dedot
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-toolkit-api-libraries-dedot.md
@@ -3242,6 +4986,297 @@ This knowledge can be leveraged to build more complex DeFi applications or to in
 
 ---
 
+Page Title: E2E Testing with Moonwall
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-toolkit-parachains-e2e-testing-moonwall.md
+- Canonical (HTML): https://docs.polkadot.com/develop/toolkit/parachains/e2e-testing/moonwall/
+- Summary: Enhance blockchain end-to-end testing with Moonwall's standardized environment setup, comprehensive configuration management, and simple network interactions.
+
+# E2E Testing with Moonwall
+
+## Introduction
+
+Moonwall is an end-to-end testing framework designed explicitly for Polkadot SDK-based blockchain networks. It addresses one of the most significant challenges in blockchain development: managing complex test environments and network configurations.
+
+Moonwall consolidates this complexity by providing the following:
+
+- A centralized configuration management system that explicitly defines all network parameters.
+- A standardized approach to environment setup across different Substrate-based chains.
+- Built-in utilities for common testing scenarios and network interactions.
+
+Developers can focus on writing meaningful tests rather than managing infrastructure complexities or searching through documentation for configuration options.
+
+## Prerequisites
+
+Before you begin, ensure you have the following installed:
+
+- [Node.js](https://nodejs.org/en/){target=\_blank} (version 20.10 or higher).
+- A package manager such as [npm](https://www.npmjs.com/){target=\_blank}, [yarn](https://yarnpkg.com/){target=\_blank}, or [pnpm](https://pnpm.io/){target=\_blank}.
+
+## Install Moonwall
+
+Moonwall can be installed globally for system-wide access or locally within specific projects. This section covers both installation methods.
+
+!!! tip
+    This documentation corresponds to Moonwall version `5.15.0`. To avoid compatibility issues with the documented features, ensure you're using the matching version.
+
+### Global Installation
+
+Global installation provides system-wide access to the Moonwall CLI, making it ideal for developers working across multiple blockchain projects. Install it by running one of the following commands:
+
+=== "npm"
+
+    ```bash
+    npm install -g @moonwall/cli@5.15.0
+    ```
+
+=== "pnpm"
+
+    ```bash
+    pnpm -g install @moonwall/cli@5.15.0
+    ```
+
+=== "yarn"
+
+    ```bash
+    yarn global add @moonwall/cli@5.15.0
+    ```
+
+Now, you can run the `moonwall` command from your terminal.
+
+### Local Installation
+
+Local installation is recommended for better dependency management and version control within a specific project. First, initialize your project:
+
+```bash
+mkdir my-moonwall-project
+cd my-moonwall-project
+npm init -y
+```
+
+Then, install it as a local dependency:
+
+=== "npm"
+
+    ```bash
+    npm install @moonwall/cli@5.15.0
+    ```
+
+=== "pnpm"
+
+    ```bash
+    pnpm install @moonwall/cli@5.15.0
+    ```
+
+=== "yarn"
+
+    ```bash
+    yarn add @moonwall/cli@5.15.0
+    ```
+
+## Initialize Moonwall
+
+The `moonwall init` command launches an interactive wizard to create your configuration file:
+
+```bash
+moonwall init
+```
+
+During setup, you will see prompts for the following parameters:
+
+- **`label`**: Identifies your test configuration.
+- **`global timeout`**: Maximum time (ms) for test execution.
+- **`environment name`**: Name for your testing environment.
+- **`network foundation`**: Type of blockchain environment to use.
+- **`tests directory`**: Location of your test files.
+
+Select `Enter` to accept defaults or input custom values. You should see something like this:
+
+<div id="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>moonwall init</span>
+  <span data-ty>✔ Provide a label for the config file moonwall_config</span>
+  <span data-ty>✔ Provide a global timeout value 30000</span>
+  <span data-ty>✔ Provide a name for this environment default_env</span>
+  <span data-ty>✔ What type of network foundation is this? dev</span>
+  <span data-ty>✔ Provide the path for where tests for this environment are kept tests/</span>
+  <span data-ty>? Would you like to generate this config? (no to restart from beginning) (Y/n)</span>
+</div>
+
+The wizard generates a `moonwall.config` file:
+
+```json
+{
+    "label": "moonwall_config",
+    "defaultTestTimeout": 30000,
+    "environments": [
+        {
+            "name": "default_env",
+            "testFileDir": ["tests/"],
+            "foundation": {
+                "type": "dev"
+            }
+        }
+    ]
+}
+
+```
+
+The default configuration requires specific details about your blockchain node and test requirements:
+
+- The `foundation` object defines how your test blockchain node will be launched and managed. The dev foundation, which runs a local node binary, is used for local development.
+
+    For more information about available options, check the [Foundations](https://moonsong-labs.github.io/moonwall/guide/intro/foundations.html){target=\_blank} section.
+
+- The `connections` array specifies how your tests will interact with the blockchain node. This typically includes provider configuration and endpoint details.
+
+    A provider is a tool that allows you or your application to connect to a blockchain network and simplifies the low-level details of the process. A provider handles submitting transactions, reading state, and more. For more information on available providers, check the [Providers supported](https://moonsong-labs.github.io/moonwall/guide/intro/providers.html#providers-supported){target=\_blank} page in the Moonwall documentation.
+
+Here's a complete configuration example for testing a local node using Polkadot.js as a provider:
+
+```json
+{
+    "label": "moonwall_config",
+    "defaultTestTimeout": 30000,
+    "environments": [
+        {
+            "name": "default_env",
+            "testFileDir": ["tests/"],
+            "foundation": {
+                "launchSpec": [
+                    {
+                        "binPath": "./node-template",
+                        "newRpcBehaviour": true,
+                        "ports": { "rpcPort": 9944 }
+                    }
+                ],
+                "type": "dev"
+            },
+            "connections": [
+                {
+                    "name": "myconnection",
+                    "type": "polkadotJs",
+                    "endpoints": ["ws://127.0.0.1:9944"]
+                }
+            ]
+        }
+    ]
+}
+
+```
+
+## Writing Tests
+
+Moonwall uses the [`describeSuite`](https://github.com/Moonsong-Labs/moonwall/blob/7568048c52e9f7844f38fb4796ae9e1b9205fdaa/packages/cli/src/lib/runnerContext.ts#L65){target=\_blank} function to define test suites, like using [Mocha](https://mochajs.org/){target=\_blank}. Each test suite requires the following:
+
+- **`id`**: Unique identifier for the suite.
+- **`title`**: Descriptive name for the suite.
+- **`foundationMethods`**: Specifies the testing environment (e.g., `dev` for local node testing).
+- **`testCases`**: A callback function that houses the individual test cases of this suite.
+
+The following example shows how to test a balance transfer between two accounts:
+
+```ts
+import '@polkadot/api-augment';
+import { describeSuite, expect } from '@moonwall/cli';
+import { Keyring } from '@polkadot/api';
+
+describeSuite({
+  id: 'D1',
+  title: 'Demo suite',
+  foundationMethods: 'dev',
+  testCases: ({ it, context, log }) => {
+    it({
+      id: 'T1',
+      title: 'Test Case',
+      test: async () => {
+        // Set up polkadot.js API and testing accounts
+        let api = context.polkadotJs();
+        let alice = new Keyring({ type: 'sr25519' }).addFromUri('//Alice');
+        let charlie = new Keyring({ type: 'sr25519' }).addFromUri('//Charlie');
+
+        // Query Charlie's account balance before transfer
+        const balanceBefore = (await api.query.system.account(charlie.address))
+          .data.free;
+
+        // Before transfer, Charlie's account balance should be 0
+        expect(balanceBefore.toString()).toEqual('0');
+        log('Balance before: ' + balanceBefore.toString());
+
+        // Transfer from Alice to Charlie
+        const amount = 1000000000000000;
+        await api.tx.balances
+          .transferAllowDeath(charlie.address, amount)
+          .signAndSend(alice);
+
+        // Wait for the transaction to be included in a block.
+        // This is necessary because the balance is not updated immediately.
+        // Block time is 6 seconds.
+        await new Promise((resolve) => setTimeout(resolve, 6000));
+
+        // Query Charlie's account balance after transfer
+        const balanceAfter = (await api.query.system.account(charlie.address))
+          .data.free;
+
+        // After transfer, Charlie's account balance should be 1000000000000000
+        expect(balanceAfter.toString()).toEqual(amount.toString());
+        log('Balance after: ' + balanceAfter.toString());
+      },
+    });
+  },
+});
+
+```
+
+This test demonstrates several key concepts:
+
+- Initializing the Polkadot.js API through Moonwall's context and setting up test accounts.
+- Querying on-chain state.
+- Executing transactions.
+- Waiting for block inclusion.
+- Verifying results using assertions.
+
+## Running the Tests
+
+Execute your tests using the `test` Moonwall CLI command. For the default environment setup run:
+
+```bash
+moonwall test default_env -c moonwall.config
+```
+
+The test runner will output detailed results showing:
+
+- Test suite execution status.
+- Individual test case results.
+- Execution time.
+- Detailed logs and error messages (if any).
+
+Example output:
+<div id="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>moonwall test default_env -c moonwall.config</span>
+  <span data-ty>stdout | tests/test1.ts > 🗃️ D1 Demo suite > 📁 D1T1 Test Case</span>
+  <span data-ty>2025-01-21T19:27:55.624Z test:default_env Balance before: 0</span>
+  <span data-ty></span>
+  <span data-ty>stdout | tests/test1.ts > 🗃️ D1 Demo suite > 📁 D1T1 Test Case</span>
+  <span data-ty>2025-01-21T19:28:01.637Z test:default_env Balance after: 1000000000000000</span>
+  <span data-ty></span>
+  <span data-ty> ✓ default_env tests/test1.ts (1 test) 6443ms</span>
+  <span data-ty> ✓ 🗃️ D1 Demo suite > 📁 D1T1 Test Case 6028ms</span>
+  <span data-ty></span>
+  <span data-ty> Test Files 1 passed (1)</span>
+  <span data-ty> Tests 1 passed (1)</span>
+  <span data-ty> Start at 16:27:53</span>
+  <span data-ty> Duration 7.95s (transform 72ms, setup 0ms, collect 1.31s, tests 6.44s, environment 0ms, prepare 46ms)</span>
+  <span data-ty></span>
+  <span data-ty>✅ All tests passed</span>
+</div>
+
+## Where to Go Next
+
+For a comprehensive guide to Moonwall's full capabilities, available configurations, and advanced usage, see the official [Moonwall](https://moonsong-labs.github.io/moonwall/){target=\_blank} documentation.
+
+
+---
+
 Page Title: EVM vs PolkaVM
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/polkadot-protocol-smart-contract-basics-evm-vs-polkavm.md
@@ -3534,6 +5569,4707 @@ YUL functions accepting memory buffer offset pointers or size arguments are limi
 For standard Solidity development, this limitation is unlikely to be hit as the compiler handles memory addresses correctly within typical contract sizes. However, if you are writing extremely large contracts using YUL assembly that manually and extensively manipulate memory addresses, ensure that your memory offsets and sizes do not exceed PolkaVM's **fixed 64KB memory limit per contract**. While the YUL functions might accept 32-bit pointers (up to 2^32-1), attempting to access memory beyond the allocated 64KB buffer will trap the contract immediately.
 
 These incompatibilities reflect the fundamental architectural differences between EVM and PolkaVM while maintaining high-level Solidity compatibility. Most developers using standard Solidity patterns will encounter no issues, but those working with assembly code or advanced contract patterns should carefully review these differences during migration.
+
+
+---
+
+Page Title: Fast Track a Governance Proposal
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/tutorials-onchain-governance-fast-track-gov-proposal.md
+- Canonical (HTML): https://docs.polkadot.com/tutorials/onchain-governance/fast-track-gov-proposal/
+- Summary: Learn how to fast-track governance proposals in Polkadot's OpenGov using Chopsticks. Simulate, test, and execute proposals confidently.
+
+# Fast Track a Governance Proposal
+
+## Introduction
+
+Polkadot's [OpenGov](/polkadot-protocol/onchain-governance/overview){target=\_blank} is a sophisticated governance mechanism designed to allow the network to evolve gracefully over time, guided by its stakeholders. This system features multiple [tracks](https://wiki.polkadot.com/learn/learn-polkadot-opengov-origins/#origins-and-tracks-info){target=\_blank} for different types of proposals, each with parameters for approval, support, and confirmation period. While this flexibility is powerful, it also introduces complexity that can lead to failed proposals or unexpected outcomes.
+
+Testing governance proposals before submission is crucial for the ecosystem. This process enhances efficiency by reducing the need for repeated submissions, improves security by identifying potential risks, and allows proposal optimization based on simulated outcomes. It also serves as an educational tool, providing stakeholders with a safe environment to understand the impacts of different voting scenarios. 
+
+By leveraging simulation tools like [Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks){target=\_blank}, developers can:
+
+- Simulate the entire lifecycle of a proposal.
+- Test the voting outcomes by varying the support and approval levels.
+- Analyze the effects of a successfully executed proposal on the network's state.
+- Identify and troubleshoot potential issues or unexpected consequences before submitting the proposals.
+
+This tutorial will guide you through using Chopsticks to test OpenGov proposals thoroughly. This ensures that when you submit a proposal to the live network, you can do so with confidence in its effects and viability.
+
+## Prerequisites
+
+Before proceeding, ensure the following prerequisites are met:
+
+- **Chopsticks installation**: If you have not installed Chopsticks yet, refer to the [Install Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/#install-chopsticks){target=\_blank} guide for detailed instructions.
+- **Familiarity with key concepts**:
+    - [Polkadot.js](/develop/toolkit/api-libraries/polkadot-js-api){target=\_blank}
+    - [OpenGov](/polkadot-protocol/onchain-governance/overview){target=\_blank}
+
+## Set Up the Project
+
+Before testing OpenGov proposals, you need to set up your development environment. 
+You'll set up a TypeScript project and install the required dependencies to simulate and evaluate proposals. You'll use Chopsticks to fork the Polkadot network and simulate the proposal lifecycle, while Polkadot.js will be your interface for interacting with the forked network and submitting proposals.
+
+Follow these steps to set up your project:
+
+1. Create a new project directory and navigate into it:
+    ```bash
+    mkdir opengov-chopsticks && cd opengov-chopsticks
+    ```
+
+2. Initialize a new TypeScript project:
+    ```bash
+    npm init -y \
+    && npm install typescript ts-node @types/node --save-dev \
+    && npx tsc --init
+    ```
+
+3. Install the required dependencies:
+    ```bash
+    npm install @polkadot/api @acala-network/chopsticks
+    ```
+
+4. Create a new TypeScript file for your script:
+    ```bash
+    touch test-proposal.ts
+    ```
+
+    !!!note
+        You'll write your code to simulate and test OpenGov proposals in the `test-proposal.ts` file.
+
+5. Open the `tsconfig.json` file and ensure it includes these compiler options:
+    ```json
+    {
+        "compilerOptions": {
+            "module": "CommonJS",
+            "esModuleInterop": true,
+            "target": "esnext",
+            "moduleResolution": "node",
+            "declaration": true,
+            "sourceMap": true,
+            "skipLibCheck": true,
+            "outDir": "dist",
+            "composite": true
+        }
+    }
+
+    ```
+
+## Submit and Execute a Proposal Using Chopsticks
+
+You should identify the right track and origin for your proposal. For example, select the appropriate treasury track based on the spending limits if you're requesting funds from the treasury. For more detailed information, refer to [Polkadot OpenGov Origins](https://wiki.polkadot.com/learn/learn-polkadot-opengov-origins/){target=\_blank}.
+
+!!!note
+    This tutorial will focus on the main steps and core logic within the main function. For clarity and conciseness, the implementation details of individual functions will be available in expandable tabs below each section. You'll find the complete code for reference at the end of the tutorial.
+
+### Spin Up the Polkadot Fork
+
+To set up your Polkadot fork using Chopsticks, open a new terminal window and run the following command:
+
+```bash
+npx @acala-network/chopsticks --config=polkadot
+```
+
+This command will start a local fork of the Polkadot network accessible at `ws://localhost:8000`. Keep this terminal window open and running throughout your testing process.
+
+Once your forked network is up and running, you can proceed with the following steps.
+
+### Set Up Dependencies and Structure
+
+Begin by adding the necessary imports and a basic structure to the `test-proposal.ts` file:
+
+```typescript
+// --8<-- [start:imports]
+import '@polkadot/api-augment/polkadot';
+import { FrameSupportPreimagesBounded } from '@polkadot/types/lookup';
+import { blake2AsHex } from '@polkadot/util-crypto';
+import { ApiPromise, Keyring, WsProvider } from '@polkadot/api';
+import { type SubmittableExtrinsic } from '@polkadot/api/types';
+import { ISubmittableResult } from '@polkadot/types/types';
+// --8<-- [end:imports]
+
+// --8<-- [start:connectToFork]
+/**
+ * Establishes a connection to the local forked chain.
+ *
+ * @returns A promise that resolves to an `ApiPromise` instance connected to the local chain.
+ */
+async function connectToFork(): Promise<ApiPromise> {
+  const wsProvider = new WsProvider('ws://localhost:8000');
+  const api = await ApiPromise.create({ provider: wsProvider });
+  await api.isReady;
+  console.log(`Connected to chain: ${await api.rpc.system.chain()}`);
+  return api;
+}
+// --8<-- [end:connectToFork]
+
+// --8<-- [start:generateProposal]
+/**
+ * Generates a proposal by submitting a preimage, creating the proposal, and placing a deposit.
+ *
+ * @param api - An instance of the Polkadot.js API promise used to interact with the blockchain.
+ * @param call - The extrinsic to be executed, encapsulating the specific action to be proposed.
+ * @param origin - The origin of the proposal, specifying the source authority (e.g., `{ System: 'Root' }`).
+ * @returns A promise that resolves to the proposal ID of the generated proposal.
+ *
+ */
+async function generateProposal(
+  api: ApiPromise,
+  call: SubmittableExtrinsic<'promise', ISubmittableResult>,
+  origin: any
+): Promise<number> {
+  // Initialize the keyring
+  const keyring = new Keyring({ type: 'sr25519' });
+
+  // Set up Alice development account
+  const alice = keyring.addFromUri('//Alice');
+
+  // Get the next available proposal index
+  const proposalIndex = (
+    await api.query.referenda.referendumCount()
+  ).toNumber();
+
+  // Execute the batch transaction
+  await new Promise<void>(async (resolve) => {
+    const unsub = await api.tx.utility
+      .batch([
+        // Register the preimage for your proposal
+        api.tx.preimage.notePreimage(call.method.toHex()),
+        // Submit your proposal to the referenda system
+        api.tx.referenda.submit(
+          origin as any,
+          {
+            Lookup: {
+              Hash: call.method.hash.toHex(),
+              len: call.method.encodedLength,
+            },
+          },
+          { At: 0 }
+        ),
+        // Place the required decision deposit
+        api.tx.referenda.placeDecisionDeposit(proposalIndex),
+      ])
+      .signAndSend(alice, (status: any) => {
+        if (status.blockNumber) {
+          unsub();
+          resolve();
+        }
+      });
+  });
+  return proposalIndex;
+}
+// --8<-- [end:generateProposal]
+
+// --8<-- [start:moveScheduledCallTo]
+/**
+ * Moves a scheduled call to a specified future block if it matches the given verifier criteria.
+ *
+ * @param api - An instance of the Polkadot.js API promise used to interact with the blockchain.
+ * @param blockCounts - The number of blocks to move the scheduled call forward.
+ * @param verifier - A function to verify if a scheduled call matches the desired criteria.
+ * @throws An error if no matching scheduled call is found.
+ */
+async function moveScheduledCallTo(
+  api: ApiPromise,
+  blockCounts: number,
+  verifier: (call: FrameSupportPreimagesBounded) => boolean
+) {
+  // Get the current block number
+  const blockNumber = (await api.rpc.chain.getHeader()).number.toNumber();
+  
+  // Retrieve the scheduler's agenda entries
+  const agenda = await api.query.scheduler.agenda.entries();
+  
+  // Initialize a flag to track if a matching scheduled call is found
+  let found = false;
+  
+  // Iterate through the scheduler's agenda entries
+  for (const agendaEntry of agenda) {
+    // Iterate through the scheduled entries in the current agenda entry
+    for (const scheduledEntry of agendaEntry[1]) {
+      // Check if the scheduled entry is valid and matches the verifier criteria
+      if (scheduledEntry.isSome && verifier(scheduledEntry.unwrap().call)) {
+        found = true;
+        
+        // Overwrite the agendaEntry item in storage
+        const result = await api.rpc('dev_setStorage', [
+          [agendaEntry[0]], // require to ensure unique id
+          [
+            await api.query.scheduler.agenda.key(blockNumber + blockCounts),
+            agendaEntry[1].toHex(),
+          ],
+        ]);
+        
+        // Check if the scheduled call has an associated lookup
+        if (scheduledEntry.unwrap().maybeId.isSome) {
+          // Get the lookup ID
+          const id = scheduledEntry.unwrap().maybeId.unwrap().toHex();
+          const lookup = await api.query.scheduler.lookup(id);
+
+          // Check if the lookup exists
+          if (lookup.isSome) {
+            // Get the lookup key
+            const lookupKey = await api.query.scheduler.lookup.key(id);
+            
+            // Create a new lookup object with the updated block number
+            const fastLookup = api.registry.createType('Option<(u32,u32)>', [
+              blockNumber + blockCounts,
+              0,
+            ]);
+            
+            // Overwrite the lookup entry in storage
+            const result = await api.rpc('dev_setStorage', [
+              [lookupKey, fastLookup.toHex()],
+            ]);
+          }
+        }
+      }
+    }
+  }
+  
+  // Throw an error if no matching scheduled call is found
+  if (!found) {
+    throw new Error('No scheduled call found');
+  }
+}
+// --8<-- [end:moveScheduledCallTo]
+
+// --8<-- [start:forceProposalExecution]
+/**
+ * Forces the execution of a specific proposal by updating its referendum state and ensuring the execution process is triggered.
+ *
+ * @param api - An instance of the Polkadot.js API promise used to interact with the blockchain.
+ * @param proposalIndex - The index of the proposal to be executed.
+ * @throws An error if the referendum is not found or not in an ongoing state.
+ */
+async function forceProposalExecution(api: ApiPromise, proposalIndex: number) {
+  // Retrieve the referendum data for the given proposal index
+  const referendumData = await api.query.referenda.referendumInfoFor(
+    proposalIndex
+  );
+  // Get the storage key for the referendum data
+  const referendumKey =
+    api.query.referenda.referendumInfoFor.key(proposalIndex);
+
+  // Check if the referendum data exists
+  if (!referendumData.isSome) {
+    throw new Error(`Referendum ${proposalIndex} not found`);
+  }
+
+  const referendumInfo = referendumData.unwrap();
+
+  // Check if the referendum is in an ongoing state
+  if (!referendumInfo.isOngoing) {
+    throw new Error(`Referendum ${proposalIndex} is not ongoing`);
+  }
+
+  // Get the ongoing referendum data
+  const ongoingData = referendumInfo.asOngoing;
+  // Convert the ongoing data to JSON
+  const ongoingJson = ongoingData.toJSON();
+
+  // Support Lookup, Inline or Legacy proposals
+  const callHash = ongoingData.proposal.isLookup
+    ? ongoingData.proposal.asLookup.toHex()
+    : ongoingData.proposal.isInline
+    ? blake2AsHex(ongoingData.proposal.asInline.toHex())
+    : ongoingData.proposal.asLegacy.toHex();
+
+  // Get the total issuance of the native token
+  const totalIssuance = (await api.query.balances.totalIssuance()).toBigInt();
+
+  // Get the current block number
+  const proposalBlockTarget = (
+    await api.rpc.chain.getHeader()
+  ).number.toNumber();
+
+  // Create a new proposal data object with the updated fields
+  const fastProposalData = {
+    ongoing: {
+      ...ongoingJson,
+      enactment: { after: 0 },
+      deciding: {
+        since: proposalBlockTarget - 1,
+        confirming: proposalBlockTarget - 1,
+      },
+      tally: {
+        ayes: totalIssuance - 1n,
+        nays: 0,
+        support: totalIssuance - 1n,
+      },
+      alarm: [proposalBlockTarget + 1, [proposalBlockTarget + 1, 0]],
+    },
+  };
+
+  // Create a new proposal object from the proposal data
+  let fastProposal;
+  try {
+    fastProposal = api.registry.createType(
+      `Option<PalletReferendaReferendumInfo>`,
+      fastProposalData
+    );
+  } catch {
+    fastProposal = api.registry.createType(
+      `Option<PalletReferendaReferendumInfoConvictionVotingTally>`,
+      fastProposalData
+    );
+  }
+
+  // Update the storage with the new proposal object
+  const result = await api.rpc('dev_setStorage', [
+    [referendumKey, fastProposal.toHex()],
+  ]);
+
+  // Fast forward the nudge referendum to the next block to get the refendum to be scheduled
+  await moveScheduledCallTo(api, 1, (call) => {
+    if (!call.isInline) {
+      return false;
+    }
+
+    const callData = api.createType('Call', call.asInline.toHex());
+
+    return (
+      callData.method == 'nudgeReferendum' &&
+      (callData.args[0] as any).toNumber() == proposalIndex
+    );
+  });
+
+  // Create a new block
+  await api.rpc('dev_newBlock', { count: 1 });
+
+  // Move the scheduled call to the next block
+  await moveScheduledCallTo(api, 1, (call) =>
+    call.isLookup
+      ? call.asLookup.toHex() == callHash
+      : call.isInline
+      ? blake2AsHex(call.asInline.toHex()) == callHash
+      : call.asLegacy.toHex() == callHash
+  );
+
+  // Create another new block
+  await api.rpc('dev_newBlock', { count: 1 });
+}
+// --8<-- [end:forceProposalExecution]
+
+// --8<-- [start:main]
+const main = async () => {
+  // Connect to the forked chain
+  const api = await connectToFork();
+
+  // Select the call to perform
+  const call = api.tx.system.setCodeWithoutChecks('0x1234');
+
+  // Select the origin
+  const origin = {
+    System: 'Root',
+  };
+
+  // Submit preimage, submit proposal, and place decision deposit
+  const proposalIndex = await generateProposal(api, call, origin);
+
+  // Force the proposal to be executed
+  await forceProposalExecution(api, proposalIndex);
+
+  process.exit(0);
+};
+// --8<-- [end:main]
+
+// --8<-- [start:try-catch-block]
+try {
+  main();
+} catch (e) {
+  console.log(e);
+  process.exit(1);
+}
+// --8<-- [end:try-catch-block]
+
+const main = async () => {
+  // The code will be added here
+
+  process.exit(0);
+}
+
+// --8<-- [start:imports]
+import '@polkadot/api-augment/polkadot';
+import { FrameSupportPreimagesBounded } from '@polkadot/types/lookup';
+import { blake2AsHex } from '@polkadot/util-crypto';
+import { ApiPromise, Keyring, WsProvider } from '@polkadot/api';
+import { type SubmittableExtrinsic } from '@polkadot/api/types';
+import { ISubmittableResult } from '@polkadot/types/types';
+// --8<-- [end:imports]
+
+// --8<-- [start:connectToFork]
+/**
+ * Establishes a connection to the local forked chain.
+ *
+ * @returns A promise that resolves to an `ApiPromise` instance connected to the local chain.
+ */
+async function connectToFork(): Promise<ApiPromise> {
+  const wsProvider = new WsProvider('ws://localhost:8000');
+  const api = await ApiPromise.create({ provider: wsProvider });
+  await api.isReady;
+  console.log(`Connected to chain: ${await api.rpc.system.chain()}`);
+  return api;
+}
+// --8<-- [end:connectToFork]
+
+// --8<-- [start:generateProposal]
+/**
+ * Generates a proposal by submitting a preimage, creating the proposal, and placing a deposit.
+ *
+ * @param api - An instance of the Polkadot.js API promise used to interact with the blockchain.
+ * @param call - The extrinsic to be executed, encapsulating the specific action to be proposed.
+ * @param origin - The origin of the proposal, specifying the source authority (e.g., `{ System: 'Root' }`).
+ * @returns A promise that resolves to the proposal ID of the generated proposal.
+ *
+ */
+async function generateProposal(
+  api: ApiPromise,
+  call: SubmittableExtrinsic<'promise', ISubmittableResult>,
+  origin: any
+): Promise<number> {
+  // Initialize the keyring
+  const keyring = new Keyring({ type: 'sr25519' });
+
+  // Set up Alice development account
+  const alice = keyring.addFromUri('//Alice');
+
+  // Get the next available proposal index
+  const proposalIndex = (
+    await api.query.referenda.referendumCount()
+  ).toNumber();
+
+  // Execute the batch transaction
+  await new Promise<void>(async (resolve) => {
+    const unsub = await api.tx.utility
+      .batch([
+        // Register the preimage for your proposal
+        api.tx.preimage.notePreimage(call.method.toHex()),
+        // Submit your proposal to the referenda system
+        api.tx.referenda.submit(
+          origin as any,
+          {
+            Lookup: {
+              Hash: call.method.hash.toHex(),
+              len: call.method.encodedLength,
+            },
+          },
+          { At: 0 }
+        ),
+        // Place the required decision deposit
+        api.tx.referenda.placeDecisionDeposit(proposalIndex),
+      ])
+      .signAndSend(alice, (status: any) => {
+        if (status.blockNumber) {
+          unsub();
+          resolve();
+        }
+      });
+  });
+  return proposalIndex;
+}
+// --8<-- [end:generateProposal]
+
+// --8<-- [start:moveScheduledCallTo]
+/**
+ * Moves a scheduled call to a specified future block if it matches the given verifier criteria.
+ *
+ * @param api - An instance of the Polkadot.js API promise used to interact with the blockchain.
+ * @param blockCounts - The number of blocks to move the scheduled call forward.
+ * @param verifier - A function to verify if a scheduled call matches the desired criteria.
+ * @throws An error if no matching scheduled call is found.
+ */
+async function moveScheduledCallTo(
+  api: ApiPromise,
+  blockCounts: number,
+  verifier: (call: FrameSupportPreimagesBounded) => boolean
+) {
+  // Get the current block number
+  const blockNumber = (await api.rpc.chain.getHeader()).number.toNumber();
+  
+  // Retrieve the scheduler's agenda entries
+  const agenda = await api.query.scheduler.agenda.entries();
+  
+  // Initialize a flag to track if a matching scheduled call is found
+  let found = false;
+  
+  // Iterate through the scheduler's agenda entries
+  for (const agendaEntry of agenda) {
+    // Iterate through the scheduled entries in the current agenda entry
+    for (const scheduledEntry of agendaEntry[1]) {
+      // Check if the scheduled entry is valid and matches the verifier criteria
+      if (scheduledEntry.isSome && verifier(scheduledEntry.unwrap().call)) {
+        found = true;
+        
+        // Overwrite the agendaEntry item in storage
+        const result = await api.rpc('dev_setStorage', [
+          [agendaEntry[0]], // require to ensure unique id
+          [
+            await api.query.scheduler.agenda.key(blockNumber + blockCounts),
+            agendaEntry[1].toHex(),
+          ],
+        ]);
+        
+        // Check if the scheduled call has an associated lookup
+        if (scheduledEntry.unwrap().maybeId.isSome) {
+          // Get the lookup ID
+          const id = scheduledEntry.unwrap().maybeId.unwrap().toHex();
+          const lookup = await api.query.scheduler.lookup(id);
+
+          // Check if the lookup exists
+          if (lookup.isSome) {
+            // Get the lookup key
+            const lookupKey = await api.query.scheduler.lookup.key(id);
+            
+            // Create a new lookup object with the updated block number
+            const fastLookup = api.registry.createType('Option<(u32,u32)>', [
+              blockNumber + blockCounts,
+              0,
+            ]);
+            
+            // Overwrite the lookup entry in storage
+            const result = await api.rpc('dev_setStorage', [
+              [lookupKey, fastLookup.toHex()],
+            ]);
+          }
+        }
+      }
+    }
+  }
+  
+  // Throw an error if no matching scheduled call is found
+  if (!found) {
+    throw new Error('No scheduled call found');
+  }
+}
+// --8<-- [end:moveScheduledCallTo]
+
+// --8<-- [start:forceProposalExecution]
+/**
+ * Forces the execution of a specific proposal by updating its referendum state and ensuring the execution process is triggered.
+ *
+ * @param api - An instance of the Polkadot.js API promise used to interact with the blockchain.
+ * @param proposalIndex - The index of the proposal to be executed.
+ * @throws An error if the referendum is not found or not in an ongoing state.
+ */
+async function forceProposalExecution(api: ApiPromise, proposalIndex: number) {
+  // Retrieve the referendum data for the given proposal index
+  const referendumData = await api.query.referenda.referendumInfoFor(
+    proposalIndex
+  );
+  // Get the storage key for the referendum data
+  const referendumKey =
+    api.query.referenda.referendumInfoFor.key(proposalIndex);
+
+  // Check if the referendum data exists
+  if (!referendumData.isSome) {
+    throw new Error(`Referendum ${proposalIndex} not found`);
+  }
+
+  const referendumInfo = referendumData.unwrap();
+
+  // Check if the referendum is in an ongoing state
+  if (!referendumInfo.isOngoing) {
+    throw new Error(`Referendum ${proposalIndex} is not ongoing`);
+  }
+
+  // Get the ongoing referendum data
+  const ongoingData = referendumInfo.asOngoing;
+  // Convert the ongoing data to JSON
+  const ongoingJson = ongoingData.toJSON();
+
+  // Support Lookup, Inline or Legacy proposals
+  const callHash = ongoingData.proposal.isLookup
+    ? ongoingData.proposal.asLookup.toHex()
+    : ongoingData.proposal.isInline
+    ? blake2AsHex(ongoingData.proposal.asInline.toHex())
+    : ongoingData.proposal.asLegacy.toHex();
+
+  // Get the total issuance of the native token
+  const totalIssuance = (await api.query.balances.totalIssuance()).toBigInt();
+
+  // Get the current block number
+  const proposalBlockTarget = (
+    await api.rpc.chain.getHeader()
+  ).number.toNumber();
+
+  // Create a new proposal data object with the updated fields
+  const fastProposalData = {
+    ongoing: {
+      ...ongoingJson,
+      enactment: { after: 0 },
+      deciding: {
+        since: proposalBlockTarget - 1,
+        confirming: proposalBlockTarget - 1,
+      },
+      tally: {
+        ayes: totalIssuance - 1n,
+        nays: 0,
+        support: totalIssuance - 1n,
+      },
+      alarm: [proposalBlockTarget + 1, [proposalBlockTarget + 1, 0]],
+    },
+  };
+
+  // Create a new proposal object from the proposal data
+  let fastProposal;
+  try {
+    fastProposal = api.registry.createType(
+      `Option<PalletReferendaReferendumInfo>`,
+      fastProposalData
+    );
+  } catch {
+    fastProposal = api.registry.createType(
+      `Option<PalletReferendaReferendumInfoConvictionVotingTally>`,
+      fastProposalData
+    );
+  }
+
+  // Update the storage with the new proposal object
+  const result = await api.rpc('dev_setStorage', [
+    [referendumKey, fastProposal.toHex()],
+  ]);
+
+  // Fast forward the nudge referendum to the next block to get the refendum to be scheduled
+  await moveScheduledCallTo(api, 1, (call) => {
+    if (!call.isInline) {
+      return false;
+    }
+
+    const callData = api.createType('Call', call.asInline.toHex());
+
+    return (
+      callData.method == 'nudgeReferendum' &&
+      (callData.args[0] as any).toNumber() == proposalIndex
+    );
+  });
+
+  // Create a new block
+  await api.rpc('dev_newBlock', { count: 1 });
+
+  // Move the scheduled call to the next block
+  await moveScheduledCallTo(api, 1, (call) =>
+    call.isLookup
+      ? call.asLookup.toHex() == callHash
+      : call.isInline
+      ? blake2AsHex(call.asInline.toHex()) == callHash
+      : call.asLegacy.toHex() == callHash
+  );
+
+  // Create another new block
+  await api.rpc('dev_newBlock', { count: 1 });
+}
+// --8<-- [end:forceProposalExecution]
+
+// --8<-- [start:main]
+const main = async () => {
+  // Connect to the forked chain
+  const api = await connectToFork();
+
+  // Select the call to perform
+  const call = api.tx.system.setCodeWithoutChecks('0x1234');
+
+  // Select the origin
+  const origin = {
+    System: 'Root',
+  };
+
+  // Submit preimage, submit proposal, and place decision deposit
+  const proposalIndex = await generateProposal(api, call, origin);
+
+  // Force the proposal to be executed
+  await forceProposalExecution(api, proposalIndex);
+
+  process.exit(0);
+};
+// --8<-- [end:main]
+
+// --8<-- [start:try-catch-block]
+try {
+  main();
+} catch (e) {
+  console.log(e);
+  process.exit(1);
+}
+// --8<-- [end:try-catch-block]
+
+```
+
+This structure provides the foundation for your script. It imports all the necessary dependencies and sets up a main function that will contain the core logic of your proposal submission process.
+
+### Connect to the Forked Chain
+
+Create a `connectToFork` function outside the `main` function to connect your locally forked chain to the Polkadot.js API:
+
+```typescript
+    // --8<-- [start:imports]
+    import '@polkadot/api-augment/polkadot';
+    import { FrameSupportPreimagesBounded } from '@polkadot/types/lookup';
+    import { blake2AsHex } from '@polkadot/util-crypto';
+    import { ApiPromise, Keyring, WsProvider } from '@polkadot/api';
+    import { type SubmittableExtrinsic } from '@polkadot/api/types';
+    import { ISubmittableResult } from '@polkadot/types/types';
+    // --8<-- [end:imports]
+
+    // --8<-- [start:connectToFork]
+    /**
+     * Establishes a connection to the local forked chain.
+     *
+     * @returns A promise that resolves to an `ApiPromise` instance connected to the local chain.
+     */
+    async function connectToFork(): Promise<ApiPromise> {
+      const wsProvider = new WsProvider('ws://localhost:8000');
+      const api = await ApiPromise.create({ provider: wsProvider });
+      await api.isReady;
+      console.log(`Connected to chain: ${await api.rpc.system.chain()}`);
+      return api;
+    }
+    // --8<-- [end:connectToFork]
+
+    // --8<-- [start:generateProposal]
+    /**
+     * Generates a proposal by submitting a preimage, creating the proposal, and placing a deposit.
+     *
+     * @param api - An instance of the Polkadot.js API promise used to interact with the blockchain.
+     * @param call - The extrinsic to be executed, encapsulating the specific action to be proposed.
+     * @param origin - The origin of the proposal, specifying the source authority (e.g., `{ System: 'Root' }`).
+     * @returns A promise that resolves to the proposal ID of the generated proposal.
+     *
+     */
+    async function generateProposal(
+      api: ApiPromise,
+      call: SubmittableExtrinsic<'promise', ISubmittableResult>,
+      origin: any
+    ): Promise<number> {
+      // Initialize the keyring
+      const keyring = new Keyring({ type: 'sr25519' });
+
+      // Set up Alice development account
+      const alice = keyring.addFromUri('//Alice');
+
+      // Get the next available proposal index
+      const proposalIndex = (
+        await api.query.referenda.referendumCount()
+      ).toNumber();
+
+      // Execute the batch transaction
+      await new Promise<void>(async (resolve) => {
+        const unsub = await api.tx.utility
+          .batch([
+            // Register the preimage for your proposal
+            api.tx.preimage.notePreimage(call.method.toHex()),
+            // Submit your proposal to the referenda system
+            api.tx.referenda.submit(
+              origin as any,
+              {
+                Lookup: {
+                  Hash: call.method.hash.toHex(),
+                  len: call.method.encodedLength,
+                },
+              },
+              { At: 0 }
+            ),
+            // Place the required decision deposit
+            api.tx.referenda.placeDecisionDeposit(proposalIndex),
+          ])
+          .signAndSend(alice, (status: any) => {
+            if (status.blockNumber) {
+              unsub();
+              resolve();
+            }
+          });
+      });
+      return proposalIndex;
+    }
+    // --8<-- [end:generateProposal]
+
+    // --8<-- [start:moveScheduledCallTo]
+    /**
+     * Moves a scheduled call to a specified future block if it matches the given verifier criteria.
+     *
+     * @param api - An instance of the Polkadot.js API promise used to interact with the blockchain.
+     * @param blockCounts - The number of blocks to move the scheduled call forward.
+     * @param verifier - A function to verify if a scheduled call matches the desired criteria.
+     * @throws An error if no matching scheduled call is found.
+     */
+    async function moveScheduledCallTo(
+      api: ApiPromise,
+      blockCounts: number,
+      verifier: (call: FrameSupportPreimagesBounded) => boolean
+    ) {
+      // Get the current block number
+      const blockNumber = (await api.rpc.chain.getHeader()).number.toNumber();
+      
+      // Retrieve the scheduler's agenda entries
+      const agenda = await api.query.scheduler.agenda.entries();
+      
+      // Initialize a flag to track if a matching scheduled call is found
+      let found = false;
+      
+      // Iterate through the scheduler's agenda entries
+      for (const agendaEntry of agenda) {
+        // Iterate through the scheduled entries in the current agenda entry
+        for (const scheduledEntry of agendaEntry[1]) {
+          // Check if the scheduled entry is valid and matches the verifier criteria
+          if (scheduledEntry.isSome && verifier(scheduledEntry.unwrap().call)) {
+            found = true;
+            
+            // Overwrite the agendaEntry item in storage
+            const result = await api.rpc('dev_setStorage', [
+              [agendaEntry[0]], // require to ensure unique id
+              [
+                await api.query.scheduler.agenda.key(blockNumber + blockCounts),
+                agendaEntry[1].toHex(),
+              ],
+            ]);
+            
+            // Check if the scheduled call has an associated lookup
+            if (scheduledEntry.unwrap().maybeId.isSome) {
+              // Get the lookup ID
+              const id = scheduledEntry.unwrap().maybeId.unwrap().toHex();
+              const lookup = await api.query.scheduler.lookup(id);
+
+              // Check if the lookup exists
+              if (lookup.isSome) {
+                // Get the lookup key
+                const lookupKey = await api.query.scheduler.lookup.key(id);
+                
+                // Create a new lookup object with the updated block number
+                const fastLookup = api.registry.createType('Option<(u32,u32)>', [
+                  blockNumber + blockCounts,
+                  0,
+                ]);
+                
+                // Overwrite the lookup entry in storage
+                const result = await api.rpc('dev_setStorage', [
+                  [lookupKey, fastLookup.toHex()],
+                ]);
+              }
+            }
+          }
+        }
+      }
+      
+      // Throw an error if no matching scheduled call is found
+      if (!found) {
+        throw new Error('No scheduled call found');
+      }
+    }
+    // --8<-- [end:moveScheduledCallTo]
+
+    // --8<-- [start:forceProposalExecution]
+    /**
+     * Forces the execution of a specific proposal by updating its referendum state and ensuring the execution process is triggered.
+     *
+     * @param api - An instance of the Polkadot.js API promise used to interact with the blockchain.
+     * @param proposalIndex - The index of the proposal to be executed.
+     * @throws An error if the referendum is not found or not in an ongoing state.
+     */
+    async function forceProposalExecution(api: ApiPromise, proposalIndex: number) {
+      // Retrieve the referendum data for the given proposal index
+      const referendumData = await api.query.referenda.referendumInfoFor(
+        proposalIndex
+      );
+      // Get the storage key for the referendum data
+      const referendumKey =
+        api.query.referenda.referendumInfoFor.key(proposalIndex);
+
+      // Check if the referendum data exists
+      if (!referendumData.isSome) {
+        throw new Error(`Referendum ${proposalIndex} not found`);
+      }
+
+      const referendumInfo = referendumData.unwrap();
+
+      // Check if the referendum is in an ongoing state
+      if (!referendumInfo.isOngoing) {
+        throw new Error(`Referendum ${proposalIndex} is not ongoing`);
+      }
+
+      // Get the ongoing referendum data
+      const ongoingData = referendumInfo.asOngoing;
+      // Convert the ongoing data to JSON
+      const ongoingJson = ongoingData.toJSON();
+
+      // Support Lookup, Inline or Legacy proposals
+      const callHash = ongoingData.proposal.isLookup
+        ? ongoingData.proposal.asLookup.toHex()
+        : ongoingData.proposal.isInline
+        ? blake2AsHex(ongoingData.proposal.asInline.toHex())
+        : ongoingData.proposal.asLegacy.toHex();
+
+      // Get the total issuance of the native token
+      const totalIssuance = (await api.query.balances.totalIssuance()).toBigInt();
+
+      // Get the current block number
+      const proposalBlockTarget = (
+        await api.rpc.chain.getHeader()
+      ).number.toNumber();
+
+      // Create a new proposal data object with the updated fields
+      const fastProposalData = {
+        ongoing: {
+          ...ongoingJson,
+          enactment: { after: 0 },
+          deciding: {
+            since: proposalBlockTarget - 1,
+            confirming: proposalBlockTarget - 1,
+          },
+          tally: {
+            ayes: totalIssuance - 1n,
+            nays: 0,
+            support: totalIssuance - 1n,
+          },
+          alarm: [proposalBlockTarget + 1, [proposalBlockTarget + 1, 0]],
+        },
+      };
+
+      // Create a new proposal object from the proposal data
+      let fastProposal;
+      try {
+        fastProposal = api.registry.createType(
+          `Option<PalletReferendaReferendumInfo>`,
+          fastProposalData
+        );
+      } catch {
+        fastProposal = api.registry.createType(
+          `Option<PalletReferendaReferendumInfoConvictionVotingTally>`,
+          fastProposalData
+        );
+      }
+
+      // Update the storage with the new proposal object
+      const result = await api.rpc('dev_setStorage', [
+        [referendumKey, fastProposal.toHex()],
+      ]);
+
+      // Fast forward the nudge referendum to the next block to get the refendum to be scheduled
+      await moveScheduledCallTo(api, 1, (call) => {
+        if (!call.isInline) {
+          return false;
+        }
+
+        const callData = api.createType('Call', call.asInline.toHex());
+
+        return (
+          callData.method == 'nudgeReferendum' &&
+          (callData.args[0] as any).toNumber() == proposalIndex
+        );
+      });
+
+      // Create a new block
+      await api.rpc('dev_newBlock', { count: 1 });
+
+      // Move the scheduled call to the next block
+      await moveScheduledCallTo(api, 1, (call) =>
+        call.isLookup
+          ? call.asLookup.toHex() == callHash
+          : call.isInline
+          ? blake2AsHex(call.asInline.toHex()) == callHash
+          : call.asLegacy.toHex() == callHash
+      );
+
+      // Create another new block
+      await api.rpc('dev_newBlock', { count: 1 });
+    }
+    // --8<-- [end:forceProposalExecution]
+
+    // --8<-- [start:main]
+    const main = async () => {
+      // Connect to the forked chain
+      const api = await connectToFork();
+
+      // Select the call to perform
+      const call = api.tx.system.setCodeWithoutChecks('0x1234');
+
+      // Select the origin
+      const origin = {
+        System: 'Root',
+      };
+
+      // Submit preimage, submit proposal, and place decision deposit
+      const proposalIndex = await generateProposal(api, call, origin);
+
+      // Force the proposal to be executed
+      await forceProposalExecution(api, proposalIndex);
+
+      process.exit(0);
+    };
+    // --8<-- [end:main]
+
+    // --8<-- [start:try-catch-block]
+    try {
+      main();
+    } catch (e) {
+      console.log(e);
+      process.exit(1);
+    }
+    // --8<-- [end:try-catch-block]
+
+```
+
+Inside the `main` function, add the code to establish a connection to your local Polkadot fork:
+
+```typescript hl_lines="2-3"
+const main = async () => {
+  // Connect to the forked chain
+  const api = await connectToFork();
+  ...
+}
+```
+
+### Create and Submit the Proposal
+
+Create a `generateProposal` function that will be responsible for preparing and submitting the on-chain proposal:
+
+```typescript
+async function generateProposal(
+  api: ApiPromise,
+  call: SubmittableExtrinsic<'promise', ISubmittableResult>,
+  origin: any
+): Promise<number> {
+    ...
+}
+```
+
+Now, you need to implement the following logic:
+
+1. Set up the keyring and use the Alice development account:
+
+    ```typescript
+      // Initialize the keyring
+      const keyring = new Keyring({ type: 'sr25519' });
+
+      // Set up Alice development account
+      const alice = keyring.addFromUri('//Alice');
+    ```
+ 
+    !!!note
+        When using Chopsticks, this development account is pre-funded to execute all necessary actions.
+
+2. Retrieve the proposal index:
+
+    ```typescript
+      // Get the next available proposal index
+      const proposalIndex = (
+        await api.query.referenda.referendumCount()
+      ).toNumber();
+    ```
+
+3. Execute a batch transaction that comprises the following three operations:
+
+    1. **`preimage.notePreimage`**: Registers a [preimage](/polkadot-protocol/glossary#preimage){target=\_blank} using the selected call.
+
+        !!!note
+            The preimage hash is simply the hash of the proposal to be enacted. The on-chain proposals do not require the entire image of extrinsics and data (for instance, the Wasm code, in case of upgrades) to be submitted but would need that image's hash. That preimage can be submitted and stored on-chain against the hash later upon the proposal's dispatch.
+
+    2. **`referenda.submit`**: Submits the proposal to the referenda system. It uses the preimage hash extracted from the call as part of the proposal submission process. The proposal is submitted with the selected origin.
+
+    3. **`referenda.placeDecisionDeposit`**: Places the required decision deposit for the referendum. This deposit is required to move the referendum from the preparing phase to the deciding phase.
+
+    ```typescript
+      // Execute the batch transaction
+      await new Promise<void>(async (resolve) => {
+        const unsub = await api.tx.utility
+          .batch([
+            // Register the preimage for your proposal
+            api.tx.preimage.notePreimage(call.method.toHex()),
+            // Submit your proposal to the referenda system
+            api.tx.referenda.submit(
+              origin as any,
+              {
+                Lookup: {
+                  Hash: call.method.hash.toHex(),
+                  len: call.method.encodedLength,
+                },
+              },
+              { At: 0 }
+            ),
+            // Place the required decision deposit
+            api.tx.referenda.placeDecisionDeposit(proposalIndex),
+          ])
+          .signAndSend(alice, (status: any) => {
+            if (status.blockNumber) {
+              unsub();
+              resolve();
+            }
+          });
+      });
+    ```
+
+4. Return the proposal index:
+
+    ```typescript
+      return proposalIndex;
+    ```
+
+If you followed all the steps correctly, the function should look like this:
+
+??? code "`generateProposal` code"
+    ```typescript
+    // --8<-- [start:imports]
+    import '@polkadot/api-augment/polkadot';
+    import { FrameSupportPreimagesBounded } from '@polkadot/types/lookup';
+    import { blake2AsHex } from '@polkadot/util-crypto';
+    import { ApiPromise, Keyring, WsProvider } from '@polkadot/api';
+    import { type SubmittableExtrinsic } from '@polkadot/api/types';
+    import { ISubmittableResult } from '@polkadot/types/types';
+    // --8<-- [end:imports]
+
+    // --8<-- [start:connectToFork]
+    /**
+     * Establishes a connection to the local forked chain.
+     *
+     * @returns A promise that resolves to an `ApiPromise` instance connected to the local chain.
+     */
+    async function connectToFork(): Promise<ApiPromise> {
+      const wsProvider = new WsProvider('ws://localhost:8000');
+      const api = await ApiPromise.create({ provider: wsProvider });
+      await api.isReady;
+      console.log(`Connected to chain: ${await api.rpc.system.chain()}`);
+      return api;
+    }
+    // --8<-- [end:connectToFork]
+
+    // --8<-- [start:generateProposal]
+    /**
+     * Generates a proposal by submitting a preimage, creating the proposal, and placing a deposit.
+     *
+     * @param api - An instance of the Polkadot.js API promise used to interact with the blockchain.
+     * @param call - The extrinsic to be executed, encapsulating the specific action to be proposed.
+     * @param origin - The origin of the proposal, specifying the source authority (e.g., `{ System: 'Root' }`).
+     * @returns A promise that resolves to the proposal ID of the generated proposal.
+     *
+     */
+    async function generateProposal(
+      api: ApiPromise,
+      call: SubmittableExtrinsic<'promise', ISubmittableResult>,
+      origin: any
+    ): Promise<number> {
+      // Initialize the keyring
+      const keyring = new Keyring({ type: 'sr25519' });
+
+      // Set up Alice development account
+      const alice = keyring.addFromUri('//Alice');
+
+      // Get the next available proposal index
+      const proposalIndex = (
+        await api.query.referenda.referendumCount()
+      ).toNumber();
+
+      // Execute the batch transaction
+      await new Promise<void>(async (resolve) => {
+        const unsub = await api.tx.utility
+          .batch([
+            // Register the preimage for your proposal
+            api.tx.preimage.notePreimage(call.method.toHex()),
+            // Submit your proposal to the referenda system
+            api.tx.referenda.submit(
+              origin as any,
+              {
+                Lookup: {
+                  Hash: call.method.hash.toHex(),
+                  len: call.method.encodedLength,
+                },
+              },
+              { At: 0 }
+            ),
+            // Place the required decision deposit
+            api.tx.referenda.placeDecisionDeposit(proposalIndex),
+          ])
+          .signAndSend(alice, (status: any) => {
+            if (status.blockNumber) {
+              unsub();
+              resolve();
+            }
+          });
+      });
+      return proposalIndex;
+    }
+    // --8<-- [end:generateProposal]
+
+    // --8<-- [start:moveScheduledCallTo]
+    /**
+     * Moves a scheduled call to a specified future block if it matches the given verifier criteria.
+     *
+     * @param api - An instance of the Polkadot.js API promise used to interact with the blockchain.
+     * @param blockCounts - The number of blocks to move the scheduled call forward.
+     * @param verifier - A function to verify if a scheduled call matches the desired criteria.
+     * @throws An error if no matching scheduled call is found.
+     */
+    async function moveScheduledCallTo(
+      api: ApiPromise,
+      blockCounts: number,
+      verifier: (call: FrameSupportPreimagesBounded) => boolean
+    ) {
+      // Get the current block number
+      const blockNumber = (await api.rpc.chain.getHeader()).number.toNumber();
+      
+      // Retrieve the scheduler's agenda entries
+      const agenda = await api.query.scheduler.agenda.entries();
+      
+      // Initialize a flag to track if a matching scheduled call is found
+      let found = false;
+      
+      // Iterate through the scheduler's agenda entries
+      for (const agendaEntry of agenda) {
+        // Iterate through the scheduled entries in the current agenda entry
+        for (const scheduledEntry of agendaEntry[1]) {
+          // Check if the scheduled entry is valid and matches the verifier criteria
+          if (scheduledEntry.isSome && verifier(scheduledEntry.unwrap().call)) {
+            found = true;
+            
+            // Overwrite the agendaEntry item in storage
+            const result = await api.rpc('dev_setStorage', [
+              [agendaEntry[0]], // require to ensure unique id
+              [
+                await api.query.scheduler.agenda.key(blockNumber + blockCounts),
+                agendaEntry[1].toHex(),
+              ],
+            ]);
+            
+            // Check if the scheduled call has an associated lookup
+            if (scheduledEntry.unwrap().maybeId.isSome) {
+              // Get the lookup ID
+              const id = scheduledEntry.unwrap().maybeId.unwrap().toHex();
+              const lookup = await api.query.scheduler.lookup(id);
+
+              // Check if the lookup exists
+              if (lookup.isSome) {
+                // Get the lookup key
+                const lookupKey = await api.query.scheduler.lookup.key(id);
+                
+                // Create a new lookup object with the updated block number
+                const fastLookup = api.registry.createType('Option<(u32,u32)>', [
+                  blockNumber + blockCounts,
+                  0,
+                ]);
+                
+                // Overwrite the lookup entry in storage
+                const result = await api.rpc('dev_setStorage', [
+                  [lookupKey, fastLookup.toHex()],
+                ]);
+              }
+            }
+          }
+        }
+      }
+      
+      // Throw an error if no matching scheduled call is found
+      if (!found) {
+        throw new Error('No scheduled call found');
+      }
+    }
+    // --8<-- [end:moveScheduledCallTo]
+
+    // --8<-- [start:forceProposalExecution]
+    /**
+     * Forces the execution of a specific proposal by updating its referendum state and ensuring the execution process is triggered.
+     *
+     * @param api - An instance of the Polkadot.js API promise used to interact with the blockchain.
+     * @param proposalIndex - The index of the proposal to be executed.
+     * @throws An error if the referendum is not found or not in an ongoing state.
+     */
+    async function forceProposalExecution(api: ApiPromise, proposalIndex: number) {
+      // Retrieve the referendum data for the given proposal index
+      const referendumData = await api.query.referenda.referendumInfoFor(
+        proposalIndex
+      );
+      // Get the storage key for the referendum data
+      const referendumKey =
+        api.query.referenda.referendumInfoFor.key(proposalIndex);
+
+      // Check if the referendum data exists
+      if (!referendumData.isSome) {
+        throw new Error(`Referendum ${proposalIndex} not found`);
+      }
+
+      const referendumInfo = referendumData.unwrap();
+
+      // Check if the referendum is in an ongoing state
+      if (!referendumInfo.isOngoing) {
+        throw new Error(`Referendum ${proposalIndex} is not ongoing`);
+      }
+
+      // Get the ongoing referendum data
+      const ongoingData = referendumInfo.asOngoing;
+      // Convert the ongoing data to JSON
+      const ongoingJson = ongoingData.toJSON();
+
+      // Support Lookup, Inline or Legacy proposals
+      const callHash = ongoingData.proposal.isLookup
+        ? ongoingData.proposal.asLookup.toHex()
+        : ongoingData.proposal.isInline
+        ? blake2AsHex(ongoingData.proposal.asInline.toHex())
+        : ongoingData.proposal.asLegacy.toHex();
+
+      // Get the total issuance of the native token
+      const totalIssuance = (await api.query.balances.totalIssuance()).toBigInt();
+
+      // Get the current block number
+      const proposalBlockTarget = (
+        await api.rpc.chain.getHeader()
+      ).number.toNumber();
+
+      // Create a new proposal data object with the updated fields
+      const fastProposalData = {
+        ongoing: {
+          ...ongoingJson,
+          enactment: { after: 0 },
+          deciding: {
+            since: proposalBlockTarget - 1,
+            confirming: proposalBlockTarget - 1,
+          },
+          tally: {
+            ayes: totalIssuance - 1n,
+            nays: 0,
+            support: totalIssuance - 1n,
+          },
+          alarm: [proposalBlockTarget + 1, [proposalBlockTarget + 1, 0]],
+        },
+      };
+
+      // Create a new proposal object from the proposal data
+      let fastProposal;
+      try {
+        fastProposal = api.registry.createType(
+          `Option<PalletReferendaReferendumInfo>`,
+          fastProposalData
+        );
+      } catch {
+        fastProposal = api.registry.createType(
+          `Option<PalletReferendaReferendumInfoConvictionVotingTally>`,
+          fastProposalData
+        );
+      }
+
+      // Update the storage with the new proposal object
+      const result = await api.rpc('dev_setStorage', [
+        [referendumKey, fastProposal.toHex()],
+      ]);
+
+      // Fast forward the nudge referendum to the next block to get the refendum to be scheduled
+      await moveScheduledCallTo(api, 1, (call) => {
+        if (!call.isInline) {
+          return false;
+        }
+
+        const callData = api.createType('Call', call.asInline.toHex());
+
+        return (
+          callData.method == 'nudgeReferendum' &&
+          (callData.args[0] as any).toNumber() == proposalIndex
+        );
+      });
+
+      // Create a new block
+      await api.rpc('dev_newBlock', { count: 1 });
+
+      // Move the scheduled call to the next block
+      await moveScheduledCallTo(api, 1, (call) =>
+        call.isLookup
+          ? call.asLookup.toHex() == callHash
+          : call.isInline
+          ? blake2AsHex(call.asInline.toHex()) == callHash
+          : call.asLegacy.toHex() == callHash
+      );
+
+      // Create another new block
+      await api.rpc('dev_newBlock', { count: 1 });
+    }
+    // --8<-- [end:forceProposalExecution]
+
+    // --8<-- [start:main]
+    const main = async () => {
+      // Connect to the forked chain
+      const api = await connectToFork();
+
+      // Select the call to perform
+      const call = api.tx.system.setCodeWithoutChecks('0x1234');
+
+      // Select the origin
+      const origin = {
+        System: 'Root',
+      };
+
+      // Submit preimage, submit proposal, and place decision deposit
+      const proposalIndex = await generateProposal(api, call, origin);
+
+      // Force the proposal to be executed
+      await forceProposalExecution(api, proposalIndex);
+
+      process.exit(0);
+    };
+    // --8<-- [end:main]
+
+    // --8<-- [start:try-catch-block]
+    try {
+      main();
+    } catch (e) {
+      console.log(e);
+      process.exit(1);
+    }
+    // --8<-- [end:try-catch-block]
+
+    ```
+
+Then, within the `main` function, define the specific call you want to execute and its corresponding origin, then invoke the `generateProposal` method:
+
+```typescript hl_lines="5-14"
+const main = async () => {
+  // Connect to the forked chain
+  const api = await connectToFork();
+
+  // Select the call to perform
+  const call = api.tx.system.setCodeWithoutChecks('0x1234');
+
+  // Select the origin
+  const origin = {
+    System: 'Root',
+  };
+
+  // Submit preimage, submit proposal, and place decision deposit
+  const proposalIndex = await generateProposal(api, call, origin);
+  ...
+}
+```
+
+!!!note
+    The [`setCodeWithoutChecks`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.set_code_without_checks){target=\_blank} extrinsic used in this example is for demonstration purposes only. Replace it with the specific extrinsic that matches your governance proposal's intended functionality. Ensure the call matches your target Polkadot SDK-based network's runtime requirements and governance process.
+
+### Force Proposal Execution
+
+After submitting your proposal, you can test its execution by directly manipulating the chain state and scheduler using Chopsticks, bypassing the standard voting and enactment periods.
+
+Create a new function called `forceProposalExecution`:
+
+```typescript
+async function forceProposalExecution(api: ApiPromise, proposalIndex: number) {
+  ...
+}
+```
+
+This function will accomplish two primary objectives:
+
+- Modify the chain storage to set the proposal's approvals and support artificially, ensuring its passage.
+- Override the scheduler to execute the proposal immediately in the subsequent blocks, circumventing standard waiting periods.
+
+Implement the functionality through the following steps:
+
+1. Get the referendum information and its hash:
+    ```typescript
+      // Retrieve the referendum data for the given proposal index
+      const referendumData = await api.query.referenda.referendumInfoFor(
+        proposalIndex
+      );
+      // Get the storage key for the referendum data
+      const referendumKey =
+        api.query.referenda.referendumInfoFor.key(proposalIndex);
+
+      // Check if the referendum data exists
+      if (!referendumData.isSome) {
+        throw new Error(`Referendum ${proposalIndex} not found`);
+      }
+
+      const referendumInfo = referendumData.unwrap();
+
+      // Check if the referendum is in an ongoing state
+      if (!referendumInfo.isOngoing) {
+        throw new Error(`Referendum ${proposalIndex} is not ongoing`);
+      }
+
+      // Get the ongoing referendum data
+      const ongoingData = referendumInfo.asOngoing;
+      // Convert the ongoing data to JSON
+      const ongoingJson = ongoingData.toJSON();
+
+      // Support Lookup, Inline or Legacy proposals
+      const callHash = ongoingData.proposal.isLookup
+        ? ongoingData.proposal.asLookup.toHex()
+        : ongoingData.proposal.isInline
+        ? blake2AsHex(ongoingData.proposal.asInline.toHex())
+        : ongoingData.proposal.asLegacy.toHex();
+    ```
+
+2. Determine the total amount of existing native tokens:
+    ```typescript
+      // Get the total issuance of the native token
+      const totalIssuance = (await api.query.balances.totalIssuance()).toBigInt();
+    ```
+
+3. Fetch the current block number:
+    ```typescript
+      // Get the current block number
+      const proposalBlockTarget = (
+        await api.rpc.chain.getHeader()
+      ).number.toNumber();
+    ```
+
+4. Modify the proposal data and overwrite the storage:
+    ```typescript
+      // Create a new proposal data object with the updated fields
+      const fastProposalData = {
+        ongoing: {
+          ...ongoingJson,
+          enactment: { after: 0 },
+          deciding: {
+            since: proposalBlockTarget - 1,
+            confirming: proposalBlockTarget - 1,
+          },
+          tally: {
+            ayes: totalIssuance - 1n,
+            nays: 0,
+            support: totalIssuance - 1n,
+          },
+          alarm: [proposalBlockTarget + 1, [proposalBlockTarget + 1, 0]],
+        },
+      };
+
+      // Create a new proposal object from the proposal data
+      let fastProposal;
+      try {
+        fastProposal = api.registry.createType(
+          `Option<PalletReferendaReferendumInfo>`,
+          fastProposalData
+        );
+      } catch {
+        fastProposal = api.registry.createType(
+          `Option<PalletReferendaReferendumInfoConvictionVotingTally>`,
+          fastProposalData
+        );
+      }
+
+      // Update the storage with the new proposal object
+      const result = await api.rpc('dev_setStorage', [
+        [referendumKey, fastProposal.toHex()],
+      ]);
+    ```
+
+5. Manipulate the scheduler to execute the proposal in the next blocks:
+    ```typescript
+      // Fast forward the nudge referendum to the next block to get the refendum to be scheduled
+      await moveScheduledCallTo(api, 1, (call) => {
+        if (!call.isInline) {
+          return false;
+        }
+
+        const callData = api.createType('Call', call.asInline.toHex());
+
+        return (
+          callData.method == 'nudgeReferendum' &&
+          (callData.args[0] as any).toNumber() == proposalIndex
+        );
+      });
+
+      // Create a new block
+      await api.rpc('dev_newBlock', { count: 1 });
+
+      // Move the scheduled call to the next block
+      await moveScheduledCallTo(api, 1, (call) =>
+        call.isLookup
+          ? call.asLookup.toHex() == callHash
+          : call.isInline
+          ? blake2AsHex(call.asInline.toHex()) == callHash
+          : call.asLegacy.toHex() == callHash
+      );
+
+      // Create another new block
+      await api.rpc('dev_newBlock', { count: 1 });
+    ```
+
+    ???+ child "Utility Function"
+        This section utilizes a `moveScheduledCallTo` utility function to move a scheduled call matching specific criteria to a designated future block. Include this function in the same file:
+
+        ??? code "`moveScheduledCallTo`"
+            ```typescript
+            // --8<-- [start:imports]
+            import '@polkadot/api-augment/polkadot';
+            import { FrameSupportPreimagesBounded } from '@polkadot/types/lookup';
+            import { blake2AsHex } from '@polkadot/util-crypto';
+            import { ApiPromise, Keyring, WsProvider } from '@polkadot/api';
+            import { type SubmittableExtrinsic } from '@polkadot/api/types';
+            import { ISubmittableResult } from '@polkadot/types/types';
+            // --8<-- [end:imports]
+
+            // --8<-- [start:connectToFork]
+            /**
+             * Establishes a connection to the local forked chain.
+             *
+             * @returns A promise that resolves to an `ApiPromise` instance connected to the local chain.
+             */
+            async function connectToFork(): Promise<ApiPromise> {
+              const wsProvider = new WsProvider('ws://localhost:8000');
+              const api = await ApiPromise.create({ provider: wsProvider });
+              await api.isReady;
+              console.log(`Connected to chain: ${await api.rpc.system.chain()}`);
+              return api;
+            }
+            // --8<-- [end:connectToFork]
+
+            // --8<-- [start:generateProposal]
+            /**
+             * Generates a proposal by submitting a preimage, creating the proposal, and placing a deposit.
+             *
+             * @param api - An instance of the Polkadot.js API promise used to interact with the blockchain.
+             * @param call - The extrinsic to be executed, encapsulating the specific action to be proposed.
+             * @param origin - The origin of the proposal, specifying the source authority (e.g., `{ System: 'Root' }`).
+             * @returns A promise that resolves to the proposal ID of the generated proposal.
+             *
+             */
+            async function generateProposal(
+              api: ApiPromise,
+              call: SubmittableExtrinsic<'promise', ISubmittableResult>,
+              origin: any
+            ): Promise<number> {
+              // Initialize the keyring
+              const keyring = new Keyring({ type: 'sr25519' });
+
+              // Set up Alice development account
+              const alice = keyring.addFromUri('//Alice');
+
+              // Get the next available proposal index
+              const proposalIndex = (
+                await api.query.referenda.referendumCount()
+              ).toNumber();
+
+              // Execute the batch transaction
+              await new Promise<void>(async (resolve) => {
+                const unsub = await api.tx.utility
+                  .batch([
+                    // Register the preimage for your proposal
+                    api.tx.preimage.notePreimage(call.method.toHex()),
+                    // Submit your proposal to the referenda system
+                    api.tx.referenda.submit(
+                      origin as any,
+                      {
+                        Lookup: {
+                          Hash: call.method.hash.toHex(),
+                          len: call.method.encodedLength,
+                        },
+                      },
+                      { At: 0 }
+                    ),
+                    // Place the required decision deposit
+                    api.tx.referenda.placeDecisionDeposit(proposalIndex),
+                  ])
+                  .signAndSend(alice, (status: any) => {
+                    if (status.blockNumber) {
+                      unsub();
+                      resolve();
+                    }
+                  });
+              });
+              return proposalIndex;
+            }
+            // --8<-- [end:generateProposal]
+
+            // --8<-- [start:moveScheduledCallTo]
+            /**
+             * Moves a scheduled call to a specified future block if it matches the given verifier criteria.
+             *
+             * @param api - An instance of the Polkadot.js API promise used to interact with the blockchain.
+             * @param blockCounts - The number of blocks to move the scheduled call forward.
+             * @param verifier - A function to verify if a scheduled call matches the desired criteria.
+             * @throws An error if no matching scheduled call is found.
+             */
+            async function moveScheduledCallTo(
+              api: ApiPromise,
+              blockCounts: number,
+              verifier: (call: FrameSupportPreimagesBounded) => boolean
+            ) {
+              // Get the current block number
+              const blockNumber = (await api.rpc.chain.getHeader()).number.toNumber();
+              
+              // Retrieve the scheduler's agenda entries
+              const agenda = await api.query.scheduler.agenda.entries();
+              
+              // Initialize a flag to track if a matching scheduled call is found
+              let found = false;
+              
+              // Iterate through the scheduler's agenda entries
+              for (const agendaEntry of agenda) {
+                // Iterate through the scheduled entries in the current agenda entry
+                for (const scheduledEntry of agendaEntry[1]) {
+                  // Check if the scheduled entry is valid and matches the verifier criteria
+                  if (scheduledEntry.isSome && verifier(scheduledEntry.unwrap().call)) {
+                    found = true;
+                    
+                    // Overwrite the agendaEntry item in storage
+                    const result = await api.rpc('dev_setStorage', [
+                      [agendaEntry[0]], // require to ensure unique id
+                      [
+                        await api.query.scheduler.agenda.key(blockNumber + blockCounts),
+                        agendaEntry[1].toHex(),
+                      ],
+                    ]);
+                    
+                    // Check if the scheduled call has an associated lookup
+                    if (scheduledEntry.unwrap().maybeId.isSome) {
+                      // Get the lookup ID
+                      const id = scheduledEntry.unwrap().maybeId.unwrap().toHex();
+                      const lookup = await api.query.scheduler.lookup(id);
+
+                      // Check if the lookup exists
+                      if (lookup.isSome) {
+                        // Get the lookup key
+                        const lookupKey = await api.query.scheduler.lookup.key(id);
+                        
+                        // Create a new lookup object with the updated block number
+                        const fastLookup = api.registry.createType('Option<(u32,u32)>', [
+                          blockNumber + blockCounts,
+                          0,
+                        ]);
+                        
+                        // Overwrite the lookup entry in storage
+                        const result = await api.rpc('dev_setStorage', [
+                          [lookupKey, fastLookup.toHex()],
+                        ]);
+                      }
+                    }
+                  }
+                }
+              }
+              
+              // Throw an error if no matching scheduled call is found
+              if (!found) {
+                throw new Error('No scheduled call found');
+              }
+            }
+            // --8<-- [end:moveScheduledCallTo]
+
+            // --8<-- [start:forceProposalExecution]
+            /**
+             * Forces the execution of a specific proposal by updating its referendum state and ensuring the execution process is triggered.
+             *
+             * @param api - An instance of the Polkadot.js API promise used to interact with the blockchain.
+             * @param proposalIndex - The index of the proposal to be executed.
+             * @throws An error if the referendum is not found or not in an ongoing state.
+             */
+            async function forceProposalExecution(api: ApiPromise, proposalIndex: number) {
+              // Retrieve the referendum data for the given proposal index
+              const referendumData = await api.query.referenda.referendumInfoFor(
+                proposalIndex
+              );
+              // Get the storage key for the referendum data
+              const referendumKey =
+                api.query.referenda.referendumInfoFor.key(proposalIndex);
+
+              // Check if the referendum data exists
+              if (!referendumData.isSome) {
+                throw new Error(`Referendum ${proposalIndex} not found`);
+              }
+
+              const referendumInfo = referendumData.unwrap();
+
+              // Check if the referendum is in an ongoing state
+              if (!referendumInfo.isOngoing) {
+                throw new Error(`Referendum ${proposalIndex} is not ongoing`);
+              }
+
+              // Get the ongoing referendum data
+              const ongoingData = referendumInfo.asOngoing;
+              // Convert the ongoing data to JSON
+              const ongoingJson = ongoingData.toJSON();
+
+              // Support Lookup, Inline or Legacy proposals
+              const callHash = ongoingData.proposal.isLookup
+                ? ongoingData.proposal.asLookup.toHex()
+                : ongoingData.proposal.isInline
+                ? blake2AsHex(ongoingData.proposal.asInline.toHex())
+                : ongoingData.proposal.asLegacy.toHex();
+
+              // Get the total issuance of the native token
+              const totalIssuance = (await api.query.balances.totalIssuance()).toBigInt();
+
+              // Get the current block number
+              const proposalBlockTarget = (
+                await api.rpc.chain.getHeader()
+              ).number.toNumber();
+
+              // Create a new proposal data object with the updated fields
+              const fastProposalData = {
+                ongoing: {
+                  ...ongoingJson,
+                  enactment: { after: 0 },
+                  deciding: {
+                    since: proposalBlockTarget - 1,
+                    confirming: proposalBlockTarget - 1,
+                  },
+                  tally: {
+                    ayes: totalIssuance - 1n,
+                    nays: 0,
+                    support: totalIssuance - 1n,
+                  },
+                  alarm: [proposalBlockTarget + 1, [proposalBlockTarget + 1, 0]],
+                },
+              };
+
+              // Create a new proposal object from the proposal data
+              let fastProposal;
+              try {
+                fastProposal = api.registry.createType(
+                  `Option<PalletReferendaReferendumInfo>`,
+                  fastProposalData
+                );
+              } catch {
+                fastProposal = api.registry.createType(
+                  `Option<PalletReferendaReferendumInfoConvictionVotingTally>`,
+                  fastProposalData
+                );
+              }
+
+              // Update the storage with the new proposal object
+              const result = await api.rpc('dev_setStorage', [
+                [referendumKey, fastProposal.toHex()],
+              ]);
+
+              // Fast forward the nudge referendum to the next block to get the refendum to be scheduled
+              await moveScheduledCallTo(api, 1, (call) => {
+                if (!call.isInline) {
+                  return false;
+                }
+
+                const callData = api.createType('Call', call.asInline.toHex());
+
+                return (
+                  callData.method == 'nudgeReferendum' &&
+                  (callData.args[0] as any).toNumber() == proposalIndex
+                );
+              });
+
+              // Create a new block
+              await api.rpc('dev_newBlock', { count: 1 });
+
+              // Move the scheduled call to the next block
+              await moveScheduledCallTo(api, 1, (call) =>
+                call.isLookup
+                  ? call.asLookup.toHex() == callHash
+                  : call.isInline
+                  ? blake2AsHex(call.asInline.toHex()) == callHash
+                  : call.asLegacy.toHex() == callHash
+              );
+
+              // Create another new block
+              await api.rpc('dev_newBlock', { count: 1 });
+            }
+            // --8<-- [end:forceProposalExecution]
+
+            // --8<-- [start:main]
+            const main = async () => {
+              // Connect to the forked chain
+              const api = await connectToFork();
+
+              // Select the call to perform
+              const call = api.tx.system.setCodeWithoutChecks('0x1234');
+
+              // Select the origin
+              const origin = {
+                System: 'Root',
+              };
+
+              // Submit preimage, submit proposal, and place decision deposit
+              const proposalIndex = await generateProposal(api, call, origin);
+
+              // Force the proposal to be executed
+              await forceProposalExecution(api, proposalIndex);
+
+              process.exit(0);
+            };
+            // --8<-- [end:main]
+
+            // --8<-- [start:try-catch-block]
+            try {
+              main();
+            } catch (e) {
+              console.log(e);
+              process.exit(1);
+            }
+            // --8<-- [end:try-catch-block]
+
+            ```
+
+After implementing the complete logic, your function will resemble:
+
+??? code "`forceProposalExecution`"
+    ```typescript
+    // --8<-- [start:imports]
+    import '@polkadot/api-augment/polkadot';
+    import { FrameSupportPreimagesBounded } from '@polkadot/types/lookup';
+    import { blake2AsHex } from '@polkadot/util-crypto';
+    import { ApiPromise, Keyring, WsProvider } from '@polkadot/api';
+    import { type SubmittableExtrinsic } from '@polkadot/api/types';
+    import { ISubmittableResult } from '@polkadot/types/types';
+    // --8<-- [end:imports]
+
+    // --8<-- [start:connectToFork]
+    /**
+     * Establishes a connection to the local forked chain.
+     *
+     * @returns A promise that resolves to an `ApiPromise` instance connected to the local chain.
+     */
+    async function connectToFork(): Promise<ApiPromise> {
+      const wsProvider = new WsProvider('ws://localhost:8000');
+      const api = await ApiPromise.create({ provider: wsProvider });
+      await api.isReady;
+      console.log(`Connected to chain: ${await api.rpc.system.chain()}`);
+      return api;
+    }
+    // --8<-- [end:connectToFork]
+
+    // --8<-- [start:generateProposal]
+    /**
+     * Generates a proposal by submitting a preimage, creating the proposal, and placing a deposit.
+     *
+     * @param api - An instance of the Polkadot.js API promise used to interact with the blockchain.
+     * @param call - The extrinsic to be executed, encapsulating the specific action to be proposed.
+     * @param origin - The origin of the proposal, specifying the source authority (e.g., `{ System: 'Root' }`).
+     * @returns A promise that resolves to the proposal ID of the generated proposal.
+     *
+     */
+    async function generateProposal(
+      api: ApiPromise,
+      call: SubmittableExtrinsic<'promise', ISubmittableResult>,
+      origin: any
+    ): Promise<number> {
+      // Initialize the keyring
+      const keyring = new Keyring({ type: 'sr25519' });
+
+      // Set up Alice development account
+      const alice = keyring.addFromUri('//Alice');
+
+      // Get the next available proposal index
+      const proposalIndex = (
+        await api.query.referenda.referendumCount()
+      ).toNumber();
+
+      // Execute the batch transaction
+      await new Promise<void>(async (resolve) => {
+        const unsub = await api.tx.utility
+          .batch([
+            // Register the preimage for your proposal
+            api.tx.preimage.notePreimage(call.method.toHex()),
+            // Submit your proposal to the referenda system
+            api.tx.referenda.submit(
+              origin as any,
+              {
+                Lookup: {
+                  Hash: call.method.hash.toHex(),
+                  len: call.method.encodedLength,
+                },
+              },
+              { At: 0 }
+            ),
+            // Place the required decision deposit
+            api.tx.referenda.placeDecisionDeposit(proposalIndex),
+          ])
+          .signAndSend(alice, (status: any) => {
+            if (status.blockNumber) {
+              unsub();
+              resolve();
+            }
+          });
+      });
+      return proposalIndex;
+    }
+    // --8<-- [end:generateProposal]
+
+    // --8<-- [start:moveScheduledCallTo]
+    /**
+     * Moves a scheduled call to a specified future block if it matches the given verifier criteria.
+     *
+     * @param api - An instance of the Polkadot.js API promise used to interact with the blockchain.
+     * @param blockCounts - The number of blocks to move the scheduled call forward.
+     * @param verifier - A function to verify if a scheduled call matches the desired criteria.
+     * @throws An error if no matching scheduled call is found.
+     */
+    async function moveScheduledCallTo(
+      api: ApiPromise,
+      blockCounts: number,
+      verifier: (call: FrameSupportPreimagesBounded) => boolean
+    ) {
+      // Get the current block number
+      const blockNumber = (await api.rpc.chain.getHeader()).number.toNumber();
+      
+      // Retrieve the scheduler's agenda entries
+      const agenda = await api.query.scheduler.agenda.entries();
+      
+      // Initialize a flag to track if a matching scheduled call is found
+      let found = false;
+      
+      // Iterate through the scheduler's agenda entries
+      for (const agendaEntry of agenda) {
+        // Iterate through the scheduled entries in the current agenda entry
+        for (const scheduledEntry of agendaEntry[1]) {
+          // Check if the scheduled entry is valid and matches the verifier criteria
+          if (scheduledEntry.isSome && verifier(scheduledEntry.unwrap().call)) {
+            found = true;
+            
+            // Overwrite the agendaEntry item in storage
+            const result = await api.rpc('dev_setStorage', [
+              [agendaEntry[0]], // require to ensure unique id
+              [
+                await api.query.scheduler.agenda.key(blockNumber + blockCounts),
+                agendaEntry[1].toHex(),
+              ],
+            ]);
+            
+            // Check if the scheduled call has an associated lookup
+            if (scheduledEntry.unwrap().maybeId.isSome) {
+              // Get the lookup ID
+              const id = scheduledEntry.unwrap().maybeId.unwrap().toHex();
+              const lookup = await api.query.scheduler.lookup(id);
+
+              // Check if the lookup exists
+              if (lookup.isSome) {
+                // Get the lookup key
+                const lookupKey = await api.query.scheduler.lookup.key(id);
+                
+                // Create a new lookup object with the updated block number
+                const fastLookup = api.registry.createType('Option<(u32,u32)>', [
+                  blockNumber + blockCounts,
+                  0,
+                ]);
+                
+                // Overwrite the lookup entry in storage
+                const result = await api.rpc('dev_setStorage', [
+                  [lookupKey, fastLookup.toHex()],
+                ]);
+              }
+            }
+          }
+        }
+      }
+      
+      // Throw an error if no matching scheduled call is found
+      if (!found) {
+        throw new Error('No scheduled call found');
+      }
+    }
+    // --8<-- [end:moveScheduledCallTo]
+
+    // --8<-- [start:forceProposalExecution]
+    /**
+     * Forces the execution of a specific proposal by updating its referendum state and ensuring the execution process is triggered.
+     *
+     * @param api - An instance of the Polkadot.js API promise used to interact with the blockchain.
+     * @param proposalIndex - The index of the proposal to be executed.
+     * @throws An error if the referendum is not found or not in an ongoing state.
+     */
+    async function forceProposalExecution(api: ApiPromise, proposalIndex: number) {
+      // Retrieve the referendum data for the given proposal index
+      const referendumData = await api.query.referenda.referendumInfoFor(
+        proposalIndex
+      );
+      // Get the storage key for the referendum data
+      const referendumKey =
+        api.query.referenda.referendumInfoFor.key(proposalIndex);
+
+      // Check if the referendum data exists
+      if (!referendumData.isSome) {
+        throw new Error(`Referendum ${proposalIndex} not found`);
+      }
+
+      const referendumInfo = referendumData.unwrap();
+
+      // Check if the referendum is in an ongoing state
+      if (!referendumInfo.isOngoing) {
+        throw new Error(`Referendum ${proposalIndex} is not ongoing`);
+      }
+
+      // Get the ongoing referendum data
+      const ongoingData = referendumInfo.asOngoing;
+      // Convert the ongoing data to JSON
+      const ongoingJson = ongoingData.toJSON();
+
+      // Support Lookup, Inline or Legacy proposals
+      const callHash = ongoingData.proposal.isLookup
+        ? ongoingData.proposal.asLookup.toHex()
+        : ongoingData.proposal.isInline
+        ? blake2AsHex(ongoingData.proposal.asInline.toHex())
+        : ongoingData.proposal.asLegacy.toHex();
+
+      // Get the total issuance of the native token
+      const totalIssuance = (await api.query.balances.totalIssuance()).toBigInt();
+
+      // Get the current block number
+      const proposalBlockTarget = (
+        await api.rpc.chain.getHeader()
+      ).number.toNumber();
+
+      // Create a new proposal data object with the updated fields
+      const fastProposalData = {
+        ongoing: {
+          ...ongoingJson,
+          enactment: { after: 0 },
+          deciding: {
+            since: proposalBlockTarget - 1,
+            confirming: proposalBlockTarget - 1,
+          },
+          tally: {
+            ayes: totalIssuance - 1n,
+            nays: 0,
+            support: totalIssuance - 1n,
+          },
+          alarm: [proposalBlockTarget + 1, [proposalBlockTarget + 1, 0]],
+        },
+      };
+
+      // Create a new proposal object from the proposal data
+      let fastProposal;
+      try {
+        fastProposal = api.registry.createType(
+          `Option<PalletReferendaReferendumInfo>`,
+          fastProposalData
+        );
+      } catch {
+        fastProposal = api.registry.createType(
+          `Option<PalletReferendaReferendumInfoConvictionVotingTally>`,
+          fastProposalData
+        );
+      }
+
+      // Update the storage with the new proposal object
+      const result = await api.rpc('dev_setStorage', [
+        [referendumKey, fastProposal.toHex()],
+      ]);
+
+      // Fast forward the nudge referendum to the next block to get the refendum to be scheduled
+      await moveScheduledCallTo(api, 1, (call) => {
+        if (!call.isInline) {
+          return false;
+        }
+
+        const callData = api.createType('Call', call.asInline.toHex());
+
+        return (
+          callData.method == 'nudgeReferendum' &&
+          (callData.args[0] as any).toNumber() == proposalIndex
+        );
+      });
+
+      // Create a new block
+      await api.rpc('dev_newBlock', { count: 1 });
+
+      // Move the scheduled call to the next block
+      await moveScheduledCallTo(api, 1, (call) =>
+        call.isLookup
+          ? call.asLookup.toHex() == callHash
+          : call.isInline
+          ? blake2AsHex(call.asInline.toHex()) == callHash
+          : call.asLegacy.toHex() == callHash
+      );
+
+      // Create another new block
+      await api.rpc('dev_newBlock', { count: 1 });
+    }
+    // --8<-- [end:forceProposalExecution]
+
+    // --8<-- [start:main]
+    const main = async () => {
+      // Connect to the forked chain
+      const api = await connectToFork();
+
+      // Select the call to perform
+      const call = api.tx.system.setCodeWithoutChecks('0x1234');
+
+      // Select the origin
+      const origin = {
+        System: 'Root',
+      };
+
+      // Submit preimage, submit proposal, and place decision deposit
+      const proposalIndex = await generateProposal(api, call, origin);
+
+      // Force the proposal to be executed
+      await forceProposalExecution(api, proposalIndex);
+
+      process.exit(0);
+    };
+    // --8<-- [end:main]
+
+    // --8<-- [start:try-catch-block]
+    try {
+      main();
+    } catch (e) {
+      console.log(e);
+      process.exit(1);
+    }
+    // --8<-- [end:try-catch-block]
+
+    ```
+
+Invoke `forceProposalExecution` from the `main` function using the `proposalIndex` obtained from the previous `generateProposal` call:
+
+```typescript hl_lines="16-17"
+// --8<-- [start:imports]
+import '@polkadot/api-augment/polkadot';
+import { FrameSupportPreimagesBounded } from '@polkadot/types/lookup';
+import { blake2AsHex } from '@polkadot/util-crypto';
+import { ApiPromise, Keyring, WsProvider } from '@polkadot/api';
+import { type SubmittableExtrinsic } from '@polkadot/api/types';
+import { ISubmittableResult } from '@polkadot/types/types';
+// --8<-- [end:imports]
+
+// --8<-- [start:connectToFork]
+/**
+ * Establishes a connection to the local forked chain.
+ *
+ * @returns A promise that resolves to an `ApiPromise` instance connected to the local chain.
+ */
+async function connectToFork(): Promise<ApiPromise> {
+  const wsProvider = new WsProvider('ws://localhost:8000');
+  const api = await ApiPromise.create({ provider: wsProvider });
+  await api.isReady;
+  console.log(`Connected to chain: ${await api.rpc.system.chain()}`);
+  return api;
+}
+// --8<-- [end:connectToFork]
+
+// --8<-- [start:generateProposal]
+/**
+ * Generates a proposal by submitting a preimage, creating the proposal, and placing a deposit.
+ *
+ * @param api - An instance of the Polkadot.js API promise used to interact with the blockchain.
+ * @param call - The extrinsic to be executed, encapsulating the specific action to be proposed.
+ * @param origin - The origin of the proposal, specifying the source authority (e.g., `{ System: 'Root' }`).
+ * @returns A promise that resolves to the proposal ID of the generated proposal.
+ *
+ */
+async function generateProposal(
+  api: ApiPromise,
+  call: SubmittableExtrinsic<'promise', ISubmittableResult>,
+  origin: any
+): Promise<number> {
+  // Initialize the keyring
+  const keyring = new Keyring({ type: 'sr25519' });
+
+  // Set up Alice development account
+  const alice = keyring.addFromUri('//Alice');
+
+  // Get the next available proposal index
+  const proposalIndex = (
+    await api.query.referenda.referendumCount()
+  ).toNumber();
+
+  // Execute the batch transaction
+  await new Promise<void>(async (resolve) => {
+    const unsub = await api.tx.utility
+      .batch([
+        // Register the preimage for your proposal
+        api.tx.preimage.notePreimage(call.method.toHex()),
+        // Submit your proposal to the referenda system
+        api.tx.referenda.submit(
+          origin as any,
+          {
+            Lookup: {
+              Hash: call.method.hash.toHex(),
+              len: call.method.encodedLength,
+            },
+          },
+          { At: 0 }
+        ),
+        // Place the required decision deposit
+        api.tx.referenda.placeDecisionDeposit(proposalIndex),
+      ])
+      .signAndSend(alice, (status: any) => {
+        if (status.blockNumber) {
+          unsub();
+          resolve();
+        }
+      });
+  });
+  return proposalIndex;
+}
+// --8<-- [end:generateProposal]
+
+// --8<-- [start:moveScheduledCallTo]
+/**
+ * Moves a scheduled call to a specified future block if it matches the given verifier criteria.
+ *
+ * @param api - An instance of the Polkadot.js API promise used to interact with the blockchain.
+ * @param blockCounts - The number of blocks to move the scheduled call forward.
+ * @param verifier - A function to verify if a scheduled call matches the desired criteria.
+ * @throws An error if no matching scheduled call is found.
+ */
+async function moveScheduledCallTo(
+  api: ApiPromise,
+  blockCounts: number,
+  verifier: (call: FrameSupportPreimagesBounded) => boolean
+) {
+  // Get the current block number
+  const blockNumber = (await api.rpc.chain.getHeader()).number.toNumber();
+  
+  // Retrieve the scheduler's agenda entries
+  const agenda = await api.query.scheduler.agenda.entries();
+  
+  // Initialize a flag to track if a matching scheduled call is found
+  let found = false;
+  
+  // Iterate through the scheduler's agenda entries
+  for (const agendaEntry of agenda) {
+    // Iterate through the scheduled entries in the current agenda entry
+    for (const scheduledEntry of agendaEntry[1]) {
+      // Check if the scheduled entry is valid and matches the verifier criteria
+      if (scheduledEntry.isSome && verifier(scheduledEntry.unwrap().call)) {
+        found = true;
+        
+        // Overwrite the agendaEntry item in storage
+        const result = await api.rpc('dev_setStorage', [
+          [agendaEntry[0]], // require to ensure unique id
+          [
+            await api.query.scheduler.agenda.key(blockNumber + blockCounts),
+            agendaEntry[1].toHex(),
+          ],
+        ]);
+        
+        // Check if the scheduled call has an associated lookup
+        if (scheduledEntry.unwrap().maybeId.isSome) {
+          // Get the lookup ID
+          const id = scheduledEntry.unwrap().maybeId.unwrap().toHex();
+          const lookup = await api.query.scheduler.lookup(id);
+
+          // Check if the lookup exists
+          if (lookup.isSome) {
+            // Get the lookup key
+            const lookupKey = await api.query.scheduler.lookup.key(id);
+            
+            // Create a new lookup object with the updated block number
+            const fastLookup = api.registry.createType('Option<(u32,u32)>', [
+              blockNumber + blockCounts,
+              0,
+            ]);
+            
+            // Overwrite the lookup entry in storage
+            const result = await api.rpc('dev_setStorage', [
+              [lookupKey, fastLookup.toHex()],
+            ]);
+          }
+        }
+      }
+    }
+  }
+  
+  // Throw an error if no matching scheduled call is found
+  if (!found) {
+    throw new Error('No scheduled call found');
+  }
+}
+// --8<-- [end:moveScheduledCallTo]
+
+// --8<-- [start:forceProposalExecution]
+/**
+ * Forces the execution of a specific proposal by updating its referendum state and ensuring the execution process is triggered.
+ *
+ * @param api - An instance of the Polkadot.js API promise used to interact with the blockchain.
+ * @param proposalIndex - The index of the proposal to be executed.
+ * @throws An error if the referendum is not found or not in an ongoing state.
+ */
+async function forceProposalExecution(api: ApiPromise, proposalIndex: number) {
+  // Retrieve the referendum data for the given proposal index
+  const referendumData = await api.query.referenda.referendumInfoFor(
+    proposalIndex
+  );
+  // Get the storage key for the referendum data
+  const referendumKey =
+    api.query.referenda.referendumInfoFor.key(proposalIndex);
+
+  // Check if the referendum data exists
+  if (!referendumData.isSome) {
+    throw new Error(`Referendum ${proposalIndex} not found`);
+  }
+
+  const referendumInfo = referendumData.unwrap();
+
+  // Check if the referendum is in an ongoing state
+  if (!referendumInfo.isOngoing) {
+    throw new Error(`Referendum ${proposalIndex} is not ongoing`);
+  }
+
+  // Get the ongoing referendum data
+  const ongoingData = referendumInfo.asOngoing;
+  // Convert the ongoing data to JSON
+  const ongoingJson = ongoingData.toJSON();
+
+  // Support Lookup, Inline or Legacy proposals
+  const callHash = ongoingData.proposal.isLookup
+    ? ongoingData.proposal.asLookup.toHex()
+    : ongoingData.proposal.isInline
+    ? blake2AsHex(ongoingData.proposal.asInline.toHex())
+    : ongoingData.proposal.asLegacy.toHex();
+
+  // Get the total issuance of the native token
+  const totalIssuance = (await api.query.balances.totalIssuance()).toBigInt();
+
+  // Get the current block number
+  const proposalBlockTarget = (
+    await api.rpc.chain.getHeader()
+  ).number.toNumber();
+
+  // Create a new proposal data object with the updated fields
+  const fastProposalData = {
+    ongoing: {
+      ...ongoingJson,
+      enactment: { after: 0 },
+      deciding: {
+        since: proposalBlockTarget - 1,
+        confirming: proposalBlockTarget - 1,
+      },
+      tally: {
+        ayes: totalIssuance - 1n,
+        nays: 0,
+        support: totalIssuance - 1n,
+      },
+      alarm: [proposalBlockTarget + 1, [proposalBlockTarget + 1, 0]],
+    },
+  };
+
+  // Create a new proposal object from the proposal data
+  let fastProposal;
+  try {
+    fastProposal = api.registry.createType(
+      `Option<PalletReferendaReferendumInfo>`,
+      fastProposalData
+    );
+  } catch {
+    fastProposal = api.registry.createType(
+      `Option<PalletReferendaReferendumInfoConvictionVotingTally>`,
+      fastProposalData
+    );
+  }
+
+  // Update the storage with the new proposal object
+  const result = await api.rpc('dev_setStorage', [
+    [referendumKey, fastProposal.toHex()],
+  ]);
+
+  // Fast forward the nudge referendum to the next block to get the refendum to be scheduled
+  await moveScheduledCallTo(api, 1, (call) => {
+    if (!call.isInline) {
+      return false;
+    }
+
+    const callData = api.createType('Call', call.asInline.toHex());
+
+    return (
+      callData.method == 'nudgeReferendum' &&
+      (callData.args[0] as any).toNumber() == proposalIndex
+    );
+  });
+
+  // Create a new block
+  await api.rpc('dev_newBlock', { count: 1 });
+
+  // Move the scheduled call to the next block
+  await moveScheduledCallTo(api, 1, (call) =>
+    call.isLookup
+      ? call.asLookup.toHex() == callHash
+      : call.isInline
+      ? blake2AsHex(call.asInline.toHex()) == callHash
+      : call.asLegacy.toHex() == callHash
+  );
+
+  // Create another new block
+  await api.rpc('dev_newBlock', { count: 1 });
+}
+// --8<-- [end:forceProposalExecution]
+
+// --8<-- [start:main]
+const main = async () => {
+  // Connect to the forked chain
+  const api = await connectToFork();
+
+  // Select the call to perform
+  const call = api.tx.system.setCodeWithoutChecks('0x1234');
+
+  // Select the origin
+  const origin = {
+    System: 'Root',
+  };
+
+  // Submit preimage, submit proposal, and place decision deposit
+  const proposalIndex = await generateProposal(api, call, origin);
+
+  // Force the proposal to be executed
+  await forceProposalExecution(api, proposalIndex);
+
+  process.exit(0);
+};
+// --8<-- [end:main]
+
+// --8<-- [start:try-catch-block]
+try {
+  main();
+} catch (e) {
+  console.log(e);
+  process.exit(1);
+}
+// --8<-- [end:try-catch-block]
+
+```
+
+## Execute the Proposal Script
+
+To run the proposal execution script, use the following command in your terminal:
+
+```bash
+npx ts-node test-proposal.ts
+```
+
+When executing the script, you should expect the following key actions and outputs:
+
+- **Chain forking**: The script connects to a forked version of the Polkadot network, allowing safe manipulation of the chain state without affecting the live network.
+
+- **Proposal generation**: A new governance proposal is created using the specified extrinsic (in this example, `setCodeWithoutChecks`).
+
+- **State manipulation**: The referendum's storage is modified to simulate immediate approval by adjusting tally and support values to force proposal passing. Scheduled calls are then redirected to ensure immediate execution.
+
+- **Execution**: The script advances the chain to trigger the scheduled call execution. The specified call (e.g., `setCodeWithoutChecks`) is processed.
+
+## Summary
+
+In this tutorial, you've learned how to use Chopsticks to test OpenGov proposals on a local fork of the Polkadot network. You've set up a TypeScript project, connected to a local fork, submitted a proposal, and forced its execution for testing purposes. This process allows you to:
+
+- Safely experiment with different types of proposals.
+- Test the effects of proposals without affecting the live network.
+- Rapidly iterate and debug your governance ideas.
+
+Using these techniques, you can develop and refine your proposals before submitting them to the Polkadot network, ensuring they're well-tested and likely to achieve their intended effects.
+
+## Full Code
+
+Here's the complete code for the `test-proposal.ts` file, incorporating all the steps we've covered:
+
+??? code "`test-proposal.ts`"
+    ```typescript
+    // --8<-- [start:imports]
+    import '@polkadot/api-augment/polkadot';
+    import { FrameSupportPreimagesBounded } from '@polkadot/types/lookup';
+    import { blake2AsHex } from '@polkadot/util-crypto';
+    import { ApiPromise, Keyring, WsProvider } from '@polkadot/api';
+    import { type SubmittableExtrinsic } from '@polkadot/api/types';
+    import { ISubmittableResult } from '@polkadot/types/types';
+    // --8<-- [end:imports]
+
+    // --8<-- [start:connectToFork]
+    /**
+     * Establishes a connection to the local forked chain.
+     *
+     * @returns A promise that resolves to an `ApiPromise` instance connected to the local chain.
+     */
+    async function connectToFork(): Promise<ApiPromise> {
+      const wsProvider = new WsProvider('ws://localhost:8000');
+      const api = await ApiPromise.create({ provider: wsProvider });
+      await api.isReady;
+      console.log(`Connected to chain: ${await api.rpc.system.chain()}`);
+      return api;
+    }
+    // --8<-- [end:connectToFork]
+
+    // --8<-- [start:generateProposal]
+    /**
+     * Generates a proposal by submitting a preimage, creating the proposal, and placing a deposit.
+     *
+     * @param api - An instance of the Polkadot.js API promise used to interact with the blockchain.
+     * @param call - The extrinsic to be executed, encapsulating the specific action to be proposed.
+     * @param origin - The origin of the proposal, specifying the source authority (e.g., `{ System: 'Root' }`).
+     * @returns A promise that resolves to the proposal ID of the generated proposal.
+     *
+     */
+    async function generateProposal(
+      api: ApiPromise,
+      call: SubmittableExtrinsic<'promise', ISubmittableResult>,
+      origin: any
+    ): Promise<number> {
+      // Initialize the keyring
+      const keyring = new Keyring({ type: 'sr25519' });
+
+      // Set up Alice development account
+      const alice = keyring.addFromUri('//Alice');
+
+      // Get the next available proposal index
+      const proposalIndex = (
+        await api.query.referenda.referendumCount()
+      ).toNumber();
+
+      // Execute the batch transaction
+      await new Promise<void>(async (resolve) => {
+        const unsub = await api.tx.utility
+          .batch([
+            // Register the preimage for your proposal
+            api.tx.preimage.notePreimage(call.method.toHex()),
+            // Submit your proposal to the referenda system
+            api.tx.referenda.submit(
+              origin as any,
+              {
+                Lookup: {
+                  Hash: call.method.hash.toHex(),
+                  len: call.method.encodedLength,
+                },
+              },
+              { At: 0 }
+            ),
+            // Place the required decision deposit
+            api.tx.referenda.placeDecisionDeposit(proposalIndex),
+          ])
+          .signAndSend(alice, (status: any) => {
+            if (status.blockNumber) {
+              unsub();
+              resolve();
+            }
+          });
+      });
+      return proposalIndex;
+    }
+    // --8<-- [end:generateProposal]
+
+    // --8<-- [start:moveScheduledCallTo]
+    /**
+     * Moves a scheduled call to a specified future block if it matches the given verifier criteria.
+     *
+     * @param api - An instance of the Polkadot.js API promise used to interact with the blockchain.
+     * @param blockCounts - The number of blocks to move the scheduled call forward.
+     * @param verifier - A function to verify if a scheduled call matches the desired criteria.
+     * @throws An error if no matching scheduled call is found.
+     */
+    async function moveScheduledCallTo(
+      api: ApiPromise,
+      blockCounts: number,
+      verifier: (call: FrameSupportPreimagesBounded) => boolean
+    ) {
+      // Get the current block number
+      const blockNumber = (await api.rpc.chain.getHeader()).number.toNumber();
+      
+      // Retrieve the scheduler's agenda entries
+      const agenda = await api.query.scheduler.agenda.entries();
+      
+      // Initialize a flag to track if a matching scheduled call is found
+      let found = false;
+      
+      // Iterate through the scheduler's agenda entries
+      for (const agendaEntry of agenda) {
+        // Iterate through the scheduled entries in the current agenda entry
+        for (const scheduledEntry of agendaEntry[1]) {
+          // Check if the scheduled entry is valid and matches the verifier criteria
+          if (scheduledEntry.isSome && verifier(scheduledEntry.unwrap().call)) {
+            found = true;
+            
+            // Overwrite the agendaEntry item in storage
+            const result = await api.rpc('dev_setStorage', [
+              [agendaEntry[0]], // require to ensure unique id
+              [
+                await api.query.scheduler.agenda.key(blockNumber + blockCounts),
+                agendaEntry[1].toHex(),
+              ],
+            ]);
+            
+            // Check if the scheduled call has an associated lookup
+            if (scheduledEntry.unwrap().maybeId.isSome) {
+              // Get the lookup ID
+              const id = scheduledEntry.unwrap().maybeId.unwrap().toHex();
+              const lookup = await api.query.scheduler.lookup(id);
+
+              // Check if the lookup exists
+              if (lookup.isSome) {
+                // Get the lookup key
+                const lookupKey = await api.query.scheduler.lookup.key(id);
+                
+                // Create a new lookup object with the updated block number
+                const fastLookup = api.registry.createType('Option<(u32,u32)>', [
+                  blockNumber + blockCounts,
+                  0,
+                ]);
+                
+                // Overwrite the lookup entry in storage
+                const result = await api.rpc('dev_setStorage', [
+                  [lookupKey, fastLookup.toHex()],
+                ]);
+              }
+            }
+          }
+        }
+      }
+      
+      // Throw an error if no matching scheduled call is found
+      if (!found) {
+        throw new Error('No scheduled call found');
+      }
+    }
+    // --8<-- [end:moveScheduledCallTo]
+
+    // --8<-- [start:forceProposalExecution]
+    /**
+     * Forces the execution of a specific proposal by updating its referendum state and ensuring the execution process is triggered.
+     *
+     * @param api - An instance of the Polkadot.js API promise used to interact with the blockchain.
+     * @param proposalIndex - The index of the proposal to be executed.
+     * @throws An error if the referendum is not found or not in an ongoing state.
+     */
+    async function forceProposalExecution(api: ApiPromise, proposalIndex: number) {
+      // Retrieve the referendum data for the given proposal index
+      const referendumData = await api.query.referenda.referendumInfoFor(
+        proposalIndex
+      );
+      // Get the storage key for the referendum data
+      const referendumKey =
+        api.query.referenda.referendumInfoFor.key(proposalIndex);
+
+      // Check if the referendum data exists
+      if (!referendumData.isSome) {
+        throw new Error(`Referendum ${proposalIndex} not found`);
+      }
+
+      const referendumInfo = referendumData.unwrap();
+
+      // Check if the referendum is in an ongoing state
+      if (!referendumInfo.isOngoing) {
+        throw new Error(`Referendum ${proposalIndex} is not ongoing`);
+      }
+
+      // Get the ongoing referendum data
+      const ongoingData = referendumInfo.asOngoing;
+      // Convert the ongoing data to JSON
+      const ongoingJson = ongoingData.toJSON();
+
+      // Support Lookup, Inline or Legacy proposals
+      const callHash = ongoingData.proposal.isLookup
+        ? ongoingData.proposal.asLookup.toHex()
+        : ongoingData.proposal.isInline
+        ? blake2AsHex(ongoingData.proposal.asInline.toHex())
+        : ongoingData.proposal.asLegacy.toHex();
+
+      // Get the total issuance of the native token
+      const totalIssuance = (await api.query.balances.totalIssuance()).toBigInt();
+
+      // Get the current block number
+      const proposalBlockTarget = (
+        await api.rpc.chain.getHeader()
+      ).number.toNumber();
+
+      // Create a new proposal data object with the updated fields
+      const fastProposalData = {
+        ongoing: {
+          ...ongoingJson,
+          enactment: { after: 0 },
+          deciding: {
+            since: proposalBlockTarget - 1,
+            confirming: proposalBlockTarget - 1,
+          },
+          tally: {
+            ayes: totalIssuance - 1n,
+            nays: 0,
+            support: totalIssuance - 1n,
+          },
+          alarm: [proposalBlockTarget + 1, [proposalBlockTarget + 1, 0]],
+        },
+      };
+
+      // Create a new proposal object from the proposal data
+      let fastProposal;
+      try {
+        fastProposal = api.registry.createType(
+          `Option<PalletReferendaReferendumInfo>`,
+          fastProposalData
+        );
+      } catch {
+        fastProposal = api.registry.createType(
+          `Option<PalletReferendaReferendumInfoConvictionVotingTally>`,
+          fastProposalData
+        );
+      }
+
+      // Update the storage with the new proposal object
+      const result = await api.rpc('dev_setStorage', [
+        [referendumKey, fastProposal.toHex()],
+      ]);
+
+      // Fast forward the nudge referendum to the next block to get the refendum to be scheduled
+      await moveScheduledCallTo(api, 1, (call) => {
+        if (!call.isInline) {
+          return false;
+        }
+
+        const callData = api.createType('Call', call.asInline.toHex());
+
+        return (
+          callData.method == 'nudgeReferendum' &&
+          (callData.args[0] as any).toNumber() == proposalIndex
+        );
+      });
+
+      // Create a new block
+      await api.rpc('dev_newBlock', { count: 1 });
+
+      // Move the scheduled call to the next block
+      await moveScheduledCallTo(api, 1, (call) =>
+        call.isLookup
+          ? call.asLookup.toHex() == callHash
+          : call.isInline
+          ? blake2AsHex(call.asInline.toHex()) == callHash
+          : call.asLegacy.toHex() == callHash
+      );
+
+      // Create another new block
+      await api.rpc('dev_newBlock', { count: 1 });
+    }
+    // --8<-- [end:forceProposalExecution]
+
+    // --8<-- [start:main]
+    const main = async () => {
+      // Connect to the forked chain
+      const api = await connectToFork();
+
+      // Select the call to perform
+      const call = api.tx.system.setCodeWithoutChecks('0x1234');
+
+      // Select the origin
+      const origin = {
+        System: 'Root',
+      };
+
+      // Submit preimage, submit proposal, and place decision deposit
+      const proposalIndex = await generateProposal(api, call, origin);
+
+      // Force the proposal to be executed
+      await forceProposalExecution(api, proposalIndex);
+
+      process.exit(0);
+    };
+    // --8<-- [end:main]
+
+    // --8<-- [start:try-catch-block]
+    try {
+      main();
+    } catch (e) {
+      console.log(e);
+      process.exit(1);
+    }
+    // --8<-- [end:try-catch-block]
+
+    // --8<-- [start:imports]
+    import '@polkadot/api-augment/polkadot';
+    import { FrameSupportPreimagesBounded } from '@polkadot/types/lookup';
+    import { blake2AsHex } from '@polkadot/util-crypto';
+    import { ApiPromise, Keyring, WsProvider } from '@polkadot/api';
+    import { type SubmittableExtrinsic } from '@polkadot/api/types';
+    import { ISubmittableResult } from '@polkadot/types/types';
+    // --8<-- [end:imports]
+
+    // --8<-- [start:connectToFork]
+    /**
+     * Establishes a connection to the local forked chain.
+     *
+     * @returns A promise that resolves to an `ApiPromise` instance connected to the local chain.
+     */
+    async function connectToFork(): Promise<ApiPromise> {
+      const wsProvider = new WsProvider('ws://localhost:8000');
+      const api = await ApiPromise.create({ provider: wsProvider });
+      await api.isReady;
+      console.log(`Connected to chain: ${await api.rpc.system.chain()}`);
+      return api;
+    }
+    // --8<-- [end:connectToFork]
+
+    // --8<-- [start:generateProposal]
+    /**
+     * Generates a proposal by submitting a preimage, creating the proposal, and placing a deposit.
+     *
+     * @param api - An instance of the Polkadot.js API promise used to interact with the blockchain.
+     * @param call - The extrinsic to be executed, encapsulating the specific action to be proposed.
+     * @param origin - The origin of the proposal, specifying the source authority (e.g., `{ System: 'Root' }`).
+     * @returns A promise that resolves to the proposal ID of the generated proposal.
+     *
+     */
+    async function generateProposal(
+      api: ApiPromise,
+      call: SubmittableExtrinsic<'promise', ISubmittableResult>,
+      origin: any
+    ): Promise<number> {
+      // Initialize the keyring
+      const keyring = new Keyring({ type: 'sr25519' });
+
+      // Set up Alice development account
+      const alice = keyring.addFromUri('//Alice');
+
+      // Get the next available proposal index
+      const proposalIndex = (
+        await api.query.referenda.referendumCount()
+      ).toNumber();
+
+      // Execute the batch transaction
+      await new Promise<void>(async (resolve) => {
+        const unsub = await api.tx.utility
+          .batch([
+            // Register the preimage for your proposal
+            api.tx.preimage.notePreimage(call.method.toHex()),
+            // Submit your proposal to the referenda system
+            api.tx.referenda.submit(
+              origin as any,
+              {
+                Lookup: {
+                  Hash: call.method.hash.toHex(),
+                  len: call.method.encodedLength,
+                },
+              },
+              { At: 0 }
+            ),
+            // Place the required decision deposit
+            api.tx.referenda.placeDecisionDeposit(proposalIndex),
+          ])
+          .signAndSend(alice, (status: any) => {
+            if (status.blockNumber) {
+              unsub();
+              resolve();
+            }
+          });
+      });
+      return proposalIndex;
+    }
+    // --8<-- [end:generateProposal]
+
+    // --8<-- [start:moveScheduledCallTo]
+    /**
+     * Moves a scheduled call to a specified future block if it matches the given verifier criteria.
+     *
+     * @param api - An instance of the Polkadot.js API promise used to interact with the blockchain.
+     * @param blockCounts - The number of blocks to move the scheduled call forward.
+     * @param verifier - A function to verify if a scheduled call matches the desired criteria.
+     * @throws An error if no matching scheduled call is found.
+     */
+    async function moveScheduledCallTo(
+      api: ApiPromise,
+      blockCounts: number,
+      verifier: (call: FrameSupportPreimagesBounded) => boolean
+    ) {
+      // Get the current block number
+      const blockNumber = (await api.rpc.chain.getHeader()).number.toNumber();
+      
+      // Retrieve the scheduler's agenda entries
+      const agenda = await api.query.scheduler.agenda.entries();
+      
+      // Initialize a flag to track if a matching scheduled call is found
+      let found = false;
+      
+      // Iterate through the scheduler's agenda entries
+      for (const agendaEntry of agenda) {
+        // Iterate through the scheduled entries in the current agenda entry
+        for (const scheduledEntry of agendaEntry[1]) {
+          // Check if the scheduled entry is valid and matches the verifier criteria
+          if (scheduledEntry.isSome && verifier(scheduledEntry.unwrap().call)) {
+            found = true;
+            
+            // Overwrite the agendaEntry item in storage
+            const result = await api.rpc('dev_setStorage', [
+              [agendaEntry[0]], // require to ensure unique id
+              [
+                await api.query.scheduler.agenda.key(blockNumber + blockCounts),
+                agendaEntry[1].toHex(),
+              ],
+            ]);
+            
+            // Check if the scheduled call has an associated lookup
+            if (scheduledEntry.unwrap().maybeId.isSome) {
+              // Get the lookup ID
+              const id = scheduledEntry.unwrap().maybeId.unwrap().toHex();
+              const lookup = await api.query.scheduler.lookup(id);
+
+              // Check if the lookup exists
+              if (lookup.isSome) {
+                // Get the lookup key
+                const lookupKey = await api.query.scheduler.lookup.key(id);
+                
+                // Create a new lookup object with the updated block number
+                const fastLookup = api.registry.createType('Option<(u32,u32)>', [
+                  blockNumber + blockCounts,
+                  0,
+                ]);
+                
+                // Overwrite the lookup entry in storage
+                const result = await api.rpc('dev_setStorage', [
+                  [lookupKey, fastLookup.toHex()],
+                ]);
+              }
+            }
+          }
+        }
+      }
+      
+      // Throw an error if no matching scheduled call is found
+      if (!found) {
+        throw new Error('No scheduled call found');
+      }
+    }
+    // --8<-- [end:moveScheduledCallTo]
+
+    // --8<-- [start:forceProposalExecution]
+    /**
+     * Forces the execution of a specific proposal by updating its referendum state and ensuring the execution process is triggered.
+     *
+     * @param api - An instance of the Polkadot.js API promise used to interact with the blockchain.
+     * @param proposalIndex - The index of the proposal to be executed.
+     * @throws An error if the referendum is not found or not in an ongoing state.
+     */
+    async function forceProposalExecution(api: ApiPromise, proposalIndex: number) {
+      // Retrieve the referendum data for the given proposal index
+      const referendumData = await api.query.referenda.referendumInfoFor(
+        proposalIndex
+      );
+      // Get the storage key for the referendum data
+      const referendumKey =
+        api.query.referenda.referendumInfoFor.key(proposalIndex);
+
+      // Check if the referendum data exists
+      if (!referendumData.isSome) {
+        throw new Error(`Referendum ${proposalIndex} not found`);
+      }
+
+      const referendumInfo = referendumData.unwrap();
+
+      // Check if the referendum is in an ongoing state
+      if (!referendumInfo.isOngoing) {
+        throw new Error(`Referendum ${proposalIndex} is not ongoing`);
+      }
+
+      // Get the ongoing referendum data
+      const ongoingData = referendumInfo.asOngoing;
+      // Convert the ongoing data to JSON
+      const ongoingJson = ongoingData.toJSON();
+
+      // Support Lookup, Inline or Legacy proposals
+      const callHash = ongoingData.proposal.isLookup
+        ? ongoingData.proposal.asLookup.toHex()
+        : ongoingData.proposal.isInline
+        ? blake2AsHex(ongoingData.proposal.asInline.toHex())
+        : ongoingData.proposal.asLegacy.toHex();
+
+      // Get the total issuance of the native token
+      const totalIssuance = (await api.query.balances.totalIssuance()).toBigInt();
+
+      // Get the current block number
+      const proposalBlockTarget = (
+        await api.rpc.chain.getHeader()
+      ).number.toNumber();
+
+      // Create a new proposal data object with the updated fields
+      const fastProposalData = {
+        ongoing: {
+          ...ongoingJson,
+          enactment: { after: 0 },
+          deciding: {
+            since: proposalBlockTarget - 1,
+            confirming: proposalBlockTarget - 1,
+          },
+          tally: {
+            ayes: totalIssuance - 1n,
+            nays: 0,
+            support: totalIssuance - 1n,
+          },
+          alarm: [proposalBlockTarget + 1, [proposalBlockTarget + 1, 0]],
+        },
+      };
+
+      // Create a new proposal object from the proposal data
+      let fastProposal;
+      try {
+        fastProposal = api.registry.createType(
+          `Option<PalletReferendaReferendumInfo>`,
+          fastProposalData
+        );
+      } catch {
+        fastProposal = api.registry.createType(
+          `Option<PalletReferendaReferendumInfoConvictionVotingTally>`,
+          fastProposalData
+        );
+      }
+
+      // Update the storage with the new proposal object
+      const result = await api.rpc('dev_setStorage', [
+        [referendumKey, fastProposal.toHex()],
+      ]);
+
+      // Fast forward the nudge referendum to the next block to get the refendum to be scheduled
+      await moveScheduledCallTo(api, 1, (call) => {
+        if (!call.isInline) {
+          return false;
+        }
+
+        const callData = api.createType('Call', call.asInline.toHex());
+
+        return (
+          callData.method == 'nudgeReferendum' &&
+          (callData.args[0] as any).toNumber() == proposalIndex
+        );
+      });
+
+      // Create a new block
+      await api.rpc('dev_newBlock', { count: 1 });
+
+      // Move the scheduled call to the next block
+      await moveScheduledCallTo(api, 1, (call) =>
+        call.isLookup
+          ? call.asLookup.toHex() == callHash
+          : call.isInline
+          ? blake2AsHex(call.asInline.toHex()) == callHash
+          : call.asLegacy.toHex() == callHash
+      );
+
+      // Create another new block
+      await api.rpc('dev_newBlock', { count: 1 });
+    }
+    // --8<-- [end:forceProposalExecution]
+
+    // --8<-- [start:main]
+    const main = async () => {
+      // Connect to the forked chain
+      const api = await connectToFork();
+
+      // Select the call to perform
+      const call = api.tx.system.setCodeWithoutChecks('0x1234');
+
+      // Select the origin
+      const origin = {
+        System: 'Root',
+      };
+
+      // Submit preimage, submit proposal, and place decision deposit
+      const proposalIndex = await generateProposal(api, call, origin);
+
+      // Force the proposal to be executed
+      await forceProposalExecution(api, proposalIndex);
+
+      process.exit(0);
+    };
+    // --8<-- [end:main]
+
+    // --8<-- [start:try-catch-block]
+    try {
+      main();
+    } catch (e) {
+      console.log(e);
+      process.exit(1);
+    }
+    // --8<-- [end:try-catch-block]
+
+    // --8<-- [start:imports]
+    import '@polkadot/api-augment/polkadot';
+    import { FrameSupportPreimagesBounded } from '@polkadot/types/lookup';
+    import { blake2AsHex } from '@polkadot/util-crypto';
+    import { ApiPromise, Keyring, WsProvider } from '@polkadot/api';
+    import { type SubmittableExtrinsic } from '@polkadot/api/types';
+    import { ISubmittableResult } from '@polkadot/types/types';
+    // --8<-- [end:imports]
+
+    // --8<-- [start:connectToFork]
+    /**
+     * Establishes a connection to the local forked chain.
+     *
+     * @returns A promise that resolves to an `ApiPromise` instance connected to the local chain.
+     */
+    async function connectToFork(): Promise<ApiPromise> {
+      const wsProvider = new WsProvider('ws://localhost:8000');
+      const api = await ApiPromise.create({ provider: wsProvider });
+      await api.isReady;
+      console.log(`Connected to chain: ${await api.rpc.system.chain()}`);
+      return api;
+    }
+    // --8<-- [end:connectToFork]
+
+    // --8<-- [start:generateProposal]
+    /**
+     * Generates a proposal by submitting a preimage, creating the proposal, and placing a deposit.
+     *
+     * @param api - An instance of the Polkadot.js API promise used to interact with the blockchain.
+     * @param call - The extrinsic to be executed, encapsulating the specific action to be proposed.
+     * @param origin - The origin of the proposal, specifying the source authority (e.g., `{ System: 'Root' }`).
+     * @returns A promise that resolves to the proposal ID of the generated proposal.
+     *
+     */
+    async function generateProposal(
+      api: ApiPromise,
+      call: SubmittableExtrinsic<'promise', ISubmittableResult>,
+      origin: any
+    ): Promise<number> {
+      // Initialize the keyring
+      const keyring = new Keyring({ type: 'sr25519' });
+
+      // Set up Alice development account
+      const alice = keyring.addFromUri('//Alice');
+
+      // Get the next available proposal index
+      const proposalIndex = (
+        await api.query.referenda.referendumCount()
+      ).toNumber();
+
+      // Execute the batch transaction
+      await new Promise<void>(async (resolve) => {
+        const unsub = await api.tx.utility
+          .batch([
+            // Register the preimage for your proposal
+            api.tx.preimage.notePreimage(call.method.toHex()),
+            // Submit your proposal to the referenda system
+            api.tx.referenda.submit(
+              origin as any,
+              {
+                Lookup: {
+                  Hash: call.method.hash.toHex(),
+                  len: call.method.encodedLength,
+                },
+              },
+              { At: 0 }
+            ),
+            // Place the required decision deposit
+            api.tx.referenda.placeDecisionDeposit(proposalIndex),
+          ])
+          .signAndSend(alice, (status: any) => {
+            if (status.blockNumber) {
+              unsub();
+              resolve();
+            }
+          });
+      });
+      return proposalIndex;
+    }
+    // --8<-- [end:generateProposal]
+
+    // --8<-- [start:moveScheduledCallTo]
+    /**
+     * Moves a scheduled call to a specified future block if it matches the given verifier criteria.
+     *
+     * @param api - An instance of the Polkadot.js API promise used to interact with the blockchain.
+     * @param blockCounts - The number of blocks to move the scheduled call forward.
+     * @param verifier - A function to verify if a scheduled call matches the desired criteria.
+     * @throws An error if no matching scheduled call is found.
+     */
+    async function moveScheduledCallTo(
+      api: ApiPromise,
+      blockCounts: number,
+      verifier: (call: FrameSupportPreimagesBounded) => boolean
+    ) {
+      // Get the current block number
+      const blockNumber = (await api.rpc.chain.getHeader()).number.toNumber();
+      
+      // Retrieve the scheduler's agenda entries
+      const agenda = await api.query.scheduler.agenda.entries();
+      
+      // Initialize a flag to track if a matching scheduled call is found
+      let found = false;
+      
+      // Iterate through the scheduler's agenda entries
+      for (const agendaEntry of agenda) {
+        // Iterate through the scheduled entries in the current agenda entry
+        for (const scheduledEntry of agendaEntry[1]) {
+          // Check if the scheduled entry is valid and matches the verifier criteria
+          if (scheduledEntry.isSome && verifier(scheduledEntry.unwrap().call)) {
+            found = true;
+            
+            // Overwrite the agendaEntry item in storage
+            const result = await api.rpc('dev_setStorage', [
+              [agendaEntry[0]], // require to ensure unique id
+              [
+                await api.query.scheduler.agenda.key(blockNumber + blockCounts),
+                agendaEntry[1].toHex(),
+              ],
+            ]);
+            
+            // Check if the scheduled call has an associated lookup
+            if (scheduledEntry.unwrap().maybeId.isSome) {
+              // Get the lookup ID
+              const id = scheduledEntry.unwrap().maybeId.unwrap().toHex();
+              const lookup = await api.query.scheduler.lookup(id);
+
+              // Check if the lookup exists
+              if (lookup.isSome) {
+                // Get the lookup key
+                const lookupKey = await api.query.scheduler.lookup.key(id);
+                
+                // Create a new lookup object with the updated block number
+                const fastLookup = api.registry.createType('Option<(u32,u32)>', [
+                  blockNumber + blockCounts,
+                  0,
+                ]);
+                
+                // Overwrite the lookup entry in storage
+                const result = await api.rpc('dev_setStorage', [
+                  [lookupKey, fastLookup.toHex()],
+                ]);
+              }
+            }
+          }
+        }
+      }
+      
+      // Throw an error if no matching scheduled call is found
+      if (!found) {
+        throw new Error('No scheduled call found');
+      }
+    }
+    // --8<-- [end:moveScheduledCallTo]
+
+    // --8<-- [start:forceProposalExecution]
+    /**
+     * Forces the execution of a specific proposal by updating its referendum state and ensuring the execution process is triggered.
+     *
+     * @param api - An instance of the Polkadot.js API promise used to interact with the blockchain.
+     * @param proposalIndex - The index of the proposal to be executed.
+     * @throws An error if the referendum is not found or not in an ongoing state.
+     */
+    async function forceProposalExecution(api: ApiPromise, proposalIndex: number) {
+      // Retrieve the referendum data for the given proposal index
+      const referendumData = await api.query.referenda.referendumInfoFor(
+        proposalIndex
+      );
+      // Get the storage key for the referendum data
+      const referendumKey =
+        api.query.referenda.referendumInfoFor.key(proposalIndex);
+
+      // Check if the referendum data exists
+      if (!referendumData.isSome) {
+        throw new Error(`Referendum ${proposalIndex} not found`);
+      }
+
+      const referendumInfo = referendumData.unwrap();
+
+      // Check if the referendum is in an ongoing state
+      if (!referendumInfo.isOngoing) {
+        throw new Error(`Referendum ${proposalIndex} is not ongoing`);
+      }
+
+      // Get the ongoing referendum data
+      const ongoingData = referendumInfo.asOngoing;
+      // Convert the ongoing data to JSON
+      const ongoingJson = ongoingData.toJSON();
+
+      // Support Lookup, Inline or Legacy proposals
+      const callHash = ongoingData.proposal.isLookup
+        ? ongoingData.proposal.asLookup.toHex()
+        : ongoingData.proposal.isInline
+        ? blake2AsHex(ongoingData.proposal.asInline.toHex())
+        : ongoingData.proposal.asLegacy.toHex();
+
+      // Get the total issuance of the native token
+      const totalIssuance = (await api.query.balances.totalIssuance()).toBigInt();
+
+      // Get the current block number
+      const proposalBlockTarget = (
+        await api.rpc.chain.getHeader()
+      ).number.toNumber();
+
+      // Create a new proposal data object with the updated fields
+      const fastProposalData = {
+        ongoing: {
+          ...ongoingJson,
+          enactment: { after: 0 },
+          deciding: {
+            since: proposalBlockTarget - 1,
+            confirming: proposalBlockTarget - 1,
+          },
+          tally: {
+            ayes: totalIssuance - 1n,
+            nays: 0,
+            support: totalIssuance - 1n,
+          },
+          alarm: [proposalBlockTarget + 1, [proposalBlockTarget + 1, 0]],
+        },
+      };
+
+      // Create a new proposal object from the proposal data
+      let fastProposal;
+      try {
+        fastProposal = api.registry.createType(
+          `Option<PalletReferendaReferendumInfo>`,
+          fastProposalData
+        );
+      } catch {
+        fastProposal = api.registry.createType(
+          `Option<PalletReferendaReferendumInfoConvictionVotingTally>`,
+          fastProposalData
+        );
+      }
+
+      // Update the storage with the new proposal object
+      const result = await api.rpc('dev_setStorage', [
+        [referendumKey, fastProposal.toHex()],
+      ]);
+
+      // Fast forward the nudge referendum to the next block to get the refendum to be scheduled
+      await moveScheduledCallTo(api, 1, (call) => {
+        if (!call.isInline) {
+          return false;
+        }
+
+        const callData = api.createType('Call', call.asInline.toHex());
+
+        return (
+          callData.method == 'nudgeReferendum' &&
+          (callData.args[0] as any).toNumber() == proposalIndex
+        );
+      });
+
+      // Create a new block
+      await api.rpc('dev_newBlock', { count: 1 });
+
+      // Move the scheduled call to the next block
+      await moveScheduledCallTo(api, 1, (call) =>
+        call.isLookup
+          ? call.asLookup.toHex() == callHash
+          : call.isInline
+          ? blake2AsHex(call.asInline.toHex()) == callHash
+          : call.asLegacy.toHex() == callHash
+      );
+
+      // Create another new block
+      await api.rpc('dev_newBlock', { count: 1 });
+    }
+    // --8<-- [end:forceProposalExecution]
+
+    // --8<-- [start:main]
+    const main = async () => {
+      // Connect to the forked chain
+      const api = await connectToFork();
+
+      // Select the call to perform
+      const call = api.tx.system.setCodeWithoutChecks('0x1234');
+
+      // Select the origin
+      const origin = {
+        System: 'Root',
+      };
+
+      // Submit preimage, submit proposal, and place decision deposit
+      const proposalIndex = await generateProposal(api, call, origin);
+
+      // Force the proposal to be executed
+      await forceProposalExecution(api, proposalIndex);
+
+      process.exit(0);
+    };
+    // --8<-- [end:main]
+
+    // --8<-- [start:try-catch-block]
+    try {
+      main();
+    } catch (e) {
+      console.log(e);
+      process.exit(1);
+    }
+    // --8<-- [end:try-catch-block]
+
+    // --8<-- [start:imports]
+    import '@polkadot/api-augment/polkadot';
+    import { FrameSupportPreimagesBounded } from '@polkadot/types/lookup';
+    import { blake2AsHex } from '@polkadot/util-crypto';
+    import { ApiPromise, Keyring, WsProvider } from '@polkadot/api';
+    import { type SubmittableExtrinsic } from '@polkadot/api/types';
+    import { ISubmittableResult } from '@polkadot/types/types';
+    // --8<-- [end:imports]
+
+    // --8<-- [start:connectToFork]
+    /**
+     * Establishes a connection to the local forked chain.
+     *
+     * @returns A promise that resolves to an `ApiPromise` instance connected to the local chain.
+     */
+    async function connectToFork(): Promise<ApiPromise> {
+      const wsProvider = new WsProvider('ws://localhost:8000');
+      const api = await ApiPromise.create({ provider: wsProvider });
+      await api.isReady;
+      console.log(`Connected to chain: ${await api.rpc.system.chain()}`);
+      return api;
+    }
+    // --8<-- [end:connectToFork]
+
+    // --8<-- [start:generateProposal]
+    /**
+     * Generates a proposal by submitting a preimage, creating the proposal, and placing a deposit.
+     *
+     * @param api - An instance of the Polkadot.js API promise used to interact with the blockchain.
+     * @param call - The extrinsic to be executed, encapsulating the specific action to be proposed.
+     * @param origin - The origin of the proposal, specifying the source authority (e.g., `{ System: 'Root' }`).
+     * @returns A promise that resolves to the proposal ID of the generated proposal.
+     *
+     */
+    async function generateProposal(
+      api: ApiPromise,
+      call: SubmittableExtrinsic<'promise', ISubmittableResult>,
+      origin: any
+    ): Promise<number> {
+      // Initialize the keyring
+      const keyring = new Keyring({ type: 'sr25519' });
+
+      // Set up Alice development account
+      const alice = keyring.addFromUri('//Alice');
+
+      // Get the next available proposal index
+      const proposalIndex = (
+        await api.query.referenda.referendumCount()
+      ).toNumber();
+
+      // Execute the batch transaction
+      await new Promise<void>(async (resolve) => {
+        const unsub = await api.tx.utility
+          .batch([
+            // Register the preimage for your proposal
+            api.tx.preimage.notePreimage(call.method.toHex()),
+            // Submit your proposal to the referenda system
+            api.tx.referenda.submit(
+              origin as any,
+              {
+                Lookup: {
+                  Hash: call.method.hash.toHex(),
+                  len: call.method.encodedLength,
+                },
+              },
+              { At: 0 }
+            ),
+            // Place the required decision deposit
+            api.tx.referenda.placeDecisionDeposit(proposalIndex),
+          ])
+          .signAndSend(alice, (status: any) => {
+            if (status.blockNumber) {
+              unsub();
+              resolve();
+            }
+          });
+      });
+      return proposalIndex;
+    }
+    // --8<-- [end:generateProposal]
+
+    // --8<-- [start:moveScheduledCallTo]
+    /**
+     * Moves a scheduled call to a specified future block if it matches the given verifier criteria.
+     *
+     * @param api - An instance of the Polkadot.js API promise used to interact with the blockchain.
+     * @param blockCounts - The number of blocks to move the scheduled call forward.
+     * @param verifier - A function to verify if a scheduled call matches the desired criteria.
+     * @throws An error if no matching scheduled call is found.
+     */
+    async function moveScheduledCallTo(
+      api: ApiPromise,
+      blockCounts: number,
+      verifier: (call: FrameSupportPreimagesBounded) => boolean
+    ) {
+      // Get the current block number
+      const blockNumber = (await api.rpc.chain.getHeader()).number.toNumber();
+      
+      // Retrieve the scheduler's agenda entries
+      const agenda = await api.query.scheduler.agenda.entries();
+      
+      // Initialize a flag to track if a matching scheduled call is found
+      let found = false;
+      
+      // Iterate through the scheduler's agenda entries
+      for (const agendaEntry of agenda) {
+        // Iterate through the scheduled entries in the current agenda entry
+        for (const scheduledEntry of agendaEntry[1]) {
+          // Check if the scheduled entry is valid and matches the verifier criteria
+          if (scheduledEntry.isSome && verifier(scheduledEntry.unwrap().call)) {
+            found = true;
+            
+            // Overwrite the agendaEntry item in storage
+            const result = await api.rpc('dev_setStorage', [
+              [agendaEntry[0]], // require to ensure unique id
+              [
+                await api.query.scheduler.agenda.key(blockNumber + blockCounts),
+                agendaEntry[1].toHex(),
+              ],
+            ]);
+            
+            // Check if the scheduled call has an associated lookup
+            if (scheduledEntry.unwrap().maybeId.isSome) {
+              // Get the lookup ID
+              const id = scheduledEntry.unwrap().maybeId.unwrap().toHex();
+              const lookup = await api.query.scheduler.lookup(id);
+
+              // Check if the lookup exists
+              if (lookup.isSome) {
+                // Get the lookup key
+                const lookupKey = await api.query.scheduler.lookup.key(id);
+                
+                // Create a new lookup object with the updated block number
+                const fastLookup = api.registry.createType('Option<(u32,u32)>', [
+                  blockNumber + blockCounts,
+                  0,
+                ]);
+                
+                // Overwrite the lookup entry in storage
+                const result = await api.rpc('dev_setStorage', [
+                  [lookupKey, fastLookup.toHex()],
+                ]);
+              }
+            }
+          }
+        }
+      }
+      
+      // Throw an error if no matching scheduled call is found
+      if (!found) {
+        throw new Error('No scheduled call found');
+      }
+    }
+    // --8<-- [end:moveScheduledCallTo]
+
+    // --8<-- [start:forceProposalExecution]
+    /**
+     * Forces the execution of a specific proposal by updating its referendum state and ensuring the execution process is triggered.
+     *
+     * @param api - An instance of the Polkadot.js API promise used to interact with the blockchain.
+     * @param proposalIndex - The index of the proposal to be executed.
+     * @throws An error if the referendum is not found or not in an ongoing state.
+     */
+    async function forceProposalExecution(api: ApiPromise, proposalIndex: number) {
+      // Retrieve the referendum data for the given proposal index
+      const referendumData = await api.query.referenda.referendumInfoFor(
+        proposalIndex
+      );
+      // Get the storage key for the referendum data
+      const referendumKey =
+        api.query.referenda.referendumInfoFor.key(proposalIndex);
+
+      // Check if the referendum data exists
+      if (!referendumData.isSome) {
+        throw new Error(`Referendum ${proposalIndex} not found`);
+      }
+
+      const referendumInfo = referendumData.unwrap();
+
+      // Check if the referendum is in an ongoing state
+      if (!referendumInfo.isOngoing) {
+        throw new Error(`Referendum ${proposalIndex} is not ongoing`);
+      }
+
+      // Get the ongoing referendum data
+      const ongoingData = referendumInfo.asOngoing;
+      // Convert the ongoing data to JSON
+      const ongoingJson = ongoingData.toJSON();
+
+      // Support Lookup, Inline or Legacy proposals
+      const callHash = ongoingData.proposal.isLookup
+        ? ongoingData.proposal.asLookup.toHex()
+        : ongoingData.proposal.isInline
+        ? blake2AsHex(ongoingData.proposal.asInline.toHex())
+        : ongoingData.proposal.asLegacy.toHex();
+
+      // Get the total issuance of the native token
+      const totalIssuance = (await api.query.balances.totalIssuance()).toBigInt();
+
+      // Get the current block number
+      const proposalBlockTarget = (
+        await api.rpc.chain.getHeader()
+      ).number.toNumber();
+
+      // Create a new proposal data object with the updated fields
+      const fastProposalData = {
+        ongoing: {
+          ...ongoingJson,
+          enactment: { after: 0 },
+          deciding: {
+            since: proposalBlockTarget - 1,
+            confirming: proposalBlockTarget - 1,
+          },
+          tally: {
+            ayes: totalIssuance - 1n,
+            nays: 0,
+            support: totalIssuance - 1n,
+          },
+          alarm: [proposalBlockTarget + 1, [proposalBlockTarget + 1, 0]],
+        },
+      };
+
+      // Create a new proposal object from the proposal data
+      let fastProposal;
+      try {
+        fastProposal = api.registry.createType(
+          `Option<PalletReferendaReferendumInfo>`,
+          fastProposalData
+        );
+      } catch {
+        fastProposal = api.registry.createType(
+          `Option<PalletReferendaReferendumInfoConvictionVotingTally>`,
+          fastProposalData
+        );
+      }
+
+      // Update the storage with the new proposal object
+      const result = await api.rpc('dev_setStorage', [
+        [referendumKey, fastProposal.toHex()],
+      ]);
+
+      // Fast forward the nudge referendum to the next block to get the refendum to be scheduled
+      await moveScheduledCallTo(api, 1, (call) => {
+        if (!call.isInline) {
+          return false;
+        }
+
+        const callData = api.createType('Call', call.asInline.toHex());
+
+        return (
+          callData.method == 'nudgeReferendum' &&
+          (callData.args[0] as any).toNumber() == proposalIndex
+        );
+      });
+
+      // Create a new block
+      await api.rpc('dev_newBlock', { count: 1 });
+
+      // Move the scheduled call to the next block
+      await moveScheduledCallTo(api, 1, (call) =>
+        call.isLookup
+          ? call.asLookup.toHex() == callHash
+          : call.isInline
+          ? blake2AsHex(call.asInline.toHex()) == callHash
+          : call.asLegacy.toHex() == callHash
+      );
+
+      // Create another new block
+      await api.rpc('dev_newBlock', { count: 1 });
+    }
+    // --8<-- [end:forceProposalExecution]
+
+    // --8<-- [start:main]
+    const main = async () => {
+      // Connect to the forked chain
+      const api = await connectToFork();
+
+      // Select the call to perform
+      const call = api.tx.system.setCodeWithoutChecks('0x1234');
+
+      // Select the origin
+      const origin = {
+        System: 'Root',
+      };
+
+      // Submit preimage, submit proposal, and place decision deposit
+      const proposalIndex = await generateProposal(api, call, origin);
+
+      // Force the proposal to be executed
+      await forceProposalExecution(api, proposalIndex);
+
+      process.exit(0);
+    };
+    // --8<-- [end:main]
+
+    // --8<-- [start:try-catch-block]
+    try {
+      main();
+    } catch (e) {
+      console.log(e);
+      process.exit(1);
+    }
+    // --8<-- [end:try-catch-block]
+
+    // --8<-- [start:imports]
+    import '@polkadot/api-augment/polkadot';
+    import { FrameSupportPreimagesBounded } from '@polkadot/types/lookup';
+    import { blake2AsHex } from '@polkadot/util-crypto';
+    import { ApiPromise, Keyring, WsProvider } from '@polkadot/api';
+    import { type SubmittableExtrinsic } from '@polkadot/api/types';
+    import { ISubmittableResult } from '@polkadot/types/types';
+    // --8<-- [end:imports]
+
+    // --8<-- [start:connectToFork]
+    /**
+     * Establishes a connection to the local forked chain.
+     *
+     * @returns A promise that resolves to an `ApiPromise` instance connected to the local chain.
+     */
+    async function connectToFork(): Promise<ApiPromise> {
+      const wsProvider = new WsProvider('ws://localhost:8000');
+      const api = await ApiPromise.create({ provider: wsProvider });
+      await api.isReady;
+      console.log(`Connected to chain: ${await api.rpc.system.chain()}`);
+      return api;
+    }
+    // --8<-- [end:connectToFork]
+
+    // --8<-- [start:generateProposal]
+    /**
+     * Generates a proposal by submitting a preimage, creating the proposal, and placing a deposit.
+     *
+     * @param api - An instance of the Polkadot.js API promise used to interact with the blockchain.
+     * @param call - The extrinsic to be executed, encapsulating the specific action to be proposed.
+     * @param origin - The origin of the proposal, specifying the source authority (e.g., `{ System: 'Root' }`).
+     * @returns A promise that resolves to the proposal ID of the generated proposal.
+     *
+     */
+    async function generateProposal(
+      api: ApiPromise,
+      call: SubmittableExtrinsic<'promise', ISubmittableResult>,
+      origin: any
+    ): Promise<number> {
+      // Initialize the keyring
+      const keyring = new Keyring({ type: 'sr25519' });
+
+      // Set up Alice development account
+      const alice = keyring.addFromUri('//Alice');
+
+      // Get the next available proposal index
+      const proposalIndex = (
+        await api.query.referenda.referendumCount()
+      ).toNumber();
+
+      // Execute the batch transaction
+      await new Promise<void>(async (resolve) => {
+        const unsub = await api.tx.utility
+          .batch([
+            // Register the preimage for your proposal
+            api.tx.preimage.notePreimage(call.method.toHex()),
+            // Submit your proposal to the referenda system
+            api.tx.referenda.submit(
+              origin as any,
+              {
+                Lookup: {
+                  Hash: call.method.hash.toHex(),
+                  len: call.method.encodedLength,
+                },
+              },
+              { At: 0 }
+            ),
+            // Place the required decision deposit
+            api.tx.referenda.placeDecisionDeposit(proposalIndex),
+          ])
+          .signAndSend(alice, (status: any) => {
+            if (status.blockNumber) {
+              unsub();
+              resolve();
+            }
+          });
+      });
+      return proposalIndex;
+    }
+    // --8<-- [end:generateProposal]
+
+    // --8<-- [start:moveScheduledCallTo]
+    /**
+     * Moves a scheduled call to a specified future block if it matches the given verifier criteria.
+     *
+     * @param api - An instance of the Polkadot.js API promise used to interact with the blockchain.
+     * @param blockCounts - The number of blocks to move the scheduled call forward.
+     * @param verifier - A function to verify if a scheduled call matches the desired criteria.
+     * @throws An error if no matching scheduled call is found.
+     */
+    async function moveScheduledCallTo(
+      api: ApiPromise,
+      blockCounts: number,
+      verifier: (call: FrameSupportPreimagesBounded) => boolean
+    ) {
+      // Get the current block number
+      const blockNumber = (await api.rpc.chain.getHeader()).number.toNumber();
+      
+      // Retrieve the scheduler's agenda entries
+      const agenda = await api.query.scheduler.agenda.entries();
+      
+      // Initialize a flag to track if a matching scheduled call is found
+      let found = false;
+      
+      // Iterate through the scheduler's agenda entries
+      for (const agendaEntry of agenda) {
+        // Iterate through the scheduled entries in the current agenda entry
+        for (const scheduledEntry of agendaEntry[1]) {
+          // Check if the scheduled entry is valid and matches the verifier criteria
+          if (scheduledEntry.isSome && verifier(scheduledEntry.unwrap().call)) {
+            found = true;
+            
+            // Overwrite the agendaEntry item in storage
+            const result = await api.rpc('dev_setStorage', [
+              [agendaEntry[0]], // require to ensure unique id
+              [
+                await api.query.scheduler.agenda.key(blockNumber + blockCounts),
+                agendaEntry[1].toHex(),
+              ],
+            ]);
+            
+            // Check if the scheduled call has an associated lookup
+            if (scheduledEntry.unwrap().maybeId.isSome) {
+              // Get the lookup ID
+              const id = scheduledEntry.unwrap().maybeId.unwrap().toHex();
+              const lookup = await api.query.scheduler.lookup(id);
+
+              // Check if the lookup exists
+              if (lookup.isSome) {
+                // Get the lookup key
+                const lookupKey = await api.query.scheduler.lookup.key(id);
+                
+                // Create a new lookup object with the updated block number
+                const fastLookup = api.registry.createType('Option<(u32,u32)>', [
+                  blockNumber + blockCounts,
+                  0,
+                ]);
+                
+                // Overwrite the lookup entry in storage
+                const result = await api.rpc('dev_setStorage', [
+                  [lookupKey, fastLookup.toHex()],
+                ]);
+              }
+            }
+          }
+        }
+      }
+      
+      // Throw an error if no matching scheduled call is found
+      if (!found) {
+        throw new Error('No scheduled call found');
+      }
+    }
+    // --8<-- [end:moveScheduledCallTo]
+
+    // --8<-- [start:forceProposalExecution]
+    /**
+     * Forces the execution of a specific proposal by updating its referendum state and ensuring the execution process is triggered.
+     *
+     * @param api - An instance of the Polkadot.js API promise used to interact with the blockchain.
+     * @param proposalIndex - The index of the proposal to be executed.
+     * @throws An error if the referendum is not found or not in an ongoing state.
+     */
+    async function forceProposalExecution(api: ApiPromise, proposalIndex: number) {
+      // Retrieve the referendum data for the given proposal index
+      const referendumData = await api.query.referenda.referendumInfoFor(
+        proposalIndex
+      );
+      // Get the storage key for the referendum data
+      const referendumKey =
+        api.query.referenda.referendumInfoFor.key(proposalIndex);
+
+      // Check if the referendum data exists
+      if (!referendumData.isSome) {
+        throw new Error(`Referendum ${proposalIndex} not found`);
+      }
+
+      const referendumInfo = referendumData.unwrap();
+
+      // Check if the referendum is in an ongoing state
+      if (!referendumInfo.isOngoing) {
+        throw new Error(`Referendum ${proposalIndex} is not ongoing`);
+      }
+
+      // Get the ongoing referendum data
+      const ongoingData = referendumInfo.asOngoing;
+      // Convert the ongoing data to JSON
+      const ongoingJson = ongoingData.toJSON();
+
+      // Support Lookup, Inline or Legacy proposals
+      const callHash = ongoingData.proposal.isLookup
+        ? ongoingData.proposal.asLookup.toHex()
+        : ongoingData.proposal.isInline
+        ? blake2AsHex(ongoingData.proposal.asInline.toHex())
+        : ongoingData.proposal.asLegacy.toHex();
+
+      // Get the total issuance of the native token
+      const totalIssuance = (await api.query.balances.totalIssuance()).toBigInt();
+
+      // Get the current block number
+      const proposalBlockTarget = (
+        await api.rpc.chain.getHeader()
+      ).number.toNumber();
+
+      // Create a new proposal data object with the updated fields
+      const fastProposalData = {
+        ongoing: {
+          ...ongoingJson,
+          enactment: { after: 0 },
+          deciding: {
+            since: proposalBlockTarget - 1,
+            confirming: proposalBlockTarget - 1,
+          },
+          tally: {
+            ayes: totalIssuance - 1n,
+            nays: 0,
+            support: totalIssuance - 1n,
+          },
+          alarm: [proposalBlockTarget + 1, [proposalBlockTarget + 1, 0]],
+        },
+      };
+
+      // Create a new proposal object from the proposal data
+      let fastProposal;
+      try {
+        fastProposal = api.registry.createType(
+          `Option<PalletReferendaReferendumInfo>`,
+          fastProposalData
+        );
+      } catch {
+        fastProposal = api.registry.createType(
+          `Option<PalletReferendaReferendumInfoConvictionVotingTally>`,
+          fastProposalData
+        );
+      }
+
+      // Update the storage with the new proposal object
+      const result = await api.rpc('dev_setStorage', [
+        [referendumKey, fastProposal.toHex()],
+      ]);
+
+      // Fast forward the nudge referendum to the next block to get the refendum to be scheduled
+      await moveScheduledCallTo(api, 1, (call) => {
+        if (!call.isInline) {
+          return false;
+        }
+
+        const callData = api.createType('Call', call.asInline.toHex());
+
+        return (
+          callData.method == 'nudgeReferendum' &&
+          (callData.args[0] as any).toNumber() == proposalIndex
+        );
+      });
+
+      // Create a new block
+      await api.rpc('dev_newBlock', { count: 1 });
+
+      // Move the scheduled call to the next block
+      await moveScheduledCallTo(api, 1, (call) =>
+        call.isLookup
+          ? call.asLookup.toHex() == callHash
+          : call.isInline
+          ? blake2AsHex(call.asInline.toHex()) == callHash
+          : call.asLegacy.toHex() == callHash
+      );
+
+      // Create another new block
+      await api.rpc('dev_newBlock', { count: 1 });
+    }
+    // --8<-- [end:forceProposalExecution]
+
+    // --8<-- [start:main]
+    const main = async () => {
+      // Connect to the forked chain
+      const api = await connectToFork();
+
+      // Select the call to perform
+      const call = api.tx.system.setCodeWithoutChecks('0x1234');
+
+      // Select the origin
+      const origin = {
+        System: 'Root',
+      };
+
+      // Submit preimage, submit proposal, and place decision deposit
+      const proposalIndex = await generateProposal(api, call, origin);
+
+      // Force the proposal to be executed
+      await forceProposalExecution(api, proposalIndex);
+
+      process.exit(0);
+    };
+    // --8<-- [end:main]
+
+    // --8<-- [start:try-catch-block]
+    try {
+      main();
+    } catch (e) {
+      console.log(e);
+      process.exit(1);
+    }
+    // --8<-- [end:try-catch-block]
+
+    // --8<-- [start:imports]
+    import '@polkadot/api-augment/polkadot';
+    import { FrameSupportPreimagesBounded } from '@polkadot/types/lookup';
+    import { blake2AsHex } from '@polkadot/util-crypto';
+    import { ApiPromise, Keyring, WsProvider } from '@polkadot/api';
+    import { type SubmittableExtrinsic } from '@polkadot/api/types';
+    import { ISubmittableResult } from '@polkadot/types/types';
+    // --8<-- [end:imports]
+
+    // --8<-- [start:connectToFork]
+    /**
+     * Establishes a connection to the local forked chain.
+     *
+     * @returns A promise that resolves to an `ApiPromise` instance connected to the local chain.
+     */
+    async function connectToFork(): Promise<ApiPromise> {
+      const wsProvider = new WsProvider('ws://localhost:8000');
+      const api = await ApiPromise.create({ provider: wsProvider });
+      await api.isReady;
+      console.log(`Connected to chain: ${await api.rpc.system.chain()}`);
+      return api;
+    }
+    // --8<-- [end:connectToFork]
+
+    // --8<-- [start:generateProposal]
+    /**
+     * Generates a proposal by submitting a preimage, creating the proposal, and placing a deposit.
+     *
+     * @param api - An instance of the Polkadot.js API promise used to interact with the blockchain.
+     * @param call - The extrinsic to be executed, encapsulating the specific action to be proposed.
+     * @param origin - The origin of the proposal, specifying the source authority (e.g., `{ System: 'Root' }`).
+     * @returns A promise that resolves to the proposal ID of the generated proposal.
+     *
+     */
+    async function generateProposal(
+      api: ApiPromise,
+      call: SubmittableExtrinsic<'promise', ISubmittableResult>,
+      origin: any
+    ): Promise<number> {
+      // Initialize the keyring
+      const keyring = new Keyring({ type: 'sr25519' });
+
+      // Set up Alice development account
+      const alice = keyring.addFromUri('//Alice');
+
+      // Get the next available proposal index
+      const proposalIndex = (
+        await api.query.referenda.referendumCount()
+      ).toNumber();
+
+      // Execute the batch transaction
+      await new Promise<void>(async (resolve) => {
+        const unsub = await api.tx.utility
+          .batch([
+            // Register the preimage for your proposal
+            api.tx.preimage.notePreimage(call.method.toHex()),
+            // Submit your proposal to the referenda system
+            api.tx.referenda.submit(
+              origin as any,
+              {
+                Lookup: {
+                  Hash: call.method.hash.toHex(),
+                  len: call.method.encodedLength,
+                },
+              },
+              { At: 0 }
+            ),
+            // Place the required decision deposit
+            api.tx.referenda.placeDecisionDeposit(proposalIndex),
+          ])
+          .signAndSend(alice, (status: any) => {
+            if (status.blockNumber) {
+              unsub();
+              resolve();
+            }
+          });
+      });
+      return proposalIndex;
+    }
+    // --8<-- [end:generateProposal]
+
+    // --8<-- [start:moveScheduledCallTo]
+    /**
+     * Moves a scheduled call to a specified future block if it matches the given verifier criteria.
+     *
+     * @param api - An instance of the Polkadot.js API promise used to interact with the blockchain.
+     * @param blockCounts - The number of blocks to move the scheduled call forward.
+     * @param verifier - A function to verify if a scheduled call matches the desired criteria.
+     * @throws An error if no matching scheduled call is found.
+     */
+    async function moveScheduledCallTo(
+      api: ApiPromise,
+      blockCounts: number,
+      verifier: (call: FrameSupportPreimagesBounded) => boolean
+    ) {
+      // Get the current block number
+      const blockNumber = (await api.rpc.chain.getHeader()).number.toNumber();
+      
+      // Retrieve the scheduler's agenda entries
+      const agenda = await api.query.scheduler.agenda.entries();
+      
+      // Initialize a flag to track if a matching scheduled call is found
+      let found = false;
+      
+      // Iterate through the scheduler's agenda entries
+      for (const agendaEntry of agenda) {
+        // Iterate through the scheduled entries in the current agenda entry
+        for (const scheduledEntry of agendaEntry[1]) {
+          // Check if the scheduled entry is valid and matches the verifier criteria
+          if (scheduledEntry.isSome && verifier(scheduledEntry.unwrap().call)) {
+            found = true;
+            
+            // Overwrite the agendaEntry item in storage
+            const result = await api.rpc('dev_setStorage', [
+              [agendaEntry[0]], // require to ensure unique id
+              [
+                await api.query.scheduler.agenda.key(blockNumber + blockCounts),
+                agendaEntry[1].toHex(),
+              ],
+            ]);
+            
+            // Check if the scheduled call has an associated lookup
+            if (scheduledEntry.unwrap().maybeId.isSome) {
+              // Get the lookup ID
+              const id = scheduledEntry.unwrap().maybeId.unwrap().toHex();
+              const lookup = await api.query.scheduler.lookup(id);
+
+              // Check if the lookup exists
+              if (lookup.isSome) {
+                // Get the lookup key
+                const lookupKey = await api.query.scheduler.lookup.key(id);
+                
+                // Create a new lookup object with the updated block number
+                const fastLookup = api.registry.createType('Option<(u32,u32)>', [
+                  blockNumber + blockCounts,
+                  0,
+                ]);
+                
+                // Overwrite the lookup entry in storage
+                const result = await api.rpc('dev_setStorage', [
+                  [lookupKey, fastLookup.toHex()],
+                ]);
+              }
+            }
+          }
+        }
+      }
+      
+      // Throw an error if no matching scheduled call is found
+      if (!found) {
+        throw new Error('No scheduled call found');
+      }
+    }
+    // --8<-- [end:moveScheduledCallTo]
+
+    // --8<-- [start:forceProposalExecution]
+    /**
+     * Forces the execution of a specific proposal by updating its referendum state and ensuring the execution process is triggered.
+     *
+     * @param api - An instance of the Polkadot.js API promise used to interact with the blockchain.
+     * @param proposalIndex - The index of the proposal to be executed.
+     * @throws An error if the referendum is not found or not in an ongoing state.
+     */
+    async function forceProposalExecution(api: ApiPromise, proposalIndex: number) {
+      // Retrieve the referendum data for the given proposal index
+      const referendumData = await api.query.referenda.referendumInfoFor(
+        proposalIndex
+      );
+      // Get the storage key for the referendum data
+      const referendumKey =
+        api.query.referenda.referendumInfoFor.key(proposalIndex);
+
+      // Check if the referendum data exists
+      if (!referendumData.isSome) {
+        throw new Error(`Referendum ${proposalIndex} not found`);
+      }
+
+      const referendumInfo = referendumData.unwrap();
+
+      // Check if the referendum is in an ongoing state
+      if (!referendumInfo.isOngoing) {
+        throw new Error(`Referendum ${proposalIndex} is not ongoing`);
+      }
+
+      // Get the ongoing referendum data
+      const ongoingData = referendumInfo.asOngoing;
+      // Convert the ongoing data to JSON
+      const ongoingJson = ongoingData.toJSON();
+
+      // Support Lookup, Inline or Legacy proposals
+      const callHash = ongoingData.proposal.isLookup
+        ? ongoingData.proposal.asLookup.toHex()
+        : ongoingData.proposal.isInline
+        ? blake2AsHex(ongoingData.proposal.asInline.toHex())
+        : ongoingData.proposal.asLegacy.toHex();
+
+      // Get the total issuance of the native token
+      const totalIssuance = (await api.query.balances.totalIssuance()).toBigInt();
+
+      // Get the current block number
+      const proposalBlockTarget = (
+        await api.rpc.chain.getHeader()
+      ).number.toNumber();
+
+      // Create a new proposal data object with the updated fields
+      const fastProposalData = {
+        ongoing: {
+          ...ongoingJson,
+          enactment: { after: 0 },
+          deciding: {
+            since: proposalBlockTarget - 1,
+            confirming: proposalBlockTarget - 1,
+          },
+          tally: {
+            ayes: totalIssuance - 1n,
+            nays: 0,
+            support: totalIssuance - 1n,
+          },
+          alarm: [proposalBlockTarget + 1, [proposalBlockTarget + 1, 0]],
+        },
+      };
+
+      // Create a new proposal object from the proposal data
+      let fastProposal;
+      try {
+        fastProposal = api.registry.createType(
+          `Option<PalletReferendaReferendumInfo>`,
+          fastProposalData
+        );
+      } catch {
+        fastProposal = api.registry.createType(
+          `Option<PalletReferendaReferendumInfoConvictionVotingTally>`,
+          fastProposalData
+        );
+      }
+
+      // Update the storage with the new proposal object
+      const result = await api.rpc('dev_setStorage', [
+        [referendumKey, fastProposal.toHex()],
+      ]);
+
+      // Fast forward the nudge referendum to the next block to get the refendum to be scheduled
+      await moveScheduledCallTo(api, 1, (call) => {
+        if (!call.isInline) {
+          return false;
+        }
+
+        const callData = api.createType('Call', call.asInline.toHex());
+
+        return (
+          callData.method == 'nudgeReferendum' &&
+          (callData.args[0] as any).toNumber() == proposalIndex
+        );
+      });
+
+      // Create a new block
+      await api.rpc('dev_newBlock', { count: 1 });
+
+      // Move the scheduled call to the next block
+      await moveScheduledCallTo(api, 1, (call) =>
+        call.isLookup
+          ? call.asLookup.toHex() == callHash
+          : call.isInline
+          ? blake2AsHex(call.asInline.toHex()) == callHash
+          : call.asLegacy.toHex() == callHash
+      );
+
+      // Create another new block
+      await api.rpc('dev_newBlock', { count: 1 });
+    }
+    // --8<-- [end:forceProposalExecution]
+
+    // --8<-- [start:main]
+    const main = async () => {
+      // Connect to the forked chain
+      const api = await connectToFork();
+
+      // Select the call to perform
+      const call = api.tx.system.setCodeWithoutChecks('0x1234');
+
+      // Select the origin
+      const origin = {
+        System: 'Root',
+      };
+
+      // Submit preimage, submit proposal, and place decision deposit
+      const proposalIndex = await generateProposal(api, call, origin);
+
+      // Force the proposal to be executed
+      await forceProposalExecution(api, proposalIndex);
+
+      process.exit(0);
+    };
+    // --8<-- [end:main]
+
+    // --8<-- [start:try-catch-block]
+    try {
+      main();
+    } catch (e) {
+      console.log(e);
+      process.exit(1);
+    }
+    // --8<-- [end:try-catch-block]
+
+    // --8<-- [start:imports]
+    import '@polkadot/api-augment/polkadot';
+    import { FrameSupportPreimagesBounded } from '@polkadot/types/lookup';
+    import { blake2AsHex } from '@polkadot/util-crypto';
+    import { ApiPromise, Keyring, WsProvider } from '@polkadot/api';
+    import { type SubmittableExtrinsic } from '@polkadot/api/types';
+    import { ISubmittableResult } from '@polkadot/types/types';
+    // --8<-- [end:imports]
+
+    // --8<-- [start:connectToFork]
+    /**
+     * Establishes a connection to the local forked chain.
+     *
+     * @returns A promise that resolves to an `ApiPromise` instance connected to the local chain.
+     */
+    async function connectToFork(): Promise<ApiPromise> {
+      const wsProvider = new WsProvider('ws://localhost:8000');
+      const api = await ApiPromise.create({ provider: wsProvider });
+      await api.isReady;
+      console.log(`Connected to chain: ${await api.rpc.system.chain()}`);
+      return api;
+    }
+    // --8<-- [end:connectToFork]
+
+    // --8<-- [start:generateProposal]
+    /**
+     * Generates a proposal by submitting a preimage, creating the proposal, and placing a deposit.
+     *
+     * @param api - An instance of the Polkadot.js API promise used to interact with the blockchain.
+     * @param call - The extrinsic to be executed, encapsulating the specific action to be proposed.
+     * @param origin - The origin of the proposal, specifying the source authority (e.g., `{ System: 'Root' }`).
+     * @returns A promise that resolves to the proposal ID of the generated proposal.
+     *
+     */
+    async function generateProposal(
+      api: ApiPromise,
+      call: SubmittableExtrinsic<'promise', ISubmittableResult>,
+      origin: any
+    ): Promise<number> {
+      // Initialize the keyring
+      const keyring = new Keyring({ type: 'sr25519' });
+
+      // Set up Alice development account
+      const alice = keyring.addFromUri('//Alice');
+
+      // Get the next available proposal index
+      const proposalIndex = (
+        await api.query.referenda.referendumCount()
+      ).toNumber();
+
+      // Execute the batch transaction
+      await new Promise<void>(async (resolve) => {
+        const unsub = await api.tx.utility
+          .batch([
+            // Register the preimage for your proposal
+            api.tx.preimage.notePreimage(call.method.toHex()),
+            // Submit your proposal to the referenda system
+            api.tx.referenda.submit(
+              origin as any,
+              {
+                Lookup: {
+                  Hash: call.method.hash.toHex(),
+                  len: call.method.encodedLength,
+                },
+              },
+              { At: 0 }
+            ),
+            // Place the required decision deposit
+            api.tx.referenda.placeDecisionDeposit(proposalIndex),
+          ])
+          .signAndSend(alice, (status: any) => {
+            if (status.blockNumber) {
+              unsub();
+              resolve();
+            }
+          });
+      });
+      return proposalIndex;
+    }
+    // --8<-- [end:generateProposal]
+
+    // --8<-- [start:moveScheduledCallTo]
+    /**
+     * Moves a scheduled call to a specified future block if it matches the given verifier criteria.
+     *
+     * @param api - An instance of the Polkadot.js API promise used to interact with the blockchain.
+     * @param blockCounts - The number of blocks to move the scheduled call forward.
+     * @param verifier - A function to verify if a scheduled call matches the desired criteria.
+     * @throws An error if no matching scheduled call is found.
+     */
+    async function moveScheduledCallTo(
+      api: ApiPromise,
+      blockCounts: number,
+      verifier: (call: FrameSupportPreimagesBounded) => boolean
+    ) {
+      // Get the current block number
+      const blockNumber = (await api.rpc.chain.getHeader()).number.toNumber();
+      
+      // Retrieve the scheduler's agenda entries
+      const agenda = await api.query.scheduler.agenda.entries();
+      
+      // Initialize a flag to track if a matching scheduled call is found
+      let found = false;
+      
+      // Iterate through the scheduler's agenda entries
+      for (const agendaEntry of agenda) {
+        // Iterate through the scheduled entries in the current agenda entry
+        for (const scheduledEntry of agendaEntry[1]) {
+          // Check if the scheduled entry is valid and matches the verifier criteria
+          if (scheduledEntry.isSome && verifier(scheduledEntry.unwrap().call)) {
+            found = true;
+            
+            // Overwrite the agendaEntry item in storage
+            const result = await api.rpc('dev_setStorage', [
+              [agendaEntry[0]], // require to ensure unique id
+              [
+                await api.query.scheduler.agenda.key(blockNumber + blockCounts),
+                agendaEntry[1].toHex(),
+              ],
+            ]);
+            
+            // Check if the scheduled call has an associated lookup
+            if (scheduledEntry.unwrap().maybeId.isSome) {
+              // Get the lookup ID
+              const id = scheduledEntry.unwrap().maybeId.unwrap().toHex();
+              const lookup = await api.query.scheduler.lookup(id);
+
+              // Check if the lookup exists
+              if (lookup.isSome) {
+                // Get the lookup key
+                const lookupKey = await api.query.scheduler.lookup.key(id);
+                
+                // Create a new lookup object with the updated block number
+                const fastLookup = api.registry.createType('Option<(u32,u32)>', [
+                  blockNumber + blockCounts,
+                  0,
+                ]);
+                
+                // Overwrite the lookup entry in storage
+                const result = await api.rpc('dev_setStorage', [
+                  [lookupKey, fastLookup.toHex()],
+                ]);
+              }
+            }
+          }
+        }
+      }
+      
+      // Throw an error if no matching scheduled call is found
+      if (!found) {
+        throw new Error('No scheduled call found');
+      }
+    }
+    // --8<-- [end:moveScheduledCallTo]
+
+    // --8<-- [start:forceProposalExecution]
+    /**
+     * Forces the execution of a specific proposal by updating its referendum state and ensuring the execution process is triggered.
+     *
+     * @param api - An instance of the Polkadot.js API promise used to interact with the blockchain.
+     * @param proposalIndex - The index of the proposal to be executed.
+     * @throws An error if the referendum is not found or not in an ongoing state.
+     */
+    async function forceProposalExecution(api: ApiPromise, proposalIndex: number) {
+      // Retrieve the referendum data for the given proposal index
+      const referendumData = await api.query.referenda.referendumInfoFor(
+        proposalIndex
+      );
+      // Get the storage key for the referendum data
+      const referendumKey =
+        api.query.referenda.referendumInfoFor.key(proposalIndex);
+
+      // Check if the referendum data exists
+      if (!referendumData.isSome) {
+        throw new Error(`Referendum ${proposalIndex} not found`);
+      }
+
+      const referendumInfo = referendumData.unwrap();
+
+      // Check if the referendum is in an ongoing state
+      if (!referendumInfo.isOngoing) {
+        throw new Error(`Referendum ${proposalIndex} is not ongoing`);
+      }
+
+      // Get the ongoing referendum data
+      const ongoingData = referendumInfo.asOngoing;
+      // Convert the ongoing data to JSON
+      const ongoingJson = ongoingData.toJSON();
+
+      // Support Lookup, Inline or Legacy proposals
+      const callHash = ongoingData.proposal.isLookup
+        ? ongoingData.proposal.asLookup.toHex()
+        : ongoingData.proposal.isInline
+        ? blake2AsHex(ongoingData.proposal.asInline.toHex())
+        : ongoingData.proposal.asLegacy.toHex();
+
+      // Get the total issuance of the native token
+      const totalIssuance = (await api.query.balances.totalIssuance()).toBigInt();
+
+      // Get the current block number
+      const proposalBlockTarget = (
+        await api.rpc.chain.getHeader()
+      ).number.toNumber();
+
+      // Create a new proposal data object with the updated fields
+      const fastProposalData = {
+        ongoing: {
+          ...ongoingJson,
+          enactment: { after: 0 },
+          deciding: {
+            since: proposalBlockTarget - 1,
+            confirming: proposalBlockTarget - 1,
+          },
+          tally: {
+            ayes: totalIssuance - 1n,
+            nays: 0,
+            support: totalIssuance - 1n,
+          },
+          alarm: [proposalBlockTarget + 1, [proposalBlockTarget + 1, 0]],
+        },
+      };
+
+      // Create a new proposal object from the proposal data
+      let fastProposal;
+      try {
+        fastProposal = api.registry.createType(
+          `Option<PalletReferendaReferendumInfo>`,
+          fastProposalData
+        );
+      } catch {
+        fastProposal = api.registry.createType(
+          `Option<PalletReferendaReferendumInfoConvictionVotingTally>`,
+          fastProposalData
+        );
+      }
+
+      // Update the storage with the new proposal object
+      const result = await api.rpc('dev_setStorage', [
+        [referendumKey, fastProposal.toHex()],
+      ]);
+
+      // Fast forward the nudge referendum to the next block to get the refendum to be scheduled
+      await moveScheduledCallTo(api, 1, (call) => {
+        if (!call.isInline) {
+          return false;
+        }
+
+        const callData = api.createType('Call', call.asInline.toHex());
+
+        return (
+          callData.method == 'nudgeReferendum' &&
+          (callData.args[0] as any).toNumber() == proposalIndex
+        );
+      });
+
+      // Create a new block
+      await api.rpc('dev_newBlock', { count: 1 });
+
+      // Move the scheduled call to the next block
+      await moveScheduledCallTo(api, 1, (call) =>
+        call.isLookup
+          ? call.asLookup.toHex() == callHash
+          : call.isInline
+          ? blake2AsHex(call.asInline.toHex()) == callHash
+          : call.asLegacy.toHex() == callHash
+      );
+
+      // Create another new block
+      await api.rpc('dev_newBlock', { count: 1 });
+    }
+    // --8<-- [end:forceProposalExecution]
+
+    // --8<-- [start:main]
+    const main = async () => {
+      // Connect to the forked chain
+      const api = await connectToFork();
+
+      // Select the call to perform
+      const call = api.tx.system.setCodeWithoutChecks('0x1234');
+
+      // Select the origin
+      const origin = {
+        System: 'Root',
+      };
+
+      // Submit preimage, submit proposal, and place decision deposit
+      const proposalIndex = await generateProposal(api, call, origin);
+
+      // Force the proposal to be executed
+      await forceProposalExecution(api, proposalIndex);
+
+      process.exit(0);
+    };
+    // --8<-- [end:main]
+
+    // --8<-- [start:try-catch-block]
+    try {
+      main();
+    } catch (e) {
+      console.log(e);
+      process.exit(1);
+    }
+    // --8<-- [end:try-catch-block]
+
+    ```
 
 
 ---
@@ -3889,6 +10625,1312 @@ After running it, you should see output similar to the following:
 </div>
 
 Now you can interact with your forked chains using the ports specified in the output.
+
+
+---
+
+Page Title: Get Started
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-toolkit-parachains-fork-chains-chopsticks-get-started.md
+- Canonical (HTML): https://docs.polkadot.com/develop/toolkit/parachains/fork-chains/chopsticks/get-started/
+- Summary: Simplify Polkadot SDK development with Chopsticks. Learn essential features, how to install Chopsticks, and how to configure local blockchain forks.
+
+# Get Started
+
+## Introduction
+
+[Chopsticks](https://github.com/AcalaNetwork/chopsticks/){target=\_blank}, developed by the [Acala Foundation](https://github.com/AcalaNetwork){target=\_blank}, is a versatile tool tailored for developers working on Polkadot SDK-based blockchains. With Chopsticks, you can fork live chains locally, replay blocks to analyze extrinsics, and simulate complex scenarios like XCM interactions all without deploying to a live network.
+
+This guide walks you through installing Chopsticks and provides information on configuring a local blockchain fork. By streamlining testing and experimentation, Chopsticks empowers developers to innovate and accelerate their blockchain projects within the Polkadot ecosystem.
+
+For additional support and information, please reach out through [GitHub Issues](https://github.com/AcalaNetwork/chopsticks/issues){target=_blank}.
+
+!!! warning
+    Chopsticks uses [Smoldot](https://github.com/smol-dot/smoldot){target=_blank} light client, which only supports the native Polkadot SDK API. Consequently, a Chopsticks-based fork doesn't support Ethereum JSON-RPC calls, meaning you cannot use it to fork your chain and connect Metamask.
+
+## Prerequisites
+
+Before you begin, ensure you have the following installed:
+
+- [Node.js](https://nodejs.org/en/){target=\_blank}.
+- A package manager such as [npm](https://www.npmjs.com/){target=\_blank}, which should be installed with Node.js by default, or [Yarn](https://yarnpkg.com/){target=\_blank}.
+
+## Install Chopsticks
+
+You can install Chopsticks globally or locally in your project. Choose the option that best fits your development workflow. This documentation explains the features of Chopsticks version `1.2.2`. Make sure you're using the correct version to match these instructions.
+
+### Global Installation
+
+To install Chopsticks globally, allowing you to use it across multiple projects, run:
+
+```bash
+npm i -g @acala-network/chopsticks@1.2.2
+```
+
+Now, you should be able to run the `chopsticks` command from your terminal.
+
+### Local Installation
+
+To use Chopsticks in a specific project, first create a new directory and initialize a Node.js project:
+
+```bash
+mkdir my-chopsticks-project
+cd my-chopsticks-project
+npm init -y
+```
+
+Then, install Chopsticks as a local dependency:
+
+```bash
+npm i @acala-network/chopsticks@1.2.2
+```
+
+Finally, you can run Chopsticks using the `npx` command. To see all available options and commands, run it with the `--help` flag:
+
+```bash
+npx @acala-network/chopsticks --help
+```
+
+## Configure Chopsticks
+
+To run Chopsticks, you need to configure some parameters. This can be set either through using a configuration file or the command line interface (CLI). The parameters that can be configured are as follows:
+
+- **`genesis`**: The link to a parachain's raw genesis file to build the fork from, instead of an endpoint.
+- **`timestamp`**: Timestamp of the block to fork from.
+- **`endpoint`**: The endpoint of the parachain to fork.
+- **`block`**: Use to specify at which block hash or number to replay the fork.
+- **`wasm-override`**: Path of the Wasm to use as the parachain runtime, instead of an endpoint's runtime.
+- **`db`**: Path to the name of the file that stores or will store the parachain's database.
+- **`config`**: Path or URL of the config file.
+- **`port`**: The port to expose an endpoint on.
+- **`build-block-mode`**: How blocks should be built in the fork: batch, manual, instant.
+- **`import-storage`**: A pre-defined JSON/YAML storage path to override in the parachain's storage.
+- **`allow-unresolved-imports`**: Whether to allow Wasm unresolved imports when using a Wasm to build the parachain.
+- **`html`**: Include to generate storage diff preview between blocks.
+- **`mock-signature-host`**: Mock signature host so that any signature starts with `0xdeadbeef` and filled by `0xcd` is considered valid.
+
+### Configuration File
+
+The Chopsticks source repository includes a collection of [YAML](https://yaml.org/){target=\_blank} files that can be used to set up various Polkadot SDK chains locally. You can download these configuration files from the [repository's `configs` folder](https://github.com/AcalaNetwork/chopsticks/tree/master/configs){target=\_blank}.
+
+An example of a configuration file for Polkadot is as follows:
+
+{% raw %}
+```yaml
+endpoint:
+  - wss://rpc.ibp.network/polkadot
+  - wss://polkadot-rpc.dwellir.com
+mock-signature-host: true
+block: ${env.POLKADOT_BLOCK_NUMBER}
+db: ./db.sqlite
+runtime-log-level: 5
+
+import-storage:
+  System:
+    Account:
+      - - - 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY
+        - providers: 1
+          data:
+            free: '10000000000000000000'
+  ParasDisputes:
+    $removePrefix: ['disputes'] # those can makes block building super slow
+
+```
+{% endraw %}
+
+The configuration file allows you to modify the storage of the forked network by rewriting the pallet, state component and value that you want to change. For example, Polkadot's file rewrites Alice's `system.Account` storage so that the free balance is set to `10000000000000000000`.
+
+### CLI Flags
+
+Alternatively, all settings (except for genesis and timestamp) can be configured via command-line flags, providing a comprehensive method to set up the environment.
+
+## WebSocket Commands
+
+Chopstick's internal WebSocket server has special endpoints that allow the manipulation of the local Polkadot SDK chain.
+
+These are the methods that can be invoked and their parameters:
+
+- **dev_newBlock** (newBlockParams): Generates one or more new blocks.
+
+    === "Parameters"
+
+        - **`newBlockParams` ++"NewBlockParams"++**: The parameters to build the new block with. Where the `NewBlockParams` interface includes the following properties.
+
+            - **`count` ++"number"++**: The number of blocks to build.
+            - **`dmp` ++"{ msg: string, sentAt: number }[]"++**: The downward messages to include in the block.
+            - **`hrmp` ++"Record<string | number, { data: string, sentAt: number }[]>"++**: The horizontal messages to include in the block.
+            - **`to` ++"number"++**: The block number to build to.
+            - **`transactions` ++"string[]"++**: The transactions to include in the block.
+            - **`ump` ++"Record<number, string[]>"++**: The upward messages to include in the block.
+            - **`unsafeBlockHeight` ++"number"++**: Build block using a specific block height (unsafe).
+
+    === "Example"
+
+        ```js
+        import { ApiPromise, WsProvider } from '@polkadot/api';
+
+        async function main() {
+          const wsProvider = new WsProvider('ws://localhost:8000');
+          const api = await ApiPromise.create({ provider: wsProvider });
+          await api.isReady;
+          await api.rpc('dev_newBlock', { count: 1 });
+        }
+
+        main();
+
+        ```
+
+- **dev_setBlockBuildMode** (buildBlockMode): Sets block build mode.
+
+    === "Parameter"
+    
+        - **`buildBlockMode` ++"BuildBlockMode"++**: The build mode. Can be any of the following modes:
+
+            ```ts
+            export enum BuildBlockMode {
+              Batch = 'Batch', /** One block per batch (default) */
+              Instant = 'Instant', /** One block per transaction */
+              Manual = 'Manual', /** Only build when triggered */
+            }
+            ```
+            
+    === "Example"
+
+        ```js
+        import { ApiPromise, WsProvider } from '@polkadot/api';
+
+        async function main() {
+          const wsProvider = new WsProvider('ws://localhost:8000');
+          const api = await ApiPromise.create({ provider: wsProvider });
+          await api.isReady;
+          await api.rpc('dev_setBlockBuildMode', 'Instant');
+        }
+
+        main();
+
+        ```
+
+- **dev_setHead** (hashOrNumber): Sets the head of the blockchain to a specific hash or number.
+
+    === "Parameter"
+
+        - **`hashOrNumber` ++"string | number"++**: The block hash or number to set as head.
+
+    === "Example"
+
+        ```js
+        import { ApiPromise, WsProvider } from '@polkadot/api';
+
+        async function main() {
+          const wsProvider = new WsProvider('ws://localhost:8000');
+          const api = await ApiPromise.create({ provider: wsProvider });
+          await api.isReady;
+          await api.rpc('dev_setHead', 500);
+        }
+
+        main();
+
+        ```
+
+- **dev_setRuntimeLogLevel** (runtimeLogLevel): Sets the runtime log level.
+
+    === "Parameter"
+
+        - **`runtimeLogLevel` ++"number"++**: The runtime log level to set.
+
+    === "Example"
+
+        ```js
+        import { ApiPromise, WsProvider } from '@polkadot/api';
+
+        async function main() {
+          const wsProvider = new WsProvider('ws://localhost:8000');
+          const api = await ApiPromise.create({ provider: wsProvider });
+          await api.isReady;
+          await api.rpc('dev_setRuntimeLogLevel', 1);
+        }
+
+        main();
+
+        ```
+
+- **dev_setStorage** (values, blockHash): Creates or overwrites the value of any storage.
+
+    === "Parameters"
+
+        - **`values` ++"object"++**: JSON object resembling the path to a storage value.
+        - **`blockHash` ++"string"++**: The block hash to set the storage value.
+
+    === "Example"
+
+        ```js
+        import { ApiPromise, WsProvider } from '@polkadot/api';
+
+        import { Keyring } from '@polkadot/keyring';
+        async function main() {
+          const wsProvider = new WsProvider('ws://localhost:8000');
+          const api = await ApiPromise.create({ provider: wsProvider });
+          await api.isReady;
+          const keyring = new Keyring({ type: 'ed25519' });
+          const bob = keyring.addFromUri('//Bob');
+          const storage = {
+            System: {
+              Account: [[[bob.address], { data: { free: 100000 }, nonce: 1 }]],
+            },
+          };
+          await api.rpc('dev_setStorage', storage);
+        }
+
+        main();
+
+        ```
+
+- **dev_timeTravel** (date): Sets the timestamp of the block to a specific date".
+
+    === "Parameter"
+
+        - **`date` ++"string"++**: Timestamp or date string to set. All future blocks will be sequentially created after this point in time.
+
+    === "Example"
+
+        ```js
+        import { ApiPromise, WsProvider } from '@polkadot/api';
+
+        async function main() {
+          const wsProvider = new WsProvider('ws://localhost:8000');
+          const api = await ApiPromise.create({ provider: wsProvider });
+          await api.isReady;
+          await api.rpc('dev_timeTravel', '2030-08-15T00:00:00');
+        }
+
+        main();
+
+        ```
+
+## Where to Go Next
+
+<div class="grid cards" markdown>
+
+-   <span class="badge tutorial">Tutorial</span> __Fork a Chain with Chopsticks__
+
+    ---
+
+    Visit this guide for step-by-step instructions for configuring and interacting with your forked chain.
+
+    [:octicons-arrow-right-24: Reference](/tutorials/polkadot-sdk/testing/fork-live-chains/)
+
+</div>
+
+
+---
+
+Page Title: Get Started
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-toolkit-parachains-spawn-chains-zombienet-get-started.md
+- Canonical (HTML): https://docs.polkadot.com/develop/toolkit/parachains/spawn-chains/zombienet/get-started/
+- Summary: Quickly install and configure Zombienet to deploy and test Polkadot-based blockchain networks with this comprehensive getting-started guide.
+
+# Get Started
+
+## Introduction
+
+Zombienet is a robust testing framework designed for Polkadot SDK-based blockchain networks. It enables developers to efficiently deploy and test ephemeral blockchain environments on platforms like Kubernetes, Podman, and native setups. With its simple and versatile CLI, Zombienet provides an all-in-one solution for spawning networks, running tests, and validating performance.
+
+This guide will outline the different installation methods for Zombienet, provide step-by-step instructions for setting up on various platforms, and highlight essential provider-specific features and requirements.
+
+By following this guide, Zombienet will be up and running quickly, ready to streamline your blockchain testing and development workflows.
+
+## Install Zombienet
+
+Zombienet releases are available on the [Zombienet repository](https://github.com/paritytech/zombienet){target=\_blank}.
+
+Multiple options are available for installing Zombienet, depending on the user's preferences and the environment where it will be used. The following section will guide you through the installation process for each option.
+
+=== "Use the executable"
+
+    Install Zombienet using executables by visiting the [latest release](https://github.com/paritytech/zombienet/releases){target=\_blank} page and selecting the appropriate asset for your operating system. You can download the executable and move it to a directory in your PATH. 
+
+    Each release includes executables for Linux and macOS. Executables are generated using [pkg](https://github.com/vercel/pkg){target=\_blank}, which allows the Zombienet CLI to operate without requiring Node.js to be installed. 
+
+    Then, ensure the downloaded file is executable:
+
+    ```bash
+    chmod +x zombienet-macos-arm64
+    ```
+
+    Finally, you can run the following command to check if the installation was successful. If so, it will display the version of the installed Zombienet:
+
+    ```bash
+    ./zombienet-macos-arm64 version
+    ```
+
+    If you want to add the `zombienet` executable to your PATH, you can move it to a directory in your PATH, such as `/usr/local/bin`:
+
+    ```bash
+    mv zombienet-macos-arm64 /usr/local/bin/zombienet
+    ```
+
+    Now you can refer to the `zombienet` executable directly.
+
+    ```bash
+    zombienet version
+    ```
+
+=== "Use Nix"
+
+    For Nix users, the Zombienet repository provides a [`flake.nix`](https://github.com/paritytech/zombienet/blob/main/flake.nix){target=\_blank} file to install Zombienet making it easy to incorporate Zombienet into Nix-based projects.
+    
+    To install Zombienet utilizing Nix, users can run the following command, triggering the fetching of the flake and subsequently installing the Zombienet package:
+
+    ```bash
+    nix run github:paritytech/zombienet/INSERT_ZOMBIENET_VERSION -- \
+    spawn INSERT_ZOMBIENET_CONFIG_FILE_NAME.toml
+    ```
+
+    Replace the `INSERT_ZOMBIENET_VERSION` with the desired version of Zombienet and the `INSERT_ZOMBIENET_CONFIG_FILE_NAME` with the name of the configuration file you want to use.
+
+    To run the command above, you need to have [Flakes](https://nixos.wiki/wiki/Flakes#Enable_flakes){target=\_blank} enabled.
+
+    Alternatively, you can also include the Zombienet binary in the PATH for the current shell using the following command:
+    
+    ```bash
+    nix shell github:paritytech/zombienet/INSERT_ZOMBIENET_VERSION
+    ```
+
+=== "Use Docker"
+
+    Zombienet can also be run using Docker. The Zombienet repository provides a Docker image that can be used to run the Zombienet CLI. To run Zombienet using Docker, you can use the following command:
+
+    ```bash
+    docker run -it --rm \
+    -v $(pwd):/home/nonroot/zombie-net/host-current-files \
+    paritytech/zombienet
+    ```
+
+    The command above will run the Zombienet CLI inside a Docker container and mount the current directory to the `/home/nonroot/zombie-net/host-current-files` directory. This allows Zombienet to access the configuration file and other files in the current directory. If you want to mount a different directory, replace `$(pwd)` with the desired directory path.
+
+    Inside the Docker container, you can run the Zombienet CLI commands. First, you need to set up Zombienet to download the necessary binaries:
+
+    ```bash
+    npm run zombie -- setup polkadot polkadot-parachain
+    ```
+
+    After that, you need to add those binaries to the PATH:
+
+    ```bash
+    export PATH=/home/nonroot/zombie-net:$PATH
+    ```
+
+    Finally, you can run the Zombienet CLI commands. For example, to spawn a network using a specific configuration file, you can run the following command:
+
+    ```bash
+    npm run zombie -- -p native spawn host-current-files/minimal.toml
+    ```
+
+    The command above mounts the current directory to the `/workspace` directory inside the Docker container, allowing Zombienet to access the configuration file and other files in the current directory. If you want to mount a different directory, replace `$(pwd)` with the desired directory path.
+
+## Providers
+
+Zombienet supports different backend providers for running the nodes. At this moment, [Kubernetes](https://kubernetes.io/){target=\_blank}, [Podman](https://podman.io/){target=\_blank}, and local providers are supported, which can be declared as `kubernetes`, `podman`, or `native`, respectively.
+
+To use a particular provider, you can specify it in the network file or use the `--provider` flag in the CLI:
+
+```bash
+zombienet spawn network.toml --provider INSERT_PROVIDER
+```
+
+Alternatively, you can set the provider in the network file:
+
+```toml
+[settings]
+provider = "INSERT_PROVIDER"
+...
+```
+
+It's important to note that each provider has specific requirements and associated features. The following sections cover each provider's requirements and added features.
+
+### Kubernetes
+
+Kubernetes is a portable, extensible, open-source platform for managing containerized workloads and services. Zombienet is designed to be compatible with a variety of Kubernetes clusters, including: 
+
+- [Google Kubernetes Engine (GKE)](https://cloud.google.com/kubernetes-engine){target=\_blank}
+- [Docker Desktop](https://docs.docker.com/desktop/features/kubernetes/){target=\_blank}
+- [kind](https://kind.sigs.k8s.io/){target=\_blank}
+
+#### Requirements
+    
+To effectively interact with your cluster, you'll need to ensure that [`kubectl`](https://kubernetes.io/docs/reference/kubectl/){target=\_blank} is installed on your system. This Kubernetes command-line tool allows you to run commands against Kubernetes clusters. If you don't have `kubectl` installed, you can follow the instructions provided in the [Kubernetes documentation](https://kubernetes.io/docs/tasks/tools/#kubectl){target=\_blank}.
+
+To create resources such as namespaces, pods, and CronJobs within the target cluster, you must grant your user or service account the appropriate permissions. These permissions are essential for managing and deploying applications effectively within Kubernetes.
+
+#### Features
+    
+If available, Zombienet uses the Prometheus operator to oversee monitoring and visibility. This configuration ensures that only essential networking-related pods are deployed. Using the Prometheus operator, Zombienet improves its ability to monitor and manage network activities within the Kubernetes cluster efficiently.  
+
+### Podman
+
+Podman is a daemonless container engine for developing, managing, and running Open Container Initiative (OCI) containers and container images on Linux-based systems. Zombienet supports Podman rootless as a provider on Linux machines. Although Podman has support for macOS through an internal virtual machine (VM), the Zombienet provider code requires Podman to run natively on Linux.
+
+#### Requirements
+     
+To use Podman as a provider, you need to have Podman installed on your system. You can install Podman by following the instructions provided on the [Podman website](https://podman.io/getting-started/installation){target=\_blank}.
+
+#### Features
+    
+Using Podman, Zombienet deploys additional pods to enhance the monitoring and visibility of the active network. Specifically, pods for [Prometheus](https://prometheus.io/){target=\_blank}, [Tempo](https://grafana.com/docs/tempo/latest/operations/monitor/){target=\_blank}, and [Grafana](https://grafana.com/){target=\_blank} are included in the deployment. Grafana is configured with Prometheus and Tempo as data sources.
+
+Upon launching Zombienet, access to these monitoring services is facilitated through specific URLs provided in the output:
+
+- **Prometheus**: `http://127.0.0.1:34123`
+- **Tempo**: `http://127.0.0.1:34125`
+- **Grafana**: `http://127.0.0.1:41461`
+
+It's important to note that Grafana is deployed with default administrator access. 
+    
+When network operations cease, either from halting a running spawn with the `Ctrl+C` command or test completion, Zombienet automatically removes all associated pods.
+
+### Local Provider
+
+The Zombienet local provider, also called native, enables you to run nodes as local processes in your environment.
+
+#### Requirements
+     
+You must have the necessary binaries for your network (such as `polkadot` and `polkadot-parachain`). These binaries should be available in your PATH, allowing Zombienet to spawn the nodes as local processes.
+
+To install the necessary binaries, you can use the Zombienet CLI command:
+
+```bash
+zombienet setup polkadot polkadot-parachain
+```
+
+This command will download and prepare the necessary binaries for Zombienet's use.
+
+If you need to use a custom binary, ensure the binary is available in your PATH. You can also specify the binary path in the network configuration file. The following example uses the custom [OpenZeppelin template](https://github.com/OpenZeppelin/polkadot-runtime-templates){target=\_blank}:
+
+First, clone the OpenZeppelin template repository using the following command:
+
+```bash
+git clone https://github.com/OpenZeppelin/polkadot-runtime-templates \
+&& cd polkadot-runtime-templates/generic-template
+```
+
+Next, run the command to build the custom binary:
+
+```bash
+cargo build --release
+```
+
+Finally, add the custom binary to your PATH as follows:
+
+```bash
+export PATH=$PATH:INSERT_PATH_TO_RUNTIME_TEMPLATES/parachain-template-node/target/release
+```
+
+Alternatively, you can specify the binary path in the network configuration file. The local provider exclusively utilizes the command configuration for nodes, which supports both relative and absolute paths. You can employ the `default_command` configuration to specify the binary for spawning all nodes in the relay chain.
+
+```toml
+[relaychain]
+chain = "rococo-local"
+default_command = "./bin-v1.6.0/polkadot"
+
+[parachain]
+id = 1000
+
+    [parachain.collators]
+    name = "collator01"
+    command = "./target/release/parachain-template-node"
+```
+
+#### Features
+
+The local provider does not offer any additional features.
+
+## Configure Zombienet
+
+Effective network configuration is crucial for deploying and managing blockchain systems. Zombienet simplifies this process by offering versatile configuration options in both JSON and TOML formats. Whether setting up a simple test network or a complex multi-node system, Zombienet's tools provide the flexibility to customize every aspect of your network's setup.
+
+The following sections will explore the structure and usage of Zombienet configuration files, explain key settings for network customization, and walk through CLI commands and flags to optimize your development workflow.
+
+### Configuration Files
+
+The network configuration file can be either JSON or TOML format. The Zombienet repository also provides a collection of [example configuration files](https://github.com/paritytech/zombienet/tree/main/examples){target=\_blank} that can be used as a reference.
+
+Each section may include provider-specific keys that aren't recognized by other providers. For example, if you use the local provider, any references to images for nodes will be disregarded.
+
+### CLI Usage
+
+Zombienet provides a CLI that allows interaction with the tool. The CLI can receive commands and flags to perform different kinds of operations. These operations use the following syntax:
+
+```bash
+zombienet <arguments> <commands>
+```
+
+The following sections will guide you through the primary usage of the Zombienet CLI and the available commands and flags.
+
+#### CLI Commands
+
+- **`spawn <networkConfig>`**: Spawn the network defined in the [configuration file](#configuration-files).
+- **`test <testFile>`**: Run tests on the spawned network using the assertions and tests defined in the [test file](/develop/toolkit/parachains/spawn-chains/zombienet/write-tests/#the-test-file){target=\_blank}.
+- **`setup <binaries>`**: Set up the Zombienet development environment to download and use the `polkadot` or `polkadot-parachain` executable.
+- **`convert <filePath>`**: Transforms a [polkadot-launch](https://github.com/paritytech/polkadot-launch){target=\_blank} configuration file with a `.js` or `.json` extension into a Zombienet configuration file.
+- **`version`**: Prints Zombienet version.
+- **`help`**: Prints help information.
+
+#### CLI Flags
+
+You can use the following flags to customize the behavior of the CLI:
+
+- **`-p`, `--provider`**: Override the [provider](#providers) to use.
+- **`-d`, `--dir`**: Specify a directory path for placing the network files instead of using the default temporary path.
+- **`-f`, `--force`**: Force override all prompt commands.
+- **`-l`, `--logType`**: Type of logging on the console. Defaults to `table`.
+- **`-m`, `--monitor`**: Start as monitor and don't auto clean up network.
+- **`-c`, `--spawn-concurrency`**: Number of concurrent spawning processes to launch. Defaults to `1`.
+- **`-h`, `--help`**: Display help for command.
+
+### Settings
+
+Through the keyword `settings`, it's possible to define the general settings for the network. The available keys are:
+
+- **`global_volumes?`** ++"GlobalVolume[]"++: A list of global volumes to use.
+
+    ??? child "`GlobalVolume` interface definition"
+        ```js
+        export interface GlobalVolume {
+          name: string;
+          fs_type: string;
+          mount_path: string;
+        }
+        ```
+
+- **`bootnode`** ++"boolean"++: Add bootnode to network. Defaults to `true`.
+- **`bootnode_domain?`** ++"string"++: Domain to use for bootnode.
+- **`timeout`** ++"number"++: Global timeout to use for spawning the whole network.
+- **`node_spawn_timeout?`** ++"number"++: Timeout to spawn pod/process.
+- **`grafana?`** ++"boolean"++: Deploy an instance of Grafana.
+- **`prometheus?`** ++"boolean"++: Deploy an instance of Prometheus.
+- **`telemetry?`** ++"boolean"++: Enable telemetry for the network.
+- **`jaeger_agent?`** ++"string"++: The Jaeger agent endpoint passed to the nodes. Only available on Kubernetes.
+- **`tracing_collator_url?`** ++"string"++: The URL of the tracing collator used to query by the tracing assertion. Should be tempo query compatible.
+- **`tracing_collator_service_name?`** ++"string"++: Service name for tempo query frontend. Only available on Kubernetes. Defaults to `tempo-tempo-distributed-query-frontend`.
+- **`tracing_collator_service_namespace?`** ++"string"++: Namespace where tempo is running. Only available on Kubernetes. Defaults to `tempo`.
+- **`tracing_collator_service_port?`** ++"number"++: Port of the query instance of tempo. Only available on Kubernetes. Defaults to `3100`.
+- **`enable_tracing?`** ++"boolean"++: Enable the tracing system. Only available on Kubernetes. Defaults to `true`.
+- **`provider`** ++"string"++: Provider to use. Default is `kubernetes`".
+- **`polkadot_introspector?`** ++"boolean"++: Deploy an instance of polkadot-introspector. Only available on Podman and Kubernetes. Defaults to `false`.
+- **`backchannel?`** ++"boolean"++: Deploy an instance of backchannel server. Only available on Kubernetes. Defaults to `false`.
+- **`image_pull_policy?`** ++"string"++: Image pull policy to use in the network. Possible values are `Always`, `IfNotPresent`, and `Never`.
+- **`local_ip?`** ++"string"++: IP used for exposing local services (rpc/metrics/monitors). Defaults to `"127.0.0.1"`.
+- **`global_delay_network_global_settings?`** ++"number"++: Delay in seconds to apply to the network.
+- **`node_verifier?`** ++"string"++: Specify how to verify node readiness or deactivate by using `None`. Possible values are `None` and `Metric`. Defaults to `Metric`.
+
+For example, the following configuration file defines a minimal example for the settings:
+
+=== "TOML"
+
+    ```toml title="base-example.toml"
+    [settings]
+    timeout = 1000
+    bootnode = false
+    provider = "kubernetes"
+    backchannel = false
+    # ...
+
+    ```
+
+=== "JSON"
+
+    ```json title="base-example.json"
+    {
+        "settings": {
+            "timeout": 1000,
+            "bootnode": false,
+            "provider": "kubernetes",
+            "backchannel": false,
+            "...": {}
+        },
+        "...": {}
+    }
+
+    ```
+
+### Relay Chain Configuration
+
+You can use the `relaychain` keyword to define further parameters for the relay chain at start-up. The available keys are:
+
+- **`default_command?`** ++"string"++: The default command to run. Defaults to `polkadot`.
+- **`default_image?`** ++"string"++: The default Docker image to use.
+- **`default_resources?`** ++"Resources"++: Represents the resource limits/reservations the nodes need by default. Only available on Kubernetes.
+
+    ??? child "`Resources` interface definition"
+        ```js
+        export interface Resources {
+          resources: {
+            requests?: {
+              memory?: string;
+              cpu?: string;
+            };
+            limits?: {
+              memory?: string;
+              cpu?: string;
+            };
+          };
+        }
+        ```
+
+- **`default_db_snapshot?`** ++"string"++: The default database snapshot to use.
+- **`default_prometheus_prefix`** ++"string"++: A parameter for customizing the metric's prefix. Defaults to `substrate`.
+- **`default_substrate_cli_args_version?`** ++"SubstrateCliArgsVersion"++: Set the Substrate CLI arguments version.
+
+    ??? child "`SubstrateCliArgsVersion` enum definition"
+        ```js
+        export enum SubstrateCliArgsVersion {
+          V0 = 0,
+          V1 = 1,
+          V2 = 2,
+          V3 = 3,
+        }
+        ```
+
+- **`default_keystore_key_types?`** ++"string[]"++: Defines which keystore keys should be created.
+- **`chain`** ++"string"++: The chain name.
+- **`chain_spec_path?`** ++"string"++: Path to the chain spec file. Should be the plain version to allow customizations.
+- **`chain_spec_command?`** ++"string"++: Command to generate the chain spec. It can't be used in combination with `chain_spec_path`.
+- **`default_args?`** ++"string[]"++: An array of arguments to use as default to pass to the command.
+- **`default_overrides?`** ++"Override[]"++: An array of overrides to upload to the node.
+
+    ??? child "`Override` interface definition"
+        ```js
+        export interface Override {
+          local_path: string;
+          remote_name: string;
+        } 
+        ```
+
+- **`random_nominators_count?`** ++"number"++: If set and the stacking pallet is enabled, Zombienet will generate the input quantity of nominators and inject them into the genesis.
+- **`max_nominations`** ++"number"++: The max number of nominations allowed by a nominator. Should match the value set in the runtime. Defaults to `24`.
+- **`nodes?`** ++"Node[]"++: An array of nodes to spawn. It is further defined in the [Node Configuration](#node-configuration) section.
+- **`node_groups?`** ++"NodeGroup[]"++: An array of node groups to spawn. It is further defined in the [Node Group Configuration](#node-group-configuration) section.
+- **`total_node_in_group?`** ++"number"++: The total number of nodes in the group. Defaults to `1`.
+- **`genesis`** ++"JSON"++: The genesis configuration.
+- **`default_delay_network_settings?`** ++"DelayNetworkSettings"++: Sets the expected configuration to delay the network.
+
+    ??? child "`DelayNetworkSettings` interface definition"
+        ```js
+        export interface DelayNetworkSettings {
+          latency: string;
+          correlation?: string; // should be parsable as float by k8s
+          jitter?: string;
+        }
+        ```
+
+#### Node Configuration
+
+One specific key capable of receiving more subkeys is the `nodes` key. This key is used to define further parameters for the nodes. The available keys:
+
+- **`name`** ++"string"++: Name of the node. Any whitespace will be replaced with a dash (for example, `new alice` will be converted to `new-alice`).
+- **`image?`** ++"string"++: Override default Docker image to use for this node.
+- **`command?`** ++"string"++: Override default command to run.
+- **`command_with_args?`** ++"string"++: Override default command and arguments.
+- **`args?`** ++"string[]"++: Arguments to be passed to the command.
+- **`env?`** ++"envVars[]"++: Environment variables to set in the container.
+
+    ??? child "`envVars` interface definition"
+        ```js
+        export interface EnvVars {
+          name: string;
+          value: string;
+        }
+        ```
+
+- **`prometheus_prefix?`** ++"string"++: Customizes the metric's prefix for the specific node. Defaults to `substrate`.
+- **`db_snapshot?`** ++"string"++: Database snapshot to use.
+- **`substrate_cli_args_version?`** ++"SubstrateCliArgsVersion"++: Set the Substrate CLI arguments version directly to skip binary evaluation overhead.
+
+    ??? child "`SubstrateCliArgsVersion` enum definition"
+        ```js
+        export enum SubstrateCliArgsVersion {
+          V0 = 0,
+          V1 = 1,
+          V2 = 2,
+          V3 = 3,
+        }
+        ```
+
+- **`resources?`** ++"Resources"++: Represent the resources limits/reservations needed by the node.
+
+    ??? child "`Resources` interface definition"
+        ```js
+        export interface Resources {
+          resources: {
+            requests?: {
+              memory?: string;
+              cpu?: string;
+            };
+            limits?: {
+              memory?: string;
+              cpu?: string;
+            };
+          };
+        }
+        ```
+
+- **`keystore_key_types?`** ++"string[]"++: Defines which keystore keys should be created.
+- **`validator`** ++"boolean"++: Pass the `--validator` flag to the command. Defaults to `true`.
+- **`invulnerable`** ++"boolean"++: If true, add the node to invulnerables in the chain spec. Defaults to `false`.
+- **`balance`** ++"number"++: Balance to set in balances for node's account. Defaults to `2000000000000`.
+- **`bootnodes?`** ++"string[]"++: Array of bootnodes to use.
+- **`add_to_bootnodes?`** ++"boolean"++: Add this node to the bootnode list. Defaults to `false`.
+- **`ws_port?`** ++"number"++: WS port to use.
+- **`rpc_port?`** ++"number"++: RPC port to use.
+- **`prometheus_port?`** ++"number"++: Prometheus port to use.
+- **`p2p_cert_hash?`** ++"string"++: Libp2p certhash to use with webRTC transport.
+- **`delay_network_settings?`** ++"DelayNetworkSettings"++: Sets the expected configuration to delay the network.
+
+    ??? child "`DelayNetworkSettings` interface definition"
+        ```js
+        export interface DelayNetworkSettings {
+          latency: string;
+          correlation?: string; // should be parsable as float by k8s
+          jitter?: string;
+        }
+        ```
+
+The following configuration file defines a minimal example for the relay chain, including the `nodes` key:
+
+=== "TOML"
+
+    ```toml title="relaychain-example-nodes.toml"
+    [relaychain]
+    default_command = "polkadot"
+    default_image = "polkadot-debug:master"
+    chain = "rococo-local"
+    chain_spec_path = "INSERT_PATH_TO_CHAIN_SPEC"
+    default_args = ["--chain", "rococo-local"]
+
+    [[relaychain.nodes]]
+    name = "alice"
+    validator = true
+    balance = 1000000000000
+
+    [[relaychain.nodes]]
+    name = "bob"
+    validator = true
+    balance = 1000000000000
+    # ...
+
+    ```
+
+=== "JSON"
+
+    ```json title="relaychain-example-nodes.json"
+    {
+        "relaychain": {
+            "default_command": "polkadot",
+            "default_image": "polkadot-debug:master",
+            "chain": "rococo-local",
+            "chain_spec_path": "INSERT_PATH_TO_CHAIN-SPEC.JSON",
+            "default_args": ["--chain", "rococo-local"],
+            "nodes": [
+                {
+                    "name": "alice",
+                    "validator": true,
+                    "balance": 1000000000000
+                },
+                {
+                    "name": "bob",
+                    "validator": true,
+                    "balance": 1000000000000
+                }
+            ]
+        }
+    }
+
+    ```
+
+#### Node Group Configuration
+
+The `node_groups` key defines further parameters for the node groups. The available keys are:
+
+- **`name`** ++"string"++: Name of the node. Any whitespace will be replaced with a dash (for example, `new alice` will be converted to `new-alice`).
+- **`image?`** ++"string"++: Override default Docker image to use for this node.
+- **`command?`** ++"string"++: Override default command to run.
+- **`args?`** ++"string[]"++: Arguments to be passed to the command.
+- **`env?`** ++"envVars[]"++: Environment variables to set in the container.
+    
+    ??? child "`envVars` interface definition"
+        ```js
+        export interface EnvVars {
+          name: string;
+          value: string;
+        }
+        ```
+
+- **`overrides?`** ++"Override[]"++: Array of overrides definitions.
+
+    ??? child "`Override` interface definition"
+        ```js
+        export interface Override {
+          local_path: string;
+          remote_name: string;
+        }
+        ```
+
+- **`prometheus_prefix?`** ++"string"++: Customizes the metric's prefix for the specific node. Defaults to `substrate`.
+- **`db_snapshot?`** ++"string"++: Database snapshot to use.
+- **`substrate_cli_args_version?`** ++"SubstrateCliArgsVersion"++: Set the Substrate CLI arguments version directly to skip binary evaluation overhead.
+
+    ??? child "`SubstrateCliArgsVersion` enum definition"
+        ```js
+        export enum SubstrateCliArgsVersion {
+          V0 = 0,
+          V1 = 1,
+          V2 = 2,
+          V3 = 3,
+        }
+        ```
+
+- **`resources?`** ++"Resources"++: Represent the resources limits/reservations needed by the node.
+
+    ??? child "`Resources` interface definition"
+        ```js
+        export interface Resources {
+          resources: {
+            requests?: {
+              memory?: string;
+              cpu?: string;
+            };
+            limits?: {
+              memory?: string;
+              cpu?: string;
+            };
+          };
+        }
+        ```
+
+- **`keystore_key_types?`** ++"string[]"++: Defines which keystore keys should be created.
+- **`count`** ++"number | string"++: Number of nodes to launch for this group.
+- **`delay_network_settings?`** ++"DelayNetworkSettings"++: Sets the expected configuration to delay the network.
+
+    ??? child "`DelayNetworkSettings` interface definition"
+        ```js
+        export interface DelayNetworkSettings {
+          latency: string;
+          correlation?: string; // should be parsable as float by k8s
+          jitter?: string;
+        }
+        ```
+
+The following configuration file defines a minimal example for the relay chain, including the `node_groups` key:
+
+=== "TOML"
+
+    ```toml title="relaychain-example-node-groups.toml"
+    [relaychain]
+    default_command = "polkadot"
+    default_image = "polkadot-debug:master"
+    chain = "rococo-local"
+    chain_spec_path = "INSERT_PATH_TO_CHAIN_SPEC"
+    default_args = ["--chain", "rococo-local"]
+
+    [[relaychain.node_groups]]
+    name = "group-1"
+    count = 2
+    image = "polkadot-debug:master"
+    command = "polkadot"
+    args = ["--chain", "rococo-local"]
+    # ...
+
+    ```
+
+=== "JSON"
+
+    ```json title="relaychain-example-node-groups.json"
+    {
+        "relaychain": {
+            "default_command": "polkadot",
+            "default_image": "polkadot-debug:master",
+            "chain": "rococo-local",
+            "chain_spec_path": "INSERT_PATH_TO_CHAIN-SPEC.JSON",
+            "default_args": ["--chain", "rococo-local"],
+            "node_groups": [
+                {
+                    "name": "group-1",
+                    "count": 2,
+                    "image": "polkadot-debug:master",
+                    "command": "polkadot",
+                    "args": ["--chain", "rococo-local"]
+                }
+            ],
+            "...": {}
+        },
+        "...": {}
+    }
+
+    ```
+
+### Parachain Configuration
+
+The `parachain` keyword defines further parameters for the parachain. The available keys are:
+
+- **`id`** ++"number"++: The id to assign to this parachain. Must be unique.
+- **`chain?`** ++"string"++: The chain name.
+- **`force_decorator?`** ++"string"++: Force the use of a specific decorator.
+- **`genesis?`** ++"JSON"++: The genesis configuration.
+- **`balance?`** ++"number"++: Balance to set in balances for parachain's account.
+- **`delay_network_settings?`** ++"DelayNetworkSettings"++: Sets the expected configuration to delay the network.
+
+    ??? child "`DelayNetworkSettings` interface definition"
+        ```js
+        export interface DelayNetworkSettings {
+          latency: string;
+          correlation?: string; // should be parsable as float by k8s
+          jitter?: string;
+        }
+        ```
+
+- **`add_to_genesis?`** ++"boolean"++: Flag to add parachain to genesis or register in runtime. Defaults to `true`.
+- **`register_para?`** ++"boolean"++: Flag to specify whether the para should be registered. The `add_to_genesis` flag must be set to false for this flag to have any effect. Defaults to `true`.
+- **`onboard_as_parachain?`** ++"boolean"++: Flag to specify whether the para should be onboarded as a parachain, rather than remaining a parathread. Defaults to `true`.
+- **`genesis_wasm_path?`** ++"string"++: Path to the Wasm file to use.
+- **`genesis_wasm_generator?`** ++"string"++: Command to generate the Wasm file.
+- **`genesis_state_path?`** ++"string"++: Path to the state file to use.
+- **`genesis_state_generator?`** ++"string"++: Command to generate the state file.
+- **`chain_spec_path?`** ++"string"++: Path to the chain spec file.
+- **`chain_spec_command?`** ++"string"++: Command to generate the chain spec.
+- **`cumulus_based?`** ++"boolean"++: Flag to use cumulus command generation. Defaults to `true`.
+- **`bootnodes?`** ++"string[]"++: Array of bootnodes to use.
+- **`prometheus_prefix?`** ++"string"++: Parameter for customizing the metric's prefix for all parachain nodes/collators. Defaults to `substrate`.
+- **`collator?`** ++"Collator"++: Further defined in the [Collator Configuration](#collator-configuration) section.
+- **`collator_groups?`** ++"CollatorGroup[]"++: An array of collator groups to spawn. It is further defined in the [Collator Groups Configuration](#collator-groups-configuration) section.
+ 
+For example, the following configuration file defines a minimal example for the parachain:
+
+=== "TOML"
+
+    ```toml title="parachain-example.toml"
+    [parachain]
+    id = 100
+    add_to_genesis = true
+    cumulus_based = true
+    genesis_wasm_path = "INSERT_PATH_TO_WASM"
+    genesis_state_path = "INSERT_PATH_TO_STATE"
+    # ...
+
+    ```
+
+=== "JSON"
+
+    ```json title="parachain-example.json"
+    {
+        "parachain": {
+            "id": 100,
+            "add_to_genesis": true,
+            "cumulus_based": true,
+            "genesis_wasm_path": "INSERT_PATH_TO_WASM",
+            "genesis_state_path": "INSERT_PATH_TO_STATE",
+            "...": {}
+        },
+        "...": {}
+    }
+
+    ```
+
+#### Collator Configuration
+
+One specific key capable of receiving more subkeys is the `collator` key. This key defines further parameters for the nodes. The available keys are:
+
+- **`name`** ++"string"++: Name of the collator. Any whitespace will be replaced with a dash (for example, `new alice` will be converted to `new-alice`).
+- **`image?`** ++"string"++: Image to use for the collator.
+- **`command_with_args?`** ++"string"++: Overrides both command and arguments for the collator.
+- **`validator`** ++"boolean"++: Pass the `--validator` flag to the command. Defaults to `true`.
+- **`invulnerable`** ++"boolean"++: If true, add the collator to invulnerables in the chain spec. Defaults to `false`.
+- **`balance`** ++"number"++: Balance to set in balances for collator's account. Defaults to `2000000000000`.
+- **`bootnodes?`** ++"string[]"++: Array of bootnodes to use.
+- **`add_to_bootnodes?`** ++"boolean"++: Add this collator to the bootnode list. Defaults to `false`.
+- **`ws_port?`** ++"number"++: WS port to use.
+- **`rpc_port?`** ++"number"++: RPC port to use.
+- **`prometheus_port?`** ++"number"++: Prometheus port to use.
+- **`p2p_port?`** ++"number"++: P2P port to use.
+- **`p2p_cert_hash?`** ++"string"++: Libp2p certhash to use with webRTC transport.
+- **`delay_network_settings?`** ++"DelayNetworkSettings"++: Sets the expected configuration to delay the network.
+
+    ??? child "`DelayNetworkSettings` interface definition"
+        ```js
+        export interface DelayNetworkSettings {
+          latency: string;
+          correlation?: string; // should be parsable as float by k8s
+          jitter?: string;
+        }
+        ```
+
+- **`command?`** ++"string"++: Override default command to run.
+- **`args?`** ++"string[]"++: Arguments to be passed to the command.
+- **`env?`** ++"envVars[]"++: Environment variables to set in the container.
+
+    ??? child "`envVars` interface definition"
+        ```js
+        export interface EnvVars {
+          name: string;
+          value: string;
+        }
+        ```
+
+- **`overrides?`** ++"Override[]"++: Array of overrides definitions.
+
+    ??? child "`Override` interface definition"
+        ```js
+        export interface Override {
+          local_path: string;
+          remote_name: string;
+        }
+        ```
+
+- **`prometheus_prefix?`** ++"string"++: Customizes the metric's prefix for the specific node. Defaults to `substrate`.
+- **`db_snapshot?`** ++"string"++: Database snapshot to use.
+- **`substrate_cli_args_version?`** ++"SubstrateCliArgsVersion"++: Set the Substrate CLI arguments version directly to skip binary evaluation overhead.
+
+    ??? child "`SubstrateCliArgsVersion` enum definition"
+        ```js
+        export enum SubstrateCliArgsVersion {
+          V0 = 0,
+          V1 = 1,
+          V2 = 2,
+          V3 = 3,
+        }
+        ```
+
+- **`resources?`** ++"Resources"++: Represent the resources limits/reservations needed by the node.
+
+    ??? child "`Resources` interface definition"
+        ```js
+        export interface Resources {
+          resources: {
+            requests?: {
+              memory?: string;
+              cpu?: string;
+            };
+            limits?: {
+              memory?: string;
+              cpu?: string;
+            };
+          };
+        }
+        ```
+
+- **`keystore_key_types?`** ++"string[]"++: Defines which keystore keys should be created.
+
+The configuration file below defines a minimal example for the collator:
+
+=== "TOML"
+
+    ```toml title="collator-example.toml"
+    [parachain]
+    id = 100
+    add_to_genesis = true
+    cumulus_based = true
+    genesis_wasm_path = "INSERT_PATH_TO_WASM"
+    genesis_state_path = "INSERT_PATH_TO_STATE"
+
+    [[parachain.collators]]
+    name = "alice"
+    image = "polkadot-parachain"
+    command = "polkadot-parachain"
+    # ...
+
+    ```
+
+=== "JSON"
+
+    ```json title="collator-example.json"
+    {
+        "parachain": {
+            "id": 100,
+            "add_to_genesis": true,
+            "cumulus_based": true,
+            "genesis_wasm_path": "INSERT_PATH_TO_WASM",
+            "genesis_state_path": "INSERT_PATH_TO_STATE",
+            "collators": [
+                {
+                    "name": "alice",
+                    "image": "polkadot-parachain",
+                    "command": "polkadot-parachain",
+                    "...": {}
+                }
+            ]
+        },
+        "...": {}
+    }
+
+    ```
+
+#### Collator Groups Configuration
+
+The `collator_groups` key defines further parameters for the collator groups. The available keys are:
+
+- **`name`** ++"string"++: Name of the node. Any whitespace will be replaced with a dash (for example, `new alice` will be converted to `new-alice`).
+- **`image?`** ++"string"++: Override default Docker image to use for this node.
+- **`command?`** ++"string"++: Override default command to run.
+- **`args?`** ++"string[]"++: Arguments to be passed to the command.
+- **`env?`** ++"envVars[]"++: Environment variables to set in the container.
+
+    ??? child "`envVars` interface definition"
+        ```js
+        export interface EnvVars {
+          name: string;
+          value: string;
+        }
+        ```
+
+- **`overrides?`** ++"Override[]"++: Array of overrides definitions.
+
+    ??? child "`Override` interface definition"
+        ```js
+        export interface Override {
+          local_path: string;
+          remote_name: string;
+        }
+        ```
+
+- **`prometheus_prefix?`** ++"string"++: Customizes the metric's prefix for the specific node. Defaults to `substrate`.
+- **`db_snapshot?`** ++"string"++: Database snapshot to use.
+- **`substrate_cli_args_version?`** ++"SubstrateCliArgsVersion"++: Set the Substrate CLI arguments version directly to skip binary evaluation overhead.
+
+    ??? child "`SubstrateCliArgsVersion` enum definition"
+        ```js
+        export enum SubstrateCliArgsVersion {
+          V0 = 0,
+          V1 = 1,
+          V2 = 2,
+          V3 = 3,
+        }
+        ```
+
+- **`resources?`** ++"Resources"++: Represent the resources limits/reservations needed by the node.
+
+    ??? child "`Resources` interface definition"
+        ```js
+        export interface Resources {
+          resources: {
+            requests?: {
+              memory?: string;
+              cpu?: string;
+            };
+            limits?: {
+              memory?: string;
+              cpu?: string;
+            };
+          };
+        }
+        ```
+
+- **`keystore_key_types?`** ++"string[]"++: Defines which keystore keys should be created.
+- **`count`** ++"number | string"++: Number of nodes to launch for this group.
+- **`delay_network_settings?`** ++"DelayNetworkSettings"++: Sets the expected configuration to delay the network.
+
+    ??? child "`DelayNetworkSettings` interface definition"
+        ```js
+        export interface DelayNetworkSettings {
+          latency: string;
+          correlation?: string; // should be parsable as float by k8s
+          jitter?: string;
+        }
+        ```
+
+For instance, the configuration file below defines a minimal example for the collator groups:
+
+=== "TOML"
+
+    ```toml title="collator-groups-example.toml"
+    [parachain]
+    id = 100
+    add_to_genesis = true
+    cumulus_based = true
+    genesis_wasm_path = "INSERT_PATH_TO_WASM"
+    genesis_state_path = "INSERT_PATH_TO_STATE"
+
+    [[parachain.collator_groups]]
+    name = "group-1"
+    count = 2
+    image = "polkadot-parachain"
+    command = "polkadot-parachain"
+    # ...
+
+    ```
+
+=== "JSON"
+
+    ```json title="collator-groups-example.json"
+    {
+        "parachain": {
+            "id": 100,
+            "add_to_genesis": true,
+            "cumulus_based": true,
+            "genesis_wasm_path": "INSERT_PATH_TO_WASM",
+            "genesis_state_path": "INSERT_PATH_TO_STATE",
+            "collator_groups": [
+                {
+                    "name": "group-1",
+                    "count": 2,
+                    "image": "polkadot-parachain",
+                    "command": "polkadot-parachain",
+                    "...": {}
+                }
+            ]
+        },
+        "...": {}
+    }
+
+    ```
+
+### XCM Configuration
+
+You can use the `hrmp_channels` keyword to define further parameters for the XCM channels at start-up. The available keys are:
+
+- **`hrmp_channels`** ++"HrmpChannelsConfig[]"++: Array of Horizontal Relay-routed Message Passing (HRMP) channel configurations.
+
+    ??? child "`HrmpChannelsConfig` interface definition"
+        ```js
+        export interface HrmpChannelsConfig {
+          sender: number;
+          recipient: number;
+          max_capacity: number;
+          max_message_size: number;
+        }
+        ```
+        Each of the `HrmpChannelsConfig` keys are defined as follows:
+
+        - **`sender` ++"number"++**: Parachain ID of the sender.
+        - **`recipient` ++"number"++**: Parachain ID of the recipient.
+        - **`max_capacity` ++"number"++**: Maximum capacity of the HRMP channel.
+        - **`max_message_size` ++"number"++**: Maximum message size allowed in the HRMP channel.
+
+## Where to Go Next
+
+<div class="grid cards" markdown>
+
+-  <span class="badge external">External</span> __Zombienet Support__
+
+    ---
+
+    [Parity Technologies](https://www.parity.io/){target=\_blank} has designed and developed this framework, now maintained by the Zombienet team. 
+
+    For further support and information, refer to the following contact points:
+
+    [:octicons-arrow-right-24: Zombienet repository](https://github.com/paritytech/zombienet){target=\_blank}
+
+    [:octicons-arrow-right-24: Element public channel](https://matrix.to/#/!FWyuEyNvIFygLnWNMh:parity.io?via=parity.io&via=matrix.org&via=web3.foundation){target=\_blank}
+
+
+-   <span class="badge tutorial">Tutorial</span> __Spawn a Basic Chain with Zombienet__
+
+    ---
+
+    Learn to spawn, connect to and monitor a basic blockchain network with Zombienet, using customizable configurations for streamlined development and debugging.
+
+    [:octicons-arrow-right-24: Reference](/tutorials/polkadot-sdk/testing/spawn-basic-chain/)
+
+</div>
 
 
 ---
@@ -4309,6 +12351,566 @@ A blockchain indexer is a specialized infrastructure tool that processes, organi
     [:octicons-arrow-right-24: Reference](https://subquery.network/){target=\_blank}
 
 </div>
+
+
+---
+
+Page Title: Install Polkadot SDK Dependencies
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-parachains-install-polkadot-sdk.md
+- Canonical (HTML): https://docs.polkadot.com/develop/parachains/install-polkadot-sdk/
+- Summary: Install everything you need to begin working with Substrated-based blockchains and the Polkadot SDK, the framework for building blockchains.
+
+# Install Polkadot SDK Dependencies
+
+This guide provides step-by-step instructions for installing the dependencies you need to work with the Polkadot SDK-based chains on macOS, Linux, and Windows. Follow the appropriate section for your operating system to ensure all necessary tools are installed and configured properly.
+
+## macOS
+
+You can install Rust and set up a Substrate development environment on Apple macOS computers with Intel or Apple M1 processors.
+
+### Before You Begin
+
+Before you install Rust and set up your development environment on macOS, verify that your computer meets the following basic requirements:
+
+- Operating system version is 10.7 Lion or later.
+- Processor speed of at least 2 GHz. Note that 3 GHz is recommended.
+- Memory of at least 8 GB RAM. Note that 16 GB is recommended.
+- Storage of at least 10 GB of available space.
+- Broadband Internet connection.
+
+#### Install Homebrew
+
+In most cases, you should use Homebrew to install and manage packages on macOS computers. If you don't already have Homebrew installed on your local computer, you should download and install it before continuing.
+
+To install Homebrew:
+
+1. Open the Terminal application.
+2. Download and install Homebrew by running the following command:
+
+    ```bash
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+    ```
+
+3. Verify Homebrew has been successfully installed by running the following command:
+
+    ```bash
+    brew --version
+    ```
+
+    The command displays output similar to the following:
+
+    <div id="termynal" data-termynal markdown>
+      <span data-ty="input"><span class="file-path"></span>brew --version</span>
+      <span data-ty>Homebrew 4.3.15</span>
+    </div>
+
+#### Support for Apple Silicon
+
+Protobuf must be installed before the build process can begin. To install it, run the following command:
+
+```bash
+brew install protobuf
+```
+
+### Install Required Packages and Rust
+
+Because the blockchain requires standard cryptography to support the generation of public/private key pairs and the validation of transaction signatures, you must also have a package that provides cryptography, such as `openssl`.
+
+To install `openssl` and the Rust toolchain on macOS:
+
+1. Open the Terminal application.
+2. Ensure you have an updated version of Homebrew by running the following command:
+
+    ```bash
+    brew update
+    ```
+
+3. Install the `openssl` package by running the following command:
+
+    ```bash
+    brew install openssl
+    ```
+
+4. Download the `rustup` installation program and use it to install Rust by running the following command:
+
+    ```bash
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    ```
+
+5. Follow the prompts displayed to proceed with a default installation.
+6. Update your current shell to include Cargo by running the following command:
+
+    ```bash
+    source ~/.cargo/env
+    ```
+
+7. Configure the Rust toolchain to default to the latest stable version by running the following commands:
+
+    ```bash
+    rustup default stable
+    rustup update
+    rustup target add wasm32-unknown-unknown
+    rustup component add rust-src
+    ```
+
+8. [Verify your installation](#verifying-installation).
+9. Install `cmake` using the following command:
+
+    ```bash
+    brew install cmake
+    ```
+
+## Linux
+
+Rust supports most Linux distributions. Depending on the specific distribution and version of the operating system you use, you might need to add some software dependencies to your environment. In general, your development environment should include a linker or C-compatible compiler, such as `clang` and an appropriate integrated development environment (IDE).
+
+### Before You Begin {: #before-you-begin-linux }
+
+Check the documentation for your operating system for information about the installed packages and how to download and install any additional packages you might need. For example, if you use Ubuntu, you can use the Ubuntu Advanced Packaging Tool (`apt`) to install the `build-essential` package:
+
+```bash
+sudo apt install build-essential
+```
+
+At a minimum, you need the following packages before you install Rust:
+
+```text
+clang curl git make
+```
+
+Because the blockchain requires standard cryptography to support the generation of public/private key pairs and the validation of transaction signatures, you must also have a package that provides cryptography, such as `libssl-dev` or `openssl-devel`.
+
+### Install Required Packages and Rust {: #install-required-packages-and-rust-linux }
+
+To install the Rust toolchain on Linux:
+
+1. Open a terminal shell.
+2. Check the packages you have installed on the local computer by running an appropriate package management command for your Linux distribution.
+3. Add any package dependencies you are missing to your local development environment by running the appropriate package management command for your Linux distribution:
+
+    === "Ubuntu"
+
+        ```bash
+        sudo apt install --assume-yes git clang curl libssl-dev protobuf-compiler
+        ```
+
+    === "Debian"
+
+        ```sh
+        sudo apt install --assume-yes git clang curl libssl-dev llvm libudev-dev make protobuf-compiler
+        ```
+
+    === "Arch"
+
+        ```sh
+        pacman -Syu --needed --noconfirm curl git clang make protobuf
+        ```
+
+    === "Fedora"
+
+        ```sh
+        sudo dnf update
+        sudo dnf install clang curl git openssl-devel make protobuf-compiler
+        ```
+
+    === "OpenSUSE"
+
+        ```sh
+        sudo zypper install clang curl git openssl-devel llvm-devel libudev-devel make protobuf
+        ```
+
+    Remember that different distributions might use different package managers and bundle packages in different ways. For example, depending on your installation selections, Ubuntu Desktop and Ubuntu Server might have different packages and different requirements. However, the packages listed in the command-line examples are applicable for many common Linux distributions, including Debian, Linux Mint, MX Linux, and Elementary OS.
+
+4. Download the `rustup` installation program and use it to install Rust by running the following command:
+
+    ```bash
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    ```
+
+5. Follow the prompts displayed to proceed with a default installation.
+6. Update your current shell to include Cargo by running the following command:
+
+    ```bash
+    source $HOME/.cargo/env
+    ```
+
+7. Verify your installation by running the following command:
+
+    ```bash
+    rustc --version
+    ```
+
+8. Configure the Rust toolchain to default to the latest stable version by running the following commands:
+
+    ```bash
+    rustup default stable
+    rustup update
+    rustup target add wasm32-unknown-unknown
+    rustup component add rust-src
+    ```
+
+9. [Verify your installation](#verifying-installation).
+
+## Windows (WSL)
+
+In general, UNIX-based operating systems—like macOS or Linux—provide a better development environment for building Substrate-based blockchains.
+
+However, suppose your local computer uses Microsoft Windows instead of a UNIX-based operating system. In that case, you can configure it with additional software to make it a suitable development environment for building Substrate-based blockchains. To prepare a development environment on a Microsoft Windows computer, you can use Windows Subsystem for Linux (WSL) to emulate a UNIX operating environment.
+
+### Before You Begin {: #before-you-begin-windows }
+
+Before installing on Microsoft Windows, verify the following basic requirements:
+
+- You have a computer running a supported Microsoft Windows operating system:
+    - **For Windows desktop**: You must be running Microsoft Windows 10, version 2004 or later, or Microsoft Windows 11 to install WSL.
+    - **For Windows server**: You must be running Microsoft Windows Server 2019, or later, to install WSL on a server operating system.
+- You have good internet connection and access to a shell terminal on your local computer.
+
+### Set Up Windows Subsystem for Linux
+
+WSL enables you to emulate a Linux environment on a computer that uses the Windows operating system. The primary advantage of this approach for Substrate development is that you can use all of the code and command-line examples as described in the Substrate documentation. For example, you can run common commands—such as `ls` and `ps`—unmodified. By using WSL, you can avoid configuring a virtual machine image or a dual-boot operating system.
+
+To prepare a development environment using WSL:
+
+1. Check your Windows version and build number to see if WSL is enabled by default.
+
+    If you have Microsoft Windows 10, version 2004 (Build 19041 and higher), or Microsoft Windows 11, WSL is available by default and you can continue to the next step.
+
+    If you have an older version of Microsoft Windows installed, see the [WSL manual installation steps for older versions](https://learn.microsoft.com/en-us/windows/wsl/install-manual){target=\_blank}. If you are installing on an older version of Microsoft Windows, you can download and install WLS 2 if your computer has Windows 10, version 1903 or higher.
+
+2. Select **Windows PowerShell** or **Command Prompt** from the **Start** menu, right-click, then **Run as administrator**.
+
+3. In the PowerShell or Command Prompt terminal, run the following command:
+
+    ```bash
+    wsl --install
+    ```
+
+    This command enables the required WSL 2 components that are part of the Windows operating system, downloads the latest Linux kernel, and installs the Ubuntu Linux distribution by default.
+
+    If you want to review the other Linux distributions available, run the following command:
+
+    ```bash
+    wsl --list --online
+    ```
+
+4. After the distribution is downloaded, close the terminal.
+
+5. Click the **Start** menu, select **Shut down or sign out**, then click **Restart** to restart the computer.
+
+    Restarting the computer is required to start the installation of the Linux distribution. It can take a few minutes for the installation to complete after you restart.
+
+    For more information about setting up WSL as a development environment, see the [Set up a WSL development environment](https://learn.microsoft.com/en-us/windows/wsl/setup/environment){target=\_blank} docs.
+
+### Install Required Packages and Rust {: #install-required-packages-and-rust-windows }
+
+To install the Rust toolchain on WSL:
+
+1. Click the **Start** menu, then select **Ubuntu**.
+2. Type a UNIX user name to create user account.
+3. Type a password for your UNIX user, then retype the password to confirm it.
+4. Download the latest updates for the Ubuntu distribution using the Ubuntu Advanced Packaging Tool (`apt`) by running the following command:
+
+    ```bash
+    sudo apt update
+    ```
+
+5. Add the required packages for the Ubuntu distribution by running the following command:
+
+    ```bash
+    sudo apt install --assume-yes git clang curl libssl-dev llvm libudev-dev make protobuf-compiler
+    ```
+
+6. Download the `rustup` installation program and use it to install Rust for the Ubuntu distribution by running the following command:
+
+    ```bash
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    ```
+
+7. Follow the prompts displayed to proceed with a default installation.
+
+8. Update your current shell to include Cargo by running the following command:
+
+    ```bash
+    source ~/.cargo/env
+    ```
+
+9. Verify your installation by running the following command:
+
+    ```bash
+    rustc --version
+    ```
+
+10. Configure the Rust toolchain to use the latest stable version as the default toolchain by running the following commands:
+
+    ```bash
+    rustup default stable
+    rustup update
+    rustup target add wasm32-unknown-unknown
+    rustup component add rust-src
+    ```
+
+11. [Verify your installation](#verifying-installation).
+
+## Verifying Installation
+
+Verify the configuration of your development environment by running the following command:
+
+```bash
+rustup show
+```
+
+The command displays output similar to the following:
+
+<div id="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>rustup show</span>
+  <span data-ty>...</span>
+  <br />
+  <span data-ty>active toolchain</span>
+  <span data-ty>----------------</span>
+  <span data-ty>name: stable-aarch64-apple-darwin</span>
+  <span data-ty>active because: it's the default toolchain</span>
+  <span data-ty>installed targets:</span>
+  <span data-ty>  aarch64-apple-darwin</span>
+  <span data-ty>  wasm32-unknown-unknown</span>
+</div>
+
+## Where to Go Next
+
+- **[Parachain Zero to Hero Tutorials](/tutorials/polkadot-sdk/parachains/zero-to-hero/){target=\_blank}**: A series of step-by-step guides to building, testing, and deploying custom pallets and runtimes using the Polkadot SDK.
+
+
+---
+
+Page Title: Interoperability
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/polkadot-protocol-parachain-basics-interoperability.md
+- Canonical (HTML): https://docs.polkadot.com/polkadot-protocol/parachain-basics/interoperability/
+- Summary: Explore the importance of interoperability in the Polkadot ecosystem, covering XCM, bridges, and cross-chain communication.
+
+# Interoperability
+
+## Introduction
+
+Interoperability lies at the heart of the Polkadot ecosystem, enabling communication and collaboration across a diverse range of blockchains. By bridging the gaps between parachains, relay chains, and even external networks, Polkadot unlocks the potential for truly decentralized applications, efficient resource sharing, and scalable solutions.
+
+Polkadot’s design ensures that blockchains can transcend their individual limitations by working together as part of a unified system. This cooperative architecture is what sets Polkadot apart in the blockchain landscape.
+
+## Why Interoperability Matters
+
+The blockchain ecosystem is inherently fragmented. Different blockchains excel in specialized domains such as finance, gaming, or supply chain management, but these chains function in isolation without interoperability. This lack of connectivity stifles the broader utility of blockchain technology.
+
+Interoperability solves this problem by enabling blockchains to:
+
+- **Collaborate across networks**: Chains can interact to share assets, functionality, and data, creating synergies that amplify their individual strengths.
+- **Achieve greater scalability**: Specialized chains can offload tasks to others, optimizing performance and resource utilization.
+- **Expand use-case potential**: Cross-chain applications can leverage features from multiple blockchains, unlocking novel user experiences and solutions.
+
+In the Polkadot ecosystem, interoperability transforms a collection of isolated chains into a cohesive, efficient network, pushing the boundaries of what blockchains can achieve together.
+
+## Key Mechanisms for Interoperability
+
+At the core of Polkadot's cross-chain collaboration are foundational technologies designed to break down barriers between networks. These mechanisms empower blockchains to communicate, share resources, and operate as a cohesive ecosystem.
+
+### Cross-Consensus Messaging (XCM): The Backbone of Communication
+
+Polkadot's Cross-Consensus Messaging (XCM) is the standard framework for interaction between parachains, relay chains, and, eventually, external blockchains. XCM provides a trustless, secure messaging format for exchanging assets, sharing data, and executing cross-chain operations.
+
+Through XCM, decentralized applications can:
+
+- Transfer tokens and other assets across chains.
+- Coordinate complex workflows that span multiple blockchains.
+- Enable seamless user experiences where underlying blockchain differences are invisible.
+- XCM exemplifies Polkadot’s commitment to creating a robust and interoperable ecosystem.
+
+For further information about XCM, check the [Introduction to XCM](/develop/interoperability/intro-to-xcm/){target=\_blank} article.
+
+### Bridges: Connecting External Networks
+
+While XCM enables interoperability within the Polkadot ecosystem, bridges extend this functionality to external blockchains such as Ethereum and Bitcoin. By connecting these networks, bridges allow Polkadot-based chains to access external liquidity, additional functionalities, and broader user bases.
+
+With bridges, developers and users gain the ability to:
+
+- Integrate external assets into Polkadot-based applications.
+- Combine the strengths of Polkadot’s scalability with the liquidity of other networks.
+- Facilitate accurate multi-chain applications that transcend ecosystem boundaries.
+
+For more information about bridges in the Polkadot ecosystem, see the [Bridge Hub](/polkadot-protocol/architecture/system-chains/bridge-hub/){target=\_blank} guide.
+
+## The Polkadot Advantage
+
+Polkadot was purpose-built for interoperability. Unlike networks that add interoperability as an afterthought, Polkadot integrates it as a fundamental design principle. This approach offers several distinct advantages:
+
+- **Developer empowerment**: Polkadot’s interoperability tools allow developers to build applications that leverage multiple chains’ capabilities without added complexity.
+- **Enhanced ecosystem collaboration**: Chains in Polkadot can focus on their unique strengths while contributing to the ecosystem’s overall growth.
+- **Future-proofing blockchain**: By enabling seamless communication, Polkadot ensures its ecosystem can adapt to evolving demands and technologies.
+
+## Looking Ahead
+
+Polkadot’s vision of interoperability extends beyond technical functionality, representing a shift towards a more collaborative blockchain landscape. By enabling chains to work together, Polkadot fosters innovation, efficiency, and accessibility, paving the way for a decentralized future where blockchains are not isolated competitors but interconnected collaborators.
+
+
+---
+
+Page Title: Introduction to Polkadot SDK
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-parachains-intro-polkadot-sdk.md
+- Canonical (HTML): https://docs.polkadot.com/develop/parachains/intro-polkadot-sdk/
+- Summary: Learn about the Polkadot SDK, a robust developer toolkit for building custom blockchains. Explore its components and how it powers the Polkadot protocol.
+
+# Introduction to Polkadot SDK
+
+## Introduction
+
+The [Polkadot SDK](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2506-2){target=\_blank} is a powerful and versatile developer kit designed to facilitate building on the Polkadot network. It provides the necessary components for creating custom blockchains, parachains, generalized rollups, and more. Written in the Rust programming language, it puts security and robustness at the forefront of its design.
+
+Whether you're building a standalone chain or deploying a parachain on Polkadot, this SDK equips developers with the libraries and tools needed to manage runtime logic, compile the codebase, and utilize core features like staking, governance, and Cross-Consensus Messaging (XCM). It also provides a means for building generalized peer-to-peer systems beyond blockchains. The Polkadot SDK houses the following overall functionality:
+
+- Networking and peer-to-peer communication (powered by [Libp2p](/polkadot-protocol/glossary#libp2p){target=\_blank}).
+- Consensus protocols, such as [BABE](/polkadot-protocol/glossary#blind-assignment-of-blockchain-extension-babe){target=\_blank}, [GRANDPA](/polkadot-protocol/glossary#grandpa){target=\_blank}, or [Aura](/polkadot-protocol/glossary#authority-round-aura){target=\_blank}.
+- Cryptography.
+- The ability to create portable Wasm runtimes.
+- A selection of pre-built modules, called [pallets](/polkadot-protocol/glossary#pallet){target=\_blank}.
+- Benchmarking and testing suites.
+
+For an in-depth look at the monorepo, see the [Polkadot SDK Rust documentation](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/index.html){target=\_blank}.
+
+## Polkadot SDK Overview
+
+The Polkadot SDK is composed of five major components:
+
+![](/images/develop/parachains/intro-polkadot-sdk/intro-polkadot-sdk-1.webp)
+
+- **[Substrate](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/substrate/index.html){target=\_blank}**: A set of libraries and primitives for building blockchains.
+- **[FRAME](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/frame_runtime/index.html){target=\_blank}**: A blockchain development framework built on top of Substrate.
+- **[Cumulus](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/cumulus/index.html){target=\_blank}**: A set of libraries and pallets to add parachain capabilities to a Substrate/FRAME runtime.
+- **[XCM (Cross Consensus Messaging)](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/xcm/index.html){target=\_blank}**: The primary format for conveying messages between parachains.
+- **[Polkadot](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/polkadot/index.html){target=\_blank}**: The node implementation for the Polkadot protocol.
+
+### Substrate
+
+Substrate is a Software Development Kit (SDK) that uses Rust-based libraries and tools to enable you to build application-specific blockchains from modular and extensible components. Application-specific blockchains built with Substrate can run as standalone services or in parallel with other chains to take advantage of the shared security provided by the Polkadot ecosystem. Substrate includes default implementations of the core components of the blockchain infrastructure to allow you to focus on the application logic.
+
+Every blockchain platform relies on a decentralized network of computers—called nodes—that communicate with each other about transactions and blocks. In general, a node in this context is the software running on the connected devices rather than the physical or virtual machine in the network. As software, Substrate-based nodes consist of two main parts with separate responsibilities:
+
+- **Client**: Services to handle network and blockchain infrastructure activity.
+
+    - Native binary.
+    - Executes the Wasm runtime.
+    - Manages components like database, networking, mempool, consensus, and others.
+    - Also known as "Host".
+
+- **Runtime**: Business logic for state transitions.
+
+    - Application logic.
+    - Compiled to [Wasm](https://webassembly.org/){target=\_blank}.
+    - Stored as a part of the chain state.
+    - Also known as State Transition Function (STF).
+
+```mermaid
+%%{init: {'flowchart': {'padding': 5, 'nodeSpacing': 50, 'rankSpacing': 10}}}%%
+graph TB
+    classDef title font-size:20px,font-weight:bold,stroke-width:0px
+    classDef clientStyle font-size:16px,font-weight:bold
+    classDef clientSubNodeStyle margin-top:10px
+    classDef runtimeCallExecutorStyle padding-top:10px
+
+    subgraph sg1[Substrate<br /> Node]
+        direction TB
+
+        I[RuntimeCall Executor]
+        B[Wasm Runtime - STF]
+
+        subgraph sg2[Client]
+            direction TB
+            C[Network and Blockchain<br/>Infrastructure Services]
+        end
+
+        I --> B
+    end
+
+    class sg1 title
+    class sg2 clientStyle
+    class C clientSubNodeStyle
+    class I runtimeCallExecutorStyle
+
+```
+
+### FRAME
+
+FRAME provides the core modular and extensible components that make the Substrate SDK flexible and adaptable to different use cases. FRAME includes Rust-based libraries that simplify the development of application-specific logic. Most of the functionality that FRAME provides takes the form of plug-in modules called [pallets](/polkadot-protocol/glossary#pallet){target=\_blank} that you can add and configure to suit your requirements for a custom runtime.
+
+```mermaid
+graph LR
+    subgraph SP["<b style='font-size:18px;'>Runtime</b>"]
+        direction LR
+        Timestamp ~~~ Aura ~~~ GRANDPA
+        Balances ~~~ TransactionPayment ~~~ Sudo
+        subgraph Timestamp["Timestamp"]
+            SS1[Custom Config]
+        end
+        subgraph Aura["Aura"]
+            SS2[Custom Config]
+        end
+        subgraph GRANDPA["GRANDPA"]
+            SS3[Custom Config]
+        end
+        subgraph Balances["Balances"]
+            SS4[Custom Config]
+        end
+        subgraph TransactionPayment["Transaction Payment"]
+            SS5[Custom Config]
+        end
+        subgraph Sudo["Sudo"]
+            SS6[Custom Config]
+        end
+        style Timestamp stroke:#FF69B4
+        style Aura stroke:#FF69B4
+        style GRANDPA stroke:#FF69B4
+        style Balances stroke:#FF69B4
+        style TransactionPayment stroke:#FF69B4
+        style Sudo stroke:#FF69B4
+        style SS1 stroke-dasharray: 5
+        style SS2 stroke-dasharray: 5
+        style SS3 stroke-dasharray: 5
+        style SS4 stroke-dasharray: 5
+        style SS5 stroke-dasharray: 5
+        style SS6 stroke-dasharray: 5
+
+    end
+    subgraph AP["<b style='font-size:18px;'>FRAME Pallets</b>"]
+        direction LR
+        A1[Aura]~~~A2[BABE]~~~A3[GRANDPA]~~~A4[Transaction<br>Payment]
+        B1[Identity]~~~B2[Balances]~~~B3[Sudo]~~~B4[EVM]
+        C1[Timestamp]~~~C2[Assets]~~~C3[Contracts]~~~C4[and more...]
+    end
+    AP --> SP
+```
+
+### Cumulus
+
+Cumulus provides utilities and libraries to turn FRAME-based runtimes into runtimes that can be a parachain on Polkadot. Cumulus runtimes are still FRAME runtimes but contain the necessary functionality that allows that runtime to become a parachain on a relay chain.
+
+## Why Use Polkadot SDK?
+
+Using the Polkadot SDK, you can build application-specific blockchains without the complexity of building a blockchain from scratch or the limitations of building on a general-purpose blockchain. You can focus on crafting the business logic that makes your chain unique and innovative with the additional benefits of flexibility, upgradeability, open-source licensing, and cross-consensus interoperability.
+
+## Create a Custom Blockchain Using the SDK
+
+Before starting your blockchain development journey, you'll need to decide whether you want to build a standalone chain or a parachain that connects to the Polkadot network. Each path has its considerations and requirements. Once you've made this decision, follow these development stages:
+
+```mermaid
+graph LR
+    A[Install the Polkadot SDK] --> B[Build the Chain]
+    B --> C[Deploy the Chain]
+```
+
+1. **[Install the Polkadot SDK](/develop/parachains/install-polkadot-sdk/)**: Set up your development environment with all necessary dependencies and tools.
+2. **[Build the chain](/develop/parachains/customize-parachain)**: Learn how to create and customize your blockchain's runtime, configure pallets, and implement your chain's unique features.
+3. **[Deploy the chain](/develop/parachains/deployment)**: Follow the steps to launch your blockchain, whether as a standalone network or as a parachain on Polkadot.
+
+Each stage is covered in detail in its respective guide, walking you through the process from initial setup to final deployment.
 
 
 ---
@@ -5682,6 +14284,104 @@ Paseo is a decentralised, community run, stable testnet for parachain and dapp d
 
 ---
 
+Page Title: Networks
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/polkadot-protocol-parachain-basics-networks.md
+- Canonical (HTML): https://docs.polkadot.com/polkadot-protocol/parachain-basics/networks/
+- Summary: Explore Polkadot's testing and production networks, including Westend, Kusama, and Paseo, for efficient development, deployment, and testing.
+
+# Networks
+
+## Introduction
+
+The Polkadot ecosystem is built on a robust set of networks designed to enable secure and scalable development. Whether you are testing new features or deploying to live production, Polkadot offers several layers of networks tailored for each stage of the development process. From local environments to experimental networks like Kusama and community-run TestNets such as Paseo, developers can thoroughly test, iterate, and validate their applications. This guide will introduce you to Polkadot's various networks and explain how they fit into the development workflow.
+
+## Network Overview 
+
+Polkadot's development process is structured to ensure new features and upgrades are rigorously tested before being deployed on live production networks. The progression follows a well-defined path, starting from local environments and advancing through TestNets, ultimately reaching the Polkadot MainNet. The diagram below outlines the typical progression of the Polkadot development cycle:
+
+``` mermaid
+
+flowchart LR
+    id1[Local] --> id2[Westend] --> id4[Kusama] --> id5[Polkadot]  
+    id1[Local] --> id3[Paseo] --> id5[Polkadot] 
+```
+This flow ensures developers can thoroughly test and iterate without risking real tokens or affecting production networks. Testing tools like [Chopsticks](#chopsticks) and various TestNets make it easier to experiment safely before releasing to production.
+
+A typical journey through the Polkadot core protocol development process might look like this:
+
+1. **Local development node**: Development starts in a local environment, where developers can create, test, and iterate on upgrades or new features using a local development node. This stage allows rapid experimentation in an isolated setup without any external dependencies.
+
+2. **Westend**: After testing locally, upgrades are deployed to [Westend](#westend), Polkadot's primary TestNet. Westend simulates real-world conditions without using real tokens, making it the ideal place for rigorous feature testing before moving on to production networks.
+
+3. **Kusama**: Once features have passed extensive testing on Westend, they move to Kusama, Polkadot's experimental and fast-moving "canary" network. Kusama operates as a high-fidelity testing ground with actual economic incentives, giving developers insights into how their features will perform in a real-world environment.
+
+4. **Polkadot**: After passing tests on Westend and Kusama, features are considered ready for deployment to Polkadot, the live production network.
+
+    In addition, parachain developers can leverage local TestNets like [Zombienet](#zombienet) and deploy upgrades on parachain TestNets.
+
+5. **Paseo**: For parachain and dApp developers, Paseo serves as a community-run TestNet that mirrors Polkadot's runtime. Like Westend for core protocol development, Paseo provides a testing ground for parachain development without affecting live networks.
+
+!!!note
+    The Rococo TestNet deprecation date was October 14, 2024. Teams should use Westend for Polkadot protocol and feature testing and Paseo for chain development-related testing.
+
+## Polkadot Development Networks
+
+Development and testing are crucial to building robust dApps and parachains and performing network upgrades within the Polkadot ecosystem. To achieve this, developers can leverage various networks and tools that provide a risk-free environment for experimentation and validation before deploying features to live networks. These networks help avoid the costs and risks associated with real tokens, enabling testing for functionalities like governance, cross-chain messaging, and runtime upgrades.
+
+## Kusama Network
+
+Kusama is the experimental version of Polkadot, designed for developers who want to move quickly and test their applications in a real-world environment with economic incentives. Kusama serves as a production-grade testing ground where developers can deploy features and upgrades with the pressure of game theory and economics in mind. It mirrors Polkadot but operates as a more flexible space for innovation.
+
+The native token for Kusama is KSM. For more information about KSM, visit the [Native Assets](https://wiki.polkadot.com/kusama/kusama-getting-started/){target=\_blank} page.
+
+## Test Networks
+
+The following test networks provide controlled environments for testing upgrades and new features. TestNet tokens are available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}.
+
+### Westend
+
+Westend is Polkadot's primary permanent TestNet. Unlike temporary test networks, Westend is not reset to the genesis block, making it an ongoing environment for testing Polkadot core features. Managed by Parity Technologies, Westend ensures that developers can test features in a real-world simulation without using actual tokens.
+
+The native token for Westend is WND. More details about WND can be found on the [Native Assets](https://wiki.polkadot.com/learn/learn-dot/#__tabbed_2_2){target=\_blank} page.
+
+### Paseo
+
+[Paseo](https://github.com/paseo-network){target=\_blank} is a community-managed TestNet designed for parachain and dApp developers. It mirrors Polkadot's runtime and is maintained by Polkadot community members. Paseo provides a dedicated space for parachain developers to test their applications in a Polkadot-like environment without the risks associated with live networks.
+
+The native token for Paseo is PAS. Additional information on PAS is available on the [Native Assets](https://wiki.polkadot.com/learn/learn-dot/#__tabbed_2_1){target=\_blank} page.
+
+## Local Test Networks
+
+Local test networks are an essential part of the development cycle for blockchain developers using the Polkadot SDK. They allow for fast, iterative testing in controlled, private environments without connecting to public TestNets. Developers can quickly spin up local instances to experiment, debug, and validate their code before deploying to larger TestNets like Westend or Paseo. Two key tools for local network testing are Zombienet and Chopsticks.
+
+### Zombienet
+
+[Zombienet](https://github.com/paritytech/zombienet){target=\_blank} is a flexible testing framework for Polkadot SDK-based blockchains. It enables developers to create and manage ephemeral, short-lived networks. This feature makes Zombienet particularly useful for quick iterations, as it allows you to run multiple local networks concurrently, mimicking different runtime conditions. Whether you're developing a parachain or testing your custom blockchain logic, Zombienet gives you the tools to automate local testing.
+
+Key features of Zombienet include:
+
+- Creating dynamic, local networks with different configurations.
+- Running parachains and relay chains in a simulated environment.
+- Efficient testing of network components like cross-chain messaging and governance.
+
+Zombienet is ideal for developers looking to test quickly and thoroughly before moving to more resource-intensive public TestNets.
+
+### Chopsticks
+
+[Chopsticks](https://github.com/AcalaNetwork/chopsticks){target=\_blank} is a tool designed to create forks of Polkadot SDK-based blockchains, allowing developers to interact with network forks as part of their testing process. This capability makes Chopsticks a powerful option for testing upgrades, runtime changes, or cross-chain applications in a forked network environment.
+
+Key features of Chopsticks include:
+
+- Forking live Polkadot SDK-based blockchains for isolated testing.
+- Simulating cross-chain messages in a private, controlled setup.
+- Debugging network behavior by interacting with the fork in real-time.
+
+Chopsticks provides a controlled environment for developers to safely explore the effects of runtime changes. It ensures that network behavior is tested and verified before upgrades are deployed to live networks.
+
+
+---
+
 Page Title: Networks for Polkadot Hub Smart Contracts
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/polkadot-protocol-smart-contract-basics-networks.md
@@ -5770,6 +14470,200 @@ Kusama Hub is the canary version of Polkadot Hub. It is designed for developers 
 
 ---
 
+Page Title: Node and Runtime
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/polkadot-protocol-parachain-basics-node-and-runtime.md
+- Canonical (HTML): https://docs.polkadot.com/polkadot-protocol/parachain-basics/node-and-runtime/
+- Summary: Learn how Polkadot SDK-based nodes function, how the client and runtime are separated, and how they communicate using SCALE-encoded data.
+
+# Node and Runtime
+
+## Introduction
+
+Every blockchain platform relies on a decentralized network of computers, called nodes, that communicate with each other about transactions and blocks. In this context, a node refers to the software running on the connected devices rather than the physical or virtual machines in the network.
+
+Polkadot SDK-based nodes consist of two main components, each with distinct responsibilities: the client (also called node) and the runtime.
+
+If the system were a monolithic protocol, any modification would require updating the entire system. Instead, Polkadot achieves true upgradeability by defining an immutable meta-protocol (the client) and a protocol (the runtime) that can be upgraded independently.
+
+This separation gives the [Polkadot Relay Chain](/polkadot-protocol/architecture/polkadot-chain){target=\_blank} and all connected [parachains](/polkadot-protocol/architecture/parachains){target=\_blank} an evolutionary advantage over other blockchain platforms.
+
+## Architectural Principles
+
+The Polkadot SDK-based blockchain architecture is fundamentally built on two distinct yet interconnected components:
+
+- Client (Meta-protocol):
+    - Handles the foundational infrastructure of the blockchain.
+    - Manages runtime execution, networking, consensus, and other off-chain components.
+    - Provides an immutable base layer that ensures network stability.
+    - Upgradable only through hard forks.
+
+- Runtime (Protocol):
+    - Defines the blockchain's state transition logic.
+    - Determines the specific rules and behaviors of the blockchain.
+    - Compiled to WebAssembly (Wasm) for platform-independent execution.
+    - Capable of being upgraded without network-wide forking.
+
+### Advantages of this Architecture
+
+- **Forkless upgrades**: Runtime can be updated without disrupting the entire network.
+- **Modularity**: Clear separation allows independent development of client and runtime.
+- **Flexibility**: Enables rapid iteration and evolution of blockchain logic.
+- **Performance**: WebAssembly compilation provides efficient, cross-platform execution.
+
+## Node (Client)
+
+The node, also known as the client, is the core component responsible for executing the Wasm runtime and orchestrating various essential blockchain components. It ensures the correct execution of the state transition function and manages multiple critical subsystems, including:
+
+- **Wasm execution**: Runs the blockchain runtime, which defines the state transition rules.
+- **Database management**: Stores blockchain data.
+- **Networking**: Facilitates peer-to-peer communication, block propagation, and transaction gossiping.
+- **Transaction pool (Mempool)**: Manages pending transactions before they are included in a block.
+- **Consensus mechanism**: Ensures agreement on the blockchain state across nodes.
+- **RPC services**: Provides external interfaces for applications and users to interact with the node.
+
+## Runtime
+
+The runtime is more than just a set of rules. It's the fundamental logic engine that defines a blockchain's entire behavior. In Polkadot SDK-based blockchains, the runtime represents a complete, self-contained description of the blockchain's state transition function.
+
+### Characteristics
+
+The runtime is distinguished by three key characteristics:
+
+- **Business logic**: Defines the complete application-specific blockchain behavior.
+- **WebAssembly compilation**: Ensures platform-independent, secure execution.
+- **On-chain storage**: Stored within the blockchain's state, allowing dynamic updates.
+
+### Key Functions
+
+The runtime performs several critical functions, such as:
+
+- Define state transition rules.
+- Implement blockchain-specific logic.
+- Manage account interactions.
+- Control transaction processing.
+- Define governance mechanisms.
+- Handle custom pallets and modules.
+
+## Communication Between Node and Runtime
+
+The client and runtime communicate exclusively using [SCALE-encoded](/polkadot-protocol/parachain-basics/data-encoding){target=\_blank} communication. This ensures efficient and compact data exchange between the two components.
+
+### Runtime APIs
+
+The Runtime API consists of well-defined functions and constants a client assumes are implemented in the Runtime Wasm blob. These APIs enable the client to interact with the runtime to execute blockchain operations and retrieve information. The client invokes these APIs to:
+
+- Build, execute, and finalize blocks.
+- Access metadata.
+- Access consensus related information.
+- Handle transaction execution.
+
+### Host Functions
+
+During execution, the runtime can access certain external client functionalities via host functions. The specific functions the client exposes allow the runtime to perform operations outside the WebAssembly domain. Host functions enable the runtime to:
+
+- Perform cryptographic operations.
+- Access the current blockchain state.
+- Handle storage modifications.
+- Allocate memory.
+
+
+---
+
+Page Title: On-Chain Governance Overview
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/polkadot-protocol-onchain-governance-overview.md
+- Canonical (HTML): https://docs.polkadot.com/polkadot-protocol/onchain-governance/overview/
+- Summary: Discover Polkadot’s cutting-edge OpenGov system, enabling transparent, decentralized decision-making through direct democracy and flexible governance tracks.
+
+# On-Chain Governance 
+
+## Introduction
+
+Polkadot’s governance system exemplifies decentralized decision-making, empowering its community of stakeholders to shape the network’s future through active participation. The latest evolution, OpenGov, builds on Polkadot’s foundation by providing a more inclusive and efficient governance model.
+
+This guide will explain the principles and structure of OpenGov and walk you through its key components, such as Origins, Tracks, and Delegation. You will learn about improvements over earlier governance systems, including streamlined voting processes and enhanced stakeholder participation.
+
+With OpenGov, Polkadot achieves a flexible, scalable, and democratic governance framework that allows multiple proposals to proceed simultaneously, ensuring the network evolves in alignment with its community's needs.
+
+## Governance Evolution
+
+Polkadot’s governance journey began with [Governance V1](https://wiki.polkadot.com/learn/learn-polkadot-opengov/#governance-summary){target=\_blank}, a system that proved effective in managing treasury funds and protocol upgrades. However, it faced limitations, such as:
+
+- Slow voting cycles, causing delays in decision-making.
+- Inflexibility in handling multiple referendums, restricting scalability.
+
+To address these challenges, Polkadot introduced OpenGov, a governance model designed for greater inclusivity, efficiency, and scalability. OpenGov replaces the centralized structures of Governance V1, such as the Council and Technical Committee, with a fully decentralized and dynamic framework.
+
+For a full comparison of the historic and current governance models, visit the [Gov1 vs. Polkadot OpenGov](https://wiki.polkadot.com/learn/learn-polkadot-opengov/#gov1-vs-polkadot-opengov){target=\_blank} section of the Polkadot Wiki.
+
+## OpenGov Key Features
+
+OpenGov transforms Polkadot’s governance into a decentralized, stakeholder-driven model, eliminating centralized decision-making bodies like the Council. Key enhancements include:
+
+- **Decentralization**: Shifts all decision-making power to the public, ensuring a more democratic process.
+- **Enhanced delegation**: Allows users to delegate their votes to trusted experts across specific governance tracks.
+- **Simultaneous referendums**: Multiple proposals can progress at once, enabling faster decision-making.
+- **Polkadot Technical Fellowship**: A broad, community-driven group replacing the centralized Technical Committee.
+
+This new system ensures Polkadot governance remains agile and inclusive, even as the ecosystem grows.
+
+## Origins and Tracks
+
+In OpenGov, origins and tracks are central to managing proposals and votes.
+
+- **Origin**: Determines the authority level of a proposal (e.g., Treasury, Root) which decides the track of all referendums from that origin.
+- **Track**: Define the procedural flow of a proposal, such as voting duration, approval thresholds, and enactment timelines.
+
+Developers must be aware that referendums from different origins and tracks will take varying amounts of time to reach approval and enactment. The [Polkadot Technical Fellowship](https://wiki.polkadot.com/learn/learn-polkadot-technical-fellowship/){target=\_blank} has the option to shorten this timeline by whitelisting a proposal and allowing it to be enacted through the [Whitelist Caller](https://wiki.polkadot.com/learn/learn-polkadot-opengov-origins/#whitelisted-caller){target=\_blank} origin.
+
+Visit [Origins and Tracks Info](https://wiki.polkadot.com/learn/learn-polkadot-opengov/#origins-and-tracks){target=\_blank} for details on current origins and tracks, associated terminology, and parameters.
+
+## Referendums
+
+In OpenGov, anyone can submit a referendum, fostering an open and participatory system. The timeline for a referendum depends on the privilege level of the origin with more significant changes offering more time for community voting and participation before enactment. 
+
+The timeline for an individual referendum includes four distinct periods:
+
+- **Lead-in**: A minimum amount of time to allow for community participation, available room in the origin, and payment of the decision deposit. Voting is open during this period.
+- **Decision**: Voting continues.
+- **Confirmation**: Referendum must meet [approval and support](https://wiki.polkadot.com/learn/learn-polkadot-opengov/#approval-and-support){target=\_blank} criteria during entire period to avoid rejection.
+- **Enactment**: Changes approved by the referendum are executed.
+
+### Vote on Referendums
+
+Voters can vote with their tokens on each referendum. Polkadot uses a voluntary token locking mechanism, called conviction voting, as a way for voters to increase their voting power. A token holder signals they have a stronger preference for approving a proposal based upon their willingness to lock up tokens. Longer voluntary token locks are seen as a signal of continual approval and translate to increased voting weight.
+
+See [Voting on a Referendum](https://wiki.polkadot.com/learn/learn-polkadot-opengov/#voting-on-a-referendum){target=\_blank} for a deeper look at conviction voting and related token locks.
+
+### Delegate Voting Power
+
+The OpenGov system also supports multi-role delegations, allowing token holders to assign their voting power on different tracks to entities with expertise in those areas. 
+
+For example, if a token holder lacks the technical knowledge to evaluate proposals on the [Root track](https://wiki.polkadot.com/learn/learn-polkadot-opengov-origins/#root){target=\_blank}, they can delegate their voting power for that track to an expert they trust to vote in the best interest of the network. This ensures informed decision-making across tracks while maintaining flexibility for token holders.
+
+Visit [Multirole Delegation](https://wiki.polkadot.com/learn/learn-polkadot-opengov/#multirole-delegation){target=\_blank} for more details on delegating voting power.
+
+### Cancel a Referendum
+
+Polkadot OpenGov has two origins for rejecting ongoing referendums: 
+
+- [**Referendum Canceller**](https://wiki.polkadot.com/learn/learn-polkadot-opengov-origins/#referendum-canceller){target=\_blank}: Cancels an active referendum when non-malicious errors occur and refunds the deposits to the originators.
+- [**Referendum Killer**](https://wiki.polkadot.com/learn/learn-polkadot-opengov-origins/#referendum-killer){target=\_blank}: Used for urgent, malicious cases this origin instantly terminates an active referendum and slashes deposits.
+
+See [Cancelling, Killing, and Blacklisting](https://wiki.polkadot.com/learn/learn-polkadot-opengov/#cancelling-killing--blacklisting){target=\_blank} for additional information on rejecting referendums.
+
+## Additional Resources
+
+- **[Democracy pallet](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2506-2/substrate/frame/democracy/src){target=\_blank}**: Handles administration of general stakeholder voting.
+- **[Gov2: Polkadot’s Next Generation of Decentralised Governance](https://medium.com/polkadot-network/gov2-polkadots-next-generation-of-decentralised-governance-4d9ef657d11b){target=\_blank}**: Medium article by Gavin Wood.
+- **[Polkadot Direction](https://matrix.to/#/#Polkadot-Direction:parity.io){target=\_blank}**: Matrix Element client.
+- **[Polkassembly](https://polkadot.polkassembly.io/){target=\_blank}**: OpenGov dashboard and UI.
+- **[Polkadot.js Apps Governance](https://polkadot.js.org/apps/#/referenda){target=\_blank}**: Overview of active referendums.
+
+
+---
+
 Page Title: Oracles
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-toolkit-integrations-oracles.md
@@ -5797,6 +14691,519 @@ While simple oracle implementations may rely on a single trusted provider, more 
     [:octicons-arrow-right-24: Reference](https://acurast.com/){target=\_blank}
 
 </div>
+
+
+---
+
+Page Title: Overview
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/polkadot-protocol-architecture-parachains-overview.md
+- Canonical (HTML): https://docs.polkadot.com/polkadot-protocol/architecture/parachains/overview/
+- Summary: Learn about the role, functionality, and implementation of parachains as a developer in the wider Polkadot architecture.
+
+## Introduction 
+
+A [_parachain_](/polkadot-protocol/glossary#parachain){target=\_blank} is a coherent, application-specific blockchain that derives security from its respective relay chain. Parachains on Polkadot are each their own separate, fully functioning blockchain. The primary difference between a parachain and a regular, "solo" blockchain is that the relay chain verifies the state of all parachains that are connected to it.  In many ways, parachains can be thought of as a ["cynical" rollup](#cryptoeconomic-security-elves-protocol), as the crypto-economic protocol used (ELVES) assumes the worst-case scenario, rather than the typical optimistic approach that many roll-up mechanisms take. Once enough validators attest that a block is valid, then the probability of that block being valid is high.
+
+As each parachain’s state is validated by the relay chain, the relay chain represents the collective state of all parachains.
+
+```mermaid
+flowchart TB
+    subgraph "Relay Chain"
+        RC[Relay Chain Validators]
+        State[Collective State Validation]
+    end
+
+    PA[Parachain A]
+    PB[Parachain B]
+    PC[Parachain C]
+
+    RC -->|Validate State| PA
+    RC -->|Validate State| PB
+    RC -->|Validate State| PC
+
+    State -->|Represents Collective<br>Parachain State| RC
+
+    note["ELVES Protocol:<br>- Crypto-economic security<br>- Assumes worst-case scenario<br>- High probability validation"]
+```
+
+## Coherent Systems
+    
+Coherency refers to the degree of synchronization, consistency, and interoperability between different components or chains within a system. It encompasses the internal coherence of individual chains and the external coherence between chains regarding how they interact.
+    
+A single-state machine like Ethereum is very coherent, as all of its components (smart contracts, dApps/applications, staking, consensus) operate within a single environment with the downside of less scalability. Multi-protocol state machines, such as Polkadot, offer less coherency due to their sharded nature but more scalability due to the parallelization of their architecture.
+
+Parachains are coherent, as they are self-contained environments with domain-specific functionality.
+
+## Flexible Ecosystem
+
+Parachains enable parallelization of different services within the same network. However, unlike most layer two rollups, parachains don't suffer the same interoperability pitfalls that most rollups suffer. [Cross-Consensus Messaging (XCM)](/develop/interoperability/intro-to-xcm/){target=\_blank} provides a common communication format for each parachain and can be configured to allow a parachain to communicate with just the relay chain or certain parachains. 
+
+The diagram below highlights the flexibility of the Polkadot ecosystem, where each parachain specializes in a distinct domain. This example illustrates how parachains, like DeFi and GameFi, leverage XCM for cross-chain operations such as asset transfers and credential verification.
+
+```mermaid
+flowchart TB
+    subgraph "Polkadot Relay Chain"
+        RC[Relay Chain<br>Cross-Consensus<br>Routing]
+    end
+
+    subgraph "Parachain Ecosystem"
+        direction TB
+        DeFi[DeFi Parachain<br>Financial Services]
+        GameFi[GameFi Parachain<br>Gaming Ecosystem]
+        NFT[NFT Parachain<br>Digital Collectibles]
+        Identity[Identity Parachain<br>User Verification]
+    end
+
+    DeFi <-->|XCM: Asset Transfer| GameFi
+    GameFi <-->|XCM: Token Exchange| NFT
+    Identity <-->|XCM: Credential Verification| DeFi
+
+    RC -->|Validate & Route XCM| DeFi
+    RC -->|Validate & Route XCM| GameFi
+    RC -->|Validate & Route XCM| NFT
+    RC -->|Validate & Route XCM| Identity
+
+    note["XCM Features:<br>- Standardized Messaging<br>- Cross-Chain Interactions<br>- Secure Asset/Data Transfer"]
+```
+
+Most parachains are built using the Polkadot SDK, which provides all the tools to create a fully functioning parachain. However, it is possible to construct a parachain that can inherit the security of the relay chain as long as it implements the correct mechanisms expected by the relay chain.
+
+## State Transition Functions (Runtimes)
+
+Determinism is a fundamental property where given the same input, a system will consistently produce identical outputs. In blockchain systems, this predictable behavior is essential for state machines, which are algorithms that transition between different states based on specific inputs to generate a new state.
+
+At their core, parachains, like most blockchains, are deterministic, finite-state machines that are often backed by game theory and economics. The previous state of the parachain, combined with external input in the form of [extrinsics](/polkadot-protocol/glossary#extrinsic){target=\_blank}, allows the state machine to progress forward, one block at a time.
+
+```mermaid
+stateDiagram-v2
+    direction LR
+    [*] --> StateA : Initial State
+    
+    StateA --> STF : Extrinsics/Transactions
+    STF --> StateB : Deterministic Transformation
+    StateB --> [*] : New State
+```
+
+The primary driver of this progression is the state transition function (STF), commonly referred to as a runtime. Each time a block is submitted, it represents the next proposed state for a parachain. By applying the state transition function to the previous state and including a new block that contains the proposed changes in the form of a list of extrinsics/transactions, the runtime defines just exactly how the parachain is to advance from state A to state B.
+
+The STF in a Polkadot SDK-based chain is compiled to Wasm and uploaded on the relay chain. This STF is crucial for the relay chain to validate the state changes coming from the parachain, as it is used to ensure that all proposed state transitions are happening correctly as part of the validation process.
+
+For more information on the Wasm meta protocol that powers runtimes, see the [WASM Meta Protocol](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/wasm_meta_protocol/index.html){target=\blank} in the Polkadot SDK Rust Docs.
+
+## Shared Security: Validated by the Relay Chain
+
+The relay chain provides a layer of economic security for its parachains. Parachains submit proof of validation (PoV) data to the relay chain for validation through [collators](/polkadot-protocol/glossary/#collator), upon which the relay chains' validators ensure the validity of this data in accordance with the STF for that particular parachain. In other words, the consensus for a parachain follows the relay chain. While parachains choose how a block is authored, what it contains, and who authors it, the relay chain ultimately provides finality and consensus for those blocks.
+
+For more information about the parachain and relay chain validation process, see the [Parachains' Protocol Overview: Protocols' Summary](https://wiki.polkadot.com/learn/learn-parachains-protocol/#protocols-summary){target=\blank} entry in the Polkadot Wiki.
+
+Parachains need at least one honest collator to submit PoV data to the relay chain. Without this, the parachain can't progress. The mechanisms that facilitate this are found in the Cumulus portion of the Polkadot SDK, some of which are found in the [`cumulus_pallet_parachain_system`](https://paritytech.github.io/polkadot-sdk/master/cumulus_pallet_parachain_system/index.html){target=\blank}
+
+### Cryptoeconomic Security: ELVES Protocol
+
+The [ELVES (Economic Last Validation Enforcement System)](https://eprint.iacr.org/2024/961){target=\_blank} protocol forms the foundation of Polkadot's cryptoeconomic security model. ELVES assumes a worst-case scenario by enforcing strict validation rules before any state transitions are finalized. Unlike optimistic approaches that rely on post-facto dispute resolution, ELVES ensures that validators collectively confirm the validity of a block before it becomes part of the parachain's state.
+
+Validators are incentivized through staking and penalized for malicious or erroneous actions, ensuring adherence to the protocol. This approach minimizes the probability of invalid states being propagated across the network, providing robust security for parachains.
+
+## Interoperability
+
+Polkadot's interoperability framework allows parachains to communicate with each other, fostering a diverse ecosystem of interconnected blockchains. Through [Cross-Consensus Messaging (XCM)](/develop/interoperability/intro-to-xcm/){target=_blank}, parachains can transfer assets, share data, and invoke functionalities on other chains securely. This standardized messaging protocol ensures that parachains can interact with the relay chain and each other, supporting efficient cross-chain operations.
+
+The XCM protocol mitigates common interoperability challenges in isolated blockchain networks, such as fragmented ecosystems and limited collaboration. By enabling decentralized applications to leverage resources and functionality across parachains, Polkadot promotes a scalable, cooperative blockchain environment that benefits all participants.
+
+## Where to Go Next
+
+For further information about the consensus protocol used by parachains, see the [Consensus](/polkadot-protocol/architecture/parachains/consensus/) page.
+
+<div class="grid cards" markdown>
+
+-   <span class="badge learn">Learn</span> __Consensus__
+
+    ---
+
+    Understand how the blocks authored by parachain collators are secured by the relay chain validators and how the parachain transactions achieve finality.
+
+    [:octicons-arrow-right-24: Reference](/polkadot-protocol/architecture/parachains/consensus/)
+
+</div>
+
+
+---
+
+Page Title: Overview of FRAME
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-parachains-customize-parachain-overview.md
+- Canonical (HTML): https://docs.polkadot.com/develop/parachains/customize-parachain/overview/
+- Summary: Learn how Polkadot SDK’s FRAME framework simplifies blockchain development with modular pallets and support libraries for efficient runtime design.
+
+# Overview
+
+## Introduction
+
+The runtime is the heart of any Polkadot SDK-based blockchain, handling the essential logic that governs state changes and transaction processing. With Polkadot SDK’s [FRAME (Framework for Runtime Aggregation of Modularized Entities)](/polkadot-protocol/glossary/#frame-framework-for-runtime-aggregation-of-modularized-entities){target=\_bank}, developers gain access to a powerful suite of tools for building custom blockchain runtimes. FRAME offers a modular architecture, featuring reusable pallets and support libraries, to streamline development.
+
+This guide provides an overview of FRAME, its core components like pallets and system libraries, and demonstrates how to compose a runtime tailored to your specific blockchain use case. Whether you’re integrating pre-built modules or designing custom logic, FRAME equips you with the tools to create scalable, feature-rich blockchains.
+
+## FRAME Runtime Architecture
+
+The following diagram illustrates how FRAME components integrate into the runtime:
+
+![](/images/develop/parachains/customize-parachain/overview/frame-overview-1.webp)
+
+All transactions sent to the runtime are handled by the `frame_executive` pallet, which dispatches them to the appropriate pallet for execution. These runtime modules contain the logic for specific blockchain features. The `frame_system` module provides core functions, while `frame_support` libraries offer useful tools to simplify pallet development. Together, these components form the backbone of a FRAME-based blockchain's runtime.
+
+### Pallets
+
+Pallets are modular components within the FRAME ecosystem that encapsulate specific blockchain functionalities. These modules offer customizable business logic for various use cases and features that can be integrated into a runtime.
+
+Developers have the flexibility to implement any desired behavior in the core logic of the blockchain, such as:
+
+- Exposing new transactions.
+- Storing information.
+- Enforcing business rules.
+
+Pallets also include necessary wiring code to ensure proper integration and functionality within the runtime. FRAME provides a range of [pre-built pallets](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2506-2/substrate/frame){target=\_blank} for standard and common blockchain functionalities, including consensus algorithms, staking mechanisms, governance systems, and more. These pre-existing pallets serve as building blocks or templates, which developers can use as-is, modify, or reference when creating custom functionalities. 
+
+#### Pallet Structure
+
+Polkadot SDK heavily utilizes Rust macros, allowing developers to focus on specific functional requirements when writing pallets instead of dealing with technicalities and scaffolding code.
+
+A typical pallet skeleton looks like this:
+
+```rust
+pub use pallet::*;
+
+#[frame_support::pallet]
+pub mod pallet {
+  use frame_support::pallet_prelude::*;
+  use frame_system::pallet_prelude::*;
+
+  #[pallet::pallet]
+  #[pallet::generate_store(pub(super) trait Store)]
+  pub struct Pallet<T>(_);
+
+  #[pallet::config]  // snip
+  #[pallet::event]   // snip
+  #[pallet::error]   // snip
+  #[pallet::storage] // snip
+  #[pallet::call]    // snip
+}
+```
+
+All pallets, including custom ones, can implement these attribute macros:
+
+- **`#[frame_support::pallet]`**: Marks the module as usable in the runtime.
+- **`#[pallet::pallet]`**: Applied to a structure used to retrieve module information easily.
+- **`#[pallet::config]`**: Defines the configuration for the pallets's data types.
+- **`#[pallet::event]`**: Defines events to provide additional information to users.
+- **`#[pallet::error]`**: Lists possible errors in an enum to be returned upon unsuccessful execution.
+- **`#[pallet::storage]`**: Defines elements to be persisted in storage.
+- **`#[pallet::call]`**: Defines functions exposed as transactions, allowing dispatch to the runtime.
+
+These macros are applied as attributes to Rust modules, functions, structures, enums, and types and serve as the core components of a pallet. They enable the pallet to be built and added to the runtime, exposing the custom logic to the outer world.
+
+For a comprehensive guide on these and additional macros, see the [`pallet_macros`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/index.html){target=\_blank} section in the Polkadot SDK documentation.
+
+### Support Libraries
+
+In addition to purpose-specific pallets, FRAME offers services and core libraries that facilitate composing and interacting with the runtime:
+
+- **[`frame_system` pallet](https://paritytech.github.io/polkadot-sdk/master/frame_system/index.html){target=\_blank}**: Provides low-level types, storage, and functions for the runtime.
+- **[`frame_executive` pallet](https://paritytech.github.io/polkadot-sdk/master/frame_executive/index.html){target=\_blank}**: Orchestrates the execution of incoming function calls to the respective pallets in the runtime.
+- **[`frame_support` crate](https://paritytech.github.io/polkadot-sdk/master/frame_support/index.html){target=\_blank}**: Is a collection of Rust macros, types, traits, and modules that simplify the development of Substrate pallets.
+- **[`frame_benchmarking` crate](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/trait.Benchmark.html){target=\_blank}**: Contains common runtime patterns for benchmarking and testing purposes.
+
+## Compose a Runtime with Pallets
+
+The Polkadot SDK allows developers to construct a runtime by combining various pallets, both built-in and custom-made. This modular approach enables the creation of unique blockchain behaviors tailored to specific requirements.
+
+The following diagram illustrates the process of selecting and combining FRAME pallets to compose a runtime:
+
+![](/images/develop/parachains/customize-parachain/overview/frame-overview-2.webp)
+
+This modular design allows developers to:
+
+- Rapidly prototype blockchain systems.
+- Easily add or remove features by including or excluding pallets.
+- Customize blockchain behavior without rebuilding core components.
+- Leverage tested and optimized code from built-in pallets.
+
+## Starting from Templates
+
+Using pre-built templates is an efficient way to begin building a custom blockchain. Templates provide a foundational setup with pre-configured modules, letting developers avoid starting from scratch and instead focus on customization. Depending on your project’s goals—whether you want a simple test chain, a standalone chain, or a parachain that integrates with Polkadot’s relay chains—there are templates designed to suit different levels of complexity and scalability.
+
+### Solochain Templates
+
+Solochain templates are designed for developers who want to create standalone blockchains that operate independently without connecting to a relay chain:
+
+- **[`minimal-template`](https://github.com/paritytech/polkadot-sdk/tree/master/templates/minimal){target=\_blank}**: Includes only the essential components necessary for a functioning blockchain. It’s ideal for developers who want to gain familiarity with blockchain basics and test simple customizations before scaling up.
+
+- **[`solochain-template`](https://github.com/paritytech/polkadot-sdk/tree/master/templates/solochain){target=\_blank}**: Provides a foundation for creating standalone blockchains with moderate features, including a simple consensus mechanism and several core FRAME pallets. It’s a solid starting point for developers who want a fully functional chain that doesn’t depend on a relay chain.
+
+### Parachain Templates
+
+Parachain templates are specifically designed for chains that will connect to and interact with relay chains in the Polkadot ecosystem:
+
+- **[`parachain-template`](https://github.com/paritytech/polkadot-sdk/tree/master/templates/parachain){target=\_blank}**: Designed for connecting to relay chains like Polkadot, Kusama, or Paseo, this template enables a chain to operate as a parachain. For projects aiming to integrate with Polkadot’s ecosystem, this template offers a great starting point.
+
+- **[`OpenZeppelin`](https://github.com/OpenZeppelin/polkadot-runtime-templates/tree/main){target=\_blank}**: Offers two flexible starting points.
+    - The [`generic-runtime-template`](https://github.com/OpenZeppelin/polkadot-runtime-templates/tree/main/generic-template){target=\_blank} provides a minimal setup with essential pallets and secure defaults, creating a reliable foundation for custom blockchain development.
+    - The [`evm-runtime-template`](https://github.com/OpenZeppelin/polkadot-runtime-templates/tree/main/evm-template){target=\_blank} enables EVM compatibility, allowing developers to migrate Solidity contracts and EVM-based dApps. This template is ideal for Ethereum developers looking to leverage Substrate's capabilities.
+
+Choosing a suitable template depends on your project’s unique requirements, level of customization, and integration needs. Starting from a template speeds up development and lets you focus on implementing your chain’s unique features rather than the foundational blockchain setup.
+
+## Where to Go Next
+
+For more detailed information on implementing this process, refer to the following sections:
+
+- [Add a Pallet to Your Runtime](/develop/parachains/customize-parachain/add-existing-pallets/)
+- [Create a Custom Pallet](/develop/parachains/customize-parachain/make-custom-pallet/)
+
+
+---
+
+Page Title: Overview of Polkadot's System Chains
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/polkadot-protocol-architecture-system-chains-overview.md
+- Canonical (HTML): https://docs.polkadot.com/polkadot-protocol/architecture/system-chains/overview/
+- Summary: Discover how system parachains enhance Polkadot's scalability and performance by offloading tasks like governance, asset management, and bridging from the relay chain.
+
+## Introduction
+
+Polkadot's relay chain is designed to secure parachains and facilitate seamless inter-chain communication. However, resource-intensive—tasks like governance, asset management, and bridging are more efficiently handled by system parachains. These specialized chains offload functionality from the relay chain, leveraging Polkadot's parallel execution model to improve performance and scalability. By distributing key functionalities across system parachains, Polkadot can maximize its relay chain's blockspace for its core purpose of securing and validating parachains.
+
+This guide will explore how system parachains operate within Polkadot and Kusama, detailing their critical roles in network governance, asset management, and bridging. You'll learn about the currently deployed system parachains, their unique functions, and how they enhance Polkadot's decentralized ecosystem.
+
+## System Chains
+
+System parachains contain core Polkadot protocol features, but in parachains rather than the relay chain. Execution cores for system chains are allocated via network [governance](/polkadot-protocol/onchain-governance/overview/){target=\_blank} rather than purchasing coretime on a marketplace.
+
+System parachains defer to on-chain governance to manage their upgrades and other sensitive actions as they do not have native tokens or governance systems separate from DOT or KSM. It is not uncommon to see a system parachain implemented specifically to manage network governance.
+
+!!!note
+    You may see system parachains called common good parachains in articles and discussions. This nomenclature caused confusion as the network evolved, so system parachains is preferred. 
+    
+    For more details on this evolution, review this [parachains forum discussion](https://forum.polkadot.network/t/polkadot-protocol-and-common-good-parachains/866){target=\_blank}.
+
+## Existing System Chains
+
+```mermaid
+---
+title: System Parachains at a Glance
+---
+flowchart TB
+    subgraph POLKADOT["Polkadot"]
+        direction LR
+            PAH["Polkadot Asset Hub"]
+            PCOL["Polkadot Collectives"]
+            PBH["Polkadot Bridge Hub"]
+            PPC["Polkadot People Chain"]
+            PCC["Polkadot Coretime Chain"]
+    end
+
+    subgraph KUSAMA["Kusama"]
+        direction LR
+            KAH["Kusama Asset Hub"]
+            KBH["Kusama Bridge Hub"]
+            KPC["Kusama People Chain"]
+            KCC["Kusama Coretime Chain"]
+            E["Encointer"]
+        end
+```
+
+All system parachains are on both Polkadot and Kusama with the following exceptions:
+
+- **[Collectives](#collectives)**: Only on Polkadot
+- **[Encointer](#encointer)**: Only on Kusama
+
+### Asset Hub
+
+The [Asset Hub](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2506-2/cumulus#asset-hub-){target=\_blank} is an asset portal for the entire network. It helps asset creators, such as reserve-backed stablecoin issuers, track the total issuance of an asset in the network, including amounts transferred to other parachains. It also serves as the hub where asset creators can perform on-chain operations, such as minting and burning, to manage their assets effectively.
+
+This asset management logic is encoded directly in the runtime of the chain rather than in smart contracts. The efficiency of executing logic in a parachain allows for fees and deposits that are about 1/10th of what is required on the relay chain. These low fees mean that the Asset Hub is well suited for handling the frequent transactions required when managing balances, transfers, and on-chain assets.
+
+The Asset Hub also supports non-fungible assets (NFTs) via the [Uniques pallet](https://polkadot.js.org/docs/substrate/extrinsics#uniques){target=\_blank} and [NFTs pallet](https://polkadot.js.org/docs/substrate/extrinsics#nfts){target=\_blank}. For more information about NFTs, see the Polkadot Wiki section on [NFT Pallets](https://wiki.polkadot.com/learn/learn-nft-pallets/){target=\_blank}.
+
+### Collectives
+
+The Polkadot Collectives parachain was added in [Referendum 81](https://polkadot-old.polkassembly.io/referendum/81){target=\_blank} and exists on Polkadot but not on Kusama. The Collectives chain hosts on-chain collectives that serve the Polkadot network, including the following:
+
+- [**Polkadot Alliance**](https://polkadot-old.polkassembly.io/referendum/94){target=\_blank}: Provides a set of ethics and standards for the community to follow. Includes an on-chain means to call out bad actors.
+- [**Polkadot Technical Fellowship**](https://wiki.polkadot.com/learn/learn-polkadot-technical-fellowship/){target=\_blank}: A rules-based social organization to support and incentivize highly-skilled developers to contribute to the technical stability, security, and progress of the network.
+
+These on-chain collectives will play essential roles in the future of network stewardship and decentralized governance. Networks can use a bridge hub to help them act as collectives and express their legislative voices as single opinions within other networks.
+
+### Bridge Hub
+
+Before parachains, the only way to design a bridge was to put the logic onto the relay chain. Since both networks now support parachains and the isolation they provide, each network can have a parachain dedicated to bridges. 
+
+The Bridge Hub system parachain operates on the relay chain, and is responsible for facilitating bridges to the wider Web3 space. It contains the required bridge [pallets](/polkadot-protocol/glossary/#pallet){target=\_blank} in its runtime, which enable trustless bridging with other blockchain networks like Polkadot, Kusama, and Ethereum. The Bridge Hub uses the native token of the relay chain.
+
+See the [Bridge Hub](/polkadot-protocol/architecture/system-chains/bridge-hub/){target=\_blank} documentation for additional information.
+
+### People Chain
+
+The People Chain provides a naming system that allows users to manage and verify their account [identity](https://wiki.polkadot.com/learn/learn-identity/){target=\_blank}.
+
+### Coretime Chain
+
+The Coretime system chain lets users buy coretime to access Polkadot's computation. [Coretime marketplaces](https://wiki.polkadot.com/learn/learn-guides-coretime-marketplaces/){target=\_blank} run on top of the Coretime chain. Kusama does not use the Collectives system chain. Instead, Kusama relies on the Encointer system chain, which provides Sybil resistance as a service to the entire Kusama ecosystem.
+
+Visit [Introduction to Agile Coretime](https://wiki.polkadot.com/learn/learn-agile-coretime/#introduction-to-agile-coretime){target=\_blank} in the Polkadot Wiki for more information.
+
+### Encointer
+
+[Encointer](https://encointer.org/encointer-for-web3/){target=\_blank} is a blockchain platform for self-sovereign ID and a global [universal basic income (UBI)](https://book.encointer.org/economics-ubi.html){target=\_blank}. The Encointer protocol uses a novel Proof of Personhood (PoP) system to create unique identities and resist Sybil attacks. PoP is based on the notion that a person can only be in one place at any given time. Encointer offers a framework that allows for any group of real people to create, distribute, and use their own digital community tokens.
+
+Participants are requested to attend physical key-signing ceremonies with small groups of random people at randomized locations. These local meetings are part of one global signing ceremony occurring at the same time. Participants use the Encointer wallet app to participate in these ceremonies and manage local community currencies. 
+
+To learn more about Encointer, see the official [Encointer book](https://book.encointer.org/introduction.html){target=\_blank} or watch an [Encointer ceremony](https://www.youtube.com/watch?v=tcgpCCYBqko){target=\_blank} in action.
+
+
+---
+
+Page Title: Overview of the Polkadot Relay Chain
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/polkadot-protocol-architecture-polkadot-chain-overview.md
+- Canonical (HTML): https://docs.polkadot.com/polkadot-protocol/architecture/polkadot-chain/overview/
+- Summary: Explore Polkadot's core architecture, including its multi-chain vision, shared security, and the DOT token's governance and staking roles.
+
+# Overview
+
+## Introduction
+
+Polkadot is a next-generation blockchain protocol designed to support a multi-chain future by enabling secure communication and interoperability between different blockchains. Built as a Layer-0 protocol, Polkadot introduces innovations like application-specific Layer-1 chains ([parachains](/polkadot-protocol/architecture/parachains/){targe=\_blank}), shared security through [Nominated Proof of Stake (NPoS)](/polkadot-protocol/glossary/#nominated-proof-of-stake-npos){target=\_blank}, and cross-chain interactions via its native [Cross-Consensus Messaging Format (XCM)](/develop/interoperability/intro-to-xcm/){target=\_blank}.
+
+This guide covers key aspects of Polkadot’s architecture, including its high-level protocol structure, blockspace commoditization, and the role of its native token, DOT, in governance, staking, and resource allocation.
+
+## Polkadot 1.0
+
+Polkadot 1.0 represents the state of Polkadot as of 2023, coinciding with the release of [Polkadot runtime v1.0.0](https://github.com/paritytech/polkadot/releases/tag/v1.0.0){target=\_blank}. This section will focus on Polkadot 1.0, along with philosophical insights into network resilience and blockspace.
+
+As a Layer-0 blockchain, Polkadot contributes to the multi-chain vision through several key innovations and initiatives, including:
+
+- **Application-specific Layer-1 blockchains (parachains)**: Polkadot's sharded network allows for parallel transaction processing, with shards that can have unique state transition functions, enabling custom-built L1 chains optimized for specific applications.
+
+- **Shared security and scalability**: L1 chains connected to Polkadot benefit from its [Nominated Proof of Stake (NPoS)](/polkadot-protocol/architecture/polkadot-chain/pos-consensus/#nominated-proof-of-stake){target=\_blank} system, providing security out-of-the-box without the need to bootstrap their own.
+
+- **Secure interoperability**: Polkadot's native interoperability enables seamless data and value exchange between parachains. This interoperability can also be used outside of the ecosystem for bridging with external networks.
+
+- **Resilient infrastructure**: Decentralized and scalable, Polkadot ensures ongoing support for development and community initiatives via its on-chain [treasury](https://wiki.polkadot.com/learn/learn-polkadot-opengov-treasury/){target=\_blank} and governance.
+
+- **Rapid L1 development**: The [Polkadot SDK](/develop/parachains/intro-polkadot-sdk/){target=\_blank} allows fast, flexible creation and deployment of Layer-1 chains.
+
+- **Cultivating the next generation of Web3 developers**: Polkadot supports the growth of Web3 core developers through initiatives such as.
+
+    - [Polkadot Blockchain Academy](https://polkadot.com/blockchain-academy){target=\_blank}
+    - [EdX courses](https://www.edx.org/school/web3x){target=\_blank}
+    - Rust and Substrate courses (coming soon)
+
+### High-Level Architecture
+
+Polkadot features a chain that serves as the central component of the system. This chain is depicted as a ring encircled by several parachains that are connected to it.
+
+According to Polkadot's design, any blockchain that can compile to WebAssembly (Wasm) and adheres to the Parachains Protocol becomes a parachain on the Polkadot network.
+
+Here’s a high-level overview of the Polkadot protocol architecture:
+
+![](/images/polkadot-protocol/architecture/polkadot-chain/overview/overview-1.webp)
+
+Parachains propose blocks to Polkadot validators, who check for availability and validity before finalizing them. With the relay chain providing security, collators—full nodes of parachains—can focus on their tasks without needing strong incentives.
+
+The [Cross-Consensus Messaging Format (XCM)](/develop/interoperability/intro-to-xcm/){target=\_blank} allows parachains to exchange messages freely, leveraging the chain's security for trust-free communication.
+
+In order to interact with chains that want to use their own finalization process (e.g., Bitcoin), Polkadot has [bridges](/polkadot-protocol/parachain-basics/interoperability/#bridges-connecting-external-networks){target=\_blank} that offer two-way compatibility, meaning that transactions can be made between different parachains.
+
+### Polkadot's Additional Functionalities
+
+Historically, obtaining core slots on Polkadot chain relied upon crowdloans and auctions. Chain cores were leased through auctions for three-month periods, up to a maximum of two years. Crowdloans enabled users to securely lend funds to teams for lease deposits in exchange for pre-sale tokens, which is the only way to access slots on Polkadot 1.0. Auctions are now deprecated in favor of [coretime](/polkadot-protocol/architecture/system-chains/coretime/){target=\_blank}.
+
+Additionally, the chain handles [staking](https://wiki.polkadot.com/learn/learn-staking/){target=\_blank}, [accounts](/polkadot-protocol/parachain-basics/accounts/){target=\_blank}, balances, and [governance](/polkadot-protocol/onchain-governance/){target=\_blank}.
+
+#### Agile Coretime
+
+The new and more efficient way of obtaining core on Polkadot is to go through the process of purchasing coretime.
+
+[Agile coretime](/polkadot-protocol/architecture/polkadot-chain/agile-coretime/){target=\_blank} improves the efficient use of Polkadot's network resources and offers economic flexibility for developers, extending Polkadot's capabilities far beyond the original vision outlined in the [whitepaper](https://polkadot.com/papers/Polkadot-whitepaper.pdf){target=\_blank}.
+
+It enables parachains to purchase monthly "bulk" allocations of coretime (the time allocated for utilizing a core, measured in Polkadot relay chain blocks), ensuring heavy-duty parachains that can author a block every six seconds with [Asynchronous Backing](https://wiki.polkadot.com/learn/learn-async-backing/#asynchronous-backing){target=\_blank} can reliably renew their coretime each month. Although six-second block times are now the default, parachains have the option of producing blocks less frequently.
+
+Renewal orders are prioritized over new orders, offering stability against price fluctuations and helping parachains budget more effectively for project costs.
+
+### Polkadot's Resilience
+
+Decentralization is a vital component of blockchain networks, but it comes with trade-offs:
+
+- An overly decentralized network may face challenges in reaching consensus and require significant energy to operate.
+- Also, a network that achieves consensus quickly risks centralization, making it easier to manipulate or attack.
+
+A network should be decentralized enough to prevent manipulative or malicious influence. In this sense, decentralization is a tool for achieving resilience.
+
+Polkadot 1.0 currently achieves resilience through several strategies:
+
+- **Nominated Proof of Stake (NPoS)**: Ensures that the stake per validator is maximized and evenly distributed among validators.
+
+- **Decentralized nodes**: Designed to encourage operators to join the network. This program aims to expand and diversify the validators in the ecosystem who aim to become independent of the program during their term. Feel free to explore more about the program on the official [Decentralized Nodes](https://nodes.web3.foundation/){target=\_blank} page.
+
+- **On-chain treasury and governance**: Known as [OpenGov](/polkadot-protocol/onchain-governance/overview/){target=\_blank}, this system allows every decision to be made through public referenda, enabling any token holder to cast a vote.
+
+### Polkadot's Blockspace
+
+Polkadot 1.0’s design allows for the commoditization of blockspace.
+
+Blockspace is a blockchain's capacity to finalize and commit operations, encompassing its security, computing, and storage capabilities. Its characteristics can vary across different blockchains, affecting security, flexibility, and availability.
+
+- **Security**: Measures the robustness of blockspace in Proof of Stake (PoS) networks linked to the stake locked on validator nodes, the variance in stake among validators, and the total number of validators. It also considers social centralization (how many validators are owned by single operators) and physical centralization (how many validators run on the same service provider).
+
+- **Flexibility**: Reflects the functionalities and types of data that can be stored, with high-quality data essential to avoid bottlenecks in critical processes.
+
+- **Availability**: Indicates how easily users can access blockspace. It should be easily accessible, allowing diverse business models to thrive, ideally regulated by a marketplace based on demand and supplemented by options for "second-hand" blockspace.
+
+Polkadot is built on core blockspace principles, but there's room for improvement. Tasks like balance transfers, staking, and governance are managed on the relay chain.
+
+Delegating these responsibilities to [system chains](/polkadot-protocol/architecture/system-chains/){target=\_blank} could enhance flexibility and allow the relay chain to concentrate on providing shared security and interoperability.
+
+For more information about blockspace, watch [Robert Habermeier’s interview](https://www.youtube.com/watch?v=e1vISppPwe4){target=\_blank} or read his [technical blog post](https://www.rob.tech/blog/polkadot-blockspace-over-blockchains/){target=\_blank}.
+
+## DOT Token
+
+DOT is the native token of the Polkadot network, much like BTC for Bitcoin and Ether for the Ethereum blockchain. DOT has 10 decimals, uses the Planck base unit, and has a balance type of `u128`. The same is true for Kusama's KSM token with the exception of having 12 decimals.
+
+### Redenomination of DOT
+    
+Polkadot conducted a community poll, which ended on 27 July 2020 at block 888,888, to decide whether to redenominate the DOT token. The stakeholders chose to redenominate the token, changing the value of 1 DOT from 1e12 plancks to 1e10 plancks.
+
+Importantly, this did not affect the network's total number of base units (plancks); it only affects how a single DOT is represented. The redenomination became effective 72 hours after transfers were enabled, occurring at block 1,248,328 on 21 August 2020 around 16:50 UTC.
+
+### The Planck Unit
+
+The smallest unit of account balance on Polkadot SDK-based blockchains (such as Polkadot and Kusama) is called _Planck_, named after the Planck length, the smallest measurable distance in the physical universe.
+
+Similar to how BTC's smallest unit is the Satoshi and ETH's is the Wei, Polkadot's native token DOT equals 1e10 Planck, while Kusama's native token KSM equals 1e12 Planck.
+
+### Uses for DOT
+
+DOT serves three primary functions within the Polkadot network:
+
+- **Governance**: It is used to participate in the governance of the network.
+- **Staking**: DOT is staked to support the network's operation and security.
+- **Buying coretime**: Used to purchase coretime in-bulk or on-demand and access the  chain to benefit from Polkadot's security and interoperability.
+
+Additionally, DOT can serve as a transferable token. For example, DOT, held in the treasury, can be allocated to teams developing projects that benefit the Polkadot ecosystem.
+
+## JAM and the Road Ahead
+
+The Join-Accumulate Machine (JAM) represents a transformative redesign of Polkadot's core architecture, envisioned as the successor to the current relay chain. Unlike traditional blockchain architectures, JAM introduces a unique computational model that processes work through two primary functions:
+
+- **Join**: Handles data integration.
+- **Accumulate**: Folds computations into the chain's state.
+
+JAM removes many of the opinions and constraints of the current relay chain while maintaining its core security properties. Expected improvements include:
+
+- **Permissionless code execution**: JAM is designed to be more generic and flexible, allowing for permissionless code execution through services that can be deployed without governance approval.
+- **More effective block time utilization**: JAM's efficient pipeline processing model places the prior state root in block headers instead of the posterior state root, enabling more effective utilization of block time for computations.
+
+This architectural evolution promises to enhance Polkadot's scalability and flexibility while maintaining robust security guarantees. JAM is planned to be rolled out to Polkadot as a single, complete upgrade rather than a stream of smaller updates. This approach seeks to minimize the developer overhead required to address any breaking changes.
 
 
 ---
@@ -6155,6 +15562,594 @@ await author.submitAndWatchExtrinsic(extrinsic, (data) {
 ## Where to Go Next
 
 To dive deeper into Polkadart, refer to the [official Polkadart documentation](https://polkadart.dev/){target=\_blank}, where you can find comprehensive guides for common use cases and advanced usage.
+
+
+---
+
+Page Title: Polkadot Omni Node
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-toolkit-parachains-polkadot-omni-node.md
+- Canonical (HTML): https://docs.polkadot.com/develop/toolkit/parachains/polkadot-omni-node/
+- Summary: Run parachain nodes easily with the polkadot-omni-node, a white-labeled binary that can run parachain nodes using a single pre-built solution.
+
+# Polkadot Omni Node
+
+## Introduction
+
+The [`polkadot-omni-node`](https://crates.io/crates/polkadot-omni-node/0.7.0){target=\_blank} crate is a versatile, pre-built binary designed to simplify running parachains in the Polkadot ecosystem. Unlike traditional node binaries that are tightly coupled to specific runtime code, the `polkadot-omni-node` operates using an external [chain specification](/polkadot-protocol/glossary#chain-specification){target=\_blank} file, allowing it to adapt dynamically to different parachains.
+
+This approach enables it to act as a white-labeled node binary, capable of running most parachains that do not require custom node-level logic or extensions. Developers can leverage this flexibility to test, deploy, or operate parachain nodes without maintaining a dedicated codebase for each network.
+
+This guide provides step-by-step instructions for installing the `polkadot-omni-node`, obtaining a chain specification, and spinning up a parachain node.
+
+## Prerequisites
+
+Before getting started, ensure you have the following prerequisites:
+
+- **[Rust](https://www.rust-lang.org/tools/install){target=\_blank}**: Required to build and install the `polkadot-omni-node` binary.
+
+Ensure Rust's `cargo` command is available in your terminal by running:
+
+```bash
+cargo --version
+```
+
+## Install Polkadot Omni Node
+
+To install `polkadot-omni-node` globally using `cargo`, run:
+
+```bash
+cargo install --locked polkadot-omni-node@0.7.0
+```
+
+This command downloads and installs version 0.7.0 of the binary, making it available system-wide.
+
+To confirm the installation, run:
+
+```bash
+polkadot-omni-node --version
+```
+
+You should see the installed version number printed to the terminal, confirming a successful installation.
+
+## Obtain Chain Specifications
+
+The `polkadot-omni-node` binary uses a chain specification file to configure and launch a parachain node. This file defines the parachain's genesis state and network settings.
+
+The most common source for official chain specifications is the [`paritytech/chainspecs`](https://github.com/paritytech/chainspecs){target=\_blank} repository. These specifications are also browsable in a user-friendly format via the [Chainspec Collection](https://paritytech.github.io/chainspecs/){target=\_blank} website.
+
+To obtain a chain specification:
+
+1. Visit the [Chainspec Collection](https://paritytech.github.io/chainspecs/){target=\_blank} website.
+2. Find the parachain you want to run.
+3. Click the chain spec to open it.
+4. Copy the JSON content and save it locally as a `.json` file, e.g., `chain_spec.json`.
+
+## Run a Parachain Full Node
+
+Once you've installed `polkadot-omni-node` and saved the appropriate chain specification file, you can start a full node for your chosen parachain.
+
+To see all available flags and configuration options, run:
+
+```bash
+polkadot-omni-node --help
+```
+
+To launch the node, run the following command, replacing `./INSERT_PARACHAIN_CHAIN_SPEC.json` with the actual path to your saved chain spec file.
+
+This command will:
+
+- Load the chain specification.
+- Initialize the node using the provided network configuration.
+- Begin syncing with the parachain network.
+
+```bash
+polkadot-omni-node --chain ./INSERT_PARACHAIN_CHAIN_SPEC.json --sync warp
+```
+
+- The `--chain` flag tells the `polkadot-omni-node` which parachain to run by pointing to its chain specification file.
+- The `--sync warp` flag enables warp sync, allowing the node to quickly catch up to the latest finalized state. Historical blocks are fetched in the background as the node continues operating.
+
+Once started, the node will begin connecting to peers and syncing with the network. You’ll see logs in your terminal reflecting its progress.
+
+## Interact with the Node
+
+By default, `polkadot-omni-node` exposes a WebSocket endpoint at `ws://localhost:9944`,  which you can use to interact with the running node. You can connect using:
+
+- **[Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank}**: A web-based interface for exploring and interacting with Polkadot SDK-based chains.
+- Custom scripts using compatible [libraries](/develop/toolkit/api-libraries/){target=\_blank}.
+
+Once connected, you can review blocks, call extrinsics, inspect storage, and interact with the runtime.
+
+## Parachain Compatibility
+
+The `polkadot-omni-node` is designed to work with most parachains out of the box; however, your parachain's runtime must meet specific requirements and follow certain conventions to be compatible. This section outlines what your runtime needs to implement and configure to work seamlessly with the `polkadot-omni-node`:
+
+- Your runtime must implement the required runtime APIs (see below).
+- Your runtime must include and configure the required pallets.
+
+The [`parachain-template`](https://github.com/paritytech/polkadot-sdk-parachain-template/tree/v0.0.4){target=_blank} provides a complete reference implementation that is fully compatible with the `polkadot-omni-node`. You can use it as a starting point or reference for ensuring your runtime meets all compatibility requirements.
+
+### Required Runtime APIs
+
+Your parachain runtime must implement the following runtime APIs for the `polkadot-omni-node` to function properly:
+
+- **GetParachainInfo Runtime API**: The omni-node requires the [`GetParachainInfo`](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/trait.GetParachainInfo.html){target=\_blank} runtime API to identify and configure the parachain correctly. This API provides the parachain ID to the node.
+
+    ```rust title="runtime/src/apis.rs"
+    impl cumulus_primitives_core::GetParachainInfo<Block> for Runtime {
+        fn parachain_id() -> cumulus_primitives_core::ParaId {
+            // Return your parachain ID
+            ParachainInfo::parachain_id()
+        }
+    }
+    ```
+
+- **Aura Runtime API**: For consensus, the `polkadot-omni-node` expects the [Aura runtime API](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_frame/runtime/apis/trait.AuraApi.html){target=\_blank} to be implemented.
+
+    ```rust title="runtime/src/apis.rs"
+    impl sp_consensus_aura::AuraApi<Block, AuraId> for Runtime {
+        fn slot_duration() -> sp_consensus_aura::SlotDuration {
+            sp_consensus_aura::SlotDuration::from_millis(SLOT_DURATION)
+        }
+
+        fn authorities() -> Vec<AuraId> {
+            Aura::authorities().into_inner()
+        }
+    }
+    ```
+
+### Required Pallets
+
+Your runtime must include and properly configure the following pallets:
+
+- **System Pallet**: The System pallet ([`frame-system`](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_frame/prelude/frame_system/index.html){target=\_blank}) is fundamental and must be configured with appropriate types.
+
+    ```rust title="runtime/src/lib.rs"
+    #[frame_support::runtime]
+    impl frame_system::Config for Runtime {
+        type Block = Block;
+        type BlockNumber = BlockNumber;
+        // ... other configurations
+    }
+
+    // Must be named "System" for omni-node compatibility
+    pub type System = frame_system::Pallet<Runtime>;
+    ```
+
+- **ParachainSystem Pallet**: This pallet ([`cumulus-pallet-parachain-system`](https://paritytech.github.io/polkadot-sdk/master/cumulus_pallet_parachain_system/index.html){target=\_blank}) enables parachain functionality and handles low-level details of being a parachain.
+
+    ```rust title="runtime/src/lib.rs"
+    impl cumulus_pallet_parachain_system::Config for Runtime {
+        type RuntimeEvent = RuntimeEvent;
+        type OnSystemEvent = ();
+        // ... other configurations
+    }
+
+    // Must be named "ParachainSystem" for omni-node compatibility  
+    pub type ParachainSystem = cumulus_pallet_parachain_system::Pallet<Runtime>;
+    ```
+
+- **Aura Pallet**: For block authoring consensus ([`pallet-aura`](https://paritytech.github.io/polkadot-sdk/master/pallet_aura/index.html){target=\_blank}).
+
+    ```rust title="runtime/src/lib.rs"
+    impl pallet_aura::Config for Runtime {
+        type AuthorityId = AuraId;
+        type DisabledValidators = ();
+        type MaxAuthorities = MaxAuthorities;
+        type AllowMultipleBlocksPerSlot = ConstBool<false>;
+    }
+
+    pub type Aura = pallet_aura::Pallet<Runtime>;
+    ```
+
+- **ParachainInfo Pallet**: Provides parachain metadata ([`parachain-info`](https://paritytech.github.io/polkadot-sdk/master/staging_parachain_info/index.html){target=\_blank}).
+
+    ```rust title="runtime/src/lib.rs"
+    impl parachain_info::Config for Runtime {}
+
+    pub type ParachainInfo = parachain_info::Pallet<Runtime>;
+    ```
+
+If you're migrating an existing parachain to use the `polkadot-omni-node`, you may need to perform runtime upgrades to add the required runtime APIs and pallets. Follow the standard parachain [runtime upgrade](/develop/parachains/maintenance/runtime-upgrades/){target=\_blank} procedures to implement these changes on your live network.
+
+
+---
+
+Page Title: Polkadot SDK Accounts
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/polkadot-protocol-parachain-basics-accounts.md
+- Canonical (HTML): https://docs.polkadot.com/polkadot-protocol/parachain-basics/accounts/
+- Summary: Learn about account structures, balances, and address formats in the Polkadot SDK, including how to manage lifecycle, references, and balances.
+
+# Accounts
+
+## Introduction
+
+Accounts are essential for managing identity, transactions, and governance on the network in the Polkadot SDK. Understanding these components is critical for seamless development and operation on the network, whether you're building or interacting with Polkadot-based chains.
+
+This page will guide you through the essential aspects of accounts, including their data structure, balance types, reference counters, and address formats. You’ll learn how accounts are managed within the runtime, how balances are categorized, and how addresses are encoded and validated. 
+
+## Account Data Structure
+
+Accounts are foundational to any blockchain, and the Polkadot SDK provides a flexible management system. This section explains how the Polkadot SDK defines accounts and manages their lifecycle through data structures within the runtime.
+
+### Account
+
+The [`Account` data type](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/type.Account.html){target=\_blank} is a storage map within the [System pallet](https://paritytech.github.io/polkadot-sdk/master/src/frame_system/lib.rs.html){target=\_blank} that links an account ID to its corresponding data. This structure is fundamental for mapping account-related information within the chain.
+
+The code snippet below shows how accounts are defined:
+
+```rs
+ /// The full account information for a particular account ID.
+ 	#[pallet::storage]
+ 	#[pallet::getter(fn account)]
+ 	pub type Account<T: Config> = StorageMap<
+ 		_,
+ 		Blake2_128Concat,
+ 		T::AccountId,
+ 		AccountInfo<T::Nonce, T::AccountData>,
+ 		ValueQuery,
+ 	>;
+```
+
+The preceding code block defines a storage map named `Account`. The `StorageMap` is a type of on-chain storage that maps keys to values. In the `Account` map, the key is an account ID, and the value is the account's information. Here, `T` represents the generic parameter for the runtime configuration, which is defined by the pallet's configuration trait (`Config`).
+
+The `StorageMap` consists of the following parameters:
+
+- **`_`**: Used in macro expansion and acts as a placeholder for the storage prefix type. Tells the macro to insert the default prefix during expansion.
+- **`Blake2_128Concat`**: The hashing function applied to keys in the storage map.
+- **`T: :AccountId`**: Represents the key type, which corresponds to the account’s unique ID.
+- **`AccountInfo<T: :Nonce, T::AccountData>`**: The value type stored in the map. For each account ID, the map stores an `AccountInfo` struct containing:
+
+    - **`T::Nonce`**: A nonce for the account, which is incremented with each transaction to ensure transaction uniqueness.
+    - **`T: :AccountData`**: Custom account data defined by the runtime configuration, which could include balances, locked funds, or other relevant information.
+    
+- **`ValueQuery`**: Defines how queries to the storage map behave when no value is found; returns a default value instead of `None`.
+
+For a detailed explanation of storage maps, see the [`StorageMap`](https://paritytech.github.io/polkadot-sdk/master/frame_support/storage/types/struct.StorageMap.html){target=\_blank} entry in the Rust docs.
+
+### Account Info
+
+The `AccountInfo` structure is another key element within the [System pallet](https://paritytech.github.io/polkadot-sdk/master/src/frame_system/lib.rs.html){target=\_blank}, providing more granular details about each account's state. This structure tracks vital data, such as the number of transactions and the account’s relationships with other modules.
+
+```rs
+/// Information of an account.
+#[derive(Clone, Eq, PartialEq, Default, RuntimeDebug, Encode, Decode, TypeInfo, MaxEncodedLen)]
+pub struct AccountInfo<Nonce, AccountData> {
+	/// The number of transactions this account has sent.
+	pub nonce: Nonce,
+	/// The number of other modules that currently depend on this account's existence. The account
+	/// cannot be reaped until this is zero.
+	pub consumers: RefCount,
+	/// The number of other modules that allow this account to exist. The account may not be reaped
+	/// until this and `sufficients` are both zero.
+	pub providers: RefCount,
+	/// The number of modules that allow this account to exist for their own purposes only. The
+	/// account may not be reaped until this and `providers` are both zero.
+	pub sufficients: RefCount,
+	/// The additional data that belongs to this account. Used to store the balance(s) in a lot of
+	/// chains.
+	pub data: AccountData,
+}
+```
+
+The `AccountInfo` structure includes the following components:
+
+- **`nonce`**: Tracks the number of transactions initiated by the account, which ensures transaction uniqueness and prevents replay attacks.
+- **`consumers`**: Counts how many other modules or pallets rely on this account’s existence. The account cannot be removed from the chain (reaped) until this count reaches zero.
+- **`providers`**: Tracks how many modules permit this account’s existence. An account can only be reaped once both `providers` and `sufficients` are zero.
+- **`sufficients`**: Represents the number of modules that allow the account to exist for internal purposes, independent of any other modules.
+- **`AccountData`**: A flexible data structure that can be customized in the runtime configuration, usually containing balances or other user-specific data.
+
+This structure helps manage an account's state and prevents its premature removal while it is still referenced by other on-chain data or modules. The [`AccountInfo`](https://paritytech.github.io/polkadot-sdk/master/frame_system/struct.AccountInfo.html){target=\_blank} structure can vary as long as it satisfies the trait bounds defined by the `AccountData` associated type in the [`frame-system::pallet::Config`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/trait.Config.html){target=\_blank} trait.
+
+### Account Reference Counters
+
+Polkadot SDK uses reference counters to track an account’s dependencies across different runtime modules. These counters ensure that accounts remain active while data is associated with them.
+
+The reference counters include:
+
+- **`consumers`**: Prevents account removal while other pallets still rely on the account.
+- **`providers`**: Ensures an account is active before other pallets store data related to it.
+- **`sufficients`**: Indicates the account’s independence, ensuring it can exist even without a native token balance, such as when holding sufficient alternative assets.
+
+#### Providers Reference Counters
+
+The `providers` counter ensures that an account is ready to be depended upon by other runtime modules. For example, it is incremented when an account has a balance above the existential deposit, which marks the account as active.
+
+The system requires this reference counter to be greater than zero for the `consumers` counter to be incremented, ensuring the account is stable before any dependencies are added.
+
+#### Consumers Reference Counters
+
+The `consumers` counter ensures that the account cannot be reaped until all references to it across the runtime have been removed. This check prevents the accidental deletion of accounts that still have active on-chain data.
+
+It is the user’s responsibility to clear out any data from other runtime modules if they wish to remove their account and reclaim their existential deposit.
+
+#### Sufficients Reference Counter
+
+The `sufficients` counter tracks accounts that can exist independently without relying on a native account balance. This is useful for accounts holding other types of assets, like tokens, without needing a minimum balance in the native token.
+
+For instance, the [Assets pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_assets/index.html){target=\_blank}, may increment this counter for an account holding sufficient tokens.
+
+#### Account Deactivation
+
+In Polkadot SDK-based chains, an account is deactivated when its reference counters (such as `providers`, `consumers`, and `sufficient`) reach zero. These counters ensure the account remains active as long as other runtime modules or pallets reference it.
+
+When all dependencies are cleared and the counters drop to zero, the account becomes deactivated and may be removed from the chain (reaped). This is particularly important in Polkadot SDK-based blockchains, where accounts with balances below the existential deposit threshold are pruned from storage to conserve state resources.
+
+Each pallet that references an account has cleanup functions that decrement these counters when the pallet no longer depends on the account. Once these counters reach zero, the account is marked for deactivation.
+
+#### Updating Counters
+
+The Polkadot SDK provides runtime developers with various methods to manage account lifecycle events, such as deactivation or incrementing reference counters. These methods ensure that accounts cannot be reaped while still in use.
+
+The following helper functions manage these counters:
+
+- **`inc_consumers()`**: Increments the `consumer` reference counter for an account, signaling that another pallet depends on it.
+- **`dec_consumers()`**: Decrements the `consumer` reference counter, signaling that a pallet no longer relies on the account.
+- **`inc_providers()`**: Increments the `provider` reference counter, ensuring the account remains active.
+- **`dec_providers()`**: Decrements the `provider` reference counter, allowing for account deactivation when no longer in use.
+- **`inc_sufficients()`**: Increments the `sufficient` reference counter for accounts that hold sufficient assets.
+- **`dec_sufficients()`**: Decrements the `sufficient` reference counter.
+
+To ensure proper account cleanup and lifecycle management, a corresponding decrement should be made for each increment action.
+
+The `System` pallet offers three query functions to assist developers in tracking account states:
+
+- **[`can_inc_consumer()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.can_inc_consumer){target=\_blank}**: Checks if the account can safely increment the consumer reference.
+- **[`can_dec_provider()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.can_dec_provider){target=\_blank}**: Ensures that no consumers exist before allowing the decrement of the provider counter.
+- **[`is_provider_required()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.is_provider_required){target=\_blank}**: Verifies whether the account still has any active consumer references.
+
+This modular and flexible system of reference counters tightly controls the lifecycle of accounts in Polkadot SDK-based blockchains, preventing the accidental removal or retention of unneeded accounts. You can refer to the [System pallet Rust docs](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html){target=\_blank} for more details.
+    
+
+## Account Balance Types
+
+In the Polkadot ecosystem, account balances are categorized into different types based on how the funds are utilized and their availability. These balance types determine the actions that can be performed, such as transferring tokens, paying transaction fees, or participating in governance activities. Understanding these balance types helps developers manage user accounts and implement balance-dependent logic.
+
+!!! note "A more efficient distribution of account balance types is in development"
+    Soon, pallets in the Polkadot SDK will implement the [`Fungible` trait](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/tokens/fungible/index.html){target=\_blank} (see the [tracking issue](https://github.com/paritytech/polkadot-sdk/issues/226){target=\_blank} for more details). For example, the [`transaction-storage`](https://paritytech.github.io/polkadot-sdk/master/pallet_transaction_storage/index.html){target=\_blank} pallet changed the implementation of the [`Currency`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/tokens/currency/index.html){target=\_blank} trait (see the [Refactor transaction storage pallet to use fungible traits](https://github.com/paritytech/polkadot-sdk/pull/1800){target=\_blank} PR for further details):
+
+    ```rust
+    type BalanceOf<T> = <<T as Config>::Currency as Currency<<T as frame_system::Config>::AccountId>>::Balance;
+    ```
+    
+    To the [`Fungible`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/tokens/fungible/index.html){target=\_blank} trait:
+
+    ```rust
+    type BalanceOf<T> = <<T as Config>::Currency as FnInspect<<T as frame_system::Config>::AccountId>>::Balance;
+    ```
+    
+    This update will enable more efficient use of account balances, allowing the free balance to be utilized for on-chain activities such as setting proxies and managing identities.
+
+### Balance Types
+
+The five main balance types are:
+
+- **Free balance**: Represents the total tokens available to the account for any on-chain activity, including staking, governance, and voting. However, it may not be fully spendable or transferrable if portions of it are locked or reserved.
+- **Locked balance**: Portions of the free balance that cannot be spent or transferred because they are tied up in specific activities like [staking](https://wiki.polkadot.com/learn/learn-staking/#nominating-validators){target=\_blank}, [vesting](https://wiki.polkadot.com/learn/learn-guides-transfers/#vested-transfers-with-the-polkadot-js-ui){target=\_blank}, or participating in [governance](https://wiki.polkadot.com/learn/learn-polkadot-opengov/#voting-on-a-referendum){target=\_blank}. While the tokens remain part of the free balance, they are non-transferable for the duration of the lock.
+- **Reserved balance**: Funds locked by specific system actions, such as setting up an [identity](https://wiki.polkadot.com/learn/learn-identity/){target=\_blank}, creating [proxies](https://wiki.polkadot.com/learn/learn-proxies/){target=\_blank}, or submitting [deposits for governance proposals](https://wiki.polkadot.com/learn/learn-guides-polkadot-opengov/#claiming-opengov-deposits){target=\_blank}. These tokens are not part of the free balance and cannot be spent unless they are unreserved.
+- **Spendable balance**: The portion of the free balance that is available for immediate spending or transfers. It is calculated by subtracting the maximum of locked or reserved amounts from the free balance, ensuring that existential deposit limits are met.
+- **Untouchable balance**: Funds that cannot be directly spent or transferred but may still be utilized for on-chain activities, such as governance participation or staking. These tokens are typically tied to certain actions or locked for a specific period.
+
+The spendable balance is calculated as follows:
+
+```text
+spendable = free - max(locked - reserved, ED)
+```
+
+Here, `free`, `locked`, and `reserved` are defined above. The `ED` represents the [existential deposit](https://wiki.polkadot.com/learn/learn-accounts/#existential-deposit-and-reaping){target=\_blank}, the minimum balance required to keep an account active and prevent it from being reaped. You may find you can't see all balance types when looking at your account via a wallet. Wallet providers often display only spendable, locked, and reserved balances.
+
+### Locks
+
+Locks are applied to an account's free balance, preventing that portion from being spent or transferred. Locks are automatically placed when an account participates in specific on-chain activities, such as staking or governance. Although multiple locks may be applied simultaneously, they do not stack. Instead, the largest lock determines the total amount of locked tokens.
+
+Locks follow these basic rules:
+
+- If different locks apply to varying amounts, the largest lock amount takes precedence.
+- If multiple locks apply to the same amount, the lock with the longest duration governs when the balance can be unlocked.
+
+#### Locks Example
+
+Consider an example where an account has 80 DOT locked for both staking and governance purposes like so:
+
+- 80 DOT is staked with a 28-day lock period.
+- 24 DOT is locked for governance with a 1x conviction and a 7-day lock period.
+- 4 DOT is locked for governance with a 6x conviction and a 224-day lock period.
+
+In this case, the total locked amount is 80 DOT because only the largest lock (80 DOT from staking) governs the locked balance. These 80 DOT will be released at different times based on the lock durations. In this example, the 24 DOT locked for governance will be released first since the shortest lock period is seven days. The 80 DOT stake with a 28-day lock period is released next. Now, all that remains locked is the 4 DOT for governance. After 224 days, all 80 DOT (minus the existential deposit) will be free and transferable.
+
+![Illustration of Lock Example](/images/polkadot-protocol/parachain-basics/accounts/locks-example-2.webp)
+
+#### Edge Cases for Locks
+
+In scenarios where multiple convictions and lock periods are active, the lock duration and amount are determined by the longest period and largest amount. For example, if you delegate with different convictions and attempt to undelegate during an active lock period, the lock may be extended for the full amount of tokens. For a detailed discussion on edge case lock behavior, see this [Stack Exchange post](https://substrate.stackexchange.com/questions/5067/delegating-and-undelegating-during-the-lock-period-extends-it-for-the-initial-am){target=\_blank}.
+
+### Balance Types on Polkadot.js
+
+Polkadot.js provides a user-friendly interface for managing and visualizing various account balances on Polkadot and Kusama networks. When interacting with Polkadot.js, you will encounter multiple balance types that are critical for understanding how your funds are distributed and restricted. This section explains how different balances are displayed in the Polkadot.js UI and what each type represents.
+
+![](/images/polkadot-protocol/parachain-basics/accounts/account-balance-types-1.webp)
+
+The most common balance types displayed on Polkadot.js are:
+
+- **Total balance**: The total number of tokens available in the account. This includes all tokens, whether they are transferable, locked, reserved, or vested. However, the total balance does not always reflect what can be spent immediately. In this example, the total balance is 0.6274 KSM.
+
+- **Transferable balance**: Shows how many tokens are immediately available for transfer. It is calculated by subtracting the locked and reserved balances from the total balance. For example, if an account has a total balance of 0.6274 KSM and a transferable balance of 0.0106 KSM, only the latter amount can be sent or spent freely.
+
+- **Vested balance**: Tokens that allocated to the account but released according to a specific schedule. Vested tokens remain locked and cannot be transferred until fully vested. For example, an account with a vested balance of 0.2500 KSM means that this amount is owned but not yet transferable.
+
+- **Locked balance**: Tokens that are temporarily restricted from being transferred or spent. These locks typically result from participating in staking, governance, or vested transfers. In Polkadot.js, locked balances do not stack—only the largest lock is applied. For instance, if an account has 0.5500 KSM locked for governance and staking, the locked balance would display 0.5500 KSM, not the sum of all locked amounts.
+
+- **Reserved balance**: Refers to tokens locked for specific on-chain actions, such as setting an identity, creating a proxy, or making governance deposits. Reserved tokens are not part of the free balance, but can be freed by performing certain actions. For example, removing an identity would unreserve those funds.
+
+- **Bonded balance**: The tokens locked for staking purposes. Bonded tokens are not transferable until they are unbonded after the unbonding period.
+
+- **Redeemable balance**: The number of tokens that have completed the unbonding period and are ready to be unlocked and transferred again. For example, if an account has a redeemable balance of 0.1000 KSM, those tokens are now available for spending.
+
+- **Democracy balance**: Reflects the number of tokens locked for governance activities, such as voting on referenda. These tokens are locked for the duration of the governance action and are only released after the lock period ends.
+
+By understanding these balance types and their implications, developers and users can better manage their funds and engage with on-chain activities more effectively.
+
+## Address Formats
+
+The SS58 address format is a core component of the Polkadot SDK that enables accounts to be uniquely identified across Polkadot-based networks. This format is a modified version of Bitcoin's Base58Check encoding, specifically designed to accommodate the multi-chain nature of the Polkadot ecosystem. SS58 encoding allows each chain to define its own set of addresses while maintaining compatibility and checksum validation for security. 
+
+### Basic Format
+
+SS58 addresses consist of three main components:
+
+```text
+base58encode(concat(<address-type>, <address>, <checksum>))
+```
+
+- **Address type**: A byte or set of bytes that define the network (or chain) for which the address is intended. This ensures that addresses are unique across different Polkadot SDK-based chains.
+- **Address**: The public key of the account encoded as bytes.
+- **Checksum**: A hash-based checksum which ensures that addresses are valid and unaltered. The checksum is derived from the concatenated address type and address components, ensuring integrity.
+
+The encoding process transforms the concatenated components into a Base58 string, providing a compact and human-readable format that avoids easily confused characters (e.g., zero '0', capital 'O', lowercase 'l'). This encoding function ([`encode`](https://docs.rs/bs58/latest/bs58/fn.encode.html){target=\_blank}) is implemented exactly as defined in Bitcoin and IPFS specifications, using the same alphabet as both implementations.
+
+For more details about the SS58 address format implementation, see the [`Ss58Codec`](https://paritytech.github.io/polkadot-sdk/master/sp_core/crypto/trait.Ss58Codec.html){target=\_blank} trait in the Rust Docs.
+
+### Address Type
+
+The address type defines how an address is interpreted and to which network it belongs. Polkadot SDK uses different prefixes to distinguish between various chains and address formats:
+
+- **Address types `0-63`**: Simple addresses, commonly used for network identifiers.
+- **Address types `64-127`**: Full addresses that support a wider range of network identifiers.
+- **Address types `128-255`**: Reserved for future address format extensions.
+
+For example, Polkadot’s main network uses an address type of 0, while Kusama uses 2. This ensures that addresses can be used without confusion between networks.
+
+The address type is always encoded as part of the SS58 address, making it easy to quickly identify the network. Refer to the [SS58 registry](https://github.com/paritytech/ss58-registry){target=\_blank} for the canonical listing of all address type identifiers and how they map to Polkadot SDK-based networks.
+
+### Address Length
+
+SS58 addresses can have different lengths depending on the specific format. Address lengths range from as short as 3 to 35 bytes, depending on the complexity of the address and network requirements. This flexibility allows SS58 addresses to adapt to different chains while providing a secure encoding mechanism.
+
+| Total | Type | Raw account | Checksum |
+|-------|------|-------------|----------|
+| 3     | 1    | 1           | 1        |
+| 4     | 1    | 2           | 1        |
+| 5     | 1    | 2           | 2        |
+| 6     | 1    | 4           | 1        |
+| 7     | 1    | 4           | 2        |
+| 8     | 1    | 4           | 3        |
+| 9     | 1    | 4           | 4        |
+| 10    | 1    | 8           | 1        |
+| 11    | 1    | 8           | 2        |
+| 12    | 1    | 8           | 3        |
+| 13    | 1    | 8           | 4        |
+| 14    | 1    | 8           | 5        |
+| 15    | 1    | 8           | 6        |
+| 16    | 1    | 8           | 7        |
+| 17    | 1    | 8           | 8        |
+| 35    | 1    | 32          | 2        |
+
+SS58 addresses also support different payload sizes, allowing a flexible range of account identifiers.
+
+### Checksum Types
+
+A checksum is applied to validate SS58 addresses. Polkadot SDK uses a Blake2b-512 hash function to calculate the checksum, which is appended to the address before encoding. The checksum length can vary depending on the address format (e.g., 1-byte, 2-byte, or longer), providing varying levels of validation strength.
+
+The checksum ensures that an address is not modified or corrupted, adding an extra layer of security for account management.
+
+### Validating Addresses
+
+SS58 addresses can be validated using the subkey command-line interface or the Polkadot.js API. These tools help ensure an address is correctly formatted and valid for the intended network. The following sections will provide an overview of how validation works with these tools.
+
+#### Using Subkey
+
+[Subkey](https://paritytech.github.io/polkadot-sdk/master/subkey/index.html){target=\_blank} is a CLI tool provided by Polkadot SDK for generating and managing keys. It can inspect and validate SS58 addresses.
+
+The `inspect` command gets a public key and an SS58 address from the provided secret URI. The basic syntax for the `subkey inspect` command is:
+
+```bash
+subkey inspect [flags] [options] uri
+```
+
+For the `uri` command-line argument, you can specify the secret seed phrase, a hex-encoded private key, or an SS58 address. If the input is a valid address, the `subkey` program displays the corresponding hex-encoded public key, account identifier, and SS58 addresses.
+
+For example, to inspect the public keys derived from a secret seed phrase, you can run a command similar to the following:
+
+```bash
+subkey inspect "caution juice atom organ advance problem want pledge someone senior holiday very"
+```
+
+The command displays output similar to the following:
+
+<div id="termynal" data-termynal markdown>
+  <span data-ty="input"><span class="file-path"></span>subkey inspect "caution juice atom organ advance problem want pledge someone senior holiday very"</span>
+  <span data-ty>Secret phrase `caution juice atom organ advance problem want pledge someone senior holiday very` is account:</span>
+  <span data-ty> Secret seed: 0xc8fa03532fb22ee1f7f6908b9c02b4e72483f0dbd66e4cd456b8f34c6230b849</span>
+  <span data-ty> Public key (hex): 0xd6a3105d6768e956e9e5d41050ac29843f98561410d3a47f9dd5b3b227ab8746</span>
+  <span data-ty> Public key (SS58): 5Gv8YYFu8H1btvmrJy9FjjAWfb99wrhV3uhPFoNEr918utyR</span>
+  <span data-ty> Account ID: 0xd6a3105d6768e956e9e5d41050ac29843f98561410d3a47f9dd5b3b227ab8746</span>
+  <span data-ty> SS58 Address: 5Gv8YYFu8H1btvmrJy9FjjAWfb99wrhV3uhPFoNEr918utyR</span>
+</div>
+
+The `subkey` program assumes an address is based on a public/private key pair. If you inspect an address, the command returns the 32-byte account identifier.
+
+However, not all addresses in Polkadot SDK-based networks are based on keys.
+
+Depending on the command-line options you specify and the input you provided, the command output might also display the network for which the address has been encoded. For example:
+
+```bash
+subkey inspect "12bzRJfh7arnnfPPUZHeJUaE62QLEwhK48QnH9LXeK2m1iZU"
+```
+
+The command displays output similar to the following:
+
+<div id="termynal" data-termynal markdown>
+  <span data-ty="input"><span class="file-path"></span>subkey inspect "12bzRJfh7arnnfPPUZHeJUaE62QLEwhK48QnH9LXeK2m1iZU"</span>
+  <span data-ty>Public Key URI `12bzRJfh7arnnfPPUZHeJUaE62QLEwhK48QnH9LXeK2m1iZU` is account:</span>
+  <span data-ty> Network ID/Version: polkadot</span>
+  <span data-ty> Public key (hex): 0x46ebddef8cd9bb167dc30878d7113b7e168e6f0646beffd77d69d39bad76b47a</span>
+  <span data-ty> Account ID: 0x46ebddef8cd9bb167dc30878d7113b7e168e6f0646beffd77d69d39bad76b47a</span>
+  <span data-ty> Public key (SS58): 12bzRJfh7arnnfPPUZHeJUaE62QLEwhK48QnH9LXeK2m1iZU</span>
+  <span data-ty> SS58 Address: 12bzRJfh7arnnfPPUZHeJUaE62QLEwhK48QnH9LXeK2m1iZU</span>
+</div>
+
+#### Using Polkadot.js API
+
+To verify an address in JavaScript or TypeScript projects, you can use the functions built into the [Polkadot.js API](https://polkadot.js.org/docs/){target=\_blank}. For example:
+
+```js
+// Import Polkadot.js API dependencies
+const { decodeAddress, encodeAddress } = require('@polkadot/keyring');
+const { hexToU8a, isHex } = require('@polkadot/util');
+
+// Specify an address to test.
+const address = 'INSERT_ADDRESS_TO_TEST';
+
+// Check address
+const isValidSubstrateAddress = () => {
+  try {
+    encodeAddress(isHex(address) ? hexToU8a(address) : decodeAddress(address));
+
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
+
+// Query result
+const isValid = isValidSubstrateAddress();
+console.log(isValid);
+
+```
+
+If the function returns `true`, the specified address is a valid address.
+
+#### Other SS58 Implementations
+
+Support for encoding and decoding Polkadot SDK SS58 addresses has been implemented in several other languages and libraries.
+
+- **Crystal**: [`wyhaines/base58.cr`](https://github.com/wyhaines/base58.cr){target=\_blank}
+- **Go**: [`itering/subscan-plugin`](https://github.com/itering/subscan-plugin){target=\_blank}
+- **Python**: [`polkascan/py-scale-codec`](https://github.com/polkascan/py-scale-codec){target=\_blank}
+- **TypeScript**: [`subsquid/squid-sdk`](https://github.com/subsquid/squid-sdk){target=\_blank}
 
 
 ---
@@ -6805,6 +16800,297 @@ For comprehensive reference materials and advanced features, see the [Python Sub
 
 ---
 
+Page Title: Quickstart Parachain Development with Pop CLI
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-toolkit-parachains-quickstart-pop-cli.md
+- Canonical (HTML): https://docs.polkadot.com/develop/toolkit/parachains/quickstart/pop-cli/
+- Summary: Quickly bootstrap parachain projects, scaffold templates, deploy local networks, and streamline development workflows using Pop CLI.
+
+# Quickstart Parachain Development With Pop CLI
+
+## Introduction
+
+[Pop CLI](https://onpop.io/cli/){target=\_blank} is a powerful command-line tool designed explicitly for rapid parachain development within the Polkadot ecosystem. It addresses essential developer needs by providing streamlined commands to set up development environments, scaffold parachain templates, and manage local blockchain networks.
+
+Pop CLI simplifies parachain development with features like:
+
+- Quick initialization of parachain development environments.
+- Project scaffolding from predefined parachain templates.
+- Easy deployment and management of local development networks.
+
+Developers can quickly begin coding and testing, significantly reducing setup overhead.
+
+### Install Pop CLI
+
+To install Pop CLI, run the following command:
+
+```bash
+cargo install --force --locked pop-cli
+```
+
+Confirm that Pop CLI is installed by running `pop --help` in your terminal:
+
+```bash
+pop --help
+```
+
+### Set Up Your Development Environment
+
+To develop and build Polkadot SDK-based chains, preparing your local environment with the necessary tools and dependencies is essential. The [Install Polkadot SDK Dependencies](/develop/parachains/install-polkadot-sdk/){target=\_blank} guide walks you through this setup step-by-step.
+
+However, you can automate this entire process by running:
+
+```bash
+pop install
+```
+
+This command provides an interactive experience that checks and installs all necessary dependencies for you. It’s the fastest and easiest way to prepare your development environment for building parachains with Pop CLI.
+
+<div id="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>pop install</span>
+  <span data-ty>┌ Pop CLI : Install dependencies for development</span>
+  <span data-ty>│ </span>
+  <span data-ty></span>
+  <span data-ty>⚙ ℹ️ Mac OS (Darwin) detected.</span>
+  <span data-ty>│ </span>
+  <span data-ty>⚙ More information about the packages to be installed here: https://docs.substrate.io/install/macos/</span>
+  <span data-ty>│ </span>
+  <span data-ty>◆ 📦 Do you want to proceed with the installation of the following packages: homebrew, protobuf, openssl, rustup and cmake ?</span>
+  <span data-ty>│ ● Yes / ○ No </span>
+</div>
+
+### Initialize a Project
+
+Start a new project quickly using Pop CLI's `pop new parachain` command:
+
+<div id="termynal" data-termynal>
+  <img src="/images/develop/toolkit/parachains/quickstart/pop-new.gif" alt="pop new" style="max-width: 100%" />
+</div>
+
+The command above scaffolds a new parachain project using the default template included with Pop CLI. For more specialized implementations, additional templates are available; you can explore them by running `pop new parachain --help`.
+
+Once the project is generated, move into the new directory and build your parachain:
+
+```
+cd my-parachain
+pop build --release
+```
+
+!!! note
+    Under the hood, `pop build --release` runs `cargo build --release`, but `pop build` adds functionality specific to Polkadot SDK projects, such as [deterministic runtime builds](/develop/parachains/deployment/build-deterministic-runtime/){target=\_blank} and automatic management of feature flags like `benchmark` or `try-runtime`.
+
+Pop CLI integrates the [Zombienet SDK](https://github.com/paritytech/zombienet-sdk){target=\_blank} allowing you to easily launch ephemeral local networks for development and testing. To start a network, simply run the following:
+
+```bash
+pop up network -f ./network.toml
+```
+
+This command will automatically fetch the necessary binaries and spin up a Polkadot network with your configured parachains.
+
+You can also interact with your local network using Pop CLI's `pop call chain` command:
+
+<div id="termynal" data-termynal>
+  <img src="/images/develop/toolkit/parachains/quickstart/call-chain.gif" alt="pop call" style="max-width: 100%" />
+</div>
+
+## Where to Go Next
+
+For a comprehensive guide to all Pop CLI features and advanced usage, see the official [Pop CLI](https://learn.onpop.io/appchains) documentation.
+
+!!! tip
+    Pop CLI also offers powerful solutions for smart contract developers. If you're interested in that path, check out the [Pop CLI Smart Contracts](https://learn.onpop.io/contracts) documentation.
+
+
+---
+
+Page Title: Randomness
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/polkadot-protocol-parachain-basics-randomness.md
+- Canonical (HTML): https://docs.polkadot.com/polkadot-protocol/parachain-basics/randomness/
+- Summary: Explore the importance of randomness in PoS blockchains, focusing on Polkadot’s VRF-based approach to ensure fairness and security in validator selection.
+
+# Randomness
+
+## Introduction
+
+Randomness is crucial in Proof of Stake (PoS) blockchains to ensure a fair and unpredictable distribution of validator duties. However, computers are inherently deterministic, meaning the same input always produces the same output. What we typically refer to as "random" numbers on a computer are actually pseudo-random. These numbers rely on an initial "seed," which can come from external sources like [atmospheric noise](https://www.random.org/randomness/){target=\_blank}, [heart rates](https://mdpi.altmetric.com/details/47574324){target=\_blank}, or even [lava lamps](https://en.wikipedia.org/wiki/Lavarand){target=\_blank}. While this may seem random, given the same "seed," the same sequence of numbers will always be generated.
+
+In a global blockchain network, relying on real-world entropy for randomness isn’t feasible because these inputs vary by time and location. If nodes use different inputs, blockchains can fork. Hence, real-world randomness isn't suitable for use as a seed in blockchain systems.
+
+Currently, two primary methods for generating randomness in blockchains are used: [`RANDAO`](#randao) and [`VRF`](#vrf) (Verifiable Random Function). Polkadot adopts the `VRF` approach for its randomness.
+
+## VRF
+
+A Verifiable Random Function (VRF) is a cryptographic function that generates a random number and proof that ensures the submitter produced the number. This proof allows anyone to verify the validity of the random number.
+
+Polkadot's VRF is similar to the one used in [**Ouroboros Praos**](https://eprint.iacr.org/2017/573.pdf){target=\_blank}, which secures randomness for block production in systems like [BABE](/polkadot-protocol/architecture/polkadot-chain/pos-consensus/#block-production-babe){target=\_blank} (Polkadot’s block production mechanism). 
+
+The key difference is that Polkadot's VRF doesn’t rely on a central clock—avoiding the issue of whose clock to trust. Instead, it uses its own past results and slot numbers to simulate time and determine future outcomes.
+
+### How VRF Works
+
+Slots on Polkadot are discrete units of time, each lasting six seconds, and can potentially hold a block. Multiple slots form an epoch, with 2400 slots making up one four-hour epoch.
+
+In each slot, validators execute a "die roll" using a VRF. The VRF uses three inputs:
+
+1. A "secret key," unique to each validator, is used for the die roll.
+2. An epoch randomness value, derived from the hash of VRF outputs from blocks two epochs ago (N-2), so past randomness influences the current epoch (N).
+3. The current slot number.
+
+This process helps maintain fair randomness across the network.
+
+Here is a graphical representation:
+
+![](/images/polkadot-protocol/parachain-basics/blocks-transactions-fees/randomness/slots-epochs.webp)
+
+The VRF produces two outputs: a result (the random number) and a proof (verifying that the number was generated correctly).
+
+The result is checked by the validator against a protocol threshold. If it's below the threshold, the validator becomes a candidate for block production in that slot. 
+
+The validator then attempts to create a block, submitting it along with the `PROOF` and `RESULT`.
+
+So, VRF can be expressed like:
+
+`(RESULT, PROOF) = VRF(SECRET, EPOCH_RANDOMNESS_VALUE, CURRENT_SLOT_NUMBER)`
+
+Put simply, performing a "VRF roll" generates a random number along with proof that the number was genuinely produced and not arbitrarily chosen.
+
+After executing the VRF, the `RESULT` is compared to a protocol-defined `THRESHOLD`. If the `RESULT` is below the `THRESHOLD`, the validator becomes a valid candidate to propose a block for that slot. Otherwise, the validator skips the slot.
+
+As a result, there may be multiple validators eligible to propose a block for a slot. In this case, the block accepted by other nodes will prevail, provided it is on the chain with the latest finalized block as determined by the GRANDPA finality gadget. It's also possible for no block producers to be available for a slot, in which case the AURA consensus takes over. AURA is a fallback mechanism that randomly selects a validator to produce a block, running in parallel with BABE and only stepping in when no block producers exist for a slot. Otherwise, it remains inactive.
+
+Because validators roll independently, no block candidates may appear in some slots if all roll numbers are above the threshold. 
+
+To verify resolution of this issue and that Polkadot block times remain near constant-time, see the [PoS Consensus](/polkadot-protocol/architecture/polkadot-chain/pos-consensus/){target=\_blank} page of this documentation.
+
+## RANDAO
+
+An alternative on-chain randomness method is Ethereum's RANDAO, where validators perform thousands of hashes on a seed and publish the final hash during a round. The collective input from all validators forms the random number, and as long as one honest validator participates, the randomness is secure.
+
+To enhance security, RANDAO can optionally be combined with a Verifiable Delay Function (VDF), ensuring that randomness can't be predicted or manipulated during computation.
+
+For more information about RANDAO, see the [Randomness - RANDAO](https://eth2book.info/capella/part2/building_blocks/randomness/){target=\_blank} section of the Upgrading Ethereum documentation.
+
+## VDFs
+
+Verifiable Delay Functions (VDFs) are time-bound computations that, even on parallel computers, take a set amount of time to complete. 
+
+They produce a unique result that can be quickly verified publicly. When combined with RANDAO, feeding RANDAO's output into a VDF introduces a delay that nullifies an attacker's chance to influence the randomness.
+
+However, VDF likely requires specialized ASIC devices to run separately from standard nodes.
+
+!!!warning 
+    While only one is needed to secure the system, and they will be open-source and inexpensive, running VDF devices involves significant costs without direct incentives, adding friction for blockchain users.
+
+## Additional Resources
+
+For more information about the reasoning for choices made along with proofs, see Polkadot's research on blockchain randomness and sortition in the [Block production](https://research.web3.foundation/Polkadot/protocols/block-production){target=\_blank} entry of the Polkadot Wiki. 
+
+For a discussion with Web3 Foundation researchers about when and under what conditions Polkadot's randomness can be utilized, see the [Discussion on Randomness used in Polkadot](https://github.com/use-ink/ink/issues/57){target=\_blank} issue on GitHub.
+
+
+---
+
+Page Title: Register a Local Asset
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/tutorials-polkadot-sdk-system-chains-asset-hub-register-local-asset.md
+- Canonical (HTML): https://docs.polkadot.com/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-asset/
+- Summary: Comprehensive guide to registering a local asset on the Asset Hub system parachain, including step-by-step instructions.
+
+# Register a Local Asset on Asset Hub
+
+## Introduction
+
+As detailed in the [Asset Hub Overview](/polkadot-protocol/architecture/system-chains/asset-hub){target=\_blank} page, Asset Hub accommodates two types of assets: local and foreign. Local assets are those that were created in Asset Hub and are identifiable by an integer ID. On the other hand, foreign assets originate from a sibling parachain and are identified by a Multilocation.
+
+This guide will take you through the steps of registering a local asset on the Asset Hub parachain.
+
+## Prerequisites
+
+Before you begin, ensure you have access to the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} interface and a funded wallet with DOT or KSM.
+
+- For Polkadot Asset Hub, you would need a deposit of 10 DOT and around 0.201 DOT for the metadata.
+- For Kusama Asset Hub, the deposit is 0.1 KSM and around 0.000669 KSM for the metadata.
+
+You need to ensure that your Asset Hub account balance is a bit more than the sum of those two deposits, which should seamlessly account for the required deposits and transaction fees.
+
+## Steps to Register a Local Asset
+
+To register a local asset on the Asset Hub parachain, follow these steps:
+
+1. Open the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} interface and connect to the Asset Hub parachain using the network selector in the top left corner.
+
+      - You may prefer to test local asset registration on TestNet before registering the asset on a MainNet hub. If you still need to set up a local testing environment, review the [Environment setup](#test-setup-environment) section for instructions. Once the local environment is set up, connect to the Local Node (Chopsticks) available on `ws://127.0.0.1:8000`.
+      - For the live network, connect to the **Asset Hub** parachain. Either Polkadot or Kusama Asset Hub can be selected from the dropdown list, choosing the desired RPC provider.
+
+2. Click on the **Network** tab on the top navigation bar and select **Assets** from the dropdown list.
+
+      ![Access to Asset Hub through Polkadot.JS](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-assets/register-a-local-asset-1.webp)
+
+3. Now, you need to examine all the registered asset IDs. This step is crucial to ensure that the asset ID you are about to register is unique. Asset IDs are displayed in the **assets** column.
+
+      ![Asset IDs on Asset Hub](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-assets/register-a-local-asset-2.webp)
+
+4. Once you have confirmed that the asset ID is unique, click on the **Create** button on the top right corner of the page.
+
+      ![Create a new asset](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-assets/register-a-local-asset-3.webp)
+
+5. Fill in the required fields in the **Create Asset** form:
+
+    1. **creator account**: The account to be used for creating this asset and setting up the initial metadata.
+    2. **asset name**: The descriptive name of the asset you are registering.
+    3. **asset symbol**: The symbol that will be used to represent the asset.
+    4. **asset decimals**: The number of decimal places for this token, with a maximum of 20 allowed through the user interface.
+    5. **minimum balance**: The minimum balance for the asset. This is specified in the units and decimals as requested.
+    6. **asset ID**: The selected id for the asset. This should not match an already-existing asset id.
+    7. Click on the **Next** button.
+ 
+    ![Create Asset Form](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-assets/register-a-local-asset-4.webp)
+
+6. Choose the accounts for the roles listed below:
+
+    1. **admin account**: The account designated for continuous administration of the token.
+    2. **issuer account**: The account that will be used for issuing this token.
+    3. **freezer account**: The account that will be used for performing token freezing operations.
+    4. Click on the **Create** button.
+
+    ![Admin, Issuer, Freezer accounts](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-assets/register-a-local-asset-5.webp)
+
+7. Click on the **Sign and Submit** button to complete the asset registration process.
+
+    ![Sign and Submit](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-assets/register-a-local-asset-6.webp)
+
+## Verify Asset Registration
+
+After completing these steps, the asset will be successfully registered. You can now view your asset listed on the [**Assets**](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fasset-hub-polkadot-rpc.dwellir.com#/assets){target=\_blank} section of the Polkadot.js Apps interface.
+
+![Asset listed on Polkadot.js Apps](/images/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-assets/register-a-local-asset-7.webp)
+
+!!! tip
+    Take into consideration that the **Assets** section’s link may differ depending on the network you are using. For the local environment, enter `ws://127.0.0.1:8000` into the **Custom Endpoint** field.
+
+In this way, you have successfully registered a local asset on the Asset Hub parachain.
+
+For an in-depth explanation about Asset Hub and its features, see the [Asset Hub](/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/){target=\_blank} entry in the Polkadot Wiki.
+
+## Test Setup Environment
+
+You can set up a local parachain environment to test the asset registration process before deploying it on the live network. This guide uses Chopsticks to simulate that process. For further information on chopsticks usage, refer to the [Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started){target=\_blank} documentation.
+
+To set up a test environment, execute the following command:
+
+```bash
+npx @acala-network/chopsticks \
+--config=https://raw.githubusercontent.com/AcalaNetwork/chopsticks/master/configs/polkadot-asset-hub.yml
+```
+
+The above command will spawn a lazy fork of Polkadot Asset Hub with the latest block data from the network. If you need to test Kusama Asset Hub, replace `polkadot-asset-hub.yml` with `kusama-asset-hub.yml` in the command.
+
+An Asset Hub instance is now running locally, and you can proceed with the asset registration process. Note that the local registration process does not differ from the live network process. Once you have a successful TestNet transaction, you can use the same steps to register the asset on MainNet.
+
+
+---
+
 Page Title: Send XCM Messages
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-interoperability-send-messages.md
@@ -6895,6 +17181,242 @@ pub type PriceForChildParachainDelivery =
 ```
 
 For more details about XCM transport protocols, see the [XCM Channels](/develop/interoperability/xcm-channels/){target=\_blank} page.
+
+
+---
+
+Page Title: Set Up a Template
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/tutorials-polkadot-sdk-parachains-zero-to-hero-set-up-a-template.md
+- Canonical (HTML): https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template/
+- Summary: Learn to compile and run a local parachain node using Polkadot SDK. Launch, run, and interact with a pre-configured runtime template.
+
+# Set Up a Template
+
+## Introduction
+
+[Polkadot SDK](https://github.com/paritytech/polkadot-sdk){target=\_blank} offers a versatile and extensible blockchain development framework, enabling you to create custom blockchains tailored to your specific application or business requirements. 
+
+This tutorial guides you through compiling and running a parachain node using the [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk/tree/master/templates/parachain){target=\_blank}.
+
+The parachain template provides a pre-configured, functional runtime you can use in your local development environment. It includes several key components, such as user accounts and account balances.
+
+These predefined elements allow you to experiment with common blockchain operations without requiring initial template modifications.
+In this tutorial, you will:
+
+- Build and start a local parachain node using the node template.
+- Explore how to use a front-end interface to:
+    - View information about blockchain activity.
+    - Submit a transaction.
+
+By the end of this tutorial, you'll have a working local parachain and understand how to interact with it, setting the foundation for further customization and development.
+
+## Prerequisites
+
+Before getting started, ensure you have done the following:
+
+- Completed the [Install Polkadot SDK Dependencies](/develop/parachains/install-polkadot-sdk/){target=\_blank} guide and successfully installed [Rust](https://www.rust-lang.org/){target=\_blank} and the required packages to set up your development environment.
+
+For this tutorial series, you need to use Rust `1.86`. Newer versions of the compiler may not work with this parachain template version.
+
+=== "macOS"
+
+    ```bash
+    rustup install 1.86
+    rustup default 1.86
+    rustup target add wasm32-unknown-unknown --toolchain 1.86-aarch64-apple-darwin
+    rustup component add rust-src --toolchain 1.86-aarch64-apple-darwin
+    ```
+
+=== "Ubuntu"
+
+    ```bash
+    rustup toolchain install 1.86.0
+    rustup default 1.86.0
+    rustup target add wasm32-unknown-unknown --toolchain 1.86.0
+    rustup component add rust-src --toolchain 1.86.0
+    ```
+
+## Utility Tools
+
+This tutorial requires two essential tools:
+
+- [**Chain spec builder**](https://crates.io/crates/staging-chain-spec-builder/10.0.0){target=\_blank}: A Polkadot SDK utility for generating chain specifications. Refer to the [Generate Chain Specs](/develop/parachains/deployment/generate-chain-specs/){target=\_blank} documentation for detailed usage.
+    
+    Install it by executing the following command:
+    
+    ```bash
+    cargo install --locked staging-chain-spec-builder@10.0.0
+    ```
+
+    This installs the `chain-spec-builder` binary.
+
+- [**Polkadot Omni Node**](https://crates.io/crates/polkadot-omni-node/0.5.0){target=\_blank}: A white-labeled binary, released as a part of Polkadot SDK that can act as the collator of a parachain in production, with all the related auxiliary functionalities that a normal collator node has: RPC server, archiving state, etc. Moreover, it can also run the wasm blob of the parachain locally for testing and development.
+
+    To install it, run the following command:
+
+    ```bash
+    cargo install --locked polkadot-omni-node@0.5.0
+    ```
+
+    This installs the `polkadot-omni-node` binary.
+
+## Compile the Runtime
+
+The [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk/tree/master/templates/parachain){target=\_blank} provides a ready-to-use development environment for building using the [Polkadot SDK](https://github.com/paritytech/polkadot-sdk){target=\_blank}. Follow these steps to compile the runtime:
+
+1. Clone the template repository:
+
+    ```bash
+    git clone -b v0.0.4 https://github.com/paritytech/polkadot-sdk-parachain-template.git parachain-template
+    ```
+
+2. Navigate into the project directory:
+
+    ```bash
+    cd parachain-template
+    ```
+
+3. Compile the runtime:
+
+    ```bash
+    cargo build --release --locked
+    ```
+
+    !!!tip
+        Initial compilation may take several minutes, depending on your machine specifications. Use the `--release` flag for improved runtime performance compared to the default `--debug` build. If you need to troubleshoot issues, the `--debug` build provides better diagnostics.
+        
+        For production deployments, consider using a dedicated [`--profile production`](https://github.com/paritytech/polkadot-sdk-parachain-template/blob/v0.0.4/Cargo.toml#L42-L45){target=\_blank} flag - this can provide an additional 15-30% performance improvement over the standard `--release` profile.
+
+4. Upon successful compilation, you should see output similar to:
+
+    <div id="termynal" data-termynal>
+      <span data-ty="input"><span class="file-path"></span>cargo build --release --locked</span>
+      <span data-ty>...</span>
+      <span data-ty>Finished `release` profile [optimized] target(s) in 1.79s</span>
+      <span data-ty="input"><span class="file-path"></span></span>
+    </div>
+
+## Start the Local Chain
+
+After successfully compiling your runtime, you can spin up a local chain and produce blocks. This process will start your local parachain and allow you to interact with it. You'll first need to generate a chain specification that defines your network's identity, initial connections, and genesis state, providing the foundational configuration for how your nodes connect and what initial state they agree upon, and then run the chain. 
+
+Follow these steps to launch your node in development mode:
+
+1. Generate the chain specification file of your parachain:
+
+    ```bash
+    chain-spec-builder create -t development \
+    --relay-chain paseo \
+    --para-id 1000 \
+    --runtime ./target/release/wbuild/parachain-template-runtime/parachain_template_runtime.compact.compressed.wasm \
+    named-preset development
+    ```
+
+2. Start the omni node with the generated chain spec. You'll start it in development mode (without a relay chain config), producing and finalizing blocks:
+
+    ```bash
+    polkadot-omni-node --chain ./chain_spec.json --dev
+    ```
+
+    The `--dev` option does the following:
+
+    - Deletes all active data (keys, blockchain database, networking information) when stopped.
+    - Ensures a clean working state each time you restart the node.
+
+3. Verify that your node is running by reviewing the terminal output. You should see something similar to:
+
+    <div id="termynal" data-termynal>
+      <span data-ty="input"><span class="file-path"></span>polkadot-omni-node --chain ./chain_spec.json --dev</span>
+      <br />
+      <span data-ty>2024-12-12 12:44:02 polkadot-omni-node</span>
+      <span data-ty>2024-12-12 12:44:02 ✌️ version 0.1.0-da2dd9b7737</span>
+      <span data-ty>2024-12-12 12:44:02 ❤️ by Parity Technologies admin@parity.io, 2017-2024</span>
+      <span data-ty>2024-12-12 12:44:02 📋 Chain specification: Custom</span>
+      <span data-ty>2024-12-12 12:44:02 🏷 Node name: grieving-drum-1926</span>
+      <span data-ty>2024-12-12 12:44:02 👤 Role: AUTHORITY</span>
+      <span data-ty>2024-12-12 12:44:02 💾 Database: RocksDb at /var/folders/x0/xl_kjddj3ql3bx7752yr09hc0000gn/T/substrateoUrZMQ/chains/custom/db/full</span>
+      <span data-ty>2024-12-12 12:44:03 [Parachain] assembling new collators for new session 0 at #0</span>
+      <span data-ty>2024-12-12 12:44:03 [Parachain] assembling new collators for new session 1 at #0</span>
+      <span data-ty>2024-12-12 12:44:03 [Parachain] 🔨 Initializing Genesis block/state (state: 0xa6f8…5b46, header-hash: 0x0579…2153)</span>
+      <span data-ty>2024-12-12 12:44:03 [Parachain] creating SingleState txpool Limit { count: 8192, total_bytes: 20971520 }/Limit { count: 819, total_bytes: 2097152 }.</span>
+      <span data-ty>2024-12-12 12:44:03 [Parachain] Using default protocol ID "sup" because none is configured in the chain specs</span>
+      <span data-ty>2024-12-12 12:44:03 [Parachain] 🏷 Local node identity is: 12D3KooWCSXy6rBuJVsn5mx8uyNqkdfNfFzEbToi4hR31v3PwdgX</span>
+      <span data-ty>2024-12-12 12:44:03 [Parachain] Running libp2p network backend</span>
+      <span data-ty>2024-12-12 12:44:03 [Parachain] 💻 Operating system: macos</span>
+      <span data-ty>2024-12-12 12:44:03 [Parachain] 💻 CPU architecture: aarch64</span>
+      <span data-ty>2024-12-12 12:44:03 [Parachain] 📦 Highest known block at #0</span>
+      <span data-ty>2024-12-12 12:44:03 [Parachain] 〽️ Prometheus exporter started at 127.0.0.1:9615</span>
+      <span data-ty>2024-12-12 12:44:03 [Parachain] Running JSON-RPC server: addr=127.0.0.1:9944,[::1]:9944</span>
+      <span data-ty>2024-12-12 12:44:06 [Parachain] 🙌 Starting consensus session on top of parent 0x05794f9adcdaa23a5edd335e8310637d3a7e6e9393f2b0794af7d3e219f62153 (#0)</span>
+      <span data-ty>2024-12-12 12:44:06 [Parachain] 🎁 Prepared block for proposing at 1 (2 ms) hash: 0x6fbea46711e9b38bab8e7877071423cd03feab03d3f4a0d578a03ab42dcee34b; parent_hash: 0x0579…2153; end: NoMoreTransactions; extrinsics_count: 2</span>
+      <span data-ty>2024-12-12 12:44:06 [Parachain] 🏆 Imported #1 (0x0579…2153 → 0x6fbe…e34b)</span>
+      <span data-ty>...</span>
+    </div>
+
+4. Confirm that your blockchain is producing new blocks by checking if the number after `finalized` is increasing.
+
+    <div id="termynal" data-termynal>
+      <span data-ty>...</span>
+      <span data-ty>2024-12-12 12:49:20 [Parachain] 💤 Idle (0 peers), best: #1 (0x6fbe…e34b), finalized #1 (0x6fbe…e34b), ⬇ 0 ⬆ 0</span>
+      <span data-ty>...</span>
+      <span data-ty>2024-12-12 12:49:25 [Parachain] 💤 Idle (0 peers), best: #3 (0x7543…bcfc), finalized #3 (0x7543…bcfc), ⬇ 0 ⬆ 0</span>
+      <span data-ty>...</span>
+      <span data-ty>2024-12-12 12:49:30 [Parachain] 💤 Idle (0 peers), best: #4 (0x0478…8d63), finalized #4 (0x0478…8d63), ⬇ 0 ⬆ 0</span>
+      <span data-ty>...</span>
+    </div>
+
+The details of the log output will be explored in a later tutorial. For now, knowing that your node is running and producing blocks is sufficient.
+
+## Interact with the Node
+
+When running the template node, it's accessible by default at `ws://localhost:9944`. To interact with your node using the [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} interface, follow these steps:
+
+1. Open [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} in your web browser and click the network icon (which should be the Polkadot logo) in the top left corner as shown in the image below:
+    
+    ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template/set-up-a-template-1.webp)
+
+2. Connect to your local node:
+
+    1. Scroll to the bottom and select **Development**.
+    2. Choose **Custom**.
+    3. **Enter `ws**: //localhost:9944` in the input field.
+    4. Click the **Switch** button.
+    
+    ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template/set-up-a-template-2.webp)
+
+3. Verify connection:
+
+    - Once connected, you should see **parachain-template-runtime** in the top left corner.
+    - The interface will display information about your local blockchain.
+    
+    ![](/images/tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template/set-up-a-template-3.webp)
+
+You are now connected to your local node and can now interact with it through the Polkadot.js Apps interface. This tool enables you to explore blocks, execute transactions, and interact with your blockchain's features. For in-depth guidance on using the interface effectively, refer to the [Polkadot.js Guides](https://wiki.polkadot.com/general/polkadotjs/){target=\_blank} available on the Polkadot Wiki.
+
+## Stop the Node
+
+When you're done exploring your local node, you can stop it to remove any state changes you've made. Since you started the node with the `--dev` option, stopping the node will purge all persistent block data, allowing you to start fresh the next time.
+
+To stop the local node:
+
+1. Return to the terminal window where the node output is displayed.
+2. Press `Control-C` to stop the running process.
+3. Verify that your terminal returns to the prompt in the `parachain-template` directory.
+
+## Where to Go Next
+
+<div class="grid cards" markdown>
+
+-   <span class="badge tutorial">Tutorial</span> __Build a Custom Pallet__
+
+    ---
+
+    Build your own custom pallet for Polkadot SDK-based blockchains! Follow this step-by-step guide to create and configure a simple counter pallet from scratch.
+
+    [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/)
+
+</div>
 
 
 ---
@@ -8417,6 +18939,273 @@ To see a complete example of implementing and executing tests, refer to the [int
 
 ---
 
+Page Title: Transactions
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/polkadot-protocol-parachain-basics-blocks-transactions-fees-transactions.md
+- Canonical (HTML): https://docs.polkadot.com/polkadot-protocol/parachain-basics/blocks-transactions-fees/transactions/
+- Summary: Learn how to construct, submit, and validate transactions in the Polkadot SDK, covering signed, unsigned, and inherent types of transactions.
+
+# Transactions
+
+## Introduction
+
+Transactions are essential components of blockchain networks, enabling state changes and the execution of key operations. In the Polkadot SDK, transactions, often called extrinsics, come in multiple forms, including signed, unsigned, and inherent transactions.
+
+This guide walks you through the different transaction types and how they're formatted, validated, and processed within the Polkadot ecosystem. You'll also learn how to customize transaction formats and construct transactions for FRAME-based runtimes, ensuring a complete understanding of how transactions are built and executed in Polkadot SDK-based chains.
+
+## What Is a Transaction?
+
+In the Polkadot SDK, transactions represent operations that modify the chain's state, bundled into blocks for execution. The term extrinsic is often used to refer to any data that originates outside the runtime and is included in the chain. While other blockchain systems typically refer to these operations as "transactions," the Polkadot SDK adopts the broader term "extrinsic" to capture the wide variety of data types that can be added to a block.
+
+There are three primary types of transactions (extrinsics) in the Polkadot SDK:
+
+- **Signed transactions**: Signed by the submitting account, often carrying transaction fees.
+- **Unsigned transactions**: Submitted without a signature, often requiring custom validation logic.
+- **Inherent transactions**: Typically inserted directly into blocks by block authoring nodes, without gossiping between peers.
+
+Each type serves a distinct purpose, and understanding when and how to use each is key to efficiently working with the Polkadot SDK.
+
+### Signed Transactions
+
+Signed transactions require an account's signature and typically involve submitting a request to execute a runtime call. The signature serves as a form of cryptographic proof that the sender has authorized the action, using their private key. These transactions often involve a transaction fee to cover the cost of execution and incentivize block producers.
+
+Signed transactions are the most common type of transaction and are integral to user-driven actions, such as token transfers. For instance, when you transfer tokens from one account to another, the sending account must sign the transaction to authorize the operation.
+
+For example, the [`pallet_balances::Call::transfer_allow_death`](https://paritytech.github.io/polkadot-sdk/master/pallet_balances/pallet/struct.Pallet.html#method.transfer_allow_death){target=\_blank} extrinsic in the Balances pallet allows you to transfer tokens. Since your account initiates this transaction, your account key is used to sign it. You'll also be responsible for paying the associated transaction fee, with the option to include an additional tip to incentivize faster inclusion in the block.
+
+### Unsigned Transactions
+
+Unsigned transactions do not require a signature or account-specific data from the sender. Unlike signed transactions, they do not come with any form of economic deterrent, such as fees, which makes them susceptible to spam or replay attacks. Custom validation logic must be implemented to mitigate these risks and ensure these transactions are secure.
+
+Unsigned transactions typically involve scenarios where including a fee or signature is unnecessary or counterproductive. However, due to the absence of fees, they require careful validation to protect the network. For example, [`pallet_im_online::Call::heartbeat`](https://paritytech.github.io/polkadot-sdk/master/pallet_im_online/pallet/struct.Pallet.html#method.heartbeat){target=\_blank} extrinsic allows validators to send a heartbeat signal, indicating they are active. Since only validators can make this call, the logic embedded in the transaction ensures that the sender is a validator, making the need for a signature or fee redundant.
+
+Unsigned transactions are more resource-intensive than signed ones because custom validation is required, but they play a crucial role in certain operational scenarios, especially when regular user accounts aren't involved.
+
+### Inherent Transactions
+
+Inherent transactions are a specialized type of unsigned transaction that is used primarily for block authoring. Unlike signed or other unsigned transactions, inherent transactions are added directly by block producers and are not broadcasted to the network or stored in the transaction queue. They don't require signatures or the usual validation steps and are generally used to insert system-critical data directly into blocks.
+
+A key example of an inherent transaction is inserting a timestamp into each block. The [`pallet_timestamp::Call::now`](https://paritytech.github.io/polkadot-sdk/master/pallet_timestamp/pallet/struct.Pallet.html#method.now-1){target=\_blank} extrinsic allows block authors to include the current time in the block they are producing. Since the block producer adds this information, there is no need for transaction validation, like signature verification. The validation in this case is done indirectly by the validators, who check whether the timestamp is within an acceptable range before finalizing the block.
+
+Another example is the [`paras_inherent::Call::enter`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/paras_inherent/pallet/struct.Pallet.html#method.enter){target=\_blank} extrinsic, which enables parachain collator nodes to send validation data to the relay chain. This inherent transaction ensures that the necessary parachain data is included in each block without the overhead of gossiped transactions.
+
+Inherent transactions serve a critical role in block authoring by allowing important operational data to be added directly to the chain without needing the validation processes required for standard transactions.
+
+## Transaction Formats
+
+Understanding the structure of signed and unsigned transactions is crucial for developers building on Polkadot SDK-based chains. Whether you're optimizing transaction processing, customizing formats, or interacting with the transaction pool, knowing the format of extrinsics, Polkadot's term for transactions, is essential.
+
+### Types of Transaction Formats
+
+In Polkadot SDK-based chains, extrinsics can fall into three main categories:
+
+- **Unchecked extrinsics**: Typically used for signed transactions that require validation. They contain a signature and additional data, such as a nonce and information for fee calculation. Unchecked extrinsics are named as such because they require validation checks before being accepted into the transaction pool.
+- **Checked extrinsics**: Typically used for inherent extrinsics (unsigned transactions); these don't require signature verification. Instead, they carry information such as where the extrinsic originates and any additional data required for the block authoring process.
+- **Opaque extrinsics**: Used when the format of an extrinsic is not yet fully committed or finalized. They are still decodable, but their structure can be flexible depending on the context.
+
+### Signed Transaction Data Structure
+
+A signed transaction typically includes the following components:
+
+- **Signature**: Verifies the authenticity of the transaction sender.
+- **Call**: The actual function or method call the transaction is requesting (for example, transferring funds).
+- **Nonce**: Tracks the number of prior transactions sent from the account, helping to prevent replay attacks.
+- **Tip**: An optional incentive to prioritize the transaction in block inclusion.
+- **Additional data**: Includes details such as spec version, block hash, and genesis hash to ensure the transaction is valid within the correct runtime and chain context.
+
+Here's a simplified breakdown of how signed transactions are typically constructed in a Polkadot SDK runtime:
+
+``` code
+<signing account ID> + <signature> + <additional data>
+```
+
+Each part of the signed transaction has a purpose, ensuring the transaction's authenticity and context within the blockchain.
+
+### Signed Extensions
+
+Polkadot SDK also provides the concept of [signed extensions](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/signed_extensions/index.html){target=\_blank}, which allow developers to extend extrinsics with additional data or validation logic before they are included in a block. The [`SignedExtension`](https://paritytech.github.io/try-runtime-cli/sp_runtime/traits/trait.SignedExtension.html){target=\_blank} set helps enforce custom rules or protections, such as ensuring the transaction's validity or calculating priority.
+
+The transaction queue regularly calls signed extensions to verify a transaction's validity before placing it in the ready queue. This safeguard ensures transactions won't fail in a block. Signed extensions are commonly used to enforce validation logic and protect the transaction pool from spam and replay attacks.
+
+In FRAME, a signed extension can hold any of the following types by default:
+
+- **[`AccountId`](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_frame/runtime/types_common/type.AccountId.html){target=\_blank}**: To encode the sender's identity.
+- **[`Call`](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_frame/traits/trait.SignedExtension.html#associatedtype.Call){target=\_blank}**: To encode the pallet call to be dispatched. This data is used to calculate transaction fees.
+- **[`AdditionalSigned`](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_frame/traits/trait.SignedExtension.html#associatedtype.AdditionalSigned){target=\_blank}**: To handle any additional data to go into the signed payload allowing you to attach any custom logic prior to dispatching a transaction.
+- **[`Pre`](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_frame/traits/trait.SignedExtension.html#associatedtype.Pre){target=\_blank}**: To encode the information that can be passed from before a call is dispatched to after it gets dispatched.
+
+Signed extensions can enforce checks like:
+
+- **[`CheckSpecVersion`](https://paritytech.github.io/polkadot-sdk/master/src/frame_system/extensions/check_spec_version.rs.html){target=\_blank}**: Ensures the transaction is compatible with the runtime's current version.
+- **[`CheckWeight`](https://paritytech.github.io/polkadot-sdk/master/frame_system/struct.CheckWeight.html){target=\_blank}**: Calculates the weight (or computational cost) of the transaction, ensuring the block doesn't exceed the maximum allowed weight.
+
+These extensions are critical in the transaction lifecycle, ensuring that only valid and prioritized transactions are processed.
+
+## Transaction Construction
+
+Building transactions in the Polkadot SDK involves constructing a payload that can be verified, signed, and submitted for inclusion in a block. Each runtime in the Polkadot SDK has its own rules for validating and executing transactions, but there are common patterns for constructing a signed transaction.
+
+### Construct a Signed Transaction
+
+A signed transaction in the Polkadot SDK includes various pieces of data to ensure security, prevent replay attacks, and prioritize processing. Here's an overview of how to construct one:
+
+1. **Construct the unsigned payload**: Gather the necessary information for the call, including:
+
+    - **Pallet index**: Identifies the pallet where the runtime function resides.
+    - **Function index**: Specifies the particular function to call in the pallet.
+    - **Parameters**: Any additional arguments required by the function call.
+
+2. **Create a signing payload**: Once the unsigned payload is ready, additional data must be included:
+
+    - **Transaction nonce**: Unique identifier to prevent replay attacks.
+    - **Era information**: Defines how long the transaction is valid before it's dropped from the pool.
+    - **Block hash**: Ensures the transaction doesn't execute on the wrong chain or fork.
+
+3. **Sign the payload**: Using the sender's private key, sign the payload to ensure that the transaction can only be executed by the account holder.
+4. **Serialize the signed payload**: Once signed, the transaction must be serialized into a binary format, ensuring the data is compact and easy to transmit over the network.
+5. **Submit the serialized transaction**: Finally, submit the serialized transaction to the network, where it will enter the transaction pool and wait for processing by an authoring node.
+
+The following is an example of how a signed transaction might look:
+
+``` rust
+node_runtime::UncheckedExtrinsic::new_signed(
+    function.clone(),                                      // some call
+    sp_runtime::AccountId32::from(sender.public()).into(), // some sending account
+    node_runtime::Signature::Sr25519(signature.clone()),   // the account's signature
+    extra.clone(),                                         // the signed extensions
+)
+```
+
+### Transaction Encoding
+
+Before a transaction is sent to the network, it is serialized and encoded using a structured encoding process that ensures consistency and prevents tampering:
+
+- **`[1]`**: Compact encoded length in bytes of the entire transaction.
+- **`[2]`**: A u8 containing 1 byte to indicate whether the transaction is signed or unsigned (1 bit) and the encoded transaction version ID (7 bits).
+- **`[3]`**: If signed, this field contains an account ID, an SR25519 signature, and some extra data.
+- **`[4]`**: Encoded call data, including pallet and function indices and any required arguments.
+
+This encoded format ensures consistency and efficiency in processing transactions across the network. By adhering to this format, applications can construct valid transactions and pass them to the network for execution.
+
+To learn more about how compact encoding works using SCALE, see the [SCALE Codec](https://github.com/paritytech/parity-scale-codec){target=\_blank} README on GitHub.
+
+### Customize Transaction Construction
+
+Although the basic steps for constructing transactions are consistent across Polkadot SDK-based chains, developers can customize transaction formats and validation rules. For example:
+
+- **Custom pallets**: You can define new pallets with custom function calls, each with its own parameters and validation logic.
+- **Signed extensions**: Developers can implement custom extensions that modify how transactions are prioritized, validated, or included in blocks.
+
+By leveraging Polkadot SDK's modular design, developers can create highly specialized transaction logic tailored to their chain's needs.
+
+## Lifecycle of a Transaction
+
+In the Polkadot SDK, transactions are often referred to as extrinsics because the data in transactions originates outside of the runtime. These transactions contain data that initiates changes to the chain state. The most common type of extrinsic is a signed transaction, which is cryptographically verified and typically incurs a fee. This section focuses on how signed transactions are processed, validated, and ultimately included in a block.
+
+### Define Transaction Properties
+
+The Polkadot SDK runtime defines key transaction properties, such as:
+
+- **Transaction validity**: Ensures the transaction meets all runtime requirements.
+- **Signed or unsigned**: Identifies whether a transaction needs to be signed by an account.
+- **State changes**: Determines how the transaction modifies the state of the chain.
+
+Pallets, which compose the runtime's logic, define the specific transactions that your chain supports. When a user submits a transaction, such as a token transfer, it becomes a signed transaction, verified by the user's account signature. If the account has enough funds to cover fees, the transaction is executed, and the chain's state is updated accordingly.
+
+### Process on a Block Authoring Node
+
+In Polkadot SDK-based networks, some nodes are authorized to author blocks. These nodes validate and process transactions. When a transaction is sent to a node that can produce blocks, it undergoes a lifecycle that involves several stages, including validation and execution. Non-authoring nodes gossip the transaction across the network until an authoring node receives it. The following diagram illustrates the lifecycle of a transaction that's submitted to a network and processed by an authoring node.
+
+![Transaction lifecycle diagram](/images/polkadot-protocol/parachain-basics/blocks-transactions-fees/transactions/transaction-lifecycle-1.webp)
+
+### Validate and Queue
+
+Once a transaction reaches an authoring node, it undergoes an initial validation process to ensure it meets specific conditions defined in the runtime. This validation includes checks for:
+
+- **Correct nonce**: Ensures the transaction is sequentially valid for the account.
+- **Sufficient funds**: Confirms the account can cover any associated transaction fees.
+- **Signature validity**: Verifies that the sender's signature matches the transaction data.
+
+After these checks, valid transactions are placed in the transaction pool, where they are queued for inclusion in a block. The transaction pool regularly re-validates queued transactions to ensure they remain valid before being processed. To reach consensus, two-thirds of the nodes must agree on the order of the transactions executed and the resulting state change. Transactions are validated and queued on the local node in a transaction pool to prepare for consensus.
+
+#### Transaction Pool
+
+The transaction pool is responsible for managing valid transactions. It ensures that only transactions that pass initial validity checks are queued. Transactions that fail validation, expire, or become invalid for other reasons are removed from the pool.
+
+The transaction pool organizes transactions into two queues:
+
+- **Ready queue**: Transactions that are valid and ready to be included in a block.
+- **Future queue**: Transactions that are not yet valid but could be in the future, such as transactions with a nonce too high for the current state.
+
+Details on how the transaction pool validates transactions, including fee and signature handling, can be found in the [`validate_transaction`](https://paritytech.github.io/polkadot-sdk/master/sp_transaction_pool/runtime_api/trait.TaggedTransactionQueue.html#method.validate_transaction){target=\_blank} method.
+
+#### Invalid Transactions
+
+If a transaction is invalid, for example, due to an invalid signature or insufficient funds, it is rejected and won't be added to the block. Invalid transactions might be rejected for reasons such as:
+
+- The transaction has already been included in a block.
+- The transaction's signature does not match the sender.
+- The transaction is too large to fit in the current block.
+
+### Transaction Ordering and Priority
+
+When a node is selected as the next block author, it prioritizes transactions based on weight, length, and tip amount. The goal is to fill the block with high-priority transactions without exceeding its maximum size or computational limits. Transactions are ordered as follows:
+
+- **Inherents first**: Inherent transactions, such as block timestamp updates, are always placed first.
+- **Nonce-based ordering**: Transactions from the same account are ordered by their nonce.
+- **Fee-based ordering**: Among transactions with the same nonce or priority level, those with higher fees are prioritized.
+
+### Transaction Execution
+
+Once a block author selects transactions from the pool, the transactions are executed in priority order. As each transaction is processed, the state changes are written directly to the chain's storage. It's important to note that these changes are not cached, meaning a failed transaction won't revert earlier state changes, which could leave the block in an inconsistent state.
+
+Events are also written to storage. Runtime logic should not emit an event before performing the associated actions. If the associated transaction fails after the event was emitted, the event will not revert.
+
+## Transaction Mortality
+
+Transactions in the network can be configured as either mortal (with expiration) or immortal (without expiration). Every transaction payload contains a block checkpoint (reference block number and hash) and an era/validity period that determines how many blocks after the checkpoint the transaction remains valid.
+
+When a transaction is submitted, the network validates it against these parameters. If the transaction is not included in a block within the specified validity window, it is automatically removed from the transaction queue.
+
+- **Mortal transactions**: Have a finite lifespan and will expire after a specified number of blocks. For example, a transaction with a block checkpoint of 1000 and a validity period of 64 blocks will be valid from blocks 1000 to 1064.
+
+- **Immortal transactions**: Never expire and remain valid indefinitely. To create an immortal transaction, set the block checkpoint to 0 (genesis block), use the genesis hash as a reference, and set the validity period to 0.
+
+However, immortal transactions pose significant security risks through replay attacks. If an account is reaped (balance drops to zero, account removed) and later re-funded, malicious actors can replay old immortal transactions.
+
+The blockchain maintains only a limited number of prior block hashes for reference validation, called `BlockHashCount`. If your validity period exceeds `BlockHashCount`, the effective validity period becomes the minimum of your specified period and the block hash count.
+
+## Unique Identifiers for Extrinsics
+
+Transaction hashes are **not unique identifiers** in Polkadot SDK-based chains.
+
+Key differences from traditional blockchains:
+
+- Transaction hashes serve only as fingerprints of transaction information.
+- Multiple valid transactions can share the same hash.
+- Hash uniqueness assumptions lead to serious issues.
+
+For example, when an account is reaped (removed due to insufficient balance) and later recreated, it resets to nonce 0, allowing identical transactions to be valid at different points:
+
+| Block | Extrinsic Index | Hash | Origin    | Nonce | Call                | Result                        |
+|-------|----------------|------|-----------|-------|---------------------|-------------------------------|
+| 100   | 0              | 0x01 | Account A | 0     | Transfer 5 DOT to B | Account A reaped              |
+| 150   | 5              | 0x02 | Account B | 4     | Transfer 7 DOT to A | Account A created (nonce = 0) |
+| 200   | 2              | 0x01 | Account A | 0     | Transfer 5 DOT to B | Successful transaction        |
+
+Notice that blocks 100 and 200 contain transactions with identical hashes (0x01) but are completely different, valid operations occurring at different times.
+
+Additional complexity comes from Polkadot SDK's origin abstraction. Origins can represent collectives, governance bodies, or other non-account entities that don't maintain nonces like regular accounts and might dispatch identical calls multiple times with the same hash values. Each execution occurs in different chain states with different results.
+
+The correct way to uniquely identify an extrinsic on a Polkadot SDK-based chain is to use the block ID (height or hash) and the extrinsic index. Since the Polkadot SDK defines blocks as headers plus ordered arrays of extrinsics, the index position within a canonical block provides guaranteed uniqueness.
+
+## Additional Resources
+
+For a video overview of the lifecycle of transactions and the types of transactions that exist, see the [Transaction lifecycle](https://www.youtube.com/watch?v=3pfM0GOp02c){target=\_blank} seminar from Parity Tech.
+
+
+---
+
 Page Title: Transactions and Fees on Asset Hub
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/polkadot-protocol-smart-contract-basics-blocks-transactions-fees.md
@@ -8520,6 +19309,351 @@ The system maintains precise conversion mechanisms between:
 - Different resource metrics within the multi-dimensional model.
 
 This ensures accurate fee calculation while maintaining compatibility with existing Ethereum tools and workflows.
+
+
+---
+
+Page Title: Transactions Weights and Fees
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/polkadot-protocol-parachain-basics-blocks-transactions-fees-fees.md
+- Canonical (HTML): https://docs.polkadot.com/polkadot-protocol/parachain-basics/blocks-transactions-fees/fees/
+- Summary: Overview of transaction weights and fees in Polkadot SDK chains, detailing how fees are calculated using a defined formula and runtime specifics.
+
+# Transactions Weights and Fees
+
+## Introductions
+
+When transactions are executed, or data is stored on-chain, the activity changes the chain's state and consumes blockchain resources. Because the resources available to a blockchain are limited, managing how operations on-chain consume them is important. In addition to being limited in practical terms, such as storage capacity, blockchain resources represent a potential attack vector for malicious users. For example, a malicious user might attempt to overload the network with messages to stop the network from producing new blocks. To protect blockchain resources from being drained or overloaded, you need to manage how they are made available and how they are consumed. The resources to be aware of include:
+
+- Memory usage
+- Storage input and output
+- Computation
+- Transaction and block size
+- State database size
+
+The Polkadot SDK provides block authors with several ways to manage access to resources and to prevent individual components of the chain from consuming too much of any single resource. Two of the most important mechanisms available to block authors are weights and transaction fees.
+
+[Weights](/polkadot-protocol/glossary/#weight){target=\_blank} manage the time it takes to validate a block and characterize the time it takes to execute the calls in the block's body. By controlling the execution time a block can consume, weights set limits on storage input, output, and computation.
+
+Some of the weight allowed for a block is consumed as part of the block's initialization and finalization. The weight might also be used to execute mandatory inherent extrinsic calls. To help ensure blocks don’t consume too much execution time and prevent malicious users from overloading the system with unnecessary calls, weights are combined with transaction fees.
+
+[Transaction fees](/polkadot-protocol/parachain-basics/blocks-transactions-fees/transactions/#transaction-fees){target=\_blank} provide an economic incentive to limit execution time, computation, and the number of calls required to perform operations. Transaction fees are also used to make the blockchain economically sustainable because they are typically applied to transactions initiated by users and deducted before a transaction request is executed.
+
+## How Fees are Calculated
+
+The final fee for a transaction is calculated using the following parameters:
+
+- **`base fee`**: This is the minimum amount a user pays for a transaction. It is declared a base weight in the runtime and converted to a fee using the [`WeightToFee`](https://docs.rs/pallet-transaction-payment/latest/pallet_transaction_payment/pallet/trait.Config.html#associatedtype.WeightToFee){target=\_blank} conversion.
+- **`weight fee`**: A fee proportional to the execution time (input and output and computation) that a transaction consumes.
+- **`length fee`**: A fee proportional to the encoded length of the transaction.
+- **`tip`**: An optional tip to increase the transaction’s priority, giving it a higher chance to be included in the transaction queue.
+
+The base fee and proportional weight and length fees constitute the inclusion fee. The inclusion fee is the minimum fee that must be available for a transaction to be included in a block.
+
+```text
+inclusion fee = base fee + weight fee + length fee
+```
+
+Transaction fees are withdrawn before the transaction is executed. After the transaction is executed, the weight can be adjusted to reflect the resources used. If a transaction uses fewer resources than expected, the transaction fee is corrected, and the adjusted transaction fee is deposited.
+
+## Using the Transaction Payment Pallet
+
+The [Transaction Payment pallet](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2506-2/substrate/frame/transaction-payment){target=\_blank} provides the basic logic for calculating the inclusion fee. You can also use the Transaction Payment pallet to:
+
+- Convert a weight value into a deductible fee based on a currency type using [`Config::WeightToFee`](https://docs.rs/pallet-transaction-payment/latest/pallet_transaction_payment/pallet/trait.Config.html#associatedtype.WeightToFee){target=\_blank}.
+- Update the fee for the next block by defining a multiplier based on the chain’s final state at the end of the previous block using [`Config::FeeMultiplierUpdate`](https://docs.rs/pallet-transaction-payment/latest/pallet_transaction_payment/pallet/trait.Config.html#associatedtype.FeeMultiplierUpdate){target=\_blank}.
+- Manage the withdrawal, refund, and deposit of transaction fees using [`Config::OnChargeTransaction`](https://docs.rs/pallet-transaction-payment/latest/pallet_transaction_payment/pallet/trait.Config.html#associatedtype.OnChargeTransaction){target=\_blank}.
+
+You can learn more about these configuration traits in the [Transaction Payment documentation](https://paritytech.github.io/polkadot-sdk/master/pallet_transaction_payment/index.html){target=\_blank}.
+
+### Understanding the Inclusion Fee
+
+The formula for calculating the inclusion fee is as follows:
+
+```text
+inclusion_fee = base_fee + length_fee + [targeted_fee_adjustment * weight_fee]
+```
+
+And then, for calculating the final fee:
+
+```text
+final_fee = inclusion_fee + tip
+```
+
+In the first formula, the `targeted_fee_adjustment` is a multiplier that can tune the final fee based on the network’s congestion.
+
+- The `base_fee` derived from the base weight covers inclusion overhead like signature verification.
+- The `length_fee` is a per-byte fee that is multiplied by the length of the encoded extrinsic.
+- The `weight_fee` fee is calculated using two parameters:
+  - The `ExtrinsicBaseWeight` that is declared in the runtime and applies to all extrinsics.
+  - The `#[pallet::weight]` annotation that accounts for an extrinsic's complexity.
+
+To convert the weight to `Currency`, the runtime must define a `WeightToFee` struct that implements a conversion function, [`Convert<Weight,Balance>`](https://docs.rs/pallet-transaction-payment/latest/pallet_transaction_payment/pallet/struct.Pallet.html#method.weight_to_fee){target=\_blank}.
+
+Note that the extrinsic sender is charged the inclusion fee before the extrinsic is invoked. The fee is deducted from the sender's balance even if the transaction fails upon execution.
+
+### Accounts with an Insufficient Balance
+
+If an account does not have a sufficient balance to pay the inclusion fee and remain alive—that is, enough to pay the inclusion fee and maintain the minimum existential deposit—then you should ensure the transaction is canceled so that no fee is deducted and the transaction does not begin execution.
+
+The Polkadot SDK doesn't enforce this rollback behavior. However, this scenario would be rare because the transaction queue and block-making logic perform checks to prevent it before adding an extrinsic to a block.
+
+### Fee Multipliers
+
+The inclusion fee formula always results in the same fee for the same input. However, weight can be dynamic and—based on how [`WeightToFee`](https://docs.rs/pallet-transaction-payment/latest/pallet_transaction_payment/pallet/trait.Config.html#associatedtype.WeightToFee){target=\_blank} is defined—the final fee can include some degree of variability.
+The Transaction Payment pallet provides the [`FeeMultiplierUpdate`](https://docs.rs/pallet-transaction-payment/latest/pallet_transaction_payment/pallet/trait.Config.html#associatedtype.FeeMultiplierUpdate){target=\_blank} configurable parameter to account for this variability.
+
+The Polkadot network inspires the default update function and implements a targeted adjustment in which a target saturation level of block weight is defined. If the previous block is more saturated, the fees increase slightly. Similarly, if the last block has fewer transactions than the target, fees are decreased by a small amount. For more information about fee multiplier adjustments, see the [Web3 Research Page](https://research.web3.foundation/Polkadot/overview/token-economics#relay-chain-transaction-fees-and-per-block-transaction-limits){target=\_blank}.
+
+## Transactions with Special Requirements
+
+Inclusion fees must be computable before execution and can only represent fixed logic. Some transactions warrant limiting resources with other strategies. For example:
+
+- Bonds are a type of fee that might be returned or slashed after some on-chain event. For example, you might want to require users to place a bond to participate in a vote. The bond might then be returned at the end of the referendum or slashed if the voter attempted malicious behavior.
+- Deposits are fees that might be returned later. For example, you might require users to pay a deposit to execute an operation that uses storage. The user’s deposit could be returned if a subsequent operation frees up storage.
+- Burn operations are used to pay for a transaction based on its internal logic. For example, a transaction might burn funds from the sender if the transaction creates new storage items to pay for the increased state size.
+- Limits enable you to enforce constant or configurable limits on specific operations. For example, the default [Staking pallet](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2506-2/substrate/frame/staking){target=\_blank} only allows nominators to nominate 16 validators to limit the complexity of the validator election process.
+
+It is important to note that if you query the chain for a transaction fee, it only returns the inclusion fee.
+
+## Default Weight Annotations
+
+All dispatchable functions in the Polkadot SDK must specify a weight. The way of doing that is using the annotation-based system that lets you combine fixed values for database read/write weight and/or fixed values based on benchmarks. The most basic example would look like this:
+
+```rust
+#[pallet::weight(100_000)]
+fn my_dispatchable() {
+    // ...
+}
+```
+
+Note that the [`ExtrinsicBaseWeight`](https://crates.parity.io/frame_support/weights/constants/struct.ExtrinsicBaseWeight.html){target=\_blank} is automatically added to the declared weight to account for the costs of simply including an empty extrinsic into a block.
+
+### Weights and Database Read/Write Operations
+
+To make weight annotations independent of the deployed database backend, they are defined as a constant and then used in the annotations when expressing database accesses performed by the dispatchable:
+
+```rust
+#[pallet::weight(T::DbWeight::get().reads_writes(1, 2) + 20_000)]
+fn my_dispatchable() {
+    // ...
+}
+```
+
+This dispatchable allows one database to read and two to write, in addition to other things that add the additional 20,000. Database access is generally every time a value declared inside the [`#[pallet::storage]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.storage.html){target=\_blank} block is accessed. However, unique accesses are counted because after a value is accessed, it is cached, and reaccessing it does not result in a database operation. That is:
+
+- Multiple reads of the exact value count as one read.
+- Multiple writes of the exact value count as one write.
+- Multiple reads of the same value, followed by a write to that value, count as one read and one write.
+- A write followed by a read-only counts as one write.
+
+### Dispatch Classes
+
+Dispatches are broken into three classes:
+
+- Normal
+- Operational
+- Mandatory
+
+If a dispatch is not defined as `Operational` or `Mandatory` in the weight annotation, the dispatch is identified as `Normal` by default. You can specify that the dispatchable uses another class like this:
+
+```rust
+#[pallet::dispatch((DispatchClass::Operational))]
+fn my_dispatchable() {
+    // ...
+}
+```
+
+This tuple notation also allows you to specify a final argument determining whether the user is charged based on the annotated weight. If you don't specify otherwise, `Pays::Yes` is assumed:
+
+```rust
+#[pallet::dispatch(DispatchClass::Normal, Pays::No)]
+fn my_dispatchable() {
+    // ...
+}
+```
+
+#### Normal Dispatches
+
+Dispatches in this class represent normal user-triggered transactions. These types of dispatches only consume a portion of a block's total weight limit. For information about the maximum portion of a block that can be consumed for normal dispatches, see [`AvailableBlockRatio`](https://paritytech.github.io/polkadot-sdk/master/frame_system/limits/struct.BlockLength.html){target=\_blank}. Normal dispatches are sent to the transaction pool.
+
+#### Operational Dispatches
+
+Unlike normal dispatches, which represent the usage of network capabilities, operational dispatches are those that provide network capabilities. Operational dispatches can consume the entire weight limit of a block. They are not bound by the [`AvailableBlockRatio`](https://paritytech.github.io/polkadot-sdk/master/frame_system/limits/struct.BlockLength.html){target=\_blank}. Dispatches in this class are given maximum priority and are exempt from paying the [`length_fee`](https://docs.rs/pallet-transaction-payment/latest/pallet_transaction_payment/){target=\_blank}.
+
+#### Mandatory Dispatches
+
+Mandatory dispatches are included in a block even if they cause the block to surpass its weight limit. You can only use the mandatory dispatch class for inherent transactions that the block author submits. This dispatch class is intended to represent functions in the block validation process. Because these dispatches are always included in a block regardless of the function weight, the validation process must prevent malicious nodes from abusing the function to craft valid but impossibly heavy blocks. You can typically accomplish this by ensuring that:
+
+- The operation performed is always light.
+- The operation can only be included in a block once.
+
+To make it more difficult for malicious nodes to abuse mandatory dispatches, they cannot be included in blocks that return errors. This dispatch class serves the assumption that it is better to allow an overweight block to be created than not to allow any block to be created at all.
+
+### Dynamic Weights
+
+In addition to purely fixed weights and constants, the weight calculation can consider the input arguments of a dispatchable. The weight should be trivially computable from the input arguments with some basic arithmetic:
+
+```rust
+use frame_support:: {
+    dispatch:: {
+        DispatchClass::Normal,
+        Pays::Yes,
+    },
+   weights::Weight,
+};
+
+#[pallet::weight(FunctionOf(
+  |args: (&Vec<User>,)| args.0.len().saturating_mul(10_000),
+  )
+]
+fn handle_users(origin, calls: Vec<User>) {
+    // Do something per user
+}
+```
+
+## Post Dispatch Weight Correction
+
+Depending on the execution logic, a dispatchable function might consume less weight than was prescribed pre-dispatch. To correct weight, the function declares a different return type and returns its actual weight:
+
+```rust
+#[pallet::weight(10_000 + 500_000_000)]
+fn expensive_or_cheap(input: u64) -> DispatchResultWithPostInfo {
+    let was_heavy = do_calculation(input);
+
+    if (was_heavy) {
+        // None means "no correction" from the weight annotation.
+        Ok(None.into())
+    } else {
+        // Return the actual weight consumed.
+        Ok(Some(10_000).into())
+    }
+}
+```
+
+## Custom Fees
+
+You can also define custom fee systems through custom weight functions or inclusion fee functions.
+
+### Custom Weights
+
+Instead of using the default weight annotations, you can create a custom weight calculation type using the weights module. The custom weight calculation type must implement the following traits:
+
+- [`WeighData<T>`](https://crates.parity.io/frame_support/weights/trait.WeighData.html){target=\_blank} to determine the weight of the dispatch.
+- [`ClassifyDispatch<T>`](https://crates.parity.io/frame_support/weights/trait.ClassifyDispatch.html){target=\_blank} to determine the class of the dispatch.
+- [`PaysFee<T>`](https://crates.parity.io/frame_support/weights/trait.PaysFee.html){target=\_blank} to determine whether the sender of the dispatch pays fees.
+ 
+The Polkadot SDK then bundles the output information of the three traits into the [`DispatchInfo`](https://paritytech.github.io/polkadot-sdk/master/frame_support/dispatch/struct.DispatchInfo.html){target=\_blank} struct and provides it by implementing the [`GetDispatchInfo`](https://docs.rs/frame-support/latest/frame_support/dispatch/trait.GetDispatchInfo.html){target=\_blank} for all `Call` variants and opaque extrinsic types. This is used internally by the System and Executive modules.
+
+`ClassifyDispatch`, `WeighData`, and `PaysFee` are generic over T, which gets resolved into the tuple of all dispatch arguments except for the origin. The following example illustrates a struct that calculates the weight as `m * len(args)`, where `m` is a given multiplier and args is the concatenated tuple of all dispatch arguments. In this example, the dispatch class is `Operational` if the transaction has more than 100 bytes of length in arguments and will pay fees if the encoded length exceeds 10 bytes.
+
+```rust
+struct LenWeight(u32);
+impl<T> WeighData<T> for LenWeight {
+    fn weigh_data(&self, target: T) -> Weight {
+        let multiplier = self.0;
+        let encoded_len = target.encode().len() as u32;
+        multiplier * encoded_len
+    }
+}
+
+impl<T> ClassifyDispatch<T> for LenWeight {
+    fn classify_dispatch(&self, target: T) -> DispatchClass {
+        let encoded_len = target.encode().len() as u32;
+        if encoded_len > 100 {
+            DispatchClass::Operational
+        } else {
+            DispatchClass::Normal
+        }
+    }
+}
+
+impl<T> PaysFee<T> {
+    fn pays_fee(&self, target: T) -> Pays {
+        let encoded_len = target.encode().len() as u32;
+        if encoded_len > 10 {
+            Pays::Yes
+        } else {
+            Pays::No
+        }
+    }
+}
+```
+
+A weight calculator function can also be coerced to the final type of the argument instead of defining it as a vague type that can be encoded. The code would roughly look like this:
+
+```rust
+struct CustomWeight;
+impl WeighData<(&u32, &u64)> for CustomWeight {
+    fn weigh_data(&self, target: (&u32, &u64)) -> Weight {
+        ...
+    }
+}
+
+// given a dispatch:
+#[pallet::call]
+impl<T: Config<I>, I: 'static> Pallet<T, I> {
+    #[pallet::weight(CustomWeight)]
+    fn foo(a: u32, b: u64) { ... }
+}
+```
+
+In this example, the `CustomWeight` can only be used in conjunction with a dispatch with a particular signature `(u32, u64)`, as opposed to `LenWeight`, which can be used with anything because there aren't any assumptions about `<T>`.
+
+#### Custom Inclusion Fee
+
+The following example illustrates how to customize your inclusion fee. You must configure the appropriate associated types in the respective module.
+
+```rust
+// Assume this is the balance type
+type Balance = u64;
+
+// Assume we want all the weights to have a `100 + 2 * w` conversion to fees
+struct CustomWeightToFee;
+impl WeightToFee<Weight, Balance> for CustomWeightToFee {
+    fn convert(w: Weight) -> Balance {
+        let a = Balance::from(100);
+        let b = Balance::from(2);
+        let w = Balance::from(w);
+        a + b * w
+    }
+}
+
+parameter_types! {
+    pub const ExtrinsicBaseWeight: Weight = 10_000_000;
+}
+
+impl frame_system::Config for Runtime {
+    type ExtrinsicBaseWeight = ExtrinsicBaseWeight;
+}
+
+parameter_types! {
+    pub const TransactionByteFee: Balance = 10;
+}
+
+impl transaction_payment::Config {
+    type TransactionByteFee = TransactionByteFee;
+    type WeightToFee = CustomWeightToFee;
+    type FeeMultiplierUpdate = TargetedFeeAdjustment<TargetBlockFullness>;
+}
+
+struct TargetedFeeAdjustment<T>(sp_std::marker::PhantomData<T>);
+impl<T: Get<Perquintill>> WeightToFee<Fixed128, Fixed128> for TargetedFeeAdjustment<T> {
+    fn convert(multiplier: Fixed128) -> Fixed128 {
+        // Don't change anything. Put any fee update info here.
+        multiplier
+    }
+}
+```
+
+## Additional Resources
+
+You now know the weight system, how it affects transaction fee computation, and how to specify weights for your dispatchable calls. The next step is determining the correct weight for your dispatchable operations. You can use Substrate benchmarking functions and frame-benchmarking calls to test your functions with different parameters and empirically determine the proper weight in their worst-case scenarios.
+
+- [Benchmark](/develop/parachains/testing/benchmarking/)
+- [`SignedExtension`](https://paritytech.github.io/polkadot-sdk/master/sp_runtime/traits/trait.SignedExtension.html){target=\_blank}
+- [Custom weights for the Example pallet](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/substrate/frame/examples/basic/src/weights.rs){target=\_blank}
+- [Web3 Foundation Research](https://research.web3.foundation/Polkadot/overview/token-economics#relay-chain-transaction-fees-and-per-block-transaction-limits){target=\_blank}
 
 
 ---
@@ -11133,6 +22267,340 @@ Now that you have the foundation for using Web3.py with Polkadot Hub, consider e
     </ul>
 
 </div>
+
+
+---
+
+Page Title: Write Tests
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-toolkit-parachains-spawn-chains-zombienet-write-tests.md
+- Canonical (HTML): https://docs.polkadot.com/develop/toolkit/parachains/spawn-chains/zombienet/write-tests/
+- Summary: Write and execute tests for blockchain networks with Zombienet's DSL. Learn to evaluate metrics, logs, events, and more for robust validation.
+
+# Write Tests
+
+## Introduction
+
+Testing is a critical step in blockchain development, ensuring reliability, performance, and security. Zombienet simplifies this process with its intuitive Domain Specific Language (DSL), enabling developers to write natural-language test scripts tailored to their network needs.
+
+This guide provides an in-depth look at how to create and execute test scenarios using Zombienet's flexible testing framework. You’ll learn how to define tests for metrics, logs, events, and more, allowing for comprehensive evaluation of your blockchain network’s behavior and performance.
+
+## Testing DSL
+
+Zombienet provides a Domain Specific Language (DSL) for writing tests. The DSL is designed to be human-readable and allows you to write tests using natural language expressions. You can define assertions and tests against the spawned network using this DSL. This way, users can evaluate different metrics, such as:
+
+- **On-chain storage**: The storage of each of the chains running via Zombienet.
+- **Metrics**: The metrics provided by the nodes.
+- **Histograms**: Visual representations of metrics data.
+- **Logs**: Detailed records of system activities and events.
+- **System events**: Notifications of significant occurrences within the network.
+- **Tracing**: Detailed analysis of execution paths and operations.
+- **Custom API calls (through Polkadot.js)**: Personalized interfaces for interacting with the network.
+- **Commands**: Instructions or directives executed by the network.
+
+These abstractions are expressed by sentences defined in a natural language style. Therefore, each test line will be mapped to a test to run. Also, the test file (`*.zndsl`) includes pre-defined header fields used to define information about the suite, such as network configuration and credentials location.
+
+For more details about the Zombienet DSL, see the [Testing DSL](https://paritytech.github.io/zombienet/cli/test-dsl-definition-spec.html){target=\_blank} specification.
+
+## The Test File
+
+The test file is a text file with the extension `.zndsl`. It is divided into two parts: the header and the body. The header contains the network configuration and the credentials to use, while the body contains the tests to run.
+
+The header is defined by the following fields:
+
+- **`description`** ++"string"++: Long description of the test suite (optional).
+- **`network`** ++"string"++: Path to the network definition file, supported in both `.json` and `.toml` formats.
+- **`creds`** ++"string"++: Credentials filename or path to use (available only with Kubernetes provider). Looks in the current directory or `$HOME/.kube/` if a filename is passed.
+
+The body contains the tests to run. Each test is defined by a sentence in the DSL, which is mapped to a test to run. Each test line defines an assertion or a command to be executed against the spawned network.
+
+### Name
+
+The test name in Zombienet is derived from the filename by removing any leading numeric characters before the first hyphen. For example, a file named `0001-zombienet-test.zndsl` will result in a test name of `zombienet-test`, which will be displayed in the test report output of the runner.
+
+### Assertions
+
+Assertions are defined by sentences in the DSL that evaluate different metrics, such as on-chain storage, metrics, histograms, logs, system events, tracing, and custom API calls. Each assertion is defined by a sentence in the DSL, which is mapped to a test to run.
+
+- **`Well known functions`**: Already mapped test function.
+
+    === "Syntax"
+
+        `node-name well-known_defined_test [within x seconds]`
+
+    === "Examples"
+
+        ```bash
+        alice: is up
+        alice: parachain 100 is registered within 225 seconds
+        alice: parachain 100 block height is at least 10 within 250 seconds
+        
+        ```
+
+- **`Histogram`**: Get metrics from Prometheus, calculate the histogram, and assert on the target value.
+
+    === "Syntax"
+
+        `node-name reports histogram metric_name has comparator target_value samples in buckets ["bucket","bucket",...] [within x seconds]`
+
+    === "Example"
+
+        ```bash
+        alice: reports histogram polkadot_pvf_execution_time has at least 2 samples in buckets ["0.1", "0.25", "0.5", "+Inf"] within 100 seconds
+        
+        ```
+
+- **`Metric`**: Get metric from Prometheus and assert on the target value.
+
+    === "Syntax"
+
+        `node-name reports metric_name comparator target_value (e.g "is at least x", "is greater than x") [within x seconds]`
+
+    === "Examples"
+
+        ```bash
+        alice: reports node_roles is 4
+        alice: reports sub_libp2p_is_major_syncing is 0
+        
+        ```
+
+- **`Log line`**: Get logs from nodes and assert on the matching pattern.
+
+    === "Syntax"
+
+        `node-name log line (contains|matches) (regex|glob) "pattern" [within x seconds]`
+
+    === "Example"
+
+        ```bash
+        alice: log line matches glob "rted #1" within 10 seconds
+        
+        ```
+
+- **`Count of log lines`**: Get logs from nodes and assert on the number of lines matching pattern.
+
+    === "Syntax"
+
+        `node-name count of log lines (containing|matching) (regex|glob) "pattern" [within x seconds]`
+
+    === "Example"
+
+        ```bash
+        alice: count of log lines matching glob "rted #1" within 10 seconds
+        ```
+
+- **`System events`**: Find a system event from subscription by matching a pattern.
+
+    === "Syntax"
+
+        `node-name system event (contains|matches)(regex| glob) "pattern" [within x seconds]`
+
+    === "Example"
+
+        ```bash
+        alice: system event matches ""paraId":[0-9]+" within 10 seconds
+        ```
+
+- **`Tracing`**: Match an array of span names from the supplied `traceID`.
+
+    === "Syntax"
+
+        `node-name trace with traceID contains ["name", "name2",...]`
+
+    === "Example"
+
+        ```bash
+        alice: trace with traceID 94c1501a78a0d83c498cc92deec264d9 contains ["answer-chunk-request", "answer-chunk-request"]
+        ```
+
+- **`Custom JS scripts`**: Run a custom JavaScript script and assert on the return value.
+
+    === "Syntax"
+
+        `node-name js-script script_relative_path [return is comparator target_value] [within x seconds]`
+
+    === "Example"
+
+        ```bash
+        alice: js-script ./0008-custom.js return is greater than 1 within 200 seconds
+        ```
+
+- **`Custom TS scripts`**: Run a custom TypeScript script and assert on the return value.
+
+    === "Syntax"
+
+        `node-name ts-script script_relative_path [return is comparator target_value] [within x seconds]`
+
+    === "Example"
+
+        ```bash
+        alice: ts-script ./0008-custom-ts.ts return is greater than 1 within 200 seconds
+        ```
+
+- **`Backchannel`**: Wait for a value and register to use.
+
+    === "Syntax"
+
+        `node-name wait for var name and use as X [within x seconds]`
+
+    === "Example"
+
+        ```bash
+        alice: wait for name and use as X within 30 seconds
+        ```
+
+### Commands
+
+Commands allow interaction with the nodes and can run pre-defined commands or an arbitrary command in the node. Commonly used commands are as follows:
+
+- **`restart`**: Stop the process and start again after the `X` amount of seconds or immediately.
+- **`pause`**: Pause (SIGSTOP) the process.
+- **`resume`**: Resume (SIGCONT) the process.
+- **`sleep`**: Sleep the test-runner for `x` amount of seconds.
+
+## Running a Test
+
+To run a test against the spawned network, you can use the [Zombienet DSL](#testing-dsl) to define the test scenario. Follow these steps to create an example test:
+
+1. Create a file named `spawn-a-basic-network-test.zndsl`.
+
+    ```bash
+    touch spawn-a-basic-network-test.zndsl
+    ```
+
+2. Add the following code to the file you just created.
+
+    ```toml title="spawn-a-basic-network-test.zndsl"
+    Description = "Test the basic functionality of the network (minimal example)"
+    Network = "./spawn-a-basic-network.toml"
+    Creds = "config"
+
+    # Alice's tasks
+    [[tasks]]
+    name = "alice"
+    is_up = true
+    parachain_100_registered = { condition = "within", timeout = 225 }
+    parachain_100_block_height = { condition = "at least 10", timeout = 250 }
+
+    # Bob's tasks
+    [[tasks]]
+    name = "bob"
+    is_up = true
+    parachain_100_registered = { condition = "within", timeout = 225 }
+    parachain_100_block_height = { condition = "at least 10", timeout = 250 }
+
+    # Metrics
+    [[metrics]]
+    name = "alice"
+    node_roles = 4
+    sub_libp2p_is_major_syncing = 0
+
+    [[metrics]]
+    name = "bob"
+    node_roles = 4
+
+    [[metrics]]
+    name = "collator01"
+    node_roles = 4
+
+    ```
+
+This test scenario checks to verify the following:
+
+- Nodes are running.
+- The parachain with ID 100 is registered within a certain timeframe (255 seconds in this example).
+- Parachain block height is at least a certain number within a timeframe (in this case, 10 within 255 seconds).
+- Nodes are reporting metrics.
+
+You can define any test scenario you need following the Zombienet DSL syntax.
+
+To run the test, execute the following command:
+
+```bash
+zombienet -p native test spawn-a-basic-network-test.zndsl
+```
+
+This command will execute the test scenario defined in the `spawn-a-basic-network-test.zndsl` file on the network. If successful, the terminal will display the test output, indicating whether the test passed or failed.
+
+## Example Test Files
+
+The following example test files define two tests, a small network test and a big network test. Each test defines a network configuration file and credentials to use.
+
+The tests define assertions to evaluate the network’s metrics and logs. The assertions are defined by sentences in the DSL, which are mapped to tests to run.
+
+```toml title="small-network-test.zndsl"
+Description = "Small Network test"
+Network = "./0000-test-config-small-network.toml"
+Creds = "config"
+
+# Metrics
+[[metrics]]
+node_roles = 4
+sub_libp2p_is_major_syncing = 0
+
+# Logs
+[[logs]]
+bob_log_line_glob = "*rted #1*"
+bob_log_line_regex = "Imported #[0-9]+"
+
+```
+
+And the second test file:
+
+```toml title="big-network-test.zndsl"
+Description = "Big Network test"
+Network = "./0001-test-config-big-network.toml"
+Creds = "config"
+
+# Metrics
+[[metrics]]
+node_roles = 4
+sub_libp2p_is_major_syncing = 0
+
+# Logs
+[[logs]]
+bob_log_line_glob = "*rted #1*"
+bob_log_line_regex = "Imported #[0-9]+"
+
+# Custom JS script
+[[custom_scripts]]
+alice_js_script = { path = "./0008-custom.js", condition = "return is greater than 1", timeout = 200 }
+
+# Custom TS script
+[[custom_scripts]]
+alice_ts_script = { path = "./0008-custom-ts.ts", condition = "return is greater than 1", timeout = 200 }
+
+# Backchannel
+[[backchannel]]
+alice_wait_for_name = { use_as = "X", timeout = 30 }
+
+# Well-known functions
+[[functions]]
+alice_is_up = true
+alice_parachain_100_registered = { condition = "within", timeout = 225 }
+alice_parachain_100_block_height = { condition = "at least 10", timeout = 250 }
+
+# Histogram
+[[histogram]]
+alice_polkadot_pvf_execution_time = { min_samples = 2, buckets = [
+  "0.1",
+  "0.25",
+  "0.5",
+  "+Inf",
+], timeout = 100 }
+
+# System events
+[[system_events]]
+alice_system_event_matches = { pattern = "\"paraId\":[0-9]+", timeout = 10 }
+
+# Tracing
+[[tracing]]
+alice_trace = { traceID = "94c1501a78a0d83c498cc92deec264d9", contains = [
+  "answer-chunk-request",
+  "answer-chunk-request",
+] }
+
+```
 
 
 ---

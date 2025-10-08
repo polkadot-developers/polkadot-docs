@@ -1,9 +1,9 @@
 # generate_ai_pages.py
-# - write resolved per-page Markdown to /ai/pages/<slug>.md
+# - write resolved per-page Markdown to /.ai/pages/<slug>.md
 # - snippets -> variables -> strip HTML comments
 # - minimal front-matter: title, description, categories, url
 # - Raw URLs will look like:
-#   https://raw.githubusercontent.com/<org>/<repo>/<branch>/ai/pages/<slug>.md
+#   https://raw.githubusercontent.com/<org>/<repo>/<branch>/.ai/pages/<slug>.md
 
 import os
 import re
@@ -305,7 +305,7 @@ def build_raw_url(config: dict, slug: str) -> str:
     org = config["repository"]["org"]
     repo = config["repository"]["repo"]
     branch = config["repository"]["default_branch"]
-    public_root = config.get("outputs", {}).get("public_root", "/ai/").strip("/")
+    public_root = config.get("outputs", {}).get("public_root", "/.ai/").strip("/")
     pages_dirname = config.get("outputs", {}).get("files", {}).get("pages_dir", "pages")
     return f"https://raw.githubusercontent.com/{org}/{repo}/{branch}/{public_root}/{pages_dirname}/{slug}"
 
@@ -371,7 +371,7 @@ def main():
     docs_base_url = config.get("project", {}).get("docs_base_url", "").rstrip("/") + "/"
 
     # Output path: put under client repo so Raw URLs show client org
-    public_root = config.get("outputs", {}).get("public_root", "/ai/").strip("/")
+    public_root = config.get("outputs", {}).get("public_root", "/.ai/").strip("/")
     pages_dirname = config.get("outputs", {}).get("files", {}).get("pages_dir", "pages")
     ai_pages_dir = (repo_root / public_root / pages_dirname).resolve()
 

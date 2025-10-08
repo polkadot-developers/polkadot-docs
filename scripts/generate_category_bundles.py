@@ -2,7 +2,7 @@
 """
 generate_category_bundles.py
 
-Build category-based bundles from reconstituted Markdown artifacts under /ai/pages/*.md.
+Build category-based bundles from reconstituted Markdown artifacts under /.ai/pages/*.md.
 
 Behavior:
   - Each category in content.categories_order gets a bundle.
@@ -12,7 +12,7 @@ Behavior:
   - If category information is missing or empty in llms_config.json, no bundles are created.
 
 
-Outputs (written under /ai/categories/):
+Outputs (written under /.ai/categories/):
 
   - <category-slug>.md       (when --format md/all)
     # A single concatenated Markdown file with page boundaries and titles
@@ -54,7 +54,7 @@ def resolve_ai_dir(repo_root: Path, config: Dict[str, Any]) -> Path:
     repo = config.get("repository", {})
     ai_path = repo.get("ai_artifacts_path")
     if not ai_path:
-        public_root = config.get("outputs", {}).get("public_root", "/ai/").strip("/")
+        public_root = config.get("outputs", {}).get("public_root", "/.ai/").strip("/")
         pages_dir = config.get("outputs", {}).get("files", {}).get("pages_dir", "pages").strip("/")
         ai_path = f"{public_root}/{pages_dir}"
     return (repo_root / ai_path).resolve()
@@ -66,7 +66,7 @@ def build_raw_base(config: Dict[str, Any]) -> str:
     branch = normalize_branch(repo["default_branch"])
     ai_path = repo.get("ai_artifacts_path")
     if not ai_path:
-        public_root = config.get("outputs", {}).get("public_root", "/ai/").strip("/")
+        public_root = config.get("outputs", {}).get("public_root", "/.ai/").strip("/")
         pages_dir = config.get("outputs", {}).get("files", {}).get("pages_dir", "pages").strip("/")
         ai_path = f"{public_root}/{pages_dir}"
     ai_path = ai_path.strip("/")
@@ -261,7 +261,7 @@ def build_category_bundles(config_path: str, fmt: str, dry_run: bool, limit: int
     # Precompute token counts once per page
     page_tokens: Dict[str, int] = {p.slug: estimate_tokens(p.body, token_estimator) for p in pages}
 
-    out_root = (repo_root / config.get("outputs", {}).get("public_root", "/ai/").strip("/") / "categories").resolve()
+    out_root = (repo_root / config.get("outputs", {}).get("public_root", "/.ai/").strip("/") / "categories").resolve()
 
     if dry_run:
         print(f"[dry-run] ai_dir={ai_dir}")
@@ -316,7 +316,7 @@ def build_category_bundles(config_path: str, fmt: str, dry_run: bool, limit: int
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Build category-based bundles from /ai/pages/*.md")
+    parser = argparse.ArgumentParser(description="Build category-based bundles from /.ai/pages/*.md")
     parser.add_argument("--config", default="llms_config.json", help="Path to llms_config.json (default: scripts/llms_config.json)")
     parser.add_argument("--format", choices=["md", "all"], default="md",
                         help="Output format to generate (default: md)")

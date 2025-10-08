@@ -15,16 +15,15 @@ This page contains a list of all relevant tutorials and guides to help you get s
 
 ## EVM/PVM Smart Contracts
 
-| Title | Tools | Description |
-|-------|-------|-------------|
-| [Deploy an ERC-20 to Polkadot Hub](/polkadot-docs/smart-contracts/cookbook/smart-contracts/deploy-erc20) | EVM Wallet, Polkadot Remix IDE | Deploy an ERC-20 token on Polkadot Hub using PolkaVM. This guide covers contract creation, compilation, deployment, and interaction via Polkadot Remix IDE. |
-| [Deploy an NFT to Polkadot Hub](/polkadot-docs/smart-contracts/cookbook/smart-contracts/deploy-nft) | EVM Wallet, Polkadot Remix IDE | Deploy an NFT on Polkadot Hub using PolkaVM and OpenZeppelin. Learn how to compile, deploy, and interact with your contract using Polkadot Remix IDE. |
-
+| Title | Difficulty | Tools | Description |
+|-------|:----------:|-------|-------------|
+| [Deploy an ERC-20 to Polkadot Hub](/polkadot-docs/smart-contracts/cookbook/smart-contracts/deploy-erc20) | 🟢 Beginner | EVM Wallet, Polkadot Remix IDE | Deploy an ERC-20 token on Polkadot Hub using PolkaVM. This guide covers contract creation, compilation, deployment, and interaction via Polkadot Remix IDE. |
+| [Deploy an NFT to Polkadot Hub](/polkadot-docs/smart-contracts/cookbook/smart-contracts/deploy-nft) | 🟢 Beginner | EVM Wallet, Polkadot Remix IDE | Deploy an NFT on Polkadot Hub using PolkaVM and OpenZeppelin. Learn how to compile, deploy, and interact with your contract using Polkadot Remix IDE. |
 
 ## Port Ethereum DApps
 
-| Title | Tools | Description |
-|-------|-------|-------------|
-| [Deploying Uniswap V2 on Polkadot](/polkadot-docs/smart-contracts/cookbook/eth-dapps/uniswap-v2) | Hardhat | Learn how to deploy and test Uniswap V2 on Polkadot Hub using Hardhat, bringing AMM-based token swaps to the Polkadot ecosystem. |
+| Title | Difficulty | Tools | Description |
+|-------|:----------:|-------|-------------|
+| [Deploying Uniswap V2 on Polkadot](/polkadot-docs/smart-contracts/cookbook/eth-dapps/uniswap-v2) | 🟡 Intermediate | Hardhat | Learn how to deploy and test Uniswap V2 on Polkadot Hub using Hardhat, bringing AMM-based token swaps to the Polkadot ecosystem. |
 
 <!-- END OF AUTOMATICALLY GENERATED CONTENT -->

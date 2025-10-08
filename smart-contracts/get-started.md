@@ -6,13 +6,13 @@ categories: Basics, Smart Contracts
 
 # Get Started
 
-This resource provides quick-starts and tutorials for building smart contracts on the Polkadot Hub. Use the tables below to jump directly to the tools and workflows you need.
+This resource provides quick-starts for building smart contracts on the Polkadot Hub. Use the tables below to jump directly to the tools and workflows you need.
 
-## Quick Start Tutorials
+## Quick Starts
 
 Kick off development fast with curated links for connecting, funding, exploring, and deploying your first contract.
 
-|                                              Tutorial                                               |         Tools         |                           Description                           |
+|                                              Quick Start                                               |         Tools         |                           Description                           |
 | :-------------------------------------------------------------------------------------------------: | :-------------------: | :-------------------------------------------------------------: |
 |                  [Connect to Polkadot](/smart-contracts/connect/){target=\_blank}                   | Polkadot.js, MetaMask | Add the network, configure RPC, verify activity in the explorer |
 |                    [Get Test Tokens](/smart-contracts/faucets/){target=\_blank}                     |        -        |    Request test funds to deploy and interact with contracts     |
@@ -25,7 +25,7 @@ Kick off development fast with curated links for connecting, funding, exploring,
 
 Set up local environments and CI-friendly workflows to iterate quickly and validate changes before deploying.
 
-|                                                  Tutorial                                                  |       Tools       |                     Description                      |
+|                                                  Build and Test Locally                                                  |       Tools       |                     Description                      |
 | :--------------------------------------------------------------------------------------------------------: | :---------------: | :--------------------------------------------------: |
 |         [Run a Local Dev Node](/smart-contracts/dev-environments/local-dev-node/){target=\_blank}          | Polkadot SDK node |    Spin up a local node for iterative development    |
 |         [Remix: Get Started](/smart-contracts/dev-environments/remix/get-started/){target=\_blank}         |       Remix       | Connect Remix to Polkadot Hub and configure accounts |
@@ -41,7 +41,7 @@ Set up local environments and CI-friendly workflows to iterate quickly and valid
 
 Bridge your Ethereum knowledge with Polkadot Hub specifics: account mapping, fees, JSON‑RPC, and deployment.
 
-|                                                   Guide                                                   |                           Description                           |
+|                                                   Ethereum Developer Guides                                                   |                           Description                           |
 | :-------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------: |
 |                    [Accounts](/smart-contracts/for-eth-devs/accounts/){target=\_blank}                    | How 20‑byte Ethereum addresses map to 32‑byte Polkadot accounts |
 | [Blocks, Transactions, and Fees](/smart-contracts/for-eth-devs/blocks-transactions-fees/){target=\_blank} |     Transaction types, fees, and multi‑dimensional metering     |

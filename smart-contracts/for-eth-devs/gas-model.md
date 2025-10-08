@@ -36,7 +36,7 @@ When your wallet requests a gas estimate (`eth_estimateGas`), the Polkadot Hub p
 The system then calculates a gas estimate that covers all these costs, including:
 
 - Base transaction overhead (intrinsic costs like signature verification, nonce/account checks, and dispatch setup)
-- Transaction length fees (cost per byte)
+- Transaction length fees (charges for the transaction size in bytes)
 - The actual contract execution costs
 - Any storage deposits
 

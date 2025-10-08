@@ -17205,7 +17205,7 @@ By the end of this tutorial, you'll have a working template ready to customize a
 
 Before diving into the setup, let's explore the main parachain templates available to help you make an informed decision for your project.
 
-### Polkadot SDK Parachain Template
+### Parachain Template
 
 The [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk-parachain-template){target=\_blank} is the recommended starting point for most developers. It provides:
 
@@ -17213,10 +17213,11 @@ The [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk
 - A complete runtime setup ready for customization
 - Example implementations demonstrating best practices
 - Built-in support for parachain consensus mechanisms
+- A pallet template is provided in this parachain template as well
 
-This template is ideal for building general-purpose parachains and provides the best balance of features and learning opportunities. **This is the template we'll use for this tutorial series.**
+This template is ideal for building general-purpose parachains and provides the best balance of features and learning opportunities. **This is the template you'll use for this tutorial series.**
 
-### Polkadot SDK Minimal Template
+### Minimal Template
 
 The [Polkadot SDK Minimal Template](https://github.com/paritytech/polkadot-sdk-minimal-template){target=\_blank} offers:
 
@@ -17238,17 +17239,6 @@ The [generic-template](https://github.com/OpenZeppelin/polkadot-runtime-template
 - Security-focused configuration following OpenZeppelin's best practices
 - Curated pallet selection for common use cases
 - Production-ready defaults
-
-#### EVM Template
-
-The [evm-template](https://github.com/OpenZeppelin/polkadot-runtime-templates/tree/main/evm-template){target=\_blank} provides:
-
-- Ethereum Virtual Machine (EVM) compatibility
-- Support for Solidity smart contracts
-- Ethereum-style accounts and transactions
-- Seamless bridge between Substrate and Ethereum ecosystems
-
-This template is perfect for projects requiring compatibility with existing Ethereum tooling and smart contracts.
 
 ## Prerequisites
 
@@ -17369,21 +17359,6 @@ ls -la ./target/release/wbuild/parachain-template-runtime/
 ```
 
 You should see the `parachain_template_runtime.compact.compressed.wasm` file in the output, confirming the build was successful.
-
-## Understanding the Template Components
-
-The Polkadot SDK Parachain Template comes pre-configured with several essential pallets in the runtime:
-
-- **System**: Provides core blockchain functionality and account management.
-- **Timestamp**: Tracks block timestamps for time-dependent logic.
-- **Balances**: Manages token balances and transfers.
-- **Transaction payment**: Handles fee calculation and payment processing.
-- **Sudo**: Provides superuser access for development and testing.
-- **ParachainSystem**: Contains core parachain-specific functionality.
-- **Aura**: Implements the authority-based consensus mechanism for block production.
-- **Cumulus pallet parachain system**: Enables communication with the relay chain.
-
-These pallets work together to provide a functional parachain runtime out of the box. As you progress through the tutorial series, you'll learn how to customize these pallets and add new ones to extend your parachain's capabilities.
 
 ## Run the Node Locally
 

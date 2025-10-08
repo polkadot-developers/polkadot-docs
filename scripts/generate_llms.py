@@ -5,10 +5,10 @@ generate_llms.py
 One-stop pipeline for content creators to rebuild all AI artifacts.
 
 Runs, in order:
-  1) generate_ai_pages.py            -> /ai/pages/*.md   (loads its own config; no --config flag)
-  2) generate_llms_txt.py            -> /llms.txt
-  3) generate_site_index.py          -> /ai/site-index.json (+llms-full.jsonl by default)
-  4) generate_category_bundles.py    -> /ai/categories/*.md (or other formats)
+  1) generate_ai_pages.py            -> /.ai/pages/*.md   (loads its own config; no --config flag)
+  2) generate_llms_txt.py            -> /.llms.txt
+  3) generate_site_index.py          -> /.ai/site-index.json (+llms-full.jsonl by default)
+  4) generate_category_bundles.py    -> /.ai/categories/*.md (or other formats)
 
 Defaults:
   - sections: enabled (use --no-sections to turn off)

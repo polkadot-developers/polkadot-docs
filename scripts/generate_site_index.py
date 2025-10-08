@@ -2,10 +2,10 @@
 """
 generate_site_index.py
 
-Builds compact site catalogs from reconstituted Markdown artifacts under /ai/pages/*.md.
+Builds compact site catalogs from reconstituted Markdown artifacts under /.ai/pages/*.md.
 
 Default outputs (always written):
-  - /ai/site-index.json      (array: one object per page with outline/preview/stats)
+  - /.ai/site-index.json      (array: one object per page with outline/preview/stats)
   - llms-full.jsonl      (JSON Lines: one object per H2/H3 section)
 
 llms-full.jsonl line schema (per section):
@@ -292,7 +292,7 @@ def resolve_ai_dir(repo_root: Path, config: Dict[str, Any]) -> Path:
     repo = config.get("repository", {})
     ai_path = repo.get("ai_artifacts_path")
     if not ai_path:
-        public_root = config.get("outputs", {}).get("public_root", "/ai/").strip("/")
+        public_root = config.get("outputs", {}).get("public_root", "/.ai/").strip("/")
         pages_dir = config.get("outputs", {}).get("files", {}).get("pages_dir", "pages").strip("/")
         ai_path = f"{public_root}/{pages_dir}"
     return (repo_root / ai_path).resolve()
@@ -304,7 +304,7 @@ def build_raw_base(config: Dict[str, Any]) -> str:
     branch = normalize_branch(repo["default_branch"])
     ai_path = repo.get("ai_artifacts_path")
     if not ai_path:
-        public_root = config.get("outputs", {}).get("public_root", "/ai/").strip("/")
+        public_root = config.get("outputs", {}).get("public_root", "/.ai/").strip("/")
         pages_dir = config.get("outputs", {}).get("files", {}).get("pages_dir", "pages").strip("/")
         ai_path = f"{public_root}/{pages_dir}"
     ai_path = ai_path.strip("/")
@@ -379,7 +379,7 @@ def build_site_index(config_path: str, dry_run: bool = False, limit: int = 0,
         })
 
     # Output paths
-    public_root = config.get("outputs", {}).get("public_root", "/ai/").strip("/")
+    public_root = config.get("outputs", {}).get("public_root", "/.ai/").strip("/")
     index_out = (repo_root / public_root / "site-index.json").resolve()
     jsonl_out = (repo_root / "llms-full.jsonl").resolve()
 

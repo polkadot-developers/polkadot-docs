@@ -14,7 +14,7 @@
         "repo": "polkadot-docs",
         "default_branch": "master",
         "docs_path": ".",
-        "ai_artifacts_path": "ai/pages"
+        "ai_artifacts_path": ".ai/pages"
     },
 
     "content": {
@@ -48,7 +48,7 @@
     },
 
     "outputs": {
-        "public_root": "/ai/",
+        "public_root": "/.ai/",
         "files": {
             "llms_full": "llms-full.jsonl",
             "pages_dir": "pages"

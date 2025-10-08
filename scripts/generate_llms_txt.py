@@ -2,7 +2,7 @@
 generate_llms_txt.py
 
 Generates an llms.txt that links to the reconstituted Markdown artifacts under
-/ai/pages/*.md (or whatever path you set in llms_config.json -> repository.ai_artifacts_path).
+/.ai/pages/*.md (or whatever path you set in llms_config.json -> repository.ai_artifacts_path).
 
 Assumes you've already run `generate_ai_pages.py` to create those files.
 """
@@ -100,7 +100,7 @@ def parse_frontmatter(file_path: Path) -> Dict[str, Any]:
 
 def collect_ai_pages(ai_dir: Path) -> List[Dict[str, Any]]:
     """
-    Read /ai/pages/*.md and extract (slug, title, description, categories, docs_url).
+    Read /.ai/pages/*.md and extract (slug, title, description, categories, docs_url).
     """
     if not ai_dir.exists():
         raise FileNotFoundError(f"AI artifacts directory not found: {ai_dir}")

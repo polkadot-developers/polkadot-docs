@@ -13,7 +13,7 @@ This page contains a list of all relevant tutorials and guides to help you get s
 
 <!-- START OF AUTOMATICALLY GENERATED CONTENT -->
 
-## Faucet
+## Get Tokens from the Faucet
 
 | Title | Difficulty | Tools | Description |
 |-------|:----------:|-------|-------------|

@@ -1,4 +1,4 @@
-name: Validate llms-full.txt
+name: Validate llms-full.jsonl
 
 on:
   pull_request:
@@ -8,6 +8,6 @@ jobs:
   validate:
     uses: papermoonio/workflows/.github/workflows/validate-llms.yml@main
     with:
-      llms_filename: "llms-full.txt"
+      llms_filename: "llms-full.jsonl"
       generator_command: "python3 scripts/generate_llms.py"
       require_pr_file: false

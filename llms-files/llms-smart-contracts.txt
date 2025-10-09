@@ -2262,7 +2262,7 @@ graph TD
 
 ## REVM Backend
 
-The [REVM backend](https://github.com/bluealloy/revm){target=\_blank} integrates a complete Ethereum Virtual Machine implementation, enabling Solidity contracts to run unchanged on Polkadot's smart contract platform.
+The [REVM backend](https://github.com/bluealloy/revm){target=\_blank} integrates a complete Rust implementation of the Ethereum Virtual Machine, enabling Solidity contracts to run unchanged on Polkadot's smart contract platform.
 
 This allows developers to use their existing Ethereum tooling and infrastructure to build on Polkadot.
 
@@ -12438,7 +12438,7 @@ graph TD
 
 ## REVM Backend
 
-The [REVM backend](https://github.com/bluealloy/revm){target=\_blank} integrates a complete Ethereum Virtual Machine implementation, enabling Solidity contracts to run unchanged on Polkadot's smart contract platform.
+The [REVM backend](https://github.com/bluealloy/revm){target=\_blank} integrates a complete Rust implementation of the Ethereum Virtual Machine, enabling Solidity contracts to run unchanged on Polkadot's smart contract platform.
 
 This allows developers to use their existing Ethereum tooling and infrastructure to build on Polkadot.
 

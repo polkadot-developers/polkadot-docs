@@ -8682,7 +8682,7 @@ By the end of this tutorial, you'll have a working template ready to customize a
 
 Before diving into the setup, let's explore the main parachain templates available to help you make an informed decision for your project.
 
-### Parachain Template
+### Polkadot SDK Parachain Template
 
 The [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk-parachain-template){target=\_blank} is the recommended starting point for most developers. It provides:
 
@@ -8694,7 +8694,7 @@ The [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk
 
 This template is ideal for building general-purpose parachains and provides the best balance of features and learning opportunities. **This is the template you'll use for this tutorial series.**
 
-### Minimal Template
+### Polkadot SDK Minimal Template
 
 The [Polkadot SDK Minimal Template](https://github.com/paritytech/polkadot-sdk-minimal-template){target=\_blank} offers:
 
@@ -8705,17 +8705,28 @@ The [Polkadot SDK Minimal Template](https://github.com/paritytech/polkadot-sdk-m
 
 Choose this template if you want to build everything from the ground up or need a clean slate for a unique parachain design.
 
+### Polkadot SDK Solochain Template
+
+The [Solochain Template](https://github.com/paritytech/polkadot-sdk/tree/master/templates/solochain){target=_blank} offers:
+
+- A foundation for creating standalone blockchains with moderate features
+- A simple consensus mechanism and several core FRAME pallets
+- A fully functional chain that operates independently
+- No dependency on a relay chain for operation
+
+Choose this template if you want to build a sovereign blockchain with built-in functionality or need a ready-to-customize standalone chain.
+
 ### OpenZeppelin Runtime Templates
 
 [OpenZeppelin's runtime templates](https://github.com/OpenZeppelin/polkadot-runtime-templates){target=\_blank} provide specialized starting points with security-focused configurations.
-
-#### Generic Template
 
 The [generic-template](https://github.com/OpenZeppelin/polkadot-runtime-templates/tree/main/generic-template){target=\_blank} includes:
 
 - Security-focused configuration following OpenZeppelin's best practices
 - Curated pallet selection for common use cases
 - Production-ready defaults
+
+Choose this template if security best practices and audited configurations are your top priority.
 
 ## Prerequisites
 

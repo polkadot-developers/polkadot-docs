@@ -3656,7 +3656,7 @@ categories: Basics, Parachains
 
 # Get Started
 
-This resource provides examples and tutorials for building parachains on Polkadot. Each tutorial focuses on specific aspects of parachain development while providing hands-on examples and practical usage patterns.
+The following sections provide practical recipes for building parachains on Polkadot—each focused on specific development scenarios with step-by-step, hands-on examples.
 
 ## Quick Start Tutorials
 

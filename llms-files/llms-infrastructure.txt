@@ -10114,7 +10114,7 @@ categories: Smart Contracts, Basics
 
 ## Introduction
 
-Polkadot's smart contract platform supports two distinct virtual machine backends, each with its own deployment characteristics. Understanding these differences ensures smooth deployment regardless of which backend you choose.
+Polkadot's smart contract platform supports two distinct virtual machine backends: REVM (Rust Ethereum Virtual Machine) and PolkaVM (RISC-V based). Each backend has its own deployment characteristics and optimization strategies. REVM provides full Ethereum compatibility with familiar single-step deployment, while PolkaVM uses a more structured two-step approach optimized for its RISC-V architecture. Understanding these differences ensures smooth deployment regardless of which backend you choose for your smart contracts.
 
 ## REVM Deployment
 

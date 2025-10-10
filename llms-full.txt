@@ -28219,7 +28219,7 @@ Doc-Content: https://docs.polkadot.com/smart-contracts/for-eth-devs/contract-dep
 --- BEGIN CONTENT ---
 ---
 title: Contract Deployment
-description: Learn how to deploy smart contracts on the Polkadot Hub with REVM and PolkaVM, covering single-step EVM flows and PolkaVM’s two-step model and tooling.
+description: Learn how to deploy REVM and PVM smart contracts on Polkadot Hub, covering single-step EVM flows and PVM’s two-step deployment model.
 categories: Smart Contracts, Basics
 ---
 
@@ -28241,7 +28241,7 @@ PolkaVM implements a fundamentally different deployment model optimized for its 
 
 ### Standard Contract Deployment
 
-For most use cases—such as deploying ERC-20 tokens, NFT collections, or standalone contracts—deployment works transparently without requiring special steps. The Revive compiler handles the deployment process automatically when using standard Solidity patterns.
+For most use cases—such as deploying ERC-20 tokens, NFT collections, or standalone contracts—deployment works transparently without requiring special steps. The [Revive compiler](https://github.com/paritytech/revive){target=\_blank} handles the deployment process automatically when using standard Solidity patterns.
 
 ### Two-Step Deployment Model
 

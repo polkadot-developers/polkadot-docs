@@ -1,6 +1,6 @@
 ---
 title: Contract Deployment
-description: Learn how to deploy smart contracts on the Polkadot Hub with REVM and PolkaVM, covering single-step EVM flows and PolkaVM’s two-step model and tooling.
+description: Learn how to deploy REVM and PVM smart contracts on Polkadot Hub, covering single-step EVM flows and PVM’s two-step deployment model.
 categories: Smart Contracts, Basics
 ---
 

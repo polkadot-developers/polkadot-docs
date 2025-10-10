@@ -22,7 +22,7 @@ PolkaVM implements a fundamentally different deployment model optimized for its 
 
 ### Standard Contract Deployment
 
-For most use cases—such as deploying ERC-20 tokens, NFT collections, or standalone contracts—deployment works transparently without requiring special steps. The Revive compiler handles the deployment process automatically when using standard Solidity patterns.
+For most use cases—such as deploying ERC-20 tokens, NFT collections, or standalone contracts—deployment works transparently without requiring special steps. The [Revive compiler](https://github.com/paritytech/revive){target=\_blank} handles the deployment process automatically when using standard Solidity patterns.
 
 ### Two-Step Deployment Model
 

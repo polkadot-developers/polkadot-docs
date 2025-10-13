@@ -125,3 +125,10 @@ To submit a transaction, you must construct an extrinsic, sign it with your priv
 --8<-- 'code/develop/toolkit/api-libraries/subxt/subxt.rs:44:72'
 ```
 
+## Where to Go Next
+
+Now that you've covered the basics dive into the official [subxt documentation](https://docs.rs/subxt/latest/subxt/book/index.html){target=\_blank} for comprehensive reference materials and advanced features.
+
+## where to go next
+
+Now that you've covered the basics dive into the official [subxt documentation](https://docs.rs/subxt/latest/subxt/book/index.html){target=\_blank} for comprehensive reference materials and advanced features.

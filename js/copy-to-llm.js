@@ -84,7 +84,7 @@
 
     const normalized = LLMS.normalizePathname(pathname);
     return LLMS.buildSlugFromPath(normalized);
-  }
+  } 
 
   function getFallbackPageContent() {
     const articleContent = document.querySelector('.md-content__inner .md-typeset');

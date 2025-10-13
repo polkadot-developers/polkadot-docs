@@ -3564,9 +3564,9 @@ categories: Basics, Parachains
 
 The following sections provide practical recipes for building parachains on Polkadot—each focused on specific development scenarios with step-by-step, hands-on examples.
 
-## Quick Start Tutorials
+## Quick Start Guides
 
-Quick start tutorials help developers set up and interact with the Polkadot parachain ecosystem using various tools and frameworks.
+Quick start guides help developers set up and interact with the Polkadot parachain ecosystem using various tools and frameworks.
 
 |                                          Tutorial                                          |             Tools              |                            Description                             |
 |:------------------------------------------------------------------------------------------:|:------------------------------:|:------------------------------------------------------------------:|

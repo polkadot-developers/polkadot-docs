@@ -1000,9 +1000,9 @@ categories: Basics, dApps, Smart Contracts
 
 # Smart Contracts Cookbook
 
-Welcome to the Polkadot Smart Contracts cookbook index! 👋
+Welcome to the Polkadot Smart Contracts cookbook index.
 
-This page contains a list of all relevant tutorials and guides to help you get started coding Smart Contracts and dApps in Polkadot!
+This page contains a list of all relevant tutorials and guides to help you get started coding Smart Contracts and dApps in Polkadot.
 
 
 <!-- START OF AUTOMATICALLY GENERATED CONTENT -->
@@ -2249,7 +2249,7 @@ Polkadot has a faucet that distributes free TestNet tokens to developers for tes
 
 For Polkadot Hub TestNet, you can use the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank} to obtain test tokens. Here's how to do it:
 
-1. Navigate to the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}. If the desired network is not already selected, choose it from the Network drop-down. This example uses the Polkadot Hub TestNet.
+1. Navigate to the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}. If the desired network is not already selected, choose it from the **Network** drop-down. This example uses the Polkadot Hub TestNet.
 2. Copy your address linked to the TestNet and paste it into the designated field.
 3. Click the **Get Some PASs** button to request free test PAS tokens. These tokens will be sent to your wallet shortly.
 
@@ -12040,9 +12040,9 @@ categories: Basics, dApps, Smart Contracts
 
 # Smart Contracts Cookbook
 
-Welcome to the Polkadot Smart Contracts cookbook index! 👋
+Welcome to the Polkadot Smart Contracts cookbook index.
 
-This page contains a list of all relevant tutorials and guides to help you get started coding Smart Contracts and dApps in Polkadot!
+This page contains a list of all relevant tutorials and guides to help you get started coding Smart Contracts and dApps in Polkadot.
 
 
 <!-- START OF AUTOMATICALLY GENERATED CONTENT -->

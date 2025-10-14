@@ -1,6 +1,6 @@
 ---
 title: Deploy on Polkadot
-description: This guide walks you through the journey of deploying your Polkadot SDK parachain on Paseo, Polkadot's official TestNet, detailing each step to a successful deployment.
+description: This guide walks you through the journey of deploying your Polkadot SDK parachain on the Polkadot TestNet, detailing each step to a successful deployment.
 tutorial_badge: Advanced
 categories: Parachains
 ---
@@ -9,11 +9,11 @@ categories: Parachains
 
 ## Introduction
 
-Previously, you learned how to [choose and set up a parachain template](/parachains/launch-a-parachain/choose-a-template/){target=\_blank}. Now, you'll take the next step towards a production-like environment by deploying your parachain to Paseo, Polkadot's official community-led test network. Deploying to a TestNet is a crucial step for validating your parachain's functionality and preparing it for eventual MainNet deployment.
+Previously, you learned how to [choose and set up a parachain template](/parachains/launch-a-parachain/choose-a-template/){target=\_blank}. Now, you'll take the next step towards a production-like environment by deploying your parachain to the Polkadot TestNet. Deploying to a TestNet is a crucial step for validating your parachain's functionality and preparing it for eventual MainNet deployment.
 
 ## Get Started with an Account and Tokens
 
-To perform any action on Paseo, you need PAS tokens, which can be requested from the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=0){target=\_blank}. To store the tokens, you must have access to a Polkadot-SDK-compatible wallet. Go to the [Polkadot Wallets](https://polkadot.com/get-started/wallets/){target=\_blank} page to view different options for a Polkadot wallet, or use the [Polkadot.js browser extension](https://polkadot.js.org/extension/){target=\_blank}, which is suitable for development purposes.
+To perform any action on the Polkadot TestNet, you need PAS tokens, which can be requested from the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=0){target=\_blank}. To store the tokens, you must have access to a Polkadot-SDK-compatible wallet. Go to the [Polkadot Wallets](https://polkadot.com/get-started/wallets/){target=\_blank} page to view different options for a Polkadot wallet, or use the [Polkadot.js browser extension](https://polkadot.js.org/extension/){target=\_blank}, which is suitable for development purposes.
 
 !!!warning 
     Development keys and accounts should never hold assets of actual value and should not be used for production.
@@ -22,24 +22,24 @@ The [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} interface 
 
 To prepare an account, follow these steps:
 
-1. Open the [Polkadot.js Apps: Paseo](https://polkadot.js.org/apps/?rpc=wss://paseo.dotters.network#/explorer){target=\_blank} interface and connect to the Paseo network.
+1. Open the [Polkadot.js Apps: Paseo](https://polkadot.js.org/apps/?rpc=wss://paseo.dotters.network#/explorer){target=\_blank} interface and connect to the Polkadot TestNet (Paseo).
 
-    ![](/images/parachains/launch-a-parachain/deploy-to-polkadot/deploy-to-testnet-1.webp)
+    ![](/images/parachains/launch-a-parachain/deploy-to-polkadot/deploy-to-polkadot-1.webp)
 
 2. Navigate to the **Accounts** section:
 
     1. Click on the **Accounts** tab in the top menu.
     2. Select the **Accounts** option from the dropdown menu.
   
-    ![](/images/parachains/launch-a-parachain/deploy-to-polkadot/deploy-to-testnet-2.webp)
+    ![](/images/parachains/launch-a-parachain/deploy-to-polkadot/deploy-to-polkadot-2.webp)
 
 3. Copy the address of the account you want to use for the parachain deployment.
 
-    ![](/images/parachains/launch-a-parachain/deploy-to-polkadot/deploy-to-testnet-3.webp)
+    ![](/images/parachains/launch-a-parachain/deploy-to-polkadot/deploy-to-polkadot-3.webp)
 
 4. Visit the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=0){target=\_blank} and paste the copied address in the input field. Ensure that the network is set to Paseo and click on the **Get some PASs** button.
 
-    ![](/images/parachains/launch-a-parachain/deploy-to-polkadot/deploy-to-testnet-4.webp)
+    ![](/images/parachains/launch-a-parachain/deploy-to-polkadot/deploy-to-polkadot-4.webp)
 
     After a few seconds, you will receive 5000 PAS tokens in your account.
 
@@ -54,28 +54,28 @@ To reserve a parachain identifier, follow these steps:
     1. Click on the **Network** tab in the top menu.
     2. Select the **Parachains** option from the dropdown menu.
 
-    ![](/images/parachains/launch-a-parachain/deploy-to-polkadot/deploy-to-testnet-5.webp)
+    ![](/images/parachains/launch-a-parachain/deploy-to-polkadot/deploy-to-polkadot-5.webp)
 
 2. Register a ParaId:
 
     1. Select the **Parathreads** tab.
     2. Click on the **+ ParaId** button.
 
-    ![](/images/parachains/launch-a-parachain/deploy-to-polkadot/deploy-to-testnet-6.webp)
+    ![](/images/parachains/launch-a-parachain/deploy-to-polkadot/deploy-to-polkadot-6.webp)
 
 3. Review the transaction and click on the **+ Submit** button.
 
-    ![](/images/parachains/launch-a-parachain/deploy-to-polkadot/deploy-to-testnet-7.webp)
+    ![](/images/parachains/launch-a-parachain/deploy-to-polkadot/deploy-to-polkadot-7.webp)
 
     For this case, the next available parachain identifier is `4508`.
 
 4. After submitting the transaction, you can navigate to the **Explorer** tab and check the list of recent events for successful `registrar.Reserved`.
 
-    ![](/images/parachains/launch-a-parachain/deploy-to-polkadot/deploy-to-testnet-8.webp)
+    ![](/images/parachains/launch-a-parachain/deploy-to-polkadot/deploy-to-polkadot-8.webp)
 
 ## Generate Custom Keys for Your Collators
 
-To securely deploy your parachain, it is essential to generate custom keys specifically for your collators (block producers). You should generate two sets of keys for each collator:
+To securely deploy your parachain, it is essential to generate custom keys specifically for your [collators](/reference/glossary/#collator){target=\_blank} (block producers). You should generate two sets of keys for each collator:
 
 - **Account keys**: Used to interact with the network and manage funds. These should be protected carefully and should never exist on the filesystem of the collator node.
 
@@ -183,11 +183,11 @@ Once you have the genesis state and runtime, you can now register these with you
    
 2. You should see fields to place your runtime Wasm and genesis state respectively, along with the parachain ID. Select your parachain ID, and upload `para-wasm` in the **code** field and `para-state` in the **initial state** field.
 
-    ![](/images/parachains/launch-a-parachain/deploy-to-polkadot/deploy-to-testnet-9.webp)
+    ![](/images/parachains/launch-a-parachain/deploy-to-polkadot/deploy-to-polkadot-9.webp)
    
 3. Confirm your details and **+ Submit** button, where there should be a new Parathread with your parachain ID and an active **Deregister** button.
 
-    ![](/images/parachains/launch-a-parachain/deploy-to-polkadot/deploy-to-testnet-10.webp)
+    ![](/images/parachains/launch-a-parachain/deploy-to-polkadot/deploy-to-polkadot-10.webp)
 
 Your parachain's runtime logic and genesis are now part of the relay chain. The next step is to ensure you are able to run a collator to produce blocks for your parachain.
 
@@ -257,7 +257,7 @@ Once your collator is synced with the Paseo relay chain, and your parathread fin
 With your parachain collator operational, the next step is acquiring coretime. This is essential for ensuring your parachain's security through the relay chain. [Agile Coretime](https://wiki.polkadot.com/learn/learn-agile-coretime/){target=\_blank} enhances Polkadot's resource management, offering developers greater economic adaptability. Once you have configured your parachain, you can follow two paths:
 
 - Bulk coretime is purchased via the Broker pallet on the respective coretime system parachain. You can purchase bulk coretime on the coretime chain and assign the purchased core to the registered `ParaID`.
-- On-demand coretime is ordered via the `OnDemandAssignment` pallet, which is located on the respective relay chain.
+- On-demand coretime is ordered via the [`OnDemand`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/on_demand/index.html){target=\_blank} pallet, which is located on the respective relay chain.
 
 Once coretime is correctly assigned to your parachain, whether bulk or on-demand, blocks should be produced (provided your collator is running).
 

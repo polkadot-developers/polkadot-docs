@@ -519,18 +519,12 @@
 
   function initialize() {
     addSectionCopyButtons();
+  }
 
-    const observer = new MutationObserver(() => {
+  if (window.document$ && typeof window.document$.subscribe === 'function') {
+    window.document$.subscribe(() => {
       addSectionCopyButtons();
     });
-
-    const content = document.querySelector('.md-content');
-    if (content) {
-      observer.observe(content, {
-        childList: true,
-        subtree: true,
-      });
-    }
   }
 
   if (document.readyState === 'loading') {

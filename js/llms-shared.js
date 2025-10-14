@@ -417,7 +417,6 @@
   // Export surface area consumed by UI widgets such as the copy-to-LLM buttons.
   window.LLMS = {
     ready,
-    getConfig,
     getPageSlug,
     getSlugCandidates,
     fetchSlugContent,

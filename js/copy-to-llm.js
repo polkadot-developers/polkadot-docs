@@ -18,7 +18,6 @@
     Inputs: DOM content, analytics globals, shared LLMS helpers.
     Outputs: DOM mutations + event listeners that provide the copy-to-LLM experience.
   */
-  window.__copyToLlmDebug = window.__copyToLlmDebug || {};
 
   const LLMS = window.LLMS;
   if (!LLMS) {
@@ -539,10 +538,4 @@
   } else {
     initialize();
   }
-
-  Object.assign(window.__copyToLlmDebug, {
-    getPageSlug,
-    getMarkdownCandidates: LLMS.getSlugCandidates,
-    getLlmsConfig: LLMS.getConfig,
-  });
 })();

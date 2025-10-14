@@ -164,7 +164,7 @@ The following sections provide detailed guidance on each aspect of parachain dev
 
     Implement XCM for trustless cross-chain communication with other parachains.
 
-    [:octicons-arrow-right-24: Learn More](/parachains/interoperability/)
+    [:octicons-arrow-right-24: Learn More](/parachains/interoperability/get-started/)
 
 -   <span class="badge guide">Guide</span> __Nodes & Validators__
 

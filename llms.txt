@@ -4,6 +4,7 @@
 
 ## Docs
 
+- [Untitled](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/.venv/lib/python3.13/site-packages/pip-25.2.dist-info/licenses/src/pip/_vendor/idna/LICENSE.md): No description available.
 - [Untitled](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/chain-interactions/accounts/create-account.md): No description available.
 - [Untitled](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/chain-interactions/accounts/query-accounts.md): No description available.
 - [Untitled](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/chain-interactions/index.md): No description available.
@@ -100,7 +101,7 @@
 - [Add a Pallet to the Runtime](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/customize-runtime/add-existing-pallets.md): Learn how to include and configure pallets in a Polkadot SDK-based runtime, from adding dependencies to implementing necessary traits.
 - [Add Multiple Pallet Instances](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/customize-runtime/add-pallet-instances.md): Learn how to implement multiple instances of the same pallet in your Polkadot SDK-based runtime to create and interact with modular blockchain components.
 - [Add Smart Contract Functionality](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/customize-runtime/add-smart-contract-functionality.md): Add smart contract capabilities to your Polkadot SDK-based blockchain. Explore EVM and Wasm integration for enhanced chain functionality.
-- [Untitled](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/customize-runtime/index.md): No description available.
+- [Overview of FRAME](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/customize-runtime/index.md): Learn how Polkadot SDK’s FRAME framework simplifies blockchain development with modular pallets and support libraries for efficient runtime design.
 - [Add Pallets to the Runtime](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/customize-runtime/pallet-development/add-pallet-to-runtime.md): Add pallets to your runtime for custom functionality. Learn to configure and integrate pallets in Polkadot SDK-based blockchains.
 - [Benchmarking FRAME Pallets](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/customize-runtime/pallet-development/benchmark-pallet.md): Learn how to use FRAME's benchmarking framework to measure extrinsic execution costs and provide accurate weights for on-chain computations.
 - [Make a Custom Pallet](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/customize-runtime/pallet-development/create-a-pallet.md): Learn how to create custom pallets using FRAME, allowing for flexible, modular, and scalable blockchain development. Follow the step-by-step guide.

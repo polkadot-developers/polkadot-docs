@@ -6,14 +6,13 @@
 This directory lists URLs for raw Markdown pages that complement the rendered pages on the documentation site. Use these Markdown files to retain semantic context when prompting models while avoiding passing HTML elements.
 
 ## Metadata
-- Documentation pages: 155
+- Documentation pages: 153
 - Categories: 12
 
 ## Docs
 This section lists documentation pages by category. Each entry links to a raw markdown version of the page and includes a short description. A page may appear in multiple categories.
 
 Docs: Basics
-- [Introduction to XCM](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/ai-pages-develop-interoperability-intro-to-xcm.md): Unlock blockchain interoperability with XCM — Polkadot's Cross-Consensus Messaging format for cross-chain interactions.
 - [Introduction to XCM](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-interoperability-intro-to-xcm.md): Unlock blockchain interoperability with XCM — Polkadot's Cross-Consensus Messaging format for cross-chain interactions.
 - [Send XCM Messages](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-interoperability-send-messages.md): Send cross-chain messages using XCM, Polkadot's Cross-Consensus Messaging format, designed to support secure communication between chains.
 - [Testing and Debugging](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-interoperability-test-and-debug.md): Learn how to test and debug cross-chain communication via the XCM Emulator to ensure interoperability and reliable execution.
@@ -127,7 +126,6 @@ Docs: Networks
 - [Networks](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/polkadot-protocol-parachain-basics-networks.md): Explore Polkadot's testing and production networks, including Westend, Kusama, and Paseo, for efficient development, deployment, and testing.
 
 Docs: Polkadot Protocol
-- [Introduction to XCM](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/ai-pages-develop-interoperability-intro-to-xcm.md): Unlock blockchain interoperability with XCM — Polkadot's Cross-Consensus Messaging format for cross-chain interactions.
 - [Introduction to XCM](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-interoperability-intro-to-xcm.md): Unlock blockchain interoperability with XCM — Polkadot's Cross-Consensus Messaging format for cross-chain interactions.
 - [Send XCM Messages](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-interoperability-send-messages.md): Send cross-chain messages using XCM, Polkadot's Cross-Consensus Messaging format, designed to support secure communication between chains.
 - [Testing and Debugging](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-interoperability-test-and-debug.md): Learn how to test and debug cross-chain communication via the XCM Emulator to ensure interoperability and reliable execution.
@@ -238,7 +236,6 @@ Docs: Dapps
 - [XCM Tools](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-toolkit-interoperability-xcm-tools.md): Explore essential XCM tools across Polkadot, crafted to enhance cross-chain functionality and integration within the ecosystem.
 
 Docs: Uncategorized
-- [ai-categories-basics](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/ai-categories-basics.md): No description available.
 - [Asset claimer](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-interoperability-versions-v5-asset-claimer.md): Learn how the AssetClaimer hint improves trapped asset recovery in XCM V5, enabling automated recovery and reducing the need for governance intervention.
 - [Fees](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-interoperability-versions-v5-fees.md): Explore the key differences in fee handling between XCM V4 and V5, including new payment mechanisms, delivery fees, and improved predictability for cross-chain transactions.
 - [Migration Guide (XCM V4 → XCM V5)](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-interoperability-versions-v5-migration-guide.md): Step-by-step guide for migrating from XCM V4 to V5, covering breaking changes, new features, and best practices for upgrading your cross-chain applications.

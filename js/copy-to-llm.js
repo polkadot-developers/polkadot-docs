@@ -3,13 +3,21 @@
 
 // This script adds per-page LLM functionality with a click to copy,
 // download, or open Markdown page in ChatGPT/Claude
-(function() {
+(function () {
   'use strict';
 
   if (typeof window === 'undefined') {
     return;
   }
 
+  /*
+    UI controller that wires LLMS helpers (from `llms-shared.js`) into MkDocs pages.
+    - Renders a split button next to the main heading that copies, downloads, or opens Markdown.
+    - Relies on `window.LLMS` for slug resolution, fetching, and download behavior.
+    - Optionally emits analytics via GA and Plausible when meta flag enables it.
+    Inputs: DOM content, analytics globals, shared LLMS helpers.
+    Outputs: DOM mutations + event listeners that provide the copy-to-LLM experience.
+  */
   window.__copyToLlmDebug = window.__copyToLlmDebug || {};
 
   const LLMS = window.LLMS;
@@ -23,7 +31,9 @@
 
   // ---------- Analytics helpers ----------
   function isAnalyticsEnabled() {
-    const metaAnalytics = document.querySelector('meta[name="mkdocs-copy-to-llm-analytics"]');
+    const metaAnalytics = document.querySelector(
+      'meta[name="mkdocs-copy-to-llm-analytics"]'
+    );
     return metaAnalytics && metaAnalytics.content === 'true';
   }
 
@@ -34,9 +44,16 @@
 
     if (typeof window.gtag === 'function') {
       try {
-        window.gtag('event', eventName, Object.assign({
-          event_category: 'engagement'
-        }, gaData));
+        window.gtag(
+          'event',
+          eventName,
+          Object.assign(
+            {
+              event_category: 'engagement',
+            },
+            gaData
+          )
+        );
       } catch (error) {
         console.error('Error tracking analytics event:', error);
       }
@@ -52,21 +69,30 @@
   }
 
   function trackCopyEvent(eventType, contentLength) {
-    sendAnalytics('copy_to_llm', {
-      event_label: eventType,
-      value: contentLength
-    }, {
-      type: eventType,
-      length: contentLength
-    });
+    sendAnalytics(
+      'copy_to_llm',
+      {
+        event_label: eventType,
+        value: contentLength,
+      },
+      {
+        type: eventType,
+        length: contentLength,
+      }
+    );
   }
 
+  // Lightweight GA/Plausible event wrapper for button clicks (download/open/chat etc.).
   function trackButtonClick(eventType) {
-    sendAnalytics('copy_to_llm_click', {
-      event_label: eventType
-    }, {
-      type: eventType
-    });
+    sendAnalytics(
+      'copy_to_llm_click',
+      {
+        event_label: eventType,
+      },
+      {
+        type: eventType,
+      }
+    );
   }
 
   // ---------- Page helpers ----------
@@ -78,16 +104,21 @@
       try {
         pathname = new URL(canonicalLink.href, window.location.origin).pathname;
       } catch (error) {
-        console.warn('Copy to LLM: failed to parse canonical URL, falling back to location pathname.', error);
+        console.warn(
+          'Copy to LLM: failed to parse canonical URL, falling back to location pathname.',
+          error
+        );
       }
     }
 
-    const normalized = LLMS.normalizePathname(pathname);
-    return LLMS.buildSlugFromPath(normalized);
-  } 
+    return LLMS.getPageSlug(pathname);
+  }
 
+  // If fetching Markdown fails, we fall back to scraping the rendered HTML content.
   function getFallbackPageContent() {
-    const articleContent = document.querySelector('.md-content__inner .md-typeset');
+    const articleContent = document.querySelector(
+      '.md-content__inner .md-typeset'
+    );
     return articleContent ? articleContent.innerText.trim() : '';
   }
 
@@ -121,6 +152,7 @@
     return copied;
   }
 
+  // Toast helper so copy/download feedback is consistent across buttons.
   function showToast(message) {
     const existingToast = document.querySelector('.copy-to-llm-toast');
     if (existingToast) {
@@ -149,7 +181,8 @@
     const textElement = button.querySelector('.button-text');
     const originalText = textElement ? textElement.textContent : '';
     const action = button.dataset ? button.dataset.action || '' : '';
-    const successLabel = action === 'download-markdown' ? 'Downloading...' : 'Copied!';
+    const successLabel =
+      action === 'download-markdown' ? 'Downloading...' : 'Copied!';
 
     if (button.classList.contains('copy-to-llm-dropdown-item')) {
       button.classList.add('copy-success');
@@ -166,14 +199,19 @@
       }, 2000);
     }
 
-    const message = action === 'download-markdown'
-      ? 'Download starting...'
-      : 'Content copied to clipboard!';
+    const message =
+      action === 'download-markdown'
+        ? 'Download starting...'
+        : 'Content copied to clipboard!';
     showToast(message);
   }
 
+  // Visual + tooltip reset when clipboard/download sequence fails.
   function showCopyError(button) {
-    const originalTitle = button.getAttribute('data-original-title') || button.getAttribute('title') || '';
+    const originalTitle =
+      button.getAttribute('data-original-title') ||
+      button.getAttribute('title') ||
+      '';
     button.setAttribute('data-original-title', originalTitle);
     button.classList.add('copy-error');
     button.title = 'Copy failed';
@@ -197,7 +235,10 @@
     const copyButton = document.createElement('button');
     copyButton.className = 'copy-to-llm copy-to-llm-section copy-to-llm-left';
     copyButton.title = 'Copy entire page to LLM';
-    copyButton.setAttribute('aria-label', 'Copy entire page content to clipboard for LLM usage');
+    copyButton.setAttribute(
+      'aria-label',
+      'Copy entire page content to clipboard for LLM usage'
+    );
     copyButton.setAttribute('role', 'button');
     copyButton.innerHTML = `
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="copy-icon" aria-hidden="true">
@@ -207,7 +248,8 @@
     `;
 
     const dropdownButton = document.createElement('button');
-    dropdownButton.className = 'copy-to-llm copy-to-llm-section copy-to-llm-right';
+    dropdownButton.className =
+      'copy-to-llm copy-to-llm-section copy-to-llm-right';
     dropdownButton.title = 'Copy options';
     dropdownButton.type = 'button';
     dropdownButton.setAttribute('aria-label', 'Copy options menu');
@@ -258,6 +300,7 @@
     return { container, copyButton, dropdownButton, dropdownMenu };
   }
 
+  // Mount UI next to the first H1 and wire handlers (skip if already rendered).
   function addSectionCopyButtons() {
     const mainTitle = document.querySelector('.md-content h1');
     if (mainTitle && !document.querySelector('.copy-to-llm-split-container')) {
@@ -266,7 +309,8 @@
       mainTitle.parentNode.insertBefore(wrapper, mainTitle);
       wrapper.appendChild(mainTitle);
 
-      const { container, copyButton, dropdownButton, dropdownMenu } = createSectionCopyButton();
+      const { container, copyButton, dropdownButton, dropdownMenu } =
+        createSectionCopyButton();
 
       [copyButton, dropdownButton].forEach((button) => {
         button.addEventListener('keydown', (e) => {
@@ -278,8 +322,12 @@
       });
 
       dropdownMenu.addEventListener('keydown', (e) => {
-        const items = Array.from(dropdownMenu.querySelectorAll('.copy-to-llm-dropdown-item'));
-        const currentIndex = items.findIndex((item) => item === document.activeElement);
+        const items = Array.from(
+          dropdownMenu.querySelectorAll('.copy-to-llm-dropdown-item')
+        );
+        const currentIndex = items.findIndex(
+          (item) => item === document.activeElement
+        );
         switch (e.key) {
           case 'ArrowDown':
             e.preventDefault();
@@ -324,7 +372,11 @@
         try {
           const result = await LLMS.fetchSlugContent(slug);
           if (result && result.text) {
-            copySucceeded = await copyToClipboard(result.text, copyButton, 'markdown_content');
+            copySucceeded = await copyToClipboard(
+              result.text,
+              copyButton,
+              'markdown_content'
+            );
           }
         } catch (error) {
           console.error('Copy to LLM: failed to copy markdown content', error);
@@ -334,7 +386,11 @@
           const fallback = getFallbackPageContent();
           if (fallback) {
             try {
-              copySucceeded = await copyToClipboard(fallback, copyButton, 'page_content');
+              copySucceeded = await copyToClipboard(
+                fallback,
+                copyButton,
+                'page_content'
+              );
             } catch (fallbackError) {
               console.error('Copy to LLM: fallback copy failed', fallbackError);
             }
@@ -374,7 +430,9 @@
         dropdownButton.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
         resetChevron(dropdownButton);
         if (isOpen) {
-          const firstItem = dropdownMenu.querySelector('.copy-to-llm-dropdown-item');
+          const firstItem = dropdownMenu.querySelector(
+            '.copy-to-llm-dropdown-item'
+          );
           if (firstItem) {
             firstItem.focus();
           }
@@ -391,6 +449,7 @@
         const action = item.dataset.action;
         const slug = getPageSlug();
 
+        // Each dropdown option maps to one of the shared helpers or a new-tab prompt.
         switch (action) {
           case 'download-markdown': {
             trackButtonClick('download_page_markdown');
@@ -405,18 +464,26 @@
           case 'open-chatgpt': {
             trackButtonClick('open_chatgpt');
             const candidates = LLMS.getSlugCandidates(slug);
-            const mdUrl = candidates.length ? candidates[0] : window.location.href;
+            const mdUrl = candidates.length
+              ? candidates[0]
+              : window.location.href;
             const prompt = `Read ${mdUrl} so I can ask questions about it.`;
-            const chatGPTUrl = `https://chatgpt.com/?hints=search&q=${encodeURIComponent(prompt)}`;
+            const chatGPTUrl = `https://chatgpt.com/?hints=search&q=${encodeURIComponent(
+              prompt
+            )}`;
             window.open(chatGPTUrl, '_blank');
             break;
           }
           case 'open-claude': {
             trackButtonClick('open_claude');
             const candidates = LLMS.getSlugCandidates(slug);
-            const mdUrl = candidates.length ? candidates[0] : window.location.href;
+            const mdUrl = candidates.length
+              ? candidates[0]
+              : window.location.href;
             const prompt = `Read ${mdUrl} so I can ask questions about it.`;
-            const claudeUrl = `https://claude.ai/new?q=${encodeURIComponent(prompt)}`;
+            const claudeUrl = `https://claude.ai/new?q=${encodeURIComponent(
+              prompt
+            )}`;
             window.open(claudeUrl, '_blank');
             break;
           }
@@ -441,10 +508,13 @@
     }
   }
 
+  // Keeps the dropdown chevron pointed the right way for accessibility + polish.
   function resetChevron(button) {
     const chevron = button.querySelector('.chevron-icon');
     if (chevron) {
-      chevron.style.transform = button.classList.contains('active') ? 'rotate(180deg)' : '';
+      chevron.style.transform = button.classList.contains('active')
+        ? 'rotate(180deg)'
+        : '';
     }
   }
 
@@ -459,7 +529,7 @@
     if (content) {
       observer.observe(content, {
         childList: true,
-        subtree: true
+        subtree: true,
       });
     }
   }
@@ -473,6 +543,6 @@
   Object.assign(window.__copyToLlmDebug, {
     getPageSlug,
     getMarkdownCandidates: LLMS.getSlugCandidates,
-    getLlmsConfig: LLMS.getConfig
+    getLlmsConfig: LLMS.getConfig,
   });
 })();

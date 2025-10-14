@@ -5,9 +5,18 @@
     return;
   }
 
+  /*
+    Shared helper module for all "LLMS" (Large Language Model Support) features.
+    - Loads configure-from-json metadata to locate Markdown artifacts.
+    - Provides helper functions (exposed via `window.LLMS`) for slug generation,
+      URL resolution, fetch/download utilities, and path normalization.
+    - Inputs: `window.location`, optional global overrides/meta tags, and `llms_config.json`.
+    - Outputs: cached config data plus helper methods consumed by UI scripts.
+  */
   const CONFIG_FALLBACK_URL = '/scripts/llms_config.json';
 
   const state = {
+    // Global cache so other scripts can reuse config + derived URLs without refetching.
     config: null,
     configPromise: null,
     siteBase: window.location ? window.location.origin.replace(/\/+$/, '') : '',
@@ -27,6 +36,7 @@
     return trimmedPath ? `${trimmedBase}/${trimmedPath}` : trimmedBase;
   }
 
+  // Lightweight sanitizers used throughout slug + URL building.
   function stripSlashes(value) {
     return (value || '').replace(/^\/+|\/+$/g, '');
   }
@@ -104,6 +114,7 @@
     return buildSlugFromPath(normalized);
   }
 
+  // Resolves environment overrides (globals or meta tags) for base URLs only once.
   function getAiBaseUrls() {
     const cache = state.aiBaseCache;
     if (cache.raw !== null && cache.site !== null) {
@@ -146,6 +157,7 @@
     return CONFIG_FALLBACK_URL;
   }
 
+  // Uses config.repository + outputs metadata to compute a raw GitHub base URL.
   function computeRemoteBase(config) {
     const repository = config?.repository || {};
     const outputs = config?.outputs || {};
@@ -161,6 +173,7 @@
     return '';
   }
 
+  // Fetch `llms_config.json` once and cache both the promise and the parsed object.
   function loadConfig() {
     if (state.configPromise) {
       return state.configPromise;
@@ -208,6 +221,7 @@
     return state.configPromise;
   }
 
+  // Public entry point to ensure config is loaded before performing network operations.
   async function ready() {
     if (state.config || state.configPromise) {
       return state.configPromise || state.config;
@@ -215,10 +229,12 @@
     return loadConfig();
   }
 
+  // Returns whatever config object was fetched (may be null if fetch failed).
   function getConfig() {
     return state.config;
   }
 
+  // Compute the local site-relative path for Markdown artifacts (`/ai/pages/...`).
   function getLocalPagesBase() {
     const config = state.config;
     const outputs = config?.outputs || {};
@@ -228,6 +244,7 @@
     return joinUrl(publicRoot, pagesDir);
   }
 
+  // Preserve ordering while removing duplicates created by overlapping base URLs.
   function dedupe(list) {
     const seen = [];
     list.forEach((item) => {
@@ -238,6 +255,7 @@
     return seen;
   }
 
+  // Build a prioritized list of URLs where a slug's Markdown could exist.
   function getSlugCandidates(slug) {
     const normalizedSlug = (slug || 'index').toString().replace(/\.md$/i, '');
     const candidates = [];
@@ -273,6 +291,7 @@
     return dedupe(candidates);
   }
 
+  // Simple fetch wrapper that tolerates 404s and returns `null` instead of throwing.
   async function fetchText(url) {
     try {
       const response = await fetch(url, { credentials: 'omit' });
@@ -289,6 +308,7 @@
     }
   }
 
+  // Walk the candidate list until a Markdown file returns successfully.
   async function fetchSlugContent(slug) {
     await ready();
     const candidates = getSlugCandidates(slug);
@@ -301,6 +321,7 @@
     return null;
   }
 
+  // Same candidate iteration as `fetchSlugContent`, but pipes the first successful response into a download.
   async function downloadSlug(slug, filename) {
     await ready();
     const candidates = getSlugCandidates(slug);
@@ -330,6 +351,7 @@
     return false;
   }
 
+  // Normalizes different path syntaxes (full URLs, site-relative, artifact shortcuts) into a fetchable URL.
   function resolvePath(rawPath) {
     if (!rawPath) {
       return null;
@@ -382,6 +404,7 @@
     return rawBase ? joinUrl(rawBase, normalized) : toSite(normalized);
   }
 
+  // Public helper for on-demand fetches when a consumer already knows the path string.
   async function fetchPathText(rawPath) {
     await ready();
     const url = resolvePath(rawPath);
@@ -391,6 +414,7 @@
     return fetchText(url);
   }
 
+  // Download arbitrary artifact path (used by dropdown download button).
   async function downloadPath(rawPath, filename) {
     await ready();
     const url = resolvePath(rawPath);
@@ -418,6 +442,7 @@
     }
   }
 
+  // Export surface area consumed by UI widgets such as the copy-to-LLM buttons.
   window.LLMS = {
     ready,
     getConfig,
@@ -428,10 +453,9 @@
     resolvePath,
     fetchPathText,
     downloadPath,
-    normalizePathname,
-    buildSlugFromPath,
     stripSlashes
   };
 
+  // Kick off config fetch early; callers can await `LLMS.ready()` later if needed.
   ready();
 })();

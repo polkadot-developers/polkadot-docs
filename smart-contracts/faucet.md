@@ -1,35 +1,31 @@
 ---
-title: Faucets
+title: Faucet
 description: Learn how to obtain test tokens from Polkadot faucets for development and testing purposes across different networks.
+tutorial_badge: Beginner
 categories: Smart Contracts
 ---
 
-# Faucets
+# Faucet
 
-Test tokens allow you to experiment with smart contracts, test transactions, and validate your dApp functionality without using real cryptocurrency. Polkadot has a reliable faucet that distributes free TestNet tokens to developers for testing purposes.
+Test tokens allow you to experiment with smart contracts, test transactions, and validate your dApp functionality without using real cryptocurrency. 
 
-## Faucet Basics
-
-Faucets are services that distribute small amounts of cryptocurrency or tokens for free, typically on TestNet networks. They serve as the primary method for developers to obtain the necessary tokens to:
+Polkadot has a faucet that distributes free TestNet tokens to developers for testing purposes:
 
 - Execute transactions on TestNet networks.
 - Pay for gas fees when deploying smart contracts.
 - Test dApp functionality before MainNet deployment.
 - Experiment with blockchain interactions without financial risk.
 
+
 ## Get Test Tokens
 
 For Polkadot Hub TestNet, you can use the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank} to obtain test tokens. Here's how to do it:
 
-1. Navigate to the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}. If the desired network is not already selected, choose it from the Network drop-down. This example uses the Polkadot Hub TestNet.
-
+1. Navigate to the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}. If the desired network is not already selected, choose it from the **Network** drop-down. This example uses the Polkadot Hub TestNet.
 2. Copy your address linked to the TestNet and paste it into the designated field.
-
-    ![](/images/smart-contracts/faucets/faucets-1.webp)
-
 3. Click the **Get Some PASs** button to request free test PAS tokens. These tokens will be sent to your wallet shortly.
 
-    ![](/images/smart-contracts/faucets/faucets-2.webp)
+![Polkadot Faucet](/images/smart-contracts/faucet/faucet-1.gif)
 
 ## Things to Consider
 

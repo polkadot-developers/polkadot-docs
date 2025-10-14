@@ -180,7 +180,7 @@ The following sections provide detailed guidance on each aspect of parachain dev
 
     Deploy your parachain to Polkadot by obtaining coretime and connecting to the relay chain.
 
-    [:octicons-arrow-right-24: Deploy](/parachains/launch-a-parachain/)
+    [:octicons-arrow-right-24: Deploy](/parachains/launch-a-parachain/choose-a-template/)
 
 -   <span class="badge guide">Guide</span> __Runtime Upgrades__
 

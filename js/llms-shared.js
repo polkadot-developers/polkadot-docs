@@ -450,9 +450,6 @@
     getSlugCandidates,
     fetchSlugContent,
     downloadSlug,
-    resolvePath,
-    fetchPathText,
-    downloadPath,
     stripSlashes
   };
 

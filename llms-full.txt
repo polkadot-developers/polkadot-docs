@@ -6,6 +6,7 @@ Polkadot. Polkadot is an open-source, multichain network protocol that facilitat
 Documentation: https://docs.polkadot.com/
 
 ## List of doc pages:
+Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/.venv/lib/python3.13/site-packages/pip-25.2.dist-info/licenses/src/pip/_vendor/idna/LICENSE.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/chain-interactions/accounts/create-account.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/chain-interactions/accounts/query-accounts.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/chain-interactions/index.md
@@ -259,6 +260,41 @@ Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/re
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/smart-contracts/launch-your-first-project/test-and-deploy-with-hardhat.md
 
 ## Full content for each doc page
+
+Doc-Content: https://docs.polkadot.com/.venv/lib/python3.13/site-packages/pip-25.2.dist-info/licenses/src/pip/_vendor/idna/LICENSE/
+--- BEGIN CONTENT ---
+BSD 3-Clause License
+
+Copyright (c) 2013-2024, Kim Davies and contributors.
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are
+met:
+
+1. Redistributions of source code must retain the above copyright
+   notice, this list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright
+   notice, this list of conditions and the following disclaimer in the
+   documentation and/or other materials provided with the distribution.
+
+3. Neither the name of the copyright holder nor the names of its
+   contributors may be used to endorse or promote products derived from
+   this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+--- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/chain-interactions/accounts/create-account/
 --- BEGIN CONTENT ---
@@ -17438,23 +17474,15 @@ The following sections provide detailed guidance on each aspect of parachain dev
 
     Implement XCM for trustless cross-chain communication with other parachains.
 
-    [:octicons-arrow-right-24: Learn More](/parachains/interoperability/)
+    [:octicons-arrow-right-24: Learn More](/parachains/interoperability/get-started/)
 
 -   <span class="badge guide">Guide</span> __Nodes & Validators__
 
     ---
 
-    Set up collator infrastructure for block production and network participation.
-
-    [:octicons-arrow-right-24: Reference](/nodes-and-validators/)
-
--   <span class="badge guide">Guide</span> __Launch a Parachain__
-
-    ---
-
     Deploy your parachain to Polkadot by obtaining coretime and connecting to the relay chain.
 
-    [:octicons-arrow-right-24: Deploy](/parachains/launch-a-parachain/)
+    [:octicons-arrow-right-24: Deploy](/parachains/launch-a-parachain/choose-a-template/)
 
 -   <span class="badge guide">Guide</span> __Runtime Upgrades__
 

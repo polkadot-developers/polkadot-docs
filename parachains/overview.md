@@ -170,14 +170,6 @@ The following sections provide detailed guidance on each aspect of parachain dev
 
     ---
 
-    Set up collator infrastructure for block production and network participation.
-
-    [:octicons-arrow-right-24: Reference](/nodes-and-validators/)
-
--   <span class="badge guide">Guide</span> __Launch a Parachain__
-
-    ---
-
     Deploy your parachain to Polkadot by obtaining coretime and connecting to the relay chain.
 
     [:octicons-arrow-right-24: Deploy](/parachains/launch-a-parachain/choose-a-template/)

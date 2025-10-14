@@ -414,34 +414,6 @@
     return fetchText(url);
   }
 
-  // Download arbitrary artifact path (used by dropdown download button).
-  async function downloadPath(rawPath, filename) {
-    await ready();
-    const url = resolvePath(rawPath);
-    if (!url) {
-      return false;
-    }
-    try {
-      const response = await fetch(url, { credentials: 'omit' });
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}`);
-      }
-      const blob = await response.blob();
-      const objectUrl = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = objectUrl;
-      link.download = filename || rawPath.split('/').pop() || 'download.txt';
-      document.body.appendChild(link);
-      link.click();
-      URL.revokeObjectURL(objectUrl);
-      link.remove();
-      return true;
-    } catch (error) {
-      console.error('LLMS shared: download path failed', url, error);
-      return false;
-    }
-  }
-
   // Export surface area consumed by UI widgets such as the copy-to-LLM buttons.
   window.LLMS = {
     ready,
@@ -449,8 +421,7 @@
     getPageSlug,
     getSlugCandidates,
     fetchSlugContent,
-    downloadSlug,
-    stripSlashes
+    downloadSlug
   };
 
   // Kick off config fetch early; callers can await `LLMS.ready()` later if needed.

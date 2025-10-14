@@ -6,7 +6,7 @@ categories: Basics, dApps, Smart Contracts
 
 # Smart Contracts Cookbook
 
-Welcome to the Polkadot Smart Contracts cookbook index.
+Welcome to the Polkadot smart contracts cookbook index.
 
 This page contains a list of all relevant tutorials and guides to help you get started coding smart contracts and dApps in Polkadot.
 

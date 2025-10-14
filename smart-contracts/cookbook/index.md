@@ -1,6 +1,6 @@
 ---
 title: Overview
-description: Explore our full collection of tutorials and guides to learn step-by-step how to build, deploy, and work with Smart Contracts on Polkadot.
+description: Explore our full collection of tutorials and guides to learn step-by-step how to build, deploy, and work with smart contracts on Polkadot.
 categories: Basics, dApps, Smart Contracts
 ---
 
@@ -8,7 +8,7 @@ categories: Basics, dApps, Smart Contracts
 
 Welcome to the Polkadot Smart Contracts cookbook index.
 
-This page contains a list of all relevant tutorials and guides to help you get started coding Smart Contracts and dApps in Polkadot.
+This page contains a list of all relevant tutorials and guides to help you get started coding smart contracts and dApps in Polkadot.
 
 
 <!-- START OF AUTOMATICALLY GENERATED CONTENT -->

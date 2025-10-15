@@ -7669,6 +7669,9 @@ PolkaVM provides on-chain constructors as an elegant alternative to runtime code
 - Maintain separation between code upload and contract creation
 - Provide predictable deployment costs
 
+!!! note "Gas Estimation vs Actual Consumption"
+    Both REVM and PolkaVM deployments may show significant differences between gas estimation and actual consumption. You might see estimates that are several times higher than the actual gas consumed (often around 30% of the estimate). This is normal behavior because pre-dispatch estimation cannot distinguish between computation weight and storage deposits, leading to conservative overestimation. Contract deployments are particularly affected as they consume significant storage deposits for code storage.
+
 ## Deployment Comparison
 
 | Feature | REVM Backend | PolkaVM Backend |

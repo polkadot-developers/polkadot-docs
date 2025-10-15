@@ -40,9 +40,9 @@ flowchart TD
     group2 --> group3
 
     %% Styling
-    style group1 fill:transparent,stroke:#6e7391,stroke-width:1px
-    style group2 fill:transparent,stroke:#6e7391,stroke-width:1px
-    style group3 fill:transparent,stroke:#6e7391,stroke-width:1px
+    style group1 stroke:#6e7391,stroke-width:1px
+    style group2 stroke:#6e7391,stroke-width:1px
+    style group3 stroke:#6e7391,stroke-width:1px
 ```
 
 - **Local development and testing**: The process begins with local development and testing. Developers focus on building the runtime by selecting and configuring the necessary pallets while refining network features. In this phase, running a local TestNet is essential to verify transactions and ensure the blockchain behaves as expected. Unit and integration tests ensure the network works as expected before launch. Thorough testing is conducted, not only for individual components but also for interactions between pallets.

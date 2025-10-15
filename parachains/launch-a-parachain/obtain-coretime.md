@@ -33,7 +33,7 @@ Before proceeding, ensure you have the following:
 - A synced collator node running and connected to the Paseo relay chain.
 - PAS tokens in your account for transaction fees.
 
-If you haven't completed these prerequisites, refer to the [Deploy on Polkadot](/parachains/launch-a-parachain/deploy-on-polkadot/){target=\_blank} tutorial.
+If you haven't completed these prerequisites, start by referring to the [Deploy on Polkadot](/parachains/launch-a-parachain/deploy-on-polkadot/){target=\_blank} tutorial.
 
 ## Order On-Demand Coretime
 

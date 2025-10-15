@@ -6890,7 +6890,7 @@ The Polkadot SDK allows developers to construct a runtime by combining various p
 
 The following diagram illustrates the process of selecting and combining FRAME pallets to compose a runtime:
 
-![](/images/develop/parachains/customize-parachain/overview/frame-overview-2.webp)
+![](/images/develop/parachains/customize-parachain/overview/frame-overview-2.webp){ style="background:white; padding:1em;" }
 
 This modular design allows developers to:
 
@@ -7077,7 +7077,7 @@ According to Polkadot's design, any blockchain that can compile to WebAssembly (
 
 Here’s a high-level overview of the Polkadot protocol architecture:
 
-![](/images/polkadot-protocol/architecture/polkadot-chain/overview/overview-1.webp)
+![](/images/polkadot-protocol/architecture/polkadot-chain/overview/overview-1.webp){ style="background:white" }
 
 Parachains propose blocks to Polkadot validators, who check for availability and validity before finalizing them. With the relay chain providing security, collators—full nodes of parachains—can focus on their tasks without needing strong incentives.
 
@@ -9249,7 +9249,7 @@ flowchart LR
   E[Transaction] --> D
   D --> F[(New State)]
   D --> G[Execution Logs]
-  style A fill:#ffffff,stroke:#000000,stroke-width:1px
+  style A stroke:#000000,stroke-width:1px
 ```
 
 In addition, because smart contracts are programs that execute on top of existing chains, teams don't have to think about the underlying consensus they are built on.
@@ -9319,8 +9319,8 @@ flowchart TD
     F --> J[(New Ethereum<br/>Emulated State)]
     F --> K[Execution Logs]
 
-    style C fill:#ffffff,stroke:#000000,stroke-width:1px
-    style F fill:#ffffff,stroke:#000000,stroke-width:1px
+    style C stroke:#000000,stroke-width:1px
+    style F stroke:#000000,stroke-width:1px
 ```
 
 Although it seems complex, users and developers are abstracted of that complexity, and tools can easily interact with the parachain as they would with any other Ethereum-compatible environment.
@@ -9355,7 +9355,7 @@ flowchart TD
     A --> F[(New State)]
     A --> G[Execution Logs]
 
-    style A fill:#ffffff,stroke:#000000,stroke-width:1px
+    style A stroke:#000000,stroke-width:1px
 ```
 
 
@@ -10251,7 +10251,7 @@ Pallets, which compose the runtime's logic, define the specific transactions tha
 
 In Polkadot SDK-based networks, some nodes are authorized to author blocks. These nodes validate and process transactions. When a transaction is sent to a node that can produce blocks, it undergoes a lifecycle that involves several stages, including validation and execution. Non-authoring nodes gossip the transaction across the network until an authoring node receives it. The following diagram illustrates the lifecycle of a transaction that's submitted to a network and processed by an authoring node.
 
-![Transaction lifecycle diagram](/images/polkadot-protocol/parachain-basics/blocks-transactions-fees/transactions/transaction-lifecycle-1.webp)
+![Transaction lifecycle diagram](/images/polkadot-protocol/parachain-basics/blocks-transactions-fees/transactions/transaction-lifecycle-1.webp){ style="background:white" }
 
 ### Validate and Queue
 

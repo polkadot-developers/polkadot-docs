@@ -4,6 +4,7 @@
 
 ## Docs
 
+- [Untitled](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/.venv/lib/python3.13/site-packages/pip-25.2.dist-info/licenses/src/pip/_vendor/idna/LICENSE.md): No description available.
 - [Untitled](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/chain-interactions/accounts/create-account.md): No description available.
 - [Untitled](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/chain-interactions/accounts/query-accounts.md): No description available.
 - [Untitled](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/chain-interactions/index.md): No description available.
@@ -116,7 +117,7 @@
 - [Untitled](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/launch-a-parachain/choose-a-template.md): No description available.
 - [Untitled](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/launch-a-parachain/deploy-to-polkadot.md): No description available.
 - [Obtain Coretime](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/launch-a-parachain/obtain-coretime.md): Learn how to obtain and manage coretime for your Polkadot parachain. Explore bulk and on-demand options, prerequisites, and initial setup.
-- [Introduction to Polkadot SDK](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/overview.md): Learn about the Polkadot SDK, a robust developer toolkit for building custom blockchains. Explore its components and how it powers the Polkadot protocol.
+- [Parachains Overview](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/overview.md): Learn about parachains, specialized blockchains on Polkadot that gain shared security and interoperability. Discover how they work and the tools to build them.
 - [Runtime Upgrades](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/runtime-maintenance/runtime-upgrades.md): This page covers how runtime versioning and storage migration support forkless upgrades for Polkadot SDK-based networks and how they factor into chain upgrades.
 - [Storage Migrations](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/runtime-maintenance/storage-migrations.md): Ensure smooth runtime upgrades with storage migrations, update data formats, and prevent errors. Learn when and how to implement migrations efficiently.
 - [Unlock a Parachain](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/parachains/runtime-maintenance/unlock-parachains.md): Learn how to unlock your parachain. This step-by-step guide covers verifying lock status, preparing calls, and executing the unlock process.

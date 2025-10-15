@@ -4,6 +4,7 @@ nav:
   - ':simple-typescript: Dedot': dedot.md
   - ':simple-typescript: Polkadot-API': papi.md
   - ':simple-javascript: Polkadot.js API': polkadot-js-api.md
+  - ':simple-dart: Polkadart': polkadart.md
   - ':simple-python: Python Substrate Interface': py-substrate-interface.md
   - ':simple-javascript: Sidecar Rest API': sidecar.md
   - ':simple-rust: Subxt': subxt.md

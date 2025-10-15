@@ -131,7 +131,7 @@ Follow these steps to use Polkadot.js Apps to activate your validator:
 
 1. In Polkadot.js Apps, navigate to **Network** and select **Staking**:
 
-    ![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/start-validating/start-validating-01.webp)
+    ![](/images/nodes-and-validators/run-a-validator/onboarding-and-offboarding/start-validating/start-validating-01.webp)
 
 2. Open the **Accounts** tab and click on **+ Validator**:
 
@@ -147,7 +147,7 @@ Follow these steps to use Polkadot.js Apps to activate your validator:
 
 You can set the **commission** and the **blocked** option via `staking.validate` extrinsic. By default, the blocked option is set to FALSE (i.e., the validator accepts nominations):
 
-![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/start-validating/start-validating-05.webp)
+![](/images/nodes-and-validators/run-a-validator/onboarding-and-offboarding/start-validating/start-validating-05.webp)
 
 ### Monitor Validation Status and Slots
 

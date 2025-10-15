@@ -43,8 +43,8 @@ On-demand coretime allows you to purchase validation resources on a per-block ba
 
 There are two extrinsics available for ordering on-demand coretime:
 
-- **`onDemand.placeOrderAllowDeath`**: Will [reap](https://wiki.polkadot.com/learn/learn-accounts/#existential-deposit-and-reaping){target=\_blank} the account once the provided funds are depleted.
-- **`onDemand.placeOrderKeepAlive`**: Includes a check to prevent reaping the account, ensuring it remains alive even if funds run out.
+- **[`onDemand.placeOrderAllowDeath`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/on_demand/pallet/struct.Pallet.html#method.place_order_allow_death){target=\_blank}**: Will [reap](https://wiki.polkadot.com/learn/learn-accounts/#existential-deposit-and-reaping){target=\_blank} the account once the provided funds are depleted.
+- **[`onDemand.placeOrderKeepAlive`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/on_demand/pallet/struct.Pallet.html#method.place_order_keep_alive){target=\_blank}**: Includes a check to prevent reaping the account, ensuring it remains alive even if funds run out.
 
 ### Placing an On-Demand Order
 
@@ -52,7 +52,7 @@ There are two extrinsics available for ordering on-demand coretime:
 
 To place an on-demand coretime order, follow these steps:
 
-1. Open the [Polkadot.js Apps interface connected to Paseo](https://polkadot.js.org/apps/?rpc=wss://paseo.dotters.network){target=\_blank}.
+1. Open the [Polkadot.js Apps interface connected to the Polkadot TestNet (Paseo)](https://polkadot.js.org/apps/?rpc=wss://paseo.dotters.network){target=\_blank}.
 
 2. Navigate to **Developer > Extrinsics** in the top menu.
 
@@ -73,7 +73,7 @@ Upon successful submission, your parachain will produce a new block. You can ver
 
 ## Purchase Bulk Coretime
 
-Bulk coretime provides a more economical option for ongoing block production. You purchase a core on the Coretime Chain for a specified duration (up to 28 days), which must be renewed upon expiration.
+Bulk coretime provides a more economical option for ongoing block production. You purchase a core on the [Coretime Chain](https://wiki.polkadot.com/learn/learn-system-chains/#coretime-chain){target=\_blank} for a specified duration (up to 28 days), which must be renewed upon expiration.
 
 ### Understanding the Coretime Chain
 
@@ -84,7 +84,7 @@ The Coretime Chain is a system parachain that hosts an instance of the [`pallet_
 
 ### Using the RegionX Coretime Marketplace
 
-The [RegionX Coretime Marketplace](https://app.regionx.tech){target=\_blank} provides a user-friendly interface for purchasing and managing bulk coretime. It supports both Paseo TestNet and production networks.
+The [RegionX Coretime Marketplace](https://app.regionx.tech){target=\_blank} provides a user-friendly interface for purchasing and managing bulk coretime. It supports both Polkadot TestNet and production networks.
 
 ![RegionX home page with Wallet connected](/images/parachains/launch-a-parachain/obtain-coretime/obtain-coretime-2.webp)
 

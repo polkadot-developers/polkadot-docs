@@ -1,25 +1,6 @@
 Begin New Bundle: Reference
 
 
-<<<<<<< HEAD:llms-files/llms-reference.txt
-This file includes documentation related to the category: Reference
-
-## List of doc pages:
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/interoperability/xcm-config.md [type: develop]
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/develop/interoperability/xcm-runtime-apis.md [type: develop]
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/reference/glossary.md [type: other]
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/smart-contracts/for-eth-devs/json-rpc-apis.md [type: other]
-
-## Full content for each doc page
-
-Doc-Content: https://docs.polkadot.com/develop/interoperability/xcm-config/
---- BEGIN CONTENT ---
----
-title: XCM Config
-description: Learn how the XCM Executor configuration works for your custom Polkadot SDK-based runtime with detailed guidance and references.
-categories: Reference, Polkadot Protocol
-=======
->>>>>>> origin/master:.ai/categories/reference.md
 ---
 
 Page Title: Glossary
@@ -390,1487 +371,11 @@ Westend is a Parity-maintained, Polkadot SDK-based blockchain that serves as a t
 
 ---
 
-Page Title: JSON-RPC APIs
-
-<<<<<<< HEAD:llms-files/llms-reference.txt
-## Introduction
-
-Runtime APIs allow node-side code to extract information from the runtime state. While simple storage access retrieves stored values directly, runtime APIs enable arbitrary computation, making them a powerful tool for interacting with the chain's state.
-
-Unlike direct storage access, runtime APIs can derive values from storage based on arguments or perform computations that don't require storage access. For example, a runtime API might expose a formula for fee calculation, using only the provided arguments as inputs rather than fetching data from storage.
-
-In general, runtime APIs are used for:
-
-- Accessing a storage item.
-- Retrieving a bundle of related storage items.
-- Deriving a value from storage based on arguments.
-- Exposing formulas for complex computational calculations.
-
-This section will teach you about specific runtime APIs that support XCM processing and manipulation.
-
-## Dry Run API
-
-The [Dry-run API](https://paritytech.github.io/polkadot-sdk/master/xcm_runtime_apis/dry_run/trait.DryRunApi.html){target=\_blank}, given an extrinsic, or an XCM program, returns its effects:
-
-- Execution result
-- Local XCM (in the case of an extrinsic)
-- Forwarded XCMs
-- List of events
-
-This API can be used independently for dry-running, double-checking, or testing. However, it mainly shines when used with the [Xcm Payment API](#xcm-payment-api), given that it only estimates fees if you know the specific XCM you want to execute or send.
-
-### Dry Run Call
-
-This API allows a dry-run of any extrinsic and obtaining the outcome if it fails or succeeds, as well as the local xcm and remote xcm messages sent to other chains.
-
-```rust
-fn dry_run_call(origin: OriginCaller, call: Call, result_xcms_version: XcmVersion) -> Result<CallDryRunEffects<Event>, Error>;
-```
-
-??? interface "Input parameters"
-
-    `origin` ++"OriginCaller"++ <span class="required" markdown>++"required"++</span>
-    
-    The origin used for executing the transaction.
-
-    ---
-
-    `call` ++"Call"++ <span class="required" markdown>++"required"++</span>
-
-    The extrinsic to be executed.
-
-    ---
-
-??? interface "Output parameters"
-
-    ++"Result<CallDryRunEffects<Event>, Error>"++
-
-    Effects of dry-running an extrinsic. If an error occurs, it is returned instead of the effects.
-
-    ??? child "Type `CallDryRunEffects<Event>`"
-
-        `execution_result` ++"DispatchResultWithPostInfo"++
-
-        The result of executing the extrinsic.
-
-        ---
-
-        `emitted_events` ++"Vec<Event>"++
-
-        The list of events fired by the extrinsic.
-
-        ---
-
-        `local_xcm` ++"Option<VersionedXcm<()>>"++
-
-        The local XCM that was attempted to be executed, if any.
-
-        ---
-
-        `forwarded_xcms` ++"Vec<(VersionedLocation, Vec<VersionedXcm<()>>)>"++
-
-        The list of XCMs that were queued for sending.
-
-    ??? child "Type `Error`"
-
-        Enum:
-
-        - **`Unimplemented`**: An API part is unsupported.
-        - **`VersionedConversionFailed`**: Converting a versioned data structure from one version to another failed.
-
-??? interface "Example"
-
-    This example demonstrates how to simulate a cross-chain asset transfer from the Paseo network to the Pop Network using a [reserve transfer](https://wiki.polkadot.com/learn/learn-xcm-usecases/#reserve-asset-transfer){target=\_blank} mechanism. Instead of executing the actual transfer, the code shows how to test and verify the transaction's behavior through a dry run before performing it on the live network.
-
-    Replace `INSERT_USER_ADDRESS` with your SS58 address before running the script.
-
-    ***Usage with PAPI***
-
-    ```js
-    import { paseo } from '@polkadot-api/descriptors';
-import { createClient } from 'polkadot-api';
-import { getWsProvider } from 'polkadot-api/ws-provider/web';
-import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
-import {
-  PolkadotRuntimeOriginCaller,
-  XcmVersionedLocation,
-  XcmVersionedAssets,
-  XcmV3Junction,
-  XcmV3Junctions,
-  XcmV3WeightLimit,
-  XcmV3MultiassetFungibility,
-  XcmV3MultiassetAssetId,
-} from '@polkadot-api/descriptors';
-import { DispatchRawOrigin } from '@polkadot-api/descriptors';
-import { Binary } from 'polkadot-api';
-import { ss58Decode } from '@polkadot-labs/hdkd-helpers';
-
-// Connect to the Paseo relay chain
-const client = createClient(
-  withPolkadotSdkCompat(getWsProvider('wss://paseo-rpc.dwellir.com')),
-);
-
-const paseoApi = client.getTypedApi(paseo);
-
-const popParaID = 4001;
-const userAddress = 'INSERT_USER_ADDRESS';
-const userPublicKey = ss58Decode(userAddress)[0];
-const idBeneficiary = Binary.fromBytes(userPublicKey);
-
-// Define the origin caller
-// This is a regular signed account owned by a user
-let origin = PolkadotRuntimeOriginCaller.system(
-  DispatchRawOrigin.Signed(userAddress),
-);
-
-// Define a transaction to transfer assets from Polkadot to Pop Network using a Reserve Transfer
-const tx = paseoApi.tx.XcmPallet.limited_reserve_transfer_assets({
-  dest: XcmVersionedLocation.V3({
-    parents: 0,
-    interior: XcmV3Junctions.X1(
-      XcmV3Junction.Parachain(popParaID), // Destination is the Pop Network parachain
-    ),
-  }),
-  beneficiary: XcmVersionedLocation.V3({
-    parents: 0,
-    interior: XcmV3Junctions.X1(
-      XcmV3Junction.AccountId32({
-        // Beneficiary address on Pop Network
-        network: undefined,
-        id: idBeneficiary,
-      }),
-    ),
-  }),
-  assets: XcmVersionedAssets.V3([
-    {
-      id: XcmV3MultiassetAssetId.Concrete({
-        parents: 0,
-        interior: XcmV3Junctions.Here(), // Native asset from the sender. In this case PAS
-      }),
-      fun: XcmV3MultiassetFungibility.Fungible(120000000000n), // Asset amount to transfer
-    },
-  ]),
-  fee_asset_item: 0, // Asset used to pay transaction fees
-  weight_limit: XcmV3WeightLimit.Unlimited(), // No weight limit on transaction
-});
-
-// Execute the dry run call to simulate the transaction
-const dryRunResult = await paseoApi.apis.DryRunApi.dry_run_call(
-  origin,
-  tx.decodedCall,
-);
-
-// Extract the data from the dry run result
-const {
-  execution_result: executionResult,
-  emitted_events: emmittedEvents,
-  local_xcm: localXcm,
-  forwarded_xcms: forwardedXcms,
-} = dryRunResult.value;
-
-// Extract the XCM generated by this call
-const xcmsToPop = forwardedXcms.find(
-  ([location, _]) =>
-    location.type === 'V4' &&
-    location.value.parents === 0 &&
-    location.value.interior.type === 'X1' &&
-    location.value.interior.value.type === 'Parachain' &&
-    location.value.interior.value.value === popParaID, // Pop network's ParaID
-);
-const destination = xcmsToPop[0];
-const remoteXcm = xcmsToPop[1][0];
-
-// Print the results
-const resultObject = {
-  execution_result: executionResult,
-  emitted_events: emmittedEvents,
-  local_xcm: localXcm,
-  destination: destination,
-  remote_xcm: remoteXcm,
-};
-
-console.dir(resultObject, { depth: null });
-
-client.destroy();
-    ```
-
-    ***Output***
-
-    <div id="termynal" data-termynal>
-  <pre>
-    {
-      execution_result: {
-        success: true,
-        value: {
-          actual_weight: undefined,
-          pays_fee: { type: 'Yes', value: undefined }
-        }
-      },
-      emitted_events: [
-        {
-          type: 'Balances',
-          value: {
-            type: 'Transfer',
-            value: {
-              from: '12pGtwHPL4tUAUcyeCoJ783NKRspztpWmXv4uxYRwiEnYNET',
-              to: '13YMK2ePPKQeW7ynqLozB65WYjMnNgffQ9uR4AzyGmqnKeLq',
-              amount: 120000000000n
-            }
-          }
-        },
-        {
-          type: 'Balances',
-          value: { type: 'Issued', value: { amount: 0n } }
-        },
-        {
-          type: 'XcmPallet',
-          value: {
-            type: 'Attempted',
-            value: {
-              outcome: {
-                type: 'Complete',
-                value: { used: { ref_time: 251861000n, proof_size: 6196n } }
-              }
-            }
-          }
-        },
-        {
-          type: 'Balances',
-          value: {
-            type: 'Burned',
-            value: {
-              who: '12pGtwHPL4tUAUcyeCoJ783NKRspztpWmXv4uxYRwiEnYNET',
-              amount: 397000000n
-            }
-          }
-        },
-        {
-          type: 'Balances',
-          value: {
-            type: 'Minted',
-            value: {
-              who: '13UVJyLnbVp9RBZYFwFGyDvVd1y27Tt8tkntv6Q7JVPhFsTB',
-              amount: 397000000n
-            }
-          }
-        },
-        {
-          type: 'XcmPallet',
-          value: {
-            type: 'FeesPaid',
-            value: {
-              paying: {
-                parents: 0,
-                interior: {
-                  type: 'X1',
-                  value: {
-                    type: 'AccountId32',
-                    value: {
-                      network: { type: 'Polkadot', value: undefined },
-                      id: FixedSizeBinary {
-                        asText: [Function (anonymous)],
-                        asHex: [Function (anonymous)],
-                        asOpaqueHex: [Function (anonymous)],
-                        asBytes: [Function (anonymous)],
-                        asOpaqueBytes: [Function (anonymous)]
-                      }
-                    }
-                  }
-                }
-              },
-              fees: [
-                {
-                  id: {
-                    parents: 0,
-                    interior: { type: 'Here', value: undefined }
-                  },
-                  fun: { type: 'Fungible', value: 397000000n }
-                }
-              ]
-            }
-          }
-        },
-        {
-          type: 'XcmPallet',
-          value: {
-            type: 'Sent',
-            value: {
-              origin: {
-                parents: 0,
-                interior: {
-                  type: 'X1',
-                  value: {
-                    type: 'AccountId32',
-                    value: {
-                      network: { type: 'Polkadot', value: undefined },
-                      id: FixedSizeBinary {
-                        asText: [Function (anonymous)],
-                        asHex: [Function (anonymous)],
-                        asOpaqueHex: [Function (anonymous)],
-                        asBytes: [Function (anonymous)],
-                        asOpaqueBytes: [Function (anonymous)]
-                      }
-                    }
-                  }
-                }
-              },
-              destination: {
-                parents: 0,
-                interior: { type: 'X1', value: { type: 'Parachain', value: 4001 } }
-              },
-              message: [
-                {
-                  type: 'ReserveAssetDeposited',
-                  value: [
-                    {
-                      id: {
-                        parents: 1,
-                        interior: { type: 'Here', value: undefined }
-                      },
-                      fun: { type: 'Fungible', value: 120000000000n }
-                    }
-                  ]
-                },
-                { type: 'ClearOrigin', value: undefined },
-                {
-                  type: 'BuyExecution',
-                  value: {
-                    fees: {
-                      id: {
-                        parents: 1,
-                        interior: { type: 'Here', value: undefined }
-                      },
-                      fun: { type: 'Fungible', value: 120000000000n }
-                    },
-                    weight_limit: { type: 'Unlimited', value: undefined }
-                  }
-                },
-                {
-                  type: 'DepositAsset',
-                  value: {
-                    assets: {
-                      type: 'Wild',
-                      value: { type: 'AllCounted', value: 1 }
-                    },
-                    beneficiary: {
-                      parents: 0,
-                      interior: {
-                        type: 'X1',
-                        value: {
-                          type: 'AccountId32',
-                          value: {
-                            network: undefined,
-                            id: FixedSizeBinary {
-                              asText: [Function (anonymous)],
-                              asHex: [Function (anonymous)],
-                              asOpaqueHex: [Function (anonymous)],
-                              asBytes: [Function (anonymous)],
-                              asOpaqueBytes: [Function (anonymous)]
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              ],
-              message_id: FixedSizeBinary {
-                asText: [Function (anonymous)],
-                asHex: [Function (anonymous)],
-                asOpaqueHex: [Function (anonymous)],
-                asBytes: [Function (anonymous)],
-                asOpaqueBytes: [Function (anonymous)]
-              }
-            }
-          }
-        }
-      ],
-      local_xcm: undefined,
-      destination: {
-        type: 'V4',
-        value: {
-          parents: 0,
-          interior: { type: 'X1', value: { type: 'Parachain', value: 4001 } }
-        }
-      },
-      remote_xcm: {
-        type: 'V3',
-        value: [
-          {
-            type: 'ReserveAssetDeposited',
-            value: [
-              {
-                id: {
-                  type: 'Concrete',
-                  value: {
-                    parents: 1,
-                    interior: { type: 'Here', value: undefined }
-                  }
-                },
-                fun: { type: 'Fungible', value: 120000000000n }
-              }
-            ]
-          },
-          { type: 'ClearOrigin', value: undefined },
-          {
-            type: 'BuyExecution',
-            value: {
-              fees: {
-                id: {
-                  type: 'Concrete',
-                  value: {
-                    parents: 1,
-                    interior: { type: 'Here', value: undefined }
-                  }
-                },
-                fun: { type: 'Fungible', value: 120000000000n }
-              },
-              weight_limit: { type: 'Unlimited', value: undefined }
-            }
-          },
-          {
-            type: 'DepositAsset',
-            value: {
-              assets: { type: 'Wild', value: { type: 'AllCounted', value: 1 } },
-              beneficiary: {
-                parents: 0,
-                interior: {
-                  type: 'X1',
-                  value: {
-                    type: 'AccountId32',
-                    value: {
-                      network: undefined,
-                      id: FixedSizeBinary {
-                        asText: [Function (anonymous)],
-                        asHex: [Function (anonymous)],
-                        asOpaqueHex: [Function (anonymous)],
-                        asBytes: [Function (anonymous)],
-                        asOpaqueBytes: [Function (anonymous)]
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          {
-            type: 'SetTopic',
-            value: FixedSizeBinary {
-              asText: [Function (anonymous)],
-              asHex: [Function (anonymous)],
-              asOpaqueHex: [Function (anonymous)],
-              asBytes: [Function (anonymous)],
-              asOpaqueBytes: [Function (anonymous)]
-            }
-          }
-        ]
-      }
-    }      
-  </pre>
-</div>
-                ...
-    <div id="termynal" data-termynal>
-  <pre>
-    {
-      execution_result: {
-        success: true,
-        value: {
-          actual_weight: undefined,
-          pays_fee: { type: 'Yes', value: undefined }
-        }
-      },
-      emitted_events: [
-        {
-          type: 'Balances',
-          value: {
-            type: 'Transfer',
-            value: {
-              from: '12pGtwHPL4tUAUcyeCoJ783NKRspztpWmXv4uxYRwiEnYNET',
-              to: '13YMK2ePPKQeW7ynqLozB65WYjMnNgffQ9uR4AzyGmqnKeLq',
-              amount: 120000000000n
-            }
-          }
-        },
-        {
-          type: 'Balances',
-          value: { type: 'Issued', value: { amount: 0n } }
-        },
-        {
-          type: 'XcmPallet',
-          value: {
-            type: 'Attempted',
-            value: {
-              outcome: {
-                type: 'Complete',
-                value: { used: { ref_time: 251861000n, proof_size: 6196n } }
-              }
-            }
-          }
-        },
-        {
-          type: 'Balances',
-          value: {
-            type: 'Burned',
-            value: {
-              who: '12pGtwHPL4tUAUcyeCoJ783NKRspztpWmXv4uxYRwiEnYNET',
-              amount: 397000000n
-            }
-          }
-        },
-        {
-          type: 'Balances',
-          value: {
-            type: 'Minted',
-            value: {
-              who: '13UVJyLnbVp9RBZYFwFGyDvVd1y27Tt8tkntv6Q7JVPhFsTB',
-              amount: 397000000n
-            }
-          }
-        },
-        {
-          type: 'XcmPallet',
-          value: {
-            type: 'FeesPaid',
-            value: {
-              paying: {
-                parents: 0,
-                interior: {
-                  type: 'X1',
-                  value: {
-                    type: 'AccountId32',
-                    value: {
-                      network: { type: 'Polkadot', value: undefined },
-                      id: FixedSizeBinary {
-                        asText: [Function (anonymous)],
-                        asHex: [Function (anonymous)],
-                        asOpaqueHex: [Function (anonymous)],
-                        asBytes: [Function (anonymous)],
-                        asOpaqueBytes: [Function (anonymous)]
-                      }
-                    }
-                  }
-                }
-              },
-              fees: [
-                {
-                  id: {
-                    parents: 0,
-                    interior: { type: 'Here', value: undefined }
-                  },
-                  fun: { type: 'Fungible', value: 397000000n }
-                }
-              ]
-            }
-          }
-        },
-        {
-          type: 'XcmPallet',
-          value: {
-            type: 'Sent',
-            value: {
-              origin: {
-                parents: 0,
-                interior: {
-                  type: 'X1',
-                  value: {
-                    type: 'AccountId32',
-                    value: {
-                      network: { type: 'Polkadot', value: undefined },
-                      id: FixedSizeBinary {
-                        asText: [Function (anonymous)],
-                        asHex: [Function (anonymous)],
-                        asOpaqueHex: [Function (anonymous)],
-                        asBytes: [Function (anonymous)],
-                        asOpaqueBytes: [Function (anonymous)]
-                      }
-                    }
-                  }
-                }
-              },
-              destination: {
-                parents: 0,
-                interior: { type: 'X1', value: { type: 'Parachain', value: 4001 } }
-              },
-              message: [
-                {
-                  type: 'ReserveAssetDeposited',
-                  value: [
-                    {
-                      id: {
-                        parents: 1,
-                        interior: { type: 'Here', value: undefined }
-                      },
-                      fun: { type: 'Fungible', value: 120000000000n }
-                    }
-                  ]
-                },
-                { type: 'ClearOrigin', value: undefined },
-                {
-                  type: 'BuyExecution',
-                  value: {
-                    fees: {
-                      id: {
-                        parents: 1,
-                        interior: { type: 'Here', value: undefined }
-                      },
-                      fun: { type: 'Fungible', value: 120000000000n }
-                    },
-                    weight_limit: { type: 'Unlimited', value: undefined }
-                  }
-                },
-                {
-                  type: 'DepositAsset',
-                  value: {
-                    assets: {
-                      type: 'Wild',
-                      value: { type: 'AllCounted', value: 1 }
-                    },
-                    beneficiary: {
-                      parents: 0,
-                      interior: {
-                        type: 'X1',
-                        value: {
-                          type: 'AccountId32',
-                          value: {
-                            network: undefined,
-                            id: FixedSizeBinary {
-                              asText: [Function (anonymous)],
-                              asHex: [Function (anonymous)],
-                              asOpaqueHex: [Function (anonymous)],
-                              asBytes: [Function (anonymous)],
-                              asOpaqueBytes: [Function (anonymous)]
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              ],
-              message_id: FixedSizeBinary {
-                asText: [Function (anonymous)],
-                asHex: [Function (anonymous)],
-                asOpaqueHex: [Function (anonymous)],
-                asBytes: [Function (anonymous)],
-                asOpaqueBytes: [Function (anonymous)]
-              }
-            }
-          }
-        }
-      ],
-      local_xcm: undefined,
-      destination: {
-        type: 'V4',
-        value: {
-          parents: 0,
-          interior: { type: 'X1', value: { type: 'Parachain', value: 4001 } }
-        }
-      },
-      remote_xcm: {
-        type: 'V3',
-        value: [
-          {
-            type: 'ReserveAssetDeposited',
-            value: [
-              {
-                id: {
-                  type: 'Concrete',
-                  value: {
-                    parents: 1,
-                    interior: { type: 'Here', value: undefined }
-                  }
-                },
-                fun: { type: 'Fungible', value: 120000000000n }
-              }
-            ]
-          },
-          { type: 'ClearOrigin', value: undefined },
-          {
-            type: 'BuyExecution',
-            value: {
-              fees: {
-                id: {
-                  type: 'Concrete',
-                  value: {
-                    parents: 1,
-                    interior: { type: 'Here', value: undefined }
-                  }
-                },
-                fun: { type: 'Fungible', value: 120000000000n }
-              },
-              weight_limit: { type: 'Unlimited', value: undefined }
-            }
-          },
-          {
-            type: 'DepositAsset',
-            value: {
-              assets: { type: 'Wild', value: { type: 'AllCounted', value: 1 } },
-              beneficiary: {
-                parents: 0,
-                interior: {
-                  type: 'X1',
-                  value: {
-                    type: 'AccountId32',
-                    value: {
-                      network: undefined,
-                      id: FixedSizeBinary {
-                        asText: [Function (anonymous)],
-                        asHex: [Function (anonymous)],
-                        asOpaqueHex: [Function (anonymous)],
-                        asBytes: [Function (anonymous)],
-                        asOpaqueBytes: [Function (anonymous)]
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          {
-            type: 'SetTopic',
-            value: FixedSizeBinary {
-              asText: [Function (anonymous)],
-              asHex: [Function (anonymous)],
-              asOpaqueHex: [Function (anonymous)],
-              asBytes: [Function (anonymous)],
-              asOpaqueBytes: [Function (anonymous)]
-            }
-          }
-        ]
-      }
-    }      
-  </pre>
-</div>
-
-    ---
-
-### Dry Run XCM
-
-This API allows the direct dry-run of an xcm message instead of an extrinsic one, checks if it will execute successfully, and determines what other xcm messages will be forwarded to other chains.
-
-```rust
-fn dry_run_xcm(origin_location: VersionedLocation, xcm: VersionedXcm<Call>) -> Result<XcmDryRunEffects<Event>, Error>;
-```
-
-??? interface "Input parameters"
-
-    `origin_location` ++"VersionedLocation"++ <span class="required" markdown>++"required"++</span>
-
-    The location of the origin that will execute the xcm message.
-
-    ---
-
-    `xcm` ++"VersionedXcm<Call>"++ <span class="required" markdown>++"required"++</span>
-
-    A versioned XCM message.
-
-    ---
-
-??? interface "Output parameters"
-
-    ++"Result<XcmDryRunEffects<Event>, Error>"++
-
-    Effects of dry-running an extrinsic. If an error occurs, it is returned instead of the effects.
-
-    ??? child "Type `XcmDryRunEffects<Event>`"
-
-        `execution_result` ++"DispatchResultWithPostInfo"++
-
-        The result of executing the extrinsic.
-
-        ---
-
-        `emitted_events` ++"Vec<Event>"++
-
-        The list of events fired by the extrinsic.
-
-        ---
-
-        `forwarded_xcms` ++"Vec<(VersionedLocation, Vec<VersionedXcm<()>>)>"++
-
-        The list of XCMs that were queued for sending.
-
-    ??? child "Type `Error`"
-
-        Enum:
-
-        - **`Unimplemented`**: An API part is unsupported.
-        - **`VersionedConversionFailed`**: Converting a versioned data structure from one version to another failed.
-
-    ---
-
-??? interface "Example"
-
-    This example demonstrates how to simulate a [teleport asset transfer](https://wiki.polkadot.com/learn/learn-xcm-usecases/#asset-teleportation){target=\_blank} from the Paseo network to the Paseo Asset Hub parachain. The code shows how to test and verify the received XCM message's behavior in the destination chain through a dry run on the live network.
-
-    Replace `INSERT_USER_ADDRESS` with your SS58 address before running the script.
-
-     ***Usage with PAPI***
-
-    ```js
-    import { createClient } from 'polkadot-api';
-import { getWsProvider } from 'polkadot-api/ws-provider/web';
-import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
-import {
-  XcmVersionedXcm,
-  paseoAssetHub,
-  XcmVersionedLocation,
-  XcmV3Junction,
-  XcmV3Junctions,
-  XcmV3WeightLimit,
-  XcmV3MultiassetFungibility,
-  XcmV3MultiassetAssetId,
-  XcmV3Instruction,
-  XcmV3MultiassetMultiAssetFilter,
-  XcmV3MultiassetWildMultiAsset,
-} from '@polkadot-api/descriptors';
-import { Binary } from 'polkadot-api';
-import { ss58Decode } from '@polkadot-labs/hdkd-helpers';
-
-// Connect to Paseo Asset Hub
-const client = createClient(
-  withPolkadotSdkCompat(getWsProvider('wss://asset-hub-paseo-rpc.dwellir.com')),
-);
-
-const paseoAssetHubApi = client.getTypedApi(paseoAssetHub);
-
-const userAddress = 'INSERT_USER_ADDRESS';
-const userPublicKey = ss58Decode(userAddress)[0];
-const idBeneficiary = Binary.fromBytes(userPublicKey);
-
-// Define the origin
-const origin = XcmVersionedLocation.V3({
-  parents: 1,
-  interior: XcmV3Junctions.Here(),
-});
-
-// Define a xcm message comming from the Paseo relay chain to Asset Hub to Teleport some tokens
-const xcm = XcmVersionedXcm.V3([
-  XcmV3Instruction.ReceiveTeleportedAsset([
-    {
-      id: XcmV3MultiassetAssetId.Concrete({
-        parents: 1,
-        interior: XcmV3Junctions.Here(),
-      }),
-      fun: XcmV3MultiassetFungibility.Fungible(12000000000n),
-    },
-  ]),
-  XcmV3Instruction.ClearOrigin(),
-  XcmV3Instruction.BuyExecution({
-    fees: {
-      id: XcmV3MultiassetAssetId.Concrete({
-        parents: 1,
-        interior: XcmV3Junctions.Here(),
-      }),
-      fun: XcmV3MultiassetFungibility.Fungible(BigInt(12000000000n)),
-    },
-    weight_limit: XcmV3WeightLimit.Unlimited(),
-  }),
-  XcmV3Instruction.DepositAsset({
-    assets: XcmV3MultiassetMultiAssetFilter.Wild(
-      XcmV3MultiassetWildMultiAsset.All(),
-    ),
-    beneficiary: {
-      parents: 0,
-      interior: XcmV3Junctions.X1(
-        XcmV3Junction.AccountId32({
-          network: undefined,
-          id: idBeneficiary,
-        }),
-      ),
-    },
-  }),
-]);
-
-// Execute dry run xcm
-const dryRunResult = await paseoAssetHubApi.apis.DryRunApi.dry_run_xcm(
-  origin,
-  xcm,
-);
-
-// Print the results
-console.dir(dryRunResult.value, { depth: null });
-
-client.destroy();
-    ```
-
-    ***Output***
-
-    <div id="termynal" data-termynal>
-  <pre>
-    {
-      execution_result: {
-        type: 'Complete',
-        value: { used: { ref_time: 15574200000n, proof_size: 359300n } }
-      },
-      emitted_events: [
-        {
-          type: 'System',
-          value: {
-            type: 'NewAccount',
-            value: { account: '12pGtwHPL4tUAUcyeCoJ783NKRspztpWmXv4uxYRwiEnYNET' }
-          }
-        },
-        {
-          type: 'Balances',
-          value: {
-            type: 'Endowed',
-            value: {
-              account: '12pGtwHPL4tUAUcyeCoJ783NKRspztpWmXv4uxYRwiEnYNET',
-              free_balance: 10203500000n
-            }
-          }
-        },
-        {
-          type: 'Balances',
-          value: {
-            type: 'Minted',
-            value: {
-              who: '12pGtwHPL4tUAUcyeCoJ783NKRspztpWmXv4uxYRwiEnYNET',
-              amount: 10203500000n
-            }
-          }
-        },
-        {
-          type: 'Balances',
-          value: { type: 'Issued', value: { amount: 1796500000n } }
-        },
-        {
-          type: 'Balances',
-          value: {
-            type: 'Deposit',
-            value: {
-              who: '13UVJyLgBASGhE2ok3TvxUfaQBGUt88JCcdYjHvUhvQkFTTx',
-              amount: 1796500000n
-            }
-          }
-        }
-      ],
-      forwarded_xcms: [
-        [
-          {
-            type: 'V4',
-            value: { parents: 1, interior: { type: 'Here', value: undefined } }
-          },
-          []
-        ]
-      ]
-    }
-  </pre>
-</div>
-
-    ---
-
-## XCM Payment API
-
-The [XCM Payment API](https://paritytech.github.io/polkadot-sdk/master/xcm_runtime_apis/fees/trait.XcmPaymentApi.html){target=\_blank} provides a standardized way to determine the costs and payment options for executing XCM messages. Specifically, it enables clients to:
-
-- Retrieve the [weight](/reference/glossary/#weight) required to execute an XCM message.
-- Obtain a list of acceptable `AssetIds` for paying execution fees.
-- Calculate the cost of the weight in a specified `AssetId`.
-- Estimate the fees for XCM message delivery.
-
-This API eliminates the need for clients to guess execution fees or identify acceptable assets manually. Instead, clients can query the list of supported asset IDs formatted according to the XCM version they understand. With this information, they can weigh the XCM program they intend to execute and convert the computed weight into its cost using one of the acceptable assets.
-
-To use the API effectively, the client must already know the XCM program to be executed and the chains involved in the program's execution.
-
-### Query Acceptable Payment Assets
-
-Retrieves the list of assets that are acceptable for paying fees when using a specific XCM version
-
-```rust
-fn query_acceptable_payment_assets(xcm_version: Version) -> Result<Vec<VersionedAssetId>, Error>;
-```
-
-??? interface "Input parameters"
-
-    `xcm_version` ++"Version"++ <span class="required" markdown>++"required"++</span>
-
-    Specifies the XCM version that will be used to send the XCM message.
-
-    ---
-
-??? interface "Output parameters"
-
-    ++"Result<Vec<VersionedAssetId>, Error>"++
-
-    A list of acceptable payment assets. Each asset is provided in a versioned format (`VersionedAssetId`) that matches the specified XCM version. If an error occurs, it is returned instead of the asset list.
-
-    ??? child "Type `Error`"
-
-        Enum:
-
-        - **`Unimplemented`**: An API part is unsupported.
-        - **`VersionedConversionFailed`**: Converting a versioned data structure from one version to another failed.
-        - **`WeightNotComputable`**: XCM message weight calculation failed.
-        - **`UnhandledXcmVersion`**: XCM version not able to be handled.
-        - **`AssetNotFound`**: The given asset is not handled as a fee asset.
-        - **`Unroutable`**: Destination is known to be unroutable.
-
-    ---
-
-??? interface "Example"
-
-    This example demonstrates how to query the acceptable payment assets for executing XCM messages on the Paseo Asset Hub network using XCM version 3.
-
-    ***Usage with PAPI***
-
-    ```js
-    import { paseoAssetHub } from '@polkadot-api/descriptors';
-import { createClient } from 'polkadot-api';
-import { getWsProvider } from 'polkadot-api/ws-provider/web';
-import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
-
-// Connect to the polkadot relay chain
-const client = createClient(
-  withPolkadotSdkCompat(getWsProvider('wss://asset-hub-paseo-rpc.dwellir.com')),
-);
-
-const paseoAssetHubApi = client.getTypedApi(paseoAssetHub);
-
-// Define the xcm version to use
-const xcmVersion = 3;
-
-// Execute the runtime call to query the assets
-const result =
-  await paseoAssetHubApi.apis.XcmPaymentApi.query_acceptable_payment_assets(
-    xcmVersion,
-  );
-
-// Print the assets
-console.dir(result.value, { depth: null });
-
-client.destroy();
-    ```
-
-    ***Output***
-
-    <div id="termynal" data-termynal>
-  <pre>
-    [
-      {
-        type: 'V3',
-        value: {
-          type: 'Concrete',
-          value: { parents: 1, interior: { type: 'Here', value: undefined } }
-        }
-      }
-    ]
-  </pre>
-</div>
-
-    ---
-
-### Query XCM Weight
-
-Calculates the weight required to execute a given XCM message. It is useful for estimating the execution cost of a cross-chain message in the destination chain before sending it.
-
-```rust
-fn query_xcm_weight(message: VersionedXcm<()>) -> Result<Weight, Error>;
-```
-
-??? interface "Input parameters"
-
-    `message` ++"VersionedXcm<()>"++ <span class="required" markdown>++"required"++</span>
-    
-    A versioned XCM message whose execution weight is being queried.
-
-    ---
-
-??? interface "Output parameters"
-
-    ++"Result<Weight, Error>"++
-    
-    The calculated weight required to execute the provided XCM message. If the calculation fails, an error is returned instead.
-
-    ??? child "Type `Weight`"
-
-        `ref_time` ++"u64"++
-
-        The weight of computational time used based on some reference hardware.
-
-        ---
-
-        `proof_size` ++"u64"++
-
-        The weight of storage space used by proof of validity.
-
-        ---
-
-    ??? child "Type `Error`"
-
-        Enum:
-
-        - **`Unimplemented`**: An API part is unsupported.
-        - **`VersionedConversionFailed`**: Converting a versioned data structure from one version to another failed.
-        - **`WeightNotComputable`**: XCM message weight calculation failed.
-        - **`UnhandledXcmVersion`**: XCM version not able to be handled.
-        - **`AssetNotFound`**: The given asset is not handled as a fee asset.
-        - **`Unroutable`**: Destination is known to be unroutable.
-
-    ---
-
-??? interface "Example"
-
-    This example demonstrates how to calculate the weight needed to execute a [teleport transfer](https://wiki.polkadot.com/learn/learn-xcm-usecases/#asset-teleportation){target=\_blank} from the Paseo network to the Paseo Asset Hub parachain using the XCM Payment API. The result shows the required weight in terms of reference time and proof size needed in the destination chain.
-
-    Replace `INSERT_USER_ADDRESS` with your SS58 address before running the script.
-
-    ***Usage with PAPI***
-
-    ```js
-    import { createClient } from 'polkadot-api';
-import { getWsProvider } from 'polkadot-api/ws-provider/web';
-import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
-import {
-  XcmVersionedXcm,
-  paseoAssetHub,
-  XcmV3Junction,
-  XcmV3Junctions,
-  XcmV3WeightLimit,
-  XcmV3MultiassetFungibility,
-  XcmV3MultiassetAssetId,
-  XcmV3Instruction,
-  XcmV3MultiassetMultiAssetFilter,
-  XcmV3MultiassetWildMultiAsset,
-} from '@polkadot-api/descriptors';
-import { Binary } from 'polkadot-api';
-import { ss58Decode } from '@polkadot-labs/hdkd-helpers';
-
-// Connect to Paseo Asset Hub
-const client = createClient(
-  withPolkadotSdkCompat(getWsProvider('wss://asset-hub-paseo-rpc.dwellir.com')),
-);
-
-const paseoAssetHubApi = client.getTypedApi(paseoAssetHub);
-
-const userAddress = 'INSERT_USER_ADDRESS';
-const userPublicKey = ss58Decode(userAddress)[0];
-const idBeneficiary = Binary.fromBytes(userPublicKey);
-
-// Define a xcm message comming from the Paseo relay chain to Asset Hub to Teleport some tokens
-const xcm = XcmVersionedXcm.V3([
-  XcmV3Instruction.ReceiveTeleportedAsset([
-    {
-      id: XcmV3MultiassetAssetId.Concrete({
-        parents: 1,
-        interior: XcmV3Junctions.Here(),
-      }),
-      fun: XcmV3MultiassetFungibility.Fungible(12000000000n),
-    },
-  ]),
-  XcmV3Instruction.ClearOrigin(),
-  XcmV3Instruction.BuyExecution({
-    fees: {
-      id: XcmV3MultiassetAssetId.Concrete({
-        parents: 1,
-        interior: XcmV3Junctions.Here(),
-      }),
-      fun: XcmV3MultiassetFungibility.Fungible(BigInt(12000000000n)),
-    },
-    weight_limit: XcmV3WeightLimit.Unlimited(),
-  }),
-  XcmV3Instruction.DepositAsset({
-    assets: XcmV3MultiassetMultiAssetFilter.Wild(
-      XcmV3MultiassetWildMultiAsset.All(),
-    ),
-    beneficiary: {
-      parents: 0,
-      interior: XcmV3Junctions.X1(
-        XcmV3Junction.AccountId32({
-          network: undefined,
-          id: idBeneficiary,
-        }),
-      ),
-    },
-  }),
-]);
-
-// Execute the query weight runtime call
-const result = await paseoAssetHubApi.apis.XcmPaymentApi.query_xcm_weight(xcm);
-
-// Print the results
-console.dir(result.value, { depth: null });
-
-client.destroy();
-    ```
-
-    ***Output***
-
-    <div id="termynal" data-termynal>
-  <span data-ty>{ ref_time: 15574200000n, proof_size: 359300n }</span>
-</div>
-
-    ---
-
-### Query Weight to Asset Fee
-
-Converts a given weight into the corresponding fee for a specified `AssetId`. It allows clients to determine the cost of execution in terms of the desired asset.
-
-```rust
-fn query_weight_to_asset_fee(weight: Weight, asset: VersionedAssetId) -> Result<u128, Error>;
-```
-
-??? interface "Input parameters"
-
-    `weight` ++"Weight"++ <span class="required" markdown>++"required"++</span>
-    
-    The execution weight to be converted into a fee.
-
-    ??? child "Type `Weight`"
-
-        `ref_time` ++"u64"++
-
-        The weight of computational time used based on some reference hardware.
-
-        ---
-
-        `proof_size` ++"u64"++
-
-        The weight of storage space used by proof of validity.
-
-        ---
-
-    ---
-
-    `asset` ++"VersionedAssetId"++ <span class="required" markdown>++"required"++</span>
-    
-    The asset in which the fee will be calculated. This must be a versioned asset ID compatible with the runtime.
-
-    ---
-
-??? interface "Output parameters"
-
-    ++"Result<u128, Error>"++
-    
-    The fee needed to pay for the execution for the given `AssetId.`
-
-    ??? child "Type `Error`"
-
-        Enum:
-
-        - **`Unimplemented`**: An API part is unsupported.
-        - **`VersionedConversionFailed`**: Converting a versioned data structure from one version to another failed.
-        - **`WeightNotComputable`**: XCM message weight calculation failed.
-        - **`UnhandledXcmVersion`**: XCM version not able to be handled.
-        - **`AssetNotFound`**: The given asset is not handled as a fee asset.
-        - **`Unroutable`**: Destination is known to be unroutable.
-
-    ---
-
-??? interface "Example"
-
-    This example demonstrates how to calculate the fee for a given execution weight using a specific versioned asset ID (PAS token) on Paseo Asset Hub.
-
-    ***Usage with PAPI***
-
-    ```js
-    import { paseoAssetHub } from '@polkadot-api/descriptors';
-import { createClient } from 'polkadot-api';
-import { getWsProvider } from 'polkadot-api/ws-provider/web';
-import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
-
-// Connect to the polkadot relay chain
-const client = createClient(
-  withPolkadotSdkCompat(getWsProvider('wss://asset-hub-paseo-rpc.dwellir.com')),
-);
-
-const paseoAssetHubApi = client.getTypedApi(paseoAssetHub);
-
-// Define the weight to convert to fee
-const weight = { ref_time: 15574200000n, proof_size: 359300n };
-
-// Define the versioned asset id
-const versionedAssetId = {
-  type: 'V4',
-  value: { parents: 1, interior: { type: 'Here', value: undefined } },
-};
-
-// Execute the runtime call to convert the weight to fee
-const result =
-  await paseoAssetHubApi.apis.XcmPaymentApi.query_weight_to_asset_fee(
-    weight,
-    versionedAssetId,
-  );
-
-// Print the fee
-console.dir(result.value, { depth: null });
-
-client.destroy();
-    ```
-
-    ***Output***
-
-    <div id="termynal" data-termynal>
-  <span data-ty>1796500000n</span>
-</div>
-    ---
-
-### Query Delivery Fees
-
-Retrieves the delivery fees for sending a specific XCM message to a designated destination. The fees are always returned in a specific asset defined by the destination chain.
-
-```rust
-fn query_delivery_fees(destination: VersionedLocation, message: VersionedXcm<()>) -> Result<VersionedAssets, Error>;
-```
-
-??? interface "Input parameters"
-
-    `destination` ++"VersionedLocation"++ <span class="required" markdown>++"required"++</span>
-    
-    The target location where the message will be sent. Fees may vary depending on the destination, as different destinations often have unique fee structures and sender mechanisms.
-
-    ---
-
-    `message` ++"VersionedXcm<()>"++ <span class="required" markdown>++"required"++</span>
-    
-    The XCM message to be sent. The delivery fees are calculated based on the message's content and size, which can influence the cost.
-
-    ---
-
-??? interface "Output parameters"
-
-    ++"Result<VersionedAssets, Error>"++
-    
-    The calculated delivery fees expressed in a specific asset supported by the destination chain. If an error occurs during the query, it returns an error instead.
-
-    ??? child "Type `Error`"
-
-        Enum:
-
-        - **`Unimplemented`**: An API part is unsupported.
-        - **`VersionedConversionFailed`**: Converting a versioned data structure from one version to another failed.
-        - **`WeightNotComputable`**: XCM message weight calculation failed.
-        - **`UnhandledXcmVersion`**: XCM version not able to be handled.
-        - **`AssetNotFound`**: The given asset is not handled as a fee asset.
-        - **`Unroutable`**: Destination is known to be unroutable.
-
-    ---
-
-??? interface "Example"
-
-    This example demonstrates how to query the delivery fees for sending an XCM message from Paseo to Paseo Asset Hub.
-
-    Replace `INSERT_USER_ADDRESS` with your SS58 address before running the script.
-
-    ***Usage with PAPI***
-
-    ```js
-    import { createClient } from 'polkadot-api';
-import { getWsProvider } from 'polkadot-api/ws-provider/web';
-import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
-import {
-  XcmVersionedXcm,
-  paseo,
-  XcmVersionedLocation,
-  XcmV3Junction,
-  XcmV3Junctions,
-  XcmV3WeightLimit,
-  XcmV3MultiassetFungibility,
-  XcmV3MultiassetAssetId,
-  XcmV3Instruction,
-  XcmV3MultiassetMultiAssetFilter,
-  XcmV3MultiassetWildMultiAsset,
-} from '@polkadot-api/descriptors';
-import { Binary } from 'polkadot-api';
-import { ss58Decode } from '@polkadot-labs/hdkd-helpers';
-
-const client = createClient(
-  withPolkadotSdkCompat(getWsProvider('wss://paseo-rpc.dwellir.com')),
-);
-
-const paseoApi = client.getTypedApi(paseo);
-
-const paseoAssetHubParaID = 1000;
-const userAddress = 'INSERT_USER_ADDRESS';
-const userPublicKey = ss58Decode(userAddress)[0];
-const idBeneficiary = Binary.fromBytes(userPublicKey);
-
-// Define the destination
-const destination = XcmVersionedLocation.V3({
-  parents: 0,
-  interior: XcmV3Junctions.X1(XcmV3Junction.Parachain(paseoAssetHubParaID)),
-});
-
-// Define the xcm message that will be sent to the destination
-const xcm = XcmVersionedXcm.V3([
-  XcmV3Instruction.ReceiveTeleportedAsset([
-    {
-      id: XcmV3MultiassetAssetId.Concrete({
-        parents: 1,
-        interior: XcmV3Junctions.Here(),
-      }),
-      fun: XcmV3MultiassetFungibility.Fungible(12000000000n),
-    },
-  ]),
-  XcmV3Instruction.ClearOrigin(),
-  XcmV3Instruction.BuyExecution({
-    fees: {
-      id: XcmV3MultiassetAssetId.Concrete({
-        parents: 1,
-        interior: XcmV3Junctions.Here(),
-      }),
-      fun: XcmV3MultiassetFungibility.Fungible(BigInt(12000000000n)),
-    },
-    weight_limit: XcmV3WeightLimit.Unlimited(),
-  }),
-  XcmV3Instruction.DepositAsset({
-    assets: XcmV3MultiassetMultiAssetFilter.Wild(
-      XcmV3MultiassetWildMultiAsset.All(),
-    ),
-    beneficiary: {
-      parents: 0,
-      interior: XcmV3Junctions.X1(
-        XcmV3Junction.AccountId32({
-          network: undefined,
-          id: idBeneficiary,
-        }),
-      ),
-    },
-  }),
-]);
-
-// Execute the query delivery fees runtime call
-const result = await paseoApi.apis.XcmPaymentApi.query_delivery_fees(
-  destination,
-  xcm,
-);
-
-// Print the results
-console.dir(result.value, { depth: null });
-
-client.destroy();
-    ```
-
-    ***Output***
-
-    <div id="termynal" data-termynal>
-  <pre>
-    {
-      type: 'V3',
-      value: [
-        {
-          id: {
-            type: 'Concrete',
-            value: { parents: 0, interior: { type: 'Here', value: undefined } }
-          },
-          fun: { type: 'Fungible', value: 396000000n }
-        }
-      ]
-    }
-  </pre>
-</div>
-    ---
---- END CONTENT ---
-
-Doc-Content: https://docs.polkadot.com/reference/glossary/
---- BEGIN CONTENT ---
----
-title: Glossary
-description: Glossary of terms used within the Polkadot ecosystem, Polkadot SDK, its subsequent libraries, and other relevant Web3 terminology.
-template: root-subdirectory-page.html
-categories: Reference
----
+Page Title: Glossary
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-glossary.md
+- Canonical (HTML): https://docs.polkadot.com/reference/glossary/
+- Summary: Glossary of terms used within the Polkadot ecosystem, Polkadot SDK, its subsequent libraries, and other relevant Web3 terminology.
 
 # Glossary
 
@@ -1984,7 +489,7 @@ Well-known development accounts, such as Alice, Bob, Charlie, Dave, Eve, and Fer
 bottom drive obey lake curtain smoke basket hold race lonely fit walk
 ```
 
-Many tools in the Polkadot SDK ecosystem, such as [`subkey`](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}/substrate/bin/utils/subkey){target=\_blank}, allow you to implicitly specify an account using a derivation path such as `//Alice`.
+Many tools in the Polkadot SDK ecosystem, such as [`subkey`](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2506-2/substrate/bin/utils/subkey){target=\_blank}, allow you to implicitly specify an account using a derivation path such as `//Alice`.
 
 ## Digest
 
@@ -2230,20 +735,15 @@ By defining weights, you can trade-off the number of transactions per second and
 ## Westend
 
 Westend is a Parity-maintained, Polkadot SDK-based blockchain that serves as a test network for the [Polkadot](#polkadot) network.
---- END CONTENT ---
 
-Doc-Content: https://docs.polkadot.com/smart-contracts/for-eth-devs/json-rpc-apis/
---- BEGIN CONTENT ---
+
 ---
-title: JSON-RPC APIs
-description: JSON-RPC APIs guide for Polkadot Hub, covering supported methods, parameters, and examples for interacting with the chain.
-categories: Reference
----
-=======
+
+Page Title: JSON-RPC APIs
+
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-smart-contracts-json-rpc-apis.md
 - Canonical (HTML): https://docs.polkadot.com/develop/smart-contracts/json-rpc-apis/
 - Summary: JSON-RPC APIs guide for Polkadot Hub, covering supported methods, parameters, and examples for interacting with the chain.
->>>>>>> origin/master:.ai/categories/reference.md
 
 # JSON-RPC APIs
 
@@ -3106,9 +1606,877 @@ If an error occurs, the response will include an error object:
     }
 }
 ```
-<<<<<<< HEAD:llms-files/llms-reference.txt
---- END CONTENT ---
-=======
+
+
+---
+
+Page Title: JSON-RPC APIs
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-for-eth-devs-json-rpc-apis.md
+- Canonical (HTML): https://docs.polkadot.com/smart-contracts/for-eth-devs/json-rpc-apis/
+- Summary: JSON-RPC APIs guide for Polkadot Hub, covering supported methods, parameters, and examples for interacting with the chain.
+
+# JSON-RPC APIs
+
+!!! smartcontract "PolkaVM Preview Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+## Introduction
+
+Polkadot Hub provides Ethereum compatibility through its JSON-RPC interface, allowing developers to interact with the chain using familiar Ethereum tooling and methods. This document outlines the supported [Ethereum JSON-RPC methods](https://ethereum.org/en/developers/docs/apis/json-rpc/#json-rpc-methods){target=\_blank} and provides examples of how to use them.
+
+This guide uses the Polkadot Hub TestNet endpoint:
+
+```text
+https://testnet-passet-hub-eth-rpc.polkadot.io
+```
+
+## Available Methods
+
+### eth_accounts
+
+Returns a list of addresses owned by the client. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_accounts){target=\_blank}.
+
+**Parameters**:
+
+None.
+
+**Example**:
+
+```bash title="eth_accounts"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_accounts",
+    "params":[],
+    "id":1
+}'
+```
+
+---
+
+### eth_blockNumber
+
+Returns the number of the most recent block. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_blocknumber){target=\_blank}.
+
+**Parameters**:
+
+None.
+
+**Example**:
+
+```bash title="eth_blockNumber"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_blockNumber",
+    "params":[],
+    "id":1
+}'
+```
+
+---
+
+### eth_call
+
+Executes a new message call immediately without creating a transaction. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_call){target=\_blank}.
+
+**Parameters**:
+
+- **`transaction` ++"object"++**: The transaction call object.
+    - **`to` ++"string"++**: Recipient address of the call. Must be a [20-byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string.
+    - **`data` ++"string"++**: Hash of the method signature and encoded parameters. Must be a [data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string.
+    - **`from` ++"string"++**: (Optional) Sender's address for the call. Must be a [20-byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string.
+    - **`gas` ++"string"++**: (Optional) Gas limit to execute the call. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string.
+    - **`gasPrice` ++"string"++**: (Optional) Gas price per unit of gas. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string.
+    - **`value` ++"string"++**: (Optional) Value in wei to send with the call. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string.
+- **`blockValue` ++"string"++**: (Optional) Block tag or block number to execute the call at. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string or a [default block parameter](https://ethereum.org/en/developers/docs/apis/json-rpc/#default-block){target=\_blank}.
+
+**Example**:
+
+```bash title="eth_call"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_call",
+    "params":[{
+        "to": "INSERT_RECIPIENT_ADDRESS",
+        "data": "INSERT_ENCODED_CALL"
+    }, "INSERT_BLOCK_VALUE"],
+    "id":1
+}'
+```
+
+Ensure to replace the `INSERT_RECIPIENT_ADDRESS`, `INSERT_ENCODED_CALL`, and `INSERT_BLOCK_VALUE` with the proper values.
+
+---
+
+### eth_chainId
+
+Returns the chain ID used for signing transactions. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_chainid){target=\_blank}.
+
+**Parameters**:
+
+None.
+
+**Example**:
+
+```bash title="eth_chainId"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_chainId",
+    "params":[],
+    "id":1
+}'
+```
+
+---
+
+### eth_estimateGas
+
+Estimates gas required for a transaction. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_estimategas){target=\_blank}.
+
+**Parameters**:
+
+- **`transaction` ++"object"++**: The transaction call object.
+    - **`to` ++"string"++**: Recipient address of the call. Must be a [20-byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string.
+    - **`data` ++"string"++**: Hash of the method signature and encoded parameters. Must be a [data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string.
+    - **`from` ++"string"++**: (Optional) Sender's address for the call. Must be a [20-byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string.
+    - **`gas` ++"string"++**: (Optional) Gas limit to execute the call. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string.
+    - **`gasPrice` ++"string"++**: (Optional) Gas price per unit of gas. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string.
+    - **`value` ++"string"++**: (Optional) Value in wei to send with the call. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string.
+- **`blockValue` ++"string"++**: (Optional) Block tag or block number to execute the call at. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string or a [default block parameter](https://ethereum.org/en/developers/docs/apis/json-rpc/#default-block){target=\_blank}.
+
+**Example**:
+
+```bash title="eth_estimateGas"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_estimateGas",
+    "params":[{
+        "to": "INSERT_RECIPIENT_ADDRESS",
+        "data": "INSERT_ENCODED_FUNCTION_CALL"
+    }],
+    "id":1
+}'
+```
+
+Ensure to replace the `INSERT_RECIPIENT_ADDRESS` and `INSERT_ENCODED_CALL` with the proper values.
+
+---
+
+### eth_gasPrice
+
+Returns the current gas price in Wei. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_gasprice){target=\_blank}.
+
+**Parameters**:
+
+None.
+
+**Example**:
+
+```bash title="eth_gasPrice"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_gasPrice",
+    "params":[],
+    "id":1
+}'
+```
+
+---
+
+### eth_getBalance
+
+Returns the balance of a given address. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getbalance){target=\_blank}.
+
+**Parameters**:
+
+- **`address` ++"string"++**: Address to query balance. Must be a [20-byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string.
+- **`blockValue` ++"string"++**: (Optional) The block value to be fetched. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string or a [default block parameter](https://ethereum.org/en/developers/docs/apis/json-rpc/#default-block){target=\_blank}.
+
+**Example**:
+
+```bash title="eth_getBalance"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_getBalance",
+    "params":["INSERT_ADDRESS", "INSERT_BLOCK_VALUE"],
+    "id":1
+}'
+```
+
+Ensure to replace the `INSERT_ADDRESS` and `INSERT_BLOCK_VALUE` with the proper values.
+
+---
+
+### eth_getBlockByHash
+
+Returns information about a block by its hash. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getblockbyhash){target=\_blank}.
+
+**Parameters**:
+
+- **`blockHash` ++"string"++**: The hash of the block to retrieve. Must be a [32 byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string.
+- **`fullTransactions` ++"boolean"++**: If `true`, returns full transaction details; if `false`, returns only transaction hashes.
+
+**Example**:
+
+```bash title="eth_getBlockByHash"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_getBlockByHash",
+    "params":["INSERT_BLOCK_HASH", INSERT_BOOLEAN],
+    "id":1
+}'
+```
+
+Ensure to replace the `INSERT_BLOCK_HASH` and `INSERT_BOOLEAN` with the proper values.
+
+---
+
+### eth_getBlockByNumber
+
+Returns information about a block by its number. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getblockbynumber){target=\_blank}.
+
+**Parameters**:
+
+- **`blockValue` ++"string"++**: (Optional) The block value to be fetched. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string or a [default block parameter](https://ethereum.org/en/developers/docs/apis/json-rpc/#default-block){target=\_blank}.
+- **`fullTransactions` ++"boolean"++**: If `true`, returns full transaction details; if `false`, returns only transaction hashes.
+
+**Example**:
+
+```bash title="eth_getBlockByNumber"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_getBlockByNumber",
+    "params":["INSERT_BLOCK_VALUE", INSERT_BOOLEAN],
+    "id":1
+}'
+```
+
+Ensure to replace the `INSERT_BLOCK_VALUE` and `INSERT_BOOLEAN` with the proper values.
+
+---
+
+### eth_getBlockTransactionCountByNumber
+
+Returns the number of transactions in a block from a block number. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getblocktransactioncountbynumber){target=\_blank}.
+
+**Parameters**:
+
+- **`blockValue` ++"string"++**: The block value to be fetched. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string or a [default block parameter](https://ethereum.org/en/developers/docs/apis/json-rpc/#default-block){target=\_blank}.
+
+**Example**:
+
+```bash title="eth_getBlockTransactionCountByNumber"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_getBlockTransactionCountByNumber",
+    "params":["INSERT_BLOCK_VALUE"],
+    "id":1
+}'
+```
+
+Ensure to replace the `INSERT_BLOCK_VALUE` with the proper values.
+
+---
+
+### eth_getBlockTransactionCountByHash
+
+Returns the number of transactions in a block from a block hash. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getblocktransactioncountbyhash){target=\_blank}.
+
+**Parameters**:
+
+- **`blockHash` ++"string"++**: The hash of the block to retrieve. Must be a [32 byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string.
+
+**Example**:
+
+```bash title="eth_getBlockTransactionCountByHash"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_getBlockTransactionCountByHash",
+    "params":["INSERT_BLOCK_HASH"],
+    "id":1
+}'
+```
+
+Ensure to replace the `INSERT_BLOCK_HASH` with the proper values.
+
+---
+
+### eth_getCode
+
+Returns the code at a given address. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getcode){target=\_blank}.
+
+**Parameters**:
+
+- **`address` ++"string"++**: Contract or account address to query code. Must be a [20-byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string.
+- **`blockValue` ++"string"++**: (Optional) The block value to be fetched. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string or a [default block parameter](https://ethereum.org/en/developers/docs/apis/json-rpc/#default-block).
+
+**Example**:
+
+```bash title="eth_getCode"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_getCode",
+    "params":["INSERT_ADDRESS", "INSERT_BLOCK_VALUE"],
+    "id":1
+}'
+```
+
+Ensure to replace the `INSERT_ADDRESS` and `INSERT_BLOCK_VALUE` with the proper values.
+
+---
+
+### eth_getLogs
+
+Returns an array of all logs matching a given filter object. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getlogs){target=\_blank}.
+
+**Parameters**:
+
+- **`filter` ++"object"++**: The filter object.
+    - **`fromBlock` ++"string"++**: (Optional) Block number or tag to start from. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string or a [default block parameter](https://ethereum.org/en/developers/docs/apis/json-rpc/#default-block){target=\_blank}.
+    - **`toBlock` ++"string"++**: (Optional) Block number or tag to end at. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string or a [default block parameter](https://ethereum.org/en/developers/docs/apis/json-rpc/#default-block){target=\_blank}.
+    - **`address` ++"string" or "array of strings"++**: (Optional) Contract address or a list of addresses from which to get logs. Must be a [20-byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string.
+    - **`topics` ++"array of strings"++**: (Optional) Array of topics for filtering logs. Each topic can be a single [32 byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string or an array of such strings (meaning OR).
+    - **`blockhash` ++"string"++**: (Optional) Hash of a specific block. Cannot be used with `fromBlock` or `toBlock`. Must be a [32 byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string.
+
+**Example**:
+
+```bash title="eth_getLogs"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_getLogs",
+    "params":[{
+        "fromBlock": "latest",
+        "toBlock": "latest"
+    }],
+    "id":1
+}'
+```
+
+---
+
+### eth_getStorageAt
+
+Returns the value from a storage position at a given address. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getstorageat){target=\_blank}.
+
+**Parameters**:
+
+- **`address` ++"string"++**: Contract or account address to query code. Must be a [20-byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string.
+- **`storageKey` ++"string"++**: Position in storage to retrieve data from. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string.
+- **`blockValue` ++"string"++**: (Optional) The block value to be fetched. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string or a [default block parameter](https://ethereum.org/en/developers/docs/apis/json-rpc/#default-block).
+
+**Example**:
+
+```bash title="eth_getStorageAt"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_getStorageAt",
+    "params":["INSERT_ADDRESS", "INSERT_STORAGE_KEY", "INSERT_BLOCK_VALUE"],
+    "id":1
+}'
+```
+
+Ensure to replace the `INSERT_ADDRESS`, `INSERT_STORAGE_KEY`, and `INSERT_BLOCK_VALUE` with the proper values.
+
+---
+
+### eth_getTransactionCount
+
+Returns the number of transactions sent from an address (nonce). [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_gettransactioncount){target=\_blank}.
+
+**Parameters**:
+
+- **`address` ++"string"++**: Address to query balance. Must be a [20-byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string.
+- **`blockValue` ++"string"++**: (Optional) The block value to be fetched. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string or a [default block parameter](https://ethereum.org/en/developers/docs/apis/json-rpc/#default-block).
+
+**Example**:
+
+```bash title="eth_getTransactionCount"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_getTransactionCount",
+    "params":["INSERT_ADDRESS", "INSERT_BLOCK_VALUE"],
+    "id":1
+}'
+```
+
+Ensure to replace the `INSERT_ADDRESS` and `INSERT_BLOCK_VALUE` with the proper values.
+
+---
+
+### eth_getTransactionByHash
+
+Returns information about a transaction by its hash. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_gettransactionbyhash){target=\_blank}.
+
+**Parameters**:
+
+- **`transactionHash` ++"string"++**: The hash of the transaction. Must be a [32 byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string.
+
+**Example**:
+
+```bash title="eth_getTransactionByHash"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_getTransactionByHash",
+    "params":["INSERT_TRANSACTION_HASH"],
+    "id":1
+}'
+```
+
+Ensure to replace the `INSERT_TRANSACTION_HASH` with the proper values.
+
+---
+
+### eth_getTransactionByBlockNumberAndIndex
+
+Returns information about a transaction by block number and transaction index. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_gettransactionbyblocknumberandindex){target=\_blank}.
+
+**Parameters**:
+
+- **`blockValue` ++"string"++**: The block value to be fetched. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string or a [default block parameter](https://ethereum.org/en/developers/docs/apis/json-rpc/#default-block){target=\_blank}.
+- **`transactionIndex` ++"string"++**: The index of the transaction in the block. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string.
+
+**Example**:
+
+```bash title="eth_getTransactionByBlockNumberAndIndex"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_getTransactionByBlockNumberAndIndex",
+    "params":["INSERT_BLOCK_VALUE", "INSERT_TRANSACTION_INDEX"],
+    "id":1
+}'
+```
+
+Ensure to replace the `INSERT_BLOCK_VALUE` and `INSERT_TRANSACTION_INDEX` with the proper values.
+
+---
+
+### eth_getTransactionByBlockHashAndIndex
+
+Returns information about a transaction by block hash and transaction index. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_gettransactionbyblockhashandindex){target=\_blank}.
+
+**Parameters**:
+
+- **`blockHash` ++"string"++**: The hash of the block. Must be a [32 byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string.
+- **`transactionIndex` ++"string"++**: The index of the transaction in the block. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string.
+
+**Example**:
+
+```bash title="eth_getTransactionByBlockHashAndIndex"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_getTransactionByBlockHashAndIndex",
+    "params":["INSERT_BLOCK_HASH", "INSERT_TRANSACTION_INDEX"],
+    "id":1
+}'
+```
+
+Ensure to replace the `INSERT_BLOCK_HASH` and `INSERT_TRANSACTION_INDEX` with the proper values.
+
+---
+
+### eth_getTransactionReceipt
+
+Returns the receipt of a transaction by transaction hash. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_gettransactionreceipt){target=\_blank}.
+
+**Parameters**:
+
+- **`transactionHash` ++"string"++**: The hash of the transaction. Must be a [32 byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string.
+
+**Example**:
+
+```bash title="eth_getTransactionReceipt"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_getTransactionReceipt",
+    "params":["INSERT_TRANSACTION_HASH"],
+    "id":1
+}'
+```
+
+Ensure to replace the `INSERT_TRANSACTION_HASH` with the proper values.
+
+---
+
+### eth_maxPriorityFeePerGas
+
+Returns an estimate of the current priority fee per gas, in Wei, to be included in a block.
+
+**Parameters**:
+
+None.
+
+**Example**:
+
+```bash title="eth_maxPriorityFeePerGas"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_maxPriorityFeePerGas",
+    "params":[],
+    "id":1
+}'
+```
+
+---
+
+### eth_sendRawTransaction
+
+Submits a raw transaction. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_sendrawtransaction){target=\_blank}.
+
+**Parameters**:
+
+- **`callData` ++"string"++**: Signed transaction data. Must be a [data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string.
+
+**Example**:
+
+```bash title="eth_sendRawTransaction"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_sendRawTransaction",
+    "params":["INSERT_CALL_DATA"],
+    "id":1
+}'
+```
+
+Ensure to replace the `INSERT_CALL_DATA` with the proper values.
+
+---
+
+### eth_sendTransaction
+
+Creates and sends a new transaction. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_sendtransaction){target=\_blank}.
+
+**Parameters**:
+
+- **`transaction` ++"object"++**: The transaction object.
+    - **`from` ++"string"++**: Address sending the transaction. Must be a [20-byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string.
+    - **`to` ++"string"++**: (Optional) Recipient address. No need to provide this value when deploying a contract. Must be a [20-byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string.
+    - **`gas` ++"string"++**: (optional, default: `90000`) gas limit for execution. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string.
+    - **`gasPrice` ++"string"++**: (Optional) Gas price per unit. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string.
+    - **`value` ++"string"++**: (Optional) Amount of Ether to send. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string.
+    - **`data` ++"string"++**: (Optional) Contract bytecode or encoded method call. Must be a [data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string.
+    - **`nonce` ++"string"++**: (Optional) Transaction nonce. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string.
+
+**Example**:
+
+```bash title="eth_sendTransaction"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_sendTransaction",
+    "params":[{
+        "from": "INSERT_SENDER_ADDRESS",
+        "to": "INSERT_RECIPIENT_ADDRESS",
+        "gas": "INSERT_GAS_LIMIT",
+        "gasPrice": "INSERT_GAS_PRICE",
+        "value": "INSERT_VALUE",
+        "input": "INSERT_INPUT_DATA",
+        "nonce": "INSERT_NONCE"
+    }],
+    "id":1
+}'
+```
+
+Ensure to replace the `INSERT_SENDER_ADDRESS`, `INSERT_RECIPIENT_ADDRESS`, `INSERT_GAS_LIMIT`, `INSERT_GAS_PRICE`, `INSERT_VALUE`, `INSERT_INPUT_DATA`, and `INSERT_NONCE` with the proper values.
+
+---
+
+### eth_syncing
+
+Returns an object with syncing data or `false` if not syncing. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_syncing){target=\_blank}.
+
+**Parameters**:
+
+None.
+
+**Example**:
+
+```bash title="eth_syncing"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"eth_syncing",
+    "params":[],
+    "id":1
+}'
+```
+
+---
+
+### net_listening
+
+Returns `true` if the client is currently listening for network connections, otherwise `false`. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#net_listening){target=\_blank}.
+
+**Parameters**:
+
+None.
+
+**Example**:
+
+```bash title="net_listening"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"net_listening",
+    "params":[],
+    "id":1
+}'
+```
+
+---
+
+### net_peerCount
+
+Returns the number of peers currently connected to the client.
+
+**Parameters**:
+
+None.
+
+**Example**:
+
+```bash title="net_peerCount"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"net_peerCount",
+    "params":[],
+    "id":1
+}'
+```
+
+---
+
+### net_version
+
+Returns the current network ID as a string. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#net_version){target=\_blank}.
+
+**Parameters**:
+
+None.
+
+**Example**:
+
+```bash title="net_version"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"net_version",
+    "params":[],
+    "id":1
+}'
+```
+
+---
+
+### system_health
+
+Returns information about the health of the system.
+
+**Parameters**:
+
+None.
+
+**Example**:
+
+```bash title="system_health"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"system_health",
+    "params":[],
+    "id":1
+}'
+```
+
+---
+
+### web3_clientVersion
+
+Returns the current client version. [Reference](https://ethereum.org/en/developers/docs/apis/json-rpc/#web3_clientversion){target=\_blank}.
+
+**Parameters**:
+
+None.
+
+**Example**:
+
+```bash title="web3_clientVersion"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"web3_clientVersion",
+    "params":[],
+    "id":1
+}'
+```
+
+---
+
+### debug_traceBlockByNumber 
+
+Traces a block's execution by its number and returns a detailed execution trace for each transaction.
+
+**Parameters**:
+
+- **`blockValue` ++"string"++**: The block number or tag to trace. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string or a [default block parameter](https://ethereum.org/en/developers/docs/apis/json-rpc/#default-block){target=\_blank}.
+- **`options` ++"object"++**: (Optional) An object containing tracer options.
+    - **`tracer` ++"string"++**: The name of the tracer to use (e.g., `"callTracer"`, `"opTracer"`).
+    - Other tracer-specific options may be supported.
+
+**Example**:
+
+```bash title="debug_traceBlockByNumber"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"debug_traceBlockByNumber",
+    "params":["INSERT_BLOCK_VALUE", {"tracer": "callTracer"}],
+    "id":1
+}'
+```
+
+Ensure to replace `INSERT_BLOCK_VALUE` with a proper block number if needed.
+
+---
+
+### debug_traceTransaction
+
+Traces the execution of a single transaction by its hash and returns a detailed execution trace.
+
+**Parameters**:
+
+- **`transactionHash` ++"string"++**: The hash of the transaction to trace. Must be a [32 byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string.
+- **`options` ++"object"++**: (Optional) An object containing tracer options (e.g., `tracer: "callTracer"`).
+
+**Example**:
+
+```bash title="debug_traceTransaction"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"debug_traceTransaction",
+    "params":["INSERT_TRANSACTION_HASH", {"tracer": "callTracer"}],
+    "id":1
+}'
+```
+
+Ensure to replace the `INSERT_TRANSACTION_HASH` with the proper value.
+
+---
+
+### debug_traceCall
+
+Executes a new message call and returns a detailed execution trace without creating a transaction on the blockchain.
+
+**Parameters**:
+
+- **`transaction` ++"object"++**: The transaction call object, similar to `eth_call` parameters.
+    - **`to` ++"string"++**: Recipient address of the call. Must be a [20-byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string.
+    - **`data` ++"string"++**: Hash of the method signature and encoded parameters. Must be a [data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string.
+    - **`from` ++"string"++**: (Optional) Sender's address for the call. Must be a [20-byte data](https://ethereum.org/en/developers/docs/apis/json-rpc/#unformatted-data-encoding){target=\_blank} string.
+    - **`gas` ++"string"++**: (Optional) Gas limit to execute the call. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string.
+    - **`gasPrice` ++"string"++**: (Optional) Gas price per unit of gas. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string.
+    - **`value` ++"string"++**: (Optional) Value in wei to send with the call. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string.
+- **`blockValue` ++"string"++**: (Optional) Block tag or block number to execute the call at. Must be a [quantity](https://ethereum.org/en/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string or a [default block parameter](https://ethereum.org/en/developers/docs/apis/json-rpc/#default-block){target=\_blank}.
+- **`options` ++"object"++**: (Optional) An object containing tracer options (e.g., `tracer: "callTracer"`).
+
+**Example**:
+
+```bash title="debug_traceCall"
+curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+-H "Content-Type: application/json" \
+--data '{
+    "jsonrpc":"2.0",
+    "method":"debug_traceCall",
+    "params":[{
+        "from": "INSERT_SENDER_ADDRESS",
+        "to": "INSERT_RECIPIENT_ADDRESS",
+        "data": "INSERT_ENCODED_CALL"
+    }, "INSERT_BLOCK_VALUE", {"tracer": "callTracer"}],
+    "id":1
+}'
+```
+
+Ensure to replace the `INSERT_SENDER_ADDRESS`, `INSERT_RECIPIENT_ADDRESS`, `INSERT_ENCODED_CALL`, and `INSERT_BLOCK_VALUE` with the proper value.
+
+---
+
+## Response Format
+
+All responses follow the standard JSON-RPC 2.0 format:
+
+```json
+{
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": ... // The return value varies by method
+}
+```
+
+## Error Handling
+
+If an error occurs, the response will include an error object:
+
+```json
+{
+    "jsonrpc": "2.0",
+    "id": 1,
+    "error": {
+        "code": -32000,
+        "message": "Error message here"
+    }
+}
+```
 
 
 ---
@@ -3975,7 +3343,7 @@ fn dry_run_xcm(origin_location: VersionedLocation, xcm: VersionedXcm<Call>) -> R
 
 The [XCM Payment API](https://paritytech.github.io/polkadot-sdk/master/xcm_runtime_apis/fees/trait.XcmPaymentApi.html){target=\_blank} provides a standardized way to determine the costs and payment options for executing XCM messages. Specifically, it enables clients to:
 
-- Retrieve the [weight](/polkadot-protocol/glossary/#weight) required to execute an XCM message.
+- Retrieve the [weight](/reference/glossary/#weight) required to execute an XCM message.
 - Obtain a list of acceptable `AssetIds` for paying execution fees.
 - Calculate the cost of the weight in a specified `AssetId`.
 - Estimate the fees for XCM message delivery.
@@ -4477,4 +3845,3 @@ fn query_delivery_fees(destination: VersionedLocation, message: VersionedXcm<()>
     </div>
 
     ---
->>>>>>> origin/master:.ai/categories/reference.md

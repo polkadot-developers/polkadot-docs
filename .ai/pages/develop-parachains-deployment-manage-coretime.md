@@ -9,7 +9,7 @@ url: https://docs.polkadot.com/develop/parachains/deployment/manage-coretime/
 
 ## Introduction
 
-Coretime management involves manipulating [bulk coretime](/develop/parachains/deployment/obtain-coretime/#bulk-coretime){target=\_blank} regions to optimize resource allocation and usage. Regions represent allocated computational resources on cores and can be modified through various operations to meet different project requirements. This guide covers the essential operations for managing your coretime regions effectively.
+Coretime management involves manipulating [bulk coretime](/parachains/launch-a-parachain/obtain-coretime/#bulk-coretime){target=\_blank} regions to optimize resource allocation and usage. Regions represent allocated computational resources on cores and can be modified through various operations to meet different project requirements. This guide covers the essential operations for managing your coretime regions effectively.
 
 ## Transfer
 

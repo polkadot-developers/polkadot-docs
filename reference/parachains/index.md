@@ -24,7 +24,7 @@ Key capabilities that parachains provide include:
 
 Building a parachain involves understanding and utilizing several key components of the Polkadot SDK:
 
-![](/images/parachains/overview/overview-01.webp)
+![](/images/reference/parachains/index/overview-01.webp)
 
 - **[Substrate](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/substrate/index.html){target=\_blank}**: The foundation providing core blockchain primitives and libraries.
 - **[FRAME](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/frame_runtime/index.html){target=\_blank}**: A modular framework for building your parachain's runtime logic.

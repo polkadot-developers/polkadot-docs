@@ -61,7 +61,6 @@ Developers can leverage smart contracts on Kusama Hub for live production deploy
     ```text
     https://blockscout-kusama-asset-hub.parity-chains-scw.parity.io/
     ```
-    ---
 
 ## Important Deployment Considerations
 

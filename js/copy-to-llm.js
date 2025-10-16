@@ -522,12 +522,6 @@
     addSectionCopyButtons();
   }
 
-  if (window.document$ && typeof window.document$.subscribe === 'function') {
-    window.document$.subscribe(() => {
-      addSectionCopyButtons();
-    });
-  }
-
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initialize);
   } else {

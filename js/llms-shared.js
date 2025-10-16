@@ -41,10 +41,6 @@
     return (value || '').replace(/^\/+|\/+$/g, '');
   }
 
-  function stripLeading(value) {
-    return (value || '').replace(/^\/+/, '');
-  }
-
   function normalizePathname(pathname) {
     let path = decodeURIComponent(pathname || '/');
 
@@ -126,13 +122,6 @@
     let rawBase = '';
     if (typeof window.AI_RAW_BASE === 'string') {
       rawBase = window.AI_RAW_BASE;
-    } else if (typeof AI_RAW_BASE !== 'undefined') {
-      rawBase = AI_RAW_BASE;
-    } else {
-      const metaBase = document.querySelector('meta[name="mkdocs-copy-to-llm-raw-base"]');
-      if (metaBase && metaBase.content) {
-        rawBase = metaBase.content;
-      }
     }
 
     if (typeof rawBase === 'string') {
@@ -190,10 +179,6 @@
       return state.configPromise;
     }
 
-    if (typeof window.__LLMS_CONFIG_URL !== 'string') {
-      window.__LLMS_CONFIG_URL = configUrl;
-    }
-
     state.configPromise = fetch(configUrl, { credentials: 'omit' })
       .then((response) => {
         if (!response.ok) {
@@ -204,11 +189,6 @@
       .then((config) => {
         state.config = config;
         state.remoteBase = computeRemoteBase(config);
-
-        if (state.remoteBase && !window.AI_RAW_BASE) {
-          window.AI_RAW_BASE = state.remoteBase;
-        }
-
         return state.config;
       })
       .catch((error) => {
@@ -227,11 +207,6 @@
       return state.configPromise || state.config;
     }
     return loadConfig();
-  }
-
-  // Returns whatever config object was fetched (may be null if fetch failed).
-  function getConfig() {
-    return state.config;
   }
 
   // Compute the local site-relative path for Markdown artifacts (`/ai/pages/...`).
@@ -349,69 +324,6 @@
       }
     }
     return false;
-  }
-
-  // Normalizes different path syntaxes (full URLs, site-relative, artifact shortcuts) into a fetchable URL.
-  function resolvePath(rawPath) {
-    if (!rawPath) {
-      return null;
-    }
-
-    const trimmedPath = rawPath.trim();
-    if (/^https?:\/\//i.test(trimmedPath)) {
-      return trimmedPath;
-    }
-
-    const { raw, site } = getAiBaseUrls();
-    const rawBase = state.remoteBase || raw;
-    const siteBase = state.siteBase;
-    const normalized = stripLeading(trimmedPath);
-    const outputs = state.config?.outputs || {};
-    const publicRoot = `/${stripSlashes(outputs.public_root || 'ai')}`;
-
-    const toSite = (path) => siteBase ? joinUrl(siteBase, path) : joinUrl('', path);
-    const toRaw = (path) => {
-      if (rawBase) {
-        return joinUrl(rawBase, stripLeading(path.replace(/^ai\//, '')));
-      }
-      return toSite(joinUrl(publicRoot, path));
-    };
-
-    if (normalized.startsWith('ai/pages/') || normalized.startsWith('ai/categories/')) {
-      return toRaw(normalized);
-    }
-
-    if (normalized.startsWith('pages/') || normalized.startsWith('categories/')) {
-      return toRaw(`ai/${normalized}`);
-    }
-
-    if (trimmedPath.startsWith('/')) {
-      return toSite(normalized);
-    }
-
-    if (normalized.startsWith('ai/')) {
-      return toSite(normalized);
-    }
-
-    if (normalized === 'llms.txt' || normalized === 'llms-full.txt' || normalized === 'llms-full.jsonl') {
-      return toSite(normalized);
-    }
-
-    if (normalized.startsWith('llms-files/')) {
-      return toSite(normalized);
-    }
-
-    return rawBase ? joinUrl(rawBase, normalized) : toSite(normalized);
-  }
-
-  // Public helper for on-demand fetches when a consumer already knows the path string.
-  async function fetchPathText(rawPath) {
-    await ready();
-    const url = resolvePath(rawPath);
-    if (!url) {
-      return null;
-    }
-    return fetchText(url);
   }
 
   // Export surface area consumed by UI widgets such as the copy-to-LLM buttons.

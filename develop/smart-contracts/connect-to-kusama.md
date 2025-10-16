@@ -54,6 +54,7 @@ Developers can leverage smart contracts on Kusama Hub for live production deploy
     ```text
     https://kusama-asset-hub-eth-rpc.polkadot.io
     ```
+    
     ---
     
     Block explorer URL

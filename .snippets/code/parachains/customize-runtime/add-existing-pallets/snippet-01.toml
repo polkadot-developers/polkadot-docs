@@ -1,0 +1,6 @@
+polkadot-sdk = { workspace = true, features = [
+    "pallet-utility",
+    "cumulus-pallet-aura-ext",
+    "cumulus-pallet-session-benchmarking",
+    # ... other features
+], default-features = false }

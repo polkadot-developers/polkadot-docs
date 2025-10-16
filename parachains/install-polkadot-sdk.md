@@ -43,7 +43,7 @@ To install Homebrew:
 
     The command displays output similar to the following:
 
-    --8<-- 'code/develop/parachains/get-started/install-polkadot-sdk/termynal-1.html'
+    --8<-- 'code/parachains/install-polkadot-sdk/termynal-1.html'
 
 #### Support for Apple Silicon
 
@@ -303,7 +303,7 @@ rustup show
 
 The command displays output similar to the following:
 
---8<-- 'code/develop/parachains/get-started/install-polkadot-sdk/termynal-2.html'
+--8<-- 'code/parachains/install-polkadot-sdk/termynal-2.html'
 
 ## Where to Go Next
 

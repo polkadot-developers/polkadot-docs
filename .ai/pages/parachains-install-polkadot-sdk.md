@@ -2,6 +2,7 @@
 title: Install Polkadot SDK Dependencies
 description: Install everything you need to begin working with Substrated-based blockchains and the Polkadot SDK, the framework for building blockchains.
 categories: Basics, Tooling
+url: https://docs.polkadot.com/parachains/install-polkadot-sdk/
 ---
 
 # Install Polkadot SDK Dependencies
@@ -43,7 +44,10 @@ To install Homebrew:
 
     The command displays output similar to the following:
 
-    --8<-- 'code/develop/parachains/get-started/install-polkadot-sdk/termynal-1.html'
+    <div id="termynal" data-termynal markdown>
+      <span data-ty="input"><span class="file-path"></span>brew --version</span>
+      <span data-ty>Homebrew 4.3.15</span>
+    </div>
 
 #### Support for Apple Silicon
 
@@ -303,7 +307,18 @@ rustup show
 
 The command displays output similar to the following:
 
---8<-- 'code/develop/parachains/get-started/install-polkadot-sdk/termynal-2.html'
+<div id="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>rustup show</span>
+  <span data-ty>...</span>
+  <br />
+  <span data-ty>active toolchain</span>
+  <span data-ty>----------------</span>
+  <span data-ty>name: stable-aarch64-apple-darwin</span>
+  <span data-ty>active because: it's the default toolchain</span>
+  <span data-ty>installed targets:</span>
+  <span data-ty>  aarch64-apple-darwin</span>
+  <span data-ty>  wasm32-unknown-unknown</span>
+</div>
 
 ## Where to Go Next
 

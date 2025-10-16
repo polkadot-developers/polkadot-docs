@@ -71,7 +71,7 @@ The Polkadot SDK allows developers to construct a runtime by combining various p
 
 The following diagram illustrates the process of selecting and combining FRAME pallets to compose a runtime:
 
-![](/images/develop/parachains/customize-parachain/overview/frame-overview-2.webp)
+![](/images/develop/parachains/customize-parachain/overview/frame-overview-2.webp){ style="background:white; padding:1em;" }
 
 This modular design allows developers to:
 

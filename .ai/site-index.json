@@ -1262,10 +1262,10 @@
       }
     ],
     "stats": {
-      "chars": 9397,
-      "words": 1263,
+      "chars": 9439,
+      "words": 1268,
       "headings": 9,
-      "estimated_token_count_total": 2007
+      "estimated_token_count_total": 2021
     },
     "hash": "sha256:d9b28f12f17631f28cad088c25cbca43650b7d8dc86d93b97e92e76fd6a973c1",
     "last_modified": "2025-10-16T18:55:49+00:00",
@@ -2226,10 +2226,10 @@
       }
     ],
     "stats": {
-      "chars": 3590,
+      "chars": 3587,
       "words": 474,
       "headings": 3,
-      "estimated_token_count_total": 508
+      "estimated_token_count_total": 505
     },
     "hash": "sha256:563ae25a7c6479d71347efae4f11301c83654b9d1675cc299d23bc7cbc34b6d5",
     "last_modified": "2025-10-16T18:55:50+00:00",
@@ -4479,10 +4479,11 @@
   },
   {
     "id": "develop-toolkit-parachains-light-clients",
-    "title": "develop-toolkit-parachains-light-clients",
+    "title": "Light Clients",
     "slug": "develop-toolkit-parachains-light-clients",
     "categories": [
-      "Uncategorized"
+      "Parachains",
+      "Tooling"
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-toolkit-parachains-light-clients.md",
     "html_url": "https://docs.polkadot.com/develop/toolkit/parachains/light-clients/",
@@ -6248,10 +6249,10 @@
       }
     ],
     "stats": {
-      "chars": 12513,
-      "words": 1781,
+      "chars": 12541,
+      "words": 1784,
       "headings": 11,
-      "estimated_token_count_total": 2591
+      "estimated_token_count_total": 2600
     },
     "hash": "sha256:201e7efa0ad6b24890dd06f69714e19d9700ab7f7a51a33fe6d6e0664b7170b2",
     "last_modified": "2025-10-16T18:55:51+00:00",
@@ -7562,10 +7563,10 @@
       }
     ],
     "stats": {
-      "chars": 23604,
-      "words": 3333,
+      "chars": 23632,
+      "words": 3336,
       "headings": 22,
-      "estimated_token_count_total": 4705
+      "estimated_token_count_total": 4714
     },
     "hash": "sha256:6675634d4c5f274a7cc69802ee0a2d259e38efd5afd1c9dacc2d0fecfb370e4c",
     "last_modified": "2025-10-16T18:55:51+00:00",
@@ -8439,10 +8440,10 @@
       }
     ],
     "stats": {
-      "chars": 10923,
-      "words": 1569,
+      "chars": 10871,
+      "words": 1561,
       "headings": 6,
-      "estimated_token_count_total": 2573
+      "estimated_token_count_total": 2553
     },
     "hash": "sha256:ae55284ed2087e5331cc42353a8607a6ecbcbc21df664d7368839a1b8a55a053",
     "last_modified": "2025-10-16T18:55:51+00:00",

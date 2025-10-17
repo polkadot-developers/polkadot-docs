@@ -4227,7 +4227,7 @@
       "Dapps"
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-toolkit-api-libraries-polkadart.md",
-    "html_url": "https://docs.polkadot.com/develop/toolkit/api-libraries/polkadart/",
+    "html_url": "https://docs.polkadot.com/reference/tools/polkadart/",
     "preview": "Polkadart is the most comprehensive Dart/Flutter SDK for interacting with Polkadot, Substrate, and other compatible blockchain networks. Designed with a Dart-first approach and type-safe APIs, it provides everything developers need to build powerful decentralized applications.",
     "outline": [
       {
@@ -4789,7 +4789,7 @@
       "Uncategorized"
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-toolkit-interoperability-paraspell-xcm-sdk-transfer-tokens-between-parachains.md",
-    "html_url": "https://docs.polkadot.com/develop/toolkit/interoperability/paraspell-xcm-sdk/transfer-tokens-between-parachains/",
+    "html_url": "https://docs.polkadot.com/reference/tools/paraspell/transfer-tokens-between-parachains/",
     "preview": "This guide walks you through transferring tokens between two parachains using the [ParaSpell XCM SDK](https://paraspell.github.io/docs/){target=\\_blank}. This example utilizes [Asset Hub](/polkadot-protocol/architecture/system-chains/asset-hub/){target=\\_blank} and the [People Chain](/polkadot-protocol/architecture/system-chains/people/){target=\\_blank}. However, the same approach can be applied to transfers between other parachains.",
     "outline": [
       {
@@ -17168,7 +17168,7 @@
       "Uncategorized"
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/tutorials-polkadot-sdk-system-chains-asset-hub-send-a-tx-paying-fee-different-token.md",
-    "html_url": "https://docs.polkadot.com/tutorials/polkadot-sdk/system-chains/asset-hub/send-a-tx-paying-fee-different-token/",
+    "html_url": "https://docs.polkadot.com/chain-interactions/send-transactions/pay-fees-with-different-tokens/",
     "preview": "The Asset Hub provides a powerful feature that allows users to pay transaction fees using alternative tokens instead of the native token of the chain.",
     "outline": [
       {

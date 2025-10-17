@@ -12141,7 +12141,7 @@ The following sections provide detailed guidance on each aspect of parachain dev
 Page Title: Polkadart
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-toolkit-api-libraries-polkadart.md
-- Canonical (HTML): https://docs.polkadot.com/develop/toolkit/api-libraries/polkadart/
+- Canonical (HTML): https://docs.polkadot.com/reference/tools/polkadart/
 - Summary: Polkadart is a type-safe, native Dart, SDK for Polkadot and any compatible Polkadot-SDK blockchain network.
 
 # Polkadart

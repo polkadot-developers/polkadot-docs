@@ -4569,87 +4569,87 @@ The following sections provide practical recipes for building parachains on Polk
 
 Quick start guides help developers set up and interact with the Polkadot parachain ecosystem using various tools and frameworks.
 
-|                                          Tutorial                                          |             Tools              |                            Description                             |
-|:------------------------------------------------------------------------------------------:|:------------------------------:|:------------------------------------------------------------------:|
-|   [Choose a Template](/parachains/launch-a-parachain/choose-a-template/){target=\_blank}   |          Polkadot SDK          | Explore runtime templates and understand development possibilities |
-|  [Launch a Local Parachain](/parachains/testing/run-a-parachain-network/){target=\_blank}  |     Zombienet, Chopsticks      |         Set up a local development environment for testing         |
-| [Connect to Polkadot](/chain-interactions/query-on-chain-data/query-sdks/){target=\_blank} | Polkadot.js, Substrate Connect |           Connect your application to Polkadot networks            |
-|    [Fork an Existing Parachain](/parachains/testing/fork-a-parachain/){target=\_blank}     |           Chopsticks           |        Create a local fork of a live parachain for testing         |
+|                                            Tutorial                                            |             Tools              |                               Description                               |
+| :--------------------------------------------------------------------------------------------: | :----------------------------: | :---------------------------------------------------------------------: |
+| [Set Up the Parachain Template](/parachains/launch-a-parachain/set-up-the-parachain-template/) |          Polkadot SDK          | Learn how to set up and run the Polkadot SDK Parachain Template locally |
+|            [Launch a Local Parachain](/parachains/testing/run-a-parachain-network/)            |     Zombienet, Chopsticks      |           Set up a local development environment for testing            |
+|           [Connect to Polkadot](/chain-interactions/query-on-chain-data/query-sdks/)           | Polkadot.js, Substrate Connect |              Connect your application to Polkadot networks              |
+|              [Fork an Existing Parachain](/parachains/testing/fork-a-parachain/)               |           Chopsticks           |           Create a local fork of a live parachain for testing           |
 
 ## Launch a Simple Parachain
 
 Learn the fundamentals of launching and deploying a parachain to the Polkadot network.
 
-|                                         Tutorial                                         |                                         Description                                         |
-|:----------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------:|
-|  [Choose a Template](/parachains/launch-a-parachain/choose-a-template/){target=\_blank}  | Explore different runtime templates and understand the possibilities of runtime development |
-| [Deploy to Polkadot](/parachains/launch-a-parachain/deploy-to-polkadot/){target=\_blank} |                Step-by-step tutorial to deploying your parachain to Polkadot                |
-|    [Obtain Coretime](/parachains/launch-a-parachain/obtain-coretime/){target=\_blank}    |          Learn how to acquire blockspace using Polkadot's coretime model (RegionX)          |
+|                                            Tutorial                                            |                                Description                                |
+| :--------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------: |
+| [Set Up the Parachain Template](/parachains/launch-a-parachain/set-up-the-parachain-template/) |                               Polkadot SDK                                |
+|            [Deploy to Polkadot](/parachains/launch-a-parachain/deploy-to-polkadot/)            |       Step-by-step tutorial to deploying your parachain to Polkadot       |
+|               [Obtain Coretime](/parachains/launch-a-parachain/obtain-coretime/)               | Learn how to acquire blockspace using Polkadot's coretime model (RegionX) |
 
 ## Customize Your Runtime
 
 Build custom functionality for your parachain by composing and creating pallets.
 
-|                                                      Tutorial                                                       |                            Description                            |
-|:-------------------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------:|
-|     [Add Existing Pallets to the Runtime](/parachains/customize-runtime/add-existing-pallets/){target=\_blank}      |       Integrate pre-built pallets from the FRAME ecosystem        |
-|      [Add Multiple Instances of a Pallet](/parachains/customize-runtime/add-pallet-instances/){target=\_blank}      |      Configure and use multiple instances of the same pallet      |
-| [Add Smart Contract Functionality](/parachains/customize-runtime/add-smart-contract-functionality/){target=\_blank} | Enable smart contract capabilities using Contracts or EVM pallets |
+|                                              Tutorial                                               |                            Description                            |
+| :-------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------: |
+|     [Add Existing Pallets to the Runtime](/parachains/customize-runtime/add-existing-pallets/)      |       Integrate pre-built pallets from the FRAME ecosystem        |
+|      [Add Multiple Instances of a Pallet](/parachains/customize-runtime/add-pallet-instances/)      |      Configure and use multiple instances of the same pallet      |
+| [Add Smart Contract Functionality](/parachains/customize-runtime/add-smart-contract-functionality/) | Enable smart contract capabilities using Contracts or EVM pallets |
 
 ### Pallet Development
 
 Deep dive into creating and managing custom pallets for your parachain.
 
-|                                                             Tutorial                                                             |                        Description                        |
-|:--------------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------:|
-|           [Create a Custom Pallet](/parachains/customize-runtime/pallet-development/create-a-pallet/){target=\_blank}            |       Build a pallet from scratch with custom logic       |
-|               [Mock Your Runtime](/parachains/customize-runtime/pallet-development/mock-runtime/){target=\_blank}                |       Set up a mock runtime environment for testing       |
-|             [Pallet Unit Testing](/parachains/customize-runtime/pallet-development/pallet-testing/){target=\_blank}              |      Write comprehensive tests for your pallet logic      |
-| [Add Your Custom Pallet to the Runtime](/parachains/customize-runtime/pallet-development/add-pallet-to-runtime/){target=\_blank} | Integrate your custom pallet into your parachain runtime  |
-|        [Benchmark the Custom Pallet](/parachains/customize-runtime/pallet-development/benchmark-pallet/){target=\_blank}         | Measure and optimize pallet performance with benchmarking |
+|                                                     Tutorial                                                     |                        Description                        |
+| :--------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------: |
+|           [Create a Custom Pallet](/parachains/customize-runtime/pallet-development/create-a-pallet/)            |       Build a pallet from scratch with custom logic       |
+|               [Mock Your Runtime](/parachains/customize-runtime/pallet-development/mock-runtime/)                |       Set up a mock runtime environment for testing       |
+|             [Pallet Unit Testing](/parachains/customize-runtime/pallet-development/pallet-testing/)              |      Write comprehensive tests for your pallet logic      |
+| [Add Your Custom Pallet to the Runtime](/parachains/customize-runtime/pallet-development/add-pallet-to-runtime/) | Integrate your custom pallet into your parachain runtime  |
+|        [Benchmark the Custom Pallet](/parachains/customize-runtime/pallet-development/benchmark-pallet/)         | Measure and optimize pallet performance with benchmarking |
 
 ## Testing
 
 Test your parachain in various environments before production deployment.
 
-|                                        Tutorial                                         |                       Description                       |
-|:---------------------------------------------------------------------------------------:|:-------------------------------------------------------:|
-|        [Fork a Parachain](/parachains/testing/fork-a-parachain/){target=\_blank}        |    Use Chopsticks to create a local fork for testing    |
-| [Run a Parachain Network](/parachains/testing/run-a-parachain-network/){target=\_blank} | Launch a complete parachain test network with Zombienet |
+|                                Tutorial                                 |                       Description                       |
+| :---------------------------------------------------------------------: | :-----------------------------------------------------: |
+|        [Fork a Parachain](/parachains/testing/fork-a-parachain/)        |    Use Chopsticks to create a local fork for testing    |
+| [Run a Parachain Network](/parachains/testing/run-a-parachain-network/) | Launch a complete parachain test network with Zombienet |
 
 ## Runtime Upgrades and Maintenance
 
 Manage your parachain's lifecycle with forkless upgrades and maintenance operations.
 
-|                                         Tutorial                                          |                     Description                      |
-|:-----------------------------------------------------------------------------------------:|:----------------------------------------------------:|
-|   [Runtime Upgrades](/parachains/runtime-maintenance/runtime-upgrades/){target=\_blank}   |   Perform forkless runtime upgrades via governance   |
-| [Storage Migrations](/parachains/runtime-maintenance/storage-migrations/){target=\_blank} |  Safely migrate storage when updating runtime logic  |
-|  [Unlock Parachains](/parachains/runtime-maintenance/unlock-parachains/){target=\_blank}  | Understand parachain lifecycle and unlock mechanisms |
+|                                 Tutorial                                  |                     Description                      |
+| :-----------------------------------------------------------------------: | :--------------------------------------------------: |
+|   [Runtime Upgrades](/parachains/runtime-maintenance/runtime-upgrades/)   |   Perform forkless runtime upgrades via governance   |
+| [Storage Migrations](/parachains/runtime-maintenance/storage-migrations/) |  Safely migrate storage when updating runtime logic  |
+|  [Unlock Parachains](/parachains/runtime-maintenance/unlock-parachains/)  | Understand parachain lifecycle and unlock mechanisms |
 
 ## Interoperability
 
 Configure your parachain for cross-chain communication using XCM (Cross-Consensus Messaging).
 
-|                                                          Tutorial                                                          |                      Description                       |
-|:--------------------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------:|
-|     [Open HRMP Channels Between Parachains](/parachains/interoperability/channels-between-parachains/){target=\_blank}     | Establish communication channels with other parachains |
-| [Open HRMP Channels with System Parachains](/parachains/interoperability/channels-with-system-parachains/){target=\_blank} |   Connect with Asset Hub and other system parachains   |
+|                                                  Tutorial                                                  |                      Description                       |
+| :--------------------------------------------------------------------------------------------------------: | :----------------------------------------------------: |
+|     [Open HRMP Channels Between Parachains](/parachains/interoperability/channels-between-parachains/)     | Establish communication channels with other parachains |
+| [Open HRMP Channels with System Parachains](/parachains/interoperability/channels-with-system-parachains/) |   Connect with Asset Hub and other system parachains   |
 
 ## Integrations
 
 Integrate your parachain with essential ecosystem tools and services.
 
-|                            Tutorial                            |                      Description                       |
-|:--------------------------------------------------------------:|:------------------------------------------------------:|
-|  [Wallets](/parachains/integrations/wallets/){target=\_blank}  |     Integrate wallet support for user interactions     |
-| [Indexers](/parachains/integrations/indexers/){target=\_blank} | Set up indexing solutions for querying blockchain data |
-|  [Oracles](/parachains/integrations/oracles/){target=\_blank}  |    Connect your parachain to off-chain data sources    |
+|                    Tutorial                    |                      Description                       |
+| :--------------------------------------------: | :----------------------------------------------------: |
+|  [Wallets](/parachains/integrations/wallets/)  |     Integrate wallet support for user interactions     |
+| [Indexers](/parachains/integrations/indexers/) | Set up indexing solutions for querying blockchain data |
+|  [Oracles](/parachains/integrations/oracles/)  |    Connect your parachain to off-chain data sources    |
 
 ## Additional Resources
 
-- [Polkadot SDK Documentation](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/index.html){target=\_blank}
-- [Polkadot Wiki - Parachains](https://wiki.polkadot.network/docs/learn-parachains/){target=\_blank}
+- [Polkadot SDK Documentation](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/index.html)
+- [Polkadot Wiki - Parachains](https://wiki.polkadot.network/docs/learn-parachains/)
 
 
 ---
@@ -6921,580 +6921,9 @@ See [Cancelling, Killing, and Blacklisting](https://wiki.polkadot.com/learn/lear
 
 Page Title: Overview
 
-<<<<<<< HEAD:llms-files/llms-dapps.txt
-## Introduction
-
-Polkadot’s unique value lies in its ability to enable interoperability between parachains and other blockchain systems. At the core of this capability is XCM (Cross-Consensus Messaging)—a flexible messaging format that facilitates communication and collaboration between independent consensus systems.
-
-With XCM, one chain can send intents to another one, fostering a more interconnected ecosystem. Although it was developed specifically for Polkadot, XCM is a universal format, usable in any blockchain environment. This guide provides an overview of XCM’s core principles, design, and functionality, alongside practical examples of its implementation.
-
-## Messaging Format
-
-XCM is not a protocol but a standardized [messaging format](https://github.com/polkadot-fellows/xcm-format){target=\_blank}. It defines the structure and behavior of messages but does not handle their delivery. This separation allows developers to focus on crafting instructions for target systems without worrying about transmission mechanics.
-
-XCM messages are intent-driven, outlining desired actions for the receiving blockchain to consider and potentially alter its state. These messages do not directly execute changes; instead, they rely on the host chain's environment to interpret and implement them. By utilizing asynchronous composability, XCM facilitates efficient execution where messages can be processed independently of their original order, similar to how RESTful services handle HTTP requests without requiring sequential processing.
-
-## The Four Principles of XCM
-
-XCM adheres to four guiding principles that ensure robust and reliable communication across consensus systems:
-
-- **Asynchronous**: XCM messages operate independently of sender acknowledgment, avoiding delays due to blocked processes.
-- **Absolute**: XCM messages are guaranteed to be delivered and interpreted accurately, in order, and timely. Once a message is sent, one can be sure it will be processed as intended.
-- **Asymmetric**: XCM messages follow the 'fire and forget' paradigm meaning no automatic feedback is provided to the sender. Any results must be communicated separately to the sender with an additional message back to the origin.
-- **Agnostic**: XCM operates independently of the specific consensus mechanisms, making it compatible across diverse systems.
-
-These principles guarantee that XCM provides a reliable framework for cross-chain communication, even in complex environments.
-
-## The XCM Tech Stack
-
-![Diagram of the XCM tech stack](/images/parachains/interoperability/get-started/intro-to-xcm-01.webp)
-
-The XCM tech stack is designed to facilitate seamless interoperable communication between chains that reside within the Polkadot ecosystem. XCM can be used to express the meaning of the messages over each of the communication channels.
-
-## Core Functionalities of XCM
-
-XCM enhances cross-consensus communication by introducing several powerful features:
-
-- **Programmability**: Supports dynamic message handling, allowing for more comprehensive use cases. Includes branching logic, safe dispatches for version checks, and asset operations like NFT management.
-- **Functional Multichain Decomposition**: Enables mechanisms such as remote asset locking, asset namespacing, and inter-chain state referencing, with contextual message identification.
-- **Bridging**: Establishes a universal reference framework for multi-hop setups, connecting disparate systems like Ethereum and Bitcoin with the Polkadot relay chain acting as a universal location.
-
-The standardized format for messages allows parachains to handle tasks like user balances, governance, and staking, freeing the Polkadot relay chain to focus on shared security. These features make XCM indispensable for implementing scalable and interoperable blockchain applications. 
-
-## XCM Example
-
-The following is a simplified XCM message demonstrating a token transfer from Alice to Bob on the same chain (ParaA).
-
-```rust
-let message = Xcm(vec![
-    WithdrawAsset((Here, amount).into()),
-    BuyExecution { 
-        fees: (Here, amount).into(), 
-        weight_limit: WeightLimit::Unlimited 
-    },
-    DepositAsset {
-        assets: All.into(),
-        beneficiary: MultiLocation {
-            parents: 0,
-            interior: Junction::AccountId32 {
-                network: None,
-                id: BOB.clone().into()
-            }.into(),
-        }.into()
-    }
-]);
-```
-
-The message consists of three instructions described as follows:
-
-- **[WithdrawAsset](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#withdrawasset){target=\_blank}**: Transfers a specified number of tokens from Alice's account to a holding register.
-
-    ```rust
-    WithdrawAsset((Here, amount).into()),
-    ```
-
-    - **`Here`**: The native parachain token.
-    - **`amount`**: The number of tokens that are transferred.
-
-    The first instruction takes as an input the MultiAsset that should be withdrawn. The MultiAsset describes the native parachain token with the `Here` keyword. The `amount` parameter is the number of tokens that are transferred. The withdrawal account depends on the origin of the message. In this example the origin of the message is Alice. The `WithdrawAsset` instruction moves `amount` number of native tokens from Alice's account into the holding register.
-
-- **[BuyExecution](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#buyexecution){target=\_blank}**: Allocates fees to cover the execution [weight](/reference/glossary/#weight){target=\_blank} of the XCM instructions.
-
-    ```rust
-    BuyExecution { 
-        fees: (Here, amount).into(), 
-        weight_limit: WeightLimit::Unlimited 
-    },
-    ```
-
-    - **`fees`**: Describes the asset in the holding register that should be used to pay for the weight.
-    - **`weight_limit`**: Defines the maximum fees that can be used to buy weight.
-
-- **[DepositAsset](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#depositasset){target=\_blank}**: Moves the remaining tokens from the holding register to Bob’s account.
-
-    ```rust
-    DepositAsset {
-        assets: All.into(),
-        beneficiary: MultiLocation {
-            parents: 0,
-            interior: Junction::AccountId32 {
-                network: None,
-                id: BOB.clone().into()
-            }.into(),
-        }.into()
-    }
-    ```
-
-    - **`All`**: The wildcard for the asset(s) to be deposited. In this case, all assets in the holding register should be deposited.
-    
-This step-by-step process showcases how XCM enables precise state changes within a blockchain system. You can find a complete XCM message example in the [XCM repository](https://github.com/paritytech/xcm-docs/blob/main/examples/src/0_first_look/mod.rs){target=\_blank}.
-
-## Overview
-
-XCM revolutionizes cross-chain communication by enabling use cases such as:
-
-- Token transfers between blockchains.
-- Asset locking for cross-chain smart contract interactions.
-- Remote execution of functions on other blockchains.
-
-These functionalities empower developers to build innovative, multi-chain applications, leveraging the strengths of various blockchain networks. To stay updated on XCM’s evolving format or contribute, visit the [XCM repository](https://github.com/paritytech/xcm-docs/blob/main/examples/src/0_first_look/mod.rs){target=\_blank}.
---- END CONTENT ---
-
-Doc-Content: https://docs.polkadot.com/parachains/launch-a-parachain/choose-a-template/
---- BEGIN CONTENT ---
----
-title: Choose a Parachain Template
-description: Learn about available parachain templates and set up the Polkadot SDK Parachain Template to start building your custom blockchain.
-tutorial_badge: Beginner
-categories: Basics, Parachains
----
-
-# Choose a Parachain Template
-
-## Introduction
-
-[Polkadot SDK](https://github.com/paritytech/polkadot-sdk){target=\_blank} provides multiple parachain templates to jumpstart your blockchain development journey. Each template offers a different starting point, from minimal setups to feature-rich configurations, allowing you to choose the foundation that best matches your project requirements.
-
-This tutorial introduces you to the available parachain templates and guides you through setting up the [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk-parachain-template){target=\_blank}. This template provides a pre-configured runtime with commonly needed pallets, making it an ideal starting point for most parachain development projects.
-
-In this tutorial, you will:
-
-- Learn about the available parachain templates and their use cases.
-- Set up the Polkadot SDK Parachain Template.
-- Understand the project structure and key components.
-- Verify your template is ready for development.
-- Run the parachain template locally in development mode
-
-By the end of this tutorial, you'll have a working template ready to customize and deploy as a parachain.
-
-## Available Templates
-
-Before diving into the setup, let's explore the main parachain templates available to help you make an informed decision for your project.
-
-### Polkadot SDK Parachain Template
-
-The [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk-parachain-template){target=\_blank} is the recommended starting point for most developers. It provides:
-
-- Pre-configured pallets for common blockchain functionality (like balances handling, block production, governance, etc.)
-- A complete runtime setup ready for customization
-- Example implementations demonstrating best practices
-- Built-in support for parachain consensus mechanisms
-- A pallet template is provided in this parachain template as well
-
-This template is ideal for building general-purpose parachains and provides the best balance of features and learning opportunities. **This is the template you'll use for this tutorial series.**
-
-### Polkadot SDK Minimal Template
-
-The [Polkadot SDK Minimal Template](https://github.com/paritytech/polkadot-sdk-minimal-template){target=\_blank} offers:
-
-- A bare-bones runtime with only essential components
-- Maximum flexibility for custom implementations
-- A smaller codebase to understand and modify
-- Perfect foundation for highly specialized chains
-
-Choose this template if you want to build everything from the ground up or need a clean slate for a unique parachain design.
-
-### Polkadot SDK Solochain Template
-
-The [Solochain Template](https://github.com/paritytech/polkadot-sdk/tree/master/templates/solochain){target=_blank} offers:
-
-- A foundation for creating standalone blockchains with moderate features
-- A simple consensus mechanism and several core FRAME pallets
-- A fully functional chain that operates independently
-- No dependency on a relay chain for operation
-
-Choose this template if you want to build a sovereign blockchain with built-in functionality or need a ready-to-customize standalone chain.
-
-### OpenZeppelin Runtime Templates
-
-[OpenZeppelin's runtime templates](https://github.com/OpenZeppelin/polkadot-runtime-templates){target=\_blank} provide specialized starting points with security-focused configurations.
-
-The [generic-template](https://github.com/OpenZeppelin/polkadot-runtime-templates/tree/main/generic-template){target=\_blank} includes:
-
-- Security-focused configuration following OpenZeppelin's best practices
-- Curated pallet selection for common use cases
-- Production-ready defaults
-
-Choose this template if security best practices and audited configurations are your top priority.
-
-## Prerequisites
-
-Before getting started, ensure you have done the following:
-
-- Completed the [Install Polkadot SDK Dependencies](/reference/tools/polkadot-sdk/install/){target=\_blank} guide and successfully installed [Rust](https://www.rust-lang.org/){target=\_blank} and the required packages to set up your development environment
-
-For this tutorial series, you need to use Rust `1.86`. Newer versions of the compiler may not work with this parachain template version.
-
-Run the following commands to set up the correct Rust version:
-
-    === "macOS"
-
-        ```bash
-        rustup install 1.86
-        rustup default 1.86
-        rustup target add wasm32-unknown-unknown --toolchain 1.86-aarch64-apple-darwin
-        rustup component add rust-src --toolchain 1.86-aarch64-apple-darwin
-        ```
-
-    === "Ubuntu"
-
-        ```bash
-        rustup toolchain install 1.86.0
-        rustup default 1.86.0
-        rustup target add wasm32-unknown-unknown --toolchain 1.86.0
-        rustup component add rust-src --toolchain 1.86.0
-        ```
-
-## Polkadot SDK Utility Tools
-
-This tutorial requires two essential tools:
-
-- [**Chain spec builder**](https://crates.io/crates/staging-chain-spec-builder/{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.chain_spec_builder_version}}){target=\_blank}: A Polkadot SDK utility for generating chain specifications. Refer to the [Generate Chain Specs](/develop/parachains/deployment/generate-chain-specs/){target=\_blank} documentation for detailed usage.
-    
-    Install it by executing the following command:
-    
-    ```bash
-    cargo install --locked staging-chain-spec-builder@{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.chain_spec_builder_version}}
-    ```
-
-    This installs the `chain-spec-builder` binary.
-
-- [**Polkadot Omni Node**](https://crates.io/crates/polkadot-omni-node/{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.polkadot_omni_node_version}}){target=\_blank}: A white-labeled binary, released as a part of Polkadot SDK that can act as the collator of a parachain in production, with all the related auxiliary functionalities that a normal collator node has: RPC server, archiving state, etc. Moreover, it can also run the wasm blob of the parachain locally for testing and development.
-
-    To install it, run the following command:
-
-    ```bash
-    cargo install --locked polkadot-omni-node@{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.polkadot_omni_node_version}}
-    ```
-
-    This installs the `polkadot-omni-node` binary.
-
-## Clone the Template
-
-The [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk-parachain-template){target=\_blank} provides a ready-to-use development environment for building with the [Polkadot SDK](https://github.com/paritytech/polkadot-sdk){target=\_blank}. Follow these steps to set up the template:
-
-1. Clone the template repository:
-
-    ```bash
-    git clone https://github.com/paritytech/polkadot-sdk-parachain-template.git parachain-template
-    ```
-
-2. Navigate into the project directory:
-
-    ```bash
-    cd parachain-template
-    ```
-
-## Explore the Project Structure
-
-Before building the template, take a moment to familiarize yourself with its structure. Understanding this organization will help you navigate the codebase as you develop your parachain.
-
-The template follows a standard Polkadot SDK project layout:
-
-```
-parachain-template/
-├── node/              # Node implementation and client
-├── pallets/           # Custom pallets for your parachain
-├── runtime/           # Runtime configuration and logic
-├── Cargo.toml         # Workspace configuration
-└── README.md          # Documentation
-```
-
-Key directories explained:
-
-- **runtime/**: Contains your parachain's state transition function and pallet configuration. This is where you'll define what your blockchain can do.
-- **node/**: Houses the client implementation that runs your blockchain, handles networking, and manages the database.
-- **pallets/**: Where you'll create custom business logic modules (pallets) for your specific use case.
-- **Cargo.toml**: The workspace configuration that ties all components together.
-
-!!!note
-    The runtime is compiled to WebAssembly (Wasm), enabling forkless upgrades. The node binary remains constant while the runtime can be updated on-chain.
-
-## Compile the Runtime
-
-Now that you understand the template structure, let's compile the runtime to ensure everything is working correctly.
-
-1. Compile the runtime:
-
-    ```bash
-    cargo build --release --locked
-    ```
-
-    !!!tip
-        Initial compilation may take several minutes, depending on your machine specifications. Use the `--release` flag for improved runtime performance compared to the default `--debug` build. If you need to troubleshoot issues, the `--debug` build provides better diagnostics.
-        
-        For production deployments, consider using a dedicated `--profile production` flag - this can provide an additional 15-30% performance improvement over the standard `--release` profile.
-
-2. Upon successful compilation, you should see output indicating the build was successful. The compiled runtime will be located at `./target/release/wbuild/parachain-template-runtime/parachain_template_runtime.compact.compressed.wasm`
-
-## Verify the Build
-
-After compilation completes, verify that the runtime was created successfully by checking for the WebAssembly blob:
-
-```bash
-ls -la ./target/release/wbuild/parachain-template-runtime/
-```
-
-You should see the `parachain_template_runtime.compact.compressed.wasm` file in the output, confirming the build was successful.
-
-## Run the Node Locally
-
-After successfully compiling your runtime, you can spin up a local chain and produce blocks. This process will start your local parachain using the Polkadot Omni Node and allow you to interact with it. You'll first need to generate a chain specification that defines your network's identity, initial connections, and genesis state, providing the foundational configuration for how your nodes connect and what initial state they agree upon.
-
-Follow these steps to launch your node in development mode:
-
-1. Generate the chain specification file of your parachain:
-
-    ```bash
-    chain-spec-builder create -t development \
-    --relay-chain paseo \
-    --para-id 1000 \
-    --runtime ./target/release/wbuild/parachain-template-runtime/parachain_template_runtime.compact.compressed.wasm \
-    named-preset development
-    ```
-
-2. Start the omni node with the generated chain spec. You'll start it in development mode (without a relay chain config), producing and finalizing blocks:
-
-    ```bash
-    polkadot-omni-node --chain ./chain_spec.json --dev
-    ```
-
-    The `--dev` option does the following:
-
-    - Deletes all active data (keys, blockchain database, networking information) when stopped
-    - Ensures a clean working state each time you restart the node
-
-3. Verify that your node is running by reviewing the terminal output. You should see log messages indicating block production and finalization
-
-4. Confirm that your blockchain is producing new blocks by checking if the number after `finalized` is increasing in the output
-
-The details of the log output will be explored in a later tutorial. For now, knowing that your node is running and producing blocks is sufficient.
-
-## Interact with the Node
-
-When running the template node, it's accessible by default at `ws://localhost:9944`. To interact with your node using the [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} interface, follow these steps:
-
-1. Open [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} in your web browser and click the network icon (which should be the Polkadot logo) in the top left corner as shown in the image below:
-    
-    ![](/images/parachains/launch-a-parachain/choose-a-template/choose-a-template-1.webp)
-
-2. Connect to your local node:
-
-    1. Scroll to the bottom and select **Development**.
-    2. Choose **Custom**.
-    3. **Enter `ws**: //localhost:9944` in the input field.
-    4. Click the **Switch** button.
-    
-    ![](/images/parachains/launch-a-parachain/choose-a-template/choose-a-template-2.webp)
-
-3. Verify connection:
-
-    - Once connected, you should see **parachain-template-runtime** in the top left corner.
-    - The interface will display information about your local blockchain.
-    
-    ![](/images/parachains/launch-a-parachain/choose-a-template/choose-a-template-3.webp)
-
-You are now connected to your local node and can now interact with it through the Polkadot.js Apps interface. This tool enables you to explore blocks, execute transactions, and interact with your blockchain's features. For in-depth guidance on using the interface effectively, refer to the [Polkadot.js Guides](https://wiki.polkadot.com/general/polkadotjs/){target=\_blank} available on the Polkadot Wiki.
-
-## Stop the Node
-
-When you're done exploring your local node, you can stop it to remove any state changes you've made. Since you started the node with the `--dev` option, stopping the node will purge all persistent block data, allowing you to start fresh the next time.
-
-To stop the local node:
-
-1. Return to the terminal window where the node output is displayed
-2. Press `Control-C` to stop the running process
-3. Verify that your terminal returns to the prompt in the `parachain-template` directory
-
-## Where to Go Next
-
-<div class="grid cards" markdown>
-
--   <span class="badge tutorial">Tutorial</span> __Deploy to Polkadot__
-
-    ---
-
-    Learn how to deploy your parachain template to a relay chain testnet. Configure your chain specification, register as a parachain, and start producing blocks.
-
-    [:octicons-arrow-right-24: Get Started](/parachains/launch-a-parachain/deploy-to-polkadot.md)
-
-</div>
---- END CONTENT ---
-
-Doc-Content: https://docs.polkadot.com/parachains/overview/
---- BEGIN CONTENT ---
----
-title: Introduction to Polkadot SDK
-description: Learn about the Polkadot SDK, a robust developer toolkit for building custom blockchains. Explore its components and how it powers the Polkadot protocol.
-categories: Basics, Tooling
----
-
-# Introduction to Polkadot SDK
-
-## Introduction
-
-The [Polkadot SDK](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}){target=\_blank} is a powerful and versatile developer kit designed to facilitate building on the Polkadot network. It provides the necessary components for creating custom blockchains, parachains, generalized rollups, and more. Written in the Rust programming language, it puts security and robustness at the forefront of its design.
-
-Whether you're building a standalone chain or deploying a parachain on Polkadot, this SDK equips developers with the libraries and tools needed to manage runtime logic, compile the codebase, and utilize core features like staking, governance, and Cross-Consensus Messaging (XCM). It also provides a means for building generalized peer-to-peer systems beyond blockchains. The Polkadot SDK houses the following overall functionality:
-
-- Networking and peer-to-peer communication (powered by [Libp2p](/polkadot-protocol/glossary#libp2p){target=\_blank}).
-- Consensus protocols, such as [BABE](/polkadot-protocol/glossary#blind-assignment-of-blockchain-extension-babe){target=\_blank}, [GRANDPA](/polkadot-protocol/glossary#grandpa){target=\_blank}, or [Aura](/polkadot-protocol/glossary#authority-round-aura){target=\_blank}.
-- Cryptography.
-- The ability to create portable Wasm runtimes.
-- A selection of pre-built modules, called [pallets](/polkadot-protocol/glossary#pallet){target=\_blank}.
-- Benchmarking and testing suites.
-
-For an in-depth look at the monorepo, see the [Polkadot SDK Rust documentation](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/index.html){target=\_blank}.
-
-## Polkadot SDK Overview
-
-The Polkadot SDK is composed of five major components:
-
-![](/images/parachains/overview/overview-01.webp)
-
-- **[Substrate](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/substrate/index.html){target=\_blank}**: A set of libraries and primitives for building blockchains.
-- **[FRAME](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/frame_runtime/index.html){target=\_blank}**: A blockchain development framework built on top of Substrate.
-- **[Cumulus](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/cumulus/index.html){target=\_blank}**: A set of libraries and pallets to add parachain capabilities to a Substrate/FRAME runtime.
-- **[XCM (Cross Consensus Messaging)](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/xcm/index.html){target=\_blank}**: The primary format for conveying messages between parachains.
-- **[Polkadot](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/polkadot/index.html){target=\_blank}**: The node implementation for the Polkadot protocol.
-
-### Substrate
-
-Substrate is a Software Development Kit (SDK) that uses Rust-based libraries and tools to enable you to build application-specific blockchains from modular and extensible components. Application-specific blockchains built with Substrate can run as standalone services or in parallel with other chains to take advantage of the shared security provided by the Polkadot ecosystem. Substrate includes default implementations of the core components of the blockchain infrastructure to allow you to focus on the application logic.
-
-Every blockchain platform relies on a decentralized network of computers—called nodes—that communicate with each other about transactions and blocks. In general, a node in this context is the software running on the connected devices rather than the physical or virtual machine in the network. As software, Substrate-based nodes consist of two main parts with separate responsibilities:
-
-- **Client**: Services to handle network and blockchain infrastructure activity.
-
-    - Native binary.
-    - Executes the Wasm runtime.
-    - Manages components like database, networking, mempool, consensus, and others.
-    - Also known as "Host".
-
-- **Runtime**: Business logic for state transitions.
-
-    - Application logic.
-    - Compiled to [Wasm](https://webassembly.org/){target=\_blank}.
-    - Stored as a part of the chain state.
-    - Also known as State Transition Function (STF).
-
-```mermaid
-%%{init: {'flowchart': {'padding': 5, 'nodeSpacing': 50, 'rankSpacing': 10}}}%%
-graph TB
-    classDef title font-size:20px,font-weight:bold,stroke-width:0px
-    classDef clientStyle font-size:16px,font-weight:bold
-    classDef clientSubNodeStyle margin-top:10px
-    classDef runtimeCallExecutorStyle padding-top:10px
-
-    subgraph sg1[Substrate<br /> Node]
-        direction TB
-
-        I[RuntimeCall Executor]
-        B[Wasm Runtime - STF]
-
-        subgraph sg2[Client]
-            direction TB
-            C[Network and Blockchain<br/>Infrastructure Services]
-        end
-
-        I --> B
-    end
-
-    class sg1 title
-    class sg2 clientStyle
-    class C clientSubNodeStyle
-    class I runtimeCallExecutorStyle
-
-```
-
-### FRAME
-
-FRAME provides the core modular and extensible components that make the Substrate SDK flexible and adaptable to different use cases. FRAME includes Rust-based libraries that simplify the development of application-specific logic. Most of the functionality that FRAME provides takes the form of plug-in modules called [pallets](/polkadot-protocol/glossary#pallet){target=\_blank} that you can add and configure to suit your requirements for a custom runtime.
-
-```mermaid
-graph LR
-    subgraph SP["<b style='font-size:18px;'>Runtime</b>"]
-        direction LR
-        Timestamp ~~~ Aura ~~~ GRANDPA
-        Balances ~~~ TransactionPayment ~~~ Sudo
-        subgraph Timestamp["Timestamp"]
-            SS1[Custom Config]
-        end
-        subgraph Aura["Aura"]
-            SS2[Custom Config]
-        end
-        subgraph GRANDPA["GRANDPA"]
-            SS3[Custom Config]
-        end
-        subgraph Balances["Balances"]
-            SS4[Custom Config]
-        end
-        subgraph TransactionPayment["Transaction Payment"]
-            SS5[Custom Config]
-        end
-        subgraph Sudo["Sudo"]
-            SS6[Custom Config]
-        end
-        style Timestamp stroke:#FF69B4
-        style Aura stroke:#FF69B4
-        style GRANDPA stroke:#FF69B4
-        style Balances stroke:#FF69B4
-        style TransactionPayment stroke:#FF69B4
-        style Sudo stroke:#FF69B4
-        style SS1 stroke-dasharray: 5
-        style SS2 stroke-dasharray: 5
-        style SS3 stroke-dasharray: 5
-        style SS4 stroke-dasharray: 5
-        style SS5 stroke-dasharray: 5
-        style SS6 stroke-dasharray: 5
-
-    end
-    subgraph AP["<b style='font-size:18px;'>FRAME Pallets</b>"]
-        direction LR
-        A1[Aura]~~~A2[BABE]~~~A3[GRANDPA]~~~A4[Transaction<br>Payment]
-        B1[Identity]~~~B2[Balances]~~~B3[Sudo]~~~B4[EVM]
-        C1[Timestamp]~~~C2[Assets]~~~C3[Contracts]~~~C4[and more...]
-    end
-    AP --> SP
-```
-
-### Cumulus
-
-Cumulus provides utilities and libraries to turn FRAME-based runtimes into runtimes that can be a parachain on Polkadot. Cumulus runtimes are still FRAME runtimes but contain the necessary functionality that allows that runtime to become a parachain on a relay chain.
-
-## Why Use Polkadot SDK?
-
-Using the Polkadot SDK, you can build application-specific blockchains without the complexity of building a blockchain from scratch or the limitations of building on a general-purpose blockchain. You can focus on crafting the business logic that makes your chain unique and innovative with the additional benefits of flexibility, upgradeability, open-source licensing, and cross-consensus interoperability.
-
-## Create a Custom Blockchain Using the SDK
-
-Before starting your blockchain development journey, you'll need to decide whether you want to build a standalone chain or a parachain that connects to the Polkadot network. Each path has its considerations and requirements. Once you've made this decision, follow these development stages:
-
-```mermaid
-graph LR
-    A[Install the Polkadot SDK] --> B[Build the Chain]
-    B --> C[Deploy the Chain]
-```
-
-1. **[Install the Polkadot SDK](/develop/parachains/install-polkadot-sdk/)**: Set up your development environment with all necessary dependencies and tools.
-2. **[Build the chain](/develop/parachains/customize-parachain)**: Learn how to create and customize your blockchain's runtime, configure pallets, and implement your chain's unique features.
-3. **[Deploy the chain](/develop/parachains/deployment)**: Follow the steps to launch your blockchain, whether as a standalone network or as a parachain on Polkadot.
-
-Each stage is covered in detail in its respective guide, walking you through the process from initial setup to final deployment.
---- END CONTENT ---
-
-Doc-Content: https://docs.polkadot.com/polkadot-protocol/architecture/parachains/overview/
---- BEGIN CONTENT ---
----
-title: Overview
-description: Learn about the role, functionality, and implementation of parachains as a developer in the wider Polkadot architecture.
-categories: Basics, Polkadot Protocol, Parachains
----
-=======
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/polkadot-protocol-architecture-parachains-overview.md
 - Canonical (HTML): https://docs.polkadot.com/polkadot-protocol/architecture/parachains/overview/
 - Summary: Learn about the role, functionality, and implementation of parachains as a developer in the wider Polkadot architecture.
->>>>>>> staging/product-ia:.ai/categories/basics.md
 
 ## Introduction 
 
@@ -10064,6 +9493,234 @@ To stop the local node:
     Build your own custom pallet for Polkadot SDK-based blockchains! Follow this step-by-step guide to create and configure a simple counter pallet from scratch.
 
     [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/)
+
+</div>
+
+
+---
+
+Page Title: Set Up the Polkadot SDK Parachain Template
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/parachains-launch-a-parachain-set-up-the-parachain-template.md
+- Canonical (HTML): https://docs.polkadot.com/parachains/launch-a-parachain/set-up-the-parachain-template/
+- Summary: Learn how to set up and run the Polkadot SDK Parachain Template locally, creating a ready-to-customize foundation for your parachain.
+
+# Set Up the Polkadot SDK Parachain Template
+
+## Introduction
+
+The [Polkadot SDK](https://github.com/paritytech/polkadot-sdk){target=\_blank} includes several [templates](/parachains/customize-runtime/#starting-templates){target=\_blank} designed to help you quickly start building your own blockchain. Each template offers a different level of configuration, from minimal setups to feature-rich environments, allowing you to choose the foundation that best fits your project's needs.
+
+Among these, the [Parachain Template](https://github.com/paritytech/polkadot-sdk-parachain-template){target=\_blank} provides a preconfigured runtime with commonly used pallets, making it an ideal starting point for most parachain development projects.
+
+This guide walks you through the full process of working with this template. You will:
+
+- Set up the Polkadot SDK Parachain Template.
+- Understand the project structure and key components.
+- Verify your template is ready for development.
+- Run the parachain template locally in development mode.
+
+By the end of this guide, you'll have a working template ready to customize and deploy as a parachain.
+
+## Prerequisites
+
+Before getting started, ensure you have done the following:
+
+- Completed the [Install Polkadot SDK Dependencies](/reference/tools/polkadot-sdk/install/){target=\_blank} guide and successfully installed [Rust](https://www.rust-lang.org/){target=\_blank} and the required packages to set up your development environment
+
+For this tutorial series, you need to use Rust `1.86`. Newer versions of the compiler may not work with this parachain template version.
+
+Run the following commands to set up the correct Rust version:
+
+=== "macOS"
+
+    ```bash
+    rustup install 1.86
+    rustup default 1.86
+    rustup target add wasm32-unknown-unknown --toolchain 1.86-aarch64-apple-darwin
+    rustup component add rust-src --toolchain 1.86-aarch64-apple-darwin
+    ```
+
+=== "Ubuntu"
+
+    ```bash
+    rustup toolchain install 1.86.0
+    rustup default 1.86.0
+    rustup target add wasm32-unknown-unknown --toolchain 1.86.0
+    rustup component add rust-src --toolchain 1.86.0
+    ```
+
+## Polkadot SDK Utility Tools
+
+This tutorial requires two essential tools:
+
+- [**Chain spec builder**](https://crates.io/crates/staging-chain-spec-builder/10.0.0){target=\_blank}: A Polkadot SDK utility for generating chain specifications. Refer to the [Generate Chain Specs](/develop/parachains/deployment/generate-chain-specs/){target=\_blank} documentation for detailed usage.
+    
+    Install it by executing the following command:
+    
+    ```bash
+    cargo install --locked staging-chain-spec-builder@10.0.0
+    ```
+
+    This command installs the `chain-spec-builder` binary.
+
+- [**Polkadot Omni Node**](https://crates.io/crates/polkadot-omni-node/0.5.0){target=\_blank}: A white-labeled binary, released as a part of Polkadot SDK that can act as the collator of a parachain in production, with all the related auxiliary functionalities that a normal collator node has: RPC server, archiving state, etc. Moreover, it can also run the Wasm blob of the parachain locally for testing and development.
+
+    To install it, run the following command:
+
+    ```bash
+    cargo install --locked polkadot-omni-node@0.5.0
+    ```
+
+    This command installs the `polkadot-omni-node` binary.
+
+## Clone the Template
+
+The [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk-parachain-template){target=\_blank} provides a ready-to-use development environment for building with the [Polkadot SDK](https://github.com/paritytech/polkadot-sdk){target=\_blank}. Follow these steps to set up the template:
+
+1. Clone the template repository:
+
+    ```bash
+    git clone https://github.com/paritytech/polkadot-sdk-parachain-template.git parachain-template
+    ```
+
+2. Navigate into the project directory:
+
+    ```bash
+    cd parachain-template
+    ```
+
+## Explore the Project Structure
+
+Before building the template, take a moment to familiarize yourself with its structure. Understanding this organization will help you navigate the codebase as you develop your parachain.
+
+The template follows a standard Polkadot SDK project layout:
+
+```text
+parachain-template/
+├── node/              # Node implementation and client
+├── pallets/           # Custom pallets for your parachain
+├── runtime/           # Runtime configuration and logic
+├── Cargo.toml         # Workspace configuration
+└── README.md          # Documentation
+```
+
+Key directories explained:
+
+- **runtime/**: Contains your parachain's state transition function and pallet configuration. This is where you'll define what your blockchain can do.
+- **node/**: Houses the client implementation that runs your blockchain, handles networking, and manages the database.
+- **pallets/**: Where you'll create custom business logic modules (pallets) for your specific use case.
+- **Cargo.toml**: The workspace configuration that ties all components together.
+
+!!!note
+    The runtime is compiled to WebAssembly (Wasm), enabling forkless upgrades. The node binary remains constant while the runtime can be updated on-chain.
+
+## Compile the Runtime
+
+Now that you understand the template structure, let's compile the runtime to ensure everything is working correctly.
+
+1. Compile the runtime:
+
+    ```bash
+    cargo build --release --locked
+    ```
+
+    !!!tip
+        Initial compilation may take several minutes, depending on your machine specifications. Use the `--release` flag for improved runtime performance compared to the default `--debug` build. If you need to troubleshoot issues, the `--debug` build provides better diagnostics.
+        
+        For production deployments, consider using a dedicated `--profile production` flag - this can provide an additional 15-30% performance improvement over the standard `--release` profile.
+
+2. Upon successful compilation, you should see output indicating the build was successful. The compiled runtime will be located at:
+    
+    `./target/release/wbuild/parachain-template-runtime/parachain_template_runtime.compact.compressed.wasm`
+
+## Verify the Build
+
+After compilation completes, verify that the runtime was created successfully by checking for the Wasm blob:
+
+```bash
+ls -la ./target/release/wbuild/parachain-template-runtime/
+```
+
+You should see the `parachain_template_runtime.compact.compressed.wasm` file in the output, confirming the build was successful.
+
+## Run the Node Locally
+
+After successfully compiling your runtime, you can spin up a local chain and produce blocks. This process will start your local parachain using the Polkadot Omni Node and allow you to interact with it. You'll first need to generate a chain specification that defines your network's identity, initial connections, and genesis state, providing the foundational configuration for how your nodes connect and what initial state they agree upon.
+
+Follow these steps to launch your node in development mode:
+
+1. Generate the chain specification file of your parachain:
+
+    ```bash
+    chain-spec-builder create -t development \
+    --relay-chain paseo \
+    --para-id 1000 \
+    --runtime ./target/release/wbuild/parachain-template-runtime/parachain_template_runtime.compact.compressed.wasm \
+    named-preset development
+    ```
+
+2. Start the Omni Node with the generated chain spec. You'll start it in development mode (without a relay chain config), producing and finalizing blocks:
+
+    ```bash
+    polkadot-omni-node --chain ./chain_spec.json --dev
+    ```
+
+    The `--dev` option does the following:
+
+    - Deletes all active data (keys, blockchain database, networking information) when stopped
+    - Ensures a clean working state each time you restart the node
+
+3. Verify that your node is running by reviewing the terminal output. You should see log messages indicating block production and finalization.
+
+4. Confirm that your blockchain is producing new blocks by checking if the number after `finalized` is increasing in the output.
+
+The details of the log output will be explored in a later tutorial. For now, knowing that your node is running and producing blocks is sufficient.
+
+## Interact with the Node
+
+When running the template node, it's accessible by default at `ws://localhost:9944`. To interact with your node using the [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} interface, follow these steps:
+
+1. Open [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} in your web browser and click the network icon (which should be the Polkadot logo) in the top left corner:
+    
+    ![](/images/parachains/launch-a-parachain/set-up-the-parachain-template/parachain-template-01.webp)
+
+2. Connect to your local node:
+
+    1. Scroll to the bottom and select **Development**.
+    2. Choose **Custom**.
+    3. Enter `ws**: //localhost:9944` in the **custom endpoint** input field.
+    4. Click the **Switch** button.
+    
+    ![](/images/parachains/launch-a-parachain/set-up-the-parachain-template/parachain-template-02.webp)
+
+3. Once connected, you should see **parachain-template-runtime** in the top left corner, with the interface displaying information about your local blockchain.
+    
+    ![](/images/parachains/launch-a-parachain/set-up-the-parachain-template/parachain-template-03.webp)
+
+You are now connected to your local node and can interact with it through the Polkadot.js Apps interface. This tool enables you to explore blocks, execute transactions, and interact with your blockchain's features. For in-depth guidance on using the interface effectively, refer to the [Polkadot.js Guides](https://wiki.polkadot.com/general/polkadotjs/){target=\_blank} available on the Polkadot Wiki.
+
+## Stop the Node
+
+When you're done exploring your local node, you can stop it to remove any state changes you've made. Since you started the node with the `--dev` option, stopping the node will purge all persistent block data, allowing you to start fresh the next time.
+
+To stop the local node:
+
+1. Return to the terminal window where the node output is displayed.
+2. Press `Control-C` to stop the running process.
+3. Verify that your terminal returns to the prompt in the `parachain-template` directory.
+
+## Where to Go Next
+
+<div class="grid cards" markdown>
+
+-   <span class="badge tutorial">Tutorial</span> __Deploy to Polkadot__
+
+    ---
+
+    Learn how to deploy your parachain template to a relay chain testnet. Configure your chain specification, register as a parachain, and start producing blocks.
+
+    [:octicons-arrow-right-24: Get Started](/parachains/launch-a-parachain/deploy-to-polkadot.md)
 
 </div>
 

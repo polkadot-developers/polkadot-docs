@@ -12,22 +12,22 @@ The following sections provide practical recipes for building parachains on Polk
 
 Quick start guides help developers set up and interact with the Polkadot parachain ecosystem using various tools and frameworks.
 
-|                                          Tutorial                                          |             Tools              |                            Description                             |
-|:------------------------------------------------------------------------------------------:|:------------------------------:|:------------------------------------------------------------------:|
-|   [Choose a Template](/parachains/launch-a-parachain/choose-a-template/){target=\_blank}   |          Polkadot SDK          | Explore runtime templates and understand development possibilities |
-|  [Launch a Local Parachain](/parachains/testing/run-a-parachain-network/){target=\_blank}  |     Zombienet, Chopsticks      |         Set up a local development environment for testing         |
-| [Connect to Polkadot](/chain-interactions/query-on-chain-data/query-sdks/){target=\_blank} | Polkadot.js, Substrate Connect |           Connect your application to Polkadot networks            |
-|    [Fork an Existing Parachain](/parachains/testing/fork-a-parachain/){target=\_blank}     |           Chopsticks           |        Create a local fork of a live parachain for testing         |
+|                                                    Tutorial                                                    |             Tools              |                               Description                               |
+|:--------------------------------------------------------------------------------------------------------------:|:------------------------------:|:-----------------------------------------------------------------------:|
+| [Set Up the Parachain Template](/parachains/launch-a-parachain/set-up-the-parachain-template/){target=\_blank} |          Polkadot SDK          | Learn how to set up and run the Polkadot SDK Parachain Template locally |
+|            [Launch a Local Parachain](/parachains/testing/run-a-parachain-network/){target=\_blank}            |     Zombienet, Chopsticks      |           Set up a local development environment for testing            |
+|           [Connect to Polkadot](/chain-interactions/query-on-chain-data/query-sdks/){target=\_blank}           | Polkadot.js, Substrate Connect |              Connect your application to Polkadot networks              |
+|              [Fork an Existing Parachain](/parachains/testing/fork-a-parachain/){target=\_blank}               |           Chopsticks           |           Create a local fork of a live parachain for testing           |
 
 ## Launch a Simple Parachain
 
 Learn the fundamentals of launching and deploying a parachain to the Polkadot network.
 
-|                                         Tutorial                                         |                                         Description                                         |
-|:----------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------:|
-|  [Choose a Template](/parachains/launch-a-parachain/choose-a-template/){target=\_blank}  | Explore different runtime templates and understand the possibilities of runtime development |
-| [Deploy to Polkadot](/parachains/launch-a-parachain/deploy-to-polkadot/){target=\_blank} |                Step-by-step tutorial to deploying your parachain to Polkadot                |
-|    [Obtain Coretime](/parachains/launch-a-parachain/obtain-coretime/){target=\_blank}    |          Learn how to acquire blockspace using Polkadot's coretime model (RegionX)          |
+|                                                    Tutorial                                                    |                                Description                                |
+|:--------------------------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------:|
+| [Set Up the Parachain Template](/parachains/launch-a-parachain/set-up-the-parachain-template/){target=\_blank} |                               Polkadot SDK                                |
+|            [Deploy to Polkadot](/parachains/launch-a-parachain/deploy-to-polkadot/){target=\_blank}            |       Step-by-step tutorial to deploying your parachain to Polkadot       |
+|               [Obtain Coretime](/parachains/launch-a-parachain/obtain-coretime/){target=\_blank}               | Learn how to acquire blockspace using Polkadot's coretime model (RegionX) |
 
 ## Customize Your Runtime
 

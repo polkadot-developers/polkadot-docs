@@ -1,77 +1,26 @@
 ---
-title: Choose a Parachain Template
-description: Learn about available parachain templates and set up the Polkadot SDK Parachain Template to start building your custom blockchain.
+title: Set Up the Polkadot SDK Parachain Template
+description: Learn how to set up and run the Polkadot SDK Parachain Template locally, creating a ready-to-customize foundation for your parachain.
 tutorial_badge: Beginner
 categories: Basics, Parachains
 ---
 
-# Choose a Parachain Template
+# Set Up the Polkadot SDK Parachain Template
 
 ## Introduction
 
-[Polkadot SDK](https://github.com/paritytech/polkadot-sdk){target=\_blank} provides multiple parachain templates to jumpstart your blockchain development journey. Each template offers a different starting point, from minimal setups to feature-rich configurations, allowing you to choose the foundation that best matches your project requirements.
+The [Polkadot SDK](https://github.com/paritytech/polkadot-sdk){target=\_blank} includes several [templates](/parachains/customize-runtime/#starting-templates){target=\_blank} designed to help you quickly start building your own blockchain. Each template offers a different level of configuration, from minimal setups to feature-rich environments, allowing you to choose the foundation that best fits your project's needs.
 
-This tutorial introduces you to the available parachain templates and guides you through setting up the [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk-parachain-template){target=\_blank}. This template provides a pre-configured runtime with commonly needed pallets, making it an ideal starting point for most parachain development projects.
+Among these, the [Parachain Template](https://github.com/paritytech/polkadot-sdk-parachain-template){target=\_blank} provides a preconfigured runtime with commonly used pallets, making it an ideal starting point for most parachain development projects.
 
-In this tutorial, you will:
+This guide walks you through the full process of working with this template, you will:
 
-- Learn about the available parachain templates and their use cases.
 - Set up the Polkadot SDK Parachain Template.
 - Understand the project structure and key components.
 - Verify your template is ready for development.
-- Run the parachain template locally in development mode
+- Run the parachain template locally in development mode.
 
-By the end of this tutorial, you'll have a working template ready to customize and deploy as a parachain.
-
-## Available Templates
-
-Before diving into the setup, let's explore the main parachain templates available to help you make an informed decision for your project.
-
-### Polkadot SDK Parachain Template
-
-The [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk-parachain-template){target=\_blank} is the recommended starting point for most developers. It provides:
-
-- Pre-configured pallets for common blockchain functionality (like balances handling, block production, governance, etc.)
-- A complete runtime setup ready for customization
-- Example implementations demonstrating best practices
-- Built-in support for parachain consensus mechanisms
-- A pallet template is provided in this parachain template as well
-
-This template is ideal for building general-purpose parachains and provides the best balance of features and learning opportunities. **This is the template you'll use for this tutorial series.**
-
-### Polkadot SDK Minimal Template
-
-The [Polkadot SDK Minimal Template](https://github.com/paritytech/polkadot-sdk-minimal-template){target=\_blank} offers:
-
-- A bare-bones runtime with only essential components
-- Maximum flexibility for custom implementations
-- A smaller codebase to understand and modify
-- Perfect foundation for highly specialized chains
-
-Choose this template if you want to build everything from the ground up or need a clean slate for a unique parachain design.
-
-### Polkadot SDK Solochain Template
-
-The [Solochain Template](https://github.com/paritytech/polkadot-sdk/tree/master/templates/solochain){target=_blank} offers:
-
-- A foundation for creating standalone blockchains with moderate features
-- A simple consensus mechanism and several core FRAME pallets
-- A fully functional chain that operates independently
-- No dependency on a relay chain for operation
-
-Choose this template if you want to build a sovereign blockchain with built-in functionality or need a ready-to-customize standalone chain.
-
-### OpenZeppelin Runtime Templates
-
-[OpenZeppelin's runtime templates](https://github.com/OpenZeppelin/polkadot-runtime-templates){target=\_blank} provide specialized starting points with security-focused configurations.
-
-The [generic-template](https://github.com/OpenZeppelin/polkadot-runtime-templates/tree/main/generic-template){target=\_blank} includes:
-
-- Security-focused configuration following OpenZeppelin's best practices
-- Curated pallet selection for common use cases
-- Production-ready defaults
-
-Choose this template if security best practices and audited configurations are your top priority.
+By the end of this guide, you'll have a working template ready to customize and deploy as a parachain.
 
 ## Prerequisites
 
@@ -232,7 +181,7 @@ When running the template node, it's accessible by default at `ws://localhost:99
 
 1. Open [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} in your web browser and click the network icon (which should be the Polkadot logo) in the top left corner as shown in the image below:
     
-    ![](/images/parachains/launch-a-parachain/choose-a-template/choose-a-template-1.webp)
+    ![](/images/parachains/launch-a-parachain/set-up-the-parachain-template/parachain-template-01.webp)
 
 2. Connect to your local node:
 
@@ -241,14 +190,14 @@ When running the template node, it's accessible by default at `ws://localhost:99
     3. **Enter `ws**: //localhost:9944` in the input field.
     4. Click the **Switch** button.
     
-    ![](/images/parachains/launch-a-parachain/choose-a-template/choose-a-template-2.webp)
+    ![](/images/parachains/launch-a-parachain/set-up-the-parachain-template/parachain-template-02.webp)
 
 3. Verify connection:
 
     - Once connected, you should see **parachain-template-runtime** in the top left corner.
     - The interface will display information about your local blockchain.
     
-    ![](/images/parachains/launch-a-parachain/choose-a-template/choose-a-template-3.webp)
+    ![](/images/parachains/launch-a-parachain/set-up-the-parachain-template/parachain-template-03.webp)
 
 You are now connected to your local node and can now interact with it through the Polkadot.js Apps interface. This tool enables you to explore blocks, execute transactions, and interact with your blockchain's features. For in-depth guidance on using the interface effectively, refer to the [Polkadot.js Guides](https://wiki.polkadot.com/general/polkadotjs/){target=\_blank} available on the Polkadot Wiki.
 

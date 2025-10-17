@@ -68,7 +68,7 @@ Before running the script, you'll need to fork the Asset Hub locally using Chops
 chopsticks -c polkadot-asset-hub
 ```
 
-This command forks the Asset Hub chain, making it available at `ws://localhost:8000`. By running `polkadot-asset-hub`, you're using the Asset Hub fork with the configuration specified in the [`polkadot-asset-hub.yml`](https://github.com/AcalaNetwork/chopsticks/blob/master/configs/polkadot-asset-hub.yml){target=_blank} file.  This configuration defines Alice's account with USDT assets. If you want to use a different chain, ensure the account you're using has the necessary assets.
+This command forks the Asset Hub chain, making it available at `ws://localhost:8000`. By running `polkadot-asset-hub`, you're using the Asset Hub fork with the configuration specified in the [`polkadot-asset-hub.yml`](https://github.com/AcalaNetwork/chopsticks/blob/master/configs/polkadot-asset-hub.yml){target=_blank} file. This configuration defines Alice's account with USDT assets. If you want to use a different chain, ensure the account you're using has the necessary assets.
 
 ## Implementation
 

@@ -13,7 +13,7 @@ The [Polkadot SDK](https://github.com/paritytech/polkadot-sdk){target=\_blank} i
 
 Among these, the [Parachain Template](https://github.com/paritytech/polkadot-sdk-parachain-template){target=\_blank} provides a preconfigured runtime with commonly used pallets, making it an ideal starting point for most parachain development projects.
 
-This guide walks you through the full process of working with this template, you will:
+This guide walks you through the full process of working with this template. You will:
 
 - Set up the Polkadot SDK Parachain Template.
 - Understand the project structure and key components.
@@ -32,23 +32,23 @@ For this tutorial series, you need to use Rust `1.86`. Newer versions of the com
 
 Run the following commands to set up the correct Rust version:
 
-    === "macOS"
+=== "macOS"
 
-        ```bash
-        rustup install 1.86
-        rustup default 1.86
-        rustup target add wasm32-unknown-unknown --toolchain 1.86-aarch64-apple-darwin
-        rustup component add rust-src --toolchain 1.86-aarch64-apple-darwin
-        ```
+    ```bash
+    rustup install 1.86
+    rustup default 1.86
+    rustup target add wasm32-unknown-unknown --toolchain 1.86-aarch64-apple-darwin
+    rustup component add rust-src --toolchain 1.86-aarch64-apple-darwin
+    ```
 
-    === "Ubuntu"
+=== "Ubuntu"
 
-        ```bash
-        rustup toolchain install 1.86.0
-        rustup default 1.86.0
-        rustup target add wasm32-unknown-unknown --toolchain 1.86.0
-        rustup component add rust-src --toolchain 1.86.0
-        ```
+    ```bash
+    rustup toolchain install 1.86.0
+    rustup default 1.86.0
+    rustup target add wasm32-unknown-unknown --toolchain 1.86.0
+    rustup component add rust-src --toolchain 1.86.0
+    ```
 
 ## Polkadot SDK Utility Tools
 
@@ -62,9 +62,9 @@ This tutorial requires two essential tools:
     cargo install --locked staging-chain-spec-builder@{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.chain_spec_builder_version}}
     ```
 
-    This installs the `chain-spec-builder` binary.
+    This command installs the `chain-spec-builder` binary.
 
-- [**Polkadot Omni Node**](https://crates.io/crates/polkadot-omni-node/{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.polkadot_omni_node_version}}){target=\_blank}: A white-labeled binary, released as a part of Polkadot SDK that can act as the collator of a parachain in production, with all the related auxiliary functionalities that a normal collator node has: RPC server, archiving state, etc. Moreover, it can also run the wasm blob of the parachain locally for testing and development.
+- [**Polkadot Omni Node**](https://crates.io/crates/polkadot-omni-node/{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.polkadot_omni_node_version}}){target=\_blank}: A white-labeled binary, released as a part of Polkadot SDK that can act as the collator of a parachain in production, with all the related auxiliary functionalities that a normal collator node has: RPC server, archiving state, etc. Moreover, it can also run the Wasm blob of the parachain locally for testing and development.
 
     To install it, run the following command:
 
@@ -72,7 +72,7 @@ This tutorial requires two essential tools:
     cargo install --locked polkadot-omni-node@{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.polkadot_omni_node_version}}
     ```
 
-    This installs the `polkadot-omni-node` binary.
+    This command installs the `polkadot-omni-node` binary.
 
 ## Clone the Template
 
@@ -96,7 +96,7 @@ Before building the template, take a moment to familiarize yourself with its str
 
 The template follows a standard Polkadot SDK project layout:
 
-```
+```text
 parachain-template/
 ├── node/              # Node implementation and client
 ├── pallets/           # Custom pallets for your parachain
@@ -130,11 +130,13 @@ Now that you understand the template structure, let's compile the runtime to ens
         
         For production deployments, consider using a dedicated `--profile production` flag - this can provide an additional 15-30% performance improvement over the standard `--release` profile.
 
-2. Upon successful compilation, you should see output indicating the build was successful. The compiled runtime will be located at `./target/release/wbuild/parachain-template-runtime/parachain_template_runtime.compact.compressed.wasm`
+2. Upon successful compilation, you should see output indicating the build was successful. The compiled runtime will be located at:
+    
+    `./target/release/wbuild/parachain-template-runtime/parachain_template_runtime.compact.compressed.wasm`
 
 ## Verify the Build
 
-After compilation completes, verify that the runtime was created successfully by checking for the WebAssembly blob:
+After compilation completes, verify that the runtime was created successfully by checking for the Wasm blob:
 
 ```bash
 ls -la ./target/release/wbuild/parachain-template-runtime/
@@ -158,7 +160,7 @@ Follow these steps to launch your node in development mode:
     named-preset development
     ```
 
-2. Start the omni node with the generated chain spec. You'll start it in development mode (without a relay chain config), producing and finalizing blocks:
+2. Start the Omni Node with the generated chain spec. You'll start it in development mode (without a relay chain config), producing and finalizing blocks:
 
     ```bash
     polkadot-omni-node --chain ./chain_spec.json --dev
@@ -169,9 +171,9 @@ Follow these steps to launch your node in development mode:
     - Deletes all active data (keys, blockchain database, networking information) when stopped
     - Ensures a clean working state each time you restart the node
 
-3. Verify that your node is running by reviewing the terminal output. You should see log messages indicating block production and finalization
+3. Verify that your node is running by reviewing the terminal output. You should see log messages indicating block production and finalization.
 
-4. Confirm that your blockchain is producing new blocks by checking if the number after `finalized` is increasing in the output
+4. Confirm that your blockchain is producing new blocks by checking if the number after `finalized` is increasing in the output.
 
 The details of the log output will be explored in a later tutorial. For now, knowing that your node is running and producing blocks is sufficient.
 
@@ -179,7 +181,7 @@ The details of the log output will be explored in a later tutorial. For now, kno
 
 When running the template node, it's accessible by default at `ws://localhost:9944`. To interact with your node using the [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} interface, follow these steps:
 
-1. Open [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} in your web browser and click the network icon (which should be the Polkadot logo) in the top left corner as shown in the image below:
+1. Open [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} in your web browser and click the network icon (which should be the Polkadot logo) in the top left corner:
     
     ![](/images/parachains/launch-a-parachain/set-up-the-parachain-template/parachain-template-01.webp)
 
@@ -187,19 +189,16 @@ When running the template node, it's accessible by default at `ws://localhost:99
 
     1. Scroll to the bottom and select **Development**.
     2. Choose **Custom**.
-    3. **Enter `ws**: //localhost:9944` in the input field.
+    3. Enter `ws**: //localhost:9944` in the **custom endpoint** input field.
     4. Click the **Switch** button.
     
     ![](/images/parachains/launch-a-parachain/set-up-the-parachain-template/parachain-template-02.webp)
 
-3. Verify connection:
-
-    - Once connected, you should see **parachain-template-runtime** in the top left corner.
-    - The interface will display information about your local blockchain.
+3. Once connected, you should see **parachain-template-runtime** in the top left corner, with the interface displaying information about your local blockchain.
     
     ![](/images/parachains/launch-a-parachain/set-up-the-parachain-template/parachain-template-03.webp)
 
-You are now connected to your local node and can now interact with it through the Polkadot.js Apps interface. This tool enables you to explore blocks, execute transactions, and interact with your blockchain's features. For in-depth guidance on using the interface effectively, refer to the [Polkadot.js Guides](https://wiki.polkadot.com/general/polkadotjs/){target=\_blank} available on the Polkadot Wiki.
+You are now connected to your local node and can interact with it through the Polkadot.js Apps interface. This tool enables you to explore blocks, execute transactions, and interact with your blockchain's features. For in-depth guidance on using the interface effectively, refer to the [Polkadot.js Guides](https://wiki.polkadot.com/general/polkadotjs/){target=\_blank} available on the Polkadot Wiki.
 
 ## Stop the Node
 
@@ -207,9 +206,9 @@ When you're done exploring your local node, you can stop it to remove any state 
 
 To stop the local node:
 
-1. Return to the terminal window where the node output is displayed
-2. Press `Control-C` to stop the running process
-3. Verify that your terminal returns to the prompt in the `parachain-template` directory
+1. Return to the terminal window where the node output is displayed.
+2. Press `Control-C` to stop the running process.
+3. Verify that your terminal returns to the prompt in the `parachain-template` directory.
 
 ## Where to Go Next
 

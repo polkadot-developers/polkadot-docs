@@ -1,7 +1,7 @@
 ---
 title: Transfer Tokens Between Parachains
 description: A step-by-step guide to using the ParaSpell XCM SDK to build, verify, and execute a transfer from one Parachain to another.
-url: https://docs.polkadot.com/develop/toolkit/interoperability/paraspell-xcm-sdk/transfer-tokens-between-parachains/
+url: https://docs.polkadot.com/reference/tools/paraspell/transfer-tokens-between-parachains/
 ---
 
 # Transfer Tokens Between Parachains

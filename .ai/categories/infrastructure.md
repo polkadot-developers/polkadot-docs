@@ -16095,8 +16095,8 @@ Follow these steps to launch your node in development mode:
 
     The `--dev` option does the following:
 
-    - Deletes all active data (keys, blockchain database, networking information) when stopped
-    - Ensures a clean working state each time you restart the node
+    - Deletes all active data (keys, blockchain database, networking information) when stopped.
+    - Ensures a clean working state each time you restart the node.
 
 3. Verify that your node is running by reviewing the terminal output. You should see log messages indicating block production and finalization.
 

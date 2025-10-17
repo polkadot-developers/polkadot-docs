@@ -162,6 +162,6 @@ The key events to look for are:
 
 ## Conclusion
 
-Paying transaction fees with alternative tokens on Asset Hub provides significant flexibility for users and applications. 
+Paying transaction fees with alternative tokens on Asset Hub provides significant flexibility for users and applications.
 
 The key takeaway is understanding how to specify alternative assets using the XCM location format, which opens up possibilities for building applications that can operate entirely using specific token ecosystems while still leveraging the full power of the network.

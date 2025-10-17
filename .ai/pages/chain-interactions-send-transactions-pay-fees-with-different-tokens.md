@@ -69,11 +69,11 @@ Before running the script, you'll need to fork the Asset Hub locally using Chops
 chopsticks -c polkadot-asset-hub
 ```
 
-This command forks the Asset Hub chain, making it available at `ws://localhost:8000`. By running `polkadot-asset-hub`, you're using the Asset Hub fork with the configuration specified in the [`polkadot-asset-hub.yml`](https://github.com/AcalaNetwork/chopsticks/blob/master/configs/polkadot-asset-hub.yml){target=_blank} file.  This configuration defines Alice's account with USDT assets. If you want to use a different chain, ensure the account you're using has the necessary assets.
+This command forks the Asset Hub chain, making it available at `ws://localhost:8000`. By running `polkadot-asset-hub`, you're using the Asset Hub fork with the configuration specified in the [`polkadot-asset-hub.yml`](https://github.com/AcalaNetwork/chopsticks/blob/master/configs/polkadot-asset-hub.yml){target=_blank} file. This configuration defines Alice's account with USDT assets. If you want to use a different chain, ensure the account you're using has the necessary assets.
 
 ## Implementation
 
-In the following sub-sections, you’ll set the stage with imports and a few constants, introduce the transaction signer, and connect to the Polkadot Asset Hub chain. Then you’ll craft a simple DOT transfer and send it, asking the network to charge the fee in USDT instead of DOT.
+In the following sections, you'll set up imports and constants, create a transaction signer, and connect to the Polkadot Asset Hub chain. Then, you'll create and send a DOT transfer transaction, requesting that fees be paid in USDT instead of DOT.
 
 ### Import Dependencies
 
@@ -303,6 +303,6 @@ The key events to look for are:
 
 ## Conclusion
 
-Paying transaction fees with alternative tokens on Asset Hub provides significant flexibility for users and applications. 
+Paying transaction fees with alternative tokens on Asset Hub provides significant flexibility for users and applications.
 
 The key takeaway is understanding how to specify alternative assets using the XCM location format, which opens up possibilities for building applications that can operate entirely using specific token ecosystems while still leveraging the full power of the network.

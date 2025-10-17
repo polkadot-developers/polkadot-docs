@@ -84,7 +84,7 @@ const SENDER_ADDRESS = ss58Address(getSigner().publicKey);
 
 Replace the `INSERT_YOUR_SEED_PHRASE` with the seed phrase from your Polkadot development account.
 
-Be sure to fund this account with some PAS tokens on Paseo's Asset Hub using the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1000){target=\_blank}.
+Be sure to fund this account with some PAS tokens on the Paseo Asset Hub using the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1000){target=_blank}.
 
 !!!warning "Security Warning"
     Never commit your mnemonic phrase to production code. Use environment variables or secure key management systems.

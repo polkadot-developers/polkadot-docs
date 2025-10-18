@@ -2,3 +2,4 @@ title: ParaSpell XCM SDK
 hide: false
 nav:
   - index.md
+  - 'Transfer Tokens Between Parachains': transfer-tokens-between-parachains.md

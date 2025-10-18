@@ -15,8 +15,8 @@ dependencies:
       docker_image_version: 1.88.0
     polkadot_sdk:
       repository_url: https://github.com/paritytech/polkadot-sdk
-      version: polkadot-stable2506
-      docker_image_version: stable2506
+      version: polkadot-stable2506-2
+      docker_image_version: stable2506-2
     open_zeppelin_contracts:
       repository_url: https://github.com/OpenZeppelin/openzeppelin-contracts
       version: v5.4.0
@@ -35,13 +35,13 @@ dependencies:
   crates:
     subxt:
       name: subxt
-      version: 0.43.0
+      version: 0.44.0
     subxt_cli:
       name: subxt-cli
-      version: 0.43.0
+      version: 0.44.0
     subxt_signer:
       name: subxt-signer
-      version: 0.43.0
+      version: 0.44.0
     tokio:
       name: tokio
       version: 1.44.2
@@ -52,16 +52,16 @@ dependencies:
   javascript_packages:
     chopsticks:
       name: '@acala-network/chopsticks'
-      version: 1.2.1
+      version: 1.2.2
     moonwall:
       name: '@moonwall/cli'
-      version: 5.13.5
+      version: 5.15.0
     polkadot_js_api:
       name: '@polkadot/api'
-      version: 16.4.5
+      version: 16.4.7
     polkadot_api:
       name: polkadot-api
-      version: 1.16.2
+      version: 1.17.2
     hardhat_resolc: 
       name: '@hardhat-resolc'
       version: 0.0.7  
@@ -82,5 +82,5 @@ dependencies:
       version: 6.13.5
     paraspell_sdk:
       name: '@paraspell/sdk'
-      version: 11.1.1
+      version: 11.7.2
 #   python_packages:

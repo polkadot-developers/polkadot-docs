@@ -1,0 +1,355 @@
+name: Trigger n8n Webhook with Complete PR Info
+
+on:
+  pull_request:
+    types: [opened, reopened]
+  workflow_dispatch: {} 
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  gather-and-send:
+    runs-on: ubuntu-latest
+    environment: n8n-sending
+    steps:
+
+      # 1. Checkout repository
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Generate Run UUID
+
+      - name: Generate Run UUID
+        id: uuid
+        run: echo "run_token=$(uuidgen)" >> $GITHUB_OUTPUT
+
+
+      # 3. Pre-flight checks
+
+      - name: Validate setup
+        run: |
+          if [[ -z "${{ secrets.GITHUB_TOKEN }}" ]]; then
+            echo "Missing GITHUB_TOKEN secret."
+            exit 1
+          fi
+
+          if [[ -z "${{ github.event.pull_request.number }}" ]]; then
+            echo "No PR number found in event payload."
+            exit 1
+          fi
+
+          if [[ -z "${{ secrets.N8N_SENDING_TOKEN }}" ]]; then
+            echo "Missing N8N_SENDING_TOKEN secret."
+            exit 1
+          fi
+
+      # 4-6. Fetch PR metadata, files, commits
+
+      - name: Fetch PR metadata
+        run: |
+          gh api repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }} > pr.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Fetch PR files
+        run: |
+          gh api repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/files > files.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Fetch PR commits
+        run: |
+          gh api repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/commits > commits.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # 7. Fetch PR diff and compress
+
+      - name: Fetch PR diff and compress
+        run: |
+          curl -sSL \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3.diff" \
+            "https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}" \
+            > pr.diff
+
+          gzip -c pr.diff > pr.diff.gz
+          base64 -w 0 pr.diff.gz > diff.b64
+          echo "::add-mask::$(cat diff.b64)"
+
+      # 8. Debug payload size
+
+      - name: Debug payload size
+        run: |
+          echo "PR metadata size: $(stat -c%s pr.json) bytes"
+          echo "Files metadata size: $(stat -c%s files.json) bytes"
+          echo "Commits metadata size: $(stat -c%s commits.json) bytes"
+          echo "Compressed diff size: $(stat -c%s pr.diff.gz) bytes"
+
+      # 8b. Remove llms-related files before payload
+
+      - name: Remove llms-related files
+        run: |
+          jq 'map(select(.filename | test("llms"; "i") | not))' files.json > cleaned.json
+          mv cleaned.json files.json
+
+      # 9. Combine and send payload to n8n
+      
+      - name: Combine and send to n8n webhook
+        env:
+          N8N_WEBHOOK_URL: ${{ secrets.N8N_WEBHOOK_URL }}
+          N8N_SENDING_TOKEN: ${{ secrets.N8N_SENDING_TOKEN }}
+        run: |
+          set -e
+
+          jq -n \
+            --slurpfile pr pr.json \
+            --slurpfile files files.json \
+            --slurpfile commits commits.json \
+            --arg diff_base64 "$(cat diff.b64)" \
+            --arg run_token "${{ steps.uuid.outputs.run_token }}" \
+            --arg n8n_sending_token "$N8N_SENDING_TOKEN" \
+            '{
+              pr: $pr[0],
+              files: $files[0],
+              commits: $commits[0],
+              diff_base64: $diff_base64,
+              token: $run_token,
+              n8n_sending_token: $n8n_sending_token
+            }' > payload.json
+
+          echo "::add-mask::$N8N_SENDING_TOKEN"
+
+          PAYLOAD_SIZE=$(stat -c%s payload.json)
+          MAX_BYTES=$((10*1024*1024))
+          if (( PAYLOAD_SIZE > MAX_BYTES )); then
+            echo "Payload too large ($PAYLOAD_SIZE bytes). Aborting send."
+            exit 1
+          fi
+
+          RESPONSE=$(curl -s -w "\n%{http_code}" -X POST \
+            -H "Content-Type: application/json" \
+            --data-binary @payload.json \
+            "$N8N_WEBHOOK_URL")
+
+          HTTP_BODY=$(echo "$RESPONSE" | sed '$d')
+          HTTP_STATUS=$(echo "$RESPONSE" | tail -n1)
+
+          echo "n8n responded with status: $HTTP_STATUS"
+          echo "$HTTP_BODY" > response_body.json
+
+          STATUS=$(jq -r ".status" response_body.json)
+          MATCHED=$(jq -r ".token" response_body.json)
+          if [ "$MATCHED" != "${{ steps.uuid.outputs.run_token }}" ] || [ "$STATUS" != "completed" ]; then
+            echo "n8n workflow failed or token mismatch"
+            exit 1
+          fi
+
+          if [ "$HTTP_STATUS" -lt 200 ] || [ "$HTTP_STATUS" -ge 300 ]; then
+            echo "n8n workflow failed (HTTP $HTTP_STATUS)"
+            exit 1
+          fi
+
+      # 9b. Upload n8n response artifact
+      
+      - name: Upload n8n response artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: n8n-response
+          path: response_body.json
+          if-no-files-found: error
+          retention-days: 1
+
+  
+  # Step 10 moved to a separate job under n8n-receiving env
+  
+  receive-validate-and-comment:
+    runs-on: ubuntu-latest
+    needs: gather-and-send
+    environment: n8n-receiving
+    steps:
+      # 1. Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Download n8n response
+      - name: Download n8n response
+        uses: actions/download-artifact@v4
+        with:
+          name: n8n-response
+          path: .
+
+
+      # 3. Validate receiving token
+      - name: Validate receiving token
+        env:
+          EXPECTED_TOKEN: ${{ secrets.N8N_RECEIVING_TOKEN }}
+        run: |
+          RECEIVED_TOKEN=$(jq -r 'if type=="array" then .[0].receiving_token else .receiving_token end // empty' response_body.json)
+          if [ -z "$RECEIVED_TOKEN" ]; then
+            echo "No receiving_token provided by n8n"
+            exit 1
+          fi
+          if [ "$RECEIVED_TOKEN" != "$EXPECTED_TOKEN" ]; then
+            echo "Receiving token mismatch"
+            exit 1
+          fi
+          echo "✅ Receiving token validated successfully"
+
+      # 4. Post inline code suggestions (robust; supports deletions)
+      - name: Post inline suggestions via API (final)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          RESPONSE_BODY=$(cat response_body.json)
+          OBJ=$(echo "$RESPONSE_BODY" | jq -c 'if type=="array" then .[0] else . end')
+
+          STATUS=$(echo "$OBJ" | jq -r '.status // empty')
+          if [ "$STATUS" != "completed" ]; then
+            echo "n8n output not completed (status='$STATUS')"
+            jq . response_body.json || true
+            exit 1
+          fi
+
+          OWNER=$(echo "$OBJ" | jq -r '.repo_owner // empty')
+          REPO=$(echo "$OBJ" | jq -r '.repo_name // empty')
+          PR=$(echo "$OBJ" | jq -r '.pr_number // empty')
+          if [ -z "$OWNER" ] || [ -z "$REPO" ] || [ -z "$PR" ]; then
+            echo "Missing repo context (owner='$OWNER' repo='$REPO' pr='$PR')"
+            jq . response_body.json || true
+            exit 1
+          fi
+
+          echo "Posting inline suggestions to $OWNER/$REPO#${PR}"
+
+          posted=0
+          echo "$OBJ" | jq -c '.prepared_comment_payloads // [] | .[]' | while read -r PAYLOAD; do
+            # Ensure commit_id exists (avoid 422)
+            CID=$(echo "$PAYLOAD" | jq -r '.commit_id // empty')
+            if [ -z "$CID" ]; then
+              echo "⚠️  Skipping payload without commit_id"
+              continue
+            fi
+
+            # If body is empty/whitespace, replace with an empty suggestion block (deletion)
+            BODY_TXT=$(echo "$PAYLOAD" | jq -r '.body // ""')
+            if [ -z "${BODY_TXT//[$'\t\r\n ']}" ]; then
+              PAYLOAD=$(echo "$PAYLOAD" | jq --rawfile emptySug <(printf '```suggestion\n```\n') '.body = $emptySug')
+            fi
+
+            RESP=$(curl -sS -w "%{http_code}" -X POST \
+              -H "Authorization: Bearer ${GH_TOKEN}" \
+              -H "Accept: application/vnd.github.v3+json" \
+              "https://api.github.com/repos/${OWNER}/${REPO}/pulls/${PR}/comments" \
+              -d "$PAYLOAD")
+
+            CODE="${RESP:(-3)}"
+            BODY="${RESP%$CODE}"
+
+            if [[ "$CODE" -lt 200 || "$CODE" -ge 300 ]]; then
+              echo "❌ Failed to post suggestion (HTTP $CODE)"
+              echo "$BODY"
+              exit 1
+            fi
+            posted=$((posted+1))
+            echo "✅ Posted suggestion #$posted"
+          done
+
+          echo "—— Skipped upstream (for visibility) ——"
+          echo "$OBJ" | jq -r '.skipped_comments // [] | .[] | "\(.file_path // "-")#L\(.line_number // "-"): \(.reason // "-")"'
+
+          echo "✅ Done. Suggestions posted."
+
+      - name: Post verification comments
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          RESPONSE_BODY=$(cat response_body.json)
+
+          # Extract verification review markdown robustly from many shapes
+          VERIFS=$(
+            echo "$RESPONSE_BODY" | jq -c '
+              (if type=="array" then .[0] else . end) as $o
+              | def to_arr(x):
+                  if (x|type) == "array" then x
+                  elif (x|type) == "object" then [x]
+                  elif (x|type) == "string" then (try (x|fromjson) catch [])
+                  else [] end;
+
+              [
+                # Common direct locations
+                (to_arr($o.reviews) // []) as $r1
+                  | ($r1 | map(select(((.type? | tostring | ascii_downcase) == "verification")))
+                            | map(.formattedReview // .review // .body // .comment // .text // .content // "")),
+                (to_arr($o.review) // []) as $r2
+                  | ($r2 | map(select(((.type? | tostring | ascii_downcase) == "verification")))
+                            | map(.formattedReview // .review // .body // .comment // .text // .content // "")),
+
+                # Anywhere in the object tree: find objects with type=verification
+                ($o | .. | objects
+                  | select(((.type? | tostring | ascii_downcase) == "verification"))
+                  | (.formattedReview // .review // .body // .comment // .text // .content // ""))
+
+              ]
+              | flatten
+              | map(select(type == "string" and (.|length) > 0))
+              | unique
+            '
+          )
+
+          COUNT=$(echo "$VERIFS" | jq 'length')
+          if [ "$COUNT" -eq 0 ]; then
+            echo "No verification reviews found; skipping."
+            exit 0
+          fi
+
+          # Extract repo context (robust to array/object root)
+          OWNER=$(echo "$RESPONSE_BODY" | jq -r 'if type=="array" then .[0].repo_owner else .repo_owner end // empty')
+          REPO=$(echo "$RESPONSE_BODY" | jq -r 'if type=="array" then .[0].repo_name else .repo_name end // empty')
+          PR=$(echo "$RESPONSE_BODY" | jq -r 'if type=="array" then .[0].pr_number else .pr_number end // empty')
+
+          if [ -z "$OWNER" ] || [ -z "$REPO" ] || [ -z "$PR" ]; then
+            echo "Missing repo context; skipping verification comments."
+            exit 0
+          fi
+
+          echo "Found $COUNT verification review(s). Preview:"
+          echo "$VERIFS" | jq -r 'to_entries[] | "\(.key): " + (.value | .[0:160] + (if length>160 then "…" else "" end))'
+
+          # Post each block as a PR comment (not inline)
+          echo "$VERIFS" | jq -r '.[] + "\u0000"' | while IFS= read -r -d '' BODY; do
+            # Skip truly empty
+            if [ -z "${BODY//[$'\t\r\n ']}" ]; then
+              echo "Skipping empty verification body"
+              continue
+            fi
+
+            RESP=$(curl -sS -w "%{http_code}" -X POST \
+              -H "Authorization: Bearer ${GH_TOKEN}" \
+              -H "Accept: application/vnd.github.v3+json" \
+              "https://api.github.com/repos/${OWNER}/${REPO}/issues/${PR}/comments" \
+              -d "$(jq -nc --arg b "$BODY" '{body:$b}')")
+
+            CODE="${RESP:(-3)}"
+            RBODY="${RESP%$CODE}"
+
+            if [[ "$CODE" -lt 200 || "$CODE" -ge 300 ]]; then
+              echo "❌ Failed to post verification comment (HTTP $CODE)"
+              echo "$RBODY"
+              exit 1
+            fi
+
+            url=$(echo "$RBODY" | jq -r '.html_url // empty')
+            echo "✅ Posted verification review ${url:+→ $url}"
+          done
+
+          echo "✅ Done posting verification reviews."
+
+     

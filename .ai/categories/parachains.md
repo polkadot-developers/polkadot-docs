@@ -16543,7 +16543,7 @@ Page Title: Obtain Coretime
 
 ## Introduction
 
-After deploying a parachain to Paseo in the [Deploy on Polkadot](/parachains/launch-a-parachain/deploy-on-polkadot/){target=\_blank} tutorial, the next critical step is obtaining coretime. Coretime is the mechanism through which validation resources are allocated from the relay chain to your parachain. Your parachain can only produce and finalize blocks on the relay chain by obtaining coretime.
+After deploying a parachain to Paseo in the [Deploy on Polkadot](/parachains/launch-a-parachain/deploy-to-polkadot/){target=\_blank} tutorial, the next critical step is obtaining coretime. Coretime is the mechanism through which validation resources are allocated from the relay chain to your parachain. Your parachain can only produce and finalize blocks on the relay chain by obtaining coretime.
 
 There are two primary ways to obtain coretime:
 
@@ -16567,7 +16567,7 @@ Before proceeding, ensure you have the following:
 - A synced collator node running and connected to the Paseo relay chain.
 - [PAS tokens](https://faucet.polkadot.io/?parachain=0){target=\_blank} in your account for transaction fees.
 
-If you haven't completed these prerequisites, start by referring to the [Deploy on Polkadot](/parachains/launch-a-parachain/deploy-on-polkadot/){target=\_blank} tutorial.
+If you haven't completed these prerequisites, start by referring to the [Deploy on Polkadot](/parachains/launch-a-parachain/deploy-to-polkadot/){target=\_blank} tutorial.
 
 ## Order On-Demand Coretime
 
@@ -16599,7 +16599,7 @@ To place an on-demand coretime order, follow these steps:
 
 6. Review the transaction details and click **Submit Transaction**.
 
-![Placing an on-demand order for coretime](/images/parachains/launch-a-parachain/obtain-coretime/obtain-coretime-1.webp)
+![Placing an on-demand order for coretime](/images/parachains/launch-a-parachain/obtain-coretime/obtain-coretime-01.webp)
 
 Upon successful submission, your parachain will produce a new block. You can verify this by checking your collator node logs, which should display output confirming block production.
 
@@ -16617,7 +16617,7 @@ You can purchase and manage cores on the [Coretime Chain](https://wiki.polkadot.
 
 This tutorial shows you how to purchase bulk coretime using the [RegionX Coretime Marketplace](https://app.regionx.tech){target=\_blank}, a user-friendly interface for buying and managing cores on both the Polkadot TestNet and production networks.
 
-![RegionX home page with Wallet connected](/images/parachains/launch-a-parachain/obtain-coretime/obtain-coretime-2.webp)
+![RegionX home page with Wallet connected](/images/parachains/launch-a-parachain/obtain-coretime/obtain-coretime-02.webp)
 
 ### Connect Your Wallet to RegionX
 

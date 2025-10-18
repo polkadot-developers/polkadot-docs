@@ -8,7 +8,7 @@ categories: Basics, Parachains
 
 ## Introduction
 
-A blockchain runtime is more than just a fixed set of rules—it's a dynamic foundation that you can shape to match your specific needs. With Polkadot SDK's [FRAME (Framework for Runtime Aggregation of Modularized Entities)](/reference/glossary/#frame-framework-for-runtime-aggregation-of-modularized-entities){target=\_blank}, customizing your runtime is straightforward and modular. Instead of building everything from scratch, you combine pre-built pallets with your own custom logic to create a runtime perfectly suited to your blockchain's purpose.
+A blockchain runtime is more than just a fixed set of rules—it's a dynamic foundation that you can shape to match your specific needs. With Polkadot SDK's [FRAME (Framework for Runtime Aggregation of Modularized Entities)](/reference/glossary/#frame-framework-for-runtime-aggregation-of-modularized-entities){target=\_blank}, customizing your runtime is straightforward and modular. Instead of building everything from scratch, you combine pre-built pallets with your own custom logic to create a runtime suited to your blockchain's purpose.
 
 This overview explains how runtime customization works, introduces the building blocks you'll use, and guides you through the key patterns for extending your runtime.
 
@@ -22,7 +22,7 @@ Think of your runtime as a collection of specialized modules, each handling a di
 
 The following diagram shows how FRAME components work together to form your runtime:
 
-![](/images/parachains/customize-runtime/overview/frame-overview-1.webp)
+![](/images/parachains/customize-runtime/index/frame-overview-01.webp)
 
 The main components are:
 
@@ -58,7 +58,7 @@ FRAME uses Rust macros extensively, allowing you to focus on your pallet's logic
 A typical pallet looks like this:
 
 ```rust
---8<-- 'code/parachains/customize-runtime/overview/pallet-skeleton.rs'
+--8<-- 'code/parachains/customize-runtime/index/pallet-skeleton.rs'
 ```
 
 Every pallet can implement these core macros:
@@ -87,7 +87,7 @@ Customizing your runtime typically follows these patterns:
 
 The following diagram illustrates how pallets combine to form a complete runtime:
 
-![](/images/parachains/customize-runtime/overview/frame-overview-2.webp)
+![](/images/parachains/customize-runtime/index/frame-overview-02.webp)
 
 ## Starting Templates
 

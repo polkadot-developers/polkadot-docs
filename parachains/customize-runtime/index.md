@@ -113,14 +113,4 @@ This section covers the most common customization patterns you'll encounter:
 
 - **[Create Custom Pallets](/parachains/customize-runtime/pallet-development/create-a-pallet/)**: Build entirely custom pallets for features unique to your blockchain.
 
-- **[Test Your Runtime](/parachains/customize-runtime/testing/)**: Unit test pallets and mock complete runtimes to ensure everything works correctly.
-
-## Next Steps
-
-Ready to start customizing? Choose your starting point based on your needs:
-
-- If you want to **add pre-built functionality** quickly, head to [Add Existing Pallets to Your Runtime](/parachains/customize-runtime/add-existing-pallets/).
-
-- If you need **custom logic**, start with [Create a Custom Pallet](/parachains/customize-runtime/pallet-development/create-a-pallet/).
-
-- If you want to **test your implementation**, see [Testing Your Runtime](/parachains/customize-runtime/testing/).
+- **[Test Your Runtime](/parachains/customize-runtime/pallet-development/pallet-testing/)**: Unit test pallets and mock complete runtimes to ensure everything works correctly.

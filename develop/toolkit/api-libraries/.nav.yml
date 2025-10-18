@@ -1,8 +1,8 @@
 title: API Libraries
 nav:
   - index.md
-  - ':simple-typescript: Dedot': dedot.md
   - ':simple-typescript: Polkadot-API': papi.md
+  - ':simple-typescript: Dedot': dedot.md
   - ':simple-javascript: Polkadot.js API': polkadot-js-api.md
   - ':simple-dart: Polkadart': polkadart.md
   - ':simple-python: Python Substrate Interface': py-substrate-interface.md

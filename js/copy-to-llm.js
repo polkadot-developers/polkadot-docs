@@ -14,7 +14,7 @@
   if (typeof window === 'undefined') {
     return;
   }
-// all config data lives in `llms_config.json` file
+// All config data lives in `llms_config.json` file.
   const CONFIG_URL = '/scripts/llms_config.json';
 
   const state = {
@@ -26,7 +26,7 @@
     siteBase: window.location ? window.location.origin.replace(/\/+$/, '') : '',
     /** After the config loads, computeRemoteBase(config) may set this to a raw GitHub URL (pulling repository.org, repository.repo, etc.). When present, it’s the highest-priority candidate in getSlugCandidates() for finding Markdown artifacts.*/
     remoteBase: ''
-  }
+  };
 
   // Called each time a URL is built from a file path/slug.
   function joinUrl(base, path) {
@@ -155,7 +155,7 @@
         return state.config;
       })
       .catch((error) => {
-        console.warn('LLMS shared: unable to load llms_config.json', error);
+        console.warn('Unable to load llms_config.json', error);
         state.config = null;
         state.remoteBase = '';
         return null;
@@ -230,7 +230,7 @@
       }
       return await response.text();
     } catch (error) {
-      console.error('LLMS shared: failed to fetch text', url, error);
+      console.error('Failed to fetch text', url, error);
       return null;
     }
   }
@@ -272,7 +272,7 @@
         link.remove();
         return true;
       } catch (error) {
-        console.error('LLMS shared: download failed, trying next candidate', url, error);
+        console.error('Download failed, trying next candidate', url, error);
       }
     }
     return false;
@@ -280,7 +280,6 @@
 
   // ---------- Analytics helpers ----------
   // gtag is available on all pages
-  // TODO: open ticket to wire this up in future PR
   function sendAnalytics(eventName, gaData) {
     if (typeof window.gtag === 'function') {
       try {
@@ -306,10 +305,6 @@
       {
         event_label: eventType,
         value: contentLength,
-      },
-      {
-        type: eventType,
-        length: contentLength,
       }
     );
   }
@@ -320,9 +315,6 @@
       'copy_to_llm_click',
       {
         event_label: eventType,
-      },
-      {
-        type: eventType,
       }
     );
   }
@@ -663,6 +655,7 @@
           return;
         }
 
+        await ready(); 
         const action = item.dataset.action;
         const slug = getPageSlug();
 

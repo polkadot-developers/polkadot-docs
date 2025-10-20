@@ -1,4 +1,5 @@
 nav:
-- 'Deploy a Basic Contract': deploy-basic.md
+- 'Deploy a Basic Contract (PVM)': deploy-basic-pvm.md
+- 'Deploy a Basic Contract (EVM)': deploy-basic-evm.md
 - 'Deploy an ERC-20': deploy-erc20.md
 - 'Deploy an NFT': deploy-nft.md

@@ -195,7 +195,7 @@ To ensure accurate monitoring of these events:
 While the `balances.minted` event confirms the arrival of assets, there may be instances where you need to trace the origin of the cross-chain message that triggered the event. In such cases, you can:
 
 1. Query the relevant chain at the block where the `balances.minted` event was emitted.
-2. Look for the `messageQueue.Processed` event during the block’s initialization. It includes an `Id` that uniquely identifies the inbound XCM message to the Relay Chain or Asset Hub. Use this `Id` to correlate events across chains and trace the transfer back to its origin (and any intermediate hops) for end-to-end visibility.
+2. Look for the `messageQueue.Processed` event during the block’s initialization. It includes an `Id` that uniquely identifies the inbound XCM message to the Relay Chain or Asset Hub. Use this `Id` to correlate events across chains and trace the transfer back to its origin, offering full visibility of the asset transfer's journey—including any intermediate hops.
 
 ### Practical Monitoring Examples
 

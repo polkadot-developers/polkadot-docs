@@ -10,6 +10,8 @@ categories: Infrastructure
 
 After setting up your node environment as shown in the [Setup](/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator){target=\_blank} section, you'll need to configure multiple keys for your validator to operate properly. This includes setting up session keys, which are essential for participating in the consensus process, and configuring a node key that maintains a stable network identity. This guide walks you through the key management process, showing you how to generate, store, and register these keys.
 
+Session key management happens on the Relay Chain. Before setting up session keys, you may need to move funds to the Relay Chain depending on your account setup. Check out the [guide for moving funds to the Relay Chain for session key setup](https://support.polkadot.network/support/solutions/articles/65000188123-moving-funds-to-relay-chain-for-session-key-setup){target=\_blank} which covers scenarios for simple accounts, staking proxies, and pure proxies.
+
 ## Set Session Keys
 
 Setting up your validator's session keys is essential to associate your node with your stash account on the Polkadot network. Validators use session keys to participate in the consensus process. Your validator can only perform its role in the network by properly setting session keys which consist of several key pairs for different parts of the protocol (e.g., GRANDPA, BABE). These keys must be registered on-chain and associated with your validator node to ensure it can participate in validating blocks.
@@ -73,9 +75,16 @@ There are multiple ways to create the session keys. It can be done by interactin
 
 Now that you have generated your session keys, you must submit them to the chain. Follow these steps:
 
-1. Go to the **Network > Staking > Accounts** section on Polkadot.js Apps.
-2. Select **Set Session Key** on the bonding account you generated earlier.
-3. Paste the hex-encoded session key string you generated (from either the UI or CLI) into the input field and submit the transaction.
+1. Go to the **Developer > Extrinsics** section on Polkadot.js Apps.
+2. Select **session** from the dropdown menu.
+3. Choose **setKeys** from the list of extrinsics.
+
+4. Fill in the following fields:
+
+    - **Keys**: Paste the hex-encoded session key string you generated (from either the UI or CLI) into the input field.
+    - **Proof**: An ownership proof of the keys.
+
+5. Click the **Submit Transaction** button.
 
 ![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/key-management/key-management-2.webp)
 

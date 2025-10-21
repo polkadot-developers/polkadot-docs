@@ -76,7 +76,7 @@ See the full API in the [dispatchable functions reference](https://docs.rs/palle
 The Assets pallet also provides read-only functions to retrieve on-chain asset data, commonly used in dApps and backend services:
 
 - **`balance(asset_id, account)`** – Retrieves the balance of a given asset for a specified account. Useful for checking the holdings of an asset class across different accounts.
-- **`total_supply(asset_id)`** – RReturns the total supply of the asset identified by asset_id. Allows users to verify how much of the asset exists on-chain.
+- **`total_supply(asset_id)`** – Returns the total supply of the asset identified by asset_id. Allows users to verify how much of the asset exists on-chain.
 
 Additional queries include metadata lookups, account status, and asset details. See the full list in the [Pallet reference](https://docs.rs/pallet-assets/latest/pallet_assets/pallet/struct.Pallet.html){target=_blank}.
 

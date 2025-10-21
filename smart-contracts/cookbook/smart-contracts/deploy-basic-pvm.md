@@ -8,7 +8,7 @@ categories: Smart Contracts
 
 ## Introduction
 
-Deploying smart contracts to Polkadot Hub can be accomplished through various tools and environments, each suited to different development workflows. This guide demonstrates how to deploy a basic PVM smart contract using four popular approaches: JavaScript with Ethers.js, Remix IDE, Hardhat, and Foundry.
+Deploying smart contracts to Polkadot Hub can be accomplished through various tools and environments, each suited to different development workflows. This guide demonstrates how to deploy a basic PolkaVM (PVM) smart contract using four popular approaches: JavaScript with Ethers.js, Remix IDE, Hardhat, and Foundry.
 
 All these tools leverage the `revive` compiler to transform Solidity smart contracts into PolkaVM bytecode, making them compatible with Polkadot Hub's native smart contract environment. Whether you prefer working with lightweight JavaScript libraries, visual browser-based IDEs, comprehensive development frameworks, or fast command-line toolkits, this guide covers the deployment process for each approach.
 

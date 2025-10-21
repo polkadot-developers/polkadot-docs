@@ -43,21 +43,13 @@
     return (value || '').replace(/^\/+|\/+$/g, '');
   }
 
-  // Called by getPageSlug() to sanitize/normalize pathnames.
+  // Called by getPageSlug() to decode slightly different permutations of a path.
   function normalizePathname(pathname) {
     let path = decodeURIComponent(pathname || '/');
 
-    const hashIndex = path.indexOf('#');
-    if (hashIndex !== -1) {
-      path = path.slice(0, hashIndex);
-    }
-
-    const queryIndex = path.indexOf('?');
-    if (queryIndex !== -1) {
-      path = path.slice(0, queryIndex);
-    }
-
+    // Support browsing the statically-built site using *.html files.
     path = path.replace(/index\.html$/i, '');
+    // Collapse any accidental duplicate slashes.
     path = path.replace(/\/+/g, '/');
 
     if (path.length > 1 && path.endsWith('/')) {
@@ -66,7 +58,7 @@
 
     return path || '/';
   }
-// Called by getPageSlug() after normalizePathname() to build and return the slug
+  // Called by getPageSlug() after normalizePathname() to build and return the slug
   function buildSlugFromPath(pathname) {
     if (!pathname || pathname === '/') {
       return 'index';
@@ -108,8 +100,8 @@
     return slug || 'index';
   }
 
-  function getPageSlug(pathname) {
-    const normalized = normalizePathname(pathname || window.location.pathname);
+  function getPageSlug() {
+    const normalized = normalizePathname(window.location.pathname);
     return buildSlugFromPath(normalized);
   }
 

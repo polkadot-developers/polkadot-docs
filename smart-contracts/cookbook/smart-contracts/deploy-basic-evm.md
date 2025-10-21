@@ -8,7 +8,7 @@ categories: Smart Contracts
 
 ## Introduction
 
-Deploying smart contracts to Polkadot Hub can be accomplished using standard EVM development tools and workflows. This guide demonstrates how to deploy a basic smart contract using four popular EVM approaches: JavaScript with Ethers.js, Remix IDE, Hardhat, and Foundry.
+Deploying smart contracts to the [Polkadot Hub](/smart-contracts/overview/#smart-contract-development){target=\_blank} can be accomplished using standard EVM development tools and workflows. This guide demonstrates how to deploy a basic smart contract using four popular EVM approaches: JavaScript with Ethers.js, Remix IDE, Hardhat, and Foundry.
 
 All these tools use standard Solidity compilation to generate EVM bytecode, making them compatible with Polkadot Hub's EVM environment. Whether you prefer working with lightweight JavaScript libraries, visual browser-based IDEs, comprehensive development frameworks, or fast command-line toolkits, this guide covers the deployment process for each approach.
 

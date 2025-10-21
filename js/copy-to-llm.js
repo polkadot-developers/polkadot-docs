@@ -1,31 +1,30 @@
-// Copy to LLM functionality
-// From: https://github.com/leonardocustodio/mkdocs-copy-to-llm/blob/main/mkdocs_copy_to_llm/assets/js/copy-to-llm.js
+/* Copy to LLM functionality
+  Modified from: https://github.com/leonardocustodio/mkdocs-copy-to-llm/blob/main/mkdocs_copy_to_llm/assets/js/copy-to-llm.js
 
-/*
-    This script adds per-page LLM functionality UI controller that:
+  This script adds per-page LLM functionality UI controller that:
     - Renders a split button next to the main heading that copies, downloads, or opens Markdown in ChatGPT or Claude.
-    - Emits analytics via GA (TODO: needs wired up to work)
-  */
+    - Emits analytics via GA (TODO: needs wired up to work).
+*/
 
 (function () {
   'use strict';
-/* protects script from crashing when it's evaluated in env w/o a browser
- (build, etc.) no window = no DOM = script quietly exits */
+  /* Protects script from crashing when evaluated in env w/o a browser
+    (build, etc.). No window = no DOM = script quietly exits. */
   if (typeof window === 'undefined') {
     return;
   }
-// All config data lives in `llms_config.json` file.
+  // All config data lives in `llms_config.json` file.
   const CONFIG_URL = '/scripts/llms_config.json';
 
   const state = {
     // When loadConfig() fetches /scripts/llms_config.json, the parsed JSON lands here.
     config: null,
-    /* If multiple callers hit ready() before the first fetch resolves, they all share this promise instead of firing duplicate network requests. */
+    /* If multiple callers hit ready() before the first fetch resolves, they all share this       promise instead of firing duplicate network requests. */
     configPromise: null,
     // Derived once from window.location.origin, trimmed of trailing slashes.
     siteBase: window.location ? window.location.origin.replace(/\/+$/, '') : '',
-    /** After the config loads, computeRemoteBase(config) may set this to a raw GitHub URL (pulling repository.org, repository.repo, etc.). When present, it’s the highest-priority candidate in getSlugCandidates() for finding Markdown artifacts.*/
-    remoteBase: ''
+    /* After the config loads, computeRemoteBase(config) may set this to a raw GitHub URL (pulling repository.org, repository.repo, etc.). When present, it’s the highest-priority candidate in getSlugCandidates() for finding Markdown artifacts.*/
+    remoteBase: '',
   };
 
   // Called each time a URL is built from a file path/slug.
@@ -58,7 +57,7 @@
 
     return path || '/';
   }
-  // Called by getPageSlug() after normalizePathname() to build and return the slug
+  // Called by getPageSlug() after normalizePathname() to build and return the slug.
   function buildSlugFromPath(pathname) {
     if (!pathname || pathname === '/') {
       return 'index';
@@ -111,11 +110,24 @@
     const outputs = config?.outputs || {};
     const files = outputs.files || {};
 
-    if (repository.host === 'github' && repository.org && repository.repo && repository.default_branch) {
+    if (
+      repository.host === 'github' &&
+      repository.org &&
+      repository.repo &&
+      repository.default_branch
+    ) {
       const pagesDir = stripSlashes(files.pages_dir || 'pages');
-      const fallbackArtifacts = joinUrl(stripSlashes(outputs.public_root || 'ai'), pagesDir);
-      const artifactsPath = stripSlashes(repository.ai_artifacts_path || fallbackArtifacts);
-      return joinUrl(`https://raw.githubusercontent.com/${repository.org}/${repository.repo}/${repository.default_branch}`, artifactsPath);
+      const fallbackArtifacts = joinUrl(
+        stripSlashes(outputs.public_root || 'ai'),
+        pagesDir
+      );
+      const artifactsPath = stripSlashes(
+        repository.ai_artifacts_path || fallbackArtifacts
+      );
+      return joinUrl(
+        `https://raw.githubusercontent.com/${repository.org}/${repository.repo}/${repository.default_branch}`,
+        artifactsPath
+      );
     }
 
     return '';
@@ -132,9 +144,7 @@
       return state.configPromise;
     }
 
-    const configUrl = CONFIG_URL;
-
-    state.configPromise = fetch(configUrl, { credentials: 'omit' })
+    state.configPromise = fetch(CONFIG_URL, { credentials: 'omit' })
       .then((response) => {
         if (!response.ok) {
           throw new Error(`Failed to load config (${response.status})`);
@@ -164,7 +174,7 @@
     return loadConfig();
   }
 
-  // Trigger config preload without blocking UI
+  // Trigger config preload without blocking UI.
   ready();
 
   // Compute the local site-relative path for Markdown artifacts (`/ai/pages/...`).
@@ -201,7 +211,9 @@
     if (localBase) {
       candidates.push(joinUrl(localBase, `${normalizedSlug}.md`));
       if (state.siteBase) {
-        candidates.push(joinUrl(state.siteBase, joinUrl(localBase, `${normalizedSlug}.md`)));
+        candidates.push(
+          joinUrl(state.siteBase, joinUrl(localBase, `${normalizedSlug}.md`))
+        );
       }
     }
 
@@ -292,29 +304,22 @@
   }
 
   function trackCopyEvent(eventType, contentLength) {
-    sendAnalytics(
-      'copy_to_llm',
-      {
-        event_label: eventType,
-        value: contentLength,
-      }
-    );
+    sendAnalytics('copy_to_llm', {
+      event_label: eventType,
+      value: contentLength,
+    });
   }
 
   // Lightweight GA event wrapper for button clicks (download/open/chat etc.).
   function trackButtonClick(eventType) {
-    sendAnalytics(
-      'copy_to_llm_click',
-      {
-        event_label: eventType,
-      }
-    );
+    sendAnalytics('copy_to_llm_click', {
+      event_label: eventType,
+    });
   }
 
   // ---------- Page helpers ----------
-  
-  // If fetching Markdown fails, we fall back to scraping the rendered HTML content.
-  // '.md-content__inner .md-typeset' is the default class for <article> elements
+
+  /* If fetching Markdown fails, we fall back to scraping the rendered HTML content: '.md-content__inner .md-typeset' is the default class for <article> elements. */
   function getFallbackPageContent() {
     const articleContent = document.querySelector(
       '.md-content__inner .md-typeset'
@@ -647,7 +652,7 @@
           return;
         }
 
-        await ready(); 
+        await ready();
         const action = item.dataset.action;
         const slug = getPageSlug();
 

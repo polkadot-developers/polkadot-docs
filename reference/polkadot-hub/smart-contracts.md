@@ -43,4 +43,4 @@ REVM builds on Rust’s safety guarantees and performance optimizations while re
 
 For more details, explore the REVM integration in the Asset Hub smart contract documentation.
 
-If you want to learn more about the dual virtual stack please go to the [DualVM Stack](polkadot-docs/smart-contracts/for-eth-devs/dual-vm-stack.md){target=_blank}.
+If you want to learn more about the dual virtual stack please go to the [DualVM Stack](/smart-contracts/for-eth-devs/dual-vm-stack.md){target=_blank}.

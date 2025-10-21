@@ -31,7 +31,7 @@ First, initialize your project and install dependencies:
 mkdir ethers-deployment
 cd ethers-deployment
 npm init -y
-npm install ethers solc
+npm install ethers@6.15.0 solc@0.8.30
 ```
 
 ### Create and Compile Your Contract
@@ -374,9 +374,9 @@ npx hardhat build
 
 ### Set Up Deployment
 
-Create a deployment module in `ignition/modules/Storage.js`:
+Create a deployment module in `ignition/modules/Storage.ts`:
 
-```typescript title="ignition/modules/Storage.js"
+```typescript title="ignition/modules/Storage.ts"
 import { buildModule } from '@nomicfoundation/hardhat-ignition/modules';
 
 export default buildModule('StorageModule', (m) => {
@@ -484,7 +484,6 @@ All approaches use standard Solidity compilation to generate EVM bytecode, ensur
 
 ### Next Steps
 
-- Explore [interacting with deployed contracts](/develop/smart-contracts/evm-toolkit/ethers-js/#interact-with-the-contract)
-- Learn about [testing smart contracts](/develop/smart-contracts/evm-toolkit/hardhat/#test-your-contract)
-- Dive deeper into [Polkadot smart contracts](/develop/smart-contracts/)
-- Check out [OpenZeppelin contracts](https://www.openzeppelin.com/solidity-contracts) for production-ready templates
+- Deploy an ERC-20 token on Polkadot Hub, either using the [Deploy an ERC-20](/smart-contracts/cookbook/smart-contracts/deploy-erc20) guide or the [Deploy an ERC-20 to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-erc20) guide.
+- Deploy an NFT on Polkadot Hub, either using the [Deploy an NFT](/smart-contracts/cookbook/smart-contracts/deploy-nft) guide or the [Deploy an NFT to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-nft) guide.
+- Check out in details each [development environment](/smart-contracts/dev-environments/).

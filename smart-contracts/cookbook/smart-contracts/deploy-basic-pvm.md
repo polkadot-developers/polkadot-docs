@@ -467,7 +467,6 @@ All approaches use the `resolc` compiler to generate PolkaVM-compatible bytecode
 
 ### Next Steps
 
-- Explore [interacting with deployed contracts](/develop/smart-contracts/evm-toolkit/ethers-js/#interact-with-the-contract)
-- Learn about [testing smart contracts](/develop/smart-contracts/evm-toolkit/hardhat/#test-your-contract)
-- Dive deeper into [Polkadot smart contracts](/develop/smart-contracts/)
-- Check out [OpenZeppelin contracts](https://www.openzeppelin.com/solidity-contracts) for production-ready templates
+- Deploy an ERC-20 token on Polkadot Hub, either using the [Deploy an ERC-20](/smart-contracts/cookbook/smart-contracts/deploy-erc20) guide or the [Deploy an ERC-20 to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-erc20) guide.
+- Deploy an NFT on Polkadot Hub, either using the [Deploy an NFT](/smart-contracts/cookbook/smart-contracts/deploy-nft) guide or the [Deploy an NFT to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-nft) guide.
+- Check out in details each [development environment](/smart-contracts/dev-environments/).

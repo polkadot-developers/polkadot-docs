@@ -251,7 +251,7 @@ Compilation errors and warnings appear in the terminal panel at the bottom of th
 2. Click the **Environment** dropdown and select **Customize this list**
 3. Select **Injected Provider - MetaMask** (ensure your MetaMask wallet is connected to Polkadot Hub TestNet)
 5. Click **Deploy**
-6. Approve the transaction in your MataMask wallet
+6. Approve the transaction in your MetaMask wallet
 
     ![](/images/smart-contracts/cookbook/smart-contracts/deploy-basic/deploy-basic-pvm/deploy-basic-pvm-03.webp)
 

@@ -107,7 +107,9 @@
     try {
       const response = await fetch(url, { credentials: 'omit' });
       if (!response.ok) {
-        return response.status === 404 ? { success: false, status: 404 } : { success: false, status: response.status };
+        return response.status === 404
+          ? { success: false, status: 404 }
+          : { success: false, status: response.status };
       }
       const blob = await response.blob();
       const objectUrl = URL.createObjectURL(blob);

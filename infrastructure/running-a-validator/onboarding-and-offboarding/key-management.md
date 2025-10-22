@@ -10,7 +10,7 @@ categories: Infrastructure
 
 After setting up your node environment as shown in the [Setup](/infrastructure/running-a-validator/onboarding-and-offboarding/set-up-validator){target=\_blank} section, you'll need to configure multiple keys for your validator to operate properly. This includes setting up session keys, which are essential for participating in the consensus process, and configuring a node key that maintains a stable network identity. This guide walks you through the key management process, showing you how to generate, store, and register these keys.
 
-Session key management happens on the Relay Chain. Before setting up session keys, you may need to move funds to the Relay Chain depending on your account setup. Check out the [guide for moving funds to the Relay Chain for session key setup](https://support.polkadot.network/support/solutions/articles/65000188123-moving-funds-to-relay-chain-for-session-key-setup){target=\_blank} which covers scenarios for simple accounts, staking proxies, and pure proxies.
+Session key management happens on the Relay Chain. Before setting up session keys, you may need to move funds to the Relay Chain depending on your account setup. Check out the [guide for moving funds to the Relay Chain for session key setup](https://support.polkadot.network/support/solutions/articles/65000190811-asset-hub-migration-how-can-validators-set-session-keys-on-the-relay-chain){target=\_blank} which covers scenarios for simple accounts, staking proxies, and pure proxies.
 
 ## Set Session Keys
 

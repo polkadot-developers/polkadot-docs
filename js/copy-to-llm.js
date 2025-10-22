@@ -76,10 +76,10 @@
   }
 
   function getMarkdownUrl(slug) {
-    const normalizedSlug = (slug || 'index').toString().replace(/\.md$/i, '');
+    const pageSlug = slug || 'index';
     const host = window.location ? window.location.host : '';
     const protocol = window.location ? window.location.protocol : 'https:';
-    return `${protocol}//${host}/ai/pages/${normalizedSlug}.md`;
+    return `${protocol}//${host}/ai/pages/${pageSlug}.md`;
   }
 
   const NO_MARKDOWN_MESSAGE = 'No Markdown file available.';

@@ -14,20 +14,11 @@
     return;
   }
   function buildSlugFromPath(pathname) {
-    let route = pathname || '';
-    route = route.replace(/^\/+/, '');
-    const segments = route.split('/').filter(Boolean);
-    const slug = segments
-      .map((segment) => segment.trim())
+    const route = (pathname || '').replace(/^\/+|\/+$/g, '');
+    return route
+      .split('/')
       .filter(Boolean)
-      .map((segment) => segment.replace(/\s+/g, '-'))
-      .map((segment) => segment.replace(/[^a-zA-Z0-9_-]/g, '-'))
-      .map((segment) => segment.replace(/-+/g, '-'))
-      .join('-')
-      .toLowerCase()
-      .replace(/^-+|-+$/g, '');
-
-    return slug;
+      .join('-');
   }
 
   function getPageSlug() {

@@ -14,28 +14,9 @@
     return;
   }
   function buildSlugFromPath(pathname) {
-    if (!pathname || pathname === '/') {
-      return 'index';
-    }
-
-    let route = pathname;
-
+    let route = pathname || '';
     route = route.replace(/^\/+/, '');
-    if (!route) {
-      return 'index';
-    }
-
     const segments = route.split('/').filter(Boolean);
-    if (!segments.length) {
-      return 'index';
-    }
-
-    if (segments.length >= 2 && segments[0] === 'ai') {
-      if (segments[1] === 'pages' || segments[1] === 'categories') {
-        segments.splice(0, 2);
-      }
-    }
-
     const slug = segments
       .map((segment) => segment.trim())
       .filter(Boolean)
@@ -54,7 +35,7 @@
   }
 
   function getMarkdownUrl(slug) {
-    const pageSlug = slug || 'index';
+    const pageSlug = slug;
     const host = window.location ? window.location.host : '';
     const protocol = window.location ? window.location.protocol : 'https:';
     return `${protocol}//${host}/ai/pages/${pageSlug}.md`;

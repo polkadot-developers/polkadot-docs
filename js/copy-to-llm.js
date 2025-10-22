@@ -13,22 +13,6 @@
   if (typeof window === 'undefined') {
     return;
   }
-  // Called by getPageSlug() to decode slightly different permutations of a path.
-  function normalizePathname(pathname) {
-    let path = decodeURIComponent(pathname || '/');
-
-    // Support browsing the statically-built site using *.html files.
-    path = path.replace(/index\.html$/i, '');
-    // Collapse any accidental duplicate slashes.
-    path = path.replace(/\/+/g, '/');
-
-    if (path.length > 1 && path.endsWith('/')) {
-      path = path.slice(0, -1);
-    }
-
-    return path || '/';
-  }
-  // Called by getPageSlug() after normalizePathname() to build and return the slug.
   function buildSlugFromPath(pathname) {
     if (!pathname || pathname === '/') {
       return 'index';
@@ -53,8 +37,6 @@
       if (segments[1] === 'pages' || segments[1] === 'categories') {
         segments.splice(0, 2);
       }
-    } else if (segments[0] === 'ai-pages' || segments[0] === 'ai-categories') {
-      segments.splice(0, 1);
     }
 
     const slug = segments
@@ -71,8 +53,7 @@
   }
 
   function getPageSlug() {
-    const normalized = normalizePathname(window.location.pathname);
-    return buildSlugFromPath(normalized);
+    return buildSlugFromPath(window.location.pathname);
   }
 
   function getMarkdownUrl(slug) {

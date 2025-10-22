@@ -19,9 +19,6 @@
     }
 
     let route = pathname;
-    if (route.endsWith('/index')) {
-      route = route.slice(0, -'/index'.length);
-    }
 
     route = route.replace(/^\/+/, '');
     if (!route) {
@@ -49,7 +46,7 @@
       .toLowerCase()
       .replace(/^-+|-+$/g, '');
 
-    return slug || 'index';
+    return slug;
   }
 
   function getPageSlug() {

@@ -363,7 +363,10 @@
         const slug = getPageSlug();
 
         const { text, status } = await fetchMarkdown(slug);
-        if (text) {
+
+        if (status === 404) {
+          showToast(NO_MARKDOWN_MESSAGE);
+        } else if (text) {
           copySucceeded = await copyToClipboard(
             text,
             copyButton,
@@ -372,8 +375,6 @@
           if (!copySucceeded) {
             showCopyError(copyButton);
           }
-        } else if (status === 404) {
-          showToast(NO_MARKDOWN_MESSAGE);
         } else {
           showCopyError(copyButton);
         }

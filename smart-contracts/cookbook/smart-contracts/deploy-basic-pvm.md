@@ -8,16 +8,16 @@ categories: Smart Contracts
 
 ## Introduction
 
-Deploying smart contracts to [Polkadot Hub](/smart-contracts/overview/#smart-contract-development){target=\_blank} can be accomplished through various tools and environments, each suited to different development workflows. This guide demonstrates how to deploy a basic PolkaVM (PVM) smart contract using four popular approaches: JavaScript with Ethers.js, Remix IDE, Hardhat, and Foundry.
+Deploying smart contracts to [Polkadot Hub](/smart-contracts/overview/#smart-contract-development){target=\_blank} can be accomplished through various tools and environments, each suited to different development workflows. This guide demonstrates how to deploy a basic PolkaVM (PVM) smart contract using four popular approaches: JavaScript with [Ethers.js](https://docs.ethers.org/v6/){target=\_blank}, [Remix IDE](https://remix.live/){target=\_blank}, [Hardhat](https://hardhat.org/){target=\_blank}, and [Foundry](https://getfoundry.sh/){target=\_blank}.
 
 All these tools leverage the `revive` compiler to transform Solidity smart contracts into PolkaVM bytecode, making them compatible with Polkadot Hub's native smart contract environment. Whether you prefer working with lightweight JavaScript libraries, visual browser-based IDEs, comprehensive development frameworks, or fast command-line toolkits, this guide covers the deployment process for each approach.
 
 **Prerequisites:**
 
-- Basic understanding of Solidity programming
-- Node.js v22.13.1 or later (for JavaScript/Hardhat approaches)
-- Test tokens for gas fees (available from the [Polkadot faucet](https://faucet.polkadot.io/))
-- A wallet with a private key for signing transactions
+- Basic understanding of Solidity programming.
+- [Node.js](https://nodejs.org/en/download){target=\_blank} v22.13.1 or later (for JavaScript/Hardhat approaches).
+- Test tokens for gas fees (available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}).
+- A wallet with a private key for signing transactions.
 
 ## JavaScript with Ethers.js
 
@@ -238,7 +238,7 @@ The interface will load with a default workspace containing sample contracts. In
 ### Compile
 
 1. To compile your contract:
-    1. Navigate to the **Solidity Compiler** tab (third icon in the left sidebar).
+    1. Navigate to the **Solidity Compiler** tab, which is the third icon in the left sidebar.
     2. Click **Compile Storage.sol** or press `Ctrl+S`.
 
     ![](/images/smart-contracts/cookbook/smart-contracts/deploy-basic/deploy-basic-pvm/deploy-basic-pvm-02.webp)
@@ -248,10 +248,9 @@ Compilation errors and warnings appear in the terminal panel at the bottom of th
 ### Deploy
 
 1. Navigate to the **Deploy & Run Transactions** tab
-2. Click the **Environment** dropdown and select **Customize this list**
-3. Select **Injected Provider - MetaMask** (ensure your MetaMask wallet is connected to Polkadot Hub TestNet)
-5. Click **Deploy**
-6. Approve the transaction in your MetaMask wallet
+2. Click the **Environment** dropdown and select **Injected Provider - MetaMask** (ensure your MetaMask wallet is connected to Polkadot Hub TestNet).
+3. Click **Deploy**.
+4. Approve the transaction in your MetaMask wallet.
 
     ![](/images/smart-contracts/cookbook/smart-contracts/deploy-basic/deploy-basic-pvm/deploy-basic-pvm-03.webp)
 

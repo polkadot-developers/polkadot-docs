@@ -172,7 +172,7 @@ To define pallet parameters:
 
     ```rust
     parameter_types! {
-        pub const MotionDuration: BlockNumber = 5 * DAYS;
+        pub const MotionDuration: BlockNumber = 24 * HOURS;
         pub const MaxProposals: u32 = 100;
         pub const MaxMembers: u32 = 100;
         pub MaxProposalWeight: Weight = Perbill::from_percent(50) * RuntimeBlockWeights::get().max_block;

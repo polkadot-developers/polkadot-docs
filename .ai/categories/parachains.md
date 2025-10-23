@@ -16703,11 +16703,11 @@ Once confirmed, your parachain will be assigned to the core and should begin pro
 
 ## Next Steps
 
-Your parachain is now set up for block production! Consider the following:
+Your parachain is now set up for block production. Consider the following:
 
 - **Monitor your collator**: Keep your collator node running and monitor its performance.
 - **Plan coretime renewal**: If using bulk coretime, plan to renew your core before the current lease expires.
-- **Explore runtime upgrades**: Once comfortable with your setup, explore how to upgrade your parachain's runtime without interrupting block production.s
+- **Explore runtime upgrades**: Once comfortable with your setup, explore how to upgrade your parachain's runtime without interrupting block production.
 
 
 ---

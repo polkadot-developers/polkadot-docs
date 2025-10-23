@@ -65,86 +65,89 @@ contract MyNFT is ERC721, Ownable {
 Create a compilation script `compile.js`:
 
 ```javascript title="compile.js"
+const fs = require('fs');
+const path = require('path');
 const solc = require('solc');
-const { readFileSync, writeFileSync } = require('fs');
-const { basename, join } = require('path');
 
-const compileContract = async (solidityFilePath, outputDir) => {
+const contractPath = path.join(__dirname, 'contracts', 'MyNFT.sol');
+const contractSource = fs.readFileSync(contractPath, 'utf8');
+
+function findImports(importPath) {
   try {
-    // Read the Solidity file
-    const source = readFileSync(solidityFilePath, 'utf8');
-
-    // Prepare OpenZeppelin imports
-    const openzeppelinPath = join(__dirname, 'node_modules', '@openzeppelin', 'contracts');
-    
-    // Function to find imports
-    function findImports(path) {
-      if (path.startsWith('@openzeppelin/contracts/')) {
-        const contractPath = path.replace('@openzeppelin/contracts/', '');
-        try {
-          return {
-            contents: readFileSync(join(openzeppelinPath, contractPath), 'utf8')
-          };
-        } catch (error) {
-          return { error: 'File not found' };
-        }
-      }
-      return { error: 'File not found' };
-    }
-
-    // Construct the input object for the compiler
-    const input = {
-      language: 'Solidity',
-      sources: {
-        [basename(solidityFilePath)]: { content: source },
-      },
-      settings: {
-        outputSelection: {
-          '*': {
-            '*': ['*'],
-          },
-        },
-      },
-    };
-
-    console.log(`Compiling contract: ${basename(solidityFilePath)}...`);
-
-    // Compile the contract
-    const output = JSON.parse(solc.compile(JSON.stringify(input), { import: findImports }));
-
-    if (output.errors) {
-      output.errors.forEach(error => {
-        console.error('Compilation error:', error.message);
-      });
-      if (output.errors.some(error => error.severity === 'error')) {
-        return;
-      }
-    }
-
-    for (const contracts of Object.values(output.contracts)) {
-      for (const [name, contract] of Object.entries(contracts)) {
-        console.log(`Compiled contract: ${name}`);
-
-        // Write the ABI
-        const abiPath = join(outputDir, `${name}.json`);
-        writeFileSync(abiPath, JSON.stringify(contract.abi, null, 2));
-        console.log(`ABI saved to ${abiPath}`);
-
-        // Write the bytecode
-        const bytecodePath = join(outputDir, `${name}.bin`);
-        writeFileSync(bytecodePath, contract.evm.bytecode.object);
-        console.log(`Bytecode saved to ${bytecodePath}`);
-      }
-    }
+    const nodePath = path.join(__dirname, 'node_modules', importPath);
+    const contents = fs.readFileSync(nodePath, 'utf8');
+    return { contents };
   } catch (error) {
-    console.error('Error compiling contracts:', error);
+    return { error: 'File not found' };
+  }
+}
+
+const input = {
+  language: 'Solidity',
+  sources: {
+    'MyNFT.sol': {
+      content: contractSource
+    }
+  },
+  settings: {
+    outputSelection: {
+      '*': {
+        '*': ['abi', 'evm.bytecode']
+      }
+    },
+    optimizer: {
+      enabled: true,
+      runs: 200
+    }
   }
 };
 
-const solidityFilePath = join(__dirname, 'contracts/MyNFT.sol');
-const outputDir = join(__dirname, 'contracts');
+console.log('Compiling contract...');
 
-compileContract(solidityFilePath, outputDir);
+const output = JSON.parse(solc.compile(JSON.stringify(input), { import: findImports }));
+
+if (output.errors) {
+  output.errors.forEach(error => {
+    console.error(error.formattedMessage);
+  });
+  
+  const hasErrors = output.errors.some(error => error.severity === 'error');
+  if (hasErrors) {
+    process.exit(1);
+  }
+}
+
+const contractName = 'MyNFT';
+const contract = output.contracts['MyNFT.sol'][contractName];
+
+if (!contract) {
+  console.error('Contract not found in compilation output');
+  process.exit(1);
+}
+
+const buildPath = path.join(__dirname, 'build');
+if (!fs.existsSync(buildPath)) {
+  fs.mkdirSync(buildPath);
+}
+
+const abiPath = path.join(buildPath, `${contractName}_abi.json`);
+fs.writeFileSync(abiPath, JSON.stringify(contract.abi, null, 2));
+console.log(`ABI saved to ${abiPath}`);
+
+const bytecodePath = path.join(buildPath, `${contractName}_bytecode.txt`);
+fs.writeFileSync(bytecodePath, contract.evm.bytecode.object);
+console.log(`Bytecode saved to ${bytecodePath}`);
+
+const artifactPath = path.join(buildPath, `${contractName}.json`);
+const artifact = {
+  contractName: contractName,
+  abi: contract.abi,
+  bytecode: '0x' + contract.evm.bytecode.object
+};
+fs.writeFileSync(artifactPath, JSON.stringify(artifact, null, 2));
+console.log(`Complete artifact saved to ${artifactPath}`);
+
+console.log('\nCompilation successful!');
 ```
 
 Run the compilation:
@@ -158,90 +161,9 @@ node compile.js
 Create a deployment script `deploy.js`:
 
 ```javascript title="deploy.js"
-const { writeFileSync, existsSync, readFileSync } = require('fs');
-const { join } = require('path');
-const { ethers, JsonRpcProvider } = require('ethers');
-
-const codegenDir = join(__dirname);
-
-// Creates a provider with specified RPC URL and chain details
-const createProvider = (rpcUrl, chainId, chainName) => {
-  const provider = new JsonRpcProvider(rpcUrl, {
-    chainId: chainId,
-    name: chainName,
-  });
-  return provider;
-};
-
-// Reads and parses the ABI file for a given contract
-const getAbi = (contractName) => {
-  try {
-    return JSON.parse(
-      readFileSync(join(codegenDir, 'contracts', `${contractName}.json`), 'utf8'),
-    );
-  } catch (error) {
-    console.error(
-      `Could not find ABI for contract ${contractName}:`,
-      error.message,
-    );
-    throw error;
-  }
-};
-
-// Reads the compiled bytecode for a given contract
-const getByteCode = (contractName) => {
-  try {
-    const bytecodePath = join(
-      codegenDir,
-      'contracts',
-      `${contractName}.bin`,
-    );
-    return `0x${readFileSync(bytecodePath).toString('hex')}`;
-  } catch (error) {
-    console.error(
-      `Could not find bytecode for contract ${contractName}:`,
-      error.message,
-    );
-    throw error;
-  }
-};
-
-const deployContract = async (contractName, mnemonic, initialOwner, providerConfig) => {
-  console.log(`Deploying ${contractName}...`);
-
-  try {
-    // Step 1: Set up provider and wallet
-    const provider = createProvider(
-      providerConfig.rpc,
-      providerConfig.chainId,
-      providerConfig.name,
-    );
-    const walletMnemonic = ethers.Wallet.fromPhrase(mnemonic);
-    const wallet = walletMnemonic.connect(provider);
-
-    // Step 2: Create and deploy the contract
-    const factory = new ethers.ContractFactory(
-      getAbi(contractName),
-      getByteCode(contractName),
-      wallet,
-    );
-    const contract = await factory.deploy(initialOwner);
-    await contract.waitForDeployment();
-
-    // Step 3: Save deployment information
-    const address = await contract.getAddress();
-    console.log(`Contract ${contractName} deployed at: ${address}`);
-
-    const addressesFile = join(codegenDir, 'contract-address.json');
-    const addresses = existsSync(addressesFile)
-      ? JSON.parse(readFileSync(addressesFile, 'utf8'))
-      : {};
-    addresses[contractName] = address;
-    writeFileSync(addressesFile, JSON.stringify(addresses, null, 2), 'utf8');
-  } catch (error) {
-    console.error(`Failed to deploy contract ${contractName}:`, error);
-  }
-};
+const { ethers } = require('ethers');
+const fs = require('fs');
+const path = require('path');
 
 const providerConfig = {
   rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
@@ -252,7 +174,82 @@ const providerConfig = {
 const mnemonic = 'INSERT_MNEMONIC';
 const initialOwner = 'INSERT_OWNER_ADDRESS';
 
-deployContract('MyNFT', mnemonic, initialOwner, providerConfig);
+async function deployContract(contractName, mnemonic, initialOwner, providerConfig) {
+  try {
+    console.log(`\nStarting deployment of ${contractName}...`);
+    
+    const artifactPath = path.join(__dirname, 'build', `${contractName}.json`);
+    if (!fs.existsSync(artifactPath)) {
+      throw new Error(`Contract artifact not found at ${artifactPath}. Please run compile.js first.`);
+    }
+    
+    const artifact = JSON.parse(fs.readFileSync(artifactPath, 'utf8'));
+    
+    console.log(`Connecting to ${providerConfig.name}...`);
+    const provider = new ethers.JsonRpcProvider(providerConfig.rpc, {
+      chainId: providerConfig.chainId,
+      name: providerConfig.name
+    });
+    
+    const wallet = ethers.Wallet.fromPhrase(mnemonic);
+    const signer = wallet.connect(provider);
+    
+    console.log(`Deploying from address: ${signer.address}`);
+    
+    const balance = await provider.getBalance(signer.address);
+    console.log(`Account balance: ${ethers.formatEther(balance)} ETH`);
+    
+    if (balance === 0n) {
+      throw new Error('Insufficient balance for deployment');
+    }
+    
+    const factory = new ethers.ContractFactory(artifact.abi, artifact.bytecode, signer);
+    
+    console.log(`\nDeploying contract with initialOwner: ${initialOwner}...`);
+    const contract = await factory.deploy(initialOwner);
+    
+    console.log(`Waiting for deployment transaction: ${contract.target}...`);
+    await contract.waitForDeployment();
+    
+    const contractAddress = await contract.getAddress();
+    
+    console.log(`\n${contractName} deployed successfully!`);
+    console.log(`Contract address: ${contractAddress}`);
+    console.log(`Transaction hash: ${contract.deploymentTransaction().hash}`);
+    
+    const deploymentInfo = {
+      contractName: contractName,
+      address: contractAddress,
+      deployer: signer.address,
+      initialOwner: initialOwner,
+      network: providerConfig.name,
+      chainId: providerConfig.chainId,
+      transactionHash: contract.deploymentTransaction().hash,
+      deployedAt: new Date().toISOString()
+    };
+    
+    const deploymentPath = path.join(__dirname, 'build', `${contractName}_deployment.json`);
+    fs.writeFileSync(deploymentPath, JSON.stringify(deploymentInfo, null, 2));
+    console.log(`Deployment info saved to ${deploymentPath}`);
+    
+    return contract;
+    
+  } catch (error) {
+    console.error(`\nDeployment failed: ${error.message}`);
+    throw error;
+  }
+}
+
+deployContract('MyNFT', mnemonic, initialOwner, providerConfig)
+  .then(() => {
+    console.log('\nDeployment completed successfully!');
+    process.exit(0);
+  })
+  .catch((error) => {
+    console.error('\nDeployment error:', error);
+    process.exit(1);
+  });
+
 ```
 
 Replace the `INSERT_MNEMONIC` and `INSERT_OWNER_ADDRESS` placeholders with your actual mnemonic and desired owner address.
@@ -302,10 +299,14 @@ contract MyNFT is ERC721, Ownable {
 }
 ```
 
+![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/deploy-nft-evm/deploy-nft-evm-1.webp)
+
 ### Compile
 
 1. Navigate to the **Solidity Compiler** tab (third icon in the left sidebar)
 2. Click **Compile MyNFT.sol** or press `Ctrl+S`
+
+![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/deploy-nft-evm/deploy-nft-evm-2.webp)
 
 Compilation errors and warnings appear in the terminal panel at the bottom of the screen.
 
@@ -321,6 +322,9 @@ Compilation errors and warnings appear in the terminal panel at the bottom of th
 4. Select **Injected Provider - MetaMask** (ensure your MetaMask wallet is connected to Polkadot Hub TestNet)
 5. In the deploy section, enter the initial owner address in the constructor parameter field
 6. Click **Deploy**
+
+![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/deploy-nft-evm/deploy-nft-evm-3.webp)
+
 7. Approve the transaction in your MetaMask wallet
 
 Your deployed contract will appear in the **Deployed Contracts** section, ready for interaction.
@@ -336,10 +340,8 @@ Initialize your Hardhat project:
 ```bash
 mkdir hardhat-nft-deployment
 cd hardhat-nft-deployment
-npx hardhat init
+npx hardhat --init
 ```
-
-Select **Create a TypeScript project** when prompted.
 
 Install OpenZeppelin contracts:
 
@@ -353,27 +355,53 @@ Edit `hardhat.config.ts`:
 
 ```typescript title="hardhat.config.ts"
 import type { HardhatUserConfig } from "hardhat/config";
-import "@nomicfoundation/hardhat-toolbox";
-import { vars } from "hardhat/config";
+
+import hardhatToolboxViemPlugin from "@nomicfoundation/hardhat-toolbox-viem";
+import { configVariable } from "hardhat/config";
 
 const config: HardhatUserConfig = {
-  solidity: "0.8.28",
+  plugins: [hardhatToolboxViemPlugin],
+  solidity: {
+    profiles: {
+      default: {
+        version: "0.8.28",
+      },
+      production: {
+        version: "0.8.28",
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 200,
+          },
+        },
+      },
+    },
+  },
   networks: {
+    hardhatMainnet: {
+      type: "edr-simulated",
+      chainType: "l1",
+    },
+    hardhatOp: {
+      type: "edr-simulated",
+      chainType: "op",
+    },
+    sepolia: {
+      type: "http",
+      chainType: "l1",
+      url: configVariable("SEPOLIA_RPC_URL"),
+      accounts: [configVariable("SEPOLIA_PRIVATE_KEY")],
+    },
     polkadotHubTestnet: {
+      type: "http",
       url: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
       chainId: 420420422,
-      accounts: [vars.get("PRIVATE_KEY")],
+      accounts: [configVariable("PRIVATE_KEY")],
     },
   },
 };
 
 export default config;
-```
-
-Set your private key:
-
-```bash
-npx hardhat vars set PRIVATE_KEY
 ```
 
 ### Create Your Contract
@@ -538,6 +566,4 @@ All approaches use standard Solidity compilation with OpenZeppelin's ERC-721 imp
 
 ### Next Steps
 
-- Deploy an ERC-20 token on Polkadot Hub using the [Deploy an ERC-20 (EVM)](/smart-contracts/cookbook/smart-contracts/deploy-erc20-evm) guide
-- Deploy a basic contract using the [Deploy a Basic Contract (EVM)](/smart-contracts/cookbook/smart-contracts/deploy-basic-evm) guide
-- Check out in details each [development environment](/smart-contracts/dev-environments/)
+- Check out in details each [development environment](/smart-contracts/dev-environments/).

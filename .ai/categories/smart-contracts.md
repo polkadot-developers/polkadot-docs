@@ -257,7 +257,7 @@ First, you'll update the runtime's `Cargo.toml` file to include the Utility pall
 1. Open the `runtime/Cargo.toml` file and locate the `[dependencies]` section. Add pallet-utility as one of the features for the `polkadot-sdk` dependency with the following line:
 
     ```toml hl_lines="4" title="runtime/Cargo.toml"
-    [dependencies]
+    
     ...
     polkadot-sdk = { workspace = true, features = [
       "pallet-utility",
@@ -268,7 +268,7 @@ First, you'll update the runtime's `Cargo.toml` file to include the Utility pall
 2. In the same `[dependencies]` section, add the custom pallet that you built from scratch with the following line:
 
     ```toml hl_lines="3" title="Cargo.toml"
-    [dependencies]
+    
     ...
     custom-pallet = { path = "../pallets/custom-pallet", default-features = false }
     ```
@@ -404,63 +404,13 @@ Update your root parachain template's `Cargo.toml` file to include your custom p
     Make sure the `custom-pallet` is a member of the workspace:
 
     ```toml hl_lines="4" title="Cargo.toml"
-     [workspace]
-     default-members = ["pallets/template", "runtime"]
-     members = [
-         "node", "pallets/custom-pallet",
-         "pallets/template",
-         "runtime",
-     ]
+     
     ```
 
 ???- code "./Cargo.toml"
 
     ```rust title="./Cargo.toml"
-    [workspace.package]
-    license = "MIT-0"
-    authors = ["Parity Technologies <admin@parity.io>"]
-    homepage = "https://paritytech.github.io/polkadot-sdk/"
-    repository = "https://github.com/paritytech/polkadot-sdk-parachain-template.git"
-    edition = "2021"
-
-    [workspace]
-    default-members = ["pallets/template", "runtime"]
-    members = [
-        "node", "pallets/custom-pallet",
-        "pallets/template",
-        "runtime",
-    ]
-    resolver = "2"
-
-    [workspace.dependencies]
-    parachain-template-runtime = { path = "./runtime", default-features = false }
-    pallet-parachain-template = { path = "./pallets/template", default-features = false }
-    clap = { version = "4.5.13" }
-    color-print = { version = "0.3.4" }
-    docify = { version = "0.2.9" }
-    futures = { version = "0.3.31" }
-    jsonrpsee = { version = "0.24.3" }
-    log = { version = "0.4.22", default-features = false }
-    polkadot-sdk = { version = "2503.0.1", default-features = false }
-    prometheus-endpoint = { version = "0.17.2", default-features = false, package = "substrate-prometheus-endpoint" }
-    serde = { version = "1.0.214", default-features = false }
-    codec = { version = "3.7.4", default-features = false, package = "parity-scale-codec" }
-    cumulus-pallet-parachain-system = { version = "0.20.0", default-features = false }
-    hex-literal = { version = "0.4.1", default-features = false }
-    scale-info = { version = "2.11.6", default-features = false }
-    serde_json = { version = "1.0.132", default-features = false }
-    smallvec = { version = "1.11.0", default-features = false }
-    substrate-wasm-builder = { version = "26.0.1", default-features = false }
-    frame = { version = "0.9.1", default-features = false, package = "polkadot-sdk-frame" }
-
-    [profile.release]
-    opt-level = 3
-    panic = "unwind"
-
-    [profile.production]
-    codegen-units = 1
-    inherits = "release"
-    lto = true
+    
     ```
 
 
@@ -2847,27 +2797,7 @@ To build the smart contract, follow the steps below:
 6. Add the getter and setter functions:
 
     ```solidity
-    // SPDX-License-Identifier: MIT
-    pragma solidity ^0.8.28;
-
-    contract Storage {
-        // State variable to store our number
-        uint256 private number;
-
-        // Event to notify when the number changes
-        event NumberChanged(uint256 newNumber);
-
-        // Function to store a new number
-        function store(uint256 newNumber) public {
-            number = newNumber;
-            emit NumberChanged(newNumber);
-        }
-
-        // Function to retrieve the stored number
-        function retrieve() public view returns (uint256) {
-            return number;
-        }
-    }
+    
     ```
 
 ??? code "Complete Storage.sol contract"
@@ -3531,23 +3461,7 @@ To create the ERC-20 contract, you can follow the steps below:
 3. Now, paste the following ERC-20 contract code into the editor:
 
     ```solidity title="MyToken.sol"
-    // SPDX-License-Identifier: MIT
-    // Compatible with OpenZeppelin Contracts ^5.0.0
-    pragma solidity ^0.8.22;
-
-    import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-    import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
-
-    contract MyToken is ERC20, Ownable {
-        constructor(address initialOwner)
-            ERC20("MyToken", "MTK")
-            Ownable(initialOwner)
-        {}
-
-        function mint(address to, uint256 amount) public onlyOwner {
-            _mint(to, amount);
-        }
-    }
+    
     ```
 
     The key components of the code above are:
@@ -4157,6 +4071,579 @@ Once deployed, you can interact with your contract through Remix:
     ![](/images/tutorials/smart-contracts/deploy-nft/deploy-nft-14.webp)
 
 Feel free to explore and interact with the contract's other functions using the same approach - selecting the method, providing any required parameters, and confirming the transaction through Talisman when needed.
+
+
+---
+
+Page Title: Deploy an NFT to Polkadot Hub (EVM)
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-nft-evm.md
+- Canonical (HTML): https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-nft-evm/
+- Summary: Learn how to deploy an ERC-721 NFT contract to Polkadot Hub using standard EVM tools and toolchains.
+
+# Deploy an NFT (EVM)
+
+## Introduction
+
+Non-Fungible Tokens (NFTs) represent unique digital assets commonly used for digital art, collectibles, gaming, and identity verification. Deploying NFT contracts to the [Polkadot Hub](/smart-contracts/overview/#smart-contract-development){target=\_blank} can be accomplished using standard EVM development tools and workflows.
+
+This guide demonstrates how to deploy an [ERC-721](https://eips.ethereum.org/EIPS/eip-721){target=\_blank} NFT contract using four popular EVM approaches: JavaScript with Ethers.js, Remix IDE, Hardhat, and Foundry. The contract uses [OpenZeppelin's battle-tested NFT implementation](https://github.com/OpenZeppelin/openzeppelin-contracts){target=\_blank} to ensure security and standard compliance.
+
+All these tools use standard Solidity compilation to generate EVM bytecode, making them compatible with Polkadot Hub's EVM environment. Whether you prefer working with lightweight JavaScript libraries, visual browser-based IDEs, comprehensive development frameworks, or fast command-line toolkits, this guide covers the deployment process for each approach.
+
+**Prerequisites:**
+
+- Basic understanding of Solidity programming and NFT standards
+- Node.js v22.13.1 or later (for JavaScript/Hardhat approaches)
+- Test tokens for gas fees (available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank})
+- A wallet with a private key for signing transactions
+
+## JavaScript with Ethers.js
+
+Ethers.js provides a lightweight approach for deploying contracts using pure JavaScript. This method is ideal for developers who want programmatic control over the deployment process or need to integrate contract deployment into existing applications.
+
+### Setup
+
+First, initialize your project and install dependencies:
+
+```bash
+mkdir ethers-nft-deployment
+cd ethers-nft-deployment
+npm init -y
+npm install ethers@6.15.0 solc@0.8.30 @openzeppelin/contracts@5.0.0
+```
+
+### Create and Compile Your Contract
+
+Create an NFT contract in `contracts/MyNFT.sol`:
+
+```solidity title="contracts/MyNFT.sol"
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+contract MyNFT is ERC721, Ownable {
+    uint256 private _nextTokenId;
+
+    constructor(address initialOwner)
+        ERC721("MyToken", "MTK")
+        Ownable(initialOwner)
+    {}
+
+    function safeMint(address to) public onlyOwner {
+        uint256 tokenId = _nextTokenId++;
+        _safeMint(to, tokenId);
+    }
+}
+```
+
+Create a compilation script `compile.js`:
+
+```javascript title="compile.js"
+const fs = require('fs');
+const path = require('path');
+const solc = require('solc');
+
+const contractPath = path.join(__dirname, 'contracts', 'MyNFT.sol');
+const contractSource = fs.readFileSync(contractPath, 'utf8');
+
+function findImports(importPath) {
+  try {
+    const nodePath = path.join(__dirname, 'node_modules', importPath);
+    const contents = fs.readFileSync(nodePath, 'utf8');
+    return { contents };
+  } catch (error) {
+    return { error: 'File not found' };
+  }
+}
+
+const input = {
+  language: 'Solidity',
+  sources: {
+    'MyNFT.sol': {
+      content: contractSource
+    }
+  },
+  settings: {
+    outputSelection: {
+      '*': {
+        '*': ['abi', 'evm.bytecode']
+      }
+    },
+    optimizer: {
+      enabled: true,
+      runs: 200
+    }
+  }
+};
+
+console.log('Compiling contract...');
+
+const output = JSON.parse(solc.compile(JSON.stringify(input), { import: findImports }));
+
+if (output.errors) {
+  output.errors.forEach(error => {
+    console.error(error.formattedMessage);
+  });
+  
+  const hasErrors = output.errors.some(error => error.severity === 'error');
+  if (hasErrors) {
+    process.exit(1);
+  }
+}
+
+const contractName = 'MyNFT';
+const contract = output.contracts['MyNFT.sol'][contractName];
+
+if (!contract) {
+  console.error('Contract not found in compilation output');
+  process.exit(1);
+}
+
+const buildPath = path.join(__dirname, 'build');
+if (!fs.existsSync(buildPath)) {
+  fs.mkdirSync(buildPath);
+}
+
+const abiPath = path.join(buildPath, `${contractName}_abi.json`);
+fs.writeFileSync(abiPath, JSON.stringify(contract.abi, null, 2));
+console.log(`ABI saved to ${abiPath}`);
+
+const bytecodePath = path.join(buildPath, `${contractName}_bytecode.txt`);
+fs.writeFileSync(bytecodePath, contract.evm.bytecode.object);
+console.log(`Bytecode saved to ${bytecodePath}`);
+
+const artifactPath = path.join(buildPath, `${contractName}.json`);
+const artifact = {
+  contractName: contractName,
+  abi: contract.abi,
+  bytecode: '0x' + contract.evm.bytecode.object
+};
+fs.writeFileSync(artifactPath, JSON.stringify(artifact, null, 2));
+console.log(`Complete artifact saved to ${artifactPath}`);
+
+console.log('\nCompilation successful!');
+```
+
+Run the compilation:
+
+```bash
+node compile.js
+```
+
+### Deploy the Contract
+
+Create a deployment script `deploy.js`:
+
+```javascript title="deploy.js"
+const { ethers } = require('ethers');
+const fs = require('fs');
+const path = require('path');
+
+const providerConfig = {
+  rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
+  chainId: 420420422,
+  name: 'polkadot-hub-testnet',
+};
+
+const mnemonic = 'INSERT_MNEMONIC';
+const initialOwner = 'INSERT_OWNER_ADDRESS';
+
+async function deployContract(contractName, mnemonic, initialOwner, providerConfig) {
+  try {
+    console.log(`\nStarting deployment of ${contractName}...`);
+    
+    const artifactPath = path.join(__dirname, 'build', `${contractName}.json`);
+    if (!fs.existsSync(artifactPath)) {
+      throw new Error(`Contract artifact not found at ${artifactPath}. Please run compile.js first.`);
+    }
+    
+    const artifact = JSON.parse(fs.readFileSync(artifactPath, 'utf8'));
+    
+    console.log(`Connecting to ${providerConfig.name}...`);
+    const provider = new ethers.JsonRpcProvider(providerConfig.rpc, {
+      chainId: providerConfig.chainId,
+      name: providerConfig.name
+    });
+    
+    const wallet = ethers.Wallet.fromPhrase(mnemonic);
+    const signer = wallet.connect(provider);
+    
+    console.log(`Deploying from address: ${signer.address}`);
+    
+    const balance = await provider.getBalance(signer.address);
+    console.log(`Account balance: ${ethers.formatEther(balance)} ETH`);
+    
+    if (balance === 0n) {
+      throw new Error('Insufficient balance for deployment');
+    }
+    
+    const factory = new ethers.ContractFactory(artifact.abi, artifact.bytecode, signer);
+    
+    console.log(`\nDeploying contract with initialOwner: ${initialOwner}...`);
+    const contract = await factory.deploy(initialOwner);
+    
+    console.log(`Waiting for deployment transaction: ${contract.target}...`);
+    await contract.waitForDeployment();
+    
+    const contractAddress = await contract.getAddress();
+    
+    console.log(`\n${contractName} deployed successfully!`);
+    console.log(`Contract address: ${contractAddress}`);
+    console.log(`Transaction hash: ${contract.deploymentTransaction().hash}`);
+    
+    const deploymentInfo = {
+      contractName: contractName,
+      address: contractAddress,
+      deployer: signer.address,
+      initialOwner: initialOwner,
+      network: providerConfig.name,
+      chainId: providerConfig.chainId,
+      transactionHash: contract.deploymentTransaction().hash,
+      deployedAt: new Date().toISOString()
+    };
+    
+    const deploymentPath = path.join(__dirname, 'build', `${contractName}_deployment.json`);
+    fs.writeFileSync(deploymentPath, JSON.stringify(deploymentInfo, null, 2));
+    console.log(`Deployment info saved to ${deploymentPath}`);
+    
+    return contract;
+    
+  } catch (error) {
+    console.error(`\nDeployment failed: ${error.message}`);
+    throw error;
+  }
+}
+
+deployContract('MyNFT', mnemonic, initialOwner, providerConfig)
+  .then(() => {
+    console.log('\nDeployment completed successfully!');
+    process.exit(0);
+  })
+  .catch((error) => {
+    console.error('\nDeployment error:', error);
+    process.exit(1);
+  });
+
+```
+
+Replace the `INSERT_MNEMONIC` and `INSERT_OWNER_ADDRESS` placeholders with your actual mnemonic and desired owner address.
+
+Execute the deployment:
+
+```bash
+node deploy.js
+```
+
+After running this script, your NFT contract will be deployed to Polkadot Hub, and its address will be saved in `contract-address.json` within your project directory. You can use this address for future contract interactions.
+
+## Remix IDE
+
+Remix IDE offers a visual, browser-based environment perfect for rapid prototyping and learning. It requires no local installation and provides an intuitive interface for contract development.
+
+### Access Remix
+
+Navigate to [https://remix.ethereum.org/](https://remix.ethereum.org/){target=\_blank} in your web browser.
+
+The interface will load with a default workspace containing sample contracts. In this interface, you can access a file explorer, edit your code, interact with various plugins for development, and use a terminal.
+
+### Create Your Contract
+
+1. Create a new file `contracts/MyNFT.sol`
+2. Paste the following code:
+
+```solidity title="contracts/MyNFT.sol"
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+contract MyNFT is ERC721, Ownable {
+    uint256 private _nextTokenId;
+
+    constructor(address initialOwner)
+        ERC721("MyToken", "MTK")
+        Ownable(initialOwner)
+    {}
+
+    function safeMint(address to) public onlyOwner {
+        uint256 tokenId = _nextTokenId++;
+        _safeMint(to, tokenId);
+    }
+}
+```
+
+![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/deploy-nft-evm/deploy-nft-evm-1.webp)
+
+### Compile
+
+1. Navigate to the **Solidity Compiler** tab (third icon in the left sidebar)
+2. Click **Compile MyNFT.sol** or press `Ctrl+S`
+
+![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/deploy-nft-evm/deploy-nft-evm-2.webp)
+
+Compilation errors and warnings appear in the terminal panel at the bottom of the screen.
+
+### Deploy
+
+1. Navigate to the **Deploy & Run Transactions** tab
+2. Click the **Environment** dropdown and select **Customize this list**
+3. Add a custom network with the following details:
+   - **Network Name**: Polkadot Hub TestNet
+   - **RPC URL**: `https://testnet-passet-hub-eth-rpc.polkadot.io`
+   - **Chain ID**: `420420422`
+   - **Currency Symbol**: `DOT`
+4. Select **Injected Provider - MetaMask** (ensure your MetaMask wallet is connected to Polkadot Hub TestNet)
+5. In the deploy section, enter the initial owner address in the constructor parameter field
+6. Click **Deploy**
+
+![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/deploy-nft-evm/deploy-nft-evm-3.webp)
+
+7. Approve the transaction in your MetaMask wallet
+
+Your deployed contract will appear in the **Deployed Contracts** section, ready for interaction.
+
+## Hardhat
+
+Hardhat provides a comprehensive development environment with built-in testing, debugging, and deployment capabilities. It's ideal for professional development workflows and team projects.
+
+### Setup
+
+Initialize your Hardhat project:
+
+```bash
+mkdir hardhat-nft-deployment
+cd hardhat-nft-deployment
+npx hardhat --init
+```
+
+Install OpenZeppelin contracts:
+
+```bash
+npm install @openzeppelin/contracts
+```
+
+### Configure Hardhat
+
+Edit `hardhat.config.ts`:
+
+```typescript title="hardhat.config.ts"
+import type { HardhatUserConfig } from "hardhat/config";
+
+import hardhatToolboxViemPlugin from "@nomicfoundation/hardhat-toolbox-viem";
+import { configVariable } from "hardhat/config";
+
+const config: HardhatUserConfig = {
+  plugins: [hardhatToolboxViemPlugin],
+  solidity: {
+    profiles: {
+      default: {
+        version: "0.8.28",
+      },
+      production: {
+        version: "0.8.28",
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 200,
+          },
+        },
+      },
+    },
+  },
+  networks: {
+    hardhatMainnet: {
+      type: "edr-simulated",
+      chainType: "l1",
+    },
+    hardhatOp: {
+      type: "edr-simulated",
+      chainType: "op",
+    },
+    sepolia: {
+      type: "http",
+      chainType: "l1",
+      url: configVariable("SEPOLIA_RPC_URL"),
+      accounts: [configVariable("SEPOLIA_PRIVATE_KEY")],
+    },
+    polkadotHubTestnet: {
+      type: "http",
+      url: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
+      chainId: 420420422,
+      accounts: [configVariable("PRIVATE_KEY")],
+    },
+  },
+};
+
+export default config;
+```
+
+### Create Your Contract
+
+Create `contracts/MyNFT.sol`:
+
+```solidity title="contracts/MyNFT.sol"
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+contract MyNFT is ERC721, Ownable {
+    uint256 private _nextTokenId;
+
+    constructor(address initialOwner)
+        ERC721("MyToken", "MTK")
+        Ownable(initialOwner)
+    {}
+
+    function safeMint(address to) public onlyOwner {
+        uint256 tokenId = _nextTokenId++;
+        _safeMint(to, tokenId);
+    }
+}
+```
+
+### Compile
+
+```bash
+npx hardhat compile
+```
+
+### Set Up Deployment
+
+Create a deployment module in `ignition/modules/MyNFT.ts`:
+
+```typescript title="ignition/modules/MyNFT.ts"
+import { buildModule } from '@nomicfoundation/hardhat-ignition/modules';
+
+export default buildModule('MyNFTModule', (m) => {
+    const initialOwner = m.getParameter('initialOwner', 'INSERT_OWNER_ADDRESS');
+    const myNFT = m.contract('MyNFT', [initialOwner]);
+    return { myNFT };
+});
+```
+
+Replace `INSERT_OWNER_ADDRESS` with your desired owner address.
+
+### Deploy
+
+Deploy to Polkadot Hub TestNet:
+
+```bash
+npx hardhat ignition deploy ignition/modules/MyNFT.ts --network polkadotHubTestnet
+```
+
+## Foundry
+
+Foundry offers a fast, modular toolkit written in Rust. It's perfect for developers who prefer command-line interfaces and need high-performance compilation and deployment.
+
+### Setup
+
+Install Foundry:
+
+```bash
+curl -L https://foundry.paradigm.xyz | bash
+foundryup
+```
+
+Initialize your project:
+
+```bash
+forge init foundry-nft-deployment
+cd foundry-nft-deployment
+```
+
+Install OpenZeppelin contracts:
+
+```bash
+forge install OpenZeppelin/openzeppelin-contracts
+```
+
+### Configure Foundry
+
+Edit `foundry.toml`:
+
+```toml title="foundry.toml"
+[profile.default]
+src = "src"
+out = "out"
+libs = ["lib"]
+remappings = ['@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/']
+
+[rpc_endpoints]
+polkadot_hub_testnet = "https://testnet-passet-hub-eth-rpc.polkadot.io"
+```
+
+### Create Your Contract
+
+Create `src/MyNFT.sol`:
+
+```solidity title="src/MyNFT.sol"
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+contract MyNFT is ERC721, Ownable {
+    uint256 private _nextTokenId;
+
+    constructor(address initialOwner)
+        ERC721("MyToken", "MTK")
+        Ownable(initialOwner)
+    {}
+
+    function safeMint(address to) public onlyOwner {
+        uint256 tokenId = _nextTokenId++;
+        _safeMint(to, tokenId);
+    }
+}
+```
+
+### Compile
+
+```bash
+forge build
+```
+
+Verify the compilation by inspecting the bytecode:
+
+```bash
+forge inspect MyNFT bytecode
+```
+
+### Deploy
+
+Deploy to Polkadot Hub TestNet:
+
+```bash
+forge create MyNFT \
+    --rpc-url polkadot_hub_testnet \
+    --private-key YOUR_PRIVATE_KEY \
+    --constructor-args YOUR_OWNER_ADDRESS \
+    --broadcast
+```
+
+Replace `YOUR_PRIVATE_KEY` with your private key and `YOUR_OWNER_ADDRESS` with the address that will own the NFT contract.
+
+## Conclusion
+
+This guide has demonstrated four different approaches to deploying NFT contracts on Polkadot Hub using standard EVM tools. Each method offers distinct advantages:
+
+- **Ethers.js**: Best for lightweight, programmatic deployments and application integration
+- **Remix IDE**: Ideal for rapid prototyping, learning, and visual development
+- **Hardhat**: Perfect for professional workflows requiring comprehensive testing and debugging
+- **Foundry**: Excellent for developers who prefer fast, command-line driven development
+
+All approaches use standard Solidity compilation with OpenZeppelin's ERC-721 implementation to generate EVM bytecode, ensuring your NFT contracts run on Polkadot Hub's EVM environment while maintaining compatibility with the broader Ethereum ecosystem.
+
+### Next Steps
+
+- Check out in details each [development environment](/smart-contracts/dev-environments/).
 
 
 ---
@@ -7722,34 +8209,7 @@ Now, you'll explore how to use each precompile available in Polkadot Hub.
 ECRecover recovers an Ethereum address associated with the public key used to sign a message.
 
 ```solidity title="ECRecover.sol"
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
 
-contract ECRecoverExample {
-    event ECRecovered(bytes result);
-
-    // Address of the ECRecover precompile
-    address constant EC_RECOVER_ADDRESS = address(0x01);
-    bytes public result;
-
-    function callECRecover(bytes calldata input) public {
-        bool success;
-        bytes memory resultInMemory;
-
-        (success, resultInMemory) = EC_RECOVER_ADDRESS.call{value: 0}(input);
-
-        if (success) {
-            emit ECRecovered(resultInMemory);
-        }
-
-        result = resultInMemory;
-    }
-
-    function getRecoveredAddress() public view returns (address) {
-        require(result.length == 32, "Invalid result length");
-        return address(uint160(uint256(bytes32(result))));
-    }
-}
 ```
 
 To interact with the ECRecover precompile, you can deploy the `ECRecoverExample` contract in [Remix](/smart-contracts/dev-environments/remix/get-started/){target=\_blank} or any Solidity-compatible environment. The `callECRecover` function takes a 128-byte input combining the message `hash`, `v`, `r`, and `s` signature values. Check this [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/ECRecover.js){target=\_blank} that shows how to format this input and verify that the recovered address matches the expected result.
@@ -7759,30 +8219,7 @@ To interact with the ECRecover precompile, you can deploy the `ECRecoverExample`
 The SHA-256 precompile computes the SHA-256 hash of the input data.
 
 ```solidity title="SHA256.sol"
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
 
-contract SHA256Example {
-    event SHA256Called(bytes result);
-
-    // Address of the SHA256 precompile
-    address constant SHA256_PRECOMPILE = address(0x02);
-
-    bytes public result;
-
-    function callH256(bytes calldata input) public {
-        bool success;
-        bytes memory resultInMemory;
-
-        (success, resultInMemory) = SHA256_PRECOMPILE.call{value: 0}(input);
-
-        if (success) {
-            emit SHA256Called(resultInMemory);
-        }
-
-        result = resultInMemory;
-    }
-}
 ```
 
 To use it, you can deploy the `SHA256Example` contract in [Remix](/smart-contracts/dev-environments/remix/get-started/){target=\_blank} or any Solidity-compatible environment and call callH256 with arbitrary bytes. Check out this [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/SHA256.js){target=\_blank} shows how to pass a UTF-8 string, hash it using the precompile, and compare it with the expected hash from Node.js's [crypto](https://www.npmjs.com/package/crypto-js){target=\_blank} module.
@@ -7792,32 +8229,7 @@ To use it, you can deploy the `SHA256Example` contract in [Remix](/smart-contrac
 The RIPEMD-160 precompile computes the RIPEMD-160 hash of the input data.
 
 ```solidity title="RIPEMD160.sol"
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
 
-contract RIPEMD160Example {
-    // RIPEMD-160 precompile address
-    address constant RIPEMD160_PRECOMPILE = address(0x03);
-
-    bytes32 public result;
-
-    event RIPEMD160Called(bytes32 result);
-
-    function calculateRIPEMD160(bytes calldata input) public returns (bytes32) {
-        (bool success, bytes memory returnData) = RIPEMD160_PRECOMPILE.call(
-            input
-        );
-        require(success, "RIPEMD-160 precompile call failed");
-        // return full 32 bytes, no assembly extraction
-        bytes32 fullHash;
-        assembly {
-            fullHash := mload(add(returnData, 32))
-        }
-        result = fullHash;
-        emit RIPEMD160Called(fullHash);
-        return fullHash;
-    }
-}
 ```
 
 To use it, you can deploy the `RIPEMD160Example` contract in [Remix](/smart-contracts/dev-environments/remix/get-started/){target=\_blank} or any Solidity-compatible environment and call `calculateRIPEMD160` with arbitrary bytes. This [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/RIPEMD160.js){target=\_blank} shows how to hash a UTF-8 string, pad the 20-byte result to 32 bytes, and verify it against the expected output.
@@ -7827,30 +8239,7 @@ To use it, you can deploy the `RIPEMD160Example` contract in [Remix](/smart-cont
 The Identity precompile simply returns the input data as output. While seemingly trivial, it can be useful for testing and certain specialized scenarios.
 
 ```solidity title="Identity.sol"
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
 
-contract IdentityExample {
-    event IdentityCalled(bytes result);
-
-    // Address of the Identity precompile
-    address constant IDENTITY_PRECOMPILE = address(0x04);
-
-    bytes public result;
-
-    function callIdentity(bytes calldata input) public {
-        bool success;
-        bytes memory resultInMemory;
-
-        (success, resultInMemory) = IDENTITY_PRECOMPILE.call(input);
-
-        if (success) {
-            emit IdentityCalled(resultInMemory);
-        }
-
-        result = resultInMemory;
-    }
-}
 ```
 
 To use it, you can deploy the `IdentityExample` contract in [Remix](/smart-contracts/dev-environments/remix/get-started/){target=\_blank} or any Solidity-compatible environment and call `callIdentity` with arbitrary bytes. This [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/Identity.js){target=\_blank} shows how to pass input data and verify that the precompile returns it unchanged.
@@ -7860,36 +8249,7 @@ To use it, you can deploy the `IdentityExample` contract in [Remix](/smart-contr
 The ModExp precompile performs modular exponentiation, which is an operation commonly needed in cryptographic algorithms.
 
 ```solidity title="ModExp.sol"
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
 
-contract ModExpExample {
-    address constant MODEXP_ADDRESS = address(0x05);
-
-    function modularExponentiation(
-        bytes memory base,
-        bytes memory exponent,
-        bytes memory modulus
-    ) public view returns (bytes memory) {
-        bytes memory input = abi.encodePacked(
-            toBytes32(base.length),
-            toBytes32(exponent.length),
-            toBytes32(modulus.length),
-            base,
-            exponent,
-            modulus
-        );
-
-        (bool success, bytes memory result) = MODEXP_ADDRESS.staticcall(input);
-        require(success, "ModExp precompile call failed");
-
-        return result;
-    }
-
-    function toBytes32(uint256 value) internal pure returns (bytes32) {
-        return bytes32(value);
-    }
-}
 ```
 
 To use it, you can deploy the `ModExpExample` contract in [Remix](/smart-contracts/dev-environments/remix/get-started/){target=\_blank} or any Solidity-compatible environment and call `modularExponentiation` with encoded `base`, `exponent`, and `modulus` bytes. This [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/ModExp.js){target=\_blank} shows how to test modular exponentiation like (4 ** 13) % 497 = 445.
@@ -7899,38 +8259,7 @@ To use it, you can deploy the `ModExpExample` contract in [Remix](/smart-contrac
 The BN128Add precompile performs addition on the alt_bn128 elliptic curve, which is essential for zk-SNARK operations.
 
 ```solidity title="BN128Add.sol"
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
 
-contract BN128AddExample {
-    address constant BN128_ADD_PRECOMPILE = address(0x06);
-
-    event BN128Added(uint256 x3, uint256 y3);
-
-    uint256 public resultX;
-    uint256 public resultY;
-
-    function callBN128Add(uint256 x1, uint256 y1, uint256 x2, uint256 y2) public {
-        bytes memory input = abi.encodePacked(
-            bytes32(x1), bytes32(y1), bytes32(x2), bytes32(y2)
-        );
-
-        bool success;
-        bytes memory output;
-
-        (success, output) = BN128_ADD_PRECOMPILE.call{value: 0}(input);
-
-        require(success, "BN128Add precompile call failed");
-        require(output.length == 64, "Invalid output length");
-
-        (uint256 x3, uint256 y3) = abi.decode(output, (uint256, uint256));
-
-        resultX = x3;
-        resultY = y3;
-
-        emit BN128Added(x3, y3);
-    }
-}
 ```
 
 To use it, you can deploy the `BN128AddExample` contract in [Remix](/smart-contracts/dev-environments/remix/get-started/){target=\_blank} or any Solidity-compatible environment and call `callBN128Add` with valid `alt_bn128` points. This [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/BN128Add.js){target=\_blank} demonstrates a valid curve addition and checks the result against known expected values.
@@ -7985,38 +8314,7 @@ To use it, deploy `BN128MulExample` in [Remix](/smart-contracts/dev-environments
 The BN128Pairing precompile verifies a pairing equation on the alt_bn128 curve, which is critical for zk-SNARK verification.
 
 ```solidity title="BN128Pairing.sol"
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
 
-contract BN128PairingExample {
-    // Precompile address for BN128Pairing
-    address constant BN128_PAIRING_ADDRESS = address(0x08);
-
-    bytes public result;
-
-    // Performs a pairing check on the alt_bn128 curve
-    function bn128Pairing(bytes memory input) public {
-        // Call the precompile
-        (bool success, bytes memory resultInMemory) = BN128_PAIRING_ADDRESS
-            .call{value: 0}(input);
-        require(success, "BN128Pairing precompile call failed");
-
-        result = resultInMemory;
-    }
-
-    // Helper function to decode the result from `result` storage
-    function getResult() public view returns (bool isValid) {
-        bytes memory tempResult = result;
-        require(tempResult.length == 32, "Invalid result length");
-
-        uint256 output;
-        assembly {
-            output := mload(add(tempResult, 32))
-        }
-
-        isValid = (output == 1);
-    }
-}
 ```
 
 You can deploy `BN128PairingExample` in [Remix](/smart-contracts/dev-environments/remix/get-started/){target=\_blank} or your preferred environment. Check out this [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/BN128Pairing.js){target=\_blank} contains these tests with working examples.
@@ -8026,105 +8324,7 @@ You can deploy `BN128PairingExample` in [Remix](/smart-contracts/dev-environment
 The Blake2F precompile performs the Blake2 compression function F, which is the core of the Blake2 hash function.
 
 ```solidity title="Blake2F.sol"
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
 
-contract Blake2FExample {
-    // Precompile address for Blake2F
-    address constant BLAKE2F_ADDRESS = address(0x09);
-
-    bytes public result;
-
-    function blake2F(bytes memory input) public {
-        // Input must be exactly 213 bytes
-        require(input.length == 213, "Invalid input length - must be 213 bytes");
-
-        // Call the precompile
-        (bool success, bytes memory resultInMemory) = BLAKE2F_ADDRESS.call{
-            value: 0
-        }(input);
-        require(success, "Blake2F precompile call failed");
-
-        result = resultInMemory;
-    }
-
-    // Helper function to decode the result from `result` storage
-    function getResult() public view returns (bytes32[8] memory output) {
-        bytes memory tempResult = result;
-        require(tempResult.length == 64, "Invalid result length");
-
-        for (uint i = 0; i < 8; i++) {
-            assembly {
-                mstore(add(output, mul(32, i)), mload(add(add(tempResult, 32), mul(32, i))))
-            }
-        }
-    }
-
-
-    // Helper function to create Blake2F input from parameters
-    function createBlake2FInput(
-        uint32 rounds,
-        bytes32[8] memory h,
-        bytes32[16] memory m,
-        bytes8[2] memory t,
-        bool f
-    ) public pure returns (bytes memory) {
-        // Start with rounds (4 bytes, big-endian)
-        bytes memory input = abi.encodePacked(rounds);
-
-        // Add state vector h (8 * 32 = 256 bytes)
-        for (uint i = 0; i < 8; i++) {
-            input = abi.encodePacked(input, h[i]);
-        }
-
-        // Add message block m (16 * 32 = 512 bytes, but we need to convert to 16 * 8 = 128 bytes)
-        // Blake2F expects 64-bit words in little-endian format
-        for (uint i = 0; i < 16; i++) {
-            // Take only the first 8 bytes of each bytes32 and reverse for little-endian
-            bytes8 word = bytes8(m[i]);
-            input = abi.encodePacked(input, word);
-        }
-
-        // Add offset counters t (2 * 8 = 16 bytes)
-        input = abi.encodePacked(input, t[0], t[1]);
-
-        // Add final block flag (1 byte)
-        input = abi.encodePacked(input, f ? bytes1(0x01) : bytes1(0x00));
-
-        return input;
-    }
-
-    // Simplified function that works with raw hex input
-    function blake2FFromHex(string memory hexInput) public {
-        bytes memory input = hexStringToBytes(hexInput);
-        blake2F(input);
-    }
-
-    // Helper function to convert hex string to bytes
-    function hexStringToBytes(string memory hexString) public pure returns (bytes memory) {
-        bytes memory hexBytes = bytes(hexString);
-        require(hexBytes.length % 2 == 0, "Invalid hex string length");
-        
-        bytes memory result = new bytes(hexBytes.length / 2);
-        
-        for (uint i = 0; i < hexBytes.length / 2; i++) {
-            result[i] = bytes1(
-                (hexCharToByte(hexBytes[2 * i]) << 4) | 
-                hexCharToByte(hexBytes[2 * i + 1])
-            );
-        }
-        
-        return result;
-    }
-
-    function hexCharToByte(bytes1 char) internal pure returns (uint8) {
-        uint8 c = uint8(char);
-        if (c >= 48 && c <= 57) return c - 48;      // 0-9
-        if (c >= 65 && c <= 70) return c - 55;      // A-F
-        if (c >= 97 && c <= 102) return c - 87;     // a-f
-        revert("Invalid hex character");
-    }
-}
 ```
 
 To use it, deploy `Blake2FExample` in [Remix](/smart-contracts/dev-environments/remix/get-started/){target=\_blank} or any Solidity-compatible environment and call `callBlake2F` with the properly formatted input parameters for rounds, state vector, message block, offset counters, and final block flag. This [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/Blake2.js){target=\_blank} demonstrates how to perform Blake2 compression with different rounds and verify the correctness of the output against known test vectors.
@@ -8355,47 +8555,7 @@ This guide demonstrates how to interact with the XCM precompile through Solidity
 The XCM precompile implements the `IXcm` interface, which defines the structure for interacting with XCM functionality. The source code for the interface is as follows:
 
 ```solidity title="IXcm.sol"
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
 
-/// @dev The on-chain address of the XCM (Cross-Consensus Messaging) precompile.
-address constant XCM_PRECOMPILE_ADDRESS = address(0xA0000);
-
-/// @title XCM Precompile Interface
-/// @notice A low-level interface for interacting with `pallet_xcm`.
-/// It forwards calls directly to the corresponding dispatchable functions,
-/// providing access to XCM execution and message passing.
-/// @dev Documentation:
-/// @dev - XCM: https://docs.polkadot.com/develop/interoperability
-/// @dev - SCALE codec: https://docs.polkadot.com/polkadot-protocol/parachain-basics/data-encoding
-/// @dev - Weights: https://docs.polkadot.com/polkadot-protocol/parachain-basics/blocks-transactions-fees/fees/#transactions-weights-and-fees
-interface IXcm {
-    /// @notice Weight v2 used for measurement for an XCM execution
-    struct Weight {
-        /// @custom:property The computational time used to execute some logic based on reference hardware.
-        uint64 refTime;
-        /// @custom:property The size of the proof needed to execute some logic.
-        uint64 proofSize;
-    }
-
-    /// @notice Executes an XCM message locally on the current chain with the caller's origin.
-    /// @dev Internally calls `pallet_xcm::execute`.
-    /// @param message A SCALE-encoded Versioned XCM message.
-    /// @param weight The maximum allowed `Weight` for execution.
-    /// @dev Call @custom:function weighMessage(message) to ensure sufficient weight allocation.
-    function execute(bytes calldata message, Weight calldata weight) external;
-
-    /// @notice Sends an XCM message to another parachain or consensus system.
-    /// @dev Internally calls `pallet_xcm::send`.
-    /// @param destination SCALE-encoded destination MultiLocation.
-    /// @param message SCALE-encoded Versioned XCM message.
-    function send(bytes calldata destination, bytes calldata message) external;
-
-    /// @notice Estimates the `Weight` required to execute a given XCM message.
-    /// @param message SCALE-encoded Versioned XCM message to analyze.
-    /// @return weight Struct containing estimated `refTime` and `proofSize`.
-    function weighMessage(bytes calldata message) external view returns (Weight memory weight);
-}
 ```
 
 The interface defines a `Weight` struct that represents the computational cost of XCM operations. Weight has two components: 
@@ -13497,16 +13657,7 @@ The [`Account` data type](https://paritytech.github.io/polkadot-sdk/master/frame
 The code snippet below shows how accounts are defined:
 
 ```rs
- /// The full account information for a particular account ID.
- 	#[pallet::storage]
- 	#[pallet::getter(fn account)]
- 	pub type Account<T: Config> = StorageMap<
- 		_,
- 		Blake2_128Concat,
- 		T::AccountId,
- 		AccountInfo<T::Nonce, T::AccountData>,
- 		ValueQuery,
- 	>;
+ 
 ```
 
 The preceding code block defines a storage map named `Account`. The `StorageMap` is a type of on-chain storage that maps keys to values. In the `Account` map, the key is an account ID, and the value is the account's information. Here, `T` represents the generic parameter for the runtime configuration, which is defined by the pallet's configuration trait (`Config`).
@@ -13530,24 +13681,7 @@ For a detailed explanation of storage maps, see the [`StorageMap`](https://parit
 The `AccountInfo` structure is another key element within the [System pallet](https://paritytech.github.io/polkadot-sdk/master/src/frame_system/lib.rs.html){target=\_blank}, providing more granular details about each account's state. This structure tracks vital data, such as the number of transactions and the account’s relationships with other modules.
 
 ```rs
-/// Information of an account.
-#[derive(Clone, Eq, PartialEq, Default, RuntimeDebug, Encode, Decode, TypeInfo, MaxEncodedLen)]
-pub struct AccountInfo<Nonce, AccountData> {
-	/// The number of transactions this account has sent.
-	pub nonce: Nonce,
-	/// The number of other modules that currently depend on this account's existence. The account
-	/// cannot be reaped until this is zero.
-	pub consumers: RefCount,
-	/// The number of other modules that allow this account to exist. The account may not be reaped
-	/// until this and `sufficients` are both zero.
-	pub providers: RefCount,
-	/// The number of modules that allow this account to exist for their own purposes only. The
-	/// account may not be reaped until this and `providers` are both zero.
-	pub sufficients: RefCount,
-	/// The additional data that belongs to this account. Used to store the balance(s) in a lot of
-	/// chains.
-	pub data: AccountData,
-}
+
 ```
 
 The `AccountInfo` structure includes the following components:
@@ -14561,8 +14695,7 @@ The [`XcmRouter`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pa
 For instance, the Kusama network employs the [`ChildParachainRouter`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_common/xcm_sender/struct.ChildParachainRouter.html){target=\_blank}, which restricts routing to [Downward Message Passing (DMP)](https://wiki.polkadot.com/learn/learn-xcm-transport/#dmp-downward-message-passing){target=\_blank} from the relay chain to parachains, ensuring secure and controlled communication.
 
 ```rust
-pub type PriceForChildParachainDelivery =
-	ExponentialPrice<FeeAssetId, BaseDeliveryFee, TransactionByteFee, Dmp>;
+
 ```
 
 For more details about XCM transport protocols, see the [XCM Channels](/develop/interoperability/xcm-channels/){target=\_blank} page.
@@ -15688,95 +15821,25 @@ The `xcm-emulator` provides macros for defining a mocked testing environment. Ch
 - **[`decl_test_relay_chains`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/cumulus/xcm/xcm-emulator/src/lib.rs#L361){target=\_blank}**: Defines runtime and configuration for the relay chains. Example:
 
     ```rust
-    decl_test_relay_chains! {
-    	#[api_version(13)]
-    	pub struct Westend {
-    		genesis = genesis::genesis(),
-    		on_init = (),
-    		runtime = westend_runtime,
-    		core = {
-    			SovereignAccountOf: westend_runtime::xcm_config::LocationConverter,
-    		},
-    		pallets = {
-    			XcmPallet: westend_runtime::XcmPallet,
-    			Sudo: westend_runtime::Sudo,
-    			Balances: westend_runtime::Balances,
-    			Treasury: westend_runtime::Treasury,
-    			AssetRate: westend_runtime::AssetRate,
-    			Hrmp: westend_runtime::Hrmp,
-    			Identity: westend_runtime::Identity,
-    			IdentityMigrator: westend_runtime::IdentityMigrator,
-    		}
-    	},
-    }
+    
     ```
 
 - **[`decl_test_parachains`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/cumulus/xcm/xcm-emulator/src/lib.rs#L596){target=\_blank}**: Defines runtime and configuration for parachains. Example:
 
     ```rust
-    decl_test_parachains! {
-    	pub struct AssetHubWestend {
-    		genesis = genesis::genesis(),
-    		on_init = {
-    			asset_hub_westend_runtime::AuraExt::on_initialize(1);
-    		},
-    		runtime = asset_hub_westend_runtime,
-    		core = {
-    			XcmpMessageHandler: asset_hub_westend_runtime::XcmpQueue,
-    			LocationToAccountId: asset_hub_westend_runtime::xcm_config::LocationToAccountId,
-    			ParachainInfo: asset_hub_westend_runtime::ParachainInfo,
-    			MessageOrigin: cumulus_primitives_core::AggregateMessageOrigin,
-    			DigestProvider: (),
-    		},
-    		pallets = {
-    			PolkadotXcm: asset_hub_westend_runtime::PolkadotXcm,
-    			Balances: asset_hub_westend_runtime::Balances,
-    			Assets: asset_hub_westend_runtime::Assets,
-    			ForeignAssets: asset_hub_westend_runtime::ForeignAssets,
-    			PoolAssets: asset_hub_westend_runtime::PoolAssets,
-    			AssetConversion: asset_hub_westend_runtime::AssetConversion,
-    			SnowbridgeSystemFrontend: asset_hub_westend_runtime::SnowbridgeSystemFrontend,
-    			Revive: asset_hub_westend_runtime::Revive,
-    		}
-    	},
-    }
+    
     ```
 
 - **[`decl_test_bridges`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/cumulus/xcm/xcm-emulator/src/lib.rs#L1221){target=\_blank}**: Creates bridges between chains, specifying the source, target, and message handler. Example:
 
     ```rust
-    decl_test_bridges! {
-    	pub struct RococoWestendMockBridge {
-    		source = BridgeHubRococoPara,
-    		target = BridgeHubWestendPara,
-    		handler = RococoWestendMessageHandler
-    	},
-    	pub struct WestendRococoMockBridge {
-    		source = BridgeHubWestendPara,
-    		target = BridgeHubRococoPara,
-    		handler = WestendRococoMessageHandler
-    	}
-    }
+    
     ```
 
 - **[`decl_test_networks`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/cumulus/xcm/xcm-emulator/src/lib.rs#L958){target=\_blank}**: Defines a testing network with relay chains, parachains, and bridges, implementing message transport and processing logic. Example:
 
     ```rust
-    decl_test_networks! {
-    	pub struct WestendMockNet {
-    		relay_chain = Westend,
-    		parachains = vec![
-    			AssetHubWestend,
-    			BridgeHubWestend,
-    			CollectivesWestend,
-    			CoretimeWestend,
-    			PeopleWestend,
-    			PenpalA,
-    			PenpalB,
-    		],
-    		bridge = ()
-    	},
-    }
+    
     ```
 
 By leveraging these macros, developers can customize their testing networks by defining relay chains and parachains tailored to their needs. For guidance on implementing a mock runtime for a Polkadot SDK-based chain, refer to the [Pallet Testing](/parachains/customize-runtime/pallet-development/pallet-testing/){target=\_blank} article. 
@@ -22762,7 +22825,7 @@ This API can be used independently for dry-running, double-checking, or testing.
 This API allows a dry-run of any extrinsic and obtaining the outcome if it fails or succeeds, as well as the local xcm and remote xcm messages sent to other chains.
 
 ```rust
-fn dry_run_call(origin: OriginCaller, call: Call, result_xcms_version: XcmVersion) -> Result<CallDryRunEffects<Event>, Error>;
+
 ```
 
 ??? interface "Input parameters"
@@ -23039,7 +23102,7 @@ fn dry_run_call(origin: OriginCaller, call: Call, result_xcms_version: XcmVersio
 This API allows the direct dry-run of an xcm message instead of an extrinsic one, checks if it will execute successfully, and determines what other xcm messages will be forwarded to other chains.
 
 ```rust
-fn dry_run_xcm(origin_location: VersionedLocation, xcm: VersionedXcm<Call>) -> Result<XcmDryRunEffects<Event>, Error>;
+
 ```
 
 ??? interface "Input parameters"
@@ -23270,7 +23333,7 @@ To use the API effectively, the client must already know the XCM program to be e
 Retrieves the list of assets that are acceptable for paying fees when using a specific XCM version
 
 ```rust
-fn query_acceptable_payment_assets(xcm_version: Version) -> Result<Vec<VersionedAssetId>, Error>;
+
 ```
 
 ??? interface "Input parameters"

@@ -6,7 +6,7 @@
 This directory lists URLs for raw Markdown pages that complement the rendered pages on the documentation site. Use these Markdown files to retain semantic context when prompting models while avoiding passing HTML elements.
 
 ## Metadata
-- Documentation pages: 288
+- Documentation pages: 289
 - Categories: 12
 
 ## Docs
@@ -98,6 +98,7 @@ Docs: Smart Contracts
 - [Wallets for Polkadot Hub](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-smart-contracts-wallets.md): Comprehensive guide to connecting and managing wallets for Polkadot Hub, covering step-by-step instructions for interacting with the ecosystem.
 - [Connect to Polkadot](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-connect.md): Explore how to connect to Polkadot Hub, configure your wallet, and obtain test tokens for developing and testing smart contracts.
 - [Deploy an ERC-20 to Polkadot Hub](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-erc20.md): Deploy an ERC-20 token on Polkadot Hub using PolkaVM. This guide covers contract creation, compilation, deployment, and interaction via Polkadot Remix IDE.
+- [Deploy an NFT to Polkadot Hub (EVM)](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-nft-evm.md): Learn how to deploy an ERC-721 NFT contract to Polkadot Hub using standard EVM tools and toolchains.
 - [Deploy an NFT to Polkadot Hub](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-nft.md): Deploy an NFT on Polkadot Hub using PolkaVM and OpenZeppelin. Learn how to compile, deploy, and interact with your contract using Polkadot Remix IDE.
 - [Use Hardhat with Polkadot Hub](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-hardhat-get-started.md): Learn how to create, compile, test, and deploy smart contracts on Polkadot Hub using Hardhat, a powerful development environment for blockchain developers.
 - [Local Development Node](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-local-dev-node.md): Follow this step-by-step guide to install a Revive Dev node and ETH-RPC adapter for smart contract development in a local environment.

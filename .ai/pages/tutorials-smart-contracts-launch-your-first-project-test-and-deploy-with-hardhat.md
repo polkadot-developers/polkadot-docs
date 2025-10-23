@@ -62,42 +62,7 @@ Let's start by setting up Hardhat for your Storage contract project:
 6. Configure Hardhat by updating the `hardhat.config.js` file:
 
     ```javascript title="hardhat.config.js"
-    require("@nomicfoundation/hardhat-toolbox");
-
-    require("@parity/hardhat-polkadot");
-
-    const { vars } = require("hardhat/config");
-
-    /** @type import('hardhat/config').HardhatUserConfig */
-    module.exports = {
-      solidity: "0.8.28",
-      resolc: {
-        compilerSource: "npm",
-      },
-      networks: {
-        hardhat: {
-          polkavm: true,
-          nodeConfig: {
-            nodeBinaryPath: 'INSERT_PATH_TO_SUBSTRATE_NODE',
-            rpcPort: 8000,
-            dev: true,
-          },
-          adapterConfig: {
-            adapterBinaryPath: 'INSERT_PATH_TO_ETH_RPC_ADAPTER',
-            dev: true,
-          },
-        },
-        localNode: {
-          polkavm: true,
-          url: `http://127.0.0.1:8545`,
-        },
-        passetHub: {
-          polkavm: true,
-          url: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
-          accounts: [vars.get("PRIVATE_KEY")],
-        },
-      },
-    };
+    
     ```
 
     Ensure that `INSERT_PATH_TO_SUBSTRATE_NODE` and `INSERT_PATH_TO_ETH_RPC_ADAPTER` are replaced with the proper paths to the compiled binaries. 
@@ -127,27 +92,7 @@ Let's start by setting up Hardhat for your Storage contract project:
 1. Create a new folder called `contracts` and create a `Storage.sol` file. Add the contract code from the previous tutorial:
 
     ```solidity title="Storage.sol"
-    // SPDX-License-Identifier: MIT
-    pragma solidity ^0.8.28;
-
-    contract Storage {
-        // State variable to store our number
-        uint256 private number;
-
-        // Event to notify when the number changes
-        event NumberChanged(uint256 newNumber);
-
-        // Function to store a new number
-        function store(uint256 newNumber) public {
-            number = newNumber;
-            emit NumberChanged(newNumber);
-        }
-
-        // Function to retrieve the stored number
-        function retrieve() public view returns (uint256) {
-            return number;
-        }
-    }
+    
     ```
 
 2. Compile the contract:
@@ -173,28 +118,9 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
 1. Create a folder for testing called `test`. Inside that directory, create a file named `Storage.js` and add the following code:
 
     ```javascript title="Storage.js" 
-    const { expect } = require('chai');
-    const { ethers } = require('hardhat');
-
-    describe('Storage', function () {
-      let storage;
-      let owner;
-      let addr1;
-
-      beforeEach(async function () {
-        // Get signers
-        [owner, addr1] = await ethers.getSigners();
-
-        // Deploy the Storage contract
-        const Storage = await ethers.getContractFactory('Storage');
-        storage = await Storage.deploy();
-        await storage.waitForDeployment();
-      });
-
-      describe('Basic functionality', function () {
+    
         // Add your logic here
-    });
-    });
+    
     ```
 
     The `beforeEach` hook ensures stateless contract execution by redeploying a fresh instance of the Storage contract before each test case. This approach guarantees that each test starts with a clean and independent contract state by using `ethers.getSigners()` to obtain test accounts and `ethers.getContractFactory('Storage').deploy()` to create a new contract instance.
@@ -204,9 +130,7 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
     1. **Initial state verification**: Ensures that the contract starts with a default value of zero, which is a fundamental expectation for the `Storage.sol` contract.
 
         ```javascript title="Storage.js"
-        it('Should return 0 initially', async function () {
-              expect(await storage.retrieve()).to.equal(0);
-            });
+        
         ```
 
         Explanation:
@@ -218,13 +142,7 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
     2. **Value storage test**: Validate the core functionality of storing and retrieving a value in the contract.
 
         ```javascript title="Storage.js"
-        it('Should update when store is called', async function () {
-              const testValue = 42;
-              // Store a value
-              await storage.store(testValue);
-              // Check if the value was updated
-              expect(await storage.retrieve()).to.equal(testValue);
-            });
+        
         ```
 
         Explanation:
@@ -236,13 +154,7 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
     3. **Event emission verification**: Confirm that the contract emits the correct event when storing a value, which is crucial for off-chain tracking.
 
         ```javascript title="Storage.js"
-        it('Should emit an event when storing a value', async function () {
-              const testValue = 100;
-              // Check if the NumberChanged event is emitted with the correct value
-              await expect(storage.store(testValue))
-                .to.emit(storage, 'NumberChanged')
-                .withArgs(testValue);
-            });
+        
         ```
 
         Explanation:
@@ -351,13 +263,7 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
 1. Create a new folder called`ignition/modules`. Add a new file named `StorageModule.js` with the following logic:
 
     ```javascript title="StorageModule.js"
-    const { buildModule } = require('@nomicfoundation/hardhat-ignition/modules');
-
-    module.exports = buildModule('StorageModule', (m) => {
-      const storage = m.contract('Storage');
-
-      return { storage };
-    });
+    
     ```
 
 2. Deploy to the local network:
@@ -429,40 +335,7 @@ To interact with your deployed contract:
 1. Create a new folder named `scripts` and add the `interact.js` with the following content:
 
     ```javascript title="interact.js"
-    const hre = require('hardhat');
-
-    async function main() {
-      // Replace with your deployed contract address
-      const contractAddress = 'INSERT_DEPLOYED_CONTRACT_ADDRESS';
-
-      // Get the contract instance
-      const Storage = await hre.ethers.getContractFactory('Storage');
-      const storage = await Storage.attach(contractAddress);
-
-      // Get current value
-      const currentValue = await storage.retrieve();
-      console.log('Current stored value:', currentValue.toString());
-
-      // Store a new value
-      const newValue = 42;
-      console.log(`Storing new value: ${newValue}...`);
-      const tx = await storage.store(newValue);
-
-      // Wait for transaction to be mined
-      await tx.wait();
-      console.log('Transaction confirmed');
-
-      // Get updated value
-      const updatedValue = await storage.retrieve();
-      console.log('Updated stored value:', updatedValue.toString());
-    }
-
-    main()
-      .then(() => process.exit(0))
-      .catch((error) => {
-        console.error(error);
-        process.exit(1);
-      });
+    
     ```
 
     Ensure that `INSERT_DEPLOYED_CONTRACT_ADDRESS` is replaced with the value obtained in the previous step.

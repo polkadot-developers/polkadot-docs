@@ -150,6 +150,15 @@ The following sections provide detailed guidance on each aspect of parachain dev
 
 <div class="grid cards" markdown>
 
+-   <span class="badge guide">Guide</span> __Launch a Simple Parachain__
+
+    ---
+
+    Walk through the complete parachain launch flow: from setup and deployment to obtaining coretime.
+
+    [:octicons-arrow-right-24: Deploy](/parachains/launch-a-parachain/set-up-the-parachain-template/)
+
+
 -   <span class="badge guide">Guide</span> __Customize Your Runtime__
 
     ---
@@ -165,14 +174,6 @@ The following sections provide detailed guidance on each aspect of parachain dev
     Implement XCM for trustless cross-chain communication with other parachains.
 
     [:octicons-arrow-right-24: Learn More](/parachains/interoperability/get-started/)
-
--   <span class="badge guide">Guide</span> __Nodes & Validators__
-
-    ---
-
-    Deploy your parachain to Polkadot by obtaining coretime and connecting to the relay chain.
-
-    [:octicons-arrow-right-24: Deploy](/parachains/launch-a-parachain/choose-a-template/)
 
 -   <span class="badge guide">Guide</span> __Runtime Upgrades__
 

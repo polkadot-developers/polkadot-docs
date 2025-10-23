@@ -288,63 +288,13 @@ Update your root parachain template's `Cargo.toml` file to include your custom p
     Make sure the `custom-pallet` is a member of the workspace:
 
     ```toml hl_lines="4" title="Cargo.toml"
-     [workspace]
-     default-members = ["pallets/template", "runtime"]
-     members = [
-         "node", "pallets/custom-pallet",
-         "pallets/template",
-         "runtime",
-     ]
+     
     ```
 
 ???- code "./Cargo.toml"
 
     ```rust title="./Cargo.toml"
-    [workspace.package]
-    license = "MIT-0"
-    authors = ["Parity Technologies <admin@parity.io>"]
-    homepage = "https://paritytech.github.io/polkadot-sdk/"
-    repository = "https://github.com/paritytech/polkadot-sdk-parachain-template.git"
-    edition = "2021"
-
-    [workspace]
-    default-members = ["pallets/template", "runtime"]
-    members = [
-        "node", "pallets/custom-pallet",
-        "pallets/template",
-        "runtime",
-    ]
-    resolver = "2"
-
-    [workspace.dependencies]
-    parachain-template-runtime = { path = "./runtime", default-features = false }
-    pallet-parachain-template = { path = "./pallets/template", default-features = false }
-    clap = { version = "4.5.13" }
-    color-print = { version = "0.3.4" }
-    docify = { version = "0.2.9" }
-    futures = { version = "0.3.31" }
-    jsonrpsee = { version = "0.24.3" }
-    log = { version = "0.4.22", default-features = false }
-    polkadot-sdk = { version = "2503.0.1", default-features = false }
-    prometheus-endpoint = { version = "0.17.2", default-features = false, package = "substrate-prometheus-endpoint" }
-    serde = { version = "1.0.214", default-features = false }
-    codec = { version = "3.7.4", default-features = false, package = "parity-scale-codec" }
-    cumulus-pallet-parachain-system = { version = "0.20.0", default-features = false }
-    hex-literal = { version = "0.4.1", default-features = false }
-    scale-info = { version = "2.11.6", default-features = false }
-    serde_json = { version = "1.0.132", default-features = false }
-    smallvec = { version = "1.11.0", default-features = false }
-    substrate-wasm-builder = { version = "26.0.1", default-features = false }
-    frame = { version = "0.9.1", default-features = false, package = "polkadot-sdk-frame" }
-
-    [profile.release]
-    opt-level = 3
-    panic = "unwind"
-
-    [profile.production]
-    codegen-units = 1
-    inherits = "release"
-    lto = true
+    
     ```
 
 
@@ -2244,23 +2194,7 @@ To create the ERC-20 contract, you can follow the steps below:
 3. Now, paste the following ERC-20 contract code into the editor:
 
     ```solidity title="MyToken.sol"
-    // SPDX-License-Identifier: MIT
-    // Compatible with OpenZeppelin Contracts ^5.0.0
-    pragma solidity ^0.8.22;
-
-    import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-    import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
-
-    contract MyToken is ERC20, Ownable {
-        constructor(address initialOwner)
-            ERC20("MyToken", "MTK")
-            Ownable(initialOwner)
-        {}
-
-        function mint(address to, uint256 amount) public onlyOwner {
-            _mint(to, amount);
-        }
-    }
+    
     ```
 
     The key components of the code above are:
@@ -2411,26 +2345,7 @@ To create the NFT contract, you can follow the steps below:
 3. Now, paste the following NFT contract code into the editor.
 
     ```solidity title="MyNFT.sol"
-    // SPDX-License-Identifier: MIT
-    // Compatible with OpenZeppelin Contracts ^5.0.0
-    pragma solidity ^0.8.22;
-
-    import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-    import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
-
-    contract MyToken is ERC721, Ownable {
-        uint256 private _nextTokenId;
-
-        constructor(address initialOwner)
-            ERC721("MyToken", "MTK")
-            Ownable(initialOwner)
-        {}
-
-        function safeMint(address to) public onlyOwner {
-            uint256 tokenId = _nextTokenId++;
-            _safeMint(to, tokenId);
-        }
-    }
+    
     ```
 
     The key components of the code above are:
@@ -4547,34 +4462,7 @@ Now, you'll explore how to use each precompile available in Polkadot Hub.
 ECRecover recovers an Ethereum address associated with the public key used to sign a message.
 
 ```solidity title="ECRecover.sol"
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
 
-contract ECRecoverExample {
-    event ECRecovered(bytes result);
-
-    // Address of the ECRecover precompile
-    address constant EC_RECOVER_ADDRESS = address(0x01);
-    bytes public result;
-
-    function callECRecover(bytes calldata input) public {
-        bool success;
-        bytes memory resultInMemory;
-
-        (success, resultInMemory) = EC_RECOVER_ADDRESS.call{value: 0}(input);
-
-        if (success) {
-            emit ECRecovered(resultInMemory);
-        }
-
-        result = resultInMemory;
-    }
-
-    function getRecoveredAddress() public view returns (address) {
-        require(result.length == 32, "Invalid result length");
-        return address(uint160(uint256(bytes32(result))));
-    }
-}
 ```
 
 To interact with the ECRecover precompile, you can deploy the `ECRecoverExample` contract in [Remix](/develop/smart-contracts/dev-environments/remix){target=\_blank} or any Solidity-compatible environment. The `callECRecover` function takes a 128-byte input combining the message `hash`, `v`, `r`, and `s` signature values. Check this [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/ECRecover.js){target=\_blank} that shows how to format this input and verify that the recovered address matches the expected result.
@@ -4584,30 +4472,7 @@ To interact with the ECRecover precompile, you can deploy the `ECRecoverExample`
 The SHA-256 precompile computes the SHA-256 hash of the input data.
 
 ```solidity title="SHA256.sol"
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
 
-contract SHA256Example {
-    event SHA256Called(bytes result);
-
-    // Address of the SHA256 precompile
-    address constant SHA256_PRECOMPILE = address(0x02);
-
-    bytes public result;
-
-    function callH256(bytes calldata input) public {
-        bool success;
-        bytes memory resultInMemory;
-
-        (success, resultInMemory) = SHA256_PRECOMPILE.call{value: 0}(input);
-
-        if (success) {
-            emit SHA256Called(resultInMemory);
-        }
-
-        result = resultInMemory;
-    }
-}
 ```
 
 To use it, you can deploy the `SHA256Example` contract in [Remix](/develop/smart-contracts/dev-environments/remix){target=\_blank} or any Solidity-compatible environment and call callH256 with arbitrary bytes. Check out this [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/SHA256.js){target=\_blank} shows how to pass a UTF-8 string, hash it using the precompile, and compare it with the expected hash from Node.js's [crypto](https://www.npmjs.com/package/crypto-js){target=\_blank} module.
@@ -4617,32 +4482,7 @@ To use it, you can deploy the `SHA256Example` contract in [Remix](/develop/smart
 The RIPEMD-160 precompile computes the RIPEMD-160 hash of the input data.
 
 ```solidity title="RIPEMD160.sol"
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
 
-contract RIPEMD160Example {
-    // RIPEMD-160 precompile address
-    address constant RIPEMD160_PRECOMPILE = address(0x03);
-
-    bytes32 public result;
-
-    event RIPEMD160Called(bytes32 result);
-
-    function calculateRIPEMD160(bytes calldata input) public returns (bytes32) {
-        (bool success, bytes memory returnData) = RIPEMD160_PRECOMPILE.call(
-            input
-        );
-        require(success, "RIPEMD-160 precompile call failed");
-        // return full 32 bytes, no assembly extraction
-        bytes32 fullHash;
-        assembly {
-            fullHash := mload(add(returnData, 32))
-        }
-        result = fullHash;
-        emit RIPEMD160Called(fullHash);
-        return fullHash;
-    }
-}
 ```
 
 To use it, you can deploy the `RIPEMD160Example` contract in [Remix](/develop/smart-contracts/dev-environments/remix){target=\_blank} or any Solidity-compatible environment and call `calculateRIPEMD160` with arbitrary bytes. This [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/RIPEMD160.js){target=\_blank} shows how to hash a UTF-8 string, pad the 20-byte result to 32 bytes, and verify it against the expected output.
@@ -4652,30 +4492,7 @@ To use it, you can deploy the `RIPEMD160Example` contract in [Remix](/develop/sm
 The Identity precompile simply returns the input data as output. While seemingly trivial, it can be useful for testing and certain specialized scenarios.
 
 ```solidity title="Identity.sol"
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
 
-contract IdentityExample {
-    event IdentityCalled(bytes result);
-
-    // Address of the Identity precompile
-    address constant IDENTITY_PRECOMPILE = address(0x04);
-
-    bytes public result;
-
-    function callIdentity(bytes calldata input) public {
-        bool success;
-        bytes memory resultInMemory;
-
-        (success, resultInMemory) = IDENTITY_PRECOMPILE.call(input);
-
-        if (success) {
-            emit IdentityCalled(resultInMemory);
-        }
-
-        result = resultInMemory;
-    }
-}
 ```
 
 To use it, you can deploy the `IdentityExample` contract in [Remix](/develop/smart-contracts/dev-environments/remix){target=\_blank} or any Solidity-compatible environment and call `callIdentity` with arbitrary bytes. This [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/Identity.js){target=\_blank} shows how to pass input data and verify that the precompile returns it unchanged.
@@ -4724,38 +4541,7 @@ To use it, you can deploy the `ModExpExample` contract in [Remix](/develop/smart
 The BN128Add precompile performs addition on the alt_bn128 elliptic curve, which is essential for zk-SNARK operations.
 
 ```solidity title="BN128Add.sol"
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
 
-contract BN128AddExample {
-    address constant BN128_ADD_PRECOMPILE = address(0x06);
-
-    event BN128Added(uint256 x3, uint256 y3);
-
-    uint256 public resultX;
-    uint256 public resultY;
-
-    function callBN128Add(uint256 x1, uint256 y1, uint256 x2, uint256 y2) public {
-        bytes memory input = abi.encodePacked(
-            bytes32(x1), bytes32(y1), bytes32(x2), bytes32(y2)
-        );
-
-        bool success;
-        bytes memory output;
-
-        (success, output) = BN128_ADD_PRECOMPILE.call{value: 0}(input);
-
-        require(success, "BN128Add precompile call failed");
-        require(output.length == 64, "Invalid output length");
-
-        (uint256 x3, uint256 y3) = abi.decode(output, (uint256, uint256));
-
-        resultX = x3;
-        resultY = y3;
-
-        emit BN128Added(x3, y3);
-    }
-}
 ```
 
 To use it, you can deploy the `BN128AddExample` contract in [Remix](/develop/smart-contracts/dev-environments/remix){target=\_blank} or any Solidity-compatible environment and call `callBN128Add` with valid `alt_bn128` points. This [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/BN128Add.js){target=\_blank} demonstrates a valid curve addition and checks the result against known expected values.
@@ -4765,42 +4551,7 @@ To use it, you can deploy the `BN128AddExample` contract in [Remix](/develop/sma
 The BN128Mul precompile performs scalar multiplication on the alt_bn128 curve.
 
 ```solidity title="BN128Mul.sol"
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
 
-contract BN128MulExample {
-    // Precompile address for BN128Mul
-    address constant BN128_MUL_ADDRESS = address(0x07);
-
-    bytes public result;
-
-    // Performs scalar multiplication of a point on the alt_bn128 curve
-    function bn128ScalarMul(uint256 x1, uint256 y1, uint256 scalar) public {
-        // Format: [x, y, scalar] - each 32 bytes
-        bytes memory input = abi.encodePacked(
-            bytes32(x1),
-            bytes32(y1),
-            bytes32(scalar)
-        );
-
-        (bool success, bytes memory resultInMemory) = BN128_MUL_ADDRESS.call{
-            value: 0
-        }(input);
-        require(success, "BN128Mul precompile call failed");
-
-        result = resultInMemory;
-    }
-
-    // Helper to decode result from `result` storage
-    function getResult() public view returns (uint256 x2, uint256 y2) {
-        bytes memory tempResult = result;
-        require(tempResult.length >= 64, "Invalid result length");
-        assembly {
-            x2 := mload(add(tempResult, 32))
-            y2 := mload(add(tempResult, 64))
-        }
-    }
-}
 ```
 
 To use it, deploy `BN128MulExample` in [Remix](/develop/smart-contracts/dev-environments/remix){target=\_blank} or any Solidity-compatible environment and call `bn128ScalarMul` with a valid point and scalar. This [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/BN128Mul.js){target=\_blank} shows how to test the operation and verify the expected scalar multiplication result on `alt_bn128`.
@@ -4810,38 +4561,7 @@ To use it, deploy `BN128MulExample` in [Remix](/develop/smart-contracts/dev-envi
 The BN128Pairing precompile verifies a pairing equation on the alt_bn128 curve, which is critical for zk-SNARK verification.
 
 ```solidity title="BN128Pairing.sol"
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
 
-contract BN128PairingExample {
-    // Precompile address for BN128Pairing
-    address constant BN128_PAIRING_ADDRESS = address(0x08);
-
-    bytes public result;
-
-    // Performs a pairing check on the alt_bn128 curve
-    function bn128Pairing(bytes memory input) public {
-        // Call the precompile
-        (bool success, bytes memory resultInMemory) = BN128_PAIRING_ADDRESS
-            .call{value: 0}(input);
-        require(success, "BN128Pairing precompile call failed");
-
-        result = resultInMemory;
-    }
-
-    // Helper function to decode the result from `result` storage
-    function getResult() public view returns (bool isValid) {
-        bytes memory tempResult = result;
-        require(tempResult.length == 32, "Invalid result length");
-
-        uint256 output;
-        assembly {
-            output := mload(add(tempResult, 32))
-        }
-
-        isValid = (output == 1);
-    }
-}
 ```
 
 You can deploy `BN128PairingExample` in [Remix](/develop/smart-contracts/dev-environments/remix){target=\_blank} or your preferred environment. Check out this [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/BN128Pairing.js){target=\_blank} contains these tests with working examples.
@@ -4991,47 +4711,7 @@ This guide demonstrates how to interact with the XCM precompile through Solidity
 The XCM precompile implements the `IXcm` interface, which defines the structure for interacting with XCM functionality. The source code for the interface is as follows:
 
 ```solidity title="IXcm.sol"
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
 
-/// @dev The on-chain address of the XCM (Cross-Consensus Messaging) precompile.
-address constant XCM_PRECOMPILE_ADDRESS = address(0xA0000);
-
-/// @title XCM Precompile Interface
-/// @notice A low-level interface for interacting with `pallet_xcm`.
-/// It forwards calls directly to the corresponding dispatchable functions,
-/// providing access to XCM execution and message passing.
-/// @dev Documentation:
-/// @dev - XCM: https://docs.polkadot.com/develop/interoperability
-/// @dev - SCALE codec: https://docs.polkadot.com/polkadot-protocol/parachain-basics/data-encoding
-/// @dev - Weights: https://docs.polkadot.com/polkadot-protocol/parachain-basics/blocks-transactions-fees/fees/#transactions-weights-and-fees
-interface IXcm {
-    /// @notice Weight v2 used for measurement for an XCM execution
-    struct Weight {
-        /// @custom:property The computational time used to execute some logic based on reference hardware.
-        uint64 refTime;
-        /// @custom:property The size of the proof needed to execute some logic.
-        uint64 proofSize;
-    }
-
-    /// @notice Executes an XCM message locally on the current chain with the caller's origin.
-    /// @dev Internally calls `pallet_xcm::execute`.
-    /// @param message A SCALE-encoded Versioned XCM message.
-    /// @param weight The maximum allowed `Weight` for execution.
-    /// @dev Call @custom:function weighMessage(message) to ensure sufficient weight allocation.
-    function execute(bytes calldata message, Weight calldata weight) external;
-
-    /// @notice Sends an XCM message to another parachain or consensus system.
-    /// @dev Internally calls `pallet_xcm::send`.
-    /// @param destination SCALE-encoded destination MultiLocation.
-    /// @param message SCALE-encoded Versioned XCM message.
-    function send(bytes calldata destination, bytes calldata message) external;
-
-    /// @notice Estimates the `Weight` required to execute a given XCM message.
-    /// @param message SCALE-encoded Versioned XCM message to analyze.
-    /// @return weight Struct containing estimated `refTime` and `proofSize`.
-    function weighMessage(bytes calldata message) external view returns (Weight memory weight);
-}
 ```
 
 The interface defines a `Weight` struct that represents the computational cost of XCM operations. Weight has two components: 
@@ -8756,8 +8436,7 @@ The [`XcmRouter`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pa
 For instance, the Kusama network employs the [`ChildParachainRouter`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_common/xcm_sender/struct.ChildParachainRouter.html){target=\_blank}, which restricts routing to [Downward Message Passing (DMP)](https://wiki.polkadot.com/learn/learn-xcm-transport/#dmp-downward-message-passing){target=\_blank} from the relay chain to parachains, ensuring secure and controlled communication.
 
 ```rust
-pub type PriceForChildParachainDelivery =
-	ExponentialPrice<FeeAssetId, BaseDeliveryFee, TransactionByteFee, Dmp>;
+
 ```
 
 For more details about XCM transport protocols, see the [XCM Channels](/develop/interoperability/xcm-channels/){target=\_blank} page.
@@ -9610,38 +9289,13 @@ The `xcm-emulator` provides macros for defining a mocked testing environment. Ch
 - **[`decl_test_bridges`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/cumulus/xcm/xcm-emulator/src/lib.rs#L1221){target=\_blank}**: Creates bridges between chains, specifying the source, target, and message handler. Example:
 
     ```rust
-    decl_test_bridges! {
-    	pub struct RococoWestendMockBridge {
-    		source = BridgeHubRococoPara,
-    		target = BridgeHubWestendPara,
-    		handler = RococoWestendMessageHandler
-    	},
-    	pub struct WestendRococoMockBridge {
-    		source = BridgeHubWestendPara,
-    		target = BridgeHubRococoPara,
-    		handler = WestendRococoMessageHandler
-    	}
-    }
+    
     ```
 
 - **[`decl_test_networks`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/cumulus/xcm/xcm-emulator/src/lib.rs#L958){target=\_blank}**: Defines a testing network with relay chains, parachains, and bridges, implementing message transport and processing logic. Example:
 
     ```rust
-    decl_test_networks! {
-    	pub struct WestendMockNet {
-    		relay_chain = Westend,
-    		parachains = vec![
-    			AssetHubWestend,
-    			BridgeHubWestend,
-    			CollectivesWestend,
-    			CoretimeWestend,
-    			PeopleWestend,
-    			PenpalA,
-    			PenpalB,
-    		],
-    		bridge = ()
-    	},
-    }
+    
     ```
 
 By leveraging these macros, developers can customize their testing networks by defining relay chains and parachains tailored to their needs. For guidance on implementing a mock runtime for a Polkadot SDK-based chain, refer to the [Pallet Testing](/develop/parachains/testing/pallet-testing/){target=\_blank} article. 
@@ -13367,7 +13021,7 @@ This API can be used independently for dry-running, double-checking, or testing.
 This API allows a dry-run of any extrinsic and obtaining the outcome if it fails or succeeds, as well as the local xcm and remote xcm messages sent to other chains.
 
 ```rust
-fn dry_run_call(origin: OriginCaller, call: Call, result_xcms_version: XcmVersion) -> Result<CallDryRunEffects<Event>, Error>;
+
 ```
 
 ??? interface "Input parameters"
@@ -13644,7 +13298,7 @@ fn dry_run_call(origin: OriginCaller, call: Call, result_xcms_version: XcmVersio
 This API allows the direct dry-run of an xcm message instead of an extrinsic one, checks if it will execute successfully, and determines what other xcm messages will be forwarded to other chains.
 
 ```rust
-fn dry_run_xcm(origin_location: VersionedLocation, xcm: VersionedXcm<Call>) -> Result<XcmDryRunEffects<Event>, Error>;
+
 ```
 
 ??? interface "Input parameters"
@@ -13875,7 +13529,7 @@ To use the API effectively, the client must already know the XCM program to be e
 Retrieves the list of assets that are acceptable for paying fees when using a specific XCM version
 
 ```rust
-fn query_acceptable_payment_assets(xcm_version: Version) -> Result<Vec<VersionedAssetId>, Error>;
+
 ```
 
 ??? interface "Input parameters"
@@ -13963,7 +13617,7 @@ fn query_acceptable_payment_assets(xcm_version: Version) -> Result<Vec<Versioned
 Calculates the weight required to execute a given XCM message. It is useful for estimating the execution cost of a cross-chain message in the destination chain before sending it.
 
 ```rust
-fn query_xcm_weight(message: VersionedXcm<()>) -> Result<Weight, Error>;
+
 ```
 
 ??? interface "Input parameters"
@@ -14106,7 +13760,7 @@ fn query_xcm_weight(message: VersionedXcm<()>) -> Result<Weight, Error>;
 Converts a given weight into the corresponding fee for a specified `AssetId`. It allows clients to determine the cost of execution in terms of the desired asset.
 
 ```rust
-fn query_weight_to_asset_fee(weight: Weight, asset: VersionedAssetId) -> Result<u128, Error>;
+
 ```
 
 ??? interface "Input parameters"
@@ -14211,7 +13865,7 @@ fn query_weight_to_asset_fee(weight: Weight, asset: VersionedAssetId) -> Result<
 Retrieves the delivery fees for sending a specific XCM message to a designated destination. The fees are always returned in a specific asset defined by the destination chain.
 
 ```rust
-fn query_delivery_fees(destination: VersionedLocation, message: VersionedXcm<()>) -> Result<VersionedAssets, Error>;
+
 ```
 
 ??? interface "Input parameters"

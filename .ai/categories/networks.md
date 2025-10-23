@@ -288,63 +288,13 @@ Update your root parachain template's `Cargo.toml` file to include your custom p
     Make sure the `custom-pallet` is a member of the workspace:
 
     ```toml hl_lines="4" title="Cargo.toml"
-     [workspace]
-     default-members = ["pallets/template", "runtime"]
-     members = [
-         "node", "pallets/custom-pallet",
-         "pallets/template",
-         "runtime",
-     ]
+     
     ```
 
 ???- code "./Cargo.toml"
 
     ```rust title="./Cargo.toml"
-    [workspace.package]
-    license = "MIT-0"
-    authors = ["Parity Technologies <admin@parity.io>"]
-    homepage = "https://paritytech.github.io/polkadot-sdk/"
-    repository = "https://github.com/paritytech/polkadot-sdk-parachain-template.git"
-    edition = "2021"
-
-    [workspace]
-    default-members = ["pallets/template", "runtime"]
-    members = [
-        "node", "pallets/custom-pallet",
-        "pallets/template",
-        "runtime",
-    ]
-    resolver = "2"
-
-    [workspace.dependencies]
-    parachain-template-runtime = { path = "./runtime", default-features = false }
-    pallet-parachain-template = { path = "./pallets/template", default-features = false }
-    clap = { version = "4.5.13" }
-    color-print = { version = "0.3.4" }
-    docify = { version = "0.2.9" }
-    futures = { version = "0.3.31" }
-    jsonrpsee = { version = "0.24.3" }
-    log = { version = "0.4.22", default-features = false }
-    polkadot-sdk = { version = "2503.0.1", default-features = false }
-    prometheus-endpoint = { version = "0.17.2", default-features = false, package = "substrate-prometheus-endpoint" }
-    serde = { version = "1.0.214", default-features = false }
-    codec = { version = "3.7.4", default-features = false, package = "parity-scale-codec" }
-    cumulus-pallet-parachain-system = { version = "0.20.0", default-features = false }
-    hex-literal = { version = "0.4.1", default-features = false }
-    scale-info = { version = "2.11.6", default-features = false }
-    serde_json = { version = "1.0.132", default-features = false }
-    smallvec = { version = "1.11.0", default-features = false }
-    substrate-wasm-builder = { version = "26.0.1", default-features = false }
-    frame = { version = "0.9.1", default-features = false, package = "polkadot-sdk-frame" }
-
-    [profile.release]
-    opt-level = 3
-    panic = "unwind"
-
-    [profile.production]
-    codegen-units = 1
-    inherits = "release"
-    lto = true
+    
     ```
 
 
@@ -2095,23 +2045,7 @@ To create the ERC-20 contract, you can follow the steps below:
 3. Now, paste the following ERC-20 contract code into the editor:
 
     ```solidity title="MyToken.sol"
-    // SPDX-License-Identifier: MIT
-    // Compatible with OpenZeppelin Contracts ^5.0.0
-    pragma solidity ^0.8.22;
-
-    import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-    import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
-
-    contract MyToken is ERC20, Ownable {
-        constructor(address initialOwner)
-            ERC20("MyToken", "MTK")
-            Ownable(initialOwner)
-        {}
-
-        function mint(address to, uint256 amount) public onlyOwner {
-            _mint(to, amount);
-        }
-    }
+    
     ```
 
     The key components of the code above are:
@@ -2262,26 +2196,7 @@ To create the NFT contract, you can follow the steps below:
 3. Now, paste the following NFT contract code into the editor.
 
     ```solidity title="MyNFT.sol"
-    // SPDX-License-Identifier: MIT
-    // Compatible with OpenZeppelin Contracts ^5.0.0
-    pragma solidity ^0.8.22;
-
-    import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-    import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
-
-    contract MyToken is ERC721, Ownable {
-        uint256 private _nextTokenId;
-
-        constructor(address initialOwner)
-            ERC721("MyToken", "MTK")
-            Ownable(initialOwner)
-        {}
-
-        function safeMint(address to) public onlyOwner {
-            uint256 tokenId = _nextTokenId++;
-            _safeMint(to, tokenId);
-        }
-    }
+    
     ```
 
     The key components of the code above are:
@@ -7019,8 +6934,7 @@ The [`XcmRouter`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pa
 For instance, the Kusama network employs the [`ChildParachainRouter`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_common/xcm_sender/struct.ChildParachainRouter.html){target=\_blank}, which restricts routing to [Downward Message Passing (DMP)](https://wiki.polkadot.com/learn/learn-xcm-transport/#dmp-downward-message-passing){target=\_blank} from the relay chain to parachains, ensuring secure and controlled communication.
 
 ```rust
-pub type PriceForChildParachainDelivery =
-	ExponentialPrice<FeeAssetId, BaseDeliveryFee, TransactionByteFee, Dmp>;
+
 ```
 
 For more details about XCM transport protocols, see the [XCM Channels](/develop/interoperability/xcm-channels/){target=\_blank} page.
@@ -7873,38 +7787,13 @@ The `xcm-emulator` provides macros for defining a mocked testing environment. Ch
 - **[`decl_test_bridges`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/cumulus/xcm/xcm-emulator/src/lib.rs#L1221){target=\_blank}**: Creates bridges between chains, specifying the source, target, and message handler. Example:
 
     ```rust
-    decl_test_bridges! {
-    	pub struct RococoWestendMockBridge {
-    		source = BridgeHubRococoPara,
-    		target = BridgeHubWestendPara,
-    		handler = RococoWestendMessageHandler
-    	},
-    	pub struct WestendRococoMockBridge {
-    		source = BridgeHubWestendPara,
-    		target = BridgeHubRococoPara,
-    		handler = WestendRococoMessageHandler
-    	}
-    }
+    
     ```
 
 - **[`decl_test_networks`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/cumulus/xcm/xcm-emulator/src/lib.rs#L958){target=\_blank}**: Defines a testing network with relay chains, parachains, and bridges, implementing message transport and processing logic. Example:
 
     ```rust
-    decl_test_networks! {
-    	pub struct WestendMockNet {
-    		relay_chain = Westend,
-    		parachains = vec![
-    			AssetHubWestend,
-    			BridgeHubWestend,
-    			CollectivesWestend,
-    			CoretimeWestend,
-    			PeopleWestend,
-    			PenpalA,
-    			PenpalB,
-    		],
-    		bridge = ()
-    	},
-    }
+    
     ```
 
 By leveraging these macros, developers can customize their testing networks by defining relay chains and parachains tailored to their needs. For guidance on implementing a mock runtime for a Polkadot SDK-based chain, refer to the [Pallet Testing](/develop/parachains/testing/pallet-testing/){target=\_blank} article. 
@@ -9089,7 +8978,7 @@ This API can be used independently for dry-running, double-checking, or testing.
 This API allows a dry-run of any extrinsic and obtaining the outcome if it fails or succeeds, as well as the local xcm and remote xcm messages sent to other chains.
 
 ```rust
-fn dry_run_call(origin: OriginCaller, call: Call, result_xcms_version: XcmVersion) -> Result<CallDryRunEffects<Event>, Error>;
+
 ```
 
 ??? interface "Input parameters"
@@ -9366,7 +9255,7 @@ fn dry_run_call(origin: OriginCaller, call: Call, result_xcms_version: XcmVersio
 This API allows the direct dry-run of an xcm message instead of an extrinsic one, checks if it will execute successfully, and determines what other xcm messages will be forwarded to other chains.
 
 ```rust
-fn dry_run_xcm(origin_location: VersionedLocation, xcm: VersionedXcm<Call>) -> Result<XcmDryRunEffects<Event>, Error>;
+
 ```
 
 ??? interface "Input parameters"
@@ -9597,7 +9486,7 @@ To use the API effectively, the client must already know the XCM program to be e
 Retrieves the list of assets that are acceptable for paying fees when using a specific XCM version
 
 ```rust
-fn query_acceptable_payment_assets(xcm_version: Version) -> Result<Vec<VersionedAssetId>, Error>;
+
 ```
 
 ??? interface "Input parameters"
@@ -9685,7 +9574,7 @@ fn query_acceptable_payment_assets(xcm_version: Version) -> Result<Vec<Versioned
 Calculates the weight required to execute a given XCM message. It is useful for estimating the execution cost of a cross-chain message in the destination chain before sending it.
 
 ```rust
-fn query_xcm_weight(message: VersionedXcm<()>) -> Result<Weight, Error>;
+
 ```
 
 ??? interface "Input parameters"
@@ -9828,7 +9717,7 @@ fn query_xcm_weight(message: VersionedXcm<()>) -> Result<Weight, Error>;
 Converts a given weight into the corresponding fee for a specified `AssetId`. It allows clients to determine the cost of execution in terms of the desired asset.
 
 ```rust
-fn query_weight_to_asset_fee(weight: Weight, asset: VersionedAssetId) -> Result<u128, Error>;
+
 ```
 
 ??? interface "Input parameters"
@@ -9933,7 +9822,7 @@ fn query_weight_to_asset_fee(weight: Weight, asset: VersionedAssetId) -> Result<
 Retrieves the delivery fees for sending a specific XCM message to a designated destination. The fees are always returned in a specific asset defined by the destination chain.
 
 ```rust
-fn query_delivery_fees(destination: VersionedLocation, message: VersionedXcm<()>) -> Result<VersionedAssets, Error>;
+
 ```
 
 ??? interface "Input parameters"

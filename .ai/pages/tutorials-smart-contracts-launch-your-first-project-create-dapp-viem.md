@@ -130,64 +130,13 @@ Create a folder called `abis` at the root of your project, then create a file na
 
 ??? code "Storage.sol ABI"
     ```json title="Storage.json"
-    [
-        {
-            "inputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "_newNumber",
-                    "type": "uint256"
-                }
-            ],
-            "name": "setNumber",
-            "outputs": [],
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "inputs": [],
-            "name": "storedNumber",
-            "outputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "",
-                    "type": "uint256"
-                }
-            ],
-            "stateMutability": "view",
-            "type": "function"
-        }
-    ]
+    
     ```
 
 Next, create a file called `utils/contract.ts`:
 
 ```typescript title="contract.ts"
-import { getContract } from 'viem';
-import { publicClient, getWalletClient } from './viem';
-import StorageABI from '../../abis/Storage.json';
 
-export const CONTRACT_ADDRESS = '0x58053f0e8ede1a47a1af53e43368cd04ddcaf66f';
-export const CONTRACT_ABI = StorageABI;
-
-// Create a function to get a contract instance for reading
-export const getContractInstance = () => {
-  return getContract({
-    address: CONTRACT_ADDRESS,
-    abi: CONTRACT_ABI,
-    client: publicClient,
-  });
-};
-
-// Create a function to get a contract instance with a signer for writing
-export const getSignedContract = async () => {
-  const walletClient = await getWalletClient();
-  return getContract({
-    address: CONTRACT_ADDRESS,
-    abi: CONTRACT_ABI,
-    client: walletClient,
-  });
-};
 ```
 
 This file defines the contract address, ABI, and functions to create a viem [contract instance](https://viem.sh/docs/contract/getContract#contract-instances){target=\_blank} for reading and writing operations. viem's contract utilities ensure a more efficient and type-safe interaction with smart contracts.
@@ -379,24 +328,9 @@ To use this component in your dApp, replace the existing boilerplate in `app/pag
 
 ```typescript title="page.tsx"
 
-import { useState } from "react";
-import WalletConnect from "./components/WalletConnect";
-export default function Home() {
-  const [account, setAccount] = useState<string | null>(null);
 
-  const handleConnect = (connectedAccount: string) => {
-    setAccount(connectedAccount);
-  };
 
-  return (
-    <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
-      <h1 className="text-2xl font-semibold text-center">
-        Viem dApp - Passet Hub Smart Contracts
-      </h1>
-      <WalletConnect onConnect={handleConnect} />
-</section>
-  );
-}
+
 ```
 
 Now you're ready to run your dApp. From your project directory, execute:
@@ -486,26 +420,9 @@ To reflect this change in your dApp, incorporate this component into the `app/pa
 
 ```typescript title="page.tsx"
 
-import { useState } from "react";
-import WalletConnect from "./components/WalletConnect";
-import ReadContract from "./components/ReadContract";
-export default function Home() {
-  const [account, setAccount] = useState<string | null>(null);
 
-  const handleConnect = (connectedAccount: string) => {
-    setAccount(connectedAccount);
-  };
 
-  return (
-    <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
-      <h1 className="text-2xl font-semibold text-center">
-        Viem dApp - Passet Hub Smart Contracts
-      </h1>
-      <WalletConnect onConnect={handleConnect} />
-      <ReadContract />
-</section>
-  );
-}
+
 ```
 
 And you will see in your browser:
@@ -741,31 +658,7 @@ This component allows users to input a new number and send a transaction to upda
 Update the `app/page.tsx` file to integrate all components:
 
 ```typescript title="page.tsx"
-"use client";
 
-import { useState } from "react";
-import WalletConnect from "./components/WalletConnect";
-import ReadContract from "./components/ReadContract";
-import WriteContract from "./components/WriteContract";
-
-export default function Home() {
-  const [account, setAccount] = useState<string | null>(null);
-
-  const handleConnect = (connectedAccount: string) => {
-    setAccount(connectedAccount);
-  };
-
-  return (
-    <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
-      <h1 className="text-2xl font-semibold text-center">
-        Viem dApp - Passet Hub Smart Contracts
-      </h1>
-      <WalletConnect onConnect={handleConnect} />
-      <ReadContract />
-      <WriteContract account={account} />
-    </section>
-  );
-}
 ```
 After that, you will see:
 

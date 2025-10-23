@@ -1,18 +1,90 @@
 # Polkadot Developer Documentation
 
-# Documentation for Polkadot
-
 This repository contains documentation for Polkadot, a decentralized protocol that enables interoperability, scalability, and shared security across multiple blockchains. It provides a comprehensive range of resources and technical information to support developers in building and deploying the Polkadot ecosystem.
 
-## About This Site
+The documentation source files are written in [Markdown](https://daringfireball.net/projects/markdown) and generally follow the [PaperMoon style guide](https://github.com/papermoonio/documentation-style-guide/blob/main/style-guide.md).
 
-The content in this repository is displayed on the Polkadot documentation site generated using <a href="https://www.mkdocs.org/" target="_blank">mkdocs</a>. The theme used is <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank">Material for MkDocs</a>.
+## Run Polkadot Docs Locally
+
+Follow these steps to run the documentation site locally and preview your changes.
+
+### Clone Repositories
+
+Building and serving the site requires cloning two repositories:
+
+- **[Polkadot MkDocs](https://github.com/papermoonio/polkadot-mkdocs)**: Contains the "engine" (MkDocs configuration, theme overrides, and custom CSS) for the Polkadot documentation site.
+
+- **[Polkadot Docs](https://github.com/polkadot-developers/polkadot-docs)**: Contains the "content" (documentation pages, tutorials, and images) that gets built into the site.
+
+For everything to work correctly, the file structure needs to be as follows:
+
+```bash
+polkadot-mkdocs
+|--- /material-overrides/ (folder)
+|--- /polkadot-docs/ (repository)
+|--- mkdocs.yml
+```
+
+To set up the structure, follow these steps:
+
+1. Clone this repository:
+
+    ```bash
+    git clone https://github.com/papermoonio/polkadot-mkdocs.git
+    ```
+
+2. Inside the folder just created, clone the `polkadot-docs` repository:
+
+    ```bash
+    cd polkadot-mkdocs
+    git clone https://github.com/polkadot-developers/polkadot-docs.git
+    ```
+    > **📋 Contributing?** If you plan to [contribute](./CONTRIBUTING.md) to the documentation, fork the `polkadot-docs` repository first and clone your fork instead:
+    > ```bash
+    > git clone https://github.com/YOUR_USERNAME/polkadot-docs.git
+    > ```
+
+### Set Up Python Environment
+
+Navigate to the `polkadot-mkdocs` directory and create a Python virtual environment:
+
+```bash
+cd polkadot-mkdocs
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+### Install Dependencies and Serve Site
+
+1. Install Node.js dependencies:
+
+    ```bash
+    cd polkadot-docs && npm install && cd ..
+    ```
+
+2. Serve the site:
+
+    ```bash
+    mkdocs serve
+    ```
+
+After a successful build, the site should be available at http://127.0.0.1:8000.
+
+### Working with the Docs
+
+When you're done working, run `deactivate` to exit the virtual environment.
+
+To work on the docs again:
+1. Navigate to `polkadot-mkdocs`.
+2. Activate the environment: `source venv/bin/activate` (Windows: `venv\Scripts\activate`).
+3. Run `mkdocs serve`.
 
 ## Contributing
 
-If you're interested in contributing to this repository, please clone the repo, make changes, and open a PR ✨. Please review the guidelines in the [CONTRIBUTING file](.CONTRIBUTING/.CONTRIBUTING.md) before making any changes.
+See [.CONTRIBUTING.md](./CONTRIBUTING.md) for how to contribute to this repository.
 
-Thank you for taking the time to contribute to this repository 💜.
+We're excited to have you contribute to the Polkadot docs and help improve our ecosystem! 🚀 Every contribution, whether it's fixing a typo, improving documentation, or adding new content, helps make Polkadot more accessible to developers worldwide. Thank you for being part of our community! 🙏✨
 
 ## Disclaimer
 

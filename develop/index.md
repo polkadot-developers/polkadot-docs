@@ -48,13 +48,13 @@ Build, deploy, and maintain custom parachains with the Polkadot SDK.
 
 - <h3>:octicons-book-16:{ .lg .middle } Learn</h3>
     <hr>
-    - [Parachains Overview](/parachains/overview/){target=\_blank}
+    - [Parachains Overview](/reference/parachains/){target=\_blank}
     - [Customize Your Parachain](/develop/parachains/customize-parachain/){target=\_blank}
 
 - <h3>:octicons-rocket-16:{ .lg .middle } Build</h3>
     <hr>
     - [Parachain Developer Zero to Hero Guides](/tutorials/polkadot-sdk/parachains/zero-to-hero/){target=\_blank}
-    - [Install Polkadot SDK Dependencies](/develop/parachains/install-polkadot-sdk/){target=\_blank}
+    - [Install Polkadot SDK Dependencies](/parachains/install-polkadot-sdk/){target=\_blank}
 
 - <h3>:octicons-tools-16:{.lg .middle} Tools</h3>
     <hr>

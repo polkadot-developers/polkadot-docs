@@ -2,7 +2,6 @@ Begin New Bundle: Networks
 Includes shared base categories: Basics, Reference
 
 
-<<<<<<< HEAD:llms-files/llms-smart-contracts.txt
 This file includes documentation related to the product: Smart Contracts
 
 ## AI Prompt Template
@@ -45,8 +44,6 @@ Doc-Content: https://docs.polkadot.com/develop/smart-contracts/faqs/
 title: Polkadot Hub Smart Contract FAQs
 description: Find answers to common questions about smart contract development, deployment, and compatibility in the Polkadot Hub ecosystem.
 categories: Smart Contracts
-=======
->>>>>>> staging/product-ia:.ai/categories/networks.md
 ---
 
 Page Title: Accounts in Asset Hub Smart Contracts
@@ -2974,7 +2971,6 @@ One sacrifice that is made when using Schnorr signatures over ECDSA is that both
 - **[SR25519](https://research.web3.foundation/Polkadot/security/keys/accounts-more){target=\_blank}**: Based on the same underlying curve as Ed25519. However, it uses Schnorr signatures instead of the EdDSA scheme.
 
 
-<<<<<<< HEAD:llms-files/llms-smart-contracts.txt
 <!-- START OF AUTOMATICALLY GENERATED CONTENT -->
 
 ## Get Tokens from the Faucet
@@ -3971,8 +3967,6 @@ All approaches use the `resolc` compiler to generate PolkaVM-compatible bytecode
 
 Doc-Content: https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-erc20/
 --- BEGIN CONTENT ---
-=======
->>>>>>> staging/product-ia:.ai/categories/networks.md
 ---
 
 Page Title: Data Encoding

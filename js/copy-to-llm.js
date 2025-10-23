@@ -23,10 +23,9 @@
   }
 
   function getMarkdownUrl(slug) {
-    const pageSlug = slug;
     const host = window.location ? window.location.host : '';
     const protocol = window.location ? window.location.protocol : 'https:';
-    return `${protocol}//${host}/ai/pages/${pageSlug}.md`;
+    return `${protocol}//${host}/ai/pages/${slug}.md`;
   }
 
   const NO_MARKDOWN_MESSAGE = 'No Markdown file available.';

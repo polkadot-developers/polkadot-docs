@@ -15,10 +15,7 @@
   }
   function buildSlugFromPath(pathname) {
     const route = (pathname || '').replace(/^\/+|\/+$/g, '');
-    return route
-      .split('/')
-      .filter(Boolean)
-      .join('-');
+    return route.split('/').filter(Boolean).join('-');
   }
 
   function getPageSlug() {
@@ -362,11 +359,9 @@
         let copySucceeded = false;
         const slug = getPageSlug();
 
-        const { text, status } = await fetchMarkdown(slug);
+        const { text } = await fetchMarkdown(slug);
 
-        if (status === 404) {
-          showToast(NO_MARKDOWN_MESSAGE);
-        } else if (text) {
+        if (text) {
           copySucceeded = await copyToClipboard(
             text,
             copyButton,

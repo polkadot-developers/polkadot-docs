@@ -6,7 +6,6 @@ Polkadot. Polkadot is an open-source, multichain network protocol that facilitat
 Documentation: https://docs.polkadot.com/
 
 ## List of doc pages:
-Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/.venv/lib/python3.13/site-packages/pip-25.2.dist-info/licenses/src/pip/_vendor/idna/LICENSE.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/chain-interactions/accounts/create-account.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/chain-interactions/accounts/query-accounts.md
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/chain-interactions/index.md
@@ -280,41 +279,6 @@ Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/re
 Doc-Page: https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/tutorials/smart-contracts/launch-your-first-project/test-and-deploy-with-hardhat.md
 
 ## Full content for each doc page
-
-Doc-Content: https://docs.polkadot.com/.venv/lib/python3.13/site-packages/pip-25.2.dist-info/licenses/src/pip/_vendor/idna/LICENSE/
---- BEGIN CONTENT ---
-BSD 3-Clause License
-
-Copyright (c) 2013-2024, Kim Davies and contributors.
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are
-met:
-
-1. Redistributions of source code must retain the above copyright
-   notice, this list of conditions and the following disclaimer.
-
-2. Redistributions in binary form must reproduce the above copyright
-   notice, this list of conditions and the following disclaimer in the
-   documentation and/or other materials provided with the distribution.
-
-3. Neither the name of the copyright holder nor the names of its
-   contributors may be used to endorse or promote products derived from
-   this software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
-TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
---- END CONTENT ---
 
 Doc-Content: https://docs.polkadot.com/chain-interactions/accounts/create-account/
 --- BEGIN CONTENT ---
@@ -14427,218 +14391,271 @@ Bob holds a smaller percentage of their node's total stake, making their stake r
 Doc-Content: https://docs.polkadot.com/parachains/customize-runtime/add-existing-pallets/
 --- BEGIN CONTENT ---
 ---
-title: Add a Pallet to the Runtime
+title: Add an Existing Pallet to the Runtime
 description: Learn how to include and configure pallets in a Polkadot SDK-based runtime, from adding dependencies to implementing necessary traits.
+tutorial_badge: Intermediate
 categories: Parachains
 ---
 
-# Add a Pallet to the Runtime
+# Add an Existing Pallet to the Runtime
 
 ## Introduction
 
-The [Polkadot SDK Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=\_blank} provides a functional runtime that includes default FRAME development modules (pallets) to help you get started with building a custom blockchain.
+The [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk-parachain-template){target=\_blank} provides a functional runtime that includes default [FRAME](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/frame_runtime/index.html){target=\_blank} development modules ([pallets](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/frame_runtime/pallet/index.html){target=\_blank}) to help you get started building a custom parachain. However, you'll often need to extend your runtime by adding additional pallets to enable new functionality.
 
-Each pallet has specific configuration requirements, such as the parameters and types needed to enable the pallet's functionality. In this guide, you'll learn how to add a pallet to a runtime and configure the settings specific to that pallet.
+Each pallet has specific configuration requirements, including the necessary parameters and types that enable its functionality. This guide walks you through the complete process of adding an existing pallet to your runtime and configuring it properly using `pallet-utility` as a practical example.
 
-The purpose of this article is to help you:
+The Utility pallet offers batch transaction capabilities, enabling multiple calls to be dispatched together, as well as origin manipulation functionality for advanced use cases.
 
-- Learn how to update runtime dependencies to integrate a new pallet.
-- Understand how to configure pallet-specific Rust traits to enable the pallet's functionality.
-- Grasp the entire workflow of integrating a new pallet into your runtime.
+In this guide, you'll learn how to:
 
-## Configuring Runtime Dependencies
+- Update runtime dependencies to integrate a new pallet
+- Configure pallet-specific Rust traits to enable the pallet's functionality
+- Run your parachain locally to test the new pallet
 
-For Rust programs, this configuration is defined in the `Cargo.toml` file, which specifies the settings and dependencies that control what gets compiled into the final binary. Since the Polkadot SDK runtime compiles to both a native binary (which includes standard Rust library functions) and a Wasm binary (which does not include the standard Rust library), the `runtime/Cargo.toml` file manages two key aspects:
+## Check Prerequisites
 
-- The locations and versions of the pallets that are to be imported as dependencies for the runtime.
-- The features in each pallet that should be enabled when compiling the native Rust binary. By enabling the standard (`std`) feature set from each pallet, you ensure that the runtime includes the functions, types, and primitives necessary for the native build, which are otherwise excluded when compiling the Wasm binary.
+Before you begin, ensure you have:
 
+- [Polkadot SDK dependencies installed](/parachains/install-polkadot-sdk/){target=\_blank}
+- A working [Polkadot SDK development environment](/parachains/launch-a-parachain/choose-a-template){target=\_blank}
 
-For information about adding dependencies in `Cargo.toml` files, see the [Dependencies](https://doc.rust-lang.org/cargo/guide/dependencies.html){target=\_blank} page in the Cargo documentation. To learn more about enabling and managing features from dependent packages, see the [Features](https://doc.rust-lang.org/cargo/reference/features.html){target=\_blank} section in the Cargo documentation.
+## Add an Existing Polkadot SDK Pallet to Your Runtime
 
-## Dependencies for a New Pallet
+Adding a pallet to your parachain runtime involves configuring dependencies, implementing the pallet's configuration trait, and registering the pallet in the runtime construct.
 
-To add the dependencies for a new pallet to the runtime, you must modify the `Cargo.toml` file by adding a new line into the `[workspace.dependencies]` section with the pallet you want to add. This pallet definition might look like:
+### Add an Existing Pallet as a Dependency
 
-```toml title="Cargo.toml"
-pallet-example = { version = "4.0.0-dev", default-features = false }
+The Polkadot SDK utilizes a monorepo structure, where multiple pallets are available as features of the `polkadot-sdk` dependency. A list of pallets can be found in the [`substrate/frame` directory](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame){target=\_blank} of the Polkadot SDK repository.
+
+For [`pallet-utility`](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame/utility){target=\_blank}, you need to add it as a dependency in the features array:
+
+1. Open the `runtime/Cargo.toml` file.
+2. Locate the `[dependencies]` section.
+3. Find the `polkadot-sdk` dependency.
+4. Add `pallet-utility` to the features array:
+
+    ```toml title="runtime/Cargo.toml"
+    polkadot-sdk = { workspace = true, features = [
+        "pallet-utility",
+        "cumulus-pallet-aura-ext",
+        "cumulus-pallet-session-benchmarking",
+        # ... other features
+    ], default-features = false }
+    ```
+
+!!! note
+    If you're adding a custom pallet that isn't part of the Polkadot SDK, you would add it as a separate dependency:
+
+    ```toml title="runtime/Cargo.toml"
+    custom-pallet = { path = "../pallets/custom-pallet", default-features = false }
+    ```
+
+    Ensure it's included in the workspace members section of the root `Cargo.toml` file.
+
+### Enable Standard Library Features
+
+The Polkadot SDK runtime compiles to both a native binary (for running unit tests), which includes standard Rust library functions, and a WebAssembly (Wasm) binary (a more compact size for production use), which does not include the standard library. Since `pallet-utility` is part of the `polkadot-sdk` dependency, its `std` feature is already included when you enable `polkadot-sdk/std`.
+
+To verify that the standard library features are enabled:
+
+1. In the `runtime/Cargo.toml` file, locate the `[features]` section.
+2. Ensure `polkadot-sdk/std` is included in the `std` array:
+
+    ```toml title="runtime/Cargo.toml"
+    [features]
+    default = ["std"]
+    std = [
+        "codec/std",
+        "cumulus-pallet-parachain-system/std",
+        "log/std",
+        "polkadot-sdk/std",
+        "scale-info/std",
+        # ... other features
+    ]
+    ```
+
+!!! note
+    If you're adding a custom pallet, you must explicitly add its `std` feature:
+
+    ```toml title="runtime/Cargo.toml"
+    std = [
+        # ... other features
+        "custom-pallet/std",
+    ]
+    ```
+
+### Review the Config Trait
+
+Every pallet defines a Rust trait called `Config` that specifies the types and parameters needed for the pallet to function within a runtime. Before implementing the configuration, you should understand what the pallet requires.
+
+The `pallet-utility` Config trait requires the following types:
+
+```rust
+pub trait Config: frame_system::Config {
+    /// The overarching event type
+    type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
+
+    /// The overarching call type
+    type RuntimeCall: Parameter 
+        + Dispatchable<RuntimeOrigin = Self::RuntimeOrigin>
+        + GetDispatchInfo
+        + From<frame_system::Call<Self>>;
+
+    /// The caller origin, overarching type of all pallets origins
+    type PalletsOrigin: Parameter + Into<<Self as frame_system::Config>::RuntimeOrigin>;
+
+    /// Weight information for extrinsics in this pallet
+    type WeightInfo: WeightInfo;
+}
 ```
 
-This line imports the `pallet-example` crate as a dependency and specifies the following:
+This configuration requires:
 
-- **`version`**: The specific version of the crate to import.
-- **`default-features`**: Determines the behavior for including pallet features when compiling the runtime with standard Rust libraries.
+- **`RuntimeEvent`**: Links the pallet's events to the runtime's event system.
+- **`RuntimeCall`**: Allows the utility pallet to dispatch calls from other pallets, which is needed for batch operations.
+- **`PalletsOrigin`**: Enables origin manipulation for dispatching calls as other pallets.
+- **`WeightInfo`**: Provides weight calculations for pallet operations.
 
 !!! tip
-    If you're importing a pallet that isn't available on [`crates.io`](https://crates.io/){target=\_blank}, you can specify the pallet's location (either locally or from a remote repository) by using the `git` or `path` key. For example:
+    You can find a pallet's `Config` trait requirements by checking the pallet's Rust documentation on [docs.rs](https://docs.rs){target=\_blank}, reviewing the pallet's source code in its repository, or looking at example implementations in template runtimes.
 
-    ```toml title="Cargo.toml"
-    pallet-example = { 
-        version = "4.0.0-dev",
-        default-features = false,
-        git = "INSERT_PALLET_REMOTE_URL",
+### Implement the Config Trait
+
+Now you'll implement the pallet's `Config` trait in your runtime to provide the concrete types the pallet needs.
+
+To implement the Config trait:
+
+1. Open the `runtime/src/configs/mod.rs` file.
+2. Add the following implementation at the end of the file:
+
+    ```rust title="runtime/src/configs/mod.rs"
+    /// Configure the utility pallet
+    impl pallet_utility::Config for Runtime {
+        type RuntimeEvent = RuntimeEvent;
+        type RuntimeCall = RuntimeCall;
+        type PalletsOrigin = OriginCaller;
+        type WeightInfo = pallet_utility::weights::SubstrateWeight<Runtime>;
     }
     ```
 
-    In this case, replace `INSERT_PALLET_REMOTE_URL` with the correct repository URL. For local paths, use the path key like so:
+### Add to Runtime Construct
 
-    ```toml title="Cargo.toml"
-    pallet-example = { 
-        version = "4.0.0-dev",
-        default-features = false,
-        path = "INSERT_PALLET_RELATIVE_PATH",
+The final step is to register the pallet in the runtime construct using the `#[frame_support::runtime]` macro. This macro generates the necessary boilerplate code for including pallets in the runtime.
+
+To add the pallet to the runtime construct:
+
+1. Open the `runtime/src/lib.rs` file.
+2. Locate the `#[frame_support::runtime]` section (usually near the end of the file).
+3. Add your pallet with a unique `pallet_index`:
+
+    ```rust title="runtime/src/lib.rs"
+    #[frame_support::runtime]
+    mod runtime {
+        #[runtime::runtime]
+        #[runtime::derive(
+            RuntimeCall,
+            RuntimeEvent,
+            RuntimeError,
+            RuntimeOrigin,
+            RuntimeTask,
+            RuntimeFreezeReason,
+            RuntimeHoldReason,
+            RuntimeSlashReason,
+            RuntimeLockId,
+            RuntimeViewFunction
+        )]
+        pub struct Runtime;
+
+        #[runtime::pallet_index(0)]
+        pub type System = frame_system;
+
+        #[runtime::pallet_index(1)]
+        pub type ParachainSystem = cumulus_pallet_parachain_system;
+
+        #[runtime::pallet_index(2)]
+        pub type Timestamp = pallet_timestamp;
+
+        // ... other pallets
+
+        #[runtime::pallet_index(50)]
+        pub type Utility = pallet_utility;
     }
     ```
 
-    Ensure that you substitute `INSERT_PALLET_RELATIVE_PATH` with the appropriate local path to the pallet.
+When adding the pallet:
 
-Next, add this dependency to the `[dependencies]` section of the `runtime/Cargo.toml` file, so it inherits from the main `Cargo.toml` file:
+- Assign a unique `pallet_index` that doesn't conflict with existing pallets. The index determines the pallet's position in the runtime.
+- Use a descriptive name for the pallet instance, such as `Utility` for `pallet_utility`.
 
-```toml title="runtime/Cargo.toml"
-pallet-examples.workspace = true
-```
+!!! warning
+    Each pallet must have a unique index. Duplicate indices will cause compilation errors.
 
-To enable the `std` feature of the pallet, add the pallet to the following section:
+### Verify the Runtime Compiles
 
-```toml title="runtime/Cargo.toml"
-[features]
-default = ["std"]
-std = [
-    ...
-    "pallet-example/std",
-    ...
-]
-```
+After adding and configuring your pallet in the runtime, verify that everything is set up correctly by compiling the runtime.
 
-This section specifies the default feature set for the runtime, which includes the `std` features for each pallet. When the runtime is compiled with the `std` feature set, the standard library features for all listed pallets are enabled. If you forget to update the features section in the `Cargo.toml` file, you might encounter `cannot find function` errors when compiling the runtime.
+To compile the runtime:
 
-For more details about how the runtime is compiled as both a native binary (using `std`) and a Wasm binary (using `no_std`), refer to the [Wasm build](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/substrate/index.html#wasm-build){target=\_blank} section in the Polkadot SDK documentation.
+1. Navigate to the root directory of your project.
+2. Run the following command:
 
-To ensure that the new dependencies resolve correctly for the runtime, you can run the following command:
+    ```bash
+    cargo build --release
+    ```
+
+3. Ensure the build completes successfully without errors.
+
+This command validates the pallet configurations and prepares the build for testing or deployment.
+
+## Run Your Chain Locally
+
+Now that you've added the pallet to your runtime, you can launch your parachain locally to test the new functionality using the [Polkadot Omni Node](https://crates.io/crates/polkadot-omni-node){target=\_blank}. For instructions on setting up the Polkadot Omni Node and [Polkadot Chain Spec Builder](https://crates.io/crates/staging-chain-spec-builder){target=\_blank}, refer to [Choose a Template](/parachains/launch-a-parachain/choose-a-template){target=\_blank}.
+
+### Generate a Chain Specification
+
+Create a new chain specification file with the updated runtime by running the following command from your project's root directory using the `chain-spec-builder` tool:
 
 ```bash
-cargo check --release
+chain-spec-builder create -t development \
+--relay-chain paseo \
+--para-id 1000 \
+--runtime ./target/release/wbuild/parachain-template-runtime/parachain_template_runtime.compact.compressed.wasm \
+named-preset development
 ```
 
-## Config Trait for Pallets
+This command generates a chain specification file for your parachain with the updated runtime.
 
-Every Polkadot SDK pallet defines a Rust trait called `Config`. This trait specifies the types and parameters that the pallet needs to integrate with the runtime and perform its functions. The primary purpose of this trait is to act as an interface between this pallet and the runtime in which it is embedded. A type, function, or constant in this trait is essentially left to be configured by the runtime that includes this pallet.
+### Start the Parachain Node
 
-Consequently, a runtime that wants to include this pallet must implement this trait.
+Launch the parachain using the Polkadot Omni Node with the generated chain specification by running the following command:
 
-You can inspect any pallet’s `Config` trait by reviewing its Rust documentation or source code. The `Config` trait ensures the pallet has access to the necessary types (like events, calls, or origins) and integrates smoothly with the rest of the runtime.
-
-At its core, the `Config` trait typically looks like this:
-
-```rust
-#[pallet::config]
-pub trait Config: frame_system::Config {
-    /// Event type used by the pallet.
-    type RuntimeEvent: From<Event> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
-
-    /// Weight information for controlling extrinsic execution costs.
-    type WeightInfo: WeightInfo;
-}
+```bash
+polkadot-omni-node --chain ./chain_spec.json --dev
 ```
 
-This basic structure shows that every pallet must define certain types, such as `RuntimeEvent` and `WeightInfo`, to function within the runtime. The actual implementation can vary depending on the pallet’s specific needs.
+Verify the node starts successfully and begins producing blocks.
 
-### Utility Pallet Example
+### Interact with the Pallet
 
-For instance, in the [`utility`](https://github.com/paritytech/polkadot-sdk/tree/{{dependencies.repositories.polkadot_sdk.version}}/substrate/frame/utility){target=\_blank} pallet, the `Config` trait is implemented with the following types:
+Use the Polkadot.js Apps interface to verify you can interact with the new pallet.
 
-```rust
-#[pallet::config]
-pub trait Config: frame_system::Config {
-    /// The overarching event type.
-    type RuntimeEvent: From<Event> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
+To interact with the pallet:
 
-    /// The overarching call type.
-    type RuntimeCall: Parameter
-    + Dispatchable<RuntimeOrigin = Self::RuntimeOrigin, PostInfo = PostDispatchInfo>
-    + GetDispatchInfo
-    + From<frame_system::Call<Self>>
-    + UnfilteredDispatchable<RuntimeOrigin = Self::RuntimeOrigin>
-    + IsSubType<Call<Self>>
-    + IsType<<Self as frame_system::Config>::RuntimeCall>;
+1. Navigate to [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9944#/extrinsics){target=\_blank}.
+2. Ensure you're connected to your local node at `ws://127.0.0.1:9944`.
+3. Go to the **Developer** > **Extrinsics** tab.
+4. In the **submit the following extrinsic** section, locate **utility** in the pallet dropdown.
+5. Verify you can see the available extrinsics, such as:
+    - **`batch(calls)`**: Dispatch multiple calls in a single transaction.
+    - **`batchAll(calls)`**: Dispatch multiple calls, stopping on the first error.
+    - **`asDerivative(index, call)`**: Dispatch a call as a derivative account.
 
-    /// The caller origin, overarching type of all pallets origins.
-    type PalletsOrigin: Parameter +
-    Into<<Self as frame_system::Config>::RuntimeOrigin> +
-    IsType<<<Self as frame_system::Config>::RuntimeOrigin as frame_support::traits::OriginTrait>::PalletsOrigin>;
+    ![](/images/parachains/customize-runtime/pallet-development/add-pallet-to-runtime/add-pallets-to-runtime-01.webp)
 
-    /// Weight information for extrinsics in this pallet.
-    type WeightInfo: WeightInfo;
-}
-```
-
-This example shows how the `Config` trait defines types like `RuntimeEvent`, `RuntimeCall`, `PalletsOrigin`, and `WeightInfo`, which the pallet will use when interacting with the runtime.
-
-## Parameter Configuration for Pallets
-
-Traits in Rust define shared behavior, and within the Polkadot SDK, they allow runtimes to integrate and utilize a pallet's functionality by implementing its associated configuration trait and parameters. Some of these parameters may require constant values, which can be defined using the [`parameter_types!`](https://paritytech.github.io/polkadot-sdk/master/frame_support/macro.parameter_types.html){target=\_blank} macro. This macro simplifies development by expanding the constants into the appropriate struct types with functions that the runtime can use to access their types and values in a consistent manner.
-
-For example, the following code snippet shows how the solochain template configures certain parameters through the [`parameter_types!`]({{ dependencies.repositories.polkadot_sdk_solochain_template.repository_url }}/blob/{{dependencies.repositories.polkadot_sdk_solochain_template.version}}/runtime/src/lib.rs#L138){target=\_blank} macro in the `runtime/lib.rs` file:
-
-```rust
-parameter_types! {
-    pub const BlockHashCount: BlockNumber = 2400;
-    pub const Version: RuntimeVersion = VERSION;
-    /// We allow for 2 seconds of compute with a 6 second average block time.
-    pub BlockWeights: frame_system::limits::BlockWeights =
-        frame_system::limits::BlockWeights::with_sensible_defaults(
-            Weight::from_parts(2u64 * WEIGHT_REF_TIME_PER_SECOND, u64::MAX),
-            NORMAL_DISPATCH_RATIO,
-        );
-    pub BlockLength: frame_system::limits::BlockLength = frame_system::limits::BlockLength
-        ::max_with_normal_ratio(5 * 1024 * 1024, NORMAL_DISPATCH_RATIO);
-    pub const SS58Prefix: u8 = 42;
-}
-```
-
-## Pallet Config in the Runtime
-
-To integrate a new pallet into the runtime, you must implement its `Config` trait in the `runtime/lib.rs` file. This is done by specifying the necessary types and parameters in Rust, as shown below:
-
-```rust
-impl pallet_example::Config for Runtime {
-    type RuntimeEvent = RuntimeEvent;
-    type WeightInfo = pallet_template::weights::SubstrateWeight<Runtime>;
-    ...
-}
-```
-
-Finally, to compose the runtime, update the list of pallets in the same file by modifying the [`#[frame_support::runtime]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/attr.runtime.html){target=\_blank} section. This Rust macro constructs the runtime with your specified name and pallets, wraps the runtime's configuration, and automatically generates boilerplate code for pallet inclusion. 
-
-Use the following format when adding your pallet:
-
-```rust
-#[frame_support::runtime]
-mod runtime {
-    #[runtime::runtime]
-    #[runtime::derive(
-        RuntimeCall,
-        RuntimeEvent,
-        RuntimeError,
-        RuntimeOrigin,
-        RuntimeFreezeReason,
-        RuntimeHoldReason,
-        RuntimeSlashReason,
-        RuntimeLockId,
-        RuntimeTask
-    )]
-    pub struct Runtime;
-
-    #[runtime::pallet_index(0)]
-    pub type System = frame_system;
-
-    #[runtime::pallet_index(1)]
-    pub type Example = pallet_example;
-```
+You can now test the pallet's functionality by submitting transactions through the interface.
 
 ## Where to Go Next
-
-With the pallet successfully added and configured, the runtime is ready to be compiled and used. Following this guide’s steps, you’ve integrated a new pallet into the runtime, set up its dependencies, and ensured proper configuration. You can now proceed to any of the following points:
 
 <div class="grid cards" markdown>
 
@@ -14646,25 +14663,17 @@ With the pallet successfully added and configured, the runtime is ready to be co
 
     ---
 
-    Learn how to implement multiple instances of the same pallet in your Polkadot SDK-based runtime to create and interact with modular blockchain components.
+    Learn how to implement multiple instances of the same pallet in your Polkadot SDK-based runtime.
 
-    [:octicons-arrow-right-24: Reference](/parachains/customize-runtime/add-pallet-instances/)
+    [:octicons-arrow-right-24: Get Started](/parachains/customize-runtime/add-pallet-instances/)
 
 -   <span class="badge guide">Guide</span> __Make a Custom Pallet__
 
     ---
 
-    Learn how to create custom pallets using FRAME, allowing for flexible, modular, and scalable blockchain development. Follow the step-by-step guide.
+    Learn how to create custom pallets using FRAME.
 
-    [:octicons-arrow-right-24: Reference](/parachains/customize-runtime/pallet-development/create-a-pallet/)
-
--   <span class="badge guide">Guide</span> __Pallet Testing__
-
-    ---
-
-    Learn how to efficiently test pallets in the Polkadot SDK, ensuring the reliability and security of your pallets operations.
-
-    [:octicons-arrow-right-24: Reference](/develop/parachains/testing)
+    [:octicons-arrow-right-24: Get Started](/parachains/customize-runtime/pallet-development/create-a-pallet/)
 
 </div>
 --- END CONTENT ---
@@ -15364,12 +15373,12 @@ Launch your parachain locally and start producing blocks:
 
     - Utility pallet
 
-        ![](/images/parachains/customize-runtime/pallet-development/add-pallet-to-runtime/add-pallets-to-runtime-1.webp)
+        ![](/images/parachains/customize-runtime/pallet-development/add-pallet-to-runtime/add-pallets-to-runtime-01.webp)
     
 
     - Custom pallet
 
-        ![](/images/parachains/customize-runtime/pallet-development/add-pallet-to-runtime/add-pallets-to-runtime-2.webp)
+        ![](/images/parachains/customize-runtime/pallet-development/add-pallet-to-runtime/add-pallets-to-runtime-02.webp)
 
 ## Where to Go Next
 

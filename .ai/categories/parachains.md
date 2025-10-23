@@ -608,7 +608,7 @@ This configuration requires:
 - **`WeightInfo`**: Provides weight calculations for pallet operations.
 
 !!! tip
-    You can find a pallet's `Config` trait requirements by checking the pallet's Rust documentation on [docs.rs](https://docs.rs){target=\_blank}, reviewing the pallet's source code in its repository, or looking at example implementations in template runtimes.
+    You can view a pallet's `Config` trait requirements in the [Polkadot SDK Rust docs](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/index.html){target=\_blank}. Search for the pallet's name and check the type defined by its [`Config`](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/guides/your_first_pallet/pallet/trait.Config.html){target=\_blank} trait.
 
 ### Implement the Config Trait
 

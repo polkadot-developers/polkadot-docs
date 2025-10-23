@@ -888,11 +888,11 @@ Page Title: Add Multiple Pallet Instances
 
 ## Introduction
 
-The [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk-parachain-template){target=\_blank} provides a solid foundation for building custom parachains. While most pallets exist as single instances in a runtime, some scenarios require running multiple instances of the same pallet with different configurations. This powerful technique allows you to reuse pallet functionality without reimplementing it, enabling diverse use cases with the same codebase.
+The [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk-parachain-template){target=\_blank} provides a solid foundation for building custom parachains. While most pallets are typically included as single instances within a runtime, some scenarios benefit from running multiple instances of the same pallet with different configurations. This approach lets you reuse pallet logic without reimplementing it, enabling diverse functionality from a single codebase.
 
-For example, you might want to create multiple governance councils with different voting rules, or several token systems with distinct parameters. The Polkadot SDK makes this possible through instantiable pallets that support multiple independent instances within the same runtime.
+For example, you could create multiple governance councils with different voting rules, or several token systems with distinct parameters. The Polkadot SDK makes this possible through instantiable pallets, which allow multiple independent instances of the same pallet to coexist within a runtime.
 
-This guide walks you through the complete process of adding multiple instances of a pallet to your runtime using [`pallet-collective`](https://paritytech.github.io/polkadot-sdk/master/pallet_collective/index.html){target=\_blank} as a practical example. You'll learn how to configure two separate collective instances that could represent different governance bodies, such as a technical committee and a general council.
+This guide demonstrates how to add and configure multiple instances of a pallet to your runtime using [`pallet-collective`](https://paritytech.github.io/polkadot-sdk/master/pallet_collective/index.html){target=\_blank} as a practical example. The same process applies to other instantiable pallets.
 
 In this guide, you'll learn how to:
 
@@ -923,41 +923,38 @@ pub struct Pallet<T, I = ()>(PhantomData<(T, I)>);
 
 The `I` generic parameter:
 
-- Creates a unique type identity for each pallet instance
-- Appears throughout the pallet's components (Config trait, storage items, events, errors)
-- Defaults to `()` (unit type) when only one instance is needed
-- Must be explicitly specified when creating multiple instances
+- Creates a unique type identity for each pallet instance.
+- Appears throughout the pallet's components (`Config` trait, storage items, events, errors).
+- Defaults to `()` (unit type) when only one instance is needed.
+- Must be explicitly specified when creating multiple instances.
 
 ### How Instance Generics Work
 
 The instantiation generic `I` affects how the pallet's types are structured:
 
-- **Config trait**: `trait Config<I: 'static = ()>` - accepts the instance parameter
-- **Storage items**: Automatically namespaced by instance to prevent conflicts
-- **Events**: `Event<T, I>` - includes instance information
-- **Calls**: `Call<T, I>` - dispatched to the correct instance
+- **`Config` trait**: `trait Config<I: 'static = ()>` - accepts the instance parameter.
+- **Storage items**: Automatically namespaced by instance to prevent conflicts.
+- **Events**: `Event<T, I>` - includes instance information.
+- **Calls**: `Call<T, I>` - dispatched to the correct instance.
 
-This design ensures that multiple instances of the same pallet maintain completely separate state and don't interfere with each other.
+This design ensures that multiple instances of the same pallet maintain completely separate states and don't interfere with each other.
 
 ## Add Multiple Instances of a Pallet to Your Runtime
 
-Adding multiple pallet instances involves the same basic steps as adding a single pallet, but with specific configuration for each instance. In this example, you'll add two instances of `pallet-collective` to create different governance bodies.
+Adding multiple pallet instances involves the same basic steps as adding a single pallet, but with specific configuration for each instance.
+
+In this example, you'll add two instances of [`pallet-collective`](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame/collective){target=\_blank} to create different governance bodies.
 
 ### Add the Pallet as a Dependency
 
-First, ensure the instantiable pallet is available in your runtime dependencies. For [`pallet-collective`](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame/collective){target=\_blank}, add it as a feature of the `polkadot-sdk` dependency.
+First, ensure the instantiable pallet is available in your runtime dependencies. For `pallet-collective`, add it as a feature of the `polkadot-sdk` dependency:
 
-!!! note
-    The process for adding an instantiable pallet as a dependency is identical to adding a standard pallet. The instance configuration happens in later steps.
-
-To add the pallet as a dependency:
-
-1. Open the `runtime/Cargo.toml` file
-2. Locate the `[dependencies]` section
-3. Find the `polkadot-sdk` dependency
+1. Open the `runtime/Cargo.toml` file.
+2. Locate the `[dependencies]` section.
+3. Find the `polkadot-sdk` dependency.
 4. Add `pallet-collective` to the features array:
 
-    ```toml
+    ```toml title="Cargo.toml"
     polkadot-sdk = { workspace = true, features = [
         "pallet-collective",
         "cumulus-pallet-aura-ext",
@@ -968,14 +965,12 @@ To add the pallet as a dependency:
 
 ### Enable Standard Library Features
 
-Ensure the pallet's standard library features are enabled for native builds.
+Ensure the pallet's standard library features are enabled for native builds:
 
-To verify the standard library features are enabled:
-
-1. In the `runtime/Cargo.toml` file, locate the `[features]` section
+1. In the `runtime/Cargo.toml` file, locate the `[features]` section.
 2. Ensure `polkadot-sdk/std` is included in the `std` array:
 
-    ```toml
+    ```toml title="Cargo.toml"
     [features]
     default = ["std"]
     std = [
@@ -990,7 +985,7 @@ To verify the standard library features are enabled:
 
 ### Review the Config Trait
 
-Before configuring multiple instances, understand what the pallet requires. The `pallet-collective` Config trait is defined with the instance generic:
+Before configuring multiple instances, understand what the pallet requires. The `pallet-collective` `Config` trait is defined with the instance generic:
 
 ```rust
 pub trait Config<I: 'static = ()>: frame_system::Config {
@@ -1042,14 +1037,14 @@ This configuration enables the collective pallet to manage a group of accounts t
 
 ### Define Pallet Parameters
 
-Before implementing the Config trait for each instance, define the common parameters that both instances will use. These parameters are defined once and can be shared across instances or customized per instance.
+Before implementing the `Config` trait for each instance, define the common parameters that both instances will use. These parameters are defined once and can be shared across instances or customized per instance.
 
 To define pallet parameters:
 
-1. Open the `runtime/src/configs/mod.rs` file
+1. Open the `runtime/src/configs/mod.rs` file.
 2. Add parameter type definitions for the collective pallet:
 
-    ```rust
+    ```rust title="runtime/src/configs/mod.rs"
     parameter_types! {
         pub const MotionDuration: BlockNumber = 24 * HOURS;
         pub const MaxProposals: u32 = 100;
@@ -1065,23 +1060,21 @@ To define pallet parameters:
 
 Each pallet instance needs a unique type identifier. The Polkadot SDK provides numbered instance types (`Instance1`, `Instance2`, etc.) that you can use to create these identifiers.
 
-To create instance type definitions:
+In the `runtime/src/configs/mod.rs` file, add type definitions for each instance:
 
-1. In the `runtime/src/configs/mod.rs` file, add type definitions for each instance:
+```rust title="runtime/src/configs/mod.rs"
+// Technical Committee instance
+pub type TechnicalCollective = pallet_collective::Instance1;
 
-    ```rust
-    // Technical Committee instance
-    pub type TechnicalCollective = pallet_collective::Instance1;
-    
-    // Council instance  
-    pub type CouncilCollective = pallet_collective::Instance2;
-    ```
+// Council instance  
+pub type CouncilCollective = pallet_collective::Instance2;
+```
 
 These type aliases:
 
-- Create distinct identities for each instance
-- Make your code more readable and maintainable
-- Are used when implementing the Config trait and adding to the runtime construct
+- Create distinct identities for each instance.
+- Make your code more readable and maintainable.
+- Are used when implementing the `Config` trait and adding to the runtime construct.
 
 !!! note
     The names `TechnicalCollective` and `CouncilCollective` are descriptive examples. Choose names that reflect the purpose of each instance in your specific use case.
@@ -1090,67 +1083,63 @@ These type aliases:
 
 Now implement the `Config` trait for your first instance. The implementation includes the instance type as a generic parameter.
 
-To implement the Config trait for the first instance:
+In the `runtime/src/configs/mod.rs` file, add the following implementation:
 
-1. In the `runtime/src/configs/mod.rs` file, add the following implementation:
-
-    ```rust
-    /// Configure the Technical Committee collective
-    impl pallet_collective::Config<TechnicalCollective> for Runtime {
-        type RuntimeOrigin = RuntimeOrigin;
-        type Proposal = RuntimeCall;
-        type RuntimeEvent = RuntimeEvent;
-        type MotionDuration = MotionDuration;
-        type MaxProposals = MaxProposals;
-        type MaxMembers = MaxMembers;
-        type DefaultVote = pallet_collective::MoreThanMajorityThenPrimeDefaultVote;
-        type SetMembersOrigin = EnsureRoot<AccountId>;
-        type WeightInfo = pallet_collective::weights::SubstrateWeight<Runtime>;
-        type MaxProposalWeight = MaxProposalWeight;
-        type DisapproveOrigin = EnsureRoot<Self::AccountId>;
-        type KillOrigin = EnsureRoot<Self::AccountId>;
-        type Consideration = ();
-    }
-    ```
+```rust title="runtime/src/configs/mod.rs"
+/// Configure the Technical Committee collective
+impl pallet_collective::Config<TechnicalCollective> for Runtime {
+    type RuntimeOrigin = RuntimeOrigin;
+    type Proposal = RuntimeCall;
+    type RuntimeEvent = RuntimeEvent;
+    type MotionDuration = MotionDuration;
+    type MaxProposals = MaxProposals;
+    type MaxMembers = MaxMembers;
+    type DefaultVote = pallet_collective::MoreThanMajorityThenPrimeDefaultVote;
+    type SetMembersOrigin = EnsureRoot<AccountId>;
+    type WeightInfo = pallet_collective::weights::SubstrateWeight<Runtime>;
+    type MaxProposalWeight = MaxProposalWeight;
+    type DisapproveOrigin = EnsureRoot<Self::AccountId>;
+    type KillOrigin = EnsureRoot<Self::AccountId>;
+    type Consideration = ();
+}
+```
 
 Key configuration details:
 
-- **RuntimeOrigin, RuntimeCall, RuntimeEvent** - connect to the runtime's aggregated types.
-- **MotionDuration** - how long proposals remain active (5 days in this example).
-- **MaxProposals** - maximum number of active proposals (100).
-- **MaxMembers** - maximum collective members (100).
-- **DefaultVote** - voting strategy when members abstain (majority with prime member tiebreaker).
-- **SetMembersOrigin** - who can modify membership (root in this example).
-- **MaxProposalWeight** - maximum computational weight for proposals (50% of block weight).
-- **DisapproveOrigin/KillOrigin** - who can reject proposals (root in this example).
-- **Consideration** - deposit mechanism (none in this example).
+- **`RuntimeOrigin`, `RuntimeCall`, `RuntimeEvent`**: Connect to the runtime's aggregated types.
+- **`MotionDuration`**: How long proposals remain active (5 days in this example).
+- **`MaxProposals`**: Maximum number of active proposals (100).
+- **`MaxMembers`**: Maximum collective members (100).
+- **`DefaultVote`**: Voting strategy when members abstain (majority with prime member tiebreaker).
+- **`SetMembersOrigin`**: Who can modify membership (root in this example).
+- **`MaxProposalWeight`**: Maximum computational weight for proposals (50% of block weight).
+- **`DisapproveOrigin`/`KillOrigin`**: Who can reject proposals (root in this example).
+- **`Consideration`**: Deposit mechanism (none in this example).
 
 ### Implement Config Trait for Second Instance
 
-Implement the Config trait for your second instance with the same or different configuration.
+Implement the `Config` trait for your second instance with the same or a different configuration.
 
-To implement the Config trait for the second instance:
+In the `runtime/src/configs/mod.rs` file, add the following implementation:
 
-1. In the `runtime/src/configs/mod.rs` file, add the following implementation:
-
-    ```rust
-    /// Configure the Council collective
-    impl pallet_collective::Config<CouncilCollective> for Runtime {
-        type RuntimeOrigin = RuntimeOrigin;
-        type Proposal = RuntimeCall;
-        type RuntimeEvent = RuntimeEvent;
-        type MotionDuration = MotionDuration;
-        type MaxProposals = MaxProposals;
-        type MaxMembers = MaxMembers;
-        type DefaultVote = pallet_collective::MoreThanMajorityThenPrimeDefaultVote;
-        type SetMembersOrigin = EnsureRoot<AccountId>;
-        type WeightInfo = pallet_collective::weights::SubstrateWeight<Runtime>;
-        type MaxProposalWeight = MaxProposalWeight;
-        type DisapproveOrigin = EnsureRoot<Self::AccountId>;
-        type KillOrigin = EnsureRoot<Self::AccountId>;
-        type Consideration = ();
-    }
-    ```
+```rust title="runtime/src/configs/mod.rs"
+/// Configure the Council collective
+impl pallet_collective::Config<CouncilCollective> for Runtime {
+    type RuntimeOrigin = RuntimeOrigin;
+    type Proposal = RuntimeCall;
+    type RuntimeEvent = RuntimeEvent;
+    type MotionDuration = MotionDuration;
+    type MaxProposals = MaxProposals;
+    type MaxMembers = MaxMembers;
+    type DefaultVote = pallet_collective::MoreThanMajorityThenPrimeDefaultVote;
+    type SetMembersOrigin = EnsureRoot<AccountId>;
+    type WeightInfo = pallet_collective::weights::SubstrateWeight<Runtime>;
+    type MaxProposalWeight = MaxProposalWeight;
+    type DisapproveOrigin = EnsureRoot<Self::AccountId>;
+    type KillOrigin = EnsureRoot<Self::AccountId>;
+    type Consideration = ();
+}
+```
 
 !!! tip
     While this example uses identical configurations for both instances, you can customize each instance's parameters to serve different purposes. For example, you might configure the technical committee with stricter voting requirements or shorter motion durations than the general council.
@@ -1161,11 +1150,11 @@ The final configuration step is registering both pallet instances in the runtime
 
 To add the pallet instances to the runtime construct:
 
-1. Open the `runtime/src/lib.rs` file
-2. Locate the `#[frame_support::runtime]` section
+1. Open the `runtime/src/lib.rs` file.
+2. Locate the `#[frame_support::runtime]` section.
 3. Add both pallet instances with unique indices:
 
-    ```rust
+    ```rust title="runtime/src/lib.rs"
     #[frame_support::runtime]
     mod runtime {
         #[runtime::runtime]
@@ -1201,28 +1190,23 @@ To add the pallet instances to the runtime construct:
 
 Important considerations when adding instances:
 
-- **Unique indices** - each instance must have a different `pallet_index`.
-- **Instance type** - specify the instance type in angle brackets (e.g., `<TechnicalCollective>`).
-- **Descriptive names** - use names that reflect the instance's purpose (e.g., `TechnicalCommittee`, `Council`).
-- **Index management** - track which indices are used to avoid conflicts.
+- **Unique indices**: Each instance must have a different `pallet_index`.
+- **Instance type**: Specify the instance type in angle brackets (e.g., `<TechnicalCollective>`).
+- **Descriptive names**: Use names that reflect the instance's purpose (e.g., `TechnicalCommittee`, `Council`).
+- **Index management**: Track which indices are used to avoid conflicts.
 
 !!! warning
     Duplicate pallet indices will cause compilation errors. Keep a list of used indices to prevent conflicts when adding new pallets or instances.
 
 ### Verify the Runtime Compiles
 
-After adding and configuring both pallet instances, verify that everything is set up correctly by compiling the runtime.
+After adding and configuring both pallet instances, verify that everything is set up correctly by compiling the runtime from your project's root directory:
 
-To compile the runtime:
+```bash
+cargo build --release
+```
 
-1. Navigate to your project's root directory
-2. Run the following command:
-
-    ```bash
-    cargo build --release
-    ```
-
-3. Ensure the build completes successfully without errors
+Ensure the build completes successfully without errors.
 
 This command validates:
 
@@ -1233,40 +1217,31 @@ This command validates:
 
 ## Run Your Chain Locally
 
-Now that you've added multiple pallet instances to your runtime, you can launch your parachain locally to test the new functionality using the [Polkadot Omni Node](https://crates.io/crates/polkadot-omni-node){target=\_blank}. For instructions on setting up the Polkadot Omni Node and [Polkadot Chain Spec Builder](https://crates.io/crates/staging-chain-spec-builder){target=\_blank} refer to [Choose a Template](/parachains/launch-a-parachain/choose-a-template){target=\_blank}.
+Now that you've added multiple pallet instances to your runtime, you can launch your parachain locally to test the new functionality using the [Polkadot Omni Node](https://crates.io/crates/polkadot-omni-node){target=\_blank}. For instructions on setting up the Polkadot Omni Node and [Polkadot Chain Spec Builder](https://crates.io/crates/staging-chain-spec-builder){target=\_blank}, refer to the [Set Up the Parachain Template](/parachains/launch-a-parachain/set-up-the-parachain-template/){target=\_blank} page.
 
 ### Generate a Chain Specification
 
-Create a new chain specification file with the updated runtime containing both pallet instances.
+Create a new chain specification file with the updated runtime containing both pallet instances by running the following command from your project's root directory:
 
-To generate a chain specification:
+```bash
+chain-spec-builder create -t development \
+    --relay-chain paseo \
+    --para-id 1000 \
+    --runtime ./target/release/wbuild/parachain-template-runtime/parachain_template_runtime.compact.compressed.wasm \
+    named-preset development
+```
 
-1. Run the following command from your project's root directory:
-
-    ```bash
-    chain-spec-builder create -t development \
-        --relay-chain paseo \
-        --para-id 1000 \
-        --runtime ./target/release/wbuild/parachain-template-runtime/parachain_template_runtime.compact.compressed.wasm \
-        named-preset development
-    ```
-
-2. This generates a chain specification file (`chain_spec.json`) for your parachain with the updated runtime
+This command generates a chain specification file (`chain_spec.json`) for your parachain with the updated runtime.
 
 ### Start the Parachain Node
 
-Launch the parachain using the Polkadot omni node with the generated chain specification.
+Launch the parachain using the Polkadot Omni Node with the generated chain specification:
 
-To start the parachain node:
+```bash
+polkadot-omni-node --chain ./chain_spec.json --dev
+```
 
-1. Run the following command:
-
-    ```bash
-    polkadot-omni-node --chain ./chain_spec.json --dev
-    ```
-
-2. Verify the node starts successfully and begins producing blocks.
-3. You should see log messages indicating both pallet instances are initialized.
+Verify the node starts successfully and begins producing blocks. You should see log messages indicating that both pallet instances are initialized.
 
 ### Interact with Both Pallet Instances
 
@@ -1277,14 +1252,26 @@ To interact with the pallet instances:
 1. Navigate to [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9944#/extrinsics){target=\_blank}.
 2. Ensure you're connected to your local node at `ws://127.0.0.1:9944`.
 3. Go to the **Developer** > **Extrinsics** tab.
-4. In the submit extrinsic section, locate both instances in the pallet dropdown:
-    - `technicalCommittee` - your first collective instance.
-    - `council` - your second collective instance.
-5. For each instance, verify you can see the available extrinsics:
-    - `propose(threshold, proposal, lengthBound)` - submit a proposal.
-    - `vote(proposal, index, approve)` - vote on a proposal.
-    - `close(proposalHash, index, proposalWeightBound, lengthBound)` - close voting.
-    - `setMembers(newMembers, prime, oldCount)` - update membership.
+4. In the **submit the following extrinsic** section, open the pallet dropdown. Verify that both pallet instances appear and contain the expected extrinsics.
+
+    === "Technical Committee"
+
+        Select **`technicalCommittee`** and open the extrinsics dropdown.
+
+        ![](/images/parachains/customize-runtime/add-pallet-instances/add-pallet-instances-01.webp)
+
+    === "Council"
+
+        Select **`council`** and open the extrinsics dropdown.
+
+        ![](/images/parachains/customize-runtime/add-pallet-instances/add-pallet-instances-02.webp)
+
+Each instance should display the following extrinsics (this is not an exhaustive list):
+
+- **`close(proposalHash, index, proposalWeightBound, lengthBound)`**: Close voting.
+- **`propose(threshold, proposal, lengthBound)`**: Submit a proposal.
+- **`setMembers(newMembers, prime, oldCount)`**: Update membership.
+- **`vote(proposal, index, approve)`**: Vote on a proposal.
 
 ### Test Instance Independence
 
@@ -1294,14 +1281,25 @@ To test instance independence:
 
 1. In Polkadot.js Apps, go to **Developer** > **Chain state**.
 2. Query storage for each instance:
-    - Select `technicalCommittee` > `members()` to view technical committee members.
-    - Select `council` > `members()` to view council members.
+
+    === "Technical Committee"
+
+        Select **`technicalCommittee` > `members()`** to view technical committee members.
+
+        ![](/images/parachains/customize-runtime/add-pallet-instances/add-pallet-instances-03.webp)
+
+    === "Council"
+
+        Select **`council` > `members()`** to view council members.
+
+        ![](/images/parachains/customize-runtime/add-pallet-instances/add-pallet-instances-04.webp)
+
 3. Verify that:
     - Each instance maintains separate storage.
     - Changes to one instance don't affect the other.
     - Both instances can process proposals simultaneously.
 
-You can now use both collective instances for different governance purposes in your parachain, such as technical decisions requiring expertise and general governance decisions requiring broader consensus.
+You can now use both collective instances for different governance purposes in your parachain, such as technical decisions that require expertise and general governance decisions that require broader consensus.
 
 ## Where to Go Next
 
@@ -16827,84 +16825,177 @@ Page Title: Obtain Coretime
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/parachains-launch-a-parachain-obtain-coretime.md
 - Canonical (HTML): https://docs.polkadot.com/parachains/launch-a-parachain/obtain-coretime/
-- Summary: Learn how to obtain and manage coretime for your Polkadot parachain. Explore bulk and on-demand options, prerequisites, and initial setup.
+- Summary: Learn how to obtain coretime for block production with this guide, covering both on-demand and bulk options for smooth operations.
 
 # Obtain Coretime
 
 ## Introduction
 
-Securing coretime is essential for operating a parachain on Polkadot. It provides your parachain with guaranteed computational resources and access to Polkadot's shared security model, ensuring your blockchain can process transactions, maintain its state, and interact securely with other parachains in the network. Without coretime, a parachain cannot participate in the ecosystem or leverage the relay chain's validator set for security.
+After deploying a parachain to Paseo in the [Deploy on Polkadot](/parachains/launch-a-parachain/deploy-to-polkadot/){target=\_blank} tutorial, the next critical step is obtaining coretime. Coretime is the mechanism through which validation resources are allocated from the relay chain to your parachain. Your parachain can only produce and finalize blocks on the relay chain by obtaining coretime.
 
-Coretime represents the computational resources allocated to your parachain on the Polkadot network. It determines when and how often your parachain can produce blocks and have them validated by the relay chain.
+There are two primary ways to obtain coretime:
 
-There are two primary methods to obtain coretime:
+- **[On-demand coretime](#order-on-demand-coretime)**: Purchase coretime on a block-by-block basis, ideal for variable or unpredictable workloads.
+- **[Bulk coretime](#purchase-bulk-coretime)**: Obtain a core or portion of a core for an extended period (up to 28 days), requiring renewal upon lease expiration.
 
-- **Bulk coretime**: Purchase computational resources in advance for a full month.
-- **On-demand coretime**: Buy computational resources as needed for individual block production.
+In this tutorial, you will:
 
-This guide explains the different methods of obtaining coretime and walks through the necessary steps to get your parachain running. 
+- Understand the different coretime options available.
+- Learn how to purchase a core via bulk coretime.
+- Assign your parachain to a core for block production.
+- Explore on-demand coretime as an alternative approach.
 
 ## Prerequisites
 
-Before obtaining coretime, ensure you have:
+Before proceeding, ensure you have the following:
 
-- Developed your parachain runtime using the Polkadot SDK.
-- Set up and configured a parachain collator for your target relay chain.
-- Successfully compiled your parachain collator node.
-- Generated and exported your parachain's genesis state.
-- Generated and exported your parachain's validation code (Wasm).
+- A parachain ID reserved on Paseo.
+- A properly configured chain specification file (both plain and raw versions).
+- A registered parathread with the correct genesis state and runtime.
+- A synced collator node running and connected to the Paseo relay chain.
+- [PAS tokens](https://faucet.polkadot.io/?parachain=1005){target=\_blank} in your account on the Coretime Chain for transaction fees.
 
-## Initial Setup Steps
+If you haven't completed these prerequisites, start by referring to the [Deploy on Polkadot](/parachains/launch-a-parachain/deploy-to-polkadot/){target=\_blank} tutorial.
 
-1. Reserve a unique identifier, `ParaID`, for your parachain:
+## Order On-Demand Coretime
 
-    1. Connect to the relay chain.
-    2. Submit the [`registrar.reserve`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_common/paras_registrar/pallet/dispatchables/fn.reserve.html){target=\_blank} extrinsic.
+On-demand coretime allows you to purchase validation resources on a per-block basis. This approach is useful when you don't need continuous block production or want to test your parachain before committing to bulk coretime.
 
-    Upon success, you'll receive a registered `ParaID`.
+### On-Demand Extrinsics
 
-2. Register your parachain's essential information by submitting the [`registrar.register`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_common/paras_registrar/pallet/dispatchables/fn.register.html){target=\_blank} extrinsic with the following parameters:
+There are two extrinsics available for ordering on-demand coretime:
 
-    - **`id`**: Your reserved `ParaID`.
-    - **`genesisHead`**: Your exported genesis state.
-    - **`validationCode`**: Your exported Wasm validation code.
+- **[`onDemand.placeOrderAllowDeath`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/on_demand/pallet/struct.Pallet.html#method.place_order_allow_death){target=\_blank}**: Will [reap](https://wiki.polkadot.com/learn/learn-accounts/#existential-deposit-and-reaping){target=\_blank} the account once the provided funds are depleted.
+- **[`onDemand.placeOrderKeepAlive`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/on_demand/pallet/struct.Pallet.html#method.place_order_keep_alive){target=\_blank}**: Includes a check to prevent reaping the account, ensuring it remains alive even if funds run out.
 
-3. Start your parachain collator and begin synchronization with the relay chain.
+### Place an On-Demand Order
 
-## Obtaining Coretime
+To place an on-demand coretime order, follow these steps:
 
-### Bulk Coretime
+1. Open the [Polkadot.js Apps interface connected to the Polkadot TestNet (Paseo)](https://polkadot.js.org/apps/?rpc=wss://paseo.dotters.network){target=\_blank}.
 
-Bulk coretime provides several advantages:
+2. Navigate to **Developer > Extrinsics** in the top menu.
 
-- Monthly allocation of resources
-- Guaranteed block production slots (every 12 seconds, or 6 seconds with [Asynchronous Backing](https://wiki.polkadot.com/learn/learn-async-backing/#asynchronous-backing){target=\_blank})
-- Priority renewal rights
-- Protection against price fluctuations
-- Ability to split and resell unused coretime
+3. Select the account that registered your parachain ID.
 
-To purchase bulk coretime:
+4. From the **submit the following extrinsic** dropdown, select **onDemand** and then choose **placeOrderAllowDeath** as the extrinsic.
 
-1. Access the Coretime system parachain.
-2. Interact with the Broker pallet.
-3. Purchase your desired amount of coretime.
-4. Assign the purchased core to your registered `ParaID`.
+5. Configure the parameters:
 
-After successfully obtaining coretime, your parachain will automatically start producing blocks at regular intervals.
+    - **maxAmount**: The maximum amount of tokens you're willing to spend (e.g., `1000000000000`). This value may vary depending on network conditions.
+    - **paraId**: Your reserved parachain ID (e.g., `4508`).
 
-For current marketplaces and pricing, consult the [Coretime Marketplaces](https://wiki.polkadot.com/learn/learn-guides-coretime-marketplaces/){target=\_blank} page on the Polkadot Wiki.
+6. Review the transaction details and click **Submit Transaction**.
 
-### On-demand Coretime
+![Placing an on-demand order for coretime](/images/parachains/launch-a-parachain/obtain-coretime/obtain-coretime-01.webp)
 
-On-demand coretime allows for flexible, as-needed block production. To purchase:
+Upon successful submission, your parachain will produce a new block. You can verify this by checking your collator node logs, which should display output confirming block production.
 
-1. Ensure your collator node is fully synchronized with the relay chain.
-2. Submit the `onDemand.placeOrderAllowDeath` extrinsic on the relay chain with:
+!!!note
+    Each successful on-demand extrinsic will trigger one block production cycle. For continuous block production, you'll need to place multiple orders or consider bulk coretime.
 
-    - **`maxAmountFor`**: Sufficient funds for the transaction.
-    - **`paraId`**: Your registered `ParaID`.
+## Purchase Bulk Coretime
 
-After successfully executing the extrinsic, your parachain will produce a block.
+Bulk coretime offers a cost-effective way to maintain continuous block production. It lets you reserve a core for up to 28 days and renew it as needed.
+
+You can purchase and manage cores on the [Coretime Chain](https://wiki.polkadot.com/learn/learn-system-chains/#coretime-chain){target=\_blank}, a system parachain that runs the [`pallet_broker`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/index.html){target=\_blank} to handle core sales, allocation, and renewal across the Polkadot ecosystem.
+
+!!!tip
+    Paseo has a unique process for obtaining coretime cores. Refer to the [PAS-10 Onboard Paras Coretime](https://github.com/paseo-network/paseo-action-submission/blob/main/pas/PAS-10-Onboard-paras-coretime.md#summary){target=\_blank} guide for detailed instructions.
+
+This tutorial shows you how to purchase bulk coretime using the [RegionX Coretime Marketplace](https://app.regionx.tech){target=\_blank}, a user-friendly interface for buying and managing cores on both the Polkadot TestNet and production networks.
+
+![RegionX home page with Wallet connected](/images/parachains/launch-a-parachain/obtain-coretime/obtain-coretime-02.webp)
+
+### Connect Your Wallet to RegionX
+
+1. Visit the [RegionX App](https://app.regionx.tech){target=\_blank}.
+
+2. Click the **Connect Wallet** button in the upper right corner.
+
+3. Select your wallet provider and approve the connection.
+
+### Obtain Coretime Chain Funds
+
+To purchase a core, you need funds on the Coretime Chain. You can fund your account directly on the Coretime Chain using the Polkadot Faucet:
+
+1. Visit the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=0){target=\_blank}.
+
+2. Select the **Coretime (Paseo)** network from the dropdown menu.
+
+3. Paste your wallet address in the input field.
+
+4. Click **Get some PASs** to receive 5000 PAS tokens.
+
+!!!note
+    The Polkadot Faucet has a daily limit of 5,000 PAS tokens per account. If you need more tokens than this limit allows, you have two options:
+    
+    - Return to the faucet on consecutive days to accumulate additional tokens.
+    - Create additional accounts, fund each one separately, and then transfer the tokens to your primary account that will be making the bulk coretime purchase.
+
+    Alternatively, to expedite the process, you can send a message to the [Paseo Support channel](https://matrix.to/#/#paseo-testnet-support:parity.io){target=\_blank} on Matrix, and the Paseo team will assist you in funding your account.
+
+### Purchase a Core
+
+1. From the RegionX home page, ensure the correct network is selected using the network switch in the top right corner (set to **Paseo**).
+
+2. Review the information displayed on the home page, including:
+    - **Cores Remaining**: Number of available cores
+    - **Cores Offered**: Total cores in the current sale
+    - **Current price**: The price per core in PAS tokens
+    - **Auction Phase Status**: Current phase and progress
+
+3. Click the **Purchase New Core** button displayed on the page.
+
+4. A modal will appear detailing the transaction details and fees. Review the information carefully.
+
+5. Click **Ok** and sign the transaction using your connected wallet.
+
+6. Wait for the transaction to be confirmed on-chain.
+
+### Verify Your Purchase
+
+1. Once the transaction is confirmed, navigate to [**My Regions**](https://app.regionx.tech/regions){target=\_blank} from the left menu.
+
+2. You should see your newly purchased core listed in your dashboard.
+
+Congratulations! You've successfully purchased a core using RegionX.
+
+### Assign Your Parachain to the Core
+
+With your core purchased, you now need to assign your parachain to it for block production:
+
+1. From the **My Regions** page, click on your core to select it.
+
+2. Click the **Assign** option from the left-hand menu.
+
+3. A modal will appear, allowing you to add a new task.
+
+4. Click **Add Task** and enter the following information:
+
+    - **Parachain ID**: Your reserved parachain identifier
+    - **Project Name**: The name of your parachain project
+
+5. Click **Add Task** to proceed.
+
+6. Select your parachain task from the list.
+
+7. Set the core's **Finality** setting:
+
+    - **Provisional**: Allows interlacing and partitioning of the core, but the region cannot be renewed as-is.
+    - **Final**: Prevents modification of the core but allows renewal. Choose this if you plan to renew the core.
+
+8. Sign and submit the transaction.
+
+Once confirmed, your parachain will be assigned to the core and should begin producing blocks (provided your collator is running and synced with the relay chain).
+
+## Next Steps
+
+Your parachain is now set up for block production. Consider the following:
+
+- **Monitor your collator**: Keep your collator node running and monitor its performance.
+- **Plan coretime renewal**: If using bulk coretime, plan to renew your core before the current lease expires.
+- **Explore runtime upgrades**: Once comfortable with your setup, explore how to upgrade your parachain's runtime without interrupting block production.
 
 
 ---

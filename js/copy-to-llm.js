@@ -13,273 +13,64 @@
   if (typeof window === 'undefined') {
     return;
   }
-  // All config data lives in `llms_config.json` file.
-  const CONFIG_URL = '/scripts/llms_config.json';
-
-  const state = {
-    // When loadConfig() fetches /scripts/llms_config.json, the parsed JSON lands here.
-    config: null,
-    /* If multiple callers hit ready() before the first fetch resolves, they all share this       promise instead of firing duplicate network requests. */
-    configPromise: null,
-    // Derived once from window.location.origin, trimmed of trailing slashes.
-    siteBase: window.location ? window.location.origin.replace(/\/+$/, '') : '',
-    /* After the config loads, computeRemoteBase(config) may set this to a raw GitHub URL (pulling repository.org, repository.repo, etc.). When present, it’s the highest-priority candidate in getSlugCandidates() for finding Markdown artifacts.*/
-    remoteBase: '',
-  };
-
-  // Called each time a URL is built from a file path/slug.
-  function joinUrl(base, path) {
-    const trimmedBase = (base || '').replace(/\/+$/, '');
-    const trimmedPath = (path || '').replace(/^\/+/, '');
-    if (!trimmedBase) {
-      return trimmedPath ? `/${trimmedPath}` : '/';
-    }
-    return trimmedPath ? `${trimmedBase}/${trimmedPath}` : trimmedBase;
-  }
-
-  // Removes slashes as part of slug and URL building.
-  function stripSlashes(value) {
-    return (value || '').replace(/^\/+|\/+$/g, '');
-  }
-
-  // Called by getPageSlug() to decode slightly different permutations of a path.
-  function normalizePathname(pathname) {
-    let path = decodeURIComponent(pathname || '/');
-
-    // Support browsing the statically-built site using *.html files.
-    path = path.replace(/index\.html$/i, '');
-    // Collapse any accidental duplicate slashes.
-    path = path.replace(/\/+/g, '/');
-
-    if (path.length > 1 && path.endsWith('/')) {
-      path = path.slice(0, -1);
-    }
-
-    return path || '/';
-  }
-  // Called by getPageSlug() after normalizePathname() to build and return the slug.
   function buildSlugFromPath(pathname) {
-    if (!pathname || pathname === '/') {
-      return 'index';
-    }
-
-    let route = pathname;
-    if (route.endsWith('/index')) {
-      route = route.slice(0, -'/index'.length);
-    }
-
-    route = route.replace(/^\/+/, '');
-    if (!route) {
-      return 'index';
-    }
-
-    const segments = route.split('/').filter(Boolean);
-    if (!segments.length) {
-      return 'index';
-    }
-
-    if (segments.length >= 2 && segments[0] === 'ai') {
-      if (segments[1] === 'pages' || segments[1] === 'categories') {
-        segments.splice(0, 2);
-      }
-    } else if (segments[0] === 'ai-pages' || segments[0] === 'ai-categories') {
-      segments.splice(0, 1);
-    }
-
-    const slug = segments
-      .map((segment) => segment.trim())
-      .filter(Boolean)
-      .map((segment) => segment.replace(/\s+/g, '-'))
-      .map((segment) => segment.replace(/[^a-zA-Z0-9_-]/g, '-'))
-      .map((segment) => segment.replace(/-+/g, '-'))
-      .join('-')
-      .toLowerCase()
-      .replace(/^-+|-+$/g, '');
-
-    return slug || 'index';
+    const route = (pathname || '').replace(/^\/+|\/+$/g, '');
+    return route.split('/').filter(Boolean).join('-');
   }
 
   function getPageSlug() {
-    const normalized = normalizePathname(window.location.pathname);
-    return buildSlugFromPath(normalized);
+    return buildSlugFromPath(window.location.pathname);
   }
 
-  // Uses config.repository + outputs metadata to compute a raw GitHub base URL.
-  function computeRemoteBase(config) {
-    const repository = config?.repository || {};
-    const outputs = config?.outputs || {};
-    const files = outputs.files || {};
-
-    if (
-      repository.host === 'github' &&
-      repository.org &&
-      repository.repo &&
-      repository.default_branch
-    ) {
-      const pagesDir = stripSlashes(files.pages_dir || 'pages');
-      const fallbackArtifacts = joinUrl(
-        stripSlashes(outputs.public_root || 'ai'),
-        pagesDir
-      );
-      const artifactsPath = stripSlashes(
-        repository.ai_artifacts_path || fallbackArtifacts
-      );
-      return joinUrl(
-        `https://raw.githubusercontent.com/${repository.org}/${repository.repo}/${repository.default_branch}`,
-        artifactsPath
-      );
-    }
-
-    return '';
+  function getMarkdownUrl(slug) {
+    const host = window.location ? window.location.host : '';
+    const protocol = window.location ? window.location.protocol : 'https:';
+    return `${protocol}//${host}/ai/pages/${slug}.md`;
   }
 
-  // Fetch `llms_config.json` once and cache both the promise and the parsed object.
-  function loadConfig() {
-    if (state.configPromise) {
-      return state.configPromise;
-    }
+  const NO_MARKDOWN_MESSAGE = 'No Markdown file available.';
 
-    if (typeof fetch !== 'function') {
-      state.configPromise = Promise.resolve(null);
-      return state.configPromise;
-    }
-
-    state.configPromise = fetch(CONFIG_URL, { credentials: 'omit' })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`Failed to load config (${response.status})`);
-        }
-        return response.json();
-      })
-      .then((config) => {
-        state.config = config;
-        state.remoteBase = computeRemoteBase(config);
-        return state.config;
-      })
-      .catch((error) => {
-        console.warn('Unable to load llms_config.json', error);
-        state.config = null;
-        state.remoteBase = '';
-        return null;
-      });
-
-    return state.configPromise;
-  }
-
-  // Public entry point to ensure config is loaded before performing network operations.
-  async function ready() {
-    if (state.config || state.configPromise) {
-      return state.configPromise || state.config;
-    }
-    return loadConfig();
-  }
-
-  // Trigger config preload without blocking UI.
-  ready();
-
-  // Compute the local site-relative path for Markdown artifacts (`/ai/pages/...`).
-  function getLocalPagesBase() {
-    const config = state.config;
-    const outputs = config?.outputs || {};
-    const files = outputs.files || {};
-    const publicRoot = `/${stripSlashes(outputs.public_root || 'ai')}`;
-    const pagesDir = stripSlashes(files.pages_dir || 'pages');
-    return joinUrl(publicRoot, pagesDir);
-  }
-
-  // Preserve ordering while removing duplicates created by overlapping base URLs.
-  function dedupe(list) {
-    const seen = [];
-    list.forEach((item) => {
-      if (item && !seen.includes(item)) {
-        seen.push(item);
-      }
-    });
-    return seen;
-  }
-
-  // Build a prioritized list of URLs where a slug's Markdown could exist.
-  function getSlugCandidates(slug) {
-    const normalizedSlug = (slug || 'index').toString().replace(/\.md$/i, '');
-    const candidates = [];
-
-    if (state.remoteBase) {
-      candidates.push(joinUrl(state.remoteBase, `${normalizedSlug}.md`));
-    }
-
-    const localBase = getLocalPagesBase();
-    if (localBase) {
-      candidates.push(joinUrl(localBase, `${normalizedSlug}.md`));
-      if (state.siteBase) {
-        candidates.push(
-          joinUrl(state.siteBase, joinUrl(localBase, `${normalizedSlug}.md`))
-        );
-      }
-    }
-
-    candidates.push(joinUrl('', `ai/pages/${normalizedSlug}.md`));
-
-    return dedupe(candidates);
-  }
-
-  // Simple fetch wrapper that tolerates 404s and returns `null` instead of throwing.
-  async function fetchText(url) {
+  async function fetchMarkdown(slug) {
+    const url = getMarkdownUrl(slug);
     try {
       const response = await fetch(url, { credentials: 'omit' });
       if (!response.ok) {
         if (response.status === 404) {
-          return null;
+          return { text: null, url, status: 404 };
         }
         throw new Error(`HTTP ${response.status}`);
       }
-      return await response.text();
+      const text = await response.text();
+      return { text, url, status: 200 };
     } catch (error) {
-      console.error('Failed to fetch text', url, error);
-      return null;
+      console.warn('Copy to LLM: unable to fetch markdown file', url, error);
+      return { text: null, url, status: 'error' };
     }
   }
 
-  // Walk the candidate list until a Markdown file returns successfully.
-  async function fetchSlugContent(slug) {
-    await ready();
-    const candidates = getSlugCandidates(slug);
-    for (const url of candidates) {
-      const text = await fetchText(url);
-      if (text) {
-        return { text, url };
+  async function downloadMarkdown(slug, filename) {
+    const url = getMarkdownUrl(slug);
+    try {
+      const response = await fetch(url, { credentials: 'omit' });
+      if (!response.ok) {
+        return response.status === 404
+          ? { success: false, status: 404 }
+          : { success: false, status: response.status };
       }
+      const blob = await response.blob();
+      const objectUrl = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = objectUrl;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      URL.revokeObjectURL(objectUrl);
+      link.remove();
+      return { success: true };
+    } catch (error) {
+      console.warn('Copy to LLM: download failed', url, error);
+      return { success: false, status: 'error' };
     }
-    return null;
-  }
-
-  // Same candidate iteration as `fetchSlugContent`, but pipes the first successful response into a download.
-  async function downloadSlug(slug, filename) {
-    await ready();
-    const candidates = getSlugCandidates(slug);
-    for (const url of candidates) {
-      try {
-        const response = await fetch(url, { credentials: 'omit' });
-        if (!response.ok) {
-          if (response.status === 404) {
-            continue;
-          }
-          throw new Error(`HTTP ${response.status}`);
-        }
-        const blob = await response.blob();
-        const objectUrl = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = objectUrl;
-        link.download = filename;
-        document.body.appendChild(link);
-        link.click();
-        URL.revokeObjectURL(objectUrl);
-        link.remove();
-        return true;
-      } catch (error) {
-        console.error('Download failed, trying next candidate', url, error);
-      }
-    }
-    return false;
   }
 
   // ---------- Analytics helpers ----------
@@ -318,14 +109,6 @@
   }
 
   // ---------- Page helpers ----------
-
-  /* If fetching Markdown fails, we fall back to scraping the rendered HTML content: '.md-content__inner .md-typeset' is the default class for <article> elements. */
-  function getFallbackPageContent() {
-    const articleContent = document.querySelector(
-      '.md-content__inner .md-typeset'
-    );
-    return articleContent ? articleContent.innerText.trim() : '';
-  }
 
   // ---------- Clipboard helpers ----------
   async function copyToClipboard(text, button, eventType) {
@@ -575,35 +358,17 @@
         let copySucceeded = false;
         const slug = getPageSlug();
 
-        try {
-          const result = await fetchSlugContent(slug);
-          if (result && result.text) {
-            copySucceeded = await copyToClipboard(
-              result.text,
-              copyButton,
-              'markdown_content'
-            );
-          }
-        } catch (error) {
-          console.error('Copy to LLM: failed to copy markdown content', error);
+        const { text } = await fetchMarkdown(slug);
+
+        if (text) {
+          copySucceeded = await copyToClipboard(
+            text,
+            copyButton,
+            'markdown_content'
+          );
         }
 
-        if (!copySucceeded) {
-          const fallback = getFallbackPageContent();
-          if (fallback) {
-            try {
-              copySucceeded = await copyToClipboard(
-                fallback,
-                copyButton,
-                'page_content'
-              );
-            } catch (fallbackError) {
-              console.error('Copy to LLM: fallback copy failed', fallbackError);
-            }
-          }
-        }
-
-        if (!copySucceeded) {
+        if (!text || !copySucceeded) {
           showCopyError(copyButton);
         }
 
@@ -652,7 +417,6 @@
           return;
         }
 
-        await ready();
         const action = item.dataset.action;
         const slug = getPageSlug();
 
@@ -660,20 +424,19 @@
         switch (action) {
           case 'download-markdown': {
             trackButtonClick('download_page_markdown');
-            const success = await downloadSlug(slug, `${slug}.md`);
-            if (!success) {
-              showCopyError(item);
-            } else {
+            const result = await downloadMarkdown(slug, `${slug}.md`);
+            if (result.success) {
               showCopySuccess(item);
+            } else if (result.status === 404) {
+              showToast(NO_MARKDOWN_MESSAGE);
+            } else {
+              showCopyError(item);
             }
             break;
           }
           case 'open-chatgpt': {
             trackButtonClick('open_chatgpt');
-            const candidates = getSlugCandidates(slug);
-            const mdUrl = candidates.length
-              ? candidates[0]
-              : window.location.href;
+            const mdUrl = getMarkdownUrl(slug);
             const prompt = `Read ${mdUrl} so I can ask questions about it.`;
             const chatGPTUrl = `https://chatgpt.com/?hints=search&q=${encodeURIComponent(
               prompt
@@ -683,10 +446,7 @@
           }
           case 'open-claude': {
             trackButtonClick('open_claude');
-            const candidates = getSlugCandidates(slug);
-            const mdUrl = candidates.length
-              ? candidates[0]
-              : window.location.href;
+            const mdUrl = getMarkdownUrl(slug);
             const prompt = `Read ${mdUrl} so I can ask questions about it.`;
             const claudeUrl = `https://claude.ai/new?q=${encodeURIComponent(
               prompt

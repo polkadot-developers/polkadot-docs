@@ -20,7 +20,7 @@ First, you'll update the runtime's `Cargo.toml` file to include the Utility pall
 1. Open the `runtime/Cargo.toml` file and locate the `[dependencies]` section. Add pallet-utility as one of the features for the `polkadot-sdk` dependency with the following line:
 
     ```toml hl_lines="4" title="runtime/Cargo.toml"
-    [dependencies]
+    
     ...
     polkadot-sdk = { workspace = true, features = [
       "pallet-utility",
@@ -31,7 +31,7 @@ First, you'll update the runtime's `Cargo.toml` file to include the Utility pall
 2. In the same `[dependencies]` section, add the custom pallet that you built from scratch with the following line:
 
     ```toml hl_lines="3" title="Cargo.toml"
-    [dependencies]
+    
     ...
     custom-pallet = { path = "../pallets/custom-pallet", default-features = false }
     ```

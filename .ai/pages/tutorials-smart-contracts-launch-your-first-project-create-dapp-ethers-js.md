@@ -95,7 +95,22 @@ For this dApp, you'll use a simple Storage contract already deployed. So, you ne
 Now, create a file called `app/utils/contract.js`:
 
 ```javascript title="app/utils/contract.js"
+import { Contract } from 'ethers';
+import { getProvider } from './ethers';
+import StorageABI from '../../abis/Storage.json';
 
+export const CONTRACT_ADDRESS = '0x58053f0e8ede1a47a1af53e43368cd04ddcaf66f';
+
+export const CONTRACT_ABI = StorageABI;
+
+export const getContract = () => {
+  const provider = getProvider();
+  return new Contract(CONTRACT_ADDRESS, CONTRACT_ABI, provider);
+};
+
+export const getSignedContract = async (signer) => {
+  return new Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+};
 ```
 
 This file defines the contract address, ABI, and functions to create instances of the contract for reading and writing.

@@ -151,8 +151,20 @@ Examine the following migration example that transforms a simple `StorageValue` 
 - New `StorageValue` format:
 
     ```rust
-    
-    
+    /// Example struct holding the most recently set [`u32`] and the
+    /// second most recently set [`u32`] (if one existed).
+    #[docify::export]
+    #[derive(
+    	Clone, Eq, PartialEq, Encode, Decode, RuntimeDebug, scale_info::TypeInfo, MaxEncodedLen,
+    )]
+    pub struct CurrentAndPreviousValue {
+    	/// The most recently set value.
+    	pub current: u32,
+    	/// The previous value, if one existed.
+    	pub previous: Option<u32>,
+    }
+    #[pallet::storage]
+    	pub type Value<T: Config> = StorageValue<_, CurrentAndPreviousValue>;
     ```
 
 - Migration:

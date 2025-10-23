@@ -118,28 +118,9 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
 1. Create a folder for testing called `test`. Inside that directory, create a file named `Storage.js` and add the following code:
 
     ```javascript title="Storage.js" 
-    const { expect } = require('chai');
-    const { ethers } = require('hardhat');
-
-    describe('Storage', function () {
-      let storage;
-      let owner;
-      let addr1;
-
-      beforeEach(async function () {
-        // Get signers
-        [owner, addr1] = await ethers.getSigners();
-
-        // Deploy the Storage contract
-        const Storage = await ethers.getContractFactory('Storage');
-        storage = await Storage.deploy();
-        await storage.waitForDeployment();
-      });
-
-      describe('Basic functionality', function () {
+    
         // Add your logic here
-    });
-    });
+    
     ```
 
     The `beforeEach` hook ensures stateless contract execution by redeploying a fresh instance of the Storage contract before each test case. This approach guarantees that each test starts with a clean and independent contract state by using `ethers.getSigners()` to obtain test accounts and `ethers.getContractFactory('Storage').deploy()` to create a new contract instance.
@@ -149,9 +130,7 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
     1. **Initial state verification**: Ensures that the contract starts with a default value of zero, which is a fundamental expectation for the `Storage.sol` contract.
 
         ```javascript title="Storage.js"
-        it('Should return 0 initially', async function () {
-              expect(await storage.retrieve()).to.equal(0);
-            });
+        
         ```
 
         Explanation:
@@ -163,13 +142,7 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
     2. **Value storage test**: Validate the core functionality of storing and retrieving a value in the contract.
 
         ```javascript title="Storage.js"
-        it('Should update when store is called', async function () {
-              const testValue = 42;
-              // Store a value
-              await storage.store(testValue);
-              // Check if the value was updated
-              expect(await storage.retrieve()).to.equal(testValue);
-            });
+        
         ```
 
         Explanation:
@@ -181,13 +154,7 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
     3. **Event emission verification**: Confirm that the contract emits the correct event when storing a value, which is crucial for off-chain tracking.
 
         ```javascript title="Storage.js"
-        it('Should emit an event when storing a value', async function () {
-              const testValue = 100;
-              // Check if the NumberChanged event is emitted with the correct value
-              await expect(storage.store(testValue))
-                .to.emit(storage, 'NumberChanged')
-                .withArgs(testValue);
-            });
+        
         ```
 
         Explanation:
@@ -199,14 +166,7 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
     4. **Sequential value storage test**: Check the contract's ability to store multiple values sequentially and maintain the most recent value.
 
         ```javascript title="Storage.js"
-        it('Should allow storing sequentially increasing values', async function () {
-              const values = [10, 20, 30, 40];
-
-              for (const value of values) {
-                await storage.store(value);
-                expect(await storage.retrieve()).to.equal(value);
-              }
-            });
+        
         ```
 
         Explanation:
@@ -219,55 +179,7 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
 
     ???--- code "View complete script"
         ```javascript title="Storage.js"
-        const { expect } = require('chai');
-        const { ethers } = require('hardhat');
-
-        describe('Storage', function () {
-          let storage;
-          let owner;
-          let addr1;
-
-          beforeEach(async function () {
-            // Get signers
-            [owner, addr1] = await ethers.getSigners();
-
-            // Deploy the Storage contract
-            const Storage = await ethers.getContractFactory('Storage');
-            storage = await Storage.deploy();
-            await storage.waitForDeployment();
-          });
-
-          describe('Basic functionality', function () {
-            it('Should return 0 initially', async function () {
-              expect(await storage.retrieve()).to.equal(0);
-            });
-
-            it('Should update when store is called', async function () {
-              const testValue = 42;
-              // Store a value
-              await storage.store(testValue);
-              // Check if the value was updated
-              expect(await storage.retrieve()).to.equal(testValue);
-            });
-
-            it('Should emit an event when storing a value', async function () {
-              const testValue = 100;
-              // Check if the NumberChanged event is emitted with the correct value
-              await expect(storage.store(testValue))
-                .to.emit(storage, 'NumberChanged')
-                .withArgs(testValue);
-            });
-
-            it('Should allow storing sequentially increasing values', async function () {
-              const values = [10, 20, 30, 40];
-
-              for (const value of values) {
-                await storage.store(value);
-                expect(await storage.retrieve()).to.equal(value);
-              }
-            });
-          });
-        });
+        
         ```
 
 2. Run the tests:
@@ -296,13 +208,7 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
 1. Create a new folder called`ignition/modules`. Add a new file named `StorageModule.js` with the following logic:
 
     ```javascript title="StorageModule.js"
-    const { buildModule } = require('@nomicfoundation/hardhat-ignition/modules');
-
-    module.exports = buildModule('StorageModule', (m) => {
-      const storage = m.contract('Storage');
-
-      return { storage };
-    });
+    
     ```
 
 2. Deploy to the local network:

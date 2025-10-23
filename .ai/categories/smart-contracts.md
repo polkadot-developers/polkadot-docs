@@ -141,7 +141,7 @@ First, you'll update the runtime's `Cargo.toml` file to include the Utility pall
 1. Open the `runtime/Cargo.toml` file and locate the `[dependencies]` section. Add pallet-utility as one of the features for the `polkadot-sdk` dependency with the following line:
 
     ```toml hl_lines="4" title="runtime/Cargo.toml"
-    [dependencies]
+    
     ...
     polkadot-sdk = { workspace = true, features = [
       "pallet-utility",
@@ -152,7 +152,7 @@ First, you'll update the runtime's `Cargo.toml` file to include the Utility pall
 2. In the same `[dependencies]` section, add the custom pallet that you built from scratch with the following line:
 
     ```toml hl_lines="3" title="Cargo.toml"
-    [dependencies]
+    
     ...
     custom-pallet = { path = "../pallets/custom-pallet", default-features = false }
     ```
@@ -1784,53 +1784,13 @@ To build the smart contract, follow the steps below:
 6. Add the getter and setter functions:
 
     ```solidity
-    // SPDX-License-Identifier: MIT
-    pragma solidity ^0.8.28;
-
-    contract Storage {
-        // State variable to store our number
-        uint256 private number;
-
-        // Event to notify when the number changes
-        event NumberChanged(uint256 newNumber);
-
-        // Function to store a new number
-        function store(uint256 newNumber) public {
-            number = newNumber;
-            emit NumberChanged(newNumber);
-        }
-
-        // Function to retrieve the stored number
-        function retrieve() public view returns (uint256) {
-            return number;
-        }
-    }
+    
     ```
 
 ??? code "Complete Storage.sol contract"
 
     ```solidity title="Storage.sol"
-    // SPDX-License-Identifier: MIT
-    pragma solidity ^0.8.28;
-
-    contract Storage {
-        // State variable to store our number
-        uint256 private number;
-
-        // Event to notify when the number changes
-        event NumberChanged(uint256 newNumber);
-
-        // Function to store a new number
-        function store(uint256 newNumber) public {
-            number = newNumber;
-            emit NumberChanged(newNumber);
-        }
-
-        // Function to retrieve the stored number
-        function retrieve() public view returns (uint256) {
-            return number;
-        }
-    }
+    
     ```
 
 ## Understanding the Code
@@ -4482,7 +4442,32 @@ To use it, you can deploy the `SHA256Example` contract in [Remix](/develop/smart
 The RIPEMD-160 precompile computes the RIPEMD-160 hash of the input data.
 
 ```solidity title="RIPEMD160.sol"
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
+contract RIPEMD160Example {
+    // RIPEMD-160 precompile address
+    address constant RIPEMD160_PRECOMPILE = address(0x03);
+
+    bytes32 public result;
+
+    event RIPEMD160Called(bytes32 result);
+
+    function calculateRIPEMD160(bytes calldata input) public returns (bytes32) {
+        (bool success, bytes memory returnData) = RIPEMD160_PRECOMPILE.call(
+            input
+        );
+        require(success, "RIPEMD-160 precompile call failed");
+        // return full 32 bytes, no assembly extraction
+        bytes32 fullHash;
+        assembly {
+            fullHash := mload(add(returnData, 32))
+        }
+        result = fullHash;
+        emit RIPEMD160Called(fullHash);
+        return fullHash;
+    }
+}
 ```
 
 To use it, you can deploy the `RIPEMD160Example` contract in [Remix](/develop/smart-contracts/dev-environments/remix){target=\_blank} or any Solidity-compatible environment and call `calculateRIPEMD160` with arbitrary bytes. This [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/RIPEMD160.js){target=\_blank} shows how to hash a UTF-8 string, pad the 20-byte result to 32 bytes, and verify it against the expected output.
@@ -4502,36 +4487,7 @@ To use it, you can deploy the `IdentityExample` contract in [Remix](/develop/sma
 The ModExp precompile performs modular exponentiation, which is an operation commonly needed in cryptographic algorithms.
 
 ```solidity title="ModExp.sol"
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
 
-contract ModExpExample {
-    address constant MODEXP_ADDRESS = address(0x05);
-
-    function modularExponentiation(
-        bytes memory base,
-        bytes memory exponent,
-        bytes memory modulus
-    ) public view returns (bytes memory) {
-        bytes memory input = abi.encodePacked(
-            toBytes32(base.length),
-            toBytes32(exponent.length),
-            toBytes32(modulus.length),
-            base,
-            exponent,
-            modulus
-        );
-
-        (bool success, bytes memory result) = MODEXP_ADDRESS.staticcall(input);
-        require(success, "ModExp precompile call failed");
-
-        return result;
-    }
-
-    function toBytes32(uint256 value) internal pure returns (bytes32) {
-        return bytes32(value);
-    }
-}
 ```
 
 To use it, you can deploy the `ModExpExample` contract in [Remix](/develop/smart-contracts/dev-environments/remix){target=\_blank} or any Solidity-compatible environment and call `modularExponentiation` with encoded `base`, `exponent`, and `modulus` bytes. This [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/ModExp.js){target=\_blank} shows how to test modular exponentiation like (4 ** 13) % 497 = 445.
@@ -4571,105 +4527,7 @@ You can deploy `BN128PairingExample` in [Remix](/develop/smart-contracts/dev-env
 The Blake2F precompile performs the Blake2 compression function F, which is the core of the Blake2 hash function.
 
 ```solidity title="Blake2F.sol"
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
 
-contract Blake2FExample {
-    // Precompile address for Blake2F
-    address constant BLAKE2F_ADDRESS = address(0x09);
-
-    bytes public result;
-
-    function blake2F(bytes memory input) public {
-        // Input must be exactly 213 bytes
-        require(input.length == 213, "Invalid input length - must be 213 bytes");
-
-        // Call the precompile
-        (bool success, bytes memory resultInMemory) = BLAKE2F_ADDRESS.call{
-            value: 0
-        }(input);
-        require(success, "Blake2F precompile call failed");
-
-        result = resultInMemory;
-    }
-
-    // Helper function to decode the result from `result` storage
-    function getResult() public view returns (bytes32[8] memory output) {
-        bytes memory tempResult = result;
-        require(tempResult.length == 64, "Invalid result length");
-
-        for (uint i = 0; i < 8; i++) {
-            assembly {
-                mstore(add(output, mul(32, i)), mload(add(add(tempResult, 32), mul(32, i))))
-            }
-        }
-    }
-
-
-    // Helper function to create Blake2F input from parameters
-    function createBlake2FInput(
-        uint32 rounds,
-        bytes32[8] memory h,
-        bytes32[16] memory m,
-        bytes8[2] memory t,
-        bool f
-    ) public pure returns (bytes memory) {
-        // Start with rounds (4 bytes, big-endian)
-        bytes memory input = abi.encodePacked(rounds);
-
-        // Add state vector h (8 * 32 = 256 bytes)
-        for (uint i = 0; i < 8; i++) {
-            input = abi.encodePacked(input, h[i]);
-        }
-
-        // Add message block m (16 * 32 = 512 bytes, but we need to convert to 16 * 8 = 128 bytes)
-        // Blake2F expects 64-bit words in little-endian format
-        for (uint i = 0; i < 16; i++) {
-            // Take only the first 8 bytes of each bytes32 and reverse for little-endian
-            bytes8 word = bytes8(m[i]);
-            input = abi.encodePacked(input, word);
-        }
-
-        // Add offset counters t (2 * 8 = 16 bytes)
-        input = abi.encodePacked(input, t[0], t[1]);
-
-        // Add final block flag (1 byte)
-        input = abi.encodePacked(input, f ? bytes1(0x01) : bytes1(0x00));
-
-        return input;
-    }
-
-    // Simplified function that works with raw hex input
-    function blake2FFromHex(string memory hexInput) public {
-        bytes memory input = hexStringToBytes(hexInput);
-        blake2F(input);
-    }
-
-    // Helper function to convert hex string to bytes
-    function hexStringToBytes(string memory hexString) public pure returns (bytes memory) {
-        bytes memory hexBytes = bytes(hexString);
-        require(hexBytes.length % 2 == 0, "Invalid hex string length");
-        
-        bytes memory result = new bytes(hexBytes.length / 2);
-        
-        for (uint i = 0; i < hexBytes.length / 2; i++) {
-            result[i] = bytes1(
-                (hexCharToByte(hexBytes[2 * i]) << 4) | 
-                hexCharToByte(hexBytes[2 * i + 1])
-            );
-        }
-        
-        return result;
-    }
-
-    function hexCharToByte(bytes1 char) internal pure returns (uint8) {
-        uint8 c = uint8(char);
-        if (c >= 48 && c <= 57) return c - 48;      // 0-9
-        if (c >= 65 && c <= 70) return c - 55;      // A-F
-        if (c >= 97 && c <= 102) return c - 87;     // a-f
-        revert("Invalid hex character");
-    }
-}
 ```
 
 To use it, deploy `Blake2FExample` in [Remix](/develop/smart-contracts/dev-environments/remix){target=\_blank} or any Solidity-compatible environment and call `callBlake2F` with the properly formatted input parameters for rounds, state vector, message block, offset counters, and final block flag. This [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/Blake2.js){target=\_blank} demonstrates how to perform Blake2 compression with different rounds and verify the correctness of the output against known test vectors.
@@ -9258,32 +9116,7 @@ The `xcm-emulator` provides macros for defining a mocked testing environment. Ch
 - **[`decl_test_parachains`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/cumulus/xcm/xcm-emulator/src/lib.rs#L596){target=\_blank}**: Defines runtime and configuration for parachains. Example:
 
     ```rust
-    decl_test_parachains! {
-    	pub struct AssetHubWestend {
-    		genesis = genesis::genesis(),
-    		on_init = {
-    			asset_hub_westend_runtime::AuraExt::on_initialize(1);
-    		},
-    		runtime = asset_hub_westend_runtime,
-    		core = {
-    			XcmpMessageHandler: asset_hub_westend_runtime::XcmpQueue,
-    			LocationToAccountId: asset_hub_westend_runtime::xcm_config::LocationToAccountId,
-    			ParachainInfo: asset_hub_westend_runtime::ParachainInfo,
-    			MessageOrigin: cumulus_primitives_core::AggregateMessageOrigin,
-    			DigestProvider: (),
-    		},
-    		pallets = {
-    			PolkadotXcm: asset_hub_westend_runtime::PolkadotXcm,
-    			Balances: asset_hub_westend_runtime::Balances,
-    			Assets: asset_hub_westend_runtime::Assets,
-    			ForeignAssets: asset_hub_westend_runtime::ForeignAssets,
-    			PoolAssets: asset_hub_westend_runtime::PoolAssets,
-    			AssetConversion: asset_hub_westend_runtime::AssetConversion,
-    			SnowbridgeSystemFrontend: asset_hub_westend_runtime::SnowbridgeSystemFrontend,
-    			Revive: asset_hub_westend_runtime::Revive,
-    		}
-    	},
-    }
+    
     ```
 
 - **[`decl_test_bridges`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/cumulus/xcm/xcm-emulator/src/lib.rs#L1221){target=\_blank}**: Creates bridges between chains, specifying the source, target, and message handler. Example:

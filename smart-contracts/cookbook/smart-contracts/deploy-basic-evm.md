@@ -105,7 +105,11 @@ const compileContract = async (solidityFilePath, outputDir) => {
 
         // Write the bytecode
         const bytecodePath = join(outputDir, `${name}.bin`);
-        writeFileSync(bytecodePath, contract.evm.bytecode.object);
+        writeFileSync(bytecodePath, 
+            Buffer.from(
+                contract.evm.bytecode.object,
+                'hex'
+            ));
         console.log(`Bytecode saved to ${bytecodePath}`);
       }
     }
@@ -126,7 +130,7 @@ Run the compilation:
 node compile.js
 ```
 
-### Deploy the Contract - TODO [https://github.com/paritytech/contract-issues/issues/200]
+### Deploy the Contract
 
 Create a deployment script `deploy.js`:
 

@@ -372,10 +372,9 @@
             copyButton,
             'markdown_content'
           );
-          if (!copySucceeded) {
-            showCopyError(copyButton);
-          }
-        } else {
+        }
+
+        if (!text || !copySucceeded) {
           showCopyError(copyButton);
         }
 

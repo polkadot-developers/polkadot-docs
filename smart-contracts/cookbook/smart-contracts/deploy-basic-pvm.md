@@ -247,7 +247,7 @@ Compilation errors and warnings appear in the terminal panel at the bottom of th
 
 ### Deploy
 
-1. Navigate to the **Deploy & Run Transactions** tab
+1. Navigate to the **Deploy & Run Transactions** tab.
 2. Click the **Environment** dropdown and select **Injected Provider - MetaMask** (ensure your MetaMask wallet is connected to Polkadot Hub TestNet).
 3. Click **Deploy**.
 4. Approve the transaction in your MetaMask wallet.

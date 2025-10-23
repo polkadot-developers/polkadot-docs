@@ -26,7 +26,7 @@ In this guide, you'll learn how to:
 Before you begin, ensure you have:
 
 - [Polkadot SDK dependencies installed](/parachains/install-polkadot-sdk/){target=\_blank}
-- A working [Polkadot SDK development environment](/parachains/launch-a-parachain/choose-a-template){target=\_blank}
+- A working [Polkadot SDK development environment](/parachains/launch-a-parachain/set-up-the-parachain-template/){target=\_blank}
 
 ## Add an Existing Polkadot SDK Pallet to Your Runtime
 
@@ -149,7 +149,7 @@ To implement the Config trait:
 
 ### Add to Runtime Construct
 
-The final step is to register the pallet in the runtime construct using the `#[frame_support::runtime]` macro. This macro generates the necessary boilerplate code for including pallets in the runtime.
+The final step is to register the pallet in the runtime construct using the [`#[frame_support::runtime]` macro](https://paritytech.github.io/polkadot-sdk/master/frame_support/attr.runtime.html){target=\_blank}. This macro generates the necessary boilerplate code for including pallets in the runtime.
 
 To add the pallet to the runtime construct:
 
@@ -218,7 +218,7 @@ This command validates the pallet configurations and prepares the build for test
 
 ## Run Your Chain Locally
 
-Now that you've added the pallet to your runtime, you can launch your parachain locally to test the new functionality using the [Polkadot Omni Node](https://crates.io/crates/polkadot-omni-node){target=\_blank}. For instructions on setting up the Polkadot Omni Node and [Polkadot Chain Spec Builder](https://crates.io/crates/staging-chain-spec-builder){target=\_blank}, refer to [Choose a Template](/parachains/launch-a-parachain/choose-a-template){target=\_blank}.
+Now that you've added the pallet to your runtime, you can launch your parachain locally to test the new functionality using the [Polkadot Omni Node](https://crates.io/crates/polkadot-omni-node){target=\_blank}. For instructions on setting up the Polkadot Omni Node and [Polkadot Chain Spec Builder](https://crates.io/crates/staging-chain-spec-builder){target=\_blank}, refer to the [Set Up a Parachain Template](/parachains/launch-a-parachain/set-up-the-parachain-template/){target=\_blank} guide.
 
 ### Generate a Chain Specification
 
@@ -232,7 +232,7 @@ chain-spec-builder create -t development \
 named-preset development
 ```
 
-This command generates a chain specification file for your parachain with the updated runtime.
+This command generates a chain specification file, `chain_spec.json`, for your parachain with the updated runtime.
 
 ### Start the Parachain Node
 

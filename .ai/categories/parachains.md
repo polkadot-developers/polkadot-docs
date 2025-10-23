@@ -16565,7 +16565,7 @@ Before proceeding, ensure you have the following:
 - A properly configured chain specification file (both plain and raw versions).
 - A registered parathread with the correct genesis state and runtime.
 - A synced collator node running and connected to the Paseo relay chain.
-- [PAS tokens](https://faucet.polkadot.io/?parachain=0){target=\_blank} in your account for transaction fees.
+- [PAS tokens](https://faucet.polkadot.io/?parachain=1005){target=\_blank} in your account on the Coretime Chain for transaction fees.
 
 If you haven't completed these prerequisites, start by referring to the [Deploy on Polkadot](/parachains/launch-a-parachain/deploy-to-polkadot/){target=\_blank} tutorial.
 
@@ -16580,7 +16580,7 @@ There are two extrinsics available for ordering on-demand coretime:
 - **[`onDemand.placeOrderAllowDeath`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/on_demand/pallet/struct.Pallet.html#method.place_order_allow_death){target=\_blank}**: Will [reap](https://wiki.polkadot.com/learn/learn-accounts/#existential-deposit-and-reaping){target=\_blank} the account once the provided funds are depleted.
 - **[`onDemand.placeOrderKeepAlive`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/on_demand/pallet/struct.Pallet.html#method.place_order_keep_alive){target=\_blank}**: Includes a check to prevent reaping the account, ensuring it remains alive even if funds run out.
 
-### Placing an On-Demand Order
+### Place an On-Demand Order
 
 To place an on-demand coretime order, follow these steps:
 
@@ -16707,7 +16707,7 @@ Your parachain is now set up for block production! Consider the following:
 
 - **Monitor your collator**: Keep your collator node running and monitor its performance.
 - **Plan coretime renewal**: If using bulk coretime, plan to renew your core before the current lease expires.
-- **Explore runtime upgrades**: Once comfortable with your setup, explore how to upgrade your parachain runtime without interrupting block production.
+- **Explore runtime upgrades**: Once comfortable with your setup, explore how to upgrade your parachain's runtime without interrupting block production.s
 
 
 ---

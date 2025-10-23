@@ -8635,12 +8635,12 @@ Launch your parachain locally and start producing blocks:
 
     - Utility pallet
 
-        ![](/images/parachains/customize-runtime/pallet-development/add-pallet-to-runtime/add-pallets-to-runtime-1.webp)
+        ![](/images/parachains/customize-runtime/pallet-development/add-pallet-to-runtime/add-pallets-to-runtime-01.webp)
     
 
     - Custom pallet
 
-        ![](/images/parachains/customize-runtime/pallet-development/add-pallet-to-runtime/add-pallets-to-runtime-2.webp)
+        ![](/images/parachains/customize-runtime/pallet-development/add-pallet-to-runtime/add-pallets-to-runtime-02.webp)
 
 ## Where to Go Next
 

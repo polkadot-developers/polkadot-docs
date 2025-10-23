@@ -4,7 +4,6 @@
 
 ## Docs
 
-- [Untitled](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/.venv/lib/python3.13/site-packages/pip-25.2.dist-info/licenses/src/pip/_vendor/idna/LICENSE.md): No description available.
 - [Untitled](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/chain-interactions/accounts/create-account.md): No description available.
 - [Untitled](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/chain-interactions/accounts/query-accounts.md): No description available.
 - [Untitled](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/refs/heads/master/chain-interactions/index.md): No description available.

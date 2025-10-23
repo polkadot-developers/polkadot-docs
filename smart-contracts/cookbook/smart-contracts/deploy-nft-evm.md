@@ -18,7 +18,7 @@ All these tools use standard Solidity compilation to generate EVM bytecode, maki
 
 - Basic understanding of Solidity programming and NFT standards
 - Node.js v22.13.1 or later (for JavaScript/Hardhat approaches)
-- Test tokens for gas fees (available from the [Polkadot faucet](https://faucet.polkadot.io/))
+- Test tokens for gas fees (available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank})
 - A wallet with a private key for signing transactions
 
 ## JavaScript with Ethers.js
@@ -268,7 +268,7 @@ Remix IDE offers a visual, browser-based environment perfect for rapid prototypi
 
 ### Access Remix
 
-Navigate to [https://remix.ethereum.org/](https://remix.ethereum.org/){target=_blank} in your web browser.
+Navigate to [https://remix.ethereum.org/](https://remix.ethereum.org/){target=\_blank} in your web browser.
 
 The interface will load with a default workspace containing sample contracts. In this interface, you can access a file explorer, edit your code, interact with various plugins for development, and use a terminal.
 

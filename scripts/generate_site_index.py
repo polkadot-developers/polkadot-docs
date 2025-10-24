@@ -374,7 +374,6 @@ def build_site_index(config_path: str, dry_run: bool = False, limit: int = 0,
             "outline": outline,
             "stats": stats,
             "hash": sha256_text(page.body),
-            "last_modified": file_mtime,
             "token_estimator": token_estimator,
         })
 

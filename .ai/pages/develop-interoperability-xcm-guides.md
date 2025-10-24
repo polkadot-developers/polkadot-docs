@@ -20,28 +20,24 @@ Whether you're building applications that need to interact with multiple chains,
   <div class="card">
     <a href="/develop/interoperability/send-messages/">
       <h2 class="title">Send XCM Messages</h2>
-      <hr>
       <p class="description">Learn the fundamentals of sending cross-chain messages using XCM, including message structure, routing, and execution patterns.</p>
     </a>
   </div>
   <div class="card">
     <a href="/develop/interoperability/xcm-config/">
       <h2 class="title">XCM Configuration</h2>
-      <hr>
       <p class="description">Learn how to configure XCM for your chain.</p>
     </a>
   </div>
   <div class="card">
     <a href="/develop/interoperability/test-and-debug/">
       <h2 class="title">Test and Debug</h2>
-      <hr>
       <p class="description">Learn how to test and debug cross-chain communication via the XCM Emulator to ensure interoperability and reliable execution.</p>
     </a>
   </div>
   <div class="card">
     <a href="/develop/interoperability/xcm-channels/">
       <h2 class="title">XCM Channels</h2>
-      <hr>
       <p class="description">Learn how to configure XCM channels for your chain.</p>
     </a>
   </div>

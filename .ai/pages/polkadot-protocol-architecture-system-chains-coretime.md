@@ -7,9 +7,9 @@ url: https://docs.polkadot.com/polkadot-protocol/architecture/system-chains/core
 
 ## Introduction
 
-The Coretime system chain facilitates the allocation, procurement, sale, and scheduling of bulk [coretime](/polkadot-protocol/glossary/#coretime){target=\_blank}, enabling tasks (such as [parachains](/polkadot-protocol/glossary/#parachain){target=\_blank}) to utilize the computation and security provided by Polkadot. 
+The Coretime system chain facilitates the allocation, procurement, sale, and scheduling of bulk [coretime](/reference/glossary/#coretime){target=\_blank}, enabling tasks (such as [parachains](/reference/glossary/#parachain){target=\_blank}) to utilize the computation and security provided by Polkadot. 
 
-The [Broker pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/index.html){target=\_blank}, along with [Cross Consensus Messaging (XCM)](/develop/interoperability/intro-to-xcm/){target=\_blank}, enables this functionality to be delegated to the system chain rather than the relay chain. Using [XCMP's Upward Message Passing (UMP)](https://wiki.polkadot.com/learn/learn-xcm-transport/#ump-upward-message-passing){target=\_blank} to the relay chain allows for core assignments to take place for a task registered on the relay chain.
+The [Broker pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/index.html){target=\_blank}, along with [Cross Consensus Messaging (XCM)](/parachains/interoperability/get-started/){target=\_blank}, enables this functionality to be delegated to the system chain rather than the relay chain. Using [XCMP's Upward Message Passing (UMP)](https://wiki.polkadot.com/learn/learn-xcm-transport/#ump-upward-message-passing){target=\_blank} to the relay chain allows for core assignments to take place for a task registered on the relay chain.
 
 The Fellowship RFC [RFC-1: Agile Coretime](https://github.com/polkadot-fellows/RFCs/blob/main/text/0001-agile-coretime.md){target=\_blank} contains the specification for the Coretime system chain and coretime as a concept.
 
@@ -36,7 +36,7 @@ Regions can be managed in the following manner on the Coretime chain:
 
 - **Assigning region**: Regions can be assigned to a task on the relay chain, such as a parachain/rollup using the [`assign`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/pallet/dispatchables/fn.assign.html){target=\_blank} dispatchable.
 
-- **Transferring regions**: Regions may be transferred on the Coretime chain, upon which the [`transfer`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/pallet/dispatchables/fn.transfer.html){target=\_blank} [dispatchable](/polkadot-protocol/glossary/#dispatchable){target=\_blank} in the Broker pallet would assign a new owner to that specific region.
+- **Transferring regions**: Regions may be transferred on the Coretime chain, upon which the [`transfer`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/pallet/dispatchables/fn.transfer.html){target=\_blank} [dispatchable](/reference/glossary/#dispatchable){target=\_blank} in the Broker pallet would assign a new owner to that specific region.
 
 - **Partitioning regions**: Using the [`partition`](https://paritytech.github.io/polkadot-sdk/master/pallet_broker/pallet/dispatchables/fn.partition.html){target=\_blank} dispatchable, regions may be partitioned into two non-overlapping subregions within the same core. A partition involves specifying a *pivot*, wherein the new region will be defined and available for use.
 

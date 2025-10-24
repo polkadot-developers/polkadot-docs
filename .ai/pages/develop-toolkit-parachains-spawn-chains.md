@@ -8,7 +8,7 @@ url: https://docs.polkadot.com/develop/toolkit/parachains/spawn-chains/
 
 Testing blockchain networks in a controlled environment is essential for development and validation. The Polkadot ecosystem provides specialized tools that enable you to spawn test networks, helping you verify functionality and catch issues before deploying to production.
 
-Ready to get started? Jump straight to the [Zombienet getting started](/develop/toolkit/parachains/spawn-chains/zombienet/get-started/) guide.
+Ready to get started? Jump straight to the [Zombienet getting started](/parachains/testing/run-a-parachain-network/) guide.
 
 ## Why Spawn a Network?
 

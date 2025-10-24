@@ -51,7 +51,7 @@ flowchart TD
 
 - **Generate chain specifications**: The chain spec file defines the structure and configuration of your blockchain. It includes initial node identities, session keys, and other parameters. Defining a well-thought-out chain specification ensures that your network will operate smoothly and according to your intended design.
 
-- **Deployment environment**: Whether launching a local test network or a production-grade blockchain, selecting the proper infrastructure is vital. For further information about these topics, see the [Infrastructure](/infrastructure/){target=\_blank} section.
+- **Deployment environment**: Whether launching a local test network or a production-grade blockchain, selecting the proper infrastructure is vital. For further information about these topics, see the [Nodes and Validators](/nodes-and-validators/){target=\_blank} section.
 
 - **Acquire coretime**: To build on top of the Polkadot network, users need to acquire coretime (either on-demand or in bulk) to access the computational resources of the relay chain. This allows for the secure validation of parachain blocks through a randomized selection of relay chain validators.
 

@@ -9,7 +9,7 @@ url: https://docs.polkadot.com/develop/parachains/customize-parachain/overview/
 
 ## Introduction
 
-The runtime is the heart of any Polkadot SDK-based blockchain, handling the essential logic that governs state changes and transaction processing. With Polkadot SDK’s [FRAME (Framework for Runtime Aggregation of Modularized Entities)](/polkadot-protocol/glossary/#frame-framework-for-runtime-aggregation-of-modularized-entities){target=\_bank}, developers gain access to a powerful suite of tools for building custom blockchain runtimes. FRAME offers a modular architecture, featuring reusable pallets and support libraries, to streamline development.
+The runtime is the heart of any Polkadot SDK-based blockchain, handling the essential logic that governs state changes and transaction processing. With Polkadot SDK’s [FRAME (Framework for Runtime Aggregation of Modularized Entities)](/reference/glossary/#frame-framework-for-runtime-aggregation-of-modularized-entities){target=\_bank}, developers gain access to a powerful suite of tools for building custom blockchain runtimes. FRAME offers a modular architecture, featuring reusable pallets and support libraries, to streamline development.
 
 This guide provides an overview of FRAME, its core components like pallets and system libraries, and demonstrates how to compose a runtime tailored to your specific blockchain use case. Whether you’re integrating pre-built modules or designing custom logic, FRAME equips you with the tools to create scalable, feature-rich blockchains.
 
@@ -125,5 +125,5 @@ Choosing a suitable template depends on your project’s unique requirements, le
 
 For more detailed information on implementing this process, refer to the following sections:
 
-- [Add a Pallet to Your Runtime](/develop/parachains/customize-parachain/add-existing-pallets/)
-- [Create a Custom Pallet](/develop/parachains/customize-parachain/make-custom-pallet/)
+- [Add a Pallet to Your Runtime](/parachains/customize-runtime/add-existing-pallets/)
+- [Create a Custom Pallet](/parachains/customize-runtime/pallet-development/create-a-pallet/)

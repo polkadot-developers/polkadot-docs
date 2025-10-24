@@ -15,7 +15,7 @@ This guide applies to parachain projects based on Cumulus that started in 2023 o
 
 ## Prerequisite
 
-The relay chain must have async backing enabled; therefore, double-check the relay's runtime to verify that the following three parameters are included in the relay chain configuration (especially when testing locally with tools like [Zombienet](/develop/toolkit/parachains/spawn-chains/zombienet/get-started/){target=\_blank}):
+The relay chain must have async backing enabled; therefore, double-check the relay's runtime to verify that the following three parameters are included in the relay chain configuration (especially when testing locally with tools like [Zombienet](/parachains/testing/run-a-parachain-network/){target=\_blank}):
 
 ```rust title="runtimes/relay/polkadot/src/genesis_config_presets.rs"
 ...
@@ -119,7 +119,7 @@ This phase involves configuring your parachain's runtime `/runtime/src/lib.rs` t
         ```
 
     !!! note
-        Aura is a deterministic [consensus](/polkadot-protocol/glossary/#consensus){target=\_blank} protocol where block production is limited to a rotating list of authorities that take turns creating blocks and [`pallet_timestamp`](https://paritytech.github.io/polkadot-sdk/master/pallet_timestamp/index.html){target=\_blank} is used to track consensus rounds (via [`slots`](https://paritytech.github.io/polkadot-sdk/master/pallet_aura/pallet/trait.Config.html#associatedtype.SlotDuration){target=\_blank}).
+        Aura is a deterministic [consensus](/reference/glossary/#consensus){target=\_blank} protocol where block production is limited to a rotating list of authorities that take turns creating blocks and [`pallet_timestamp`](https://paritytech.github.io/polkadot-sdk/master/pallet_timestamp/index.html){target=\_blank} is used to track consensus rounds (via [`slots`](https://paritytech.github.io/polkadot-sdk/master/pallet_aura/pallet/trait.Config.html#associatedtype.SlotDuration){target=\_blank}).
 
 
 6. Update `sp_consensus_aura::AuraApi::slot_duration` in `sp_api::impl_runtime_apis` to match the constant [`SLOT_DURATION`](https://github.com/polkadot-fellows/runtimes/blob/d49a9f33d0ea85ce51c26c84a70b61624ec06901/system-parachains/constants/src/lib.rs#L38-L40){target=\_blank}.

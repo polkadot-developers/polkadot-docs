@@ -115,7 +115,7 @@ As mentioned before, you need to specify the transfer type.
 
 ??? code "Teleport Example"
 
-    This example creates an XCM program that teleports DOT from Asset Hub to People. The following code uses the PAPI library, check out the [PAPI guide](/develop/toolkit/api-libraries/papi/){target=\_blank} for more information.
+    This example creates an XCM program that teleports DOT from Asset Hub to People. The following code uses the PAPI library, check out the [PAPI guide](/reference/tools/papi/){target=\_blank} for more information.
 
     The setup for this script is [installing PAPI](/develop/toolkit/api-libraries/papi#get-started){target=\_blank} and generating descriptors for Asset Hub:
     `bun papi add ahp -n polkadot_asset_hub`

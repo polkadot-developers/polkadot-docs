@@ -1,6 +1,6 @@
 nav:
- - 'Overview': overview.md
  - 'Get Started': get-started.md
+ - 'Install Polkadot SDK': install-polkadot-sdk.md
  - 'Launch a Simple Parachain': launch-a-parachain
  - 'Customize Your Runtime': customize-runtime
  - 'Testing': testing

@@ -1,0 +1,6 @@
+title: EVM
+nav:
+  - deploy-basic-ethers-js.md
+  - deploy-basic-remix.md
+  - deploy-basic-hardhat.md
+  - deploy-basic-foundry.md

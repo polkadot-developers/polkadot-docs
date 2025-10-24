@@ -107,29 +107,7 @@ To add a GitHub workflow for building the runtime:
 
         {% raw %}
         ```yml
-        name: Srtool build
-
-        on: push
-
-        jobs:
-          srtool:
-            runs-on: ubuntu-latest
-            strategy:
-              matrix:
-                chain: ["asset-hub-kusama", "asset-hub-westend"]
-            steps:
-              - uses: actions/checkout@v3
-              - name: Srtool build
-                id: srtool_build
-                uses: chevdor/srtool-actions@v0.8.0
-                with:
-                  chain: ${{ matrix.chain }}
-                  runtime_dir: polkadot-parachains/${{ matrix.chain }}-runtime
-              - name: Summary
-                run: |
-                  echo '${{ steps.srtool_build.outputs.json }}' | jq . > ${{ matrix.chain }}-srtool-digest.json
-                  cat ${{ matrix.chain }}-srtool-digest.json
-                  echo "Runtime location: ${{ steps.srtool_build.outputs.wasm }}"
+        
         ```
         {% endraw %}
 

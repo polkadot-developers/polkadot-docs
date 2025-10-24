@@ -257,7 +257,7 @@ First, you'll update the runtime's `Cargo.toml` file to include the Utility pall
 1. Open the `runtime/Cargo.toml` file and locate the `[dependencies]` section. Add pallet-utility as one of the features for the `polkadot-sdk` dependency with the following line:
 
     ```toml hl_lines="4" title="runtime/Cargo.toml"
-    [dependencies]
+    
     ...
     polkadot-sdk = { workspace = true, features = [
       "pallet-utility",
@@ -268,7 +268,7 @@ First, you'll update the runtime's `Cargo.toml` file to include the Utility pall
 2. In the same `[dependencies]` section, add the custom pallet that you built from scratch with the following line:
 
     ```toml hl_lines="3" title="Cargo.toml"
-    [dependencies]
+    
     ...
     custom-pallet = { path = "../pallets/custom-pallet", default-features = false }
     ```
@@ -2616,31 +2616,7 @@ npm install ethers@6.13.5
 To interact with the Polkadot Hub, you need to set up an [Ethers.js Provider](/smart-contracts/libraries/ethers-js/#set-up-the-ethersjs-provider){target=\_blank} that connects to the blockchain. In this example, you will interact with the Polkadot Hub TestNet, so you can experiment safely. Start by creating a new file called `utils/ethers.js` and add the following code:
 
 ```javascript title="app/utils/ethers.js"
-import { JsonRpcProvider } from 'ethers';
 
-export const PASSET_HUB_CONFIG = {
-  name: 'Passet Hub',
-  rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io/', // Passet Hub testnet RPC
-  chainId: 420420422, // Passet Hub testnet chainId
-  blockExplorer: 'https://blockscout-passet-hub.parity-testnet.parity.io/',
-};
-
-export const getProvider = () => {
-  return new JsonRpcProvider(PASSET_HUB_CONFIG.rpc, {
-    chainId: PASSET_HUB_CONFIG.chainId,
-    name: PASSET_HUB_CONFIG.name,
-  });
-};
-
-// Helper to get a signer from a provider
-export const getSigner = async (provider) => {
-  if (window.ethereum) {
-    await window.ethereum.request({ method: 'eth_requestAccounts' });
-    const ethersProvider = new ethers.BrowserProvider(window.ethereum);
-    return ethersProvider.getSigner();
-  }
-  throw new Error('No Ethereum browser provider detected');
-};
 ```
 
 This file establishes a connection to the Polkadot Hub TestNet and provides helper functions for obtaining a [Provider](https://docs.ethers.org/v5/api/providers/provider/){target=_blank} and [Signer](https://docs.ethers.org/v5/api/signer/){target=_blank}. The provider allows you to read data from the blockchain, while the signer enables users to send transactions and modify the blockchain state.
@@ -2652,55 +2628,13 @@ For this dApp, you'll use a simple Storage contract already deployed. So, you ne
 ???+ code "Storage.sol ABI"
 
     ```json title="abis/Storage.json"
-    [
-        {
-            "inputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "_newNumber",
-                    "type": "uint256"
-                }
-            ],
-            "name": "setNumber",
-            "outputs": [],
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "inputs": [],
-            "name": "storedNumber",
-            "outputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "",
-                    "type": "uint256"
-                }
-            ],
-            "stateMutability": "view",
-            "type": "function"
-        }
-    ]
+    
     ```
 
 Now, create a file called `app/utils/contract.js`:
 
 ```javascript title="app/utils/contract.js"
-import { Contract } from 'ethers';
-import { getProvider } from './ethers';
-import StorageABI from '../../abis/Storage.json';
 
-export const CONTRACT_ADDRESS = '0x58053f0e8ede1a47a1af53e43368cd04ddcaf66f';
-
-export const CONTRACT_ABI = StorageABI;
-
-export const getContract = () => {
-  const provider = getProvider();
-  return new Contract(CONTRACT_ADDRESS, CONTRACT_ABI, provider);
-};
-
-export const getSignedContract = async (signer) => {
-  return new Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
-};
 ```
 
 This file defines the contract address, ABI, and functions to create instances of the contract for reading and writing.
@@ -2710,167 +2644,7 @@ This file defines the contract address, ABI, and functions to create instances o
 Next, let's create a component to handle wallet connections. Create a new file called `app/components/WalletConnect.js`:
 
 ```javascript title="app/components/WalletConnect.js"
-'use client';
 
-import React, { useState, useEffect } from 'react';
-import { PASSET_HUB_CONFIG } from '../utils/ethers';
-
-const WalletConnect = ({ onConnect }) => {
-  const [account, setAccount] = useState(null);
-  const [chainId, setChainId] = useState(null);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    // Check if user already has an authorized wallet connection
-    const checkConnection = async () => {
-      if (window.ethereum) {
-        try {
-          // eth_accounts doesn't trigger the wallet popup
-          const accounts = await window.ethereum.request({
-            method: 'eth_accounts',
-          });
-          if (accounts.length > 0) {
-            setAccount(accounts[0]);
-            const chainIdHex = await window.ethereum.request({
-              method: 'eth_chainId',
-            });
-            setChainId(parseInt(chainIdHex, 16));
-          }
-        } catch (err) {
-          console.error('Error checking connection:', err);
-          setError('Failed to check wallet connection');
-        }
-      }
-    };
-
-    checkConnection();
-
-    if (window.ethereum) {
-      // Setup wallet event listeners
-      window.ethereum.on('accountsChanged', (accounts) => {
-        setAccount(accounts[0] || null);
-        if (accounts[0] && onConnect) onConnect(accounts[0]);
-      });
-
-      window.ethereum.on('chainChanged', (chainIdHex) => {
-        setChainId(parseInt(chainIdHex, 16));
-      });
-    }
-
-    return () => {
-      // Cleanup event listeners
-      if (window.ethereum) {
-        window.ethereum.removeListener('accountsChanged', () => {});
-        window.ethereum.removeListener('chainChanged', () => {});
-      }
-    };
-  }, [onConnect]);
-
-  const connectWallet = async () => {
-    if (!window.ethereum) {
-      setError(
-        'MetaMask not detected! Please install MetaMask to use this dApp.'
-      );
-      return;
-    }
-
-    try {
-      // eth_requestAccounts triggers the wallet popup
-      const accounts = await window.ethereum.request({
-        method: 'eth_requestAccounts',
-      });
-      setAccount(accounts[0]);
-
-      const chainIdHex = await window.ethereum.request({
-        method: 'eth_chainId',
-      });
-      const currentChainId = parseInt(chainIdHex, 16);
-      setChainId(currentChainId);
-
-      // Prompt user to switch networks if needed
-      if (currentChainId !== PASSET_HUB_CONFIG.chainId) {
-        await switchNetwork();
-      }
-
-      if (onConnect) onConnect(accounts[0]);
-    } catch (err) {
-      console.error('Error connecting to wallet:', err);
-      setError('Failed to connect wallet');
-    }
-  };
-
-  const switchNetwork = async () => {
-    try {
-      await window.ethereum.request({
-        method: 'wallet_switchEthereumChain',
-        params: [{ chainId: `0x${PASSET_HUB_CONFIG.chainId.toString(16)}` }],
-      });
-    } catch (switchError) {
-      // Error 4902 means the chain hasn't been added to MetaMask
-      if (switchError.code === 4902) {
-        try {
-          await window.ethereum.request({
-            method: 'wallet_addEthereumChain',
-            params: [
-              {
-                chainId: `0x${PASSET_HUB_CONFIG.chainId.toString(16)}`,
-                chainName: PASSET_HUB_CONFIG.name,
-                rpcUrls: [PASSET_HUB_CONFIG.rpc],
-                blockExplorerUrls: [PASSET_HUB_CONFIG.blockExplorer],
-              },
-            ],
-          });
-        } catch (addError) {
-          setError('Failed to add network to wallet');
-        }
-      } else {
-        setError('Failed to switch network');
-      }
-    }
-  };
-
-  // UI-only disconnection - MetaMask doesn't support programmatic disconnection
-  const disconnectWallet = () => {
-    setAccount(null);
-  };
-
-  return (
-    <div className="border border-pink-500 rounded-lg p-4 shadow-md bg-white text-pink-500 max-w-sm mx-auto">
-      {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
-
-      {!account ? (
-        <button
-          onClick={connectWallet}
-          className="w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-lg transition"
-        >
-          Connect Wallet
-        </button>
-      ) : (
-        <div className="flex flex-col items-center">
-          <span className="text-sm font-mono bg-pink-100 px-2 py-1 rounded-md text-pink-700">
-            {`${account.substring(0, 6)}...${account.substring(38)}`}
-          </span>
-          <button
-            onClick={disconnectWallet}
-            className="mt-3 w-full bg-gray-200 hover:bg-gray-300 text-pink-500 py-2 px-4 rounded-lg transition"
-          >
-            Disconnect
-          </button>
-          {chainId !== PASSET_HUB_CONFIG.chainId && (
-            <button
-              onClick={switchNetwork}
-              className="mt-3 w-full bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg transition"
-            >
-              Switch to Passet Hub
-            </button>
-          )}
-        </div>
-      )}
-    </div>
-  );
-};
-
-export default WalletConnect;
 ```
 
 This component handles connecting to the wallet, switching networks if necessary, and keeping track of the connected account. 
@@ -2879,9 +2653,7 @@ To integrate this component to your dApp, you need to overwrite the existing boi
 
 ```javascript title="app/page.js"
 
-import { useState } from 'react';
 
-import WalletConnect from './components/WalletConnect';
 export default function Home() {
   const [account, setAccount] = useState(null);
 
@@ -2915,64 +2687,7 @@ And you will see the following:
 Now, let's create a component to read data from the contract. Create a file called `app/components/ReadContract.js`:
 
 ```javascript title="app/components/ReadContract.js"
-'use client';
 
-import React, { useState, useEffect } from 'react';
-import { getContract } from '../utils/contract';
-
-const ReadContract = () => {
-  const [storedNumber, setStoredNumber] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    // Function to read data from the blockchain
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const contract = getContract();
-        // Call the smart contract's storedNumber function
-        const number = await contract.storedNumber();
-        setStoredNumber(number.toString());
-        setError(null);
-      } catch (err) {
-        console.error('Error fetching stored number:', err);
-        setError('Failed to fetch data from the contract');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-
-    // Poll for updates every 10 seconds to keep UI in sync with blockchain
-    const interval = setInterval(fetchData, 10000);
-
-    // Clean up interval on component unmount
-    return () => clearInterval(interval);
-  }, []);
-
-  return (
-    <div className="border border-pink-500 rounded-lg p-4 shadow-md bg-white text-pink-500 max-w-sm mx-auto">
-      <h2 className="text-lg font-bold text-center mb-4">Contract Data</h2>
-      {loading ? (
-        <div className="flex justify-center my-4">
-          <div className="w-6 h-6 border-4 border-pink-500 border-t-transparent rounded-full animate-spin"></div>
-        </div>
-      ) : error ? (
-        <p className="text-red-500 text-center">{error}</p>
-      ) : (
-        <div className="text-center">
-          <p className="text-sm font-mono bg-pink-100 px-2 py-1 rounded-md text-pink-700">
-            <strong>Stored Number:</strong> {storedNumber}
-          </p>
-        </div>
-      )}
-    </div>
-  );
-};
-
-export default ReadContract;
 ```
 
 This component reads the `storedNumber` value from the contract and displays it to the user. It also sets up a polling interval to refresh the data periodically.
@@ -3013,119 +2728,7 @@ Your dApp will automatically be updated to the following:
 Finally, let's create a component that allows users to update the stored number. Create a file called `app/components/WriteContract.js`:
 
 ```javascript title="app/components/WriteContract.js"
-'use client';
 
-import { useState } from 'react';
-import { getSignedContract } from '../utils/contract';
-import { ethers } from 'ethers';
-
-const WriteContract = ({ account }) => {
-  const [newNumber, setNewNumber] = useState('');
-  const [status, setStatus] = useState({ type: null, message: '' });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    // Validation checks
-    if (!account) {
-      setStatus({ type: 'error', message: 'Please connect your wallet first' });
-      return;
-    }
-
-    if (!newNumber || isNaN(Number(newNumber))) {
-      setStatus({ type: 'error', message: 'Please enter a valid number' });
-      return;
-    }
-
-    try {
-      setIsSubmitting(true);
-      setStatus({ type: 'info', message: 'Initiating transaction...' });
-
-      // Get a signer from the connected wallet
-      const provider = new ethers.BrowserProvider(window.ethereum);
-      const signer = await provider.getSigner();
-      const contract = await getSignedContract(signer);
-
-      // Send transaction to blockchain and wait for user confirmation in wallet
-      setStatus({
-        type: 'info',
-        message: 'Please confirm the transaction in your wallet...',
-      });
-
-      // Call the contract's setNumber function
-      const tx = await contract.setNumber(newNumber);
-
-      // Wait for transaction to be mined
-      setStatus({
-        type: 'info',
-        message: 'Transaction submitted. Waiting for confirmation...',
-      });
-      const receipt = await tx.wait();
-
-      setStatus({
-        type: 'success',
-        message: `Transaction confirmed! Transaction hash: ${receipt.hash}`,
-      });
-      setNewNumber('');
-    } catch (err) {
-      console.error('Error updating number:', err);
-
-      // Error code 4001 is MetaMask's code for user rejection
-      if (err.code === 4001) {
-        setStatus({ type: 'error', message: 'Transaction rejected by user.' });
-      } else {
-        setStatus({
-          type: 'error',
-          message: `Error: ${err.message || 'Failed to send transaction'}`,
-        });
-      }
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  return (
-    <div className="border border-pink-500 rounded-lg p-4 shadow-md bg-white text-pink-500 max-w-sm mx-auto space-y-4">
-      <h2 className="text-lg font-bold">Update Stored Number</h2>
-      {status.message && (
-        <div
-          className={`p-2 rounded-md break-words h-fit text-sm ${
-            status.type === 'error'
-              ? 'bg-red-100 text-red-500'
-              : 'bg-green-100 text-green-700'
-          }`}
-        >
-          {status.message}
-        </div>
-      )}
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <input
-          type="number"
-          placeholder="New Number"
-          value={newNumber}
-          onChange={(e) => setNewNumber(e.target.value)}
-          disabled={isSubmitting || !account}
-          className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-pink-400"
-        />
-        <button
-          type="submit"
-          disabled={isSubmitting || !account}
-          className="w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-lg transition disabled:bg-gray-300"
-        >
-          {isSubmitting ? 'Updating...' : 'Update'}
-        </button>
-      </form>
-      {!account && (
-        <p className="text-sm text-gray-500">
-          Connect your wallet to update the stored number.
-        </p>
-      )}
-    </div>
-  );
-};
-
-export default WriteContract;
 ```
 
 This component allows users to input a new number and send a transaction to update the value stored in the contract. When the transaction is successful, users will see the stored value update in the `ReadContract` component after the transaction is confirmed.
@@ -3263,47 +2866,7 @@ npm install --save-dev typescript @types/node
 To interact with Polkadot Hub, you need to set up a [Public Client](https://viem.sh/docs/clients/public#public-client){target=\_blank} that connects to the blockchain. In this example, you will interact with the Polkadot Hub TestNet, so you can experiment safely. Start by creating a new file called `utils/viem.ts` and add the following code:
 
 ```typescript title="viem.ts"
-import { createPublicClient, http, createWalletClient, custom } from 'viem'
-import 'viem/window';
 
-
-const transport = http('https://testnet-passet-hub-eth-rpc.polkadot.io')
-
-// Configure the Passet Hub chain
-export const passetHub = {
-  id: 420420422,
-  name: 'Passet Hub',
-  network: 'passet-hub',
-  nativeCurrency: {
-    decimals: 18,
-    name: 'PAS',
-    symbol: 'PAS',
-  },
-  rpcUrls: {
-    default: {
-      http: ['https://testnet-passet-hub-eth-rpc.polkadot.io'],
-    },
-  },
-} as const
-
-// Create a public client for reading data
-export const publicClient = createPublicClient({
-  chain: passetHub,
-  transport
-})
-
-// Create a wallet client for signing transactions
-export const getWalletClient = async () => {
-  if (typeof window !== 'undefined' && window.ethereum) {
-    const [account] = await window.ethereum.request({ method: 'eth_requestAccounts' });
-    return createWalletClient({
-      chain: passetHub,
-      transport: custom(window.ethereum),
-      account,
-    });
-  }
-  throw new Error('No Ethereum browser provider detected');
-};
 ```
 
 This file initializes a viem client, providing helper functions for obtaining a Public Client and a [Wallet Client](https://viem.sh/docs/clients/wallet#wallet-client){target=\_blank}. The Public Client enables reading blockchain data, while the Wallet Client allows users to sign and send transactions. Also, note that by importing `'viem/window'` the global `window.ethereum` will be typed as an `EIP1193Provider`, check the [`window` Polyfill](https://viem.sh/docs/typescript#window-polyfill){target=\_blank} reference for more information.
@@ -3316,64 +2879,13 @@ Create a folder called `abis` at the root of your project, then create a file na
 
 ??? code "Storage.sol ABI"
     ```json title="Storage.json"
-    [
-        {
-            "inputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "_newNumber",
-                    "type": "uint256"
-                }
-            ],
-            "name": "setNumber",
-            "outputs": [],
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "inputs": [],
-            "name": "storedNumber",
-            "outputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "",
-                    "type": "uint256"
-                }
-            ],
-            "stateMutability": "view",
-            "type": "function"
-        }
-    ]
+    
     ```
 
 Next, create a file called `utils/contract.ts`:
 
 ```typescript title="contract.ts"
-import { getContract } from 'viem';
-import { publicClient, getWalletClient } from './viem';
-import StorageABI from '../../abis/Storage.json';
 
-export const CONTRACT_ADDRESS = '0x58053f0e8ede1a47a1af53e43368cd04ddcaf66f';
-export const CONTRACT_ABI = StorageABI;
-
-// Create a function to get a contract instance for reading
-export const getContractInstance = () => {
-  return getContract({
-    address: CONTRACT_ADDRESS,
-    abi: CONTRACT_ABI,
-    client: publicClient,
-  });
-};
-
-// Create a function to get a contract instance with a signer for writing
-export const getSignedContract = async () => {
-  const walletClient = await getWalletClient();
-  return getContract({
-    address: CONTRACT_ADDRESS,
-    abi: CONTRACT_ABI,
-    client: walletClient,
-  });
-};
 ```
 
 This file defines the contract address, ABI, and functions to create a viem [contract instance](https://viem.sh/docs/contract/getContract#contract-instances){target=\_blank} for reading and writing operations. viem's contract utilities ensure a more efficient and type-safe interaction with smart contracts.
@@ -3383,180 +2895,7 @@ This file defines the contract address, ABI, and functions to create a viem [con
 Now, let's create a component to handle wallet connections. Create a new file called `components/WalletConnect.tsx`:
 
 ```typescript title="WalletConnect.tsx"
-"use client";
 
-import React, { useState, useEffect } from "react";
-import { passetHub } from "../utils/viem";
-
-interface WalletConnectProps {
-  onConnect: (account: string) => void;
-}
-
-const WalletConnect: React.FC<WalletConnectProps> = ({ onConnect }) => {
-  const [account, setAccount] = useState<string | null>(null);
-  const [chainId, setChainId] = useState<number | null>(null);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    // Check if user already has an authorized wallet connection
-    const checkConnection = async () => {
-      if (typeof window !== 'undefined' && window.ethereum) {
-        try {
-          // eth_accounts doesn't trigger the wallet popup
-          const accounts = await window.ethereum.request({
-            method: 'eth_accounts',
-          }) as string[];
-          
-          if (accounts.length > 0) {
-            setAccount(accounts[0]);
-            const chainIdHex = await window.ethereum.request({
-              method: 'eth_chainId',
-            }) as string;
-            setChainId(parseInt(chainIdHex, 16));
-            onConnect(accounts[0]);
-          }
-        } catch (err) {
-          console.error('Error checking connection:', err);
-          setError('Failed to check wallet connection');
-        }
-      }
-    };
-
-    checkConnection();
-
-    if (typeof window !== 'undefined' && window.ethereum) {
-      // Setup wallet event listeners
-      window.ethereum.on('accountsChanged', (accounts: string[]) => {
-        setAccount(accounts[0] || null);
-        if (accounts[0]) onConnect(accounts[0]);
-      });
-
-      window.ethereum.on('chainChanged', (chainIdHex: string) => {
-        setChainId(parseInt(chainIdHex, 16));
-      });
-    }
-
-    return () => {
-      // Cleanup event listeners
-      if (typeof window !== 'undefined' && window.ethereum) {
-        window.ethereum.removeListener('accountsChanged', () => {});
-        window.ethereum.removeListener('chainChanged', () => {});
-      }
-    };
-  }, [onConnect]);
-
-  const connectWallet = async () => {
-    if (typeof window === 'undefined' || !window.ethereum) {
-      setError(
-        'MetaMask not detected! Please install MetaMask to use this dApp.'
-      );
-      return;
-    }
-
-    try {
-      // eth_requestAccounts triggers the wallet popup
-      const accounts = await window.ethereum.request({
-        method: 'eth_requestAccounts',
-      }) as string[];
-      
-      setAccount(accounts[0]);
-
-      const chainIdHex = await window.ethereum.request({
-        method: 'eth_chainId',
-      }) as string;
-      
-      const currentChainId = parseInt(chainIdHex, 16);
-      setChainId(currentChainId);
-
-      // Prompt user to switch networks if needed
-      if (currentChainId !== passetHub.id) {
-        await switchNetwork();
-      }
-
-      onConnect(accounts[0]);
-    } catch (err) {
-      console.error('Error connecting to wallet:', err);
-      setError('Failed to connect wallet');
-    }
-  };
-
-  const switchNetwork = async () => {
-    console.log('Switch network')
-    try {
-      await window.ethereum.request({
-        method: 'wallet_switchEthereumChain',
-        params: [{ chainId: `0x${passetHub.id.toString(16)}` }],
-      });
-    } catch (switchError: any) {
-      // Error 4902 means the chain hasn't been added to MetaMask
-      if (switchError.code === 4902) {
-        try {
-          await window.ethereum.request({
-            method: 'wallet_addEthereumChain',
-            params: [
-              {
-                chainId: `0x${passetHub.id.toString(16)}`,
-                chainName: passetHub.name,
-                rpcUrls: [passetHub.rpcUrls.default.http[0]],
-                nativeCurrency: {
-                  name: passetHub.nativeCurrency.name,
-                  symbol: passetHub.nativeCurrency.symbol,
-                  decimals: passetHub.nativeCurrency.decimals,
-                },
-              },
-            ],
-          });
-        } catch (addError) {
-          setError('Failed to add network to wallet');
-        }
-      } else {
-        setError('Failed to switch network');
-      }
-    }
-  };
-
-  // UI-only disconnection - MetaMask doesn't support programmatic disconnection
-  const disconnectWallet = () => {
-    setAccount(null);
-  };
-
-  return (
-    <div className="border border-pink-500 rounded-lg p-4 shadow-md bg-white text-pink-500 max-w-sm mx-auto">
-      {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
-
-      {!account ? (
-        <button
-          onClick={connectWallet}
-          className="w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-lg transition"
-        >
-          Connect Wallet
-        </button>
-      ) : (
-        <div className="flex flex-col items-center">
-          <span className="text-sm font-mono bg-pink-100 px-2 py-1 rounded-md text-pink-700">
-            {`${account.substring(0, 6)}...${account.substring(38)}`}
-          </span>
-          <button
-            onClick={disconnectWallet}
-            className="mt-3 w-full bg-gray-200 hover:bg-gray-300 text-pink-500 py-2 px-4 rounded-lg transition"
-          >
-            Disconnect
-          </button>
-          {chainId !== passetHub.id && (
-            <button
-              onClick={switchNetwork}
-              className="mt-3 w-full bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg transition"
-            >
-              Switch to Passet Hub
-            </button>
-          )}
-        </div>
-      )}
-    </div>
-  );
-};
-
-export default WalletConnect;
 ```
 
 This component handles connecting to the wallet, switching networks if necessary, and keeping track of the connected account. It provides a button for users to connect their wallet and displays the connected account address once connected.
@@ -3565,24 +2904,9 @@ To use this component in your dApp, replace the existing boilerplate in `app/pag
 
 ```typescript title="page.tsx"
 
-import { useState } from "react";
-import WalletConnect from "./components/WalletConnect";
-export default function Home() {
-  const [account, setAccount] = useState<string | null>(null);
 
-  const handleConnect = (connectedAccount: string) => {
-    setAccount(connectedAccount);
-  };
 
-  return (
-    <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
-      <h1 className="text-2xl font-semibold text-center">
-        Viem dApp - Passet Hub Smart Contracts
-      </h1>
-      <WalletConnect onConnect={handleConnect} />
-</section>
-  );
-}
+
 ```
 
 Now you're ready to run your dApp. From your project directory, execute:
@@ -3600,70 +2924,7 @@ Navigate to `http://localhost:3000` in your browser, and you should see your dAp
 Now, let's create a component to read data from the contract. Create a file called `components/ReadContract.tsx`:
 
 ```typescript title="ReadContract.tsx"
-'use client';
 
-import React, { useState, useEffect } from 'react';
-import { publicClient } from '../utils/viem';
-import { CONTRACT_ADDRESS, CONTRACT_ABI } from '../utils/contract';
-
-const ReadContract: React.FC = () => {
-  const [storedNumber, setStoredNumber] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    // Function to read data from the blockchain
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        // Call the smart contract's storedNumber function
-        const number = await publicClient.readContract({
-            address: CONTRACT_ADDRESS,
-            abi: CONTRACT_ABI,
-            functionName: 'storedNumber',
-            args: [],
-          }) as bigint;
-
-        setStoredNumber(number.toString());
-        setError(null);
-      } catch (err) {
-        console.error('Error fetching stored number:', err);
-        setError('Failed to fetch data from the contract');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-
-    // Poll for updates every 10 seconds to keep UI in sync with blockchain
-    const interval = setInterval(fetchData, 10000);
-
-    // Clean up interval on component unmount
-    return () => clearInterval(interval);
-  }, []);
-
-  return (
-    <div className="border border-pink-500 rounded-lg p-4 shadow-md bg-white text-pink-500 max-w-sm mx-auto">
-      <h2 className="text-lg font-bold text-center mb-4">Contract Data</h2>
-      {loading ? (
-        <div className="flex justify-center my-4">
-          <div className="w-6 h-6 border-4 border-pink-500 border-t-transparent rounded-full animate-spin"></div>
-        </div>
-      ) : error ? (
-        <p className="text-red-500 text-center">{error}</p>
-      ) : (
-        <div className="text-center">
-          <p className="text-sm font-mono bg-pink-100 px-2 py-1 rounded-md text-pink-700">
-            <strong>Stored Number:</strong> {storedNumber}
-          </p>
-        </div>
-      )}
-    </div>
-  );
-};
-
-export default ReadContract;
 ```
 
 This component reads the `storedNumber` value from the contract and displays it to the user. It also sets up a polling interval to refresh the data periodically, ensuring that the UI stays in sync with the blockchain state.
@@ -3672,26 +2933,9 @@ To reflect this change in your dApp, incorporate this component into the `app/pa
 
 ```typescript title="page.tsx"
 
-import { useState } from "react";
-import WalletConnect from "./components/WalletConnect";
-import ReadContract from "./components/ReadContract";
-export default function Home() {
-  const [account, setAccount] = useState<string | null>(null);
 
-  const handleConnect = (connectedAccount: string) => {
-    setAccount(connectedAccount);
-  };
 
-  return (
-    <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
-      <h1 className="text-2xl font-semibold text-center">
-        Viem dApp - Passet Hub Smart Contracts
-      </h1>
-      <WalletConnect onConnect={handleConnect} />
-      <ReadContract />
-</section>
-  );
-}
+
 ```
 
 And you will see in your browser:
@@ -3927,31 +3171,7 @@ This component allows users to input a new number and send a transaction to upda
 Update the `app/page.tsx` file to integrate all components:
 
 ```typescript title="page.tsx"
-"use client";
 
-import { useState } from "react";
-import WalletConnect from "./components/WalletConnect";
-import ReadContract from "./components/ReadContract";
-import WriteContract from "./components/WriteContract";
-
-export default function Home() {
-  const [account, setAccount] = useState<string | null>(null);
-
-  const handleConnect = (connectedAccount: string) => {
-    setAccount(connectedAccount);
-  };
-
-  return (
-    <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
-      <h1 className="text-2xl font-semibold text-center">
-        Viem dApp - Passet Hub Smart Contracts
-      </h1>
-      <WalletConnect onConnect={handleConnect} />
-      <ReadContract />
-      <WriteContract account={account} />
-    </section>
-  );
-}
 ```
 After that, you will see:
 
@@ -5297,23 +4517,7 @@ To create the ERC-20 contract, you can follow the steps below:
 3. Now, paste the following ERC-20 contract code into the editor:
 
     ```solidity title="MyToken.sol"
-    // SPDX-License-Identifier: MIT
-    // Compatible with OpenZeppelin Contracts ^5.0.0
-    pragma solidity ^0.8.22;
-
-    import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-    import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
-
-    contract MyToken is ERC20, Ownable {
-        constructor(address initialOwner)
-            ERC20("MyToken", "MTK")
-            Ownable(initialOwner)
-        {}
-
-        function mint(address to, uint256 amount) public onlyOwner {
-            _mint(to, amount);
-        }
-    }
+    
     ```
 
     The key components of the code above are:
@@ -5631,26 +4835,7 @@ To create the NFT contract, you can follow the steps below:
 3. Now, paste the following NFT contract code into the editor.
 
     ```solidity title="MyNFT.sol"
-    // SPDX-License-Identifier: MIT
-    // Compatible with OpenZeppelin Contracts ^5.0.0
-    pragma solidity ^0.8.22;
-
-    import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-    import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
-
-    contract MyToken is ERC721, Ownable {
-        uint256 private _nextTokenId;
-
-        constructor(address initialOwner)
-            ERC721("MyToken", "MTK")
-            Ownable(initialOwner)
-        {}
-
-        function safeMint(address to) public onlyOwner {
-            uint256 tokenId = _nextTokenId++;
-            _safeMint(to, tokenId);
-        }
-    }
+    
     ```
 
     The key components of the code above are:
@@ -25708,8 +24893,7 @@ The [`XcmRouter`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pa
 For instance, the Kusama network employs the [`ChildParachainRouter`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_common/xcm_sender/struct.ChildParachainRouter.html){target=\_blank}, which restricts routing to [Downward Message Passing (DMP)](https://wiki.polkadot.com/learn/learn-xcm-transport/#dmp-downward-message-passing){target=\_blank} from the relay chain to parachains, ensuring secure and controlled communication.
 
 ```rust
-pub type PriceForChildParachainDelivery =
-	ExponentialPrice<FeeAssetId, BaseDeliveryFee, TransactionByteFee, Dmp>;
+
 ```
 
 For more details about XCM transport protocols, see the [XCM Channels](/develop/interoperability/xcm-channels/){target=\_blank} page.
@@ -27647,27 +26831,7 @@ Let's start by setting up Hardhat for your Storage contract project:
 1. Create a new folder called `contracts` and create a `Storage.sol` file. Add the contract code from the previous tutorial:
 
     ```solidity title="Storage.sol"
-    // SPDX-License-Identifier: MIT
-    pragma solidity ^0.8.28;
-
-    contract Storage {
-        // State variable to store our number
-        uint256 private number;
-
-        // Event to notify when the number changes
-        event NumberChanged(uint256 newNumber);
-
-        // Function to store a new number
-        function store(uint256 newNumber) public {
-            number = newNumber;
-            emit NumberChanged(newNumber);
-        }
-
-        // Function to retrieve the stored number
-        function retrieve() public view returns (uint256) {
-            return number;
-        }
-    }
+    
     ```
 
 2. Compile the contract:
@@ -27693,28 +26857,9 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
 1. Create a folder for testing called `test`. Inside that directory, create a file named `Storage.js` and add the following code:
 
     ```javascript title="Storage.js" 
-    const { expect } = require('chai');
-    const { ethers } = require('hardhat');
-
-    describe('Storage', function () {
-      let storage;
-      let owner;
-      let addr1;
-
-      beforeEach(async function () {
-        // Get signers
-        [owner, addr1] = await ethers.getSigners();
-
-        // Deploy the Storage contract
-        const Storage = await ethers.getContractFactory('Storage');
-        storage = await Storage.deploy();
-        await storage.waitForDeployment();
-      });
-
-      describe('Basic functionality', function () {
+    
         // Add your logic here
-    });
-    });
+    
     ```
 
     The `beforeEach` hook ensures stateless contract execution by redeploying a fresh instance of the Storage contract before each test case. This approach guarantees that each test starts with a clean and independent contract state by using `ethers.getSigners()` to obtain test accounts and `ethers.getContractFactory('Storage').deploy()` to create a new contract instance.
@@ -27871,13 +27016,7 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
 1. Create a new folder called`ignition/modules`. Add a new file named `StorageModule.js` with the following logic:
 
     ```javascript title="StorageModule.js"
-    const { buildModule } = require('@nomicfoundation/hardhat-ignition/modules');
-
-    module.exports = buildModule('StorageModule', (m) => {
-      const storage = m.contract('Storage');
-
-      return { storage };
-    });
+    
     ```
 
 2. Deploy to the local network:
@@ -27949,40 +27088,7 @@ To interact with your deployed contract:
 1. Create a new folder named `scripts` and add the `interact.js` with the following content:
 
     ```javascript title="interact.js"
-    const hre = require('hardhat');
-
-    async function main() {
-      // Replace with your deployed contract address
-      const contractAddress = 'INSERT_DEPLOYED_CONTRACT_ADDRESS';
-
-      // Get the contract instance
-      const Storage = await hre.ethers.getContractFactory('Storage');
-      const storage = await Storage.attach(contractAddress);
-
-      // Get current value
-      const currentValue = await storage.retrieve();
-      console.log('Current stored value:', currentValue.toString());
-
-      // Store a new value
-      const newValue = 42;
-      console.log(`Storing new value: ${newValue}...`);
-      const tx = await storage.store(newValue);
-
-      // Wait for transaction to be mined
-      await tx.wait();
-      console.log('Transaction confirmed');
-
-      // Get updated value
-      const updatedValue = await storage.retrieve();
-      console.log('Updated stored value:', updatedValue.toString());
-    }
-
-    main()
-      .then(() => process.exit(0))
-      .catch((error) => {
-        console.error(error);
-        process.exit(1);
-      });
+    
     ```
 
     Ensure that `INSERT_DEPLOYED_CONTRACT_ADDRESS` is replaced with the value obtained in the previous step.
@@ -28069,27 +27175,7 @@ The `xcm-emulator` provides macros for defining a mocked testing environment. Ch
 - **[`decl_test_relay_chains`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/cumulus/xcm/xcm-emulator/src/lib.rs#L361){target=\_blank}**: Defines runtime and configuration for the relay chains. Example:
 
     ```rust
-    decl_test_relay_chains! {
-    	#[api_version(13)]
-    	pub struct Westend {
-    		genesis = genesis::genesis(),
-    		on_init = (),
-    		runtime = westend_runtime,
-    		core = {
-    			SovereignAccountOf: westend_runtime::xcm_config::LocationConverter,
-    		},
-    		pallets = {
-    			XcmPallet: westend_runtime::XcmPallet,
-    			Sudo: westend_runtime::Sudo,
-    			Balances: westend_runtime::Balances,
-    			Treasury: westend_runtime::Treasury,
-    			AssetRate: westend_runtime::AssetRate,
-    			Hrmp: westend_runtime::Hrmp,
-    			Identity: westend_runtime::Identity,
-    			IdentityMigrator: westend_runtime::IdentityMigrator,
-    		}
-    	},
-    }
+    
     ```
 
 - **[`decl_test_parachains`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/cumulus/xcm/xcm-emulator/src/lib.rs#L596){target=\_blank}**: Defines runtime and configuration for parachains. Example:
@@ -28126,38 +27212,13 @@ The `xcm-emulator` provides macros for defining a mocked testing environment. Ch
 - **[`decl_test_bridges`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/cumulus/xcm/xcm-emulator/src/lib.rs#L1221){target=\_blank}**: Creates bridges between chains, specifying the source, target, and message handler. Example:
 
     ```rust
-    decl_test_bridges! {
-    	pub struct RococoWestendMockBridge {
-    		source = BridgeHubRococoPara,
-    		target = BridgeHubWestendPara,
-    		handler = RococoWestendMessageHandler
-    	},
-    	pub struct WestendRococoMockBridge {
-    		source = BridgeHubWestendPara,
-    		target = BridgeHubRococoPara,
-    		handler = WestendRococoMessageHandler
-    	}
-    }
+    
     ```
 
 - **[`decl_test_networks`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/cumulus/xcm/xcm-emulator/src/lib.rs#L958){target=\_blank}**: Defines a testing network with relay chains, parachains, and bridges, implementing message transport and processing logic. Example:
 
     ```rust
-    decl_test_networks! {
-    	pub struct WestendMockNet {
-    		relay_chain = Westend,
-    		parachains = vec![
-    			AssetHubWestend,
-    			BridgeHubWestend,
-    			CollectivesWestend,
-    			CoretimeWestend,
-    			PeopleWestend,
-    			PenpalA,
-    			PenpalB,
-    		],
-    		bridge = ()
-    	},
-    }
+    
     ```
 
 By leveraging these macros, developers can customize their testing networks by defining relay chains and parachains tailored to their needs. For guidance on implementing a mock runtime for a Polkadot SDK-based chain, refer to the [Pallet Testing](/parachains/customize-runtime/pallet-development/pallet-testing/){target=\_blank} article. 
@@ -35621,7 +34682,7 @@ This API can be used independently for dry-running, double-checking, or testing.
 This API allows a dry-run of any extrinsic and obtaining the outcome if it fails or succeeds, as well as the local xcm and remote xcm messages sent to other chains.
 
 ```rust
-fn dry_run_call(origin: OriginCaller, call: Call, result_xcms_version: XcmVersion) -> Result<CallDryRunEffects<Event>, Error>;
+
 ```
 
 ??? interface "Input parameters"
@@ -35898,7 +34959,7 @@ fn dry_run_call(origin: OriginCaller, call: Call, result_xcms_version: XcmVersio
 This API allows the direct dry-run of an xcm message instead of an extrinsic one, checks if it will execute successfully, and determines what other xcm messages will be forwarded to other chains.
 
 ```rust
-fn dry_run_xcm(origin_location: VersionedLocation, xcm: VersionedXcm<Call>) -> Result<XcmDryRunEffects<Event>, Error>;
+
 ```
 
 ??? interface "Input parameters"
@@ -36129,7 +35190,7 @@ To use the API effectively, the client must already know the XCM program to be e
 Retrieves the list of assets that are acceptable for paying fees when using a specific XCM version
 
 ```rust
-fn query_acceptable_payment_assets(xcm_version: Version) -> Result<Vec<VersionedAssetId>, Error>;
+
 ```
 
 ??? interface "Input parameters"
@@ -36217,7 +35278,7 @@ fn query_acceptable_payment_assets(xcm_version: Version) -> Result<Vec<Versioned
 Calculates the weight required to execute a given XCM message. It is useful for estimating the execution cost of a cross-chain message in the destination chain before sending it.
 
 ```rust
-fn query_xcm_weight(message: VersionedXcm<()>) -> Result<Weight, Error>;
+
 ```
 
 ??? interface "Input parameters"
@@ -36360,7 +35421,7 @@ fn query_xcm_weight(message: VersionedXcm<()>) -> Result<Weight, Error>;
 Converts a given weight into the corresponding fee for a specified `AssetId`. It allows clients to determine the cost of execution in terms of the desired asset.
 
 ```rust
-fn query_weight_to_asset_fee(weight: Weight, asset: VersionedAssetId) -> Result<u128, Error>;
+
 ```
 
 ??? interface "Input parameters"
@@ -36465,7 +35526,7 @@ fn query_weight_to_asset_fee(weight: Weight, asset: VersionedAssetId) -> Result<
 Retrieves the delivery fees for sending a specific XCM message to a designated destination. The fees are always returned in a specific asset defined by the destination chain.
 
 ```rust
-fn query_delivery_fees(destination: VersionedLocation, message: VersionedXcm<()>) -> Result<VersionedAssets, Error>;
+
 ```
 
 ??? interface "Input parameters"

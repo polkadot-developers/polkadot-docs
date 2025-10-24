@@ -257,7 +257,7 @@ First, you'll update the runtime's `Cargo.toml` file to include the Utility pall
 1. Open the `runtime/Cargo.toml` file and locate the `[dependencies]` section. Add pallet-utility as one of the features for the `polkadot-sdk` dependency with the following line:
 
     ```toml hl_lines="4" title="runtime/Cargo.toml"
-    [dependencies]
+    
     ...
     polkadot-sdk = { workspace = true, features = [
       "pallet-utility",
@@ -268,7 +268,7 @@ First, you'll update the runtime's `Cargo.toml` file to include the Utility pall
 2. In the same `[dependencies]` section, add the custom pallet that you built from scratch with the following line:
 
     ```toml hl_lines="3" title="Cargo.toml"
-    [dependencies]
+    
     ...
     custom-pallet = { path = "../pallets/custom-pallet", default-features = false }
     ```
@@ -3495,6 +3495,976 @@ Several SCALE codec implementations are available in various languages. Here's a
 
 ---
 
+Page Title: Deploy a Basic Contract to EVM
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-basic-evm.md
+- Canonical (HTML): https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-basic-evm/
+- Summary: Learn how to deploy a basic smart contract to Polkadot Hub using standard EVM tools and toolchains.
+
+# Deploy a Basic Contract (EVM)
+
+## Introduction
+
+Deploying smart contracts to the [Polkadot Hub](/smart-contracts/overview/#smart-contract-development){target=\_blank} can be accomplished using standard EVM development tools and workflows. This guide demonstrates how to deploy a basic smart contract using four popular EVM approaches: JavaScript with [Ethers.js](https://docs.ethers.org/v6/){target=\_blank}, [Remix IDE](https://remix.live/){target=\_blank}, [Hardhat](https://hardhat.org/){target=\_blank}, and [Foundry](https://getfoundry.sh/){target=\_blank}.
+
+All these tools use standard Solidity compilation to generate EVM bytecode, making them compatible with Polkadot Hub's EVM environment. Whether you prefer working with lightweight JavaScript libraries, visual browser-based IDEs, comprehensive development frameworks, or fast command-line toolkits, this guide covers the deployment process for each approach.
+
+**Prerequisites:**
+
+- Basic understanding of Solidity programming.
+- [Node.js](https://nodejs.org/en/download){target=\_blank} v22.13.1 or later (for JavaScript/Hardhat approaches).
+- Test tokens for gas fees (available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}).
+- A wallet with a private key for signing transactions.
+
+## Deployment options
+
+=== "JavaScript with Ethers.js"
+    Ethers.js provides a lightweight approach for deploying contracts using pure JavaScript. This method is ideal for developers who want programmatic control over the deployment process or need to integrate contract deployment into existing applications.
+
+    ### Setup
+
+    First, initialize your project and install dependencies:
+
+    ```bash
+    mkdir ethers-deployment
+    cd ethers-deployment
+    npm init -y
+    npm install ethers@6.15.0 solc@0.8.30
+    ```
+
+    ### Create and Compile Your Contract
+
+    Create a simple storage contract in `contracts/Storage.sol`:
+
+    ```solidity title="contracts/Storage.sol"
+    // SPDX-License-Identifier: MIT
+    pragma solidity ^0.8.9;
+
+    contract Storage {
+        uint256 private storedNumber;
+
+        function store(uint256 num) public {
+            storedNumber = num;
+        }
+
+        function retrieve() public view returns (uint256) {
+            return storedNumber;
+        }
+    }
+    ```
+
+    Create a compilation script `compile.js`:
+
+    ```javascript title="compile.js"
+    const solc = require('solc');
+    const { readFileSync, writeFileSync } = require('fs');
+    const { basename, join } = require('path');
+
+    const compileContract = async (solidityFilePath, outputDir) => {
+      try {
+        // Read the Solidity file
+        const source = readFileSync(solidityFilePath, 'utf8');
+
+        // Construct the input object for the compiler
+        const input = {
+          language: 'Solidity',
+          sources: {
+            [basename(solidityFilePath)]: { content: source },
+          },
+          settings: {
+            outputSelection: {
+              '*': {
+                '*': ['*'],
+              },
+            },
+          },
+        };
+
+        console.log(`Compiling contract: ${basename(solidityFilePath)}...`);
+
+        // Compile the contract
+        const output = JSON.parse(solc.compile(JSON.stringify(input)));
+
+        if (output.errors) {
+          output.errors.forEach(error => {
+            console.error('Compilation error:', error.message);
+          });
+          return;
+        }
+
+        for (const contracts of Object.values(output.contracts)) {
+          for (const [name, contract] of Object.entries(contracts)) {
+            console.log(`Compiled contract: ${name}`);
+
+            // Write the ABI
+            const abiPath = join(outputDir, `${name}.json`);
+            writeFileSync(abiPath, JSON.stringify(contract.abi, null, 2));
+            console.log(`ABI saved to ${abiPath}`);
+
+            // Write the bytecode
+            const bytecodePath = join(outputDir, `${name}.bin`);
+            writeFileSync(bytecodePath, 
+                Buffer.from(
+                    contract.evm.bytecode.object,
+                    'hex'
+                ));
+            console.log(`Bytecode saved to ${bytecodePath}`);
+          }
+        }
+      } catch (error) {
+        console.error('Error compiling contracts:', error);
+      }
+    };
+
+    const solidityFilePath = join(__dirname, 'contracts/Storage.sol');
+    const outputDir = join(__dirname, 'contracts');
+
+    compileContract(solidityFilePath, outputDir);
+    ```
+
+    Run the compilation:
+
+    ```bash
+    node compile.js
+    ```
+
+    ### Deploy the Contract
+
+    Create a deployment script `deploy.js`:
+
+    ```javascript title="deploy.js"
+    const { writeFileSync, existsSync, readFileSync } = require('fs');
+    const { join } = require('path');
+    const { ethers, JsonRpcProvider } = require('ethers');
+
+    const codegenDir = join(__dirname);
+
+    // Creates a provider with specified RPC URL and chain details
+    const createProvider = (rpcUrl, chainId, chainName) => {
+      const provider = new JsonRpcProvider(rpcUrl, {
+        chainId: chainId,
+        name: chainName,
+      });
+      return provider;
+    };
+
+    // Reads and parses the ABI file for a given contract
+    const getAbi = (contractName) => {
+      try {
+        return JSON.parse(
+          readFileSync(join(codegenDir, 'contracts', `${contractName}.json`), 'utf8'),
+        );
+      } catch (error) {
+        console.error(
+          `Could not find ABI for contract ${contractName}:`,
+          error.message,
+        );
+        throw error;
+      }
+    };
+
+    // Reads the compiled bytecode for a given contract
+    const getByteCode = (contractName) => {
+      try {
+        const bytecodePath = join(
+          codegenDir,
+          'contracts',
+          `${contractName}.bin`,
+        );
+        return `0x${readFileSync(bytecodePath).toString('hex')}`;
+      } catch (error) {
+        console.error(
+          `Could not find bytecode for contract ${contractName}:`,
+          error.message,
+        );
+        throw error;
+      }
+    };
+
+    const deployContract = async (contractName, mnemonic, providerConfig) => {
+      console.log(`Deploying ${contractName}...`);
+
+      try {
+        // Step 1: Set up provider and wallet
+        const provider = createProvider(
+          providerConfig.rpc,
+          providerConfig.chainId,
+          providerConfig.name,
+        );
+        const walletMnemonic = ethers.Wallet.fromPhrase(mnemonic);
+        const wallet = walletMnemonic.connect(provider);
+
+        // Step 2: Create and deploy the contract
+        const factory = new ethers.ContractFactory(
+          getAbi(contractName),
+          getByteCode(contractName),
+          wallet,
+        );
+        const contract = await factory.deploy();
+        await contract.waitForDeployment();
+
+        // Step 3: Save deployment information
+        const address = await contract.getAddress();
+        console.log(`Contract ${contractName} deployed at: ${address}`);
+
+        const addressesFile = join(codegenDir, 'contract-address.json');
+        const addresses = existsSync(addressesFile)
+          ? JSON.parse(readFileSync(addressesFile, 'utf8'))
+          : {};
+        addresses[contractName] = address;
+        writeFileSync(addressesFile, JSON.stringify(addresses, null, 2), 'utf8');
+      } catch (error) {
+        console.error(`Failed to deploy contract ${contractName}:`, error);
+      }
+    };
+
+    const providerConfig = {
+      rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
+      chainId: 420420422,
+      name: 'polkadot-hub-testnet',
+    };
+
+    const mnemonic = 'INSERT_MNEMONIC';
+
+    deployContract('Storage', mnemonic, providerConfig);
+    ```
+
+    Replace the `INSERT_MNEMONIC` placeholder with your actual mnemonic.
+
+    Execute the deployment:
+
+    ```bash
+    node deploy.js
+    ```
+
+    After running this script, your contract will be deployed to Polkadot Hub, and its address will be saved in `contract-address.json` within your project directory. You can use this address for future contract interactions.
+
+=== "Remix IDE"
+    Remix IDE offers a visual, browser-based environment perfect for rapid prototyping and learning. It requires no local installation and provides an intuitive interface for contract development.
+
+    ### Access Remix
+
+    Navigate to [https://remix.ethereum.org/](https://remix.ethereum.org/){target=\_blank} in your web browser.
+
+    The interface will load with a default workspace containing sample contracts. In this interface, you can access a file explorer, edit your code, interact with various plugins for development, and use a terminal. By default, you will see the `contracts` folder with the `Storage.sol` file.
+
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-basic/deploy-basic-evm/deploy-basic-evm-01.webp)
+
+    ### Compile
+
+    1. To compile your contract:
+        1. Navigate to the **Solidity Compiler** tab, which is the third icon in the left sidebar.
+        2. Click **Compile Storage.sol** or press `Ctrl+S`.
+
+        ![](/images/smart-contracts/cookbook/smart-contracts/deploy-basic/deploy-basic-evm/deploy-basic-evm-02.webp)
+
+    Compilation errors and warnings appear in the terminal panel at the bottom of the screen.
+
+    ### Deploy
+
+    1. Navigate to the **Deploy & Run Transactions** tab.
+    2. Click the **Environment** dropdown and select **Browser extension**.
+    3. Select **Injected Provider - MetaMask** (make sure you are logged in to MetaMask). 
+    4. In MetaMask, add a custom network with the following details:
+        - **Network Name**: Polkadot Hub TestNet
+        - **RPC URL**: `https://testnet-passet-hub-eth-rpc.polkadot.io`
+        - **Chain ID**: `420420422`
+        - **Currency Symbol**: `DOT`
+    4. Return to Remix click on **Deploy**.
+    6. Approve the transaction in your MetaMask wallet.
+
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-basic/deploy-basic-evm/deploy-basic-evm-03.webp)
+
+    Your deployed contract will appear in the **Deployed Contracts** section, ready for interaction.
+
+=== "Hardhat"
+    Hardhat provides a comprehensive development environment with built-in testing, debugging, and deployment capabilities. It's ideal for professional development workflows and team projects.
+
+    ### Setup
+
+    Initialize your Hardhat project:
+
+    ```bash
+    mkdir hardhat-deployment
+    cd hardhat-deployment
+    npx hardhat --init
+    ```
+
+    ### Configure Hardhat
+
+    Edit `hardhat.config.js`:
+
+    ```javascript title="hardhat.config.js" hl_lines="39-43"
+    import type { HardhatUserConfig } from "hardhat/config";
+
+    import hardhatToolboxViemPlugin from "@nomicfoundation/hardhat-toolbox-viem";
+    import { configVariable } from "hardhat/config";
+
+    const config: HardhatUserConfig = {
+      plugins: [hardhatToolboxViemPlugin],
+      solidity: {
+        profiles: {
+          default: {
+            version: "0.8.28",
+          },
+          production: {
+            version: "0.8.28",
+            settings: {
+              optimizer: {
+                enabled: true,
+                runs: 200,
+              },
+            },
+          },
+        },
+      },
+      networks: {
+        hardhatMainnet: {
+          type: "edr-simulated",
+          chainType: "l1",
+        },
+        hardhatOp: {
+          type: "edr-simulated",
+          chainType: "op",
+        },
+        sepolia: {
+          type: "http",
+          chainType: "l1",
+          url: configVariable("SEPOLIA_RPC_URL"),
+          accounts: [configVariable("SEPOLIA_PRIVATE_KEY")],
+        },
+        polkadotHubTestnet: {
+          url: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
+          chainId: 420420422,
+          accounts: [configVariable("PRIVATE_KEY")],
+        },
+      },
+    };
+
+    export default config;
+
+    ```
+
+    ### Create Your Contract
+
+    Replace the default contract in `contracts/Storage.sol`:
+
+    ```solidity
+    // SPDX-License-Identifier: MIT
+    pragma solidity ^0.8.9;
+
+    contract Storage {
+        uint256 private storedNumber;
+
+        function store(uint256 num) public {
+            storedNumber = num;
+        }
+
+        function retrieve() public view returns (uint256) {
+            return storedNumber;
+        }
+    }
+    ```
+
+    ### Compile
+
+    ```bash
+    npx hardhat build
+    ```
+
+    ### Set Up Deployment
+
+    Create a deployment module in `ignition/modules/Storage.ts`:
+
+    ```typescript title="ignition/modules/Storage.ts"
+    import { buildModule } from '@nomicfoundation/hardhat-ignition/modules';
+
+    export default buildModule('StorageModule', (m) => {
+        const storage = m.contract('Storage');
+        return { storage };
+    });
+    ```
+
+    ### Deploy
+
+    Deploy to Polkadot Hub TestNet:
+
+    ```bash
+    npx hardhat ignition deploy ignition/modules/Storage.ts --network polkadotHubTestnet 
+    ```
+
+=== "Foundry"
+    Foundry offers a fast, modular toolkit written in Rust. It's perfect for developers who prefer command-line interfaces and need high-performance compilation and deployment.
+
+    ### Setup
+
+    Install Foundry:
+
+    ```bash
+    curl -L https://foundry.paradigm.xyz | bash
+    foundryup
+    ```
+
+    Initialize your project:
+
+    ```bash
+    forge init foundry-deployment
+    cd foundry-deployment
+    ```
+
+    ### Configure Foundry
+
+    Edit `foundry.toml`:
+
+    ```toml
+    [profile.default]
+    src = "src"
+    out = "out"
+    libs = ["lib"]
+
+    [rpc_endpoints]
+    polkadot_hub_testnet = "https://testnet-passet-hub-eth-rpc.polkadot.io"
+    ```
+
+    ### Create Your Contract
+
+    Replace the default contract in `src/Storage.sol`:
+
+    ```solidity title="src/Storage.sol"
+    // SPDX-License-Identifier: MIT
+    pragma solidity ^0.8.9;
+
+    contract Storage {
+        uint256 private storedNumber;
+
+        function store(uint256 num) public {
+            storedNumber = num;
+        }
+
+        function retrieve() public view returns (uint256) {
+            return storedNumber;
+        }
+    }
+    ```
+
+    ### Compile
+
+    ```bash
+    forge build
+    ```
+
+    Verify the compilation by inspecting the bytecode:
+
+    ```bash
+    forge inspect Storage bytecode
+    ```
+
+    ### Deploy
+
+    Deploy to Polkadot Hub TestNet:
+
+    ```bash
+    forge create Storage \
+        --rpc-url polkadot_hub_testnet \
+        --private-key YOUR_PRIVATE_KEY \
+        --broadcast
+    ```
+
+## Conclusion
+
+This guide has demonstrated four different approaches to deploying smart contracts on Polkadot Hub using standard EVM tools. Each method offers distinct advantages:
+
+- **Ethers.js**: Best for lightweight, programmatic deployments and application integration
+- **Remix IDE**: Ideal for rapid prototyping, learning, and visual development
+- **Hardhat**: Perfect for professional workflows requiring comprehensive testing and debugging
+- **Foundry**: Excellent for developers who prefer fast, command-line driven development
+
+All approaches use standard Solidity compilation to generate EVM bytecode, ensuring your contracts run on Polkadot Hub's EVM environment. Choose the tool that best fits your workflow and project requirements.
+
+### Next Steps
+
+- Deploy an ERC-20 token on Polkadot Hub, either using the [Deploy an ERC-20](/smart-contracts/cookbook/smart-contracts/deploy-erc20) guide or the [Deploy an ERC-20 to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-erc20) guide.
+- Deploy an NFT on Polkadot Hub, either using the [Deploy an NFT](/smart-contracts/cookbook/smart-contracts/deploy-nft) guide or the [Deploy an NFT to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-nft) guide.
+- Check out in details each [development environment](/smart-contracts/dev-environments/).
+
+
+---
+
+Page Title: Deploy a Basic Contract to Polkadot Hub
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-basic-pvm.md
+- Canonical (HTML): https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-basic-pvm/
+- Summary: Learn how to deploy a basic smart contract to Polkadot Hub using the PolkaVM.
+
+# Deploy a Basic Contract
+
+## Introduction
+
+Deploying smart contracts to [Polkadot Hub](/smart-contracts/overview/#smart-contract-development){target=\_blank} can be accomplished through various tools and environments, each suited to different development workflows. This guide demonstrates how to deploy a basic PolkaVM (PVM) smart contract using four popular approaches: JavaScript with [Ethers.js](https://docs.ethers.org/v6/){target=\_blank}, [Remix IDE](https://remix.live/){target=\_blank}, [Hardhat](https://hardhat.org/){target=\_blank}, and [Foundry](https://getfoundry.sh/){target=\_blank}.
+
+All these tools leverage the `revive` compiler to transform Solidity smart contracts into PolkaVM bytecode, making them compatible with Polkadot Hub's native smart contract environment. Whether you prefer working with lightweight JavaScript libraries, visual browser-based IDEs, comprehensive development frameworks, or fast command-line toolkits, this guide covers the deployment process for each approach.
+
+**Prerequisites:**
+
+- Basic understanding of Solidity programming.
+- [Node.js](https://nodejs.org/en/download){target=\_blank} v22.13.1 or later (for JavaScript/Hardhat approaches).
+- Test tokens for gas fees (available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}).
+- A wallet with a private key for signing transactions.
+
+## JavaScript with Ethers.js
+
+Ethers.js provides a lightweight approach for deploying contracts using pure JavaScript. This method is ideal for developers who want programmatic control over the deployment process or need to integrate contract deployment into existing applications.
+
+### Setup
+
+First, initialize your project and install dependencies:
+
+```bash
+mkdir ethers-deployment
+cd ethers-deployment
+npm init -y
+npm install ethers @parity/resolc
+```
+
+### Create and Compile Your Contract
+
+Create a simple storage contract in `contracts/Storage.sol`:
+
+```solidity title="contracts/Storage.sol"
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.9;
+
+contract Storage {
+    uint256 private storedNumber;
+
+    function store(uint256 num) public {
+        storedNumber = num;
+    }
+
+    function retrieve() public view returns (uint256) {
+        return storedNumber;
+    }
+}
+```
+
+Create a compilation script `compile.js`:
+
+```javascript title="compile.js"
+const { compile } = require('@parity/resolc');
+const { readFileSync, writeFileSync } = require('fs');
+const { basename, join } = require('path');
+
+const compileContract = async (solidityFilePath, outputDir) => {
+  try {
+    // Read the Solidity file
+    const source = readFileSync(solidityFilePath, 'utf8');
+
+    // Construct the input object for the compiler
+    const input = {
+      [basename(solidityFilePath)]: { content: source },
+    };
+
+    console.log(`Compiling contract: ${basename(solidityFilePath)}...`);
+
+    // Compile the contract
+    const out = await compile(input);
+
+    for (const contracts of Object.values(out.contracts)) {
+      for (const [name, contract] of Object.entries(contracts)) {
+        console.log(`Compiled contract: ${name}`);
+
+        // Write the ABI
+        const abiPath = join(outputDir, `${name}.json`);
+        writeFileSync(abiPath, JSON.stringify(contract.abi, null, 2));
+        console.log(`ABI saved to ${abiPath}`);
+
+        // Write the bytecode
+        const bytecodePath = join(outputDir, `${name}.polkavm`);
+        writeFileSync(
+          bytecodePath,
+          Buffer.from(contract.evm.bytecode.object, 'hex'),
+        );
+        console.log(`Bytecode saved to ${bytecodePath}`);
+      }
+    }
+  } catch (error) {
+    console.error('Error compiling contracts:', error);
+  }
+};
+
+const solidityFilePath = join(__dirname, 'contracts/Storage.sol');
+const outputDir = join(__dirname, 'contracts');
+
+compileContract(solidityFilePath, outputDir);
+```
+
+Run the compilation:
+
+```bash
+node compile.js
+```
+
+### Deploy the Contract
+
+Create a deployment script `deploy.js`:
+
+```javascript title="deploy.js"
+const { writeFileSync, existsSync, readFileSync } = require('fs');
+const { join } = require('path');
+const { ethers, JsonRpcProvider } = require('ethers');
+
+const codegenDir = join(__dirname);
+
+// Creates a provider with specified RPC URL and chain details
+const createProvider = (rpcUrl, chainId, chainName) => {
+  const provider = new JsonRpcProvider(rpcUrl, {
+    chainId: chainId,
+    name: chainName,
+  });
+  return provider;
+};
+
+// Reads and parses the ABI file for a given contract
+const getAbi = (contractName) => {
+  try {
+    return JSON.parse(
+      readFileSync(join(codegenDir, 'contracts', `${contractName}.json`), 'utf8'),
+    );
+  } catch (error) {
+    console.error(
+      `Could not find ABI for contract ${contractName}:`,
+      error.message,
+    );
+    throw error;
+  }
+};
+
+// Reads the compiled bytecode for a given contract
+const getByteCode = (contractName) => {
+  try {
+    const bytecodePath = join(
+      codegenDir,
+      'contracts',
+      `${contractName}.polkavm`,
+    );
+    return `0x${readFileSync(bytecodePath).toString('hex')}`;
+  } catch (error) {
+    console.error(
+      `Could not find bytecode for contract ${contractName}:`,
+      error.message,
+    );
+    throw error;
+  }
+};
+
+const deployContract = async (contractName, mnemonic, providerConfig) => {
+  console.log(`Deploying ${contractName}...`);
+
+  try {
+    // Step 1: Set up provider and wallet
+    const provider = createProvider(
+      providerConfig.rpc,
+      providerConfig.chainId,
+      providerConfig.name,
+    );
+    const walletMnemonic = ethers.Wallet.fromPhrase(mnemonic);
+    const wallet = walletMnemonic.connect(provider);
+
+    // Step 2: Create and deploy the contract
+    const factory = new ethers.ContractFactory(
+      getAbi(contractName),
+      getByteCode(contractName),
+      wallet,
+    );
+    const contract = await factory.deploy();
+    await contract.waitForDeployment();
+
+    // Step 3: Save deployment information
+    const address = await contract.getAddress();
+    console.log(`Contract ${contractName} deployed at: ${address}`);
+
+    const addressesFile = join(codegenDir, 'contract-address.json');
+    const addresses = existsSync(addressesFile)
+      ? JSON.parse(readFileSync(addressesFile, 'utf8'))
+      : {};
+    addresses[contractName] = address;
+    writeFileSync(addressesFile, JSON.stringify(addresses, null, 2), 'utf8');
+  } catch (error) {
+    console.error(`Failed to deploy contract ${contractName}:`, error);
+  }
+};
+
+const providerConfig = {
+  rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
+  chainId: 420420422,
+  name: 'polkadot-hub-testnet',
+};
+
+const mnemonic = 'INSERT_MNEMONIC';
+
+deployContract('Storage', mnemonic, providerConfig);
+```
+
+Replace the `INSERT_MNEMONIC` placeholder with your actual mnemonic.
+
+Execute the deployment:
+
+```bash
+node deploy.js
+```
+
+After running this script, your contract will be deployed to Polkadot Hub, and its address will be saved in `contract-address.json` within your project directory. You can use this address for future contract interactions.
+
+## Remix IDE
+
+Remix IDE offers a visual, browser-based environment perfect for rapid prototyping and learning. It requires no local installation and provides an intuitive interface for contract development.
+
+### Access Remix
+
+Navigate to [https://remix.polkadot.io/](https://remix.polkadot.io/){target=\_blank} in your web browser.
+
+The interface will load with a default workspace containing sample contracts. In this interface, you can access a file explorer, edit your code, interact with various plugins for development, and use a terminal. By default, you will see the `contracts` folder with the `Storage.sol` file:
+
+![](/images/smart-contracts/cookbook/smart-contracts/deploy-basic/deploy-basic-pvm/deploy-basic-pvm-01.webp)
+
+### Compile
+
+1. To compile your contract:
+    1. Navigate to the **Solidity Compiler** tab, which is the third icon in the left sidebar.
+    2. Click **Compile Storage.sol** or press `Ctrl+S`.
+
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-basic/deploy-basic-pvm/deploy-basic-pvm-02.webp)
+
+Compilation errors and warnings appear in the terminal panel at the bottom of the screen.
+
+### Deploy
+
+1. Navigate to the **Deploy & Run Transactions** tab.
+2. Click the **Environment** dropdown and select **Injected Provider - MetaMask** (ensure your MetaMask wallet is connected to Polkadot Hub TestNet).
+3. Click **Deploy**.
+4. Approve the transaction in your MetaMask wallet.
+
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-basic/deploy-basic-pvm/deploy-basic-pvm-03.webp)
+
+Your deployed contract will appear in the **Deployed Contracts** section, ready for interaction.
+
+## Hardhat
+
+Hardhat provides a comprehensive development environment with built-in testing, debugging, and deployment capabilities. It's ideal for professional development workflows and team projects.
+
+### Setup
+
+Initialize your Hardhat project:
+
+```bash
+mkdir hardhat-deployment
+cd hardhat-deployment
+npm init -y
+npm install --save-dev @parity/hardhat-polkadot@0.1.9
+npx hardhat-polkadot init
+```
+
+Select **Create a JavaScript project** when prompted.
+
+Complete the setup:
+
+```bash
+echo '/ignition/deployments/' >> .gitignore
+npm install
+```
+
+### Configure Hardhat
+
+Edit `hardhat.config.js`:
+
+```javascript title="hardhat.config.js" hl_lines="21-26"
+require("@nomicfoundation/hardhat-toolbox")
+require("@parity/hardhat-polkadot")
+
+/** @type import('hardhat/config').HardhatUserConfig */
+module.exports = {
+    solidity: "0.8.28",
+    resolc: {
+        compilerSource: "npm",
+    },
+    networks: {
+        hardhat: {
+            polkavm: true,
+            forking: {
+                url: "https://testnet-passet-hub.polkadot.io",
+            },
+            adapterConfig: {
+                adapterBinaryPath: "../bin/eth-rpc",
+                dev: true,
+            },
+        },
+        polkadotHubTestnet: {
+            polkavm: true,
+            url: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
+            chainId: 420420422,
+            accounts: [vars.get('PRIVATE_KEY')],
+        },
+    },
+}
+```
+
+Run the following command to set the private key:
+
+```bash
+npx hardhat vars set PRIVATE_KEY "INSERT_PRIVATE_KEY"
+```
+
+Replace `INSERT_PRIVATE_KEY` with your actual private key.
+
+### Create Your Contract
+
+Replace the default contract in `contracts/Storage.sol`:
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.9;
+
+contract Storage {
+    uint256 private storedNumber;
+
+    function store(uint256 num) public {
+        storedNumber = num;
+    }
+
+    function retrieve() public view returns (uint256) {
+        return storedNumber;
+    }
+}
+```
+
+### Compile
+
+```bash
+npx hardhat compile
+```
+
+### Set Up Deployment
+
+Create a deployment module in `ignition/modules/Storage.js`:
+
+```javascript
+const { buildModule } = require('@nomicfoundation/hardhat-ignition/modules');
+
+module.exports = buildModule('StorageModule', (m) => {
+    const storage = m.contract('Storage');
+    return { storage };
+});
+```
+
+### Deploy
+
+Deploy to Polkadot Hub TestNet:
+
+```bash
+npx hardhat ignition deploy ./ignition/modules/Storage.js --network polkadotHubTestnet
+```
+
+## Foundry
+
+Foundry offers a fast, modular toolkit written in Rust. It's perfect for developers who prefer command-line interfaces and need high-performance compilation and deployment.
+
+### Setup
+
+Install Foundry for Polkadot:
+
+```bash
+curl -L https://raw.githubusercontent.com/paritytech/foundry-polkadot/refs/heads/master/foundryup/install | bash
+foundryup-polkadot
+```
+
+Initialize your project:
+
+```bash
+forge init foundry-deployment
+cd foundry-deployment
+```
+
+### Configure Foundry
+
+Edit `foundry.toml`:
+
+```toml
+[profile.default]
+src = "src"
+out = "out"
+libs = ["lib"]
+
+[profile.default.resolc]
+resolc_compile = true
+
+[rpc_endpoints]
+polkadot_hub_testnet = "https://testnet-passet-hub-eth-rpc.polkadot.io"
+```
+
+### Create Your Contract
+
+Replace the default contract in `src/Storage.sol`:
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.9;
+
+contract Storage {
+    uint256 private storedNumber;
+
+    function store(uint256 num) public {
+        storedNumber = num;
+    }
+
+    function retrieve() public view returns (uint256) {
+        return storedNumber;
+    }
+}
+```
+
+### Compile
+
+```bash
+forge build --resolc
+```
+
+Verify the compilation by inspecting the bytecode (should start with `0x505`):
+
+```bash
+forge inspect Storage bytecode --resolc
+```
+
+### Deploy
+
+Deploy to Polkadot Hub TestNet:
+
+```bash
+forge create Storage \
+    --rpc-url polkadot_hub_testnet \
+    --private-key YOUR_PRIVATE_KEY \
+    --resolc  --broadcast
+```
+
+## Conclusion
+
+This guide has demonstrated four different approaches to deploying smart contracts on Polkadot Hub. Each method offers distinct advantages:
+
+- **Ethers.js**: Best for lightweight, programmatic deployments and application integration
+- **Remix IDE**: Ideal for rapid prototyping, learning, and visual development
+- **Hardhat**: Perfect for professional workflows requiring comprehensive testing and debugging
+- **Foundry**: Excellent for developers who prefer fast, command-line driven development
+
+All approaches use the `resolc` compiler to generate PolkaVM-compatible bytecode, ensuring your contracts run natively on Polkadot Hub. Choose the tool that best fits your workflow and project requirements.
+
+### Next Steps
+
+- Deploy an ERC-20 token on Polkadot Hub, either using the [Deploy an ERC-20](/smart-contracts/cookbook/smart-contracts/deploy-erc20) guide or the [Deploy an ERC-20 to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-erc20) guide.
+- Deploy an NFT on Polkadot Hub, either using the [Deploy an NFT](/smart-contracts/cookbook/smart-contracts/deploy-nft) guide or the [Deploy an NFT to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-nft) guide.
+- Check out in details each [development environment](/smart-contracts/dev-environments/).
+
+
+---
+
 Page Title: Deploy an ERC-20 to Polkadot Hub
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-erc20.md
@@ -3531,23 +4501,7 @@ To create the ERC-20 contract, you can follow the steps below:
 3. Now, paste the following ERC-20 contract code into the editor:
 
     ```solidity title="MyToken.sol"
-    // SPDX-License-Identifier: MIT
-    // Compatible with OpenZeppelin Contracts ^5.0.0
-    pragma solidity ^0.8.22;
-
-    import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-    import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
-
-    contract MyToken is ERC20, Ownable {
-        constructor(address initialOwner)
-            ERC20("MyToken", "MTK")
-            Ownable(initialOwner)
-        {}
-
-        function mint(address to, uint256 amount) public onlyOwner {
-            _mint(to, amount);
-        }
-    }
+    
     ```
 
     The key components of the code above are:
@@ -3865,26 +4819,7 @@ To create the NFT contract, you can follow the steps below:
 3. Now, paste the following NFT contract code into the editor.
 
     ```solidity title="MyNFT.sol"
-    // SPDX-License-Identifier: MIT
-    // Compatible with OpenZeppelin Contracts ^5.0.0
-    pragma solidity ^0.8.22;
-
-    import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-    import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
-
-    contract MyToken is ERC721, Ownable {
-        uint256 private _nextTokenId;
-
-        constructor(address initialOwner)
-            ERC721("MyToken", "MTK")
-            Ownable(initialOwner)
-        {}
-
-        function safeMint(address to) public onlyOwner {
-            uint256 tokenId = _nextTokenId++;
-            _safeMint(to, tokenId);
-        }
-    }
+    
     ```
 
     The key components of the code above are:
@@ -6083,6 +7018,200 @@ Now you can interact with your forked chains using the ports specified in the ou
 
 ---
 
+Page Title: Foundry
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-basic-contract-deploy-basic-foundry.md
+- Canonical (HTML): https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-basic-contract/deploy-basic-foundry/
+- Summary: Learn how to deploy a basic smart contract to Polkadot Hub using Foundry, excellent for developers who prefer fast, command-line driven development.
+
+[Foundry](https://getfoundry.sh/){target=\_blank} offers a fast, modular toolkit written in Rust. It's perfect for developers who prefer command-line interfaces and need high-performance compilation and deployment.
+
+**Prerequisites:**
+
+- Basic understanding of Solidity programming.
+- Test tokens for gas fees (available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}).
+- A wallet with a private key for signing transactions.
+
+### Setup
+
+Install Foundry:
+
+```bash
+curl -L https://foundry.paradigm.xyz | bash
+foundryup
+```
+
+Initialize your project:
+
+```bash
+forge init foundry-deployment
+cd foundry-deployment
+```
+
+### Configure Foundry
+
+Edit `foundry.toml`:
+
+```toml
+[profile.default]
+src = "src"
+out = "out"
+libs = ["lib"]
+
+[rpc_endpoints]
+polkadot_hub_testnet = "https://testnet-passet-hub-eth-rpc.polkadot.io"
+```
+
+### Create Your Contract
+
+Replace the default contract in `src/Storage.sol`:
+
+```solidity title="src/Storage.sol"
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.9;
+
+contract Storage {
+    uint256 private storedNumber;
+
+    function store(uint256 num) public {
+        storedNumber = num;
+    }
+
+    function retrieve() public view returns (uint256) {
+        return storedNumber;
+    }
+}
+```
+
+### Compile
+
+```bash
+forge build
+```
+
+Verify the compilation by inspecting the bytecode:
+
+```bash
+forge inspect Storage bytecode
+```
+
+### Deploy
+
+Deploy to Polkadot Hub TestNet:
+
+```bash
+forge create Storage \
+    --rpc-url polkadot_hub_testnet \
+    --private-key YOUR_PRIVATE_KEY \
+    --broadcast
+```
+
+### Next Steps
+
+- Deploy an ERC-20 token on Polkadot Hub, either using the [Deploy an ERC-20](/smart-contracts/cookbook/smart-contracts/deploy-erc20) guide or the [Deploy an ERC-20 to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-erc20) guide.
+- Deploy an NFT on Polkadot Hub, either using the [Deploy an NFT](/smart-contracts/cookbook/smart-contracts/deploy-nft) guide or the [Deploy an NFT to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-nft) guide.
+- Check out in details each [development environment](/smart-contracts/dev-environments/).
+
+
+---
+
+Page Title: Foundry
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-basic-contract-evm-deploy-basic-foundry.md
+- Canonical (HTML): https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-basic-contract-evm/deploy-basic-foundry/
+- Summary: Learn how to deploy a basic smart contract to Polkadot Hub using Foundry, excellent for developers who prefer fast, command-line driven development.
+
+[Foundry](https://getfoundry.sh/){target=\_blank} offers a fast, modular toolkit written in Rust. It's perfect for developers who prefer command-line interfaces and need high-performance compilation and deployment.
+
+**Prerequisites:**
+
+- Basic understanding of Solidity programming.
+- Test tokens for gas fees (available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}).
+- A wallet with a private key for signing transactions.
+
+### Setup
+
+Install Foundry:
+
+```bash
+curl -L https://foundry.paradigm.xyz | bash
+foundryup
+```
+
+Initialize your project:
+
+```bash
+forge init foundry-deployment
+cd foundry-deployment
+```
+
+### Configure Foundry
+
+Edit `foundry.toml`:
+
+```toml
+[profile.default]
+src = "src"
+out = "out"
+libs = ["lib"]
+
+[rpc_endpoints]
+polkadot_hub_testnet = "https://testnet-passet-hub-eth-rpc.polkadot.io"
+```
+
+### Create Your Contract
+
+Replace the default contract in `src/Storage.sol`:
+
+```solidity title="src/Storage.sol"
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.9;
+
+contract Storage {
+    uint256 private storedNumber;
+
+    function store(uint256 num) public {
+        storedNumber = num;
+    }
+
+    function retrieve() public view returns (uint256) {
+        return storedNumber;
+    }
+}
+```
+
+### Compile
+
+```bash
+forge build
+```
+
+Verify the compilation by inspecting the bytecode:
+
+```bash
+forge inspect Storage bytecode
+```
+
+### Deploy
+
+Deploy to Polkadot Hub TestNet:
+
+```bash
+forge create Storage \
+    --rpc-url polkadot_hub_testnet \
+    --private-key YOUR_PRIVATE_KEY \
+    --broadcast
+```
+
+### Next Steps
+
+- Deploy an ERC-20 token on Polkadot Hub, either using the [Deploy an ERC-20](/smart-contracts/cookbook/smart-contracts/deploy-erc20) guide or the [Deploy an ERC-20 to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-erc20) guide.
+- Deploy an NFT on Polkadot Hub, either using the [Deploy an NFT](/smart-contracts/cookbook/smart-contracts/deploy-nft) guide or the [Deploy an NFT to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-nft) guide.
+- Check out in details each [development environment](/smart-contracts/dev-environments/).
+
+
+---
+
 Page Title: Get Started with Parachain Development
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/parachains-get-started.md
@@ -7021,6 +8150,280 @@ Westend is a Parity-maintained, Polkadot SDK-based blockchain that serves as a t
 
 ---
 
+Page Title: hardhat
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-basic-contract-deploy-basic-hardhat.md
+- Canonical (HTML): https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-basic-contract/deploy-basic-hardhat/
+- Summary: Learn how to deploy a basic smart contract to Polkadot Hub using Hardhat, Perfect for professional workflows requiring comprehensive testing and debugging.
+
+[Hardhat](https://hardhat.org/){target=\_blank} provides a comprehensive development environment with built-in testing, debugging, and deployment capabilities. It's ideal for professional development workflows and team projects.
+
+**Prerequisites:**
+
+- Basic understanding of Solidity programming.
+- [Node.js](https://nodejs.org/en/download){target=\_blank} v22.13.1 or later.
+- Test tokens for gas fees (available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}).
+- A wallet with a private key for signing transactions.
+
+### Setup
+
+Initialize your Hardhat project:
+
+```bash
+mkdir hardhat-deployment
+cd hardhat-deployment
+npx hardhat --init
+```
+
+### Configure Hardhat
+
+Edit `hardhat.config.js`:
+
+```javascript title="hardhat.config.js" hl_lines="39-43"
+import type { HardhatUserConfig } from "hardhat/config";
+
+import hardhatToolboxViemPlugin from "@nomicfoundation/hardhat-toolbox-viem";
+import { configVariable } from "hardhat/config";
+
+const config: HardhatUserConfig = {
+  plugins: [hardhatToolboxViemPlugin],
+  solidity: {
+    profiles: {
+      default: {
+        version: "0.8.28",
+      },
+      production: {
+        version: "0.8.28",
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 200,
+          },
+        },
+      },
+    },
+  },
+  networks: {
+    hardhatMainnet: {
+      type: "edr-simulated",
+      chainType: "l1",
+    },
+    hardhatOp: {
+      type: "edr-simulated",
+      chainType: "op",
+    },
+    sepolia: {
+      type: "http",
+      chainType: "l1",
+      url: configVariable("SEPOLIA_RPC_URL"),
+      accounts: [configVariable("SEPOLIA_PRIVATE_KEY")],
+    },
+    polkadotHubTestnet: {
+      url: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
+      chainId: 420420422,
+      accounts: [configVariable("PRIVATE_KEY")],
+    },
+  },
+};
+
+export default config;
+
+```
+
+### Create Your Contract
+
+Replace the default contract in `contracts/Storage.sol`:
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.9;
+
+contract Storage {
+    uint256 private storedNumber;
+
+    function store(uint256 num) public {
+        storedNumber = num;
+    }
+
+    function retrieve() public view returns (uint256) {
+        return storedNumber;
+    }
+}
+```
+
+### Compile
+
+```bash
+npx hardhat build
+```
+
+### Set Up Deployment
+
+Create a deployment module in `ignition/modules/Storage.ts`:
+
+```typescript title="ignition/modules/Storage.ts"
+import { buildModule } from '@nomicfoundation/hardhat-ignition/modules';
+
+export default buildModule('StorageModule', (m) => {
+    const storage = m.contract('Storage');
+    return { storage };
+});
+```
+
+### Deploy
+
+Deploy to Polkadot Hub TestNet:
+
+```bash
+npx hardhat ignition deploy ignition/modules/Storage.ts --network polkadotHubTestnet 
+```
+
+### Next Steps
+
+- Deploy an ERC-20 token on Polkadot Hub, either using the [Deploy an ERC-20](/smart-contracts/cookbook/smart-contracts/deploy-erc20) guide or the [Deploy an ERC-20 to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-erc20) guide.
+- Deploy an NFT on Polkadot Hub, either using the [Deploy an NFT](/smart-contracts/cookbook/smart-contracts/deploy-nft) guide or the [Deploy an NFT to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-nft) guide.
+- Check out in details each [development environment](/smart-contracts/dev-environments/).
+
+
+---
+
+Page Title: hardhat
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-basic-contract-evm-deploy-basic-hardhat.md
+- Canonical (HTML): https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-basic-contract-evm/deploy-basic-hardhat/
+- Summary: Learn how to deploy a basic smart contract to Polkadot Hub using Hardhat, Perfect for professional workflows requiring comprehensive testing and debugging.
+
+[Hardhat](https://hardhat.org/){target=\_blank} provides a comprehensive development environment with built-in testing, debugging, and deployment capabilities. It's ideal for professional development workflows and team projects.
+
+**Prerequisites:**
+
+- Basic understanding of Solidity programming.
+- [Node.js](https://nodejs.org/en/download){target=\_blank} v22.13.1 or later.
+- Test tokens for gas fees (available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}).
+- A wallet with a private key for signing transactions.
+
+### Setup
+
+Initialize your Hardhat project:
+
+```bash
+mkdir hardhat-deployment
+cd hardhat-deployment
+npx hardhat --init
+```
+
+### Configure Hardhat
+
+Edit `hardhat.config.js`:
+
+```javascript title="hardhat.config.js" hl_lines="39-43"
+import type { HardhatUserConfig } from "hardhat/config";
+
+import hardhatToolboxViemPlugin from "@nomicfoundation/hardhat-toolbox-viem";
+import { configVariable } from "hardhat/config";
+
+const config: HardhatUserConfig = {
+  plugins: [hardhatToolboxViemPlugin],
+  solidity: {
+    profiles: {
+      default: {
+        version: "0.8.28",
+      },
+      production: {
+        version: "0.8.28",
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 200,
+          },
+        },
+      },
+    },
+  },
+  networks: {
+    hardhatMainnet: {
+      type: "edr-simulated",
+      chainType: "l1",
+    },
+    hardhatOp: {
+      type: "edr-simulated",
+      chainType: "op",
+    },
+    sepolia: {
+      type: "http",
+      chainType: "l1",
+      url: configVariable("SEPOLIA_RPC_URL"),
+      accounts: [configVariable("SEPOLIA_PRIVATE_KEY")],
+    },
+    polkadotHubTestnet: {
+      url: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
+      chainId: 420420422,
+      accounts: [configVariable("PRIVATE_KEY")],
+    },
+  },
+};
+
+export default config;
+
+```
+
+### Create Your Contract
+
+Replace the default contract in `contracts/Storage.sol`:
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.9;
+
+contract Storage {
+    uint256 private storedNumber;
+
+    function store(uint256 num) public {
+        storedNumber = num;
+    }
+
+    function retrieve() public view returns (uint256) {
+        return storedNumber;
+    }
+}
+```
+
+### Compile
+
+```bash
+npx hardhat build
+```
+
+### Set Up Deployment
+
+Create a deployment module in `ignition/modules/Storage.ts`:
+
+```typescript title="ignition/modules/Storage.ts"
+import { buildModule } from '@nomicfoundation/hardhat-ignition/modules';
+
+export default buildModule('StorageModule', (m) => {
+    const storage = m.contract('Storage');
+    return { storage };
+});
+```
+
+### Deploy
+
+Deploy to Polkadot Hub TestNet:
+
+```bash
+npx hardhat ignition deploy ignition/modules/Storage.ts --network polkadotHubTestnet 
+```
+
+### Next Steps
+
+- Deploy an ERC-20 token on Polkadot Hub, either using the [Deploy an ERC-20](/smart-contracts/cookbook/smart-contracts/deploy-erc20) guide or the [Deploy an ERC-20 to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-erc20) guide.
+- Deploy an NFT on Polkadot Hub, either using the [Deploy an NFT](/smart-contracts/cookbook/smart-contracts/deploy-nft) guide or the [Deploy an NFT to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-nft) guide.
+- Check out in details each [development environment](/smart-contracts/dev-environments/).
+
+
+---
+
 Page Title: Install Polkadot SDK Dependencies
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-parachains-install-polkadot-sdk.md
@@ -7722,34 +9125,7 @@ Now, you'll explore how to use each precompile available in Polkadot Hub.
 ECRecover recovers an Ethereum address associated with the public key used to sign a message.
 
 ```solidity title="ECRecover.sol"
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
 
-contract ECRecoverExample {
-    event ECRecovered(bytes result);
-
-    // Address of the ECRecover precompile
-    address constant EC_RECOVER_ADDRESS = address(0x01);
-    bytes public result;
-
-    function callECRecover(bytes calldata input) public {
-        bool success;
-        bytes memory resultInMemory;
-
-        (success, resultInMemory) = EC_RECOVER_ADDRESS.call{value: 0}(input);
-
-        if (success) {
-            emit ECRecovered(resultInMemory);
-        }
-
-        result = resultInMemory;
-    }
-
-    function getRecoveredAddress() public view returns (address) {
-        require(result.length == 32, "Invalid result length");
-        return address(uint160(uint256(bytes32(result))));
-    }
-}
 ```
 
 To interact with the ECRecover precompile, you can deploy the `ECRecoverExample` contract in [Remix](/smart-contracts/dev-environments/remix/get-started/){target=\_blank} or any Solidity-compatible environment. The `callECRecover` function takes a 128-byte input combining the message `hash`, `v`, `r`, and `s` signature values. Check this [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/ECRecover.js){target=\_blank} that shows how to format this input and verify that the recovered address matches the expected result.
@@ -7759,30 +9135,7 @@ To interact with the ECRecover precompile, you can deploy the `ECRecoverExample`
 The SHA-256 precompile computes the SHA-256 hash of the input data.
 
 ```solidity title="SHA256.sol"
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
 
-contract SHA256Example {
-    event SHA256Called(bytes result);
-
-    // Address of the SHA256 precompile
-    address constant SHA256_PRECOMPILE = address(0x02);
-
-    bytes public result;
-
-    function callH256(bytes calldata input) public {
-        bool success;
-        bytes memory resultInMemory;
-
-        (success, resultInMemory) = SHA256_PRECOMPILE.call{value: 0}(input);
-
-        if (success) {
-            emit SHA256Called(resultInMemory);
-        }
-
-        result = resultInMemory;
-    }
-}
 ```
 
 To use it, you can deploy the `SHA256Example` contract in [Remix](/smart-contracts/dev-environments/remix/get-started/){target=\_blank} or any Solidity-compatible environment and call callH256 with arbitrary bytes. Check out this [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/SHA256.js){target=\_blank} shows how to pass a UTF-8 string, hash it using the precompile, and compare it with the expected hash from Node.js's [crypto](https://www.npmjs.com/package/crypto-js){target=\_blank} module.
@@ -7792,32 +9145,7 @@ To use it, you can deploy the `SHA256Example` contract in [Remix](/smart-contrac
 The RIPEMD-160 precompile computes the RIPEMD-160 hash of the input data.
 
 ```solidity title="RIPEMD160.sol"
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
 
-contract RIPEMD160Example {
-    // RIPEMD-160 precompile address
-    address constant RIPEMD160_PRECOMPILE = address(0x03);
-
-    bytes32 public result;
-
-    event RIPEMD160Called(bytes32 result);
-
-    function calculateRIPEMD160(bytes calldata input) public returns (bytes32) {
-        (bool success, bytes memory returnData) = RIPEMD160_PRECOMPILE.call(
-            input
-        );
-        require(success, "RIPEMD-160 precompile call failed");
-        // return full 32 bytes, no assembly extraction
-        bytes32 fullHash;
-        assembly {
-            fullHash := mload(add(returnData, 32))
-        }
-        result = fullHash;
-        emit RIPEMD160Called(fullHash);
-        return fullHash;
-    }
-}
 ```
 
 To use it, you can deploy the `RIPEMD160Example` contract in [Remix](/smart-contracts/dev-environments/remix/get-started/){target=\_blank} or any Solidity-compatible environment and call `calculateRIPEMD160` with arbitrary bytes. This [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/RIPEMD160.js){target=\_blank} shows how to hash a UTF-8 string, pad the 20-byte result to 32 bytes, and verify it against the expected output.
@@ -7827,30 +9155,7 @@ To use it, you can deploy the `RIPEMD160Example` contract in [Remix](/smart-cont
 The Identity precompile simply returns the input data as output. While seemingly trivial, it can be useful for testing and certain specialized scenarios.
 
 ```solidity title="Identity.sol"
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
 
-contract IdentityExample {
-    event IdentityCalled(bytes result);
-
-    // Address of the Identity precompile
-    address constant IDENTITY_PRECOMPILE = address(0x04);
-
-    bytes public result;
-
-    function callIdentity(bytes calldata input) public {
-        bool success;
-        bytes memory resultInMemory;
-
-        (success, resultInMemory) = IDENTITY_PRECOMPILE.call(input);
-
-        if (success) {
-            emit IdentityCalled(resultInMemory);
-        }
-
-        result = resultInMemory;
-    }
-}
 ```
 
 To use it, you can deploy the `IdentityExample` contract in [Remix](/smart-contracts/dev-environments/remix/get-started/){target=\_blank} or any Solidity-compatible environment and call `callIdentity` with arbitrary bytes. This [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/Identity.js){target=\_blank} shows how to pass input data and verify that the precompile returns it unchanged.
@@ -7899,38 +9204,7 @@ To use it, you can deploy the `ModExpExample` contract in [Remix](/smart-contrac
 The BN128Add precompile performs addition on the alt_bn128 elliptic curve, which is essential for zk-SNARK operations.
 
 ```solidity title="BN128Add.sol"
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
 
-contract BN128AddExample {
-    address constant BN128_ADD_PRECOMPILE = address(0x06);
-
-    event BN128Added(uint256 x3, uint256 y3);
-
-    uint256 public resultX;
-    uint256 public resultY;
-
-    function callBN128Add(uint256 x1, uint256 y1, uint256 x2, uint256 y2) public {
-        bytes memory input = abi.encodePacked(
-            bytes32(x1), bytes32(y1), bytes32(x2), bytes32(y2)
-        );
-
-        bool success;
-        bytes memory output;
-
-        (success, output) = BN128_ADD_PRECOMPILE.call{value: 0}(input);
-
-        require(success, "BN128Add precompile call failed");
-        require(output.length == 64, "Invalid output length");
-
-        (uint256 x3, uint256 y3) = abi.decode(output, (uint256, uint256));
-
-        resultX = x3;
-        resultY = y3;
-
-        emit BN128Added(x3, y3);
-    }
-}
 ```
 
 To use it, you can deploy the `BN128AddExample` contract in [Remix](/smart-contracts/dev-environments/remix/get-started/){target=\_blank} or any Solidity-compatible environment and call `callBN128Add` with valid `alt_bn128` points. This [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/BN128Add.js){target=\_blank} demonstrates a valid curve addition and checks the result against known expected values.
@@ -7985,38 +9259,7 @@ To use it, deploy `BN128MulExample` in [Remix](/smart-contracts/dev-environments
 The BN128Pairing precompile verifies a pairing equation on the alt_bn128 curve, which is critical for zk-SNARK verification.
 
 ```solidity title="BN128Pairing.sol"
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
 
-contract BN128PairingExample {
-    // Precompile address for BN128Pairing
-    address constant BN128_PAIRING_ADDRESS = address(0x08);
-
-    bytes public result;
-
-    // Performs a pairing check on the alt_bn128 curve
-    function bn128Pairing(bytes memory input) public {
-        // Call the precompile
-        (bool success, bytes memory resultInMemory) = BN128_PAIRING_ADDRESS
-            .call{value: 0}(input);
-        require(success, "BN128Pairing precompile call failed");
-
-        result = resultInMemory;
-    }
-
-    // Helper function to decode the result from `result` storage
-    function getResult() public view returns (bool isValid) {
-        bytes memory tempResult = result;
-        require(tempResult.length == 32, "Invalid result length");
-
-        uint256 output;
-        assembly {
-            output := mload(add(tempResult, 32))
-        }
-
-        isValid = (output == 1);
-    }
-}
 ```
 
 You can deploy `BN128PairingExample` in [Remix](/smart-contracts/dev-environments/remix/get-started/){target=\_blank} or your preferred environment. Check out this [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/BN128Pairing.js){target=\_blank} contains these tests with working examples.
@@ -8355,47 +9598,7 @@ This guide demonstrates how to interact with the XCM precompile through Solidity
 The XCM precompile implements the `IXcm` interface, which defines the structure for interacting with XCM functionality. The source code for the interface is as follows:
 
 ```solidity title="IXcm.sol"
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
 
-/// @dev The on-chain address of the XCM (Cross-Consensus Messaging) precompile.
-address constant XCM_PRECOMPILE_ADDRESS = address(0xA0000);
-
-/// @title XCM Precompile Interface
-/// @notice A low-level interface for interacting with `pallet_xcm`.
-/// It forwards calls directly to the corresponding dispatchable functions,
-/// providing access to XCM execution and message passing.
-/// @dev Documentation:
-/// @dev - XCM: https://docs.polkadot.com/develop/interoperability
-/// @dev - SCALE codec: https://docs.polkadot.com/polkadot-protocol/parachain-basics/data-encoding
-/// @dev - Weights: https://docs.polkadot.com/polkadot-protocol/parachain-basics/blocks-transactions-fees/fees/#transactions-weights-and-fees
-interface IXcm {
-    /// @notice Weight v2 used for measurement for an XCM execution
-    struct Weight {
-        /// @custom:property The computational time used to execute some logic based on reference hardware.
-        uint64 refTime;
-        /// @custom:property The size of the proof needed to execute some logic.
-        uint64 proofSize;
-    }
-
-    /// @notice Executes an XCM message locally on the current chain with the caller's origin.
-    /// @dev Internally calls `pallet_xcm::execute`.
-    /// @param message A SCALE-encoded Versioned XCM message.
-    /// @param weight The maximum allowed `Weight` for execution.
-    /// @dev Call @custom:function weighMessage(message) to ensure sufficient weight allocation.
-    function execute(bytes calldata message, Weight calldata weight) external;
-
-    /// @notice Sends an XCM message to another parachain or consensus system.
-    /// @dev Internally calls `pallet_xcm::send`.
-    /// @param destination SCALE-encoded destination MultiLocation.
-    /// @param message SCALE-encoded Versioned XCM message.
-    function send(bytes calldata destination, bytes calldata message) external;
-
-    /// @notice Estimates the `Weight` required to execute a given XCM message.
-    /// @param message SCALE-encoded Versioned XCM message to analyze.
-    /// @return weight Struct containing estimated `refTime` and `proofSize`.
-    function weighMessage(bytes calldata message) external view returns (Weight memory weight);
-}
 ```
 
 The interface defines a `Weight` struct that represents the computational cost of XCM operations. Weight has two components: 
@@ -9070,6 +10273,490 @@ XCM revolutionizes cross-chain communication by enabling use cases such as:
 - Remote execution of functions on other blockchains.
 
 These functionalities empower developers to build innovative, multi-chain applications, leveraging the strengths of various blockchain networks. To stay updated on XCM’s evolving format or contribute, visit the [XCM repository](https://github.com/paritytech/xcm-docs/blob/main/examples/src/0_first_look/mod.rs){target=\_blank}.
+
+
+---
+
+Page Title: JavaScript with Ethers.js
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-basic-contract-deploy-basic-ethers-js.md
+- Canonical (HTML): https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-basic-contract/deploy-basic-ethers-js/
+- Summary: Learn how to deploy a basic smart contract to Polkadot Hub using Ethers.js, best for lightweight, programmatic deployments and application integration.
+
+[Ethers.js](https://docs.ethers.org/v6/){target=\_blank} provides a lightweight approach for deploying contracts using pure JavaScript. This method is ideal for developers who want programmatic control over the deployment process or need to integrate contract deployment into existing applications.
+
+**Prerequisites:**
+
+- Basic understanding of Solidity programming.
+- [Node.js](https://nodejs.org/en/download){target=\_blank} v22.13.1 or later.
+- Test tokens for gas fees (available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}).
+- A wallet with a private key for signing transactions.
+
+### Setup
+
+First, initialize your project and install dependencies:
+
+```bash
+mkdir ethers-deployment
+cd ethers-deployment
+npm init -y
+npm install ethers@6.15.0 solc@0.8.30
+```
+
+### Create and Compile Your Contract
+
+Create a simple storage contract in `contracts/Storage.sol`:
+
+```solidity title="contracts/Storage.sol"
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.9;
+
+contract Storage {
+    uint256 private storedNumber;
+
+    function store(uint256 num) public {
+        storedNumber = num;
+    }
+
+    function retrieve() public view returns (uint256) {
+        return storedNumber;
+    }
+}
+```
+
+Create a compilation script `compile.js`:
+
+```javascript title="compile.js"
+const solc = require('solc');
+const { readFileSync, writeFileSync } = require('fs');
+const { basename, join } = require('path');
+
+const compileContract = async (solidityFilePath, outputDir) => {
+  try {
+    // Read the Solidity file
+    const source = readFileSync(solidityFilePath, 'utf8');
+
+    // Construct the input object for the compiler
+    const input = {
+      language: 'Solidity',
+      sources: {
+        [basename(solidityFilePath)]: { content: source },
+      },
+      settings: {
+        outputSelection: {
+          '*': {
+            '*': ['*'],
+          },
+        },
+      },
+    };
+
+    console.log(`Compiling contract: ${basename(solidityFilePath)}...`);
+
+    // Compile the contract
+    const output = JSON.parse(solc.compile(JSON.stringify(input)));
+
+    if (output.errors) {
+      output.errors.forEach(error => {
+        console.error('Compilation error:', error.message);
+      });
+      return;
+    }
+
+    for (const contracts of Object.values(output.contracts)) {
+      for (const [name, contract] of Object.entries(contracts)) {
+        console.log(`Compiled contract: ${name}`);
+
+        // Write the ABI
+        const abiPath = join(outputDir, `${name}.json`);
+        writeFileSync(abiPath, JSON.stringify(contract.abi, null, 2));
+        console.log(`ABI saved to ${abiPath}`);
+
+        // Write the bytecode
+        const bytecodePath = join(outputDir, `${name}.bin`);
+        writeFileSync(bytecodePath, 
+            Buffer.from(
+                contract.evm.bytecode.object,
+                'hex'
+            ));
+        console.log(`Bytecode saved to ${bytecodePath}`);
+      }
+    }
+  } catch (error) {
+    console.error('Error compiling contracts:', error);
+  }
+};
+
+const solidityFilePath = join(__dirname, 'contracts/Storage.sol');
+const outputDir = join(__dirname, 'contracts');
+
+compileContract(solidityFilePath, outputDir);
+```
+
+Run the compilation:
+
+```bash
+node compile.js
+```
+
+### Deploy the Contract
+
+Create a deployment script `deploy.js`:
+
+```javascript title="deploy.js"
+const { writeFileSync, existsSync, readFileSync } = require('fs');
+const { join } = require('path');
+const { ethers, JsonRpcProvider } = require('ethers');
+
+const codegenDir = join(__dirname);
+
+// Creates a provider with specified RPC URL and chain details
+const createProvider = (rpcUrl, chainId, chainName) => {
+  const provider = new JsonRpcProvider(rpcUrl, {
+    chainId: chainId,
+    name: chainName,
+  });
+  return provider;
+};
+
+// Reads and parses the ABI file for a given contract
+const getAbi = (contractName) => {
+  try {
+    return JSON.parse(
+      readFileSync(join(codegenDir, 'contracts', `${contractName}.json`), 'utf8'),
+    );
+  } catch (error) {
+    console.error(
+      `Could not find ABI for contract ${contractName}:`,
+      error.message,
+    );
+    throw error;
+  }
+};
+
+// Reads the compiled bytecode for a given contract
+const getByteCode = (contractName) => {
+  try {
+    const bytecodePath = join(
+      codegenDir,
+      'contracts',
+      `${contractName}.bin`,
+    );
+    return `0x${readFileSync(bytecodePath).toString('hex')}`;
+  } catch (error) {
+    console.error(
+      `Could not find bytecode for contract ${contractName}:`,
+      error.message,
+    );
+    throw error;
+  }
+};
+
+const deployContract = async (contractName, mnemonic, providerConfig) => {
+  console.log(`Deploying ${contractName}...`);
+
+  try {
+    // Step 1: Set up provider and wallet
+    const provider = createProvider(
+      providerConfig.rpc,
+      providerConfig.chainId,
+      providerConfig.name,
+    );
+    const walletMnemonic = ethers.Wallet.fromPhrase(mnemonic);
+    const wallet = walletMnemonic.connect(provider);
+
+    // Step 2: Create and deploy the contract
+    const factory = new ethers.ContractFactory(
+      getAbi(contractName),
+      getByteCode(contractName),
+      wallet,
+    );
+    const contract = await factory.deploy();
+    await contract.waitForDeployment();
+
+    // Step 3: Save deployment information
+    const address = await contract.getAddress();
+    console.log(`Contract ${contractName} deployed at: ${address}`);
+
+    const addressesFile = join(codegenDir, 'contract-address.json');
+    const addresses = existsSync(addressesFile)
+      ? JSON.parse(readFileSync(addressesFile, 'utf8'))
+      : {};
+    addresses[contractName] = address;
+    writeFileSync(addressesFile, JSON.stringify(addresses, null, 2), 'utf8');
+  } catch (error) {
+    console.error(`Failed to deploy contract ${contractName}:`, error);
+  }
+};
+
+const providerConfig = {
+  rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
+  chainId: 420420422,
+  name: 'polkadot-hub-testnet',
+};
+
+const mnemonic = 'INSERT_MNEMONIC';
+
+deployContract('Storage', mnemonic, providerConfig);
+```
+
+Replace the `INSERT_MNEMONIC` placeholder with your actual mnemonic.
+
+Execute the deployment:
+
+```bash
+node deploy.js
+```
+
+After running this script, your contract will be deployed to Polkadot Hub, and its address will be saved in `contract-address.json` within your project directory. You can use this address for future contract interactions.
+
+### Next Steps
+
+- Deploy an ERC-20 token on Polkadot Hub, either using the [Deploy an ERC-20](/smart-contracts/cookbook/smart-contracts/deploy-erc20) guide or the [Deploy an ERC-20 to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-erc20) guide.
+- Deploy an NFT on Polkadot Hub, either using the [Deploy an NFT](/smart-contracts/cookbook/smart-contracts/deploy-nft) guide or the [Deploy an NFT to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-nft) guide.
+- Check out in details each [development environment](/smart-contracts/dev-environments/).
+
+
+---
+
+Page Title: JavaScript with Ethers.js
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-basic-contract-evm-deploy-basic-ethers-js.md
+- Canonical (HTML): https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-basic-contract-evm/deploy-basic-ethers-js/
+- Summary: Learn how to deploy a basic smart contract to Polkadot Hub using Ethers.js, best for lightweight, programmatic deployments and application integration.
+
+[Ethers.js](https://docs.ethers.org/v6/){target=\_blank} provides a lightweight approach for deploying contracts using pure JavaScript. This method is ideal for developers who want programmatic control over the deployment process or need to integrate contract deployment into existing applications.
+
+**Prerequisites:**
+
+- Basic understanding of Solidity programming.
+- [Node.js](https://nodejs.org/en/download){target=\_blank} v22.13.1 or later.
+- Test tokens for gas fees (available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}).
+- A wallet with a private key for signing transactions.
+
+### Setup
+
+First, initialize your project and install dependencies:
+
+```bash
+mkdir ethers-deployment
+cd ethers-deployment
+npm init -y
+npm install ethers@6.15.0 solc@0.8.30
+```
+
+### Create and Compile Your Contract
+
+Create a simple storage contract in `contracts/Storage.sol`:
+
+```solidity title="contracts/Storage.sol"
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.9;
+
+contract Storage {
+    uint256 private storedNumber;
+
+    function store(uint256 num) public {
+        storedNumber = num;
+    }
+
+    function retrieve() public view returns (uint256) {
+        return storedNumber;
+    }
+}
+```
+
+Create a compilation script `compile.js`:
+
+```javascript title="compile.js"
+const solc = require('solc');
+const { readFileSync, writeFileSync } = require('fs');
+const { basename, join } = require('path');
+
+const compileContract = async (solidityFilePath, outputDir) => {
+  try {
+    // Read the Solidity file
+    const source = readFileSync(solidityFilePath, 'utf8');
+
+    // Construct the input object for the compiler
+    const input = {
+      language: 'Solidity',
+      sources: {
+        [basename(solidityFilePath)]: { content: source },
+      },
+      settings: {
+        outputSelection: {
+          '*': {
+            '*': ['*'],
+          },
+        },
+      },
+    };
+
+    console.log(`Compiling contract: ${basename(solidityFilePath)}...`);
+
+    // Compile the contract
+    const output = JSON.parse(solc.compile(JSON.stringify(input)));
+
+    if (output.errors) {
+      output.errors.forEach(error => {
+        console.error('Compilation error:', error.message);
+      });
+      return;
+    }
+
+    for (const contracts of Object.values(output.contracts)) {
+      for (const [name, contract] of Object.entries(contracts)) {
+        console.log(`Compiled contract: ${name}`);
+
+        // Write the ABI
+        const abiPath = join(outputDir, `${name}.json`);
+        writeFileSync(abiPath, JSON.stringify(contract.abi, null, 2));
+        console.log(`ABI saved to ${abiPath}`);
+
+        // Write the bytecode
+        const bytecodePath = join(outputDir, `${name}.bin`);
+        writeFileSync(bytecodePath, 
+            Buffer.from(
+                contract.evm.bytecode.object,
+                'hex'
+            ));
+        console.log(`Bytecode saved to ${bytecodePath}`);
+      }
+    }
+  } catch (error) {
+    console.error('Error compiling contracts:', error);
+  }
+};
+
+const solidityFilePath = join(__dirname, 'contracts/Storage.sol');
+const outputDir = join(__dirname, 'contracts');
+
+compileContract(solidityFilePath, outputDir);
+```
+
+Run the compilation:
+
+```bash
+node compile.js
+```
+
+### Deploy the Contract
+
+Create a deployment script `deploy.js`:
+
+```javascript title="deploy.js"
+const { writeFileSync, existsSync, readFileSync } = require('fs');
+const { join } = require('path');
+const { ethers, JsonRpcProvider } = require('ethers');
+
+const codegenDir = join(__dirname);
+
+// Creates a provider with specified RPC URL and chain details
+const createProvider = (rpcUrl, chainId, chainName) => {
+  const provider = new JsonRpcProvider(rpcUrl, {
+    chainId: chainId,
+    name: chainName,
+  });
+  return provider;
+};
+
+// Reads and parses the ABI file for a given contract
+const getAbi = (contractName) => {
+  try {
+    return JSON.parse(
+      readFileSync(join(codegenDir, 'contracts', `${contractName}.json`), 'utf8'),
+    );
+  } catch (error) {
+    console.error(
+      `Could not find ABI for contract ${contractName}:`,
+      error.message,
+    );
+    throw error;
+  }
+};
+
+// Reads the compiled bytecode for a given contract
+const getByteCode = (contractName) => {
+  try {
+    const bytecodePath = join(
+      codegenDir,
+      'contracts',
+      `${contractName}.bin`,
+    );
+    return `0x${readFileSync(bytecodePath).toString('hex')}`;
+  } catch (error) {
+    console.error(
+      `Could not find bytecode for contract ${contractName}:`,
+      error.message,
+    );
+    throw error;
+  }
+};
+
+const deployContract = async (contractName, mnemonic, providerConfig) => {
+  console.log(`Deploying ${contractName}...`);
+
+  try {
+    // Step 1: Set up provider and wallet
+    const provider = createProvider(
+      providerConfig.rpc,
+      providerConfig.chainId,
+      providerConfig.name,
+    );
+    const walletMnemonic = ethers.Wallet.fromPhrase(mnemonic);
+    const wallet = walletMnemonic.connect(provider);
+
+    // Step 2: Create and deploy the contract
+    const factory = new ethers.ContractFactory(
+      getAbi(contractName),
+      getByteCode(contractName),
+      wallet,
+    );
+    const contract = await factory.deploy();
+    await contract.waitForDeployment();
+
+    // Step 3: Save deployment information
+    const address = await contract.getAddress();
+    console.log(`Contract ${contractName} deployed at: ${address}`);
+
+    const addressesFile = join(codegenDir, 'contract-address.json');
+    const addresses = existsSync(addressesFile)
+      ? JSON.parse(readFileSync(addressesFile, 'utf8'))
+      : {};
+    addresses[contractName] = address;
+    writeFileSync(addressesFile, JSON.stringify(addresses, null, 2), 'utf8');
+  } catch (error) {
+    console.error(`Failed to deploy contract ${contractName}:`, error);
+  }
+};
+
+const providerConfig = {
+  rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
+  chainId: 420420422,
+  name: 'polkadot-hub-testnet',
+};
+
+const mnemonic = 'INSERT_MNEMONIC';
+
+deployContract('Storage', mnemonic, providerConfig);
+```
+
+Replace the `INSERT_MNEMONIC` placeholder with your actual mnemonic.
+
+Execute the deployment:
+
+```bash
+node deploy.js
+```
+
+After running this script, your contract will be deployed to Polkadot Hub, and its address will be saved in `contract-address.json` within your project directory. You can use this address for future contract interactions.
+
+### Next Steps
+
+- Deploy an ERC-20 token on Polkadot Hub, either using the [Deploy an ERC-20](/smart-contracts/cookbook/smart-contracts/deploy-erc20) guide or the [Deploy an ERC-20 to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-erc20) guide.
+- Deploy an NFT on Polkadot Hub, either using the [Deploy an NFT](/smart-contracts/cookbook/smart-contracts/deploy-nft) guide or the [Deploy an NFT to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-nft) guide.
+- Check out in details each [development environment](/smart-contracts/dev-environments/).
 
 
 ---
@@ -14476,6 +16163,110 @@ An Asset Hub instance is now running locally, and you can proceed with the asset
 
 ---
 
+Page Title: Remix IDE
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-basic-contract-deploy-basic-remix.md
+- Canonical (HTML): https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-basic-contract/deploy-basic-remix/
+- Summary: Learn how to deploy a basic smart contract to Polkadot Hub using Remix IDE Ideal for rapid prototyping, learning, and visual development.
+
+[Remix IDE](https://remix.live/){target=\_blank} offers a visual, browser-based environment perfect for rapid prototyping and learning. It requires no local installation and provides an intuitive interface for contract development.
+
+**Prerequisites:**
+
+- Basic understanding of Solidity programming.
+- Test tokens for gas fees (available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}).
+- A wallet with a private key for signing transactions.
+
+### Access Remix
+
+Navigate to [https://remix.polkadot.io/](https://remix.polkadot.io/){target=\_blank} in your web browser.
+
+The interface will load with a default workspace containing sample contracts. In this interface, you can access a file explorer, edit your code, interact with various plugins for development, and use a terminal. By default, you will see the `contracts` folder with the `Storage.sol` file:
+
+![](/images/smart-contracts/cookbook/smart-contracts/deploy-basic/deploy-basic-pvm/deploy-basic-pvm-01.webp)
+
+### Compile
+
+1. To compile your contract:
+    1. Navigate to the **Solidity Compiler** tab, which is the third icon in the left sidebar.
+    2. Click **Compile Storage.sol** or press `Ctrl+S`.
+
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-basic/deploy-basic-pvm/deploy-basic-pvm-02.webp)
+
+Compilation errors and warnings appear in the terminal panel at the bottom of the screen.
+
+### Deploy
+
+1. Navigate to the **Deploy & Run Transactions** tab.
+2. Click the **Environment** dropdown and select **Injected Provider - MetaMask** (ensure your MetaMask wallet is connected to Polkadot Hub TestNet).
+3. Click **Deploy**.
+4. Approve the transaction in your MetaMask wallet.
+
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-basic/deploy-basic-pvm/deploy-basic-pvm-03.webp)
+
+Your deployed contract will appear in the **Deployed Contracts** section, ready for interaction.
+
+### Next Steps
+
+- Deploy an ERC-20 token on Polkadot Hub, either using the [Deploy an ERC-20](/smart-contracts/cookbook/smart-contracts/deploy-erc20) guide or the [Deploy an ERC-20 to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-erc20) guide.
+- Deploy an NFT on Polkadot Hub, either using the [Deploy an NFT](/smart-contracts/cookbook/smart-contracts/deploy-nft) guide or the [Deploy an NFT to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-nft) guide.
+- Check out in details each [development environment](/smart-contracts/dev-environments/).
+
+
+---
+
+Page Title: Remix IDE
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-basic-contract-evm-deploy-basic-remix.md
+- Canonical (HTML): https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-basic-contract-evm/deploy-basic-remix/
+- Summary: Learn how to deploy a basic smart contract to Polkadot Hub using Remix IDE Ideal for rapid prototyping, learning, and visual development.
+
+[Remix IDE](https://remix.live/){target=\_blank} offers a visual, browser-based environment perfect for rapid prototyping and learning. It requires no local installation and provides an intuitive interface for contract development.
+
+**Prerequisites:**
+
+- Basic understanding of Solidity programming.
+- Test tokens for gas fees (available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}).
+- A wallet with a private key for signing transactions.
+
+### Access Remix
+
+Navigate to [https://remix.polkadot.io/](https://remix.polkadot.io/){target=\_blank} in your web browser.
+
+The interface will load with a default workspace containing sample contracts. In this interface, you can access a file explorer, edit your code, interact with various plugins for development, and use a terminal. By default, you will see the `contracts` folder with the `Storage.sol` file:
+
+![](/images/smart-contracts/cookbook/smart-contracts/deploy-basic/deploy-basic-pvm/deploy-basic-pvm-01.webp)
+
+### Compile
+
+1. To compile your contract:
+    1. Navigate to the **Solidity Compiler** tab, which is the third icon in the left sidebar.
+    2. Click **Compile Storage.sol** or press `Ctrl+S`.
+
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-basic/deploy-basic-pvm/deploy-basic-pvm-02.webp)
+
+Compilation errors and warnings appear in the terminal panel at the bottom of the screen.
+
+### Deploy
+
+1. Navigate to the **Deploy & Run Transactions** tab.
+2. Click the **Environment** dropdown and select **Injected Provider - MetaMask** (ensure your MetaMask wallet is connected to Polkadot Hub TestNet).
+3. Click **Deploy**.
+4. Approve the transaction in your MetaMask wallet.
+
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-basic/deploy-basic-pvm/deploy-basic-pvm-03.webp)
+
+Your deployed contract will appear in the **Deployed Contracts** section, ready for interaction.
+
+### Next Steps
+
+- Deploy an ERC-20 token on Polkadot Hub, either using the [Deploy an ERC-20](/smart-contracts/cookbook/smart-contracts/deploy-erc20) guide or the [Deploy an ERC-20 to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-erc20) guide.
+- Deploy an NFT on Polkadot Hub, either using the [Deploy an NFT](/smart-contracts/cookbook/smart-contracts/deploy-nft) guide or the [Deploy an NFT to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-nft) guide.
+- Check out in details each [development environment](/smart-contracts/dev-environments/).
+
+
+---
+
 Page Title: Send XCM Messages
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-interoperability-send-messages.md
@@ -14561,8 +16352,7 @@ The [`XcmRouter`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pa
 For instance, the Kusama network employs the [`ChildParachainRouter`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_common/xcm_sender/struct.ChildParachainRouter.html){target=\_blank}, which restricts routing to [Downward Message Passing (DMP)](https://wiki.polkadot.com/learn/learn-xcm-transport/#dmp-downward-message-passing){target=\_blank} from the relay chain to parachains, ensuring secure and controlled communication.
 
 ```rust
-pub type PriceForChildParachainDelivery =
-	ExponentialPrice<FeeAssetId, BaseDeliveryFee, TransactionByteFee, Dmp>;
+
 ```
 
 For more details about XCM transport protocols, see the [XCM Channels](/develop/interoperability/xcm-channels/){target=\_blank} page.
@@ -15688,27 +17478,7 @@ The `xcm-emulator` provides macros for defining a mocked testing environment. Ch
 - **[`decl_test_relay_chains`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/cumulus/xcm/xcm-emulator/src/lib.rs#L361){target=\_blank}**: Defines runtime and configuration for the relay chains. Example:
 
     ```rust
-    decl_test_relay_chains! {
-    	#[api_version(13)]
-    	pub struct Westend {
-    		genesis = genesis::genesis(),
-    		on_init = (),
-    		runtime = westend_runtime,
-    		core = {
-    			SovereignAccountOf: westend_runtime::xcm_config::LocationConverter,
-    		},
-    		pallets = {
-    			XcmPallet: westend_runtime::XcmPallet,
-    			Sudo: westend_runtime::Sudo,
-    			Balances: westend_runtime::Balances,
-    			Treasury: westend_runtime::Treasury,
-    			AssetRate: westend_runtime::AssetRate,
-    			Hrmp: westend_runtime::Hrmp,
-    			Identity: westend_runtime::Identity,
-    			IdentityMigrator: westend_runtime::IdentityMigrator,
-    		}
-    	},
-    }
+    
     ```
 
 - **[`decl_test_parachains`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/cumulus/xcm/xcm-emulator/src/lib.rs#L596){target=\_blank}**: Defines runtime and configuration for parachains. Example:
@@ -15745,38 +17515,13 @@ The `xcm-emulator` provides macros for defining a mocked testing environment. Ch
 - **[`decl_test_bridges`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/cumulus/xcm/xcm-emulator/src/lib.rs#L1221){target=\_blank}**: Creates bridges between chains, specifying the source, target, and message handler. Example:
 
     ```rust
-    decl_test_bridges! {
-    	pub struct RococoWestendMockBridge {
-    		source = BridgeHubRococoPara,
-    		target = BridgeHubWestendPara,
-    		handler = RococoWestendMessageHandler
-    	},
-    	pub struct WestendRococoMockBridge {
-    		source = BridgeHubWestendPara,
-    		target = BridgeHubRococoPara,
-    		handler = WestendRococoMessageHandler
-    	}
-    }
+    
     ```
 
 - **[`decl_test_networks`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/cumulus/xcm/xcm-emulator/src/lib.rs#L958){target=\_blank}**: Defines a testing network with relay chains, parachains, and bridges, implementing message transport and processing logic. Example:
 
     ```rust
-    decl_test_networks! {
-    	pub struct WestendMockNet {
-    		relay_chain = Westend,
-    		parachains = vec![
-    			AssetHubWestend,
-    			BridgeHubWestend,
-    			CollectivesWestend,
-    			CoretimeWestend,
-    			PeopleWestend,
-    			PenpalA,
-    			PenpalB,
-    		],
-    		bridge = ()
-    	},
-    }
+    
     ```
 
 By leveraging these macros, developers can customize their testing networks by defining relay chains and parachains tailored to their needs. For guidance on implementing a mock runtime for a Polkadot SDK-based chain, refer to the [Pallet Testing](/parachains/customize-runtime/pallet-development/pallet-testing/){target=\_blank} article. 
@@ -22762,7 +24507,7 @@ This API can be used independently for dry-running, double-checking, or testing.
 This API allows a dry-run of any extrinsic and obtaining the outcome if it fails or succeeds, as well as the local xcm and remote xcm messages sent to other chains.
 
 ```rust
-fn dry_run_call(origin: OriginCaller, call: Call, result_xcms_version: XcmVersion) -> Result<CallDryRunEffects<Event>, Error>;
+
 ```
 
 ??? interface "Input parameters"
@@ -23039,7 +24784,7 @@ fn dry_run_call(origin: OriginCaller, call: Call, result_xcms_version: XcmVersio
 This API allows the direct dry-run of an xcm message instead of an extrinsic one, checks if it will execute successfully, and determines what other xcm messages will be forwarded to other chains.
 
 ```rust
-fn dry_run_xcm(origin_location: VersionedLocation, xcm: VersionedXcm<Call>) -> Result<XcmDryRunEffects<Event>, Error>;
+
 ```
 
 ??? interface "Input parameters"
@@ -23270,7 +25015,7 @@ To use the API effectively, the client must already know the XCM program to be e
 Retrieves the list of assets that are acceptable for paying fees when using a specific XCM version
 
 ```rust
-fn query_acceptable_payment_assets(xcm_version: Version) -> Result<Vec<VersionedAssetId>, Error>;
+
 ```
 
 ??? interface "Input parameters"
@@ -23358,7 +25103,7 @@ fn query_acceptable_payment_assets(xcm_version: Version) -> Result<Vec<Versioned
 Calculates the weight required to execute a given XCM message. It is useful for estimating the execution cost of a cross-chain message in the destination chain before sending it.
 
 ```rust
-fn query_xcm_weight(message: VersionedXcm<()>) -> Result<Weight, Error>;
+
 ```
 
 ??? interface "Input parameters"
@@ -23501,7 +25246,7 @@ fn query_xcm_weight(message: VersionedXcm<()>) -> Result<Weight, Error>;
 Converts a given weight into the corresponding fee for a specified `AssetId`. It allows clients to determine the cost of execution in terms of the desired asset.
 
 ```rust
-fn query_weight_to_asset_fee(weight: Weight, asset: VersionedAssetId) -> Result<u128, Error>;
+
 ```
 
 ??? interface "Input parameters"
@@ -23606,7 +25351,7 @@ fn query_weight_to_asset_fee(weight: Weight, asset: VersionedAssetId) -> Result<
 Retrieves the delivery fees for sending a specific XCM message to a designated destination. The fees are always returned in a specific asset defined by the destination chain.
 
 ```rust
-fn query_delivery_fees(destination: VersionedLocation, message: VersionedXcm<()>) -> Result<VersionedAssets, Error>;
+
 ```
 
 ??? interface "Input parameters"

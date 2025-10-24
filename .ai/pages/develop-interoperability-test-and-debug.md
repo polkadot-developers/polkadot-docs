@@ -51,27 +51,7 @@ The `xcm-emulator` provides macros for defining a mocked testing environment. Ch
 - **[`decl_test_relay_chains`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/cumulus/xcm/xcm-emulator/src/lib.rs#L361){target=\_blank}**: Defines runtime and configuration for the relay chains. Example:
 
     ```rust
-    decl_test_relay_chains! {
-    	#[api_version(13)]
-    	pub struct Westend {
-    		genesis = genesis::genesis(),
-    		on_init = (),
-    		runtime = westend_runtime,
-    		core = {
-    			SovereignAccountOf: westend_runtime::xcm_config::LocationConverter,
-    		},
-    		pallets = {
-    			XcmPallet: westend_runtime::XcmPallet,
-    			Sudo: westend_runtime::Sudo,
-    			Balances: westend_runtime::Balances,
-    			Treasury: westend_runtime::Treasury,
-    			AssetRate: westend_runtime::AssetRate,
-    			Hrmp: westend_runtime::Hrmp,
-    			Identity: westend_runtime::Identity,
-    			IdentityMigrator: westend_runtime::IdentityMigrator,
-    		}
-    	},
-    }
+    
     ```
 
 - **[`decl_test_parachains`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/cumulus/xcm/xcm-emulator/src/lib.rs#L596){target=\_blank}**: Defines runtime and configuration for parachains. Example:
@@ -108,38 +88,13 @@ The `xcm-emulator` provides macros for defining a mocked testing environment. Ch
 - **[`decl_test_bridges`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/cumulus/xcm/xcm-emulator/src/lib.rs#L1221){target=\_blank}**: Creates bridges between chains, specifying the source, target, and message handler. Example:
 
     ```rust
-    decl_test_bridges! {
-    	pub struct RococoWestendMockBridge {
-    		source = BridgeHubRococoPara,
-    		target = BridgeHubWestendPara,
-    		handler = RococoWestendMessageHandler
-    	},
-    	pub struct WestendRococoMockBridge {
-    		source = BridgeHubWestendPara,
-    		target = BridgeHubRococoPara,
-    		handler = WestendRococoMessageHandler
-    	}
-    }
+    
     ```
 
 - **[`decl_test_networks`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/cumulus/xcm/xcm-emulator/src/lib.rs#L958){target=\_blank}**: Defines a testing network with relay chains, parachains, and bridges, implementing message transport and processing logic. Example:
 
     ```rust
-    decl_test_networks! {
-    	pub struct WestendMockNet {
-    		relay_chain = Westend,
-    		parachains = vec![
-    			AssetHubWestend,
-    			BridgeHubWestend,
-    			CollectivesWestend,
-    			CoretimeWestend,
-    			PeopleWestend,
-    			PenpalA,
-    			PenpalB,
-    		],
-    		bridge = ()
-    	},
-    }
+    
     ```
 
 By leveraging these macros, developers can customize their testing networks by defining relay chains and parachains tailored to their needs. For guidance on implementing a mock runtime for a Polkadot SDK-based chain, refer to the [Pallet Testing](/parachains/customize-runtime/pallet-development/pallet-testing/){target=\_blank} article. 

@@ -2653,9 +2653,7 @@ To integrate this component to your dApp, you need to overwrite the existing boi
 
 ```javascript title="app/page.js"
 
-import { useState } from 'react';
 
-import WalletConnect from './components/WalletConnect';
 export default function Home() {
   const [account, setAccount] = useState(null);
 
@@ -2868,47 +2866,7 @@ npm install --save-dev typescript @types/node
 To interact with Polkadot Hub, you need to set up a [Public Client](https://viem.sh/docs/clients/public#public-client){target=\_blank} that connects to the blockchain. In this example, you will interact with the Polkadot Hub TestNet, so you can experiment safely. Start by creating a new file called `utils/viem.ts` and add the following code:
 
 ```typescript title="viem.ts"
-import { createPublicClient, http, createWalletClient, custom } from 'viem'
-import 'viem/window';
 
-
-const transport = http('https://testnet-passet-hub-eth-rpc.polkadot.io')
-
-// Configure the Passet Hub chain
-export const passetHub = {
-  id: 420420422,
-  name: 'Passet Hub',
-  network: 'passet-hub',
-  nativeCurrency: {
-    decimals: 18,
-    name: 'PAS',
-    symbol: 'PAS',
-  },
-  rpcUrls: {
-    default: {
-      http: ['https://testnet-passet-hub-eth-rpc.polkadot.io'],
-    },
-  },
-} as const
-
-// Create a public client for reading data
-export const publicClient = createPublicClient({
-  chain: passetHub,
-  transport
-})
-
-// Create a wallet client for signing transactions
-export const getWalletClient = async () => {
-  if (typeof window !== 'undefined' && window.ethereum) {
-    const [account] = await window.ethereum.request({ method: 'eth_requestAccounts' });
-    return createWalletClient({
-      chain: passetHub,
-      transport: custom(window.ethereum),
-      account,
-    });
-  }
-  throw new Error('No Ethereum browser provider detected');
-};
 ```
 
 This file initializes a viem client, providing helper functions for obtaining a Public Client and a [Wallet Client](https://viem.sh/docs/clients/wallet#wallet-client){target=\_blank}. The Public Client enables reading blockchain data, while the Wallet Client allows users to sign and send transactions. Also, note that by importing `'viem/window'` the global `window.ethereum` will be typed as an `EIP1193Provider`, check the [`window` Polyfill](https://viem.sh/docs/typescript#window-polyfill){target=\_blank} reference for more information.
@@ -2927,31 +2885,7 @@ Create a folder called `abis` at the root of your project, then create a file na
 Next, create a file called `utils/contract.ts`:
 
 ```typescript title="contract.ts"
-import { getContract } from 'viem';
-import { publicClient, getWalletClient } from './viem';
-import StorageABI from '../../abis/Storage.json';
 
-export const CONTRACT_ADDRESS = '0x58053f0e8ede1a47a1af53e43368cd04ddcaf66f';
-export const CONTRACT_ABI = StorageABI;
-
-// Create a function to get a contract instance for reading
-export const getContractInstance = () => {
-  return getContract({
-    address: CONTRACT_ADDRESS,
-    abi: CONTRACT_ABI,
-    client: publicClient,
-  });
-};
-
-// Create a function to get a contract instance with a signer for writing
-export const getSignedContract = async () => {
-  const walletClient = await getWalletClient();
-  return getContract({
-    address: CONTRACT_ADDRESS,
-    abi: CONTRACT_ABI,
-    client: walletClient,
-  });
-};
 ```
 
 This file defines the contract address, ABI, and functions to create a viem [contract instance](https://viem.sh/docs/contract/getContract#contract-instances){target=\_blank} for reading and writing operations. viem's contract utilities ensure a more efficient and type-safe interaction with smart contracts.
@@ -3013,7 +2947,223 @@ And you will see in your browser:
 Finally, let's create a component that allows users to update the stored number. Create a file called `components/WriteContract.tsx`:
 
 ```typescript title="WriteContract.tsx"
+"use client";
 
+import React, { useState, useEffect } from "react";
+import { publicClient, getWalletClient } from "../utils/viem";
+import { CONTRACT_ADDRESS, CONTRACT_ABI } from "../utils/contract";
+
+interface WriteContractProps {
+  account: string | null;
+}
+
+const WriteContract: React.FC<WriteContractProps> = ({ account }) => {
+  const [newNumber, setNewNumber] = useState<string>("");
+  const [status, setStatus] = useState<{
+    type: string | null;
+    message: string;
+  }>({
+    type: null,
+    message: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [isCorrectNetwork, setIsCorrectNetwork] = useState<boolean>(true);
+
+  // Check if the account is on the correct network
+  useEffect(() => {
+    const checkNetwork = async () => {
+      if (!account) return;
+
+      try {
+        // Get the chainId from the public client
+        const chainId = await publicClient.getChainId();
+
+        // Get the user's current chainId from their wallet
+        const walletClient = await getWalletClient();
+        if (!walletClient) return;
+
+        const walletChainId = await walletClient.getChainId();
+
+        // Check if they match
+        setIsCorrectNetwork(chainId === walletChainId);
+      } catch (err) {
+        console.error("Error checking network:", err);
+        setIsCorrectNetwork(false);
+      }
+    };
+
+    checkNetwork();
+  }, [account]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // Validation checks
+    if (!account) {
+      setStatus({ type: "error", message: "Please connect your wallet first" });
+      return;
+    }
+
+    if (!isCorrectNetwork) {
+      setStatus({
+        type: "error",
+        message: "Please switch to the correct network in your wallet",
+      });
+      return;
+    }
+
+    if (!newNumber || isNaN(Number(newNumber))) {
+      setStatus({ type: "error", message: "Please enter a valid number" });
+      return;
+    }
+
+    try {
+      setIsSubmitting(true);
+      setStatus({ type: "info", message: "Initiating transaction..." });
+
+      // Get wallet client for transaction signing
+      const walletClient = await getWalletClient();
+
+      if (!walletClient) {
+        setStatus({ type: "error", message: "Wallet client not available" });
+        return;
+      }
+
+      // Check if account matches
+      if (
+        walletClient.account?.address.toLowerCase() !== account.toLowerCase()
+      ) {
+        setStatus({
+          type: "error",
+          message:
+            "Connected wallet account doesn't match the selected account",
+        });
+        return;
+      }
+
+      // Prepare transaction and wait for user confirmation in wallet
+      setStatus({
+        type: "info",
+        message: "Please confirm the transaction in your wallet...",
+      });
+
+      // Simulate the contract call first
+      console.log('newNumber', newNumber);
+      const { request } = await publicClient.simulateContract({
+        address: CONTRACT_ADDRESS,
+        abi: CONTRACT_ABI,
+        functionName: "setNumber",
+        args: [BigInt(newNumber)],
+        account: walletClient.account,
+      });
+
+      // Send the transaction with wallet client
+      const hash = await walletClient.writeContract(request);
+
+      // Wait for transaction to be mined
+      setStatus({
+        type: "info",
+        message: "Transaction submitted. Waiting for confirmation...",
+      });
+
+      const receipt = await publicClient.waitForTransactionReceipt({
+        hash,
+      });
+
+      setStatus({
+        type: "success",
+        message: `Transaction confirmed! Transaction hash: ${receipt.transactionHash}`,
+      });
+
+      setNewNumber("");
+    } catch (err: any) {
+      console.error("Error updating number:", err);
+
+      // Handle specific errors
+      if (err.code === 4001) {
+        // User rejected transaction
+        setStatus({ type: "error", message: "Transaction rejected by user." });
+      } else if (err.message?.includes("Account not found")) {
+        // Account not found on the network
+        setStatus({
+          type: "error",
+          message:
+            "Account not found on current network. Please check your wallet is connected to the correct network.",
+        });
+      } else if (err.message?.includes("JSON is not a valid request object")) {
+        // JSON error - specific to your current issue
+        setStatus({
+          type: "error",
+          message:
+            "Invalid request format. Please try again or contact support.",
+        });
+      } else {
+        // Other errors
+        setStatus({
+          type: "error",
+          message: `Error: ${err.message || "Failed to send transaction"}`,
+        });
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <div className="border border-pink-500 rounded-lg p-4 shadow-md bg-white text-pink-500 max-w-sm mx-auto space-y-4">
+      <h2 className="text-lg font-bold">Update Stored Number</h2>
+
+      {!isCorrectNetwork && account && (
+        <div className="p-2 rounded-md bg-yellow-100 text-yellow-700 text-sm">
+          ⚠️ You are not connected to the correct network. Please switch
+          networks in your wallet.
+        </div>
+      )}
+
+      {status.message && (
+        <div
+          className={`p-2 rounded-md break-words h-fit text-sm ${
+            status.type === "error"
+              ? "bg-red-100 text-red-500"
+              : status.type === "success"
+              ? "bg-green-100 text-green-700"
+              : "bg-blue-100 text-blue-700"
+          }`}
+        >
+          {status.message}
+        </div>
+      )}
+
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <input
+          type="number"
+          placeholder="New Number"
+          value={newNumber}
+          onChange={(e) => setNewNumber(e.target.value)}
+          disabled={isSubmitting || !account}
+          className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-pink-400"
+        />
+        <button
+          type="submit"
+          disabled={
+            isSubmitting || !account || (!isCorrectNetwork && !!account)
+          }
+          className="w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-lg transition disabled:bg-gray-300"
+        >
+          {isSubmitting ? "Updating..." : "Update"}
+        </button>
+      </form>
+
+      {!account && (
+        <p className="text-sm text-gray-500">
+          Connect your wallet to update the stored number.
+        </p>
+      )}
+    </div>
+  );
+};
+
+export default WriteContract;
 ```
 
 This component allows users to input a new number and send a transaction to update the value stored in the contract. It provides appropriate feedback during each step of the transaction process and handles error scenarios.
@@ -3179,7 +3329,27 @@ To build the smart contract, follow the steps below:
 6. Add the getter and setter functions:
 
     ```solidity
-    
+    // SPDX-License-Identifier: MIT
+    pragma solidity ^0.8.28;
+
+    contract Storage {
+        // State variable to store our number
+        uint256 private number;
+
+        // Event to notify when the number changes
+        event NumberChanged(uint256 newNumber);
+
+        // Function to store a new number
+        function store(uint256 newNumber) public {
+            number = newNumber;
+            emit NumberChanged(newNumber);
+        }
+
+        // Function to retrieve the stored number
+        function retrieve() public view returns (uint256) {
+            return number;
+        }
+    }
     ```
 
 ??? code "Complete Storage.sol contract"
@@ -26596,7 +26766,42 @@ Let's start by setting up Hardhat for your Storage contract project:
 6. Configure Hardhat by updating the `hardhat.config.js` file:
 
     ```javascript title="hardhat.config.js"
-    
+    require("@nomicfoundation/hardhat-toolbox");
+
+    require("@parity/hardhat-polkadot");
+
+    const { vars } = require("hardhat/config");
+
+    /** @type import('hardhat/config').HardhatUserConfig */
+    module.exports = {
+      solidity: "0.8.28",
+      resolc: {
+        compilerSource: "npm",
+      },
+      networks: {
+        hardhat: {
+          polkavm: true,
+          nodeConfig: {
+            nodeBinaryPath: 'INSERT_PATH_TO_SUBSTRATE_NODE',
+            rpcPort: 8000,
+            dev: true,
+          },
+          adapterConfig: {
+            adapterBinaryPath: 'INSERT_PATH_TO_ETH_RPC_ADAPTER',
+            dev: true,
+          },
+        },
+        localNode: {
+          polkavm: true,
+          url: `http://127.0.0.1:8545`,
+        },
+        passetHub: {
+          polkavm: true,
+          url: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
+          accounts: [vars.get("PRIVATE_KEY")],
+        },
+      },
+    };
     ```
 
     Ensure that `INSERT_PATH_TO_SUBSTRATE_NODE` and `INSERT_PATH_TO_ETH_RPC_ADAPTER` are replaced with the proper paths to the compiled binaries. 
@@ -26654,8 +26859,7 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
     ```javascript title="Storage.js" 
     
         // Add your logic here
-    });
-    });
+    
     ```
 
     The `beforeEach` hook ensures stateless contract execution by redeploying a fresh instance of the Storage contract before each test case. This approach guarantees that each test starts with a clean and independent contract state by using `ethers.getSigners()` to obtain test accounts and `ethers.getContractFactory('Storage').deploy()` to create a new contract instance.
@@ -26977,24 +27181,38 @@ The `xcm-emulator` provides macros for defining a mocked testing environment. Ch
 - **[`decl_test_parachains`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/cumulus/xcm/xcm-emulator/src/lib.rs#L596){target=\_blank}**: Defines runtime and configuration for parachains. Example:
 
     ```rust
-    
+    decl_test_parachains! {
+    	pub struct AssetHubWestend {
+    		genesis = genesis::genesis(),
+    		on_init = {
+    			asset_hub_westend_runtime::AuraExt::on_initialize(1);
+    		},
+    		runtime = asset_hub_westend_runtime,
+    		core = {
+    			XcmpMessageHandler: asset_hub_westend_runtime::XcmpQueue,
+    			LocationToAccountId: asset_hub_westend_runtime::xcm_config::LocationToAccountId,
+    			ParachainInfo: asset_hub_westend_runtime::ParachainInfo,
+    			MessageOrigin: cumulus_primitives_core::AggregateMessageOrigin,
+    			DigestProvider: (),
+    		},
+    		pallets = {
+    			PolkadotXcm: asset_hub_westend_runtime::PolkadotXcm,
+    			Balances: asset_hub_westend_runtime::Balances,
+    			Assets: asset_hub_westend_runtime::Assets,
+    			ForeignAssets: asset_hub_westend_runtime::ForeignAssets,
+    			PoolAssets: asset_hub_westend_runtime::PoolAssets,
+    			AssetConversion: asset_hub_westend_runtime::AssetConversion,
+    			SnowbridgeSystemFrontend: asset_hub_westend_runtime::SnowbridgeSystemFrontend,
+    			Revive: asset_hub_westend_runtime::Revive,
+    		}
+    	},
+    }
     ```
 
 - **[`decl_test_bridges`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/cumulus/xcm/xcm-emulator/src/lib.rs#L1221){target=\_blank}**: Creates bridges between chains, specifying the source, target, and message handler. Example:
 
     ```rust
-    decl_test_bridges! {
-    	pub struct RococoWestendMockBridge {
-    		source = BridgeHubRococoPara,
-    		target = BridgeHubWestendPara,
-    		handler = RococoWestendMessageHandler
-    	},
-    	pub struct WestendRococoMockBridge {
-    		source = BridgeHubWestendPara,
-    		target = BridgeHubRococoPara,
-    		handler = WestendRococoMessageHandler
-    	}
-    }
+    
     ```
 
 - **[`decl_test_networks`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/cumulus/xcm/xcm-emulator/src/lib.rs#L958){target=\_blank}**: Defines a testing network with relay chains, parachains, and bridges, implementing message transport and processing logic. Example:

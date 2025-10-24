@@ -114,9 +114,7 @@ To integrate this component to your dApp, you need to overwrite the existing boi
 
 ```javascript title="app/page.js"
 
-import { useState } from 'react';
 
-import WalletConnect from './components/WalletConnect';
 export default function Home() {
   const [account, setAccount] = useState(null);
 

@@ -6,7 +6,7 @@
 This directory lists URLs for raw Markdown pages that complement the rendered pages on the documentation site. Use these Markdown files to retain semantic context when prompting models while avoiding passing HTML elements.
 
 ## Metadata
-- Documentation pages: 294
+- Documentation pages: 298
 - Categories: 12
 
 ## Docs
@@ -101,6 +101,10 @@ Docs: Smart Contracts
 - [Foundry](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-basic-contract-deploy-basic-foundry.md): Learn how to deploy a basic smart contract to Polkadot Hub using Foundry, excellent for developers who prefer fast, command-line driven development.
 - [hardhat](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-basic-contract-deploy-basic-hardhat.md): Learn how to deploy a basic smart contract to Polkadot Hub using Hardhat, Perfect for professional workflows requiring comprehensive testing and debugging.
 - [Remix IDE](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-basic-contract-deploy-basic-remix.md): Learn how to deploy a basic smart contract to Polkadot Hub using Remix IDE Ideal for rapid prototyping, learning, and visual development.
+- [JavaScript with Ethers.js](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-basic-contract-evm-deploy-basic-ethers-js.md): Learn how to deploy a basic smart contract to Polkadot Hub using Ethers.js, best for lightweight, programmatic deployments and application integration.
+- [Foundry](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-basic-contract-evm-deploy-basic-foundry.md): Learn how to deploy a basic smart contract to Polkadot Hub using Foundry, excellent for developers who prefer fast, command-line driven development.
+- [hardhat](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-basic-contract-evm-deploy-basic-hardhat.md): Learn how to deploy a basic smart contract to Polkadot Hub using Hardhat, Perfect for professional workflows requiring comprehensive testing and debugging.
+- [Remix IDE](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-basic-contract-evm-deploy-basic-remix.md): Learn how to deploy a basic smart contract to Polkadot Hub using Remix IDE Ideal for rapid prototyping, learning, and visual development.
 - [Deploy a Basic Contract to EVM](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-basic-evm.md): Learn how to deploy a basic smart contract to Polkadot Hub using standard EVM tools and toolchains.
 - [Deploy a Basic Contract to Polkadot Hub](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-basic-pvm.md): Learn how to deploy a basic smart contract to Polkadot Hub using the PolkaVM.
 - [Deploy an ERC-20 to Polkadot Hub](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-erc20.md): Deploy an ERC-20 token on Polkadot Hub using PolkaVM. This guide covers contract creation, compilation, deployment, and interaction via Polkadot Remix IDE.

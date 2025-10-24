@@ -17,7 +17,7 @@
       "estimated_token_count_total": 0
     },
     "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
-    "last_modified": "2025-10-23T18:12:20+00:00",
+    "last_modified": "2025-10-24T16:25:46+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -38,7 +38,7 @@
       "estimated_token_count_total": 0
     },
     "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
-    "last_modified": "2025-10-23T18:12:20+00:00",
+    "last_modified": "2025-10-24T16:25:46+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -59,7 +59,7 @@
       "estimated_token_count_total": 0
     },
     "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
-    "last_modified": "2025-10-23T18:12:20+00:00",
+    "last_modified": "2025-10-24T16:25:46+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -80,7 +80,7 @@
       "estimated_token_count_total": 0
     },
     "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
-    "last_modified": "2025-10-23T18:12:20+00:00",
+    "last_modified": "2025-10-24T16:25:46+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -101,7 +101,7 @@
       "estimated_token_count_total": 0
     },
     "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
-    "last_modified": "2025-10-23T18:12:20+00:00",
+    "last_modified": "2025-10-24T16:25:46+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -122,7 +122,7 @@
       "estimated_token_count_total": 0
     },
     "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
-    "last_modified": "2025-10-23T18:12:20+00:00",
+    "last_modified": "2025-10-24T16:25:46+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -234,7 +234,7 @@
       "estimated_token_count_total": 4830
     },
     "hash": "sha256:a6bf7623a535e7a9162c0913b07bd59d43c8535025ad8225fb3e5adc83084c7a",
-    "last_modified": "2025-10-23T18:12:20+00:00",
+    "last_modified": "2025-10-24T16:25:46+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -306,7 +306,7 @@
       "estimated_token_count_total": 7755
     },
     "hash": "sha256:086a87823ab67ceac102358030e316583cd733c0ec326316e7f29061fe7f6934",
-    "last_modified": "2025-10-23T18:12:20+00:00",
+    "last_modified": "2025-10-24T16:25:46+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -327,7 +327,7 @@
       "estimated_token_count_total": 0
     },
     "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
-    "last_modified": "2025-10-23T18:12:20+00:00",
+    "last_modified": "2025-10-24T16:25:46+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -389,7 +389,7 @@
       "estimated_token_count_total": 5207
     },
     "hash": "sha256:91f59a76dd33641ca2b5bf6d58230f65034fa3cc5f8313525fb57e854a878a56",
-    "last_modified": "2025-10-23T18:12:20+00:00",
+    "last_modified": "2025-10-24T16:25:46+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -481,7 +481,7 @@
       "estimated_token_count_total": 2132
     },
     "hash": "sha256:1b9efd2fe00b251d3b4054c9cfcb55f9b5a1384238eeaca81a6f1542fc36d75c",
-    "last_modified": "2025-10-23T18:12:20+00:00",
+    "last_modified": "2025-10-24T16:25:46+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -502,7 +502,7 @@
       "estimated_token_count_total": 0
     },
     "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
-    "last_modified": "2025-10-23T18:12:20+00:00",
+    "last_modified": "2025-10-24T16:25:46+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -569,7 +569,7 @@
       "estimated_token_count_total": 4063
     },
     "hash": "sha256:bd07cdae71bf63786994865d2f33fba5f7bf8855dce6399414ad44ab0ec6635c",
-    "last_modified": "2025-10-23T18:12:20+00:00",
+    "last_modified": "2025-10-24T16:25:46+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -626,7 +626,7 @@
       "estimated_token_count_total": 2225
     },
     "hash": "sha256:e916033f54c2874eb5ce9a43d58af058eb935429f73b7b1acc7da1592218e0b8",
-    "last_modified": "2025-10-23T18:12:20+00:00",
+    "last_modified": "2025-10-24T16:25:46+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -674,7 +674,28 @@
       "estimated_token_count_total": 1523
     },
     "hash": "sha256:d9d85827d2c14bff8dd6b3301617345430cf63db603e37859720713004ecafae",
-    "last_modified": "2025-10-23T18:12:20+00:00",
+    "last_modified": "2025-10-24T16:25:46+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "chain-interactions",
+    "title": "chain-interactions",
+    "slug": "chain-interactions",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/chain-interactions.md",
+    "html_url": "https://docs.polkadot.com/chain-interactions/",
+    "preview": "TODO",
+    "outline": [],
+    "stats": {
+      "chars": 5,
+      "words": 1,
+      "headings": 0,
+      "estimated_token_count_total": 0
+    },
+    "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
+    "last_modified": "2025-10-24T16:25:46+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -732,7 +753,7 @@
       "estimated_token_count_total": 1505
     },
     "hash": "sha256:2b017d8a89f8734b9cbb501f03612a22657d2f8d4d85c51e490e4c8ca4bf771b",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -790,7 +811,7 @@
       "estimated_token_count_total": 1635
     },
     "hash": "sha256:46252e238b0b51105148dc622da6d8809c55ec11da7ec7b2953c35ca52f5f585",
-    "last_modified": "2025-10-23T18:12:20+00:00",
+    "last_modified": "2025-10-24T16:25:46+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -833,7 +854,7 @@
       "estimated_token_count_total": 1491
     },
     "hash": "sha256:db37b2f5888f283b5eb5bd84a5f8c81fc66b2313e3f94f510a73dfeb310ae3f0",
-    "last_modified": "2025-10-23T18:12:21+00:00",
+    "last_modified": "2025-10-24T16:25:47+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -900,7 +921,7 @@
       "estimated_token_count_total": 955
     },
     "hash": "sha256:72ee7394fd1308c111a8d548cb4dc63c6b9bc5b6e2bb556dd1baacbaedb92286",
-    "last_modified": "2025-10-23T18:12:21+00:00",
+    "last_modified": "2025-10-24T16:25:47+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -952,7 +973,7 @@
       "estimated_token_count_total": 876
     },
     "hash": "sha256:d6cb22337280a19bdf24981dcba98f337d48ee4f79ce7ac040466ef1cb4b330b",
-    "last_modified": "2025-10-23T18:12:21+00:00",
+    "last_modified": "2025-10-24T16:25:47+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -1034,7 +1055,7 @@
       "estimated_token_count_total": 2744
     },
     "hash": "sha256:1a2d34ccab19bd71263763bbc294977acf34f5800398f51398753594cfc7d7a6",
-    "last_modified": "2025-10-23T18:12:21+00:00",
+    "last_modified": "2025-10-24T16:25:47+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -1106,7 +1127,7 @@
       "estimated_token_count_total": 608
     },
     "hash": "sha256:7bba6105d99721373aa6f494627d20af97b1851c19703f26be26c32f0c83524b",
-    "last_modified": "2025-10-23T18:12:21+00:00",
+    "last_modified": "2025-10-24T16:25:47+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -1173,7 +1194,7 @@
       "estimated_token_count_total": 558
     },
     "hash": "sha256:b79fe56c9604712825bdf30d17667fd8f237fce9691be0d8d042d38691dbba7a",
-    "last_modified": "2025-10-23T18:12:21+00:00",
+    "last_modified": "2025-10-24T16:25:47+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -1225,7 +1246,61 @@
       "estimated_token_count_total": 348
     },
     "hash": "sha256:11cd8d428fa9c3e70490da5c63ce4597cd89ec46306d2bb49b016ced6aa68c3d",
-    "last_modified": "2025-10-23T18:12:21+00:00",
+    "last_modified": "2025-10-24T16:25:47+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "develop-interoperability-versions-v5",
+    "title": "XCMv5",
+    "slug": "develop-interoperability-versions-v5",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-interoperability-versions-v5.md",
+    "html_url": "https://docs.polkadot.com/develop/interoperability/versions/v5/",
+    "preview": "The latest iteration of XCM is version 5. The main RFCs defining the changes in version 5 are the following:",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      }
+    ],
+    "stats": {
+      "chars": 2970,
+      "words": 438,
+      "headings": 1,
+      "estimated_token_count_total": 12
+    },
+    "hash": "sha256:3821c2ef97699091b76e1de58e6d95e866df69d39fca16f2a15c156b71da5b22",
+    "last_modified": "2025-10-24T16:25:47+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "develop-interoperability-versions",
+    "title": "XCM Versions",
+    "slug": "develop-interoperability-versions",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-interoperability-versions.md",
+    "html_url": "https://docs.polkadot.com/develop/interoperability/versions/",
+    "preview": "XCM is a versioned language that evolves to meet the growing needs of cross-chain communication in the Polkadot ecosystem. Understanding XCM versioning is essential for developers building interoperable applications to keep up with the latest improvements.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      }
+    ],
+    "stats": {
+      "chars": 835,
+      "words": 114,
+      "headings": 1,
+      "estimated_token_count_total": 12
+    },
+    "hash": "sha256:634e299f347beb8ad690697943bb7f99915d62d40cda4227179619ed18abe2ff",
+    "last_modified": "2025-10-24T16:25:47+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -1273,7 +1348,7 @@
       "estimated_token_count_total": 1365
     },
     "hash": "sha256:5f8fa89fc725c5c559975012fe2f9ae92c3b62f10024b5688dcd118331118f1a",
-    "last_modified": "2025-10-23T18:12:21+00:00",
+    "last_modified": "2025-10-24T16:25:47+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -1326,7 +1401,7 @@
       "estimated_token_count_total": 4979
     },
     "hash": "sha256:ed3b7c8101b69f9c907cca7c5edfef67fdb5e7bc3c8df8d9fbad297f9dd3c80a",
-    "last_modified": "2025-10-23T18:12:21+00:00",
+    "last_modified": "2025-10-24T16:25:47+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -1383,7 +1458,7 @@
       "estimated_token_count_total": 1781
     },
     "hash": "sha256:35c71a215558cd0642d363e4515ad240093995d42720e6495cd2994c859243e4",
-    "last_modified": "2025-10-23T18:12:21+00:00",
+    "last_modified": "2025-10-24T16:25:47+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -1430,7 +1505,7 @@
       "estimated_token_count_total": 1447
     },
     "hash": "sha256:0e39aee80fbcf3dfaa19133f31d664914ed45b42a1a929270f05d8ae876b89e2",
-    "last_modified": "2025-10-23T18:12:21+00:00",
+    "last_modified": "2025-10-24T16:25:47+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -1477,7 +1552,7 @@
       "estimated_token_count_total": 1082
     },
     "hash": "sha256:ec82957c768c2c07a272e7a28659c812b223df836e21372b1642f0bb249d7b39",
-    "last_modified": "2025-10-23T18:12:21+00:00",
+    "last_modified": "2025-10-24T16:25:47+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -1519,7 +1594,66 @@
       "estimated_token_count_total": 4178
     },
     "hash": "sha256:d480791a76082937b47c77f7cf3794e701f193452ed347fcb1c04c3c67577bf5",
-    "last_modified": "2025-10-23T18:12:21+00:00",
+    "last_modified": "2025-10-24T16:25:47+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "develop-interoperability-xcm-guides-from-apps",
+    "title": "From Apps",
+    "slug": "develop-interoperability-xcm-guides-from-apps",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-interoperability-xcm-guides-from-apps.md",
+    "html_url": "https://docs.polkadot.com/develop/interoperability/xcm-guides/from-apps/",
+    "preview": "This section shows how to interact with XCM from applications, providing practical guidance for implementing cross-chain functionality in your dApps and services.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      }
+    ],
+    "stats": {
+      "chars": 511,
+      "words": 70,
+      "headings": 1,
+      "estimated_token_count_total": 12
+    },
+    "hash": "sha256:63584f5b1dab7b67b18b35b47dfc19d00ad5c013804772f0d653a11ac3fca38d",
+    "last_modified": "2025-10-24T16:25:47+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "develop-interoperability-xcm-guides",
+    "title": "XCM Guides",
+    "slug": "develop-interoperability-xcm-guides",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-interoperability-xcm-guides.md",
+    "html_url": "https://docs.polkadot.com/develop/interoperability/xcm-guides/",
+    "preview": "This section provides comprehensive guides for implementing XCM functionality, including application development patterns, fee management, asset transfers, and cross-chain transaction handling.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      },
+      {
+        "depth": 2,
+        "title": "Additional Resources",
+        "anchor": "additional-resources"
+      }
+    ],
+    "stats": {
+      "chars": 1663,
+      "words": 215,
+      "headings": 2,
+      "estimated_token_count_total": 340
+    },
+    "hash": "sha256:d4c2d7fd46ddf60f638f948c88ba3940de6d69f140923ba8df52ed787b0afede",
+    "last_modified": "2025-10-24T16:25:47+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -1587,7 +1721,39 @@
       "estimated_token_count_total": 6510
     },
     "hash": "sha256:353ad782303ef79bce1262bfa945e6f11b3c3c9ca1edf5705b778c46bada6200",
-    "last_modified": "2025-10-23T18:12:23+00:00",
+    "last_modified": "2025-10-24T16:25:47+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "develop-interoperability",
+    "title": "Interoperability",
+    "slug": "develop-interoperability",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-interoperability.md",
+    "html_url": "https://docs.polkadot.com/develop/interoperability/",
+    "preview": "This section covers everything you need to know about building and implementing [Cross-Consensus Messaging (XCM)](/parachains/interoperability/get-started/){target=\\_blank} solutions in the Polkadot ecosystem. Whether you're working on establishing cross-chain channels, sending and receiving XCM messages, or testing and debugging your cross-chain configurations, you'll find the essential resources and tools here to support your interoperability needs, regardless of your development focus.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      },
+      {
+        "depth": 2,
+        "title": "Additional Resources",
+        "anchor": "additional-resources"
+      }
+    ],
+    "stats": {
+      "chars": 2363,
+      "words": 323,
+      "headings": 2,
+      "estimated_token_count_total": 402
+    },
+    "hash": "sha256:5da6bdeec1deee5ef3d7ab1a43f546067bcef91acdc67df4ce114ee8f8669e82",
+    "last_modified": "2025-10-24T16:25:46+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -1650,7 +1816,7 @@
       "estimated_token_count_total": 1520
     },
     "hash": "sha256:ed09ef7a6abe21204006186fd5791ada7597688fad67e30244dc449c51330309",
-    "last_modified": "2025-10-23T18:12:23+00:00",
+    "last_modified": "2025-10-24T16:25:47+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -1712,7 +1878,7 @@
       "estimated_token_count_total": 2598
     },
     "hash": "sha256:b2b3d8c048863e7760f633b12ab2a0202c741be3050ea4beafb9a7265cfe96b5",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -1769,7 +1935,7 @@
       "estimated_token_count_total": 1219
     },
     "hash": "sha256:262e7a3ad3d0a0102897c52c7589e3f94c7827c441398b3b446b205f6c6753d3",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -1811,7 +1977,7 @@
       "estimated_token_count_total": 905
     },
     "hash": "sha256:ad8e6d9c77d5451c5f4d17f8e6311b21e6ad24eae8780fd4c3ae6013744822cf",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -1878,7 +2044,7 @@
       "estimated_token_count_total": 3995
     },
     "hash": "sha256:19997d390abf2847824024ba923f46a61106ef77544d256d50b371210816b309",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -1940,13 +2106,45 @@
       }
     ],
     "stats": {
-      "chars": 9385,
-      "words": 1262,
+      "chars": 9427,
+      "words": 1267,
       "headings": 9,
-      "estimated_token_count_total": 2005
+      "estimated_token_count_total": 2019
     },
-    "hash": "sha256:0becb82886d34e2ed23d963efd2c14120112e6e080ea4072e864531299b59753",
-    "last_modified": "2025-10-23T18:12:23+00:00",
+    "hash": "sha256:d03ea172f2af9f4648e730d60033a80c2c1e64efa9241fed0c1ba40a5f846ae5",
+    "last_modified": "2025-10-24T16:25:47+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "develop-parachains-customize-parachain",
+    "title": "Customize Your Parachain",
+    "slug": "develop-parachains-customize-parachain",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-parachains-customize-parachain.md",
+    "html_url": "https://docs.polkadot.com/develop/parachains/customize-parachain/",
+    "preview": "Learn how to build a custom parachain with Polkadot SDK's FRAME framework, which includes pallet development, testing, smart contracts, and runtime customization. Pallets are modular components within the FRAME ecosystem that contain specific blockchain functionalities. This modularity grants developers increased flexibility and control around which behaviors to include in the core logic of their parachain.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      },
+      {
+        "depth": 2,
+        "title": "Additional Resources",
+        "anchor": "additional-resources"
+      }
+    ],
+    "stats": {
+      "chars": 1899,
+      "words": 259,
+      "headings": 2,
+      "estimated_token_count_total": 335
+    },
+    "hash": "sha256:9a08b66442c564c7116c686d8914b74ad617326f450d0894b05e753462f69aac",
+    "last_modified": "2025-10-24T16:25:47+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -2013,7 +2211,7 @@
       "estimated_token_count_total": 1944
     },
     "hash": "sha256:4fc8cab40e982e860b64d9aede1058fe7fa82ec321ac215b919db00c4df0a9c0",
-    "last_modified": "2025-10-23T18:12:23+00:00",
+    "last_modified": "2025-10-24T16:25:47+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -2085,7 +2283,7 @@
       "estimated_token_count_total": 3068
     },
     "hash": "sha256:9918593a46c12a1756552ddfaf7421ad6262600735b6f1fec030911420fe1736",
-    "last_modified": "2025-10-23T18:12:23+00:00",
+    "last_modified": "2025-10-24T16:25:47+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -2167,7 +2365,7 @@
       "estimated_token_count_total": 3025
     },
     "hash": "sha256:a60fe36a5ba6d1cafe12eab75300afd24a46d3ace1e791087adb7e3e538afcc3",
-    "last_modified": "2025-10-23T18:12:23+00:00",
+    "last_modified": "2025-10-24T16:25:47+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -2219,7 +2417,7 @@
       "estimated_token_count_total": 1289
     },
     "hash": "sha256:39c58dbe2ddcd542d7074d08d72f1811318dc8a3130419025480fd5cbe9fc3e7",
-    "last_modified": "2025-10-23T18:12:23+00:00",
+    "last_modified": "2025-10-24T16:25:47+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -2271,7 +2469,44 @@
       "estimated_token_count_total": 744
     },
     "hash": "sha256:358ed14147b96b47deb61df9a1ea0e1103a139ea5edb78c5d50a48d5a779b80d",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "develop-parachains-deployment",
+    "title": "Deployment",
+    "slug": "develop-parachains-deployment",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-parachains-deployment.md",
+    "html_url": "https://docs.polkadot.com/develop/parachains/deployment/",
+    "preview": "Learn how to prepare your blockchain for deployment using the Polkadot SDK, including building deterministic Wasm runtimes and generating chain specifications.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Deployment Process",
+        "anchor": "deployment-process"
+      },
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      },
+      {
+        "depth": 2,
+        "title": "Additional Resources",
+        "anchor": "additional-resources"
+      }
+    ],
+    "stats": {
+      "chars": 4818,
+      "words": 659,
+      "headings": 3,
+      "estimated_token_count_total": 966
+    },
+    "hash": "sha256:b25618dc598f4f946da06f854211645768214e0b51d06b684b0cab668b66124c",
+    "last_modified": "2025-10-24T16:25:47+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -2354,7 +2589,7 @@
       "estimated_token_count_total": 2709
     },
     "hash": "sha256:2ee5656f749b4bca445172f2bc66c7fc39af40ff173626662ae4c399f49cf909",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -2412,7 +2647,7 @@
       "estimated_token_count_total": 1892
     },
     "hash": "sha256:74de798c287cae75729e7db54019507f03a361dbbd1f2bb58c4694605f83efab",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -2464,7 +2699,7 @@
       "estimated_token_count_total": 4719
     },
     "hash": "sha256:bfad885d8053d052c55dbffc3c09e6196586795c3a1d07ab6ad58f9006ec3345",
-    "last_modified": "2025-10-23T18:12:23+00:00",
+    "last_modified": "2025-10-24T16:25:47+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -2526,7 +2761,7 @@
       "estimated_token_count_total": 1819
     },
     "hash": "sha256:b0c1535fa8e969a9bdeee426a5a35a42b4649121fb8ce6fd2b15fdeba35b5d5f",
-    "last_modified": "2025-10-23T18:12:23+00:00",
+    "last_modified": "2025-10-24T16:25:47+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -2573,7 +2808,7 @@
       "estimated_token_count_total": 1161
     },
     "hash": "sha256:07e63e1e99b9acf1cc3b5ef8fa1f06ff22182b2a801582ce800eba37d7d39408",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -2645,7 +2880,7 @@
       "estimated_token_count_total": 4014
     },
     "hash": "sha256:55dc252fdecf1590048ce8d009b822e90231442abe81e9593cf1635944a31336",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -2697,7 +2932,39 @@
       "estimated_token_count_total": 2030
     },
     "hash": "sha256:f4964f894f7cd2fdfd699c017b4bd25cffc322b03a5a88a36c682cf952832ccc",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "develop-parachains-maintenance",
+    "title": "Maintenance",
+    "slug": "develop-parachains-maintenance",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-parachains-maintenance.md",
+    "html_url": "https://docs.polkadot.com/develop/parachains/maintenance/",
+    "preview": "Learn how to maintain Polkadot SDK-based networks, focusing on runtime monitoring, upgrades, and storage migrations for optimal performance. Proper maintenance ensures your blockchain remains secure, efficient, and adaptable to changing needs. These sections will guide you through monitoring your network, using runtime versioning, and performing forkless upgrades to keep your blockchain secure and up-to-date without downtime.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      },
+      {
+        "depth": 2,
+        "title": "Additional Resources",
+        "anchor": "additional-resources"
+      }
+    ],
+    "stats": {
+      "chars": 1372,
+      "words": 174,
+      "headings": 2,
+      "estimated_token_count_total": 236
+    },
+    "hash": "sha256:3b0a9e8037c7634c33ac6674170bd763599fca914855d9d2fbf490d359140130",
+    "last_modified": "2025-10-24T16:25:47+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -2764,7 +3031,7 @@
       "estimated_token_count_total": 3342
     },
     "hash": "sha256:9d6daa3f4daf149ae822b60060d14ff022bd4b3440cecdc969a48c105eb82a21",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -2816,7 +3083,7 @@
       "estimated_token_count_total": 1572
     },
     "hash": "sha256:68fc67390e24741081c9a04d78951e76c7d4ff7cf6eddaba7dcbbdc1812c71d3",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -2873,7 +3140,114 @@
       "estimated_token_count_total": 1559
     },
     "hash": "sha256:0024f5e4c12ab7b019e5ee183e7c78d175e1125868c5458b97d3accd9fac75bc",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "develop-parachains-testing",
+    "title": "Testing Your Polkadot SDK-Based Blockchain",
+    "slug": "develop-parachains-testing",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-parachains-testing.md",
+    "html_url": "https://docs.polkadot.com/develop/parachains/testing/",
+    "preview": "Explore comprehensive testing strategies for Polkadot SDK-based blockchains, from setting up test environments to verifying runtime and pallet interactions. Testing is essential to feeling confident your network will behave the way you intend upon deployment.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      },
+      {
+        "depth": 2,
+        "title": "Additional Resources",
+        "anchor": "additional-resources"
+      }
+    ],
+    "stats": {
+      "chars": 1243,
+      "words": 157,
+      "headings": 2,
+      "estimated_token_count_total": 211
+    },
+    "hash": "sha256:0ce1fe38de00827a0735b9fa8076492205c2450c61da9fbd1937d9f38cfe7825",
+    "last_modified": "2025-10-24T16:25:47+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "develop-parachains",
+    "title": "Parachains",
+    "slug": "develop-parachains",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-parachains.md",
+    "html_url": "https://docs.polkadot.com/develop/parachains/",
+    "preview": "This section provides a complete guide to working with the Polkadot SDK, from getting started to long-term network maintenance. Discover how to create custom blockchains, test and deploy your parachains, and ensure their continued performance and reliability.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Building Parachains with the Polkadot SDK",
+        "anchor": "building-parachains-with-the-polkadot-sdk"
+      },
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      }
+    ],
+    "stats": {
+      "chars": 1994,
+      "words": 264,
+      "headings": 2,
+      "estimated_token_count_total": 330
+    },
+    "hash": "sha256:75a6fa2f21b67009be62e07bab01655a10b2c35a5292dc1f7ca57df846d709f3",
+    "last_modified": "2025-10-24T16:25:47+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "develop-smart-contracts-block-explorers",
+    "title": "Block Explorers",
+    "slug": "develop-smart-contracts-block-explorers",
+    "categories": [
+      "Smart Contracts",
+      "Tooling"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-smart-contracts-block-explorers.md",
+    "html_url": "https://docs.polkadot.com/develop/smart-contracts/block-explorers/",
+    "preview": "!!! smartcontract \"PolkaVM Preview Release\" PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**. ## Introduction",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Core Functionality",
+        "anchor": "core-functionality"
+      },
+      {
+        "depth": 2,
+        "title": "Available Block Explorers",
+        "anchor": "available-block-explorers"
+      },
+      {
+        "depth": 3,
+        "title": "BlockScout",
+        "anchor": "blockscout"
+      }
+    ],
+    "stats": {
+      "chars": 1807,
+      "words": 225,
+      "headings": 4,
+      "estimated_token_count_total": 313
+    },
+    "hash": "sha256:dae93f5037ef8a3f508da802a016df748ce0aed69620348b9895f712609f7e84",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -2904,13 +3278,13 @@
       }
     ],
     "stats": {
-      "chars": 3601,
+      "chars": 3598,
       "words": 476,
       "headings": 3,
-      "estimated_token_count_total": 514
+      "estimated_token_count_total": 511
     },
-    "hash": "sha256:e8ffeaa3a17e20437a59f2c95a63821eb75bf3c33001e748c23958b2b99ac3c2",
-    "last_modified": "2025-10-23T18:12:23+00:00",
+    "hash": "sha256:9e427acc9f7831f765486a8597e971be7b2b159c184c325234102e147de81c3a",
+    "last_modified": "2025-10-24T16:25:47+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -2947,7 +3321,7 @@
       "estimated_token_count_total": 570
     },
     "hash": "sha256:1247dfb5f5ac040bca81cd1002153e0ee53f4052b2a3d40b623834bd7f00d065",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -3024,7 +3398,7 @@
       "estimated_token_count_total": 6228
     },
     "hash": "sha256:72e41f816f07026d96c803f399c71852aa1151c464e79cec3e1746b282d5eaae",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -3102,7 +3476,7 @@
       "estimated_token_count_total": 4188
     },
     "hash": "sha256:fe008393aa37c27bb71b4483d4e2c4fbcda94f8c1be461fdd07eff40efbb4e26",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -3165,7 +3539,39 @@
       "estimated_token_count_total": 1375
     },
     "hash": "sha256:8e6bfed5fa59bb748e80698ea702f62ce6951c48bdb955ee9ef0d3516e856887",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "develop-smart-contracts-dev-environments",
+    "title": "Dev Environments",
+    "slug": "develop-smart-contracts-dev-environments",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-smart-contracts-dev-environments.md",
+    "html_url": "https://docs.polkadot.com/develop/smart-contracts/dev-environments/",
+    "preview": "!!! smartcontract \"PolkaVM Preview Release\" PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**. Explore the tools and frameworks available for building and testing smart contracts on the Polkadot network. These environments streamline the development process, from writing and compiling to testing and deploying smart contracts. The guides in this section will help you evaluate each tool's strengths, making it easier to choose t",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "What to Consider",
+        "anchor": "what-to-consider"
+      },
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      }
+    ],
+    "stats": {
+      "chars": 1601,
+      "words": 154,
+      "headings": 2,
+      "estimated_token_count_total": 323
+    },
+    "hash": "sha256:5c3a10769e30b4da62e6c188e99310354e6e9af4595c7920c2977a54b8e1853c",
+    "last_modified": "2025-10-24T16:25:47+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -3312,7 +3718,7 @@
       "estimated_token_count_total": 1618
     },
     "hash": "sha256:5cc63ff0a377ef0ec96a064748e13b88bc852bd1862c6e344066855a7fe93b19",
-    "last_modified": "2025-10-23T18:12:23+00:00",
+    "last_modified": "2025-10-24T16:25:47+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -3509,7 +3915,7 @@
       "estimated_token_count_total": 9750
     },
     "hash": "sha256:1fb7a20bc4a799a771954720428029419ec73afa640e589590c43dd041a7e307",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -3597,7 +4003,7 @@
       "estimated_token_count_total": 4475
     },
     "hash": "sha256:f0cee7ccb3cd294e8f909a220bb63987239ef8155c187a04f8c4864ffdcde288",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -3690,7 +4096,7 @@
       "estimated_token_count_total": 3900
     },
     "hash": "sha256:a7541553a50a250521c0a280f997d614763c643b1028147f3fb61391950bda15",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -3763,7 +4169,7 @@
       "estimated_token_count_total": 3250
     },
     "hash": "sha256:bc771f912627fa09cad64adab1bc81c052f650d6c5a3b4f0c91883a98f6628da",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -3836,7 +4242,7 @@
       "estimated_token_count_total": 3033
     },
     "hash": "sha256:bc87533eaf42a979a0c17f50ecdc668c364889257c7e0d27b81129770660fd53",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -3889,7 +4295,39 @@
       "estimated_token_count_total": 2512
     },
     "hash": "sha256:5d13a0873a78a9802b06686d7caafbf4d23b6ba1edf7d3518943301f2b0110c4",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "develop-smart-contracts-libraries",
+    "title": "Libraries",
+    "slug": "develop-smart-contracts-libraries",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-smart-contracts-libraries.md",
+    "html_url": "https://docs.polkadot.com/develop/smart-contracts/libraries/",
+    "preview": "!!! smartcontract \"PolkaVM Preview Release\" PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**. Explore the key libraries for interacting with smart contracts on Polkadot-based networks. These libraries simplify contract calls, event listening, and transaction handling.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Library Comparison",
+        "anchor": "library-comparison"
+      },
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      }
+    ],
+    "stats": {
+      "chars": 2056,
+      "words": 203,
+      "headings": 2,
+      "estimated_token_count_total": 415
+    },
+    "hash": "sha256:23137f6c74412fd98c0b6aeee3ff59938e44b817ec42974c453f9b0f66e36513",
+    "last_modified": "2025-10-24T16:25:47+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -3931,7 +4369,7 @@
       "estimated_token_count_total": 2432
     },
     "hash": "sha256:809d0ff921587f29045df1d31a5a9fe32ee13fa7b9698aa27ff9f60b2aa7a4d8",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4004,7 +4442,7 @@
       "estimated_token_count_total": 1118
     },
     "hash": "sha256:0468268436ffdb759cad8390a838d5fba2391118baa8fd8cd494b36397b10329",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4086,7 +4524,7 @@
       "estimated_token_count_total": 3847
     },
     "hash": "sha256:4b705b8dbe9b0ad8d19a897d91f3c64dbc4541297dadacbea2a31b4778e50a46",
-    "last_modified": "2025-10-23T18:12:26+00:00",
+    "last_modified": "2025-10-24T16:25:49+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4153,7 +4591,49 @@
       "estimated_token_count_total": 2317
     },
     "hash": "sha256:605d2cbb7eabb2ea0fd928bc3ecdf9ee8b095e3dd9643f2b0918fef7b5a3f4a8",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "develop-smart-contracts-precompiles",
+    "title": "Advanced Functionalities via Precompiles",
+    "slug": "develop-smart-contracts-precompiles",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-smart-contracts-precompiles.md",
+    "html_url": "https://docs.polkadot.com/develop/smart-contracts/precompiles/",
+    "preview": "!!! smartcontract \"PolkaVM Preview Release\" PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**. ## Introduction",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "What are Precompiles?",
+        "anchor": "what-are-precompiles"
+      },
+      {
+        "depth": 2,
+        "title": "Standard Precompiles in Polkadot Hub",
+        "anchor": "standard-precompiles-in-polkadot-hub"
+      },
+      {
+        "depth": 2,
+        "title": "Conclusion",
+        "anchor": "conclusion"
+      }
+    ],
+    "stats": {
+      "chars": 5424,
+      "words": 546,
+      "headings": 4,
+      "estimated_token_count_total": 1223
+    },
+    "hash": "sha256:798353114d43dee2873e28b293876c0761e2fef596bc3327c5986a4343c70da1",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4206,7 +4686,39 @@
       "estimated_token_count_total": 1638
     },
     "hash": "sha256:807cee6869059dd933905d1cf6c76e3b86e02baee3de3113f7e5b4c8697fbd22",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "develop-smart-contracts",
+    "title": "Smart Contracts",
+    "slug": "develop-smart-contracts",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-smart-contracts.md",
+    "html_url": "https://docs.polkadot.com/develop/smart-contracts/",
+    "preview": "!!! smartcontract \"PolkaVM Preview Release\" PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**. Polkadot allows scalable execution of smart contracts, offering cross-chain compatibility and lower fees than legacy L1 platforms. Polkadot provides developers with flexibility in building smart contracts, supporting both Solidity contracts executed by the [PolkaVM](/smart-contracts/for-eth-devs/#polkavm){target=\\_blank} (a Polkadot",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Smart Contract Development Process",
+        "anchor": "smart-contract-development-process"
+      },
+      {
+        "depth": 2,
+        "title": "Additional Resources",
+        "anchor": "additional-resources"
+      }
+    ],
+    "stats": {
+      "chars": 1867,
+      "words": 247,
+      "headings": 2,
+      "estimated_token_count_total": 189
+    },
+    "hash": "sha256:4b56a119cbc63d87de98554cf4019e48ddb4f7cee11a51553ea234f91d78f8b8",
+    "last_modified": "2025-10-24T16:25:47+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4274,7 +4786,7 @@
       "estimated_token_count_total": 2300
     },
     "hash": "sha256:ba24e31e2ad94fbf1d73f1878da92dd2e1476db00170780bbdf0e65ab18bc961",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4327,7 +4839,7 @@
       "estimated_token_count_total": 1987
     },
     "hash": "sha256:2ca93b09d3bb9159bbf53816886a9b242bb3c13b996c51fd52962e049e2d5477",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4339,7 +4851,7 @@
       "Dapps"
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-toolkit-api-libraries-polkadart.md",
-    "html_url": "https://docs.polkadot.com/reference/tools/polkadart/",
+    "html_url": "https://docs.polkadot.com/develop/toolkit/api-libraries/polkadart/",
     "preview": "Polkadart is the most comprehensive Dart/Flutter SDK for interacting with Polkadot, Substrate, and other compatible blockchain networks. Designed with a Dart-first approach and type-safe APIs, it provides everything developers need to build powerful decentralized applications.",
     "outline": [
       {
@@ -4400,7 +4912,7 @@
       "estimated_token_count_total": 1084
     },
     "hash": "sha256:7f533abe61586af8438e350c41b741d74a8edb839f9dc4139bc4619ba3748258",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T16:25:49+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4468,7 +4980,7 @@
       "estimated_token_count_total": 1166
     },
     "hash": "sha256:ed3986f30880fefca5975fcdc847c68b4aca65862c63e3002b25391b0521781d",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4526,7 +5038,7 @@
       "estimated_token_count_total": 942
     },
     "hash": "sha256:8987fc35cd28602054ee018031f773e2e3837425107c51d0e2ac68a94b86e9c0",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4579,7 +5091,7 @@
       "estimated_token_count_total": 1945
     },
     "hash": "sha256:b8759f61ab57b636228b69d5770c74591998b912cd4596e89eb2ec011da7ef73",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4652,7 +5164,39 @@
       "estimated_token_count_total": 2187
     },
     "hash": "sha256:56269d9ea47f5b4e92cd7d5a1e65ab06d181a9c380f90bb3ef285529b12299f7",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "develop-toolkit-api-libraries",
+    "title": "API Libraries",
+    "slug": "develop-toolkit-api-libraries",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-toolkit-api-libraries.md",
+    "html_url": "https://docs.polkadot.com/develop/toolkit/api-libraries/",
+    "preview": "Explore the powerful API libraries designed for interacting with the Polkadot network. These libraries offer developers versatile tools to build, query, and manage blockchain interactions. Whether you’re working with JavaScript, TypeScript, Python, or RESTful services, they provide the flexibility to efficiently interact with and retrieve data from Polkadot-based chains.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      },
+      {
+        "depth": 2,
+        "title": "Additional Resources",
+        "anchor": "additional-resources"
+      }
+    ],
+    "stats": {
+      "chars": 1082,
+      "words": 139,
+      "headings": 2,
+      "estimated_token_count_total": 187
+    },
+    "hash": "sha256:746788d1068fe3eaafc34eb461566d1682c27fcad7d448e65810b9662b45dd85",
+    "last_modified": "2025-10-24T16:25:49+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4690,7 +5234,7 @@
       "estimated_token_count_total": 428
     },
     "hash": "sha256:cfcc76bb24779c9b613f2c046b6f99a0f2529c25fd82287d804f6b945b936227",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4723,7 +5267,7 @@
       "estimated_token_count_total": 245
     },
     "hash": "sha256:6d8e01281a5895fd2bc4438b24c170c72a496de0b838626a53e87685aea4aa25",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4780,7 +5324,7 @@
       "estimated_token_count_total": 847
     },
     "hash": "sha256:a206dd86fc3d80aed22384000839ca0c9c75c69ad461abd9810d96c03cf6a3bd",
-    "last_modified": "2025-10-23T18:12:26+00:00",
+    "last_modified": "2025-10-24T16:25:49+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4852,7 +5396,7 @@
       "estimated_token_count_total": 6280
     },
     "hash": "sha256:9b03477d13a285fced6bf845c3827084f790a626989dc2c09ef9ff53643045f4",
-    "last_modified": "2025-10-23T18:12:26+00:00",
+    "last_modified": "2025-10-24T16:25:49+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4881,16 +5425,53 @@
         "depth": 2,
         "title": "Cold Wallets",
         "anchor": "cold-wallets"
+      },
+      {
+        "depth": 2,
+        "title": "Wallet Tools",
+        "anchor": "wallet-tools"
       }
     ],
     "stats": {
-      "chars": 2921,
-      "words": 401,
-      "headings": 3,
-      "estimated_token_count_total": 633
+      "chars": 3989,
+      "words": 532,
+      "headings": 4,
+      "estimated_token_count_total": 888
     },
-    "hash": "sha256:62c5ad101282227f79eac0e30a3ba9ce3ae1bf9e358bd58c0b17ef45db29c2ff",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "hash": "sha256:9506b6ac360fdc52a8b2eb8d6ae9dde5ff65c18280ec15d4c9d77316a4020b6a",
+    "last_modified": "2025-10-24T16:16:33+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "develop-toolkit-integrations",
+    "title": "Integrations",
+    "slug": "develop-toolkit-integrations",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-toolkit-integrations.md",
+    "html_url": "https://docs.polkadot.com/develop/toolkit/integrations/",
+    "preview": "Polkadot offers a wide range of integrations that allow developers to enhance their decentralized applications (dApps) and leverage the full capabilities of the ecosystem. Whether you’re looking to extend your application’s functionality, integrate with other chains, or access specialized services, these integrations provide the tools and resources you need to build efficiently and effectively. Explore the available options to find the solutions that best suit your development needs.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Key Integration Solutions",
+        "anchor": "key-integration-solutions"
+      },
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      }
+    ],
+    "stats": {
+      "chars": 988,
+      "words": 135,
+      "headings": 2,
+      "estimated_token_count_total": 92
+    },
+    "hash": "sha256:0de8c1655a1524784010b6cec5fa522b2f764e32f18913f0d262283e0ec0779e",
+    "last_modified": "2025-10-24T16:25:49+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4901,7 +5482,7 @@
       "Uncategorized"
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-toolkit-interoperability-paraspell-xcm-sdk-transfer-tokens-between-parachains.md",
-    "html_url": "https://docs.polkadot.com/reference/tools/paraspell/transfer-tokens-between-parachains/",
+    "html_url": "https://docs.polkadot.com/develop/toolkit/interoperability/paraspell-xcm-sdk/transfer-tokens-between-parachains/",
     "preview": "This guide walks you through transferring tokens between two parachains using the [ParaSpell XCM SDK](https://paraspell.github.io/docs/){target=\\_blank}. This example utilizes [Asset Hub](/polkadot-protocol/architecture/system-chains/asset-hub/){target=\\_blank} and the [People Chain](/polkadot-protocol/architecture/system-chains/people/){target=\\_blank}. However, the same approach can be applied to transfers between other parachains.",
     "outline": [
       {
@@ -4952,7 +5533,44 @@
       "estimated_token_count_total": 5209
     },
     "hash": "sha256:966ec1bcc014a454f6b837b503025d9fb89c30f6a65d0aaec82ea5ff976e53a9",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T16:25:49+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "develop-toolkit-interoperability-paraspell-xcm-sdk",
+    "title": "ParaSpell XCM SDK",
+    "slug": "develop-toolkit-interoperability-paraspell-xcm-sdk",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-toolkit-interoperability-paraspell-xcm-sdk.md",
+    "html_url": "https://docs.polkadot.com/develop/toolkit/interoperability/paraspell-xcm-sdk/",
+    "preview": "[ParaSpell](https://paraspell.github.io/docs/){target=\\_blank} is a comprehensive suite of open-source tools designed to simplify cross-chain interactions within the Polkadot ecosystem. At its core, ParaSpell is dedicated to enhancing the functionality of the [XCM (Cross-Consensus Messaging)](/parachains/interoperability/get-started/){target=\\_blank} protocol by providing developers with a unified and streamlined experience for building interoperable decentralized applications (dApps).",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 3,
+        "title": "ParaSpell XCM SDK",
+        "anchor": "paraspell-xcm-sdk"
+      },
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      }
+    ],
+    "stats": {
+      "chars": 3055,
+      "words": 437,
+      "headings": 3,
+      "estimated_token_count_total": 681
+    },
+    "hash": "sha256:d1cc6f09c05ec9ca46a675207ddbded7377cf75e1c63caff2e787ba66dbf2afa",
+    "last_modified": "2025-10-24T16:14:25+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5011,7 +5629,34 @@
       "estimated_token_count_total": 1700
     },
     "hash": "sha256:47328231d6ff4dc52cd93aaf1baf5d0bc2d9fc372f3d79339d87aafa0dabd1b8",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "develop-toolkit-interoperability",
+    "title": "Interoperability",
+    "slug": "develop-toolkit-interoperability",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-toolkit-interoperability.md",
+    "html_url": "https://docs.polkadot.com/develop/toolkit/interoperability/",
+    "preview": "Polkadot's XCM tooling ecosystem redefines the boundaries of cross-chain communication and asset movement. With unparalleled flexibility and scalability, these advanced tools empower developers to build decentralized applications that connect parachains, relay chains, and external networks. By bridging siloed blockchains, Polkadot paves the way for a unified, interoperable ecosystem that accelerates innovation and collaboration.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      }
+    ],
+    "stats": {
+      "chars": 1010,
+      "words": 128,
+      "headings": 1,
+      "estimated_token_count_total": 12
+    },
+    "hash": "sha256:c72d7d30a019fe1db8ab3993f91dfd4f1bdb4a932aaa685d3baaa0578091d5ce",
+    "last_modified": "2025-10-24T16:25:49+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5079,7 +5724,34 @@
       "estimated_token_count_total": 2453
     },
     "hash": "sha256:2c77cfb38bb2e466a8f56dabbb706fcd2e90cf1634fc9beb7f0ee95a75735653",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "develop-toolkit-parachains-e2e-testing",
+    "title": "E2E Testing on Polkadot SDK Chains",
+    "slug": "develop-toolkit-parachains-e2e-testing",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-toolkit-parachains-e2e-testing.md",
+    "html_url": "https://docs.polkadot.com/develop/toolkit/parachains/e2e-testing/",
+    "preview": ":::INSERT_IN_THIS_SECTION:::",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      }
+    ],
+    "stats": {
+      "chars": 64,
+      "words": 6,
+      "headings": 1,
+      "estimated_token_count_total": 12
+    },
+    "hash": "sha256:cc49fdcc63a43247d80de2f309b9c7501d3054782746d80c003d95f3c43da90d",
+    "last_modified": "2025-10-24T16:25:49+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5152,7 +5824,81 @@
       "estimated_token_count_total": 2614
     },
     "hash": "sha256:4325cdd697814b8043db808da3dee86d3d9c6fc7dd523aae7fe8914d59d1b39c",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "develop-toolkit-parachains-fork-chains-chopsticks",
+    "title": "Chopsticks",
+    "slug": "develop-toolkit-parachains-fork-chains-chopsticks",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-toolkit-parachains-fork-chains-chopsticks.md",
+    "html_url": "https://docs.polkadot.com/develop/toolkit/parachains/fork-chains/chopsticks/",
+    "preview": "Chopsticks is a powerful tool that lets you create local copies of running Polkadot SDK-based networks. By forking live chains locally, you can safely test features, analyze network behavior, and simulate complex scenarios without affecting production networks.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "What Can I Do with Chopsticks?",
+        "anchor": "what-can-i-do-with-chopsticks"
+      },
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      },
+      {
+        "depth": 2,
+        "title": "Additional Resources",
+        "anchor": "additional-resources"
+      }
+    ],
+    "stats": {
+      "chars": 1495,
+      "words": 201,
+      "headings": 3,
+      "estimated_token_count_total": 291
+    },
+    "hash": "sha256:b568596033cdf68e60d72bcb7ee62a794def2bd3ff5b3317ef15895f58a12c57",
+    "last_modified": "2025-10-24T16:25:49+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "develop-toolkit-parachains-fork-chains",
+    "title": "Fork Chains for Testing",
+    "slug": "develop-toolkit-parachains-fork-chains",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-toolkit-parachains-fork-chains.md",
+    "html_url": "https://docs.polkadot.com/develop/toolkit/parachains/fork-chains/",
+    "preview": "Explore tools for forking live blockchain networks. These tools enable you to replicate real-world conditions in a local environment for accurate testing and debugging. They also allow you to analyze network behavior, test new features, and simulate complex scenarios in a controlled environment without affecting production systems.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Why Fork a Live Chain?",
+        "anchor": "why-fork-a-live-chain"
+      },
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      },
+      {
+        "depth": 2,
+        "title": "Additional Resources",
+        "anchor": "additional-resources"
+      }
+    ],
+    "stats": {
+      "chars": 1269,
+      "words": 173,
+      "headings": 3,
+      "estimated_token_count_total": 183
+    },
+    "hash": "sha256:d29a845b00b24e03f9877a5331c33619918decf453657969115d5ec18033ba28",
+    "last_modified": "2025-10-24T16:25:49+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5163,7 +5909,7 @@
       "Uncategorized"
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-toolkit-parachains-light-clients.md",
-    "html_url": "https://docs.polkadot.com/develop/toolkit/parachains/light-clients/",
+    "html_url": null,
     "preview": "Light clients enable secure and efficient blockchain interaction without running a full node. They provide a trust-minimized alternative to JSON-RPC by verifying data through cryptographic proofs rather than blindly trusting remote nodes.",
     "outline": [
       {
@@ -5209,7 +5955,7 @@
       "estimated_token_count_total": 1430
     },
     "hash": "sha256:1284c42be692167e01bcc44e2e134ec20615402675fac26df246c00aa1588d80",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T16:16:33+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5277,7 +6023,7 @@
       "estimated_token_count_total": 2018
     },
     "hash": "sha256:49866761ef638dd0683bb5558f5319b9568ff136295b3359580a6f478172c73f",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5325,7 +6071,34 @@
       "estimated_token_count_total": 999
     },
     "hash": "sha256:6d6c66430a7302f29113924c5208e64d7c244497e50c61ab2f45c4b5141620e4",
-    "last_modified": "2025-10-23T18:12:26+00:00",
+    "last_modified": "2025-10-24T16:25:49+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "develop-toolkit-parachains-quickstart",
+    "title": "Quickstart Parachain Development",
+    "slug": "develop-toolkit-parachains-quickstart",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-toolkit-parachains-quickstart.md",
+    "html_url": "https://docs.polkadot.com/develop/toolkit/parachains/quickstart/",
+    "preview": ":::INSERT_IN_THIS_SECTION:::",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      }
+    ],
+    "stats": {
+      "chars": 85,
+      "words": 7,
+      "headings": 1,
+      "estimated_token_count_total": 12
+    },
+    "hash": "sha256:91de375b7f822ed56b5e6b4d609d0d36e806d3f77041b4e180b6679b10a3e1c8",
+    "last_modified": "2025-10-24T16:25:49+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5387,7 +6160,7 @@
       "estimated_token_count_total": 1863
     },
     "hash": "sha256:7086406b31e7aa9089b221ffaa548ee5540a3d147ec1e93136f481c883f2e434",
-    "last_modified": "2025-10-23T18:12:26+00:00",
+    "last_modified": "2025-10-24T16:25:49+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5474,7 +6247,7 @@
       "estimated_token_count_total": 1870
     },
     "hash": "sha256:3b766e00e55a224201bc6744386a6dabc7da54ed9199b16abab3b94cff449eca",
-    "last_modified": "2025-10-23T18:12:26+00:00",
+    "last_modified": "2025-10-24T16:25:49+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5567,7 +6340,7 @@
       "estimated_token_count_total": 9871
     },
     "hash": "sha256:0d7e04fd952cc9d5bd8cdbfd87cc4004c5f95e896a16bc7f89dfc4caeac8f371",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5630,7 +6403,192 @@
       "estimated_token_count_total": 2661
     },
     "hash": "sha256:04e85c4cddb58252f8253d78a3924bb56952dac2a3e9a057704a91a0d1f21d75",
-    "last_modified": "2025-10-23T18:12:26+00:00",
+    "last_modified": "2025-10-24T16:25:49+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "develop-toolkit-parachains-spawn-chains-zombienet",
+    "title": "Zombienet",
+    "slug": "develop-toolkit-parachains-spawn-chains-zombienet",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-toolkit-parachains-spawn-chains-zombienet.md",
+    "html_url": "https://docs.polkadot.com/develop/toolkit/parachains/spawn-chains/zombienet/",
+    "preview": "Zombienet is a testing framework that lets you quickly spin up ephemeral blockchain networks for development and testing. With support for multiple deployment targets, such as Kubernetes, Podman, and native environments, Zombienet makes it easy to validate your blockchain implementation in a controlled environment.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "What Can I Do with Zombienet?",
+        "anchor": "what-can-i-do-with-zombienet"
+      },
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      },
+      {
+        "depth": 2,
+        "title": "Additional Resources",
+        "anchor": "additional-resources"
+      }
+    ],
+    "stats": {
+      "chars": 1237,
+      "words": 164,
+      "headings": 3,
+      "estimated_token_count_total": 193
+    },
+    "hash": "sha256:1355969b6b0e723b42815b960c15eb128e4d936d0d707cd66e43820cff765ee3",
+    "last_modified": "2025-10-24T16:25:49+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "develop-toolkit-parachains-spawn-chains",
+    "title": "Spawn Networks for Testing",
+    "slug": "develop-toolkit-parachains-spawn-chains",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-toolkit-parachains-spawn-chains.md",
+    "html_url": "https://docs.polkadot.com/develop/toolkit/parachains/spawn-chains/",
+    "preview": "Testing blockchain networks in a controlled environment is essential for development and validation. The Polkadot ecosystem provides specialized tools that enable you to spawn test networks, helping you verify functionality and catch issues before deploying to production.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Why Spawn a Network?",
+        "anchor": "why-spawn-a-network"
+      },
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      },
+      {
+        "depth": 2,
+        "title": "Additional Resources",
+        "anchor": "additional-resources"
+      }
+    ],
+    "stats": {
+      "chars": 1180,
+      "words": 155,
+      "headings": 3,
+      "estimated_token_count_total": 171
+    },
+    "hash": "sha256:f11bfd20cb9a0932ce263b2dd763729320261bb25e1fa0039a45ccc609541391",
+    "last_modified": "2025-10-24T16:25:49+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "develop-toolkit-parachains",
+    "title": "Parachains",
+    "slug": "develop-toolkit-parachains",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-toolkit-parachains.md",
+    "html_url": "https://docs.polkadot.com/develop/toolkit/parachains/",
+    "preview": "Within the Polkadot ecosystem, you'll find a robust set of development tools that empower developers to build, test, and deploy blockchain applications efficiently. Whether you're designing a custom parachain, testing new features, or validating network configurations, these tools streamline the development process and ensure your blockchain setup is secure and optimized.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Quick Links",
+        "anchor": "quick-links"
+      },
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      }
+    ],
+    "stats": {
+      "chars": 986,
+      "words": 136,
+      "headings": 2,
+      "estimated_token_count_total": 106
+    },
+    "hash": "sha256:88dda8aeab06294ccb773d8732d4791b052351ed0b1307d62019a637c9be341a",
+    "last_modified": "2025-10-24T16:25:49+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "develop-toolkit",
+    "title": "Toolkit",
+    "slug": "develop-toolkit",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-toolkit.md",
+    "html_url": "https://docs.polkadot.com/develop/toolkit/",
+    "preview": "Explore Polkadot's core development toolkit, designed to support a variety of developers and use cases within the ecosystem. Whether you're building blockchain infrastructure, developing cross-chain applications, or integrating with external services, this section offers essential tools and resources to help you succeed.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      }
+    ],
+    "stats": {
+      "chars": 902,
+      "words": 113,
+      "headings": 1,
+      "estimated_token_count_total": 12
+    },
+    "hash": "sha256:20c667a337791538e3997f1f449bf69b248ccc4cc806e22615075f24fd3f0202",
+    "last_modified": "2025-10-24T16:25:49+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "develop",
+    "title": "Develop",
+    "slug": "develop",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop.md",
+    "html_url": "https://docs.polkadot.com/develop/",
+    "preview": "This guide is a starting point for developers who wish to build in the Polkadot ecosystem. To get the most from this section:",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Development Pathways",
+        "anchor": "development-pathways"
+      },
+      {
+        "depth": 3,
+        "title": "Parachain Developers",
+        "anchor": "parachain-developers"
+      },
+      {
+        "depth": 3,
+        "title": "Smart Contract Developers",
+        "anchor": "smart-contract-developers"
+      },
+      {
+        "depth": 3,
+        "title": "Application Developers",
+        "anchor": "application-developers"
+      },
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      }
+    ],
+    "stats": {
+      "chars": 6923,
+      "words": 882,
+      "headings": 6,
+      "estimated_token_count_total": 1843
+    },
+    "hash": "sha256:1784f7b9e0552ab893c9d7d252299d53e36b6f57ef57c49cd5e36805399675ab",
+    "last_modified": "2025-10-24T16:25:46+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5656,13 +6614,13 @@
       }
     ],
     "stats": {
-      "chars": 7659,
-      "words": 777,
+      "chars": 14511,
+      "words": 1419,
       "headings": 2,
-      "estimated_token_count_total": 2073
+      "estimated_token_count_total": 4114
     },
-    "hash": "sha256:9836ab7da420e9ca8196da77dc3ff8198cb3b622548842d0505c0aa043a5f02e",
-    "last_modified": "2025-10-23T18:12:26+00:00",
+    "hash": "sha256:c66e84e0a61ada907a1e5ef1f3701d991e5bde720e9762db1eaaed5bc81bd08d",
+    "last_modified": "2025-10-24T16:25:49+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5734,7 +6692,7 @@
       "estimated_token_count_total": 579
     },
     "hash": "sha256:4c33d0ec5026128b3bfdb1dfc1f4b29487404eaa8043071d536e8638356c6e1f",
-    "last_modified": "2025-10-23T18:12:26+00:00",
+    "last_modified": "2025-10-24T16:25:49+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5776,7 +6734,65 @@
       "estimated_token_count_total": 557
     },
     "hash": "sha256:993e93b05c8fbdfc2f7510c61ac86bc4c2ff0f03e573695b2f260933c8b62f78",
-    "last_modified": "2025-10-23T18:12:26+00:00",
+    "last_modified": "2025-10-24T16:25:49+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "get-support",
+    "title": "Support",
+    "slug": "get-support",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/get-support.md",
+    "html_url": "https://docs.polkadot.com/get-support/",
+    "preview": "Use one of the channels below to get live technical support or ask questions.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Need More than Just Documentation?",
+        "anchor": "need-more-than-just-documentation"
+      },
+      {
+        "depth": 2,
+        "title": "What You Can Do Here",
+        "anchor": "what-you-can-do-here"
+      },
+      {
+        "depth": 2,
+        "title": "Help Us Improve",
+        "anchor": "help-us-improve"
+      }
+    ],
+    "stats": {
+      "chars": 1658,
+      "words": 244,
+      "headings": 3,
+      "estimated_token_count_total": 280
+    },
+    "hash": "sha256:5bdc575ac798a971867a15651c2b4d5139bf0b1fe6854d1865deff280ae6d7f6",
+    "last_modified": "2025-10-24T16:25:49+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "index",
+    "title": "Polkadot Developer Docs",
+    "slug": "index",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/index.md",
+    "html_url": "https://docs.polkadot.com/index/",
+    "preview": "Explore everything you need to start building on top of Polkadot, a protocol that provides parachains with shared security and interoperability using XCM.",
+    "outline": [],
+    "stats": {
+      "chars": 0,
+      "words": 0,
+      "headings": 0,
+      "estimated_token_count_total": 0
+    },
+    "hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "last_modified": "2025-10-24T16:25:49+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5843,7 +6859,7 @@
       "estimated_token_count_total": 1044
     },
     "hash": "sha256:d84a5af1a0237a911d25a68c077f508ebbce608f673ef4f9055e8e434daa96b9",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5910,7 +6926,7 @@
       "estimated_token_count_total": 4229
     },
     "hash": "sha256:abd9f939f68b068a18567b875c9f7e11d102c54fc02ca0e6ee8041c539061ed0",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5967,7 +6983,49 @@
       "estimated_token_count_total": 1286
     },
     "hash": "sha256:0b43b452e9d709cb324bf51fd88c2fed8e6249534a7c2b852e1bd36bcb9b981a",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "infrastructure-running-a-node",
+    "title": "Running a Node",
+    "slug": "infrastructure-running-a-node",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/infrastructure-running-a-node.md",
+    "html_url": "https://docs.polkadot.com/infrastructure/running-a-node/",
+    "preview": "Running a node on the Polkadot network enables you to access blockchain data, interact with the network, and support decentralized applications (dApps). This guide will walk you through the process of setting up and connecting to a Polkadot node, including essential configuration steps for ensuring connectivity and security.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Full Nodes vs Bootnodes",
+        "anchor": "full-nodes-vs-bootnodes"
+      },
+      {
+        "depth": 2,
+        "title": "Types of Full Nodes",
+        "anchor": "types-of-full-nodes"
+      },
+      {
+        "depth": 3,
+        "title": "State vs. Block Pruning",
+        "anchor": "state-vs-block-pruning"
+      },
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      }
+    ],
+    "stats": {
+      "chars": 2549,
+      "words": 392,
+      "headings": 4,
+      "estimated_token_count_total": 462
+    },
+    "hash": "sha256:c6087224da8140a4a5d8bbc3cb9b9b389ffd57f679dca7eb67df9f64649f0eaf",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -6029,7 +7087,7 @@
       "estimated_token_count_total": 1827
     },
     "hash": "sha256:1090b02689df5f4c59bb83f9c81436718d06e46f3b615bc655fef3c7b6c9fb02",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -6111,7 +7169,7 @@
       "estimated_token_count_total": 2559
     },
     "hash": "sha256:0857a9e83aefc6d3f04e8cb320ab82d35211bbd73d2eb2614cf7b97f8e6d36b9",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -6198,7 +7256,7 @@
       "estimated_token_count_total": 3827
     },
     "hash": "sha256:e2567b7d5377c87984622cf93afe4bd8cedf46b80597736cf53f26b5f31c5065",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -6245,7 +7303,39 @@
       "estimated_token_count_total": 625
     },
     "hash": "sha256:9ab570299106336e5d75923b876247e8eb4a71851a77e84d68e0335e9da5e0a8",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "infrastructure-running-a-validator-onboarding-and-offboarding",
+    "title": "Onboarding and Offboarding",
+    "slug": "infrastructure-running-a-validator-onboarding-and-offboarding",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/infrastructure-running-a-validator-onboarding-and-offboarding.md",
+    "html_url": "https://docs.polkadot.com/infrastructure/running-a-validator/onboarding-and-offboarding/",
+    "preview": "Successfully onboarding and offboarding a Polkadot validator node is crucial to maintaining the security and integrity of the network. This process involves setting up, activating, deactivating, and securely managing your validator’s key and staking details.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      },
+      {
+        "depth": 2,
+        "title": "Additional Resources",
+        "anchor": "additional-resources"
+      }
+    ],
+    "stats": {
+      "chars": 1975,
+      "words": 257,
+      "headings": 2,
+      "estimated_token_count_total": 416
+    },
+    "hash": "sha256:f86c2598c9296ca2d09e514ce512440b87f2f11476d2aa9bf0296d2c748b6c96",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -6357,7 +7447,7 @@
       "estimated_token_count_total": 5832
     },
     "hash": "sha256:a7b5239c3be0341ced8f28146e240ff6061fded2e71094bd586beeb024684a50",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -6409,7 +7499,7 @@
       "estimated_token_count_total": 861
     },
     "hash": "sha256:97655248c65e816fdf3d85dab4ace7ca0c145c50f671c25c24627cfd7660c7a6",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -6466,7 +7556,39 @@
       "estimated_token_count_total": 1167
     },
     "hash": "sha256:b2e8abce15fc9df106a5e972f28c64f606f9dd50ba3a256093eb53bdd5126224",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "infrastructure-running-a-validator-operational-tasks",
+    "title": "Operational Tasks",
+    "slug": "infrastructure-running-a-validator-operational-tasks",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/infrastructure-running-a-validator-operational-tasks.md",
+    "html_url": "https://docs.polkadot.com/infrastructure/running-a-validator/operational-tasks/",
+    "preview": "Running a Polkadot validator node involves several key operational tasks to ensure secure and efficient participation in the network. In this section, you'll learn how to manage and maintain your validator node by monitoring its performance, conducting regular maintenance, and ensuring high availability through strategies like running a backup validator. You'll also find instructions on rotating your session keys to enhance security and minimize vulnerabilities. Mastering these tasks is essentia",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      },
+      {
+        "depth": 2,
+        "title": "Additional Resources",
+        "anchor": "additional-resources"
+      }
+    ],
+    "stats": {
+      "chars": 1520,
+      "words": 203,
+      "headings": 2,
+      "estimated_token_count_total": 236
+    },
+    "hash": "sha256:c4c79b14ccefef842c387775b22d2e42da7e136d495ccc2ea4dfed9dcd894667",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -6513,7 +7635,39 @@
       "estimated_token_count_total": 1477
     },
     "hash": "sha256:76500d1d63f4205a84f0bc5b7f9aec945781127d41c32927280ac74bc14f0296",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "infrastructure-running-a-validator",
+    "title": "Running a Validator",
+    "slug": "infrastructure-running-a-validator",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/infrastructure-running-a-validator.md",
+    "html_url": "https://docs.polkadot.com/infrastructure/running-a-validator/",
+    "preview": "Running a Polkadot validator is crucial for securing the network and maintaining its integrity. Validators play a key role in verifying parachain blocks, participating in consensus, and ensuring the reliability of the Polkadot relay chain.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      },
+      {
+        "depth": 2,
+        "title": "Additional Resources",
+        "anchor": "additional-resources"
+      }
+    ],
+    "stats": {
+      "chars": 1603,
+      "words": 218,
+      "headings": 2,
+      "estimated_token_count_total": 319
+    },
+    "hash": "sha256:4771f0d30573e36eee1b14cdf3bbca70a4716a3ee8dc8726516487d01a87587c",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -6580,7 +7734,7 @@
       "estimated_token_count_total": 3409
     },
     "hash": "sha256:abe6bedab04f463ec07f554977b8d6355a5d2fad9bcda01cbe58568152295daa",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -6632,7 +7786,71 @@
       "estimated_token_count_total": 2617
     },
     "hash": "sha256:7d43408276d811c96b7b081a7b9f4d884893282a230b564c9eb3be2fc7857565",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "infrastructure-staking-mechanics",
+    "title": "Staking Mechanics",
+    "slug": "infrastructure-staking-mechanics",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/infrastructure-staking-mechanics.md",
+    "html_url": "https://docs.polkadot.com/infrastructure/staking-mechanics/",
+    "preview": "Gain a deep understanding of the staking mechanics in Polkadot, with a focus on how they impact validators. In this section, you'll explore key concepts such as offenses, slashing, and reward payouts, and learn how these mechanisms influence the behavior and performance of validators within the network. Understanding these elements is crucial for optimizing your validator's participation and ensuring alignment with Polkadot's governance and security protocols.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      },
+      {
+        "depth": 2,
+        "title": "Additional Resources",
+        "anchor": "additional-resources"
+      }
+    ],
+    "stats": {
+      "chars": 1824,
+      "words": 249,
+      "headings": 2,
+      "estimated_token_count_total": 352
+    },
+    "hash": "sha256:073052dcb2d4852bd40338cce41f3aec28ec31f93b6170a4daa1c0c21d54b7cb",
+    "last_modified": "2025-10-24T15:58:50+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "infrastructure",
+    "title": "Infrastructure",
+    "slug": "infrastructure",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/infrastructure.md",
+    "html_url": "https://docs.polkadot.com/infrastructure/",
+    "preview": "Running infrastructure on Polkadot is essential to supporting the network’s performance and security. Operators must focus on reliability, ensure proper configuration, and meet the necessary hardware requirements to contribute effectively to the decentralized ecosystem.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Choosing the Right Role",
+        "anchor": "choosing-the-right-role"
+      },
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      }
+    ],
+    "stats": {
+      "chars": 2862,
+      "words": 357,
+      "headings": 2,
+      "estimated_token_count_total": 451
+    },
+    "hash": "sha256:2670bfa3c72e6b28c780cecdd4402691e616c2ab75e1d02a53834477ff1fcff8",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -6699,7 +7917,7 @@
       "estimated_token_count_total": 1044
     },
     "hash": "sha256:d84a5af1a0237a911d25a68c077f508ebbce608f673ef4f9055e8e434daa96b9",
-    "last_modified": "2025-10-23T18:12:26+00:00",
+    "last_modified": "2025-10-24T16:25:49+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -6766,7 +7984,7 @@
       "estimated_token_count_total": 4197
     },
     "hash": "sha256:b83e3f77bd30ac8c8fb00a193bbec33cd641d94f1a37ac611dea32326c3d77b0",
-    "last_modified": "2025-10-23T18:12:26+00:00",
+    "last_modified": "2025-10-24T16:25:49+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -6823,7 +8041,7 @@
       "estimated_token_count_total": 1280
     },
     "hash": "sha256:992082e4ad87348b283f6c37ea886ae0e7bf016852b6470000876f3d169c65a4",
-    "last_modified": "2025-10-23T18:12:26+00:00",
+    "last_modified": "2025-10-24T16:25:49+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -6885,7 +8103,7 @@
       "estimated_token_count_total": 1840
     },
     "hash": "sha256:0fb5a83835aab263c0b9aa886028c8aa8a2d6d0897d7b9fff4b5258835d30dfe",
-    "last_modified": "2025-10-23T18:12:26+00:00",
+    "last_modified": "2025-10-24T16:25:49+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -6967,7 +8185,7 @@
       "estimated_token_count_total": 2592
     },
     "hash": "sha256:d2c1c91734bc8185057d8eeec6829ea91e0316f7ba884c5dc3922a5e5778815e",
-    "last_modified": "2025-10-23T18:12:26+00:00",
+    "last_modified": "2025-10-24T16:25:49+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -7048,13 +8266,13 @@
       }
     ],
     "stats": {
-      "chars": 15792,
-      "words": 2443,
+      "chars": 16353,
+      "words": 2503,
       "headings": 13,
-      "estimated_token_count_total": 3864
+      "estimated_token_count_total": 4073
     },
-    "hash": "sha256:a4235e8d590033d5d54434143e0a5e23603c53ae70d4f0a9ebfe4ca9442baa8d",
-    "last_modified": "2025-10-23T18:12:26+00:00",
+    "hash": "sha256:1a700dc065b86dc6ef540c39457201803c34fcaaffbe4504067b66f347e0a900",
+    "last_modified": "2025-10-24T16:25:49+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -7101,7 +8319,7 @@
       "estimated_token_count_total": 629
     },
     "hash": "sha256:0d6db361bfa7a3022849bbe39989bfdac0429537498d7f534adadec131afca98",
-    "last_modified": "2025-10-23T18:12:26+00:00",
+    "last_modified": "2025-10-24T16:25:49+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -7213,7 +8431,7 @@
       "estimated_token_count_total": 5866
     },
     "hash": "sha256:81eb0fe77f05155f1ec0511cd066120fc9994961e9d91e21b6666377e65b4586",
-    "last_modified": "2025-10-23T18:12:26+00:00",
+    "last_modified": "2025-10-24T16:25:49+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -7265,7 +8483,7 @@
       "estimated_token_count_total": 861
     },
     "hash": "sha256:1af153570ce57bd5b52d08493a300996765686f2a6d04519a2e0aa91191612c1",
-    "last_modified": "2025-10-23T18:12:26+00:00",
+    "last_modified": "2025-10-24T16:25:49+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -7322,7 +8540,7 @@
       "estimated_token_count_total": 1185
     },
     "hash": "sha256:888230b128d8c648c4f06a18d3b1d1b06dd1bf22a0de4add1f28210ffccb2549",
-    "last_modified": "2025-10-23T18:12:26+00:00",
+    "last_modified": "2025-10-24T16:25:49+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -7369,7 +8587,7 @@
       "estimated_token_count_total": 1485
     },
     "hash": "sha256:46435b97c37ef6798d2c75c69df31c5e5f07e04b218c370ec5af6b1838d43aac",
-    "last_modified": "2025-10-23T18:12:26+00:00",
+    "last_modified": "2025-10-24T16:25:49+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -7436,7 +8654,7 @@
       "estimated_token_count_total": 3409
     },
     "hash": "sha256:abe6bedab04f463ec07f554977b8d6355a5d2fad9bcda01cbe58568152295daa",
-    "last_modified": "2025-10-23T18:12:26+00:00",
+    "last_modified": "2025-10-24T16:25:49+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -7488,7 +8706,7 @@
       "estimated_token_count_total": 2588
     },
     "hash": "sha256:d5d6d72eb2cf10f624d84c65f2274f7df90acb5d071bf170bc8eae8d98a810a5",
-    "last_modified": "2025-10-23T18:12:26+00:00",
+    "last_modified": "2025-10-24T16:25:49+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -7580,7 +8798,7 @@
       "estimated_token_count_total": 2724
     },
     "hash": "sha256:93d123cbaaccc2515b4a70be8e1327b4f75b1051d16c5e3daf5a2035af7b7ca3",
-    "last_modified": "2025-10-23T18:12:26+00:00",
+    "last_modified": "2025-10-24T16:25:49+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -7707,7 +8925,7 @@
       "estimated_token_count_total": 3811
     },
     "hash": "sha256:d83e574726c524fa017236eb5e3b8a0676d598be4da1ce4fe25a60141baeee49",
-    "last_modified": "2025-10-23T18:12:26+00:00",
+    "last_modified": "2025-10-24T16:25:49+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -7749,7 +8967,7 @@
       "estimated_token_count_total": 901
     },
     "hash": "sha256:f56a32d5323c371f084833b4e647f21e1d76ad242d8c4e4826bcaed467acc7cf",
-    "last_modified": "2025-10-23T18:12:26+00:00",
+    "last_modified": "2025-10-24T16:25:49+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -7802,7 +9020,7 @@
       "estimated_token_count_total": 3091
     },
     "hash": "sha256:87add0ae178e4970601a27efccadb58eff1375d19819201034ba2829914f1cd5",
-    "last_modified": "2025-10-23T18:12:28+00:00",
+    "last_modified": "2025-10-24T16:25:49+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -7869,7 +9087,7 @@
       "estimated_token_count_total": 3338
     },
     "hash": "sha256:915bc91edd56cdedd516e871dbe450d70c9f99fb467cc00ff231ea3a74f61d96",
-    "last_modified": "2025-10-23T18:12:28+00:00",
+    "last_modified": "2025-10-24T16:25:49+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -7936,7 +9154,7 @@
       "estimated_token_count_total": 3997
     },
     "hash": "sha256:1d324a805f33a41ae1e5c3998f2979c74217ce433a29ff48969f1ea9882cdeaa",
-    "last_modified": "2025-10-23T18:12:28+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -7988,7 +9206,7 @@
       "estimated_token_count_total": 1576
     },
     "hash": "sha256:733652ec4eff9b11efd858a7fd7f1094e7a2e8e7deed4c60c5805f986d877df4",
-    "last_modified": "2025-10-23T18:12:28+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -8045,7 +9263,75 @@
       "estimated_token_count_total": 1563
     },
     "hash": "sha256:8568dfa238b9a649a4e6e60510625c2e7879b76a93187b0b8b8dccf6bc467ae6",
-    "last_modified": "2025-10-23T18:12:28+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "parachains-customize-runtime",
+    "title": "Overview of FRAME",
+    "slug": "parachains-customize-runtime",
+    "categories": [
+      "Basics",
+      "Parachains"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/parachains-customize-runtime.md",
+    "html_url": "https://docs.polkadot.com/parachains/customize-runtime/",
+    "preview": "A blockchain runtime is more than just a fixed set of rules—it's a dynamic foundation that you can shape to match your specific needs. With Polkadot SDK's [FRAME (Framework for Runtime Aggregation of Modularized Entities)](/reference/glossary/#frame-framework-for-runtime-aggregation-of-modularized-entities){target=\\_blank}, customizing your runtime is straightforward and modular. Instead of building everything from scratch, you combine pre-built pallets with your own custom logic to create a run",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Understanding Your Runtime",
+        "anchor": "understanding-your-runtime"
+      },
+      {
+        "depth": 2,
+        "title": "Runtime Architecture",
+        "anchor": "runtime-architecture"
+      },
+      {
+        "depth": 2,
+        "title": "Building Blocks: Pallets",
+        "anchor": "building-blocks-pallets"
+      },
+      {
+        "depth": 3,
+        "title": "Pre-Built Pallets vs. Custom Pallets",
+        "anchor": "pre-built-pallets-vs-custom-pallets"
+      },
+      {
+        "depth": 3,
+        "title": "Pallet Structure",
+        "anchor": "pallet-structure"
+      },
+      {
+        "depth": 2,
+        "title": "How Runtime Customization Works",
+        "anchor": "how-runtime-customization-works"
+      },
+      {
+        "depth": 2,
+        "title": "Starting Templates",
+        "anchor": "starting-templates"
+      },
+      {
+        "depth": 2,
+        "title": "Key Customization Scenarios",
+        "anchor": "key-customization-scenarios"
+      }
+    ],
+    "stats": {
+      "chars": 8236,
+      "words": 1101,
+      "headings": 9,
+      "estimated_token_count_total": 1828
+    },
+    "hash": "sha256:ad58d1c942b567acc4519abc35c0a049ab3e04711c2a49089ceba6324a5aa7ea",
+    "last_modified": "2025-10-24T16:25:49+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -8113,7 +9399,7 @@
       "estimated_token_count_total": 2292
     },
     "hash": "sha256:759ed27cf3d473445e33141089b652082c42a2c59eb822d6b506146fd9555e13",
-    "last_modified": "2025-10-23T18:12:28+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -8196,7 +9482,7 @@
       "estimated_token_count_total": 2709
     },
     "hash": "sha256:2ee5656f749b4bca445172f2bc66c7fc39af40ff173626662ae4c399f49cf909",
-    "last_modified": "2025-10-23T18:12:28+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -8234,7 +9520,7 @@
       "estimated_token_count_total": 428
     },
     "hash": "sha256:cfcc76bb24779c9b613f2c046b6f99a0f2529c25fd82287d804f6b945b936227",
-    "last_modified": "2025-10-23T18:12:28+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -8267,7 +9553,7 @@
       "estimated_token_count_total": 245
     },
     "hash": "sha256:6d8e01281a5895fd2bc4438b24c170c72a496de0b838626a53e87685aea4aa25",
-    "last_modified": "2025-10-23T18:12:28+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -8296,16 +9582,21 @@
         "depth": 2,
         "title": "Cold Wallets",
         "anchor": "cold-wallets"
+      },
+      {
+        "depth": 2,
+        "title": "Wallet Tools",
+        "anchor": "wallet-tools"
       }
     ],
     "stats": {
-      "chars": 2921,
-      "words": 401,
-      "headings": 3,
-      "estimated_token_count_total": 633
+      "chars": 3893,
+      "words": 524,
+      "headings": 4,
+      "estimated_token_count_total": 834
     },
-    "hash": "sha256:62c5ad101282227f79eac0e30a3ba9ce3ae1bf9e358bd58c0b17ef45db29c2ff",
-    "last_modified": "2025-10-23T18:12:28+00:00",
+    "hash": "sha256:ef2cc8c69ca34dd35a012c361d5a7ce72dab888b4ef674f62310a1d3914c6554",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -8377,7 +9668,7 @@
       "estimated_token_count_total": 2285
     },
     "hash": "sha256:b8de1228b9976765accd18ff724038bed6f2449367f500bc3177ab2a053abe63",
-    "last_modified": "2025-10-23T18:12:28+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -8429,7 +9720,7 @@
       "estimated_token_count_total": 1427
     },
     "hash": "sha256:b501d99c464fb049d46676827b6a325a195c90617becc4a7db305441c115350a",
-    "last_modified": "2025-10-23T18:12:28+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -8487,7 +9778,7 @@
       "estimated_token_count_total": 1501
     },
     "hash": "sha256:3b26606dd5310c4b8ade5d05270ebf1e06f59afcda4ca2b985e07948215a197e",
-    "last_modified": "2025-10-23T18:12:28+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -8508,7 +9799,7 @@
       "estimated_token_count_total": 0
     },
     "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T16:14:26+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -8529,7 +9820,7 @@
       "estimated_token_count_total": 0
     },
     "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
-    "last_modified": "2025-10-23T18:12:28+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -8611,7 +9902,7 @@
       "estimated_token_count_total": 2103
     },
     "hash": "sha256:15154f211753665d9af70dc81d15ceb3f0954e3febf9282c68c0074881d620c6",
-    "last_modified": "2025-10-23T18:12:28+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -8689,7 +9980,7 @@
       "estimated_token_count_total": 2379
     },
     "hash": "sha256:637b9460bb65621cbc7c1bff272ea287d5181a983bc61418167959e108e21791",
-    "last_modified": "2025-10-23T18:12:28+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -8742,7 +10033,7 @@
       "estimated_token_count_total": 1751
     },
     "hash": "sha256:bbef601f2645c23200a3b16bc1b8e5bcad2aafdee6d60ae860ce8b5a53122c14",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T16:16:33+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -8789,7 +10080,7 @@
       "estimated_token_count_total": 1161
     },
     "hash": "sha256:ec31270001a6cd9d0a8ecb7974ad161d5c1ef4d3023d5a6af9fbc5a6ca46cbca",
-    "last_modified": "2025-10-23T18:12:28+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -8861,7 +10152,7 @@
       "estimated_token_count_total": 4014
     },
     "hash": "sha256:55dc252fdecf1590048ce8d009b822e90231442abe81e9593cf1635944a31336",
-    "last_modified": "2025-10-23T18:12:29+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -8913,7 +10204,7 @@
       "estimated_token_count_total": 2028
     },
     "hash": "sha256:e408d05199cc184fc6fe8bb212efb3c9aa6cb79258977e07566692176c912def",
-    "last_modified": "2025-10-23T18:12:29+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -8986,7 +10277,7 @@
       "estimated_token_count_total": 2614
     },
     "hash": "sha256:4325cdd697814b8043db808da3dee86d3d9c6fc7dd523aae7fe8914d59d1b39c",
-    "last_modified": "2025-10-23T18:12:29+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -9079,7 +10370,7 @@
       "estimated_token_count_total": 9871
     },
     "hash": "sha256:0d7e04fd952cc9d5bd8cdbfd87cc4004c5f95e896a16bc7f89dfc4caeac8f371",
-    "last_modified": "2025-10-23T18:12:29+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -9127,7 +10418,7 @@
       "estimated_token_count_total": 1125
     },
     "hash": "sha256:9875239c6071033a37a0f67fabca5a6e840c4a287620309f47b4f29c5a95a1cb",
-    "last_modified": "2025-10-23T18:12:29+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -9191,7 +10482,34 @@
       "estimated_token_count_total": 1861
     },
     "hash": "sha256:932c12e1af939698279ede2eacb2190e1f56119582adf2064d6cf86f7a4f3e3c",
-    "last_modified": "2025-10-23T18:12:29+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "polkadot-protocol-architecture-parachains",
+    "title": "Parachains",
+    "slug": "polkadot-protocol-architecture-parachains",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/polkadot-protocol-architecture-parachains.md",
+    "html_url": "https://docs.polkadot.com/polkadot-protocol/architecture/parachains/",
+    "preview": "Discover how parachains secure their networks and reach consensus by harnessing Polkadot’s relay chain and its robust validator framework. This integrated architecture ensures shared security and seamless coordination across the entire ecosystem.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      }
+    ],
+    "stats": {
+      "chars": 725,
+      "words": 93,
+      "headings": 1,
+      "estimated_token_count_total": 12
+    },
+    "hash": "sha256:3b9160b166d9b42b124f3b07eb26bdc5499fbbace6f951095009a5eee7fccbb6",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -9238,7 +10556,7 @@
       "estimated_token_count_total": 619
     },
     "hash": "sha256:00be43ac8d666bbe15c5c2fa5a5085697d0bb5a6f341ebbb943a209f0be355df",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -9300,7 +10618,7 @@
       "estimated_token_count_total": 1440
     },
     "hash": "sha256:2d228c52844df8952520fafdd3e6f0e26bfd2f32b5ee60c6241cf7d38603643c",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -9373,13 +10691,13 @@
       }
     ],
     "stats": {
-      "chars": 12513,
-      "words": 1781,
+      "chars": 12673,
+      "words": 1798,
       "headings": 11,
-      "estimated_token_count_total": 2591
+      "estimated_token_count_total": 2652
     },
-    "hash": "sha256:201e7efa0ad6b24890dd06f69714e19d9700ab7f7a51a33fe6d6e0664b7170b2",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "hash": "sha256:b18f4ea38e896d8f47764d7e6786a10e579429575eea68bfa8510ba60c064893",
+    "last_modified": "2025-10-24T16:16:33+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -9466,7 +10784,34 @@
       "estimated_token_count_total": 2534
     },
     "hash": "sha256:191df9b098e17e9de4597c9f8ced8abbafdfabc7e0f5c0a94d767fc2c9d7742b",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "polkadot-protocol-architecture-polkadot-chain",
+    "title": "The Polkadot Relay Chain",
+    "slug": "polkadot-protocol-architecture-polkadot-chain",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/polkadot-protocol-architecture-polkadot-chain.md",
+    "html_url": "https://docs.polkadot.com/polkadot-protocol/architecture/polkadot-chain/",
+    "preview": "Discover the central role of the Polkadot relay chain in securing the network and fostering interoperability. As the backbone of Polkadot, the relay chain provides shared security and ensures consensus across the ecosystem. It empowers parachains with flexible coretime allocation, enabling them to purchase blockspace on demand, ensuring efficiency and scalability for diverse blockchain applications.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      }
+    ],
+    "stats": {
+      "chars": 481,
+      "words": 63,
+      "headings": 1,
+      "estimated_token_count_total": 12
+    },
+    "hash": "sha256:c29356358f095b0d413e4c6525146b3f1b0b900853aada2168e7e55cd8dd6641",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -9598,7 +10943,7 @@
       "estimated_token_count_total": 4105
     },
     "hash": "sha256:759ab6dea0ad03c3f627558ea186d9f32351fa559acde82931684efc2da59d46",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -9650,7 +10995,7 @@
       "estimated_token_count_total": 1218
     },
     "hash": "sha256:26c156146ef9743fc26c6499294ff14186f97edbc2a34f445d3366b72f7148ae",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -9682,7 +11027,7 @@
       "estimated_token_count_total": 424
     },
     "hash": "sha256:59ec351fbb8d3a392e90f4f5bf6b62f58b21d6d7a900c5e367e5d2e09ecb3aca",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -9724,7 +11069,7 @@
       "estimated_token_count_total": 1230
     },
     "hash": "sha256:8d186fa56ccbbf4b6c85cffc5521b9a99a20e9517f3b4a435730745803cbf2e8",
-    "last_modified": "2025-10-23T18:12:29+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -9792,7 +11137,7 @@
       "estimated_token_count_total": 1643
     },
     "hash": "sha256:100377787627052a29bd1173270b5ad307639b828c331e71c85d4c00bc5692d8",
-    "last_modified": "2025-10-23T18:12:29+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -9854,7 +11199,66 @@
       "estimated_token_count_total": 876
     },
     "hash": "sha256:8239d1e8d8642cb7c10e9e5f971c99b999e9e4a87373b50bf4a691225c1e4702",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "polkadot-protocol-architecture-system-chains",
+    "title": "System Chains",
+    "slug": "polkadot-protocol-architecture-system-chains",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/polkadot-protocol-architecture-system-chains.md",
+    "html_url": "https://docs.polkadot.com/polkadot-protocol/architecture/system-chains/",
+    "preview": "Explore the critical roles Polkadot’s system chains play in enhancing the network’s efficiency and scalability. From managing on-chain assets with the Asset Hub to enabling seamless Web3 integration through the Bridge Hub and facilitating coretime operations with the Coretime chain, each system chain is designed to offload specialized tasks from the relay chain, optimizing the entire ecosystem.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      }
+    ],
+    "stats": {
+      "chars": 929,
+      "words": 124,
+      "headings": 1,
+      "estimated_token_count_total": 12
+    },
+    "hash": "sha256:6ef13c197dd1865fcc1a405d67486f1d053534d576bb32fe47a442fd2c11b6cd",
+    "last_modified": "2025-10-24T16:25:50+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "polkadot-protocol-architecture",
+    "title": "Architecture",
+    "slug": "polkadot-protocol-architecture",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/polkadot-protocol-architecture.md",
+    "html_url": "https://docs.polkadot.com/polkadot-protocol/architecture/",
+    "preview": "Explore Polkadot's architecture, including the relay chain, parachains, and system chains, and discover the role each component plays in the broader ecosystem.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "A Brief Look at Polkadot’s Chain Ecosystem",
+        "anchor": "a-brief-look-at-polkadots-chain-ecosystem"
+      },
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      }
+    ],
+    "stats": {
+      "chars": 990,
+      "words": 132,
+      "headings": 2,
+      "estimated_token_count_total": 177
+    },
+    "hash": "sha256:ffda04c93c70ec7204be28b642fa6e51f6bf9436d4792ecd25136696683f0902",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -10191,7 +11595,7 @@
       "estimated_token_count_total": 5271
     },
     "hash": "sha256:f0e04286eacf23b182186f23e9854c0cd251545b8a8d561d2503f962dbfe32c0",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -10233,7 +11637,7 @@
       "estimated_token_count_total": 631
     },
     "hash": "sha256:baba9dd41091b792d09005d55d3df0bf65b35f42b40ebe63caf425a0978a22b0",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -10301,7 +11705,39 @@
       "estimated_token_count_total": 1611
     },
     "hash": "sha256:62beec261e72529f70e07a641177d489d2c8872f9c9d618cbadf1ac0fd881986",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "polkadot-protocol-onchain-governance",
+    "title": "On-Chain Governance",
+    "slug": "polkadot-protocol-onchain-governance",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/polkadot-protocol-onchain-governance.md",
+    "html_url": "https://docs.polkadot.com/polkadot-protocol/onchain-governance/",
+    "preview": "Polkadot's on-chain governance system, OpenGov, enables decentralized decision-making across the network. It empowers stakeholders to propose, vote on, and enact changes with transparency and efficiency. This system ensures that governance is both flexible and inclusive, allowing developers to integrate custom governance solutions and mechanisms within the network. Understanding how OpenGov functions is crucial for anyone looking to engage with Polkadot’s decentralized ecosystem, whether you’re",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Start Building Governance Solutions",
+        "anchor": "start-building-governance-solutions"
+      },
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      }
+    ],
+    "stats": {
+      "chars": 2114,
+      "words": 285,
+      "headings": 2,
+      "estimated_token_count_total": 233
+    },
+    "hash": "sha256:58fd5c8c092ee748c2979164f985a67071a6ccb88492e79cdad536363364c858",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -10399,7 +11835,7 @@
       "estimated_token_count_total": 6521
     },
     "hash": "sha256:1f9ce923b3ce296571fe63837c0d3c3c791a339ef02db09ead6b2b92e9d1bfd5",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -10462,7 +11898,7 @@
       "estimated_token_count_total": 1399
     },
     "hash": "sha256:bcad23a74d962cab72b54cdc090bf9ee0cd5ecf79f70fb642f154668c2743983",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -10560,7 +11996,7 @@
       "estimated_token_count_total": 4464
     },
     "hash": "sha256:299597c39d0e4e4902be8e45b354fff78a862aa5799e4f16d16787a97a1e3da8",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -10687,13 +12123,40 @@
       }
     ],
     "stats": {
-      "chars": 23604,
-      "words": 3333,
+      "chars": 23824,
+      "words": 3356,
       "headings": 22,
-      "estimated_token_count_total": 4705
+      "estimated_token_count_total": 4775
     },
-    "hash": "sha256:6675634d4c5f274a7cc69802ee0a2d259e38efd5afd1c9dacc2d0fecfb370e4c",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "hash": "sha256:a989e3a99857103729a3e3e64b85e9ff0b3a2ee56233b6553579f60f5bfa4a0f",
+    "last_modified": "2025-10-24T16:16:33+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "polkadot-protocol-parachain-basics-blocks-transactions-fees",
+    "title": "Blocks, Transactions, and Fees",
+    "slug": "polkadot-protocol-parachain-basics-blocks-transactions-fees",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/polkadot-protocol-parachain-basics-blocks-transactions-fees.md",
+    "html_url": "https://docs.polkadot.com/polkadot-protocol/parachain-basics/blocks-transactions-fees/",
+    "preview": "Discover the inner workings of Polkadot’s blocks and transactions, including their structure, processing, and lifecycle within the network. Learn how blocks are authored, validated, and finalized, ensuring seamless operation and consensus across the ecosystem. Dive into the various types of transactions—signed, unsigned, and inherent—and understand how they are constructed, submitted, and validated.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      }
+    ],
+    "stats": {
+      "chars": 788,
+      "words": 105,
+      "headings": 1,
+      "estimated_token_count_total": 12
+    },
+    "hash": "sha256:235f33cdb64494815dbb3eb58ea98c69935098684e1b34b6d15356bc54b082ea",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -10791,7 +12254,7 @@
       "estimated_token_count_total": 3782
     },
     "hash": "sha256:eb4da21d561e9fd9333d97805318f0e263f54570120d3852ce7eba64da604cc2",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -10874,7 +12337,7 @@
       "estimated_token_count_total": 1797
     },
     "hash": "sha256:259dcef86aadc513675258b665cc3940db65af6eb32a5db85da6ac339966fa60",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -10947,7 +12410,7 @@
       "estimated_token_count_total": 3213
     },
     "hash": "sha256:e448294b6e52291ac0add5fa6533572814e6cd27af42bdaccc2000b86f52d775",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -11005,7 +12468,7 @@
       "estimated_token_count_total": 780
     },
     "hash": "sha256:077e7e5bfc9509cf09f455959a5da7a74b7af69836b3c4b334692f32e306ddf1",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -11079,7 +12542,7 @@
       "estimated_token_count_total": 1473
     },
     "hash": "sha256:695c624a1d7a3ed6fea0f4f5c19bb2100be986cec29ba58edb4598b9e9b98494",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -11152,7 +12615,7 @@
       "estimated_token_count_total": 914
     },
     "hash": "sha256:8122e21c149d0863cfe3b37fc5606bcdb91668e9d265f0f05451a61ff70e4e93",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -11205,7 +12668,34 @@
       "estimated_token_count_total": 1394
     },
     "hash": "sha256:217a79109aff1607594a0238fd91bfa812827620887c4f063c7e0a7a37f967d6",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "polkadot-protocol-parachain-basics",
+    "title": "Parachain Basics",
+    "slug": "polkadot-protocol-parachain-basics",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/polkadot-protocol-parachain-basics.md",
+    "html_url": "https://docs.polkadot.com/polkadot-protocol/parachain-basics/",
+    "preview": "This section equips developers with the essential knowledge to create, deploy, and enhance applications and blockchains within the Polkadot ecosystem. Gain a comprehensive understanding of Polkadot’s foundational components, including accounts, balances, and transactions, as well as advanced topics like data encoding and cryptographic methods. Mastering these concepts is vital for building robust and secure applications on Polkadot.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      }
+    ],
+    "stats": {
+      "chars": 998,
+      "words": 130,
+      "headings": 1,
+      "estimated_token_count_total": 12
+    },
+    "hash": "sha256:1514316acba1e9bba82ae1c82b09481e9d03d286e6f5d93b66e5a85fd4be7bca",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -11273,7 +12763,7 @@
       "estimated_token_count_total": 1822
     },
     "hash": "sha256:db2b1806153242680043ced536f64fc8a2ed3c09adc1bec5aa287168b48e0994",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -11336,7 +12826,7 @@
       "estimated_token_count_total": 1178
     },
     "hash": "sha256:9a6b3fa6c005d75c25f0f683b7d8c3b65891454743b794c12b005f910b81609c",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -11449,7 +12939,7 @@
       "estimated_token_count_total": 5305
     },
     "hash": "sha256:fe651be49fe0a9ae899b2cbf9c663325f407718dc63f1d2c6a2dc4931be751fa",
-    "last_modified": "2025-10-23T18:12:29+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -11517,7 +13007,7 @@
       "estimated_token_count_total": 891
     },
     "hash": "sha256:b5acdc9acf0e44836b8a4518155eba7d16cc3b103c557a00970ffb1c44c3e9f6",
-    "last_modified": "2025-10-23T18:12:29+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -11564,13 +13054,13 @@
       }
     ],
     "stats": {
-      "chars": 10906,
-      "words": 1567,
+      "chars": 10854,
+      "words": 1559,
       "headings": 6,
-      "estimated_token_count_total": 2570
+      "estimated_token_count_total": 2550
     },
-    "hash": "sha256:e2cf14bcb483308f73a80c8e8871ce1a86fa694576d2e6e51beafc24488f4d58",
-    "last_modified": "2025-10-23T18:12:29+00:00",
+    "hash": "sha256:5d293525ce81d27e32c26938a029a6a82b137221a0630d084f528853ffaf798e",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -11623,7 +13113,66 @@
       "estimated_token_count_total": 994
     },
     "hash": "sha256:6992c9a2d1b315b64d9782880105cf2d436750249a84577aceb95cc213863009",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "polkadot-protocol-smart-contract-basics",
+    "title": "Smart Contract Basics",
+    "slug": "polkadot-protocol-smart-contract-basics",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/polkadot-protocol-smart-contract-basics.md",
+    "html_url": "https://docs.polkadot.com/polkadot-protocol/smart-contract-basics/",
+    "preview": "!!! smartcontract \"PolkaVM Preview Release\" PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**. Gain a deep understanding of smart contracts on Polkadot, from execution environments to transaction mechanics.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Key Topics",
+        "anchor": "key-topics"
+      },
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      }
+    ],
+    "stats": {
+      "chars": 1110,
+      "words": 136,
+      "headings": 2,
+      "estimated_token_count_total": 148
+    },
+    "hash": "sha256:e8dac01e89b7aac4b887e962e91084c253f5ea25c1abc3a56355390d0c3201c8",
+    "last_modified": "2025-10-24T16:25:50+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "polkadot-protocol",
+    "title": "Learn About the Polkadot Protocol",
+    "slug": "polkadot-protocol",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/polkadot-protocol.md",
+    "html_url": "https://docs.polkadot.com/polkadot-protocol/",
+    "preview": "The Polkadot protocol is designed to enable scalable, secure, and interoperable networks. It introduces a unique multichain architecture that allows independent blockchains, known as parachains, to operate seamlessly while benefiting from the shared security of the relay chain. Polkadot’s decentralized governance ensures that network upgrades and decisions are community-driven, while its cross-chain messaging and interoperability features make it a hub for multichain applications.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      }
+    ],
+    "stats": {
+      "chars": 1170,
+      "words": 150,
+      "headings": 1,
+      "estimated_token_count_total": 12
+    },
+    "hash": "sha256:49be4b4b5289572086eaaaf9ccff3bee7879b534188331c9a8052b3fe5aa4933",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -11960,7 +13509,7 @@
       "estimated_token_count_total": 5273
     },
     "hash": "sha256:40bd67811e7eabc79ca5d105eae388b19380d9f035022da17fc0d6bb173c817c",
-    "last_modified": "2025-10-23T18:12:29+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -12002,7 +13551,75 @@
       "estimated_token_count_total": 631
     },
     "hash": "sha256:baba9dd41091b792d09005d55d3df0bf65b35f42b40ebe63caf425a0978a22b0",
-    "last_modified": "2025-10-23T18:12:29+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "reference-governance",
+    "title": "On-Chain Governance Overview",
+    "slug": "reference-governance",
+    "categories": [
+      "Basics",
+      "Polkadot Protocol"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-governance.md",
+    "html_url": "https://docs.polkadot.com/reference/governance/",
+    "preview": "Polkadot’s governance system exemplifies decentralized decision-making, empowering its community of stakeholders to shape the network’s future through active participation. The latest evolution, OpenGov, builds on Polkadot’s foundation by providing a more inclusive and efficient governance model.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Governance Evolution",
+        "anchor": "governance-evolution"
+      },
+      {
+        "depth": 2,
+        "title": "OpenGov Key Features",
+        "anchor": "opengov-key-features"
+      },
+      {
+        "depth": 2,
+        "title": "Origins and Tracks",
+        "anchor": "origins-and-tracks"
+      },
+      {
+        "depth": 2,
+        "title": "Referendums",
+        "anchor": "referendums"
+      },
+      {
+        "depth": 3,
+        "title": "Vote on Referendums",
+        "anchor": "vote-on-referendums"
+      },
+      {
+        "depth": 3,
+        "title": "Delegate Voting Power",
+        "anchor": "delegate-voting-power"
+      },
+      {
+        "depth": 3,
+        "title": "Cancel a Referendum",
+        "anchor": "cancel-a-referendum"
+      },
+      {
+        "depth": 2,
+        "title": "Additional Resources",
+        "anchor": "additional-resources"
+      }
+    ],
+    "stats": {
+      "chars": 7493,
+      "words": 1019,
+      "headings": 9,
+      "estimated_token_count_total": 1611
+    },
+    "hash": "sha256:62beec261e72529f70e07a641177d489d2c8872f9c9d618cbadf1ac0fd881986",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -12100,7 +13717,7 @@
       "estimated_token_count_total": 6507
     },
     "hash": "sha256:0104a9132a69345a2faac37fca0e2853a2ded1efb009511a83a98d44509ab887",
-    "last_modified": "2025-10-23T18:12:29+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -12163,7 +13780,7 @@
       "estimated_token_count_total": 1395
     },
     "hash": "sha256:424783c102bea5dae5b8749635858c6c59055563442a98f57521f0027dafa8d3",
-    "last_modified": "2025-10-23T18:12:29+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -12261,7 +13878,7 @@
       "estimated_token_count_total": 4464
     },
     "hash": "sha256:7d0c3fa7982b3e1843adb8f27422456397580b3a3eba5047b381da8517742536",
-    "last_modified": "2025-10-23T18:12:29+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -12388,13 +14005,13 @@
       }
     ],
     "stats": {
-      "chars": 23582,
-      "words": 3330,
+      "chars": 23632,
+      "words": 3336,
       "headings": 22,
-      "estimated_token_count_total": 4699
+      "estimated_token_count_total": 4714
     },
-    "hash": "sha256:547f062b248779f0b3e823778120c4f32e449937b6f270ddf97378bc6d795c62",
-    "last_modified": "2025-10-23T18:12:29+00:00",
+    "hash": "sha256:e858bf6f7cf6af0525ffa8c8f5533e18b8ce0d6bbcd1b2acad71d31137a5f6b4",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -12492,7 +14109,7 @@
       "estimated_token_count_total": 3774
     },
     "hash": "sha256:49238d1e9e2c33e0fcd3a84b5e30f0d3840d7d23a783b538875e0a23f38efc1d",
-    "last_modified": "2025-10-23T18:12:29+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -12513,7 +14130,7 @@
       "estimated_token_count_total": 0
     },
     "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
-    "last_modified": "2025-10-23T18:12:29+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -12575,7 +14192,28 @@
       "estimated_token_count_total": 1440
     },
     "hash": "sha256:2d228c52844df8952520fafdd3e6f0e26bfd2f32b5ee60c6241cf7d38603643c",
-    "last_modified": "2025-10-23T18:12:29+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "reference-parachains-consensus",
+    "title": "reference-parachains-consensus",
+    "slug": "reference-parachains-consensus",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-parachains-consensus.md",
+    "html_url": "https://docs.polkadot.com/reference/parachains/consensus/",
+    "preview": "TODO",
+    "outline": [],
+    "stats": {
+      "chars": 5,
+      "words": 1,
+      "headings": 0,
+      "estimated_token_count_total": 0
+    },
+    "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -12658,7 +14296,7 @@
       "estimated_token_count_total": 1797
     },
     "hash": "sha256:259dcef86aadc513675258b665cc3940db65af6eb32a5db85da6ac339966fa60",
-    "last_modified": "2025-10-23T18:12:29+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -12731,7 +14369,7 @@
       "estimated_token_count_total": 3213
     },
     "hash": "sha256:e448294b6e52291ac0add5fa6533572814e6cd27af42bdaccc2000b86f52d775",
-    "last_modified": "2025-10-23T18:12:29+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -12789,7 +14427,7 @@
       "estimated_token_count_total": 772
     },
     "hash": "sha256:11bb4f113bdda5852a3115e64d5ba47f8eccd4e3619a05ad960ab3a541f31346",
-    "last_modified": "2025-10-23T18:12:29+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -12863,7 +14501,7 @@
       "estimated_token_count_total": 1473
     },
     "hash": "sha256:e49e063a2cc0fb5a48c6cdc3de266bb6e025a006940fea8e90cc4d5f9884900f",
-    "last_modified": "2025-10-23T18:12:29+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -12936,7 +14574,7 @@
       "estimated_token_count_total": 914
     },
     "hash": "sha256:8122e21c149d0863cfe3b37fc5606bcdb91668e9d265f0f05451a61ff70e4e93",
-    "last_modified": "2025-10-23T18:12:29+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -12989,7 +14627,60 @@
       "estimated_token_count_total": 1388
     },
     "hash": "sha256:c7d8a5a4263fd21af458ab0bd102377104affdf2431b4fe74eeff4ebe62a4a81",
-    "last_modified": "2025-10-23T18:12:29+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "reference-parachains",
+    "title": "Parachains Overview",
+    "slug": "reference-parachains",
+    "categories": [
+      "Basics",
+      "Parachains"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-parachains.md",
+    "html_url": "https://docs.polkadot.com/reference/parachains/",
+    "preview": "A parachain is a specialized blockchain that connects to the Polkadot relay chain, benefiting from shared security, interoperability, and scalability. Parachains are built using the [Polkadot SDK](https://github.com/paritytech/polkadot-sdk){target=\\_blank}, a powerful toolkit written in Rust that provides everything needed to create custom blockchain logic while integrating seamlessly with the Polkadot network.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Polkadot SDK: Parachain Architecture",
+        "anchor": "polkadot-sdk-parachain-architecture"
+      },
+      {
+        "depth": 3,
+        "title": "Substrate: The Foundation",
+        "anchor": "substrate-the-foundation"
+      },
+      {
+        "depth": 3,
+        "title": "FRAME: Building Blocks for Your Runtime",
+        "anchor": "frame-building-blocks-for-your-runtime"
+      },
+      {
+        "depth": 3,
+        "title": "Cumulus: Parachain-Specific Functionality",
+        "anchor": "cumulus-parachain-specific-functionality"
+      },
+      {
+        "depth": 2,
+        "title": "Where to Go Next",
+        "anchor": "where-to-go-next"
+      }
+    ],
+    "stats": {
+      "chars": 8495,
+      "words": 1029,
+      "headings": 6,
+      "estimated_token_count_total": 1759
+    },
+    "hash": "sha256:ecb0d9459e08920db7d2d59dc7c01aba7a91ce8c9e39256bd0c3efa473dbaa17",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -13121,7 +14812,7 @@
       "estimated_token_count_total": 4087
     },
     "hash": "sha256:73c34bb1dc80d04f765812c3ed2f247aeda6ce55598b0680d0bd157f25456b99",
-    "last_modified": "2025-10-23T18:12:29+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -13173,7 +14864,7 @@
       "estimated_token_count_total": 1220
     },
     "hash": "sha256:86734ba8bcdea7913f488edf666a6104bed0a18649d57abde82c149c41c2b871",
-    "last_modified": "2025-10-23T18:12:29+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -13205,7 +14896,7 @@
       "estimated_token_count_total": 424
     },
     "hash": "sha256:59ec351fbb8d3a392e90f4f5bf6b62f58b21d6d7a900c5e367e5d2e09ecb3aca",
-    "last_modified": "2025-10-23T18:12:29+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -13252,7 +14943,7 @@
       "estimated_token_count_total": 619
     },
     "hash": "sha256:00be43ac8d666bbe15c5c2fa5a5085697d0bb5a6f341ebbb943a209f0be355df",
-    "last_modified": "2025-10-23T18:12:29+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -13339,7 +15030,7 @@
       "estimated_token_count_total": 2526
     },
     "hash": "sha256:231fc555eefe5f910fb36e0c03945147d0fb235272850797391751f4444b0a9c",
-    "last_modified": "2025-10-23T18:12:29+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -13412,13 +15103,13 @@
       }
     ],
     "stats": {
-      "chars": 12430,
+      "chars": 12451,
       "words": 1771,
       "headings": 11,
-      "estimated_token_count_total": 2571
+      "estimated_token_count_total": 2574
     },
-    "hash": "sha256:8a914e4309d4fe7070e62d7abe4665b6c76c8dc5ec3219332eccb16b77b0dd95",
-    "last_modified": "2025-10-23T18:12:29+00:00",
+    "hash": "sha256:aa3e3894bf9402205005eab1be7673d0276de65f57c8f3e88d19c91daf62d827",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -13480,7 +15171,28 @@
       "estimated_token_count_total": 876
     },
     "hash": "sha256:8239d1e8d8642cb7c10e9e5f971c99b999e9e4a87373b50bf4a691225c1e4702",
-    "last_modified": "2025-10-23T18:12:29+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "reference-polkadot-hub",
+    "title": "reference-polkadot-hub",
+    "slug": "reference-polkadot-hub",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-polkadot-hub.md",
+    "html_url": "https://docs.polkadot.com/reference/polkadot-hub/",
+    "preview": "TODO",
+    "outline": [],
+    "stats": {
+      "chars": 5,
+      "words": 1,
+      "headings": 0,
+      "estimated_token_count_total": 0
+    },
+    "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -13501,7 +15213,7 @@
       "estimated_token_count_total": 0
     },
     "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
-    "last_modified": "2025-10-23T18:12:29+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -13569,7 +15281,7 @@
       "estimated_token_count_total": 2300
     },
     "hash": "sha256:ba24e31e2ad94fbf1d73f1878da92dd2e1476db00170780bbdf0e65ab18bc961",
-    "last_modified": "2025-10-23T18:12:29+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -13627,7 +15339,7 @@
       "estimated_token_count_total": 1430
     },
     "hash": "sha256:1284c42be692167e01bcc44e2e134ec20615402675fac26df246c00aa1588d80",
-    "last_modified": "2025-10-23T18:12:29+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -13695,7 +15407,7 @@
       "estimated_token_count_total": 2453
     },
     "hash": "sha256:2c77cfb38bb2e466a8f56dabbb706fcd2e90cf1634fc9beb7f0ee95a75735653",
-    "last_modified": "2025-10-23T18:12:29+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -13763,7 +15475,7 @@
       "estimated_token_count_total": 2018
     },
     "hash": "sha256:a87815deff81936d7f50842f8600004990076c1a33e7e6b408ab954b6ce47259",
-    "last_modified": "2025-10-23T18:12:29+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -13816,7 +15528,7 @@
       "estimated_token_count_total": 1987
     },
     "hash": "sha256:2ca93b09d3bb9159bbf53816886a9b242bb3c13b996c51fd52962e049e2d5477",
-    "last_modified": "2025-10-23T18:12:29+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -13848,7 +15560,7 @@
       "estimated_token_count_total": 669
     },
     "hash": "sha256:a7f9c4a03153ee637a0557d2cea0b622c849667ce793b1294bb3299cf036197d",
-    "last_modified": "2025-10-23T18:12:29+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -13921,7 +15633,7 @@
       "estimated_token_count_total": 1084
     },
     "hash": "sha256:7f533abe61586af8438e350c41b741d74a8edb839f9dc4139bc4619ba3748258",
-    "last_modified": "2025-10-23T18:12:29+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -13989,7 +15701,7 @@
       "estimated_token_count_total": 1166
     },
     "hash": "sha256:ed3986f30880fefca5975fcdc847c68b4aca65862c63e3002b25391b0521781d",
-    "last_modified": "2025-10-23T18:12:29+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -14047,7 +15759,7 @@
       "estimated_token_count_total": 942
     },
     "hash": "sha256:8987fc35cd28602054ee018031f773e2e3837425107c51d0e2ac68a94b86e9c0",
-    "last_modified": "2025-10-23T18:12:29+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -14100,7 +15812,7 @@
       "estimated_token_count_total": 1945
     },
     "hash": "sha256:0795462182cb97256bb5c2acb035855fe0d6557185de8ac99482725ecb4f94c1",
-    "last_modified": "2025-10-23T18:12:29+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -14173,7 +15885,7 @@
       "estimated_token_count_total": 2187
     },
     "hash": "sha256:56269d9ea47f5b4e92cd7d5a1e65ab06d181a9c380f90bb3ef285529b12299f7",
-    "last_modified": "2025-10-23T18:12:29+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -14232,7 +15944,7 @@
       "estimated_token_count_total": 1700
     },
     "hash": "sha256:47328231d6ff4dc52cd93aaf1baf5d0bc2d9fc372f3d79339d87aafa0dabd1b8",
-    "last_modified": "2025-10-23T18:12:29+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -14253,7 +15965,28 @@
       "estimated_token_count_total": 0
     },
     "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
-    "last_modified": "2025-10-23T18:12:29+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "reference",
+    "title": "reference",
+    "slug": "reference",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference.md",
+    "html_url": "https://docs.polkadot.com/reference/",
+    "preview": "TODO",
+    "outline": [],
+    "stats": {
+      "chars": 5,
+      "words": 1,
+      "headings": 0,
+      "estimated_token_count_total": 0
+    },
+    "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -14290,7 +16023,7 @@
       "estimated_token_count_total": 558
     },
     "hash": "sha256:a2490223926957381913ae0ed22e2df3611a6713ec9d77a3015d1cd6a578b3f6",
-    "last_modified": "2025-10-23T18:12:29+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -14311,7 +16044,7 @@
       "estimated_token_count_total": 0
     },
     "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
-    "last_modified": "2025-10-23T18:12:29+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -14369,7 +16102,7 @@
       "estimated_token_count_total": 2671
     },
     "hash": "sha256:2a42198668c759f63aa602115bf2d290ec7d03bbc3a3df20e30e85027e1b1cc3",
-    "last_modified": "2025-10-23T18:12:29+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -14390,7 +16123,7 @@
       "estimated_token_count_total": 0
     },
     "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
-    "last_modified": "2025-10-23T18:12:29+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -14444,7 +16177,7 @@
       "estimated_token_count_total": 2107
     },
     "hash": "sha256:296cba75b1d49aefa1b8636ba95ca20c3431b7eb0e93b0658add671ef5801732",
-    "last_modified": "2025-10-23T18:12:29+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -14498,7 +16231,46 @@
       "estimated_token_count_total": 2264
     },
     "hash": "sha256:4e3ac6affdbe93ce9d132cbb838be1dfaf7a629b0e1f10ce4d90cc3899d656cb",
-    "last_modified": "2025-10-23T18:12:30+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "smart-contracts-cookbook",
+    "title": "Smart Contracts Cookbook Index",
+    "slug": "smart-contracts-cookbook",
+    "categories": [
+      "Basics",
+      "dApps",
+      "Smart Contracts"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook.md",
+    "html_url": "https://docs.polkadot.com/smart-contracts/cookbook/",
+    "preview": "Welcome to the Polkadot smart contracts cookbook index.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Get Tokens from the Faucet",
+        "anchor": "get-tokens-from-the-faucet"
+      },
+      {
+        "depth": 2,
+        "title": "EVM/PVM Smart Contracts",
+        "anchor": "evmpvm-smart-contracts"
+      },
+      {
+        "depth": 2,
+        "title": "Port Ethereum DApps",
+        "anchor": "port-ethereum-dapps"
+      }
+    ],
+    "stats": {
+      "chars": 1586,
+      "words": 204,
+      "headings": 3,
+      "estimated_token_count_total": 406
+    },
+    "hash": "sha256:ea0d085c376117436a9cf68e786da942cf88993651d4e06550f9ee03d2e810f4",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -14519,7 +16291,7 @@
       "estimated_token_count_total": 0
     },
     "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
-    "last_modified": "2025-10-23T18:12:30+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -14540,7 +16312,7 @@
       "estimated_token_count_total": 0
     },
     "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
-    "last_modified": "2025-10-23T18:12:30+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -14617,7 +16389,7 @@
       "estimated_token_count_total": 6228
     },
     "hash": "sha256:72e41f816f07026d96c803f399c71852aa1151c464e79cec3e1746b282d5eaae",
-    "last_modified": "2025-10-23T18:12:30+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -14638,7 +16410,7 @@
       "estimated_token_count_total": 0
     },
     "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
-    "last_modified": "2025-10-23T18:12:30+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -14659,7 +16431,7 @@
       "estimated_token_count_total": 0
     },
     "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
-    "last_modified": "2025-10-23T18:12:30+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -14680,7 +16452,7 @@
       "estimated_token_count_total": 0
     },
     "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
-    "last_modified": "2025-10-23T18:12:30+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -14701,7 +16473,7 @@
       "estimated_token_count_total": 0
     },
     "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
-    "last_modified": "2025-10-23T18:12:30+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -14722,7 +16494,7 @@
       "estimated_token_count_total": 0
     },
     "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
-    "last_modified": "2025-10-23T18:12:30+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -14800,7 +16572,7 @@
       "estimated_token_count_total": 4190
     },
     "hash": "sha256:1729ad83ad381a90752540644d400c60add3555e5da296ab455442be81d32f8c",
-    "last_modified": "2025-10-23T18:12:30+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -14821,7 +16593,7 @@
       "estimated_token_count_total": 0
     },
     "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
-    "last_modified": "2025-10-23T18:12:30+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -14842,7 +16614,7 @@
       "estimated_token_count_total": 0
     },
     "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
-    "last_modified": "2025-10-23T18:12:30+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -14863,7 +16635,7 @@
       "estimated_token_count_total": 0
     },
     "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
-    "last_modified": "2025-10-23T18:12:30+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -14905,7 +16677,7 @@
       "estimated_token_count_total": 2430
     },
     "hash": "sha256:e3d8b84cb2cee7010978582998b2269296a042aec53fb016388690ab6adf355e",
-    "last_modified": "2025-10-23T18:12:30+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -14926,7 +16698,7 @@
       "estimated_token_count_total": 0
     },
     "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
-    "last_modified": "2025-10-23T18:12:30+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -14989,7 +16761,7 @@
       "estimated_token_count_total": 1347
     },
     "hash": "sha256:7589fa1dbdbf5748892ab6d42fc784d833f33e254bd3f95ee58424effcd38323",
-    "last_modified": "2025-10-23T18:12:30+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -15010,7 +16782,7 @@
       "estimated_token_count_total": 0
     },
     "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
-    "last_modified": "2025-10-23T18:12:30+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -15031,7 +16803,7 @@
       "estimated_token_count_total": 0
     },
     "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
-    "last_modified": "2025-10-23T18:12:30+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -15074,7 +16846,7 @@
       "estimated_token_count_total": 309
     },
     "hash": "sha256:93e8a3043d65583e3d66f8f5f0ed6f4ef89a908ef85da2b6ca906a1100b7dded",
-    "last_modified": "2025-10-23T18:12:30+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -15111,7 +16883,7 @@
       "estimated_token_count_total": 313
     },
     "hash": "sha256:c609bc98cba5efa2d2a808548cf93ad9d0a06455b35a8fd9f534daf52824f506",
-    "last_modified": "2025-10-23T18:12:30+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -15179,7 +16951,7 @@
       "estimated_token_count_total": 1818
     },
     "hash": "sha256:f50cd1177dd4aff8eb031d6f21cb640f8187a7f2dd0edcaef5c73354a378e44d",
-    "last_modified": "2025-10-23T18:12:30+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -15242,7 +17014,7 @@
       "estimated_token_count_total": 1182
     },
     "hash": "sha256:9542f40acae725e628f4c3155ad1e7e0e18b2eb518484856ad439a1d9f86d1f3",
-    "last_modified": "2025-10-23T18:12:30+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -15263,12 +17035,12 @@
       "estimated_token_count_total": 0
     },
     "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
-    "last_modified": "2025-10-23T18:12:30+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
     "id": "smart-contracts-for-eth-devs-dual-vm-stack",
-    "title": "PolkaVM Design",
+    "title": "Dual Virtual Machine Stack",
     "slug": "smart-contracts-for-eth-devs-dual-vm-stack",
     "categories": [
       "Basics",
@@ -15285,8 +17057,13 @@
       },
       {
         "depth": 2,
-        "title": "PolkaVM",
-        "anchor": "polkavm"
+        "title": "Migrate from EVM",
+        "anchor": "migrate-from-evm"
+      },
+      {
+        "depth": 2,
+        "title": "Upgrade to PolkaVM",
+        "anchor": "upgrade-to-polkavm"
       },
       {
         "depth": 2,
@@ -15295,8 +17072,8 @@
       },
       {
         "depth": 3,
-        "title": "Pallet Revive",
-        "anchor": "pallet-revive"
+        "title": "Revive Pallet",
+        "anchor": "revive-pallet"
       },
       {
         "depth": 3,
@@ -15305,18 +17082,18 @@
       },
       {
         "depth": 2,
-        "title": "Compilation Process",
-        "anchor": "compilation-process"
+        "title": "Where To Go Next",
+        "anchor": "where-to-go-next"
       }
     ],
     "stats": {
-      "chars": 5334,
-      "words": 666,
-      "headings": 6,
-      "estimated_token_count_total": 994
+      "chars": 5383,
+      "words": 702,
+      "headings": 7,
+      "estimated_token_count_total": 986
     },
-    "hash": "sha256:6992c9a2d1b315b64d9782880105cf2d436750249a84577aceb95cc213863009",
-    "last_modified": "2025-10-23T18:12:30+00:00",
+    "hash": "sha256:2d918017faecf489ec786f34de6cd4366a86e9f1cecfbb7722cc03079e6b64ea",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -15373,7 +17150,7 @@
       "estimated_token_count_total": 1046
     },
     "hash": "sha256:dd29fab6e3c00d720b10effa4e50373a6fe9ab4b7bfd3aea892c7fa9c84318a2",
-    "last_modified": "2025-10-23T18:12:30+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -15570,7 +17347,7 @@
       "estimated_token_count_total": 9750
     },
     "hash": "sha256:1fb7a20bc4a799a771954720428029419ec73afa640e589590c43dd041a7e307",
-    "last_modified": "2025-10-23T18:12:30+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -15591,7 +17368,7 @@
       "estimated_token_count_total": 0
     },
     "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
-    "last_modified": "2025-10-23T18:12:30+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -15649,7 +17426,7 @@
       "estimated_token_count_total": 2840
     },
     "hash": "sha256:224a9f69d4613a5f1afdbc1f05379add8321fe159e32c71db003bbe08ff8e976",
-    "last_modified": "2025-10-23T18:12:30+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -15670,7 +17447,7 @@
       "estimated_token_count_total": 0
     },
     "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
-    "last_modified": "2025-10-23T18:12:30+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -15691,7 +17468,7 @@
       "estimated_token_count_total": 0
     },
     "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
-    "last_modified": "2025-10-23T18:12:30+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -15744,7 +17521,7 @@
       "estimated_token_count_total": 1627
     },
     "hash": "sha256:65809486f62f60c6a6ac8109f9f027361683c23f639991a045ec5c057b665026",
-    "last_modified": "2025-10-23T18:12:30+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -15832,7 +17609,7 @@
       "estimated_token_count_total": 4474
     },
     "hash": "sha256:c74a28d8d62369591c5734535136508db3d1f7380e486fd214f98d433cafd6e7",
-    "last_modified": "2025-10-23T18:12:30+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -15925,7 +17702,7 @@
       "estimated_token_count_total": 3891
     },
     "hash": "sha256:e27657e4e4a14fe86f424b96631946ec36fb90d277e6010b6cbd64c4769aba8a",
-    "last_modified": "2025-10-23T18:12:30+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -15998,7 +17775,7 @@
       "estimated_token_count_total": 3250
     },
     "hash": "sha256:bc771f912627fa09cad64adab1bc81c052f650d6c5a3b4f0c91883a98f6628da",
-    "last_modified": "2025-10-23T18:12:30+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -16071,7 +17848,7 @@
       "estimated_token_count_total": 3035
     },
     "hash": "sha256:f0d36333d0d3afff7f6374a61d0f6d1fb878c9ef4c4e4c24447745661dbe59d0",
-    "last_modified": "2025-10-23T18:12:30+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -16124,7 +17901,7 @@
       "estimated_token_count_total": 2509
     },
     "hash": "sha256:205892e350168b3d0da7ccc280c67c3217ad1e45e87a53d124fa1dd69661aa5e",
-    "last_modified": "2025-10-23T18:12:30+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -16197,7 +17974,7 @@
       "estimated_token_count_total": 1122
     },
     "hash": "sha256:ee87115c828928c82937de26f5f938cecd4c3bb1225fdb61627e8092e6ea5951",
-    "last_modified": "2025-10-23T18:12:30+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -16218,7 +17995,7 @@
       "estimated_token_count_total": 0
     },
     "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
-    "last_modified": "2025-10-23T18:12:30+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -16239,7 +18016,7 @@
       "estimated_token_count_total": 0
     },
     "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
-    "last_modified": "2025-10-23T18:12:30+00:00",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -16306,7 +18083,49 @@
       "estimated_token_count_total": 2276
     },
     "hash": "sha256:4856172c6356357818234a3b7f0828716bd32e6192f3609c51de0cafcc5a75e7",
-    "last_modified": "2025-10-23T18:12:30+00:00",
+    "last_modified": "2025-10-24T16:25:51+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "smart-contracts-precompiles",
+    "title": "Advanced Functionalities via Precompiles",
+    "slug": "smart-contracts-precompiles",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-precompiles.md",
+    "html_url": "https://docs.polkadot.com/smart-contracts/precompiles/",
+    "preview": "!!! smartcontract \"PolkaVM Preview Release\" PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**. ## Introduction",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "What are Precompiles?",
+        "anchor": "what-are-precompiles"
+      },
+      {
+        "depth": 2,
+        "title": "Standard Precompiles in Polkadot Hub",
+        "anchor": "standard-precompiles-in-polkadot-hub"
+      },
+      {
+        "depth": 2,
+        "title": "Conclusion",
+        "anchor": "conclusion"
+      }
+    ],
+    "stats": {
+      "chars": 5424,
+      "words": 546,
+      "headings": 4,
+      "estimated_token_count_total": 1223
+    },
+    "hash": "sha256:798353114d43dee2873e28b293876c0761e2fef596bc3327c5986a4343c70da1",
+    "last_modified": "2025-10-24T16:25:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -16373,7 +18192,39 @@
       "estimated_token_count_total": 2249
     },
     "hash": "sha256:1368f6d49bccb7ba0e642cc58ea2c97ca95ae45e390cb9fa2ab11b0b41de52f4",
-    "last_modified": "2025-10-23T18:12:30+00:00",
+    "last_modified": "2025-10-24T16:25:51+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "tutorials-dapps",
+    "title": "Decentralized Application Tutorials",
+    "slug": "tutorials-dapps",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/tutorials-dapps.md",
+    "html_url": "https://docs.polkadot.com/tutorials/dapps/",
+    "preview": "This section provides hands-on tutorials for building decentralized applications (dApps) using the Polkadot SDK and its developer toolkits. These guides help you leverage Polkadot's infrastructure to build scalable, secure, and interoperable dApps without relying solely on smart contracts.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      },
+      {
+        "depth": 2,
+        "title": "Additional Resources",
+        "anchor": "additional-resources"
+      }
+    ],
+    "stats": {
+      "chars": 1206,
+      "words": 169,
+      "headings": 2,
+      "estimated_token_count_total": 198
+    },
+    "hash": "sha256:467765777cace42ab4e3f1bb36c94f97e655c5d2cd570e00dd747c6a3db043f7",
+    "last_modified": "2025-10-24T16:25:51+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -16485,7 +18336,7 @@
       "estimated_token_count_total": 4844
     },
     "hash": "sha256:96acff10be56dea76acdb5c915c1dde0eb15eb12eb95e7871eef56bab6cda273",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -16557,7 +18408,7 @@
       "estimated_token_count_total": 2375
     },
     "hash": "sha256:61bc251929352f2299ca1d413d05aa9c3672b914575a285d73c7ba53dbd75bff",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -16609,7 +18460,44 @@
       "estimated_token_count_total": 1461
     },
     "hash": "sha256:370ed10155cee84889a6d230d0bc3476597448f88a2a271ab87ef893a3268c18",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "tutorials-interoperability-xcm-channels",
+    "title": "Tutorials for Managing XCM Channels",
+    "slug": "tutorials-interoperability-xcm-channels",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/tutorials-interoperability-xcm-channels.md",
+    "html_url": "https://docs.polkadot.com/tutorials/interoperability/xcm-channels/",
+    "preview": "Establishing [XCM channels](/develop/interoperability/xcm-channels/) is essential to unlocking Polkadot's native interoperability. Before bridging assets or sending cross-chain contract calls, the necessary XCM channels must be established.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Understand the Process of Opening Channels",
+        "anchor": "understand-the-process-of-opening-channels"
+      },
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      },
+      {
+        "depth": 2,
+        "title": "Additional Resources",
+        "anchor": "additional-resources"
+      }
+    ],
+    "stats": {
+      "chars": 1816,
+      "words": 236,
+      "headings": 3,
+      "estimated_token_count_total": 208
+    },
+    "hash": "sha256:3a6704a6330c6e35aa98fe8d615e2e27beb870a48c68bda02c217e6ae77274d2",
+    "last_modified": "2025-10-24T16:25:51+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -16681,7 +18569,7 @@
       "estimated_token_count_total": 7755
     },
     "hash": "sha256:086a87823ab67ceac102358030e316583cd733c0ec326316e7f29061fe7f6934",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -16743,7 +18631,76 @@
       "estimated_token_count_total": 2764
     },
     "hash": "sha256:a2bba0ba575bd7e3f7199282ea5994087acf2c62e828f316e6eb62c9a43449e1",
-    "last_modified": "2025-10-23T18:12:30+00:00",
+    "last_modified": "2025-10-24T16:25:51+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "tutorials-interoperability-xcm-transfers",
+    "title": "XCM Transfers",
+    "slug": "tutorials-interoperability-xcm-transfers",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/tutorials-interoperability-xcm-transfers.md",
+    "html_url": "https://docs.polkadot.com/tutorials/interoperability/xcm-transfers/",
+    "preview": "Discover comprehensive tutorials that guide you through performing asset transfers between distinct consensus systems. These tutorials leverage [XCM (Cross-Consensus Messaging)](/parachains/interoperability/get-started/){target=\\_blank} technology, that enables cross-chain communication and asset exchanges across different blockchain networks. Whether you're working within the same ecosystem or bridging multiple systems, XCM ensures secure, efficient, and interoperable solutions.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      }
+    ],
+    "stats": {
+      "chars": 826,
+      "words": 102,
+      "headings": 1,
+      "estimated_token_count_total": 12
+    },
+    "hash": "sha256:917ce0777f8ac5a4288e54ce4086432d320b127a7fc753ade5392d766a1f3c33",
+    "last_modified": "2025-10-24T16:25:51+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "tutorials-interoperability",
+    "title": "Interoperability Tutorials",
+    "slug": "tutorials-interoperability",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/tutorials-interoperability.md",
+    "html_url": "https://docs.polkadot.com/tutorials/interoperability/",
+    "preview": "This section introduces you to the core interoperability solutions within the Polkadot ecosystem through practical, hands-on tutorials. These resources are designed to help you master cross-chain communication techniques, from setting up messaging channels between parachains to leveraging Polkadot's advanced features of the [XCM protocol](/parachains/interoperability/get-started/){target=\\_blank}.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "XCM (Cross-Consensus Messaging)",
+        "anchor": "xcm-cross-consensus-messaging"
+      },
+      {
+        "depth": 3,
+        "title": "For Parachain Integrators",
+        "anchor": "for-parachain-integrators"
+      },
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      },
+      {
+        "depth": 2,
+        "title": "Additional Resources",
+        "anchor": "additional-resources"
+      }
+    ],
+    "stats": {
+      "chars": 2193,
+      "words": 266,
+      "headings": 4,
+      "estimated_token_count_total": 339
+    },
+    "hash": "sha256:9559f240b9433b496bfea92b57394a75c28bc743bb756c231f0137dfdf077e4a",
+    "last_modified": "2025-10-24T16:25:51+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -16825,7 +18782,39 @@
       "estimated_token_count_total": 34492
     },
     "hash": "sha256:bef820acfe429d4a847a8de82de6c70155ac6b3ad5ebdd574a2157923b45f688",
-    "last_modified": "2025-10-23T18:12:30+00:00",
+    "last_modified": "2025-10-24T16:25:51+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "tutorials-onchain-governance",
+    "title": "On-Chain Governance Tutorials",
+    "slug": "tutorials-onchain-governance",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/tutorials-onchain-governance.md",
+    "html_url": "https://docs.polkadot.com/tutorials/onchain-governance/",
+    "preview": "On-chain governance enables decentralized networks to grow and adapt through collective decision-making. For developers, understanding and implementing governance features is crucial for contributing to network improvements and supporting user interactions.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      },
+      {
+        "depth": 2,
+        "title": "Additional Resources",
+        "anchor": "additional-resources"
+      }
+    ],
+    "stats": {
+      "chars": 867,
+      "words": 112,
+      "headings": 2,
+      "estimated_token_count_total": 125
+    },
+    "hash": "sha256:c675e4231537732f24d1dd93f2b248398248a77c9877860fe53926e255ed0710",
+    "last_modified": "2025-10-24T16:25:51+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -16878,7 +18867,7 @@
       "estimated_token_count_total": 3099
     },
     "hash": "sha256:d2f3ab658ab29514ac161b17df23e0e7c1f63a7fa4fefcef451ef80b413ab757",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -16971,7 +18960,7 @@
       "estimated_token_count_total": 5338
     },
     "hash": "sha256:b3530f5fc5c9e916181dbc259a7fbae9c60100cb0450fc6d47bbb0d140afa075",
-    "last_modified": "2025-10-23T18:12:30+00:00",
+    "last_modified": "2025-10-24T16:25:51+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -17043,7 +19032,7 @@
       "estimated_token_count_total": 4358
     },
     "hash": "sha256:87b19f6e881611329b7015e8d8187d7d85b2b2ef14b01e832c8b8e20897e3b40",
-    "last_modified": "2025-10-23T18:12:30+00:00",
+    "last_modified": "2025-10-24T16:25:51+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -17100,7 +19089,7 @@
       "estimated_token_count_total": 2138
     },
     "hash": "sha256:ff2c267284959711782c0d6ecb4b439c3a6cc31f763d5e1ff2cc3b1f6efb62b2",
-    "last_modified": "2025-10-23T18:12:30+00:00",
+    "last_modified": "2025-10-24T16:25:51+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -17152,7 +19141,7 @@
       "estimated_token_count_total": 2929
     },
     "hash": "sha256:df60044893f48dd7f37a11de275a16bf32adb31317ed70a789fd7fac64150e1a",
-    "last_modified": "2025-10-23T18:12:30+00:00",
+    "last_modified": "2025-10-24T16:25:51+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -17244,7 +19233,7 @@
       "estimated_token_count_total": 4789
     },
     "hash": "sha256:81750202081ff24447f4e129c49230eedb315d1b44c740b677c3495a8f7adb9a",
-    "last_modified": "2025-10-23T18:12:30+00:00",
+    "last_modified": "2025-10-24T16:25:51+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -17326,7 +19315,7 @@
       "estimated_token_count_total": 2452
     },
     "hash": "sha256:1eb463c6b2732ebed0d16165425cde438688d21cc302f759b40250850c2a5e83",
-    "last_modified": "2025-10-23T18:12:30+00:00",
+    "last_modified": "2025-10-24T16:25:51+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -17389,7 +19378,71 @@
       "estimated_token_count_total": 3255
     },
     "hash": "sha256:fe94de6f97fb588552f6cbc6b1a4c7399e91f5f31585f61a0dee66f5f50ff8a0",
-    "last_modified": "2025-10-23T18:12:30+00:00",
+    "last_modified": "2025-10-24T16:25:51+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "tutorials-polkadot-sdk-parachains-zero-to-hero",
+    "title": "Zero To Hero Parachain Tutorial Series",
+    "slug": "tutorials-polkadot-sdk-parachains-zero-to-hero",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/tutorials-polkadot-sdk-parachains-zero-to-hero.md",
+    "html_url": "https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to-hero/",
+    "preview": "The **Parachain Zero To Hero Tutorials** provide developers with a series of step-by-step guides to building, testing, and deploying custom pallets and runtimes using the Polkadot SDK. These tutorials are designed to help you gain hands-on experience and understand the core concepts necessary to create efficient and scalable blockchains.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Parachain Development Cycle",
+        "anchor": "parachain-development-cycle"
+      }
+    ],
+    "stats": {
+      "chars": 828,
+      "words": 132,
+      "headings": 1,
+      "estimated_token_count_total": 42
+    },
+    "hash": "sha256:06acc146698c1d3224544987d7ee52da498e3179228f98a494e385c5786a3a2c",
+    "last_modified": "2025-10-24T16:25:51+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "tutorials-polkadot-sdk-parachains",
+    "title": "Parachain Tutorials",
+    "slug": "tutorials-polkadot-sdk-parachains",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/tutorials-polkadot-sdk-parachains.md",
+    "html_url": "https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/",
+    "preview": "The Polkadot SDK enables you to build custom blockchains that can operate as part of the Polkadot network. These tutorials guide you through the essential steps of developing, testing, and deploying your own parachain.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Parachain Zero To Hero Tutorials",
+        "anchor": "parachain-zero-to-hero-tutorials"
+      },
+      {
+        "depth": 2,
+        "title": "Key Takeaways",
+        "anchor": "key-takeaways"
+      },
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      }
+    ],
+    "stats": {
+      "chars": 924,
+      "words": 122,
+      "headings": 3,
+      "estimated_token_count_total": 107
+    },
+    "hash": "sha256:fdd391227992c966de25b9240f5492135a9993859ec42b77952c1aa3d2e39ed9",
+    "last_modified": "2025-10-24T16:25:51+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -17456,7 +19509,7 @@
       "estimated_token_count_total": 4242
     },
     "hash": "sha256:2f11054e0d31c003ebae5d990b559bd56741d190ca409f6ad060216245fa2d17",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -17513,7 +19566,7 @@
       "estimated_token_count_total": 2263
     },
     "hash": "sha256:a6a535f4f5e145d3e2a7518739f752ee3ed37b7745483f414e21c97792331d18",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -17561,7 +19614,7 @@
       "estimated_token_count_total": 1571
     },
     "hash": "sha256:3ad540d8ad636304705cccb08bc1fdf21fe2fc7dc0f99bd509b23ae96d20e0ba",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -17572,7 +19625,7 @@
       "Uncategorized"
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/tutorials-polkadot-sdk-system-chains-asset-hub-send-a-tx-paying-fee-different-token.md",
-    "html_url": "https://docs.polkadot.com/chain-interactions/send-transactions/pay-fees-with-different-tokens/",
+    "html_url": "https://docs.polkadot.com/tutorials/polkadot-sdk/system-chains/asset-hub/send-a-tx-paying-fee-different-token/",
     "preview": "The Asset Hub provides a powerful feature that allows users to pay transaction fees using alternative tokens instead of the native token of the chain.",
     "outline": [
       {
@@ -17653,7 +19706,86 @@
       "estimated_token_count_total": 2140
     },
     "hash": "sha256:388c988338ed84589c546bb1606d08641fb931dae307d3df92aeccd2e4986080",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T16:25:51+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "tutorials-polkadot-sdk-system-chains-asset-hub",
+    "title": "Asset Hub Tutorials",
+    "slug": "tutorials-polkadot-sdk-system-chains-asset-hub",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/tutorials-polkadot-sdk-system-chains-asset-hub.md",
+    "html_url": "https://docs.polkadot.com/tutorials/polkadot-sdk/system-chains/asset-hub/",
+    "preview": "Polkadot SDK-based relay chains focus on security and consensus, leaving asset management to an external component, such as a [system chain](/polkadot-protocol/architecture/system-chains/){target=\\_blank}. The [Asset Hub](/reference/polkadot-hub/assets-and-smart-contracts/){target=\\_blank} is one example of a system chain and is vital to managing tokens which aren't native to the Polkadot ecosystem. Developers opting to integrate with Asset Hub can expect the following benefits:",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Benefits of Asset Hub",
+        "anchor": "benefits-of-asset-hub"
+      },
+      {
+        "depth": 2,
+        "title": "Get Started",
+        "anchor": "get-started"
+      },
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      },
+      {
+        "depth": 2,
+        "title": "Additional Resources",
+        "anchor": "additional-resources"
+      }
+    ],
+    "stats": {
+      "chars": 1768,
+      "words": 250,
+      "headings": 4,
+      "estimated_token_count_total": 400
+    },
+    "hash": "sha256:2fc6f513fd8b269e586b754b2bdbd2af9df5178624a028fab940a385f3fee577",
+    "last_modified": "2025-10-24T16:25:51+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "tutorials-polkadot-sdk-system-chains",
+    "title": "System Chains Tutorials",
+    "slug": "tutorials-polkadot-sdk-system-chains",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/tutorials-polkadot-sdk-system-chains.md",
+    "html_url": "https://docs.polkadot.com/tutorials/polkadot-sdk/system-chains/",
+    "preview": "In this section, you'll gain hands-on experience building solutions that integrate with [system chains](/polkadot-protocol/architecture/system-chains/){target=\\_blank} on Polkadot using the Polkadot SDK. System chains like the [Asset Hub](/reference/polkadot-hub/assets-and-smart-contracts/){target=\\_blank} provide essential infrastructure for enabling cross-chain interoperability and asset management across the Polkadot ecosystem.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "For Parachain Integrators",
+        "anchor": "for-parachain-integrators"
+      },
+      {
+        "depth": 2,
+        "title": "For Developers Leveraging System Chains",
+        "anchor": "for-developers-leveraging-system-chains"
+      },
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      }
+    ],
+    "stats": {
+      "chars": 1560,
+      "words": 211,
+      "headings": 3,
+      "estimated_token_count_total": 211
+    },
+    "hash": "sha256:5d45ec9f8efda8c4bc2d0c21399a036d017a03540e7efab60d4710cb7eb33eb3",
+    "last_modified": "2025-10-24T16:25:51+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -17722,7 +19854,7 @@
       "estimated_token_count_total": 2702
     },
     "hash": "sha256:1f8ab387f721d865a7ca75eaa2528f1f2ebd4528a7d65ffeb27c68953100a3cb",
-    "last_modified": "2025-10-23T18:12:30+00:00",
+    "last_modified": "2025-10-24T16:25:51+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -17791,7 +19923,76 @@
       "estimated_token_count_total": 2564
     },
     "hash": "sha256:97dadddf4c27f469f552875461fc54d331fa151e4656401e15d6d4173115eecf",
-    "last_modified": "2025-10-23T18:12:30+00:00",
+    "last_modified": "2025-10-24T16:25:51+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "tutorials-polkadot-sdk-testing",
+    "title": "Blockchain Testing Tutorials",
+    "slug": "tutorials-polkadot-sdk-testing",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/tutorials-polkadot-sdk-testing.md",
+    "html_url": "https://docs.polkadot.com/tutorials/polkadot-sdk/testing/",
+    "preview": "Polkadot offers specialized tools that make it simple to create realistic testing environments, particularly for cross-chain interactions. These purpose-built tools enable developers to quickly spin up test networks that accurately simulate real-world scenarios. Learn to create controlled testing environments using powerful tools designed for Polkadot SDK development.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Get Started",
+        "anchor": "get-started"
+      },
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      }
+    ],
+    "stats": {
+      "chars": 843,
+      "words": 106,
+      "headings": 2,
+      "estimated_token_count_total": 80
+    },
+    "hash": "sha256:1dfbb8c3cfa27f92e982b4ce705415e117c50eb38f641691129863b474741da7",
+    "last_modified": "2025-10-24T16:25:51+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "tutorials-polkadot-sdk",
+    "title": "Polkadot SDK Tutorials",
+    "slug": "tutorials-polkadot-sdk",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/tutorials-polkadot-sdk.md",
+    "html_url": "https://docs.polkadot.com/tutorials/polkadot-sdk/",
+    "preview": "The Polkadot SDK is a versatile framework for building custom blockchains, whether as standalone networks or as part of the Polkadot ecosystem. With its modular design and extensible tools, libraries, and runtime components, the SDK simplifies the process of creating parachains, system chains, and solochains.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Build and Deploy a Parachain",
+        "anchor": "build-and-deploy-a-parachain"
+      },
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      },
+      {
+        "depth": 2,
+        "title": "Additional Resources",
+        "anchor": "additional-resources"
+      }
+    ],
+    "stats": {
+      "chars": 1481,
+      "words": 214,
+      "headings": 3,
+      "estimated_token_count_total": 256
+    },
+    "hash": "sha256:d63121126e51c785f0dfd4ae4ecd49cb71640515d39df69a0689f30a7ab8122f",
+    "last_modified": "2025-10-24T16:25:51+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -17849,7 +20050,34 @@
       "estimated_token_count_total": 2670
     },
     "hash": "sha256:07629376480e74afc7fe4d91df539b6ab22453df0f8143df11cc51ef9a78f736",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "tutorials-smart-contracts-demo-aplications",
+    "title": "Demo Applications",
+    "slug": "tutorials-smart-contracts-demo-aplications",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/tutorials-smart-contracts-demo-aplications.md",
+    "html_url": "https://docs.polkadot.com/tutorials/smart-contracts/demo-aplications/",
+    "preview": "!!! smartcontract \"PolkaVM Preview Release\" PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**. This section highlights demo applications that can be deployed to Polkadot Hub. These examples illustrate practical use cases and provide guidance for developers looking to launch and test applications within the Polkadot ecosystem.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      }
+    ],
+    "stats": {
+      "chars": 474,
+      "words": 60,
+      "headings": 1,
+      "estimated_token_count_total": 12
+    },
+    "hash": "sha256:94dbafb2d78b87d5f0f0c75de002501b8210ac8d66072bc07989f685837cbac5",
+    "last_modified": "2025-10-24T16:25:51+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -17903,7 +20131,7 @@
       "estimated_token_count_total": 2056
     },
     "hash": "sha256:cf9197d6909dd8865e8838cad95e3692fefaecc3d2f4773b26809a02051d620f",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -17957,7 +20185,7 @@
       "estimated_token_count_total": 2220
     },
     "hash": "sha256:aa6371024bb78c3eeedb6820a37859670046fd0e4f756ad417b20c39fb2983b9",
-    "last_modified": "2025-10-23T17:52:11+00:00",
+    "last_modified": "2025-10-24T15:58:50+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -18010,7 +20238,7 @@
       "estimated_token_count_total": 1760
     },
     "hash": "sha256:9cf70459e921b8b231a3f2e7a7c1d47a4917e45f0c4d0fe873ad4062fd540a9a",
-    "last_modified": "2025-10-23T18:12:31+00:00",
+    "last_modified": "2025-10-24T16:25:51+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -18083,7 +20311,7 @@
       "estimated_token_count_total": 5118
     },
     "hash": "sha256:de7fde61d4cac9c28634ee496dcabe116fe44b1b87408f202103290d78247c05",
-    "last_modified": "2025-10-23T18:12:34+00:00",
+    "last_modified": "2025-10-24T16:25:52+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -18166,7 +20394,7 @@
       "estimated_token_count_total": 6206
     },
     "hash": "sha256:cb8ddb4a61f6a62182420b69382f1c7ab2adc2f4ae643f7f68c6867680afe81f",
-    "last_modified": "2025-10-23T18:12:38+00:00",
+    "last_modified": "2025-10-24T16:25:54+00:00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -18229,7 +20457,118 @@
       "estimated_token_count_total": 4135
     },
     "hash": "sha256:ca1d65d450f086a0eb7b81e9589e9894e04b217fe9709a1b464f09beb3ca9dc2",
-    "last_modified": "2025-10-23T18:12:41+00:00",
+    "last_modified": "2025-10-24T16:25:55+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "tutorials-smart-contracts-launch-your-first-project",
+    "title": "Launch Your First Project",
+    "slug": "tutorials-smart-contracts-launch-your-first-project",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/tutorials-smart-contracts-launch-your-first-project.md",
+    "html_url": "https://docs.polkadot.com/tutorials/smart-contracts/launch-your-first-project/",
+    "preview": "!!! smartcontract \"PolkaVM Preview Release\" PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**. Kickstart your journey into smart contract development with this comprehensive guide. Learn how to create, deploy, and interact with contracts on Polkadot. Whether you're new to smart contracts or refining your skills, these guides provide a structured approach to launching your project.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Development Pathway",
+        "anchor": "development-pathway"
+      },
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      }
+    ],
+    "stats": {
+      "chars": 1211,
+      "words": 161,
+      "headings": 2,
+      "estimated_token_count_total": 77
+    },
+    "hash": "sha256:8d8fc5f794d4c793586cd3d412627f5e2fe76f182c75c3687abcf33deed5d65e",
+    "last_modified": "2025-10-24T16:25:54+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "tutorials-smart-contracts",
+    "title": "Smart Contracts",
+    "slug": "tutorials-smart-contracts",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/tutorials-smart-contracts.md",
+    "html_url": "https://docs.polkadot.com/tutorials/smart-contracts/",
+    "preview": "!!! smartcontract \"PolkaVM Preview Release\" PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**. Get started with deploying and interacting with smart contracts on Polkadot through practical, hands-on tutorials. Whether you're a beginner or an experienced developer, these guides will help you navigate the entire development lifecycle.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "What to Expect from These Tutorials",
+        "anchor": "what-to-expect-from-these-tutorials"
+      },
+      {
+        "depth": 2,
+        "title": "Start Building",
+        "anchor": "start-building"
+      },
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      }
+    ],
+    "stats": {
+      "chars": 1057,
+      "words": 145,
+      "headings": 3,
+      "estimated_token_count_total": 130
+    },
+    "hash": "sha256:66bc34a12c50539dde2ffc69fe66891f73d3e1a2da5833ada15e26744ff32209",
+    "last_modified": "2025-10-24T16:25:51+00:00",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "tutorials",
+    "title": "Tutorials",
+    "slug": "tutorials",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/tutorials.md",
+    "html_url": "https://docs.polkadot.com/tutorials/",
+    "preview": "Welcome to the Polkadot Tutorials hub! Whether you’re building parachains, integrating system chains, or developing decentralized applications, these step-by-step guides are designed to help you achieve your goals efficiently and effectively.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Polkadot Zero to Hero",
+        "anchor": "polkadot-zero-to-hero"
+      },
+      {
+        "depth": 3,
+        "title": "Parachain Developers",
+        "anchor": "parachain-developers"
+      },
+      {
+        "depth": 2,
+        "title": "Featured Tutorials",
+        "anchor": "featured-tutorials"
+      },
+      {
+        "depth": 2,
+        "title": "In This Section",
+        "anchor": "in-this-section"
+      }
+    ],
+    "stats": {
+      "chars": 2501,
+      "words": 355,
+      "headings": 4,
+      "estimated_token_count_total": 590
+    },
+    "hash": "sha256:a1d7789d44e4653e98ed41b8a13ea69e7733803c598ca850c9e2fc8f27a2b410",
+    "last_modified": "2025-10-24T16:25:51+00:00",
     "token_estimator": "heuristic-v1"
   }
 ]

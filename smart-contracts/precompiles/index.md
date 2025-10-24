@@ -35,8 +35,6 @@ flowchart LR
         Precompiles
         Runtime
     end
-
-    classDef edgeLabel background:#eceff3;
 ```
 
 ## Standard Precompiles in Polkadot Hub

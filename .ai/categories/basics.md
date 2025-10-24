@@ -11226,7 +11226,6 @@ The system maintains precise conversion mechanisms between:
 
 This ensures accurate fee calculation while maintaining compatibility with existing Ethereum tools and workflows.
 
-
 ---
 
 Page Title: Transactions Weights and Fees

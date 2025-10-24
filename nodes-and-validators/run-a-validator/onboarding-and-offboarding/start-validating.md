@@ -100,14 +100,13 @@ Once your validator node is fully synced and ready, the next step is to ensure i
 
 To confirm that your validator is live and synchronized with the Polkadot network, visit the [Telemetry](https://telemetry.polkadot.io/#list/Polkadot%20CC1){target=\_blank} page. Telemetry provides real-time information on node performance and can help you check if your validator is connected properly. Search for your node by name. You can search all nodes currently active on the network, which is why you should use a unique name for easy recognition. Now, confirm that your node is fully synced by comparing the block height of your node with the network's latest block. Nodes that are fully synced will appear white in the list, while nodes that are not yet fully synced will appear gray.
 
-
 ### Activate using Polkadot.js Apps
 
 Follow these steps to use Polkadot.js Apps to activate your validator:
 
 1. In Polkadot.js Apps, navigate to **Network** and select **Staking**:
 
-    ![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/start-validating/start-validating-01.webp)
+    ![](/images/nodes-and-validators/run-a-validator/onboarding-and-offboarding/start-validating/start-validating-01.webp)
 
 2. Open the **Accounts** tab and click on **+ Validator**:
 
@@ -123,13 +122,13 @@ Follow these steps to use Polkadot.js Apps to activate your validator:
 
 You can set the **commission** and the **blocked** option via `staking.validate` extrinsic. By default, the blocked option is set to FALSE (i.e., the validator accepts nominations):
 
-![](/images/infrastructure/running-a-validator/onboarding-and-offboarding/start-validating/start-validating-05.webp)
+![](/images/nodes-and-validators/run-a-validator/onboarding-and-offboarding/start-validating/start-validating-05.webp)
 
 ### Monitor Validation Status and Slots
 
 On the [**Staking**](https://polkadot.js.org/apps/#/staking){target=\_blank} tab in Polkadot.js Apps, you can see your validator's status, the number of available validator slots, and the nodes that have signaled their intent to validate. Your node may initially appear in the waiting queue, especially if the validator slots are full. The following is an example view of the **Staking** tab:
 
-![staking queue](/images/infrastructure/running-a-validator/onboarding-and-offboarding/start-validating/start-validating-06.webp)
+![staking queue](/images/nodes-and-validators/run-a-validator/onboarding-and-offboarding/start-validating/start-validating-06.webp)
 
 The validator set refreshes each era. If there's an available slot in the next era, your node may be selected to move from the waiting queue to the active validator set, allowing it to start validating blocks. If your validator is not selected, it remains in the waiting queue. Increasing your stake or gaining more nominators may improve your chance of being selected in future eras.
 

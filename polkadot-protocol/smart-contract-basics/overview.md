@@ -38,12 +38,12 @@ flowchart LR
   E[Transaction] --> D
   D --> F[(New State)]
   D --> G[Execution Logs]
-  style A fill:#ffffff,stroke:#000000,stroke-width:1px
+  style A stroke:#000000,stroke-width:1px
 ```
 
 In addition, because smart contracts are programs that execute on top of existing chains, teams don't have to think about the underlying consensus they are built on.
 
-These strengths do come with certain limitations. Some smart contracts environments, like EVM, tend to be immutable by default. Developers have developed different [proxy strategies](https://blog.openzeppelin.com/proxy-patterns){target=\_blank} to be able to upgrade smart contracts over time. The typical pattern relies on a proxy contract which holds the program storage forwarding a call to an implementation contract where the execution logic resides. Smart contract upgrades require changing the implementation contract while retaining the same storage structure, necessitating careful planning.
+These strengths do come with certain limitations. Some smart contracts environments, like EVM, tend to be immutable by default. Developers have developed different [proxy strategies](https://www.openzeppelin.com/news/proxy-patterns){target=\_blank} to be able to upgrade smart contracts over time. The typical pattern relies on a proxy contract which holds the program storage forwarding a call to an implementation contract where the execution logic resides. Smart contract upgrades require changing the implementation contract while retaining the same storage structure, necessitating careful planning.
 
 Another downside is that smart contracts often follow a gas metering model, where program execution is associated with a given unit and a marketplace is set up to pay for such an execution unit. This fee system is often very rigid, and some complex flows, like account abstraction, have been developed to circumvent this problem.
 
@@ -108,8 +108,8 @@ flowchart TD
     F --> J[(New Ethereum<br/>Emulated State)]
     F --> K[Execution Logs]
 
-    style C fill:#ffffff,stroke:#000000,stroke-width:1px
-    style F fill:#ffffff,stroke:#000000,stroke-width:1px
+    style C stroke:#000000,stroke-width:1px
+    style F stroke:#000000,stroke-width:1px
 ```
 
 Although it seems complex, users and developers are abstracted of that complexity, and tools can easily interact with the parachain as they would with any other Ethereum-compatible environment.
@@ -144,5 +144,5 @@ flowchart TD
     A --> F[(New State)]
     A --> G[Execution Logs]
 
-    style A fill:#ffffff,stroke:#000000,stroke-width:1px
+    style A stroke:#000000,stroke-width:1px
 ```

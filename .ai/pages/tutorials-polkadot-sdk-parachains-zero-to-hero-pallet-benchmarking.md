@@ -63,13 +63,7 @@ Follow these steps to prepare your environment for pallet benchmarking:
     2. Enable runtime benchmarking for your pallet in `runtime/Cargo.toml`:
 
         ```toml hl_lines="6" title="Cargo.toml"
-        runtime-benchmarks = [
-        	"cumulus-pallet-parachain-system/runtime-benchmarks",
-        	"hex-literal",
-        	"pallet-parachain-template/runtime-benchmarks",
-        	"polkadot-sdk/runtime-benchmarks",
-        	"custom-pallet/runtime-benchmarks",
-        ]
+        
         ```
 
 4. Set up the benchmarking module in your pallet:

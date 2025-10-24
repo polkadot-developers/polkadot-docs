@@ -1,18 +1,25 @@
 ---
-title: Install Polkadot SDK Dependencies
-description: Install everything you need to begin working with Substrated-based blockchains and the Polkadot SDK, the framework for building blockchains.
+title: Install Polkadot SDK
+description: Install everything you need to begin working with the Polkadot SDK, the framework for building blockchains.
 categories: Basics, Tooling
 ---
 
-# Install Polkadot SDK Dependencies
+# Install Polkadot SDK
 
-This guide provides step-by-step instructions for installing the dependencies you need to work with the Polkadot SDK-based chains on macOS, Linux, and Windows. Follow the appropriate section for your operating system to ensure all necessary tools are installed and configured properly.
+This guide provides step-by-step instructions for installing the Polkadot SDK on macOS, Linux, and Windows. The installation process consists of two main parts:
 
-## macOS
+1. **Installing Dependencies** - Setting up Rust, required system packages, and development tools
+2. **Building the Polkadot SDK** - Cloning and compiling the Polkadot SDK repository
+
+Follow the appropriate section for your operating system to ensure all necessary tools are installed and configured properly.
+
+## Part 1: Install Dependencies
+
+### macOS
 
 You can install Rust and set up a Substrate development environment on Apple macOS computers with Intel or Apple M1 processors.
 
-### Before You Begin
+#### Before You Begin
 
 Before you install Rust and set up your development environment on macOS, verify that your computer meets the following basic requirements:
 
@@ -53,7 +60,7 @@ Protobuf must be installed before the build process can begin. To install it, ru
 brew install protobuf
 ```
 
-### Install Required Packages and Rust
+#### Install Required Packages and Rust
 
 Because the blockchain requires standard cryptography to support the generation of public/private key pairs and the validation of transaction signatures, you must also have a package that provides cryptography, such as `openssl`.
 
@@ -94,18 +101,19 @@ To install `openssl` and the Rust toolchain on macOS:
     rustup component add rust-src
     ```
 
-8. [Verify your installation](#verifying-installation).
-9. Install `cmake` using the following command:
+8. Install `cmake` using the following command:
 
     ```bash
     brew install cmake
     ```
 
-## Linux
+9. Proceed to [Part 2: Build the Polkadot SDK](#part-2-build-the-polkadot-sdk).
+
+### Linux
 
 Rust supports most Linux distributions. Depending on the specific distribution and version of the operating system you use, you might need to add some software dependencies to your environment. In general, your development environment should include a linker or C-compatible compiler, such as `clang` and an appropriate integrated development environment (IDE).
 
-### Before You Begin {: #before-you-begin-linux }
+#### Before You Begin
 
 Check the documentation for your operating system for information about the installed packages and how to download and install any additional packages you might need. For example, if you use Ubuntu, you can use the Ubuntu Advanced Packaging Tool (`apt`) to install the `build-essential` package:
 
@@ -121,7 +129,7 @@ clang curl git make
 
 Because the blockchain requires standard cryptography to support the generation of public/private key pairs and the validation of transaction signatures, you must also have a package that provides cryptography, such as `libssl-dev` or `openssl-devel`.
 
-### Install Required Packages and Rust {: #install-required-packages-and-rust-linux }
+#### Install Required Packages and Rust
 
 To install the Rust toolchain on Linux:
 
@@ -190,15 +198,15 @@ To install the Rust toolchain on Linux:
     rustup component add rust-src
     ```
 
-9. [Verify your installation](#verifying-installation).
+9. Proceed to [Part 2: Build the Polkadot SDK](#part-2-build-the-polkadot-sdk).
 
-## Windows (WSL)
+### Windows (WSL)
 
 In general, UNIX-based operating systems—like macOS or Linux—provide a better development environment for building Substrate-based blockchains.
 
 However, suppose your local computer uses Microsoft Windows instead of a UNIX-based operating system. In that case, you can configure it with additional software to make it a suitable development environment for building Substrate-based blockchains. To prepare a development environment on a Microsoft Windows computer, you can use Windows Subsystem for Linux (WSL) to emulate a UNIX operating environment.
 
-### Before You Begin {: #before-you-begin-windows }
+#### Before You Begin
 
 Before installing on Microsoft Windows, verify the following basic requirements:
 
@@ -207,7 +215,7 @@ Before installing on Microsoft Windows, verify the following basic requirements:
     - **For Windows server**: You must be running Microsoft Windows Server 2019, or later, to install WSL on a server operating system.
 - You have good internet connection and access to a shell terminal on your local computer.
 
-### Set Up Windows Subsystem for Linux
+#### Set Up Windows Subsystem for Linux
 
 WSL enables you to emulate a Linux environment on a computer that uses the Windows operating system. The primary advantage of this approach for Substrate development is that you can use all of the code and command-line examples as described in the Substrate documentation. For example, you can run common commands—such as `ls` and `ps`—unmodified. By using WSL, you can avoid configuring a virtual machine image or a dual-boot operating system.
 
@@ -243,7 +251,7 @@ To prepare a development environment using WSL:
 
     For more information about setting up WSL as a development environment, see the [Set up a WSL development environment](https://learn.microsoft.com/en-us/windows/wsl/setup/environment){target=\_blank} docs.
 
-### Install Required Packages and Rust {: #install-required-packages-and-rust-windows }
+#### Install Required Packages and Rust
 
 To install the Rust toolchain on WSL:
 
@@ -291,20 +299,103 @@ To install the Rust toolchain on WSL:
     rustup component add rust-src
     ```
 
-11. [Verify your installation](#verifying-installation).
+11. Proceed to [Part 2: Build the Polkadot SDK](#part-2-build-the-polkadot-sdk).
 
-## Verifying Installation
+## Part 2: Build the Polkadot SDK
 
-Verify the configuration of your development environment by running the following command:
+After installing all dependencies, you can now clone and compile the Polkadot SDK repository to verify your setup.
+
+### Clone the Polkadot SDK
+
+1. Clone the Polkadot SDK repository:
+
+    ```bash
+    git clone https://github.com/paritytech/polkadot-sdk.git
+    ```
+
+2. Navigate into the project directory:
+
+    ```bash
+    cd polkadot-sdk
+    ```
+
+### Compile the Polkadot SDK
+
+Compile the entire Polkadot SDK repository to ensure your environment is properly configured:
 
 ```bash
-rustup show
+cargo build --release --locked
 ```
 
-The command displays output similar to the following:
+!!!warning
+    This initial compilation will take significant time (30-60 minutes or more) depending on your machine specifications. The `--release` flag optimizes for performance. This step compiles all components of the Polkadot SDK to verify your toolchain is correctly configured.
 
---8<-- 'code/parachains/install-polkadot-sdk/termynal-2.html'
+### Verify the Build
+
+Once the build completes successfully, verify the installation by checking the compiled binaries:
+
+```bash
+ls target/release
+```
+
+You should see several binaries including:
+
+- `polkadot` - The Polkadot relay chain node
+- `polkadot-parachain` - The parachain collator node
+- `polkadot-omni-node` - The omni node for running parachains
+- `substrate-node` - The kitchensink node with many pre-configured pallets
+
+Verify the Polkadot binary works by checking its version:
+
+```bash
+./target/release/polkadot --version
+```
+
+This should display version information similar to:
+
+```bash
+polkadot 1.16.0-1234abcd567
+```
+
+If you see the version output without errors, your development environment is correctly configured and ready for Polkadot SDK development!
+
+## Optional: Run the Kitchensink Node
+
+The Polkadot SDK includes a feature-rich node called "kitchensink" located at `substrate/bin/node`. This node comes pre-configured with many pallets and features from the Polkadot SDK, making it an excellent reference for exploring capabilities and understanding how different components work together.
+
+!!!note
+    If you've already compiled the Polkadot SDK in the previous step, the `substrate-node` binary is already built and ready to use. You can skip directly to running the node.
+
+### Run the Kitchensink Node in Development Mode
+
+From the `polkadot-sdk` root directory, start the kitchensink node in development mode:
+
+```bash
+./target/release/substrate-node --dev
+```
+
+The `--dev` flag enables development mode, which:
+
+- Runs a single-node development chain
+- Produces and finalizes blocks automatically
+- Uses pre-configured development accounts (Alice, Bob, etc.)
+- Deletes all data when stopped, ensuring a clean state on restart
+
+You should see log output indicating the node is running and producing blocks, with increasing block numbers after `finalized`.
+
+### Interact with the Kitchensink Node
+
+The kitchensink node is accessible at `ws://localhost:9944`. To explore its features using the Polkadot.js Apps interface:
+
+1. Open [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} in your web browser
+2. Click the network icon in the top left corner
+3. Scroll to **Development** and select **Local Node**
+4. Click **Switch** to connect to your local node
+
+You can now explore the various pallets and features included in the kitchensink node, making it a valuable reference as you develop your own blockchain applications.
+
+To stop the node, press `Control-C` in the terminal.
 
 ## Where to Go Next
 
-- **[Parachain Zero to Hero Tutorials](/tutorials/polkadot-sdk/parachains/zero-to-hero/){target=\_blank}**: A series of step-by-step guides to building, testing, and deploying custom pallets and runtimes using the Polkadot SDK.
+- **[Get Started with Parachain Development](/parachains/get-started/){target=\_blank}**: Practical examples and tutorials for building and deploying Polkadot parachains, covering everything from launch to customization and cross-chain messaging.

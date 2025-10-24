@@ -9,6 +9,7 @@ nav:
  - 'Dedot': dedot.md
  - 'Polkadot-API': papi.md
  - 'Polkadot.js API': polkadot-js-api.md
+ - 'Polkadart': polkadart.md
  - 'Python Substrate Interface': py-substrate-interface.md
  - 'Sidecar REST API': sidecar.md
  - 'Subxt': subxt.md

@@ -1,6 +1,6 @@
 nav:
 - 'Overview': index.md # TODO: Update name of page
-- 'Faucet': /smart-contracts/faucets/ 
+- 'Get Tokens from the Faucet': /smart-contracts/faucet/ 
 - 'EVM/PVM Smart Contracts': smart-contracts
 - 'Create a DApp': dapps
 - 'Port Ethereum DApps': eth-dapps

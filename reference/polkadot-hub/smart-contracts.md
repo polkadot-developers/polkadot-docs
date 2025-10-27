@@ -17,7 +17,7 @@ Polkadot’s Relay Chain does not support smart contracts directly, so developer
 Asset Hub supports multiple smart contract environments, giving developers the freedom to choose the workflow and tooling that best fits their project:
 
 - **PolkaVM**: A next-generation virtual machine designed specifically for Polkadot. Built on a high-performance [RISC-V-based register architecture](https://en.wikipedia.org/wiki/RISC-V){target=_blank}, PolkaVM enables fast, scalable execution and is optimized for modern smart contract development.
-- **REVM**: The [REVM backend](https://github.com/bluealloy/revm){target=_blank} brings a full Rust implementation of the EVM to Asset Hub. This allows developers to deploy existing Solidity contracts without modification, preserving compatibility with Ethereum tools and libraries.
+- **REVM**: The [REVM backend](https://github.com/bluealloy/revm){target=_blank} brings a full Rust implementation of the EVM to the Polkadot Hub. This allows developers to deploy existing Solidity contracts without modification, preserving compatibility with Ethereum tools and libraries.
 
 Each of these environments is fully compatible with Asset Hub, giving teams the option to reuse Ethereum code, build with Rust security guarantees, or explore high-performance innovation with PolkaVM.
 

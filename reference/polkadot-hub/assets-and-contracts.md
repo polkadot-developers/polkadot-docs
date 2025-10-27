@@ -12,7 +12,7 @@ categories: Basics, Polkadot Protocol
 
 The Polkadot Hub is Polkadot’s system parachain for issuing and managing on-chain assets. While the Relay Chain provides security, Polkadot Hub handles asset logic—minting, burning, transfers, and metadata—in a cost-efficient environment.
 
-It’s worth noting that Polkadot Hub also supports EVM smart contracts. This means assets can be managed not only through the native Assets pallet, but also using familiar ERC-20 contract standards.
+It’s worth noting that Polkadot Hub also supports EVM and PVM smart contracts. This means assets can be managed not only through the native Assets pallet, but also using familiar ERC-20 contract standards.
 
 Built for interoperability, it enables cross-chain asset transfers with XCM and supports foreign asset registration from other parachains. This guide covers core asset operations, XCM transfers, and developer tooling such as [API Sidecar](#api-sidecar) and [`TxWrapper`](#txwrapper).
 

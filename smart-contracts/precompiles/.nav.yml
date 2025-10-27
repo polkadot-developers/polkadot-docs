@@ -2,4 +2,3 @@ nav:
  - 'Overview': index.md
  - 'Ethereum Native': eth-native.md
  - 'XCM': xcm.md
- - 'Staking': staking.md

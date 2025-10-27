@@ -403,13 +403,7 @@ Update your root parachain template's `Cargo.toml` file to include your custom p
     Make sure the `custom-pallet` is a member of the workspace:
 
     ```toml hl_lines="4" title="Cargo.toml"
-     [workspace]
-     default-members = ["pallets/template", "runtime"]
-     members = [
-         "node", "pallets/custom-pallet",
-         "pallets/template",
-         "runtime",
-     ]
+     
     ```
 
 ???- code "./Cargo.toml"
@@ -2590,53 +2584,13 @@ To build the smart contract, follow the steps below:
 6. Add the getter and setter functions:
 
     ```solidity
-    // SPDX-License-Identifier: MIT
-    pragma solidity ^0.8.28;
-
-    contract Storage {
-        // State variable to store our number
-        uint256 private number;
-
-        // Event to notify when the number changes
-        event NumberChanged(uint256 newNumber);
-
-        // Function to store a new number
-        function store(uint256 newNumber) public {
-            number = newNumber;
-            emit NumberChanged(newNumber);
-        }
-
-        // Function to retrieve the stored number
-        function retrieve() public view returns (uint256) {
-            return number;
-        }
-    }
+    
     ```
 
 ??? code "Complete Storage.sol contract"
 
     ```solidity title="Storage.sol"
-    // SPDX-License-Identifier: MIT
-    pragma solidity ^0.8.28;
-
-    contract Storage {
-        // State variable to store our number
-        uint256 private number;
-
-        // Event to notify when the number changes
-        event NumberChanged(uint256 newNumber);
-
-        // Function to store a new number
-        function store(uint256 newNumber) public {
-            number = newNumber;
-            emit NumberChanged(newNumber);
-        }
-
-        // Function to retrieve the stored number
-        function retrieve() public view returns (uint256) {
-            return number;
-        }
-    }
+    
     ```
 
 ## Understanding the Code
@@ -3274,23 +3228,7 @@ To create the ERC-20 contract, you can follow the steps below:
 3. Now, paste the following ERC-20 contract code into the editor:
 
     ```solidity title="MyToken.sol"
-    // SPDX-License-Identifier: MIT
-    // Compatible with OpenZeppelin Contracts ^5.0.0
-    pragma solidity ^0.8.22;
-
-    import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-    import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
-
-    contract MyToken is ERC20, Ownable {
-        constructor(address initialOwner)
-            ERC20("MyToken", "MTK")
-            Ownable(initialOwner)
-        {}
-
-        function mint(address to, uint256 amount) public onlyOwner {
-            _mint(to, amount);
-        }
-    }
+    
     ```
 
     The key components of the code above are:
@@ -3608,26 +3546,7 @@ To create the NFT contract, you can follow the steps below:
 3. Now, paste the following NFT contract code into the editor.
 
     ```solidity title="MyNFT.sol"
-    // SPDX-License-Identifier: MIT
-    // Compatible with OpenZeppelin Contracts ^5.0.0
-    pragma solidity ^0.8.22;
-
-    import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-    import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
-
-    contract MyToken is ERC721, Ownable {
-        uint256 private _nextTokenId;
-
-        constructor(address initialOwner)
-            ERC721("MyToken", "MTK")
-            Ownable(initialOwner)
-        {}
-
-        function safeMint(address to) public onlyOwner {
-            uint256 tokenId = _nextTokenId++;
-            _safeMint(to, tokenId);
-        }
-    }
+    
     ```
 
     The key components of the code above are:
@@ -9254,8 +9173,7 @@ The [`XcmRouter`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pa
 For instance, the Kusama network employs the [`ChildParachainRouter`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_common/xcm_sender/struct.ChildParachainRouter.html){target=\_blank}, which restricts routing to [Downward Message Passing (DMP)](https://wiki.polkadot.com/learn/learn-xcm-transport/#dmp-downward-message-passing){target=\_blank} from the relay chain to parachains, ensuring secure and controlled communication.
 
 ```rust
-pub type PriceForChildParachainDelivery =
-	ExponentialPrice<FeeAssetId, BaseDeliveryFee, TransactionByteFee, Dmp>;
+
 ```
 
 For more details about XCM transport protocols, see the [XCM Channels](/develop/interoperability/xcm-channels/){target=\_blank} page.
@@ -10381,95 +10299,25 @@ The `xcm-emulator` provides macros for defining a mocked testing environment. Ch
 - **[`decl_test_relay_chains`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/cumulus/xcm/xcm-emulator/src/lib.rs#L361){target=\_blank}**: Defines runtime and configuration for the relay chains. Example:
 
     ```rust
-    decl_test_relay_chains! {
-    	#[api_version(13)]
-    	pub struct Westend {
-    		genesis = genesis::genesis(),
-    		on_init = (),
-    		runtime = westend_runtime,
-    		core = {
-    			SovereignAccountOf: westend_runtime::xcm_config::LocationConverter,
-    		},
-    		pallets = {
-    			XcmPallet: westend_runtime::XcmPallet,
-    			Sudo: westend_runtime::Sudo,
-    			Balances: westend_runtime::Balances,
-    			Treasury: westend_runtime::Treasury,
-    			AssetRate: westend_runtime::AssetRate,
-    			Hrmp: westend_runtime::Hrmp,
-    			Identity: westend_runtime::Identity,
-    			IdentityMigrator: westend_runtime::IdentityMigrator,
-    		}
-    	},
-    }
+    
     ```
 
 - **[`decl_test_parachains`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/cumulus/xcm/xcm-emulator/src/lib.rs#L596){target=\_blank}**: Defines runtime and configuration for parachains. Example:
 
     ```rust
-    decl_test_parachains! {
-    	pub struct AssetHubWestend {
-    		genesis = genesis::genesis(),
-    		on_init = {
-    			asset_hub_westend_runtime::AuraExt::on_initialize(1);
-    		},
-    		runtime = asset_hub_westend_runtime,
-    		core = {
-    			XcmpMessageHandler: asset_hub_westend_runtime::XcmpQueue,
-    			LocationToAccountId: asset_hub_westend_runtime::xcm_config::LocationToAccountId,
-    			ParachainInfo: asset_hub_westend_runtime::ParachainInfo,
-    			MessageOrigin: cumulus_primitives_core::AggregateMessageOrigin,
-    			DigestProvider: (),
-    		},
-    		pallets = {
-    			PolkadotXcm: asset_hub_westend_runtime::PolkadotXcm,
-    			Balances: asset_hub_westend_runtime::Balances,
-    			Assets: asset_hub_westend_runtime::Assets,
-    			ForeignAssets: asset_hub_westend_runtime::ForeignAssets,
-    			PoolAssets: asset_hub_westend_runtime::PoolAssets,
-    			AssetConversion: asset_hub_westend_runtime::AssetConversion,
-    			SnowbridgeSystemFrontend: asset_hub_westend_runtime::SnowbridgeSystemFrontend,
-    			Revive: asset_hub_westend_runtime::Revive,
-    		}
-    	},
-    }
+    
     ```
 
 - **[`decl_test_bridges`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/cumulus/xcm/xcm-emulator/src/lib.rs#L1221){target=\_blank}**: Creates bridges between chains, specifying the source, target, and message handler. Example:
 
     ```rust
-    decl_test_bridges! {
-    	pub struct RococoWestendMockBridge {
-    		source = BridgeHubRococoPara,
-    		target = BridgeHubWestendPara,
-    		handler = RococoWestendMessageHandler
-    	},
-    	pub struct WestendRococoMockBridge {
-    		source = BridgeHubWestendPara,
-    		target = BridgeHubRococoPara,
-    		handler = WestendRococoMessageHandler
-    	}
-    }
+    
     ```
 
 - **[`decl_test_networks`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/cumulus/xcm/xcm-emulator/src/lib.rs#L958){target=\_blank}**: Defines a testing network with relay chains, parachains, and bridges, implementing message transport and processing logic. Example:
 
     ```rust
-    decl_test_networks! {
-    	pub struct WestendMockNet {
-    		relay_chain = Westend,
-    		parachains = vec![
-    			AssetHubWestend,
-    			BridgeHubWestend,
-    			CollectivesWestend,
-    			CoretimeWestend,
-    			PeopleWestend,
-    			PenpalA,
-    			PenpalB,
-    		],
-    		bridge = ()
-    	},
-    }
+    
     ```
 
 By leveraging these macros, developers can customize their testing networks by defining relay chains and parachains tailored to their needs. For guidance on implementing a mock runtime for a Polkadot SDK-based chain, refer to the [Pallet Testing](/parachains/customize-runtime/pallet-development/pallet-testing/){target=\_blank} article. 

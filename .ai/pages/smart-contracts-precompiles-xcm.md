@@ -9,7 +9,7 @@ url: https://docs.polkadot.com/smart-contracts/precompiles/xcm/
 
 ## Introduction
 
-The [XCM (Cross-Consensus Message)](/develop/interoperability/intro-to-xcm){target=\_blank} precompile enables Polkadot Hub developers to access XCM functionality directly from their smart contracts using a Solidity interface.
+The [XCM (Cross-Consensus Message)](/parachains/interoperability/get-started/){target=\_blank} precompile enables Polkadot Hub developers to access XCM functionality directly from their smart contracts using a Solidity interface.
 
 Located at the fixed address `0x00000000000000000000000000000000000a0000`, the XCM precompile offers three primary functions:
 
@@ -27,47 +27,7 @@ This guide demonstrates how to interact with the XCM precompile through Solidity
 The XCM precompile implements the `IXcm` interface, which defines the structure for interacting with XCM functionality. The source code for the interface is as follows:
 
 ```solidity title="IXcm.sol"
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
 
-/// @dev The on-chain address of the XCM (Cross-Consensus Messaging) precompile.
-address constant XCM_PRECOMPILE_ADDRESS = address(0xA0000);
-
-/// @title XCM Precompile Interface
-/// @notice A low-level interface for interacting with `pallet_xcm`.
-/// It forwards calls directly to the corresponding dispatchable functions,
-/// providing access to XCM execution and message passing.
-/// @dev Documentation:
-/// @dev - XCM: https://docs.polkadot.com/develop/interoperability
-/// @dev - SCALE codec: https://docs.polkadot.com/polkadot-protocol/parachain-basics/data-encoding
-/// @dev - Weights: https://docs.polkadot.com/polkadot-protocol/parachain-basics/blocks-transactions-fees/fees/#transactions-weights-and-fees
-interface IXcm {
-    /// @notice Weight v2 used for measurement for an XCM execution
-    struct Weight {
-        /// @custom:property The computational time used to execute some logic based on reference hardware.
-        uint64 refTime;
-        /// @custom:property The size of the proof needed to execute some logic.
-        uint64 proofSize;
-    }
-
-    /// @notice Executes an XCM message locally on the current chain with the caller's origin.
-    /// @dev Internally calls `pallet_xcm::execute`.
-    /// @param message A SCALE-encoded Versioned XCM message.
-    /// @param weight The maximum allowed `Weight` for execution.
-    /// @dev Call @custom:function weighMessage(message) to ensure sufficient weight allocation.
-    function execute(bytes calldata message, Weight calldata weight) external;
-
-    /// @notice Sends an XCM message to another parachain or consensus system.
-    /// @dev Internally calls `pallet_xcm::send`.
-    /// @param destination SCALE-encoded destination MultiLocation.
-    /// @param message SCALE-encoded Versioned XCM message.
-    function send(bytes calldata destination, bytes calldata message) external;
-
-    /// @notice Estimates the `Weight` required to execute a given XCM message.
-    /// @param message SCALE-encoded Versioned XCM message to analyze.
-    /// @return weight Struct containing estimated `refTime` and `proofSize`.
-    function weighMessage(bytes calldata message) external view returns (Weight memory weight);
-}
 ```
 
 The interface defines a `Weight` struct that represents the computational cost of XCM operations. Weight has two components: 
@@ -181,6 +141,6 @@ By building and executing XCM programs, developers can build cross-chain applica
 
 ## Next steps
 
-Head to the Polkadot Hub TestNet and start playing around with the precompile using Hardhat or Foundry.
+Head to the Polkadot Hub TestNet and start playing around with the precompile using [Hardhat](/smart-contracts/dev-environments/hardhat/get-started/){target=\_blank} or [Foundry](/smart-contracts/dev-environments/foundry/get-started/){target=\_blank}.
 
 You can use PAPI to build XCM programs and test them with Chopsticks.

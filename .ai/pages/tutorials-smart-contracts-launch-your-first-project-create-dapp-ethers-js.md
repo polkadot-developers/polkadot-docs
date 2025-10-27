@@ -113,55 +113,13 @@ For this dApp, you'll use a simple Storage contract already deployed. So, you ne
 ???+ code "Storage.sol ABI"
 
     ```json title="abis/Storage.json"
-    [
-        {
-            "inputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "_newNumber",
-                    "type": "uint256"
-                }
-            ],
-            "name": "setNumber",
-            "outputs": [],
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "inputs": [],
-            "name": "storedNumber",
-            "outputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "",
-                    "type": "uint256"
-                }
-            ],
-            "stateMutability": "view",
-            "type": "function"
-        }
-    ]
+    
     ```
 
 Now, create a file called `app/utils/contract.js`:
 
 ```javascript title="app/utils/contract.js"
-import { Contract } from 'ethers';
-import { getProvider } from './ethers';
-import StorageABI from '../../abis/Storage.json';
 
-export const CONTRACT_ADDRESS = '0x58053f0e8ede1a47a1af53e43368cd04ddcaf66f';
-
-export const CONTRACT_ABI = StorageABI;
-
-export const getContract = () => {
-  const provider = getProvider();
-  return new Contract(CONTRACT_ADDRESS, CONTRACT_ABI, provider);
-};
-
-export const getSignedContract = async (signer) => {
-  return new Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
-};
 ```
 
 This file defines the contract address, ABI, and functions to create instances of the contract for reading and writing.
@@ -171,167 +129,7 @@ This file defines the contract address, ABI, and functions to create instances o
 Next, let's create a component to handle wallet connections. Create a new file called `app/components/WalletConnect.js`:
 
 ```javascript title="app/components/WalletConnect.js"
-'use client';
 
-import React, { useState, useEffect } from 'react';
-import { PASSET_HUB_CONFIG } from '../utils/ethers';
-
-const WalletConnect = ({ onConnect }) => {
-  const [account, setAccount] = useState(null);
-  const [chainId, setChainId] = useState(null);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    // Check if user already has an authorized wallet connection
-    const checkConnection = async () => {
-      if (window.ethereum) {
-        try {
-          // eth_accounts doesn't trigger the wallet popup
-          const accounts = await window.ethereum.request({
-            method: 'eth_accounts',
-          });
-          if (accounts.length > 0) {
-            setAccount(accounts[0]);
-            const chainIdHex = await window.ethereum.request({
-              method: 'eth_chainId',
-            });
-            setChainId(parseInt(chainIdHex, 16));
-          }
-        } catch (err) {
-          console.error('Error checking connection:', err);
-          setError('Failed to check wallet connection');
-        }
-      }
-    };
-
-    checkConnection();
-
-    if (window.ethereum) {
-      // Setup wallet event listeners
-      window.ethereum.on('accountsChanged', (accounts) => {
-        setAccount(accounts[0] || null);
-        if (accounts[0] && onConnect) onConnect(accounts[0]);
-      });
-
-      window.ethereum.on('chainChanged', (chainIdHex) => {
-        setChainId(parseInt(chainIdHex, 16));
-      });
-    }
-
-    return () => {
-      // Cleanup event listeners
-      if (window.ethereum) {
-        window.ethereum.removeListener('accountsChanged', () => {});
-        window.ethereum.removeListener('chainChanged', () => {});
-      }
-    };
-  }, [onConnect]);
-
-  const connectWallet = async () => {
-    if (!window.ethereum) {
-      setError(
-        'MetaMask not detected! Please install MetaMask to use this dApp.'
-      );
-      return;
-    }
-
-    try {
-      // eth_requestAccounts triggers the wallet popup
-      const accounts = await window.ethereum.request({
-        method: 'eth_requestAccounts',
-      });
-      setAccount(accounts[0]);
-
-      const chainIdHex = await window.ethereum.request({
-        method: 'eth_chainId',
-      });
-      const currentChainId = parseInt(chainIdHex, 16);
-      setChainId(currentChainId);
-
-      // Prompt user to switch networks if needed
-      if (currentChainId !== PASSET_HUB_CONFIG.chainId) {
-        await switchNetwork();
-      }
-
-      if (onConnect) onConnect(accounts[0]);
-    } catch (err) {
-      console.error('Error connecting to wallet:', err);
-      setError('Failed to connect wallet');
-    }
-  };
-
-  const switchNetwork = async () => {
-    try {
-      await window.ethereum.request({
-        method: 'wallet_switchEthereumChain',
-        params: [{ chainId: `0x${PASSET_HUB_CONFIG.chainId.toString(16)}` }],
-      });
-    } catch (switchError) {
-      // Error 4902 means the chain hasn't been added to MetaMask
-      if (switchError.code === 4902) {
-        try {
-          await window.ethereum.request({
-            method: 'wallet_addEthereumChain',
-            params: [
-              {
-                chainId: `0x${PASSET_HUB_CONFIG.chainId.toString(16)}`,
-                chainName: PASSET_HUB_CONFIG.name,
-                rpcUrls: [PASSET_HUB_CONFIG.rpc],
-                blockExplorerUrls: [PASSET_HUB_CONFIG.blockExplorer],
-              },
-            ],
-          });
-        } catch (addError) {
-          setError('Failed to add network to wallet');
-        }
-      } else {
-        setError('Failed to switch network');
-      }
-    }
-  };
-
-  // UI-only disconnection - MetaMask doesn't support programmatic disconnection
-  const disconnectWallet = () => {
-    setAccount(null);
-  };
-
-  return (
-    <div className="border border-pink-500 rounded-lg p-4 shadow-md bg-white text-pink-500 max-w-sm mx-auto">
-      {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
-
-      {!account ? (
-        <button
-          onClick={connectWallet}
-          className="w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-lg transition"
-        >
-          Connect Wallet
-        </button>
-      ) : (
-        <div className="flex flex-col items-center">
-          <span className="text-sm font-mono bg-pink-100 px-2 py-1 rounded-md text-pink-700">
-            {`${account.substring(0, 6)}...${account.substring(38)}`}
-          </span>
-          <button
-            onClick={disconnectWallet}
-            className="mt-3 w-full bg-gray-200 hover:bg-gray-300 text-pink-500 py-2 px-4 rounded-lg transition"
-          >
-            Disconnect
-          </button>
-          {chainId !== PASSET_HUB_CONFIG.chainId && (
-            <button
-              onClick={switchNetwork}
-              className="mt-3 w-full bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg transition"
-            >
-              Switch to Passet Hub
-            </button>
-          )}
-        </div>
-      )}
-    </div>
-  );
-};
-
-export default WalletConnect;
 ```
 
 This component handles connecting to the wallet, switching networks if necessary, and keeping track of the connected account. 
@@ -340,25 +138,9 @@ To integrate this component to your dApp, you need to overwrite the existing boi
 
 ```javascript title="app/page.js"
 
-import { useState } from 'react';
 
-import WalletConnect from './components/WalletConnect';
-export default function Home() {
-  const [account, setAccount] = useState(null);
 
-  const handleConnect = (connectedAccount) => {
-    setAccount(connectedAccount);
-  };
 
-  return (
-    <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
-      <h1 className="text-2xl font-semibold text-center">
-        Ethers.js dApp - Passet Hub Smart Contracts
-      </h1>
-      <WalletConnect onConnect={handleConnect} />
-</section>
-  );
-}
 ```
 
 In your terminal, you can launch your project by running:
@@ -376,64 +158,7 @@ And you will see the following:
 Now, let's create a component to read data from the contract. Create a file called `app/components/ReadContract.js`:
 
 ```javascript title="app/components/ReadContract.js"
-'use client';
 
-import React, { useState, useEffect } from 'react';
-import { getContract } from '../utils/contract';
-
-const ReadContract = () => {
-  const [storedNumber, setStoredNumber] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    // Function to read data from the blockchain
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const contract = getContract();
-        // Call the smart contract's storedNumber function
-        const number = await contract.storedNumber();
-        setStoredNumber(number.toString());
-        setError(null);
-      } catch (err) {
-        console.error('Error fetching stored number:', err);
-        setError('Failed to fetch data from the contract');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-
-    // Poll for updates every 10 seconds to keep UI in sync with blockchain
-    const interval = setInterval(fetchData, 10000);
-
-    // Clean up interval on component unmount
-    return () => clearInterval(interval);
-  }, []);
-
-  return (
-    <div className="border border-pink-500 rounded-lg p-4 shadow-md bg-white text-pink-500 max-w-sm mx-auto">
-      <h2 className="text-lg font-bold text-center mb-4">Contract Data</h2>
-      {loading ? (
-        <div className="flex justify-center my-4">
-          <div className="w-6 h-6 border-4 border-pink-500 border-t-transparent rounded-full animate-spin"></div>
-        </div>
-      ) : error ? (
-        <p className="text-red-500 text-center">{error}</p>
-      ) : (
-        <div className="text-center">
-          <p className="text-sm font-mono bg-pink-100 px-2 py-1 rounded-md text-pink-700">
-            <strong>Stored Number:</strong> {storedNumber}
-          </p>
-        </div>
-      )}
-    </div>
-  );
-};
-
-export default ReadContract;
 ```
 
 This component reads the `storedNumber` value from the contract and displays it to the user. It also sets up a polling interval to refresh the data periodically.
@@ -442,27 +167,9 @@ To see this change in your dApp, you need to integrate this component into the `
 
 ```javascript title="app/page.js"
 
-import { useState } from 'react';
 
-import WalletConnect from './components/WalletConnect';
-import ReadContract from './components/ReadContract';
-export default function Home() {
-  const [account, setAccount] = useState(null);
 
-  const handleConnect = (connectedAccount) => {
-    setAccount(connectedAccount);
-  };
 
-  return (
-    <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
-      <h1 className="text-2xl font-semibold text-center">
-        Ethers.js dApp - Passet Hub Smart Contracts
-      </h1>
-      <WalletConnect onConnect={handleConnect} />
-      <ReadContract />
-</section>
-  );
-}
 ```
 
 Your dApp will automatically be updated to the following:
@@ -474,119 +181,7 @@ Your dApp will automatically be updated to the following:
 Finally, let's create a component that allows users to update the stored number. Create a file called `app/components/WriteContract.js`:
 
 ```javascript title="app/components/WriteContract.js"
-'use client';
 
-import { useState } from 'react';
-import { getSignedContract } from '../utils/contract';
-import { ethers } from 'ethers';
-
-const WriteContract = ({ account }) => {
-  const [newNumber, setNewNumber] = useState('');
-  const [status, setStatus] = useState({ type: null, message: '' });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    // Validation checks
-    if (!account) {
-      setStatus({ type: 'error', message: 'Please connect your wallet first' });
-      return;
-    }
-
-    if (!newNumber || isNaN(Number(newNumber))) {
-      setStatus({ type: 'error', message: 'Please enter a valid number' });
-      return;
-    }
-
-    try {
-      setIsSubmitting(true);
-      setStatus({ type: 'info', message: 'Initiating transaction...' });
-
-      // Get a signer from the connected wallet
-      const provider = new ethers.BrowserProvider(window.ethereum);
-      const signer = await provider.getSigner();
-      const contract = await getSignedContract(signer);
-
-      // Send transaction to blockchain and wait for user confirmation in wallet
-      setStatus({
-        type: 'info',
-        message: 'Please confirm the transaction in your wallet...',
-      });
-
-      // Call the contract's setNumber function
-      const tx = await contract.setNumber(newNumber);
-
-      // Wait for transaction to be mined
-      setStatus({
-        type: 'info',
-        message: 'Transaction submitted. Waiting for confirmation...',
-      });
-      const receipt = await tx.wait();
-
-      setStatus({
-        type: 'success',
-        message: `Transaction confirmed! Transaction hash: ${receipt.hash}`,
-      });
-      setNewNumber('');
-    } catch (err) {
-      console.error('Error updating number:', err);
-
-      // Error code 4001 is MetaMask's code for user rejection
-      if (err.code === 4001) {
-        setStatus({ type: 'error', message: 'Transaction rejected by user.' });
-      } else {
-        setStatus({
-          type: 'error',
-          message: `Error: ${err.message || 'Failed to send transaction'}`,
-        });
-      }
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  return (
-    <div className="border border-pink-500 rounded-lg p-4 shadow-md bg-white text-pink-500 max-w-sm mx-auto space-y-4">
-      <h2 className="text-lg font-bold">Update Stored Number</h2>
-      {status.message && (
-        <div
-          className={`p-2 rounded-md break-words h-fit text-sm ${
-            status.type === 'error'
-              ? 'bg-red-100 text-red-500'
-              : 'bg-green-100 text-green-700'
-          }`}
-        >
-          {status.message}
-        </div>
-      )}
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <input
-          type="number"
-          placeholder="New Number"
-          value={newNumber}
-          onChange={(e) => setNewNumber(e.target.value)}
-          disabled={isSubmitting || !account}
-          className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-pink-400"
-        />
-        <button
-          type="submit"
-          disabled={isSubmitting || !account}
-          className="w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-lg transition disabled:bg-gray-300"
-        >
-          {isSubmitting ? 'Updating...' : 'Update'}
-        </button>
-      </form>
-      {!account && (
-        <p className="text-sm text-gray-500">
-          Connect your wallet to update the stored number.
-        </p>
-      )}
-    </div>
-  );
-};
-
-export default WriteContract;
 ```
 
 This component allows users to input a new number and send a transaction to update the value stored in the contract. When the transaction is successful, users will see the stored value update in the `ReadContract` component after the transaction is confirmed.
@@ -594,32 +189,7 @@ This component allows users to input a new number and send a transaction to upda
 Update the `app/page.js` file to integrate all components:
 
 ```javascript title="app/page.js"
-'use client';
 
-import { useState } from 'react';
-
-import WalletConnect from './components/WalletConnect';
-import ReadContract from './components/ReadContract';
-import WriteContract from './components/WriteContract';
-
-export default function Home() {
-  const [account, setAccount] = useState(null);
-
-  const handleConnect = (connectedAccount) => {
-    setAccount(connectedAccount);
-  };
-
-  return (
-    <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
-      <h1 className="text-2xl font-semibold text-center">
-        Ethers.js dApp - Passet Hub Smart Contracts
-      </h1>
-      <WalletConnect onConnect={handleConnect} />
-      <ReadContract />
-      <WriteContract account={account} />
-    </section>
-  );
-}
 ```
 
 The completed UI will display:

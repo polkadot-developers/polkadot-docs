@@ -62,7 +62,7 @@ The Assets pallet includes:
 
 !!! note "Main Functions"
     For the full list of supported extrinsics, see the  
-    [pallet-assets dispatchable functions reference](https://docs.rs/pallet-assets/latest/pallet_assets/pallet/enum.Call.html){target=_blank}.
+    [`pallet-assets` dispatchable functions reference](https://docs.rs/pallet-assets/latest/pallet_assets/pallet/enum.Call.html){target=\_blank}.
 
 #### Querying Functions
 

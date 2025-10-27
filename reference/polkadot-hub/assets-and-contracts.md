@@ -20,7 +20,7 @@ Built for interoperability, it enables cross-chain asset transfers with XCM and 
 
 The Polkadot Relay Chain supports only its native token (DOT), so Polkadot Hub provides a standardized framework for creating and managing fungible and non-fungible assets. It enables projects to issue tokens, manage supply, and transfer assets across parachains.
 
-Assets on Polkadot Hub support familiar operations such as minting, burning, transfers, and metadata management, similar to ERC-20 on Ethereum but built directly into Polkadot’s runtime for lower latency and fees.
+Assets on Polkadot Hub support familiar operations such as minting, burning, transfers, and metadata management, similar to ERC-20 on Ethereum but built directly into Polkadot’s runtime.
 
 #### Why use Polkadot Hub?
 

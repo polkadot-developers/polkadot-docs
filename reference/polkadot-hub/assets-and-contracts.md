@@ -48,7 +48,7 @@ The Assets pallet in the Polkadot SDK provides the core logic behind fungible as
 
 The pallet supports both permissioned and permissionless asset creation, making it suitable for simple tokens as well as governed assets controlled by teams or DAOs.
 
-For full API details, see the [Assets Pallet Rust docs](https://paritytech.github.io/polkadot-sdk/master/pallet_assets/index.html){target=_blank}.
+For full API details, see the [Assets Pallet Rust docs](https://paritytech.github.io/polkadot-sdk/master/pallet_assets/index.html){target=\_blank}.
 
 #### Key Features
 

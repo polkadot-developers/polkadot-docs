@@ -260,17 +260,3 @@ With your parachain collator operational, the next step is acquiring coretime. T
 - On-demand coretime is ordered via the [`OnDemand`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/on_demand/index.html){target=\_blank} pallet, which is located on the respective relay chain.
 
 Once coretime is correctly assigned to your parachain, whether bulk or on-demand, blocks should be produced (provided your collator is running).
-
-## Where to Go Next
-
-<div class="grid cards" markdown>
-
--   <span class="badge tutorial">Tutorial</span> __Obtain Coretime__
-
-    ---
-
-    Get coretime for block production now! Follow this guide to explore on-demand and bulk options for seamless and efficient operations.
-
-    [:octicons-arrow-right-24: Get Started](/parachains/launch-a-parachain/obtain-coretime/)
-
-</div>

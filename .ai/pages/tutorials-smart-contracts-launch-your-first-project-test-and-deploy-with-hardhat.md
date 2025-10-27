@@ -127,7 +127,27 @@ Let's start by setting up Hardhat for your Storage contract project:
 1. Create a new folder called `contracts` and create a `Storage.sol` file. Add the contract code from the previous tutorial:
 
     ```solidity title="Storage.sol"
-    
+    // SPDX-License-Identifier: MIT
+    pragma solidity ^0.8.28;
+
+    contract Storage {
+        // State variable to store our number
+        uint256 private number;
+
+        // Event to notify when the number changes
+        event NumberChanged(uint256 newNumber);
+
+        // Function to store a new number
+        function store(uint256 newNumber) public {
+            number = newNumber;
+            emit NumberChanged(newNumber);
+        }
+
+        // Function to retrieve the stored number
+        function retrieve() public view returns (uint256) {
+            return number;
+        }
+    }
     ```
 
 2. Compile the contract:
@@ -331,7 +351,13 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
 1. Create a new folder called`ignition/modules`. Add a new file named `StorageModule.js` with the following logic:
 
     ```javascript title="StorageModule.js"
-    
+    const { buildModule } = require('@nomicfoundation/hardhat-ignition/modules');
+
+    module.exports = buildModule('StorageModule', (m) => {
+      const storage = m.contract('Storage');
+
+      return { storage };
+    });
     ```
 
 2. Deploy to the local network:
@@ -403,7 +429,40 @@ To interact with your deployed contract:
 1. Create a new folder named `scripts` and add the `interact.js` with the following content:
 
     ```javascript title="interact.js"
-    
+    const hre = require('hardhat');
+
+    async function main() {
+      // Replace with your deployed contract address
+      const contractAddress = 'INSERT_DEPLOYED_CONTRACT_ADDRESS';
+
+      // Get the contract instance
+      const Storage = await hre.ethers.getContractFactory('Storage');
+      const storage = await Storage.attach(contractAddress);
+
+      // Get current value
+      const currentValue = await storage.retrieve();
+      console.log('Current stored value:', currentValue.toString());
+
+      // Store a new value
+      const newValue = 42;
+      console.log(`Storing new value: ${newValue}...`);
+      const tx = await storage.store(newValue);
+
+      // Wait for transaction to be mined
+      await tx.wait();
+      console.log('Transaction confirmed');
+
+      // Get updated value
+      const updatedValue = await storage.retrieve();
+      console.log('Updated stored value:', updatedValue.toString());
+    }
+
+    main()
+      .then(() => process.exit(0))
+      .catch((error) => {
+        console.error(error);
+        process.exit(1);
+      });
     ```
 
     Ensure that `INSERT_DEPLOYED_CONTRACT_ADDRESS` is replaced with the value obtained in the previous step.

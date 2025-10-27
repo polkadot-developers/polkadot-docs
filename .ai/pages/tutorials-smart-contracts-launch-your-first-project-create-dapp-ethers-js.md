@@ -171,7 +171,167 @@ This file defines the contract address, ABI, and functions to create instances o
 Next, let's create a component to handle wallet connections. Create a new file called `app/components/WalletConnect.js`:
 
 ```javascript title="app/components/WalletConnect.js"
+'use client';
 
+import React, { useState, useEffect } from 'react';
+import { PASSET_HUB_CONFIG } from '../utils/ethers';
+
+const WalletConnect = ({ onConnect }) => {
+  const [account, setAccount] = useState(null);
+  const [chainId, setChainId] = useState(null);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    // Check if user already has an authorized wallet connection
+    const checkConnection = async () => {
+      if (window.ethereum) {
+        try {
+          // eth_accounts doesn't trigger the wallet popup
+          const accounts = await window.ethereum.request({
+            method: 'eth_accounts',
+          });
+          if (accounts.length > 0) {
+            setAccount(accounts[0]);
+            const chainIdHex = await window.ethereum.request({
+              method: 'eth_chainId',
+            });
+            setChainId(parseInt(chainIdHex, 16));
+          }
+        } catch (err) {
+          console.error('Error checking connection:', err);
+          setError('Failed to check wallet connection');
+        }
+      }
+    };
+
+    checkConnection();
+
+    if (window.ethereum) {
+      // Setup wallet event listeners
+      window.ethereum.on('accountsChanged', (accounts) => {
+        setAccount(accounts[0] || null);
+        if (accounts[0] && onConnect) onConnect(accounts[0]);
+      });
+
+      window.ethereum.on('chainChanged', (chainIdHex) => {
+        setChainId(parseInt(chainIdHex, 16));
+      });
+    }
+
+    return () => {
+      // Cleanup event listeners
+      if (window.ethereum) {
+        window.ethereum.removeListener('accountsChanged', () => {});
+        window.ethereum.removeListener('chainChanged', () => {});
+      }
+    };
+  }, [onConnect]);
+
+  const connectWallet = async () => {
+    if (!window.ethereum) {
+      setError(
+        'MetaMask not detected! Please install MetaMask to use this dApp.'
+      );
+      return;
+    }
+
+    try {
+      // eth_requestAccounts triggers the wallet popup
+      const accounts = await window.ethereum.request({
+        method: 'eth_requestAccounts',
+      });
+      setAccount(accounts[0]);
+
+      const chainIdHex = await window.ethereum.request({
+        method: 'eth_chainId',
+      });
+      const currentChainId = parseInt(chainIdHex, 16);
+      setChainId(currentChainId);
+
+      // Prompt user to switch networks if needed
+      if (currentChainId !== PASSET_HUB_CONFIG.chainId) {
+        await switchNetwork();
+      }
+
+      if (onConnect) onConnect(accounts[0]);
+    } catch (err) {
+      console.error('Error connecting to wallet:', err);
+      setError('Failed to connect wallet');
+    }
+  };
+
+  const switchNetwork = async () => {
+    try {
+      await window.ethereum.request({
+        method: 'wallet_switchEthereumChain',
+        params: [{ chainId: `0x${PASSET_HUB_CONFIG.chainId.toString(16)}` }],
+      });
+    } catch (switchError) {
+      // Error 4902 means the chain hasn't been added to MetaMask
+      if (switchError.code === 4902) {
+        try {
+          await window.ethereum.request({
+            method: 'wallet_addEthereumChain',
+            params: [
+              {
+                chainId: `0x${PASSET_HUB_CONFIG.chainId.toString(16)}`,
+                chainName: PASSET_HUB_CONFIG.name,
+                rpcUrls: [PASSET_HUB_CONFIG.rpc],
+                blockExplorerUrls: [PASSET_HUB_CONFIG.blockExplorer],
+              },
+            ],
+          });
+        } catch (addError) {
+          setError('Failed to add network to wallet');
+        }
+      } else {
+        setError('Failed to switch network');
+      }
+    }
+  };
+
+  // UI-only disconnection - MetaMask doesn't support programmatic disconnection
+  const disconnectWallet = () => {
+    setAccount(null);
+  };
+
+  return (
+    <div className="border border-pink-500 rounded-lg p-4 shadow-md bg-white text-pink-500 max-w-sm mx-auto">
+      {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
+
+      {!account ? (
+        <button
+          onClick={connectWallet}
+          className="w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-lg transition"
+        >
+          Connect Wallet
+        </button>
+      ) : (
+        <div className="flex flex-col items-center">
+          <span className="text-sm font-mono bg-pink-100 px-2 py-1 rounded-md text-pink-700">
+            {`${account.substring(0, 6)}...${account.substring(38)}`}
+          </span>
+          <button
+            onClick={disconnectWallet}
+            className="mt-3 w-full bg-gray-200 hover:bg-gray-300 text-pink-500 py-2 px-4 rounded-lg transition"
+          >
+            Disconnect
+          </button>
+          {chainId !== PASSET_HUB_CONFIG.chainId && (
+            <button
+              onClick={switchNetwork}
+              className="mt-3 w-full bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg transition"
+            >
+              Switch to Passet Hub
+            </button>
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default WalletConnect;
 ```
 
 This component handles connecting to the wallet, switching networks if necessary, and keeping track of the connected account. 
@@ -314,7 +474,119 @@ Your dApp will automatically be updated to the following:
 Finally, let's create a component that allows users to update the stored number. Create a file called `app/components/WriteContract.js`:
 
 ```javascript title="app/components/WriteContract.js"
+'use client';
 
+import { useState } from 'react';
+import { getSignedContract } from '../utils/contract';
+import { ethers } from 'ethers';
+
+const WriteContract = ({ account }) => {
+  const [newNumber, setNewNumber] = useState('');
+  const [status, setStatus] = useState({ type: null, message: '' });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Validation checks
+    if (!account) {
+      setStatus({ type: 'error', message: 'Please connect your wallet first' });
+      return;
+    }
+
+    if (!newNumber || isNaN(Number(newNumber))) {
+      setStatus({ type: 'error', message: 'Please enter a valid number' });
+      return;
+    }
+
+    try {
+      setIsSubmitting(true);
+      setStatus({ type: 'info', message: 'Initiating transaction...' });
+
+      // Get a signer from the connected wallet
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
+      const contract = await getSignedContract(signer);
+
+      // Send transaction to blockchain and wait for user confirmation in wallet
+      setStatus({
+        type: 'info',
+        message: 'Please confirm the transaction in your wallet...',
+      });
+
+      // Call the contract's setNumber function
+      const tx = await contract.setNumber(newNumber);
+
+      // Wait for transaction to be mined
+      setStatus({
+        type: 'info',
+        message: 'Transaction submitted. Waiting for confirmation...',
+      });
+      const receipt = await tx.wait();
+
+      setStatus({
+        type: 'success',
+        message: `Transaction confirmed! Transaction hash: ${receipt.hash}`,
+      });
+      setNewNumber('');
+    } catch (err) {
+      console.error('Error updating number:', err);
+
+      // Error code 4001 is MetaMask's code for user rejection
+      if (err.code === 4001) {
+        setStatus({ type: 'error', message: 'Transaction rejected by user.' });
+      } else {
+        setStatus({
+          type: 'error',
+          message: `Error: ${err.message || 'Failed to send transaction'}`,
+        });
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <div className="border border-pink-500 rounded-lg p-4 shadow-md bg-white text-pink-500 max-w-sm mx-auto space-y-4">
+      <h2 className="text-lg font-bold">Update Stored Number</h2>
+      {status.message && (
+        <div
+          className={`p-2 rounded-md break-words h-fit text-sm ${
+            status.type === 'error'
+              ? 'bg-red-100 text-red-500'
+              : 'bg-green-100 text-green-700'
+          }`}
+        >
+          {status.message}
+        </div>
+      )}
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <input
+          type="number"
+          placeholder="New Number"
+          value={newNumber}
+          onChange={(e) => setNewNumber(e.target.value)}
+          disabled={isSubmitting || !account}
+          className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-pink-400"
+        />
+        <button
+          type="submit"
+          disabled={isSubmitting || !account}
+          className="w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-lg transition disabled:bg-gray-300"
+        >
+          {isSubmitting ? 'Updating...' : 'Update'}
+        </button>
+      </form>
+      {!account && (
+        <p className="text-sm text-gray-500">
+          Connect your wallet to update the stored number.
+        </p>
+      )}
+    </div>
+  );
+};
+
+export default WriteContract;
 ```
 
 This component allows users to input a new number and send a transaction to update the value stored in the contract. When the transaction is successful, users will see the stored value update in the `ReadContract` component after the transaction is confirmed.

@@ -81,7 +81,30 @@ To interact with the ECRecover precompile, you can deploy the `ECRecoverExample`
 The SHA-256 precompile computes the SHA-256 hash of the input data.
 
 ```solidity title="SHA256.sol"
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
+contract SHA256Example {
+    event SHA256Called(bytes result);
+
+    // Address of the SHA256 precompile
+    address constant SHA256_PRECOMPILE = address(0x02);
+
+    bytes public result;
+
+    function callH256(bytes calldata input) public {
+        bool success;
+        bytes memory resultInMemory;
+
+        (success, resultInMemory) = SHA256_PRECOMPILE.call{value: 0}(input);
+
+        if (success) {
+            emit SHA256Called(resultInMemory);
+        }
+
+        result = resultInMemory;
+    }
+}
 ```
 
 To use it, you can deploy the `SHA256Example` contract in [Remix](/smart-contracts/dev-environments/remix/get-started/){target=\_blank} or any Solidity-compatible environment and call callH256 with arbitrary bytes. Check out this [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/SHA256.js){target=\_blank} shows how to pass a UTF-8 string, hash it using the precompile, and compare it with the expected hash from Node.js's [crypto](https://www.npmjs.com/package/crypto-js){target=\_blank} module.
@@ -91,7 +114,32 @@ To use it, you can deploy the `SHA256Example` contract in [Remix](/smart-contrac
 The RIPEMD-160 precompile computes the RIPEMD-160 hash of the input data.
 
 ```solidity title="RIPEMD160.sol"
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
+contract RIPEMD160Example {
+    // RIPEMD-160 precompile address
+    address constant RIPEMD160_PRECOMPILE = address(0x03);
+
+    bytes32 public result;
+
+    event RIPEMD160Called(bytes32 result);
+
+    function calculateRIPEMD160(bytes calldata input) public returns (bytes32) {
+        (bool success, bytes memory returnData) = RIPEMD160_PRECOMPILE.call(
+            input
+        );
+        require(success, "RIPEMD-160 precompile call failed");
+        // return full 32 bytes, no assembly extraction
+        bytes32 fullHash;
+        assembly {
+            fullHash := mload(add(returnData, 32))
+        }
+        result = fullHash;
+        emit RIPEMD160Called(fullHash);
+        return fullHash;
+    }
+}
 ```
 
 To use it, you can deploy the `RIPEMD160Example` contract in [Remix](/smart-contracts/dev-environments/remix/get-started/){target=\_blank} or any Solidity-compatible environment and call `calculateRIPEMD160` with arbitrary bytes. This [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/RIPEMD160.js){target=\_blank} shows how to hash a UTF-8 string, pad the 20-byte result to 32 bytes, and verify it against the expected output.
@@ -134,7 +182,36 @@ To use it, you can deploy the `IdentityExample` contract in [Remix](/smart-contr
 The ModExp precompile performs modular exponentiation, which is an operation commonly needed in cryptographic algorithms.
 
 ```solidity title="ModExp.sol"
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
+contract ModExpExample {
+    address constant MODEXP_ADDRESS = address(0x05);
+
+    function modularExponentiation(
+        bytes memory base,
+        bytes memory exponent,
+        bytes memory modulus
+    ) public view returns (bytes memory) {
+        bytes memory input = abi.encodePacked(
+            toBytes32(base.length),
+            toBytes32(exponent.length),
+            toBytes32(modulus.length),
+            base,
+            exponent,
+            modulus
+        );
+
+        (bool success, bytes memory result) = MODEXP_ADDRESS.staticcall(input);
+        require(success, "ModExp precompile call failed");
+
+        return result;
+    }
+
+    function toBytes32(uint256 value) internal pure returns (bytes32) {
+        return bytes32(value);
+    }
+}
 ```
 
 To use it, you can deploy the `ModExpExample` contract in [Remix](/smart-contracts/dev-environments/remix/get-started/){target=\_blank} or any Solidity-compatible environment and call `modularExponentiation` with encoded `base`, `exponent`, and `modulus` bytes. This [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/ModExp.js){target=\_blank} shows how to test modular exponentiation like (4 ** 13) % 497 = 445.
@@ -185,7 +262,42 @@ To use it, you can deploy the `BN128AddExample` contract in [Remix](/smart-contr
 The BN128Mul precompile performs scalar multiplication on the alt_bn128 curve.
 
 ```solidity title="BN128Mul.sol"
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
+contract BN128MulExample {
+    // Precompile address for BN128Mul
+    address constant BN128_MUL_ADDRESS = address(0x07);
+
+    bytes public result;
+
+    // Performs scalar multiplication of a point on the alt_bn128 curve
+    function bn128ScalarMul(uint256 x1, uint256 y1, uint256 scalar) public {
+        // Format: [x, y, scalar] - each 32 bytes
+        bytes memory input = abi.encodePacked(
+            bytes32(x1),
+            bytes32(y1),
+            bytes32(scalar)
+        );
+
+        (bool success, bytes memory resultInMemory) = BN128_MUL_ADDRESS.call{
+            value: 0
+        }(input);
+        require(success, "BN128Mul precompile call failed");
+
+        result = resultInMemory;
+    }
+
+    // Helper to decode result from `result` storage
+    function getResult() public view returns (uint256 x2, uint256 y2) {
+        bytes memory tempResult = result;
+        require(tempResult.length >= 64, "Invalid result length");
+        assembly {
+            x2 := mload(add(tempResult, 32))
+            y2 := mload(add(tempResult, 64))
+        }
+    }
+}
 ```
 
 To use it, deploy `BN128MulExample` in [Remix](/smart-contracts/dev-environments/remix/get-started/){target=\_blank} or any Solidity-compatible environment and call `bn128ScalarMul` with a valid point and scalar. This [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/BN128Mul.js){target=\_blank} shows how to test the operation and verify the expected scalar multiplication result on `alt_bn128`.
@@ -195,7 +307,38 @@ To use it, deploy `BN128MulExample` in [Remix](/smart-contracts/dev-environments
 The BN128Pairing precompile verifies a pairing equation on the alt_bn128 curve, which is critical for zk-SNARK verification.
 
 ```solidity title="BN128Pairing.sol"
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
+contract BN128PairingExample {
+    // Precompile address for BN128Pairing
+    address constant BN128_PAIRING_ADDRESS = address(0x08);
+
+    bytes public result;
+
+    // Performs a pairing check on the alt_bn128 curve
+    function bn128Pairing(bytes memory input) public {
+        // Call the precompile
+        (bool success, bytes memory resultInMemory) = BN128_PAIRING_ADDRESS
+            .call{value: 0}(input);
+        require(success, "BN128Pairing precompile call failed");
+
+        result = resultInMemory;
+    }
+
+    // Helper function to decode the result from `result` storage
+    function getResult() public view returns (bool isValid) {
+        bytes memory tempResult = result;
+        require(tempResult.length == 32, "Invalid result length");
+
+        uint256 output;
+        assembly {
+            output := mload(add(tempResult, 32))
+        }
+
+        isValid = (output == 1);
+    }
+}
 ```
 
 You can deploy `BN128PairingExample` in [Remix](/smart-contracts/dev-environments/remix/get-started/){target=\_blank} or your preferred environment. Check out this [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/BN128Pairing.js){target=\_blank} contains these tests with working examples.

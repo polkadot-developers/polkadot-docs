@@ -3126,7 +3126,7 @@ This API allows a dry-run of any extrinsic and obtaining the outcome if it fails
 This API allows the direct dry-run of an xcm message instead of an extrinsic one, checks if it will execute successfully, and determines what other xcm messages will be forwarded to other chains.
 
 ```rust
-fn dry_run_xcm(origin_location: VersionedLocation, xcm: VersionedXcm<Call>) -> Result<XcmDryRunEffects<Event>, Error>;
+
 ```
 
 ??? interface "Input parameters"
@@ -3357,7 +3357,7 @@ To use the API effectively, the client must already know the XCM program to be e
 Retrieves the list of assets that are acceptable for paying fees when using a specific XCM version
 
 ```rust
-
+fn query_acceptable_payment_assets(xcm_version: Version) -> Result<Vec<VersionedAssetId>, Error>;
 ```
 
 ??? interface "Input parameters"
@@ -3445,7 +3445,7 @@ Retrieves the list of assets that are acceptable for paying fees when using a sp
 Calculates the weight required to execute a given XCM message. It is useful for estimating the execution cost of a cross-chain message in the destination chain before sending it.
 
 ```rust
-
+fn query_xcm_weight(message: VersionedXcm<()>) -> Result<Weight, Error>;
 ```
 
 ??? interface "Input parameters"
@@ -3588,7 +3588,7 @@ Calculates the weight required to execute a given XCM message. It is useful for 
 Converts a given weight into the corresponding fee for a specified `AssetId`. It allows clients to determine the cost of execution in terms of the desired asset.
 
 ```rust
-
+fn query_weight_to_asset_fee(weight: Weight, asset: VersionedAssetId) -> Result<u128, Error>;
 ```
 
 ??? interface "Input parameters"
@@ -3693,7 +3693,7 @@ Converts a given weight into the corresponding fee for a specified `AssetId`. It
 Retrieves the delivery fees for sending a specific XCM message to a designated destination. The fees are always returned in a specific asset defined by the destination chain.
 
 ```rust
-
+fn query_delivery_fees(destination: VersionedLocation, message: VersionedXcm<()>) -> Result<VersionedAssets, Error>;
 ```
 
 ??? interface "Input parameters"

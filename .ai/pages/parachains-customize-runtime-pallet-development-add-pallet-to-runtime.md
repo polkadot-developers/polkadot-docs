@@ -167,7 +167,13 @@ Update your root parachain template's `Cargo.toml` file to include your custom p
     Make sure the `custom-pallet` is a member of the workspace:
 
     ```toml hl_lines="4" title="Cargo.toml"
-     
+     [workspace]
+     default-members = ["pallets/template", "runtime"]
+     members = [
+         "node", "pallets/custom-pallet",
+         "pallets/template",
+         "runtime",
+     ]
     ```
 
 ???- code "./Cargo.toml"

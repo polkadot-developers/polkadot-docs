@@ -403,7 +403,13 @@ Update your root parachain template's `Cargo.toml` file to include your custom p
     Make sure the `custom-pallet` is a member of the workspace:
 
     ```toml hl_lines="4" title="Cargo.toml"
-     
+     [workspace]
+     default-members = ["pallets/template", "runtime"]
+     members = [
+         "node", "pallets/custom-pallet",
+         "pallets/template",
+         "runtime",
+     ]
     ```
 
 ???- code "./Cargo.toml"
@@ -2584,13 +2590,53 @@ To build the smart contract, follow the steps below:
 6. Add the getter and setter functions:
 
     ```solidity
-    
+    // SPDX-License-Identifier: MIT
+    pragma solidity ^0.8.28;
+
+    contract Storage {
+        // State variable to store our number
+        uint256 private number;
+
+        // Event to notify when the number changes
+        event NumberChanged(uint256 newNumber);
+
+        // Function to store a new number
+        function store(uint256 newNumber) public {
+            number = newNumber;
+            emit NumberChanged(newNumber);
+        }
+
+        // Function to retrieve the stored number
+        function retrieve() public view returns (uint256) {
+            return number;
+        }
+    }
     ```
 
 ??? code "Complete Storage.sol contract"
 
     ```solidity title="Storage.sol"
-    
+    // SPDX-License-Identifier: MIT
+    pragma solidity ^0.8.28;
+
+    contract Storage {
+        // State variable to store our number
+        uint256 private number;
+
+        // Event to notify when the number changes
+        event NumberChanged(uint256 newNumber);
+
+        // Function to store a new number
+        function store(uint256 newNumber) public {
+            number = newNumber;
+            emit NumberChanged(newNumber);
+        }
+
+        // Function to retrieve the stored number
+        function retrieve() public view returns (uint256) {
+            return number;
+        }
+    }
     ```
 
 ## Understanding the Code
@@ -9173,7 +9219,8 @@ The [`XcmRouter`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pa
 For instance, the Kusama network employs the [`ChildParachainRouter`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_common/xcm_sender/struct.ChildParachainRouter.html){target=\_blank}, which restricts routing to [Downward Message Passing (DMP)](https://wiki.polkadot.com/learn/learn-xcm-transport/#dmp-downward-message-passing){target=\_blank} from the relay chain to parachains, ensuring secure and controlled communication.
 
 ```rust
-
+pub type PriceForChildParachainDelivery =
+	ExponentialPrice<FeeAssetId, BaseDeliveryFee, TransactionByteFee, Dmp>;
 ```
 
 For more details about XCM transport protocols, see the [XCM Channels](/develop/interoperability/xcm-channels/){target=\_blank} page.
@@ -10299,7 +10346,27 @@ The `xcm-emulator` provides macros for defining a mocked testing environment. Ch
 - **[`decl_test_relay_chains`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/cumulus/xcm/xcm-emulator/src/lib.rs#L361){target=\_blank}**: Defines runtime and configuration for the relay chains. Example:
 
     ```rust
-    
+    decl_test_relay_chains! {
+    	#[api_version(13)]
+    	pub struct Westend {
+    		genesis = genesis::genesis(),
+    		on_init = (),
+    		runtime = westend_runtime,
+    		core = {
+    			SovereignAccountOf: westend_runtime::xcm_config::LocationConverter,
+    		},
+    		pallets = {
+    			XcmPallet: westend_runtime::XcmPallet,
+    			Sudo: westend_runtime::Sudo,
+    			Balances: westend_runtime::Balances,
+    			Treasury: westend_runtime::Treasury,
+    			AssetRate: westend_runtime::AssetRate,
+    			Hrmp: westend_runtime::Hrmp,
+    			Identity: westend_runtime::Identity,
+    			IdentityMigrator: westend_runtime::IdentityMigrator,
+    		}
+    	},
+    }
     ```
 
 - **[`decl_test_parachains`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/cumulus/xcm/xcm-emulator/src/lib.rs#L596){target=\_blank}**: Defines runtime and configuration for parachains. Example:

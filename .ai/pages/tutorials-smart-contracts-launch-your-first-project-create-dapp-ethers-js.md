@@ -77,31 +77,7 @@ npm install ethers@6.13.5
 To interact with the Polkadot Hub, you need to set up an [Ethers.js Provider](/smart-contracts/libraries/ethers-js/#set-up-the-ethersjs-provider){target=\_blank} that connects to the blockchain. In this example, you will interact with the Polkadot Hub TestNet, so you can experiment safely. Start by creating a new file called `utils/ethers.js` and add the following code:
 
 ```javascript title="app/utils/ethers.js"
-import { JsonRpcProvider } from 'ethers';
 
-export const PASSET_HUB_CONFIG = {
-  name: 'Passet Hub',
-  rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io/', // Passet Hub testnet RPC
-  chainId: 420420422, // Passet Hub testnet chainId
-  blockExplorer: 'https://blockscout-passet-hub.parity-testnet.parity.io/',
-};
-
-export const getProvider = () => {
-  return new JsonRpcProvider(PASSET_HUB_CONFIG.rpc, {
-    chainId: PASSET_HUB_CONFIG.chainId,
-    name: PASSET_HUB_CONFIG.name,
-  });
-};
-
-// Helper to get a signer from a provider
-export const getSigner = async (provider) => {
-  if (window.ethereum) {
-    await window.ethereum.request({ method: 'eth_requestAccounts' });
-    const ethersProvider = new ethers.BrowserProvider(window.ethereum);
-    return ethersProvider.getSigner();
-  }
-  throw new Error('No Ethereum browser provider detected');
-};
 ```
 
 This file establishes a connection to the Polkadot Hub TestNet and provides helper functions for obtaining a [Provider](https://docs.ethers.org/v5/api/providers/provider/){target=_blank} and [Signer](https://docs.ethers.org/v5/api/signer/){target=_blank}. The provider allows you to read data from the blockchain, while the signer enables users to send transactions and modify the blockchain state.
@@ -113,13 +89,55 @@ For this dApp, you'll use a simple Storage contract already deployed. So, you ne
 ???+ code "Storage.sol ABI"
 
     ```json title="abis/Storage.json"
-    
+    [
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_newNumber",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setNumber",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "storedNumber",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        }
+    ]
     ```
 
 Now, create a file called `app/utils/contract.js`:
 
 ```javascript title="app/utils/contract.js"
+import { Contract } from 'ethers';
+import { getProvider } from './ethers';
+import StorageABI from '../../abis/Storage.json';
 
+export const CONTRACT_ADDRESS = '0x58053f0e8ede1a47a1af53e43368cd04ddcaf66f';
+
+export const CONTRACT_ABI = StorageABI;
+
+export const getContract = () => {
+  const provider = getProvider();
+  return new Contract(CONTRACT_ADDRESS, CONTRACT_ABI, provider);
+};
+
+export const getSignedContract = async (signer) => {
+  return new Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+};
 ```
 
 This file defines the contract address, ABI, and functions to create instances of the contract for reading and writing.
@@ -140,7 +158,9 @@ To integrate this component to your dApp, you need to overwrite the existing boi
 
 
 
-
+</section>
+  );
+}
 ```
 
 In your terminal, you can launch your project by running:
@@ -158,7 +178,64 @@ And you will see the following:
 Now, let's create a component to read data from the contract. Create a file called `app/components/ReadContract.js`:
 
 ```javascript title="app/components/ReadContract.js"
+'use client';
 
+import React, { useState, useEffect } from 'react';
+import { getContract } from '../utils/contract';
+
+const ReadContract = () => {
+  const [storedNumber, setStoredNumber] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    // Function to read data from the blockchain
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const contract = getContract();
+        // Call the smart contract's storedNumber function
+        const number = await contract.storedNumber();
+        setStoredNumber(number.toString());
+        setError(null);
+      } catch (err) {
+        console.error('Error fetching stored number:', err);
+        setError('Failed to fetch data from the contract');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+
+    // Poll for updates every 10 seconds to keep UI in sync with blockchain
+    const interval = setInterval(fetchData, 10000);
+
+    // Clean up interval on component unmount
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="border border-pink-500 rounded-lg p-4 shadow-md bg-white text-pink-500 max-w-sm mx-auto">
+      <h2 className="text-lg font-bold text-center mb-4">Contract Data</h2>
+      {loading ? (
+        <div className="flex justify-center my-4">
+          <div className="w-6 h-6 border-4 border-pink-500 border-t-transparent rounded-full animate-spin"></div>
+        </div>
+      ) : error ? (
+        <p className="text-red-500 text-center">{error}</p>
+      ) : (
+        <div className="text-center">
+          <p className="text-sm font-mono bg-pink-100 px-2 py-1 rounded-md text-pink-700">
+            <strong>Stored Number:</strong> {storedNumber}
+          </p>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default ReadContract;
 ```
 
 This component reads the `storedNumber` value from the contract and displays it to the user. It also sets up a polling interval to refresh the data periodically.
@@ -167,9 +244,27 @@ To see this change in your dApp, you need to integrate this component into the `
 
 ```javascript title="app/page.js"
 
+import { useState } from 'react';
 
+import WalletConnect from './components/WalletConnect';
+import ReadContract from './components/ReadContract';
+export default function Home() {
+  const [account, setAccount] = useState(null);
 
+  const handleConnect = (connectedAccount) => {
+    setAccount(connectedAccount);
+  };
 
+  return (
+    <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
+      <h1 className="text-2xl font-semibold text-center">
+        Ethers.js dApp - Passet Hub Smart Contracts
+      </h1>
+      <WalletConnect onConnect={handleConnect} />
+      <ReadContract />
+</section>
+  );
+}
 ```
 
 Your dApp will automatically be updated to the following:
@@ -189,7 +284,32 @@ This component allows users to input a new number and send a transaction to upda
 Update the `app/page.js` file to integrate all components:
 
 ```javascript title="app/page.js"
+'use client';
 
+import { useState } from 'react';
+
+import WalletConnect from './components/WalletConnect';
+import ReadContract from './components/ReadContract';
+import WriteContract from './components/WriteContract';
+
+export default function Home() {
+  const [account, setAccount] = useState(null);
+
+  const handleConnect = (connectedAccount) => {
+    setAccount(connectedAccount);
+  };
+
+  return (
+    <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
+      <h1 className="text-2xl font-semibold text-center">
+        Ethers.js dApp - Passet Hub Smart Contracts
+      </h1>
+      <WalletConnect onConnect={handleConnect} />
+      <ReadContract />
+      <WriteContract account={account} />
+    </section>
+  );
+}
 ```
 
 The completed UI will display:

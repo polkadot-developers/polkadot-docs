@@ -10,7 +10,7 @@ categories: Basics, Polkadot Protocol
 
 ### Introduction
 
-Polkadot Hubis Polkadot’s system parachain for issuing and managing on-chain assets. While the Relay Chain provides security, Polkadot Hub handles asset logic—minting, burning, transfers, and metadata—in a cost-efficient environment.
+The Polkadot Hub is Polkadot’s system parachain for issuing and managing on-chain assets. While the Relay Chain provides security, Polkadot Hub handles asset logic—minting, burning, transfers, and metadata—in a cost-efficient environment.
 
 It’s worth noting that Polkadot Hub also supports EVM smart contracts. This means assets can be managed not only through the native Assets pallet, but also using familiar ERC-20 contract standards.
 

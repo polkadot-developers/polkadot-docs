@@ -77,7 +77,31 @@ npm install ethers@6.13.5
 To interact with the Polkadot Hub, you need to set up an [Ethers.js Provider](/smart-contracts/libraries/ethers-js/#set-up-the-ethersjs-provider){target=\_blank} that connects to the blockchain. In this example, you will interact with the Polkadot Hub TestNet, so you can experiment safely. Start by creating a new file called `utils/ethers.js` and add the following code:
 
 ```javascript title="app/utils/ethers.js"
+import { JsonRpcProvider } from 'ethers';
 
+export const PASSET_HUB_CONFIG = {
+  name: 'Passet Hub',
+  rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io/', // Passet Hub testnet RPC
+  chainId: 420420422, // Passet Hub testnet chainId
+  blockExplorer: 'https://blockscout-passet-hub.parity-testnet.parity.io/',
+};
+
+export const getProvider = () => {
+  return new JsonRpcProvider(PASSET_HUB_CONFIG.rpc, {
+    chainId: PASSET_HUB_CONFIG.chainId,
+    name: PASSET_HUB_CONFIG.name,
+  });
+};
+
+// Helper to get a signer from a provider
+export const getSigner = async (provider) => {
+  if (window.ethereum) {
+    await window.ethereum.request({ method: 'eth_requestAccounts' });
+    const ethersProvider = new ethers.BrowserProvider(window.ethereum);
+    return ethersProvider.getSigner();
+  }
+  throw new Error('No Ethereum browser provider detected');
+};
 ```
 
 This file establishes a connection to the Polkadot Hub TestNet and provides helper functions for obtaining a [Provider](https://docs.ethers.org/v5/api/providers/provider/){target=_blank} and [Signer](https://docs.ethers.org/v5/api/signer/){target=_blank}. The provider allows you to read data from the blockchain, while the signer enables users to send transactions and modify the blockchain state.
@@ -156,8 +180,22 @@ To integrate this component to your dApp, you need to overwrite the existing boi
 
 ```javascript title="app/page.js"
 
+import { useState } from 'react';
 
+import WalletConnect from './components/WalletConnect';
+export default function Home() {
+  const [account, setAccount] = useState(null);
 
+  const handleConnect = (connectedAccount) => {
+    setAccount(connectedAccount);
+  };
+
+  return (
+    <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
+      <h1 className="text-2xl font-semibold text-center">
+        Ethers.js dApp - Passet Hub Smart Contracts
+      </h1>
+      <WalletConnect onConnect={handleConnect} />
 </section>
   );
 }

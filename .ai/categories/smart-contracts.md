@@ -141,7 +141,7 @@ First, you'll update the runtime's `Cargo.toml` file to include the Utility pall
 1. Open the `runtime/Cargo.toml` file and locate the `[dependencies]` section. Add pallet-utility as one of the features for the `polkadot-sdk` dependency with the following line:
 
     ```toml hl_lines="4" title="runtime/Cargo.toml"
-    
+    [dependencies]
     ...
     polkadot-sdk = { workspace = true, features = [
       "pallet-utility",
@@ -160,11 +160,9 @@ First, you'll update the runtime's `Cargo.toml` file to include the Utility pall
 3. In the `[features]` section, add the custom pallet to the `std` feature list:
 
     ```toml hl_lines="5" title="Cargo.toml"
-    [features]
-    default = ["std"]
-    std = [
+    
       ...
-      "custom-pallet/std",
+      
       ...
     ]
     ```
@@ -288,13 +286,63 @@ Update your root parachain template's `Cargo.toml` file to include your custom p
     Make sure the `custom-pallet` is a member of the workspace:
 
     ```toml hl_lines="4" title="Cargo.toml"
-     
+     [workspace]
+     default-members = ["pallets/template", "runtime"]
+     members = [
+         "node", "pallets/custom-pallet",
+         "pallets/template",
+         "runtime",
+     ]
     ```
 
 ???- code "./Cargo.toml"
 
     ```rust title="./Cargo.toml"
-    
+    [workspace.package]
+    license = "MIT-0"
+    authors = ["Parity Technologies <admin@parity.io>"]
+    homepage = "https://paritytech.github.io/polkadot-sdk/"
+    repository = "https://github.com/paritytech/polkadot-sdk-parachain-template.git"
+    edition = "2021"
+
+    [workspace]
+    default-members = ["pallets/template", "runtime"]
+    members = [
+        "node", "pallets/custom-pallet",
+        "pallets/template",
+        "runtime",
+    ]
+    resolver = "2"
+
+    [workspace.dependencies]
+    parachain-template-runtime = { path = "./runtime", default-features = false }
+    pallet-parachain-template = { path = "./pallets/template", default-features = false }
+    clap = { version = "4.5.13" }
+    color-print = { version = "0.3.4" }
+    docify = { version = "0.2.9" }
+    futures = { version = "0.3.31" }
+    jsonrpsee = { version = "0.24.3" }
+    log = { version = "0.4.22", default-features = false }
+    polkadot-sdk = { version = "2503.0.1", default-features = false }
+    prometheus-endpoint = { version = "0.17.2", default-features = false, package = "substrate-prometheus-endpoint" }
+    serde = { version = "1.0.214", default-features = false }
+    codec = { version = "3.7.4", default-features = false, package = "parity-scale-codec" }
+    cumulus-pallet-parachain-system = { version = "0.20.0", default-features = false }
+    hex-literal = { version = "0.4.1", default-features = false }
+    scale-info = { version = "2.11.6", default-features = false }
+    serde_json = { version = "1.0.132", default-features = false }
+    smallvec = { version = "1.11.0", default-features = false }
+    substrate-wasm-builder = { version = "26.0.1", default-features = false }
+    frame = { version = "0.9.1", default-features = false, package = "polkadot-sdk-frame" }
+
+    [profile.release]
+    opt-level = 3
+    panic = "unwind"
+
+    [profile.production]
+    codegen-units = 1
+    inherits = "release"
+    lto = true
     ```
 
 
@@ -1784,13 +1832,53 @@ To build the smart contract, follow the steps below:
 6. Add the getter and setter functions:
 
     ```solidity
-    
+    // SPDX-License-Identifier: MIT
+    pragma solidity ^0.8.28;
+
+    contract Storage {
+        // State variable to store our number
+        uint256 private number;
+
+        // Event to notify when the number changes
+        event NumberChanged(uint256 newNumber);
+
+        // Function to store a new number
+        function store(uint256 newNumber) public {
+            number = newNumber;
+            emit NumberChanged(newNumber);
+        }
+
+        // Function to retrieve the stored number
+        function retrieve() public view returns (uint256) {
+            return number;
+        }
+    }
     ```
 
 ??? code "Complete Storage.sol contract"
 
     ```solidity title="Storage.sol"
-    
+    // SPDX-License-Identifier: MIT
+    pragma solidity ^0.8.28;
+
+    contract Storage {
+        // State variable to store our number
+        uint256 private number;
+
+        // Event to notify when the number changes
+        event NumberChanged(uint256 newNumber);
+
+        // Function to store a new number
+        function store(uint256 newNumber) public {
+            number = newNumber;
+            emit NumberChanged(newNumber);
+        }
+
+        // Function to retrieve the stored number
+        function retrieve() public view returns (uint256) {
+            return number;
+        }
+    }
     ```
 
 ## Understanding the Code
@@ -4494,7 +4582,30 @@ To interact with the ECRecover precompile, you can deploy the `ECRecoverExample`
 The SHA-256 precompile computes the SHA-256 hash of the input data.
 
 ```solidity title="SHA256.sol"
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
+contract SHA256Example {
+    event SHA256Called(bytes result);
+
+    // Address of the SHA256 precompile
+    address constant SHA256_PRECOMPILE = address(0x02);
+
+    bytes public result;
+
+    function callH256(bytes calldata input) public {
+        bool success;
+        bytes memory resultInMemory;
+
+        (success, resultInMemory) = SHA256_PRECOMPILE.call{value: 0}(input);
+
+        if (success) {
+            emit SHA256Called(resultInMemory);
+        }
+
+        result = resultInMemory;
+    }
+}
 ```
 
 To use it, you can deploy the `SHA256Example` contract in [Remix](/develop/smart-contracts/dev-environments/remix){target=\_blank} or any Solidity-compatible environment and call callH256 with arbitrary bytes. Check out this [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/SHA256.js){target=\_blank} shows how to pass a UTF-8 string, hash it using the precompile, and compare it with the expected hash from Node.js's [crypto](https://www.npmjs.com/package/crypto-js){target=\_blank} module.
@@ -4611,7 +4722,38 @@ To use it, you can deploy the `ModExpExample` contract in [Remix](/develop/smart
 The BN128Add precompile performs addition on the alt_bn128 elliptic curve, which is essential for zk-SNARK operations.
 
 ```solidity title="BN128Add.sol"
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
 
+contract BN128AddExample {
+    address constant BN128_ADD_PRECOMPILE = address(0x06);
+
+    event BN128Added(uint256 x3, uint256 y3);
+
+    uint256 public resultX;
+    uint256 public resultY;
+
+    function callBN128Add(uint256 x1, uint256 y1, uint256 x2, uint256 y2) public {
+        bytes memory input = abi.encodePacked(
+            bytes32(x1), bytes32(y1), bytes32(x2), bytes32(y2)
+        );
+
+        bool success;
+        bytes memory output;
+
+        (success, output) = BN128_ADD_PRECOMPILE.call{value: 0}(input);
+
+        require(success, "BN128Add precompile call failed");
+        require(output.length == 64, "Invalid output length");
+
+        (uint256 x3, uint256 y3) = abi.decode(output, (uint256, uint256));
+
+        resultX = x3;
+        resultY = y3;
+
+        emit BN128Added(x3, y3);
+    }
+}
 ```
 
 To use it, you can deploy the `BN128AddExample` contract in [Remix](/develop/smart-contracts/dev-environments/remix){target=\_blank} or any Solidity-compatible environment and call `callBN128Add` with valid `alt_bn128` points. This [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/BN128Add.js){target=\_blank} demonstrates a valid curve addition and checks the result against known expected values.
@@ -4621,7 +4763,42 @@ To use it, you can deploy the `BN128AddExample` contract in [Remix](/develop/sma
 The BN128Mul precompile performs scalar multiplication on the alt_bn128 curve.
 
 ```solidity title="BN128Mul.sol"
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
+contract BN128MulExample {
+    // Precompile address for BN128Mul
+    address constant BN128_MUL_ADDRESS = address(0x07);
+
+    bytes public result;
+
+    // Performs scalar multiplication of a point on the alt_bn128 curve
+    function bn128ScalarMul(uint256 x1, uint256 y1, uint256 scalar) public {
+        // Format: [x, y, scalar] - each 32 bytes
+        bytes memory input = abi.encodePacked(
+            bytes32(x1),
+            bytes32(y1),
+            bytes32(scalar)
+        );
+
+        (bool success, bytes memory resultInMemory) = BN128_MUL_ADDRESS.call{
+            value: 0
+        }(input);
+        require(success, "BN128Mul precompile call failed");
+
+        result = resultInMemory;
+    }
+
+    // Helper to decode result from `result` storage
+    function getResult() public view returns (uint256 x2, uint256 y2) {
+        bytes memory tempResult = result;
+        require(tempResult.length >= 64, "Invalid result length");
+        assembly {
+            x2 := mload(add(tempResult, 32))
+            y2 := mload(add(tempResult, 64))
+        }
+    }
+}
 ```
 
 To use it, deploy `BN128MulExample` in [Remix](/develop/smart-contracts/dev-environments/remix){target=\_blank} or any Solidity-compatible environment and call `bn128ScalarMul` with a valid point and scalar. This [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/BN128Mul.js){target=\_blank} shows how to test the operation and verify the expected scalar multiplication result on `alt_bn128`.
@@ -4631,7 +4808,38 @@ To use it, deploy `BN128MulExample` in [Remix](/develop/smart-contracts/dev-envi
 The BN128Pairing precompile verifies a pairing equation on the alt_bn128 curve, which is critical for zk-SNARK verification.
 
 ```solidity title="BN128Pairing.sol"
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
+contract BN128PairingExample {
+    // Precompile address for BN128Pairing
+    address constant BN128_PAIRING_ADDRESS = address(0x08);
+
+    bytes public result;
+
+    // Performs a pairing check on the alt_bn128 curve
+    function bn128Pairing(bytes memory input) public {
+        // Call the precompile
+        (bool success, bytes memory resultInMemory) = BN128_PAIRING_ADDRESS
+            .call{value: 0}(input);
+        require(success, "BN128Pairing precompile call failed");
+
+        result = resultInMemory;
+    }
+
+    // Helper function to decode the result from `result` storage
+    function getResult() public view returns (bool isValid) {
+        bytes memory tempResult = result;
+        require(tempResult.length == 32, "Invalid result length");
+
+        uint256 output;
+        assembly {
+            output := mload(add(tempResult, 32))
+        }
+
+        isValid = (output == 1);
+    }
+}
 ```
 
 You can deploy `BN128PairingExample` in [Remix](/develop/smart-contracts/dev-environments/remix){target=\_blank} or your preferred environment. Check out this [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/BN128Pairing.js){target=\_blank} contains these tests with working examples.
@@ -4641,7 +4849,105 @@ You can deploy `BN128PairingExample` in [Remix](/develop/smart-contracts/dev-env
 The Blake2F precompile performs the Blake2 compression function F, which is the core of the Blake2 hash function.
 
 ```solidity title="Blake2F.sol"
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
+contract Blake2FExample {
+    // Precompile address for Blake2F
+    address constant BLAKE2F_ADDRESS = address(0x09);
+
+    bytes public result;
+
+    function blake2F(bytes memory input) public {
+        // Input must be exactly 213 bytes
+        require(input.length == 213, "Invalid input length - must be 213 bytes");
+
+        // Call the precompile
+        (bool success, bytes memory resultInMemory) = BLAKE2F_ADDRESS.call{
+            value: 0
+        }(input);
+        require(success, "Blake2F precompile call failed");
+
+        result = resultInMemory;
+    }
+
+    // Helper function to decode the result from `result` storage
+    function getResult() public view returns (bytes32[8] memory output) {
+        bytes memory tempResult = result;
+        require(tempResult.length == 64, "Invalid result length");
+
+        for (uint i = 0; i < 8; i++) {
+            assembly {
+                mstore(add(output, mul(32, i)), mload(add(add(tempResult, 32), mul(32, i))))
+            }
+        }
+    }
+
+
+    // Helper function to create Blake2F input from parameters
+    function createBlake2FInput(
+        uint32 rounds,
+        bytes32[8] memory h,
+        bytes32[16] memory m,
+        bytes8[2] memory t,
+        bool f
+    ) public pure returns (bytes memory) {
+        // Start with rounds (4 bytes, big-endian)
+        bytes memory input = abi.encodePacked(rounds);
+
+        // Add state vector h (8 * 32 = 256 bytes)
+        for (uint i = 0; i < 8; i++) {
+            input = abi.encodePacked(input, h[i]);
+        }
+
+        // Add message block m (16 * 32 = 512 bytes, but we need to convert to 16 * 8 = 128 bytes)
+        // Blake2F expects 64-bit words in little-endian format
+        for (uint i = 0; i < 16; i++) {
+            // Take only the first 8 bytes of each bytes32 and reverse for little-endian
+            bytes8 word = bytes8(m[i]);
+            input = abi.encodePacked(input, word);
+        }
+
+        // Add offset counters t (2 * 8 = 16 bytes)
+        input = abi.encodePacked(input, t[0], t[1]);
+
+        // Add final block flag (1 byte)
+        input = abi.encodePacked(input, f ? bytes1(0x01) : bytes1(0x00));
+
+        return input;
+    }
+
+    // Simplified function that works with raw hex input
+    function blake2FFromHex(string memory hexInput) public {
+        bytes memory input = hexStringToBytes(hexInput);
+        blake2F(input);
+    }
+
+    // Helper function to convert hex string to bytes
+    function hexStringToBytes(string memory hexString) public pure returns (bytes memory) {
+        bytes memory hexBytes = bytes(hexString);
+        require(hexBytes.length % 2 == 0, "Invalid hex string length");
+        
+        bytes memory result = new bytes(hexBytes.length / 2);
+        
+        for (uint i = 0; i < hexBytes.length / 2; i++) {
+            result[i] = bytes1(
+                (hexCharToByte(hexBytes[2 * i]) << 4) | 
+                hexCharToByte(hexBytes[2 * i + 1])
+            );
+        }
+        
+        return result;
+    }
+
+    function hexCharToByte(bytes1 char) internal pure returns (uint8) {
+        uint8 c = uint8(char);
+        if (c >= 48 && c <= 57) return c - 48;      // 0-9
+        if (c >= 65 && c <= 70) return c - 55;      // A-F
+        if (c >= 97 && c <= 102) return c - 87;     // a-f
+        revert("Invalid hex character");
+    }
+}
 ```
 
 To use it, deploy `Blake2FExample` in [Remix](/develop/smart-contracts/dev-environments/remix){target=\_blank} or any Solidity-compatible environment and call `callBlake2F` with the properly formatted input parameters for rounds, state vector, message block, offset counters, and final block flag. This [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/Blake2.js){target=\_blank} demonstrates how to perform Blake2 compression with different rounds and verify the correctness of the output against known test vectors.
@@ -7687,7 +7993,16 @@ The [`Account` data type](https://paritytech.github.io/polkadot-sdk/master/frame
 The code snippet below shows how accounts are defined:
 
 ```rs
- 
+ /// The full account information for a particular account ID.
+ 	#[pallet::storage]
+ 	#[pallet::getter(fn account)]
+ 	pub type Account<T: Config> = StorageMap<
+ 		_,
+ 		Blake2_128Concat,
+ 		T::AccountId,
+ 		AccountInfo<T::Nonce, T::AccountData>,
+ 		ValueQuery,
+ 	>;
 ```
 
 The preceding code block defines a storage map named `Account`. The `StorageMap` is a type of on-chain storage that maps keys to values. In the `Account` map, the key is an account ID, and the value is the account's information. Here, `T` represents the generic parameter for the runtime configuration, which is defined by the pallet's configuration trait (`Config`).
@@ -7711,7 +8026,24 @@ For a detailed explanation of storage maps, see the [`StorageMap`](https://parit
 The `AccountInfo` structure is another key element within the [System pallet](https://paritytech.github.io/polkadot-sdk/master/src/frame_system/lib.rs.html){target=\_blank}, providing more granular details about each account's state. This structure tracks vital data, such as the number of transactions and the account’s relationships with other modules.
 
 ```rs
-
+/// Information of an account.
+#[derive(Clone, Eq, PartialEq, Default, RuntimeDebug, Encode, Decode, TypeInfo, MaxEncodedLen)]
+pub struct AccountInfo<Nonce, AccountData> {
+	/// The number of transactions this account has sent.
+	pub nonce: Nonce,
+	/// The number of other modules that currently depend on this account's existence. The account
+	/// cannot be reaped until this is zero.
+	pub consumers: RefCount,
+	/// The number of other modules that allow this account to exist. The account may not be reaped
+	/// until this and `sufficients` are both zero.
+	pub providers: RefCount,
+	/// The number of modules that allow this account to exist for their own purposes only. The
+	/// account may not be reaped until this and `providers` are both zero.
+	pub sufficients: RefCount,
+	/// The additional data that belongs to this account. Used to store the balance(s) in a lot of
+	/// chains.
+	pub data: AccountData,
+}
 ```
 
 The `AccountInfo` structure includes the following components:
@@ -8422,7 +8754,8 @@ The [`XcmRouter`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pa
 For instance, the Kusama network employs the [`ChildParachainRouter`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_common/xcm_sender/struct.ChildParachainRouter.html){target=\_blank}, which restricts routing to [Downward Message Passing (DMP)](https://wiki.polkadot.com/learn/learn-xcm-transport/#dmp-downward-message-passing){target=\_blank} from the relay chain to parachains, ensuring secure and controlled communication.
 
 ```rust
-
+pub type PriceForChildParachainDelivery =
+	ExponentialPrice<FeeAssetId, BaseDeliveryFee, TransactionByteFee, Dmp>;
 ```
 
 For more details about XCM transport protocols, see the [XCM Channels](/develop/interoperability/xcm-channels/){target=\_blank} page.
@@ -9244,19 +9577,69 @@ The `xcm-emulator` provides macros for defining a mocked testing environment. Ch
 - **[`decl_test_parachains`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/cumulus/xcm/xcm-emulator/src/lib.rs#L596){target=\_blank}**: Defines runtime and configuration for parachains. Example:
 
     ```rust
-    
+    decl_test_parachains! {
+    	pub struct AssetHubWestend {
+    		genesis = genesis::genesis(),
+    		on_init = {
+    			asset_hub_westend_runtime::AuraExt::on_initialize(1);
+    		},
+    		runtime = asset_hub_westend_runtime,
+    		core = {
+    			XcmpMessageHandler: asset_hub_westend_runtime::XcmpQueue,
+    			LocationToAccountId: asset_hub_westend_runtime::xcm_config::LocationToAccountId,
+    			ParachainInfo: asset_hub_westend_runtime::ParachainInfo,
+    			MessageOrigin: cumulus_primitives_core::AggregateMessageOrigin,
+    			DigestProvider: (),
+    		},
+    		pallets = {
+    			PolkadotXcm: asset_hub_westend_runtime::PolkadotXcm,
+    			Balances: asset_hub_westend_runtime::Balances,
+    			Assets: asset_hub_westend_runtime::Assets,
+    			ForeignAssets: asset_hub_westend_runtime::ForeignAssets,
+    			PoolAssets: asset_hub_westend_runtime::PoolAssets,
+    			AssetConversion: asset_hub_westend_runtime::AssetConversion,
+    			SnowbridgeSystemFrontend: asset_hub_westend_runtime::SnowbridgeSystemFrontend,
+    			Revive: asset_hub_westend_runtime::Revive,
+    		}
+    	},
+    }
     ```
 
 - **[`decl_test_bridges`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/cumulus/xcm/xcm-emulator/src/lib.rs#L1221){target=\_blank}**: Creates bridges between chains, specifying the source, target, and message handler. Example:
 
     ```rust
-    
+    decl_test_bridges! {
+    	pub struct RococoWestendMockBridge {
+    		source = BridgeHubRococoPara,
+    		target = BridgeHubWestendPara,
+    		handler = RococoWestendMessageHandler
+    	},
+    	pub struct WestendRococoMockBridge {
+    		source = BridgeHubWestendPara,
+    		target = BridgeHubRococoPara,
+    		handler = WestendRococoMessageHandler
+    	}
+    }
     ```
 
 - **[`decl_test_networks`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/cumulus/xcm/xcm-emulator/src/lib.rs#L958){target=\_blank}**: Defines a testing network with relay chains, parachains, and bridges, implementing message transport and processing logic. Example:
 
     ```rust
-    
+    decl_test_networks! {
+    	pub struct WestendMockNet {
+    		relay_chain = Westend,
+    		parachains = vec![
+    			AssetHubWestend,
+    			BridgeHubWestend,
+    			CollectivesWestend,
+    			CoretimeWestend,
+    			PeopleWestend,
+    			PenpalA,
+    			PenpalB,
+    		],
+    		bridge = ()
+    	},
+    }
     ```
 
 By leveraging these macros, developers can customize their testing networks by defining relay chains and parachains tailored to their needs. For guidance on implementing a mock runtime for a Polkadot SDK-based chain, refer to the [Pallet Testing](/develop/parachains/testing/pallet-testing/){target=\_blank} article. 
@@ -12982,7 +13365,7 @@ This API can be used independently for dry-running, double-checking, or testing.
 This API allows a dry-run of any extrinsic and obtaining the outcome if it fails or succeeds, as well as the local xcm and remote xcm messages sent to other chains.
 
 ```rust
-
+fn dry_run_call(origin: OriginCaller, call: Call, result_xcms_version: XcmVersion) -> Result<CallDryRunEffects<Event>, Error>;
 ```
 
 ??? interface "Input parameters"
@@ -13259,7 +13642,7 @@ This API allows a dry-run of any extrinsic and obtaining the outcome if it fails
 This API allows the direct dry-run of an xcm message instead of an extrinsic one, checks if it will execute successfully, and determines what other xcm messages will be forwarded to other chains.
 
 ```rust
-
+fn dry_run_xcm(origin_location: VersionedLocation, xcm: VersionedXcm<Call>) -> Result<XcmDryRunEffects<Event>, Error>;
 ```
 
 ??? interface "Input parameters"
@@ -13490,7 +13873,7 @@ To use the API effectively, the client must already know the XCM program to be e
 Retrieves the list of assets that are acceptable for paying fees when using a specific XCM version
 
 ```rust
-
+fn query_acceptable_payment_assets(xcm_version: Version) -> Result<Vec<VersionedAssetId>, Error>;
 ```
 
 ??? interface "Input parameters"

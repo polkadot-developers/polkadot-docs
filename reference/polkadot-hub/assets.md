@@ -4,7 +4,7 @@ description: Learn about asset management on Polkadot Hub, including on-chain as
 categories: Polkadot Protocol
 ---
 
-## Asset Management
+# Assets
 
 ## Introduction
 

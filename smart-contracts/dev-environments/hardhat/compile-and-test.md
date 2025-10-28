@@ -1,6 +1,6 @@
 ---
 title: Compile and Test Smart Contracts with Hardhat
-description: Learn how to compile Solidity contracts for PolkaVM compatibility and test them using Hardhat's testing framework on Polkadot Hub.
+description: Learn how to compile Solidity contracts for PolkaVM compatibility and test them using Hardhat's testing framework on the Polkadot Hub.
 categories: Smart Contracts, Tooling
 ---
 

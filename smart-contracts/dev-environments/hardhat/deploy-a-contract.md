@@ -54,7 +54,7 @@ After testing your contract locally, you can deploy it to a live network. This g
     !!! warning
         Never reveal your private key, otherwise anyone with access to it can control your wallet and steal your funds. Store it securely and never share it publicly or commit it to version control systems.
 
-3. Check that your private key has been set up successfully by running:
+3. Check that your private key has been set up successfully by running.
 
     ```bash
     npx hardhat vars get PRIVATE_KEY

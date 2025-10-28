@@ -19,21 +19,13 @@ In this guide, you'll learn how to build a custom counter pallet from scratch th
 - Storage management
 - User interaction tracking
 
-Creating custom pallets offers several advantages:
-
-- **Flexibility** - Define runtime behavior that precisely matches your project requirements
-- **Modularity** - Combine pre-built and custom pallets to achieve desired blockchain functionality  
-- **Scalability** - Add or modify features as your project evolves
-- **Control** - Implement domain-specific logic that generic pallets cannot provide
-
 ## Prerequisites
 
 Before you begin, ensure you have:
 
-- [Polkadot SDK dependencies installed](/develop/parachains/install-polkadot-sdk/){target=\_blank}
-- A working [Polkadot SDK development environment](/develop/parachains/get-started/parachain-template/){target=\_blank}
-- The [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk-parachain-template){target=\_blank} set up locally
-- Basic familiarity with [FRAME concepts](/develop/parachains/customize-parachain/overview/){target=\_blank}
+- [Polkadot SDK dependencies installed](/parachains/install-polkadot-sdk/){target=\_blank}
+- A working [Polkadot SDK development environment](/parachains/launch-a-parachain/set-up-the-parachain-template/){target=\_blank}
+- Basic familiarity with [FRAME concepts](/parachains/customize-runtime/){target=\_blank}
 
 ## Core Pallet Components
 

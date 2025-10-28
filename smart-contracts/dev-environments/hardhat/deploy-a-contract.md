@@ -43,7 +43,7 @@ After testing your contract locally, you can deploy it to a live network. This g
 
 1. Fund your deployment account with enough tokens to cover gas fees. In this case, the needed tokens are PAS (on Polkadot Hub TestNet). You can use the [Polkadot faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank} to obtain testing tokens.
 
-2. Export your private key and save it in your Hardhat environment:
+2. Export your private key and save it in your Hardhat environment.
 
     ```bash
     npx hardhat vars set PRIVATE_KEY "INSERT_PRIVATE_KEY"

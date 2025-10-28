@@ -10,7 +10,7 @@ categories: Smart Contracts, Tooling
 
 The plugin will compile your Solidity contracts for Solidity versions `0.8.0` and higher to be PolkaVM compatible. When compiling your contract, there are two ways to configure your compilation process:
 
-- **npm compiler**: Uses library [@parity/resolc](https://www.npmjs.com/package/@parity/resolc){target=\_blank} for simplicity and ease of use.
+- **npm compiler**: Uses library [@parity/resolc](https://www.npmjs.com/package/@parity/resolc){target=_blank} for simplicity and ease of use
 - **Binary compiler**: Uses your local `resolc` binary directly for more control and configuration options.
 
 To compile your project, follow these instructions:

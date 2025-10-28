@@ -78,7 +78,7 @@ After testing your contract locally, you can deploy it to a live network. This g
     --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:33:35'
     ```
 
-6. Deploy your contract using Ignition:
+5. Deploy your contract using Ignition:
 
     ```bash
     npx hardhat ignition deploy ./ignition/modules/MyToken.js --network polkadotHubTestnet

@@ -1,7 +1,7 @@
 nav:
  - 'Overview': index.md
  - 'Consensus and Security': consensus-and-security
- - 'Assets & Contracts': assets-and-contracts.md
+ - 'Assets and Contracts': assets-and-contracts.md
  - 'Bridging': bridging.md
  - 'People and Identity': people-and-identity.md
  - 'Collectives and DAOs': collectives-and-daos.md

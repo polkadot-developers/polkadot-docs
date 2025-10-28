@@ -1,10 +1,10 @@
 ---
-title: Polkadot Hub
-description: Learn how Polkadot Hub enables smart contracts and asset management across the Polkadot network — including Wasm/ink! and EVM contract support, on-chain and foreign asset handling, and cross-chain transfers via XCM.
+title: Assets and Contracts on Polkadot Hub
+description: Discover how Polkadot Hub manages smart contracts and assets, enabling on-chain, foreign, and XCM-based cross-chain transfers within the Polkadot ecosystem.
 categories: Basics, Polkadot Protocol
 ---
 
-# Assets & Contracts
+# Assets and Smart Contracts
 
 ## Assets
 

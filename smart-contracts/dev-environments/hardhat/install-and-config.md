@@ -83,7 +83,7 @@ Before getting started, ensure you have:
     !!! note
         This last step is needed to set up the `hardhat-polkadot` plugin. It will install the `@parity/hardhat-polkadot` package and all its dependencies. In the future, the plugin will handle this automatically.
 
-nments/hardhat/hardhat-node-output.html'
+--8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat-node-output.html'
 
 ## Upgrading the Plugin
 

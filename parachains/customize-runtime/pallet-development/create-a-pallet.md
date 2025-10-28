@@ -671,7 +671,7 @@ These components form the foundation for developing sophisticated blockchain log
 
     Learn to create a mock runtime environment for testing your pallet in isolation before integration.
 
-    [:octicons-arrow-right-24: Continue](/develop/parachains/testing/mock-runtime/)
+    [:octicons-arrow-right-24: Continue](/parachains/customize-runtime/pallet-development/mock-runtime/)
 
 -   <span class="badge guide">Guide</span> __Pallet Unit Testing__
 

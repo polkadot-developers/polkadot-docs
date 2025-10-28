@@ -84,7 +84,7 @@ After testing your contract locally, you can deploy it to a live network. This g
     npx hardhat ignition deploy ./ignition/modules/MyToken.js --network polkadotHubTestnet
     ```
 
-## Interacting with Your Contract
+## Interaction with Your Contract
 
 Once deployed, you can create a script to interact with your contract. To do so, create a file called `scripts/interact.js` and add some logic to interact with the contract.
 

@@ -10,7 +10,7 @@ categories: Smart Contracts, Tooling
 
 Before deploying to a live network, you can deploy your contract to a local node using [Ignition](https://hardhat.org/ignition/docs/getting-started#overview){target=\_blank} modules:
 
-1. Update the Hardhat configuration file to add the local network as a target for local deployment:
+1. Update the Hardhat configuration file to add the local network as a target for local deployment.
 
     ```javascript title="hardhat.config.js" hl_lines="13-16"
     --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:4'

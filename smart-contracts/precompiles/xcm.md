@@ -8,7 +8,7 @@ categories: Smart Contracts
 
 ## Introduction
 
-The [XCM (Cross-Consensus Message)](/develop/interoperability/intro-to-xcm){target=\_blank} precompile enables Polkadot Hub developers to access XCM functionality directly from their smart contracts using a Solidity interface.
+The [XCM (Cross-Consensus Message)](/parachains/interoperability/get-started/){target=\_blank} precompile enables Polkadot Hub developers to access XCM functionality directly from their smart contracts using a Solidity interface.
 
 Located at the fixed address `0x00000000000000000000000000000000000a0000`, the XCM precompile offers three primary functions:
 
@@ -140,6 +140,6 @@ By building and executing XCM programs, developers can build cross-chain applica
 
 ## Next steps
 
-Head to the Polkadot Hub TestNet and start playing around with the precompile using Hardhat or Foundry.
+Head to the Polkadot Hub TestNet and start playing around with the precompile using [Hardhat](/smart-contracts/dev-environments/hardhat/get-started/){target=\_blank} or [Foundry](/smart-contracts/dev-environments/foundry/get-started/){target=\_blank}.
 
 You can use PAPI to build XCM programs and test them with Chopsticks.

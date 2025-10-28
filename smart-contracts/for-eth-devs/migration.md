@@ -18,9 +18,9 @@ Before migrating your contracts, review this checklist:
 - DeFi protocols, DEXs, and AMMs migrate seamlessly
 - DAOs and governance contracts are fully compatible
 - Most Solidity contracts deploy identically to Ethereum
-- Factory contracts on PolkaVM need pre-uploaded dependencies
-- Contracts using `EXTCODECOPY` for runtime manipulation require review
-- Replace `transfer()` and `send()` with proper reentrancy guards
+- Factory contracts using PVM bytecode need pre-uploaded dependencies
+- Contracts using `EXTCODECOPY` for runtime manipulation require review (for projects that will use PVM bytecode, not EVM bytecode)
+- Replace `transfer()` and `send()` with proper reentrancy guards (for projects that will use PVM bytecode, not EVM bytecode)
 
 ## Migration FAQs
 
@@ -115,7 +115,7 @@ Polkadot requires accounts to maintain a minimum balance (existential deposit or
 You typically don't need to do anything special, but be aware:
 
 - Accounts below ED threshold are automatically deleted
-- ED is around 1 DOT (varies by network)
+- ED is around 0.01 DOT (varies by network)
 - Your contracts don't need to manage this explicitly
 
 ### Can I use my existing development tools?
@@ -123,7 +123,7 @@ You typically don't need to do anything special, but be aware:
 Yes! Both backends support:
 
 - **Wallets**: MetaMask, Talisman, SubWallet
-- **Development frameworks**: Hardhat, Foundry, Remix
+- **Development frameworks**: Hardhat, Foundry, Remix (just consider that for PVM bytecode, you will use the Polkadot version of the tooling)
 - **Libraries**: ethers.js, web3.js, viem
 - **Testing tools**: Your existing test suites work
 
@@ -133,9 +133,9 @@ Connect to Polkadot Hub's Ethereum JSON-RPC endpoint and use your familiar workf
 
 Most Ethereum contracts migrate to Polkadot Hub with minimal or no changes. Use REVM for seamless compatibility or PolkaVM for enhanced performance. The key differences to remember:
 
-- Replace `transfer()` with `.call{value}("")` and use reentrancy guards
-- PolkaVM factory contracts need pre-uploaded dependencies
+- Replace `transfer()` with `.call{value}("")` and use reentrancy guards (for projects that will use PVM bytecode, not EVM bytecode)
+- PolkaVM factory contracts using PVM bytecode need pre-uploaded dependencies
 - Don't hardcode gas values
-- Test thoroughly on TestNet before mainnet deployment
+- Test thoroughly on [TestNet](/smart-contracts/connect/#__tabbed_1_1){target=\_blank} before mainnet deployment
 
 Your existing Solidity knowledge and tooling transfer directly to Polkadot Hub, making migration straightforward for standard smart contract patterns.

@@ -59,7 +59,7 @@ To compile your project, follow these instructions:
     npx hardhat compile
     ```
 
-3. After successful compilation, you'll see the artifacts generated in the `artifacts-pvm` directory:
+After successful compilation, you will see the artifacts generated in the `artifacts-pvm` directory:
 
     ```bash
     ls artifacts-pvm/contracts/*.sol/

@@ -2,12 +2,13 @@
 title: Polkadot Hub Smart Contracts
 description: Learn how to build smart contracts on Polkadot Hub using PolkaVM and REVM, supporting both native Polkadot development and Ethereum compatibility.
 categories: Polkadot Protocol
+url: https://docs.polkadot.com/reference/polkadot-hub/smart-contracts/
 ---
 
 # Polkadot Hub Smart Contracts
 
---8<-- 'text/smart-contracts/polkaVM-warning.md'
-
+!!! smartcontract "PolkaVM Preview Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 ## Introduction
 
 Polkadot’s Relay Chain does not support smart contracts directly, so developers build contract-based applications on parachains that provide execution environments. Polkadot Hub is one of those parachains, offering flexible smart contract capabilities alongside native asset management.

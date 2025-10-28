@@ -94,7 +94,7 @@ For example, for the default `MyToken.sol` contract, you can use the following f
 --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/interact.js'
 ```
 
-Run your interaction script:
+Run your interaction script.
 
 ```bash
 npx hardhat run scripts/interact.js --network polkadotHubTestnet

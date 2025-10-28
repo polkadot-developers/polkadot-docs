@@ -1,5 +1,5 @@
 ---
-title: Install and Configure Hardhat for Polkadot Hub
+# Install and Configure Hardhat for Polkadot Hub
 description: Learn how to install and configure Hardhat development environment for building smart contracts on Polkadot Hub with PolkaVM support.
 categories: Smart Contracts, Tooling
 ---

@@ -8513,20 +8513,66 @@
   },
   {
     "id": "parachains-launch-a-parachain-deploy-to-polkadot",
-    "title": "parachains-launch-a-parachain-deploy-to-polkadot",
+    "title": "Deploy on Polkadot",
     "slug": "parachains-launch-a-parachain-deploy-to-polkadot",
     "categories": [
-      "Uncategorized"
+      "Parachains"
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/parachains-launch-a-parachain-deploy-to-polkadot.md",
     "html_url": "https://docs.polkadot.com/parachains/launch-a-parachain/deploy-to-polkadot/",
-    "preview": "TODO",
-    "outline": [],
+    "preview": "Previously, you learned how to [choose and set up a parachain template](/parachains/launch-a-parachain/choose-a-template/){target=\\_blank}. Now, you'll take the next step towards a production-like environment by deploying your parachain to the Polkadot TestNet. Deploying to a TestNet is a crucial step for validating your parachain's functionality and preparing it for eventual MainNet deployment.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Get Started with an Account and Tokens",
+        "anchor": "get-started-with-an-account-and-tokens"
+      },
+      {
+        "depth": 2,
+        "title": "Reserve a Parachain Identifier",
+        "anchor": "reserve-a-parachain-identifier"
+      },
+      {
+        "depth": 2,
+        "title": "Generate Custom Keys for Your Collators",
+        "anchor": "generate-custom-keys-for-your-collators"
+      },
+      {
+        "depth": 2,
+        "title": "Generate the Chain Specification",
+        "anchor": "generate-the-chain-specification"
+      },
+      {
+        "depth": 2,
+        "title": "Export Required Files",
+        "anchor": "export-required-files"
+      },
+      {
+        "depth": 2,
+        "title": "Register a Parathread",
+        "anchor": "register-a-parathread"
+      },
+      {
+        "depth": 2,
+        "title": "Start the Collator Node",
+        "anchor": "start-the-collator-node"
+      },
+      {
+        "depth": 2,
+        "title": "Producing Blocks",
+        "anchor": "producing-blocks"
+      }
+    ],
     "stats": {
-      "chars": 5,
-      "words": 1,
-      "headings": 0,
-      "estimated_token_count_total": 0
+      "chars": 14404,
+      "words": 2116,
+      "headings": 9,
+      "estimated_token_count_total": 3296
     },
     "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
     "last_modified": "2025-10-28T15:36:39+00:00",
@@ -15247,20 +15293,82 @@
   },
   {
     "id": "smart-contracts-for-eth-devs-contract-deployment",
-    "title": "smart-contracts-for-eth-devs-contract-deployment",
+    "title": "Contract Deployment",
     "slug": "smart-contracts-for-eth-devs-contract-deployment",
     "categories": [
-      "Uncategorized"
+      "Smart Contracts",
+      "Basics"
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-for-eth-devs-contract-deployment.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/for-eth-devs/contract-deployment/",
-    "preview": "TODO",
-    "outline": [],
+    "preview": "Polkadot's smart contract platform supports two distinct virtual machine backends: Rust Ethereum Virtual Machine (REVM) and PolkaVM. Each backend has its own deployment characteristics and optimization strategies. REVM provides full Ethereum compatibility with familiar single-step deployment, while the RISC-V-based PolkaVM uses a more structured two-step approach optimized for its architecture. Understanding these differences ensures smooth deployment regardless of which backend you choose for y",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "REVM Deployment",
+        "anchor": "revm-deployment"
+      },
+      {
+        "depth": 2,
+        "title": "PolkaVM Deployment",
+        "anchor": "polkavm-deployment"
+      },
+      {
+        "depth": 3,
+        "title": "Standard Contract Deployment",
+        "anchor": "standard-contract-deployment"
+      },
+      {
+        "depth": 3,
+        "title": "Two-Step Deployment Model",
+        "anchor": "two-step-deployment-model"
+      },
+      {
+        "depth": 3,
+        "title": "Factory Pattern Considerations",
+        "anchor": "factory-pattern-considerations"
+      },
+      {
+        "depth": 3,
+        "title": "Migration Strategy for Factory Contracts",
+        "anchor": "migration-strategy-for-factory-contracts"
+      },
+      {
+        "depth": 3,
+        "title": "Architecture-Specific Limitations",
+        "anchor": "architecture-specific-limitations"
+      },
+      {
+        "depth": 3,
+        "title": "On-Chain Constructors",
+        "anchor": "on-chain-constructors"
+      },
+      {
+        "depth": 2,
+        "title": "Gas Estimation vs Actual Consumption",
+        "anchor": "gas-estimation-vs-actual-consumption"
+      },
+      {
+        "depth": 2,
+        "title": "Deployment Comparison",
+        "anchor": "deployment-comparison"
+      },
+      {
+        "depth": 2,
+        "title": "Conclusion",
+        "anchor": "conclusion"
+      }
+    ],
     "stats": {
-      "chars": 5,
-      "words": 1,
-      "headings": 0,
-      "estimated_token_count_total": 0
+      "chars": 5999,
+      "words": 766,
+      "headings": 12,
+      "estimated_token_count_total": 1133
     },
     "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
     "last_modified": "2025-10-28T15:36:40+00:00",

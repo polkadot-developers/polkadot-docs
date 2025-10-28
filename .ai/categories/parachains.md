@@ -4548,6 +4548,117 @@ The following tools can help you locate and decode metadata:
 
 ---
 
+Page Title: Contract Deployment
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-for-eth-devs-contract-deployment.md
+- Canonical (HTML): https://docs.polkadot.com/smart-contracts/for-eth-devs/contract-deployment/
+- Summary: Compare deployment flows for REVM and PVM-based smart contracts on the Polkadot Hub. Includes single-step REVM flows and PVM’s two-step deployment model.
+
+# Contract Deployment
+
+## Introduction
+
+Polkadot's smart contract platform supports two distinct virtual machine backends: Rust Ethereum Virtual Machine (REVM) and PolkaVM. Each backend has its own deployment characteristics and optimization strategies. REVM provides full Ethereum compatibility with familiar single-step deployment, while the RISC-V-based PolkaVM uses a more structured two-step approach optimized for its architecture. Understanding these differences ensures smooth deployment regardless of which backend you choose for your smart contracts.
+
+## REVM Deployment
+
+The REVM backend enables seamless deployment of Ethereum contracts without modification. Contracts deploy exactly as they would on Ethereum, using familiar tools and workflows.
+
+With REVM, deployment mirrors the Ethereum flow exactly including: 
+
+- Contracts are bundled and deployed in a single transaction. 
+- Factory contracts can create new contracts at runtime.
+- Runtime code generation, including inline assembly, is supported.
+- Existing familiar tools like Hardhat, Foundry, and Remix work out of the box.
+
+## PolkaVM Deployment
+
+PolkaVM implements a fundamentally different deployment model optimized for its RISC-V architecture. While simple contract deployments work seamlessly, advanced patterns like factory contracts require understanding the two-step deployment process.
+
+### Standard Contract Deployment
+
+For most use cases, such as deploying ERC-20 tokens, NFT collections, or standalone contracts, deployment is transparent and requires no special steps. The [Revive compiler](https://github.com/paritytech/revive){target=\_blank} handles the deployment process automatically when using standard Solidity patterns.
+
+### Two-Step Deployment Model
+
+PolkaVM separates contract deployment into distinct phases:
+
+1. **Code upload**: Contract bytecode must be uploaded to the chain before instantiation.
+2. **Contract instantiation**: Contracts are created by referencing previously uploaded code via its hash.
+
+This architecture differs from the EVM's bundled approach and has important implications for specific deployment patterns.
+
+### Factory Pattern Considerations
+
+The common EVM pattern, where contracts dynamically create other contracts, requires adaptation for PolkaVM as follows:
+
+**EVM Factory Pattern:**
+```solidity
+// This works on REVM but requires modification for PolkaVM
+contract Factory {
+    function createToken() public returns (address) {
+        // EVM bundles bytecode in the factory
+        return address(new Token());
+    }
+}
+```
+
+**PolkaVM Requirements:**
+
+- **Pre-upload dependent contracts**: All contracts that will be instantiated at runtime must be uploaded to the chain before the factory attempts to create them.
+- **Code hash references**: Factory contracts work with pre-uploaded code hashes rather than embedding bytecode.
+- **No runtime code generation**: Dynamic bytecode generation is not supported due to PolkaVM's RISC-V format.
+
+### Migration Strategy for Factory Contracts
+
+When migrating factory contracts from Ethereum to PolkaVM:
+
+1. **Identify all contracts**: Determine which contracts will be instantiated at runtime.
+2. **Upload dependencies first**: Deploy all dependent contracts to the chain before deploying the factory.
+3. **Use on-chain constructors**: Leverage PolkaVM's on-chain constructor feature for flexible instantiation.
+4. **Avoid assembly creation**: Don't use `create` or `create2` opcodes in assembly blocks for manual deployment.
+
+### Architecture-Specific Limitations
+
+PolkaVM's deployment model creates several specific constraints:
+
+- **`EXTCODECOPY` limitations**: Contracts using `EXTCODECOPY` to manipulate code at runtime will encounter issues.
+- **Runtime code modification**: Patterns that construct and mutate contract code on-the-fly are not supported.
+- **Assembly-based factories**: Factory contracts written in YUL assembly that generate code at runtime will fail with `CodeNotFound` errors.
+
+These patterns are rare in practice and typically require dropping down to assembly, making them non-issues for standard Solidity development.
+
+### On-Chain Constructors
+
+PolkaVM provides on-chain constructors as an elegant alternative to runtime code modification:
+
+- Enable contract instantiation without runtime code generation.
+- Support flexible initialization patterns.
+- Maintain separation between code upload and contract creation.
+- Provide predictable deployment costs.
+
+## Gas Estimation vs Actual Consumption
+
+Both REVM and PolkaVM deployments may show significant differences between gas estimation and actual consumption. You might see estimates that are several times higher than the actual gas consumed (often around 30% of the estimate). This is normal behavior because pre-dispatch estimation cannot distinguish between computation weight and storage deposits, leading to conservative overestimation. Contract deployments are particularly affected as they consume significant storage deposits for code storage.
+
+## Deployment Comparison
+
+| Feature | REVM Backend | PolkaVM Backend |
+|:-------:|:-------------:|:----------------:|
+| **Deployment Model** | Single-step bundled | Two-step upload and instantiate |
+| **Factory Patterns** | Direct runtime creation | Requires pre-uploaded code |
+| **Code Bundling** | Bytecode in transaction | Code hash references |
+| **Runtime Codegen** | Fully supported | Not supported |
+| **Simple Contracts** | No modifications needed | No modifications needed |
+| **Assembly Creation** | Supported | Discouraged, limited support |
+
+## Conclusion
+
+Both backends support contract deployment effectively, with REVM offering drop-in Ethereum compatibility and PolkaVM providing a more structured two-step approach. For the majority of use cases—deploying standard contracts like tokens or applications—both backends work seamlessly. Advanced patterns like factory contracts may require adjustment for PolkaVM, but these adaptations are straightforward with proper planning.
+
+
+---
+
 Page Title: Coretime Renewal
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-parachains-deployment-coretime-renewal.md
@@ -6640,6 +6751,269 @@ For more information on coretime, refer to the [Coretime](/polkadot-protocol/arc
     [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/parachains/zero-to-hero/obtain-coretime/)
 
 </div>
+
+
+---
+
+Page Title: Deploy on Polkadot
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/parachains-launch-a-parachain-deploy-to-polkadot.md
+- Canonical (HTML): https://docs.polkadot.com/parachains/launch-a-parachain/deploy-to-polkadot/
+- Summary: This guide walks you through the journey of deploying your Polkadot SDK parachain on the Polkadot TestNet, detailing each step to a successful deployment.
+
+# Deploy on Polkadot
+
+## Introduction
+
+Previously, you learned how to [choose and set up a parachain template](/parachains/launch-a-parachain/choose-a-template/){target=\_blank}. Now, you'll take the next step towards a production-like environment by deploying your parachain to the Polkadot TestNet. Deploying to a TestNet is a crucial step for validating your parachain's functionality and preparing it for eventual MainNet deployment.
+
+## Get Started with an Account and Tokens
+
+To perform any action on the Polkadot TestNet, you need PAS tokens, which can be requested from the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=0){target=\_blank}. To store the tokens, you must have access to a Polkadot-SDK-compatible wallet. Go to the [Polkadot Wallets](https://polkadot.com/get-started/wallets/){target=\_blank} page to view different options for a Polkadot wallet, or use the [Polkadot.js browser extension](https://polkadot.js.org/extension/){target=\_blank}, which is suitable for development purposes.
+
+!!!warning 
+    Development keys and accounts should never hold assets of actual value and should not be used for production.
+
+The [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} interface can be used to get you started for testing purposes.
+
+To prepare an account, follow these steps:
+
+1. Open the [Polkadot.js Apps: Paseo](https://polkadot.js.org/apps/?rpc=wss://paseo.dotters.network#/explorer){target=\_blank} interface and connect to the Polkadot TestNet (Paseo).
+
+    ![](/images/parachains/launch-a-parachain/deploy-to-polkadot/deploy-to-polkadot-1.webp)
+
+2. Navigate to the **Accounts** section:
+
+    1. Click on the **Accounts** tab in the top menu.
+    2. Select the **Accounts** option from the dropdown menu.
+  
+    ![](/images/parachains/launch-a-parachain/deploy-to-polkadot/deploy-to-polkadot-2.webp)
+
+3. Copy the address of the account you want to use for the parachain deployment.
+
+    ![](/images/parachains/launch-a-parachain/deploy-to-polkadot/deploy-to-polkadot-3.webp)
+
+4. Visit the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=0){target=\_blank} and paste the copied address in the input field. Ensure that the network is set to Paseo and click on the **Get some PASs** button.
+
+    ![](/images/parachains/launch-a-parachain/deploy-to-polkadot/deploy-to-polkadot-4.webp)
+
+    After a few seconds, you will receive 5000 PAS tokens in your account.
+
+## Reserve a Parachain Identifier
+
+You must reserve a parachain identifier (ID) before registering your parachain on Paseo. You'll be assigned the next available identifier.
+
+To reserve a parachain identifier, follow these steps:
+
+1. Navigate to the **Parachains** section:
+
+    1. Click on the **Network** tab in the top menu.
+    2. Select the **Parachains** option from the dropdown menu.
+
+    ![](/images/parachains/launch-a-parachain/deploy-to-polkadot/deploy-to-polkadot-5.webp)
+
+2. Register a ParaId:
+
+    1. Select the **Parathreads** tab.
+    2. Click on the **+ ParaId** button.
+
+    ![](/images/parachains/launch-a-parachain/deploy-to-polkadot/deploy-to-polkadot-6.webp)
+
+3. Review the transaction and click on the **+ Submit** button.
+
+    ![](/images/parachains/launch-a-parachain/deploy-to-polkadot/deploy-to-polkadot-7.webp)
+
+    For this case, the next available parachain identifier is `4508`.
+
+4. After submitting the transaction, you can navigate to the **Explorer** tab and check the list of recent events for successful `registrar.Reserved`.
+
+    ![](/images/parachains/launch-a-parachain/deploy-to-polkadot/deploy-to-polkadot-8.webp)
+
+## Generate Custom Keys for Your Collators
+
+To securely deploy your parachain, it is essential to generate custom keys specifically for your [collators](/reference/glossary/#collator){target=\_blank} (block producers). You should generate two sets of keys for each collator:
+
+- **Account keys**: Used to interact with the network and manage funds. These should be protected carefully and should never exist on the filesystem of the collator node.
+
+- **Session keys**: Used in block production to identify your node and its blocks on the network. These keys are stored in the parachain keystore and function as disposable "hot wallet" keys. If these keys are leaked, someone could impersonate your node, which could result in the slashing of your funds. To minimize these risks, rotating your session keys frequently is essential. Treat them with the same level of caution as you would a hot wallet to ensure the security of your node.
+
+To perform this step, you can use [subkey](https://docs.rs/crate/subkey/latest){target=\_blank}, a command-line tool for generating and managing keys:
+
+```bash
+docker run -it parity/subkey:latest generate --scheme sr25519
+```
+
+The output should look similar to the following:
+
+
+Ensure that this command is executed twice to generate the keys for both the account and session keys. Save them for future reference.
+
+## Generate the Chain Specification
+
+Polkadot SDK-based parachains are defined by a file called the [chain specification](/reference/glossary/#chain-specification){target=\_blank}, or chain spec for short. There are two types of chain spec files:
+
+- **Plain chain spec**: A human-readable JSON file that can be modified to suit your parachain's requirements. It serves as a template for initial configuration and includes human-readable keys and structures.
+- **Raw chain spec**: A binary-encoded file used to start your parachain node. This file is generated from the plain chain spec and contains the encoded information necessary for the parachain node to synchronize with the blockchain network. It ensures compatibility across different runtime versions by providing data in a format directly interpretable by the node's runtime, regardless of upgrades since the chain's genesis.
+
+The chain spec file is only required during the initial blockchain creation (genesis). You do not need to generate a new chain spec when performing runtime upgrades after your chain is already running.
+
+The files required to register a parachain must specify the correct relay chain to connect to and the parachain identifier you have been assigned. To make these changes, you must build and modify the chain specification file for your parachain. In this tutorial, the relay chain is `paseo`, and the parachain identifier is `4508`.
+
+To define your chain specification:
+
+1. Generate the plain chain specification for the parachain template node by running the following command. Make sure to use the `*.compact.compressed.wasm` version of your compiled runtime when generating your chain specification, and replace `INSERT_PARA_ID` with the ID you obtained in the [Reserve a Parachain Identifier](#reserve-a-parachain-identifier) section:
+
+    ```bash
+    chain-spec-builder \
+    --chain-spec-path ./plain_chain_spec.json \
+    create \
+    --relay-chain paseo \
+    --para-id INSERT_PARA_ID \
+    --runtime target/release/wbuild/parachain-template-runtime/parachain_template_runtime.compact.compressed.wasm \
+    named-preset local_testnet
+    ```
+
+2. Edit the `plain_chain_spec.json` file:
+
+    - Update the `name`, `id`, and `protocolId` fields to unique values for your parachain.
+    - Change `para_id` and `parachainInfo.parachainId` fields to the parachain ID you obtained previously. Make sure to use a number without quotes.
+    - Modify the `balances` field to specify the initial balances for your accounts in SS58 format.
+    - Insert the account IDs and session keys in SS58 format generated for your collators in the `collatorSelection.invulnerables` and `session.keys` fields.
+    - Modify the `sudo` value to specify the account that will have sudo access to the parachain.
+  
+    ```json
+    
+    ```
+
+    For this tutorial, the `plain_chain_spec.json` file should look similar to the following. Take into account that the same account is being used for the collator and sudo, which must not be the case in a production environment:
+
+    ??? code "View complete script"
+
+        ```json title="plain_chain_spec.json"
+        
+        ```
+
+3. Save your changes and close the plain text chain specification file.
+
+4. Convert the modified plain chain specification file to a raw chain specification file:
+
+    ```bash
+    chain-spec-builder \
+    --chain-spec-path ./raw_chain_spec.json \
+    convert-to-raw plain_chain_spec.json
+    ```
+
+    You should now see your chain specification containing SCALE-encoded hex values versus plain text.
+
+
+!!!note "`para_id` Considerations"
+
+    The `para_id` field in JSON chain specifications, added through the [`chain-spec-builder`](https://paritytech.github.io/polkadot-sdk/master/staging_chain_spec_builder/index.html){target=\_blank} command, is used by nodes for configuration purposes. Beginning with Polkadot SDK release `stable2509`, runtimes can optionally implement the [`cumulus_primitives_core::GetParachainInfo`](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/trait.GetParachainInfo.html){target=\_blank} trait as an alternative method for parachain identification.
+
+    However, the `para_id` field will remain supported in chain specifications for backwards compatibility. This ensures that nodes can still sync from genesis or from runtime states that existed before the `GetParachainInfo` runtime API was introduced.
+
+## Export Required Files
+
+To prepare the parachain collator to be registered on Paseo, follow these steps:
+
+1. Export the Wasm runtime for the parachain by running the following command:
+
+    ```bash
+    polkadot-omni-node export-genesis-wasm \
+    --chain raw_chain_spec.json para-wasm
+    ```
+
+2. Export the genesis state for the parachain by running the following command:
+
+    ```bash
+    polkadot-omni-node export-genesis-head \
+    --chain raw_chain_spec.json para-state
+    ```
+
+## Register a Parathread
+
+Once you have the genesis state and runtime, you can now register these with your parachain ID.
+
+1. Go to the [Parachains > Parathreads](https://polkadot.js.org/apps/#/parachains/parathreads){target=\_blank} tab, and select **+ Parathread**.
+   
+2. You should see fields to place your runtime Wasm and genesis state respectively, along with the parachain ID. Select your parachain ID, and upload `para-wasm` in the **code** field and `para-state` in the **initial state** field.
+
+    ![](/images/parachains/launch-a-parachain/deploy-to-polkadot/deploy-to-polkadot-9.webp)
+   
+3. Confirm your details and **+ Submit** button, where there should be a new Parathread with your parachain ID and an active **Deregister** button.
+
+    ![](/images/parachains/launch-a-parachain/deploy-to-polkadot/deploy-to-polkadot-10.webp)
+
+Your parachain's runtime logic and genesis are now part of the relay chain. The next step is to ensure you are able to run a collator to produce blocks for your parachain.
+
+!!!note 
+    You may need to wait several hours for your parachain to onboard. Until it has onboarded, you will be unable to purchase coretime, and therefore will not be able to perform transactions on your network.
+
+## Start the Collator Node
+
+Before starting a collator, you need to generate a node key. This key is responsible for communicating with other nodes over Libp2p:
+
+```bash
+polkadot-omni-node key generate-node-key \
+--base-path data \
+--chain raw_chain_spec.json
+```
+
+After running the command, you should see the following output, indicating the base path now has a suitable node key: 
+
+
+You must have the ports for the collator publicly accessible and discoverable to enable parachain nodes to peer with Paseo validator nodes to produce blocks. You can specify the ports with the `--port` command-line option. You can start the collator with a command similar to the following:
+
+```bash
+polkadot-omni-node --collator \
+--chain raw_chain_spec.json \
+--base-path data \
+--port 40333 \
+--rpc-port 8845 \
+--force-authoring \
+--node-key-file ./data/chains/custom/network/secret_ed25519 \
+-- \
+--sync warp \
+--chain paseo \
+--port 50343 \
+--rpc-port 9988
+```
+
+In this example, the first `--port` setting specifies the port for the collator node, and the second `--port` specifies the embedded relay chain node port. The first `--rpc-port` setting specifies the port you can connect to the collator. The second `--rpc-port` specifies the port for connecting to the embedded relay chain.
+
+Before proceeding, ensure that the collator node is running. Then, open a new terminal and insert your generated session key into the collator keystore by running the following command. Use the same port specified in the `--rpc-port` parameter when starting the collator node (`8845` in this example) to connect to it. Replace `INSERT_SECRET_PHRASE` and `INSERT_PUBLIC_KEY_HEX_FORMAT` with the values from the session key you generated in the [Generate Custom Keys for Your Collators](#generate-custom-keys-for-your-collators) section:
+
+```bash
+curl -H "Content-Type: application/json" \
+--data '{
+  "jsonrpc":"2.0",
+  "method":"author_insertKey",
+  "params":[
+    "aura",
+    "INSERT_SECRET_PHRASE",
+    "INSERT_PUBLIC_KEY_HEX_FORMAT"
+  ],
+  "id":1
+}' \
+http://localhost:8845
+```
+
+If successful, you should see the following response:
+
+```json
+{"jsonrpc":"2.0","result":null,"id":1}
+```
+
+Once your collator is synced with the Paseo relay chain, and your parathread finished onboarding, it will be ready to start producing blocks. This process may take some time.
+
+## Producing Blocks
+
+With your parachain collator operational, the next step is acquiring coretime. This is essential for ensuring your parachain's security through the relay chain. [Agile Coretime](https://wiki.polkadot.com/learn/learn-agile-coretime/){target=\_blank} enhances Polkadot's resource management, offering developers greater economic adaptability. Once you have configured your parachain, you can follow two paths:
+
+- Bulk coretime is purchased via the Broker pallet on the respective coretime system parachain. You can purchase bulk coretime on the coretime chain and assign the purchased core to the registered `ParaID`.
+- On-demand coretime is ordered via the [`OnDemand`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/on_demand/index.html){target=\_blank} pallet, which is located on the respective relay chain.
+
+Once coretime is correctly assigned to your parachain, whether bulk or on-demand, blocks should be produced (provided your collator is running).
 
 
 ---

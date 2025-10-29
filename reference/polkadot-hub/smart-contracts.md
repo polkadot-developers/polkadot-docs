@@ -1,18 +1,23 @@
 ---
 title: Polkadot Hub Smart Contracts
-description: Learn how to build smart contracts on Polkadot Hub using PolkaVM and REVM, supporting both native Polkadot development and Ethereum compatibility.
+description: Learn how Polkadot Hub supports smart contracts through the REVM, a Rust-based Ethereum Virtual Machine compatible runtime.
 categories: Polkadot Protocol
 ---
 
-# Polkadot Hub Smart Contracts
+# Smart Contracts on Polkadot Hub
 
 --8<-- 'text/smart-contracts/polkaVM-warning.md'
 
 ## Introduction
 
-Polkadot’s Relay Chain does not support smart contracts directly, so developers build contract-based applications on parachains that provide execution environments. Polkadot Hub is one of those parachains, offering flexible smart contract capabilities alongside native asset management.
+Polkadot’s relay chain does not support smart contracts directly. Instead, developers deploy contract-based applications on parachains that provide execution environments. Polkadot Hub supports smart contracts through the REVM, a Rust-based Ethereum Virtual Machine compatible runtime.
 
-## Building a Smart Contract
+REVM enables developers to run standard Ethereum bytecode on Polkadot Hub, giving teams a path to migrate existing Solidity contracts while interacting with on-chain assets and other parachains via XCM.
+
+This guide explains how smart contracts are deployed, executed, and integrated on Polkadot Hub using REVM.
+
+<!-- TODO: Can we scrap this?
+ ## Building a Smart Contract
 
 Polkadot Hub supports multiple smart contract environments, giving developers the freedom to choose the workflow and tooling that best fits their project:
 
@@ -36,15 +41,17 @@ PolkaVM is Polkadot Hub’s native, high-performance smart contract engine. Inst
 2. **Deploy** – Submit a signed extrinsic to Polkadot Hub; collators include it in a parachain block.
 3. **Execute** – PolkaVM runs the contract code, mapping gas ↔ weight and persisting state via Substrate storage.
 4. **Integrate** – Contracts can interact with Polkadot Hub pallets and send/receive XCM messages for cross-chain actions.
-5. **Finalize & index** – The Relay Chain finalizes the block; events/logs are available to indexers and UIs.
+5. **Finalize & index** – The relay chain finalizes the block; events/logs are available to indexers and UIs.
 
 **When to choose PolkaVM**
 
 - You want **max performance** and tighter execution control than a traditional EVM.
 - You plan to **compose with Substrate pallets** (assets, governance) and **XCM** frequently.
-- You prefer a path that’s **Solidity-friendly** but optimized for Polkadot’s architecture.
+- You prefer a path that’s **Solidity-friendly** but optimized for Polkadot’s architecture. -->
 
 ### REVM Contracts
+
+<!-- TODO: This content is basically duplicated https://beta-docs.polkadot.com/smart-contracts/for-eth-devs/contract-deployment/#revm-deployment -->
 
 REVM brings full EVM compatibility to Polkadot Hub through a fast, memory-safe Rust implementation of the Ethereum Virtual Machine. Unlike PolkaVM, which compiles contracts to RISC-V for native execution, REVM executes standard Ethereum bytecode directly—making it ideal for teams who want to migrate existing Solidity projects to Polkadot with minimal changes.
 
@@ -55,7 +62,3 @@ With REVM, developers can:
 - Interact with other parachains and on-chain assets using XCM and Polkadot Hub features.
 
 REVM builds on Rust’s safety guarantees and performance optimizations while retaining full opcode compatibility with the EVM. This provides a reliable path for Ethereum-native developers to access Polkadot’s cross-chain ecosystem.
-
-For more details, explore the REVM integration in the Polkadot Hub smart contract documentation.
-
-If you want to learn more about the dual virtual stack please go to the [DualVM Stack](polkadot-docs/smart-contracts/for-eth-devs/dual-vm-stack.md){target=_blank}.

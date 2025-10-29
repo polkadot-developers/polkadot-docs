@@ -17,7 +17,7 @@ REVM brings Ethereum compatibility to Polkadot Hub, letting developers run Solid
 This guide explains how smart contracts are deployed, executed, and integrated on Polkadot Hub using REVM.
 
 <!-- TODO: Can we scrap this?
- ## Building a Smart Contract
+ ## Polkadot Hub's Dual Virtual Machine
 
 Polkadot's smart contract platform supports two distinct virtual machine (VM) architectures, providing developers with flexibility in selecting the optimal execution backend for their specific needs. This approach strikes a balance between immediate Ethereum compatibility and long-term innovation, enabling developers to deploy either unmodified (Ethereum Virtual Machine) EVM contracts using Rust Ethereum Virtual Machine (REVM) or optimize for higher performance using PolkaVM (PVM).
 

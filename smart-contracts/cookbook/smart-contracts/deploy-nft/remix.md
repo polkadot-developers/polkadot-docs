@@ -14,9 +14,9 @@ This guide demonstrates how to deploy an [ERC-721](https://eips.ethereum.org/EIP
 
 ## Prerequisites
 
-- Basic understanding of Solidity programming and NFT standards
-- Test tokens for gas fees (available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}). See the [step-by-step instructions](/smart-contracts/faucet/#get-test-tokens){target=\_blank}.
-- A wallet with a private key for signing transactions
+- Basic understanding of Solidity programming and NFT standards.
+- Test tokens for gas fees (available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}). See the [step-by-step instructions](/smart-contracts/faucet/#get-test-tokens){target=\_blank}
+- A wallet with a private key for signing transactions.
 
 ## Access Remix
 

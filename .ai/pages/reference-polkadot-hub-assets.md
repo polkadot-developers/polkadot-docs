@@ -75,7 +75,7 @@ Data queries make it possible to:
 - Retrieve asset metadata and configuration details.
 - Inspect account and asset status on-chain.
 
-For a full list of queries, see the [Pallet reference](https://docs.rs/pallet-assets/latest/pallet_assets/pallet/struct.Pallet.html){target=_blank}.
+For a full list of queries, see the [Pallet reference](https://docs.rs/pallet-assets/latest/pallet_assets/pallet/struct.Pallet.html){target=\_blank}.
 
 ### Roles and Permissions
 

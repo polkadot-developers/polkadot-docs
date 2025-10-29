@@ -49,7 +49,7 @@ PolkaVM is Polkadot Hub’s native, high-performance smart contract engine. Inst
 - You plan to **compose with Substrate pallets** (assets, governance) and **XCM** frequently.
 - You prefer a path that’s **Solidity-friendly** but optimized for Polkadot’s architecture. -->
 
-### REVM Contracts
+### REVM Smart Contracts
 
 <!-- TODO: This content is basically duplicated https://beta-docs.polkadot.com/smart-contracts/for-eth-devs/contract-deployment/#revm-deployment -->
 

@@ -1,18 +1,20 @@
 ---
-title: Foundry
+title: Deploy a Basic Contract with Foundry
 description: Learn how to deploy a basic smart contract to Polkadot Hub using Foundry, excellent for developers who prefer fast, command-line driven development.
 categories: Smart Contracts
 ---
 
-[Foundry](https://getfoundry.sh/){target=\_blank} offers a fast, modular toolkit written in Rust. It's perfect for developers who prefer command-line interfaces and need high-performance compilation and deployment.
+# Deploy a Basic Contract with Foundry
 
-**Prerequisites:**
+This guide demonstrates how to deploy a basic Solidity smart contract to Polkadot Hub using [Foundry](https://getfoundry.sh/){target=\_blank}, which offers a fast, modular toolkit written in Rust. It's perfect for developers who prefer command-line interfaces and need high-performance compilation and deployment.
+
+## Prerequisites:
 
 - Basic understanding of Solidity programming.
 - Test tokens for gas fees (available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}).
 - A wallet with a private key for signing transactions.
 
-### Setup
+### Set Up Your Project
 
 Install Foundry:
 
@@ -63,7 +65,7 @@ contract Storage {
 }
 ```
 
-### Compile
+### Compile Your Contract
 
 ```bash
 forge build
@@ -75,7 +77,7 @@ Verify the compilation by inspecting the bytecode:
 forge inspect Storage bytecode
 ```
 
-### Deploy
+### Deploy the Contract
 
 Deploy to Polkadot Hub TestNet:
 
@@ -85,9 +87,13 @@ forge create Storage \
     --private-key YOUR_PRIVATE_KEY \
     --broadcast
 ```
+Replace the `YOUR_PRIVATE_KEY` placeholder with your actual private key.
 
-### Next Steps
+!!! warning
+    Never reveal your private key, otherwise anyone with access to it can control your wallet and steal your funds. Store it securely and never share it publicly or commit it to version control systems.
 
-- Deploy an ERC-20 token on Polkadot Hub, either using the [Deploy an ERC-20](/smart-contracts/cookbook/smart-contracts/deploy-erc20) guide or the [Deploy an ERC-20 to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-erc20) guide.
-- Deploy an NFT on Polkadot Hub, either using the [Deploy an NFT](/smart-contracts/cookbook/smart-contracts/deploy-nft) guide or the [Deploy an NFT to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-nft) guide.
+## Next Steps
+
+- Deploy an ERC-20 token on Polkadot Hub using the [Deploy an ERC-20](/smart-contracts/cookbook/smart-contracts/deploy-erc20) guide.
+- Deploy an NFT on Polkadot Hub using the [Deploy an NFT](/smart-contracts/cookbook/smart-contracts/deploy-nft) guide.
 - Check out in details each [development environment](/smart-contracts/dev-environments/).

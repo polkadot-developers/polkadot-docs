@@ -1,0 +1,6 @@
+title: EVM
+nav:
+  - 'JavaScript with Ethers.js': ethers-js.md
+  - 'Remix IDE': remix.md
+  - 'Hardhat': hardhat.md
+  - 'Foundry': foundry.md

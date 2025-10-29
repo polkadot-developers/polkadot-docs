@@ -1,19 +1,21 @@
 ---
-title: JavaScript with Ethers.js
+title: Deploy a Basic Contract with Ethers.js
 description: Learn how to deploy a basic smart contract to Polkadot Hub using Ethers.js, best for lightweight, programmatic deployments and application integration.
 categories: Smart Contracts
 ---
 
-[Ethers.js](https://docs.ethers.org/v6/){target=\_blank} provides a lightweight approach for deploying contracts using pure JavaScript. This method is ideal for developers who want programmatic control over the deployment process or need to integrate contract deployment into existing applications.
+# Deploy a Basic Contract with Ethers.js
 
-**Prerequisites:**
+This guide demonstrates how to deploy a basic Solidity smart contract to Polkadot Hub using [Ethers.js](https://docs.ethers.org/v6/){target=\_blank}, which provides a lightweight approach for deploying contracts using pure JavaScript. This method is ideal for developers who want programmatic control over the deployment process or need to integrate contract deployment into existing applications.
+
+## Prerequisites:
 
 - Basic understanding of Solidity programming.
 - [Node.js](https://nodejs.org/en/download){target=\_blank} v22.13.1 or later.
 - Test tokens for gas fees (available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}).
 - A wallet with a private key for signing transactions.
 
-### Setup
+### Set Up Your Project
 
 First, initialize your project and install dependencies:
 
@@ -24,7 +26,7 @@ npm init -y
 npm install ethers@6.15.0 solc@0.8.30
 ```
 
-### Create and Compile Your Contract
+### Create Your Contract
 
 Create a simple storage contract in `contracts/Storage.sol`:
 
@@ -44,6 +46,8 @@ contract Storage {
     }
 }
 ```
+
+### Compile Your Contract
 
 Create a compilation script `compile.js`:
 
@@ -223,6 +227,9 @@ deployContract('Storage', mnemonic, providerConfig);
 
 Replace the `INSERT_MNEMONIC` placeholder with your actual mnemonic.
 
+!!! warning
+    Never reveal your private key, otherwise anyone with access to it can control your wallet and steal your funds. Store it securely and never share it publicly or commit it to version control systems.
+
 Execute the deployment:
 
 ```bash
@@ -231,8 +238,8 @@ node deploy.js
 
 After running this script, your contract will be deployed to Polkadot Hub, and its address will be saved in `contract-address.json` within your project directory. You can use this address for future contract interactions.
 
-### Next Steps
+## Next Steps
 
-- Deploy an ERC-20 token on Polkadot Hub, either using the [Deploy an ERC-20](/smart-contracts/cookbook/smart-contracts/deploy-erc20) guide or the [Deploy an ERC-20 to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-erc20) guide.
-- Deploy an NFT on Polkadot Hub, either using the [Deploy an NFT](/smart-contracts/cookbook/smart-contracts/deploy-nft) guide or the [Deploy an NFT to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-nft) guide.
+- Deploy an ERC-20 token on Polkadot Hub using the [Deploy an ERC-20](/smart-contracts/cookbook/smart-contracts/deploy-erc20) guide.
+- Deploy an NFT on Polkadot Hub using the [Deploy an NFT](/smart-contracts/cookbook/smart-contracts/deploy-nft) guide.
 - Check out in details each [development environment](/smart-contracts/dev-environments/).

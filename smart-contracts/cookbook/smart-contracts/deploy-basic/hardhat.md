@@ -1,19 +1,21 @@
 ---
-title:  hardhat
+title:  Deploy a Basic Contract with hardhat
 description: Learn how to deploy a basic smart contract to Polkadot Hub using Hardhat, Perfect for professional workflows requiring comprehensive testing and debugging.
 categories: Smart Contracts
 ---
 
-[Hardhat](https://hardhat.org/){target=\_blank} provides a comprehensive development environment with built-in testing, debugging, and deployment capabilities. It's ideal for professional development workflows and team projects.
+# Deploy a Basic Contract with
 
-**Prerequisites:**
+This guide demonstrates how to deploy a basic Solidity smart contract to Polkadot Hub using [Hardhat](https://hardhat.org/){target=\_blank}, which provides a comprehensive development environment with built-in testing, debugging, and deployment capabilities. It's ideal for professional development workflows and team projects.
+
+## Prerequisites:
 
 - Basic understanding of Solidity programming.
 - [Node.js](https://nodejs.org/en/download){target=\_blank} v22.13.1 or later.
 - Test tokens for gas fees (available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}).
 - A wallet with a private key for signing transactions.
 
-### Setup
+### Set Up Your Project
 
 Initialize your Hardhat project:
 
@@ -77,6 +79,10 @@ const config: HardhatUserConfig = {
 export default config;
 
 ```
+Replace the `PRIVATE_KEY` placeholder with your actual private key.
+
+!!! warning
+    Never reveal your private key, otherwise anyone with access to it can control your wallet and steal your funds. Store it securely and never share it publicly or commit it to version control systems.
 
 ### Create Your Contract
 
@@ -99,7 +105,7 @@ contract Storage {
 }
 ```
 
-### Compile
+### Compile Your Contract
 
 ```bash
 npx hardhat build
@@ -118,7 +124,7 @@ export default buildModule('StorageModule', (m) => {
 });
 ```
 
-### Deploy
+### Deploy the Contract
 
 Deploy to Polkadot Hub TestNet:
 
@@ -126,8 +132,8 @@ Deploy to Polkadot Hub TestNet:
 npx hardhat ignition deploy ignition/modules/Storage.ts --network polkadotHubTestnet 
 ```
 
-### Next Steps
+## Next Steps
 
-- Deploy an ERC-20 token on Polkadot Hub, either using the [Deploy an ERC-20](/smart-contracts/cookbook/smart-contracts/deploy-erc20) guide or the [Deploy an ERC-20 to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-erc20) guide.
-- Deploy an NFT on Polkadot Hub, either using the [Deploy an NFT](/smart-contracts/cookbook/smart-contracts/deploy-nft) guide or the [Deploy an NFT to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-nft) guide.
+- Deploy an ERC-20 token on Polkadot Hub using the [Deploy an ERC-20](/smart-contracts/cookbook/smart-contracts/deploy-erc20) guide.
+- Deploy an NFT on Polkadot Hub using the [Deploy an NFT](/smart-contracts/cookbook/smart-contracts/deploy-nft) guide.
 - Check out in details each [development environment](/smart-contracts/dev-environments/).

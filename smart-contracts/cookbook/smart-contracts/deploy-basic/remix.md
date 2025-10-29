@@ -1,12 +1,14 @@
 ---
-title: Remix IDE
+title: Deploy a Basic Contract with Remix IDE
 description: Learn how to deploy a basic smart contract to Polkadot Hub using Remix IDE Ideal for rapid prototyping, learning, and visual development.
 categories: Smart Contracts
 ---
 
-[Remix IDE](https://remix.live/){target=\_blank} offers a visual, browser-based environment perfect for rapid prototyping and learning. It requires no local installation and provides an intuitive interface for contract development.
+# Deploy a Basic Contract with Remix IDE
 
-**Prerequisites:**
+This guide demonstrates how to deploy a basic Solidity smart contract to Polkadot Hub using [Remix IDE](https://remix.live/){target=\_blank}, which offers a visual, browser-based environment perfect for rapid prototyping and learning. It requires no local installation and provides an intuitive interface for contract development.
+
+## Prerequisites:
 
 - Basic understanding of Solidity programming.
 - Test tokens for gas fees (available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}).
@@ -20,7 +22,7 @@ The interface will load with a default workspace containing sample contracts. In
 
 ![](/images/smart-contracts/cookbook/smart-contracts/deploy-basic/deploy-basic-pvm/deploy-basic-pvm-01.webp)
 
-### Compile
+### Compile Your Contract
 
 1. To compile your contract:
     1. Navigate to the **Solidity Compiler** tab, which is the third icon in the left sidebar.
@@ -30,7 +32,7 @@ The interface will load with a default workspace containing sample contracts. In
 
 Compilation errors and warnings appear in the terminal panel at the bottom of the screen.
 
-### Deploy
+### Deploy the Contract
 
 1. Navigate to the **Deploy & Run Transactions** tab.
 2. Click the **Environment** dropdown and select **Injected Provider - MetaMask** (ensure your MetaMask wallet is connected to Polkadot Hub TestNet).
@@ -41,8 +43,8 @@ Compilation errors and warnings appear in the terminal panel at the bottom of th
 
 Your deployed contract will appear in the **Deployed Contracts** section, ready for interaction.
 
-### Next Steps
+## Next Steps
 
-- Deploy an ERC-20 token on Polkadot Hub, either using the [Deploy an ERC-20](/smart-contracts/cookbook/smart-contracts/deploy-erc20) guide or the [Deploy an ERC-20 to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-erc20) guide.
-- Deploy an NFT on Polkadot Hub, either using the [Deploy an NFT](/smart-contracts/cookbook/smart-contracts/deploy-nft) guide or the [Deploy an NFT to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-nft) guide.
+- Deploy an ERC-20 token on Polkadot Hub using the [Deploy an ERC-20](/smart-contracts/cookbook/smart-contracts/deploy-erc20) guide.
+- Deploy an NFT on Polkadot Hub using the [Deploy an NFT](/smart-contracts/cookbook/smart-contracts/deploy-nft) guide.
 - Check out in details each [development environment](/smart-contracts/dev-environments/).

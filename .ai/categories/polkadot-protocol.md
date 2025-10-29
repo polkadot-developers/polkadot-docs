@@ -560,12 +560,12 @@ Launch your parachain locally and start producing blocks:
 
     - Utility pallet
 
-        ![](/images/parachains/customize-runtime/pallet-development/add-pallet-to-runtime/add-pallets-to-runtime-1.webp)
+        ![](/images/parachains/customize-runtime/pallet-development/add-pallet-to-runtime/add-pallets-to-runtime-01.webp)
     
 
     - Custom pallet
 
-        ![](/images/parachains/customize-runtime/pallet-development/add-pallet-to-runtime/add-pallets-to-runtime-2.webp)
+        ![](/images/parachains/customize-runtime/pallet-development/add-pallet-to-runtime/add-pallets-to-runtime-02.webp)
 
 ## Where to Go Next
 
@@ -3216,6 +3216,117 @@ These collectives serve as pillars of Polkadot's decentralized governance model,
 
 ---
 
+Page Title: Contract Deployment
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-for-eth-devs-contract-deployment.md
+- Canonical (HTML): https://docs.polkadot.com/smart-contracts/for-eth-devs/contract-deployment/
+- Summary: Compare deployment flows for REVM and PVM-based smart contracts on the Polkadot Hub. Includes single-step REVM flows and PVM’s two-step deployment model.
+
+# Contract Deployment
+
+## Introduction
+
+Polkadot's smart contract platform supports two distinct virtual machine backends: Rust Ethereum Virtual Machine (REVM) and PolkaVM. Each backend has its own deployment characteristics and optimization strategies. REVM provides full Ethereum compatibility with familiar single-step deployment, while the RISC-V-based PolkaVM uses a more structured two-step approach optimized for its architecture. Understanding these differences ensures smooth deployment regardless of which backend you choose for your smart contracts.
+
+## REVM Deployment
+
+The REVM backend enables seamless deployment of Ethereum contracts without modification. Contracts deploy exactly as they would on Ethereum, using familiar tools and workflows.
+
+With REVM, deployment mirrors the Ethereum flow exactly including: 
+
+- Contracts are bundled and deployed in a single transaction. 
+- Factory contracts can create new contracts at runtime.
+- Runtime code generation, including inline assembly, is supported.
+- Existing familiar tools like Hardhat, Foundry, and Remix work out of the box.
+
+## PolkaVM Deployment
+
+PolkaVM implements a fundamentally different deployment model optimized for its RISC-V architecture. While simple contract deployments work seamlessly, advanced patterns like factory contracts require understanding the two-step deployment process.
+
+### Standard Contract Deployment
+
+For most use cases, such as deploying ERC-20 tokens, NFT collections, or standalone contracts, deployment is transparent and requires no special steps. The [Revive compiler](https://github.com/paritytech/revive){target=\_blank} handles the deployment process automatically when using standard Solidity patterns.
+
+### Two-Step Deployment Model
+
+PolkaVM separates contract deployment into distinct phases:
+
+1. **Code upload**: Contract bytecode must be uploaded to the chain before instantiation.
+2. **Contract instantiation**: Contracts are created by referencing previously uploaded code via its hash.
+
+This architecture differs from the EVM's bundled approach and has important implications for specific deployment patterns.
+
+### Factory Pattern Considerations
+
+The common EVM pattern, where contracts dynamically create other contracts, requires adaptation for PolkaVM as follows:
+
+**EVM Factory Pattern:**
+```solidity
+// This works on REVM but requires modification for PolkaVM
+contract Factory {
+    function createToken() public returns (address) {
+        // EVM bundles bytecode in the factory
+        return address(new Token());
+    }
+}
+```
+
+**PolkaVM Requirements:**
+
+- **Pre-upload dependent contracts**: All contracts that will be instantiated at runtime must be uploaded to the chain before the factory attempts to create them.
+- **Code hash references**: Factory contracts work with pre-uploaded code hashes rather than embedding bytecode.
+- **No runtime code generation**: Dynamic bytecode generation is not supported due to PolkaVM's RISC-V format.
+
+### Migration Strategy for Factory Contracts
+
+When migrating factory contracts from Ethereum to PolkaVM:
+
+1. **Identify all contracts**: Determine which contracts will be instantiated at runtime.
+2. **Upload dependencies first**: Deploy all dependent contracts to the chain before deploying the factory.
+3. **Use on-chain constructors**: Leverage PolkaVM's on-chain constructor feature for flexible instantiation.
+4. **Avoid assembly creation**: Don't use `create` or `create2` opcodes in assembly blocks for manual deployment.
+
+### Architecture-Specific Limitations
+
+PolkaVM's deployment model creates several specific constraints:
+
+- **`EXTCODECOPY` limitations**: Contracts using `EXTCODECOPY` to manipulate code at runtime will encounter issues.
+- **Runtime code modification**: Patterns that construct and mutate contract code on-the-fly are not supported.
+- **Assembly-based factories**: Factory contracts written in YUL assembly that generate code at runtime will fail with `CodeNotFound` errors.
+
+These patterns are rare in practice and typically require dropping down to assembly, making them non-issues for standard Solidity development.
+
+### On-Chain Constructors
+
+PolkaVM provides on-chain constructors as an elegant alternative to runtime code modification:
+
+- Enable contract instantiation without runtime code generation.
+- Support flexible initialization patterns.
+- Maintain separation between code upload and contract creation.
+- Provide predictable deployment costs.
+
+## Gas Estimation vs Actual Consumption
+
+Both REVM and PolkaVM deployments may show significant differences between gas estimation and actual consumption. You might see estimates that are several times higher than the actual gas consumed (often around 30% of the estimate). This is normal behavior because pre-dispatch estimation cannot distinguish between computation weight and storage deposits, leading to conservative overestimation. Contract deployments are particularly affected as they consume significant storage deposits for code storage.
+
+## Deployment Comparison
+
+| Feature | REVM Backend | PolkaVM Backend |
+|:-------:|:-------------:|:----------------:|
+| **Deployment Model** | Single-step bundled | Two-step upload and instantiate |
+| **Factory Patterns** | Direct runtime creation | Requires pre-uploaded code |
+| **Code Bundling** | Bytecode in transaction | Code hash references |
+| **Runtime Codegen** | Fully supported | Not supported |
+| **Simple Contracts** | No modifications needed | No modifications needed |
+| **Assembly Creation** | Supported | Discouraged, limited support |
+
+## Conclusion
+
+Both backends support contract deployment effectively, with REVM offering drop-in Ethereum compatibility and PolkaVM providing a more structured two-step approach. For the majority of use cases—deploying standard contracts like tokens or applications—both backends work seamlessly. Advanced patterns like factory contracts may require adjustment for PolkaVM, but these adaptations are straightforward with proper planning.
+
+
+---
+
 Page Title: Coretime Chain
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/polkadot-protocol-architecture-system-chains-coretime.md
@@ -5626,87 +5737,87 @@ The following sections provide practical recipes for building parachains on Polk
 
 Quick start guides help developers set up and interact with the Polkadot parachain ecosystem using various tools and frameworks.
 
-|                                          Tutorial                                          |             Tools              |                            Description                             |
-|:------------------------------------------------------------------------------------------:|:------------------------------:|:------------------------------------------------------------------:|
-|   [Choose a Template](/parachains/launch-a-parachain/choose-a-template/){target=\_blank}   |          Polkadot SDK          | Explore runtime templates and understand development possibilities |
-|  [Launch a Local Parachain](/parachains/testing/run-a-parachain-network/){target=\_blank}  |     Zombienet, Chopsticks      |         Set up a local development environment for testing         |
-| [Connect to Polkadot](/chain-interactions/query-on-chain-data/query-sdks/){target=\_blank} | Polkadot.js, Substrate Connect |           Connect your application to Polkadot networks            |
-|    [Fork an Existing Parachain](/parachains/testing/fork-a-parachain/){target=\_blank}     |           Chopsticks           |        Create a local fork of a live parachain for testing         |
+|                                            Tutorial                                            |             Tools              |                               Description                               |
+| :--------------------------------------------------------------------------------------------: | :----------------------------: | :---------------------------------------------------------------------: |
+| [Set Up the Parachain Template](/parachains/launch-a-parachain/set-up-the-parachain-template/) |          Polkadot SDK          | Learn how to set up and run the Polkadot SDK Parachain Template locally |
+|            [Launch a Local Parachain](/parachains/testing/run-a-parachain-network/)            |     Zombienet, Chopsticks      |           Set up a local development environment for testing            |
+|           [Connect to Polkadot](/chain-interactions/query-on-chain-data/query-sdks/)           | Polkadot.js, Substrate Connect |              Connect your application to Polkadot networks              |
+|              [Fork an Existing Parachain](/parachains/testing/fork-a-parachain/)               |           Chopsticks           |           Create a local fork of a live parachain for testing           |
 
 ## Launch a Simple Parachain
 
 Learn the fundamentals of launching and deploying a parachain to the Polkadot network.
 
-|                                         Tutorial                                         |                                         Description                                         |
-|:----------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------:|
-|  [Choose a Template](/parachains/launch-a-parachain/choose-a-template/){target=\_blank}  | Explore different runtime templates and understand the possibilities of runtime development |
-| [Deploy to Polkadot](/parachains/launch-a-parachain/deploy-to-polkadot/){target=\_blank} |                Step-by-step tutorial to deploying your parachain to Polkadot                |
-|    [Obtain Coretime](/parachains/launch-a-parachain/obtain-coretime/){target=\_blank}    |          Learn how to acquire blockspace using Polkadot's coretime model (RegionX)          |
+|                                            Tutorial                                            |                                Description                                |
+| :--------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------: |
+| [Set Up the Parachain Template](/parachains/launch-a-parachain/set-up-the-parachain-template/) |                               Polkadot SDK                                |
+|            [Deploy to Polkadot](/parachains/launch-a-parachain/deploy-to-polkadot/)            |       Step-by-step tutorial to deploying your parachain to Polkadot       |
+|               [Obtain Coretime](/parachains/launch-a-parachain/obtain-coretime/)               | Learn how to acquire blockspace using Polkadot's coretime model (RegionX) |
 
 ## Customize Your Runtime
 
 Build custom functionality for your parachain by composing and creating pallets.
 
-|                                                      Tutorial                                                       |                            Description                            |
-|:-------------------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------:|
-|     [Add Existing Pallets to the Runtime](/parachains/customize-runtime/add-existing-pallets/){target=\_blank}      |       Integrate pre-built pallets from the FRAME ecosystem        |
-|      [Add Multiple Instances of a Pallet](/parachains/customize-runtime/add-pallet-instances/){target=\_blank}      |      Configure and use multiple instances of the same pallet      |
-| [Add Smart Contract Functionality](/parachains/customize-runtime/add-smart-contract-functionality/){target=\_blank} | Enable smart contract capabilities using Contracts or EVM pallets |
+|                                              Tutorial                                               |                            Description                            |
+| :-------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------: |
+|     [Add Existing Pallets to the Runtime](/parachains/customize-runtime/add-existing-pallets/)      |       Integrate pre-built pallets from the FRAME ecosystem        |
+|      [Add Multiple Instances of a Pallet](/parachains/customize-runtime/add-pallet-instances/)      |      Configure and use multiple instances of the same pallet      |
+| [Add Smart Contract Functionality](/parachains/customize-runtime/add-smart-contract-functionality/) | Enable smart contract capabilities using Contracts or EVM pallets |
 
 ### Pallet Development
 
 Deep dive into creating and managing custom pallets for your parachain.
 
-|                                                             Tutorial                                                             |                        Description                        |
-|:--------------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------:|
-|           [Create a Custom Pallet](/parachains/customize-runtime/pallet-development/create-a-pallet/){target=\_blank}            |       Build a pallet from scratch with custom logic       |
-|               [Mock Your Runtime](/parachains/customize-runtime/pallet-development/mock-runtime/){target=\_blank}                |       Set up a mock runtime environment for testing       |
-|             [Pallet Unit Testing](/parachains/customize-runtime/pallet-development/pallet-testing/){target=\_blank}              |      Write comprehensive tests for your pallet logic      |
-| [Add Your Custom Pallet to the Runtime](/parachains/customize-runtime/pallet-development/add-pallet-to-runtime/){target=\_blank} | Integrate your custom pallet into your parachain runtime  |
-|        [Benchmark the Custom Pallet](/parachains/customize-runtime/pallet-development/benchmark-pallet/){target=\_blank}         | Measure and optimize pallet performance with benchmarking |
+|                                                     Tutorial                                                     |                        Description                        |
+| :--------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------: |
+|           [Create a Custom Pallet](/parachains/customize-runtime/pallet-development/create-a-pallet/)            |       Build a pallet from scratch with custom logic       |
+|               [Mock Your Runtime](/parachains/customize-runtime/pallet-development/mock-runtime/)                |       Set up a mock runtime environment for testing       |
+|             [Pallet Unit Testing](/parachains/customize-runtime/pallet-development/pallet-testing/)              |      Write comprehensive tests for your pallet logic      |
+| [Add Your Custom Pallet to the Runtime](/parachains/customize-runtime/pallet-development/add-pallet-to-runtime/) | Integrate your custom pallet into your parachain runtime  |
+|        [Benchmark the Custom Pallet](/parachains/customize-runtime/pallet-development/benchmark-pallet/)         | Measure and optimize pallet performance with benchmarking |
 
 ## Testing
 
 Test your parachain in various environments before production deployment.
 
-|                                        Tutorial                                         |                       Description                       |
-|:---------------------------------------------------------------------------------------:|:-------------------------------------------------------:|
-|        [Fork a Parachain](/parachains/testing/fork-a-parachain/){target=\_blank}        |    Use Chopsticks to create a local fork for testing    |
-| [Run a Parachain Network](/parachains/testing/run-a-parachain-network/){target=\_blank} | Launch a complete parachain test network with Zombienet |
+|                                Tutorial                                 |                       Description                       |
+| :---------------------------------------------------------------------: | :-----------------------------------------------------: |
+|        [Fork a Parachain](/parachains/testing/fork-a-parachain/)        |    Use Chopsticks to create a local fork for testing    |
+| [Run a Parachain Network](/parachains/testing/run-a-parachain-network/) | Launch a complete parachain test network with Zombienet |
 
 ## Runtime Upgrades and Maintenance
 
 Manage your parachain's lifecycle with forkless upgrades and maintenance operations.
 
-|                                         Tutorial                                          |                     Description                      |
-|:-----------------------------------------------------------------------------------------:|:----------------------------------------------------:|
-|   [Runtime Upgrades](/parachains/runtime-maintenance/runtime-upgrades/){target=\_blank}   |   Perform forkless runtime upgrades via governance   |
-| [Storage Migrations](/parachains/runtime-maintenance/storage-migrations/){target=\_blank} |  Safely migrate storage when updating runtime logic  |
-|  [Unlock Parachains](/parachains/runtime-maintenance/unlock-parachains/){target=\_blank}  | Understand parachain lifecycle and unlock mechanisms |
+|                                 Tutorial                                  |                     Description                      |
+| :-----------------------------------------------------------------------: | :--------------------------------------------------: |
+|   [Runtime Upgrades](/parachains/runtime-maintenance/runtime-upgrades/)   |   Perform forkless runtime upgrades via governance   |
+| [Storage Migrations](/parachains/runtime-maintenance/storage-migrations/) |  Safely migrate storage when updating runtime logic  |
+|  [Unlock Parachains](/parachains/runtime-maintenance/unlock-parachains/)  | Understand parachain lifecycle and unlock mechanisms |
 
 ## Interoperability
 
 Configure your parachain for cross-chain communication using XCM (Cross-Consensus Messaging).
 
-|                                                          Tutorial                                                          |                      Description                       |
-|:--------------------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------:|
-|     [Open HRMP Channels Between Parachains](/parachains/interoperability/channels-between-parachains/){target=\_blank}     | Establish communication channels with other parachains |
-| [Open HRMP Channels with System Parachains](/parachains/interoperability/channels-with-system-parachains/){target=\_blank} |   Connect with Asset Hub and other system parachains   |
+|                                                  Tutorial                                                  |                      Description                       |
+| :--------------------------------------------------------------------------------------------------------: | :----------------------------------------------------: |
+|     [Open HRMP Channels Between Parachains](/parachains/interoperability/channels-between-parachains/)     | Establish communication channels with other parachains |
+| [Open HRMP Channels with System Parachains](/parachains/interoperability/channels-with-system-parachains/) |   Connect with Asset Hub and other system parachains   |
 
 ## Integrations
 
 Integrate your parachain with essential ecosystem tools and services.
 
-|                            Tutorial                            |                      Description                       |
-|:--------------------------------------------------------------:|:------------------------------------------------------:|
-|  [Wallets](/parachains/integrations/wallets/){target=\_blank}  |     Integrate wallet support for user interactions     |
-| [Indexers](/parachains/integrations/indexers/){target=\_blank} | Set up indexing solutions for querying blockchain data |
-|  [Oracles](/parachains/integrations/oracles/){target=\_blank}  |    Connect your parachain to off-chain data sources    |
+|                    Tutorial                    |                      Description                       |
+| :--------------------------------------------: | :----------------------------------------------------: |
+|  [Wallets](/parachains/integrations/wallets/)  |     Integrate wallet support for user interactions     |
+| [Indexers](/parachains/integrations/indexers/) | Set up indexing solutions for querying blockchain data |
+|  [Oracles](/parachains/integrations/oracles/)  |    Connect your parachain to off-chain data sources    |
 
 ## Additional Resources
 
-- [Polkadot SDK Documentation](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/index.html){target=\_blank}
-- [Polkadot Wiki - Parachains](https://wiki.polkadot.network/docs/learn-parachains/){target=\_blank}
+- [Polkadot SDK Documentation](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/index.html)
+- [Polkadot Wiki - Parachains](https://wiki.polkadot.network/docs/learn-parachains/)
 
 
 ---
@@ -11741,139 +11852,132 @@ Page Title: Polkadot Hub Assets
 - Canonical (HTML): https://docs.polkadot.com/reference/polkadot-hub/assets/
 - Summary: Learn about asset management on Polkadot Hub, including on-chain assets, foreign asset integration, and XCM for cross-chain asset transfers.
 
-## Asset Management
+# Assets on Polkadot Hub
 
 ## Introduction
 
-Polkadot Hub is Polkadot's system parachain for issuing and managing on-chain assets. While the Relay Chain provides security, Polkadot Hub handles asset logic—minting, burning, transfers, and metadata—in a cost-efficient environment.
+Polkadot Hub is Polkadot's system parachain for issuing and managing on-chain assets. While the relay chain provides security, Polkadot Hub handles asset logic—minting, burning, transfers, and metadata—efficiently and cost-effectively.
 
-It's worth noting that Polkadot Hub also supports EVM and PVM smart contracts. This means assets can be managed not only through the native Assets pallet, but also using familiar ERC-20 contract standards.
+Polkadot Hub supports native assets issued on the parachain and foreign assets from other chains, both of which can move seamlessly across the network via XCM.
 
-Built for interoperability, it enables cross-chain asset transfers with XCM and supports foreign asset registration from other parachains. This guide covers core asset operations, XCM transfers, and developer tooling such as [API Sidecar](#api-sidecar) and [`TxWrapper`](#txwrapper).
+This guide explains how assets are created, managed, and moved across chains, including key operations, roles, and the differences between native and foreign assets.
 
-## Asset Basics
+## Why Use Polkadot Hub?
 
-The Polkadot Relay Chain supports only its native token (DOT), so Polkadot Hub provides a standardized framework for creating and managing fungible and non-fungible assets. It enables projects to issue tokens, manage supply, and transfer assets across parachains.
+The Polkadot relay chain supports only its native token (DOT). Polkadot Hub fills this gap by providing a standardized framework for creating and managing fungible and non-fungible assets. It enables projects to issue tokens, manage supply, and transfer assets across parachains.
 
-Assets on Polkadot Hub support familiar operations such as minting, burning, transfers, and metadata management, similar to ERC-20 on Ethereum but built directly into Polkadot’s runtime.
+**Key features**:
 
-### Why use Polkadot Hub?
-
+- **Built-in asset operations**: Mint, burn, and transfer like ERC-20 on Ethereum, but native to Polkadot's runtime.
 - **Custom asset creation**: Issue tokens or NFTs with configurable permissions and metadata.
-- **Low fees**: Transactions cost roughly one-tenth of Relay Chain fees.
+- **Low fees**: Transactions cost roughly one-tenth of relay chain fees.
 - **Lower deposits**: Minimal on-chain storage costs for asset data.
 - **Pay fees in any asset**: Users don’t need DOT to transact; supported assets can cover fees.
 - **Cross-chain ready**: Assets can be transferred to other parachains using XCM.
 
-### Asset structure
+## Types of Assets
+
+Polkadot Hub supports two types of assets:
+
+- **Native assets**: Tokens and NFTs issued directly on Polkadot Hub using the Assets pallet. These assets benefit from the platform's custom features, such as configurable permissions and low fees
+- **Foreign assets**: Tokens originating from other Polkadot parachains or external networks (like Ethereum, via bridges). Once registered on Polkadot Hub, they are treated similarly to native assets.
+
+## Asset Structure
 
 Each asset is identified by a unique ID and stores:
 
 - Asset administrators
 - Total supply and holder count
 - Minimum balance configuration
-- **Sufficiency** – Whether the asset can keep an account alive without DOT
+- Sufficiency–whether the asset can keep an account alive without DOT
 - Metadata (name, symbol, decimals)
 
 If a balance falls below the configured minimum, it may be removed as “dust.” This ensures efficient storage while giving developers control over asset economics.
 
-## Assets Pallet
+## How Native Assets Work
 
-The Assets pallet in the Polkadot SDK provides the core logic behind fungible assets on Polkadot Hub. It enables developers to create and manage asset classes with configurable permissions. 
+Native assets on Polkadot Hub are created and managed via the Assets pallet from the Polkadot SDK. This pallet defines the runtime logic for issuing, configuring, and administering fungible assets with customizable permissions.
 
-The pallet supports both permissioned and permissionless asset creation, making it suitable for simple tokens as well as governed assets controlled by teams or DAOs.
+It supports both permissioned and permissionless asset creation, enabling everything from simple user-issued tokens to governed assets controlled by teams or DAOs.
 
-For full API details, see the [Assets Pallet Rust docs](https://paritytech.github.io/polkadot-sdk/master/pallet_assets/index.html){target=\_blank}.
+For implementation details, see the [Assets Pallet Rust docs](https://paritytech.github.io/polkadot-sdk/master/pallet_assets/index.html){target=\_blank}.
 
-### Key Features
+### Asset Operations
 
-The Assets pallet includes:
+The Assets pallet provides both state-changing operations and read-only queries for full lifecycle management of assets.
+
+Core operations include:
 
 - **Asset issuance**: Create new assets and assign initial supply.
 - **Transfers**: Move assets between accounts with balance tracking.
-- **Freezing**: Lock an account’s balance to prevent transfers.
 - **Burning**: Reduce total supply by destroying tokens.
-- **Non-custodial transfers**: Approve transfers on behalf of another account without giving up custody.
+- **Delegated transfers**: Approve transfers on behalf of another account without giving up custody.
+- **Freezing and thawing**: Temporarily lock and unlock an account's balance.
 
-!!! note "Main Functions"
-    For the full list of supported extrinsics, see the  
-    [`pallet-assets` dispatchable functions reference](https://docs.rs/pallet-assets/latest/pallet_assets/pallet/enum.Call.html){target=\_blank}.
+For a complete list of extrinsics, see the [`pallet-assets` dispatchable functions reference](https://docs.rs/pallet-assets/latest/pallet_assets/pallet/enum.Call.html){target=\_blank}.
 
-### Querying Functions
+Data queries make it possible to:
 
-The Assets pallet also provides read-only functions to retrieve on-chain asset data, commonly used in dApps and backend services:
+- Check account balances and total supply.
+- Retrieve asset metadata and configuration details.
+- Inspect account and asset status on-chain.
 
-- **`balance(asset_id, account)`** – Retrieves the balance of a given asset for a specified account. Useful for checking the holdings of an asset class across different accounts.
-- **`total_supply(asset_id)`** – RReturns the total supply of the asset identified by asset_id. Allows users to verify how much of the asset exists on-chain.
+For a full list of queries, see the [Pallet reference](https://docs.rs/pallet-assets/latest/pallet_assets/pallet/struct.Pallet.html){target=_blank}.
 
-Additional queries include metadata lookups, account status, and asset details. See the full list in the [Pallet reference](https://docs.rs/pallet-assets/latest/pallet_assets/pallet/struct.Pallet.html){target=_blank}.
-
-### Permission Models and Roles
+### Roles and Permissions
 
 The Assets pallet uses role-based permissions to control who can manage different parts of an asset’s lifecycle:
 
-- **Owner**: Has overarching control, including destroying an entire asset class. Owners can also set or update the Issuer, Freezer, and Admin roles.
-- **Admin**: Can freeze (preventing transfers) and forcibly transfer assets between accounts. Admins also have the power to reduce the balance of an asset class across arbitrary accounts.
+- **Owner**: Overarching control, including destroying an asset class; can set or update Issuer, Freezer, and Admin roles.
+- **Admin**: Can freeze assets and forcibly transfer balances between accounts. Admins can also reduce the balance of an asset class across arbitrary accounts.
 - **Issuer**: Responsible for minting new tokens. When new assets are created, the Issuer is the account that controls their distribution to other accounts.
 - **Freezer**: Can lock the transfer of assets from an account, preventing the account holder from moving their balance.
 
 These roles allow projects to enforce governance and security policies around their assets.
 
-### Asset Freezing
+### Freezing Assets
 
 Assets can be temporarily locked to prevent transfers from specific accounts. This is useful for dispute resolution, fraud prevention, or compliance controls.
 
-Only the **Freezer** role can perform freezing actions:
+**How it works**:
 
-- **`freeze(asset_id, account)`**: Locks the specified asset of the account. While the asset is frozen, no transfers can be made from the frozen account.
-- **`thaw(asset_id, account)`**: Corresponding function for unfreezing, allowing the asset to be transferred again.
+- Only authorized parties can freeze or unfreeze (thaw) assets.
+- Freezing pauses the movement of the asset without burning or removing it.
+- Once thawed, the asset can be transferred normally.
 
-Freezing does not burn or remove assets. It simply pauses their movement until re-enabled.
+Freezing provides a safe way to control asset flow while maintaining full ownership.
 
-## Non-Custodial Transfers (Approval API)
+**Key functions**: `freeze` and `thaw`.
 
-The Assets pallet supports delegated transfers using an Approval API. This lets one account authorize another to transfer a limited amount of its assets—without handing over full control. It’s useful for escrow logic, automated payments, and multi-party dApps.
+### Delegated Transfers
 
-Key functions:
+Polkadot Hub supports delegated asset transfers, allowing one account to authorize another to move a limited amount of its assets—without giving up full control. This is useful for escrow logic, automated payments, and multi-party applications.
 
-- **`approve_transfer(asset_id, delegate, amount)`**: Approves a delegate to transfer up to a certain amount of the asset on behalf of the original account holder.
-- **`cancel_approval(asset_id, delegate)`**: Cancels a previous approval for the delegate. Once canceled, the delegate no longer has permission to transfer the approved amount.
-- **`transfer_approved(asset_id, owner, recipient, amount)`**: Executes the approved asset transfer from the owner’s account to the recipient. The delegate account can call this function once approval is granted.
+**How it works**:
 
-These delegated operations make it easier to manage multi-step transactions and dApps that require complex asset flows between participants.
+- An account can grant permission to another account to transfer a specific amount of its assets.
+- Permissions can be revoked at any time, preventing further transfers.
+- Authorized accounts can execute transfers on behalf of the original owner within the approved limits.
 
-## Foreign Assets
+Delegated transfers simplify multi-step transactions and enable complex asset flows.
 
-Foreign assets are tokens that originate outside Polkadot Hub—either from other Polkadot parachains or from external networks like Ethereum via bridges. 
+**Key functions**: `approve_transfer`, `cancel_approval`, and `transfer_approved`.
 
-Once registered on Polkadot Hub by the originating chain’s root origin, these assets can be held, transferred, and used just like native assets within the Polkadot ecosystem.
+## How Foreign Assets Work
 
-### Handling Foreign Assets
+Foreign assets are assets originating from other chains and are managed on Polkadot Hub via the Foreign Assets pallet. This pallet provides similar operations as the native Assets pallet, enabling transfers, balance checks, and other standard asset operations. Most operations—like transfers and balance queries—use the same API, but with a few key differences:
 
-Foreign assets are managed by the **Foreign Assets pallet**, which functions similarly to the standard Assets pallet. Most operations—like transfers and balance queries—use the same API, but with a few key differences:
+- **Asset Identifier**: Foreign assets use an XCM multilocation as their identifier, rather than a numeric AssetId. This ensures assets from different chains can be referenced and moved safely across parachains.
 
-- **Asset Identifier**: Unlike native assets, foreign assets are identified using an XCM Multilocation rather than a simple numeric AssetId. This multilocation identifier represents the cross-chain location of the asset and provides a standardized way to reference it across different parachains and relay chains.
-- **Transfers**: Once registered in the Polkadot Hub, foreign assets can be transferred between accounts, just like native assets. Users can also send these assets back to their originating blockchain if supported by the relevant cross-chain messaging mechanisms.
+- **Transfers**: Once registered on Polkadot Hub, foreign assets can be transferred between accounts just like native assets. If supported, they can also be returned to their original blockchain using cross-chain messaging.
 
 This unified interface makes it easy for dApps to handle both native and cross-chain assets.
 
-## Assets & XCM 
+## Moving Assets Across Chains
 
-Cross-chain asset transfers in Polkadot Hub use **XCM (Cross-Consensus Messaging)**. Monitoring these transfers is essential to verify asset movement between parachains and the Relay Chain.
+Polkadot Hub enables assets to move safely between parachains and the relay chain using XCM (Cross-Consensus Messaging). XCM ensures assets can move securely between chains while preserving ownership and traceability
 
-### Monitoring Successful Transfers
-- Watch for inbound asset events on the **Relay Chain or Polkadot Hub**.
-- Key event: **`balances.minted`** – confirms assets were received.
-- Track each block and filter for this event to detect deposits and verify the target account.
-
-## Tracing Transfer Origins
-To trace where a transfer came from:
-1. Check the block where the `balances.minted` event was emitted.
-2. Locate the **`messageQueue.Processed`** event.
-3. Use the **message `Id`** from this event to correlate the XCM message across chains.
-
-!!! note
-    To learn more about **Asset Transfers with XCM**, please refer to the [XCM Get Started](/parachains/interoperability/get-started.md) page.
+To learn more about asset transfers with XCM, please refer to the [Introduction to XCM](/parachains/interoperability/get-started/) page.
 
 
 ---
@@ -11882,49 +11986,25 @@ Page Title: Polkadot Hub Smart Contracts
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-polkadot-hub-smart-contracts.md
 - Canonical (HTML): https://docs.polkadot.com/reference/polkadot-hub/smart-contracts/
-- Summary: Learn how to build smart contracts on Polkadot Hub using PolkaVM and REVM, supporting both native Polkadot development and Ethereum compatibility.
+- Summary: Learn how Polkadot Hub supports smart contracts through the REVM, a Rust-based Ethereum Virtual Machine compatible runtime.
 
-# Polkadot Hub Smart Contracts
+# Smart Contracts on Polkadot Hub
 
 !!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 ## Introduction
 
-Polkadot’s Relay Chain does not support smart contracts directly, so developers build contract-based applications on parachains that provide execution environments. Polkadot Hub is one of those parachains, offering flexible smart contract capabilities alongside native asset management.
+Polkadot’s relay chain does not support smart contracts directly. Instead, developers deploy contract-based applications on parachains that provide execution environments. Polkadot Hub supports smart contracts through the REVM, a Rust-based Ethereum Virtual Machine compatible runtime.
 
-## Building a Smart Contract
+REVM enables developers to run standard Ethereum bytecode on Polkadot Hub, giving teams a path to migrate existing Solidity contracts while interacting with on-chain assets and other parachains via XCM.
 
-Polkadot Hub supports multiple smart contract environments, giving developers the freedom to choose the workflow and tooling that best fits their project:
+This guide explains how smart contracts are deployed, executed, and integrated on Polkadot Hub using REVM.
 
-- **PolkaVM**: A next-generation virtual machine designed specifically for Polkadot. Built on a high-performance [RISC-V-based register architecture](https://en.wikipedia.org/wiki/RISC-V){target=_blank}, PolkaVM enables fast, scalable execution and is optimized for modern smart contract development.
-- **REVM**: The [REVM backend](https://github.com/bluealloy/revm){target=_blank} brings a full Rust implementation of the EVM to Polkadot Hub. This allows developers to deploy existing Solidity contracts without modification, preserving compatibility with Ethereum tools and libraries.
 
-Each of these environments is fully compatible with Polkadot Hub, giving teams the option to reuse Ethereum code, build with Rust security guarantees, or explore high-performance innovation with PolkaVM.
-
-### PolkaVM Contracts
-
-PolkaVM is Polkadot Hub’s native, high-performance smart contract engine. Instead of emulating EVM bytecode, it executes contracts compiled to a RISC-V instruction set, giving tighter control over execution, metering, and parallelization while staying friendly to Ethereum-style development.
-
-**What it enables for developers**
-- **Ethereum-compatible development** – Write contracts in Solidity and use familiar tooling (e.g., Hardhat/Foundry workflows) with PolkaVM targets.
-- **Fast, predictable execution** – RISC-V bytecode is designed for efficient interpretation and careful gas/weight metering within the Substrate runtime.
-- **Better observability** – Substrate events + contract logs for clean indexing and debugging.
-
-**How it works (at a glance)**
-
-1. **Author & compile** – Your Solidity contract is compiled for PolkaVM (RISC-V target), producing bytecode plus ABI.
-2. **Deploy** – Submit a signed extrinsic to Polkadot Hub; collators include it in a parachain block.
-3. **Execute** – PolkaVM runs the contract code, mapping gas ↔ weight and persisting state via Substrate storage.
-4. **Integrate** – Contracts can interact with Polkadot Hub pallets and send/receive XCM messages for cross-chain actions.
-5. **Finalize & index** – The Relay Chain finalizes the block; events/logs are available to indexers and UIs.
-
-**When to choose PolkaVM**
-
-- You want **max performance** and tighter execution control than a traditional EVM.
-- You plan to **compose with Substrate pallets** (assets, governance) and **XCM** frequently.
-- You prefer a path that’s **Solidity-friendly** but optimized for Polkadot’s architecture.
 
 ### REVM Contracts
+
+
 
 REVM brings full EVM compatibility to Polkadot Hub through a fast, memory-safe Rust implementation of the Ethereum Virtual Machine. Unlike PolkaVM, which compiles contracts to RISC-V for native execution, REVM executes standard Ethereum bytecode directly—making it ideal for teams who want to migrate existing Solidity projects to Polkadot with minimal changes.
 
@@ -11935,10 +12015,6 @@ With REVM, developers can:
 - Interact with other parachains and on-chain assets using XCM and Polkadot Hub features.
 
 REVM builds on Rust’s safety guarantees and performance optimizations while retaining full opcode compatibility with the EVM. This provides a reliable path for Ethereum-native developers to access Polkadot’s cross-chain ecosystem.
-
-For more details, explore the REVM integration in the Polkadot Hub smart contract documentation.
-
-If you want to learn more about the dual virtual stack please go to the [DualVM Stack](polkadot-docs/smart-contracts/for-eth-devs/dual-vm-stack.md){target=_blank}.
 
 
 ---
@@ -13933,6 +14009,234 @@ To stop the local node:
     Build your own custom pallet for Polkadot SDK-based blockchains! Follow this step-by-step guide to create and configure a simple counter pallet from scratch.
 
     [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/)
+
+</div>
+
+
+---
+
+Page Title: Set Up the Polkadot SDK Parachain Template
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/parachains-launch-a-parachain-set-up-the-parachain-template.md
+- Canonical (HTML): https://docs.polkadot.com/parachains/launch-a-parachain/set-up-the-parachain-template/
+- Summary: Learn how to set up and run the Polkadot SDK Parachain Template locally, creating a ready-to-customize foundation for your parachain.
+
+# Set Up the Polkadot SDK Parachain Template
+
+## Introduction
+
+The [Polkadot SDK](https://github.com/paritytech/polkadot-sdk){target=\_blank} includes several [templates](/parachains/customize-runtime/#starting-templates){target=\_blank} designed to help you quickly start building your own blockchain. Each template offers a different level of configuration, from minimal setups to feature-rich environments, allowing you to choose the foundation that best fits your project's needs.
+
+Among these, the [Parachain Template](https://github.com/paritytech/polkadot-sdk-parachain-template){target=\_blank} provides a preconfigured runtime with commonly used pallets, making it an ideal starting point for most parachain development projects.
+
+This guide walks you through the full process of working with this template. You will:
+
+- Set up the Polkadot SDK Parachain Template.
+- Understand the project structure and key components.
+- Verify your template is ready for development.
+- Run the parachain template locally in development mode.
+
+By the end of this guide, you'll have a working template ready to customize and deploy as a parachain.
+
+## Prerequisites
+
+Before getting started, ensure you have done the following:
+
+- Completed the [Install Polkadot SDK Dependencies](/reference/tools/polkadot-sdk/install/){target=\_blank} guide and successfully installed [Rust](https://www.rust-lang.org/){target=\_blank} and the required packages to set up your development environment
+
+For this tutorial series, you need to use Rust `1.86`. Newer versions of the compiler may not work with this parachain template version.
+
+Run the following commands to set up the correct Rust version:
+
+=== "macOS"
+
+    ```bash
+    rustup install 1.86
+    rustup default 1.86
+    rustup target add wasm32-unknown-unknown --toolchain 1.86-aarch64-apple-darwin
+    rustup component add rust-src --toolchain 1.86-aarch64-apple-darwin
+    ```
+
+=== "Ubuntu"
+
+    ```bash
+    rustup toolchain install 1.86.0
+    rustup default 1.86.0
+    rustup target add wasm32-unknown-unknown --toolchain 1.86.0
+    rustup component add rust-src --toolchain 1.86.0
+    ```
+
+## Polkadot SDK Utility Tools
+
+This tutorial requires two essential tools:
+
+- [**Chain spec builder**](https://crates.io/crates/staging-chain-spec-builder/10.0.0){target=\_blank}: A Polkadot SDK utility for generating chain specifications. Refer to the [Generate Chain Specs](/develop/parachains/deployment/generate-chain-specs/){target=\_blank} documentation for detailed usage.
+    
+    Install it by executing the following command:
+    
+    ```bash
+    cargo install --locked staging-chain-spec-builder@10.0.0
+    ```
+
+    This command installs the `chain-spec-builder` binary.
+
+- [**Polkadot Omni Node**](https://crates.io/crates/polkadot-omni-node/0.5.0){target=\_blank}: A white-labeled binary, released as a part of Polkadot SDK that can act as the collator of a parachain in production, with all the related auxiliary functionalities that a normal collator node has: RPC server, archiving state, etc. Moreover, it can also run the Wasm blob of the parachain locally for testing and development.
+
+    To install it, run the following command:
+
+    ```bash
+    cargo install --locked polkadot-omni-node@0.5.0
+    ```
+
+    This command installs the `polkadot-omni-node` binary.
+
+## Clone the Template
+
+The [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk-parachain-template){target=\_blank} provides a ready-to-use development environment for building with the [Polkadot SDK](https://github.com/paritytech/polkadot-sdk){target=\_blank}. Follow these steps to set up the template:
+
+1. Clone the template repository:
+
+    ```bash
+    git clone https://github.com/paritytech/polkadot-sdk-parachain-template.git parachain-template
+    ```
+
+2. Navigate into the project directory:
+
+    ```bash
+    cd parachain-template
+    ```
+
+## Explore the Project Structure
+
+Before building the template, take a moment to familiarize yourself with its structure. Understanding this organization will help you navigate the codebase as you develop your parachain.
+
+The template follows a standard Polkadot SDK project layout:
+
+```text
+parachain-template/
+├── node/              # Node implementation and client
+├── pallets/           # Custom pallets for your parachain
+├── runtime/           # Runtime configuration and logic
+├── Cargo.toml         # Workspace configuration
+└── README.md          # Documentation
+```
+
+Key directories explained:
+
+- **runtime/**: Contains your parachain's state transition function and pallet configuration. This is where you'll define what your blockchain can do.
+- **node/**: Houses the client implementation that runs your blockchain, handles networking, and manages the database.
+- **pallets/**: Where you'll create custom business logic modules (pallets) for your specific use case.
+- **Cargo.toml**: The workspace configuration that ties all components together.
+
+!!!note
+    The runtime is compiled to WebAssembly (Wasm), enabling forkless upgrades. The node binary remains constant while the runtime can be updated on-chain.
+
+## Compile the Runtime
+
+Now that you understand the template structure, let's compile the runtime to ensure everything is working correctly.
+
+1. Compile the runtime:
+
+    ```bash
+    cargo build --release --locked
+    ```
+
+    !!!tip
+        Initial compilation may take several minutes, depending on your machine specifications. Use the `--release` flag for improved runtime performance compared to the default `--debug` build. If you need to troubleshoot issues, the `--debug` build provides better diagnostics.
+        
+        For production deployments, consider using a dedicated `--profile production` flag - this can provide an additional 15-30% performance improvement over the standard `--release` profile.
+
+2. Upon successful compilation, you should see output indicating the build was successful. The compiled runtime will be located at:
+    
+    `./target/release/wbuild/parachain-template-runtime/parachain_template_runtime.compact.compressed.wasm`
+
+## Verify the Build
+
+After compilation completes, verify that the runtime was created successfully by checking for the Wasm blob:
+
+```bash
+ls -la ./target/release/wbuild/parachain-template-runtime/
+```
+
+You should see the `parachain_template_runtime.compact.compressed.wasm` file in the output, confirming the build was successful.
+
+## Run the Node Locally
+
+After successfully compiling your runtime, you can spin up a local chain and produce blocks. This process will start your local parachain using the Polkadot Omni Node and allow you to interact with it. You'll first need to generate a chain specification that defines your network's identity, initial connections, and genesis state, providing the foundational configuration for how your nodes connect and what initial state they agree upon.
+
+Follow these steps to launch your node in development mode:
+
+1. Generate the chain specification file of your parachain:
+
+    ```bash
+    chain-spec-builder create -t development \
+    --relay-chain paseo \
+    --para-id 1000 \
+    --runtime ./target/release/wbuild/parachain-template-runtime/parachain_template_runtime.compact.compressed.wasm \
+    named-preset development
+    ```
+
+2. Start the Omni Node with the generated chain spec. You'll start it in development mode (without a relay chain config), producing and finalizing blocks:
+
+    ```bash
+    polkadot-omni-node --chain ./chain_spec.json --dev
+    ```
+
+    The `--dev` option does the following:
+
+    - Deletes all active data (keys, blockchain database, networking information) when stopped.
+    - Ensures a clean working state each time you restart the node.
+
+3. Verify that your node is running by reviewing the terminal output. You should see log messages indicating block production and finalization.
+
+4. Confirm that your blockchain is producing new blocks by checking if the number after `finalized` is increasing in the output.
+
+The details of the log output will be explored in a later tutorial. For now, knowing that your node is running and producing blocks is sufficient.
+
+## Interact with the Node
+
+When running the template node, it's accessible by default at `ws://localhost:9944`. To interact with your node using the [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} interface, follow these steps:
+
+1. Open [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} in your web browser and click the network icon (which should be the Polkadot logo) in the top left corner:
+    
+    ![](/images/parachains/launch-a-parachain/set-up-the-parachain-template/parachain-template-01.webp)
+
+2. Connect to your local node:
+
+    1. Scroll to the bottom and select **Development**.
+    2. Choose **Custom**.
+    3. Enter `ws**: //localhost:9944` in the **custom endpoint** input field.
+    4. Click the **Switch** button.
+    
+    ![](/images/parachains/launch-a-parachain/set-up-the-parachain-template/parachain-template-02.webp)
+
+3. Once connected, you should see **parachain-template-runtime** in the top left corner, with the interface displaying information about your local blockchain.
+    
+    ![](/images/parachains/launch-a-parachain/set-up-the-parachain-template/parachain-template-03.webp)
+
+You are now connected to your local node and can interact with it through the Polkadot.js Apps interface. This tool enables you to explore blocks, execute transactions, and interact with your blockchain's features. For in-depth guidance on using the interface effectively, refer to the [Polkadot.js Guides](https://wiki.polkadot.com/general/polkadotjs/){target=\_blank} available on the Polkadot Wiki.
+
+## Stop the Node
+
+When you're done exploring your local node, you can stop it to remove any state changes you've made. Since you started the node with the `--dev` option, stopping the node will purge all persistent block data, allowing you to start fresh the next time.
+
+To stop the local node:
+
+1. Return to the terminal window where the node output is displayed.
+2. Press `Control-C` to stop the running process.
+3. Verify that your terminal returns to the prompt in the `parachain-template` directory.
+
+## Where to Go Next
+
+<div class="grid cards" markdown>
+
+-   <span class="badge tutorial">Tutorial</span> __Deploy to Polkadot__
+
+    ---
+
+    Learn how to deploy your parachain template to a relay chain testnet. Configure your chain specification, register as a parachain, and start producing blocks.
+
+    [:octicons-arrow-right-24: Get Started](/parachains/launch-a-parachain/deploy-to-polkadot.md)
 
 </div>
 

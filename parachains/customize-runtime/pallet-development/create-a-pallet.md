@@ -18,6 +18,7 @@ In this guide, you'll learn how to build a custom counter pallet from scratch th
 - Custom error handling
 - Storage management
 - User interaction tracking
+- Genesis configuration for initial state
 
 ## Prerequisites
 
@@ -36,7 +37,8 @@ As you build your custom pallet, you'll work with these key sections:
 3. **Runtime events** - Define signals that communicate state changes
 4. **Runtime errors** - Define error types returned from dispatchable calls
 5. **Runtime storage** - Declare on-chain storage items for your pallet's state
-6. **Dispatchable functions (extrinsics)** - Create callable functions for user interactions
+6. **Genesis configuration** - Set initial blockchain state
+7. **Dispatchable functions (extrinsics)** - Create callable functions for user interactions
 
 !!!note
     For additional macros beyond those covered here, refer to the [pallet_macros](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/index.html){target=\_blank} section of the Polkadot SDK Docs.
@@ -277,6 +279,50 @@ pub type UserInteractions<T: Config> = StorageMap<_, Blake2_128Concat, T::Accoun
 !!!note
     For more storage types and patterns, explore the [Polkadot SDK storage documentation](https://paritytech.github.io/polkadot-sdk/master/frame_support/storage/types/index.html){target=\_blank}.
 
+## Configure Genesis State
+
+Genesis configuration allows you to set the initial state of your pallet when the blockchain first starts. This is essential for both production networks and testing environments.
+
+Add the [`#[pallet::genesis_config]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.genesis_config.html){target=\_blank} and [`#[pallet::genesis_build]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.genesis_build.html){target=\_blank} sections after your storage items:
+
+```rust
+#[pallet::genesis_config]
+#[derive(frame_support::DefaultNoBound)]
+pub struct GenesisConfig<T: Config> {
+    /// Initial value for the counter
+    pub initial_counter_value: u32,
+    /// Pre-populated user interactions
+    pub initial_user_interactions: Vec<(T::AccountId, u32)>,
+}
+
+#[pallet::genesis_build]
+impl<T: Config> BuildGenesisConfig for GenesisConfig<T> {
+    fn build(&self) {
+        // Set the initial counter value
+        CounterValue::<T>::put(self.initial_counter_value);
+        
+        // Set initial user interactions
+        for (account, count) in &self.initial_user_interactions {
+            UserInteractions::<T>::insert(account, count);
+        }
+    }
+}
+```
+
+**Genesis configuration components:**
+
+- **`GenesisConfig` struct** - Defines what can be configured at genesis
+- **`#[derive(DefaultNoBound)]`** - Provides sensible defaults (empty vec and 0 for the counter)
+- **`BuildGenesisConfig` implementation** - Executes the logic to set initial storage values
+- **`build()` method** - Called once when the blockchain initializes
+
+!!!note "When to Use Genesis Configuration"
+    Genesis configuration is particularly useful for:
+    - Setting initial parameter values
+    - Pre-allocating resources or accounts
+    - Establishing starting conditions for testing
+    - Configuring network-specific initial state
+
 ## Implement Dispatchable Functions
 
 Dispatchable functions (extrinsics) allow users to interact with your pallet and trigger state changes. Each function must:
@@ -466,6 +512,23 @@ If you encounter errors, carefully review the code against this guide. Once the 
         #[pallet::storage]
         pub type UserInteractions<T: Config> = StorageMap<_, Blake2_128Concat, T::AccountId, u32, ValueQuery>;
 
+        #[pallet::genesis_config]
+        #[derive(frame_support::DefaultNoBound)]
+        pub struct GenesisConfig<T: Config> {
+            pub initial_counter_value: u32,
+            pub initial_user_interactions: Vec<(T::AccountId, u32)>,
+        }
+
+        #[pallet::genesis_build]
+        impl<T: Config> BuildGenesisConfig for GenesisConfig<T> {
+            fn build(&self) {
+                CounterValue::<T>::put(self.initial_counter_value);
+                for (account, count) in &self.initial_user_interactions {
+                    UserInteractions::<T>::insert(account, count);
+                }
+            }
+        }
+
         #[pallet::call]
         impl<T: Config> Pallet<T> {
             #[pallet::call_index(0)]
@@ -593,6 +656,12 @@ Now that your custom pallet is complete, integrate it into the parachain runtime
 !!!warning
     Each pallet must have a unique index. Duplicate indices will cause compilation errors. Choose an index that doesn't conflict with existing pallets.
 
+### Configure Genesis for Your Runtime
+
+To set initial values for your pallet when the chain starts, you'll need to configure the genesis in your chain specification. This is typically done in the `node/src/chain_spec.rs` file or when generating the chain specification.
+
+For development and testing, you can use the default values provided by the `#[derive(DefaultNoBound)]` macro. For production networks, you'll want to explicitly set these values in your chain specification.
+
 ### Verify Runtime Compilation
 
 Compile the runtime to ensure everything is configured correctly:
@@ -656,6 +725,7 @@ You've successfully created and integrated a custom pallet into a Polkadot SDK-b
 - **Storage** - Implemented on-chain state using `StorageValue` and `StorageMap`
 - **Events** - Created signals to communicate state changes to external systems
 - **Errors** - Established clear error handling with descriptive error types
+- **Genesis** - Configured initial blockchain state for both production and testing
 - **Dispatchables** - Built callable functions with proper validation and access control
 - **Integration** - Successfully added the pallet to a runtime and tested it locally
 
@@ -672,7 +742,5 @@ These components form the foundation for developing sophisticated blockchain log
     Learn to create a mock runtime environment for testing your pallet in isolation before integration.
 
     [:octicons-arrow-right-24: Continue](/parachains/customize-runtime/pallet-development/mock-runtime/)
-
--   <span class="badge guide">Guide</span> __Pallet Unit Testing__
 
 </div>

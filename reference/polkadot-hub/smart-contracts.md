@@ -26,7 +26,7 @@ Polkadot's smart contract platform supports two distinct virtual machine (VM) ar
 
 Each of these environments is fully compatible with Polkadot Hub, giving teams the option to reuse Ethereum code, build with Rust security guarantees, or explore high-performance innovation with PolkaVM.
 
-### PolkaVM Contracts
+### PolkaVM Smart Contracts
 
 PolkaVM is Polkadot Hub’s native, high-performance smart contract engine. Instead of emulating EVM bytecode, it executes contracts compiled to a RISC-V instruction set, giving tighter control over execution, metering, and parallelization while staying friendly to Ethereum-style development.
 

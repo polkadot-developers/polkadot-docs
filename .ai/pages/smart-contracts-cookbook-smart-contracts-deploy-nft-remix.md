@@ -13,11 +13,11 @@ Non-Fungible Tokens (NFTs) represent unique digital assets commonly used for dig
 
 This guide demonstrates how to deploy an [ERC-721](https://eips.ethereum.org/EIPS/eip-721){target=\_blank} NFT contract to [Polkadot Hub](/smart-contracts/overview/#smart-contract-development){target=\_blank}. You'll use [OpenZeppelin's battle-tested NFT implementation](https://github.com/OpenZeppelin/openzeppelin-contracts){target=\_blank} and [Remix](https://remix.ethereum.org/){target=\_blank}, a visual, browser-based environment perfect for rapid prototyping and learning. It requires no local installation and provides an intuitive interface for contract development.
 
-# Prerequisites
+## Prerequisites
 
-- Basic understanding of Solidity programming and NFT standards
-- Test tokens for gas fees (available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank})
-- A wallet with a private key for signing transactions
+- Basic understanding of Solidity programming and NFT standards.
+- Test tokens for gas fees (available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}). See the [step-by-step instructions](/smart-contracts/faucet/#get-test-tokens){target=\_blank}
+- A wallet with a private key for signing transactions.
 
 ## Access Remix
 
@@ -27,7 +27,7 @@ The interface will load with a default workspace containing sample contracts. In
 
 ## Create Your Contract
 
-1. Create a new file `contracts/MyNFT.sol`
+1. Create a new file `contracts/MyNFT.sol`.
 2. Paste the following code:
 
     ```solidity title="contracts/MyNFT.sol"
@@ -52,33 +52,30 @@ The interface will load with a default workspace containing sample contracts. In
     }
     ```
 
-![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/deploy-nft-evm/deploy-nft-evm-1.webp)
+![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/remix/remix-01.webp)
 
 ## Compile
 
-1. Navigate to the **Solidity Compiler** tab (third icon in the left sidebar)
-2. Click **Compile MyNFT.sol** or press `Ctrl+S`
+1. Navigate to the **Solidity Compiler** tab (third icon in the left sidebar).
+2. Click **Compile MyNFT.sol** or press `Ctrl+S`.
 
-![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/deploy-nft-evm/deploy-nft-evm-2.webp)
+![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/remix/remix-02.webp)
 
 Compilation errors and warnings appear in the terminal panel at the bottom of the screen.
 
 ## Deploy
 
-1. Navigate to the **Deploy & Run Transactions** tab
-2. Click the **Environment** dropdown and select **Customize this list**
-3. Add a custom network with the following details:
-   - **Network Name**: Polkadot Hub TestNet
-   - **RPC URL**: `https://testnet-passet-hub-eth-rpc.polkadot.io`
-   - **Chain ID**: `420420422`
-   - **Currency Symbol**: `DOT`
-4. Select **Injected Provider - MetaMask** (ensure your MetaMask wallet is connected to Polkadot Hub TestNet)
-5. In the deploy section, enter the initial owner address in the constructor parameter field
-6. Click **Deploy**
+1. Navigate to the **Deploy & Run Transactions** tab.
+2. Click the **Environment** dropdown, select **Browser Extension**, and click on **Injected Provider - MetaMask**.
 
-![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/deploy-nft-evm/deploy-nft-evm-3.webp)
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/remix/remix-03.webp)
 
-7. Approve the transaction in your MetaMask wallet
+3. In the deploy section, enter the initial owner address in the constructor parameter field.
+4. Click **Deploy**.
+
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/remix/remix-04.webp)
+
+5. Approve the transaction in your MetaMask wallet.
 
 Your deployed contract will appear in the **Deployed Contracts** section, ready for interaction.
 

@@ -332,61 +332,20 @@
   },
   {
     "id": "chain-interactions-send-transactions-interoperability-transfer-assets-parachains",
-    "title": "Transfer Tokens Between Parachains",
+    "title": "chain-interactions-send-transactions-interoperability-transfer-assets-parachains",
     "slug": "chain-interactions-send-transactions-interoperability-transfer-assets-parachains",
     "categories": [
       "Uncategorized"
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/chain-interactions-send-transactions-interoperability-transfer-assets-parachains.md",
     "html_url": "https://docs.polkadot.com/chain-interactions/send-transactions/interoperability/transfer-assets-parachains/",
-    "preview": "This guide walks you through transferring tokens between two parachains using the [ParaSpell XCM SDK](https://paraspell.github.io/docs/){target=\\_blank}. This example utilizes [Asset Hub](/polkadot-protocol/architecture/system-chains/asset-hub/){target=\\_blank} and the [People Chain](/polkadot-protocol/architecture/system-chains/people/){target=\\_blank}. However, the same approach can be applied to transfers between other parachains.",
-    "outline": [
-      {
-        "depth": 2,
-        "title": "Introduction",
-        "anchor": "introduction"
-      },
-      {
-        "depth": 3,
-        "title": "Prerequisites",
-        "anchor": "prerequisites"
-      },
-      {
-        "depth": 2,
-        "title": "Initialize Your Project",
-        "anchor": "initialize-your-project"
-      },
-      {
-        "depth": 2,
-        "title": "Build a Token Transfer Transaction",
-        "anchor": "build-a-token-transfer-transaction"
-      },
-      {
-        "depth": 2,
-        "title": "Perform a Dry Run",
-        "anchor": "perform-a-dry-run"
-      },
-      {
-        "depth": 2,
-        "title": "Verify the Existential Deposit",
-        "anchor": "verify-the-existential-deposit"
-      },
-      {
-        "depth": 2,
-        "title": "Get Transfer Info and Fee Estimates",
-        "anchor": "get-transfer-info-and-fee-estimates"
-      },
-      {
-        "depth": 2,
-        "title": "Next Steps",
-        "anchor": "next-steps"
-      }
-    ],
+    "preview": "TODO",
+    "outline": [],
     "stats": {
-      "chars": 26623,
-      "words": 2267,
-      "headings": 8,
-      "estimated_token_count_total": 5207
+      "chars": 5,
+      "words": 1,
+      "headings": 0,
+      "estimated_token_count_total": 0
     },
     "hash": "sha256:91f59a76dd33641ca2b5bf6d58230f65034fa3cc5f8313525fb57e854a878a56",
     "last_modified": "2025-10-28T14:42:10+00:00",
@@ -394,91 +353,20 @@
   },
   {
     "id": "chain-interactions-send-transactions-pay-fees-with-different-tokens",
-    "title": "Send a Transaction While Paying the Fee with a Different Token",
+    "title": "chain-interactions-send-transactions-pay-fees-with-different-tokens",
     "slug": "chain-interactions-send-transactions-pay-fees-with-different-tokens",
     "categories": [
       "Uncategorized"
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/chain-interactions-send-transactions-pay-fees-with-different-tokens.md",
     "html_url": "https://docs.polkadot.com/chain-interactions/send-transactions/pay-fees-with-different-tokens/",
-    "preview": "The Asset Hub provides a powerful feature that allows users to pay transaction fees using alternative tokens instead of the native token of the chain.",
-    "outline": [
-      {
-        "depth": 2,
-        "title": "Introduction",
-        "anchor": "introduction"
-      },
-      {
-        "depth": 2,
-        "title": "Environment Setup",
-        "anchor": "environment-setup"
-      },
-      {
-        "depth": 2,
-        "title": "Local Asset Hub Setup",
-        "anchor": "local-asset-hub-setup"
-      },
-      {
-        "depth": 2,
-        "title": "Implementation",
-        "anchor": "implementation"
-      },
-      {
-        "depth": 3,
-        "title": "Import Dependencies",
-        "anchor": "import-dependencies"
-      },
-      {
-        "depth": 3,
-        "title": "Define Constants",
-        "anchor": "define-constants"
-      },
-      {
-        "depth": 3,
-        "title": "Create a Signer",
-        "anchor": "create-a-signer"
-      },
-      {
-        "depth": 3,
-        "title": "Setup the Client and API",
-        "anchor": "setup-the-client-and-api"
-      },
-      {
-        "depth": 3,
-        "title": "Create the Transaction",
-        "anchor": "create-the-transaction"
-      },
-      {
-        "depth": 3,
-        "title": "Sign and Submit with Alternative Fee Payment",
-        "anchor": "sign-and-submit-with-alternative-fee-payment"
-      },
-      {
-        "depth": 2,
-        "title": "Full Code",
-        "anchor": "full-code"
-      },
-      {
-        "depth": 2,
-        "title": "Running the Script",
-        "anchor": "running-the-script"
-      },
-      {
-        "depth": 2,
-        "title": "Expected Output",
-        "anchor": "expected-output"
-      },
-      {
-        "depth": 2,
-        "title": "Conclusion",
-        "anchor": "conclusion"
-      }
-    ],
+    "preview": "TODO",
+    "outline": [],
     "stats": {
-      "chars": 9257,
-      "words": 1126,
-      "headings": 14,
-      "estimated_token_count_total": 2132
+      "chars": 5,
+      "words": 1,
+      "headings": 0,
+      "estimated_token_count_total": 0
     },
     "hash": "sha256:1b9efd2fe00b251d3b4054c9cfcb55f9b5a1384238eeaca81a6f1542fc36d75c",
     "last_modified": "2025-10-28T14:42:10+00:00",
@@ -4369,7 +4257,7 @@
       "Dapps"
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-toolkit-api-libraries-polkadart.md",
-    "html_url": "https://docs.polkadot.com/reference/tools/polkadart/",
+    "html_url": "https://docs.polkadot.com/develop/toolkit/api-libraries/polkadart/",
     "preview": "Polkadart is the most comprehensive Dart/Flutter SDK for interacting with Polkadot, Substrate, and other compatible blockchain networks. Designed with a Dart-first approach and type-safe APIs, it provides everything developers need to build powerful decentralized applications.",
     "outline": [
       {
@@ -4937,7 +4825,7 @@
       "Uncategorized"
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-toolkit-interoperability-paraspell-xcm-sdk-transfer-tokens-between-parachains.md",
-    "html_url": "https://docs.polkadot.com/reference/tools/paraspell/transfer-tokens-between-parachains/",
+    "html_url": "https://docs.polkadot.com/develop/toolkit/interoperability/paraspell-xcm-sdk/transfer-tokens-between-parachains/",
     "preview": "This guide walks you through transferring tokens between two parachains using the [ParaSpell XCM SDK](https://paraspell.github.io/docs/){target=\\_blank}. This example utilizes [Asset Hub](/polkadot-protocol/architecture/system-chains/asset-hub/){target=\\_blank} and the [People Chain](/polkadot-protocol/architecture/system-chains/people/){target=\\_blank}. However, the same approach can be applied to transfers between other parachains.",
     "outline": [
       {
@@ -7547,14 +7435,14 @@
   },
   {
     "id": "parachains-customize-runtime-add-existing-pallets",
-    "title": "Add an Existing Pallet to the Runtime",
+    "title": "Add a Pallet to the Runtime",
     "slug": "parachains-customize-runtime-add-existing-pallets",
     "categories": [
       "Parachains"
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/parachains-customize-runtime-add-existing-pallets.md",
     "html_url": "https://docs.polkadot.com/parachains/customize-runtime/add-existing-pallets/",
-    "preview": "The [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk-parachain-template){target=\\_blank} provides a functional runtime that includes default [FRAME](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/frame_runtime/index.html){target=\\_blank} development modules ([pallets](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/frame_runtime/pallet/index.html){target=\\_blank}) to help you get started building a custo",
+    "preview": "The [Polkadot SDK Solochain Template](https://github.com/paritytech/polkadot-sdk-solochain-template){target=\\_blank} provides a functional runtime that includes default FRAME development modules (pallets) to help you get started with building a custom blockchain.",
     "outline": [
       {
         "depth": 2,
@@ -7563,63 +7451,33 @@
       },
       {
         "depth": 2,
-        "title": "Check Prerequisites",
-        "anchor": "check-prerequisites"
+        "title": "Configuring Runtime Dependencies",
+        "anchor": "configuring-runtime-dependencies"
       },
       {
         "depth": 2,
-        "title": "Add an Existing Polkadot SDK Pallet to Your Runtime",
-        "anchor": "add-an-existing-polkadot-sdk-pallet-to-your-runtime"
-      },
-      {
-        "depth": 3,
-        "title": "Add an Existing Pallet as a Dependency",
-        "anchor": "add-an-existing-pallet-as-a-dependency"
-      },
-      {
-        "depth": 3,
-        "title": "Enable Standard Library Features",
-        "anchor": "enable-standard-library-features"
-      },
-      {
-        "depth": 3,
-        "title": "Review the Config Trait",
-        "anchor": "review-the-config-trait"
-      },
-      {
-        "depth": 3,
-        "title": "Implement the Config Trait",
-        "anchor": "implement-the-config-trait"
-      },
-      {
-        "depth": 3,
-        "title": "Add to Runtime Construct",
-        "anchor": "add-to-runtime-construct"
-      },
-      {
-        "depth": 3,
-        "title": "Verify the Runtime Compiles",
-        "anchor": "verify-the-runtime-compiles"
+        "title": "Dependencies for a New Pallet",
+        "anchor": "dependencies-for-a-new-pallet"
       },
       {
         "depth": 2,
-        "title": "Run Your Chain Locally",
-        "anchor": "run-your-chain-locally"
+        "title": "Config Trait for Pallets",
+        "anchor": "config-trait-for-pallets"
       },
       {
         "depth": 3,
-        "title": "Generate a Chain Specification",
-        "anchor": "generate-a-chain-specification"
+        "title": "Utility Pallet Example",
+        "anchor": "utility-pallet-example"
       },
       {
-        "depth": 3,
-        "title": "Start the Parachain Node",
-        "anchor": "start-the-parachain-node"
+        "depth": 2,
+        "title": "Parameter Configuration for Pallets",
+        "anchor": "parameter-configuration-for-pallets"
       },
       {
-        "depth": 3,
-        "title": "Interact with the Pallet",
-        "anchor": "interact-with-the-pallet"
+        "depth": 2,
+        "title": "Pallet Config in the Runtime",
+        "anchor": "pallet-config-in-the-runtime"
       },
       {
         "depth": 2,
@@ -7628,10 +7486,10 @@
       }
     ],
     "stats": {
-      "chars": 11924,
-      "words": 1585,
-      "headings": 14,
-      "estimated_token_count_total": 2724
+      "chars": 11935,
+      "words": 1615,
+      "headings": 8,
+      "estimated_token_count_total": 2598
     },
     "hash": "sha256:93d123cbaaccc2515b4a70be8e1327b4f75b1051d16c5e3daf5a2035af7b7ca3",
     "last_modified": "2025-10-28T14:42:14+00:00",
@@ -7646,7 +7504,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/parachains-customize-runtime-add-pallet-instances.md",
     "html_url": "https://docs.polkadot.com/parachains/customize-runtime/add-pallet-instances/",
-    "preview": "The [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk-parachain-template){target=\\_blank} provides a solid foundation for building custom parachains. While most pallets are typically included as single instances within a runtime, some scenarios benefit from running multiple instances of the same pallet with different configurations. This approach lets you reuse pallet logic without reimplementing it, enabling diverse functionality from a single codebase.",
+    "preview": "Running multiple instances of the same pallet within a runtime is a powerful technique in Polkadot SDK development. This approach lets you reuse pallet functionality without reimplementing it, enabling diverse use cases with the same codebase. The Polkadot SDK provides developer-friendly traits for creating instantiable pallets and, in most cases, handles unique storage allocation for different instances automatically. This guide teaches you how to implement and configure multiple instances of a",
     "outline": [
       {
         "depth": 2,
@@ -7655,43 +7513,13 @@
       },
       {
         "depth": 2,
-        "title": "Check Prerequisites",
-        "anchor": "check-prerequisites"
-      },
-      {
-        "depth": 2,
         "title": "Understanding Instantiable Pallets",
         "anchor": "understanding-instantiable-pallets"
       },
       {
-        "depth": 3,
-        "title": "Identifying an Instantiable Pallet",
-        "anchor": "identifying-an-instantiable-pallet"
-      },
-      {
-        "depth": 3,
-        "title": "How Instance Generics Work",
-        "anchor": "how-instance-generics-work"
-      },
-      {
         "depth": 2,
-        "title": "Add Multiple Instances of a Pallet to Your Runtime",
-        "anchor": "add-multiple-instances-of-a-pallet-to-your-runtime"
-      },
-      {
-        "depth": 3,
-        "title": "Add the Pallet as a Dependency",
-        "anchor": "add-the-pallet-as-a-dependency"
-      },
-      {
-        "depth": 3,
-        "title": "Enable Standard Library Features",
-        "anchor": "enable-standard-library-features"
-      },
-      {
-        "depth": 3,
-        "title": "Review the Config Trait",
-        "anchor": "review-the-config-trait"
+        "title": "Adding Instantiable Pallets to Your Runtime",
+        "anchor": "adding-instantiable-pallets-to-your-runtime"
       },
       {
         "depth": 3,
@@ -7700,53 +7528,13 @@
       },
       {
         "depth": 3,
-        "title": "Create Instance Type Definitions",
-        "anchor": "create-instance-type-definitions"
+        "title": "Configure the Pallet Instances",
+        "anchor": "configure-the-pallet-instances"
       },
       {
         "depth": 3,
-        "title": "Implement Config Trait for First Instance",
-        "anchor": "implement-config-trait-for-first-instance"
-      },
-      {
-        "depth": 3,
-        "title": "Implement Config Trait for Second Instance",
-        "anchor": "implement-config-trait-for-second-instance"
-      },
-      {
-        "depth": 3,
-        "title": "Add Instances to Runtime Construct",
-        "anchor": "add-instances-to-runtime-construct"
-      },
-      {
-        "depth": 3,
-        "title": "Verify the Runtime Compiles",
-        "anchor": "verify-the-runtime-compiles"
-      },
-      {
-        "depth": 2,
-        "title": "Run Your Chain Locally",
-        "anchor": "run-your-chain-locally"
-      },
-      {
-        "depth": 3,
-        "title": "Generate a Chain Specification",
-        "anchor": "generate-a-chain-specification"
-      },
-      {
-        "depth": 3,
-        "title": "Start the Parachain Node",
-        "anchor": "start-the-parachain-node"
-      },
-      {
-        "depth": 3,
-        "title": "Interact with Both Pallet Instances",
-        "anchor": "interact-with-both-pallet-instances"
-      },
-      {
-        "depth": 3,
-        "title": "Test Instance Independence",
-        "anchor": "test-instance-independence"
+        "title": "Add Pallet Instances to the Runtime",
+        "anchor": "add-pallet-instances-to-the-runtime"
       },
       {
         "depth": 2,
@@ -7755,10 +7543,10 @@
       }
     ],
     "stats": {
-      "chars": 17923,
-      "words": 2203,
-      "headings": 21,
-      "estimated_token_count_total": 3811
+      "chars": 6300,
+      "words": 730,
+      "headings": 7,
+      "estimated_token_count_total": 1221
     },
     "hash": "sha256:d83e574726c524fa017236eb5e3b8a0676d598be4da1ce4fe25a60141baeee49",
     "last_modified": "2025-10-28T14:42:14+00:00",
@@ -7850,7 +7638,7 @@
       }
     ],
     "stats": {
-      "chars": 13091,
+      "chars": 13089,
       "words": 1522,
       "headings": 6,
       "estimated_token_count_total": 3091
@@ -8161,10 +7949,10 @@
       }
     ],
     "stats": {
-      "chars": 7941,
-      "words": 631,
+      "chars": 8459,
+      "words": 680,
       "headings": 9,
-      "estimated_token_count_total": 2292
+      "estimated_token_count_total": 2578
     },
     "hash": "sha256:759ed27cf3d473445e33141089b652082c42a2c59eb822d6b506146fd9555e13",
     "last_modified": "2025-10-28T14:42:14+00:00",
@@ -8641,7 +8429,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/parachains-launch-a-parachain-obtain-coretime.md",
     "html_url": "https://docs.polkadot.com/parachains/launch-a-parachain/obtain-coretime/",
-    "preview": "After deploying a parachain to Paseo in the [Deploy on Polkadot](/parachains/launch-a-parachain/deploy-to-polkadot/){target=\\_blank} tutorial, the next critical step is obtaining coretime. Coretime is the mechanism through which validation resources are allocated from the relay chain to your parachain. Your parachain can only produce and finalize blocks on the relay chain by obtaining coretime.",
+    "preview": "Securing coretime is essential for operating a parachain on Polkadot. It provides your parachain with guaranteed computational resources and access to Polkadot's shared security model, ensuring your blockchain can process transactions, maintain its state, and interact securely with other parachains in the network. Without coretime, a parachain cannot participate in the ecosystem or leverage the relay chain's validator set for security.",
     "outline": [
       {
         "depth": 2,
@@ -8655,43 +8443,18 @@
       },
       {
         "depth": 2,
-        "title": "Order On-Demand Coretime",
-        "anchor": "order-on-demand-coretime"
-      },
-      {
-        "depth": 3,
-        "title": "On-Demand Extrinsics",
-        "anchor": "on-demand-extrinsics"
-      },
-      {
-        "depth": 3,
-        "title": "Place an On-Demand Order",
-        "anchor": "place-an-on-demand-order"
+        "title": "Initial Setup Steps",
+        "anchor": "initial-setup-steps"
       },
       {
         "depth": 2,
-        "title": "Purchase Bulk Coretime",
-        "anchor": "purchase-bulk-coretime"
+        "title": "Obtaining Coretime",
+        "anchor": "obtaining-coretime"
       },
       {
         "depth": 3,
-        "title": "Connect Your Wallet to RegionX",
-        "anchor": "connect-your-wallet-to-regionx"
-      },
-      {
-        "depth": 3,
-        "title": "Obtain Coretime Chain Funds",
-        "anchor": "obtain-coretime-chain-funds"
-      },
-      {
-        "depth": 3,
-        "title": "Purchase a Core",
-        "anchor": "purchase-a-core"
-      },
-      {
-        "depth": 3,
-        "title": "Verify Your Purchase",
-        "anchor": "verify-your-purchase"
+        "title": "Bulk Coretime",
+        "anchor": "bulk-coretime"
       },
       {
         "depth": 3,
@@ -8783,10 +8546,10 @@
       }
     ],
     "stats": {
-      "chars": 10608,
-      "words": 1512,
-      "headings": 11,
-      "estimated_token_count_total": 2379
+      "chars": 3713,
+      "words": 489,
+      "headings": 6,
+      "estimated_token_count_total": 744
     },
     "hash": "sha256:637b9460bb65621cbc7c1bff272ea287d5181a983bc61418167959e108e21791",
     "last_modified": "2025-10-28T14:42:14+00:00",
@@ -13944,7 +13707,7 @@
   },
   {
     "id": "reference-tools-paraspell",
-    "title": "ParaSpell XCM SDK",
+    "title": "reference-tools-paraspell",
     "slug": "reference-tools-paraspell",
     "categories": [
       "Uncategorized"
@@ -14038,10 +13801,10 @@
       }
     ],
     "stats": {
-      "chars": 5178,
-      "words": 624,
-      "headings": 10,
-      "estimated_token_count_total": 1084
+      "chars": 5,
+      "words": 1,
+      "headings": 0,
+      "estimated_token_count_total": 0
     },
     "hash": "sha256:7f533abe61586af8438e350c41b741d74a8edb839f9dc4139bc4619ba3748258",
     "last_modified": "2025-10-28T14:42:15+00:00",
@@ -14407,7 +14170,7 @@
       }
     ],
     "stats": {
-      "chars": 3459,
+      "chars": 3457,
       "words": 476,
       "headings": 3,
       "estimated_token_count_total": 558
@@ -17765,7 +17528,7 @@
       "Uncategorized"
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/tutorials-polkadot-sdk-system-chains-asset-hub-send-a-tx-paying-fee-different-token.md",
-    "html_url": "https://docs.polkadot.com/chain-interactions/send-transactions/pay-fees-with-different-tokens/",
+    "html_url": "https://docs.polkadot.com/tutorials/polkadot-sdk/system-chains/asset-hub/send-a-tx-paying-fee-different-token/",
     "preview": "The Asset Hub provides a powerful feature that allows users to pay transaction fees using alternative tokens instead of the native token of the chain.",
     "outline": [
       {

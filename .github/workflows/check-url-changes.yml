@@ -1,72 +1,112 @@
-name: Nav Validator
+name: Check Documentation URL Changes
+
+
 on:
   pull_request:
     branches:
       - master
+
+
 jobs:
-  check-doc-nav-changes:
+  check-url-changes:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout PR branch
+      - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 1
-          ref: ${{ github.event.pull_request.head.ref }}
-          repository: ${{ github.event.pull_request.head.repo.full_name }}
-      - name: Fetch base branch
-        run: git fetch origin ${{ github.event.pull_request.base.ref }} --depth=1
-      - name: Identify .md and .nav changes
+          fetch-depth: 0
+
+
+      - name: Identify deleted and renamed files
         run: |
-          BASE=origin/${{ github.event.pull_request.base.ref }}
-          HEAD=${{ github.event.pull_request.head.sha }}
-          
-          # Markdown changes
-          DELETED_MD=$(git diff --name-status $BASE $HEAD | grep '^D.*\.md$' | cut -f2- || true)
-          RENAMED_MD=$(git diff --name-status $BASE $HEAD | grep '^R.*\.md$' | awk '{print $2 " -> " $3}' || true)
-          
-          # Nav changes
-          DELETED_NAV=$(git diff --name-status $BASE $HEAD | grep '^D.*\.nav\.ya?ml$' | cut -f2- || true)
-          MODIFIED_NAV=$(git diff --name-status $BASE $HEAD | grep -E '^[AM].*\.nav\.ya?ml$' | cut -f2- || true)
-          RENAMED_NAV=$(git diff --name-status $BASE $HEAD | grep '^R.*\.nav\.ya?ml$' | awk '{print $2 " -> " $3}' || true)
-          
-          NAV_CHANGES=""
-          for f in $DELETED_NAV; do NAV_CHANGES+="$f: [DELETED]\n\n"; done
-          for f in $MODIFIED_NAV; do DIFF=$(git diff $BASE $HEAD -- "$f" | grep -E '^[+-]' | grep -vE '^\+\+\+|^---'); NAV_CHANGES+="$f:\n$DIFF\n\n"; done
-          for f in $RENAMED_NAV; do NAV_CHANGES+="$f [RENAMED]\n\n"; done
-          echo "DELETED_MD<<EOF" >> $GITHUB_ENV
-          echo "$DELETED_MD" >> $GITHUB_ENV
+          BASE_REF=origin/${{ github.event.pull_request.base.ref }}
+          HEAD_SHA=${{ github.event.pull_request.head.sha }}
+
+
+          DELETED_FILES=$(git diff --name-status "$BASE_REF" "$HEAD_SHA" | grep '^D.*\.md$' | cut -f2- || true)
+          RENAMED_FILES=$(git diff --name-status "$BASE_REF" "$HEAD_SHA" | grep '^R.*\.md$' | awk '{print $2 " -> " $3}' || true)
+
+
+          NAV_FILES=$(git diff --name-only "$BASE_REF" "$HEAD_SHA" -- '*.nav.yml' '*.nav.yaml' || true)
+          if [ -n "$NAV_FILES" ]; then
+            while IFS= read -r nav_file; do
+              [ -z "$nav_file" ] && continue
+              NAV_DELETED_LINES=$(git diff "$BASE_REF" "$HEAD_SHA" -- "$nav_file" | grep '^-' | grep '\.md' | cut -c2- || true)
+              NAV_ADDED_LINES=$(git diff "$BASE_REF" "$HEAD_SHA" -- "$nav_file" | grep '^+' | grep '\.md' | cut -c2- || true)
+
+
+              if [ -n "$NAV_DELETED_LINES" ]; then
+                while IFS= read -r line; do
+                  [ -z "$line" ] && continue
+                  entry="$nav_file: ${line# }"
+                  DELETED_FILES="${DELETED_FILES:+$DELETED_FILES"$'\n'"}$entry"
+                done <<< "$NAV_DELETED_LINES"
+              fi
+
+
+              if [ -n "$NAV_ADDED_LINES" ]; then
+                while IFS= read -r line; do
+                  [ -z "$line" ] && continue
+                  entry="$nav_file: ${line# }"
+                  RENAMED_FILES="${RENAMED_FILES:+$RENAMED_FILES"$'\n'"}$entry"
+                done <<< "$NAV_ADDED_LINES"
+              fi
+            done <<< "$NAV_FILES"
+          fi
+
+
+          echo "DELETED_FILES<<EOF" >> $GITHUB_ENV
+          echo "$DELETED_FILES" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
-          echo "RENAMED_MD<<EOF" >> $GITHUB_ENV
-          echo "$RENAMED_MD" >> $GITHUB_ENV
+
+
+          echo "RENAMED_FILES<<EOF" >> $GITHUB_ENV
+          echo "$RENAMED_FILES" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
-          echo "NAV_CHANGES<<EOF" >> $GITHUB_ENV
-          echo -e "$NAV_CHANGES" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
-          if [ -n "$DELETED_MD$RENAMED_MD$NAV_CHANGES" ]; then
+
+
+          if [ -n "$DELETED_FILES" ] || [ -n "$RENAMED_FILES" ]; then
             echo "warning=true" >> $GITHUB_ENV
           else
             echo "warning=false" >> $GITHUB_ENV
           fi
-      - name: Post PR comment if relevant
+
+
+          echo "Deleted files:"
+          echo "$DELETED_FILES"
+          echo -e "\nRenamed/Moved files:"
+          echo "$RENAMED_FILES"
+
+
+      - name: Post PR warning
         if: env.warning == 'true'
         uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const deletedMd = `${process.env.DELETED_MD}`.trim();
-            const renamedMd = `${process.env.RENAMED_MD}`.trim();
-            const navChanges = `${process.env.NAV_CHANGES}`.trim();
-            
-            let message = "🔍 **Documentation & Navigation Checker**\n\nThis PR modifies `.md` or `.nav.yml` files.\n\n";
-            if (deletedMd) message += `**Deleted Markdown files:**\n\`\`\`\n${deletedMd}\n\`\`\`\n\n`;
-            if (renamedMd) message += `**Renamed Markdown files:**\n\`\`\`\n${renamedMd}\n\`\`\`\n\n`;
-            if (navChanges) message += `**Navigation file changes:**\n\`\`\`\n${navChanges}\n\`\`\`\n\n`;
+            const deletedFiles = `${process.env.DELETED_FILES}`.trim();
+            const renamedFiles = `${process.env.RENAMED_FILES}`.trim();
+            const sections = [];
 
-            message += "🚨 Please verify links remain valid and any deleted or renamed entries are handled.🚨 ";
-           
-            github.rest.issues.createComment({
+
+            if (deletedFiles) {
+              sections.push(`**Deleted Markdown files:**\n\`\`\`\n${deletedFiles}\n\`\`\``);
+            }
+
+
+            if (renamedFiles) {
+              sections.push(`**Renamed Markdown files:**\n\`\`\`\n${renamedFiles}\n\`\`\``);
+            }
+
+
+            if (!sections.length) {
+              return;
+            }
+
+
+            await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.payload.pull_request.number,
-              body: message
+              body: sections.join('\n\n')
             });

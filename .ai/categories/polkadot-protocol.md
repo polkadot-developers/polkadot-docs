@@ -257,7 +257,7 @@ First, you'll update the runtime's `Cargo.toml` file to include the Utility pall
 1. Open the `runtime/Cargo.toml` file and locate the `[dependencies]` section. Add pallet-utility as one of the features for the `polkadot-sdk` dependency with the following line:
 
     ```toml hl_lines="4" title="runtime/Cargo.toml"
-    
+    [dependencies]
     ...
     polkadot-sdk = { workspace = true, features = [
       "pallet-utility",
@@ -268,17 +268,19 @@ First, you'll update the runtime's `Cargo.toml` file to include the Utility pall
 2. In the same `[dependencies]` section, add the custom pallet that you built from scratch with the following line:
 
     ```toml hl_lines="3" title="Cargo.toml"
-    
+    [dependencies]
     ...
-    
+    custom-pallet = { path = "../pallets/custom-pallet", default-features = false }
     ```
 
 3. In the `[features]` section, add the custom pallet to the `std` feature list:
 
     ```toml hl_lines="5" title="Cargo.toml"
-    
+    [features]
+    default = ["std"]
+    std = [
       ...
-      
+      "custom-pallet/std",
       ...
     ]
     ```
@@ -3480,13 +3482,53 @@ To build the smart contract, follow the steps below:
 6. Add the getter and setter functions:
 
     ```solidity
-    
+    // SPDX-License-Identifier: MIT
+    pragma solidity ^0.8.28;
+
+    contract Storage {
+        // State variable to store our number
+        uint256 private number;
+
+        // Event to notify when the number changes
+        event NumberChanged(uint256 newNumber);
+
+        // Function to store a new number
+        function store(uint256 newNumber) public {
+            number = newNumber;
+            emit NumberChanged(newNumber);
+        }
+
+        // Function to retrieve the stored number
+        function retrieve() public view returns (uint256) {
+            return number;
+        }
+    }
     ```
 
 ??? code "Complete Storage.sol contract"
 
     ```solidity title="Storage.sol"
-    
+    // SPDX-License-Identifier: MIT
+    pragma solidity ^0.8.28;
+
+    contract Storage {
+        // State variable to store our number
+        uint256 private number;
+
+        // Event to notify when the number changes
+        event NumberChanged(uint256 newNumber);
+
+        // Function to store a new number
+        function store(uint256 newNumber) public {
+            number = newNumber;
+            emit NumberChanged(newNumber);
+        }
+
+        // Function to retrieve the stored number
+        function retrieve() public view returns (uint256) {
+            return number;
+        }
+    }
     ```
 
 ## Understanding the Code
@@ -4124,7 +4166,23 @@ To create the ERC-20 contract, you can follow the steps below:
 3. Now, paste the following ERC-20 contract code into the editor:
 
     ```solidity title="MyToken.sol"
-    
+    // SPDX-License-Identifier: MIT
+    // Compatible with OpenZeppelin Contracts ^5.0.0
+    pragma solidity ^0.8.22;
+
+    import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+    import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
+
+    contract MyToken is ERC20, Ownable {
+        constructor(address initialOwner)
+            ERC20("MyToken", "MTK")
+            Ownable(initialOwner)
+        {}
+
+        function mint(address to, uint256 amount) public onlyOwner {
+            _mint(to, amount);
+        }
+    }
     ```
 
     The key components of the code above are:
@@ -4442,7 +4500,26 @@ To create the NFT contract, you can follow the steps below:
 3. Now, paste the following NFT contract code into the editor.
 
     ```solidity title="MyNFT.sol"
-    
+    // SPDX-License-Identifier: MIT
+    // Compatible with OpenZeppelin Contracts ^5.0.0
+    pragma solidity ^0.8.22;
+
+    import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+    import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
+
+    contract MyToken is ERC721, Ownable {
+        uint256 private _nextTokenId;
+
+        constructor(address initialOwner)
+            ERC721("MyToken", "MTK")
+            Ownable(initialOwner)
+        {}
+
+        function safeMint(address to) public onlyOwner {
+            uint256 tokenId = _nextTokenId++;
+            _safeMint(to, tokenId);
+        }
+    }
     ```
 
     The key components of the code above are:
@@ -12192,7 +12269,16 @@ The [`Account` data type](https://paritytech.github.io/polkadot-sdk/master/frame
 The code snippet below shows how accounts are defined:
 
 ```rs
- 
+ /// The full account information for a particular account ID.
+ 	#[pallet::storage]
+ 	#[pallet::getter(fn account)]
+ 	pub type Account<T: Config> = StorageMap<
+ 		_,
+ 		Blake2_128Concat,
+ 		T::AccountId,
+ 		AccountInfo<T::Nonce, T::AccountData>,
+ 		ValueQuery,
+ 	>;
 ```
 
 The preceding code block defines a storage map named `Account`. The `StorageMap` is a type of on-chain storage that maps keys to values. In the `Account` map, the key is an account ID, and the value is the account's information. Here, `T` represents the generic parameter for the runtime configuration, which is defined by the pallet's configuration trait (`Config`).
@@ -12216,7 +12302,24 @@ For a detailed explanation of storage maps, see the [`StorageMap`](https://parit
 The `AccountInfo` structure is another key element within the [System pallet](https://paritytech.github.io/polkadot-sdk/master/src/frame_system/lib.rs.html){target=\_blank}, providing more granular details about each account's state. This structure tracks vital data, such as the number of transactions and the account’s relationships with other modules.
 
 ```rs
-
+/// Information of an account.
+#[derive(Clone, Eq, PartialEq, Default, RuntimeDebug, Encode, Decode, TypeInfo, MaxEncodedLen)]
+pub struct AccountInfo<Nonce, AccountData> {
+	/// The number of transactions this account has sent.
+	pub nonce: Nonce,
+	/// The number of other modules that currently depend on this account's existence. The account
+	/// cannot be reaped until this is zero.
+	pub consumers: RefCount,
+	/// The number of other modules that allow this account to exist. The account may not be reaped
+	/// until this and `sufficients` are both zero.
+	pub providers: RefCount,
+	/// The number of modules that allow this account to exist for their own purposes only. The
+	/// account may not be reaped until this and `providers` are both zero.
+	pub sufficients: RefCount,
+	/// The additional data that belongs to this account. Used to store the balance(s) in a lot of
+	/// chains.
+	pub data: AccountData,
+}
 ```
 
 The `AccountInfo` structure includes the following components:

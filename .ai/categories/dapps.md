@@ -257,7 +257,7 @@ First, you'll update the runtime's `Cargo.toml` file to include the Utility pall
 1. Open the `runtime/Cargo.toml` file and locate the `[dependencies]` section. Add pallet-utility as one of the features for the `polkadot-sdk` dependency with the following line:
 
     ```toml hl_lines="4" title="runtime/Cargo.toml"
-    
+    [dependencies]
     ...
     polkadot-sdk = { workspace = true, features = [
       "pallet-utility",
@@ -268,17 +268,19 @@ First, you'll update the runtime's `Cargo.toml` file to include the Utility pall
 2. In the same `[dependencies]` section, add the custom pallet that you built from scratch with the following line:
 
     ```toml hl_lines="3" title="Cargo.toml"
-    
+    [dependencies]
     ...
-    
+    custom-pallet = { path = "../pallets/custom-pallet", default-features = false }
     ```
 
 3. In the `[features]` section, add the custom pallet to the `std` feature list:
 
     ```toml hl_lines="5" title="Cargo.toml"
-    
+    [features]
+    default = ["std"]
+    std = [
       ...
-      
+      "custom-pallet/std",
       ...
     ]
     ```
@@ -3418,13 +3420,53 @@ To build the smart contract, follow the steps below:
 6. Add the getter and setter functions:
 
     ```solidity
-    
+    // SPDX-License-Identifier: MIT
+    pragma solidity ^0.8.28;
+
+    contract Storage {
+        // State variable to store our number
+        uint256 private number;
+
+        // Event to notify when the number changes
+        event NumberChanged(uint256 newNumber);
+
+        // Function to store a new number
+        function store(uint256 newNumber) public {
+            number = newNumber;
+            emit NumberChanged(newNumber);
+        }
+
+        // Function to retrieve the stored number
+        function retrieve() public view returns (uint256) {
+            return number;
+        }
+    }
     ```
 
 ??? code "Complete Storage.sol contract"
 
     ```solidity title="Storage.sol"
-    
+    // SPDX-License-Identifier: MIT
+    pragma solidity ^0.8.28;
+
+    contract Storage {
+        // State variable to store our number
+        uint256 private number;
+
+        // Event to notify when the number changes
+        event NumberChanged(uint256 newNumber);
+
+        // Function to store a new number
+        function store(uint256 newNumber) public {
+            number = newNumber;
+            emit NumberChanged(newNumber);
+        }
+
+        // Function to retrieve the stored number
+        function retrieve() public view returns (uint256) {
+            return number;
+        }
+    }
     ```
 
 ## Understanding the Code
@@ -4566,7 +4608,23 @@ To create the ERC-20 contract, you can follow the steps below:
 3. Now, paste the following ERC-20 contract code into the editor:
 
     ```solidity title="MyToken.sol"
-    
+    // SPDX-License-Identifier: MIT
+    // Compatible with OpenZeppelin Contracts ^5.0.0
+    pragma solidity ^0.8.22;
+
+    import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+    import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
+
+    contract MyToken is ERC20, Ownable {
+        constructor(address initialOwner)
+            ERC20("MyToken", "MTK")
+            Ownable(initialOwner)
+        {}
+
+        function mint(address to, uint256 amount) public onlyOwner {
+            _mint(to, amount);
+        }
+    }
     ```
 
     The key components of the code above are:
@@ -4884,7 +4942,26 @@ To create the NFT contract, you can follow the steps below:
 3. Now, paste the following NFT contract code into the editor.
 
     ```solidity title="MyNFT.sol"
-    
+    // SPDX-License-Identifier: MIT
+    // Compatible with OpenZeppelin Contracts ^5.0.0
+    pragma solidity ^0.8.22;
+
+    import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+    import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
+
+    contract MyToken is ERC721, Ownable {
+        uint256 private _nextTokenId;
+
+        constructor(address initialOwner)
+            ERC721("MyToken", "MTK")
+            Ownable(initialOwner)
+        {}
+
+        function safeMint(address to) public onlyOwner {
+            uint256 tokenId = _nextTokenId++;
+            _safeMint(to, tokenId);
+        }
+    }
     ```
 
     The key components of the code above are:
@@ -12937,7 +13014,16 @@ The [`Account` data type](https://paritytech.github.io/polkadot-sdk/master/frame
 The code snippet below shows how accounts are defined:
 
 ```rs
- 
+ /// The full account information for a particular account ID.
+ 	#[pallet::storage]
+ 	#[pallet::getter(fn account)]
+ 	pub type Account<T: Config> = StorageMap<
+ 		_,
+ 		Blake2_128Concat,
+ 		T::AccountId,
+ 		AccountInfo<T::Nonce, T::AccountData>,
+ 		ValueQuery,
+ 	>;
 ```
 
 The preceding code block defines a storage map named `Account`. The `StorageMap` is a type of on-chain storage that maps keys to values. In the `Account` map, the key is an account ID, and the value is the account's information. Here, `T` represents the generic parameter for the runtime configuration, which is defined by the pallet's configuration trait (`Config`).
@@ -12961,7 +13047,24 @@ For a detailed explanation of storage maps, see the [`StorageMap`](https://parit
 The `AccountInfo` structure is another key element within the [System pallet](https://paritytech.github.io/polkadot-sdk/master/src/frame_system/lib.rs.html){target=\_blank}, providing more granular details about each account's state. This structure tracks vital data, such as the number of transactions and the account’s relationships with other modules.
 
 ```rs
-
+/// Information of an account.
+#[derive(Clone, Eq, PartialEq, Default, RuntimeDebug, Encode, Decode, TypeInfo, MaxEncodedLen)]
+pub struct AccountInfo<Nonce, AccountData> {
+	/// The number of transactions this account has sent.
+	pub nonce: Nonce,
+	/// The number of other modules that currently depend on this account's existence. The account
+	/// cannot be reaped until this is zero.
+	pub consumers: RefCount,
+	/// The number of other modules that allow this account to exist. The account may not be reaped
+	/// until this and `sufficients` are both zero.
+	pub providers: RefCount,
+	/// The number of modules that allow this account to exist for their own purposes only. The
+	/// account may not be reaped until this and `providers` are both zero.
+	pub sufficients: RefCount,
+	/// The additional data that belongs to this account. Used to store the balance(s) in a lot of
+	/// chains.
+	pub data: AccountData,
+}
 ```
 
 The `AccountInfo` structure includes the following components:
@@ -15321,7 +15424,8 @@ The [`XcmRouter`](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm/pa
 For instance, the Kusama network employs the [`ChildParachainRouter`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_common/xcm_sender/struct.ChildParachainRouter.html){target=\_blank}, which restricts routing to [Downward Message Passing (DMP)](https://wiki.polkadot.com/learn/learn-xcm-transport/#dmp-downward-message-passing){target=\_blank} from the relay chain to parachains, ensuring secure and controlled communication.
 
 ```rust
-
+pub type PriceForChildParachainDelivery =
+	ExponentialPrice<FeeAssetId, BaseDeliveryFee, TransactionByteFee, Dmp>;
 ```
 
 For more details about XCM transport protocols, see the [XCM Channels](/develop/interoperability/xcm-channels/){target=\_blank} page.
@@ -17183,25 +17287,95 @@ The `xcm-emulator` provides macros for defining a mocked testing environment. Ch
 - **[`decl_test_relay_chains`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/cumulus/xcm/xcm-emulator/src/lib.rs#L361){target=\_blank}**: Defines runtime and configuration for the relay chains. Example:
 
     ```rust
-    
+    decl_test_relay_chains! {
+    	#[api_version(13)]
+    	pub struct Westend {
+    		genesis = genesis::genesis(),
+    		on_init = (),
+    		runtime = westend_runtime,
+    		core = {
+    			SovereignAccountOf: westend_runtime::xcm_config::LocationConverter,
+    		},
+    		pallets = {
+    			XcmPallet: westend_runtime::XcmPallet,
+    			Sudo: westend_runtime::Sudo,
+    			Balances: westend_runtime::Balances,
+    			Treasury: westend_runtime::Treasury,
+    			AssetRate: westend_runtime::AssetRate,
+    			Hrmp: westend_runtime::Hrmp,
+    			Identity: westend_runtime::Identity,
+    			IdentityMigrator: westend_runtime::IdentityMigrator,
+    		}
+    	},
+    }
     ```
 
 - **[`decl_test_parachains`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/cumulus/xcm/xcm-emulator/src/lib.rs#L596){target=\_blank}**: Defines runtime and configuration for parachains. Example:
 
     ```rust
-    
+    decl_test_parachains! {
+    	pub struct AssetHubWestend {
+    		genesis = genesis::genesis(),
+    		on_init = {
+    			asset_hub_westend_runtime::AuraExt::on_initialize(1);
+    		},
+    		runtime = asset_hub_westend_runtime,
+    		core = {
+    			XcmpMessageHandler: asset_hub_westend_runtime::XcmpQueue,
+    			LocationToAccountId: asset_hub_westend_runtime::xcm_config::LocationToAccountId,
+    			ParachainInfo: asset_hub_westend_runtime::ParachainInfo,
+    			MessageOrigin: cumulus_primitives_core::AggregateMessageOrigin,
+    			DigestProvider: (),
+    		},
+    		pallets = {
+    			PolkadotXcm: asset_hub_westend_runtime::PolkadotXcm,
+    			Balances: asset_hub_westend_runtime::Balances,
+    			Assets: asset_hub_westend_runtime::Assets,
+    			ForeignAssets: asset_hub_westend_runtime::ForeignAssets,
+    			PoolAssets: asset_hub_westend_runtime::PoolAssets,
+    			AssetConversion: asset_hub_westend_runtime::AssetConversion,
+    			SnowbridgeSystemFrontend: asset_hub_westend_runtime::SnowbridgeSystemFrontend,
+    			Revive: asset_hub_westend_runtime::Revive,
+    		}
+    	},
+    }
     ```
 
 - **[`decl_test_bridges`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/cumulus/xcm/xcm-emulator/src/lib.rs#L1221){target=\_blank}**: Creates bridges between chains, specifying the source, target, and message handler. Example:
 
     ```rust
-    
+    decl_test_bridges! {
+    	pub struct RococoWestendMockBridge {
+    		source = BridgeHubRococoPara,
+    		target = BridgeHubWestendPara,
+    		handler = RococoWestendMessageHandler
+    	},
+    	pub struct WestendRococoMockBridge {
+    		source = BridgeHubWestendPara,
+    		target = BridgeHubRococoPara,
+    		handler = WestendRococoMessageHandler
+    	}
+    }
     ```
 
 - **[`decl_test_networks`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/cumulus/xcm/xcm-emulator/src/lib.rs#L958){target=\_blank}**: Defines a testing network with relay chains, parachains, and bridges, implementing message transport and processing logic. Example:
 
     ```rust
-    
+    decl_test_networks! {
+    	pub struct WestendMockNet {
+    		relay_chain = Westend,
+    		parachains = vec![
+    			AssetHubWestend,
+    			BridgeHubWestend,
+    			CollectivesWestend,
+    			CoretimeWestend,
+    			PeopleWestend,
+    			PenpalA,
+    			PenpalB,
+    		],
+    		bridge = ()
+    	},
+    }
     ```
 
 By leveraging these macros, developers can customize their testing networks by defining relay chains and parachains tailored to their needs. For guidance on implementing a mock runtime for a Polkadot SDK-based chain, refer to the [Pallet Testing](/parachains/customize-runtime/pallet-development/pallet-testing/){target=\_blank} article. 
@@ -19249,7 +19423,7 @@ This API can be used independently for dry-running, double-checking, or testing.
 This API allows a dry-run of any extrinsic and obtaining the outcome if it fails or succeeds, as well as the local xcm and remote xcm messages sent to other chains.
 
 ```rust
-
+fn dry_run_call(origin: OriginCaller, call: Call, result_xcms_version: XcmVersion) -> Result<CallDryRunEffects<Event>, Error>;
 ```
 
 ??? interface "Input parameters"
@@ -19526,7 +19700,7 @@ This API allows a dry-run of any extrinsic and obtaining the outcome if it fails
 This API allows the direct dry-run of an xcm message instead of an extrinsic one, checks if it will execute successfully, and determines what other xcm messages will be forwarded to other chains.
 
 ```rust
-
+fn dry_run_xcm(origin_location: VersionedLocation, xcm: VersionedXcm<Call>) -> Result<XcmDryRunEffects<Event>, Error>;
 ```
 
 ??? interface "Input parameters"
@@ -19757,7 +19931,7 @@ To use the API effectively, the client must already know the XCM program to be e
 Retrieves the list of assets that are acceptable for paying fees when using a specific XCM version
 
 ```rust
-
+fn query_acceptable_payment_assets(xcm_version: Version) -> Result<Vec<VersionedAssetId>, Error>;
 ```
 
 ??? interface "Input parameters"
@@ -19845,7 +20019,7 @@ Retrieves the list of assets that are acceptable for paying fees when using a sp
 Calculates the weight required to execute a given XCM message. It is useful for estimating the execution cost of a cross-chain message in the destination chain before sending it.
 
 ```rust
-
+fn query_xcm_weight(message: VersionedXcm<()>) -> Result<Weight, Error>;
 ```
 
 ??? interface "Input parameters"
@@ -19988,7 +20162,7 @@ Calculates the weight required to execute a given XCM message. It is useful for 
 Converts a given weight into the corresponding fee for a specified `AssetId`. It allows clients to determine the cost of execution in terms of the desired asset.
 
 ```rust
-
+fn query_weight_to_asset_fee(weight: Weight, asset: VersionedAssetId) -> Result<u128, Error>;
 ```
 
 ??? interface "Input parameters"
@@ -20093,7 +20267,7 @@ Converts a given weight into the corresponding fee for a specified `AssetId`. It
 Retrieves the delivery fees for sending a specific XCM message to a designated destination. The fees are always returned in a specific asset defined by the destination chain.
 
 ```rust
-
+fn query_delivery_fees(destination: VersionedLocation, message: VersionedXcm<()>) -> Result<VersionedAssets, Error>;
 ```
 
 ??? interface "Input parameters"

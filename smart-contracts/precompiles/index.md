@@ -17,23 +17,23 @@ This article explores how Polkadot leverages precompiles within the Revive palle
 
 Precompiles are special contract implementations that run directly at the runtime level rather than as on-chain PolkaVM contracts. In typical EVM environments, precompiles provide essential cryptographic and utility functionality at addresses that start with specific patterns. Revive follows this design pattern but with its own implementation optimized for PolkaVM.
 
-Users interact with the dApp/Contract, which in turn calls the PolkaEVM. The PolkaEVM detects the precompile address and calls the corresponding precompile. The precompile executes the native code and returns the result to the dApp/Contract. The dApp/Contract then returns the result to the user.
+Users interact with the dApp/contract, which in turn calls the PolkaVM. The PolkaVM detects the precompile address and calls the corresponding precompile. The precompile executes the native code and returns the result to the dApp/contract. The dApp/contract then returns the result to the user.
 
 ```mermaid
 flowchart LR
     User(["User"])
-    dApp["dApp/Contract"]
-    PolkaEVM["ETH RPC Adapter"]
+    dApp["DApp/Contract"]
+    PolkaVM["ETH RPC Adapter"]
     Precompiles["Precompiles"]
     Runtime["PolkaVM"]
 
     User --> dApp
-    dApp -->|"Call<br>function"| PolkaEVM
-    PolkaEVM -->|"Detect<br>precompile<br>address"| Precompiles
+    dApp -->|"Call<br>function"| PolkaVM
+    PolkaVM -->|"Detect<br>precompile<br>address"| Precompiles
     Precompiles -->|"Execute<br>optimized<br>native code"| Runtime
 
     subgraph "Polkadot Hub"
-        PolkaEVM
+        PolkaVM
         Precompiles
         Runtime
     end

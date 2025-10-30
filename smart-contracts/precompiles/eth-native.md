@@ -1,6 +1,6 @@
 ---
 title: Ethereum-Native Precompiles
-description: Standard Ethereum precompiles available in Polkadot Hub's Revive pallet for smart contract development.
+description: General overview of Ethereum-native precompiles in Polkadot Hub’s Revive pallet, including usage basics and details on standard precompiles for smart contracts.
 categories: Smart Contracts
 ---
 

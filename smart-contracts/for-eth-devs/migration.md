@@ -47,7 +47,9 @@ No, for most contracts. Standard Solidity patterns work on both backends.
 
 ### What about factory contracts?
 
-- REVM: Factory contracts work identically to Ethereum with no changes needed. The original factory pattern is:
+- **REVM**: Factory contracts work identically to Ethereum with no changes needed. 
+    
+    The original factory pattern is:
 
     ```solidity
     contract TokenFactory {
@@ -59,7 +61,9 @@ No, for most contracts. Standard Solidity patterns work on both backends.
     }
     ```
 
-- PolkaVM: Factory contracts require pre-uploading dependent contracts. Here's how to adapt the original factory pattern:
+- **PolkaVM**: Factory contracts require pre-uploading dependent contracts. 
+
+    Here's how to adapt the original factory pattern:
 
     ```solidity
     contract TokenFactory {

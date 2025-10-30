@@ -11,7 +11,7 @@ This guide demonstrates how to deploy a basic Solidity smart contract to Polkado
 ## Prerequisites:
 
 - Basic understanding of Solidity programming.
-- Test tokens for gas fees (available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}).
+- Test tokens for gas fees (available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}). See the [step-by-step instructions](/smart-contracts/faucet/#get-test-tokens){target=\_blank}.
 - A wallet with a private key for signing transactions.
 
 ### Set Up Your Project
@@ -89,11 +89,32 @@ forge create Storage \
 ```
 Replace the `YOUR_PRIVATE_KEY` placeholder with your actual private key.
 
-!!! warning
-    Never reveal your private key, otherwise anyone with access to it can control your wallet and steal your funds. Store it securely and never share it publicly or commit it to version control systems.
+## Where to Go Next
 
-## Next Steps
+<div class="grid cards" markdown>
 
-- Deploy an ERC-20 token on Polkadot Hub using the [Deploy an ERC-20](/smart-contracts/cookbook/smart-contracts/deploy-erc20) guide.
-- Deploy an NFT on Polkadot Hub using the [Deploy an NFT](/smart-contracts/cookbook/smart-contracts/deploy-nft) guide.
-- Check out in details each [development environment](/smart-contracts/dev-environments/).
+-   <span class="badge guide">Guide</span> __Verify Your Contract__
+
+    ---
+
+    Now that you've deployed a basic contract, learn how to verify it with Foundry.
+    
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/dev-environments/foundry/verify-a-contract/)
+
+-   <span class="badge guide">Guide</span> __Deploy an ERC-20__
+   
+    ---
+    
+    Walk through deploying a fully-functional ERC-20 to the Polkadot Hub using Foundry.
+    
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-erc20/foundry/)
+
+-   <span class="badge guide">Guide</span> __Deploy an NFT__
+
+    ---
+
+    Walk through deploying a NFT to the Polkadot Hub using Foundry.
+
+    [:octicons-arrow-right-24: Get Started](smart-contracts/cookbook/smart-contracts/deploy-nft/foundry/)
+
+</div>

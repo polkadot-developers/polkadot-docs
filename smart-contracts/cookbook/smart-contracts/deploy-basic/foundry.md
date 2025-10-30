@@ -14,7 +14,7 @@ This guide demonstrates how to deploy a basic Solidity smart contract to Polkado
 - Test tokens for gas fees (available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}). See the [step-by-step instructions](/smart-contracts/faucet/#get-test-tokens){target=\_blank}.
 - A wallet with a private key for signing transactions.
 
-### Set Up Your Project
+## Set Up Your Project
 
 Install Foundry:
 
@@ -30,7 +30,7 @@ forge init foundry-deployment
 cd foundry-deployment
 ```
 
-### Configure Foundry
+## Configure Foundry
 
 Edit `foundry.toml`:
 
@@ -44,7 +44,7 @@ libs = ["lib"]
 polkadot_hub_testnet = "https://testnet-passet-hub-eth-rpc.polkadot.io"
 ```
 
-### Create Your Contract
+## Create Your Contract
 
 Replace the default contract in `src/Storage.sol`:
 
@@ -65,7 +65,7 @@ contract Storage {
 }
 ```
 
-### Compile Your Contract
+## Compile
 
 ```bash
 forge build
@@ -77,7 +77,7 @@ Verify the compilation by inspecting the bytecode:
 forge inspect Storage bytecode
 ```
 
-### Deploy the Contract
+## Deploy
 
 Deploy to Polkadot Hub TestNet:
 

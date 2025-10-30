@@ -14,7 +14,7 @@ This guide demonstrates how to deploy a basic Solidity smart contract to Polkado
 - Test tokens for gas fees (available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}). See the [step-by-step instructions](/smart-contracts/faucet/#get-test-tokens){target=\_blank}.
 - A wallet with a private key for signing transactions.
 
-### Access Remix
+## Access Remix
 
 Navigate to [https://remix.polkadot.io/](https://remix.polkadot.io/){target=\_blank} in your web browser.
 
@@ -22,7 +22,7 @@ The interface will load with a default workspace containing sample contracts. In
 
 ![](/images/smart-contracts/cookbook/smart-contracts/deploy-basic/deploy-basic-pvm/deploy-basic-pvm-01.webp)
 
-### Compile Your Contract
+## Compile
 
 1. To compile your contract:
     1. Navigate to the **Solidity Compiler** tab, which is the third icon in the left sidebar.
@@ -32,7 +32,7 @@ The interface will load with a default workspace containing sample contracts. In
 
 Compilation errors and warnings appear in the terminal panel at the bottom of the screen.
 
-### Deploy the Contract
+## Deploy
 
 1. Navigate to the **Deploy & Run Transactions** tab.
 2. Click the **Environment** dropdown and select **Injected Provider - MetaMask** (ensure your MetaMask wallet is connected to Polkadot Hub TestNet).

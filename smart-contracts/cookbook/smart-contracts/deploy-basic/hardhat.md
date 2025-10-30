@@ -15,7 +15,7 @@ This guide demonstrates how to deploy a basic Solidity smart contract to Polkado
 - Test tokens for gas fees (available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}). See the [step-by-step instructions](/smart-contracts/faucet/#get-test-tokens){target=\_blank}.
 - A wallet with a private key for signing transactions.
 
-### Set Up Your Project
+## Set Up Your Project
 
 Initialize your Hardhat project:
 
@@ -25,7 +25,7 @@ cd hardhat-deployment
 npx hardhat --init
 ```
 
-### Configure Hardhat
+## Configure Hardhat
 
 Edit `hardhat.config.js`:
 
@@ -84,7 +84,7 @@ Replace the `PRIVATE_KEY` placeholder with your actual private key.
 !!! tip
     Learn how to use Hardhat's [Config Variables](https://hardhat.org/docs/learn-more/configuration-variables){target=\_blank} to handle your private keys in a secure way.
 
-### Create Your Contract
+## Create Your Contract
 
 Replace the default contract in `contracts/Storage.sol`:
 
@@ -105,13 +105,13 @@ contract Storage {
 }
 ```
 
-### Compile Your Contract
+## Compile
 
 ```bash
 npx hardhat build
 ```
 
-### Set Up Deployment
+## Set Up Deployment
 
 Create a deployment module in `ignition/modules/Storage.ts`:
 
@@ -124,7 +124,7 @@ export default buildModule('StorageModule', (m) => {
 });
 ```
 
-### Deploy the Contract
+## Deploy the Contract
 
 Deploy to Polkadot Hub TestNet:
 

@@ -15,7 +15,7 @@ This guide demonstrates how to deploy a basic Solidity smart contract to Polkado
 - Test tokens for gas fees (available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}). See the [step-by-step instructions](/smart-contracts/faucet/#get-test-tokens){target=\_blank}.
 - A wallet with a private key for signing transactions.
 
-### Set Up Your Project
+## Set Up Your Project
 
 First, initialize your project and install dependencies:
 
@@ -26,7 +26,7 @@ npm init -y
 npm install ethers@6.15.0 solc@0.8.30
 ```
 
-### Create Your Contract
+## Create Your Contract
 
 Create a simple storage contract in `contracts/Storage.sol`:
 
@@ -47,7 +47,7 @@ contract Storage {
 }
 ```
 
-### Compile Your Contract
+## Compile
 
 Create a compilation script `compile.js`:
 
@@ -124,7 +124,7 @@ Run the compilation:
 node compile.js
 ```
 
-### Deploy the Contract
+## Deploy
 
 Create a deployment script `deploy.js`:
 

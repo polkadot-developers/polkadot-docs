@@ -97,8 +97,8 @@ For PolkaVM, there are some considerations:
 
 - `EXTCODECOPY`: Only works in constructor code.
 - Runtime code modification: Use on-chain constructors instead.
-- Gas stipends: `address.send()` and `address.transfer()` don't provide reentrancy protection.
-- Unsupported operations: `pc`, `extcodecopy`, `selfdestruct`, `blobhash`, and `blobbasefee` (blob-related operations).
+- **Gas stipends**: `address.send()` and `address.transfer()` don't provide reentrancy protection.
+- **Unsupported operations**: `pc`, `extcodecopy`, `selfdestruct`, `blobhash`, and `blobbasefee` (blob-related operations).
 
 ### How do I handle the existential deposit?
 

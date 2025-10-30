@@ -270,17 +270,15 @@ First, you'll update the runtime's `Cargo.toml` file to include the Utility pall
     ```toml hl_lines="3" title="Cargo.toml"
     
     ...
-    custom-pallet = { path = "../pallets/custom-pallet", default-features = false }
+    
     ```
 
 3. In the `[features]` section, add the custom pallet to the `std` feature list:
 
     ```toml hl_lines="5" title="Cargo.toml"
-    [features]
-    default = ["std"]
-    std = [
+    
       ...
-      "custom-pallet/std",
+      
       ...
     ]
     ```
@@ -2538,6 +2536,117 @@ The following tools can help you locate and decode metadata:
 
 ---
 
+Page Title: Contract Deployment
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-for-eth-devs-contract-deployment.md
+- Canonical (HTML): https://docs.polkadot.com/smart-contracts/for-eth-devs/contract-deployment/
+- Summary: Compare deployment flows for REVM and PVM-based smart contracts on the Polkadot Hub. Includes single-step REVM flows and PVM’s two-step deployment model.
+
+# Contract Deployment
+
+## Introduction
+
+Polkadot's smart contract platform supports two distinct virtual machine backends: Rust Ethereum Virtual Machine (REVM) and PolkaVM. Each backend has its own deployment characteristics and optimization strategies. REVM provides full Ethereum compatibility with familiar single-step deployment, while the RISC-V-based PolkaVM uses a more structured two-step approach optimized for its architecture. Understanding these differences ensures smooth deployment regardless of which backend you choose for your smart contracts.
+
+## REVM Deployment
+
+The REVM backend enables seamless deployment of Ethereum contracts without modification. Contracts deploy exactly as they would on Ethereum, using familiar tools and workflows.
+
+With REVM, deployment mirrors the Ethereum flow exactly including: 
+
+- Contracts are bundled and deployed in a single transaction. 
+- Factory contracts can create new contracts at runtime.
+- Runtime code generation, including inline assembly, is supported.
+- Existing familiar tools like Hardhat, Foundry, and Remix work out of the box.
+
+## PolkaVM Deployment
+
+PolkaVM implements a fundamentally different deployment model optimized for its RISC-V architecture. While simple contract deployments work seamlessly, advanced patterns like factory contracts require understanding the two-step deployment process.
+
+### Standard Contract Deployment
+
+For most use cases, such as deploying ERC-20 tokens, NFT collections, or standalone contracts, deployment is transparent and requires no special steps. The [Revive compiler](https://github.com/paritytech/revive){target=\_blank} handles the deployment process automatically when using standard Solidity patterns.
+
+### Two-Step Deployment Model
+
+PolkaVM separates contract deployment into distinct phases:
+
+1. **Code upload**: Contract bytecode must be uploaded to the chain before instantiation.
+2. **Contract instantiation**: Contracts are created by referencing previously uploaded code via its hash.
+
+This architecture differs from the EVM's bundled approach and has important implications for specific deployment patterns.
+
+### Factory Pattern Considerations
+
+The common EVM pattern, where contracts dynamically create other contracts, requires adaptation for PolkaVM as follows:
+
+**EVM Factory Pattern:**
+```solidity
+// This works on REVM but requires modification for PolkaVM
+contract Factory {
+    function createToken() public returns (address) {
+        // EVM bundles bytecode in the factory
+        return address(new Token());
+    }
+}
+```
+
+**PolkaVM Requirements:**
+
+- **Pre-upload dependent contracts**: All contracts that will be instantiated at runtime must be uploaded to the chain before the factory attempts to create them.
+- **Code hash references**: Factory contracts work with pre-uploaded code hashes rather than embedding bytecode.
+- **No runtime code generation**: Dynamic bytecode generation is not supported due to PolkaVM's RISC-V format.
+
+### Migration Strategy for Factory Contracts
+
+When migrating factory contracts from Ethereum to PolkaVM:
+
+1. **Identify all contracts**: Determine which contracts will be instantiated at runtime.
+2. **Upload dependencies first**: Deploy all dependent contracts to the chain before deploying the factory.
+3. **Use on-chain constructors**: Leverage PolkaVM's on-chain constructor feature for flexible instantiation.
+4. **Avoid assembly creation**: Don't use `create` or `create2` opcodes in assembly blocks for manual deployment.
+
+### Architecture-Specific Limitations
+
+PolkaVM's deployment model creates several specific constraints:
+
+- **`EXTCODECOPY` limitations**: Contracts using `EXTCODECOPY` to manipulate code at runtime will encounter issues.
+- **Runtime code modification**: Patterns that construct and mutate contract code on-the-fly are not supported.
+- **Assembly-based factories**: Factory contracts written in YUL assembly that generate code at runtime will fail with `CodeNotFound` errors.
+
+These patterns are rare in practice and typically require dropping down to assembly, making them non-issues for standard Solidity development.
+
+### On-Chain Constructors
+
+PolkaVM provides on-chain constructors as an elegant alternative to runtime code modification:
+
+- Enable contract instantiation without runtime code generation.
+- Support flexible initialization patterns.
+- Maintain separation between code upload and contract creation.
+- Provide predictable deployment costs.
+
+## Gas Estimation vs Actual Consumption
+
+Both REVM and PolkaVM deployments may show significant differences between gas estimation and actual consumption. You might see estimates that are several times higher than the actual gas consumed (often around 30% of the estimate). This is normal behavior because pre-dispatch estimation cannot distinguish between computation weight and storage deposits, leading to conservative overestimation. Contract deployments are particularly affected as they consume significant storage deposits for code storage.
+
+## Deployment Comparison
+
+| Feature | REVM Backend | PolkaVM Backend |
+|:-------:|:-------------:|:----------------:|
+| **Deployment Model** | Single-step bundled | Two-step upload and instantiate |
+| **Factory Patterns** | Direct runtime creation | Requires pre-uploaded code |
+| **Code Bundling** | Bytecode in transaction | Code hash references |
+| **Runtime Codegen** | Fully supported | Not supported |
+| **Simple Contracts** | No modifications needed | No modifications needed |
+| **Assembly Creation** | Supported | Discouraged, limited support |
+
+## Conclusion
+
+Both backends support contract deployment effectively, with REVM offering drop-in Ethereum compatibility and PolkaVM providing a more structured two-step approach. For the majority of use cases—deploying standard contracts like tokens or applications—both backends work seamlessly. Advanced patterns like factory contracts may require adjustment for PolkaVM, but these adaptations are straightforward with proper planning.
+
+
+---
+
 Page Title: Create a dApp With Ethers.js
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/tutorials-smart-contracts-launch-your-first-project-create-dapp-ethers-js.md
@@ -2654,22 +2763,8 @@ To integrate this component to your dApp, you need to overwrite the existing boi
 ```javascript title="app/page.js"
 
 
-export default function Home() {
-  const [account, setAccount] = useState(null);
 
-  const handleConnect = (connectedAccount) => {
-    setAccount(connectedAccount);
-  };
 
-  return (
-    <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
-      <h1 className="text-2xl font-semibold text-center">
-        Ethers.js dApp - Passet Hub Smart Contracts
-      </h1>
-      <WalletConnect onConnect={handleConnect} />
-</section>
-  );
-}
 ```
 
 In your terminal, you can launch your project by running:
@@ -2696,27 +2791,9 @@ To see this change in your dApp, you need to integrate this component into the `
 
 ```javascript title="app/page.js"
 
-import { useState } from 'react';
 
-import WalletConnect from './components/WalletConnect';
-import ReadContract from './components/ReadContract';
-export default function Home() {
-  const [account, setAccount] = useState(null);
 
-  const handleConnect = (connectedAccount) => {
-    setAccount(connectedAccount);
-  };
 
-  return (
-    <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
-      <h1 className="text-2xl font-semibold text-center">
-        Ethers.js dApp - Passet Hub Smart Contracts
-      </h1>
-      <WalletConnect onConnect={handleConnect} />
-      <ReadContract />
-</section>
-  );
-}
 ```
 
 Your dApp will automatically be updated to the following:
@@ -2736,32 +2813,7 @@ This component allows users to input a new number and send a transaction to upda
 Update the `app/page.js` file to integrate all components:
 
 ```javascript title="app/page.js"
-'use client';
 
-import { useState } from 'react';
-
-import WalletConnect from './components/WalletConnect';
-import ReadContract from './components/ReadContract';
-import WriteContract from './components/WriteContract';
-
-export default function Home() {
-  const [account, setAccount] = useState(null);
-
-  const handleConnect = (connectedAccount) => {
-    setAccount(connectedAccount);
-  };
-
-  return (
-    <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
-      <h1 className="text-2xl font-semibold text-center">
-        Ethers.js dApp - Passet Hub Smart Contracts
-      </h1>
-      <WalletConnect onConnect={handleConnect} />
-      <ReadContract />
-      <WriteContract account={account} />
-    </section>
-  );
-}
 ```
 
 The completed UI will display:
@@ -2947,223 +2999,7 @@ And you will see in your browser:
 Finally, let's create a component that allows users to update the stored number. Create a file called `components/WriteContract.tsx`:
 
 ```typescript title="WriteContract.tsx"
-"use client";
 
-import React, { useState, useEffect } from "react";
-import { publicClient, getWalletClient } from "../utils/viem";
-import { CONTRACT_ADDRESS, CONTRACT_ABI } from "../utils/contract";
-
-interface WriteContractProps {
-  account: string | null;
-}
-
-const WriteContract: React.FC<WriteContractProps> = ({ account }) => {
-  const [newNumber, setNewNumber] = useState<string>("");
-  const [status, setStatus] = useState<{
-    type: string | null;
-    message: string;
-  }>({
-    type: null,
-    message: "",
-  });
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const [isCorrectNetwork, setIsCorrectNetwork] = useState<boolean>(true);
-
-  // Check if the account is on the correct network
-  useEffect(() => {
-    const checkNetwork = async () => {
-      if (!account) return;
-
-      try {
-        // Get the chainId from the public client
-        const chainId = await publicClient.getChainId();
-
-        // Get the user's current chainId from their wallet
-        const walletClient = await getWalletClient();
-        if (!walletClient) return;
-
-        const walletChainId = await walletClient.getChainId();
-
-        // Check if they match
-        setIsCorrectNetwork(chainId === walletChainId);
-      } catch (err) {
-        console.error("Error checking network:", err);
-        setIsCorrectNetwork(false);
-      }
-    };
-
-    checkNetwork();
-  }, [account]);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    // Validation checks
-    if (!account) {
-      setStatus({ type: "error", message: "Please connect your wallet first" });
-      return;
-    }
-
-    if (!isCorrectNetwork) {
-      setStatus({
-        type: "error",
-        message: "Please switch to the correct network in your wallet",
-      });
-      return;
-    }
-
-    if (!newNumber || isNaN(Number(newNumber))) {
-      setStatus({ type: "error", message: "Please enter a valid number" });
-      return;
-    }
-
-    try {
-      setIsSubmitting(true);
-      setStatus({ type: "info", message: "Initiating transaction..." });
-
-      // Get wallet client for transaction signing
-      const walletClient = await getWalletClient();
-
-      if (!walletClient) {
-        setStatus({ type: "error", message: "Wallet client not available" });
-        return;
-      }
-
-      // Check if account matches
-      if (
-        walletClient.account?.address.toLowerCase() !== account.toLowerCase()
-      ) {
-        setStatus({
-          type: "error",
-          message:
-            "Connected wallet account doesn't match the selected account",
-        });
-        return;
-      }
-
-      // Prepare transaction and wait for user confirmation in wallet
-      setStatus({
-        type: "info",
-        message: "Please confirm the transaction in your wallet...",
-      });
-
-      // Simulate the contract call first
-      console.log('newNumber', newNumber);
-      const { request } = await publicClient.simulateContract({
-        address: CONTRACT_ADDRESS,
-        abi: CONTRACT_ABI,
-        functionName: "setNumber",
-        args: [BigInt(newNumber)],
-        account: walletClient.account,
-      });
-
-      // Send the transaction with wallet client
-      const hash = await walletClient.writeContract(request);
-
-      // Wait for transaction to be mined
-      setStatus({
-        type: "info",
-        message: "Transaction submitted. Waiting for confirmation...",
-      });
-
-      const receipt = await publicClient.waitForTransactionReceipt({
-        hash,
-      });
-
-      setStatus({
-        type: "success",
-        message: `Transaction confirmed! Transaction hash: ${receipt.transactionHash}`,
-      });
-
-      setNewNumber("");
-    } catch (err: any) {
-      console.error("Error updating number:", err);
-
-      // Handle specific errors
-      if (err.code === 4001) {
-        // User rejected transaction
-        setStatus({ type: "error", message: "Transaction rejected by user." });
-      } else if (err.message?.includes("Account not found")) {
-        // Account not found on the network
-        setStatus({
-          type: "error",
-          message:
-            "Account not found on current network. Please check your wallet is connected to the correct network.",
-        });
-      } else if (err.message?.includes("JSON is not a valid request object")) {
-        // JSON error - specific to your current issue
-        setStatus({
-          type: "error",
-          message:
-            "Invalid request format. Please try again or contact support.",
-        });
-      } else {
-        // Other errors
-        setStatus({
-          type: "error",
-          message: `Error: ${err.message || "Failed to send transaction"}`,
-        });
-      }
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  return (
-    <div className="border border-pink-500 rounded-lg p-4 shadow-md bg-white text-pink-500 max-w-sm mx-auto space-y-4">
-      <h2 className="text-lg font-bold">Update Stored Number</h2>
-
-      {!isCorrectNetwork && account && (
-        <div className="p-2 rounded-md bg-yellow-100 text-yellow-700 text-sm">
-          ⚠️ You are not connected to the correct network. Please switch
-          networks in your wallet.
-        </div>
-      )}
-
-      {status.message && (
-        <div
-          className={`p-2 rounded-md break-words h-fit text-sm ${
-            status.type === "error"
-              ? "bg-red-100 text-red-500"
-              : status.type === "success"
-              ? "bg-green-100 text-green-700"
-              : "bg-blue-100 text-blue-700"
-          }`}
-        >
-          {status.message}
-        </div>
-      )}
-
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <input
-          type="number"
-          placeholder="New Number"
-          value={newNumber}
-          onChange={(e) => setNewNumber(e.target.value)}
-          disabled={isSubmitting || !account}
-          className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-pink-400"
-        />
-        <button
-          type="submit"
-          disabled={
-            isSubmitting || !account || (!isCorrectNetwork && !!account)
-          }
-          className="w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-lg transition disabled:bg-gray-300"
-        >
-          {isSubmitting ? "Updating..." : "Update"}
-        </button>
-      </form>
-
-      {!account && (
-        <p className="text-sm text-gray-500">
-          Connect your wallet to update the stored number.
-        </p>
-      )}
-    </div>
-  );
-};
-
-export default WriteContract;
 ```
 
 This component allows users to input a new number and send a transaction to update the value stored in the contract. It provides appropriate feedback during each step of the transaction process and handles error scenarios.
@@ -3329,53 +3165,13 @@ To build the smart contract, follow the steps below:
 6. Add the getter and setter functions:
 
     ```solidity
-    // SPDX-License-Identifier: MIT
-    pragma solidity ^0.8.28;
-
-    contract Storage {
-        // State variable to store our number
-        uint256 private number;
-
-        // Event to notify when the number changes
-        event NumberChanged(uint256 newNumber);
-
-        // Function to store a new number
-        function store(uint256 newNumber) public {
-            number = newNumber;
-            emit NumberChanged(newNumber);
-        }
-
-        // Function to retrieve the stored number
-        function retrieve() public view returns (uint256) {
-            return number;
-        }
-    }
+    
     ```
 
 ??? code "Complete Storage.sol contract"
 
     ```solidity title="Storage.sol"
-    // SPDX-License-Identifier: MIT
-    pragma solidity ^0.8.28;
-
-    contract Storage {
-        // State variable to store our number
-        uint256 private number;
-
-        // Event to notify when the number changes
-        event NumberChanged(uint256 newNumber);
-
-        // Function to store a new number
-        function store(uint256 newNumber) public {
-            number = newNumber;
-            emit NumberChanged(newNumber);
-        }
-
-        // Function to retrieve the stored number
-        function retrieve() public view returns (uint256) {
-            return number;
-        }
-    }
+    
     ```
 
 ## Understanding the Code
@@ -22664,16 +22460,7 @@ The [`Account` data type](https://paritytech.github.io/polkadot-sdk/master/frame
 The code snippet below shows how accounts are defined:
 
 ```rs
- /// The full account information for a particular account ID.
- 	#[pallet::storage]
- 	#[pallet::getter(fn account)]
- 	pub type Account<T: Config> = StorageMap<
- 		_,
- 		Blake2_128Concat,
- 		T::AccountId,
- 		AccountInfo<T::Nonce, T::AccountData>,
- 		ValueQuery,
- 	>;
+ 
 ```
 
 The preceding code block defines a storage map named `Account`. The `StorageMap` is a type of on-chain storage that maps keys to values. In the `Account` map, the key is an account ID, and the value is the account's information. Here, `T` represents the generic parameter for the runtime configuration, which is defined by the pallet's configuration trait (`Config`).
@@ -22697,24 +22484,7 @@ For a detailed explanation of storage maps, see the [`StorageMap`](https://parit
 The `AccountInfo` structure is another key element within the [System pallet](https://paritytech.github.io/polkadot-sdk/master/src/frame_system/lib.rs.html){target=\_blank}, providing more granular details about each account's state. This structure tracks vital data, such as the number of transactions and the account’s relationships with other modules.
 
 ```rs
-/// Information of an account.
-#[derive(Clone, Eq, PartialEq, Default, RuntimeDebug, Encode, Decode, TypeInfo, MaxEncodedLen)]
-pub struct AccountInfo<Nonce, AccountData> {
-	/// The number of transactions this account has sent.
-	pub nonce: Nonce,
-	/// The number of other modules that currently depend on this account's existence. The account
-	/// cannot be reaped until this is zero.
-	pub consumers: RefCount,
-	/// The number of other modules that allow this account to exist. The account may not be reaped
-	/// until this and `sufficients` are both zero.
-	pub providers: RefCount,
-	/// The number of modules that allow this account to exist for their own purposes only. The
-	/// account may not be reaped until this and `providers` are both zero.
-	pub sufficients: RefCount,
-	/// The additional data that belongs to this account. Used to store the balance(s) in a lot of
-	/// chains.
-	pub data: AccountData,
-}
+
 ```
 
 The `AccountInfo` structure includes the following components:
@@ -26766,42 +26536,7 @@ Let's start by setting up Hardhat for your Storage contract project:
 6. Configure Hardhat by updating the `hardhat.config.js` file:
 
     ```javascript title="hardhat.config.js"
-    require("@nomicfoundation/hardhat-toolbox");
-
-    require("@parity/hardhat-polkadot");
-
-    const { vars } = require("hardhat/config");
-
-    /** @type import('hardhat/config').HardhatUserConfig */
-    module.exports = {
-      solidity: "0.8.28",
-      resolc: {
-        compilerSource: "npm",
-      },
-      networks: {
-        hardhat: {
-          polkavm: true,
-          nodeConfig: {
-            nodeBinaryPath: 'INSERT_PATH_TO_SUBSTRATE_NODE',
-            rpcPort: 8000,
-            dev: true,
-          },
-          adapterConfig: {
-            adapterBinaryPath: 'INSERT_PATH_TO_ETH_RPC_ADAPTER',
-            dev: true,
-          },
-        },
-        localNode: {
-          polkavm: true,
-          url: `http://127.0.0.1:8545`,
-        },
-        passetHub: {
-          polkavm: true,
-          url: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
-          accounts: [vars.get("PRIVATE_KEY")],
-        },
-      },
-    };
+    
     ```
 
     Ensure that `INSERT_PATH_TO_SUBSTRATE_NODE` and `INSERT_PATH_TO_ETH_RPC_ADAPTER` are replaced with the proper paths to the compiled binaries. 
@@ -27181,32 +26916,7 @@ The `xcm-emulator` provides macros for defining a mocked testing environment. Ch
 - **[`decl_test_parachains`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/cumulus/xcm/xcm-emulator/src/lib.rs#L596){target=\_blank}**: Defines runtime and configuration for parachains. Example:
 
     ```rust
-    decl_test_parachains! {
-    	pub struct AssetHubWestend {
-    		genesis = genesis::genesis(),
-    		on_init = {
-    			asset_hub_westend_runtime::AuraExt::on_initialize(1);
-    		},
-    		runtime = asset_hub_westend_runtime,
-    		core = {
-    			XcmpMessageHandler: asset_hub_westend_runtime::XcmpQueue,
-    			LocationToAccountId: asset_hub_westend_runtime::xcm_config::LocationToAccountId,
-    			ParachainInfo: asset_hub_westend_runtime::ParachainInfo,
-    			MessageOrigin: cumulus_primitives_core::AggregateMessageOrigin,
-    			DigestProvider: (),
-    		},
-    		pallets = {
-    			PolkadotXcm: asset_hub_westend_runtime::PolkadotXcm,
-    			Balances: asset_hub_westend_runtime::Balances,
-    			Assets: asset_hub_westend_runtime::Assets,
-    			ForeignAssets: asset_hub_westend_runtime::ForeignAssets,
-    			PoolAssets: asset_hub_westend_runtime::PoolAssets,
-    			AssetConversion: asset_hub_westend_runtime::AssetConversion,
-    			SnowbridgeSystemFrontend: asset_hub_westend_runtime::SnowbridgeSystemFrontend,
-    			Revive: asset_hub_westend_runtime::Revive,
-    		}
-    	},
-    }
+    
     ```
 
 - **[`decl_test_bridges`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/cumulus/xcm/xcm-emulator/src/lib.rs#L1221){target=\_blank}**: Creates bridges between chains, specifying the source, target, and message handler. Example:

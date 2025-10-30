@@ -84,36 +84,7 @@ To use it, you can deploy the `IdentityExample` contract in [Remix](/smart-contr
 The ModExp precompile performs modular exponentiation, which is an operation commonly needed in cryptographic algorithms.
 
 ```solidity title="ModExp.sol"
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
 
-contract ModExpExample {
-    address constant MODEXP_ADDRESS = address(0x05);
-
-    function modularExponentiation(
-        bytes memory base,
-        bytes memory exponent,
-        bytes memory modulus
-    ) public view returns (bytes memory) {
-        bytes memory input = abi.encodePacked(
-            toBytes32(base.length),
-            toBytes32(exponent.length),
-            toBytes32(modulus.length),
-            base,
-            exponent,
-            modulus
-        );
-
-        (bool success, bytes memory result) = MODEXP_ADDRESS.staticcall(input);
-        require(success, "ModExp precompile call failed");
-
-        return result;
-    }
-
-    function toBytes32(uint256 value) internal pure returns (bytes32) {
-        return bytes32(value);
-    }
-}
 ```
 
 To use it, you can deploy the `ModExpExample` contract in [Remix](/smart-contracts/dev-environments/remix/get-started/){target=\_blank} or any Solidity-compatible environment and call `modularExponentiation` with encoded `base`, `exponent`, and `modulus` bytes. This [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/ModExp.js){target=\_blank} shows how to test modular exponentiation like (4 ** 13) % 497 = 445.
@@ -133,42 +104,7 @@ To use it, you can deploy the `BN128AddExample` contract in [Remix](/smart-contr
 The BN128Mul precompile performs scalar multiplication on the alt_bn128 curve.
 
 ```solidity title="BN128Mul.sol"
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
 
-contract BN128MulExample {
-    // Precompile address for BN128Mul
-    address constant BN128_MUL_ADDRESS = address(0x07);
-
-    bytes public result;
-
-    // Performs scalar multiplication of a point on the alt_bn128 curve
-    function bn128ScalarMul(uint256 x1, uint256 y1, uint256 scalar) public {
-        // Format: [x, y, scalar] - each 32 bytes
-        bytes memory input = abi.encodePacked(
-            bytes32(x1),
-            bytes32(y1),
-            bytes32(scalar)
-        );
-
-        (bool success, bytes memory resultInMemory) = BN128_MUL_ADDRESS.call{
-            value: 0
-        }(input);
-        require(success, "BN128Mul precompile call failed");
-
-        result = resultInMemory;
-    }
-
-    // Helper to decode result from `result` storage
-    function getResult() public view returns (uint256 x2, uint256 y2) {
-        bytes memory tempResult = result;
-        require(tempResult.length >= 64, "Invalid result length");
-        assembly {
-            x2 := mload(add(tempResult, 32))
-            y2 := mload(add(tempResult, 64))
-        }
-    }
-}
 ```
 
 To use it, deploy `BN128MulExample` in [Remix](/smart-contracts/dev-environments/remix/get-started/){target=\_blank} or any Solidity-compatible environment and call `bn128ScalarMul` with a valid point and scalar. This [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/BN128Mul.js){target=\_blank} shows how to test the operation and verify the expected scalar multiplication result on `alt_bn128`.
@@ -188,105 +124,7 @@ You can deploy `BN128PairingExample` in [Remix](/smart-contracts/dev-environment
 The Blake2F precompile performs the Blake2 compression function F, which is the core of the Blake2 hash function.
 
 ```solidity title="Blake2F.sol"
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
 
-contract Blake2FExample {
-    // Precompile address for Blake2F
-    address constant BLAKE2F_ADDRESS = address(0x09);
-
-    bytes public result;
-
-    function blake2F(bytes memory input) public {
-        // Input must be exactly 213 bytes
-        require(input.length == 213, "Invalid input length - must be 213 bytes");
-
-        // Call the precompile
-        (bool success, bytes memory resultInMemory) = BLAKE2F_ADDRESS.call{
-            value: 0
-        }(input);
-        require(success, "Blake2F precompile call failed");
-
-        result = resultInMemory;
-    }
-
-    // Helper function to decode the result from `result` storage
-    function getResult() public view returns (bytes32[8] memory output) {
-        bytes memory tempResult = result;
-        require(tempResult.length == 64, "Invalid result length");
-
-        for (uint i = 0; i < 8; i++) {
-            assembly {
-                mstore(add(output, mul(32, i)), mload(add(add(tempResult, 32), mul(32, i))))
-            }
-        }
-    }
-
-
-    // Helper function to create Blake2F input from parameters
-    function createBlake2FInput(
-        uint32 rounds,
-        bytes32[8] memory h,
-        bytes32[16] memory m,
-        bytes8[2] memory t,
-        bool f
-    ) public pure returns (bytes memory) {
-        // Start with rounds (4 bytes, big-endian)
-        bytes memory input = abi.encodePacked(rounds);
-
-        // Add state vector h (8 * 32 = 256 bytes)
-        for (uint i = 0; i < 8; i++) {
-            input = abi.encodePacked(input, h[i]);
-        }
-
-        // Add message block m (16 * 32 = 512 bytes, but we need to convert to 16 * 8 = 128 bytes)
-        // Blake2F expects 64-bit words in little-endian format
-        for (uint i = 0; i < 16; i++) {
-            // Take only the first 8 bytes of each bytes32 and reverse for little-endian
-            bytes8 word = bytes8(m[i]);
-            input = abi.encodePacked(input, word);
-        }
-
-        // Add offset counters t (2 * 8 = 16 bytes)
-        input = abi.encodePacked(input, t[0], t[1]);
-
-        // Add final block flag (1 byte)
-        input = abi.encodePacked(input, f ? bytes1(0x01) : bytes1(0x00));
-
-        return input;
-    }
-
-    // Simplified function that works with raw hex input
-    function blake2FFromHex(string memory hexInput) public {
-        bytes memory input = hexStringToBytes(hexInput);
-        blake2F(input);
-    }
-
-    // Helper function to convert hex string to bytes
-    function hexStringToBytes(string memory hexString) public pure returns (bytes memory) {
-        bytes memory hexBytes = bytes(hexString);
-        require(hexBytes.length % 2 == 0, "Invalid hex string length");
-        
-        bytes memory result = new bytes(hexBytes.length / 2);
-        
-        for (uint i = 0; i < hexBytes.length / 2; i++) {
-            result[i] = bytes1(
-                (hexCharToByte(hexBytes[2 * i]) << 4) | 
-                hexCharToByte(hexBytes[2 * i + 1])
-            );
-        }
-        
-        return result;
-    }
-
-    function hexCharToByte(bytes1 char) internal pure returns (uint8) {
-        uint8 c = uint8(char);
-        if (c >= 48 && c <= 57) return c - 48;      // 0-9
-        if (c >= 65 && c <= 70) return c - 55;      // A-F
-        if (c >= 97 && c <= 102) return c - 87;     // a-f
-        revert("Invalid hex character");
-    }
-}
 ```
 
 To use it, deploy `Blake2FExample` in [Remix](/smart-contracts/dev-environments/remix/get-started/){target=\_blank} or any Solidity-compatible environment and call `callBlake2F` with the properly formatted input parameters for rounds, state vector, message block, offset counters, and final block flag. This [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/Blake2.js){target=\_blank} demonstrates how to perform Blake2 compression with different rounds and verify the correctness of the output against known test vectors.

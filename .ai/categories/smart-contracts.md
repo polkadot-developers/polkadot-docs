@@ -270,17 +270,15 @@ First, you'll update the runtime's `Cargo.toml` file to include the Utility pall
     ```toml hl_lines="3" title="Cargo.toml"
     
     ...
-    custom-pallet = { path = "../pallets/custom-pallet", default-features = false }
+    
     ```
 
 3. In the `[features]` section, add the custom pallet to the `std` feature list:
 
     ```toml hl_lines="5" title="Cargo.toml"
-    [features]
-    default = ["std"]
-    std = [
+    
       ...
-      "custom-pallet/std",
+      
       ...
     ]
     ```
@@ -2752,6 +2750,117 @@ For your next steps, explore the various smart contract guides demonstrating how
 
 ---
 
+Page Title: Contract Deployment
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-for-eth-devs-contract-deployment.md
+- Canonical (HTML): https://docs.polkadot.com/smart-contracts/for-eth-devs/contract-deployment/
+- Summary: Compare deployment flows for REVM and PVM-based smart contracts on the Polkadot Hub. Includes single-step REVM flows and PVM’s two-step deployment model.
+
+# Contract Deployment
+
+## Introduction
+
+Polkadot's smart contract platform supports two distinct virtual machine backends: Rust Ethereum Virtual Machine (REVM) and PolkaVM. Each backend has its own deployment characteristics and optimization strategies. REVM provides full Ethereum compatibility with familiar single-step deployment, while the RISC-V-based PolkaVM uses a more structured two-step approach optimized for its architecture. Understanding these differences ensures smooth deployment regardless of which backend you choose for your smart contracts.
+
+## REVM Deployment
+
+The REVM backend enables seamless deployment of Ethereum contracts without modification. Contracts deploy exactly as they would on Ethereum, using familiar tools and workflows.
+
+With REVM, deployment mirrors the Ethereum flow exactly including: 
+
+- Contracts are bundled and deployed in a single transaction. 
+- Factory contracts can create new contracts at runtime.
+- Runtime code generation, including inline assembly, is supported.
+- Existing familiar tools like Hardhat, Foundry, and Remix work out of the box.
+
+## PolkaVM Deployment
+
+PolkaVM implements a fundamentally different deployment model optimized for its RISC-V architecture. While simple contract deployments work seamlessly, advanced patterns like factory contracts require understanding the two-step deployment process.
+
+### Standard Contract Deployment
+
+For most use cases, such as deploying ERC-20 tokens, NFT collections, or standalone contracts, deployment is transparent and requires no special steps. The [Revive compiler](https://github.com/paritytech/revive){target=\_blank} handles the deployment process automatically when using standard Solidity patterns.
+
+### Two-Step Deployment Model
+
+PolkaVM separates contract deployment into distinct phases:
+
+1. **Code upload**: Contract bytecode must be uploaded to the chain before instantiation.
+2. **Contract instantiation**: Contracts are created by referencing previously uploaded code via its hash.
+
+This architecture differs from the EVM's bundled approach and has important implications for specific deployment patterns.
+
+### Factory Pattern Considerations
+
+The common EVM pattern, where contracts dynamically create other contracts, requires adaptation for PolkaVM as follows:
+
+**EVM Factory Pattern:**
+```solidity
+// This works on REVM but requires modification for PolkaVM
+contract Factory {
+    function createToken() public returns (address) {
+        // EVM bundles bytecode in the factory
+        return address(new Token());
+    }
+}
+```
+
+**PolkaVM Requirements:**
+
+- **Pre-upload dependent contracts**: All contracts that will be instantiated at runtime must be uploaded to the chain before the factory attempts to create them.
+- **Code hash references**: Factory contracts work with pre-uploaded code hashes rather than embedding bytecode.
+- **No runtime code generation**: Dynamic bytecode generation is not supported due to PolkaVM's RISC-V format.
+
+### Migration Strategy for Factory Contracts
+
+When migrating factory contracts from Ethereum to PolkaVM:
+
+1. **Identify all contracts**: Determine which contracts will be instantiated at runtime.
+2. **Upload dependencies first**: Deploy all dependent contracts to the chain before deploying the factory.
+3. **Use on-chain constructors**: Leverage PolkaVM's on-chain constructor feature for flexible instantiation.
+4. **Avoid assembly creation**: Don't use `create` or `create2` opcodes in assembly blocks for manual deployment.
+
+### Architecture-Specific Limitations
+
+PolkaVM's deployment model creates several specific constraints:
+
+- **`EXTCODECOPY` limitations**: Contracts using `EXTCODECOPY` to manipulate code at runtime will encounter issues.
+- **Runtime code modification**: Patterns that construct and mutate contract code on-the-fly are not supported.
+- **Assembly-based factories**: Factory contracts written in YUL assembly that generate code at runtime will fail with `CodeNotFound` errors.
+
+These patterns are rare in practice and typically require dropping down to assembly, making them non-issues for standard Solidity development.
+
+### On-Chain Constructors
+
+PolkaVM provides on-chain constructors as an elegant alternative to runtime code modification:
+
+- Enable contract instantiation without runtime code generation.
+- Support flexible initialization patterns.
+- Maintain separation between code upload and contract creation.
+- Provide predictable deployment costs.
+
+## Gas Estimation vs Actual Consumption
+
+Both REVM and PolkaVM deployments may show significant differences between gas estimation and actual consumption. You might see estimates that are several times higher than the actual gas consumed (often around 30% of the estimate). This is normal behavior because pre-dispatch estimation cannot distinguish between computation weight and storage deposits, leading to conservative overestimation. Contract deployments are particularly affected as they consume significant storage deposits for code storage.
+
+## Deployment Comparison
+
+| Feature | REVM Backend | PolkaVM Backend |
+|:-------:|:-------------:|:----------------:|
+| **Deployment Model** | Single-step bundled | Two-step upload and instantiate |
+| **Factory Patterns** | Direct runtime creation | Requires pre-uploaded code |
+| **Code Bundling** | Bytecode in transaction | Code hash references |
+| **Runtime Codegen** | Fully supported | Not supported |
+| **Simple Contracts** | No modifications needed | No modifications needed |
+| **Assembly Creation** | Supported | Discouraged, limited support |
+
+## Conclusion
+
+Both backends support contract deployment effectively, with REVM offering drop-in Ethereum compatibility and PolkaVM providing a more structured two-step approach. For the majority of use cases—deploying standard contracts like tokens or applications—both backends work seamlessly. Advanced patterns like factory contracts may require adjustment for PolkaVM, but these adaptations are straightforward with proper planning.
+
+
+---
+
 Page Title: Create a Smart Contract
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/tutorials-smart-contracts-launch-your-first-project-create-contracts.md
@@ -2847,53 +2956,13 @@ To build the smart contract, follow the steps below:
 6. Add the getter and setter functions:
 
     ```solidity
-    // SPDX-License-Identifier: MIT
-    pragma solidity ^0.8.28;
-
-    contract Storage {
-        // State variable to store our number
-        uint256 private number;
-
-        // Event to notify when the number changes
-        event NumberChanged(uint256 newNumber);
-
-        // Function to store a new number
-        function store(uint256 newNumber) public {
-            number = newNumber;
-            emit NumberChanged(newNumber);
-        }
-
-        // Function to retrieve the stored number
-        function retrieve() public view returns (uint256) {
-            return number;
-        }
-    }
+    
     ```
 
 ??? code "Complete Storage.sol contract"
 
     ```solidity title="Storage.sol"
-    // SPDX-License-Identifier: MIT
-    pragma solidity ^0.8.28;
-
-    contract Storage {
-        // State variable to store our number
-        uint256 private number;
-
-        // Event to notify when the number changes
-        event NumberChanged(uint256 newNumber);
-
-        // Function to store a new number
-        function store(uint256 newNumber) public {
-            number = newNumber;
-            emit NumberChanged(newNumber);
-        }
-
-        // Function to retrieve the stored number
-        function retrieve() public view returns (uint256) {
-            return number;
-        }
-    }
+    
     ```
 
 ## Understanding the Code
@@ -6324,6 +6393,51 @@ Now that you have the foundational knowledge to use Ethers.js with Polkadot Hub,
 
 ---
 
+Page Title: Ethereum-Native Precompiles
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-precompiles-eth-native.md
+- Canonical (HTML): https://docs.polkadot.com/smart-contracts/precompiles/eth-native/
+- Summary: Standard Ethereum precompiles available in Polkadot Hub's Revive pallet for smart contract development.
+
+# Ethereum-Native Precompiles
+
+## Introduction
+
+Ethereum-native precompiles are special contract implementations that provide essential cryptographic and utility functions at the runtime level. These precompiles are available at predefined addresses and offer optimized, native implementations of commonly used operations that would be computationally expensive or impractical to implement in pure contract code.
+
+In Polkadot Hub's Revive pallet, these precompiles maintain compatibility with standard Ethereum addresses, allowing developers familiar with Ethereum to seamlessly transition their smart contracts while benefiting from the performance optimizations of the PolkaVM runtime.
+
+## How to Use Precompiles
+
+To use a precompile in your smart contract, simply call the precompile's address as you would any other contract. Each precompile has a specific address (shown in the table below) and expects input data in a particular format. The precompile executes natively at the runtime level and returns the result directly to your contract.
+
+For example, to use the ECRecover precompile to verify a signature, you would call address `0x0000000000000000000000000000000000000001` with the properly formatted signature data. The precompile handles the complex cryptographic operations efficiently and returns the recovered public key.
+
+You can find sample contracts for each precompile in the [`precompiles-hardhat`](https://github.com/polkadot-developers/polkavm-hardhat-examples/tree/master/precompiles-hardhat/contracts){target=\_blank} project.
+
+## Standard Precompiles in Polkadot Hub
+
+Revive implements the standard set of Ethereum precompiles:
+
+|                                                                                   Contract Name                                                                                   | Address (Last Byte) |                                           Description                                           |
+| :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------: | :---------------------------------------------------------------------------------------------: |
+|  [ECRecover](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2503/substrate/frame/revive/src/pure_precompiles/ecrecover.rs){target=\_blank}   |        0x01         |                       Recovers the public key associated with a signature                       |
+|     [Sha256](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2503/substrate/frame/revive/src/pure_precompiles/sha256.rs){target=\_blank}      |        0x02         |                              Implements the SHA-256 hash function                               |
+|  [Ripemd160](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2503/substrate/frame/revive/src/pure_precompiles/ripemd160.rs){target=\_blank}   |        0x03         |                             Implements the RIPEMD-160 hash function                             |
+|   [Identity](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2503/substrate/frame/revive/src/pure_precompiles/identity.rs){target=\_blank}    |        0x04         |                          Data copy function (returns input as output)                           |
+|     [Modexp](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2503/substrate/frame/revive/src/pure_precompiles/modexp.rs){target=\_blank}      |        0x05         |                                     Modular exponentiation                                      |
+|   [Bn128Add](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2503/substrate/frame/revive/src/pure_precompiles/bn128.rs#L27){target=\_blank}   |        0x06         |    Addition on the [alt_bn128 curve](https://eips.ethereum.org/EIPS/eip-196){target=\_blank}    |
+|   [Bn128Mul](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2503/substrate/frame/revive/src/pure_precompiles/bn128.rs#L48){target=\_blank}   |        0x07         | Multiplication on the [alt_bn128 curve](https://eips.ethereum.org/EIPS/eip-196){target=\_blank} |
+| [Bn128Pairing](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2503/substrate/frame/revive/src/pure_precompiles/bn128.rs#L69){target=\_blank} |        0x08         |                              Pairing check on the alt_bn128 curve                               |
+|    [Blake2F](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2503/substrate/frame/revive/src/pure_precompiles/blake2f.rs){target=\_blank}     |        0x09         |                                  Blake2 compression function F                                  |
+
+## Conclusion
+
+Ethereum-native precompiles provide a powerful foundation for smart contract development on Polkadot Hub, offering high-performance implementations of essential cryptographic and utility functions. By maintaining compatibility with standard Ethereum precompile addresses and interfaces, Revive ensures that developers can leverage existing knowledge and tools while benefiting from the enhanced performance of native execution.
+
+
+---
+
 Page Title: EVM vs PolkaVM
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/polkadot-protocol-smart-contract-basics-evm-vs-polkavm.md
@@ -9165,36 +9279,7 @@ To use it, you can deploy the `IdentityExample` contract in [Remix](/smart-contr
 The ModExp precompile performs modular exponentiation, which is an operation commonly needed in cryptographic algorithms.
 
 ```solidity title="ModExp.sol"
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
 
-contract ModExpExample {
-    address constant MODEXP_ADDRESS = address(0x05);
-
-    function modularExponentiation(
-        bytes memory base,
-        bytes memory exponent,
-        bytes memory modulus
-    ) public view returns (bytes memory) {
-        bytes memory input = abi.encodePacked(
-            toBytes32(base.length),
-            toBytes32(exponent.length),
-            toBytes32(modulus.length),
-            base,
-            exponent,
-            modulus
-        );
-
-        (bool success, bytes memory result) = MODEXP_ADDRESS.staticcall(input);
-        require(success, "ModExp precompile call failed");
-
-        return result;
-    }
-
-    function toBytes32(uint256 value) internal pure returns (bytes32) {
-        return bytes32(value);
-    }
-}
 ```
 
 To use it, you can deploy the `ModExpExample` contract in [Remix](/smart-contracts/dev-environments/remix/get-started/){target=\_blank} or any Solidity-compatible environment and call `modularExponentiation` with encoded `base`, `exponent`, and `modulus` bytes. This [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/ModExp.js){target=\_blank} shows how to test modular exponentiation like (4 ** 13) % 497 = 445.
@@ -9214,42 +9299,7 @@ To use it, you can deploy the `BN128AddExample` contract in [Remix](/smart-contr
 The BN128Mul precompile performs scalar multiplication on the alt_bn128 curve.
 
 ```solidity title="BN128Mul.sol"
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
 
-contract BN128MulExample {
-    // Precompile address for BN128Mul
-    address constant BN128_MUL_ADDRESS = address(0x07);
-
-    bytes public result;
-
-    // Performs scalar multiplication of a point on the alt_bn128 curve
-    function bn128ScalarMul(uint256 x1, uint256 y1, uint256 scalar) public {
-        // Format: [x, y, scalar] - each 32 bytes
-        bytes memory input = abi.encodePacked(
-            bytes32(x1),
-            bytes32(y1),
-            bytes32(scalar)
-        );
-
-        (bool success, bytes memory resultInMemory) = BN128_MUL_ADDRESS.call{
-            value: 0
-        }(input);
-        require(success, "BN128Mul precompile call failed");
-
-        result = resultInMemory;
-    }
-
-    // Helper to decode result from `result` storage
-    function getResult() public view returns (uint256 x2, uint256 y2) {
-        bytes memory tempResult = result;
-        require(tempResult.length >= 64, "Invalid result length");
-        assembly {
-            x2 := mload(add(tempResult, 32))
-            y2 := mload(add(tempResult, 64))
-        }
-    }
-}
 ```
 
 To use it, deploy `BN128MulExample` in [Remix](/smart-contracts/dev-environments/remix/get-started/){target=\_blank} or any Solidity-compatible environment and call `bn128ScalarMul` with a valid point and scalar. This [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/BN128Mul.js){target=\_blank} shows how to test the operation and verify the expected scalar multiplication result on `alt_bn128`.
@@ -9269,105 +9319,7 @@ You can deploy `BN128PairingExample` in [Remix](/smart-contracts/dev-environment
 The Blake2F precompile performs the Blake2 compression function F, which is the core of the Blake2 hash function.
 
 ```solidity title="Blake2F.sol"
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
 
-contract Blake2FExample {
-    // Precompile address for Blake2F
-    address constant BLAKE2F_ADDRESS = address(0x09);
-
-    bytes public result;
-
-    function blake2F(bytes memory input) public {
-        // Input must be exactly 213 bytes
-        require(input.length == 213, "Invalid input length - must be 213 bytes");
-
-        // Call the precompile
-        (bool success, bytes memory resultInMemory) = BLAKE2F_ADDRESS.call{
-            value: 0
-        }(input);
-        require(success, "Blake2F precompile call failed");
-
-        result = resultInMemory;
-    }
-
-    // Helper function to decode the result from `result` storage
-    function getResult() public view returns (bytes32[8] memory output) {
-        bytes memory tempResult = result;
-        require(tempResult.length == 64, "Invalid result length");
-
-        for (uint i = 0; i < 8; i++) {
-            assembly {
-                mstore(add(output, mul(32, i)), mload(add(add(tempResult, 32), mul(32, i))))
-            }
-        }
-    }
-
-
-    // Helper function to create Blake2F input from parameters
-    function createBlake2FInput(
-        uint32 rounds,
-        bytes32[8] memory h,
-        bytes32[16] memory m,
-        bytes8[2] memory t,
-        bool f
-    ) public pure returns (bytes memory) {
-        // Start with rounds (4 bytes, big-endian)
-        bytes memory input = abi.encodePacked(rounds);
-
-        // Add state vector h (8 * 32 = 256 bytes)
-        for (uint i = 0; i < 8; i++) {
-            input = abi.encodePacked(input, h[i]);
-        }
-
-        // Add message block m (16 * 32 = 512 bytes, but we need to convert to 16 * 8 = 128 bytes)
-        // Blake2F expects 64-bit words in little-endian format
-        for (uint i = 0; i < 16; i++) {
-            // Take only the first 8 bytes of each bytes32 and reverse for little-endian
-            bytes8 word = bytes8(m[i]);
-            input = abi.encodePacked(input, word);
-        }
-
-        // Add offset counters t (2 * 8 = 16 bytes)
-        input = abi.encodePacked(input, t[0], t[1]);
-
-        // Add final block flag (1 byte)
-        input = abi.encodePacked(input, f ? bytes1(0x01) : bytes1(0x00));
-
-        return input;
-    }
-
-    // Simplified function that works with raw hex input
-    function blake2FFromHex(string memory hexInput) public {
-        bytes memory input = hexStringToBytes(hexInput);
-        blake2F(input);
-    }
-
-    // Helper function to convert hex string to bytes
-    function hexStringToBytes(string memory hexString) public pure returns (bytes memory) {
-        bytes memory hexBytes = bytes(hexString);
-        require(hexBytes.length % 2 == 0, "Invalid hex string length");
-        
-        bytes memory result = new bytes(hexBytes.length / 2);
-        
-        for (uint i = 0; i < hexBytes.length / 2; i++) {
-            result[i] = bytes1(
-                (hexCharToByte(hexBytes[2 * i]) << 4) | 
-                hexCharToByte(hexBytes[2 * i + 1])
-            );
-        }
-        
-        return result;
-    }
-
-    function hexCharToByte(bytes1 char) internal pure returns (uint8) {
-        uint8 c = uint8(char);
-        if (c >= 48 && c <= 57) return c - 48;      // 0-9
-        if (c >= 65 && c <= 70) return c - 55;      // A-F
-        if (c >= 97 && c <= 102) return c - 87;     // a-f
-        revert("Invalid hex character");
-    }
-}
 ```
 
 To use it, deploy `Blake2FExample` in [Remix](/smart-contracts/dev-environments/remix/get-started/){target=\_blank} or any Solidity-compatible environment and call `callBlake2F` with the properly formatted input parameters for rounds, state vector, message block, offset counters, and final block flag. This [test file](https://github.com/polkadot-developers/polkavm-hardhat-examples/blob/v0.0.3/precompiles-hardhat/test/Blake2.js){target=\_blank} demonstrates how to perform Blake2 compression with different rounds and verify the correctness of the output against known test vectors.
@@ -15184,16 +15136,7 @@ The [`Account` data type](https://paritytech.github.io/polkadot-sdk/master/frame
 The code snippet below shows how accounts are defined:
 
 ```rs
- /// The full account information for a particular account ID.
- 	#[pallet::storage]
- 	#[pallet::getter(fn account)]
- 	pub type Account<T: Config> = StorageMap<
- 		_,
- 		Blake2_128Concat,
- 		T::AccountId,
- 		AccountInfo<T::Nonce, T::AccountData>,
- 		ValueQuery,
- 	>;
+ 
 ```
 
 The preceding code block defines a storage map named `Account`. The `StorageMap` is a type of on-chain storage that maps keys to values. In the `Account` map, the key is an account ID, and the value is the account's information. Here, `T` represents the generic parameter for the runtime configuration, which is defined by the pallet's configuration trait (`Config`).
@@ -15217,24 +15160,7 @@ For a detailed explanation of storage maps, see the [`StorageMap`](https://parit
 The `AccountInfo` structure is another key element within the [System pallet](https://paritytech.github.io/polkadot-sdk/master/src/frame_system/lib.rs.html){target=\_blank}, providing more granular details about each account's state. This structure tracks vital data, such as the number of transactions and the account’s relationships with other modules.
 
 ```rs
-/// Information of an account.
-#[derive(Clone, Eq, PartialEq, Default, RuntimeDebug, Encode, Decode, TypeInfo, MaxEncodedLen)]
-pub struct AccountInfo<Nonce, AccountData> {
-	/// The number of transactions this account has sent.
-	pub nonce: Nonce,
-	/// The number of other modules that currently depend on this account's existence. The account
-	/// cannot be reaped until this is zero.
-	pub consumers: RefCount,
-	/// The number of other modules that allow this account to exist. The account may not be reaped
-	/// until this and `sufficients` are both zero.
-	pub providers: RefCount,
-	/// The number of modules that allow this account to exist for their own purposes only. The
-	/// account may not be reaped until this and `providers` are both zero.
-	pub sufficients: RefCount,
-	/// The additional data that belongs to this account. Used to store the balance(s) in a lot of
-	/// chains.
-	pub data: AccountData,
-}
+
 ```
 
 The `AccountInfo` structure includes the following components:
@@ -17484,32 +17410,7 @@ The `xcm-emulator` provides macros for defining a mocked testing environment. Ch
 - **[`decl_test_parachains`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/cumulus/xcm/xcm-emulator/src/lib.rs#L596){target=\_blank}**: Defines runtime and configuration for parachains. Example:
 
     ```rust
-    decl_test_parachains! {
-    	pub struct AssetHubWestend {
-    		genesis = genesis::genesis(),
-    		on_init = {
-    			asset_hub_westend_runtime::AuraExt::on_initialize(1);
-    		},
-    		runtime = asset_hub_westend_runtime,
-    		core = {
-    			XcmpMessageHandler: asset_hub_westend_runtime::XcmpQueue,
-    			LocationToAccountId: asset_hub_westend_runtime::xcm_config::LocationToAccountId,
-    			ParachainInfo: asset_hub_westend_runtime::ParachainInfo,
-    			MessageOrigin: cumulus_primitives_core::AggregateMessageOrigin,
-    			DigestProvider: (),
-    		},
-    		pallets = {
-    			PolkadotXcm: asset_hub_westend_runtime::PolkadotXcm,
-    			Balances: asset_hub_westend_runtime::Balances,
-    			Assets: asset_hub_westend_runtime::Assets,
-    			ForeignAssets: asset_hub_westend_runtime::ForeignAssets,
-    			PoolAssets: asset_hub_westend_runtime::PoolAssets,
-    			AssetConversion: asset_hub_westend_runtime::AssetConversion,
-    			SnowbridgeSystemFrontend: asset_hub_westend_runtime::SnowbridgeSystemFrontend,
-    			Revive: asset_hub_westend_runtime::Revive,
-    		}
-    	},
-    }
+    
     ```
 
 - **[`decl_test_bridges`](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/cumulus/xcm/xcm-emulator/src/lib.rs#L1221){target=\_blank}**: Creates bridges between chains, specifying the source, target, and message handler. Example:

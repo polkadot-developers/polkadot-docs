@@ -115,22 +115,8 @@ To integrate this component to your dApp, you need to overwrite the existing boi
 ```javascript title="app/page.js"
 
 
-export default function Home() {
-  const [account, setAccount] = useState(null);
 
-  const handleConnect = (connectedAccount) => {
-    setAccount(connectedAccount);
-  };
 
-  return (
-    <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
-      <h1 className="text-2xl font-semibold text-center">
-        Ethers.js dApp - Passet Hub Smart Contracts
-      </h1>
-      <WalletConnect onConnect={handleConnect} />
-</section>
-  );
-}
 ```
 
 In your terminal, you can launch your project by running:
@@ -157,27 +143,9 @@ To see this change in your dApp, you need to integrate this component into the `
 
 ```javascript title="app/page.js"
 
-import { useState } from 'react';
 
-import WalletConnect from './components/WalletConnect';
-import ReadContract from './components/ReadContract';
-export default function Home() {
-  const [account, setAccount] = useState(null);
 
-  const handleConnect = (connectedAccount) => {
-    setAccount(connectedAccount);
-  };
 
-  return (
-    <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
-      <h1 className="text-2xl font-semibold text-center">
-        Ethers.js dApp - Passet Hub Smart Contracts
-      </h1>
-      <WalletConnect onConnect={handleConnect} />
-      <ReadContract />
-</section>
-  );
-}
 ```
 
 Your dApp will automatically be updated to the following:
@@ -197,32 +165,7 @@ This component allows users to input a new number and send a transaction to upda
 Update the `app/page.js` file to integrate all components:
 
 ```javascript title="app/page.js"
-'use client';
 
-import { useState } from 'react';
-
-import WalletConnect from './components/WalletConnect';
-import ReadContract from './components/ReadContract';
-import WriteContract from './components/WriteContract';
-
-export default function Home() {
-  const [account, setAccount] = useState(null);
-
-  const handleConnect = (connectedAccount) => {
-    setAccount(connectedAccount);
-  };
-
-  return (
-    <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
-      <h1 className="text-2xl font-semibold text-center">
-        Ethers.js dApp - Passet Hub Smart Contracts
-      </h1>
-      <WalletConnect onConnect={handleConnect} />
-      <ReadContract />
-      <WriteContract account={account} />
-    </section>
-  );
-}
 ```
 
 The completed UI will display:

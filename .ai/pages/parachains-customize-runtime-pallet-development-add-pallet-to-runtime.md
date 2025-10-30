@@ -33,17 +33,15 @@ First, you'll update the runtime's `Cargo.toml` file to include the Utility pall
     ```toml hl_lines="3" title="Cargo.toml"
     
     ...
-    custom-pallet = { path = "../pallets/custom-pallet", default-features = false }
+    
     ```
 
 3. In the `[features]` section, add the custom pallet to the `std` feature list:
 
     ```toml hl_lines="5" title="Cargo.toml"
-    [features]
-    default = ["std"]
-    std = [
+    
       ...
-      "custom-pallet/std",
+      
       ...
     ]
     ```

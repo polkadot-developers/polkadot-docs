@@ -11769,6 +11769,179 @@ You must contact specific registrars individually to request judgment. Each regi
 
 ---
 
+Page Title: Polkadot Hub Assets
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-polkadot-hub-assets.md
+- Canonical (HTML): https://docs.polkadot.com/reference/polkadot-hub/assets/
+- Summary: Learn about asset management on Polkadot Hub, including on-chain assets, foreign asset integration, and XCM for cross-chain asset transfers.
+
+# Assets on Polkadot Hub
+
+## Introduction
+
+Polkadot Hub is Polkadot's system parachain for issuing and managing on-chain assets. While the relay chain provides security, Polkadot Hub handles asset logic—minting, burning, transfers, and metadata—efficiently and cost-effectively.
+
+Polkadot Hub supports native assets issued on the parachain and foreign assets from other chains, both of which can move seamlessly across the network via XCM.
+
+This guide explains how assets are created, managed, and moved across chains, including key operations, roles, and the differences between native and foreign assets.
+
+## Why Use Polkadot Hub?
+
+The Polkadot relay chain supports only its native token (DOT). Polkadot Hub fills this gap by providing a standardized framework for creating and managing fungible and non-fungible assets. It enables projects to issue tokens, manage supply, and transfer assets across parachains.
+
+**Key features**:
+
+- **Built-in asset operations**: Mint, burn, and transfer like ERC-20 on Ethereum, but native to Polkadot's runtime.
+- **Custom asset creation**: Issue tokens or NFTs with configurable permissions and metadata.
+- **Low fees**: Transactions cost roughly one-tenth of relay chain fees.
+- **Lower deposits**: Minimal on-chain storage costs for asset data.
+- **Pay fees in any asset**: Users don’t need DOT to transact; supported assets can cover fees.
+- **Cross-chain ready**: Assets can be transferred to other parachains using XCM.
+
+## Types of Assets
+
+Polkadot Hub supports two types of assets:
+
+- **Native assets**: Tokens and NFTs issued directly on Polkadot Hub using the Assets pallet. These assets benefit from the platform's custom features, such as configurable permissions and low fees
+- **Foreign assets**: Tokens originating from other Polkadot parachains or external networks (like Ethereum, via bridges). Once registered on Polkadot Hub, they are treated similarly to native assets.
+
+## Asset Structure
+
+Each asset is identified by a unique ID and stores:
+
+- Asset administrators
+- Total supply and holder count
+- Minimum balance configuration
+- Sufficiency–whether the asset can keep an account alive without DOT
+- Metadata (name, symbol, decimals)
+
+If a balance falls below the configured minimum, it may be removed as “dust.” This ensures efficient storage while giving developers control over asset economics.
+
+## How Native Assets Work
+
+Native assets on Polkadot Hub are created and managed via the Assets pallet from the Polkadot SDK. This pallet defines the runtime logic for issuing, configuring, and administering fungible assets with customizable permissions.
+
+It supports both permissioned and permissionless asset creation, enabling everything from simple user-issued tokens to governed assets controlled by teams or DAOs.
+
+For implementation details, see the [Assets Pallet Rust docs](https://paritytech.github.io/polkadot-sdk/master/pallet_assets/index.html){target=\_blank}.
+
+### Asset Operations
+
+The Assets pallet provides both state-changing operations and read-only queries for full lifecycle management of assets.
+
+Core operations include:
+
+- **Asset issuance**: Create new assets and assign initial supply.
+- **Transfers**: Move assets between accounts with balance tracking.
+- **Burning**: Reduce total supply by destroying tokens.
+- **Delegated transfers**: Approve transfers on behalf of another account without giving up custody.
+- **Freezing and thawing**: Temporarily lock and unlock an account's balance.
+
+For a complete list of extrinsics, see the [`pallet-assets` dispatchable functions reference](https://docs.rs/pallet-assets/latest/pallet_assets/pallet/enum.Call.html){target=\_blank}.
+
+Data queries make it possible to:
+
+- Check account balances and total supply.
+- Retrieve asset metadata and configuration details.
+- Inspect account and asset status on-chain.
+
+For a full list of queries, see the [Pallet reference](https://docs.rs/pallet-assets/latest/pallet_assets/pallet/struct.Pallet.html){target=\_blank}.
+
+### Roles and Permissions
+
+The Assets pallet uses role-based permissions to control who can manage different parts of an asset’s lifecycle:
+
+- **Owner**: Overarching control, including destroying an asset class; can set or update Issuer, Freezer, and Admin roles.
+- **Admin**: Can freeze assets and forcibly transfer balances between accounts. Admins can also reduce the balance of an asset class across arbitrary accounts.
+- **Issuer**: Responsible for minting new tokens. When new assets are created, the Issuer is the account that controls their distribution to other accounts.
+- **Freezer**: Can lock the transfer of assets from an account, preventing the account holder from moving their balance.
+
+These roles allow projects to enforce governance and security policies around their assets.
+
+### Freezing Assets
+
+Assets can be temporarily locked to prevent transfers from specific accounts. This is useful for dispute resolution, fraud prevention, or compliance controls.
+
+**How it works**:
+
+- Only authorized parties can freeze or unfreeze (thaw) assets.
+- Freezing pauses the movement of the asset without burning or removing it.
+- Once thawed, the asset can be transferred normally.
+
+Freezing provides a safe way to control asset flow while maintaining full ownership.
+
+**Key functions**: `freeze` and `thaw`.
+
+### Delegated Transfers
+
+Polkadot Hub supports delegated asset transfers, allowing one account to authorize another to move a limited amount of its assets—without giving up full control. This is useful for escrow logic, automated payments, and multi-party applications.
+
+**How it works**:
+
+- An account can grant permission to another account to transfer a specific amount of its assets.
+- Permissions can be revoked at any time, preventing further transfers.
+- Authorized accounts can execute transfers on behalf of the original owner within the approved limits.
+
+Delegated transfers simplify multi-step transactions and enable complex asset flows.
+
+**Key functions**: `approve_transfer`, `cancel_approval`, and `transfer_approved`.
+
+## How Foreign Assets Work
+
+Foreign assets are assets originating from other chains and are managed on Polkadot Hub via the Foreign Assets pallet. This pallet provides similar operations as the native Assets pallet, enabling transfers, balance checks, and other standard asset operations. Most operations—like transfers and balance queries—use the same API, but with a few key differences:
+
+- **Asset Identifier**: Foreign assets use an XCM multilocation as their identifier, rather than a numeric AssetId. This ensures assets from different chains can be referenced and moved safely across parachains.
+
+- **Transfers**: Once registered on Polkadot Hub, foreign assets can be transferred between accounts just like native assets. If supported, they can also be returned to their original blockchain using cross-chain messaging.
+
+This unified interface makes it easy for dApps to handle both native and cross-chain assets.
+
+## Moving Assets Across Chains
+
+Polkadot Hub enables assets to move safely between parachains and the relay chain using XCM (Cross-Consensus Messaging). XCM ensures assets can move securely between chains while preserving ownership and traceability
+
+To learn more about asset transfers with XCM, please refer to the [Introduction to XCM](/parachains/interoperability/get-started/) page.
+
+
+---
+
+Page Title: Polkadot Hub Smart Contracts
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-polkadot-hub-smart-contracts.md
+- Canonical (HTML): https://docs.polkadot.com/reference/polkadot-hub/smart-contracts/
+- Summary: Learn how Polkadot Hub supports smart contracts through the REVM, a Rust-based Ethereum Virtual Machine compatible runtime.
+
+# Smart Contracts on Polkadot Hub
+
+!!! smartcontract "PolkaVM Preview Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+## Introduction
+
+Polkadot’s relay chain does not support smart contracts directly. Instead, developers deploy contract-based applications on parachains that provide execution environments. Polkadot Hub supports smart contracts through the REVM, a Rust-based Ethereum Virtual Machine compatible runtime.
+
+REVM enables developers to run standard Ethereum bytecode on Polkadot Hub, giving teams a path to migrate existing Solidity contracts while interacting with on-chain assets and other parachains via XCM.
+
+This guide explains how smart contracts are deployed, executed, and integrated on Polkadot Hub using REVM.
+
+
+
+### REVM Contracts
+
+
+
+REVM brings full EVM compatibility to Polkadot Hub through a fast, memory-safe Rust implementation of the Ethereum Virtual Machine. Unlike PolkaVM, which compiles contracts to RISC-V for native execution, REVM executes standard Ethereum bytecode directly—making it ideal for teams who want to migrate existing Solidity projects to Polkadot with minimal changes.
+
+With REVM, developers can:
+
+- Deploy existing Solidity contracts without rewriting them.
+- Use familiar Ethereum tooling like Hardhat, Foundry, Remix, and MetaMask.
+- Interact with other parachains and on-chain assets using XCM and Polkadot Hub features.
+
+REVM builds on Rust’s safety guarantees and performance optimizations while retaining full opcode compatibility with the EVM. This provides a reliable path for Ethereum-native developers to access Polkadot’s cross-chain ecosystem.
+
+
+---
+
 Page Title: Polkadot SDK Accounts
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/polkadot-protocol-parachain-basics-accounts.md

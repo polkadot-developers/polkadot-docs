@@ -98,9 +98,7 @@ For PolkaVM, there are some considerations:
 - `EXTCODECOPY`: Only works in constructor code.
 - Runtime code modification: Use on-chain constructors instead.
 - Gas stipends: `address.send()` and `address.transfer()` don't provide reentrancy protection.
-- Unsupported operations:
-  - `pc`, `extcodecopy`, `selfdestruct`
-  - `blobhash`, `blobbasefee` (blob-related operations)
+- Unsupported operations: `pc`, `extcodecopy`, `selfdestruct`, `blobhash`, and `blobbasefee` (blob-related operations).
 
 ### How do I handle the existential deposit?
 
@@ -122,10 +120,10 @@ You typically don't need to do anything special, but be aware:
 
 Yes! Both backends support:
 
-- **Wallets**: MetaMask, Talisman, SubWallet.
-- **Development frameworks**: Hardhat, Foundry, Remix (just consider that for PVM bytecode, you will use the Polkadot version of the tooling).
-- **Libraries**: ethers.js, web3.js, viem.
-- **Testing tools**: Your existing test suites work.
+- **Wallets**: [MetaMask](https://metamask.io/){target=\_blank}, [Talisman](https://talisman.xyz/){target=\_blank}, [SubWallet](https://www.subwallet.app/){target=\_blank}
+- **Development frameworks**: Hardhat, Foundry, Remix (just consider that for PVM bytecode, you will use the Polkadot version of the tooling)
+- **Libraries**: [ethers.js](/smart-contracts/libraries/ethers-js/){target=\_blank}, [web3.js](/smart-contracts/libraries/web3-js/){target=\_blank}, [viem](/smart-contracts/libraries/viem/){target=\_blank}
+- **Testing tools**: Your existing test suites work
 
 Connect to Polkadot Hub's Ethereum JSON-RPC endpoint and use your familiar workflow.
 
@@ -135,7 +133,7 @@ Most Ethereum contracts migrate to Polkadot Hub with minimal or no changes. Use 
 
 There are a few key points to keep in mind during migration:
 
-- Replace `transfer()` with `.call{value}("")` and use reentrancy guards (for projects that will use PVM bytecode, not EVM bytecode).
+- Replace `transfer()` and `send()` with `.call{value}("")` and use reentrancy guards (for projects that will use PVM bytecode, not EVM bytecode).
 - PolkaVM factory contracts using PVM bytecode need pre-uploaded dependencies.
 - Don't hardcode gas values.
 - Test thoroughly on [TestNet](/smart-contracts/connect/#__tabbed_1_1){target=\_blank} before mainnet deployment.

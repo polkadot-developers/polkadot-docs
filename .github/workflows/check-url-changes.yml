@@ -19,9 +19,11 @@ jobs:
 
       - name: Identify deleted and renamed files
         run: |
-          BASE_REF=origin/${{ github.event.pull_request.base.ref }}
+          BASE_BRANCH=${{ github.event.pull_request.base.ref }}
           HEAD_SHA=${{ github.event.pull_request.head.sha }}
+          BASE_REF="origin/${BASE_BRANCH}"
 
+          git fetch origin "${BASE_BRANCH}" --depth=1
 
           DELETED_FILES=$(git diff --name-status "$BASE_REF" "$HEAD_SHA" | grep '^D.*\.md$' | cut -f2- || true)
           RENAMED_FILES=$(git diff --name-status "$BASE_REF" "$HEAD_SHA" | grep '^R.*\.md$' | awk '{print $2 " -> " $3}' || true)

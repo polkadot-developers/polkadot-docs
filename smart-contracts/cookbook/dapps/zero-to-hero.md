@@ -180,7 +180,7 @@ Create a `.env` file in the root of your Hardhat project:
 PRIVATE_KEY=INSERT_PRIVATE_KEY_HERE
 ```
 
-Replace `INSERT_PRIVATE_KEY_HERE` with your actual private key. You can get this by exporting the private key from your wallet (e.g., MetaMask).`
+Replace `INSERT_PRIVATE_KEY_HERE` with your actual private key. You can get this by exporting the private key from your wallet (e.g., MetaMask).
 
 !!! warning
     Never commit your private key to version control. Use environment variables or a `.env` file (and add it to `.gitignore`) to manage sensitive information. Keep your private key safe, and never share it with anyone. If it is compromised, your funds can be stolen.

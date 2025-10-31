@@ -29,21 +29,21 @@ npx hardhat --init
 
 Edit `hardhat.config.js`:
 
-```javascript title="hardhat.config.js" hl_lines="39-43"
-import type { HardhatUserConfig } from "hardhat/config";
+```javascript title='hardhat.config.js' hl_lines='39-43'
+import type { HardhatUserConfig } from 'hardhat/config';
 
-import hardhatToolboxViemPlugin from "@nomicfoundation/hardhat-toolbox-viem";
-import { configVariable } from "hardhat/config";
+import hardhatToolboxViemPlugin from '@nomicfoundation/hardhat-toolbox-viem';
+import { configVariable } from 'hardhat/config';
 
 const config: HardhatUserConfig = {
   plugins: [hardhatToolboxViemPlugin],
   solidity: {
     profiles: {
       default: {
-        version: "0.8.28",
+        version: '0.8.28',
       },
       production: {
-        version: "0.8.28",
+        version: '0.8.28',
         settings: {
           optimizer: {
             enabled: true,
@@ -55,23 +55,23 @@ const config: HardhatUserConfig = {
   },
   networks: {
     hardhatMainnet: {
-      type: "edr-simulated",
-      chainType: "l1",
+      type: 'edr-simulated',
+      chainType: 'l1',
     },
     hardhatOp: {
-      type: "edr-simulated",
-      chainType: "op",
+      type: 'edr-simulated',
+      chainType: 'op',
     },
     sepolia: {
-      type: "http",
-      chainType: "l1",
-      url: configVariable("SEPOLIA_RPC_URL"),
-      accounts: [configVariable("SEPOLIA_PRIVATE_KEY")],
+      type: 'http',
+      chainType: 'l1',
+      url: configVariable('SEPOLIA_RPC_URL'),
+      accounts: [configVariable('SEPOLIA_PRIVATE_KEY')],
     },
     polkadotHubTestnet: {
       url: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
       chainId: 420420422,
-      accounts: [configVariable("PRIVATE_KEY")],
+      accounts: [configVariable('PRIVATE_KEY')],
     },
   },
 };

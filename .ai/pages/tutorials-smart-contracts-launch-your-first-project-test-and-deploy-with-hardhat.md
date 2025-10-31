@@ -62,7 +62,42 @@ Let's start by setting up Hardhat for your Storage contract project:
 6. Configure Hardhat by updating the `hardhat.config.js` file:
 
     ```javascript title="hardhat.config.js"
-    
+    require("@nomicfoundation/hardhat-toolbox");
+
+    require("@parity/hardhat-polkadot");
+
+    const { vars } = require("hardhat/config");
+
+    /** @type import('hardhat/config').HardhatUserConfig */
+    module.exports = {
+      solidity: "0.8.28",
+      resolc: {
+        compilerSource: "npm",
+      },
+      networks: {
+        hardhat: {
+          polkavm: true,
+          nodeConfig: {
+            nodeBinaryPath: 'INSERT_PATH_TO_SUBSTRATE_NODE',
+            rpcPort: 8000,
+            dev: true,
+          },
+          adapterConfig: {
+            adapterBinaryPath: 'INSERT_PATH_TO_ETH_RPC_ADAPTER',
+            dev: true,
+          },
+        },
+        localNode: {
+          polkavm: true,
+          url: `http://127.0.0.1:8545`,
+        },
+        passetHub: {
+          polkavm: true,
+          url: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
+          accounts: [vars.get("PRIVATE_KEY")],
+        },
+      },
+    };
     ```
 
     Ensure that `INSERT_PATH_TO_SUBSTRATE_NODE` and `INSERT_PATH_TO_ETH_RPC_ADAPTER` are replaced with the proper paths to the compiled binaries. 
@@ -118,7 +153,25 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
 1. Create a folder for testing called `test`. Inside that directory, create a file named `Storage.js` and add the following code:
 
     ```javascript title="Storage.js" 
-    
+    const { expect } = require('chai');
+    const { ethers } = require('hardhat');
+
+    describe('Storage', function () {
+      let storage;
+      let owner;
+      let addr1;
+
+      beforeEach(async function () {
+        // Get signers
+        [owner, addr1] = await ethers.getSigners();
+
+        // Deploy the Storage contract
+        const Storage = await ethers.getContractFactory('Storage');
+        storage = await Storage.deploy();
+        await storage.waitForDeployment();
+      });
+
+      describe('Basic functionality', function () {
         // Add your logic here
     
     ```
@@ -277,7 +330,13 @@ Testing is a critical part of smart contract development. Hardhat makes it easy 
 1. Create a new folder called`ignition/modules`. Add a new file named `StorageModule.js` with the following logic:
 
     ```javascript title="StorageModule.js"
-    
+    const { buildModule } = require('@nomicfoundation/hardhat-ignition/modules');
+
+    module.exports = buildModule('StorageModule', (m) => {
+      const storage = m.contract('Storage');
+
+      return { storage };
+    });
     ```
 
 2. Deploy to the local network:
@@ -349,7 +408,40 @@ To interact with your deployed contract:
 1. Create a new folder named `scripts` and add the `interact.js` with the following content:
 
     ```javascript title="interact.js"
-    
+    const hre = require('hardhat');
+
+    async function main() {
+      // Replace with your deployed contract address
+      const contractAddress = 'INSERT_DEPLOYED_CONTRACT_ADDRESS';
+
+      // Get the contract instance
+      const Storage = await hre.ethers.getContractFactory('Storage');
+      const storage = await Storage.attach(contractAddress);
+
+      // Get current value
+      const currentValue = await storage.retrieve();
+      console.log('Current stored value:', currentValue.toString());
+
+      // Store a new value
+      const newValue = 42;
+      console.log(`Storing new value: ${newValue}...`);
+      const tx = await storage.store(newValue);
+
+      // Wait for transaction to be mined
+      await tx.wait();
+      console.log('Transaction confirmed');
+
+      // Get updated value
+      const updatedValue = await storage.retrieve();
+      console.log('Updated stored value:', updatedValue.toString());
+    }
+
+    main()
+      .then(() => process.exit(0))
+      .catch((error) => {
+        console.error(error);
+        process.exit(1);
+      });
     ```
 
     Ensure that `INSERT_DEPLOYED_CONTRACT_ADDRESS` is replaced with the value obtained in the previous step.

@@ -62,7 +62,7 @@ To create the ERC-20 contract, you can follow the steps below:
             - **`allowance(address owner, address spender)`**: Checks how many tokens an address is allowed to spend on behalf of another address.
 
     !!! tip
-        Use the [OpenZeppelin Contracts Wizard](https://wizard.openzeppelin.com/){target=\_blank} to quickly generate customized smart contracts. Simply configure your contract, copy the generated code, and paste it into Polkadot Remix IDE for deployment. Below is an example of an ERC-20 token contract created with it:
+        Use the [OpenZeppelin Contracts Wizard](https://wizard.openzeppelin.com/){target=\_blank} to generate customized smart contracts quickly. Simply configure your contract, copy the generated code, and paste it into the Remix IDE for deployment. Below is an example of an ERC-20 token contract created with it:
 
         ![Screenshot of the OpenZeppelin Contracts Wizard showing an ERC-20 contract configuration.](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix-1.webp)
         
@@ -107,16 +107,16 @@ Once deployed, you can interact with your contract through Remix. Find your cont
 
 2. Click **Approve** to confirm the transaction in the Talisman popup.
 
-3. If the transaction succeeds, you will see the a green check mark in the terminal.
+3. If the transaction succeeds, you will see a green check mark in the terminal.
 
 4. You can also call the **balanceOf** function by passing the address of the **mint** call to confirm the new balance.
 
 ![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix-3.gif)
 
 
-Other common functions you can use:
+Other standard functions you can use:
 
 - **`transfer(address to, uint256 amount)`**: Send tokens to another address.
 - **`approve(address spender, uint256 amount)`**: Allow another address to spend your tokens.
 
-Feel free to explore and interact with the contract's other functions using the same approach - selecting the method, providing any required parameters, and confirming the transaction through MetaMask when needed.
+Feel free to explore and interact with the contract's other functions using the same approach: select the method, provide any required parameters, and confirm the transaction in MetaMask when needed.

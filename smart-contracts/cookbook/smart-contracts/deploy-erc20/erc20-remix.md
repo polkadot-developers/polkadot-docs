@@ -22,7 +22,7 @@ Before starting, make sure you have:
 - A funded account with tokens for transaction fees. This example will deploy the contract to the Polkadot TestNet, so you'll [need some TestNet tokens](/smart-contracts/faucet/#get-test-tokens){target=\_blank} from the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}.
 - Basic understanding of Solidity and fungible tokens.
 
-## Create the ERC-20 Contract
+## Create Your Contract
 
 To create the ERC-20 contract, you can follow the steps below:
 
@@ -67,7 +67,7 @@ To create the ERC-20 contract, you can follow the steps below:
         ![Screenshot of the OpenZeppelin Contracts Wizard showing an ERC-20 contract configuration.](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix-2.webp)
         
 
-## Compile the Contract
+## Compile 
 
 The compilation transforms your Solidity source code into bytecode that can be deployed on the blockchain. During this process, the compiler checks your contract for syntax errors, ensures type safety, and generates the machine-readable instructions needed for blockchain execution. 
 
@@ -79,14 +79,14 @@ To compile your contract, ensure you have it opened in the Remix IDE Editor, and
 
 ![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix-1.gif)
 
-## Deploy the Contract
+## Deploy
 
 Deployment is the process of publishing your compiled smart contract to the blockchain, making it permanently available for interaction. During deployment, you'll create a new instance of your contract on the blockchain, which involves:
 
 1. Select the **Deploy & Run Transactions** plugin from the left panel.
-2. Configure the deployment settings.
+2. Configure the deployment settings:
     1. From the **ENVIRONMENT** dropdown, select **Injected Provider - MetaMask** (check the [Deploying Contracts](/smart-contracts/dev-environments/remix/deploy-a-contract/){target=\_blank} section of the Remix IDE guide for more details).
-    2. (Optional) From the **ACCOUNT** dropdown, select the account you want to use for the deploy.
+    2. (Optional) From the **ACCOUNT** dropdown, select the acçcount you want to use for the deploy.
 
 3. Configure the contract parameters:
     1. Enter the address that will own the deployed token contract.
@@ -97,7 +97,7 @@ Deployment is the process of publishing your compiled smart contract to the bloc
 
 ![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix-2.gif)
 
-## Interact with Your ERC-20 Contract
+## Interact with Your Contract
 
 Once deployed, you can interact with your contract through Remix. Find your contract under **Deployed/Unpinned Contracts**, and click it to expand the available methods. In this example, you'll mint some tokens to a given address:
 
@@ -120,3 +120,17 @@ Other standard functions you can use:
 - **`approve(address spender, uint256 amount)`**: Allow another address to spend your tokens.
 
 Feel free to explore and interact with the contract's other functions using the same approach: select the method, provide any required parameters, and confirm the transaction in MetaMask when needed.
+
+## Where to Go Next
+
+<div class="grid cards" markdown>
+
+-   <span class="badge guide">Guide</span> __Deploy an NFT with Remix__
+
+    ---
+
+    Walk through deploying an ERC-721 Non-Fungible Token (NFT) using OpenZeppelin's battle-tested NFT implementation and Remix.
+
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-nft/remix/)
+
+</div>

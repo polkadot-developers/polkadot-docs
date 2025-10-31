@@ -20,14 +20,12 @@ You'll explore a range of topics—from client-side apps and CLI tools to on-cha
   <div class="card">
     <a href="/develop/toolkit/api-libraries/papi/">
       <h2 class="title">Polkadot API (PAPI)</h2>
-      <hr>
       <p class="description">Learn how to use the Polkadot API to build dApps that interact with Polkadot SDK-based chains directly via RPC or light clients.</p>
     </a>
   </div>
   <div class="card">
     <a href="/develop/">
       <h2 class="title">Start Building on Polkadot</h2>
-      <hr>
       <p class="description">Get an overview of the tools, SDKs, and templates available for building with Polkadot—from runtime development to frontend integration.</p>
     </a>
   </div>

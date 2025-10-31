@@ -1,5 +1,5 @@
 ---
-title:  Deploy a Basic Contract with hardhat
+title: Deploy a Basic Contract with Hardhat
 description: Learn how to deploy a basic smart contract to Polkadot Hub using Hardhat, Perfect for professional workflows requiring comprehensive testing and debugging.
 categories: Smart Contracts
 ---
@@ -79,7 +79,6 @@ const config: HardhatUserConfig = {
 export default config;
 
 ```
-Replace the `PRIVATE_KEY` placeholder with your actual private key.
 
 !!! tip
     Learn how to use Hardhat's [Config Variables](https://hardhat.org/docs/learn-more/configuration-variables){target=\_blank} to handle your private keys in a secure way.
@@ -132,11 +131,6 @@ Deploy to Polkadot Hub TestNet:
 npx hardhat ignition deploy ignition/modules/Storage.ts --network polkadotHubTestnet 
 ```
 
-## Next Steps
-
-- Deploy an ERC-20 token on Polkadot Hub using the [Deploy an ERC-20](/smart-contracts/cookbook/smart-contracts/deploy-erc20) guide.
-- Deploy an NFT on Polkadot Hub using the [Deploy an NFT](/smart-contracts/cookbook/smart-contracts/deploy-nft) guide.
-
 ## Where to Go Next
 <div class="grid cards" markdown>
 
@@ -162,6 +156,6 @@ npx hardhat ignition deploy ignition/modules/Storage.ts --network polkadotHubTes
 
     Walk through deploying a NFT to the Polkadot Hub using Hardhat.
 
-    [:octicons-arrow-right-24: Get Started](smart-contracts/cookbook/smart-contracts/deploy-nft/hardhat/)
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-nft/hardhat/)
 
 </div>

@@ -256,6 +256,6 @@ After running this script, your contract will be deployed to Polkadot Hub, and i
 
     Walk through deploying a NFT to the Polkadot Hub using Ethers.js.
 
-    [:octicons-arrow-right-24: Get Started](smart-contracts/cookbook/smart-contracts/deploy-nft/ethers/)
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-nft/ethers/)
     
 </div>

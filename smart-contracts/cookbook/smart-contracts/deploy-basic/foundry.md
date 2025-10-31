@@ -115,6 +115,6 @@ Replace the `YOUR_PRIVATE_KEY` placeholder with your actual private key.
 
     Walk through deploying a NFT to the Polkadot Hub using Foundry.
 
-    [:octicons-arrow-right-24: Get Started](smart-contracts/cookbook/smart-contracts/deploy-nft/foundry/)
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-nft/foundry/)
 
 </div>

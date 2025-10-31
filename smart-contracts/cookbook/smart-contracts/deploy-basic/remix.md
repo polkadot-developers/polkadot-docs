@@ -6,7 +6,7 @@ categories: Smart Contracts
 
 # Deploy a Basic Contract with Remix IDE
 
-This guide demonstrates how to deploy a basic Solidity smart contract to Polkadot Hub using [Remix IDE](https://remix.live/){target=\_blank}, which offers a visual, browser-based environment perfect for rapid prototyping and learning. It requires no local installation and provides an intuitive interface for contract development.
+This guide demonstrates how to deploy a basic Solidity smart contract to Polkadot Hub using [Remix IDE](https://remix.ethereum.org/){target=\_blank}, which offers a visual, browser-based environment perfect for rapid prototyping and learning. It requires no local installation and provides an intuitive interface for contract development.
 
 ## Prerequisites:
 
@@ -69,6 +69,6 @@ Your deployed contract will appear in the **Deployed Contracts** section, ready 
 
     Walk through deploying a NFT to the Polkadot Hub using Remix.
 
-    [:octicons-arrow-right-24: Get Started](smart-contracts/cookbook/smart-contracts/deploy-nft/remix/)        
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-nft/remix/)        
 
 </div>

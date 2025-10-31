@@ -11339,6 +11339,100 @@ See [Cancelling, Killing, and Blacklisting](https://wiki.polkadot.com/learn/lear
 
 ---
 
+Page Title: On-Chain Governance Overview
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-governance.md
+- Canonical (HTML): https://docs.polkadot.com/reference/governance/
+- Summary: Discover Polkadot’s cutting-edge OpenGov system, enabling transparent, decentralized decision-making through direct democracy and flexible governance tracks.
+
+# On-Chain Governance 
+
+## Introduction
+
+Polkadot’s governance system exemplifies decentralized decision-making, empowering its community of stakeholders to shape the network’s future through active participation. The latest evolution, OpenGov, builds on Polkadot’s foundation by providing a more inclusive and efficient governance model.
+
+This guide will explain the principles and structure of OpenGov and walk you through its key components, such as Origins, Tracks, and Delegation. You will learn about improvements over earlier governance systems, including streamlined voting processes and enhanced stakeholder participation.
+
+With OpenGov, Polkadot achieves a flexible, scalable, and democratic governance framework that allows multiple proposals to proceed simultaneously, ensuring the network evolves in alignment with its community's needs.
+
+## Governance Evolution
+
+Polkadot’s governance journey began with [Governance V1](https://wiki.polkadot.com/learn/learn-polkadot-opengov/#governance-summary){target=\_blank}, a system that proved effective in managing treasury funds and protocol upgrades. However, it faced limitations, such as:
+
+- Slow voting cycles, causing delays in decision-making.
+- Inflexibility in handling multiple referendums, restricting scalability.
+
+To address these challenges, Polkadot introduced OpenGov, a governance model designed for greater inclusivity, efficiency, and scalability. OpenGov replaces the centralized structures of Governance V1, such as the Council and Technical Committee, with a fully decentralized and dynamic framework.
+
+For a full comparison of the historic and current governance models, visit the [Gov1 vs. Polkadot OpenGov](https://wiki.polkadot.com/learn/learn-polkadot-opengov/#gov1-vs-polkadot-opengov){target=\_blank} section of the Polkadot Wiki.
+
+## OpenGov Key Features
+
+OpenGov transforms Polkadot’s governance into a decentralized, stakeholder-driven model, eliminating centralized decision-making bodies like the Council. Key enhancements include:
+
+- **Decentralization**: Shifts all decision-making power to the public, ensuring a more democratic process.
+- **Enhanced delegation**: Allows users to delegate their votes to trusted experts across specific governance tracks.
+- **Simultaneous referendums**: Multiple proposals can progress at once, enabling faster decision-making.
+- **Polkadot Technical Fellowship**: A broad, community-driven group replacing the centralized Technical Committee.
+
+This new system ensures Polkadot governance remains agile and inclusive, even as the ecosystem grows.
+
+## Origins and Tracks
+
+In OpenGov, origins and tracks are central to managing proposals and votes.
+
+- **Origin**: Determines the authority level of a proposal (e.g., Treasury, Root) which decides the track of all referendums from that origin.
+- **Track**: Define the procedural flow of a proposal, such as voting duration, approval thresholds, and enactment timelines.
+
+Developers must be aware that referendums from different origins and tracks will take varying amounts of time to reach approval and enactment. The [Polkadot Technical Fellowship](https://wiki.polkadot.com/learn/learn-polkadot-technical-fellowship/){target=\_blank} has the option to shorten this timeline by whitelisting a proposal and allowing it to be enacted through the [Whitelist Caller](https://wiki.polkadot.com/learn/learn-polkadot-opengov-origins/#whitelisted-caller){target=\_blank} origin.
+
+Visit [Origins and Tracks Info](https://wiki.polkadot.com/learn/learn-polkadot-opengov/#origins-and-tracks){target=\_blank} for details on current origins and tracks, associated terminology, and parameters.
+
+## Referendums
+
+In OpenGov, anyone can submit a referendum, fostering an open and participatory system. The timeline for a referendum depends on the privilege level of the origin with more significant changes offering more time for community voting and participation before enactment. 
+
+The timeline for an individual referendum includes four distinct periods:
+
+- **Lead-in**: A minimum amount of time to allow for community participation, available room in the origin, and payment of the decision deposit. Voting is open during this period.
+- **Decision**: Voting continues.
+- **Confirmation**: Referendum must meet [approval and support](https://wiki.polkadot.com/learn/learn-polkadot-opengov/#approval-and-support){target=\_blank} criteria during entire period to avoid rejection.
+- **Enactment**: Changes approved by the referendum are executed.
+
+### Vote on Referendums
+
+Voters can vote with their tokens on each referendum. Polkadot uses a voluntary token locking mechanism, called conviction voting, as a way for voters to increase their voting power. A token holder signals they have a stronger preference for approving a proposal based upon their willingness to lock up tokens. Longer voluntary token locks are seen as a signal of continual approval and translate to increased voting weight.
+
+See [Voting on a Referendum](https://wiki.polkadot.com/learn/learn-polkadot-opengov/#voting-on-a-referendum){target=\_blank} for a deeper look at conviction voting and related token locks.
+
+### Delegate Voting Power
+
+The OpenGov system also supports multi-role delegations, allowing token holders to assign their voting power on different tracks to entities with expertise in those areas. 
+
+For example, if a token holder lacks the technical knowledge to evaluate proposals on the [Root track](https://wiki.polkadot.com/learn/learn-polkadot-opengov-origins/#root){target=\_blank}, they can delegate their voting power for that track to an expert they trust to vote in the best interest of the network. This ensures informed decision-making across tracks while maintaining flexibility for token holders.
+
+Visit [Multirole Delegation](https://wiki.polkadot.com/learn/learn-polkadot-opengov/#multirole-delegation){target=\_blank} for more details on delegating voting power.
+
+### Cancel a Referendum
+
+Polkadot OpenGov has two origins for rejecting ongoing referendums: 
+
+- [**Referendum Canceller**](https://wiki.polkadot.com/learn/learn-polkadot-opengov-origins/#referendum-canceller){target=\_blank}: Cancels an active referendum when non-malicious errors occur and refunds the deposits to the originators.
+- [**Referendum Killer**](https://wiki.polkadot.com/learn/learn-polkadot-opengov-origins/#referendum-killer){target=\_blank}: Used for urgent, malicious cases this origin instantly terminates an active referendum and slashes deposits.
+
+See [Cancelling, Killing, and Blacklisting](https://wiki.polkadot.com/learn/learn-polkadot-opengov/#cancelling-killing--blacklisting){target=\_blank} for additional information on rejecting referendums.
+
+## Additional Resources
+
+- **[Democracy pallet](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2506-2/substrate/frame/democracy/src){target=\_blank}**: Handles administration of general stakeholder voting.
+- **[Gov2: Polkadot’s Next Generation of Decentralised Governance](https://medium.com/polkadot-network/gov2-polkadots-next-generation-of-decentralised-governance-4d9ef657d11b){target=\_blank}**: Medium article by Gavin Wood.
+- **[Polkadot Direction](https://matrix.to/#/#Polkadot-Direction:parity.io){target=\_blank}**: Matrix Element client.
+- **[Polkassembly](https://polkadot.polkassembly.io/){target=\_blank}**: OpenGov dashboard and UI.
+- **[Polkadot.js Apps Governance](https://polkadot.js.org/apps/#/referenda){target=\_blank}**: Overview of active referendums.
+
+
+---
+
 Page Title: Oracles
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-toolkit-integrations-oracles.md
@@ -11625,7 +11719,7 @@ The Polkadot SDK allows developers to construct a runtime by combining various p
 
 The following diagram illustrates the process of selecting and combining FRAME pallets to compose a runtime:
 
-![](/images/develop/parachains/customize-parachain/overview/frame-overview-2.webp)
+![](/images/develop/parachains/customize-parachain/overview/frame-overview-2.webp){ style="background:white; padding:1em;" }
 
 This modular design allows developers to:
 
@@ -11664,6 +11758,140 @@ For more detailed information on implementing this process, refer to the followi
 
 - [Add a Pallet to Your Runtime](/parachains/customize-runtime/add-existing-pallets/)
 - [Create a Custom Pallet](/parachains/customize-runtime/pallet-development/create-a-pallet/)
+
+
+---
+
+Page Title: Overview of FRAME
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/parachains-customize-runtime.md
+- Canonical (HTML): https://docs.polkadot.com/parachains/customize-runtime/
+- Summary: Learn how Polkadot SDK’s FRAME framework simplifies blockchain development with modular pallets and support libraries for efficient runtime design.
+
+# Customize Your Runtime
+
+## Introduction
+
+A blockchain runtime is more than just a fixed set of rules—it's a dynamic foundation that you can shape to match your specific needs. With Polkadot SDK's [FRAME (Framework for Runtime Aggregation of Modularized Entities)](/reference/glossary/#frame-framework-for-runtime-aggregation-of-modularized-entities){target=\_blank}, customizing your runtime is straightforward and modular. Instead of building everything from scratch, you combine pre-built pallets with your own custom logic to create a runtime suited to your blockchain's purpose.
+
+This overview explains how runtime customization works, introduces the building blocks you'll use, and guides you through the key patterns for extending your runtime.
+
+## Understanding Your Runtime
+
+The runtime is the core logic of your blockchain—it processes transactions, manages state, and enforces the rules that govern your network. When a transaction arrives at your blockchain, the [`frame_executive`](https://paritytech.github.io/polkadot-sdk/master/frame_executive/index.html){target=\_blank} pallet receives it and routes it to the appropriate pallet for execution.
+
+Think of your runtime as a collection of specialized modules, each handling a different aspect of your blockchain. Need token balances? Use the Balances pallet. Want governance? Add the Governance pallet. Need something custom? Create your own pallet. By mixing and matching these modules, you build a runtime that's efficient, secure, and tailored to your use case.
+
+## Runtime Architecture
+
+The following diagram shows how FRAME components work together to form your runtime:
+
+![](/images/parachains/customize-runtime/index/frame-overview-01.webp)
+
+The main components are:
+
+- **`frame_executive`**: Routes all incoming transactions to the correct pallet for execution.
+- **Pallets**: Domain-specific modules that implement your blockchain's features and business logic.
+- **`frame_system`**: Provides core runtime primitives and storage.
+- **`frame_support`**: Utilities and macros that simplify pallet development.
+
+## Building Blocks: Pallets
+
+[Pallets](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/frame_runtime/pallet/index.html){target=\_blank} are the fundamental units of runtime customization. Each pallet encapsulates specific functionality and can be independently developed, tested, and integrated.
+
+A pallet can implement virtually any blockchain feature you need:
+
+- Expose new transactions that users can submit.
+- Store data on-chain.
+- Enforce business rules and validation logic.
+- Emit events to notify users of state changes.
+- Handle errors gracefully.
+
+### Pre-Built Pallets vs. Custom Pallets
+
+FRAME provides a comprehensive library of [pre-built pallets](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2506-2/substrate/frame){target=\_blank} for common blockchain features, including consensus, staking, balances, governance, and more. These pallets are battle-tested, optimized, and ready to use.
+
+However, you're not limited to pre-built functionality. When pre-built pallets don't meet your needs, you can create custom pallets with entirely custom logic. The real power of FRAME is the flexibility to use pre-built modules for standard features while building your own for unique requirements.
+
+### Pallet Structure
+
+FRAME uses Rust macros extensively, allowing you to focus on your pallet's logic while the framework handles boilerplate and integration code.
+
+A typical pallet looks like this:
+
+```rust
+pub use pallet::*;
+
+#[frame_support::pallet]
+pub mod pallet {
+  use frame_support::pallet_prelude::*;
+  use frame_system::pallet_prelude::*;
+
+  #[pallet::pallet]
+  #[pallet::generate_store(pub(super) trait Store)]
+  pub struct Pallet<T>(_);
+
+  #[pallet::config]  // snip
+  #[pallet::event]   // snip
+  #[pallet::error]   // snip
+  #[pallet::storage] // snip
+  #[pallet::call]    // snip
+}
+```
+
+Every pallet can implement these core macros:
+
+- **`#[frame_support::pallet]`**: Marks your module as a FRAME pallet.
+- **`#[pallet::pallet]`**: Designates the struct that holds pallet metadata.
+- **`#[pallet::config]`**: Defines configuration and associated types.
+- **`#[pallet::event]`**: Defines events emitted by your pallet.
+- **`#[pallet::error]`**: Defines error types your pallet can return.
+- **`#[pallet::storage]`**: Defines on-chain storage items.
+- **`#[pallet::call]`**: Defines dispatchable functions (transactions).
+
+For a comprehensive reference, see the [`pallet_macros` documentation](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/index.html){target=\_blank}.
+
+## How Runtime Customization Works
+
+Customizing your runtime typically follows these patterns:
+
+**Adding Pre-Built Pallets**: Select pallets from the FRAME library and integrate them into your runtime configuration. This is the fastest way to add functionality.
+
+**Creating Custom Pallets**: Write custom pallets for features that don't exist in the pre-built library. Custom pallets follow the same structure as pre-built ones and integrate seamlessly.
+
+**Combining Multiple Pallets**: Layer multiple pallets together to create complex behaviors. Pallets can call each other and share storage when needed.
+
+**Configuring Pallet Parameters**: Most pallets are configurable—you can adjust their behavior through configuration traits without modifying their code.
+
+The following diagram illustrates how pallets combine to form a complete runtime:
+
+![](/images/parachains/customize-runtime/index/frame-overview-02.webp)
+
+## Starting Templates
+
+The easiest way to begin customizing your runtime is with a starter template. These templates provide a pre-configured foundation so you can focus on customization rather than setup.
+
+- **[Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk-parachain-template){target=\_blank}**: The recommended choice for most developers, it includes pre-configured pallets for common features (balances, block production, governance), a complete runtime setup, and built-in parachain consensus support. This template offers the best balance of features and learning opportunities.
+
+- **[Polkadot SDK Minimal Template](https://github.com/paritytech/polkadot-sdk-minimal-template){target=\_blank}**: Provides a bare-bones runtime with only essential components. Choose this if you want maximum flexibility and prefer building from a clean slate.
+
+- **[Polkadot SDK Solochain Template](https://github.com/paritytech/polkadot-sdk/tree/master/templates/solochain){target=\_blank}**: Designed for building standalone blockchains with moderate features, simple consensus, and several core pallets. Use this if you want a sovereign blockchain independent of a relay chain.
+
+- **[OpenZeppelin Runtime Templates](https://github.com/OpenZeppelin/polkadot-runtime-templates){target=\_blank}**: Provides security-focused configurations following industry best practices. The [generic-template](https://github.com/OpenZeppelin/polkadot-runtime-templates/tree/main/generic-template){target=\_blank} includes curated pallet selections and production-ready defaults—ideal if security is your top priority.
+
+## Key Customization Scenarios
+
+This section covers the most common customization patterns you'll encounter:
+
+- **[Add Existing Pallets to Your Runtime](/parachains/customize-runtime/add-existing-pallets/)**: Integrate pre-built pallets from the FRAME library with minimal configuration.
+
+- **[Add Multiple Instances of a Pallet](/parachains/customize-runtime/add-pallet-instances/)**: Run multiple instances of the same pallet with different configurations—useful for multi-token systems or parallel features.
+
+- **[Add Smart Contract Functionality](/parachains/customize-runtime/add-smart-contract-functionality/)**: Enable smart contract execution on your parachain using Contracts pallets.
+
+- **[Create Custom Pallets](/parachains/customize-runtime/pallet-development/create-a-pallet/)**: Build entirely custom pallets for features unique to your blockchain.
+
+- **[Test Your Runtime](/parachains/customize-runtime/pallet-development/pallet-testing/)**: Unit test pallets and mock complete runtimes to ensure everything works correctly.
 
 
 ---
@@ -11812,7 +12040,7 @@ According to Polkadot's design, any blockchain that can compile to WebAssembly (
 
 Here’s a high-level overview of the Polkadot protocol architecture:
 
-![](/images/polkadot-protocol/architecture/polkadot-chain/overview/overview-1.webp)
+![](/images/polkadot-protocol/architecture/polkadot-chain/overview/overview-1.webp){ style="background:white" }
 
 Parachains propose blocks to Polkadot validators, who check for availability and validity before finalizing them. With the relay chain providing security, collators—full nodes of parachains—can focus on their tasks without needing strong incentives.
 
@@ -12249,173 +12477,192 @@ The following sections provide detailed guidance on each aspect of parachain dev
 
 ---
 
-Page Title: Polkadart
+Page Title: Parachains Overview
 
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-toolkit-api-libraries-polkadart.md
-- Canonical (HTML): https://docs.polkadot.com/reference/tools/polkadart/
-- Summary: Polkadart is a type-safe, native Dart, SDK for Polkadot and any compatible Polkadot-SDK blockchain network.
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-parachains.md
+- Canonical (HTML): https://docs.polkadot.com/reference/parachains/
+- Summary: Learn about parachains, specialized blockchains on Polkadot that gain shared security and interoperability. Discover how they work and the tools to build them.
 
-# Polkadart
+# Parachains Overview
 
-Polkadart is the most comprehensive Dart/Flutter SDK for interacting with Polkadot, Substrate, and other compatible blockchain networks. Designed with a Dart-first approach and type-safe APIs, it provides everything developers need to build powerful decentralized applications.
+## Introduction
 
-This page will outline some of the core components of Polkadart. For more details, refer to the [official documentation](https://polkadart.dev){target=\_blank}.
+A parachain is a specialized blockchain that connects to the Polkadot relay chain, benefiting from shared security, interoperability, and scalability. Parachains are built using the [Polkadot SDK](https://github.com/paritytech/polkadot-sdk){target=\_blank}, a powerful toolkit written in Rust that provides everything needed to create custom blockchain logic while integrating seamlessly with the Polkadot network.
 
-## Installation
+Unlike standalone blockchains that must bootstrap their own validator sets and security, parachains leverage Polkadot's pooled security model. This allows parachain developers to focus on their application-specific functionality rather than consensus and security infrastructure. Parachains can communicate with each other through Cross-Consensus Messaging (XCM), enabling seamless interoperability across the Polkadot ecosystem.
 
-Add Polkadart to your `pubspec.yaml`:
+Key capabilities that parachains provide include:
 
-=== "All packages"
+- **Shared security**: Inherit security from Polkadot's validator set without maintaining your own.
+- **Interoperability**: Communicate trustlessly with other parachains via XCM.
+- **Scalability**: Process transactions in parallel with other parachains.
+- **Customization**: Build application-specific logic tailored to your use case.
+- **Upgradeability**: Upgrade runtime logic without hard forks.
 
-    ```bash
-    dart pub add polkadart polkadart_cli polkadart_keyring polkadart_scale_codec secp256k1_ecdsa sr25519 ss58 substrate_bip39 substrate_metadata
-    ```
+## Polkadot SDK: Parachain Architecture
 
-=== "Core only"
+Building a parachain involves understanding and utilizing several key components of the Polkadot SDK:
 
-    ```bash
-    dart pub add polkadart polkadart_cli polkadart_keyring
-    ```
+![](/images/reference/parachains/index/overview-01.webp)
 
-For type-safe API generation, add the following to your `pubspec.yaml`:
+- **[Substrate](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/substrate/index.html){target=\_blank}**: The foundation providing core blockchain primitives and libraries.
+- **[FRAME](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/frame_runtime/index.html){target=\_blank}**: A modular framework for building your parachain's runtime logic.
+- **[Cumulus](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/cumulus/index.html){target=\_blank}**: Essential libraries and pallets that enable parachain functionality.
+- **[XCM (Cross Consensus Messaging)](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/xcm/index.html){target=\_blank}**: The messaging format for communicating with other parachains and the relay chain.
+- **[Polkadot](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/polkadot/index.html){target=\_blank}**: The relay chain that provides security and coordination.
 
-{% raw %}
-```yaml title="pubspec.yaml"
-polkadart:
-  output_dir: lib/generated
-  chains:
-    polkadot: wss://rpc.polkadot.io
-    kusama: wss://kusama-rpc.polkadot.io
-    custom: wss://your-node.example.com
-```
-{% endraw %}
+### Substrate: The Foundation
 
-## Get Started
+Substrate provides the core infrastructure that every parachain is built upon. It handles the low-level blockchain functionality, allowing you to focus on your application's unique features. Substrate includes implementations for networking, database management, consensus participation, and the execution environment for your runtime.
 
-### Type Generation
+Every Polkadot SDK node consists of two main components:
 
-Polkadart provides a CLI tool to generate type definitions from any Polkadot-SDK compatible blockchain network. This allows you to build type-safe Dart applications without dealing with the low-level details of the blockchain.
+- **Client (Host)**: Handles infrastructure services.
 
-### Run Generator
+    - Native binary that runs on validator and collator nodes.
+    - Executes the Wasm-compiled runtime.
+    - Manages networking, database, mempool, and block production.
+    - Interfaces with the relay chain for validation.
 
-```bash
-dart run polkadart_cli:generate -v
-```
+- **Runtime (State Transition Function)**: Contains your business logic.
 
-### Use Generated Types
+    - Defines how your Polkadot SDK node processes transactions.
+    - Compiled to [Wasm](https://webassembly.org/){target=\_blank} for deterministic execution.
+    - Stored on-chain and upgradeable via governance.
 
-```dart
-import 'package:your_app/generated/polkadot/polkadot.dart';
-import 'package:polkadart/polkadart.dart';
-import 'package:ss58/ss58.dart';
+```mermaid
+%%{init: {'flowchart': {'padding': 5, 'nodeSpacing': 50, 'rankSpacing': 10}}}%%
+graph TB
+    classDef title font-size:20px,font-weight:bold,stroke-width:0px
+    classDef clientStyle font-size:16px,font-weight:bold
+    classDef clientSubNodeStyle margin-top:10px
+    classDef runtimeCallExecutorStyle padding-top:10px
 
-final provider = Provider.fromUri(Uri.parse('wss://rpc.polkadot.io'));
-final polkadot = Polkadot(provider);
-  
-// Account from SS58 address
-final account = Address.decode('19t9Q2ay58hMDaeg6eeBhqmHsRnc2jDMV3cYYw9zbc59HLj');
+    subgraph sg1[Parachain<br /> Node]
+        direction TB
 
-// Retrieve Account Balance
-final accountInfo = await polkadot.query.system.account(account.pubkey);
-print('Balance: ${accountInfo.data.free}')
-```
+        I[RuntimeCall Executor]
+        B[Wasm Runtime - STF]
 
-### Creating an API Instance
+        subgraph sg2[Client]
+            direction TB
+            C[Network and Blockchain<br/>Infrastructure Services<br/>+ Relay Chain Interface]
+        end
 
-An API instance is required to interact with the blockchain. Polkadart provides a `Provider` class that allows you to connect to any network.
+        I --> B
+    end
 
-```dart
-import 'package:demo/generated/polkadot/polkadot.dart';
-import 'package:polkadart/provider.dart';
+    class sg1 title
+    class sg2 clientStyle
+    class C clientSubNodeStyle
+    class I runtimeCallExecutorStyle
 
-Future<void> main(List<String> arguments) async {
-  final provider = Provider.fromUri(Uri.parse('wss://rpc.polkadot.io'));
-  final polkadot = Polkadot(provider);
-}
 ```
 
-### Reading Chain Data
+### FRAME: Building Blocks for Your Runtime
 
-Besides querying the data using the `query` from the generated API, you can also use the State API for querying storage data, metadata, runtime information, and other chain information.
+FRAME provides modular components called [pallets](/reference/glossary#pallet){target=\_blank} that you can compose to build your parachain's runtime. Each pallet provides specific functionality that you can customize and configure for your needs. This modular approach allows you to quickly assemble complex functionality without writing everything from scratch.
 
-```dart
-final stateApi = StateApi(provider);
+```mermaid
+graph LR
+    subgraph SP["<b style='font-size:18px;'>Parachain Runtime</b>"]
+        direction LR
+        Timestamp ~~~ Aura ~~~ ParachainSystem
+        Balances ~~~ TransactionPayment ~~~ Sudo
+        subgraph Timestamp["Timestamp"]
+            SS1[Custom Config]
+        end
+        subgraph Aura["Aura"]
+            SS2[Custom Config]
+        end
+        subgraph ParachainSystem["Parachain System"]
+            SS3[Custom Config]
+        end
+        subgraph Balances["Balances"]
+            SS4[Custom Config]
+        end
+        subgraph TransactionPayment["Transaction Payment"]
+            SS5[Custom Config]
+        end
+        subgraph Sudo["Sudo"]
+            SS6[Custom Config]
+        end
+        style Timestamp stroke:#FF69B4
+        style Aura stroke:#FF69B4
+        style ParachainSystem stroke:#FF69B4
+        style Balances stroke:#FF69B4
+        style TransactionPayment stroke:#FF69B4
+        style Sudo stroke:#FF69B4
+        style SS1 stroke-dasharray: 5
+        style SS2 stroke-dasharray: 5
+        style SS3 stroke-dasharray: 5
+        style SS4 stroke-dasharray: 5
+        style SS5 stroke-dasharray: 5
+        style SS6 stroke-dasharray: 5
 
-// Get current runtime version
-final runtimeVersion = await stateApi.getRuntimeVersion();
-print(runtimeVersion.toJson());
-
-// Get metadata
-final metadata = await stateApi.getMetadata();
-print('Metadata version: ${metadata.version}');
+    end
+    subgraph AP["<b style='font-size:18px;'>Available FRAME Pallets</b>"]
+        direction LR
+        A1[Aura]~~~A2[Parachain<br>System]~~~A3[Transaction<br>Payment]~~~A4[Sudo]
+        B1[Identity]~~~B2[Balances]~~~B3[Assets]~~~B4[EVM]
+        C1[Timestamp]~~~C2[Staking]~~~C3[Contracts]~~~C4[and more...]
+    end
+    AP --> SP
 ```
 
-### Subscribe to New Blocks
+### Cumulus: Parachain-Specific Functionality
 
-You can subscribe to new blocks on the blockchain using the `subscribe` method.
+Cumulus is what transforms a Polkadot SDK-based runtime into a parachain-capable runtime. It provides the essential components for communicating with the relay chain, participating in Polkadot's consensus, and handling parachain-specific operations like block validation and collation.
 
-```dart
-final subscription = await provider.subscribe('chain_subscribeNewHeads', []);
+Key Cumulus components include:
 
-subscription.stream.forEach((response) {
-  print('New head: ${response.result}');
-});
-```
-
-### Send a Transaction
-
-Perhaps the most common operation done in any blockchain is transferring funds. Here you can see how that can be done using Polkadart:
-
-```dart
-final wallet = await KeyPair.sr25519.fromUri("//Alice");
-print('Alice\' wallet: ${wallet.address}');
-
-// Get information necessary to build a proper extrinsic
-final runtimeVersion = await polkadot.rpc.state.getRuntimeVersion();
-final currentBlockNumber = (await polkadot.query.system.number()) - 1;
-final currentBlockHash = await polkadot.query.system.blockHash(currentBlockNumber);
-final genesisHash = await polkadot.query.system.blockHash(0);
-final nonce = await polkadot.rpc.system.accountNextIndex(wallet.address);
-
-// Make the encoded call
-final multiAddress = $MultiAddress().id(wallet.publicKey.bytes);
-final transferCall = polkadot.tx.balances.transferKeepAlive(dest: multiAddress, value: BigInt.one).encode();
-
-// Make the payload
-final payload = SigningPayload(
-    method: transferCall,
-    specVersion: runtimeVersion.specVersion,
-    transactionVersion: runtimeVersion.transactionVersion,
-    genesisHash: encodeHex(genesisHash),
-    blockHash: encodeHex(currentBlockHash),
-    blockNumber: currentBlockNumber,
-    eraPeriod: 64,
-    nonce: nonce,
-    tip: 0,
-).encode(polkadot.registry);
-
-// Sign the payload and build the final extrinsic
-final signature = wallet.sign(payload);
-final extrinsic = ExtrinsicPayload(
-  signer: wallet.bytes(),
-  method: transferCall,
-  signature: signature,
-  eraPeriod: 64,
-  blockNumber: currentBlockNumber,
-  nonce: nonce,
-  tip: 0,
-).encode(polkadot.registry, SignatureType.sr25519);
-
-// Send the extrinsic to the blockchain
-final author = AuthorApi(provider);
-await author.submitAndWatchExtrinsic(extrinsic, (data) {
-  print(data);
-});
-```
+- **Parachain system pallet**: Core parachain functionality and relay chain communication.
+- **Collator consensus**: Block production logic for parachain collators.
+- **Relay chain interface**: APIs for interacting with the Polkadot relay chain.
+- **Validation data**: Handling proof-of-validity data required by relay chain validators.
 
 ## Where to Go Next
 
-To dive deeper into Polkadart, refer to the [official Polkadart documentation](https://polkadart.dev/){target=\_blank}, where you can find comprehensive guides for common use cases and advanced usage.
+Building a parachain requires understanding the relationship between your chain and the Polkadot relay chain. The Polkadot SDK provides all the tools needed to design custom runtime logic, enable cross-chain communication, and deploy your parachain to production.
+
+The following sections provide detailed guidance on each aspect of parachain development, from initial design through deployment and ongoing maintenance.
+
+<div class="grid cards" markdown>
+
+-   <span class="badge guide">Guide</span> __Launch a Simple Parachain__
+
+    ---
+
+    Walk through the complete parachain launch flow: from setup and deployment to obtaining coretime.
+
+    [:octicons-arrow-right-24: Deploy](/parachains/launch-a-parachain/set-up-the-parachain-template/)
+
+
+-   <span class="badge guide">Guide</span> __Customize Your Runtime__
+
+    ---
+
+    Design your parachain's runtime logic and choose appropriate pallets for your use case.
+
+    [:octicons-arrow-right-24: Get Started](/parachains/customize-runtime/)
+
+-   <span class="badge guide">Guide</span> __Interoperability__
+
+    ---
+
+    Implement XCM for trustless cross-chain communication with other parachains.
+
+    [:octicons-arrow-right-24: Learn More](/parachains/interoperability/get-started/)
+
+-   <span class="badge guide">Guide</span> __Runtime Upgrades__
+
+    ---
+
+    Upgrade your parachain's runtime without hard forks using forkless upgrade mechanisms.
+
+    [:octicons-arrow-right-24: Maintain](/parachains/runtime-maintenance/runtime-upgrades/)
+
+</div>
 
 
 ---
@@ -16247,7 +16494,7 @@ flowchart LR
   E[Transaction] --> D
   D --> F[(New State)]
   D --> G[Execution Logs]
-  style A fill:#ffffff,stroke:#000000,stroke-width:1px
+  style A stroke:#000000,stroke-width:1px
 ```
 
 In addition, because smart contracts are programs that execute on top of existing chains, teams don't have to think about the underlying consensus they are built on.
@@ -16317,8 +16564,8 @@ flowchart TD
     F --> J[(New Ethereum<br/>Emulated State)]
     F --> K[Execution Logs]
 
-    style C fill:#ffffff,stroke:#000000,stroke-width:1px
-    style F fill:#ffffff,stroke:#000000,stroke-width:1px
+    style C stroke:#000000,stroke-width:1px
+    style F stroke:#000000,stroke-width:1px
 ```
 
 Although it seems complex, users and developers are abstracted of that complexity, and tools can easily interact with the parachain as they would with any other Ethereum-compatible environment.
@@ -16353,8 +16600,45 @@ flowchart TD
     A --> F[(New State)]
     A --> G[Execution Logs]
 
-    style A fill:#ffffff,stroke:#000000,stroke-width:1px
+    style A stroke:#000000,stroke-width:1px
 ```
+
+
+---
+
+Page Title: Smart Contracts Cookbook Index
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook.md
+- Canonical (HTML): https://docs.polkadot.com/smart-contracts/cookbook/
+- Summary: Explore our full collection of tutorials and guides to learn step-by-step how to build, deploy, and work with smart contracts on Polkadot.
+
+# Smart Contracts Cookbook
+
+Welcome to the Polkadot smart contracts cookbook index.
+
+This page contains a list of all relevant tutorials and guides to help you get started coding smart contracts and dApps in Polkadot.
+
+
+
+
+## Get Tokens from the Faucet
+
+| Title | Difficulty | Tools | Description |
+|-------|:----------:|-------|-------------|
+| [Faucet](/smart-contracts/faucet) | 🟢 Beginner | N/A | Learn how to obtain test tokens from Polkadot faucets for development and testing purposes across different networks. |
+
+## EVM/PVM Smart Contracts
+
+| Title | Difficulty | Tools | Description |
+|-------|:----------:|-------|-------------|
+| [Deploy an ERC-20 to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-erc20) | 🟢 Beginner | EVM Wallet, Polkadot Remix IDE | Deploy an ERC-20 token on Polkadot Hub using PolkaVM. This guide covers contract creation, compilation, deployment, and interaction via Polkadot Remix IDE. |
+| [Deploy an NFT to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-nft) | 🟢 Beginner | EVM Wallet, Polkadot Remix IDE | Deploy an NFT on Polkadot Hub using PolkaVM and OpenZeppelin. Learn how to compile, deploy, and interact with your contract using Polkadot Remix IDE. |
+
+## Port Ethereum DApps
+
+| Title | Difficulty | Tools | Description |
+|-------|:----------:|-------|-------------|
+| [Deploying Uniswap V2 on Polkadot](/smart-contracts/cookbook/eth-dapps/uniswap-v2) | 🟡 Intermediate | Hardhat | Learn how to deploy and test Uniswap V2 on Polkadot Hub using Hardhat, bringing AMM-based token swaps to the Polkadot ecosystem. |
 
 
 ---
@@ -17564,7 +17848,11 @@ Pallets, which compose the runtime's logic, define the specific transactions tha
 
 In Polkadot SDK-based networks, some nodes are authorized to author blocks. These nodes validate and process transactions. When a transaction is sent to a node that can produce blocks, it undergoes a lifecycle that involves several stages, including validation and execution. Non-authoring nodes gossip the transaction across the network until an authoring node receives it. The following diagram illustrates the lifecycle of a transaction that's submitted to a network and processed by an authoring node.
 
+<<<<<<< HEAD
 ![Transaction lifecycle diagram](/images/polkadot-protocol/parachain-basics/blocks-transactions-fees/transactions/transaction-lifecycle-1.webp)
+=======
+![Transaction lifecycle diagram](/images/polkadot-protocol/parachain-basics/blocks-transactions-fees/transactions/transaction-lifecycle-1.webp){ style="background:white" }
+>>>>>>> master
 
 ### Validate and Queue
 
@@ -17831,7 +18119,7 @@ Pallets, which compose the runtime's logic, define the specific transactions tha
 
 In Polkadot SDK-based networks, some nodes are authorized to author blocks. These nodes validate and process transactions. When a transaction is sent to a node that can produce blocks, it undergoes a lifecycle that involves several stages, including validation and execution. Non-authoring nodes gossip the transaction across the network until an authoring node receives it. The following diagram illustrates the lifecycle of a transaction that's submitted to a network and processed by an authoring node.
 
-![Transaction lifecycle diagram](/images/reference/parachains/blocks-transactions-fees/transactions/transactions-01.webp)
+![Transaction lifecycle diagram](/images/reference/parachains/blocks-transactions-fees/transactions/transactions-01.webp){ style="background:white" }
 
 ### Validate and Queue
 
@@ -18841,6 +19129,12 @@ Wallet types fall into two categories based on their connection to the internet:
 
 - **[Hot wallets](#hot-wallets)**: Online storage through websites, browser extensions or smartphone apps.
 - **[Cold wallets](#cold-wallets)**: Offline storage using hardware devices or air-gapped systems.
+<<<<<<< HEAD
+=======
+- **[Wallet Tools](#wallet-tools)**: Libraries and SDKs for integrating wallet functionality into dApps.
+
+
+>>>>>>> master
 
 ## Hot Wallets
 
@@ -18893,6 +19187,27 @@ Wallet types fall into two categories based on their connection to the internet:
     [:octicons-arrow-right-24: Reference](https://vault.novasama.io/){target=\_blank}
 
 </div>
+<<<<<<< HEAD
+=======
+
+
+</div>
+
+## Wallet Tools
+
+<div class="grid cards" markdown>
+
+-   __LunoKit__
+
+    ---
+
+    A comprehensive React library for integrating Polkadot wallet connections into decentralized applications. Provides a unified API for connecting to major Polkadot ecosystem wallets including Polkadot{.js}, SubWallet, Talisman, Nova Wallet, PolkaGate, WalletConnect, Enkrypt, Fearless, and Mimir. Features include pre-built UI components with customizable theming, comprehensive React hooks library, full TypeScript support, multi-chain support for Polkadot, Kusama and parachains, and flexible integration patterns. Use as a complete solution with built-in chain support or integrate only wallet connection features with your preferred API solution (Dedot, PAPI, @polkadot/api).
+
+    [:octicons-arrow-right-24: Reference](https://www.lunolab.xyz/){target=\_blank}
+
+
+</div>
+>>>>>>> master
 
 
 ---
@@ -18913,6 +19228,9 @@ Wallet types fall into two categories based on their connection to the internet:
 
 - **[Hot wallets](#hot-wallets)**: Online storage through websites, browser extensions or smartphone apps.
 - **[Cold wallets](#cold-wallets)**: Offline storage using hardware devices or air-gapped systems.
+- **[Wallet Tools](#wallet-tools)**: Libraries and SDKs for integrating wallet functionality into dApps.
+
+
 
 ## Hot Wallets
 
@@ -18963,6 +19281,24 @@ Wallet types fall into two categories based on their connection to the internet:
     This cold storage solution lets you use a phone in airplane mode as an air-gapped wallet, turning any spare phone, tablet, or iOS/Android device into a hardware wallet.
 
     [:octicons-arrow-right-24: Reference](https://vault.novasama.io/){target=\_blank}
+
+</div>
+
+
+</div>
+
+## Wallet Tools
+
+<div class="grid cards" markdown>
+
+-   __LunoKit__
+
+    ---
+
+    A comprehensive React library for integrating Polkadot wallet connections into decentralized applications. Provides a unified API for connecting to major Polkadot ecosystem wallets including Polkadot{.js}, SubWallet, Talisman, Nova Wallet, PolkaGate, WalletConnect, Enkrypt, Fearless, and Mimir. Features include pre-built UI components with customizable theming, comprehensive React hooks library, full TypeScript support, multi-chain support for Polkadot, Kusama and parachains, and flexible integration patterns. Use as a complete solution with built-in chain support or integrate only wallet connection features with your preferred API solution (Dedot, PAPI, @polkadot/api).
+
+    [:octicons-arrow-right-24: Reference](https://www.lunolab.xyz/){target=\_blank}
+
 
 </div>
 

@@ -1,7 +1,11 @@
 ---
 title: Send a Transaction While Paying the Fee with a Different Token
 description: This tutorial demonstrates how to send a DOT transfer transaction while paying the fees using a different token on the Asset Hub.
+<<<<<<< HEAD
 url: https://docs.polkadot.com/chain-interactions/send-transactions/pay-fees-with-different-tokens/
+=======
+url: https://docs.polkadot.com/tutorials/polkadot-sdk/system-chains/asset-hub/send-a-tx-paying-fee-different-token/
+>>>>>>> master
 ---
 
 # Send a Transaction While Paying the Fee with a Different Token

@@ -13,12 +13,12 @@ The primary goal of ParaSpell is to abstract away the complexities of the XCM pr
 
 The ParaSpell suite includes:
 
-- **[XCM SDK](https://paraspell.github.io/docs/sdk/getting-started.html){target=\_blank}**: A powerful library for integrating XCM interoperability into dApps.
-- **[XCM API](https://paraspell.github.io/docs/api/g-started.html){target=\_blank}**: A lightweight alternative to the SDK for package-less integration.
-- **[XCM Router](https://paraspell.github.io/docs/router/getting-strtd.html){target=\_blank}**: A tool for enabling cross-chain swaps of different assets in a single transaction.
-- **[XCM Analyser](https://paraspell.github.io/docs/analyser/getng-strtd.html){target=\_blank}**: A utility for decoding and translating complex XCM data into a human-readable format.
-- **[XCM Visualizator](https://paraspell.github.io/docs/visualizer/getting-start.html){target=\_blank}**: A tool for visualizing XCM activity across the Polkadot ecosystem.
-- **[XCM Playground](https://paraspell.github.io/docs/tools/playground.html){target=\_blank}**: A tool for testing different XCM scenarios.
+- **[XCM SDK](https://paraspell.xyz/#xcm-sdk){target=\_blank}**: Provides a unified layer to incorporate XCM into decentralized applications, simplifying complex cross-chain interactions.
+- **[XCM API](https://paraspell.xyz/#xcm-api){target=\_blank}**: Offers an efficient, package-free approach to integrating XCM functionality while offloading heavy computing tasks, minimizing costs and improving application performance.
+- **[XCM Router](https://paraspell.xyz/#xcm-router){target=\_blank}**: Enables cross-chain asset swaps in a single command, allowing developers to send one asset type (such as DOT on Polkadot) and receive a different asset on another chain (like ASTR on Astar).
+- **[XCM Analyser](https://paraspell.xyz/#xcm-analyser){target=\_blank}**: Decodes and translates complex XCM multilocation data into readable information, supporting easier troubleshooting and debugging.
+- **[XCM Visualizator](https://paraspell.xyz/#xcm-visualizator){target=\_blank}**: A tool designed to give developers a clear, interactive view of XCM activity across the Polkadot ecosystem, providing insights into cross-chain communication flow.
+- **[XCM Playground](https://paraspell.xyz/#try-it){target=\_blank}**: An interactive playground for testing different XCM scenarios.
 
 ### ParaSpell XCM SDK
 

@@ -81,76 +81,53 @@ Open `src/mock.rs` and add the foundational imports and type definitions:
 ```rust
 use crate as pallet_custom;
 use frame::{
-    deps::sp_runtime::{traits::IdentityLookup, BuildStorage},
+    deps::{
+        frame_support::{derive_impl, traits::ConstU32},
+        sp_io,
+        sp_runtime::{traits::IdentityLookup, BuildStorage},
+    },
     prelude::*,
-    runtime::prelude::*,
-    testing_prelude::*,
-    traits::ConstU32,
 };
 
-// Define the mock runtime struct
-frame_support::construct_runtime!(
-    pub enum Test {
+type Block = frame_system::mocking::MockBlock<Test>;
+
+// Configure a mock runtime to test the pallet.
+frame::deps::frame_support::construct_runtime!(
+    pub enum Test
+    {
         System: frame_system,
         CustomPallet: pallet_custom,
     }
 );
-
-// Basic parameter types for the mock runtime
-parameter_types! {
-    pub const BlockHashCount: u64 = 250;
-}
 ```
 
 **Key components:**
 
 - **`construct_runtime!`** - Macro that builds a minimal runtime with only the pallets needed for testing
 - **`Test`** - The mock runtime type used in tests
-- **`parameter_types!`** - Defines constant values used in trait implementations
-- **`BlockHashCount`** - Determines how many recent block hashes to store
+- **`Block`** - Type alias for the mock block type that the runtime will use
 
 ## Implement frame_system Configuration
 
 The [`frame_system`](https://paritytech.github.io/polkadot-sdk/master/frame_system/index.html){target=\_blank} pallet provides core blockchain functionality and is required by all other pallets. Configure it for the test environment:
 
 ```rust
+#[derive_impl(frame_system::config_preludes::TestDefaultConfig)]
 impl frame_system::Config for Test {
-    type BaseCallFilter = frame_support::traits::Everything;
-    type BlockWeights = ();
-    type BlockLength = ();
-    type DbWeight = ();
-    type RuntimeOrigin = RuntimeOrigin;
-    type RuntimeCall = RuntimeCall;
-    type Nonce = u64;
-    type Hash = sp_core::H256;
-    type Hashing = sp_runtime::traits::BlakeTwo256;
+    type Block = Block;
     type AccountId = u64;
     type Lookup = IdentityLookup<Self::AccountId>;
-    type Block = Block;
-    type RuntimeEvent = RuntimeEvent;
-    type Version = ();
-    type PalletInfo = PalletInfo;
-    type AccountData = ();
-    type OnNewAccount = ();
-    type OnKilledAccount = ();
-    type SystemWeightInfo = ();
-    type SS58Prefix = ();
-    type OnSetCode = ();
-    type MaxConsumers = ConstU32<16>;
-    type SingleBlockMigrations = ();
-    type MultiBlockMigrator = ();
-    type PreInherents = ();
-    type PostInherents = ();
-    type PostTransactions = ();
 }
 ```
 
 **Simplified for testing:**
 
+- **`#[derive_impl]`** - Automatically provides sensible test defaults for most `frame_system::Config` types
 - **`AccountId = u64`** - Uses simple integers instead of cryptographic account IDs
 - **`Lookup = IdentityLookup`** - Direct account ID mapping (no address conversion)
-- **`BlockWeights = ()`** - No weight tracking in tests
-- **Empty implementations** - Many fields use unit types or empty implementations since they're not needed for basic pallet testing
+- **`Block = Block`** - Uses the mock block type we defined earlier
+
+This approach is much more concise than manually specifying every configuration type, as the `TestDefaultConfig` preset provides appropriate defaults for testing.
 
 ## Implement Your Pallet's Configuration
 
@@ -180,30 +157,38 @@ Genesis storage defines the initial state of your blockchain before any blocks a
 Create a helper function for the default test environment:
 
 ```rust
-/// Build genesis storage with default values (empty state)
+// Build genesis storage according to the mock runtime.
 pub fn new_test_ext() -> sp_io::TestExternalities {
-    frame_system::GenesisConfig::<Test>::default()
+    let mut t = frame_system::GenesisConfig::<Test>::default()
         .build_storage()
-        .unwrap()
-        .into()
+        .unwrap();
+
+    pallet_custom::GenesisConfig::<Test> {
+        initial_counter_value: 0,
+        initial_user_interactions: vec![],
+    }
+    .assimilate_storage(&mut t)
+    .unwrap();
+
+    t.into()
 }
 ```
 
-This function creates a clean blockchain state with no initial counter value or user interactions.
+This function creates a clean blockchain state with an initial counter value of 0 and no user interactions.
 
 ### Custom Genesis Configurations
 
 For testing specific scenarios, create additional helper functions with customized genesis states:
 
 ```rust
-/// Build genesis storage with custom initial counter value
-pub fn new_test_ext_with_counter(value: u32) -> sp_io::TestExternalities {
+// Helper function to create a test externalities with a specific initial counter value
+pub fn new_test_ext_with_counter(initial_value: u32) -> sp_io::TestExternalities {
     let mut t = frame_system::GenesisConfig::<Test>::default()
         .build_storage()
         .unwrap();
 
     pallet_custom::GenesisConfig::<Test> {
-        initial_counter_value: value,
+        initial_counter_value: initial_value,
         initial_user_interactions: vec![],
     }
     .assimilate_storage(&mut t)
@@ -212,19 +197,18 @@ pub fn new_test_ext_with_counter(value: u32) -> sp_io::TestExternalities {
     t.into()
 }
 
-/// Build genesis storage with pre-configured user interactions
-pub fn new_test_ext_with_users() -> sp_io::TestExternalities {
+// Helper function to create a test externalities with initial user interactions
+pub fn new_test_ext_with_interactions(
+    initial_value: u32,
+    interactions: Vec<(u64, u32)>,
+) -> sp_io::TestExternalities {
     let mut t = frame_system::GenesisConfig::<Test>::default()
         .build_storage()
         .unwrap();
 
     pallet_custom::GenesisConfig::<Test> {
-        initial_counter_value: 0,
-        initial_user_interactions: vec![
-            (1, 10),  // Alice has 10 interactions
-            (2, 20),  // Bob has 20 interactions
-            (3, 15),  // Charlie has 15 interactions
-        ],
+        initial_counter_value: initial_value,
+        initial_user_interactions: interactions,
     }
     .assimilate_storage(&mut t)
     .unwrap();
@@ -249,187 +233,37 @@ cargo test --package pallet-custom --lib
 
 This command compiles the test code (including the mock and genesis configuration) without running tests yet. Address any compilation errors before continuing.
 
-## Understanding the Test Environment
-
-With your mock runtime in place, you can now write tests using this environment. Here's how the testing workflow works:
-
-### Test Structure
-
-A typical test follows this pattern:
-
-```rust
-#[test]
-fn test_name() {
-    new_test_ext().execute_with(|| {
-        // Your test code here
-    });
-}
-```
-
-The `execute_with` closure provides:
-
-- **Storage context** - Access to your pallet's storage items
-- **Block context** - Simulated block number, timestamp, etc.
-- **Event system** - Ability to check emitted events
-- **Origin handling** - Test with different account origins
-
-### Available Test Accounts
-
-Since we configured `AccountId = u64`, you can use simple integers as test accounts:
-
-```rust
-let alice = 1u64;
-let bob = 2u64;
-let charlie = 3u64;
-```
-
-### Calling Dispatchable Functions
-
-Invoke your pallet's functions using the `Call` enum:
-
-```rust
-// As root origin
-assert_ok!(CustomPallet::set_counter_value(RuntimeOrigin::root(), 100));
-
-// As signed origin
-assert_ok!(CustomPallet::increment(RuntimeOrigin::signed(1), 5));
-```
-
-### Checking Results
-
-Use Rust's testing assertions and FRAME's specialized macros:
-
-```rust
-// Assert operation succeeded
-assert_ok!(CustomPallet::increment(RuntimeOrigin::signed(1), 5));
-
-// Assert operation failed with specific error
-assert_noop!(
-    CustomPallet::decrement(RuntimeOrigin::signed(1), 10),
-    Error::<Test>::Underflow
-);
-
-// Check storage values
-assert_eq!(CounterValue::<Test>::get(), 5);
-```
-
-### Verifying Events
-
-Check that your pallet emitted the expected events:
-
-```rust
-// Get the last event
-System::assert_last_event(
-    Event::CounterIncremented {
-        new_value: 5,
-        who: 1,
-        amount: 5,
-    }
-    .into(),
-);
-```
-
-### Using Genesis in Tests
-
-Here are examples of how to use different genesis configurations:
-
-```rust
-#[test]
-fn test_with_default_genesis() {
-    new_test_ext().execute_with(|| {
-        // Counter starts at 0 (default)
-        assert_eq!(CounterValue::<Test>::get(), 0);
-    });
-}
-
-#[test]
-fn test_with_initial_counter() {
-    new_test_ext_with_counter(500).execute_with(|| {
-        // Counter starts at 500
-        assert_eq!(CounterValue::<Test>::get(), 500);
-        
-        // Can increment from this value
-        assert_ok!(CustomPallet::increment(RuntimeOrigin::signed(1), 10));
-        assert_eq!(CounterValue::<Test>::get(), 510);
-    });
-}
-
-#[test]
-fn test_with_pre_configured_users() {
-    new_test_ext_with_users().execute_with(|| {
-        // Alice (account 1) has 10 interactions
-        assert_eq!(UserInteractions::<Test>::get(1), 10);
-        
-        // Bob (account 2) has 20 interactions
-        assert_eq!(UserInteractions::<Test>::get(2), 20);
-        
-        // Charlie (account 3) has 15 interactions
-        assert_eq!(UserInteractions::<Test>::get(3), 15);
-    });
-}
-```
-
-!!!tip "Genesis Best Practices"
-    - Use default genesis for most tests to ensure they start from a clean state
-    - Create specialized genesis helpers for complex scenarios that need specific initial conditions
-    - Document what each genesis helper sets up so other developers understand the test context
-    - Keep genesis configuration minimal—only set values that are necessary for the specific tests
-
 ??? code "Complete Mock Runtime"
-    
+
     Here's the complete `mock.rs` file for reference:
 
     ```rust
     use crate as pallet_custom;
     use frame::{
-        deps::sp_runtime::{traits::IdentityLookup, BuildStorage},
+        deps::{
+            frame_support::{derive_impl, traits::ConstU32},
+            sp_io,
+            sp_runtime::{traits::IdentityLookup, BuildStorage},
+        },
         prelude::*,
-        runtime::prelude::*,
-        testing_prelude::*,
-        traits::ConstU32,
     };
 
-    // Define the mock runtime struct
-    frame_support::construct_runtime!(
-        pub enum Test {
+    type Block = frame_system::mocking::MockBlock<Test>;
+
+    // Configure a mock runtime to test the pallet.
+    frame::deps::frame_support::construct_runtime!(
+        pub enum Test
+        {
             System: frame_system,
             CustomPallet: pallet_custom,
         }
     );
 
-    // Basic parameter types for the mock runtime
-    parameter_types! {
-        pub const BlockHashCount: u64 = 250;
-    }
-
+    #[derive_impl(frame_system::config_preludes::TestDefaultConfig)]
     impl frame_system::Config for Test {
-        type BaseCallFilter = frame_support::traits::Everything;
-        type BlockWeights = ();
-        type BlockLength = ();
-        type DbWeight = ();
-        type RuntimeOrigin = RuntimeOrigin;
-        type RuntimeCall = RuntimeCall;
-        type Nonce = u64;
-        type Hash = sp_core::H256;
-        type Hashing = sp_runtime::traits::BlakeTwo256;
+        type Block = Block;
         type AccountId = u64;
         type Lookup = IdentityLookup<Self::AccountId>;
-        type Block = Block;
-        type RuntimeEvent = RuntimeEvent;
-        type Version = ();
-        type PalletInfo = PalletInfo;
-        type AccountData = ();
-        type OnNewAccount = ();
-        type OnKilledAccount = ();
-        type SystemWeightInfo = ();
-        type SS58Prefix = ();
-        type OnSetCode = ();
-        type MaxConsumers = ConstU32<16>;
-        type SingleBlockMigrations = ();
-        type MultiBlockMigrator = ();
-        type PreInherents = ();
-        type PostInherents = ();
-        type PostTransactions = ();
     }
 
     impl pallet_custom::Config for Test {
@@ -437,22 +271,14 @@ fn test_with_pre_configured_users() {
         type CounterMaxValue = ConstU32<1000>;
     }
 
-    /// Build genesis storage with default values (empty state)
+    // Build genesis storage according to the mock runtime.
     pub fn new_test_ext() -> sp_io::TestExternalities {
-        frame_system::GenesisConfig::<Test>::default()
-            .build_storage()
-            .unwrap()
-            .into()
-    }
-
-    /// Build genesis storage with custom initial counter value
-    pub fn new_test_ext_with_counter(value: u32) -> sp_io::TestExternalities {
         let mut t = frame_system::GenesisConfig::<Test>::default()
             .build_storage()
             .unwrap();
 
         pallet_custom::GenesisConfig::<Test> {
-            initial_counter_value: value,
+            initial_counter_value: 0,
             initial_user_interactions: vec![],
         }
         .assimilate_storage(&mut t)
@@ -461,19 +287,34 @@ fn test_with_pre_configured_users() {
         t.into()
     }
 
-    /// Build genesis storage with pre-configured user interactions
-    pub fn new_test_ext_with_users() -> sp_io::TestExternalities {
+    // Helper function to create a test externalities with a specific initial counter value
+    pub fn new_test_ext_with_counter(initial_value: u32) -> sp_io::TestExternalities {
         let mut t = frame_system::GenesisConfig::<Test>::default()
             .build_storage()
             .unwrap();
 
         pallet_custom::GenesisConfig::<Test> {
-            initial_counter_value: 0,
-            initial_user_interactions: vec![
-                (1, 10),  // Alice has 10 interactions
-                (2, 20),  // Bob has 20 interactions
-                (3, 15),  // Charlie has 15 interactions
-            ],
+            initial_counter_value: initial_value,
+            initial_user_interactions: vec![],
+        }
+        .assimilate_storage(&mut t)
+        .unwrap();
+
+        t.into()
+    }
+
+    // Helper function to create a test externalities with initial user interactions
+    pub fn new_test_ext_with_interactions(
+        initial_value: u32,
+        interactions: Vec<(u64, u32)>,
+    ) -> sp_io::TestExternalities {
+        let mut t = frame_system::GenesisConfig::<Test>::default()
+            .build_storage()
+            .unwrap();
+
+        pallet_custom::GenesisConfig::<Test> {
+            initial_counter_value: initial_value,
+            initial_user_interactions: interactions,
         }
         .assimilate_storage(&mut t)
         .unwrap();

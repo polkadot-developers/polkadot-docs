@@ -10,14 +10,19 @@ categories: Smart Contracts
 
 This guide helps Ethereum developers migrate their smart contracts to Polkadot Hub. Most contracts work without modifications on the REVM backend, while the PolkaVM backend offers enhanced performance with minimal adaptation for standard patterns.
 
-## Quick Migration Checklist
+## Migration Considerations
 
-Before migrating your contracts, review this checklist:
+Take into account the following considerations before migrating your contracts:
 
 - Standard ERC-20, ERC-721, ERC-1155 tokens work without changes.
 - DeFi protocols, DEXs, and AMMs migrate seamlessly.
 - DAOs and governance contracts are fully compatible.
 - Most Solidity contracts deploy identically to Ethereum.
+
+## Migration Checklist
+
+Before migrating your contracts, review this checklist:
+
 - Factory contracts using PVM bytecode need pre-uploaded dependencies.
 - Contracts using `EXTCODECOPY` for runtime manipulation require review (for projects that will use PVM bytecode, not EVM bytecode).
 - Replace `transfer()` and `send()` with proper reentrancy guards (for projects that will use PVM bytecode, not EVM bytecode).
@@ -95,7 +100,7 @@ For more information on gas costs, see the [Gas Model](/smart-contracts/for-eth-
 
 ### Which Solidity features are not supported?
 
-For REVM, Solidity features are supported. 
+For REVM, any Solidity feature will function smoothly without requiring changes or adaptations. For PVM, there are considerations, as was mentioned above. 
 
 For PolkaVM, there are some considerations:
 

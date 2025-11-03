@@ -122,7 +122,7 @@ You typically don't need to do anything special, but be aware:
 
 ### Can I use my existing development tools?
 
-Yes! Both backends support:
+Yes. Both backends support:
 
 - **Wallets**: [MetaMask](https://metamask.io/){target=\_blank}, [Talisman](https://talisman.xyz/){target=\_blank}, [SubWallet](https://www.subwallet.app/){target=\_blank}
 - **Development frameworks**: [Hardhat](/smart-contracts/cookbook/smart-contracts/deploy-basic/hardhat/){target=\_blank}, [Foundry](/smart-contracts/cookbook/smart-contracts/deploy-basic/foundry/){target=\_blank}, [Remix](/smart-contracts/cookbook/smart-contracts/deploy-basic/remix/){target=\_blank} (just consider that for PVM bytecode, you will use the Polkadot version of the tooling)

@@ -138,7 +138,7 @@ Whether you're building DeFi protocols, governance systems, or any application r
 The XCM precompile provides a simple yet powerful interface for cross-chain interactions within the Polkadot ecosystem and beyond.
 By building and executing XCM programs, developers can build cross-chain applications that leverage the full potential of Polkadot's interoperability features.
 
-## Next steps
+## Next Steps
 
 Head to the Polkadot Hub TestNet and start playing around with the precompile using [Hardhat](/smart-contracts/dev-environments/hardhat/get-started/){target=\_blank} or [Foundry](/smart-contracts/dev-environments/foundry/get-started/){target=\_blank}.
 

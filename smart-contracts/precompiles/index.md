@@ -17,21 +17,23 @@ This article explores how Polkadot leverages precompiles within the Revive palle
 
 Precompiles are special contract implementations that run directly at the runtime level rather than as on-chain PolkaVM contracts. In typical EVM environments, precompiles provide essential cryptographic and utility functionality at addresses that start with specific patterns. Revive follows this design pattern but with its own implementation optimized for PolkaVM.
 
+Users interact with the dApp/contract, which in turn calls the PolkaVM. The PolkaVM detects the precompile address and calls the corresponding precompile. The precompile executes the native code and returns the result to the dApp/contract. The dApp/contract then returns the result to the user.
+
 ```mermaid
 flowchart LR
     User(["User"])
-    DApp["DApp/Contract"]
-    PolkaEVM["ETH RPC Adapter"]
+    dApp["DApp/Contract"]
+    PolkaVM["ETH RPC Adapter"]
     Precompiles["Precompiles"]
     Runtime["PolkaVM"]
 
-    User --> DApp
-    DApp -->|"Call<br>function"| PolkaEVM
-    PolkaEVM -->|"Detect<br>precompile<br>address"| Precompiles
+    User --> dApp
+    dApp -->|"Call<br>function"| PolkaVM
+    PolkaVM -->|"Detect<br>precompile<br>address"| Precompiles
     Precompiles -->|"Execute<br>optimized<br>native code"| Runtime
 
     subgraph "Polkadot Hub"
-        PolkaEVM
+        PolkaVM
         Precompiles
         Runtime
     end
@@ -39,21 +41,6 @@ flowchart LR
     classDef edgeLabel background:#eceff3;
 ```
 
-## Standard Precompiles in Polkadot Hub
-
-Revive implements the standard set of Ethereum precompiles:
-
-|                                                                                   Contract Name                                                                                   | Address (Last Byte) |                                           Description                                           |
-| :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------: | :---------------------------------------------------------------------------------------------: |
-|  [ECRecover](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2503/substrate/frame/revive/src/pure_precompiles/ecrecover.rs){target=\_blank}   |        0x01         |                       Recovers the public key associated with a signature                       |
-|     [Sha256](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2503/substrate/frame/revive/src/pure_precompiles/sha256.rs){target=\_blank}      |        0x02         |                              Implements the SHA-256 hash function                               |
-|  [Ripemd160](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2503/substrate/frame/revive/src/pure_precompiles/ripemd160.rs){target=\_blank}   |        0x03         |                             Implements the RIPEMD-160 hash function                             |
-|   [Identity](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2503/substrate/frame/revive/src/pure_precompiles/identity.rs){target=\_blank}    |        0x04         |                          Data copy function (returns input as output)                           |
-|     [Modexp](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2503/substrate/frame/revive/src/pure_precompiles/modexp.rs){target=\_blank}      |        0x05         |                                     Modular exponentiation                                      |
-|   [Bn128Add](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2503/substrate/frame/revive/src/pure_precompiles/bn128.rs#L27){target=\_blank}   |        0x06         |    Addition on the [alt_bn128 curve](https://eips.ethereum.org/EIPS/eip-196){target=\_blank}    |
-|   [Bn128Mul](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2503/substrate/frame/revive/src/pure_precompiles/bn128.rs#L48){target=\_blank}   |        0x07         | Multiplication on the [alt_bn128 curve](https://eips.ethereum.org/EIPS/eip-196){target=\_blank} |
-| [Bn128Pairing](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2503/substrate/frame/revive/src/pure_precompiles/bn128.rs#L69){target=\_blank} |        0x08         |                              Pairing check on the alt_bn128 curve                               |
-|    [Blake2F](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2503/substrate/frame/revive/src/pure_precompiles/blake2f.rs){target=\_blank}     |        0x09         |                                  Blake2 compression function F                                  |
 
 ## Conclusion
 

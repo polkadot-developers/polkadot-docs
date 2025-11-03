@@ -290,7 +290,7 @@ Add the [`#[pallet::genesis_config]`](https://paritytech.github.io/polkadot-sdk/
 
 ```rust title="src/lib.rs"
 #[pallet::genesis_config]
-#[derive(frame_support::DefaultNoBound)]
+#[derive(DefaultNoBound)]
 pub struct GenesisConfig<T: Config> {
     /// Initial value for the counter
     pub initial_counter_value: u32,
@@ -509,7 +509,7 @@ If you encounter errors, carefully review the code against this guide. Once the 
         pub type UserInteractions<T: Config> = StorageMap<_, Blake2_128Concat, T::AccountId, u32, ValueQuery>;
 
         #[pallet::genesis_config]
-        #[derive(frame_support::DefaultNoBound)]
+        #[derive(DefaultNoBound)]
         pub struct GenesisConfig<T: Config> {
             pub initial_counter_value: u32,
             pub initial_user_interactions: Vec<(T::AccountId, u32)>,

@@ -1,44 +1,24 @@
 ---
-title: Make a Custom Pallet
+title: Create a Custom Pallet
 description: Learn how to create custom pallets using FRAME, allowing for flexible, modular, and scalable blockchain development. Follow the step-by-step guide.
 categories: Parachains
 ---
 
-# Make a Custom Pallet
+# Create a Custom Pallet
 
 ## Introduction
 
-[Framework for Runtime Aggregation of Modular Entities (FRAME)](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/frame_runtime/index.html){target=\_blank} provides a powerful set of tools for blockchain development through modular components called [pallets](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/frame_runtime/pallet/index.html){target=\_blank}. These Rust-based runtime modules allow you to build custom blockchain functionality with precision and flexibility. While FRAME includes a library of pre-built pallets, its true strength lies in the ability to create custom pallets tailored to your specific needs.
+[Framework for Runtime Aggregation of Modular Entities (FRAME)](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/frame_runtime/index.html){target=\_blank} provides a powerful set of tools for blockchain development through modular components called [pallets](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/frame_runtime/pallet/index.html){target=\_blank}. These Rust-based runtime modules allow you to build custom blockchain functionality with precision and flexibility. While FRAME includes a library of pre-built pallets, its true strength lies in creating custom pallets tailored to your specific needs.
 
-In this guide, you'll learn how to build a custom counter pallet from scratch that demonstrates core pallet development concepts. The pallet you'll create includes:
-
-- User-triggered increment and decrement operations
-- Root-only counter value setting
-- Event emission for state changes
-- Custom error handling
-- Storage management
-- User interaction tracking
-- Genesis configuration for initial state
+In this guide, you'll learn how to build a custom counter pallet from scratch that demonstrates core pallet development concepts.
 
 ## Prerequisites
 
 Before you begin, ensure you have:
 
-- [Polkadot SDK dependencies installed](/parachains/install-polkadot-sdk/){target=\_blank}
-- A [Polkadot SDK Parchain Template](/parachains/launch-a-parachain/set-up-the-parachain-template/){target=\_blank} set up locally
-- Basic familiarity with [FRAME concepts](/parachains/customize-runtime/){target=\_blank}
-
-## Core Pallet Components
-
-As you build your custom pallet, you'll work with these key sections:
-
-- **Imports and dependencies**: Bring in necessary FRAME libraries and external modules.
-- **Runtime configuration trait**: Specify types and constants for pallet-runtime interaction.
-- **Runtime events**: Define signals that communicate state changes.
-- **Runtime errors**: Define error types returned from dispatchable calls.
-- **Runtime storage**: Declare on-chain storage items for your pallet's state.
-- **Genesis configuration**: Set initial blockchain state.
-- **Dispatchable functions (extrinsics)**: Create callable functions for user interactions.
+- [Polkadot SDK dependencies installed](/parachains/install-polkadot-sdk/){target=\_blank}.
+- A [Polkadot SDK Parchain Template](/parachains/launch-a-parachain/set-up-the-parachain-template/){target=\_blank} set up locally.
+- Basic familiarity with [FRAME concepts](/parachains/customize-runtime/){target=\_blank}.
 
 For additional macros beyond those covered here, refer to the [pallet_macros](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/index.html){target=\_blank} section of the Polkadot SDK Docs.
 
@@ -164,7 +144,7 @@ With dependencies configured, set up the basic scaffold that will hold your pall
     ```
 
     !!!note
-        This setup starts with a minimal scaffold without events and errors. These will be added in the following sections after the `Config` trait is properly configured with the required `RuntimeEvent` type.
+        This setup starts with a minimal scaffold without events and errors. These will be added in the following sections after the `Config` trait is correctly configured with the required `RuntimeEvent` type.
 
 3. Verify it compiles:
 
@@ -190,7 +170,7 @@ pub trait Config: frame_system::Config {
 }
 ```
 
-**Key configuration elements:**
+Key configuration elements include the following:
 
 - **[`RuntimeEvent`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/trait.Config.html#associatedtype.RuntimeEvent){target=\_blank}**: Required for the pallet to emit events that the runtime can process.
 - **`CounterMaxValue`**: A constant that sets an upper limit on counter values, configurable per runtime.
@@ -279,7 +259,7 @@ For more storage types and patterns, explore the [Polkadot SDK storage documenta
 
 ## Configure Genesis State
 
-Genesis configuration allows you to set the initial state of your pallet when the blockchain first starts. This is essential for both production networks and testing environments. It is particularly useful for:
+Genesis configuration allows you to set the initial state of your pallet when the blockchain first starts and is essential for both production networks and testing environments. It is beneficial for:
 
 - Setting initial parameter values.
 - Pre-allocating resources or accounts.
@@ -312,7 +292,7 @@ impl<T: Config> BuildGenesisConfig for GenesisConfig<T> {
 }
 ```
 
-**Genesis configuration components:**
+Genesis configuration components include the following:
 
 - **`GenesisConfig` struct**: Defines what can be configured at genesis.
 - **`#[derive(DefaultNoBound)]`**: Provides sensible defaults (empty vec and 0 for the counter).
@@ -432,31 +412,31 @@ impl<T: Config> Pallet<T> {
 
 ???+ interface "`set_counter_value`"
 
-    - **Access**: Root origin only (privileged operations)
-    - **Purpose**: Set counter to a specific value
-    - **Validations**: New value must not exceed `CounterMaxValue`
-    - **State changes**: Updates `CounterValue` storage
-    - **Events**: Emits `CounterValueSet`
+    - **Access**: Root origin only (privileged operations).
+    - **Purpose**: Set counter to a specific value.
+    - **Validations**: New value must not exceed `CounterMaxValue`.
+    - **State changes**: Updates `CounterValue` storage.
+    - **Events**: Emits `CounterValueSet`.
 
 ??? interface "`increment`"
 
-    - **Access**: Any signed account
-    - **Purpose**: Increase counter by specified amount
-    - **Validations**: Checks for overflow and max value compliance
-    - **State changes**: Updates `CounterValue` and `UserInteractions`
-    - **Events**: Emits `CounterIncremented`
+    - **Access**: Any signed account.
+    - **Purpose**: Increase counter by specified amount.
+    - **Validations**: Checks for overflow and max value compliance.
+    - **State changes**: Updates `CounterValue` and `UserInteractions`.
+    - **Events**: Emits `CounterIncremented`.
 
 ??? interface "`decrement`"
 
-    - **Access**: Any signed account
-    - **Purpose**: Decrease counter by specified amount
-    - **Validations**: Checks for underflow
-    - **State changes**: Updates `CounterValue` and `UserInteractions`
-    - **Events**: Emits `CounterDecremented`
+    - **Access**: Any signed account.
+    - **Purpose**: Decrease counter by specified amount.
+    - **Validations**: Checks for underflow.
+    - **State changes**: Updates `CounterValue` and `UserInteractions`.
+    - **Events**: Emits `CounterDecremented`.
 
 ## Verify Pallet Compilation
 
-Before proceeding, ensure your pallet compiles without errors:
+Before proceeding, ensure your pallet compiles without errors by running the following command:
 
 ```bash
 cargo build --package pallet-custom
@@ -567,7 +547,7 @@ If you encounter errors, carefully review the code against this guide. Once the 
 
 ## Add the Pallet to Your Runtime
 
-Now that your custom pallet is complete, integrate it into the parachain runtime.
+Now that your custom pallet is complete, you can integrate it into the parachain runtime.
 
 ### Add Runtime Dependency
 
@@ -578,7 +558,7 @@ Now that your custom pallet is complete, integrate it into the parachain runtime
     # Local dependencies
     pallet-custom = { path = "../pallets/pallet-custom", default-features = false }
     
-    # ... other dependencies
+    # Other dependencies
     ```
 
 2. Enable the `std` feature by adding it to the `[features]` section:
@@ -607,8 +587,8 @@ impl pallet_custom::Config for Runtime {
 
 This configuration:
 
-- Links the pallet's events to the runtime's event system
-- Sets a maximum counter value of 1000 using [`ConstU32`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/struct.ConstU32.html){target=\_blank}
+- Links the pallet's events to the runtime's event system.
+- Sets a maximum counter value of 1000 using [`ConstU32`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/struct.ConstU32.html){target=\_blank}.
 
 ### Add to Runtime Construct
 
@@ -647,9 +627,9 @@ mod runtime {
 
 ### Configure Genesis for Your Runtime
 
-To set initial values for your pallet when the chain starts, you'll need to configure the genesis in your chain specification. This is typically done in the `node/src/chain_spec.rs` file or when generating the chain specification.
+To set initial values for your pallet when the chain starts, you'll need to configure the genesis in your chain specification. Genesis configuration is typically done in the `node/src/chain_spec.rs` file or when generating the chain specification.
 
-For development and testing, you can use the default values provided by the `#[derive(DefaultNoBound)]` macro. For production networks, you'll want to set these values in your chain specification explicitly.
+For development and testing, you can use the default values provided by the `#[derive(DefaultNoBound)]` macro. For production networks, you'll want to explicitly set these values in your chain specification.
 
 ### Verify Runtime Compilation
 
@@ -711,15 +691,15 @@ Use the Polkadot.js Apps interface to test your pallet:
 
 ## Key Takeaways
 
-You've successfully created and integrated a custom pallet into a Polkadot SDK-based runtime. You learned:
+You've successfully created and integrated a custom pallet into a Polkadot SDK-based runtime. You have now successfully:
 
-- **Configuration**: Defined runtime-specific types and constants via the `Config` trait.
-- **Storage**: Implemented on-chain state using `StorageValue` and `StorageMap`.
-- **Events**: Created signals to communicate state changes to external systems.
-- **Errors**: Established clear error handling with descriptive error types.
-- **Genesis**: Configured initial blockchain state for both production and testing.
-- **Dispatchables**: Built callable functions with proper validation and access control.
-- **Integration**: Successfully added the pallet to a runtime and tested it locally.
+- Defined runtime-specific types and constants via the `Config` trait.
+- Implemented on-chain state using `StorageValue` and `StorageMap`.
+- Created signals to communicate state changes to external systems.
+- Established clear error handling with descriptive error types.
+- Configured initial blockchain state for both production and testing.
+- Built callable functions with proper validation and access control.
+- Added the pallet to a runtime and tested it locally.
 
 These components form the foundation for developing sophisticated blockchain logic in Polkadot SDK-based chains.
 

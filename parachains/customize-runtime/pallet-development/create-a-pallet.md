@@ -20,6 +20,18 @@ Before you begin, ensure you have:
 - A [Polkadot SDK Parchain Template](/parachains/launch-a-parachain/set-up-the-parachain-template/){target=\_blank} set up locally.
 - Basic familiarity with [FRAME concepts](/parachains/customize-runtime/){target=\_blank}.
 
+## Core Pallet Components
+
+As you build your custom pallet, you'll work with these key sections:
+
+- **Imports and dependencies**: Bring in necessary FRAME libraries and external modules.
+- **Runtime configuration trait**: Specify types and constants for pallet-runtime interaction.
+- **Runtime events**: Define signals that communicate state changes.
+- **Runtime errors**: Define error types returned from dispatchable calls.
+- **Runtime storage**: Declare on-chain storage items for your pallet's state.
+- **Genesis configuration**: Set initial blockchain state.
+- **Dispatchable functions (extrinsics)**: Create callable functions for user interactions.
+
 For additional macros beyond those covered here, refer to the [pallet_macros](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/index.html){target=\_blank} section of the Polkadot SDK Docs.
 
 ## Create the Pallet Project

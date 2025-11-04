@@ -9852,22 +9852,134 @@
   },
   {
     "id": "smart-contracts-cookbook-dapps-zero-to-hero",
-    "title": "smart-contracts-cookbook-dapps-zero-to-hero",
+    "title": "Zero to Hero Smart Contract DApp",
     "slug": "smart-contracts-cookbook-dapps-zero-to-hero",
     "categories": [
-      "Uncategorized"
+      "dApp",
+      "Tooling"
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-dapps-zero-to-hero.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/cookbook/dapps/zero-to-hero/",
-    "preview": "TODO",
-    "outline": [],
+    "preview": "Decentralized applications (dApps) are a key component of the Web3 ecosystem, enabling developers to build applications that communicate directly with blockchain networks. Polkadot Hub, a blockchain with smart contract support, serves as a robust platform for deploying and interacting with dApps.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Prerequisites",
+        "anchor": "prerequisites"
+      },
+      {
+        "depth": 2,
+        "title": "Project Overview",
+        "anchor": "project-overview"
+      },
+      {
+        "depth": 2,
+        "title": "Create and Deploy the Storage Contract",
+        "anchor": "create-and-deploy-the-storage-contract"
+      },
+      {
+        "depth": 3,
+        "title": "Set Up Hardhat Project",
+        "anchor": "set-up-hardhat-project"
+      },
+      {
+        "depth": 3,
+        "title": "Create the Storage Contract",
+        "anchor": "create-the-storage-contract"
+      },
+      {
+        "depth": 3,
+        "title": "Configure Hardhat for Polkadot Hub",
+        "anchor": "configure-hardhat-for-polkadot-hub"
+      },
+      {
+        "depth": 3,
+        "title": "Compile the Contract",
+        "anchor": "compile-the-contract"
+      },
+      {
+        "depth": 3,
+        "title": "Deploy the Contract",
+        "anchor": "deploy-the-contract"
+      },
+      {
+        "depth": 3,
+        "title": "Export the Contract ABI",
+        "anchor": "export-the-contract-abi"
+      },
+      {
+        "depth": 2,
+        "title": "Set Up the dApp Project",
+        "anchor": "set-up-the-dapp-project"
+      },
+      {
+        "depth": 2,
+        "title": "Install Dependencies",
+        "anchor": "install-dependencies"
+      },
+      {
+        "depth": 2,
+        "title": "Connect to Polkadot Hub",
+        "anchor": "connect-to-polkadot-hub"
+      },
+      {
+        "depth": 2,
+        "title": "Set Up the Smart Contract Interface",
+        "anchor": "set-up-the-smart-contract-interface"
+      },
+      {
+        "depth": 2,
+        "title": "Create the Wallet Connection Component",
+        "anchor": "create-the-wallet-connection-component"
+      },
+      {
+        "depth": 2,
+        "title": "Create the Read Contract Component",
+        "anchor": "create-the-read-contract-component"
+      },
+      {
+        "depth": 2,
+        "title": "Create the Write Contract Component",
+        "anchor": "create-the-write-contract-component"
+      },
+      {
+        "depth": 2,
+        "title": "How It Works",
+        "anchor": "how-it-works"
+      },
+      {
+        "depth": 3,
+        "title": "Wallet Connection",
+        "anchor": "wallet-connection"
+      },
+      {
+        "depth": 3,
+        "title": "Data Reads",
+        "anchor": "data-reads"
+      },
+      {
+        "depth": 3,
+        "title": "Data Writes",
+        "anchor": "data-writes"
+      },
+      {
+        "depth": 2,
+        "title": "Conclusion",
+        "anchor": "conclusion"
+      },
+      {
+        "depth": 2,
+        "title": "Where to Go Next",
+        "anchor": "where-to-go-next"
+      }
+    ],
     "stats": {
-      "chars": 5,
-      "words": 1,
-      "headings": 0,
-      "estimated_token_count_total": 0
+      "chars": 31207,
+      "words": 3688,
+      "headings": 22,
+      "estimated_token_count_total": 6967
     },
-    "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
+    "hash": "sha256:b200f93a9179f0b2588ba722dd4c118536136faf3c39eabccf4abf5c346f78a8",
     "token_estimator": "heuristic-v1"
   },
   {

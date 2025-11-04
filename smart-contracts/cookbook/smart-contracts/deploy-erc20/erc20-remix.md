@@ -86,7 +86,7 @@ Deployment is the process of publishing your compiled smart contract to the bloc
 1. Select the **Deploy & Run Transactions** plugin from the left panel.
 2. Configure the deployment settings:
     1. From the **ENVIRONMENT** dropdown, select **Injected Provider - MetaMask** (check the [Deploying Contracts](/smart-contracts/dev-environments/remix/deploy-a-contract/){target=\_blank} section of the Remix IDE guide for more details).
-    2. (Optional) From the **ACCOUNT** dropdown, select the acçcount you want to use for the deploy.
+    2. (Optional) From the **ACCOUNT** dropdown, select the acccount you want to use for the deploy.
 
 3. Configure the contract parameters:
     1. Enter the address that will own the deployed token contract.

@@ -1,7 +1,9 @@
 ---
 title: Deploy an NFT to Polkadot Hub with Remix
 description: Learn how to deploy an ERC-721 NFT contract to Polkadot Hub using Remix, a browser-based IDE for quick prototyping and learning.
-categories: Smart Contracts
+tutorial_badge: Beginner
+categories: Basics, Smart Contracts
+tools: Remix, EVM Wallet, OpenZeppelin
 ---
 
 # Deploy an NFT with Remix

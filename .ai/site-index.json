@@ -10731,6 +10731,63 @@
     "token_estimator": "heuristic-v1"
   },
   {
+    "id": "smart-contracts-cookbook-smart-contracts-deploy-erc20-erc20-remix",
+    "title": "Deploy an ERC-20 to Polkadot Hub",
+    "slug": "smart-contracts-cookbook-smart-contracts-deploy-erc20-erc20-remix",
+    "categories": [
+      "Basics",
+      "Smart Contracts"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-erc20-erc20-remix.md",
+    "html_url": "https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix/",
+    "preview": "[ERC-20](https://eips.ethereum.org/EIPS/eip-20){target=\\_blank} tokens are fungible tokens commonly used for creating cryptocurrencies, governance tokens, and staking mechanisms. Polkadot Hub enables easy token deployment with Ethereum-compatible smart contracts and tools via the EVM backend.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Prerequisites",
+        "anchor": "prerequisites"
+      },
+      {
+        "depth": 2,
+        "title": "Create Your Contract",
+        "anchor": "create-your-contract"
+      },
+      {
+        "depth": 2,
+        "title": "Compile",
+        "anchor": "compile"
+      },
+      {
+        "depth": 2,
+        "title": "Deploy",
+        "anchor": "deploy"
+      },
+      {
+        "depth": 2,
+        "title": "Interact with Your Contract",
+        "anchor": "interact-with-your-contract"
+      },
+      {
+        "depth": 2,
+        "title": "Where to Go Next",
+        "anchor": "where-to-go-next"
+      }
+    ],
+    "stats": {
+      "chars": 9109,
+      "words": 1260,
+      "headings": 7,
+      "estimated_token_count_total": 2182
+    },
+    "hash": "sha256:0cb418d465a51230ece5d3a56d64754f979bc6c4ad78f2cc3df537b99739e627",
+    "token_estimator": "heuristic-v1"
+  },
+  {
     "id": "smart-contracts-cookbook-smart-contracts-deploy-erc20",
     "title": "Deploy an ERC-20 to Polkadot Hub",
     "slug": "smart-contracts-cookbook-smart-contracts-deploy-erc20",
@@ -10788,6 +10845,7 @@
     "title": "Deploy an NFT to Polkadot Hub with Ethers.js",
     "slug": "smart-contracts-cookbook-smart-contracts-deploy-nft-ethers",
     "categories": [
+      "Basics",
       "Smart Contracts"
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-nft-ethers.md",
@@ -10844,6 +10902,7 @@
     "title": "Deploy an NFT to Polkadot Hub with Foundry",
     "slug": "smart-contracts-cookbook-smart-contracts-deploy-nft-foundry",
     "categories": [
+      "Basics",
       "Smart Contracts"
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-nft-foundry.md",
@@ -10905,6 +10964,7 @@
     "title": "Deploy an NFT to Polkadot Hub with Hardhat",
     "slug": "smart-contracts-cookbook-smart-contracts-deploy-nft-hardhat",
     "categories": [
+      "Basics",
       "Smart Contracts"
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-nft-hardhat.md",
@@ -10971,6 +11031,7 @@
     "title": "Deploy an NFT to Polkadot Hub with Remix",
     "slug": "smart-contracts-cookbook-smart-contracts-deploy-nft-remix",
     "categories": [
+      "Basics",
       "Smart Contracts"
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-nft-remix.md",

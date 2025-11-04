@@ -1,7 +1,7 @@
 ---
 title: Deploy an NFT to Polkadot Hub with Hardhat
 description: Learn how to deploy an ERC-721 NFT contract to Polkadot Hub with Hardhat, a comprehenive development environment with built-in deployment capabilities.
-categories: Smart Contracts
+categories: Basics, Smart Contracts
 url: https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-nft/hardhat/
 ---
 

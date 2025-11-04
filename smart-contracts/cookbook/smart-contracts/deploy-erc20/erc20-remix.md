@@ -77,7 +77,7 @@ To compile your contract, ensure you have it opened in the Remix IDE Editor, and
 2. Click the **Compile MyToken.sol** button.
 3. If the compilation succeeded, you'll see a green checkmark indicating success in the **Solidity Compiler** icon.
 
-![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix-1.gif)
+![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix-3.gif)
 
 ## Deploy the Contract
 
@@ -95,7 +95,7 @@ Deployment is the process of publishing your compiled smart contract to the bloc
 4. **MetaMask will pop up**: Review the transaction details. Click **Confirm** to deploy your contract.
 5. If the deployment process succeeded, you will see the transaction details in the terminal, including the contract address and deployment transaction hash.
 
-![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix-2.gif)
+![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix-4.gif)
 
 ## Interact with Your ERC-20 Contract
 
@@ -111,7 +111,7 @@ Once deployed, you can interact with your contract through Remix. Find your cont
 
 4. You can also call the **balanceOf** function by passing the address of the **mint** call to confirm the new balance.
 
-![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix-3.gif)
+![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix-5.gif)
 
 
 Other standard functions you can use:

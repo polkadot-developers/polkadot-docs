@@ -6,9 +6,11 @@ categories: Smart Contracts
 
 # Deploy a Basic Contract with Ethers.js
 
+## Introduction
+
 This guide demonstrates how to deploy a basic Solidity smart contract to Polkadot Hub using [Ethers.js](https://docs.ethers.org/v6/){target=\_blank}, which provides a lightweight approach for deploying contracts using pure JavaScript. This method is ideal for developers who want programmatic control over the deployment process or need to integrate contract deployment into existing applications.
 
-## Prerequisites:
+## Prerequisites
 
 - Basic understanding of Solidity programming.
 - [Node.js](https://nodejs.org/en/download){target=\_blank} v22.13.1 or later.

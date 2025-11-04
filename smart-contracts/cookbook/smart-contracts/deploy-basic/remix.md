@@ -6,9 +6,11 @@ categories: Smart Contracts
 
 # Deploy a Basic Contract with Remix IDE
 
+## Introduction
+
 This guide demonstrates how to deploy a basic Solidity smart contract to Polkadot Hub using [Remix IDE](https://remix.ethereum.org/){target=\_blank}, which offers a visual, browser-based environment perfect for rapid prototyping and learning. It requires no local installation and provides an intuitive interface for contract development.
 
-## Prerequisites:
+## Prerequisites
 
 - Basic understanding of Solidity programming.
 - Test tokens for gas fees (available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}). See the [step-by-step instructions](/smart-contracts/faucet/#get-test-tokens){target=\_blank}.

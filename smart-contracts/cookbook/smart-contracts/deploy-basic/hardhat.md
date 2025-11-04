@@ -6,9 +6,11 @@ categories: Smart Contracts
 
 # Deploy a Basic Contract with
 
+## Introduction
+
 This guide demonstrates how to deploy a basic Solidity smart contract to Polkadot Hub using [Hardhat](https://hardhat.org/){target=\_blank}, which provides a comprehensive development environment with built-in testing, debugging, and deployment capabilities. It's ideal for professional development workflows and team projects.
 
-## Prerequisites:
+## Prerequisites
 
 - Basic understanding of Solidity programming.
 - [Node.js](https://nodejs.org/en/download){target=\_blank} v22.13.1 or later.
@@ -118,8 +120,8 @@ Create a deployment module in `ignition/modules/Storage.ts`:
 import { buildModule } from '@nomicfoundation/hardhat-ignition/modules';
 
 export default buildModule('StorageModule', (m) => {
-    const storage = m.contract('Storage');
-    return { storage };
+  const storage = m.contract('Storage');
+  return { storage };
 });
 ```
 
@@ -132,6 +134,7 @@ npx hardhat ignition deploy ignition/modules/Storage.ts --network polkadotHubTes
 ```
 
 ## Where to Go Next
+
 <div class="grid cards" markdown>
 
 -   <span class="badge guide">Guide</span> __Verify Your Contract__

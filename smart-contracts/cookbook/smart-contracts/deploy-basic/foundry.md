@@ -8,7 +8,7 @@ categories: Smart Contracts
 
 This guide demonstrates how to deploy a basic Solidity smart contract to Polkadot Hub using [Foundry](https://getfoundry.sh/){target=\_blank}, which offers a fast, modular toolkit written in Rust. It's perfect for developers who prefer command-line interfaces and need high-performance compilation and deployment.
 
-## Prerequisites:
+## Prerequisites
 
 - Basic understanding of Solidity programming.
 - Test tokens for gas fees (available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}). See the [step-by-step instructions](/smart-contracts/faucet/#get-test-tokens){target=\_blank}.
@@ -87,6 +87,7 @@ forge create Storage \
     --private-key YOUR_PRIVATE_KEY \
     --broadcast
 ```
+
 Replace the `YOUR_PRIVATE_KEY` placeholder with your actual private key.
 
 ## Where to Go Next

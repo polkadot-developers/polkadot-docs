@@ -1,34 +1,50 @@
 ---
-title: PolkaVM Design
-description: Discover PolkaVM, a high-performance smart contract VM for Polkadot, enabling Ethereum compatibility via pallet_revive, Solidity support & optimized execution.
+title: Dual Virtual Machine Stack
+description: Compare Polkadot’s dual smart contract VMs—REVM for EVM compatibility and PolkaVM for RISC-V performance, flexibility, and efficiency.
 categories: Basics, Polkadot Protocol
 url: https://docs.polkadot.com/smart-contracts/for-eth-devs/dual-vm-stack/
 ---
 
-# PolkaVM Design
+# Dual Virtual Machine Stack
 
 !!! smartcontract "PolkaVM Preview Release"
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 ## Introduction
 
-The Asset Hub smart contracts solution includes multiple components to ensure Ethereum compatibility and high performance. Its architecture allows for integration with current Ethereum tools, while its innovative virtual machine design enhances performance characteristics.
+Polkadot's smart contract platform supports two distinct virtual machine (VM) architectures, providing developers with flexibility in selecting the optimal execution backend for their specific needs. This approach strikes a balance between immediate Ethereum compatibility and long-term innovation, enabling developers to deploy either unmodified (Ethereum Virtual Machine) EVM contracts using Rust Ethereum Virtual Machine (REVM) or optimize for higher performance using PolkaVM (PVM).
 
-## PolkaVM
+Both VM options share common infrastructure, including RPC interfaces, tooling support, and precompiles. The following sections compare architectures and guide you in selecting the best VM for your project's needs.
 
-[**PolkaVM**](https://github.com/paritytech/polkavm){target=\_blank} is a custom virtual machine optimized for performance with [RISC-V-based](https://en.wikipedia.org/wiki/RISC-V){target=\_blank} architecture, supporting Solidity and additional high-performance languages. It serves as the core execution environment, integrated directly within the runtime. It features:
+## Migrate from EVM
+
+The [REVM backend](https://github.com/bluealloy/revm){target=\_blank} integrates a complete Rust implementation of the EVM, enabling Solidity contracts to run unchanged on Polkadot's smart contract platform.
+
+REVM allows developers to use their existing Ethereum tooling and infrastructure to build on Polkadot. Choose REVM to:
+
+- Migrate existing Ethereum contracts without modifications.
+- Retain exact EVM behavior for audit tools. 
+- Use developer tools that rely upon inspecting EVM bytecode.
+- Prioritize rapid deployment over optimization.
+- Work with established Ethereum infrastructure and tooling to build on Polkadot.
+
+REVM enables Ethereum developers to seamlessly migrate to Polkadot, achieving performance and fee improvements without modifying their existing contracts or developer tooling stack.
+
+## Upgrade to PolkaVM
+
+[**PolkaVM**](https://github.com/paritytech/polkavm){target=\_blank} is a custom virtual machine optimized for performance with [RISC-V-based](https://en.wikipedia.org/wiki/RISC-V){target=\_blank} architecture, supporting Solidity and additional high-performance languages. It serves as the core execution environment, integrated directly within the runtime. Choose the PolkaVM for:
 
 - An efficient interpreter for immediate code execution.
-- A planned JIT compiler for optimized performance.
+- A planned [Just In Time (JIT)](https://en.wikipedia.org/wiki/Just-in-time_compilation){target=\_blank} compiler for optimized performance.
 - Dual-mode execution capability, allowing selection of the most appropriate backend for specific workloads.
 - Optimized performance for short-running contract calls through the interpreter.
 
-The interpreter remains particularly beneficial for contracts with minimal code execution, as it eliminates JIT compilation overhead and enables immediate code execution through lazy interpretation.
+The interpreter remains particularly beneficial for contracts with minimal code execution, as it enables immediate code execution through lazy interpretation.
 
 ## Architecture
 
-The smart contract solution consists of the following key components that work together to enable Ethereum compatibility on Polkadot-based chains.
+The following key components of PolkaVM work together to enable Ethereum compatibility on Polkadot-based chains. 
 
-### Pallet Revive
+### Revive Pallet
 
 [**`pallet_revive`**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/index.html){target=\_blank} is a runtime module that executes smart contracts by adding extrinsics, runtime APIs, and logic to convert Ethereum-style transactions into formats compatible with Polkadot SDK-based blockchains. It processes Ethereum-style transactions through the following workflow:
 
@@ -49,64 +65,36 @@ sequenceDiagram
     Proxy->>User: Return Ethereum-compatible Response
 ```
 
-This proxy-based approach eliminates the need for node binary modifications, maintaining compatibility across different client implementations. Preserving the original Ethereum transaction payload simplifies adapting existing tools, which can continue processing familiar transaction formats.
+This proxy-based approach eliminates the need for node binary modifications, maintaining compatibility across different client implementations. Preserving the original Ethereum transaction payload simplifies the adaptation of existing tools, which can continue processing familiar transaction formats.
 
 ### PolkaVM Design Fundamentals
 
-PolkaVM introduces two fundamental architectural differences compared to the Ethereum Virtual Machine (EVM):
+PolkaVM differs from the EVM in two key ways that make it faster, more hardware-efficient, and easier to extend:
 
-```mermaid
-flowchart TB
-    subgraph "EVM Architecture"
-        EVMStack[Stack-Based]
-        EVM256[256-bit Word Size]
-    end
-    
-    subgraph "PolkaVM Architecture"
-        PVMReg[Register-Based]
-        PVM64[64-bit Word Size]
-    end
-```
+- **Register-based design**: Instead of a stack machine, PolkaVM uses a RISC-V–style register model. This design:
 
-- **Register-based design**: PolkaVM utilizes a RISC-V register-based approach. This design:
+    - Uses a fixed set of registers to pass arguments, not an infinite stack.
+    - Maps cleanly to real hardware like x86-64.
+    - Simplifies compilation and boosts runtime efficiency.
+    - Enables tighter control over register allocation and performance tuning.
 
-    - Employs a finite set of registers for argument passing instead of an infinite stack.
-    - Facilitates efficient translation to underlying hardware architectures.
-    - Optimizes register allocation through careful register count selection.
-    - Enables simple 1:1 mapping to x86-64 instruction sets.
-    - Reduces compilation complexity through strategic register limitation.
-    - Improves overall execution performance through hardware-aligned design.
+- **64-bit word size**: PolkaVM runs on a native 64-bit word size, aligning directly with modern CPUs. This design:
 
-- **64-bit word size**: PolkaVM operates with a 64-bit word size. This design:
+    - Executes arithmetic operations with direct hardware support.
+    - Maintains compatibility with Solidity’s 256-bit types via YUL translation.
+    - Accelerates computation-heavy workloads through native word alignment.
+    - Integrates easily with low-level, performance-focused components.
 
-    - Enables direct hardware-supported arithmetic operations.
-    - Maintains compatibility with Solidity's 256-bit operations through YUL translation.
-    - Allows integration of performance-critical components written in lower-level languages.
-    - Optimizes computation-intensive operations through native word size alignment.
-    - Reduces overhead for operations not requiring extended precision.
-    - Facilitates efficient integration with modern CPU architectures.
+## Where To Go Next
 
-## Compilation Process
+<div class="grid cards" markdown>
 
-When compiling a Solidity smart contract, the code passes through the following stages:
+-   <span class="badge learn">Learn</span> __Contract Deployment__
 
-```mermaid
-flowchart LR
-    Dev[Developer] --> |Solidity<br>Source<br>Code| Solc
-    
-    subgraph "Compilation Process"
-        direction LR
-        Solc[solc] --> |YUL<br>IR| Revive
-        Revive[Revive Compiler] --> |LLVM<br>IR| LLVM
-        LLVM[LLVM<br>Optimizer] --> |RISC-V ELF<br>Shared Object| PVMLinker
-    end
-    
-    PVMLinker[PVM Linker] --> PVM[PVM Blob<br>with Metadata]
-```
+    ---
 
-The compilation process integrates several specialized components:
+    Learn how REVM and PVM compare for compiling and deploying smart contracts.
 
-1. **Solc**: The standard Ethereum Solidity compiler that translates Solidity source code to [YUL IR](https://docs.soliditylang.org/en/latest/yul.html){target=\_blank}.
-2. **Revive Compiler**: Takes YUL IR and transforms it to [LLVM IR](https://llvm.org/){target=\_blank}.
-3. **LLVM**: A compiler infrastructure that optimizes the code and generates RISC-V ELF objects.
-4. **PVM linker**: Links the RISC-V ELF object into a final PolkaVM blob with metadata.
+    [:octicons-arrow-right-24: Reference](/smart-contracts/for-eth-devs/contract-deployment/)
+
+</div>

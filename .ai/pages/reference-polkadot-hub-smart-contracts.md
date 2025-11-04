@@ -11,15 +11,15 @@ url: https://docs.polkadot.com/reference/polkadot-hub/smart-contracts/
     PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 ## Introduction
 
-Polkadot’s relay chain does not support smart contracts directly. Instead, developers deploy contract-based applications on parachains that provide execution environments. Polkadot Hub supports smart contracts through the REVM, a Rust-based Ethereum Virtual Machine compatible runtime.
+Polkadot Hub introduces native support for smart contracts through REVM, a high-performance, Rust-based implementation of the Ethereum Virtual Machine. This enables developers to deploy and interact with Solidity contracts directly on Polkadot Hub, combining Ethereum compatibility with Polkadot’s cross-chain interoperability and shared security.
 
-REVM enables developers to run standard Ethereum bytecode on Polkadot Hub, giving teams a path to migrate existing Solidity contracts while interacting with on-chain assets and other parachains via XCM.
+REVM brings Ethereum compatibility to Polkadot Hub, letting developers run Solidity contracts alongside Polkadot’s native features—such as governance, treasury, multisig, and XCM—within a unified, interoperable runtime environment.
 
 This guide explains how smart contracts are deployed, executed, and integrated on Polkadot Hub using REVM.
 
 
 
-### REVM Contracts
+### REVM Smart Contracts
 
 
 

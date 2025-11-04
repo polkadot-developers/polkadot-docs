@@ -1,82 +1,182 @@
 ---
-title: Mock Runtime for Pallet Testing
-description: Learn to create a mock environment in the Polkadot SDK for testing intra-pallet functionality and inter-pallet interactions seamlessly.
+title: Mock Your Runtime
+description: Learn how to create a mock runtime environment for testing your custom pallets in isolation, enabling comprehensive unit testing before runtime integration.
 categories: Parachains
 ---
 
-# Mock Runtime
+# Mock Your Runtime
 
 ## Introduction
 
-Testing is essential in Polkadot SDK development to ensure your blockchain operates as intended and effectively handles various potential scenarios. This guide walks you through setting up an environment to test pallets within the [runtime](/polkadot-protocol/glossary#runtime){target=_blank}, allowing you to evaluate how different pallets, their configurations, and system components interact to ensure reliable blockchain functionality.
+Testing is a critical part of pallet development. Before integrating your pallet into a full runtime, you need a way to test its functionality in isolation. A mock runtime provides a minimal, simulated blockchain environment where you can verify your pallet's logic without the overhead of running a full node.
 
-## Configuring a Mock Runtime
+In this guide, you'll learn how to create a mock runtime for the custom counter pallet built in the [Make a Custom Pallet](/parachains/customize-runtime/pallet-development/create-a-pallet/){target=\_blank} guide. This mock runtime will enable you to write comprehensive unit tests that verify:
 
-### Testing Module
+- Dispatchable function behavior.
+- Storage state changes.
+- Event emission.
+- Error handling.
+- Access control and origin validation.
+- Genesis configuration.
 
-The mock runtime includes all the necessary pallets and configurations needed for testing. To ensure proper testing, you must create a module that integrates all components, enabling assessment of interactions between pallets and system elements.
+## Prerequisites
 
-Here's a simple example of how to create a testing module that simulates these interactions:
+Before you begin, ensure you have:
 
-```rust
---8<-- 'code/parachains/customize-runtime/pallet-development/mock-runtime/integration-testing-module.rs'
+- Completed the [Make a Custom Pallet](/parachains/customize-runtime/pallet-development/create-a-pallet/){target=\_blank} guide.
+- The custom counter pallet from the Make a Custom Pallet guide. Available in `pallets/pallet-custom`.
+- Basic understanding of [Rust testing](https://doc.rust-lang.org/book/ch11-00-testing.html){target=\_blank}.
+
+## Understand Mock Runtimes
+
+A mock runtime is a minimal implementation of the runtime environment that:
+
+- Simulates blockchain state to provide storage and state management.
+- Satisfies your pallet's `Config` trait requirements.
+- Allows isolated testing without external dependencies.
+- Supports genesis configuration to set initial blockchain state for tests.
+- Provides instant feedback on code changes for a faster development cycle.
+
+Mock runtimes are used exclusively for testing and are never deployed to a live blockchain.
+
+## Create the Mock Runtime Module
+
+Start by creating a new module file within your pallet to house the mock runtime code.
+
+1. Navigate to your pallet directory:
+
+    ```bash
+    cd pallets/pallet-custom/src
+    ```
+
+2. Create a new file named `mock.rs`:
+
+    ```bash
+    touch mock.rs
+    ```
+
+3. Next, open `src/lib.rs` and add the mock module declaration at the top of the file, right after the `pub use pallet::*;` line:
+
+    ```rust title="src/lib.rs"
+    --8<-- 'code/parachains/customize-runtime/pallet-development/mock-runtime/lib.rs'
+    ```
+
+    The `#[cfg(test)]` attribute ensures this module is only compiled during testing.
+
+## Set Up Basic Mock
+
+Open `src/mock.rs` and add the foundational imports and type definitions:
+
+```rust title="src/mock.rs"
+--8<-- 'code/parachains/customize-runtime/pallet-development/mock-runtime/mock.rs:1:20'
 ```
 
-The `crate::*;` snippet imports all the components from your crate (including runtime configurations, pallet modules, and utility functions) into the `tests` module. This allows you to write tests without manually importing each piece, making the code more concise and readable. You can opt to instead create a separate `mock.rs` file to define the configuration for your mock runtime and a companion `tests.rs` file to house the specific logic for each test.
+The preceding code includes the following key components: 
 
-Once the testing module is configured, you can craft your mock runtime using the [`frame_support::runtime`](https://paritytech.github.io/polkadot-sdk/master/frame_support/attr.runtime.html){target=\_blank} macro. This macro allows you to define a runtime environment that will be created for testing purposes:
+- **[`construct_runtime!`](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_frame/runtime/apis/trait.ConstructRuntimeApi.html#tymethod.construct_runtime_api){target=\_blank}**: Macro that builds a minimal runtime with only the pallets needed for testing.
+- **`Test`**: The mock runtime type used in tests.
+- **`Block`**: Type alias for the mock block type that the runtime will use.
 
-```rust
---8<-- 'code/parachains/customize-runtime/pallet-development/mock-runtime/mock-runtime.rs'
-```
-### Genesis Storage
+## Implement Essential Configuration
 
-The next step is configuring the genesis storage—the initial state of your runtime. Genesis storage sets the starting conditions for the runtime, defining how pallets are configured before any blocks are produced. You can only customize the initial state only of those items that implement the [`[pallet::genesis_config]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.genesis_config.html){target=\_blank} and [`[pallet::genesis_build]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.genesis_build.html){target=\_blank} macros within their respective pallets.
+The [`frame_system`](https://paritytech.github.io/polkadot-sdk/master/frame_system/index.html){target=\_blank} pallet provides core blockchain functionality and is required by all other pallets. Configure it for the test environment as follows:
 
-In Polkadot SDK, you can create this storage using the [`BuildStorage`](https://paritytech.github.io/polkadot-sdk/master/sp_runtime/trait.BuildStorage.html){target=\_blank} trait from the [`sp_runtime`](https://paritytech.github.io/polkadot-sdk/master/sp_runtime){target=\_blank} crate. This trait is essential for building the configuration that initializes the blockchain's state. 
-
-The function `new_test_ext()` demonstrates setting up this environment. It uses `frame_system::GenesisConfig::<Test>::default()` to generate a default genesis configuration for the runtime, followed by `.build_storage()` to create the initial storage state. This storage is then converted into a format usable by the testing framework, [`sp_io::TestExternalities`](https://paritytech.github.io/polkadot-sdk/master/sp_io/type.TestExternalities.html){target=\_blank}, allowing tests to be executed in a simulated blockchain environment.
-
-Here's the code that sets the genesis storage configuration:
-
-```rust
---8<-- 'code/parachains/customize-runtime/pallet-development/mock-runtime/genesis-config.rs'
+```rust title="src/mock.rs"
+--8<-- 'code/parachains/customize-runtime/pallet-development/mock-runtime/mock.rs:22:27'
 ```
 
-You can also customize the genesis storage to set initial values for your runtime pallets. For example, you can set the initial balance for accounts like this:
+This simplified configuration for testing includes the following:
 
-```rust
---8<-- 'code/parachains/customize-runtime/pallet-development/mock-runtime/genesis-config-custom.rs'
+- **`#[derive_impl]`**: Automatically provides sensible test defaults for most `frame_system::Config` types.
+- **`AccountId = u64`**: Uses simple integers instead of cryptographic account IDs.
+- **`Lookup = IdentityLookup`**: Direct account ID mapping (no address conversion).
+- **`Block = Block`**: Uses the mock block type we defined earlier.
+
+This approach is much more concise than manually specifying every configuration type, as the `TestDefaultConfig` preset provides appropriate defaults for testing.
+
+## Implement Your Pallet's Configuration
+
+Now implement the `Config` trait for your custom pallet. This trait must match the one defined in your pallet's `src/lib.rs`:
+
+```rust title="src/mock.rs"
+--8<-- 'code/parachains/customize-runtime/pallet-development/mock-runtime/mock.rs:29:32'
 ```
 
-For a more idiomatic approach, see the [Your First Pallet](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/guides/your_first_pallet/index.html#better-test-setup){target=\_blank} guide from the Polkadot SDK Rust documentation.
+Configuration details include:
 
-### Pallet Configuration
+- **`RuntimeEvent`**: Connects your pallet's events to the mock runtime's event system.
+- **`CounterMaxValue`**: Sets the maximum counter value to 1000, matching the production configuration.
 
-Each pallet in the mocked runtime requires an associated configuration, specifying the types and values it depends on to function. These configurations often use basic or primitive types (e.g., u32, bool) instead of more complex types like structs or traits, ensuring the setup remains straightforward and manageable.
+The configuration here should mirror what you'll use in production unless you specifically need different values for testing.
 
-```rust
---8<-- 'code/parachains/customize-runtime/pallet-development/mock-runtime/pallets-configurations.rs'
+## Configure Genesis Storage
+
+Genesis storage defines the initial state of your blockchain before any blocks are produced. Since your counter pallet includes the genesis configuration (added in the previous guide), you can now set up test environments with different initial states.
+
+### Basic Test Environment
+
+Create a helper function for the default test environment:
+
+```rust title="src/mock.rs"
+--8<-- 'code/parachains/customize-runtime/pallet-development/mock-runtime/mock.rs:34:46'
 ```
 
-The configuration should be set for each pallet existing in the mocked runtime. The simplification of types is for simplifying the testing process. For example, `AccountId` is `u64`, meaning a valid account address can be an unsigned integer:
+This function creates a clean blockchain state with an initial counter value of 0 and no user interactions.
 
-```rust
-let alice_account: u64 = 1;
+### Custom Genesis Configurations
+
+For testing specific scenarios, create additional helper functions with customized genesis states:
+
+```rust title="src/mock.rs"
+--8<-- 'code/parachains/customize-runtime/pallet-development/mock-runtime/mock.rs:48:77'
 ```
+
+Key methods used in this step include:
+
+- **[`BuildStorage::build_storage()`](https://paritytech.github.io/polkadot-sdk/master/sp_runtime/trait.BuildStorage.html#method.build_storage){target=\_blank}**: Creates the initial storage state.
+- **[`assimilate_storage`](https://paritytech.github.io/polkadot-sdk/master/sp_runtime/trait.BuildStorage.html#method.assimilate_storage){target=\_blank}**: Merges pallet genesis config into the existing storage.
+
+You can chain multiple `assimilate_storage` calls to configure multiple pallets.
+
+## Verify Mock Compilation
+
+Before proceeding to write tests, ensure your mock runtime compiles correctly:
+
+```bash
+cargo test --package pallet-custom --lib
+```
+
+This command compiles the test code (including the mock and genesis configuration) without running tests yet. Address any compilation errors before continuing.
+
+??? code "Complete mock runtime script"
+
+    Here's the complete `mock.rs` file for reference:
+
+    ```rust title="src/mock.rs"
+    --8<-- 'code/parachains/customize-runtime/pallet-development/mock-runtime/mock.rs'
+    ```
+
+## Key Takeaways
+
+You've successfully created a mock runtime with a genesis configuration for your custom pallet. You can now:
+
+- Test your pallet without a full runtime.
+- Set initial blockchain state for different test scenarios.
+- Create different genesis setups for various testing needs.
+- Use this minimal setup to test all pallet functionality.
+
+The mock runtime with a genesis configuration is essential for test-driven development, enabling you to verify logic under different initial conditions before integrating it into the actual parachain runtime.
 
 ## Where to Go Next
 
-With the mock environment in place, developers can now test and explore how pallets interact and ensure they work seamlessly together. For further details about mocking runtimes, see the following [Polkadot SDK docs guide](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/guides/your_first_pallet/index.html#your-first-test-runtime){target=\_blank}.
-
 <div class="grid cards" markdown>
 
--   <span class="badge guide">Guide</span> __Pallet Testing__
+-   <span class="badge guide">Guide</span> __Pallet Unit Testing__
 
     ---
 
-    Learn how to efficiently test pallets in the Polkadot SDK, ensuring your pallet operations are reliable and secure.
+    Learn to write comprehensive unit tests for your pallet using the mock runtime you just created.
 
-    [:octicons-arrow-right-24: Reference](/parachains/customize-runtime/pallet-development/pallet-testing/)
+    [:octicons-arrow-right-24: Continue](/parachains/customize-runtime/pallet-development/pallet-testing/)
 
 </div>

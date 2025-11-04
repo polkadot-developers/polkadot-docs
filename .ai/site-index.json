@@ -731,10 +731,10 @@
       }
     ],
     "stats": {
-      "chars": 7032,
-      "words": 970,
+      "chars": 7146,
+      "words": 978,
       "headings": 7,
-      "estimated_token_count_total": 1620
+      "estimated_token_count_total": 1635
     },
     "hash": "sha256:46252e238b0b51105148dc622da6d8809c55ec11da7ec7b2953c35ca52f5f585",
     "token_estimator": "heuristic-v1"
@@ -773,10 +773,10 @@
       }
     ],
     "stats": {
-      "chars": 6429,
-      "words": 761,
+      "chars": 7750,
+      "words": 838,
       "headings": 4,
-      "estimated_token_count_total": 1305
+      "estimated_token_count_total": 1491
     },
     "hash": "sha256:db37b2f5888f283b5eb5bd84a5f8c81fc66b2313e3f94f510a73dfeb310ae3f0",
     "token_estimator": "heuristic-v1"
@@ -1623,10 +1623,10 @@
       }
     ],
     "stats": {
-      "chars": 32554,
-      "words": 3107,
+      "chars": 33176,
+      "words": 3163,
       "headings": 9,
-      "estimated_token_count_total": 6374
+      "estimated_token_count_total": 6510
     },
     "hash": "sha256:353ad782303ef79bce1262bfa945e6f11b3c3c9ca1edf5705b778c46bada6200",
     "token_estimator": "heuristic-v1"
@@ -1880,10 +1880,10 @@
       }
     ],
     "stats": {
-      "chars": 7622,
-      "words": 1153,
+      "chars": 8470,
+      "words": 1227,
       "headings": 9,
-      "estimated_token_count_total": 1771
+      "estimated_token_count_total": 1944
     },
     "hash": "sha256:4fc8cab40e982e860b64d9aede1058fe7fa82ec321ac215b919db00c4df0a9c0",
     "token_estimator": "heuristic-v1"
@@ -2649,10 +2649,10 @@
       }
     ],
     "stats": {
-      "chars": 13586,
-      "words": 1752,
+      "chars": 18054,
+      "words": 2190,
       "headings": 12,
-      "estimated_token_count_total": 3011
+      "estimated_token_count_total": 3847
     },
     "hash": "sha256:4b705b8dbe9b0ad8d19a897d91f3c64dbc4541297dadacbea2a31b4778e50a46",
     "token_estimator": "heuristic-v1"
@@ -4810,7 +4810,7 @@
       "chars": 13091,
       "words": 1522,
       "headings": 6,
-      "estimated_token_count_total": 3085
+      "estimated_token_count_total": 3091
     },
     "hash": "sha256:87add0ae178e4970601a27efccadb58eff1375d19819201034ba2829914f1cd5",
     "token_estimator": "heuristic-v1"
@@ -4873,10 +4873,10 @@
       }
     ],
     "stats": {
-      "chars": 13819,
-      "words": 1785,
+      "chars": 14715,
+      "words": 1879,
       "headings": 9,
-      "estimated_token_count_total": 3070
+      "estimated_token_count_total": 3338
     },
     "hash": "sha256:915bc91edd56cdedd516e871dbe450d70c9f99fb467cc00ff231ea3a74f61d96",
     "token_estimator": "heuristic-v1"
@@ -5973,10 +5973,10 @@
       }
     ],
     "stats": {
-      "chars": 13624,
-      "words": 1788,
+      "chars": 18500,
+      "words": 2363,
       "headings": 10,
-      "estimated_token_count_total": 2808
+      "estimated_token_count_total": 4014
     },
     "hash": "sha256:55dc252fdecf1590048ce8d009b822e90231442abe81e9593cf1635944a31336",
     "token_estimator": "heuristic-v1"
@@ -9781,6 +9781,936 @@
     "token_estimator": "heuristic-v1"
   },
   {
+    "id": "smart-contracts-cookbook-smart-contracts-.deploy-basic-pvm",
+    "title": "Deploy a Basic Contract to Polkadot Hub",
+    "slug": "smart-contracts-cookbook-smart-contracts-.deploy-basic-pvm",
+    "categories": [
+      "Smart Contracts"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-.deploy-basic-pvm.md",
+    "html_url": "https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/.deploy-basic-pvm/",
+    "preview": "Deploying smart contracts to [Polkadot Hub](/smart-contracts/overview/#smart-contract-development){target=\\_blank} can be accomplished through various tools and environments, each suited to different development workflows. This guide demonstrates how to deploy a basic PolkaVM (PVM) smart contract using four popular approaches: JavaScript with [Ethers.js](https://docs.ethers.org/v6/){target=\\_blank}, [Remix IDE](https://remix.live/){target=\\_blank}, [Hardhat](https://hardhat.org/){target=\\_blank}",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "JavaScript with Ethers.js",
+        "anchor": "javascript-with-ethersjs"
+      },
+      {
+        "depth": 3,
+        "title": "Setup",
+        "anchor": "setup"
+      },
+      {
+        "depth": 3,
+        "title": "Create and Compile Your Contract",
+        "anchor": "create-and-compile-your-contract"
+      },
+      {
+        "depth": 3,
+        "title": "Deploy the Contract",
+        "anchor": "deploy-the-contract"
+      },
+      {
+        "depth": 2,
+        "title": "Remix IDE",
+        "anchor": "remix-ide"
+      },
+      {
+        "depth": 3,
+        "title": "Access Remix",
+        "anchor": "access-remix"
+      },
+      {
+        "depth": 3,
+        "title": "Compile",
+        "anchor": "compile"
+      },
+      {
+        "depth": 3,
+        "title": "Deploy",
+        "anchor": "deploy"
+      },
+      {
+        "depth": 2,
+        "title": "Hardhat",
+        "anchor": "hardhat"
+      },
+      {
+        "depth": 3,
+        "title": "Setup",
+        "anchor": "setup-2"
+      },
+      {
+        "depth": 3,
+        "title": "Configure Hardhat",
+        "anchor": "configure-hardhat"
+      },
+      {
+        "depth": 3,
+        "title": "Create Your Contract",
+        "anchor": "create-your-contract"
+      },
+      {
+        "depth": 3,
+        "title": "Compile",
+        "anchor": "compile-2"
+      },
+      {
+        "depth": 3,
+        "title": "Set Up Deployment",
+        "anchor": "set-up-deployment"
+      },
+      {
+        "depth": 3,
+        "title": "Deploy",
+        "anchor": "deploy-2"
+      },
+      {
+        "depth": 2,
+        "title": "Foundry",
+        "anchor": "foundry"
+      },
+      {
+        "depth": 3,
+        "title": "Setup",
+        "anchor": "setup-3"
+      },
+      {
+        "depth": 3,
+        "title": "Configure Foundry",
+        "anchor": "configure-foundry"
+      },
+      {
+        "depth": 3,
+        "title": "Create Your Contract",
+        "anchor": "create-your-contract-2"
+      },
+      {
+        "depth": 3,
+        "title": "Compile",
+        "anchor": "compile-3"
+      },
+      {
+        "depth": 3,
+        "title": "Deploy",
+        "anchor": "deploy-3"
+      },
+      {
+        "depth": 2,
+        "title": "Conclusion",
+        "anchor": "conclusion"
+      },
+      {
+        "depth": 3,
+        "title": "Next Steps",
+        "anchor": "next-steps"
+      }
+    ],
+    "stats": {
+      "chars": 13872,
+      "words": 1640,
+      "headings": 24,
+      "estimated_token_count_total": 3228
+    },
+    "hash": "sha256:8f29b0f0b56f8c136206211a858cdc5bc27bcd9119eab179a6cd306182d910cb",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "smart-contracts-cookbook-smart-contracts-deploy-basic-contract-deploy-basic-ethers-js",
+    "title": "JavaScript with Ethers.js",
+    "slug": "smart-contracts-cookbook-smart-contracts-deploy-basic-contract-deploy-basic-ethers-js",
+    "categories": [
+      "Smart Contracts"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-basic-contract-deploy-basic-ethers-js.md",
+    "html_url": "https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-basic-contract/deploy-basic-ethers-js/",
+    "preview": "[Ethers.js](https://docs.ethers.org/v6/){target=\\_blank} provides a lightweight approach for deploying contracts using pure JavaScript. This method is ideal for developers who want programmatic control over the deployment process or need to integrate contract deployment into existing applications.",
+    "outline": [
+      {
+        "depth": 3,
+        "title": "Setup",
+        "anchor": "setup"
+      },
+      {
+        "depth": 3,
+        "title": "Create and Compile Your Contract",
+        "anchor": "create-and-compile-your-contract"
+      },
+      {
+        "depth": 3,
+        "title": "Deploy the Contract",
+        "anchor": "deploy-the-contract"
+      },
+      {
+        "depth": 3,
+        "title": "Next Steps",
+        "anchor": "next-steps"
+      }
+    ],
+    "stats": {
+      "chars": 6935,
+      "words": 767,
+      "headings": 4,
+      "estimated_token_count_total": 1490
+    },
+    "hash": "sha256:b0af34b460192f665ca70e7d7985e87b9f59a1a359888f6d14d651daedbcd711",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "smart-contracts-cookbook-smart-contracts-deploy-basic-contract-deploy-basic-foundry",
+    "title": "Foundry",
+    "slug": "smart-contracts-cookbook-smart-contracts-deploy-basic-contract-deploy-basic-foundry",
+    "categories": [
+      "Smart Contracts"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-basic-contract-deploy-basic-foundry.md",
+    "html_url": "https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-basic-contract/deploy-basic-foundry/",
+    "preview": "[Foundry](https://getfoundry.sh/){target=\\_blank} offers a fast, modular toolkit written in Rust. It's perfect for developers who prefer command-line interfaces and need high-performance compilation and deployment.",
+    "outline": [
+      {
+        "depth": 3,
+        "title": "Setup",
+        "anchor": "setup"
+      },
+      {
+        "depth": 3,
+        "title": "Configure Foundry",
+        "anchor": "configure-foundry"
+      },
+      {
+        "depth": 3,
+        "title": "Create Your Contract",
+        "anchor": "create-your-contract"
+      },
+      {
+        "depth": 3,
+        "title": "Compile",
+        "anchor": "compile"
+      },
+      {
+        "depth": 3,
+        "title": "Deploy",
+        "anchor": "deploy"
+      },
+      {
+        "depth": 3,
+        "title": "Next Steps",
+        "anchor": "next-steps"
+      }
+    ],
+    "stats": {
+      "chars": 2125,
+      "words": 276,
+      "headings": 6,
+      "estimated_token_count_total": 429
+    },
+    "hash": "sha256:f7687b9a1e80ab381cf4fb24f37cccfb98ddf139bf687e8832af99364ef0a8a9",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "smart-contracts-cookbook-smart-contracts-deploy-basic-contract-deploy-basic-hardhat",
+    "title": "hardhat",
+    "slug": "smart-contracts-cookbook-smart-contracts-deploy-basic-contract-deploy-basic-hardhat",
+    "categories": [
+      "Smart Contracts"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-basic-contract-deploy-basic-hardhat.md",
+    "html_url": "https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-basic-contract/deploy-basic-hardhat/",
+    "preview": "[Hardhat](https://hardhat.org/){target=\\_blank} provides a comprehensive development environment with built-in testing, debugging, and deployment capabilities. It's ideal for professional development workflows and team projects.",
+    "outline": [
+      {
+        "depth": 3,
+        "title": "Setup",
+        "anchor": "setup"
+      },
+      {
+        "depth": 3,
+        "title": "Configure Hardhat",
+        "anchor": "configure-hardhat"
+      },
+      {
+        "depth": 3,
+        "title": "Create Your Contract",
+        "anchor": "create-your-contract"
+      },
+      {
+        "depth": 3,
+        "title": "Compile",
+        "anchor": "compile"
+      },
+      {
+        "depth": 3,
+        "title": "Set Up Deployment",
+        "anchor": "set-up-deployment"
+      },
+      {
+        "depth": 3,
+        "title": "Deploy",
+        "anchor": "deploy"
+      },
+      {
+        "depth": 3,
+        "title": "Next Steps",
+        "anchor": "next-steps"
+      }
+    ],
+    "stats": {
+      "chars": 3336,
+      "words": 375,
+      "headings": 7,
+      "estimated_token_count_total": 672
+    },
+    "hash": "sha256:93ca24da15095dd0bb03657f53d27771934aee055c11af529445a50e161f79a3",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "smart-contracts-cookbook-smart-contracts-deploy-basic-contract-deploy-basic-remix",
+    "title": "Remix IDE",
+    "slug": "smart-contracts-cookbook-smart-contracts-deploy-basic-contract-deploy-basic-remix",
+    "categories": [
+      "Smart Contracts"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-basic-contract-deploy-basic-remix.md",
+    "html_url": "https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-basic-contract/deploy-basic-remix/",
+    "preview": "[Remix IDE](https://remix.live/){target=\\_blank} offers a visual, browser-based environment perfect for rapid prototyping and learning. It requires no local installation and provides an intuitive interface for contract development.",
+    "outline": [
+      {
+        "depth": 3,
+        "title": "Access Remix",
+        "anchor": "access-remix"
+      },
+      {
+        "depth": 3,
+        "title": "Compile",
+        "anchor": "compile"
+      },
+      {
+        "depth": 3,
+        "title": "Deploy",
+        "anchor": "deploy"
+      },
+      {
+        "depth": 3,
+        "title": "Next Steps",
+        "anchor": "next-steps"
+      }
+    ],
+    "stats": {
+      "chars": 2473,
+      "words": 363,
+      "headings": 4,
+      "estimated_token_count_total": 527
+    },
+    "hash": "sha256:56d730c8a6d2ccf0324caf1c3f30929a93904f80e482cfcb457541e04482dbad",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "smart-contracts-cookbook-smart-contracts-deploy-basic-contract-evm-deploy-basic-ethers-js",
+    "title": "JavaScript with Ethers.js",
+    "slug": "smart-contracts-cookbook-smart-contracts-deploy-basic-contract-evm-deploy-basic-ethers-js",
+    "categories": [
+      "Smart Contracts"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-basic-contract-evm-deploy-basic-ethers-js.md",
+    "html_url": "https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-basic-contract-evm/deploy-basic-ethers-js/",
+    "preview": "[Ethers.js](https://docs.ethers.org/v6/){target=\\_blank} provides a lightweight approach for deploying contracts using pure JavaScript. This method is ideal for developers who want programmatic control over the deployment process or need to integrate contract deployment into existing applications.",
+    "outline": [
+      {
+        "depth": 3,
+        "title": "Setup",
+        "anchor": "setup"
+      },
+      {
+        "depth": 3,
+        "title": "Create and Compile Your Contract",
+        "anchor": "create-and-compile-your-contract"
+      },
+      {
+        "depth": 3,
+        "title": "Deploy the Contract",
+        "anchor": "deploy-the-contract"
+      },
+      {
+        "depth": 3,
+        "title": "Next Steps",
+        "anchor": "next-steps"
+      }
+    ],
+    "stats": {
+      "chars": 6935,
+      "words": 767,
+      "headings": 4,
+      "estimated_token_count_total": 1490
+    },
+    "hash": "sha256:b0af34b460192f665ca70e7d7985e87b9f59a1a359888f6d14d651daedbcd711",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "smart-contracts-cookbook-smart-contracts-deploy-basic-contract-evm-deploy-basic-foundry",
+    "title": "Foundry",
+    "slug": "smart-contracts-cookbook-smart-contracts-deploy-basic-contract-evm-deploy-basic-foundry",
+    "categories": [
+      "Smart Contracts"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-basic-contract-evm-deploy-basic-foundry.md",
+    "html_url": "https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-basic-contract-evm/deploy-basic-foundry/",
+    "preview": "[Foundry](https://getfoundry.sh/){target=\\_blank} offers a fast, modular toolkit written in Rust. It's perfect for developers who prefer command-line interfaces and need high-performance compilation and deployment.",
+    "outline": [
+      {
+        "depth": 3,
+        "title": "Setup",
+        "anchor": "setup"
+      },
+      {
+        "depth": 3,
+        "title": "Configure Foundry",
+        "anchor": "configure-foundry"
+      },
+      {
+        "depth": 3,
+        "title": "Create Your Contract",
+        "anchor": "create-your-contract"
+      },
+      {
+        "depth": 3,
+        "title": "Compile",
+        "anchor": "compile"
+      },
+      {
+        "depth": 3,
+        "title": "Deploy",
+        "anchor": "deploy"
+      },
+      {
+        "depth": 3,
+        "title": "Next Steps",
+        "anchor": "next-steps"
+      }
+    ],
+    "stats": {
+      "chars": 2125,
+      "words": 276,
+      "headings": 6,
+      "estimated_token_count_total": 429
+    },
+    "hash": "sha256:f7687b9a1e80ab381cf4fb24f37cccfb98ddf139bf687e8832af99364ef0a8a9",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "smart-contracts-cookbook-smart-contracts-deploy-basic-contract-evm-deploy-basic-hardhat",
+    "title": "hardhat",
+    "slug": "smart-contracts-cookbook-smart-contracts-deploy-basic-contract-evm-deploy-basic-hardhat",
+    "categories": [
+      "Smart Contracts"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-basic-contract-evm-deploy-basic-hardhat.md",
+    "html_url": "https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-basic-contract-evm/deploy-basic-hardhat/",
+    "preview": "[Hardhat](https://hardhat.org/){target=\\_blank} provides a comprehensive development environment with built-in testing, debugging, and deployment capabilities. It's ideal for professional development workflows and team projects.",
+    "outline": [
+      {
+        "depth": 3,
+        "title": "Setup",
+        "anchor": "setup"
+      },
+      {
+        "depth": 3,
+        "title": "Configure Hardhat",
+        "anchor": "configure-hardhat"
+      },
+      {
+        "depth": 3,
+        "title": "Create Your Contract",
+        "anchor": "create-your-contract"
+      },
+      {
+        "depth": 3,
+        "title": "Compile",
+        "anchor": "compile"
+      },
+      {
+        "depth": 3,
+        "title": "Set Up Deployment",
+        "anchor": "set-up-deployment"
+      },
+      {
+        "depth": 3,
+        "title": "Deploy",
+        "anchor": "deploy"
+      },
+      {
+        "depth": 3,
+        "title": "Next Steps",
+        "anchor": "next-steps"
+      }
+    ],
+    "stats": {
+      "chars": 3336,
+      "words": 375,
+      "headings": 7,
+      "estimated_token_count_total": 672
+    },
+    "hash": "sha256:93ca24da15095dd0bb03657f53d27771934aee055c11af529445a50e161f79a3",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "smart-contracts-cookbook-smart-contracts-deploy-basic-contract-evm-deploy-basic-remix",
+    "title": "Remix IDE",
+    "slug": "smart-contracts-cookbook-smart-contracts-deploy-basic-contract-evm-deploy-basic-remix",
+    "categories": [
+      "Smart Contracts"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-basic-contract-evm-deploy-basic-remix.md",
+    "html_url": "https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-basic-contract-evm/deploy-basic-remix/",
+    "preview": "[Remix IDE](https://remix.live/){target=\\_blank} offers a visual, browser-based environment perfect for rapid prototyping and learning. It requires no local installation and provides an intuitive interface for contract development.",
+    "outline": [
+      {
+        "depth": 3,
+        "title": "Access Remix",
+        "anchor": "access-remix"
+      },
+      {
+        "depth": 3,
+        "title": "Compile",
+        "anchor": "compile"
+      },
+      {
+        "depth": 3,
+        "title": "Deploy",
+        "anchor": "deploy"
+      },
+      {
+        "depth": 3,
+        "title": "Next Steps",
+        "anchor": "next-steps"
+      }
+    ],
+    "stats": {
+      "chars": 2473,
+      "words": 363,
+      "headings": 4,
+      "estimated_token_count_total": 527
+    },
+    "hash": "sha256:56d730c8a6d2ccf0324caf1c3f30929a93904f80e482cfcb457541e04482dbad",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "smart-contracts-cookbook-smart-contracts-deploy-basic-ethers",
+    "title": "Deploy a Basic Contract with Ethers.js",
+    "slug": "smart-contracts-cookbook-smart-contracts-deploy-basic-ethers",
+    "categories": [
+      "Smart Contracts"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-basic-ethers.md",
+    "html_url": "https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-basic/ethers/",
+    "preview": "This guide demonstrates how to deploy a basic Solidity smart contract to Polkadot Hub using [Ethers.js](https://docs.ethers.org/v6/){target=\\_blank}, which provides a lightweight approach for deploying contracts using pure JavaScript. This method is ideal for developers who want programmatic control over the deployment process or need to integrate contract deployment into existing applications.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Prerequisites",
+        "anchor": "prerequisites"
+      },
+      {
+        "depth": 2,
+        "title": "Set Up Your Project",
+        "anchor": "set-up-your-project"
+      },
+      {
+        "depth": 2,
+        "title": "Create Your Contract",
+        "anchor": "create-your-contract"
+      },
+      {
+        "depth": 2,
+        "title": "Compile",
+        "anchor": "compile"
+      },
+      {
+        "depth": 2,
+        "title": "Deploy",
+        "anchor": "deploy"
+      },
+      {
+        "depth": 2,
+        "title": "Where to Go Next",
+        "anchor": "where-to-go-next"
+      }
+    ],
+    "stats": {
+      "chars": 7370,
+      "words": 823,
+      "headings": 7,
+      "estimated_token_count_total": 1729
+    },
+    "hash": "sha256:ff8975b44870613c3aef0907df365f1ac981de74ec83019df232fe4bda6d9dbe",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "smart-contracts-cookbook-smart-contracts-deploy-basic-evm",
+    "title": "Deploy a Basic Contract to EVM",
+    "slug": "smart-contracts-cookbook-smart-contracts-deploy-basic-evm",
+    "categories": [
+      "Smart Contracts"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-basic-evm.md",
+    "html_url": "https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-basic-evm/",
+    "preview": "Deploying smart contracts to the [Polkadot Hub](/smart-contracts/overview/#smart-contract-development){target=\\_blank} can be accomplished using standard EVM development tools and workflows. This guide demonstrates how to deploy a basic smart contract using four popular EVM approaches: JavaScript with [Ethers.js](https://docs.ethers.org/v6/){target=\\_blank}, [Remix IDE](https://remix.live/){target=\\_blank}, [Hardhat](https://hardhat.org/){target=\\_blank}, and [Foundry](https://getfoundry.sh/){ta",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Deployment options",
+        "anchor": "deployment-options"
+      },
+      {
+        "depth": 2,
+        "title": "Conclusion",
+        "anchor": "conclusion"
+      },
+      {
+        "depth": 3,
+        "title": "Next Steps",
+        "anchor": "next-steps"
+      }
+    ],
+    "stats": {
+      "chars": 15629,
+      "words": 1659,
+      "headings": 4,
+      "estimated_token_count_total": 3341
+    },
+    "hash": "sha256:a4fd853afb897985602e0356551edacbce77db60bbc6556de3b6ae5af3fbc9e5",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "smart-contracts-cookbook-smart-contracts-deploy-basic-foundry",
+    "title": "Deploy a Basic Contract with Foundry",
+    "slug": "smart-contracts-cookbook-smart-contracts-deploy-basic-foundry",
+    "categories": [
+      "Smart Contracts"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-basic-foundry.md",
+    "html_url": "https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-basic/foundry/",
+    "preview": "This guide demonstrates how to deploy a basic Solidity smart contract to Polkadot Hub using [Foundry](https://getfoundry.sh/){target=\\_blank}, which offers a fast, modular toolkit written in Rust. It's perfect for developers who prefer command-line interfaces and need high-performance compilation and deployment.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Prerequisites",
+        "anchor": "prerequisites"
+      },
+      {
+        "depth": 2,
+        "title": "Set Up Your Project",
+        "anchor": "set-up-your-project"
+      },
+      {
+        "depth": 2,
+        "title": "Configure Foundry",
+        "anchor": "configure-foundry"
+      },
+      {
+        "depth": 2,
+        "title": "Create Your Contract",
+        "anchor": "create-your-contract"
+      },
+      {
+        "depth": 2,
+        "title": "Compile",
+        "anchor": "compile"
+      },
+      {
+        "depth": 2,
+        "title": "Deploy",
+        "anchor": "deploy"
+      },
+      {
+        "depth": 2,
+        "title": "Where to Go Next",
+        "anchor": "where-to-go-next"
+      }
+    ],
+    "stats": {
+      "chars": 2731,
+      "words": 355,
+      "headings": 7,
+      "estimated_token_count_total": 598
+    },
+    "hash": "sha256:63defd84f302f0778c90129abbe69ecd2a5d9d83c622f2b7e5c2ffc9bcb3312f",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "smart-contracts-cookbook-smart-contracts-deploy-basic-hardhat",
+    "title": "Deploy a Basic Contract with Hardhat",
+    "slug": "smart-contracts-cookbook-smart-contracts-deploy-basic-hardhat",
+    "categories": [
+      "Smart Contracts"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-basic-hardhat.md",
+    "html_url": "https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-basic/hardhat/",
+    "preview": "This guide demonstrates how to deploy a basic Solidity smart contract to Polkadot Hub using [Hardhat](https://hardhat.org/){target=\\_blank}, which provides a comprehensive development environment with built-in testing, debugging, and deployment capabilities. It's ideal for professional development workflows and team projects.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Prerequisites",
+        "anchor": "prerequisites"
+      },
+      {
+        "depth": 2,
+        "title": "Set Up Your Project",
+        "anchor": "set-up-your-project"
+      },
+      {
+        "depth": 2,
+        "title": "Configure Hardhat",
+        "anchor": "configure-hardhat"
+      },
+      {
+        "depth": 2,
+        "title": "Create Your Contract",
+        "anchor": "create-your-contract"
+      },
+      {
+        "depth": 2,
+        "title": "Compile",
+        "anchor": "compile"
+      },
+      {
+        "depth": 2,
+        "title": "Set Up Deployment",
+        "anchor": "set-up-deployment"
+      },
+      {
+        "depth": 2,
+        "title": "Deploy the Contract",
+        "anchor": "deploy-the-contract"
+      },
+      {
+        "depth": 2,
+        "title": "Where to Go Next",
+        "anchor": "where-to-go-next"
+      }
+    ],
+    "stats": {
+      "chars": 4051,
+      "words": 475,
+      "headings": 9,
+      "estimated_token_count_total": 981
+    },
+    "hash": "sha256:98f5c5c1a26db913e1c4c435062d214ca8c4b5f2dbed5b64d2e54c3435f06452",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "smart-contracts-cookbook-smart-contracts-deploy-basic-pvm",
+    "title": "Deploy a Basic Contract to Polkadot Hub",
+    "slug": "smart-contracts-cookbook-smart-contracts-deploy-basic-pvm",
+    "categories": [
+      "Smart Contracts"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-basic-pvm.md",
+    "html_url": "https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-basic-pvm/",
+    "preview": "Deploying smart contracts to [Polkadot Hub](/smart-contracts/overview/#smart-contract-development){target=\\_blank} can be accomplished through various tools and environments, each suited to different development workflows. This guide demonstrates how to deploy a basic PolkaVM (PVM) smart contract using four popular approaches: JavaScript with [Ethers.js](https://docs.ethers.org/v6/){target=\\_blank}, [Remix IDE](https://remix.live/){target=\\_blank}, [Hardhat](https://hardhat.org/){target=\\_blank}",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "JavaScript with Ethers.js",
+        "anchor": "javascript-with-ethersjs"
+      },
+      {
+        "depth": 3,
+        "title": "Setup",
+        "anchor": "setup"
+      },
+      {
+        "depth": 3,
+        "title": "Create and Compile Your Contract",
+        "anchor": "create-and-compile-your-contract"
+      },
+      {
+        "depth": 3,
+        "title": "Deploy the Contract",
+        "anchor": "deploy-the-contract"
+      },
+      {
+        "depth": 2,
+        "title": "Remix IDE",
+        "anchor": "remix-ide"
+      },
+      {
+        "depth": 3,
+        "title": "Access Remix",
+        "anchor": "access-remix"
+      },
+      {
+        "depth": 3,
+        "title": "Compile",
+        "anchor": "compile"
+      },
+      {
+        "depth": 3,
+        "title": "Deploy",
+        "anchor": "deploy"
+      },
+      {
+        "depth": 2,
+        "title": "Hardhat",
+        "anchor": "hardhat"
+      },
+      {
+        "depth": 3,
+        "title": "Setup",
+        "anchor": "setup-2"
+      },
+      {
+        "depth": 3,
+        "title": "Configure Hardhat",
+        "anchor": "configure-hardhat"
+      },
+      {
+        "depth": 3,
+        "title": "Create Your Contract",
+        "anchor": "create-your-contract"
+      },
+      {
+        "depth": 3,
+        "title": "Compile",
+        "anchor": "compile-2"
+      },
+      {
+        "depth": 3,
+        "title": "Set Up Deployment",
+        "anchor": "set-up-deployment"
+      },
+      {
+        "depth": 3,
+        "title": "Deploy",
+        "anchor": "deploy-2"
+      },
+      {
+        "depth": 2,
+        "title": "Foundry",
+        "anchor": "foundry"
+      },
+      {
+        "depth": 3,
+        "title": "Setup",
+        "anchor": "setup-3"
+      },
+      {
+        "depth": 3,
+        "title": "Configure Foundry",
+        "anchor": "configure-foundry"
+      },
+      {
+        "depth": 3,
+        "title": "Create Your Contract",
+        "anchor": "create-your-contract-2"
+      },
+      {
+        "depth": 3,
+        "title": "Compile",
+        "anchor": "compile-3"
+      },
+      {
+        "depth": 3,
+        "title": "Deploy",
+        "anchor": "deploy-3"
+      },
+      {
+        "depth": 2,
+        "title": "Conclusion",
+        "anchor": "conclusion"
+      },
+      {
+        "depth": 3,
+        "title": "Next Steps",
+        "anchor": "next-steps"
+      }
+    ],
+    "stats": {
+      "chars": 13872,
+      "words": 1640,
+      "headings": 24,
+      "estimated_token_count_total": 3228
+    },
+    "hash": "sha256:8f29b0f0b56f8c136206211a858cdc5bc27bcd9119eab179a6cd306182d910cb",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "smart-contracts-cookbook-smart-contracts-deploy-basic-remix",
+    "title": "Deploy a Basic Contract with Remix IDE",
+    "slug": "smart-contracts-cookbook-smart-contracts-deploy-basic-remix",
+    "categories": [
+      "Smart Contracts"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-basic-remix.md",
+    "html_url": "https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-basic/remix/",
+    "preview": "This guide demonstrates how to deploy a basic Solidity smart contract to Polkadot Hub using [Remix IDE](https://remix.ethereum.org/){target=\\_blank}, which offers a visual, browser-based environment perfect for rapid prototyping and learning. It requires no local installation and provides an intuitive interface for contract development.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Prerequisites",
+        "anchor": "prerequisites"
+      },
+      {
+        "depth": 2,
+        "title": "Access Remix",
+        "anchor": "access-remix"
+      },
+      {
+        "depth": 2,
+        "title": "Compile",
+        "anchor": "compile"
+      },
+      {
+        "depth": 2,
+        "title": "Deploy",
+        "anchor": "deploy"
+      },
+      {
+        "depth": 2,
+        "title": "Where to Go Next",
+        "anchor": "where-to-go-next"
+      }
+    ],
+    "stats": {
+      "chars": 2978,
+      "words": 430,
+      "headings": 6,
+      "estimated_token_count_total": 738
+    },
+    "hash": "sha256:0c00544ba0be9c0a6fa0c54bdb38045d64e95af714785b86e57f885a03b4b17a",
+    "token_estimator": "heuristic-v1"
+  },
+  {
     "id": "smart-contracts-cookbook-smart-contracts-deploy-basic",
     "title": "smart-contracts-cookbook-smart-contracts-deploy-basic",
     "slug": "smart-contracts-cookbook-smart-contracts-deploy-basic",
@@ -9845,10 +10775,10 @@
       }
     ],
     "stats": {
-      "chars": 8385,
-      "words": 1150,
+      "chars": 8926,
+      "words": 1207,
       "headings": 6,
-      "estimated_token_count_total": 1990
+      "estimated_token_count_total": 2107
     },
     "hash": "sha256:296cba75b1d49aefa1b8636ba95ca20c3431b7eb0e93b0658add671ef5801732",
     "token_estimator": "heuristic-v1"
@@ -11905,7 +12835,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-precompiles-xcm.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/precompiles/xcm/",
-    "preview": "The [XCM (Cross-Consensus Message)](/develop/interoperability/intro-to-xcm){target=\\_blank} precompile enables Polkadot Hub developers to access XCM functionality directly from their smart contracts using a Solidity interface.",
+    "preview": "The [XCM (Cross-Consensus Message)](/parachains/interoperability/get-started/){target=\\_blank} precompile enables Polkadot Hub developers to access XCM functionality directly from their smart contracts using a Solidity interface.",
     "outline": [
       {
         "depth": 2,
@@ -11949,17 +12879,17 @@
       },
       {
         "depth": 2,
-        "title": "Next steps",
+        "title": "Next Steps",
         "anchor": "next-steps"
       }
     ],
     "stats": {
-      "chars": 8314,
-      "words": 1145,
+      "chars": 10705,
+      "words": 1436,
       "headings": 9,
-      "estimated_token_count_total": 1781
+      "estimated_token_count_total": 2325
     },
-    "hash": "sha256:4856172c6356357818234a3b7f0828716bd32e6192f3609c51de0cafcc5a75e7",
+    "hash": "sha256:c084190ea7d676128e7e399e8fe88598ca150f88d684db279a687ee1c3956120",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -13359,10 +14289,10 @@
       }
     ],
     "stats": {
-      "chars": 9351,
-      "words": 1319,
+      "chars": 21934,
+      "words": 2564,
       "headings": 10,
-      "estimated_token_count_total": 2194
+      "estimated_token_count_total": 5118
     },
     "hash": "sha256:de7fde61d4cac9c28634ee496dcabe116fe44b1b87408f202103290d78247c05",
     "token_estimator": "heuristic-v1"
@@ -13441,10 +14371,10 @@
       }
     ],
     "stats": {
-      "chars": 15742,
-      "words": 2001,
+      "chars": 27924,
+      "words": 3201,
       "headings": 12,
-      "estimated_token_count_total": 3414
+      "estimated_token_count_total": 6206
     },
     "hash": "sha256:cb8ddb4a61f6a62182420b69382f1c7ab2adc2f4ae643f7f68c6867680afe81f",
     "token_estimator": "heuristic-v1"
@@ -13503,10 +14433,10 @@
       }
     ],
     "stats": {
-      "chars": 16278,
-      "words": 2002,
+      "chars": 18699,
+      "words": 2238,
       "headings": 8,
-      "estimated_token_count_total": 3619
+      "estimated_token_count_total": 4135
     },
     "hash": "sha256:ca1d65d450f086a0eb7b81e9589e9894e04b217fe9709a1b464f09beb3ca9dc2",
     "token_estimator": "heuristic-v1"

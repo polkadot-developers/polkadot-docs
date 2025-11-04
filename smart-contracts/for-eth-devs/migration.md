@@ -96,7 +96,7 @@ The deployment steps for PolkaVM factories are:
 
 ### How do gas costs compare?
 
-For more information on gas costs, see the [Gas Model](/smart-contracts/for-eth-devs/gas-model){target=\_blank} page.
+For more information on gas costs, see the [Gas Model](/smart-contracts/for-eth-devs/gas-model/){target=\_blank} page.
 
 ### Which Solidity features are not supported?
 

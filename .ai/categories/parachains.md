@@ -10266,7 +10266,7 @@ Add the [`#[pallet::genesis_config]`](https://paritytech.github.io/polkadot-sdk/
 
 ```rust title="src/lib.rs"
 #[pallet::genesis_config]
-#[derive(frame_support::DefaultNoBound)]
+#[derive(DefaultNoBound)]
 pub struct GenesisConfig<T: Config> {
     /// Initial value for the counter
     pub initial_counter_value: u32,
@@ -10485,7 +10485,7 @@ If you encounter errors, carefully review the code against this guide. Once the 
         pub type UserInteractions<T: Config> = StorageMap<_, Blake2_128Concat, T::AccountId, u32, ValueQuery>;
 
         #[pallet::genesis_config]
-        #[derive(frame_support::DefaultNoBound)]
+        #[derive(DefaultNoBound)]
         pub struct GenesisConfig<T: Config> {
             pub initial_counter_value: u32,
             pub initial_user_interactions: Vec<(T::AccountId, u32)>,
@@ -10821,128 +10821,173 @@ pub fn pool<T: Config>(region_id: RegionId, payee: T::AccountId, finality: Final
 
 ---
 
-Page Title: Mock Runtime for Pallet Testing
+Page Title: Mock Your Runtime
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/parachains-customize-runtime-pallet-development-mock-runtime.md
 - Canonical (HTML): https://docs.polkadot.com/parachains/customize-runtime/pallet-development/mock-runtime/
-- Summary: Learn to create a mock environment in the Polkadot SDK for testing intra-pallet functionality and inter-pallet interactions seamlessly.
+- Summary: Learn how to create a mock runtime environment for testing your custom pallets in isolation, enabling comprehensive unit testing before runtime integration.
 
-# Mock Runtime
+# Mock Your Runtime
 
 ## Introduction
 
-Testing is essential in Polkadot SDK development to ensure your blockchain operates as intended and effectively handles various potential scenarios. This guide walks you through setting up an environment to test pallets within the [runtime](/polkadot-protocol/glossary#runtime){target=_blank}, allowing you to evaluate how different pallets, their configurations, and system components interact to ensure reliable blockchain functionality.
+Testing is a critical part of pallet development. Before integrating your pallet into a full runtime, you need a way to test its functionality in isolation. A mock runtime provides a minimal, simulated blockchain environment where you can verify your pallet's logic without the overhead of running a full node.
 
-## Configuring a Mock Runtime
+In this guide, you'll learn how to create a mock runtime for the custom counter pallet built in the [Make a Custom Pallet](/parachains/customize-runtime/pallet-development/create-a-pallet/) guide. This mock runtime will enable you to write comprehensive unit tests that verify:
 
-### Testing Module
+- Dispatchable function behavior
+- Storage state changes
+- Event emission
+- Error handling
+- Access control and origin validation
+- Genesis configuration
 
-The mock runtime includes all the necessary pallets and configurations needed for testing. To ensure proper testing, you must create a module that integrates all components, enabling assessment of interactions between pallets and system elements.
+## Prerequisites
 
-Here's a simple example of how to create a testing module that simulates these interactions:
+Before you begin, ensure you have:
+
+- Completed the [Make a Custom Pallet](/parachains/customize-runtime/pallet-development/create-a-pallet/) guide
+- The custom counter pallet from that guide available in `pallets/pallet-custom`
+- Basic understanding of [Rust testing](https://doc.rust-lang.org/book/ch11-00-testing.html){target=\_blank}
+
+## Understanding Mock Runtimes
+
+A mock runtime is a minimal implementation of the runtime environment that:
+
+- **Simulates blockchain state** - Provides storage and state management
+- **Implements required traits** - Satisfies your pallet's `Config` trait requirements
+- **Enables isolated testing** - Allows testing without external dependencies
+- **Supports genesis configuration** - Sets initial blockchain state for tests
+- **Speeds up development** - Provides instant feedback on code changes
+
+Mock runtimes are used exclusively for testing and are never deployed to a live blockchain.
+
+## Create the Mock Runtime Module
+
+Start by creating a new module file within your pallet to house the mock runtime code.
+
+1. Navigate to your pallet directory:
+
+    ```bash
+    cd pallets/pallet-custom/src
+    ```
+
+2. Create a new file named `mock.rs`:
+
+    ```bash
+    touch mock.rs
+    ```
+
+3. Open `src/lib.rs` and add the mock module declaration at the top of the file, right after the `pub use pallet::*;` line:
+
+    ```rust
+    #![cfg_attr(not(feature = "std"), no_std)]
+
+    pub use pallet::*;
+
+    #[cfg(test)]
+    mod mock;
+
+    #[frame::pallet]
+    pub mod pallet {
+        // ... existing pallet code
+    }
+    ```
+
+    The `#[cfg(test)]` attribute ensures this module is only compiled during testing.
+
+## Set Up Basic Mock Infrastructure
+
+Open `src/mock.rs` and add the foundational imports and type definitions:
 
 ```rust
-pub mod tests {
-    use crate::*;
-    // ...
+use crate as pallet_custom;
+use frame::{
+    deps::{
+        frame_support::{derive_impl, traits::ConstU32},
+        sp_io,
+        sp_runtime::{traits::IdentityLookup, BuildStorage},
+    },
+    prelude::*,
+};
+
+type Block = frame_system::mocking::MockBlock<Test>;
+
+// Configure a mock runtime to test the pallet.
+frame::deps::frame_support::construct_runtime!(
+    pub enum Test
+    {
+        System: frame_system,
+        CustomPallet: pallet_custom,
+    }
+);
+```
+
+**Key components:**
+
+- **`construct_runtime!`** - Macro that builds a minimal runtime with only the pallets needed for testing
+- **`Test`** - The mock runtime type used in tests
+- **`Block`** - Type alias for the mock block type that the runtime will use
+
+## Implement frame_system Configuration
+
+The [`frame_system`](https://paritytech.github.io/polkadot-sdk/master/frame_system/index.html){target=\_blank} pallet provides core blockchain functionality and is required by all other pallets. Configure it for the test environment:
+
+```rust
+#[derive_impl(frame_system::config_preludes::TestDefaultConfig)]
+impl frame_system::Config for Test {
+    type Block = Block;
+    type AccountId = u64;
+    type Lookup = IdentityLookup<Self::AccountId>;
 }
 ```
 
-The `crate::*;` snippet imports all the components from your crate (including runtime configurations, pallet modules, and utility functions) into the `tests` module. This allows you to write tests without manually importing each piece, making the code more concise and readable. You can opt to instead create a separate `mock.rs` file to define the configuration for your mock runtime and a companion `tests.rs` file to house the specific logic for each test.
+**Simplified for testing:**
 
-Once the testing module is configured, you can craft your mock runtime using the [`frame_support::runtime`](https://paritytech.github.io/polkadot-sdk/master/frame_support/attr.runtime.html){target=\_blank} macro. This macro allows you to define a runtime environment that will be created for testing purposes:
+- **`#[derive_impl]`** - Automatically provides sensible test defaults for most `frame_system::Config` types
+- **`AccountId = u64`** - Uses simple integers instead of cryptographic account IDs
+- **`Lookup = IdentityLookup`** - Direct account ID mapping (no address conversion)
+- **`Block = Block`** - Uses the mock block type we defined earlier
 
-```rust
-pub mod tests {
-    use crate::*;
+This approach is much more concise than manually specifying every configuration type, as the `TestDefaultConfig` preset provides appropriate defaults for testing.
 
-    #[frame_support::runtime]
-    mod runtime {
-        #[runtime::runtime]
-        #[runtime::derive(
-            RuntimeCall,
-            RuntimeEvent,
-            RuntimeError,
-            RuntimeOrigin,
-            RuntimeFreezeReason,
-            RuntimeHoldReason,
-            RuntimeSlashReason,
-            RuntimeLockId,
-            RuntimeTask
-        )]
-        pub struct Test;
+## Implement Your Pallet's Configuration
 
-        #[runtime::pallet_index(0)]
-        pub type System = frame_system::Pallet<Test>;
-
-        // Other pallets...
-    }
-}
-```
-### Genesis Storage
-
-The next step is configuring the genesis storage—the initial state of your runtime. Genesis storage sets the starting conditions for the runtime, defining how pallets are configured before any blocks are produced. You can only customize the initial state only of those items that implement the [`[pallet::genesis_config]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.genesis_config.html){target=\_blank} and [`[pallet::genesis_build]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.genesis_build.html){target=\_blank} macros within their respective pallets.
-
-In Polkadot SDK, you can create this storage using the [`BuildStorage`](https://paritytech.github.io/polkadot-sdk/master/sp_runtime/trait.BuildStorage.html){target=\_blank} trait from the [`sp_runtime`](https://paritytech.github.io/polkadot-sdk/master/sp_runtime){target=\_blank} crate. This trait is essential for building the configuration that initializes the blockchain's state. 
-
-The function `new_test_ext()` demonstrates setting up this environment. It uses `frame_system::GenesisConfig::<Test>::default()` to generate a default genesis configuration for the runtime, followed by `.build_storage()` to create the initial storage state. This storage is then converted into a format usable by the testing framework, [`sp_io::TestExternalities`](https://paritytech.github.io/polkadot-sdk/master/sp_io/type.TestExternalities.html){target=\_blank}, allowing tests to be executed in a simulated blockchain environment.
-
-Here's the code that sets the genesis storage configuration:
+Now implement the `Config` trait for your custom pallet. This must match the trait defined in your pallet's `lib.rs`:
 
 ```rust
-pub mod tests {
-    use crate::*;
-    use sp_runtime::BuildStorage;
-
-    #[frame_support::runtime]
-    mod runtime {
-        #[runtime::runtime]
-        #[runtime::derive(
-            RuntimeCall,
-            RuntimeEvent,
-            RuntimeError,
-            RuntimeOrigin,
-            RuntimeFreezeReason,
-            RuntimeHoldReason,
-            RuntimeSlashReason,
-            RuntimeLockId,
-            RuntimeTask
-        )]
-        pub struct Test;
-
-        #[runtime::pallet_index(0)]
-        pub type System = frame_system::Pallet<Test>;
-
-        // Other pallets...
-    }
-
-    pub fn new_test_ext() -> sp_io::TestExternalities {
-        frame_system::GenesisConfig::<Test>::default()
-            .build_storage()
-            .unwrap()
-            .into()
-    }
+impl pallet_custom::Config for Test {
+    type RuntimeEvent = RuntimeEvent;
+    type CounterMaxValue = ConstU32<1000>;
 }
 ```
 
-You can also customize the genesis storage to set initial values for your runtime pallets. For example, you can set the initial balance for accounts like this:
+**Configuration details:**
+
+- **`RuntimeEvent`** - Connects your pallet's events to the mock runtime's event system
+- **`CounterMaxValue`** - Sets the maximum counter value to 1000, matching the production configuration
+
+!!!note
+    The configuration here should mirror what you'll use in production unless you specifically need different values for testing.
+
+## Configure Genesis Storage
+
+Genesis storage defines the initial state of your blockchain before any blocks are produced. Since your counter pallet includes genesis configuration (added in the previous guide), you can now set up test environments with different initial states.
+
+### Basic Test Environment
+
+Create a helper function for the default test environment:
 
 ```rust
-// Build genesis storage according to the runtime's configuration
+// Build genesis storage according to the mock runtime.
 pub fn new_test_ext() -> sp_io::TestExternalities {
-    // Define the initial balances for accounts
-    let initial_balances: Vec<(AccountId32, u128)> = vec![
-        (AccountId32::from([0u8; 32]), 1_000_000_000_000),
-        (AccountId32::from([1u8; 32]), 2_000_000_000_000),
-    ];
-
     let mut t = frame_system::GenesisConfig::<Test>::default()
         .build_storage()
         .unwrap();
 
-    // Adding balances configuration to the genesis config
-    pallet_balances::GenesisConfig::<Test> {
-        balances: initial_balances,
+    pallet_custom::GenesisConfig::<Test> {
+        initial_counter_value: 0,
+        initial_user_interactions: vec![],
     }
     .assimilate_storage(&mut t)
     .unwrap();
@@ -10951,50 +10996,179 @@ pub fn new_test_ext() -> sp_io::TestExternalities {
 }
 ```
 
-For a more idiomatic approach, see the [Your First Pallet](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/guides/your_first_pallet/index.html#better-test-setup){target=\_blank} guide from the Polkadot SDK Rust documentation.
+This function creates a clean blockchain state with an initial counter value of 0 and no user interactions.
 
-### Pallet Configuration
+### Custom Genesis Configurations
 
-Each pallet in the mocked runtime requires an associated configuration, specifying the types and values it depends on to function. These configurations often use basic or primitive types (e.g., u32, bool) instead of more complex types like structs or traits, ensuring the setup remains straightforward and manageable.
+For testing specific scenarios, create additional helper functions with customized genesis states:
 
 ```rust
-#[derive_impl(frame_system::config_preludes::TestDefaultConfig)]
-impl frame_system::Config for Test {
-    ...
-    type Index = u64;
-    type BlockNumber = u64;
-    type Hash = H256;
-    type Hashing = BlakeTwo256;
-    type AccountId = u64;
-    ...
+// Helper function to create a test externalities with a specific initial counter value
+pub fn new_test_ext_with_counter(initial_value: u32) -> sp_io::TestExternalities {
+    let mut t = frame_system::GenesisConfig::<Test>::default()
+        .build_storage()
+        .unwrap();
+
+    pallet_custom::GenesisConfig::<Test> {
+        initial_counter_value: initial_value,
+        initial_user_interactions: vec![],
+    }
+    .assimilate_storage(&mut t)
+    .unwrap();
+
+    t.into()
 }
 
-impl pallet_template::Config for Test {
-	type RuntimeEvent = RuntimeEvent;
-	type WeightInfo = ();
-    ...
+// Helper function to create a test externalities with initial user interactions
+pub fn new_test_ext_with_interactions(
+    initial_value: u32,
+    interactions: Vec<(u64, u32)>,
+) -> sp_io::TestExternalities {
+    let mut t = frame_system::GenesisConfig::<Test>::default()
+        .build_storage()
+        .unwrap();
+
+    pallet_custom::GenesisConfig::<Test> {
+        initial_counter_value: initial_value,
+        initial_user_interactions: interactions,
+    }
+    .assimilate_storage(&mut t)
+    .unwrap();
+
+    t.into()
 }
 ```
 
-The configuration should be set for each pallet existing in the mocked runtime. The simplification of types is for simplifying the testing process. For example, `AccountId` is `u64`, meaning a valid account address can be an unsigned integer:
+**Key methods:**
 
-```rust
-let alice_account: u64 = 1;
+- **[`BuildStorage::build_storage()`](https://paritytech.github.io/polkadot-sdk/master/sp_runtime/trait.BuildStorage.html#method.build_storage){target=\_blank}** - Creates the initial storage state
+- **[`assimilate_storage`](https://paritytech.github.io/polkadot-sdk/master/sp_runtime/trait.BuildStorage.html#method.assimilate_storage){target=\_blank}** - Merges pallet genesis config into the existing storage
+- **Multiple configurations** - You can chain multiple `assimilate_storage` calls for different pallets
+
+## Verify Mock Compilation
+
+Before proceeding to write tests, ensure your mock runtime compiles correctly:
+
+```bash
+cargo test --package pallet-custom --lib
 ```
+
+This command compiles the test code (including the mock and genesis configuration) without running tests yet. Address any compilation errors before continuing.
+
+??? code "Complete Mock Runtime"
+
+    Here's the complete `mock.rs` file for reference:
+
+    ```rust
+    use crate as pallet_custom;
+    use frame::{
+        deps::{
+            frame_support::{derive_impl, traits::ConstU32},
+            sp_io,
+            sp_runtime::{traits::IdentityLookup, BuildStorage},
+        },
+        prelude::*,
+    };
+
+    type Block = frame_system::mocking::MockBlock<Test>;
+
+    // Configure a mock runtime to test the pallet.
+    frame::deps::frame_support::construct_runtime!(
+        pub enum Test
+        {
+            System: frame_system,
+            CustomPallet: pallet_custom,
+        }
+    );
+
+    #[derive_impl(frame_system::config_preludes::TestDefaultConfig)]
+    impl frame_system::Config for Test {
+        type Block = Block;
+        type AccountId = u64;
+        type Lookup = IdentityLookup<Self::AccountId>;
+    }
+
+    impl pallet_custom::Config for Test {
+        type RuntimeEvent = RuntimeEvent;
+        type CounterMaxValue = ConstU32<1000>;
+    }
+
+    // Build genesis storage according to the mock runtime.
+    pub fn new_test_ext() -> sp_io::TestExternalities {
+        let mut t = frame_system::GenesisConfig::<Test>::default()
+            .build_storage()
+            .unwrap();
+
+        pallet_custom::GenesisConfig::<Test> {
+            initial_counter_value: 0,
+            initial_user_interactions: vec![],
+        }
+        .assimilate_storage(&mut t)
+        .unwrap();
+
+        t.into()
+    }
+
+    // Helper function to create a test externalities with a specific initial counter value
+    pub fn new_test_ext_with_counter(initial_value: u32) -> sp_io::TestExternalities {
+        let mut t = frame_system::GenesisConfig::<Test>::default()
+            .build_storage()
+            .unwrap();
+
+        pallet_custom::GenesisConfig::<Test> {
+            initial_counter_value: initial_value,
+            initial_user_interactions: vec![],
+        }
+        .assimilate_storage(&mut t)
+        .unwrap();
+
+        t.into()
+    }
+
+    // Helper function to create a test externalities with initial user interactions
+    pub fn new_test_ext_with_interactions(
+        initial_value: u32,
+        interactions: Vec<(u64, u32)>,
+    ) -> sp_io::TestExternalities {
+        let mut t = frame_system::GenesisConfig::<Test>::default()
+            .build_storage()
+            .unwrap();
+
+        pallet_custom::GenesisConfig::<Test> {
+            initial_counter_value: initial_value,
+            initial_user_interactions: interactions,
+        }
+        .assimilate_storage(&mut t)
+        .unwrap();
+
+        t.into()
+    }
+    ```
+
+## Key Takeaways
+
+You've successfully created a mock runtime with genesis configuration for your custom pallet. You now have:
+
+- **Isolated testing environment** - Test your pallet without a full runtime
+- **Simplified configuration** - Minimal setup for rapid development iteration
+- **Genesis configuration** - Set initial blockchain state for different test scenarios
+- **Multiple test helpers** - Different genesis setups for various testing needs
+- **Foundation for unit tests** - Infrastructure to test all pallet functionality
+- **Fast feedback loop** - Instant compilation and test execution
+
+The mock runtime with genesis configuration is essential for test-driven development, allowing you to verify logic under different initial conditions before integration into the actual parachain runtime.
 
 ## Where to Go Next
 
-With the mock environment in place, developers can now test and explore how pallets interact and ensure they work seamlessly together. For further details about mocking runtimes, see the following [Polkadot SDK docs guide](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/guides/your_first_pallet/index.html#your-first-test-runtime){target=\_blank}.
-
 <div class="grid cards" markdown>
 
--   <span class="badge guide">Guide</span> __Pallet Testing__
+-   <span class="badge guide">Guide</span> __Pallet Unit Testing__
 
     ---
 
-    Learn how to efficiently test pallets in the Polkadot SDK, ensuring your pallet operations are reliable and secure.
+    Learn to write comprehensive unit tests for your pallet using the mock runtime you just created.
 
-    [:octicons-arrow-right-24: Reference](/parachains/customize-runtime/pallet-development/pallet-testing/)
+    [:octicons-arrow-right-24: Continue](/parachains/customize-runtime/pallet-development/pallet-testing/)
 
 </div>
 

@@ -5024,24 +5024,24 @@
       }
     ],
     "stats": {
-      "chars": 26836,
-      "words": 3071,
+      "chars": 26806,
+      "words": 3069,
       "headings": 26,
-      "estimated_token_count_total": 6178
+      "estimated_token_count_total": 6172
     },
-    "hash": "sha256:0fbcdee68f2ae1ec848cb600ceb91c5738083944ad74b4a39f82bd19c9d7dc29",
+    "hash": "sha256:0746676ba45f623d2c9cb71bf24162bc1dcf687f3f1ec74d02a19732d3bc7161",
     "token_estimator": "heuristic-v1"
   },
   {
     "id": "parachains-customize-runtime-pallet-development-mock-runtime",
-    "title": "Mock Runtime for Pallet Testing",
+    "title": "Mock Your Runtime",
     "slug": "parachains-customize-runtime-pallet-development-mock-runtime",
     "categories": [
       "Parachains"
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/parachains-customize-runtime-pallet-development-mock-runtime.md",
     "html_url": "https://docs.polkadot.com/parachains/customize-runtime/pallet-development/mock-runtime/",
-    "preview": "Testing is essential in Polkadot SDK development to ensure your blockchain operates as intended and effectively handles various potential scenarios. This guide walks you through setting up an environment to test pallets within the [runtime](/polkadot-protocol/glossary#runtime){target=_blank}, allowing you to evaluate how different pallets, their configurations, and system components interact to ensure reliable blockchain functionality.",
+    "preview": "Testing is a critical part of pallet development. Before integrating your pallet into a full runtime, you need a way to test its functionality in isolation. A mock runtime provides a minimal, simulated blockchain environment where you can verify your pallet's logic without the overhead of running a full node.",
     "outline": [
       {
         "depth": 2,
@@ -5050,23 +5050,58 @@
       },
       {
         "depth": 2,
-        "title": "Configuring a Mock Runtime",
-        "anchor": "configuring-a-mock-runtime"
+        "title": "Prerequisites",
+        "anchor": "prerequisites"
+      },
+      {
+        "depth": 2,
+        "title": "Understanding Mock Runtimes",
+        "anchor": "understanding-mock-runtimes"
+      },
+      {
+        "depth": 2,
+        "title": "Create the Mock Runtime Module",
+        "anchor": "create-the-mock-runtime-module"
+      },
+      {
+        "depth": 2,
+        "title": "Set Up Basic Mock Infrastructure",
+        "anchor": "set-up-basic-mock-infrastructure"
+      },
+      {
+        "depth": 2,
+        "title": "Implement frame_system Configuration",
+        "anchor": "implement-frame_system-configuration"
+      },
+      {
+        "depth": 2,
+        "title": "Implement Your Pallet's Configuration",
+        "anchor": "implement-your-pallets-configuration"
+      },
+      {
+        "depth": 2,
+        "title": "Configure Genesis Storage",
+        "anchor": "configure-genesis-storage"
       },
       {
         "depth": 3,
-        "title": "Testing Module",
-        "anchor": "testing-module"
+        "title": "Basic Test Environment",
+        "anchor": "basic-test-environment"
       },
       {
         "depth": 3,
-        "title": "Genesis Storage",
-        "anchor": "genesis-storage"
+        "title": "Custom Genesis Configurations",
+        "anchor": "custom-genesis-configurations"
       },
       {
-        "depth": 3,
-        "title": "Pallet Configuration",
-        "anchor": "pallet-configuration"
+        "depth": 2,
+        "title": "Verify Mock Compilation",
+        "anchor": "verify-mock-compilation"
+      },
+      {
+        "depth": 2,
+        "title": "Key Takeaways",
+        "anchor": "key-takeaways"
       },
       {
         "depth": 2,
@@ -5075,12 +5110,12 @@
       }
     ],
     "stats": {
-      "chars": 7514,
-      "words": 906,
-      "headings": 6,
-      "estimated_token_count_total": 1576
+      "chars": 11634,
+      "words": 1317,
+      "headings": 13,
+      "estimated_token_count_total": 2434
     },
-    "hash": "sha256:733652ec4eff9b11efd858a7fd7f1094e7a2e8e7deed4c60c5805f986d877df4",
+    "hash": "sha256:01fef3706d6e8e162d7faaf15599311a5cb104793b924379f55e0d3d9b827869",
     "token_estimator": "heuristic-v1"
   },
   {

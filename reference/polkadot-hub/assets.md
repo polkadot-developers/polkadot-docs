@@ -16,7 +16,7 @@ This guide explains how assets are created, managed, and moved across chains, in
 
 ## Why Use Polkadot Hub?
 
-The Polkadot relay chain supports only its native token (DOT). Polkadot Hub fills this gap by providing a standardized framework for creating and managing fungible and non-fungible assets. It enables projects to issue tokens, manage supply, and transfer assets across parachains.
+Polkadot Hub provides a standardized framework for creating and managing fungible and non-fungible assets. Projects can issue tokens, manage supply, and transfer assets across parachains, extending the functionality of the Polkadot relay chain, which only supports its native token (DOT).
 
 **Key features**:
 
@@ -44,7 +44,7 @@ Each asset is identified by a unique ID and stores:
 - Sufficiency–whether the asset can keep an account alive without DOT
 - Metadata (name, symbol, decimals)
 
-If a balance falls below the configured minimum, it may be removed as “dust.” This ensures efficient storage while giving developers control over asset economics.
+If a balance falls below the configured minimum, called the [existential deposit](/reference/glossary/#existential-deposit){target=\_blank}, it may be removed as “dust.” This ensures efficient storage while giving developers control over asset economics.
 
 ## How Native Assets Work
 
@@ -117,9 +117,9 @@ Delegated transfers simplify multi-step transactions and enable complex asset fl
 
 ## How Foreign Assets Work
 
-Foreign assets are assets originating from other chains and are managed on Polkadot Hub via the Foreign Assets pallet. This pallet provides similar operations as the native Assets pallet, enabling transfers, balance checks, and other standard asset operations. Most operations—like transfers and balance queries—use the same API, but with a few key differences:
+Foreign assets are assets originating from other chains and are managed on Polkadot Hub via an instance of the Assets pallet that is configured specifically for foreign assets. It enables transfers, balance checks, and other standard asset operations, while handling foreign-asset specifics such as:
 
-- **Asset Identifier**: Foreign assets use an XCM multilocation as their identifier, rather than a numeric AssetId. This ensures assets from different chains can be referenced and moved safely across parachains.
+- **Asset identifiers**: Foreign assets use an XCM multilocation as their identifier, rather than a numeric AssetId. This ensures assets from different chains can be referenced and moved safely across parachains.
 
 - **Transfers**: Once registered on Polkadot Hub, foreign assets can be transferred between accounts just like native assets. If supported, they can also be returned to their original blockchain using cross-chain messaging.
 

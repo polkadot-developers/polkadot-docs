@@ -66,32 +66,7 @@ To integrate your custom pallet into the Polkadot SDK-based runtime, configure t
 1. Open `Cargo.toml` and replace its contents with:
 
     ```toml title="pallet-custom/Cargo.toml"
-    [package]
-    name = "pallet-custom"
-    description = "A custom counter pallet for demonstration purposes."
-    version = "0.1.0"
-    license = "Unlicense"
-    authors.workspace = true
-    homepage.workspace = true
-    repository.workspace = true
-    edition.workspace = true
-    publish = false
-
-    [package.metadata.docs.rs]
-    targets = ["x86_64-unknown-linux-gnu"]
-
-    [dependencies]
-    codec = { features = ["derive"], workspace = true }
-    scale-info = { features = ["derive"], workspace = true }
-    frame = { features = ["experimental", "runtime"], workspace = true }
-
-    [features]
-    default = ["std"]
-    std = [
-        "codec/std",
-        "scale-info/std",
-        "frame/std",
-    ]
+    --8<-- 'code/parachains/customize-runtime/pallet-development/create-a-pallet/Cargo.toml:1:26'
     ```
 
     !!!note "Version Management"
@@ -100,12 +75,7 @@ To integrate your custom pallet into the Polkadot SDK-based runtime, configure t
 2. The parachain template already includes `pallets/*` in the workspace members, so your new pallet is automatically recognized. Verify this by checking the root `Cargo.toml`:
 
     ```toml title="Cargo.toml"
-    [workspace.members]
-    members = [
-        "node",
-        "pallets/*",
-        "runtime",
-    ]
+    --8<-- 'code/parachains/customize-runtime/pallet-development/create-a-pallet/Cargo.toml:28:33'
     ```
 
 ## Initialize the Pallet Structure
@@ -117,36 +87,12 @@ With dependencies configured, set up the basic scaffold that will hold your pall
 2. Add the initial scaffold structure using the unified `frame` dependency:
 
     ```rust title="src/lib.rs"
-    #![cfg_attr(not(feature = "std"), no_std)]
-
-    pub use pallet::*;
-
-    #[frame::pallet]
-    pub mod pallet {
-        use frame::prelude::*;
-
-        #[pallet::pallet]
-        pub struct Pallet<T>(_);
-
-        #[pallet::config]
-        pub trait Config: frame_system::Config {
-            // Configuration will be added here
-        }
-
-        #[pallet::storage]
-        pub type CounterValue<T> = StorageValue<_, u32, ValueQuery>;
-
-        #[pallet::call]
-        impl<T: Config> Pallet<T> {
-            // Dispatchable functions will be added here
-        }
-    }
+    --8<-- 'code/parachains/customize-runtime/pallet-development/create-a-pallet/lib-01.rs'
     ```
 
-    !!!note
-        This setup starts with a minimal scaffold without events and errors. These will be added in the following sections after the `Config` trait is correctly configured with the required `RuntimeEvent` type.
+    This setup starts with a minimal scaffold without events and errors. These will be added in the following sections after the `Config` trait is correctly configured with the required `RuntimeEvent` type.
 
-3. Verify it compiles:
+3. Verify it compiles using the following command:
 
     ```bash
     cargo build --package pallet-custom
@@ -159,15 +105,7 @@ The [`Config`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pal
 Replace the [`#[pallet::config]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.config.html){target=\_blank} section with:
 
 ```rust title="src/lib.rs"
-#[pallet::config]
-pub trait Config: frame_system::Config {
-    /// The overarching runtime event type.
-    type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
-    
-    /// Maximum value the counter can reach.
-    #[pallet::constant]
-    type CounterMaxValue: Get<u32>;
-}
+--8<-- 'code/parachains/customize-runtime/pallet-development/create-a-pallet/lib-03.rs'
 ```
 
 Key configuration elements include the following:
@@ -184,26 +122,7 @@ The [`#[pallet::generate_deposit]`](https://paritytech.github.io/polkadot-sdk/ma
 Add the [`#[pallet::event]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.event.html){target=\_blank} section after the `Config` trait:
 
 ```rust title="src/lib.rs"
-#[pallet::event]
-#[pallet::generate_deposit(pub(super) fn deposit_event)]
-pub enum Event<T: Config> {
-    /// Counter value was explicitly set. [new_value]
-    CounterValueSet { 
-        new_value: u32 
-    },
-    /// Counter was incremented. [new_value, who, amount]
-    CounterIncremented {
-        new_value: u32,
-        who: T::AccountId,
-        amount: u32,
-    },
-    /// Counter was decremented. [new_value, who, amount]
-    CounterDecremented {
-        new_value: u32,
-        who: T::AccountId,
-        amount: u32,
-    },
-}
+--8<-- 'code/parachains/customize-runtime/pallet-development/create-a-pallet/lib-04.rs'
 ```
 
 ## Define Errors
@@ -215,17 +134,7 @@ Error types must implement the [`TypeInfo`](https://paritytech.github.io/polkado
 Add the [`#[pallet::error]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.error.html){target=\_blank} section after the events:
 
 ```rust title="src/lib.rs"
-#[pallet::error]
-pub enum Error<T> {
-    /// The counter value has not been set yet.
-    NoneValue,
-    /// Arithmetic operation would cause overflow.
-    Overflow,
-    /// Arithmetic operation would cause underflow.
-    Underflow,
-    /// The counter value would exceed the maximum allowed value.
-    CounterMaxValueExceeded,
-}
+--8<-- 'code/parachains/customize-runtime/pallet-development/create-a-pallet/lib-05.rs'
 ```
 
 ## Add Storage Items
@@ -238,21 +147,7 @@ Storage items persist state on-chain. This pallet uses two storage items:
 The initial scaffold already includes the `CounterValue` storage item. Now add the `UserInteractions` storage map after it:
 
 ```rust title="src/lib.rs"
-/// Tracks the number of interactions per user.
-#[pallet::storage]
-pub type UserInteractions<T: Config> = StorageMap<_, Blake2_128Concat, T::AccountId, u32, ValueQuery>;
-```
-
-Your storage section should now look like this:
-
-```rust title="src/lib.rs"
-/// The current value of the counter.
-#[pallet::storage]
-pub type CounterValue<T> = StorageValue<_, u32, ValueQuery>;
-
-/// Tracks the number of interactions per user.
-#[pallet::storage]
-pub type UserInteractions<T: Config> = StorageMap<_, Blake2_128Concat, T::AccountId, u32, ValueQuery>;
+--8<-- 'code/parachains/customize-runtime/pallet-development/create-a-pallet/lib-06.rs'
 ```
 
 For more storage types and patterns, explore the [Polkadot SDK storage documentation](https://paritytech.github.io/polkadot-sdk/master/frame_support/storage/types/index.html){target=\_blank}.
@@ -269,27 +164,7 @@ Genesis configuration allows you to set the initial state of your pallet when th
 Add the [`#[pallet::genesis_config]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.genesis_config.html){target=\_blank} and [`#[pallet::genesis_build]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.genesis_build.html){target=\_blank} sections after your storage items:
 
 ```rust title="src/lib.rs"
-#[pallet::genesis_config]
-#[derive(DefaultNoBound)]
-pub struct GenesisConfig<T: Config> {
-    /// Initial value for the counter
-    pub initial_counter_value: u32,
-    /// Pre-populated user interactions
-    pub initial_user_interactions: Vec<(T::AccountId, u32)>,
-}
-
-#[pallet::genesis_build]
-impl<T: Config> BuildGenesisConfig for GenesisConfig<T> {
-    fn build(&self) {
-        // Set the initial counter value
-        CounterValue::<T>::put(self.initial_counter_value);
-        
-        // Set initial user interactions
-        for (account, count) in &self.initial_user_interactions {
-            UserInteractions::<T>::insert(account, count);
-        }
-    }
-}
+--8<-- 'code/parachains/customize-runtime/pallet-development/create-a-pallet/lib-07.rs'
 ```
 
 Genesis configuration components include the following:
@@ -310,102 +185,7 @@ Dispatchable functions (extrinsics) allow users to interact with your pallet and
 Replace the [`#[pallet::call]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.call.html){target=\_blank} section with:
 
 ```rust title="src/lib.rs"
-#[pallet::call]
-impl<T: Config> Pallet<T> {
-    /// Set the counter to a specific value. Root origin only.
-    #[pallet::call_index(0)]
-    #[pallet::weight(0)]
-    pub fn set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult {
-        // Ensure the caller is root
-        ensure_root(origin)?;
-        
-        // Validate the new value doesn't exceed the maximum
-        ensure!(
-            new_value <= T::CounterMaxValue::get(),
-            Error::<T>::CounterMaxValueExceeded
-        );
-        
-        // Update storage
-        CounterValue::<T>::put(new_value);
-        
-        // Emit event
-        Self::deposit_event(Event::CounterValueSet { new_value });
-        
-        Ok(())
-    }
-
-    /// Increment the counter by a specified amount.
-    #[pallet::call_index(1)]
-    #[pallet::weight(0)]
-    pub fn increment(origin: OriginFor<T>, amount: u32) -> DispatchResult {
-        // Ensure the caller is signed
-        let who = ensure_signed(origin)?;
-        
-        // Get current counter value
-        let current_value = CounterValue::<T>::get();
-        
-        // Check for overflow
-        let new_value = current_value
-            .checked_add(amount)
-            .ok_or(Error::<T>::Overflow)?;
-        
-        // Ensure new value doesn't exceed maximum
-        ensure!(
-            new_value <= T::CounterMaxValue::get(),
-            Error::<T>::CounterMaxValueExceeded
-        );
-        
-        // Update counter storage
-        CounterValue::<T>::put(new_value);
-        
-        // Track user interaction
-        UserInteractions::<T>::mutate(&who, |count| {
-            *count = count.saturating_add(1);
-        });
-        
-        // Emit event
-        Self::deposit_event(Event::CounterIncremented {
-            new_value,
-            who,
-            amount,
-        });
-        
-        Ok(())
-    }
-
-    /// Decrement the counter by a specified amount.
-    #[pallet::call_index(2)]
-    #[pallet::weight(0)]
-    pub fn decrement(origin: OriginFor<T>, amount: u32) -> DispatchResult {
-        // Ensure the caller is signed
-        let who = ensure_signed(origin)?;
-        
-        // Get current counter value
-        let current_value = CounterValue::<T>::get();
-        
-        // Check for underflow
-        let new_value = current_value
-            .checked_sub(amount)
-            .ok_or(Error::<T>::Underflow)?;
-        
-        // Update counter storage
-        CounterValue::<T>::put(new_value);
-        
-        // Track user interaction
-        UserInteractions::<T>::mutate(&who, |count| {
-            *count = count.saturating_add(1);
-        });
-        
-        // Emit event
-        Self::deposit_event(Event::CounterDecremented {
-            new_value,
-            who,
-            amount,
-        });
-        
-        Ok(())
-    }
-}
+--8<-- 'code/parachains/customize-runtime/pallet-development/create-a-pallet/lib-08.rs'
 ```
 
 ### Dispatchable Function Details
@@ -447,102 +227,7 @@ If you encounter errors, carefully review the code against this guide. Once the 
 ??? code "Complete Pallet Implementation"
     
     ```rust title="src/lib.rs"
-    #![cfg_attr(not(feature = "std"), no_std)]
-
-    pub use pallet::*;
-
-    #[frame::pallet]
-    pub mod pallet {
-        use frame::prelude::*;
-
-        #[pallet::pallet]
-        pub struct Pallet<T>(_);
-
-        #[pallet::config]
-        pub trait Config: frame_system::Config {
-            type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
-            
-            #[pallet::constant]
-            type CounterMaxValue: Get<u32>;
-        }
-
-        #[pallet::event]
-        #[pallet::generate_deposit(pub(super) fn deposit_event)]
-        pub enum Event<T: Config> {
-            CounterValueSet { new_value: u32 },
-            CounterIncremented { new_value: u32, who: T::AccountId, amount: u32 },
-            CounterDecremented { new_value: u32, who: T::AccountId, amount: u32 },
-        }
-
-        #[pallet::error]
-        pub enum Error<T> {
-            NoneValue,
-            Overflow,
-            Underflow,
-            CounterMaxValueExceeded,
-        }
-
-        #[pallet::storage]
-        pub type CounterValue<T> = StorageValue<_, u32, ValueQuery>;
-
-        #[pallet::storage]
-        pub type UserInteractions<T: Config> = StorageMap<_, Blake2_128Concat, T::AccountId, u32, ValueQuery>;
-
-        #[pallet::genesis_config]
-        #[derive(DefaultNoBound)]
-        pub struct GenesisConfig<T: Config> {
-            pub initial_counter_value: u32,
-            pub initial_user_interactions: Vec<(T::AccountId, u32)>,
-        }
-
-        #[pallet::genesis_build]
-        impl<T: Config> BuildGenesisConfig for GenesisConfig<T> {
-            fn build(&self) {
-                CounterValue::<T>::put(self.initial_counter_value);
-                for (account, count) in &self.initial_user_interactions {
-                    UserInteractions::<T>::insert(account, count);
-                }
-            }
-        }
-
-        #[pallet::call]
-        impl<T: Config> Pallet<T> {
-            #[pallet::call_index(0)]
-            #[pallet::weight(0)]
-            pub fn set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult {
-                ensure_root(origin)?;
-                ensure!(new_value <= T::CounterMaxValue::get(), Error::<T>::CounterMaxValueExceeded);
-                CounterValue::<T>::put(new_value);
-                Self::deposit_event(Event::CounterValueSet { new_value });
-                Ok(())
-            }
-
-            #[pallet::call_index(1)]
-            #[pallet::weight(0)]
-            pub fn increment(origin: OriginFor<T>, amount: u32) -> DispatchResult {
-                let who = ensure_signed(origin)?;
-                let current_value = CounterValue::<T>::get();
-                let new_value = current_value.checked_add(amount).ok_or(Error::<T>::Overflow)?;
-                ensure!(new_value <= T::CounterMaxValue::get(), Error::<T>::CounterMaxValueExceeded);
-                CounterValue::<T>::put(new_value);
-                UserInteractions::<T>::mutate(&who, |count| *count = count.saturating_add(1));
-                Self::deposit_event(Event::CounterIncremented { new_value, who, amount });
-                Ok(())
-            }
-
-            #[pallet::call_index(2)]
-            #[pallet::weight(0)]
-            pub fn decrement(origin: OriginFor<T>, amount: u32) -> DispatchResult {
-                let who = ensure_signed(origin)?;
-                let current_value = CounterValue::<T>::get();
-                let new_value = current_value.checked_sub(amount).ok_or(Error::<T>::Underflow)?;
-                CounterValue::<T>::put(new_value);
-                UserInteractions::<T>::mutate(&who, |count| *count = count.saturating_add(1));
-                Self::deposit_event(Event::CounterDecremented { new_value, who, amount });
-                Ok(())
-            }
-        }
-    }
+    --8<-- 'code/parachains/customize-runtime/pallet-development/create-a-pallet/lib-complete.rs'
     ```
 
 ## Add the Pallet to Your Runtime

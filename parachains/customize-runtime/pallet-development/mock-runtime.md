@@ -10,7 +10,7 @@ categories: Parachains
 
 Testing is a critical part of pallet development. Before integrating your pallet into a full runtime, you need a way to test its functionality in isolation. A mock runtime provides a minimal, simulated blockchain environment where you can verify your pallet's logic without the overhead of running a full node.
 
-In this guide, you'll learn how to create a mock runtime for the custom counter pallet built in the [Make a Custom Pallet](/parachains/customize-runtime/pallet-development/create-a-pallet/) guide. This mock runtime will enable you to write comprehensive unit tests that verify:
+In this guide, you'll learn how to create a mock runtime for the custom counter pallet built in the [Make a Custom Pallet](/parachains/customize-runtime/pallet-development/create-a-pallet/){target=\_blank} guide. This mock runtime will enable you to write comprehensive unit tests that verify:
 
 - Dispatchable function behavior
 - Storage state changes
@@ -23,9 +23,9 @@ In this guide, you'll learn how to create a mock runtime for the custom counter 
 
 Before you begin, ensure you have:
 
-- Completed the [Make a Custom Pallet](/parachains/customize-runtime/pallet-development/create-a-pallet/) guide
-- The custom counter pallet from that guide available in `pallets/pallet-custom`
-- Basic understanding of [Rust testing](https://doc.rust-lang.org/book/ch11-00-testing.html){target=\_blank}
+- Completed the [Make a Custom Pallet](/parachains/customize-runtime/pallet-development/create-a-pallet/){target=\_blank} guide.
+- The custom counter pallet from that guide is available in `pallets/pallet-custom`.
+- Basic understanding of [Rust testing](https://doc.rust-lang.org/book/ch11-00-testing.html){target=\_blank}.
 
 ## Understanding Mock Runtimes
 

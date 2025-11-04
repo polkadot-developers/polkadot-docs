@@ -34,7 +34,6 @@
         "exclusions": {
             "skip_basenames": [
                 "README.md",
-                "index.md",
                 ".CONTRIBUTING.md",
                 "pull-request-template.md",
                 "cookie-policy.md",

@@ -44,7 +44,7 @@ To create a new contract using the  Remix IDE, you can follow these steps:
         --8<-- 'code/smart-contracts/dev-environments/remix/get-started/Counter.sol'
         ```
 
-    ![](/images/smart-contracts/dev-environments/remix/get-started/remix-1.gif)
+    ![](/images/smart-contracts/dev-environments/remix/get-started/remix-2.gif)
 
 
 ## Compiling Your Contract
@@ -61,7 +61,7 @@ To compile your contract, you need to:
     1. The `artifact` folder is present.
     2. The `Counter_metadata.json` and the `Counter.json` files have been generated.
 
-        ![](/images/smart-contracts/dev-environments/remix/get-started/remix-2.gif)
+        ![](/images/smart-contracts/dev-environments/remix/get-started/remix-3.gif)
 
 ## Where to Go Next
 

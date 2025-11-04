@@ -6,8 +6,6 @@ categories: Polkadot Protocol
 
 # Smart Contracts on Polkadot Hub
 
---8<-- 'text/smart-contracts/polkaVM-warning.md'
-
 ## Introduction
 
 Polkadot Hub enables developers to deploy and interact with Solidity contracts through REVM, a high-performance, Rust-based Ethereum Virtual Machine implementation. This brings Ethereum compatibility to Polkadot Hub, letting teams use familiar Solidity tooling, integrate with on-chain features like governance and XCM, and take advantage of cross-chain interoperability.
@@ -37,4 +35,6 @@ With PVM, developers can:
 - Access detailed observability through Substrate events and contract logs for indexing and debugging.
 
 PolkaVM delivers maximum performance for computationally intensive contracts, offering a native, high-throughput option for Ethereum-style developers on Polkadot Hub.
+
+--8<-- 'text/smart-contracts/polkaVM-warning.md'
 

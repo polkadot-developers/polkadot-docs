@@ -4883,7 +4883,7 @@
   },
   {
     "id": "parachains-customize-runtime-pallet-development-create-a-pallet",
-    "title": "Make a Custom Pallet",
+    "title": "Create a Custom Pallet",
     "slug": "parachains-customize-runtime-pallet-development-create-a-pallet",
     "categories": [
       "Parachains"
@@ -5024,12 +5024,12 @@
       }
     ],
     "stats": {
-      "chars": 26806,
-      "words": 3069,
+      "chars": 26671,
+      "words": 3041,
       "headings": 26,
-      "estimated_token_count_total": 6172
+      "estimated_token_count_total": 6113
     },
-    "hash": "sha256:0746676ba45f623d2c9cb71bf24162bc1dcf687f3f1ec74d02a19732d3bc7161",
+    "hash": "sha256:607e283aaa1295de0af191d97de7f6f87afb722c601a447821fde6a09b97f1af",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5055,8 +5055,8 @@
       },
       {
         "depth": 2,
-        "title": "Understanding Mock Runtimes",
-        "anchor": "understanding-mock-runtimes"
+        "title": "Understand Mock Runtimes",
+        "anchor": "understand-mock-runtimes"
       },
       {
         "depth": 2,
@@ -5065,13 +5065,13 @@
       },
       {
         "depth": 2,
-        "title": "Set Up Basic Mock Infrastructure",
-        "anchor": "set-up-basic-mock-infrastructure"
+        "title": "Set Up Basic Mock",
+        "anchor": "set-up-basic-mock"
       },
       {
         "depth": 2,
-        "title": "Implement frame_system Configuration",
-        "anchor": "implement-frame_system-configuration"
+        "title": "Implement Essential Configuration",
+        "anchor": "implement-essential-configuration"
       },
       {
         "depth": 2,
@@ -5110,12 +5110,12 @@
       }
     ],
     "stats": {
-      "chars": 11634,
-      "words": 1317,
+      "chars": 11766,
+      "words": 1369,
       "headings": 13,
-      "estimated_token_count_total": 2434
+      "estimated_token_count_total": 2514
     },
-    "hash": "sha256:01fef3706d6e8e162d7faaf15599311a5cb104793b924379f55e0d3d9b827869",
+    "hash": "sha256:dd784a5d2daebb9a885fe09f6a967e6c84958d96ddb38d8366eabe9d860fa539",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -11963,7 +11963,7 @@
   },
   {
     "id": "smart-contracts-for-eth-devs-dual-vm-stack",
-    "title": "PolkaVM Design",
+    "title": "Dual Virtual Machine Stack",
     "slug": "smart-contracts-for-eth-devs-dual-vm-stack",
     "categories": [
       "Basics",
@@ -11980,8 +11980,13 @@
       },
       {
         "depth": 2,
-        "title": "PolkaVM",
-        "anchor": "polkavm"
+        "title": "Migrate from EVM",
+        "anchor": "migrate-from-evm"
+      },
+      {
+        "depth": 2,
+        "title": "Upgrade to PolkaVM",
+        "anchor": "upgrade-to-polkavm"
       },
       {
         "depth": 2,
@@ -11990,8 +11995,8 @@
       },
       {
         "depth": 3,
-        "title": "Pallet Revive",
-        "anchor": "pallet-revive"
+        "title": "Revive Pallet",
+        "anchor": "revive-pallet"
       },
       {
         "depth": 3,
@@ -12000,17 +12005,17 @@
       },
       {
         "depth": 2,
-        "title": "Compilation Process",
-        "anchor": "compilation-process"
+        "title": "Where To Go Next",
+        "anchor": "where-to-go-next"
       }
     ],
     "stats": {
-      "chars": 5334,
-      "words": 666,
-      "headings": 6,
-      "estimated_token_count_total": 994
+      "chars": 5383,
+      "words": 702,
+      "headings": 7,
+      "estimated_token_count_total": 986
     },
-    "hash": "sha256:6992c9a2d1b315b64d9782880105cf2d436750249a84577aceb95cc213863009",
+    "hash": "sha256:2d918017faecf489ec786f34de6cd4366a86e9f1cecfbb7722cc03079e6b64ea",
     "token_estimator": "heuristic-v1"
   },
   {

@@ -8618,12 +8618,12 @@
       }
     ],
     "stats": {
-      "chars": 7357,
-      "words": 1055,
+      "chars": 7397,
+      "words": 1054,
       "headings": 11,
-      "estimated_token_count_total": 1474
+      "estimated_token_count_total": 1485
     },
-    "hash": "sha256:cb64c965363eca622b5a8e82915ee52546a906c2451d70f8ea62917af4900c46",
+    "hash": "sha256:0d59eef1edd07a4d4d1d45e64a4c0c74c7a1b06ff9bc3695541164e8806e2467",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -8988,7 +8988,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-polkadot-hub-smart-contracts.md",
     "html_url": "https://docs.polkadot.com/reference/polkadot-hub/smart-contracts/",
-    "preview": "!!! smartcontract \"PolkaVM Preview Release\" PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**. ## Introduction",
+    "preview": "Polkadot Hub enables developers to deploy and interact with Solidity contracts through REVM, a high-performance, Rust-based Ethereum Virtual Machine implementation. This brings Ethereum compatibility to Polkadot Hub, letting teams use familiar Solidity tooling, integrate with on-chain features like governance and XCM, and take advantage of cross-chain interoperability.",
     "outline": [
       {
         "depth": 2,
@@ -8999,15 +8999,20 @@
         "depth": 3,
         "title": "REVM Smart Contracts",
         "anchor": "revm-smart-contracts"
+      },
+      {
+        "depth": 3,
+        "title": "PVM Smart Contracts",
+        "anchor": "pvm-smart-contracts"
       }
     ],
     "stats": {
-      "chars": 1792,
-      "words": 246,
-      "headings": 2,
-      "estimated_token_count_total": 272
+      "chars": 2661,
+      "words": 366,
+      "headings": 3,
+      "estimated_token_count_total": 489
     },
-    "hash": "sha256:85e49e0aeeb7e40838972df91e1e93e446448a916bdab5495e0a6aa89b135bb1",
+    "hash": "sha256:5424e83946769eca436bd195d528b46a3f530bfadd9bdcceff54f9178a5e5ccb",
     "token_estimator": "heuristic-v1"
   },
   {

@@ -8352,7 +8352,7 @@ This guide explains how assets are created, managed, and moved across chains, in
 
 ## Why Use Polkadot Hub?
 
-The Polkadot relay chain supports only its native token (DOT). Polkadot Hub fills this gap by providing a standardized framework for creating and managing fungible and non-fungible assets. It enables projects to issue tokens, manage supply, and transfer assets across parachains.
+Polkadot Hub provides a standardized framework for creating and managing fungible and non-fungible assets. Projects can issue tokens, manage supply, and transfer assets across parachains, extending the functionality of the Polkadot relay chain, which only supports its native token (DOT).
 
 **Key features**:
 
@@ -8380,7 +8380,7 @@ Each asset is identified by a unique ID and stores:
 - Sufficiency–whether the asset can keep an account alive without DOT
 - Metadata (name, symbol, decimals)
 
-If a balance falls below the configured minimum, it may be removed as “dust.” This ensures efficient storage while giving developers control over asset economics.
+If a balance falls below the configured minimum, called the [existential deposit](/reference/glossary/#existential-deposit){target=\_blank}, it may be removed as “dust.” This ensures efficient storage while giving developers control over asset economics.
 
 ## How Native Assets Work
 
@@ -8453,9 +8453,9 @@ Delegated transfers simplify multi-step transactions and enable complex asset fl
 
 ## How Foreign Assets Work
 
-Foreign assets are assets originating from other chains and are managed on Polkadot Hub via the Foreign Assets pallet. This pallet provides similar operations as the native Assets pallet, enabling transfers, balance checks, and other standard asset operations. Most operations—like transfers and balance queries—use the same API, but with a few key differences:
+Foreign assets are assets originating from other chains and are managed on Polkadot Hub via an instance of the Assets pallet that is configured specifically for foreign assets. It enables transfers, balance checks, and other standard asset operations, while handling foreign-asset specifics such as:
 
-- **Asset Identifier**: Foreign assets use an XCM multilocation as their identifier, rather than a numeric AssetId. This ensures assets from different chains can be referenced and moved safely across parachains.
+- **Asset identifiers**: Foreign assets use an XCM multilocation as their identifier, rather than a numeric AssetId. This ensures assets from different chains can be referenced and moved safely across parachains.
 
 - **Transfers**: Once registered on Polkadot Hub, foreign assets can be transferred between accounts just like native assets. If supported, they can also be returned to their original blockchain using cross-chain messaging.
 
@@ -8478,23 +8478,15 @@ Page Title: Polkadot Hub Smart Contracts
 
 # Smart Contracts on Polkadot Hub
 
-!!! smartcontract "PolkaVM Preview Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 ## Introduction
 
-Polkadot Hub introduces native support for smart contracts through REVM, a high-performance, Rust-based implementation of the Ethereum Virtual Machine. This enables developers to deploy and interact with Solidity contracts directly on Polkadot Hub, combining Ethereum compatibility with Polkadot’s cross-chain interoperability and shared security.
+Polkadot Hub enables developers to deploy and interact with Solidity contracts through REVM, a high-performance, Rust-based Ethereum Virtual Machine implementation. This brings Ethereum compatibility to Polkadot Hub, letting teams use familiar Solidity tooling, integrate with on-chain features like governance and XCM, and take advantage of cross-chain interoperability.
 
-REVM brings Ethereum compatibility to Polkadot Hub, letting developers run Solidity contracts alongside Polkadot’s native features—such as governance, treasury, multisig, and XCM—within a unified, interoperable runtime environment.
-
-This guide explains how smart contracts are deployed, executed, and integrated on Polkadot Hub using REVM.
-
-
+For projects that require maximum computational performance, Polkadot Hub also supports PolkaVM (PVM), a native RISC-V execution engine. PVM is optional and designed for high-throughput, performance-intensive smart contracts.
 
 ### REVM Smart Contracts
 
-
-
-REVM brings full EVM compatibility to Polkadot Hub through a fast, memory-safe Rust implementation of the Ethereum Virtual Machine. Unlike PolkaVM, which compiles contracts to RISC-V for native execution, REVM executes standard Ethereum bytecode directly—making it ideal for teams who want to migrate existing Solidity projects to Polkadot with minimal changes.
+[REVM](https://github.com/bluealloy/revm){target=_blank} brings full EVM compatibility to Polkadot Hub through a fast, memory-safe Rust implementation of the Ethereum Virtual Machine. Unlike PolkaVM, which compiles contracts to RISC-V for native execution, REVM executes standard Ethereum bytecode directly—making it ideal for teams who want to migrate existing Solidity projects to Polkadot with minimal changes.
 
 With REVM, developers can:
 
@@ -8502,7 +8494,22 @@ With REVM, developers can:
 - Use familiar Ethereum tooling like Hardhat, Foundry, Remix, and MetaMask.
 - Interact with other parachains and on-chain assets using XCM and Polkadot Hub features.
 
-REVM builds on Rust’s safety guarantees and performance optimizations while retaining full opcode compatibility with the EVM. This provides a reliable path for Ethereum-native developers to access Polkadot’s cross-chain ecosystem.
+REVM builds on Rust’s safety guarantees and performance optimizations while retaining full opcode compatibility with the EVM. This provides a reliable path for Ethereum-native developers to access Polkadot’s native features—such as governance, treasury, multisig, and XCM—within a unified, interoperable runtime environment.
+
+### PVM Smart Contracts
+
+PVM is Polkadot Hub’s native, high-performance smart contract engine. Instead of emulating EVM bytecode, it runs contracts compiled to a [RISC-V](https://en.wikipedia.org/wiki/RISC-V){target=_blank} instruction set, unlocking higher performance and parallel execution while staying friendly to Ethereum-style development.
+
+With PVM, developers can:
+
+- Write Solidity contracts and use familiar tooling (e.g., Hardhat, Foundry) targeting PVM
+- Benefit from fast, predictable execution with carefully metered gas/weight.
+- Access detailed observability through Substrate events and contract logs for indexing and debugging.
+
+PolkaVM delivers maximum performance for computationally intensive contracts, offering a native, high-throughput option for Ethereum-style developers on Polkadot Hub.
+
+!!! smartcontract "PolkaVM Preview Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 
 
 ---

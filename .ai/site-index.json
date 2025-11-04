@@ -10526,27 +10526,54 @@
   },
   {
     "id": "smart-contracts-dev-environments-remix-deploy-a-contract",
-    "title": "smart-contracts-dev-environments-remix-deploy-a-contract",
+    "title": "Deploy and Interact with Smart Contracts Using Remix IDE",
     "slug": "smart-contracts-dev-environments-remix-deploy-a-contract",
     "categories": [
-      "Uncategorized"
+      "Smart Contracts",
+      "Tooling"
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-remix-deploy-a-contract.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/dev-environments/remix/deploy-a-contract/",
-    "preview": "TODO",
-    "outline": [],
+    "preview": "After compiling your smart contract in Remix IDE, the next step is to deploy it to the Polkadot Hub network. This guide will walk you through the deployment process using a wallet provider, and show you how to interact with your deployed contracts directly from the Remix interface.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Overview",
+        "anchor": "overview"
+      },
+      {
+        "depth": 2,
+        "title": "Prerequisites",
+        "anchor": "prerequisites"
+      },
+      {
+        "depth": 2,
+        "title": "Deploying Contracts",
+        "anchor": "deploying-contracts"
+      },
+      {
+        "depth": 2,
+        "title": "Interacting with Contracts",
+        "anchor": "interacting-with-contracts"
+      },
+      {
+        "depth": 2,
+        "title": "Where to Go Next",
+        "anchor": "where-to-go-next"
+      }
+    ],
     "stats": {
-      "chars": 5,
-      "words": 1,
-      "headings": 0,
-      "estimated_token_count_total": 0
+      "chars": 2992,
+      "words": 432,
+      "headings": 5,
+      "estimated_token_count_total": 687
     },
-    "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
+    "hash": "sha256:ced2dfc5a07d9f44d5b07a6960e49f410188b8a14fbd329377f7a3b4b55d3b6e",
     "token_estimator": "heuristic-v1"
   },
   {
     "id": "smart-contracts-dev-environments-remix-get-started",
-    "title": "Use the Polkadot Remix IDE",
+    "title": "Use the Remix IDE on Polkadot Hub",
     "slug": "smart-contracts-dev-environments-remix-get-started",
     "categories": [
       "Smart Contracts",
@@ -10554,7 +10581,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-remix-get-started.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/dev-environments/remix/get-started/",
-    "preview": "!!! smartcontract \"PolkaVM Preview Release\" PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**. <div class=\"grid cards\" markdown> - :octicons-code-16:{ .lg .middle } __Deploy NFTs Using Remix IDE__",
+    "preview": "Remix IDE is a robust browser-based development environment for smart contracts. This guide will walk you through the essentials of the [Remix IDE](https://remix.ethereum.org/){target=\\_blank} to understand the processes of compiling, developing, and deploying smart contracts on Polkadot Hub.",
     "outline": [
       {
         "depth": 2,
@@ -10583,13 +10610,125 @@
       },
       {
         "depth": 2,
-        "title": "Deploying Contracts",
-        "anchor": "deploying-contracts"
+        "title": "Where to Go Next",
+        "anchor": "where-to-go-next"
+      }
+    ],
+    "stats": {
+      "chars": 3507,
+      "words": 472,
+      "headings": 6,
+      "estimated_token_count_total": 802
+    },
+    "hash": "sha256:8d38dc24b33116fd50529300f1bf9cb97b39fb26a9e372ae5c727f7945ef0226",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "smart-contracts-dev-environments-remix-troubleshooting",
+    "title": "Troubleshooting Remix IDE on Polkadot Hub",
+    "slug": "smart-contracts-dev-environments-remix-troubleshooting",
+    "categories": [
+      "Smart Contracts",
+      "Tooling"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-remix-troubleshooting.md",
+    "html_url": "https://docs.polkadot.com/smart-contracts/dev-environments/remix/troubleshooting/",
+    "preview": "This guide provides solutions to common issues you may encounter when using Remix IDE with Polkadot Hub. If you're experiencing problems with compilation, deployment, or contract interaction, you'll likely find the solution here.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Overview",
+        "anchor": "overview"
       },
       {
         "depth": 2,
-        "title": "Interacting with Contracts",
-        "anchor": "interacting-with-contracts"
+        "title": "Compilation Issues",
+        "anchor": "compilation-issues"
+      },
+      {
+        "depth": 3,
+        "title": "Contract Won't Compile",
+        "anchor": "contract-wont-compile"
+      },
+      {
+        "depth": 3,
+        "title": "Missing Artifacts Folder",
+        "anchor": "missing-artifacts-folder"
+      },
+      {
+        "depth": 2,
+        "title": "Wallet Connection Issues",
+        "anchor": "wallet-connection-issues"
+      },
+      {
+        "depth": 3,
+        "title": "Wallet Not Detected",
+        "anchor": "wallet-not-detected"
+      },
+      {
+        "depth": 3,
+        "title": "Wrong Network Selected",
+        "anchor": "wrong-network-selected"
+      },
+      {
+        "depth": 2,
+        "title": "Deployment Issues",
+        "anchor": "deployment-issues"
+      },
+      {
+        "depth": 3,
+        "title": "Insufficient Funds Error",
+        "anchor": "insufficient-funds-error"
+      },
+      {
+        "depth": 3,
+        "title": "Deployment Transaction Fails",
+        "anchor": "deployment-transaction-fails"
+      },
+      {
+        "depth": 3,
+        "title": "Can't Find Injected Provider Option",
+        "anchor": "cant-find-injected-provider-option"
+      },
+      {
+        "depth": 2,
+        "title": "Contract Interaction Issues",
+        "anchor": "contract-interaction-issues"
+      },
+      {
+        "depth": 3,
+        "title": "Transaction Rejected by Wallet",
+        "anchor": "transaction-rejected-by-wallet"
+      },
+      {
+        "depth": 3,
+        "title": "Contract Not Appearing After Deployment",
+        "anchor": "contract-not-appearing-after-deployment"
+      },
+      {
+        "depth": 3,
+        "title": "Read Functions Not Returning Values",
+        "anchor": "read-functions-not-returning-values"
+      },
+      {
+        "depth": 3,
+        "title": "Write Functions Not Updating State",
+        "anchor": "write-functions-not-updating-state"
+      },
+      {
+        "depth": 2,
+        "title": "Browser and Performance Issues",
+        "anchor": "browser-and-performance-issues"
+      },
+      {
+        "depth": 3,
+        "title": "Remix IDE Loading Slowly",
+        "anchor": "remix-ide-loading-slowly"
+      },
+      {
+        "depth": 3,
+        "title": "File Explorer Not Updating",
+        "anchor": "file-explorer-not-updating"
       },
       {
         "depth": 2,
@@ -10598,32 +10737,12 @@
       }
     ],
     "stats": {
-      "chars": 6652,
-      "words": 903,
-      "headings": 8,
-      "estimated_token_count_total": 1347
+      "chars": 7788,
+      "words": 1081,
+      "headings": 20,
+      "estimated_token_count_total": 1703
     },
-    "hash": "sha256:7589fa1dbdbf5748892ab6d42fc784d833f33e254bd3f95ee58424effcd38323",
-    "token_estimator": "heuristic-v1"
-  },
-  {
-    "id": "smart-contracts-dev-environments-remix-troubleshooting",
-    "title": "smart-contracts-dev-environments-remix-troubleshooting",
-    "slug": "smart-contracts-dev-environments-remix-troubleshooting",
-    "categories": [
-      "Uncategorized"
-    ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-remix-troubleshooting.md",
-    "html_url": "https://docs.polkadot.com/smart-contracts/dev-environments/remix/troubleshooting/",
-    "preview": "TODO",
-    "outline": [],
-    "stats": {
-      "chars": 5,
-      "words": 1,
-      "headings": 0,
-      "estimated_token_count_total": 0
-    },
-    "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
+    "hash": "sha256:cabc2113d24db5f55826dc46935a25914014f29e23490ac0bd3e951d79f777ef",
     "token_estimator": "heuristic-v1"
   },
   {

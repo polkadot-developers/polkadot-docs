@@ -10,7 +10,6 @@ This directory lists URLs for raw Markdown pages that complement the rendered pa
 - Categories: 12
 
 ## Docs
-This section lists documentation pages by category. Each entry links to a raw markdown version of the page and includes a short description. A page may appear in multiple categories.
 
 Docs: Basics
 - [Register a Local Asset](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/chain-interactions-token-operations-register-local-asset.md): Comprehensive guide to registering a local asset on the Asset Hub system parachain, including step-by-step instructions.

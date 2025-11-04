@@ -3602,12 +3602,12 @@
       }
     ],
     "stats": {
-      "chars": 9064,
-      "words": 1433,
+      "chars": 9060,
+      "words": 1432,
       "headings": 4,
-      "estimated_token_count_total": 2432
+      "estimated_token_count_total": 2430
     },
-    "hash": "sha256:809d0ff921587f29045df1d31a5a9fe32ee13fa7b9698aa27ff9f60b2aa7a4d8",
+    "hash": "sha256:4532f2a16eaf7cea5b838dcdb199e4a773384f82d0a09dc063f0674f3b600a00",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5226,12 +5226,12 @@
       }
     ],
     "stats": {
-      "chars": 8916,
-      "words": 1165,
+      "chars": 8913,
+      "words": 1164,
       "headings": 9,
-      "estimated_token_count_total": 2018
+      "estimated_token_count_total": 2017
     },
-    "hash": "sha256:49866761ef638dd0683bb5558f5319b9568ff136295b3359580a6f478172c73f",
+    "hash": "sha256:a76210a0fae2ec0c584d7e6213df83b3926286b5bb7d25fecb26d0da2b3c59a6",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5882,12 +5882,12 @@
       }
     ],
     "stats": {
-      "chars": 2456,
+      "chars": 2426,
       "words": 295,
       "headings": 10,
       "estimated_token_count_total": 579
     },
-    "hash": "sha256:4c33d0ec5026128b3bfdb1dfc1f4b29487404eaa8043071d536e8638356c6e1f",
+    "hash": "sha256:670221ac20ab1f1b550ba2a1db06cd924c24bd3afc4d8a768b617d8a409243cb",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -6111,12 +6111,12 @@
       }
     ],
     "stats": {
-      "chars": 16059,
-      "words": 2502,
+      "chars": 16056,
+      "words": 2501,
       "headings": 9,
-      "estimated_token_count_total": 4229
+      "estimated_token_count_total": 4228
     },
-    "hash": "sha256:abd9f939f68b068a18567b875c9f7e11d102c54fc02ca0e6ee8041c539061ed0",
+    "hash": "sha256:aa1036d1d9eee331f4502f6d1198e3eb2805ab4a2d294ec931bfbf5fb7227ed3",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -11012,12 +11012,12 @@
       }
     ],
     "stats": {
-      "chars": 12532,
-      "words": 1874,
+      "chars": 12528,
+      "words": 1873,
       "headings": 8,
-      "estimated_token_count_total": 3257
+      "estimated_token_count_total": 3255
     },
-    "hash": "sha256:5da581453e1e0b0b9659c2c74fe2c0c3e8060fa04445dd389644626e4232916d",
+    "hash": "sha256:19a42df106a1a9a189e850fbc6f14439e523047b30bf12b250abcf2f29a43c3b",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -11253,7 +11253,7 @@
   },
   {
     "id": "tutorials-polkadot-sdk-system-chains-asset-hub-send-a-tx-paying-fee-different-token",
-    "title": "Send a Transaction While Paying the Fee with a Different Token",
+    "title": "Pay Transaction Fees Using Another Token",
     "slug": "tutorials-polkadot-sdk-system-chains-asset-hub-send-a-tx-paying-fee-different-token",
     "categories": [
       "Uncategorized"

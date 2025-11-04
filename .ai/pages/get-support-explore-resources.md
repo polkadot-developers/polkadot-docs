@@ -43,14 +43,14 @@ Stay in sync with what's happening across the Polkadot ecosystem — from offici
 
 ### 🔷 X (Twitter): Official Accounts
 
-- [@PolkadotDevs](https://twitter.com/PolkadotDevs){target=\_blank}: Updates for developers
-- [@Polkadot](https://twitter.com/Polkadot){target=\_blank}: Network-wide news
-- [@Kusamanetwork](https://twitter.com/kusamanetwork){target=\_blank}: Kusama-specific updates
-- [@Web3Foundation](https://twitter.com/web3foundation){target=\_blank}: Grants, research, and ecosystem programs
+- [@PolkadotDevs](https://x.com/PolkadotDevs){target=\_blank}: Updates for developers
+- [@Polkadot](https://x.com/Polkadot){target=\_blank}: Network-wide news
+- [@Kusamanetwork](https://x.com/kusamanetwork){target=\_blank}: Kusama-specific updates
+- [@Web3Foundation](https://x.com/web3foundation){target=\_blank}: Grants, research, and ecosystem programs
 
 ### 🔁 X (Twitter): Community Accounts
 
-- [@PolkadotDeploy](https://twitter.com/PolkadotDeploy){target=\_blank}: News from the deployment portal and tooling updates
+- [@PolkadotDeploy](https://x.com/PolkadotDeploy){target=\_blank}: News from the deployment portal and tooling updates
 
 ### 🗣️ Polkadot Forum
 

@@ -11905,7 +11905,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-precompiles-xcm.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/precompiles/xcm/",
-    "preview": "The [XCM (Cross-Consensus Message)](/develop/interoperability/intro-to-xcm){target=\\_blank} precompile enables Polkadot Hub developers to access XCM functionality directly from their smart contracts using a Solidity interface.",
+    "preview": "The [XCM (Cross-Consensus Message)](/parachains/interoperability/get-started/){target=\\_blank} precompile enables Polkadot Hub developers to access XCM functionality directly from their smart contracts using a Solidity interface.",
     "outline": [
       {
         "depth": 2,
@@ -11949,17 +11949,17 @@
       },
       {
         "depth": 2,
-        "title": "Next steps",
+        "title": "Next Steps",
         "anchor": "next-steps"
       }
     ],
     "stats": {
-      "chars": 10554,
-      "words": 1419,
+      "chars": 10705,
+      "words": 1436,
       "headings": 9,
-      "estimated_token_count_total": 2276
+      "estimated_token_count_total": 2325
     },
-    "hash": "sha256:4856172c6356357818234a3b7f0828716bd32e6192f3609c51de0cafcc5a75e7",
+    "hash": "sha256:c084190ea7d676128e7e399e8fe88598ca150f88d684db279a687ee1c3956120",
     "token_estimator": "heuristic-v1"
   },
   {

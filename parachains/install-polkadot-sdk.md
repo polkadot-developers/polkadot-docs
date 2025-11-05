@@ -1,6 +1,6 @@
 ---
 title: Install Polkadot SDK
-description: Install everything you need to begin working with the Polkadot SDK, the framework for building blockchains.
+description: Install all required Polkadot SDK dependencies, set up the SDK itself, and verify that it runs correctly on your machine.
 categories: Basics, Tooling
 ---
 
@@ -19,7 +19,7 @@ Follow the appropriate section for your operating system to ensure all necessary
 
 You can install Rust and set up a Substrate development environment on Apple macOS computers with Intel or Apple M1 processors.
 
-### Before You Begin
+### Before You Begin {: #before-you-begin-mac-os }
 
 Before you install Rust and set up your development environment on macOS, verify that your computer meets the following basic requirements:
 
@@ -113,7 +113,7 @@ To install `openssl` and the Rust toolchain on macOS:
 
 Rust supports most Linux distributions. Depending on the specific distribution and version of the operating system you use, you might need to add some software dependencies to your environment. In general, your development environment should include a linker or a C-compatible compiler, such as `clang`, and an appropriate integrated development environment (IDE).
 
-### Before You Begin
+### Before You Begin {: #before-you-begin-linux }
 
 Check the documentation for your operating system for information about the installed packages and how to download and install any additional packages you might need. For example, if you use Ubuntu, you can use the Ubuntu Advanced Packaging Tool (`apt`) to install the `build-essential` package:
 
@@ -206,7 +206,7 @@ In general, UNIX-based operating systems—like macOS or Linux—provide a bette
 
 However, suppose your local computer uses Microsoft Windows instead of a UNIX-based operating system. In that case, you can configure it with additional software to make it a suitable development environment for building Substrate-based blockchains. To prepare a development environment on a Microsoft Windows computer, you can use Windows Subsystem for Linux (WSL) to emulate a UNIX operating environment.
 
-### Before You Begin
+### Before You Begin {: #before-you-begin-windows-wls }
 
 Before installing on Microsoft Windows, verify the following basic requirements:
 

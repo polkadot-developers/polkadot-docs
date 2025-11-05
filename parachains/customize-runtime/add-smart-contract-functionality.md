@@ -96,7 +96,7 @@ Production implementations demonstrate Frontier's capabilities:
 
 ## pallet-contracts (Legacy)
 
-[`pallet-contracts`](https://docs.rs/pallet-contracts/latest/pallet_contracts/index.html#contracts-pallet){target=\_blank} is the original Wasm-based smart contract pallet for Polkadot SDK chains. While still functional, it's considered legacy as development efforts have shifted to pallet-revive.
+[`pallet-contracts`](https://docs.rs/pallet-contracts/latest/pallet_contracts/index.html#contracts-pallet){target=\_blank} is the original Wasm-based smart contract pallet for Polkadot SDK chains. While still functional, it's considered legacy as development efforts have shifted to `pallet-revive`.
 
 ### Implementation Example
 

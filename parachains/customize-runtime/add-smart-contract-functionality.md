@@ -83,7 +83,7 @@ For complete Ethereum ecosystem integration with Ethereum RPC support:
 
 ### Key Benefits
 
-- **Ethereum tooling compatibility**: Full compatibility with MetaMask, Hardhat, Remix, Truffle, and other Ethereum development tools
+- **Ethereum tooling compatibility**: Full compatibility with MetaMask, Hardhat, Remix, Foundry, and other Ethereum development tools.
 - **Minimal-friction migration**: Deployment of existing Ethereum dApps with minimal or no modifications.
 - **Native Ethereum formats**: Support for Ethereum transaction formats, signatures, and gas mechanics.
 - **Block emulation**: Ethereum-style block structure within Substrate's block production.

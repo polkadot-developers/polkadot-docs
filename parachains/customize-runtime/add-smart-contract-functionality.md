@@ -69,7 +69,7 @@ Frontier offers flexible integration depending on your compatibility needs:
 
 For basic EVM support using Polkadot SDK native APIs:
 
-- **[`pallet-evm`](https://github.com/polkadot-evm/frontier/tree/master/frame/evm){target=\_blank}**: Provides the core EVM execution environment
+- **[`pallet-evm`](https://github.com/polkadot-evm/frontier/tree/master/frame/evm){target=\_blank}**: Provides the core EVM execution environment.
 
 This configuration allows EVM contract execution but requires using Polkadot SDK-specific APIs for interaction.
 

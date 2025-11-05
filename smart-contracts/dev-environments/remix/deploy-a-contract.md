@@ -1,6 +1,6 @@
 ---
 title: Deploy and Interact with Smart Contracts Using Remix IDE
-description: Learn how to deploy smart contracts to Polkadot Hub and interact with them using the Remix IDE and wallet providers.
+description: Learn how to deploy smart contracts to the Polkadot Hub network and interact with them using the Remix IDE and wallet providers, covering deployment and state.
 categories: Smart Contracts, Tooling
 ---
 
@@ -26,7 +26,7 @@ Before deploying your contract, ensure you have:
     1. Navigate to the **Deploy & Run Transactions** tab (fourth icon in the left sidebar).
     2. Click the **Environment** dropdown.
     3. Select **Browser Extension**.
-    3. Click on the **Injected Provider - MetaMask** option.
+    4. Click on the **Injected Provider - MetaMask** option.
 
 2. Click the **Deploy** button and then click **Confirm** in the wallet popup.
 
@@ -47,9 +47,9 @@ Once deployed, your contract appears in the **Deployed/Unpinned Contracts** sect
 
     In this way, you can interact with your deployed contract by reading its state or writing to it. The button color indicates the type of interaction available:
 
-    - **Red**: Modifies state and is payable
-    - **Orange**: Modifies state only
-    - **Blue**: Reads state
+    - **Red**: Modifies state and is payable.
+    - **Orange**: Modifies state only.
+    - **Blue**: Reads state.
 
 3. Click the **GetCount** button to read the current count value.
 

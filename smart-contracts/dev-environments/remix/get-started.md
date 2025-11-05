@@ -28,7 +28,7 @@ In this interface, you can access a file explorer, edit your code, interact with
 
 ## Creating a New Contract
 
-To create a new contract using the  Remix IDE, you can follow these steps:
+To create a new contract using the Remix IDE, you can follow these steps:
 
 1. Select the **Create a new file** button in the `contracts` folder.
 
@@ -58,14 +58,14 @@ To compile your contract, you need to:
         Compilation errors and warnings appear in the terminal panel at the bottom of the screen.
 
 3. After compiling your contract, you can navigate to the **File Explorer** tab (first icon in the left sidebar) and check that:
-    1. The `artifact` folder is present.
+    1. The `artifacts` folder is present.
     2. The `Counter_metadata.json` and the `Counter.json` files have been generated.
 
         ![](/images/smart-contracts/dev-environments/remix/get-started/remix-3.gif)
 
 ## Where to Go Next
 
-The  Remix IDE offers an environment for developing, compiling, and deploying smart contracts on the Polkadot Hub. Its intuitive interface allows developers to easily write Solidity code, compile contracts, and interact with them directly in the browser.
+The Remix IDE offers an environment for developing, compiling, and deploying smart contracts on the Polkadot Hub. Its intuitive interface allows developers to easily write Solidity code, compile contracts, and interact with them directly in the browser.
 
 Explore more about smart contracts through these resources:
 

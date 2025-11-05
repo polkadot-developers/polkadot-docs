@@ -107,7 +107,7 @@ To install `openssl` and the Rust toolchain on macOS:
     brew install cmake
     ```
 
-9. Proceed to [Part 2: Build the Polkadot SDK](#build-the-polkadot-sdk).
+9. Proceed to [Build the Polkadot SDK](#build-the-polkadot-sdk).
 
 ## Linux
 
@@ -198,7 +198,7 @@ To install the Rust toolchain on Linux:
     rustup component add rust-src
     ```
 
-9. Proceed to [Part 2: Build the Polkadot SDK](#build-the-polkadot-sdk).
+9. Proceed to [Build the Polkadot SDK](#build-the-polkadot-sdk).
 
 ## Windows (WSL)
 
@@ -299,7 +299,7 @@ To install the Rust toolchain on WSL:
     rustup component add rust-src
     ```
 
-11. Proceed to [Part 2: Build the Polkadot SDK](#build-the-polkadot-sdk).
+11. Proceed to [Build the Polkadot SDK](#build-the-polkadot-sdk).
 
 ## Build the Polkadot SDK
 

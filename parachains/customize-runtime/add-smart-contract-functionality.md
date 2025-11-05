@@ -49,9 +49,9 @@ Any language that can compile to PolkaVM bytecode and utilize `pallet-revive`'s 
 
 ### Key Benefits
 
-- **Unified Platform**: Deploys both PolkaVM-optimized and EVM-compatible contracts using a single pallet.
+- **Unified platform**: Deploys both PolkaVM-optimized and EVM-compatible contracts using a single pallet.
 - **Performance**: PolkaVM execution provides improved performance compared to the traditional EVM, leveraging the [RISC-V](https://en.wikipedia.org/wiki/RISC-V){target=\_blank} architecture to map instructions to the CPU and requires little transpiling.
-- **Ethereum Compatibility**: Supports full integration with Ethereum tooling via RPC adapter.
+- **Ethereum compatibility**: Supports full integration with Ethereum tooling via RPC adapter.
 
 ### Implementation Examples
 

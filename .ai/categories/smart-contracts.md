@@ -3188,7 +3188,7 @@ Page Title: Deploy and Interact with Smart Contracts Using Remix IDE
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-remix-deploy-a-contract.md
 - Canonical (HTML): https://docs.polkadot.com/smart-contracts/dev-environments/remix/deploy-a-contract/
-- Summary: Learn how to deploy smart contracts to Polkadot Hub and interact with them using the Remix IDE and wallet providers.
+- Summary: Learn how to deploy smart contracts to the Polkadot Hub network and interact with them using the Remix IDE and wallet providers, covering deployment and state.
 
 # Deploy Smart Contracts Using Remix IDE
 
@@ -3202,7 +3202,7 @@ Before deploying your contract, ensure you have:
 
 - Completed the [Remix IDE setup](/smart-contracts/dev-environments/remix/get-started/){target=\_blank} and have a compiled contract ready
 - A compatible wallet extension installed (e.g., [MetaMask](https://metamask.io/){target=\_blank} or [Talisman](https://www.talisman.xyz/){target=\_blank})
-- Your wallet connected to the Polkadot Hub network
+- Your wallet connected to the Polkadot Hub network. Check the [Connect to Polkadot](/smart-contracts/connect/){target=\_blank} guide for more information.
 - Test tokens in your wallet to cover deployment and transaction fees (available from the [Polkadot faucet](/smart-contracts/faucet/){target=\_blank})
 
 ## Deploying Contracts
@@ -3212,7 +3212,7 @@ Before deploying your contract, ensure you have:
     1. Navigate to the **Deploy & Run Transactions** tab (fourth icon in the left sidebar).
     2. Click the **Environment** dropdown.
     3. Select **Browser Extension**.
-    3. Click on the **Injected Provider - MetaMask** option.
+    4. Click on the **Injected Provider - MetaMask** option.
 
 2. Click the **Deploy** button and then click **Confirm** in the wallet popup.
 
@@ -3233,9 +3233,9 @@ Once deployed, your contract appears in the **Deployed/Unpinned Contracts** sect
 
     In this way, you can interact with your deployed contract by reading its state or writing to it. The button color indicates the type of interaction available:
 
-    - **Red**: Modifies state and is payable
-    - **Orange**: Modifies state only
-    - **Blue**: Reads state
+    - **Red**: Modifies state and is payable.
+    - **Orange**: Modifies state only.
+    - **Blue**: Reads state.
 
 3. Click the **GetCount** button to read the current count value.
 
@@ -12560,7 +12560,7 @@ In this interface, you can access a file explorer, edit your code, interact with
 
 ## Creating a New Contract
 
-To create a new contract using the  Remix IDE, you can follow these steps:
+To create a new contract using the Remix IDE, you can follow these steps:
 
 1. Select the **Create a new file** button in the `contracts` folder.
 
@@ -12607,14 +12607,14 @@ To compile your contract, you need to:
         Compilation errors and warnings appear in the terminal panel at the bottom of the screen.
 
 3. After compiling your contract, you can navigate to the **File Explorer** tab (first icon in the left sidebar) and check that:
-    1. The `artifact` folder is present.
+    1. The `artifacts` folder is present.
     2. The `Counter_metadata.json` and the `Counter.json` files have been generated.
 
         ![](/images/smart-contracts/dev-environments/remix/get-started/remix-3.gif)
 
 ## Where to Go Next
 
-The  Remix IDE offers an environment for developing, compiling, and deploying smart contracts on the Polkadot Hub. Its intuitive interface allows developers to easily write Solidity code, compile contracts, and interact with them directly in the browser.
+The Remix IDE offers an environment for developing, compiling, and deploying smart contracts on the Polkadot Hub. Its intuitive interface allows developers to easily write Solidity code, compile contracts, and interact with them directly in the browser.
 
 Explore more about smart contracts through these resources:
 

@@ -73,10 +73,10 @@ jobs:
 
           case $PERMISSION in
             admin|maintain|write)
-              echo ✅ ${ACTOR} has ${PERMISSION} permission.
+              echo "✅ ${ACTOR} has ${PERMISSION} permission."
               ;;
             *)
-              echo ❌ ${ACTOR} lacks write or maintain access (permission='${PERMISSION}').
+              echo "❌ ${ACTOR} lacks write or maintain access (permission='${PERMISSION}')."
               exit 1
               ;;
           esac

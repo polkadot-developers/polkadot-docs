@@ -149,9 +149,6 @@ These public instances are primarily for ad-hoc testing and quick checks.
 
 `TxWrapper` provides the flexibility needed to integrate asset operations into custom applications while maintaining the security and efficiency of Polkadot's transaction model.
 
-### ParaSpell
-
-[ParaSpell](/reference/tools/paraspell/){target=\_blank} is a collection of open-source XCM tools designed to streamline cross-chain asset transfers and interactions within the Polkadot and Kusama ecosystems. It equips developers with an intuitive interface to manage and optimize XCM-based functionalities for their interoperable decentralized applications (dApps). 
 
 ### Parachain Node
 

@@ -27,3 +27,27 @@ The [ParaSpell XCM SDK](https://paraspell.github.io/docs/sdk/getting-started.htm
 The SDK simplifies the process of creating and sending XCM messages by providing a user-friendly builder pattern. This allows developers to construct complex XCM calls with just a few lines of code, reducing the likelihood of errors and ensuring that messages are constructed correctly.
 
 By using the ParaSpell XCM SDK, developers can significantly accelerate their development workflow and build powerful, interoperable dApps that take full advantage of the Polkadot network's cross-chain capabilities.
+
+## Installation
+
+If you want to use ParaSpell in your npm-based project you can add it as a dependency with the following command:
+
+```bash
+npm install --save @paraspell/sdk@11.12.6
+```
+
+## Where to Go Next
+
+Explore more about ParaSpell through these resources:
+
+<div class="grid cards" markdown>
+
+-   <span class="badge tutorial">Tutorial</span> __Transfer Assets between Parachains__
+
+    ---
+
+    Learn how to transfer assets with Paraspell
+
+    [:octicons-arrow-right-24: Transfer Assets Between Parachains](/chain-interactions/send-transactions/interoperability/transfer-assets-parachains/)
+
+</div>

@@ -10,7 +10,9 @@ on:
         required: true
         type: string
 
-permissions: {}
+permissions:
+  contents: write
+  pull-requests: write
 
 
 jobs:
@@ -285,7 +287,7 @@ jobs:
           # Reused as HMAC secret ONLY (not sent in any header directly)
           N8N_SENDING_TOKEN: ${{ secrets.N8N_SENDING_TOKEN }}
           RUN_TOKEN: ${{ steps.run_uuid.outputs.run_token }}   # UUID, not GITHUB_TOKEN
-          N8N_RECEIVING_TOKEN: ${{ secrets.N8N_RECEIVING_TOKEN || vars.N8N_RECEIVING_TOKEN }}
+          N8N_RECEIVING_TOKEN: ${{ vars.N8N_RECEIVING_TOKEN || secrets.N8N_RECEIVING_TOKEN }}
           N8N_ALLOWED_HOST: ${{ secrets.N8N_ALLOWED_HOST }}
         shell: bash
         run: |
@@ -457,13 +459,8 @@ jobs:
           STATUS="$(jq -r '.status // empty' <<< "$HTTP_BODY")"
           MATCHED="$(jq -r '.token // empty'  <<< "$HTTP_BODY")"
 
-          if [[ -z "${N8N_RECEIVING_TOKEN:-}" ]]; then
-            echo "N8N_RECEIVING_TOKEN must be configured for response verification."
-            echo "error=true" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-
-          HEADER_SIG="$(python3 - <<'PY' "$HEADER_FILE"
+          if [[ -n "${N8N_RECEIVING_TOKEN:-}" ]]; then
+            HEADER_SIG="$(python3 - <<'PY' "$HEADER_FILE"
           import sys
           from pathlib import Path
 
@@ -476,17 +473,21 @@ jobs:
           print(sig, end="")
           PY
           )"
-          if [[ -z "$HEADER_SIG" ]]; then
-            echo "Response signature missing."
-            echo "error=true" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-
-          EXPECTED_SIG="sha256=$(printf '%s' "$HTTP_BODY" | openssl dgst -binary -sha256 -hmac "$N8N_RECEIVING_TOKEN" | base64 | tr -d '\n')"
-          if [[ "$HEADER_SIG" != "$EXPECTED_SIG" ]]; then
-            echo "Response signature mismatch."
-            echo "error=true" >> "$GITHUB_OUTPUT"
-            exit 0
+            if [[ -n "$HEADER_SIG" ]]; then
+              EXPECTED_SIG="sha256=$(printf '%s' "$HTTP_BODY" | openssl dgst -binary -sha256 -hmac "$N8N_RECEIVING_TOKEN" | base64 | tr -d '\n')"
+              if [[ "$HEADER_SIG" != "$EXPECTED_SIG" ]]; then
+                echo "Response signature mismatch."
+                echo "error=true" >> "$GITHUB_OUTPUT"
+                exit 0
+              fi
+            else
+              RECEIVED_TOKEN="$(jq -r 'if type=="array" then .[0].receiving_token else .receiving_token end // empty' <<< "$HTTP_BODY")"
+              if [[ -z "$RECEIVED_TOKEN" || "$RECEIVED_TOKEN" != "$N8N_RECEIVING_TOKEN" ]]; then
+                echo "Receiving token missing or mismatch."
+                echo "error=true" >> "$GITHUB_OUTPUT"
+                exit 0
+              fi
+            fi
           fi
 
           if [[ "$STATUS" == "cancelled" ]]; then

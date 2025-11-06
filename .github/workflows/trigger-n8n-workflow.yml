@@ -67,7 +67,7 @@ jobs:
         run: |
           set -euo pipefail
           PERMISSION=$(gh api \
-            -H Accept: application/vnd.github+json \
+            -H "Accept: application/vnd.github+json" \
             repos/${REPO}/collaborators/${ACTOR}/permission \
             --jq '.permission // ')
 

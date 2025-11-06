@@ -1256,9 +1256,9 @@ Any language that can compile to PolkaVM bytecode and utilize `pallet-revive`'s 
 
 ### Key Benefits
 
-- **Unified Platform**: Deploys both PolkaVM-optimized and EVM-compatible contracts using a single pallet.
+- **Unified platform**: Deploys both PolkaVM-optimized and EVM-compatible contracts using a single pallet.
 - **Performance**: PolkaVM execution provides improved performance compared to the traditional EVM, leveraging the [RISC-V](https://en.wikipedia.org/wiki/RISC-V){target=\_blank} architecture to map instructions to the CPU and requires little transpiling.
-- **Ethereum Compatibility**: Supports full integration with Ethereum tooling via RPC adapter.
+- **Ethereum compatibility**: Supports full integration with Ethereum tooling via RPC adapter.
 
 ### Implementation Examples
 
@@ -1276,7 +1276,7 @@ Frontier offers flexible integration depending on your compatibility needs:
 
 For basic EVM support using Polkadot SDK native APIs:
 
-- **[`pallet-evm`](https://github.com/polkadot-evm/frontier/tree/master/frame/evm){target=\_blank}**: Provides the core EVM execution environment
+- **[`pallet-evm`](https://github.com/polkadot-evm/frontier/tree/master/frame/evm){target=\_blank}**: Provides the core EVM execution environment.
 
 This configuration allows EVM contract execution but requires using Polkadot SDK-specific APIs for interaction.
 
@@ -1290,20 +1290,20 @@ For complete Ethereum ecosystem integration with Ethereum RPC support:
 
 ### Key Benefits
 
-- **Ethereum tooling compatibility**: Full compatibility with MetaMask, Hardhat, Remix, Truffle, and other Ethereum development tools
-- **Minimal-friction migration**: Deployment of existing Ethereum dApps with minimal or no modifications
-- **Native Ethereum formats**: Support for Ethereum transaction formats, signatures, and gas mechanics
-- **Block emulation**: Ethereum-style block structure within Substrate's block production
+- **Ethereum tooling compatibility**: Full compatibility with MetaMask, Hardhat, Remix, Foundry, and other Ethereum development tools.
+- **Minimal-friction migration**: Deployment of existing Ethereum dApps with minimal or no modifications.
+- **Native Ethereum formats**: Support for Ethereum transaction formats, signatures, and gas mechanics.
+- **Block emulation**: Ethereum-style block structure within Substrate's block production.
 
 ### Implementation Examples
 
 Production implementations demonstrate Frontier's capabilities:
 
-- **Moonbeam**: See their implementation of [`pallet-evm`](https://github.com/moonbeam-foundation/moonbeam/blob/9e2ddbc9ae8bf65f11701e7ccde50075e5fe2790/runtime/moonbeam/src/lib.rs#L532){target=\_blank} and [`pallet-ethereum`](https://github.com/moonbeam-foundation/moonbeam/blob/9e2ddbc9ae8bf65f11701e7ccde50075e5fe2790/runtime/moonbeam/src/lib.rs#L698){target=\_blank}
+- **Moonbeam**: See their implementation of [`pallet-evm`](https://github.com/moonbeam-foundation/moonbeam/blob/9e2ddbc9ae8bf65f11701e7ccde50075e5fe2790/runtime/moonbeam/src/lib.rs#L532){target=\_blank} and [`pallet-ethereum`](https://github.com/moonbeam-foundation/moonbeam/blob/9e2ddbc9ae8bf65f11701e7ccde50075e5fe2790/runtime/moonbeam/src/lib.rs#L698){target=\_blank}.
 
 ## pallet-contracts (Legacy)
 
-[`pallet-contracts`](https://docs.rs/pallet-contracts/latest/pallet_contracts/index.html#contracts-pallet){target=\_blank} is the original Wasm-based smart contract pallet for Polkadot SDK chains. While still functional, it's considered legacy as development efforts have shifted to pallet-revive.
+[`pallet-contracts`](https://docs.rs/pallet-contracts/latest/pallet_contracts/index.html#contracts-pallet){target=\_blank} is the original Wasm-based smart contract pallet for Polkadot SDK chains. While still functional, it's considered legacy as development efforts have shifted to `pallet-revive`.
 
 ### Implementation Example
 

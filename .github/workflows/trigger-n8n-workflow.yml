@@ -430,11 +430,18 @@ jobs:
           def truncate(text: str) -> str:
               return text[:limit] + ("..." if len(text) > limit else "")
 
+          def emit(text: str) -> None:
+              stripped = text.strip()
+              if not stripped:
+                  print("(response empty or fully redacted)")
+              else:
+                  print(stripped)
+
           try:
               data = json.loads(raw)
           except json.JSONDecodeError:
               cleaned = ''.join(ch if ch.isprintable() else '?' for ch in raw)
-              print(truncate(cleaned.replace("\n", " ")))
+              emit(truncate(cleaned.replace("\n", " ")))
               sys.exit(0)
 
           def scrub(value):
@@ -448,7 +455,7 @@ jobs:
               return value
 
           sanitized = json.dumps(scrub(data), ensure_ascii=False)
-          print(truncate(sanitized.replace("\n", " ")))
+          emit(truncate(sanitized.replace("\n", " ")))
           PY
 
             echo "error=true" >> "$GITHUB_OUTPUT"

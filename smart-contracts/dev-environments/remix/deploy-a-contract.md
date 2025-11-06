@@ -16,7 +16,7 @@ Before deploying your contract, ensure you have:
 
 - Completed the [Remix IDE setup](/smart-contracts/dev-environments/remix/get-started/){target=\_blank} and have a compiled contract ready
 - A compatible wallet extension installed (e.g., [MetaMask](https://metamask.io/){target=\_blank} or [Talisman](https://www.talisman.xyz/){target=\_blank})
-- Your wallet connected to the Polkadot Hub network
+- Your wallet connected to the Polkadot Hub network. Check the [Connect to Polkadot](/smart-contracts/connect/){target=\_blank} guide for more information.
 - Test tokens in your wallet to cover deployment and transaction fees (available from the [Polkadot faucet](/smart-contracts/faucet/){target=\_blank})
 
 ## Deploying Contracts

@@ -46,7 +46,7 @@ Explore more about ParaSpell through these resources:
 
     ---
 
-    Learn how to transfer assets with Paraspell
+    Learn how to transfer assets across chains with ParaSpell.
 
     [:octicons-arrow-right-24: Transfer Assets Between Parachains](/chain-interactions/send-transactions/interoperability/transfer-assets-parachains/)
 

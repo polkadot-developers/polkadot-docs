@@ -1,6 +1,6 @@
 ---
 title: Inclusion Pipeline
-description: TODO!
+description: Understand each of the core components of the Inclusion Pipeline.
 categories: Polkadot Protocol
 ---
 

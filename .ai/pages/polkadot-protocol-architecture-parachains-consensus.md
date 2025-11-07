@@ -38,7 +38,7 @@ The following sections describe the actions taking place during each stage of th
 
 ### Path of a Parachain Block
 
-Polkadot achieves scalability through execution sharding, where each parachain operates as an independent shard with its own blockchain and state. Shared security for all parachains is provided by the relay chain, powered by [Nominated Proof of Staking (NPoS)](/reference/glossary/#nominated-proof-of-stake-npos){target=\_blank}. This framework allows parachains to focus on transaction processing and state management, while the relay chain ensures validation and finality.
+Polkadot achieves scalability through execution sharding, where each parachain operates as an independent shard with its own blockchain and state. Shared security for all parachains is provided by the relay chain, powered by [Nominated Proof of Staking (NPoS)](/polkadot-protocol/glossary/#nominated-proof-of-stake-npos){target=\_blank}. This framework allows parachains to focus on transaction processing and state management, while the relay chain ensures validation and finality.
 
 The journey parachain transactions follow to reach consensus and finality can be described as follows:
 

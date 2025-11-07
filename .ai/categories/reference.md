@@ -5,8 +5,8 @@ Begin New Bundle: Reference
 
 Page Title: Glossary
 
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-glossary.md
-- Canonical (HTML): https://docs.polkadot.com/reference/glossary/
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/polkadot-protocol-glossary.md
+- Canonical (HTML): https://docs.polkadot.com/polkadot-protocol/glossary/
 - Summary: Glossary of terms used within the Polkadot ecosystem, Polkadot SDK, its subsequent libraries, and other relevant Web3 terminology.
 
 # Glossary
@@ -99,7 +99,7 @@ Consensus algorithms are generally concerned with ensuring two properties:
 
 The node subsystem responsible for consensus tasks.
 
-For detailed information about the consensus strategies of the [Polkadot](#polkadot) network, see the [Polkadot Consensus](/reference/polkadot-hub/consensus-and-security/pos-consensus/){target=\_blank} blog series.
+For detailed information about the consensus strategies of the [Polkadot](#polkadot) network, see the [Polkadot Consensus](/polkadot-protocol/architecture/polkadot-chain/pos-consensus/){target=\_blank} blog series.
 
 See also [hybrid consensus](#hybrid-consensus).
 
@@ -373,8 +373,8 @@ Westend is a Parity-maintained, Polkadot SDK-based blockchain that serves as a t
 
 Page Title: JSON-RPC APIs
 
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-for-eth-devs-json-rpc-apis.md
-- Canonical (HTML): https://docs.polkadot.com/smart-contracts/for-eth-devs/json-rpc-apis/
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-smart-contracts-json-rpc-apis.md
+- Canonical (HTML): https://docs.polkadot.com/develop/smart-contracts/json-rpc-apis/
 - Summary: JSON-RPC APIs guide for Polkadot Hub, covering supported methods, parameters, and examples for interacting with the chain.
 
 # JSON-RPC APIs
@@ -2104,7 +2104,7 @@ fn dry_run_xcm(origin_location: VersionedLocation, xcm: VersionedXcm<Call>) -> R
 
 The [XCM Payment API](https://paritytech.github.io/polkadot-sdk/master/xcm_runtime_apis/fees/trait.XcmPaymentApi.html){target=\_blank} provides a standardized way to determine the costs and payment options for executing XCM messages. Specifically, it enables clients to:
 
-- Retrieve the [weight](/reference/glossary/#weight) required to execute an XCM message.
+- Retrieve the [weight](/polkadot-protocol/glossary/#weight) required to execute an XCM message.
 - Obtain a list of acceptable `AssetIds` for paying execution fees.
 - Calculate the cost of the weight in a specified `AssetId`.
 - Estimate the fees for XCM message delivery.

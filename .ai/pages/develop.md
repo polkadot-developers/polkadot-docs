@@ -36,8 +36,8 @@ graph TD
 
 All three pathways can leverage Cross-Consensus Messaging (XCM) to create innovative cross-chain workflows and applications. To get started with XCM, see these resources:
 
-- **[Introduction to XCM](/parachains/interoperability/get-started/){target=\_blank}**: Introduces key concepts, core function definitions, and code examples.
-- **[XCM Tools](/reference/tools/xcm-tools/){target=\_blank}**: Provides an overview of popular XCM tools.
+- **[Introduction to XCM](/develop/interoperability/intro-to-xcm/){target=\_blank}**: Introduces key concepts, core function definitions, and code examples.
+- **[XCM Tools](/develop/toolkit/interoperability/xcm-tools/){target=\_blank}**: Provides an overview of popular XCM tools.
 - **[Tutorials for Managing XCM Channels](/tutorials/interoperability/xcm-channels/){target=\_blank}**: Guides for using [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} UI to establish cross-chain messaging channels.
 
 ### Parachain Developers
@@ -48,13 +48,14 @@ Build, deploy, and maintain custom parachains with the Polkadot SDK.
 
 - <h3>:octicons-book-16:{ .lg .middle } Learn</h3>
     <hr>
-    - [Parachains Overview](/reference/parachains/){target=\_blank}
+    - [Parachains Overview](/polkadot-protocol/architecture/parachains/overview/){target=\_blank}
+    - [Introduction to the Polkadot SDK](/develop/parachains/intro-polkadot-sdk/){target=\_blank}
     - [Customize Your Parachain](/develop/parachains/customize-parachain/){target=\_blank}
 
 - <h3>:octicons-rocket-16:{ .lg .middle } Build</h3>
     <hr>
     - [Parachain Developer Zero to Hero Guides](/tutorials/polkadot-sdk/parachains/zero-to-hero/){target=\_blank}
-    - [Install Polkadot SDK Dependencies](/parachains/install-polkadot-sdk/){target=\_blank}
+    - [Install Polkadot SDK Dependencies](/develop/parachains/install-polkadot-sdk/){target=\_blank}
 
 - <h3>:octicons-tools-16:{.lg .middle} Tools</h3>
     <hr>
@@ -79,14 +80,14 @@ The Polkadot smart contract ecosystem is in active development. Please expect fr
 
 - <h3>:octicons-book-16:{ .lg .middle } Learn</h3>
     <hr>
-    - [Overview - Smart Contracts on Polkadot](/smart-contracts/overview/){target=\_blank}
+    - [Overview - Smart Contracts on Polkadot](/develop/smart-contracts/overview/){target=\_blank}
     - [Smart Contract Basics](/polkadot-protocol/smart-contract-basics/){target=\_blank}
 
 - <h3>:octicons-rocket-16:{.lg .middle} Build</h3>
     <hr>
     - [Launch Your First Smart Contract Project](/tutorials/smart-contracts/launch-your-first-project/){target=\_blank}
-    - [Deploy an NFT](/smart-contracts/cookbook/smart-contracts/deploy-nft/){target=\_blank}
-    - [Deploy an ERC-20](/smart-contracts/cookbook/smart-contracts/deploy-erc20/){target=\_blank}
+    - [Deploy an NFT](/tutorials/smart-contracts/deploy-nft/){target=\_blank}
+    - [Deploy an ERC-20](/tutorials/smart-contracts/deploy-erc20/){target=\_blank}
 
 - <h3>:octicons-tools-16:{.lg .middle} Tools</h3>
     <hr>
@@ -108,16 +109,16 @@ Integrate with the Polkadot blockchain's underlying protocol features to create 
 
 - <h3>:octicons-book-16:{ .lg .middle } Learn</h3>
     <hr>
-    - [Options for Wallet Integration](/parachains/integrations/wallets/){target=\_blank}
-    - [Options for Indexer Integration](/parachains/integrations/indexers/){target=\_blank}
-    - [Options for Oracle Integration](/parachains/integrations/oracles/){target=\_blank}
+    - [Options for Wallet Integration](/develop/toolkit/integrations/wallets/){target=\_blank}
+    - [Options for Indexer Integration](/develop/toolkit/integrations/indexers/){target=\_blank}
+    - [Options for Oracle Integration](/develop/toolkit/integrations/oracles/){target=\_blank}
 
 - <h3>:octicons-rocket-16:{.lg .middle} Build</h3>
     <hr>
-    - [Install and Get Started with Polkadot.js API](/reference/tools/polkadot-js-api/){target=\_blank}
-    - [Install and Get Started with Polkadot-API (PAPI)](/reference/tools/papi/){target=\_blank}
-    - [Install and Get Started with Dedot](/reference/tools/dedot/){target=\_blank}
-    - [Install and Get Started with Python Substrate Interface](/reference/tools/py-substrate-interface/){target=\_blank}
+    - [Install and Get Started with Polkadot.js API](/develop/toolkit/api-libraries/polkadot-js-api/){target=\_blank}
+    - [Install and Get Started with Polkadot-API (PAPI)](/develop/toolkit/api-libraries/papi/){target=\_blank}
+    - [Install and Get Started with Dedot](/develop/toolkit/api-libraries/dedot/){target=\_blank}
+    - [Install and Get Started with Python Substrate Interface](/develop/toolkit/api-libraries/py-substrate-interface/){target=\_blank}
 
 - <h3>:octicons-tools-16:{.lg .middle} Tools</h3>
     <hr>

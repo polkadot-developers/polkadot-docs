@@ -18,9 +18,8 @@ This section provides step-by-step tutorials to help you navigate the technical 
 
 <div class="subsection-wrapper">
   <div class="card">
-    <a href="/reference/governance/" target="_blank">
+    <a href="/polkadot-protocol/onchain-governance/" target="_blank">
       <h2 class="title">Learn More About Polkadot's OpenGov</h2>
-      <hr>
       <p class="description">Explore Polkadot's decentralized on-chain governance system, OpenGov, including how it works, the proposal process, and key info for developers.</p>
     </a>
   </div>

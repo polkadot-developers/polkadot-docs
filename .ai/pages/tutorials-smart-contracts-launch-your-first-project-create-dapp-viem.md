@@ -18,7 +18,7 @@ This tutorial will guide you through building a fully functional dApp that inter
 Before getting started, ensure you have the following:
 
 - [Node.js](https://nodejs.org/en){target=\_blank} v16 or later installed on your system.
-- A crypto wallet (such as MetaMask) funded with test tokens. Refer to the [Connect to Polkadot](/smart-contracts/connect/){target=\_blank} guide for more details.
+- A crypto wallet (such as MetaMask) funded with test tokens. Refer to the [Connect to Polkadot](/develop/smart-contracts/connect-to-polkadot){target=\_blank} guide for more details.
 - A basic understanding of React and JavaScript.
 - Some familiarity with blockchain fundamentals and Solidity (useful but not required).
 
@@ -821,6 +821,6 @@ cd polkavm-storage-contract-dapps/viem-dapp
 
     Learn how to build a decentralized application by using the Wagmi framework.
 
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/libraries/wagmi/)
+    [:octicons-arrow-right-24: Get Started](/develop/smart-contracts/libraries/wagmi)
 
 </div>

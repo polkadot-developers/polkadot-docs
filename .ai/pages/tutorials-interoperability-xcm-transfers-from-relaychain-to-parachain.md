@@ -9,7 +9,7 @@ url: https://docs.polkadot.com/tutorials/interoperability/xcm-transfers/from-rel
 
 ## Introduction
 
-[Cross-Consensus Messaging (XCM)](/parachains/interoperability/get-started/){target=\_blank} facilitates asset transfers both within the same consensus system and between different ones, such as between a relay chain and its parachains. For cross-system transfers, two main methods are available:
+[Cross-Consensus Messaging (XCM)](/develop/interoperability/intro-to-xcm/){target=\_blank} facilitates asset transfers both within the same consensus system and between different ones, such as between a relay chain and its parachains. For cross-system transfers, two main methods are available:
 
 - **[Asset teleportation](https://paritytech.github.io/xcm-docs/journey/transfers/teleports.html){target=\_blank}**: A simple and efficient method involving only the source and destination chains, ideal for systems with a high level of trust.
 - **[Reserve-backed transfers](https://paritytech.github.io/xcm-docs/journey/transfers/reserve.html){target=\_blank}**: Involves a trusted reserve holding real assets and mints derivative tokens to track ownership. This method is suited for systems with lower trust levels.
@@ -102,7 +102,7 @@ After submitting the transaction from the relay chain, confirm its success by ch
 
 ## Use PAPI
 
-To programmatically execute the reserve-backed asset transfer between the relay chain and the parachain, you can use [Polkadot API (PAPI)](/reference/tools/papi/){target=\_blank}. PAPI is a robust toolkit that simplifies interactions with Polkadot-based chains. For this project, you'll first need to set up your environment, install necessary dependencies, and create a script to handle the transfer process.
+To programmatically execute the reserve-backed asset transfer between the relay chain and the parachain, you can use [Polkadot API (PAPI)](/develop/toolkit/api-libraries/papi/){target=\_blank}. PAPI is a robust toolkit that simplifies interactions with Polkadot-based chains. For this project, you'll first need to set up your environment, install necessary dependencies, and create a script to handle the transfer process.
 
 1. Start by creating a folder for your project:
 

@@ -8,7 +8,7 @@ url: https://docs.polkadot.com/tutorials/polkadot-sdk/system-chains/asset-hub/
 
 ## Benefits of Asset Hub
 
-Polkadot SDK-based relay chains focus on security and consensus, leaving asset management to an external component, such as a [system chain](/polkadot-protocol/architecture/system-chains/){target=\_blank}. The [Asset Hub](/reference/polkadot-hub/assets-and-smart-contracts/){target=\_blank} is one example of a system chain and is vital to managing tokens which aren't native to the Polkadot ecosystem. Developers opting to integrate with Asset Hub can expect the following benefits:
+Polkadot SDK-based relay chains focus on security and consensus, leaving asset management to an external component, such as a [system chain](/polkadot-protocol/architecture/system-chains/){target=\_blank}. The [Asset Hub](/polkadot-protocol/architecture/system-chains/asset-hub/){target=\_blank} is one example of a system chain and is vital to managing tokens which aren't native to the Polkadot ecosystem. Developers opting to integrate with Asset Hub can expect the following benefits:
 
 - **Support for non-native on-chain assets**: Create and manage your own tokens or NFTs with Polkadot ecosystem compatibility available out of the box.
 - **Lower transaction fees**: Approximately 1/10th of the cost of using the relay chain.
@@ -33,9 +33,8 @@ Through these tutorials, you'll learn how to manage cross-chain assets, includin
 
 <div class="subsection-wrapper">
   <div class="card">
-    <a href="/reference/polkadot-hub/assets-and-smart-contracts/">
+    <a href="/polkadot-protocol/architecture/system-chains/asset-hub/">
       <h2 class="title">Learn More About Asset Hub</h2>
-      <hr>
       <p class="description">Explore the fundamentals of Asset Hub, including managing on-chain assets, foreign asset integration, and using XCM for cross-chain asset transfers.</p>
     </a>
   </div>

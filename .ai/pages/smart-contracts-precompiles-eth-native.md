@@ -1,25 +1,41 @@
 ---
-title: Ethereum-Native Precompiles
-description: General overview of Ethereum-native precompiles in Polkadot Hub’s Revive pallet, including usage basics and details on standard precompiles for smart contracts.
-categories: Smart Contracts
-url: https://docs.polkadot.com/smart-contracts/precompiles/eth-native/
+title: Advanced Functionalities via Precompiles
+description: Explores how Polkadot integrates precompiles to run essential functions natively, improving the speed and efficiency of smart contracts on the Hub.
 ---
 
-# Ethereum-Native Precompiles
+# Advanced Functionalities via Precompiles
+
+--8<-- 'text/smart-contracts/polkaVM-warning.md'
 
 ## Introduction
 
-Ethereum-native precompiles are special contract implementations that provide essential cryptographic and utility functions at the runtime level. These precompiles are available at predefined addresses and offer optimized, native implementations of commonly used operations that would be computationally expensive or impractical to implement in pure contract code.
+Precompiles serve a dual purpose in the Polkadot ecosystem: they not only enable high-performance smart contracts by providing native, optimized implementations of frequently used functions but will also eventually act as critical bridges, allowing contracts to interact with core platform capabilities.
 
-In Polkadot Hub's Revive pallet, these precompiles maintain compatibility with standard Ethereum addresses, allowing developers familiar with Ethereum to seamlessly transition their smart contracts while benefiting from the performance optimizations of the PolkaVM runtime.
+This article explores how Polkadot leverages precompiles within the Revive pallet to enhance efficiency and how they will extend functionality for developers in the future, including planned access to native features like Cross-Consensus Messaging (XCM).
 
-## How to Use Precompiles
+## What are Precompiles?
 
-To use a precompile in your smart contract, simply call the precompile's address as you would any other contract. Each precompile has a specific address (shown in the table below) and expects input data in a particular format. The precompile executes natively at the runtime level and returns the result directly to your contract.
+Precompiles are special contract implementations that run directly at the runtime level rather than as on-chain PolkaVM contracts. In typical EVM environments, precompiles provide essential cryptographic and utility functionality at addresses that start with specific patterns. Revive follows this design pattern but with its own implementation optimized for PolkaVM.
 
-For example, to use the ECRecover precompile to verify a signature, you would call address `0x0000000000000000000000000000000000000001` with the properly formatted signature data. The precompile handles the complex cryptographic operations efficiently and returns the recovered public key.
+```mermaid
+flowchart LR
+    User(["User"])
+    DApp["DApp/Contract"]
+    PolkaEVM["ETH RPC Adapter"]
+    Precompiles["Precompiles"]
+    Runtime["PolkaVM"]
 
-You can find sample contracts for each precompile in the [`precompiles-hardhat`](https://github.com/polkadot-developers/polkavm-hardhat-examples/tree/master/precompiles-hardhat/contracts){target=\_blank} project.
+    User --> DApp
+    DApp -->|"Call<br>function"| PolkaEVM
+    PolkaEVM -->|"Detect<br>precompile<br>address"| Precompiles
+    Precompiles -->|"Execute<br>optimized<br>native code"| Runtime
+
+    subgraph "Polkadot Hub"
+        PolkaEVM
+        Precompiles
+        Runtime
+    end
+```
 
 ## Standard Precompiles in Polkadot Hub
 
@@ -39,4 +55,6 @@ Revive implements the standard set of Ethereum precompiles:
 
 ## Conclusion
 
-Ethereum-native precompiles provide a powerful foundation for smart contract development on Polkadot Hub, offering high-performance implementations of essential cryptographic and utility functions. By maintaining compatibility with standard Ethereum precompile addresses and interfaces, Revive ensures that developers can leverage existing knowledge and tools while benefiting from the enhanced performance of native execution.
+For smart contract developers, precompiles offer a powerful way to access both low-level, high-performance operations and core platform capabilities within the smart contract execution context. Through Revive, Polkadot exposes these native functionalities, allowing developers to build faster, more efficient contracts that can take full advantage of the Polkadot ecosystem.
+
+Understanding and utilizing precompiles can unlock advanced functionality and performance gains, making them an essential tool for anyone building on the Polkadot Hub.

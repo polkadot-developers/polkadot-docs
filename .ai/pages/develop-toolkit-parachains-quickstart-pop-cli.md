@@ -35,7 +35,7 @@ pop --help
 
 ### Set Up Your Development Environment
 
-To develop and build Polkadot SDK-based chains, preparing your local environment with the necessary tools and dependencies is essential. The [Install Polkadot SDK Dependencies](/parachains/install-polkadot-sdk/){target=\_blank} guide walks you through this setup step-by-step.
+To develop and build Polkadot SDK-based chains, preparing your local environment with the necessary tools and dependencies is essential. The [Install Polkadot SDK Dependencies](/develop/parachains/install-polkadot-sdk/){target=\_blank} guide walks you through this setup step-by-step.
 
 However, you can automate this entire process by running:
 

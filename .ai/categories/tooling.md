@@ -19821,8 +19821,7 @@ Hardhat is a robust development environment for Ethereum-compatible chains that 
 
 Before getting started, ensure you have:
 
-- [Node.js](https://nodejs.org/){target=\_blank} (v16.0.0 or later) and npm installed.
-    - Note: Use Node.js 22.5+ and npm version 10.9.0+ to avoid issues with the Polkadot plugin.
+- [Node.js](https://nodejs.org/){target=\_blank} (v22.5.0 or later) and npm installed.
 - Basic understanding of Solidity programming.
 - Some PAS test tokens to cover transaction fees (easily obtainable from the [Polkadot faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}). To learn how to get test tokens, check out the [Test Tokens](/develop/smart-contracts/connect-to-polkadot#test-tokens){target=\_blank} section.
 
@@ -19844,7 +19843,7 @@ Before getting started, ensure you have:
 3. To interact with Polkadot, Hardhat requires the following plugin to compile contracts to PolkaVM bytecode and to spawn a local node compatible with PolkaVM:
 
     ```bash
-    npm install --save-dev @parity/hardhat-polkadot@0.1.9
+    npm install --save-dev @parity/hardhat-polkadot@0.2.0-pre6
     ```
 
 4. Create a Hardhat project:
@@ -19876,14 +19875,11 @@ Before getting started, ensure you have:
 
 ## Compile Your Contract
 
-The plugin will compile your Solidity contracts for Solidity versions `0.8.0` and higher to be PolkaVM compatible. When compiling your contract, there are two ways to configure your compilation process:
-
-- **npm compiler**: Uses library [@parity/resolc](https://www.npmjs.com/package/@parity/resolc){target=\_blank} for simplicity and ease of use.
-- **Binary compiler**: Uses your local `resolc` binary directly for more control and configuration options.
+The plugin will compile your Solidity contracts for Solidity versions `0.8.0` and higher to be PolkaVM compatible.
 
 To compile your project, follow these instructions:
 
-1. Modify your Hardhat configuration file to specify which compilation process you will be using and activate the `polkavm` flag in the Hardhat network:
+1. Modify your Hardhat configuration file to specify which compilation process you will be using by specifying the `target` inside of the `polkadot` flag in the Hardhat network. By default it generates `pvm` bytecode, but you can use the EVM Backend by specifying `evm` as the `target`:
 
     === "npm Configuration"
 
@@ -19896,12 +19892,12 @@ To compile your project, follow these instructions:
         /** @type import('hardhat/config').HardhatUserConfig */
         module.exports = {
           solidity: '0.8.28',
-          resolc: {
-            compilerSource: 'npm',
-          },
           networks: {
             hardhat: {
-              polkavm: true,
+              polkadot: {
+                target: 'evm'
+              },
+              nodeConfig: {
             },
           },
         };
@@ -19910,31 +19906,12 @@ To compile your project, follow these instructions:
     === "Binary Configuration"
 
         ```javascript title="hardhat.config.js" hl_lines="9-14 17"
-        // hardhat.config.js
-        require('@nomicfoundation/hardhat-toolbox');
-
-        require('@parity/hardhat-polkadot');
-
-        /** @type import('hardhat/config').HardhatUserConfig */
-        module.exports = {
-          solidity: '0.8.28',
-          resolc: {
-            compilerSource: 'binary',
-            settings: {
-              compilerPath: 'INSERT_PATH_TO_RESOLC_COMPILER',
-            },
-          },
-          networks: {
-            hardhat: {
-              polkavm: true,
-            },
-          },
-        };
+        
+        
         ```
 
-    For the binary configuration, replace `INSERT_PATH_TO_RESOLC_COMPILER` with the proper path to the binary. To obtain the binary, check the [releases](https://github.com/paritytech/revive/releases){target=\_blank} section of the `resolc` compiler, and download the latest version.
 
-    The default settings used can be found in the [`constants.ts`](https://github.com/paritytech/hardhat-polkadot/blob/v0.1.5/packages/hardhat-polkadot-resolc/src/constants.ts#L8-L23){target=\_blank} file of the `hardhat-polkadot` source code. You can change them according to your project needs. Generally, the recommended settings for optimized outputs are the following:
+    The default settings used can be found in the [`constants.ts`](https://github.com/paritytech/hardhat-polkadot/blob/v0.2.0-pre6/packages/hardhat-polkadot-resolc/src/constants.ts#L15-L30){target=\_blank} file of the `hardhat-polkadot` source code. You can change them according to your project needs. Generally, the recommended settings for optimized outputs are the following:
 
     ```javascript title="hardhat.config.js" hl_lines="4-10"
     resolc: {
@@ -19946,13 +19923,12 @@ To compile your project, follow these instructions:
           fallbackOz: true,
           runs: 200,
         },
-        standardJson: true,
       },
       ...
     }
     ```
 
-    You can check the [`ResolcConfig`](https://github.com/paritytech/hardhat-polkadot/blob/v0.1.5/packages/hardhat-polkadot-resolc/src/types.ts#L26){target=\_blank} for more information about compilation settings.
+    You can check the [`ResolcConfig`](https://github.com/paritytech/hardhat-polkadot/blob/v0.2.0-pre6/packages/hardhat-polkadot-resolc/src/types.ts#L26){target=\_blank} for more information about compilation settings.
 
 2. Compile the contract with Hardhat:
 
@@ -19960,21 +19936,21 @@ To compile your project, follow these instructions:
     npx hardhat compile
     ```
 
-3. After successful compilation, you'll see the artifacts generated in the `artifacts-pvm` directory:
+3. After successful compilation, you'll see the artifacts generated in the `artifacts` directory:
 
     ```bash
-    ls artifacts-pvm/contracts/*.sol/
+    ls artifacts/contracts/*.sol/
     ```
 
     You should see JSON files containing the contract ABI and bytecode of the contracts you compiled.
 
 ## Set Up a Testing Environment
 
-Hardhat allows you to spin up a local testing environment to test and validate your smart contract functionalities before deploying to live networks. The `hardhat-polkadot` plugin provides the possibility to spin up a local node with an ETH-RPC adapter for running local tests.
+Hardhat allows you to spin up a local testing environment to test and validate your smart contract functionalities before deploying to live networks. The `hardhat-polkadot` plugin provides the possibility to spin up a local `anvil-polkadot` node for running local tests or fork a live chain using the ETH-RPC adapter.
 
-For complete isolation and control over the testing environment, you can configure Hardhat to work with a fresh local Substrate node. This approach is ideal when you want to test in a clean environment without any existing state or when you need specific node configurations.
+For complete isolation and control over the testing environment, you can configure Hardhat to work with a fresh local `anvil-polkadot` node. This approach is ideal when you want to test in a clean environment without any existing state.
 
-Configure a local node setup by adding the node binary path along with the ETH-RPC adapter path:
+Configure a local node setup by adding the `anvil-polkadot` node binary path:
 
 ```javascript title="hardhat.config.js" hl_lines="12-20"
 // hardhat.config.js
@@ -19984,24 +19960,24 @@ require('@parity/hardhat-polkadot');
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
     ...
-      networks: {
-        hardhat: {
-          polkavm: true,
+            target: 'evm'
+          },
           nodeConfig: {
-            nodeBinaryPath: 'INSERT_PATH_TO_SUBSTRATE_NODE',
-            rpcPort: 8000,
-            dev: true,
+            useAnvil: true,
+            nodeBinaryPath: 'INSERT_PATH_TO_ANVIL_NODE',
           },
           adapterConfig: {
             adapterBinaryPath: 'INSERT_PATH_TO_ETH_RPC_ADAPTER',
             dev: true,
           },
         },
+        localNode: {
+          polkadot: {
   },
 };
 ```
 
-Replace `INSERT_PATH_TO_SUBSTRATE_NODE` and `INSERT_PATH_TO_ETH_RPC_ADAPTER` with the actual paths to your compiled binaries. The `dev: true` flag configures both the node and adapter for development mode. To obtain these binaries, check the [Installation](/develop/smart-contracts/local-development-node#install-the-substrate-node-and-eth-rpc-adapter){target=\_blank} section on the Local Development Node page.
+Replace `INSERT_PATH_TO_ANVIL_NODE` with the actual path to your binary. To obtain this binary, check the [Installation](/develop/smart-contracts/local-development-node#install-the-substrate-node-and-eth-rpc-adapter){target=\_blank} section on the Local Development Node page.
 
 !!! warning
     If you're using the default `hardhat.config.js` created by the `hardhat-polkadot` plugin, it includes a `forking` section pointing to the Polkadot Hub TestNet. When you run `npx hardhat node`, Hardhat will start a fork of that network. To use your local node instead, comment out the `forking` section; otherwise, `npx hardhat node` will continue to use the forked network even if a local node is defined in the configuration.
@@ -20012,7 +19988,7 @@ Once configured, start your chosen testing environment with:
 npx hardhat node
 ```
 
-This command will launch either the forked network or local node (depending on your configuration) along with the ETH-RPC adapter, providing you with a complete testing environment ready for contract deployment and interaction. By default, the Substrate node will be running on `localhost:8000` and the ETH-RPC adapter on `localhost:8545`.
+This command will launch either the forked network along with the ETH-RPC adapter or the local `anvil-polkadot` node (depending on your configuration), providing you with a complete testing environment ready for contract deployment and interaction. By default, the `anvil-polkadot` node will be running on `localhost:8545`.
 
 The output will be something like this:
 
@@ -20065,12 +20041,12 @@ Before deploying to a live network, you can deploy your contract to a local node
     /** @type import('hardhat/config').HardhatUserConfig */
     module.exports = {
         ...
-          networks: {
-            hardhat: {
-            ...
+                target: 'evm'
               },
-              localNode: {
-                polkavm: true,
+            ...
+                polkadot: {
+                  target: 'evm'
+                },
                 url: `http://127.0.0.1:8545`,
               },
         },
@@ -20127,15 +20103,15 @@ After testing your contract locally, you can deploy it to a live network. This g
     /** @type import('hardhat/config').HardhatUserConfig */
     module.exports = {
         ...
-          networks: {
-            hardhat: {
-            ...
+                target: 'evm'
               },
-              localNode: {
+            ...
+                polkadot: {
+                  target: 'evm'
             ...
               },
               polkadotHubTestnet: {
-                polkavm: true,
+                polkadot: true,
                 url: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
                 accounts: [vars.get('PRIVATE_KEY')],
               },
@@ -20154,7 +20130,7 @@ After testing your contract locally, you can deploy it to a live network. This g
 
 Once deployed, you can create a script to interact with your contract. To do so, create a file called `scripts/interact.js` and add some logic to interact with the contract.
 
-For example, for the default `MyToken.sol` contract, you can use the following file that connects to the contract at its address and retrieves the `unlockTime`, which represents when funds can be withdrawn. The script converts this timestamp into a readable date and logs it. It then checks the contract's balance and displays it. Finally, it attempts to call the withdrawal function on the contract, but it catches and logs the error message if the withdrawal is not yet allowed (e.g., before `unlockTime`).
+For example, for the default `MyToken.sol` contract, you can use the following file that connects to the contract at its address and retrieves the token name and symbol. It then retrieves the `Total Supply`, which represents when funds can be withdrawn. Finally, it checks the deployer's balance and displays it.
 
 ```javascript title="interact.js"
 const hre = require('hardhat');
@@ -20211,7 +20187,7 @@ rm -rf node_modules package-lock.json
 After that, you can upgrade the plugin to the latest version by running the following commands:
 
 ```bash
-npm install --save-dev @parity/hardhat-polkadot@latest
+npm install --save-dev @parity/hardhat-polkadot@0.2.0-pre6
 npm install
 ```
 

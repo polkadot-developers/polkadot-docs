@@ -29,7 +29,7 @@ This guide will use the Polkadot Hub TestNet as the target network. Here's how t
     npx hardhat vars get PRIVATE_KEY
     ```
 
-4. Update your Hardhat configuration file with network settings for the Polkadot network you want to target.
+4. Update your Hardhat configuration file with network settings with your local development node URL.
 
     ```javascript title="hardhat.config.js"
     require("@nomicfoundation/hardhat-toolbox");
@@ -38,10 +38,10 @@ This guide will use the Polkadot Hub TestNet as the target network. Here's how t
     const PRIVATE_KEY = vars.get("PRIVATE_KEY");
 
     module.exports = {
-      solidity: "0.8.24",
+      solidity: "0.8.28",
       networks: {
-        polkadotHubTestnet: {
-          url: "https://rpc.polkadot-hub.io/testnet",
+        polkadotHubLocal: {
+          url: "http://localhost:8545",
           chainId: 1111,
           accounts: [PRIVATE_KEY]
         }
@@ -52,21 +52,21 @@ This guide will use the Polkadot Hub TestNet as the target network. Here's how t
 5. Deploy your contract using Ignition:
 
     ```bash
-    npx hardhat ignition deploy ./ignition/modules/MyToken.js --network polkadotHubTestnet
+    npx hardhat ignition deploy ./ignition/modules/Lock.js --network polkadotHubTestnet
     ```
 
 ## Interaction with Your Contract
 
 Once deployed, you can create a script to interact with your contract. To do so, create a file called `scripts/interact.js` and add some logic to interact with the contract.
 
-For example, for the default `MyToken.sol` contract, you can use the following file that connects to the contract at its address and retrieves the `unlockTime`, which represents when funds can be withdrawn. The script converts this timestamp into a readable date and logs it. It then checks the contract's balance and displays it. Finally, it attempts to call the withdrawal function on the contract, but it catches and logs the error message if the withdrawal is not yet allowed (e.g., before `unlockTime`).
+For example, for the default `Lock.sol` contract, you can use the following file that connects to the contract at its address and retrieves the `unlockTime`, which represents when funds can be withdrawn. The script converts this timestamp into a readable date and logs it. It then checks the contract's balance and displays it. Finally, it attempts to call the withdrawal function on the contract, but it catches and logs the error message if the withdrawal is not yet allowed (e.g., before `unlockTime`).
 
 ```javascript title="interact.js"
---8<-- 'code/develop/smart-contracts/dev-environments/hardhat/interact.js'
+--8<-- 'code/smart-contracts/dev-environments/hardhat/interact.js'
 ```
 
 Run your interaction script.
 
 ```bash
-npx hardhat run scripts/interact.js --network polkadotHubTestnet
+npx hardhat run scripts/interact.js --network polkadotHubLocal
 ```

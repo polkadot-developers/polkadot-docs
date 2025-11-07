@@ -47,7 +47,7 @@ Start the local Hardhat network with:
 npx hardhat node
 ```
 
-This command will launch a local Ethereum network on `http://127.0.0.1:8545` with 20 test accounts, each pre-funded with 10,000 ETH. The network will display all RPC calls and contract deployments in real-time.
+This command will launch a local Ethereum network on `http://127.0.0.1:8545` with 19 test accounts, each pre-funded with 10,000 ETH. The network will display all RPC calls and contract deployments in real-time.
 
 The output will be something like this:
 

@@ -553,6 +553,7 @@ jobs:
 
       # Step 14: Restore response payload from upstream output
       - name: Restore response payload
+        if: ${{ needs.gather-and-send.outputs.response_payload != '' }}
         run: |
           set -euo pipefail
           payload='${{ needs.gather-and-send.outputs.response_payload }}'

@@ -759,6 +759,271 @@ For detailed error management in XCM, see Gavin Wood's blog post on [XCM Executi
 
 ---
 
+Page Title: Asynchronous Backing
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-parachains-consensus-async-backing.md
+- Canonical (HTML): https://docs.polkadot.com/reference/parachains/consensus/async-backing/
+- Summary: Understand how asynchronous backing pipelines rollup block production, the protocol changes it introduces on the Relay Chain, and how rollups participate safely and efficiently.
+
+Asynchronous backing (often shortened to ***Async Backing***) is a rollup [configuration](https://github.com/paritytech/polkadot-sdk/blob/f204e3264f945c33b4cea18a49f7232c180b07c5/polkadot/primitives/src/vstaging/mod.rs#L43) set by on-chain governance. It allows collators and validators to build *some* number of blocks ahead of the relay chain during the **generation** and **backing** stages of the [Inclusion Pipeline](/reference/parachains/consensus/inclusion-pipeline).
+
+Async Backing improves throughput of the overall Polkadot Network by using coretime more efficiently, and enables the parallel processing needed for rollups to further scale throughput via [Elastic Scaling](/reference/parachains/consensus/elastic-scaling){target=\_blank}.
+
+## Configurations
+The following configurations can be set by onchain governance, dictating how many blocks ahead of the relay chain a given rollup's collators can run:
+
+* [`max_candidate_depth`](https://github.com/paritytech/polkadot-sdk/blob/f204e3264f945c33b4cea18a49f7232c180b07c5/polkadot/primitives/src/vstaging/mod.rs#L49): the number of blocks a rollup collator can produce that are not yet included in the relay chain. A value of `2` means that there can be a maximum of 3 unincluded rollup blocks at any given time.
+* [`allowed_ancestry_len`](https://github.com/paritytech/polkadot-sdk/blob/f204e3264f945c33b4cea18a49f7232c180b07c5/polkadot/primitives/src/vstaging/mod.rs#L54): the oldest relay parent a rollup block can be built on top of. A value of `1` means collators can start building blocks 6 seconds in advance.
+
+## Synchronous VS. Asynchronous Processing
+
+*in progress*
+
+In the synchronous scenario, both the collators and validators draw context from the relay parent of the prior rollup block, which lives on the relay chain. This makes the Backing and Generation steps tightly coupled to the prior parablock completing the inclusion pipeline. As a result, one parablock can be processed every other relay block, and only `0.5` seconds are assigned for execution.
+
+<div className="merm-16x9">
+```mermaid
+---
+    displayMode: compact
+    config:
+        themeCSS: "
+            #item1 { fill: #450693; stroke: #450693; } \n
+            #item2 { fill: #8C00FF; stroke: #8C00FF; } \n
+            #item3 { fill: #FFC400; stroke: #FFC400; } \n
+            #r     { fill: #eb4172; stroke: none; } \n
+            #p1padTop { display: none; } \n
+
+            /* Hide ALL task labels (inside or outside), across breakpoints */
+            text.taskText,
+            text.taskTextOutside,
+            [class*='taskText'] tspan { display: none !important; } \n
+
+            /* Keep outside labels + section titles styled */
+            .taskTextOutside, .sectionTitle { fill: #000 !important; color: #000 !important; font-weight: 700; } \n
+
+
+            svg { width: 100% !important; height: auto !important; aspect-ratio: 21 / 9; } \n
+
+        "
+        themeVariables:
+            sectionBkgColor: '#fff'
+        gantt:
+            numberSectionStyles: 1
+            barHeight: 70
+            gridLineStartPadding: 100
+---
+gantt
+    dateFormat YYYY
+    axisFormat %y
+    tickInterval '10year'
+
+    R1 : r, 1905, 1907
+    R2 : r, 1911, 1913
+    R3 : r, 1917, 1919
+    R4 : r, 1923, 1925
+
+    SPACING : p1padTop, 1905, 1907
+    SPACING : p1padTop, 1911, 1913
+    SPACING : p1padTop, 1917, 1919
+    SPACING : p1padTop, 1923, 1925
+
+    section P1
+    X          : item1, 1900, 1901
+    Backing    : item2, 1901, 1906
+    Inclusion  : item3, 1906, 1912
+
+    section P2
+    X          : item1, 1912, 1913
+    Backing    : item2, 1913, 1918
+    Inclusion  : item3, 1918, 1924
+```
+</div>
+
+In the asynchronous scenario, where both the collators and validators have access to [Unincluded Segments](/reference/parachains/consensus/inclusion-pipeline) as an additional context source, the Backing and Generation steps are no longer coupled to the prior block completing the full inclusion pipeline. Instead, the prior parablock only needs to complete the generation step and be added to the Unincluded Segments before the next parablock can begin the Backing and Generation steps.
+
+This results in one parablock being processed *every* relay block, and allows for more time to execute during the Generation step (0.5s --> 2s).
+
+```mermaid
+---
+    displayMode: compact
+    config:
+        themeCSS: "
+            #item1 { fill: #450693; stroke: #450693; } \n
+            #item2 { fill: #8C00FF; stroke: #8C00FF; } \n
+            #item3 { fill: #FFC400; stroke: #FFC400; } \n
+            #r     { fill: #eb4172; stroke:none; font-size: 20px; } \n
+            svg text { font-size: 20px !important; } \n
+            svg .sectionTitle { font-size: 20px !important; } \n    #p1padTop { display: none; } \n
+
+            /* Hide ALL task labels by default */
+            text.taskText,
+            text.taskTextOutside,
+            [class*='taskText'] tspan { display: none !important; } \n
+
+            /* Show labels for the 'r' group (inside or outside, incl. tspans) */
+            text.taskText[id^='r'],
+            text.taskTextOutside[id^='r'],
+            text[id^='r'] tspan { display: inline !important; font-size: 20px; color: #000 !important; } \n
+
+            /* Keep section titles styled */
+            .sectionTitle { fill: #000 !important; font-weight: 700; font-size: 18px; } \n
+
+            /* Hide the first two section titles (F1, F2). Change indexes if needed. */
+            .sectionTitle:nth-of-type(1),
+            .sectionTitle:nth-of-type(2) { display: none !important; } \n
+
+            /* Also hide SPACING row labels on the left */
+            text.taskTextOutside[id^='p1padTop'] { display: none !important; } \n
+        "
+        themeVariables:
+            sectionBkgColor: '#fff'
+        gantt:
+            numberSectionStyles: 1
+            barHeight: 70
+            gridLineStartPadding: 100
+---
+%%{init: {"gantt": {"barHeight": 70 }}}%%
+gantt
+    dateFormat YYYY
+    axisFormat %y
+    tickInterval '10year'
+
+    R1 : r, 1905, 1907
+    R2 : r, 1911, 1913
+    R3 : r, 1917, 1919
+    R4 : r, 1923, 1925
+    R5 : r, 1929, 1931
+
+    SPACING : p1padTop, 1905, 1907
+    SPACING : p1padTop, 1911, 1913
+    SPACING : p1padTop, 1917, 1919
+    SPACING : p1padTop, 1923, 1925
+    SPACING : p1padTop, 1929, 1931
+
+    section P1
+    X         : item1, 1900, 1902
+    Backing   : item2, 1902, 1912
+    Inclusion : item3, 1912, 1918
+
+    section P2
+    X         : item1, 1906, 1908
+    Backing   : item2, 1908, 1918
+    Inclusion : item3, 1918, 1924
+    
+    section P3
+    X         : item1, 1912, 1914
+    Backing   : item2, 1914, 1924
+    Inclusion : item3, 1924, 1930
+
+    section P4
+    X         : item1, 1918, 1920
+    Backing   : item2, 1920, 1930
+```
+
+Notice how `P2` starts before the backing stage of `P1` 
+
+In the multi-core scenario
+```mermaid
+---
+    displayMode: compact
+    config:
+        themeCSS: "
+            #item1 { fill: #450693; stroke: #450693; } \n
+            #item2 { fill: #8C00FF; stroke: #8C00FF; } \n
+            #item3 { fill: #FFC400; stroke: #FFC400; } \n
+            #r { fill: #eb4172; stroke: none; } \n
+            #p1padTop { display: none; } \n
+            text.taskText[id^=p1padTop] { fill: none !important; color: #000 !important; } \n
+
+
+            /* Default inside task text: white */ \n
+            .taskText { fill: #fff !important; color: #fff !important; font-weight: 700; font-size: 18px; } \n
+
+            /* Hide text inside bars */
+            .taskText { display: none !important; } \n
+
+            /* Outside labels and section titles: black */ \n
+            .taskTextOutside, .sectionTitle { fill: #000 !important; color: #000 !important; font-weight: 700; font-size: 18px; } \n
+
+            /* Inside text for #r items: black */ \n
+            text.taskText[id^=r] { fill: #fff !important; } \n
+        "
+        themeVariables:
+            sectionBkgColor: '#fff'
+        gantt:
+            numberSectionStyles: 1
+            barHeight: 70
+            gridLineStartPadding: 100
+---
+%%{init: {"gantt": {"barHeight": 70 }}}%%
+gantt
+    dateFormat YYYY
+    axisFormat %y
+    %% this next line doesn't recognise 'decade' or 'year', but will silently ignore
+    tickInterval '10year'
+
+    section F1
+    R1 : r, 1905, 1907
+    R2 : r, 1911, 1913
+    R3 : r, 1917, 1919
+    R4 : r, 1923, 1925
+    R5 : r, 1929, 1931
+
+    section F2
+    SPACING : p1padTop, 1905, 1907
+    SPACING : p1padTop, 1911, 1913
+    SPACING : p1padTop, 1917, 1919
+    SPACING : p1padTop, 1923, 1925
+    SPACING : p1padTop, 1929, 1931
+
+    section P1
+    X   :            item1, 1900, 1902
+    Backing   :            item2, 1902, 1912
+    Inclusion   :            item3, 1912, 1918
+
+    section P2
+    X   :            item1, 1906, 1908
+    Backing   :            item2, 1908, 1918
+    Inclusion   :            item3, 1918, 1924
+    
+    section P3
+    X   :            item1, 1912, 1914
+    Backing   :            item2, 1914, 1924
+    Inclusion   :            item3, 1924, 1930
+
+    section F20
+    SPACING : p1padTop, 1901, 1930
+
+    section F21
+    R1 : r, 1905, 1907
+    R2 : r, 1911, 1913
+    R3 : r, 1917, 1919
+    R4 : r, 1923, 1925
+    R5 : r, 1929, 1931
+
+    section F22
+    SPACING : p1padTop, 1901, 1930
+
+
+    section P4
+    X   :            item1, 1900, 1902
+    Backing   :            item2, 1902, 1912
+    Inclusion   :            item3, 1912, 1918
+
+    section P5
+    X   :            item1, 1906, 1908
+    Backing   :            item2, 1908, 1918
+    Inclusion   :            item3, 1918, 1924
+    
+    section P6
+    X   :            item1, 1912, 1914
+    Backing   :            item2, 1914, 1924
+    Inclusion   :            item3, 1924, 1930
+```
+
+
+---
+
 Page Title: Blocks
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-parachains-blocks-transactions-fees-blocks.md
@@ -5069,6 +5334,46 @@ By defining weights, you can trade-off the number of transactions per second and
 ## Westend
 
 Westend is a Parity-maintained, Polkadot SDK-based blockchain that serves as a test network for the [Polkadot](#polkadot) network.
+
+
+---
+
+Page Title: Inclusion Pipeline
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-parachains-consensus-inclusion-pipeline.md
+- Canonical (HTML): https://docs.polkadot.com/reference/parachains/consensus/inclusion-pipeline/
+- Summary: TODO!
+
+The mulit-step pipeline through which rollup blocks are processed into the Polkadot relay chain:
+
+```mermaid
+%%{init: {"flowchart": {"nodeSpacing": 40, "rankSpacing": 60}}}%%
+flowchart LR
+  %% Keep the pipeline on one row (container is hidden)
+  subgraph Row[" "]
+    direction LR
+    G["Generation"] --> B["Backing"] --> I["Inclusion"]
+  end
+  style Row fill:none,stroke:none
+
+  %% Context: plain text (no box) pointing to both G and B
+  C["Context"]:::nobox
+  C -.-> G
+  C -.-> B
+
+  classDef nobox fill:none,stroke:none,color:inherit;
+```
+**Context**: Context of state is provided as input in order for collators and validators to build a rollup block during the generation and backing stages, respectively. This context is provided by two sources:
+
+* **Relay Parent**: The relay chain block which a given rollup block is anchored to. Note that the relay parent of a rollup block and the relay block including that rollup block are always different. This context source lives on the relay chain.
+
+* **Unincluded Segments**: Chains of candidate rollup blocks that have yet to be included in the relay chain, i.e. they can contain blocks at any stage pre-inclusion. The core functionality that asynchronous backing brings is the ability to build on these unincluded segments of block ancestors rather than building only on ancestors included in the relay chain state. This context source lives on the collators.
+
+**Generation**: Collators *execute* their blockchain's core functionality to generate a new block, producing a [candidate receipt](), which is passed to validators selected for backing.
+
+**Backing**: A subset of active validators verify if the rollup block follows the state transition rules of the rollup and sign *Proof of Validity* (PoV) statements that can have a positive or negative outcome. With enough positive statements, the block is backed and included in the relay chain, but is still pending approval.
+
+**Inclusion**: Validators gossip [erasure code chunks]() and put the rollup block through the final [approval process]() before it is considered *included* in the relay chain.
 
 
 ---

@@ -92,37 +92,7 @@ The plugin will compile your Solidity contracts for Solidity versions `0.8.0` an
 
 To compile your project, follow these instructions:
 
-1. Modify your Hardhat configuration file to specify which compilation process you will be using by specifying the `target` inside of the `polkadot` flag in the Hardhat network. By default it generates `pvm` bytecode, but you can use the EVM Backend by specifying `evm` as the `target`:
-
-    === "npm Configuration"
-
-        ```javascript title="hardhat.config.js" hl_lines="9-11 14"
-        // hardhat.config.js
-        require('@nomicfoundation/hardhat-toolbox');
-
-        require('@parity/hardhat-polkadot');
-
-        /** @type import('hardhat/config').HardhatUserConfig */
-        module.exports = {
-          solidity: '0.8.28',
-          networks: {
-            hardhat: {
-              polkadot: {
-                target: 'evm'
-              },
-              nodeConfig: {
-            },
-          },
-        };
-        ```
-
-    === "Binary Configuration"
-
-        ```javascript title="hardhat.config.js" hl_lines="9-14 17"
-        
-        
-        ```
-
+1. Modify your Hardhat configuration file to specify which compilation process you will be using by specifying the `target` inside of the `polkadot` flag in the Hardhat network. By default it generates `pvm` bytecode, but you can use the EVM Backend by specifying `evm` as the `target`.
 
     The default settings used can be found in the [`constants.ts`](https://github.com/paritytech/hardhat-polkadot/blob/v0.2.0-pre6/packages/hardhat-polkadot-resolc/src/constants.ts#L15-L30){target=\_blank} file of the `hardhat-polkadot` source code. You can change them according to your project needs. Generally, the recommended settings for optimized outputs are the following:
 

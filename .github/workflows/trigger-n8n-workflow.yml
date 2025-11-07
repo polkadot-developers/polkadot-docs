@@ -11,8 +11,8 @@ on:
         type: string
 
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
+  pull-requests: read
 
 
 jobs:
@@ -43,7 +43,7 @@ jobs:
     steps:
       # Step 1: Checkout repository
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
 
       # Step 2: Generate unique run token
       - name: Generate Run UUID
@@ -125,7 +125,9 @@ jobs:
       # Step 5: Download raw PR diff
       - name: Fetch PR diff
         run: |
-          curl -sSL \
+          curl -sS --fail-with-body --proto '=https' --tlsv1.2 \
+            --retry 2 --retry-all-errors \
+            --no-progress-meter --http1.1 --noproxy '*' \
             -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
             -H "Accept: application/vnd.github.v3.diff" \
             https://api.github.com/repos/${{ github.repository }}/pulls/${PR_NUMBER} \
@@ -278,6 +280,12 @@ jobs:
         id: run_uuid
         shell: bash
         run: echo "run_token=$(uuidgen)" >> "$GITHUB_OUTPUT"
+
+      - name: Mask run token
+        if: ${{ steps.run_uuid.outputs.run_token != '' }}
+        env:
+          RUN_TOKEN: ${{ steps.run_uuid.outputs.run_token }}
+        run: echo "::add-mask::$RUN_TOKEN"
         
       - name: Combine and send to n8n webhook 
         id: send_payload
@@ -287,7 +295,7 @@ jobs:
           # Reused as HMAC secret ONLY (not sent in any header directly)
           N8N_SENDING_TOKEN: ${{ secrets.N8N_SENDING_TOKEN }}
           RUN_TOKEN: ${{ steps.run_uuid.outputs.run_token }}   # UUID, not GITHUB_TOKEN
-          N8N_RECEIVING_TOKEN: ${{ vars.N8N_RECEIVING_TOKEN || secrets.N8N_RECEIVING_TOKEN }}
+          N8N_RECEIVING_TOKEN: ${{ secrets.N8N_RECEIVING_TOKEN }}
           N8N_ALLOWED_HOST: ${{ secrets.N8N_ALLOWED_HOST }}
         shell: bash
         run: |
@@ -345,7 +353,7 @@ jobs:
           if (( PAYLOAD_SIZE > MAX_BYTES )); then
             echo "Payload too large (${PAYLOAD_SIZE} bytes)."
             echo "error=true" >> "$GITHUB_OUTPUT"
-            rm -f payload.json || true
+            if command -v shred >/dev/null 2>&1; then shred -u payload.json 2>/dev/null || true; else rm -f payload.json || true; fi
             exit 0
           fi
 
@@ -353,7 +361,7 @@ jobs:
           if ! command -v openssl >/dev/null 2>&1; then
             echo "openssl not available for HMAC signing."
             echo "error=true" >> "$GITHUB_OUTPUT"
-            rm -f payload.json || true
+            if command -v shred >/dev/null 2>&1; then shred -u payload.json 2>/dev/null || true; else rm -f payload.json || true; fi
             exit 0
           fi
           SIG="$(openssl dgst -sha256 -hmac "$N8N_SENDING_TOKEN" -binary < payload.json | base64 | tr -d '\n')"
@@ -362,7 +370,10 @@ jobs:
           HEADER_FILE=$(mktemp)
           trap 'rm -f "$HEADER_FILE"' EXIT
 
-          RESPONSE="$(curl -sS -D "$HEADER_FILE" -w $'\n%{http_code}' -X POST \
+          RESPONSE="$(curl -sS --fail-with-body --proto '=https' --tlsv1.2 \
+            --retry 2 --retry-all-errors \
+            --no-progress-meter --http1.1 --noproxy '*' \
+            -D "$HEADER_FILE" -w $'\n%{http_code}' -X POST \
             -H "Content-Type: application/json" \
             -H "X-Run-Token: $RUN_TOKEN" \
             -H "X-Signature: sha256=${SIG}" \
@@ -370,99 +381,33 @@ jobs:
             "$N8N_WEBHOOK_URL")" || {
               echo "Request failed."
               echo "error=true" >> "$GITHUB_OUTPUT"
-              rm -f payload.json || true
+              if command -v shred >/dev/null 2>&1; then shred -u payload.json 2>/dev/null || true; else rm -f payload.json || true; fi
               rm -f "$HEADER_FILE"
               exit 0
             }
 
           # Remove payload quickly
-          rm -f payload.json || true
+          if command -v shred >/dev/null 2>&1; then shred -u payload.json 2>/dev/null || true; else rm -f payload.json || true; fi
 
           HTTP_BODY="$(printf '%s\n' "$RESPONSE" | sed '$d')"
           HTTP_STATUS="$(printf '%s\n' "$RESPONSE" | tail -n1)"
           echo "http_status=${HTTP_STATUS}" >> "$GITHUB_OUTPUT"
           echo "n8n responded with status: $HTTP_STATUS"
 
-          # 7) HTTP status first
           if [[ "$HTTP_STATUS" -lt 200 || "$HTTP_STATUS" -ge 300 ]]; then
             echo "n8n workflow failed (HTTP $HTTP_STATUS)"
-
-            echo "Response headers (sanitized):"
-            HEADER_FILE_PATH="$HEADER_FILE" python3 <<'PY'
-          import os
-          from pathlib import Path
-
-          header_path = Path(os.environ["HEADER_FILE_PATH"])
-          sensitive = {"authorization", "proxy-authorization", "set-cookie", "x-signature", "x-response-signature"}
-
-          lines = []
-          for raw in header_path.read_text(encoding="utf-8", errors="replace").splitlines():
-              if not raw.strip():
-                  continue
-              key, sep, value = raw.partition(":")
-              if not sep:
-                  lines.append(raw[:150])
-                  continue
-              key_lower = key.strip().lower()
-              if key_lower in sensitive:
-                  lines.append(f"{key}: [redacted]")
-              else:
-                  clean = value.strip().replace("\r", " ").replace("\n", " ")
-                  if len(clean) > 160:
-                      clean = clean[:160] + "..."
-                  lines.append(f"{key}: {clean}")
-
-          if lines:
-              print("\n".join(lines))
-          else:
-              print("(none)")
-          PY
-
-                      echo "Response body preview (sanitized):"
-                      printf '%s' "$HTTP_BODY" | python3 <<'PY'
-          import json
-          import sys
-
-          raw = sys.stdin.read()
-          keywords = {"receiving_token", "token", "auth", "authorization", "secrets", "cookies", "headers"}
-          limit = 400
-
-          def truncate(text: str) -> str:
-              return text[:limit] + ("..." if len(text) > limit else "")
-
-          def emit(text: str) -> None:
-              stripped = text.strip()
-              if not stripped:
-                  print("(response empty or fully redacted)")
-              else:
-                  print(stripped)
-
-          try:
-              data = json.loads(raw)
-          except json.JSONDecodeError:
-              cleaned = ''.join(ch if ch.isprintable() else '?' for ch in raw)
-              emit(truncate(cleaned.replace("\n", " ")))
-              sys.exit(0)
-
-          def scrub(value):
-              if isinstance(value, dict):
-                  return {
-                      key: ("[redacted]" if key.lower() in keywords else scrub(val))
-                      for key, val in value.items()
-                  }
-              if isinstance(value, list):
-                  return [scrub(item) for item in value]
-              return value
-
-          sanitized = json.dumps(scrub(data), ensure_ascii=False)
-          emit(truncate(sanitized.replace("\n", " ")))
-          PY
-
             echo "error=true" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
-          # 8) Minimal parse; do not log body
+          CTYPE_RAW="$(grep -i '^content-type:' "$HEADER_FILE" | tail -1 | tr -d '\r')"
+          CTYPE_LOWER="$(printf '%s' "${CTYPE_RAW}" | tr '[:upper:]' '[:lower:]')"
+          if [[ "$CTYPE_LOWER" != *"application/json"* ]]; then
+            echo "Unexpected content-type '${CTYPE_RAW:-unknown}'."
+            echo "error=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
           STATUS="$(jq -r '.status // empty' <<< "$HTTP_BODY")"
           MATCHED="$(jq -r '.token // empty'  <<< "$HTTP_BODY")"
 
@@ -493,10 +438,15 @@ jobs:
               data = None
 
           payload = data.get("payload") if isinstance(data, dict) else None
-          if payload is None:
+          if (
+              not isinstance(payload, list)
+              or not payload
+              or not isinstance(payload[0], dict)
+              or not isinstance(payload[0].get("payload"), str)
+          ):
               raise SystemExit(0)
 
-          print(json.dumps(payload, separators=(",", ":")), end="")
+          print(payload[0]["payload"], end="")
           PY
               )"
               if [[ -z "$PAYLOAD_FOR_SIG" ]]; then
@@ -504,17 +454,17 @@ jobs:
               fi
               EXPECTED_SIG="sha256=$(printf '%s' "$PAYLOAD_FOR_SIG" | openssl dgst -binary -sha256 -hmac "$N8N_RECEIVING_TOKEN" | base64 | tr -d '\n')"
               if [[ "$HEADER_SIG" != "$EXPECTED_SIG" ]]; then
-                echo "Response signature mismatch."
-                echo "error=true" >> "$GITHUB_OUTPUT"
-                exit 0
+                BODY_SIG="sha256=$(printf '%s' "$HTTP_BODY" | openssl dgst -binary -sha256 -hmac "$N8N_RECEIVING_TOKEN" | base64 | tr -d '\n')"
+                if [[ "$HEADER_SIG" != "$BODY_SIG" ]]; then
+                  echo "Response signature mismatch."
+                  echo "error=true" >> "$GITHUB_OUTPUT"
+                  exit 0
+                fi
               fi
             else
-              RECEIVED_TOKEN="$(jq -r 'if type=="array" then .[0].receiving_token else .receiving_token end // empty' <<< "$HTTP_BODY")"
-              if [[ -z "$RECEIVED_TOKEN" || "$RECEIVED_TOKEN" != "$N8N_RECEIVING_TOKEN" ]]; then
-                echo "Receiving token missing or mismatch."
-                echo "error=true" >> "$GITHUB_OUTPUT"
-                exit 0
-              fi
+              echo "Missing X-Response-Signature header."
+              echo "error=true" >> "$GITHUB_OUTPUT"
+              exit 0
             fi
           fi
 
@@ -573,6 +523,20 @@ jobs:
         if: ${{ steps.filter_files.outputs.file_count == '0' }}
         run: echo ℹ️ No eligible files after filtering llms/.ai paths. Skipping n8n send.
 
+      - name: Securely delete diff artifacts
+        if: ${{ always() }}
+        run: |
+          set -euo pipefail
+          for target in pr.diff pr.diff.gz diff.b64; do
+            if [[ -f "$target" ]]; then
+              if command -v shred >/dev/null 2>&1; then
+                shred -u "$target" || rm -f "$target"
+              else
+                rm -f "$target"
+              fi
+            fi
+          done
+
   receive-validate-and-comment:
     runs-on: ubuntu-latest
     needs:
@@ -585,7 +549,7 @@ jobs:
     steps:
       # Step 13: Re-checkout repo (fresh workspace)
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
 
       # Step 14: Restore response payload from upstream output
       - name: Restore response payload
@@ -611,6 +575,11 @@ jobs:
               data = data[0] if data else {}
 
           payload_entries = data.get('payload') or []
+          if isinstance(payload_entries, str):
+              try:
+                  payload_entries = json.loads(payload_entries)
+              except json.JSONDecodeError:
+                  payload_entries = []
           if isinstance(payload_entries, dict):
               primary_payload = payload_entries
           elif isinstance(payload_entries, list) and payload_entries:
@@ -727,11 +696,17 @@ jobs:
               PAYLOAD=$(jq -n --arg body "$BODY_SUMMARY" --argjson comments "$COMMENTS" '{event:"COMMENT", body:$body, comments:$comments}')
             fi
 
-            RESP=$(curl -sS -w '%{http_code}' -X POST \
+            RESP=$(curl -sS --fail-with-body --proto '=https' --tlsv1.2 \
+              --retry 2 --retry-all-errors \
+              --no-progress-meter --http1.1 --noproxy '*' \
+              -w '%{http_code}' -X POST \
               -H "Authorization: Bearer ${GH_TOKEN}" \
               -H "Accept: application/vnd.github.v3+json" \
               "https://api.github.com/repos/${OWNER}/${REPO}/pulls/${PR}/reviews" \
-              -d "$PAYLOAD")
+              -d "$PAYLOAD") || {
+                echo "curl failed while posting review batch"
+                exit 1
+              }
 
             CODE=${RESP:(-3)}
             BODY=${RESP%$CODE}
@@ -817,11 +792,17 @@ jobs:
             fi
 
             JSON_PAYLOAD=$(jq -nc --arg b "$BODY" '{body:$b}')
-            RESP=$(curl -sS -w '%{http_code}' -X POST \
+            RESP=$(curl -sS --fail-with-body --proto '=https' --tlsv1.2 \
+              --retry 2 --retry-all-errors \
+              --no-progress-meter --http1.1 --noproxy '*' \
+              -w '%{http_code}' -X POST \
               -H "Authorization: Bearer ${GH_TOKEN}" \
               -H "Accept: application/vnd.github.v3+json" \
               "https://api.github.com/repos/${OWNER}/${REPO}/issues/${PR}/comments" \
-              -d "$JSON_PAYLOAD")
+              -d "$JSON_PAYLOAD") || {
+                echo "curl failed while posting verification comment"
+                exit 1
+              }
 
             CODE=${RESP:(-3)}
             RBODY=${RESP%$CODE}
@@ -912,7 +893,10 @@ jobs:
             --arg actor "$ACTOR" \
             '{repository:$repo, pr_number:$pr, gather_status:$gather_status, receive_status:$receive_status, run_url:$run_url, workflow:$workflow, run_id:$run_id, run_attempt:$run_attempt, actor:$actor}')
 
-          curl -sS -X POST \
+          curl -sS --fail-with-body --proto '=https' --tlsv1.2 \
+            --retry 2 --retry-all-errors \
+            --no-progress-meter --http1.1 --noproxy '*' \
+            -X POST \
             -H "Content-Type: application/json" \
             --data "$payload" \
             "$ERROR_WEBHOOK_URL"

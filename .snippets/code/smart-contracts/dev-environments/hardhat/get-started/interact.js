@@ -2,13 +2,13 @@ const hre = require('hardhat');
 
 async function main() {
   // Get the contract factory
-  const MyToken = await hre.ethers.getContractFactory('MyToken');
+  const Lock = await hre.ethers.getContractFactory('Lock');
 
   // Replace with your deployed contract address
   const contractAddress = 'INSERT_CONTRACT_ADDRESS';
 
   // Attach to existing contract
-  const token = await MyToken.attach(contractAddress);
+  const lock = await Lock.attach(contractAddress);
 
   // Get signers
   const [deployer] = await hre.ethers.getSigners();

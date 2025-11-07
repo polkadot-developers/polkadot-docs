@@ -1,6 +1,6 @@
 ---
 title: Deploy Smart Contracts with Hardhat
-description: Learn how to deploy smart contracts to Polkadot Hub using Hardhat, including local deployment and testnet deployment with Ignition modules.
+description: Learn how to deploy smart contracts to Local Development Node using Hardhatand deployments with Ignition modules.
 categories: Smart Contracts, Tooling
 ---
 
@@ -52,7 +52,7 @@ This guide will use the Polkadot Hub TestNet as the target network. Here's how t
 5. Deploy your contract using Ignition:
 
     ```bash
-    npx hardhat ignition deploy ./ignition/modules/Lock.js --network polkadotHubTestnet
+    npx hardhat ignition deploy ./ignition/modules/Lock.js --network polkadotHubLocal
     ```
 
 ## Interaction with Your Contract

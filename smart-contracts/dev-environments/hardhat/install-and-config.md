@@ -29,6 +29,7 @@ Before getting started, ensure you have:
 - [Node.js](https://nodejs.org/){target=\_blank} (Hardhat requires an LTS version, even major numbers like 18.x, 20.x, or 22.x) and npm installed
 - Basic understanding of Solidity programming
 - Some PAS test tokens to cover transaction fees (easily obtainable from the [Polkadot faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}). To learn how to get test tokens, check out the [Test Tokens](/develop/smart-contracts/connect-to-polkadot#test-tokens) section
+- Make sure that your Hardhat version is set to 2.x
 
 ## Set Up Hardhat
 
@@ -48,20 +49,16 @@ Before getting started, ensure you have:
 3. Install Hardhat and the Hardhat Toolbox:
 
     ```bash
-    npm install --save-dev hardhat @nomicfoundation/hardhat-toolbox
+    npm install --save-dev hardhat@^2.26.0
     ```
 
 4. Create a Hardhat project:
 
     ```bash
-    npx hardhat --init
+    npx hardhat init
     ```
-    After initialization you will be promped in terminal to select **Hardhat 2** version
 
-    After that you will be asked to **Create a JavaScript project** when prompted and follow the instructions. Select **"A JavaScript Hardhat project using Mocha and Ethers.js"**.
-
-    !!! note
-        Update **`package.json`** dependencies by replacing **`@nomicfoundation/hardhat-toolbox`** (v6.1.0, designed for Hardhat 2.x) with **`@nomicfoundation/hardhat-toolbox-mocha-ethers`** (v3.0.1, compatible with Hardhat 3.x) and add **`"type": "module"`**
+    After that you will be asked to **Create a JavaScript project**.
     
     After that, your project will be created with three main folders:
 

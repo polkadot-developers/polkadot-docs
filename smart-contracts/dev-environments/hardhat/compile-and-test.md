@@ -14,26 +14,14 @@ To compile your project, follow these instructions:
 
 1. Modify your Hardhat configuration file to specify the Solidity compiler version and optimization settings:
 
-    ```javascript title="hardhat.config.js"
-    require("@nomicfoundation/hardhat-toolbox");
+```javascript title="hardhat.config.js"
+require("@nomicfoundation/hardhat-toolbox");
 
-    /** @type import('hardhat/config').HardhatUserConfig */
-    import "@nomicfoundation/hardhat-toolbox-mocha-ethers";
-
-    /** @type import('hardhat/config').HardhatUserConfig */
-    export default {
-    solidity: {
-        version: "0.8.28",
-        settings: {
-        optimizer: {
-            enabled: true,
-            runs: 200,
-        },
-        },
-    },
-    };
-    ```
-    The optimizer settings help reduce contract size and gas costs. You can adjust the `runs` parameter based on how frequently you expect your contract functions to be called.
+/** @type import('hardhat/config').HardhatUserConfig */
+module.exports = {
+    solidity: "0.8.28",
+};
+```
 
 2. Compile the contract with Hardhat:
 

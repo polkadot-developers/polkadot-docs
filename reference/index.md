@@ -40,7 +40,7 @@ This guide organizes technical documentation across five core areas: **Polkadot 
 
 ## On-Chain Governance
 
-[On-Chain Governance](/reference/governance/) powers Polkadot's decentralized decision-making, enabling the community to shape the network's future. The governance documentation covers:
+[On-Chain Governance](/reference/governance/){target=\_blank} is the decentralized decision-making mechanism for the Polkadot network. It manages the evolution and modification of the network's runtime logic, enabling community oversight and approval for proposed changes. The governance documentation details:
 
 - **OpenGov Framework**: Understand Polkadot's next-generation governance system with enhanced delegation, flexible tracks, and simultaneous referendums.
 - **Origins and Tracks**: Learn how governance proposals are categorized, prioritized, and executed based on their privilege level and complexity.

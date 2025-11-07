@@ -6,8 +6,6 @@ categories: Smart Contracts, Tooling
 
 # Hardhat
 
---8<-- 'text/smart-contracts/polkaVM-warning.md'
-
 <div class="grid cards" markdown>
 -   :octicons-code-16:{ .lg .middle } __Test and Deploy with Hardhat__
 
@@ -20,8 +18,6 @@ categories: Smart Contracts, Tooling
 
 </div>
 
---8<-- 'text/smart-contracts/code-size.md'
-
 ## Overview
 
 Hardhat is a robust development environment for Ethereum-compatible chains that makes smart contract development more efficient. This guide walks you through the essentials of using Hardhat to create, compile, test, and deploy smart contracts on Polkadot Hub.
@@ -30,7 +26,7 @@ Hardhat is a robust development environment for Ethereum-compatible chains that 
 
 Before getting started, ensure you have:
 
-- [Node.js](https://nodejs.org/){target=\_blank} (v18.0.0 or later) and npm installed
+- [Node.js](https://nodejs.org/){target=\_blank} (Hardhat requires an LTS version, even major numbers like 18.x, 20.x, or 22.x) and npm installed
 - Basic understanding of Solidity programming
 - Some PAS test tokens to cover transaction fees (easily obtainable from the [Polkadot faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}). To learn how to get test tokens, check out the [Test Tokens](/develop/smart-contracts/connect-to-polkadot#test-tokens) section
 
@@ -58,14 +54,18 @@ Before getting started, ensure you have:
 4. Create a Hardhat project:
 
     ```bash
-    npx hardhat init
+    npx hardhat --init
     ```
+    After initialization you will be promped in terminal to select **Hrdahat 3** version
 
-    Select **Create a JavaScript project** when prompted and follow the instructions. After that, your project will be created with three main folders:
+    After that you will be asked to **Create a JavaScript project** when prompted and follow the instructions. Select **"A TypeScript Hardhat project using Mocha and Ethers.js"**. 
+    
+    After that, your project will be created with three main folders:
 
     - **`contracts`**: Where your Solidity smart contracts live
     - **`test`**: Contains your test files that validate contract functionality
     - **`ignition`**: Deployment modules for safely deploying your contracts to various networks
+    - **`test`**: Contains automated tests for the smart contract using the Hardhat testing framework 
 
 5. Add the following folder to the `.gitignore` file if it is not already there:
 
@@ -83,13 +83,13 @@ Explore more about smart contracts through these resources:
 
 <div class="grid cards" markdown>
 
--   <span class="badge guide">Guide</span> __Smart Contracts on Polkadot__
+-   <span class="badge guide">Guide</span> __Compile and Test__
 
     ---
 
     Dive into advanced smart contract concepts.
 
-    [:octicons-arrow-right-24: Get Started](/develop/smart-contracts/)
+    [:octicons-arrow-right-24: Get Started](docs/smart-contracts/dev-environments/hardhat/compile-and-test)
 
 -   <span class="badge external">External</span> __Hardhat Documentation__
 

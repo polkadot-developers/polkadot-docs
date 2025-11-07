@@ -557,7 +557,7 @@ jobs:
           set -euo pipefail
           payload='${{ needs.gather-and-send.outputs.response_payload }}'
           if [ -z "$payload" ]; then
-            echo Response payload missing; exiting.
+            echo "Response payload missing; exiting."
             exit 1
           fi
           printf '%s' "$payload" | base64 -d > response_body.json

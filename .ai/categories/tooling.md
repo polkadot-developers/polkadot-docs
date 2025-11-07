@@ -25913,7 +25913,7 @@ export default buildModule("StorageModule", (m) => {
 Deploy the contract to Polkadot Hub TestNet:
 
 ```bash
-npx hardhat ignition deploy ./ignition/modules/Storage.ts --network polkadotHub
+npx hardhat ignition deploy ./ignition/modules/Storage.ts --network polkadotTestNet
 ```
 
 You should see output similar to:

@@ -42,7 +42,7 @@ Explore more about ParaSpell through these resources:
 
 <div class="grid cards" markdown>
 
--   <span class="badge tutorial">Tutorial</span> __Transfer Assets between Parachains__
+-   <span class="badge tutorial">Tutorial</span> __Transfer Assets Between Parachains__
 
     ---
 

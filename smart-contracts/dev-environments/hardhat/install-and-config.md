@@ -30,10 +30,9 @@ Hardhat is a robust development environment for Ethereum-compatible chains that 
 
 Before getting started, ensure you have:
 
-- [Node.js](https://nodejs.org/){target=\_blank} (v16.0.0 or later) and npm installed.
-    - Note: Use Node.js 22.5+ and npm version 10.9.0+ to avoid issues with the Polkadot plugin.
-- Basic understanding of Solidity programming.
-- Some PAS test tokens to cover transaction fees (easily obtainable from the [Polkadot faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}). To learn how to get test tokens, check out the [Test Tokens](/develop/smart-contracts/connect-to-polkadot#test-tokens) section.
+- [Node.js](https://nodejs.org/){target=\_blank} (v18.0.0 or later) and npm installed
+- Basic understanding of Solidity programming
+- Some PAS test tokens to cover transaction fees (easily obtainable from the [Polkadot faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}). To learn how to get test tokens, check out the [Test Tokens](/develop/smart-contracts/connect-to-polkadot#test-tokens) section
 
 ## Set Up Hardhat
 
@@ -50,23 +49,23 @@ Before getting started, ensure you have:
     npm init -y
     ```
 
-3. To interact with Polkadot, Hardhat requires the following plugin to compile contracts to PolkaVM bytecode and to spawn a local node compatible with PolkaVM:
+3. Install Hardhat and the Hardhat Toolbox:
 
     ```bash
-    npm install --save-dev @parity/hardhat-polkadot@0.1.9
+    npm install --save-dev hardhat @nomicfoundation/hardhat-toolbox
     ```
 
 4. Create a Hardhat project:
 
     ```bash
-    npx hardhat-polkadot init
+    npx hardhat init
     ```
 
     Select **Create a JavaScript project** when prompted and follow the instructions. After that, your project will be created with three main folders:
 
-    - **`contracts`**: Where your Solidity smart contracts live.
-    - **`test`**: Contains your test files that validate contract functionality.
-    - **`ignition`**: Deployment modules for safely deploying your contracts to various networks.
+    - **`contracts`**: Where your Solidity smart contracts live
+    - **`test`**: Contains your test files that validate contract functionality
+    - **`ignition`**: Deployment modules for safely deploying your contracts to various networks
 
 5. Add the following folder to the `.gitignore` file if it is not already there:
 
@@ -74,37 +73,11 @@ Before getting started, ensure you have:
     echo '/ignition/deployments/' >> .gitignore
     ```
 
-6. Finish the setup by installing all the dependencies:
-
-    ```bash
-    npm install
-    ```
-
-    !!! note
-        This last step is needed to set up the `hardhat-polkadot` plugin. It will install the `@parity/hardhat-polkadot` package and all its dependencies. In the future, the plugin will handle this automatically.
-
 --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat-node-output.html'
-
-## Upgrading the Plugin
-
-If you already have a Hardhat Polkadot project and want to upgrade to a newer version of the plugin, to avoid errors (for example, `Cannot find module 'run-container'`), you can clean your dependencies by running the following commands:
-
-```bash
-rm -rf node_modules package-lock.json
-```
-
-After that, you can upgrade the plugin to the latest version by running the following commands:
-
-```bash
-npm install --save-dev @parity/hardhat-polkadot@latest
-npm install
-```
-
-Consider using [Node.js](https://nodejs.org/){target=\_blank} 22.18+ and [npm](https://www.npmjs.com/){target=\_blank} version 10.9.0+ to avoid issues with the plugin.
 
 ## Where to Go Next
 
-Hardhat provides a powerful environment for developing, testing, and deploying smart contracts on Polkadot Hub. Its plugin architecture allows seamless integration with PolkaVM through the `hardhat-resolc` and `hardhat-revive-node` plugins.
+Hardhat provides a powerful environment for developing, testing, and deploying smart contracts on Polkadot Hub. Its flexible configuration and extensive plugin ecosystem make it an excellent choice for EVM-compatible smart contract development.
 
 Explore more about smart contracts through these resources:
 

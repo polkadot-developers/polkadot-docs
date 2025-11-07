@@ -8,50 +8,30 @@ categories: Smart Contracts, Tooling
 
 ## Compile Your Contract
 
-The plugin will compile your Solidity contracts for Solidity versions `0.8.0` and higher to be PolkaVM compatible. When compiling your contract, there are two ways to configure your compilation process:
-
-- **npm compiler**: Uses library [@parity/resolc](https://www.npmjs.com/package/@parity/resolc){target=_blank} for simplicity and ease of use
-- **Binary compiler**: Uses your local `resolc` binary directly for more control and configuration options
+Hardhat compiles your Solidity contracts using the Solidity compiler (solc). The compilation process generates the ABI and bytecode needed for deployment and interaction.
 
 To compile your project, follow these instructions:
 
-1. Modify your Hardhat configuration file to specify which compilation process you will be using and activate the `polkavm` flag in the Hardhat network:
+1. Modify your Hardhat configuration file to specify the Solidity compiler version and optimization settings:
 
-    === "npm Configuration"
+    ```javascript title="hardhat.config.js"
+    require("@nomicfoundation/hardhat-toolbox");
 
-        ```javascript title="hardhat.config.js" hl_lines="9-11 14"
-        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:14'
-        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:33:35'
-        ```
-
-    === "Binary Configuration"
-
-        ```javascript title="hardhat.config.js" hl_lines="9-14 17"
-        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/binary-hardhat.config.js:1:17'
-        --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/binary-hardhat.config.js:36:38'
-        ```
-
-    For the binary configuration, replace `INSERT_PATH_TO_RESOLC_COMPILER` with the proper path to the binary. To obtain the binary, check the [releases](https://github.com/paritytech/revive/releases){target=\_blank} section of the `resolc` compiler, and download the latest version.
-
-    The default settings used can be found in the [`constants.ts`](https://github.com/paritytech/hardhat-polkadot/blob/v0.1.5/packages/hardhat-polkadot-resolc/src/constants.ts#L8-L23){target=\_blank} file of the `hardhat-polkadot` source code. You can change them according to your project needs. Generally, the recommended settings for optimized outputs are the following:
-
-    ```javascript title="hardhat.config.js" hl_lines="4-10"
-    resolc: {
-      ...
-      settings: {
-        optimizer: {
-          enabled: true,
-          parameters: 'z',
-          fallbackOz: true,
-          runs: 200,
+    /** @type import('hardhat/config').HardhatUserConfig */
+    module.exports = {
+      solidity: {
+        version: "0.8.27",
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 200,
+          },
         },
-        standardJson: true,
       },
-      ...
-    }
+    };
     ```
 
-    You can check the [`ResolcConfig`](https://github.com/paritytech/hardhat-polkadot/blob/v0.1.5/packages/hardhat-polkadot-resolc/src/types.ts#L26){target=\_blank} for more information about compilation settings.
+    The optimizer settings help reduce contract size and gas costs. You can adjust the `runs` parameter based on how frequently you expect your contract functions to be called.
 
 2. Compile the contract with Hardhat:
 
@@ -59,43 +39,25 @@ To compile your project, follow these instructions:
     npx hardhat compile
     ```
 
-After successful compilation, you will see the artifacts generated in the `artifacts-pvm` directory:
+After successful compilation, you will see the artifacts generated in the `artifacts` directory:
 
-    ```bash
-    ls artifacts-pvm/contracts/*.sol/
-    ```
+```bash
+ls artifacts/contracts/*.sol/
+```
 
-    You should see JSON files containing the contract ABI and bytecode of the contracts you compiled.
+You should see JSON files containing the contract ABI and bytecode of the contracts you compiled.
 
 ## Set Up a Testing Environment
 
-Hardhat allows you to spin up a local testing environment to test and validate your smart contract functionalities before deploying to live networks. The `hardhat-polkadot` plugin provides the possibility to spin up a local node with an ETH-RPC adapter for running local tests.
+Hardhat provides a built-in local Ethereum network for testing. You can use this network to run your tests without deploying to a live network.
 
-For complete isolation and control over the testing environment, you can configure Hardhat to work with a fresh local Substrate node. This approach is ideal when you want to test in a clean environment without any existing state or when you need specific node configurations.
-
-Configure a local node setup by adding the node binary path along with the ETH-RPC adapter path:
-
-```javascript title="hardhat.config.js" hl_lines="12-20"
---8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:1:4'
-
---8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:6:7'
-    ...
-    --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:12:24'
---8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:34:35'
-```
-
-`INSERT_PATH_TO_SUBSTRATE_NODE` and `INSERT_PATH_TO_ETH_RPC_ADAPTER` with the actual paths to your compiled binaries. The `dev: true` flag configures both the node and adapter for development mode. To obtain these binaries, check the [Installation](/develop/smart-contracts/local-development-node#install-the-substrate-node-and-eth-rpc-adapter) section on the Local Development Node page.
-
-!!! warning
-    If you are using the default `hardhat.config.js` created by the `hardhat-polkadot` plugin, it includes a `forking` section pointing to the Polkadot Hub TestNet. When you run `npx hardhat node`, Hardhat will start a fork of that network. To use your local node instead, comment out the `forking` section; otherwise, `npx hardhat node` will continue to use the forked network even if a local node is defined in the configuration.
-
-Once configured, start your chosen testing environment with:
+Start the local Hardhat network with:
 
 ```bash
 npx hardhat node
 ```
 
-This command will launch either the forked network or local node (depending on your configuration) along with the ETH-RPC adapter, providing you with a complete testing environment ready for contract deployment and interaction. By default, the Substrate node will be running on `localhost:8000` and the ETH-RPC adapter on `localhost:8545`.
+This command will launch a local Ethereum network on `http://127.0.0.1:8545` with 20 test accounts, each pre-funded with 10,000 ETH. The network will display all RPC calls and contract deployments in real-time.
 
 The output will be something like this:
 
@@ -103,14 +65,16 @@ The output will be something like this:
 
 ## Test Your Contract
 
-When testing your contract, be aware that `@nomicfoundation/hardhat-toolbox/network-helpers` is not fully compatible with Hardhat's network-helpers.
+Hardhat uses Mocha as its testing framework and Chai for assertions, both included in the Hardhat Toolbox.
 
-To run your test:
+To run your tests:
 
-1. Update the `hardhat.config.js` file accordingly to the [Set Up a Testing Environment](#set-up-a-testing-environment) section.
+1. Ensure your `hardhat.config.js` file is properly configured with the Solidity compiler settings as shown in the [Compile Your Contract](#compile-your-contract) section
 
 2. Execute the following command to run your tests:
 
     ```bash
     npx hardhat test
     ```
+
+    This will run all test files in the `test` directory. Hardhat automatically manages the test network lifecycle, so you don't need to run `npx hardhat node` separately for testing

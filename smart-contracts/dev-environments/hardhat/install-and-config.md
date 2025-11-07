@@ -56,16 +56,18 @@ Before getting started, ensure you have:
     ```bash
     npx hardhat --init
     ```
-    After initialization you will be promped in terminal to select **Hrdahat 3** version
+    After initialization you will be promped in terminal to select **Hardhat 2** version
 
-    After that you will be asked to **Create a JavaScript project** when prompted and follow the instructions. Select **"A TypeScript Hardhat project using Mocha and Ethers.js"**. 
+    After that you will be asked to **Create a JavaScript project** when prompted and follow the instructions. Select **"A JavaScript Hardhat project using Mocha and Ethers.js"**.
+
+    !!! note
+        Update **`package.json`** dependencies by replacing **`@nomicfoundation/hardhat-toolbox`** (v6.1.0, designed for Hardhat 2.x) with **`@nomicfoundation/hardhat-toolbox-mocha-ethers`** (v3.0.1, compatible with Hardhat 3.x) and add **`"type": "module"`**
     
     After that, your project will be created with three main folders:
 
     - **`contracts`**: Where your Solidity smart contracts live
     - **`test`**: Contains your test files that validate contract functionality
     - **`ignition`**: Deployment modules for safely deploying your contracts to various networks
-    - **`test`**: Contains automated tests for the smart contract using the Hardhat testing framework 
 
 5. Add the following folder to the `.gitignore` file if it is not already there:
 
@@ -89,7 +91,7 @@ Explore more about smart contracts through these resources:
 
     Dive into advanced smart contract concepts.
 
-    [:octicons-arrow-right-24: Get Started](docs/smart-contracts/dev-environments/hardhat/compile-and-test)
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/dev-environments/hardhat/compile-and-test)
 
 -   <span class="badge external">External</span> __Hardhat Documentation__
 

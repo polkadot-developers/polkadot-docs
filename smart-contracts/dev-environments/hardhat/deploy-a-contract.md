@@ -10,7 +10,7 @@ categories: Smart Contracts, Tooling
 
 This guide will use the Polkadot Hub TestNet as the target network. Here's how to configure and deploy:
 
-1. Fund your deployment account with enough tokens to cover gas fees. In this case, the needed tokens are PAS (on Polkadot Hub TestNet). You can use the [Polkadot faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank} to obtain testing tokens.
+1. Run a [Local Development Node](/smart-contracts/dev-environments/local-dev-node.md) to run a local dev node
 
 2. Export your private key and save it in your Hardhat environment.
 

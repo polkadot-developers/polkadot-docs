@@ -18,19 +18,21 @@ To compile your project, follow these instructions:
     require("@nomicfoundation/hardhat-toolbox");
 
     /** @type import('hardhat/config').HardhatUserConfig */
-    module.exports = {
-      solidity: {
-        version: "0.8.27",
+    import "@nomicfoundation/hardhat-toolbox-mocha-ethers";
+
+    /** @type import('hardhat/config').HardhatUserConfig */
+    export default {
+    solidity: {
+        version: "0.8.28",
         settings: {
-          optimizer: {
+        optimizer: {
             enabled: true,
             runs: 200,
-          },
         },
-      },
+        },
+    },
     };
     ```
-
     The optimizer settings help reduce contract size and gas costs. You can adjust the `runs` parameter based on how frequently you expect your contract functions to be called.
 
 2. Compile the contract with Hardhat:
@@ -61,7 +63,7 @@ This command will launch a local Ethereum network on `http://127.0.0.1:8545` wit
 
 The output will be something like this:
 
---8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat-node-output.html'
+--8<-- 'code/smart-contracts/dev-environments/hardhat/get-started/hardhat-node-output.html'
 
 ## Test Your Contract
 
@@ -77,4 +79,4 @@ To run your tests:
     npx hardhat test
     ```
 
-    This will run all test files in the `test` directory. Hardhat automatically manages the test network lifecycle, so you don't need to run `npx hardhat node` separately for testing
+    This will run all test files in the `test` directory. Hardhat automatically manages the test network lifecycle, so you don't need to run `npx hardhat node` separately for testing.

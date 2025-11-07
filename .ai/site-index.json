@@ -7867,7 +7867,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-parachains-consensus-async-backing.md",
     "html_url": "https://docs.polkadot.com/reference/parachains/consensus/async-backing/",
-    "preview": "Asynchronous backing (often shortened to ***Async Backing***) is a rollup [configuration](https://github.com/paritytech/polkadot-sdk/blob/f204e3264f945c33b4cea18a49f7232c180b07c5/polkadot/primitives/src/vstaging/mod.rs#L43) set by on-chain governance. It allows collators and validators to build *some* number of blocks ahead of the relay chain during the **generation** and **backing** stages of the [Inclusion Pipeline](/reference/parachains/consensus/inclusion-pipeline).",
+    "preview": "Asynchronous backing (often shortened to ***Async Backing***) is a parachain [configuration](https://github.com/paritytech/polkadot-sdk/blob/f204e3264f945c33b4cea18a49f7232c180b07c5/polkadot/primitives/src/vstaging/mod.rs#L43) set by on-chain governance. It allows collators and validators to build *some* number of blocks ahead of the relay chain during the **generation** and **backing** stages of the [Inclusion Pipeline](/reference/parachains/consensus/inclusion-pipeline).",
     "outline": [
       {
         "depth": 2,
@@ -7881,12 +7881,12 @@
       }
     ],
     "stats": {
-      "chars": 9659,
-      "words": 1143,
+      "chars": 9656,
+      "words": 1139,
       "headings": 2,
-      "estimated_token_count_total": 1933
+      "estimated_token_count_total": 1929
     },
-    "hash": "sha256:9b7de99873f6764777570f5f043d733af261bb41ad10f01975a69aa10a3ca615",
+    "hash": "sha256:3c354e7d1ec71ff119a4e9989f55c4f3308fa118c909b057d6bdfd57b9051af6",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -7959,15 +7959,15 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-parachains-consensus-inclusion-pipeline.md",
     "html_url": "https://docs.polkadot.com/reference/parachains/consensus/inclusion-pipeline/",
-    "preview": "The mulit-step pipeline through which rollup blocks are processed into the Polkadot relay chain:",
+    "preview": "The mulit-step pipeline through which parablocks are processed into the Polkadot relay chain:",
     "outline": [],
     "stats": {
-      "chars": 2105,
-      "words": 320,
+      "chars": 2085,
+      "words": 312,
       "headings": 0,
       "estimated_token_count_total": 0
     },
-    "hash": "sha256:403600fd76ff43949737a105723b7adad70a34da2ec20426d8608da278a7ecc0",
+    "hash": "sha256:6073cd7351660548fb608cf599873543e0c2ec7e34966e386384c5145db5e1c8",
     "token_estimator": "heuristic-v1"
   },
   {

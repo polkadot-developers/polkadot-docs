@@ -763,23 +763,23 @@ Page Title: Asynchronous Backing
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-parachains-consensus-async-backing.md
 - Canonical (HTML): https://docs.polkadot.com/reference/parachains/consensus/async-backing/
-- Summary: Understand how asynchronous backing pipelines rollup block production, the protocol changes it introduces on the Relay Chain, and how rollups participate safely and efficiently.
+- Summary: Understand how asynchronous backing pipelines parachain block production, the protocol changes it introduces on the Relay Chain, and how parachains participate safely and efficiently.
 
-Asynchronous backing (often shortened to ***Async Backing***) is a rollup [configuration](https://github.com/paritytech/polkadot-sdk/blob/f204e3264f945c33b4cea18a49f7232c180b07c5/polkadot/primitives/src/vstaging/mod.rs#L43) set by on-chain governance. It allows collators and validators to build *some* number of blocks ahead of the relay chain during the **generation** and **backing** stages of the [Inclusion Pipeline](/reference/parachains/consensus/inclusion-pipeline).
+Asynchronous backing (often shortened to ***Async Backing***) is a parachain [configuration](https://github.com/paritytech/polkadot-sdk/blob/f204e3264f945c33b4cea18a49f7232c180b07c5/polkadot/primitives/src/vstaging/mod.rs#L43) set by on-chain governance. It allows collators and validators to build *some* number of blocks ahead of the relay chain during the **generation** and **backing** stages of the [Inclusion Pipeline](/reference/parachains/consensus/inclusion-pipeline).
 
-Async Backing improves throughput of the overall Polkadot Network by using coretime more efficiently, and enables the parallel processing needed for rollups to further scale throughput via [Elastic Scaling](/reference/parachains/consensus/elastic-scaling){target=\_blank}.
+Async Backing improves throughput of the overall Polkadot Network by using coretime more efficiently, and enables the parallel processing needed for parachains to further scale throughput via [Elastic Scaling](/reference/parachains/consensus/elastic-scaling){target=\_blank}.
 
 ## Configurations
-The following configurations can be set by onchain governance, dictating how many blocks ahead of the relay chain a given rollup's collators can run:
+The following configurations can be set by onchain governance, dictating how many blocks ahead of the relay chain a given parachain's collators can run:
 
-* [`max_candidate_depth`](https://github.com/paritytech/polkadot-sdk/blob/f204e3264f945c33b4cea18a49f7232c180b07c5/polkadot/primitives/src/vstaging/mod.rs#L49): the number of blocks a rollup collator can produce that are not yet included in the relay chain. A value of `2` means that there can be a maximum of 3 unincluded rollup blocks at any given time.
-* [`allowed_ancestry_len`](https://github.com/paritytech/polkadot-sdk/blob/f204e3264f945c33b4cea18a49f7232c180b07c5/polkadot/primitives/src/vstaging/mod.rs#L54): the oldest relay parent a rollup block can be built on top of. A value of `1` means collators can start building blocks 6 seconds in advance.
+* [`max_candidate_depth`](https://github.com/paritytech/polkadot-sdk/blob/f204e3264f945c33b4cea18a49f7232c180b07c5/polkadot/primitives/src/vstaging/mod.rs#L49): the number of parablocks a collator can produce that are not yet included in the relay chain. A value of `2` means that there can be a maximum of 3 unincluded parablocks at any given time.
+* [`allowed_ancestry_len`](https://github.com/paritytech/polkadot-sdk/blob/f204e3264f945c33b4cea18a49f7232c180b07c5/polkadot/primitives/src/vstaging/mod.rs#L54): the oldest relay parent a parablock can be built on top of. A value of `1` means collators can start building blocks 6 seconds in advance.
 
 ## Synchronous VS. Asynchronous Processing
 
 *in progress*
 
-In the synchronous scenario, both the collators and validators draw context from the relay parent of the prior rollup block, which lives on the relay chain. This makes the Backing and Generation steps tightly coupled to the prior parablock completing the inclusion pipeline. As a result, one parablock can be processed every other relay block, and only `0.5` seconds are assigned for execution.
+In the synchronous scenario, both the collators and validators draw context from the relay parent of the prior parablock, which lives on the relay chain. This makes the Backing and Generation steps tightly coupled to the prior parablock completing the inclusion pipeline. As a result, one parablock can be processed every other relay block, and only `0.5` seconds are assigned for execution.
 
 <div className="merm-16x9">
 ```mermaid
@@ -5344,7 +5344,7 @@ Page Title: Inclusion Pipeline
 - Canonical (HTML): https://docs.polkadot.com/reference/parachains/consensus/inclusion-pipeline/
 - Summary: TODO!
 
-The mulit-step pipeline through which rollup blocks are processed into the Polkadot relay chain:
+The mulit-step pipeline through which parablocks are processed into the Polkadot relay chain:
 
 ```mermaid
 %%{init: {"flowchart": {"nodeSpacing": 40, "rankSpacing": 60}}}%%
@@ -5363,17 +5363,17 @@ flowchart LR
 
   classDef nobox fill:none,stroke:none,color:inherit;
 ```
-**Context**: Context of state is provided as input in order for collators and validators to build a rollup block during the generation and backing stages, respectively. This context is provided by two sources:
+**Context**: Context of state is provided as input in order for collators and validators to build a parablocks during the generation and backing stages, respectively. This context is provided by two sources:
 
-* **Relay Parent**: The relay chain block which a given rollup block is anchored to. Note that the relay parent of a rollup block and the relay block including that rollup block are always different. This context source lives on the relay chain.
+* **Relay Parent**: The relay chain block which a given parablock is anchored to. Note that the relay parent of a parablock and the relay block including that parablock are always different. This context source lives on the relay chain.
 
-* **Unincluded Segments**: Chains of candidate rollup blocks that have yet to be included in the relay chain, i.e. they can contain blocks at any stage pre-inclusion. The core functionality that asynchronous backing brings is the ability to build on these unincluded segments of block ancestors rather than building only on ancestors included in the relay chain state. This context source lives on the collators.
+* **Unincluded Segments**: Chains of candidate parablocks that have yet to be included in the relay chain, i.e. they can contain blocks at any stage pre-inclusion. The core functionality that asynchronous backing brings is the ability to build on these unincluded segments of block ancestors rather than building only on ancestors included in the relay chain state. This context source lives on the collators.
 
 **Generation**: Collators *execute* their blockchain's core functionality to generate a new block, producing a [candidate receipt](), which is passed to validators selected for backing.
 
-**Backing**: A subset of active validators verify if the rollup block follows the state transition rules of the rollup and sign *Proof of Validity* (PoV) statements that can have a positive or negative outcome. With enough positive statements, the block is backed and included in the relay chain, but is still pending approval.
+**Backing**: A subset of active validators verify if the parablock follows the state transition rules of the parachain and sign *Proof of Validity* (PoV) statements that can have a positive or negative outcome. With enough positive statements, the block is backed and included in the relay chain, but is still pending approval.
 
-**Inclusion**: Validators gossip [erasure code chunks]() and put the rollup block through the final [approval process]() before it is considered *included* in the relay chain.
+**Inclusion**: Validators gossip [erasure code chunks]() and put the parablock through the final [approval process]() before it is considered *included* in the relay chain.
 
 
 ---

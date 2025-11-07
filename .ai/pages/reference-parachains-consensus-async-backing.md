@@ -1,25 +1,25 @@
 ---
 title: Asynchronous Backing
-description: Understand how asynchronous backing pipelines rollup block production, the protocol changes it introduces on the Relay Chain, and how rollups participate safely and efficiently.
+description: Understand how asynchronous backing pipelines parachain block production, the protocol changes it introduces on the Relay Chain, and how parachains participate safely and efficiently.
 categories: Polkadot Protocol
 url: https://docs.polkadot.com/reference/parachains/consensus/async-backing/
 ---
 
-Asynchronous backing (often shortened to ***Async Backing***) is a rollup [configuration](https://github.com/paritytech/polkadot-sdk/blob/f204e3264f945c33b4cea18a49f7232c180b07c5/polkadot/primitives/src/vstaging/mod.rs#L43) set by on-chain governance. It allows collators and validators to build *some* number of blocks ahead of the relay chain during the **generation** and **backing** stages of the [Inclusion Pipeline](/reference/parachains/consensus/inclusion-pipeline).
+Asynchronous backing (often shortened to ***Async Backing***) is a parachain [configuration](https://github.com/paritytech/polkadot-sdk/blob/f204e3264f945c33b4cea18a49f7232c180b07c5/polkadot/primitives/src/vstaging/mod.rs#L43) set by on-chain governance. It allows collators and validators to build *some* number of blocks ahead of the relay chain during the **generation** and **backing** stages of the [Inclusion Pipeline](/reference/parachains/consensus/inclusion-pipeline).
 
-Async Backing improves throughput of the overall Polkadot Network by using coretime more efficiently, and enables the parallel processing needed for rollups to further scale throughput via [Elastic Scaling](/reference/parachains/consensus/elastic-scaling){target=\_blank}.
+Async Backing improves throughput of the overall Polkadot Network by using coretime more efficiently, and enables the parallel processing needed for parachains to further scale throughput via [Elastic Scaling](/reference/parachains/consensus/elastic-scaling){target=\_blank}.
 
 ## Configurations
-The following configurations can be set by onchain governance, dictating how many blocks ahead of the relay chain a given rollup's collators can run:
+The following configurations can be set by onchain governance, dictating how many blocks ahead of the relay chain a given parachain's collators can run:
 
-* [`max_candidate_depth`](https://github.com/paritytech/polkadot-sdk/blob/f204e3264f945c33b4cea18a49f7232c180b07c5/polkadot/primitives/src/vstaging/mod.rs#L49): the number of blocks a rollup collator can produce that are not yet included in the relay chain. A value of `2` means that there can be a maximum of 3 unincluded rollup blocks at any given time.
-* [`allowed_ancestry_len`](https://github.com/paritytech/polkadot-sdk/blob/f204e3264f945c33b4cea18a49f7232c180b07c5/polkadot/primitives/src/vstaging/mod.rs#L54): the oldest relay parent a rollup block can be built on top of. A value of `1` means collators can start building blocks 6 seconds in advance.
+* [`max_candidate_depth`](https://github.com/paritytech/polkadot-sdk/blob/f204e3264f945c33b4cea18a49f7232c180b07c5/polkadot/primitives/src/vstaging/mod.rs#L49): the number of parablocks a collator can produce that are not yet included in the relay chain. A value of `2` means that there can be a maximum of 3 unincluded parablocks at any given time.
+* [`allowed_ancestry_len`](https://github.com/paritytech/polkadot-sdk/blob/f204e3264f945c33b4cea18a49f7232c180b07c5/polkadot/primitives/src/vstaging/mod.rs#L54): the oldest relay parent a parablock can be built on top of. A value of `1` means collators can start building blocks 6 seconds in advance.
 
 ## Synchronous VS. Asynchronous Processing
 
 *in progress*
 
-In the synchronous scenario, both the collators and validators draw context from the relay parent of the prior rollup block, which lives on the relay chain. This makes the Backing and Generation steps tightly coupled to the prior parablock completing the inclusion pipeline. As a result, one parablock can be processed every other relay block, and only `0.5` seconds are assigned for execution.
+In the synchronous scenario, both the collators and validators draw context from the relay parent of the prior parablock, which lives on the relay chain. This makes the Backing and Generation steps tightly coupled to the prior parablock completing the inclusion pipeline. As a result, one parablock can be processed every other relay block, and only `0.5` seconds are assigned for execution.
 
 <div className="merm-16x9">
 ```mermaid

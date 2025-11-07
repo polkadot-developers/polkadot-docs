@@ -1,9 +1,0 @@
-title: Smart Contract Basics
-nav:
-  - index.md
-  - 'Overview': overview.md
-  - 'PolkaVM Design': polkavm-design.md
-  - 'EVM vs PolkaVM': evm-vs-polkavm.md
-  - 'Accounts': accounts.md
-  - 'Networks': networks.md
-  - 'Blocks, Transactions and Fees' : blocks-transactions-fees.md

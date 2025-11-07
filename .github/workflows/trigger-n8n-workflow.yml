@@ -481,7 +481,28 @@ jobs:
           PY
           )"
             if [[ -n "$HEADER_SIG" ]]; then
-              EXPECTED_SIG="sha256=$(printf '%s' "$HTTP_BODY" | openssl dgst -binary -sha256 -hmac "$N8N_RECEIVING_TOKEN" | base64 | tr -d '\n')"
+              PAYLOAD_FOR_SIG="$(
+                HTTP_BODY_VAR="$HTTP_BODY" python3 - <<'PY'
+          import json
+          import os
+
+          body = os.environ.get("HTTP_BODY_VAR", "")
+          try:
+              data = json.loads(body)
+          except json.JSONDecodeError:
+              data = None
+
+          payload = data.get("payload") if isinstance(data, dict) else None
+          if payload is None:
+              raise SystemExit(0)
+
+          print(json.dumps(payload, separators=(",", ":")), end="")
+          PY
+              )"
+              if [[ -z "$PAYLOAD_FOR_SIG" ]]; then
+                PAYLOAD_FOR_SIG="$HTTP_BODY"
+              fi
+              EXPECTED_SIG="sha256=$(printf '%s' "$PAYLOAD_FOR_SIG" | openssl dgst -binary -sha256 -hmac "$N8N_RECEIVING_TOKEN" | base64 | tr -d '\n')"
               if [[ "$HEADER_SIG" != "$EXPECTED_SIG" ]]; then
                 echo "Response signature mismatch."
                 echo "error=true" >> "$GITHUB_OUTPUT"

@@ -62,7 +62,7 @@ Once deployed, you can create a script to interact with your contract. To do so,
 For example, for the default `Lock.sol` contract, you can use the following file that connects to the contract at its address and retrieves the `unlockTime`, which represents when funds can be withdrawn. The script converts this timestamp into a readable date and logs it. It then checks the contract's balance and displays it. Finally, it attempts to call the withdrawal function on the contract, but it catches and logs the error message if the withdrawal is not yet allowed (e.g., before `unlockTime`).
 
 ```javascript title="interact.js"
---8<-- 'code/smart-contracts/dev-environments/hardhat/interact.js'
+--8<-- 'code/smart-contracts/dev-environments/hardhat/get-started/interact.js'
 ```
 
 Run your interaction script.

@@ -553,6 +553,7 @@ jobs:
 
       # Step 14: Restore response payload from upstream output
       - name: Restore response payload
+        id: restore_payload
         if: ${{ needs.gather-and-send.outputs.response_payload != '' }}
         run: |
           set -euo pipefail
@@ -562,9 +563,11 @@ jobs:
             exit 1
           fi
           printf '%s' "$payload" | base64 -d > response_body.json
+          echo "restored=true" >> "$GITHUB_OUTPUT"
 
       # Step 16: Prepare grouped review batches
       - name: Prepare batched review payloads
+        if: ${{ steps.restore_payload.outputs.restored == 'true' }}
         run: |
           python3 - <<'PY'
           from pathlib import Path
@@ -659,6 +662,7 @@ jobs:
 
       # Step 17: Post grouped inline suggestions
       - name: Post batched inline suggestions
+        if: ${{ steps.restore_payload.outputs.restored == 'true' }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -733,6 +737,7 @@ jobs:
 
       # Step 18: Publish any verification reviews
       - name: Post verification comments
+        if: ${{ steps.restore_payload.outputs.restored == 'true' }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |

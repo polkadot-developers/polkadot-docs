@@ -72,7 +72,7 @@ Before getting started, ensure you have:
     echo '/ignition/deployments/' >> .gitignore
     ```
 
---8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat-node-output.html'
+--8<-- 'code/smart-contracts/dev-environments/hardhat/get-started/hardhat-node-output.html'
 
 ## Where to Go Next
 

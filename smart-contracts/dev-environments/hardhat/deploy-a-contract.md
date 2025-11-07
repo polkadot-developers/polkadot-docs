@@ -8,7 +8,7 @@ categories: Smart Contracts, Tooling
 
 ## Deploying to a Live Network
 
-This guide will use the Polkadot Hub TestNet as the target network. Here's how to configure and deploy:
+This guide will use the Local Development Node as the target network. Here's how to configure and deploy:
 
 1. Run a [Local Development Node](/smart-contracts/dev-environments/local-dev-node.md) to run a local dev node
 

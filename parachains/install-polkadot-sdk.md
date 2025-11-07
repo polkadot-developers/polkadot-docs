@@ -13,9 +13,7 @@ This guide provides step-by-step instructions for installing the Polkadot SDK on
 
 Follow the appropriate section for your operating system to ensure all necessary tools are installed and configured properly.
 
-## Install Dependencies
-
-## macOS
+## Install Dependencies: macOS
 
 You can install Rust and set up a Substrate development environment on Apple macOS computers with Intel or Apple M1 processors.
 
@@ -60,7 +58,7 @@ Protobuf must be installed before the build process can begin. To install it, ru
 brew install protobuf
 ```
 
-### Install Required Packages and Rust
+### Install Required Packages and Rust {: #install-required-packages-and-rust-mac-os }
 
 Because the blockchain requires standard cryptography to support the generation of public/private key pairs and the validation of transaction signatures, you must also have a package that provides cryptography, such as `openssl`.
 
@@ -109,7 +107,7 @@ To install `openssl` and the Rust toolchain on macOS:
 
 9. Proceed to [Build the Polkadot SDK](#build-the-polkadot-sdk).
 
-## Linux
+## Install Dependencies: Linux
 
 Rust supports most Linux distributions. Depending on the specific distribution and version of the operating system you use, you might need to add some software dependencies to your environment. In general, your development environment should include a linker or a C-compatible compiler, such as `clang`, and an appropriate integrated development environment (IDE).
 
@@ -129,7 +127,7 @@ clang curl git make
 
 Because the blockchain requires standard cryptography to support the generation of public/private key pairs and the validation of transaction signatures, you must also have a package that provides cryptography, such as `libssl-dev` or `openssl-devel`.
 
-### Install Required Packages and Rust
+### Install Required Packages and Rust {: #install-required-packages-and-rust-linux }
 
 To install the Rust toolchain on Linux:
 
@@ -200,7 +198,7 @@ To install the Rust toolchain on Linux:
 
 9. Proceed to [Build the Polkadot SDK](#build-the-polkadot-sdk).
 
-## Windows (WSL)
+## Install Dependencies: Windows (WSL)
 
 In general, UNIX-based operating systems—like macOS or Linux—provide a better development environment for building Substrate-based blockchains.
 
@@ -251,7 +249,7 @@ To prepare a development environment using WSL:
 
     For more information about setting up WSL as a development environment, see the [Set up a WSL development environment](https://learn.microsoft.com/en-us/windows/wsl/setup/environment){target=\_blank} docs.
 
-### Install Required Packages and Rust
+### Install Required Packages and Rust {: #install-required-packages-and-rust-windows-wls }
 
 To install the Rust toolchain on WSL:
 

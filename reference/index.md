@@ -14,7 +14,7 @@ This guide organizes technical documentation across five core areas: **Polkadot 
 
 ## Polkadot Hub
 
-[Polkadot Hub](/reference/polkadot-hub/) is the entry point to Polkadot for all users and application developers. It provides access to essential Web3 services including smart contracts, staking, governance, identity management, and cross-ecosystem interoperability—without requiring you to deploy or manage a parachain.
+[Polkadot Hub](/reference/polkadot-hub/){target=\_blank} is the entry point to Polkadot for all users and application developers. It provides access to essential Web3 services including smart contracts, staking, governance, identity management, and cross-ecosystem interoperability—without requiring you to deploy or manage a parachain.
 
 The Hub encompasses a set of core functionality that enables developers and users to build and interact with applications on Polkadot. Key capabilities include:
 
@@ -28,7 +28,7 @@ The Hub encompasses a set of core functionality that enables developers and user
 
 ## Parachains
 
-[Parachains](/reference/parachains/) are specialized blockchains that connect to the Polkadot relay chain, inheriting its security while maintaining their own application-specific logic. The parachains documentation covers:
+[Parachains](/reference/parachains/){target=\_blank} are specialized blockchains that connect to the Polkadot relay chain, inheriting its security while maintaining their own application-specific logic. The parachains documentation covers:
 
 - **Accounts**: Deep dive into account types, storage, and management on parachains.
 - **Blocks, Transactions & Fees**: Understand block production, transaction inclusion, and fee mechanisms.
@@ -52,7 +52,7 @@ The Hub encompasses a set of core functionality that enables developers and user
 
 ## Glossary
 
-The [Glossary](/reference/glossary/) provides quick-reference definitions for Polkadot-specific terminology. Essential terms include:
+The [Glossary](/reference/glossary/){target=\_blank} provides quick-reference definitions for Polkadot-specific terminology. Essential terms include:
 
 - Blockchain concepts (blocks, transactions, state)
 - Consensus mechanisms (validators, collators, finality)
@@ -62,24 +62,15 @@ The [Glossary](/reference/glossary/) provides quick-reference definitions for Po
 
 ## Tools
 
-The [Tools](/reference/tools/) section documents essential development and interaction tools for the Polkadot ecosystem:
+The [Tools](/reference/tools/){target=\_blank} section documents essential development and interaction tools for the Polkadot ecosystem:
 
 - **Light Clients**: Lightweight solutions for interacting with the network without running full nodes.
-- **JavaScript/TypeScript Tools**: Libraries like [Polkadot.js API](/reference/tools/polkadot-js-api/) and [PAPI](/reference/tools/papi/) for building applications.
-- **Rust Tools**: [Polkadart](/reference/tools/polkadart/) and other Rust-based libraries for SDK development.
-- **Python Tools**: [py-substrate-interface](/reference/tools/py-substrate-interface/) for Python developers.
-- **Testing & Development**: Tools like [Moonwall](/reference/tools/moonwall/), [Chopsticks](/reference/tools/chopsticks/), and [Omninode](/reference/tools/omninode/) for smart contract and parachain testing.
-- **Indexing & Monitoring**: [Sidecar](/reference/tools/sidecar/) for data indexing and [Dedot](/reference/tools/dedot/) for substrate interaction.
-- **Cross-Chain Tools**: [ParaSpell](/reference/tools/paraspell/) for XCM integration and asset transfers.
-
-## Navigating the Technical Reference
-
-The Technical Reference is designed for different audiences:
-
-- **Protocol Developers**: Explore the Polkadot Hub and Parachains sections to understand the underlying architecture and consensus mechanisms.
-- **Parachain Builders**: Start with the Parachains section to understand chain design, then dive into specific topics like consensus, data encoding, and interoperability.
-- **Network Participants**: Review the On-Chain Governance section to understand how to participate in Polkadot's decision-making.
-- **Application Developers**: Focus on the Tools section and the Parachains documentation to build dApps and interact with the network.
+- **JavaScript/TypeScript Tools**: Libraries like [Polkadot.js API](/reference/tools/polkadot-js-api/){target=\_blank} and [PAPI](/reference/tools/papi/){target=\_blank} for building applications.
+- **Rust Tools**: [Polkadart](/reference/tools/polkadart/){target=\_blank} and other Rust-based libraries for SDK development.
+- **Python Tools**: [py-substrate-interface](/reference/tools/py-substrate-interface/){target=\_blank} for Python developers.
+- **Testing & Development**: Tools like [Moonwall](/reference/tools/moonwall/){target=\_blank}, [Chopsticks](/reference/tools/chopsticks/){target=\_blank}, and [Omninode](/reference/tools/omninode/){target=\_blank} for smart contract and parachain testing.
+- **Indexing & Monitoring**: [Sidecar](/reference/tools/sidecar/){target=\_blank} for data indexing and [Dedot](/reference/tools/dedot/){target=\_blank} for substrate interaction.
+- **Cross-Chain Tools**: [ParaSpell](/reference/tools/paraspell/){target=\_blank} for XCM integration and asset transfers.
 
 ## Where to Go Next
 

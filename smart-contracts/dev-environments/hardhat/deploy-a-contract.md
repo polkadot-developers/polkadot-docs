@@ -1,6 +1,6 @@
 ---
 title: Deploy Smart Contracts with Hardhat
-description: Learn how to deploy smart contracts to Local Development Node using Hardhatand deployments with Ignition modules.
+description: Learn how to deploy smart contracts to Local Development Node using Hardhat and deployments with Ignition modules.
 categories: Smart Contracts, Tooling
 ---
 
@@ -12,7 +12,7 @@ categories: Smart Contracts, Tooling
 
 This guide will use the Local Development Node as the target network. Here's how to configure and deploy:
 
-1. Run a [Local Development Node](/smart-contracts/dev-environments/local-dev-node.md) to run a local dev node
+1. Ensure you have a local development node running. Check the [Local Development Node](/smart-contracts/dev-environments/local-dev-node/){target=_blank} guide on how to run a local dev node.
 
 2. Export your private key and save it in your Hardhat environment.
 

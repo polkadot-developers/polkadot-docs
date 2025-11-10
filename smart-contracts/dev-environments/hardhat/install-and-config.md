@@ -14,7 +14,7 @@ This guide walks you through installing and setting up Hardhat for smart contrac
 
 Before getting started, ensure you have:
 
-- [Node.js](https://nodejs.org/){target=\_blank} (Hardhat requires an LTS version, even major numbers like 18.x, 20.x, or 22.x) and npm installed
+- [Node.js](https://nodejs.org/){target=\_blank} (Hardhat requires an LTS Node version, even major numbers like 18.x, 20.x, or 22.x) and npm installed
 - Basic understanding of Solidity programming
 - Make sure that your Hardhat version is set to 2.x
 
@@ -45,7 +45,7 @@ Before getting started, ensure you have:
     npx hardhat init
     ```
 
-    After that you will be asked to **Create a JavaScript project**.
+    Afterward, you will be prompted to select certain configurations for your project. You can choose **Create a JavaScript project** and then fill out the remaining options based on your preferences.
     
     After that, your project will be created with three main folders:
 

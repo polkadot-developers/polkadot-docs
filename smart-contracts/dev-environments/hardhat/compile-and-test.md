@@ -55,7 +55,7 @@ The output will be something like this:
 
 ## Test Your Contract
 
-Hardhat uses Mocha as its testing framework and Chai for assertions, both included in the Hardhat Toolbox.
+Hardhat uses [Mocha](https://mochajs.org/){target=\_blank} as its testing framework and [Chai](https://www.chaijs.com/){target=\_blank} for assertions, both included in the [Hardhat Toolbox](https://v2.hardhat.org/hardhat-runner/plugins/nomicfoundation-hardhat-toolbox){target=\_blank}.
 
 To run your tests execute the following command to run your tests:
 

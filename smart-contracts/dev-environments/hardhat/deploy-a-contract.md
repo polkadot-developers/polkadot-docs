@@ -42,7 +42,7 @@ This guide will use the Local Development Node as the target network. Here's how
     module.exports = {
       solidity: "0.8.28",
       networks: {
-        polkadotHubLocal: {
+        polkadotTestNet: {
           url: "http://localhost:8545",
           chainId: 420420420,
           accounts: [PRIVATE_KEY]

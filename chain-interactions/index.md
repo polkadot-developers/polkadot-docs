@@ -28,11 +28,11 @@ Accessing blockchain state is fundamental to building responsive applications. P
 
 - **[SDK integration](/chain-interactions/query-data/query-sdks/)**: Programmatically read blockchain state using:
 
-    - [Polkadot API (PAPI)](/reference/tools/papi/){target=\_blank}
-    - [Polkadot.js](/reference/tools/polkadot-js-api/){target=\_blank}
-    - [Dedot](/reference/tools/dedot/){target=\_blank}
-    - [PSI](https://github.com/paritytech/psi){target=\_blank}
-    - [Subxt](/reference/tools/subxt/){target=\_blank}
+    - [Polkadot API (PAPI)](/reference/tools/papi/)
+    - [Polkadot.js](/reference/tools/polkadot-js-api/)
+    - [Dedot](/reference/tools/dedot/)
+    - [Python Substrate Interface](/reference/tools/py-substrate-interface/)
+    - [Subxt](/reference/tools/subxt/)
 
 - **[REST API access](/chain-interactions/query-data/query-rest/)**: Query chain data through standardized REST endpoints for simpler integration.
 - **[Runtime API calls](/chain-interactions/query-data/runtime-api-calls/)**: Execute runtime APIs directly for specialized queries and operations.
@@ -72,12 +72,12 @@ Account management forms the basis of user identity and authentication in blockc
 
 The Polkadot ecosystem offers a rich set of tools and libraries to facilitate chain interactions:
 
-- **[Polkadot API (PAPI)](/reference/tools/papi/){target=\_blank}**: Modern, type-safe TypeScript library with full metadata support.
-- **[Polkadot.js](/reference/tools/polkadot-js-api/){target=\_blank}**: Comprehensive JavaScript library with extensive ecosystem support.
-- **[Dedot](/reference/tools/dedot/){target=\_blank}**: Lightweight TypeScript library optimized for performance.
-- **[PSI](https://github.com/paritytech/psi){target=\_blank}**: Polkadot Substrate Interface for streamlined development.
-- **[Subxt](/reference/tools/subxt/){target=\_blank}**: Rust library for building robust substrate-based applications.
-- **[Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank}**: Web-based interface for exploring and interacting with chains.
+- **[Polkadot API (PAPI)](/reference/tools/papi/)**: Modern, type-safe TypeScript library with full metadata support.
+- **[Polkadot.js](/reference/tools/polkadot-js-api/)**: Comprehensive JavaScript library with extensive ecosystem support.
+- **[Dedot](/reference/tools/dedot/)**: Lightweight TypeScript library optimized for performance.
+- **[Python Substrate Interface](/reference/tools/py-substrate-interface/)**: Polkadot Substrate Interface for streamlined development.
+- **[Subxt](/reference/tools/subxt/)**: Rust library for building robust substrate-based applications.
+- **[Polkadot.js Apps](https://polkadot.js.org/apps/)**: Web-based interface for exploring and interacting with chains.
 
 Each tool has its strengths, and choosing the right one depends on your project requirements, programming language preference, and specific use cases.
 

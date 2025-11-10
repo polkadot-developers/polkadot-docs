@@ -1,26 +1,14 @@
 ---
-# Install and Configure Hardhat for Polkadot Hub
+title: Install and Configure Hardhat
 description: Learn how to install and configure Hardhat development environment for building smart contracts on Polkadot Hub with PolkaVM support.
 categories: Smart Contracts, Tooling
 ---
 
 # Hardhat
 
-<div class="grid cards" markdown>
--   :octicons-code-16:{ .lg .middle } __Test and Deploy with Hardhat__
-
-    ---
-
-    Master Solidity smart contract development with Hardhat. Learn testing, deployment, and network interaction in one comprehensive tutorial.
-
-    <br>
-    [:octicons-arrow-right-24: Get Started](/tutorials/smart-contracts/launch-your-first-project/test-and-deploy-with-hardhat)
-
-</div>
-
 ## Overview
 
-Hardhat is a robust development environment for Ethereum-compatible chains that makes smart contract development more efficient. This guide walks you through the essentials of using Hardhat to create, compile, test, and deploy smart contracts on Polkadot Hub.
+This guide walks you through installing and setting up Hardhat for smart contract development on Polkadot Hub.
 
 ## Prerequisites
 
@@ -71,8 +59,6 @@ Before getting started, ensure you have:
     echo '/ignition/deployments/' >> .gitignore
     ```
 
---8<-- 'code/smart-contracts/dev-environments/hardhat/get-started/hardhat-node-output.html'
-
 ## Where to Go Next
 
 Hardhat provides a powerful environment for developing, testing, and deploying smart contracts on Polkadot Hub. Its flexible configuration and extensive plugin ecosystem make it an excellent choice for EVM-compatible smart contract development.
@@ -85,7 +71,7 @@ Explore more about smart contracts through these resources:
 
     ---
 
-    Dive into advanced smart contract concepts.
+    Learn how to compile your smart contracts and run tests to ensure they function correctly before deployment.
 
     [:octicons-arrow-right-24: Get Started](/smart-contracts/dev-environments/hardhat/compile-and-test)
 

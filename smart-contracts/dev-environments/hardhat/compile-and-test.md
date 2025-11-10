@@ -12,7 +12,7 @@ Hardhat compiles your Solidity contracts using the Solidity compiler (solc). The
 
 To compile your project, follow these instructions:
 
-1. Modify your Hardhat configuration file to specify the Solidity compiler version and optimization settings:
+1. Make sure that your Hardhat configuration file matches the Solidity compiler version shown in the code snippet below:
 
 ```javascript title="hardhat.config.js"
 require("@nomicfoundation/hardhat-toolbox");
@@ -51,20 +51,36 @@ This command will launch a local Ethereum network on `http://127.0.0.1:8545` wit
 
 The output will be something like this:
 
---8<-- 'code/smart-contracts/dev-environments/hardhat/get-started/hardhat-node-output.html'
+--8<-- 'code/smart-contracts/dev-environments/hardhat/compile-and-test/hardhat-node-output.html'
 
 ## Test Your Contract
 
 Hardhat uses Mocha as its testing framework and Chai for assertions, both included in the Hardhat Toolbox.
 
-To run your tests:
-
-1. Ensure your `hardhat.config.js` file is properly configured with the Solidity compiler settings as shown in the [Compile Your Contract](#compile-your-contract) section
-
-2. Execute the following command to run your tests:
+To run your tests execute the following command to run your tests:
 
     ```bash
     npx hardhat test
     ```
 
-    This will run all test files in the `test` directory. Hardhat automatically manages the test network lifecycle, so you don't need to run `npx hardhat node` separately for testing.
+This will run all test files in the `test` directory. Hardhat automatically manages the test network lifecycle, so you don't need to run `npx hardhat node` separately for testing.
+
+If you are testing `Lock.sol` contract, output should look like this:
+
+--8<-- 'code/smart-contracts/dev-environments/hardhat/compile-and-test/test.html'
+
+## Where to Go Next
+
+Now that you've successfully compiled and tested your smart contracts, you're ready to deploy them to a live network. The deployment guide will walk you through deploying your contract to Local Development Network, interacting with it using Hardhat scripts, and verifying your deployment.
+
+<div class="grid cards" markdown>
+
+-   <span class="badge guide">Guide</span> __Deploy a Contract__
+
+    ---
+
+    Learn how to deploy your compiled smart contract to Polkadot Hub TestNet and interact with it using deployment scripts.
+
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/dev-environments/hardhat/deploy-a-contract)
+
+</div>

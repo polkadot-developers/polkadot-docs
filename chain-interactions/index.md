@@ -26,7 +26,7 @@ Whether you're building a frontend application, a backend service, or integratin
 
 Accessing blockchain state is fundamental to building responsive applications. Polkadot offers several methods to query on-chain data, each suited for different use cases.
 
-- **SDK integration**: Programmatically read blockchain state using:
+- **[SDK integration](/chain-interactions/query-data/query-sdks/)**: Programmatically read blockchain state using:
 
     - [Polkadot API (PAPI)](/reference/tools/papi/){target=\_blank}
     - [Polkadot.js](/reference/tools/polkadot-js-api/){target=\_blank}
@@ -34,45 +34,39 @@ Accessing blockchain state is fundamental to building responsive applications. P
     - [PSI](https://github.com/paritytech/psi){target=\_blank}
     - [Subxt](/reference/tools/subxt/){target=\_blank}
 
-- **REST API access**: Query chain data through standardized REST endpoints for simpler integration.
-
-- **Runtime API calls**: Execute runtime APIs directly for specialized queries and operations.
-
-Learn how to efficiently retrieve account balances, query storage, subscribe to events, and decode blockchain data in your applications.
+- **[REST API access](/chain-interactions/query-data/query-rest/)**: Query chain data through standardized REST endpoints for simpler integration.
+- **[Runtime API calls](/chain-interactions/query-data/runtime-api-calls/)**: Execute runtime APIs directly for specialized queries and operations.
 
 ### Send Transactions
 
 Transactions are the primary mechanism for modifying blockchain state. Understanding transaction construction, signing, and submission is crucial for building interactive applications.
 
-- **Transaction construction**: Build transactions using various SDKs with proper encoding and formatting.
-- **Fee estimation**: Calculate transaction fees to ensure sufficient balance and optimize costs.
-- **Multi-token fees**: Learn [how to pay transaction fees with different tokens](/chain-interactions/send-transactions/pay-fees-with-different-tokens/) on supported chains.
+- **[Transaction construction](/chain-interactions/send-transactions/with-sdks/)**: Build transactions using various SDKs with proper encoding and formatting.
+- **[Fee estimation](/chain-interactions/send-transactions/calculate-transaction-fees/)**: Calculate transaction fees to ensure sufficient balance and optimize costs.
+- **[Multi-token fees](/chain-interactions/send-transactions/pay-fees-with-different-tokens/)**: Learn how to pay transaction fees with different tokens on supported chains.
 
-### Interoperability
+### Send Cross-Chain Transactions
 
 Polkadot enables native cross-chain capabilities through Cross-Consensus Messaging (XCM), allowing chains to securely communicate and transfer assets across the ecosystem.
 
-- **XCM fundamentals**: Understand how to construct and send XCM messages between parachains using [ParaSpell XCM SDK](/reference/tools/paraspell/){target=\_blank} and [Polkadot API (PAPI)](/reference/tools/papi/){target=\_blank}.
-- **Asset transfers**: Transfer tokens and other assets between different chains seamlessly.
-- **Cross-chain communication**: Enable your applications to interact with multiple parachains.
-- **Bridge integration**: Connect to blockchains outside the Polkadot ecosystem using [Snowbridge](https://wiki.polkadot.com/learn/learn-snowbridge/){target=\_blank} and other bridge solutions.
+- **[Transfer assets between parachains](/chain-interactions/send-transactions/interoperability/transfer-assets-parachains/)**: Understand how to construct and send XCM messages using [ParaSpell XCM SDK](/reference/tools/paraspell/){target=\_blank} and [Polkadot API (PAPI)](/reference/tools/papi/){target=\_blank}.
+- **[Transfer assets out of Polkadot](/chain-interactions/send-transactions/interoperability/transfer-assets-out-of-polkadot/)**: Connect to blockchains outside the Polkadot ecosystem using [Snowbridge](https://wiki.polkadot.com/learn/learn-snowbridge/){target=\_blank} and other bridge solutions.
 
-Master the tools for estimating transfer costs, debugging XCM messages, and implementing robust cross-chain workflows.
-
-### Token Operations
+### Manage Tokens
 
 Polkadot Hub provides a unified platform for managing assets across the ecosystem. Understanding token operations is essential for DeFi applications and multi-chain asset management.
 
-- **Asset registration**: Learn how local and foreign assets are registered on the network.
+- **[Local asset registration](/chain-interactions/token-operations/register-local-asset/)**: Learn how assets created in Asset Hub are registered on the network.
+- **[Foregin asset registration](/chain-interactions/token-operations/register-foreign-asset/)**: Learn how assets created outside of Asset Hub are registered on the network.
+- **[Convert assets](/chain-interactions/token-operations/convert-assets/)**: Convert, swap, and manage assets on-chain using the Asset Conversion pallet.
 - **Asset Hub integration**: Interact with Polkadot's central asset management hub using [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank}.
-- **Cross-chain assets**: Handle assets that exist across multiple parachains.
 
-### Accounts
+### Manage Accounts
 
 Account management forms the basis of user identity and authentication in blockchain applications. Learn how to create, manage, and query accounts programmatically.
 
-- **Account creation**: Generate accounts using various SDKs in Rust, Python, and JavaScript.
-- **Account queries**: Retrieve account information including balances, nonces, and metadata.
+- **[Account creation](/chain-interactions/accounts/create-account/)**: Generate accounts using various SDKs in Rust, Python, and JavaScript.
+- **[Account queries](/chain-interactions/accounts/query-accounts/)**: Retrieve account information including balances, nonces, and metadata.
 
 ## Development Tools and SDKs
 
@@ -91,10 +85,10 @@ Each tool has its strengths, and choosing the right one depends on your project 
 
 Explore the sections below to dive deeper into specific chain interaction patterns:
 
-- **[Query on-chain data](/chain-interactions/query-data/query-sdks/)**: Learn to read blockchain state efficiently.
-- **[Send transactions](/chain-interactions/send-transactions/with-sdks/)**: Master transaction construction and submission.
-- **[Interoperability](/chain-interactions/send-transactions/interoperability/transfer-assets-parachains/)**: Enable cross-chain communication with XCM.
-- **[Token Operations](/chain-interactions/token-operations/register-local-asset/)**: Manage assets across the Polkadot ecosystem.
-- **[Accounts](/chain-interactions/accounts/create-account/)**: Create and query accounts programmatically.
+- **[Query On-Chain Data](/chain-interactions/query-data/query-sdks/)**: Learn to read blockchain state efficiently.
+- **[Send Transactions](/chain-interactions/send-transactions/with-sdks/)**: Master transaction construction and submission.
+- **[Send Cross-Chain Transactions](/chain-interactions/send-transactions/interoperability/transfer-assets-parachains/)**: Enable cross-chain communication with XCM.
+- **[Manage Tokens](/chain-interactions/token-operations/register-local-asset/)**: Manage assets across the Polkadot ecosystem.
+- **[Manage Accounts](/chain-interactions/accounts/create-account/)**: Create and query accounts programmatically.
 
 Each section provides practical examples, code snippets, and comprehensive guides to help you build production-ready applications on Polkadot.

@@ -12,6 +12,7 @@ import yaml
 import argparse
 import textwrap
 import requests
+import shutil
 from pathlib import Path
 
 # -------------- CLI flags (module-level toggles) --------------
@@ -333,6 +334,21 @@ def write_ai_page(ai_pages_dir: Path, slug: str, header: dict, body: str):
 # Main
 # ----------------------------
 
+def reset_ai_pages_dir(ai_pages_dir: Path):
+    """Remove all existing AI pages so runs always reflect current docs."""
+    if DRY_RUN:
+        print(f"[dry-run] Would remove existing files under {ai_pages_dir}")
+        return
+
+    if not ai_pages_dir.exists():
+        return
+
+    for entry in ai_pages_dir.iterdir():
+        if entry.is_dir():
+            shutil.rmtree(entry)
+        else:
+            entry.unlink()
+
 def main():
     global ALLOW_REMOTE, DRY_RUN
 
@@ -374,6 +390,8 @@ def main():
     public_root = config.get("outputs", {}).get("public_root", "/.ai/").strip("/")
     pages_dirname = config.get("outputs", {}).get("files", {}).get("pages_dir", "pages")
     ai_pages_dir = (repo_root / public_root / pages_dirname).resolve()
+    ai_pages_dir.mkdir(parents=True, exist_ok=True)
+    reset_ai_pages_dir(ai_pages_dir)
 
     # Collect files
     files = get_all_markdown_files(str(docs_dir), skip_basenames, skip_parts)

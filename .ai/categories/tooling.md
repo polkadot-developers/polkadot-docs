@@ -1,5 +1,7 @@
 Begin New Bundle: Tooling
 Includes shared base categories: Basics, Reference
+word_count: 130474
+estimated_tokens: 235609
 
 
 ---

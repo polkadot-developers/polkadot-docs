@@ -1,5 +1,7 @@
 Begin New Bundle: Infrastructure
 Includes shared base categories: Basics, Reference
+word_count: 89525
+estimated_tokens: 150296
 
 
 ---

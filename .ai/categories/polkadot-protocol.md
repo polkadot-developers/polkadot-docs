@@ -1,5 +1,7 @@
 Begin New Bundle: Polkadot Protocol
 Includes shared base categories: Basics, Reference
+word_count: 80127
+estimated_tokens: 133726
 
 
 ---

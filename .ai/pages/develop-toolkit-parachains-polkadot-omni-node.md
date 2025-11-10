@@ -19,7 +19,7 @@ This guide provides step-by-step instructions for installing the `polkadot-omni-
 
 Before getting started, ensure you have the following prerequisites:
 
-- **[Rust](https://www.rust-lang.org/tools/install){target=\_blank}**: Required to build and install the `polkadot-omni-node` binary.
+- **[Rust](https://rust-lang.org/tools/install/){target=\_blank}**: Required to build and install the `polkadot-omni-node` binary.
 
 Ensure Rust's `cargo` command is available in your terminal by running:
 

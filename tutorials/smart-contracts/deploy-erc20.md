@@ -54,7 +54,7 @@ To create the ERC-20 contract, you can follow the steps below:
     - Key functions:
 
         - **`mint(address to, uint256 amount)`**: Allows the contract owner to create new tokens for any address. The amount should include 18 decimals (e.g., 1 token = 1000000000000000000).
-        - Inherited [Standard ERC-20](https://ethereum.org/en/developers/docs/standards/tokens/erc-20/){target=\_blank} functions:
+        - Inherited [Standard ERC-20](https://ethereum.org/developers/docs/standards/tokens/erc-20/){target=\_blank} functions:
             - **`transfer(address recipient, uint256 amount)`**: Sends a specified amount of tokens to another address.
             - **`approve(address spender, uint256 amount)`**: Grants permission for another address to spend a specific number of tokens on behalf of the token owner.
             - **`transferFrom(address sender, address recipient, uint256 amount)`**: Transfers tokens from one address to another, if previously approved.

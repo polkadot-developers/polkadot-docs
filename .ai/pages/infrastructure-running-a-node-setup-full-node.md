@@ -23,7 +23,7 @@ Now that you're familiar with the different types of nodes, this section will wa
 
 Before getting started, ensure the following prerequisites are met:
 
-- Ensure [Rust](https://www.rust-lang.org/tools/install){target=\_blank} is installed on your operating system.
+- Ensure [Rust](https://rust-lang.org/tools/install/){target=\_blank} is installed on your operating system.
 - [Install the necessary dependencies for the Polkadot SDK](/develop/parachains/install-polkadot-sdk/){target=\_blank}.
 
 !!! warning

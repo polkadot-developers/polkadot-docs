@@ -76,7 +76,7 @@ Finally, it attempts to call the withdrawal function on the contract, but it cat
 Run your interaction script.
 
 ```bash
-npx hardhat run scripts/interact.js --network polkadotHubLocal
+npx hardhat run scripts/interact.js --network polkadotTestNet
 ```
  <!-- TODO: add a terminal output snippet -->
 

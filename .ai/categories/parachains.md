@@ -16599,7 +16599,7 @@ When running the template node, it's accessible by default at `ws://localhost:99
 
     1. Scroll to the bottom and select **Development**.
     2. Choose **Custom**.
-    3. Enter `ws: //localhost:9944` in the **custom endpoint** input field.
+    3. Enter `ws://localhost:9944` in the **custom endpoint** input field.
     4. Click the **Switch** button.
     
     ![](/images/parachains/launch-a-parachain/set-up-the-parachain-template/parachain-template-02.webp)

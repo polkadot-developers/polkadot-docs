@@ -664,22 +664,68 @@
   },
   {
     "id": "chain-interactions",
-    "title": "chain-interactions",
+    "title": "Chain Interactions Overview",
     "slug": "chain-interactions",
     "categories": [
-      "Uncategorized"
+      "Chain Interactions"
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/chain-interactions.md",
     "html_url": "https://docs.polkadot.com/chain-interactions/",
-    "preview": "TODO",
-    "outline": [],
+    "preview": "Chain interactions form the foundation of building applications on Polkadot. Whether you're querying on-chain data, executing transactions, enabling cross-chain communication, or managing accounts, understanding how to interact with Polkadot-based chains is essential for application developers.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Core Interaction Patterns",
+        "anchor": "core-interaction-patterns"
+      },
+      {
+        "depth": 3,
+        "title": "Query On-Chain Data",
+        "anchor": "query-on-chain-data"
+      },
+      {
+        "depth": 3,
+        "title": "Send Transactions",
+        "anchor": "send-transactions"
+      },
+      {
+        "depth": 3,
+        "title": "Send Cross-Chain Transactions",
+        "anchor": "send-cross-chain-transactions"
+      },
+      {
+        "depth": 3,
+        "title": "Manage Tokens",
+        "anchor": "manage-tokens"
+      },
+      {
+        "depth": 3,
+        "title": "Manage Accounts",
+        "anchor": "manage-accounts"
+      },
+      {
+        "depth": 2,
+        "title": "Development Tools and SDKs",
+        "anchor": "development-tools-and-sdks"
+      },
+      {
+        "depth": 2,
+        "title": "Next Steps",
+        "anchor": "next-steps"
+      }
+    ],
     "stats": {
-      "chars": 5,
-      "words": 1,
-      "headings": 0,
-      "estimated_token_count_total": 0
+      "chars": 6632,
+      "words": 831,
+      "headings": 9,
+      "estimated_token_count_total": 1488
     },
-    "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
+    "hash": "sha256:ff1d106bd19f80de0c8108b0a658cfef83d73a4560a012ace9c842acdeefd1a5",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5991,12 +6037,12 @@
       }
     ],
     "stats": {
-      "chars": 10589,
+      "chars": 10588,
       "words": 1510,
       "headings": 11,
       "estimated_token_count_total": 2375
     },
-    "hash": "sha256:613e3ecebf9ffe519fff1942a938cede125f285e83f78606f17819ecc175ef05",
+    "hash": "sha256:380063fe7c00ae8bde05fa76688b8ae4902e6566147f1cfe0e0260ad1aa05aa6",
     "token_estimator": "heuristic-v1"
   },
   {

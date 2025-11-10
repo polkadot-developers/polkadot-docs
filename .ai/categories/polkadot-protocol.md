@@ -671,17 +671,6 @@ These public instances are primarily for ad-hoc testing and quick checks.
 
 `TxWrapper` provides the flexibility needed to integrate asset operations into custom applications while maintaining the security and efficiency of Polkadot's transaction model.
 
-### ParaSpell
-
-[ParaSpell](https://paraspell.xyz/){target=\_blank} is a collection of open-source XCM tools designed to streamline cross-chain asset transfers and interactions within the Polkadot and Kusama ecosystems. It equips developers with an intuitive interface to manage and optimize XCM-based functionalities. Some key points included by ParaSpell are:
-
-- **[XCM SDK](https://paraspell.xyz/#xcm-sdk){target=\_blank}**: Provides a unified layer to incorporate XCM into decentralized applications, simplifying complex cross-chain interactions.
-- **[XCM API](https://paraspell.xyz/#xcm-api){target=\_blank}**: Offers an efficient, package-free approach to integrating XCM functionality while offloading heavy computing tasks, minimizing costs and improving application performance.
-- **[XCM router](https://paraspell.xyz/#xcm-router){target=\_blank}**: Enables cross-chain asset swaps in a single command, allowing developers to send one asset type (such as DOT on Polkadot) and receive a different asset on another chain (like ASTR on Astar).
-- **[XCM analyser](https://paraspell.xyz/#xcm-analyser){target=\_blank}**: Decodes and translates complex XCM multilocation data into readable information, supporting easier troubleshooting and debugging.
-- **[XCM visualizator](https://paraspell.xyz/#xcm-visualizator){target=\_blank}**: A tool designed to give developers a clear, interactive view of XCM activity across the Polkadot ecosystem, providing insights into cross-chain communication flow.
-
-ParaSpell's tools make it simple for developers to build, test, and deploy cross-chain solutions without needing extensive knowledge of the XCM protocol. With features like message composition, decoding, and practical utility functions for parachain interactions, ParaSpell is especially useful for debugging and optimizing cross-chain communications.
 
 ### Parachain Node
 
@@ -5077,17 +5066,22 @@ Page Title: Install Polkadot SDK
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/parachains-install-polkadot-sdk.md
 - Canonical (HTML): https://docs.polkadot.com/parachains/install-polkadot-sdk/
-- Summary: Install everything you need to begin working with Substrated-based blockchains and the Polkadot SDK, the framework for building blockchains.
+- Summary: Install all required Polkadot SDK dependencies, set up the SDK itself, and verify that it runs correctly on your machine.
 
-# Install Polkadot SDK Dependencies
+# Install Polkadot SDK
 
-This guide provides step-by-step instructions for installing the dependencies you need to work with the Polkadot SDK-based chains on macOS, Linux, and Windows. Follow the appropriate section for your operating system to ensure all necessary tools are installed and configured properly.
+This guide provides step-by-step instructions for installing the Polkadot SDK on macOS, Linux, and Windows. The installation process consists of two main parts:
 
-## macOS
+- **Installing dependencies**: Setting up Rust, required system packages, and development tools.
+- **Building the Polkadot SDK**: Cloning and compiling the Polkadot SDK repository.
+
+Follow the appropriate section for your operating system to ensure all necessary tools are installed and configured properly.
+
+## Install Dependencies: macOS
 
 You can install Rust and set up a Substrate development environment on Apple macOS computers with Intel or Apple M1 processors.
 
-### Before You Begin
+### Before You Begin {: #before-you-begin-mac-os }
 
 Before you install Rust and set up your development environment on macOS, verify that your computer meets the following basic requirements:
 
@@ -5097,7 +5091,7 @@ Before you install Rust and set up your development environment on macOS, verify
 - Storage of at least 10 GB of available space.
 - Broadband Internet connection.
 
-#### Install Homebrew
+### Install Homebrew
 
 In most cases, you should use Homebrew to install and manage packages on macOS computers. If you don't already have Homebrew installed on your local computer, you should download and install it before continuing.
 
@@ -5123,7 +5117,7 @@ To install Homebrew:
       <span data-ty>Homebrew 4.3.15</span>
     </div>
 
-#### Support for Apple Silicon
+### Support for Apple Silicon
 
 Protobuf must be installed before the build process can begin. To install it, run the following command:
 
@@ -5131,7 +5125,7 @@ Protobuf must be installed before the build process can begin. To install it, ru
 brew install protobuf
 ```
 
-### Install Required Packages and Rust
+### Install Required Packages and Rust {: #install-required-packages-and-rust-mac-os }
 
 Because the blockchain requires standard cryptography to support the generation of public/private key pairs and the validation of transaction signatures, you must also have a package that provides cryptography, such as `openssl`.
 
@@ -5172,16 +5166,17 @@ To install `openssl` and the Rust toolchain on macOS:
     rustup component add rust-src
     ```
 
-8. [Verify your installation](#verifying-installation).
-9. Install `cmake` using the following command:
+8. Install `cmake` using the following command:
 
     ```bash
     brew install cmake
     ```
 
-## Linux
+9. Proceed to [Build the Polkadot SDK](#build-the-polkadot-sdk).
 
-Rust supports most Linux distributions. Depending on the specific distribution and version of the operating system you use, you might need to add some software dependencies to your environment. In general, your development environment should include a linker or C-compatible compiler, such as `clang` and an appropriate integrated development environment (IDE).
+## Install Dependencies: Linux
+
+Rust supports most Linux distributions. Depending on the specific distribution and version of the operating system you use, you might need to add some software dependencies to your environment. In general, your development environment should include a linker or a C-compatible compiler, such as `clang`, and an appropriate integrated development environment (IDE).
 
 ### Before You Begin {: #before-you-begin-linux }
 
@@ -5204,7 +5199,7 @@ Because the blockchain requires standard cryptography to support the generation 
 To install the Rust toolchain on Linux:
 
 1. Open a terminal shell.
-2. Check the packages you have installed on the local computer by running an appropriate package management command for your Linux distribution.
+2. Check the packages installed on the local computer by running the appropriate package management command for your Linux distribution.
 3. Add any package dependencies you are missing to your local development environment by running the appropriate package management command for your Linux distribution:
 
     === "Ubuntu"
@@ -5238,7 +5233,7 @@ To install the Rust toolchain on Linux:
         sudo zypper install clang curl git openssl-devel llvm-devel libudev-devel make protobuf
         ```
 
-    Remember that different distributions might use different package managers and bundle packages in different ways. For example, depending on your installation selections, Ubuntu Desktop and Ubuntu Server might have different packages and different requirements. However, the packages listed in the command-line examples are applicable for many common Linux distributions, including Debian, Linux Mint, MX Linux, and Elementary OS.
+    Remember that different distributions might use different package managers and bundle packages in different ways. For example, depending on your installation selections, Ubuntu Desktop and Ubuntu Server might have different packages and different requirements. However, the packages listed in the command-line examples are applicable to many common Linux distributions, including Debian, Linux Mint, MX Linux, and Elementary OS.
 
 4. Download the `rustup` installation program and use it to install Rust by running the following command:
 
@@ -5268,22 +5263,22 @@ To install the Rust toolchain on Linux:
     rustup component add rust-src
     ```
 
-9. [Verify your installation](#verifying-installation).
+9. Proceed to [Build the Polkadot SDK](#build-the-polkadot-sdk).
 
-## Windows (WSL)
+## Install Dependencies: Windows (WSL)
 
 In general, UNIX-based operating systems—like macOS or Linux—provide a better development environment for building Substrate-based blockchains.
 
 However, suppose your local computer uses Microsoft Windows instead of a UNIX-based operating system. In that case, you can configure it with additional software to make it a suitable development environment for building Substrate-based blockchains. To prepare a development environment on a Microsoft Windows computer, you can use Windows Subsystem for Linux (WSL) to emulate a UNIX operating environment.
 
-### Before You Begin {: #before-you-begin-windows }
+### Before You Begin {: #before-you-begin-windows-wls }
 
 Before installing on Microsoft Windows, verify the following basic requirements:
 
 - You have a computer running a supported Microsoft Windows operating system:
     - **For Windows desktop**: You must be running Microsoft Windows 10, version 2004 or later, or Microsoft Windows 11 to install WSL.
     - **For Windows server**: You must be running Microsoft Windows Server 2019, or later, to install WSL on a server operating system.
-- You have good internet connection and access to a shell terminal on your local computer.
+- You have a good internet connection and access to a shell terminal on your local computer.
 
 ### Set Up Windows Subsystem for Linux
 
@@ -5321,12 +5316,12 @@ To prepare a development environment using WSL:
 
     For more information about setting up WSL as a development environment, see the [Set up a WSL development environment](https://learn.microsoft.com/en-us/windows/wsl/setup/environment){target=\_blank} docs.
 
-### Install Required Packages and Rust {: #install-required-packages-and-rust-windows }
+### Install Required Packages and Rust {: #install-required-packages-and-rust-windows-wls }
 
 To install the Rust toolchain on WSL:
 
 1. Click the **Start** menu, then select **Ubuntu**.
-2. Type a UNIX user name to create user account.
+2. Type a UNIX user name to create a user account.
 3. Type a password for your UNIX user, then retype the password to confirm it.
 4. Download the latest updates for the Ubuntu distribution using the Ubuntu Advanced Packaging Tool (`apt`) by running the following command:
 
@@ -5369,34 +5364,122 @@ To install the Rust toolchain on WSL:
     rustup component add rust-src
     ```
 
-11. [Verify your installation](#verifying-installation).
+11. Proceed to [Build the Polkadot SDK](#build-the-polkadot-sdk).
 
-## Verifying Installation
+## Build the Polkadot SDK
 
-Verify the configuration of your development environment by running the following command:
+After installing all dependencies, you can now clone and compile the Polkadot SDK repository to verify your setup.
+
+### Clone the Polkadot SDK
+
+1. Clone the Polkadot SDK repository:
+
+    ```bash
+    git clone https://github.com/paritytech/polkadot-sdk.git
+    ```
+
+2. Navigate into the project directory:
+
+    ```bash
+    cd polkadot-sdk
+    ```
+
+### Compile the Polkadot SDK
+
+Compile the entire Polkadot SDK repository to ensure your environment is properly configured:
 
 ```bash
-rustup show
+cargo build --release --locked
 ```
 
-The command displays output similar to the following:
+!!!note
+    This initial compilation will take significant time, depending on your machine specifications. It compiles all components of the Polkadot SDK to verify your toolchain is correctly configured.
 
-<div id="termynal" data-termynal>
-  <span data-ty="input"><span class="file-path"></span>rustup show</span>
-  <span data-ty>...</span>
-  <br />
-  <span data-ty>active toolchain</span>
-  <span data-ty>----------------</span>
-  <span data-ty>name: stable-aarch64-apple-darwin</span>
-  <span data-ty>active because: it's the default toolchain</span>
-  <span data-ty>installed targets:</span>
-  <span data-ty>  aarch64-apple-darwin</span>
-  <span data-ty>  wasm32-unknown-unknown</span>
-</div>
+### Verify the Build
+
+Once the build completes successfully, verify the installation by checking the compiled binaries:
+
+```bash
+ls target/release
+```
+
+You should see several binaries, including:
+
+- `polkadot`: The Polkadot relay chain node.
+- `polkadot-parachain`: The parachain collator node.
+- `polkadot-omni-node`:The omni node for running parachains.
+- `substrate-node`: The kitchensink node with many pre-configured pallets.
+
+Verify the Polkadot binary works by checking its version:
+
+```bash
+./target/release/polkadot --version
+```
+
+This should display version information similar to:
+
+```bash
+polkadot 1.16.0-1234abcd567
+```
+
+If you see the version output without errors, your development environment is correctly configured and ready for Polkadot SDK development!
+
+## Optional: Run the Kitchensink Node
+
+The Polkadot SDK includes a feature-rich node called "kitchensink" located at `substrate/bin/node`. This node comes pre-configured with many pallets and features from the Polkadot SDK, making it an excellent reference for exploring capabilities and understanding how different components work together.
+
+!!!note
+    If you've already compiled the Polkadot SDK in the previous step, the `substrate-node` binary is already built and ready to use. You can skip directly to running the node.
+
+### Run the Kitchensink Node in Development Mode
+
+From the `polkadot-sdk` root directory, start the kitchensink node in development mode:
+
+```bash
+./target/release/substrate-node --dev
+```
+
+The `--dev` flag enables development mode, which:
+
+- Runs a single-node development chain.
+- Produces and finalizes blocks automatically.
+- Uses pre-configured development accounts (Alice, Bob, etc.).
+- Deletes all data when stopped, ensuring a clean state on restart.
+
+
+You should see log output indicating the node is running and producing blocks, with increasing block numbers after `finalized`.
+
+### Interact with the Kitchensink Node
+
+The kitchensink node is accessible at `ws://localhost:9944`. Open [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} in your browser to explore its features and connect to the local node.
+
+1. Click the network icon in the top left corner.
+2. Scroll to **Development** and select **Local Node**.
+3. Click **Switch** to connect to your local node.
+
+![](/images/parachains/install-polkadot-sdk/install-polkadot-sdk-1.webp)
+
+Once connected, the interface updates its color scheme to indicate a successful connection to the local node.
+
+![](/images/parachains/install-polkadot-sdk/install-polkadot-sdk-2.webp)
+
+You can now explore the various pallets and features included in the kitchensink node, making it a valuable reference as you develop your own blockchain applications.
+
+To stop the node, press `Control-C` in the terminal.
 
 ## Where to Go Next
 
-- **[Parachain Zero to Hero Tutorials](/tutorials/polkadot-sdk/parachains/zero-to-hero/){target=\_blank}**: A series of step-by-step guides to building, testing, and deploying custom pallets and runtimes using the Polkadot SDK.
+<div class="grid cards" markdown>
+
+-   __Get Started with Parachain Development__
+
+    ---
+
+    Practical examples and tutorials for building and deploying Polkadot parachains, covering everything from launch to customization and cross-chain messaging.
+
+    [:octicons-arrow-right-24: Get Started](/parachains/get-started/)
+ 
+</div>
 
 
 ---
@@ -9409,7 +9492,7 @@ By the end of this guide, you'll have a working template ready to customize and 
 
 Before getting started, ensure you have done the following:
 
-- Completed the [Install Polkadot SDK Dependencies](/reference/tools/polkadot-sdk/install/){target=\_blank} guide and successfully installed [Rust](https://www.rust-lang.org/){target=\_blank} and the required packages to set up your development environment
+- Completed the [Install Polkadot SDK](/parachains/install-polkadot-sdk/){target=\_blank} guide and successfully installed [Rust](https://www.rust-lang.org/){target=\_blank} and the required packages to set up your development environment.
 
 For this tutorial series, you need to use Rust `1.86`. Newer versions of the compiler may not work with this parachain template version.
 
@@ -12510,15 +12593,7 @@ For a full overview of each script, visit the [scripts](https://github.com/Moons
 
 ### ParaSpell
 
-[ParaSpell](https://paraspell.xyz/){target=\_blank} is a collection of open-source XCM tools designed to streamline cross-chain asset transfers and interactions within the Polkadot and Kusama ecosystems. It equips developers with an intuitive interface to manage and optimize XCM-based functionalities. Some key points included by ParaSpell are:
-
-- **[XCM SDK](https://paraspell.xyz/#xcm-sdk){target=\_blank}**: Provides a unified layer to incorporate XCM into decentralized applications, simplifying complex cross-chain interactions.
-- **[XCM API](https://paraspell.xyz/#xcm-api){target=\_blank}**: Offers an efficient, package-free approach to integrating XCM functionality while offloading heavy computing tasks, minimizing costs and improving application performance.
-- **[XCM router](https://paraspell.xyz/#xcm-router){target=\_blank}**: Enables cross-chain asset swaps in a single command, allowing developers to send one asset type (such as DOT on Polkadot) and receive a different asset on another chain (like ASTR on Astar).
-- **[XCM analyser](https://paraspell.xyz/#xcm-analyser){target=\_blank}**: Decodes and translates complex XCM multilocation data into readable information, supporting easier troubleshooting and debugging.
-- **[XCM visualizator](https://paraspell.xyz/#xcm-visualizator){target=\_blank}**: A tool designed to give developers a clear, interactive view of XCM activity across the Polkadot ecosystem, providing insights into cross-chain communication flow.
-
-ParaSpell's tools make it simple for developers to build, test, and deploy cross-chain solutions without needing extensive knowledge of the XCM protocol. With features like message composition, decoding, and practical utility functions for parachain interactions, ParaSpell is especially useful for debugging and optimizing cross-chain communications.
+[ParaSpell](/reference/tools/paraspell/){target=\_blank} is a collection of open-source XCM tools that streamline cross-chain asset transfers and interactions across the Polkadot and Kusama ecosystems. It provides developers with an intuitive interface to build, test, and deploy interoperable dApps, featuring message composition, decoding, and practical utilities for parachain interactions that simplify debugging and cross-chain communication optimization.
 
 ### Astar XCM Tools
 

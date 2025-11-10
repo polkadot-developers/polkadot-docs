@@ -323,14 +323,14 @@
   },
   {
     "id": "chain-interactions-send-transactions-interoperability-transfer-assets-parachains",
-    "title": "Transfer Tokens Between Parachains",
+    "title": "Transfer Assets Between Parachains",
     "slug": "chain-interactions-send-transactions-interoperability-transfer-assets-parachains",
     "categories": [
       "Uncategorized"
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/chain-interactions-send-transactions-interoperability-transfer-assets-parachains.md",
     "html_url": "https://docs.polkadot.com/chain-interactions/send-transactions/interoperability/transfer-assets-parachains/",
-    "preview": "This guide walks you through transferring tokens between two parachains using the [ParaSpell XCM SDK](https://paraspell.github.io/docs/){target=\\_blank}. This example utilizes [Asset Hub](/polkadot-protocol/architecture/system-chains/asset-hub/){target=\\_blank} and the [People Chain](/polkadot-protocol/architecture/system-chains/people/){target=\\_blank}. However, the same approach can be applied to transfers between other parachains.",
+    "preview": "This guide walks you through transferring tokens between two parachains using the [ParaSpell XCM SDK](/reference/tools/paraspell/){target=\\_blank}. This example utilizes [Asset Hub](/polkadot-protocol/architecture/system-chains/asset-hub/){target=\\_blank} and the [People Chain](/polkadot-protocol/architecture/system-chains/people/){target=\\_blank}. However, the same approach can be applied to transfers between other parachains.",
     "outline": [
       {
         "depth": 2,
@@ -374,12 +374,12 @@
       }
     ],
     "stats": {
-      "chars": 26623,
-      "words": 2267,
+      "chars": 26764,
+      "words": 2289,
       "headings": 8,
-      "estimated_token_count_total": 5207
+      "estimated_token_count_total": 5257
     },
-    "hash": "sha256:91f59a76dd33641ca2b5bf6d58230f65034fa3cc5f8313525fb57e854a878a56",
+    "hash": "sha256:681b3f8e3bae1727c0f3742484dfc58ac817ad131199adb1f6f802592006fc69",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -695,18 +695,18 @@
       },
       {
         "depth": 3,
-        "title": "Interoperability",
-        "anchor": "interoperability"
+        "title": "Send Cross-Chain Transactions",
+        "anchor": "send-cross-chain-transactions"
       },
       {
         "depth": 3,
-        "title": "Token Operations",
-        "anchor": "token-operations"
+        "title": "Manage Tokens",
+        "anchor": "manage-tokens"
       },
       {
         "depth": 3,
-        "title": "Accounts",
-        "anchor": "accounts"
+        "title": "Manage Accounts",
+        "anchor": "manage-accounts"
       },
       {
         "depth": 2,
@@ -720,12 +720,12 @@
       }
     ],
     "stats": {
-      "chars": 6105,
-      "words": 789,
+      "chars": 6632,
+      "words": 831,
       "headings": 9,
-      "estimated_token_count_total": 1319
+      "estimated_token_count_total": 1488
     },
-    "hash": "sha256:a7a6c63a1d6f494b157215c4378d6980f9fa7c512417e3633151406e247146ee",
+    "hash": "sha256:ff1d106bd19f80de0c8108b0a658cfef83d73a4560a012ace9c842acdeefd1a5",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5428,28 +5428,68 @@
     "outline": [
       {
         "depth": 2,
-        "title": "Part 1: Install Dependencies",
-        "anchor": "part-1-install-dependencies"
+        "title": "Install Dependencies: macOS",
+        "anchor": "install-dependencies-macos"
       },
       {
         "depth": 3,
-        "title": "macOS",
-        "anchor": "macos"
+        "title": "Before You Begin {: #before-you-begin-mac-os }",
+        "anchor": "before-you-begin-before-you-begin-mac-os"
       },
       {
         "depth": 3,
-        "title": "Linux",
-        "anchor": "linux"
+        "title": "Install Homebrew",
+        "anchor": "install-homebrew"
       },
       {
         "depth": 3,
-        "title": "Windows (WSL)",
-        "anchor": "windows-wsl"
+        "title": "Support for Apple Silicon",
+        "anchor": "support-for-apple-silicon"
+      },
+      {
+        "depth": 3,
+        "title": "Install Required Packages and Rust {: #install-required-packages-and-rust-mac-os }",
+        "anchor": "install-required-packages-and-rust-install-required-packages-and-rust-mac-os"
       },
       {
         "depth": 2,
-        "title": "Part 2: Build the Polkadot SDK",
-        "anchor": "part-2-build-the-polkadot-sdk"
+        "title": "Install Dependencies: Linux",
+        "anchor": "install-dependencies-linux"
+      },
+      {
+        "depth": 3,
+        "title": "Before You Begin {: #before-you-begin-linux }",
+        "anchor": "before-you-begin-before-you-begin-linux"
+      },
+      {
+        "depth": 3,
+        "title": "Install Required Packages and Rust {: #install-required-packages-and-rust-linux }",
+        "anchor": "install-required-packages-and-rust-install-required-packages-and-rust-linux"
+      },
+      {
+        "depth": 2,
+        "title": "Install Dependencies: Windows (WSL)",
+        "anchor": "install-dependencies-windows-wsl"
+      },
+      {
+        "depth": 3,
+        "title": "Before You Begin {: #before-you-begin-windows-wls }",
+        "anchor": "before-you-begin-before-you-begin-windows-wls"
+      },
+      {
+        "depth": 3,
+        "title": "Set Up Windows Subsystem for Linux",
+        "anchor": "set-up-windows-subsystem-for-linux"
+      },
+      {
+        "depth": 3,
+        "title": "Install Required Packages and Rust {: #install-required-packages-and-rust-windows-wls }",
+        "anchor": "install-required-packages-and-rust-install-required-packages-and-rust-windows-wls"
+      },
+      {
+        "depth": 2,
+        "title": "Build the Polkadot SDK",
+        "anchor": "build-the-polkadot-sdk"
       },
       {
         "depth": 3,
@@ -5488,12 +5528,12 @@
       }
     ],
     "stats": {
-      "chars": 15587,
-      "words": 2258,
-      "headings": 12,
-      "estimated_token_count_total": 3216
+      "chars": 16051,
+      "words": 2312,
+      "headings": 20,
+      "estimated_token_count_total": 3345
     },
-    "hash": "sha256:2ee5656f749b4bca445172f2bc66c7fc39af40ff173626662ae4c399f49cf909",
+    "hash": "sha256:a52c05b623f3780f14be3a5f36b3d79a6c1965c2fbfd6864b512a9a70c47cd60",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5997,12 +6037,12 @@
       }
     ],
     "stats": {
-      "chars": 10608,
-      "words": 1512,
+      "chars": 10591,
+      "words": 1510,
       "headings": 11,
-      "estimated_token_count_total": 2379
+      "estimated_token_count_total": 2377
     },
-    "hash": "sha256:637b9460bb65621cbc7c1bff272ea287d5181a983bc61418167959e108e21791",
+    "hash": "sha256:1277261cb3de71cac194f26e765124ea9f3e09cffdcd94bb717965a11cb7f374",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -8608,11 +8648,6 @@
       },
       {
         "depth": 3,
-        "title": "ParaSpell",
-        "anchor": "paraspell"
-      },
-      {
-        "depth": 3,
         "title": "Parachain Node",
         "anchor": "parachain-node"
       },
@@ -8648,12 +8683,12 @@
       }
     ],
     "stats": {
-      "chars": 20065,
-      "words": 2901,
-      "headings": 22,
-      "estimated_token_count_total": 4087
+      "chars": 18211,
+      "words": 2649,
+      "headings": 21,
+      "estimated_token_count_total": 3678
     },
-    "hash": "sha256:73c34bb1dc80d04f765812c3ed2f247aeda6ce55598b0680d0bd157f25456b99",
+    "hash": "sha256:3d10c04cffc5f737ff75b079d661c2c1904629d23ae1e415e64fd6ae4e98759e",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -9379,15 +9414,25 @@
         "depth": 3,
         "title": "ParaSpell XCM SDK",
         "anchor": "paraspell-xcm-sdk"
+      },
+      {
+        "depth": 2,
+        "title": "Install ParaSpell",
+        "anchor": "install-paraspell"
+      },
+      {
+        "depth": 2,
+        "title": "Where to Go Next",
+        "anchor": "where-to-go-next"
       }
     ],
     "stats": {
-      "chars": 3005,
-      "words": 433,
-      "headings": 2,
-      "estimated_token_count_total": 669
+      "chars": 4043,
+      "words": 562,
+      "headings": 4,
+      "estimated_token_count_total": 888
     },
-    "hash": "sha256:a7f9c4a03153ee637a0557d2cea0b622c849667ce793b1294bb3299cf036197d",
+    "hash": "sha256:c8741954ea656680aa3322c825e3f6acbaac369baaa42232b06af9e5e482f74f",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -9760,12 +9805,12 @@
       }
     ],
     "stats": {
-      "chars": 7524,
-      "words": 1043,
+      "chars": 6146,
+      "words": 852,
       "headings": 7,
-      "estimated_token_count_total": 1700
+      "estimated_token_count_total": 1377
     },
-    "hash": "sha256:47328231d6ff4dc52cd93aaf1baf5d0bc2d9fc372f3d79339d87aafa0dabd1b8",
+    "hash": "sha256:674e4f60c82fc7544c7af8e09f1e0f677c9907cdff88b107f6c8489e97a43487",
     "token_estimator": "heuristic-v1"
   },
   {

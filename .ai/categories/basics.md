@@ -4146,7 +4146,7 @@ From here, follow the quick starts to get connected, iterate locally with your p
 
 ---
 
-Page Title: Install Polkadot SDK Dependencies
+Page Title: Install Polkadot SDK
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/parachains-install-polkadot-sdk.md
 - Canonical (HTML): https://docs.polkadot.com/parachains/install-polkadot-sdk/

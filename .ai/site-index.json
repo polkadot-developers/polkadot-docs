@@ -5416,7 +5416,7 @@
   },
   {
     "id": "parachains-install-polkadot-sdk",
-    "title": "Install Polkadot SDK Dependencies",
+    "title": "Install Polkadot SDK",
     "slug": "parachains-install-polkadot-sdk",
     "categories": [
       "Basics",
@@ -5424,62 +5424,62 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/parachains-install-polkadot-sdk.md",
     "html_url": "https://docs.polkadot.com/parachains/install-polkadot-sdk/",
-    "preview": "This guide provides step-by-step instructions for installing the dependencies you need to work with the Polkadot SDK-based chains on macOS, Linux, and Windows. Follow the appropriate section for your operating system to ensure all necessary tools are installed and configured properly.",
+    "preview": "This guide provides step-by-step instructions for installing the Polkadot SDK on macOS, Linux, and Windows. The installation process consists of two main parts:",
     "outline": [
       {
         "depth": 2,
+        "title": "Part 1: Install Dependencies",
+        "anchor": "part-1-install-dependencies"
+      },
+      {
+        "depth": 3,
         "title": "macOS",
         "anchor": "macos"
       },
       {
         "depth": 3,
-        "title": "Before You Begin",
-        "anchor": "before-you-begin"
-      },
-      {
-        "depth": 3,
-        "title": "Install Required Packages and Rust",
-        "anchor": "install-required-packages-and-rust"
-      },
-      {
-        "depth": 2,
         "title": "Linux",
         "anchor": "linux"
       },
       {
         "depth": 3,
-        "title": "Before You Begin {: #before-you-begin-linux }",
-        "anchor": "before-you-begin-before-you-begin-linux"
-      },
-      {
-        "depth": 3,
-        "title": "Install Required Packages and Rust {: #install-required-packages-and-rust-linux }",
-        "anchor": "install-required-packages-and-rust-install-required-packages-and-rust-linux"
-      },
-      {
-        "depth": 2,
         "title": "Windows (WSL)",
         "anchor": "windows-wsl"
       },
       {
-        "depth": 3,
-        "title": "Before You Begin {: #before-you-begin-windows }",
-        "anchor": "before-you-begin-before-you-begin-windows"
+        "depth": 2,
+        "title": "Part 2: Build the Polkadot SDK",
+        "anchor": "part-2-build-the-polkadot-sdk"
       },
       {
         "depth": 3,
-        "title": "Set Up Windows Subsystem for Linux",
-        "anchor": "set-up-windows-subsystem-for-linux"
+        "title": "Clone the Polkadot SDK",
+        "anchor": "clone-the-polkadot-sdk"
       },
       {
         "depth": 3,
-        "title": "Install Required Packages and Rust {: #install-required-packages-and-rust-windows }",
-        "anchor": "install-required-packages-and-rust-install-required-packages-and-rust-windows"
+        "title": "Compile the Polkadot SDK",
+        "anchor": "compile-the-polkadot-sdk"
+      },
+      {
+        "depth": 3,
+        "title": "Verify the Build",
+        "anchor": "verify-the-build"
       },
       {
         "depth": 2,
-        "title": "Verifying Installation",
-        "anchor": "verifying-installation"
+        "title": "Optional: Run the Kitchensink Node",
+        "anchor": "optional-run-the-kitchensink-node"
+      },
+      {
+        "depth": 3,
+        "title": "Run the Kitchensink Node in Development Mode",
+        "anchor": "run-the-kitchensink-node-in-development-mode"
+      },
+      {
+        "depth": 3,
+        "title": "Interact with the Kitchensink Node",
+        "anchor": "interact-with-the-kitchensink-node"
       },
       {
         "depth": 2,
@@ -5488,10 +5488,10 @@
       }
     ],
     "stats": {
-      "chars": 12756,
-      "words": 1840,
+      "chars": 15587,
+      "words": 2258,
       "headings": 12,
-      "estimated_token_count_total": 2709
+      "estimated_token_count_total": 3216
     },
     "hash": "sha256:2ee5656f749b4bca445172f2bc66c7fc39af40ff173626662ae4c399f49cf909",
     "token_estimator": "heuristic-v1"

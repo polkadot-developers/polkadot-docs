@@ -5240,7 +5240,7 @@ Westend is a Parity-maintained, Polkadot SDK-based blockchain that serves as a t
 
 ---
 
-Page Title: Install Polkadot SDK Dependencies
+Page Title: Install Polkadot SDK
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/parachains-install-polkadot-sdk.md
 - Canonical (HTML): https://docs.polkadot.com/parachains/install-polkadot-sdk/

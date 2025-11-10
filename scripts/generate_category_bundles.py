@@ -151,18 +151,9 @@ def load_all_pages(ai_dir: Path) -> List[AiPage]:
 # ----------------------------
 
 def _heuristic_token_count(s: str) -> int:
-    """
-    Dependency-free token estimate:
-      - counts words and standalone punctuation
-      - decent for prose and code; model-agnostic
-    """
     return len(re.findall(r"\w+|[^\s\w]", s, flags=re.UNICODE))
 
 def _cl100k_token_count(s: str) -> int:
-    """
-    Optional: if tiktoken is installed and estimator name is 'cl100k',
-    compute tokens via cl100k_base; otherwise fall back to heuristic.
-    """
     try:
         import tiktoken  # type: ignore
         enc = tiktoken.get_encoding("cl100k_base")
@@ -171,11 +162,8 @@ def _cl100k_token_count(s: str) -> int:
         return _heuristic_token_count(s)
 
 def estimate_tokens(text: str, estimator: str = "heuristic-v1") -> int:
-    if estimator == "heuristic-v1":
-        return _heuristic_token_count(text)
     if estimator == "cl100k":
         return _cl100k_token_count(text)
-    # Unknown/custom estimator name → compute via heuristic but keep the label in outputs.
     return _heuristic_token_count(text)
 
 

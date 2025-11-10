@@ -1,6 +1,8 @@
 ---
 title: Running a Node
 description: Learn how to run and connect to a Polkadot node, including setup, configuration, and best practices for connectivity and security.
+word_count: 392
+estimated_tokens: 521
 url: https://docs.polkadot.com/infrastructure/running-a-node/
 ---
 

@@ -1,6 +1,8 @@
 ---
 title: XCM Guides
 description: Comprehensive guides for implementing XCM functionality in applications and understanding cross-chain interactions.
+word_count: 211
+estimated_tokens: 401
 url: https://docs.polkadot.com/develop/interoperability/xcm-guides/
 ---
 

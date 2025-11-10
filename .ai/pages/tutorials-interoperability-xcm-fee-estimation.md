@@ -1,6 +1,8 @@
 ---
 title: XCM Fee Estimation
 description: This tutorial demonstrates how to estimate the fees for teleporting assets from the Paseo Asset Hub parachain to the Paseo Bridge Hub chain.
+word_count: 3786
+estimated_tokens: 7759
 url: https://docs.polkadot.com/tutorials/interoperability/xcm-fee-estimation/
 ---
 

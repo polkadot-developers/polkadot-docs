@@ -2,6 +2,8 @@
 title: XCM Channels
 description: Learn how Polkadot's cross-consensus messaging (XCM) channels connect parachains, facilitating communication and blockchain interaction.
 categories: Basics, Polkadot Protocol
+word_count: 874
+estimated_tokens: 1376
 url: https://docs.polkadot.com/develop/interoperability/xcm-channels/
 ---
 

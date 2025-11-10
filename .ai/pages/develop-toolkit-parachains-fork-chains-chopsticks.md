@@ -1,6 +1,8 @@
 ---
 title: Chopsticks
 description: Learn how to install, configure, and use Chopsticks for debugging and forking Polkadot SDK-based networks in a local development environment.
+word_count: 199
+estimated_tokens: 335
 url: https://docs.polkadot.com/develop/toolkit/parachains/fork-chains/chopsticks/
 ---
 

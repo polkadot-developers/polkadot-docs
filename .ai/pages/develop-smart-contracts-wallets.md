@@ -2,6 +2,8 @@
 title: Wallets for Polkadot Hub
 description: Comprehensive guide to connecting and managing wallets for Polkadot Hub, covering step-by-step instructions for interacting with the ecosystem.
 categories: Smart Contracts, Tooling
+word_count: 1047
+estimated_tokens: 1675
 url: https://docs.polkadot.com/develop/smart-contracts/wallets/
 ---
 

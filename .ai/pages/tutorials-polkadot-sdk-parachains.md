@@ -1,6 +1,8 @@
 ---
 title: Parachain Tutorials
 description: This collection of tutorials will guide you step by step, from setting up your first local chain to deploying and customizing a fully operational parachain.
+word_count: 122
+estimated_tokens: 154
 url: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/
 ---
 

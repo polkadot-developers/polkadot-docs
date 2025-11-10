@@ -1,6 +1,8 @@
 ---
 title: XCMv5
 description: Explore XCM version 5 features, including new instructions, improved fee handling, and enhanced cross-chain communication capabilities for modern applications.
+word_count: 438
+estimated_tokens: 710
 url: https://docs.polkadot.com/develop/interoperability/versions/v5/
 ---
 

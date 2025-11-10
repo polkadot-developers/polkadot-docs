@@ -2,6 +2,8 @@
 title: Get Started
 description: Simplify Polkadot SDK development with Chopsticks. Learn essential features, how to install Chopsticks, and how to configure local blockchain forks.
 categories: Parachains, Tooling
+word_count: 1330
+estimated_tokens: 2617
 url: https://docs.polkadot.com/develop/toolkit/parachains/fork-chains/chopsticks/get-started/
 ---
 

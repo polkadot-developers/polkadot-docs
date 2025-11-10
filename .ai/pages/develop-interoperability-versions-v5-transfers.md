@@ -1,6 +1,8 @@
 ---
 title: Transfers
 description: Explore the key differences in transfer handling between XCM V4 and V5, including unified transfer instructions, multiple asset types, and improved cross-chain transfer capabilities.
+word_count: 336
+estimated_tokens: 625
 url: https://docs.polkadot.com/develop/interoperability/versions/v5/transfers/
 ---
 

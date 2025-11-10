@@ -2,6 +2,8 @@
 title: Polkadot Hub Smart Contract FAQs
 description: Find answers to common questions about smart contract development, deployment, and compatibility in the Polkadot Hub ecosystem.
 categories: Smart Contracts
+word_count: 979
+estimated_tokens: 1703
 url: https://docs.polkadot.com/develop/smart-contracts/faqs/
 ---
 

@@ -2,6 +2,8 @@
 title: Cryptography
 description: A concise guide to cryptography in blockchain, covering hash functions, encryption types, digital signatures, and elliptic curve applications.
 categories: Basics, Polkadot Protocol
+word_count: 1293
+estimated_tokens: 1799
 url: https://docs.polkadot.com/polkadot-protocol/parachain-basics/cryptography/
 ---
 

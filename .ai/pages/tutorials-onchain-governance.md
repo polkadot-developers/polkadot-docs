@@ -1,6 +1,8 @@
 ---
 title: On-Chain Governance Tutorials
 description: Learn how to utilize Polkadot OpenGov with step-by-step tutorials on on-chain governance, including proposals, referenda, delegation, and voting processes.
+word_count: 113
+estimated_tokens: 191
 url: https://docs.polkadot.com/tutorials/onchain-governance/
 ---
 

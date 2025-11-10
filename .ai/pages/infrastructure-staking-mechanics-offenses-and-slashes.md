@@ -2,6 +2,8 @@
 title: Offenses and Slashes
 description: Learn about how Polkadot discourages validator misconduct via an offenses and slashing system, including details on offenses and their consequences.
 categories: Infrastructure
+word_count: 2103
+estimated_tokens: 3413
 url: https://docs.polkadot.com/infrastructure/staking-mechanics/offenses-and-slashes/
 ---
 

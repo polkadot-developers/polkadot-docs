@@ -2,6 +2,8 @@
 title: Set Up a Template
 description: Learn to compile and run a local parachain node using Polkadot SDK. Launch, run, and interact with a pre-configured runtime template.
 categories: Basics, Parachains
+word_count: 1873
+estimated_tokens: 3260
 url: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template/
 ---
 

@@ -1,6 +1,8 @@
 ---
 title: Architecture
 description: Explore Polkadot's architecture, including the relay chain, parachains, and system chains, and discover the role each component plays in the broader ecosystem.
+word_count: 132
+estimated_tokens: 208
 url: https://docs.polkadot.com/polkadot-protocol/architecture/
 ---
 

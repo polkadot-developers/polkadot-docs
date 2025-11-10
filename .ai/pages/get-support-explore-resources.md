@@ -1,6 +1,8 @@
 ---
 title: Subscribe to Updates
 description: Find Polkadot developer resources, tutorials, forums, governance proposals, and community platforms like StackExchange, Reddit, and YouTube.
+word_count: 295
+estimated_tokens: 606
 url: https://docs.polkadot.com/get-support/explore-resources/
 ---
 

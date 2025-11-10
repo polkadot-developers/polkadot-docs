@@ -1,6 +1,8 @@
 ---
 title: Onboarding and Offboarding
 description: Get familiar with onboarding and offboarding a Polkadot validator node, including setup, bond and key management, and activation and deactivation processes.
+word_count: 253
+estimated_tokens: 467
 url: https://docs.polkadot.com/infrastructure/running-a-validator/onboarding-and-offboarding/
 ---
 

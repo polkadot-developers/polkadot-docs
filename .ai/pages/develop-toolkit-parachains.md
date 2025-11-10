@@ -1,6 +1,8 @@
 ---
 title: Parachains
 description: Discover essential parachain development resources for building in the Polkadot ecosystem, highlighting tools to streamline your development process.
+word_count: 144
+estimated_tokens: 221
 url: https://docs.polkadot.com/develop/toolkit/parachains/
 ---
 

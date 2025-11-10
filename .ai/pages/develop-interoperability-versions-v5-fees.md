@@ -1,6 +1,8 @@
 ---
 title: Fees
 description: Explore the key differences in fee handling between XCM V4 and V5, including new payment mechanisms, delivery fees, and improved predictability for cross-chain transactions.
+word_count: 531
+estimated_tokens: 906
 url: https://docs.polkadot.com/develop/interoperability/versions/v5/fees/
 ---
 

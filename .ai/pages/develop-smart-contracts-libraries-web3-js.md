@@ -2,6 +2,8 @@
 title: Web3.js
 description: Learn how to interact with Polkadot Hub using Web3.js, deploying Solidity contracts, and interacting with deployed smart contracts.
 categories: Smart Contracts, Tooling
+word_count: 1586
+estimated_tokens: 3183
 url: https://docs.polkadot.com/develop/smart-contracts/libraries/web3-js/
 ---
 

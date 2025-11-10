@@ -2,6 +2,8 @@
 title: Manage Coretime
 description: Learn to manage bulk coretime regions through transfer, partition, interlace, assign, and pool operations for optimal resource allocation.
 categories: Parachains
+word_count: 840
+estimated_tokens: 1290
 url: https://docs.polkadot.com/develop/parachains/deployment/manage-coretime/
 ---
 

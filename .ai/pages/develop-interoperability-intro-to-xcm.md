@@ -2,6 +2,8 @@
 title: Introduction to XCM
 description: Unlock blockchain interoperability with XCM — Polkadot's Cross-Consensus Messaging format for cross-chain interactions.
 categories: Basics, Polkadot Protocol
+word_count: 976
+estimated_tokens: 1509
 url: https://docs.polkadot.com/develop/interoperability/intro-to-xcm/
 ---
 

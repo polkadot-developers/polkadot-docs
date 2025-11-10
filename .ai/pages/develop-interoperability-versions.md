@@ -1,6 +1,8 @@
 ---
 title: XCM Versions
 description: Explore the different versions of XCM, understand version-specific features and capabilities, and find migration guides for upgrading between versions.
+word_count: 114
+estimated_tokens: 149
 url: https://docs.polkadot.com/develop/interoperability/versions/
 ---
 

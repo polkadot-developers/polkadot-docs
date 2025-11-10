@@ -1,6 +1,8 @@
 ---
 title: Advanced Functionalities via Precompiles
 description: Explores how Polkadot integrates precompiles to run essential functions natively, improving the speed and efficiency of smart contracts on the Hub.
+word_count: 546
+estimated_tokens: 1260
 url: https://docs.polkadot.com/develop/smart-contracts/precompiles/
 ---
 

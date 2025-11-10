@@ -1,6 +1,8 @@
 ---
 title: Zombienet
 description: Learn how to install, configure, and use Zombienet for testing and simulating Polkadot SDK-based networks in a local development environment.
+word_count: 163
+estimated_tokens: 245
 url: https://docs.polkadot.com/develop/toolkit/parachains/spawn-chains/zombienet/
 ---
 

@@ -1,6 +1,8 @@
 ---
 title: Support
 description: Start here to get developer support for Polkadot. Connect with the team, find help, and explore resources beyond the documentation.
+word_count: 244
+estimated_tokens: 419
 url: https://docs.polkadot.com/get-support/
 ---
 

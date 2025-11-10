@@ -2,6 +2,8 @@
 title: Install Polkadot SDK Dependencies
 description: Install everything you need to begin working with Substrated-based blockchains and the Polkadot SDK, the framework for building blockchains.
 categories: Basics, Tooling
+word_count: 1840
+estimated_tokens: 2765
 url: https://docs.polkadot.com/develop/parachains/install-polkadot-sdk/
 ---
 

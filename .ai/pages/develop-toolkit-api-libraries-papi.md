@@ -2,6 +2,8 @@
 title: Polkadot-API
 description: Polkadot-API (PAPI) is a modular, composable library set designed for efficient interaction with Polkadot chains, prioritizing a "light-client first" approach.
 categories: Tooling, Dapps
+word_count: 1156
+estimated_tokens: 1991
 url: https://docs.polkadot.com/develop/toolkit/api-libraries/papi/
 ---
 

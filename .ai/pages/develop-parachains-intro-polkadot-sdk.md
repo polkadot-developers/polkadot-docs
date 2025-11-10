@@ -2,6 +2,8 @@
 title: Introduction to Polkadot SDK
 description: Learn about the Polkadot SDK, a robust developer toolkit for building custom blockchains. Explore its components and how it powers the Polkadot protocol.
 categories: Basics, Tooling
+word_count: 1156
+estimated_tokens: 1897
 url: https://docs.polkadot.com/develop/parachains/intro-polkadot-sdk/
 ---
 

@@ -2,6 +2,8 @@
 title: Light Clients
 description: Light clients enable secure and efficient blockchain interaction without running a full node. Learn everything you need to know about light clients on Polkadot.
 categories: Parachains, Tooling
+word_count: 870
+estimated_tokens: 1433
 url: https://docs.polkadot.com/develop/toolkit/parachains/light-clients/
 ---
 

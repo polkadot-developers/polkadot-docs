@@ -1,6 +1,8 @@
 ---
 title: Integrations
 description: Explore key Polkadot integrations like indexers, oracles, decentralized storage, and wallets to enhance your dApps and access external data.
+word_count: 135
+estimated_tokens: 174
 url: https://docs.polkadot.com/develop/toolkit/integrations/
 ---
 

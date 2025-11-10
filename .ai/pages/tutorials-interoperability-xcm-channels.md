@@ -1,6 +1,8 @@
 ---
 title: Tutorials for Managing XCM Channels
 description: Learn step-by-step how to establish unidirectional and bidirectional HRMP channels between parachains and system parachains using XCM.
+word_count: 238
+estimated_tokens: 364
 url: https://docs.polkadot.com/tutorials/interoperability/xcm-channels/
 ---
 

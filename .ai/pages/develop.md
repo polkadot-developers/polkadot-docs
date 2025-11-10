@@ -1,6 +1,8 @@
 ---
 title: Develop
 description: Explore and learn how to build in the Polkadot ecosystem, from a custom parachain to smart contracts, supported by robust integrations and developer tools.
+word_count: 908
+estimated_tokens: 1902
 url: https://docs.polkadot.com/develop/
 ---
 

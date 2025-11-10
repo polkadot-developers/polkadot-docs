@@ -311,6 +311,29 @@ def build_raw_url(config: dict, slug: str) -> str:
     return f"https://raw.githubusercontent.com/{org}/{repo}/{branch}/{public_root}/{pages_dirname}/{slug}"
 
 # ----------------------------
+# Word count, token estimate
+# ----------------------------
+
+def word_count(s: str) -> int:
+    return len(re.findall(r"\b\w+\b", s, flags=re.UNICODE))
+
+def _heuristic_token_count(s: str) -> int:
+    return len(re.findall(r"\w+|[^\s\w]", s, flags=re.UNICODE))
+
+def _cl100k_token_count(s: str) -> int:
+    try:
+        import tiktoken  # type: ignore
+        enc = tiktoken.get_encoding("cl100k_base")
+        return len(enc.encode(s))
+    except Exception:
+        return _heuristic_token_count(s)
+
+def estimate_tokens(text: str, estimator: str = "heuristic-v1") -> int:
+    if estimator == "cl100k":
+        return _cl100k_token_count(text)
+    return _heuristic_token_count(text)
+
+# ----------------------------
 # Writer
 # ----------------------------
 
@@ -319,7 +342,7 @@ def write_ai_page(ai_pages_dir: Path, slug: str, header: dict, body: str):
     out_path = ai_pages_dir / f"{slug}.md"
     # Only include keys that exist & are non-empty
     fm_obj = {}
-    for key in ("title", "description", "categories", "url"):
+    for key in ("title", "description", "categories", "word_count", "estimated_tokens", "url"):
         val = header.get(key, None)
         if val not in (None, "", []):
             fm_obj[key] = val
@@ -381,7 +404,6 @@ def main():
     variables = load_yaml(str(variables_path))
 
     # Config bits
-    fm_flag = config.get("content", {}).get("exclusions", {}).get("frontmatter_flag", "ai_exclude")
     skip_basenames = set(config.get("content", {}).get("exclusions", {}).get("skip_basenames", []))
     skip_parts = set(config.get("content", {}).get("exclusions", {}).get("skip_paths", []))
     docs_base_url = config.get("project", {}).get("docs_base_url", "").rstrip("/") + "/"
@@ -428,6 +450,9 @@ def main():
         body = remove_html_comments(body)
         body = wrap_yaml_code_fences(body)
 
+        page_word_count = word_count(body)
+        page_token_count = estimate_tokens(body)
+
         # Compute slug + canonical URL to the docs HTML
         rel_no_ext = os.path.splitext(rel)[0]
         slug, url = compute_slug_and_url(rel_no_ext, docs_base_url)
@@ -435,6 +460,8 @@ def main():
         # Minimal header based on current authoring fields
         header = map_minimal_front_matter(fm)
         header["url"] = url  # always include
+        header["word_count"] = page_word_count
+        header["estimated_tokens"] = page_token_count
 
         # Write ai pages
         out_path = write_ai_page(ai_pages_dir, slug, header, body)

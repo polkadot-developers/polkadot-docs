@@ -2,6 +2,8 @@
 title: Accounts in Asset Hub Smart Contracts
 description: Bridges Ethereum's 20-byte addresses with Polkadot's 32-byte accounts, enabling seamless interaction while maintaining compatibility with Ethereum tooling.
 categories: Basics, Polkadot Protocol
+word_count: 1140
+estimated_tokens: 1859
 url: https://docs.polkadot.com/polkadot-protocol/smart-contract-basics/accounts/
 ---
 

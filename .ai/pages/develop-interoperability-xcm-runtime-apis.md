@@ -2,6 +2,8 @@
 title: XCM Runtime APIs
 description: Learn about XCM Runtime APIs in Polkadot for cross-chain communication. Explore the APIs to simulate and test XCM messages before execution on the network.
 categories: Reference, Polkadot Protocol
+word_count: 3164
+estimated_tokens: 6516
 url: https://docs.polkadot.com/develop/interoperability/xcm-runtime-apis/
 ---
 

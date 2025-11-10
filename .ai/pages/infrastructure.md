@@ -1,6 +1,8 @@
 ---
 title: Infrastructure
 description: Learn how to set up and manage various types of Polkadot infrastructure, from running nodes to operating validators and contributing to the network.
+word_count: 357
+estimated_tokens: 547
 url: https://docs.polkadot.com/infrastructure/
 ---
 

@@ -1,6 +1,8 @@
 ---
 title: Fork Chains for Testing
 description: Explore tools for forking live blockchain networks, enabling you to replicate real-world conditions in a local environment for accurate testing and debugging.
+word_count: 175
+estimated_tokens: 275
 url: https://docs.polkadot.com/develop/toolkit/parachains/fork-chains/
 ---
 

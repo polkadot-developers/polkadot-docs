@@ -2,6 +2,8 @@
 title: Parachain Consensus
 description: Understand how the blocks authored by parachain collators are secured by the relay chain validators and how the parachain transactions achieve finality.
 categories: Polkadot Protocol, Parachains
+word_count: 791
+estimated_tokens: 1130
 url: https://docs.polkadot.com/polkadot-protocol/architecture/parachains/consensus/
 ---
 

@@ -1,6 +1,8 @@
 ---
 title: Parachain Basics
 description: Discover Polkadot’s technical foundations, from blockchain basics and cryptography to network features like interoperability and randomness.
+word_count: 130
+estimated_tokens: 160
 url: https://docs.polkadot.com/polkadot-protocol/parachain-basics/
 ---
 

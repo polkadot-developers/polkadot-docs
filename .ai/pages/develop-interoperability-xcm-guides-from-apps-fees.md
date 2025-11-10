@@ -1,6 +1,8 @@
 ---
 title: Fees
 description: Learn how XCM fees work. Execution and delivery fees, how to estimate and pay them across chains, and which assets can be used for fee payment.
+word_count: 926
+estimated_tokens: 1451
 url: https://docs.polkadot.com/develop/interoperability/xcm-guides/from-apps/fees/
 ---
 

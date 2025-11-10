@@ -2,6 +2,8 @@
 title: Randomness
 description: Explore the importance of randomness in PoS blockchains, focusing on Polkadot’s VRF-based approach to ensure fairness and security in validator selection.
 categories: Basics, Polkadot Protocol
+word_count: 1008
+estimated_tokens: 1396
 url: https://docs.polkadot.com/polkadot-protocol/parachain-basics/randomness/
 ---
 

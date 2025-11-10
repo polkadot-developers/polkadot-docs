@@ -2,6 +2,8 @@
 title: Transactions and Fees on Asset Hub
 description: Explore how Asset Hub smart contracts handle blocks, transactions, and fees with EVM compatibility, supporting various Ethereum transaction types.
 categories: Basics, Polkadot Protocol
+word_count: 789
+estimated_tokens: 1217
 url: https://docs.polkadot.com/polkadot-protocol/smart-contract-basics/blocks-transactions-fees/
 ---
 

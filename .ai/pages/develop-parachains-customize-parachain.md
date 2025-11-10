@@ -1,6 +1,8 @@
 ---
 title: Customize Your Parachain
 description: Learn to build a custom parachain with Polkadot SDK's FRAME framework, which includes pallet development, testing, smart contracts, and runtime customization.
+word_count: 256
+estimated_tokens: 452
 url: https://docs.polkadot.com/develop/parachains/customize-parachain/
 ---
 

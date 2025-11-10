@@ -2,6 +2,8 @@
 title: Glossary
 description: Glossary of terms used within the Polkadot ecosystem, Polkadot SDK, its subsequent libraries, and other relevant Web3 terminology.
 categories: Reference
+word_count: 3625
+estimated_tokens: 5366
 url: https://docs.polkadot.com/polkadot-protocol/glossary/
 ---
 

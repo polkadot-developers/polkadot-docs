@@ -1,6 +1,8 @@
 ---
 title: XCM Transfers
 description: Explore tutorials on performing transfers between different consensus systems using XCM technology to enable cross-chain interoperability.
+word_count: 103
+estimated_tokens: 148
 url: https://docs.polkadot.com/tutorials/interoperability/xcm-transfers/
 ---
 

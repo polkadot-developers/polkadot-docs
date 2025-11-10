@@ -1,6 +1,8 @@
 ---
 title: Maintenance
 description: Learn how to maintain Polkadot SDK-based networks, covering runtime monitoring, upgrades, and storage migrations for optimal blockchain performance.
+word_count: 172
+estimated_tokens: 304
 url: https://docs.polkadot.com/develop/parachains/maintenance/
 ---
 

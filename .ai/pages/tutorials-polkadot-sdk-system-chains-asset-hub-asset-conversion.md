@@ -2,6 +2,8 @@
 title: Convert Assets on Asset Hub
 description: A guide detailing the step-by-step process of converting assets on Asset Hub, helping users efficiently navigate asset management on the platform.
 categories: dApps
+word_count: 2683
+estimated_tokens: 4248
 url: https://docs.polkadot.com/tutorials/polkadot-sdk/system-chains/asset-hub/asset-conversion/
 ---
 

@@ -1,6 +1,8 @@
 ---
 title: Smart Contract Basics
 description: Learn the fundamental concepts of smart contracts on Polkadot, including PolkaVM, account management, networks, and transaction mechanics.
+word_count: 136
+estimated_tokens: 211
 url: https://docs.polkadot.com/polkadot-protocol/smart-contract-basics/
 ---
 

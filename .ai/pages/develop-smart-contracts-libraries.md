@@ -1,6 +1,8 @@
 ---
 title: Libraries
 description: Compare libraries for interacting with smart contracts on Polkadot, including Ethers.js, Web3.js, viem, Wagmi, Web3.py, and their key differences.
+word_count: 211
+estimated_tokens: 521
 url: https://docs.polkadot.com/develop/smart-contracts/libraries/
 ---
 

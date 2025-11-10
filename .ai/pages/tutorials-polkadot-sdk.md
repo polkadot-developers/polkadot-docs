@@ -1,6 +1,8 @@
 ---
 title: Polkadot SDK Tutorials
 description: Explore detailed, step-by-step tutorials designed to help you gain hands-on experience building custom solutions with the Polkadot SDK.
+word_count: 214
+estimated_tokens: 332
 url: https://docs.polkadot.com/tutorials/polkadot-sdk/
 ---
 

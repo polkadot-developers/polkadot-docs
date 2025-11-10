@@ -2,6 +2,8 @@
 title: Test and Deploy with Hardhat
 description: Learn how to set up a Hardhat development environment, write comprehensive tests for Solidity smart contracts, and deploy to local and Polkadot Hub networks.
 categories: dApp, Tooling
+word_count: 2236
+estimated_tokens: 4168
 url: https://docs.polkadot.com/tutorials/smart-contracts/launch-your-first-project/test-and-deploy-with-hardhat/
 ---
 

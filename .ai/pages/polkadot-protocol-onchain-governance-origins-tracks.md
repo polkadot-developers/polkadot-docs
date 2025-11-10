@@ -2,6 +2,8 @@
 title: Origins and Tracks
 description: Explore Polkadot's OpenGov origins and tracks system, defining privilege levels, decision processes, and tailored pathways for network proposals.
 categories: Polkadot Protocol
+word_count: 469
+estimated_tokens: 635
 url: https://docs.polkadot.com/polkadot-protocol/onchain-governance/origins-tracks/
 ---
 

@@ -2,6 +2,8 @@
 title: Generate Chain Specs
 description: Describes the role of the chain specification in a network, how to specify its parameters when starting a node, and how to customize and distribute it.
 categories: Parachains
+word_count: 1957
+estimated_tokens: 3075
 url: https://docs.polkadot.com/develop/parachains/deployment/generate-chain-specs/
 ---
 

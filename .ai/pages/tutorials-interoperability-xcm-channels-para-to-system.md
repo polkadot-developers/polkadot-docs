@@ -2,6 +2,8 @@
 title: Opening HRMP Channels with System Parachains
 description: Learn how to open HRMP channels with Polkadot system parachains. Discover the process for establishing bi-directional communication using a single XCM message.
 categories: Parachains
+word_count: 906
+estimated_tokens: 1468
 url: https://docs.polkadot.com/tutorials/interoperability/xcm-channels/para-to-system/
 ---
 

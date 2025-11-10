@@ -1,6 +1,8 @@
 ---
 title: ParaSpell XCM SDK
 description: A powerful open-source library that simplifies XCM integration, enabling developers to easily build interoperable dApps on Polkadot.
+word_count: 438
+estimated_tokens: 687
 url: https://docs.polkadot.com/develop/toolkit/interoperability/paraspell-xcm-sdk/
 ---
 

@@ -2,6 +2,8 @@
 title: Subxt Rust API
 description: Subxt is a Rust library for type-safe interaction with Polkadot SDK blockchains, enabling transactions, state queries, runtime API access, and more.
 categories: Tooling, Dapps
+word_count: 1175
+estimated_tokens: 2191
 url: https://docs.polkadot.com/develop/toolkit/api-libraries/subxt/
 ---
 

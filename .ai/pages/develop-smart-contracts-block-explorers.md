@@ -2,6 +2,8 @@
 title: Block Explorers
 description: Access PolkaVM explorers like Subscan, BlockScout, and Routescan to track transactions, analyze contracts, and view on-chain data from smart contracts.
 categories: Smart Contracts, Tooling
+word_count: 225
+estimated_tokens: 348
 url: https://docs.polkadot.com/develop/smart-contracts/block-explorers/
 ---
 

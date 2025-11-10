@@ -2,6 +2,8 @@
 title: PolkaVM Design
 description: Discover PolkaVM, a high-performance smart contract VM for Polkadot, enabling Ethereum compatibility via pallet_revive, Solidity support & optimized execution.
 categories: Basics, Polkadot Protocol
+word_count: 666
+estimated_tokens: 1029
 url: https://docs.polkadot.com/polkadot-protocol/smart-contract-basics/polkavm-design/
 ---
 

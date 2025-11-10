@@ -2,6 +2,8 @@
 title: Pallet Benchmarking
 description: Learn how to benchmark Polkadot SDK-based pallets, assigning precise weights to extrinsics for accurate fee calculation and runtime optimization.
 categories: Parachains
+word_count: 1539
+estimated_tokens: 2929
 url: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/
 ---
 

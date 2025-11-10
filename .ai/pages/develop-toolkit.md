@@ -1,6 +1,8 @@
 ---
 title: Toolkit
 description: Learn about Polkadot's core development toolkit, from blockchain construction tools to API libraries and cross-chain messaging capabilities.
+word_count: 113
+estimated_tokens: 161
 url: https://docs.polkadot.com/develop/toolkit/
 ---
 

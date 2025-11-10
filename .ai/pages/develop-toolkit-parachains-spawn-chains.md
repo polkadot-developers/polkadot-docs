@@ -1,6 +1,8 @@
 ---
 title: Spawn Networks for Testing
 description: Discover tools that enable you to spawn blockchains for testing, allowing for debugging, and validation of your blockchain setups in a controlled environment.
+word_count: 156
+estimated_tokens: 248
 url: https://docs.polkadot.com/develop/toolkit/parachains/spawn-chains/
 ---
 

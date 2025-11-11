@@ -8,7 +8,7 @@ categories: Smart Contracts, Tooling
 
 ## Overview
 
-After compiling your smart contract in Remix IDE, the next step is to deploy it to the Polkadot Hub network. This guide will walk you through the deployment process using a wallet provider, and show you how to interact with your deployed contracts directly from the Remix interface.
+After compiling your smart contract in Remix IDE, the next step is to deploy it to the Polkadot Hub network. This guide will walk you through the deployment process using a wallet provider and show you how to interact with your deployed contracts directly from the Remix interface.
 
 ## Prerequisites
 
@@ -55,7 +55,7 @@ Once deployed, your contract appears in the **Deployed/Unpinned Contracts** sect
 
 4. Click the **Increment** button to increment the count value.
 
-5. Submit the transaction and click the **Confirm** button in the wallet popup.
+5. Submit the transaction and click the **Confirm** button in the wallet pop-up.
 
 6. Once the transaction is confirmed, you will see the updated count value in the Remix terminal.
 
@@ -75,12 +75,12 @@ You've successfully deployed and interacted with your smart contract on Polkadot
 
     [:octicons-arrow-right-24: Get Started](/smart-contracts/dev-environments/remix/verify-a-contract) -->
 
--   <span class="badge guide">Guide</span> __Troubleshooting__
+-   <span class="badge guide">Guide</span> __Troubleshooting and FAQs__
 
     ---
 
     Find solutions to common issues when working with Remix IDE.
 
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/dev-environments/remix/troubleshooting)
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/dev-environments/remix/troubleshooting-faq/)
 
 </div>

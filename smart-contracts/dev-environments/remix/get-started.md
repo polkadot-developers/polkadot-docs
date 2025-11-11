@@ -18,15 +18,15 @@ Before getting started, ensure you have:
 - Basic understanding of Solidity programming.
 - Some DOT test tokens to cover transaction fees (easily obtainable from the [Polkadot faucet](/smart-contracts/faucet/){target=\_blank}).
 
-## Accessing Remix IDE
+## Access Remix IDE
 
 Navigate to [https://remix.ethereum.org/](https://remix.ethereum.org/){target=\_blank}. The interface will load with a default workspace containing sample contracts.
 
 ![](/images/smart-contracts/dev-environments/remix/get-started/remix-1.webp)
 
-In this interface, you can access a file explorer, edit your code, interact with various plugins for development, and use a terminal.
+In this interface, you can access a file explorer, edit your code, interact with various development plugins, and use a terminal.
 
-## Creating a New Contract
+## Create a New Contract
 
 To create a new contract using the Remix IDE, you can follow these steps:
 
@@ -38,7 +38,7 @@ To create a new contract using the Remix IDE, you can follow these steps:
 
     You can use the following code as an example:
 
-    ???- "Counter.sol"
+    ??? code "Counter.sol"
         
         ```solidity
         --8<-- 'code/smart-contracts/dev-environments/remix/get-started/Counter.sol'
@@ -47,7 +47,7 @@ To create a new contract using the Remix IDE, you can follow these steps:
     ![](/images/smart-contracts/dev-environments/remix/get-started/remix-2.gif)
 
 
-## Compiling Your Contract
+## Compile Your Contract
 
 To compile your contract, you need to:
 
@@ -83,7 +83,7 @@ Explore more about smart contracts through these resources:
 
     ---
 
-    Test your skills by deploying a simple contracts with prebuilt templates.
+    Test your skills by deploying simple contracts using prebuilt templates.
 
     [:octicons-arrow-right-24: Get Started](https://www.openzeppelin.com/solidity-contracts){target=\_blank}
 

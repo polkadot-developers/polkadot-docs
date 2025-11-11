@@ -8,7 +8,7 @@ categories: Smart Contracts, Tooling
 
 This guide provides solutions to common issues you may encounter when using Remix IDE with Polkadot Hub. If you're experiencing problems with compilation, deployment, or contract interaction, you'll likely find the solution here.
 
-## Contract fails to compile or shows errors in the terminal.
+## Problem: Contract fails to compile or shows errors in the terminal.
 
 **Solutions**:
 

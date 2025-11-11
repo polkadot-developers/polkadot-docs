@@ -1,5 +1,5 @@
 ---
-title: Overview
+title: Technical Reference Overview
 description: Learn about Polkadot's technical architecture, governance framework, parachain ecosystem, and the tools you need to build and interact with the network.
 categories: Basics, Polkadot Protocol, Reference
 ---

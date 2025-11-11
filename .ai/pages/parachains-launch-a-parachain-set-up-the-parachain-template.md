@@ -26,7 +26,7 @@ By the end of this guide, you'll have a working template ready to customize and 
 
 Before getting started, ensure you have done the following:
 
-- Completed the [Install Polkadot SDK Dependencies](/reference/tools/polkadot-sdk/install/){target=\_blank} guide and successfully installed [Rust](https://www.rust-lang.org/){target=\_blank} and the required packages to set up your development environment
+- Completed the [Install Polkadot SDK](/parachains/install-polkadot-sdk/){target=\_blank} guide and successfully installed [Rust](https://www.rust-lang.org/){target=\_blank} and the required packages to set up your development environment.
 
 For this tutorial series, you need to use Rust `1.86`. Newer versions of the compiler may not work with this parachain template version.
 
@@ -189,7 +189,7 @@ When running the template node, it's accessible by default at `ws://localhost:99
 
     1. Scroll to the bottom and select **Development**.
     2. Choose **Custom**.
-    3. Enter `ws**: //localhost:9944` in the **custom endpoint** input field.
+    3. Enter `ws://localhost:9944` in the **custom endpoint** input field.
     4. Click the **Switch** button.
     
     ![](/images/parachains/launch-a-parachain/set-up-the-parachain-template/parachain-template-02.webp)

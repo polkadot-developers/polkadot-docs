@@ -1,7 +1,9 @@
 ---
 title: Deploy an NFT to Polkadot Hub with Ethers.js
 description: Learn how to deploy an ERC-721 NFT contract to Polkadot Hub using Ethers.js, giving you complete programmatic control over the deployment process.
-categories: Smart Contracts
+tutorial_badge: Beginner
+categories: Basics, Smart Contracts
+tools: EVM Wallet, Ethers
 ---
 
 # Deploy an NFT with Ethers.js

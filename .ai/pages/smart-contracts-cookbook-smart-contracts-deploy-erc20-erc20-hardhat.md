@@ -63,29 +63,7 @@ The command will initiate a wizard in which you'll have to enter the value to be
 
 You can now use the account related to this private key by importing it into the Hardhat configuration file:
 
-```ts title="hardhat.config.ts" hl_lines="1 37"
-import { HardhatUserConfig, vars } from "hardhat/config";
-import "@nomicfoundation/hardhat-toolbox";
-
-/**
- * SECURITY NOTE: 
- * This config uses Hardhat's configuration variables for secure private key management.
- * 
- * To securely set your private key:
- * 1. Run: npx hardhat vars set TESTNET_PRIVATE_KEY
- * 2. Enter your private key when prompted
- * 3. The value is stored securely (run 'npx hardhat vars path' to see location)
- * 
- * To set a custom network URL:
- * npx hardhat vars set TESTNET_URL
- * 
- * Other useful commands:
- * - List all variables: npx hardhat vars list
- * - View a variable: npx hardhat vars get TESTNET_PRIVATE_KEY
- * - Delete a variable: npx hardhat vars delete TESTNET_PRIVATE_KEY
- * 
- * NEVER commit private keys or expose them in code/logs.
- */
+```ts title="hardhat.config.ts" hl_lines="1 17"
 
 const config: HardhatUserConfig = {
   solidity: {

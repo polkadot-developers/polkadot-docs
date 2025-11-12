@@ -64,8 +64,10 @@ The command will initiate a wizard in which you'll have to enter the value to be
 
 You can now use the account related to this private key by importing it into the Hardhat configuration file:
 
-```ts title="hardhat.config.ts" hl_lines="1 37"
---8<-- "https://raw.githubusercontent.com/polkadot-developers/revm-hardhat-examples/refs/heads/master/erc20-hardhat/hardhat.config.ts"
+```ts title="hardhat.config.ts" hl_lines="1 17"
+--8<-- "https://raw.githubusercontent.com/polkadot-developers/revm-hardhat-examples/refs/heads/master/erc20-hardhat/hardhat.config.ts::2"
+
+--8<-- "https://raw.githubusercontent.com/polkadot-developers/revm-hardhat-examples/refs/heads/master/erc20-hardhat/hardhat.config.ts:24:45"
 ```
 
 ## Compile your Contract

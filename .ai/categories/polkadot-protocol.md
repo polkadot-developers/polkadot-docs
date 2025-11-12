@@ -7636,7 +7636,7 @@ This overview explains how runtime customization works, introduces the building 
 
 The runtime is the core logic of your blockchain—it processes transactions, manages state, and enforces the rules that govern your network. When a transaction arrives at your blockchain, the [`frame_executive`](https://paritytech.github.io/polkadot-sdk/master/frame_executive/index.html){target=\_blank} pallet receives it and routes it to the appropriate pallet for execution.
 
-Think of your runtime as a collection of specialized modules, each handling a different aspect of your blockchain. Need token balances? Use the Balances pallet. Want governance? Add the Governance pallet. Need something custom? Create your own pallet. By mixing and matching these modules, you build a runtime that's efficient, secure, and tailored to your use case.
+Think of your runtime as a collection of specialized modules, each handling a different aspect of your blockchain. Need token balances? Use the Balances pallet. Want governance? Add the Governance pallets. Need something custom? Create your own pallet. By mixing and matching these modules, you build a runtime that's efficient, secure, and tailored to your use case.
 
 ## Runtime Architecture
 
@@ -9655,7 +9655,7 @@ When running the template node, it's accessible by default at `ws://localhost:99
 
     1. Scroll to the bottom and select **Development**.
     2. Choose **Custom**.
-    3. Enter `ws**: //localhost:9944` in the **custom endpoint** input field.
+    3. Enter `ws://localhost:9944` in the **custom endpoint** input field.
     4. Click the **Switch** button.
     
     ![](/images/parachains/launch-a-parachain/set-up-the-parachain-template/parachain-template-02.webp)

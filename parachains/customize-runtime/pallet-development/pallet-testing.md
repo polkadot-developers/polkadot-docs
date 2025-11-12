@@ -169,7 +169,7 @@ running 1 test
 test tests::increment_works ... ok
 ```
 
-🎉 Congratulations! You've written and run your first pallet test.
+Congratulations! You've written and run your first pallet test.
 
 ## Test Error Conditions
 
@@ -360,7 +360,7 @@ test result: ok. 15 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 
     These tests are automatically generated from your mock runtime setup and help ensure the test environment itself is valid.
 
-🎉 Congratulations! You have a well-tested pallet covering the essential testing patterns!
+Congratulations! You have a well-tested pallet covering the essential testing patterns!
 
 These tests demonstrate comprehensive coverage including basic operations, error conditions, access control, event emission, state management, and genesis configuration. As you build more complex pallets, you'll apply these same patterns to test additional functionality.
 

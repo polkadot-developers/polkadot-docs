@@ -1,13 +1,13 @@
 ---
-title: Transfer Tokens Between Parachains
+title: Transfer Assets Between Parachains
 description: A step-by-step guide to using the ParaSpell XCM SDK to build, verify, and execute a transfer from one Parachain to another.
 ---
 
-# Transfer Tokens Between Parachains
+# Transfer Assets Between Parachains
 
 ## Introduction
 
-This guide walks you through transferring tokens between two parachains using the [ParaSpell XCM SDK](https://paraspell.github.io/docs/){target=\_blank}. This example utilizes [Asset Hub](/polkadot-protocol/architecture/system-chains/asset-hub/){target=\_blank} and the [People Chain](/polkadot-protocol/architecture/system-chains/people/){target=\_blank}. However, the same approach can be applied to transfers between other parachains.
+This guide walks you through transferring tokens between two parachains using the [ParaSpell XCM SDK](/reference/tools/paraspell/){target=\_blank}. This example utilizes [Asset Hub](/polkadot-protocol/architecture/system-chains/asset-hub/){target=\_blank} and the [People Chain](/polkadot-protocol/architecture/system-chains/people/){target=\_blank}. However, the same approach can be applied to transfers between other parachains.
 
 For development purposes, this guide will use the [Polkadot TestNet](/develop/networks/#paseo){target=\_blank}, so the transferred token will be PAS.
 
@@ -15,7 +15,7 @@ In this guide, you will:
 
 - Build an XCM transfer transaction using ParaSpell XCM SDK.
 - Perform a dry run to validate the transfer.
-- Verify the [Existential Deposit (ED)](/polkadot-protocol/glossary/#existential-deposit){target=\_blank} requirement on the destination chain.
+- Verify the [Existential Deposit (ED)](/reference/glossary/#existential-deposit){target=\_blank} requirement on the destination chain.
 - Retrieve information regarding the transfer, along with fee estimates.
 - Submit the transaction.
 
@@ -23,30 +23,36 @@ In this guide, you will:
 
 Before you begin, ensure you have the following:
 
-- Knowledge of the [fundamentals of Polkadot](/polkadot-protocol/parachain-basics/){target=\_blank}.
-- Basic understanding of [XCM](/develop/interoperability/intro-to-xcm/){target=\_blank}.
+- Knowledge of the [fundamentals of Polkadot](/parachains/get-started/){target=\_blank}.
+- Basic understanding of [XCM](/parachains/interoperability/get-started/){target=\_blank}.
 - Basic familiarity with JavaScript or TypeScript.
-- Installed [bun](https://bun.com/docs/installation){target=\_blank}, a JavaScript and TypeScript package manager.
+- Installed [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm){target=\_blank}, a JavaScript and TypeScript package manager.
 
 ## Initialize Your Project
 
 Create the project folder:
 
 ```bash
-mkdir paraspell-transfer
+mkdir paraspell-transfer && \
 cd paraspell-transfer
 ```
 
 Initialize the JavaScript project:
 
 ```bash
-bun init -y
+npm init -y
+```
+
+Install dev dependencies:
+
+```bash
+npm install --save-dev @types/node@^22.12.0 tsx@^4.20.6 typescript@^5.7.3
 ```
 
 Install the required dependencies:
 
 ```bash
-bun add @paraspell/sdk@11.3.2 polkadot-api@1.17.1 @polkadot-labs/hdkd-helpers@0.0.25 @polkadot-labs/hdkd@0.0.24
+npm install --save @paraspell/sdk@11.12.6 polkadot-api@1.20.0 @polkadot-labs/hdkd-helpers@0.0.26 @polkadot-labs/hdkd@0.0.25
 ```
 
 Now add the following setup code to `index.ts`:
@@ -88,7 +94,7 @@ Add the following dry run code to your `index.ts` script:
 Run the script using the following command:
 
 ```bash
-bun run index.ts
+npx tsx index.ts
 ```
 
 The result of the dry run will look similar to the following example output:
@@ -105,7 +111,7 @@ Check if the recipient account meets the [Existential Deposit (ED)](/polkadot-pr
 Comment out the `dryRunTransfer()` function so that it is not executed again. Then, execute the `verifyED()` by running the following command:
 
 ```bash
-bun run index.ts
+npx tsx index.ts
 ```
 
 After that, you will get output confirming the ED which will look similar to the following:
@@ -125,7 +131,7 @@ ParaSpell has a helpful function for this: [`getTransferInfo()`](https://paraspe
 Comment out the `verifyED()` function so it doesn't execute again. Then, execute the `XcmTransferInfo()` function by running the following command:
 
 ```bash
-bun run index.ts
+npx tsx index.ts
 ```
 
 You will see all the information for your transfer similar to the following example:
@@ -147,7 +153,7 @@ You can execute the transfer function by adding the following function call:
 Comment out the `XcmTransferInfo()` function so it doesn't execute again. Then, execute the transfer by running the following command: 
 
 ```bash
-bun run index.ts
+npx tsx index.ts
 ```
 
 Your `transfer` function will submit the transaction, and you will get the following output:
@@ -180,4 +186,4 @@ You have now successfully created and sent a cross-chain transfer using the Para
 
 - Read the Docs: Dive deeper into the features of the [ParaSpell XCM SDK](https://paraspell.github.io/docs/sdk/getting-started.html){target=\_blank} documentation.
 
-- Learn about XCM: Understand the underlying protocol by visiting the [Introduction to XCM page](/develop/interoperability/intro-to-xcm/) in the Polkadot Docs.
+- Learn about XCM: Understand the underlying protocol by visiting the [Introduction to XCM page](/parachains/interoperability/get-started/) in the Polkadot Docs.

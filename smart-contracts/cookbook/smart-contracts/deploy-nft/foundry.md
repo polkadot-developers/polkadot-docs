@@ -1,7 +1,9 @@
 ---
 title: Deploy an NFT to Polkadot Hub with Foundry
 description: Learn how to deploy an ERC-721 NFT contract to Polkadot Hub using Foundry, a Rust toolkit with high-performance compilation.
-categories: Smart Contracts
+tutorial_badge: Beginner
+categories: Basics, Smart Contracts
+tools: EVM Wallet, Foundry
 ---
 
 # Deploy an NFT with Foundry

@@ -1,6 +1,6 @@
 ---
 title: Add Smart Contract Functionality
-description: Add smart contract capabilities to your Polkadot SDK-based blockchain. Explore EVM and Wasm integration for enhanced chain functionality.
+description: Add smart contract capabilities to your Polkadot SDK-based blockchain. Explore PVM, EVM, and Wasm integration for enhanced chain functionality.
 categories: Parachains
 url: https://docs.polkadot.com/parachains/customize-runtime/add-smart-contract-functionality/
 ---
@@ -9,59 +9,110 @@ url: https://docs.polkadot.com/parachains/customize-runtime/add-smart-contract-f
 
 ## Introduction
 
-When building your custom blockchain with the Polkadot SDK, you have the flexibility to add smart contract capabilities through specialized pallets. These pallets allow blockchain users to deploy and execute smart contracts, enhancing your chain's functionality and programmability.
+When building your custom blockchain with the Polkadot SDK, you can add smart contract capabilities through specialized pallets. These pallets enable users to deploy and execute smart contracts, enhancing your chain's programmability and allowing developers to build decentralized applications on your network.
 
-Polkadot SDK-based blockchains support two distinct smart contract execution environments: [EVM (Ethereum Virtual Machine)](#evm-smart-contracts) and [Wasm (WebAssembly)](#wasm-smart-contracts). Each environment allows developers to deploy and execute different types of smart contracts, providing flexibility in choosing the most suitable solution for their needs.
+This guide covers three approaches to adding smart contracts to your blockchain:
 
-## EVM Smart Contracts
+- **[`pallet-revive`](#pallet-revive)**: Modern unified solution supporting both PolkaVM and EVM bytecode
+- **[Frontier](#frontier)**: Ethereum compatibility layer for Polkadot SDK-based chains
+- **[`pallet-contracts`](#pallet-contracts-legacy)**: Wasm smart contract support
 
-To enable Ethereum-compatible smart contracts in your blockchain, you'll need to integrate [Frontier](https://github.com/polkadot-evm/frontier){target=\_blank}, the Ethereum compatibility layer for Polkadot SDK-based chains. This requires adding two essential pallets to your runtime:
+## pallet-revive
 
-- **[`pallet-evm`](https://github.com/polkadot-evm/frontier/tree/master/frame/evm){target=\_blank}**: Provides the EVM execution environment.
-- **[`pallet-ethereum`](https://github.com/polkadot-evm/frontier/tree/master/frame/ethereum){target=\_blank}**: Handles Ethereum-formatted transactions and RPC capabilities.
+[`pallet-revive`](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame/revive){target=\_blank} is the modern smart contract solution for Polkadot SDK-based chains. It provides a unified execution environment that supports both PolkaVM and EVM bytecode through dual execution backends.
 
-For step-by-step guidance on adding these pallets to your runtime, refer to [Add a Pallet to the Runtime](/parachains/customize-runtime/add-existing-pallets/){target=\_blank}.
+### Core Components
 
-For a real-world example of how these pallets are implemented in production, you can check Moonbeam's implementation of [`pallet-evm`](https://github.com/moonbeam-foundation/moonbeam/blob/9e2ddbc9ae8bf65f11701e7ccde50075e5fe2790/runtime/moonbeam/src/lib.rs#L532){target=\_blank} and [`pallet-ethereum`](https://github.com/moonbeam-foundation/moonbeam/blob/9e2ddbc9ae8bf65f11701e7ccde50075e5fe2790/runtime/moonbeam/src/lib.rs#L698){target=\_blank}.
+**Essential Pallet:**
+**[`pallet-revive`](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame/revive){target=\_blank}** provides the core smart contract execution environment with [PolkaVM](https://github.com/polkadot-developers/polkadot-docs/blob/71e1b51bb42ef55e20c2f3b953db86e8c26cd591/smart-contracts/for-eth-devs/dual-vm-stack.md#upgrade-to-polkavm){target=\_blank} and [REVM](https://github.com/polkadot-developers/polkadot-docs/blob/71e1b51bb42ef55e20c2f3b953db86e8c26cd591/smart-contracts/for-eth-devs/dual-vm-stack.md#migrate-from-evm){target=\_blank} backends.
 
-## Wasm Smart Contracts
+**RPC Adapter:**
+**[`pallet-revive-eth-rpc`](https://crates.io/crates/pallet-revive-eth-rpc){target=\_blank}** adds full Ethereum RPC compatibility for Ethereum tooling integration.
 
-To support Wasm-based smart contracts, you'll need to integrate:
+### Supported Languages and Compilers
 
-- **[`pallet-contracts`](https://docs.rs/pallet-contracts/latest/pallet_contracts/index.html#contracts-pallet){target=\_blank}**: Provides the Wasm smart contract execution environment.
+`pallet-revive` accepts smart contracts from multiple languages and compilation paths:
 
-This pallet enables the deployment and execution of Wasm-based smart contracts on your blockchain. For detailed instructions on adding this pallet to your runtime, see [Add a Pallet to the Runtime](/parachains/customize-runtime/add-existing-pallets/){target=\_blank}.
+| Language | Compiler | Output Bytecode | Execution Backend |
+|----------|----------|-----------------|-------------------|
+| Solidity | `resolc` | PolkaVM | PolkaVM |
+| Solidity | `solc` | EVM | REVM |
+| Rust (ink!) | `cargo-contract` | PolkaVM | PolkaVM | 
 
-For a real-world example of how this pallet is implemented in production, you can check Astar's implementation of [`pallet-contracts`](https://github.com/AstarNetwork/Astar/blob/b6f7a408d31377130c3713ed52941a06b5436402/runtime/astar/src/lib.rs#L693){target=\_blank}.
+Any language that can compile to PolkaVM bytecode and utilize `pallet-revive`'s host functions (via [`pallet-revive-uapi`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive_uapi/index.html){target=\_blank}) is supported.
+
+### How It Works
+
+**Dual Execution Model:**
+
+1. **PolkaVM Backend**: Executes PolkaVM bytecode with native performance optimization.
+2. **REVM Backend**: Implements EVM bytecode for compatibility with existing Ethereum contracts, ensuring seamless migration.
+
+### Key Benefits
+
+- **Unified Platform**: Deploys both PolkaVM-optimized and EVM-compatible contracts using a single pallet.
+- **Performance**: PolkaVM execution provides improved performance compared to the traditional EVM, leveraging the [RISC-V](https://en.wikipedia.org/wiki/RISC-V){target=\_blank} architecture to map instructions to the CPU and requires little transpiling.
+- **Ethereum Compatibility**: Supports full integration with Ethereum tooling via RPC adapter.
+
+### Implementation Examples
+
+See a real-world implementation in the [Polkadot Hub TestNet](https://github.com/paseo-network/runtimes/blob/c965c42a4e0bc9d1e9cc0a340322bc3b8e347bcf/system-parachains/asset-hub-paseo/src/lib.rs#L1122-L1157){target=\_blank} in the Polkadot Fellows repository.
+
+## Frontier
+
+[Frontier](https://github.com/polkadot-evm/frontier){target=\_blank} is the Ethereum compatibility layer designed for maximum compatibility with the Ethereum ecosystem. It's the ideal choice when you need seamless integration with existing Ethereum tools, dApps, and infrastructure.
+
+### Integration Options
+
+Frontier offers flexible integration depending on your compatibility needs:
+
+### EVM Execution Only
+
+For basic EVM support using Polkadot SDK native APIs:
+
+- **[`pallet-evm`](https://github.com/polkadot-evm/frontier/tree/master/frame/evm){target=\_blank}**: Provides the core EVM execution environment
+
+This configuration allows EVM contract execution but requires using Polkadot SDK-specific APIs for interaction.
+
+### Full Ethereum Compatibility
+
+For complete Ethereum ecosystem integration with Ethereum RPC support:
+
+- **[`pallet-evm`](https://github.com/polkadot-evm/frontier/tree/master/frame/evm){target=\_blank}**: Integrates core EVM execution environment.
+- **[`pallet-ethereum`](https://github.com/polkadot-evm/frontier/tree/master/frame/ethereum){target=\_blank}**: Emulates Ethereum blocks and handles Ethereum-formatted transactions.
+- **[`fc-rpc`](https://github.com/polkadot-evm/frontier/tree/master/client/rpc){target=\_blank}**: Provides Ethereum JSON-RPC endpoints.
+
+### Key Benefits
+
+- **Ethereum tooling compatibility**: Full compatibility with MetaMask, Hardhat, Remix, Truffle, and other Ethereum development tools
+- **Minimal-friction migration**: Deployment of existing Ethereum dApps with minimal or no modifications
+- **Native Ethereum formats**: Support for Ethereum transaction formats, signatures, and gas mechanics
+- **Block emulation**: Ethereum-style block structure within Substrate's block production
+
+### Implementation Examples
+
+Production implementations demonstrate Frontier's capabilities:
+
+- **Moonbeam**: See their implementation of [`pallet-evm`](https://github.com/moonbeam-foundation/moonbeam/blob/9e2ddbc9ae8bf65f11701e7ccde50075e5fe2790/runtime/moonbeam/src/lib.rs#L532){target=\_blank} and [`pallet-ethereum`](https://github.com/moonbeam-foundation/moonbeam/blob/9e2ddbc9ae8bf65f11701e7ccde50075e5fe2790/runtime/moonbeam/src/lib.rs#L698){target=\_blank}
+
+## pallet-contracts (Legacy)
+
+[`pallet-contracts`](https://docs.rs/pallet-contracts/latest/pallet_contracts/index.html#contracts-pallet){target=\_blank} is the original Wasm-based smart contract pallet for Polkadot SDK chains. While still functional, it's considered legacy as development efforts have shifted to pallet-revive.
+
+### Implementation Example
+
+For reference, Astar's implementation of [`pallet-contracts`](https://github.com/AstarNetwork/Astar/blob/b6f7a408d31377130c3713ed52941a06b5436402/runtime/astar/src/lib.rs#L693){target=\_blank} demonstrates production usage.
 
 ## Where to Go Next
 
-Now that you understand how to enable smart contract functionality in your blockchain, you might want to:
-
 <div class="grid cards" markdown>
 
--   <span class="badge guide">Guide</span> __Get Started with Smart Contracts__
+-   <span class="badge guide">Guide</span> __Add a Pallet to the Runtime__
 
     ---
 
-    Learn how developers can build smart contracts on Polkadot by leveraging the PolkaVM, Wasm/ink! or EVM contracts across many parachains.
+    Learn the step-by-step process for integrating Polkadot SDK pallets into your blockchain's runtime.
 
-    [:octicons-arrow-right-24: Reference](/smart-contracts/get-started/)
-
--   <span class="badge guide">Guide</span> __Wasm (ink!) Contracts__
-
-    ---
-
-    Learn to build Wasm smart contracts with ink!, a Rust-based eDSL. Explore installation, contract structure, and key features.
-
-    [:octicons-arrow-right-24: Reference](/smart-contracts/overview/#wasm-ink)
-    
--   <span class="badge guide">Guide</span> __EVM Contracts__
-
-    ---
-
-    Learn how Polkadot parachains such as Moonbeam, Astar, Acala, and Manta leverage the Ethereum Virtual Machine (EVM) and integrate it into their parachains.
-
-    [:octicons-arrow-right-24: Reference](/smart-contracts/overview/#parachain-contracts)
+    [:octicons-arrow-right-24: Get Started](/parachains/customize-runtime/add-existing-pallets/)
 
 </div>

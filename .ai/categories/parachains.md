@@ -1209,66 +1209,117 @@ Page Title: Add Smart Contract Functionality
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/parachains-customize-runtime-add-smart-contract-functionality.md
 - Canonical (HTML): https://docs.polkadot.com/parachains/customize-runtime/add-smart-contract-functionality/
-- Summary: Add smart contract capabilities to your Polkadot SDK-based blockchain. Explore EVM and Wasm integration for enhanced chain functionality.
+- Summary: Add smart contract capabilities to your Polkadot SDK-based blockchain. Explore PVM, EVM, and Wasm integration for enhanced chain functionality.
 
 # Add Smart Contract Functionality
 
 ## Introduction
 
-When building your custom blockchain with the Polkadot SDK, you have the flexibility to add smart contract capabilities through specialized pallets. These pallets allow blockchain users to deploy and execute smart contracts, enhancing your chain's functionality and programmability.
+When building your custom blockchain with the Polkadot SDK, you can add smart contract capabilities through specialized pallets. These pallets enable users to deploy and execute smart contracts, enhancing your chain's programmability and allowing developers to build decentralized applications on your network.
 
-Polkadot SDK-based blockchains support two distinct smart contract execution environments: [EVM (Ethereum Virtual Machine)](#evm-smart-contracts) and [Wasm (WebAssembly)](#wasm-smart-contracts). Each environment allows developers to deploy and execute different types of smart contracts, providing flexibility in choosing the most suitable solution for their needs.
+This guide covers three approaches to adding smart contracts to your blockchain:
 
-## EVM Smart Contracts
+- **[`pallet-revive`](#pallet-revive)**: Modern unified solution supporting both PolkaVM and EVM bytecode
+- **[Frontier](#frontier)**: Ethereum compatibility layer for Polkadot SDK-based chains
+- **[`pallet-contracts`](#pallet-contracts-legacy)**: Wasm smart contract support
 
-To enable Ethereum-compatible smart contracts in your blockchain, you'll need to integrate [Frontier](https://github.com/polkadot-evm/frontier){target=\_blank}, the Ethereum compatibility layer for Polkadot SDK-based chains. This requires adding two essential pallets to your runtime:
+## pallet-revive
 
-- **[`pallet-evm`](https://github.com/polkadot-evm/frontier/tree/master/frame/evm){target=\_blank}**: Provides the EVM execution environment.
-- **[`pallet-ethereum`](https://github.com/polkadot-evm/frontier/tree/master/frame/ethereum){target=\_blank}**: Handles Ethereum-formatted transactions and RPC capabilities.
+[`pallet-revive`](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame/revive){target=\_blank} is the modern smart contract solution for Polkadot SDK-based chains. It provides a unified execution environment that supports both PolkaVM and EVM bytecode through dual execution backends.
 
-For step-by-step guidance on adding these pallets to your runtime, refer to [Add a Pallet to the Runtime](/parachains/customize-runtime/add-existing-pallets/){target=\_blank}.
+### Core Components
 
-For a real-world example of how these pallets are implemented in production, you can check Moonbeam's implementation of [`pallet-evm`](https://github.com/moonbeam-foundation/moonbeam/blob/9e2ddbc9ae8bf65f11701e7ccde50075e5fe2790/runtime/moonbeam/src/lib.rs#L532){target=\_blank} and [`pallet-ethereum`](https://github.com/moonbeam-foundation/moonbeam/blob/9e2ddbc9ae8bf65f11701e7ccde50075e5fe2790/runtime/moonbeam/src/lib.rs#L698){target=\_blank}.
+**Essential Pallet:**
+**[`pallet-revive`](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame/revive){target=\_blank}** provides the core smart contract execution environment with [PolkaVM](https://github.com/polkadot-developers/polkadot-docs/blob/71e1b51bb42ef55e20c2f3b953db86e8c26cd591/smart-contracts/for-eth-devs/dual-vm-stack.md#upgrade-to-polkavm){target=\_blank} and [REVM](https://github.com/polkadot-developers/polkadot-docs/blob/71e1b51bb42ef55e20c2f3b953db86e8c26cd591/smart-contracts/for-eth-devs/dual-vm-stack.md#migrate-from-evm){target=\_blank} backends.
 
-## Wasm Smart Contracts
+**RPC Adapter:**
+**[`pallet-revive-eth-rpc`](https://crates.io/crates/pallet-revive-eth-rpc){target=\_blank}** adds full Ethereum RPC compatibility for Ethereum tooling integration.
 
-To support Wasm-based smart contracts, you'll need to integrate:
+### Supported Languages and Compilers
 
-- **[`pallet-contracts`](https://docs.rs/pallet-contracts/latest/pallet_contracts/index.html#contracts-pallet){target=\_blank}**: Provides the Wasm smart contract execution environment.
+`pallet-revive` accepts smart contracts from multiple languages and compilation paths:
 
-This pallet enables the deployment and execution of Wasm-based smart contracts on your blockchain. For detailed instructions on adding this pallet to your runtime, see [Add a Pallet to the Runtime](/parachains/customize-runtime/add-existing-pallets/){target=\_blank}.
+| Language | Compiler | Output Bytecode | Execution Backend |
+|----------|----------|-----------------|-------------------|
+| Solidity | `resolc` | PolkaVM | PolkaVM |
+| Solidity | `solc` | EVM | REVM |
+| Rust (ink!) | `cargo-contract` | PolkaVM | PolkaVM | 
 
-For a real-world example of how this pallet is implemented in production, you can check Astar's implementation of [`pallet-contracts`](https://github.com/AstarNetwork/Astar/blob/b6f7a408d31377130c3713ed52941a06b5436402/runtime/astar/src/lib.rs#L693){target=\_blank}.
+Any language that can compile to PolkaVM bytecode and utilize `pallet-revive`'s host functions (via [`pallet-revive-uapi`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive_uapi/index.html){target=\_blank}) is supported.
+
+### How It Works
+
+**Dual Execution Model:**
+
+1. **PolkaVM Backend**: Executes PolkaVM bytecode with native performance optimization.
+2. **REVM Backend**: Implements EVM bytecode for compatibility with existing Ethereum contracts, ensuring seamless migration.
+
+### Key Benefits
+
+- **Unified Platform**: Deploys both PolkaVM-optimized and EVM-compatible contracts using a single pallet.
+- **Performance**: PolkaVM execution provides improved performance compared to the traditional EVM, leveraging the [RISC-V](https://en.wikipedia.org/wiki/RISC-V){target=\_blank} architecture to map instructions to the CPU and requires little transpiling.
+- **Ethereum Compatibility**: Supports full integration with Ethereum tooling via RPC adapter.
+
+### Implementation Examples
+
+See a real-world implementation in the [Polkadot Hub TestNet](https://github.com/paseo-network/runtimes/blob/c965c42a4e0bc9d1e9cc0a340322bc3b8e347bcf/system-parachains/asset-hub-paseo/src/lib.rs#L1122-L1157){target=\_blank} in the Polkadot Fellows repository.
+
+## Frontier
+
+[Frontier](https://github.com/polkadot-evm/frontier){target=\_blank} is the Ethereum compatibility layer designed for maximum compatibility with the Ethereum ecosystem. It's the ideal choice when you need seamless integration with existing Ethereum tools, dApps, and infrastructure.
+
+### Integration Options
+
+Frontier offers flexible integration depending on your compatibility needs:
+
+### EVM Execution Only
+
+For basic EVM support using Polkadot SDK native APIs:
+
+- **[`pallet-evm`](https://github.com/polkadot-evm/frontier/tree/master/frame/evm){target=\_blank}**: Provides the core EVM execution environment
+
+This configuration allows EVM contract execution but requires using Polkadot SDK-specific APIs for interaction.
+
+### Full Ethereum Compatibility
+
+For complete Ethereum ecosystem integration with Ethereum RPC support:
+
+- **[`pallet-evm`](https://github.com/polkadot-evm/frontier/tree/master/frame/evm){target=\_blank}**: Integrates core EVM execution environment.
+- **[`pallet-ethereum`](https://github.com/polkadot-evm/frontier/tree/master/frame/ethereum){target=\_blank}**: Emulates Ethereum blocks and handles Ethereum-formatted transactions.
+- **[`fc-rpc`](https://github.com/polkadot-evm/frontier/tree/master/client/rpc){target=\_blank}**: Provides Ethereum JSON-RPC endpoints.
+
+### Key Benefits
+
+- **Ethereum tooling compatibility**: Full compatibility with MetaMask, Hardhat, Remix, Truffle, and other Ethereum development tools
+- **Minimal-friction migration**: Deployment of existing Ethereum dApps with minimal or no modifications
+- **Native Ethereum formats**: Support for Ethereum transaction formats, signatures, and gas mechanics
+- **Block emulation**: Ethereum-style block structure within Substrate's block production
+
+### Implementation Examples
+
+Production implementations demonstrate Frontier's capabilities:
+
+- **Moonbeam**: See their implementation of [`pallet-evm`](https://github.com/moonbeam-foundation/moonbeam/blob/9e2ddbc9ae8bf65f11701e7ccde50075e5fe2790/runtime/moonbeam/src/lib.rs#L532){target=\_blank} and [`pallet-ethereum`](https://github.com/moonbeam-foundation/moonbeam/blob/9e2ddbc9ae8bf65f11701e7ccde50075e5fe2790/runtime/moonbeam/src/lib.rs#L698){target=\_blank}
+
+## pallet-contracts (Legacy)
+
+[`pallet-contracts`](https://docs.rs/pallet-contracts/latest/pallet_contracts/index.html#contracts-pallet){target=\_blank} is the original Wasm-based smart contract pallet for Polkadot SDK chains. While still functional, it's considered legacy as development efforts have shifted to pallet-revive.
+
+### Implementation Example
+
+For reference, Astar's implementation of [`pallet-contracts`](https://github.com/AstarNetwork/Astar/blob/b6f7a408d31377130c3713ed52941a06b5436402/runtime/astar/src/lib.rs#L693){target=\_blank} demonstrates production usage.
 
 ## Where to Go Next
 
-Now that you understand how to enable smart contract functionality in your blockchain, you might want to:
-
 <div class="grid cards" markdown>
 
--   <span class="badge guide">Guide</span> __Get Started with Smart Contracts__
+-   <span class="badge guide">Guide</span> __Add a Pallet to the Runtime__
 
     ---
 
-    Learn how developers can build smart contracts on Polkadot by leveraging the PolkaVM, Wasm/ink! or EVM contracts across many parachains.
+    Learn the step-by-step process for integrating Polkadot SDK pallets into your blockchain's runtime.
 
-    [:octicons-arrow-right-24: Reference](/smart-contracts/get-started/)
-
--   <span class="badge guide">Guide</span> __Wasm (ink!) Contracts__
-
-    ---
-
-    Learn to build Wasm smart contracts with ink!, a Rust-based eDSL. Explore installation, contract structure, and key features.
-
-    [:octicons-arrow-right-24: Reference](/smart-contracts/overview/#wasm-ink)
-    
--   <span class="badge guide">Guide</span> __EVM Contracts__
-
-    ---
-
-    Learn how Polkadot parachains such as Moonbeam, Astar, Acala, and Manta leverage the Ethereum Virtual Machine (EVM) and integrate it into their parachains.
-
-    [:octicons-arrow-right-24: Reference](/smart-contracts/overview/#parachain-contracts)
+    [:octicons-arrow-right-24: Get Started](/parachains/customize-runtime/add-existing-pallets/)
 
 </div>
 
@@ -3245,6 +3296,755 @@ You can find this event in the list of recent events. It should look similar to 
 
 ---
 
+Page Title: Create a Custom Pallet
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/parachains-customize-runtime-pallet-development-create-a-pallet.md
+- Canonical (HTML): https://docs.polkadot.com/parachains/customize-runtime/pallet-development/create-a-pallet/
+- Summary: Learn how to create custom pallets using FRAME, allowing for flexible, modular, and scalable blockchain development. Follow the step-by-step guide.
+
+# Create a Custom Pallet
+
+## Introduction
+
+[Framework for Runtime Aggregation of Modular Entities (FRAME)](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/frame_runtime/index.html){target=\_blank} provides a powerful set of tools for blockchain development through modular components called [pallets](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/frame_runtime/pallet/index.html){target=\_blank}. These Rust-based runtime modules allow you to build custom blockchain functionality with precision and flexibility. While FRAME includes a library of pre-built pallets, its true strength lies in creating custom pallets tailored to your specific needs.
+
+In this guide, you'll learn how to build a custom counter pallet from scratch that demonstrates core pallet development concepts.
+
+## Prerequisites
+
+Before you begin, ensure you have:
+
+- [Polkadot SDK dependencies installed](/parachains/install-polkadot-sdk/){target=\_blank}.
+- A [Polkadot SDK Parchain Template](/parachains/launch-a-parachain/set-up-the-parachain-template/){target=\_blank} set up locally.
+- Basic familiarity with [FRAME concepts](/parachains/customize-runtime/){target=\_blank}.
+
+## Core Pallet Components
+
+As you build your custom pallet, you'll work with these key sections:
+
+- **Imports and dependencies**: Bring in necessary FRAME libraries and external modules.
+- **Runtime configuration trait**: Specify types and constants for pallet-runtime interaction.
+- **Runtime events**: Define signals that communicate state changes.
+- **Runtime errors**: Define error types returned from dispatchable calls.
+- **Runtime storage**: Declare on-chain storage items for your pallet's state.
+- **Genesis configuration**: Set initial blockchain state.
+- **Dispatchable functions (extrinsics)**: Create callable functions for user interactions.
+
+For additional macros beyond those covered here, refer to the [pallet_macros](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/index.html){target=\_blank} section of the Polkadot SDK Docs.
+
+## Create the Pallet Project
+
+Begin by creating a new Rust library project for your custom pallet within the [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk-parachain-template){target=\_blank}:
+
+1. Navigate to the root directory of your parachain template:
+
+    ```bash
+    cd polkadot-sdk-parachain-template
+    ```
+
+2. Navigate to the `pallets` directory:
+
+    ```bash
+    cd pallets
+    ```
+
+3. Create a new Rust library project:
+
+    ```bash
+    cargo new --lib pallet-custom
+    ```
+
+4. Enter the new project directory:
+
+    ```bash
+    cd pallet-custom
+    ```
+
+5. Verify the project structure. It should look like:
+
+    ```
+    pallet-custom/
+    ├── Cargo.toml
+    └── src/
+        └── lib.rs
+    ```
+
+## Configure Dependencies
+
+To integrate your custom pallet into the Polkadot SDK-based runtime, configure the `Cargo.toml` file with the required dependencies. Since your pallet exists within the parachain template workspace, you'll use workspace inheritance to maintain version consistency.
+
+1. Open `Cargo.toml` and replace its contents with:
+
+    ```toml title="pallet-custom/Cargo.toml"
+    [package]
+        name = "pallet-custom"
+        description = "A custom counter pallet for demonstration purposes."
+        version = "0.1.0"
+        license = "Unlicense"
+        authors.workspace = true
+        homepage.workspace = true
+        repository.workspace = true
+        edition.workspace = true
+        publish = false
+
+        [package.metadata.docs.rs]
+        targets = ["x86_64-unknown-linux-gnu"]
+
+        [dependencies]
+        codec = { features = ["derive"], workspace = true }
+        scale-info = { features = ["derive"], workspace = true }
+        frame = { features = ["experimental", "runtime"], workspace = true }
+
+        [features]
+        default = ["std"]
+        std = [
+            "codec/std",
+            "scale-info/std",
+            "frame/std",
+        ]
+    ```
+
+    !!!note "Version Management"
+        The parachain template uses workspace inheritance to maintain consistent dependency versions across all packages. The actual versions are defined in the root `Cargo.toml` file, ensuring compatibility throughout the project. By using `workspace = true`, your pallet automatically inherits the correct versions.
+
+2. The parachain template already includes `pallets/*` in the workspace members, so your new pallet is automatically recognized. Verify this by checking the root `Cargo.toml`:
+
+    ```toml title="Cargo.toml"
+        [workspace.members]
+        members = [
+            "node",
+            "pallets/*",
+            "runtime",
+        ]
+    ```
+
+## Initialize the Pallet Structure
+
+With dependencies configured, set up the basic scaffold that will hold your pallet's logic:
+
+1. Open `src/lib.rs` and delete all existing content.
+
+2. Add the initial scaffold structure using the unified `frame` dependency:
+
+    ```rust title="src/lib.rs"
+    #![cfg_attr(not(feature = "std"), no_std)]
+
+    pub use pallet::*;
+
+    #[frame::pallet]
+    pub mod pallet {
+        use frame::prelude::*;
+
+        #[pallet::pallet]
+        pub struct Pallet<T>(_);
+
+        #[pallet::config]
+        pub trait Config: frame_system::Config {
+            // Configuration will be added here
+        }
+
+        #[pallet::storage]
+        pub type CounterValue<T> = StorageValue<_, u32, ValueQuery>;
+
+        #[pallet::call]
+        impl<T: Config> Pallet<T> {
+            // Dispatchable functions will be added here
+        }
+    }
+    ```
+
+    This setup starts with a minimal scaffold without events and errors. These will be added in the following sections after the `Config` trait is correctly configured with the required `RuntimeEvent` type.
+
+3. Verify it compiles using the following command:
+
+    ```bash
+    cargo build --package pallet-custom
+    ```
+
+## Configure the Pallet
+
+The [`Config`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/trait.Config.html){target=\_blank} trait exposes configurable options and links your pallet to the runtime. All types and constants the pallet depends on must be declared here. These types are defined generically and become concrete when the pallet is instantiated at runtime.
+
+Replace the [`#[pallet::config]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.config.html){target=\_blank} section with:
+
+```rust title="src/lib.rs"
+#[pallet::config]
+pub trait Config: frame_system::Config {
+    /// The overarching runtime event type.
+    type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
+
+    /// Maximum value the counter can reach.
+    #[pallet::constant]
+    type CounterMaxValue: Get<u32>;
+}
+
+```
+
+Key configuration elements include the following:
+
+- **[`RuntimeEvent`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/trait.Config.html#associatedtype.RuntimeEvent){target=\_blank}**: Required for the pallet to emit events that the runtime can process.
+- **`CounterMaxValue`**: A constant that sets an upper limit on counter values, configurable per runtime.
+
+## Define Events
+
+Events inform external entities (dApps, explorers, users) about significant runtime changes. Event details are included in the node's metadata, making them accessible to external tools.
+
+The [`#[pallet::generate_deposit]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.generate_deposit.html){target=\_blank} macro automatically generates a `deposit_event` function that converts your pallet's events into the `RuntimeEvent` type and deposits them via [`frame_system::Pallet::deposit_event`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.deposit_event){target=\_blank}.
+
+Add the [`#[pallet::event]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.event.html){target=\_blank} section after the `Config` trait:
+
+```rust title="src/lib.rs"
+#[pallet::event]
+#[pallet::generate_deposit(pub(super) fn deposit_event)]
+pub enum Event<T: Config> {
+    /// Counter value was explicitly set. [new_value]
+    CounterValueSet {
+        new_value: u32,
+    },
+    /// Counter was incremented. [new_value, who, amount]
+    CounterIncremented {
+        new_value: u32,
+        who: T::AccountId,
+        amount: u32,
+    },
+    /// Counter was decremented. [new_value, who, amount]
+    CounterDecremented {
+        new_value: u32,
+        who: T::AccountId,
+        amount: u32,
+    },
+}
+
+```
+
+## Define Errors
+
+Errors indicate when and why a call fails. Use informative names and descriptions, as error documentation is included in the node's metadata.
+
+Error types must implement the [`TypeInfo`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_prelude/trait.TypeInfo.html){target=\_blank} trait, and runtime errors can be up to 4 bytes in size.
+
+Add the [`#[pallet::error]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.error.html){target=\_blank} section after the events:
+
+```rust title="src/lib.rs"
+#[pallet::error]
+pub enum Error<T> {
+    /// The counter value has not been set yet.
+    NoneValue,
+    /// Arithmetic operation would cause overflow.
+    Overflow,
+    /// Arithmetic operation would cause underflow.
+    Underflow,
+    /// The counter value would exceed the maximum allowed value.
+    CounterMaxValueExceeded,
+}
+
+```
+
+## Add Storage Items
+
+Storage items persist state on-chain. This pallet uses two storage items:
+
+- **`CounterValue`**: Stores the current counter value.
+- **`UserInteractions`**: Tracks interaction counts per user account.
+
+The initial scaffold already includes the `CounterValue` storage item. Now add the `UserInteractions` storage map after it:
+
+```rust title="src/lib.rs"
+/// Tracks the number of interactions per user.
+#[pallet::storage]
+pub type UserInteractions<T: Config> = StorageMap<_, Blake2_128Concat, T::AccountId, u32, ValueQuery>;
+```
+
+Your storage section should now look like this:
+
+```rust title="src/lib.rs"
+/// The current value of the counter.
+#[pallet::storage]
+pub type CounterValue<T> = StorageValue<_, u32, ValueQuery>;
+
+/// Tracks the number of interactions per user.
+#[pallet::storage]
+pub type UserInteractions<T: Config> = StorageMap<_, Blake2_128Concat, T::AccountId, u32, ValueQuery>;
+```
+
+For more storage types and patterns, explore the [Polkadot SDK storage documentation](https://paritytech.github.io/polkadot-sdk/master/frame_support/storage/types/index.html){target=\_blank}.
+
+## Configure Genesis State
+
+Genesis configuration allows you to set the initial state of your pallet when the blockchain first starts and is essential for both production networks and testing environments. It is beneficial for:
+
+- Setting initial parameter values.
+- Pre-allocating resources or accounts.
+- Establishing starting conditions for testing.
+- Configuring network-specific initial state.
+
+Add the [`#[pallet::genesis_config]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.genesis_config.html){target=\_blank} and [`#[pallet::genesis_build]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.genesis_build.html){target=\_blank} sections after your storage items:
+
+```rust title="src/lib.rs"
+#[pallet::genesis_config]
+#[derive(DefaultNoBound)]
+pub struct GenesisConfig<T: Config> {
+    /// Initial value for the counter
+    pub initial_counter_value: u32,
+    /// Pre-populated user interactions
+    pub initial_user_interactions: Vec<(T::AccountId, u32)>,
+}
+
+#[pallet::genesis_build]
+impl<T: Config> BuildGenesisConfig for GenesisConfig<T> {
+    fn build(&self) {
+        // Set the initial counter value
+        CounterValue::<T>::put(self.initial_counter_value);
+
+        // Set initial user interactions
+        for (account, count) in &self.initial_user_interactions {
+            UserInteractions::<T>::insert(account, count);
+        }
+    }
+}
+
+```
+
+Genesis configuration components include the following:
+
+- **`GenesisConfig` struct**: Defines what can be configured at genesis.
+- **`#[derive(DefaultNoBound)]`**: Provides sensible defaults (empty vec and 0 for the counter).
+- **`BuildGenesisConfig` implementation**: Executes the logic to set initial storage values.
+- **`build()` method**: Called once when the blockchain initializes.
+
+## Implement Dispatchable Functions
+
+Dispatchable functions (extrinsics) allow users to interact with your pallet and trigger state changes. Each function must:
+
+- Return a [`DispatchResult`](https://paritytech.github.io/polkadot-sdk/master/frame_support/dispatch/type.DispatchResult.html){target=\_blank}.
+- Be annotated with a weight (computational cost).
+- Have an explicit call index for backward compatibility.
+
+Replace the [`#[pallet::call]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.call.html){target=\_blank} section with:
+
+```rust title="src/lib.rs"
+#[pallet::call]
+impl<T: Config> Pallet<T> {
+    /// Set the counter to a specific value. Root origin only.
+    #[pallet::call_index(0)]
+    #[pallet::weight(0)]
+    pub fn set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult {
+        // Ensure the caller is root
+        ensure_root(origin)?;
+
+        // Validate the new value doesn't exceed the maximum
+        ensure!(new_value <= T::CounterMaxValue::get(), Error::<T>::CounterMaxValueExceeded);
+
+        // Update storage
+        CounterValue::<T>::put(new_value);
+
+        // Emit event
+        Self::deposit_event(Event::CounterValueSet { new_value });
+
+        Ok(())
+    }
+
+    /// Increment the counter by a specified amount.
+    #[pallet::call_index(1)]
+    #[pallet::weight(0)]
+    pub fn increment(origin: OriginFor<T>, amount: u32) -> DispatchResult {
+        // Ensure the caller is signed
+        let who = ensure_signed(origin)?;
+
+        // Get current counter value
+        let current_value = CounterValue::<T>::get();
+
+        // Check for overflow
+        let new_value = current_value.checked_add(amount).ok_or(Error::<T>::Overflow)?;
+
+        // Ensure new value doesn't exceed maximum
+        ensure!(new_value <= T::CounterMaxValue::get(), Error::<T>::CounterMaxValueExceeded);
+
+        // Update counter storage
+        CounterValue::<T>::put(new_value);
+
+        // Track user interaction
+        UserInteractions::<T>::mutate(&who, |count| {
+            *count = count.saturating_add(1);
+        });
+
+        // Emit event
+        Self::deposit_event(Event::CounterIncremented {
+            new_value,
+            who,
+            amount,
+        });
+
+        Ok(())
+    }
+
+    /// Decrement the counter by a specified amount.
+    #[pallet::call_index(2)]
+    #[pallet::weight(0)]
+    pub fn decrement(origin: OriginFor<T>, amount: u32) -> DispatchResult {
+        // Ensure the caller is signed
+        let who = ensure_signed(origin)?;
+
+        // Get current counter value
+        let current_value = CounterValue::<T>::get();
+
+        // Check for underflow
+        let new_value = current_value.checked_sub(amount).ok_or(Error::<T>::Underflow)?;
+
+        // Update counter storage
+        CounterValue::<T>::put(new_value);
+
+        // Track user interaction
+        UserInteractions::<T>::mutate(&who, |count| {
+            *count = count.saturating_add(1);
+        });
+
+        // Emit event
+        Self::deposit_event(Event::CounterDecremented {
+            new_value,
+            who,
+            amount,
+        });
+
+        Ok(())
+    }
+}
+
+```
+
+### Dispatchable Function Details
+
+???+ interface "`set_counter_value`"
+
+    - **Access**: Root origin only (privileged operations).
+    - **Purpose**: Set counter to a specific value.
+    - **Validations**: New value must not exceed `CounterMaxValue`.
+    - **State changes**: Updates `CounterValue` storage.
+    - **Events**: Emits `CounterValueSet`.
+
+??? interface "`increment`"
+
+    - **Access**: Any signed account.
+    - **Purpose**: Increase counter by specified amount.
+    - **Validations**: Checks for overflow and max value compliance.
+    - **State changes**: Updates `CounterValue` and `UserInteractions`.
+    - **Events**: Emits `CounterIncremented`.
+
+??? interface "`decrement`"
+
+    - **Access**: Any signed account.
+    - **Purpose**: Decrease counter by specified amount.
+    - **Validations**: Checks for underflow.
+    - **State changes**: Updates `CounterValue` and `UserInteractions`.
+    - **Events**: Emits `CounterDecremented`.
+
+## Verify Pallet Compilation
+
+Before proceeding, ensure your pallet compiles without errors by running the following command:
+
+```bash
+cargo build --package pallet-custom
+```
+
+If you encounter errors, carefully review the code against this guide. Once the build completes successfully, your custom pallet is ready for integration.
+
+??? code "Complete Pallet Implementation"
+    
+    ```rust title="src/lib.rs"
+    #![cfg_attr(not(feature = "std"), no_std)]
+
+    pub use pallet::*;
+
+    #[frame::pallet]
+    pub mod pallet {
+        use frame::prelude::*;
+
+        #[pallet::pallet]
+        pub struct Pallet<T>(_);
+
+        #[pallet::config]
+        pub trait Config: frame_system::Config {
+            type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
+
+            #[pallet::constant]
+            type CounterMaxValue: Get<u32>;
+        }
+
+        #[pallet::event]
+        #[pallet::generate_deposit(pub(super) fn deposit_event)]
+        pub enum Event<T: Config> {
+            CounterValueSet {
+                new_value: u32,
+            },
+            CounterIncremented {
+                new_value: u32,
+                who: T::AccountId,
+                amount: u32,
+            },
+            CounterDecremented {
+                new_value: u32,
+                who: T::AccountId,
+                amount: u32,
+            },
+        }
+
+        #[pallet::error]
+        pub enum Error<T> {
+            NoneValue,
+            Overflow,
+            Underflow,
+            CounterMaxValueExceeded,
+        }
+
+        #[pallet::storage]
+        pub type CounterValue<T> = StorageValue<_, u32, ValueQuery>;
+
+        #[pallet::storage]
+        pub type UserInteractions<T: Config> = StorageMap<
+            _,
+            Blake2_128Concat,
+            T::AccountId,
+            u32,
+            ValueQuery
+        >;
+
+        #[pallet::genesis_config]
+        #[derive(DefaultNoBound)]
+        pub struct GenesisConfig<T: Config> {
+            pub initial_counter_value: u32,
+            pub initial_user_interactions: Vec<(T::AccountId, u32)>,
+        }
+
+        #[pallet::genesis_build]
+        impl<T: Config> BuildGenesisConfig for GenesisConfig<T> {
+            fn build(&self) {
+                CounterValue::<T>::put(self.initial_counter_value);
+                for (account, count) in &self.initial_user_interactions {
+                    UserInteractions::<T>::insert(account, count);
+                }
+            }
+        }
+
+        #[pallet::call]
+        impl<T: Config> Pallet<T> {
+            #[pallet::call_index(0)]
+            #[pallet::weight(0)]
+            pub fn set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult {
+                ensure_root(origin)?;
+                ensure!(new_value <= T::CounterMaxValue::get(), Error::<T>::CounterMaxValueExceeded);
+                CounterValue::<T>::put(new_value);
+                Self::deposit_event(Event::CounterValueSet { new_value });
+                Ok(())
+            }
+
+            #[pallet::call_index(1)]
+            #[pallet::weight(0)]
+            pub fn increment(origin: OriginFor<T>, amount: u32) -> DispatchResult {
+                let who = ensure_signed(origin)?;
+                let current_value = CounterValue::<T>::get();
+                let new_value = current_value.checked_add(amount).ok_or(Error::<T>::Overflow)?;
+                ensure!(new_value <= T::CounterMaxValue::get(), Error::<T>::CounterMaxValueExceeded);
+                CounterValue::<T>::put(new_value);
+                UserInteractions::<T>::mutate(&who, |count| {
+                    *count = count.saturating_add(1);
+                });
+                Self::deposit_event(Event::CounterIncremented { new_value, who, amount });
+                Ok(())
+            }
+
+            #[pallet::call_index(2)]
+            #[pallet::weight(0)]
+            pub fn decrement(origin: OriginFor<T>, amount: u32) -> DispatchResult {
+                let who = ensure_signed(origin)?;
+                let current_value = CounterValue::<T>::get();
+                let new_value = current_value.checked_sub(amount).ok_or(Error::<T>::Underflow)?;
+                CounterValue::<T>::put(new_value);
+                UserInteractions::<T>::mutate(&who, |count| {
+                    *count = count.saturating_add(1);
+                });
+                Self::deposit_event(Event::CounterDecremented { new_value, who, amount });
+                Ok(())
+            }
+        }
+    }
+
+    ```
+
+## Add the Pallet to Your Runtime
+
+Now that your custom pallet is complete, you can integrate it into the parachain runtime.
+
+### Add Runtime Dependency
+
+1. In the `runtime/Cargo.toml`, add your custom pallet to the `[dependencies]` section:
+
+    ```toml title="runtime/Cargo.toml"
+    [dependencies]
+    # Local dependencies
+    pallet-custom = { path = "../pallets/pallet-custom", default-features = false }
+    
+    # Other dependencies
+    ```
+
+2. Enable the `std` feature by adding it to the `[features]` section:
+
+    ```toml title="runtime/Cargo.toml"
+    [features]
+    default = ["std"]
+    std = [
+        "codec/std",
+        "pallet-custom/std",
+        # ... other features
+    ]
+    ```
+
+### Implement the Config Trait
+
+At the end of the `runtime/src/configs/mod.rs` file, add the implementation: 
+
+```rust title="runtime/src/configs/mod.rs"
+/// Configure the custom counter pallet
+impl pallet_custom::Config for Runtime {
+    type RuntimeEvent = RuntimeEvent;
+    type CounterMaxValue = ConstU32<1000>;
+}
+```
+
+This configuration:
+
+- Links the pallet's events to the runtime's event system.
+- Sets a maximum counter value of 1000 using [`ConstU32`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/struct.ConstU32.html){target=\_blank}.
+
+### Add to Runtime Construct
+
+In the `runtime/src/lib.rs` file, locate the [`#[frame_support::runtime]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/attr.runtime.html){target=\_blank} section and add your pallet with a unique `pallet_index`:
+
+```rust title="runtime/src/lib.rs"
+#[frame_support::runtime]
+mod runtime {
+    #[runtime::runtime]
+    #[runtime::derive(
+        RuntimeCall,
+        RuntimeEvent,
+        RuntimeError,
+        RuntimeOrigin,
+        RuntimeTask,
+        RuntimeFreezeReason,
+        RuntimeHoldReason,
+        RuntimeSlashReason,
+        RuntimeLockId,
+        RuntimeViewFunction
+    )]
+    pub struct Runtime;
+
+    #[runtime::pallet_index(0)]
+    pub type System = frame_system;
+
+    // ... other pallets
+
+    #[runtime::pallet_index(51)]
+    pub type CustomPallet = pallet_custom;
+}
+```
+
+!!!warning
+    Each pallet must have a unique index. Duplicate indices will cause compilation errors. Choose an index that doesn't conflict with existing pallets.
+
+### Configure Genesis for Your Runtime
+
+To set initial values for your pallet when the chain starts, you'll need to configure the genesis in your chain specification. Genesis configuration is typically done in the `node/src/chain_spec.rs` file or when generating the chain specification.
+
+For development and testing, you can use the default values provided by the `#[derive(DefaultNoBound)]` macro. For production networks, you'll want to explicitly set these values in your chain specification.
+
+### Verify Runtime Compilation
+
+Compile the runtime to ensure everything is configured correctly:
+
+```bash
+cargo build --release
+```
+
+This command validates all pallet configurations and prepares the build for deployment.
+
+## Run Your Chain Locally
+
+Launch your parachain locally to test the new pallet functionality using the [Polkadot Omni Node](https://crates.io/crates/polkadot-omni-node){target=\_blank}.
+
+### Generate a Chain Specification
+
+Create a chain specification file with the updated runtime:
+
+```bash
+chain-spec-builder create -t development \
+--relay-chain paseo \
+--para-id 1000 \
+--runtime ./target/release/wbuild/parachain-template-runtime/parachain_template_runtime.compact.compressed.wasm \
+named-preset development
+```
+
+This command generates a `chain_spec.json` that includes your custom pallet.
+
+### Start the Parachain Node
+
+Launch the parachain:
+
+```bash
+polkadot-omni-node --chain ./chain_spec.json --dev
+```
+
+Verify the node starts successfully and begins producing blocks.
+
+## Interact with Your Pallet
+
+Use the Polkadot.js Apps interface to test your pallet:
+
+1. Navigate to [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9944#/extrinsics){target=\_blank}.
+
+2. Ensure you're connected to your local node at `ws://127.0.0.1:9944`.
+
+3. Go to **Developer** > **Extrinsics**.
+
+4. Locate **customPallet** in the pallet dropdown.
+
+5. You should see the available extrinsics:
+
+    - **`increment(amount)`**: Increase the counter by a specified amount.
+    - **`decrement(amount)`**: Decrease the counter by a specified amount.
+    - **`setCounterValue(newValue)`**: Set counter to a specific value (requires sudo/root).
+
+![](/images/parachains/customize-runtime/pallet-development/create-a-pallet/create-a-pallet-01.webp)
+
+## Key Takeaways
+
+You've successfully created and integrated a custom pallet into a Polkadot SDK-based runtime. You have now successfully:
+
+- Defined runtime-specific types and constants via the `Config` trait.
+- Implemented on-chain state using `StorageValue` and `StorageMap`.
+- Created signals to communicate state changes to external systems.
+- Established clear error handling with descriptive error types.
+- Configured initial blockchain state for both production and testing.
+- Built callable functions with proper validation and access control.
+- Added the pallet to a runtime and tested it locally.
+
+These components form the foundation for developing sophisticated blockchain logic in Polkadot SDK-based chains.
+
+## Where to Go Next
+
+<div class="grid cards" markdown>
+
+-   <span class="badge guide">Guide</span> __Mock Your Runtime__
+
+    ---
+
+    Learn to create a mock runtime environment for testing your pallet in isolation before integration.
+
+    [:octicons-arrow-right-24: Continue](/parachains/customize-runtime/pallet-development/mock-runtime/)
+
+</div>
+
+
+---
+
 Page Title: Create a Smart Contract
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/tutorials-smart-contracts-launch-your-first-project-create-contracts.md
@@ -3716,6 +4516,162 @@ Several SCALE codec implementations are available in various languages. Here's a
 
 Page Title: Deploy an ERC-20 to Polkadot Hub
 
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-erc20-erc20-remix.md
+- Canonical (HTML): https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix/
+- Summary: Deploy an ERC-20 token contract on Polkadot Hub. This guide covers contract creation, compilation, deployment, and interaction via the Remix IDE.
+
+# Deploy an ERC-20 to Polkadot Hub
+
+## Introduction
+
+[ERC-20](https://eips.ethereum.org/EIPS/eip-20){target=\_blank} tokens are fungible tokens commonly used for creating cryptocurrencies, governance tokens, and staking mechanisms. Polkadot Hub enables easy token deployment with Ethereum-compatible smart contracts and tools via the EVM backend.
+
+This tutorial covers deploying an ERC-20 contract on the Polkadot Hub TestNet using [Remix IDE](https://remix.ethereum.org/){target=\_blank}, a web-based development tool. The ERC-20 contract can be retrieved from OpenZeppelin's [GitHub repository](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/v5.4.0/contracts/token/ERC20){target=\_blank}  or their [Contract Wizard](https://wizard.openzeppelin.com/){target=\_blank}.
+
+## Prerequisites
+
+Before starting, make sure you have:
+
+- An EVM-compatible wallet [connected to Polkadot Hub](/smart-contracts/integrations/wallets){target=\_blank}. This example utilizes [MetaMask](https://metamask.io/){target=\_blank}.
+- A funded account with tokens for transaction fees. This example will deploy the contract to the Polkadot TestNet, so you'll [need some TestNet tokens](/smart-contracts/faucet/#get-test-tokens){target=\_blank} from the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}.
+- Basic understanding of Solidity and fungible tokens.
+
+## Create Your Contract
+
+To create the ERC-20 contract, you can follow the steps below:
+
+1. Navigate to the [Polkadot Remix IDE](https://remix.polkadot.io){target=\_blank}.
+2. Click in the **Create new file** button under the **contracts** folder, and name your contract as `MyToken.sol`.
+
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix-1.webp)
+
+3. Now, paste the following ERC-20 contract code into the editor:
+
+    ```solidity title="MyToken.sol"
+    // SPDX-License-Identifier: MIT
+    // Compatible with OpenZeppelin Contracts ^5.4.0
+    pragma solidity ^0.8.27;
+
+    import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+    import {ERC20Permit} from "@openzeppelin/contracts/token/ERC20/extensions/ERC20Permit.sol";
+    import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
+
+    contract MyToken is ERC20, Ownable, ERC20Permit {
+        constructor(address initialOwner)
+            ERC20("MyToken", "MTK")
+            Ownable(initialOwner)
+            ERC20Permit("MyToken")
+        {}
+
+        function mint(address to, uint256 amount) public onlyOwner {
+            _mint(to, amount);
+        }
+    }
+    ```
+
+    The key components of the code above are:
+
+    - Contract imports:
+
+        - **[`ERC20.sol`](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/v5.4.0/contracts/token/ERC20/ERC20.sol){target=\_blank}**: The base contract for fungible tokens, implementing core functionality like transfers, approvals, and balance tracking.
+        - **[`ERC20Permit.sol`](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/v5.4.0/contracts/token/ERC20/extensions/ERC20Permit.sol){target=\_blank}**: [EIP-2612](https://eips.ethereum.org/EIPS/eip-2612){target=\_blank} extension for ERC-20 that adds the [permit function](https://docs.openzeppelin.com/contracts/5.x/api/token/erc20#ERC20Permit-permit-address-address-uint256-uint256-uint8-bytes32-bytes32-){target=\_blank}, allowing approvals via off-chain signatures (no on-chain tx from the holder). Manages nonces and EIP-712 domain separator and updates allowances when a valid signature is presented.
+        - **[`Ownable.sol`](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/v5.4.0/contracts/access/Ownable.sol){target=\_blank}**: Provides basic authorization control, ensuring only the contract owner can mint new tokens.
+    
+    - Constructor parameters:
+
+        - **`initialOwner`**: Sets the address that will have administrative rights over the contract.
+        - **`"MyToken"`**: The full name of your token.
+        - **`"MTK"`**: The symbol representing your token in wallets and exchanges.
+
+    - Key functions:
+
+        - **`mint(address to, uint256 amount)`**: Allows the contract owner to create new tokens for any address. The amount should include 18 decimals (e.g., 1 token = 1000000000000000000).
+        - Inherited [Standard ERC-20](https://ethereum.org/en/developers/docs/standards/tokens/erc-20/){target=\_blank} functions:
+            - **`transfer(address recipient, uint256 amount)`**: Sends a specified amount of tokens to another address.
+            - **`approve(address spender, uint256 amount)`**: Grants permission for another address to spend a specific number of tokens on behalf of the token owner.
+            - **`transferFrom(address sender, address recipient, uint256 amount)`**: Transfers tokens from one address to another, if previously approved.
+            - **`balanceOf(address account)`**: Returns the token balance of a specific address.
+            - **`allowance(address owner, address spender)`**: Checks how many tokens an address is allowed to spend on behalf of another address.
+
+    !!! tip
+        Use the [OpenZeppelin Contracts Wizard](https://wizard.openzeppelin.com/){target=\_blank} to generate customized smart contracts quickly. Simply configure your contract, copy the generated code, and paste it into the Remix IDE for deployment. Below is an example of an ERC-20 token contract created with it:
+
+        ![Screenshot of the OpenZeppelin Contracts Wizard showing an ERC-20 contract configuration.](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix-2.webp)
+        
+
+## Compile 
+
+The compilation transforms your Solidity source code into bytecode that can be deployed on the blockchain. During this process, the compiler checks your contract for syntax errors, ensures type safety, and generates the machine-readable instructions needed for blockchain execution. 
+
+To compile your contract, ensure you have it opened in the Remix IDE Editor, and follow the instructions below:
+
+1. Select the **Solidity Compiler** plugin from the left panel.
+2. Click the **Compile MyToken.sol** button.
+3. If the compilation succeeded, you'll see a green checkmark indicating success in the **Solidity Compiler** icon.
+
+![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix-3.gif)
+
+## Deploy
+
+Deployment is the process of publishing your compiled smart contract to the blockchain, making it permanently available for interaction. During deployment, you'll create a new instance of your contract on the blockchain, which involves:
+
+1. Select the **Deploy & Run Transactions** plugin from the left panel.
+2. Configure the deployment settings:
+    1. From the **ENVIRONMENT** dropdown, select **Injected Provider - MetaMask** (check the [Deploying Contracts](/smart-contracts/dev-environments/remix/deploy-a-contract/){target=\_blank} section of the Remix IDE guide for more details).
+    2. (Optional) From the **ACCOUNT** dropdown, select the acccount you want to use for the deploy.
+
+3. Configure the contract parameters:
+    1. Enter the address that will own the deployed token contract.
+    2. Click the **Deploy** button to initiate the deployment.
+
+4. **MetaMask will pop up**: Review the transaction details. Click **Confirm** to deploy your contract.
+5. If the deployment process succeeded, you will see the transaction details in the terminal, including the contract address and deployment transaction hash.
+
+![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix-4.gif)
+
+## Interact with Your Contract
+
+Once deployed, you can interact with your contract through Remix. Find your contract under **Deployed/Unpinned Contracts**, and click it to expand the available methods. In this example, you'll mint some tokens to a given address:
+
+1. Expand the **mint** function:
+    1. Enter the recipient address and the amount (remember to add 18 zeros for 1 whole token).
+    2. Click **transact**.
+
+2. Click **Approve** to confirm the transaction in the MetaMask popup.
+
+3. If the transaction succeeds, you will see a green check mark in the terminal.
+
+4. You can also call the **balanceOf** function by passing the address of the **mint** call to confirm the new balance.
+
+![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix-5.gif)
+
+
+Other standard functions you can use:
+
+- **`transfer(address to, uint256 amount)`**: Send tokens to another address.
+- **`approve(address spender, uint256 amount)`**: Allow another address to spend your tokens.
+
+Feel free to explore and interact with the contract's other functions using the same approach: select the method, provide any required parameters, and confirm the transaction in MetaMask when needed.
+
+## Where to Go Next
+
+<div class="grid cards" markdown>
+
+-   <span class="badge guide">Guide</span> __Deploy an NFT with Remix__
+
+    ---
+
+    Walk through deploying an ERC-721 Non-Fungible Token (NFT) using OpenZeppelin's battle-tested NFT implementation and Remix.
+
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-nft/remix/)
+
+</div>
+
+
+---
+
+Page Title: Deploy an ERC-20 to Polkadot Hub
+
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-erc20.md
 - Canonical (HTML): https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-erc20/
 - Summary: Deploy an ERC-20 token on Polkadot Hub using PolkaVM. This guide covers contract creation, compilation, deployment, and interaction via Polkadot Remix IDE.
@@ -3877,6 +4833,704 @@ Other common functions you can use:
 - **`approve(address spender, uint256 amount)`**: Allow another address to spend your tokens.
 
 Feel free to explore and interact with the contract's other functions using the same approach - selecting the method, providing any required parameters, and confirming the transaction through Talisman when needed.
+
+
+---
+
+Page Title: Deploy an NFT to Polkadot Hub with Ethers.js
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-nft-ethers.md
+- Canonical (HTML): https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-nft/ethers/
+- Summary: Learn how to deploy an ERC-721 NFT contract to Polkadot Hub using Ethers.js, giving you complete programmatic control over the deployment process.
+
+# Deploy an NFT with Ethers.js
+
+## Introduction
+
+Non-Fungible Tokens (NFTs) represent unique digital assets commonly used for digital art, collectibles, gaming, and identity verification.
+
+This guide demonstrates how to deploy an [ERC-721](https://eips.ethereum.org/EIPS/eip-721){target=\_blank} NFT contract to [Polkadot Hub](/smart-contracts/overview/#smart-contract-development){target=\_blank}. You'll use [OpenZeppelin's battle-tested NFT implementation](https://github.com/OpenZeppelin/openzeppelin-contracts){target=\_blank} and [Ethers.js](https://docs.ethers.org/v6/){target=\_blank}, a lightweight approach for deploying contracts in pure JavaScript. This method is ideal if you want programmatic control over the deployment process or need to integrate contract deployment into existing applications.
+
+## Prerequisites
+
+- Basic understanding of Solidity programming and NFT standards.
+- Node.js v22.13.1 or later.
+- Test tokens for gas fees (available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}). See the [step-by-step instructions](/smart-contracts/faucet/#get-test-tokens){target=\_blank}.
+- A wallet with a private key for signing transactions.
+
+## Set Up Your Project
+
+First, initialize your project and install dependencies:
+
+```bash
+mkdir ethers-nft-deployment
+cd ethers-nft-deployment
+npm init -y
+npm install ethers@6.15.0 solc@0.8.30 @openzeppelin/contracts@5.0.0
+```
+
+## Create Your Contract
+
+Create an NFT contract in `contracts/MyNFT.sol`:
+
+```solidity title="contracts/MyNFT.sol"
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+contract MyNFT is ERC721, Ownable {
+    uint256 private _nextTokenId;
+
+    constructor(address initialOwner)
+        ERC721("MyToken", "MTK")
+        Ownable(initialOwner)
+    {}
+
+    function safeMint(address to) public onlyOwner {
+        uint256 tokenId = _nextTokenId++;
+        _safeMint(to, tokenId);
+    }
+}
+```
+
+## Compile
+
+Create a compilation script `compile.js`:
+
+```javascript title="compile.js"
+const fs = require('fs');
+const path = require('path');
+const solc = require('solc');
+
+const contractPath = path.join(__dirname, 'contracts', 'MyNFT.sol');
+const contractSource = fs.readFileSync(contractPath, 'utf8');
+
+function findImports(importPath) {
+  try {
+    const nodePath = path.join(__dirname, 'node_modules', importPath);
+    const contents = fs.readFileSync(nodePath, 'utf8');
+    return { contents };
+  } catch (error) {
+    return { error: 'File not found' };
+  }
+}
+
+const input = {
+  language: 'Solidity',
+  sources: {
+    'MyNFT.sol': {
+      content: contractSource
+    }
+  },
+  settings: {
+    outputSelection: {
+      '*': {
+        '*': ['abi', 'evm.bytecode']
+      }
+    },
+    optimizer: {
+      enabled: true,
+      runs: 200
+    }
+  }
+};
+
+console.log('Compiling contract...');
+
+const output = JSON.parse(solc.compile(JSON.stringify(input), { import: findImports }));
+
+if (output.errors) {
+  output.errors.forEach(error => {
+    console.error(error.formattedMessage);
+  });
+  
+  const hasErrors = output.errors.some(error => error.severity === 'error');
+  if (hasErrors) {
+    process.exit(1);
+  }
+}
+
+const contractName = 'MyNFT';
+const contract = output.contracts['MyNFT.sol'][contractName];
+
+if (!contract) {
+  console.error('Contract not found in compilation output');
+  process.exit(1);
+}
+
+const buildPath = path.join(__dirname, 'build');
+if (!fs.existsSync(buildPath)) {
+  fs.mkdirSync(buildPath);
+}
+
+const abiPath = path.join(buildPath, `${contractName}_abi.json`);
+fs.writeFileSync(abiPath, JSON.stringify(contract.abi, null, 2));
+console.log(`ABI saved to ${abiPath}`);
+
+const bytecodePath = path.join(buildPath, `${contractName}_bytecode.txt`);
+fs.writeFileSync(bytecodePath, contract.evm.bytecode.object);
+console.log(`Bytecode saved to ${bytecodePath}`);
+
+const artifactPath = path.join(buildPath, `${contractName}.json`);
+const artifact = {
+  contractName: contractName,
+  abi: contract.abi,
+  bytecode: '0x' + contract.evm.bytecode.object
+};
+fs.writeFileSync(artifactPath, JSON.stringify(artifact, null, 2));
+console.log(`Complete artifact saved to ${artifactPath}`);
+
+console.log('\nCompilation successful!');
+```
+
+Run the compilation:
+
+```bash
+node compile.js
+```
+
+## Deploy
+
+Create a deployment script `deploy.js`:
+
+```javascript title="deploy.js"
+const { ethers } = require('ethers');
+const fs = require('fs');
+const path = require('path');
+
+const providerConfig = {
+  rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
+  chainId: 420420422,
+  name: 'polkadot-hub-testnet',
+};
+
+const mnemonic = 'INSERT_MNEMONIC';
+const initialOwner = 'INSERT_OWNER_ADDRESS';
+
+async function deployContract(contractName, mnemonic, initialOwner, providerConfig) {
+  try {
+    console.log(`\nStarting deployment of ${contractName}...`);
+    
+    const artifactPath = path.join(__dirname, 'build', `${contractName}.json`);
+    if (!fs.existsSync(artifactPath)) {
+      throw new Error(`Contract artifact not found at ${artifactPath}. Please run compile.js first.`);
+    }
+    
+    const artifact = JSON.parse(fs.readFileSync(artifactPath, 'utf8'));
+    
+    console.log(`Connecting to ${providerConfig.name}...`);
+    const provider = new ethers.JsonRpcProvider(providerConfig.rpc, {
+      chainId: providerConfig.chainId,
+      name: providerConfig.name
+    });
+    
+    const wallet = ethers.Wallet.fromPhrase(mnemonic);
+    const signer = wallet.connect(provider);
+    
+    console.log(`Deploying from address: ${signer.address}`);
+    
+    const balance = await provider.getBalance(signer.address);
+    console.log(`Account balance: ${ethers.formatEther(balance)} ETH`);
+    
+    if (balance === 0n) {
+      throw new Error('Insufficient balance for deployment');
+    }
+    
+    const factory = new ethers.ContractFactory(artifact.abi, artifact.bytecode, signer);
+    
+    console.log(`\nDeploying contract with initialOwner: ${initialOwner}...`);
+    const contract = await factory.deploy(initialOwner);
+    
+    console.log(`Waiting for deployment transaction: ${contract.target}...`);
+    await contract.waitForDeployment();
+    
+    const contractAddress = await contract.getAddress();
+    
+    console.log(`\n${contractName} deployed successfully!`);
+    console.log(`Contract address: ${contractAddress}`);
+    console.log(`Transaction hash: ${contract.deploymentTransaction().hash}`);
+    
+    const deploymentInfo = {
+      contractName: contractName,
+      address: contractAddress,
+      deployer: signer.address,
+      initialOwner: initialOwner,
+      network: providerConfig.name,
+      chainId: providerConfig.chainId,
+      transactionHash: contract.deploymentTransaction().hash,
+      deployedAt: new Date().toISOString()
+    };
+    
+    const deploymentPath = path.join(__dirname, 'build', `${contractName}_deployment.json`);
+    fs.writeFileSync(deploymentPath, JSON.stringify(deploymentInfo, null, 2));
+    console.log(`Deployment info saved to ${deploymentPath}`);
+    
+    return contract;
+    
+  } catch (error) {
+    console.error(`\nDeployment failed: ${error.message}`);
+    throw error;
+  }
+}
+
+deployContract('MyNFT', mnemonic, initialOwner, providerConfig)
+  .then(() => {
+    console.log('\nDeployment completed successfully!');
+    process.exit(0);
+  })
+  .catch((error) => {
+    console.error('\nDeployment error:', error);
+    process.exit(1);
+  });
+
+```
+
+Replace the `INSERT_MNEMONIC` and `INSERT_OWNER_ADDRESS` placeholders with your actual mnemonic and desired owner address.
+
+!!! warning
+    Never embed private keys, mnemonic phrases, or security-sensitive credentials directly into your JavaScript, TypeScript, or any front-end/client-side files.
+
+Execute the deployment:
+
+```bash
+node deploy.js
+```
+
+## Where to Go Next
+
+<div class="grid cards" markdown>
+
+-   <span class="badge guide">Guide</span> __Deploy an ERC-20__
+
+    ---
+
+    Walk through deploying a fully-functional ERC-20 to the Polkadot Hub using Ethers.js.
+
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-erc20/ethers/)
+
+</div>
+
+
+---
+
+Page Title: Deploy an NFT to Polkadot Hub with Foundry
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-nft-foundry.md
+- Canonical (HTML): https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-nft/foundry/
+- Summary: Learn how to deploy an ERC-721 NFT contract to Polkadot Hub using Foundry, a Rust toolkit with high-performance compilation.
+
+# Deploy an NFT with Foundry
+
+## Introduction
+
+Non-Fungible Tokens (NFTs) represent unique digital assets commonly used for digital art, collectibles, gaming, and identity verification.
+
+This guide demonstrates how to deploy an [ERC-721](https://eips.ethereum.org/EIPS/eip-721){target=\_blank} NFT contract to [Polkadot Hub](/smart-contracts/overview/#smart-contract-development){target=\_blank}. It showcases a secure approach using [OpenZeppelin's battle-tested NFT implementation](https://github.com/OpenZeppelin/openzeppelin-contracts){target=\_blank} and the [Foundry](https://getfoundry.sh/){target=\_blank} toolchain. Foundry, a fast, Rust-written toolkit, ensures high-performance compilation and is fully compatible with the Hub’s EVM environment via standard Solidity compilation.
+
+## Prerequisites
+
+- Basic understanding of Solidity programming and NFT standards.
+- Test tokens for gas fees (available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}). See the [step-by-step instructions](/smart-contracts/faucet/#get-test-tokens){target=\_blank}.
+- A wallet with a private key for signing transactions.
+
+## Set Up Your Project
+
+To get started, take the following steps:
+
+1. Install Foundry:
+
+    ```bash
+    curl -L https://foundry.paradigm.xyz | bash
+    foundryup
+    ```
+
+2. Initialize your project:
+
+    ```bash
+    forge init foundry-nft-deployment
+    cd foundry-nft-deployment
+    ```
+
+3. Install OpenZeppelin contracts:
+
+    ```bash
+    forge install OpenZeppelin/openzeppelin-contracts
+    ```
+
+## Configure Foundry
+
+Edit `foundry.toml`:
+
+```toml title="foundry.toml"
+[profile.default]
+src = "src"
+out = "out"
+libs = ["lib"]
+remappings = ['@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/']
+
+[rpc_endpoints]
+polkadot_hub_testnet = "https://testnet-passet-hub-eth-rpc.polkadot.io"
+```
+
+## Create Your Contract
+
+Create `src/MyNFT.sol`:
+
+```solidity title="src/MyNFT.sol"
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+contract MyNFT is ERC721, Ownable {
+    uint256 private _nextTokenId;
+
+    constructor(address initialOwner)
+        ERC721("MyToken", "MTK")
+        Ownable(initialOwner)
+    {}
+
+    function safeMint(address to) public onlyOwner {
+        uint256 tokenId = _nextTokenId++;
+        _safeMint(to, tokenId);
+    }
+}
+```
+
+## Compile
+
+```bash
+forge build
+```
+
+Verify the compilation by inspecting the bytecode:
+
+```bash
+forge inspect MyNFT bytecode
+```
+
+## Deploy
+
+Deploy to Polkadot Hub TestNet:
+
+```bash
+forge create MyNFT \
+    --rpc-url polkadot_hub_testnet \
+    --private-key YOUR_PRIVATE_KEY \
+    --constructor-args YOUR_OWNER_ADDRESS \
+    --broadcast
+```
+
+Replace `YOUR_PRIVATE_KEY` with your private key and `YOUR_OWNER_ADDRESS` with the address that will own the NFT contract.
+
+## Where to Go Next
+
+<div class="grid cards" markdown>
+
+-   <span class="badge guide">Guide</span> __Verify Your Contract__
+
+    ---
+
+    Now that you've deployed an NFT contract, learn how to verify it with Foundry.
+
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/dev-environments/foundry/verify-a-contract/)
+
+-   <span class="badge guide">Guide</span> __Deploy an ERC-20__
+
+    ---
+
+    Walk through deploying a fully-functional ERC-20 to the Polkadot Hub using Foundry.
+
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-erc20/foundry/)
+
+</div>
+
+
+---
+
+Page Title: Deploy an NFT to Polkadot Hub with Hardhat
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-nft-hardhat.md
+- Canonical (HTML): https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-nft/hardhat/
+- Summary: Learn how to deploy an ERC-721 NFT contract to Polkadot Hub with Hardhat, a comprehenive development environment with built-in deployment capabilities.
+
+# Deploy an NFT with Hardhat
+
+## Introduction
+
+Non-Fungible Tokens (NFTs) represent unique digital assets commonly used for digital art, collectibles, gaming, and identity verification.
+
+This guide demonstrates how to deploy an [ERC-721](https://eips.ethereum.org/EIPS/eip-721){target=\_blank} NFT contract to [Polkadot Hub](/smart-contracts/overview/#smart-contract-development){target=\_blank}. You'll use [OpenZeppelin's battle-tested NFT implementation](https://github.com/OpenZeppelin/openzeppelin-contracts){target=\_blank} and [Hardhat](https://hardhat.org/docs/getting-started){target=\_blank}, a comprehensive development environment with built-in testing, debugging, and deployment capabilities. Hardhat uses standard Solidity compilation to generate EVM bytecode, making it fully compatible with Polkadot Hub's EVM environment.
+
+## Prerequisites
+
+- Basic understanding of Solidity programming and NFT standards.
+- Node.js v22.13.1 or later.
+- Test tokens for gas fees (available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}). See the [step-by-step instructions](/smart-contracts/faucet/#get-test-tokens){target=\_blank}.
+- A wallet with a private key for signing transactions.
+
+## Set Up Your Project
+
+Take the following steps to get started:
+
+1. Initialize your Hardhat project:
+
+    ```bash
+    mkdir hardhat-nft-deployment
+    cd hardhat-nft-deployment
+    npx hardhat --init
+    ```
+
+2. Install OpenZeppelin contracts:
+
+    ```bash
+    npm install @openzeppelin/contracts
+    ```
+
+## Configure Hardhat
+
+Edit `hardhat.config.ts`:
+
+```typescript title="hardhat.config.ts"
+import type { HardhatUserConfig } from 'hardhat/config';
+
+import hardhatToolboxViemPlugin from '@nomicfoundation/hardhat-toolbox-viem';
+import { configVariable } from 'hardhat/config';
+
+const config: HardhatUserConfig = {
+  plugins: [hardhatToolboxViemPlugin],
+  solidity: {
+    profiles: {
+      default: {
+        version: '0.8.28',
+      },
+      production: {
+        version: '0.8.28',
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 200,
+          },
+        },
+      },
+    },
+  },
+  networks: {
+    hardhatMainnet: {
+      type: 'edr-simulated',
+      chainType: 'l1',
+    },
+    hardhatOp: {
+      type: 'edr-simulated',
+      chainType: 'op',
+    },
+    sepolia: {
+      type: 'http',
+      chainType: 'l1',
+      url: configVariable('SEPOLIA_RPC_URL'),
+      accounts: [configVariable('SEPOLIA_PRIVATE_KEY')],
+    },
+    polkadotHubTestnet: {
+      type: 'http',
+      url: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
+      chainId: 420420422,
+      accounts: [configVariable('PRIVATE_KEY')],
+    },
+  },
+};
+
+export default config;
+```
+
+!!! tip
+    Learn how to use Hardhat's [Config Variables](https://hardhat.org/docs/learn-more/configuration-variables){target=\_blank} to handle your private keys in a secure way.
+
+## Create Your Contract
+
+Create `contracts/MyNFT.sol`:
+
+```solidity title="contracts/MyNFT.sol"
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+contract MyNFT is ERC721, Ownable {
+    uint256 private _nextTokenId;
+
+    constructor(address initialOwner)
+        ERC721("MyToken", "MTK")
+        Ownable(initialOwner)
+    {}
+
+    function safeMint(address to) public onlyOwner {
+        uint256 tokenId = _nextTokenId++;
+        _safeMint(to, tokenId);
+    }
+}
+```
+
+## Compile
+
+```bash
+npx hardhat compile
+```
+
+## Set Up Deployment
+
+Create a deployment module in `ignition/modules/MyNFT.ts`:
+
+```typescript title="ignition/modules/MyNFT.ts"
+import { buildModule } from '@nomicfoundation/hardhat-ignition/modules';
+
+export default buildModule('MyNFTModule', (m) => {
+  const initialOwner = m.getParameter('initialOwner', 'INSERT_OWNER_ADDRESS');
+  const myNFT = m.contract('MyNFT', [initialOwner]);
+  return { myNFT };
+});
+```
+
+Replace `INSERT_OWNER_ADDRESS` with your desired owner address.
+
+## Deploy
+
+Deploy to Polkadot Hub TestNet:
+
+```bash
+npx hardhat ignition deploy ignition/modules/MyNFT.ts --network polkadotHubTestnet
+```
+
+## Where to Go Next
+
+<div class="grid cards" markdown>
+
+-   <span class="badge guide">Guide</span> __Verify Your Contract__
+
+    ---
+
+    Now that you've deployed an NFT contract, learn how to verify it with Hardhat.
+
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/dev-environments/hardhat/verify-a-contract/)
+
+
+-   <span class="badge guide">Guide</span> __Deploy an ERC-20__
+
+    ---
+
+    Walk through deploying a fully-functional ERC-20 to the Polkadot Hub using Hardhat.
+
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-erc20/hardhat/)
+
+</div>
+
+
+---
+
+Page Title: Deploy an NFT to Polkadot Hub with Remix
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-nft-remix.md
+- Canonical (HTML): https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-nft/remix/
+- Summary: Learn how to deploy an ERC-721 NFT contract to Polkadot Hub using Remix, a browser-based IDE for quick prototyping and learning.
+
+# Deploy an NFT with Remix
+
+## Introduction
+
+Non-Fungible Tokens (NFTs) represent unique digital assets commonly used for digital art, collectibles, gaming, and identity verification.
+
+This guide demonstrates how to deploy an [ERC-721](https://eips.ethereum.org/EIPS/eip-721){target=\_blank} NFT contract to [Polkadot Hub](/smart-contracts/overview/#smart-contract-development){target=\_blank}. You'll use [OpenZeppelin's battle-tested NFT implementation](https://github.com/OpenZeppelin/openzeppelin-contracts){target=\_blank} and [Remix](https://remix.ethereum.org/){target=\_blank}, a visual, browser-based environment perfect for rapid prototyping and learning. It requires no local installation and provides an intuitive interface for contract development.
+
+## Prerequisites
+
+- Basic understanding of Solidity programming and NFT standards.
+- Test tokens for gas fees (available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}). See the [step-by-step instructions](/smart-contracts/faucet/#get-test-tokens){target=\_blank}
+- A wallet with a private key for signing transactions.
+
+## Access Remix
+
+Navigate to [Remix](https://remix.ethereum.org/){target=\_blank} in your web browser.
+
+The interface will load with a default workspace containing sample contracts. In this interface, you can access a file explorer, edit your code, interact with various plugins for development, and use a terminal.
+
+## Create Your Contract
+
+1. Create a new file `contracts/MyNFT.sol`.
+2. Paste the following code:
+
+    ```solidity title="contracts/MyNFT.sol"
+    // SPDX-License-Identifier: MIT
+    pragma solidity ^0.8.20;
+
+    import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+    import "@openzeppelin/contracts/access/Ownable.sol";
+
+    contract MyNFT is ERC721, Ownable {
+        uint256 private _nextTokenId;
+
+        constructor(address initialOwner)
+            ERC721("MyToken", "MTK")
+            Ownable(initialOwner)
+        {}
+
+        function safeMint(address to) public onlyOwner {
+            uint256 tokenId = _nextTokenId++;
+            _safeMint(to, tokenId);
+        }
+    }
+    ```
+
+![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/remix/remix-01.webp)
+
+## Compile
+
+1. Navigate to the **Solidity Compiler** tab (third icon in the left sidebar).
+2. Click **Compile MyNFT.sol** or press `Ctrl+S`.
+
+![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/remix/remix-02.webp)
+
+Compilation errors and warnings appear in the terminal panel at the bottom of the screen.
+
+## Deploy
+
+1. Navigate to the **Deploy & Run Transactions** tab.
+2. Click the **Environment** dropdown, select **Browser Extension**, and click on **Injected Provider - MetaMask**.
+
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/remix/remix-03.webp)
+
+3. In the deploy section, enter the initial owner address in the constructor parameter field.
+4. Click **Deploy**.
+
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/remix/remix-04.webp)
+
+5. Approve the transaction in your MetaMask wallet.
+
+Your deployed contract will appear in the **Deployed Contracts** section, ready for interaction.
+
+## Where to Go Next
+
+<div class="grid cards" markdown>
+
+-   <span class="badge guide">Guide</span> __Verify Your Contract__
+
+    ---
+
+    Now that you've deployed an NFT contract, learn how to verify it with Remix.
+
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/dev-environments/remix/verify-a-contract/)
+
+-   <span class="badge guide">Guide</span> __Deploy an ERC-20__
+
+    ---
+
+    Walk through deploying a fully-functional ERC-20 to the Polkadot Hub using Remix.
+
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-erc20/remix/)
+
+</div>
 
 
 ---
@@ -4560,6 +6214,109 @@ With your parachain collator operational, the next step is acquiring coretime. T
 - On-demand coretime is ordered via the [`OnDemand`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/on_demand/index.html){target=\_blank} pallet, which is located on the respective relay chain.
 
 Once coretime is correctly assigned to your parachain, whether bulk or on-demand, blocks should be produced (provided your collator is running).
+
+
+---
+
+Page Title: Dual Virtual Machine Stack
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-for-eth-devs-dual-vm-stack.md
+- Canonical (HTML): https://docs.polkadot.com/smart-contracts/for-eth-devs/dual-vm-stack/
+- Summary: Compare Polkadot’s dual smart contract VMs—REVM for EVM compatibility and PolkaVM for RISC-V performance, flexibility, and efficiency.
+
+# Dual Virtual Machine Stack
+
+!!! smartcontract "PolkaVM Preview Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+## Introduction
+
+Polkadot's smart contract platform supports two distinct virtual machine (VM) architectures, providing developers with flexibility in selecting the optimal execution backend for their specific needs. This approach strikes a balance between immediate Ethereum compatibility and long-term innovation, enabling developers to deploy either unmodified (Ethereum Virtual Machine) EVM contracts using Rust Ethereum Virtual Machine (REVM) or optimize for higher performance using PolkaVM (PVM).
+
+Both VM options share common infrastructure, including RPC interfaces, tooling support, and precompiles. The following sections compare architectures and guide you in selecting the best VM for your project's needs.
+
+## Migrate from EVM
+
+The [REVM backend](https://github.com/bluealloy/revm){target=\_blank} integrates a complete Rust implementation of the EVM, enabling Solidity contracts to run unchanged on Polkadot's smart contract platform.
+
+REVM allows developers to use their existing Ethereum tooling and infrastructure to build on Polkadot. Choose REVM to:
+
+- Migrate existing Ethereum contracts without modifications.
+- Retain exact EVM behavior for audit tools. 
+- Use developer tools that rely upon inspecting EVM bytecode.
+- Prioritize rapid deployment over optimization.
+- Work with established Ethereum infrastructure and tooling to build on Polkadot.
+
+REVM enables Ethereum developers to seamlessly migrate to Polkadot, achieving performance and fee improvements without modifying their existing contracts or developer tooling stack.
+
+## Upgrade to PolkaVM
+
+[**PolkaVM**](https://github.com/paritytech/polkavm){target=\_blank} is a custom virtual machine optimized for performance with [RISC-V-based](https://en.wikipedia.org/wiki/RISC-V){target=\_blank} architecture, supporting Solidity and additional high-performance languages. It serves as the core execution environment, integrated directly within the runtime. Choose the PolkaVM for:
+
+- An efficient interpreter for immediate code execution.
+- A planned [Just In Time (JIT)](https://en.wikipedia.org/wiki/Just-in-time_compilation){target=\_blank} compiler for optimized performance.
+- Dual-mode execution capability, allowing selection of the most appropriate backend for specific workloads.
+- Optimized performance for short-running contract calls through the interpreter.
+
+The interpreter remains particularly beneficial for contracts with minimal code execution, as it enables immediate code execution through lazy interpretation.
+
+## Architecture
+
+The following key components of PolkaVM work together to enable Ethereum compatibility on Polkadot-based chains. 
+
+### Revive Pallet
+
+[**`pallet_revive`**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/index.html){target=\_blank} is a runtime module that executes smart contracts by adding extrinsics, runtime APIs, and logic to convert Ethereum-style transactions into formats compatible with Polkadot SDK-based blockchains. It processes Ethereum-style transactions through the following workflow:
+
+```mermaid
+sequenceDiagram
+    participant User as User/dApp
+    participant Proxy as Ethereum JSON RPC Proxy
+    participant Chain as Blockchain Node
+    participant Pallet as pallet_revive
+    
+    User->>Proxy: Submit Ethereum Transaction
+    Proxy->>Chain: Repackage as Polkadot Compatible Transaction
+    Chain->>Pallet: Process Transaction
+    Pallet->>Pallet: Decode Ethereum Transaction
+    Pallet->>Pallet: Execute Contract via PolkaVM
+    Pallet->>Chain: Return Results
+    Chain->>Proxy: Forward Results
+    Proxy->>User: Return Ethereum-compatible Response
+```
+
+This proxy-based approach eliminates the need for node binary modifications, maintaining compatibility across different client implementations. Preserving the original Ethereum transaction payload simplifies the adaptation of existing tools, which can continue processing familiar transaction formats.
+
+### PolkaVM Design Fundamentals
+
+PolkaVM differs from the EVM in two key ways that make it faster, more hardware-efficient, and easier to extend:
+
+- **Register-based design**: Instead of a stack machine, PolkaVM uses a RISC-V–style register model. This design:
+
+    - Uses a fixed set of registers to pass arguments, not an infinite stack.
+    - Maps cleanly to real hardware like x86-64.
+    - Simplifies compilation and boosts runtime efficiency.
+    - Enables tighter control over register allocation and performance tuning.
+
+- **64-bit word size**: PolkaVM runs on a native 64-bit word size, aligning directly with modern CPUs. This design:
+
+    - Executes arithmetic operations with direct hardware support.
+    - Maintains compatibility with Solidity’s 256-bit types via YUL translation.
+    - Accelerates computation-heavy workloads through native word alignment.
+    - Integrates easily with low-level, performance-focused components.
+
+## Where To Go Next
+
+<div class="grid cards" markdown>
+
+-   <span class="badge learn">Learn</span> __Contract Deployment__
+
+    ---
+
+    Learn how REVM and PVM compare for compiling and deploying smart contracts.
+
+    [:octicons-arrow-right-24: Reference](/smart-contracts/for-eth-devs/contract-deployment/)
+
+</div>
 
 
 ---
@@ -7637,7 +9394,7 @@ Westend is a Parity-maintained, Polkadot SDK-based blockchain that serves as a t
 
 ---
 
-Page Title: Install Polkadot SDK Dependencies
+Page Title: Install Polkadot SDK
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/parachains-install-polkadot-sdk.md
 - Canonical (HTML): https://docs.polkadot.com/parachains/install-polkadot-sdk/
@@ -9120,748 +10877,6 @@ Substrate Connect automatically detects whether the user has the extension insta
 
 ---
 
-Page Title: Make a Custom Pallet
-
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/parachains-customize-runtime-pallet-development-create-a-pallet.md
-- Canonical (HTML): https://docs.polkadot.com/parachains/customize-runtime/pallet-development/create-a-pallet/
-- Summary: Learn how to create custom pallets using FRAME, allowing for flexible, modular, and scalable blockchain development. Follow the step-by-step guide.
-
-# Make a Custom Pallet
-
-## Introduction
-
-[Framework for Runtime Aggregation of Modular Entities (FRAME)](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/frame_runtime/index.html){target=\_blank} provides a powerful set of tools for blockchain development through modular components called [pallets](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/frame_runtime/pallet/index.html){target=\_blank}. These Rust-based runtime modules allow you to build custom blockchain functionality with precision and flexibility. While FRAME includes a library of pre-built pallets, its true strength lies in the ability to create custom pallets tailored to your specific needs.
-
-In this guide, you'll learn how to build a custom counter pallet from scratch that demonstrates core pallet development concepts. The pallet you'll create includes:
-
-- User-triggered increment and decrement operations
-- Root-only counter value setting
-- Event emission for state changes
-- Custom error handling
-- Storage management
-- User interaction tracking
-- Genesis configuration for initial state
-
-## Prerequisites
-
-Before you begin, ensure you have:
-
-- [Polkadot SDK dependencies installed](/parachains/install-polkadot-sdk/){target=\_blank}
-- A [Polkadot SDK Parchain Template](/parachains/launch-a-parachain/set-up-the-parachain-template/){target=\_blank} set up locally
-- Basic familiarity with [FRAME concepts](/parachains/customize-runtime/){target=\_blank}
-
-## Core Pallet Components
-
-As you build your custom pallet, you'll work with these key sections:
-
-- **Imports and dependencies**: Bring in necessary FRAME libraries and external modules.
-- **Runtime configuration trait**: Specify types and constants for pallet-runtime interaction.
-- **Runtime events**: Define signals that communicate state changes.
-- **Runtime errors**: Define error types returned from dispatchable calls.
-- **Runtime storage**: Declare on-chain storage items for your pallet's state.
-- **Genesis configuration**: Set initial blockchain state.
-- **Dispatchable functions (extrinsics)**: Create callable functions for user interactions.
-
-For additional macros beyond those covered here, refer to the [pallet_macros](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/index.html){target=\_blank} section of the Polkadot SDK Docs.
-
-## Create the Pallet Project
-
-Begin by creating a new Rust library project for your custom pallet within the [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk-parachain-template){target=\_blank}:
-
-1. Navigate to the root directory of your parachain template:
-
-    ```bash
-    cd polkadot-sdk-parachain-template
-    ```
-
-2. Navigate to the `pallets` directory:
-
-    ```bash
-    cd pallets
-    ```
-
-3. Create a new Rust library project:
-
-    ```bash
-    cargo new --lib pallet-custom
-    ```
-
-4. Enter the new project directory:
-
-    ```bash
-    cd pallet-custom
-    ```
-
-5. Verify the project structure. It should look like:
-
-    ```
-    pallet-custom/
-    ├── Cargo.toml
-    └── src/
-        └── lib.rs
-    ```
-
-## Configure Dependencies
-
-To integrate your custom pallet into the Polkadot SDK-based runtime, configure the `Cargo.toml` file with the required dependencies. Since your pallet exists within the parachain template workspace, you'll use workspace inheritance to maintain version consistency.
-
-1. Open `Cargo.toml` and replace its contents with:
-
-    ```toml title="pallet-custom/Cargo.toml"
-    [package]
-    name = "pallet-custom"
-    description = "A custom counter pallet for demonstration purposes."
-    version = "0.1.0"
-    license = "Unlicense"
-    authors.workspace = true
-    homepage.workspace = true
-    repository.workspace = true
-    edition.workspace = true
-    publish = false
-
-    [package.metadata.docs.rs]
-    targets = ["x86_64-unknown-linux-gnu"]
-
-    [dependencies]
-    codec = { features = ["derive"], workspace = true }
-    scale-info = { features = ["derive"], workspace = true }
-    frame = { features = ["experimental", "runtime"], workspace = true }
-
-    [features]
-    default = ["std"]
-    std = [
-        "codec/std",
-        "scale-info/std",
-        "frame/std",
-    ]
-    ```
-
-    !!!note "Version Management"
-        The parachain template uses workspace inheritance to maintain consistent dependency versions across all packages. The actual versions are defined in the root `Cargo.toml` file, ensuring compatibility throughout the project. By using `workspace = true`, your pallet automatically inherits the correct versions.
-
-2. The parachain template already includes `pallets/*` in the workspace members, so your new pallet is automatically recognized. Verify this by checking the root `Cargo.toml`:
-
-    ```toml title="Cargo.toml"
-    [workspace.members]
-    members = [
-        "node",
-        "pallets/*",
-        "runtime",
-    ]
-    ```
-
-## Initialize the Pallet Structure
-
-With dependencies configured, set up the basic scaffold that will hold your pallet's logic:
-
-1. Open `src/lib.rs` and delete all existing content.
-
-2. Add the initial scaffold structure using the unified `frame` dependency:
-
-    ```rust title="src/lib.rs"
-    #![cfg_attr(not(feature = "std"), no_std)]
-
-    pub use pallet::*;
-
-    #[frame::pallet]
-    pub mod pallet {
-        use frame::prelude::*;
-
-        #[pallet::pallet]
-        pub struct Pallet<T>(_);
-
-        #[pallet::config]
-        pub trait Config: frame_system::Config {
-            // Configuration will be added here
-        }
-
-        #[pallet::storage]
-        pub type CounterValue<T> = StorageValue<_, u32, ValueQuery>;
-
-        #[pallet::call]
-        impl<T: Config> Pallet<T> {
-            // Dispatchable functions will be added here
-        }
-    }
-    ```
-
-    !!!note
-        This setup starts with a minimal scaffold without events and errors. These will be added in the following sections after the `Config` trait is properly configured with the required `RuntimeEvent` type.
-
-3. Verify it compiles:
-
-    ```bash
-    cargo build --package pallet-custom
-    ```
-
-## Configure the Pallet
-
-The [`Config`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/trait.Config.html){target=\_blank} trait exposes configurable options and links your pallet to the runtime. All types and constants the pallet depends on must be declared here. These types are defined generically and become concrete when the pallet is instantiated at runtime.
-
-Replace the [`#[pallet::config]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.config.html){target=\_blank} section with:
-
-```rust title="src/lib.rs"
-#[pallet::config]
-pub trait Config: frame_system::Config {
-    /// The overarching runtime event type.
-    type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
-    
-    /// Maximum value the counter can reach.
-    #[pallet::constant]
-    type CounterMaxValue: Get<u32>;
-}
-```
-
-**Key configuration elements:**
-
-- **[`RuntimeEvent`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/trait.Config.html#associatedtype.RuntimeEvent){target=\_blank}**: Required for the pallet to emit events that the runtime can process.
-- **`CounterMaxValue`**: A constant that sets an upper limit on counter values, configurable per runtime.
-
-## Define Events
-
-Events inform external entities (dApps, explorers, users) about significant runtime changes. Event details are included in the node's metadata, making them accessible to external tools.
-
-The [`#[pallet::generate_deposit]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.generate_deposit.html){target=\_blank} macro automatically generates a `deposit_event` function that converts your pallet's events into the `RuntimeEvent` type and deposits them via [`frame_system::Pallet::deposit_event`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.deposit_event){target=\_blank}.
-
-Add the [`#[pallet::event]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.event.html){target=\_blank} section after the `Config` trait:
-
-```rust title="src/lib.rs"
-#[pallet::event]
-#[pallet::generate_deposit(pub(super) fn deposit_event)]
-pub enum Event<T: Config> {
-    /// Counter value was explicitly set. [new_value]
-    CounterValueSet { 
-        new_value: u32 
-    },
-    /// Counter was incremented. [new_value, who, amount]
-    CounterIncremented {
-        new_value: u32,
-        who: T::AccountId,
-        amount: u32,
-    },
-    /// Counter was decremented. [new_value, who, amount]
-    CounterDecremented {
-        new_value: u32,
-        who: T::AccountId,
-        amount: u32,
-    },
-}
-```
-
-## Define Errors
-
-Errors indicate when and why a call fails. Use informative names and descriptions, as error documentation is included in the node's metadata.
-
-Error types must implement the [`TypeInfo`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_prelude/trait.TypeInfo.html){target=\_blank} trait, and runtime errors can be up to 4 bytes in size.
-
-Add the [`#[pallet::error]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.error.html){target=\_blank} section after the events:
-
-```rust title="src/lib.rs"
-#[pallet::error]
-pub enum Error<T> {
-    /// The counter value has not been set yet.
-    NoneValue,
-    /// Arithmetic operation would cause overflow.
-    Overflow,
-    /// Arithmetic operation would cause underflow.
-    Underflow,
-    /// The counter value would exceed the maximum allowed value.
-    CounterMaxValueExceeded,
-}
-```
-
-## Add Storage Items
-
-Storage items persist state on-chain. This pallet uses two storage items:
-
-- **`CounterValue`**: Stores the current counter value.
-- **`UserInteractions`**: Tracks interaction counts per user account.
-
-The initial scaffold already includes the `CounterValue` storage item. Now add the `UserInteractions` storage map after it:
-
-```rust title="src/lib.rs"
-/// Tracks the number of interactions per user.
-#[pallet::storage]
-pub type UserInteractions<T: Config> = StorageMap<_, Blake2_128Concat, T::AccountId, u32, ValueQuery>;
-```
-
-Your storage section should now look like this:
-
-```rust title="src/lib.rs"
-/// The current value of the counter.
-#[pallet::storage]
-pub type CounterValue<T> = StorageValue<_, u32, ValueQuery>;
-
-/// Tracks the number of interactions per user.
-#[pallet::storage]
-pub type UserInteractions<T: Config> = StorageMap<_, Blake2_128Concat, T::AccountId, u32, ValueQuery>;
-```
-
-For more storage types and patterns, explore the [Polkadot SDK storage documentation](https://paritytech.github.io/polkadot-sdk/master/frame_support/storage/types/index.html){target=\_blank}.
-
-## Configure Genesis State
-
-Genesis configuration allows you to set the initial state of your pallet when the blockchain first starts. This is essential for both production networks and testing environments. It is particularly useful for:
-
-- Setting initial parameter values.
-- Pre-allocating resources or accounts.
-- Establishing starting conditions for testing.
-- Configuring network-specific initial state.
-
-Add the [`#[pallet::genesis_config]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.genesis_config.html){target=\_blank} and [`#[pallet::genesis_build]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.genesis_build.html){target=\_blank} sections after your storage items:
-
-```rust title="src/lib.rs"
-#[pallet::genesis_config]
-#[derive(frame_support::DefaultNoBound)]
-pub struct GenesisConfig<T: Config> {
-    /// Initial value for the counter
-    pub initial_counter_value: u32,
-    /// Pre-populated user interactions
-    pub initial_user_interactions: Vec<(T::AccountId, u32)>,
-}
-
-#[pallet::genesis_build]
-impl<T: Config> BuildGenesisConfig for GenesisConfig<T> {
-    fn build(&self) {
-        // Set the initial counter value
-        CounterValue::<T>::put(self.initial_counter_value);
-        
-        // Set initial user interactions
-        for (account, count) in &self.initial_user_interactions {
-            UserInteractions::<T>::insert(account, count);
-        }
-    }
-}
-```
-
-**Genesis configuration components:**
-
-- **`GenesisConfig` struct**: Defines what can be configured at genesis.
-- **`#[derive(DefaultNoBound)]`**: Provides sensible defaults (empty vec and 0 for the counter).
-- **`BuildGenesisConfig` implementation**: Executes the logic to set initial storage values.
-- **`build()` method**: Called once when the blockchain initializes.
-
-## Implement Dispatchable Functions
-
-Dispatchable functions (extrinsics) allow users to interact with your pallet and trigger state changes. Each function must:
-
-- Return a [`DispatchResult`](https://paritytech.github.io/polkadot-sdk/master/frame_support/dispatch/type.DispatchResult.html){target=\_blank}.
-- Be annotated with a weight (computational cost).
-- Have an explicit call index for backward compatibility.
-
-Replace the [`#[pallet::call]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.call.html){target=\_blank} section with:
-
-```rust title="src/lib.rs"
-#[pallet::call]
-impl<T: Config> Pallet<T> {
-    /// Set the counter to a specific value. Root origin only.
-    #[pallet::call_index(0)]
-    #[pallet::weight(0)]
-    pub fn set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult {
-        // Ensure the caller is root
-        ensure_root(origin)?;
-        
-        // Validate the new value doesn't exceed the maximum
-        ensure!(
-            new_value <= T::CounterMaxValue::get(),
-            Error::<T>::CounterMaxValueExceeded
-        );
-        
-        // Update storage
-        CounterValue::<T>::put(new_value);
-        
-        // Emit event
-        Self::deposit_event(Event::CounterValueSet { new_value });
-        
-        Ok(())
-    }
-
-    /// Increment the counter by a specified amount.
-    #[pallet::call_index(1)]
-    #[pallet::weight(0)]
-    pub fn increment(origin: OriginFor<T>, amount: u32) -> DispatchResult {
-        // Ensure the caller is signed
-        let who = ensure_signed(origin)?;
-        
-        // Get current counter value
-        let current_value = CounterValue::<T>::get();
-        
-        // Check for overflow
-        let new_value = current_value
-            .checked_add(amount)
-            .ok_or(Error::<T>::Overflow)?;
-        
-        // Ensure new value doesn't exceed maximum
-        ensure!(
-            new_value <= T::CounterMaxValue::get(),
-            Error::<T>::CounterMaxValueExceeded
-        );
-        
-        // Update counter storage
-        CounterValue::<T>::put(new_value);
-        
-        // Track user interaction
-        UserInteractions::<T>::mutate(&who, |count| {
-            *count = count.saturating_add(1);
-        });
-        
-        // Emit event
-        Self::deposit_event(Event::CounterIncremented {
-            new_value,
-            who,
-            amount,
-        });
-        
-        Ok(())
-    }
-
-    /// Decrement the counter by a specified amount.
-    #[pallet::call_index(2)]
-    #[pallet::weight(0)]
-    pub fn decrement(origin: OriginFor<T>, amount: u32) -> DispatchResult {
-        // Ensure the caller is signed
-        let who = ensure_signed(origin)?;
-        
-        // Get current counter value
-        let current_value = CounterValue::<T>::get();
-        
-        // Check for underflow
-        let new_value = current_value
-            .checked_sub(amount)
-            .ok_or(Error::<T>::Underflow)?;
-        
-        // Update counter storage
-        CounterValue::<T>::put(new_value);
-        
-        // Track user interaction
-        UserInteractions::<T>::mutate(&who, |count| {
-            *count = count.saturating_add(1);
-        });
-        
-        // Emit event
-        Self::deposit_event(Event::CounterDecremented {
-            new_value,
-            who,
-            amount,
-        });
-        
-        Ok(())
-    }
-}
-```
-
-### Dispatchable Function Details
-
-???+ interface "`set_counter_value`"
-
-    - **Access**: Root origin only (privileged operations)
-    - **Purpose**: Set counter to a specific value
-    - **Validations**: New value must not exceed `CounterMaxValue`
-    - **State changes**: Updates `CounterValue` storage
-    - **Events**: Emits `CounterValueSet`
-
-??? interface "`increment`"
-
-    - **Access**: Any signed account
-    - **Purpose**: Increase counter by specified amount
-    - **Validations**: Checks for overflow and max value compliance
-    - **State changes**: Updates `CounterValue` and `UserInteractions`
-    - **Events**: Emits `CounterIncremented`
-
-??? interface "`decrement`"
-
-    - **Access**: Any signed account
-    - **Purpose**: Decrease counter by specified amount
-    - **Validations**: Checks for underflow
-    - **State changes**: Updates `CounterValue` and `UserInteractions`
-    - **Events**: Emits `CounterDecremented`
-
-## Verify Pallet Compilation
-
-Before proceeding, ensure your pallet compiles without errors:
-
-```bash
-cargo build --package pallet-custom
-```
-
-If you encounter errors, carefully review the code against this guide. Once the build completes successfully, your custom pallet is ready for integration.
-
-??? code "Complete Pallet Implementation"
-    
-    ```rust title="src/lib.rs"
-    #![cfg_attr(not(feature = "std"), no_std)]
-
-    pub use pallet::*;
-
-    #[frame::pallet]
-    pub mod pallet {
-        use frame::prelude::*;
-
-        #[pallet::pallet]
-        pub struct Pallet<T>(_);
-
-        #[pallet::config]
-        pub trait Config: frame_system::Config {
-            type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
-            
-            #[pallet::constant]
-            type CounterMaxValue: Get<u32>;
-        }
-
-        #[pallet::event]
-        #[pallet::generate_deposit(pub(super) fn deposit_event)]
-        pub enum Event<T: Config> {
-            CounterValueSet { new_value: u32 },
-            CounterIncremented { new_value: u32, who: T::AccountId, amount: u32 },
-            CounterDecremented { new_value: u32, who: T::AccountId, amount: u32 },
-        }
-
-        #[pallet::error]
-        pub enum Error<T> {
-            NoneValue,
-            Overflow,
-            Underflow,
-            CounterMaxValueExceeded,
-        }
-
-        #[pallet::storage]
-        pub type CounterValue<T> = StorageValue<_, u32, ValueQuery>;
-
-        #[pallet::storage]
-        pub type UserInteractions<T: Config> = StorageMap<_, Blake2_128Concat, T::AccountId, u32, ValueQuery>;
-
-        #[pallet::genesis_config]
-        #[derive(frame_support::DefaultNoBound)]
-        pub struct GenesisConfig<T: Config> {
-            pub initial_counter_value: u32,
-            pub initial_user_interactions: Vec<(T::AccountId, u32)>,
-        }
-
-        #[pallet::genesis_build]
-        impl<T: Config> BuildGenesisConfig for GenesisConfig<T> {
-            fn build(&self) {
-                CounterValue::<T>::put(self.initial_counter_value);
-                for (account, count) in &self.initial_user_interactions {
-                    UserInteractions::<T>::insert(account, count);
-                }
-            }
-        }
-
-        #[pallet::call]
-        impl<T: Config> Pallet<T> {
-            #[pallet::call_index(0)]
-            #[pallet::weight(0)]
-            pub fn set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult {
-                ensure_root(origin)?;
-                ensure!(new_value <= T::CounterMaxValue::get(), Error::<T>::CounterMaxValueExceeded);
-                CounterValue::<T>::put(new_value);
-                Self::deposit_event(Event::CounterValueSet { new_value });
-                Ok(())
-            }
-
-            #[pallet::call_index(1)]
-            #[pallet::weight(0)]
-            pub fn increment(origin: OriginFor<T>, amount: u32) -> DispatchResult {
-                let who = ensure_signed(origin)?;
-                let current_value = CounterValue::<T>::get();
-                let new_value = current_value.checked_add(amount).ok_or(Error::<T>::Overflow)?;
-                ensure!(new_value <= T::CounterMaxValue::get(), Error::<T>::CounterMaxValueExceeded);
-                CounterValue::<T>::put(new_value);
-                UserInteractions::<T>::mutate(&who, |count| *count = count.saturating_add(1));
-                Self::deposit_event(Event::CounterIncremented { new_value, who, amount });
-                Ok(())
-            }
-
-            #[pallet::call_index(2)]
-            #[pallet::weight(0)]
-            pub fn decrement(origin: OriginFor<T>, amount: u32) -> DispatchResult {
-                let who = ensure_signed(origin)?;
-                let current_value = CounterValue::<T>::get();
-                let new_value = current_value.checked_sub(amount).ok_or(Error::<T>::Underflow)?;
-                CounterValue::<T>::put(new_value);
-                UserInteractions::<T>::mutate(&who, |count| *count = count.saturating_add(1));
-                Self::deposit_event(Event::CounterDecremented { new_value, who, amount });
-                Ok(())
-            }
-        }
-    }
-    ```
-
-## Add the Pallet to Your Runtime
-
-Now that your custom pallet is complete, integrate it into the parachain runtime.
-
-### Add Runtime Dependency
-
-1. In the `runtime/Cargo.toml`, add your custom pallet to the `[dependencies]` section:
-
-    ```toml title="runtime/Cargo.toml"
-    [dependencies]
-    # Local dependencies
-    pallet-custom = { path = "../pallets/pallet-custom", default-features = false }
-    
-    # ... other dependencies
-    ```
-
-2. Enable the `std` feature by adding it to the `[features]` section:
-
-    ```toml title="runtime/Cargo.toml"
-    [features]
-    default = ["std"]
-    std = [
-        "codec/std",
-        "pallet-custom/std",
-        # ... other features
-    ]
-    ```
-
-### Implement the Config Trait
-
-At the end of the `runtime/src/configs/mod.rs` file, add the implementation: 
-
-```rust title="runtime/src/configs/mod.rs"
-/// Configure the custom counter pallet
-impl pallet_custom::Config for Runtime {
-    type RuntimeEvent = RuntimeEvent;
-    type CounterMaxValue = ConstU32<1000>;
-}
-```
-
-This configuration:
-
-- Links the pallet's events to the runtime's event system
-- Sets a maximum counter value of 1000 using [`ConstU32`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/struct.ConstU32.html){target=\_blank}
-
-### Add to Runtime Construct
-
-In the `runtime/src/lib.rs` file, locate the [`#[frame_support::runtime]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/attr.runtime.html){target=\_blank} section and add your pallet with a unique `pallet_index`:
-
-```rust title="runtime/src/lib.rs"
-#[frame_support::runtime]
-mod runtime {
-    #[runtime::runtime]
-    #[runtime::derive(
-        RuntimeCall,
-        RuntimeEvent,
-        RuntimeError,
-        RuntimeOrigin,
-        RuntimeTask,
-        RuntimeFreezeReason,
-        RuntimeHoldReason,
-        RuntimeSlashReason,
-        RuntimeLockId,
-        RuntimeViewFunction
-    )]
-    pub struct Runtime;
-
-    #[runtime::pallet_index(0)]
-    pub type System = frame_system;
-
-    // ... other pallets
-
-    #[runtime::pallet_index(51)]
-    pub type CustomPallet = pallet_custom;
-}
-```
-
-!!!warning
-    Each pallet must have a unique index. Duplicate indices will cause compilation errors. Choose an index that doesn't conflict with existing pallets.
-
-### Configure Genesis for Your Runtime
-
-To set initial values for your pallet when the chain starts, you'll need to configure the genesis in your chain specification. This is typically done in the `node/src/chain_spec.rs` file or when generating the chain specification.
-
-For development and testing, you can use the default values provided by the `#[derive(DefaultNoBound)]` macro. For production networks, you'll want to set these values in your chain specification explicitly.
-
-### Verify Runtime Compilation
-
-Compile the runtime to ensure everything is configured correctly:
-
-```bash
-cargo build --release
-```
-
-This command validates all pallet configurations and prepares the build for deployment.
-
-## Run Your Chain Locally
-
-Launch your parachain locally to test the new pallet functionality using the [Polkadot Omni Node](https://crates.io/crates/polkadot-omni-node){target=\_blank}.
-
-### Generate a Chain Specification
-
-Create a chain specification file with the updated runtime:
-
-```bash
-chain-spec-builder create -t development \
---relay-chain paseo \
---para-id 1000 \
---runtime ./target/release/wbuild/parachain-template-runtime/parachain_template_runtime.compact.compressed.wasm \
-named-preset development
-```
-
-This command generates a `chain_spec.json` that includes your custom pallet.
-
-### Start the Parachain Node
-
-Launch the parachain:
-
-```bash
-polkadot-omni-node --chain ./chain_spec.json --dev
-```
-
-Verify the node starts successfully and begins producing blocks.
-
-## Interact with Your Pallet
-
-Use the Polkadot.js Apps interface to test your pallet:
-
-1. Navigate to [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9944#/extrinsics){target=\_blank}.
-
-2. Ensure you're connected to your local node at `ws://127.0.0.1:9944`.
-
-3. Go to **Developer** > **Extrinsics**.
-
-4. Locate **customPallet** in the pallet dropdown.
-
-5. You should see the available extrinsics:
-
-    - **`increment(amount)`**: Increase the counter by a specified amount.
-    - **`decrement(amount)`**: Decrease the counter by a specified amount.
-    - **`setCounterValue(newValue)`**: Set counter to a specific value (requires sudo/root).
-
-![](/images/parachains/customize-runtime/pallet-development/create-a-pallet/create-a-pallet-01.webp)
-
-## Key Takeaways
-
-You've successfully created and integrated a custom pallet into a Polkadot SDK-based runtime. You learned:
-
-- **Configuration**: Defined runtime-specific types and constants via the `Config` trait.
-- **Storage**: Implemented on-chain state using `StorageValue` and `StorageMap`.
-- **Events**: Created signals to communicate state changes to external systems.
-- **Errors**: Established clear error handling with descriptive error types.
-- **Genesis**: Configured initial blockchain state for both production and testing.
-- **Dispatchables**: Built callable functions with proper validation and access control.
-- **Integration**: Successfully added the pallet to a runtime and tested it locally.
-
-These components form the foundation for developing sophisticated blockchain logic in Polkadot SDK-based chains.
-
-## Where to Go Next
-
-<div class="grid cards" markdown>
-
--   <span class="badge guide">Guide</span> __Mock Your Runtime__
-
-    ---
-
-    Learn to create a mock runtime environment for testing your pallet in isolation before integration.
-
-    [:octicons-arrow-right-24: Continue](/parachains/customize-runtime/pallet-development/mock-runtime/)
-
-</div>
-
-
----
-
 Page Title: Manage Coretime
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-parachains-deployment-manage-coretime.md
@@ -9967,180 +10982,341 @@ pub fn pool<T: Config>(region_id: RegionId, payee: T::AccountId, finality: Final
 
 ---
 
-Page Title: Mock Runtime for Pallet Testing
+Page Title: Mock Your Runtime
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/parachains-customize-runtime-pallet-development-mock-runtime.md
 - Canonical (HTML): https://docs.polkadot.com/parachains/customize-runtime/pallet-development/mock-runtime/
-- Summary: Learn to create a mock environment in the Polkadot SDK for testing intra-pallet functionality and inter-pallet interactions seamlessly.
+- Summary: Learn how to create a mock runtime environment for testing your custom pallets in isolation, enabling comprehensive unit testing before runtime integration.
 
-# Mock Runtime
+# Mock Your Runtime
 
 ## Introduction
 
-Testing is essential in Polkadot SDK development to ensure your blockchain operates as intended and effectively handles various potential scenarios. This guide walks you through setting up an environment to test pallets within the [runtime](/polkadot-protocol/glossary#runtime){target=_blank}, allowing you to evaluate how different pallets, their configurations, and system components interact to ensure reliable blockchain functionality.
+Testing is a critical part of pallet development. Before integrating your pallet into a full runtime, you need a way to test its functionality in isolation. A mock runtime provides a minimal, simulated blockchain environment where you can verify your pallet's logic without the overhead of running a full node.
 
-## Configuring a Mock Runtime
+In this guide, you'll learn how to create a mock runtime for the custom counter pallet built in the [Make a Custom Pallet](/parachains/customize-runtime/pallet-development/create-a-pallet/){target=\_blank} guide. This mock runtime will enable you to write comprehensive unit tests that verify:
 
-### Testing Module
+- Dispatchable function behavior.
+- Storage state changes.
+- Event emission.
+- Error handling.
+- Access control and origin validation.
+- Genesis configuration.
 
-The mock runtime includes all the necessary pallets and configurations needed for testing. To ensure proper testing, you must create a module that integrates all components, enabling assessment of interactions between pallets and system elements.
+## Prerequisites
 
-Here's a simple example of how to create a testing module that simulates these interactions:
+Before you begin, ensure you have:
 
-```rust
-pub mod tests {
-    use crate::*;
-    // ...
+- Completed the [Make a Custom Pallet](/parachains/customize-runtime/pallet-development/create-a-pallet/){target=\_blank} guide.
+- The custom counter pallet from the Make a Custom Pallet guide. Available in `pallets/pallet-custom`.
+- Basic understanding of [Rust testing](https://doc.rust-lang.org/book/ch11-00-testing.html){target=\_blank}.
+
+## Understand Mock Runtimes
+
+A mock runtime is a minimal implementation of the runtime environment that:
+
+- Simulates blockchain state to provide storage and state management.
+- Satisfies your pallet's `Config` trait requirements.
+- Allows isolated testing without external dependencies.
+- Supports genesis configuration to set initial blockchain state for tests.
+- Provides instant feedback on code changes for a faster development cycle.
+
+Mock runtimes are used exclusively for testing and are never deployed to a live blockchain.
+
+## Create the Mock Runtime Module
+
+Start by creating a new module file within your pallet to house the mock runtime code.
+
+1. Navigate to your pallet directory:
+
+    ```bash
+    cd pallets/pallet-custom/src
+    ```
+
+2. Create a new file named `mock.rs`:
+
+    ```bash
+    touch mock.rs
+    ```
+
+3. Next, open `src/lib.rs` and add the mock module declaration at the top of the file, right after the `pub use pallet::*;` line:
+
+    ```rust title="src/lib.rs"
+    #![cfg_attr(not(feature = "std"), no_std)]
+
+    pub use pallet::*;
+
+    #[cfg(test)]
+    mod mock;
+
+    #[frame::pallet]
+    pub mod pallet {
+        // ... existing pallet code
+    }
+
+    ```
+
+    The `#[cfg(test)]` attribute ensures this module is only compiled during testing.
+
+## Set Up Basic Mock
+
+Open `src/mock.rs` and add the foundational imports and type definitions:
+
+```rust title="src/mock.rs"
+use crate as pallet_custom;
+use frame::{
+    deps::{
+        frame_support::{ derive_impl, traits::ConstU32 },
+        sp_io,
+        sp_runtime::{ traits::IdentityLookup, BuildStorage },
+    },
+    prelude::*,
+};
+
+type Block = frame_system::mocking::MockBlock<Test>;
+
+// Configure a mock runtime to test the pallet.
+frame::deps::frame_support::construct_runtime!(
+        pub enum Test
+        {
+            System: frame_system,
+            CustomPallet: pallet_custom,
+        }
+    );
+```
+
+The preceding code includes the following key components: 
+
+- **[`construct_runtime!`](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_frame/runtime/apis/trait.ConstructRuntimeApi.html#tymethod.construct_runtime_api){target=\_blank}**: Macro that builds a minimal runtime with only the pallets needed for testing.
+- **`Test`**: The mock runtime type used in tests.
+- **`Block`**: Type alias for the mock block type that the runtime will use.
+
+## Implement Essential Configuration
+
+The [`frame_system`](https://paritytech.github.io/polkadot-sdk/master/frame_system/index.html){target=\_blank} pallet provides core blockchain functionality and is required by all other pallets. Configure it for the test environment as follows:
+
+```rust title="src/mock.rs"
+#[derive_impl(frame_system::config_preludes::TestDefaultConfig)]
+impl frame_system::Config for Test {
+    type Block = Block;
+    type AccountId = u64;
+    type Lookup = IdentityLookup<Self::AccountId>;
 }
 ```
 
-The `crate::*;` snippet imports all the components from your crate (including runtime configurations, pallet modules, and utility functions) into the `tests` module. This allows you to write tests without manually importing each piece, making the code more concise and readable. You can opt to instead create a separate `mock.rs` file to define the configuration for your mock runtime and a companion `tests.rs` file to house the specific logic for each test.
+This simplified configuration for testing includes the following:
 
-Once the testing module is configured, you can craft your mock runtime using the [`frame_support::runtime`](https://paritytech.github.io/polkadot-sdk/master/frame_support/attr.runtime.html){target=\_blank} macro. This macro allows you to define a runtime environment that will be created for testing purposes:
+- **`#[derive_impl]`**: Automatically provides sensible test defaults for most `frame_system::Config` types.
+- **`AccountId = u64`**: Uses simple integers instead of cryptographic account IDs.
+- **`Lookup = IdentityLookup`**: Direct account ID mapping (no address conversion).
+- **`Block = Block`**: Uses the mock block type we defined earlier.
 
-```rust
-pub mod tests {
-    use crate::*;
+This approach is much more concise than manually specifying every configuration type, as the `TestDefaultConfig` preset provides appropriate defaults for testing.
 
-    #[frame_support::runtime]
-    mod runtime {
-        #[runtime::runtime]
-        #[runtime::derive(
-            RuntimeCall,
-            RuntimeEvent,
-            RuntimeError,
-            RuntimeOrigin,
-            RuntimeFreezeReason,
-            RuntimeHoldReason,
-            RuntimeSlashReason,
-            RuntimeLockId,
-            RuntimeTask
-        )]
-        pub struct Test;
+## Implement Your Pallet's Configuration
 
-        #[runtime::pallet_index(0)]
-        pub type System = frame_system::Pallet<Test>;
+Now implement the `Config` trait for your custom pallet. This trait must match the one defined in your pallet's `src/lib.rs`:
 
-        // Other pallets...
-    }
-}
-```
-### Genesis Storage
-
-The next step is configuring the genesis storage—the initial state of your runtime. Genesis storage sets the starting conditions for the runtime, defining how pallets are configured before any blocks are produced. You can only customize the initial state only of those items that implement the [`[pallet::genesis_config]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.genesis_config.html){target=\_blank} and [`[pallet::genesis_build]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.genesis_build.html){target=\_blank} macros within their respective pallets.
-
-In Polkadot SDK, you can create this storage using the [`BuildStorage`](https://paritytech.github.io/polkadot-sdk/master/sp_runtime/trait.BuildStorage.html){target=\_blank} trait from the [`sp_runtime`](https://paritytech.github.io/polkadot-sdk/master/sp_runtime){target=\_blank} crate. This trait is essential for building the configuration that initializes the blockchain's state. 
-
-The function `new_test_ext()` demonstrates setting up this environment. It uses `frame_system::GenesisConfig::<Test>::default()` to generate a default genesis configuration for the runtime, followed by `.build_storage()` to create the initial storage state. This storage is then converted into a format usable by the testing framework, [`sp_io::TestExternalities`](https://paritytech.github.io/polkadot-sdk/master/sp_io/type.TestExternalities.html){target=\_blank}, allowing tests to be executed in a simulated blockchain environment.
-
-Here's the code that sets the genesis storage configuration:
-
-```rust
-pub mod tests {
-    use crate::*;
-    use sp_runtime::BuildStorage;
-
-    #[frame_support::runtime]
-    mod runtime {
-        #[runtime::runtime]
-        #[runtime::derive(
-            RuntimeCall,
-            RuntimeEvent,
-            RuntimeError,
-            RuntimeOrigin,
-            RuntimeFreezeReason,
-            RuntimeHoldReason,
-            RuntimeSlashReason,
-            RuntimeLockId,
-            RuntimeTask
-        )]
-        pub struct Test;
-
-        #[runtime::pallet_index(0)]
-        pub type System = frame_system::Pallet<Test>;
-
-        // Other pallets...
-    }
-
-    pub fn new_test_ext() -> sp_io::TestExternalities {
-        frame_system::GenesisConfig::<Test>::default()
-            .build_storage()
-            .unwrap()
-            .into()
-    }
+```rust title="src/mock.rs"
+impl pallet_custom::Config for Test {
+    type RuntimeEvent = RuntimeEvent;
+    type CounterMaxValue = ConstU32<1000>;
 }
 ```
 
-You can also customize the genesis storage to set initial values for your runtime pallets. For example, you can set the initial balance for accounts like this:
+Configuration details include:
 
-```rust
-// Build genesis storage according to the runtime's configuration
+- **`RuntimeEvent`**: Connects your pallet's events to the mock runtime's event system.
+- **`CounterMaxValue`**: Sets the maximum counter value to 1000, matching the production configuration.
+
+The configuration here should mirror what you'll use in production unless you specifically need different values for testing.
+
+## Configure Genesis Storage
+
+Genesis storage defines the initial state of your blockchain before any blocks are produced. Since your counter pallet includes the genesis configuration (added in the previous guide), you can now set up test environments with different initial states.
+
+### Basic Test Environment
+
+Create a helper function for the default test environment:
+
+```rust title="src/mock.rs"
+// Build genesis storage according to the mock runtime.
 pub fn new_test_ext() -> sp_io::TestExternalities {
-    // Define the initial balances for accounts
-    let initial_balances: Vec<(AccountId32, u128)> = vec![
-        (AccountId32::from([0u8; 32]), 1_000_000_000_000),
-        (AccountId32::from([1u8; 32]), 2_000_000_000_000),
-    ];
+    let mut t = frame_system::GenesisConfig::<Test>::default().build_storage().unwrap();
 
-    let mut t = frame_system::GenesisConfig::<Test>::default()
-        .build_storage()
+    (pallet_custom::GenesisConfig::<Test> {
+        initial_counter_value: 0,
+        initial_user_interactions: vec![],
+    })
+        .assimilate_storage(&mut t)
         .unwrap();
-
-    // Adding balances configuration to the genesis config
-    pallet_balances::GenesisConfig::<Test> {
-        balances: initial_balances,
-    }
-    .assimilate_storage(&mut t)
-    .unwrap();
 
     t.into()
 }
 ```
 
-For a more idiomatic approach, see the [Your First Pallet](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/guides/your_first_pallet/index.html#better-test-setup){target=\_blank} guide from the Polkadot SDK Rust documentation.
+This function creates a clean blockchain state with an initial counter value of 0 and no user interactions.
 
-### Pallet Configuration
+### Custom Genesis Configurations
 
-Each pallet in the mocked runtime requires an associated configuration, specifying the types and values it depends on to function. These configurations often use basic or primitive types (e.g., u32, bool) instead of more complex types like structs or traits, ensuring the setup remains straightforward and manageable.
+For testing specific scenarios, create additional helper functions with customized genesis states:
 
-```rust
-#[derive_impl(frame_system::config_preludes::TestDefaultConfig)]
-impl frame_system::Config for Test {
-    ...
-    type Index = u64;
-    type BlockNumber = u64;
-    type Hash = H256;
-    type Hashing = BlakeTwo256;
-    type AccountId = u64;
-    ...
+```rust title="src/mock.rs"
+// Helper function to create a test externalities with a specific initial counter value
+pub fn new_test_ext_with_counter(initial_value: u32) -> sp_io::TestExternalities {
+    let mut t = frame_system::GenesisConfig::<Test>::default().build_storage().unwrap();
+
+    (pallet_custom::GenesisConfig::<Test> {
+        initial_counter_value: initial_value,
+        initial_user_interactions: vec![],
+    })
+        .assimilate_storage(&mut t)
+        .unwrap();
+
+    t.into()
 }
 
-impl pallet_template::Config for Test {
-	type RuntimeEvent = RuntimeEvent;
-	type WeightInfo = ();
-    ...
+// Helper function to create a test externalities with initial user interactions
+pub fn new_test_ext_with_interactions(
+    initial_value: u32,
+    interactions: Vec<(u64, u32)>
+) -> sp_io::TestExternalities {
+    let mut t = frame_system::GenesisConfig::<Test>::default().build_storage().unwrap();
+
+    (pallet_custom::GenesisConfig::<Test> {
+        initial_counter_value: initial_value,
+        initial_user_interactions: interactions,
+    })
+        .assimilate_storage(&mut t)
+        .unwrap();
+
+    t.into()
 }
 ```
 
-The configuration should be set for each pallet existing in the mocked runtime. The simplification of types is for simplifying the testing process. For example, `AccountId` is `u64`, meaning a valid account address can be an unsigned integer:
+Key methods used in this step include:
 
-```rust
-let alice_account: u64 = 1;
+- **[`BuildStorage::build_storage()`](https://paritytech.github.io/polkadot-sdk/master/sp_runtime/trait.BuildStorage.html#method.build_storage){target=\_blank}**: Creates the initial storage state.
+- **[`assimilate_storage`](https://paritytech.github.io/polkadot-sdk/master/sp_runtime/trait.BuildStorage.html#method.assimilate_storage){target=\_blank}**: Merges pallet genesis config into the existing storage.
+
+You can chain multiple `assimilate_storage` calls to configure multiple pallets.
+
+## Verify Mock Compilation
+
+Before proceeding to write tests, ensure your mock runtime compiles correctly:
+
+```bash
+cargo test --package pallet-custom --lib
 ```
+
+This command compiles the test code (including the mock and genesis configuration) without running tests yet. Address any compilation errors before continuing.
+
+??? code "Complete mock runtime script"
+
+    Here's the complete `mock.rs` file for reference:
+
+    ```rust title="src/mock.rs"
+    use crate as pallet_custom;
+    use frame::{
+        deps::{
+            frame_support::{ derive_impl, traits::ConstU32 },
+            sp_io,
+            sp_runtime::{ traits::IdentityLookup, BuildStorage },
+        },
+        prelude::*,
+    };
+
+    type Block = frame_system::mocking::MockBlock<Test>;
+
+    // Configure a mock runtime to test the pallet.
+    frame::deps::frame_support::construct_runtime!(
+            pub enum Test
+            {
+                System: frame_system,
+                CustomPallet: pallet_custom,
+            }
+        );
+
+    #[derive_impl(frame_system::config_preludes::TestDefaultConfig)]
+    impl frame_system::Config for Test {
+        type Block = Block;
+        type AccountId = u64;
+        type Lookup = IdentityLookup<Self::AccountId>;
+    }
+
+    impl pallet_custom::Config for Test {
+        type RuntimeEvent = RuntimeEvent;
+        type CounterMaxValue = ConstU32<1000>;
+    }
+
+    // Build genesis storage according to the mock runtime.
+    pub fn new_test_ext() -> sp_io::TestExternalities {
+        let mut t = frame_system::GenesisConfig::<Test>::default().build_storage().unwrap();
+
+        (pallet_custom::GenesisConfig::<Test> {
+            initial_counter_value: 0,
+            initial_user_interactions: vec![],
+        })
+            .assimilate_storage(&mut t)
+            .unwrap();
+
+        t.into()
+    }
+
+    // Helper function to create a test externalities with a specific initial counter value
+    pub fn new_test_ext_with_counter(initial_value: u32) -> sp_io::TestExternalities {
+        let mut t = frame_system::GenesisConfig::<Test>::default().build_storage().unwrap();
+
+        (pallet_custom::GenesisConfig::<Test> {
+            initial_counter_value: initial_value,
+            initial_user_interactions: vec![],
+        })
+            .assimilate_storage(&mut t)
+            .unwrap();
+
+        t.into()
+    }
+
+    // Helper function to create a test externalities with initial user interactions
+    pub fn new_test_ext_with_interactions(
+        initial_value: u32,
+        interactions: Vec<(u64, u32)>
+    ) -> sp_io::TestExternalities {
+        let mut t = frame_system::GenesisConfig::<Test>::default().build_storage().unwrap();
+
+        (pallet_custom::GenesisConfig::<Test> {
+            initial_counter_value: initial_value,
+            initial_user_interactions: interactions,
+        })
+            .assimilate_storage(&mut t)
+            .unwrap();
+
+        t.into()
+    }
+    ```
+
+## Key Takeaways
+
+You've successfully created a mock runtime with a genesis configuration for your custom pallet. You can now:
+
+- Test your pallet without a full runtime.
+- Set initial blockchain state for different test scenarios.
+- Create different genesis setups for various testing needs.
+- Use this minimal setup to test all pallet functionality.
+
+The mock runtime with a genesis configuration is essential for test-driven development, enabling you to verify logic under different initial conditions before integrating it into the actual parachain runtime.
 
 ## Where to Go Next
 
-With the mock environment in place, developers can now test and explore how pallets interact and ensure they work seamlessly together. For further details about mocking runtimes, see the following [Polkadot SDK docs guide](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/guides/your_first_pallet/index.html#your-first-test-runtime){target=\_blank}.
-
 <div class="grid cards" markdown>
 
--   <span class="badge guide">Guide</span> __Pallet Testing__
+-   <span class="badge guide">Guide</span> __Pallet Unit Testing__
 
     ---
 
-    Learn how to efficiently test pallets in the Polkadot SDK, ensuring your pallet operations are reliable and secure.
+    Learn to write comprehensive unit tests for your pallet using the mock runtime you just created.
 
-    [:octicons-arrow-right-24: Reference](/parachains/customize-runtime/pallet-development/pallet-testing/)
+    [:octicons-arrow-right-24: Continue](/parachains/customize-runtime/pallet-development/pallet-testing/)
 
 </div>
 
@@ -14662,121 +15838,6 @@ Support for encoding and decoding Polkadot SDK SS58 addresses has been implement
 - **Go**: [`itering/subscan-plugin`](https://github.com/itering/subscan-plugin){target=\_blank}
 - **Python**: [`polkascan/py-scale-codec`](https://github.com/polkascan/py-scale-codec){target=\_blank}
 - **TypeScript**: [`subsquid/squid-sdk`](https://github.com/subsquid/squid-sdk){target=\_blank}
-
-
----
-
-Page Title: PolkaVM Design
-
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-for-eth-devs-dual-vm-stack.md
-- Canonical (HTML): https://docs.polkadot.com/smart-contracts/for-eth-devs/dual-vm-stack/
-- Summary: Discover PolkaVM, a high-performance smart contract VM for Polkadot, enabling Ethereum compatibility via pallet_revive, Solidity support & optimized execution.
-
-# PolkaVM Design
-
-!!! smartcontract "PolkaVM Preview Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
-## Introduction
-
-The Asset Hub smart contracts solution includes multiple components to ensure Ethereum compatibility and high performance. Its architecture allows for integration with current Ethereum tools, while its innovative virtual machine design enhances performance characteristics.
-
-## PolkaVM
-
-[**PolkaVM**](https://github.com/paritytech/polkavm){target=\_blank} is a custom virtual machine optimized for performance with [RISC-V-based](https://en.wikipedia.org/wiki/RISC-V){target=\_blank} architecture, supporting Solidity and additional high-performance languages. It serves as the core execution environment, integrated directly within the runtime. It features:
-
-- An efficient interpreter for immediate code execution.
-- A planned JIT compiler for optimized performance.
-- Dual-mode execution capability, allowing selection of the most appropriate backend for specific workloads.
-- Optimized performance for short-running contract calls through the interpreter.
-
-The interpreter remains particularly beneficial for contracts with minimal code execution, as it eliminates JIT compilation overhead and enables immediate code execution through lazy interpretation.
-
-## Architecture
-
-The smart contract solution consists of the following key components that work together to enable Ethereum compatibility on Polkadot-based chains.
-
-### Pallet Revive
-
-[**`pallet_revive`**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/index.html){target=\_blank} is a runtime module that executes smart contracts by adding extrinsics, runtime APIs, and logic to convert Ethereum-style transactions into formats compatible with Polkadot SDK-based blockchains. It processes Ethereum-style transactions through the following workflow:
-
-```mermaid
-sequenceDiagram
-    participant User as User/dApp
-    participant Proxy as Ethereum JSON RPC Proxy
-    participant Chain as Blockchain Node
-    participant Pallet as pallet_revive
-    
-    User->>Proxy: Submit Ethereum Transaction
-    Proxy->>Chain: Repackage as Polkadot Compatible Transaction
-    Chain->>Pallet: Process Transaction
-    Pallet->>Pallet: Decode Ethereum Transaction
-    Pallet->>Pallet: Execute Contract via PolkaVM
-    Pallet->>Chain: Return Results
-    Chain->>Proxy: Forward Results
-    Proxy->>User: Return Ethereum-compatible Response
-```
-
-This proxy-based approach eliminates the need for node binary modifications, maintaining compatibility across different client implementations. Preserving the original Ethereum transaction payload simplifies adapting existing tools, which can continue processing familiar transaction formats.
-
-### PolkaVM Design Fundamentals
-
-PolkaVM introduces two fundamental architectural differences compared to the Ethereum Virtual Machine (EVM):
-
-```mermaid
-flowchart TB
-    subgraph "EVM Architecture"
-        EVMStack[Stack-Based]
-        EVM256[256-bit Word Size]
-    end
-    
-    subgraph "PolkaVM Architecture"
-        PVMReg[Register-Based]
-        PVM64[64-bit Word Size]
-    end
-```
-
-- **Register-based design**: PolkaVM utilizes a RISC-V register-based approach. This design:
-
-    - Employs a finite set of registers for argument passing instead of an infinite stack.
-    - Facilitates efficient translation to underlying hardware architectures.
-    - Optimizes register allocation through careful register count selection.
-    - Enables simple 1:1 mapping to x86-64 instruction sets.
-    - Reduces compilation complexity through strategic register limitation.
-    - Improves overall execution performance through hardware-aligned design.
-
-- **64-bit word size**: PolkaVM operates with a 64-bit word size. This design:
-
-    - Enables direct hardware-supported arithmetic operations.
-    - Maintains compatibility with Solidity's 256-bit operations through YUL translation.
-    - Allows integration of performance-critical components written in lower-level languages.
-    - Optimizes computation-intensive operations through native word size alignment.
-    - Reduces overhead for operations not requiring extended precision.
-    - Facilitates efficient integration with modern CPU architectures.
-
-## Compilation Process
-
-When compiling a Solidity smart contract, the code passes through the following stages:
-
-```mermaid
-flowchart LR
-    Dev[Developer] --> |Solidity<br>Source<br>Code| Solc
-    
-    subgraph "Compilation Process"
-        direction LR
-        Solc[solc] --> |YUL<br>IR| Revive
-        Revive[Revive Compiler] --> |LLVM<br>IR| LLVM
-        LLVM[LLVM<br>Optimizer] --> |RISC-V ELF<br>Shared Object| PVMLinker
-    end
-    
-    PVMLinker[PVM Linker] --> PVM[PVM Blob<br>with Metadata]
-```
-
-The compilation process integrates several specialized components:
-
-1. **Solc**: The standard Ethereum Solidity compiler that translates Solidity source code to [YUL IR](https://docs.soliditylang.org/en/latest/yul.html){target=\_blank}.
-2. **Revive Compiler**: Takes YUL IR and transforms it to [LLVM IR](https://llvm.org/){target=\_blank}.
-3. **LLVM**: A compiler infrastructure that optimizes the code and generates RISC-V ELF objects.
-4. **PVM linker**: Links the RISC-V ELF object into a final PolkaVM blob with metadata.
 
 
 ---

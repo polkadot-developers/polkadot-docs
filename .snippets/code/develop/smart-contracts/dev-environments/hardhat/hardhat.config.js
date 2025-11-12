@@ -6,28 +6,31 @@ require('@parity/hardhat-polkadot');
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
   solidity: '0.8.28',
-  resolc: {
-    compilerSource: 'npm',
-  },
   networks: {
     hardhat: {
-      polkavm: true,
+      polkadot: {
+        target: 'evm',
+      },
       nodeConfig: {
-        nodeBinaryPath: 'INSERT_PATH_TO_SUBSTRATE_NODE',
+        nodeBinaryPath: './bin/dev-node',
         rpcPort: 8000,
         dev: true,
       },
       adapterConfig: {
-        adapterBinaryPath: 'INSERT_PATH_TO_ETH_RPC_ADAPTER',
+        adapterBinaryPath: './bin/eth-rpc',
         dev: true,
       },
     },
     localNode: {
-      polkavm: true,
+      polkadot: {
+        target: 'evm',
+      },
       url: `http://127.0.0.1:8545`,
     },
     polkadotHubTestnet: {
-      polkavm: true,
+      polkadot: {
+        target: 'evm',
+      },
       url: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
       accounts: [vars.get('PRIVATE_KEY')],
     },

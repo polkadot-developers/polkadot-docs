@@ -4163,162 +4163,6 @@ And that is it! You've successfully deployed an ERC-20 token contract to the Pol
 
 Page Title: Deploy an ERC-20 to Polkadot Hub
 
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-erc20-erc20-remix.md
-- Canonical (HTML): https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix/
-- Summary: Deploy an ERC-20 token on Polkadot Hub using PolkaVM. This guide covers contract creation, compilation, deployment, and interaction via the Remix IDE.
-
-# Deploy an ERC-20 to Polkadot Hub
-
-## Introduction
-
-[ERC-20](https://eips.ethereum.org/EIPS/eip-20){target=\_blank} tokens are fungible tokens commonly used for creating cryptocurrencies, governance tokens, and staking mechanisms. Polkadot Hub enables easy token deployment with Ethereum-compatible smart contracts and tools via the EVM backend.
-
-This tutorial covers deploying an ERC-20 contract on the Polkadot Hub TestNet using [Remix IDE](https://remix.ethereum.org/){target=\_blank}, a web-based development tool. The ERC-20 contract can be retrieved from OpenZeppelin's [GitHub repository](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/v5.4.0/contracts/token/ERC20){target=\_blank}  or their [Contract Wizard](https://wizard.openzeppelin.com/){target=\_blank}.
-
-## Prerequisites
-
-Before starting, make sure you have:
-
-- Basic understanding of Solidity programming and fungible tokens.
-- An EVM-compatible wallet [connected to Polkadot Hub](/smart-contracts/integrations/wallets){target=\_blank}. This example utilizes [MetaMask](https://metamask.io/){target=\_blank}.
-- A funded account with tokens for transaction fees. This example will deploy the contract to the Polkadot TestNet, so you'll [need some TestNet tokens](/smart-contracts/faucet/#get-test-tokens){target=\_blank} from the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}.
-
-## Create Your Contract
-
-To create the ERC-20 contract, you can follow the steps below:
-
-1. Navigate to the [Polkadot Remix IDE](https://remix.polkadot.io){target=\_blank}.
-2. Click in the **Create new file** button under the **contracts** folder, and name your contract as `MyToken.sol`.
-
-    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix-1.webp)
-
-3. Now, paste the following ERC-20 contract code into the editor:
-
-    ```solidity title="MyToken.sol"
-    // SPDX-License-Identifier: MIT
-    // Compatible with OpenZeppelin Contracts ^5.4.0
-    pragma solidity ^0.8.27;
-
-    import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-    import {ERC20Permit} from "@openzeppelin/contracts/token/ERC20/extensions/ERC20Permit.sol";
-    import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
-
-    contract MyToken is ERC20, Ownable, ERC20Permit {
-        constructor(address initialOwner)
-            ERC20("MyToken", "MTK")
-            Ownable(initialOwner)
-            ERC20Permit("MyToken")
-        {}
-
-        function mint(address to, uint256 amount) public onlyOwner {
-            _mint(to, amount);
-        }
-    }
-    ```
-
-    The key components of the code above are:
-
-    - Contract imports:
-
-        - **[`ERC20.sol`](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/v5.4.0/contracts/token/ERC20/ERC20.sol){target=\_blank}**: The base contract for fungible tokens, implementing core functionality like transfers, approvals, and balance tracking.
-        - **[`ERC20Permit.sol`](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/v5.4.0/contracts/token/ERC20/extensions/ERC20Permit.sol){target=\_blank}**: [EIP-2612](https://eips.ethereum.org/EIPS/eip-2612){target=\_blank} extension for ERC-20 that adds the [permit function](https://docs.openzeppelin.com/contracts/5.x/api/token/erc20#ERC20Permit-permit-address-address-uint256-uint256-uint8-bytes32-bytes32-){target=\_blank}, allowing approvals via off-chain signatures (no on-chain tx from the holder). Manages nonces and EIP-712 domain separator and updates allowances when a valid signature is presented.
-        - **[`Ownable.sol`](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/v5.4.0/contracts/access/Ownable.sol){target=\_blank}**: Provides basic authorization control, ensuring only the contract owner can mint new tokens.
-    
-    - Constructor parameters:
-
-        - **`initialOwner`**: Sets the address that will have administrative rights over the contract.
-        - **`"MyToken"`**: The full name of your token.
-        - **`"MTK"`**: The symbol representing your token in wallets and exchanges.
-
-    - Key functions:
-
-        - **`mint(address to, uint256 amount)`**: Allows the contract owner to create new tokens for any address. The amount should include 18 decimals (e.g., 1 token = 1000000000000000000).
-        - Inherited [Standard ERC-20](https://ethereum.org/en/developers/docs/standards/tokens/erc-20/){target=\_blank} functions:
-            - **`transfer(address recipient, uint256 amount)`**: Sends a specified amount of tokens to another address.
-            - **`approve(address spender, uint256 amount)`**: Grants permission for another address to spend a specific number of tokens on behalf of the token owner.
-            - **`transferFrom(address sender, address recipient, uint256 amount)`**: Transfers tokens from one address to another, if previously approved.
-            - **`balanceOf(address account)`**: Returns the token balance of a specific address.
-            - **`allowance(address owner, address spender)`**: Checks how many tokens an address is allowed to spend on behalf of another address.
-
-    !!! tip
-        Use the [OpenZeppelin Contracts Wizard](https://wizard.openzeppelin.com/){target=\_blank} to generate customized smart contracts quickly. Simply configure your contract, copy the generated code, and paste it into the Remix IDE for deployment. Below is an example of an ERC-20 token contract created with it:
-
-        ![Screenshot of the OpenZeppelin Contracts Wizard showing an ERC-20 contract configuration.](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix-2.webp)
-        
-
-## Compile 
-
-The compilation transforms your Solidity source code into bytecode that can be deployed on the blockchain. During this process, the compiler checks your contract for syntax errors, ensures type safety, and generates the machine-readable instructions needed for blockchain execution. 
-
-To compile your contract, ensure you have it opened in the Remix IDE Editor, and follow the instructions below:
-
-1. Select the **Solidity Compiler** plugin from the left panel.
-2. Click the **Compile MyToken.sol** button.
-3. If the compilation succeeded, you'll see a green checkmark indicating success in the **Solidity Compiler** icon.
-
-![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix-3.gif)
-
-## Deploy
-
-Deployment is the process of publishing your compiled smart contract to the blockchain, making it permanently available for interaction. During deployment, you'll create a new instance of your contract on the blockchain, which involves:
-
-1. Select the **Deploy & Run Transactions** plugin from the left panel.
-2. Configure the deployment settings:
-    1. From the **ENVIRONMENT** dropdown, select **Injected Provider - MetaMask** (check the [Deploying Contracts](/smart-contracts/dev-environments/remix/deploy-a-contract/){target=\_blank} section of the Remix IDE guide for more details).
-    2. (Optional) From the **ACCOUNT** dropdown, select the acccount you want to use for the deploy.
-
-3. Configure the contract parameters:
-    1. Enter the address that will own the deployed token contract.
-    2. Click the **Deploy** button to initiate the deployment.
-
-4. **MetaMask will pop up**: Review the transaction details. Click **Confirm** to deploy your contract.
-5. If the deployment process succeeded, you will see the transaction details in the terminal, including the contract address and deployment transaction hash.
-
-![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix-4.gif)
-
-## Interact with Your Contract
-
-Once deployed, you can interact with your contract through Remix. Find your contract under **Deployed/Unpinned Contracts**, and click it to expand the available methods. In this example, you'll mint some tokens to a given address:
-
-1. Expand the **mint** function:
-    1. Enter the recipient address and the amount (remember to add 18 zeros for 1 whole token).
-    2. Click **transact**.
-
-2. Click **Approve** to confirm the transaction in the MetaMask popup.
-
-3. If the transaction succeeds, you will see a green check mark in the terminal.
-
-4. You can also call the **balanceOf** function by passing the address of the **mint** call to confirm the new balance.
-
-![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix-5.gif)
-
-
-Other standard functions you can use:
-
-- **`transfer(address to, uint256 amount)`**: Send tokens to another address.
-- **`approve(address spender, uint256 amount)`**: Allow another address to spend your tokens.
-
-Feel free to explore and interact with the contract's other functions using the same approach: select the method, provide any required parameters, and confirm the transaction in MetaMask when needed.
-
-## Where to Go Next
-
-<div class="grid cards" markdown>
-
--   <span class="badge guide">Guide</span> __Deploy an NFT with Remix__
-
-    ---
-
-    Walk through deploying an ERC-721 Non-Fungible Token (NFT) using OpenZeppelin's battle-tested NFT implementation and Remix.
-
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-nft/remix/)
-
-</div>
-
-
----
-
-Page Title: Deploy an ERC-20 to Polkadot Hub
-
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-erc20.md
 - Canonical (HTML): https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-erc20/
 - Summary: Deploy an ERC-20 token on Polkadot Hub using PolkaVM. This guide covers contract creation, compilation, deployment, and interaction via Polkadot Remix IDE.
@@ -6044,6 +5888,109 @@ By following this guide, you've gained practical experience with:
 To build on this foundation, you could extend this project by implementing functionality to create liquidity pools, execute token swaps, and build a user interface for interacting with your deployment.
 
 This knowledge can be leveraged to build more complex DeFi applications or to integrate Uniswap V2 functionality into your existing projects on Polkadot.
+
+
+---
+
+Page Title: Dual Virtual Machine Stack
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-for-eth-devs-dual-vm-stack.md
+- Canonical (HTML): https://docs.polkadot.com/smart-contracts/for-eth-devs/dual-vm-stack/
+- Summary: Compare Polkadot’s dual smart contract VMs—REVM for EVM compatibility and PolkaVM for RISC-V performance, flexibility, and efficiency.
+
+# Dual Virtual Machine Stack
+
+!!! smartcontract "PolkaVM Preview Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+## Introduction
+
+Polkadot's smart contract platform supports two distinct virtual machine (VM) architectures, providing developers with flexibility in selecting the optimal execution backend for their specific needs. This approach strikes a balance between immediate Ethereum compatibility and long-term innovation, enabling developers to deploy either unmodified (Ethereum Virtual Machine) EVM contracts using Rust Ethereum Virtual Machine (REVM) or optimize for higher performance using PolkaVM (PVM).
+
+Both VM options share common infrastructure, including RPC interfaces, tooling support, and precompiles. The following sections compare architectures and guide you in selecting the best VM for your project's needs.
+
+## Migrate from EVM
+
+The [REVM backend](https://github.com/bluealloy/revm){target=\_blank} integrates a complete Rust implementation of the EVM, enabling Solidity contracts to run unchanged on Polkadot's smart contract platform.
+
+REVM allows developers to use their existing Ethereum tooling and infrastructure to build on Polkadot. Choose REVM to:
+
+- Migrate existing Ethereum contracts without modifications.
+- Retain exact EVM behavior for audit tools. 
+- Use developer tools that rely upon inspecting EVM bytecode.
+- Prioritize rapid deployment over optimization.
+- Work with established Ethereum infrastructure and tooling to build on Polkadot.
+
+REVM enables Ethereum developers to seamlessly migrate to Polkadot, achieving performance and fee improvements without modifying their existing contracts or developer tooling stack.
+
+## Upgrade to PolkaVM
+
+[**PolkaVM**](https://github.com/paritytech/polkavm){target=\_blank} is a custom virtual machine optimized for performance with [RISC-V-based](https://en.wikipedia.org/wiki/RISC-V){target=\_blank} architecture, supporting Solidity and additional high-performance languages. It serves as the core execution environment, integrated directly within the runtime. Choose the PolkaVM for:
+
+- An efficient interpreter for immediate code execution.
+- A planned [Just In Time (JIT)](https://en.wikipedia.org/wiki/Just-in-time_compilation){target=\_blank} compiler for optimized performance.
+- Dual-mode execution capability, allowing selection of the most appropriate backend for specific workloads.
+- Optimized performance for short-running contract calls through the interpreter.
+
+The interpreter remains particularly beneficial for contracts with minimal code execution, as it enables immediate code execution through lazy interpretation.
+
+## Architecture
+
+The following key components of PolkaVM work together to enable Ethereum compatibility on Polkadot-based chains. 
+
+### Revive Pallet
+
+[**`pallet_revive`**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/index.html){target=\_blank} is a runtime module that executes smart contracts by adding extrinsics, runtime APIs, and logic to convert Ethereum-style transactions into formats compatible with Polkadot SDK-based blockchains. It processes Ethereum-style transactions through the following workflow:
+
+```mermaid
+sequenceDiagram
+    participant User as User/dApp
+    participant Proxy as Ethereum JSON RPC Proxy
+    participant Chain as Blockchain Node
+    participant Pallet as pallet_revive
+    
+    User->>Proxy: Submit Ethereum Transaction
+    Proxy->>Chain: Repackage as Polkadot Compatible Transaction
+    Chain->>Pallet: Process Transaction
+    Pallet->>Pallet: Decode Ethereum Transaction
+    Pallet->>Pallet: Execute Contract via PolkaVM
+    Pallet->>Chain: Return Results
+    Chain->>Proxy: Forward Results
+    Proxy->>User: Return Ethereum-compatible Response
+```
+
+This proxy-based approach eliminates the need for node binary modifications, maintaining compatibility across different client implementations. Preserving the original Ethereum transaction payload simplifies the adaptation of existing tools, which can continue processing familiar transaction formats.
+
+### PolkaVM Design Fundamentals
+
+PolkaVM differs from the EVM in two key ways that make it faster, more hardware-efficient, and easier to extend:
+
+- **Register-based design**: Instead of a stack machine, PolkaVM uses a RISC-V–style register model. This design:
+
+    - Uses a fixed set of registers to pass arguments, not an infinite stack.
+    - Maps cleanly to real hardware like x86-64.
+    - Simplifies compilation and boosts runtime efficiency.
+    - Enables tighter control over register allocation and performance tuning.
+
+- **64-bit word size**: PolkaVM runs on a native 64-bit word size, aligning directly with modern CPUs. This design:
+
+    - Executes arithmetic operations with direct hardware support.
+    - Maintains compatibility with Solidity’s 256-bit types via YUL translation.
+    - Accelerates computation-heavy workloads through native word alignment.
+    - Integrates easily with low-level, performance-focused components.
+
+## Where To Go Next
+
+<div class="grid cards" markdown>
+
+-   <span class="badge learn">Learn</span> __Contract Deployment__
+
+    ---
+
+    Learn how REVM and PVM compare for compiling and deploying smart contracts.
+
+    [:octicons-arrow-right-24: Reference](/smart-contracts/for-eth-devs/contract-deployment/)
+
+</div>
 
 
 ---
@@ -13619,21 +13566,26 @@ A blockchain indexer is a specialized infrastructure tool that processes, organi
 
 ---
 
-Page Title: Install Polkadot SDK Dependencies
+Page Title: Install Polkadot SDK
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/parachains-install-polkadot-sdk.md
 - Canonical (HTML): https://docs.polkadot.com/parachains/install-polkadot-sdk/
-- Summary: Install everything you need to begin working with Substrated-based blockchains and the Polkadot SDK, the framework for building blockchains.
+- Summary: Install all required Polkadot SDK dependencies, set up the SDK itself, and verify that it runs correctly on your machine.
 
-# Install Polkadot SDK Dependencies
+# Install Polkadot SDK
 
-This guide provides step-by-step instructions for installing the dependencies you need to work with the Polkadot SDK-based chains on macOS, Linux, and Windows. Follow the appropriate section for your operating system to ensure all necessary tools are installed and configured properly.
+This guide provides step-by-step instructions for installing the Polkadot SDK on macOS, Linux, and Windows. The installation process consists of two main parts:
 
-## macOS
+- **Installing dependencies**: Setting up Rust, required system packages, and development tools.
+- **Building the Polkadot SDK**: Cloning and compiling the Polkadot SDK repository.
+
+Follow the appropriate section for your operating system to ensure all necessary tools are installed and configured properly.
+
+## Install Dependencies: macOS
 
 You can install Rust and set up a Substrate development environment on Apple macOS computers with Intel or Apple M1 processors.
 
-### Before You Begin
+### Before You Begin {: #before-you-begin-mac-os }
 
 Before you install Rust and set up your development environment on macOS, verify that your computer meets the following basic requirements:
 
@@ -13643,7 +13595,7 @@ Before you install Rust and set up your development environment on macOS, verify
 - Storage of at least 10 GB of available space.
 - Broadband Internet connection.
 
-#### Install Homebrew
+### Install Homebrew
 
 In most cases, you should use Homebrew to install and manage packages on macOS computers. If you don't already have Homebrew installed on your local computer, you should download and install it before continuing.
 
@@ -13669,7 +13621,7 @@ To install Homebrew:
       <span data-ty>Homebrew 4.3.15</span>
     </div>
 
-#### Support for Apple Silicon
+### Support for Apple Silicon
 
 Protobuf must be installed before the build process can begin. To install it, run the following command:
 
@@ -13677,7 +13629,7 @@ Protobuf must be installed before the build process can begin. To install it, ru
 brew install protobuf
 ```
 
-### Install Required Packages and Rust
+### Install Required Packages and Rust {: #install-required-packages-and-rust-mac-os }
 
 Because the blockchain requires standard cryptography to support the generation of public/private key pairs and the validation of transaction signatures, you must also have a package that provides cryptography, such as `openssl`.
 
@@ -13718,16 +13670,17 @@ To install `openssl` and the Rust toolchain on macOS:
     rustup component add rust-src
     ```
 
-8. [Verify your installation](#verifying-installation).
-9. Install `cmake` using the following command:
+8. Install `cmake` using the following command:
 
     ```bash
     brew install cmake
     ```
 
-## Linux
+9. Proceed to [Build the Polkadot SDK](#build-the-polkadot-sdk).
 
-Rust supports most Linux distributions. Depending on the specific distribution and version of the operating system you use, you might need to add some software dependencies to your environment. In general, your development environment should include a linker or C-compatible compiler, such as `clang` and an appropriate integrated development environment (IDE).
+## Install Dependencies: Linux
+
+Rust supports most Linux distributions. Depending on the specific distribution and version of the operating system you use, you might need to add some software dependencies to your environment. In general, your development environment should include a linker or a C-compatible compiler, such as `clang`, and an appropriate integrated development environment (IDE).
 
 ### Before You Begin {: #before-you-begin-linux }
 
@@ -13750,7 +13703,7 @@ Because the blockchain requires standard cryptography to support the generation 
 To install the Rust toolchain on Linux:
 
 1. Open a terminal shell.
-2. Check the packages you have installed on the local computer by running an appropriate package management command for your Linux distribution.
+2. Check the packages installed on the local computer by running the appropriate package management command for your Linux distribution.
 3. Add any package dependencies you are missing to your local development environment by running the appropriate package management command for your Linux distribution:
 
     === "Ubuntu"
@@ -13784,7 +13737,7 @@ To install the Rust toolchain on Linux:
         sudo zypper install clang curl git openssl-devel llvm-devel libudev-devel make protobuf
         ```
 
-    Remember that different distributions might use different package managers and bundle packages in different ways. For example, depending on your installation selections, Ubuntu Desktop and Ubuntu Server might have different packages and different requirements. However, the packages listed in the command-line examples are applicable for many common Linux distributions, including Debian, Linux Mint, MX Linux, and Elementary OS.
+    Remember that different distributions might use different package managers and bundle packages in different ways. For example, depending on your installation selections, Ubuntu Desktop and Ubuntu Server might have different packages and different requirements. However, the packages listed in the command-line examples are applicable to many common Linux distributions, including Debian, Linux Mint, MX Linux, and Elementary OS.
 
 4. Download the `rustup` installation program and use it to install Rust by running the following command:
 
@@ -13814,22 +13767,22 @@ To install the Rust toolchain on Linux:
     rustup component add rust-src
     ```
 
-9. [Verify your installation](#verifying-installation).
+9. Proceed to [Build the Polkadot SDK](#build-the-polkadot-sdk).
 
-## Windows (WSL)
+## Install Dependencies: Windows (WSL)
 
 In general, UNIX-based operating systems—like macOS or Linux—provide a better development environment for building Substrate-based blockchains.
 
 However, suppose your local computer uses Microsoft Windows instead of a UNIX-based operating system. In that case, you can configure it with additional software to make it a suitable development environment for building Substrate-based blockchains. To prepare a development environment on a Microsoft Windows computer, you can use Windows Subsystem for Linux (WSL) to emulate a UNIX operating environment.
 
-### Before You Begin {: #before-you-begin-windows }
+### Before You Begin {: #before-you-begin-windows-wls }
 
 Before installing on Microsoft Windows, verify the following basic requirements:
 
 - You have a computer running a supported Microsoft Windows operating system:
     - **For Windows desktop**: You must be running Microsoft Windows 10, version 2004 or later, or Microsoft Windows 11 to install WSL.
     - **For Windows server**: You must be running Microsoft Windows Server 2019, or later, to install WSL on a server operating system.
-- You have good internet connection and access to a shell terminal on your local computer.
+- You have a good internet connection and access to a shell terminal on your local computer.
 
 ### Set Up Windows Subsystem for Linux
 
@@ -13867,12 +13820,12 @@ To prepare a development environment using WSL:
 
     For more information about setting up WSL as a development environment, see the [Set up a WSL development environment](https://learn.microsoft.com/en-us/windows/wsl/setup/environment){target=\_blank} docs.
 
-### Install Required Packages and Rust {: #install-required-packages-and-rust-windows }
+### Install Required Packages and Rust {: #install-required-packages-and-rust-windows-wls }
 
 To install the Rust toolchain on WSL:
 
 1. Click the **Start** menu, then select **Ubuntu**.
-2. Type a UNIX user name to create user account.
+2. Type a UNIX user name to create a user account.
 3. Type a password for your UNIX user, then retype the password to confirm it.
 4. Download the latest updates for the Ubuntu distribution using the Ubuntu Advanced Packaging Tool (`apt`) by running the following command:
 
@@ -13915,34 +13868,122 @@ To install the Rust toolchain on WSL:
     rustup component add rust-src
     ```
 
-11. [Verify your installation](#verifying-installation).
+11. Proceed to [Build the Polkadot SDK](#build-the-polkadot-sdk).
 
-## Verifying Installation
+## Build the Polkadot SDK
 
-Verify the configuration of your development environment by running the following command:
+After installing all dependencies, you can now clone and compile the Polkadot SDK repository to verify your setup.
+
+### Clone the Polkadot SDK
+
+1. Clone the Polkadot SDK repository:
+
+    ```bash
+    git clone https://github.com/paritytech/polkadot-sdk.git
+    ```
+
+2. Navigate into the project directory:
+
+    ```bash
+    cd polkadot-sdk
+    ```
+
+### Compile the Polkadot SDK
+
+Compile the entire Polkadot SDK repository to ensure your environment is properly configured:
 
 ```bash
-rustup show
+cargo build --release --locked
 ```
 
-The command displays output similar to the following:
+!!!note
+    This initial compilation will take significant time, depending on your machine specifications. It compiles all components of the Polkadot SDK to verify your toolchain is correctly configured.
 
-<div id="termynal" data-termynal>
-  <span data-ty="input"><span class="file-path"></span>rustup show</span>
-  <span data-ty>...</span>
-  <br />
-  <span data-ty>active toolchain</span>
-  <span data-ty>----------------</span>
-  <span data-ty>name: stable-aarch64-apple-darwin</span>
-  <span data-ty>active because: it's the default toolchain</span>
-  <span data-ty>installed targets:</span>
-  <span data-ty>  aarch64-apple-darwin</span>
-  <span data-ty>  wasm32-unknown-unknown</span>
-</div>
+### Verify the Build
+
+Once the build completes successfully, verify the installation by checking the compiled binaries:
+
+```bash
+ls target/release
+```
+
+You should see several binaries, including:
+
+- `polkadot`: The Polkadot relay chain node.
+- `polkadot-parachain`: The parachain collator node.
+- `polkadot-omni-node`:The omni node for running parachains.
+- `substrate-node`: The kitchensink node with many pre-configured pallets.
+
+Verify the Polkadot binary works by checking its version:
+
+```bash
+./target/release/polkadot --version
+```
+
+This should display version information similar to:
+
+```bash
+polkadot 1.16.0-1234abcd567
+```
+
+If you see the version output without errors, your development environment is correctly configured and ready for Polkadot SDK development!
+
+## Optional: Run the Kitchensink Node
+
+The Polkadot SDK includes a feature-rich node called "kitchensink" located at `substrate/bin/node`. This node comes pre-configured with many pallets and features from the Polkadot SDK, making it an excellent reference for exploring capabilities and understanding how different components work together.
+
+!!!note
+    If you've already compiled the Polkadot SDK in the previous step, the `substrate-node` binary is already built and ready to use. You can skip directly to running the node.
+
+### Run the Kitchensink Node in Development Mode
+
+From the `polkadot-sdk` root directory, start the kitchensink node in development mode:
+
+```bash
+./target/release/substrate-node --dev
+```
+
+The `--dev` flag enables development mode, which:
+
+- Runs a single-node development chain.
+- Produces and finalizes blocks automatically.
+- Uses pre-configured development accounts (Alice, Bob, etc.).
+- Deletes all data when stopped, ensuring a clean state on restart.
+
+
+You should see log output indicating the node is running and producing blocks, with increasing block numbers after `finalized`.
+
+### Interact with the Kitchensink Node
+
+The kitchensink node is accessible at `ws://localhost:9944`. Open [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} in your browser to explore its features and connect to the local node.
+
+1. Click the network icon in the top left corner.
+2. Scroll to **Development** and select **Local Node**.
+3. Click **Switch** to connect to your local node.
+
+![](/images/parachains/install-polkadot-sdk/install-polkadot-sdk-1.webp)
+
+Once connected, the interface updates its color scheme to indicate a successful connection to the local node.
+
+![](/images/parachains/install-polkadot-sdk/install-polkadot-sdk-2.webp)
+
+You can now explore the various pallets and features included in the kitchensink node, making it a valuable reference as you develop your own blockchain applications.
+
+To stop the node, press `Control-C` in the terminal.
 
 ## Where to Go Next
 
-- **[Parachain Zero to Hero Tutorials](/tutorials/polkadot-sdk/parachains/zero-to-hero/){target=\_blank}**: A series of step-by-step guides to building, testing, and deploying custom pallets and runtimes using the Polkadot SDK.
+<div class="grid cards" markdown>
+
+-   __Get Started with Parachain Development__
+
+    ---
+
+    Practical examples and tutorials for building and deploying Polkadot parachains, covering everything from launch to customization and cross-chain messaging.
+
+    [:octicons-arrow-right-24: Get Started](/parachains/get-started/)
+ 
+</div>
 
 
 ---
@@ -16168,7 +16209,7 @@ This overview explains how runtime customization works, introduces the building 
 
 The runtime is the core logic of your blockchain—it processes transactions, manages state, and enforces the rules that govern your network. When a transaction arrives at your blockchain, the [`frame_executive`](https://paritytech.github.io/polkadot-sdk/master/frame_executive/index.html){target=\_blank} pallet receives it and routes it to the appropriate pallet for execution.
 
-Think of your runtime as a collection of specialized modules, each handling a different aspect of your blockchain. Need token balances? Use the Balances pallet. Want governance? Add the Governance pallet. Need something custom? Create your own pallet. By mixing and matching these modules, you build a runtime that's efficient, secure, and tailored to your use case.
+Think of your runtime as a collection of specialized modules, each handling a different aspect of your blockchain. Need token balances? Use the Balances pallet. Want governance? Add the Governance pallets. Need something custom? Create your own pallet. By mixing and matching these modules, you build a runtime that's efficient, secure, and tailored to your use case.
 
 ## Runtime Architecture
 
@@ -18049,121 +18090,6 @@ For more detailed information about the Polkadot.js API, check the [official doc
 
 ---
 
-Page Title: PolkaVM Design
-
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-for-eth-devs-dual-vm-stack.md
-- Canonical (HTML): https://docs.polkadot.com/smart-contracts/for-eth-devs/dual-vm-stack/
-- Summary: Discover PolkaVM, a high-performance smart contract VM for Polkadot, enabling Ethereum compatibility via pallet_revive, Solidity support & optimized execution.
-
-# PolkaVM Design
-
-!!! smartcontract "PolkaVM Preview Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
-## Introduction
-
-The Asset Hub smart contracts solution includes multiple components to ensure Ethereum compatibility and high performance. Its architecture allows for integration with current Ethereum tools, while its innovative virtual machine design enhances performance characteristics.
-
-## PolkaVM
-
-[**PolkaVM**](https://github.com/paritytech/polkavm){target=\_blank} is a custom virtual machine optimized for performance with [RISC-V-based](https://en.wikipedia.org/wiki/RISC-V){target=\_blank} architecture, supporting Solidity and additional high-performance languages. It serves as the core execution environment, integrated directly within the runtime. It features:
-
-- An efficient interpreter for immediate code execution.
-- A planned JIT compiler for optimized performance.
-- Dual-mode execution capability, allowing selection of the most appropriate backend for specific workloads.
-- Optimized performance for short-running contract calls through the interpreter.
-
-The interpreter remains particularly beneficial for contracts with minimal code execution, as it eliminates JIT compilation overhead and enables immediate code execution through lazy interpretation.
-
-## Architecture
-
-The smart contract solution consists of the following key components that work together to enable Ethereum compatibility on Polkadot-based chains.
-
-### Pallet Revive
-
-[**`pallet_revive`**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/index.html){target=\_blank} is a runtime module that executes smart contracts by adding extrinsics, runtime APIs, and logic to convert Ethereum-style transactions into formats compatible with Polkadot SDK-based blockchains. It processes Ethereum-style transactions through the following workflow:
-
-```mermaid
-sequenceDiagram
-    participant User as User/dApp
-    participant Proxy as Ethereum JSON RPC Proxy
-    participant Chain as Blockchain Node
-    participant Pallet as pallet_revive
-    
-    User->>Proxy: Submit Ethereum Transaction
-    Proxy->>Chain: Repackage as Polkadot Compatible Transaction
-    Chain->>Pallet: Process Transaction
-    Pallet->>Pallet: Decode Ethereum Transaction
-    Pallet->>Pallet: Execute Contract via PolkaVM
-    Pallet->>Chain: Return Results
-    Chain->>Proxy: Forward Results
-    Proxy->>User: Return Ethereum-compatible Response
-```
-
-This proxy-based approach eliminates the need for node binary modifications, maintaining compatibility across different client implementations. Preserving the original Ethereum transaction payload simplifies adapting existing tools, which can continue processing familiar transaction formats.
-
-### PolkaVM Design Fundamentals
-
-PolkaVM introduces two fundamental architectural differences compared to the Ethereum Virtual Machine (EVM):
-
-```mermaid
-flowchart TB
-    subgraph "EVM Architecture"
-        EVMStack[Stack-Based]
-        EVM256[256-bit Word Size]
-    end
-    
-    subgraph "PolkaVM Architecture"
-        PVMReg[Register-Based]
-        PVM64[64-bit Word Size]
-    end
-```
-
-- **Register-based design**: PolkaVM utilizes a RISC-V register-based approach. This design:
-
-    - Employs a finite set of registers for argument passing instead of an infinite stack.
-    - Facilitates efficient translation to underlying hardware architectures.
-    - Optimizes register allocation through careful register count selection.
-    - Enables simple 1:1 mapping to x86-64 instruction sets.
-    - Reduces compilation complexity through strategic register limitation.
-    - Improves overall execution performance through hardware-aligned design.
-
-- **64-bit word size**: PolkaVM operates with a 64-bit word size. This design:
-
-    - Enables direct hardware-supported arithmetic operations.
-    - Maintains compatibility with Solidity's 256-bit operations through YUL translation.
-    - Allows integration of performance-critical components written in lower-level languages.
-    - Optimizes computation-intensive operations through native word size alignment.
-    - Reduces overhead for operations not requiring extended precision.
-    - Facilitates efficient integration with modern CPU architectures.
-
-## Compilation Process
-
-When compiling a Solidity smart contract, the code passes through the following stages:
-
-```mermaid
-flowchart LR
-    Dev[Developer] --> |Solidity<br>Source<br>Code| Solc
-    
-    subgraph "Compilation Process"
-        direction LR
-        Solc[solc] --> |YUL<br>IR| Revive
-        Revive[Revive Compiler] --> |LLVM<br>IR| LLVM
-        LLVM[LLVM<br>Optimizer] --> |RISC-V ELF<br>Shared Object| PVMLinker
-    end
-    
-    PVMLinker[PVM Linker] --> PVM[PVM Blob<br>with Metadata]
-```
-
-The compilation process integrates several specialized components:
-
-1. **Solc**: The standard Ethereum Solidity compiler that translates Solidity source code to [YUL IR](https://docs.soliditylang.org/en/latest/yul.html){target=\_blank}.
-2. **Revive Compiler**: Takes YUL IR and transforms it to [LLVM IR](https://llvm.org/){target=\_blank}.
-3. **LLVM**: A compiler infrastructure that optimizes the code and generates RISC-V ELF objects.
-4. **PVM linker**: Links the RISC-V ELF object into a final PolkaVM blob with metadata.
-
-
----
-
 Page Title: Python Substrate Interface
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-tools-py-substrate-interface.md
@@ -18960,7 +18886,7 @@ By the end of this guide, you'll have a working template ready to customize and 
 
 Before getting started, ensure you have done the following:
 
-- Completed the [Install Polkadot SDK Dependencies](/reference/tools/polkadot-sdk/install/){target=\_blank} guide and successfully installed [Rust](https://www.rust-lang.org/){target=\_blank} and the required packages to set up your development environment
+- Completed the [Install Polkadot SDK](/parachains/install-polkadot-sdk/){target=\_blank} guide and successfully installed [Rust](https://www.rust-lang.org/){target=\_blank} and the required packages to set up your development environment.
 
 For this tutorial series, you need to use Rust `1.86`. Newer versions of the compiler may not work with this parachain template version.
 
@@ -19123,7 +19049,7 @@ When running the template node, it's accessible by default at `ws://localhost:99
 
     1. Scroll to the bottom and select **Development**.
     2. Choose **Custom**.
-    3. Enter `ws**: //localhost:9944` in the **custom endpoint** input field.
+    3. Enter `ws://localhost:9944` in the **custom endpoint** input field.
     4. Click the **Switch** button.
     
     ![](/images/parachains/launch-a-parachain/set-up-the-parachain-template/parachain-template-02.webp)
@@ -20062,6 +19988,131 @@ To submit a transaction, you must construct an extrinsic, sign it with your priv
 ## Where to Go Next
 
 Now that you've covered the basics dive into the official [subxt documentation](https://docs.rs/subxt/latest/subxt/book/index.html){target=\_blank} for comprehensive reference materials and advanced features.
+
+
+---
+
+Page Title: Technical Reference Overview
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference.md
+- Canonical (HTML): https://docs.polkadot.com/reference/
+- Summary: Learn about Polkadot's technical architecture, governance framework, parachain ecosystem, and the tools you need to build and interact with the network.
+
+## Introduction
+
+The Technical Reference section provides comprehensive documentation of Polkadot's architecture, core concepts, and development tooling. Whether you're exploring how Polkadot's relay chain coordinates parachains, understanding governance mechanisms, or building applications on the network, this reference covers the technical foundations you need.
+
+Polkadot is a multi-chain network that enables diverse, interconnected blockchains to share security and communicate seamlessly. Understanding how these components interact from the [relay chain](/polkadot-protocol/glossary#relay-chain){target=\_blank} that validates [parachains](/polkadot-protocol/glossary#parachain){target=\_blank} to the [governance](/reference/glossary#governance){target=\_blank} mechanisms that evolve the protocol is essential for developers, validators, and network participants.
+
+This guide organizes technical documentation across five core areas: Polkadot Hub, Parachains, On-Chain Governance, Glossary, and Tools, each providing detailed information on different aspects of the Polkadot ecosystem.
+
+## Polkadot Hub
+
+[Polkadot Hub](/reference/polkadot-hub/){target=\_blank} is the entry point to Polkadot for all users and application developers. It provides access to essential Web3 services, including smart contracts, staking, governance, identity management, and cross-ecosystem interoperability—without requiring you to deploy or manage a parachain.
+
+The Hub encompasses a set of core functionality that enables developers and users to build and interact with applications on Polkadot. Key capabilities include:
+
+- **Smart contracts**: Deploy Ethereum-compatible smart contracts and build decentralized applications.
+- **Assets and tokens**: Create, manage, and transfer fungible tokens and NFTs across the ecosystem.
+- **Staking**: Participate in network security and earn rewards by staking DOT.
+- **Governance**: Vote on proposals and participate in Polkadot's decentralized decision-making through OpenGov.
+- **Identity services**: Register and manage on-chain identities, enabling access to governance roles and network opportunities.
+- **Cross-chain interoperability**: Leverage XCM messaging to interact securely with other chains in the Polkadot ecosystem.
+- **Collectives and DAOs**: Participate in governance collectives and decentralized autonomous organizations.
+
+## Parachains
+
+[Parachains](/reference/parachains/){target=\_blank} are specialized blockchains that connect to the Polkadot relay chain, inheriting its security while maintaining their own application-specific logic. The parachains documentation covers:
+
+- **Accounts**: Deep dive into account types, storage, and management on parachains.
+- **Blocks, transactions and fees**: Understand block production, transaction inclusion, and fee mechanisms.
+- **Consensus**: Learn how parachain blocks are validated and finalized through the relay chain's consensus.
+- **Chain data**: Explore data structures, storage layouts, and state management.
+- **Cryptography**: Study cryptographic primitives used in Polkadot SDK-based chains.
+- **Data encoding**: Understand how data is encoded and decoded for blockchain compatibility.
+- **Networks**: Learn about networking protocols and peer-to-peer communication.
+- **Interoperability**: Discover [Cross-Consensus Messaging (XCM)](/parachains/interoperability/get-started/){target=\_blank}, the standard for cross-chain communication.
+- **Randomness**: Understand how randomness is generated and used in Polkadot chains.
+- **Node and runtime**: Learn about parachain nodes, runtime environments, and the [Polkadot SDK](https://github.com/paritytech/polkadot-sdk){target=\_blank}.
+
+## On-Chain Governance
+
+[On-Chain governance](/reference/governance/){target=\_blank} is the decentralized decision-making mechanism for the Polkadot network. It manages the evolution and modification of the network's runtime logic, enabling community oversight and approval for proposed changes. The governance documentation details:
+
+- **OpenGov framework**: Understand Polkadot's next-generation governance system with enhanced delegation, flexible tracks, and simultaneous referendums.
+- **Origins and tracks**: Learn how governance proposals are categorized, prioritized, and executed based on their privilege level and complexity.
+- **Voting and delegation**: Explore conviction voting, vote delegation, and how token holders participate in governance.
+- **Governance evolution**: See how Polkadot's governance has evolved from Governance V1 to the current OpenGov system.
+
+## Glossary
+
+The [Glossary](/reference/glossary/){target=\_blank} provides quick-reference definitions for Polkadot-specific terminology. Essential terms include:
+
+- Blockchain concepts (blocks, transactions, state)
+- Consensus mechanisms (validators, collators, finality)
+- Polkadot-specific terms (relay chain, parachain, XCM, FRAME)
+- Network components (nodes, runtimes, storage)
+- Governance terminology (origins, tracks, referendums)
+
+## Tools
+
+The [Tools](/reference/tools/){target=\_blank} section documents essential development and interaction tools for the Polkadot ecosystem:
+
+- **Light clients**: Lightweight solutions for interacting with the network without running full nodes.
+- **JavaScript/TypeScript tools**: Libraries like [Polkadot.js API](/reference/tools/polkadot-js-api/){target=\_blank} and [PAPI](/reference/tools/papi/){target=\_blank} for building applications.
+- **Rust tools**: [Polkadart](/reference/tools/polkadart/){target=\_blank} and other Rust-based libraries for SDK development.
+- **Python tools**: [py-substrate-interface](/reference/tools/py-substrate-interface/){target=\_blank} for Python developers.
+- **Testing and development**: Tools like [Moonwall](/reference/tools/moonwall/){target=\_blank}, [Chopsticks](/reference/tools/chopsticks/){target=\_blank}, and [Omninode](/reference/tools/omninode/){target=\_blank} for smart contract and parachain testing.
+- **Indexing and monitoring**: [Sidecar](/reference/tools/sidecar/){target=\_blank} for data indexing and [Dedot](/reference/tools/dedot/){target=\_blank} for substrate interaction.
+- **Cross-chain tools**: [ParaSpell](/reference/tools/paraspell/){target=\_blank} for XCM integration and asset transfers.
+
+## Where to Go Next
+
+For detailed exploration of specific areas, proceed to any of the main sections:
+
+<div class="grid cards" markdown>
+
+- <span class="badge learn">Learn</span> **Polkadot Hub**
+
+    ---
+
+    Understand the relay chain's role in coordinating parachains, providing shared security, and enabling governance.
+
+    [:octicons-arrow-right-24: Reference](/reference/polkadot-hub/)
+
+- <span class="badge learn">Learn</span> **Parachains**
+
+    ---
+
+    Deep dive into parachain architecture, consensus, data structures, and building application-specific blockchains.
+
+    [:octicons-arrow-right-24: Reference](/reference/parachains/)
+
+- <span class="badge learn">Learn</span> **On-Chain Governance**
+
+    ---
+
+    Explore Polkadot's decentralized governance framework and how to participate in network decision-making.
+
+    [:octicons-arrow-right-24: Reference](/reference/governance/)
+
+- <span class="badge guide">Guide</span> **Glossary**
+
+    ---
+
+    Quick reference for Polkadot-specific terminology and concepts used throughout the documentation.
+
+    [:octicons-arrow-right-24: Reference](/reference/glossary/)
+
+- <span class="badge guide">Guide</span> **Tools**
+
+    ---
+
+    Discover development tools, libraries, and frameworks for building and interacting with Polkadot.
+
+    [:octicons-arrow-right-24: Reference](/reference/tools/)
+
+</div>
 
 
 ---
@@ -25874,15 +25925,7 @@ For a full overview of each script, visit the [scripts](https://github.com/Moons
 
 ### ParaSpell
 
-[ParaSpell](https://paraspell.xyz/){target=\_blank} is a collection of open-source XCM tools designed to streamline cross-chain asset transfers and interactions within the Polkadot and Kusama ecosystems. It equips developers with an intuitive interface to manage and optimize XCM-based functionalities. Some key points included by ParaSpell are:
-
-- **[XCM SDK](https://paraspell.xyz/#xcm-sdk){target=\_blank}**: Provides a unified layer to incorporate XCM into decentralized applications, simplifying complex cross-chain interactions.
-- **[XCM API](https://paraspell.xyz/#xcm-api){target=\_blank}**: Offers an efficient, package-free approach to integrating XCM functionality while offloading heavy computing tasks, minimizing costs and improving application performance.
-- **[XCM router](https://paraspell.xyz/#xcm-router){target=\_blank}**: Enables cross-chain asset swaps in a single command, allowing developers to send one asset type (such as DOT on Polkadot) and receive a different asset on another chain (like ASTR on Astar).
-- **[XCM analyser](https://paraspell.xyz/#xcm-analyser){target=\_blank}**: Decodes and translates complex XCM multilocation data into readable information, supporting easier troubleshooting and debugging.
-- **[XCM visualizator](https://paraspell.xyz/#xcm-visualizator){target=\_blank}**: A tool designed to give developers a clear, interactive view of XCM activity across the Polkadot ecosystem, providing insights into cross-chain communication flow.
-
-ParaSpell's tools make it simple for developers to build, test, and deploy cross-chain solutions without needing extensive knowledge of the XCM protocol. With features like message composition, decoding, and practical utility functions for parachain interactions, ParaSpell is especially useful for debugging and optimizing cross-chain communications.
+[ParaSpell](/reference/tools/paraspell/){target=\_blank} is a collection of open-source XCM tools that streamline cross-chain asset transfers and interactions across the Polkadot and Kusama ecosystems. It provides developers with an intuitive interface to build, test, and deploy interoperable dApps, featuring message composition, decoding, and practical utilities for parachain interactions that simplify debugging and cross-chain communication optimization.
 
 ### Astar XCM Tools
 
@@ -25928,3 +25971,934 @@ Key features include:
 - **Comprehensive documentation**: Includes usage guides and API references for both packages.
 
 For detailed usage examples and API documentation, visit the [official Moonbeam XCM SDK documentation](https://moonbeam-foundation.github.io/xcm-sdk/latest/){target=\_blank}.
+
+
+---
+
+Page Title: Zero to Hero Smart Contract DApp
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-dapps-zero-to-hero.md
+- Canonical (HTML): https://docs.polkadot.com/smart-contracts/cookbook/dapps/zero-to-hero/
+- Summary: Learn how to build a decentralized application on Polkadot Hub using Viem and Next.js by creating a simple dApp that interacts with a smart contract.
+
+# Zero to Hero Smart Contract DApp
+
+Decentralized applications (dApps) are a key component of the Web3 ecosystem, enabling developers to build applications that communicate directly with blockchain networks. Polkadot Hub, a blockchain with smart contract support, serves as a robust platform for deploying and interacting with dApps.
+
+This tutorial will guide you through building a fully functional dApp that interacts with a smart contract on Polkadot Hub. You'll create and deploy a smart contract with Hardhat, and then use [Viem](https://viem.sh/){target=\_blank} for blockchain interactions and [Next.js](https://nextjs.org/){target=\_blank} for the frontend. By the end, you'll have a dApp that lets users connect their wallets, retrieve on-chain data, and execute transactions.
+
+## Prerequisites
+
+Before getting started, ensure you have the following:
+
+- [Node.js](https://nodejs.org/en){target=\_blank} v22.10.0 or later installed on your system.
+- A crypto wallet (such as MetaMask) funded with test tokens. Refer to the [Connect to Polkadot](/smart-contracts/connect){target=\_blank} guide for more details.
+- A basic understanding of React and JavaScript.
+- Some familiarity with blockchain fundamentals and Solidity (helpful but not required).
+
+## Project Overview
+
+This dApp will interact with a basic Storage contract that you will create and deploy with Hardhat. The contract will allow you to:
+
+- Store a number on the blockchain.
+- Retrieve the stored number from the blockchain.
+- Update the stored number with a new value.
+
+Your project directory will be organized as follows:
+
+```bash
+polkadot-hub-tutorial/
+├── storage-contract/          # Hardhat project for smart contract
+│   ├── contracts/
+│   │   └── Storage.sol
+│   ├── scripts/
+│   │   └── deploy.ts
+│   ├── artifacts/
+│   │   └── contracts/
+│   │       └── Storage.sol/
+│   │           └── Storage.json
+│   ├── hardhat.config.ts
+│   ├── .env
+│   └── package.json
+│
+└── dapp/                 # Next.js dApp project
+    ├── abis/
+    │   └── Storage.json
+    └── app/
+        ├── components/
+        │   ├── ReadContract.tsx
+        │   ├── WalletConnect.tsx
+        │   └── WriteContract.tsx
+        ├── utils/
+        │   ├── contract.ts
+        │   └── viem.ts
+        ├── favicon.ico
+        ├── globals.css
+        ├── layout.tsx
+        └── page.tsx
+```
+
+Create the main folder for the project:
+
+```bash
+mkdir polkadot-hub-tutorial
+cd polkadot-hub-tutorial
+```
+
+## Create and Deploy the Storage Contract
+
+Before building the dApp, you'll need to create and deploy the Storage smart contract. This section will guide you through using Hardhat to write, compile, and deploy the contract to Polkadot Hub TestNet.
+
+### Set Up Hardhat Project
+
+First, create a new directory for your Hardhat project and initialize it:
+
+```bash
+mkdir storage-contract
+cd storage-contract
+npm init -y
+```
+
+Install Hardhat and its dependencies:
+
+```bash
+npm install --save-dev hardhat@3.0.9
+```
+
+Initialize a new Hardhat project:
+
+```bash
+npx hardhat --init
+```
+
+Select **Create a TypeScript project** and accept the default options.
+
+### Create the Storage Contract
+
+In the `contracts` directory, create a new file called `Storage.sol` and add the following code:
+
+```solidity title="Storage.sol"
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract Storage {
+    uint256 private storedNumber;
+
+    event NumberStored(uint256 newNumber);
+
+    function setNumber(uint256 _number) public {
+        storedNumber = _number;
+        emit NumberStored(_number);
+    }
+}
+```
+
+This simple contract stores a single number and provides functions to read and update it.
+
+### Configure Hardhat for Polkadot Hub
+
+Update your `hardhat.config.ts` file to include the Polkadot Hub TestNet configuration:
+
+```typescript title="hardhat.config.ts" hl_lines="39-44"
+import type { HardhatUserConfig } from "hardhat/config";
+
+import hardhatToolboxViemPlugin from "@nomicfoundation/hardhat-toolbox-viem";
+import { configVariable } from "hardhat/config";
+
+const config: HardhatUserConfig = {
+  plugins: [hardhatToolboxViemPlugin],
+  solidity: {
+    profiles: {
+      default: {
+        version: "0.8.28",
+      },
+      production: {
+        version: "0.8.28",
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 200,
+          },
+        },
+      },
+    },
+  },
+  networks: {
+    hardhatMainnet: {
+      type: "edr-simulated",
+      chainType: "l1",
+    },
+    hardhatOp: {
+      type: "edr-simulated",
+      chainType: "op",
+    },
+    sepolia: {
+      type: "http",
+      chainType: "l1",
+      url: configVariable("SEPOLIA_RPC_URL"),
+      accounts: [configVariable("SEPOLIA_PRIVATE_KEY")],
+    },
+    polkadotTestNet: {
+      type: "http",
+      chainType: "l1",
+      url: 'http://127.0.0.1:8545',
+      accounts: [process.env.PRIVATE_KEY || ''],
+    },
+  },
+};
+
+export default config;
+```
+
+Create a `.env` file in the root of your Hardhat project:
+
+```text title=".env"
+PRIVATE_KEY=INSERT_PRIVATE_KEY_HERE
+```
+
+Replace `INSERT_PRIVATE_KEY_HERE` with your actual private key. You can get this by exporting the private key from your wallet (e.g., MetaMask).
+
+!!! warning
+    Never commit your private key to version control. Use environment variables or a `.env` file (and add it to `.gitignore`) to manage sensitive information. Keep your private key safe, and never share it with anyone. If it is compromised, your funds can be stolen.
+
+
+### Compile the Contract
+
+Compile your Storage contract:
+
+```bash
+npx hardhat compile
+```
+
+You should see output indicating successful compilation.
+
+### Deploy the Contract
+
+Create a deployment script in the `ignition/modules` directory called `Storage.ts`:
+
+```typescript title="Storage.ts"
+import { buildModule } from "@nomicfoundation/hardhat-ignition/modules";
+
+export default buildModule("StorageModule", (m) => {
+  const storage = m.contract("Storage");
+
+  return { storage };
+});
+```
+
+Deploy the contract to Polkadot Hub TestNet:
+
+```bash
+npx hardhat ignition deploy ./ignition/modules/Storage.ts --network polkadotTestNet
+```
+
+You should see output similar to:
+
+<div id="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>npx hardhat ignition deploy ./ignition/modules/Storage.ts --network polkadotTestNet</span>
+  <span data-ty>WARNING: You are using Node.js 23.11.0 which is not supported by Hardhat.</span>
+  <span data-ty>Please upgrade to 22.10.0 or a later LTS version (even major version number)</span>
+  <span data-ty>✔ Confirm deploy to network polkadotTestNet (420420420)? … yes</span>
+  <span data-ty>Hardhat Ignition 🚀</span>
+  <span data-ty>Deploying [ StorageModule ]</span>
+  <span data-ty>Batch #1</span>
+  <span data-ty>  Executed StorageModule#Storage</span>
+  <span data-ty>[ StorageModule ] successfully deployed 🚀</span>
+  <span data-ty>Deployed Addresses</span>
+  <span data-ty>StorageModule#Storage - 0xc01Ee7f10EA4aF4673cFff62710E1D7792aBa8f3</span>
+</div>
+
+!!! note
+    Save the deployed contract address - you'll need it when building your dApp. In the following sections, we'll reference a pre-deployed contract at `0xc01Ee7f10EA4aF4673cFff62710E1D7792aBa8f3`, but you can use your own deployed contract address instead.
+
+### Export the Contract ABI
+
+After deployment, you'll need the contract's Application Binary Interface (ABI) for your dApp. You can find it in the `artifacts/contracts/Storage.sol/Storage.json` file generated by Hardhat. You'll use this in the next section when setting up your dApp.
+
+Now that you have your contract deployed, you're ready to build the dApp that will interact with it!
+
+## Set Up the dApp Project
+
+Navigate to the root of the project, and create a new Next.js project called `dapp`:
+
+```bash
+npx create-next-app dapp --ts --eslint --tailwind --app --yes
+cd dapp
+```
+
+## Install Dependencies
+
+Install viem and related packages:
+
+```bash
+npm install viem@2.38.5
+npm install --save-dev typescript@5.9.3 @types/node@22.19.24
+```
+
+## Connect to Polkadot Hub
+
+To interact with Polkadot Hub, you need to set up a [Public Client](https://viem.sh/docs/clients/public#public-client){target=\_blank} that connects to the blockchain. In this example, you will interact with the Polkadot Hub TestNet, to experiment safely. Start by creating a new file called `utils/viem.ts` and add the following code:
+
+```typescript title="viem.ts"
+import { createPublicClient, http, createWalletClient, custom } from 'viem'
+import 'viem/window';
+
+const transport = http('http://127.0.0.1:8545') // TODO: change to the paseo asset hub RPC URL when it's available
+
+// Configure the Polkadot Testnet Hub chain
+export const polkadotTestnet = {
+  id: 420420420,
+  name: 'Polkadot Testnet',
+  network: 'polkadot-testnet',
+  nativeCurrency: {
+    decimals: 18,
+    name: 'PAS',
+    symbol: 'PAS',
+  },
+  rpcUrls: {
+    default: {
+      http: ['http://127.0.0.1:8545'], // TODO: change to the paseo asset hub RPC URL
+    },
+  },
+} as const
+
+// Create a public client for reading data
+export const publicClient = createPublicClient({
+  chain: polkadotTestnet,
+  transport
+})
+
+// Create a wallet client for signing transactions
+export const getWalletClient = async () => {
+  if (typeof window !== 'undefined' && window.ethereum) {
+    const [account] = await window.ethereum.request({ method: 'eth_requestAccounts' });
+    return createWalletClient({
+      chain: polkadotTestnet,
+      transport: custom(window.ethereum),
+      account,
+    });
+  }
+  throw new Error('No Ethereum browser provider detected');
+};
+```
+
+This file initializes a viem client, providing helper functions for obtaining a Public Client and a [Wallet Client](https://viem.sh/docs/clients/wallet#wallet-client){target=\_blank}. The Public Client enables reading blockchain data, while the Wallet Client allows users to sign and send transactions. Also, note that by importing `viem/window` the global `window.ethereum` will be typed as an `EIP1193Provider`, check the [`window` Polyfill](https://viem.sh/docs/typescript#window-polyfill){target=\_blank} reference for more information.
+
+## Set Up the Smart Contract Interface
+
+For this dApp, you'll use a simple [Storage contract](/tutorials/smart-contracts/launch-your-first-project/create-contracts){target=\_blank} that's already deployed in the Polkadot Hub TestNet: `0xc01Ee7f10EA4aF4673cFff62710E1D7792aBa8f3`. To interact with it, you need to define the contract interface.
+
+Create a folder called `abis` at the root of your project, then create a file named `Storage.json` and paste the corresponding ABI of the Storage contract. You can copy and paste the following:
+
+```bash
+cp ./storage-contract/artifacts/contracts/Storage.sol/Storage.json ./dapp/abis/Storage.json
+```
+
+Next, create a file called `utils/contract.ts`:
+
+```typescript title="contract.ts"
+import { getContract } from 'viem';
+import { publicClient, getWalletClient } from './viem';
+import StorageABI from '../abis/Storage.json';
+
+export const CONTRACT_ADDRESS = '0xc01Ee7f10EA4aF4673cFff62710E1D7792aBa8f3'; // TODO: change when the paseo asset hub RPC URL is available, and the contract is redeployed
+export const CONTRACT_ABI = StorageABI.abi;
+
+// Create a function to get a contract instance for reading
+export const getContractInstance = () => {
+  return getContract({
+    address: CONTRACT_ADDRESS,
+    abi: CONTRACT_ABI,
+    client: publicClient,
+  });
+};
+
+// Create a function to get a contract instance with a signer for writing
+export const getSignedContract = async () => {
+  const walletClient = await getWalletClient();
+  return getContract({
+    address: CONTRACT_ADDRESS,
+    abi: CONTRACT_ABI,
+    client: walletClient,
+  });
+};
+```
+
+This file defines the contract address, ABI, and functions to create a viem [contract instance](https://viem.sh/docs/contract/getContract#contract-instances){target=\_blank} for reading and writing operations. viem's contract utilities enable more efficient, type-safe interaction with smart contracts.
+
+## Create the Wallet Connection Component
+
+Now, let's create a component to handle wallet connections. Create a new file called `components/WalletConnect.tsx`:
+
+```typescript title="WalletConnect.tsx"
+"use client";
+
+import React, { useState, useEffect } from "react";
+import { polkadotTestnet } from "../utils/viem";
+
+interface WalletConnectProps {
+  onConnect: (account: string) => void;
+}
+
+const WalletConnect: React.FC<WalletConnectProps> = ({ onConnect }) => {
+  const [account, setAccount] = useState<string | null>(null);
+  const [chainId, setChainId] = useState<number | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Check if user already has an authorized wallet connection
+    const checkConnection = async () => {
+      if (typeof window !== 'undefined' && window.ethereum) {
+        try {
+          // eth_accounts doesn't trigger the wallet popup
+          const accounts = await window.ethereum.request({
+            method: 'eth_accounts',
+          }) as string[];
+          
+          if (accounts.length > 0) {
+            setAccount(accounts[0]);
+            const chainIdHex = await window.ethereum.request({
+              method: 'eth_chainId',
+            }) as string;
+            setChainId(parseInt(chainIdHex, 16));
+            onConnect(accounts[0]);
+          }
+        } catch (err) {
+          console.error('Error checking connection:', err);
+          setError('Failed to check wallet connection');
+        }
+      }
+    };
+
+    checkConnection();
+
+    if (typeof window !== 'undefined' && window.ethereum) {
+      // Setup wallet event listeners
+      window.ethereum.on('accountsChanged', (accounts: string[]) => {
+        setAccount(accounts[0] || null);
+        if (accounts[0]) onConnect(accounts[0]);
+      });
+
+      window.ethereum.on('chainChanged', (chainIdHex: string) => {
+        setChainId(parseInt(chainIdHex, 16));
+      });
+    }
+
+    return () => {
+      // Cleanup event listeners
+      if (typeof window !== 'undefined' && window.ethereum) {
+        window.ethereum.removeListener('accountsChanged', () => {});
+        window.ethereum.removeListener('chainChanged', () => {});
+      }
+    };
+  }, [onConnect]);
+
+  const connectWallet = async () => {
+    if (typeof window === 'undefined' || !window.ethereum) {
+      setError(
+        'MetaMask not detected! Please install MetaMask to use this dApp.'
+      );
+      return;
+    }
+
+    try {
+      // eth_requestAccounts triggers the wallet popup
+      const accounts = await window.ethereum.request({
+        method: 'eth_requestAccounts',
+      }) as string[];
+      
+      setAccount(accounts[0]);
+
+      const chainIdHex = await window.ethereum.request({
+        method: 'eth_chainId',
+      }) as string;
+      
+      const currentChainId = parseInt(chainIdHex, 16);
+      setChainId(currentChainId);
+
+      // Prompt user to switch networks if needed
+      if (currentChainId !== polkadotTestnet.id) {
+        await switchNetwork();
+      }
+
+      onConnect(accounts[0]);
+    } catch (err) {
+      console.error('Error connecting to wallet:', err);
+      setError('Failed to connect wallet');
+    }
+  };
+
+  const switchNetwork = async () => {
+    console.log('Switch network')
+    try {
+      await window.ethereum.request({
+        method: 'wallet_switchEthereumChain',
+        params: [{ chainId: `0x${polkadotTestnet.id.toString(16)}` }],
+      });
+    } catch (switchError: any) {
+      // Error 4902 means the chain hasn't been added to MetaMask
+      if (switchError.code === 4902) {
+        try {
+          await window.ethereum.request({
+            method: 'wallet_addEthereumChain',
+            params: [
+              {
+                chainId: `0x${polkadotTestnet.id.toString(16)}`,
+                chainName: polkadotTestnet.name,
+                rpcUrls: [polkadotTestnet.rpcUrls.default.http[0]],
+                nativeCurrency: {
+                  name: polkadotTestnet.nativeCurrency.name,
+                  symbol: polkadotTestnet.nativeCurrency.symbol,
+                  decimals: polkadotTestnet.nativeCurrency.decimals,
+                },
+              },
+            ],
+          });
+        } catch (addError) {
+          setError('Failed to add network to wallet');
+        }
+      } else {
+        setError('Failed to switch network');
+      }
+    }
+  };
+
+  // UI-only disconnection - MetaMask doesn't support programmatic disconnection
+  const disconnectWallet = () => {
+    setAccount(null);
+  };
+
+  return (
+    <div className="border border-pink-500 rounded-lg p-4 shadow-md bg-white text-pink-500 max-w-sm mx-auto">
+      {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
+
+      {!account ? (
+        <button
+          onClick={connectWallet}
+          className="w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-lg transition"
+        >
+          Connect Wallet
+        </button>
+      ) : (
+        <div className="flex flex-col items-center">
+          <span className="text-sm font-mono bg-pink-100 px-2 py-1 rounded-md text-pink-700">
+            {`${account.substring(0, 6)}...${account.substring(38)}`}
+          </span>
+          <button
+            onClick={disconnectWallet}
+            className="mt-3 w-full bg-gray-200 hover:bg-gray-300 text-pink-500 py-2 px-4 rounded-lg transition"
+          >
+            Disconnect
+          </button>
+          {chainId !== polkadotTestnet.id && (
+            <button
+              onClick={switchNetwork}
+              className="mt-3 w-full bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg transition"
+            >
+              Switch to Polkadot Testnet
+            </button>
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default WalletConnect;
+```
+
+This component handles connecting to the wallet, switching networks if necessary, and keeping track of the connected account. It provides a button for users to connect their wallet and displays the connected account address once connected.
+
+## Create the Read Contract Component
+
+Now, let's create a component to read data from the contract. Create a file called `components/ReadContract.tsx`:
+
+```typescript title="ReadContract.tsx"
+'use client';
+
+import React, { useState, useEffect } from 'react';
+import { publicClient } from '../utils/viem';
+import { CONTRACT_ADDRESS, CONTRACT_ABI } from '../utils/contract';
+
+const ReadContract: React.FC = () => {
+  const [storedNumber, setStoredNumber] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Function to read data from the blockchain
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        // Call the smart contract's storedNumber function
+        const number = await publicClient.readContract({
+            address: CONTRACT_ADDRESS,
+            abi: CONTRACT_ABI,
+            functionName: 'storedNumber',
+            args: [],
+          }) as bigint;
+
+        setStoredNumber(number.toString());
+        setError(null);
+      } catch (err) {
+        console.error('Error fetching stored number:', err);
+        setError('Failed to fetch data from the contract');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+
+    // Poll for updates every 10 seconds to keep UI in sync with blockchain
+    const interval = setInterval(fetchData, 10000);
+
+    // Clean up interval on component unmount
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="border border-pink-500 rounded-lg p-4 shadow-md bg-white text-pink-500 max-w-sm mx-auto">
+      <h2 className="text-lg font-bold text-center mb-4">Contract Data</h2>
+      {loading ? (
+        <div className="flex justify-center my-4">
+          <div className="w-6 h-6 border-4 border-pink-500 border-t-transparent rounded-full animate-spin"></div>
+        </div>
+      ) : error ? (
+        <p className="text-red-500 text-center">{error}</p>
+      ) : (
+        <div className="text-center">
+          <p className="text-sm font-mono bg-pink-100 px-2 py-1 rounded-md text-pink-700">
+            <strong>Stored Number:</strong> {storedNumber}
+          </p>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default ReadContract;
+```
+
+This component reads the `storedNumber` value from the contract and displays it to the user. It also sets up a polling interval to refresh the data periodically, ensuring that the UI stays in sync with the blockchain state.
+
+## Create the Write Contract Component
+
+Finally, let's create a component that allows users to update the stored number. Create a file called `components/WriteContract.tsx`:
+
+```typescript title="WriteContract.tsx"
+"use client";
+
+import React, { useState, useEffect } from "react";
+import { publicClient, getWalletClient } from '../utils/viem';
+import { CONTRACT_ADDRESS, CONTRACT_ABI } from '../utils/contract';
+
+interface WriteContractProps {
+  account: string | null;
+}
+
+const WriteContract: React.FC<WriteContractProps> = ({ account }) => {
+  const [newNumber, setNewNumber] = useState<string>("");
+  const [status, setStatus] = useState<{
+    type: string | null;
+    message: string;
+  }>({
+    type: null,
+    message: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [isCorrectNetwork, setIsCorrectNetwork] = useState<boolean>(true);
+
+  // Check if the account is on the correct network
+  useEffect(() => {
+    const checkNetwork = async () => {
+      if (!account) return;
+
+      try {
+        // Get the chainId from the public client
+        const chainId = await publicClient.getChainId();
+
+        // Get the user's current chainId from their wallet
+        const walletClient = await getWalletClient();
+        if (!walletClient) return;
+
+        const walletChainId = await walletClient.getChainId();
+
+        // Check if they match
+        setIsCorrectNetwork(chainId === walletChainId);
+      } catch (err) {
+        console.error("Error checking network:", err);
+        setIsCorrectNetwork(false);
+      }
+    };
+
+    checkNetwork();
+  }, [account]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // Validation checks
+    if (!account) {
+      setStatus({ type: "error", message: "Please connect your wallet first" });
+      return;
+    }
+
+    if (!isCorrectNetwork) {
+      setStatus({
+        type: "error",
+        message: "Please switch to the correct network in your wallet",
+      });
+      return;
+    }
+
+    if (!newNumber || isNaN(Number(newNumber))) {
+      setStatus({ type: "error", message: "Please enter a valid number" });
+      return;
+    }
+
+    try {
+      setIsSubmitting(true);
+      setStatus({ type: "info", message: "Initiating transaction..." });
+
+      // Get wallet client for transaction signing
+      const walletClient = await getWalletClient();
+
+      if (!walletClient) {
+        setStatus({ type: "error", message: "Wallet client not available" });
+        return;
+      }
+
+      // Check if account matches
+      if (
+        walletClient.account?.address.toLowerCase() !== account.toLowerCase()
+      ) {
+        setStatus({
+          type: "error",
+          message:
+            "Connected wallet account doesn't match the selected account",
+        });
+        return;
+      }
+
+      // Prepare transaction and wait for user confirmation in wallet
+      setStatus({
+        type: "info",
+        message: "Please confirm the transaction in your wallet...",
+      });
+
+      // Simulate the contract call first
+      console.log('newNumber', newNumber);
+      const { request } = await publicClient.simulateContract({
+        address: CONTRACT_ADDRESS,
+        abi: CONTRACT_ABI,
+        functionName: "setNumber",
+        args: [BigInt(newNumber)],
+        account: walletClient.account,
+      });
+
+      // Send the transaction with wallet client
+      const hash = await walletClient.writeContract(request);
+
+      // Wait for transaction to be mined
+      setStatus({
+        type: "info",
+        message: "Transaction submitted. Waiting for confirmation...",
+      });
+
+      const receipt = await publicClient.waitForTransactionReceipt({
+        hash,
+      });
+
+      setStatus({
+        type: "success",
+        message: `Transaction confirmed! Transaction hash: ${receipt.transactionHash}`,
+      });
+
+      setNewNumber("");
+    } catch (err: any) {
+      console.error("Error updating number:", err);
+
+      // Handle specific errors
+      if (err.code === 4001) {
+        // User rejected transaction
+        setStatus({ type: "error", message: "Transaction rejected by user." });
+      } else if (err.message?.includes("Account not found")) {
+        // Account not found on the network
+        setStatus({
+          type: "error",
+          message:
+            "Account not found on current network. Please check your wallet is connected to the correct network.",
+        });
+      } else if (err.message?.includes("JSON is not a valid request object")) {
+        // JSON error - specific to your current issue
+        setStatus({
+          type: "error",
+          message:
+            "Invalid request format. Please try again or contact support.",
+        });
+      } else {
+        // Other errors
+        setStatus({
+          type: "error",
+          message: `Error: ${err.message || "Failed to send transaction"}`,
+        });
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <div className="border border-pink-500 rounded-lg p-4 shadow-md bg-white text-pink-500 max-w-sm mx-auto space-y-4">
+      <h2 className="text-lg font-bold">Update Stored Number</h2>
+
+      {!isCorrectNetwork && account && (
+        <div className="p-2 rounded-md bg-yellow-100 text-yellow-700 text-sm">
+          ⚠️ You are not connected to the correct network. Please switch
+          networks in your wallet.
+        </div>
+      )}
+
+      {status.message && (
+        <div
+          className={`p-2 rounded-md break-words h-fit text-sm ${
+            status.type === "error"
+              ? "bg-red-100 text-red-500"
+              : status.type === "success"
+              ? "bg-green-100 text-green-700"
+              : "bg-blue-100 text-blue-700"
+          }`}
+        >
+          {status.message}
+        </div>
+      )}
+
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <input
+          type="number"
+          placeholder="New Number"
+          value={newNumber}
+          onChange={(e) => setNewNumber(e.target.value)}
+          disabled={isSubmitting || !account}
+          className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-pink-400"
+        />
+        <button
+          type="submit"
+          disabled={
+            isSubmitting || !account || (!isCorrectNetwork && !!account)
+          }
+          className="w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-lg transition disabled:bg-gray-300"
+        >
+          {isSubmitting ? "Updating..." : "Update"}
+        </button>
+      </form>
+
+      {!account && (
+        <p className="text-sm text-gray-500">
+          Connect your wallet to update the stored number.
+        </p>
+      )}
+    </div>
+  );
+};
+
+export default WriteContract;
+```
+
+This component allows users to input a new number and send a transaction to update the value stored in the contract. It provides appropriate feedback during each step of the transaction process and handles error scenarios.
+
+Update the `app/page.tsx` file to integrate all components:
+
+```typescript title="page.tsx"
+"use client";
+
+import { useState } from "react";
+import WalletConnect from "./components/WalletConnect";
+import ReadContract from "./components/ReadContract";
+import WriteContract from "./components/WriteContract";
+
+export default function Home() {
+  const [account, setAccount] = useState<string | null>(null);
+
+  const handleConnect = (connectedAccount: string) => {
+    setAccount(connectedAccount);
+  };
+
+  return (
+    <section className="min-h-screen bg-white text-black flex flex-col justify-center items-center gap-4 py-10">
+      <h1 className="text-2xl font-semibold text-center">
+        Polkadot Hub - Zero To Hero DApp
+      </h1>
+      <WalletConnect onConnect={handleConnect} />
+      <ReadContract />
+      <WriteContract account={account} />
+    </section>
+  );
+}
+```
+
+Run the dApp:
+
+```bash
+npm run dev
+```
+
+Navigate to `http://localhost:3000` in your browser, and you should see your dApp with the wallet connection button, the stored number displayed, and the form to update the number. You should see something like this:
+
+
+
+## How It Works
+
+This dApp uses components to interact with the blockchain in several ways.
+
+### Wallet Connection 
+
+The `WalletConnect` component uses the browser's Ethereum provider (MetaMask) to connect to the user's wallet and handles network switching to ensure the user is connected to the Polkadot Hub TestNet. Once connected, it provides the user's account address to the parent component.
+
+### Data Reads
+
+The `ReadContract` component uses viem's `readContract` function to call the `storedNumber` view function and periodically poll for updates to keep the UI in sync with the blockchain state. The component also displays a loading indicator while fetching data and handles error states.
+
+### Data Writes
+
+The `WriteContract` component uses viem's `writeContract` function to send a transaction to the `setNumber` function and ensures the wallet is connected before allowing a transaction. The component shows detailed feedback during transaction submission and confirmation. After a successful transaction, the value displayed in the `ReadContract` component will update on the next poll.
+
+## Conclusion
+
+Congratulations! You've successfully built a fully functional dApp that interacts with a smart contract on Polkadot Hub using viem and Next.js. Your application can now:
+
+- Create a smart contract with Hardhat and deploy it to Polkadot Hub TestNet.
+- Connect to a user's wallet and handle network switching.
+- Read data from a smart contract and keep it updated.
+- Write data to the blockchain through transactions.
+
+These fundamental skills provide the foundation for building more complex dApps on Polkadot Hub. With this knowledge, you can extend your application to interact with more sophisticated smart contracts and create advanced user interfaces.
+
+To get started right away with a working example, you can clone the repository and navigate to the implementation:
+
+```bash
+git clone https://github.com/polkadot-developers/revm-hardhat-examples.git
+cd zero-to-hero-dapp
+```
+
+## Where to Go Next
+
+<div class="grid cards" markdown>
+
+-   <span class="badge guide">Guide</span> __Port Ethereum Projects to Polkadot Hub__
+
+    ---
+
+    Learn how to port an Ethereum project to Polkadot Hub using Hardhat and Viem.
+
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/eth-dapps/)
+
+-   <span class="badge guide">Guide</span> __Dive Deeper into Polkadot Precompiles__
+
+    ---
+
+    Learn how to use the Polkadot precompiles to interact with the blockchain.
+
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/polkadot-precompiles/)
+</div>

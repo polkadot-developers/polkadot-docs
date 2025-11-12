@@ -1209,66 +1209,117 @@ Page Title: Add Smart Contract Functionality
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/parachains-customize-runtime-add-smart-contract-functionality.md
 - Canonical (HTML): https://docs.polkadot.com/parachains/customize-runtime/add-smart-contract-functionality/
-- Summary: Add smart contract capabilities to your Polkadot SDK-based blockchain. Explore EVM and Wasm integration for enhanced chain functionality.
+- Summary: Add smart contract capabilities to your Polkadot SDK-based blockchain. Explore PVM, EVM, and Wasm integration for enhanced chain functionality.
 
 # Add Smart Contract Functionality
 
 ## Introduction
 
-When building your custom blockchain with the Polkadot SDK, you have the flexibility to add smart contract capabilities through specialized pallets. These pallets allow blockchain users to deploy and execute smart contracts, enhancing your chain's functionality and programmability.
+When building your custom blockchain with the Polkadot SDK, you can add smart contract capabilities through specialized pallets. These pallets enable users to deploy and execute smart contracts, enhancing your chain's programmability and allowing developers to build decentralized applications on your network.
 
-Polkadot SDK-based blockchains support two distinct smart contract execution environments: [EVM (Ethereum Virtual Machine)](#evm-smart-contracts) and [Wasm (WebAssembly)](#wasm-smart-contracts). Each environment allows developers to deploy and execute different types of smart contracts, providing flexibility in choosing the most suitable solution for their needs.
+This guide covers three approaches to adding smart contracts to your blockchain:
 
-## EVM Smart Contracts
+- **[`pallet-revive`](#pallet-revive)**: Modern unified solution supporting both PolkaVM and EVM bytecode
+- **[Frontier](#frontier)**: Ethereum compatibility layer for Polkadot SDK-based chains
+- **[`pallet-contracts`](#pallet-contracts-legacy)**: Wasm smart contract support
 
-To enable Ethereum-compatible smart contracts in your blockchain, you'll need to integrate [Frontier](https://github.com/polkadot-evm/frontier){target=\_blank}, the Ethereum compatibility layer for Polkadot SDK-based chains. This requires adding two essential pallets to your runtime:
+## pallet-revive
 
-- **[`pallet-evm`](https://github.com/polkadot-evm/frontier/tree/master/frame/evm){target=\_blank}**: Provides the EVM execution environment.
-- **[`pallet-ethereum`](https://github.com/polkadot-evm/frontier/tree/master/frame/ethereum){target=\_blank}**: Handles Ethereum-formatted transactions and RPC capabilities.
+[`pallet-revive`](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame/revive){target=\_blank} is the modern smart contract solution for Polkadot SDK-based chains. It provides a unified execution environment that supports both PolkaVM and EVM bytecode through dual execution backends.
 
-For step-by-step guidance on adding these pallets to your runtime, refer to [Add a Pallet to the Runtime](/parachains/customize-runtime/add-existing-pallets/){target=\_blank}.
+### Core Components
 
-For a real-world example of how these pallets are implemented in production, you can check Moonbeam's implementation of [`pallet-evm`](https://github.com/moonbeam-foundation/moonbeam/blob/9e2ddbc9ae8bf65f11701e7ccde50075e5fe2790/runtime/moonbeam/src/lib.rs#L532){target=\_blank} and [`pallet-ethereum`](https://github.com/moonbeam-foundation/moonbeam/blob/9e2ddbc9ae8bf65f11701e7ccde50075e5fe2790/runtime/moonbeam/src/lib.rs#L698){target=\_blank}.
+**Essential Pallet:**
+**[`pallet-revive`](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame/revive){target=\_blank}** provides the core smart contract execution environment with [PolkaVM](https://github.com/polkadot-developers/polkadot-docs/blob/71e1b51bb42ef55e20c2f3b953db86e8c26cd591/smart-contracts/for-eth-devs/dual-vm-stack.md#upgrade-to-polkavm){target=\_blank} and [REVM](https://github.com/polkadot-developers/polkadot-docs/blob/71e1b51bb42ef55e20c2f3b953db86e8c26cd591/smart-contracts/for-eth-devs/dual-vm-stack.md#migrate-from-evm){target=\_blank} backends.
 
-## Wasm Smart Contracts
+**RPC Adapter:**
+**[`pallet-revive-eth-rpc`](https://crates.io/crates/pallet-revive-eth-rpc){target=\_blank}** adds full Ethereum RPC compatibility for Ethereum tooling integration.
 
-To support Wasm-based smart contracts, you'll need to integrate:
+### Supported Languages and Compilers
 
-- **[`pallet-contracts`](https://docs.rs/pallet-contracts/latest/pallet_contracts/index.html#contracts-pallet){target=\_blank}**: Provides the Wasm smart contract execution environment.
+`pallet-revive` accepts smart contracts from multiple languages and compilation paths:
 
-This pallet enables the deployment and execution of Wasm-based smart contracts on your blockchain. For detailed instructions on adding this pallet to your runtime, see [Add a Pallet to the Runtime](/parachains/customize-runtime/add-existing-pallets/){target=\_blank}.
+| Language | Compiler | Output Bytecode | Execution Backend |
+|----------|----------|-----------------|-------------------|
+| Solidity | `resolc` | PolkaVM | PolkaVM |
+| Solidity | `solc` | EVM | REVM |
+| Rust (ink!) | `cargo-contract` | PolkaVM | PolkaVM | 
 
-For a real-world example of how this pallet is implemented in production, you can check Astar's implementation of [`pallet-contracts`](https://github.com/AstarNetwork/Astar/blob/b6f7a408d31377130c3713ed52941a06b5436402/runtime/astar/src/lib.rs#L693){target=\_blank}.
+Any language that can compile to PolkaVM bytecode and utilize `pallet-revive`'s host functions (via [`pallet-revive-uapi`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive_uapi/index.html){target=\_blank}) is supported.
+
+### How It Works
+
+**Dual Execution Model:**
+
+1. **PolkaVM Backend**: Executes PolkaVM bytecode with native performance optimization.
+2. **REVM Backend**: Implements EVM bytecode for compatibility with existing Ethereum contracts, ensuring seamless migration.
+
+### Key Benefits
+
+- **Unified platform**: Deploys both PolkaVM-optimized and EVM-compatible contracts using a single pallet.
+- **Performance**: PolkaVM execution provides improved performance compared to the traditional EVM, leveraging the [RISC-V](https://en.wikipedia.org/wiki/RISC-V){target=\_blank} architecture to map instructions to the CPU and requires little transpiling.
+- **Ethereum compatibility**: Supports full integration with Ethereum tooling via RPC adapter.
+
+### Implementation Examples
+
+See a real-world implementation in the [Polkadot Hub TestNet](https://github.com/paseo-network/runtimes/blob/c965c42a4e0bc9d1e9cc0a340322bc3b8e347bcf/system-parachains/asset-hub-paseo/src/lib.rs#L1122-L1157){target=\_blank} in the Polkadot Fellows repository.
+
+## Frontier
+
+[Frontier](https://github.com/polkadot-evm/frontier){target=\_blank} is the Ethereum compatibility layer designed for maximum compatibility with the Ethereum ecosystem. It's the ideal choice when you need seamless integration with existing Ethereum tools, dApps, and infrastructure.
+
+### Integration Options
+
+Frontier offers flexible integration depending on your compatibility needs:
+
+### EVM Execution Only
+
+For basic EVM support using Polkadot SDK native APIs:
+
+- **[`pallet-evm`](https://github.com/polkadot-evm/frontier/tree/master/frame/evm){target=\_blank}**: Provides the core EVM execution environment.
+
+This configuration allows EVM contract execution but requires using Polkadot SDK-specific APIs for interaction.
+
+### Full Ethereum Compatibility
+
+For complete Ethereum ecosystem integration with Ethereum RPC support:
+
+- **[`pallet-evm`](https://github.com/polkadot-evm/frontier/tree/master/frame/evm){target=\_blank}**: Integrates core EVM execution environment.
+- **[`pallet-ethereum`](https://github.com/polkadot-evm/frontier/tree/master/frame/ethereum){target=\_blank}**: Emulates Ethereum blocks and handles Ethereum-formatted transactions.
+- **[`fc-rpc`](https://github.com/polkadot-evm/frontier/tree/master/client/rpc){target=\_blank}**: Provides Ethereum JSON-RPC endpoints.
+
+### Key Benefits
+
+- **Ethereum tooling compatibility**: Full compatibility with MetaMask, Hardhat, Remix, Foundry, and other Ethereum development tools.
+- **Minimal-friction migration**: Deployment of existing Ethereum dApps with minimal or no modifications.
+- **Native Ethereum formats**: Support for Ethereum transaction formats, signatures, and gas mechanics.
+- **Block emulation**: Ethereum-style block structure within Substrate's block production.
+
+### Implementation Examples
+
+Production implementations demonstrate Frontier's capabilities:
+
+- **Moonbeam**: See their implementation of [`pallet-evm`](https://github.com/moonbeam-foundation/moonbeam/blob/9e2ddbc9ae8bf65f11701e7ccde50075e5fe2790/runtime/moonbeam/src/lib.rs#L532){target=\_blank} and [`pallet-ethereum`](https://github.com/moonbeam-foundation/moonbeam/blob/9e2ddbc9ae8bf65f11701e7ccde50075e5fe2790/runtime/moonbeam/src/lib.rs#L698){target=\_blank}.
+
+## pallet-contracts (Legacy)
+
+[`pallet-contracts`](https://docs.rs/pallet-contracts/latest/pallet_contracts/index.html#contracts-pallet){target=\_blank} is the original Wasm-based smart contract pallet for Polkadot SDK chains. While still functional, it's considered legacy as development efforts have shifted to `pallet-revive`.
+
+### Implementation Example
+
+For reference, Astar's implementation of [`pallet-contracts`](https://github.com/AstarNetwork/Astar/blob/b6f7a408d31377130c3713ed52941a06b5436402/runtime/astar/src/lib.rs#L693){target=\_blank} demonstrates production usage.
 
 ## Where to Go Next
 
-Now that you understand how to enable smart contract functionality in your blockchain, you might want to:
-
 <div class="grid cards" markdown>
 
--   <span class="badge guide">Guide</span> __Get Started with Smart Contracts__
+-   <span class="badge guide">Guide</span> __Add a Pallet to the Runtime__
 
     ---
 
-    Learn how developers can build smart contracts on Polkadot by leveraging the PolkaVM, Wasm/ink! or EVM contracts across many parachains.
+    Learn the step-by-step process for integrating Polkadot SDK pallets into your blockchain's runtime.
 
-    [:octicons-arrow-right-24: Reference](/smart-contracts/get-started/)
-
--   <span class="badge guide">Guide</span> __Wasm (ink!) Contracts__
-
-    ---
-
-    Learn to build Wasm smart contracts with ink!, a Rust-based eDSL. Explore installation, contract structure, and key features.
-
-    [:octicons-arrow-right-24: Reference](/smart-contracts/overview/#wasm-ink)
-    
--   <span class="badge guide">Guide</span> __EVM Contracts__
-
-    ---
-
-    Learn how Polkadot parachains such as Moonbeam, Astar, Acala, and Manta leverage the Ethereum Virtual Machine (EVM) and integrate it into their parachains.
-
-    [:octicons-arrow-right-24: Reference](/smart-contracts/overview/#parachain-contracts)
+    [:octicons-arrow-right-24: Get Started](/parachains/customize-runtime/add-existing-pallets/)
 
 </div>
 
@@ -3245,6 +3296,755 @@ You can find this event in the list of recent events. It should look similar to 
 
 ---
 
+Page Title: Create a Custom Pallet
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/parachains-customize-runtime-pallet-development-create-a-pallet.md
+- Canonical (HTML): https://docs.polkadot.com/parachains/customize-runtime/pallet-development/create-a-pallet/
+- Summary: Learn how to create custom pallets using FRAME, allowing for flexible, modular, and scalable blockchain development. Follow the step-by-step guide.
+
+# Create a Custom Pallet
+
+## Introduction
+
+[Framework for Runtime Aggregation of Modular Entities (FRAME)](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/frame_runtime/index.html){target=\_blank} provides a powerful set of tools for blockchain development through modular components called [pallets](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/frame_runtime/pallet/index.html){target=\_blank}. These Rust-based runtime modules allow you to build custom blockchain functionality with precision and flexibility. While FRAME includes a library of pre-built pallets, its true strength lies in creating custom pallets tailored to your specific needs.
+
+In this guide, you'll learn how to build a custom counter pallet from scratch that demonstrates core pallet development concepts.
+
+## Prerequisites
+
+Before you begin, ensure you have:
+
+- [Polkadot SDK dependencies installed](/parachains/install-polkadot-sdk/){target=\_blank}.
+- A [Polkadot SDK Parchain Template](/parachains/launch-a-parachain/set-up-the-parachain-template/){target=\_blank} set up locally.
+- Basic familiarity with [FRAME concepts](/parachains/customize-runtime/){target=\_blank}.
+
+## Core Pallet Components
+
+As you build your custom pallet, you'll work with these key sections:
+
+- **Imports and dependencies**: Bring in necessary FRAME libraries and external modules.
+- **Runtime configuration trait**: Specify types and constants for pallet-runtime interaction.
+- **Runtime events**: Define signals that communicate state changes.
+- **Runtime errors**: Define error types returned from dispatchable calls.
+- **Runtime storage**: Declare on-chain storage items for your pallet's state.
+- **Genesis configuration**: Set initial blockchain state.
+- **Dispatchable functions (extrinsics)**: Create callable functions for user interactions.
+
+For additional macros beyond those covered here, refer to the [pallet_macros](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/index.html){target=\_blank} section of the Polkadot SDK Docs.
+
+## Create the Pallet Project
+
+Begin by creating a new Rust library project for your custom pallet within the [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk-parachain-template){target=\_blank}:
+
+1. Navigate to the root directory of your parachain template:
+
+    ```bash
+    cd polkadot-sdk-parachain-template
+    ```
+
+2. Navigate to the `pallets` directory:
+
+    ```bash
+    cd pallets
+    ```
+
+3. Create a new Rust library project:
+
+    ```bash
+    cargo new --lib pallet-custom
+    ```
+
+4. Enter the new project directory:
+
+    ```bash
+    cd pallet-custom
+    ```
+
+5. Verify the project structure. It should look like:
+
+    ```
+    pallet-custom/
+    ├── Cargo.toml
+    └── src/
+        └── lib.rs
+    ```
+
+## Configure Dependencies
+
+To integrate your custom pallet into the Polkadot SDK-based runtime, configure the `Cargo.toml` file with the required dependencies. Since your pallet exists within the parachain template workspace, you'll use workspace inheritance to maintain version consistency.
+
+1. Open `Cargo.toml` and replace its contents with:
+
+    ```toml title="pallet-custom/Cargo.toml"
+    [package]
+        name = "pallet-custom"
+        description = "A custom counter pallet for demonstration purposes."
+        version = "0.1.0"
+        license = "Unlicense"
+        authors.workspace = true
+        homepage.workspace = true
+        repository.workspace = true
+        edition.workspace = true
+        publish = false
+
+        [package.metadata.docs.rs]
+        targets = ["x86_64-unknown-linux-gnu"]
+
+        [dependencies]
+        codec = { features = ["derive"], workspace = true }
+        scale-info = { features = ["derive"], workspace = true }
+        frame = { features = ["experimental", "runtime"], workspace = true }
+
+        [features]
+        default = ["std"]
+        std = [
+            "codec/std",
+            "scale-info/std",
+            "frame/std",
+        ]
+    ```
+
+    !!!note "Version Management"
+        The parachain template uses workspace inheritance to maintain consistent dependency versions across all packages. The actual versions are defined in the root `Cargo.toml` file, ensuring compatibility throughout the project. By using `workspace = true`, your pallet automatically inherits the correct versions.
+
+2. The parachain template already includes `pallets/*` in the workspace members, so your new pallet is automatically recognized. Verify this by checking the root `Cargo.toml`:
+
+    ```toml title="Cargo.toml"
+        [workspace.members]
+        members = [
+            "node",
+            "pallets/*",
+            "runtime",
+        ]
+    ```
+
+## Initialize the Pallet Structure
+
+With dependencies configured, set up the basic scaffold that will hold your pallet's logic:
+
+1. Open `src/lib.rs` and delete all existing content.
+
+2. Add the initial scaffold structure using the unified `frame` dependency:
+
+    ```rust title="src/lib.rs"
+    #![cfg_attr(not(feature = "std"), no_std)]
+
+    pub use pallet::*;
+
+    #[frame::pallet]
+    pub mod pallet {
+        use frame::prelude::*;
+
+        #[pallet::pallet]
+        pub struct Pallet<T>(_);
+
+        #[pallet::config]
+        pub trait Config: frame_system::Config {
+            // Configuration will be added here
+        }
+
+        #[pallet::storage]
+        pub type CounterValue<T> = StorageValue<_, u32, ValueQuery>;
+
+        #[pallet::call]
+        impl<T: Config> Pallet<T> {
+            // Dispatchable functions will be added here
+        }
+    }
+    ```
+
+    This setup starts with a minimal scaffold without events and errors. These will be added in the following sections after the `Config` trait is correctly configured with the required `RuntimeEvent` type.
+
+3. Verify it compiles using the following command:
+
+    ```bash
+    cargo build --package pallet-custom
+    ```
+
+## Configure the Pallet
+
+The [`Config`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/trait.Config.html){target=\_blank} trait exposes configurable options and links your pallet to the runtime. All types and constants the pallet depends on must be declared here. These types are defined generically and become concrete when the pallet is instantiated at runtime.
+
+Replace the [`#[pallet::config]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.config.html){target=\_blank} section with:
+
+```rust title="src/lib.rs"
+#[pallet::config]
+pub trait Config: frame_system::Config {
+    /// The overarching runtime event type.
+    type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
+
+    /// Maximum value the counter can reach.
+    #[pallet::constant]
+    type CounterMaxValue: Get<u32>;
+}
+
+```
+
+Key configuration elements include the following:
+
+- **[`RuntimeEvent`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/trait.Config.html#associatedtype.RuntimeEvent){target=\_blank}**: Required for the pallet to emit events that the runtime can process.
+- **`CounterMaxValue`**: A constant that sets an upper limit on counter values, configurable per runtime.
+
+## Define Events
+
+Events inform external entities (dApps, explorers, users) about significant runtime changes. Event details are included in the node's metadata, making them accessible to external tools.
+
+The [`#[pallet::generate_deposit]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.generate_deposit.html){target=\_blank} macro automatically generates a `deposit_event` function that converts your pallet's events into the `RuntimeEvent` type and deposits them via [`frame_system::Pallet::deposit_event`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.deposit_event){target=\_blank}.
+
+Add the [`#[pallet::event]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.event.html){target=\_blank} section after the `Config` trait:
+
+```rust title="src/lib.rs"
+#[pallet::event]
+#[pallet::generate_deposit(pub(super) fn deposit_event)]
+pub enum Event<T: Config> {
+    /// Counter value was explicitly set. [new_value]
+    CounterValueSet {
+        new_value: u32,
+    },
+    /// Counter was incremented. [new_value, who, amount]
+    CounterIncremented {
+        new_value: u32,
+        who: T::AccountId,
+        amount: u32,
+    },
+    /// Counter was decremented. [new_value, who, amount]
+    CounterDecremented {
+        new_value: u32,
+        who: T::AccountId,
+        amount: u32,
+    },
+}
+
+```
+
+## Define Errors
+
+Errors indicate when and why a call fails. Use informative names and descriptions, as error documentation is included in the node's metadata.
+
+Error types must implement the [`TypeInfo`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_prelude/trait.TypeInfo.html){target=\_blank} trait, and runtime errors can be up to 4 bytes in size.
+
+Add the [`#[pallet::error]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.error.html){target=\_blank} section after the events:
+
+```rust title="src/lib.rs"
+#[pallet::error]
+pub enum Error<T> {
+    /// The counter value has not been set yet.
+    NoneValue,
+    /// Arithmetic operation would cause overflow.
+    Overflow,
+    /// Arithmetic operation would cause underflow.
+    Underflow,
+    /// The counter value would exceed the maximum allowed value.
+    CounterMaxValueExceeded,
+}
+
+```
+
+## Add Storage Items
+
+Storage items persist state on-chain. This pallet uses two storage items:
+
+- **`CounterValue`**: Stores the current counter value.
+- **`UserInteractions`**: Tracks interaction counts per user account.
+
+The initial scaffold already includes the `CounterValue` storage item. Now add the `UserInteractions` storage map after it:
+
+```rust title="src/lib.rs"
+/// Tracks the number of interactions per user.
+#[pallet::storage]
+pub type UserInteractions<T: Config> = StorageMap<_, Blake2_128Concat, T::AccountId, u32, ValueQuery>;
+```
+
+Your storage section should now look like this:
+
+```rust title="src/lib.rs"
+/// The current value of the counter.
+#[pallet::storage]
+pub type CounterValue<T> = StorageValue<_, u32, ValueQuery>;
+
+/// Tracks the number of interactions per user.
+#[pallet::storage]
+pub type UserInteractions<T: Config> = StorageMap<_, Blake2_128Concat, T::AccountId, u32, ValueQuery>;
+```
+
+For more storage types and patterns, explore the [Polkadot SDK storage documentation](https://paritytech.github.io/polkadot-sdk/master/frame_support/storage/types/index.html){target=\_blank}.
+
+## Configure Genesis State
+
+Genesis configuration allows you to set the initial state of your pallet when the blockchain first starts and is essential for both production networks and testing environments. It is beneficial for:
+
+- Setting initial parameter values.
+- Pre-allocating resources or accounts.
+- Establishing starting conditions for testing.
+- Configuring network-specific initial state.
+
+Add the [`#[pallet::genesis_config]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.genesis_config.html){target=\_blank} and [`#[pallet::genesis_build]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.genesis_build.html){target=\_blank} sections after your storage items:
+
+```rust title="src/lib.rs"
+#[pallet::genesis_config]
+#[derive(DefaultNoBound)]
+pub struct GenesisConfig<T: Config> {
+    /// Initial value for the counter
+    pub initial_counter_value: u32,
+    /// Pre-populated user interactions
+    pub initial_user_interactions: Vec<(T::AccountId, u32)>,
+}
+
+#[pallet::genesis_build]
+impl<T: Config> BuildGenesisConfig for GenesisConfig<T> {
+    fn build(&self) {
+        // Set the initial counter value
+        CounterValue::<T>::put(self.initial_counter_value);
+
+        // Set initial user interactions
+        for (account, count) in &self.initial_user_interactions {
+            UserInteractions::<T>::insert(account, count);
+        }
+    }
+}
+
+```
+
+Genesis configuration components include the following:
+
+- **`GenesisConfig` struct**: Defines what can be configured at genesis.
+- **`#[derive(DefaultNoBound)]`**: Provides sensible defaults (empty vec and 0 for the counter).
+- **`BuildGenesisConfig` implementation**: Executes the logic to set initial storage values.
+- **`build()` method**: Called once when the blockchain initializes.
+
+## Implement Dispatchable Functions
+
+Dispatchable functions (extrinsics) allow users to interact with your pallet and trigger state changes. Each function must:
+
+- Return a [`DispatchResult`](https://paritytech.github.io/polkadot-sdk/master/frame_support/dispatch/type.DispatchResult.html){target=\_blank}.
+- Be annotated with a weight (computational cost).
+- Have an explicit call index for backward compatibility.
+
+Replace the [`#[pallet::call]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.call.html){target=\_blank} section with:
+
+```rust title="src/lib.rs"
+#[pallet::call]
+impl<T: Config> Pallet<T> {
+    /// Set the counter to a specific value. Root origin only.
+    #[pallet::call_index(0)]
+    #[pallet::weight(0)]
+    pub fn set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult {
+        // Ensure the caller is root
+        ensure_root(origin)?;
+
+        // Validate the new value doesn't exceed the maximum
+        ensure!(new_value <= T::CounterMaxValue::get(), Error::<T>::CounterMaxValueExceeded);
+
+        // Update storage
+        CounterValue::<T>::put(new_value);
+
+        // Emit event
+        Self::deposit_event(Event::CounterValueSet { new_value });
+
+        Ok(())
+    }
+
+    /// Increment the counter by a specified amount.
+    #[pallet::call_index(1)]
+    #[pallet::weight(0)]
+    pub fn increment(origin: OriginFor<T>, amount: u32) -> DispatchResult {
+        // Ensure the caller is signed
+        let who = ensure_signed(origin)?;
+
+        // Get current counter value
+        let current_value = CounterValue::<T>::get();
+
+        // Check for overflow
+        let new_value = current_value.checked_add(amount).ok_or(Error::<T>::Overflow)?;
+
+        // Ensure new value doesn't exceed maximum
+        ensure!(new_value <= T::CounterMaxValue::get(), Error::<T>::CounterMaxValueExceeded);
+
+        // Update counter storage
+        CounterValue::<T>::put(new_value);
+
+        // Track user interaction
+        UserInteractions::<T>::mutate(&who, |count| {
+            *count = count.saturating_add(1);
+        });
+
+        // Emit event
+        Self::deposit_event(Event::CounterIncremented {
+            new_value,
+            who,
+            amount,
+        });
+
+        Ok(())
+    }
+
+    /// Decrement the counter by a specified amount.
+    #[pallet::call_index(2)]
+    #[pallet::weight(0)]
+    pub fn decrement(origin: OriginFor<T>, amount: u32) -> DispatchResult {
+        // Ensure the caller is signed
+        let who = ensure_signed(origin)?;
+
+        // Get current counter value
+        let current_value = CounterValue::<T>::get();
+
+        // Check for underflow
+        let new_value = current_value.checked_sub(amount).ok_or(Error::<T>::Underflow)?;
+
+        // Update counter storage
+        CounterValue::<T>::put(new_value);
+
+        // Track user interaction
+        UserInteractions::<T>::mutate(&who, |count| {
+            *count = count.saturating_add(1);
+        });
+
+        // Emit event
+        Self::deposit_event(Event::CounterDecremented {
+            new_value,
+            who,
+            amount,
+        });
+
+        Ok(())
+    }
+}
+
+```
+
+### Dispatchable Function Details
+
+???+ interface "`set_counter_value`"
+
+    - **Access**: Root origin only (privileged operations).
+    - **Purpose**: Set counter to a specific value.
+    - **Validations**: New value must not exceed `CounterMaxValue`.
+    - **State changes**: Updates `CounterValue` storage.
+    - **Events**: Emits `CounterValueSet`.
+
+??? interface "`increment`"
+
+    - **Access**: Any signed account.
+    - **Purpose**: Increase counter by specified amount.
+    - **Validations**: Checks for overflow and max value compliance.
+    - **State changes**: Updates `CounterValue` and `UserInteractions`.
+    - **Events**: Emits `CounterIncremented`.
+
+??? interface "`decrement`"
+
+    - **Access**: Any signed account.
+    - **Purpose**: Decrease counter by specified amount.
+    - **Validations**: Checks for underflow.
+    - **State changes**: Updates `CounterValue` and `UserInteractions`.
+    - **Events**: Emits `CounterDecremented`.
+
+## Verify Pallet Compilation
+
+Before proceeding, ensure your pallet compiles without errors by running the following command:
+
+```bash
+cargo build --package pallet-custom
+```
+
+If you encounter errors, carefully review the code against this guide. Once the build completes successfully, your custom pallet is ready for integration.
+
+??? code "Complete Pallet Implementation"
+    
+    ```rust title="src/lib.rs"
+    #![cfg_attr(not(feature = "std"), no_std)]
+
+    pub use pallet::*;
+
+    #[frame::pallet]
+    pub mod pallet {
+        use frame::prelude::*;
+
+        #[pallet::pallet]
+        pub struct Pallet<T>(_);
+
+        #[pallet::config]
+        pub trait Config: frame_system::Config {
+            type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
+
+            #[pallet::constant]
+            type CounterMaxValue: Get<u32>;
+        }
+
+        #[pallet::event]
+        #[pallet::generate_deposit(pub(super) fn deposit_event)]
+        pub enum Event<T: Config> {
+            CounterValueSet {
+                new_value: u32,
+            },
+            CounterIncremented {
+                new_value: u32,
+                who: T::AccountId,
+                amount: u32,
+            },
+            CounterDecremented {
+                new_value: u32,
+                who: T::AccountId,
+                amount: u32,
+            },
+        }
+
+        #[pallet::error]
+        pub enum Error<T> {
+            NoneValue,
+            Overflow,
+            Underflow,
+            CounterMaxValueExceeded,
+        }
+
+        #[pallet::storage]
+        pub type CounterValue<T> = StorageValue<_, u32, ValueQuery>;
+
+        #[pallet::storage]
+        pub type UserInteractions<T: Config> = StorageMap<
+            _,
+            Blake2_128Concat,
+            T::AccountId,
+            u32,
+            ValueQuery
+        >;
+
+        #[pallet::genesis_config]
+        #[derive(DefaultNoBound)]
+        pub struct GenesisConfig<T: Config> {
+            pub initial_counter_value: u32,
+            pub initial_user_interactions: Vec<(T::AccountId, u32)>,
+        }
+
+        #[pallet::genesis_build]
+        impl<T: Config> BuildGenesisConfig for GenesisConfig<T> {
+            fn build(&self) {
+                CounterValue::<T>::put(self.initial_counter_value);
+                for (account, count) in &self.initial_user_interactions {
+                    UserInteractions::<T>::insert(account, count);
+                }
+            }
+        }
+
+        #[pallet::call]
+        impl<T: Config> Pallet<T> {
+            #[pallet::call_index(0)]
+            #[pallet::weight(0)]
+            pub fn set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult {
+                ensure_root(origin)?;
+                ensure!(new_value <= T::CounterMaxValue::get(), Error::<T>::CounterMaxValueExceeded);
+                CounterValue::<T>::put(new_value);
+                Self::deposit_event(Event::CounterValueSet { new_value });
+                Ok(())
+            }
+
+            #[pallet::call_index(1)]
+            #[pallet::weight(0)]
+            pub fn increment(origin: OriginFor<T>, amount: u32) -> DispatchResult {
+                let who = ensure_signed(origin)?;
+                let current_value = CounterValue::<T>::get();
+                let new_value = current_value.checked_add(amount).ok_or(Error::<T>::Overflow)?;
+                ensure!(new_value <= T::CounterMaxValue::get(), Error::<T>::CounterMaxValueExceeded);
+                CounterValue::<T>::put(new_value);
+                UserInteractions::<T>::mutate(&who, |count| {
+                    *count = count.saturating_add(1);
+                });
+                Self::deposit_event(Event::CounterIncremented { new_value, who, amount });
+                Ok(())
+            }
+
+            #[pallet::call_index(2)]
+            #[pallet::weight(0)]
+            pub fn decrement(origin: OriginFor<T>, amount: u32) -> DispatchResult {
+                let who = ensure_signed(origin)?;
+                let current_value = CounterValue::<T>::get();
+                let new_value = current_value.checked_sub(amount).ok_or(Error::<T>::Underflow)?;
+                CounterValue::<T>::put(new_value);
+                UserInteractions::<T>::mutate(&who, |count| {
+                    *count = count.saturating_add(1);
+                });
+                Self::deposit_event(Event::CounterDecremented { new_value, who, amount });
+                Ok(())
+            }
+        }
+    }
+
+    ```
+
+## Add the Pallet to Your Runtime
+
+Now that your custom pallet is complete, you can integrate it into the parachain runtime.
+
+### Add Runtime Dependency
+
+1. In the `runtime/Cargo.toml`, add your custom pallet to the `[dependencies]` section:
+
+    ```toml title="runtime/Cargo.toml"
+    [dependencies]
+    # Local dependencies
+    pallet-custom = { path = "../pallets/pallet-custom", default-features = false }
+    
+    # Other dependencies
+    ```
+
+2. Enable the `std` feature by adding it to the `[features]` section:
+
+    ```toml title="runtime/Cargo.toml"
+    [features]
+    default = ["std"]
+    std = [
+        "codec/std",
+        "pallet-custom/std",
+        # ... other features
+    ]
+    ```
+
+### Implement the Config Trait
+
+At the end of the `runtime/src/configs/mod.rs` file, add the implementation: 
+
+```rust title="runtime/src/configs/mod.rs"
+/// Configure the custom counter pallet
+impl pallet_custom::Config for Runtime {
+    type RuntimeEvent = RuntimeEvent;
+    type CounterMaxValue = ConstU32<1000>;
+}
+```
+
+This configuration:
+
+- Links the pallet's events to the runtime's event system.
+- Sets a maximum counter value of 1000 using [`ConstU32`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/struct.ConstU32.html){target=\_blank}.
+
+### Add to Runtime Construct
+
+In the `runtime/src/lib.rs` file, locate the [`#[frame_support::runtime]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/attr.runtime.html){target=\_blank} section and add your pallet with a unique `pallet_index`:
+
+```rust title="runtime/src/lib.rs"
+#[frame_support::runtime]
+mod runtime {
+    #[runtime::runtime]
+    #[runtime::derive(
+        RuntimeCall,
+        RuntimeEvent,
+        RuntimeError,
+        RuntimeOrigin,
+        RuntimeTask,
+        RuntimeFreezeReason,
+        RuntimeHoldReason,
+        RuntimeSlashReason,
+        RuntimeLockId,
+        RuntimeViewFunction
+    )]
+    pub struct Runtime;
+
+    #[runtime::pallet_index(0)]
+    pub type System = frame_system;
+
+    // ... other pallets
+
+    #[runtime::pallet_index(51)]
+    pub type CustomPallet = pallet_custom;
+}
+```
+
+!!!warning
+    Each pallet must have a unique index. Duplicate indices will cause compilation errors. Choose an index that doesn't conflict with existing pallets.
+
+### Configure Genesis for Your Runtime
+
+To set initial values for your pallet when the chain starts, you'll need to configure the genesis in your chain specification. Genesis configuration is typically done in the `node/src/chain_spec.rs` file or when generating the chain specification.
+
+For development and testing, you can use the default values provided by the `#[derive(DefaultNoBound)]` macro. For production networks, you'll want to explicitly set these values in your chain specification.
+
+### Verify Runtime Compilation
+
+Compile the runtime to ensure everything is configured correctly:
+
+```bash
+cargo build --release
+```
+
+This command validates all pallet configurations and prepares the build for deployment.
+
+## Run Your Chain Locally
+
+Launch your parachain locally to test the new pallet functionality using the [Polkadot Omni Node](https://crates.io/crates/polkadot-omni-node){target=\_blank}.
+
+### Generate a Chain Specification
+
+Create a chain specification file with the updated runtime:
+
+```bash
+chain-spec-builder create -t development \
+--relay-chain paseo \
+--para-id 1000 \
+--runtime ./target/release/wbuild/parachain-template-runtime/parachain_template_runtime.compact.compressed.wasm \
+named-preset development
+```
+
+This command generates a `chain_spec.json` that includes your custom pallet.
+
+### Start the Parachain Node
+
+Launch the parachain:
+
+```bash
+polkadot-omni-node --chain ./chain_spec.json --dev
+```
+
+Verify the node starts successfully and begins producing blocks.
+
+## Interact with Your Pallet
+
+Use the Polkadot.js Apps interface to test your pallet:
+
+1. Navigate to [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9944#/extrinsics){target=\_blank}.
+
+2. Ensure you're connected to your local node at `ws://127.0.0.1:9944`.
+
+3. Go to **Developer** > **Extrinsics**.
+
+4. Locate **customPallet** in the pallet dropdown.
+
+5. You should see the available extrinsics:
+
+    - **`increment(amount)`**: Increase the counter by a specified amount.
+    - **`decrement(amount)`**: Decrease the counter by a specified amount.
+    - **`setCounterValue(newValue)`**: Set counter to a specific value (requires sudo/root).
+
+![](/images/parachains/customize-runtime/pallet-development/create-a-pallet/create-a-pallet-01.webp)
+
+## Key Takeaways
+
+You've successfully created and integrated a custom pallet into a Polkadot SDK-based runtime. You have now successfully:
+
+- Defined runtime-specific types and constants via the `Config` trait.
+- Implemented on-chain state using `StorageValue` and `StorageMap`.
+- Created signals to communicate state changes to external systems.
+- Established clear error handling with descriptive error types.
+- Configured initial blockchain state for both production and testing.
+- Built callable functions with proper validation and access control.
+- Added the pallet to a runtime and tested it locally.
+
+These components form the foundation for developing sophisticated blockchain logic in Polkadot SDK-based chains.
+
+## Where to Go Next
+
+<div class="grid cards" markdown>
+
+-   <span class="badge guide">Guide</span> __Mock Your Runtime__
+
+    ---
+
+    Learn to create a mock runtime environment for testing your pallet in isolation before integration.
+
+    [:octicons-arrow-right-24: Continue](/parachains/customize-runtime/pallet-development/mock-runtime/)
+
+</div>
+
+
+---
+
 Page Title: Create a Smart Contract
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/tutorials-smart-contracts-launch-your-first-project-create-contracts.md
@@ -3917,162 +4717,6 @@ You'll need to confirm the target network (by chain ID):
 </div>
 
 And that is it! You've successfully deployed an ERC-20 token contract to the Polkadot TestNet using Hardhat.
-
-## Where to Go Next
-
-<div class="grid cards" markdown>
-
--   <span class="badge guide">Guide</span> __Deploy an NFT with Remix__
-
-    ---
-
-    Walk through deploying an ERC-721 Non-Fungible Token (NFT) using OpenZeppelin's battle-tested NFT implementation and Remix.
-
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-nft/remix/)
-
-</div>
-
-
----
-
-Page Title: Deploy an ERC-20 to Polkadot Hub
-
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-erc20-erc20-remix.md
-- Canonical (HTML): https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix/
-- Summary: Deploy an ERC-20 token on Polkadot Hub using PolkaVM. This guide covers contract creation, compilation, deployment, and interaction via the Remix IDE.
-
-# Deploy an ERC-20 to Polkadot Hub
-
-## Introduction
-
-[ERC-20](https://eips.ethereum.org/EIPS/eip-20){target=\_blank} tokens are fungible tokens commonly used for creating cryptocurrencies, governance tokens, and staking mechanisms. Polkadot Hub enables easy token deployment with Ethereum-compatible smart contracts and tools via the EVM backend.
-
-This tutorial covers deploying an ERC-20 contract on the Polkadot Hub TestNet using [Remix IDE](https://remix.ethereum.org/){target=\_blank}, a web-based development tool. The ERC-20 contract can be retrieved from OpenZeppelin's [GitHub repository](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/v5.4.0/contracts/token/ERC20){target=\_blank}  or their [Contract Wizard](https://wizard.openzeppelin.com/){target=\_blank}.
-
-## Prerequisites
-
-Before starting, make sure you have:
-
-- Basic understanding of Solidity programming and fungible tokens.
-- An EVM-compatible wallet [connected to Polkadot Hub](/smart-contracts/integrations/wallets){target=\_blank}. This example utilizes [MetaMask](https://metamask.io/){target=\_blank}.
-- A funded account with tokens for transaction fees. This example will deploy the contract to the Polkadot TestNet, so you'll [need some TestNet tokens](/smart-contracts/faucet/#get-test-tokens){target=\_blank} from the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}.
-
-## Create Your Contract
-
-To create the ERC-20 contract, you can follow the steps below:
-
-1. Navigate to the [Polkadot Remix IDE](https://remix.polkadot.io){target=\_blank}.
-2. Click in the **Create new file** button under the **contracts** folder, and name your contract as `MyToken.sol`.
-
-    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix-1.webp)
-
-3. Now, paste the following ERC-20 contract code into the editor:
-
-    ```solidity title="MyToken.sol"
-    // SPDX-License-Identifier: MIT
-    // Compatible with OpenZeppelin Contracts ^5.4.0
-    pragma solidity ^0.8.27;
-
-    import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-    import {ERC20Permit} from "@openzeppelin/contracts/token/ERC20/extensions/ERC20Permit.sol";
-    import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
-
-    contract MyToken is ERC20, Ownable, ERC20Permit {
-        constructor(address initialOwner)
-            ERC20("MyToken", "MTK")
-            Ownable(initialOwner)
-            ERC20Permit("MyToken")
-        {}
-
-        function mint(address to, uint256 amount) public onlyOwner {
-            _mint(to, amount);
-        }
-    }
-    ```
-
-    The key components of the code above are:
-
-    - Contract imports:
-
-        - **[`ERC20.sol`](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/v5.4.0/contracts/token/ERC20/ERC20.sol){target=\_blank}**: The base contract for fungible tokens, implementing core functionality like transfers, approvals, and balance tracking.
-        - **[`ERC20Permit.sol`](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/v5.4.0/contracts/token/ERC20/extensions/ERC20Permit.sol){target=\_blank}**: [EIP-2612](https://eips.ethereum.org/EIPS/eip-2612){target=\_blank} extension for ERC-20 that adds the [permit function](https://docs.openzeppelin.com/contracts/5.x/api/token/erc20#ERC20Permit-permit-address-address-uint256-uint256-uint8-bytes32-bytes32-){target=\_blank}, allowing approvals via off-chain signatures (no on-chain tx from the holder). Manages nonces and EIP-712 domain separator and updates allowances when a valid signature is presented.
-        - **[`Ownable.sol`](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/v5.4.0/contracts/access/Ownable.sol){target=\_blank}**: Provides basic authorization control, ensuring only the contract owner can mint new tokens.
-    
-    - Constructor parameters:
-
-        - **`initialOwner`**: Sets the address that will have administrative rights over the contract.
-        - **`"MyToken"`**: The full name of your token.
-        - **`"MTK"`**: The symbol representing your token in wallets and exchanges.
-
-    - Key functions:
-
-        - **`mint(address to, uint256 amount)`**: Allows the contract owner to create new tokens for any address. The amount should include 18 decimals (e.g., 1 token = 1000000000000000000).
-        - Inherited [Standard ERC-20](https://ethereum.org/en/developers/docs/standards/tokens/erc-20/){target=\_blank} functions:
-            - **`transfer(address recipient, uint256 amount)`**: Sends a specified amount of tokens to another address.
-            - **`approve(address spender, uint256 amount)`**: Grants permission for another address to spend a specific number of tokens on behalf of the token owner.
-            - **`transferFrom(address sender, address recipient, uint256 amount)`**: Transfers tokens from one address to another, if previously approved.
-            - **`balanceOf(address account)`**: Returns the token balance of a specific address.
-            - **`allowance(address owner, address spender)`**: Checks how many tokens an address is allowed to spend on behalf of another address.
-
-    !!! tip
-        Use the [OpenZeppelin Contracts Wizard](https://wizard.openzeppelin.com/){target=\_blank} to generate customized smart contracts quickly. Simply configure your contract, copy the generated code, and paste it into the Remix IDE for deployment. Below is an example of an ERC-20 token contract created with it:
-
-        ![Screenshot of the OpenZeppelin Contracts Wizard showing an ERC-20 contract configuration.](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix-2.webp)
-        
-
-## Compile 
-
-The compilation transforms your Solidity source code into bytecode that can be deployed on the blockchain. During this process, the compiler checks your contract for syntax errors, ensures type safety, and generates the machine-readable instructions needed for blockchain execution. 
-
-To compile your contract, ensure you have it opened in the Remix IDE Editor, and follow the instructions below:
-
-1. Select the **Solidity Compiler** plugin from the left panel.
-2. Click the **Compile MyToken.sol** button.
-3. If the compilation succeeded, you'll see a green checkmark indicating success in the **Solidity Compiler** icon.
-
-![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix-3.gif)
-
-## Deploy
-
-Deployment is the process of publishing your compiled smart contract to the blockchain, making it permanently available for interaction. During deployment, you'll create a new instance of your contract on the blockchain, which involves:
-
-1. Select the **Deploy & Run Transactions** plugin from the left panel.
-2. Configure the deployment settings:
-    1. From the **ENVIRONMENT** dropdown, select **Injected Provider - MetaMask** (check the [Deploying Contracts](/smart-contracts/dev-environments/remix/deploy-a-contract/){target=\_blank} section of the Remix IDE guide for more details).
-    2. (Optional) From the **ACCOUNT** dropdown, select the acccount you want to use for the deploy.
-
-3. Configure the contract parameters:
-    1. Enter the address that will own the deployed token contract.
-    2. Click the **Deploy** button to initiate the deployment.
-
-4. **MetaMask will pop up**: Review the transaction details. Click **Confirm** to deploy your contract.
-5. If the deployment process succeeded, you will see the transaction details in the terminal, including the contract address and deployment transaction hash.
-
-![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix-4.gif)
-
-## Interact with Your Contract
-
-Once deployed, you can interact with your contract through Remix. Find your contract under **Deployed/Unpinned Contracts**, and click it to expand the available methods. In this example, you'll mint some tokens to a given address:
-
-1. Expand the **mint** function:
-    1. Enter the recipient address and the amount (remember to add 18 zeros for 1 whole token).
-    2. Click **transact**.
-
-2. Click **Approve** to confirm the transaction in the MetaMask popup.
-
-3. If the transaction succeeds, you will see a green check mark in the terminal.
-
-4. You can also call the **balanceOf** function by passing the address of the **mint** call to confirm the new balance.
-
-![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix-5.gif)
-
-
-Other standard functions you can use:
-
-- **`transfer(address to, uint256 amount)`**: Send tokens to another address.
-- **`approve(address spender, uint256 amount)`**: Allow another address to spend your tokens.
-
-Feel free to explore and interact with the contract's other functions using the same approach: select the method, provide any required parameters, and confirm the transaction in MetaMask when needed.
 
 ## Where to Go Next
 
@@ -5466,6 +6110,10 @@ docker run -it parity/subkey:latest generate --scheme sr25519
 
 The output should look similar to the following:
 
+<div id="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>docker run -it parity/subkey:latest generate --scheme sr25519</span>
+  <span> <br />Secret phrase: lemon play remain picture leopard frog mad bridge hire hazard best buddy <br />Network ID: substrate <br />Secret seed: 0xb748b501de061bae1fcab1c0b814255979d74d9637b84e06414a57a1a149c004 <br />Public key (hex): 0xf4ec62ec6e70a3c0f8dcbe0531e2b1b8916cf16d30635bbe9232f6ed3f0bf422 <br />Account ID: 0xf4ec62ec6e70a3c0f8dcbe0531e2b1b8916cf16d30635bbe9232f6ed3f0bf422 <br />Public key (SS58): 5HbqmBBJ5ALUzho7tw1k1jEgKBJM7dNsQwrtfSfUskT1a3oe <br />SS58 Address: 5HbqmBBJ5ALUzho7tw1k1jEgKBJM7dNsQwrtfSfUskT1a3oe </span>
+</div>
 
 Ensure that this command is executed twice to generate the keys for both the account and session keys. Save them for future reference.
 
@@ -5503,7 +6151,67 @@ To define your chain specification:
     - Modify the `sudo` value to specify the account that will have sudo access to the parachain.
   
     ```json
-    
+    {
+        "bootNodes": [],
+        "chainType": "Live",
+        "codeSubstitutes": {},
+        "genesis": {
+            "runtimeGenesis": {
+                "code": "0x...",
+                "patch": {
+                    "aura": {
+                        "authorities": []
+                    },
+                    "auraExt": {},
+                    "balances": {
+                        "balances": [["INSERT_SUDO_ACCOUNT", 1152921504606846976]]
+                    },
+                    "collatorSelection": {
+                        "candidacyBond": 16000000000,
+                        "desiredCandidates": 0,
+                        "invulnerables": ["INSERT_ACCOUNT_ID_COLLATOR_1"]
+                    },
+                    "parachainInfo": {
+                        "parachainId": "INSERT_PARA_ID"
+                    },
+                    "parachainSystem": {},
+                    "polkadotXcm": {
+                        "safeXcmVersion": 4
+                    },
+                    "session": {
+                        "keys": [
+                            [
+                                "INSERT_ACCOUNT_ID_COLLATOR_1",
+                                "INSERT_ACCOUNT_ID_COLLATOR_1",
+                                {
+                                    "aura": "INSERT_SESSION_KEY_COLLATOR_1"
+                                }
+                            ]
+                        ],
+                        "nonAuthorityKeys": []
+                    },
+                    "sudo": {
+                        "key": "INSERT_SUDO_ACCOUNT"
+                    },
+                    "system": {},
+                    "transactionPayment": {
+                        "multiplier": "1000000000000000000"
+                    }
+                }
+            }
+        },
+        "id": "INSERT_ID",
+        "name": "INSERT_NAME",
+        "para_id": "INSERT_PARA_ID",
+        "properties": {
+            "tokenDecimals": 12,
+            "tokenSymbol": "UNIT"
+        },
+        "protocolId": "INSERT_PROTOCOL_ID",
+        "relay_chain": "paseo",
+        "telemetryEndpoints": null
+    }
+
     ```
 
     For this tutorial, the `plain_chain_spec.json` file should look similar to the following. Take into account that the same account is being used for the collator and sudo, which must not be the case in a production environment:
@@ -5511,7 +6219,74 @@ To define your chain specification:
     ??? code "View complete script"
 
         ```json title="plain_chain_spec.json"
-        
+        {
+            "bootNodes": [],
+            "chainType": "Live",
+            "codeSubstitutes": {},
+            "genesis": {
+                "runtimeGenesis": {
+                    "code": "0x...",
+                    "patch": {
+                        "aura": {
+                            "authorities": []
+                        },
+                        "auraExt": {},
+                        "balances": {
+                            "balances": [
+                                [
+                                    "5F9Zteceg3Q4ywi63AxQNVb2b2r5caFSqjQxBkCrux6j8ZpS",
+                                    1152921504606846976
+                                ]
+                            ]
+                        },
+                        "collatorSelection": {
+                            "candidacyBond": 16000000000,
+                            "desiredCandidates": 0,
+                            "invulnerables": [
+                                "5F9Zteceg3Q4ywi63AxQNVb2b2r5caFSqjQxBkCrux6j8ZpS"
+                            ]
+                        },
+                        "parachainInfo": {
+                            "parachainId": 4508
+                        },
+                        "parachainSystem": {},
+                        "polkadotXcm": {
+                            "safeXcmVersion": 4
+                        },
+                        "session": {
+                            "keys": [
+                                [
+                                    "5F9Zteceg3Q4ywi63AxQNVb2b2r5caFSqjQxBkCrux6j8ZpS",
+                                    "5F9Zteceg3Q4ywi63AxQNVb2b2r5caFSqjQxBkCrux6j8ZpS",
+                                    {
+                                        "aura": "5GcAKNdYcw5ybb2kAnta8WVFyiQbGJ5od3aH9MsgYDmVcrhJ"
+                                    }
+                                ]
+                            ],
+                            "nonAuthorityKeys": []
+                        },
+                        "sudo": {
+                            "key": "5F9Zteceg3Q4ywi63AxQNVb2b2r5caFSqjQxBkCrux6j8ZpS"
+                        },
+                        "system": {},
+                        "transactionPayment": {
+                            "multiplier": "1000000000000000000"
+                        }
+                    }
+                }
+            },
+            "id": "custom",
+            "name": "Custom",
+            "para_id": 4508,
+            "properties": {
+                "tokenDecimals": 12,
+                "tokenSymbol": "UNIT"
+            },
+            "protocolId": null,
+            "relay_chain": "paseo",
+            "telemetryEndpoints": null
+        }
+
         ```
 
 3. Save your changes and close the plain text chain specification file.
@@ -5561,7 +6336,7 @@ Once you have the genesis state and runtime, you can now register these with you
 
     ![](/images/parachains/launch-a-parachain/deploy-to-polkadot/deploy-to-polkadot-9.webp)
    
-3. Confirm your details and **+ Submit** button, where there should be a new Parathread with your parachain ID and an active **Deregister** button.
+3. Confirm your details and click the **+ Submit** button, where there should be a new Parathread with your parachain ID and an active **Deregister** button.
 
     ![](/images/parachains/launch-a-parachain/deploy-to-polkadot/deploy-to-polkadot-10.webp)
 
@@ -5582,6 +6357,12 @@ polkadot-omni-node key generate-node-key \
 
 After running the command, you should see the following output, indicating the base path now has a suitable node key: 
 
+<div id="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>polkadot-omni-node key generate-node-key --base-path data --chain raw_chain_spec.json</span>
+  <br />
+  <span data-ty="progress">Generating key in "/data/chains/custom/network/secret_ed25519"</span>
+  <span data-ty="progress">12D3KooWKGW964eG4fAwsNMFdckbj3GwhpmSGFU9dd8LFAVAa4EE</span>
+</div>
 
 You must have the ports for the collator publicly accessible and discoverable to enable parachain nodes to peer with Paseo validator nodes to produce blocks. You can specify the ports with the `--port` command-line option. You can start the collator with a command similar to the following:
 
@@ -5635,6 +6416,109 @@ With your parachain collator operational, the next step is acquiring coretime. T
 - On-demand coretime is ordered via the [`OnDemand`](https://paritytech.github.io/polkadot-sdk/master/polkadot_runtime_parachains/on_demand/index.html){target=\_blank} pallet, which is located on the respective relay chain.
 
 Once coretime is correctly assigned to your parachain, whether bulk or on-demand, blocks should be produced (provided your collator is running).
+
+
+---
+
+Page Title: Dual Virtual Machine Stack
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-for-eth-devs-dual-vm-stack.md
+- Canonical (HTML): https://docs.polkadot.com/smart-contracts/for-eth-devs/dual-vm-stack/
+- Summary: Compare Polkadot’s dual smart contract VMs—REVM for EVM compatibility and PolkaVM for RISC-V performance, flexibility, and efficiency.
+
+# Dual Virtual Machine Stack
+
+!!! smartcontract "PolkaVM Preview Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+## Introduction
+
+Polkadot's smart contract platform supports two distinct virtual machine (VM) architectures, providing developers with flexibility in selecting the optimal execution backend for their specific needs. This approach strikes a balance between immediate Ethereum compatibility and long-term innovation, enabling developers to deploy either unmodified (Ethereum Virtual Machine) EVM contracts using Rust Ethereum Virtual Machine (REVM) or optimize for higher performance using PolkaVM (PVM).
+
+Both VM options share common infrastructure, including RPC interfaces, tooling support, and precompiles. The following sections compare architectures and guide you in selecting the best VM for your project's needs.
+
+## Migrate from EVM
+
+The [REVM backend](https://github.com/bluealloy/revm){target=\_blank} integrates a complete Rust implementation of the EVM, enabling Solidity contracts to run unchanged on Polkadot's smart contract platform.
+
+REVM allows developers to use their existing Ethereum tooling and infrastructure to build on Polkadot. Choose REVM to:
+
+- Migrate existing Ethereum contracts without modifications.
+- Retain exact EVM behavior for audit tools. 
+- Use developer tools that rely upon inspecting EVM bytecode.
+- Prioritize rapid deployment over optimization.
+- Work with established Ethereum infrastructure and tooling to build on Polkadot.
+
+REVM enables Ethereum developers to seamlessly migrate to Polkadot, achieving performance and fee improvements without modifying their existing contracts or developer tooling stack.
+
+## Upgrade to PolkaVM
+
+[**PolkaVM**](https://github.com/paritytech/polkavm){target=\_blank} is a custom virtual machine optimized for performance with [RISC-V-based](https://en.wikipedia.org/wiki/RISC-V){target=\_blank} architecture, supporting Solidity and additional high-performance languages. It serves as the core execution environment, integrated directly within the runtime. Choose the PolkaVM for:
+
+- An efficient interpreter for immediate code execution.
+- A planned [Just In Time (JIT)](https://en.wikipedia.org/wiki/Just-in-time_compilation){target=\_blank} compiler for optimized performance.
+- Dual-mode execution capability, allowing selection of the most appropriate backend for specific workloads.
+- Optimized performance for short-running contract calls through the interpreter.
+
+The interpreter remains particularly beneficial for contracts with minimal code execution, as it enables immediate code execution through lazy interpretation.
+
+## Architecture
+
+The following key components of PolkaVM work together to enable Ethereum compatibility on Polkadot-based chains. 
+
+### Revive Pallet
+
+[**`pallet_revive`**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/index.html){target=\_blank} is a runtime module that executes smart contracts by adding extrinsics, runtime APIs, and logic to convert Ethereum-style transactions into formats compatible with Polkadot SDK-based blockchains. It processes Ethereum-style transactions through the following workflow:
+
+```mermaid
+sequenceDiagram
+    participant User as User/dApp
+    participant Proxy as Ethereum JSON RPC Proxy
+    participant Chain as Blockchain Node
+    participant Pallet as pallet_revive
+    
+    User->>Proxy: Submit Ethereum Transaction
+    Proxy->>Chain: Repackage as Polkadot Compatible Transaction
+    Chain->>Pallet: Process Transaction
+    Pallet->>Pallet: Decode Ethereum Transaction
+    Pallet->>Pallet: Execute Contract via PolkaVM
+    Pallet->>Chain: Return Results
+    Chain->>Proxy: Forward Results
+    Proxy->>User: Return Ethereum-compatible Response
+```
+
+This proxy-based approach eliminates the need for node binary modifications, maintaining compatibility across different client implementations. Preserving the original Ethereum transaction payload simplifies the adaptation of existing tools, which can continue processing familiar transaction formats.
+
+### PolkaVM Design Fundamentals
+
+PolkaVM differs from the EVM in two key ways that make it faster, more hardware-efficient, and easier to extend:
+
+- **Register-based design**: Instead of a stack machine, PolkaVM uses a RISC-V–style register model. This design:
+
+    - Uses a fixed set of registers to pass arguments, not an infinite stack.
+    - Maps cleanly to real hardware like x86-64.
+    - Simplifies compilation and boosts runtime efficiency.
+    - Enables tighter control over register allocation and performance tuning.
+
+- **64-bit word size**: PolkaVM runs on a native 64-bit word size, aligning directly with modern CPUs. This design:
+
+    - Executes arithmetic operations with direct hardware support.
+    - Maintains compatibility with Solidity’s 256-bit types via YUL translation.
+    - Accelerates computation-heavy workloads through native word alignment.
+    - Integrates easily with low-level, performance-focused components.
+
+## Where To Go Next
+
+<div class="grid cards" markdown>
+
+-   <span class="badge learn">Learn</span> __Contract Deployment__
+
+    ---
+
+    Learn how REVM and PVM compare for compiling and deploying smart contracts.
+
+    [:octicons-arrow-right-24: Reference](/smart-contracts/for-eth-devs/contract-deployment/)
+
+</div>
 
 
 ---
@@ -8712,21 +9596,26 @@ Westend is a Parity-maintained, Polkadot SDK-based blockchain that serves as a t
 
 ---
 
-Page Title: Install Polkadot SDK Dependencies
+Page Title: Install Polkadot SDK
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/parachains-install-polkadot-sdk.md
 - Canonical (HTML): https://docs.polkadot.com/parachains/install-polkadot-sdk/
-- Summary: Install everything you need to begin working with Substrated-based blockchains and the Polkadot SDK, the framework for building blockchains.
+- Summary: Install all required Polkadot SDK dependencies, set up the SDK itself, and verify that it runs correctly on your machine.
 
-# Install Polkadot SDK Dependencies
+# Install Polkadot SDK
 
-This guide provides step-by-step instructions for installing the dependencies you need to work with the Polkadot SDK-based chains on macOS, Linux, and Windows. Follow the appropriate section for your operating system to ensure all necessary tools are installed and configured properly.
+This guide provides step-by-step instructions for installing the Polkadot SDK on macOS, Linux, and Windows. The installation process consists of two main parts:
 
-## macOS
+- **Installing dependencies**: Setting up Rust, required system packages, and development tools.
+- **Building the Polkadot SDK**: Cloning and compiling the Polkadot SDK repository.
+
+Follow the appropriate section for your operating system to ensure all necessary tools are installed and configured properly.
+
+## Install Dependencies: macOS
 
 You can install Rust and set up a Substrate development environment on Apple macOS computers with Intel or Apple M1 processors.
 
-### Before You Begin
+### Before You Begin {: #before-you-begin-mac-os }
 
 Before you install Rust and set up your development environment on macOS, verify that your computer meets the following basic requirements:
 
@@ -8736,7 +9625,7 @@ Before you install Rust and set up your development environment on macOS, verify
 - Storage of at least 10 GB of available space.
 - Broadband Internet connection.
 
-#### Install Homebrew
+### Install Homebrew
 
 In most cases, you should use Homebrew to install and manage packages on macOS computers. If you don't already have Homebrew installed on your local computer, you should download and install it before continuing.
 
@@ -8762,7 +9651,7 @@ To install Homebrew:
       <span data-ty>Homebrew 4.3.15</span>
     </div>
 
-#### Support for Apple Silicon
+### Support for Apple Silicon
 
 Protobuf must be installed before the build process can begin. To install it, run the following command:
 
@@ -8770,7 +9659,7 @@ Protobuf must be installed before the build process can begin. To install it, ru
 brew install protobuf
 ```
 
-### Install Required Packages and Rust
+### Install Required Packages and Rust {: #install-required-packages-and-rust-mac-os }
 
 Because the blockchain requires standard cryptography to support the generation of public/private key pairs and the validation of transaction signatures, you must also have a package that provides cryptography, such as `openssl`.
 
@@ -8811,16 +9700,17 @@ To install `openssl` and the Rust toolchain on macOS:
     rustup component add rust-src
     ```
 
-8. [Verify your installation](#verifying-installation).
-9. Install `cmake` using the following command:
+8. Install `cmake` using the following command:
 
     ```bash
     brew install cmake
     ```
 
-## Linux
+9. Proceed to [Build the Polkadot SDK](#build-the-polkadot-sdk).
 
-Rust supports most Linux distributions. Depending on the specific distribution and version of the operating system you use, you might need to add some software dependencies to your environment. In general, your development environment should include a linker or C-compatible compiler, such as `clang` and an appropriate integrated development environment (IDE).
+## Install Dependencies: Linux
+
+Rust supports most Linux distributions. Depending on the specific distribution and version of the operating system you use, you might need to add some software dependencies to your environment. In general, your development environment should include a linker or a C-compatible compiler, such as `clang`, and an appropriate integrated development environment (IDE).
 
 ### Before You Begin {: #before-you-begin-linux }
 
@@ -8843,7 +9733,7 @@ Because the blockchain requires standard cryptography to support the generation 
 To install the Rust toolchain on Linux:
 
 1. Open a terminal shell.
-2. Check the packages you have installed on the local computer by running an appropriate package management command for your Linux distribution.
+2. Check the packages installed on the local computer by running the appropriate package management command for your Linux distribution.
 3. Add any package dependencies you are missing to your local development environment by running the appropriate package management command for your Linux distribution:
 
     === "Ubuntu"
@@ -8877,7 +9767,7 @@ To install the Rust toolchain on Linux:
         sudo zypper install clang curl git openssl-devel llvm-devel libudev-devel make protobuf
         ```
 
-    Remember that different distributions might use different package managers and bundle packages in different ways. For example, depending on your installation selections, Ubuntu Desktop and Ubuntu Server might have different packages and different requirements. However, the packages listed in the command-line examples are applicable for many common Linux distributions, including Debian, Linux Mint, MX Linux, and Elementary OS.
+    Remember that different distributions might use different package managers and bundle packages in different ways. For example, depending on your installation selections, Ubuntu Desktop and Ubuntu Server might have different packages and different requirements. However, the packages listed in the command-line examples are applicable to many common Linux distributions, including Debian, Linux Mint, MX Linux, and Elementary OS.
 
 4. Download the `rustup` installation program and use it to install Rust by running the following command:
 
@@ -8907,22 +9797,22 @@ To install the Rust toolchain on Linux:
     rustup component add rust-src
     ```
 
-9. [Verify your installation](#verifying-installation).
+9. Proceed to [Build the Polkadot SDK](#build-the-polkadot-sdk).
 
-## Windows (WSL)
+## Install Dependencies: Windows (WSL)
 
 In general, UNIX-based operating systems—like macOS or Linux—provide a better development environment for building Substrate-based blockchains.
 
 However, suppose your local computer uses Microsoft Windows instead of a UNIX-based operating system. In that case, you can configure it with additional software to make it a suitable development environment for building Substrate-based blockchains. To prepare a development environment on a Microsoft Windows computer, you can use Windows Subsystem for Linux (WSL) to emulate a UNIX operating environment.
 
-### Before You Begin {: #before-you-begin-windows }
+### Before You Begin {: #before-you-begin-windows-wls }
 
 Before installing on Microsoft Windows, verify the following basic requirements:
 
 - You have a computer running a supported Microsoft Windows operating system:
     - **For Windows desktop**: You must be running Microsoft Windows 10, version 2004 or later, or Microsoft Windows 11 to install WSL.
     - **For Windows server**: You must be running Microsoft Windows Server 2019, or later, to install WSL on a server operating system.
-- You have good internet connection and access to a shell terminal on your local computer.
+- You have a good internet connection and access to a shell terminal on your local computer.
 
 ### Set Up Windows Subsystem for Linux
 
@@ -8960,12 +9850,12 @@ To prepare a development environment using WSL:
 
     For more information about setting up WSL as a development environment, see the [Set up a WSL development environment](https://learn.microsoft.com/en-us/windows/wsl/setup/environment){target=\_blank} docs.
 
-### Install Required Packages and Rust {: #install-required-packages-and-rust-windows }
+### Install Required Packages and Rust {: #install-required-packages-and-rust-windows-wls }
 
 To install the Rust toolchain on WSL:
 
 1. Click the **Start** menu, then select **Ubuntu**.
-2. Type a UNIX user name to create user account.
+2. Type a UNIX user name to create a user account.
 3. Type a password for your UNIX user, then retype the password to confirm it.
 4. Download the latest updates for the Ubuntu distribution using the Ubuntu Advanced Packaging Tool (`apt`) by running the following command:
 
@@ -9008,34 +9898,122 @@ To install the Rust toolchain on WSL:
     rustup component add rust-src
     ```
 
-11. [Verify your installation](#verifying-installation).
+11. Proceed to [Build the Polkadot SDK](#build-the-polkadot-sdk).
 
-## Verifying Installation
+## Build the Polkadot SDK
 
-Verify the configuration of your development environment by running the following command:
+After installing all dependencies, you can now clone and compile the Polkadot SDK repository to verify your setup.
+
+### Clone the Polkadot SDK
+
+1. Clone the Polkadot SDK repository:
+
+    ```bash
+    git clone https://github.com/paritytech/polkadot-sdk.git
+    ```
+
+2. Navigate into the project directory:
+
+    ```bash
+    cd polkadot-sdk
+    ```
+
+### Compile the Polkadot SDK
+
+Compile the entire Polkadot SDK repository to ensure your environment is properly configured:
 
 ```bash
-rustup show
+cargo build --release --locked
 ```
 
-The command displays output similar to the following:
+!!!note
+    This initial compilation will take significant time, depending on your machine specifications. It compiles all components of the Polkadot SDK to verify your toolchain is correctly configured.
 
-<div id="termynal" data-termynal>
-  <span data-ty="input"><span class="file-path"></span>rustup show</span>
-  <span data-ty>...</span>
-  <br />
-  <span data-ty>active toolchain</span>
-  <span data-ty>----------------</span>
-  <span data-ty>name: stable-aarch64-apple-darwin</span>
-  <span data-ty>active because: it's the default toolchain</span>
-  <span data-ty>installed targets:</span>
-  <span data-ty>  aarch64-apple-darwin</span>
-  <span data-ty>  wasm32-unknown-unknown</span>
-</div>
+### Verify the Build
+
+Once the build completes successfully, verify the installation by checking the compiled binaries:
+
+```bash
+ls target/release
+```
+
+You should see several binaries, including:
+
+- `polkadot`: The Polkadot relay chain node.
+- `polkadot-parachain`: The parachain collator node.
+- `polkadot-omni-node`:The omni node for running parachains.
+- `substrate-node`: The kitchensink node with many pre-configured pallets.
+
+Verify the Polkadot binary works by checking its version:
+
+```bash
+./target/release/polkadot --version
+```
+
+This should display version information similar to:
+
+```bash
+polkadot 1.16.0-1234abcd567
+```
+
+If you see the version output without errors, your development environment is correctly configured and ready for Polkadot SDK development!
+
+## Optional: Run the Kitchensink Node
+
+The Polkadot SDK includes a feature-rich node called "kitchensink" located at `substrate/bin/node`. This node comes pre-configured with many pallets and features from the Polkadot SDK, making it an excellent reference for exploring capabilities and understanding how different components work together.
+
+!!!note
+    If you've already compiled the Polkadot SDK in the previous step, the `substrate-node` binary is already built and ready to use. You can skip directly to running the node.
+
+### Run the Kitchensink Node in Development Mode
+
+From the `polkadot-sdk` root directory, start the kitchensink node in development mode:
+
+```bash
+./target/release/substrate-node --dev
+```
+
+The `--dev` flag enables development mode, which:
+
+- Runs a single-node development chain.
+- Produces and finalizes blocks automatically.
+- Uses pre-configured development accounts (Alice, Bob, etc.).
+- Deletes all data when stopped, ensuring a clean state on restart.
+
+
+You should see log output indicating the node is running and producing blocks, with increasing block numbers after `finalized`.
+
+### Interact with the Kitchensink Node
+
+The kitchensink node is accessible at `ws://localhost:9944`. Open [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} in your browser to explore its features and connect to the local node.
+
+1. Click the network icon in the top left corner.
+2. Scroll to **Development** and select **Local Node**.
+3. Click **Switch** to connect to your local node.
+
+![](/images/parachains/install-polkadot-sdk/install-polkadot-sdk-1.webp)
+
+Once connected, the interface updates its color scheme to indicate a successful connection to the local node.
+
+![](/images/parachains/install-polkadot-sdk/install-polkadot-sdk-2.webp)
+
+You can now explore the various pallets and features included in the kitchensink node, making it a valuable reference as you develop your own blockchain applications.
+
+To stop the node, press `Control-C` in the terminal.
 
 ## Where to Go Next
 
-- **[Parachain Zero to Hero Tutorials](/tutorials/polkadot-sdk/parachains/zero-to-hero/){target=\_blank}**: A series of step-by-step guides to building, testing, and deploying custom pallets and runtimes using the Polkadot SDK.
+<div class="grid cards" markdown>
+
+-   __Get Started with Parachain Development__
+
+    ---
+
+    Practical examples and tutorials for building and deploying Polkadot parachains, covering everything from launch to customization and cross-chain messaging.
+
+    [:octicons-arrow-right-24: Get Started](/parachains/get-started/)
+ 
+</div>
 
 
 ---
@@ -10195,748 +11173,6 @@ Substrate Connect automatically detects whether the user has the extension insta
 
 ---
 
-Page Title: Make a Custom Pallet
-
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/parachains-customize-runtime-pallet-development-create-a-pallet.md
-- Canonical (HTML): https://docs.polkadot.com/parachains/customize-runtime/pallet-development/create-a-pallet/
-- Summary: Learn how to create custom pallets using FRAME, allowing for flexible, modular, and scalable blockchain development. Follow the step-by-step guide.
-
-# Make a Custom Pallet
-
-## Introduction
-
-[Framework for Runtime Aggregation of Modular Entities (FRAME)](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/frame_runtime/index.html){target=\_blank} provides a powerful set of tools for blockchain development through modular components called [pallets](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/frame_runtime/pallet/index.html){target=\_blank}. These Rust-based runtime modules allow you to build custom blockchain functionality with precision and flexibility. While FRAME includes a library of pre-built pallets, its true strength lies in the ability to create custom pallets tailored to your specific needs.
-
-In this guide, you'll learn how to build a custom counter pallet from scratch that demonstrates core pallet development concepts. The pallet you'll create includes:
-
-- User-triggered increment and decrement operations
-- Root-only counter value setting
-- Event emission for state changes
-- Custom error handling
-- Storage management
-- User interaction tracking
-- Genesis configuration for initial state
-
-## Prerequisites
-
-Before you begin, ensure you have:
-
-- [Polkadot SDK dependencies installed](/parachains/install-polkadot-sdk/){target=\_blank}
-- A [Polkadot SDK Parchain Template](/parachains/launch-a-parachain/set-up-the-parachain-template/){target=\_blank} set up locally
-- Basic familiarity with [FRAME concepts](/parachains/customize-runtime/){target=\_blank}
-
-## Core Pallet Components
-
-As you build your custom pallet, you'll work with these key sections:
-
-- **Imports and dependencies**: Bring in necessary FRAME libraries and external modules.
-- **Runtime configuration trait**: Specify types and constants for pallet-runtime interaction.
-- **Runtime events**: Define signals that communicate state changes.
-- **Runtime errors**: Define error types returned from dispatchable calls.
-- **Runtime storage**: Declare on-chain storage items for your pallet's state.
-- **Genesis configuration**: Set initial blockchain state.
-- **Dispatchable functions (extrinsics)**: Create callable functions for user interactions.
-
-For additional macros beyond those covered here, refer to the [pallet_macros](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/index.html){target=\_blank} section of the Polkadot SDK Docs.
-
-## Create the Pallet Project
-
-Begin by creating a new Rust library project for your custom pallet within the [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk-parachain-template){target=\_blank}:
-
-1. Navigate to the root directory of your parachain template:
-
-    ```bash
-    cd polkadot-sdk-parachain-template
-    ```
-
-2. Navigate to the `pallets` directory:
-
-    ```bash
-    cd pallets
-    ```
-
-3. Create a new Rust library project:
-
-    ```bash
-    cargo new --lib pallet-custom
-    ```
-
-4. Enter the new project directory:
-
-    ```bash
-    cd pallet-custom
-    ```
-
-5. Verify the project structure. It should look like:
-
-    ```
-    pallet-custom/
-    ├── Cargo.toml
-    └── src/
-        └── lib.rs
-    ```
-
-## Configure Dependencies
-
-To integrate your custom pallet into the Polkadot SDK-based runtime, configure the `Cargo.toml` file with the required dependencies. Since your pallet exists within the parachain template workspace, you'll use workspace inheritance to maintain version consistency.
-
-1. Open `Cargo.toml` and replace its contents with:
-
-    ```toml title="pallet-custom/Cargo.toml"
-    [package]
-    name = "pallet-custom"
-    description = "A custom counter pallet for demonstration purposes."
-    version = "0.1.0"
-    license = "Unlicense"
-    authors.workspace = true
-    homepage.workspace = true
-    repository.workspace = true
-    edition.workspace = true
-    publish = false
-
-    [package.metadata.docs.rs]
-    targets = ["x86_64-unknown-linux-gnu"]
-
-    [dependencies]
-    codec = { features = ["derive"], workspace = true }
-    scale-info = { features = ["derive"], workspace = true }
-    frame = { features = ["experimental", "runtime"], workspace = true }
-
-    [features]
-    default = ["std"]
-    std = [
-        "codec/std",
-        "scale-info/std",
-        "frame/std",
-    ]
-    ```
-
-    !!!note "Version Management"
-        The parachain template uses workspace inheritance to maintain consistent dependency versions across all packages. The actual versions are defined in the root `Cargo.toml` file, ensuring compatibility throughout the project. By using `workspace = true`, your pallet automatically inherits the correct versions.
-
-2. The parachain template already includes `pallets/*` in the workspace members, so your new pallet is automatically recognized. Verify this by checking the root `Cargo.toml`:
-
-    ```toml title="Cargo.toml"
-    [workspace.members]
-    members = [
-        "node",
-        "pallets/*",
-        "runtime",
-    ]
-    ```
-
-## Initialize the Pallet Structure
-
-With dependencies configured, set up the basic scaffold that will hold your pallet's logic:
-
-1. Open `src/lib.rs` and delete all existing content.
-
-2. Add the initial scaffold structure using the unified `frame` dependency:
-
-    ```rust title="src/lib.rs"
-    #![cfg_attr(not(feature = "std"), no_std)]
-
-    pub use pallet::*;
-
-    #[frame::pallet]
-    pub mod pallet {
-        use frame::prelude::*;
-
-        #[pallet::pallet]
-        pub struct Pallet<T>(_);
-
-        #[pallet::config]
-        pub trait Config: frame_system::Config {
-            // Configuration will be added here
-        }
-
-        #[pallet::storage]
-        pub type CounterValue<T> = StorageValue<_, u32, ValueQuery>;
-
-        #[pallet::call]
-        impl<T: Config> Pallet<T> {
-            // Dispatchable functions will be added here
-        }
-    }
-    ```
-
-    !!!note
-        This setup starts with a minimal scaffold without events and errors. These will be added in the following sections after the `Config` trait is properly configured with the required `RuntimeEvent` type.
-
-3. Verify it compiles:
-
-    ```bash
-    cargo build --package pallet-custom
-    ```
-
-## Configure the Pallet
-
-The [`Config`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/trait.Config.html){target=\_blank} trait exposes configurable options and links your pallet to the runtime. All types and constants the pallet depends on must be declared here. These types are defined generically and become concrete when the pallet is instantiated at runtime.
-
-Replace the [`#[pallet::config]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.config.html){target=\_blank} section with:
-
-```rust title="src/lib.rs"
-#[pallet::config]
-pub trait Config: frame_system::Config {
-    /// The overarching runtime event type.
-    type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
-    
-    /// Maximum value the counter can reach.
-    #[pallet::constant]
-    type CounterMaxValue: Get<u32>;
-}
-```
-
-**Key configuration elements:**
-
-- **[`RuntimeEvent`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/trait.Config.html#associatedtype.RuntimeEvent){target=\_blank}**: Required for the pallet to emit events that the runtime can process.
-- **`CounterMaxValue`**: A constant that sets an upper limit on counter values, configurable per runtime.
-
-## Define Events
-
-Events inform external entities (dApps, explorers, users) about significant runtime changes. Event details are included in the node's metadata, making them accessible to external tools.
-
-The [`#[pallet::generate_deposit]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.generate_deposit.html){target=\_blank} macro automatically generates a `deposit_event` function that converts your pallet's events into the `RuntimeEvent` type and deposits them via [`frame_system::Pallet::deposit_event`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.deposit_event){target=\_blank}.
-
-Add the [`#[pallet::event]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.event.html){target=\_blank} section after the `Config` trait:
-
-```rust title="src/lib.rs"
-#[pallet::event]
-#[pallet::generate_deposit(pub(super) fn deposit_event)]
-pub enum Event<T: Config> {
-    /// Counter value was explicitly set. [new_value]
-    CounterValueSet { 
-        new_value: u32 
-    },
-    /// Counter was incremented. [new_value, who, amount]
-    CounterIncremented {
-        new_value: u32,
-        who: T::AccountId,
-        amount: u32,
-    },
-    /// Counter was decremented. [new_value, who, amount]
-    CounterDecremented {
-        new_value: u32,
-        who: T::AccountId,
-        amount: u32,
-    },
-}
-```
-
-## Define Errors
-
-Errors indicate when and why a call fails. Use informative names and descriptions, as error documentation is included in the node's metadata.
-
-Error types must implement the [`TypeInfo`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_prelude/trait.TypeInfo.html){target=\_blank} trait, and runtime errors can be up to 4 bytes in size.
-
-Add the [`#[pallet::error]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.error.html){target=\_blank} section after the events:
-
-```rust title="src/lib.rs"
-#[pallet::error]
-pub enum Error<T> {
-    /// The counter value has not been set yet.
-    NoneValue,
-    /// Arithmetic operation would cause overflow.
-    Overflow,
-    /// Arithmetic operation would cause underflow.
-    Underflow,
-    /// The counter value would exceed the maximum allowed value.
-    CounterMaxValueExceeded,
-}
-```
-
-## Add Storage Items
-
-Storage items persist state on-chain. This pallet uses two storage items:
-
-- **`CounterValue`**: Stores the current counter value.
-- **`UserInteractions`**: Tracks interaction counts per user account.
-
-The initial scaffold already includes the `CounterValue` storage item. Now add the `UserInteractions` storage map after it:
-
-```rust title="src/lib.rs"
-/// Tracks the number of interactions per user.
-#[pallet::storage]
-pub type UserInteractions<T: Config> = StorageMap<_, Blake2_128Concat, T::AccountId, u32, ValueQuery>;
-```
-
-Your storage section should now look like this:
-
-```rust title="src/lib.rs"
-/// The current value of the counter.
-#[pallet::storage]
-pub type CounterValue<T> = StorageValue<_, u32, ValueQuery>;
-
-/// Tracks the number of interactions per user.
-#[pallet::storage]
-pub type UserInteractions<T: Config> = StorageMap<_, Blake2_128Concat, T::AccountId, u32, ValueQuery>;
-```
-
-For more storage types and patterns, explore the [Polkadot SDK storage documentation](https://paritytech.github.io/polkadot-sdk/master/frame_support/storage/types/index.html){target=\_blank}.
-
-## Configure Genesis State
-
-Genesis configuration allows you to set the initial state of your pallet when the blockchain first starts. This is essential for both production networks and testing environments. It is particularly useful for:
-
-- Setting initial parameter values.
-- Pre-allocating resources or accounts.
-- Establishing starting conditions for testing.
-- Configuring network-specific initial state.
-
-Add the [`#[pallet::genesis_config]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.genesis_config.html){target=\_blank} and [`#[pallet::genesis_build]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.genesis_build.html){target=\_blank} sections after your storage items:
-
-```rust title="src/lib.rs"
-#[pallet::genesis_config]
-#[derive(frame_support::DefaultNoBound)]
-pub struct GenesisConfig<T: Config> {
-    /// Initial value for the counter
-    pub initial_counter_value: u32,
-    /// Pre-populated user interactions
-    pub initial_user_interactions: Vec<(T::AccountId, u32)>,
-}
-
-#[pallet::genesis_build]
-impl<T: Config> BuildGenesisConfig for GenesisConfig<T> {
-    fn build(&self) {
-        // Set the initial counter value
-        CounterValue::<T>::put(self.initial_counter_value);
-        
-        // Set initial user interactions
-        for (account, count) in &self.initial_user_interactions {
-            UserInteractions::<T>::insert(account, count);
-        }
-    }
-}
-```
-
-**Genesis configuration components:**
-
-- **`GenesisConfig` struct**: Defines what can be configured at genesis.
-- **`#[derive(DefaultNoBound)]`**: Provides sensible defaults (empty vec and 0 for the counter).
-- **`BuildGenesisConfig` implementation**: Executes the logic to set initial storage values.
-- **`build()` method**: Called once when the blockchain initializes.
-
-## Implement Dispatchable Functions
-
-Dispatchable functions (extrinsics) allow users to interact with your pallet and trigger state changes. Each function must:
-
-- Return a [`DispatchResult`](https://paritytech.github.io/polkadot-sdk/master/frame_support/dispatch/type.DispatchResult.html){target=\_blank}.
-- Be annotated with a weight (computational cost).
-- Have an explicit call index for backward compatibility.
-
-Replace the [`#[pallet::call]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.call.html){target=\_blank} section with:
-
-```rust title="src/lib.rs"
-#[pallet::call]
-impl<T: Config> Pallet<T> {
-    /// Set the counter to a specific value. Root origin only.
-    #[pallet::call_index(0)]
-    #[pallet::weight(0)]
-    pub fn set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult {
-        // Ensure the caller is root
-        ensure_root(origin)?;
-        
-        // Validate the new value doesn't exceed the maximum
-        ensure!(
-            new_value <= T::CounterMaxValue::get(),
-            Error::<T>::CounterMaxValueExceeded
-        );
-        
-        // Update storage
-        CounterValue::<T>::put(new_value);
-        
-        // Emit event
-        Self::deposit_event(Event::CounterValueSet { new_value });
-        
-        Ok(())
-    }
-
-    /// Increment the counter by a specified amount.
-    #[pallet::call_index(1)]
-    #[pallet::weight(0)]
-    pub fn increment(origin: OriginFor<T>, amount: u32) -> DispatchResult {
-        // Ensure the caller is signed
-        let who = ensure_signed(origin)?;
-        
-        // Get current counter value
-        let current_value = CounterValue::<T>::get();
-        
-        // Check for overflow
-        let new_value = current_value
-            .checked_add(amount)
-            .ok_or(Error::<T>::Overflow)?;
-        
-        // Ensure new value doesn't exceed maximum
-        ensure!(
-            new_value <= T::CounterMaxValue::get(),
-            Error::<T>::CounterMaxValueExceeded
-        );
-        
-        // Update counter storage
-        CounterValue::<T>::put(new_value);
-        
-        // Track user interaction
-        UserInteractions::<T>::mutate(&who, |count| {
-            *count = count.saturating_add(1);
-        });
-        
-        // Emit event
-        Self::deposit_event(Event::CounterIncremented {
-            new_value,
-            who,
-            amount,
-        });
-        
-        Ok(())
-    }
-
-    /// Decrement the counter by a specified amount.
-    #[pallet::call_index(2)]
-    #[pallet::weight(0)]
-    pub fn decrement(origin: OriginFor<T>, amount: u32) -> DispatchResult {
-        // Ensure the caller is signed
-        let who = ensure_signed(origin)?;
-        
-        // Get current counter value
-        let current_value = CounterValue::<T>::get();
-        
-        // Check for underflow
-        let new_value = current_value
-            .checked_sub(amount)
-            .ok_or(Error::<T>::Underflow)?;
-        
-        // Update counter storage
-        CounterValue::<T>::put(new_value);
-        
-        // Track user interaction
-        UserInteractions::<T>::mutate(&who, |count| {
-            *count = count.saturating_add(1);
-        });
-        
-        // Emit event
-        Self::deposit_event(Event::CounterDecremented {
-            new_value,
-            who,
-            amount,
-        });
-        
-        Ok(())
-    }
-}
-```
-
-### Dispatchable Function Details
-
-???+ interface "`set_counter_value`"
-
-    - **Access**: Root origin only (privileged operations)
-    - **Purpose**: Set counter to a specific value
-    - **Validations**: New value must not exceed `CounterMaxValue`
-    - **State changes**: Updates `CounterValue` storage
-    - **Events**: Emits `CounterValueSet`
-
-??? interface "`increment`"
-
-    - **Access**: Any signed account
-    - **Purpose**: Increase counter by specified amount
-    - **Validations**: Checks for overflow and max value compliance
-    - **State changes**: Updates `CounterValue` and `UserInteractions`
-    - **Events**: Emits `CounterIncremented`
-
-??? interface "`decrement`"
-
-    - **Access**: Any signed account
-    - **Purpose**: Decrease counter by specified amount
-    - **Validations**: Checks for underflow
-    - **State changes**: Updates `CounterValue` and `UserInteractions`
-    - **Events**: Emits `CounterDecremented`
-
-## Verify Pallet Compilation
-
-Before proceeding, ensure your pallet compiles without errors:
-
-```bash
-cargo build --package pallet-custom
-```
-
-If you encounter errors, carefully review the code against this guide. Once the build completes successfully, your custom pallet is ready for integration.
-
-??? code "Complete Pallet Implementation"
-    
-    ```rust title="src/lib.rs"
-    #![cfg_attr(not(feature = "std"), no_std)]
-
-    pub use pallet::*;
-
-    #[frame::pallet]
-    pub mod pallet {
-        use frame::prelude::*;
-
-        #[pallet::pallet]
-        pub struct Pallet<T>(_);
-
-        #[pallet::config]
-        pub trait Config: frame_system::Config {
-            type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
-            
-            #[pallet::constant]
-            type CounterMaxValue: Get<u32>;
-        }
-
-        #[pallet::event]
-        #[pallet::generate_deposit(pub(super) fn deposit_event)]
-        pub enum Event<T: Config> {
-            CounterValueSet { new_value: u32 },
-            CounterIncremented { new_value: u32, who: T::AccountId, amount: u32 },
-            CounterDecremented { new_value: u32, who: T::AccountId, amount: u32 },
-        }
-
-        #[pallet::error]
-        pub enum Error<T> {
-            NoneValue,
-            Overflow,
-            Underflow,
-            CounterMaxValueExceeded,
-        }
-
-        #[pallet::storage]
-        pub type CounterValue<T> = StorageValue<_, u32, ValueQuery>;
-
-        #[pallet::storage]
-        pub type UserInteractions<T: Config> = StorageMap<_, Blake2_128Concat, T::AccountId, u32, ValueQuery>;
-
-        #[pallet::genesis_config]
-        #[derive(frame_support::DefaultNoBound)]
-        pub struct GenesisConfig<T: Config> {
-            pub initial_counter_value: u32,
-            pub initial_user_interactions: Vec<(T::AccountId, u32)>,
-        }
-
-        #[pallet::genesis_build]
-        impl<T: Config> BuildGenesisConfig for GenesisConfig<T> {
-            fn build(&self) {
-                CounterValue::<T>::put(self.initial_counter_value);
-                for (account, count) in &self.initial_user_interactions {
-                    UserInteractions::<T>::insert(account, count);
-                }
-            }
-        }
-
-        #[pallet::call]
-        impl<T: Config> Pallet<T> {
-            #[pallet::call_index(0)]
-            #[pallet::weight(0)]
-            pub fn set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult {
-                ensure_root(origin)?;
-                ensure!(new_value <= T::CounterMaxValue::get(), Error::<T>::CounterMaxValueExceeded);
-                CounterValue::<T>::put(new_value);
-                Self::deposit_event(Event::CounterValueSet { new_value });
-                Ok(())
-            }
-
-            #[pallet::call_index(1)]
-            #[pallet::weight(0)]
-            pub fn increment(origin: OriginFor<T>, amount: u32) -> DispatchResult {
-                let who = ensure_signed(origin)?;
-                let current_value = CounterValue::<T>::get();
-                let new_value = current_value.checked_add(amount).ok_or(Error::<T>::Overflow)?;
-                ensure!(new_value <= T::CounterMaxValue::get(), Error::<T>::CounterMaxValueExceeded);
-                CounterValue::<T>::put(new_value);
-                UserInteractions::<T>::mutate(&who, |count| *count = count.saturating_add(1));
-                Self::deposit_event(Event::CounterIncremented { new_value, who, amount });
-                Ok(())
-            }
-
-            #[pallet::call_index(2)]
-            #[pallet::weight(0)]
-            pub fn decrement(origin: OriginFor<T>, amount: u32) -> DispatchResult {
-                let who = ensure_signed(origin)?;
-                let current_value = CounterValue::<T>::get();
-                let new_value = current_value.checked_sub(amount).ok_or(Error::<T>::Underflow)?;
-                CounterValue::<T>::put(new_value);
-                UserInteractions::<T>::mutate(&who, |count| *count = count.saturating_add(1));
-                Self::deposit_event(Event::CounterDecremented { new_value, who, amount });
-                Ok(())
-            }
-        }
-    }
-    ```
-
-## Add the Pallet to Your Runtime
-
-Now that your custom pallet is complete, integrate it into the parachain runtime.
-
-### Add Runtime Dependency
-
-1. In the `runtime/Cargo.toml`, add your custom pallet to the `[dependencies]` section:
-
-    ```toml title="runtime/Cargo.toml"
-    [dependencies]
-    # Local dependencies
-    pallet-custom = { path = "../pallets/pallet-custom", default-features = false }
-    
-    # ... other dependencies
-    ```
-
-2. Enable the `std` feature by adding it to the `[features]` section:
-
-    ```toml title="runtime/Cargo.toml"
-    [features]
-    default = ["std"]
-    std = [
-        "codec/std",
-        "pallet-custom/std",
-        # ... other features
-    ]
-    ```
-
-### Implement the Config Trait
-
-At the end of the `runtime/src/configs/mod.rs` file, add the implementation: 
-
-```rust title="runtime/src/configs/mod.rs"
-/// Configure the custom counter pallet
-impl pallet_custom::Config for Runtime {
-    type RuntimeEvent = RuntimeEvent;
-    type CounterMaxValue = ConstU32<1000>;
-}
-```
-
-This configuration:
-
-- Links the pallet's events to the runtime's event system
-- Sets a maximum counter value of 1000 using [`ConstU32`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/struct.ConstU32.html){target=\_blank}
-
-### Add to Runtime Construct
-
-In the `runtime/src/lib.rs` file, locate the [`#[frame_support::runtime]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/attr.runtime.html){target=\_blank} section and add your pallet with a unique `pallet_index`:
-
-```rust title="runtime/src/lib.rs"
-#[frame_support::runtime]
-mod runtime {
-    #[runtime::runtime]
-    #[runtime::derive(
-        RuntimeCall,
-        RuntimeEvent,
-        RuntimeError,
-        RuntimeOrigin,
-        RuntimeTask,
-        RuntimeFreezeReason,
-        RuntimeHoldReason,
-        RuntimeSlashReason,
-        RuntimeLockId,
-        RuntimeViewFunction
-    )]
-    pub struct Runtime;
-
-    #[runtime::pallet_index(0)]
-    pub type System = frame_system;
-
-    // ... other pallets
-
-    #[runtime::pallet_index(51)]
-    pub type CustomPallet = pallet_custom;
-}
-```
-
-!!!warning
-    Each pallet must have a unique index. Duplicate indices will cause compilation errors. Choose an index that doesn't conflict with existing pallets.
-
-### Configure Genesis for Your Runtime
-
-To set initial values for your pallet when the chain starts, you'll need to configure the genesis in your chain specification. This is typically done in the `node/src/chain_spec.rs` file or when generating the chain specification.
-
-For development and testing, you can use the default values provided by the `#[derive(DefaultNoBound)]` macro. For production networks, you'll want to set these values in your chain specification explicitly.
-
-### Verify Runtime Compilation
-
-Compile the runtime to ensure everything is configured correctly:
-
-```bash
-cargo build --release
-```
-
-This command validates all pallet configurations and prepares the build for deployment.
-
-## Run Your Chain Locally
-
-Launch your parachain locally to test the new pallet functionality using the [Polkadot Omni Node](https://crates.io/crates/polkadot-omni-node){target=\_blank}.
-
-### Generate a Chain Specification
-
-Create a chain specification file with the updated runtime:
-
-```bash
-chain-spec-builder create -t development \
---relay-chain paseo \
---para-id 1000 \
---runtime ./target/release/wbuild/parachain-template-runtime/parachain_template_runtime.compact.compressed.wasm \
-named-preset development
-```
-
-This command generates a `chain_spec.json` that includes your custom pallet.
-
-### Start the Parachain Node
-
-Launch the parachain:
-
-```bash
-polkadot-omni-node --chain ./chain_spec.json --dev
-```
-
-Verify the node starts successfully and begins producing blocks.
-
-## Interact with Your Pallet
-
-Use the Polkadot.js Apps interface to test your pallet:
-
-1. Navigate to [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9944#/extrinsics){target=\_blank}.
-
-2. Ensure you're connected to your local node at `ws://127.0.0.1:9944`.
-
-3. Go to **Developer** > **Extrinsics**.
-
-4. Locate **customPallet** in the pallet dropdown.
-
-5. You should see the available extrinsics:
-
-    - **`increment(amount)`**: Increase the counter by a specified amount.
-    - **`decrement(amount)`**: Decrease the counter by a specified amount.
-    - **`setCounterValue(newValue)`**: Set counter to a specific value (requires sudo/root).
-
-![](/images/parachains/customize-runtime/pallet-development/create-a-pallet/create-a-pallet-01.webp)
-
-## Key Takeaways
-
-You've successfully created and integrated a custom pallet into a Polkadot SDK-based runtime. You learned:
-
-- **Configuration**: Defined runtime-specific types and constants via the `Config` trait.
-- **Storage**: Implemented on-chain state using `StorageValue` and `StorageMap`.
-- **Events**: Created signals to communicate state changes to external systems.
-- **Errors**: Established clear error handling with descriptive error types.
-- **Genesis**: Configured initial blockchain state for both production and testing.
-- **Dispatchables**: Built callable functions with proper validation and access control.
-- **Integration**: Successfully added the pallet to a runtime and tested it locally.
-
-These components form the foundation for developing sophisticated blockchain logic in Polkadot SDK-based chains.
-
-## Where to Go Next
-
-<div class="grid cards" markdown>
-
--   <span class="badge guide">Guide</span> __Mock Your Runtime__
-
-    ---
-
-    Learn to create a mock runtime environment for testing your pallet in isolation before integration.
-
-    [:octicons-arrow-right-24: Continue](/parachains/customize-runtime/pallet-development/mock-runtime/)
-
-</div>
-
-
----
-
 Page Title: Manage Coretime
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-parachains-deployment-manage-coretime.md
@@ -11042,180 +11278,341 @@ pub fn pool<T: Config>(region_id: RegionId, payee: T::AccountId, finality: Final
 
 ---
 
-Page Title: Mock Runtime for Pallet Testing
+Page Title: Mock Your Runtime
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/parachains-customize-runtime-pallet-development-mock-runtime.md
 - Canonical (HTML): https://docs.polkadot.com/parachains/customize-runtime/pallet-development/mock-runtime/
-- Summary: Learn to create a mock environment in the Polkadot SDK for testing intra-pallet functionality and inter-pallet interactions seamlessly.
+- Summary: Learn how to create a mock runtime environment for testing your custom pallets in isolation, enabling comprehensive unit testing before runtime integration.
 
-# Mock Runtime
+# Mock Your Runtime
 
 ## Introduction
 
-Testing is essential in Polkadot SDK development to ensure your blockchain operates as intended and effectively handles various potential scenarios. This guide walks you through setting up an environment to test pallets within the [runtime](/polkadot-protocol/glossary#runtime){target=_blank}, allowing you to evaluate how different pallets, their configurations, and system components interact to ensure reliable blockchain functionality.
+Testing is a critical part of pallet development. Before integrating your pallet into a full runtime, you need a way to test its functionality in isolation. A mock runtime provides a minimal, simulated blockchain environment where you can verify your pallet's logic without the overhead of running a full node.
 
-## Configuring a Mock Runtime
+In this guide, you'll learn how to create a mock runtime for the custom counter pallet built in the [Make a Custom Pallet](/parachains/customize-runtime/pallet-development/create-a-pallet/){target=\_blank} guide. This mock runtime will enable you to write comprehensive unit tests that verify:
 
-### Testing Module
+- Dispatchable function behavior.
+- Storage state changes.
+- Event emission.
+- Error handling.
+- Access control and origin validation.
+- Genesis configuration.
 
-The mock runtime includes all the necessary pallets and configurations needed for testing. To ensure proper testing, you must create a module that integrates all components, enabling assessment of interactions between pallets and system elements.
+## Prerequisites
 
-Here's a simple example of how to create a testing module that simulates these interactions:
+Before you begin, ensure you have:
 
-```rust
-pub mod tests {
-    use crate::*;
-    // ...
+- Completed the [Make a Custom Pallet](/parachains/customize-runtime/pallet-development/create-a-pallet/){target=\_blank} guide.
+- The custom counter pallet from the Make a Custom Pallet guide. Available in `pallets/pallet-custom`.
+- Basic understanding of [Rust testing](https://doc.rust-lang.org/book/ch11-00-testing.html){target=\_blank}.
+
+## Understand Mock Runtimes
+
+A mock runtime is a minimal implementation of the runtime environment that:
+
+- Simulates blockchain state to provide storage and state management.
+- Satisfies your pallet's `Config` trait requirements.
+- Allows isolated testing without external dependencies.
+- Supports genesis configuration to set initial blockchain state for tests.
+- Provides instant feedback on code changes for a faster development cycle.
+
+Mock runtimes are used exclusively for testing and are never deployed to a live blockchain.
+
+## Create the Mock Runtime Module
+
+Start by creating a new module file within your pallet to house the mock runtime code.
+
+1. Navigate to your pallet directory:
+
+    ```bash
+    cd pallets/pallet-custom/src
+    ```
+
+2. Create a new file named `mock.rs`:
+
+    ```bash
+    touch mock.rs
+    ```
+
+3. Next, open `src/lib.rs` and add the mock module declaration at the top of the file, right after the `pub use pallet::*;` line:
+
+    ```rust title="src/lib.rs"
+    #![cfg_attr(not(feature = "std"), no_std)]
+
+    pub use pallet::*;
+
+    #[cfg(test)]
+    mod mock;
+
+    #[frame::pallet]
+    pub mod pallet {
+        // ... existing pallet code
+    }
+
+    ```
+
+    The `#[cfg(test)]` attribute ensures this module is only compiled during testing.
+
+## Set Up Basic Mock
+
+Open `src/mock.rs` and add the foundational imports and type definitions:
+
+```rust title="src/mock.rs"
+use crate as pallet_custom;
+use frame::{
+    deps::{
+        frame_support::{ derive_impl, traits::ConstU32 },
+        sp_io,
+        sp_runtime::{ traits::IdentityLookup, BuildStorage },
+    },
+    prelude::*,
+};
+
+type Block = frame_system::mocking::MockBlock<Test>;
+
+// Configure a mock runtime to test the pallet.
+frame::deps::frame_support::construct_runtime!(
+        pub enum Test
+        {
+            System: frame_system,
+            CustomPallet: pallet_custom,
+        }
+    );
+```
+
+The preceding code includes the following key components: 
+
+- **[`construct_runtime!`](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_frame/runtime/apis/trait.ConstructRuntimeApi.html#tymethod.construct_runtime_api){target=\_blank}**: Macro that builds a minimal runtime with only the pallets needed for testing.
+- **`Test`**: The mock runtime type used in tests.
+- **`Block`**: Type alias for the mock block type that the runtime will use.
+
+## Implement Essential Configuration
+
+The [`frame_system`](https://paritytech.github.io/polkadot-sdk/master/frame_system/index.html){target=\_blank} pallet provides core blockchain functionality and is required by all other pallets. Configure it for the test environment as follows:
+
+```rust title="src/mock.rs"
+#[derive_impl(frame_system::config_preludes::TestDefaultConfig)]
+impl frame_system::Config for Test {
+    type Block = Block;
+    type AccountId = u64;
+    type Lookup = IdentityLookup<Self::AccountId>;
 }
 ```
 
-The `crate::*;` snippet imports all the components from your crate (including runtime configurations, pallet modules, and utility functions) into the `tests` module. This allows you to write tests without manually importing each piece, making the code more concise and readable. You can opt to instead create a separate `mock.rs` file to define the configuration for your mock runtime and a companion `tests.rs` file to house the specific logic for each test.
+This simplified configuration for testing includes the following:
 
-Once the testing module is configured, you can craft your mock runtime using the [`frame_support::runtime`](https://paritytech.github.io/polkadot-sdk/master/frame_support/attr.runtime.html){target=\_blank} macro. This macro allows you to define a runtime environment that will be created for testing purposes:
+- **`#[derive_impl]`**: Automatically provides sensible test defaults for most `frame_system::Config` types.
+- **`AccountId = u64`**: Uses simple integers instead of cryptographic account IDs.
+- **`Lookup = IdentityLookup`**: Direct account ID mapping (no address conversion).
+- **`Block = Block`**: Uses the mock block type we defined earlier.
 
-```rust
-pub mod tests {
-    use crate::*;
+This approach is much more concise than manually specifying every configuration type, as the `TestDefaultConfig` preset provides appropriate defaults for testing.
 
-    #[frame_support::runtime]
-    mod runtime {
-        #[runtime::runtime]
-        #[runtime::derive(
-            RuntimeCall,
-            RuntimeEvent,
-            RuntimeError,
-            RuntimeOrigin,
-            RuntimeFreezeReason,
-            RuntimeHoldReason,
-            RuntimeSlashReason,
-            RuntimeLockId,
-            RuntimeTask
-        )]
-        pub struct Test;
+## Implement Your Pallet's Configuration
 
-        #[runtime::pallet_index(0)]
-        pub type System = frame_system::Pallet<Test>;
+Now implement the `Config` trait for your custom pallet. This trait must match the one defined in your pallet's `src/lib.rs`:
 
-        // Other pallets...
-    }
-}
-```
-### Genesis Storage
-
-The next step is configuring the genesis storage—the initial state of your runtime. Genesis storage sets the starting conditions for the runtime, defining how pallets are configured before any blocks are produced. You can only customize the initial state only of those items that implement the [`[pallet::genesis_config]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.genesis_config.html){target=\_blank} and [`[pallet::genesis_build]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.genesis_build.html){target=\_blank} macros within their respective pallets.
-
-In Polkadot SDK, you can create this storage using the [`BuildStorage`](https://paritytech.github.io/polkadot-sdk/master/sp_runtime/trait.BuildStorage.html){target=\_blank} trait from the [`sp_runtime`](https://paritytech.github.io/polkadot-sdk/master/sp_runtime){target=\_blank} crate. This trait is essential for building the configuration that initializes the blockchain's state. 
-
-The function `new_test_ext()` demonstrates setting up this environment. It uses `frame_system::GenesisConfig::<Test>::default()` to generate a default genesis configuration for the runtime, followed by `.build_storage()` to create the initial storage state. This storage is then converted into a format usable by the testing framework, [`sp_io::TestExternalities`](https://paritytech.github.io/polkadot-sdk/master/sp_io/type.TestExternalities.html){target=\_blank}, allowing tests to be executed in a simulated blockchain environment.
-
-Here's the code that sets the genesis storage configuration:
-
-```rust
-pub mod tests {
-    use crate::*;
-    use sp_runtime::BuildStorage;
-
-    #[frame_support::runtime]
-    mod runtime {
-        #[runtime::runtime]
-        #[runtime::derive(
-            RuntimeCall,
-            RuntimeEvent,
-            RuntimeError,
-            RuntimeOrigin,
-            RuntimeFreezeReason,
-            RuntimeHoldReason,
-            RuntimeSlashReason,
-            RuntimeLockId,
-            RuntimeTask
-        )]
-        pub struct Test;
-
-        #[runtime::pallet_index(0)]
-        pub type System = frame_system::Pallet<Test>;
-
-        // Other pallets...
-    }
-
-    pub fn new_test_ext() -> sp_io::TestExternalities {
-        frame_system::GenesisConfig::<Test>::default()
-            .build_storage()
-            .unwrap()
-            .into()
-    }
+```rust title="src/mock.rs"
+impl pallet_custom::Config for Test {
+    type RuntimeEvent = RuntimeEvent;
+    type CounterMaxValue = ConstU32<1000>;
 }
 ```
 
-You can also customize the genesis storage to set initial values for your runtime pallets. For example, you can set the initial balance for accounts like this:
+Configuration details include:
 
-```rust
-// Build genesis storage according to the runtime's configuration
+- **`RuntimeEvent`**: Connects your pallet's events to the mock runtime's event system.
+- **`CounterMaxValue`**: Sets the maximum counter value to 1000, matching the production configuration.
+
+The configuration here should mirror what you'll use in production unless you specifically need different values for testing.
+
+## Configure Genesis Storage
+
+Genesis storage defines the initial state of your blockchain before any blocks are produced. Since your counter pallet includes the genesis configuration (added in the previous guide), you can now set up test environments with different initial states.
+
+### Basic Test Environment
+
+Create a helper function for the default test environment:
+
+```rust title="src/mock.rs"
+// Build genesis storage according to the mock runtime.
 pub fn new_test_ext() -> sp_io::TestExternalities {
-    // Define the initial balances for accounts
-    let initial_balances: Vec<(AccountId32, u128)> = vec![
-        (AccountId32::from([0u8; 32]), 1_000_000_000_000),
-        (AccountId32::from([1u8; 32]), 2_000_000_000_000),
-    ];
+    let mut t = frame_system::GenesisConfig::<Test>::default().build_storage().unwrap();
 
-    let mut t = frame_system::GenesisConfig::<Test>::default()
-        .build_storage()
+    (pallet_custom::GenesisConfig::<Test> {
+        initial_counter_value: 0,
+        initial_user_interactions: vec![],
+    })
+        .assimilate_storage(&mut t)
         .unwrap();
-
-    // Adding balances configuration to the genesis config
-    pallet_balances::GenesisConfig::<Test> {
-        balances: initial_balances,
-    }
-    .assimilate_storage(&mut t)
-    .unwrap();
 
     t.into()
 }
 ```
 
-For a more idiomatic approach, see the [Your First Pallet](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/guides/your_first_pallet/index.html#better-test-setup){target=\_blank} guide from the Polkadot SDK Rust documentation.
+This function creates a clean blockchain state with an initial counter value of 0 and no user interactions.
 
-### Pallet Configuration
+### Custom Genesis Configurations
 
-Each pallet in the mocked runtime requires an associated configuration, specifying the types and values it depends on to function. These configurations often use basic or primitive types (e.g., u32, bool) instead of more complex types like structs or traits, ensuring the setup remains straightforward and manageable.
+For testing specific scenarios, create additional helper functions with customized genesis states:
 
-```rust
-#[derive_impl(frame_system::config_preludes::TestDefaultConfig)]
-impl frame_system::Config for Test {
-    ...
-    type Index = u64;
-    type BlockNumber = u64;
-    type Hash = H256;
-    type Hashing = BlakeTwo256;
-    type AccountId = u64;
-    ...
+```rust title="src/mock.rs"
+// Helper function to create a test externalities with a specific initial counter value
+pub fn new_test_ext_with_counter(initial_value: u32) -> sp_io::TestExternalities {
+    let mut t = frame_system::GenesisConfig::<Test>::default().build_storage().unwrap();
+
+    (pallet_custom::GenesisConfig::<Test> {
+        initial_counter_value: initial_value,
+        initial_user_interactions: vec![],
+    })
+        .assimilate_storage(&mut t)
+        .unwrap();
+
+    t.into()
 }
 
-impl pallet_template::Config for Test {
-	type RuntimeEvent = RuntimeEvent;
-	type WeightInfo = ();
-    ...
+// Helper function to create a test externalities with initial user interactions
+pub fn new_test_ext_with_interactions(
+    initial_value: u32,
+    interactions: Vec<(u64, u32)>
+) -> sp_io::TestExternalities {
+    let mut t = frame_system::GenesisConfig::<Test>::default().build_storage().unwrap();
+
+    (pallet_custom::GenesisConfig::<Test> {
+        initial_counter_value: initial_value,
+        initial_user_interactions: interactions,
+    })
+        .assimilate_storage(&mut t)
+        .unwrap();
+
+    t.into()
 }
 ```
 
-The configuration should be set for each pallet existing in the mocked runtime. The simplification of types is for simplifying the testing process. For example, `AccountId` is `u64`, meaning a valid account address can be an unsigned integer:
+Key methods used in this step include:
 
-```rust
-let alice_account: u64 = 1;
+- **[`BuildStorage::build_storage()`](https://paritytech.github.io/polkadot-sdk/master/sp_runtime/trait.BuildStorage.html#method.build_storage){target=\_blank}**: Creates the initial storage state.
+- **[`assimilate_storage`](https://paritytech.github.io/polkadot-sdk/master/sp_runtime/trait.BuildStorage.html#method.assimilate_storage){target=\_blank}**: Merges pallet genesis config into the existing storage.
+
+You can chain multiple `assimilate_storage` calls to configure multiple pallets.
+
+## Verify Mock Compilation
+
+Before proceeding to write tests, ensure your mock runtime compiles correctly:
+
+```bash
+cargo test --package pallet-custom --lib
 ```
+
+This command compiles the test code (including the mock and genesis configuration) without running tests yet. Address any compilation errors before continuing.
+
+??? code "Complete mock runtime script"
+
+    Here's the complete `mock.rs` file for reference:
+
+    ```rust title="src/mock.rs"
+    use crate as pallet_custom;
+    use frame::{
+        deps::{
+            frame_support::{ derive_impl, traits::ConstU32 },
+            sp_io,
+            sp_runtime::{ traits::IdentityLookup, BuildStorage },
+        },
+        prelude::*,
+    };
+
+    type Block = frame_system::mocking::MockBlock<Test>;
+
+    // Configure a mock runtime to test the pallet.
+    frame::deps::frame_support::construct_runtime!(
+            pub enum Test
+            {
+                System: frame_system,
+                CustomPallet: pallet_custom,
+            }
+        );
+
+    #[derive_impl(frame_system::config_preludes::TestDefaultConfig)]
+    impl frame_system::Config for Test {
+        type Block = Block;
+        type AccountId = u64;
+        type Lookup = IdentityLookup<Self::AccountId>;
+    }
+
+    impl pallet_custom::Config for Test {
+        type RuntimeEvent = RuntimeEvent;
+        type CounterMaxValue = ConstU32<1000>;
+    }
+
+    // Build genesis storage according to the mock runtime.
+    pub fn new_test_ext() -> sp_io::TestExternalities {
+        let mut t = frame_system::GenesisConfig::<Test>::default().build_storage().unwrap();
+
+        (pallet_custom::GenesisConfig::<Test> {
+            initial_counter_value: 0,
+            initial_user_interactions: vec![],
+        })
+            .assimilate_storage(&mut t)
+            .unwrap();
+
+        t.into()
+    }
+
+    // Helper function to create a test externalities with a specific initial counter value
+    pub fn new_test_ext_with_counter(initial_value: u32) -> sp_io::TestExternalities {
+        let mut t = frame_system::GenesisConfig::<Test>::default().build_storage().unwrap();
+
+        (pallet_custom::GenesisConfig::<Test> {
+            initial_counter_value: initial_value,
+            initial_user_interactions: vec![],
+        })
+            .assimilate_storage(&mut t)
+            .unwrap();
+
+        t.into()
+    }
+
+    // Helper function to create a test externalities with initial user interactions
+    pub fn new_test_ext_with_interactions(
+        initial_value: u32,
+        interactions: Vec<(u64, u32)>
+    ) -> sp_io::TestExternalities {
+        let mut t = frame_system::GenesisConfig::<Test>::default().build_storage().unwrap();
+
+        (pallet_custom::GenesisConfig::<Test> {
+            initial_counter_value: initial_value,
+            initial_user_interactions: interactions,
+        })
+            .assimilate_storage(&mut t)
+            .unwrap();
+
+        t.into()
+    }
+    ```
+
+## Key Takeaways
+
+You've successfully created a mock runtime with a genesis configuration for your custom pallet. You can now:
+
+- Test your pallet without a full runtime.
+- Set initial blockchain state for different test scenarios.
+- Create different genesis setups for various testing needs.
+- Use this minimal setup to test all pallet functionality.
+
+The mock runtime with a genesis configuration is essential for test-driven development, enabling you to verify logic under different initial conditions before integrating it into the actual parachain runtime.
 
 ## Where to Go Next
 
-With the mock environment in place, developers can now test and explore how pallets interact and ensure they work seamlessly together. For further details about mocking runtimes, see the following [Polkadot SDK docs guide](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/guides/your_first_pallet/index.html#your-first-test-runtime){target=\_blank}.
-
 <div class="grid cards" markdown>
 
--   <span class="badge guide">Guide</span> __Pallet Testing__
+-   <span class="badge guide">Guide</span> __Pallet Unit Testing__
 
     ---
 
-    Learn how to efficiently test pallets in the Polkadot SDK, ensuring your pallet operations are reliable and secure.
+    Learn to write comprehensive unit tests for your pallet using the mock runtime you just created.
 
-    [:octicons-arrow-right-24: Reference](/parachains/customize-runtime/pallet-development/pallet-testing/)
+    [:octicons-arrow-right-24: Continue](/parachains/customize-runtime/pallet-development/pallet-testing/)
 
 </div>
 
@@ -12901,7 +13298,7 @@ This overview explains how runtime customization works, introduces the building 
 
 The runtime is the core logic of your blockchain—it processes transactions, manages state, and enforces the rules that govern your network. When a transaction arrives at your blockchain, the [`frame_executive`](https://paritytech.github.io/polkadot-sdk/master/frame_executive/index.html){target=\_blank} pallet receives it and routes it to the appropriate pallet for execution.
 
-Think of your runtime as a collection of specialized modules, each handling a different aspect of your blockchain. Need token balances? Use the Balances pallet. Want governance? Add the Governance pallet. Need something custom? Create your own pallet. By mixing and matching these modules, you build a runtime that's efficient, secure, and tailored to your use case.
+Think of your runtime as a collection of specialized modules, each handling a different aspect of your blockchain. Need token balances? Use the Balances pallet. Want governance? Add the Governance pallets. Need something custom? Create your own pallet. By mixing and matching these modules, you build a runtime that's efficient, secure, and tailored to your use case.
 
 ## Runtime Architecture
 
@@ -15280,121 +15677,6 @@ Support for encoding and decoding Polkadot SDK SS58 addresses has been implement
 
 ---
 
-Page Title: PolkaVM Design
-
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-for-eth-devs-dual-vm-stack.md
-- Canonical (HTML): https://docs.polkadot.com/smart-contracts/for-eth-devs/dual-vm-stack/
-- Summary: Discover PolkaVM, a high-performance smart contract VM for Polkadot, enabling Ethereum compatibility via pallet_revive, Solidity support & optimized execution.
-
-# PolkaVM Design
-
-!!! smartcontract "PolkaVM Preview Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
-## Introduction
-
-The Asset Hub smart contracts solution includes multiple components to ensure Ethereum compatibility and high performance. Its architecture allows for integration with current Ethereum tools, while its innovative virtual machine design enhances performance characteristics.
-
-## PolkaVM
-
-[**PolkaVM**](https://github.com/paritytech/polkavm){target=\_blank} is a custom virtual machine optimized for performance with [RISC-V-based](https://en.wikipedia.org/wiki/RISC-V){target=\_blank} architecture, supporting Solidity and additional high-performance languages. It serves as the core execution environment, integrated directly within the runtime. It features:
-
-- An efficient interpreter for immediate code execution.
-- A planned JIT compiler for optimized performance.
-- Dual-mode execution capability, allowing selection of the most appropriate backend for specific workloads.
-- Optimized performance for short-running contract calls through the interpreter.
-
-The interpreter remains particularly beneficial for contracts with minimal code execution, as it eliminates JIT compilation overhead and enables immediate code execution through lazy interpretation.
-
-## Architecture
-
-The smart contract solution consists of the following key components that work together to enable Ethereum compatibility on Polkadot-based chains.
-
-### Pallet Revive
-
-[**`pallet_revive`**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/index.html){target=\_blank} is a runtime module that executes smart contracts by adding extrinsics, runtime APIs, and logic to convert Ethereum-style transactions into formats compatible with Polkadot SDK-based blockchains. It processes Ethereum-style transactions through the following workflow:
-
-```mermaid
-sequenceDiagram
-    participant User as User/dApp
-    participant Proxy as Ethereum JSON RPC Proxy
-    participant Chain as Blockchain Node
-    participant Pallet as pallet_revive
-    
-    User->>Proxy: Submit Ethereum Transaction
-    Proxy->>Chain: Repackage as Polkadot Compatible Transaction
-    Chain->>Pallet: Process Transaction
-    Pallet->>Pallet: Decode Ethereum Transaction
-    Pallet->>Pallet: Execute Contract via PolkaVM
-    Pallet->>Chain: Return Results
-    Chain->>Proxy: Forward Results
-    Proxy->>User: Return Ethereum-compatible Response
-```
-
-This proxy-based approach eliminates the need for node binary modifications, maintaining compatibility across different client implementations. Preserving the original Ethereum transaction payload simplifies adapting existing tools, which can continue processing familiar transaction formats.
-
-### PolkaVM Design Fundamentals
-
-PolkaVM introduces two fundamental architectural differences compared to the Ethereum Virtual Machine (EVM):
-
-```mermaid
-flowchart TB
-    subgraph "EVM Architecture"
-        EVMStack[Stack-Based]
-        EVM256[256-bit Word Size]
-    end
-    
-    subgraph "PolkaVM Architecture"
-        PVMReg[Register-Based]
-        PVM64[64-bit Word Size]
-    end
-```
-
-- **Register-based design**: PolkaVM utilizes a RISC-V register-based approach. This design:
-
-    - Employs a finite set of registers for argument passing instead of an infinite stack.
-    - Facilitates efficient translation to underlying hardware architectures.
-    - Optimizes register allocation through careful register count selection.
-    - Enables simple 1:1 mapping to x86-64 instruction sets.
-    - Reduces compilation complexity through strategic register limitation.
-    - Improves overall execution performance through hardware-aligned design.
-
-- **64-bit word size**: PolkaVM operates with a 64-bit word size. This design:
-
-    - Enables direct hardware-supported arithmetic operations.
-    - Maintains compatibility with Solidity's 256-bit operations through YUL translation.
-    - Allows integration of performance-critical components written in lower-level languages.
-    - Optimizes computation-intensive operations through native word size alignment.
-    - Reduces overhead for operations not requiring extended precision.
-    - Facilitates efficient integration with modern CPU architectures.
-
-## Compilation Process
-
-When compiling a Solidity smart contract, the code passes through the following stages:
-
-```mermaid
-flowchart LR
-    Dev[Developer] --> |Solidity<br>Source<br>Code| Solc
-    
-    subgraph "Compilation Process"
-        direction LR
-        Solc[solc] --> |YUL<br>IR| Revive
-        Revive[Revive Compiler] --> |LLVM<br>IR| LLVM
-        LLVM[LLVM<br>Optimizer] --> |RISC-V ELF<br>Shared Object| PVMLinker
-    end
-    
-    PVMLinker[PVM Linker] --> PVM[PVM Blob<br>with Metadata]
-```
-
-The compilation process integrates several specialized components:
-
-1. **Solc**: The standard Ethereum Solidity compiler that translates Solidity source code to [YUL IR](https://docs.soliditylang.org/en/latest/yul.html){target=\_blank}.
-2. **Revive Compiler**: Takes YUL IR and transforms it to [LLVM IR](https://llvm.org/){target=\_blank}.
-3. **LLVM**: A compiler infrastructure that optimizes the code and generates RISC-V ELF objects.
-4. **PVM linker**: Links the RISC-V ELF object into a final PolkaVM blob with metadata.
-
-
----
-
 Page Title: Quickstart Parachain Development with Pop CLI
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/develop-toolkit-parachains-quickstart-pop-cli.md
@@ -16219,7 +16501,7 @@ By the end of this guide, you'll have a working template ready to customize and 
 
 Before getting started, ensure you have done the following:
 
-- Completed the [Install Polkadot SDK Dependencies](/reference/tools/polkadot-sdk/install/){target=\_blank} guide and successfully installed [Rust](https://www.rust-lang.org/){target=\_blank} and the required packages to set up your development environment
+- Completed the [Install Polkadot SDK](/parachains/install-polkadot-sdk/){target=\_blank} guide and successfully installed [Rust](https://www.rust-lang.org/){target=\_blank} and the required packages to set up your development environment.
 
 For this tutorial series, you need to use Rust `1.86`. Newer versions of the compiler may not work with this parachain template version.
 
@@ -16382,7 +16664,7 @@ When running the template node, it's accessible by default at `ws://localhost:99
 
     1. Scroll to the bottom and select **Development**.
     2. Choose **Custom**.
-    3. Enter `ws**: //localhost:9944` in the **custom endpoint** input field.
+    3. Enter `ws://localhost:9944` in the **custom endpoint** input field.
     4. Click the **Switch** button.
     
     ![](/images/parachains/launch-a-parachain/set-up-the-parachain-template/parachain-template-02.webp)
@@ -17307,6 +17589,131 @@ Multi-block migrations are ideal when dealing with:
 The primary trade-off is increased implementation complexity, as you must manage the migration state and handle partial completion scenarios. However, multi-block migrations' significant safety benefits and operational reliability are typically worth the increased complexity.
 
 For a complete implementation example of multi-block migrations, refer to the [official example](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2506-2/substrate/frame/examples/multi-block-migrations){target=\_blank} in the Polkadot SDK.
+
+
+---
+
+Page Title: Technical Reference Overview
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference.md
+- Canonical (HTML): https://docs.polkadot.com/reference/
+- Summary: Learn about Polkadot's technical architecture, governance framework, parachain ecosystem, and the tools you need to build and interact with the network.
+
+## Introduction
+
+The Technical Reference section provides comprehensive documentation of Polkadot's architecture, core concepts, and development tooling. Whether you're exploring how Polkadot's relay chain coordinates parachains, understanding governance mechanisms, or building applications on the network, this reference covers the technical foundations you need.
+
+Polkadot is a multi-chain network that enables diverse, interconnected blockchains to share security and communicate seamlessly. Understanding how these components interact from the [relay chain](/polkadot-protocol/glossary#relay-chain){target=\_blank} that validates [parachains](/polkadot-protocol/glossary#parachain){target=\_blank} to the [governance](/reference/glossary#governance){target=\_blank} mechanisms that evolve the protocol is essential for developers, validators, and network participants.
+
+This guide organizes technical documentation across five core areas: Polkadot Hub, Parachains, On-Chain Governance, Glossary, and Tools, each providing detailed information on different aspects of the Polkadot ecosystem.
+
+## Polkadot Hub
+
+[Polkadot Hub](/reference/polkadot-hub/){target=\_blank} is the entry point to Polkadot for all users and application developers. It provides access to essential Web3 services, including smart contracts, staking, governance, identity management, and cross-ecosystem interoperability—without requiring you to deploy or manage a parachain.
+
+The Hub encompasses a set of core functionality that enables developers and users to build and interact with applications on Polkadot. Key capabilities include:
+
+- **Smart contracts**: Deploy Ethereum-compatible smart contracts and build decentralized applications.
+- **Assets and tokens**: Create, manage, and transfer fungible tokens and NFTs across the ecosystem.
+- **Staking**: Participate in network security and earn rewards by staking DOT.
+- **Governance**: Vote on proposals and participate in Polkadot's decentralized decision-making through OpenGov.
+- **Identity services**: Register and manage on-chain identities, enabling access to governance roles and network opportunities.
+- **Cross-chain interoperability**: Leverage XCM messaging to interact securely with other chains in the Polkadot ecosystem.
+- **Collectives and DAOs**: Participate in governance collectives and decentralized autonomous organizations.
+
+## Parachains
+
+[Parachains](/reference/parachains/){target=\_blank} are specialized blockchains that connect to the Polkadot relay chain, inheriting its security while maintaining their own application-specific logic. The parachains documentation covers:
+
+- **Accounts**: Deep dive into account types, storage, and management on parachains.
+- **Blocks, transactions and fees**: Understand block production, transaction inclusion, and fee mechanisms.
+- **Consensus**: Learn how parachain blocks are validated and finalized through the relay chain's consensus.
+- **Chain data**: Explore data structures, storage layouts, and state management.
+- **Cryptography**: Study cryptographic primitives used in Polkadot SDK-based chains.
+- **Data encoding**: Understand how data is encoded and decoded for blockchain compatibility.
+- **Networks**: Learn about networking protocols and peer-to-peer communication.
+- **Interoperability**: Discover [Cross-Consensus Messaging (XCM)](/parachains/interoperability/get-started/){target=\_blank}, the standard for cross-chain communication.
+- **Randomness**: Understand how randomness is generated and used in Polkadot chains.
+- **Node and runtime**: Learn about parachain nodes, runtime environments, and the [Polkadot SDK](https://github.com/paritytech/polkadot-sdk){target=\_blank}.
+
+## On-Chain Governance
+
+[On-Chain governance](/reference/governance/){target=\_blank} is the decentralized decision-making mechanism for the Polkadot network. It manages the evolution and modification of the network's runtime logic, enabling community oversight and approval for proposed changes. The governance documentation details:
+
+- **OpenGov framework**: Understand Polkadot's next-generation governance system with enhanced delegation, flexible tracks, and simultaneous referendums.
+- **Origins and tracks**: Learn how governance proposals are categorized, prioritized, and executed based on their privilege level and complexity.
+- **Voting and delegation**: Explore conviction voting, vote delegation, and how token holders participate in governance.
+- **Governance evolution**: See how Polkadot's governance has evolved from Governance V1 to the current OpenGov system.
+
+## Glossary
+
+The [Glossary](/reference/glossary/){target=\_blank} provides quick-reference definitions for Polkadot-specific terminology. Essential terms include:
+
+- Blockchain concepts (blocks, transactions, state)
+- Consensus mechanisms (validators, collators, finality)
+- Polkadot-specific terms (relay chain, parachain, XCM, FRAME)
+- Network components (nodes, runtimes, storage)
+- Governance terminology (origins, tracks, referendums)
+
+## Tools
+
+The [Tools](/reference/tools/){target=\_blank} section documents essential development and interaction tools for the Polkadot ecosystem:
+
+- **Light clients**: Lightweight solutions for interacting with the network without running full nodes.
+- **JavaScript/TypeScript tools**: Libraries like [Polkadot.js API](/reference/tools/polkadot-js-api/){target=\_blank} and [PAPI](/reference/tools/papi/){target=\_blank} for building applications.
+- **Rust tools**: [Polkadart](/reference/tools/polkadart/){target=\_blank} and other Rust-based libraries for SDK development.
+- **Python tools**: [py-substrate-interface](/reference/tools/py-substrate-interface/){target=\_blank} for Python developers.
+- **Testing and development**: Tools like [Moonwall](/reference/tools/moonwall/){target=\_blank}, [Chopsticks](/reference/tools/chopsticks/){target=\_blank}, and [Omninode](/reference/tools/omninode/){target=\_blank} for smart contract and parachain testing.
+- **Indexing and monitoring**: [Sidecar](/reference/tools/sidecar/){target=\_blank} for data indexing and [Dedot](/reference/tools/dedot/){target=\_blank} for substrate interaction.
+- **Cross-chain tools**: [ParaSpell](/reference/tools/paraspell/){target=\_blank} for XCM integration and asset transfers.
+
+## Where to Go Next
+
+For detailed exploration of specific areas, proceed to any of the main sections:
+
+<div class="grid cards" markdown>
+
+- <span class="badge learn">Learn</span> **Polkadot Hub**
+
+    ---
+
+    Understand the relay chain's role in coordinating parachains, providing shared security, and enabling governance.
+
+    [:octicons-arrow-right-24: Reference](/reference/polkadot-hub/)
+
+- <span class="badge learn">Learn</span> **Parachains**
+
+    ---
+
+    Deep dive into parachain architecture, consensus, data structures, and building application-specific blockchains.
+
+    [:octicons-arrow-right-24: Reference](/reference/parachains/)
+
+- <span class="badge learn">Learn</span> **On-Chain Governance**
+
+    ---
+
+    Explore Polkadot's decentralized governance framework and how to participate in network decision-making.
+
+    [:octicons-arrow-right-24: Reference](/reference/governance/)
+
+- <span class="badge guide">Guide</span> **Glossary**
+
+    ---
+
+    Quick reference for Polkadot-specific terminology and concepts used throughout the documentation.
+
+    [:octicons-arrow-right-24: Reference](/reference/glossary/)
+
+- <span class="badge guide">Guide</span> **Tools**
+
+    ---
+
+    Discover development tools, libraries, and frameworks for building and interacting with Polkadot.
+
+    [:octicons-arrow-right-24: Reference](/reference/tools/)
+
+</div>
 
 
 ---
@@ -20167,15 +20574,7 @@ For a full overview of each script, visit the [scripts](https://github.com/Moons
 
 ### ParaSpell
 
-[ParaSpell](https://paraspell.xyz/){target=\_blank} is a collection of open-source XCM tools designed to streamline cross-chain asset transfers and interactions within the Polkadot and Kusama ecosystems. It equips developers with an intuitive interface to manage and optimize XCM-based functionalities. Some key points included by ParaSpell are:
-
-- **[XCM SDK](https://paraspell.xyz/#xcm-sdk){target=\_blank}**: Provides a unified layer to incorporate XCM into decentralized applications, simplifying complex cross-chain interactions.
-- **[XCM API](https://paraspell.xyz/#xcm-api){target=\_blank}**: Offers an efficient, package-free approach to integrating XCM functionality while offloading heavy computing tasks, minimizing costs and improving application performance.
-- **[XCM router](https://paraspell.xyz/#xcm-router){target=\_blank}**: Enables cross-chain asset swaps in a single command, allowing developers to send one asset type (such as DOT on Polkadot) and receive a different asset on another chain (like ASTR on Astar).
-- **[XCM analyser](https://paraspell.xyz/#xcm-analyser){target=\_blank}**: Decodes and translates complex XCM multilocation data into readable information, supporting easier troubleshooting and debugging.
-- **[XCM visualizator](https://paraspell.xyz/#xcm-visualizator){target=\_blank}**: A tool designed to give developers a clear, interactive view of XCM activity across the Polkadot ecosystem, providing insights into cross-chain communication flow.
-
-ParaSpell's tools make it simple for developers to build, test, and deploy cross-chain solutions without needing extensive knowledge of the XCM protocol. With features like message composition, decoding, and practical utility functions for parachain interactions, ParaSpell is especially useful for debugging and optimizing cross-chain communications.
+[ParaSpell](/reference/tools/paraspell/){target=\_blank} is a collection of open-source XCM tools that streamline cross-chain asset transfers and interactions across the Polkadot and Kusama ecosystems. It provides developers with an intuitive interface to build, test, and deploy interoperable dApps, featuring message composition, decoding, and practical utilities for parachain interactions that simplify debugging and cross-chain communication optimization.
 
 ### Astar XCM Tools
 

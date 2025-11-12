@@ -46,18 +46,7 @@ Follow these steps to prepare your environment for pallet benchmarking:
     1.  Register your pallet in `runtime/src/benchmarks.rs`:
 
         ```rust hl_lines="11" title="benchmarks.rs"
-        polkadot_sdk::frame_benchmarking::define_benchmarks!(
-            [frame_system, SystemBench::<Runtime>]
-            [pallet_balances, Balances]
-            [pallet_session, SessionBench::<Runtime>]
-            [pallet_timestamp, Timestamp]
-            [pallet_message_queue, MessageQueue]
-            [pallet_sudo, Sudo]
-            [pallet_collator_selection, CollatorSelection]
-            [cumulus_pallet_parachain_system, ParachainSystem]
-            [cumulus_pallet_xcmp_queue, XcmpQueue]
-            [custom_pallet, CustomPallet]
-        );
+        
         ```
 
     2. Enable runtime benchmarking for your pallet in `runtime/Cargo.toml`:
@@ -306,11 +295,6 @@ impl custom_pallet::Config for Test {
 Finally, configure the actual weight values in your production runtime. In `runtime/src/config/mod.rs`, add:
 
 ```rust hl_lines="5" title="mod.rs"
-
-// Define counter max value runtime constant.
-parameter_types! {
-    pub const CounterMaxValue: u32 = 500;
-}
 
 ```
 

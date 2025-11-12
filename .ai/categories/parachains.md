@@ -12235,18 +12235,7 @@ Follow these steps to prepare your environment for pallet benchmarking:
     1.  Register your pallet in `runtime/src/benchmarks.rs`:
 
         ```rust hl_lines="11" title="benchmarks.rs"
-        polkadot_sdk::frame_benchmarking::define_benchmarks!(
-            [frame_system, SystemBench::<Runtime>]
-            [pallet_balances, Balances]
-            [pallet_session, SessionBench::<Runtime>]
-            [pallet_timestamp, Timestamp]
-            [pallet_message_queue, MessageQueue]
-            [pallet_sudo, Sudo]
-            [pallet_collator_selection, CollatorSelection]
-            [cumulus_pallet_parachain_system, ParachainSystem]
-            [cumulus_pallet_xcmp_queue, XcmpQueue]
-            [custom_pallet, CustomPallet]
-        );
+        
         ```
 
     2. Enable runtime benchmarking for your pallet in `runtime/Cargo.toml`:
@@ -12496,11 +12485,6 @@ Finally, configure the actual weight values in your production runtime. In `runt
 
 ```rust hl_lines="5" title="mod.rs"
 
-// Define counter max value runtime constant.
-parameter_types! {
-    pub const CounterMaxValue: u32 = 500;
-}
-
 ```
 
 Your pallet is now complete with full testing and benchmarking support, ready for production use.
@@ -12558,9 +12542,9 @@ FRAME provides specialized testing macros and utilities that make pallet testing
 
 ### Assertion Macros
 
-- **[`assert_ok!`](https://paritytech.github.io/polkadot-sdk/master/frame_support/macro.assert_ok.html){target=\_blank}** - Asserts that a dispatchable call succeeds
-- **[`assert_noop!`](https://paritytech.github.io/polkadot-sdk/master/frame_support/macro.assert_noop.html){target=\_blank}** - Asserts that a call fails without changing state (no operation)
-- **`assert_eq!`** - Standard Rust equality assertion
+- **[`assert_ok!`](https://paritytech.github.io/polkadot-sdk/master/frame_support/macro.assert_ok.html){target=\_blank}** - Asserts that a dispatchable call succeeds.
+- **[`assert_noop!`](https://paritytech.github.io/polkadot-sdk/master/frame_support/macro.assert_noop.html){target=\_blank}** - Asserts that a call fails without changing state (no operation).
+- **`assert_eq!`** - Standard Rust equality assertion.
 
 !!!info "`assert_noop!` Explained"
     Use `assert_noop!` to ensure the operation fails without any state changes. This is critical for testing error conditions - it verifies both that the error occurs AND that no storage was modified.
@@ -12569,18 +12553,18 @@ FRAME provides specialized testing macros and utilities that make pallet testing
 
 The [`frame_system`](https://paritytech.github.io/polkadot-sdk/master/frame_system/index.html){target=\_blank} pallet provides useful methods for testing:
 
-- **[`System::events()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.events){target=\_blank}** - Returns all events emitted during the test
-- **[`System::assert_last_event()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.assert_last_event){target=\_blank}** - Asserts the last event matches expectations
-- **[`System::set_block_number()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.set_block_number){target=\_blank}** - Sets the current block number
+- **[`System::events()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.events){target=\_blank}** - Returns all events emitted during the test.
+- **[`System::assert_last_event()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.assert_last_event){target=\_blank}** - Asserts the last event matches expectations.
+- **[`System::set_block_number()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.set_block_number){target=\_blank}** - Sets the current block number.
 
-!!!warning "Events and Block Number"
+!!!info "Events and Block Number"
     Events are not emitted on block 0 (genesis block). If you need to test events, ensure you set the block number to at least 1 using `System::set_block_number(1)`.
 
 ### Origin Types
 
-- **[`RuntimeOrigin::root()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/enum.RawOrigin.html#variant.Root){target=\_blank}** - Root/sudo origin for privileged operations
-- **[`RuntimeOrigin::signed(account)`](https://paritytech.github.io/polkadot-sdk/master/frame_system/enum.RawOrigin.html#variant.Signed){target=\_blank}** - Signed origin from a specific account
-- **[`RuntimeOrigin::none()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/enum.RawOrigin.html#variant.None){target=\_blank}** - No origin (typically fails for most operations)
+- **[`RuntimeOrigin::root()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/enum.RawOrigin.html#variant.Root){target=\_blank}** - Root/sudo origin for privileged operations.
+- **[`RuntimeOrigin::signed(account)`](https://paritytech.github.io/polkadot-sdk/master/frame_system/enum.RawOrigin.html#variant.Signed){target=\_blank}** - Signed origin from a specific account.
+- **[`RuntimeOrigin::none()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/enum.RawOrigin.html#variant.None){target=\_blank}** - No origin (typically fails for most operations).
 
 Learn more about origins in the [FRAME Origin reference document](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/frame_origin/index.html){target=\_blank}.
 
@@ -12602,7 +12586,7 @@ Create a new file for your tests within the pallet directory:
 
 3. Open `src/lib.rs` and add the tests module declaration after the mock module:
 
-    ```rust
+    ```rust title="src/lib.rs"
     #![cfg_attr(not(feature = "std"), no_std)]
 
     pub use pallet::*;
@@ -12630,16 +12614,26 @@ use frame::deps::sp_runtime::DispatchError;
 ```
 
 This setup imports:
+
 - The mock runtime and test utilities from `mock.rs`
 - Your pallet's `Error` and `Event` types
 - FRAME's assertion macros via `frame::deps`
 - `DispatchError` for testing origin checks
+
+???+ code "Complete Pallet Code Reference"
+    Here's the complete pallet code that you'll be testing throughout this guide:
+
+    ```rust
+    
+    ```
 
 ## Write Your First Test
 
 Let's start with a simple test to verify the increment function works correctly.
 
 ### Test Basic Increment
+
+Test that the increment function increases counter value and emits events.
 
 ```rust
 #[test]
@@ -12691,6 +12685,8 @@ Now let's test that our pallet correctly handles errors. Error testing is crucia
 
 ### Test Overflow Protection
 
+Test that incrementing at u32::MAX fails with Overflow error.
+
 ```rust
 #[test]
 fn increment_fails_on_overflow() {
@@ -12711,6 +12707,8 @@ cargo test --package pallet-custom increment_fails_on_overflow
 ```
 
 ### Test Underflow Protection
+
+Test that decrementing below zero fails with Underflow error.
 
 ```rust
 #[test]
@@ -12736,6 +12734,8 @@ cargo test --package pallet-custom decrement_fails_on_underflow
 Verify that origin checks work correctly and unauthorized access is prevented.
 
 ### Test Root-Only Access
+
+Test that set_counter_value requires root origin and rejects signed origins.
 
 ```rust
 #[test]
@@ -12776,6 +12776,8 @@ The `increment_works` test (shown earlier) already demonstrates event testing by
 
 This pattern applies to all dispatchables that emit events. For a dedicated event-only test focusing on the `set_counter_value` function:
 
+Test that set_counter_value updates storage and emits correct event.
+
 ```rust
 #[test]
 fn set_counter_value_works() {
@@ -12804,6 +12806,8 @@ cargo test --package pallet-custom set_counter_value_works
 Verify that genesis configuration works correctly.
 
 ### Test Genesis Setup
+
+Test that genesis configuration correctly initializes counter and user interactions.
 
 ```rust
 #[test]

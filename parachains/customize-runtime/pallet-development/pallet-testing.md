@@ -106,10 +106,18 @@ use frame::deps::sp_runtime::DispatchError;
 ```
 
 This setup imports:
+
 - The mock runtime and test utilities from `mock.rs`
 - Your pallet's `Error` and `Event` types
 - FRAME's assertion macros via `frame::deps`
 - `DispatchError` for testing origin checks
+
+???+ code "Complete Pallet Code Reference"
+    Here's the complete pallet code that you'll be testing throughout this guide:
+
+    ```rust
+    ---8<-- 'code/parachains/customize-runtime/pallet-development/create-a-pallet/lib-complete.rs'
+    ```
 
 ## Write Your First Test
 

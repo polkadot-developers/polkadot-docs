@@ -725,11 +725,7 @@
       "headings": 9,
       "estimated_token_count_total": 1488
     },
-<<<<<<< HEAD
-    "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
-=======
     "hash": "sha256:ff1d106bd19f80de0c8108b0a658cfef83d73a4560a012ace9c842acdeefd1a5",
->>>>>>> origin/staging/product-ia
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5351,11 +5347,7 @@
       "headings": 21,
       "estimated_token_count_total": 5344
     },
-<<<<<<< HEAD
     "hash": "sha256:91981098cfa2fc26c44b817041ce5cda73c50567972407bee491cc17c45b386c",
-=======
-    "hash": "sha256:8568dfa238b9a649a4e6e60510625c2e7879b76a93187b0b8b8dccf6bc467ae6",
->>>>>>> origin/staging/product-ia
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5417,20 +5409,12 @@
       }
     ],
     "stats": {
-<<<<<<< HEAD
-      "chars": 8236,
-=======
       "chars": 8237,
->>>>>>> origin/staging/product-ia
       "words": 1101,
       "headings": 9,
       "estimated_token_count_total": 1828
     },
-<<<<<<< HEAD
-    "hash": "sha256:ad58d1c942b567acc4519abc35c0a049ab3e04711c2a49089ceba6324a5aa7ea",
-=======
     "hash": "sha256:28501589d5290f932b55cd3319f6a3fd78d7297ba42810da5ad2784a297224fd",
->>>>>>> origin/staging/product-ia
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5970,11 +5954,7 @@
       "headings": 9,
       "estimated_token_count_total": 4129
     },
-<<<<<<< HEAD
-    "hash": "sha256:fde940bced4380fc01b1840907059d03f6d47b6cb54bf78c95269ac57adbc99e",
-=======
     "hash": "sha256:7309d3487c653951bf264013eb3402a72a1cbb5e0b6f89ae4e678f239cd63b80",
->>>>>>> origin/staging/product-ia
     "token_estimator": "heuristic-v1"
   },
   {
@@ -6127,21 +6107,12 @@
       }
     ],
     "stats": {
-<<<<<<< HEAD
-      "chars": 10591,
-      "words": 1510,
-      "headings": 11,
-      "estimated_token_count_total": 2377
-    },
-    "hash": "sha256:1277261cb3de71cac194f26e765124ea9f3e09cffdcd94bb717965a11cb7f374",
-=======
       "chars": 10588,
       "words": 1510,
       "headings": 11,
       "estimated_token_count_total": 2375
     },
     "hash": "sha256:380063fe7c00ae8bde05fa76688b8ae4902e6566147f1cfe0e0260ad1aa05aa6",
->>>>>>> origin/staging/product-ia
     "token_estimator": "heuristic-v1"
   },
   {
@@ -9934,22 +9905,60 @@
   },
   {
     "id": "reference",
-    "title": "reference",
+    "title": "Technical Reference Overview",
     "slug": "reference",
     "categories": [
-      "Uncategorized"
+      "Basics",
+      "Polkadot Protocol",
+      "Reference"
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference.md",
     "html_url": "https://docs.polkadot.com/reference/",
-    "preview": "TODO",
-    "outline": [],
+    "preview": "The Technical Reference section provides comprehensive documentation of Polkadot's architecture, core concepts, and development tooling. Whether you're exploring how Polkadot's relay chain coordinates parachains, understanding governance mechanisms, or building applications on the network, this reference covers the technical foundations you need.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Polkadot Hub",
+        "anchor": "polkadot-hub"
+      },
+      {
+        "depth": 2,
+        "title": "Parachains",
+        "anchor": "parachains"
+      },
+      {
+        "depth": 2,
+        "title": "On-Chain Governance",
+        "anchor": "on-chain-governance"
+      },
+      {
+        "depth": 2,
+        "title": "Glossary",
+        "anchor": "glossary"
+      },
+      {
+        "depth": 2,
+        "title": "Tools",
+        "anchor": "tools"
+      },
+      {
+        "depth": 2,
+        "title": "Where to Go Next",
+        "anchor": "where-to-go-next"
+      }
+    ],
     "stats": {
-      "chars": 5,
-      "words": 1,
-      "headings": 0,
-      "estimated_token_count_total": 0
+      "chars": 7648,
+      "words": 937,
+      "headings": 7,
+      "estimated_token_count_total": 1682
     },
-    "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
+    "hash": "sha256:9f71f3b4018f7a9e127cff51fab7cfe1168adcde2553cd1fc5dc8c25fb97a30d",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -14092,11 +14101,7 @@
       "headings": 6,
       "estimated_token_count_total": 2837
     },
-<<<<<<< HEAD
     "hash": "sha256:ad43951deac53a539a3d8a2317500aec351aa7e85f3cc49b386aa30baf6bcc09",
-=======
-    "hash": "sha256:df60044893f48dd7f37a11de275a16bf32adb31317ed70a789fd7fac64150e1a",
->>>>>>> origin/staging/product-ia
     "token_estimator": "heuristic-v1"
   },
   {

@@ -2643,26 +2643,63 @@ npx hardhat vars set TESTNET_PRIVATE_KEY
 
 The command will initiate a wizard in which you'll have to enter the value to be stored:
 
-<div id="termynal-vars" data-termynal markdown>
-  <span data-ty="input">╰─ npx hardhat vars set TESTNET_PRIVATE_KEY</span>
+<div id="termynal" data-termynal markdown>
+  <span data-ty="input">npx hardhat vars set TESTNET_PRIVATE_KEY</span>
   <span data-ty>✔ Enter value: · •••••••••</span>
   <span data-ty>The configuration variable has been stored in /Users/albertoviera/Library/Preferences/hardhat-nodejs/vars.json</span>
 </div>
 
-
 ??? warning "Key Encryption"
-
     This solution just prevents variables to be included in the code repository. You should find a solution that encrypts private keys and access them securely.
 
 You can now use the account related to this private key by importing it into the Hardhat configuration file:
 
-```ts
-...
+```ts title="hardhat.config.ts" hl_lines="1 37"
 import { HardhatUserConfig, vars } from "hardhat/config";
+import "@nomicfoundation/hardhat-toolbox";
 
-...
+/**
+ * SECURITY NOTE: 
+ * This config uses Hardhat's configuration variables for secure private key management.
+ * 
+ * To securely set your private key:
+ * 1. Run: npx hardhat vars set TESTNET_PRIVATE_KEY
+ * 2. Enter your private key when prompted
+ * 3. The value is stored securely (run 'npx hardhat vars path' to see location)
+ * 
+ * To set a custom network URL:
+ * npx hardhat vars set TESTNET_URL
+ * 
+ * Other useful commands:
+ * - List all variables: npx hardhat vars list
+ * - View a variable: npx hardhat vars get TESTNET_PRIVATE_KEY
+ * - Delete a variable: npx hardhat vars delete TESTNET_PRIVATE_KEY
+ * 
+ * NEVER commit private keys or expose them in code/logs.
+ */
+
+const config: HardhatUserConfig = {
+  solidity: {
+    version: "0.8.28",
+    settings: {
+      optimizer: {
+        enabled: true,
+        runs: 200,
+      },
+    },
+  },
+  networks: {
+    polkadotTestnet: {
+      url: vars.get("TESTNET_URL", "http://127.0.0.1:8545"),
       accounts: vars.has("TESTNET_PRIVATE_KEY") ? [vars.get("TESTNET_PRIVATE_KEY")] : [],
-...
+    },
+  },
+  mocha: {
+    timeout: 40000,
+  },
+};
+
+export default config;
 ```
 
 ## Compile your Contract
@@ -2677,8 +2714,8 @@ npx hardhat compile
 
 If everything compiles successfully, you should see the following output:
 
-<div id="termynal-compile" data-termynal markdown>
-  <span data-ty="input">╰─ npx hardhat compile</span>
+<div id="termynal" data-termynal markdown>
+  <span data-ty="input">npx hardhat compile</span>
   <span data-ty>Generating typings for: 23 artifacts in dir: typechain-types for target: ethers-v6</span>
   <span data-ty>Successfully generated 62 typings!</span>
   <span data-ty>Compiled 21 Solidity files successfully (evm target: paris).</span>
@@ -2688,7 +2725,7 @@ If everything compiles successfully, you should see the following output:
 
 Hardhat has a native feature to test contracts. You can run tests against the local Hardhat development node, but it could have some technical differences to Polkadot. Therefore, in this tutorial, you'll be testing against the Polkadot TestNet
 
-This example has a predefined test file that runs the following tests:
+This example has a predefined test file located in [`test/Token.test.js`](https://github.com/polkadot-developers/revm-hardhat-examples/blob/master/erc20-hardhat/test/MyToken.test.ts){target=\_blank}, that runs the following tests:
 
 1. The token was deployed by verifying its **name** and **symbol**.
 2. The token has the right owner configured.
@@ -2705,8 +2742,8 @@ npx hardhat test --network polkadotTestnet
 
 If tests are successful, you should see the following logs:
 
-<div id="termynal-tests" data-termynal markdown>
-  <span data-ty="input">╰─ npx hardhat test --network polkadotTestnet</span>
+<div id="termynal" data-termynal markdown>
+  <span data-ty="input">npx hardhat test --network polkadotTestnet</span>
   <span data-ty></span>
   <span data-ty>&nbsp;&nbsp;MyToken</span>
   <span data-ty>&nbsp;&nbsp;&nbsp;&nbsp;Deployment</span>
@@ -2734,8 +2771,8 @@ npx hardhat ignition deploy ./ignition/modules/MyToken.ts --network polkadotTest
 
 You'll need to confirm the target network (by chain ID):
 
-<div id="termynal-ignition" data-termynal markdown>
-  <span data-ty="input">╰─ npx hardhat ignition deploy ./ignition/modules/MyToken.ts --network polkadotTestnet</span>
+<div id="termynal" data-termynal markdown>
+  <span data-ty="input">npx hardhat ignition deploy ./ignition/modules/MyToken.ts --network polkadotTestnet</span>
   <span data-ty>✔ Confirm deploy to network polkadotTestnet (420420420)? … yes</span>
   <span data-ty>&nbsp;</span>
   <span data-ty>Hardhat Ignition 🚀</span>

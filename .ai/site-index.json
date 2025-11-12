@@ -9835,22 +9835,60 @@
   },
   {
     "id": "reference",
-    "title": "reference",
+    "title": "Technical Reference Overview",
     "slug": "reference",
     "categories": [
-      "Uncategorized"
+      "Basics",
+      "Polkadot Protocol",
+      "Reference"
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference.md",
     "html_url": "https://docs.polkadot.com/reference/",
-    "preview": "TODO",
-    "outline": [],
+    "preview": "The Technical Reference section provides comprehensive documentation of Polkadot's architecture, core concepts, and development tooling. Whether you're exploring how Polkadot's relay chain coordinates parachains, understanding governance mechanisms, or building applications on the network, this reference covers the technical foundations you need.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Polkadot Hub",
+        "anchor": "polkadot-hub"
+      },
+      {
+        "depth": 2,
+        "title": "Parachains",
+        "anchor": "parachains"
+      },
+      {
+        "depth": 2,
+        "title": "On-Chain Governance",
+        "anchor": "on-chain-governance"
+      },
+      {
+        "depth": 2,
+        "title": "Glossary",
+        "anchor": "glossary"
+      },
+      {
+        "depth": 2,
+        "title": "Tools",
+        "anchor": "tools"
+      },
+      {
+        "depth": 2,
+        "title": "Where to Go Next",
+        "anchor": "where-to-go-next"
+      }
+    ],
     "stats": {
-      "chars": 5,
-      "words": 1,
-      "headings": 0,
-      "estimated_token_count_total": 0
+      "chars": 7648,
+      "words": 937,
+      "headings": 7,
+      "estimated_token_count_total": 1682
     },
-    "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
+    "hash": "sha256:9f71f3b4018f7a9e127cff51fab7cfe1168adcde2553cd1fc5dc8c25fb97a30d",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -11781,7 +11819,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-local-dev-node.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/dev-environments/local-dev-node/",
-    "preview": "!!! smartcontract \"PolkaVM Preview Release\" PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**. ## Introduction",
+    "preview": "A local development node provides an isolated blockchain environment where you can deploy, test, and debug smart contracts without incurring network fees or waiting for block confirmations. This guide demonstrates how to set up a local Polkadot SDK-based node with smart contract capabilities.",
     "outline": [
       {
         "depth": 2,
@@ -11805,12 +11843,12 @@
       }
     ],
     "stats": {
-      "chars": 9056,
-      "words": 1432,
+      "chars": 8832,
+      "words": 1408,
       "headings": 4,
-      "estimated_token_count_total": 2430
+      "estimated_token_count_total": 2427
     },
-    "hash": "sha256:e3d8b84cb2cee7010978582998b2269296a042aec53fb016388690ab6adf355e",
+    "hash": "sha256:e4b2c2a6fb22876ccc6dcdf9cff7c9229b046cfcb996c9d98d2ba559e0a5192b",
     "token_estimator": "heuristic-v1"
   },
   {

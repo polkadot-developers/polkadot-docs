@@ -34,9 +34,9 @@ FRAME provides specialized testing macros and utilities that make pallet testing
 
 ### Assertion Macros
 
-- **[`assert_ok!`](https://paritytech.github.io/polkadot-sdk/master/frame_support/macro.assert_ok.html){target=\_blank}** - Asserts that a dispatchable call succeeds
-- **[`assert_noop!`](https://paritytech.github.io/polkadot-sdk/master/frame_support/macro.assert_noop.html){target=\_blank}** - Asserts that a call fails without changing state (no operation)
-- **`assert_eq!`** - Standard Rust equality assertion
+- **[`assert_ok!`](https://paritytech.github.io/polkadot-sdk/master/frame_support/macro.assert_ok.html){target=\_blank}** - Asserts that a dispatchable call succeeds.
+- **[`assert_noop!`](https://paritytech.github.io/polkadot-sdk/master/frame_support/macro.assert_noop.html){target=\_blank}** - Asserts that a call fails without changing state (no operation).
+- **`assert_eq!`** - Standard Rust equality assertion.
 
 !!!info "`assert_noop!` Explained"
     Use `assert_noop!` to ensure the operation fails without any state changes. This is critical for testing error conditions - it verifies both that the error occurs AND that no storage was modified.
@@ -45,18 +45,18 @@ FRAME provides specialized testing macros and utilities that make pallet testing
 
 The [`frame_system`](https://paritytech.github.io/polkadot-sdk/master/frame_system/index.html){target=\_blank} pallet provides useful methods for testing:
 
-- **[`System::events()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.events){target=\_blank}** - Returns all events emitted during the test
-- **[`System::assert_last_event()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.assert_last_event){target=\_blank}** - Asserts the last event matches expectations
-- **[`System::set_block_number()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.set_block_number){target=\_blank}** - Sets the current block number
+- **[`System::events()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.events){target=\_blank}** - Returns all events emitted during the test.
+- **[`System::assert_last_event()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.assert_last_event){target=\_blank}** - Asserts the last event matches expectations.
+- **[`System::set_block_number()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.set_block_number){target=\_blank}** - Sets the current block number.
 
-!!!warning "Events and Block Number"
+!!!info "Events and Block Number"
     Events are not emitted on block 0 (genesis block). If you need to test events, ensure you set the block number to at least 1 using `System::set_block_number(1)`.
 
 ### Origin Types
 
-- **[`RuntimeOrigin::root()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/enum.RawOrigin.html#variant.Root){target=\_blank}** - Root/sudo origin for privileged operations
-- **[`RuntimeOrigin::signed(account)`](https://paritytech.github.io/polkadot-sdk/master/frame_system/enum.RawOrigin.html#variant.Signed){target=\_blank}** - Signed origin from a specific account
-- **[`RuntimeOrigin::none()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/enum.RawOrigin.html#variant.None){target=\_blank}** - No origin (typically fails for most operations)
+- **[`RuntimeOrigin::root()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/enum.RawOrigin.html#variant.Root){target=\_blank}** - Root/sudo origin for privileged operations.
+- **[`RuntimeOrigin::signed(account)`](https://paritytech.github.io/polkadot-sdk/master/frame_system/enum.RawOrigin.html#variant.Signed){target=\_blank}** - Signed origin from a specific account.
+- **[`RuntimeOrigin::none()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/enum.RawOrigin.html#variant.None){target=\_blank}** - No origin (typically fails for most operations).
 
 Learn more about origins in the [FRAME Origin reference document](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/frame_origin/index.html){target=\_blank}.
 
@@ -78,7 +78,7 @@ Create a new file for your tests within the pallet directory:
 
 3. Open `src/lib.rs` and add the tests module declaration after the mock module:
 
-    ```rust
+    ```rust title="src/lib.rs"
     #![cfg_attr(not(feature = "std"), no_std)]
 
     pub use pallet::*;
@@ -116,6 +116,8 @@ This setup imports:
 Let's start with a simple test to verify the increment function works correctly.
 
 ### Test Basic Increment
+
+Test that the increment function increases counter value and emits events.
 
 ```rust
 #[test]
@@ -167,6 +169,8 @@ Now let's test that our pallet correctly handles errors. Error testing is crucia
 
 ### Test Overflow Protection
 
+Test that incrementing at u32::MAX fails with Overflow error.
+
 ```rust
 #[test]
 fn increment_fails_on_overflow() {
@@ -187,6 +191,8 @@ cargo test --package pallet-custom increment_fails_on_overflow
 ```
 
 ### Test Underflow Protection
+
+Test that decrementing below zero fails with Underflow error.
 
 ```rust
 #[test]
@@ -212,6 +218,8 @@ cargo test --package pallet-custom decrement_fails_on_underflow
 Verify that origin checks work correctly and unauthorized access is prevented.
 
 ### Test Root-Only Access
+
+Test that set_counter_value requires root origin and rejects signed origins.
 
 ```rust
 #[test]
@@ -252,6 +260,8 @@ The `increment_works` test (shown earlier) already demonstrates event testing by
 
 This pattern applies to all dispatchables that emit events. For a dedicated event-only test focusing on the `set_counter_value` function:
 
+Test that set_counter_value updates storage and emits correct event.
+
 ```rust
 #[test]
 fn set_counter_value_works() {
@@ -280,6 +290,8 @@ cargo test --package pallet-custom set_counter_value_works
 Verify that genesis configuration works correctly.
 
 ### Test Genesis Setup
+
+Test that genesis configuration correctly initializes counter and user interactions.
 
 ```rust
 #[test]

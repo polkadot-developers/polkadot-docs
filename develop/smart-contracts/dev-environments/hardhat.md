@@ -129,7 +129,7 @@ Once you have set up the binaries as per the [Compile Your Contract](#compile-yo
 npx hardhat node
 ```
 
-This command will launch a local node along with the ETH-RPC adapter, providing you with a complete testing environment ready for contract deployment and interaction. By default, the Substrate node will be running on `localhost:8000` and the ETH-RPC adapter on `localhost:8545`.
+This command launches a local node with the ETH-RPC adapter, providing a complete testing environment ready for contract deployment and interaction. By default, the Substrate node runs on `localhost:8000`, and the ETH-RPC adapter on `localhost:8545`.
 
 The output will be something like this:
 

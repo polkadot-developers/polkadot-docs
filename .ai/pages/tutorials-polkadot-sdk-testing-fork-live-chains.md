@@ -25,8 +25,13 @@ For additional support and information, please reach out through [GitHub Issues]
 
 To follow this tutorial, ensure you have completed the following:
 
+<<<<<<< HEAD
 - **Installed Chopsticks**: If you still need to do so, see the [Install Chopsticks](/parachains/testing/#install-chopsticks){target=\_blank} instructions for assistance.
 - **Reviewed [Configure Chopsticks](/parachains/testing/#configure-chopsticks){target=\_blank}**: You should understand how forked chains are configured.
+=======
+- **Installed Chopsticks**: If you still need to do so, see the [Install Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/#install-chopsticks){target=\_blank} guide for assistance.
+- **Reviewed** [Configure Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/#configure-chopsticks){target=\_blank}: And understand how forked chains are configured.
+>>>>>>> master
 
 ## Configuration File 
 
@@ -134,7 +139,11 @@ connectToFork();
 
 ## Replay Blocks
 
+<<<<<<< HEAD
 Chopsticks allows you to replay specific blocks from a chain, which is useful for debugging and analyzing state changes. You can use the parameters in the [Configuration](/parachains/testing/#configure-chopsticks){target=\_blank} section to set up the chain configuration, and then use the run-block subcommand with the following additional options:
+=======
+Chopsticks allows you to replay specific blocks from a chain, which is useful for debugging and analyzing state changes. You can use the parameters in the [Configuration](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/#configure-chopsticks){target=\_blank} section to set up the chain configuration, and then use the run-block subcommand with the following additional options:
+>>>>>>> master
 
 - **`output-path`**: Path to print output.
 - **`html`**: Generate HTML with storage diff.

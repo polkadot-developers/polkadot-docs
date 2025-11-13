@@ -145,7 +145,11 @@ version = "0.2.0" # <-- increment this version
 # ... rest of your Cargo.toml
 ```
 
+<<<<<<< HEAD
 For more information about runtime versioning, check the [Runtime Upgrades](/parachains/runtime-maintenance/runtime-upgrades#runtime-versioning){target=\_blank} guide.
+=======
+For more information about runtime versioning, check the [Runtime Upgrades](/develop/parachains/maintenance/runtime-upgrades#runtime-versioning){target=\_blank} guide.
+>>>>>>> master
 
 ### Build the New Runtime
 
@@ -169,6 +173,16 @@ For more information about runtime versioning, check the [Runtime Upgrades](/par
 
 If you can see the following elements, it means that you are ready to submit the runtime upgrade to your running chain:
 
+<<<<<<< HEAD
+=======
+<div id="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>ls -la target/release/wbuild/parachain-template-runtime/</span>
+  <br />
+  <span data-ty>parachain_template_runtime.wasm</span>
+  <span data-ty>parachain_template_runtime.compact.wasm</span>
+  <span data-ty>parachain_template_runtime.compact.compressed.wasm</span>
+</div>
+>>>>>>> master
 
 ## Submit the Runtime Upgrade
 

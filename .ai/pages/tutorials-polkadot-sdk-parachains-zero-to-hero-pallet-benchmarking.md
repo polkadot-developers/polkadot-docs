@@ -7,9 +7,15 @@ url: https://docs.polkadot.com/tutorials/polkadot-sdk/parachains/zero-to-hero/pa
 
 ## Introduction
 
+<<<<<<< HEAD
 After validating your pallet through testing and integrating it into your runtime, the next crucial step is benchmarking. Testing procedures were detailed in the [Pallet Unit Testing](/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-unit-testing/){target=\_blank} tutorial, while runtime integration was covered in the [Add Pallets to the Runtime](/parachains/customize-runtime/pallet-development/add-pallet-to-runtime/){target=\_blank} guide.
 
 Benchmarking assigns precise [weight](/reference/glossary/#weight){target=\_blank} to each extrinsic, 
+=======
+After validating your pallet through testing and integrating it into your runtime, the next crucial step is benchmarking. Testing procedures were detailed in the [Pallet Unit Testing](/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-unit-testing/){target=\_blank} tutorial, while runtime integration was covered in the [Add Pallets to the Runtime](/tutorials/polkadot-sdk/parachains/zero-to-hero/add-pallets-to-runtime/){target=\_blank} guide.
+
+Benchmarking assigns precise [weight](/polkadot-protocol/glossary/#weight){target=\_blank} to each extrinsic, 
+>>>>>>> master
 measuring their computational and storage costs. These derived weights enable accurate fee calculation and resource 
 allocation within the runtime.
 
@@ -19,7 +25,11 @@ This tutorial demonstrates how to:
 - Create and implement benchmark tests for your extrinsics.
 - Apply benchmark results to your pallet's extrinsics.
 
+<<<<<<< HEAD
 For comprehensive information about benchmarking concepts, refer to the [Benchmarking](/parachains/customize-runtime/pallet-development/benchmark-pallet/){target=\_blank} guide.
+=======
+For comprehensive information about benchmarking concepts, refer to the [Benchmarking](/develop/parachains/testing/benchmarking/){target=\_blank} guide.
+>>>>>>> master
 
 ## Environment Setup
 

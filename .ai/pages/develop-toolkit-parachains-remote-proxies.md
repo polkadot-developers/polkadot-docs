@@ -39,7 +39,11 @@ AH -- Trust Relationship --> RC
 
 In this architecture, Asset Hub trusts proxy definitions from the Relay Chain. When a remote proxy transaction is initiated, Asset Hub verifies the storage proof against its stored block roots from the Relay Chain, ensuring the proxy relationship is authentic and current.
 
+<<<<<<< HEAD
 The verification process utilizes [Merkle proofs](/reference/glossary/#trie-patricia-merkle-tree){target=\_blank} to confirm proxy permissions exist on the source chain at a specific block height.
+=======
+The verification process utilizes [Merkle proofs](/polkadot-protocol/glossary/#trie-patricia-merkle-tree){target=\_blank} to confirm proxy permissions exist on the source chain at a specific block height.
+>>>>>>> master
 
 !!!note "What makes remote proxies secure?"
     Remote proxies maintain security through cryptographic storage proofs that cannot be forged. The target chain verifies these proofs against trusted block roots, ensuring proxy relationships are authentic without requiring blind trust in external nodes.
@@ -80,7 +84,11 @@ Before implementing remote proxies, ensure you have:
 
 ### Installation and Setup
 
+<<<<<<< HEAD
 To implement remote proxies, you need to install the [`@polkadot/api`](/reference/tools/polkadot-js-api/){target=\_blank} package and create a script to execute the remote proxy transaction:
+=======
+To implement remote proxies, you need to install the [`@polkadot/api`](/develop/toolkit/api-libraries/polkadot-js-api/){target=\_blank} package and create a script to execute the remote proxy transaction:
+>>>>>>> master
 
 ```bash
 pnpm add @polkadot/api

@@ -22,7 +22,11 @@ This guide outlines the primary approaches to developing smart contracts in the 
 You'll explore the key differences between these development paths, along with considerations for parachain developers integrating smart contract functionality.
 
 !!!note "Parachain Developer?"
+<<<<<<< HEAD
     If you are a parachain developer looking to add smart contract functionality to your chain, please refer to the [Add Smart Contract Functionality](/parachains/customize-runtime/add-smart-contract-functionality/){target=\_blank} page, which covers both Wasm and EVM-based contract implementations.
+=======
+    If you are a parachain developer looking to add smart contract functionality to your chain, please refer to the [Add Smart Contract Functionality](/develop/parachains/customize-parachain/add-smart-contract-functionality/){target=\_blank} page, which covers both Wasm and EVM-based contract implementations.
+>>>>>>> master
 
 ## Smart Contracts Versus Parachains
 
@@ -72,13 +76,17 @@ The Polkadot SDK supports multiple smart contract execution environments:
 
 ### PolkaVM Contracts
 
+<<<<<<< HEAD
 A component of the Asset Hub parachain, PolkaVM helps enable the deployment of Solidity-based smart contracts directly on Asset Hub. Learn more about how this cutting edge virtual machine facilitates using familiar Ethereum-compatible contracts and tools with Asset Hub by visiting the [Native Smart Contracts](/smart-contracts/overview/#native-smart-contracts){target=\_blank} guide.
+=======
+A component of the Asset Hub parachain, PolkaVM helps enable the deployment of Solidity-based smart contracts directly on Asset Hub. Learn more about how this cutting edge virtual machine facilitates using familiar Ethereum-compatible contracts and tools with Asset Hub by visiting the [Native Smart Contracts](/develop/smart-contracts/overview#native-smart-contracts){target=\_blank} guide.
+>>>>>>> master
 
 ### EVM Contracts
 
 The [Frontier](https://github.com/polkadot-evm/frontier){target=\_blank} project provides a set of modules that enables a Polkadot SDK-based chain to run an Ethereum emulation layer that allows the execution of EVM smart contracts natively with the same API/RPC interface.
 
-[Ethereum addresses (ECDSA)](https://ethereum.org/en/glossary/#address){target=\_blank} can also be mapped directly to and from the Polkadot SDK's SS58 scheme from existing accounts. Moreover, you can modify Polkadot SDK to use the ECDSA signature scheme directly to avoid any mapping.
+[Ethereum addresses (ECDSA)](https://ethereum.org/glossary/#address){target=\_blank} can also be mapped directly to and from the Polkadot SDK's SS58 scheme from existing accounts. Moreover, you can modify Polkadot SDK to use the ECDSA signature scheme directly to avoid any mapping.
 
 At a high level, [Frontier](https://github.com/polkadot-evm/frontier){target=\_blank} is composed of three main components:
 

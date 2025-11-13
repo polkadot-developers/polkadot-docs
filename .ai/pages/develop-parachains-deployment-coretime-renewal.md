@@ -56,7 +56,11 @@ The coretime auto-renewal feature simplifies maintaining continuous coretime all
 When auto-renewal is enabled, the system follows this process at the start of each sale:
 
 1. The system scans all registered auto-renewal records.
+<<<<<<< HEAD
 2. For each record, it attempts to process renewal payments from the task's [sovereign account](/reference/glossary/#sovereign-account){target=\_blank} (which is the sibling account on the Coretime chain derived from the parachain ID).
+=======
+2. For each record, it attempts to process renewal payments from the task's [sovereign account](/polkadot-protocol/glossary/#sovereign-account){target=\_blank} (which is the sibling account on the Coretime chain derived from the parachain ID).
+>>>>>>> master
 3. Upon successful payment, the system emits a `Renewed` event and secures the core for the next period.
 4. If payment fails due to insufficient funds or other issues, the system emits an `AutoRenewalFailed` event.
 
@@ -68,7 +72,11 @@ To enable auto-renewal for your parachain, you must configure several components
 
 A Horizontal Relay-routed Message Passing (HRMP) channel must be opened between your parachain and the Coretime system chain before configuring auto-renewal. 
 
+<<<<<<< HEAD
 For instructions on establishing this connection, consult the [Opening HRMP Channels with System Parachains](/parachains/interoperability/channels-with-system-parachains/){target=\_blank} guide.
+=======
+For instructions on establishing this connection, consult the [Opening HRMP Channels with System Parachains](/tutorials/interoperability/xcm-channels/para-to-system/){target=\_blank} guide.
+>>>>>>> master
 
 ### Fund Sovereign Account
 

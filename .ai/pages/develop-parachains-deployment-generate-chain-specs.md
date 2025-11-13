@@ -102,6 +102,12 @@ To create a plain chain specification, first ensure that the runtime has been co
 chain-spec-builder create -r INSERT_RUNTIME_WASM_PATH INSERT_COMMAND
 ```
 
+To generate your chain specification in a specific directory, use the `--chain-spec-path` flag:
+
+```bash
+chain-spec-builder --chain-spec-path INSERT_OUTPUT_PATH create -r INSERT_RUNTIME_WASM_PATH INSERT_COMMAND
+```
+
 Replace `INSERT_RUNTIME_WASM_PATH` with the path to the runtime Wasm file and `INSERT_COMMAND` with the command to insert the runtime into the chain specification. 
 
 The available commands are:
@@ -229,7 +235,11 @@ After generating a chain specification, you can use it to initialize the genesis
 
     Learn how to obtain the necessary coretime configuration to synchronize your blockchain’s timestamping and enhance its performance.
 
+<<<<<<< HEAD
     [:octicons-arrow-right-24: Reference](/parachains/launch-a-parachain/obtain-coretime/)
+=======
+    [:octicons-arrow-right-24: Reference](/develop/parachains/deployment/obtain-coretime/)
+>>>>>>> master
 
 -   <span class="badge guide">Guide</span> __Deployment__
 

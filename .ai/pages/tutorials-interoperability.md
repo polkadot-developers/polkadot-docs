@@ -6,7 +6,11 @@ url: https://docs.polkadot.com/tutorials/interoperability/
 
 # Cross-Chain Interoperability Tutorials
 
+<<<<<<< HEAD
 This section introduces you to the core interoperability solutions within the Polkadot ecosystem through practical, hands-on tutorials. These resources are designed to help you master cross-chain communication techniques, from setting up messaging channels between parachains to leveraging Polkadot's advanced features of the [XCM protocol](/parachains/interoperability/get-started/){target=\_blank}.
+=======
+This section introduces you to the core interoperability solutions within the Polkadot ecosystem through practical, hands-on tutorials. These resources are designed to help you master cross-chain communication techniques, from setting up messaging channels between parachains to leveraging Polkadot's advanced features of the [XCM protocol](/develop/interoperability/intro-to-xcm/){target=\_blank}.
+>>>>>>> master
 
 By following these guides, you’ll gain the skills needed to implement seamless integration and interaction across diverse blockchains, unlocking the full potential of Polkadot's interconnected network.
 
@@ -18,8 +22,13 @@ XCM provides a secure and trustless framework that facilitates communication bet
 
 Learn to establish and use cross-chain communication channels:
 
+<<<<<<< HEAD
 - **[Opening HRMP Channels Between Parachains](/parachains/interoperability/channels-between-parachains/)**: Set up uni- and bidirectional messaging channels between parachains.
 - **[Opening HRMP Channels with System Parachains](/parachains/interoperability/channels-with-system-parachains/)**: Establish communication channels with system parachains using optimized XCM messages.
+=======
+- **[Opening HRMP Channels Between Parachains](/tutorials/interoperability/xcm-channels/para-to-para/)**: Set up uni- and bidirectional messaging channels between parachains.
+- **[Opening HRMP Channels with System Parachains](/tutorials/interoperability/xcm-channels/para-to-system/)**: Establish communication channels with system parachains using optimized XCM messages.
+>>>>>>> master
 
 ## In This Section
 
@@ -29,16 +38,18 @@ Learn to establish and use cross-chain communication channels:
 
 <div class="subsection-wrapper">
   <div class="card">
+<<<<<<< HEAD
     <a href="/reference/parachains/interoperability/">
+=======
+    <a href="/polkadot-protocol/parachain-basics/interoperability/">
+>>>>>>> master
       <h2 class="title">Learn about Polkadot's Interoperability</h2>
-      <hr>
       <p class="description">Explore the importance of interoperability in the Polkadot ecosystem, covering XCM, bridges, and cross-chain communication.</p>
     </a>
   </div>
     <div class="card">
     <a href="/develop/interoperability/">
       <h2 class="title">Explore Comprehensive XCM Guides</h2>
-      <hr>
       <p class="description">Looking for comprehensive guides and technical resources on XCM? Explore foundational concepts, advanced configuration, and best practices for building cross-chain solutions using XCM.</p>
     </a>
   </div>

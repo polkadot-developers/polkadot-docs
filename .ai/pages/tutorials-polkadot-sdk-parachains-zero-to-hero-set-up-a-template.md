@@ -29,7 +29,15 @@ By the end of this tutorial, you'll have a working local parachain and understan
 
 Before getting started, ensure you have done the following:
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:.ai/pages/tutorials-polkadot-sdk-parachains-zero-to-hero-set-up-a-template.md
 - Completed the [Install Polkadot SDK Dependencies](/parachains/install-polkadot-sdk/){target=\_blank} guide and successfully installed [Rust](https://www.rust-lang.org/){target=\_blank} and the required packages to set up your development environment.
+========
+- Completed the [Install Polkadot SDK Dependencies](/develop/parachains/install-polkadot-sdk/){target=\_blank} guide and successfully installed [Rust](https://rust-lang.org/){target=\_blank} and the required packages to set up your development environment.
+>>>>>>>> master:tutorials/polkadot-sdk/parachains/zero-to-hero/set-up-a-template.md
+=======
+- Completed the [Install Polkadot SDK Dependencies](/develop/parachains/install-polkadot-sdk/){target=\_blank} guide and successfully installed [Rust](https://rust-lang.org/){target=\_blank} and the required packages to set up your development environment.
+>>>>>>> master
 
 For this tutorial series, you need to use Rust `1.86`. Newer versions of the compiler may not work with this parachain template version.
 

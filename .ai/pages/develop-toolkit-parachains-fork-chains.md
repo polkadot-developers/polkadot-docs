@@ -8,7 +8,11 @@ url: https://docs.polkadot.com/develop/toolkit/parachains/fork-chains/
 
 Explore tools for forking live blockchain networks. These tools enable you to replicate real-world conditions in a local environment for accurate testing and debugging. They also allow you to analyze network behavior, test new features, and simulate complex scenarios in a controlled environment without affecting production systems.
 
+<<<<<<< HEAD
 Ready to get started? Jump straight to the [Chopsticks getting started](/parachains/testing/fork-a-parachain/) guide.
+=======
+Ready to get started? Jump straight to the [Chopsticks getting started](/develop/toolkit/parachains/fork-chains/chopsticks/get-started/) guide.
+>>>>>>> master
 
 ## Why Fork a Live Chain?
 
@@ -29,7 +33,6 @@ Forking a live chain creates a controlled environment that mirrors live network 
   <div class="card">
     <a href="/tutorials/polkadot-sdk/testing/fork-live-chains/">
       <h2 class="title">Step-by-Step Tutorial on Forking Live Chains with Chopsticks</h2>
-      <hr>
       <p class="description">This tutorial walks you through how to fork live Polkadot SDK chains with Chopsticks. Configure forks, replay blocks, test XCM execution.</p>
     </a>
   </div>

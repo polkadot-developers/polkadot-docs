@@ -61,7 +61,11 @@ main();
 
 ```
 
+<<<<<<< HEAD
 The `withLightClient` function is particularly important. It uses the built-in [light client](/reference/tools/light-clients/){target=\_blank} functionality, powered by [`smoldot`](https://github.com/smol-dot/smoldot){target=\_blank}, to create a light client that synchronizes and interacts with Polkadot directly within the application.
+=======
+The `withLightClient` function is particularly important. It uses the built-in [light client](/develop/toolkit/parachains/light-clients/){target=\_blank} functionality, powered by [`smoldot`](https://github.com/smol-dot/smoldot){target=\_blank}, to create a light client that synchronizes and interacts with Polkadot directly within the application.
+>>>>>>> master
 
 ## Create the CLI
 

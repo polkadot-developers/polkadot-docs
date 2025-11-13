@@ -14,7 +14,11 @@ Ready to create a parachain from the ground up? Start with the tutorials highlig
 
 Follow these key milestones to guide you through parachain development. Each step links to detailed tutorials for a deeper dive into each stage:
 
+<<<<<<< HEAD
 - **[Install the Polkadot SDK](/parachains/install-polkadot-sdk/)**: Set up the necessary tools to begin building on Polkadot. This step will get your environment ready for parachain development.
+=======
+- **[Install the Polkadot SDK](/develop/parachains/install-polkadot-sdk/)**: Set up the necessary tools to begin building on Polkadot. This step will get your environment ready for parachain development.
+>>>>>>> master
 
 - **[Parachains Zero to Hero](/tutorials/polkadot-sdk/parachains/zero-to-hero/)**: A series of step-by-step guides to building, testing, and deploying custom pallets and runtimes using the Polkadot SDK.
 
@@ -28,7 +32,6 @@ Follow these key milestones to guide you through parachain development. Each ste
   <div class="card">
     <a href="https://github.com/paritytech/polkadot-sdk" target="_blank">
       <h2 class="title">View the Polkadot SDK Source Code</h2>
-      <hr>
       <p class="description">Check out the Polkadot SDK repository on GitHub to explore the source code and stay updated on the latest releases.</p>
     </a>
   </div>

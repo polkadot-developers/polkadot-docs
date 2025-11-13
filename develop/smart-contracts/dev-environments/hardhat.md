@@ -153,7 +153,7 @@ To run your test:
 
 Before deploying to a live network, you can deploy your contract to a local node using [Ignition](https://hardhat.org/ignition/docs/getting-started#overview){target=\_blank} modules:
 
-1. Make sure that the local network is added as a target for in your Hardhat configuration file for local deployment:
+1. Make sure that the local network is added as a target in your Hardhat configuration file for local deployment:
 
     ```javascript title="hardhat.config.js"
     --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:24:29'

@@ -55,9 +55,9 @@ This guide will use the Local Development Node as the target network. Here's how
 
 Hardhat Ignition uses this module to orchestrate the deployment:
 
-    ```bash
-    npx hardhat ignition deploy ./ignition/modules/Lock.js --network polkadotTestNet
-    ```
+```bash
+npx hardhat ignition deploy ./ignition/modules/Lock.js --network polkadotTestNet
+```
 
 ## Interaction with Your Contract
 

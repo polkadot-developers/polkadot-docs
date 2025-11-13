@@ -14,14 +14,14 @@ To compile your project, follow these instructions:
 
 1. Make sure that your Hardhat configuration file matches the Solidity compiler version shown in the code snippet below:
 
-```javascript title="hardhat.config.js"
-require("@nomicfoundation/hardhat-toolbox");
+    ```javascript title="hardhat.config.js"
+    require("@nomicfoundation/hardhat-toolbox");
 
-/** @type import('hardhat/config').HardhatUserConfig */
-module.exports = {
-    solidity: "0.8.28",
-};
-```
+    /** @type import('hardhat/config').HardhatUserConfig */
+    module.exports = {
+        solidity: "0.8.28",
+    };
+    ```
 
 2. Compile the contract with Hardhat:
 
@@ -59,9 +59,9 @@ Hardhat uses [Mocha](https://mochajs.org/){target=\_blank} as its testing framew
 
 To run your tests execute the following command to run your tests:
 
-    ```bash
-    npx hardhat test
-    ```
+```bash
+npx hardhat test
+```
 
 This will run all test files in the `test` directory. Hardhat automatically manages the test network lifecycle, so you don't need to run `npx hardhat node` separately for testing.
 

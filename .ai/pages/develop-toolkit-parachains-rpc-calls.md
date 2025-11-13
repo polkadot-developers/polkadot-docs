@@ -1,8 +1,6 @@
 ---
 title: RPC Calls to Polkadot SDK chains.
 description: Learn how to interact with Polkadot SDK-based chains using RPC calls. This guide covers essential methods and usage via curl.
-word_count: 909
-estimated_tokens: 1873
 url: https://docs.polkadot.com/develop/toolkit/parachains/rpc-calls/
 ---
 

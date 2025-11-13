@@ -2,8 +2,6 @@
 title: Agile Coretime
 description: Explore the efficient scheduling mechanisms to access Polkadot cores to produce blockspace continuously or on-demand.
 categories: Polkadot Protocol
-word_count: 452
-estimated_tokens: 622
 url: https://docs.polkadot.com/polkadot-protocol/architecture/polkadot-chain/agile-coretime/
 ---
 

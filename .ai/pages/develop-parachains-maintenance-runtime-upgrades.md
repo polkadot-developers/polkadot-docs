@@ -2,8 +2,6 @@
 title: Runtime Upgrades
 description: This page covers how runtime versioning and storage migration support forkless upgrades for Polkadot SDK-based networks and how they factor into chain upgrades.
 categories: Parachains
-word_count: 811
-estimated_tokens: 1164
 url: https://docs.polkadot.com/develop/parachains/maintenance/runtime-upgrades/
 ---
 

@@ -1,8 +1,6 @@
 ---
 title: Deployment
 description: Learn how to prepare your blockchain for deployment using the Polkadot SDK, including building deterministic Wasm runtimes and generating chain specifications.
-word_count: 654
-estimated_tokens: 1025
 url: https://docs.polkadot.com/develop/parachains/deployment/
 ---
 

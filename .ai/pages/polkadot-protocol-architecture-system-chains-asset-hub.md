@@ -2,8 +2,6 @@
 title: Asset Hub
 description: Learn about Asset Hub in Polkadot, managing on-chain assets, foreign asset integration, and using XCM for cross-chain asset transfers.
 categories: Polkadot Protocol
-word_count: 2910
-estimated_tokens: 4108
 url: https://docs.polkadot.com/polkadot-protocol/architecture/system-chains/asset-hub/
 ---
 

@@ -2,8 +2,6 @@
 title: Coretime Renewal
 description: Learn how to renew coretime manually or automatically to ensure uninterrupted parachain operation with predictable pricing and minimal risk.
 categories: Parachains
-word_count: 1896
-estimated_tokens: 3075
 url: https://docs.polkadot.com/develop/parachains/deployment/coretime-renewal/
 ---
 

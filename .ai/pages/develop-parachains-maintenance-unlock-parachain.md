@@ -2,8 +2,6 @@
 title: Unlock a Parachain
 description: Learn how to unlock your parachain. This step-by-step guide covers verifying lock status, preparing calls, and executing the unlock process.
 categories: Parachains
-word_count: 1277
-estimated_tokens: 2034
 url: https://docs.polkadot.com/develop/parachains/maintenance/unlock-parachain/
 ---
 

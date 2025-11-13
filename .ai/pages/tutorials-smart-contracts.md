@@ -1,8 +1,6 @@
 ---
 title: Smart Contracts
 description: Learn how to create, deploy, and manage smart contracts in the Polkadot ecosystem with detailed, step-by-step tutorials.
-word_count: 145
-estimated_tokens: 207
 url: https://docs.polkadot.com/tutorials/smart-contracts/
 ---
 

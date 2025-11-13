@@ -1,8 +1,6 @@
 ---
 title: Asset Hub Tutorials
 description: Learn how to manage assets on Asset Hub, including registering local and foreign assets and converting between different asset types.
-word_count: 249
-estimated_tokens: 401
 url: https://docs.polkadot.com/tutorials/polkadot-sdk/system-chains/asset-hub/
 ---
 

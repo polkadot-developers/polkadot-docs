@@ -1,8 +1,6 @@
 ---
 title: Operational Tasks
 description: Learn how to manage your Polkadot validator node, including monitoring performance, running a backup validator for maintenance, and rotating keys.
-word_count: 201
-estimated_tokens: 324
 url: https://docs.polkadot.com/infrastructure/running-a-validator/operational-tasks/
 ---
 

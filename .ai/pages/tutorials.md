@@ -1,8 +1,6 @@
 ---
 title: Tutorials
 description: Explore step-by-step tutorials for building in Polkadot, from parachain deployment and testing to cross-chain asset creation and XCM channel management.
-word_count: 352
-estimated_tokens: 636
 url: https://docs.polkadot.com/tutorials/
 ---
 

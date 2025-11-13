@@ -1,8 +1,6 @@
 ---
 title: Configure Asynchronous Backing
 description: Learn how to increase the efficiency and throughput of your parachain by configuring it to leverage asynchronous backing.
-word_count: 2385
-estimated_tokens: 4732
 url: https://docs.polkadot.com/develop/parachains/maintenance/configure-asynchronous-backing/
 ---
 

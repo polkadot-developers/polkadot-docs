@@ -2,8 +2,6 @@
 title: Networks
 description: Explore Polkadot's testing and production networks, including Westend, Kusama, and Paseo, for efficient development, deployment, and testing.
 categories: Basics, Polkadot Protocol, Networks
-word_count: 1111
-estimated_tokens: 1475
 url: https://docs.polkadot.com/polkadot-protocol/parachain-basics/networks/
 ---
 

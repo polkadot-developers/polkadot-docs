@@ -1,8 +1,6 @@
 ---
 title: Demo Applications
 description: Explore working demo applications that can be deployed to Polkadot Hub, showcasing common use cases and integration patterns.
-word_count: 60
-estimated_tokens: 82
 url: https://docs.polkadot.com/tutorials/smart-contracts/demo-aplications/
 ---
 

@@ -1,7 +1,5 @@
 Begin New Bundle: Smart Contracts
 Includes shared base categories: Basics, Reference
-word_count: 90059
-estimated_tokens: 156139
 
 
 ---

@@ -1,8 +1,6 @@
 ---
 title: Parachains
 description: Explore how parachains achieve consensus and leverage shared security through Polkadot’s relay chain and validators within the network’s architecture.
-word_count: 93
-estimated_tokens: 116
 url: https://docs.polkadot.com/polkadot-protocol/architecture/parachains/
 ---
 

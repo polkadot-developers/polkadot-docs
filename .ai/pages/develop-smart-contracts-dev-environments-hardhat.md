@@ -2,8 +2,6 @@
 title: Use Hardhat with Polkadot Hub
 description: Learn how to create, compile, test, and deploy smart contracts on Polkadot Hub using Hardhat, a powerful development environment for blockchain developers.
 categories: Smart Contracts, Tooling
-word_count: 2475
-estimated_tokens: 4413
 url: https://docs.polkadot.com/develop/smart-contracts/dev-environments/hardhat/
 ---
 

@@ -1,8 +1,6 @@
 ---
 title: Transfers
 description: Learn how to perform cross-chain asset transfers using XCM, including teleport, reserve transfers, and handling different asset types across parachains.
-word_count: 2293
-estimated_tokens: 4184
 url: https://docs.polkadot.com/develop/interoperability/xcm-guides/from-apps/transfers/
 ---
 

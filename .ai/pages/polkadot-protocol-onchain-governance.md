@@ -1,8 +1,6 @@
 ---
 title: On-Chain Governance
 description: Explore Polkadot's decentralized on-chain governance system, OpenGov, including how it works, the proposal process, and key info for developers.
-word_count: 285
-estimated_tokens: 420
 url: https://docs.polkadot.com/polkadot-protocol/onchain-governance/
 ---
 

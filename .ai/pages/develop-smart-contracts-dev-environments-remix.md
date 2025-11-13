@@ -2,8 +2,6 @@
 title: Use the Polkadot Remix IDE
 description: Explore the smart contract development and deployment process on Asset Hub using Remix IDE, a visual IDE for blockchain developers.
 categories: Smart Contracts, Tooling
-word_count: 913
-estimated_tokens: 1619
 url: https://docs.polkadot.com/develop/smart-contracts/dev-environments/remix/
 ---
 

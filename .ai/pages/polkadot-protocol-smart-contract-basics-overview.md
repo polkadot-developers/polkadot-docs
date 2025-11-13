@@ -2,8 +2,6 @@
 title: Smart Contracts Basics Overview
 description: Learn how developers can build smart contracts on Polkadot by leveraging either Wasm/ink! or EVM contracts across many parachains.
 categories: Basics, Polkadot Protocol
-word_count: 1560
-estimated_tokens: 2593
 url: https://docs.polkadot.com/polkadot-protocol/smart-contract-basics/overview/
 ---
 

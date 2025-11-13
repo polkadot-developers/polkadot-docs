@@ -2,8 +2,6 @@
 title: Coretime Chain
 description: Learn about the role of the Coretime system parachain, which facilitates the sale, purchase, assignment, and mechanisms of bulk coretime.
 categories: Polkadot Protocol
-word_count: 776
-estimated_tokens: 1238
 url: https://docs.polkadot.com/polkadot-protocol/architecture/system-chains/coretime/
 ---
 

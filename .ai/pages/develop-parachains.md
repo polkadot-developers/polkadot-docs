@@ -1,8 +1,6 @@
 ---
 title: Parachains
 description: Learn how to build, deploy, and maintain your parachain with the Polkadot SDK, from initial setup through customization, testing, runtime upgrades, and network operations.
-word_count: 271
-estimated_tokens: 387
 url: https://docs.polkadot.com/develop/parachains/
 ---
 

@@ -1,8 +1,6 @@
 ---
 title: Learn About the Polkadot Protocol
 description: Gain a comprehensive understanding of Polkadot through this technical overview, exploring its architecture, fundamental concepts, and essential components.
-word_count: 150
-estimated_tokens: 187
 url: https://docs.polkadot.com/polkadot-protocol/
 ---
 

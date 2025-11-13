@@ -1,8 +1,6 @@
 ---
 title: Blockchain Testing Tutorials
 description: Follow hands-on tutorials to set up, test, and validate the functionality of Polkadot-SDK blockchains, using tools and methods that streamline testing.
-word_count: 106
-estimated_tokens: 141
 url: https://docs.polkadot.com/tutorials/polkadot-sdk/testing/
 ---
 

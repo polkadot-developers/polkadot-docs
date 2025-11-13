@@ -1,8 +1,6 @@
 ---
 title: From Apps
 description: Learn how to implement XCM functionality in your applications, including asset transfers, fee management, and cross-chain transactions.
-word_count: 70
-estimated_tokens: 88
 url: https://docs.polkadot.com/develop/interoperability/xcm-guides/from-apps/
 ---
 

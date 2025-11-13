@@ -2,8 +2,6 @@
 title: Transactions
 description: Learn how to construct, submit, and validate transactions in the Polkadot SDK, covering signed, unsigned, and inherent types of transactions.
 categories: Basics, Polkadot Protocol
-word_count: 3336
-estimated_tokens: 4716
 url: https://docs.polkadot.com/polkadot-protocol/parachain-basics/blocks-transactions-fees/transactions/
 ---
 

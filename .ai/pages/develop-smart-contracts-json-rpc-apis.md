@@ -2,8 +2,6 @@
 title: JSON-RPC APIs
 description: JSON-RPC APIs guide for Polkadot Hub, covering supported methods, parameters, and examples for interacting with the chain.
 categories: Reference
-word_count: 3848
-estimated_tokens: 9599
 url: https://docs.polkadot.com/develop/smart-contracts/json-rpc-apis/
 ---
 

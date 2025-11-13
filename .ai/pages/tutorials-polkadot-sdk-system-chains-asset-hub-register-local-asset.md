@@ -2,8 +2,6 @@
 title: Register a Local Asset
 description: Comprehensive guide to registering a local asset on the Asset Hub system parachain, including step-by-step instructions.
 categories: Basics, dApps
-word_count: 1039
-estimated_tokens: 1579
 url: https://docs.polkadot.com/tutorials/polkadot-sdk/system-chains/asset-hub/register-local-asset/
 ---
 

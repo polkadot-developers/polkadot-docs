@@ -1,7 +1,5 @@
 Begin New Bundle: Parachains
 Includes shared base categories: Basics, Reference
-word_count: 115001
-estimated_tokens: 197941
 
 
 ---

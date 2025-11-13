@@ -1,8 +1,6 @@
 ---
 title: Testing Your Polkadot SDK-Based Blockchain
 description: Explore comprehensive testing strategies for Polkadot SDK-based blockchains, from setting up test environments to verifying runtime and pallet interactions.
-word_count: 155
-estimated_tokens: 284
 url: https://docs.polkadot.com/develop/parachains/testing/
 ---
 

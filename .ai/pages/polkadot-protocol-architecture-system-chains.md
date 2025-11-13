@@ -1,8 +1,6 @@
 ---
 title: System Chains
 description: Discover the unique role and functionality each of Polkadot’s system chains, including the Asset Hub, Bridge Hub, and Coretime chain, provides to the ecosystem.
-word_count: 124
-estimated_tokens: 151
 url: https://docs.polkadot.com/polkadot-protocol/architecture/system-chains/
 ---
 

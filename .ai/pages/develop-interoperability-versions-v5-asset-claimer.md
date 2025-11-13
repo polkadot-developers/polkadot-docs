@@ -1,8 +1,6 @@
 ---
 title: Asset claimer
 description: Learn how the AssetClaimer hint improves trapped asset recovery in XCM V5, enabling automated recovery and reducing the need for governance intervention.
-word_count: 582
-estimated_tokens: 1070
 url: https://docs.polkadot.com/develop/interoperability/versions/v5/asset-claimer/
 ---
 

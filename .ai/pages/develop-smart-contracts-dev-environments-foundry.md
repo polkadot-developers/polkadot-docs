@@ -1,8 +1,6 @@
 ---
 title: Use Foundry with Polkadot Hub
 description: Learn to install, configure, and use foundry-polkadot for smart contract development on Polkadot with PolkaVM bytecode compilation.
-word_count: 2744
-estimated_tokens: 6268
 url: https://docs.polkadot.com/develop/smart-contracts/dev-environments/foundry/
 ---
 

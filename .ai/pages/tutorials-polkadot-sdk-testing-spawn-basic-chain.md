@@ -2,8 +2,6 @@
 title: Spawn a Basic Chain with Zombienet
 description: Learn to spawn, connect to and monitor a basic blockchain network with Zombienet, using customizable configurations for streamlined development and debugging.
 categories: Basics, dApps, Tooling
-word_count: 1403
-estimated_tokens: 2587
 url: https://docs.polkadot.com/tutorials/polkadot-sdk/testing/spawn-basic-chain/
 ---
 

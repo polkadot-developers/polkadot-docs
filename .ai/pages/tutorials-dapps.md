@@ -1,8 +1,6 @@
 ---
 title: Decentralized Application Tutorials
 description: Explore step-by-step tutorials for exploring the world of building decentralized applications using the toolkits that Polkadot provides.
-word_count: 169
-estimated_tokens: 284
 url: https://docs.polkadot.com/tutorials/dapps/
 ---
 

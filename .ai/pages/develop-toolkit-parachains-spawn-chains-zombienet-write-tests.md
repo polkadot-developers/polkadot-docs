@@ -2,8 +2,6 @@
 title: Write Tests
 description: Write and execute tests for blockchain networks with Zombienet's DSL. Learn to evaluate metrics, logs, events, and more for robust validation.
 categories: Parachains, Tooling
-word_count: 1491
-estimated_tokens: 2664
 url: https://docs.polkadot.com/develop/toolkit/parachains/spawn-chains/zombienet/write-tests/
 ---
 

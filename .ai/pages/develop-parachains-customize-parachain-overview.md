@@ -2,8 +2,6 @@
 title: Overview of FRAME
 description: Learn how Polkadot SDK’s FRAME framework simplifies blockchain development with modular pallets and support libraries for efficient runtime design.
 categories: Basics, Parachains
-word_count: 1268
-estimated_tokens: 2023
 url: https://docs.polkadot.com/develop/parachains/customize-parachain/overview/
 ---
 

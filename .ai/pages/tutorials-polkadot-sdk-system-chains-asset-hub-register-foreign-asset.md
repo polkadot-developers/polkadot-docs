@@ -2,8 +2,6 @@
 title: Register a Foreign Asset on Asset Hub
 description: An in-depth guide to registering a foreign asset on the Asset Hub parachain, providing clear, step-by-step instructions.
 categories: dApps
-word_count: 1441
-estimated_tokens: 2271
 url: https://docs.polkadot.com/tutorials/polkadot-sdk/system-chains/asset-hub/register-foreign-asset/
 ---
 

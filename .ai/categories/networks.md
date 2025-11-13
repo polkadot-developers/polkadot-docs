@@ -1,7 +1,5 @@
 Begin New Bundle: Networks
 Includes shared base categories: Basics, Reference
-word_count: 70170
-estimated_tokens: 119487
 
 
 ---

@@ -2,8 +2,6 @@
 title: viem for Polkadot Hub Smart Contracts
 description: This guide covers deploying and interacting with contracts on Polkadot Hub using viem, a TypeScript library for Ethereum-compatible chains.
 categories: Smart Contracts, Tooling
-word_count: 1945
-estimated_tokens: 3934
 url: https://docs.polkadot.com/develop/smart-contracts/libraries/viem/
 ---
 

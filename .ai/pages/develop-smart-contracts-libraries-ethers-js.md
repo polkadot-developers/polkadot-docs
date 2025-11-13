@@ -2,8 +2,6 @@
 title: Deploy Contracts to Polkadot Hub with Ethers.js
 description: Learn how to interact with Polkadot Hub using Ethers.js, from compiling and deploying Solidity contracts to interacting with deployed smart contracts.
 categories: Smart Contracts, Tooling
-word_count: 2334
-estimated_tokens: 4511
 url: https://docs.polkadot.com/develop/smart-contracts/libraries/ethers-js/
 ---
 

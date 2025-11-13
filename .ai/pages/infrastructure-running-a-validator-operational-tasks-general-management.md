@@ -2,8 +2,6 @@
 title: General Management
 description: Optimize your Polkadot validator setup with advanced configuration techniques. Learn how to boost performance, enhance security, and ensure seamless operations.
 categories: Infrastructure
-word_count: 3340
-estimated_tokens: 5835
 url: https://docs.polkadot.com/infrastructure/running-a-validator/operational-tasks/general-management/
 ---
 

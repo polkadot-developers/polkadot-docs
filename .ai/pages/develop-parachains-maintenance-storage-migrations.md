@@ -2,8 +2,6 @@
 title: Storage Migrations
 description: Ensure smooth runtime upgrades with storage migrations, update data formats, and prevent errors. Learn when and how to implement migrations efficiently.
 categories: Parachains
-word_count: 2363
-estimated_tokens: 4017
 url: https://docs.polkadot.com/develop/parachains/maintenance/storage-migrations/
 ---
 

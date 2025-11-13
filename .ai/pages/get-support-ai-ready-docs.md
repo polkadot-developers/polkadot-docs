@@ -1,8 +1,6 @@
 ---
 title: AI Ready Docs
 description: Download LLM-optimized files of the Polkadot documentation, including full content and category-specific resources for AI agents.
-word_count: 825
-estimated_tokens: 2283
 url: https://docs.polkadot.com/get-support/ai-ready-docs/
 ---
 

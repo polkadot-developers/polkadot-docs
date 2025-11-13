@@ -2,8 +2,6 @@
 title: Fork a Chain with Chopsticks
 description: Learn how to fork live Polkadot SDK chains with Chopsticks. Configure forks, replay blocks, test XCM, and interact programmatically or via UI.
 categories: Basics, dApps, Tooling
-word_count: 1343
-estimated_tokens: 2743
 url: https://docs.polkadot.com/tutorials/polkadot-sdk/testing/fork-live-chains/
 ---
 

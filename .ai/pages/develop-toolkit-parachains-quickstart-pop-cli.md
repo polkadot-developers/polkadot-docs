@@ -2,8 +2,6 @@
 title: Quickstart Parachain Development with Pop CLI
 description: Quickly bootstrap parachain projects, scaffold templates, deploy local networks, and streamline development workflows using Pop CLI.
 categories: Parachains, Tooling
-word_count: 611
-estimated_tokens: 1008
 url: https://docs.polkadot.com/develop/toolkit/parachains/quickstart/pop-cli/
 ---
 

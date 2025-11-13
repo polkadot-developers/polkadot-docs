@@ -2,8 +2,6 @@
 title: E2E Testing with Moonwall
 description: Enhance blockchain end-to-end testing with Moonwall's standardized environment setup, comprehensive configuration management, and simple network interactions.
 categories: Parachains, Tooling
-word_count: 1295
-estimated_tokens: 2458
 url: https://docs.polkadot.com/develop/toolkit/parachains/e2e-testing/moonwall/
 ---
 

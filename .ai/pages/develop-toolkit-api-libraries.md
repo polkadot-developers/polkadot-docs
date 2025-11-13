@@ -1,8 +1,6 @@
 ---
 title: API Libraries
 description: Dive into APIs for interacting with the Polkadot network, including Polkadot-API, Polkadot.js, Python Substrate Interface, and Sidecar REST services.
-word_count: 139
-estimated_tokens: 250
 url: https://docs.polkadot.com/develop/toolkit/api-libraries/
 ---
 

@@ -1,8 +1,6 @@
 ---
 title: Dev Environments
 description: Explore development environments for building smart contracts on Polkadot, including frameworks and tools to enhance your development workflow.
-word_count: 154
-estimated_tokens: 430
 url: https://docs.polkadot.com/develop/smart-contracts/dev-environments/
 ---
 

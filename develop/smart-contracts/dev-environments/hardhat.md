@@ -100,7 +100,7 @@ The plugin will compile your Solidity contracts for Solidity versions `0.8.0` an
         ```bash
         chmod +x /path/to/your/binary
         ```
-        For mac environments, sometimes the binaries get quarantined. To remove this, run:
+        In macOS environments, binaries are sometimes quarantined. To remove this, run:
         ```bash
         xattr -d com.apple.quarantine /path/to/your/binary
         ```

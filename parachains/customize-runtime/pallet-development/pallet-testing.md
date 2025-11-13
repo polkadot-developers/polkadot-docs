@@ -332,26 +332,29 @@ cargo test --package pallet-custom
 
 You should see all tests passing:
 
-```
-running 15 tests
-test mock::__construct_runtime_integrity_test::runtime_integrity_tests ... ok
-test mock::test_genesis_config_builds ... ok
-test tests::decrement_fails_on_underflow ... ok
-test tests::decrement_tracks_multiple_interactions ... ok
-test tests::decrement_works ... ok
-test tests::different_users_tracked_separately ... ok
-test tests::genesis_config_works ... ok
-test tests::increment_fails_on_overflow ... ok
-test tests::increment_respects_max_value ... ok
-test tests::increment_tracks_multiple_interactions ... ok
-test tests::increment_works ... ok
-test tests::mixed_increment_and_decrement_works ... ok
-test tests::set_counter_value_requires_root ... ok
-test tests::set_counter_value_respects_max_value ... ok
-test tests::set_counter_value_works ... ok
 
-test result: ok. 15 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
-```
+<div id="termynal" data-termynal>
+  <span data-ty="input">$ cargo test --package pallet-custom</span>
+  <span data-ty>running 15 tests</span>
+  <span data-ty>test mock::__construct_runtime_integrity_test::runtime_integrity_tests ... ok</span>
+  <span data-ty>test mock::test_genesis_config_builds ... ok</span>
+  <span data-ty>test tests::decrement_fails_on_underflow ... ok</span>
+  <span data-ty>test tests::decrement_tracks_multiple_interactions ... ok</span>
+  <span data-ty>test tests::decrement_works ... ok</span>
+  <span data-ty>test tests::different_users_tracked_separately ... ok</span>
+  <span data-ty>test tests::genesis_config_works ... ok</span>
+  <span data-ty>test tests::increment_fails_on_overflow ... ok</span>
+  <span data-ty>test tests::increment_respects_max_value ... ok</span>
+  <span data-ty>test tests::increment_tracks_multiple_interactions ... ok</span>
+  <span data-ty>test tests::increment_works ... ok</span>
+  <span data-ty>test tests::mixed_increment_and_decrement_works ... ok</span>
+  <span data-ty>test tests::set_counter_value_requires_root ... ok</span>
+  <span data-ty>test tests::set_counter_value_respects_max_value ... ok</span>
+  <span data-ty>test tests::set_counter_value_works ... ok</span>
+  <span data-ty></span>
+  <span data-ty>test result: ok. 15 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out</span>
+</div>
+
 
 !!!note "Mock Runtime Tests"
     You'll notice 2 additional tests from the `mock` module:

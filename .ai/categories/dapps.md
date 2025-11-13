@@ -2783,6 +2783,205 @@ For more detailed information about Dedot, check the [official documentation](ht
 
 Page Title: Deploy an ERC-20 to Polkadot Hub
 
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-erc20-erc20-hardhat.md
+- Canonical (HTML): https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-hardhat/
+- Summary: Deploy an ERC-20 token on Polkadot Hub using PolkaVM. This guide covers contract creation, compilation, deployment, and interaction via Hardhat.
+
+# Deploy an ERC-20 to Polkadot Hub
+
+## Introduction
+
+[ERC-20](https://eips.ethereum.org/EIPS/eip-20){target=\_blank} tokens are fungible tokens commonly used for creating cryptocurrencies, governance tokens, and staking mechanisms. Polkadot Hub enables easy token deployment with Ethereum-compatible smart contracts and tools via the EVM backend.
+
+This tutorial covers deploying an ERC-20 contract on the Polkadot Hub TestNet using [Hardhat](https://hardhat.org/){target=\_blank}, an Ethereum development environment. The ERC-20 contract can be retrieved from OpenZeppelin's [GitHub repository](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/v5.4.0/contracts/token/ERC20){target=\_blank}  or their [Contract Wizard](https://wizard.openzeppelin.com/){target=\_blank}.
+
+## Prerequisites
+
+Before starting, make sure you have:
+
+- Basic understanding of Solidity programming and fungible tokens.
+- Node.js v22.13.1 or later.
+- A funded account with tokens for transaction fees. This example will deploy the contract to the Polkadot TestNet, so you'll [need some TestNet tokens](/smart-contracts/faucet/#get-test-tokens){target=\_blank} from the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}.
+
+## Set Up Your Project
+
+This tutorial uses a [Hardhat ERC-20 template](https://github.com/polkadot-developers/revm-hardhat-examples/tree/master/erc20-hardhat){target=\_blank} that contains all the necessary files. To get started, take the following steps:
+
+1. Clone the GitHub repository locally:
+
+    ```bash
+    git clone https://github.com/polkadot-developers/revm-hardhat-examples/
+    cd revm-hardhat-examples/erc20-hardhat
+    ```
+
+2. Install the dependencies:
+
+    ```bash
+    npm i
+    ```
+
+This will fetch all the necessary packages to help you deploy an ERC-20 with Hardhat to Polkadot.
+
+## Configure Hardhat
+
+Once you've [setup your project](#set-up-your-project), you can configure the `hardhat.config.ts` to your needs. This tutorial has the file prepared to deploy to the Polkadot TestNet.
+
+To store and use private keys or network URLs, you can use Hardhat's configuration variables. This can be set via tasks in the **vars** scope. For example, to store the private key to deploy to the Polkadot TestNet, run the following command:
+
+```bash
+npx hardhat vars set TESTNET_PRIVATE_KEY
+```
+
+The command will initiate a wizard in which you'll have to enter the value to be stored:
+
+<div id="termynal" data-termynal markdown>
+  <span data-ty="input">npx hardhat vars set TESTNET_PRIVATE_KEY</span>
+  <span data-ty>✔ Enter value: · •••••••••</span>
+  <span data-ty>The configuration variable has been stored in /Users/albertoviera/Library/Preferences/hardhat-nodejs/vars.json</span>
+</div>
+
+??? warning "Key Encryption"
+    This solution just prevents variables to be included in the code repository. You should find a solution that encrypts private keys and access them securely.
+
+You can now use the account related to this private key by importing it into the Hardhat configuration file:
+
+```ts title="hardhat.config.ts" hl_lines="1 17"
+
+const config: HardhatUserConfig = {
+  solidity: {
+    version: "0.8.28",
+    settings: {
+      optimizer: {
+        enabled: true,
+        runs: 200,
+      },
+    },
+  },
+  networks: {
+    polkadotTestnet: {
+      url: vars.get("TESTNET_URL", "http://127.0.0.1:8545"),
+      accounts: vars.has("TESTNET_PRIVATE_KEY") ? [vars.get("TESTNET_PRIVATE_KEY")] : [],
+    },
+  },
+  mocha: {
+    timeout: 40000,
+  },
+};
+
+export default config;
+```
+
+## Compile your Contract
+
+Once you've configured Hardhat, you can compile the contract. 
+
+In this tutorial, a simple ERC-20 is provided. Therefore, to compile the contract you can run the following command:
+
+```bash
+npx hardhat compile
+```
+
+If everything compiles successfully, you should see the following output:
+
+<div id="termynal" data-termynal markdown>
+  <span data-ty="input">npx hardhat compile</span>
+  <span data-ty>Generating typings for: 23 artifacts in dir: typechain-types for target: ethers-v6</span>
+  <span data-ty>Successfully generated 62 typings!</span>
+  <span data-ty>Compiled 21 Solidity files successfully (evm target: paris).</span>
+</div>
+
+## Test your Contract
+
+Hardhat has a native feature to test contracts. You can run tests against the local Hardhat development node, but it could have some technical differences to Polkadot. Therefore, in this tutorial, you'll be testing against the Polkadot TestNet
+
+This example has a predefined test file located in [`test/Token.test.js`](https://github.com/polkadot-developers/revm-hardhat-examples/blob/master/erc20-hardhat/test/MyToken.test.ts){target=\_blank}, that runs the following tests:
+
+1. The token was deployed by verifying its **name** and **symbol**.
+2. The token has the right owner configured.
+3. The token has an initial supply of zero.
+4. The owner can mint tokens.
+5. The total supply is increased after a mint.
+6. Perform multiple mints to different addresses and checks the balance of each address and the new total supply.
+
+To run the test, you can execute the following command:
+
+```bash
+npx hardhat test --network polkadotTestnet
+```
+
+If tests are successful, you should see the following logs:
+
+<div id="termynal" data-termynal markdown>
+  <span data-ty="input">npx hardhat test --network polkadotTestnet</span>
+  <span data-ty></span>
+  <span data-ty>&nbsp;&nbsp;MyToken</span>
+  <span data-ty>&nbsp;&nbsp;&nbsp;&nbsp;Deployment</span>
+  <span data-ty>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✔ Should have correct name and symbol</span>
+  <span data-ty>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✔ Should set the right owner</span>
+  <span data-ty>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✔ Should have zero initial supply</span>
+  <span data-ty>&nbsp;&nbsp;&nbsp;&nbsp;Minting</span>
+  <span data-ty>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✔ Should allow owner to mint tokens</span>
+  <span data-ty>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✔ Should increase total supply on mint</span>
+  <span data-ty>&nbsp;&nbsp;&nbsp;&nbsp;Multiple mints</span>
+  <span data-ty>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✔ Should correctly track balance after multiple mints</span>
+  <span data-ty></span>
+  <span data-ty>&nbsp;&nbsp;6 passing (369ms)</span>
+</div>
+
+## Deploy your Contract
+
+With the Hardhat configuration file ready, the private key stored as a variable under **vars**, and the contract compiled, you can proceed to deploy the contract to a given network. In this tutorial, you are deploying it to the Polkadot TestNet.
+
+To deploy the contract, run the following command:
+
+```bash
+npx hardhat ignition deploy ./ignition/modules/MyToken.ts --network polkadotTestnet
+```
+
+You'll need to confirm the target network (by chain ID):
+
+<div id="termynal" data-termynal markdown>
+  <span data-ty="input">npx hardhat ignition deploy ./ignition/modules/MyToken.ts --network polkadotTestnet</span>
+  <span data-ty>✔ Confirm deploy to network polkadotTestnet (420420420)? … yes</span>
+  <span data-ty>&nbsp;</span>
+  <span data-ty>Hardhat Ignition 🚀</span>
+  <span data-ty>&nbsp;</span>
+  <span data-ty>Deploying [ TokenModule ]</span>
+  <span data-ty>&nbsp;</span>
+  <span data-ty>Batch #1</span>
+  <span data-ty>  Executed TokenModule#MyToken</span>
+  <span data-ty>&nbsp;</span>
+  <span data-ty>Batch #2</span>
+  <span data-ty>  Executed TokenModule#MyToken.mint</span>
+  <span data-ty>&nbsp;</span>
+  <span data-ty>[ TokenModule ] successfully deployed 🚀</span>
+  <span data-ty>&nbsp;</span>
+  <span data-ty>Deployed Addresses</span>
+  <span data-ty>&nbsp;</span>
+  <span data-ty>TokenModule#MyToken - 0xc01Ee7f10EA4aF4673cFff62710E1D7792aBa8f3</span>
+</div>
+
+And that is it! You've successfully deployed an ERC-20 token contract to the Polkadot TestNet using Hardhat.
+
+## Where to Go Next
+
+<div class="grid cards" markdown>
+
+-   <span class="badge guide">Guide</span> __Deploy an NFT with Remix__
+
+    ---
+
+    Walk through deploying an ERC-721 Non-Fungible Token (NFT) using OpenZeppelin's battle-tested NFT implementation and Remix.
+
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-nft/remix/)
+
+</div>
+
+
+---
+
+Page Title: Deploy an ERC-20 to Polkadot Hub
+
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-erc20-erc20-remix.md
 - Canonical (HTML): https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix/
 - Summary: Deploy an ERC-20 token contract on Polkadot Hub. This guide covers contract creation, compilation, deployment, and interaction via the Remix IDE.
@@ -2799,9 +2998,9 @@ This tutorial covers deploying an ERC-20 contract on the Polkadot Hub TestNet us
 
 Before starting, make sure you have:
 
+- Basic understanding of Solidity programming and fungible tokens.
 - An EVM-compatible wallet [connected to Polkadot Hub](/smart-contracts/integrations/wallets){target=\_blank}. This example utilizes [MetaMask](https://metamask.io/){target=\_blank}.
 - A funded account with tokens for transaction fees. This example will deploy the contract to the Polkadot TestNet, so you'll [need some TestNet tokens](/smart-contracts/faucet/#get-test-tokens){target=\_blank} from the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}.
-- Basic understanding of Solidity and fungible tokens.
 
 ## Create Your Contract
 
@@ -3536,7 +3735,7 @@ This guide demonstrates how to deploy an [ERC-721](https://eips.ethereum.org/EIP
 
 - Basic understanding of Solidity programming and NFT standards.
 - Node.js v22.13.1 or later.
-- Test tokens for gas fees (available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}). See the [step-by-step instructions](/smart-contracts/faucet/#get-test-tokens){target=\_blank}.
+- A funded account with tokens for transaction fees. This example will deploy the contract to the Polkadot TestNet, so you'll [need some TestNet tokens](/smart-contracts/faucet/#get-test-tokens){target=\_blank} from the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}.
 - A wallet with a private key for signing transactions.
 
 ## Set Up Your Project
@@ -11428,6 +11627,131 @@ To submit a transaction, you must construct an extrinsic, sign it with your priv
 ## Where to Go Next
 
 Now that you've covered the basics dive into the official [subxt documentation](https://docs.rs/subxt/latest/subxt/book/index.html){target=\_blank} for comprehensive reference materials and advanced features.
+
+
+---
+
+Page Title: Technical Reference Overview
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference.md
+- Canonical (HTML): https://docs.polkadot.com/reference/
+- Summary: Learn about Polkadot's technical architecture, governance framework, parachain ecosystem, and the tools you need to build and interact with the network.
+
+## Introduction
+
+The Technical Reference section provides comprehensive documentation of Polkadot's architecture, core concepts, and development tooling. Whether you're exploring how Polkadot's relay chain coordinates parachains, understanding governance mechanisms, or building applications on the network, this reference covers the technical foundations you need.
+
+Polkadot is a multi-chain network that enables diverse, interconnected blockchains to share security and communicate seamlessly. Understanding how these components interact from the [relay chain](/polkadot-protocol/glossary#relay-chain){target=\_blank} that validates [parachains](/polkadot-protocol/glossary#parachain){target=\_blank} to the [governance](/reference/glossary#governance){target=\_blank} mechanisms that evolve the protocol is essential for developers, validators, and network participants.
+
+This guide organizes technical documentation across five core areas: Polkadot Hub, Parachains, On-Chain Governance, Glossary, and Tools, each providing detailed information on different aspects of the Polkadot ecosystem.
+
+## Polkadot Hub
+
+[Polkadot Hub](/reference/polkadot-hub/){target=\_blank} is the entry point to Polkadot for all users and application developers. It provides access to essential Web3 services, including smart contracts, staking, governance, identity management, and cross-ecosystem interoperability—without requiring you to deploy or manage a parachain.
+
+The Hub encompasses a set of core functionality that enables developers and users to build and interact with applications on Polkadot. Key capabilities include:
+
+- **Smart contracts**: Deploy Ethereum-compatible smart contracts and build decentralized applications.
+- **Assets and tokens**: Create, manage, and transfer fungible tokens and NFTs across the ecosystem.
+- **Staking**: Participate in network security and earn rewards by staking DOT.
+- **Governance**: Vote on proposals and participate in Polkadot's decentralized decision-making through OpenGov.
+- **Identity services**: Register and manage on-chain identities, enabling access to governance roles and network opportunities.
+- **Cross-chain interoperability**: Leverage XCM messaging to interact securely with other chains in the Polkadot ecosystem.
+- **Collectives and DAOs**: Participate in governance collectives and decentralized autonomous organizations.
+
+## Parachains
+
+[Parachains](/reference/parachains/){target=\_blank} are specialized blockchains that connect to the Polkadot relay chain, inheriting its security while maintaining their own application-specific logic. The parachains documentation covers:
+
+- **Accounts**: Deep dive into account types, storage, and management on parachains.
+- **Blocks, transactions and fees**: Understand block production, transaction inclusion, and fee mechanisms.
+- **Consensus**: Learn how parachain blocks are validated and finalized through the relay chain's consensus.
+- **Chain data**: Explore data structures, storage layouts, and state management.
+- **Cryptography**: Study cryptographic primitives used in Polkadot SDK-based chains.
+- **Data encoding**: Understand how data is encoded and decoded for blockchain compatibility.
+- **Networks**: Learn about networking protocols and peer-to-peer communication.
+- **Interoperability**: Discover [Cross-Consensus Messaging (XCM)](/parachains/interoperability/get-started/){target=\_blank}, the standard for cross-chain communication.
+- **Randomness**: Understand how randomness is generated and used in Polkadot chains.
+- **Node and runtime**: Learn about parachain nodes, runtime environments, and the [Polkadot SDK](https://github.com/paritytech/polkadot-sdk){target=\_blank}.
+
+## On-Chain Governance
+
+[On-Chain governance](/reference/governance/){target=\_blank} is the decentralized decision-making mechanism for the Polkadot network. It manages the evolution and modification of the network's runtime logic, enabling community oversight and approval for proposed changes. The governance documentation details:
+
+- **OpenGov framework**: Understand Polkadot's next-generation governance system with enhanced delegation, flexible tracks, and simultaneous referendums.
+- **Origins and tracks**: Learn how governance proposals are categorized, prioritized, and executed based on their privilege level and complexity.
+- **Voting and delegation**: Explore conviction voting, vote delegation, and how token holders participate in governance.
+- **Governance evolution**: See how Polkadot's governance has evolved from Governance V1 to the current OpenGov system.
+
+## Glossary
+
+The [Glossary](/reference/glossary/){target=\_blank} provides quick-reference definitions for Polkadot-specific terminology. Essential terms include:
+
+- Blockchain concepts (blocks, transactions, state)
+- Consensus mechanisms (validators, collators, finality)
+- Polkadot-specific terms (relay chain, parachain, XCM, FRAME)
+- Network components (nodes, runtimes, storage)
+- Governance terminology (origins, tracks, referendums)
+
+## Tools
+
+The [Tools](/reference/tools/){target=\_blank} section documents essential development and interaction tools for the Polkadot ecosystem:
+
+- **Light clients**: Lightweight solutions for interacting with the network without running full nodes.
+- **JavaScript/TypeScript tools**: Libraries like [Polkadot.js API](/reference/tools/polkadot-js-api/){target=\_blank} and [PAPI](/reference/tools/papi/){target=\_blank} for building applications.
+- **Rust tools**: [Polkadart](/reference/tools/polkadart/){target=\_blank} and other Rust-based libraries for SDK development.
+- **Python tools**: [py-substrate-interface](/reference/tools/py-substrate-interface/){target=\_blank} for Python developers.
+- **Testing and development**: Tools like [Moonwall](/reference/tools/moonwall/){target=\_blank}, [Chopsticks](/reference/tools/chopsticks/){target=\_blank}, and [Omninode](/reference/tools/omninode/){target=\_blank} for smart contract and parachain testing.
+- **Indexing and monitoring**: [Sidecar](/reference/tools/sidecar/){target=\_blank} for data indexing and [Dedot](/reference/tools/dedot/){target=\_blank} for substrate interaction.
+- **Cross-chain tools**: [ParaSpell](/reference/tools/paraspell/){target=\_blank} for XCM integration and asset transfers.
+
+## Where to Go Next
+
+For detailed exploration of specific areas, proceed to any of the main sections:
+
+<div class="grid cards" markdown>
+
+- <span class="badge learn">Learn</span> **Polkadot Hub**
+
+    ---
+
+    Understand the relay chain's role in coordinating parachains, providing shared security, and enabling governance.
+
+    [:octicons-arrow-right-24: Reference](/reference/polkadot-hub/)
+
+- <span class="badge learn">Learn</span> **Parachains**
+
+    ---
+
+    Deep dive into parachain architecture, consensus, data structures, and building application-specific blockchains.
+
+    [:octicons-arrow-right-24: Reference](/reference/parachains/)
+
+- <span class="badge learn">Learn</span> **On-Chain Governance**
+
+    ---
+
+    Explore Polkadot's decentralized governance framework and how to participate in network decision-making.
+
+    [:octicons-arrow-right-24: Reference](/reference/governance/)
+
+- <span class="badge guide">Guide</span> **Glossary**
+
+    ---
+
+    Quick reference for Polkadot-specific terminology and concepts used throughout the documentation.
+
+    [:octicons-arrow-right-24: Reference](/reference/glossary/)
+
+- <span class="badge guide">Guide</span> **Tools**
+
+    ---
+
+    Discover development tools, libraries, and frameworks for building and interacting with Polkadot.
+
+    [:octicons-arrow-right-24: Reference](/reference/tools/)
+
+</div>
 
 
 ---

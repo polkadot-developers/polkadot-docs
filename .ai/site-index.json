@@ -9835,22 +9835,60 @@
   },
   {
     "id": "reference",
-    "title": "reference",
+    "title": "Technical Reference Overview",
     "slug": "reference",
     "categories": [
-      "Uncategorized"
+      "Basics",
+      "Polkadot Protocol",
+      "Reference"
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference.md",
     "html_url": "https://docs.polkadot.com/reference/",
-    "preview": "TODO",
-    "outline": [],
+    "preview": "The Technical Reference section provides comprehensive documentation of Polkadot's architecture, core concepts, and development tooling. Whether you're exploring how Polkadot's relay chain coordinates parachains, understanding governance mechanisms, or building applications on the network, this reference covers the technical foundations you need.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Polkadot Hub",
+        "anchor": "polkadot-hub"
+      },
+      {
+        "depth": 2,
+        "title": "Parachains",
+        "anchor": "parachains"
+      },
+      {
+        "depth": 2,
+        "title": "On-Chain Governance",
+        "anchor": "on-chain-governance"
+      },
+      {
+        "depth": 2,
+        "title": "Glossary",
+        "anchor": "glossary"
+      },
+      {
+        "depth": 2,
+        "title": "Tools",
+        "anchor": "tools"
+      },
+      {
+        "depth": 2,
+        "title": "Where to Go Next",
+        "anchor": "where-to-go-next"
+      }
+    ],
     "stats": {
-      "chars": 5,
-      "words": 1,
-      "headings": 0,
-      "estimated_token_count_total": 0
+      "chars": 7648,
+      "words": 937,
+      "headings": 7,
+      "estimated_token_count_total": 1682
     },
-    "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
+    "hash": "sha256:9f71f3b4018f7a9e127cff51fab7cfe1168adcde2553cd1fc5dc8c25fb97a30d",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -11029,6 +11067,68 @@
     "token_estimator": "heuristic-v1"
   },
   {
+    "id": "smart-contracts-cookbook-smart-contracts-deploy-erc20-erc20-hardhat",
+    "title": "Deploy an ERC-20 to Polkadot Hub",
+    "slug": "smart-contracts-cookbook-smart-contracts-deploy-erc20-erc20-hardhat",
+    "categories": [
+      "Basics",
+      "Smart Contracts"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-erc20-erc20-hardhat.md",
+    "html_url": "https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-hardhat/",
+    "preview": "[ERC-20](https://eips.ethereum.org/EIPS/eip-20){target=\\_blank} tokens are fungible tokens commonly used for creating cryptocurrencies, governance tokens, and staking mechanisms. Polkadot Hub enables easy token deployment with Ethereum-compatible smart contracts and tools via the EVM backend.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Prerequisites",
+        "anchor": "prerequisites"
+      },
+      {
+        "depth": 2,
+        "title": "Set Up Your Project",
+        "anchor": "set-up-your-project"
+      },
+      {
+        "depth": 2,
+        "title": "Configure Hardhat",
+        "anchor": "configure-hardhat"
+      },
+      {
+        "depth": 2,
+        "title": "Compile your Contract",
+        "anchor": "compile-your-contract"
+      },
+      {
+        "depth": 2,
+        "title": "Test your Contract",
+        "anchor": "test-your-contract"
+      },
+      {
+        "depth": 2,
+        "title": "Deploy your Contract",
+        "anchor": "deploy-your-contract"
+      },
+      {
+        "depth": 2,
+        "title": "Where to Go Next",
+        "anchor": "where-to-go-next"
+      }
+    ],
+    "stats": {
+      "chars": 8131,
+      "words": 1205,
+      "headings": 8,
+      "estimated_token_count_total": 2156
+    },
+    "hash": "sha256:4036cb47abaf081ce480654bece336f83bd043f5225d5d8d20f152fb91aa2157",
+    "token_estimator": "heuristic-v1"
+  },
+  {
     "id": "smart-contracts-cookbook-smart-contracts-deploy-erc20-erc20-remix",
     "title": "Deploy an ERC-20 to Polkadot Hub",
     "slug": "smart-contracts-cookbook-smart-contracts-deploy-erc20-erc20-remix",
@@ -11077,12 +11177,12 @@
       }
     ],
     "stats": {
-      "chars": 9109,
-      "words": 1260,
+      "chars": 9121,
+      "words": 1261,
       "headings": 7,
-      "estimated_token_count_total": 2182
+      "estimated_token_count_total": 2183
     },
-    "hash": "sha256:0cb418d465a51230ece5d3a56d64754f979bc6c4ad78f2cc3df537b99739e627",
+    "hash": "sha256:992767525da7c1323f28bcaee5b6d1256ee2c0c70dbd16ae521245299858d996",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -11316,12 +11416,12 @@
       }
     ],
     "stats": {
-      "chars": 4745,
-      "words": 550,
+      "chars": 4837,
+      "words": 565,
       "headings": 9,
-      "estimated_token_count_total": 1137
+      "estimated_token_count_total": 1152
     },
-    "hash": "sha256:f787f9c66787c53aa5c6fccf30d622b2b617794d1292641ea256e0896d418b28",
+    "hash": "sha256:1e44c9df24715affa822f0df9680413cd995909f2c086d3a70499ee69901985e",
     "token_estimator": "heuristic-v1"
   },
   {

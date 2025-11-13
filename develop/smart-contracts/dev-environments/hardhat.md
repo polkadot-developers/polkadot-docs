@@ -117,7 +117,7 @@ The plugin will compile your Solidity contracts for Solidity versions `0.8.0` an
     ls artifacts/contracts/*.sol/
     ```
 
-    You should see JSON files containing the contract ABI and bytecode of the contracts you compiled.
+    You should see JSON files containing the contract ABIs and bytecodes for the contracts you compiled.
 
 ## Set Up a Testing Environment
 

@@ -15,9 +15,9 @@ This page contains a list of all relevant tutorials and guides to help you get s
 
 ## Get Tokens from the Faucet
 
-| Title                             | Difficulty  | Tools | Description                                                                                                           |
-|-----------------------------------|:-----------:|-------|-----------------------------------------------------------------------------------------------------------------------|
-| [Faucet](/smart-contracts/faucet) | 🟢 Beginner | N/A   | Learn how to obtain test tokens from Polkadot faucets for development and testing purposes across different networks. |
+| Title                              | Difficulty  | Tools | Description                                                                                                           |
+|------------------------------------|:-----------:|-------|-----------------------------------------------------------------------------------------------------------------------|
+| [Faucet](/smart-contracts/faucet/) | 🟢 Beginner | N/A   | Learn how to obtain test tokens from Polkadot faucets for development and testing purposes across different networks. |
 
 ## EVM/PVM Smart Contracts
 
@@ -28,8 +28,8 @@ This page contains a list of all relevant tutorials and guides to help you get s
 
 ## Port Ethereum DApps
 
-| Title                                                                              |   Difficulty    | Tools   | Description                                                                                                                      |
-|------------------------------------------------------------------------------------|:---------------:|---------|----------------------------------------------------------------------------------------------------------------------------------|
-| [Deploying Uniswap V2 on Polkadot](/smart-contracts/cookbook/eth-dapps/uniswap-v2) | 🟡 Intermediate | Hardhat | Learn how to deploy and test Uniswap V2 on Polkadot Hub using Hardhat, bringing AMM-based token swaps to the Polkadot ecosystem. |
+| Title                                                                               |   Difficulty    | Tools   | Description                                                                                                                      |
+|-------------------------------------------------------------------------------------|:---------------:|---------|----------------------------------------------------------------------------------------------------------------------------------|
+| [Deploying Uniswap V2 on Polkadot](/smart-contracts/cookbook/eth-dapps/uniswap-v2/) | 🟡 Intermediate | Hardhat | Learn how to deploy and test Uniswap V2 on Polkadot Hub using Hardhat, bringing AMM-based token swaps to the Polkadot ecosystem. |
 
 <!-- END OF AUTOMATICALLY GENERATED CONTENT -->

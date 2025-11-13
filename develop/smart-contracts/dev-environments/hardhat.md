@@ -121,7 +121,7 @@ The plugin will compile your Solidity contracts for Solidity versions `0.8.0` an
 
 ## Set Up a Testing Environment
 
-Hardhat allows you to spin up a local testing environment to test and validate your smart contract functionalities before deploying to live networks. The `hardhat-polkadot` plugin provides the possibility to spin up a local node with an ETH-RPC adapter for running local tests.
+Hardhat lets you spin up a local testing environment to test and validate your smart contract functionality before deploying to live networks. The `hardhat-polkadot` plugin allows you to spin up a local node with an ETH-RPC adapter for running local tests.
 
 Once you have set up the binaries as per the [Compile Your Contract](#compile-your-contract) section, start your local testing node with:
 

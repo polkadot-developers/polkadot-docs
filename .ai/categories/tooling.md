@@ -19844,7 +19844,7 @@ Before getting started, ensure you have:
 3. To interact with Polkadot, Hardhat requires the following plugin to compile contracts and to spawn a local node for testing:
 
     ```bash
-    npm install --save-dev @parity/hardhat-polkadot@0.2.0
+    npm install --save-dev @parity/hardhat-polkadot@latest
     ```
 
 4. Create a Hardhat project:

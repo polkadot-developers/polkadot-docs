@@ -136,7 +136,7 @@ The plugin will compile your Solidity contracts for Solidity versions `0.8.0` an
         ```bash
         chmod +x /path/to/your/binary
         ```
-        For mac environments, sometimes the binaries get quarantined. To remove this, run:
+        In macOS environments, binaries are sometimes quarantined. To remove this, run:
         ```bash
         xattr -d com.apple.quarantine /path/to/your/binary
         ```
@@ -153,11 +153,11 @@ The plugin will compile your Solidity contracts for Solidity versions `0.8.0` an
     ls artifacts/contracts/*.sol/
     ```
 
-    You should see JSON files containing the contract ABI and bytecode of the contracts you compiled.
+    You should see JSON files containing the contract ABIs and bytecodes for the contracts you compiled.
 
 ## Set Up a Testing Environment
 
-Hardhat allows you to spin up a local testing environment to test and validate your smart contract functionalities before deploying to live networks. The `hardhat-polkadot` plugin provides the possibility to spin up a local node with an ETH-RPC adapter for running local tests.
+Hardhat lets you spin up a local testing environment to test and validate your smart contract functionality before deploying to live networks. The `hardhat-polkadot` plugin allows you to spin up a local node with an ETH-RPC adapter for running local tests.
 
 Once you have set up the binaries as per the [Compile Your Contract](#compile-your-contract) section, start your local testing node with:
 
@@ -165,7 +165,7 @@ Once you have set up the binaries as per the [Compile Your Contract](#compile-yo
 npx hardhat node
 ```
 
-This command will launch a local node along with the ETH-RPC adapter, providing you with a complete testing environment ready for contract deployment and interaction. By default, the Substrate node will be running on `localhost:8000` and the ETH-RPC adapter on `localhost:8545`.
+This command launches a local node with the ETH-RPC adapter, providing a complete testing environment ready for contract deployment and interaction. By default, the Substrate node runs on `localhost:8000`, and the ETH-RPC adapter on `localhost:8545`.
 
 The output will be something like this:
 
@@ -208,7 +208,7 @@ To run your test:
 
 Before deploying to a live network, you can deploy your contract to a local node using [Ignition](https://hardhat.org/ignition/docs/getting-started#overview){target=\_blank} modules:
 
-1. Make sure that the local network is added as a target for in your Hardhat configuration file for local deployment:
+1. Make sure that the local network is added as a target in your Hardhat configuration file for local deployment:
 
     ```javascript title="hardhat.config.js"
         localNode: {

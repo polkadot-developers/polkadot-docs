@@ -2720,12 +2720,12 @@
       }
     ],
     "stats": {
-      "chars": 14643,
-      "words": 2061,
+      "chars": 14590,
+      "words": 2051,
       "headings": 11,
-      "estimated_token_count_total": 3350
+      "estimated_token_count_total": 3341
     },
-    "hash": "sha256:8a04a69c6bad80db74466483ac5bdaf8d2bfe5639b220c2a5b7be9dd3eeff5c0",
+    "hash": "sha256:8faa740768edb9c21e8738c8fd395f37430fa01888b86042ba43eb87d29560ff",
     "token_estimator": "heuristic-v1"
   },
   {

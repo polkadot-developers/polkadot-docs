@@ -166,7 +166,6 @@ def estimate_tokens(text: str, estimator: str = "heuristic-v1") -> int:
         return _cl100k_token_count(text)
     return _heuristic_token_count(text)
 
-
 def word_count(text: str) -> int:
     return len(re.findall(r"\b\w+\b", text, flags=re.UNICODE))
 
@@ -203,8 +202,7 @@ def union_pages(sets: List[List[AiPage]]) -> List[AiPage]:
 # ----------------------------
 
 def write_markdown(out_path: Path, category: str, includes_base: bool,
-                   base_categories: List[str], pages: List[AiPage], raw_base: str,
-                   total_words: int, total_tokens: int) -> None:
+                   base_categories: List[str], pages: List[AiPage], raw_base: str) -> None:
     """
     Concatenate pages into a single Markdown with clear boundaries.
     (Note: pages already contain headings; we avoid adding extra YAML to keep it simple.)
@@ -214,8 +212,6 @@ def write_markdown(out_path: Path, category: str, includes_base: bool,
     lines.append(f"Begin New Bundle: {category}")
     if includes_base:
         lines.append(f"Includes shared base categories: {', '.join(base_categories)}")
-    lines.append(f"word_count: {total_words}")
-    lines.append(f"estimated_tokens: {total_tokens}")
     lines.append("")
     for idx, p in enumerate(pages, 1):
         lines.append(f"\n---\n\nPage Title: {p.title}\n")
@@ -290,9 +286,7 @@ def build_category_bundles(config_path: str, fmt: str, dry_run: bool, limit: int
             else:
                 out_root.mkdir(parents=True, exist_ok=True)
                 if fmt in ("md", "all"):
-                    total_words = sum(page_words.get(p.slug, 0) for p in pages_out)
-                    total_tokens = sum(page_tokens.get(p.slug, 0) for p in pages_out)
-                    write_markdown(out_root / f"{cat_slug}.md", cat, False, base_cats, pages_out, raw_base, total_words, total_tokens)
+                    write_markdown(out_root / f"{cat_slug}.md", cat, False, base_cats, pages_out, raw_base)
             continue
 
         # Non-base category: include base union + this category's pages (dedup)
@@ -305,9 +299,7 @@ def build_category_bundles(config_path: str, fmt: str, dry_run: bool, limit: int
         else:
             out_root.mkdir(parents=True, exist_ok=True)
             if fmt in ("md", "all"):
-                total_words = sum(page_words.get(p.slug, 0) for p in pages_out)
-                total_tokens = sum(page_tokens.get(p.slug, 0) for p in pages_out)
-                write_markdown(out_root / f"{cat_slug}.md", cat, True, base_cats, pages_out, raw_base, total_words, total_tokens)
+                write_markdown(out_root / f"{cat_slug}.md", cat, True, base_cats, pages_out, raw_base)
 
     if dry_run:
         print("[dry-run] No files were written.")

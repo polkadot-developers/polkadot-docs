@@ -342,7 +342,7 @@ def write_ai_page(ai_pages_dir: Path, slug: str, header: dict, body: str):
     out_path = ai_pages_dir / f"{slug}.md"
     # Only include keys that exist & are non-empty
     fm_obj = {}
-    for key in ("title", "description", "categories", "word_count", "estimated_tokens", "url"):
+    for key in ("title", "description", "categories", "url"):
         val = header.get(key, None)
         if val not in (None, "", []):
             fm_obj[key] = val
@@ -450,9 +450,6 @@ def main():
         body = remove_html_comments(body)
         body = wrap_yaml_code_fences(body)
 
-        page_word_count = word_count(body)
-        page_token_count = estimate_tokens(body)
-
         # Compute slug + canonical URL to the docs HTML
         rel_no_ext = os.path.splitext(rel)[0]
         slug, url = compute_slug_and_url(rel_no_ext, docs_base_url)
@@ -460,8 +457,6 @@ def main():
         # Minimal header based on current authoring fields
         header = map_minimal_front_matter(fm)
         header["url"] = url  # always include
-        header["word_count"] = page_word_count
-        header["estimated_tokens"] = page_token_count
 
         # Write ai pages
         out_path = write_ai_page(ai_pages_dir, slug, header, body)

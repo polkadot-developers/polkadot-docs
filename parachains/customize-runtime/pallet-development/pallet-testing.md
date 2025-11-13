@@ -332,7 +332,6 @@ cargo test --package pallet-custom
 
 You should see all tests passing:
 
-
 <div id="termynal" data-termynal>
   <span data-ty="input">$ cargo test --package pallet-custom</span>
   <span data-ty>running 15 tests</span>
@@ -354,7 +353,6 @@ You should see all tests passing:
   <span data-ty></span>
   <span data-ty>test result: ok. 15 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out</span>
 </div>
-
 
 !!!note "Mock Runtime Tests"
     You'll notice 2 additional tests from the `mock` module:

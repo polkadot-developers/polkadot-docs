@@ -5226,14 +5226,14 @@
   },
   {
     "id": "parachains-customize-runtime-pallet-development-pallet-testing",
-    "title": "Pallet Testing",
+    "title": "Pallet Unit Testing",
     "slug": "parachains-customize-runtime-pallet-development-pallet-testing",
     "categories": [
       "Parachains"
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/parachains-customize-runtime-pallet-development-pallet-testing.md",
     "html_url": "https://docs.polkadot.com/parachains/customize-runtime/pallet-development/pallet-testing/",
-    "preview": "Unit testing in the Polkadot SDK helps ensure that the functions provided by a pallet behave as expected. It also confirms that data and events associated with a pallet are processed correctly during interactions. The Polkadot SDK offers a set of APIs to create a test environment to simulate runtime and mock transaction execution for extrinsics and queries.",
+    "preview": "Unit testing in the Polkadot SDK helps ensure that the functions provided by a pallet behave as expected. It also confirms that data and events associated with a pallet are processed correctly during interactions. With your mock runtime in place from the previous guide, you can now write comprehensive tests that verify your pallet's behavior in isolation.",
     "outline": [
       {
         "depth": 2,
@@ -5242,28 +5242,98 @@
       },
       {
         "depth": 2,
-        "title": "Writing Unit Tests",
-        "anchor": "writing-unit-tests"
+        "title": "Prerequisites",
+        "anchor": "prerequisites"
+      },
+      {
+        "depth": 2,
+        "title": "Understanding FRAME Testing Tools",
+        "anchor": "understanding-frame-testing-tools"
       },
       {
         "depth": 3,
-        "title": "Test Initialization",
-        "anchor": "test-initialization"
+        "title": "Assertion Macros",
+        "anchor": "assertion-macros"
       },
       {
         "depth": 3,
-        "title": "Function Call Testing",
-        "anchor": "function-call-testing"
+        "title": "System Pallet Test Helpers",
+        "anchor": "system-pallet-test-helpers"
       },
       {
         "depth": 3,
-        "title": "Storage Testing",
-        "anchor": "storage-testing"
+        "title": "Origin Types",
+        "anchor": "origin-types"
+      },
+      {
+        "depth": 2,
+        "title": "Create the Tests Module",
+        "anchor": "create-the-tests-module"
+      },
+      {
+        "depth": 2,
+        "title": "Set Up the Test Module",
+        "anchor": "set-up-the-test-module"
+      },
+      {
+        "depth": 2,
+        "title": "Write Your First Test",
+        "anchor": "write-your-first-test"
       },
       {
         "depth": 3,
-        "title": "Event Testing",
-        "anchor": "event-testing"
+        "title": "Test Basic Increment",
+        "anchor": "test-basic-increment"
+      },
+      {
+        "depth": 2,
+        "title": "Test Error Conditions",
+        "anchor": "test-error-conditions"
+      },
+      {
+        "depth": 3,
+        "title": "Test Overflow Protection",
+        "anchor": "test-overflow-protection"
+      },
+      {
+        "depth": 3,
+        "title": "Test Underflow Protection",
+        "anchor": "test-underflow-protection"
+      },
+      {
+        "depth": 2,
+        "title": "Test Access Control",
+        "anchor": "test-access-control"
+      },
+      {
+        "depth": 3,
+        "title": "Test Root-Only Access",
+        "anchor": "test-root-only-access"
+      },
+      {
+        "depth": 2,
+        "title": "Test Event Emission",
+        "anchor": "test-event-emission"
+      },
+      {
+        "depth": 3,
+        "title": "Test Event Data",
+        "anchor": "test-event-data"
+      },
+      {
+        "depth": 2,
+        "title": "Test Genesis Configuration",
+        "anchor": "test-genesis-configuration"
+      },
+      {
+        "depth": 3,
+        "title": "Test Genesis Setup",
+        "anchor": "test-genesis-setup"
+      },
+      {
+        "depth": 2,
+        "title": "Run All Tests",
+        "anchor": "run-all-tests"
       },
       {
         "depth": 2,
@@ -5272,12 +5342,12 @@
       }
     ],
     "stats": {
-      "chars": 6892,
-      "words": 911,
-      "headings": 7,
-      "estimated_token_count_total": 1563
+      "chars": 24230,
+      "words": 2405,
+      "headings": 21,
+      "estimated_token_count_total": 5344
     },
-    "hash": "sha256:8568dfa238b9a649a4e6e60510625c2e7879b76a93187b0b8b8dccf6bc467ae6",
+    "hash": "sha256:91981098cfa2fc26c44b817041ce5cda73c50567972407bee491cc17c45b386c",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -14088,12 +14158,12 @@
       }
     ],
     "stats": {
-      "chars": 12857,
-      "words": 1539,
+      "chars": 12200,
+      "words": 1502,
       "headings": 6,
-      "estimated_token_count_total": 2929
+      "estimated_token_count_total": 2837
     },
-    "hash": "sha256:df60044893f48dd7f37a11de275a16bf32adb31317ed70a789fd7fac64150e1a",
+    "hash": "sha256:ad43951deac53a539a3d8a2317500aec351aa7e85f3cc49b386aa30baf6bcc09",
     "token_estimator": "heuristic-v1"
   },
   {

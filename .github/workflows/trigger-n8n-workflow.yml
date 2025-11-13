@@ -694,6 +694,7 @@ jobs:
             BODY_SUMMARY=$(jq -r ".batches[$index].body" review_batches.json)
             COMMENTS=$(jq ".batches[$index].comments" review_batches.json)
             COMMIT_ID=$(jq -r ".batches[$index].commit_id // empty" review_batches.json)
+
             if [ -n "$COMMIT_ID" ] && [ "$COMMIT_ID" != "null" ]; then
               PAYLOAD=$(jq -n --arg body "$BODY_SUMMARY" --argjson comments "$COMMENTS" --arg commit "$COMMIT_ID" '{event:"COMMENT", body:$body, comments:$comments, commit_id:$commit}')
             else

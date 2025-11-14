@@ -2,4 +2,3 @@ nav:
  - 'Local Development Node': local-dev-node.md
  - ':custom-remix: Remix IDE': remix
  - ':custom-hardhat: Hardhat': hardhat
- - 'Foundry': foundry

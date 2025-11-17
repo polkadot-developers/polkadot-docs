@@ -6,7 +6,7 @@ categories: Smart Contracts, Tooling
 
 # Remix IDE
 
-## Overview
+## Introduction
 
 Remix IDE is a robust browser-based development environment for smart contracts. This guide will walk you through the essentials of the [Remix IDE](https://remix.ethereum.org/){target=\_blank} to understand the processes of compiling, developing, and deploying smart contracts on Polkadot Hub.
 
@@ -14,9 +14,9 @@ Remix IDE is a robust browser-based development environment for smart contracts.
 
 Before getting started, ensure you have:
 
-- A web browser with [MetaMask](https://metamask.io/){target=\_blank} extension installed.
+- A web browser with the [MetaMask](https://metamask.io/){target=\_blank} extension installed.
 - Basic understanding of Solidity programming.
-- Some DOT test tokens to cover transaction fees (easily obtainable from the [Polkadot faucet](/smart-contracts/faucet/){target=\_blank}).
+- Some test tokens to cover transaction fees (easily obtainable from the [Polkadot faucet](/smart-contracts/faucet/){target=\_blank}).
 
 ## Access Remix IDE
 
@@ -34,9 +34,7 @@ To create a new contract using the Remix IDE, you can follow these steps:
 
 2. Name your file with a `.sol` extension, in this case, `Counter.sol`.
 
-3. Write your Solidity code in the editor.
-
-    You can use the following code as an example:
+3. Write your Solidity code in the editor. You can use the following code as an example:
 
     ??? code "Counter.sol"
         
@@ -58,14 +56,14 @@ To compile your contract, you need to:
         Compilation errors and warnings appear in the terminal panel at the bottom of the screen.
 
 3. After compiling your contract, you can navigate to the **File Explorer** tab (first icon in the left sidebar) and check that:
-    1. The `artifacts` folder is present.
+    1. The **artifacts** folder is present.
     2. The `Counter_metadata.json` and the `Counter.json` files have been generated.
 
         ![](/images/smart-contracts/dev-environments/remix/get-started/remix-3.gif)
 
 ## Where to Go Next
 
-The Remix IDE offers an environment for developing, compiling, and deploying smart contracts on the Polkadot Hub. Its intuitive interface allows developers to easily write Solidity code, compile contracts, and interact with them directly in the browser.
+Remix offers an environment for developing, compiling, and deploying smart contracts on Polkadot Hub. Its intuitive interface allows developers to easily write Solidity code, compile contracts, and interact with them directly in the browser.
 
 Explore more about smart contracts through these resources:
 

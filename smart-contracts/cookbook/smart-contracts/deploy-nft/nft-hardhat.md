@@ -1,6 +1,6 @@
 ---
 title: Deploy ERC-721 Using Hardhat
-description: Learn how to deploy an ERC-721 NFT contract to Polkadot Hub with Hardhat, a comprehenive development environment with built-in deployment capabilities.
+description: Learn how to deploy an ERC-721 NFT contract to Polkadot Hub using Hardhat, a comprehensive development environment with built-in deployment capabilities.
 tutorial_badge: Beginner
 categories: Basics, Smart Contracts
 tools: EVM Wallet, Hardhat
@@ -48,7 +48,7 @@ Open `hardhat.config.js` and update to add `polkadotHubTestnet` to the `networks
 ```
 
 !!! tip
-    Learn how to use Hardhat's [Config Variables](https://hardhat.org/docs/learn-more/configuration-variables){target=\_blank} to handle your private keys in a secure way.
+    Learn how to use Hardhat's [Config Variables](https://hardhat.org/docs/learn-more/configuration-variables){target=\_blank} to handle your private keys securely.
 
 ## Create the Contract
 
@@ -71,7 +71,7 @@ Compile your `MyNFT.sol` contract using the following command:
 npx hardhat compile
 ```
 
-You will see a message in the terminal confirming the contract was successfully compiled similar to the following:
+You will see a message in the terminal confirming the contract was successfully compiled, similar to the following:
 
 --8<-- 'code/smart-contracts/cookbook/smart-contracts/deploy-erc721-nft/nft-hardhat/compile-output.html'
 

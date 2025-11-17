@@ -1,6 +1,6 @@
 ---
 title: Deploy Basic Contract with Remix IDE
-description: Learn how to deploy a basic smart contract to Polkadot Hub using Remix IDE Ideal for rapid prototyping, learning, and visual development.
+description: Learn how to deploy a basic smart contract to Polkadot Hub using Remix IDE, ideal for rapid prototyping, learning, and visual development.
 categories: Smart Contracts
 ---
 
@@ -22,13 +22,13 @@ Before you begin, ensure you have the following:
 
 Navigate to [Remix](https://remix.ethereum.org/){target=\_blank} in your web browser.
 
-The interface will load with a default workspace containing sample contracts. In this interface, you can access a file explorer, edit your code, interact with various plugins for development, and use a terminal. By default, you will see the `contracts` folder with the `Storage.sol` file, which will be used as the example contract throughout this guide.
+The interface will load with a default workspace containing sample contracts. In this interface, you can access a file explorer, edit your code, interact with various development plugins, and use a terminal. By default, you will see the `contracts` folder with the `Storage.sol` file, which will be used as the example contract throughout this guide.
 
 ![](/images/smart-contracts/cookbook/smart-contracts/deploy-basic/deploy-basic/deploy-basic-01.webp)
 
 ## Compile the Contract
 
-Ensure your contract is open in the Remix IDE Editor, and use the follow steps to compile:
+Ensure your contract is open in the Remix IDE Editor, and use the following steps to compile:
 
 1. Select the **Solidity Compiler** plugin from the left panel.
 2. Select the **Compile MyToken.sol** button.
@@ -76,7 +76,7 @@ Congratulations! You've now deployed a basic smart contract to Polkadot Hub Test
 
     ---
 
-    Walk through deploying a NFT to the Polkadot Hub using Remix.
+    Walk through deploying an NFT to the Polkadot Hub using Remix.
 
     [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix/)        
 

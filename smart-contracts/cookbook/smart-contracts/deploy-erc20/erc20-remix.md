@@ -44,7 +44,7 @@ Follow the steps below to create the ERC-20 contract:
 
 Solidity source code compiles into bytecode that can be deployed on the blockchain. During this process, the compiler checks the contract for syntax errors, ensures type safety, and generates the machine-readable instructions needed for blockchain execution.
 
-Ensure your contract is open in the Remix IDE Editor, and use the follow steps to compile:
+Ensure your contract is open in the Remix IDE Editor, and use the following steps to compile:
 
 1. Select the **Solidity Compiler** plugin from the left panel.
 2. Select the **Compile MyToken.sol** button.
@@ -72,7 +72,7 @@ Follow these steps to deploy the contract using Remix:
 Once deployed, you can interact with your contract through Remix. Find your contract under **Deployed/Unpinned Contracts**, and click it to expand the available methods. In this example, you'll mint some tokens to a given address using the following steps:
 
 1. Expand the **mint** function:
-    1. Enter the recipient address and the amount (remember to add 18 zeros for 1 whole token).
+    1. Enter the recipient address and the amount (remember to add 18 zeros for one whole token).
     2. Click **transact**.
 
 2. Approve the transaction in the MetaMask popup.

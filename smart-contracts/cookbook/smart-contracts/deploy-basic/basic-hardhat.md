@@ -1,6 +1,6 @@
 ---
 title: Deploy Basic Contract with Hardhat
-description: Learn how to deploy a basic smart contract to Polkadot Hub using Hardhat, Perfect for professional workflows requiring comprehensive testing and debugging.
+description: Learn how to deploy a basic smart contract to Polkadot Hub using Hardhat, ideal for professional workflows that require comprehensive testing and debugging.
 categories: Smart Contracts
 ---
 
@@ -38,7 +38,7 @@ Open `hardhat.config.js` and add `polkadotHubTestnet` to the `networks` configur
 ```
 
 !!! tip
-    Learn how to use Hardhat's [Config Variables](https://hardhat.org/docs/learn-more/configuration-variables){target=\_blank} to handle your private keys in a secure way.
+    Learn how to use Hardhat's [Config Variables](https://hardhat.org/docs/learn-more/configuration-variables){target=\_blank} to handle your private keys securely.
 
 ## Create the Contract
 
@@ -61,7 +61,7 @@ Compile your `Storage.sol` contract using the following command:
 npx hardhat compile
 ```
 
-You will see a message in the terminal confirming the contract was successfully compiled similar to the following:
+You will see a message in the terminal confirming the contract was successfully compiled, similar to the following:
 
 --8<-- 'code/smart-contracts/cookbook/smart-contracts/deploy-basic-contract/basic-hardhat/compile-output.html'
 
@@ -113,7 +113,7 @@ Congratulations! You've now deployed a basic smart contract to Polkadot Hub Test
 
     ---
 
-    Walk through deploying a NFT to the Polkadot Hub using Hardhat.
+    Walk through deploying an NFT to the Polkadot Hub using Hardhat.
 
     [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-hardhat/)
 

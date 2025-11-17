@@ -10,13 +10,13 @@ tools: Hardhat
 
 ## Introduction
 
-[ERC-20](https://eips.ethereum.org/EIPS/eip-20){target=\_blank} tokens are fungible tokens commonly used for creating cryptocurrencies, governance tokens, and staking mechanisms. Polkadot Hub enables easy ERC-20 token deployment with Ethereum-compatible smart contracts and tools via the EVM backend.
+[ERC-20](https://eips.ethereum.org/EIPS/eip-20){target=\_blank} tokens are fungible tokens commonly used for creating cryptocurrencies, governance tokens, and staking mechanisms. Polkadot Hub enables easy deployment of ERC-20 tokens via Ethereum-compatible smart contracts and tools.
 
 This tutorial covers deploying an ERC-20 contract on the Polkadot Hub TestNet using [Hardhat](https://hardhat.org/){target=\_blank}, an Ethereum development environment. The ERC-20 contract can be retrieved from OpenZeppelin's [GitHub repository]({{ dependencies.repositories.open_zeppelin_contracts.repository_url}}/tree/{{ dependencies.repositories.open_zeppelin_contracts.version}}/contracts/token/ERC20){target=\_blank} or their [Contract Wizard](https://wizard.openzeppelin.com/){target=\_blank}.
 
 ## Prerequisites
 
-Before you begin, ensure sure you have the following:
+Before you begin, ensure you have the following:
 
 - A basic understanding of [Solidity](https://www.soliditylang.org/){target=\_blank} programming and [ERC-20](https://ethereum.org/developers/docs/standards/tokens/erc-20/) fungible tokens.
 - Node.js v22.13.1 or later installed.
@@ -25,7 +25,9 @@ Before you begin, ensure sure you have the following:
 
 ## Set Up Your Project
 
-This tutorial uses a [Hardhat ERC-20 template](https://github.com/polkadot-developers/revm-hardhat-examples/tree/master/erc20-hardhat){target=\_blank} that contains all the necessary files. To get started, take the following steps:
+This tutorial uses a [Hardhat ERC-20 template](https://github.com/polkadot-developers/revm-hardhat-examples/tree/master/erc20-hardhat){target=\_blank} that contains all the necessary files. 
+
+To get started, take the following steps:
 
 1. Clone the GitHub repository locally:
 
@@ -34,13 +36,13 @@ This tutorial uses a [Hardhat ERC-20 template](https://github.com/polkadot-devel
     cd revm-hardhat-examples/erc20-hardhat
     ```
 
-2. Install the dependencies:
+2. Install the dependencies using the following command:
 
     ```bash
     npm i
     ```
     
-    This will fetch all the necessary packages to help you deploy an ERC-20 with Hardhat to Polkadot.
+    This command will fetch all the necessary packages to help you deploy an ERC-20 with Hardhat to Polkadot.
 
 ## Configure Hardhat
 
@@ -53,7 +55,7 @@ If you started with the cloned Hardhat ERC-20 template, `hardhat.config.js` is a
 ```
 
 !!! tip
-    Visit the Hardhat [Config Variables](https://hardhat.org/docs/learn-more/configuration-variables){target=\_blank} documentation to learn how to use Hardhat to handle your private keys in a secure way.
+    Visit the Hardhat [Config Variables](https://hardhat.org/docs/learn-more/configuration-variables){target=\_blank} documentation to learn how to use Hardhat to handle your private keys securely.
 
 ## Compile the Contract 
 
@@ -79,7 +81,7 @@ You can view the predefined test file at [`test/MyToken.test.ts`](https://github
 - The initial token supply is zero.
 - The owner can mint tokens.
 - The total supply increases after a mint.
-- Successful mints to different test addresses with correct corresponding account balance and total supply changes.
+- Successful mints to different test addresses with expected account balance and total supply changes.
 
 Run the test using the following command:
 

@@ -24,7 +24,7 @@ This guide demonstrates how to deploy an [ERC-721](https://eips.ethereum.org/EIP
 
 Navigate to [Remix](https://remix.ethereum.org/){target=\_blank} in your web browser.
 
-The interface will load with a default workspace containing sample contracts. In this interface, you can access a file explorer, edit your code, interact with various plugins for development, and use a terminal.
+The interface will load with a default workspace containing sample contracts. In this interface, you can access a file explorer, edit your code, interact with various development plugins, and use a terminal.
 
 ## Create Your Contract
 

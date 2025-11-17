@@ -7,7 +7,7 @@ url: https://docs.polkadot.com/smart-contracts/dev-environments/remix/get-starte
 
 # Remix IDE
 
-## Overview
+## Introduction
 
 Remix IDE is a robust browser-based development environment for smart contracts. This guide will walk you through the essentials of the [Remix IDE](https://remix.ethereum.org/){target=\_blank} to understand the processes of compiling, developing, and deploying smart contracts on Polkadot Hub.
 
@@ -15,19 +15,19 @@ Remix IDE is a robust browser-based development environment for smart contracts.
 
 Before getting started, ensure you have:
 
-- A web browser with [MetaMask](https://metamask.io/){target=\_blank} extension installed.
+- A web browser with the [MetaMask](https://metamask.io/){target=\_blank} extension installed.
 - Basic understanding of Solidity programming.
-- Some DOT test tokens to cover transaction fees (easily obtainable from the [Polkadot faucet](/smart-contracts/faucet/){target=\_blank}).
+- Some test tokens to cover transaction fees (easily obtainable from the [Polkadot faucet](/smart-contracts/faucet/){target=\_blank}).
 
-## Accessing Remix IDE
+## Access Remix IDE
 
 Navigate to [https://remix.ethereum.org/](https://remix.ethereum.org/){target=\_blank}. The interface will load with a default workspace containing sample contracts.
 
 ![](/images/smart-contracts/dev-environments/remix/get-started/remix-1.webp)
 
-In this interface, you can access a file explorer, edit your code, interact with various plugins for development, and use a terminal.
+In this interface, you can access a file explorer, edit your code, interact with various development plugins, and use a terminal.
 
-## Creating a New Contract
+## Create a New Contract
 
 To create a new contract using the Remix IDE, you can follow these steps:
 
@@ -35,11 +35,9 @@ To create a new contract using the Remix IDE, you can follow these steps:
 
 2. Name your file with a `.sol` extension, in this case, `Counter.sol`.
 
-3. Write your Solidity code in the editor.
+3. Write your Solidity code in the editor. You can use the following code as an example:
 
-    You can use the following code as an example:
-
-    ???- "Counter.sol"
+    ??? code "Counter.sol"
         
         ```solidity
         // SPDX-License-Identifier: MIT
@@ -65,7 +63,7 @@ To create a new contract using the Remix IDE, you can follow these steps:
     ![](/images/smart-contracts/dev-environments/remix/get-started/remix-2.gif)
 
 
-## Compiling Your Contract
+## Compile Your Contract
 
 To compile your contract, you need to:
 
@@ -76,14 +74,14 @@ To compile your contract, you need to:
         Compilation errors and warnings appear in the terminal panel at the bottom of the screen.
 
 3. After compiling your contract, you can navigate to the **File Explorer** tab (first icon in the left sidebar) and check that:
-    1. The `artifacts` folder is present.
+    1. The **artifacts** folder is present.
     2. The `Counter_metadata.json` and the `Counter.json` files have been generated.
 
         ![](/images/smart-contracts/dev-environments/remix/get-started/remix-3.gif)
 
 ## Where to Go Next
 
-The Remix IDE offers an environment for developing, compiling, and deploying smart contracts on the Polkadot Hub. Its intuitive interface allows developers to easily write Solidity code, compile contracts, and interact with them directly in the browser.
+Remix offers an environment for developing, compiling, and deploying smart contracts on Polkadot Hub. Its intuitive interface allows developers to easily write Solidity code, compile contracts, and interact with them directly in the browser.
 
 Explore more about smart contracts through these resources:
 
@@ -101,7 +99,7 @@ Explore more about smart contracts through these resources:
 
     ---
 
-    Test your skills by deploying a simple contracts with prebuilt templates.
+    Test your skills by deploying simple contracts using prebuilt templates.
 
     [:octicons-arrow-right-24: Get Started](https://www.openzeppelin.com/solidity-contracts){target=\_blank}
 

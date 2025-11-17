@@ -6,7 +6,7 @@
 This directory lists URLs for raw Markdown pages that complement the rendered pages on the documentation site. Use these Markdown files to retain semantic context when prompting models while avoiding passing HTML elements.
 
 ## Metadata
-- Documentation pages: 269
+- Documentation pages: 270
 - Categories: 13
 
 ## Docs
@@ -94,6 +94,7 @@ Docs: Smart Contracts
 - [Local Development Node](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-local-dev-node.md): Follow this step-by-step guide to install a Revive Dev node and ETH-RPC adapter for smart contract development in a local environment.
 - [Deploy and Interact with Smart Contracts Using Remix IDE](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-remix-deploy-a-contract.md): Learn how to deploy smart contracts to the Polkadot Hub network and interact with them using the Remix IDE and wallet providers, covering deployment and state.
 - [Use the Remix IDE on Polkadot Hub](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-remix-get-started.md): Explore the smart contract development and deployment process on Polkadot Hub using Remix IDE, a visual IDE for blockchain developers.
+- [Troubleshooting Remix IDE](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-remix-troubleshooting-faq.md): Solutions to common issues when developing, compiling, and deploying smart contracts using Remix IDE on Polkadot Hub.
 - [Troubleshooting Remix IDE on Polkadot Hub](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-remix-troubleshooting.md): Solutions to common issues when developing, compiling, and deploying smart contracts using Remix IDE on Polkadot Hub.
 - [Block Explorers](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-explorers.md): Access PolkaVM explorers like Subscan, BlockScout, and Routescan to track transactions, analyze contracts, and view on-chain data from smart contracts.
 - [Faucet](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-faucet.md): Learn how to obtain test tokens from Polkadot faucets for development and testing purposes across different networks.
@@ -248,6 +249,7 @@ Docs: Tooling
 - [Use Hardhat with Polkadot Hub](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-hardhat-get-started.md): Learn how to create, compile, test, and deploy smart contracts on Polkadot Hub using Hardhat, a powerful development environment for blockchain developers.
 - [Deploy and Interact with Smart Contracts Using Remix IDE](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-remix-deploy-a-contract.md): Learn how to deploy smart contracts to the Polkadot Hub network and interact with them using the Remix IDE and wallet providers, covering deployment and state.
 - [Use the Remix IDE on Polkadot Hub](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-remix-get-started.md): Explore the smart contract development and deployment process on Polkadot Hub using Remix IDE, a visual IDE for blockchain developers.
+- [Troubleshooting Remix IDE](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-remix-troubleshooting-faq.md): Solutions to common issues when developing, compiling, and deploying smart contracts using Remix IDE on Polkadot Hub.
 - [Troubleshooting Remix IDE on Polkadot Hub](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-remix-troubleshooting.md): Solutions to common issues when developing, compiling, and deploying smart contracts using Remix IDE on Polkadot Hub.
 - [Block Explorers](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-explorers.md): Access PolkaVM explorers like Subscan, BlockScout, and Routescan to track transactions, analyze contracts, and view on-chain data from smart contracts.
 - [Wallets for Polkadot Hub](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-integrations-wallets.md): Comprehensive guide to connecting and managing wallets for Polkadot Hub, covering step-by-step instructions for interacting with the ecosystem.

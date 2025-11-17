@@ -1,13 +1,24 @@
-import { readFileSync } from 'fs';
-import { Web3 } from 'web3';
+const { writeFileSync, existsSync, readFileSync } = require('fs');
+const { join } = require('path');
+const { Web3 } = require('web3');
+
+const scriptsDir = __dirname;
+const abisDir = join(__dirname, '../abis');
+const artifactsDir = join(__dirname, '../artifacts');
+
+const createProvider = (rpcUrl, chainId, chainName) => {
+  const web3 = new Web3(rpcUrl);
+  return web3;
+};
 
 const getAbi = (contractName) => {
   try {
-    return JSON.parse(readFileSync(`${contractName}.json`), 'utf8');
+    const abiPath = join(abisDir, `${contractName}.json`);
+    return JSON.parse(readFileSync(abiPath, 'utf8'));
   } catch (error) {
     console.error(
-      `❌ Could not find ABI for contract ${contractName}:`,
-      error.message
+      `Could not find ABI for contract ${contractName}:`,
+      error.message,
     );
     throw error;
   }
@@ -15,68 +26,73 @@ const getAbi = (contractName) => {
 
 const getByteCode = (contractName) => {
   try {
-    return `0x${readFileSync(`${contractName}.polkavm`).toString('hex')}`;
+    const bytecodePath = join(artifactsDir, `${contractName}.bin`);
+    const bytecode = readFileSync(bytecodePath, 'utf8').trim();
+    return bytecode.startsWith('0x') ? bytecode : `0x${bytecode}`;
   } catch (error) {
     console.error(
-      `❌ Could not find bytecode for contract ${contractName}:`,
-      error.message
+      `Could not find bytecode for contract ${contractName}:`,
+      error.message,
     );
     throw error;
   }
 };
 
-export const deploy = async (config) => {
+const deployContract = async (contractName, privateKey, providerConfig) => {
+  console.log(`Deploying ${contractName}...`);
   try {
-    // Initialize Web3 with RPC URL
-    const web3 = new Web3(config.rpcUrl);
+    const web3 = createProvider(
+      providerConfig.rpc,
+      providerConfig.chainId,
+      providerConfig.name,
+    );
 
-    // Prepare account
-    const account = web3.eth.accounts.privateKeyToAccount(config.privateKey);
+    const formattedPrivateKey = privateKey.startsWith('0x') ? privateKey : `0x${privateKey}`;
+    const account = web3.eth.accounts.privateKeyToAccount(formattedPrivateKey);
     web3.eth.accounts.wallet.add(account);
+    web3.eth.defaultAccount = account.address;
 
-    // Load abi
-    const abi = getAbi('Storage');
-
-    // Create contract instance
+    const abi = getAbi(contractName);
+    const bytecode = getByteCode(contractName);
     const contract = new web3.eth.Contract(abi);
-
-    // Prepare deployment
-    const deployTransaction = contract.deploy({
-      data: getByteCode('Storage'),
-      arguments: [], // Add constructor arguments if needed
+    const deployTx = contract.deploy({
+      data: bytecode,
     });
 
-    // Estimate gas
-    const gasEstimate = await deployTransaction.estimateGas({
-      from: account.address,
-    });
-
-    // Get current gas price
+    const gas = await deployTx.estimateGas();
     const gasPrice = await web3.eth.getGasPrice();
 
-    // Send deployment transaction
-    const deployedContract = await deployTransaction.send({
+    console.log(`Estimated gas: ${gas}`);
+    console.log(`Gas price: ${web3.utils.fromWei(gasPrice, 'gwei')} gwei`);
+
+    const deployedContract = await deployTx.send({
       from: account.address,
-      gas: gasEstimate,
+      gas: gas,
       gasPrice: gasPrice,
     });
 
-    // Log and return contract details
-    console.log(`Contract deployed at: ${deployedContract.options.address}`);
-    return deployedContract;
+    const address = deployedContract.options.address;
+    console.log(`Contract ${contractName} deployed at: ${address}`);
+
+    const addressesFile = join(scriptsDir, 'contract-address.json');
+    const addresses = existsSync(addressesFile)
+      ? JSON.parse(readFileSync(addressesFile, 'utf8'))
+      : {};
+
+    addresses[contractName] = address;
+    writeFileSync(addressesFile, JSON.stringify(addresses, null, 2), 'utf8');
   } catch (error) {
-    console.error('Deployment failed:', error);
-    throw error;
+    console.error(`Failed to deploy contract ${contractName}:`, error);
   }
 };
 
-// Example usage
-const deploymentConfig = {
-  rpcUrl: 'INSERT_RPC_URL',
-  privateKey: 'INSERT_PRIVATE_KEY',
-  contractName: 'INSERT_CONTRACT_NAME',
+const providerConfig = {
+  rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io', // TODO: replace to `https://services.polkadothub-rpc.com/testnet` when ready
+  chainId: 420420422,
+  name: 'polkadot-hub-testnet',
 };
 
-deploy(deploymentConfig)
-  .then((contract) => console.log('Deployment successful'))
-  .catch((error) => console.error('Deployment error'));
+const privateKey = 'INSERT_PRIVATE_KEY';
+
+deployContract('Storage', privateKey, providerConfig);
+

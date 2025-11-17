@@ -8723,7 +8723,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-libraries-web3-js.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/libraries/web3-js/",
-    "preview": "!!! warning Web3.js has been [sunset](https://blog.chainsafe.io/web3-js-sunset/){target=\\_blank}. You can find guides on using [Ethers.js](/smart-contracts/libraries/ethers-js/){target=\\_blank} and [viem](/smart-contracts/libraries/viem/){target=\\_blank} in the Libraries section.",
+    "preview": "!!! smartcontract \"PolkaVM Preview Release\" PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**. !!! warning Web3.js has been [sunset](https://blog.chainsafe.io/web3-js-sunset/){target=\\_blank}. You can find guides on using [Ethers.js](/smart-contracts/libraries/ethers-js/){target=\\_blank} and [viem](/smart-contracts/libraries/viem/){target=\\_blank} in the Libraries section.",
     "outline": [
       {
         "depth": 2,
@@ -8777,12 +8777,12 @@
       }
     ],
     "stats": {
-      "chars": 13096,
-      "words": 1558,
+      "chars": 13266,
+      "words": 1579,
       "headings": 10,
       "estimated_token_count_total": 3035
     },
-    "hash": "sha256:0aafc5ad18ee58314c81b5bbe98aa80bddfd9d1820eeaf674607d69819702a2b",
+    "hash": "sha256:f0d36333d0d3afff7f6374a61d0f6d1fb878c9ef4c4e4c24447745661dbe59d0",
     "token_estimator": "heuristic-v1"
   },
   {

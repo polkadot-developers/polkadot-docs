@@ -1,10 +1,10 @@
 ---
-title: Deploy a Basic Contract with Hardhat
+title: Deploy a Contract with Hardhat
 description: Learn how to deploy a basic smart contract to Polkadot Hub using Hardhat, Perfect for professional workflows requiring comprehensive testing and debugging.
 categories: Smart Contracts
 ---
 
-# Deploy a Basic Contract with
+# Deploy Basic Contract with Hardhat
 
 ## Introduction
 
@@ -12,14 +12,16 @@ This guide demonstrates how to deploy a basic Solidity smart contract to Polkado
 
 ## Prerequisites
 
-- Basic understanding of Solidity programming.
-- [Node.js](https://nodejs.org/en/download){target=\_blank} v22.13.1 or later.
-- Test tokens for gas fees (available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}). See the [step-by-step instructions](/smart-contracts/faucet/#get-test-tokens){target=\_blank}.
+Before you begin, ensure you have the following:
+
+- A basic understanding of [Solidity](https://www.soliditylang.org/){target=\_blank} programming.
+- [Node.js](https://nodejs.org/en/download){target=\_blank} v22.13.1 or later installed.
+- Test tokens for gas fees, available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}. See [Get Test Tokens](/smart-contracts/faucet/#get-test-tokens){target=\_blank} for a guide to using the faucet.
 - A wallet with a private key for signing transactions.
 
 ## Set Up Your Project
 
-Initialize your Hardhat project:
+Use the following terminal commands to create a directory and initialize your Hardhat project inside of it:
 
 ```bash
 mkdir hardhat-deployment
@@ -29,7 +31,7 @@ npx hardhat --init
 
 ## Configure Hardhat
 
-Edit `hardhat.config.js`:
+Open `hardhat.config.js` and update to add `polkadotHubTestnet` to the `networks` configuration as highlighted in the following example code:
 
 ```javascript title='hardhat.config.js' hl_lines='39-43'
 import type { HardhatUserConfig } from 'hardhat/config';
@@ -85,15 +87,21 @@ export default config;
 !!! tip
     Learn how to use Hardhat's [Config Variables](https://hardhat.org/docs/learn-more/configuration-variables){target=\_blank} to handle your private keys in a secure way.
 
-## Create Your Contract
+## Create the Contract
 
-Replace the default contract in `contracts/Storage.sol`:
+Follow these steps to create your smart contract:
 
-```solidity
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.9;
+1. Delete the default contract file(s) in the `contracts` directory.
 
-contract Storage {
+2. Create a new file named `Storage.sol` inside the `contracts` directory.
+
+3. Add the following code to create the `Storage.sol` smart contract:
+
+  ```solidity
+  // SPDX-License-Identifier: MIT
+  pragma solidity ^0.8.9;
+
+  contract Storage {
     uint256 private storedNumber;
 
     function store(uint256 num) public {
@@ -103,31 +111,47 @@ contract Storage {
     function retrieve() public view returns (uint256) {
         return storedNumber;
     }
-}
-```
+  }
+  ```
 
-## Compile
+## Compile the Contract
+
+Compile your `Storage.sol` contract using the following command:
 
 ```bash
 npx hardhat build
 ```
 
+You will see a message in the terminal confirming the contract was successfully compiled similar to the following:
+
+<div id="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>npx hardhat build</span>
+  <span data-ty>Downloading solc 0.8.28</span>
+  <span data-ty>Downloading solc 0.8.28 (WASM build)</span>
+  <span data-ty>Compiled 1 Solidity file with solc 0.8.28 (evm target: cancun)</span>
+  <span data-ty="input"><span class="file-path"></span></span>
+</div>
+
 ## Set Up Deployment
 
-Create a deployment module in `ignition/modules/Storage.ts`:
+1. Delete the default file(s) inside the `ignition/modules` directory.
 
-```typescript title="ignition/modules/Storage.ts"
-import { buildModule } from '@nomicfoundation/hardhat-ignition/modules';
+2. Create a new file named `Storage.ts` inside the `ignition/modules` directory.
 
-export default buildModule('StorageModule', (m) => {
-  const storage = m.contract('Storage');
-  return { storage };
-});
-```
+3. Open `ignition/modules/Storage.ts` and add the following code to create your deployment module:
+
+  ```typescript title="ignition/modules/Storage.ts"
+  import { buildModule } from '@nomicfoundation/hardhat-ignition/modules';
+
+  export default buildModule('StorageModule', (m) => {
+    const storage = m.contract('Storage');
+    return { storage };
+  });
+  ```
 
 ## Deploy the Contract
 
-Deploy to Polkadot Hub TestNet:
+Deploy your contract to Polkadot Hub TestNet using the following command:
 
 ```bash
 npx hardhat ignition deploy ignition/modules/Storage.ts --network polkadotHubTestnet 

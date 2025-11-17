@@ -1,5 +1,5 @@
 nav:
-- 'Overview': index.md # TODO: Update name of page
+- 'Overview': index.md 
 - 'Get Tokens from the Faucet': /smart-contracts/faucet/ 
 - 'EVM Smart Contracts': smart-contracts
 - 'Create a DApp': dapps

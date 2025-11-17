@@ -1,10 +1,10 @@
 ---
-title: Deploy a Basic Contract with Remix IDE
+title: Deploy a Contract with Remix IDE
 description: Learn how to deploy a basic smart contract to Polkadot Hub using Remix IDE Ideal for rapid prototyping, learning, and visual development.
 categories: Smart Contracts
 ---
 
-# Deploy a Basic Contract with Remix IDE
+# Deploy Basic Contract with Remix IDE
 
 ## Introduction
 
@@ -12,8 +12,10 @@ This guide demonstrates how to deploy a basic Solidity smart contract to Polkado
 
 ## Prerequisites
 
-- Basic understanding of Solidity programming.
-- Test tokens for gas fees (available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}). See the [step-by-step instructions](/smart-contracts/faucet/#get-test-tokens){target=\_blank}.
+Before you begin, ensure you have the following:
+
+- A basic understanding of [Solidity](https://www.soliditylang.org/){target=\_blank} programming.
+- Test tokens for gas fees, available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}. See [Get Test Tokens](/smart-contracts/faucet/#get-test-tokens){target=\_blank} for a guide to using the faucet.
 - A wallet with a private key for signing transactions.
 
 ## Access Remix
@@ -24,16 +26,16 @@ The interface will load with a default workspace containing sample contracts. In
 
 ![](/images/smart-contracts/cookbook/smart-contracts/deploy-basic/deploy-basic/deploy-basic-01.webp)
 
-## Compile
+## Compile the Contract
 
-1. Navigate to the **Solidity Compiler** tab, which is the third icon in the left sidebar.
+1. Navigate to the **Solidity Compiler** tab.
 2. Click **Compile Storage.sol** or press `Ctrl+S`.
 
 ![](/images/smart-contracts/cookbook/smart-contracts/deploy-basic/deploy-basic/deploy-basic-02.webp)
 
-Compilation errors and warnings appear in the terminal panel at the bottom of the screen.
+If any issues arise during Compilation, errors and warnings will appear in the terminal panel at the bottom of the screen.
 
-## Deploy
+## Deploy the Contract
 
 1. Navigate to the **Deploy & Run Transactions** tab.
 2. Click the **Environment** dropdown and select **Injected Provider - MetaMask** (ensure your MetaMask wallet is connected to Polkadot Hub TestNet).
@@ -42,7 +44,7 @@ Compilation errors and warnings appear in the terminal panel at the bottom of th
 
 ![](/images/smart-contracts/cookbook/smart-contracts/deploy-basic/deploy-basic/deploy-basic-03.webp)
 
-Your deployed contract will appear in the **Deployed Contracts** section, ready for interaction.
+Once successfully deployed, your contract will appear in the **Deployed Contracts** section, ready for interaction.
 
 ## Where to Go Next
 

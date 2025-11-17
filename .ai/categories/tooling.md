@@ -4986,7 +4986,7 @@ Before deploying your contract, ensure you have:
 
 1. To deploy your contract, you need to:
 
-    1. Navigate to the **Deploy & Run Transactions** tab (fourth icon in the left sidebar).
+    1. Navigate to the **Deploy & Run Transactions** tab.
     2. Click the **Environment** dropdown.
     3. Select **Browser Extension**.
     4. Click on the **Injected Provider - MetaMask** option.
@@ -22345,13 +22345,13 @@ To create a new contract using the Remix IDE, you can follow these steps:
 
 To compile your contract, you need to:
 
-1. Navigate to the **Solidity Compiler** tab (third icon in the left sidebar).
+1. Navigate to the **Solidity Compiler** tab.
 2. Select **Compile** or use `Ctrl+S`.
 
     !!! note
         Compilation errors and warnings appear in the terminal panel at the bottom of the screen.
 
-3. After compiling your contract, you can navigate to the **File Explorer** tab (first icon in the left sidebar) and check that:
+3. After compiling your contract, you can navigate to the **File Explorer** tab and check that:
     1. The **artifacts** folder is present.
     2. The `Counter_metadata.json` and the `Counter.json` files have been generated.
 

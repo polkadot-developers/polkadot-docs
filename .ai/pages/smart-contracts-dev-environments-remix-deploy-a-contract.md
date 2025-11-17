@@ -24,7 +24,7 @@ Before deploying your contract, ensure you have:
 
 1. To deploy your contract, you need to:
 
-    1. Navigate to the **Deploy & Run Transactions** tab (fourth icon in the left sidebar).
+    1. Navigate to the **Deploy & Run Transactions** tab.
     2. Click the **Environment** dropdown.
     3. Select **Browser Extension**.
     4. Click on the **Injected Provider - MetaMask** option.

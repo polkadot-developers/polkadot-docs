@@ -1,5 +1,5 @@
 ---
-title: Deploy a Contract with Hardhat
+title: Deploy Basic Contract with Hardhat
 description: Learn how to deploy a basic smart contract to Polkadot Hub using Hardhat, Perfect for professional workflows requiring comprehensive testing and debugging.
 categories: Smart Contracts
 ---

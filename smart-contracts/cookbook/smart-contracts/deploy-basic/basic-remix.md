@@ -32,11 +32,10 @@ Ensure your contract is open in the Remix IDE Editor, and use the follow steps t
 
 1. Select the **Solidity Compiler** plugin from the left panel.
 2. Select the **Compile MyToken.sol** button.
-3. The **Solidity Compiler** icon will display a green checkmark once the contract compiles successfully. 
 
-![](/images/smart-contracts/cookbook/smart-contracts/deploy-basic/deploy-basic/deploy-basic-02.webp)
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-basic/deploy-basic/deploy-basic-02.webp)
 
-If any issues arise during Compilation, errors and warnings will appear in the terminal panel at the bottom of the screen.
+The **Solidity Compiler** icon will display a green checkmark once the contract compiles successfully. If any issues arise during contract compilation, errors and warnings will appear in the terminal panel at the bottom of the screen.
 
 ## Deploy the Contract
 
@@ -47,9 +46,11 @@ Follow these steps to deploy the contract using Remix:
 3. Select **Deploy**.
 4. Approve the transaction in your MetaMask wallet.
 
-![](/images/smart-contracts/cookbook/smart-contracts/deploy-basic/deploy-basic/deploy-basic-03.webp)
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-basic/deploy-basic/deploy-basic-03.webp)
 
 Once successfully deployed, your contract will appear in the **Deployed Contracts** section, ready for interaction.
+
+Congratulations! You've now deployed a basic smart contract to Polkadot Hub TestNet using Remix IDE. Consider the following resources to build upon your progress.
 
 ## Where to Go Next
 

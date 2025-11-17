@@ -65,12 +65,8 @@ npx hardhat compile
 
 If everything compiles successfully, you will see output similar to the following:
 
-<div id="termynal" data-termynal markdown>
-  <span data-ty="input">npx hardhat compile</span>
-  <span data-ty>Generating typings for: 23 artifacts in dir: typechain-types for target: ethers-v6</span>
-  <span data-ty>Successfully generated 62 typings!</span>
-  <span data-ty>Compiled 21 Solidity files successfully (evm target: paris).</span>
-</div>
+--8<-- 'code/smart-contracts/cookbook/smart-contracts/deploy-erc20-token/erc20-hardhat/compile-output.html'
+
 
 ## Test the Contract
 
@@ -93,22 +89,7 @@ npx hardhat test --network polkadotTestnet
 
 If tests are successful, you will see outputs similar to the following:
 
-<div id="termynal" data-termynal markdown>
-  <span data-ty="input">npx hardhat test --network polkadotTestnet</span>
-  <span data-ty></span>
-  <span data-ty>&nbsp;&nbsp;MyToken</span>
-  <span data-ty>&nbsp;&nbsp;&nbsp;&nbsp;Deployment</span>
-  <span data-ty>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✔ Should have correct name and symbol</span>
-  <span data-ty>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✔ Should set the right owner</span>
-  <span data-ty>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✔ Should have zero initial supply</span>
-  <span data-ty>&nbsp;&nbsp;&nbsp;&nbsp;Minting</span>
-  <span data-ty>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✔ Should allow owner to mint tokens</span>
-  <span data-ty>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✔ Should increase total supply on mint</span>
-  <span data-ty>&nbsp;&nbsp;&nbsp;&nbsp;Multiple mints</span>
-  <span data-ty>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✔ Should correctly track balance after multiple mints</span>
-  <span data-ty></span>
-  <span data-ty>&nbsp;&nbsp;6 passing (369ms)</span>
-</div>
+--8<-- 'code/smart-contracts/cookbook/smart-contracts/deploy-erc20-token/erc20-hardhat/testing-output.html'
 
 ## Deploy the Contract
 
@@ -120,28 +101,10 @@ You are now ready to deploy the contract to your chosen network. This example de
   ```
 
 2. Confirm the target deployment network name and chain ID when prompted:
-<div id="termynal" data-termynal markdown>
-  <span data-ty="input">npx hardhat ignition deploy ./ignition/modules/MyToken.ts --network polkadotTestnet</span>
-  <span data-ty>✔ Confirm deploy to network polkadotTestnet (420420420)? … yes</span>
-  <span data-ty>&nbsp;</span>
-  <span data-ty>Hardhat Ignition 🚀</span>
-  <span data-ty>&nbsp;</span>
-  <span data-ty>Deploying [ TokenModule ]</span>
-  <span data-ty>&nbsp;</span>
-  <span data-ty>Batch #1</span>
-  <span data-ty>  Executed TokenModule#MyToken</span>
-  <span data-ty>&nbsp;</span>
-  <span data-ty>Batch #2</span>
-  <span data-ty>  Executed TokenModule#MyToken.mint</span>
-  <span data-ty>&nbsp;</span>
-  <span data-ty>[ TokenModule ] successfully deployed 🚀</span>
-  <span data-ty>&nbsp;</span>
-  <span data-ty>Deployed Addresses</span>
-  <span data-ty>&nbsp;</span>
-  <span data-ty>TokenModule#MyToken - 0xc01Ee7f10EA4aF4673cFff62710E1D7792aBa8f3</span>
-</div>
 
-Congratulations! You've successfully deployed an ERC-20 token contract to the Polkadot TestNet using Hardhat.
+    --8<-- 'code/smart-contracts/cookbook/smart-contracts/deploy-erc20-token/erc20-hardhat/deploy-output.html'
+
+Congratulations! You've successfully deployed an ERC-20 token contract to Polkadot Hub TestNet using Hardhat. Consider the following resources to build upon your progress.
 
 ## Where to Go Next
 

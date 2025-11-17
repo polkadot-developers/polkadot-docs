@@ -44,54 +44,7 @@ Before you begin, ensure you have the following:
 Open `hardhat.config.js` and update to add `polkadotHubTestnet` to the `networks` configuration as highlighted in the following example code:
 
 ```typescript title="hardhat.config.ts" hl_lines='39-44'
-import type { HardhatUserConfig } from 'hardhat/config';
-
-import hardhatToolboxViemPlugin from '@nomicfoundation/hardhat-toolbox-viem';
-import { configVariable } from 'hardhat/config';
-
-const config: HardhatUserConfig = {
-  plugins: [hardhatToolboxViemPlugin],
-  solidity: {
-    profiles: {
-      default: {
-        version: '0.8.28',
-      },
-      production: {
-        version: '0.8.28',
-        settings: {
-          optimizer: {
-            enabled: true,
-            runs: 200,
-          },
-        },
-      },
-    },
-  },
-  networks: {
-    hardhatMainnet: {
-      type: 'edr-simulated',
-      chainType: 'l1',
-    },
-    hardhatOp: {
-      type: 'edr-simulated',
-      chainType: 'op',
-    },
-    sepolia: {
-      type: 'http',
-      chainType: 'l1',
-      url: configVariable('SEPOLIA_RPC_URL'),
-      accounts: [configVariable('SEPOLIA_PRIVATE_KEY')],
-    },
-    polkadotHubTestnet: {
-      type: 'http',
-      url: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
-      chainId: 420420422,
-      accounts: [configVariable('PRIVATE_KEY')],
-    },
-  },
-};
-
-export default config;
+--8<-- 'code/smart-contracts/cookbook/smart-contracts/deploy-erc721-nft/nft-hardhat/hardhat.config.ts'
 ```
 
 !!! tip
@@ -106,28 +59,9 @@ Follow these steps to create your smart contract:
 2. Create a new file named `MyNFT.sol` inside the `contracts` directory.
 
 3. Add the following code to create the `MyNFT.sol` smart contract:
-
-```solidity title="contracts/MyNFT.sol"
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
-
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
-
-contract MyNFT is ERC721, Ownable {
-    uint256 private _nextTokenId;
-
-    constructor(address initialOwner)
-        ERC721("MyToken", "MTK")
-        Ownable(initialOwner)
-    {}
-
-    function safeMint(address to) public onlyOwner {
-        uint256 tokenId = _nextTokenId++;
-        _safeMint(to, tokenId);
-    }
-}
-```
+    ```solidity title="contracts/MyNFT.sol"
+    --8<-- 'code/smart-contracts/cookbook/smart-contracts/deploy-erc721-nft/nft-hardhat/MyNFT.sol'
+    ```
 
 ## Compile the Contract
 
@@ -139,13 +73,7 @@ npx hardhat compile
 
 You will see a message in the terminal confirming the contract was successfully compiled similar to the following:
 
-<div id="termynal" data-termynal>
-  <span data-ty="input"><span class="file-path"></span>npx hardhat compile</span>
-  <span data-ty>Downloading solc 0.8.28</span>
-  <span data-ty>Downloading solc 0.8.28 (WASM build)</span>
-  <span data-ty>Compiled 1 Solidity file with solc 0.8.28 (evm target: cancun)</span>
-  <span data-ty="input"><span class="file-path"></span></span>
-</div>
+--8<-- 'code/smart-contracts/cookbook/smart-contracts/deploy-erc721-nft/nft-hardhat/compile-output.html'
 
 ## Set Up Deployment
 
@@ -156,18 +84,11 @@ Follow these steps to prepare for contract deployment:
 2. Create a new file named `MyNFT.ts` inside the `ignition/modules` directory.
 
 3. Open `ignition/modules/MyNFT.ts` and add the following code to create your deployment module:
+    ```typescript title="ignition/modules/MyNFT.ts"
+    --8<-- 'code/smart-contracts/cookbook/smart-contracts/deploy-erc721-nft/nft-hardhat/MyNFT.ts'
+    ```
 
-```typescript title="ignition/modules/MyNFT.ts"
-import { buildModule } from '@nomicfoundation/hardhat-ignition/modules';
-
-export default buildModule('MyNFTModule', (m) => {
-  const initialOwner = m.getParameter('initialOwner', 'INSERT_OWNER_ADDRESS');
-  const myNFT = m.contract('MyNFT', [initialOwner]);
-  return { myNFT };
-});
-```
-
-Replace `INSERT_OWNER_ADDRESS` with your desired owner address.
+    Replace `INSERT_OWNER_ADDRESS` with your desired owner address.
 
 ## Deploy the Contract
 
@@ -177,7 +98,7 @@ Deploy your contract to Polkadot Hub TestNet using the following command:
 npx hardhat ignition deploy ignition/modules/MyNFT.ts --network polkadotHubTestnet
 ```
 
-Congratulations! You've successfully deployed an ERC-721 NFT contract to the Polkadot TestNet using Hardhat.
+Congratulations! You've successfully deployed an ERC-721 NFT contract to the Polkadot Hub TestNet using Hardhat. Consider the following resources to build upon your progress. 
 
 ## Where to Go Next
 

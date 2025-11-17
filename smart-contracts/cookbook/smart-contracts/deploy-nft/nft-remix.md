@@ -29,56 +29,40 @@ The interface will load with a default workspace containing sample contracts. In
 ## Create Your Contract
 
 1. Create a new file `contracts/MyNFT.sol`.
-2. Paste the following code:
+2. Now, paste the following ERC-721 contract code into `MyNFT.sol`:
 
     ```solidity title="contracts/MyNFT.sol"
-    // SPDX-License-Identifier: MIT
-    pragma solidity ^0.8.20;
-
-    import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-    import "@openzeppelin/contracts/access/Ownable.sol";
-
-    contract MyNFT is ERC721, Ownable {
-        uint256 private _nextTokenId;
-
-        constructor(address initialOwner)
-            ERC721("MyToken", "MTK")
-            Ownable(initialOwner)
-        {}
-
-        function safeMint(address to) public onlyOwner {
-            uint256 tokenId = _nextTokenId++;
-            _safeMint(to, tokenId);
-        }
-    }
+    --8<-- 'code/smart-contracts/cookbook/smart-contracts/deploy-erc721-nft/nft-remix/MyNFT.sol'
     ```
 
-![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/remix/remix-01.webp)
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix/remix-01.webp)
 
-## Compile
+## Compile the Contract
 
 1. Navigate to the **Solidity Compiler** tab (third icon in the left sidebar).
 2. Click **Compile MyNFT.sol** or press `Ctrl+S`.
 
-![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/remix/remix-02.webp)
+![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix/remix-02.webp)
 
 Compilation errors and warnings appear in the terminal panel at the bottom of the screen.
 
-## Deploy
+## Deploy the Contract
 
 1. Navigate to the **Deploy & Run Transactions** tab.
 2. Click the **Environment** dropdown, select **Browser Extension**, and click on **Injected Provider - MetaMask**.
 
-    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/remix/remix-03.webp)
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix/remix-03.webp)
 
 3. In the deploy section, enter the initial owner address in the constructor parameter field.
 4. Click **Deploy**.
 
-    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/remix/remix-04.webp)
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix/remix-04.webp)
 
 5. Approve the transaction in your MetaMask wallet.
 
 Your deployed contract will appear in the **Deployed Contracts** section, ready for interaction.
+
+Congratulations! You've successfully deployed an ERC-721 NFT contract to the Polkadot Hub TestNet using Remix IDE. Consider the following resources to build upon your progress.
 
 ## Where to Go Next
 

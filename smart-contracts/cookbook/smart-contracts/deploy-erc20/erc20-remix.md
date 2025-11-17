@@ -29,7 +29,7 @@ Follow the steps below to create the ERC-20 contract:
 1. Navigate to the [Polkadot Remix IDE](https://remix.polkadot.io){target=\_blank}.
 2. Select the **Create new file** button under the **contracts** folder, and name your contract `MyToken.sol`.
 
-    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix-1.webp)
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix/erc20-remix-1.webp)
 
 3. Now, paste the following ERC-20 contract code into `myToken.sol`:
 
@@ -50,9 +50,9 @@ Ensure your contract is open in the Remix IDE Editor, and use the follow steps t
 2. Select the **Compile MyToken.sol** button.
 3. The **Solidity Compiler** icon will display a green checkmark once the contract compiles successfully. 
 
-If any issues arise during Compilation, errors and warnings will appear in the terminal panel at the bottom of the screen.
+If any issues arise during contract compilation, errors and warnings will appear in the terminal panel at the bottom of the screen.
 
-![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix-3.gif)
+![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix/erc20-remix-3.gif)
 
 ## Deploy the Contract
 
@@ -65,7 +65,7 @@ Follow these steps to deploy the contract using Remix:
 5. Approve the transaction in your MetaMask wallet.
 6. You will see the transaction details in the terminal when the deployment succeeds, including the contract address and deployment transaction hash.
 
-![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix-4.gif)
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix/erc20-remix-4.gif)
 
 ## Interact With the Contract
 
@@ -81,9 +81,11 @@ Once deployed, you can interact with your contract through Remix. Find your cont
 
 4. You can also call the **balanceOf** function by passing the address of the **mint** call to confirm the new balance.
 
-![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix-5.gif)
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix/erc20-remix-5.gif)
 
 Feel free to explore and interact with the contract's other functions by selecting the method, providing any required parameters, and confirming the transaction in MetaMask when prompted.
+
+Congratulations! You've successfully deployed an ERC-20 token contract to Polkadot Hub TestNet using Remix IDE. Consider the following resources to build upon your progress. 
 
 ## Where to Go Next
 

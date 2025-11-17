@@ -69,7 +69,7 @@ Once successfully deployed, your contract will appear in the **Deployed Contract
 
     Walk through deploying a fully-functional ERC-20 to the Polkadot Hub using Remix.
 
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-erc20/remix/)
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix/)
 
 -   <span class="badge guide">Guide</span> __Deploy an NFT__
 
@@ -77,6 +77,6 @@ Once successfully deployed, your contract will appear in the **Deployed Contract
 
     Walk through deploying a NFT to the Polkadot Hub using Remix.
 
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-nft/remix/)        
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix/)        
 
 </div>

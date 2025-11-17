@@ -119,13 +119,13 @@ Follow these steps to create your smart contract:
 Compile your `Storage.sol` contract using the following command:
 
 ```bash
-npx hardhat build
+npx hardhat compile
 ```
 
 You will see a message in the terminal confirming the contract was successfully compiled similar to the following:
 
 <div id="termynal" data-termynal>
-  <span data-ty="input"><span class="file-path"></span>npx hardhat build</span>
+  <span data-ty="input"><span class="file-path"></span>npx hardhat compile</span>
   <span data-ty>Downloading solc 0.8.28</span>
   <span data-ty>Downloading solc 0.8.28 (WASM build)</span>
   <span data-ty>Compiled 1 Solidity file with solc 0.8.28 (evm target: cancun)</span>
@@ -133,6 +133,8 @@ You will see a message in the terminal confirming the contract was successfully 
 </div>
 
 ## Set Up Deployment
+
+Follow these steps to prepare for contract deployment:
 
 1. Delete the default file(s) inside the `ignition/modules` directory.
 
@@ -175,7 +177,7 @@ npx hardhat ignition deploy ignition/modules/Storage.ts --network polkadotHubTes
 
     Walk through deploying a fully-functional ERC-20 to the Polkadot Hub using Hardhat.
 
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-erc20/hardhat/)
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-hardhat/)
 
 -   <span class="badge guide">Guide</span> __Deploy an NFT__
 
@@ -183,6 +185,6 @@ npx hardhat ignition deploy ignition/modules/Storage.ts --network polkadotHubTes
 
     Walk through deploying a NFT to the Polkadot Hub using Hardhat.
 
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-nft/hardhat/)
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-hardhat/)
 
 </div>

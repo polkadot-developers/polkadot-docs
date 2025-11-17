@@ -63,7 +63,7 @@ Follow these steps to deploy the contract using Remix:
 3. Configure the contract parameters to enter the address that will own the deployed token contract.
 4. Click the **Deploy** button to initiate the deployment.
 5. Approve the transaction in your MetaMask wallet.
-6. If the deployment process succeeded, you will see the transaction details in the terminal, including the contract address and deployment transaction hash.
+6. You will see the transaction details in the terminal when the deployment succeeds, including the contract address and deployment transaction hash.
 
 ![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix-4.gif)
 
@@ -95,6 +95,6 @@ Feel free to explore and interact with the contract's other functions by selecti
 
     Walk through deploying an ERC-721 Non-Fungible Token (NFT) using OpenZeppelin's battle-tested NFT implementation and Remix.
 
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-nft/remix/)
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix/)
 
 </div>

@@ -8541,12 +8541,12 @@
       }
     ],
     "stats": {
-      "chars": 21133,
-      "words": 2401,
+      "chars": 21413,
+      "words": 2435,
       "headings": 12,
-      "estimated_token_count_total": 4687
+      "estimated_token_count_total": 4762
     },
-    "hash": "sha256:ea39f6aab99e80c378fbf7c48030d274e13c340e23465d40d4cfb33c9f0d0f2f",
+    "hash": "sha256:121e52bd405e70bde9288d65557266fbaa0dbca290bdfebc67de8105d9672785",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -8723,7 +8723,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-libraries-web3-js.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/libraries/web3-js/",
-    "preview": "!!! smartcontract \"PolkaVM Preview Release\" PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**. !!! warning Web3.js has been [sunset](https://blog.chainsafe.io/web3-js-sunset/){target=\\_blank}. You can find guides on using [Ethers.js](/smart-contracts/libraries/ethers-js/){target=\\_blank} and [viem](/smart-contracts/libraries/viem/){target=\\_blank} in the Libraries section.",
+    "preview": "!!! warning Web3.js has been [sunset](https://blog.chainsafe.io/web3-js-sunset/){target=\\_blank}. You can find guides on using [Ethers.js](/smart-contracts/libraries/ethers-js/){target=\\_blank} and [viem](/smart-contracts/libraries/viem/){target=\\_blank} in the Libraries section.",
     "outline": [
       {
         "depth": 2,
@@ -8777,12 +8777,12 @@
       }
     ],
     "stats": {
-      "chars": 13266,
-      "words": 1579,
+      "chars": 13096,
+      "words": 1558,
       "headings": 10,
       "estimated_token_count_total": 3035
     },
-    "hash": "sha256:f0d36333d0d3afff7f6374a61d0f6d1fb878c9ef4c4e4c24447745661dbe59d0",
+    "hash": "sha256:0aafc5ad18ee58314c81b5bbe98aa80bddfd9d1820eeaf674607d69819702a2b",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -9050,26 +9050,6 @@
       "estimated_token_count_total": 412
     },
     "hash": "sha256:a40e3f34f70db22bfe39e40d68dc5a53a726ce47cb73b602d8605355c61ffd22",
-    "token_estimator": "heuristic-v1"
-  },
-  {
-    "id": "text-smart-contracts-code-size",
-    "title": "text-smart-contracts-code-size",
-    "slug": "text-smart-contracts-code-size",
-    "categories": [
-      "Uncategorized"
-    ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/text-smart-contracts-code-size.md",
-    "html_url": "https://docs.polkadot.com/text/smart-contracts/code-size/",
-    "preview": "!!! info \"Mind the contract size\" Polkadot Hub enforces Ethereum's 24 KiB contract-size limit (EIP-170) for EVM deployments. Keep contracts modular, share logic through libraries, and make use of compiler optimizations so your bytecode stays within the limit.",
-    "outline": [],
-    "stats": {
-      "chars": 264,
-      "words": 40,
-      "headings": 0,
-      "estimated_token_count_total": 0
-    },
-    "hash": "sha256:e6c2ffab1e1d9d06f6e209f37e1c829abd6be41fa7c5350d7dcc858745d4e011",
     "token_estimator": "heuristic-v1"
   }
 ]

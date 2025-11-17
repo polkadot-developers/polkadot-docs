@@ -2766,7 +2766,15 @@ You can create a `deploy.js` script in the root of your project to achieve this.
 5. Configure and execute the deployment:
 
     ```js title="scripts/deploy.js"
-    
+    const providerConfig = {
+      rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io', #TODO: replace to `https://services.polkadothub-rpc.com/testnet` when ready
+      chainId: 420420422,
+      name: 'polkadot-hub-testnet',
+    };
+
+    const mnemonic = 'evoke moment pluck misery cheese boy era fresh useful frame resemble cinnamon';
+
+    deployContract('Storage', mnemonic, providerConfig);
     ```
 
     !!! note
@@ -2957,9 +2965,9 @@ const providerConfig = {
   chainId: 420420422,
 };
 
-const mnemonic = 'evoke moment pluck misery cheese boy era fresh useful frame resemble cinnamon';
+const mnemonic = 'INSERT_MNEMONIC'
 const contractName = 'Storage';
-const contractAddress = '0x83e43892a98f924706E9DB7917244897dC8b8126';
+const contractAddress = 'INSERT_CONTRACT_ADDRESS'
 const newNumber = 42;
 
 interactWithStorageContract(
@@ -2971,7 +2979,7 @@ interactWithStorageContract(
 );
 ```
 
-Ensure you replace the `INSERT_MNEMONIC`, `INSERT_CONTRACT_ADDRESS`, and `INSERT_ADDRESS_TO_CHECK` placeholders with actual values. Also, ensure the contract ABI file (`Storage.json`) is correctly referenced. The script prints the balance for `ADDRESS_TO_CHECK` before it writes and doubles the stored value, so pick any account you want to monitor.
+Ensure you replace the `INSERT_MNEMONIC` and `INSERT_CONTRACT_ADDRESS` placeholders with actual values. Also, ensure the contract ABI file (`Storage.json`) is correctly referenced. The script prints the balance for `ADDRESS_TO_CHECK` before it writes and doubles the stored value, so pick any account you want to monitor.
 
 To interact with the contract, run:
 
@@ -12855,8 +12863,6 @@ Page Title: Web3.js
 
 # Web3.js
 
-!!! smartcontract "PolkaVM Preview Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 !!! warning
     Web3.js has been [sunset](https://blog.chainsafe.io/web3-js-sunset/){target=\_blank}. You can find guides on using [Ethers.js](/smart-contracts/libraries/ethers-js/){target=\_blank} and [viem](/smart-contracts/libraries/viem/){target=\_blank} in the Libraries section. 
 

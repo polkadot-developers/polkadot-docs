@@ -71,9 +71,9 @@ const providerConfig = {
   chainId: 420420422,
 };
 
-const mnemonic = 'evoke moment pluck misery cheese boy era fresh useful frame resemble cinnamon';
+const mnemonic = 'INSERT_MNEMONIC'
 const contractName = 'Storage';
-const contractAddress = '0x83e43892a98f924706E9DB7917244897dC8b8126';
+const contractAddress = 'INSERT_CONTRACT_ADDRESS'
 const newNumber = 42;
 
 interactWithStorageContract(

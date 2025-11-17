@@ -175,7 +175,7 @@ You can create a `deploy.js` script in the root of your project to achieve this.
 5. Configure and execute the deployment:
 
     ```js title="scripts/deploy.js"
-    --8<-- 'code/smart-contracts/libraries/ethers-js/deploy.js4:92'
+    --8<-- 'code/smart-contracts/libraries/ethers-js/deploy.js:84:92'
     ```
 
     !!! note
@@ -205,7 +205,7 @@ Once the contract is deployed, you can interact with it by calling its functions
 --8<-- 'code/smart-contracts/libraries/ethers-js/checkStorage.js'
 ```
 
-Ensure you replace the `INSERT_MNEMONIC`, `INSERT_CONTRACT_ADDRESS`, and `INSERT_ADDRESS_TO_CHECK` placeholders with actual values. Also, ensure the contract ABI file (`Storage.json`) is correctly referenced. The script prints the balance for `ADDRESS_TO_CHECK` before it writes and doubles the stored value, so pick any account you want to monitor.
+Ensure you replace the `INSERT_MNEMONIC` and `INSERT_CONTRACT_ADDRESS` placeholders with actual values. Also, ensure the contract ABI file (`Storage.json`) is correctly referenced. The script prints the balance for `ADDRESS_TO_CHECK` before it writes and doubles the stored value, so pick any account you want to monitor.
 
 To interact with the contract, run:
 

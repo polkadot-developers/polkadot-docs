@@ -2,6 +2,8 @@ const { ethers } = require('ethers');
 const { readFileSync } = require('fs');
 const { join } = require('path');
 
+const artifactsDir = join(__dirname, '../contracts');
+
 const createProvider = (providerConfig) => {
   return new ethers.JsonRpcProvider(providerConfig.rpc, {
     chainId: providerConfig.chainId,
@@ -13,7 +15,7 @@ const createWallet = (mnemonic, provider) => {
   return ethers.Wallet.fromPhrase(mnemonic).connect(provider);
 };
 
-const loadContractAbi = (contractName, directory = __dirname) => {
+const loadContractAbi = (contractName, directory = artifactsDir) => {
   const contractPath = join(directory, `${contractName}.json`);
   const contractJson = JSON.parse(readFileSync(contractPath, 'utf8'));
   return contractJson.abi || contractJson; // Depending on JSON structure
@@ -69,9 +71,9 @@ const providerConfig = {
   chainId: 420420422,
 };
 
-const mnemonic = 'INSERT_MNEMONIC';
+const mnemonic = 'evoke moment pluck misery cheese boy era fresh useful frame resemble cinnamon';
 const contractName = 'Storage';
-const contractAddress = 'INSERT_CONTRACT_ADDRESS';
+const contractAddress = '0x83e43892a98f924706E9DB7917244897dC8b8126';
 const newNumber = 42;
 
 interactWithStorageContract(

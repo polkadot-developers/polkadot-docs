@@ -8477,7 +8477,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-libraries-ethers-js.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/libraries/ethers-js/",
-    "preview": "!!! smartcontract \"PolkaVM Preview Release\" PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**. ## Introduction",
+    "preview": "[Ethers.js](https://docs.ethers.org/v6/){target=\\_blank} is a lightweight library that enables interaction with Ethereum Virtual Machine (EVM)-compatible blockchains through JavaScript. Ethers is widely used as a toolkit to establish connections and read and write blockchain data. This article demonstrates using Ethers.js to interact and deploy smart contracts to Polkadot Hub.",
     "outline": [
       {
         "depth": 2,
@@ -8516,11 +8516,6 @@
       },
       {
         "depth": 3,
-        "title": "Install the Revive Library",
-        "anchor": "install-the-revive-library"
-      },
-      {
-        "depth": 3,
         "title": "Sample Storage Smart Contract",
         "anchor": "sample-storage-smart-contract"
       },
@@ -8546,12 +8541,12 @@
       }
     ],
     "stats": {
-      "chars": 20457,
-      "words": 2333,
-      "headings": 13,
-      "estimated_token_count_total": 4474
+      "chars": 21133,
+      "words": 2401,
+      "headings": 12,
+      "estimated_token_count_total": 4687
     },
-    "hash": "sha256:c74a28d8d62369591c5734535136508db3d1f7380e486fd214f98d433cafd6e7",
+    "hash": "sha256:ea39f6aab99e80c378fbf7c48030d274e13c340e23465d40d4cfb33c9f0d0f2f",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -9055,6 +9050,26 @@
       "estimated_token_count_total": 412
     },
     "hash": "sha256:a40e3f34f70db22bfe39e40d68dc5a53a726ce47cb73b602d8605355c61ffd22",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "text-smart-contracts-code-size",
+    "title": "text-smart-contracts-code-size",
+    "slug": "text-smart-contracts-code-size",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/text-smart-contracts-code-size.md",
+    "html_url": "https://docs.polkadot.com/text/smart-contracts/code-size/",
+    "preview": "!!! info \"Mind the contract size\" Polkadot Hub enforces Ethereum's 24 KiB contract-size limit (EIP-170) for EVM deployments. Keep contracts modular, share logic through libraries, and make use of compiler optimizations so your bytecode stays within the limit.",
+    "outline": [],
+    "stats": {
+      "chars": 264,
+      "words": 40,
+      "headings": 0,
+      "estimated_token_count_total": 0
+    },
+    "hash": "sha256:e6c2ffab1e1d9d06f6e209f37e1c829abd6be41fa7c5350d7dcc858745d4e011",
     "token_estimator": "heuristic-v1"
   }
 ]

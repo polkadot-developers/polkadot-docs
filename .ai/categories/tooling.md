@@ -2372,8 +2372,6 @@ Page Title: Deploy Contracts to Polkadot Hub with Ethers.js
 
 # Ethers.js
 
-!!! smartcontract "PolkaVM Preview Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 ## Introduction
 
 [Ethers.js](https://docs.ethers.org/v6/){target=\_blank} is a lightweight library that enables interaction with Ethereum Virtual Machine (EVM)-compatible blockchains through JavaScript. Ethers is widely used as a toolkit to establish connections and read and write blockchain data. This article demonstrates using Ethers.js to interact and deploy smart contracts to Polkadot Hub.
@@ -2405,7 +2403,7 @@ ethers-project
 ├── abis
 │   ├── Storage.json
 ├── artifacts
-│   ├── Storage.polkavm
+│   ├── Storage.bin
 ├── contract-address.json
 ├── node_modules/
 ├── package.json
@@ -2430,6 +2428,17 @@ Next, run the following command to install the Ethers.js library:
 ```bash
 npm install ethers
 ```
+
+Add the Solidity compiler so you can generate standard EVM bytecode:
+
+```bash
+npm install --save-dev solc
+```
+
+This guide uses `solc` version `0.8.33`.
+
+!!! tip
+    The sample scripts use ECMAScript modules. Add `"type": "module"` to your `package.json` (or rename the files to `.mjs`) so that `node` can run the `import` statements.
 
 ## Set Up the Ethers.js Provider
 
@@ -2473,7 +2482,7 @@ createProvider(PROVIDER_RPC.rpc, PROVIDER_RPC.chainId, PROVIDER_RPC.name);
 To connect to the provider, execute:
 
 ```bash
-node connectToProvider
+node scripts/connectToProvider.js
 ```
 
 With the provider set up, you can start querying the blockchain. For instance, to fetch the latest block number:
@@ -2518,22 +2527,7 @@ With the provider set up, you can start querying the blockchain. For instance, t
 
 ## Compile Contracts
 
-!!! note "Contracts Code Blob Size Disclaimer"
-    The maximum contract code blob size on Polkadot Hub networks is _100 kilobytes_, significantly larger than Ethereum’s EVM limit of 24 kilobytes.
-
-    For detailed comparisons and migration guidelines, see the [EVM vs. PolkaVM](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm/#current-memory-limits){target=\_blank} documentation page.
-
-The `revive` compiler transforms Solidity smart contracts into [PolkaVM](/smart-contracts/overview/#native-smart-contracts){target=\_blank} bytecode for deployment on Polkadot Hub. Revive's Ethereum RPC interface allows you to use familiar tools like Ethers.js and MetaMask to interact with contracts.
-
-### Install the Revive Library
-
-The [`@parity/resolc`](https://www.npmjs.com/package/@parity/resolc){target=\_blank} library will compile your Solidity code for deployment on Polkadot Hub. Run the following command in your terminal to install the library:
-
-```bash
-npm install --save-dev @parity/resolc 
-```
-
-This guide uses `@parity/resolc` version `0.2.0`.
+Polkadot Hub exposes an Ethereum JSON-RPC endpoint, so you can compile Solidity contracts to familiar EVM bytecode with the upstream [`solc`](https://www.npmjs.com/package/solc){target=\_blank} compiler. The resulting artifacts work with any EVM-compatible toolchain and can be deployed through Ethers.js.
 
 ### Sample Storage Smart Contract
 
@@ -2568,40 +2562,74 @@ contract Storage {
 To compile this contract, use the following script:
 
 ```js title="scripts/compile.js"
-const { compile } = require('@parity/resolc');
-const { readFileSync, writeFileSync } = require('fs');
+const solc = require('solc');
+const { readFileSync, writeFileSync, mkdirSync, existsSync } = require('fs');
 const { basename, join } = require('path');
 
-const compileContract = async (solidityFilePath, outputDir) => {
+const ensureDir = (dirPath) => {
+  if (!existsSync(dirPath)) {
+    mkdirSync(dirPath, { recursive: true });
+  }
+};
+
+const compileContract = (solidityFilePath, abiDir, artifactsDir) => {
   try {
     // Read the Solidity file
     const source = readFileSync(solidityFilePath, 'utf8');
-
-    // Construct the input object for the compiler
+    const fileName = basename(solidityFilePath);
+    
+    // Construct the input object for the Solidity compiler
     const input = {
-      [basename(solidityFilePath)]: { content: source },
+      language: 'Solidity',
+      sources: {
+        [fileName]: {
+          content: source,
+        },
+      },
+      settings: {
+        outputSelection: {
+          '*': {
+            '*': ['abi', 'evm.bytecode'],
+          },
+        },
+      },
     };
-
-    console.log(`Compiling contract: ${basename(solidityFilePath)}...`);
-
+    
+    console.log(`Compiling contract: ${fileName}...`);
+    
     // Compile the contract
-    const out = await compile(input);
+    const output = JSON.parse(solc.compile(JSON.stringify(input)));
+    
+    // Check for errors
+    if (output.errors) {
+      const errors = output.errors.filter(error => error.severity === 'error');
+      if (errors.length > 0) {
+        console.error('Compilation errors:');
+        errors.forEach(err => console.error(err.formattedMessage));
+        return;
+      }
+      // Show warnings
+      const warnings = output.errors.filter(error => error.severity === 'warning');
+      warnings.forEach(warn => console.warn(warn.formattedMessage));
+    }
+    
+    // Ensure output directories exist
+    ensureDir(abiDir);
+    ensureDir(artifactsDir);
 
-    for (const contracts of Object.values(out.contracts)) {
-      for (const [name, contract] of Object.entries(contracts)) {
-        console.log(`Compiled contract: ${name}`);
-
+    // Process compiled contracts
+    for (const [sourceFile, contracts] of Object.entries(output.contracts)) {
+      for (const [contractName, contract] of Object.entries(contracts)) {
+        console.log(`Compiled contract: ${contractName}`);
+        
         // Write the ABI
-        const abiPath = join(outputDir, `${name}.json`);
+        const abiPath = join(abiDir, `${contractName}.json`);
         writeFileSync(abiPath, JSON.stringify(contract.abi, null, 2));
         console.log(`ABI saved to ${abiPath}`);
-
+        
         // Write the bytecode
-        const bytecodePath = join(outputDir, `${name}.polkavm`);
-        writeFileSync(
-          bytecodePath,
-          Buffer.from(contract.evm.bytecode.object, 'hex'),
-        );
+        const bytecodePath = join(artifactsDir, `${contractName}.bin`);
+        writeFileSync(bytecodePath, contract.evm.bytecode.object);
         console.log(`Bytecode saved to ${bytecodePath}`);
       }
     }
@@ -2611,10 +2639,10 @@ const compileContract = async (solidityFilePath, outputDir) => {
 };
 
 const solidityFilePath = join(__dirname, '../contracts/Storage.sol');
-const outputDir = join(__dirname, '../contracts');
+const abiDir = join(__dirname, '../abis');
+const artifactsDir = join(__dirname, '../artifacts');
 
-compileContract(solidityFilePath, outputDir);
-
+compileContract(solidityFilePath, abiDir, artifactsDir);
 ```
 
 !!! note 
@@ -2625,10 +2653,10 @@ The ABI (Application Binary Interface) is a JSON representation of your contract
 Execute the script above by running:
 
 ```bash
-node compile
+node scripts/compile.js
 ```
 
-After executing the script, the Solidity contract will be compiled into the required PolkaVM bytecode format. The ABI and bytecode will be saved into files with `.json` and `.polkavm` extensions, respectively. You can now proceed with deploying the contract to Polkadot Hub, as outlined in the next section.
+After executing the script, the Solidity contract is compiled into standard EVM bytecode. The ABI and bytecode are saved into files with `.json` and `.bin` extensions, respectively. You can now proceed with deploying the contract to Polkadot Hub, as outlined in the next section.
 
 ## Deploy the Compiled Contract
 
@@ -2639,19 +2667,17 @@ You can create a `deploy.js` script in the root of your project to achieve this.
 1. Set up the required imports and utilities:
 
     ```js title="scripts/deploy.js"
-    // Deploy an EVM-compatible smart contract using ethers.js
     const { writeFileSync, existsSync, readFileSync } = require('fs');
     const { join } = require('path');
     const { ethers, JsonRpcProvider } = require('ethers');
 
-    const codegenDir = join(__dirname);
     ```
 
 2. Create a provider to connect to Polkadot Hub:
 
     ```js title="scripts/deploy.js"
 
-    // Creates an Ethereum provider with specified RPC URL and chain details
+    // Creates a provider with specified RPC URL and chain details
     const createProvider = (rpcUrl, chainId, chainName) => {
       const provider = new JsonRpcProvider(rpcUrl, {
         chainId: chainId,
@@ -2667,9 +2693,8 @@ You can create a `deploy.js` script in the root of your project to achieve this.
     // Reads and parses the ABI file for a given contract
     const getAbi = (contractName) => {
       try {
-        return JSON.parse(
-          readFileSync(join(codegenDir, `${contractName}.json`), 'utf8'),
-        );
+        const abiPath = join(artifactsDir, `${contractName}.json`);
+        return JSON.parse(readFileSync(abiPath, 'utf8'));
       } catch (error) {
         console.error(
           `Could not find ABI for contract ${contractName}:`,
@@ -2682,12 +2707,10 @@ You can create a `deploy.js` script in the root of your project to achieve this.
     // Reads the compiled bytecode for a given contract
     const getByteCode = (contractName) => {
       try {
-        const bytecodePath = join(
-          codegenDir,
-          '../contracts',
-          `${contractName}.polkavm`,
-        );
-        return `0x${readFileSync(bytecodePath).toString('hex')}`;
+        const bytecodePath = join(artifactsDir, `${contractName}.bin`);
+        const bytecode = readFileSync(bytecodePath, 'utf8').trim();
+        // Add 0x prefix if not present
+        return bytecode.startsWith('0x') ? bytecode : `0x${bytecode}`;
       } catch (error) {
         console.error(
           `Could not find bytecode for contract ${contractName}:`,
@@ -2696,15 +2719,14 @@ You can create a `deploy.js` script in the root of your project to achieve this.
         throw error;
       }
     };
+
     ```
 
 4. Create the main deployment function:
 
     ```js title="scripts/deploy.js"
-
     const deployContract = async (contractName, mnemonic, providerConfig) => {
       console.log(`Deploying ${contractName}...`);
-
       try {
         // Step 1: Set up provider and wallet
         const provider = createProvider(
@@ -2728,10 +2750,11 @@ You can create a `deploy.js` script in the root of your project to achieve this.
         const address = await contract.getAddress();
         console.log(`Contract ${contractName} deployed at: ${address}`);
 
-        const addressesFile = join(codegenDir, 'contract-address.json');
+        const addressesFile = join(scriptsDir, 'contract-address.json');
         const addresses = existsSync(addressesFile)
           ? JSON.parse(readFileSync(addressesFile, 'utf8'))
           : {};
+
         addresses[contractName] = address;
         writeFileSync(addressesFile, JSON.stringify(addresses, null, 2), 'utf8');
       } catch (error) {
@@ -2743,15 +2766,7 @@ You can create a `deploy.js` script in the root of your project to achieve this.
 5. Configure and execute the deployment:
 
     ```js title="scripts/deploy.js"
-    const providerConfig = {
-      rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
-      chainId: 420420422,
-      name: 'polkadot-hub-testnet',
-    };
-
-    const mnemonic = 'INSERT_MNEMONIC';
-
-    deployContract('Storage', mnemonic, providerConfig);
+    
     ```
 
     !!! note
@@ -2762,14 +2777,14 @@ You can create a `deploy.js` script in the root of your project to achieve this.
 ??? code "View complete script"
 
     ```js title="scripts/deploy.js"
-    // Deploy an EVM-compatible smart contract using ethers.js
     const { writeFileSync, existsSync, readFileSync } = require('fs');
     const { join } = require('path');
     const { ethers, JsonRpcProvider } = require('ethers');
 
-    const codegenDir = join(__dirname);
+    const scriptsDir = __dirname;
+    const artifactsDir = join(__dirname, '../contracts');
 
-    // Creates an Ethereum provider with specified RPC URL and chain details
+    // Creates a provider with specified RPC URL and chain details
     const createProvider = (rpcUrl, chainId, chainName) => {
       const provider = new JsonRpcProvider(rpcUrl, {
         chainId: chainId,
@@ -2781,9 +2796,8 @@ You can create a `deploy.js` script in the root of your project to achieve this.
     // Reads and parses the ABI file for a given contract
     const getAbi = (contractName) => {
       try {
-        return JSON.parse(
-          readFileSync(join(codegenDir, `${contractName}.json`), 'utf8'),
-        );
+        const abiPath = join(artifactsDir, `${contractName}.json`);
+        return JSON.parse(readFileSync(abiPath, 'utf8'));
       } catch (error) {
         console.error(
           `Could not find ABI for contract ${contractName}:`,
@@ -2796,12 +2810,10 @@ You can create a `deploy.js` script in the root of your project to achieve this.
     // Reads the compiled bytecode for a given contract
     const getByteCode = (contractName) => {
       try {
-        const bytecodePath = join(
-          codegenDir,
-          '../contracts',
-          `${contractName}.polkavm`,
-        );
-        return `0x${readFileSync(bytecodePath).toString('hex')}`;
+        const bytecodePath = join(artifactsDir, `${contractName}.bin`);
+        const bytecode = readFileSync(bytecodePath, 'utf8').trim();
+        // Add 0x prefix if not present
+        return bytecode.startsWith('0x') ? bytecode : `0x${bytecode}`;
       } catch (error) {
         console.error(
           `Could not find bytecode for contract ${contractName}:`,
@@ -2813,7 +2825,6 @@ You can create a `deploy.js` script in the root of your project to achieve this.
 
     const deployContract = async (contractName, mnemonic, providerConfig) => {
       console.log(`Deploying ${contractName}...`);
-
       try {
         // Step 1: Set up provider and wallet
         const provider = createProvider(
@@ -2837,10 +2848,11 @@ You can create a `deploy.js` script in the root of your project to achieve this.
         const address = await contract.getAddress();
         console.log(`Contract ${contractName} deployed at: ${address}`);
 
-        const addressesFile = join(codegenDir, 'contract-address.json');
+        const addressesFile = join(scriptsDir, 'contract-address.json');
         const addresses = existsSync(addressesFile)
           ? JSON.parse(readFileSync(addressesFile, 'utf8'))
           : {};
+
         addresses[contractName] = address;
         writeFileSync(addressesFile, JSON.stringify(addresses, null, 2), 'utf8');
       } catch (error) {
@@ -2849,21 +2861,20 @@ You can create a `deploy.js` script in the root of your project to achieve this.
     };
 
     const providerConfig = {
-      rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
+      rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io', #TODO: replace to `https://services.polkadothub-rpc.com/testnet` when ready
       chainId: 420420422,
       name: 'polkadot-hub-testnet',
     };
 
-    const mnemonic = 'INSERT_MNEMONIC';
+    const mnemonic = 'evoke moment pluck misery cheese boy era fresh useful frame resemble cinnamon';
 
     deployContract('Storage', mnemonic, providerConfig);
-
     ```
 
 To run the script, execute the following command:
 
 ```bash
-node deploy
+node scripts/deploy.js
 ```
 
 After running this script, your contract will be deployed to Polkadot Hub, and its address will be saved in `contract-address.json` within your project directory. You can use this address for future contract interactions.
@@ -2877,6 +2888,8 @@ const { ethers } = require('ethers');
 const { readFileSync } = require('fs');
 const { join } = require('path');
 
+const artifactsDir = join(__dirname, '../contracts');
+
 const createProvider = (providerConfig) => {
   return new ethers.JsonRpcProvider(providerConfig.rpc, {
     chainId: providerConfig.chainId,
@@ -2888,7 +2901,7 @@ const createWallet = (mnemonic, provider) => {
   return ethers.Wallet.fromPhrase(mnemonic).connect(provider);
 };
 
-const loadContractAbi = (contractName, directory = __dirname) => {
+const loadContractAbi = (contractName, directory = artifactsDir) => {
   const contractPath = join(directory, `${contractName}.json`);
   const contractJson = JSON.parse(readFileSync(contractPath, 'utf8'));
   return contractJson.abi || contractJson; // Depending on JSON structure
@@ -2944,9 +2957,9 @@ const providerConfig = {
   chainId: 420420422,
 };
 
-const mnemonic = 'INSERT_MNEMONIC';
+const mnemonic = 'evoke moment pluck misery cheese boy era fresh useful frame resemble cinnamon';
 const contractName = 'Storage';
-const contractAddress = 'INSERT_CONTRACT_ADDRESS';
+const contractAddress = '0x83e43892a98f924706E9DB7917244897dC8b8126';
 const newNumber = 42;
 
 interactWithStorageContract(
@@ -2956,15 +2969,14 @@ interactWithStorageContract(
   providerConfig,
   newNumber,
 );
-
 ```
 
-Ensure you replace the `INSERT_MNEMONIC`, `INSERT_CONTRACT_ADDRESS`, and `INSERT_ADDRESS_TO_CHECK` placeholders with actual values. Also, ensure the contract ABI file (`Storage.json`) is correctly referenced.
+Ensure you replace the `INSERT_MNEMONIC`, `INSERT_CONTRACT_ADDRESS`, and `INSERT_ADDRESS_TO_CHECK` placeholders with actual values. Also, ensure the contract ABI file (`Storage.json`) is correctly referenced. The script prints the balance for `ADDRESS_TO_CHECK` before it writes and doubles the stored value, so pick any account you want to monitor.
 
 To interact with the contract, run:
 
 ```bash
-node checkStorage
+node scripts/checkStorage.js
 ```
 
 ## Where to Go Next

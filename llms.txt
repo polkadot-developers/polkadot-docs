@@ -6,7 +6,7 @@
 This directory lists URLs for raw Markdown pages that complement the rendered pages on the documentation site. Use these Markdown files to retain semantic context when prompting models while avoiding passing HTML elements.
 
 ## Metadata
-- Documentation pages: 146
+- Documentation pages: 147
 - Categories: 13
 
 ## Docs
@@ -246,6 +246,7 @@ Docs: Uncategorized
 - [smart-contracts-integrations-indexers](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-integrations-indexers.md): No description available.
 - [smart-contracts-integrations-oracles](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-integrations-oracles.md): No description available.
 - [Advanced Functionalities via Precompiles](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-precompiles.md): Explores how Polkadot integrates precompiles to run essential functions natively, improving the speed and efficiency of smart contracts on the Hub.
+- [text-smart-contracts-code-size](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/text-smart-contracts-code-size.md): No description available.
 
 Docs: dApp
 - [Zero to Hero Smart Contract DApp](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-dapps-zero-to-hero.md): Learn how to build a decentralized application on Polkadot Hub using Viem and Next.js by creating a simple dApp that interacts with a smart contract.

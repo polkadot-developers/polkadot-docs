@@ -141,13 +141,13 @@ Follow these steps to use Polkadot.js Apps to activate your validator:
 
     ![](/images/nodes-and-validators/run-a-validator/onboarding-and-offboarding/start-validating/start-validating-03.webp)
 
-4.  **Set session keys**. Paste the output from `author_rotateKeys` (hex-encoded) to link your validator with its session keys. Then click **Bond & Validate** to continue:
+4. Paste the hex output from `author_rotateKeys`, set the commission, allow or block new nominations, then click **Bond & Validate** to link your validator with its session keys.
 
     ![](/images/nodes-and-validators/run-a-validator/onboarding-and-offboarding/start-validating/start-validating-04.webp)
 
-You can set the **commission** and the **blocked** option via `staking.validate` extrinsic. By default, the blocked option is set to FALSE (i.e., the validator accepts nominations):
+    You can also set the **commission** and **blocked** nominations option via `staking.validate` extrinsic. By default, the blocked option is set to FALSE (i.e., the validator accepts nominations).
 
-![](/images/nodes-and-validators/run-a-validator/onboarding-and-offboarding/start-validating/start-validating-05.webp)
+    ![](/images/nodes-and-validators/run-a-validator/onboarding-and-offboarding/start-validating/start-validating-05.webp)
 
 ### Monitor Validation Status and Slots
 

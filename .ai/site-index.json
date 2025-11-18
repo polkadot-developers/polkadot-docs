@@ -664,10 +664,10 @@
   },
   {
     "id": "chain-interactions",
-    "title": "chain-interactions",
+    "title": "Chain Interactions Overview",
     "slug": "chain-interactions",
     "categories": [
-      "Uncategorized"
+      "Chain Interactions"
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/chain-interactions.md",
     "html_url": "https://docs.polkadot.com/chain-interactions/",
@@ -701,23 +701,18 @@
       },
       {
         "depth": 2,
-        "title": "XCM Frame Pallet Overview",
-        "anchor": "xcm-frame-pallet-overview"
+        "title": "Core Interaction Patterns",
+        "anchor": "core-interaction-patterns"
       },
       {
         "depth": 3,
-        "title": "Key Roles of the XCM Pallet",
-        "anchor": "key-roles-of-the-xcm-pallet"
-      },
-      {
-        "depth": 2,
-        "title": "Primary Extrinsics of the XCM Pallet",
-        "anchor": "primary-extrinsics-of-the-xcm-pallet"
+        "title": "Query On-Chain Data",
+        "anchor": "query-on-chain-data"
       },
       {
         "depth": 3,
-        "title": "Execute",
-        "anchor": "execute"
+        "title": "Send Transactions",
+        "anchor": "send-transactions"
       },
       {
         "depth": 3,
@@ -763,8 +758,8 @@
       },
       {
         "depth": 3,
-        "title": "Advantages and Limitations",
-        "anchor": "advantages-and-limitations"
+        "title": "Manage Tokens",
+        "anchor": "manage-tokens"
       },
       {
         "depth": 3,
@@ -1111,7 +1106,7 @@
       "chars": 3243,
       "words": 336,
       "headings": 9,
-      "estimated_token_count_total": 558
+      "estimated_token_count_total": 1488
     },
     "hash": "sha256:b79fe56c9604712825bdf30d17667fd8f237fce9691be0d8d042d38691dbba7a",
     "token_estimator": "heuristic-v1"
@@ -3557,7 +3552,7 @@
       }
     ],
     "stats": {
-      "chars": 2456,
+      "chars": 2426,
       "words": 295,
       "headings": 10,
       "estimated_token_count_total": 579
@@ -3786,10 +3781,10 @@
       }
     ],
     "stats": {
-      "chars": 15947,
-      "words": 2482,
+      "chars": 15944,
+      "words": 2481,
       "headings": 9,
-      "estimated_token_count_total": 4197
+      "estimated_token_count_total": 4196
     },
     "hash": "sha256:b83e3f77bd30ac8c8fb00a193bbec33cd641d94f1a37ac611dea32326c3d77b0",
     "token_estimator": "heuristic-v1"
@@ -4070,7 +4065,7 @@
       }
     ],
     "stats": {
-      "chars": 15821,
+      "chars": 15820,
       "words": 2446,
       "headings": 13,
       "estimated_token_count_total": 3861
@@ -5585,13 +5580,18 @@
         "depth": 2,
         "title": "Cold Wallets",
         "anchor": "cold-wallets"
+      },
+      {
+        "depth": 2,
+        "title": "Wallet Tools",
+        "anchor": "wallet-tools"
       }
     ],
     "stats": {
-      "chars": 2921,
-      "words": 401,
-      "headings": 3,
-      "estimated_token_count_total": 633
+      "chars": 3588,
+      "words": 489,
+      "headings": 4,
+      "estimated_token_count_total": 786
     },
     "hash": "sha256:62c5ad101282227f79eac0e30a3ba9ce3ae1bf9e358bd58c0b17ef45db29c2ff",
     "token_estimator": "heuristic-v1"
@@ -5833,10 +5833,10 @@
       }
     ],
     "stats": {
-      "chars": 14404,
-      "words": 2116,
+      "chars": 20252,
+      "words": 2357,
       "headings": 9,
-      "estimated_token_count_total": 3296
+      "estimated_token_count_total": 4129
     },
     "hash": "sha256:fde940bced4380fc01b1840907059d03f6d47b6cb54bf78c95269ac57adbc99e",
     "token_estimator": "heuristic-v1"
@@ -8929,10 +8929,10 @@
       }
     ],
     "stats": {
-      "chars": 12430,
-      "words": 1771,
+      "chars": 12458,
+      "words": 1774,
       "headings": 11,
-      "estimated_token_count_total": 2571
+      "estimated_token_count_total": 2580
     },
     "hash": "sha256:8a914e4309d4fe7070e62d7abe4665b6c76c8dc5ec3219332eccb16b77b0dd95",
     "token_estimator": "heuristic-v1"
@@ -9288,10 +9288,10 @@
       }
     ],
     "stats": {
-      "chars": 8916,
-      "words": 1165,
+      "chars": 8913,
+      "words": 1164,
       "headings": 9,
-      "estimated_token_count_total": 2018
+      "estimated_token_count_total": 2017
     },
     "hash": "sha256:a87815deff81936d7f50842f8600004990076c1a33e7e6b408ab954b6ce47259",
     "token_estimator": "heuristic-v1"
@@ -10963,9 +10963,9 @@
     "token_estimator": "heuristic-v1"
   },
   {
-    "id": "smart-contracts-cookbook-smart-contracts-deploy-basic",
-    "title": "smart-contracts-cookbook-smart-contracts-deploy-basic",
-    "slug": "smart-contracts-cookbook-smart-contracts-deploy-basic",
+    "id": "smart-contracts-cookbook-smart-contracts-.deploy-basic-pvm",
+    "title": "Deploy a Basic Contract to Polkadot Hub",
+    "slug": "smart-contracts-cookbook-smart-contracts-.deploy-basic-pvm",
     "categories": [
       "Uncategorized"
     ],
@@ -11048,9 +11048,9 @@
       "dApps",
       "Smart Contracts"
     ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-erc20.md",
-    "html_url": "https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-erc20/",
-    "preview": "!!! smartcontract \"PolkaVM Preview Release\" PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**. ## Introduction",
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-.deploy-basic-pvm.md",
+    "html_url": "https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/.deploy-basic-pvm/",
+    "preview": "Deploying smart contracts to [Polkadot Hub](/smart-contracts/overview/#smart-contract-development){target=\\_blank} can be accomplished through various tools and environments, each suited to different development workflows. This guide demonstrates how to deploy a basic PolkaVM (PVM) smart contract using four popular approaches: JavaScript with [Ethers.js](https://docs.ethers.org/v6/){target=\\_blank}, [Remix IDE](https://remix.live/){target=\\_blank}, [Hardhat](https://hardhat.org/){target=\\_blank}",
     "outline": [
       {
         "depth": 2,
@@ -11059,56 +11059,140 @@
       },
       {
         "depth": 2,
-        "title": "Prerequisites",
-        "anchor": "prerequisites"
+        "title": "JavaScript with Ethers.js",
+        "anchor": "javascript-with-ethersjs"
       },
       {
-        "depth": 2,
-        "title": "Create the ERC-20 Contract",
-        "anchor": "create-the-erc-20-contract"
+        "depth": 3,
+        "title": "Setup",
+        "anchor": "setup"
       },
       {
-        "depth": 2,
-        "title": "Compile the Contract",
-        "anchor": "compile-the-contract"
+        "depth": 3,
+        "title": "Create and Compile Your Contract",
+        "anchor": "create-and-compile-your-contract"
       },
       {
-        "depth": 2,
+        "depth": 3,
         "title": "Deploy the Contract",
         "anchor": "deploy-the-contract"
       },
       {
         "depth": 2,
-        "title": "Interact with Your ERC-20 Contract",
-        "anchor": "interact-with-your-erc-20-contract"
+        "title": "Remix IDE",
+        "anchor": "remix-ide"
+      },
+      {
+        "depth": 3,
+        "title": "Access Remix",
+        "anchor": "access-remix"
+      },
+      {
+        "depth": 3,
+        "title": "Compile",
+        "anchor": "compile"
+      },
+      {
+        "depth": 3,
+        "title": "Deploy",
+        "anchor": "deploy"
+      },
+      {
+        "depth": 2,
+        "title": "Hardhat",
+        "anchor": "hardhat"
+      },
+      {
+        "depth": 3,
+        "title": "Setup",
+        "anchor": "setup-2"
+      },
+      {
+        "depth": 3,
+        "title": "Configure Hardhat",
+        "anchor": "configure-hardhat"
+      },
+      {
+        "depth": 3,
+        "title": "Create Your Contract",
+        "anchor": "create-your-contract"
+      },
+      {
+        "depth": 3,
+        "title": "Compile",
+        "anchor": "compile-2"
+      },
+      {
+        "depth": 3,
+        "title": "Set Up Deployment",
+        "anchor": "set-up-deployment"
+      },
+      {
+        "depth": 3,
+        "title": "Deploy",
+        "anchor": "deploy-2"
+      },
+      {
+        "depth": 2,
+        "title": "Foundry",
+        "anchor": "foundry"
+      },
+      {
+        "depth": 3,
+        "title": "Setup",
+        "anchor": "setup-3"
+      },
+      {
+        "depth": 3,
+        "title": "Configure Foundry",
+        "anchor": "configure-foundry"
+      },
+      {
+        "depth": 3,
+        "title": "Create Your Contract",
+        "anchor": "create-your-contract-2"
+      },
+      {
+        "depth": 3,
+        "title": "Compile",
+        "anchor": "compile-3"
+      },
+      {
+        "depth": 3,
+        "title": "Deploy",
+        "anchor": "deploy-3"
+      },
+      {
+        "depth": 2,
+        "title": "Conclusion",
+        "anchor": "conclusion"
+      },
+      {
+        "depth": 3,
+        "title": "Next Steps",
+        "anchor": "next-steps"
       }
     ],
     "stats": {
-      "chars": 8926,
-      "words": 1207,
-      "headings": 6,
-      "estimated_token_count_total": 2107
+      "chars": 13872,
+      "words": 1640,
+      "headings": 24,
+      "estimated_token_count_total": 3228
     },
     "hash": "sha256:296cba75b1d49aefa1b8636ba95ca20c3431b7eb0e93b0658add671ef5801732",
     "token_estimator": "heuristic-v1"
   },
   {
-    "id": "smart-contracts-cookbook-smart-contracts-deploy-nft-ethers",
-    "title": "Deploy an NFT to Polkadot Hub with Ethers.js",
-    "slug": "smart-contracts-cookbook-smart-contracts-deploy-nft-ethers",
+    "id": "smart-contracts-cookbook-smart-contracts-deploy-basic-.foundry",
+    "title": "Deploy a Basic Contract with Foundry",
+    "slug": "smart-contracts-cookbook-smart-contracts-deploy-basic-.foundry",
     "categories": [
-      "Basics",
       "Smart Contracts"
     ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-nft-ethers.md",
-    "html_url": "https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-nft/ethers/",
-    "preview": "Non-Fungible Tokens (NFTs) represent unique digital assets commonly used for digital art, collectibles, gaming, and identity verification.",
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-basic-.foundry.md",
+    "html_url": "https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-basic/.foundry/",
+    "preview": "This guide demonstrates how to deploy a basic Solidity smart contract to Polkadot Hub using [Foundry](https://getfoundry.sh/){target=\\_blank}, which offers a fast, modular toolkit written in Rust. It's perfect for developers who prefer command-line interfaces and need high-performance compilation and deployment.",
     "outline": [
-      {
-        "depth": 2,
-        "title": "Introduction",
-        "anchor": "introduction"
-      },
       {
         "depth": 2,
         "title": "Prerequisites",
@@ -11118,6 +11202,11 @@
         "depth": 2,
         "title": "Set Up Your Project",
         "anchor": "set-up-your-project"
+      },
+      {
+        "depth": 2,
+        "title": "Configure Foundry",
+        "anchor": "configure-foundry"
       },
       {
         "depth": 2,
@@ -11141,10 +11230,10 @@
       }
     ],
     "stats": {
-      "chars": 8114,
-      "words": 912,
+      "chars": 2731,
+      "words": 355,
       "headings": 7,
-      "estimated_token_count_total": 2015
+      "estimated_token_count_total": 598
     },
     "hash": "sha256:fdd65f6fe6d109043f11a26f1477e2bbbce1a440dbcb2b191eacfa79a28766e9",
     "token_estimator": "heuristic-v1"
@@ -11374,11 +11463,11 @@
     "token_estimator": "heuristic-v1"
   },
   {
-    "id": "smart-contracts-dev-environments-foundry-compile-and-test",
-    "title": "smart-contracts-dev-environments-foundry-compile-and-test",
-    "slug": "smart-contracts-dev-environments-foundry-compile-and-test",
+    "id": "smart-contracts-cookbook-smart-contracts-deploy-basic-hardhat",
+    "title": "Deploy a Basic Contract with Hardhat",
+    "slug": "smart-contracts-cookbook-smart-contracts-deploy-basic-hardhat",
     "categories": [
-      "Uncategorized"
+      "Smart Contracts"
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-foundry-compile-and-test.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/dev-environments/foundry/compile-and-test/",
@@ -11426,125 +11515,225 @@
     "outline": [
       {
         "depth": 2,
-        "title": "Overview",
-        "anchor": "overview"
+        "title": "Introduction",
+        "anchor": "introduction"
       },
       {
         "depth": 2,
-        "title": "Installation",
-        "anchor": "installation"
+        "title": "Prerequisites",
+        "anchor": "prerequisites"
       },
       {
         "depth": 2,
-        "title": "Compiler Integration",
-        "anchor": "compiler-integration"
+        "title": "Set Up Your Project",
+        "anchor": "set-up-your-project"
       },
       {
         "depth": 2,
-        "title": "Command-Line Interface (CLI)",
-        "anchor": "command-line-interface-cli"
+        "title": "Configure Hardhat",
+        "anchor": "configure-hardhat"
       },
       {
         "depth": 2,
-        "title": "Unsupported or Modified Features",
-        "anchor": "unsupported-or-modified-features"
+        "title": "Create Your Contract",
+        "anchor": "create-your-contract"
       },
       {
         "depth": 2,
-        "title": "Set up a Project",
-        "anchor": "set-up-a-project"
+        "title": "Compile",
+        "anchor": "compile"
       },
       {
         "depth": 2,
-        "title": "Compile a Project",
-        "anchor": "compile-a-project"
+        "title": "Set Up Deployment",
+        "anchor": "set-up-deployment"
       },
       {
         "depth": 2,
-        "title": "Deploy a Contract",
-        "anchor": "deploy-a-contract"
+        "title": "Deploy the Contract",
+        "anchor": "deploy-the-contract"
       },
       {
         "depth": 2,
-        "title": "Supported `foundry-polkadot` Commands",
-        "anchor": "supported-foundry-polkadot-commands"
-      },
-      {
-        "depth": 3,
-        "title": "Forge Commands",
-        "anchor": "forge-commands"
-      },
-      {
-        "depth": 3,
-        "title": "Cast Commands",
-        "anchor": "cast-commands"
+        "title": "Where to Go Next",
+        "anchor": "where-to-go-next"
       }
     ],
     "stats": {
-      "chars": 23398,
-      "words": 2744,
-      "headings": 11,
-      "estimated_token_count_total": 6228
+      "chars": 4051,
+      "words": 475,
+      "headings": 9,
+      "estimated_token_count_total": 981
     },
     "hash": "sha256:72e41f816f07026d96c803f399c71852aa1151c464e79cec3e1746b282d5eaae",
     "token_estimator": "heuristic-v1"
   },
   {
-    "id": "smart-contracts-dev-environments-foundry-install-and-config",
-    "title": "smart-contracts-dev-environments-foundry-install-and-config",
-    "slug": "smart-contracts-dev-environments-foundry-install-and-config",
+    "id": "smart-contracts-cookbook-smart-contracts-deploy-basic-remix",
+    "title": "Deploy a Basic Contract with Remix IDE",
+    "slug": "smart-contracts-cookbook-smart-contracts-deploy-basic-remix",
     "categories": [
-      "Uncategorized"
+      "Smart Contracts"
     ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-foundry-install-and-config.md",
-    "html_url": "https://docs.polkadot.com/smart-contracts/dev-environments/foundry/install-and-config/",
-    "preview": "TODO",
-    "outline": [],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-basic-remix.md",
+    "html_url": "https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-basic/remix/",
+    "preview": "This guide demonstrates how to deploy a basic Solidity smart contract to Polkadot Hub using [Remix IDE](https://remix.ethereum.org/){target=\\_blank}, which offers a visual, browser-based environment perfect for rapid prototyping and learning. It requires no local installation and provides an intuitive interface for contract development.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Prerequisites",
+        "anchor": "prerequisites"
+      },
+      {
+        "depth": 2,
+        "title": "Access Remix",
+        "anchor": "access-remix"
+      },
+      {
+        "depth": 2,
+        "title": "Compile",
+        "anchor": "compile"
+      },
+      {
+        "depth": 2,
+        "title": "Deploy",
+        "anchor": "deploy"
+      },
+      {
+        "depth": 2,
+        "title": "Where to Go Next",
+        "anchor": "where-to-go-next"
+      }
+    ],
     "stats": {
-      "chars": 5,
-      "words": 1,
-      "headings": 0,
-      "estimated_token_count_total": 0
+      "chars": 2978,
+      "words": 430,
+      "headings": 6,
+      "estimated_token_count_total": 738
     },
     "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
     "token_estimator": "heuristic-v1"
   },
   {
-    "id": "smart-contracts-dev-environments-foundry-troubleshooting",
-    "title": "smart-contracts-dev-environments-foundry-troubleshooting",
-    "slug": "smart-contracts-dev-environments-foundry-troubleshooting",
+    "id": "smart-contracts-cookbook-smart-contracts-deploy-erc20-erc20-hardhat",
+    "title": "Deploy an ERC-20 to Polkadot Hub",
+    "slug": "smart-contracts-cookbook-smart-contracts-deploy-erc20-erc20-hardhat",
     "categories": [
-      "Uncategorized"
+      "Basics",
+      "Smart Contracts"
     ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-foundry-troubleshooting.md",
-    "html_url": "https://docs.polkadot.com/smart-contracts/dev-environments/foundry/troubleshooting/",
-    "preview": "TODO",
-    "outline": [],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-erc20-erc20-hardhat.md",
+    "html_url": "https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-hardhat/",
+    "preview": "[ERC-20](https://eips.ethereum.org/EIPS/eip-20){target=\\_blank} tokens are fungible tokens commonly used for creating cryptocurrencies, governance tokens, and staking mechanisms. Polkadot Hub enables easy token deployment with Ethereum-compatible smart contracts and tools via the EVM backend.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Prerequisites",
+        "anchor": "prerequisites"
+      },
+      {
+        "depth": 2,
+        "title": "Set Up Your Project",
+        "anchor": "set-up-your-project"
+      },
+      {
+        "depth": 2,
+        "title": "Configure Hardhat",
+        "anchor": "configure-hardhat"
+      },
+      {
+        "depth": 2,
+        "title": "Compile your Contract",
+        "anchor": "compile-your-contract"
+      },
+      {
+        "depth": 2,
+        "title": "Test your Contract",
+        "anchor": "test-your-contract"
+      },
+      {
+        "depth": 2,
+        "title": "Deploy your Contract",
+        "anchor": "deploy-your-contract"
+      },
+      {
+        "depth": 2,
+        "title": "Where to Go Next",
+        "anchor": "where-to-go-next"
+      }
+    ],
     "stats": {
-      "chars": 5,
-      "words": 1,
-      "headings": 0,
-      "estimated_token_count_total": 0
+      "chars": 8131,
+      "words": 1205,
+      "headings": 8,
+      "estimated_token_count_total": 2156
     },
     "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
     "token_estimator": "heuristic-v1"
   },
   {
-    "id": "smart-contracts-dev-environments-foundry-verify-a-contract",
-    "title": "smart-contracts-dev-environments-foundry-verify-a-contract",
-    "slug": "smart-contracts-dev-environments-foundry-verify-a-contract",
+    "id": "smart-contracts-cookbook-smart-contracts-deploy-erc20-erc20-remix",
+    "title": "Deploy an ERC-20 to Polkadot Hub",
+    "slug": "smart-contracts-cookbook-smart-contracts-deploy-erc20-erc20-remix",
     "categories": [
-      "Uncategorized"
+      "Basics",
+      "Smart Contracts"
     ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-foundry-verify-a-contract.md",
-    "html_url": "https://docs.polkadot.com/smart-contracts/dev-environments/foundry/verify-a-contract/",
-    "preview": "TODO",
-    "outline": [],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-erc20-erc20-remix.md",
+    "html_url": "https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix/",
+    "preview": "[ERC-20](https://eips.ethereum.org/EIPS/eip-20){target=\\_blank} tokens are fungible tokens commonly used for creating cryptocurrencies, governance tokens, and staking mechanisms. Polkadot Hub enables easy token deployment with Ethereum-compatible smart contracts and tools via the EVM backend.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Prerequisites",
+        "anchor": "prerequisites"
+      },
+      {
+        "depth": 2,
+        "title": "Create Your Contract",
+        "anchor": "create-your-contract"
+      },
+      {
+        "depth": 2,
+        "title": "Compile",
+        "anchor": "compile"
+      },
+      {
+        "depth": 2,
+        "title": "Deploy",
+        "anchor": "deploy"
+      },
+      {
+        "depth": 2,
+        "title": "Interact with Your Contract",
+        "anchor": "interact-with-your-contract"
+      },
+      {
+        "depth": 2,
+        "title": "Where to Go Next",
+        "anchor": "where-to-go-next"
+      }
+    ],
     "stats": {
-      "chars": 5,
-      "words": 1,
-      "headings": 0,
-      "estimated_token_count_total": 0
+      "chars": 9121,
+      "words": 1261,
+      "headings": 7,
+      "estimated_token_count_total": 2183
     },
     "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
     "token_estimator": "heuristic-v1"
@@ -11754,10 +11943,10 @@
       }
     ],
     "stats": {
-      "chars": 9056,
-      "words": 1432,
+      "chars": 9052,
+      "words": 1431,
       "headings": 4,
-      "estimated_token_count_total": 2430
+      "estimated_token_count_total": 2428
     },
     "hash": "sha256:e3d8b84cb2cee7010978582998b2269296a042aec53fb016388690ab6adf355e",
     "token_estimator": "heuristic-v1"
@@ -11836,8 +12025,8 @@
       }
     ],
     "stats": {
-      "chars": 6652,
-      "words": 903,
+      "chars": 6664,
+      "words": 905,
       "headings": 8,
       "estimated_token_count_total": 1347
     },
@@ -12021,10 +12210,10 @@
       }
     ],
     "stats": {
-      "chars": 8524,
-      "words": 1139,
+      "chars": 8521,
+      "words": 1138,
       "headings": 9,
-      "estimated_token_count_total": 1818
+      "estimated_token_count_total": 1816
     },
     "hash": "sha256:f50cd1177dd4aff8eb031d6f21cb640f8187a7f2dd0edcaef5c73354a378e44d",
     "token_estimator": "heuristic-v1"
@@ -12474,10 +12663,10 @@
       }
     ],
     "stats": {
-      "chars": 31726,
-      "words": 3942,
+      "chars": 31444,
+      "words": 3848,
       "headings": 35,
-      "estimated_token_count_total": 9750
+      "estimated_token_count_total": 9562
     },
     "hash": "sha256:1fb7a20bc4a799a771954720428029419ec73afa640e589590c43dd041a7e307",
     "token_estimator": "heuristic-v1"
@@ -12612,10 +12801,10 @@
       }
     ],
     "stats": {
-      "chars": 10060,
-      "words": 934,
+      "chars": 10103,
+      "words": 937,
       "headings": 7,
-      "estimated_token_count_total": 2840
+      "estimated_token_count_total": 2888
     },
     "hash": "sha256:224a9f69d4613a5f1afdbc1f05379add8321fe159e32c71db003bbe08ff8e976",
     "token_estimator": "heuristic-v1"
@@ -14663,10 +14852,10 @@
       }
     ],
     "stats": {
-      "chars": 21934,
-      "words": 2564,
-      "headings": 10,
-      "estimated_token_count_total": 5118
+      "chars": 2525,
+      "words": 328,
+      "headings": 3,
+      "estimated_token_count_total": 412
     },
     "hash": "sha256:de7fde61d4cac9c28634ee496dcabe116fe44b1b87408f202103290d78247c05",
     "token_estimator": "heuristic-v1"

@@ -2,4 +2,4 @@ title: Deploy an ERC-20
 nav:
 - 'Remix': erc20-remix.md
 - 'Hardhat': erc20-hardhat.md
-- 'Foundry': erc20-foundry.md
+# - 'Foundry': erc20-foundry.md

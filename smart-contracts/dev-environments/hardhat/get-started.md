@@ -54,36 +54,11 @@ A freshly initialized Hardhat project keeps code, configuration, and automation 
 
 ## Core Functionalities
 
-### Project Setup
-
-Hardhat provides a structured project initialization with organized folders for contracts, tests, deployment scripts, and automation. Scaffold a workspace quickly and keep configuration in a single `hardhat.config.js` file.
-
-- Learn more in the [Install and Configure](/smart-contracts/dev-environments/hardhat/install-and-config/){target=\_blank} guide.
-
-### Contract Compilation
-
-Compile your Solidity smart contracts with configurable compiler versions and optimization settings. Hardhat captures build artifacts—ABI, bytecode, metadata—so you can deploy or interact with contracts from scripts and frontends.
-
-- Deep dive into compilation in [Compile Smart Contracts](/smart-contracts/dev-environments/hardhat/compile-and-test/){target=\_blank}.
-
-### Testing Environment
-
-Run automated tests against a local Hardhat node, simulate transactions, and debug contract behavior before deploying to public networks. The built-in testing stack uses familiar JavaScript tooling such as Mocha and Chai.
-
-- Master testing capabilities in [Test Your Smart Contracts](/smart-contracts/dev-environments/hardhat/compile-and-test/){target=\_blank}.
-
-### Deployment
-
-Ship your contracts with reusable deployment scripts or Hardhat Ignition modules. Manage credentials securely, target multiple networks, and repeat deployments with confidence.
-
-- Follow deployment steps in [Deploy Smart Contracts](/smart-contracts/dev-environments/hardhat/deploy-a-contract/){target=\_blank}.
-
-### Contract Interaction
-
-Create scripts to interact with deployed contracts, read state, execute transactions, and automate maintenance tasks using your generated ABI.
-
-- See practical tips in [Interact with Smart Contracts](/smart-contracts/dev-environments/hardhat/interact-with-a-contract/){target=\_blank}.
-
+- **Project structure**: Organizes contracts, tests, scripts, and configuration into a consistent workspace. Provides a clear folder layout and a single configuration file `hardhat.config.js` to manage compilers, networks, and tooling.
+- **Compilation**: Compiles Solidity sources, supports multiple compiler versions, and generates ABI and bytecode artifacts.
+- **Local testing**: Runs tests written in JavaScript or TypeScript against an integrated local network, enabling fast feedback when validating contract behavior.
+- **Task automation**: Automates deployments, maintenance operations, and recurring workflows through custom scripts and Hardhat tasks.
+- **Contract interaction**: Enables reading contract state, sending transactions, and calling contract functions.
 
 ## Where to Go Next
 

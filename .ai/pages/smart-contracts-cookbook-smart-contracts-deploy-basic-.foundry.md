@@ -2,7 +2,7 @@
 title: Deploy a Basic Contract with Foundry
 description: Learn how to deploy a basic smart contract to Polkadot Hub using Foundry, excellent for developers who prefer fast, command-line driven development.
 categories: Smart Contracts
-url: https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-basic/foundry/
+url: https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-basic/.foundry/
 ---
 
 # Deploy a Basic Contract with Foundry

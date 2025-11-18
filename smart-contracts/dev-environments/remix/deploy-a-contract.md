@@ -21,7 +21,7 @@ Before deploying your contract, ensure you have:
 
 ## Deploy Contracts
 
-The steps use Remix IDE to deploy a contract to Polkadot Hub are as follows:
+The steps to use Remix IDE to deploy a contract to Polkadot Hub are as follows:
 
 1. Navigate to [Remix](https://remix.ethereum.org/){target=\_blank} in your web browser.
 2. Locate the **Deploy & Run Transactions** tab.
@@ -47,7 +47,7 @@ Deployed contracts appear in the **Deployed/Unpinned Contracts** section. Follow
 
     You can use these methods to interact with your deployed contract by reading or writing to its state. Remix IDE uses a color-coding scheme for method buttons to help differentiate between types of available methods as follows:
 
-    - **Blue buttons**: indicate `view` or `pure` functions which read state only. Interactions do not create a new transaction and will not result in gas fees.
+    - **Blue buttons**: indicate `view` or `pure` functions which read state only. Interactions do not create a new transaction and do not incur gas fees.
     - **Orange buttons**: label `non-payable` functions which change contract state but don't accept any value (ETH or other tokens) being sent with the transaction.
     - **Red buttons**: designate `payable` functions which create a transaction and can accept a value (ETH or other tokens) to send with the transaction.
 

@@ -1336,42 +1336,23 @@ Page Title: Benchmark Your Pallet
 
 Benchmarking is the process of measuring the computational resources (execution time and storage) required by your pallet's extrinsics. Accurate [weight](https://paritytech.github.io/polkadot-sdk/master/frame_support/weights/index.html){target=\_blank} calculations are essential for ensuring your blockchain can process transactions efficiently while protecting against denial-of-service attacks.
 
-This guide continues the pallet development series, building on the [Create a Pallet](/parachains/customize-runtime/pallet-development/create-a-pallet), [Mock Your Runtime](/parachains/customize-runtime/pallet-development/mock-runtime), and [Test Your Pallet](/parachains/customize-runtime/pallet-development/pallet-testing) tutorials. You'll learn how to benchmark the counter pallet extrinsics and integrate the generated weights into your runtime.
+This guide continues building on what you've learned through the pallet development series. You'll learn how to benchmark the custom counter pallet extrinsics and integrate the generated weights into your runtime.
 
 ## Prerequisites
 
 Before you begin, ensure you have:
 
-- Completed the previous pallet development tutorials
-- Basic understanding of computational complexity
-- Familiarity with Rust's testing framework
+- Completed the previous pallet development tutorials:
+    - [Create a Pallet](/parachains/customize-runtime/pallet-development/create-a-pallet/){target=\_blank}
+    - [Mock Your Runtime](/parachains/customize-runtime/pallet-development/mock-runtime/){target=\_blank}
+    - [Unit Test Pallets](/parachains/customize-runtime/pallet-development/pallet-testing/){target=\_blank}
+- Basic understanding of [computational complexity](https://en.wikipedia.org/wiki/Computational_complexity){target=\_blank}.
+- Familiarity with [Rust's testing framework](https://doc.rust-lang.org/book/ch11-00-testing.html){target=\_blank}.
+- Familiarity setting up the Polkadot Omni Node and [Polkadot Chain Spec Builder](https://crates.io/crates/staging-chain-spec-builder){target=\_blank}. Refer to the [Set Up a Parachain Template](/parachains/launch-a-parachain/set-up-the-parachain-template/){target=\_blank} guide for instructions if needed.
 
-## Why Benchmark?
+## Create the Benchmarking Module
 
-In blockchain systems, every operation consumes resources. Weight is the mechanism Polkadot SDK uses to measure and limit resource consumption. Without accurate weights:
-
-- **Security Risk**: Malicious actors could submit transactions that consume excessive resources, blocking legitimate transactions or halting the chain
-- **Inefficiency**: Over-estimated weights waste block space and reduce throughput
-- **User Experience**: Inaccurate weights lead to incorrect fee calculations
-
-Benchmarking provides empirical measurements of your extrinsics under various conditions, ensuring weights reflect real-world resource consumption.
-
-## Understanding Weights
-
-The [weight system](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/frame_runtime_types/index.html){target=\_blank} serves multiple purposes:
-
-- **DoS Protection**: Limits the computational work per block, preventing attackers from overwhelming the network
-- **Fee Calculation**: Determines transaction fees based on actual resource usage
-- **Block Production**: Helps block authors maximize throughput while staying within block limits
-
-Weights are expressed as [`Weight::from_parts(ref_time, proof_size)`](https://paritytech.github.io/polkadot-sdk/master/frame_support/weights/struct.Weight.html#method.from_parts){target=\_blank} where:
-
-- [`ref_time`](https://paritytech.github.io/polkadot-sdk/master/frame_support/weights/struct.Weight.html#method.ref_time){target=\_blank}: Computational time measured in picoseconds
-- [`proof_size`](https://paritytech.github.io/polkadot-sdk/master/frame_support/weights/struct.Weight.html#method.proof_size){target=\_blank}: Storage proof size in bytes
-
-## Step 1: Create the Benchmarking Module
-
-Create a new file `benchmarking.rs` in your pallet's `src` directory. This module will contain all the [benchmarking definitions](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/v2/index.html){target=\_blank} for your pallet:
+Create a new file `benchmarking.rs` in your pallet's `src` directory and add the following code:
 
 ```rust title="pallets/pallet-custom/src/benchmarking.rs"
 #![cfg(feature = "runtime-benchmarks")]
@@ -1408,7 +1389,7 @@ mod benchmarks {
 
     #[benchmark]
     fn decrement() {
-        // First set the counter to a non-zero value
+        // First, set the counter to a non-zero value
         CounterValue::<T>::put(100);
 
         let caller: T::AccountId = whitelisted_caller();
@@ -1425,20 +1406,11 @@ mod benchmarks {
 }
 ```
 
-**Key components:**
+This module contains all the [benchmarking definitions](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/v2/index.html){target=\_blank} for your pallet.
 
-- **`#![cfg(feature = "runtime-benchmarks")]`**: Ensures benchmarking code only compiles when the feature is enabled
-- **[`#[benchmarks]` macro](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/v2/attr.benchmarks.html){target=\_blank}**: Marks the module containing benchmark definitions
-- **[`#[benchmark]` macro](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/v2/attr.benchmark.html){target=\_blank}**: Defines individual benchmark functions
-- **[`#[extrinsic_call]`](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/v2/attr.extrinsic_call.html){target=\_blank}**: Marks the actual extrinsic invocation to measure
-- **[`whitelisted_caller()`](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/fn.whitelisted_caller.html){target=\_blank}**: Generates a funded account for benchmarking
-- **[`impl_benchmark_test_suite!`](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/macro.impl_benchmark_test_suite.html){target=\_blank}**: Generates test functions to verify benchmarks work correctly
+## Define the Weight Trait
 
-## Step 2: Define the Weight Trait
-
-The [`WeightInfo`](https://paritytech.github.io/polkadot-sdk/master/frame_support/weights/trait.WeightInfo.html){target=\_blank} trait provides an abstraction layer that allows weights to be swapped at runtime configuration. This enables you to use placeholder weights during development and testing, then switch to auto-generated benchmarked weights in production without modifying the pallet code itself.
-
-Add a `weights` module to your pallet that defines the `WeightInfo` trait:
+Add a `weights` module to your pallet that defines the `WeightInfo` trait using the following code:
 
 ```rust title="pallets/pallet-custom/src/lib.rs"
 #[frame::pallet]
@@ -1472,13 +1444,11 @@ pub mod pallet {
 }
 ```
 
-The `()` implementation provides placeholder weights for development. Later, this will be replaced with auto-generated weights from benchmarking.
+The `()` implementation provides placeholder weights for development.
 
-## Step 3: Add WeightInfo to Config
+## Add WeightInfo to Config 
 
-By making `WeightInfo` an associated type in the `Config` trait, you allow each runtime that uses your pallet to specify which weight implementation to use. Different deployment environments (testnets, production chains, or different hardware configurations) may have different performance characteristics and can use different weight calculations.
-
-Update your pallet's `Config` trait to include `WeightInfo`:
+Update your pallet's `Config` trait to include `WeightInfo` by adding the following code:
 
 ```rust title="pallets/pallet-custom/src/lib.rs"
 #[pallet::config]
@@ -1492,11 +1462,11 @@ pub trait Config: frame_system::Config {
 }
 ```
 
-## Step 4: Update Extrinsic Weight Annotations
+The [`WeightInfo`](https://paritytech.github.io/polkadot-sdk/master/frame_support/weights/trait.WeightInfo.html){target=\_blank} trait provides an abstraction layer that allows weights to be swapped at runtime configuration. By making `WeightInfo` an associated type in the `Config` trait, you will enable each runtime that uses your pallet to specify which weight implementation to use.
 
-By calling `T::WeightInfo::function_name()` instead of using hardcoded `Weight::from_parts()` values, your extrinsics automatically use whichever weight implementation is configured in the runtime. This allows you to easily switch between placeholder weights for testing and benchmarked weights for production without changing any pallet code.
+## Update Extrinsic Weight Annotations
 
-Replace the placeholder weights in your extrinsics with calls to the `WeightInfo` trait:
+Replace the placeholder weights in your extrinsics with calls to the `WeightInfo` trait by adding the following code:
 
 ```rust title="pallets/pallet-custom/src/lib.rs"
 #[pallet::call]
@@ -1521,11 +1491,11 @@ impl<T: Config> Pallet<T> {
 }
 ```
 
-## Step 5: Include the Benchmarking Module
+By calling `T::WeightInfo::function_name()` instead of using hardcoded `Weight::from_parts()` values, your extrinsics automatically use whichever weight implementation is configured in the runtime. You can switch between placeholder weights for testing and benchmarked weights for production easily, without changing any pallet code.
 
-The `#[cfg(feature = "runtime-benchmarks")]` attribute ensures that benchmarking code is only compiled when explicitly needed. This keeps your production runtime lean by excluding benchmarking infrastructure from normal builds, as it's only needed when generating weights.
+## Include the Benchmarking Module
 
-At the top of your `lib.rs`, add the module declaration:
+At the top of your `lib.rs`, add the module declaration by adding the following code:
 
 ```rust title="pallets/pallet-custom/src/lib.rs"
 #![cfg_attr(not(feature = "std"), no_std)]
@@ -1538,14 +1508,14 @@ pub use pallet::*;
 #[cfg(feature = "runtime-benchmarks")]
 mod benchmarking;
 
-// ... rest of the pallet
+// Additional pallet code
 ```
 
-## Step 6: Configure Pallet Dependencies
+The `#[cfg(feature = "runtime-benchmarks")]` attribute ensures that benchmarking code is only compiled when explicitly needed to keep your production runtime efficient.
 
-The feature flag system in Cargo allows you to conditionally compile code based on which features are enabled. By defining a `runtime-benchmarks` feature that cascades to FRAME's benchmarking features, you create a clean way to build your pallet with or without benchmarking support, ensuring all necessary dependencies are available when needed but excluded from production builds.
+## Configure Pallet Dependencies
 
-Update your pallet's `Cargo.toml` to enable the benchmarking feature:
+Update your pallet's `Cargo.toml` to enable the benchmarking feature by adding the following code:
 
 ```toml title="pallets/pallet-custom/Cargo.toml"
 [dependencies]
@@ -1565,11 +1535,11 @@ std = [
 ]
 ```
 
-## Step 7: Update Mock Runtime
+The Cargo feature flag system lets you conditionally compile code based on which features are enabled. By defining a `runtime-benchmarks` feature that cascades to FRAME's benchmarking features, you create a clean way to build your pallet with or without benchmarking support, ensuring all necessary dependencies are available when needed but excluded from production builds.
 
-In your mock runtime for testing, use the placeholder `()` implementation of `WeightInfo` since unit tests focus on verifying functional correctness rather than performance characteristics. This keeps tests fast and focused on validating logic.
+## Update Mock Runtime
 
-Add the `WeightInfo` type to your test configuration in `mock.rs`:
+Add the `WeightInfo` type to your test configuration in `mock.rs` by adding the following code:
 
 ```rust title="pallets/pallet-custom/src/mock.rs"
 impl pallet_custom::Config for Test {
@@ -1579,140 +1549,105 @@ impl pallet_custom::Config for Test {
 }
 ```
 
-## Step 8: Configure Runtime Benchmarking
+In your mock runtime for testing, use the placeholder `()` implementation of `WeightInfo`, since unit tests focus on verifying functional correctness rather than performance.
 
-To execute benchmarks, your pallet must be integrated into the runtime's benchmarking infrastructure. This involves three configuration steps:
+## Configure Runtime Benchmarking
 
-### Update Runtime Cargo.toml
+To execute benchmarks, your pallet must be integrated into the runtime's benchmarking infrastructure. Follow these steps to update the runtime configuration:
 
-When you build the runtime with `--features runtime-benchmarks`, this configuration ensures all necessary benchmarking code across all pallets (including yours) is included.
+1. **Update `runtime/Cargo.toml`**: Add your pallet to the runtime's `runtime-benchmarks` feature as follows:
 
-Add your pallet to the runtime's `runtime-benchmarks` feature in `runtime/Cargo.toml`:
+    ```toml title="runtime/Cargo.toml"
+    runtime-benchmarks = [
+        "cumulus-pallet-parachain-system/runtime-benchmarks",
+        "hex-literal",
+        "pallet-parachain-template/runtime-benchmarks",
+        "polkadot-sdk/runtime-benchmarks",
+        "pallet-custom/runtime-benchmarks",
+    ]
+    ```
 
-```toml title="runtime/Cargo.toml"
-runtime-benchmarks = [
-    "cumulus-pallet-parachain-system/runtime-benchmarks",
-    "hex-literal",
-    "pallet-parachain-template/runtime-benchmarks",
-    "polkadot-sdk/runtime-benchmarks",
-    "pallet-custom/runtime-benchmarks",
-]
-```
+    When you build the runtime with `--features runtime-benchmarks`, this configuration ensures all necessary benchmarking code across all pallets (including yours) is included.
 
-### Update Runtime Configuration
+2. **Update runtime configuration**: Run development benchmarks with the placeholder implementation and use the resulting weights file to update benchmark weights as follows:
 
-Start with the placeholder implementation during development. After successfully running benchmarks and generating the weights file, you'll update this to use the benchmarked weights.
+    ```rust title="runtime/src/configs/mod.rs"
+    impl pallet_custom::Config for Runtime {
+        type RuntimeEvent = RuntimeEvent;
+        type CounterMaxValue = ConstU32<1000>;
+        type WeightInfo = ();
+    }
+    ```
 
-In `runtime/src/configs/mod.rs`, add the `WeightInfo` type:
+3. **Register benchmarks**: Add your pallet to the benchmark list in `runtime/src/benchmarks.rs` as follows:
 
-```rust title="runtime/src/configs/mod.rs"
-impl pallet_custom::Config for Runtime {
-    type RuntimeEvent = RuntimeEvent;
-    type CounterMaxValue = ConstU32<1000>;
-    type WeightInfo = ();
-}
-```
+    ```rust title="runtime/src/benchmarks.rs"
+    polkadot_sdk::frame_benchmarking::define_benchmarks!(
+        [frame_system, SystemBench::<Runtime>]
+        [pallet_balances, Balances]
+        // ... other pallets
+        [pallet_custom, CustomPallet]
+    );
+    ```
 
-### Register Benchmarks
+    The [`define_benchmarks!`](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/macro.define_benchmarks.html){target=\_blank} macro creates the infrastructure that allows the benchmarking CLI tool to discover and execute your pallet's benchmarks.
 
-The `define_benchmarks!` macro creates the infrastructure that allows the benchmarking CLI tool to discover and execute your pallet's benchmarks.
+## Test Benchmark Compilation
 
-Add your pallet to the benchmark list in `runtime/src/benchmarks.rs`:
-
-```rust title="runtime/src/benchmarks.rs"
-polkadot_sdk::frame_benchmarking::define_benchmarks!(
-    [frame_system, SystemBench::<Runtime>]
-    [pallet_balances, Balances]
-    // ... other pallets
-    [pallet_custom, CustomPallet]
-);
-```
-
-## Step 9: Run Benchmarks
-
-### Test Benchmark Compilation
-
-The `impl_benchmark_test_suite!` macro generates unit tests for each benchmark. Running these tests verifies that your benchmarks compile correctly, execute without panicking, and pass their assertions, catching issues early before building the full runtime.
-
-First, verify your benchmarks compile and run as tests:
+Run the following command to verify your benchmarks compile and run as tests:
 
 ```bash
 cargo test -p pallet-custom --features runtime-benchmarks
 ```
 
-You should see your benchmark tests passing:
+You will see terminal output similar to the following as your benchmark tests pass:
 
-```
-test benchmarking::benchmarks::bench_set_counter_value ... ok
-test benchmarking::benchmarks::bench_increment ... ok
-test benchmarking::benchmarks::bench_decrement ... ok
-```
+<div id="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>cargo test -p pallet-custom --features runtime-benchmarks</span>
+  <span data-ty>test benchmarking::benchmarks::bench_set_counter_value ... ok</span>
+  <span data-ty>test benchmarking::benchmarks::bench_increment ... ok</span>
+  <span data-ty>test benchmarking::benchmarks::bench_decrement ... ok</span>
+  <span data-ty="input"><span class="file-path"></span></span>
+</div>
 
-### Build the Runtime with Benchmarks
+The `impl_benchmark_test_suite!` macro generates unit tests for each benchmark. Running these tests verifies that your benchmarks compile correctly, execute without panicking, and pass their assertions, catching issues early before building the entire runtime.
 
-This build includes all the benchmarking infrastructure and special host functions needed for measurement. The resulting WASM runtime contains your benchmark code and can communicate with the benchmarking tool's execution environment. This is a special build used only for benchmarking - you'll create a different build later for actually running your chain.
+## Build the Runtime with Benchmarks
 
-Compile the runtime with benchmarking enabled to generate the WASM binary:
+Compile the runtime with benchmarking enabled to generate the WASM binary using the following command:
 
 ```bash
 cargo build --release --features runtime-benchmarks
 ```
 
-This produces the runtime WASM file needed for benchmarking, typically located at:
-```
-target/release/wbuild/parachain-template-runtime/parachain_template_runtime.wasm
-```
+This command produces the runtime WASM file needed for benchmarking, typically located at: `target/release/wbuild/parachain-template-runtime/parachain_template_runtime.wasm`
 
-### Install the Benchmarking Tool
+The build includes all the benchmarking infrastructure and special host functions needed for measurement. The resulting WASM runtime contains your benchmark code and can communicate with the benchmarking tool's execution environment. You'll create a different build later for operating your chain in production.
 
-[`frame-omni-bencher`](https://paritytech.github.io/polkadot-sdk/master/frame_omni_bencher/index.html){target=\_blank} is the official Polkadot SDK tool specifically designed for FRAME pallet benchmarking. It provides a standardized way to execute benchmarks, measure execution times and storage operations, and generate properly formatted weight files with full integration into the FRAME weight system.
+## Install the Benchmarking Tool
 
-Install the `frame-omni-bencher` CLI tool:
+Install the `frame-omni-bencher` CLI tool using the following command:
 
 ```bash
 cargo install frame-omni-bencher --locked
 ```
 
-### Download the Weight Template
+[`frame-omni-bencher`](https://paritytech.github.io/polkadot-sdk/master/frame_omni_bencher/index.html){target=\_blank} is the official Polkadot SDK tool designed explicitly for FRAME pallet benchmarking. It provides a standardized way to execute benchmarks, measure execution times and storage operations, and generate properly formatted weight files with full integration into the FRAME weight system.
 
-The weight template is a Handlebars file that transforms raw benchmark data into a properly formatted Rust source file. It defines the structure of the generated `weights.rs` file, including imports, trait definitions, documentation comments, and formatting. Using the official template ensures your weight files follow Polkadot SDK conventions and include all necessary metadata like benchmark execution parameters, storage operation counts, and hardware information.
+## Download the Weight Template
 
-Download the official weight template file:
+Download the official weight template file using the following commands:
 
 ```bash
 curl -L https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkadot-stable2412/substrate/.maintain/frame-weight-template.hbs \
 --output ./pallets/pallet-custom/frame-weight-template.hbs
 ```
 
-### Hardware Requirements for Benchmarking
+The weight template is a Handlebars file that transforms raw benchmark data into a correctly formatted Rust source file. It defines the structure of the generated `weights.rs` file, including imports, trait definitions, documentation comments, and formatting. Using the official template ensures your weight files follow the Polkadot SDK conventions and include all necessary metadata, such as benchmark execution parameters, storage operation counts, and hardware information.
 
-!!! warning "Critical: Benchmark on Production-Like Hardware"
-    Benchmarks must be executed on hardware similar to what will run your chain in production. Weight measurements are hardware-dependent, and benchmarking on different hardware can lead to dangerous under-estimation or wasteful over-estimation of weights.
+## Execute Benchmarks
 
-Weights represent the actual computational time and resources consumed by extrinsics. These measurements vary significantly across different hardware configurations:
-
-- **CPU Performance**: Different processors execute instructions at different speeds. A faster development laptop will produce lower weight values than production server hardware
-- **Storage Speed**: Database read/write performance varies between NVMe SSDs, SATA SSDs, and HDDs, affecting storage-related weights
-- **Memory Bandwidth**: RAM speed impacts how quickly data can be accessed during execution
-- **CPU Cache**: Cache size and architecture differences affect repeated operations
-
-Benchmarking on faster hardware than production leads to under-estimated weights - attackers could submit extrinsics that consume more resources than the weights suggest, potentially causing blocks to take longer than expected to produce or even halting the chain. Conversely, benchmarking on slower hardware creates over-estimated weights, resulting in unnecessarily high transaction fees and wasted block capacity.
-
-**Best practices:**
-
-1. **Match production specifications**: If your chain will run on specific validator hardware, benchmark on identical or very similar machines
-2. **Use reference hardware**: The Polkadot ecosystem often uses standardized reference hardware specifications for consistency. Consider following these standards if your chain will connect to Polkadot or Kusama
-3. **Dedicated benchmarking environment**: Run benchmarks on a machine without other heavy processes to ensure consistent measurements
-4. **Document your hardware**: The generated weight files include hardware information in comments. Review this to ensure it matches your production environment
-5. **Re-benchmark when hardware changes**: If your validator hardware specifications change, re-run benchmarks and update weights
-
-For development and testing purposes, you can run benchmarks on any available hardware to verify that your benchmark functions work correctly. However, before deploying to production, always re-run benchmarks on production-equivalent hardware.
-
-### Execute Benchmarks
-
-Benchmarks execute against the compiled WASM runtime rather than native code because WASM is what actually runs in production on the blockchain. WASM execution can have different performance characteristics than native code due to compilation and sandboxing overhead, so benchmarking the WASM ensures your weight measurements reflect real-world conditions.
-
-Run benchmarks for your pallet to generate weight files:
+Run benchmarks for your pallet to generate weight files using the following commands:
 
 ```bash
 frame-omni-bencher v1 benchmark pallet \
@@ -1723,283 +1658,176 @@ frame-omni-bencher v1 benchmark pallet \
     --output ./pallets/pallet-custom/src/weights.rs
 ```
 
-**Command breakdown:**
+Benchmarks execute against the compiled WASM runtime rather than native code because WASM is what actually runs in production on the blockchain. WASM execution can have different performance characteristics than native code due to compilation and sandboxing overhead, so benchmarking against the WASM ensures your weight measurements reflect real-world conditions.
 
-- `v1`: Specifies the benchmarking framework version (v2 API)
-- `benchmark pallet`: Subcommand indicating you want to benchmark pallet extrinsics
-- `--runtime`: Path to the compiled WASM runtime file that includes your pallet and benchmarks
-- `--pallet pallet_custom`: Name of the pallet to benchmark (must match the name used in `define_benchmarks!`)
-- `--extrinsic ""`: Empty string benchmarks all extrinsics in the pallet; you can specify a single extrinsic name to benchmark only that one
-- `--template`: Path to the Handlebars template that formats the output
-- `--output`: Destination file path for the generated weights module
+??? note "Additional customization"
 
-### Advanced Options
+    You can customize benchmark execution with additional parameters for more detailed measurements, as shown in the sample code below:
 
-You can customize benchmark execution with additional parameters for more detailed measurements:
+    ```bash
+    frame-omni-bencher v1 benchmark pallet \
+        --runtime ./target/release/wbuild/parachain-template-runtime/parachain_template_runtime.wasm \
+        --pallet pallet_custom \
+        --extrinsic "" \
+        --steps 50 \
+        --repeat 20 \
+        --template ./pallets/pallet-custom/frame-weight-template.hbs \
+        --output ./pallets/pallet-custom/src/weights.rs
+    ```
+    
+    - `--steps 50`: Number of different input values to test when using linear components (default: 50). More steps provide finer granularity for detecting complexity trends but increase benchmarking time.
+    - `--repeat 20`: Number of repetitions for each measurement (default: 20). More repetitions improve statistical accuracy by averaging out variance, reducing the impact of system noise, and providing more reliable weight estimates.
+    - `--heap-pages 4096`: WASM heap pages allocation. Affects available memory during execution.
+    - `--wasm-execution compiled`: WASM execution method. Use `compiled` for performance closest to production conditions.
 
-```bash
-frame-omni-bencher v1 benchmark pallet \
-    --runtime ./target/release/wbuild/parachain-template-runtime/parachain_template_runtime.wasm \
-    --pallet pallet_custom \
-    --extrinsic "" \
-    --steps 50 \
-    --repeat 20 \
-    --template ./pallets/pallet-custom/frame-weight-template.hbs \
-    --output ./pallets/pallet-custom/src/weights.rs
-```
+## Use Generated Weights
 
-**Additional parameters:**
+After running benchmarks, a `weights.rs` file is generated containing measured weights based on actual measurements of your code running on real hardware, accounting for the specific complexity of your logic, storage access patterns, and computational requirements.
 
-- `--steps 50`: Number of different input values to test when using linear components (default: 50). More steps provide finer granularity for detecting complexity trends but increase benchmarking time
-- `--repeat 20`: Number of repetitions for each measurement (default: 20). More repetitions improve statistical accuracy by averaging out variance, reducing the impact of system noise and providing more reliable weight estimates
-- `--heap-pages 4096`: WASM heap pages allocation. Affects available memory during execution
-- `--wasm-execution compiled`: WASM execution method. Use `compiled` for performance closest to production conditions
+Follow these steps to use the generated weights with your pallet:
 
-## Step 10: Use Generated Weights
+1. Integrate the generated weights by adding the weights module to your pallet's `lib.rs` as follows:
 
-After running benchmarks, a `weights.rs` file is generated containing measured weights. The generated weights are based on actual measurements of your code running on real hardware, accounting for the specific complexity of your logic, storage access patterns, and computational requirements. Estimates or placeholder values cannot capture these nuances and will either waste block space (over-estimation) or create security risks (under-estimation).
+    ```rust title="pallets/pallet-custom/src/lib.rs"
+    #![cfg_attr(not(feature = "std"), no_std)]
 
-The file includes:
+    extern crate alloc;
+    use alloc::vec::Vec;
 
-- Detailed documentation about the benchmark execution environment (date, hardware, parameters)
-- The `WeightInfo` trait definition matching your benchmark functions
-- `SubstrateWeight<T>` implementation with measured weights from your benchmarks
-- Database read/write costs calculated based on observed storage operations
-- Component complexity annotations for variable inputs (if you use linear components)
-- A fallback `()` implementation for testing environments
+    pub use pallet::*;
 
-### Integrate the Generated Weights
+    #[cfg(feature = "runtime-benchmarks")]
+    mod benchmarking;
 
-Unlike the benchmarking module (which is only needed when running benchmarks), the weights module must be available in all builds because the runtime needs to call the weight functions during normal operation to calculate transaction fees and enforce block limits.
+    pub mod weights;
 
-Add the weights module to your pallet's `lib.rs`:
+    #[frame::pallet]
+    pub mod pallet {
+        use super::*;
+        use frame::prelude::*;
+        use crate::weights::WeightInfo;
+        // ... rest of pallet
+    }
+    ```
 
-```rust title="pallets/pallet-custom/src/lib.rs"
-#![cfg_attr(not(feature = "std"), no_std)]
+    Unlike the benchmarking module (which is only needed when running benchmarks), the weights module must be available in all builds because the runtime needs to call the weight functions during regular operation to calculate transaction fees and enforce block limits.
 
-extern crate alloc;
-use alloc::vec::Vec;
+2. Update your runtime configuration to use the generated weights instead of the placeholder `()` implementation by adding the following code:
 
-pub use pallet::*;
+    ```rust title="runtime/src/configs/mod.rs"
+    impl pallet_custom::Config for Runtime {
+        type RuntimeEvent = RuntimeEvent;
+        type CounterMaxValue = ConstU32<1000>;
+        type WeightInfo = pallet_custom::weights::SubstrateWeight<Runtime>;
+    }
+    ```
 
-#[cfg(feature = "runtime-benchmarks")]
-mod benchmarking;
+    This change activates your benchmarked weights in the production runtime. Now, when users submit transactions that call your pallet's extrinsics, the runtime will use the actual measured weights to calculate fees and enforce block limits.
 
-pub mod weights;
+??? code "Example generated weight file"
+    
+    The generated `weights.rs` file will look similar to this:
 
-#[frame::pallet]
-pub mod pallet {
-    use super::*;
-    use frame::prelude::*;
-    use crate::weights::WeightInfo;
-    // ... rest of pallet
-}
-```
+    ```rust title="pallets/pallet-custom/src/weights.rs"
+    //! Autogenerated weights for `pallet_custom`
+    //!
+    //! THIS FILE WAS AUTO-GENERATED USING THE SUBSTRATE BENCHMARK CLI VERSION 32.0.0
+    //! DATE: 2025-01-15, STEPS: `50`, REPEAT: `20`
 
-### Update Runtime Configuration
+    #![cfg_attr(rustfmt, rustfmt_skip)]
+    #![allow(unused_parens)]
+    #![allow(unused_imports)]
+    #![allow(missing_docs)]
 
-This change activates your benchmarked weights in the production runtime. Now when users submit transactions that call your pallet's extrinsics, the runtime will use the actual measured weights to calculate fees and enforce block limits.
+    use frame_support::{traits::Get, weights::{Weight, constants::RocksDbWeight}};
+    use core::marker::PhantomData;
 
-Update your runtime configuration to use the generated weights instead of the placeholder `()` implementation:
-
-```rust title="runtime/src/configs/mod.rs"
-impl pallet_custom::Config for Runtime {
-    type RuntimeEvent = RuntimeEvent;
-    type CounterMaxValue = ConstU32<1000>;
-    type WeightInfo = pallet_custom::weights::SubstrateWeight<Runtime>;
-}
-```
-
-### Example Generated Weight File
-
-The generated `weights.rs` file will look similar to this:
-
-```rust title="pallets/pallet-custom/src/weights.rs"
-//! Autogenerated weights for `pallet_custom`
-//!
-//! THIS FILE WAS AUTO-GENERATED USING THE SUBSTRATE BENCHMARK CLI VERSION 32.0.0
-//! DATE: 2025-01-15, STEPS: `50`, REPEAT: `20`
-
-#![cfg_attr(rustfmt, rustfmt_skip)]
-#![allow(unused_parens)]
-#![allow(unused_imports)]
-#![allow(missing_docs)]
-
-use frame_support::{traits::Get, weights::{Weight, constants::RocksDbWeight}};
-use core::marker::PhantomData;
-
-pub trait WeightInfo {
-    fn set_counter_value() -> Weight;
-    fn increment() -> Weight;
-    fn decrement() -> Weight;
-}
-
-pub struct SubstrateWeight<T>(PhantomData<T>);
-impl<T: frame_system::Config> WeightInfo for SubstrateWeight<T> {
-    fn set_counter_value() -> Weight {
-        Weight::from_parts(8_234_000, 0)
-            .saturating_add(T::DbWeight::get().reads(1))
-            .saturating_add(T::DbWeight::get().writes(1))
+    pub trait WeightInfo {
+        fn set_counter_value() -> Weight;
+        fn increment() -> Weight;
+        fn decrement() -> Weight;
     }
 
-    fn increment() -> Weight {
-        Weight::from_parts(12_456_000, 0)
-            .saturating_add(T::DbWeight::get().reads(2))
-            .saturating_add(T::DbWeight::get().writes(2))
+    pub struct SubstrateWeight<T>(PhantomData<T>);
+    impl<T: frame_system::Config> WeightInfo for SubstrateWeight<T> {
+        fn set_counter_value() -> Weight {
+            Weight::from_parts(8_234_000, 0)
+                .saturating_add(T::DbWeight::get().reads(1))
+                .saturating_add(T::DbWeight::get().writes(1))
+        }
+
+        fn increment() -> Weight {
+            Weight::from_parts(12_456_000, 0)
+                .saturating_add(T::DbWeight::get().reads(2))
+                .saturating_add(T::DbWeight::get().writes(2))
+        }
+
+        fn decrement() -> Weight {
+            Weight::from_parts(11_987_000, 0)
+                .saturating_add(T::DbWeight::get().reads(2))
+                .saturating_add(T::DbWeight::get().writes(2))
+        }
     }
+    ```
 
-    fn decrement() -> Weight {
-        Weight::from_parts(11_987_000, 0)
-            .saturating_add(T::DbWeight::get().reads(2))
-            .saturating_add(T::DbWeight::get().writes(2))
-    }
-}
-```
-
-**Note**: The actual numbers will vary based on your hardware and implementation complexity. The [`DbWeight`](https://paritytech.github.io/polkadot-sdk/master/frame_support/weights/struct.RuntimeDbWeight.html){target=\_blank} accounts for database read and write operations.
-
-## Benchmarking Best Practices
-
-### 1. Test Worst-Case Scenarios
-
-Benchmarks should always measure maximum possible resource consumption. If you benchmark average or best-case scenarios, malicious users could craft transactions that hit worst-case paths in your code, consuming more resources than the weights indicate and potentially slowing down or halting block production.
-
-```rust
-#[benchmark]
-fn complex_operation() {
-    // Set up worst-case storage state
-    for i in 0..100 {
-        SomeStorage::<T>::insert(i, vec![0u8; 1000]);
-    }
-
-    let caller = whitelisted_caller();
-
-    #[extrinsic_call]
-    _(RawOrigin::Signed(caller));
-}
-```
-
-### 2. Use Linear Components for Variable Complexity
-
-Many extrinsics have variable costs depending on input parameters. [Linear components](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/v2/trait.BenchmarkingSetup.html){target=\_blank} tell the benchmarking framework to test your extrinsic with different values of `n`, measure the execution time for each, and calculate a formula like `Weight = base_weight + (n * per_item_weight)`. This produces dynamic weights that accurately reflect the actual work being done.
-
-When extrinsic complexity depends on input size, use linear components:
-
-```rust title="pallets/pallet-custom/src/benchmarking.rs"
-#[benchmark]
-fn process_items(n: Linear<0, 100>) {
-    let caller = whitelisted_caller();
-    let items: Vec<u32> = (0..n).collect();
-
-    #[extrinsic_call]
-    _(RawOrigin::Signed(caller), items);
-}
-```
-
-### 3. Verify Results
-
-Assertions ensure that your benchmark is actually testing the code path you think it's testing. If your extrinsic fails silently or takes an early return, the benchmark would measure the wrong scenario and produce inaccurate weights.
-
-Always assert the expected state after extrinsic execution:
-
-```rust title="pallets/pallet-custom/src/benchmarking.rs"
-#[benchmark]
-fn my_extrinsic() {
-    let caller = whitelisted_caller();
-
-    #[extrinsic_call]
-    _(RawOrigin::Signed(caller.clone()));
-
-    // Verify the extrinsic had the expected effect
-    assert_eq!(MyStorage::<T>::get(&caller), expected_value);
-}
-```
-
-### 4. Minimize Setup Code
-
-While the benchmarking framework tries to isolate the extrinsic execution, excessive setup code can add noise to measurements. More importantly, setup code that doesn't reflect real-world pre-conditions can lead to benchmarking unrealistic scenarios.
-
-Only include necessary setup in benchmarks:
-
-```rust title="pallets/pallet-custom/src/benchmarking.rs"
-#[benchmark]
-fn efficient_benchmark() {
-    // Minimal setup
-    let caller = whitelisted_caller();
-
-    #[extrinsic_call]
-    _(RawOrigin::Signed(caller));
-
-    // Minimal assertions
-}
-```
+    The actual numbers in your `weights.rs` file will vary based on your hardware and implementation complexity. The [`DbWeight`](https://paritytech.github.io/polkadot-sdk/master/frame_support/weights/struct.RuntimeDbWeight.html){target=\_blank} accounts for database read and write operations.
 
 ## Run Your Chain Locally
 
-Now that you've added the pallet to your runtime, you can launch your parachain locally to test the new functionality using the [Polkadot Omni Node](https://crates.io/crates/polkadot-omni-node){target=\_blank}. For instructions on setting up the Polkadot Omni Node and [Polkadot Chain Spec Builder](https://crates.io/crates/staging-chain-spec-builder){target=\_blank}, refer to the [Set Up a Parachain Template](/parachains/launch-a-parachain/set-up-the-parachain-template/){target=\_blank} guide.
+Now that you've added the pallet to your runtime, you can follow these steps to launch your parachain locally to test the new functionality using the [Polkadot Omni Node](https://crates.io/crates/polkadot-omni-node){target=\_blank}: 
 
-### Build the Production Runtime
+1. Before running your chain, rebuild the production runtime without the `runtime-benchmarks` feature using the following command:
 
-The `runtime-benchmarks` feature flag adds special host functions (like `ext_benchmarking_current_time` and `ext_benchmarking_get_read_and_written_keys`) that are only available in the benchmarking execution environment. These functions allow the benchmarking framework to precisely measure execution time and track storage operations. However, regular nodes don't provide these host functions, so a runtime compiled with benchmarking features will fail to start on a production node.
+    ```bash
+    cargo build --release
+    ```
 
-Before running your chain, rebuild the runtime **without** the `runtime-benchmarks` feature:
+    The `runtime-benchmarks` feature flag adds special host functions that are only available in the benchmarking execution environment. A runtime compiled with benchmarking features will fail to start on a production node.
 
-```bash
-cargo build --release
-```
+    This build produces a production-ready WASM runtime at `target/release/wbuild/parachain-template-runtime/parachain_template_runtime.compact.compressed.wasm`.
 
-!!! note "Build Types"
-    Understanding the difference between builds is critical:
+    !!! note "Compare build types"
+        - `cargo build --release --features runtime-benchmarks` - Compiles with benchmarking host functions for measurement. Use this ONLY when running benchmarks with `frame-omni-bencher`.
+        - `cargo build --release` - Compiles production runtime without benchmarking features. Use this for running your chain in production.
 
-    - `cargo build --release --features runtime-benchmarks` - Compiles with benchmarking host functions for measurement. Use this ONLY when running benchmarks with `frame-omni-bencher`
-    - `cargo build --release` - Compiles production runtime without benchmarking features. Use this for running your actual chain
+2.  Generate a new chain specification file with the updated runtime using the following commands:
 
-This produces a production-ready WASM runtime at `target/release/wbuild/parachain-template-runtime/parachain_template_runtime.compact.compressed.wasm`.
+    ```bash
+    chain-spec-builder create -t development \
+    --relay-chain paseo \
+    --para-id 1000 \
+    --runtime ./target/release/wbuild/parachain-template-runtime/parachain_template_runtime.compact.compressed.wasm \
+    named-preset development
+    ```
 
-### Generate a Chain Specification
+    This command generates a chain specification file, `chain_spec.json`, for your parachain with the updated runtime, which defines the initial state and configuration of your blockchain, including the runtime WASM code, genesis storage, and network parameters. Generating this new chain spec with your updated runtime ensures nodes starting from this spec will use the correct version of your code with proper weight calculations.
 
-The chain specification defines the initial state and configuration of your blockchain, including the runtime WASM code, genesis storage, and network parameters. By generating a new chain spec with your updated runtime (now containing your benchmarked pallet), you ensure that nodes starting from this spec will use the correct version of your code with proper weight calculations.
+3. Start the parachain node using the Polkadot Omni Node with the generated chain specification by running the following command:
 
-Create a new chain specification file with the updated runtime:
+    ```bash
+    polkadot-omni-node --chain ./chain_spec.json --dev
+    ```
 
-```bash
-chain-spec-builder create -t development \
---relay-chain paseo \
---para-id 1000 \
---runtime ./target/release/wbuild/parachain-template-runtime/parachain_template_runtime.compact.compressed.wasm \
-named-preset development
-```
+    The node will start and display initialization information, including:
 
-This command generates a chain specification file, `chain_spec.json`, for your parachain with the updated runtime.
+    - The chain specification name
+    - The node identity and peer ID
+    - Database location
+    - Network endpoints (JSON-RPC and Prometheus)
 
-### Start the Parachain Node
+4. Once the node is running, you will see log messages confirming successful production of blocks similar to the following:
 
-Launch the parachain using the Polkadot Omni Node with the generated chain specification by running the following command:
+    <div id="termynal" data-termynal>
+    <span data-ty="input"><span class="file-path"></span>polkadot-omni-node --chain ./chain_spec.json --dev</span>
+    <span data-ty>[Parachain] 🔨 Initializing Genesis block/state (state: 0x47ce…ec8d, header-hash: 0xeb12…fecc)</span>
+    <span data-ty>[Parachain] 🎁 Prepared block for proposing at 1 (3 ms) ...</span>
+    <span data-ty>[Parachain] 🏆 Imported #1 (0xeb12…fecc → 0xee51…98d2)</span>
+    <span data-ty>[Parachain] 🎁 Prepared block for proposing at 2 (3 ms) ...</span>
+    <span data-ty>[Parachain] 🏆 Imported #2 (0xee51…98d2 → 0x35e0…cc32)</span>
+    <span data-ty="input"><span class="file-path"></span></span>
+    </div>
 
-```bash
-polkadot-omni-node --chain ./chain_spec.json --dev
-```
-
-The node will start and display initialization information including:
-
-- The chain specification name
-- The node identity and peer ID
-- Database location
-- Network endpoints (JSON-RPC and Prometheus)
-
-### Verify Block Production
-
-Once the node is running, you should see log messages indicating successful block production:
-
-```
-[Parachain] 🔨 Initializing Genesis block/state (state: 0x47ce…ec8d, header-hash: 0xeb12…fecc)
-[Parachain] 🎁 Prepared block for proposing at 1 (3 ms) ...
-[Parachain] 🏆 Imported #1 (0xeb12…fecc → 0xee51…98d2)
-[Parachain] 🎁 Prepared block for proposing at 2 (3 ms) ...
-[Parachain] 🏆 Imported #2 (0xee51…98d2 → 0x35e0…cc32)
-```
-
-The parachain will produce new blocks every few seconds. You can now interact with your pallet's extrinsics through the JSON-RPC endpoint at `http://127.0.0.1:9944` using tools like [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank}.
+    The parachain will produce new blocks every few seconds. You can now interact with your pallet's extrinsics through the JSON-RPC endpoint at `http://127.0.0.1:9944` using tools like [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank}.
 
 ## Related Resources
 
@@ -10044,142 +9872,6 @@ This architectural evolution promises to enhance Polkadot's scalability and flex
 
 ---
 
-Page Title: Pallet Testing
-
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/parachains-customize-runtime-pallet-development-pallet-testing.md
-- Canonical (HTML): https://docs.polkadot.com/parachains/customize-runtime/pallet-development/pallet-testing/
-- Summary: Learn how to efficiently test pallets in the Polkadot SDK, ensuring the reliability and security of your pallets operations.
-
-# Pallet Testing
-
-## Introduction
-
-Unit testing in the Polkadot SDK helps ensure that the functions provided by a pallet behave as expected. It also confirms that data and events associated with a pallet are processed correctly during interactions. The Polkadot SDK offers a set of APIs to create a test environment to simulate runtime and mock transaction execution for extrinsics and queries.
-
-To begin unit testing, you must first set up a mock runtime that simulates blockchain behavior, incorporating the necessary pallets. For a deeper understanding, consult the [Mock Runtime](/parachains/customize-runtime/pallet-development/mock-runtime/){target=\_blank} guide.
-
-## Writing Unit Tests
-
-Once the mock runtime is in place, the next step is to write unit tests that evaluate the functionality of your pallet. Unit tests allow you to test specific pallet features in isolation, ensuring that each function behaves correctly under various conditions. These tests typically reside in your pallet module's `test.rs` file.
-
-Unit tests in the Polkadot SDK use the Rust testing framework, and the mock runtime you've defined earlier will serve as the test environment. Below are the typical steps involved in writing unit tests for a pallet.
-
-The tests confirm that:
-
-- **Pallets initialize correctly**: At the start of each test, the system should initialize with block number 0, and the pallets should be in their default states.
-- **Pallets modify each other's state**: The second test shows how one pallet can trigger changes in another pallet's internal state, confirming proper cross-pallet interactions.
-- **State transitions between blocks are seamless**: By simulating block transitions, the tests validate that the runtime responds correctly to changes in the block number.
-
-Testing pallet interactions within the runtime is critical for ensuring the blockchain behaves as expected under real-world conditions. Writing integration tests allows validation of how pallets function together, preventing issues that might arise when the system is fully assembled.
-
-This approach provides a comprehensive view of the runtime's functionality, ensuring the blockchain is stable and reliable.
-
-### Test Initialization
-
-Each test starts by initializing the runtime environment, typically using the `new_test_ext()` function, which sets up the mock storage and environment.
-
-```rust
-#[test]
-fn test_pallet_functionality() {
-    new_test_ext().execute_with(|| {
-        // Test logic goes here
-    });
-}
-```
-
-### Function Call Testing
-
-Call the pallet's extrinsics or functions to simulate user interaction or internal logic. Use the `assert_ok!` macro to check for successful execution and `assert_err!` to verify that errors are correctly handled.
-
-```rust
-#[test]
-fn it_works_for_valid_input() {
-    new_test_ext().execute_with(|| {
-        // Call an extrinsic or function
-        assert_ok!(TemplateModule::some_function(Origin::signed(1), valid_param));
-    });
-}
-
-#[test]
-fn it_fails_for_invalid_input() {
-    new_test_ext().execute_with(|| {
-        // Call an extrinsic with invalid input and expect an error
-        assert_err!(
-            TemplateModule::some_function(Origin::signed(1), invalid_param),
-            Error::<Test>::InvalidInput
-        );
-    });
-}
-```
-
-### Storage Testing
-
-After calling a function or extrinsic in your pallet, it's essential to verify that the state changes in the pallet's storage match the expected behavior to ensure data is updated correctly based on the actions taken.
-
-The following example shows how to test the storage behavior before and after the function call:
-
-```rust
-#[test]
-fn test_storage_update_on_extrinsic_call() {
-    new_test_ext().execute_with(|| {
-        // Check the initial storage state (before the call)
-        assert_eq!(Something::<Test>::get(), None);
-
-        // Dispatch a signed extrinsic, which modifies storage
-        assert_ok!(TemplateModule::do_something(RuntimeOrigin::signed(1), 42));
-
-        // Validate that the storage has been updated as expected (after the call)
-        assert_eq!(Something::<Test>::get(), Some(42));
-    });
-}
-
-```
-
-### Event Testing
-
-It's also crucial to test the events that your pallet emits during execution. By default, events generated in a pallet using the [`#generate_deposit`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.generate_deposit.html){target=\_blank} macro are stored under the system's event storage key (system/events) as [`EventRecord`](https://paritytech.github.io/polkadot-sdk/master/frame_system/struct.EventRecord.html){target=\_blank} entries. These can be accessed using [`System::events()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.events){target=\_blank} or verified with specific helper methods provided by the system pallet, such as [`assert_has_event`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.assert_has_event){target=\_blank} and [`assert_last_event`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.assert_last_event){target=\_blank}.
-
-Here's an example of testing events in a mock runtime:
-
-```rust
-#[test]
-fn it_emits_events_on_success() {
-    new_test_ext().execute_with(|| {
-        // Call an extrinsic or function
-        assert_ok!(TemplateModule::some_function(Origin::signed(1), valid_param));
-
-        // Verify that the expected event was emitted
-        assert!(System::events().iter().any(|record| {
-            record.event == Event::TemplateModule(TemplateEvent::SomeEvent)
-        }));
-    });
-}
-```
-
-Some key considerations are:
-
-- **Block number**: Events are not emitted on the genesis block, so you need to set the block number using [`System::set_block_number()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.set_block_number){target=\_blank} to ensure events are triggered.
-- **Converting events**: Use `.into()` when instantiating your pallet's event to convert it into a generic event type, as required by the system's event storage.
-
-## Where to Go Next
-
-- Dive into the full implementation of the [`mock.rs`](https://github.com/paritytech/polkadot-sdk/blob/master/templates/solochain/pallets/template/src/mock.rs){target=\_blank} and [`test.rs`](https://github.com/paritytech/polkadot-sdk/blob/master/templates/solochain/pallets/template/src/tests.rs){target=\_blank} files in the [Solochain Template](https://github.com/paritytech/polkadot-sdk/tree/master/templates/solochain){target=_blank}.
-
-<div class="grid cards" markdown>
-
--   <span class="badge guide">Guide</span> __Benchmarking__
-
-    ---
-
-    Explore methods to measure the performance and execution cost of your pallet.
-
-    [:octicons-arrow-right-24: Reference](/develop/parachains/testing/benchmarking)
-
-</div>
-
-
----
-
 Page Title: Parachains Overview
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-parachains.md
@@ -12774,6 +12466,142 @@ You now know the weight system, how it affects transaction fee computation, and 
 - [`SignedExtension`](https://paritytech.github.io/polkadot-sdk/master/sp_runtime/traits/trait.SignedExtension.html){target=\_blank}
 - [Custom weights for the Example pallet](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/substrate/frame/examples/basic/src/weights.rs){target=\_blank}
 - [Web3 Foundation Research](https://research.web3.foundation/Polkadot/overview/token-economics#relay-chain-transaction-fees-and-per-block-transaction-limits){target=\_blank}
+
+
+---
+
+Page Title: Unit Test Pallets
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/parachains-customize-runtime-pallet-development-pallet-testing.md
+- Canonical (HTML): https://docs.polkadot.com/parachains/customize-runtime/pallet-development/pallet-testing/
+- Summary: Learn how to efficiently test pallets in the Polkadot SDK, ensuring the reliability and security of your pallets operations.
+
+# Unit Test Pallets
+
+## Introduction
+
+Unit testing in the Polkadot SDK helps ensure that the functions provided by a pallet behave as expected. It also confirms that data and events associated with a pallet are processed correctly during interactions. The Polkadot SDK offers a set of APIs to create a test environment to simulate runtime and mock transaction execution for extrinsics and queries.
+
+To begin unit testing, you must first set up a mock runtime that simulates blockchain behavior, incorporating the necessary pallets. For a deeper understanding, consult the [Mock Runtime](/parachains/customize-runtime/pallet-development/mock-runtime/){target=\_blank} guide.
+
+## Writing Unit Tests
+
+Once the mock runtime is in place, the next step is to write unit tests that evaluate the functionality of your pallet. Unit tests allow you to test specific pallet features in isolation, ensuring that each function behaves correctly under various conditions. These tests typically reside in your pallet module's `test.rs` file.
+
+Unit tests in the Polkadot SDK use the Rust testing framework, and the mock runtime you've defined earlier will serve as the test environment. Below are the typical steps involved in writing unit tests for a pallet.
+
+The tests confirm that:
+
+- **Pallets initialize correctly**: At the start of each test, the system should initialize with block number 0, and the pallets should be in their default states.
+- **Pallets modify each other's state**: The second test shows how one pallet can trigger changes in another pallet's internal state, confirming proper cross-pallet interactions.
+- **State transitions between blocks are seamless**: By simulating block transitions, the tests validate that the runtime responds correctly to changes in the block number.
+
+Testing pallet interactions within the runtime is critical for ensuring the blockchain behaves as expected under real-world conditions. Writing integration tests allows validation of how pallets function together, preventing issues that might arise when the system is fully assembled.
+
+This approach provides a comprehensive view of the runtime's functionality, ensuring the blockchain is stable and reliable.
+
+### Test Initialization
+
+Each test starts by initializing the runtime environment, typically using the `new_test_ext()` function, which sets up the mock storage and environment.
+
+```rust
+#[test]
+fn test_pallet_functionality() {
+    new_test_ext().execute_with(|| {
+        // Test logic goes here
+    });
+}
+```
+
+### Function Call Testing
+
+Call the pallet's extrinsics or functions to simulate user interaction or internal logic. Use the `assert_ok!` macro to check for successful execution and `assert_err!` to verify that errors are correctly handled.
+
+```rust
+#[test]
+fn it_works_for_valid_input() {
+    new_test_ext().execute_with(|| {
+        // Call an extrinsic or function
+        assert_ok!(TemplateModule::some_function(Origin::signed(1), valid_param));
+    });
+}
+
+#[test]
+fn it_fails_for_invalid_input() {
+    new_test_ext().execute_with(|| {
+        // Call an extrinsic with invalid input and expect an error
+        assert_err!(
+            TemplateModule::some_function(Origin::signed(1), invalid_param),
+            Error::<Test>::InvalidInput
+        );
+    });
+}
+```
+
+### Storage Testing
+
+After calling a function or extrinsic in your pallet, it's essential to verify that the state changes in the pallet's storage match the expected behavior to ensure data is updated correctly based on the actions taken.
+
+The following example shows how to test the storage behavior before and after the function call:
+
+```rust
+#[test]
+fn test_storage_update_on_extrinsic_call() {
+    new_test_ext().execute_with(|| {
+        // Check the initial storage state (before the call)
+        assert_eq!(Something::<Test>::get(), None);
+
+        // Dispatch a signed extrinsic, which modifies storage
+        assert_ok!(TemplateModule::do_something(RuntimeOrigin::signed(1), 42));
+
+        // Validate that the storage has been updated as expected (after the call)
+        assert_eq!(Something::<Test>::get(), Some(42));
+    });
+}
+
+```
+
+### Event Testing
+
+It's also crucial to test the events that your pallet emits during execution. By default, events generated in a pallet using the [`#generate_deposit`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.generate_deposit.html){target=\_blank} macro are stored under the system's event storage key (system/events) as [`EventRecord`](https://paritytech.github.io/polkadot-sdk/master/frame_system/struct.EventRecord.html){target=\_blank} entries. These can be accessed using [`System::events()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.events){target=\_blank} or verified with specific helper methods provided by the system pallet, such as [`assert_has_event`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.assert_has_event){target=\_blank} and [`assert_last_event`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.assert_last_event){target=\_blank}.
+
+Here's an example of testing events in a mock runtime:
+
+```rust
+#[test]
+fn it_emits_events_on_success() {
+    new_test_ext().execute_with(|| {
+        // Call an extrinsic or function
+        assert_ok!(TemplateModule::some_function(Origin::signed(1), valid_param));
+
+        // Verify that the expected event was emitted
+        assert!(System::events().iter().any(|record| {
+            record.event == Event::TemplateModule(TemplateEvent::SomeEvent)
+        }));
+    });
+}
+```
+
+Some key considerations are:
+
+- **Block number**: Events are not emitted on the genesis block, so you need to set the block number using [`System::set_block_number()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.set_block_number){target=\_blank} to ensure events are triggered.
+- **Converting events**: Use `.into()` when instantiating your pallet's event to convert it into a generic event type, as required by the system's event storage.
+
+## Where to Go Next
+
+- Dive into the full implementation of the [`mock.rs`](https://github.com/paritytech/polkadot-sdk/blob/master/templates/solochain/pallets/template/src/mock.rs){target=\_blank} and [`test.rs`](https://github.com/paritytech/polkadot-sdk/blob/master/templates/solochain/pallets/template/src/tests.rs){target=\_blank} files in the [Solochain Template](https://github.com/paritytech/polkadot-sdk/tree/master/templates/solochain){target=_blank}.
+
+<div class="grid cards" markdown>
+
+-   <span class="badge guide">Guide</span> __Benchmarking__
+
+    ---
+
+    Explore methods to measure the performance and execution cost of your pallet.
+
+    [:octicons-arrow-right-24: Reference](/develop/parachains/testing/benchmarking)
+
+</div>
 
 
 ---

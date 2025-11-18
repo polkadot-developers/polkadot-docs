@@ -9,36 +9,7 @@ url: https://docs.polkadot.com/smart-contracts/dev-environments/remix/get-starte
 
 ## Introduction
 
-<<<<<<< HEAD
 Remix IDE is a robust browser-based development environment for smart contracts. This guide will walk you through the essentials of the [Remix IDE](https://remix.ethereum.org/){target=\_blank} to understand the processes of compiling, developing, and deploying smart contracts on Polkadot Hub.
-=======
-<div class="grid cards" markdown>
--   :octicons-code-16:{ .lg .middle } __Deploy NFTs Using Remix IDE__
-
-    ---
-
-    Mint your NFT on Polkadot's Asset Hub. Use PolkaVM and OpenZeppelin to bring your digital asset to life with Polkadot Remix IDE.
-
-    <br>
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-nft/remix/){target=\_blank}
-
--   :octicons-code-16:{ .lg .middle } __Deploy ERC20s Using Remix IDE__
-
-    ---
-
-    Mint your custom ERC-20 token on Polkadot's Asset Hub. Leverage PolkaVM and Polkadot Remix IDE to bring your blockchain project to life.
-
-    <br>
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-erc20/remix/){target=\_blank}
-</div>
-
-!!! warning
-    The Polkadot Remix IDE's contract compilation functionality is currently limited to Google Chrome. Alternative browsers are not recommended for this task.
-
-## Overview
-
-Remix IDE is a robust browser-based development environment for smart contracts. This guide will walk you through the essentials of the [Polkadot Remix IDE](https://remix.polkadot.io/){target=\_blank} to understand the processes of compiling, developing, and deploying smart contracts on Asset Hub.
->>>>>>> staging/product-ia
 
 ## Prerequisites
 
@@ -122,7 +93,7 @@ Explore more about smart contracts through these resources:
 
     Learn how to deploy smart contracts using Remix IDE.
 
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/dev-environments/remix/deploy-a-contract)
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/dev-environments/remix/deploy-a-contract/)
 
 -   <span class="badge external">External</span> __OpenZeppelin Contracts__
 

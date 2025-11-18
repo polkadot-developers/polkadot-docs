@@ -1,6 +1,6 @@
 ---
 title: Troubleshooting Remix IDE
-description: Solutions to common issues when developing, compiling, and deploying smart contracts using Remix IDE on Polkadot Hub.
+description: Common issues related to developing, compiling, and deploying smart contracts using Remix IDE on Polkadot Hub paired with troubleshooting suggestions.
 categories: Smart Contracts, Tooling
 url: https://docs.polkadot.com/smart-contracts/dev-environments/remix/troubleshooting-faq/
 ---
@@ -154,27 +154,3 @@ This guide provides solutions to common issues you may encounter when using Remi
 - Click the refresh icon in the **File Explorer**.
 - Switch to a different tab and back to **File Explorer**.
 - Save your work and reload the Remix IDE page.
-
-## Where to Go Next
-
-Continue improving your Remix IDE workflow with these resources:
-
-<div class="grid cards" markdown>
-
--   <span class="badge guide">Guide</span> __Get Started with Remix IDE__
-
-    ---
-
-    Return to the basics and review the Remix IDE setup process.
-
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/dev-environments/remix/get-started/)
-
--   <span class="badge guide">Guide</span> __Deploy Smart Contracts__
-
-    ---
-
-    Learn how to deploy and interact with smart contracts using Remix.
-
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/dev-environments/remix/deploy-a-contract/)
-
-</div>

@@ -7519,7 +7519,7 @@
   },
   {
     "id": "smart-contracts-dev-environments-remix-deploy-a-contract",
-    "title": "Deploy and Interact with Smart Contracts Using Remix IDE",
+    "title": "Deploy Contracts Using Remix IDE",
     "slug": "smart-contracts-dev-environments-remix-deploy-a-contract",
     "categories": [
       "Smart Contracts",
@@ -7541,13 +7541,13 @@
       },
       {
         "depth": 2,
-        "title": "Deploying Contracts",
-        "anchor": "deploying-contracts"
+        "title": "Deploy Contracts",
+        "anchor": "deploy-contracts"
       },
       {
         "depth": 2,
-        "title": "Interacting with Contracts",
-        "anchor": "interacting-with-contracts"
+        "title": "Interact with Contracts",
+        "anchor": "interact-with-contracts"
       },
       {
         "depth": 2,
@@ -7556,12 +7556,12 @@
       }
     ],
     "stats": {
-      "chars": 3079,
-      "words": 444,
+      "chars": 3828,
+      "words": 565,
       "headings": 5,
-      "estimated_token_count_total": 716
+      "estimated_token_count_total": 887
     },
-    "hash": "sha256:b907f801dda5b23a69c5bca02f1a1a3c703d79685404e220f66834c79642615a",
+    "hash": "sha256:00209001a769a1bce5d78b123dcb0d4243e8fd80a77d3b7fd55cf35635bd980b",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -7574,17 +7574,12 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-remix-get-started.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/dev-environments/remix/get-started/",
-    "preview": "<<<<<<< HEAD Remix IDE is a robust browser-based development environment for smart contracts. This guide will walk you through the essentials of the [Remix IDE](https://remix.ethereum.org/){target=\\_blank} to understand the processes of compiling, developing, and deploying smart contracts on Polkadot Hub. ======= <div class=\"grid cards\" markdown> - :octicons-code-16:{ .lg .middle } __Deploy NFTs Using Remix IDE__",
+    "preview": "Remix IDE is a robust browser-based development environment for smart contracts. This guide will walk you through the essentials of the [Remix IDE](https://remix.ethereum.org/){target=\\_blank} to understand the processes of compiling, developing, and deploying smart contracts on Polkadot Hub.",
     "outline": [
       {
         "depth": 2,
         "title": "Introduction",
         "anchor": "introduction"
-      },
-      {
-        "depth": 2,
-        "title": "Overview",
-        "anchor": "overview"
       },
       {
         "depth": 2,
@@ -7613,12 +7608,12 @@
       }
     ],
     "stats": {
-      "chars": 4696,
-      "words": 636,
-      "headings": 7,
-      "estimated_token_count_total": 1100
+      "chars": 3422,
+      "words": 456,
+      "headings": 6,
+      "estimated_token_count_total": 784
     },
-    "hash": "sha256:bfc809e3e3a935c18565d769840085e26b979a3cdd22be666abd2bd23ccdaf0e",
+    "hash": "sha256:51d23086e729a9bd299c33409a3a647c385e1444961e0d41019455002561e009",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -7697,20 +7692,15 @@
         "depth": 2,
         "title": "Changes to files or folders don't appear in the File Explorer",
         "anchor": "changes-to-files-or-folders-dont-appear-in-the-file-explorer"
-      },
-      {
-        "depth": 2,
-        "title": "Where to Go Next",
-        "anchor": "where-to-go-next"
       }
     ],
     "stats": {
-      "chars": 6952,
-      "words": 960,
-      "headings": 14,
-      "estimated_token_count_total": 1466
+      "chars": 6316,
+      "words": 872,
+      "headings": 13,
+      "estimated_token_count_total": 1306
     },
-    "hash": "sha256:144e4ec9e810ab7af4596fda09ffc6eb8259a158589d90b220a937aca0a705ef",
+    "hash": "sha256:fccd676c0aee4f3dcbaccbcfb31fb6e3802445188eaea04ff79b759f018b562d",
     "token_estimator": "heuristic-v1"
   },
   {

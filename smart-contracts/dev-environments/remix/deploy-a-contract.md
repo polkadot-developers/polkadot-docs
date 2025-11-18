@@ -77,7 +77,7 @@ You've successfully deployed and interacted with your smart contract on Polkadot
 
     [:octicons-arrow-right-24: Get Started](/smart-contracts/dev-environments/remix/verify-a-contract) -->
 
--   <span class="badge guide">Guide</span> __Troubleshooting and FAQs__
+-   <span class="badge guide">Guide</span> __Troubleshooting__
 
     ---
 

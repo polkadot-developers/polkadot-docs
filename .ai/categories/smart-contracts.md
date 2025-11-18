@@ -3066,90 +3066,6 @@ Your deployed contract will appear in the **Deployed Contracts** section, ready 
 
 ---
 
-Page Title: Deploy and Interact with Smart Contracts Using Remix IDE
-
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-remix-deploy-a-contract.md
-- Canonical (HTML): https://docs.polkadot.com/smart-contracts/dev-environments/remix/deploy-a-contract/
-- Summary: Learn how to deploy smart contracts to the Polkadot Hub network and interact with them using the Remix IDE and wallet providers, covering deployment and state.
-
-# Deploy Smart Contracts Using Remix IDE
-
-## Overview
-
-After compiling your smart contract in Remix IDE, the next step is to deploy it to the Polkadot Hub network. This guide will walk you through the deployment process using a wallet provider and show you how to interact with your deployed contracts directly from the Remix interface.
-
-## Prerequisites
-
-Before deploying your contract, ensure you have:
-
-- Completed the [Remix IDE setup](/smart-contracts/dev-environments/remix/get-started/){target=\_blank} and have a compiled contract ready
-- A compatible wallet extension installed (e.g., [MetaMask](https://metamask.io/){target=\_blank} or [Talisman](https://www.talisman.xyz/){target=\_blank})
-- Your wallet connected to the Polkadot Hub network. Check the [Connect to Polkadot](/smart-contracts/connect/){target=\_blank} guide for more information.
-- Test tokens in your wallet to cover deployment and transaction fees (available from the [Polkadot faucet](/smart-contracts/faucet/){target=\_blank})
-
-## Deploying Contracts
-
-1. To deploy your contract, you need to:
-
-    1. Navigate to the **Deploy & Run Transactions** tab.
-    2. Click the **Environment** dropdown.
-    3. Select **Browser Extension**.
-    4. Click on the **Injected Provider - MetaMask** option.
-
-2. Click the **Deploy** button and then click **Confirm** in the wallet popup.
-
-3. Once your contract is deployed successfully, you will see the deployment confirmation in the Remix terminal.
-
-    ![](/images/smart-contracts/dev-environments/remix/deploy-a-contract/remix-1.gif)
-
-## Interacting with Contracts
-
-Once deployed, your contract appears in the **Deployed/Unpinned Contracts** section:
-
-1. Expand the contract to view available methods.
-
-    !!! tip
-        Pin your frequently used contracts to the **Pinned Contracts** section for easy access.
-
-2. To interact with the contract, you can select any of the exposed methods.
-
-    In this way, you can interact with your deployed contract by reading its state or writing to it. The button color indicates the type of interaction available:
-
-    - **Red**: Modifies state and is payable.
-    - **Orange**: Modifies state only.
-    - **Blue**: Reads state.
-
-3. Click the **GetCount** button to read the current count value.
-
-4. Click the **Increment** button to increment the count value.
-
-5. Submit the transaction and click the **Confirm** button in the wallet pop-up.
-
-6. Once the transaction is confirmed, you will see the updated count value in the Remix terminal.
-
-    ![](/images/smart-contracts/dev-environments/remix/deploy-a-contract/remix-2.gif)
-
-## Where to Go Next
-
-You've successfully deployed and interacted with your smart contract on Polkadot Hub using Remix IDE. Continue enhancing your development workflow with these resources:
-
-<div class="grid cards" markdown>
-
-
-
--   <span class="badge guide">Guide</span> __Troubleshooting and FAQs__
-
-    ---
-
-    Find solutions to common issues when working with Remix IDE.
-
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/dev-environments/remix/troubleshooting-faq/)
-
-</div>
-
-
----
-
 Page Title: Deploy Contracts to Polkadot Hub with Ethers.js
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-libraries-ethers-js.md
@@ -3760,6 +3676,92 @@ Now that you have the foundational knowledge to use Ethers.js with Polkadot Hub,
 - **Dive into Ethers.js utilities**: Discover additional Ethers.js features, such as wallet management, signing messages, etc.
 - **Implement batch transactions**: Use Ethers.js to execute batch transactions for efficient multi-step contract interactions.
 - **Build scalable applications**: Combine Ethers.js with frameworks like [`Next.js`](https://nextjs.org/docs){target=\_blank} or [`Node.js`](https://nodejs.org/en){target=\_blank} to create full-stack decentralized applications (dApps).
+
+
+---
+
+Page Title: Deploy Contracts Using Remix IDE
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-remix-deploy-a-contract.md
+- Canonical (HTML): https://docs.polkadot.com/smart-contracts/dev-environments/remix/deploy-a-contract/
+- Summary: Learn how to deploy smart contracts to the Polkadot Hub network and interact with them using the Remix IDE and wallet providers, covering deployment and state.
+
+# Deploy Smart Contracts Using Remix IDE
+
+## Overview
+
+After compiling your smart contract in Remix IDE, the next step is to deploy it to the Polkadot Hub network. This guide will walk you through the deployment process using a wallet provider and show you how to interact with your deployed contracts directly from the Remix interface.
+
+## Prerequisites
+
+Before deploying your contract, ensure you have:
+
+- Completed the [Remix IDE setup](/smart-contracts/dev-environments/remix/get-started/){target=\_blank} and have a compiled contract ready.
+- A compatible wallet extension installed (e.g., [MetaMask](https://metamask.io/){target=\_blank} or [Talisman](https://www.talisman.xyz/){target=\_blank}).
+- Your wallet connected to the Polkadot Hub network. Check the [Connect to Polkadot](/smart-contracts/connect/){target=\_blank} guide for more information.
+- Test tokens in your wallet to cover deployment and transaction fees (available from the [Polkadot faucet](/smart-contracts/faucet/){target=\_blank}).
+
+## Deploy Contracts
+
+The steps to use Remix IDE to deploy a contract to Polkadot Hub are as follows:
+
+1. Navigate to [Remix](https://remix.ethereum.org/){target=\_blank} in your web browser.
+2. Locate the **Deploy & Run Transactions** tab.
+3. Select the **Environment** dropdown.
+4. Select **Browser Extension**.
+5. Select the **Injected Provider - MetaMask** option.
+6. Click the **Deploy** button and then click **Confirm** in the wallet popup.
+
+Once your contract is deployed successfully, you will see the deployment confirmation in the Remix terminal.
+
+![](/images/smart-contracts/dev-environments/remix/deploy-a-contract/remix-1.gif)
+
+## Interact with Contracts
+
+Deployed contracts appear in the **Deployed/Unpinned Contracts** section. Follow these steps to interact with the deployed contract:
+
+1. Expand the contract to view available methods.
+
+    !!! tip
+        Pin your frequently used contracts to the **Pinned Contracts** section for easy access.
+
+2. Select any of the exposed methods to interact with the contract.
+
+    You can use these methods to interact with your deployed contract by reading or writing to its state. Remix IDE uses a color-coding scheme for method buttons to help differentiate between types of available methods as follows:
+
+    - **Blue buttons**: indicate `view` or `pure` functions which read state only. Interactions do not create a new transaction and do not incur gas fees.
+    - **Orange buttons**: label `non-payable` functions which change contract state but don't accept any value (ETH or other tokens) being sent with the transaction.
+    - **Red buttons**: designate `payable` functions which create a transaction and can accept a value (ETH or other tokens) to send with the transaction.
+
+If you deployed the `Counter.sol` contract from [Remix IDE setup](/smart-contracts/dev-environments/remix/get-started/){target=\_blank}, you can try interacting with the exposed methods as follows:
+
+1. Select the **GetCount** button to read the current count value.
+
+2. Select the **Increment** button to increment the count value.
+
+3. Submit the transaction and click the **Confirm** button in the wallet pop-up.
+
+Once the transaction is confirmed, you will see the updated count value in the Remix terminal.
+
+![](/images/smart-contracts/dev-environments/remix/deploy-a-contract/remix-2.gif)
+
+## Where to Go Next
+
+You've successfully deployed and interacted with your smart contract on Polkadot Hub using Remix IDE. Continue enhancing your development workflow with these resources:
+
+<div class="grid cards" markdown>
+
+
+
+-   <span class="badge guide">Guide</span> __Troubleshooting__
+
+    ---
+
+    Find solutions to common issues when working with Remix IDE.
+
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/dev-environments/remix/troubleshooting-faq/)
+
+</div>
 
 
 ---
@@ -9060,7 +9062,7 @@ Page Title: Troubleshooting Remix IDE
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-remix-troubleshooting-faq.md
 - Canonical (HTML): https://docs.polkadot.com/smart-contracts/dev-environments/remix/troubleshooting-faq/
-- Summary: Solutions to common issues when developing, compiling, and deploying smart contracts using Remix IDE on Polkadot Hub.
+- Summary: Common issues related to developing, compiling, and deploying smart contracts using Remix IDE on Polkadot Hub paired with troubleshooting suggestions.
 
 # Remix IDE Troubleshooting
 
@@ -9211,30 +9213,6 @@ This guide provides solutions to common issues you may encounter when using Remi
 - Click the refresh icon in the **File Explorer**.
 - Switch to a different tab and back to **File Explorer**.
 - Save your work and reload the Remix IDE page.
-
-## Where to Go Next
-
-Continue improving your Remix IDE workflow with these resources:
-
-<div class="grid cards" markdown>
-
--   <span class="badge guide">Guide</span> __Get Started with Remix IDE__
-
-    ---
-
-    Return to the basics and review the Remix IDE setup process.
-
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/dev-environments/remix/get-started/)
-
--   <span class="badge guide">Guide</span> __Deploy Smart Contracts__
-
-    ---
-
-    Learn how to deploy and interact with smart contracts using Remix.
-
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/dev-environments/remix/deploy-a-contract/)
-
-</div>
 
 
 ---
@@ -9717,36 +9695,7 @@ Page Title: Use the Remix IDE on Polkadot Hub
 
 ## Introduction
 
-<<<<<<< HEAD
 Remix IDE is a robust browser-based development environment for smart contracts. This guide will walk you through the essentials of the [Remix IDE](https://remix.ethereum.org/){target=\_blank} to understand the processes of compiling, developing, and deploying smart contracts on Polkadot Hub.
-=======
-<div class="grid cards" markdown>
--   :octicons-code-16:{ .lg .middle } __Deploy NFTs Using Remix IDE__
-
-    ---
-
-    Mint your NFT on Polkadot's Asset Hub. Use PolkaVM and OpenZeppelin to bring your digital asset to life with Polkadot Remix IDE.
-
-    <br>
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-nft/remix/){target=\_blank}
-
--   :octicons-code-16:{ .lg .middle } __Deploy ERC20s Using Remix IDE__
-
-    ---
-
-    Mint your custom ERC-20 token on Polkadot's Asset Hub. Leverage PolkaVM and Polkadot Remix IDE to bring your blockchain project to life.
-
-    <br>
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-erc20/remix/){target=\_blank}
-</div>
-
-!!! warning
-    The Polkadot Remix IDE's contract compilation functionality is currently limited to Google Chrome. Alternative browsers are not recommended for this task.
-
-## Overview
-
-Remix IDE is a robust browser-based development environment for smart contracts. This guide will walk you through the essentials of the [Polkadot Remix IDE](https://remix.polkadot.io/){target=\_blank} to understand the processes of compiling, developing, and deploying smart contracts on Asset Hub.
->>>>>>> staging/product-ia
 
 ## Prerequisites
 
@@ -9830,7 +9779,7 @@ Explore more about smart contracts through these resources:
 
     Learn how to deploy smart contracts using Remix IDE.
 
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/dev-environments/remix/deploy-a-contract)
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/dev-environments/remix/deploy-a-contract/)
 
 -   <span class="badge external">External</span> __OpenZeppelin Contracts__
 

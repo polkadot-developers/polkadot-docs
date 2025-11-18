@@ -7455,7 +7455,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-local-dev-node.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/dev-environments/local-dev-node/",
-    "preview": "!!! smartcontract \"PolkaVM Preview Release\" PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**. ## Introduction",
+    "preview": "A local development node provides an isolated blockchain environment where you can deploy, test, and debug smart contracts without incurring network fees or waiting for block confirmations. This guide demonstrates how to set up a local Polkadot SDK-based node with smart contract capabilities.",
     "outline": [
       {
         "depth": 2,
@@ -7479,12 +7479,12 @@
       }
     ],
     "stats": {
-      "chars": 9052,
-      "words": 1431,
+      "chars": 8828,
+      "words": 1407,
       "headings": 4,
-      "estimated_token_count_total": 2428
+      "estimated_token_count_total": 2425
     },
-    "hash": "sha256:8ea9865b49c4d7cea7eed22c66c1c9616d3da837ba7c9047abfc7c0396441aab",
+    "hash": "sha256:fd7f2422843d69ed5cf0268ff05044330087f6e9a2a6f93cef7d3d526fb5d8d4",
     "token_estimator": "heuristic-v1"
   },
   {

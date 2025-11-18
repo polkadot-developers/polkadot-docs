@@ -8564,7 +8564,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-libraries-viem.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/libraries/viem/",
-    "preview": "!!! smartcontract \"PolkaVM Preview Release\" PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**. ## Introduction",
+    "preview": "[viem](https://viem.sh/){target=\\_blank} is a lightweight TypeScript library designed for interacting with Ethereum-compatible blockchains. This comprehensive guide will walk you through using viem to interact with and deploy smart contracts to Polkadot Hub.",
     "outline": [
       {
         "depth": 2,
@@ -8583,8 +8583,8 @@
       },
       {
         "depth": 2,
-        "title": "Set Up the Project",
-        "anchor": "set-up-the-project"
+        "title": "Set Up the Proje",
+        "anchor": "set-up-the-proje"
       },
       {
         "depth": 2,
@@ -8638,12 +8638,12 @@
       }
     ],
     "stats": {
-      "chars": 16600,
-      "words": 1940,
+      "chars": 17568,
+      "words": 2024,
       "headings": 14,
-      "estimated_token_count_total": 3891
+      "estimated_token_count_total": 4177
     },
-    "hash": "sha256:e27657e4e4a14fe86f424b96631946ec36fb90d277e6010b6cbd64c4769aba8a",
+    "hash": "sha256:f671e04fcab3c9af17f4dff8ffd4c6952c42b8e7397c30a1e0e11761e771cc31",
     "token_estimator": "heuristic-v1"
   },
   {

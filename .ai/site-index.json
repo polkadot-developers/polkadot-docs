@@ -8800,7 +8800,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-libraries-web3-py.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/libraries/web3-py/",
-    "preview": "!!! smartcontract \"PolkaVM Preview Release\" PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**. ## Introduction",
+    "preview": "Interacting with blockchains typically requires an interface between your application and the network. [Web3.py](https://web3py.readthedocs.io/en/stable/index.html){target=\\_blank} offers this interface through a collection of libraries, facilitating seamless interaction with the nodes using HTTP or WebSocket protocols.",
     "outline": [
       {
         "depth": 2,
@@ -8834,12 +8834,12 @@
       }
     ],
     "stats": {
-      "chars": 11627,
-      "words": 1333,
+      "chars": 13230,
+      "words": 1482,
       "headings": 6,
-      "estimated_token_count_total": 2509
+      "estimated_token_count_total": 2881
     },
-    "hash": "sha256:205892e350168b3d0da7ccc280c67c3217ad1e45e87a53d124fa1dd69661aa5e",
+    "hash": "sha256:099c8ef23c32dcbecb0a190730254658fee78d460636dd592efc05a431088a80",
     "token_estimator": "heuristic-v1"
   },
   {

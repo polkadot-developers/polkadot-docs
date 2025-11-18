@@ -8626,7 +8626,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-libraries-wagmi.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/libraries/wagmi/",
-    "preview": "!!! smartcontract \"PolkaVM Preview Release\" PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**. ## Introduction",
+    "preview": "[Wagmi](https://wagmi.sh/){target=\\_blank} is a collection of [React Hooks](https://wagmi.sh/react/api/hooks){target=\\_blank} for interacting with Ethereum-compatible blockchains, focusing on developer experience, feature richness, and reliability.",
     "outline": [
       {
         "depth": 2,
@@ -8680,12 +8680,12 @@
       }
     ],
     "stats": {
-      "chars": 13604,
-      "words": 1515,
+      "chars": 13336,
+      "words": 1487,
       "headings": 10,
-      "estimated_token_count_total": 3250
+      "estimated_token_count_total": 3238
     },
-    "hash": "sha256:bc771f912627fa09cad64adab1bc81c052f650d6c5a3b4f0c91883a98f6628da",
+    "hash": "sha256:79acad3dd784fbf0f6704b74a3d2df2b7ede33f4a157cc28683c0f710a5236b2",
     "token_estimator": "heuristic-v1"
   },
   {

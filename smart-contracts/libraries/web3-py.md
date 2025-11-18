@@ -6,8 +6,6 @@ categories: Smart Contracts, Tooling
 
 # Web3.py
 
---8<-- 'text/smart-contracts/polkaVM-warning.md'
-
 ## Introduction
 
 Interacting with blockchains typically requires an interface between your application and the network. [Web3.py](https://web3py.readthedocs.io/en/stable/index.html){target=\_blank} offers this interface through a collection of libraries, facilitating seamless interaction with the nodes using HTTP or WebSocket protocols. 
@@ -48,7 +46,7 @@ The [provider](https://web3py.readthedocs.io/en/stable/providers.html){target=\_
 
     The provider connection script should look something like this:
 
-    ```python title="connect_to_provider.py"
+    ```python title="fetch_last_block.py"
     --8<-- "code/smart-contracts/libraries/web3-py/connect_to_provider.py"
     ```
 
@@ -69,7 +67,7 @@ The [provider](https://web3py.readthedocs.io/en/stable/providers.html){target=\_
 Before deploying your contracts, make sure you've compiled them and obtained two key files:
 
 - An ABI (.json) file, which provides a JSON interface describing the contract's functions and how to interact with it.
-- A bytecode (.polkavm) file, which contains the low-level machine code executable on [PolkaVM](/smart-contracts/for-eth-devs/#polkavm){target=\_blank} that represents the compiled smart contract ready for blockchain deployment.
+- A bytecode (.bin) file, which contains the low-level machine code executable on EVM that represents the compiled smart contract ready for blockchain deployment.
 
 To follow this guide, you can use the following solidity contract as an example:
 

@@ -14,6 +14,7 @@ Wallet types fall into two categories based on their connection to the internet:
 
 - **[Hot wallets](#hot-wallets)**: Online storage through websites, browser extensions or smartphone apps.
 - **[Cold wallets](#cold-wallets)**: Offline storage using hardware devices or air-gapped systems.
+- **[Wallet tools](#wallet-tools)**: Libraries and SDKs for integrating wallet functionality into dApps.
 
 ## Hot Wallets
 
@@ -64,5 +65,20 @@ Wallet types fall into two categories based on their connection to the internet:
     This cold storage solution lets you use a phone in airplane mode as an air-gapped wallet, turning any spare phone, tablet, or iOS/Android device into a hardware wallet.
 
     [:octicons-arrow-right-24: Reference](https://vault.novasama.io/){target=\_blank}
+
+</div>
+
+## Wallet Tools
+
+<div class="grid cards" markdown>
+
+-   __LunoKit__
+
+    ---
+
+    A React library for integrating Polkadot wallet connections into dApps. It offers a unified API for major wallets like Polkadot.js, SubWallet, Talisman, Nova Wallet, PolkaGate, WalletConnect, Enkrypt, Fearless, and Mimir. Includes customizable UI components, React hooks, full TypeScript and multi-chain support, and flexible integration with APIs such as Dedot, PAPI, or Polkadot.js.
+
+    [:octicons-arrow-right-24: Reference](https://www.lunolab.xyz/){target=\_blank}
+
 
 </div>

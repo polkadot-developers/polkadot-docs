@@ -1,6 +1,6 @@
 ---
 title: Troubleshooting Remix IDE
-description: Solutions to common issues when developing, compiling, and deploying smart contracts using Remix IDE on Polkadot Hub.
+description: Common issues related to developing, compiling, and deploying smart contracts using Remix IDE on Polkadot Hub paired with troubleshooting suggestions.
 categories: Smart Contracts, Tooling
 ---
 

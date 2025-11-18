@@ -7349,7 +7349,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-hardhat-get-started.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/dev-environments/hardhat/get-started/",
-    "preview": "!!! smartcontract \"PolkaVM Preview Release\" PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**. <div class=\"grid cards\" markdown> - :octicons-code-16:{ .lg .middle } __Test and Deploy with Hardhat__",
+    "preview": "Building on Polkadot Hub often starts with a Solidity codebase, and Hardhat keeps that workflow familiar while giving teams repeatable scripts, rich debugging, and CLI automation suited to the network's Ethereum-compatible execution layer.",
     "outline": [
       {
         "depth": 2,
@@ -7358,48 +7358,18 @@
       },
       {
         "depth": 2,
-        "title": "Prerequisites",
-        "anchor": "prerequisites"
+        "title": "Hardhat Workflow",
+        "anchor": "hardhat-workflow"
       },
       {
         "depth": 2,
-        "title": "Set Up Hardhat",
-        "anchor": "set-up-hardhat"
+        "title": "Project Anatomy",
+        "anchor": "project-anatomy"
       },
       {
         "depth": 2,
-        "title": "Compile Your Contract",
-        "anchor": "compile-your-contract"
-      },
-      {
-        "depth": 2,
-        "title": "Set Up a Testing Environment",
-        "anchor": "set-up-a-testing-environment"
-      },
-      {
-        "depth": 2,
-        "title": "Test Your Contract",
-        "anchor": "test-your-contract"
-      },
-      {
-        "depth": 2,
-        "title": "Deploy to a Local Node",
-        "anchor": "deploy-to-a-local-node"
-      },
-      {
-        "depth": 2,
-        "title": "Deploying to a Live Network",
-        "anchor": "deploying-to-a-live-network"
-      },
-      {
-        "depth": 2,
-        "title": "Interacting with Your Contract",
-        "anchor": "interacting-with-your-contract"
-      },
-      {
-        "depth": 2,
-        "title": "Upgrading the Plugin",
-        "anchor": "upgrading-the-plugin"
+        "title": "Core Functionalities",
+        "anchor": "core-functionalities"
       },
       {
         "depth": 2,
@@ -7408,12 +7378,12 @@
       }
     ],
     "stats": {
-      "chars": 18514,
-      "words": 2477,
-      "headings": 11,
-      "estimated_token_count_total": 4190
+      "chars": 4795,
+      "words": 589,
+      "headings": 5,
+      "estimated_token_count_total": 1057
     },
-    "hash": "sha256:1729ad83ad381a90752540644d400c60add3555e5da296ab455442be81d32f8c",
+    "hash": "sha256:39bef792d34440bab5986dd030660af167537019c959526603900811a7b6d408",
     "token_estimator": "heuristic-v1"
   },
   {

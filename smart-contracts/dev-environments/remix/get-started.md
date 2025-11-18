@@ -16,7 +16,7 @@ categories: Smart Contracts, Tooling
     Mint your NFT on Polkadot's Asset Hub. Use PolkaVM and OpenZeppelin to bring your digital asset to life with Polkadot Remix IDE.
 
     <br>
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-nft/){target=\_blank}
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-nft/remix/){target=\_blank}
 
 -   :octicons-code-16:{ .lg .middle } __Deploy ERC20s Using Remix IDE__
 
@@ -25,7 +25,7 @@ categories: Smart Contracts, Tooling
     Mint your custom ERC-20 token on Polkadot's Asset Hub. Leverage PolkaVM and Polkadot Remix IDE to bring your blockchain project to life.
 
     <br>
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-erc20/){target=\_blank}
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-erc20/remix/){target=\_blank}
 </div>
 
 !!! warning

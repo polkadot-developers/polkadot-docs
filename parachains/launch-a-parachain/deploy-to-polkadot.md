@@ -185,7 +185,7 @@ Once you have the genesis state and runtime, you can now register these with you
 
     ![](/images/parachains/launch-a-parachain/deploy-to-polkadot/deploy-to-polkadot-9.webp)
    
-3. Confirm your details and **+ Submit** button, where there should be a new Parathread with your parachain ID and an active **Deregister** button.
+3. Confirm your details and click the **+ Submit** button, where there should be a new Parathread with your parachain ID and an active **Deregister** button.
 
     ![](/images/parachains/launch-a-parachain/deploy-to-polkadot/deploy-to-polkadot-10.webp)
 

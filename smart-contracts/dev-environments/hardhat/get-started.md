@@ -10,7 +10,7 @@ categories: Smart Contracts, Tooling
 
 Building on Polkadot Hub often starts with a Solidity codebase, and Hardhat keeps that workflow familiar while giving teams repeatable scripts, rich debugging, and CLI automation suited to the network's Ethereum-compatible execution layer.
 
-Hardhat is a comprehensive development environment for building, testing, and deploying smart contracts. It provides developers with a complete toolkit including compilation, local testing nodes, debugging tools, and deployment automation.
+Hardhat is a comprehensive development environment for building, testing, and deploying smart contracts. It provides developers with a complete toolkit, including compilation, local testing nodes, debugging tools, and deployment automation.
 
 ## Hardhat Workflow
 
@@ -54,7 +54,7 @@ A freshly initialized Hardhat project keeps code, configuration, and automation 
 
 ## Core Functionalities
 
-- **Project structure**: Organizes contracts, tests, scripts, and configuration into a consistent workspace. Provides a clear folder layout and a single configuration file `hardhat.config.js` to manage compilers, networks, and tooling.
+- **Project structure**: Organizes contracts, tests, scripts, and configuration into a consistent workspace. Provides a clear folder layout and a single configuration file (`hardhat.config.js`) to manage compilers, networks, and tooling.
 - **Compilation**: Compiles Solidity sources, supports multiple compiler versions, and generates ABI and bytecode artifacts.
 - **Local testing**: Runs tests written in JavaScript or TypeScript against an integrated local network, enabling fast feedback when validating contract behavior.
 - **Task automation**: Automates deployments, maintenance operations, and recurring workflows through custom scripts and Hardhat tasks.

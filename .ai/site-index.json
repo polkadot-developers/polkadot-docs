@@ -8459,7 +8459,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-integrations-wallets.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/integrations/wallets/",
-    "preview": "!!! smartcontract \"PolkaVM Preview Release\" PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**. ## Introduction",
+    "preview": "Connecting a compatible wallet is the first essential step for interacting with the Polkadot Hub ecosystem. This guide explores wallet options that support both Substrate and Ethereum compatible layers, enabling transactions and smart contract interactions. Whether you're a developer testing on Polkadot Hub or a user accessing the MainNet, understanding wallet configuration is crucial for accessing the full range of Polkadot Hub's capabilities.",
     "outline": [
       {
         "depth": 2,
@@ -8493,12 +8493,12 @@
       }
     ],
     "stats": {
-      "chars": 7340,
-      "words": 1041,
+      "chars": 7170,
+      "words": 1020,
       "headings": 6,
       "estimated_token_count_total": 1627
     },
-    "hash": "sha256:65809486f62f60c6a6ac8109f9f027361683c23f639991a045ec5c057b665026",
+    "hash": "sha256:d64a3162e12b0224165687558278d5e18e10d1a8c406068250820c3d16233457",
     "token_estimator": "heuristic-v1"
   },
   {

@@ -1,6 +1,6 @@
 ---
 title: Troubleshooting Hardhat
-description: Common issues related to developing, compiling, and deploying smart contracts using Hardhat on Polkadot Hub paired with troubleshooting suggestions.
+description: Common issues related to developing, compiling, and deploying smart contracts using Hardhat on Polkadot Hub, paired with troubleshooting suggestions.
 categories: Smart Contracts, Tooling
 ---
 
@@ -16,11 +16,11 @@ This guide provides solutions to common issues you may encounter when using Hard
     - Download the appropriate LTS version from [nodejs.org](https://nodejs.org/).
 
 - **Use nvm for version management**:
-    - Install nvm (Node Version Manager) to easily switch between Node versions.
+    - Install nvm (Node Version Manager) to to switch between Node versions easily.
     - Run `nvm install --lts` to install the latest LTS version.
     - Run `nvm use --lts` to switch to it.
 
-## Install of Hardhat or its dependencies via npm fails
+## Installation of Hardhat or its dependencies via npm fails
 
 - **Clear npm cache**:
     ```bash
@@ -57,7 +57,7 @@ This guide provides solutions to common issues you may encounter when using Hard
 
 - **Check Solidity version compatibility**:
     - Ensure your contract's pragma statement matches the compiler version in `hardhat.config.js`.
-        - Example: If your contract uses `pragma solidity ^0.8.0;`, set `solidity: "0.8.28"` or compatible version.
+        - Example: If your contract uses `pragma solidity ^0.8.0;`, set `solidity: "0.8.28"` or another compatible version.
 
 - **Verify imports**:
     - Ensure all imported contracts are in the correct paths.
@@ -80,7 +80,7 @@ This guide provides solutions to common issues you may encounter when using Hard
 
 - **Ensure compilation completed successfully**:
     - Check the terminal output for any error messages.
-    - Look for "Compiled X Solidity files successfully" message.
+    - Look for the "Compiled X Solidity files successfully" message.
 
 - **Verify contract file location**:
     - Contracts must be in the `contracts` directory or subdirectories.
@@ -171,7 +171,7 @@ This guide provides solutions to common issues you may encounter when using Hard
 
 - **Verify contract state**:
     - Use `console.log` to debug values.
-    - Check if contract was properly deployed in `beforeEach` hooks.
+    - Check if the contract was properly deployed in `beforeEach` hooks.
 
 - **Review timing issues**:
     - Add appropriate waits between transactions.
@@ -263,7 +263,7 @@ This guide provides solutions to common issues you may encounter when using Hard
 
 - **Check account balance**:
     - Verify you have enough test tokens in your account.
-    - For local development node, accounts should be pre-funded.
+    - For the local development node, accounts should be pre-funded.
 
 - **Get test tokens**:
     - Visit the [Polkadot faucet](/smart-contracts/faucet/){target=\_blank} for test networks.
@@ -394,7 +394,7 @@ This guide provides solutions to common issues you may encounter when using Hard
 
 - **Verify function parameters**:
     - Ensure parameter types match the function signature.
-    - Check for correct number of parameters.
+    - Check for the correct number of parameters.
 
 ## `View` or `pure` functions don't return expected values
 
@@ -435,7 +435,7 @@ This guide provides solutions to common issues you may encounter when using Hard
     - Review any events emitted by the transaction.
 
 - **Check for reverts**:
-    - Look for revert reasons in the error message.
+    - Look for any revert reasons in the error message.
     - Verify contract logic and access controls.
 
 ## Contract compilation takes a long time

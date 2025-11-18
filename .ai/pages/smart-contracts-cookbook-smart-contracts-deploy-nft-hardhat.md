@@ -17,7 +17,7 @@ This guide demonstrates how to deploy an [ERC-721](https://eips.ethereum.org/EIP
 
 - Basic understanding of Solidity programming and NFT standards.
 - Node.js v22.13.1 or later.
-- Test tokens for gas fees (available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}). See the [step-by-step instructions](/smart-contracts/faucet/#get-test-tokens){target=\_blank}.
+- A funded account with tokens for transaction fees. This example will deploy the contract to the Polkadot TestNet, so you'll [need some TestNet tokens](/smart-contracts/faucet/#get-test-tokens){target=\_blank} from the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}.
 - A wallet with a private key for signing transactions.
 
 ## Set Up Your Project

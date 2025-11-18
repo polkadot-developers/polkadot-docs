@@ -21,7 +21,7 @@ By the end of this guide, you'll have:
 
 Before getting started, ensure you have done the following:
 
-- Completed the [Install Polkadot SDK Dependencies](/parachains/install-polkadot-sdk/){target=\_blank} guide and successfully installed [Rust](https://www.rust-lang.org/){target=\_blank} and the required packages to set up your development environment.
+- Completed the [Install Polkadot SDK Dependencies](/parachains/install-polkadot-sdk/){target=\_blank} guide and successfully installed [Rust](https://rust-lang.org/){target=\_blank} and the required packages to set up your development environment.
 
 ## Install the Revive Dev Node and ETH-RPC Adapter
 

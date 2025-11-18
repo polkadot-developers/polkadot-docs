@@ -241,7 +241,7 @@ To execute benchmarks, your pallet must be integrated into the runtime's benchma
 
     When you build the runtime with `--features runtime-benchmarks`, this configuration ensures all necessary benchmarking code across all pallets (including yours) is included.
 
-2. **Update runtime configuration**: Run development benchmarks with the placeholder implementation and use the resulting weights file to update benchmark weights as follows:
+2. **Update runtime configuration**: Using the the placeholder implementation, run development benchmarks as follows:
 
     ```rust title="runtime/src/configs/mod.rs"
     impl pallet_custom::Config for Runtime {

@@ -11679,7 +11679,7 @@ viem-project/
     └── Storage.bin
 ```
 
-## Set Up the Proje
+## Set Up the Project
 First, create a new folder and initialize your project:
 
 ```bash

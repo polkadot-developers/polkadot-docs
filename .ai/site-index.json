@@ -8583,8 +8583,8 @@
       },
       {
         "depth": 2,
-        "title": "Set Up the Proje",
-        "anchor": "set-up-the-proje"
+        "title": "Set Up the Project",
+        "anchor": "set-up-the-project"
       },
       {
         "depth": 2,
@@ -8638,12 +8638,12 @@
       }
     ],
     "stats": {
-      "chars": 17568,
+      "chars": 17570,
       "words": 2024,
       "headings": 14,
       "estimated_token_count_total": 4177
     },
-    "hash": "sha256:f671e04fcab3c9af17f4dff8ffd4c6952c42b8e7397c30a1e0e11761e771cc31",
+    "hash": "sha256:0ec2590ef8889af04ae83bf38841986b9d56934488ee8314f0d45e1cf1d6e1c7",
     "token_estimator": "heuristic-v1"
   },
   {

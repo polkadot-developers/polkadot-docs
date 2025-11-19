@@ -10,7 +10,7 @@ Asynchronous backing (often shortened to ***Async Backing***) is a parachain [co
 Async Backing improves throughput of the overall Polkadot Network by using coretime more efficiently, and enables the parallel processing needed for parachains to further scale throughput via [Elastic Scaling](/reference/parachains/consensus/elastic-scaling){target=\_blank}.
 
 ## Configurations
-The following configurations can be set by onchain governance, dictating how many blocks ahead of the relay chain a given parachain's collators can run:
+The following configurations can be set by on-chain governance, dictating how many blocks ahead of the relay chain a given parachain's collators can run:
 
 * [`max_candidate_depth`](https://github.com/paritytech/polkadot-sdk/blob/f204e3264f945c33b4cea18a49f7232c180b07c5/polkadot/primitives/src/vstaging/mod.rs#L49): the number of parablocks a collator can produce that are not yet included in the relay chain. A value of `2` means that there can be a maximum of 3 unincluded parablocks at any given time.
 * [`allowed_ancestry_len`](https://github.com/paritytech/polkadot-sdk/blob/f204e3264f945c33b4cea18a49f7232c180b07c5/polkadot/primitives/src/vstaging/mod.rs#L54): the oldest relay parent a parablock can be built on top of. A value of `1` means collators can start building blocks 6 seconds in advance.
@@ -19,7 +19,7 @@ The following configurations can be set by onchain governance, dictating how man
 
 *in progress*
 
-In the synchronous scenario, both the collators and validators draw context from the relay parent of the prior parablock, which lives on the relay chain. This makes the Backing and Generation steps tightly coupled to the prior parablock completing the inclusion pipeline. As a result, one parablock can be processed every other relay block, and only `0.5` seconds are assigned for execution.
+In the synchronous scenario, both the collators and validators draw context from the relay parent of the prior parablock, which lives on the relay chain. This makes the Backing and Generation steps tightly coupled to the prior parablock completing the inclusion pipeline. As a result, one parablock can be processed *every other* relay block, and only `0.5` seconds are assigned for execution.
 
 <div className="merm-16x9">
 ```mermaid
@@ -57,15 +57,15 @@ gantt
     axisFormat %y
     tickInterval '10year'
 
+    section F1
     R1 : r, 1905, 1907
     R2 : r, 1911, 1913
     R3 : r, 1917, 1919
     R4 : r, 1923, 1925
 
-    SPACING : p1padTop, 1905, 1907
-    SPACING : p1padTop, 1911, 1913
-    SPACING : p1padTop, 1917, 1919
-    SPACING : p1padTop, 1923, 1925
+    section F2
+    SPACING : p1padTop, 1901, 1924
+
 
     section P1
     X          : item1, 1900, 1901
@@ -81,7 +81,7 @@ gantt
 
 In the asynchronous scenario, where both the collators and validators have access to [Unincluded Segments](/reference/parachains/consensus/inclusion-pipeline) as an additional context source, the Backing and Generation steps are no longer coupled to the prior block completing the full inclusion pipeline. Instead, the prior parablock only needs to complete the generation step and be added to the Unincluded Segments before the next parablock can begin the Backing and Generation steps.
 
-This results in one parablock being processed *every* relay block, and allows for more time to execute during the Generation step (0.5s --> 2s).
+This results in one parablock being processed *every* relay block, and allows for `2` seconds of execution.
 
 ```mermaid
 ---
@@ -128,17 +128,15 @@ gantt
     axisFormat %y
     tickInterval '10year'
 
+    section F1
     R1 : r, 1905, 1907
     R2 : r, 1911, 1913
     R3 : r, 1917, 1919
     R4 : r, 1923, 1925
     R5 : r, 1929, 1931
 
-    SPACING : p1padTop, 1905, 1907
-    SPACING : p1padTop, 1911, 1913
-    SPACING : p1padTop, 1917, 1919
-    SPACING : p1padTop, 1923, 1925
-    SPACING : p1padTop, 1929, 1931
+    section F2
+    SPACING : p1padTop, 1901, 1930
 
     section P1
     X         : item1, 1900, 1902
@@ -160,7 +158,7 @@ gantt
     Backing   : item2, 1920, 1930
 ```
 
-Notice how `P2` starts before the backing stage of `P1` 
+Notice how `P2` starts before the backing stage of `P1`.
 
 In the multi-core scenario
 ```mermaid
@@ -210,11 +208,7 @@ gantt
     R5 : r, 1929, 1931
 
     section F2
-    SPACING : p1padTop, 1905, 1907
-    SPACING : p1padTop, 1911, 1913
-    SPACING : p1padTop, 1917, 1919
-    SPACING : p1padTop, 1923, 1925
-    SPACING : p1padTop, 1929, 1931
+    SPACING : p1padTop, 1901, 1930
 
     section P1
     X   :            item1, 1900, 1902

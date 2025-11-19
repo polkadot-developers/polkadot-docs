@@ -7881,12 +7881,12 @@
       }
     ],
     "stats": {
-      "chars": 9656,
-      "words": 1139,
+      "chars": 9298,
+      "words": 1097,
       "headings": 2,
-      "estimated_token_count_total": 1929
+      "estimated_token_count_total": 1854
     },
-    "hash": "sha256:3c354e7d1ec71ff119a4e9989f55c4f3308fa118c909b057d6bdfd57b9051af6",
+    "hash": "sha256:fc2b3e07e3bf2d1fe76f49654b203f5add3c8aaf458b4ed384c7f03c8589df34",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -7959,7 +7959,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-parachains-consensus-inclusion-pipeline.md",
     "html_url": "https://docs.polkadot.com/reference/parachains/consensus/inclusion-pipeline/",
-    "preview": "The mulit-step pipeline through which parablocks are processed into the Polkadot relay chain:",
+    "preview": "The multi-step pipeline through which parablocks are processed into the Polkadot relay chain:",
     "outline": [],
     "stats": {
       "chars": 2085,
@@ -7967,7 +7967,7 @@
       "headings": 0,
       "estimated_token_count_total": 0
     },
-    "hash": "sha256:6073cd7351660548fb608cf599873543e0c2ec7e34966e386384c5145db5e1c8",
+    "hash": "sha256:c5ce3f3c028abb7f9eb7ac9e19c8cad062d122d2405ea8f37693eef97431f243",
     "token_estimator": "heuristic-v1"
   },
   {

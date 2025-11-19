@@ -5,7 +5,7 @@ categories: Polkadot Protocol
 url: https://docs.polkadot.com/reference/parachains/consensus/inclusion-pipeline/
 ---
 
-The mulit-step pipeline through which parablocks are processed into the Polkadot relay chain:
+The multi-step pipeline through which parablocks are processed into the Polkadot relay chain:
 
 ```mermaid
 %%{init: {"flowchart": {"nodeSpacing": 40, "rankSpacing": 60}}}%%

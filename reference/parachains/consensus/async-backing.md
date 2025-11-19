@@ -6,7 +6,7 @@ categories: Polkadot Protocol
 
 Asynchronous backing (often shortened to ***Async Backing***) is a parachain [configuration](https://github.com/paritytech/polkadot-sdk/blob/f204e3264f945c33b4cea18a49f7232c180b07c5/polkadot/primitives/src/vstaging/mod.rs#L43) set by on-chain governance. It allows collators and validators to build *some* number of blocks ahead of the relay chain during the **generation** and **backing** stages of the [Inclusion Pipeline](/reference/parachains/consensus/inclusion-pipeline).
 
-Async Backing improves throughput of the overall Polkadot Network by using coretime more efficiently, and enables the parallel processing needed for parachains to further scale throughput via [Elastic Scaling](/reference/parachains/consensus/elastic-scaling){target=\_blank}.
+Async Backing improves throughput of the overall Polkadot Network by using coretime more efficiently, and enables the parallel processing needed for parachains to further scale throughput via [Elastic Scaling](/reference/parachains/consensus/elastic-scaling).
 
 ## Configurations
 The following configurations can be set by on-chain governance, dictating how many blocks ahead of the relay chain a given parachain's collators can run:

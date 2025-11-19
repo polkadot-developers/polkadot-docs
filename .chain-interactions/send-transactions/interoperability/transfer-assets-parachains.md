@@ -184,6 +184,6 @@ You have now successfully created and sent a cross-chain transfer using the Para
 
 ## Next Steps
 
-- Read the Docs: Dive deeper into the features of the [ParaSpell XCM SDK](https://paraspell.github.io/docs/sdk/getting-started.html){target=\_blank} documentation.
+- **Read the docs**: Dive deeper into the features of the [ParaSpell XCM SDK](https://paraspell.github.io/docs/sdk/getting-started.html){target=\_blank} documentation.
 
-- Learn about XCM: Understand the underlying protocol by visiting the [Introduction to XCM page](/parachains/interoperability/get-started/) in the Polkadot Docs.
+- **Learn about XCM**: Understand the underlying protocol by visiting the [Get Started with XCM](/parachains/interoperability/get-started/) guide.

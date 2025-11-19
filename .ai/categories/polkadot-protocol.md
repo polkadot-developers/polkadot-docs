@@ -5342,7 +5342,7 @@ Page Title: Inclusion Pipeline
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-parachains-consensus-inclusion-pipeline.md
 - Canonical (HTML): https://docs.polkadot.com/reference/parachains/consensus/inclusion-pipeline/
-- Summary: TODO!
+- Summary: Understand each of the core components of the Inclusion Pipeline.
 
 The mulit-step pipeline through which parablocks are processed into the Polkadot relay chain:
 

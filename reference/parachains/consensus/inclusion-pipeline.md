@@ -4,7 +4,7 @@ description: Understand each of the core components of the Inclusion Pipeline.
 categories: Polkadot Protocol
 ---
 
-The mulit-step pipeline through which parablocks are processed into the Polkadot relay chain:
+The multi-step pipeline through which parablocks are processed into the Polkadot relay chain:
 
 ```mermaid
 %%{init: {"flowchart": {"nodeSpacing": 40, "rankSpacing": 60}}}%%

@@ -31,18 +31,22 @@ For more sophisticated use cases, the Hub enables:
 
 - **Deploy Ethereum-compatible smart contracts** using Solidity or other EVM languages
 - **Build decentralized applications** that leverage Polkadot's security and interoperability
+- **Create and manage fungible tokens and NFTs** with low fees and flexible operations
 - **Manage cross-chain interactions** through XCM messaging with other parachains
 - **Set verified identities** and apply for network opportunities like the Ambassador Program
 - **Join collectives** and participate in governance organizations with specialized roles
-- **Access fee-efficient asset operations** for creating and managing tokens at scale
 
 ## Core Components
 
 The Polkadot Hub consists of several specialized system parachains and services working together:
 
-### Asset Hub
+### Smart Contracts
 
-[Asset Hub](/reference/polkadot-hub/assets-and-smart-contracts/){target=\_blank} provides the foundation for on-chain asset management. Create, manage, and transfer fungible tokens and NFTs across the ecosystem. Asset Hub offers significantly lower transaction fees—approximately one-tenth of relay chain costs—and reduced deposit requirements, making it ideal for projects managing digital assets at scale. It also enables payment of transaction fees in non-native assets, providing flexibility for developers and users.
+[Smart Contracts](/reference/polkadot-hub/smart-contracts/){target=\_blank} on Polkadot Hub enable developers to deploy Ethereum-compatible smart contracts using Solidity and other familiar EVM languages. Build decentralized applications with full access to Polkadot's security, interoperability, and cross-chain capabilities. Smart contracts on the Hub benefit from lower fees and integration with native Polkadot features like identity management and asset operations.
+
+### Asset Management
+
+[Asset Management](/reference/polkadot-hub/assets/){target=\_blank} provides the foundation for on-chain asset management. Create, manage, and transfer fungible tokens and NFTs across the ecosystem. Asset Management offers significantly lower transaction fees—approximately one-tenth of relay chain costs—and reduced deposit requirements, making it ideal for projects managing digital assets at scale. It also enables payment of transaction fees in non-native assets, providing flexibility for developers and users.
 
 ### People Chain
 
@@ -66,13 +70,21 @@ Explore specific Hub functionality through these sections:
 
 <div class="grid cards" markdown>
 
-- <span class="badge learn">Learn</span> **Asset Hub**
+- <span class="badge learn">Learn</span> **Smart Contracts**
+
+    ---
+
+    Deploy Ethereum-compatible smart contracts and build decentralized applications.
+
+    [:octicons-arrow-right-24: Reference](/reference/polkadot-hub/smart-contracts/)
+
+- <span class="badge learn">Learn</span> **Asset Management**
 
     ---
 
     Manage fungible tokens and NFTs with low fees and flexible asset operations.
 
-    [:octicons-arrow-right-24: Reference](/reference/polkadot-hub/assets-and-smart-contracts/)
+    [:octicons-arrow-right-24: Reference](/reference/polkadot-hub/assets/)
 
 - <span class="badge learn">Learn</span> **People Chain**
 

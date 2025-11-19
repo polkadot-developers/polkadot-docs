@@ -55,7 +55,7 @@ Required software:
 - **Operating System**: Ubuntu 22.04 LTS (recommended) or similar Linux distribution
 - **Docker**: Latest version installed and running (for Docker-based setup)
 - **rclone**: (Optional but recommended) Command-line program for managing files on cloud storage (https://rclone.org/downloads/)
-- **Rust Toolchain**: Version 1.86 or as specified by runtime (for manual build)
+- **Rust Toolchain**: Version 1.91.1 or later (for manual build)
 
 ## Setup Options
 
@@ -160,7 +160,7 @@ docker run -d --name polkadot-hub-rpc --restart unless-stopped \
   -p 30333:30333 \
   -v $(pwd)/asset-hub-polkadot.json:/asset-hub-polkadot.json \
   -v $(pwd)/my-node-data:/data \
-  parity/polkadot-omni-node:stable2506-4 \
+  parity/polkadot-omni-node:v1.20.2 \
   --name=PolkadotHubRPC \
   --base-path=/data \
   --chain=/asset-hub-polkadot.json \
@@ -306,7 +306,7 @@ docker rm polkadot-hub-rpc
 
 ```bash
 # Pull latest image
-docker pull parity/polkadot-omni-node:stable2506-4
+docker pull parity/polkadot-omni-node:v1.20.2
 
 # Stop and remove old container
 docker stop polkadot-hub-rpc
@@ -329,23 +329,33 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 source $HOME/.cargo/env
 
 # Install specific Rust version
-rustup install 1.86
-rustup default 1.86
-rustup target add wasm32-unknown-unknown --toolchain 1.86
-rustup component add rust-src --toolchain 1.86
+rustup install 1.91.1
+rustup default 1.91.1
+rustup target add wasm32-unknown-unknown --toolchain 1.91.1
+rustup component add rust-src --toolchain 1.91.1
 ```
 
-### Step 2: Install the Polkadot Omni Node
+### Step 2: Install Required Dependencies
+
+```bash
+# Install system dependencies
+sudo apt update
+sudo apt install -y build-essential git clang curl libssl-dev llvm libudev-dev make protobuf-compiler
+```
+
+### Step 3: Install the Polkadot Omni Node
 
 ```bash
 # Install polkadot-omni-node
-cargo install --locked polkadot-omni-node@0.7.0
+cargo install --locked polkadot-omni-node@0.11.0
 
 # Verify installation
 polkadot-omni-node --version
 ```
 
-### Step 3: Obtain Chain Specification
+**Note**: Compiling polkadot-omni-node from source requires significant RAM (minimum 24GB recommended). The compilation may take 10-15 minutes on systems with adequate resources.
+
+### Step 4: Obtain Chain Specification
 
 Download the Polkadot Hub chain specification:
 
@@ -353,7 +363,7 @@ Download the Polkadot Hub chain specification:
 curl -L https://raw.githubusercontent.com/paritytech/polkadot-sdk/master/cumulus/parachains/chain-specs/asset-hub-polkadot.json -o asset-hub-polkadot.json
 ```
 
-### Step 4: Create User and Directory Structure
+### Step 5: Create User and Directory Structure
 
 ```bash
 # Create dedicated user
@@ -369,7 +379,7 @@ sudo cp asset-hub-polkadot.json /var/lib/polkadot-hub-rpc/
 sudo chown -R polkadot:polkadot /var/lib/polkadot-hub-rpc
 ```
 
-### Step 5: Create Systemd Service for Polkadot SDK Node
+### Step 6: Create Systemd Service for Polkadot SDK Node
 
 Create a service file for the Polkadot SDK RPC node:
 
@@ -419,7 +429,7 @@ LimitNOFILE=65536
 WantedBy=multi-user.target
 ```
 
-### Step 6: Start Service
+### Step 7: Start Service
 
 ```bash
 # Reload systemd
@@ -436,7 +446,7 @@ sudo systemctl status polkadot-hub-rpc
 sudo journalctl -u polkadot-hub-rpc -f
 ```
 
-### Step 7: Verify Setup
+### Step 8: Verify Setup
 
 Use the same verification tests as in the Docker setup (see Step 5 above).
 
@@ -516,7 +526,7 @@ The node handles pruning automatically based on configuration unless running in 
 
 ```bash
 # Pull latest image
-docker pull parity/polkadot-omni-node:stable2506-4
+docker pull parity/polkadot-omni-node:v1.20.2
 
 # Restart container
 docker stop polkadot-hub-rpc

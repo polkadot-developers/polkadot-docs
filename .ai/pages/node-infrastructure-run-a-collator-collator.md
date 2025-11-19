@@ -63,7 +63,7 @@ Required software:
 
 - **Operating System**: Ubuntu 22.04 LTS (recommended) or similar Linux distribution
 - **Docker**: For running subkey utility
-- **Rust Toolchain**: Version 1.86 or as specified by the runtime
+- **Rust Toolchain**: Version 1.91.1 or as specified by the runtime
 - **Dependencies**:
   ```bash
   sudo apt update
@@ -87,17 +87,17 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 source $HOME/.cargo/env
 
 # Install specific Rust version
-rustup install 1.86
-rustup default 1.86
-rustup target add wasm32-unknown-unknown --toolchain 1.86
-rustup component add rust-src --toolchain 1.86
+rustup install 1.91.1
+rustup default 1.91.1
+rustup target add wasm32-unknown-unknown --toolchain 1.91.1
+rustup component add rust-src --toolchain 1.91.1
 ```
 
 ### Step 2: Install the Polkadot Omni Node
 
 ```bash
 # Install polkadot-omni-node
-cargo install --locked polkadot-omni-node@0.5.0
+cargo install --locked polkadot-omni-node@0.11.0
 
 # Verify installation
 polkadot-omni-node --version
@@ -159,7 +159,7 @@ cd runtimes
 cargo build --release -p asset-hub-polkadot-runtime
 
 # Install chain-spec-builder
-cargo install --locked staging-chain-spec-builder@10.0.0
+cargo install --locked staging-chain-spec-builder@14.0.0
 
 # Generate chain spec
 chain-spec-builder create \

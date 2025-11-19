@@ -67,7 +67,7 @@ Required software:
 - **Operating System**: Ubuntu 22.04 LTS (recommended) or similar Linux distribution
 - **Docker**: Latest version installed and running (for Docker-based setup)
 - **rclone**: (Optional but recommended) Command-line program for managing files on cloud storage (https://rclone.org/downloads/)
-- **Rust Toolchain**: Version 1.86 or as specified by runtime (for manual build)
+- **Rust Toolchain**: Version 1.91.1 or as specified by runtime (for manual build)
 
 ## Setup Options
 
@@ -174,7 +174,7 @@ docker run -d --name people-chain-rpc --restart unless-stopped \
   -p 30333:30333 \
   -v $(pwd)/people-polkadot.json:/people-polkadot.json \
   -v $(pwd)/my-node-data:/data \
-  parity/polkadot-omni-node:stable2506-4 \
+  parity/polkadot-omni-node:v1.20.2 \
   --name=PeopleChainRPC \
   --base-path=/data \
   --chain=/people-polkadot.json \
@@ -336,7 +336,7 @@ docker rm people-chain-rpc
 
 ```bash
 # Pull latest image
-docker pull parity/polkadot-omni-node:stable2506-4
+docker pull parity/polkadot-omni-node:v1.20.2
 
 # Stop and remove old container
 docker stop people-chain-rpc
@@ -359,17 +359,17 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 source $HOME/.cargo/env
 
 # Install specific Rust version
-rustup install 1.86
-rustup default 1.86
-rustup target add wasm32-unknown-unknown --toolchain 1.86
-rustup component add rust-src --toolchain 1.86
+rustup install 1.91.1
+rustup default 1.91.1
+rustup target add wasm32-unknown-unknown --toolchain 1.91.1
+rustup component add rust-src --toolchain 1.91.1
 ```
 
 ### Step 2: Install the Polkadot Omni Node
 
 ```bash
 # Install polkadot-omni-node
-cargo install --locked polkadot-omni-node@0.7.0
+cargo install --locked polkadot-omni-node@0.11.0
 
 # Verify installation
 polkadot-omni-node --version
@@ -546,7 +546,7 @@ The node handles pruning automatically based on configuration unless running in 
 
 ```bash
 # Pull latest image
-docker pull parity/polkadot-omni-node:stable2506-4
+docker pull parity/polkadot-omni-node:v1.20.2
 
 # Restart container
 docker stop people-chain-rpc

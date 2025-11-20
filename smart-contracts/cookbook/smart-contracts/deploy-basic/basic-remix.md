@@ -28,7 +28,7 @@ The interface will load with a default workspace containing sample contracts. In
 
 ## Compile the Contract
 
-Ensure your contract is open in the Remix IDE Editor, and use the following steps to compile:
+Ensure your contract is open in the Remix IDE editor, and use the following steps to compile:
 
 1. Select the **Solidity Compiler** plugin from the left panel.
 2. Select the **Compile Storage.sol** button.
@@ -60,7 +60,7 @@ Congratulations! You've now deployed a basic smart contract to Polkadot Hub Test
 
     ---
 
-    Walk through deploying a fully-functional ERC-20 to the Polkadot Hub using Remix.
+    Walk through deploying a fully-functional ERC-20 to Polkadot Hub using Remix.
 
     [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix/)
 
@@ -68,7 +68,7 @@ Congratulations! You've now deployed a basic smart contract to Polkadot Hub Test
 
     ---
 
-    Walk through deploying an NFT to the Polkadot Hub using Remix.
+    Walk through deploying an NFT to Polkadot Hub using Remix.
 
     [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix/)        
 

@@ -8,7 +8,7 @@ categories: Smart Contracts
 
 ## Introduction
 
-This guide demonstrates how to deploy a basic Solidity smart contract to Polkadot Hub using [Hardhat](https://hardhat.org/){target=\_blank}, which provides a comprehensive development environment with built-in testing, debugging, and deployment capabilities. It's ideal for professional development workflows and team projects.
+This guide demonstrates how to deploy a basic Solidity smart contract to Polkadot Hub TestNet using [Hardhat](https://hardhat.org/){target=\_blank}, which provides a comprehensive development environment with built-in testing, debugging, and deployment capabilities. It's ideal for professional development workflows and team projects.
 
 ## Prerequisites
 
@@ -31,14 +31,14 @@ npx hardhat --init
 
 ## Configure Hardhat
 
-Open `hardhat.config.js` and add `polkadotHubTestnet` to the `networks` configuration as highlighted in the following example code:
+Open `hardhat.config.ts` and update to add `polkadotHubTestnet` to the `networks` configuration as highlighted in the following example code:
 
 ```typescript title='hardhat.config.ts' hl_lines='39-43'
---8<-- 'code/smart-contracts/cookbook/smart-contracts/deploy-basic-contract/basic-hardhat/hardhat.config.ts'
+--8<-- 'code/smart-contracts/cookbook/smart-contracts/deploy-basic/basic-hardhat/hardhat.config.ts'
 ```
 
 !!! tip
-    Learn how to use Hardhat's [Config Variables](https://hardhat.org/docs/learn-more/configuration-variables){target=\_blank} to handle your private keys securely.
+    Visit the Hardhat [Config Variables](https://hardhat.org/docs/learn-more/configuration-variables){target=\_blank} documentation to learn how to use Hardhat to handle your private keys securely.
 
 ## Create the Contract
 
@@ -50,7 +50,7 @@ Follow these steps to create your smart contract:
 
 3. Add the following code to create the `Storage.sol` smart contract:
     ```solidity title="Storage.sol"
-    --8<-- 'code/smart-contracts/cookbook/smart-contracts/deploy-basic-contract/basic-hardhat/Storage.sol'
+    --8<-- 'code/smart-contracts/cookbook/smart-contracts/deploy-basic/basic-hardhat/Storage.sol'
     ```
 
 ## Compile the Contract
@@ -63,11 +63,11 @@ npx hardhat compile
 
 You will see a message in the terminal confirming the contract was successfully compiled, similar to the following:
 
---8<-- 'code/smart-contracts/cookbook/smart-contracts/deploy-basic-contract/basic-hardhat/compile-output.html'
+--8<-- 'code/smart-contracts/cookbook/smart-contracts/deploy-basic/basic-hardhat/compile-output.html'
 
 ## Deploy the Contract
 
-Follow these steps to prepare for contract deployment:
+You are now ready to deploy the contract to your chosen network. This example demonstrates deployment to the Polkadot TestNet. Deploy the contract as follows:
 
 1. Delete the default file(s) inside the `ignition/modules` directory.
 
@@ -76,14 +76,18 @@ Follow these steps to prepare for contract deployment:
 3. Open `ignition/modules/Storage.ts` and add the following code to create your deployment module:
 
     ```typescript title="ignition/modules/Storage.ts"
-    --8<-- 'code/smart-contracts/cookbook/smart-contracts/deploy-basic-contract/basic-hardhat/storage.ts'
+    --8<-- 'code/smart-contracts/cookbook/smart-contracts/deploy-basic/basic-hardhat/storage.ts'
     ```
 
 4. Deploy your contract to Polkadot Hub TestNet using the following command:
 
-```bash
-npx hardhat ignition deploy ignition/modules/Storage.ts --network polkadotHubTestnet 
-```
+    ```bash
+    npx hardhat ignition deploy ignition/modules/Storage.ts --network polkadotHubTestnet 
+    ```
+
+5. Confirm the target deployment network name and chain ID when prompted:
+
+    --8<-- 'code/smart-contracts/cookbook/smart-contracts/deploy-basic/basic-hardhat/deploy-output.html'
 
 Congratulations! You've now deployed a basic smart contract to Polkadot Hub TestNet using Hardhat. Consider the following resources to build upon your progress.
 

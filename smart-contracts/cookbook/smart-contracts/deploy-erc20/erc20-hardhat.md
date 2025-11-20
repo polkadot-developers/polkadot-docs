@@ -12,14 +12,14 @@ tools: Hardhat
 
 [ERC-20](https://eips.ethereum.org/EIPS/eip-20){target=\_blank} tokens are fungible tokens commonly used for creating cryptocurrencies, governance tokens, and staking mechanisms. Polkadot Hub enables easy deployment of ERC-20 tokens via Ethereum-compatible smart contracts and tools.
 
-This tutorial covers deploying an ERC-20 contract on the Polkadot Hub TestNet using [Hardhat](https://hardhat.org/){target=\_blank}, an Ethereum development environment. The ERC-20 contract can be retrieved from OpenZeppelin's [GitHub repository]({{ dependencies.repositories.open_zeppelin_contracts.repository_url}}/tree/{{ dependencies.repositories.open_zeppelin_contracts.version}}/contracts/token/ERC20){target=\_blank} or their [Contract Wizard](https://wizard.openzeppelin.com/){target=\_blank}.
+This guide demonstrates how to deploy an ERC-20 contract on Polkadot Hub TestNet using [Hardhat](https://hardhat.org/){target=\_blank}, an Ethereum development environment. The ERC-20 contract can be retrieved from OpenZeppelin's [GitHub repository]({{ dependencies.repositories.open_zeppelin_contracts.repository_url}}/tree/{{ dependencies.repositories.open_zeppelin_contracts.version}}/contracts/token/ERC20){target=\_blank} or their [Contract Wizard](https://wizard.openzeppelin.com/){target=\_blank}.
 
 ## Prerequisites
 
 Before you begin, ensure you have the following:
 
 - A basic understanding of [Solidity](https://www.soliditylang.org/){target=\_blank} programming and [ERC-20](https://ethereum.org/developers/docs/standards/tokens/erc-20/){target=\_blank} fungible tokens.
-- Node.js v22.13.1 or later installed.
+- [Node.js](https://nodejs.org/en/download){target=\_blank} v22.13.1 or later installed.
 - Test tokens for gas fees, available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}. See [Get Test Tokens](/smart-contracts/faucet/#get-test-tokens){target=\_blank} for a guide to using the faucet.
 - A wallet with a private key for signing transactions.
 
@@ -42,7 +42,7 @@ To get started, take the following steps:
     npm i
     ```
     
-    This command will fetch all the necessary packages to help you deploy an ERC-20 with Hardhat to Polkadot.
+    This command will fetch all the necessary packages to help you use Hardhat to deploy an ERC-20 to Polkadot.
 
 ## Configure Hardhat
 
@@ -72,8 +72,6 @@ If everything compiles successfully, you will see output similar to the followin
 
 ## Test the Contract
 
-Using Hardhat's native features to test contracts against a local Hardhat development node is challenging due to some technical differences between the local node and Polkadot. This example tests contracts against a local Polkadot development node to account for these differences. 
-
 You can view the predefined test file at [`test/MyToken.test.ts`](https://github.com/polkadot-developers/revm-hardhat-examples/blob/master/erc20-hardhat/test/MyToken.test.ts){target=\_blank}. This example test includes verification of the following:
 
 - The token name and symbol exist (confirms deployment) and are correct.
@@ -83,7 +81,7 @@ You can view the predefined test file at [`test/MyToken.test.ts`](https://github
 - The total supply increases after a mint.
 - Successful mints to different test addresses with expected account balance and total supply changes.
 
-Run the test using the following command:
+Run the tests using the following command:
 
 ```bash
 npx hardhat test --network polkadotTestnet
@@ -91,7 +89,7 @@ npx hardhat test --network polkadotTestnet
 
 If tests are successful, you will see outputs similar to the following:
 
---8<-- 'code/smart-contracts/cookbook/smart-contracts/deploy-erc20-token/erc20-hardhat/testing-output.html'
+--8<-- 'code/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-hardhat/testing-output.html'
 
 ## Deploy the Contract
 
@@ -104,7 +102,7 @@ You are now ready to deploy the contract to your chosen network. This example de
 
 2. Confirm the target deployment network name and chain ID when prompted:
 
-    --8<-- 'code/smart-contracts/cookbook/smart-contracts/deploy-erc20-token/erc20-hardhat/deploy-output.html'
+    --8<-- 'code/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-hardhat/deploy-output.html'
 
 Congratulations! You've successfully deployed an ERC-20 token contract to Polkadot Hub TestNet using Hardhat. Consider the following resources to build upon your progress.
 

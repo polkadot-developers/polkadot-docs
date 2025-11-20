@@ -35,7 +35,7 @@ The interface will load with a default workspace containing sample contracts. In
     --8<-- 'code/smart-contracts/cookbook/smart-contracts/deploy-erc721-nft/nft-remix/MyNFT.sol'
     ```
 
-    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix/remix-01.webp)
+![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix/remix-01.webp)
 
 ## Compile the Contract
 

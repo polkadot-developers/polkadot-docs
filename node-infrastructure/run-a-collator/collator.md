@@ -41,16 +41,16 @@ Block-producing collators require robust hardware for reliable operation:
 - **CPU**: 4+ cores (8+ cores recommended for optimal performance)
 - **Memory**: 32 GB RAM minimum (64 GB recommended)
 - **Storage**:
-  - 500 GB+ NVMe SSD for parachain data
-  - Additional 200+ GB for relay chain pruned database
-  - Fast disk I/O is critical for block production performance
+    - 500 GB+ NVMe SSD for parachain data
+    - Additional 200+ GB for relay chain pruned database
+    - Fast disk I/O is critical for block production performance
 - **Network**:
-  - Public IP address (required)
-  - 100+ Mbps connection (stable connection critical)
-  - Open ports:
-    - 30333 (parachain P2P)
-    - 30334 (relay chain P2P)
-    - 9944 (WebSocket RPC - for management)
+    - Public IP address (required)
+    - 100+ Mbps connection (stable connection critical)
+    - Open ports:
+        - 30333 (parachain P2P)
+        - 30334 (relay chain P2P)
+        - 9944 (WebSocket RPC - for management)
 
 **Note**: Uptime is critical. Consider redundancy and monitoring to maintain block production reliability.
 
@@ -72,6 +72,7 @@ Required software:
 ### Account Requirements
 
 You'll need:
+
 - **Funded account**: For on-chain transactions and potential bonding
 - **Session keys**: For collator identification (generated after node setup)
 - **Node key**: For stable P2P peer ID (recommended)
@@ -129,6 +130,7 @@ docker run -it parity/subkey:latest generate --scheme sr25519
 ```
 
 Save the output containing:
+
 - Secret phrase (seed) - Keep this secure!
 - Public key (hex)
 - Account ID
@@ -169,6 +171,7 @@ chain-spec-builder create \
 ```
 
 **System Parachain Para IDs:**
+
 - Polkadot Hub: 1000
 - Bridge Hub: 1002
 - People Chain: 1004
@@ -235,6 +238,7 @@ WantedBy=multi-user.target
 ```
 
 **Configuration Notes**:
+
 - `--collator`: Enables block production mode
 - `--node-key-file`: Uses the generated node key for stable peer ID
 - `--name`: Your collator name (visible in telemetry)
@@ -266,22 +270,14 @@ sudo journalctl -u polkadot-collator -f
 Your collator must sync both the relay chain and parachain before producing blocks.
 
 Sync time depends on:
+
 - Network bandwidth
 - Disk I/O speed
 - Current chain size
 
 The relay chain uses warp sync for faster synchronization.
 
-Monitor sync progress:
-```bash
-# Check logs for sync status
-sudo journalctl -u polkadot-collator -f | grep "Syncing"
-
-# Wait for messages indicating full sync
-# Example: "Idle" or "Imported" messages for both chains
-```
-
-**Important**: Do not proceed with registration until both chains are fully synced.
+**Important**: Do not proceed with registration until both chains are fully synced. Monitor sync progress using the log viewing commands in the [Log Management](#log-management) section.
 
 ### Step 3: Generate Session Keys
 
@@ -308,16 +304,19 @@ curl -H "Content-Type: application/json" \
 System parachains use different collator selection mechanisms:
 
 **Invulnerables List**:
+
 - Fixed list of collators approved through governance
 - Most common for system parachains
 - Requires governance proposal and approval
 
 **On-chain Selection**:
+
 - Some parachains use pallet-collator-selection
 - May require bonding tokens
 - Automatic selection based on criteria
 
 **Fellowship Decisions**:
+
 - Technical Fellowship may manage some system parachain collators
 - Requires Fellowship membership or approval
 
@@ -360,8 +359,8 @@ Once approved (or if using on-chain selection), set your session keys:
 3. Select your account
 4. Choose `session.setKeys` extrinsic
 5. Enter:
-   - `keys`: Your session keys (from `author_rotateKeys`)
-   - `proof`: 0x00 (typically)
+    - `keys`: Your session keys (from `author_rotateKeys`)
+    - `proof`: 0x00 (typically)
 6. Submit and sign the transaction
 
 **Using CLI (alternative):**
@@ -382,6 +381,7 @@ Some parachains require bonding tokens:
 #### 5. Await Governance Approval
 
 If using invulnerables:
+
 - Wait for governance vote
 - Monitor forum and announcements
 - Once approved, you'll be added to the invulnerables list
@@ -389,16 +389,7 @@ If using invulnerables:
 
 ### Verify Collator Status
 
-Check if your collator is active:
-
-```bash
-# Monitor logs for block production
-sudo journalctl -u polkadot-collator -f | grep -i "imported"
-
-# Look for messages like:
-# "Prepared block for proposing"
-# "Imported #123"
-```
+Check if your collator is active by monitoring logs for block production messages like "Prepared block for proposing" and "Imported #123". See the [Log Management](#log-management) section for log viewing commands.
 
 ## Monitoring and Maintenance
 
@@ -411,14 +402,17 @@ sudo journalctl -u polkadot-collator | grep -i "prepared block"
 ```
 
 **Peer Connections**:
-- Maintain 30+ peers for good connectivity
+
+- Maintain a sufficient amount of peers for good connectivity
 - Check peer count in logs
 
 **Resource Usage**:
+
 - Monitor CPU, RAM, and disk I/O
 - Set up alerts for high usage
 
 **Sync Status**:
+
 - Ensure both chains stay synced
 - Alert on sync issues
 
@@ -435,6 +429,7 @@ scrape_configs:
 ```
 
 Key metrics to monitor:
+
 - `substrate_block_height`: Current block height
 - `substrate_finalized_height`: Finalized block height
 - `substrate_peers_count`: Peer connections
@@ -443,6 +438,7 @@ Key metrics to monitor:
 ### Setting Up Alerts
 
 Configure alerts for:
+
 - Service failures
 - Sync issues
 - Low peer count (< 10 peers)
@@ -479,16 +475,18 @@ The node handles pruning automatically.
 ### Updates and Upgrades
 
 **Runtime Upgrades**:
+
 - Automatic via on-chain governance
 - No manual action required
 - Monitor announcements for breaking changes
 
 **Client Upgrades**:
+
 - Require manual binary update
 - Subscribe to announcements:
-  - Polkadot Forum
-  - Fellowship GitHub
-  - Matrix channels
+    - Polkadot Forum
+    - Fellowship GitHub
+    - Matrix channels
 
 **Upgrade Procedure**:
 
@@ -508,42 +506,11 @@ polkadot-omni-node --version
 # Restart service
 sudo systemctl start polkadot-collator
 
-# Monitor logs
-sudo journalctl -u polkadot-collator -f
+# Verify service is running
+sudo systemctl status polkadot-collator
 ```
 
-## Security Best Practices
-
-### Key Management
-
-- **Secure storage**: Store session keys and account keys securely
-- **Never share**: Never share private keys or secret phrases
-- **Hardware wallets**: Consider HSM for production
-- **Backup**: Keep encrypted backups of keys
-- **Rotation**: Plan for key rotation procedures
-
-### Network Security
-
-- **Firewall**: Restrict access to necessary ports only
-- **SSH**: Use SSH keys, disable password auth
-- **VPN**: Consider VPN for administrative access
-- **DDoS protection**: Implement if running in cloud
-
-### System Security
-
-- **Updates**: Keep OS and software updated
-- **Dedicated user**: Never run as root
-- **Fail2ban**: Enable for SSH protection
-- **Audits**: Regular security audits
-- **Minimal services**: Disable unnecessary services
-
-### Operational Security
-
-- **Monitoring**: 24/7 monitoring with alerts
-- **Backups**: Regular configuration backups
-- **Documentation**: Document procedures
-- **Incident response**: Have incident response plan
-- **Redundancy**: Consider backup collator (standby)
+**Note**: For log monitoring, see the [Log Management](#log-management) section.
 
 ## Conclusion
 

@@ -42,20 +42,20 @@ RPC nodes serving production traffic require robust hardware:
 - **CPU**: 8+ cores (16+ cores for high traffic)
 - **Memory**: 64 GB RAM minimum (128 GB recommended for high traffic)
 - **Storage**:
-  - 500 GB+ NVMe SSD for parachain state (archive nodes require 2-4 TB+)
-  - Additional 200+ GB for relay chain pruned database
-  - Fast disk I/O is critical for query performance
+    - 500 GB+ NVMe SSD for parachain state (archive nodes require 2-4 TB+)
+    - Additional 200+ GB for relay chain pruned database
+    - Fast disk I/O is critical for query performance
 - **Network**:
-  - Public IP address
-  - 1 Gbps connection (for high traffic scenarios)
-  - Stable internet connection with sufficient bandwidth
-  - Open ports:
-    - 30333 (parachain P2P)
-    - 30334 (relay chain P2P)
-    - 9944 (Polkadot SDK WebSocket RPC)
-    - 9933 (Polkadot SDK HTTP RPC)
-    - 9615 (Prometheus metrics - optional)
-  - Consider DDoS protection and rate limiting for production deployments
+    - Public IP address
+    - 1 Gbps connection (for high traffic scenarios)
+    - Stable internet connection with sufficient bandwidth
+    - Open ports:
+        - 30333 (parachain P2P)
+        - 30334 (relay chain P2P)
+        - 9944 (Polkadot SDK WebSocket RPC)
+        - 9933 (Polkadot SDK HTTP RPC)
+        - 9615 (Prometheus metrics - optional)
+    - Consider DDoS protection and rate limiting for production deployments
 
 **Note**: For development or low-traffic scenarios, you can reduce these requirements proportionally. Consider using a reverse proxy (nginx, Caddy) for production deployments.
 
@@ -128,6 +128,7 @@ rm files.txt
 ```
 
 **Parameter Explanation**:
+
 - `--transfers 20`: Uses 20 parallel transfers for faster download
 - `--retries 6`: Automatically retries failed transfers up to 6 times
 - `--retries-sleep 10s`: Waits 10 seconds between retry attempts
@@ -155,6 +156,7 @@ rm files.txt
 ```
 
 **Alternative Options**:
+
 - Pruned snapshot: `polkadot-rocksdb-prune` (smaller size, recent state)
 - Archive snapshot: `polkadot-rocksdb-archive` (complete history, larger size)
 
@@ -196,12 +198,14 @@ docker run -d --name people-chain-rpc --restart unless-stopped \
 **Critical Configuration Parameters**:
 
 **Port Mappings**:
+
 - `9944`: Polkadot SDK RPC endpoint (WebSocket/HTTP)
 - `9933`: Polkadot SDK HTTP RPC endpoint
 - `9615`: Prometheus metrics endpoint
 - `30333/30334`: P2P networking ports
 
 **Node Parameters**:
+
 - `--unsafe-rpc-external`: Enables external RPC access
 - `--rpc-cors=all`: Allows all origins for CORS
 - `--rpc-methods=safe`: Only allows safe RPC methods
@@ -237,18 +241,9 @@ curl -H "Content-Type: application/json" \
 ```
 
 **Synchronization Status**:
+
 - **In Progress**: `currentBlock` < `highestBlock`
 - **Complete**: `currentBlock` = `highestBlock`
-
-**Monitor logs**:
-
-```bash
-# View node logs
-docker logs -f people-chain-rpc
-
-# Filter for sync messages
-docker logs people-chain-rpc 2>&1 | grep -i "syncing"
-```
 
 ### Step 5: Verify Setup
 
@@ -257,6 +252,7 @@ Let's verify the Polkadot SDK RPC endpoint is working correctly.
 #### API Endpoint
 
 **Polkadot SDK RPC (Port 9944)**:
+
 - WebSocket: `ws://your-server:9944`
 - HTTP: `http://your-server:9944`
 - Purpose: Full Polkadot SDK API access for parachain data
@@ -331,18 +327,7 @@ docker start people-chain-rpc
 docker rm people-chain-rpc
 ```
 
-**Update container**:
-
-```bash
-# Pull latest image
-docker pull parity/polkadot-omni-node:v1.20.2
-
-# Stop and remove old container
-docker stop people-chain-rpc
-docker rm people-chain-rpc
-
-# Start new container with same command as above
-```
+**Note**: For update procedures, see the [Updates and Upgrades](#updates-and-upgrades) section.
 
 ---
 
@@ -498,6 +483,7 @@ sudo journalctl -u people-chain-rpc | grep -i error
 ### Performance Monitoring
 
 Monitor key metrics:
+
 - **Sync status**: Ensure node stays fully synced
 - **Peer connections**: Maintain 30+ peers for good connectivity
 - **Resource usage**: Monitor CPU, RAM, and disk I/O
@@ -518,6 +504,7 @@ scrape_configs:
 ```
 
 **Key Metrics to Monitor**:
+
 - `substrate_block_height`: Current block height
 - `substrate_finalized_height`: Finalized block height
 - `substrate_peers_count`: Number of connected peers
@@ -567,75 +554,6 @@ cargo install --locked --force polkadot-omni-node@<NEW_VERSION>
 # Restart service
 sudo systemctl start people-chain-rpc
 ```
-
-## Security Best Practices
-
-### Network Security
-
-1. **Firewall Configuration**:
-   - Only expose necessary ports
-   - Use UFW or iptables to restrict access
-   - Consider IP whitelisting for RPC endpoints
-
-2. **Reverse Proxy** (Recommended for Production):
-   - Use nginx or Caddy as reverse proxy
-   - Enable SSL/TLS (HTTPS/WSS)
-   - Implement authentication
-   - Add rate limiting
-
-Example nginx configuration:
-
-```nginx
-upstream polkadot_sdk_rpc {
-    server 127.0.0.1:9944;
-}
-
-server {
-    listen 443 ssl http2;
-    server_name your-domain.com;
-
-    ssl_certificate /path/to/cert.pem;
-    ssl_certificate_key /path/to/key.pem;
-
-    # Polkadot SDK RPC
-    location /polkadot {
-        proxy_pass http://polkadot_sdk_rpc;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection "upgrade";
-
-        # Rate limiting
-        limit_req zone=rpc_limit burst=10;
-    }
-}
-```
-
-### RPC Security
-
-- **Always use `--rpc-methods=safe`**: Prevents dangerous RPC calls
-- **Restrict CORS**: Use specific domains instead of `all` in production
-- **Set connection limits**: Prevent resource exhaustion
-- **Monitor for abuse**: Track unusual patterns
-- **Authentication**: Implement API keys or OAuth for production
-
-### System Security
-
-- Keep operating system updated
-- Use dedicated user accounts (never root)
-- Enable fail2ban for SSH protection
-- Regular security audits
-- Disable unnecessary services
-- Use AppArmor or SELinux for additional isolation
-
-### Monitoring and Alerting
-
-Set up alerts for:
-- Service failures
-- Sync issues
-- Low peer count (< 10 peers)
-- High resource usage
-- Unusual RPC traffic patterns
-- Database errors
 
 ## Conclusion
 

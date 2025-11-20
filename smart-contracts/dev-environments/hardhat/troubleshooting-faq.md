@@ -524,35 +524,3 @@ This guide provides solutions to common issues you may encounter when using Hard
     const { vars } = require('hardhat/config');
     const value = vars.get('VARIABLE_NAME');
     ```
-
-## Concerns about private key security
-
-- **Never commit private keys**:
-    - Add `.env` to `.gitignore` if using `dotenv`.
-    - Hardhat vars are stored locally and not in git.
-
-- **Use test accounts for development**:
-    - Use the pre-funded accounts from `npx hardhat node`.
-    - Never use private keys with real funds for testing.
-
-- **Verify `.gitignore` includes**:
-    ```
-    node_modules
-    .env
-    coverage
-    cache
-    artifacts
-    ignition/deployments/
-    ```
-
-## Where to Go Next
-
--   <span class="badge external">External</span> __Hardhat Documentation__
-
-    ---
-
-    Explore official Hardhat documentation for advanced troubleshooting.
-
-    [:octicons-arrow-right-24: Visit Docs](https://hardhat.org/docs){target=\_blank}
-
-</div>

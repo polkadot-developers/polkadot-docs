@@ -217,10 +217,14 @@ node scripts/updateStorage.js
 
 ## Where to Go Next
 
-Now that you have the foundational knowledge to use Web3.js with Polkadot Hub, you can:
+<div class="grid cards" markdown>
 
-- **Dive into Web3.js utilities**: Discover additional Web3.js features, such as wallet management, signing messages, subscribing to events, etc.
+-   <span class="badge external">External</span> __Web3.js Docs__
 
-- **Implement batch transactions**: Use Web3.js to execute batch transactions for efficient multi-step contract interactions.
+    ---
 
-- **Build scalable applications**: Combine Web3.js with frameworks like [`Next.js`](https://nextjs.org/docs){target=\_blank} or [`Node.js`](https://nodejs.org/en){target=\_blank} to create full-stack decentralized applications (dApps).
+    Explore the Web3.js documentation to learn how to use additional features, such as wallet management, signing messages, subscribing to events, etc.
+
+    [:octicons-arrow-right-24: Get Started](https://web3js.readthedocs.io/en/v1.10.0/)
+
+</div>

@@ -3709,7 +3709,7 @@ Before getting started, ensure you have the following installed:
 
 This project organizes contracts, scripts, and compiled artifacts for easy development and deployment.
 
-```text title="Web3.js Polkadot Hub"
+```text
 web3js-project
 ├── contracts
 │   ├── Storage.sol
@@ -3761,7 +3761,7 @@ npm install --save-dev solc
 
 The provider configuration is the foundation of any Web3.js application. It serves as a bridge between your application and the blockchain, allowing you to query blockchain data and interact with smart contracts.
 
-To interact with Polkadot Hub, you must set up a Web3.js provider. This provider connects to a blockchain node, allowing you to query blockchain data and interact with smart contracts. In the root of your project, create a file named `connectToProvider.js` and add the following code:
+To interact with Polkadot Hub, you must set up a Web3.js provider. This provider connects to a blockchain node, allowing you to query blockchain data and interact with smart contracts. In the `scripts` directory of your project, create a file named `connectToProvider.js` and add the following code:
 
 ```js title="scripts/connectToProvider.js"
 const { Web3 } = require('web3');
@@ -3786,9 +3786,9 @@ createProvider(PROVIDER_RPC.rpc);
 
     ```js
     const PROVIDER_RPC = {
-        rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
-        chainId: 420420422,
-        name: 'polkadot-hub-testnet'
+      rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
+      chainId: 420420422,
+      name: 'polkadot-hub-testnet'
     };
     ```
 
@@ -3798,9 +3798,9 @@ To connect to the provider, execute:
 node scripts/connectToProvider.js
 ```
 
-With the provider set up, you can start querying the blockchain. For instance, to fetch the latest block number:
+With the provider set up, you can start querying the blockchain. For instance, to fetch the latest block number.
 
-??? code "Fetch Last Block code"
+??? code "Fetch last block example"
 
     ```js title="scripts/fetchLastBlock.js"
     const { Web3 } = require('web3');
@@ -3964,7 +3964,7 @@ After executing the script, the Solidity contract is compiled into standard EVM 
 
 To deploy your compiled contract to Polkadot Hub, you'll need a wallet with a private key to sign the deployment transaction.
 
-You can create a `deploy.js` script in the root of your project to achieve this. The deployment script can be divided into key components:
+You can create a `deploy.js` script in the `scripts` directory of your project to achieve this. The deployment script can be divided into key components:
 
 1. Set up the required imports and utilities:
 
@@ -4204,7 +4204,7 @@ After running this script, your contract will be deployed to Polkadot Hub, and i
 
 ## Interact with the Contract
 
-Once the contract is deployed, you can interact with it by calling its functions. For example, to set a number, read it and then modify that number by its double, you can create a file named `updateStorage.js` in the root of your project and add the following code:
+Once the contract is deployed, you can interact with it by calling its functions. For example, to set a number, read it and then modify that number by its double, you can create a file named `updateStorage.js` in the `scripts` directory of your project and add the following code:
 
 ```js title="scripts/updateStorage.js"
 const { readFileSync } = require('fs');
@@ -4284,13 +4284,17 @@ node scripts/updateStorage.js
 
 ## Where to Go Next
 
-Now that you have the foundational knowledge to use Web3.js with Polkadot Hub, you can:
+<div class="grid cards" markdown>
 
-- **Dive into Web3.js utilities**: Discover additional Web3.js features, such as wallet management, signing messages, subscribing to events, etc.
+-   <span class="badge external">External</span> __Web3.js Docs__
 
-- **Implement batch transactions**: Use Web3.js to execute batch transactions for efficient multi-step contract interactions.
+    ---
 
-- **Build scalable applications**: Combine Web3.js with frameworks like [`Next.js`](https://nextjs.org/docs){target=\_blank} or [`Node.js`](https://nodejs.org/en){target=\_blank} to create full-stack decentralized applications (dApps).
+    Explore the Web3.js documentation to learn how to use additional features, such as wallet management, signing messages, subscribing to events, etc.
+
+    [:octicons-arrow-right-24: Get Started](https://web3js.readthedocs.io/en/v1.10.0/)
+
+</div>
 
 
 ---

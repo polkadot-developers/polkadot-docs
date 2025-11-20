@@ -42,7 +42,7 @@
                 "terms-of-use.md",
                 "privacy-policy.md"
             ],
-            "skip_paths": [".snippets", ".github", ".ai", ".venv", "venv"]
+            "skip_paths": [".snippets", ".github", ".ai", ".venv", "venv", ".reference", ".chain-interactions"]
         }
     },
 

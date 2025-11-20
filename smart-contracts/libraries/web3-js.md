@@ -27,7 +27,7 @@ Before getting started, ensure you have the following installed:
 
 This project organizes contracts, scripts, and compiled artifacts for easy development and deployment.
 
-```text title="Web3.js Polkadot Hub"
+```text
 web3js-project
 ├── contracts
 │   ├── Storage.sol

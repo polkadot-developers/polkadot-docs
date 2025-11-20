@@ -250,7 +250,7 @@ Follow these steps to build a chainspec from the runtime:
   WantedBy=multi-user.target
   ```
 
-??? tip
+??? note "Configuration notes"
 
     - `--collator`: Enables block production mode
     - `--node-key-file`: Uses the generated node key for stable peer ID

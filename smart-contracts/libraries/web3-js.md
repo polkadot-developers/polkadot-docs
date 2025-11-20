@@ -102,7 +102,7 @@ To connect to the provider, execute:
 node scripts/connectToProvider.js
 ```
 
-With the provider set up, you can start querying the blockchain. For instance, to fetch the latest block number:
+With the provider set up, you can start querying the blockchain. For instance, to fetch the latest block number.
 
 ??? code "Fetch last block example"
 

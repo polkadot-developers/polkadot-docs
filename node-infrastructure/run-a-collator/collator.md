@@ -8,35 +8,35 @@ categories: Infrastructure
 
 ## Overview
 
-Block-producing collators are the backbone of system parachain operations. Unlike RPC nodes or archive nodes that simply maintain state, collators actively produce blocks and submit them to relay chain validators for inclusion.
+Block-producing collators are the backbone of system parachain operations. Unlike RPC or archive nodes, which maintain state, collators actively produce blocks and submit them to relay chain validators for inclusion.
 
-This guide covers setting up a **block-producing collator** for Polkadot system parachains. Running a collator requires:
+This guide covers setting up a block-producing collator for Polkadot system parachains. Running a collator requires:
 
 - Meeting hardware requirements for reliable block production
 - Setting up and registering session keys
 - Obtaining governance approval or meeting selection criteria
 - Maintaining high uptime and performance
 
-**Important**: System parachain collators typically require governance approval or being added to the invulnerables list. This is different from non-system parachains where collator selection may be more permissionless.
+System parachain collators typically require governance approval or being added to the invulnerables list. This is different from non-system parachains where collator selection may be more permissionless.
 
 ## Collator Responsibilities
 
 Block-producing collators perform critical functions:
 
-- **Maintain full nodes**: Both relay chain and parachain
-- **Collect transactions**: Aggregate user transactions into blocks
-- **Produce blocks**: Create parachain block candidates
-- **Generate proofs**: Produce state transition proofs (Proof-of-Validity)
-- **Submit to validators**: Send block candidates to relay chain validators
-- **Facilitate XCM**: Enable cross-chain message passing
+- Maintain full nodes for relay chain and parachain.
+- Aggregate user transactions into blocks.
+- Create parachain block candidates.
+- Produce state transition proofs (Proof-of-Validity).
+- Send block candidates to relay chain validators.
+- Enable cross-chain message passing using XCM
 
-Unlike relay chain validators, collators do not provide security guarantees—that responsibility lies with relay chain validators through the ELVES protocol. However, collators are essential for network liveness and censorship resistance.
+Unlike relay chain validators, collators do not provide security guarantees—that responsibility lies with relay chain validators through the ELVES protocol. Rather, collators are essential for network liveness and censorship resistance.
 
 ## Prerequisites
 
 ### Hardware Requirements
 
-Block-producing collators require robust hardware for reliable operation:
+Block-producing collators require robust hardware for reliable operation including the following:
 
 - **CPU**: 4+ cores (8+ cores recommended for optimal performance)
 - **Memory**: 32 GB RAM minimum (64 GB recommended)
@@ -52,13 +52,13 @@ Block-producing collators require robust hardware for reliable operation:
         - 30334 (relay chain P2P)
         - 9944 (WebSocket RPC - for management)
 
-**Note**: Uptime is critical. Consider redundancy and monitoring to maintain block production reliability.
+Uptime is critical. Consider redundancy and monitoring to maintain block production reliability.
 
 ### Software Requirements
 
 Collators use the **Polkadot Omni Node**, a universal binary that runs any parachain using a chain specification file.
 
-Required software:
+Required software includes the following:
 
 - **Operating System**: Ubuntu 22.04 LTS (recommended) or similar Linux distribution
 - **Docker**: For running subkey utility
@@ -71,182 +71,195 @@ Required software:
 
 ### Account Requirements
 
-You'll need:
+Your account must meet the following requirements:
 
 - **Funded account**: For on-chain transactions and potential bonding
 - **Session keys**: For collator identification (generated after node setup)
 - **Node key**: For stable P2P peer ID (recommended)
 
-## Installation
+## Install Dependencies
 
-### Step 1: Install Rust and Required Toolchain
+1. Install Rust using the following commands:
+  ```bash
+  # Install Rust
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+  source $HOME/.cargo/env
 
-```bash
-# Install Rust
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-source $HOME/.cargo/env
+  # Install specific Rust version
+  rustup install 1.91.1
+  rustup default 1.91.1
+  rustup target add wasm32-unknown-unknown --toolchain 1.91.1
+  rustup component add rust-src --toolchain 1.91.1
+  ```
 
-# Install specific Rust version
-rustup install 1.91.1
-rustup default 1.91.1
-rustup target add wasm32-unknown-unknown --toolchain 1.91.1
-rustup component add rust-src --toolchain 1.91.1
-```
+2. Install the Polkadot Omni Node using the following command:
+  ```bash
+  cargo install --locked polkadot-omni-node@0.11.0
+  ```
 
-### Step 2: Install the Polkadot Omni Node
+3. Verify a successful installation using the `--version` flag:
+  ```bash
+  polkadot-omni-node --version
+  ```
 
-```bash
-# Install polkadot-omni-node
-cargo install --locked polkadot-omni-node@0.11.0
+## Generate Node Key
 
-# Verify installation
-polkadot-omni-node --version
-```
+Generating a stable node key enables a consistent peer ID across the network. Follow these steps to generate a node key:
 
-### Step 3: Generate Node Key
+1. Create a directory for node data using the following command:
+  ```bash
+  sudo mkdir -p /var/lib/polkadot-collator
+  ```
 
-Generate a stable node key for consistent peer ID:
+2. Generate your node key using Docker with the following command:
+  ```bash
+  docker run -it parity/subkey:latest generate-node-key > /var/lib/polkadot-collator/node.key
+  ```
 
-```bash
-# Create directory for node data
-sudo mkdir -p /var/lib/polkadot-collator
+3. Locate your peer ID in the displayed output. It will be similar to the following example:
+  ```bash
+  12D3KooWExcVYu7Mvjd4kxPVLwN2ZPnZ5NyLZ5ft477wqzfP2q6E
+  ```
 
-# Generate node key using Docker
-docker run -it parity/subkey:latest generate-node-key > /var/lib/polkadot-collator/node.key
+Be sure to save the peer ID for future reference.
 
-# The output displays your peer ID
-# Example: 12D3KooWExcVYu7Mvjd4kxPVLwN2ZPnZ5NyLZ5ft477wqzfP2q6E
-```
+## Generate Account Key
 
-Save the peer ID for future reference.
+Generate an account for on-chain transactions as follows:
 
-### Step 4: Generate Account Key
+1. Generate an account key with `sr25519` scheme using the following command:
+  ```bash
+  docker run -it parity/subkey:latest generate --scheme sr25519
+  ```
 
-Generate an account for on-chain transactions:
+2. Save the following items displayed in the output:
+  - Secret phrase (seed) - Keep this secure!
+  - Public key (hex)
+  - Account ID
+  - SS58 Address
 
-```bash
-# Generate account key with sr25519 scheme
-docker run -it parity/subkey:latest generate --scheme sr25519
-```
+  !!! warning
+      Store the secret phrase securely. Never share it. Consider using a hardware wallet for production collators.
 
-Save the output containing:
+## Obtain Chain Specification
 
-- Secret phrase (seed) - Keep this secure!
-- Public key (hex)
-- Account ID
-- SS58 Address
+Download the chain specification for your target system parachain using one of the following options:
 
-**Security**: Store the secret phrase securely. Never share it. Consider using a hardware wallet for production collators.
+### Download from Chainspec Collection (Recommended)
 
-### Step 5: Obtain Chain Specification
-
-Download the chain specification for your target system parachain:
-
-**Option 1: Download from Chainspec Collection (Recommended)**
+Follow these steps to download your specification from the Chainspec Collection:
 
 1. Visit the [Chainspec Collection website](https://paritytech.github.io/chainspecs/)
 2. Find your target system parachain
 3. Download the chain specification JSON file
 4. Save it as `chain-spec.json`
 
-**Option 2: Build from Runtime**
+### Build Chainspec from Runtime
 
-```bash
-# Clone the runtimes repository
-git clone https://github.com/polkadot-fellows/runtimes.git
-cd runtimes
+Follow these steps to build a chainspec from the runtime:
 
-# Build the desired runtime (example for Polkadot Hub)
-cargo build --release -p asset-hub-polkadot-runtime
+1. Clone the runtimes repository and navigate into it using the following commands:
+  ```bash
+  git clone https://github.com/polkadot-fellows/runtimes.git
+  cd runtimes
+  ```
 
-# Install chain-spec-builder
-cargo install --locked staging-chain-spec-builder@14.0.0
+2. Build the desired runtime. Use the following command for Polkadot Hub:
+  ```bash
+  cargo build --release -p asset-hub-polkadot-runtime
+  ```
 
-# Generate chain spec
-chain-spec-builder create \
-  --relay-chain polkadot \
-  --para-id 1000 \
-  --runtime target/release/wbuild/asset-hub-polkadot-runtime/asset_hub_polkadot_runtime.compact.compressed.wasm \
-  named-preset production > chain-spec.json
-```
+3. Install the `chain-spec-builder` dependency using the following command:
+  ```bash
+  cargo install --locked staging-chain-spec-builder@14.0.0
+  ```
 
-**System Parachain Para IDs:**
+4. Finally, generate the chain spec using the following commands:
+  ```bash
+  chain-spec-builder create \
+    --relay-chain polkadot \
+    --para-id 1000 \
+    --runtime target/release/wbuild/asset-hub-polkadot-runtime/asset_hub_polkadot_runtime.compact.compressed.wasm \
+    named-preset production > chain-spec.json
+  ```
 
-- Polkadot Hub: 1000
-- Bridge Hub: 1002
-- People Chain: 1004
-- Coretime Chain: 1005
+??? tip "System Parachain Para IDs"
 
-### Step 6: Create User and Directory Structure
+    - Polkadot Hub: 1000
+    - Bridge Hub: 1002
+    - People Chain: 1004
+    - Coretime Chain: 1005
 
-```bash
-# Create dedicated user
-sudo useradd -r -s /bin/bash polkadot
+## Create User and Directory Structure
 
-# Copy chain spec to directory
-sudo cp chain-spec.json /var/lib/polkadot-collator/
+1. Create a dedicated user with the following command:
+  ```bash
+  sudo useradd -r -s /bin/bash polkadot
+  ```
 
-# Set permissions
-sudo chown -R polkadot:polkadot /var/lib/polkadot-collator
-```
+2. Use the following command to copy your chain spec to the directory:
+  ```bash
+  sudo cp chain-spec.json /var/lib/polkadot-collator/
+  ```
 
-## Configuration
+3. Set permissions using the following command:
+  ```bash
+  sudo chown -R polkadot:polkadot /var/lib/polkadot-collator
+  ```
 
-### Create Systemd Service File
+## Create Systemd Service File
 
-Create a service file for your collator:
+1. Create a service file to hold the configuration for your collator:
+  ```bash
+  sudo nano /etc/systemd/system/polkadot-collator.service
+  ```
 
-```bash
-sudo nano /etc/systemd/system/polkadot-collator.service
-```
+2. Open the new file and add the following configuration code:
+  ```ini title="systemd/system/polkadot-collator.service"
+  [Unit]
+  Description=Polkadot System Parachain Collator
+  After=network.target
 
-Add the following configuration:
+  [Service]
+  Type=simple
+  User=polkadot
+  Group=polkadot
+  WorkingDirectory=/var/lib/polkadot-collator
 
-```ini
-[Unit]
-Description=Polkadot System Parachain Collator
-After=network.target
+  # Block-Producing Collator Configuration
+  ExecStart=/usr/local/bin/polkadot-omni-node \
+    --collator \
+    --chain=/var/lib/polkadot-collator/chain-spec.json \
+    --base-path=/var/lib/polkadot-collator \
+    --port=30333 \
+    --rpc-port=9944 \
+    --prometheus-port=9615 \
+    --node-key-file=/var/lib/polkadot-collator/node.key \
+    --name="YourCollatorName" \
+    -- \
+    --execution=wasm \
+    --chain=polkadot \
+    --port=30334 \
+    --sync=warp
 
-[Service]
-Type=simple
-User=polkadot
-Group=polkadot
-WorkingDirectory=/var/lib/polkadot-collator
+  Restart=always
+  RestartSec=10
+  LimitNOFILE=65536
 
-# Block-Producing Collator Configuration
-ExecStart=/usr/local/bin/polkadot-omni-node \
-  --collator \
-  --chain=/var/lib/polkadot-collator/chain-spec.json \
-  --base-path=/var/lib/polkadot-collator \
-  --port=30333 \
-  --rpc-port=9944 \
-  --prometheus-port=9615 \
-  --node-key-file=/var/lib/polkadot-collator/node.key \
-  --name="YourCollatorName" \
-  -- \
-  --execution=wasm \
-  --chain=polkadot \
-  --port=30334 \
-  --sync=warp
+  [Install]
+  WantedBy=multi-user.target
+  ```
 
-Restart=always
-RestartSec=10
-LimitNOFILE=65536
+??? tip
 
-[Install]
-WantedBy=multi-user.target
-```
-
-**Configuration Notes**:
-
-- `--collator`: Enables block production mode
-- `--node-key-file`: Uses the generated node key for stable peer ID
-- `--name`: Your collator name (visible in telemetry)
-- Relay chain uses `--sync=warp` for faster initial sync
+    - `--collator`: Enables block production mode
+    - `--node-key-file`: Uses the generated node key for stable peer ID
+    - `--name`: Your collator name (visible in telemetry)
+    - Relay chain uses `--sync=warp` for faster initial sync
 
 ## Running the Collator
 
-### Step 1: Start the Service
+### Start the Service
 
 ```bash
 # Reload systemd
@@ -265,7 +278,7 @@ sudo systemctl status polkadot-collator
 sudo journalctl -u polkadot-collator -f
 ```
 
-### Step 2: Initial Sync
+### Initial Sync
 
 Your collator must sync both the relay chain and parachain before producing blocks.
 
@@ -279,7 +292,7 @@ The relay chain uses warp sync for faster synchronization.
 
 **Important**: Do not proceed with registration until both chains are fully synced. Monitor sync progress using the log viewing commands in the [Log Management](#log-management) section.
 
-### Step 3: Generate Session Keys
+### Generate Session Keys
 
 Once your node is fully synced, generate session keys:
 

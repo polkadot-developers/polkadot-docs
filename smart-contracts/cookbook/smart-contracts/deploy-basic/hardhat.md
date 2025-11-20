@@ -137,14 +137,6 @@ npx hardhat ignition deploy ignition/modules/Storage.ts --network polkadotHubTes
 
 <div class="grid cards" markdown>
 
--   <span class="badge guide">Guide</span> __Verify Your Contract__
-
-    ---
-
-    Now that you've deployed a basic contract, learn how to verify it with Hardhat.
-
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/dev-environments/hardhat/verify-a-contract/)
-
 -   <span class="badge guide">Guide</span> __Deploy an ERC-20__
 
     ---

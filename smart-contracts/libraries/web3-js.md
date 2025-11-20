@@ -90,9 +90,9 @@ To interact with Polkadot Hub, you must set up a Web3.js provider. This provider
 
     ```js
     const PROVIDER_RPC = {
-        rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
-        chainId: 420420422,
-        name: 'polkadot-hub-testnet'
+      rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
+      chainId: 420420422,
+      name: 'polkadot-hub-testnet'
     };
     ```
 

@@ -72,9 +72,6 @@ Add the Solidity compiler so you can generate standard EVM bytecode:
 npm install --save-dev solc
 ```
 
-!!! tip
-    The sample scripts use ECMAScript modules. Add `"type": "module"` to your `package.json` (or rename the files to `.mjs`) so that `node` can run the `import` statements.
-
 ## Set Up the Web3 Provider
 
 The provider configuration is the foundation of any Web3.js application. It serves as a bridge between your application and the blockchain, allowing you to query blockchain data and interact with smart contracts.

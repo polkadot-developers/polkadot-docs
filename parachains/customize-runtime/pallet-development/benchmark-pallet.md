@@ -116,7 +116,7 @@ pub mod pallet {
 }
 ```
 
-The `()` implementation provides placeholder weights for development.
+The `WeightInfo for ()` implementation provides placeholder weights for development.
 
 ## Add WeightInfo to Config 
 

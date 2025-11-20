@@ -103,7 +103,7 @@ node scripts/connectToProvider.js
 
 With the provider set up, you can start querying the blockchain. For instance, to fetch the latest block number:
 
-??? code "Fetch Last Block code"
+??? code "fetchLastBlock.js code"
 
     ```js title="scripts/fetchLastBlock.js"
     --8<-- 'code/smart-contracts/libraries/ethers-js/fetchLastBlock.js'

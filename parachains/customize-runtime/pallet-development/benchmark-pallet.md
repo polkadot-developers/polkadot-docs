@@ -1,6 +1,6 @@
 ---
 title: Benchmark Your Pallet
-description: Learn how to benchmark your custom pallet extrinsics to generate accurate weight calculations for production use.
+description: Learn how to benchmark extrinsics in your custom pallet to generate precise weight calculations suitable for production use.
 categories: Parachains
 ---
 
@@ -286,7 +286,7 @@ The `impl_benchmark_test_suite!` macro generates unit tests for each benchmark. 
 
 ## Build the Runtime with Benchmarks
 
-Compile the runtime with benchmarking enabled to generate the WASM binary using the following command:
+Compile the runtime with benchmarking enabled to generate the Wasm binary using the following command:
 
 ```bash
 cargo build --release --features runtime-benchmarks
@@ -347,10 +347,10 @@ Benchmarks execute against the compiled WASM runtime rather than native code bec
         --output ./pallets/pallet-custom/src/weights.rs
     ```
     
-    - `--steps 50`: Number of different input values to test when using linear components (default: 50). More steps provide finer granularity for detecting complexity trends but increase benchmarking time.
-    - `--repeat 20`: Number of repetitions for each measurement (default: 20). More repetitions improve statistical accuracy by averaging out variance, reducing the impact of system noise, and providing more reliable weight estimates.
-    - `--heap-pages 4096`: WASM heap pages allocation. Affects available memory during execution.
-    - `--wasm-execution compiled`: WASM execution method. Use `compiled` for performance closest to production conditions.
+    - **`--steps 50`**: Number of different input values to test when using linear components (default: 50). More steps provide finer granularity for detecting complexity trends but increase benchmarking time.
+    - **`--repeat 20`**: Number of repetitions for each measurement (default: 20). More repetitions improve statistical accuracy by averaging out variance, reducing the impact of system noise, and providing more reliable weight estimates.
+    - **`--heap-pages 4096`**: WASM heap pages allocation. Affects available memory during execution.
+    - **`--wasm-execution compiled`**: WASM execution method. Use `compiled` for performance closest to production conditions.
 
 ## Use Generated Weights
 
@@ -459,8 +459,8 @@ Now that you've added the pallet to your runtime, you can follow these steps to 
     This build produces a production-ready WASM runtime at `target/release/wbuild/parachain-template-runtime/parachain_template_runtime.compact.compressed.wasm`.
 
     !!! note "Compare build types"
-        - `cargo build --release --features runtime-benchmarks` - Compiles with benchmarking host functions for measurement. Use this ONLY when running benchmarks with `frame-omni-bencher`.
-        - `cargo build --release` - Compiles production runtime without benchmarking features. Use this for running your chain in production.
+        - **`cargo build --release --features runtime-benchmarks`**: Compiles with benchmarking host functions for measurement. Use this ONLY when running benchmarks with `frame-omni-bencher`.
+        - **`cargo build --release`**: Compiles production runtime without benchmarking features. Use this for running your chain in production.
 
 2.  Generate a new chain specification file with the updated runtime using the following commands:
 

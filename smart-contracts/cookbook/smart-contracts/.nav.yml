@@ -1,4 +1,4 @@
 nav:
-- 'Deploy Basic Contract': deploy-basic
-- 'Deploy ERC-20 Token': deploy-erc20
-- 'Deploy ERC-721 NFT': deploy-nft
+- 'Deploy a Basic Contract': deploy-basic
+- 'Deploy an ERC-20 Token': deploy-erc20
+- 'Deploy an ERC-721 NFT': deploy-nft

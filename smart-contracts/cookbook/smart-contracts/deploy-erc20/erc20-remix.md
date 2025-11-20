@@ -6,7 +6,7 @@ categories: Basics, Smart Contracts
 tools: EVM Wallet, Remix
 ---
 
-# Deploy ERC-20 Using Remix IDE
+# Deploy an ERC-20 Using Remix IDE
 
 ## Introduction
 
@@ -18,7 +18,7 @@ This tutorial covers deploying an ERC-20 contract on the Polkadot Hub TestNet us
 
 Before you begin, ensure you have:
 
-- A basic understanding of [Solidity](https://www.soliditylang.org/){target=\_blank} programming and [ERC-20](https://ethereum.org/developers/docs/standards/tokens/erc-20/) fungible tokens.
+- A basic understanding of [Solidity](https://www.soliditylang.org/){target=\_blank} programming and [ERC-20](https://ethereum.org/developers/docs/standards/tokens/erc-20/){target=\_blank} fungible tokens.
 - An EVM-compatible [wallet](/smart-contracts/integrations/wallets){target=\_blank} connected to Polkadot Hub. This example utilizes [MetaMask](https://metamask.io/){target=\_blank}.
 - Test tokens for gas fees, available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}. See [Get Test Tokens](/smart-contracts/faucet/#get-test-tokens){target=\_blank} for a guide to using the faucet.
 
@@ -31,7 +31,7 @@ Follow the steps below to create the ERC-20 contract:
 
     ![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix/erc20-remix-1.webp)
 
-3. Now, paste the following ERC-20 contract code into `myToken.sol`:
+3. Now, paste the following ERC-20 contract code into `MyToken.sol`:
 
     ```solidity title="MyToken.sol"
     --8<-- 'https://raw.githubusercontent.com/polkadot-developers/revm-hardhat-examples/refs/heads/master/erc20-hardhat/contracts/MyToken.sol'
@@ -60,14 +60,14 @@ Follow these steps to deploy the contract using Remix:
 
 1. Select **Deploy & Run Transactions** from the left panel.
 2. Select the **Environment** dropdown and select **Injected Provider - MetaMask** (ensure your MetaMask wallet is connected to Polkadot Hub TestNet).
-3. Configure the contract parameters to enter the address that will own the deployed token contract.
+3. Configure the contract parameters by entering the address that will own the deployed token contract.
 4. Click the **Deploy** button to initiate the deployment.
 5. Approve the transaction in your MetaMask wallet.
 6. You will see the transaction details in the terminal when the deployment succeeds, including the contract address and deployment transaction hash.
 
     ![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix/erc20-remix-4.gif)
 
-## Interact With the Contract
+## Interact with the Contract
 
 Once deployed, you can interact with your contract through Remix. Find your contract under **Deployed/Unpinned Contracts**, and click it to expand the available methods. In this example, you'll mint some tokens to a given address using the following steps:
 

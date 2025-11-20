@@ -1,4 +1,3 @@
-title: Deploy an ERC-20
 nav:
 - 'Remix IDE': erc20-remix.md
 - 'Hardhat': erc20-hardhat.md

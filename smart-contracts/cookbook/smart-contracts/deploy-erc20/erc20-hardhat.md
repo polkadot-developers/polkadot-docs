@@ -1,12 +1,12 @@
 ---
-title: Deploy ERC-20 Using Hardhat
+title: Deploy an ERC-20 Using Hardhat
 description: Deploy an ERC-20 token on Polkadot Hub using PolkaVM. This guide covers contract creation, compilation, deployment, and interaction via Hardhat.
 tutorial_badge: Intermediate
 categories: Basics, Smart Contracts
 tools: Hardhat
 ---
 
-# Deploy ERC-20 Using Hardhat
+# Deploy an ERC-20 Using Hardhat
 
 ## Introduction
 
@@ -18,7 +18,7 @@ This tutorial covers deploying an ERC-20 contract on the Polkadot Hub TestNet us
 
 Before you begin, ensure you have the following:
 
-- A basic understanding of [Solidity](https://www.soliditylang.org/){target=\_blank} programming and [ERC-20](https://ethereum.org/developers/docs/standards/tokens/erc-20/) fungible tokens.
+- A basic understanding of [Solidity](https://www.soliditylang.org/){target=\_blank} programming and [ERC-20](https://ethereum.org/developers/docs/standards/tokens/erc-20/){target=\_blank} fungible tokens.
 - Node.js v22.13.1 or later installed.
 - Test tokens for gas fees, available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}. See [Get Test Tokens](/smart-contracts/faucet/#get-test-tokens){target=\_blank} for a guide to using the faucet.
 - A wallet with a private key for signing transactions.
@@ -46,7 +46,7 @@ To get started, take the following steps:
 
 ## Configure Hardhat
 
-If you started with the cloned Hardhat ERC-20 template, `hardhat.config.js` is already configured to deploy to the Polkadot TestNet as shown in the example below:
+If you started with the cloned Hardhat ERC-20 template, `hardhat.config.ts` is already configured to deploy to the Polkadot TestNet as shown in the example below:
 
 ```ts title="hardhat.config.ts" hl_lines="14-19"
 --8<-- "https://raw.githubusercontent.com/polkadot-developers/revm-hardhat-examples/refs/heads/master/erc20-hardhat/hardhat.config.ts::2"
@@ -72,7 +72,7 @@ If everything compiles successfully, you will see output similar to the followin
 
 ## Test the Contract
 
-Using Hardhat's native features to test contracts against the local Hardhat development node is challenging due to some technical differences between the local node and Polkadot. This example tests contracts against the Polkadot TestNet to account for these differences. 
+Using Hardhat's native features to test contracts against a local Hardhat development node is challenging due to some technical differences between the local node and Polkadot. This example tests contracts against a local Polkadot development node to account for these differences. 
 
 You can view the predefined test file at [`test/MyToken.test.ts`](https://github.com/polkadot-developers/revm-hardhat-examples/blob/master/erc20-hardhat/test/MyToken.test.ts){target=\_blank}. This example test includes verification of the following:
 

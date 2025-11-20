@@ -1,10 +1,10 @@
 ---
-title: Deploy Basic Contract with Hardhat
+title: Deploy a Basic Contract with Hardhat
 description: Learn how to deploy a basic smart contract to Polkadot Hub using Hardhat, ideal for professional workflows that require comprehensive testing and debugging.
 categories: Smart Contracts
 ---
 
-# Deploy Basic Contract with Hardhat
+# Deploy a Basic Contract with Hardhat
 
 ## Introduction
 
@@ -33,8 +33,8 @@ npx hardhat --init
 
 Open `hardhat.config.js` and add `polkadotHubTestnet` to the `networks` configuration as highlighted in the following example code:
 
-```javascript title='hardhat.config.js' hl_lines='39-43'
---8<-- 'code/smart-contracts/cookbook/smart-contracts/deploy-basic-contract/basic-hardhat/hardhat.config.js'
+```typescript title='hardhat.config.ts' hl_lines='39-43'
+--8<-- 'code/smart-contracts/cookbook/smart-contracts/deploy-basic-contract/basic-hardhat/hardhat.config.ts'
 ```
 
 !!! tip
@@ -65,7 +65,7 @@ You will see a message in the terminal confirming the contract was successfully 
 
 --8<-- 'code/smart-contracts/cookbook/smart-contracts/deploy-basic-contract/basic-hardhat/compile-output.html'
 
-## Set Up Deployment
+## Deploy the Contract
 
 Follow these steps to prepare for contract deployment:
 
@@ -79,9 +79,7 @@ Follow these steps to prepare for contract deployment:
     --8<-- 'code/smart-contracts/cookbook/smart-contracts/deploy-basic-contract/basic-hardhat/storage.ts'
     ```
 
-## Deploy the Contract
-
-Deploy your contract to Polkadot Hub TestNet using the following command:
+4. Deploy your contract to Polkadot Hub TestNet using the following command:
 
 ```bash
 npx hardhat ignition deploy ignition/modules/Storage.ts --network polkadotHubTestnet 
@@ -92,14 +90,6 @@ Congratulations! You've now deployed a basic smart contract to Polkadot Hub Test
 ## Where to Go Next
 
 <div class="grid cards" markdown>
-
--   <span class="badge guide">Guide</span> __Verify Your Contract__
-
-    ---
-
-    Now that you've deployed a basic contract, learn how to verify it with Hardhat.
-
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/dev-environments/hardhat/verify-a-contract/)
 
 -   <span class="badge guide">Guide</span> __Deploy an ERC-20__
 

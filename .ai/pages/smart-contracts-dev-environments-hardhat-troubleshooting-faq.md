@@ -28,7 +28,7 @@ This guide provides solutions to common issues you may encounter when using Hard
     npm cache clean --force
     ```
 
-- **Delete node_modules and package-lock.json**:
+- **Delete `node_modules` and `package-lock.json`**:
     ```bash
     rm -rf node_modules package-lock.json
     npm install
@@ -97,7 +97,7 @@ This guide provides solutions to common issues you may encounter when using Hard
     ```javascript
     module.exports = {
       solidity: {
-        version: "0.8.28",
+        version: '0.8.28',
         settings: {
           optimizer: {
             enabled: true,
@@ -113,8 +113,8 @@ This guide provides solutions to common issues you may encounter when using Hard
     module.exports = {
       solidity: {
         compilers: [
-          { version: "0.8.28" },
-          { version: "0.8.20" }
+          { version: '0.8.28' },
+          { version: '0.8.20' }
         ]
       }
     };
@@ -128,8 +128,8 @@ This guide provides solutions to common issues you may encounter when using Hard
 
 - **Check test framework imports**:
     ```javascript
-    const { expect } = require("chai");
-    const { ethers } = require("hardhat");
+    const { expect } = require('chai');
+    const { ethers } = require('hardhat');
     ```
 
 - **Ensure Hardhat Toolbox is installed**:
@@ -142,12 +142,12 @@ This guide provides solutions to common issues you may encounter when using Hard
     npx hardhat test --verbose
     ```
 
-## The `npx hardhat node` fails to start or becomes unresponsive
+## The Hardhat node fails to start or becomes unresponsive
 
 1. **Check if port 8545 is already in use**:
     - Kill any process using port 8545 as follows:
-        - On Linux/Mac: `lsof -ti:8545 | xargs kill -9`
-        - On Windows: `netstat -ano | findstr :8545`, then kill the process with the appropriate process ID.
+        - **Linux/Mac**: `lsof -ti:8545 | xargs kill -9`
+        - **Windows**: `netstat -ano | findstr :8545`, then kill the process with the appropriate process ID
 
 2. **Specify a different port**:
     ```bash
@@ -176,7 +176,7 @@ This guide provides solutions to common issues you may encounter when using Hard
 
 - **Review timing issues**:
     - Add appropriate waits between transactions.
-    - Use `await ethers.provider.send("evm_mine")` to mine blocks manually.
+    - Use `await ethers.provider.send('evm_mine')` to mine blocks manually.
 
 ## Hardhat cannot connect to the local development node
 
@@ -189,7 +189,7 @@ This guide provides solutions to common issues you may encounter when using Hard
     module.exports = {
       networks: {
         polkadotTestNet: {
-          url: "http://localhost:8545",
+          url: 'http://localhost:8545',
           chainId: 420420420,
           accounts: [PRIVATE_KEY]
         }
@@ -220,8 +220,8 @@ This guide provides solutions to common issues you may encounter when using Hard
 
 - **Check key format in config**:
     ```javascript
-    const { vars } = require("hardhat/config");
-    const PRIVATE_KEY = vars.get("PRIVATE_KEY");
+    const { vars } = require('hardhat/config');
+    const PRIVATE_KEY = vars.get('PRIVATE_KEY');
     
     module.exports = {
       networks: {
@@ -235,7 +235,7 @@ This guide provides solutions to common issues you may encounter when using Hard
 - **Alternative: Use mnemonic**:
     ```javascript
     accounts: {
-      mnemonic: "test test test test test test test test test test test junk"
+      mnemonic: 'test test test test test test test test test test test junk'
     }
     ```
 
@@ -247,13 +247,13 @@ This guide provides solutions to common issues you may encounter when using Hard
     ```
 
 - **Verify network in config**:
-    - Check that the network name matches what you're using in commands
-    - Ensure chainId matches the target network
+    - Check that the network name matches what you're using in commands.
+    - Ensure chainId matches the target network.
 
 - **Check default network**:
     ```javascript
     module.exports = {
-      defaultNetwork: "polkadotTestNet",
+      defaultNetwork: 'polkadotTestNet',
       networks: {
         // network configs
       }
@@ -278,11 +278,11 @@ This guide provides solutions to common issues you may encounter when using Hard
 
 - **Check ignition module syntax**:
     ```javascript
-    const { buildModule } = require("@nomicfoundation/hardhat-ignition/modules");
+    const { buildModule } = require('@nomicfoundation/hardhat-ignition/modules');
     
-    module.exports = buildModule("LockModule", (m) => {
-      const unlockTime = m.getParameter("unlockTime");
-      const lock = m.contract("Lock", [unlockTime]);
+    module.exports = buildModule('LockModule', (m) => {
+      const unlockTime = m.getParameter('unlockTime');
+      const lock = m.contract('Lock', [unlockTime]);
       return { lock };
     });
     ```
@@ -303,15 +303,15 @@ This guide provides solutions to common issues you may encounter when using Hard
 
 - **Check script imports**:
     ```javascript
-    const hre = require("hardhat");
+    const hre = require('hardhat');
     // or
-    const { ethers } = require("hardhat");
+    const { ethers } = require('hardhat');
     ```
 
 - **Verify contract factory**:
     ```javascript
-    const Contract = await ethers.getContractFactory("ContractName");
-    const contract = await Contract.deploy(/* constructor args */);
+    const Contract = await ethers.getContractFactory('INSERT_CONTRACT_NAME');
+    const contract = await Contract.deploy(INSERT_CONSTRUCTOR_ARGS);
     await contract.deployed();
     ```
 
@@ -320,7 +320,7 @@ This guide provides solutions to common issues you may encounter when using Hard
     try {
       // deployment code
     } catch (error) {
-      console.error("Deployment failed:", error);
+      console.error('Deployment failed: ', error);
       process.exit(1);
     }
     ```
@@ -361,7 +361,7 @@ This guide provides solutions to common issues you may encounter when using Hard
 
 - **Check contract ABI**:
     ```javascript
-    const Contract = await ethers.getContractFactory("ContractName");
+    const Contract = await ethers.getContractFactory('INSERT_CONTRACT_NAME');
     const contract = Contract.attach(contractAddress);
     ```
 
@@ -380,9 +380,9 @@ This guide provides solutions to common issues you may encounter when using Hard
     try {
       const tx = await contract.someFunction();
       const receipt = await tx.wait();
-      console.log("Transaction successful:", receipt);
+      console.log('Transaction successful: ', receipt);
     } catch (error) {
-      console.error("Transaction failed:", error.message);
+      console.error('Transaction failed: ', error.message);
     }
     ```
 
@@ -397,12 +397,12 @@ This guide provides solutions to common issues you may encounter when using Hard
     - Ensure parameter types match the function signature.
     - Check for the correct number of parameters.
 
-## `View` or `pure` functions don't return expected values
+## View or pure functions don't return expected values
 
 - **Use `call()` for read-only functions**:
     ```javascript
     const value = await contract.someViewFunction();
-    console.log("Returned value:", value);
+    console.log('Returned value: ', value);
     ```
 
 - **Check contract state**:
@@ -412,7 +412,7 @@ This guide provides solutions to common issues you may encounter when using Hard
 - **Handle `BigNumber` returns**:
     ```javascript
     const value = await contract.someFunction();
-    console.log("Value:", value.toString());
+    console.log('Value: ', value.toString());
     ```
 
 ## State-changing functions execute but don't update state
@@ -428,7 +428,7 @@ This guide provides solutions to common issues you may encounter when using Hard
     ```javascript
     const tx = await contract.someFunction();
     const receipt = await tx.wait();
-    console.log("Transaction status:", receipt.status);
+    console.log('Transaction status: ', receipt.status);
     ```
 
 - **Verify transaction success**:
@@ -449,7 +449,7 @@ This guide provides solutions to common issues you may encounter when using Hard
     ```javascript
     module.exports = {
       solidity: {
-        version: "0.8.28",
+        version: '0.8.28',
         settings: {
           optimizer: {
             enabled: true,
@@ -475,7 +475,7 @@ This guide provides solutions to common issues you may encounter when using Hard
 - **Check console imports**:
     ```javascript
     // In console
-    const Contract = await ethers.getContractFactory("ContractName");
+    const Contract = await ethers.getContractFactory('INSERT_CONTRACT_NAME');
     ```
 
 - **Verify network connection**:
@@ -511,7 +511,7 @@ This guide provides solutions to common issues you may encounter when using Hard
     npx hardhat vars get VARIABLE_NAME
     ```
 
-- **Alternative: Use dotenv**:
+- **Alternatively, use dotenv**:
     ```bash
     npm install dotenv
     ```
@@ -522,38 +522,6 @@ This guide provides solutions to common issues you may encounter when using Hard
 
 - **Check variable access in config**:
     ```javascript
-    const { vars } = require("hardhat/config");
-    const value = vars.get("VARIABLE_NAME");
+    const { vars } = require('hardhat/config');
+    const value = vars.get('VARIABLE_NAME');
     ```
-
-## Concerns about private key security
-
-- **Never commit private keys**:
-    - Add `.env` to `.gitignore` if using `dotenv`.
-    - Hardhat vars are stored locally and not in git.
-
-- **Use test accounts for development**:
-    - Use the pre-funded accounts from `npx hardhat node`.
-    - Never use private keys with real funds for testing.
-
-- **Verify `.gitignore` includes**:
-    ```
-    node_modules
-    .env
-    coverage
-    cache
-    artifacts
-    ignition/deployments/
-    ```
-
-## Where to Go Next
-
--   <span class="badge external">External</span> __Hardhat Documentation__
-
-    ---
-
-    Explore official Hardhat documentation for advanced troubleshooting.
-
-    [:octicons-arrow-right-24: Visit Docs](https://hardhat.org/docs){target=\_blank}
-
-</div>

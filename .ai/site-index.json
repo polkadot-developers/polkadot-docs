@@ -7455,8 +7455,8 @@
       },
       {
         "depth": 2,
-        "title": "The `npx hardhat node` fails to start or becomes unresponsive",
-        "anchor": "the-npx-hardhat-node-fails-to-start-or-becomes-unresponsive"
+        "title": "The Hardhat node fails to start or becomes unresponsive",
+        "anchor": "the-hardhat-node-fails-to-start-or-becomes-unresponsive"
       },
       {
         "depth": 2,
@@ -7510,7 +7510,7 @@
       },
       {
         "depth": 2,
-        "title": "`View` or `pure` functions don't return expected values",
+        "title": "View or pure functions don't return expected values",
         "anchor": "view-or-pure-functions-dont-return-expected-values"
       },
       {
@@ -7537,242 +7537,15 @@
         "depth": 2,
         "title": "Scripts cannot read environment variables",
         "anchor": "scripts-cannot-read-environment-variables"
-      },
-      {
-        "depth": 2,
-        "title": "Concerns about private key security",
-        "anchor": "concerns-about-private-key-security"
-      },
-      {
-        "depth": 2,
-        "title": "Where to Go Next",
-        "anchor": "where-to-go-next"
       }
     ],
     "stats": {
-      "chars": 15409,
-      "words": 1762,
-      "headings": 26,
-      "estimated_token_count_total": 3498
+      "chars": 14684,
+      "words": 1668,
+      "headings": 24,
+      "estimated_token_count_total": 3320
     },
-    "hash": "sha256:935754d94993e1e7e8c31e7b7a2839ab553361ba4613b196b11b74e3d021dd26",
-    "token_estimator": "heuristic-v1"
-  },
-  {
-    "id": "smart-contracts-dev-environments-hardhat-troubleshooting",
-    "title": "Troubleshooting Hardhat on Polkadot Hub",
-    "slug": "smart-contracts-dev-environments-hardhat-troubleshooting",
-    "categories": [
-      "Smart Contracts",
-      "Tooling"
-    ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-hardhat-troubleshooting.md",
-    "html_url": "https://docs.polkadot.com/smart-contracts/dev-environments/hardhat/troubleshooting/",
-    "preview": "This guide provides solutions to common issues you may encounter when using Hardhat with Polkadot Hub. If you're experiencing problems with installation, compilation, deployment, testing, or contract interaction, you'll likely find the solution here.",
-    "outline": [
-      {
-        "depth": 2,
-        "title": "Overview",
-        "anchor": "overview"
-      },
-      {
-        "depth": 2,
-        "title": "Installation Issues",
-        "anchor": "installation-issues"
-      },
-      {
-        "depth": 3,
-        "title": "Node.js Version Incompatibility",
-        "anchor": "nodejs-version-incompatibility"
-      },
-      {
-        "depth": 3,
-        "title": "Hardhat Installation Fails",
-        "anchor": "hardhat-installation-fails"
-      },
-      {
-        "depth": 3,
-        "title": "Hardhat Toolbox Plugin Issues",
-        "anchor": "hardhat-toolbox-plugin-issues"
-      },
-      {
-        "depth": 2,
-        "title": "Compilation Issues",
-        "anchor": "compilation-issues"
-      },
-      {
-        "depth": 3,
-        "title": "Contract Won't Compile",
-        "anchor": "contract-wont-compile"
-      },
-      {
-        "depth": 3,
-        "title": "Compilation Artifacts Missing",
-        "anchor": "compilation-artifacts-missing"
-      },
-      {
-        "depth": 3,
-        "title": "Compiler Version Errors",
-        "anchor": "compiler-version-errors"
-      },
-      {
-        "depth": 2,
-        "title": "Testing Issues",
-        "anchor": "testing-issues"
-      },
-      {
-        "depth": 3,
-        "title": "Tests Fail to Run",
-        "anchor": "tests-fail-to-run"
-      },
-      {
-        "depth": 3,
-        "title": "Local Test Network Issues",
-        "anchor": "local-test-network-issues"
-      },
-      {
-        "depth": 3,
-        "title": "Test Assertions Failing",
-        "anchor": "test-assertions-failing"
-      },
-      {
-        "depth": 2,
-        "title": "Network Configuration Issues",
-        "anchor": "network-configuration-issues"
-      },
-      {
-        "depth": 3,
-        "title": "Cannot Connect to Local Development Node",
-        "anchor": "cannot-connect-to-local-development-node"
-      },
-      {
-        "depth": 3,
-        "title": "Private Key Configuration Issues",
-        "anchor": "private-key-configuration-issues"
-      },
-      {
-        "depth": 3,
-        "title": "Wrong Network Selected",
-        "anchor": "wrong-network-selected"
-      },
-      {
-        "depth": 2,
-        "title": "Deployment Issues",
-        "anchor": "deployment-issues"
-      },
-      {
-        "depth": 3,
-        "title": "Insufficient Funds Error",
-        "anchor": "insufficient-funds-error"
-      },
-      {
-        "depth": 3,
-        "title": "Ignition Deployment Fails",
-        "anchor": "ignition-deployment-fails"
-      },
-      {
-        "depth": 3,
-        "title": "Deployment Script Errors",
-        "anchor": "deployment-script-errors"
-      },
-      {
-        "depth": 3,
-        "title": "Contract Deployment Timeout",
-        "anchor": "contract-deployment-timeout"
-      },
-      {
-        "depth": 2,
-        "title": "Contract Interaction Issues",
-        "anchor": "contract-interaction-issues"
-      },
-      {
-        "depth": 3,
-        "title": "Cannot Connect to Deployed Contract",
-        "anchor": "cannot-connect-to-deployed-contract"
-      },
-      {
-        "depth": 3,
-        "title": "Transaction Reverts",
-        "anchor": "transaction-reverts"
-      },
-      {
-        "depth": 3,
-        "title": "Read Functions Not Returning Values",
-        "anchor": "read-functions-not-returning-values"
-      },
-      {
-        "depth": 3,
-        "title": "Write Functions Not Updating State",
-        "anchor": "write-functions-not-updating-state"
-      },
-      {
-        "depth": 2,
-        "title": "Performance and Configuration Issues",
-        "anchor": "performance-and-configuration-issues"
-      },
-      {
-        "depth": 3,
-        "title": "Compilation is Slow",
-        "anchor": "compilation-is-slow"
-      },
-      {
-        "depth": 3,
-        "title": "Hardhat Console Issues",
-        "anchor": "hardhat-console-issues"
-      },
-      {
-        "depth": 3,
-        "title": "Plugin Configuration Issues",
-        "anchor": "plugin-configuration-issues"
-      },
-      {
-        "depth": 2,
-        "title": "Environment Variable Issues",
-        "anchor": "environment-variable-issues"
-      },
-      {
-        "depth": 3,
-        "title": "Cannot Access Environment Variables",
-        "anchor": "cannot-access-environment-variables"
-      },
-      {
-        "depth": 3,
-        "title": "Private Key Security Warnings",
-        "anchor": "private-key-security-warnings"
-      },
-      {
-        "depth": 2,
-        "title": "Where to Go Next",
-        "anchor": "where-to-go-next"
-      }
-    ],
-    "stats": {
-      "chars": 17815,
-      "words": 2093,
-      "headings": 35,
-      "estimated_token_count_total": 4175
-    },
-    "hash": "sha256:9baf24d263b7d0678f834b5b4a08567d5bb88ffb05973b67e5099e0cf3290e0c",
-    "token_estimator": "heuristic-v1"
-  },
-  {
-    "id": "smart-contracts-dev-environments-hardhat-verify-a-contract",
-    "title": "smart-contracts-dev-environments-hardhat-verify-a-contract",
-    "slug": "smart-contracts-dev-environments-hardhat-verify-a-contract",
-    "categories": [
-      "Uncategorized"
-    ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-hardhat-verify-a-contract.md",
-    "html_url": "https://docs.polkadot.com/smart-contracts/dev-environments/hardhat/verify-a-contract/",
-    "preview": "TODO",
-    "outline": [],
-    "stats": {
-      "chars": 5,
-      "words": 1,
-      "headings": 0,
-      "estimated_token_count_total": 0
-    },
-    "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
+    "hash": "sha256:f9ab9d7d25947a3bb4059d812eac8b1eb77e2271cac8e7828936f8ffa115eb0b",
     "token_estimator": "heuristic-v1"
   },
   {

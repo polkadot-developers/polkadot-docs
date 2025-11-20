@@ -1853,12 +1853,12 @@
       }
     ],
     "stats": {
-      "chars": 11924,
-      "words": 1585,
+      "chars": 11893,
+      "words": 1580,
       "headings": 14,
-      "estimated_token_count_total": 2724
+      "estimated_token_count_total": 2714
     },
-    "hash": "sha256:93d123cbaaccc2515b4a70be8e1327b4f75b1051d16c5e3daf5a2035af7b7ca3",
+    "hash": "sha256:91ac8b9f927485eaa7b147110a7f5057eea982f9ea9783fe039aae613b05b404",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -2086,58 +2086,6 @@
       "estimated_token_count_total": 1631
     },
     "hash": "sha256:6297bb5e0809fdd0585d6170054599f7ab4a3ce7c687ad03ae43092057c493b7",
-    "token_estimator": "heuristic-v1"
-  },
-  {
-    "id": "parachains-customize-runtime-pallet-development-add-pallet-to-runtime",
-    "title": "Add Pallets to the Runtime",
-    "slug": "parachains-customize-runtime-pallet-development-add-pallet-to-runtime",
-    "categories": [
-      "Basics",
-      "Parachains"
-    ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/parachains-customize-runtime-pallet-development-add-pallet-to-runtime.md",
-    "html_url": "https://docs.polkadot.com/parachains/customize-runtime/pallet-development/add-pallet-to-runtime/",
-    "preview": "In previous tutorials, you learned how to [create a custom pallet](/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/){target=\\_blank} and [test it](/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-unit-testing/){target=\\_blank}. The next step is to include this pallet in your runtime, integrating it into the core logic of your blockchain.",
-    "outline": [
-      {
-        "depth": 2,
-        "title": "Introduction",
-        "anchor": "introduction"
-      },
-      {
-        "depth": 2,
-        "title": "Add the Pallets as Dependencies",
-        "anchor": "add-the-pallets-as-dependencies"
-      },
-      {
-        "depth": 3,
-        "title": "Update the Runtime Configuration",
-        "anchor": "update-the-runtime-configuration"
-      },
-      {
-        "depth": 2,
-        "title": "Recompile the Runtime",
-        "anchor": "recompile-the-runtime"
-      },
-      {
-        "depth": 2,
-        "title": "Run Your Chain Locally",
-        "anchor": "run-your-chain-locally"
-      },
-      {
-        "depth": 2,
-        "title": "Where to Go Next",
-        "anchor": "where-to-go-next"
-      }
-    ],
-    "stats": {
-      "chars": 13091,
-      "words": 1522,
-      "headings": 6,
-      "estimated_token_count_total": 3091
-    },
-    "hash": "sha256:87add0ae178e4970601a27efccadb58eff1375d19819201034ba2829914f1cd5",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -2445,14 +2393,14 @@
   },
   {
     "id": "parachains-customize-runtime-pallet-development-pallet-testing",
-    "title": "Pallet Testing",
+    "title": "Pallet Unit Testing",
     "slug": "parachains-customize-runtime-pallet-development-pallet-testing",
     "categories": [
       "Parachains"
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/parachains-customize-runtime-pallet-development-pallet-testing.md",
     "html_url": "https://docs.polkadot.com/parachains/customize-runtime/pallet-development/pallet-testing/",
-    "preview": "Unit testing in the Polkadot SDK helps ensure that the functions provided by a pallet behave as expected. It also confirms that data and events associated with a pallet are processed correctly during interactions. The Polkadot SDK offers a set of APIs to create a test environment to simulate runtime and mock transaction execution for extrinsics and queries.",
+    "preview": "Unit testing in the Polkadot SDK helps ensure that the functions provided by a pallet behave as expected. It also confirms that data and events associated with a pallet are processed correctly during interactions. With your mock runtime in place from the [previous guide](/parachains/customize-runtime/pallet-development/mock-runtime/), you can now write comprehensive tests that verify your pallet's behavior in isolation.",
     "outline": [
       {
         "depth": 2,
@@ -2461,28 +2409,98 @@
       },
       {
         "depth": 2,
-        "title": "Writing Unit Tests",
-        "anchor": "writing-unit-tests"
+        "title": "Prerequisites",
+        "anchor": "prerequisites"
+      },
+      {
+        "depth": 2,
+        "title": "Understanding FRAME Testing Tools",
+        "anchor": "understanding-frame-testing-tools"
       },
       {
         "depth": 3,
-        "title": "Test Initialization",
-        "anchor": "test-initialization"
+        "title": "Assertion Macros",
+        "anchor": "assertion-macros"
       },
       {
         "depth": 3,
-        "title": "Function Call Testing",
-        "anchor": "function-call-testing"
+        "title": "System Pallet Test Helpers",
+        "anchor": "system-pallet-test-helpers"
       },
       {
         "depth": 3,
-        "title": "Storage Testing",
-        "anchor": "storage-testing"
+        "title": "Origin Types",
+        "anchor": "origin-types"
+      },
+      {
+        "depth": 2,
+        "title": "Create the Tests Module",
+        "anchor": "create-the-tests-module"
+      },
+      {
+        "depth": 2,
+        "title": "Set Up the Test Module",
+        "anchor": "set-up-the-test-module"
+      },
+      {
+        "depth": 2,
+        "title": "Write Your First Test",
+        "anchor": "write-your-first-test"
       },
       {
         "depth": 3,
-        "title": "Event Testing",
-        "anchor": "event-testing"
+        "title": "Test Basic Increment",
+        "anchor": "test-basic-increment"
+      },
+      {
+        "depth": 2,
+        "title": "Test Error Conditions",
+        "anchor": "test-error-conditions"
+      },
+      {
+        "depth": 3,
+        "title": "Test Overflow Protection",
+        "anchor": "test-overflow-protection"
+      },
+      {
+        "depth": 3,
+        "title": "Test Underflow Protection",
+        "anchor": "test-underflow-protection"
+      },
+      {
+        "depth": 2,
+        "title": "Test Access Control",
+        "anchor": "test-access-control"
+      },
+      {
+        "depth": 3,
+        "title": "Test Root-Only Access",
+        "anchor": "test-root-only-access"
+      },
+      {
+        "depth": 2,
+        "title": "Test Event Emission",
+        "anchor": "test-event-emission"
+      },
+      {
+        "depth": 3,
+        "title": "Test Event Data",
+        "anchor": "test-event-data"
+      },
+      {
+        "depth": 2,
+        "title": "Test Genesis Configuration",
+        "anchor": "test-genesis-configuration"
+      },
+      {
+        "depth": 3,
+        "title": "Test Genesis Setup",
+        "anchor": "test-genesis-setup"
+      },
+      {
+        "depth": 2,
+        "title": "Run All Tests",
+        "anchor": "run-all-tests"
       },
       {
         "depth": 2,
@@ -2491,12 +2509,12 @@
       }
     ],
     "stats": {
-      "chars": 6892,
-      "words": 911,
-      "headings": 7,
-      "estimated_token_count_total": 1563
+      "chars": 25092,
+      "words": 2533,
+      "headings": 21,
+      "estimated_token_count_total": 5673
     },
-    "hash": "sha256:8568dfa238b9a649a4e6e60510625c2e7879b76a93187b0b8b8dccf6bc467ae6",
+    "hash": "sha256:5b6975fc79037690c912a0644a0a438212248e984d7fdb35bd6aea820e637965",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -2625,12 +2643,12 @@
       }
     ],
     "stats": {
-      "chars": 7941,
-      "words": 631,
+      "chars": 7764,
+      "words": 607,
       "headings": 9,
-      "estimated_token_count_total": 2292
+      "estimated_token_count_total": 2251
     },
-    "hash": "sha256:759ed27cf3d473445e33141089b652082c42a2c59eb822d6b506146fd9555e13",
+    "hash": "sha256:4464114886271689453fe20b026a6d95f5add6a2c5aa53bcf9c22b08415e68dc",
     "token_estimator": "heuristic-v1"
   },
   {

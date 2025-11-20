@@ -82,11 +82,11 @@ const deployContract = async (contractName, mnemonic, providerConfig) => {
 };
 
 const providerConfig = {
-  rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io', #TODO: replace to `https://services.polkadothub-rpc.com/testnet` when ready
+  rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io', //TODO: replace to `https://services.polkadothub-rpc.com/testnet` when ready
   chainId: 420420422,
   name: 'polkadot-hub-testnet',
 };
 
-const mnemonic = 'evoke moment pluck misery cheese boy era fresh useful frame resemble cinnamon';
+const mnemonic = 'INSERT_MNEMONIC';
 
 deployContract('Storage', mnemonic, providerConfig);

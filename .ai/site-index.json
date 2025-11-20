@@ -3862,43 +3862,145 @@
     "token_estimator": "heuristic-v1"
   },
   {
-    "id": "smart-contracts-dev-environments-hardhat-troubleshooting",
-    "title": "smart-contracts-dev-environments-hardhat-troubleshooting",
-    "slug": "smart-contracts-dev-environments-hardhat-troubleshooting",
+    "id": "smart-contracts-dev-environments-hardhat-troubleshooting-faq",
+    "title": "Troubleshooting Hardhat",
+    "slug": "smart-contracts-dev-environments-hardhat-troubleshooting-faq",
     "categories": [
-      "Uncategorized"
+      "Smart Contracts",
+      "Tooling"
     ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-hardhat-troubleshooting.md",
-    "html_url": "https://docs.polkadot.com/smart-contracts/dev-environments/hardhat/troubleshooting/",
-    "preview": "TODO",
-    "outline": [],
-    "stats": {
-      "chars": 5,
-      "words": 1,
-      "headings": 0,
-      "estimated_token_count_total": 0
-    },
-    "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
-    "token_estimator": "heuristic-v1"
-  },
-  {
-    "id": "smart-contracts-dev-environments-hardhat-verify-a-contract",
-    "title": "smart-contracts-dev-environments-hardhat-verify-a-contract",
-    "slug": "smart-contracts-dev-environments-hardhat-verify-a-contract",
-    "categories": [
-      "Uncategorized"
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-hardhat-troubleshooting-faq.md",
+    "html_url": "https://docs.polkadot.com/smart-contracts/dev-environments/hardhat/troubleshooting-faq/",
+    "preview": "This guide provides solutions to common issues you may encounter when using Hardhat with Polkadot Hub. If you're experiencing problems with installation, compilation, deployment, testing, or contract interaction, you'll likely find the solution here.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Hardhat fails to install or run with version-related errors",
+        "anchor": "hardhat-fails-to-install-or-run-with-version-related-errors"
+      },
+      {
+        "depth": 2,
+        "title": "Installation of Hardhat or its dependencies via npm fails",
+        "anchor": "installation-of-hardhat-or-its-dependencies-via-npm-fails"
+      },
+      {
+        "depth": 2,
+        "title": "Hardhat Toolbox fails to install or causes conflicts",
+        "anchor": "hardhat-toolbox-fails-to-install-or-causes-conflicts"
+      },
+      {
+        "depth": 2,
+        "title": "Your contract fails to compile or shows errors in the terminal",
+        "anchor": "your-contract-fails-to-compile-or-shows-errors-in-the-terminal"
+      },
+      {
+        "depth": 2,
+        "title": "The artifacts folder is empty or missing expected files",
+        "anchor": "the-artifacts-folder-is-empty-or-missing-expected-files"
+      },
+      {
+        "depth": 2,
+        "title": "Errors related to Solidity compiler version or features",
+        "anchor": "errors-related-to-solidity-compiler-version-or-features"
+      },
+      {
+        "depth": 2,
+        "title": "Tests don't execute or Hardhat throws errors when running tests",
+        "anchor": "tests-dont-execute-or-hardhat-throws-errors-when-running-tests"
+      },
+      {
+        "depth": 2,
+        "title": "The Hardhat node fails to start or becomes unresponsive",
+        "anchor": "the-hardhat-node-fails-to-start-or-becomes-unresponsive"
+      },
+      {
+        "depth": 2,
+        "title": "Tests run but fail with assertion errors",
+        "anchor": "tests-run-but-fail-with-assertion-errors"
+      },
+      {
+        "depth": 2,
+        "title": "Hardhat cannot connect to the local development node",
+        "anchor": "hardhat-cannot-connect-to-the-local-development-node"
+      },
+      {
+        "depth": 2,
+        "title": "Hardhat cannot access or use the configured private key",
+        "anchor": "hardhat-cannot-access-or-use-the-configured-private-key"
+      },
+      {
+        "depth": 2,
+        "title": "Deployment or transactions go to the wrong network",
+        "anchor": "deployment-or-transactions-go-to-the-wrong-network"
+      },
+      {
+        "depth": 2,
+        "title": "Deployment fails with \"insufficient funds\" error",
+        "anchor": "deployment-fails-with-insufficient-funds-error"
+      },
+      {
+        "depth": 2,
+        "title": "Deployment using Hardhat Ignition fails or throws errors",
+        "anchor": "deployment-using-hardhat-ignition-fails-or-throws-errors"
+      },
+      {
+        "depth": 2,
+        "title": "Custom deployment scripts fail to execute",
+        "anchor": "custom-deployment-scripts-fail-to-execute"
+      },
+      {
+        "depth": 2,
+        "title": "Contract deployment hangs or times out",
+        "anchor": "contract-deployment-hangs-or-times-out"
+      },
+      {
+        "depth": 2,
+        "title": "Scripts fail to interact with a deployed contract",
+        "anchor": "scripts-fail-to-interact-with-a-deployed-contract"
+      },
+      {
+        "depth": 2,
+        "title": "Transactions revert when calling contract functions",
+        "anchor": "transactions-revert-when-calling-contract-functions"
+      },
+      {
+        "depth": 2,
+        "title": "View or pure functions don't return expected values",
+        "anchor": "view-or-pure-functions-dont-return-expected-values"
+      },
+      {
+        "depth": 2,
+        "title": "State-changing functions execute but don't update state",
+        "anchor": "state-changing-functions-execute-but-dont-update-state"
+      },
+      {
+        "depth": 2,
+        "title": "Contract compilation takes a long time",
+        "anchor": "contract-compilation-takes-a-long-time"
+      },
+      {
+        "depth": 2,
+        "title": "Can't start Hardhat console or console commands fail",
+        "anchor": "cant-start-hardhat-console-or-console-commands-fail"
+      },
+      {
+        "depth": 2,
+        "title": "Hardhat plugins not working correctly",
+        "anchor": "hardhat-plugins-not-working-correctly"
+      },
+      {
+        "depth": 2,
+        "title": "Scripts cannot read environment variables",
+        "anchor": "scripts-cannot-read-environment-variables"
+      }
     ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-hardhat-verify-a-contract.md",
-    "html_url": "https://docs.polkadot.com/smart-contracts/dev-environments/hardhat/verify-a-contract/",
-    "preview": "TODO",
-    "outline": [],
     "stats": {
-      "chars": 5,
-      "words": 1,
-      "headings": 0,
-      "estimated_token_count_total": 0
+      "chars": 14684,
+      "words": 1668,
+      "headings": 24,
+      "estimated_token_count_total": 3320
     },
-    "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
+    "hash": "sha256:f9ab9d7d25947a3bb4059d812eac8b1eb77e2271cac8e7828936f8ffa115eb0b",
     "token_estimator": "heuristic-v1"
   },
   {

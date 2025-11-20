@@ -147,7 +147,7 @@ After executing the script, the Solidity contract is compiled into standard EVM 
 
 To deploy your compiled contract to Polkadot Hub, you'll need a wallet with a private key to sign the deployment transaction.
 
-You can create a `deploy.js` script in the root of your project to achieve this. The deployment script can be divided into key components:
+You can create a `deploy.js` script in the `scripts` directory of your project to achieve this. The deployment script can be divided into key components:
 
 1. Set up the required imports and utilities:
 

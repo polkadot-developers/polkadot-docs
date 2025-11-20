@@ -84,7 +84,7 @@ This module contains all the [benchmarking definitions](https://paritytech.githu
 
 Add a `weights` module to your pallet that defines the `WeightInfo` trait using the following code:
 
-```rust title="pallets/pallet-custom/src/lib.rs"
+```rust title="pallets/pallet-custom/src/weights.rs"
 #[frame::pallet]
 pub mod pallet {
     use frame::prelude::*;

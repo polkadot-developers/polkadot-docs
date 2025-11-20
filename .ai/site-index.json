@@ -5209,7 +5209,7 @@
   },
   {
     "id": "smart-contracts-libraries-web3-js",
-    "title": "Web3.js",
+    "title": "Deploy Contracts to Polkadot Hub with Web3.js",
     "slug": "smart-contracts-libraries-web3-js",
     "categories": [
       "Smart Contracts",
@@ -5217,7 +5217,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-libraries-web3-js.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/libraries/web3-js/",
-    "preview": "!!! smartcontract \"PolkaVM Preview Release\" PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**. !!! warning Web3.js has been [sunset](https://blog.chainsafe.io/web3-js-sunset/){target=\\_blank}. You can find guides on using [Ethers.js](/smart-contracts/libraries/ethers-js/){target=\\_blank} and [viem](/smart-contracts/libraries/viem/){target=\\_blank} in the Libraries section.",
+    "preview": "!!! warning Web3.js has been [sunset](https://blog.chainsafe.io/web3-js-sunset/){target=\\_blank}. You can find guides on using [Ethers.js](/smart-contracts/libraries/ethers-js/){target=\\_blank} and [viem](/smart-contracts/libraries/viem/){target=\\_blank} in the Libraries section.",
     "outline": [
       {
         "depth": 2,
@@ -5255,9 +5255,19 @@
         "anchor": "compile-contracts"
       },
       {
+        "depth": 3,
+        "title": "Sample Storage Smart Contract",
+        "anchor": "sample-storage-smart-contract"
+      },
+      {
+        "depth": 3,
+        "title": "Compile the Smart Contract",
+        "anchor": "compile-the-smart-contract"
+      },
+      {
         "depth": 2,
-        "title": "Contract Deployment",
-        "anchor": "contract-deployment"
+        "title": "Deploy the Compiled Contract",
+        "anchor": "deploy-the-compiled-contract"
       },
       {
         "depth": 2,
@@ -5271,12 +5281,12 @@
       }
     ],
     "stats": {
-      "chars": 13266,
-      "words": 1579,
-      "headings": 10,
-      "estimated_token_count_total": 3035
+      "chars": 20325,
+      "words": 2290,
+      "headings": 12,
+      "estimated_token_count_total": 4600
     },
-    "hash": "sha256:f0d36333d0d3afff7f6374a61d0f6d1fb878c9ef4c4e4c24447745661dbe59d0",
+    "hash": "sha256:7cf1e07d1b8ef4e7b893398976907159a932f23f708d4e1d7ac1d09b80881787",
     "token_estimator": "heuristic-v1"
   },
   {

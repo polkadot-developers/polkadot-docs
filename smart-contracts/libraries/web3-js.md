@@ -79,7 +79,7 @@ npm install --save-dev solc
 
 The provider configuration is the foundation of any Web3.js application. It serves as a bridge between your application and the blockchain, allowing you to query blockchain data and interact with smart contracts.
 
-To interact with Polkadot Hub, you must set up a Web3.js provider. This provider connects to a blockchain node, allowing you to query blockchain data and interact with smart contracts. In the root of your project, create a file named `connectToProvider.js` and add the following code:
+To interact with Polkadot Hub, you must set up a Web3.js provider. This provider connects to a blockchain node, allowing you to query blockchain data and interact with smart contracts. In the `scripts` directory of your project, create a file named `connectToProvider.js` and add the following code:
 
 ```js title="scripts/connectToProvider.js"
 --8<-- 'code/smart-contracts/libraries/web3-js/connectToProvider.js'
@@ -201,7 +201,7 @@ After running this script, your contract will be deployed to Polkadot Hub, and i
 
 ## Interact with the Contract
 
-Once the contract is deployed, you can interact with it by calling its functions. For example, to set a number, read it and then modify that number by its double, you can create a file named `updateStorage.js` in the root of your project and add the following code:
+Once the contract is deployed, you can interact with it by calling its functions. For example, to set a number, read it and then modify that number by its double, you can create a file named `updateStorage.js` in the `scripts` directory of your project and add the following code:
 
 ```js title="scripts/updateStorage.js"
 --8<-- 'code/smart-contracts/libraries/web3-js/updateStorage.js'

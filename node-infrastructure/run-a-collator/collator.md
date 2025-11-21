@@ -257,28 +257,35 @@ Follow these steps to build a chainspec from the runtime:
     - `--name`: Your collator name (visible in telemetry)
     - Relay chain uses `--sync=warp` for faster initial sync
 
-## Running the Collator
+## Run the Collator
 
-### Start the Service
+Follow these steps to run your collator node:
 
+1. Reload systemd using the following command:
+  ```bash
+  sudo systemctl daemon-reload
+  ```
+
+2. Next, enable the service to start on boot using the command:
+  ```bash
+  sudo systemctl enable polkadot-collator
+  ```
+3. Now, start the service with the following command:
+  ```bash
+  sudo systemctl start polkadot-collator
+  ```
+
+4. Finally, you can check the status of the service using the command:
+  ```bash
+  sudo systemctl status polkadot-collator
+  ```
+
+To view collator service logs, use the command:
 ```bash
-# Reload systemd
-sudo systemctl daemon-reload
-
-# Enable service to start on boot
-sudo systemctl enable polkadot-collator
-
-# Start the service
-sudo systemctl start polkadot-collator
-
-# Check status
-sudo systemctl status polkadot-collator
-
-# View logs
 sudo journalctl -u polkadot-collator -f
 ```
 
-### Initial Sync
+## Complete Initial Sync
 
 Your collator must sync both the relay chain and parachain before producing blocks.
 

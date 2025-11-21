@@ -1,10 +1,14 @@
-import { publicClient } from './createClient';
-import { createWallet } from './createWallet';
 import { readFileSync } from 'fs';
+import { dirname, join } from 'path';
+import { fileURLToPath } from 'url';
+import { publicClient } from './createClient.ts';
+import { createWallet } from './createWallet.ts';
 
-const STORAGE_ABI = JSON.parse(
-  readFileSync('./artifacts/Storage.json', 'utf8')
-);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const ABI_PATH = join(__dirname, '../abis/Storage.json');
+
+const STORAGE_ABI = JSON.parse(readFileSync(ABI_PATH, 'utf8'));
 
 const interactWithStorage = async (
   contractAddress: `0x${string}`,

@@ -1,6 +1,6 @@
 import { createPublicClient, http } from 'viem';
 
-const transport = http('https://testnet-passet-hub-eth-rpc.polkadot.io');
+const transport = http('https://testnet-passet-hub-eth-rpc.polkadot.io'); // TODO: change to paseo asset hub once ready
 
 // Configure the Polkadot Hub chain
 const polkadotHubTestnet = {
@@ -14,7 +14,7 @@ const polkadotHubTestnet = {
   },
   rpcUrls: {
     default: {
-      http: ['https://testnet-passet-hub-eth-rpc.polkadot.io'],
+      http: ['https://testnet-passet-hub-eth-rpc.polkadot.io'], // TODO: change to paseo asset hub once ready
     },
   },
 } as const;

@@ -5401,12 +5401,12 @@
       }
     ],
     "stats": {
-      "chars": 20325,
-      "words": 2290,
+      "chars": 20077,
+      "words": 2252,
       "headings": 12,
-      "estimated_token_count_total": 4600
+      "estimated_token_count_total": 4530
     },
-    "hash": "sha256:7cf1e07d1b8ef4e7b893398976907159a932f23f708d4e1d7ac1d09b80881787",
+    "hash": "sha256:7e3d9a39fafd48ef71f23b07d20f7fb5572ba67e06fcbe6a199fe0468af6dbca",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5438,6 +5438,11 @@
       },
       {
         "depth": 2,
+        "title": "Sample Storage Contract",
+        "anchor": "sample-storage-contract"
+      },
+      {
+        "depth": 2,
         "title": "Contract Deployment",
         "anchor": "contract-deployment"
       },
@@ -5453,12 +5458,12 @@
       }
     ],
     "stats": {
-      "chars": 13230,
-      "words": 1482,
-      "headings": 6,
-      "estimated_token_count_total": 2881
+      "chars": 11372,
+      "words": 1282,
+      "headings": 7,
+      "estimated_token_count_total": 2355
     },
-    "hash": "sha256:099c8ef23c32dcbecb0a190730254658fee78d460636dd592efc05a431088a80",
+    "hash": "sha256:429ebcf91cf74b12b1e0981f1d75aefd13b6d94ebd08699e227ea91cddcb0e23",
     "token_estimator": "heuristic-v1"
   },
   {

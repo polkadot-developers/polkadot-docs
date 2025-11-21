@@ -31,7 +31,7 @@ npm install wagmi viem @tanstack/react-query
 
 ## Configure Wagmi for Polkadot Hub
 
-Create a configuration file to initialize Wagmi with Polkadot Hub. In your project, create a file named `src/lib/wagmi.ts` and add the code below. Be sure to replace `INSERT_RPC_URL`, `INSERT_CHAIN_ID`, `INSERT_CHAIN_NAME`, `INSERT_NETWORK_NAME`, `INSERT_CHAIN_DECIMALS`, `INSERT_CURRENCY_NAME`, and `INSERT_CURRENCY_SYMBOL` with your specific values.
+Create a configuration file to initialize Wagmi with Polkadot Hub. In your project, create a file named `app/lib/wagmi.ts` and add the code below. Be sure to replace `INSERT_RPC_URL`, `INSERT_CHAIN_ID`, `INSERT_CHAIN_NAME`, `INSERT_NETWORK_NAME`, `INSERT_CHAIN_DECIMALS`, `INSERT_CURRENCY_NAME`, and `INSERT_CURRENCY_SYMBOL` with your specific values.
 
 ```typescript title="app/lib/wagmi.ts"
 --8<-- 'code/smart-contracts/libraries/wagmi/wagmi.ts'
@@ -91,7 +91,7 @@ This guide uses a simple Storage contract already deployed to the Polkadot Hub T
     --8<-- 'code/smart-contracts/libraries/wagmi/Storage.sol'
     ```
 
-Create a component to interact with your deployed contract. Create a file named `components/StorageContract.tsx`:
+Create a component to interact with your deployed contract. Create a file named `app/components/StorageContract.tsx`:
 
 ```typescript title="app/components/StorageContract.tsx"
 --8<-- 'code/smart-contracts/libraries/wagmi/StorageContract.tsx'

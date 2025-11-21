@@ -5401,12 +5401,21 @@
       }
     ],
     "stats": {
+<<<<<<< HEAD
       "chars": 20056,
       "words": 2249,
       "headings": 12,
       "estimated_token_count_total": 4523
     },
     "hash": "sha256:ac33422a87258d65a70e63f388279cc2afa4a1e3eec9c1b1aff52ac1ebf9e1a8",
+=======
+      "chars": 20325,
+      "words": 2290,
+      "headings": 12,
+      "estimated_token_count_total": 4600
+    },
+    "hash": "sha256:7cf1e07d1b8ef4e7b893398976907159a932f23f708d4e1d7ac1d09b80881787",
+>>>>>>> staging/product-ia
     "token_estimator": "heuristic-v1"
   },
   {

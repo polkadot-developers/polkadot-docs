@@ -352,7 +352,7 @@ This file defines the contract address, ABI, and functions to create a viem [con
 
 ## Create the Wallet Connection Component
 
-Now, let's create a component to handle wallet connections. Create a new file called `components/WalletConnect.tsx`:
+Now, you can create a component to handle wallet connections. Create a new file called `components/WalletConnect.tsx`:
 
 ```typescript title="WalletConnect.tsx"
 "use client";
@@ -535,7 +535,7 @@ This component handles connecting to the wallet, switching networks if necessary
 
 ## Create the Read Contract Component
 
-Now, let's create a component to read data from the contract. Create a file called `components/ReadContract.tsx`:
+Next, create a component to read data from the contract. Create a file called `components/ReadContract.tsx`:
 
 ```typescript title="ReadContract.tsx"
 'use client';
@@ -608,7 +608,7 @@ This component reads the `storedNumber` value from the contract and displays it 
 
 ## Create the Write Contract Component
 
-Finally, let's create a component that allows users to update the stored number. Create a file called `components/WriteContract.tsx`:
+Finally, create a component that allows users to update the stored number. Create a file called `components/WriteContract.tsx`:
 
 ```typescript title="WriteContract.tsx"
 "use client";

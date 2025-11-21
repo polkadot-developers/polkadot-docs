@@ -1,4 +1,4 @@
 nav:
-- 'Using Remix': remix.md
-- 'Using Hardhat': hardhat.md
+- 'Remix IDE': nft-remix.md
+- 'Hardhat': nft-hardhat.md
 # - 'Using Foundry': foundry.md

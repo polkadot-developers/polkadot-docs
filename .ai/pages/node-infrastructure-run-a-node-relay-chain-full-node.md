@@ -2,7 +2,7 @@
 title: Set Up a Node
 description: Learn how to install, configure, and run Polkadot nodes, including setting up different node types and connecting to the network.
 categories: Infrastructure
-url: https://docs.polkadot.com/nodes-and-validators/run-a-node/full-node/
+url: https://docs.polkadot.com/node-infrastructure/run-a-node/relay-chain/full-node/
 ---
 
 # Set Up a Node

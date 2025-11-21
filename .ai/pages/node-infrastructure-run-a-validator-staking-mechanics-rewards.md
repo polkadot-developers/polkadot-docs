@@ -2,7 +2,7 @@
 title: Rewards Payout
 description: Learn how validator rewards work on the network, including era points, payout distribution, running multiple validators, and nominator payments.
 categories: Infrastructure
-url: https://docs.polkadot.com/nodes-and-validators/run-a-validator/staking-mechanics/rewards/
+url: https://docs.polkadot.com/node-infrastructure/run-a-validator/staking-mechanics/rewards/
 ---
 
 # Rewards Payout

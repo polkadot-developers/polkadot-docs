@@ -1,3 +1,4 @@
 nav:
  - 'Run a Node': run-a-node
+ - 'Run a Collator': run-a-collator
  - 'Run a Validator': run-a-validator

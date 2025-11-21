@@ -2,7 +2,7 @@
 title: Validator Requirements
 description: Explore the technical and system requirements for running a Polkadot validator, including setup, hardware, staking prerequisites, and security best practices.
 categories: Infrastructure
-url: https://docs.polkadot.com/nodes-and-validators/run-a-validator/requirements/
+url: https://docs.polkadot.com/node-infrastructure/run-a-validator/requirements/
 ---
 
 # Validator Requirements

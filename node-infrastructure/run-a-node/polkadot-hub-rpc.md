@@ -247,7 +247,7 @@ Select the best option for your project, then use the steps in the following tab
             ```
 === "Manual systemd Setup"
 
-    This option provides more control and is recommended for production environments requiring custom configurations.
+    This option uses systemd to provide more control and is recommended for production environments requiring custom configurations.
 
     1. Install Rust and required toolchain using the following command:
         ```bash
@@ -435,11 +435,12 @@ You can use the following information to configure [Prometheus](https://promethe
           - targets: ['localhost:9615']
     ```
 
-Key metric to monitor via Prometheus include: 
-    - `substrate_block_height`: Current block height
-    - `substrate_finalized_height`: Finalized block height
-    - `substrate_peers_count`: Number of connected peers
-    - `substrate_ready_transactions_number`: Transaction queue size
+Key metrics to monitor via Prometheus include: 
+
+- `substrate_block_height`: Current block height
+- `substrate_finalized_height`: Finalized block height
+- `substrate_peers_count`: Number of connected peers
+- `substrate_ready_transactions_number`: Transaction queue size
 
 ### Database Maintenance
 

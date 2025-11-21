@@ -1,37 +1,71 @@
-const { compile } = require('@parity/resolc');
-const { readFileSync, writeFileSync } = require('fs');
+const solc = require('solc');
+const { readFileSync, writeFileSync, mkdirSync, existsSync } = require('fs');
 const { basename, join } = require('path');
 
-const compileContract = async (solidityFilePath, outputDir) => {
+const ensureDir = (dirPath) => {
+  if (!existsSync(dirPath)) {
+    mkdirSync(dirPath, { recursive: true });
+  }
+};
+
+const compileContract = (solidityFilePath, abiDir, artifactsDir) => {
   try {
     // Read the Solidity file
     const source = readFileSync(solidityFilePath, 'utf8');
-
-    // Construct the input object for the compiler
+    const fileName = basename(solidityFilePath);
+    
+    // Construct the input object for the Solidity compiler
     const input = {
-      [basename(solidityFilePath)]: { content: source },
+      language: 'Solidity',
+      sources: {
+        [fileName]: {
+          content: source,
+        },
+      },
+      settings: {
+        outputSelection: {
+          '*': {
+            '*': ['abi', 'evm.bytecode'],
+          },
+        },
+      },
     };
-
-    console.log(`Compiling contract: ${basename(solidityFilePath)}...`);
-
+    
+    console.log(`Compiling contract: ${fileName}...`);
+    
     // Compile the contract
-    const out = await compile(input);
+    const output = JSON.parse(solc.compile(JSON.stringify(input)));
+    
+    // Check for errors
+    if (output.errors) {
+      const errors = output.errors.filter(error => error.severity === 'error');
+      if (errors.length > 0) {
+        console.error('Compilation errors:');
+        errors.forEach(err => console.error(err.formattedMessage));
+        return;
+      }
+      // Show warnings
+      const warnings = output.errors.filter(error => error.severity === 'warning');
+      warnings.forEach(warn => console.warn(warn.formattedMessage));
+    }
+    
+    // Ensure output directories exist
+    ensureDir(abiDir);
+    ensureDir(artifactsDir);
 
-    for (const contracts of Object.values(out.contracts)) {
-      for (const [name, contract] of Object.entries(contracts)) {
-        console.log(`Compiled contract: ${name}`);
-
+    // Process compiled contracts
+    for (const [sourceFile, contracts] of Object.entries(output.contracts)) {
+      for (const [contractName, contract] of Object.entries(contracts)) {
+        console.log(`Compiled contract: ${contractName}`);
+        
         // Write the ABI
-        const abiPath = join(outputDir, `${name}.json`);
+        const abiPath = join(abiDir, `${contractName}.json`);
         writeFileSync(abiPath, JSON.stringify(contract.abi, null, 2));
         console.log(`ABI saved to ${abiPath}`);
-
+        
         // Write the bytecode
-        const bytecodePath = join(outputDir, `${name}.polkavm`);
-        writeFileSync(
-          bytecodePath,
-          Buffer.from(contract.evm.bytecode.object, 'hex'),
-        );
+        const bytecodePath = join(artifactsDir, `${contractName}.bin`);
+        writeFileSync(bytecodePath, contract.evm.bytecode.object);
         console.log(`Bytecode saved to ${bytecodePath}`);
       }
     }
@@ -41,6 +75,7 @@ const compileContract = async (solidityFilePath, outputDir) => {
 };
 
 const solidityFilePath = join(__dirname, '../contracts/Storage.sol');
-const outputDir = join(__dirname, '../contracts');
+const abiDir = join(__dirname, '../abis');
+const artifactsDir = join(__dirname, '../artifacts');
 
-compileContract(solidityFilePath, outputDir);
+compileContract(solidityFilePath, abiDir, artifactsDir);

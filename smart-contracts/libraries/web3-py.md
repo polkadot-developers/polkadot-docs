@@ -6,8 +6,6 @@ categories: Smart Contracts, Tooling
 
 # Web3.py
 
---8<-- 'text/smart-contracts/polkaVM-warning.md'
-
 ## Introduction
 
 Interacting with blockchains typically requires an interface between your application and the network. [Web3.py](https://web3py.readthedocs.io/en/stable/index.html){target=\_blank} offers this interface through a collection of libraries, facilitating seamless interaction with the nodes using HTTP or WebSocket protocols. 
@@ -38,44 +36,47 @@ This guide illustrates how to utilize Web3.py for interactions with Polkadot Hub
 
 ## Set Up the Web3 Provider
 
-The [provider](https://web3py.readthedocs.io/en/stable/providers.html){target=\_blank} configuration is the foundation of any Web3.py application. The following example establishes a connection to Polkadot Hub. Follow these steps to use the provider configuration:
+The [provider](https://web3py.readthedocs.io/en/stable/providers.html){target=\_blank} configuration is the foundation of any Web3.py application.  It serves as a bridge between your application and the blockchain, allowing you to query blockchain data and interact with smart contracts.
 
-1. Replace `INSERT_RPC_URL` with the appropriate value. For instance, to connect to Polkadot Hub TestNet, use the following parameter:
+To interact with Polkadot Hub, you must set up a Web3.py provider. This provider connects to a blockchain node, allowing you to query blockchain data and interact with smart contracts. The following code sets up the provider configuration:
+
+```python
+--8<-- "code/smart-contracts/libraries/web3-py/connect_to_provider.py"
+```
+
+!!! note
+    Replace `INSERT_RPC_URL` with the appropriate value. For instance, to connect to Polkadot Hub TestNet, use the following parameter:
 
     ```python
     PROVIDER_RPC = 'https://testnet-passet-hub-eth-rpc.polkadot.io'
     ```
 
-    The provider connection script should look something like this:
+With the Web3 provider set up, start querying the blockchain. For instance, you can use the following code snippet to fetch the latest block number of the chain.
 
-    ```python title="connect_to_provider.py"
-    --8<-- "code/smart-contracts/libraries/web3-py/connect_to_provider.py"
-    ```
-
-1. With the Web3 provider set up, start querying the blockchain. For instance, you can use the following code snippet to fetch the latest block number of the chain:
+??? code "Fetch last block example"
 
     ```python title="fetch_last_block.py"
-    --8<-- "code/smart-contracts/libraries/web3-py/fetch_last_block.py:9:18"
+    --8<-- "code/smart-contracts/libraries/web3-py/fetch_last_block.py"
     ```
 
-    ??? code "View complete script"
+## Sample Storage Contract
 
-        ```python title="fetch_last_block.py"
-        --8<-- "code/smart-contracts/libraries/web3-py/fetch_last_block.py"
-        ```
+Polkadot Hub exposes an Ethereum JSON-RPC endpoint, so you can compile Solidity contracts to familiar EVM bytecode with the [`py-solc-x`](https://solcx.readthedocs.io/en/latest/){target=\_blank} compiler.
 
-## Contract Deployment
-
-Before deploying your contracts, make sure you've compiled them and obtained two key files:
-
-- An ABI (.json) file, which provides a JSON interface describing the contract's functions and how to interact with it.
-- A bytecode (.polkavm) file, which contains the low-level machine code executable on [PolkaVM](/smart-contracts/for-eth-devs/#polkavm){target=\_blank} that represents the compiled smart contract ready for blockchain deployment.
-
-To follow this guide, you can use the following solidity contract as an example:
+To follow this guide, you can use the following Solidity contract as an example:
 
 ```solidity title="Storage.sol"
 --8<-- "code/smart-contracts/libraries/web3-py/Storage.sol"
 ```
+
+<!-- TODO: Add instructions on how to compile contracts using py-solc-x -->
+
+After you've compiled the `Storage.sol` contract, you should have:
+
+- **An ABI (`.json`) file**: Provides a JSON interface describing the contract's functions and how to interact with it.
+- **A bytecode (`.bin`) file**: Contains the low-level machine code executable on EVM that represents the compiled smart contract ready for blockchain deployment.
+
+## Contract Deployment
 
 To deploy your compiled contract to Polkadot Hub using Web3.py, you'll need an account with a private key to sign the deployment transaction. The deployment process is exactly the same as for any Ethereum-compatible chain, involving creating a contract instance, estimating gas, and sending a deployment transaction. Here's how to deploy the contract. Replace `INSERT_RPC_URL` and `INSERT_PRIVATE_KEY` with the appropriate values:
 
@@ -84,7 +85,7 @@ To deploy your compiled contract to Polkadot Hub using Web3.py, you'll need an a
 ```
 
 !!!warning
-    Never commit or share your private key. Exposed keys can lead to immediate theft of all associated funds. Use environment variables instead.
+    Never commit or share your private key. Exposed keys can lead to immediate theft of all associated funds.
 
 ## Interact with the Contract
 
@@ -96,49 +97,14 @@ After deployment, interact with your contract using Web3.py methods. The example
 
 ## Where to Go Next
 
-Now that you have the foundation for using Web3.py with Polkadot Hub, consider exploring:
-
 <div class="grid cards" markdown>
 
--   <span class="badge external">External</span> __Advanced Web3.py Features__
-  
-    ---
-    Explore Web3.py's documentation:
-    <ul class="card-list">
-    <li>[:octicons-arrow-right-24: Middleware](https://web3py.readthedocs.io/en/stable/middleware.html){target=\_blank}</li>
-    <li>[:octicons-arrow-right-24: Filters & Events](https://web3py.readthedocs.io/en/stable/filters.html){target=\_blank}</li>
-    <li>[:octicons-arrow-right-24: ENS](https://web3py.readthedocs.io/en/stable/ens_overview.html){target=\_blank}</li>
-    </ul>
-
--   <span class="badge external">External</span> __Testing Frameworks__
+-   <span class="badge external">External</span> __Web3.py Docs__
 
     ---
-    Integrate Web3.py with Python testing frameworks:
 
-    <ul class="card-list">
-    <li>[:octicons-arrow-right-24: Pytest](https://docs.pytest.org/){target=\_blank}</li>
-    <li>[:octicons-arrow-right-24: Brownie](https://eth-brownie.readthedocs.io/){target=\_blank}</li>
-    </ul>
+    Explore the Web3.py documentation to learn how to use additional features, such as wallet management, signing messages, subscribing to events, and more.
 
--   <span class="badge external">External</span> __Transaction Management__
-
-    ---
-    Learn advanced transaction handling:
-
-    <ul class="card-list">
-    <li>[:octicons-arrow-right-24: Gas Strategies](https://web3py.readthedocs.io/en/stable/gas_price.html){target=\_blank}</li>
-    <li>[:octicons-arrow-right-24: Account Management](https://web3py.readthedocs.io/en/stable/web3.eth.account.html){target=\_blank}</li>
-    </ul>
-
--   <span class="badge external">External</span> __Building dApps__
-
-    ---
-    Combine Web3.py with these frameworks to create full-stack applications:
-
-    <ul class="card-list">
-    <li>[:octicons-arrow-right-24: Flask](https://flask.palletsprojects.com/){target=\_blank}</li>
-    <li>[:octicons-arrow-right-24: Django](https://www.djangoproject.com/){target=\_blank}</li>
-    <li>[:octicons-arrow-right-24: FastAPI](https://fastapi.tiangolo.com/){target=\_blank}</li>
-    </ul>
+    [:octicons-arrow-right-24: Get Started](https://web3py.readthedocs.io/en/stable/){target=\_blank}
 
 </div>

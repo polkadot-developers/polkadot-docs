@@ -241,7 +241,7 @@ After deployment, you'll need the contract's Application Binary Interface (ABI) 
 
 Now that you have your contract deployed, you're ready to build the dApp that will interact with it!
 
-## Set Up the dApp Project
+## Set Up the DApp Project
 
 Navigate to the root of the project, and create a new Next.js project called `dapp`:
 

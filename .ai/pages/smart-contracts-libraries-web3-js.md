@@ -73,9 +73,6 @@ Add the Solidity compiler so you can generate standard EVM bytecode:
 npm install --save-dev solc
 ```
 
-!!! tip
-    The sample scripts use ECMAScript modules. Add `"type": "module"` to your `package.json` (or rename the files to `.mjs`) so that `node` can run the `import` statements.
-
 ## Set Up the Web3 Provider
 
 The provider configuration is the foundation of any Web3.js application. It serves as a bridge between your application and the blockchain, allowing you to query blockchain data and interact with smart contracts.
@@ -132,7 +129,7 @@ With the provider set up, you can start querying the blockchain. For instance, t
     const PROVIDER_RPC = {
       rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
       chainId: 420420422,
-      name: 'polkadot-hub-testnet',
+      name: 'polkadotTestNet',
     };
 
     const main = async () => {
@@ -395,7 +392,7 @@ You can create a `deploy.js` script in the `scripts` directory of your project t
     const providerConfig = {
       rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io', // TODO: replace to `https://services.polkadothub-rpc.com/testnet` when ready
       chainId: 420420422,
-      name: 'polkadot-hub-testnet',
+      name: 'polkadotTestNet',
     };
 
     const privateKey = 'INSERT_PRIVATE_KEY';
@@ -503,7 +500,7 @@ You can create a `deploy.js` script in the `scripts` directory of your project t
     const providerConfig = {
       rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io', // TODO: replace to `https://services.polkadothub-rpc.com/testnet` when ready
       chainId: 420420422,
-      name: 'polkadot-hub-testnet',
+      name: 'polkadotTestNet',
     };
 
     const privateKey = 'INSERT_PRIVATE_KEY';
@@ -523,7 +520,7 @@ After running this script, your contract will be deployed to Polkadot Hub, and i
 
 ## Interact with the Contract
 
-Once the contract is deployed, you can interact with it by calling its functions. For example, to set a number, read it and then modify that number by its double, you can create a file named `updateStorage.js` in the `scripts` directory of your project and add the following code:
+Once the contract is deployed, you can interact with it by calling its functions. For example, to read the current stored value and then update it to a new value, you can create a file named `updateStorage.js` in the `scripts` directory of your project and add the following code:
 
 ```js title="scripts/updateStorage.js"
 const { readFileSync } = require('fs');
@@ -593,7 +590,7 @@ updateStorage(config)
   .catch((error) => console.error('Update error'));
 ```
 
-Ensure you replace the `INSERT_MNEMONIC`, `INSERT_CONTRACT_ADDRESS`, and `INSERT_ADDRESS_TO_CHECK` placeholders with actual values. Also, ensure the contract ABI file (`Storage.json`) is correctly referenced. The script prints the balance for `ADDRESS_TO_CHECK` before it writes and doubles the stored value, so pick any account you want to monitor.
+Ensure you replace the `INSERT_PRIVATE_KEY` and `INSERT_CONTRACT_ADDRESS` placeholders with actual values. Also, ensure the contract ABI file (`Storage.json`) is correctly referenced. The script reads the current stored value, sets it to 1, and then displays the updated value.
 
 To interact with the contract, run:
 

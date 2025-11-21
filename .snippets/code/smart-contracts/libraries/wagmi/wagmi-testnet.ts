@@ -12,7 +12,7 @@ const assetHub = {
   },
   rpcUrls: {
     default: {
-      http: ['https://testnet-passet-hub-eth-rpc.polkadot.io'],
+      http: ['https://testnet-passet-hub-eth-rpc.polkadot.io'], // TODO: change to paseo asset hub once ready
     },
   },
 } as const;

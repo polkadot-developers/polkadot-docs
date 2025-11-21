@@ -8,7 +8,7 @@ import {
 } from "wagmi";
 
 const CONTRACT_ADDRESS =
-  "0xabBd46Ef74b88E8B1CDa49BeFb5057710443Fd29" as `0x${string}`;
+  "INSERT_CONTRACT_ADDRESS" as `0x${string}`;
 
 export function StorageContract() {
   const [number, setNumber] = useState<string>("42");

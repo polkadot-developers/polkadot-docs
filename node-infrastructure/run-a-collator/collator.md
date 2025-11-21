@@ -133,13 +133,14 @@ Generate an account for on-chain transactions as follows:
   ```
 
 2. Save the following items displayed in the output:
-  - Secret phrase (seed) - Keep this secure!
-  - Public key (hex)
-  - Account ID
-  - SS58 Address
+    - Secret phrase (seed) - Keep this secure!
+    - Public key (hex)
+    - Account ID
+    - SS58 Address
 
-  !!! warning
-      Store the secret phrase securely. Never share it. Consider using a hardware wallet for production collators.
+    !!! warning
+      
+        Store the secret phrase securely. Never share it. Consider using a hardware wallet for production collators.
 
 ## Obtain Chain Specification
 
@@ -149,10 +150,10 @@ Download the chain specification for your target system parachain using one of t
 
 Follow these steps to download your specification from the Chainspec Collection:
 
-1. Visit the [Chainspec Collection website](https://paritytech.github.io/chainspecs/)
-2. Find your target system parachain
-3. Download the chain specification JSON file
-4. Save it as `chain-spec.json`
+1. Visit the [Chainspec Collection](https://paritytech.github.io/chainspecs/) website.
+2. Find your target system parachain.
+3. Download the chain specification JSON file.
+4. Save it as `chain-spec.json`.
 
 ### Build Chainspec from Runtime
 
@@ -299,246 +300,181 @@ The relay chain uses warp sync for faster synchronization.
 
 **Important**: Do not proceed with registration until both chains are fully synced. Monitor sync progress using the log viewing commands in the [Log Management](#log-management) section.
 
-### Generate Session Keys
+## Generate Session Keys
 
-Once your node is fully synced, generate session keys:
+Once your node is fully synced, use the following command to generate session keys via RPC:
 
 ```bash
-# Generate session keys via RPC
 curl -H "Content-Type: application/json" \
   -d '{"id":1, "jsonrpc":"2.0", "method": "author_rotateKeys", "params":[]}' \
   http://localhost:9944
-
-# Returns session keys as a hex string
-# Example: "0x1234567890abcdef..."
 ```
 
-**Save the session keys** - you'll need them for on-chain registration.
+This command returns session keys as a hexstring in the terminal. You must save these session keys as you'll need them for on-chain registration. As session keys are stored in the node's database, if you wipe the database, you'll also need to generate new keys.
 
-**Note**: Session keys are stored in the node's database. If you wipe the database, you'll need to generate new keys.
+## Register Collator for Selection
 
-## Registration and Governance
+System parachains use different collator selection mechanisms. Explore the following tabs to see how mechanisms compare and determine the most suitable mechanism for registering your collator.
 
-### Understanding Collator Selection
+=== "Invulnerables List"
 
-System parachains use different collator selection mechanisms:
+    - Fixed list of collators approved through governance.
+    - Most common for system parachains.
+    - Requires governance proposal and approval.
 
-**Invulnerables List**:
 
-- Fixed list of collators approved through governance
-- Most common for system parachains
-- Requires governance proposal and approval
+=== "On-chain Selection"
 
-**On-chain Selection**:
+    - Some parachains use pallet-collator-selection.
+    - May require bonding tokens.
+    - Automatic selection based on criteria.
 
-- Some parachains use pallet-collator-selection
-- May require bonding tokens
-- Automatic selection based on criteria
+=== "Fellowship Decisions"
 
-**Fellowship Decisions**:
-
-- Technical Fellowship may manage some system parachain collators
-- Requires Fellowship membership or approval
+    - Technical Fellowship may manage some system parachain collators.
+    - Requires Fellowship membership or approval.
 
 ### Registration Process
 
-The registration process varies by system parachain. General steps:
+The registration process varies by system parachain. General steps include the following:
 
-#### 1. Check Current Collators
+1. Check the existing collators for your target parachain:
+    <!--TODO: What is the URL? Also, why is the user following this step? Will this query return info needed in next steps or ???-->
+    1. Navigate to Polkadot.js Apps and connect to your system parachain.
+    2. Locate **Developer > Chain State**.
+    3. Query `collatorSelection.invulnerables()`
 
-Check the existing collators for your target parachain:
+2. Prepare a governance proposal for invulnerables-based selection including the following information:
+    - **Draft proposal**: Explain why you should be added as a collator
+    - **Technical details**: Provide your session keys and account ID
+    - **Infrastructure**: Describe your hardware and monitoring setup
+    - **Experience**: Detail your relevant experience
 
-```bash
-# Using Polkadot.js Apps
-# Connect to your target system parachain
-# Go to Developer > Chain State
-# Query: collatorSelection.invulnerables() or similar
-```
+    Submit the proposal to the relevant governance channels on the [Polkadot Forum](https://forum.polkadot.network){target=\_blank}.
 
-#### 2. Prepare Governance Proposal
+3. Once approved (or if using on-chain selection), follow these steps to register session keys using Polkadot.js Apps:
+    1. Navigate to Polkadot.js Apps and connect to your system parachain.
+    2. Locate **Developer > Extrinsics**.
+    3. Select your account.
+    4. Choose the `session.setKeys` extrinsic.
+    5. Enter the following information:
+        - `keys`: Your session keys (from `author_rotateKeys`)
+        - `proof`: 0x00 (typically)
+    6. Submit and sign the transaction.
+    
+4. If the parachain requires bonding tokens, use the follow these steps to submit them using Polkadot.js Apps:
+    1. Locate **Developer > Extrinsics**.
+    2. Select `collatorSelection.registerAsCandidate`.
+    3. Submit the transaction with the required bond amount.
+    4. Sign the transaction.
 
-For invulnerables-based selection:
+5. If applying to join the invulnerables list, you must now await governance approval for your proposal. Monitor the [Polkadot Forum](https://forum.polkadot.network){target=\_blank} governance channels and announcements. Once approved, your collator is added to the invulnerables list and will begin producing blocks in the next session or era. 
 
-1. **Draft proposal**: Explain why you should be added as a collator
-2. **Technical details**: Provide your session keys and account ID
-3. **Infrastructure**: Describe your hardware and monitoring setup
-4. **Experience**: Detail your relevant experience
+6. Verify your collator is active by monitoring logs for block production messages like "Prepared block for proposing" and "Imported #123". See the [Log Management](#log-management) section for log viewing commands.
 
-Submit to:
-- Polkadot Forum: https://forum.polkadot.network
-- Relevant governance channels
+## Monitor and Maintain Your Collator
 
-#### 3. Set Session Keys On-Chain
+Monitoring the following items will help ensure your collator runs efficiently to avoid service interruptions or down time:
 
-Once approved (or if using on-chain selection), set your session keys:
-
-**Using Polkadot.js Apps:**
-
-1. Navigate to Polkadot.js Apps and connect to your system parachain
-2. Go to **Developer > Extrinsics**
-3. Select your account
-4. Choose `session.setKeys` extrinsic
-5. Enter:
-    - `keys`: Your session keys (from `author_rotateKeys`)
-    - `proof`: 0x00 (typically)
-6. Submit and sign the transaction
-
-**Using CLI (alternative):**
-
-```bash
-# This varies by parachain - consult specific documentation
-```
-
-#### 4. Bond Tokens (if required)
-
-Some parachains require bonding tokens:
-
-1. Go to **Developer > Extrinsics**
-2. Select `collatorSelection.registerAsCandidate` (if available)
-3. Submit with required bond amount
-4. Sign transaction
-
-#### 5. Await Governance Approval
-
-If using invulnerables:
-
-- Wait for governance vote
-- Monitor forum and announcements
-- Once approved, you'll be added to the invulnerables list
-- Your collator will begin producing blocks in the next session/era
-
-### Verify Collator Status
-
-Check if your collator is active by monitoring logs for block production messages like "Prepared block for proposing" and "Imported #123". See the [Log Management](#log-management) section for log viewing commands.
-
-## Monitoring and Maintenance
-
-### Essential Monitoring
-
-**Block Production**:
-```bash
-# Monitor block production
-sudo journalctl -u polkadot-collator | grep -i "prepared block"
-```
-
-**Peer Connections**:
-
-- Maintain a sufficient amount of peers for good connectivity
-- Check peer count in logs
-
-**Resource Usage**:
-
-- Monitor CPU, RAM, and disk I/O
-- Set up alerts for high usage
-
-**Sync Status**:
-
-- Ensure both chains stay synced
-- Alert on sync issues
+- **Block Production**: monitor for block production using the following command:
+    ```bash
+    sudo journalctl -u polkadot-collator | grep -i "prepared block"
+    ```
+- **Peer Connections**: Maintain a sufficient amount of peers for good connectivity and set up alerts to notify if peer connections falls below ten.
+- **Resource Usage**: Monitor CPU, RAM, and disk I/O and set up alerts for unusual or high usage.
+- **Sync Status**: Ensure both chains stay synced and set up alerts for sync issues.
 
 ### Prometheus Metrics
 
-Metrics available at `http://localhost:9615/metrics`
+You can use the following information to configure [Prometheus](https://prometheus.io/docs/introduction/first_steps/){target=\_blank} to monitor, collect, and store your collator node metrics:
 
-Example Prometheus configuration:
-```yaml
-scrape_configs:
-  - job_name: 'polkadot-collator'
-    static_configs:
-      - targets: ['localhost:9615']
-```
+- **URL**: Metrics are available to view at `http://localhost:9615/metrics`
+- **Example Prometheus configuration**: Update your `prometheus.yml` to add the following code:
+    ```yaml
+    scrape_configs:
+      - job_name: 'polkadot-collator'
+        static_configs:
+          - targets: ['localhost:9615']
+    ```
 
-Key metrics to monitor:
+Key metrics to monitor via Prometheus include the following:
 
 - `substrate_block_height`: Current block height
 - `substrate_finalized_height`: Finalized block height
 - `substrate_peers_count`: Peer connections
 - `substrate_ready_transactions_number`: Transaction queue
 
-### Setting Up Alerts
 
-Configure alerts for:
+## Log Management
 
-- Service failures
-- Sync issues
-- Low peer count (< 10 peers)
-- Block production gaps
-- High resource usage
-- Disk space low
+Effecient log management is essential to ensure collator performance and uptime. Use the following commands to help you manage logs to monitor and maintain your collator:
 
-### Log Management
+- View recent logs:
+    ```bash
+    sudo journalctl -u polkadot-collator -n 100
+    ```
+- Follow logs in real-time:
+    ```bash
+    sudo journalctl -u polkadot-collator -f
+    ```
+- Filter for errors:
+    ```bash
+    sudo journalctl -u polkadot-collator | grep -i error
+    ```
+- Filter for block production:
+    ```bash
+    sudo journalctl -u polkadot-collator | grep -i "imported"
+    ```
 
+## Database Maintenance
+
+You can check database size using the following command:
 ```bash
-# View recent logs
-sudo journalctl -u polkadot-collator -n 100
-
-# Follow logs in real-time
-sudo journalctl -u polkadot-collator -f
-
-# Filter for errors
-sudo journalctl -u polkadot-collator | grep -i error
-
-# Filter for block production
-sudo journalctl -u polkadot-collator | grep -i "imported"
-```
-
-### Database Maintenance
-
-Check database size:
-```bash
-# Check database size
 du -sh /var/lib/polkadot-collator
 ```
+The collator node handles pruning automatically.
 
-The node handles pruning automatically.
+## Updates and Upgrades
 
-### Updates and Upgrades
+Updates or upgrades can happen on either the runtime or client. Runtime upgrades happen automatically via on-chain governance and do not require manual action on your part. Client upgrades do require a manual binary update process performed via terminal commands as follows:
 
-**Runtime Upgrades**:
+1. Stop the service:
+    ```bash
+    sudo systemctl stop polkadot-collator
+    ```
 
-- Automatic via on-chain governance
-- No manual action required
-- Monitor announcements for breaking changes
+2. Backup data (recommended):
+    ```bash
+    sudo cp -r /var/lib/polkadot-collator /var/lib/polkadot-collator.backup
+    ```
 
-**Client Upgrades**:
+3. Update `polkadot-omni-node`:
+    ```bash
+    cargo install --locked --force polkadot-omni-node@<NEW_VERSION>
+    ```
 
-- Require manual binary update
-- Subscribe to announcements:
-    - Polkadot Forum
-    - Fellowship GitHub
-    - Matrix channels
+4. Verify `polkadot-omni-node` version to confirm successful update:
+    ```bash
+    polkadot-omni-node --version
+    ```
 
-**Upgrade Procedure**:
+5. Restart the service:
+    ```bash
+    sudo systemctl start polkadot-collator
+    ```
 
-```bash
-# Stop the service
-sudo systemctl stop polkadot-collator
-
-# Backup data (recommended)
-sudo cp -r /var/lib/polkadot-collator /var/lib/polkadot-collator.backup
-
-# Update polkadot-omni-node
-cargo install --locked --force polkadot-omni-node@<NEW_VERSION>
-
-# Verify version
-polkadot-omni-node --version
-
-# Restart service
-sudo systemctl start polkadot-collator
-
-# Verify service is running
-sudo systemctl status polkadot-collator
-```
-
-**Note**: For log monitoring, see the [Log Management](#log-management) section.
+6. Verify the service is running:
+    ```bash
+    sudo systemctl status polkadot-collator
+    ```
 
 ## Conclusion
 
 Running a collator node is essential for parachain operation and network security. By following this guide, you have set up a production-ready collator that:
 
-- Produces blocks for your parachain and maintains network consensus
-- Implements comprehensive security measures to protect keys and operations
-- Supports robust monitoring and alerting for reliable performance
-- Follows best practices for both Docker and systemd deployments
+- Produces blocks for your parachain and maintains network consensus.
+- Implements comprehensive security measures to protect keys and operations.
+- Supports robust monitoring and alerting for reliable performance.
+- Follows best practices for both Docker and systemd deployments.
 
 As a collator operator, you play a vital role in your parachain's infrastructure. Regular maintenance, security updates, and monitoring will ensure your collator continues to perform reliably. Stay engaged with your parachain community and keep up with updates to maintain optimal performance and security.

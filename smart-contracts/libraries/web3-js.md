@@ -220,8 +220,8 @@ node scripts/updateStorage.js
 
     ---
 
-    Explore the Web3.js documentation to learn how to use additional features, such as wallet management, signing messages, subscribing to events, etc.
+    Explore the Web3.js documentation to learn how to use additional features, such as wallet management, signing messages, subscribing to events, and more.
 
-    [:octicons-arrow-right-24: Get Started](https://web3js.readthedocs.io/en/v1.10.0/)
+    [:octicons-arrow-right-24: Get Started](https://web3js.readthedocs.io/en/v1.10.0/){target=\_blank}
 
 </div>

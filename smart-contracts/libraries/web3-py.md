@@ -97,49 +97,14 @@ After deployment, interact with your contract using Web3.py methods. The example
 
 ## Where to Go Next
 
-Now that you have the foundation for using Web3.py with Polkadot Hub, consider exploring:
-
 <div class="grid cards" markdown>
 
--   <span class="badge external">External</span> __Advanced Web3.py Features__
-  
-    ---
-    Explore Web3.py's documentation:
-    <ul class="card-list">
-    <li>[:octicons-arrow-right-24: Middleware](https://web3py.readthedocs.io/en/stable/middleware.html){target=\_blank}</li>
-    <li>[:octicons-arrow-right-24: Filters & Events](https://web3py.readthedocs.io/en/stable/filters.html){target=\_blank}</li>
-    <li>[:octicons-arrow-right-24: ENS](https://web3py.readthedocs.io/en/stable/ens_overview.html){target=\_blank}</li>
-    </ul>
-
--   <span class="badge external">External</span> __Testing Frameworks__
+-   <span class="badge external">External</span> __Web3.py Docs__
 
     ---
-    Integrate Web3.py with Python testing frameworks:
 
-    <ul class="card-list">
-    <li>[:octicons-arrow-right-24: Pytest](https://docs.pytest.org/){target=\_blank}</li>
-    <li>[:octicons-arrow-right-24: Brownie](https://eth-brownie.readthedocs.io/){target=\_blank}</li>
-    </ul>
+    Explore the Web3.py documentation to learn how to use additional features, such as wallet management, signing messages, subscribing to events, and more.
 
--   <span class="badge external">External</span> __Transaction Management__
-
-    ---
-    Learn advanced transaction handling:
-
-    <ul class="card-list">
-    <li>[:octicons-arrow-right-24: Gas Strategies](https://web3py.readthedocs.io/en/stable/gas_price.html){target=\_blank}</li>
-    <li>[:octicons-arrow-right-24: Account Management](https://web3py.readthedocs.io/en/stable/web3.eth.account.html){target=\_blank}</li>
-    </ul>
-
--   <span class="badge external">External</span> __Building dApps__
-
-    ---
-    Combine Web3.py with these frameworks to create full-stack applications:
-
-    <ul class="card-list">
-    <li>[:octicons-arrow-right-24: Flask](https://flask.palletsprojects.com/){target=\_blank}</li>
-    <li>[:octicons-arrow-right-24: Django](https://www.djangoproject.com/){target=\_blank}</li>
-    <li>[:octicons-arrow-right-24: FastAPI](https://fastapi.tiangolo.com/){target=\_blank}</li>
-    </ul>
+    [:octicons-arrow-right-24: Get Started](https://web3py.readthedocs.io/en/stable/){target=\_blank}
 
 </div>

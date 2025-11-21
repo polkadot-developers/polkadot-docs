@@ -72,12 +72,6 @@ Add the Solidity compiler so you can generate standard EVM bytecode:
 ```bash
 npm install --save-dev solc
 ```
-<<<<<<< HEAD
-=======
-
-!!! tip
-    The sample scripts use ECMAScript modules. Add `"type": "module"` to your `package.json` (or rename the files to `.mjs`) so that `node` can run the `import` statements.
->>>>>>> staging/product-ia
 
 ## Set Up the Web3 Provider
 
@@ -398,11 +392,7 @@ You can create a `deploy.js` script in the `scripts` directory of your project t
     const providerConfig = {
       rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io', // TODO: replace to `https://services.polkadothub-rpc.com/testnet` when ready
       chainId: 420420422,
-<<<<<<< HEAD
       name: 'polkadotTestNet',
-=======
-      name: 'polkadot-hub-testnet',
->>>>>>> staging/product-ia
     };
 
     const privateKey = 'INSERT_PRIVATE_KEY';
@@ -510,11 +500,7 @@ You can create a `deploy.js` script in the `scripts` directory of your project t
     const providerConfig = {
       rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io', // TODO: replace to `https://services.polkadothub-rpc.com/testnet` when ready
       chainId: 420420422,
-<<<<<<< HEAD
       name: 'polkadotTestNet',
-=======
-      name: 'polkadot-hub-testnet',
->>>>>>> staging/product-ia
     };
 
     const privateKey = 'INSERT_PRIVATE_KEY';
@@ -534,11 +520,7 @@ After running this script, your contract will be deployed to Polkadot Hub, and i
 
 ## Interact with the Contract
 
-<<<<<<< HEAD
 Once the contract is deployed, you can interact with it by calling its functions. For example, to read the current stored value and then update it to a new value, you can create a file named `updateStorage.js` in the `scripts` directory of your project and add the following code:
-=======
-Once the contract is deployed, you can interact with it by calling its functions. For example, to set a number, read it and then modify that number by its double, you can create a file named `updateStorage.js` in the `scripts` directory of your project and add the following code:
->>>>>>> staging/product-ia
 
 ```js title="scripts/updateStorage.js"
 const { readFileSync } = require('fs');
@@ -608,11 +590,7 @@ updateStorage(config)
   .catch((error) => console.error('Update error'));
 ```
 
-<<<<<<< HEAD
 Ensure you replace the `INSERT_PRIVATE_KEY` and `INSERT_CONTRACT_ADDRESS` placeholders with actual values. Also, ensure the contract ABI file (`Storage.json`) is correctly referenced. The script reads the current stored value, sets it to 1, and then displays the updated value.
-=======
-Ensure you replace the `INSERT_MNEMONIC`, `INSERT_CONTRACT_ADDRESS`, and `INSERT_ADDRESS_TO_CHECK` placeholders with actual values. Also, ensure the contract ABI file (`Storage.json`) is correctly referenced. The script prints the balance for `ADDRESS_TO_CHECK` before it writes and doubles the stored value, so pick any account you want to monitor.
->>>>>>> staging/product-ia
 
 To interact with the contract, run:
 

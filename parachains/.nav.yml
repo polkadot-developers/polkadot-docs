@@ -3,7 +3,7 @@ nav:
  - 'Install Polkadot SDK': install-polkadot-sdk.md
  - 'Launch a Simple Parachain': launch-a-parachain
  - 'Customize Your Runtime': customize-runtime
- - 'Test Your Runtime': testing
- - 'Maintain and Upgrade Your Runtime': runtime-maintenance
- - 'Enable Interoperability': interoperability
+ - 'Testing': testing
+ - 'Runtime Upgrades and Maintenance': runtime-maintenance
+ - 'Interoperability': interoperability
  - 'Integrations': integrations

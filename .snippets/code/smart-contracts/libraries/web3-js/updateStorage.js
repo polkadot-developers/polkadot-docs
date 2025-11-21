@@ -1,17 +1,13 @@
-const { readFileSync } = require('fs');
-const { join } = require('path');
-const { Web3 } = require('web3');
-
-const abisDir = join(__dirname, '../abis');
+import { readFileSync } from 'fs';
+import { Web3 } from 'web3';
 
 const getAbi = (contractName) => {
   try {
-    const abiPath = join(abisDir, `${contractName}.json`);
-    return JSON.parse(readFileSync(abiPath, 'utf8'));
+    return JSON.parse(readFileSync(`${contractName}.json`), 'utf8');
   } catch (error) {
     console.error(
-      `Could not find ABI for contract ${contractName}:`,
-      error.message,
+      `❌ Could not find ABI for contract ${contractName}:`,
+      error.message
     );
     throw error;
   }
@@ -19,31 +15,45 @@ const getAbi = (contractName) => {
 
 const updateStorage = async (config) => {
   try {
+    // Initialize Web3 with RPC URL
     const web3 = new Web3(config.rpcUrl);
-    const formattedPrivateKey = config.privateKey.startsWith('0x') ? config.privateKey : `0x${config.privateKey}`;
-    const account = web3.eth.accounts.privateKeyToAccount(formattedPrivateKey);
+
+    // Prepare account
+    const account = web3.eth.accounts.privateKeyToAccount(config.privateKey);
     web3.eth.accounts.wallet.add(account);
 
+    // Load abi
     const abi = getAbi('Storage');
+
+    // Create contract instance
     const contract = new web3.eth.Contract(abi, config.contractAddress);
 
+    // Get initial value
     const initialValue = await contract.methods.storedNumber().call();
     console.log('Current stored value:', initialValue);
 
+    // Prepare transaction
     const updateTransaction = contract.methods.setNumber(1);
+
+    // Estimate gas
     const gasEstimate = await updateTransaction.estimateGas({
       from: account.address,
     });
+
+    // Get current gas price
     const gasPrice = await web3.eth.getGasPrice();
 
+    // Send update transaction
     const receipt = await updateTransaction.send({
       from: account.address,
       gas: gasEstimate,
       gasPrice: gasPrice,
     });
 
+    // Log transaction details
     console.log(`Transaction hash: ${receipt.transactionHash}`);
 
+    // Get updated value
     const newValue = await contract.methods.storedNumber().call();
     console.log('New stored value:', newValue);
 
@@ -54,8 +64,9 @@ const updateStorage = async (config) => {
   }
 };
 
+// Example usage
 const config = {
-  rpcUrl: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
+  rpcUrl: 'INSERT_RPC_URL',
   privateKey: 'INSERT_PRIVATE_KEY',
   contractAddress: 'INSERT_CONTRACT_ADDRESS',
 };

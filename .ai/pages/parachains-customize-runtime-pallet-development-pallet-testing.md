@@ -1,728 +1,133 @@
 ---
-title: Pallet Unit Testing
-description: Learn how to write comprehensive unit tests for your custom pallets using mock runtimes, ensuring reliability and correctness before deployment.
+title: Pallet Testing
+description: Learn how to efficiently test pallets in the Polkadot SDK, ensuring the reliability and security of your pallets operations.
 categories: Parachains
 url: https://docs.polkadot.com/parachains/customize-runtime/pallet-development/pallet-testing/
 ---
 
-# Pallet Unit Testing
+# Pallet Testing
 
 ## Introduction
 
-Unit testing in the Polkadot SDK helps ensure that the functions provided by a pallet behave as expected. It also confirms that data and events associated with a pallet are processed correctly during interactions. With your mock runtime in place from the [previous guide](/parachains/customize-runtime/pallet-development/mock-runtime/), you can now write comprehensive tests that verify your pallet's behavior in isolation.
+Unit testing in the Polkadot SDK helps ensure that the functions provided by a pallet behave as expected. It also confirms that data and events associated with a pallet are processed correctly during interactions. The Polkadot SDK offers a set of APIs to create a test environment to simulate runtime and mock transaction execution for extrinsics and queries.
 
-In this guide, you'll learn how to:
+To begin unit testing, you must first set up a mock runtime that simulates blockchain behavior, incorporating the necessary pallets. For a deeper understanding, consult the [Mock Runtime](/parachains/customize-runtime/pallet-development/mock-runtime/){target=\_blank} guide.
 
-- Structure test modules effectively.
-- Test dispatchable functions.
-- Verify storage changes.
-- Check event emission.
-- Test error conditions.
-- Use genesis configurations in tests.
+## Writing Unit Tests
 
-## Prerequisites
+Once the mock runtime is in place, the next step is to write unit tests that evaluate the functionality of your pallet. Unit tests allow you to test specific pallet features in isolation, ensuring that each function behaves correctly under various conditions. These tests typically reside in your pallet module's `test.rs` file.
 
-Before you begin, ensure you:
+Unit tests in the Polkadot SDK use the Rust testing framework, and the mock runtime you've defined earlier will serve as the test environment. Below are the typical steps involved in writing unit tests for a pallet.
 
-- Completed the [Make a Custom Pallet](/parachains/customize-runtime/pallet-development/create-a-pallet/) guide.
-- Completed the [Mock Your Runtime](/parachains/customize-runtime/pallet-development/mock-runtime/) guide.
-- Configured custom counter pallet with mock runtime in `pallets/pallet-custom`.
-- Understood the basics of [Rust testing](https://doc.rust-lang.org/book/ch11-00-testing.html){target=\_blank}.
+The tests confirm that:
 
-## Understanding FRAME Testing Tools
+- **Pallets initialize correctly**: At the start of each test, the system should initialize with block number 0, and the pallets should be in their default states.
+- **Pallets modify each other's state**: The second test shows how one pallet can trigger changes in another pallet's internal state, confirming proper cross-pallet interactions.
+- **State transitions between blocks are seamless**: By simulating block transitions, the tests validate that the runtime responds correctly to changes in the block number.
 
-[FRAME](/reference/glossary/#frame-framework-for-runtime-aggregation-of-modularized-entities){target=\_blank} provides specialized testing macros and utilities that make pallet testing more efficient:
+Testing pallet interactions within the runtime is critical for ensuring the blockchain behaves as expected under real-world conditions. Writing integration tests allows validation of how pallets function together, preventing issues that might arise when the system is fully assembled.
 
-### Assertion Macros
+This approach provides a comprehensive view of the runtime's functionality, ensuring the blockchain is stable and reliable.
 
-- **[`assert_ok!`](https://paritytech.github.io/polkadot-sdk/master/frame_support/macro.assert_ok.html){target=\_blank}** - Asserts that a dispatchable call succeeds.
-- **[`assert_noop!`](https://paritytech.github.io/polkadot-sdk/master/frame_support/macro.assert_noop.html){target=\_blank}** - Asserts that a call fails without changing state (no operation).
-- **[`assert_eq!`](https://doc.rust-lang.org/std/macro.assert_eq.html){target=\_blank}** - Standard Rust equality assertion.
+### Test Initialization
 
-!!!info "`assert_noop!` Explained"
-    Use `assert_noop!` to ensure the operation fails without any state changes. This is critical for testing error conditions - it verifies both that the error occurs AND that no storage was modified.
-
-### System Pallet Test Helpers
-
-The [`frame_system`](https://paritytech.github.io/polkadot-sdk/master/frame_system/index.html){target=\_blank} pallet provides useful methods for testing:
-
-- **[`System::events()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.events){target=\_blank}** - Returns all events emitted during the test.
-- **[`System::assert_last_event()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.assert_last_event){target=\_blank}** - Asserts the last event matches expectations.
-- **[`System::set_block_number()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.set_block_number){target=\_blank}** - Sets the current block number.
-
-!!!info "Events and Block Number"
-    Events are not emitted on block 0 (genesis block). If you need to test events, ensure you set the block number to at least 1 using `System::set_block_number(1)`.
-
-### Origin Types
-
-- **[`RuntimeOrigin::root()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/enum.RawOrigin.html#variant.Root){target=\_blank}** - Root/sudo origin for privileged operations.
-- **[`RuntimeOrigin::signed(account)`](https://paritytech.github.io/polkadot-sdk/master/frame_system/enum.RawOrigin.html#variant.Signed){target=\_blank}** - Signed origin from a specific account.
-- **[`RuntimeOrigin::none()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/enum.RawOrigin.html#variant.None){target=\_blank}** - No origin (typically fails for most operations).
-
-Learn more about origins in the [FRAME Origin reference document](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/frame_origin/index.html){target=\_blank}.
-
-## Create the Tests Module
-
-Create a new file for your tests within the pallet directory:
-
-1. Navigate to your pallet directory:
-
-    ```bash
-    cd pallets/pallet-custom/src
-    ```
-
-2. Create a new file named `tests.rs`:
-
-    ```bash
-    touch tests.rs
-    ```
-
-3. Open `src/lib.rs` and add the tests module declaration after the mock module:
-
-    ```rust title="src/lib.rs"
-    #![cfg_attr(not(feature = "std"), no_std)]
-
-    pub use pallet::*;
-
-    #[cfg(test)]
-    mod mock;
-
-    #[cfg(test)]
-    mod tests;
-
-    #[frame::pallet]
-    pub mod pallet {
-        // ... existing pallet code
-    }
-    ```
-
-## Set Up the Test Module
-
-Open `src/tests.rs` and add the basic structure with necessary imports:
-
-```rust
-use crate::{mock::*, Error, Event};
-use frame::deps::frame_support::{assert_noop, assert_ok};
-use frame::deps::sp_runtime::DispatchError;
-```
-
-This setup imports:
-
-- The mock runtime and test utilities from `mock.rs`
-- Your pallet's `Error` and `Event` types
-- FRAME's assertion macros via `frame::deps`
-- `DispatchError` for testing origin checks
-
-???+ code "Complete Pallet Code Reference"
-    Here's the complete pallet code that you'll be testing throughout this guide:
-
-    ```rust
-    #![cfg_attr(not(feature = "std"), no_std)]
-
-    pub use pallet::*;
-
-    #[frame::pallet]
-    pub mod pallet {
-        use frame::prelude::*;
-
-        #[pallet::pallet]
-        pub struct Pallet<T>(_);
-
-        #[pallet::config]
-        pub trait Config: frame_system::Config {
-            type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
-
-            #[pallet::constant]
-            type CounterMaxValue: Get<u32>;
-        }
-
-        #[pallet::event]
-        #[pallet::generate_deposit(pub(super) fn deposit_event)]
-        pub enum Event<T: Config> {
-            CounterValueSet {
-                new_value: u32,
-            },
-            CounterIncremented {
-                new_value: u32,
-                who: T::AccountId,
-                amount: u32,
-            },
-            CounterDecremented {
-                new_value: u32,
-                who: T::AccountId,
-                amount: u32,
-            },
-        }
-
-        #[pallet::error]
-        pub enum Error<T> {
-            NoneValue,
-            Overflow,
-            Underflow,
-            CounterMaxValueExceeded,
-        }
-
-        #[pallet::storage]
-        pub type CounterValue<T> = StorageValue<_, u32, ValueQuery>;
-
-        #[pallet::storage]
-        pub type UserInteractions<T: Config> = StorageMap<
-            _,
-            Blake2_128Concat,
-            T::AccountId,
-            u32,
-            ValueQuery
-        >;
-
-        #[pallet::genesis_config]
-        #[derive(DefaultNoBound)]
-        pub struct GenesisConfig<T: Config> {
-            pub initial_counter_value: u32,
-            pub initial_user_interactions: Vec<(T::AccountId, u32)>,
-        }
-
-        #[pallet::genesis_build]
-        impl<T: Config> BuildGenesisConfig for GenesisConfig<T> {
-            fn build(&self) {
-                CounterValue::<T>::put(self.initial_counter_value);
-                for (account, count) in &self.initial_user_interactions {
-                    UserInteractions::<T>::insert(account, count);
-                }
-            }
-        }
-
-        #[pallet::call]
-        impl<T: Config> Pallet<T> {
-            #[pallet::call_index(0)]
-            #[pallet::weight(0)]
-            pub fn set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult {
-                ensure_root(origin)?;
-                ensure!(new_value <= T::CounterMaxValue::get(), Error::<T>::CounterMaxValueExceeded);
-                CounterValue::<T>::put(new_value);
-                Self::deposit_event(Event::CounterValueSet { new_value });
-                Ok(())
-            }
-
-            #[pallet::call_index(1)]
-            #[pallet::weight(0)]
-            pub fn increment(origin: OriginFor<T>, amount: u32) -> DispatchResult {
-                let who = ensure_signed(origin)?;
-                let current_value = CounterValue::<T>::get();
-                let new_value = current_value.checked_add(amount).ok_or(Error::<T>::Overflow)?;
-                ensure!(new_value <= T::CounterMaxValue::get(), Error::<T>::CounterMaxValueExceeded);
-                CounterValue::<T>::put(new_value);
-                UserInteractions::<T>::mutate(&who, |count| {
-                    *count = count.saturating_add(1);
-                });
-                Self::deposit_event(Event::CounterIncremented { new_value, who, amount });
-                Ok(())
-            }
-
-            #[pallet::call_index(2)]
-            #[pallet::weight(0)]
-            pub fn decrement(origin: OriginFor<T>, amount: u32) -> DispatchResult {
-                let who = ensure_signed(origin)?;
-                let current_value = CounterValue::<T>::get();
-                let new_value = current_value.checked_sub(amount).ok_or(Error::<T>::Underflow)?;
-                CounterValue::<T>::put(new_value);
-                UserInteractions::<T>::mutate(&who, |count| {
-                    *count = count.saturating_add(1);
-                });
-                Self::deposit_event(Event::CounterDecremented { new_value, who, amount });
-                Ok(())
-            }
-        }
-    }
-
-    ```
-
-## Write Your First Test
-
-Let's start with a simple test to verify the increment function works correctly.
-
-### Test Basic Increment
-
-Test that the increment function increases counter value and emits events.
+Each test starts by initializing the runtime environment, typically using the `new_test_ext()` function, which sets up the mock storage and environment.
 
 ```rust
 #[test]
-fn increment_works() {
+fn test_pallet_functionality() {
     new_test_ext().execute_with(|| {
-        // Set block number to 1 so events are registered
-        System::set_block_number(1);
-
-        let account = 1u64;
-
-        // Increment by 50
-        assert_ok!(CustomPallet::increment(RuntimeOrigin::signed(account), 50));
-        assert_eq!(crate::CounterValue::<Test>::get(), 50);
-
-        // Check event was emitted
-        System::assert_last_event(
-            Event::CounterIncremented {
-                new_value: 50,
-                who: account,
-                amount: 50,
-            }
-            .into(),
-        );
-
-        // Check user interactions were tracked
-        assert_eq!(crate::UserInteractions::<Test>::get(account), 1);
+        // Test logic goes here
     });
 }
 ```
 
-Run your first test:
+### Function Call Testing
 
-```bash
-cargo test --package pallet-custom increment_works
-```
-
-You should see:
-
-```
-running 1 test
-test tests::increment_works ... ok
-```
-
-Congratulations! You've written and run your first pallet test.
-
-## Test Error Conditions
-
-Now let's test that our pallet correctly handles errors. Error testing is crucial to ensure your pallet fails safely.
-
-### Test Overflow Protection
-
-Test that incrementing at u32::MAX fails with Overflow error.
+Call the pallet's extrinsics or functions to simulate user interaction or internal logic. Use the `assert_ok!` macro to check for successful execution and `assert_err!` to verify that errors are correctly handled.
 
 ```rust
 #[test]
-fn increment_fails_on_overflow() {
-    new_test_ext_with_counter(u32::MAX).execute_with(|| {
-        // Attempt to increment when at max u32 should fail
-        assert_noop!(
-            CustomPallet::increment(RuntimeOrigin::signed(1), 1),
-            Error::<Test>::Overflow
-        );
-    });
-}
-```
-
-Test overflow protection:
-
-```bash
-cargo test --package pallet-custom increment_fails_on_overflow
-```
-
-### Test Underflow Protection
-
-Test that decrementing below zero fails with Underflow error.
-
-```rust
-#[test]
-fn decrement_fails_on_underflow() {
-    new_test_ext_with_counter(10).execute_with(|| {
-        // Attempt to decrement below zero should fail
-        assert_noop!(
-            CustomPallet::decrement(RuntimeOrigin::signed(1), 11),
-            Error::<Test>::Underflow
-        );
-    });
-}
-```
-
-Verify underflow protection:
-
-```bash
-cargo test --package pallet-custom decrement_fails_on_underflow
-```
-
-## Test Access Control
-
-Verify that origin checks work correctly and unauthorized access is prevented.
-
-### Test Root-Only Access
-
-Test that set_counter_value requires root origin and rejects signed origins.
-
-```rust
-#[test]
-fn set_counter_value_requires_root() {
+fn it_works_for_valid_input() {
     new_test_ext().execute_with(|| {
-        let alice = 1u64;
-
-        // When: non-root user tries to set counter
-        // Then: should fail with BadOrigin
-        assert_noop!(
-            CustomPallet::set_counter_value(RuntimeOrigin::signed(alice), 100),
-            DispatchError::BadOrigin
-        );
-
-        // But root should succeed
-        assert_ok!(CustomPallet::set_counter_value(RuntimeOrigin::root(), 100));
-        assert_eq!(crate::CounterValue::<Test>::get(), 100);
+        // Call an extrinsic or function
+        assert_ok!(TemplateModule::some_function(Origin::signed(1), valid_param));
     });
 }
-```
 
-Test access control:
-
-```bash
-cargo test --package pallet-custom set_counter_value_requires_root
-```
-
-## Test Event Emission
-
-Verify that events are emitted correctly with the right data.
-
-### Test Event Data
-
-The [`increment_works`](/parachains/customize-runtime/pallet-development/pallet-testing/#test-basic-increment) test (shown earlier) already demonstrates event testing by:
-
-1. Setting the block number to 1 to enable event emission.
-2. Calling the dispatchable function.
-3. Using `System::assert_last_event()` to verify the correct event was emitted with expected data.
-
-This pattern applies to all dispatchables that emit events. For a dedicated event-only test focusing on the `set_counter_value` function:
-
-Test that set_counter_value updates storage and emits correct event.
-
-```rust
 #[test]
-fn set_counter_value_works() {
+fn it_fails_for_invalid_input() {
     new_test_ext().execute_with(|| {
-        // Set block number to 1 so events are registered
-        System::set_block_number(1);
-
-        // Set counter to 100
-        assert_ok!(CustomPallet::set_counter_value(RuntimeOrigin::root(), 100));
-        assert_eq!(crate::CounterValue::<Test>::get(), 100);
-
-        // Check event was emitted
-        System::assert_last_event(Event::CounterValueSet { new_value: 100 }.into());
+        // Call an extrinsic with invalid input and expect an error
+        assert_err!(
+            TemplateModule::some_function(Origin::signed(1), invalid_param),
+            Error::<Test>::InvalidInput
+        );
     });
 }
 ```
 
-Run the event test:
+### Storage Testing
 
-```bash
-cargo test --package pallet-custom set_counter_value_works
-```
+After calling a function or extrinsic in your pallet, it's essential to verify that the state changes in the pallet's storage match the expected behavior to ensure data is updated correctly based on the actions taken.
 
-## Test Genesis Configuration
-
-Verify that genesis configuration works correctly.
-
-### Test Genesis Setup
-
-Test that genesis configuration correctly initializes counter and user interactions.
+The following example shows how to test the storage behavior before and after the function call:
 
 ```rust
 #[test]
-fn genesis_config_works() {
-    new_test_ext_with_interactions(42, vec![(1, 5), (2, 10)]).execute_with(|| {
-        // Check initial counter value
-        assert_eq!(crate::CounterValue::<Test>::get(), 42);
+fn test_storage_update_on_extrinsic_call() {
+    new_test_ext().execute_with(|| {
+        // Check the initial storage state (before the call)
+        assert_eq!(Something::<Test>::get(), None);
 
-        // Check initial user interactions
-        assert_eq!(crate::UserInteractions::<Test>::get(1), 5);
-        assert_eq!(crate::UserInteractions::<Test>::get(2), 10);
+        // Dispatch a signed extrinsic, which modifies storage
+        assert_ok!(TemplateModule::do_something(RuntimeOrigin::signed(1), 42));
+
+        // Validate that the storage has been updated as expected (after the call)
+        assert_eq!(Something::<Test>::get(), Some(42));
+    });
+}
+
+```
+
+### Event Testing
+
+It's also crucial to test the events that your pallet emits during execution. By default, events generated in a pallet using the [`#generate_deposit`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.generate_deposit.html){target=\_blank} macro are stored under the system's event storage key (system/events) as [`EventRecord`](https://paritytech.github.io/polkadot-sdk/master/frame_system/struct.EventRecord.html){target=\_blank} entries. These can be accessed using [`System::events()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.events){target=\_blank} or verified with specific helper methods provided by the system pallet, such as [`assert_has_event`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.assert_has_event){target=\_blank} and [`assert_last_event`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.assert_last_event){target=\_blank}.
+
+Here's an example of testing events in a mock runtime:
+
+```rust
+#[test]
+fn it_emits_events_on_success() {
+    new_test_ext().execute_with(|| {
+        // Call an extrinsic or function
+        assert_ok!(TemplateModule::some_function(Origin::signed(1), valid_param));
+
+        // Verify that the expected event was emitted
+        assert!(System::events().iter().any(|record| {
+            record.event == Event::TemplateModule(TemplateEvent::SomeEvent)
+        }));
     });
 }
 ```
 
-Test genesis configuration:
+Some key considerations are:
 
-```bash
-cargo test --package pallet-custom genesis_config_works
-```
-
-## Run All Tests
-
-Now run all your tests together:
-
-```bash
-cargo test --package pallet-custom
-```
-
-You should see all tests passing:
-
-<div id="termynal" data-termynal>
-  <span data-ty="input">$ cargo test --package pallet-custom</span>
-  <span data-ty>running 15 tests</span>
-  <span data-ty>test mock::__construct_runtime_integrity_test::runtime_integrity_tests ... ok</span>
-  <span data-ty>test mock::test_genesis_config_builds ... ok</span>
-  <span data-ty>test tests::decrement_fails_on_underflow ... ok</span>
-  <span data-ty>test tests::decrement_tracks_multiple_interactions ... ok</span>
-  <span data-ty>test tests::decrement_works ... ok</span>
-  <span data-ty>test tests::different_users_tracked_separately ... ok</span>
-  <span data-ty>test tests::genesis_config_works ... ok</span>
-  <span data-ty>test tests::increment_fails_on_overflow ... ok</span>
-  <span data-ty>test tests::increment_respects_max_value ... ok</span>
-  <span data-ty>test tests::increment_tracks_multiple_interactions ... ok</span>
-  <span data-ty>test tests::increment_works ... ok</span>
-  <span data-ty>test tests::mixed_increment_and_decrement_works ... ok</span>
-  <span data-ty>test tests::set_counter_value_requires_root ... ok</span>
-  <span data-ty>test tests::set_counter_value_respects_max_value ... ok</span>
-  <span data-ty>test tests::set_counter_value_works ... ok</span>
-  <span data-ty></span>
-  <span data-ty>test result: ok. 15 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out</span>
-</div>
-
-!!!note "Mock Runtime Tests"
-    You'll notice 2 additional tests from the `mock` module:
-
-    - `mock::__construct_runtime_integrity_test::runtime_integrity_tests` - Auto-generated test that validates runtime construction
-    - `mock::test_genesis_config_builds` - Validates that genesis configuration builds correctly
-
-    These tests are automatically generated from your mock runtime setup and help ensure the test environment itself is valid.
-
-Congratulations! You have a well-tested pallet covering the essential testing patterns!
-
-These tests demonstrate comprehensive coverage including basic operations, error conditions, access control, event emission, state management, and genesis configuration. As you build more complex pallets, you'll apply these same patterns to test additional functionality.
-
-??? code "Full Test Suite Code"
-    Here's the complete `tests.rs` file for quick reference:
-
-    ```rust
-    use crate::{mock::*, Error, Event};
-    use frame::deps::frame_support::{assert_noop, assert_ok};
-    use frame::deps::sp_runtime::DispatchError;
-
-    #[test]
-    fn set_counter_value_works() {
-        new_test_ext().execute_with(|| {
-            // Set block number to 1 so events are registered
-            System::set_block_number(1);
-
-            // Set counter to 100
-            assert_ok!(CustomPallet::set_counter_value(RuntimeOrigin::root(), 100));
-            assert_eq!(crate::CounterValue::<Test>::get(), 100);
-
-            // Check event was emitted
-            System::assert_last_event(Event::CounterValueSet { new_value: 100 }.into());
-        });
-    }
-
-    #[test]
-    fn set_counter_value_requires_root() {
-        new_test_ext().execute_with(|| {
-            // Attempt to set counter with non-root origin should fail
-            assert_noop!(
-                CustomPallet::set_counter_value(RuntimeOrigin::signed(1), 100),
-                DispatchError::BadOrigin
-            );
-        });
-    }
-
-    #[test]
-    fn set_counter_value_respects_max_value() {
-        new_test_ext().execute_with(|| {
-            // Attempt to set counter above max value (1000) should fail
-            assert_noop!(
-                CustomPallet::set_counter_value(RuntimeOrigin::root(), 1001),
-                Error::<Test>::CounterMaxValueExceeded
-            );
-
-            // Setting to exactly max value should work
-            assert_ok!(CustomPallet::set_counter_value(RuntimeOrigin::root(), 1000));
-            assert_eq!(crate::CounterValue::<Test>::get(), 1000);
-        });
-    }
-
-    #[test]
-    fn increment_works() {
-        new_test_ext().execute_with(|| {
-            // Set block number to 1 so events are registered
-            System::set_block_number(1);
-
-            let account = 1u64;
-
-            // Increment by 50
-            assert_ok!(CustomPallet::increment(RuntimeOrigin::signed(account), 50));
-            assert_eq!(crate::CounterValue::<Test>::get(), 50);
-
-            // Check event was emitted
-            System::assert_last_event(
-                Event::CounterIncremented {
-                    new_value: 50,
-                    who: account,
-                    amount: 50,
-                }
-                .into(),
-            );
-
-            // Check user interactions were tracked
-            assert_eq!(crate::UserInteractions::<Test>::get(account), 1);
-        });
-    }
-
-    #[test]
-    fn increment_tracks_multiple_interactions() {
-        new_test_ext().execute_with(|| {
-            let account = 1u64;
-
-            // Increment multiple times
-            assert_ok!(CustomPallet::increment(RuntimeOrigin::signed(account), 10));
-            assert_ok!(CustomPallet::increment(RuntimeOrigin::signed(account), 20));
-            assert_ok!(CustomPallet::increment(RuntimeOrigin::signed(account), 30));
-
-            // Check counter value
-            assert_eq!(crate::CounterValue::<Test>::get(), 60);
-
-            // Check user interactions were tracked (should be 3)
-            assert_eq!(crate::UserInteractions::<Test>::get(account), 3);
-        });
-    }
-
-    #[test]
-    fn increment_fails_on_overflow() {
-        new_test_ext_with_counter(u32::MAX).execute_with(|| {
-            // Attempt to increment when at max u32 should fail
-            assert_noop!(
-                CustomPallet::increment(RuntimeOrigin::signed(1), 1),
-                Error::<Test>::Overflow
-            );
-        });
-    }
-
-    #[test]
-    fn increment_respects_max_value() {
-        new_test_ext_with_counter(950).execute_with(|| {
-            // Incrementing past max value (1000) should fail
-            assert_noop!(
-                CustomPallet::increment(RuntimeOrigin::signed(1), 51),
-                Error::<Test>::CounterMaxValueExceeded
-            );
-
-            // Incrementing to exactly max value should work
-            assert_ok!(CustomPallet::increment(RuntimeOrigin::signed(1), 50));
-            assert_eq!(crate::CounterValue::<Test>::get(), 1000);
-        });
-    }
-
-    #[test]
-    fn decrement_works() {
-        new_test_ext_with_counter(100).execute_with(|| {
-            // Set block number to 1 so events are registered
-            System::set_block_number(1);
-
-            let account = 2u64;
-
-            // Decrement by 30
-            assert_ok!(CustomPallet::decrement(RuntimeOrigin::signed(account), 30));
-            assert_eq!(crate::CounterValue::<Test>::get(), 70);
-
-            // Check event was emitted
-            System::assert_last_event(
-                Event::CounterDecremented {
-                    new_value: 70,
-                    who: account,
-                    amount: 30,
-                }
-                .into(),
-            );
-
-            // Check user interactions were tracked
-            assert_eq!(crate::UserInteractions::<Test>::get(account), 1);
-        });
-    }
-
-    #[test]
-    fn decrement_fails_on_underflow() {
-        new_test_ext_with_counter(10).execute_with(|| {
-            // Attempt to decrement below zero should fail
-            assert_noop!(
-                CustomPallet::decrement(RuntimeOrigin::signed(1), 11),
-                Error::<Test>::Underflow
-            );
-        });
-    }
-
-    #[test]
-    fn decrement_tracks_multiple_interactions() {
-        new_test_ext_with_counter(100).execute_with(|| {
-            let account = 3u64;
-
-            // Decrement multiple times
-            assert_ok!(CustomPallet::decrement(RuntimeOrigin::signed(account), 10));
-            assert_ok!(CustomPallet::decrement(RuntimeOrigin::signed(account), 20));
-
-            // Check counter value
-            assert_eq!(crate::CounterValue::<Test>::get(), 70);
-
-            // Check user interactions were tracked (should be 2)
-            assert_eq!(crate::UserInteractions::<Test>::get(account), 2);
-        });
-    }
-
-    #[test]
-    fn mixed_increment_and_decrement_works() {
-        new_test_ext_with_counter(50).execute_with(|| {
-            let account = 4u64;
-
-            // Mix of increment and decrement
-            assert_ok!(CustomPallet::increment(RuntimeOrigin::signed(account), 25));
-            assert_eq!(crate::CounterValue::<Test>::get(), 75);
-
-            assert_ok!(CustomPallet::decrement(RuntimeOrigin::signed(account), 15));
-            assert_eq!(crate::CounterValue::<Test>::get(), 60);
-
-            assert_ok!(CustomPallet::increment(RuntimeOrigin::signed(account), 10));
-            assert_eq!(crate::CounterValue::<Test>::get(), 70);
-
-            // Check user interactions were tracked (should be 3)
-            assert_eq!(crate::UserInteractions::<Test>::get(account), 3);
-        });
-    }
-
-    #[test]
-    fn different_users_tracked_separately() {
-        new_test_ext().execute_with(|| {
-            let account1 = 1u64;
-            let account2 = 2u64;
-
-            // User 1 increments
-            assert_ok!(CustomPallet::increment(RuntimeOrigin::signed(account1), 10));
-            assert_ok!(CustomPallet::increment(RuntimeOrigin::signed(account1), 10));
-
-            // User 2 decrements
-            assert_ok!(CustomPallet::decrement(RuntimeOrigin::signed(account2), 5));
-
-            // Check counter value (10 + 10 - 5 = 15)
-            assert_eq!(crate::CounterValue::<Test>::get(), 15);
-
-            // Check user interactions are tracked separately
-            assert_eq!(crate::UserInteractions::<Test>::get(account1), 2);
-            assert_eq!(crate::UserInteractions::<Test>::get(account2), 1);
-        });
-    }
-
-    #[test]
-    fn genesis_config_works() {
-        new_test_ext_with_interactions(42, vec![(1, 5), (2, 10)]).execute_with(|| {
-            // Check initial counter value
-            assert_eq!(crate::CounterValue::<Test>::get(), 42);
-
-            // Check initial user interactions
-            assert_eq!(crate::UserInteractions::<Test>::get(1), 5);
-            assert_eq!(crate::UserInteractions::<Test>::get(2), 10);
-        });
-    }
-    ```
+- **Block number**: Events are not emitted on the genesis block, so you need to set the block number using [`System::set_block_number()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.set_block_number){target=\_blank} to ensure events are triggered.
+- **Converting events**: Use `.into()` when instantiating your pallet's event to convert it into a generic event type, as required by the system's event storage.
 
 ## Where to Go Next
 
+- Dive into the full implementation of the [`mock.rs`](https://github.com/paritytech/polkadot-sdk/blob/master/templates/solochain/pallets/template/src/mock.rs){target=\_blank} and [`test.rs`](https://github.com/paritytech/polkadot-sdk/blob/master/templates/solochain/pallets/template/src/tests.rs){target=\_blank} files in the [Solochain Template](https://github.com/paritytech/polkadot-sdk/tree/master/templates/solochain){target=_blank}.
+
 <div class="grid cards" markdown>
 
--   <span class="badge guide">Guide</span> __Add Your Custom Pallet to the Runtime__
+-   <span class="badge guide">Guide</span> __Benchmarking__
 
     ---
 
-    Your pallet is tested and ready! Learn how to integrate it into your runtime.
+    Explore methods to measure the performance and execution cost of your pallet.
 
-    [:octicons-arrow-right-24: Integrate](/parachains/customize-runtime/pallet-development/add-to-runtime/)
+    [:octicons-arrow-right-24: Reference](/develop/parachains/testing/benchmarking)
 
 </div>

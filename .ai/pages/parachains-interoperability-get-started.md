@@ -1,11 +1,11 @@
 ---
-title: Get Started with XCM
+title: Introduction to XCM
 description: Unlock blockchain interoperability with XCM — Polkadot's Cross-Consensus Messaging format for cross-chain interactions.
 categories: Basics, Polkadot Protocol
 url: https://docs.polkadot.com/parachains/interoperability/get-started/
 ---
 
-# Get Started with XCM
+# Introduction to XCM
 
 ## Introduction
 

@@ -5,7 +5,7 @@ description: Learn how gas estimation, pricing, and weight mapping work in the P
 
 # Gas Model
 
-## Introduction
+## Overview
 
 The Polkadot Hub implements a gas model that bridges Ethereum's familiar gas concept with Polkadot's more sophisticated resource metering system. This page explains how gas works in the Polkadot Hub and what developers need to know when building smart contracts.
 

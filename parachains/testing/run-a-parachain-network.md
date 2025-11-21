@@ -1,10 +1,10 @@
 ---
-title: Run a Parachain Network 
+title: Get Started 
 description: Quickly install and configure Zombienet to deploy and test Polkadot-based blockchain networks with this comprehensive getting-started guide.
 categories: Parachains, Tooling
 ---
 
-# Run a Parachain Network Using Zombienet
+# Get Started
 
 ## Introduction
 

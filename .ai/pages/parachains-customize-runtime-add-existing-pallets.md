@@ -259,7 +259,7 @@ To interact with the pallet:
     - **`batchAll(calls)`**: Dispatch multiple calls, stopping on the first error.
     - **`asDerivative(index, call)`**: Dispatch a call as a derivative account.
 
-    ![](/images/parachains/customize-runtime/add-existing-pallets/add-pallets-01.webp)
+    ![](/images/parachains/customize-runtime/pallet-development/add-pallet-to-runtime/add-pallets-to-runtime-01.webp)
 
 You can now test the pallet's functionality by submitting transactions through the interface.
 

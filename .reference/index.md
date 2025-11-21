@@ -14,12 +14,12 @@ This guide organizes technical documentation across five core areas: Polkadot Hu
 
 ## Polkadot Hub
 
-[Polkadot Hub](/reference/polkadot-hub/){target=\_blank} is the entry point to Polkadot for all users and application developers. It provides access to essential Web3 services, including smart contracts, staking, governance, identity management, and cross-ecosystem interoperability—without requiring you to deploy or manage a parachain.
+[Polkadot Hub](/reference/polkadot-hub/){target=\_blank} is the entry point to Polkadot for all users and application developers. It provides access to essential Web3 services including smart contracts, asset management, staking, governance, identity management, and cross-ecosystem interoperability—without requiring you to deploy or manage a parachain.
 
 The Hub encompasses a set of core functionality that enables developers and users to build and interact with applications on Polkadot. Key capabilities include:
 
 - **Smart contracts**: Deploy Ethereum-compatible smart contracts and build decentralized applications.
-- **Assets and tokens**: Create, manage, and transfer fungible tokens and NFTs across the ecosystem.
+- **Asset management**: Create, manage, and transfer fungible tokens and NFTs across the ecosystem.
 - **Staking**: Participate in network security and earn rewards by staking DOT.
 - **Governance**: Vote on proposals and participate in Polkadot's decentralized decision-making through OpenGov.
 - **Identity services**: Register and manage on-chain identities, enabling access to governance roles and network opportunities.

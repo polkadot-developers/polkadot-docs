@@ -7,8 +7,6 @@ url: https://docs.polkadot.com/smart-contracts/connect/
 
 # Connect to Polkadot
 
-!!! smartcontract "PolkaVM Preview Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 <div class="button-wrapper">
     <a href="#" class="md-button connectMetaMask" value="passetHub">Connect to Polkadot Hub TestNet</a>
 </div>

@@ -2285,31 +2285,34 @@ These components form the foundation for developing sophisticated blockchain log
 
 ---
 
-Page Title: Deploy an ERC-20 to Polkadot Hub
+Page Title: Deploy an ERC-20 Using Hardhat
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-erc20-erc20-hardhat.md
 - Canonical (HTML): https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-hardhat/
 - Summary: Deploy an ERC-20 token on Polkadot Hub using PolkaVM. This guide covers contract creation, compilation, deployment, and interaction via Hardhat.
 
-# Deploy an ERC-20 to Polkadot Hub
+# Deploy an ERC-20 Using Hardhat
 
 ## Introduction
 
-[ERC-20](https://eips.ethereum.org/EIPS/eip-20){target=\_blank} tokens are fungible tokens commonly used for creating cryptocurrencies, governance tokens, and staking mechanisms. Polkadot Hub enables easy token deployment with Ethereum-compatible smart contracts and tools via the EVM backend.
+[ERC-20](https://eips.ethereum.org/EIPS/eip-20){target=\_blank} tokens are fungible tokens commonly used for creating cryptocurrencies, governance tokens, and staking mechanisms. Polkadot Hub enables easy deployment of ERC-20 tokens via Ethereum-compatible smart contracts and tools.
 
-This tutorial covers deploying an ERC-20 contract on the Polkadot Hub TestNet using [Hardhat](https://hardhat.org/){target=\_blank}, an Ethereum development environment. The ERC-20 contract can be retrieved from OpenZeppelin's [GitHub repository](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/v5.4.0/contracts/token/ERC20){target=\_blank}  or their [Contract Wizard](https://wizard.openzeppelin.com/){target=\_blank}.
+This guide demonstrates how to deploy an ERC-20 contract on Polkadot Hub TestNet using [Hardhat](https://hardhat.org/){target=\_blank}, an Ethereum development environment. The ERC-20 contract can be retrieved from OpenZeppelin's [GitHub repository](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/v5.4.0/contracts/token/ERC20){target=\_blank} or their [Contract Wizard](https://wizard.openzeppelin.com/){target=\_blank}.
 
 ## Prerequisites
 
-Before starting, make sure you have:
+Before you begin, ensure you have the following:
 
-- Basic understanding of Solidity programming and fungible tokens.
-- Node.js v22.13.1 or later.
-- A funded account with tokens for transaction fees. This example will deploy the contract to the Polkadot TestNet, so you'll [need some TestNet tokens](/smart-contracts/faucet/#get-test-tokens){target=\_blank} from the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}.
+- A basic understanding of [Solidity](https://www.soliditylang.org/){target=\_blank} programming and [ERC-20](https://ethereum.org/developers/docs/standards/tokens/erc-20/){target=\_blank} fungible tokens.
+- [Node.js](https://nodejs.org/en/download){target=\_blank} v22.13.1 or later installed.
+- Test tokens for gas fees, available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}. See [Get Test Tokens](/smart-contracts/faucet/#get-test-tokens){target=\_blank} for a guide to using the faucet.
+- A wallet with a private key for signing transactions.
 
 ## Set Up Your Project
 
-This tutorial uses a [Hardhat ERC-20 template](https://github.com/polkadot-developers/revm-hardhat-examples/tree/master/erc20-hardhat){target=\_blank} that contains all the necessary files. To get started, take the following steps:
+This tutorial uses a [Hardhat ERC-20 template](https://github.com/polkadot-developers/revm-hardhat-examples/tree/master/erc20-hardhat){target=\_blank} that contains all the necessary files. 
+
+To get started, take the following steps:
 
 1. Clone the GitHub repository locally:
 
@@ -2318,38 +2321,19 @@ This tutorial uses a [Hardhat ERC-20 template](https://github.com/polkadot-devel
     cd revm-hardhat-examples/erc20-hardhat
     ```
 
-2. Install the dependencies:
+2. Install the dependencies using the following command:
 
     ```bash
     npm i
     ```
-
-This will fetch all the necessary packages to help you deploy an ERC-20 with Hardhat to Polkadot.
+    
+    This command will fetch all the necessary packages to help you use Hardhat to deploy an ERC-20 to Polkadot.
 
 ## Configure Hardhat
 
-Once you've [setup your project](#set-up-your-project), you can configure the `hardhat.config.ts` to your needs. This tutorial has the file prepared to deploy to the Polkadot TestNet.
+If you started with the cloned Hardhat ERC-20 template, `hardhat.config.ts` is already configured to deploy to the Polkadot TestNet as shown in the example below:
 
-To store and use private keys or network URLs, you can use Hardhat's configuration variables. This can be set via tasks in the **vars** scope. For example, to store the private key to deploy to the Polkadot TestNet, run the following command:
-
-```bash
-npx hardhat vars set TESTNET_PRIVATE_KEY
-```
-
-The command will initiate a wizard in which you'll have to enter the value to be stored:
-
-<div id="termynal" data-termynal markdown>
-  <span data-ty="input">npx hardhat vars set TESTNET_PRIVATE_KEY</span>
-  <span data-ty>✔ Enter value: · •••••••••</span>
-  <span data-ty>The configuration variable has been stored in /Users/albertoviera/Library/Preferences/hardhat-nodejs/vars.json</span>
-</div>
-
-??? warning "Key Encryption"
-    This solution just prevents variables to be included in the code repository. You should find a solution that encrypts private keys and access them securely.
-
-You can now use the account related to this private key by importing it into the Hardhat configuration file:
-
-```ts title="hardhat.config.ts" hl_lines="1 17"
+```ts title="hardhat.config.ts" hl_lines="14-19"
 
 const config: HardhatUserConfig = {
   solidity: {
@@ -2375,45 +2359,38 @@ const config: HardhatUserConfig = {
 export default config;
 ```
 
-## Compile your Contract
+!!! tip
+    Visit the Hardhat [Config Variables](https://hardhat.org/docs/learn-more/configuration-variables){target=\_blank} documentation to learn how to use Hardhat to handle your private keys securely.
 
-Once you've configured Hardhat, you can compile the contract. 
+## Compile the Contract 
 
-In this tutorial, a simple ERC-20 is provided. Therefore, to compile the contract you can run the following command:
+Next, compile the contract included with the template by running the following command:
 
 ```bash
 npx hardhat compile
 ```
 
-If everything compiles successfully, you should see the following output:
+If everything compiles successfully, you will see output similar to the following:
 
-<div id="termynal" data-termynal markdown>
-  <span data-ty="input">npx hardhat compile</span>
-  <span data-ty>Generating typings for: 23 artifacts in dir: typechain-types for target: ethers-v6</span>
-  <span data-ty>Successfully generated 62 typings!</span>
-  <span data-ty>Compiled 21 Solidity files successfully (evm target: paris).</span>
-</div>
 
-## Test your Contract
+## Test the Contract
 
-Hardhat has a native feature to test contracts. You can run tests against the local Hardhat development node, but it could have some technical differences to Polkadot. Therefore, in this tutorial, you'll be testing against the Polkadot TestNet
+You can view the predefined test file at [`test/MyToken.test.ts`](https://github.com/polkadot-developers/revm-hardhat-examples/blob/master/erc20-hardhat/test/MyToken.test.ts){target=\_blank}. This example test includes verification of the following:
 
-This example has a predefined test file located in [`test/Token.test.js`](https://github.com/polkadot-developers/revm-hardhat-examples/blob/master/erc20-hardhat/test/MyToken.test.ts){target=\_blank}, that runs the following tests:
+- The token name and symbol exist (confirms deployment) and are correct.
+- The token owner is correctly configured.
+- The initial token supply is zero.
+- The owner can mint tokens.
+- The total supply increases after a mint.
+- Successful mints to different test addresses with expected account balance and total supply changes.
 
-1. The token was deployed by verifying its **name** and **symbol**.
-2. The token has the right owner configured.
-3. The token has an initial supply of zero.
-4. The owner can mint tokens.
-5. The total supply is increased after a mint.
-6. Perform multiple mints to different addresses and checks the balance of each address and the new total supply.
-
-To run the test, you can execute the following command:
+Run the tests using the following command:
 
 ```bash
 npx hardhat test --network polkadotTestnet
 ```
 
-If tests are successful, you should see the following logs:
+If tests are successful, you will see outputs similar to the following:
 
 <div id="termynal" data-termynal markdown>
   <span data-ty="input">npx hardhat test --network polkadotTestnet</span>
@@ -2430,42 +2407,43 @@ If tests are successful, you should see the following logs:
   <span data-ty>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✔ Should correctly track balance after multiple mints</span>
   <span data-ty></span>
   <span data-ty>&nbsp;&nbsp;6 passing (369ms)</span>
+  <span data-ty="input"><span class="file-path"></span></span>
 </div>
 
-## Deploy your Contract
+## Deploy the Contract
 
-With the Hardhat configuration file ready, the private key stored as a variable under **vars**, and the contract compiled, you can proceed to deploy the contract to a given network. In this tutorial, you are deploying it to the Polkadot TestNet.
+You are now ready to deploy the contract to your chosen network. This example demonstrates deployment to the Polkadot TestNet. Deploy the contract as follows:
 
-To deploy the contract, run the following command:
+1. Run the following command in your terminal:
+  ```bash
+  npx hardhat ignition deploy ./ignition/modules/MyToken.ts --network polkadotTestnet
+  ```
 
-```bash
-npx hardhat ignition deploy ./ignition/modules/MyToken.ts --network polkadotTestnet
-```
+2. Confirm the target deployment network name and chain ID when prompted:
 
-You'll need to confirm the target network (by chain ID):
+    <div id="termynal" data-termynal markdown>
+      <span data-ty="input">npx hardhat ignition deploy ./ignition/modules/MyToken.ts --network polkadotTestnet</span>
+      <span data-ty>✔ Confirm deploy to network polkadotTestnet (420420420)? … yes</span>
+      <span data-ty>&nbsp;</span>
+      <span data-ty>Hardhat Ignition 🚀</span>
+      <span data-ty>&nbsp;</span>
+      <span data-ty>Deploying [ TokenModule ]</span>
+      <span data-ty>&nbsp;</span>
+      <span data-ty>Batch #1</span>
+      <span data-ty> Executed TokenModule#MyToken</span>
+      <span data-ty>&nbsp;</span>
+      <span data-ty>Batch #2</span>
+      <span data-ty> Executed TokenModule#MyToken.mint</span>
+      <span data-ty>&nbsp;</span>
+      <span data-ty>[ TokenModule ] successfully deployed 🚀</span>
+      <span data-ty>&nbsp;</span>
+      <span data-ty>Deployed Addresses</span>
+      <span data-ty>&nbsp;</span>
+      <span data-ty>TokenModule#MyToken - 0xc01Ee7f10EA4aF4673cFff62710E1D7792aBa8f3</span>
+      <span data-ty="input"><span class="file-path"></span></span>
+    </div>
 
-<div id="termynal" data-termynal markdown>
-  <span data-ty="input">npx hardhat ignition deploy ./ignition/modules/MyToken.ts --network polkadotTestnet</span>
-  <span data-ty>✔ Confirm deploy to network polkadotTestnet (420420420)? … yes</span>
-  <span data-ty>&nbsp;</span>
-  <span data-ty>Hardhat Ignition 🚀</span>
-  <span data-ty>&nbsp;</span>
-  <span data-ty>Deploying [ TokenModule ]</span>
-  <span data-ty>&nbsp;</span>
-  <span data-ty>Batch #1</span>
-  <span data-ty>  Executed TokenModule#MyToken</span>
-  <span data-ty>&nbsp;</span>
-  <span data-ty>Batch #2</span>
-  <span data-ty>  Executed TokenModule#MyToken.mint</span>
-  <span data-ty>&nbsp;</span>
-  <span data-ty>[ TokenModule ] successfully deployed 🚀</span>
-  <span data-ty>&nbsp;</span>
-  <span data-ty>Deployed Addresses</span>
-  <span data-ty>&nbsp;</span>
-  <span data-ty>TokenModule#MyToken - 0xc01Ee7f10EA4aF4673cFff62710E1D7792aBa8f3</span>
-</div>
-
-And that is it! You've successfully deployed an ERC-20 token contract to the Polkadot TestNet using Hardhat.
+Congratulations! You've successfully deployed an ERC-20 token contract to Polkadot Hub TestNet using Hardhat. Consider the following resources to build upon your progress.
 
 ## Where to Go Next
 
@@ -2477,45 +2455,45 @@ And that is it! You've successfully deployed an ERC-20 token contract to the Pol
 
     Walk through deploying an ERC-721 Non-Fungible Token (NFT) using OpenZeppelin's battle-tested NFT implementation and Remix.
 
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-nft/remix/)
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix/)
 
 </div>
 
 
 ---
 
-Page Title: Deploy an ERC-20 to Polkadot Hub
+Page Title: Deploy an ERC-20 Using Remix IDE
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-erc20-erc20-remix.md
 - Canonical (HTML): https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix/
 - Summary: Deploy an ERC-20 token contract on Polkadot Hub. This guide covers contract creation, compilation, deployment, and interaction via the Remix IDE.
 
-# Deploy an ERC-20 to Polkadot Hub
+# Deploy an ERC-20 Using Remix IDE
 
 ## Introduction
 
 [ERC-20](https://eips.ethereum.org/EIPS/eip-20){target=\_blank} tokens are fungible tokens commonly used for creating cryptocurrencies, governance tokens, and staking mechanisms. Polkadot Hub enables easy token deployment with Ethereum-compatible smart contracts and tools via the EVM backend.
 
-This tutorial covers deploying an ERC-20 contract on the Polkadot Hub TestNet using [Remix IDE](https://remix.ethereum.org/){target=\_blank}, a web-based development tool. The ERC-20 contract can be retrieved from OpenZeppelin's [GitHub repository](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/v5.4.0/contracts/token/ERC20){target=\_blank}  or their [Contract Wizard](https://wizard.openzeppelin.com/){target=\_blank}.
+This tutorial covers deploying an ERC-20 contract on Polkadot Hub TestNet using [Remix IDE](https://remix.ethereum.org/){target=\_blank}, a web-based development tool. The ERC-20 contract can be retrieved from OpenZeppelin's [GitHub repository](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/v5.4.0/contracts/token/ERC20){target=\_blank} or their [Contract Wizard](https://wizard.openzeppelin.com/){target=\_blank}.
 
 ## Prerequisites
 
-Before starting, make sure you have:
+Before you begin, ensure you have:
 
-- Basic understanding of Solidity programming and fungible tokens.
-- An EVM-compatible wallet [connected to Polkadot Hub](/smart-contracts/integrations/wallets){target=\_blank}. This example utilizes [MetaMask](https://metamask.io/){target=\_blank}.
-- A funded account with tokens for transaction fees. This example will deploy the contract to the Polkadot TestNet, so you'll [need some TestNet tokens](/smart-contracts/faucet/#get-test-tokens){target=\_blank} from the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}.
+- A basic understanding of [Solidity](https://www.soliditylang.org/){target=\_blank} programming and [ERC-20](https://ethereum.org/developers/docs/standards/tokens/erc-20/){target=\_blank} fungible tokens.
+- An EVM-compatible [wallet](/smart-contracts/connect/){target=\_blank} connected to Polkadot Hub. This example utilizes [MetaMask](https://metamask.io/){target=\_blank}.
+- Test tokens for gas fees, available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}. See [Get Test Tokens](/smart-contracts/faucet/#get-test-tokens){target=\_blank} for a guide to using the faucet.
 
 ## Create Your Contract
 
-To create the ERC-20 contract, you can follow the steps below:
+Follow the steps below to create the ERC-20 contract:
 
-1. Navigate to the [Polkadot Remix IDE](https://remix.polkadot.io){target=\_blank}.
-2. Click in the **Create new file** button under the **contracts** folder, and name your contract as `MyToken.sol`.
+1. Navigate to [Remix IDE](https://remix.ethereum.org/){target=\_blank} in your web browser.
+2. Select the **Create new file** button under the **contracts** folder, and name your contract `MyToken.sol`.
 
-    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix-1.webp)
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix/remix-01.webp)
 
-3. Now, paste the following ERC-20 contract code into the editor:
+3. Now, paste the following ERC-20 contract code into `MyToken.sol`:
 
     ```solidity title="MyToken.sol"
     // SPDX-License-Identifier: MIT
@@ -2538,90 +2516,53 @@ To create the ERC-20 contract, you can follow the steps below:
         }
     }
     ```
-
-    The key components of the code above are:
-
-    - Contract imports:
-
-        - **[`ERC20.sol`](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/v5.4.0/contracts/token/ERC20/ERC20.sol){target=\_blank}**: The base contract for fungible tokens, implementing core functionality like transfers, approvals, and balance tracking.
-        - **[`ERC20Permit.sol`](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/v5.4.0/contracts/token/ERC20/extensions/ERC20Permit.sol){target=\_blank}**: [EIP-2612](https://eips.ethereum.org/EIPS/eip-2612){target=\_blank} extension for ERC-20 that adds the [permit function](https://docs.openzeppelin.com/contracts/5.x/api/token/erc20#ERC20Permit-permit-address-address-uint256-uint256-uint8-bytes32-bytes32-){target=\_blank}, allowing approvals via off-chain signatures (no on-chain tx from the holder). Manages nonces and EIP-712 domain separator and updates allowances when a valid signature is presented.
-        - **[`Ownable.sol`](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/v5.4.0/contracts/access/Ownable.sol){target=\_blank}**: Provides basic authorization control, ensuring only the contract owner can mint new tokens.
     
-    - Constructor parameters:
-
-        - **`initialOwner`**: Sets the address that will have administrative rights over the contract.
-        - **`"MyToken"`**: The full name of your token.
-        - **`"MTK"`**: The symbol representing your token in wallets and exchanges.
-
-    - Key functions:
-
-        - **`mint(address to, uint256 amount)`**: Allows the contract owner to create new tokens for any address. The amount should include 18 decimals (e.g., 1 token = 1000000000000000000).
-        - Inherited [Standard ERC-20](https://ethereum.org/en/developers/docs/standards/tokens/erc-20/){target=\_blank} functions:
-            - **`transfer(address recipient, uint256 amount)`**: Sends a specified amount of tokens to another address.
-            - **`approve(address spender, uint256 amount)`**: Grants permission for another address to spend a specific number of tokens on behalf of the token owner.
-            - **`transferFrom(address sender, address recipient, uint256 amount)`**: Transfers tokens from one address to another, if previously approved.
-            - **`balanceOf(address account)`**: Returns the token balance of a specific address.
-            - **`allowance(address owner, address spender)`**: Checks how many tokens an address is allowed to spend on behalf of another address.
-
     !!! tip
-        Use the [OpenZeppelin Contracts Wizard](https://wizard.openzeppelin.com/){target=\_blank} to generate customized smart contracts quickly. Simply configure your contract, copy the generated code, and paste it into the Remix IDE for deployment. Below is an example of an ERC-20 token contract created with it:
-
-        ![Screenshot of the OpenZeppelin Contracts Wizard showing an ERC-20 contract configuration.](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix-2.webp)
+        The [OpenZeppelin Contracts Wizard](https://wizard.openzeppelin.com/){target=\_blank} was used to generate this example ERC-20 contract.
         
+## Compile the Contract
 
-## Compile 
+Solidity source code compiles into bytecode that can be deployed on the blockchain. During this process, the compiler checks the contract for syntax errors, ensures type safety, and generates the machine-readable instructions needed for blockchain execution.
 
-The compilation transforms your Solidity source code into bytecode that can be deployed on the blockchain. During this process, the compiler checks your contract for syntax errors, ensures type safety, and generates the machine-readable instructions needed for blockchain execution. 
-
-To compile your contract, ensure you have it opened in the Remix IDE Editor, and follow the instructions below:
+Ensure your `MyToken.sol` contract is open in the Remix IDE Editor, and use the following steps to compile:
 
 1. Select the **Solidity Compiler** plugin from the left panel.
-2. Click the **Compile MyToken.sol** button.
-3. If the compilation succeeded, you'll see a green checkmark indicating success in the **Solidity Compiler** icon.
+2. Select the **Compile MyToken.sol** button.
 
-![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix-3.gif)
+The **Solidity Compiler** icon will display a green checkmark once the contract compiles successfully. If any issues arise during contract compilation, errors and warnings will appear in the terminal panel at the bottom of the screen.
 
-## Deploy
+![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix/remix-03.gif)
 
-Deployment is the process of publishing your compiled smart contract to the blockchain, making it permanently available for interaction. During deployment, you'll create a new instance of your contract on the blockchain, which involves:
+## Deploy the Contract
 
-1. Select the **Deploy & Run Transactions** plugin from the left panel.
-2. Configure the deployment settings:
-    1. From the **ENVIRONMENT** dropdown, select **Injected Provider - MetaMask** (check the [Deploying Contracts](/smart-contracts/dev-environments/remix/deploy-a-contract/){target=\_blank} section of the Remix IDE guide for more details).
-    2. (Optional) From the **ACCOUNT** dropdown, select the acccount you want to use for the deploy.
+Follow these steps to deploy the contract using Remix:
 
-3. Configure the contract parameters:
-    1. Enter the address that will own the deployed token contract.
-    2. Click the **Deploy** button to initiate the deployment.
+1. Select **Deploy & Run Transactions** from the left panel.
+2. Ensure your MetaMask wallet is connected to Polkadot Hub TestNet, then select the **Environment** dropdown and select **Injected Provider - MetaMask**.
+3. Configure the contract parameters by entering the address that will own the deployed token contract.
+4. Select the **Deploy** button to initiate the deployment.
+4. Approve the transaction in your MetaMask wallet when prompted.
+6. You will see the transaction details in the terminal when the deployment succeeds, including the contract address and deployment transaction hash.
 
-4. **MetaMask will pop up**: Review the transaction details. Click **Confirm** to deploy your contract.
-5. If the deployment process succeeded, you will see the transaction details in the terminal, including the contract address and deployment transaction hash.
+![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix/remix-04.gif)
 
-![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix-4.gif)
+Once successfully deployed, your contract will appear in the **Deployed Contracts** section, ready for interaction.
 
-## Interact with Your Contract
+## Interact with the Contract
 
-Once deployed, you can interact with your contract through Remix. Find your contract under **Deployed/Unpinned Contracts**, and click it to expand the available methods. In this example, you'll mint some tokens to a given address:
+Once deployed, you can interact with your contract through Remix. Find your contract under **Deployed/Unpinned Contracts**, and select it to expand the available methods. In this example, you'll mint some tokens to a given address using the following steps:
 
-1. Expand the **mint** function:
-    1. Enter the recipient address and the amount (remember to add 18 zeros for 1 whole token).
-    2. Click **transact**.
+1. Expand the **mint** function, then enter the recipient address and the amount (remember to add 18 zeros for one whole token).
+2. Select **transact**.
+3. Approve the transaction in your MetaMask wallet when prompted.
+4. You will see a green check mark in the terminal when the transaction is successful.
+5. You can also call the **balanceOf** function by passing the address of the **mint** call to confirm the new balance.
 
-2. Click **Approve** to confirm the transaction in the MetaMask popup.
+![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix/remix-05.gif)
 
-3. If the transaction succeeds, you will see a green check mark in the terminal.
+Feel free to explore and interact with the contract's other functions by selecting the method, providing any required parameters, and confirming the transaction in MetaMask when prompted.
 
-4. You can also call the **balanceOf** function by passing the address of the **mint** call to confirm the new balance.
-
-![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix-5.gif)
-
-
-Other standard functions you can use:
-
-- **`transfer(address to, uint256 amount)`**: Send tokens to another address.
-- **`approve(address spender, uint256 amount)`**: Allow another address to spend your tokens.
-
-Feel free to explore and interact with the contract's other functions using the same approach: select the method, provide any required parameters, and confirm the transaction in MetaMask when needed.
+Congratulations! You've successfully deployed an ERC-20 token contract to Polkadot Hub TestNet using Remix IDE. Consider the following resources to build upon your progress. 
 
 ## Where to Go Next
 
@@ -2633,7 +2574,328 @@ Feel free to explore and interact with the contract's other functions using the 
 
     Walk through deploying an ERC-721 Non-Fungible Token (NFT) using OpenZeppelin's battle-tested NFT implementation and Remix.
 
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-nft/remix/)
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix/)
+
+</div>
+
+
+---
+
+Page Title: Deploy an ERC-721 NFT Using Remix
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-nft-nft-remix.md
+- Canonical (HTML): https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix/
+- Summary: Learn how to deploy an ERC-721 NFT contract to Polkadot Hub using Remix, a browser-based IDE for quick prototyping and learning.
+
+# Deploy an NFT with Remix
+
+## Introduction
+
+Non-Fungible Tokens (NFTs) represent unique digital assets commonly used for digital art, collectibles, gaming, and identity verification.
+
+This guide demonstrates how to deploy an [ERC-721](https://eips.ethereum.org/EIPS/eip-721){target=\_blank} NFT contract to [Polkadot Hub](/smart-contracts/overview/#smart-contract-development){target=\_blank}. You'll use [OpenZeppelin's battle-tested NFT implementation](https://github.com/OpenZeppelin/openzeppelin-contracts){target=\_blank} and [Remix](https://remix.ethereum.org/){target=\_blank}, a visual, browser-based environment perfect for rapid prototyping and learning. It requires no local installation and provides an intuitive interface for contract development.
+
+## Prerequisites
+
+- A basic understanding of [Solidity](https://www.soliditylang.org/){target=\_blank} programming and [ERC-721 NFT](https://ethereum.org/developers/docs/standards/tokens/erc-721/) standards.
+- An EVM-compatible [wallet](/smart-contracts/connect/){target=\_blank} connected to Polkadot Hub. This example utilizes [MetaMask](https://metamask.io/){target=\_blank}.
+- Test tokens for gas fees (available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}). See [Get Test Tokens](/smart-contracts/faucet/#get-test-tokens){target=\_blank} for a guide to using the faucet.
+
+## Create Your Contract
+
+Follow the steps below to create the ERC-721 contract:
+
+1. Navigate to [Remix IDE](https://remix.ethereum.org/){target=\_blank} in your web browser.
+2. Select the **Create new file** button under the **contracts** folder, and name your contract `MyNFT.sol`.
+
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix/remix-01.webp)
+
+3. Now, paste the following ERC-721 contract code into `MyNFT.sol`:
+
+    ```solidity title="contracts/MyNFT.sol"
+    // SPDX-License-Identifier: MIT
+    pragma solidity ^0.8.20;
+
+    import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+    import "@openzeppelin/contracts/access/Ownable.sol";
+
+    contract MyNFT is ERC721, Ownable {
+        uint256 private _nextTokenId;
+
+        constructor(
+            address initialOwner
+        ) ERC721("MyToken", "MTK") Ownable(initialOwner) {}
+
+        function safeMint(address to) public onlyOwner {
+            uint256 tokenId = _nextTokenId++;
+            _safeMint(to, tokenId);
+        }
+    }
+
+    ```
+
+    !!! tip
+        The [OpenZeppelin Contracts Wizard](https://wizard.openzeppelin.com/){target=\_blank} was used to generate this example ERC-721 contract.
+
+## Compile the Contract
+
+Solidity source code compiles into bytecode that can be deployed on the blockchain. During this process, the compiler checks the contract for syntax errors, ensures type safety, and generates the machine-readable instructions needed for blockchain execution.
+
+Ensure your `MyNFT.sol` contract is open in the Remix IDE Editor, and use the following steps to compile:
+
+1. Select the **Solidity Compiler** plugin from the left panel.
+2. Select the **Compile MyToken.sol** button.
+
+The **Solidity Compiler** icon will display a green checkmark once the contract compiles successfully. If any issues arise during contract compilation, errors and warnings will appear in the terminal panel at the bottom of the screen.
+
+![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix/remix-02.webp)
+
+## Deploy the Contract
+
+Follow these steps to deploy the contract using Remix:
+
+1. Select **Deploy & Run Transactions** from the left panel.
+2. Ensure your MetaMask wallet is connected to Polkadot Hub TestNet, then select the **Environment** dropdown and select **Injected Provider - MetaMask**.
+
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix/remix-03.webp)
+
+3. Configure the contract parameters by entering the address that will own the deployed NFT contract.
+4. Select the **Deploy** button to initiate the deployment.
+5. Approve the transaction in your MetaMask wallet when prompted.
+6. You will see the transaction details in the terminal when the deployment succeeds, including the contract address and deployment transaction hash.
+
+![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix/remix-04.webp)
+
+Once successfully deployed, your contract will appear in the **Deployed Contracts** section, ready for interaction.
+
+Congratulations! You've successfully deployed an ERC-721 NFT contract to Polkadot Hub TestNet using Remix IDE. Consider the following resources to build upon your progress.
+
+## Where to Go Next
+
+<div class="grid cards" markdown>
+
+-   <span class="badge guide">Guide</span> __Deploy an ERC-20__
+
+    ---
+
+    Walk through deploying a fully-functional ERC-20 to Polkadot Hub using Remix.
+
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix/)
+
+</div>
+
+
+---
+
+Page Title: Deploy an ERC-721 Using Hardhat
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-nft-nft-hardhat.md
+- Canonical (HTML): https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-hardhat/
+- Summary: Learn how to deploy an ERC-721 NFT contract to Polkadot Hub using Hardhat, a comprehensive development environment with built-in deployment capabilities.
+
+# Deploy an ERC-721 Using Hardhat
+
+## Introduction
+
+Non-Fungible Tokens (NFTs) represent unique digital assets commonly used for digital art, collectibles, gaming, and identity verification.
+
+This guide demonstrates how to deploy an [ERC-721](https://eips.ethereum.org/EIPS/eip-721){target=\_blank} NFT contract to [Polkadot Hub](/smart-contracts/overview/#smart-contract-development){target=\_blank} TestNet. You'll use OpenZeppelin's battle-tested [NFT implementation](https://github.com/OpenZeppelin/openzeppelin-contracts){target=\_blank} and [Hardhat](https://hardhat.org/docs/getting-started){target=\_blank}, a comprehensive development environment with built-in testing, debugging, and deployment capabilities. Hardhat uses standard Solidity compilation to generate EVM bytecode, making it fully compatible with Polkadot Hub's EVM environment.
+
+## Prerequisites
+
+Before you begin, ensure you have the following:
+
+- A basic understanding of [Solidity](https://www.soliditylang.org/){target=\_blank} programming and [ERC-721](https://ethereum.org/developers/docs/standards/tokens/erc-721/){target=\_blank} non-fungible tokens.
+- [Node.js](https://nodejs.org/en/download){target=\_blank} v22.13.1 or later installed.
+- Test tokens for gas fees, available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}. See [Get Test Tokens](/smart-contracts/faucet/#get-test-tokens){target=\_blank} for a guide to using the faucet.
+- A wallet with a private key for signing transactions.
+
+## Set Up Your Project
+
+1. Use the following terminal commands to create a directory and initialize your Hardhat project inside of it:
+
+    ```bash
+    mkdir hardhat-nft-deployment
+    cd hardhat-nft-deployment
+    npx hardhat --init
+    ```
+
+2. Install the OpenZeppelin contract dependencies using the command:
+
+    ```bash
+    npm install @openzeppelin/contracts
+    ```
+
+## Configure Hardhat
+
+Open `hardhat.config.ts` and update to add `polkadotTestnet` to the `networks` configuration as highlighted in the following example code:
+
+```typescript title="hardhat.config.ts" hl_lines='39-44'
+import type { HardhatUserConfig } from 'hardhat/config';
+
+import hardhatToolboxViemPlugin from '@nomicfoundation/hardhat-toolbox-viem';
+import { configVariable } from 'hardhat/config';
+
+const config: HardhatUserConfig = {
+  plugins: [hardhatToolboxViemPlugin],
+  solidity: {
+    profiles: {
+      default: {
+        version: '0.8.28',
+      },
+      production: {
+        version: '0.8.28',
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 200,
+          },
+        },
+      },
+    },
+  },
+  networks: {
+    hardhatMainnet: {
+      type: 'edr-simulated',
+      chainType: 'l1',
+    },
+    hardhatOp: {
+      type: 'edr-simulated',
+      chainType: 'op',
+    },
+    sepolia: {
+      type: 'http',
+      chainType: 'l1',
+      url: configVariable('SEPOLIA_RPC_URL'),
+      accounts: [configVariable('SEPOLIA_PRIVATE_KEY')],
+    },
+    polkadotTestnet: {
+      type: 'http',
+      url: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
+      chainId: 420420422,
+      accounts: [configVariable('PRIVATE_KEY')],
+    },
+  },
+};
+
+export default config;
+```
+
+!!! tip
+    Visit the Hardhat [Config Variables](https://hardhat.org/docs/learn-more/configuration-variables){target=\_blank} documentation to learn how to use Hardhat to handle your private keys securely.
+
+## Create the Contract
+
+Follow these steps to create your smart contract:
+
+1. Delete the default contract file(s) in the `contracts` directory.
+
+2. Create a new file named `MyNFT.sol` inside the `contracts` directory.
+
+3. Add the following code to create the `MyNFT.sol` smart contract:
+    ```solidity title="contracts/MyNFT.sol"
+    // SPDX-License-Identifier: MIT
+    pragma solidity ^0.8.20;
+
+    import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+    import "@openzeppelin/contracts/access/Ownable.sol";
+
+    contract MyNFT is ERC721, Ownable {
+        uint256 private _nextTokenId;
+
+        constructor(
+            address initialOwner
+        ) ERC721("MyToken", "MTK") Ownable(initialOwner) {}
+
+        function safeMint(address to) public onlyOwner {
+            uint256 tokenId = _nextTokenId++;
+            _safeMint(to, tokenId);
+        }
+    }
+
+    ```
+
+## Compile the Contract
+
+Compile your `MyNFT.sol` contract using the following command:
+
+```bash
+npx hardhat compile
+```
+
+You will see a message in the terminal confirming the contract was successfully compiled, similar to the following:
+
+<div id="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>npx hardhat compile</span>
+  <span data-ty>Downloading solc 0.8.28</span>
+  <span data-ty>Downloading solc 0.8.28 (WASM build)</span>
+  <span data-ty>Compiled 1 Solidity file with solc 0.8.28 (evm target: cancun)</span>
+  <span data-ty="input"><span class="file-path"></span></span>
+</div>
+## Deploy the Contract
+
+You are now ready to deploy the contract to your chosen network. This example demonstrates deployment to the Polkadot TestNet. Deploy the contract as follows:
+
+1. Delete the default file(s) inside the `ignition/modules` directory.
+
+2. Create a new file named `MyNFT.ts` inside the `ignition/modules` directory.
+
+3. Open `ignition/modules/MyNFT.ts` and add the following code to create your deployment module:
+    ```typescript title="ignition/modules/MyNFT.ts"
+    import { buildModule } from '@nomicfoundation/hardhat-ignition/modules';
+
+    export default buildModule('MyNFTModule', (m) => {
+      const initialOwner = m.getParameter('initialOwner', 'INSERT_OWNER_ADDRESS');
+      const myNFT = m.contract('MyNFT', [initialOwner]);
+      return { myNFT };
+    });
+
+    ```
+
+    Replace `INSERT_OWNER_ADDRESS` with your desired owner address.
+
+4. Deploy your contract to Polkadot Hub TestNet using the following command:
+
+    ```bash
+    npx hardhat ignition deploy ignition/modules/MyNFT.ts --network polkadotTestnet
+    ```
+
+5. Confirm the target deployment network name and chain ID when prompted:
+
+    <div id="termynal" data-termynal markdown>
+      <span data-ty="input">npx hardhat ignition deploy ignition/modules/MyNFT.ts --network polkadotHubTestnet</span>
+      <span data-ty>✔ Confirm deploy to network polkadotTestnet (420420420)? … yes</span>
+      <span data-ty>&nbsp;</span>
+      <span data-ty>Hardhat Ignition 🚀</span>
+      <span data-ty>&nbsp;</span>
+      <span data-ty>Deploying [ MyNFTModule ]</span>
+      <span data-ty>&nbsp;</span>
+      <span data-ty>Batch #1</span>
+      <span data-ty> Executed MyNFTModule#MyNFT</span>
+      <span data-ty>&nbsp;</span>
+      <span data-ty>Batch #2</span>
+      <span data-ty> Executed MyNFTModule#MyNFT.safeMint</span>
+      <span data-ty>&nbsp;</span>
+      <span data-ty>[ TokenModule ] successfully deployed 🚀</span>
+      <span data-ty>&nbsp;</span>
+      <span data-ty>Deployed Addresses</span>
+      <span data-ty>&nbsp;</span>
+      <span data-ty>MyNFTModule#MyNFT - 0x1234.......</span>
+      <span data-ty="input"><span class="file-path"></span></span>
+    </div>
+Congratulations! You've successfully deployed an ERC-721 NFT contract to Polkadot Hub TestNet using Hardhat. Consider the following resources to build upon your progress. 
+
+## Where to Go Next
+
+<div class="grid cards" markdown>
+
+-   <span class="badge guide">Guide</span> __Deploy an ERC-20__
+
+    ---
+
+    Walk through deploying a fully-functional ERC-20 to Polkadot Hub using Hardhat.
+
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-hardhat/)
 
 </div>
 
@@ -2770,290 +3032,6 @@ Replace `YOUR_PRIVATE_KEY` with your private key and `YOUR_OWNER_ADDRESS` with t
     Walk through deploying a fully-functional ERC-20 to the Polkadot Hub using Foundry.
 
     [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-erc20/foundry/)
-
-</div>
-
-
----
-
-Page Title: Deploy an NFT to Polkadot Hub with Hardhat
-
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-nft-hardhat.md
-- Canonical (HTML): https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-nft/hardhat/
-- Summary: Learn how to deploy an ERC-721 NFT contract to Polkadot Hub with Hardhat, a comprehenive development environment with built-in deployment capabilities.
-
-# Deploy an NFT with Hardhat
-
-## Introduction
-
-Non-Fungible Tokens (NFTs) represent unique digital assets commonly used for digital art, collectibles, gaming, and identity verification.
-
-This guide demonstrates how to deploy an [ERC-721](https://eips.ethereum.org/EIPS/eip-721){target=\_blank} NFT contract to [Polkadot Hub](/smart-contracts/overview/#smart-contract-development){target=\_blank}. You'll use [OpenZeppelin's battle-tested NFT implementation](https://github.com/OpenZeppelin/openzeppelin-contracts){target=\_blank} and [Hardhat](https://hardhat.org/docs/getting-started){target=\_blank}, a comprehensive development environment with built-in testing, debugging, and deployment capabilities. Hardhat uses standard Solidity compilation to generate EVM bytecode, making it fully compatible with Polkadot Hub's EVM environment.
-
-## Prerequisites
-
-- Basic understanding of Solidity programming and NFT standards.
-- Node.js v22.13.1 or later.
-- A funded account with tokens for transaction fees. This example will deploy the contract to the Polkadot TestNet, so you'll [need some TestNet tokens](/smart-contracts/faucet/#get-test-tokens){target=\_blank} from the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}.
-- A wallet with a private key for signing transactions.
-
-## Set Up Your Project
-
-Take the following steps to get started:
-
-1. Initialize your Hardhat project:
-
-    ```bash
-    mkdir hardhat-nft-deployment
-    cd hardhat-nft-deployment
-    npx hardhat --init
-    ```
-
-2. Install OpenZeppelin contracts:
-
-    ```bash
-    npm install @openzeppelin/contracts
-    ```
-
-## Configure Hardhat
-
-Edit `hardhat.config.ts`:
-
-```typescript title="hardhat.config.ts"
-import type { HardhatUserConfig } from 'hardhat/config';
-
-import hardhatToolboxViemPlugin from '@nomicfoundation/hardhat-toolbox-viem';
-import { configVariable } from 'hardhat/config';
-
-const config: HardhatUserConfig = {
-  plugins: [hardhatToolboxViemPlugin],
-  solidity: {
-    profiles: {
-      default: {
-        version: '0.8.28',
-      },
-      production: {
-        version: '0.8.28',
-        settings: {
-          optimizer: {
-            enabled: true,
-            runs: 200,
-          },
-        },
-      },
-    },
-  },
-  networks: {
-    hardhatMainnet: {
-      type: 'edr-simulated',
-      chainType: 'l1',
-    },
-    hardhatOp: {
-      type: 'edr-simulated',
-      chainType: 'op',
-    },
-    sepolia: {
-      type: 'http',
-      chainType: 'l1',
-      url: configVariable('SEPOLIA_RPC_URL'),
-      accounts: [configVariable('SEPOLIA_PRIVATE_KEY')],
-    },
-    polkadotHubTestnet: {
-      type: 'http',
-      url: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
-      chainId: 420420422,
-      accounts: [configVariable('PRIVATE_KEY')],
-    },
-  },
-};
-
-export default config;
-```
-
-!!! tip
-    Learn how to use Hardhat's [Config Variables](https://hardhat.org/docs/learn-more/configuration-variables){target=\_blank} to handle your private keys in a secure way.
-
-## Create Your Contract
-
-Create `contracts/MyNFT.sol`:
-
-```solidity title="contracts/MyNFT.sol"
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
-
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
-
-contract MyNFT is ERC721, Ownable {
-    uint256 private _nextTokenId;
-
-    constructor(address initialOwner)
-        ERC721("MyToken", "MTK")
-        Ownable(initialOwner)
-    {}
-
-    function safeMint(address to) public onlyOwner {
-        uint256 tokenId = _nextTokenId++;
-        _safeMint(to, tokenId);
-    }
-}
-```
-
-## Compile
-
-```bash
-npx hardhat compile
-```
-
-## Set Up Deployment
-
-Create a deployment module in `ignition/modules/MyNFT.ts`:
-
-```typescript title="ignition/modules/MyNFT.ts"
-import { buildModule } from '@nomicfoundation/hardhat-ignition/modules';
-
-export default buildModule('MyNFTModule', (m) => {
-  const initialOwner = m.getParameter('initialOwner', 'INSERT_OWNER_ADDRESS');
-  const myNFT = m.contract('MyNFT', [initialOwner]);
-  return { myNFT };
-});
-```
-
-Replace `INSERT_OWNER_ADDRESS` with your desired owner address.
-
-## Deploy
-
-Deploy to Polkadot Hub TestNet:
-
-```bash
-npx hardhat ignition deploy ignition/modules/MyNFT.ts --network polkadotHubTestnet
-```
-
-## Where to Go Next
-
-<div class="grid cards" markdown>
-
--   <span class="badge guide">Guide</span> __Verify Your Contract__
-
-    ---
-
-    Now that you've deployed an NFT contract, learn how to verify it with Hardhat.
-
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/dev-environments/hardhat/verify-a-contract/)
-
-
--   <span class="badge guide">Guide</span> __Deploy an ERC-20__
-
-    ---
-
-    Walk through deploying a fully-functional ERC-20 to the Polkadot Hub using Hardhat.
-
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-erc20/hardhat/)
-
-</div>
-
-
----
-
-Page Title: Deploy an NFT to Polkadot Hub with Remix
-
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-nft-remix.md
-- Canonical (HTML): https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-nft/remix/
-- Summary: Learn how to deploy an ERC-721 NFT contract to Polkadot Hub using Remix, a browser-based IDE for quick prototyping and learning.
-
-# Deploy an NFT with Remix
-
-## Introduction
-
-Non-Fungible Tokens (NFTs) represent unique digital assets commonly used for digital art, collectibles, gaming, and identity verification.
-
-This guide demonstrates how to deploy an [ERC-721](https://eips.ethereum.org/EIPS/eip-721){target=\_blank} NFT contract to [Polkadot Hub](/smart-contracts/overview/#smart-contract-development){target=\_blank}. You'll use [OpenZeppelin's battle-tested NFT implementation](https://github.com/OpenZeppelin/openzeppelin-contracts){target=\_blank} and [Remix](https://remix.ethereum.org/){target=\_blank}, a visual, browser-based environment perfect for rapid prototyping and learning. It requires no local installation and provides an intuitive interface for contract development.
-
-## Prerequisites
-
-- Basic understanding of Solidity programming and NFT standards.
-- Test tokens for gas fees (available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}). See the [step-by-step instructions](/smart-contracts/faucet/#get-test-tokens){target=\_blank}
-- A wallet with a private key for signing transactions.
-
-## Access Remix
-
-Navigate to [Remix](https://remix.ethereum.org/){target=\_blank} in your web browser.
-
-The interface will load with a default workspace containing sample contracts. In this interface, you can access a file explorer, edit your code, interact with various plugins for development, and use a terminal.
-
-## Create Your Contract
-
-1. Create a new file `contracts/MyNFT.sol`.
-2. Paste the following code:
-
-    ```solidity title="contracts/MyNFT.sol"
-    // SPDX-License-Identifier: MIT
-    pragma solidity ^0.8.20;
-
-    import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-    import "@openzeppelin/contracts/access/Ownable.sol";
-
-    contract MyNFT is ERC721, Ownable {
-        uint256 private _nextTokenId;
-
-        constructor(address initialOwner)
-            ERC721("MyToken", "MTK")
-            Ownable(initialOwner)
-        {}
-
-        function safeMint(address to) public onlyOwner {
-            uint256 tokenId = _nextTokenId++;
-            _safeMint(to, tokenId);
-        }
-    }
-    ```
-
-![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/remix/remix-01.webp)
-
-## Compile
-
-1. Navigate to the **Solidity Compiler** tab (third icon in the left sidebar).
-2. Click **Compile MyNFT.sol** or press `Ctrl+S`.
-
-![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/remix/remix-02.webp)
-
-Compilation errors and warnings appear in the terminal panel at the bottom of the screen.
-
-## Deploy
-
-1. Navigate to the **Deploy & Run Transactions** tab.
-2. Click the **Environment** dropdown, select **Browser Extension**, and click on **Injected Provider - MetaMask**.
-
-    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/remix/remix-03.webp)
-
-3. In the deploy section, enter the initial owner address in the constructor parameter field.
-4. Click **Deploy**.
-
-    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/remix/remix-04.webp)
-
-5. Approve the transaction in your MetaMask wallet.
-
-Your deployed contract will appear in the **Deployed Contracts** section, ready for interaction.
-
-## Where to Go Next
-
-<div class="grid cards" markdown>
-
--   <span class="badge guide">Guide</span> __Verify Your Contract__
-
-    ---
-
-    Now that you've deployed an NFT contract, learn how to verify it with Remix.
-
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/dev-environments/remix/verify-a-contract/)
-
--   <span class="badge guide">Guide</span> __Deploy an ERC-20__
-
-    ---
-
-    Walk through deploying a fully-functional ERC-20 to the Polkadot Hub using Remix.
-
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-erc20/remix/)
 
 </div>
 
@@ -3968,30 +3946,24 @@ This resource provides quick-starts for building smart contracts on Polkadot Hub
 
 Kick off development fast with curated links for connecting, funding, exploring, and deploying your first contract.
 
-|                                             Quick Start                                             |         Tools         |                           Description                           |
-|:---------------------------------------------------------------------------------------------------:|:---------------------:|:---------------------------------------------------------------:|
-|                  [Connect to Polkadot](/smart-contracts/connect/){target=\_blank}                   | Polkadot.js, MetaMask | Add the network, configure RPC, verify activity in the explorer |
-|                    [Get Test Tokens](/smart-contracts/faucets/){target=\_blank}                     |           -           |    Request test funds to deploy and interact with contracts     |
-|                 [Explore Transactions](/smart-contracts/explorers/){target=\_blank}                 |        Subscan        | Inspect transactions, logs, token transfers, and contract state |
-|   [Deploy with Remix](/smart-contracts/dev-environments/remix/deploy-a-contract/){target=\_blank}   |         Remix         |          One‑click browser deployment to Polkadot Hub           |
-| [Deploy with Foundry](/smart-contracts/dev-environments/foundry/deploy-a-contract/){target=\_blank} |        Foundry        |          Scripted deployments and testing from the CLI          |
-| [Deploy with Hardhat](/smart-contracts/dev-environments/hardhat/deploy-a-contract/){target=\_blank} |        Hardhat        |          Project scaffolding, testing, and deployments          |
+|                                           Quick Start                                           |         Tools         |                           Description                           |
+|:-----------------------------------------------------------------------------------------------:|:---------------------:|:---------------------------------------------------------------:|
+|                [Connect to Polkadot](/smart-contracts/connect/){target=\_blank}                 | Polkadot.js, MetaMask | Add the network, configure RPC, verify activity in the explorer |
+|                  [Get Test Tokens](/smart-contracts/faucets/){target=\_blank}                   |           -           |    Request test funds to deploy and interact with contracts     |
+|               [Explore Transactions](/smart-contracts/explorers/){target=\_blank}               |        Subscan        | Inspect transactions, logs, token transfers, and contract state |
+| [Deploy with Remix](/smart-contracts/dev-environments/remix/deploy-a-contract/){target=\_blank} |         Remix         |          One‑click browser deployment to Polkadot Hub           |
 
 ## Build and Test Locally
 
 Set up local environments and CI-friendly workflows to iterate quickly and validate changes before deploying.
 
-|                                            Build and Test Locally                                            |       Tools       |                     Description                      |
-|:------------------------------------------------------------------------------------------------------------:|:-----------------:|:----------------------------------------------------:|
-|          [Run a Local Dev Node](/smart-contracts/dev-environments/local-dev-node/){target=\_blank}           | Polkadot SDK node |    Spin up a local node for iterative development    |
-|          [Remix: Get Started](/smart-contracts/dev-environments/remix/get-started/){target=\_blank}          |       Remix       | Connect Remix to Polkadot Hub and configure accounts |
-|    [Remix: Verify a Contract](/smart-contracts/dev-environments/remix/verify-a-contract/){target=\_blank}    |       Remix       |         Publish verified source on explorers         |
-| [Foundry: Install and Config](/smart-contracts/dev-environments/foundry/install-and-config/){target=\_blank} |      Foundry      |       Install toolchain and configure networks       |
-|   [Foundry: Compile and Test](/smart-contracts/dev-environments/foundry/compile-and-test/){target=\_blank}   |      Foundry      |         Write and run Solidity tests locally         |
-|  [Foundry: Verify a Contract](/smart-contracts/dev-environments/foundry/verify-a-contract/){target=\_blank}  |      Foundry      |        Verify deployed bytecode and metadata         |
-| [Hardhat: Install and Config](/smart-contracts/dev-environments/hardhat/install-and-config/){target=\_blank} |      Hardhat      |     Initialize a project and configure networks      |
-|   [Hardhat: Compile and Test](/smart-contracts/dev-environments/hardhat/compile-and-test/){target=\_blank}   |      Hardhat      |         Unit test contracts and run scripts          |
-|  [Hardhat: Verify a Contract](/smart-contracts/dev-environments/hardhat/verify-a-contract/){target=\_blank}  |      Hardhat      |           Verify deployments on explorers            |
+|                                         Build and Test Locally                                         |       Tools       |                     Description                      |
+|:------------------------------------------------------------------------------------------------------:|:-----------------:|:----------------------------------------------------:|
+|       [Run a Local Dev Node](/smart-contracts/dev-environments/local-dev-node/){target=\_blank}        | Polkadot SDK node |    Spin up a local node for iterative development    |
+|       [Remix: Get Started](/smart-contracts/dev-environments/remix/get-started/){target=\_blank}       |       Remix       | Connect Remix to Polkadot Hub and configure accounts |
+| [Remix: Verify a Contract](/smart-contracts/dev-environments/remix/verify-a-contract/){target=\_blank} |       Remix       |         Publish verified source on explorers         |
+|       [Use Hardhat for Development](/smart-contracts/dev-environments/hardhat/){target=\_blank}        |      Hardhat      |        Project scaffolding and configuration         |
+
 
 ## Ethereum Developer Resources
 
@@ -4011,13 +3983,13 @@ Bridge your Ethereum knowledge with Polkadot Hub specifics: account mapping, fee
 
 Follow step‑by‑step guides that walk through common tasks and complete dApp examples.
 
-|                                                 Tutorial                                                 |        Tools        |                Description                |
-|:--------------------------------------------------------------------------------------------------------:|:-------------------:|:-----------------------------------------:|
-| [Deploy a Basic Contract](/smart-contracts/cookbook/smart-contracts/deploy-basic/remix/){target=\_blank} |        Remix        |      Minimal deployment walkthrough       |
-|    [Deploy an ERC‑20](/smart-contracts/cookbook/smart-contracts/deploy-erc20/remix/){target=\_blank}     | Remix, OpenZeppelin | Create, deploy, and mint a fungible token |
-|  [Deploy an NFT (ERC‑721)](/smart-contracts/cookbook/smart-contracts/deploy-nft/remix/){target=\_blank}  | Remix, OpenZeppelin |    Build and deploy an NFT collection     |
-|              [Uniswap V2](/smart-contracts/cookbook/eth-dapps/uniswap-v2/){target=\_blank}               |       Hardhat       | Full dApp project: compile, test, deploy  |
-|            [Zero‑to‑Hero dApp](/smart-contracts/cookbook/dapps/zero-to-hero/){target=\_blank}            |      Multiple       |  End‑to‑end dApp patterns and practices   |
+|                                                    Tutorial                                                    |        Tools        |                Description                |
+|:--------------------------------------------------------------------------------------------------------------:|:-------------------:|:-----------------------------------------:|
+| [Deploy a Basic Contract](/smart-contracts/cookbook/smart-contracts/deploy-basic/basic-remix/){target=\_blank} |        Remix        |      Minimal deployment walkthrough       |
+|    [Deploy an ERC‑20](/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix/){target=\_blank}     | Remix, OpenZeppelin | Create, deploy, and mint a fungible token |
+|   [Deploy an NFT (ERC‑721)](/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix/){target=\_blank}   | Remix, OpenZeppelin |    Build and deploy an NFT collection     |
+|                 [Uniswap V2](/smart-contracts/cookbook/eth-dapps/uniswap-v2/){target=\_blank}                  |       Hardhat       | Full dApp project: compile, test, deploy  |
+|               [Zero‑to‑Hero dApp](/smart-contracts/cookbook/dapps/zero-to-hero/){target=\_blank}               |      Multiple       |  End‑to‑end dApp patterns and practices   |
 
 ## Libraries
 
@@ -7787,7 +7759,7 @@ To stop the local node:
 
 ---
 
-Page Title: Smart Contracts Cookbook Index
+Page Title: Smart Contracts Cookbook
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook.md
 - Canonical (HTML): https://docs.polkadot.com/smart-contracts/cookbook/
@@ -7808,12 +7780,12 @@ This page contains a list of all relevant tutorials and guides to help you get s
 |------------------------------------|:-----------:|-------|-----------------------------------------------------------------------------------------------------------------------|
 | [Faucet](/smart-contracts/faucet/) | 🟢 Beginner | N/A   | Learn how to obtain test tokens from Polkadot faucets for development and testing purposes across different networks. |
 
-## EVM/PVM Smart Contracts
+## EVM Smart Contracts
 
-| Title                                                                                             | Difficulty  | Tools                          | Description                                                                                                                                                 |
-|---------------------------------------------------------------------------------------------------|:-----------:|--------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [Deploy an ERC-20 to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-erc20/remix/) | 🟢 Beginner | EVM Wallet, Polkadot Remix IDE | Deploy an ERC-20 token on Polkadot Hub using PolkaVM. This guide covers contract creation, compilation, deployment, and interaction via Polkadot Remix IDE. |
-| [Deploy an NFT to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-nft/remix/)      | 🟢 Beginner | EVM Wallet, Polkadot Remix IDE | Deploy an NFT on Polkadot Hub using PolkaVM and OpenZeppelin. Learn how to compile, deploy, and interact with your contract using Polkadot Remix IDE.       |
+| Title                                                                                                   | Difficulty  | Tools                          | Description                                                                                                                                                 |
+|---------------------------------------------------------------------------------------------------------|:-----------:|--------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [Deploy an ERC-20 to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix/) | 🟢 Beginner | EVM Wallet, Polkadot Remix IDE | Deploy an ERC-20 token on Polkadot Hub using PolkaVM. This guide covers contract creation, compilation, deployment, and interaction via Polkadot Remix IDE. |
+| [Deploy an NFT to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix/)        | 🟢 Beginner | EVM Wallet, Polkadot Remix IDE | Deploy an NFT on Polkadot Hub using PolkaVM and OpenZeppelin. Learn how to compile, deploy, and interact with your contract using Polkadot Remix IDE.       |
 
 ## Port Ethereum DApps
 
@@ -8393,126 +8365,721 @@ Page Title: Unit Test Pallets
 
 ## Introduction
 
-Unit testing in the Polkadot SDK helps ensure that the functions provided by a pallet behave as expected. It also confirms that data and events associated with a pallet are processed correctly during interactions. The Polkadot SDK offers a set of APIs to create a test environment to simulate runtime and mock transaction execution for extrinsics and queries.
+Unit testing in the Polkadot SDK helps ensure that the functions provided by a pallet behave as expected. It also confirms that data and events associated with a pallet are processed correctly during interactions. With your mock runtime in place from the [previous guide](/parachains/customize-runtime/pallet-development/mock-runtime/), you can now write comprehensive tests that verify your pallet's behavior in isolation.
 
-To begin unit testing, you must first set up a mock runtime that simulates blockchain behavior, incorporating the necessary pallets. For a deeper understanding, consult the [Mock Runtime](/parachains/customize-runtime/pallet-development/mock-runtime/){target=\_blank} guide.
+In this guide, you'll learn how to:
 
-## Writing Unit Tests
+- Structure test modules effectively.
+- Test dispatchable functions.
+- Verify storage changes.
+- Check event emission.
+- Test error conditions.
+- Use genesis configurations in tests.
 
-Once the mock runtime is in place, the next step is to write unit tests that evaluate the functionality of your pallet. Unit tests allow you to test specific pallet features in isolation, ensuring that each function behaves correctly under various conditions. These tests typically reside in your pallet module's `test.rs` file.
+## Prerequisites
 
-Unit tests in the Polkadot SDK use the Rust testing framework, and the mock runtime you've defined earlier will serve as the test environment. Below are the typical steps involved in writing unit tests for a pallet.
+Before you begin, ensure you:
 
-The tests confirm that:
+- Completed the [Make a Custom Pallet](/parachains/customize-runtime/pallet-development/create-a-pallet/) guide.
+- Completed the [Mock Your Runtime](/parachains/customize-runtime/pallet-development/mock-runtime/) guide.
+- Configured custom counter pallet with mock runtime in `pallets/pallet-custom`.
+- Understood the basics of [Rust testing](https://doc.rust-lang.org/book/ch11-00-testing.html){target=\_blank}.
 
-- **Pallets initialize correctly**: At the start of each test, the system should initialize with block number 0, and the pallets should be in their default states.
-- **Pallets modify each other's state**: The second test shows how one pallet can trigger changes in another pallet's internal state, confirming proper cross-pallet interactions.
-- **State transitions between blocks are seamless**: By simulating block transitions, the tests validate that the runtime responds correctly to changes in the block number.
+## Understanding FRAME Testing Tools
 
-Testing pallet interactions within the runtime is critical for ensuring the blockchain behaves as expected under real-world conditions. Writing integration tests allows validation of how pallets function together, preventing issues that might arise when the system is fully assembled.
+[FRAME](/reference/glossary/#frame-framework-for-runtime-aggregation-of-modularized-entities){target=\_blank} provides specialized testing macros and utilities that make pallet testing more efficient:
 
-This approach provides a comprehensive view of the runtime's functionality, ensuring the blockchain is stable and reliable.
+### Assertion Macros
 
-### Test Initialization
+- **[`assert_ok!`](https://paritytech.github.io/polkadot-sdk/master/frame_support/macro.assert_ok.html){target=\_blank}** - Asserts that a dispatchable call succeeds.
+- **[`assert_noop!`](https://paritytech.github.io/polkadot-sdk/master/frame_support/macro.assert_noop.html){target=\_blank}** - Asserts that a call fails without changing state (no operation).
+- **[`assert_eq!`](https://doc.rust-lang.org/std/macro.assert_eq.html){target=\_blank}** - Standard Rust equality assertion.
 
-Each test starts by initializing the runtime environment, typically using the `new_test_ext()` function, which sets up the mock storage and environment.
+!!!info "`assert_noop!` Explained"
+    Use `assert_noop!` to ensure the operation fails without any state changes. This is critical for testing error conditions - it verifies both that the error occurs AND that no storage was modified.
+
+### System Pallet Test Helpers
+
+The [`frame_system`](https://paritytech.github.io/polkadot-sdk/master/frame_system/index.html){target=\_blank} pallet provides useful methods for testing:
+
+- **[`System::events()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.events){target=\_blank}** - Returns all events emitted during the test.
+- **[`System::assert_last_event()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.assert_last_event){target=\_blank}** - Asserts the last event matches expectations.
+- **[`System::set_block_number()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.set_block_number){target=\_blank}** - Sets the current block number.
+
+!!!info "Events and Block Number"
+    Events are not emitted on block 0 (genesis block). If you need to test events, ensure you set the block number to at least 1 using `System::set_block_number(1)`.
+
+### Origin Types
+
+- **[`RuntimeOrigin::root()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/enum.RawOrigin.html#variant.Root){target=\_blank}** - Root/sudo origin for privileged operations.
+- **[`RuntimeOrigin::signed(account)`](https://paritytech.github.io/polkadot-sdk/master/frame_system/enum.RawOrigin.html#variant.Signed){target=\_blank}** - Signed origin from a specific account.
+- **[`RuntimeOrigin::none()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/enum.RawOrigin.html#variant.None){target=\_blank}** - No origin (typically fails for most operations).
+
+Learn more about origins in the [FRAME Origin reference document](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/frame_origin/index.html){target=\_blank}.
+
+## Create the Tests Module
+
+Create a new file for your tests within the pallet directory:
+
+1. Navigate to your pallet directory:
+
+    ```bash
+    cd pallets/pallet-custom/src
+    ```
+
+2. Create a new file named `tests.rs`:
+
+    ```bash
+    touch tests.rs
+    ```
+
+3. Open `src/lib.rs` and add the tests module declaration after the mock module:
+
+    ```rust title="src/lib.rs"
+    #![cfg_attr(not(feature = "std"), no_std)]
+
+    pub use pallet::*;
+
+    #[cfg(test)]
+    mod mock;
+
+    #[cfg(test)]
+    mod tests;
+
+    #[frame::pallet]
+    pub mod pallet {
+        // ... existing pallet code
+    }
+    ```
+
+## Set Up the Test Module
+
+Open `src/tests.rs` and add the basic structure with necessary imports:
+
+```rust
+use crate::{mock::*, Error, Event};
+use frame::deps::frame_support::{assert_noop, assert_ok};
+use frame::deps::sp_runtime::DispatchError;
+```
+
+This setup imports:
+
+- The mock runtime and test utilities from `mock.rs`
+- Your pallet's `Error` and `Event` types
+- FRAME's assertion macros via `frame::deps`
+- `DispatchError` for testing origin checks
+
+???+ code "Complete Pallet Code Reference"
+    Here's the complete pallet code that you'll be testing throughout this guide:
+
+    ```rust
+    #![cfg_attr(not(feature = "std"), no_std)]
+
+    pub use pallet::*;
+
+    #[frame::pallet]
+    pub mod pallet {
+        use frame::prelude::*;
+
+        #[pallet::pallet]
+        pub struct Pallet<T>(_);
+
+        #[pallet::config]
+        pub trait Config: frame_system::Config {
+            type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
+
+            #[pallet::constant]
+            type CounterMaxValue: Get<u32>;
+        }
+
+        #[pallet::event]
+        #[pallet::generate_deposit(pub(super) fn deposit_event)]
+        pub enum Event<T: Config> {
+            CounterValueSet {
+                new_value: u32,
+            },
+            CounterIncremented {
+                new_value: u32,
+                who: T::AccountId,
+                amount: u32,
+            },
+            CounterDecremented {
+                new_value: u32,
+                who: T::AccountId,
+                amount: u32,
+            },
+        }
+
+        #[pallet::error]
+        pub enum Error<T> {
+            NoneValue,
+            Overflow,
+            Underflow,
+            CounterMaxValueExceeded,
+        }
+
+        #[pallet::storage]
+        pub type CounterValue<T> = StorageValue<_, u32, ValueQuery>;
+
+        #[pallet::storage]
+        pub type UserInteractions<T: Config> = StorageMap<
+            _,
+            Blake2_128Concat,
+            T::AccountId,
+            u32,
+            ValueQuery
+        >;
+
+        #[pallet::genesis_config]
+        #[derive(DefaultNoBound)]
+        pub struct GenesisConfig<T: Config> {
+            pub initial_counter_value: u32,
+            pub initial_user_interactions: Vec<(T::AccountId, u32)>,
+        }
+
+        #[pallet::genesis_build]
+        impl<T: Config> BuildGenesisConfig for GenesisConfig<T> {
+            fn build(&self) {
+                CounterValue::<T>::put(self.initial_counter_value);
+                for (account, count) in &self.initial_user_interactions {
+                    UserInteractions::<T>::insert(account, count);
+                }
+            }
+        }
+
+        #[pallet::call]
+        impl<T: Config> Pallet<T> {
+            #[pallet::call_index(0)]
+            #[pallet::weight(0)]
+            pub fn set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult {
+                ensure_root(origin)?;
+                ensure!(new_value <= T::CounterMaxValue::get(), Error::<T>::CounterMaxValueExceeded);
+                CounterValue::<T>::put(new_value);
+                Self::deposit_event(Event::CounterValueSet { new_value });
+                Ok(())
+            }
+
+            #[pallet::call_index(1)]
+            #[pallet::weight(0)]
+            pub fn increment(origin: OriginFor<T>, amount: u32) -> DispatchResult {
+                let who = ensure_signed(origin)?;
+                let current_value = CounterValue::<T>::get();
+                let new_value = current_value.checked_add(amount).ok_or(Error::<T>::Overflow)?;
+                ensure!(new_value <= T::CounterMaxValue::get(), Error::<T>::CounterMaxValueExceeded);
+                CounterValue::<T>::put(new_value);
+                UserInteractions::<T>::mutate(&who, |count| {
+                    *count = count.saturating_add(1);
+                });
+                Self::deposit_event(Event::CounterIncremented { new_value, who, amount });
+                Ok(())
+            }
+
+            #[pallet::call_index(2)]
+            #[pallet::weight(0)]
+            pub fn decrement(origin: OriginFor<T>, amount: u32) -> DispatchResult {
+                let who = ensure_signed(origin)?;
+                let current_value = CounterValue::<T>::get();
+                let new_value = current_value.checked_sub(amount).ok_or(Error::<T>::Underflow)?;
+                CounterValue::<T>::put(new_value);
+                UserInteractions::<T>::mutate(&who, |count| {
+                    *count = count.saturating_add(1);
+                });
+                Self::deposit_event(Event::CounterDecremented { new_value, who, amount });
+                Ok(())
+            }
+        }
+    }
+
+    ```
+
+## Write Your First Test
+
+Let's start with a simple test to verify the increment function works correctly.
+
+### Test Basic Increment
+
+Test that the increment function increases counter value and emits events.
 
 ```rust
 #[test]
-fn test_pallet_functionality() {
+fn increment_works() {
     new_test_ext().execute_with(|| {
-        // Test logic goes here
+        // Set block number to 1 so events are registered
+        System::set_block_number(1);
+
+        let account = 1u64;
+
+        // Increment by 50
+        assert_ok!(CustomPallet::increment(RuntimeOrigin::signed(account), 50));
+        assert_eq!(crate::CounterValue::<Test>::get(), 50);
+
+        // Check event was emitted
+        System::assert_last_event(
+            Event::CounterIncremented {
+                new_value: 50,
+                who: account,
+                amount: 50,
+            }
+            .into(),
+        );
+
+        // Check user interactions were tracked
+        assert_eq!(crate::UserInteractions::<Test>::get(account), 1);
     });
 }
 ```
 
-### Function Call Testing
+Run your first test:
 
-Call the pallet's extrinsics or functions to simulate user interaction or internal logic. Use the `assert_ok!` macro to check for successful execution and `assert_err!` to verify that errors are correctly handled.
+```bash
+cargo test --package pallet-custom increment_works
+```
+
+You should see:
+
+```
+running 1 test
+test tests::increment_works ... ok
+```
+
+Congratulations! You've written and run your first pallet test.
+
+## Test Error Conditions
+
+Now let's test that our pallet correctly handles errors. Error testing is crucial to ensure your pallet fails safely.
+
+### Test Overflow Protection
+
+Test that incrementing at u32::MAX fails with Overflow error.
 
 ```rust
 #[test]
-fn it_works_for_valid_input() {
-    new_test_ext().execute_with(|| {
-        // Call an extrinsic or function
-        assert_ok!(TemplateModule::some_function(Origin::signed(1), valid_param));
-    });
-}
-
-#[test]
-fn it_fails_for_invalid_input() {
-    new_test_ext().execute_with(|| {
-        // Call an extrinsic with invalid input and expect an error
-        assert_err!(
-            TemplateModule::some_function(Origin::signed(1), invalid_param),
-            Error::<Test>::InvalidInput
+fn increment_fails_on_overflow() {
+    new_test_ext_with_counter(u32::MAX).execute_with(|| {
+        // Attempt to increment when at max u32 should fail
+        assert_noop!(
+            CustomPallet::increment(RuntimeOrigin::signed(1), 1),
+            Error::<Test>::Overflow
         );
     });
 }
 ```
 
-### Storage Testing
+Test overflow protection:
 
-After calling a function or extrinsic in your pallet, it's essential to verify that the state changes in the pallet's storage match the expected behavior to ensure data is updated correctly based on the actions taken.
-
-The following example shows how to test the storage behavior before and after the function call:
-
-```rust
-#[test]
-fn test_storage_update_on_extrinsic_call() {
-    new_test_ext().execute_with(|| {
-        // Check the initial storage state (before the call)
-        assert_eq!(Something::<Test>::get(), None);
-
-        // Dispatch a signed extrinsic, which modifies storage
-        assert_ok!(TemplateModule::do_something(RuntimeOrigin::signed(1), 42));
-
-        // Validate that the storage has been updated as expected (after the call)
-        assert_eq!(Something::<Test>::get(), Some(42));
-    });
-}
-
+```bash
+cargo test --package pallet-custom increment_fails_on_overflow
 ```
 
-### Event Testing
+### Test Underflow Protection
 
-It's also crucial to test the events that your pallet emits during execution. By default, events generated in a pallet using the [`#generate_deposit`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.generate_deposit.html){target=\_blank} macro are stored under the system's event storage key (system/events) as [`EventRecord`](https://paritytech.github.io/polkadot-sdk/master/frame_system/struct.EventRecord.html){target=\_blank} entries. These can be accessed using [`System::events()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.events){target=\_blank} or verified with specific helper methods provided by the system pallet, such as [`assert_has_event`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.assert_has_event){target=\_blank} and [`assert_last_event`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.assert_last_event){target=\_blank}.
-
-Here's an example of testing events in a mock runtime:
+Test that decrementing below zero fails with Underflow error.
 
 ```rust
 #[test]
-fn it_emits_events_on_success() {
-    new_test_ext().execute_with(|| {
-        // Call an extrinsic or function
-        assert_ok!(TemplateModule::some_function(Origin::signed(1), valid_param));
-
-        // Verify that the expected event was emitted
-        assert!(System::events().iter().any(|record| {
-            record.event == Event::TemplateModule(TemplateEvent::SomeEvent)
-        }));
+fn decrement_fails_on_underflow() {
+    new_test_ext_with_counter(10).execute_with(|| {
+        // Attempt to decrement below zero should fail
+        assert_noop!(
+            CustomPallet::decrement(RuntimeOrigin::signed(1), 11),
+            Error::<Test>::Underflow
+        );
     });
 }
 ```
 
-Some key considerations are:
+Verify underflow protection:
 
-- **Block number**: Events are not emitted on the genesis block, so you need to set the block number using [`System::set_block_number()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.set_block_number){target=\_blank} to ensure events are triggered.
-- **Converting events**: Use `.into()` when instantiating your pallet's event to convert it into a generic event type, as required by the system's event storage.
+```bash
+cargo test --package pallet-custom decrement_fails_on_underflow
+```
+
+## Test Access Control
+
+Verify that origin checks work correctly and unauthorized access is prevented.
+
+### Test Root-Only Access
+
+Test that set_counter_value requires root origin and rejects signed origins.
+
+```rust
+#[test]
+fn set_counter_value_requires_root() {
+    new_test_ext().execute_with(|| {
+        let alice = 1u64;
+
+        // When: non-root user tries to set counter
+        // Then: should fail with BadOrigin
+        assert_noop!(
+            CustomPallet::set_counter_value(RuntimeOrigin::signed(alice), 100),
+            DispatchError::BadOrigin
+        );
+
+        // But root should succeed
+        assert_ok!(CustomPallet::set_counter_value(RuntimeOrigin::root(), 100));
+        assert_eq!(crate::CounterValue::<Test>::get(), 100);
+    });
+}
+```
+
+Test access control:
+
+```bash
+cargo test --package pallet-custom set_counter_value_requires_root
+```
+
+## Test Event Emission
+
+Verify that events are emitted correctly with the right data.
+
+### Test Event Data
+
+The [`increment_works`](/parachains/customize-runtime/pallet-development/pallet-testing/#test-basic-increment) test (shown earlier) already demonstrates event testing by:
+
+1. Setting the block number to 1 to enable event emission.
+2. Calling the dispatchable function.
+3. Using `System::assert_last_event()` to verify the correct event was emitted with expected data.
+
+This pattern applies to all dispatchables that emit events. For a dedicated event-only test focusing on the `set_counter_value` function:
+
+Test that set_counter_value updates storage and emits correct event.
+
+```rust
+#[test]
+fn set_counter_value_works() {
+    new_test_ext().execute_with(|| {
+        // Set block number to 1 so events are registered
+        System::set_block_number(1);
+
+        // Set counter to 100
+        assert_ok!(CustomPallet::set_counter_value(RuntimeOrigin::root(), 100));
+        assert_eq!(crate::CounterValue::<Test>::get(), 100);
+
+        // Check event was emitted
+        System::assert_last_event(Event::CounterValueSet { new_value: 100 }.into());
+    });
+}
+```
+
+Run the event test:
+
+```bash
+cargo test --package pallet-custom set_counter_value_works
+```
+
+## Test Genesis Configuration
+
+Verify that genesis configuration works correctly.
+
+### Test Genesis Setup
+
+Test that genesis configuration correctly initializes counter and user interactions.
+
+```rust
+#[test]
+fn genesis_config_works() {
+    new_test_ext_with_interactions(42, vec![(1, 5), (2, 10)]).execute_with(|| {
+        // Check initial counter value
+        assert_eq!(crate::CounterValue::<Test>::get(), 42);
+
+        // Check initial user interactions
+        assert_eq!(crate::UserInteractions::<Test>::get(1), 5);
+        assert_eq!(crate::UserInteractions::<Test>::get(2), 10);
+    });
+}
+```
+
+Test genesis configuration:
+
+```bash
+cargo test --package pallet-custom genesis_config_works
+```
+
+## Run All Tests
+
+Now run all your tests together:
+
+```bash
+cargo test --package pallet-custom
+```
+
+You should see all tests passing:
+
+<div id="termynal" data-termynal>
+  <span data-ty="input">$ cargo test --package pallet-custom</span>
+  <span data-ty>running 15 tests</span>
+  <span data-ty>test mock::__construct_runtime_integrity_test::runtime_integrity_tests ... ok</span>
+  <span data-ty>test mock::test_genesis_config_builds ... ok</span>
+  <span data-ty>test tests::decrement_fails_on_underflow ... ok</span>
+  <span data-ty>test tests::decrement_tracks_multiple_interactions ... ok</span>
+  <span data-ty>test tests::decrement_works ... ok</span>
+  <span data-ty>test tests::different_users_tracked_separately ... ok</span>
+  <span data-ty>test tests::genesis_config_works ... ok</span>
+  <span data-ty>test tests::increment_fails_on_overflow ... ok</span>
+  <span data-ty>test tests::increment_respects_max_value ... ok</span>
+  <span data-ty>test tests::increment_tracks_multiple_interactions ... ok</span>
+  <span data-ty>test tests::increment_works ... ok</span>
+  <span data-ty>test tests::mixed_increment_and_decrement_works ... ok</span>
+  <span data-ty>test tests::set_counter_value_requires_root ... ok</span>
+  <span data-ty>test tests::set_counter_value_respects_max_value ... ok</span>
+  <span data-ty>test tests::set_counter_value_works ... ok</span>
+  <span data-ty></span>
+  <span data-ty>test result: ok. 15 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out</span>
+</div>
+
+!!!note "Mock Runtime Tests"
+    You'll notice 2 additional tests from the `mock` module:
+
+    - `mock::__construct_runtime_integrity_test::runtime_integrity_tests` - Auto-generated test that validates runtime construction
+    - `mock::test_genesis_config_builds` - Validates that genesis configuration builds correctly
+
+    These tests are automatically generated from your mock runtime setup and help ensure the test environment itself is valid.
+
+Congratulations! You have a well-tested pallet covering the essential testing patterns!
+
+These tests demonstrate comprehensive coverage including basic operations, error conditions, access control, event emission, state management, and genesis configuration. As you build more complex pallets, you'll apply these same patterns to test additional functionality.
+
+??? code "Full Test Suite Code"
+    Here's the complete `tests.rs` file for quick reference:
+
+    ```rust
+    use crate::{mock::*, Error, Event};
+    use frame::deps::frame_support::{assert_noop, assert_ok};
+    use frame::deps::sp_runtime::DispatchError;
+
+    #[test]
+    fn set_counter_value_works() {
+        new_test_ext().execute_with(|| {
+            // Set block number to 1 so events are registered
+            System::set_block_number(1);
+
+            // Set counter to 100
+            assert_ok!(CustomPallet::set_counter_value(RuntimeOrigin::root(), 100));
+            assert_eq!(crate::CounterValue::<Test>::get(), 100);
+
+            // Check event was emitted
+            System::assert_last_event(Event::CounterValueSet { new_value: 100 }.into());
+        });
+    }
+
+    #[test]
+    fn set_counter_value_requires_root() {
+        new_test_ext().execute_with(|| {
+            // Attempt to set counter with non-root origin should fail
+            assert_noop!(
+                CustomPallet::set_counter_value(RuntimeOrigin::signed(1), 100),
+                DispatchError::BadOrigin
+            );
+        });
+    }
+
+    #[test]
+    fn set_counter_value_respects_max_value() {
+        new_test_ext().execute_with(|| {
+            // Attempt to set counter above max value (1000) should fail
+            assert_noop!(
+                CustomPallet::set_counter_value(RuntimeOrigin::root(), 1001),
+                Error::<Test>::CounterMaxValueExceeded
+            );
+
+            // Setting to exactly max value should work
+            assert_ok!(CustomPallet::set_counter_value(RuntimeOrigin::root(), 1000));
+            assert_eq!(crate::CounterValue::<Test>::get(), 1000);
+        });
+    }
+
+    #[test]
+    fn increment_works() {
+        new_test_ext().execute_with(|| {
+            // Set block number to 1 so events are registered
+            System::set_block_number(1);
+
+            let account = 1u64;
+
+            // Increment by 50
+            assert_ok!(CustomPallet::increment(RuntimeOrigin::signed(account), 50));
+            assert_eq!(crate::CounterValue::<Test>::get(), 50);
+
+            // Check event was emitted
+            System::assert_last_event(
+                Event::CounterIncremented {
+                    new_value: 50,
+                    who: account,
+                    amount: 50,
+                }
+                .into(),
+            );
+
+            // Check user interactions were tracked
+            assert_eq!(crate::UserInteractions::<Test>::get(account), 1);
+        });
+    }
+
+    #[test]
+    fn increment_tracks_multiple_interactions() {
+        new_test_ext().execute_with(|| {
+            let account = 1u64;
+
+            // Increment multiple times
+            assert_ok!(CustomPallet::increment(RuntimeOrigin::signed(account), 10));
+            assert_ok!(CustomPallet::increment(RuntimeOrigin::signed(account), 20));
+            assert_ok!(CustomPallet::increment(RuntimeOrigin::signed(account), 30));
+
+            // Check counter value
+            assert_eq!(crate::CounterValue::<Test>::get(), 60);
+
+            // Check user interactions were tracked (should be 3)
+            assert_eq!(crate::UserInteractions::<Test>::get(account), 3);
+        });
+    }
+
+    #[test]
+    fn increment_fails_on_overflow() {
+        new_test_ext_with_counter(u32::MAX).execute_with(|| {
+            // Attempt to increment when at max u32 should fail
+            assert_noop!(
+                CustomPallet::increment(RuntimeOrigin::signed(1), 1),
+                Error::<Test>::Overflow
+            );
+        });
+    }
+
+    #[test]
+    fn increment_respects_max_value() {
+        new_test_ext_with_counter(950).execute_with(|| {
+            // Incrementing past max value (1000) should fail
+            assert_noop!(
+                CustomPallet::increment(RuntimeOrigin::signed(1), 51),
+                Error::<Test>::CounterMaxValueExceeded
+            );
+
+            // Incrementing to exactly max value should work
+            assert_ok!(CustomPallet::increment(RuntimeOrigin::signed(1), 50));
+            assert_eq!(crate::CounterValue::<Test>::get(), 1000);
+        });
+    }
+
+    #[test]
+    fn decrement_works() {
+        new_test_ext_with_counter(100).execute_with(|| {
+            // Set block number to 1 so events are registered
+            System::set_block_number(1);
+
+            let account = 2u64;
+
+            // Decrement by 30
+            assert_ok!(CustomPallet::decrement(RuntimeOrigin::signed(account), 30));
+            assert_eq!(crate::CounterValue::<Test>::get(), 70);
+
+            // Check event was emitted
+            System::assert_last_event(
+                Event::CounterDecremented {
+                    new_value: 70,
+                    who: account,
+                    amount: 30,
+                }
+                .into(),
+            );
+
+            // Check user interactions were tracked
+            assert_eq!(crate::UserInteractions::<Test>::get(account), 1);
+        });
+    }
+
+    #[test]
+    fn decrement_fails_on_underflow() {
+        new_test_ext_with_counter(10).execute_with(|| {
+            // Attempt to decrement below zero should fail
+            assert_noop!(
+                CustomPallet::decrement(RuntimeOrigin::signed(1), 11),
+                Error::<Test>::Underflow
+            );
+        });
+    }
+
+    #[test]
+    fn decrement_tracks_multiple_interactions() {
+        new_test_ext_with_counter(100).execute_with(|| {
+            let account = 3u64;
+
+            // Decrement multiple times
+            assert_ok!(CustomPallet::decrement(RuntimeOrigin::signed(account), 10));
+            assert_ok!(CustomPallet::decrement(RuntimeOrigin::signed(account), 20));
+
+            // Check counter value
+            assert_eq!(crate::CounterValue::<Test>::get(), 70);
+
+            // Check user interactions were tracked (should be 2)
+            assert_eq!(crate::UserInteractions::<Test>::get(account), 2);
+        });
+    }
+
+    #[test]
+    fn mixed_increment_and_decrement_works() {
+        new_test_ext_with_counter(50).execute_with(|| {
+            let account = 4u64;
+
+            // Mix of increment and decrement
+            assert_ok!(CustomPallet::increment(RuntimeOrigin::signed(account), 25));
+            assert_eq!(crate::CounterValue::<Test>::get(), 75);
+
+            assert_ok!(CustomPallet::decrement(RuntimeOrigin::signed(account), 15));
+            assert_eq!(crate::CounterValue::<Test>::get(), 60);
+
+            assert_ok!(CustomPallet::increment(RuntimeOrigin::signed(account), 10));
+            assert_eq!(crate::CounterValue::<Test>::get(), 70);
+
+            // Check user interactions were tracked (should be 3)
+            assert_eq!(crate::UserInteractions::<Test>::get(account), 3);
+        });
+    }
+
+    #[test]
+    fn different_users_tracked_separately() {
+        new_test_ext().execute_with(|| {
+            let account1 = 1u64;
+            let account2 = 2u64;
+
+            // User 1 increments
+            assert_ok!(CustomPallet::increment(RuntimeOrigin::signed(account1), 10));
+            assert_ok!(CustomPallet::increment(RuntimeOrigin::signed(account1), 10));
+
+            // User 2 decrements
+            assert_ok!(CustomPallet::decrement(RuntimeOrigin::signed(account2), 5));
+
+            // Check counter value (10 + 10 - 5 = 15)
+            assert_eq!(crate::CounterValue::<Test>::get(), 15);
+
+            // Check user interactions are tracked separately
+            assert_eq!(crate::UserInteractions::<Test>::get(account1), 2);
+            assert_eq!(crate::UserInteractions::<Test>::get(account2), 1);
+        });
+    }
+
+    #[test]
+    fn genesis_config_works() {
+        new_test_ext_with_interactions(42, vec![(1, 5), (2, 10)]).execute_with(|| {
+            // Check initial counter value
+            assert_eq!(crate::CounterValue::<Test>::get(), 42);
+
+            // Check initial user interactions
+            assert_eq!(crate::UserInteractions::<Test>::get(1), 5);
+            assert_eq!(crate::UserInteractions::<Test>::get(2), 10);
+        });
+    }
+    ```
 
 ## Where to Go Next
 
-- Dive into the full implementation of the [`mock.rs`](https://github.com/paritytech/polkadot-sdk/blob/master/templates/solochain/pallets/template/src/mock.rs){target=\_blank} and [`test.rs`](https://github.com/paritytech/polkadot-sdk/blob/master/templates/solochain/pallets/template/src/tests.rs){target=\_blank} files in the [Solochain Template](https://github.com/paritytech/polkadot-sdk/tree/master/templates/solochain){target=_blank}.
-
 <div class="grid cards" markdown>
 
--   <span class="badge guide">Guide</span> __Benchmarking__
+-   <span class="badge guide">Guide</span> __Add Your Custom Pallet to the Runtime__
 
     ---
 
-    Explore methods to measure the performance and execution cost of your pallet.
+    Your pallet is tested and ready! Learn how to integrate it into your runtime.
 
-    [:octicons-arrow-right-24: Reference](/develop/parachains/testing/benchmarking)
+    [:octicons-arrow-right-24: Integrate](/parachains/customize-runtime/pallet-development/add-to-runtime/)
 
 </div>
 

@@ -269,31 +269,34 @@ Both backends support contract deployment effectively, with REVM offering drop-i
 
 ---
 
-Page Title: Deploy an ERC-20 to Polkadot Hub
+Page Title: Deploy an ERC-20 Using Hardhat
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-erc20-erc20-hardhat.md
 - Canonical (HTML): https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-hardhat/
 - Summary: Deploy an ERC-20 token on Polkadot Hub using PolkaVM. This guide covers contract creation, compilation, deployment, and interaction via Hardhat.
 
-# Deploy an ERC-20 to Polkadot Hub
+# Deploy an ERC-20 Using Hardhat
 
 ## Introduction
 
-[ERC-20](https://eips.ethereum.org/EIPS/eip-20){target=\_blank} tokens are fungible tokens commonly used for creating cryptocurrencies, governance tokens, and staking mechanisms. Polkadot Hub enables easy token deployment with Ethereum-compatible smart contracts and tools via the EVM backend.
+[ERC-20](https://eips.ethereum.org/EIPS/eip-20){target=\_blank} tokens are fungible tokens commonly used for creating cryptocurrencies, governance tokens, and staking mechanisms. Polkadot Hub enables easy deployment of ERC-20 tokens via Ethereum-compatible smart contracts and tools.
 
-This tutorial covers deploying an ERC-20 contract on the Polkadot Hub TestNet using [Hardhat](https://hardhat.org/){target=\_blank}, an Ethereum development environment. The ERC-20 contract can be retrieved from OpenZeppelin's [GitHub repository](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/v5.4.0/contracts/token/ERC20){target=\_blank}  or their [Contract Wizard](https://wizard.openzeppelin.com/){target=\_blank}.
+This guide demonstrates how to deploy an ERC-20 contract on Polkadot Hub TestNet using [Hardhat](https://hardhat.org/){target=\_blank}, an Ethereum development environment. The ERC-20 contract can be retrieved from OpenZeppelin's [GitHub repository](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/v5.4.0/contracts/token/ERC20){target=\_blank} or their [Contract Wizard](https://wizard.openzeppelin.com/){target=\_blank}.
 
 ## Prerequisites
 
-Before starting, make sure you have:
+Before you begin, ensure you have the following:
 
-- Basic understanding of Solidity programming and fungible tokens.
-- Node.js v22.13.1 or later.
-- A funded account with tokens for transaction fees. This example will deploy the contract to the Polkadot TestNet, so you'll [need some TestNet tokens](/smart-contracts/faucet/#get-test-tokens){target=\_blank} from the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}.
+- A basic understanding of [Solidity](https://www.soliditylang.org/){target=\_blank} programming and [ERC-20](https://ethereum.org/developers/docs/standards/tokens/erc-20/){target=\_blank} fungible tokens.
+- [Node.js](https://nodejs.org/en/download){target=\_blank} v22.13.1 or later installed.
+- Test tokens for gas fees, available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}. See [Get Test Tokens](/smart-contracts/faucet/#get-test-tokens){target=\_blank} for a guide to using the faucet.
+- A wallet with a private key for signing transactions.
 
 ## Set Up Your Project
 
-This tutorial uses a [Hardhat ERC-20 template](https://github.com/polkadot-developers/revm-hardhat-examples/tree/master/erc20-hardhat){target=\_blank} that contains all the necessary files. To get started, take the following steps:
+This tutorial uses a [Hardhat ERC-20 template](https://github.com/polkadot-developers/revm-hardhat-examples/tree/master/erc20-hardhat){target=\_blank} that contains all the necessary files. 
+
+To get started, take the following steps:
 
 1. Clone the GitHub repository locally:
 
@@ -302,38 +305,19 @@ This tutorial uses a [Hardhat ERC-20 template](https://github.com/polkadot-devel
     cd revm-hardhat-examples/erc20-hardhat
     ```
 
-2. Install the dependencies:
+2. Install the dependencies using the following command:
 
     ```bash
     npm i
     ```
-
-This will fetch all the necessary packages to help you deploy an ERC-20 with Hardhat to Polkadot.
+    
+    This command will fetch all the necessary packages to help you use Hardhat to deploy an ERC-20 to Polkadot.
 
 ## Configure Hardhat
 
-Once you've [setup your project](#set-up-your-project), you can configure the `hardhat.config.ts` to your needs. This tutorial has the file prepared to deploy to the Polkadot TestNet.
+If you started with the cloned Hardhat ERC-20 template, `hardhat.config.ts` is already configured to deploy to the Polkadot TestNet as shown in the example below:
 
-To store and use private keys or network URLs, you can use Hardhat's configuration variables. This can be set via tasks in the **vars** scope. For example, to store the private key to deploy to the Polkadot TestNet, run the following command:
-
-```bash
-npx hardhat vars set TESTNET_PRIVATE_KEY
-```
-
-The command will initiate a wizard in which you'll have to enter the value to be stored:
-
-<div id="termynal" data-termynal markdown>
-  <span data-ty="input">npx hardhat vars set TESTNET_PRIVATE_KEY</span>
-  <span data-ty>✔ Enter value: · •••••••••</span>
-  <span data-ty>The configuration variable has been stored in /Users/albertoviera/Library/Preferences/hardhat-nodejs/vars.json</span>
-</div>
-
-??? warning "Key Encryption"
-    This solution just prevents variables to be included in the code repository. You should find a solution that encrypts private keys and access them securely.
-
-You can now use the account related to this private key by importing it into the Hardhat configuration file:
-
-```ts title="hardhat.config.ts" hl_lines="1 17"
+```ts title="hardhat.config.ts" hl_lines="14-19"
 
 const config: HardhatUserConfig = {
   solidity: {
@@ -359,45 +343,38 @@ const config: HardhatUserConfig = {
 export default config;
 ```
 
-## Compile your Contract
+!!! tip
+    Visit the Hardhat [Config Variables](https://hardhat.org/docs/learn-more/configuration-variables){target=\_blank} documentation to learn how to use Hardhat to handle your private keys securely.
 
-Once you've configured Hardhat, you can compile the contract. 
+## Compile the Contract 
 
-In this tutorial, a simple ERC-20 is provided. Therefore, to compile the contract you can run the following command:
+Next, compile the contract included with the template by running the following command:
 
 ```bash
 npx hardhat compile
 ```
 
-If everything compiles successfully, you should see the following output:
+If everything compiles successfully, you will see output similar to the following:
 
-<div id="termynal" data-termynal markdown>
-  <span data-ty="input">npx hardhat compile</span>
-  <span data-ty>Generating typings for: 23 artifacts in dir: typechain-types for target: ethers-v6</span>
-  <span data-ty>Successfully generated 62 typings!</span>
-  <span data-ty>Compiled 21 Solidity files successfully (evm target: paris).</span>
-</div>
 
-## Test your Contract
+## Test the Contract
 
-Hardhat has a native feature to test contracts. You can run tests against the local Hardhat development node, but it could have some technical differences to Polkadot. Therefore, in this tutorial, you'll be testing against the Polkadot TestNet
+You can view the predefined test file at [`test/MyToken.test.ts`](https://github.com/polkadot-developers/revm-hardhat-examples/blob/master/erc20-hardhat/test/MyToken.test.ts){target=\_blank}. This example test includes verification of the following:
 
-This example has a predefined test file located in [`test/Token.test.js`](https://github.com/polkadot-developers/revm-hardhat-examples/blob/master/erc20-hardhat/test/MyToken.test.ts){target=\_blank}, that runs the following tests:
+- The token name and symbol exist (confirms deployment) and are correct.
+- The token owner is correctly configured.
+- The initial token supply is zero.
+- The owner can mint tokens.
+- The total supply increases after a mint.
+- Successful mints to different test addresses with expected account balance and total supply changes.
 
-1. The token was deployed by verifying its **name** and **symbol**.
-2. The token has the right owner configured.
-3. The token has an initial supply of zero.
-4. The owner can mint tokens.
-5. The total supply is increased after a mint.
-6. Perform multiple mints to different addresses and checks the balance of each address and the new total supply.
-
-To run the test, you can execute the following command:
+Run the tests using the following command:
 
 ```bash
 npx hardhat test --network polkadotTestnet
 ```
 
-If tests are successful, you should see the following logs:
+If tests are successful, you will see outputs similar to the following:
 
 <div id="termynal" data-termynal markdown>
   <span data-ty="input">npx hardhat test --network polkadotTestnet</span>
@@ -414,42 +391,43 @@ If tests are successful, you should see the following logs:
   <span data-ty>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✔ Should correctly track balance after multiple mints</span>
   <span data-ty></span>
   <span data-ty>&nbsp;&nbsp;6 passing (369ms)</span>
+  <span data-ty="input"><span class="file-path"></span></span>
 </div>
 
-## Deploy your Contract
+## Deploy the Contract
 
-With the Hardhat configuration file ready, the private key stored as a variable under **vars**, and the contract compiled, you can proceed to deploy the contract to a given network. In this tutorial, you are deploying it to the Polkadot TestNet.
+You are now ready to deploy the contract to your chosen network. This example demonstrates deployment to the Polkadot TestNet. Deploy the contract as follows:
 
-To deploy the contract, run the following command:
+1. Run the following command in your terminal:
+  ```bash
+  npx hardhat ignition deploy ./ignition/modules/MyToken.ts --network polkadotTestnet
+  ```
 
-```bash
-npx hardhat ignition deploy ./ignition/modules/MyToken.ts --network polkadotTestnet
-```
+2. Confirm the target deployment network name and chain ID when prompted:
 
-You'll need to confirm the target network (by chain ID):
+    <div id="termynal" data-termynal markdown>
+      <span data-ty="input">npx hardhat ignition deploy ./ignition/modules/MyToken.ts --network polkadotTestnet</span>
+      <span data-ty>✔ Confirm deploy to network polkadotTestnet (420420420)? … yes</span>
+      <span data-ty>&nbsp;</span>
+      <span data-ty>Hardhat Ignition 🚀</span>
+      <span data-ty>&nbsp;</span>
+      <span data-ty>Deploying [ TokenModule ]</span>
+      <span data-ty>&nbsp;</span>
+      <span data-ty>Batch #1</span>
+      <span data-ty> Executed TokenModule#MyToken</span>
+      <span data-ty>&nbsp;</span>
+      <span data-ty>Batch #2</span>
+      <span data-ty> Executed TokenModule#MyToken.mint</span>
+      <span data-ty>&nbsp;</span>
+      <span data-ty>[ TokenModule ] successfully deployed 🚀</span>
+      <span data-ty>&nbsp;</span>
+      <span data-ty>Deployed Addresses</span>
+      <span data-ty>&nbsp;</span>
+      <span data-ty>TokenModule#MyToken - 0xc01Ee7f10EA4aF4673cFff62710E1D7792aBa8f3</span>
+      <span data-ty="input"><span class="file-path"></span></span>
+    </div>
 
-<div id="termynal" data-termynal markdown>
-  <span data-ty="input">npx hardhat ignition deploy ./ignition/modules/MyToken.ts --network polkadotTestnet</span>
-  <span data-ty>✔ Confirm deploy to network polkadotTestnet (420420420)? … yes</span>
-  <span data-ty>&nbsp;</span>
-  <span data-ty>Hardhat Ignition 🚀</span>
-  <span data-ty>&nbsp;</span>
-  <span data-ty>Deploying [ TokenModule ]</span>
-  <span data-ty>&nbsp;</span>
-  <span data-ty>Batch #1</span>
-  <span data-ty>  Executed TokenModule#MyToken</span>
-  <span data-ty>&nbsp;</span>
-  <span data-ty>Batch #2</span>
-  <span data-ty>  Executed TokenModule#MyToken.mint</span>
-  <span data-ty>&nbsp;</span>
-  <span data-ty>[ TokenModule ] successfully deployed 🚀</span>
-  <span data-ty>&nbsp;</span>
-  <span data-ty>Deployed Addresses</span>
-  <span data-ty>&nbsp;</span>
-  <span data-ty>TokenModule#MyToken - 0xc01Ee7f10EA4aF4673cFff62710E1D7792aBa8f3</span>
-</div>
-
-And that is it! You've successfully deployed an ERC-20 token contract to the Polkadot TestNet using Hardhat.
+Congratulations! You've successfully deployed an ERC-20 token contract to Polkadot Hub TestNet using Hardhat. Consider the following resources to build upon your progress.
 
 ## Where to Go Next
 
@@ -461,45 +439,45 @@ And that is it! You've successfully deployed an ERC-20 token contract to the Pol
 
     Walk through deploying an ERC-721 Non-Fungible Token (NFT) using OpenZeppelin's battle-tested NFT implementation and Remix.
 
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-nft/remix/)
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix/)
 
 </div>
 
 
 ---
 
-Page Title: Deploy an ERC-20 to Polkadot Hub
+Page Title: Deploy an ERC-20 Using Remix IDE
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-erc20-erc20-remix.md
 - Canonical (HTML): https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix/
 - Summary: Deploy an ERC-20 token contract on Polkadot Hub. This guide covers contract creation, compilation, deployment, and interaction via the Remix IDE.
 
-# Deploy an ERC-20 to Polkadot Hub
+# Deploy an ERC-20 Using Remix IDE
 
 ## Introduction
 
 [ERC-20](https://eips.ethereum.org/EIPS/eip-20){target=\_blank} tokens are fungible tokens commonly used for creating cryptocurrencies, governance tokens, and staking mechanisms. Polkadot Hub enables easy token deployment with Ethereum-compatible smart contracts and tools via the EVM backend.
 
-This tutorial covers deploying an ERC-20 contract on the Polkadot Hub TestNet using [Remix IDE](https://remix.ethereum.org/){target=\_blank}, a web-based development tool. The ERC-20 contract can be retrieved from OpenZeppelin's [GitHub repository](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/v5.4.0/contracts/token/ERC20){target=\_blank}  or their [Contract Wizard](https://wizard.openzeppelin.com/){target=\_blank}.
+This tutorial covers deploying an ERC-20 contract on Polkadot Hub TestNet using [Remix IDE](https://remix.ethereum.org/){target=\_blank}, a web-based development tool. The ERC-20 contract can be retrieved from OpenZeppelin's [GitHub repository](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/v5.4.0/contracts/token/ERC20){target=\_blank} or their [Contract Wizard](https://wizard.openzeppelin.com/){target=\_blank}.
 
 ## Prerequisites
 
-Before starting, make sure you have:
+Before you begin, ensure you have:
 
-- Basic understanding of Solidity programming and fungible tokens.
-- An EVM-compatible wallet [connected to Polkadot Hub](/smart-contracts/integrations/wallets){target=\_blank}. This example utilizes [MetaMask](https://metamask.io/){target=\_blank}.
-- A funded account with tokens for transaction fees. This example will deploy the contract to the Polkadot TestNet, so you'll [need some TestNet tokens](/smart-contracts/faucet/#get-test-tokens){target=\_blank} from the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}.
+- A basic understanding of [Solidity](https://www.soliditylang.org/){target=\_blank} programming and [ERC-20](https://ethereum.org/developers/docs/standards/tokens/erc-20/){target=\_blank} fungible tokens.
+- An EVM-compatible [wallet](/smart-contracts/connect/){target=\_blank} connected to Polkadot Hub. This example utilizes [MetaMask](https://metamask.io/){target=\_blank}.
+- Test tokens for gas fees, available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}. See [Get Test Tokens](/smart-contracts/faucet/#get-test-tokens){target=\_blank} for a guide to using the faucet.
 
 ## Create Your Contract
 
-To create the ERC-20 contract, you can follow the steps below:
+Follow the steps below to create the ERC-20 contract:
 
-1. Navigate to the [Polkadot Remix IDE](https://remix.polkadot.io){target=\_blank}.
-2. Click in the **Create new file** button under the **contracts** folder, and name your contract as `MyToken.sol`.
+1. Navigate to [Remix IDE](https://remix.ethereum.org/){target=\_blank} in your web browser.
+2. Select the **Create new file** button under the **contracts** folder, and name your contract `MyToken.sol`.
 
-    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix-1.webp)
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix/remix-01.webp)
 
-3. Now, paste the following ERC-20 contract code into the editor:
+3. Now, paste the following ERC-20 contract code into `MyToken.sol`:
 
     ```solidity title="MyToken.sol"
     // SPDX-License-Identifier: MIT
@@ -522,90 +500,53 @@ To create the ERC-20 contract, you can follow the steps below:
         }
     }
     ```
-
-    The key components of the code above are:
-
-    - Contract imports:
-
-        - **[`ERC20.sol`](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/v5.4.0/contracts/token/ERC20/ERC20.sol){target=\_blank}**: The base contract for fungible tokens, implementing core functionality like transfers, approvals, and balance tracking.
-        - **[`ERC20Permit.sol`](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/v5.4.0/contracts/token/ERC20/extensions/ERC20Permit.sol){target=\_blank}**: [EIP-2612](https://eips.ethereum.org/EIPS/eip-2612){target=\_blank} extension for ERC-20 that adds the [permit function](https://docs.openzeppelin.com/contracts/5.x/api/token/erc20#ERC20Permit-permit-address-address-uint256-uint256-uint8-bytes32-bytes32-){target=\_blank}, allowing approvals via off-chain signatures (no on-chain tx from the holder). Manages nonces and EIP-712 domain separator and updates allowances when a valid signature is presented.
-        - **[`Ownable.sol`](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/v5.4.0/contracts/access/Ownable.sol){target=\_blank}**: Provides basic authorization control, ensuring only the contract owner can mint new tokens.
     
-    - Constructor parameters:
-
-        - **`initialOwner`**: Sets the address that will have administrative rights over the contract.
-        - **`"MyToken"`**: The full name of your token.
-        - **`"MTK"`**: The symbol representing your token in wallets and exchanges.
-
-    - Key functions:
-
-        - **`mint(address to, uint256 amount)`**: Allows the contract owner to create new tokens for any address. The amount should include 18 decimals (e.g., 1 token = 1000000000000000000).
-        - Inherited [Standard ERC-20](https://ethereum.org/en/developers/docs/standards/tokens/erc-20/){target=\_blank} functions:
-            - **`transfer(address recipient, uint256 amount)`**: Sends a specified amount of tokens to another address.
-            - **`approve(address spender, uint256 amount)`**: Grants permission for another address to spend a specific number of tokens on behalf of the token owner.
-            - **`transferFrom(address sender, address recipient, uint256 amount)`**: Transfers tokens from one address to another, if previously approved.
-            - **`balanceOf(address account)`**: Returns the token balance of a specific address.
-            - **`allowance(address owner, address spender)`**: Checks how many tokens an address is allowed to spend on behalf of another address.
-
     !!! tip
-        Use the [OpenZeppelin Contracts Wizard](https://wizard.openzeppelin.com/){target=\_blank} to generate customized smart contracts quickly. Simply configure your contract, copy the generated code, and paste it into the Remix IDE for deployment. Below is an example of an ERC-20 token contract created with it:
-
-        ![Screenshot of the OpenZeppelin Contracts Wizard showing an ERC-20 contract configuration.](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix-2.webp)
+        The [OpenZeppelin Contracts Wizard](https://wizard.openzeppelin.com/){target=\_blank} was used to generate this example ERC-20 contract.
         
+## Compile the Contract
 
-## Compile 
+Solidity source code compiles into bytecode that can be deployed on the blockchain. During this process, the compiler checks the contract for syntax errors, ensures type safety, and generates the machine-readable instructions needed for blockchain execution.
 
-The compilation transforms your Solidity source code into bytecode that can be deployed on the blockchain. During this process, the compiler checks your contract for syntax errors, ensures type safety, and generates the machine-readable instructions needed for blockchain execution. 
-
-To compile your contract, ensure you have it opened in the Remix IDE Editor, and follow the instructions below:
+Ensure your `MyToken.sol` contract is open in the Remix IDE Editor, and use the following steps to compile:
 
 1. Select the **Solidity Compiler** plugin from the left panel.
-2. Click the **Compile MyToken.sol** button.
-3. If the compilation succeeded, you'll see a green checkmark indicating success in the **Solidity Compiler** icon.
+2. Select the **Compile MyToken.sol** button.
 
-![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix-3.gif)
+The **Solidity Compiler** icon will display a green checkmark once the contract compiles successfully. If any issues arise during contract compilation, errors and warnings will appear in the terminal panel at the bottom of the screen.
 
-## Deploy
+![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix/remix-03.gif)
 
-Deployment is the process of publishing your compiled smart contract to the blockchain, making it permanently available for interaction. During deployment, you'll create a new instance of your contract on the blockchain, which involves:
+## Deploy the Contract
 
-1. Select the **Deploy & Run Transactions** plugin from the left panel.
-2. Configure the deployment settings:
-    1. From the **ENVIRONMENT** dropdown, select **Injected Provider - MetaMask** (check the [Deploying Contracts](/smart-contracts/dev-environments/remix/deploy-a-contract/){target=\_blank} section of the Remix IDE guide for more details).
-    2. (Optional) From the **ACCOUNT** dropdown, select the acccount you want to use for the deploy.
+Follow these steps to deploy the contract using Remix:
 
-3. Configure the contract parameters:
-    1. Enter the address that will own the deployed token contract.
-    2. Click the **Deploy** button to initiate the deployment.
+1. Select **Deploy & Run Transactions** from the left panel.
+2. Ensure your MetaMask wallet is connected to Polkadot Hub TestNet, then select the **Environment** dropdown and select **Injected Provider - MetaMask**.
+3. Configure the contract parameters by entering the address that will own the deployed token contract.
+4. Select the **Deploy** button to initiate the deployment.
+4. Approve the transaction in your MetaMask wallet when prompted.
+6. You will see the transaction details in the terminal when the deployment succeeds, including the contract address and deployment transaction hash.
 
-4. **MetaMask will pop up**: Review the transaction details. Click **Confirm** to deploy your contract.
-5. If the deployment process succeeded, you will see the transaction details in the terminal, including the contract address and deployment transaction hash.
+![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix/remix-04.gif)
 
-![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix-4.gif)
+Once successfully deployed, your contract will appear in the **Deployed Contracts** section, ready for interaction.
 
-## Interact with Your Contract
+## Interact with the Contract
 
-Once deployed, you can interact with your contract through Remix. Find your contract under **Deployed/Unpinned Contracts**, and click it to expand the available methods. In this example, you'll mint some tokens to a given address:
+Once deployed, you can interact with your contract through Remix. Find your contract under **Deployed/Unpinned Contracts**, and select it to expand the available methods. In this example, you'll mint some tokens to a given address using the following steps:
 
-1. Expand the **mint** function:
-    1. Enter the recipient address and the amount (remember to add 18 zeros for 1 whole token).
-    2. Click **transact**.
+1. Expand the **mint** function, then enter the recipient address and the amount (remember to add 18 zeros for one whole token).
+2. Select **transact**.
+3. Approve the transaction in your MetaMask wallet when prompted.
+4. You will see a green check mark in the terminal when the transaction is successful.
+5. You can also call the **balanceOf** function by passing the address of the **mint** call to confirm the new balance.
 
-2. Click **Approve** to confirm the transaction in the MetaMask popup.
+![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix/remix-05.gif)
 
-3. If the transaction succeeds, you will see a green check mark in the terminal.
+Feel free to explore and interact with the contract's other functions by selecting the method, providing any required parameters, and confirming the transaction in MetaMask when prompted.
 
-4. You can also call the **balanceOf** function by passing the address of the **mint** call to confirm the new balance.
-
-![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix-5.gif)
-
-
-Other standard functions you can use:
-
-- **`transfer(address to, uint256 amount)`**: Send tokens to another address.
-- **`approve(address spender, uint256 amount)`**: Allow another address to spend your tokens.
-
-Feel free to explore and interact with the contract's other functions using the same approach: select the method, provide any required parameters, and confirm the transaction in MetaMask when needed.
+Congratulations! You've successfully deployed an ERC-20 token contract to Polkadot Hub TestNet using Remix IDE. Consider the following resources to build upon your progress. 
 
 ## Where to Go Next
 
@@ -617,7 +558,328 @@ Feel free to explore and interact with the contract's other functions using the 
 
     Walk through deploying an ERC-721 Non-Fungible Token (NFT) using OpenZeppelin's battle-tested NFT implementation and Remix.
 
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-nft/remix/)
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix/)
+
+</div>
+
+
+---
+
+Page Title: Deploy an ERC-721 NFT Using Remix
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-nft-nft-remix.md
+- Canonical (HTML): https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix/
+- Summary: Learn how to deploy an ERC-721 NFT contract to Polkadot Hub using Remix, a browser-based IDE for quick prototyping and learning.
+
+# Deploy an NFT with Remix
+
+## Introduction
+
+Non-Fungible Tokens (NFTs) represent unique digital assets commonly used for digital art, collectibles, gaming, and identity verification.
+
+This guide demonstrates how to deploy an [ERC-721](https://eips.ethereum.org/EIPS/eip-721){target=\_blank} NFT contract to [Polkadot Hub](/smart-contracts/overview/#smart-contract-development){target=\_blank}. You'll use [OpenZeppelin's battle-tested NFT implementation](https://github.com/OpenZeppelin/openzeppelin-contracts){target=\_blank} and [Remix](https://remix.ethereum.org/){target=\_blank}, a visual, browser-based environment perfect for rapid prototyping and learning. It requires no local installation and provides an intuitive interface for contract development.
+
+## Prerequisites
+
+- A basic understanding of [Solidity](https://www.soliditylang.org/){target=\_blank} programming and [ERC-721 NFT](https://ethereum.org/developers/docs/standards/tokens/erc-721/) standards.
+- An EVM-compatible [wallet](/smart-contracts/connect/){target=\_blank} connected to Polkadot Hub. This example utilizes [MetaMask](https://metamask.io/){target=\_blank}.
+- Test tokens for gas fees (available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}). See [Get Test Tokens](/smart-contracts/faucet/#get-test-tokens){target=\_blank} for a guide to using the faucet.
+
+## Create Your Contract
+
+Follow the steps below to create the ERC-721 contract:
+
+1. Navigate to [Remix IDE](https://remix.ethereum.org/){target=\_blank} in your web browser.
+2. Select the **Create new file** button under the **contracts** folder, and name your contract `MyNFT.sol`.
+
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix/remix-01.webp)
+
+3. Now, paste the following ERC-721 contract code into `MyNFT.sol`:
+
+    ```solidity title="contracts/MyNFT.sol"
+    // SPDX-License-Identifier: MIT
+    pragma solidity ^0.8.20;
+
+    import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+    import "@openzeppelin/contracts/access/Ownable.sol";
+
+    contract MyNFT is ERC721, Ownable {
+        uint256 private _nextTokenId;
+
+        constructor(
+            address initialOwner
+        ) ERC721("MyToken", "MTK") Ownable(initialOwner) {}
+
+        function safeMint(address to) public onlyOwner {
+            uint256 tokenId = _nextTokenId++;
+            _safeMint(to, tokenId);
+        }
+    }
+
+    ```
+
+    !!! tip
+        The [OpenZeppelin Contracts Wizard](https://wizard.openzeppelin.com/){target=\_blank} was used to generate this example ERC-721 contract.
+
+## Compile the Contract
+
+Solidity source code compiles into bytecode that can be deployed on the blockchain. During this process, the compiler checks the contract for syntax errors, ensures type safety, and generates the machine-readable instructions needed for blockchain execution.
+
+Ensure your `MyNFT.sol` contract is open in the Remix IDE Editor, and use the following steps to compile:
+
+1. Select the **Solidity Compiler** plugin from the left panel.
+2. Select the **Compile MyToken.sol** button.
+
+The **Solidity Compiler** icon will display a green checkmark once the contract compiles successfully. If any issues arise during contract compilation, errors and warnings will appear in the terminal panel at the bottom of the screen.
+
+![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix/remix-02.webp)
+
+## Deploy the Contract
+
+Follow these steps to deploy the contract using Remix:
+
+1. Select **Deploy & Run Transactions** from the left panel.
+2. Ensure your MetaMask wallet is connected to Polkadot Hub TestNet, then select the **Environment** dropdown and select **Injected Provider - MetaMask**.
+
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix/remix-03.webp)
+
+3. Configure the contract parameters by entering the address that will own the deployed NFT contract.
+4. Select the **Deploy** button to initiate the deployment.
+5. Approve the transaction in your MetaMask wallet when prompted.
+6. You will see the transaction details in the terminal when the deployment succeeds, including the contract address and deployment transaction hash.
+
+![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix/remix-04.webp)
+
+Once successfully deployed, your contract will appear in the **Deployed Contracts** section, ready for interaction.
+
+Congratulations! You've successfully deployed an ERC-721 NFT contract to Polkadot Hub TestNet using Remix IDE. Consider the following resources to build upon your progress.
+
+## Where to Go Next
+
+<div class="grid cards" markdown>
+
+-   <span class="badge guide">Guide</span> __Deploy an ERC-20__
+
+    ---
+
+    Walk through deploying a fully-functional ERC-20 to Polkadot Hub using Remix.
+
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix/)
+
+</div>
+
+
+---
+
+Page Title: Deploy an ERC-721 Using Hardhat
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-nft-nft-hardhat.md
+- Canonical (HTML): https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-hardhat/
+- Summary: Learn how to deploy an ERC-721 NFT contract to Polkadot Hub using Hardhat, a comprehensive development environment with built-in deployment capabilities.
+
+# Deploy an ERC-721 Using Hardhat
+
+## Introduction
+
+Non-Fungible Tokens (NFTs) represent unique digital assets commonly used for digital art, collectibles, gaming, and identity verification.
+
+This guide demonstrates how to deploy an [ERC-721](https://eips.ethereum.org/EIPS/eip-721){target=\_blank} NFT contract to [Polkadot Hub](/smart-contracts/overview/#smart-contract-development){target=\_blank} TestNet. You'll use OpenZeppelin's battle-tested [NFT implementation](https://github.com/OpenZeppelin/openzeppelin-contracts){target=\_blank} and [Hardhat](https://hardhat.org/docs/getting-started){target=\_blank}, a comprehensive development environment with built-in testing, debugging, and deployment capabilities. Hardhat uses standard Solidity compilation to generate EVM bytecode, making it fully compatible with Polkadot Hub's EVM environment.
+
+## Prerequisites
+
+Before you begin, ensure you have the following:
+
+- A basic understanding of [Solidity](https://www.soliditylang.org/){target=\_blank} programming and [ERC-721](https://ethereum.org/developers/docs/standards/tokens/erc-721/){target=\_blank} non-fungible tokens.
+- [Node.js](https://nodejs.org/en/download){target=\_blank} v22.13.1 or later installed.
+- Test tokens for gas fees, available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}. See [Get Test Tokens](/smart-contracts/faucet/#get-test-tokens){target=\_blank} for a guide to using the faucet.
+- A wallet with a private key for signing transactions.
+
+## Set Up Your Project
+
+1. Use the following terminal commands to create a directory and initialize your Hardhat project inside of it:
+
+    ```bash
+    mkdir hardhat-nft-deployment
+    cd hardhat-nft-deployment
+    npx hardhat --init
+    ```
+
+2. Install the OpenZeppelin contract dependencies using the command:
+
+    ```bash
+    npm install @openzeppelin/contracts
+    ```
+
+## Configure Hardhat
+
+Open `hardhat.config.ts` and update to add `polkadotTestnet` to the `networks` configuration as highlighted in the following example code:
+
+```typescript title="hardhat.config.ts" hl_lines='39-44'
+import type { HardhatUserConfig } from 'hardhat/config';
+
+import hardhatToolboxViemPlugin from '@nomicfoundation/hardhat-toolbox-viem';
+import { configVariable } from 'hardhat/config';
+
+const config: HardhatUserConfig = {
+  plugins: [hardhatToolboxViemPlugin],
+  solidity: {
+    profiles: {
+      default: {
+        version: '0.8.28',
+      },
+      production: {
+        version: '0.8.28',
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 200,
+          },
+        },
+      },
+    },
+  },
+  networks: {
+    hardhatMainnet: {
+      type: 'edr-simulated',
+      chainType: 'l1',
+    },
+    hardhatOp: {
+      type: 'edr-simulated',
+      chainType: 'op',
+    },
+    sepolia: {
+      type: 'http',
+      chainType: 'l1',
+      url: configVariable('SEPOLIA_RPC_URL'),
+      accounts: [configVariable('SEPOLIA_PRIVATE_KEY')],
+    },
+    polkadotTestnet: {
+      type: 'http',
+      url: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
+      chainId: 420420422,
+      accounts: [configVariable('PRIVATE_KEY')],
+    },
+  },
+};
+
+export default config;
+```
+
+!!! tip
+    Visit the Hardhat [Config Variables](https://hardhat.org/docs/learn-more/configuration-variables){target=\_blank} documentation to learn how to use Hardhat to handle your private keys securely.
+
+## Create the Contract
+
+Follow these steps to create your smart contract:
+
+1. Delete the default contract file(s) in the `contracts` directory.
+
+2. Create a new file named `MyNFT.sol` inside the `contracts` directory.
+
+3. Add the following code to create the `MyNFT.sol` smart contract:
+    ```solidity title="contracts/MyNFT.sol"
+    // SPDX-License-Identifier: MIT
+    pragma solidity ^0.8.20;
+
+    import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+    import "@openzeppelin/contracts/access/Ownable.sol";
+
+    contract MyNFT is ERC721, Ownable {
+        uint256 private _nextTokenId;
+
+        constructor(
+            address initialOwner
+        ) ERC721("MyToken", "MTK") Ownable(initialOwner) {}
+
+        function safeMint(address to) public onlyOwner {
+            uint256 tokenId = _nextTokenId++;
+            _safeMint(to, tokenId);
+        }
+    }
+
+    ```
+
+## Compile the Contract
+
+Compile your `MyNFT.sol` contract using the following command:
+
+```bash
+npx hardhat compile
+```
+
+You will see a message in the terminal confirming the contract was successfully compiled, similar to the following:
+
+<div id="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>npx hardhat compile</span>
+  <span data-ty>Downloading solc 0.8.28</span>
+  <span data-ty>Downloading solc 0.8.28 (WASM build)</span>
+  <span data-ty>Compiled 1 Solidity file with solc 0.8.28 (evm target: cancun)</span>
+  <span data-ty="input"><span class="file-path"></span></span>
+</div>
+## Deploy the Contract
+
+You are now ready to deploy the contract to your chosen network. This example demonstrates deployment to the Polkadot TestNet. Deploy the contract as follows:
+
+1. Delete the default file(s) inside the `ignition/modules` directory.
+
+2. Create a new file named `MyNFT.ts` inside the `ignition/modules` directory.
+
+3. Open `ignition/modules/MyNFT.ts` and add the following code to create your deployment module:
+    ```typescript title="ignition/modules/MyNFT.ts"
+    import { buildModule } from '@nomicfoundation/hardhat-ignition/modules';
+
+    export default buildModule('MyNFTModule', (m) => {
+      const initialOwner = m.getParameter('initialOwner', 'INSERT_OWNER_ADDRESS');
+      const myNFT = m.contract('MyNFT', [initialOwner]);
+      return { myNFT };
+    });
+
+    ```
+
+    Replace `INSERT_OWNER_ADDRESS` with your desired owner address.
+
+4. Deploy your contract to Polkadot Hub TestNet using the following command:
+
+    ```bash
+    npx hardhat ignition deploy ignition/modules/MyNFT.ts --network polkadotTestnet
+    ```
+
+5. Confirm the target deployment network name and chain ID when prompted:
+
+    <div id="termynal" data-termynal markdown>
+      <span data-ty="input">npx hardhat ignition deploy ignition/modules/MyNFT.ts --network polkadotHubTestnet</span>
+      <span data-ty>✔ Confirm deploy to network polkadotTestnet (420420420)? … yes</span>
+      <span data-ty>&nbsp;</span>
+      <span data-ty>Hardhat Ignition 🚀</span>
+      <span data-ty>&nbsp;</span>
+      <span data-ty>Deploying [ MyNFTModule ]</span>
+      <span data-ty>&nbsp;</span>
+      <span data-ty>Batch #1</span>
+      <span data-ty> Executed MyNFTModule#MyNFT</span>
+      <span data-ty>&nbsp;</span>
+      <span data-ty>Batch #2</span>
+      <span data-ty> Executed MyNFTModule#MyNFT.safeMint</span>
+      <span data-ty>&nbsp;</span>
+      <span data-ty>[ TokenModule ] successfully deployed 🚀</span>
+      <span data-ty>&nbsp;</span>
+      <span data-ty>Deployed Addresses</span>
+      <span data-ty>&nbsp;</span>
+      <span data-ty>MyNFTModule#MyNFT - 0x1234.......</span>
+      <span data-ty="input"><span class="file-path"></span></span>
+    </div>
+Congratulations! You've successfully deployed an ERC-721 NFT contract to Polkadot Hub TestNet using Hardhat. Consider the following resources to build upon your progress. 
+
+## Where to Go Next
+
+<div class="grid cards" markdown>
+
+-   <span class="badge guide">Guide</span> __Deploy an ERC-20__
+
+    ---
+
+    Walk through deploying a fully-functional ERC-20 to Polkadot Hub using Hardhat.
+
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-hardhat/)
 
 </div>
 
@@ -754,290 +1016,6 @@ Replace `YOUR_PRIVATE_KEY` with your private key and `YOUR_OWNER_ADDRESS` with t
     Walk through deploying a fully-functional ERC-20 to the Polkadot Hub using Foundry.
 
     [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-erc20/foundry/)
-
-</div>
-
-
----
-
-Page Title: Deploy an NFT to Polkadot Hub with Hardhat
-
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-nft-hardhat.md
-- Canonical (HTML): https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-nft/hardhat/
-- Summary: Learn how to deploy an ERC-721 NFT contract to Polkadot Hub with Hardhat, a comprehenive development environment with built-in deployment capabilities.
-
-# Deploy an NFT with Hardhat
-
-## Introduction
-
-Non-Fungible Tokens (NFTs) represent unique digital assets commonly used for digital art, collectibles, gaming, and identity verification.
-
-This guide demonstrates how to deploy an [ERC-721](https://eips.ethereum.org/EIPS/eip-721){target=\_blank} NFT contract to [Polkadot Hub](/smart-contracts/overview/#smart-contract-development){target=\_blank}. You'll use [OpenZeppelin's battle-tested NFT implementation](https://github.com/OpenZeppelin/openzeppelin-contracts){target=\_blank} and [Hardhat](https://hardhat.org/docs/getting-started){target=\_blank}, a comprehensive development environment with built-in testing, debugging, and deployment capabilities. Hardhat uses standard Solidity compilation to generate EVM bytecode, making it fully compatible with Polkadot Hub's EVM environment.
-
-## Prerequisites
-
-- Basic understanding of Solidity programming and NFT standards.
-- Node.js v22.13.1 or later.
-- A funded account with tokens for transaction fees. This example will deploy the contract to the Polkadot TestNet, so you'll [need some TestNet tokens](/smart-contracts/faucet/#get-test-tokens){target=\_blank} from the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}.
-- A wallet with a private key for signing transactions.
-
-## Set Up Your Project
-
-Take the following steps to get started:
-
-1. Initialize your Hardhat project:
-
-    ```bash
-    mkdir hardhat-nft-deployment
-    cd hardhat-nft-deployment
-    npx hardhat --init
-    ```
-
-2. Install OpenZeppelin contracts:
-
-    ```bash
-    npm install @openzeppelin/contracts
-    ```
-
-## Configure Hardhat
-
-Edit `hardhat.config.ts`:
-
-```typescript title="hardhat.config.ts"
-import type { HardhatUserConfig } from 'hardhat/config';
-
-import hardhatToolboxViemPlugin from '@nomicfoundation/hardhat-toolbox-viem';
-import { configVariable } from 'hardhat/config';
-
-const config: HardhatUserConfig = {
-  plugins: [hardhatToolboxViemPlugin],
-  solidity: {
-    profiles: {
-      default: {
-        version: '0.8.28',
-      },
-      production: {
-        version: '0.8.28',
-        settings: {
-          optimizer: {
-            enabled: true,
-            runs: 200,
-          },
-        },
-      },
-    },
-  },
-  networks: {
-    hardhatMainnet: {
-      type: 'edr-simulated',
-      chainType: 'l1',
-    },
-    hardhatOp: {
-      type: 'edr-simulated',
-      chainType: 'op',
-    },
-    sepolia: {
-      type: 'http',
-      chainType: 'l1',
-      url: configVariable('SEPOLIA_RPC_URL'),
-      accounts: [configVariable('SEPOLIA_PRIVATE_KEY')],
-    },
-    polkadotHubTestnet: {
-      type: 'http',
-      url: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
-      chainId: 420420422,
-      accounts: [configVariable('PRIVATE_KEY')],
-    },
-  },
-};
-
-export default config;
-```
-
-!!! tip
-    Learn how to use Hardhat's [Config Variables](https://hardhat.org/docs/learn-more/configuration-variables){target=\_blank} to handle your private keys in a secure way.
-
-## Create Your Contract
-
-Create `contracts/MyNFT.sol`:
-
-```solidity title="contracts/MyNFT.sol"
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
-
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
-
-contract MyNFT is ERC721, Ownable {
-    uint256 private _nextTokenId;
-
-    constructor(address initialOwner)
-        ERC721("MyToken", "MTK")
-        Ownable(initialOwner)
-    {}
-
-    function safeMint(address to) public onlyOwner {
-        uint256 tokenId = _nextTokenId++;
-        _safeMint(to, tokenId);
-    }
-}
-```
-
-## Compile
-
-```bash
-npx hardhat compile
-```
-
-## Set Up Deployment
-
-Create a deployment module in `ignition/modules/MyNFT.ts`:
-
-```typescript title="ignition/modules/MyNFT.ts"
-import { buildModule } from '@nomicfoundation/hardhat-ignition/modules';
-
-export default buildModule('MyNFTModule', (m) => {
-  const initialOwner = m.getParameter('initialOwner', 'INSERT_OWNER_ADDRESS');
-  const myNFT = m.contract('MyNFT', [initialOwner]);
-  return { myNFT };
-});
-```
-
-Replace `INSERT_OWNER_ADDRESS` with your desired owner address.
-
-## Deploy
-
-Deploy to Polkadot Hub TestNet:
-
-```bash
-npx hardhat ignition deploy ignition/modules/MyNFT.ts --network polkadotHubTestnet
-```
-
-## Where to Go Next
-
-<div class="grid cards" markdown>
-
--   <span class="badge guide">Guide</span> __Verify Your Contract__
-
-    ---
-
-    Now that you've deployed an NFT contract, learn how to verify it with Hardhat.
-
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/dev-environments/hardhat/verify-a-contract/)
-
-
--   <span class="badge guide">Guide</span> __Deploy an ERC-20__
-
-    ---
-
-    Walk through deploying a fully-functional ERC-20 to the Polkadot Hub using Hardhat.
-
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-erc20/hardhat/)
-
-</div>
-
-
----
-
-Page Title: Deploy an NFT to Polkadot Hub with Remix
-
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-nft-remix.md
-- Canonical (HTML): https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-nft/remix/
-- Summary: Learn how to deploy an ERC-721 NFT contract to Polkadot Hub using Remix, a browser-based IDE for quick prototyping and learning.
-
-# Deploy an NFT with Remix
-
-## Introduction
-
-Non-Fungible Tokens (NFTs) represent unique digital assets commonly used for digital art, collectibles, gaming, and identity verification.
-
-This guide demonstrates how to deploy an [ERC-721](https://eips.ethereum.org/EIPS/eip-721){target=\_blank} NFT contract to [Polkadot Hub](/smart-contracts/overview/#smart-contract-development){target=\_blank}. You'll use [OpenZeppelin's battle-tested NFT implementation](https://github.com/OpenZeppelin/openzeppelin-contracts){target=\_blank} and [Remix](https://remix.ethereum.org/){target=\_blank}, a visual, browser-based environment perfect for rapid prototyping and learning. It requires no local installation and provides an intuitive interface for contract development.
-
-## Prerequisites
-
-- Basic understanding of Solidity programming and NFT standards.
-- Test tokens for gas fees (available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}). See the [step-by-step instructions](/smart-contracts/faucet/#get-test-tokens){target=\_blank}
-- A wallet with a private key for signing transactions.
-
-## Access Remix
-
-Navigate to [Remix](https://remix.ethereum.org/){target=\_blank} in your web browser.
-
-The interface will load with a default workspace containing sample contracts. In this interface, you can access a file explorer, edit your code, interact with various plugins for development, and use a terminal.
-
-## Create Your Contract
-
-1. Create a new file `contracts/MyNFT.sol`.
-2. Paste the following code:
-
-    ```solidity title="contracts/MyNFT.sol"
-    // SPDX-License-Identifier: MIT
-    pragma solidity ^0.8.20;
-
-    import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-    import "@openzeppelin/contracts/access/Ownable.sol";
-
-    contract MyNFT is ERC721, Ownable {
-        uint256 private _nextTokenId;
-
-        constructor(address initialOwner)
-            ERC721("MyToken", "MTK")
-            Ownable(initialOwner)
-        {}
-
-        function safeMint(address to) public onlyOwner {
-            uint256 tokenId = _nextTokenId++;
-            _safeMint(to, tokenId);
-        }
-    }
-    ```
-
-![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/remix/remix-01.webp)
-
-## Compile
-
-1. Navigate to the **Solidity Compiler** tab (third icon in the left sidebar).
-2. Click **Compile MyNFT.sol** or press `Ctrl+S`.
-
-![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/remix/remix-02.webp)
-
-Compilation errors and warnings appear in the terminal panel at the bottom of the screen.
-
-## Deploy
-
-1. Navigate to the **Deploy & Run Transactions** tab.
-2. Click the **Environment** dropdown, select **Browser Extension**, and click on **Injected Provider - MetaMask**.
-
-    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/remix/remix-03.webp)
-
-3. In the deploy section, enter the initial owner address in the constructor parameter field.
-4. Click **Deploy**.
-
-    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/remix/remix-04.webp)
-
-5. Approve the transaction in your MetaMask wallet.
-
-Your deployed contract will appear in the **Deployed Contracts** section, ready for interaction.
-
-## Where to Go Next
-
-<div class="grid cards" markdown>
-
--   <span class="badge guide">Guide</span> __Verify Your Contract__
-
-    ---
-
-    Now that you've deployed an NFT contract, learn how to verify it with Remix.
-
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/dev-environments/remix/verify-a-contract/)
-
--   <span class="badge guide">Guide</span> __Deploy an ERC-20__
-
-    ---
-
-    Walk through deploying a fully-functional ERC-20 to the Polkadot Hub using Remix.
-
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-erc20/remix/)
 
 </div>
 
@@ -2400,13 +2378,13 @@ Before starting, make sure you have:
 
 - Node.js (v16.0.0 or later) and npm installed.
 - Basic understanding of Solidity and JavaScript.
-- Familiarity with [`hardhat-polkadot`](/smart-contracts/dev-environments/hardhat/get-started/){target=\_blank} development environment.
+- Familiarity with `hardhat-polkadot` development environment.
 - Some PAS test tokens to cover transaction fees (obtained from the [Polkadot faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}).
 - Basic understanding of how AMMs and liquidity pools work.
 
 ## Set Up the Project
 
-Let's start by cloning the Uniswap V2 project:
+Start by cloning the Uniswap V2 project:
 
 1. Clone the Uniswap V2 repository:
 
@@ -2421,7 +2399,7 @@ Let's start by cloning the Uniswap V2 project:
     npm install
     ```
 
-3. Update the `hardhat.config.js` file so the paths for the Substrate node and the ETH-RPC adapter match with the paths on your machine. For more info, check the [Testing your Contract](/smart-contracts/dev-environments/hardhat/compile-and-test/){target=\_blank} section in the Hardhat guide.
+3. Update the `hardhat.config.js` file so the paths for the Substrate node and the ETH-RPC adapter match with the paths on your machine:
 
     ```js title="hardhat.config.js"
     hardhat: {
@@ -3138,30 +3116,24 @@ This resource provides quick-starts for building smart contracts on Polkadot Hub
 
 Kick off development fast with curated links for connecting, funding, exploring, and deploying your first contract.
 
-|                                             Quick Start                                             |         Tools         |                           Description                           |
-|:---------------------------------------------------------------------------------------------------:|:---------------------:|:---------------------------------------------------------------:|
-|                  [Connect to Polkadot](/smart-contracts/connect/){target=\_blank}                   | Polkadot.js, MetaMask | Add the network, configure RPC, verify activity in the explorer |
-|                    [Get Test Tokens](/smart-contracts/faucets/){target=\_blank}                     |           -           |    Request test funds to deploy and interact with contracts     |
-|                 [Explore Transactions](/smart-contracts/explorers/){target=\_blank}                 |        Subscan        | Inspect transactions, logs, token transfers, and contract state |
-|   [Deploy with Remix](/smart-contracts/dev-environments/remix/deploy-a-contract/){target=\_blank}   |         Remix         |          One‑click browser deployment to Polkadot Hub           |
-| [Deploy with Foundry](/smart-contracts/dev-environments/foundry/deploy-a-contract/){target=\_blank} |        Foundry        |          Scripted deployments and testing from the CLI          |
-| [Deploy with Hardhat](/smart-contracts/dev-environments/hardhat/deploy-a-contract/){target=\_blank} |        Hardhat        |          Project scaffolding, testing, and deployments          |
+|                                           Quick Start                                           |         Tools         |                           Description                           |
+|:-----------------------------------------------------------------------------------------------:|:---------------------:|:---------------------------------------------------------------:|
+|                [Connect to Polkadot](/smart-contracts/connect/){target=\_blank}                 | Polkadot.js, MetaMask | Add the network, configure RPC, verify activity in the explorer |
+|                  [Get Test Tokens](/smart-contracts/faucets/){target=\_blank}                   |           -           |    Request test funds to deploy and interact with contracts     |
+|               [Explore Transactions](/smart-contracts/explorers/){target=\_blank}               |        Subscan        | Inspect transactions, logs, token transfers, and contract state |
+| [Deploy with Remix](/smart-contracts/dev-environments/remix/deploy-a-contract/){target=\_blank} |         Remix         |          One‑click browser deployment to Polkadot Hub           |
 
 ## Build and Test Locally
 
 Set up local environments and CI-friendly workflows to iterate quickly and validate changes before deploying.
 
-|                                            Build and Test Locally                                            |       Tools       |                     Description                      |
-|:------------------------------------------------------------------------------------------------------------:|:-----------------:|:----------------------------------------------------:|
-|          [Run a Local Dev Node](/smart-contracts/dev-environments/local-dev-node/){target=\_blank}           | Polkadot SDK node |    Spin up a local node for iterative development    |
-|          [Remix: Get Started](/smart-contracts/dev-environments/remix/get-started/){target=\_blank}          |       Remix       | Connect Remix to Polkadot Hub and configure accounts |
-|    [Remix: Verify a Contract](/smart-contracts/dev-environments/remix/verify-a-contract/){target=\_blank}    |       Remix       |         Publish verified source on explorers         |
-| [Foundry: Install and Config](/smart-contracts/dev-environments/foundry/install-and-config/){target=\_blank} |      Foundry      |       Install toolchain and configure networks       |
-|   [Foundry: Compile and Test](/smart-contracts/dev-environments/foundry/compile-and-test/){target=\_blank}   |      Foundry      |         Write and run Solidity tests locally         |
-|  [Foundry: Verify a Contract](/smart-contracts/dev-environments/foundry/verify-a-contract/){target=\_blank}  |      Foundry      |        Verify deployed bytecode and metadata         |
-| [Hardhat: Install and Config](/smart-contracts/dev-environments/hardhat/install-and-config/){target=\_blank} |      Hardhat      |     Initialize a project and configure networks      |
-|   [Hardhat: Compile and Test](/smart-contracts/dev-environments/hardhat/compile-and-test/){target=\_blank}   |      Hardhat      |         Unit test contracts and run scripts          |
-|  [Hardhat: Verify a Contract](/smart-contracts/dev-environments/hardhat/verify-a-contract/){target=\_blank}  |      Hardhat      |           Verify deployments on explorers            |
+|                                         Build and Test Locally                                         |       Tools       |                     Description                      |
+|:------------------------------------------------------------------------------------------------------:|:-----------------:|:----------------------------------------------------:|
+|       [Run a Local Dev Node](/smart-contracts/dev-environments/local-dev-node/){target=\_blank}        | Polkadot SDK node |    Spin up a local node for iterative development    |
+|       [Remix: Get Started](/smart-contracts/dev-environments/remix/get-started/){target=\_blank}       |       Remix       | Connect Remix to Polkadot Hub and configure accounts |
+| [Remix: Verify a Contract](/smart-contracts/dev-environments/remix/verify-a-contract/){target=\_blank} |       Remix       |         Publish verified source on explorers         |
+|       [Use Hardhat for Development](/smart-contracts/dev-environments/hardhat/){target=\_blank}        |      Hardhat      |        Project scaffolding and configuration         |
+
 
 ## Ethereum Developer Resources
 
@@ -3181,13 +3153,13 @@ Bridge your Ethereum knowledge with Polkadot Hub specifics: account mapping, fee
 
 Follow step‑by‑step guides that walk through common tasks and complete dApp examples.
 
-|                                                 Tutorial                                                 |        Tools        |                Description                |
-|:--------------------------------------------------------------------------------------------------------:|:-------------------:|:-----------------------------------------:|
-| [Deploy a Basic Contract](/smart-contracts/cookbook/smart-contracts/deploy-basic/remix/){target=\_blank} |        Remix        |      Minimal deployment walkthrough       |
-|    [Deploy an ERC‑20](/smart-contracts/cookbook/smart-contracts/deploy-erc20/remix/){target=\_blank}     | Remix, OpenZeppelin | Create, deploy, and mint a fungible token |
-|  [Deploy an NFT (ERC‑721)](/smart-contracts/cookbook/smart-contracts/deploy-nft/remix/){target=\_blank}  | Remix, OpenZeppelin |    Build and deploy an NFT collection     |
-|              [Uniswap V2](/smart-contracts/cookbook/eth-dapps/uniswap-v2/){target=\_blank}               |       Hardhat       | Full dApp project: compile, test, deploy  |
-|            [Zero‑to‑Hero dApp](/smart-contracts/cookbook/dapps/zero-to-hero/){target=\_blank}            |      Multiple       |  End‑to‑end dApp patterns and practices   |
+|                                                    Tutorial                                                    |        Tools        |                Description                |
+|:--------------------------------------------------------------------------------------------------------------:|:-------------------:|:-----------------------------------------:|
+| [Deploy a Basic Contract](/smart-contracts/cookbook/smart-contracts/deploy-basic/basic-remix/){target=\_blank} |        Remix        |      Minimal deployment walkthrough       |
+|    [Deploy an ERC‑20](/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix/){target=\_blank}     | Remix, OpenZeppelin | Create, deploy, and mint a fungible token |
+|   [Deploy an NFT (ERC‑721)](/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix/){target=\_blank}   | Remix, OpenZeppelin |    Build and deploy an NFT collection     |
+|                 [Uniswap V2](/smart-contracts/cookbook/eth-dapps/uniswap-v2/){target=\_blank}                  |       Hardhat       | Full dApp project: compile, test, deploy  |
+|               [Zero‑to‑Hero dApp](/smart-contracts/cookbook/dapps/zero-to-hero/){target=\_blank}               |      Multiple       |  End‑to‑end dApp patterns and practices   |
 
 ## Libraries
 
@@ -6102,7 +6074,7 @@ To stop the local node:
 
 ---
 
-Page Title: Smart Contracts Cookbook Index
+Page Title: Smart Contracts Cookbook
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook.md
 - Canonical (HTML): https://docs.polkadot.com/smart-contracts/cookbook/
@@ -6123,12 +6095,12 @@ This page contains a list of all relevant tutorials and guides to help you get s
 |------------------------------------|:-----------:|-------|-----------------------------------------------------------------------------------------------------------------------|
 | [Faucet](/smart-contracts/faucet/) | 🟢 Beginner | N/A   | Learn how to obtain test tokens from Polkadot faucets for development and testing purposes across different networks. |
 
-## EVM/PVM Smart Contracts
+## EVM Smart Contracts
 
-| Title                                                                                             | Difficulty  | Tools                          | Description                                                                                                                                                 |
-|---------------------------------------------------------------------------------------------------|:-----------:|--------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [Deploy an ERC-20 to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-erc20/remix/) | 🟢 Beginner | EVM Wallet, Polkadot Remix IDE | Deploy an ERC-20 token on Polkadot Hub using PolkaVM. This guide covers contract creation, compilation, deployment, and interaction via Polkadot Remix IDE. |
-| [Deploy an NFT to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-nft/remix/)      | 🟢 Beginner | EVM Wallet, Polkadot Remix IDE | Deploy an NFT on Polkadot Hub using PolkaVM and OpenZeppelin. Learn how to compile, deploy, and interact with your contract using Polkadot Remix IDE.       |
+| Title                                                                                                   | Difficulty  | Tools                          | Description                                                                                                                                                 |
+|---------------------------------------------------------------------------------------------------------|:-----------:|--------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [Deploy an ERC-20 to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix/) | 🟢 Beginner | EVM Wallet, Polkadot Remix IDE | Deploy an ERC-20 token on Polkadot Hub using PolkaVM. This guide covers contract creation, compilation, deployment, and interaction via Polkadot Remix IDE. |
+| [Deploy an NFT to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix/)        | 🟢 Beginner | EVM Wallet, Polkadot Remix IDE | Deploy an NFT on Polkadot Hub using PolkaVM and OpenZeppelin. Learn how to compile, deploy, and interact with your contract using Polkadot Remix IDE.       |
 
 ## Port Ethereum DApps
 
@@ -6344,536 +6316,6 @@ This ensures accurate fee calculation while maintaining compatibility with exist
 
 ---
 
-Page Title: Troubleshooting Hardhat
-
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-hardhat-troubleshooting-faq.md
-- Canonical (HTML): https://docs.polkadot.com/smart-contracts/dev-environments/hardhat/troubleshooting-faq/
-- Summary: Common issues related to developing, compiling, and deploying smart contracts using Hardhat on Polkadot Hub, paired with troubleshooting suggestions.
-
-# Hardhat Troubleshooting
-
-This guide provides solutions to common issues you may encounter when using Hardhat with Polkadot Hub. If you're experiencing problems with installation, compilation, deployment, testing, or contract interaction, you'll likely find the solution here.
-
-## Hardhat fails to install or run with version-related errors
-
-- **Check Node.js version**:
-    - Ensure you have an LTS version of Node.js installed (18.x, 20.x, or 22.x).
-    - Check your current version with `node --version`.
-    - Download the appropriate LTS version from [nodejs.org](https://nodejs.org/).
-
-- **Use nvm for version management**:
-    - Install nvm (Node Version Manager) to to switch between Node versions easily.
-    - Run `nvm install --lts` to install the latest LTS version.
-    - Run `nvm use --lts` to switch to it.
-
-## Installation of Hardhat or its dependencies via npm fails
-
-- **Clear npm cache**:
-    ```bash
-    npm cache clean --force
-    ```
-
-- **Delete `node_modules` and `package-lock.json`**:
-    ```bash
-    rm -rf node_modules package-lock.json
-    npm install
-    ```
-
-- **Check npm version**:
-    - Ensure you have npm 7.x or higher
-    - Update npm with `npm install -g npm@latest`
-
-- **Install with specific version**:
-    ```bash
-    npm install --save-dev hardhat@^2.26.0
-    ```
-
-## Hardhat Toolbox fails to install or causes conflicts
-
-- **Install Hardhat Toolbox separately**:
-    ```bash
-    npm install --save-dev @nomicfoundation/hardhat-toolbox
-    ```
-
-- **Check for peer dependency conflicts**:
-    - Review the error messages for conflicting package versions.
-    - Try using `npm install --legacy-peer-deps` if conflicts persist.
-
-## Your contract fails to compile or shows errors in the terminal
-
-- **Check Solidity version compatibility**:
-    - Ensure your contract's pragma statement matches the compiler version in `hardhat.config.js`.
-        - Example: If your contract uses `pragma solidity ^0.8.0;`, set `solidity: "0.8.28"` or another compatible version.
-
-- **Verify imports**:
-    - Ensure all imported contracts are in the correct paths.
-    - For OpenZeppelin contracts, make sure dependencies are installed using the command: 
-        ```bash
-        `npm install @openzeppelin/contracts`
-        ```
-
-- **Clear artifacts and cache**:
-    ```bash
-    npx hardhat clean
-    npx hardhat compile
-    ```
-
-- **Check for syntax errors**:
-    - Carefully read error messages in the terminal.
-    - Check for common syntax errors, such as missing semicolons, incorrect function visibility, or type mismatches.
-
-## The artifacts folder is empty or missing expected files
-
-- **Ensure compilation completed successfully**:
-    - Check the terminal output for any error messages.
-    - Look for the "Compiled X Solidity files successfully" message.
-
-- **Verify contract file location**:
-    - Contracts must be in the `contracts` directory or subdirectories.
-    - File must have `.sol` extension.
-
-- **Check `hardhat.config.js` settings**:
-    - Ensure the paths configuration is correct.
-    - Default artifacts location is `./artifacts`.
-
-## Errors related to Solidity compiler version or features
-
-- **Match pragma version with config**:
-    ```javascript
-    module.exports = {
-      solidity: {
-        version: '0.8.28',
-        settings: {
-          optimizer: {
-            enabled: true,
-            runs: 200
-          }
-        }
-      }
-    };
-    ```
-
-- **Use multiple compiler versions** (if needed):
-    ```javascript
-    module.exports = {
-      solidity: {
-        compilers: [
-          { version: '0.8.28' },
-          { version: '0.8.20' }
-        ]
-      }
-    };
-    ```
-
-## Tests don't execute or Hardhat throws errors when running tests
-
-- **Verify test file location**:
-    - Test files must be in the `test` directory.
-    - Files should end with `.js` or `.test.js`.
-
-- **Check test framework imports**:
-    ```javascript
-    const { expect } = require('chai');
-    const { ethers } = require('hardhat');
-    ```
-
-- **Ensure Hardhat Toolbox is installed**:
-    ```bash
-    npm install --save-dev @nomicfoundation/hardhat-toolbox
-    ```
-
-- **Run tests with verbose output**:
-    ```bash
-    npx hardhat test --verbose
-    ```
-
-## The Hardhat node fails to start or becomes unresponsive
-
-1. **Check if port 8545 is already in use**:
-    - Kill any process using port 8545 as follows:
-        - **Linux/Mac**: `lsof -ti:8545 | xargs kill -9`
-        - **Windows**: `netstat -ano | findstr :8545`, then kill the process with the appropriate process ID
-
-2. **Specify a different port**:
-    ```bash
-    npx hardhat node --port 8546
-    ```
-
-3. **Reset the node**:
-    - Stop the node (Ctrl+C).
-    - Start it again with a fresh state.
-
-## Tests run but fail with assertion errors
-
-- **Check account balances**:
-    - Ensure test accounts have sufficient ETH.
-    - Hardhat node provides test accounts with 10,000 ETH each.
-
-- **Wait for transaction confirmations**:
-    ```javascript
-    const tx = await contract.someFunction();
-    await tx.wait(); // Wait for transaction to be mined
-    ```
-
-- **Verify contract state**:
-    - Use `console.log` to debug values.
-    - Check if the contract was properly deployed in `beforeEach` hooks.
-
-- **Review timing issues**:
-    - Add appropriate waits between transactions.
-    - Use `await ethers.provider.send('evm_mine')` to mine blocks manually.
-
-## Hardhat cannot connect to the local development node
-
-1. **Verify the node is running**:
-    - Ensure your local development node is started.
-    - Check the [Local Development Node](/smart-contracts/dev-environments/local-dev-node/) guide.
-
-2. **Check network configuration**:
-    ```javascript
-    module.exports = {
-      networks: {
-        polkadotTestNet: {
-          url: 'http://localhost:8545',
-          chainId: 420420420,
-          accounts: [PRIVATE_KEY]
-        }
-      }
-    };
-    ```
-
-3. **Verify URL and port**:
-    - Ensure the URL matches your local node's RPC endpoint.
-    - Default is usually `http://localhost:8545`.
-
-4. **Check firewall settings**:
-    - Ensure your firewall allows connections to `localhost:8545`.
-
-## Hardhat cannot access or use the configured private key
-
-- **Verify private key is set**:
-    ```bash
-    npx hardhat vars get PRIVATE_KEY
-    ```
-
-- **Set private key correctly**:
-    ```bash
-    npx hardhat vars set PRIVATE_KEY "0x..."
-    ```
-    - Ensure the key starts with "0x".
-    - Do not include quotes within the actual key value.
-
-- **Check key format in config**:
-    ```javascript
-    const { vars } = require('hardhat/config');
-    const PRIVATE_KEY = vars.get('PRIVATE_KEY');
-    
-    module.exports = {
-      networks: {
-        polkadotTestNet: {
-          accounts: [PRIVATE_KEY] // Should be an array
-        }
-      }
-    };
-    ```
-
-- **Alternative: Use mnemonic**:
-    ```javascript
-    accounts: {
-      mnemonic: 'test test test test test test test test test test test junk'
-    }
-    ```
-
-## Deployment or transactions go to the wrong network
-
-- **Specify network explicitly**:
-    ```bash
-    npx hardhat run scripts/deploy.js --network polkadotTestNet
-    ```
-
-- **Verify network in config**:
-    - Check that the network name matches what you're using in commands.
-    - Ensure chainId matches the target network.
-
-- **Check default network**:
-    ```javascript
-    module.exports = {
-      defaultNetwork: 'polkadotTestNet',
-      networks: {
-        // network configs
-      }
-    };
-    ```
-
-## Deployment fails with "insufficient funds" error
-
-- **Check account balance**:
-    - Verify you have enough test tokens in your account.
-    - For the local development node, accounts should be pre-funded.
-
-- **Get test tokens**:
-    - Visit the [Polkadot faucet](/smart-contracts/faucet/){target=\_blank} for test networks.
-    - Wait a few minutes for faucet transactions to complete.
-
-- **Verify account address**:
-    - Ensure the private key corresponds to the account you think you're using.
-    - Check the account balance matches expectations.
-
-## Deployment using Hardhat Ignition fails or throws errors
-
-- **Check ignition module syntax**:
-    ```javascript
-    const { buildModule } = require('@nomicfoundation/hardhat-ignition/modules');
-    
-    module.exports = buildModule('LockModule', (m) => {
-      const unlockTime = m.getParameter('unlockTime');
-      const lock = m.contract('Lock', [unlockTime]);
-      return { lock };
-    });
-    ```
-
-- **Verify constructor parameters**:
-    - Ensure all required constructor parameters are provided.
-    - Check parameter types match the contract's constructor.
-
-- **Clear previous deployments**:
-    ```bash
-    rm -rf ignition/deployments/
-    ```
-
-- **Use deployment script alternative**:
-    - Create a manual deployment script in the `scripts` folder if Ignition continues to fail.
-
-## Custom deployment scripts fail to execute
-
-- **Check script imports**:
-    ```javascript
-    const hre = require('hardhat');
-    // or
-    const { ethers } = require('hardhat');
-    ```
-
-- **Verify contract factory**:
-    ```javascript
-    const Contract = await ethers.getContractFactory('INSERT_CONTRACT_NAME');
-    const contract = await Contract.deploy(INSERT_CONSTRUCTOR_ARGS);
-    await contract.deployed();
-    ```
-
-- **Add error handling**:
-    ```javascript
-    try {
-      // deployment code
-    } catch (error) {
-      console.error('Deployment failed: ', error);
-      process.exit(1);
-    }
-    ```
-
-- **Check gas settings**:
-    ```javascript
-    const contract = await Contract.deploy({
-      gasLimit: 5000000
-    });
-    ```
-
-## Contract deployment hangs or times out
-
-- **Increase timeout in config**:
-    ```javascript
-    module.exports = {
-      networks: {
-        polkadotTestNet: {
-          timeout: 60000 // 60 seconds
-        }
-      }
-    };
-    ```
-
-- **Check network connection**:
-    - Verify the RPC endpoint is responsive.
-    - Test with a simple read operation first.
-
-- **Reduce contract complexity**:
-    - Large contracts may take longer to deploy.
-    - Consider splitting into multiple contracts.
-
-## Scripts fail to interact with a deployed contract
-
-- **Verify contract address**:
-    - Ensure you're using the correct deployed contract address.
-    - Check the deployment output or ignition deployment files.
-
-- **Check contract ABI**:
-    ```javascript
-    const Contract = await ethers.getContractFactory('INSERT_CONTRACT_NAME');
-    const contract = Contract.attach(contractAddress);
-    ```
-
-- **Verify network connection**:
-    - Ensure you're connected to the same network where the contract was deployed.
-    - Use the `--network` flag when running scripts.
-
-## Transactions revert when calling contract functions
-
-- **Check function requirements**:
-    - Verify all `require()` conditions in the contract are satisfied.
-    - Ensure you're meeting any access control requirements.
-
-- **Add debugging**:
-    ```javascript
-    try {
-      const tx = await contract.someFunction();
-      const receipt = await tx.wait();
-      console.log('Transaction successful: ', receipt);
-    } catch (error) {
-      console.error('Transaction failed: ', error.message);
-    }
-    ```
-
-- **Check gas limits**:
-    ```javascript
-    const tx = await contract.someFunction({
-      gasLimit: 500000
-    });
-    ```
-
-- **Verify function parameters**:
-    - Ensure parameter types match the function signature.
-    - Check for the correct number of parameters.
-
-## View or pure functions don't return expected values
-
-- **Use `call()` for read-only functions**:
-    ```javascript
-    const value = await contract.someViewFunction();
-    console.log('Returned value: ', value);
-    ```
-
-- **Check contract state**:
-    - Verify the contract has been properly initialized.
-    - Ensure any required state changes have been completed.
-
-- **Handle `BigNumber` returns**:
-    ```javascript
-    const value = await contract.someFunction();
-    console.log('Value: ', value.toString());
-    ```
-
-## State-changing functions execute but don't update state
-
-- **Wait for transaction confirmation**:
-    ```javascript
-    const tx = await contract.someFunction();
-    await tx.wait(); // Wait for the transaction to be mined
-    const newState = await contract.getState();
-    ```
-
-- **Check transaction receipt**:
-    ```javascript
-    const tx = await contract.someFunction();
-    const receipt = await tx.wait();
-    console.log('Transaction status: ', receipt.status);
-    ```
-
-- **Verify transaction success**:
-    - Check that `receipt.status === 1` (success).
-    - Review any events emitted by the transaction.
-
-- **Check for reverts**:
-    - Look for any revert reasons in the error message.
-    - Verify contract logic and access controls.
-
-## Contract compilation takes a long time
-
-- **Enable compiler cache**:
-    - Hardhat caches compilation results by default.
-    - Ensure the cache folder is not ignored in `.gitignore`.
-
-- **Optimize compiler settings**:
-    ```javascript
-    module.exports = {
-      solidity: {
-        version: '0.8.28',
-        settings: {
-          optimizer: {
-            enabled: true,
-            runs: 200
-          }
-        }
-      }
-    };
-    ```
-
-- **Compile specific contracts**:
-    ```bash
-    npx hardhat compile --force
-    ```
-
-## Can't start Hardhat console or console commands fail
-
-- **Start console with correct network**:
-    ```bash
-    npx hardhat console --network polkadotTestNet
-    ```
-
-- **Check console imports**:
-    ```javascript
-    // In console
-    const Contract = await ethers.getContractFactory('INSERT_CONTRACT_NAME');
-    ```
-
-- **Verify network connection**:
-    - Ensure the target network is accessible.
-    - Check network configuration in `hardhat.config.js`.
-
-## Hardhat plugins not working correctly
-
-- **Verify plugin installation**:
-    ```bash
-    npm list @nomicfoundation/hardhat-toolbox
-    ```
-
-- **Check plugin import in config**:
-    ```javascript
-    require("@nomicfoundation/hardhat-toolbox");
-    ```
-
-- **Update plugins to latest versions**:
-    ```bash
-    npm update @nomicfoundation/hardhat-toolbox
-    ```
-
-- **Check for plugin conflicts**:
-    - Review `package.json` for version conflicts.
-    - Try removing and reinstalling conflicting plugins.
-
-## Scripts cannot read environment variables
-
-- **Use Hardhat vars correctly**:
-    ```bash
-    npx hardhat vars set VARIABLE_NAME "value"
-    npx hardhat vars get VARIABLE_NAME
-    ```
-
-- **Alternatively, use dotenv**:
-    ```bash
-    npm install dotenv
-    ```
-    ```javascript
-    require('dotenv').config();
-    const value = process.env.VARIABLE_NAME;
-    ```
-
-- **Check variable access in config**:
-    ```javascript
-    const { vars } = require('hardhat/config');
-    const value = vars.get('VARIABLE_NAME');
-    ```
-
-
----
-
 Page Title: Troubleshooting Remix IDE
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-remix-troubleshooting-faq.md
@@ -7035,127 +6477,147 @@ This guide provides solutions to common issues you may encounter when using Remi
 
 Page Title: Use Hardhat with Polkadot Hub
 
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-hardhat-get-started.md
-- Canonical (HTML): https://docs.polkadot.com/smart-contracts/dev-environments/hardhat/get-started/
-- Summary: Overview of Hardhat, a powerful development environment for creating, compiling, testing, and deploying smart contracts on Polkadot Hub.
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-hardhat.md
+- Canonical (HTML): https://docs.polkadot.com/smart-contracts/dev-environments/hardhat/
+- Summary: Learn how to create, compile, test, and deploy smart contracts on Polkadot Hub using Hardhat, a powerful development environment for blockchain developers.
 
 # Hardhat
 
-## Overview
+## Introduction
 
-Building on Polkadot Hub often starts with a Solidity codebase, and Hardhat keeps that workflow familiar while giving teams repeatable scripts, rich debugging, and CLI automation suited to the network's Ethereum-compatible execution layer.
+[Hardhat](https://hardhat.org/){target=\_blank} is a flexible development environment for building, testing, and deploying smart contracts on Polkadot. Its task runner and plugin system support organizing contract code, running tests, managing deployments, and adding custom tooling. This page demonstrates how to set up a Hardhat project for Polkadot Hub.
 
-Hardhat is a comprehensive development environment for building, testing, and deploying smart contracts. It provides developers with a complete toolkit, including compilation, local testing nodes, debugging tools, and deployment automation.
+## Prerequisites
 
-## Hardhat Workflow
+Before setting up Hardhat, make sure the following are installed:
 
-From the first sketch of a contract to ongoing operations, Hardhat encourages a repeatable cycle: define the functionality you need, scaffold the workspace, write and refine Solidity code, compile it into deployable artifacts, validate behavior with automated tests, deploy confidently to the target network, and keep iterating with scripts that monitor and interact with what you shipped.
+- [Node.js](https://nodejs.org/){target=\_blank} (Hardhat requires an LTS Node version, even major numbers like 18.x, 20.x, or 22.x)
+- A package manager like [npm](https://www.npmjs.com/){target=\_blank}, [pnpm](https://pnpm.io/){target=\_blank}, or [yarn](https://yarnpkg.com/){target=\_blank}
 
-```mermaid
-flowchart LR
-    plan[Plan Contract]
-    scaffold[Scaffold Project]
-    develop[Write & Update Contracts]
-    compile[Compile Sources]
-    test[Run Automated Tests]
-    deploy[Deploy to Target Network]
-    operate[Interact & Monitor]
+## Initialize a Hardhat Project
 
-    plan --> scaffold --> develop --> compile --> test --> deploy --> operate
-```
+1. Create a directory to hold your project files:
 
-## Project Anatomy
+    ```bash
+    mkdir hardhat-example
+    cd hardhat-example
+    ```
 
-A freshly initialized Hardhat project keeps code, configuration, and automation neatly separated:
+2. Initialize a Hardhat project:
 
-```
-.
-├── contracts/
-│   └── MyContract.sol
-├── ignition/
-│   └── modules/
-├── scripts/
-│   └── interact.js
-├── test/
-│   └── MyContract.test.js
-└── hardhat.config.js
-```
+    === "npm"
 
-- `contracts/`: Solidity sources that define your smart contracts.
-- `test/`: Automated tests written in JavaScript or TypeScript.
-- `ignition/`: Deployment modules that orchestrate repeatable rollouts.
-- `scripts/`: Utility scripts for deploying, validating, or interacting with contracts.
-- `hardhat.config.js`: Central configuration for networks, compilers, and tooling.
+        This single command sets up your project, installs Hardhat (and optionally the Toolbox), and intializes the project:
 
-## Core Functionalities
+        ```bash
+        npx hardhat@^2.27.0 init
+        ```
 
-- **Project structure**: Organizes contracts, tests, scripts, and configuration into a consistent workspace. Provides a clear folder layout and a single configuration file (`hardhat.config.js`) to manage compilers, networks, and tooling.
-- **Compilation**: Compiles Solidity sources, supports multiple compiler versions, and generates ABI and bytecode artifacts.
-- **Local testing**: Runs tests written in JavaScript or TypeScript against an integrated local network, enabling fast feedback when validating contract behavior.
-- **Task automation**: Automates deployments, maintenance operations, and recurring workflows through custom scripts and Hardhat tasks.
-- **Contract interaction**: Enables reading contract state, sending transactions, and calling contract functions.
+    === "pnpm"
+
+        This single command sets up your project, installs Hardhat (and optionally the Toolbox), and intializes the project:
+
+        ```bash
+        pnpm dlx hardhat@^2.27.0 init
+        ```
+
+    === "yarn"
+
+        These commands manually set up your project, install Hardhat (and optionally the Toolbox), and initializes the project:
+
+        ```bash
+        # Initialize a new Node.js project
+        yarn init -y
+
+        # Install Hardhat and the Hardhat Toolbox locally
+        yarn add --dev hardhat@^2.27.0 @nomicfoundation/hardhat-toolbox
+
+        # Initialize a Hardhat project
+        npx hardhat init
+        ```
+
+3. You will be prompted to select certain configurations for your project. To quickly create a working setup, you can accept the default answers, which will create a JavaScript project, initialize it in the current directory, add a `.gitignore`, and install all dependencies.
+
+After completing the setup, your Hardhat project will be fully initialized with all necessary files and dependencies. You'll see the following core components in your project:
+
+- **`contracts`**: Stores your Solidity smart contracts.
+- **`ignition`**: Contains deployment modules for safely deploying your contracts to various networks.
+- **`test`**: Contains test files that validate contract functionality.
+- **`hardhat.config.js | .ts`**: Defines your project's settings, including networks, compiler options, and plugins.
+
+## Configure Hardhat for Polkadot Hub
+
+To use Hardhat with Polkadot Hub, define the network configuration in your `hardhat.config.ts` file:
+
+=== "Polkadot TestNet"
+
+    ```ts title='hardhat.config.ts'
+    import type { HardhatUserConfig } from 'hardhat/config';
+    import '@nomicfoundation/hardhat-toolbox';
+
+    // If you want to use a variable for your private key
+    import { vars } from 'hardhat/config';
+
+    const config: HardhatUserConfig = {
+    solidity: '0.8.28',
+    networks: {
+        polkadotTestnet: {
+        url: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
+        chainId: 420420422,
+        accounts: [vars.get('PRIVATE_KEY')],
+        },
+    },
+    };
+
+    export default config;
+    ```
+
+!!! tip
+
+    To define a [configuration variable](https://v2.hardhat.org/hardhat-runner/docs/guides/configuration-variables){target=\_blank} for your private key, run:
+
+    ```bash
+    npx hardhat vars set PRIVATE_KEY
+    ```
+
+    Hardhat will prompt you to enter your private key and store it so it can be referenced in your configuration file.
 
 ## Where to Go Next
 
-Ready to explore the specifics? Dive into these guides to continue your Hardhat journey:
 
 <div class="grid cards" markdown>
 
--   <span class="badge guide">Guide</span> __Install and Configure Hardhat__
+-   <span class="badge guide">Guide</span> __Deploy a Basic Contract__
 
     ---
 
-    Initialize your workspace and adjust project settings for this toolchain.
+    Ready to start using Hardhat? Learn how to compile, test, and deploy a basic contract.
 
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/dev-environments/hardhat/install-and-config/){target=\_blank}
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-basic/basic-hardhat/)
 
--   <span class="badge guide">Guide</span> __Compile Smart Contracts__
-
-    ---
-
-    Configure compiler options and generate deployable artifacts.
-
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/dev-environments/hardhat/compile-and-test/){target=\_blank}
-
--   <span class="badge guide">Guide</span> __Test Your Smart Contracts__
+-   <span class="badge guide">Guide</span> __Deploy an ERC-20__
 
     ---
 
-    Build automated tests and run them against a local node.
+    Walk through deploying a fully-functional ERC-20 to Polkadot Hub using Hardhat.
 
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/dev-environments/hardhat/compile-and-test/){target=\_blank}
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-hardhat/)
 
--   <span class="badge guide">Guide</span> __Deploy Smart Contracts__
-
-    ---
-
-    Roll out contracts to local, test, or production networks with repeatable scripts.
-
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/dev-environments/hardhat/deploy-a-contract/){target=\_blank}
-
--   <span class="badge guide">Guide</span> __Interact with Smart Contracts__
+-   <span class="badge guide">Guide</span> __Deploy an NFT__
 
     ---
 
-    Script on-chain interactions and automate maintenance tasks.
+    Walk through deploying a NFT to Polkadot Hub using Hardhat.
 
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/dev-environments/hardhat/interact-with-a-contract/){target=\_blank}
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-hardhat/)
 
--   <span class="badge external">External</span> __Hardhat Documentation__
-
-    ---
-
-    Explore Hardhat's official documentation for advanced features and best practices.
-
-    [:octicons-arrow-right-24: Learn More](https://hardhat.org/docs){target=\_blank}
-
--   <span class="badge external">External</span> __OpenZeppelin Contracts__
+-   <span class="badge guide">Guide</span> __Create a DApp__
 
     ---
 
-    Use prebuilt, audited contract templates to bootstrap your projects.
+    Learn step-by-step how to build a fully functional dApp that interacts with a smart contract deployed via Hardhat.
 
-    [:octicons-arrow-right-24: Explore](https://www.openzeppelin.com/solidity-contracts){target=\_blank}
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/dapps/zero-to-hero/)
 
 </div>
 
@@ -9278,7 +8740,7 @@ This file defines the contract address, ABI, and functions to create a viem [con
 
 ## Create the Wallet Connection Component
 
-Now, let's create a component to handle wallet connections. Create a new file called `components/WalletConnect.tsx`:
+Now, you can create a component to handle wallet connections. Create a new file called `components/WalletConnect.tsx`:
 
 ```typescript title="WalletConnect.tsx"
 "use client";
@@ -9461,7 +8923,7 @@ This component handles connecting to the wallet, switching networks if necessary
 
 ## Create the Read Contract Component
 
-Now, let's create a component to read data from the contract. Create a file called `components/ReadContract.tsx`:
+Next, create a component to read data from the contract. Create a file called `components/ReadContract.tsx`:
 
 ```typescript title="ReadContract.tsx"
 'use client';
@@ -9534,7 +8996,7 @@ This component reads the `storedNumber` value from the contract and displays it 
 
 ## Create the Write Contract Component
 
-Finally, let's create a component that allows users to update the stored number. Create a file called `components/WriteContract.tsx`:
+Finally, create a component that allows users to update the stored number. Create a file called `components/WriteContract.tsx`:
 
 ```typescript title="WriteContract.tsx"
 "use client";

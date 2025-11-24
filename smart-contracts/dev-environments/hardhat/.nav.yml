@@ -1,6 +1,0 @@
-nav:
- - 'Get Started': get-started.md
- - 'Install and Config': install-and-config.md
- - 'Compile and Test': compile-and-test.md
- - 'Deploy a Contract': deploy-a-contract.md
- - 'Troubleshooting': troubleshooting-faq.md

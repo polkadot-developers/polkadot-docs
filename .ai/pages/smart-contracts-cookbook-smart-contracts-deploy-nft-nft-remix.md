@@ -1,9 +1,8 @@
 ---
 title: Deploy an ERC-721 NFT Using Remix
 description: Learn how to deploy an ERC-721 NFT contract to Polkadot Hub using Remix, a browser-based IDE for quick prototyping and learning.
-tutorial_badge: Beginner
 categories: Basics, Smart Contracts
-tools: Remix, EVM Wallet, OpenZeppelin
+url: https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix/
 ---
 
 # Deploy an NFT with Remix
@@ -32,7 +31,25 @@ Follow the steps below to create the ERC-721 contract:
 3. Now, paste the following ERC-721 contract code into `MyNFT.sol`:
 
     ```solidity title="contracts/MyNFT.sol"
-    --8<-- 'code/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix/MyNFT.sol'
+    // SPDX-License-Identifier: MIT
+    pragma solidity ^0.8.20;
+
+    import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+    import "@openzeppelin/contracts/access/Ownable.sol";
+
+    contract MyNFT is ERC721, Ownable {
+        uint256 private _nextTokenId;
+
+        constructor(
+            address initialOwner
+        ) ERC721("MyToken", "MTK") Ownable(initialOwner) {}
+
+        function safeMint(address to) public onlyOwner {
+            uint256 tokenId = _nextTokenId++;
+            _safeMint(to, tokenId);
+        }
+    }
+
     ```
 
     !!! tip

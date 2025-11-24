@@ -7,8 +7,6 @@ url: https://docs.polkadot.com/smart-contracts/for-eth-devs/dual-vm-stack/
 
 # Dual Virtual Machine Stack
 
-!!! smartcontract "PolkaVM Preview Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 ## Introduction
 
 Polkadot's smart contract platform supports two distinct virtual machine (VM) architectures, providing developers with flexibility in selecting the optimal execution backend for their specific needs. This approach strikes a balance between immediate Ethereum compatibility and long-term innovation, enabling developers to deploy either unmodified (Ethereum Virtual Machine) EVM contracts using Rust Ethereum Virtual Machine (REVM) or optimize for higher performance using PolkaVM (PVM).

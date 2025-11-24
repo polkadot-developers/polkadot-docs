@@ -6,8 +6,6 @@ categories: Smart Contracts, Tooling
 
 # viem
 
---8<-- 'text/smart-contracts/polkaVM-warning.md'
-
 ## Introduction
 
 [viem](https://viem.sh/){target=\_blank} is a lightweight TypeScript library designed for interacting with Ethereum-compatible blockchains. This comprehensive guide will walk you through using viem to interact with and deploy smart contracts to Polkadot Hub.

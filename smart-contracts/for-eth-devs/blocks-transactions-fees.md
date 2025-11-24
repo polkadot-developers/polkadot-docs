@@ -6,8 +6,6 @@ categories: Basics, Polkadot Protocol
 
 # Blocks, Transactions, and Fees
 
---8<-- 'text/smart-contracts/polkaVM-warning.md'
-
 ## Introduction
 
 Asset Hub smart contracts operate within the Polkadot ecosystem using the [`pallet_revive`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/){target=\_blank} implementation, which provides EVM compatibility. While many aspects of blocks and transactions are inherited from the underlying parachain architecture, there are specific considerations and mechanisms unique to smart contract operations on Asset Hub.

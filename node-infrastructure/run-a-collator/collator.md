@@ -96,17 +96,21 @@ This guide provides two deployment options. Select the option that best fits you
 
 === "Manual Setup"
 
-    Extract the binary from the official Docker image:
+    Download the `polkadot-parachain` binary from the latest stable [Polkadot SDK release](https://github.com/paritytech/polkadot-sdk/releases){target=\_blank}:
 
     ```bash
-    # Create a temporary container and copy the binary
-    docker create --name temp-parachain parity/polkadot-parachain:stable2509-2
-    sudo docker cp temp-parachain:/usr/local/bin/polkadot-parachain /usr/local/bin/
-    docker rm temp-parachain
+    # Download the latest stable release (check releases page for current version)
+    wget https://github.com/paritytech/polkadot-sdk/releases/download/stable2409-2/polkadot-parachain
+
+    # Make it executable and move to system path
+    chmod +x polkadot-parachain
+    sudo mv polkadot-parachain /usr/local/bin/
 
     # Verify installation
     polkadot-parachain --version
     ```
+
+    Check the [Polkadot SDK releases](https://github.com/paritytech/polkadot-sdk/releases){target=\_blank} page for the latest stable version.
 
 ## Generate Node Key
 
@@ -489,12 +493,11 @@ Updates or upgrades can happen on either the runtime or client. Runtime upgrades
         sudo cp -r /var/lib/polkadot-collator /var/lib/polkadot-collator.backup
         ```
 
-    3. Pull the new image and extract the binary:
+    3. Download the new binary from [GitHub releases](https://github.com/paritytech/polkadot-sdk/releases){target=\_blank}:
         ```bash
-        docker pull parity/polkadot-parachain:<NEW_TAG>
-        docker create --name temp-parachain parity/polkadot-parachain:<NEW_TAG>
-        sudo docker cp temp-parachain:/usr/local/bin/polkadot-parachain /usr/local/bin/
-        docker rm temp-parachain
+        wget https://github.com/paritytech/polkadot-sdk/releases/download/<NEW_VERSION>/polkadot-parachain
+        chmod +x polkadot-parachain
+        sudo mv polkadot-parachain /usr/local/bin/
         ```
 
     4. Verify `polkadot-parachain` version to confirm successful update:

@@ -8,11 +8,7 @@ categories: Infrastructure
 
 ## Overview
 
-Running an RPC node for a parachain enables applications, wallets, and users to interact with the parachain's functionality. This guide applies to **any parachain** in the Polkadot ecosystem, including:
-
-- **System parachains**: Bridge Hub, People Chain, Coretime Chain
-- **Common good parachains**: Collectives, Encointer
-- **Commercial parachains**: Any parachain with a publicly available chain specification
+Running an RPC node for a parachain enables applications, wallets, and users to interact with the parachain's functionality.
 
 Each parachain RPC node provides access through the Polkadot SDK Node RPC (Port 9944), offering native Polkadot API access via WebSocket and HTTP. This setup enables block explorer indexing and provides full compatibility with Polkadot SDK development tools.
 
@@ -47,11 +43,7 @@ curl -L https://raw.githubusercontent.com/paritytech/polkadot-sdk/master/cumulus
 
 ### Other Parachains
 
-For non-system parachains:
-
-- **Check the parachain's documentation** for official chain specification files
-- **Contact the parachain team** if no public chain spec is available
-- **Export from a running node** using `system_chainSpec` RPC method if you have access to an existing node
+For non-system parachains, check the parachain's documentation for official chain specification files.
 
 **Note**: Throughout this guide, we use **People Chain** as the example. To set up a different parachain, substitute the chain spec file, snapshot path, and chain name with values for your target parachain.
 
@@ -352,20 +344,21 @@ This option provides more control and is recommended for production environments
 
 ### Step 1: Install the Polkadot Parachain Binary
 
-Extract the binary from the official Docker image:
+Download the `polkadot-parachain` binary from the latest stable [Polkadot SDK release](https://github.com/paritytech/polkadot-sdk/releases){target=\_blank}:
 
 ```bash
-# Pull the image and extract binary
-docker pull parity/polkadot-parachain:stable2509-2
-docker create --name temp-parachain parity/polkadot-parachain:stable2509-2
-sudo docker cp temp-parachain:/usr/local/bin/polkadot-parachain /usr/local/bin/
-docker rm temp-parachain
+# Download the latest stable release (check releases page for current version)
+wget https://github.com/paritytech/polkadot-sdk/releases/download/stable2409-2/polkadot-parachain
+
+# Make it executable and move to system path
+chmod +x polkadot-parachain
+sudo mv polkadot-parachain /usr/local/bin/
 
 # Verify installation
 polkadot-parachain --version
 ```
 
-Check [Docker Hub](https://hub.docker.com/r/parity/polkadot-parachain/tags) for the latest stable tags.
+Check the [Polkadot SDK releases](https://github.com/paritytech/polkadot-sdk/releases){target=\_blank} page for the latest stable version.
 
 ### Step 2: Create User and Directory Structure
 
@@ -550,11 +543,10 @@ sudo systemctl stop people-chain-rpc
 # Backup data
 sudo cp -r /var/lib/people-chain-rpc /var/lib/people-chain-rpc.backup
 
-# Pull new image and extract binary
-docker pull parity/polkadot-parachain:<NEW_TAG>
-docker create --name temp-parachain parity/polkadot-parachain:<NEW_TAG>
-sudo docker cp temp-parachain:/usr/local/bin/polkadot-parachain /usr/local/bin/
-docker rm temp-parachain
+# Download new binary from GitHub releases
+wget https://github.com/paritytech/polkadot-sdk/releases/download/<NEW_VERSION>/polkadot-parachain
+chmod +x polkadot-parachain
+sudo mv polkadot-parachain /usr/local/bin/
 
 # Restart service
 sudo systemctl start people-chain-rpc

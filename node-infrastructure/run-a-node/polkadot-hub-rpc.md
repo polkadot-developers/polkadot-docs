@@ -248,19 +248,20 @@ Select the best option for your project, then use the steps in the following tab
 
     This option provides more control and is recommended for production environments requiring custom configurations.
 
-    1. Install the Polkadot Parachain binary by extracting it from the official Docker image:
+    1. Download the `polkadot-parachain` binary from the latest stable [Polkadot SDK release](https://github.com/paritytech/polkadot-sdk/releases){target=\_blank}:
         ```bash
-        # Pull the image and extract binary
-        docker pull parity/polkadot-parachain:stable2509-2
-        docker create --name temp-parachain parity/polkadot-parachain:stable2509-2
-        sudo docker cp temp-parachain:/usr/local/bin/polkadot-parachain /usr/local/bin/
-        docker rm temp-parachain
+        # Download the latest stable release (check releases page for current version)
+        wget https://github.com/paritytech/polkadot-sdk/releases/download/stable2409-2/polkadot-parachain
+
+        # Make it executable and move to system path
+        chmod +x polkadot-parachain
+        sudo mv polkadot-parachain /usr/local/bin/
 
         # Verify installation
         polkadot-parachain --version
         ```
 
-        Check [Docker Hub](https://hub.docker.com/r/parity/polkadot-parachain/tags){target=\_blank} for the latest stable tags.
+        Check the [Polkadot SDK releases](https://github.com/paritytech/polkadot-sdk/releases){target=\_blank} page for the latest stable version.
 
     2. Download the Polkadot Hub chain specification:
         ```bash
@@ -468,12 +469,11 @@ Use the following commands for updating or upgrading your RPC node according to 
         ```bash
         sudo cp -r /var/lib/polkadot-hub-rpc /var/lib/polkadot-hub-rpc.backup
         ```
-    3. Pull the new image and extract the binary:
+    3. Download the new binary from [GitHub releases](https://github.com/paritytech/polkadot-sdk/releases){target=\_blank}:
         ```bash
-        docker pull parity/polkadot-parachain:<NEW_TAG>
-        docker create --name temp-parachain parity/polkadot-parachain:<NEW_TAG>
-        sudo docker cp temp-parachain:/usr/local/bin/polkadot-parachain /usr/local/bin/
-        docker rm temp-parachain
+        wget https://github.com/paritytech/polkadot-sdk/releases/download/<NEW_VERSION>/polkadot-parachain
+        chmod +x polkadot-parachain
+        sudo mv polkadot-parachain /usr/local/bin/
         ```
     4. Restart the service:
         ```bash

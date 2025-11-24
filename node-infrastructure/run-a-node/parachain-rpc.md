@@ -360,7 +360,7 @@ Download the `polkadot-parachain` binary from the latest stable [Polkadot SDK re
 
 ```bash
 # Download the latest stable release (check releases page for current version)
-wget https://github.com/paritytech/polkadot-sdk/releases/download/stable2409-2/polkadot-parachain
+wget https://github.com/paritytech/polkadot-sdk/releases/download/polkadot-stable2509-2/polkadot-parachain
 
 # Make it executable and move to system path
 chmod +x polkadot-parachain

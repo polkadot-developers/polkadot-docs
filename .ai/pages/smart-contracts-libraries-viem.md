@@ -373,7 +373,7 @@ To compile your contract:
 npm run compile
 ```
 
-After executing this script, you will see the compilation results including the generated `Storage.json` (containing the contract's ABI) and `Storage.vin` (containing the compiled bytecode) files in the `artifacts` folder. These files contain all the necessary information for deploying and interacting with your smart contract on Polkadot Hub.
+After executing this script, you will see the compilation results including the generated `Storage.json` (containing the contract's ABI) and `Storage.bin` (containing the compiled bytecode) files in the `artifacts` folder. These files contain all the necessary information for deploying and interacting with your smart contract on Polkadot Hub.
 
 ## Deploy the Contract
 

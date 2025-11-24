@@ -7187,13 +7187,13 @@ viem-project/
 │   └── interact.ts
 ├── contracts/
 │   └── Storage.sol
+├── abis/
+│   └── Storage.json
 └── artifacts/
-    ├── Storage.json
-    └── Storage.polkavm
+    └── Storage.bin
 ```
 
 ## Set Up the Project
-
 First, create a new folder and initialize your project:
 
 ```bash
@@ -7204,11 +7204,11 @@ npm init -y
 
 ## Install Dependencies
 
-Install viem along with other necessary dependencies, including [@parity/resolc](https://www.npmjs.com/package/@parity/resolc){target=\_blank}, which enables to compile smart contracts to [PolkaVM](/smart-contracts/for-eth-devs/#polkavm){target=\_blank} bytecode:
+Install viem along with other necessary dependencies, including [`solc`](https://www.npmjs.com/package/solc){target=\_blank}, which enables compiling smart contracts' EVM bytecode.
 
 ```bash
 # Install viem and resolc
-npm install viem @parity/resolc
+npm install viem solc
 
 # Install TypeScript and development dependencies
 npm install --save-dev typescript ts-node @types/node
@@ -7311,7 +7311,7 @@ After setting up the [Public Client](https://viem.sh/docs/clients/public#public-
     ```js title="src/fetchLastBlock.ts"
     import { createPublicClient, http } from 'viem';
 
-    const transport = http('https://testnet-passet-hub-eth-rpc.polkadot.io');
+    const transport = http('https://testnet-passet-hub-eth-rpc.polkadot.io'); // TODO: change to paseo asset hub once ready
 
     // Configure the Polkadot Hub chain
     const polkadotHubTestnet = {
@@ -7325,7 +7325,7 @@ After setting up the [Public Client](https://viem.sh/docs/clients/public#public-
       },
       rpcUrls: {
         default: {
-          http: ['https://testnet-passet-hub-eth-rpc.polkadot.io'],
+          http: ['https://testnet-passet-hub-eth-rpc.polkadot.io'], // TODO: change to paseo asset hub once ready
         },
       },
     } as const;
@@ -7428,60 +7428,82 @@ contract Storage {
 
 ## Compile the Contract
 
-!!! note "Contracts Code Blob Size Disclaimer"
-    The maximum contract code blob size on Polkadot Hub networks is _100 kilobytes_, significantly larger than Ethereum’s EVM limit of 24 kilobytes.
-
-    For detailed comparisons and migration guidelines, see the [EVM vs. PolkaVM](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm/#current-memory-limits){target=\_blank} documentation page.
-
 Create a new file at `src/compile.ts` for handling contract compilation:
 
 ```typescript title="src/compile.ts"
-import { compile } from '@parity/resolc';
-import { readFileSync, writeFileSync } from 'fs';
+import solc from 'solc';
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
 import { basename, join } from 'path';
 
-const compileContract = async (
+const ensureDir = (dirPath: string): void => {
+  if (!existsSync(dirPath)) {
+    mkdirSync(dirPath, { recursive: true });
+  }
+};
+
+const compileContract = (
   solidityFilePath: string,
-  outputDir: string
-): Promise<void> => {
+  abiDir: string,
+  artifactsDir: string
+): void => {
   try {
     // Read the Solidity file
     const source: string = readFileSync(solidityFilePath, 'utf8');
-
-    // Construct the input object for the compiler
-    const input: Record<string, { content: string }> = {
-      [basename(solidityFilePath)]: { content: source },
+    const fileName: string = basename(solidityFilePath);
+    
+    // Construct the input object for the Solidity compiler
+    const input = {
+      language: 'Solidity',
+      sources: {
+        [fileName]: {
+          content: source,
+        },
+      },
+      settings: {
+        outputSelection: {
+          '*': {
+            '*': ['abi', 'evm.bytecode'],
+          },
+        },
+      },
     };
-
-    console.log(`Compiling contract: ${basename(solidityFilePath)}...`);
-
+    
+    console.log(`Compiling contract: ${fileName}...`);
+    
     // Compile the contract
-    const out = await compile(input);
-
-    for (const contracts of Object.values(out.contracts)) {
-      for (const [name, contract] of Object.entries(contracts)) {
-        console.log(`Compiled contract: ${name}`);
-
+    const output = JSON.parse(solc.compile(JSON.stringify(input)));
+    
+    // Check for errors
+    if (output.errors) {
+      const errors = output.errors.filter((error: any) => error.severity === 'error');
+      if (errors.length > 0) {
+        console.error('Compilation errors:');
+        errors.forEach((err: any) => console.error(err.formattedMessage));
+        return;
+      }
+      // Show warnings
+      const warnings = output.errors.filter((error: any) => error.severity === 'warning');
+      warnings.forEach((warn: any) => console.warn(warn.formattedMessage));
+    }
+    
+    // Ensure output directories exist
+    ensureDir(abiDir);
+    ensureDir(artifactsDir);
+    
+    // Process compiled contracts
+    for (const [sourceFile, contracts] of Object.entries(output.contracts)) {
+      for (const [contractName, contract] of Object.entries(contracts as any)) {
+        console.log(`Compiled contract: ${contractName}`);
+        
         // Write the ABI
-        const abiPath = join(outputDir, `${name}.json`);
-        writeFileSync(abiPath, JSON.stringify(contract.abi, null, 2));
+        const abiPath = join(abiDir, `${contractName}.json`);
+        writeFileSync(abiPath, JSON.stringify((contract as any).abi, null, 2));
         console.log(`ABI saved to ${abiPath}`);
-
+        
         // Write the bytecode
-        if (
-          contract.evm &&
-          contract.evm.bytecode &&
-          contract.evm.bytecode.object
-        ) {
-          const bytecodePath = join(outputDir, `${name}.polkavm`);
-          writeFileSync(
-            bytecodePath,
-            Buffer.from(contract.evm.bytecode.object, 'hex')
-          );
-          console.log(`Bytecode saved to ${bytecodePath}`);
-        } else {
-          console.warn(`No bytecode found for contract: ${name}`);
-        }
+        const bytecodePath = join(artifactsDir, `${contractName}.bin`);
+        writeFileSync(bytecodePath, (contract as any).evm.bytecode.object);
+        console.log(`Bytecode saved to ${bytecodePath}`);
       }
     }
   } catch (error) {
@@ -7490,9 +7512,10 @@ const compileContract = async (
 };
 
 const solidityFilePath: string = './contracts/Storage.sol';
-const outputDir: string = './artifacts/';
+const abiDir: string = './abis';
+const artifactsDir: string = './artifacts';
 
-compileContract(solidityFilePath, outputDir);
+compileContract(solidityFilePath, abiDir, artifactsDir);
 ```
 
 To compile your contract:
@@ -7501,17 +7524,23 @@ To compile your contract:
 npm run compile
 ```
 
-After executing this script, you will see the compilation results including the generated `Storage.json` (containing the contract's ABI) and `Storage.polkavm` (containing the compiled bytecode) files in the `artifacts` folder. These files contain all the necessary information for deploying and interacting with your smart contract on Polkadot Hub.
+After executing this script, you will see the compilation results including the generated `Storage.json` (containing the contract's ABI) and `Storage.bin` (containing the compiled bytecode).
 
 ## Deploy the Contract
 
 Create a new file at `src/deploy.ts` for handling contract deployment:
 
 ```typescript title="src/deploy.ts"
-import { readFileSync } from 'fs';
-import { join } from 'path';
-import { createWallet } from './createWallet';
-import { publicClient } from './createClient';
+import { existsSync, readFileSync } from 'fs';
+import { dirname, join } from 'path';
+import { fileURLToPath } from 'url';
+import { createWallet } from './createWallet.ts';
+import { publicClient } from './createClient.ts';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const ABIS_DIR = join(__dirname, '../abis');
+const ARTIFACTS_DIR = join(__dirname, '../artifacts');
 
 const deployContract = async (
   contractName: string,
@@ -7520,16 +7549,20 @@ const deployContract = async (
   try {
     console.log(`Deploying ${contractName}...`);
 
+    const abiPath = join(ABIS_DIR, `${contractName}.json`);
+    const bytecodePath = join(ARTIFACTS_DIR, `${contractName}.bin`);
+
+    if (!existsSync(abiPath) || !existsSync(bytecodePath)) {
+      throw new Error(
+        `Missing artifacts for ${contractName}. Try running "npm run compile" first.`
+      );
+    }
+
     // Read contract artifacts
     const abi = JSON.parse(
-      readFileSync(
-        join(__dirname, '../artifacts', `${contractName}.json`),
-        'utf8'
-      )
+      readFileSync(abiPath, 'utf8')
     );
-    const bytecode = `0x${readFileSync(
-      join(__dirname, '../artifacts', `${contractName}.polkavm`)
-    ).toString('hex')}` as `0x${string}`;
+    const bytecode = `0x${readFileSync(bytecodePath, 'utf8').trim()}` as `0x${string}`;
 
     // Create wallet
     const wallet = createWallet(privateKey);
@@ -7575,13 +7608,17 @@ If everything is successful, you will see the address of your deployed contract 
 Create a new file at `src/interact.ts` for interacting with your deployed contract:
 
 ```typescript title="src/interact.ts"
-import { publicClient } from './createClient';
-import { createWallet } from './createWallet';
 import { readFileSync } from 'fs';
+import { dirname, join } from 'path';
+import { fileURLToPath } from 'url';
+import { publicClient } from './createClient.ts';
+import { createWallet } from './createWallet.ts';
 
-const STORAGE_ABI = JSON.parse(
-  readFileSync('./artifacts/Storage.json', 'utf8')
-);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const ABI_PATH = join(__dirname, '../abis/Storage.json');
+
+const STORAGE_ABI = JSON.parse(readFileSync(ABI_PATH, 'utf8'));
 
 const interactWithStorage = async (
   contractAddress: `0x${string}`,
@@ -7626,7 +7663,6 @@ const PRIVATE_KEY = 'INSERT_PRIVATE_KEY';
 const CONTRACT_ADDRESS = 'INSERT_CONTRACT_ADDRESS';
 
 interactWithStorage(CONTRACT_ADDRESS, PRIVATE_KEY);
-
 ```
 
 Ensure to replace `INSERT_PRIVATE_KEY` and `INSERT_CONTRACT_ADDRESS` with the proper values.

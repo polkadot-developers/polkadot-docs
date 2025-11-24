@@ -35,13 +35,13 @@ viem-project/
 │   └── interact.ts
 ├── contracts/
 │   └── Storage.sol
+├── abis/
+│   └── Storage.json
 └── artifacts/
-    ├── Storage.json
-    └── Storage.polkavm
+    └── Storage.bin
 ```
 
 ## Set Up the Project
-
 First, create a new folder and initialize your project:
 
 ```bash
@@ -52,11 +52,11 @@ npm init -y
 
 ## Install Dependencies
 
-Install viem along with other necessary dependencies, including [@parity/resolc](https://www.npmjs.com/package/@parity/resolc){target=\_blank}, which enables to compile smart contracts to [PolkaVM](/smart-contracts/for-eth-devs/#polkavm){target=\_blank} bytecode:
+Install viem along with other necessary dependencies, including [`solc`](https://www.npmjs.com/package/solc){target=\_blank}, which enables compiling smart contracts' EVM bytecode.
 
 ```bash
 # Install viem and resolc
-npm install viem @parity/resolc
+npm install viem solc
 
 # Install TypeScript and development dependencies
 npm install --save-dev typescript ts-node @types/node
@@ -142,8 +142,6 @@ You can use the following contract to interact with the blockchain. Paste the fo
 
 ## Compile the Contract
 
---8<-- 'text/smart-contracts/code-size.md'
-
 Create a new file at `src/compile.ts` for handling contract compilation:
 
 ```typescript title="src/compile.ts"
@@ -156,7 +154,7 @@ To compile your contract:
 npm run compile
 ```
 
-After executing this script, you will see the compilation results including the generated `Storage.json` (containing the contract's ABI) and `Storage.polkavm` (containing the compiled bytecode) files in the `artifacts` folder. These files contain all the necessary information for deploying and interacting with your smart contract on Polkadot Hub.
+After executing this script, you will see the compilation results including the generated `Storage.json` (containing the contract's ABI) and `Storage.bin` (containing the compiled bytecode).
 
 ## Deploy the Contract
 

@@ -1124,12 +1124,12 @@
       }
     ],
     "stats": {
-      "chars": 11924,
-      "words": 1585,
+      "chars": 11893,
+      "words": 1580,
       "headings": 14,
-      "estimated_token_count_total": 2724
+      "estimated_token_count_total": 2714
     },
-    "hash": "sha256:93d123cbaaccc2515b4a70be8e1327b4f75b1051d16c5e3daf5a2035af7b7ca3",
+    "hash": "sha256:91ac8b9f927485eaa7b147110a7f5057eea982f9ea9783fe039aae613b05b404",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -1357,58 +1357,6 @@
       "estimated_token_count_total": 1631
     },
     "hash": "sha256:6297bb5e0809fdd0585d6170054599f7ab4a3ce7c687ad03ae43092057c493b7",
-    "token_estimator": "heuristic-v1"
-  },
-  {
-    "id": "parachains-customize-runtime-pallet-development-add-pallet-to-runtime",
-    "title": "Add Pallets to the Runtime",
-    "slug": "parachains-customize-runtime-pallet-development-add-pallet-to-runtime",
-    "categories": [
-      "Basics",
-      "Parachains"
-    ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/parachains-customize-runtime-pallet-development-add-pallet-to-runtime.md",
-    "html_url": "https://docs.polkadot.com/parachains/customize-runtime/pallet-development/add-pallet-to-runtime/",
-    "preview": "In previous tutorials, you learned how to [create a custom pallet](/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/){target=\\_blank} and [test it](/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-unit-testing/){target=\\_blank}. The next step is to include this pallet in your runtime, integrating it into the core logic of your blockchain.",
-    "outline": [
-      {
-        "depth": 2,
-        "title": "Introduction",
-        "anchor": "introduction"
-      },
-      {
-        "depth": 2,
-        "title": "Add the Pallets as Dependencies",
-        "anchor": "add-the-pallets-as-dependencies"
-      },
-      {
-        "depth": 3,
-        "title": "Update the Runtime Configuration",
-        "anchor": "update-the-runtime-configuration"
-      },
-      {
-        "depth": 2,
-        "title": "Recompile the Runtime",
-        "anchor": "recompile-the-runtime"
-      },
-      {
-        "depth": 2,
-        "title": "Run Your Chain Locally",
-        "anchor": "run-your-chain-locally"
-      },
-      {
-        "depth": 2,
-        "title": "Where to Go Next",
-        "anchor": "where-to-go-next"
-      }
-    ],
-    "stats": {
-      "chars": 13091,
-      "words": 1522,
-      "headings": 6,
-      "estimated_token_count_total": 3091
-    },
-    "hash": "sha256:87add0ae178e4970601a27efccadb58eff1375d19819201034ba2829914f1cd5",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -1763,7 +1711,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/parachains-customize-runtime-pallet-development-pallet-testing.md",
     "html_url": "https://docs.polkadot.com/parachains/customize-runtime/pallet-development/pallet-testing/",
-    "preview": "Unit testing in the Polkadot SDK helps ensure that the functions provided by a pallet behave as expected. It also confirms that data and events associated with a pallet are processed correctly during interactions. The Polkadot SDK offers a set of APIs to create a test environment to simulate runtime and mock transaction execution for extrinsics and queries.",
+    "preview": "Unit testing in the Polkadot SDK helps ensure that the functions provided by a pallet behave as expected. It also confirms that data and events associated with a pallet are processed correctly during interactions. With your mock runtime in place from the [previous guide](/parachains/customize-runtime/pallet-development/mock-runtime/), you can now write comprehensive tests that verify your pallet's behavior in isolation.",
     "outline": [
       {
         "depth": 2,
@@ -1772,28 +1720,98 @@
       },
       {
         "depth": 2,
-        "title": "Writing Unit Tests",
-        "anchor": "writing-unit-tests"
+        "title": "Prerequisites",
+        "anchor": "prerequisites"
+      },
+      {
+        "depth": 2,
+        "title": "Understanding FRAME Testing Tools",
+        "anchor": "understanding-frame-testing-tools"
       },
       {
         "depth": 3,
-        "title": "Test Initialization",
-        "anchor": "test-initialization"
+        "title": "Assertion Macros",
+        "anchor": "assertion-macros"
       },
       {
         "depth": 3,
-        "title": "Function Call Testing",
-        "anchor": "function-call-testing"
+        "title": "System Pallet Test Helpers",
+        "anchor": "system-pallet-test-helpers"
       },
       {
         "depth": 3,
-        "title": "Storage Testing",
-        "anchor": "storage-testing"
+        "title": "Origin Types",
+        "anchor": "origin-types"
+      },
+      {
+        "depth": 2,
+        "title": "Create the Tests Module",
+        "anchor": "create-the-tests-module"
+      },
+      {
+        "depth": 2,
+        "title": "Set Up the Test Module",
+        "anchor": "set-up-the-test-module"
+      },
+      {
+        "depth": 2,
+        "title": "Write Your First Test",
+        "anchor": "write-your-first-test"
       },
       {
         "depth": 3,
-        "title": "Event Testing",
-        "anchor": "event-testing"
+        "title": "Test Basic Increment",
+        "anchor": "test-basic-increment"
+      },
+      {
+        "depth": 2,
+        "title": "Test Error Conditions",
+        "anchor": "test-error-conditions"
+      },
+      {
+        "depth": 3,
+        "title": "Test Overflow Protection",
+        "anchor": "test-overflow-protection"
+      },
+      {
+        "depth": 3,
+        "title": "Test Underflow Protection",
+        "anchor": "test-underflow-protection"
+      },
+      {
+        "depth": 2,
+        "title": "Test Access Control",
+        "anchor": "test-access-control"
+      },
+      {
+        "depth": 3,
+        "title": "Test Root-Only Access",
+        "anchor": "test-root-only-access"
+      },
+      {
+        "depth": 2,
+        "title": "Test Event Emission",
+        "anchor": "test-event-emission"
+      },
+      {
+        "depth": 3,
+        "title": "Test Event Data",
+        "anchor": "test-event-data"
+      },
+      {
+        "depth": 2,
+        "title": "Test Genesis Configuration",
+        "anchor": "test-genesis-configuration"
+      },
+      {
+        "depth": 3,
+        "title": "Test Genesis Setup",
+        "anchor": "test-genesis-setup"
+      },
+      {
+        "depth": 2,
+        "title": "Run All Tests",
+        "anchor": "run-all-tests"
       },
       {
         "depth": 2,
@@ -1936,12 +1954,12 @@
       }
     ],
     "stats": {
-      "chars": 7941,
-      "words": 631,
+      "chars": 7764,
+      "words": 607,
       "headings": 9,
-      "estimated_token_count_total": 2292
+      "estimated_token_count_total": 2251
     },
-    "hash": "sha256:759ed27cf3d473445e33141089b652082c42a2c59eb822d6b506146fd9555e13",
+    "hash": "sha256:4464114886271689453fe20b026a6d95f5add6a2c5aa53bcf9c22b08415e68dc",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -3902,43 +3920,145 @@
     "token_estimator": "heuristic-v1"
   },
   {
-    "id": "smart-contracts-dev-environments-hardhat-troubleshooting",
-    "title": "smart-contracts-dev-environments-hardhat-troubleshooting",
-    "slug": "smart-contracts-dev-environments-hardhat-troubleshooting",
+    "id": "smart-contracts-dev-environments-hardhat-troubleshooting-faq",
+    "title": "Troubleshooting Hardhat",
+    "slug": "smart-contracts-dev-environments-hardhat-troubleshooting-faq",
     "categories": [
-      "Uncategorized"
+      "Smart Contracts",
+      "Tooling"
     ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-hardhat-troubleshooting.md",
-    "html_url": "https://docs.polkadot.com/smart-contracts/dev-environments/hardhat/troubleshooting/",
-    "preview": "TODO",
-    "outline": [],
-    "stats": {
-      "chars": 5,
-      "words": 1,
-      "headings": 0,
-      "estimated_token_count_total": 0
-    },
-    "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
-    "token_estimator": "heuristic-v1"
-  },
-  {
-    "id": "smart-contracts-dev-environments-hardhat-verify-a-contract",
-    "title": "smart-contracts-dev-environments-hardhat-verify-a-contract",
-    "slug": "smart-contracts-dev-environments-hardhat-verify-a-contract",
-    "categories": [
-      "Uncategorized"
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-hardhat-troubleshooting-faq.md",
+    "html_url": "https://docs.polkadot.com/smart-contracts/dev-environments/hardhat/troubleshooting-faq/",
+    "preview": "This guide provides solutions to common issues you may encounter when using Hardhat with Polkadot Hub. If you're experiencing problems with installation, compilation, deployment, testing, or contract interaction, you'll likely find the solution here.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Hardhat fails to install or run with version-related errors",
+        "anchor": "hardhat-fails-to-install-or-run-with-version-related-errors"
+      },
+      {
+        "depth": 2,
+        "title": "Installation of Hardhat or its dependencies via npm fails",
+        "anchor": "installation-of-hardhat-or-its-dependencies-via-npm-fails"
+      },
+      {
+        "depth": 2,
+        "title": "Hardhat Toolbox fails to install or causes conflicts",
+        "anchor": "hardhat-toolbox-fails-to-install-or-causes-conflicts"
+      },
+      {
+        "depth": 2,
+        "title": "Your contract fails to compile or shows errors in the terminal",
+        "anchor": "your-contract-fails-to-compile-or-shows-errors-in-the-terminal"
+      },
+      {
+        "depth": 2,
+        "title": "The artifacts folder is empty or missing expected files",
+        "anchor": "the-artifacts-folder-is-empty-or-missing-expected-files"
+      },
+      {
+        "depth": 2,
+        "title": "Errors related to Solidity compiler version or features",
+        "anchor": "errors-related-to-solidity-compiler-version-or-features"
+      },
+      {
+        "depth": 2,
+        "title": "Tests don't execute or Hardhat throws errors when running tests",
+        "anchor": "tests-dont-execute-or-hardhat-throws-errors-when-running-tests"
+      },
+      {
+        "depth": 2,
+        "title": "The Hardhat node fails to start or becomes unresponsive",
+        "anchor": "the-hardhat-node-fails-to-start-or-becomes-unresponsive"
+      },
+      {
+        "depth": 2,
+        "title": "Tests run but fail with assertion errors",
+        "anchor": "tests-run-but-fail-with-assertion-errors"
+      },
+      {
+        "depth": 2,
+        "title": "Hardhat cannot connect to the local development node",
+        "anchor": "hardhat-cannot-connect-to-the-local-development-node"
+      },
+      {
+        "depth": 2,
+        "title": "Hardhat cannot access or use the configured private key",
+        "anchor": "hardhat-cannot-access-or-use-the-configured-private-key"
+      },
+      {
+        "depth": 2,
+        "title": "Deployment or transactions go to the wrong network",
+        "anchor": "deployment-or-transactions-go-to-the-wrong-network"
+      },
+      {
+        "depth": 2,
+        "title": "Deployment fails with \"insufficient funds\" error",
+        "anchor": "deployment-fails-with-insufficient-funds-error"
+      },
+      {
+        "depth": 2,
+        "title": "Deployment using Hardhat Ignition fails or throws errors",
+        "anchor": "deployment-using-hardhat-ignition-fails-or-throws-errors"
+      },
+      {
+        "depth": 2,
+        "title": "Custom deployment scripts fail to execute",
+        "anchor": "custom-deployment-scripts-fail-to-execute"
+      },
+      {
+        "depth": 2,
+        "title": "Contract deployment hangs or times out",
+        "anchor": "contract-deployment-hangs-or-times-out"
+      },
+      {
+        "depth": 2,
+        "title": "Scripts fail to interact with a deployed contract",
+        "anchor": "scripts-fail-to-interact-with-a-deployed-contract"
+      },
+      {
+        "depth": 2,
+        "title": "Transactions revert when calling contract functions",
+        "anchor": "transactions-revert-when-calling-contract-functions"
+      },
+      {
+        "depth": 2,
+        "title": "View or pure functions don't return expected values",
+        "anchor": "view-or-pure-functions-dont-return-expected-values"
+      },
+      {
+        "depth": 2,
+        "title": "State-changing functions execute but don't update state",
+        "anchor": "state-changing-functions-execute-but-dont-update-state"
+      },
+      {
+        "depth": 2,
+        "title": "Contract compilation takes a long time",
+        "anchor": "contract-compilation-takes-a-long-time"
+      },
+      {
+        "depth": 2,
+        "title": "Can't start Hardhat console or console commands fail",
+        "anchor": "cant-start-hardhat-console-or-console-commands-fail"
+      },
+      {
+        "depth": 2,
+        "title": "Hardhat plugins not working correctly",
+        "anchor": "hardhat-plugins-not-working-correctly"
+      },
+      {
+        "depth": 2,
+        "title": "Scripts cannot read environment variables",
+        "anchor": "scripts-cannot-read-environment-variables"
+      }
     ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-hardhat-verify-a-contract.md",
-    "html_url": "https://docs.polkadot.com/smart-contracts/dev-environments/hardhat/verify-a-contract/",
-    "preview": "TODO",
-    "outline": [],
     "stats": {
-      "chars": 5,
-      "words": 1,
-      "headings": 0,
-      "estimated_token_count_total": 0
+      "chars": 14684,
+      "words": 1668,
+      "headings": 24,
+      "estimated_token_count_total": 3320
     },
-    "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
+    "hash": "sha256:f9ab9d7d25947a3bb4059d812eac8b1eb77e2271cac8e7828936f8ffa115eb0b",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5249,7 +5369,7 @@
   },
   {
     "id": "smart-contracts-libraries-web3-js",
-    "title": "Web3.js",
+    "title": "Deploy Contracts to Polkadot Hub with Web3.js",
     "slug": "smart-contracts-libraries-web3-js",
     "categories": [
       "Smart Contracts",
@@ -5257,7 +5377,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-libraries-web3-js.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/libraries/web3-js/",
-    "preview": "!!! smartcontract \"PolkaVM Preview Release\" PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**. !!! warning Web3.js has been [sunset](https://blog.chainsafe.io/web3-js-sunset/){target=\\_blank}. You can find guides on using [Ethers.js](/smart-contracts/libraries/ethers-js/){target=\\_blank} and [viem](/smart-contracts/libraries/viem/){target=\\_blank} in the Libraries section.",
+    "preview": "!!! warning Web3.js has been [sunset](https://blog.chainsafe.io/web3-js-sunset/){target=\\_blank}. You can find guides on using [Ethers.js](/smart-contracts/libraries/ethers-js/){target=\\_blank} and [viem](/smart-contracts/libraries/viem/){target=\\_blank} in the Libraries section.",
     "outline": [
       {
         "depth": 2,
@@ -5295,9 +5415,19 @@
         "anchor": "compile-contracts"
       },
       {
+        "depth": 3,
+        "title": "Sample Storage Smart Contract",
+        "anchor": "sample-storage-smart-contract"
+      },
+      {
+        "depth": 3,
+        "title": "Compile the Smart Contract",
+        "anchor": "compile-the-smart-contract"
+      },
+      {
         "depth": 2,
-        "title": "Contract Deployment",
-        "anchor": "contract-deployment"
+        "title": "Deploy the Compiled Contract",
+        "anchor": "deploy-the-compiled-contract"
       },
       {
         "depth": 2,
@@ -5311,12 +5441,12 @@
       }
     ],
     "stats": {
-      "chars": 13266,
-      "words": 1579,
-      "headings": 10,
-      "estimated_token_count_total": 3035
+      "chars": 20325,
+      "words": 2290,
+      "headings": 12,
+      "estimated_token_count_total": 4600
     },
-    "hash": "sha256:f0d36333d0d3afff7f6374a61d0f6d1fb878c9ef4c4e4c24447745661dbe59d0",
+    "hash": "sha256:7cf1e07d1b8ef4e7b893398976907159a932f23f708d4e1d7ac1d09b80881787",
     "token_estimator": "heuristic-v1"
   },
   {

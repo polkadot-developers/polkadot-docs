@@ -120,362 +120,6 @@ All source code references are from the [`address.rs`](https://github.com/parity
 
 ---
 
-Page Title: Add Pallets to the Runtime
-
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/parachains-customize-runtime-pallet-development-add-pallet-to-runtime.md
-- Canonical (HTML): https://docs.polkadot.com/parachains/customize-runtime/pallet-development/add-pallet-to-runtime/
-- Summary: Add pallets to your runtime for custom functionality. Learn to configure and integrate pallets in Polkadot SDK-based blockchains.
-
-# Add Pallets to the Runtime
-
-## Introduction
-
-In previous tutorials, you learned how to [create a custom pallet](/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/){target=\_blank} and [test it](/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-unit-testing/){target=\_blank}. The next step is to include this pallet in your runtime, integrating it into the core logic of your blockchain.
-
-This tutorial will guide you through adding two pallets to your runtime: the custom pallet you previously developed and the [utility pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_utility/index.html){target=\_blank}. This standard Polkadot SDK pallet provides powerful dispatch functionality. The utility pallet offers, for example, batch dispatch, a stateless operation that enables executing multiple calls in a single transaction.
-
-## Add the Pallets as Dependencies
-
-First, you'll update the runtime's `Cargo.toml` file to include the Utility pallet and your custom pallets as dependencies for the runtime. Follow these steps:
-
-1. Open the `runtime/Cargo.toml` file and locate the `[dependencies]` section. Add pallet-utility as one of the features for the `polkadot-sdk` dependency with the following line:
-
-    ```toml hl_lines="4" title="runtime/Cargo.toml"
-    [dependencies]
-    ...
-    polkadot-sdk = { workspace = true, features = [
-      "pallet-utility",
-        ...
-    ], default-features = false }
-    ```
-
-2. In the same `[dependencies]` section, add the custom pallet that you built from scratch with the following line:
-
-    ```toml hl_lines="3" title="Cargo.toml"
-    [dependencies]
-    ...
-    custom-pallet = { path = "../pallets/custom-pallet", default-features = false }
-    ```
-
-3. In the `[features]` section, add the custom pallet to the `std` feature list:
-
-    ```toml hl_lines="5" title="Cargo.toml"
-    [features]
-    default = ["std"]
-    std = [
-      ...
-      "custom-pallet/std",
-      ...
-    ]
-    ```
-
-3. Save the changes and close the `Cargo.toml` file.
-
-    Once you have saved your file, it should look like the following:
-
-    ???- code "runtime/Cargo.toml"
-        
-        ```rust title="runtime/Cargo.toml"
-        [package]
-        name = "parachain-template-runtime"
-        description = "A parachain runtime template built with Substrate and Cumulus, part of Polkadot Sdk."
-        version = "0.1.0"
-        license = "Unlicense"
-        authors.workspace = true
-        homepage.workspace = true
-        repository.workspace = true
-        edition.workspace = true
-        publish = false
-
-        [package.metadata.docs.rs]
-        targets = ["x86_64-unknown-linux-gnu"]
-
-        [build-dependencies]
-        docify = { workspace = true }
-        substrate-wasm-builder = { optional = true, workspace = true, default-features = true }
-
-        [dependencies]
-        codec = { features = ["derive"], workspace = true }
-        cumulus-pallet-parachain-system.workspace = true
-        docify = { workspace = true }
-        hex-literal = { optional = true, workspace = true, default-features = true }
-        log = { workspace = true }
-        pallet-parachain-template = { path = "../pallets/template", default-features = false }
-        polkadot-sdk = { workspace = true, features = [
-          "pallet-utility",
-          "cumulus-pallet-aura-ext",
-          "cumulus-pallet-session-benchmarking",
-          "cumulus-pallet-weight-reclaim",
-          "cumulus-pallet-xcm",
-          "cumulus-pallet-xcmp-queue",
-          "cumulus-primitives-aura",
-          "cumulus-primitives-core",
-          "cumulus-primitives-utility",
-          "pallet-aura",
-          "pallet-authorship",
-          "pallet-balances",
-          "pallet-collator-selection",
-          "pallet-message-queue",
-          "pallet-session",
-          "pallet-sudo",
-          "pallet-timestamp",
-          "pallet-transaction-payment",
-          "pallet-transaction-payment-rpc-runtime-api",
-          "pallet-xcm",
-          "parachains-common",
-          "polkadot-parachain-primitives",
-          "polkadot-runtime-common",
-          "runtime",
-          "staging-parachain-info",
-          "staging-xcm",
-          "staging-xcm-builder",
-          "staging-xcm-executor",
-        ], default-features = false }
-        scale-info = { features = ["derive"], workspace = true }
-        serde_json = { workspace = true, default-features = false, features = [
-          "alloc",
-        ] }
-        smallvec = { workspace = true, default-features = true }
-
-        custom-pallet = { path = "../pallets/custom-pallet", default-features = false }
-
-        [features]
-        default = ["std"]
-        std = [
-          "codec/std",
-          "cumulus-pallet-parachain-system/std",
-          "log/std",
-          "pallet-parachain-template/std",
-          "polkadot-sdk/std",
-          "scale-info/std",
-          "serde_json/std",
-          "substrate-wasm-builder",
-          "custom-pallet/std",
-        ]
-
-        runtime-benchmarks = [
-          "cumulus-pallet-parachain-system/runtime-benchmarks",
-          "hex-literal",
-          "pallet-parachain-template/runtime-benchmarks",
-          "polkadot-sdk/runtime-benchmarks",
-        ]
-
-        try-runtime = [
-          "cumulus-pallet-parachain-system/try-runtime",
-          "pallet-parachain-template/try-runtime",
-          "polkadot-sdk/try-runtime",
-        ]
-
-        # Enable the metadata hash generation.
-        #
-        # This is hidden behind a feature because it increases the compile time.
-        # The wasm binary needs to be compiled twice, once to fetch the metadata,
-        # generate the metadata hash and then a second time with the
-        # `RUNTIME_METADATA_HASH` environment variable set for the `CheckMetadataHash`
-        # extension.
-        metadata-hash = ["substrate-wasm-builder/metadata-hash"]
-
-        # A convenience feature for enabling things when doing a build
-        # for an on-chain release.
-        on-chain-release-build = ["metadata-hash"]
-
-        ```
-
-Update your root parachain template's `Cargo.toml` file to include your custom pallet as a dependency. Follow these steps:
-
-1. Open the `./Cargo.toml` file and locate the `[workspace]` section. 
-    
-    Make sure the `custom-pallet` is a member of the workspace:
-
-    ```toml hl_lines="4" title="Cargo.toml"
-     [workspace]
-     default-members = ["pallets/template", "runtime"]
-     members = [
-         "node", "pallets/custom-pallet",
-         "pallets/template",
-         "runtime",
-     ]
-    ```
-
-???- code "./Cargo.toml"
-
-    ```rust title="./Cargo.toml"
-    [workspace.package]
-    license = "MIT-0"
-    authors = ["Parity Technologies <admin@parity.io>"]
-    homepage = "https://paritytech.github.io/polkadot-sdk/"
-    repository = "https://github.com/paritytech/polkadot-sdk-parachain-template.git"
-    edition = "2021"
-
-    [workspace]
-    default-members = ["pallets/template", "runtime"]
-    members = [
-        "node", "pallets/custom-pallet",
-        "pallets/template",
-        "runtime",
-    ]
-    resolver = "2"
-
-    [workspace.dependencies]
-    parachain-template-runtime = { path = "./runtime", default-features = false }
-    pallet-parachain-template = { path = "./pallets/template", default-features = false }
-    clap = { version = "4.5.13" }
-    color-print = { version = "0.3.4" }
-    docify = { version = "0.2.9" }
-    futures = { version = "0.3.31" }
-    jsonrpsee = { version = "0.24.3" }
-    log = { version = "0.4.22", default-features = false }
-    polkadot-sdk = { version = "2503.0.1", default-features = false }
-    prometheus-endpoint = { version = "0.17.2", default-features = false, package = "substrate-prometheus-endpoint" }
-    serde = { version = "1.0.214", default-features = false }
-    codec = { version = "3.7.4", default-features = false, package = "parity-scale-codec" }
-    cumulus-pallet-parachain-system = { version = "0.20.0", default-features = false }
-    hex-literal = { version = "0.4.1", default-features = false }
-    scale-info = { version = "2.11.6", default-features = false }
-    serde_json = { version = "1.0.132", default-features = false }
-    smallvec = { version = "1.11.0", default-features = false }
-    substrate-wasm-builder = { version = "26.0.1", default-features = false }
-    frame = { version = "0.9.1", default-features = false, package = "polkadot-sdk-frame" }
-
-    [profile.release]
-    opt-level = 3
-    panic = "unwind"
-
-    [profile.production]
-    codegen-units = 1
-    inherits = "release"
-    lto = true
-    ```
-
-
-### Update the Runtime Configuration
-
-Configure the pallets by implementing their `Config` trait and update the runtime macro to include the new pallets:
-
-1. Add the `OriginCaller` import:
-
-    ```rust title="mod.rs" hl_lines="8"
-    // Local module imports
-    use super::OriginCaller;
-    ...
-    ```
-
-2. Implement the [`Config`](https://paritytech.github.io/polkadot-sdk/master/pallet_utility/pallet/trait.Config.html){target=\_blank} trait for both pallets at the end of the `runtime/src/config/mod.rs` file:
-
-    ```rust title="mod.rs" hl_lines="8-25"
-    ...
-    /// Configure the pallet template in pallets/template.
-    impl pallet_parachain_template::Config for Runtime {
-        type RuntimeEvent = RuntimeEvent;
-        type WeightInfo = pallet_parachain_template::weights::SubstrateWeight<Runtime>;
-    }
-
-    // Configure utility pallet.
-    impl pallet_utility::Config for Runtime {
-        type RuntimeEvent = RuntimeEvent;
-        type RuntimeCall = RuntimeCall;
-        type PalletsOrigin = OriginCaller;
-        type WeightInfo = pallet_utility::weights::SubstrateWeight<Runtime>;
-    }
-    // Define counter max value runtime constant.
-    parameter_types! {
-        pub const CounterMaxValue: u32 = 500;
-    }
-
-    // Configure custom pallet.
-    impl custom_pallet::Config for Runtime {
-        type RuntimeEvent = RuntimeEvent;
-        type CounterMaxValue = CounterMaxValue;
-    }
-    ```
-
-3. Locate the `#[frame_support::runtime]` macro in the `runtime/src/lib.rs` file and add the pallets:
-
-    ```rust hl_lines="9-14" title="lib.rs"
-    #[frame_support::runtime]
-    mod runtime {
-        #[runtime::runtime]
-        #[runtime::derive(
-            ...
-            )]
-            pub struct Runtime;
-        #[runtime::pallet_index(51)]
-        pub type Utility = pallet_utility;
-
-        #[runtime::pallet_index(52)]
-        pub type CustomPallet = custom_pallet;
-    }
-    ```
-
-## Recompile the Runtime
-
-After adding and configuring your pallets in the runtime, the next step is to ensure everything is set up correctly. To do this, recompile the runtime with the following command (make sure you're in the project's root directory):
-
-```bash
-cargo build --release
-```
-
-This command ensures the runtime compiles without errors, validates the pallet configurations, and prepares the build for subsequent testing or deployment.
-
-## Run Your Chain Locally
-
-Launch your parachain locally and start producing blocks:
-
-!!!tip
-    Generated chain TestNet specifications include development accounts "Alice" and "Bob." These accounts are pre-funded with native parachain currency, allowing you to sign and send TestNet transactions. Take a look at the [Polkadot.js Accounts section](https://polkadot.js.org/apps/#/accounts){target=\_blank} to view the development accounts for your chain.
-
-1. Create a new chain specification file with the updated runtime:
-
-    ```bash
-    chain-spec-builder create -t development \
-    --relay-chain paseo \
-    --para-id 1000 \
-    --runtime ./target/release/wbuild/parachain-template-runtime/parachain_template_runtime.compact.compressed.wasm \
-    named-preset development
-    ```
-
-2. Start the omni node with the generated chain specification:
-
-    ```bash
-    polkadot-omni-node --chain ./chain_spec.json --dev
-    ```
-
-3. Verify you can interact with the new pallets using the [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9944#/extrinsics){target=\_blank} interface. Navigate to the **Extrinsics** tab and check that you can see both pallets:
-
-    - Utility pallet
-
-        ![](/images/parachains/customize-runtime/pallet-development/add-pallet-to-runtime/add-pallets-to-runtime-01.webp)
-    
-
-    - Custom pallet
-
-        ![](/images/parachains/customize-runtime/pallet-development/add-pallet-to-runtime/add-pallets-to-runtime-02.webp)
-
-## Where to Go Next
-
-<div class="grid cards" markdown>
-
--   <span class="badge tutorial">Tutorial</span> __Deploy on Paseo TestNet__
-
-    ---
-
-    Deploy your Polkadot SDK blockchain on Paseo! Follow this step-by-step guide for a seamless journey to a successful TestNet deployment.
-
-    [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/)
-
--   <span class="badge tutorial">Tutorial</span> __Pallet Benchmarking (Optional)__
-
-    ---
-
-    Discover how to measure extrinsic costs and assign precise weights to optimize your pallet for accurate fees and runtime performance.
-
-    [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/)
-
-</div>
-
-
----
-
 Page Title: Block Explorers
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-explorers.md
@@ -2018,6 +1662,625 @@ Now that you have the foundational knowledge to use Ethers.js with Polkadot Hub,
 
 ---
 
+Page Title: Deploy Contracts to Polkadot Hub with Web3.js
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-libraries-web3-js.md
+- Canonical (HTML): https://docs.polkadot.com/smart-contracts/libraries/web3-js/
+- Summary: Learn how to interact with Polkadot Hub using Web3.js, from compiling and deploying Solidity contracts to interacting with deployed smart contracts.
+
+# Web3.js
+
+!!! warning
+    Web3.js has been [sunset](https://blog.chainsafe.io/web3-js-sunset/){target=\_blank}. You can find guides on using [Ethers.js](/smart-contracts/libraries/ethers-js/){target=\_blank} and [viem](/smart-contracts/libraries/viem/){target=\_blank} in the Libraries section. 
+
+## Introduction
+
+Interacting with blockchains typically requires an interface between your application and the network. [Web3.js](https://web3js.readthedocs.io/){target=\_blank} offers this interface through a comprehensive collection of libraries, facilitating seamless interaction with the nodes using HTTP or WebSocket protocols. This guide illustrates how to utilize Web3.js specifically for interactions with Polkadot Hub.
+
+This guide is intended for developers who are familiar with JavaScript and want to interact with the Polkadot Hub using Web3.js.
+
+## Prerequisites
+
+Before getting started, ensure you have the following installed:
+
+- **Node.js**: v22.13.1 or later, check the [Node.js installation guide](https://nodejs.org/en/download/current/){target=\_blank}.
+- **npm**: v6.13.4 or later (comes bundled with Node.js).
+- **Solidity**: This guide uses Solidity `^0.8.9` for smart contract development.
+
+## Project Structure
+
+This project organizes contracts, scripts, and compiled artifacts for easy development and deployment.
+
+```text
+web3js-project
+├── contracts
+│   ├── Storage.sol
+├── scripts
+│   ├── connectToProvider.js
+│   ├── fetchLastBlock.js
+│   ├── compile.js
+│   ├── deploy.js
+│   ├── updateStorage.js
+├── abis
+│   ├── Storage.json
+├── artifacts
+│   ├── Storage.bin
+├── contract-address.json
+├── node_modules/
+├── package.json
+├── package-lock.json
+└── README.md
+```
+
+## Set Up the Project
+
+To start working with Web3.js, create a new folder and initialize your project by running the following commands in your terminal:
+
+```bash
+mkdir web3js-project
+cd web3js-project
+npm init -y
+```
+
+## Install Dependencies
+
+Next, run the following command to install the Web3.js library:
+
+```bash
+npm install web3
+```
+
+Add the Solidity compiler so you can generate standard EVM bytecode:
+
+```bash
+npm install --save-dev solc
+```
+
+!!! tip
+    The sample scripts use ECMAScript modules. Add `"type": "module"` to your `package.json` (or rename the files to `.mjs`) so that `node` can run the `import` statements.
+
+## Set Up the Web3 Provider
+
+The provider configuration is the foundation of any Web3.js application. It serves as a bridge between your application and the blockchain, allowing you to query blockchain data and interact with smart contracts.
+
+To interact with Polkadot Hub, you must set up a Web3.js provider. This provider connects to a blockchain node, allowing you to query blockchain data and interact with smart contracts. In the `scripts` directory of your project, create a file named `connectToProvider.js` and add the following code:
+
+```js title="scripts/connectToProvider.js"
+const { Web3 } = require('web3');
+
+const createProvider = (rpcUrl) => {
+  const web3 = new Web3(rpcUrl);
+  return web3;
+};
+
+const PROVIDER_RPC = {
+  rpc: 'INSERT_RPC_URL',
+  chainId: 'INSERT_CHAIN_ID',
+  name: 'INSERT_CHAIN_NAME',
+};
+
+createProvider(PROVIDER_RPC.rpc);
+
+```
+
+!!! note
+    Replace `INSERT_RPC_URL`, `INSERT_CHAIN_ID`, and `INSERT_CHAIN_NAME` with the appropriate values. For example, to connect to Polkadot Hub TestNet's Ethereum RPC instance, you can use the following parameters:
+
+    ```js
+    const PROVIDER_RPC = {
+      rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
+      chainId: 420420422,
+      name: 'polkadot-hub-testnet'
+    };
+    ```
+
+To connect to the provider, execute:
+
+```bash
+node scripts/connectToProvider.js
+```
+
+With the provider set up, you can start querying the blockchain. For instance, to fetch the latest block number.
+
+??? code "Fetch last block example"
+
+    ```js title="scripts/fetchLastBlock.js"
+    const { Web3 } = require('web3');
+
+    const createProvider = (rpcUrl) => {
+      const web3 = new Web3(rpcUrl);
+      return web3;
+    };
+
+    const PROVIDER_RPC = {
+      rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
+      chainId: 420420422,
+      name: 'polkadot-hub-testnet',
+    };
+
+    const main = async () => {
+      try {
+        const web3 = createProvider(PROVIDER_RPC.rpc);
+        const latestBlock = await web3.eth.getBlockNumber();
+        console.log('Last block: ' + latestBlock);
+      } catch (error) {
+        console.error('Error connecting to Polkadot Hub TestNet: ' + error.message);
+      }
+    };
+
+    main();
+
+    ```
+
+## Compile Contracts
+
+Polkadot Hub exposes an Ethereum JSON-RPC endpoint, so you can compile Solidity contracts to familiar EVM bytecode with the upstream [`solc`](https://www.npmjs.com/package/solc){target=\_blank} compiler. The resulting artifacts work with any EVM-compatible toolchain and can be deployed through Web3.js.
+
+### Sample Storage Smart Contract
+
+This example demonstrates compiling a `Storage.sol` Solidity contract for deployment to Polkadot Hub. The contract's functionality stores a number and permits users to update it with a new value.
+
+```solidity title="contracts/Storage.sol"
+//SPDX-License-Identifier: MIT
+pragma solidity ^0.8.9;
+
+contract Storage {
+    // Public state variable to store a number
+    uint256 public storedNumber;
+
+    /**
+    * Updates the stored number.
+    *
+    * The `public` modifier allows anyone to call this function.
+    *
+    * @param _newNumber - The new value to store.
+    */
+    function setNumber(uint256 _newNumber) public {
+        storedNumber = _newNumber;
+    }
+}
+```
+
+### Compile the Smart Contract
+
+To compile this contract, use the following script:
+
+```js title="scripts/compile.js"
+const solc = require('solc');
+const { readFileSync, writeFileSync, mkdirSync, existsSync } = require('fs');
+const { basename, join } = require('path');
+
+const ensureDir = (dirPath) => {
+  if (!existsSync(dirPath)) {
+    mkdirSync(dirPath, { recursive: true });
+  }
+};
+
+const compileContract = (solidityFilePath, abiDir, artifactsDir) => {
+  try {
+    // Read the Solidity file
+    const source = readFileSync(solidityFilePath, 'utf8');
+    const fileName = basename(solidityFilePath);
+    
+    // Construct the input object for the Solidity compiler
+    const input = {
+      language: 'Solidity',
+      sources: {
+        [fileName]: {
+          content: source,
+        },
+      },
+      settings: {
+        outputSelection: {
+          '*': {
+            '*': ['abi', 'evm.bytecode'],
+          },
+        },
+      },
+    };
+    
+    console.log(`Compiling contract: ${fileName}...`);
+    
+    // Compile the contract
+    const output = JSON.parse(solc.compile(JSON.stringify(input)));
+    
+    // Check for errors
+    if (output.errors) {
+      const errors = output.errors.filter(error => error.severity === 'error');
+      if (errors.length > 0) {
+        console.error('Compilation errors:');
+        errors.forEach(err => console.error(err.formattedMessage));
+        return;
+      }
+      // Show warnings
+      const warnings = output.errors.filter(error => error.severity === 'warning');
+      warnings.forEach(warn => console.warn(warn.formattedMessage));
+    }
+    
+    // Ensure output directories exist
+    ensureDir(abiDir);
+    ensureDir(artifactsDir);
+
+    // Process compiled contracts
+    for (const [sourceFile, contracts] of Object.entries(output.contracts)) {
+      for (const [contractName, contract] of Object.entries(contracts)) {
+        console.log(`Compiled contract: ${contractName}`);
+        
+        // Write the ABI
+        const abiPath = join(abiDir, `${contractName}.json`);
+        writeFileSync(abiPath, JSON.stringify(contract.abi, null, 2));
+        console.log(`ABI saved to ${abiPath}`);
+        
+        // Write the bytecode
+        const bytecodePath = join(artifactsDir, `${contractName}.bin`);
+        writeFileSync(bytecodePath, contract.evm.bytecode.object);
+        console.log(`Bytecode saved to ${bytecodePath}`);
+      }
+    }
+  } catch (error) {
+    console.error('Error compiling contracts:', error);
+  }
+};
+
+const solidityFilePath = join(__dirname, '../contracts/Storage.sol');
+const abiDir = join(__dirname, '../abis');
+const artifactsDir = join(__dirname, '../artifacts');
+
+compileContract(solidityFilePath, abiDir, artifactsDir);
+```
+
+!!! note 
+     The script above is tailored to the `Storage.sol` contract. It can be adjusted for other contracts by changing the file name or modifying the ABI and bytecode paths.
+
+The ABI (Application Binary Interface) is a JSON representation of your contract's functions, events, and their parameters. It serves as the interface between your JavaScript code and the deployed smart contract, allowing your application to know how to format function calls and interpret returned data.
+
+Execute the script above by running:
+
+```bash
+node scripts/compile.js
+```
+
+After executing the script, the Solidity contract is compiled into standard EVM bytecode. The ABI and bytecode are saved into files with `.json` and `.bin` extensions, respectively. You can now proceed with deploying the contract to Polkadot Hub, as outlined in the next section.
+
+## Deploy the Compiled Contract
+
+To deploy your compiled contract to Polkadot Hub, you'll need a wallet with a private key to sign the deployment transaction.
+
+You can create a `deploy.js` script in the `scripts` directory of your project to achieve this. The deployment script can be divided into key components:
+
+1. Set up the required imports and utilities:
+
+    ```js title="scripts/deploy.js"
+    const { writeFileSync, existsSync, readFileSync } = require('fs');
+    const { join } = require('path');
+    const { Web3 } = require('web3');
+
+    const scriptsDir = __dirname;
+    const abisDir = join(__dirname, '../abis');
+    const artifactsDir = join(__dirname, '../artifacts');
+    ```
+
+2. Create a provider to connect to Polkadot Hub:
+
+    ```js title="scripts/deploy.js"
+    const createProvider = (rpcUrl, chainId, chainName) => {
+      const web3 = new Web3(rpcUrl);
+      return web3;
+    };
+    ```
+
+3. Set up functions to read contract artifacts:
+
+    ```js title="scripts/deploy.js"
+    const getAbi = (contractName) => {
+      try {
+        const abiPath = join(abisDir, `${contractName}.json`);
+        return JSON.parse(readFileSync(abiPath, 'utf8'));
+      } catch (error) {
+        console.error(
+          `Could not find ABI for contract ${contractName}:`,
+          error.message,
+        );
+        throw error;
+      }
+    };
+
+    const getByteCode = (contractName) => {
+      try {
+        const bytecodePath = join(artifactsDir, `${contractName}.bin`);
+        const bytecode = readFileSync(bytecodePath, 'utf8').trim();
+        return bytecode.startsWith('0x') ? bytecode : `0x${bytecode}`;
+      } catch (error) {
+        console.error(
+          `Could not find bytecode for contract ${contractName}:`,
+          error.message,
+        );
+        throw error;
+      }
+    };
+    ```
+
+4. Create the main deployment function:
+
+    ```js title="scripts/deploy.js"
+    const deployContract = async (contractName, privateKey, providerConfig) => {
+      console.log(`Deploying ${contractName}...`);
+      try {
+        const web3 = createProvider(
+          providerConfig.rpc,
+          providerConfig.chainId,
+          providerConfig.name,
+        );
+
+        const formattedPrivateKey = privateKey.startsWith('0x') ? privateKey : `0x${privateKey}`;
+        const account = web3.eth.accounts.privateKeyToAccount(formattedPrivateKey);
+        web3.eth.accounts.wallet.add(account);
+        web3.eth.defaultAccount = account.address;
+
+        const abi = getAbi(contractName);
+        const bytecode = getByteCode(contractName);
+        const contract = new web3.eth.Contract(abi);
+        const deployTx = contract.deploy({
+          data: bytecode,
+        });
+
+        const gas = await deployTx.estimateGas();
+        const gasPrice = await web3.eth.getGasPrice();
+
+        console.log(`Estimated gas: ${gas}`);
+        console.log(`Gas price: ${web3.utils.fromWei(gasPrice, 'gwei')} gwei`);
+
+        const deployedContract = await deployTx.send({
+          from: account.address,
+          gas: gas,
+          gasPrice: gasPrice,
+        });
+
+        const address = deployedContract.options.address;
+        console.log(`Contract ${contractName} deployed at: ${address}`);
+
+        const addressesFile = join(scriptsDir, 'contract-address.json');
+        const addresses = existsSync(addressesFile)
+          ? JSON.parse(readFileSync(addressesFile, 'utf8'))
+          : {};
+
+        addresses[contractName] = address;
+        writeFileSync(addressesFile, JSON.stringify(addresses, null, 2), 'utf8');
+      } catch (error) {
+        console.error(`Failed to deploy contract ${contractName}:`, error);
+      }
+    };
+    ```
+
+5. Configure and execute the deployment:
+
+    ```js title="scripts/deploy.js"
+    const providerConfig = {
+      rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io', // TODO: replace to `https://services.polkadothub-rpc.com/testnet` when ready
+      chainId: 420420422,
+      name: 'polkadot-hub-testnet',
+    };
+
+    const privateKey = 'INSERT_PRIVATE_KEY';
+
+    deployContract('Storage', privateKey, providerConfig);
+    ```
+
+    !!! note
+
+        A private key is a hexadecimal string that is used to sign and pay for the deployment transaction. **Always keep your private key secure and never share it publicly**.
+
+        Ensure to replace the `INSERT_PRIVATE_KEY` placeholder with your actual private key.
+
+??? code "View complete script"
+
+    ```js title="scripts/deploy.js"
+    const { writeFileSync, existsSync, readFileSync } = require('fs');
+    const { join } = require('path');
+    const { Web3 } = require('web3');
+
+    const scriptsDir = __dirname;
+    const abisDir = join(__dirname, '../abis');
+    const artifactsDir = join(__dirname, '../artifacts');
+
+    const createProvider = (rpcUrl, chainId, chainName) => {
+      const web3 = new Web3(rpcUrl);
+      return web3;
+    };
+
+    const getAbi = (contractName) => {
+      try {
+        const abiPath = join(abisDir, `${contractName}.json`);
+        return JSON.parse(readFileSync(abiPath, 'utf8'));
+      } catch (error) {
+        console.error(
+          `Could not find ABI for contract ${contractName}:`,
+          error.message,
+        );
+        throw error;
+      }
+    };
+
+    const getByteCode = (contractName) => {
+      try {
+        const bytecodePath = join(artifactsDir, `${contractName}.bin`);
+        const bytecode = readFileSync(bytecodePath, 'utf8').trim();
+        return bytecode.startsWith('0x') ? bytecode : `0x${bytecode}`;
+      } catch (error) {
+        console.error(
+          `Could not find bytecode for contract ${contractName}:`,
+          error.message,
+        );
+        throw error;
+      }
+    };
+
+    const deployContract = async (contractName, privateKey, providerConfig) => {
+      console.log(`Deploying ${contractName}...`);
+      try {
+        const web3 = createProvider(
+          providerConfig.rpc,
+          providerConfig.chainId,
+          providerConfig.name,
+        );
+
+        const formattedPrivateKey = privateKey.startsWith('0x') ? privateKey : `0x${privateKey}`;
+        const account = web3.eth.accounts.privateKeyToAccount(formattedPrivateKey);
+        web3.eth.accounts.wallet.add(account);
+        web3.eth.defaultAccount = account.address;
+
+        const abi = getAbi(contractName);
+        const bytecode = getByteCode(contractName);
+        const contract = new web3.eth.Contract(abi);
+        const deployTx = contract.deploy({
+          data: bytecode,
+        });
+
+        const gas = await deployTx.estimateGas();
+        const gasPrice = await web3.eth.getGasPrice();
+
+        console.log(`Estimated gas: ${gas}`);
+        console.log(`Gas price: ${web3.utils.fromWei(gasPrice, 'gwei')} gwei`);
+
+        const deployedContract = await deployTx.send({
+          from: account.address,
+          gas: gas,
+          gasPrice: gasPrice,
+        });
+
+        const address = deployedContract.options.address;
+        console.log(`Contract ${contractName} deployed at: ${address}`);
+
+        const addressesFile = join(scriptsDir, 'contract-address.json');
+        const addresses = existsSync(addressesFile)
+          ? JSON.parse(readFileSync(addressesFile, 'utf8'))
+          : {};
+
+        addresses[contractName] = address;
+        writeFileSync(addressesFile, JSON.stringify(addresses, null, 2), 'utf8');
+      } catch (error) {
+        console.error(`Failed to deploy contract ${contractName}:`, error);
+      }
+    };
+
+    const providerConfig = {
+      rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io', // TODO: replace to `https://services.polkadothub-rpc.com/testnet` when ready
+      chainId: 420420422,
+      name: 'polkadot-hub-testnet',
+    };
+
+    const privateKey = 'INSERT_PRIVATE_KEY';
+
+    deployContract('Storage', privateKey, providerConfig);
+
+
+    ```
+
+To run the script, execute the following command:
+
+```bash
+node scripts/deploy.js
+```
+
+After running this script, your contract will be deployed to Polkadot Hub, and its address will be saved in `contract-address.json` within your project directory. You can use this address for future contract interactions.
+
+## Interact with the Contract
+
+Once the contract is deployed, you can interact with it by calling its functions. For example, to set a number, read it and then modify that number by its double, you can create a file named `updateStorage.js` in the `scripts` directory of your project and add the following code:
+
+```js title="scripts/updateStorage.js"
+const { readFileSync } = require('fs');
+const { join } = require('path');
+const { Web3 } = require('web3');
+
+const abisDir = join(__dirname, '../abis');
+
+const getAbi = (contractName) => {
+  try {
+    const abiPath = join(abisDir, `${contractName}.json`);
+    return JSON.parse(readFileSync(abiPath, 'utf8'));
+  } catch (error) {
+    console.error(
+      `Could not find ABI for contract ${contractName}:`,
+      error.message,
+    );
+    throw error;
+  }
+};
+
+const updateStorage = async (config) => {
+  try {
+    const web3 = new Web3(config.rpcUrl);
+    const formattedPrivateKey = config.privateKey.startsWith('0x') ? config.privateKey : `0x${config.privateKey}`;
+    const account = web3.eth.accounts.privateKeyToAccount(formattedPrivateKey);
+    web3.eth.accounts.wallet.add(account);
+
+    const abi = getAbi('Storage');
+    const contract = new web3.eth.Contract(abi, config.contractAddress);
+
+    const initialValue = await contract.methods.storedNumber().call();
+    console.log('Current stored value:', initialValue);
+
+    const updateTransaction = contract.methods.setNumber(1);
+    const gasEstimate = await updateTransaction.estimateGas({
+      from: account.address,
+    });
+    const gasPrice = await web3.eth.getGasPrice();
+
+    const receipt = await updateTransaction.send({
+      from: account.address,
+      gas: gasEstimate,
+      gasPrice: gasPrice,
+    });
+
+    console.log(`Transaction hash: ${receipt.transactionHash}`);
+
+    const newValue = await contract.methods.storedNumber().call();
+    console.log('New stored value:', newValue);
+
+    return receipt;
+  } catch (error) {
+    console.error('Update failed:', error);
+    throw error;
+  }
+};
+
+const config = {
+  rpcUrl: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
+  privateKey: 'INSERT_PRIVATE_KEY',
+  contractAddress: 'INSERT_CONTRACT_ADDRESS',
+};
+
+updateStorage(config)
+  .then((receipt) => console.log('Update successful'))
+  .catch((error) => console.error('Update error'));
+```
+
+Ensure you replace the `INSERT_MNEMONIC`, `INSERT_CONTRACT_ADDRESS`, and `INSERT_ADDRESS_TO_CHECK` placeholders with actual values. Also, ensure the contract ABI file (`Storage.json`) is correctly referenced. The script prints the balance for `ADDRESS_TO_CHECK` before it writes and doubles the stored value, so pick any account you want to monitor.
+
+To interact with the contract, run:
+
+```bash
+node scripts/updateStorage.js
+```
+
+## Where to Go Next
+
+<div class="grid cards" markdown>
+
+-   <span class="badge external">External</span> __Web3.js Docs__
+
+    ---
+
+    Explore the Web3.js documentation to learn how to use additional features, such as wallet management, signing messages, subscribing to events, etc.
+
+    [:octicons-arrow-right-24: Get Started](https://web3js.readthedocs.io/en/v1.10.0/)
+
+</div>
+
+
+---
+
 Page Title: Deploy Contracts Using Remix IDE
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-remix-deploy-a-contract.md
@@ -2804,7 +3067,6 @@ Deep dive into creating and managing custom pallets for your parachain.
 |           [Create a Custom Pallet](/parachains/customize-runtime/pallet-development/create-a-pallet/)            |       Build a pallet from scratch with custom logic       |
 |               [Mock Your Runtime](/parachains/customize-runtime/pallet-development/mock-runtime/)                |       Set up a mock runtime environment for testing       |
 |             [Pallet Unit Testing](/parachains/customize-runtime/pallet-development/pallet-testing/)              |      Write comprehensive tests for your pallet logic      |
-| [Add Your Custom Pallet to the Runtime](/parachains/customize-runtime/pallet-development/add-pallet-to-runtime/) | Integrate your custom pallet into your parachain runtime  |
 |        [Benchmark the Custom Pallet](/parachains/customize-runtime/pallet-development/benchmark-pallet/)         | Measure and optimize pallet performance with benchmarking |
 
 ## Testing
@@ -6238,6 +6500,536 @@ This guide provides solutions to common issues you may encounter when using Remi
 
 ---
 
+Page Title: Troubleshooting Hardhat
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-hardhat-troubleshooting-faq.md
+- Canonical (HTML): https://docs.polkadot.com/smart-contracts/dev-environments/hardhat/troubleshooting-faq/
+- Summary: Common issues related to developing, compiling, and deploying smart contracts using Hardhat on Polkadot Hub, paired with troubleshooting suggestions.
+
+# Hardhat Troubleshooting
+
+This guide provides solutions to common issues you may encounter when using Hardhat with Polkadot Hub. If you're experiencing problems with installation, compilation, deployment, testing, or contract interaction, you'll likely find the solution here.
+
+## Hardhat fails to install or run with version-related errors
+
+- **Check Node.js version**:
+    - Ensure you have an LTS version of Node.js installed (18.x, 20.x, or 22.x).
+    - Check your current version with `node --version`.
+    - Download the appropriate LTS version from [nodejs.org](https://nodejs.org/).
+
+- **Use nvm for version management**:
+    - Install nvm (Node Version Manager) to to switch between Node versions easily.
+    - Run `nvm install --lts` to install the latest LTS version.
+    - Run `nvm use --lts` to switch to it.
+
+## Installation of Hardhat or its dependencies via npm fails
+
+- **Clear npm cache**:
+    ```bash
+    npm cache clean --force
+    ```
+
+- **Delete `node_modules` and `package-lock.json`**:
+    ```bash
+    rm -rf node_modules package-lock.json
+    npm install
+    ```
+
+- **Check npm version**:
+    - Ensure you have npm 7.x or higher
+    - Update npm with `npm install -g npm@latest`
+
+- **Install with specific version**:
+    ```bash
+    npm install --save-dev hardhat@^2.26.0
+    ```
+
+## Hardhat Toolbox fails to install or causes conflicts
+
+- **Install Hardhat Toolbox separately**:
+    ```bash
+    npm install --save-dev @nomicfoundation/hardhat-toolbox
+    ```
+
+- **Check for peer dependency conflicts**:
+    - Review the error messages for conflicting package versions.
+    - Try using `npm install --legacy-peer-deps` if conflicts persist.
+
+## Your contract fails to compile or shows errors in the terminal
+
+- **Check Solidity version compatibility**:
+    - Ensure your contract's pragma statement matches the compiler version in `hardhat.config.js`.
+        - Example: If your contract uses `pragma solidity ^0.8.0;`, set `solidity: "0.8.28"` or another compatible version.
+
+- **Verify imports**:
+    - Ensure all imported contracts are in the correct paths.
+    - For OpenZeppelin contracts, make sure dependencies are installed using the command: 
+        ```bash
+        `npm install @openzeppelin/contracts`
+        ```
+
+- **Clear artifacts and cache**:
+    ```bash
+    npx hardhat clean
+    npx hardhat compile
+    ```
+
+- **Check for syntax errors**:
+    - Carefully read error messages in the terminal.
+    - Check for common syntax errors, such as missing semicolons, incorrect function visibility, or type mismatches.
+
+## The artifacts folder is empty or missing expected files
+
+- **Ensure compilation completed successfully**:
+    - Check the terminal output for any error messages.
+    - Look for the "Compiled X Solidity files successfully" message.
+
+- **Verify contract file location**:
+    - Contracts must be in the `contracts` directory or subdirectories.
+    - File must have `.sol` extension.
+
+- **Check `hardhat.config.js` settings**:
+    - Ensure the paths configuration is correct.
+    - Default artifacts location is `./artifacts`.
+
+## Errors related to Solidity compiler version or features
+
+- **Match pragma version with config**:
+    ```javascript
+    module.exports = {
+      solidity: {
+        version: '0.8.28',
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 200
+          }
+        }
+      }
+    };
+    ```
+
+- **Use multiple compiler versions** (if needed):
+    ```javascript
+    module.exports = {
+      solidity: {
+        compilers: [
+          { version: '0.8.28' },
+          { version: '0.8.20' }
+        ]
+      }
+    };
+    ```
+
+## Tests don't execute or Hardhat throws errors when running tests
+
+- **Verify test file location**:
+    - Test files must be in the `test` directory.
+    - Files should end with `.js` or `.test.js`.
+
+- **Check test framework imports**:
+    ```javascript
+    const { expect } = require('chai');
+    const { ethers } = require('hardhat');
+    ```
+
+- **Ensure Hardhat Toolbox is installed**:
+    ```bash
+    npm install --save-dev @nomicfoundation/hardhat-toolbox
+    ```
+
+- **Run tests with verbose output**:
+    ```bash
+    npx hardhat test --verbose
+    ```
+
+## The Hardhat node fails to start or becomes unresponsive
+
+1. **Check if port 8545 is already in use**:
+    - Kill any process using port 8545 as follows:
+        - **Linux/Mac**: `lsof -ti:8545 | xargs kill -9`
+        - **Windows**: `netstat -ano | findstr :8545`, then kill the process with the appropriate process ID
+
+2. **Specify a different port**:
+    ```bash
+    npx hardhat node --port 8546
+    ```
+
+3. **Reset the node**:
+    - Stop the node (Ctrl+C).
+    - Start it again with a fresh state.
+
+## Tests run but fail with assertion errors
+
+- **Check account balances**:
+    - Ensure test accounts have sufficient ETH.
+    - Hardhat node provides test accounts with 10,000 ETH each.
+
+- **Wait for transaction confirmations**:
+    ```javascript
+    const tx = await contract.someFunction();
+    await tx.wait(); // Wait for transaction to be mined
+    ```
+
+- **Verify contract state**:
+    - Use `console.log` to debug values.
+    - Check if the contract was properly deployed in `beforeEach` hooks.
+
+- **Review timing issues**:
+    - Add appropriate waits between transactions.
+    - Use `await ethers.provider.send('evm_mine')` to mine blocks manually.
+
+## Hardhat cannot connect to the local development node
+
+1. **Verify the node is running**:
+    - Ensure your local development node is started.
+    - Check the [Local Development Node](/smart-contracts/dev-environments/local-dev-node/) guide.
+
+2. **Check network configuration**:
+    ```javascript
+    module.exports = {
+      networks: {
+        polkadotTestNet: {
+          url: 'http://localhost:8545',
+          chainId: 420420420,
+          accounts: [PRIVATE_KEY]
+        }
+      }
+    };
+    ```
+
+3. **Verify URL and port**:
+    - Ensure the URL matches your local node's RPC endpoint.
+    - Default is usually `http://localhost:8545`.
+
+4. **Check firewall settings**:
+    - Ensure your firewall allows connections to `localhost:8545`.
+
+## Hardhat cannot access or use the configured private key
+
+- **Verify private key is set**:
+    ```bash
+    npx hardhat vars get PRIVATE_KEY
+    ```
+
+- **Set private key correctly**:
+    ```bash
+    npx hardhat vars set PRIVATE_KEY "0x..."
+    ```
+    - Ensure the key starts with "0x".
+    - Do not include quotes within the actual key value.
+
+- **Check key format in config**:
+    ```javascript
+    const { vars } = require('hardhat/config');
+    const PRIVATE_KEY = vars.get('PRIVATE_KEY');
+    
+    module.exports = {
+      networks: {
+        polkadotTestNet: {
+          accounts: [PRIVATE_KEY] // Should be an array
+        }
+      }
+    };
+    ```
+
+- **Alternative: Use mnemonic**:
+    ```javascript
+    accounts: {
+      mnemonic: 'test test test test test test test test test test test junk'
+    }
+    ```
+
+## Deployment or transactions go to the wrong network
+
+- **Specify network explicitly**:
+    ```bash
+    npx hardhat run scripts/deploy.js --network polkadotTestNet
+    ```
+
+- **Verify network in config**:
+    - Check that the network name matches what you're using in commands.
+    - Ensure chainId matches the target network.
+
+- **Check default network**:
+    ```javascript
+    module.exports = {
+      defaultNetwork: 'polkadotTestNet',
+      networks: {
+        // network configs
+      }
+    };
+    ```
+
+## Deployment fails with "insufficient funds" error
+
+- **Check account balance**:
+    - Verify you have enough test tokens in your account.
+    - For the local development node, accounts should be pre-funded.
+
+- **Get test tokens**:
+    - Visit the [Polkadot faucet](/smart-contracts/faucet/){target=\_blank} for test networks.
+    - Wait a few minutes for faucet transactions to complete.
+
+- **Verify account address**:
+    - Ensure the private key corresponds to the account you think you're using.
+    - Check the account balance matches expectations.
+
+## Deployment using Hardhat Ignition fails or throws errors
+
+- **Check ignition module syntax**:
+    ```javascript
+    const { buildModule } = require('@nomicfoundation/hardhat-ignition/modules');
+    
+    module.exports = buildModule('LockModule', (m) => {
+      const unlockTime = m.getParameter('unlockTime');
+      const lock = m.contract('Lock', [unlockTime]);
+      return { lock };
+    });
+    ```
+
+- **Verify constructor parameters**:
+    - Ensure all required constructor parameters are provided.
+    - Check parameter types match the contract's constructor.
+
+- **Clear previous deployments**:
+    ```bash
+    rm -rf ignition/deployments/
+    ```
+
+- **Use deployment script alternative**:
+    - Create a manual deployment script in the `scripts` folder if Ignition continues to fail.
+
+## Custom deployment scripts fail to execute
+
+- **Check script imports**:
+    ```javascript
+    const hre = require('hardhat');
+    // or
+    const { ethers } = require('hardhat');
+    ```
+
+- **Verify contract factory**:
+    ```javascript
+    const Contract = await ethers.getContractFactory('INSERT_CONTRACT_NAME');
+    const contract = await Contract.deploy(INSERT_CONSTRUCTOR_ARGS);
+    await contract.deployed();
+    ```
+
+- **Add error handling**:
+    ```javascript
+    try {
+      // deployment code
+    } catch (error) {
+      console.error('Deployment failed: ', error);
+      process.exit(1);
+    }
+    ```
+
+- **Check gas settings**:
+    ```javascript
+    const contract = await Contract.deploy({
+      gasLimit: 5000000
+    });
+    ```
+
+## Contract deployment hangs or times out
+
+- **Increase timeout in config**:
+    ```javascript
+    module.exports = {
+      networks: {
+        polkadotTestNet: {
+          timeout: 60000 // 60 seconds
+        }
+      }
+    };
+    ```
+
+- **Check network connection**:
+    - Verify the RPC endpoint is responsive.
+    - Test with a simple read operation first.
+
+- **Reduce contract complexity**:
+    - Large contracts may take longer to deploy.
+    - Consider splitting into multiple contracts.
+
+## Scripts fail to interact with a deployed contract
+
+- **Verify contract address**:
+    - Ensure you're using the correct deployed contract address.
+    - Check the deployment output or ignition deployment files.
+
+- **Check contract ABI**:
+    ```javascript
+    const Contract = await ethers.getContractFactory('INSERT_CONTRACT_NAME');
+    const contract = Contract.attach(contractAddress);
+    ```
+
+- **Verify network connection**:
+    - Ensure you're connected to the same network where the contract was deployed.
+    - Use the `--network` flag when running scripts.
+
+## Transactions revert when calling contract functions
+
+- **Check function requirements**:
+    - Verify all `require()` conditions in the contract are satisfied.
+    - Ensure you're meeting any access control requirements.
+
+- **Add debugging**:
+    ```javascript
+    try {
+      const tx = await contract.someFunction();
+      const receipt = await tx.wait();
+      console.log('Transaction successful: ', receipt);
+    } catch (error) {
+      console.error('Transaction failed: ', error.message);
+    }
+    ```
+
+- **Check gas limits**:
+    ```javascript
+    const tx = await contract.someFunction({
+      gasLimit: 500000
+    });
+    ```
+
+- **Verify function parameters**:
+    - Ensure parameter types match the function signature.
+    - Check for the correct number of parameters.
+
+## View or pure functions don't return expected values
+
+- **Use `call()` for read-only functions**:
+    ```javascript
+    const value = await contract.someViewFunction();
+    console.log('Returned value: ', value);
+    ```
+
+- **Check contract state**:
+    - Verify the contract has been properly initialized.
+    - Ensure any required state changes have been completed.
+
+- **Handle `BigNumber` returns**:
+    ```javascript
+    const value = await contract.someFunction();
+    console.log('Value: ', value.toString());
+    ```
+
+## State-changing functions execute but don't update state
+
+- **Wait for transaction confirmation**:
+    ```javascript
+    const tx = await contract.someFunction();
+    await tx.wait(); // Wait for the transaction to be mined
+    const newState = await contract.getState();
+    ```
+
+- **Check transaction receipt**:
+    ```javascript
+    const tx = await contract.someFunction();
+    const receipt = await tx.wait();
+    console.log('Transaction status: ', receipt.status);
+    ```
+
+- **Verify transaction success**:
+    - Check that `receipt.status === 1` (success).
+    - Review any events emitted by the transaction.
+
+- **Check for reverts**:
+    - Look for any revert reasons in the error message.
+    - Verify contract logic and access controls.
+
+## Contract compilation takes a long time
+
+- **Enable compiler cache**:
+    - Hardhat caches compilation results by default.
+    - Ensure the cache folder is not ignored in `.gitignore`.
+
+- **Optimize compiler settings**:
+    ```javascript
+    module.exports = {
+      solidity: {
+        version: '0.8.28',
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 200
+          }
+        }
+      }
+    };
+    ```
+
+- **Compile specific contracts**:
+    ```bash
+    npx hardhat compile --force
+    ```
+
+## Can't start Hardhat console or console commands fail
+
+- **Start console with correct network**:
+    ```bash
+    npx hardhat console --network polkadotTestNet
+    ```
+
+- **Check console imports**:
+    ```javascript
+    // In console
+    const Contract = await ethers.getContractFactory('INSERT_CONTRACT_NAME');
+    ```
+
+- **Verify network connection**:
+    - Ensure the target network is accessible.
+    - Check network configuration in `hardhat.config.js`.
+
+## Hardhat plugins not working correctly
+
+- **Verify plugin installation**:
+    ```bash
+    npm list @nomicfoundation/hardhat-toolbox
+    ```
+
+- **Check plugin import in config**:
+    ```javascript
+    require("@nomicfoundation/hardhat-toolbox");
+    ```
+
+- **Update plugins to latest versions**:
+    ```bash
+    npm update @nomicfoundation/hardhat-toolbox
+    ```
+
+- **Check for plugin conflicts**:
+    - Review `package.json` for version conflicts.
+    - Try removing and reinstalling conflicting plugins.
+
+## Scripts cannot read environment variables
+
+- **Use Hardhat vars correctly**:
+    ```bash
+    npx hardhat vars set VARIABLE_NAME "value"
+    npx hardhat vars get VARIABLE_NAME
+    ```
+
+- **Alternatively, use dotenv**:
+    ```bash
+    npm install dotenv
+    ```
+    ```javascript
+    require('dotenv').config();
+    const value = process.env.VARIABLE_NAME;
+    ```
+
+- **Check variable access in config**:
+    ```javascript
+    const { vars } = require('hardhat/config');
+    const value = vars.get('VARIABLE_NAME');
+    ```
+
+
+---
+
 Page Title: Use Hardhat with Polkadot Hub
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-hardhat-get-started.md
@@ -7669,437 +8461,6 @@ Choosing the right wallet for Polkadot Hub interactions depends on your specific
 
 !!!info
     Remember to always verify network parameters when connecting to ensure a secure and reliable connection to the Polkadot ecosystem.
-
-
----
-
-Page Title: Web3.js
-
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-libraries-web3-js.md
-- Canonical (HTML): https://docs.polkadot.com/smart-contracts/libraries/web3-js/
-- Summary: Learn how to interact with Polkadot Hub using Web3.js, deploying Solidity contracts, and interacting with deployed smart contracts.
-
-# Web3.js
-
-!!! smartcontract "PolkaVM Preview Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
-!!! warning
-    Web3.js has been [sunset](https://blog.chainsafe.io/web3-js-sunset/){target=\_blank}. You can find guides on using [Ethers.js](/smart-contracts/libraries/ethers-js/){target=\_blank} and [viem](/smart-contracts/libraries/viem/){target=\_blank} in the Libraries section. 
-
-## Introduction
-
-Interacting with blockchains typically requires an interface between your application and the network. [Web3.js](https://web3js.readthedocs.io/){target=\_blank} offers this interface through a comprehensive collection of libraries, facilitating seamless interaction with the nodes using HTTP or WebSocket protocols. This guide illustrates how to utilize Web3.js specifically for interactions with Polkadot Hub.
-
-This guide is intended for developers who are familiar with JavaScript and want to interact with the Polkadot Hub using Web3.js.
-
-## Prerequisites
-
-Before getting started, ensure you have the following installed:
-
-- **Node.js**: v22.13.1 or later, check the [Node.js installation guide](https://nodejs.org/en/download/current/){target=\_blank}.
-- **npm**: v6.13.4 or later (comes bundled with Node.js).
-- **Solidity**: This guide uses Solidity `^0.8.9` for smart contract development.
-
-## Project Structure
-
-This project organizes contracts, scripts, and compiled artifacts for easy development and deployment.
-
-```text title="Web3.js Polkadot Hub"
-web3js-project
-├── contracts
-│   ├── Storage.sol
-├── scripts
-│   ├── connectToProvider.js
-│   ├── fetchLastBlock.js
-│   ├── compile.js
-│   ├── deploy.js
-│   ├── updateStorage.js
-├── abis
-│   ├── Storage.json
-├── artifacts
-│   ├── Storage.polkavm
-├── node_modules/
-├── package.json
-├── package-lock.json
-└── README.md
-```
-
-## Set Up the Project
-
-To start working with Web3.js, begin by initializing your project:
-
-```bash
-npm init -y
-```
-
-## Install Dependencies
-
-Next, install the Web3.js library:
-
-```bash
-npm install web3
-```
-
-This guide uses `web3` version `4.16.0`.
-
-## Set Up the Web3 Provider
-
-The provider configuration is the foundation of any Web3.js application. The following example establishes a connection to Polkadot Hub. To use the example script, replace `INSERT_RPC_URL`, `INSERT_CHAIN_ID`, and `INSERT_CHAIN_NAME` with the appropriate values. The provider connection script should look something like this:
-
-```javascript title="scripts/connectToProvider.js"
-const { Web3 } = require('web3');
-
-const createProvider = (rpcUrl) => {
-  const web3 = new Web3(rpcUrl);
-  return web3;
-};
-
-const PROVIDER_RPC = {
-  rpc: 'INSERT_RPC_URL',
-  chainId: 'INSERT_CHAIN_ID',
-  name: 'INSERT_CHAIN_NAME',
-};
-
-createProvider(PROVIDER_RPC.rpc);
-
-```
-
-For example, for the Polkadot Hub TestNet, use these specific connection parameters:
-
-```js
-const PROVIDER_RPC = {
-  rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
-  chainId: 420420422,
-  name: 'polkadot-hub-testnet'
-};
-```
-
-With the Web3 provider set up, you can start querying the blockchain.
-
-For instance, to fetch the latest block number of the chain, you can use the following code snippet:
-
-???+ code "View complete script"
-
-    ```javascript title="scripts/fetchLastBlock.js"
-    const { Web3 } = require('web3');
-
-    const createProvider = (rpcUrl) => {
-      const web3 = new Web3(rpcUrl);
-      return web3;
-    };
-
-    const PROVIDER_RPC = {
-      rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
-      chainId: 420420422,
-      name: 'polkadot-hub-testnet',
-    };
-
-    const main = async () => {
-      try {
-        const web3 = createProvider(PROVIDER_RPC.rpc);
-        const latestBlock = await web3.eth.getBlockNumber();
-        console.log('Last block: ' + latestBlock);
-      } catch (error) {
-        console.error('Error connecting to Polkadot Hub TestNet: ' + error.message);
-      }
-    };
-
-    main();
-
-    ```
-
-## Compile Contracts
-
-!!! note "Contracts Code Blob Size Disclaimer"
-    The maximum contract code blob size on Polkadot Hub networks is _100 kilobytes_, significantly larger than Ethereum’s EVM limit of 24 kilobytes.
-
-    For detailed comparisons and migration guidelines, see the [EVM vs. PolkaVM](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm/#current-memory-limits){target=\_blank} documentation page.
-
-Polkadot Hub requires contracts to be compiled to [PolkaVM](/smart-contracts/for-eth-devs/dual-vm-stack/){target=\_blank} bytecode. This is achieved using the [`revive`](https://github.com/paritytech/revive/tree/v0.2.0/js/resolc){target=\_blank} compiler. Install the [`@parity/resolc`](https://github.com/paritytech/revive){target=\_blank} library as a development dependency:
-
-```bash
-npm install --save-dev @parity/resolc
-```
-
-This guide uses `@parity/resolc` version `0.2.0`.
-
-Here's a simple storage contract that you can use to follow the process:
-
-```solidity title="contracts/Storage.sol"
-//SPDX-License-Identifier: MIT
-pragma solidity ^0.8.9;
-
-contract Storage {
-    // Public state variable to store a number
-    uint256 public storedNumber;
-
-    /**
-    * Updates the stored number.
-    *
-    * The `public` modifier allows anyone to call this function.
-    *
-    * @param _newNumber - The new value to store.
-    */
-    function setNumber(uint256 _newNumber) public {
-        storedNumber = _newNumber;
-    }
-}
-```
-
-With that, you can now create a `compile.js` snippet that transforms your solidity code into PolkaVM bytecode:
-
-```javascript title="scripts/compile.js"
-const { compile } = require('@parity/resolc');
-const { readFileSync, writeFileSync } = require('fs');
-const { basename, join } = require('path');
-
-const compileContract = async (solidityFilePath, outputDir) => {
-  try {
-    // Read the Solidity file
-    const source = readFileSync(solidityFilePath, 'utf8');
-
-    // Construct the input object for the compiler
-    const input = {
-      [basename(solidityFilePath)]: { content: source },
-    };
-
-    console.log(`Compiling contract: ${basename(solidityFilePath)}...`);
-
-    // Compile the contract
-    const out = await compile(input);
-
-    for (const contracts of Object.values(out.contracts)) {
-      for (const [name, contract] of Object.entries(contracts)) {
-        console.log(`Compiled contract: ${name}`);
-
-        // Write the ABI
-        const abiPath = join(outputDir, `${name}.json`);
-        writeFileSync(abiPath, JSON.stringify(contract.abi, null, 2));
-        console.log(`ABI saved to ${abiPath}`);
-
-        // Write the bytecode
-        const bytecodePath = join(outputDir, `${name}.polkavm`);
-        writeFileSync(
-          bytecodePath,
-          Buffer.from(contract.evm.bytecode.object, 'hex'),
-        );
-        console.log(`Bytecode saved to ${bytecodePath}`);
-      }
-    }
-  } catch (error) {
-    console.error('Error compiling contracts:', error);
-  }
-};
-
-const solidityFilePath = './Storage.sol';
-const outputDir = '.';
-
-compileContract(solidityFilePath, outputDir);
-
-```
-
-To compile your contract, simply run the following command:
-
-```bash
-node compile
-```
-
-After compilation, you'll have two key files: an ABI (`.json`) file, which provides a JSON interface describing the contract's functions and how to interact with it, and a bytecode (`.polkavm`) file, which contains the low-level machine code executable on PolkaVM that represents the compiled smart contract ready for blockchain deployment.
-
-## Contract Deployment
-
-To deploy your compiled contract to Polkadot Hub using Web3.js, you'll need an account with a private key to sign the deployment transaction. The deployment process is exactly the same as for any Ethereum-compatible chain, involving creating a contract instance, estimating gas, and sending a deployment transaction. Here's how to deploy the contract, ensure replacing the `INSERT_RPC_URL`, `INSERT_PRIVATE_KEY`, and `INSERT_CONTRACT_NAME` with the appropriate values:
-
-```javascript title="scripts/deploy.js"
-import { readFileSync } from 'fs';
-import { Web3 } from 'web3';
-
-const getAbi = (contractName) => {
-  try {
-    return JSON.parse(readFileSync(`${contractName}.json`), 'utf8');
-  } catch (error) {
-    console.error(
-      `❌ Could not find ABI for contract ${contractName}:`,
-      error.message
-    );
-    throw error;
-  }
-};
-
-const getByteCode = (contractName) => {
-  try {
-    return `0x${readFileSync(`${contractName}.polkavm`).toString('hex')}`;
-  } catch (error) {
-    console.error(
-      `❌ Could not find bytecode for contract ${contractName}:`,
-      error.message
-    );
-    throw error;
-  }
-};
-
-export const deploy = async (config) => {
-  try {
-    // Initialize Web3 with RPC URL
-    const web3 = new Web3(config.rpcUrl);
-
-    // Prepare account
-    const account = web3.eth.accounts.privateKeyToAccount(config.privateKey);
-    web3.eth.accounts.wallet.add(account);
-
-    // Load abi
-    const abi = getAbi('Storage');
-
-    // Create contract instance
-    const contract = new web3.eth.Contract(abi);
-
-    // Prepare deployment
-    const deployTransaction = contract.deploy({
-      data: getByteCode('Storage'),
-      arguments: [], // Add constructor arguments if needed
-    });
-
-    // Estimate gas
-    const gasEstimate = await deployTransaction.estimateGas({
-      from: account.address,
-    });
-
-    // Get current gas price
-    const gasPrice = await web3.eth.getGasPrice();
-
-    // Send deployment transaction
-    const deployedContract = await deployTransaction.send({
-      from: account.address,
-      gas: gasEstimate,
-      gasPrice: gasPrice,
-    });
-
-    // Log and return contract details
-    console.log(`Contract deployed at: ${deployedContract.options.address}`);
-    return deployedContract;
-  } catch (error) {
-    console.error('Deployment failed:', error);
-    throw error;
-  }
-};
-
-// Example usage
-const deploymentConfig = {
-  rpcUrl: 'INSERT_RPC_URL',
-  privateKey: 'INSERT_PRIVATE_KEY',
-  contractName: 'INSERT_CONTRACT_NAME',
-};
-
-deploy(deploymentConfig)
-  .then((contract) => console.log('Deployment successful'))
-  .catch((error) => console.error('Deployment error'));
-
-```
-
-For further details on private key exportation, refer to the article [How to export an account's private key](https://support.metamask.io/configure/accounts/how-to-export-an-accounts-private-key/){target=\_blank}.
-
-To deploy your contract, run the following command:
-
-```bash
-node deploy
-```
-
-## Interact with the Contract
-
-Once deployed, you can interact with your contract using Web3.js methods. Here's how to set a number and read it back, ensure replacing `INSERT_RPC_URL`, `INSERT_PRIVATE_KEY`, and `INSERT_CONTRACT_ADDRESS` with the appropriate values:
-
-```javascript title="scripts/updateStorage.js"
-import { readFileSync } from 'fs';
-import { Web3 } from 'web3';
-
-const getAbi = (contractName) => {
-  try {
-    return JSON.parse(readFileSync(`${contractName}.json`), 'utf8');
-  } catch (error) {
-    console.error(
-      `❌ Could not find ABI for contract ${contractName}:`,
-      error.message
-    );
-    throw error;
-  }
-};
-
-const updateStorage = async (config) => {
-  try {
-    // Initialize Web3 with RPC URL
-    const web3 = new Web3(config.rpcUrl);
-
-    // Prepare account
-    const account = web3.eth.accounts.privateKeyToAccount(config.privateKey);
-    web3.eth.accounts.wallet.add(account);
-
-    // Load abi
-    const abi = getAbi('Storage');
-
-    // Create contract instance
-    const contract = new web3.eth.Contract(abi, config.contractAddress);
-
-    // Get initial value
-    const initialValue = await contract.methods.storedNumber().call();
-    console.log('Current stored value:', initialValue);
-
-    // Prepare transaction
-    const updateTransaction = contract.methods.setNumber(1);
-
-    // Estimate gas
-    const gasEstimate = await updateTransaction.estimateGas({
-      from: account.address,
-    });
-
-    // Get current gas price
-    const gasPrice = await web3.eth.getGasPrice();
-
-    // Send update transaction
-    const receipt = await updateTransaction.send({
-      from: account.address,
-      gas: gasEstimate,
-      gasPrice: gasPrice,
-    });
-
-    // Log transaction details
-    console.log(`Transaction hash: ${receipt.transactionHash}`);
-
-    // Get updated value
-    const newValue = await contract.methods.storedNumber().call();
-    console.log('New stored value:', newValue);
-
-    return receipt;
-  } catch (error) {
-    console.error('Update failed:', error);
-    throw error;
-  }
-};
-
-// Example usage
-const config = {
-  rpcUrl: 'INSERT_RPC_URL',
-  privateKey: 'INSERT_PRIVATE_KEY',
-  contractAddress: 'INSERT_CONTRACT_ADDRESS',
-};
-
-updateStorage(config)
-  .then((receipt) => console.log('Update successful'))
-  .catch((error) => console.error('Update error'));
-
-```
-
-To execute the logic above, run:
-
-```bash
-node updateStorage
-```
-
-## Where to Go Next
-
-Now that you’ve learned how to use Web3.js with Polkadot Hub, explore more advanced topics:
-
-- **Utilize Web3.js utilities**: Learn about additional [Web3.js](https://docs.web3js.org/){target=\_blank} features such as signing transactions, managing wallets, and subscribing to events.
-- **Build full-stack dApps**: [integrate Web3.js](https://docs.web3js.org/guides/dapps/intermediate-dapp){target=\_blank} with different libraries and frameworks to build decentralized web applications.
 
 
 ---

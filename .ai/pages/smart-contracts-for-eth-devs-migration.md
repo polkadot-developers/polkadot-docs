@@ -131,7 +131,7 @@ You typically don't need to do anything special, but be aware:
 Yes. Both backends support:
 
 - **Wallets**: [MetaMask](https://metamask.io/){target=\_blank}, [Talisman](https://talisman.xyz/){target=\_blank}, [SubWallet](https://www.subwallet.app/){target=\_blank}
-- **Development frameworks**: [Hardhat](/smart-contracts/cookbook/smart-contracts/deploy-basic/hardhat/){target=\_blank}, [Remix](/smart-contracts/cookbook/smart-contracts/deploy-basic/remix/){target=\_blank}
+- **Development frameworks**: [Hardhat](/smart-contracts/cookbook/smart-contracts/deploy-basic/basic-hardhat/){target=\_blank}, [Remix](/smart-contracts/cookbook/smart-contracts/deploy-basic/basic-remix/){target=\_blank}
 - **Libraries**: [Ethers.js](/smart-contracts/libraries/ethers-js/){target=\_blank}, [Web3.js](/smart-contracts/libraries/web3-js/){target=\_blank}, [viem](/smart-contracts/libraries/viem/){target=\_blank}
 - **Testing tools**: Your existing test suites work
 

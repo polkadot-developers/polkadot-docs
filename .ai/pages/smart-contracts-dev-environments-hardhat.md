@@ -117,7 +117,7 @@ To use Hardhat with Polkadot Hub, define the network configuration in your `hard
 
     Ready to start using Hardhat? Learn how to compile, test, and deploy a basic contract.
 
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-basic/hardhat/)
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-basic/basic-hardhat/)
 
 -   <span class="badge guide">Guide</span> __Deploy an ERC-20__
 
@@ -125,7 +125,7 @@ To use Hardhat with Polkadot Hub, define the network configuration in your `hard
 
     Walk through deploying a fully-functional ERC-20 to Polkadot Hub using Hardhat.
 
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-erc20/hardhat/)
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-hardhat/)
 
 -   <span class="badge guide">Guide</span> __Deploy an NFT__
 
@@ -133,7 +133,7 @@ To use Hardhat with Polkadot Hub, define the network configuration in your `hard
 
     Walk through deploying a NFT to Polkadot Hub using Hardhat.
 
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-nft/hardhat/)
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-hardhat/)
 
 -   <span class="badge guide">Guide</span> __Create a DApp__
 

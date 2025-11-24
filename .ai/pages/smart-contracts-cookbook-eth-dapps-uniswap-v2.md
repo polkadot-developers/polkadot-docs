@@ -25,7 +25,7 @@ Before starting, make sure you have:
 
 ## Set Up the Project
 
-Let's start by cloning the Uniswap V2 project:
+Start by cloning the Uniswap V2 project:
 
 1. Clone the Uniswap V2 repository:
 

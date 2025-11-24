@@ -8410,8 +8410,8 @@ python compile.py
 
 After executing the script, the Solidity contract is compiled into standard EVM bytecode. The ABI and bytecode are saved into files with `.json` and `.bin` extensions, respectively:
 
-- **ABI file** (`abis/Storage.json`): Provides a JSON interface describing the contract's functions and how to interact with it.
-- **Bytecode file** (`artifacts/Storage.bin`): Contains the low-level machine code executable on EVM that represents the compiled smart contract ready for blockchain deployment.
+- **ABI file (`abis/Storage.json`)**: Provides a JSON interface describing the contract's functions and how to interact with it.
+- **Bytecode file (`artifacts/Storage.bin`)**: Contains the low-level machine code executable on EVM that represents the compiled smart contract ready for blockchain deployment.
 
 You can now proceed with deploying the contract to Polkadot Hub, as outlined in the next section.
 
@@ -8546,9 +8546,17 @@ if __name__ == "__main__":
 !!!warning
     Never commit or share your private key. Exposed keys can lead to immediate theft of all associated funds.
 
+To run the script, execute the following command:
+
+```bash
+python deploy.py
+```
+
+After running this script, your contract will be deployed to Polkadot Hub, and its address will be printed in your terminal. You can use this address for future contract interactions.
+
 ## Interact with the Contract
 
-After deployment, interact with your contract using Web3.py methods. The example below demonstrates how to set and retrieve a number. Be sure to replace the `INSERT_RPC_URL`, `INSERT_PRIVATE_KEY`, and `INSERT_CONTRACT_ADDRESS` placeholders with your specific values:
+After deployment, interact with your contract using Web3.py methods. The example below demonstrates how to set and retrieve a number.
 
 ```python title="update_storage.py"
 from web3 import Web3
@@ -8625,6 +8633,14 @@ if __name__ == "__main__":
 
     asyncio.run(update_storage(config))
 
+```
+
+Be sure to replace the `INSERT_RPC_URL`, `INSERT_PRIVATE_KEY`, and `INSERT_CONTRACT_ADDRESS` placeholders with your specific values.
+
+To interact with the contract, run:
+
+```bash
+python update_storage.py
 ```
 
 ## Where to Go Next

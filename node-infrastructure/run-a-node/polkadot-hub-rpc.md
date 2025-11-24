@@ -261,8 +261,6 @@ Select the best option for your project, then use the steps in the following tab
         polkadot-parachain --version
         ```
 
-        Check the [Polkadot SDK releases](https://github.com/paritytech/polkadot-sdk/releases){target=\_blank} page for the latest stable version.
-
     2. Download the Polkadot Hub chain specification:
         ```bash
         curl -L https://raw.githubusercontent.com/paritytech/polkadot-sdk/master/cumulus/parachains/chain-specs/asset-hub-polkadot.json -o asset-hub-polkadot.json

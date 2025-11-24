@@ -4222,12 +4222,12 @@
       }
     ],
     "stats": {
-      "chars": 6067,
-      "words": 777,
+      "chars": 6079,
+      "words": 779,
       "headings": 12,
-      "estimated_token_count_total": 1275
+      "estimated_token_count_total": 1279
     },
-    "hash": "sha256:d6cbd026bd22d3362fffe6bdab0ce3d1688482b6d1eec26368b46fd03eb82a5f",
+    "hash": "sha256:87a8fd24c2ed6dac3281c040136ad6cdca95b632c6febf3e1dfab617d66a321d",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4751,90 +4751,6 @@
     "token_estimator": "heuristic-v1"
   },
   {
-<<<<<<< HEAD
-=======
-    "id": "smart-contracts-for-eth-devs-migration",
-    "title": "Migration FAQs and Considerations",
-    "slug": "smart-contracts-for-eth-devs-migration",
-    "categories": [
-      "Smart Contracts"
-    ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-for-eth-devs-migration.md",
-    "html_url": "https://docs.polkadot.com/smart-contracts/for-eth-devs/migration/",
-    "preview": "This guide helps Ethereum developers migrate their smart contracts to Polkadot Hub. Most contracts work without modifications on the REVM backend, while the PolkaVM backend offers enhanced performance with minimal adaptation for standard patterns.",
-    "outline": [
-      {
-        "depth": 2,
-        "title": "Introduction",
-        "anchor": "introduction"
-      },
-      {
-        "depth": 2,
-        "title": "Migration Considerations",
-        "anchor": "migration-considerations"
-      },
-      {
-        "depth": 2,
-        "title": "Migration Checklist",
-        "anchor": "migration-checklist"
-      },
-      {
-        "depth": 2,
-        "title": "Migration FAQs",
-        "anchor": "migration-faqs"
-      },
-      {
-        "depth": 3,
-        "title": "Which backend should I choose?",
-        "anchor": "which-backend-should-i-choose"
-      },
-      {
-        "depth": 3,
-        "title": "Do I need to rewrite my Solidity code?",
-        "anchor": "do-i-need-to-rewrite-my-solidity-code"
-      },
-      {
-        "depth": 3,
-        "title": "What about factory contracts?",
-        "anchor": "what-about-factory-contracts"
-      },
-      {
-        "depth": 3,
-        "title": "How do gas costs compare?",
-        "anchor": "how-do-gas-costs-compare"
-      },
-      {
-        "depth": 3,
-        "title": "Which Solidity features are not supported?",
-        "anchor": "which-solidity-features-are-not-supported"
-      },
-      {
-        "depth": 3,
-        "title": "How do I handle the existential deposit?",
-        "anchor": "how-do-i-handle-the-existential-deposit"
-      },
-      {
-        "depth": 3,
-        "title": "Can I use my existing development tools?",
-        "anchor": "can-i-use-my-existing-development-tools"
-      },
-      {
-        "depth": 2,
-        "title": "Conclusion",
-        "anchor": "conclusion"
-      }
-    ],
-    "stats": {
-      "chars": 6079,
-      "words": 779,
-      "headings": 12,
-      "estimated_token_count_total": 1279
-    },
-    "hash": "sha256:87a8fd24c2ed6dac3281c040136ad6cdca95b632c6febf3e1dfab617d66a321d",
-    "token_estimator": "heuristic-v1"
-  },
-  {
->>>>>>> staging/product-ia
     "id": "smart-contracts-get-started",
     "title": "Get Started with Smart Contracts",
     "slug": "smart-contracts-get-started",
@@ -4883,21 +4799,12 @@
       }
     ],
     "stats": {
-<<<<<<< HEAD
-      "chars": 9927,
-      "words": 920,
+      "chars": 8582,
+      "words": 777,
       "headings": 7,
-      "estimated_token_count_total": 2853
+      "estimated_token_count_total": 2551
     },
-    "hash": "sha256:00c0e3087ee9cce562e6318a7f20b584484a791a003a045251b97b23f3d14806",
-=======
-      "chars": 8758,
-      "words": 794,
-      "headings": 7,
-      "estimated_token_count_total": 2586
-    },
-    "hash": "sha256:12509c044da89e7699aa30d454c932548d49f00de2e94f6ed5b2ab9a97cdbc5f",
->>>>>>> staging/product-ia
+    "hash": "sha256:8cdb6129d22d7463fb8495679864d2ea89fe8200bd6307ab07690738d8aec647",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5312,21 +5219,12 @@
       }
     ],
     "stats": {
-<<<<<<< HEAD
-      "chars": 20056,
-      "words": 2249,
-      "headings": 12,
-      "estimated_token_count_total": 4523
-    },
-    "hash": "sha256:ac33422a87258d65a70e63f388279cc2afa4a1e3eec9c1b1aff52ac1ebf9e1a8",
-=======
       "chars": 20077,
       "words": 2252,
       "headings": 12,
       "estimated_token_count_total": 4530
     },
     "hash": "sha256:7e3d9a39fafd48ef71f23b07d20f7fb5572ba67e06fcbe6a199fe0468af6dbca",
->>>>>>> staging/product-ia
     "token_estimator": "heuristic-v1"
   },
   {

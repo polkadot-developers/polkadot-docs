@@ -968,310 +968,459 @@ For reference, Astar's implementation of [`pallet-contracts`](https://github.com
 
 ---
 
-Page Title: Benchmarking FRAME Pallets
+Page Title: Benchmark Your Pallet
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/parachains-customize-runtime-pallet-development-benchmark-pallet.md
 - Canonical (HTML): https://docs.polkadot.com/parachains/customize-runtime/pallet-development/benchmark-pallet/
-- Summary: Learn how to use FRAME's benchmarking framework to measure extrinsic execution costs and provide accurate weights for on-chain computations.
-
-# Benchmarking
+- Summary: Learn how to benchmark extrinsics in your custom pallet to generate precise weight calculations suitable for production use.
 
 ## Introduction
 
-Benchmarking is a critical component of developing efficient and secure blockchain runtimes. In the Polkadot ecosystem, accurately benchmarking your custom pallets ensures that each extrinsic has a precise [weight](/reference/glossary/#weight){target=\_blank}, representing its computational and storage demands. This process is vital for maintaining the blockchain's performance and preventing potential vulnerabilities, such as Denial of Service (DoS) attacks.
+Benchmarking is the process of measuring the computational resources (execution time and storage) required by your pallet's extrinsics. Accurate [weight](https://paritytech.github.io/polkadot-sdk/master/frame_support/weights/index.html){target=\_blank} calculations are essential for ensuring your blockchain can process transactions efficiently while protecting against denial-of-service attacks.
 
-The Polkadot SDK leverages the [FRAME](/reference/glossary/#frame-framework-for-runtime-aggregation-of-modularized-entities){target=\_blank} benchmarking framework, offering tools to measure and assign weights to extrinsics. These weights help determine the maximum number of transactions or system-level calls processed within a block. This guide covers how to use FRAME's [benchmarking framework](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/v2/index.html){target=\_blank}, from setting up your environment to writing and running benchmarks for your custom pallets. You'll understand how to generate accurate weights by the end, ensuring your runtime remains performant and secure.
+This guide demonstrates how to benchmark a pallet and incorporate the resulting weight values. This example uses the custom counter pallet from previous guides in this series, but you can replace it with the code from another pallet if desired.
 
-## The Case for Benchmarking
+## Prerequisites
 
-Benchmarking helps validate that the required execution time for different functions is within reasonable boundaries to ensure your blockchain runtime can handle transactions efficiently and securely. By accurately measuring the weight of each extrinsic, you can prevent service interruptions caused by computationally intensive calls that exceed block time limits. Without benchmarking, runtime performance could be vulnerable to DoS attacks, where malicious users exploit functions with unoptimized weights.
+Before you begin, ensure you have:
 
-Benchmarking also ensures predictable transaction fees. Weights derived from benchmark tests accurately reflect the resource usage of function calls, allowing fair fee calculation. This approach discourages abuse while maintaining network reliability.
+- A pallet to benchmark. If you followed the pallet development tutorials, you can use the counter pallet from the [Create a Pallet](/parachains/customize-runtime/pallet-development/create-a-pallet/){target=\_blank} guide. You can also follow these steps to benchmark a custom pallet by updating the `benchmarking.rs` functions, and instances of usage in future steps, to calculate weights using your specific pallet functionality.
+- Basic understanding of [computational complexity](https://en.wikipedia.org/wiki/Computational_complexity){target=\_blank}.
+- Familiarity with [Rust's testing framework](https://doc.rust-lang.org/book/ch11-00-testing.html){target=\_blank}.
+- Familiarity setting up the Polkadot Omni Node and [Polkadot Chain Spec Builder](https://crates.io/crates/staging-chain-spec-builder){target=\_blank}. Refer to the [Set Up a Parachain Template](/parachains/launch-a-parachain/set-up-the-parachain-template/){target=\_blank} guide for instructions if needed.
 
-### Benchmarking and Weight 
+## Create the Benchmarking Module
 
-In Polkadot SDK-based chains, weight quantifies the computational effort needed to process transactions. This weight includes factors such as:
+Create a new file `benchmarking.rs` in your pallet's `src` directory and add the following code:
 
-- Computational complexity.
-- Storage complexity (proof size).
-- Database reads and writes.
-- Hardware specifications.
-
-Benchmarking uses real-world testing to simulate worst-case scenarios for extrinsics. The framework generates a linear model for weight calculation by running multiple iterations with varied parameters. These worst-case weights ensure blocks remain within execution limits, enabling the runtime to maintain throughput under varying loads. Excess fees can be refunded if a call uses fewer resources than expected, offering users a fair cost model.
-  
-Because weight is a generic unit of measurement based on computation time for a specific physical machine, the weight of any function can change based on the specifications of hardware used for benchmarking. By modeling the expected weight of each runtime function, the blockchain can calculate the number of transactions or system-level calls it can execute within a certain period.
-
-Within FRAME, each function call that is dispatched must have a `#[pallet::weight]` annotation that can return the expected weight for the worst-case scenario execution of that function given its inputs:
-
-```rust hl_lines="2"
-#[pallet::call_index(0)]
-#[pallet::weight(T::WeightInfo::do_something())]
-pub fn do_something(origin: OriginFor<T>) -> DispatchResultWithPostInfo { Ok(()) }
-```
-
-The `WeightInfo` file is automatically generated during benchmarking. Based on these tests, this file provides accurate weights for each extrinsic.
-
-## Benchmarking Process
-
-Benchmarking a pallet involves the following steps: 
-
-1. Creating a `benchmarking.rs` file within your pallet's structure.
-2. Writing a benchmarking test for each extrinsic.
-3. Executing the benchmarking tool to calculate weights based on performance metrics.
-
-The benchmarking tool runs multiple iterations to model worst-case execution times and determine the appropriate weight. By default, the benchmarking pipeline is deactivated. To activate it, compile your runtime with the `runtime-benchmarks` feature flag.
-
-### Prepare Your Environment
-
-Install the [`frame-omni-bencher`](https://crates.io/crates/frame-omni-bencher){target=\_blank} command-line tool:
-
-```bash
-cargo install frame-omni-bencher
-```
-
-Before writing benchmark tests, you need to ensure the `frame-benchmarking` crate is included in your pallet's `Cargo.toml` similar to the following:
-
-```toml title="Cargo.toml"
-frame-benchmarking = { version = "37.0.0", default-features = false }
-```
-
-You must also ensure that you add the `runtime-benchmarks` feature flag as follows under the `[features]` section of your pallet's `Cargo.toml`:
-
-```toml title="Cargo.toml"
-runtime-benchmarks = [
-  "frame-benchmarking/runtime-benchmarks",
-  "frame-support/runtime-benchmarks",
-  "frame-system/runtime-benchmarks",
-  "sp-runtime/runtime-benchmarks",
-]
-```
-
-Lastly, ensure that `frame-benchmarking` is included in `std = []`: 
-
-```toml title="Cargo.toml"
-std = [
-  # ...
-  "frame-benchmarking?/std",
-  # ...
-]
-```
-
-Once complete, you have the required dependencies for writing benchmark tests for your pallet.
-
-### Write Benchmark Tests
-
-Create a `benchmarking.rs` file in your pallet's `src/`. Your directory structure should look similar to the following:
-
-```
-my-pallet/
-├── src/
-│   ├── lib.rs          # Main pallet implementation
-│   └── benchmarking.rs # Benchmarking
-└── Cargo.toml
-```
-
-With the directory structure set, you can use the [`polkadot-sdk-parachain-template`](https://github.com/paritytech/polkadot-sdk-parachain-template/tree/master/pallets){target=\_blank} to get started as follows:
-
-```rust title="benchmarking.rs (starter template)"
-//! Benchmarking setup for pallet-template
+```rust title="pallets/pallet-custom/src/benchmarking.rs"
 #![cfg(feature = "runtime-benchmarks")]
 
 use super::*;
-use frame_benchmarking::v2::*;
+use frame::deps::frame_benchmarking::v2::*;
+use frame::benchmarking::prelude::RawOrigin;
 
 #[benchmarks]
 mod benchmarks {
-	use super::*;
-	#[cfg(test)]
-	use crate::pallet::Pallet as Template;
-	use frame_system::RawOrigin;
+    use super::*;
 
-	#[benchmark]
-	fn do_something() {
-		let caller: T::AccountId = whitelisted_caller();
-		#[extrinsic_call]
-		do_something(RawOrigin::Signed(caller), 100);
+    #[benchmark]
+    fn set_counter_value() {
+        let new_value: u32 = 100;
 
-		assert_eq!(Something::<T>::get().map(|v| v.block_number), Some(100u32.into()));
-	}
+        #[extrinsic_call]
+        _(RawOrigin::Root, new_value);
 
-	#[benchmark]
-	fn cause_error() {
-		Something::<T>::put(CompositeStruct { block_number: 100u32.into() });
-		let caller: T::AccountId = whitelisted_caller();
-		#[extrinsic_call]
-		cause_error(RawOrigin::Signed(caller));
+        assert_eq!(CounterValue::<T>::get(), new_value);
+    }
 
-		assert_eq!(Something::<T>::get().map(|v| v.block_number), Some(101u32.into()));
-	}
+    #[benchmark]
+    fn increment() {
+        let caller: T::AccountId = whitelisted_caller();
+        let amount: u32 = 50;
 
-	impl_benchmark_test_suite!(Template, crate::mock::new_test_ext(), crate::mock::Test);
+        #[extrinsic_call]
+        _(RawOrigin::Signed(caller.clone()), amount);
+
+        assert_eq!(CounterValue::<T>::get(), amount);
+        assert_eq!(UserInteractions::<T>::get(caller), 1);
+    }
+
+    #[benchmark]
+    fn decrement() {
+        // First, set the counter to a non-zero value
+        CounterValue::<T>::put(100);
+
+        let caller: T::AccountId = whitelisted_caller();
+        let amount: u32 = 30;
+
+        #[extrinsic_call]
+        _(RawOrigin::Signed(caller.clone()), amount);
+
+        assert_eq!(CounterValue::<T>::get(), 70);
+        assert_eq!(UserInteractions::<T>::get(caller), 1);
+    }
+
+    impl_benchmark_test_suite!(Pallet, crate::mock::new_test_ext(), crate::mock::Test);
 }
 ```
 
-In your benchmarking tests, employ these best practices:
+This module contains all the [benchmarking definitions](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/v2/index.html){target=\_blank} for your pallet. If you are benchmarking a different pallet, update the testing logic as needed to test your pallet's functionality. 
 
-- **Write custom testing functions**: The function `do_something` in the preceding example is a placeholder. Similar to writing unit tests, you must write custom functions to benchmark test your extrinsics. Access the mock runtime and use functions such as `whitelisted_caller()` to sign transactions and facilitate testing.
-- **Use the `#[extrinsic_call]` macro**: This macro is used when calling the extrinsic itself and is a required part of a benchmarking function. See the [`extrinsic_call`](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/v2/index.html#extrinsic_call-and-block){target=\_blank} docs for more details.
-- **Validate extrinsic behavior**: The `assert_eq` expression ensures that the extrinsic is working properly within the benchmark context.
+## Define the Weight Trait
 
-Add the `benchmarking` module to your pallet. In the pallet `lib.rs` file add the following:
+Add a `weights` module to your pallet that defines the `WeightInfo` trait using the following code:
 
-```rust
-#[cfg(feature = "runtime-benchmarks")]
-mod benchmarking;
+```rust title="pallets/pallet-custom/src/weights.rs"
+#[frame::pallet]
+pub mod pallet {
+    use frame::prelude::*;
+    pub use weights::WeightInfo;
+
+    pub mod weights {
+        use frame::prelude::*;
+
+        pub trait WeightInfo {
+            fn set_counter_value() -> Weight;
+            fn increment() -> Weight;
+            fn decrement() -> Weight;
+        }
+
+        impl WeightInfo for () {
+            fn set_counter_value() -> Weight {
+                Weight::from_parts(10_000, 0)
+            }
+            fn increment() -> Weight {
+                Weight::from_parts(15_000, 0)
+            }
+            fn decrement() -> Weight {
+                Weight::from_parts(15_000, 0)
+            }
+        }
+    }
+
+    // ... rest of pallet
+}
 ```
 
-### Add Benchmarks to Runtime
+The `WeightInfo for ()` implementation provides placeholder weights for development. If you are using a different pallet, update the `weights` module to use your pallet's function names.
 
-Before running the benchmarking tool, you must integrate benchmarks with your runtime as follows:
+## Add WeightInfo to Config 
 
-1. Navigate to your `runtime/src` directory and check if a `benchmarks.rs` file exists. If not, create one. This file will contain the macro that registers all pallets for benchmarking along with their respective configurations:
+Update your pallet's `Config` trait to include `WeightInfo` by adding the following code:
 
-    ```rust title="benchmarks.rs"
-    frame_benchmarking::define_benchmarks!(
-        [frame_system, SystemBench::<Runtime>]
-        [pallet_parachain_template, TemplatePallet]
-        [pallet_balances, Balances]
-        [pallet_session, SessionBench::<Runtime>]
-        [pallet_timestamp, Timestamp]
-        [pallet_message_queue, MessageQueue]
-        [pallet_sudo, Sudo]
-        [pallet_collator_selection, CollatorSelection]
-        [cumulus_pallet_parachain_system, ParachainSystem]
-        [cumulus_pallet_xcmp_queue, XcmpQueue]
-    );
-    ```
+```rust title="pallets/pallet-custom/src/lib.rs"
+#[pallet::config]
+pub trait Config: frame_system::Config {
+    type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
 
-    For example, to add a new pallet named `pallet_parachain_template` for benchmarking, include it in the macro as shown:
-    ```rust title="benchmarks.rs" hl_lines="3"
-    frame_benchmarking::define_benchmarks!(
-        [frame_system, SystemBench::<Runtime>]
-        [pallet_parachain_template, TemplatePallet]
-    );
-    ```
+    #[pallet::constant]
+    type CounterMaxValue: Get<u32>;
 
-    !!!warning "Updating `define_benchmarks!` macro is required"
-        Any pallet that needs to be benchmarked must be included in the [`define_benchmarks!`](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/macro.define_benchmarks.html){target=\_blank} macro. The CLI will only be able to access and benchmark pallets that are registered here.
+    type WeightInfo: weights::WeightInfo;
+}
+```
 
-2. Check your runtime's `lib.rs` file to ensure the `benchmarks` module is imported. The import should look like this:
+The [`WeightInfo`](https://paritytech.github.io/polkadot-sdk/master/frame_support/weights/trait.WeightInfo.html){target=\_blank} trait provides an abstraction layer that allows weights to be swapped at runtime configuration. By making `WeightInfo` an associated type in the `Config` trait, you will enable each runtime that uses your pallet to specify which weight implementation to use.
 
-    ```rust title="lib.rs"
-    #[cfg(feature = "runtime-benchmarks")]
-    mod benchmarks;
-    ```
+## Update Extrinsic Weight Annotations
 
-    The `runtime-benchmarks` feature gate ensures benchmark tests are isolated from production runtime code.
+Replace the placeholder weights in your extrinsics with calls to the `WeightInfo` trait by adding the following code:
 
-3. Enable runtime benchmarking for your pallet in `runtime/Cargo.toml`:
+```rust title="pallets/pallet-custom/src/lib.rs"
+#[pallet::call]
+impl<T: Config> Pallet<T> {
+    #[pallet::call_index(0)]
+    #[pallet::weight(T::WeightInfo::set_counter_value())]
+    pub fn set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult {
+        // ... implementation
+    }
 
-    ```toml
+    #[pallet::call_index(1)]
+    #[pallet::weight(T::WeightInfo::increment())]
+    pub fn increment(origin: OriginFor<T>, amount: u32) -> DispatchResult {
+        // ... implementation
+    }
+
+    #[pallet::call_index(2)]
+    #[pallet::weight(T::WeightInfo::decrement())]
+    pub fn decrement(origin: OriginFor<T>, amount: u32) -> DispatchResult {
+        // ... implementation
+    }
+}
+```
+
+By calling `T::WeightInfo::function_name()` instead of using hardcoded `Weight::from_parts()` values, your extrinsics automatically use whichever weight implementation is configured in the runtime. You can switch between placeholder weights for testing and benchmarked weights for production easily, without changing any pallet code.
+
+If you are using a different pallet, be sure to update the functions for `WeightInfo` accordingly.
+
+## Include the Benchmarking Module
+
+At the top of your `lib.rs`, add the module declaration by adding the following code:
+
+```rust title="pallets/pallet-custom/src/lib.rs"
+#![cfg_attr(not(feature = "std"), no_std)]
+
+extern crate alloc;
+use alloc::vec::Vec;
+
+pub use pallet::*;
+
+#[cfg(feature = "runtime-benchmarks")]
+mod benchmarking;
+
+// Additional pallet code
+```
+
+The `#[cfg(feature = "runtime-benchmarks")]` attribute ensures that benchmarking code is only compiled when explicitly needed to keep your production runtime efficient.
+
+## Configure Pallet Dependencies
+
+Update your pallet's `Cargo.toml` to enable the benchmarking feature by adding the following code:
+
+```toml title="pallets/pallet-custom/Cargo.toml"
+[dependencies]
+codec = { features = ["derive"], workspace = true }
+scale-info = { features = ["derive"], workspace = true }
+frame = { features = ["experimental", "runtime"], workspace = true }
+
+[features]
+default = ["std"]
+runtime-benchmarks = [
+    "frame/runtime-benchmarks",
+]
+std = [
+    "codec/std",
+    "scale-info/std",
+    "frame/std",
+]
+```
+
+The Cargo feature flag system lets you conditionally compile code based on which features are enabled. By defining a `runtime-benchmarks` feature that cascades to FRAME's benchmarking features, you create a clean way to build your pallet with or without benchmarking support, ensuring all necessary dependencies are available when needed but excluded from production builds.
+
+## Update Mock Runtime
+
+Add the `WeightInfo` type to your test configuration in `mock.rs` by adding the following code:
+
+```rust title="pallets/pallet-custom/src/mock.rs"
+impl pallet_custom::Config for Test {
+    type RuntimeEvent = RuntimeEvent;
+    type CounterMaxValue = ConstU32<1000>;
+    type WeightInfo = ();
+}
+```
+
+In your mock runtime for testing, use the placeholder `()` implementation of `WeightInfo`, since unit tests focus on verifying functional correctness rather than performance.
+
+## Configure Runtime Benchmarking
+
+To execute benchmarks, your pallet must be integrated into the runtime's benchmarking infrastructure. Follow these steps to update the runtime configuration:
+
+1. **Update `runtime/Cargo.toml`**: Add your pallet to the runtime's `runtime-benchmarks` feature as follows:
+
+    ```toml title="runtime/Cargo.toml"
     runtime-benchmarks = [
-      # ...
-      "pallet_parachain_template/runtime-benchmarks",
+        "cumulus-pallet-parachain-system/runtime-benchmarks",
+        "hex-literal",
+        "pallet-parachain-template/runtime-benchmarks",
+        "polkadot-sdk/runtime-benchmarks",
+        "pallet-custom/runtime-benchmarks",
     ]
-
     ```
 
-### Run Benchmarks
+    When you build the runtime with `--features runtime-benchmarks`, this configuration ensures all necessary benchmarking code across all pallets (including yours) is included.
 
-You can now compile your runtime with the `runtime-benchmarks` feature flag. This feature flag is crucial as the benchmarking tool will look for this feature being enabled to know when it should run benchmark tests. Follow these steps to compile the runtime with benchmarking enabled:
+2. **Update runtime configuration**: Using the the placeholder implementation, run development benchmarks as follows:
 
-1. Run `build` with the feature flag included:
-
-    ```bash
-    cargo build --features runtime-benchmarks --release
+    ```rust title="runtime/src/configs/mod.rs"
+    impl pallet_custom::Config for Runtime {
+        type RuntimeEvent = RuntimeEvent;
+        type CounterMaxValue = ConstU32<1000>;
+        type WeightInfo = ();
+    }
     ```
 
-2. Create a `weights.rs` file in your pallet's `src/` directory. This file will store the auto-generated weight calculations:
+3. **Register benchmarks**: Add your pallet to the benchmark list in `runtime/src/benchmarks.rs` as follows:
 
-    ```bash
-    touch weights.rs
+    ```rust title="runtime/src/benchmarks.rs"
+    polkadot_sdk::frame_benchmarking::define_benchmarks!(
+        [frame_system, SystemBench::<Runtime>]
+        [pallet_balances, Balances]
+        // ... other pallets
+        [pallet_custom, CustomPallet]
+    );
     ```
 
-3. Before running the benchmarking tool, you'll need a template file that defines how weight information should be formatted. Download the official template from the Polkadot SDK repository and save it in your project folders for future use:
+    The [`define_benchmarks!`](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/macro.define_benchmarks.html){target=\_blank} macro creates the infrastructure that allows the benchmarking CLI tool to discover and execute your pallet's benchmarks.
 
-    ```bash
-    curl https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkadot-stable2412/substrate/.maintain/frame-weight-template.hbs \
-    --output ./pallets/benchmarking/frame-weight-template.hbs
-    ```
+## Test Benchmark Compilation
 
-4. Run the benchmarking tool to measure extrinsic weights:
+Run the following command to verify your benchmarks compile and run as tests:
 
-    ```bash
-    frame-omni-bencher v1 benchmark pallet \
-    --runtime INSERT_PATH_TO_WASM_RUNTIME \
-    --pallet INSERT_NAME_OF_PALLET \
-    --extrinsic "" \
-    --template ./frame-weight-template.hbs \
-    --output weights.rs
-    ```
+```bash
+cargo test -p pallet-custom --features runtime-benchmarks
+```
 
-    !!! tip "Flag definitions"
-        - **`--runtime`**: The path to your runtime's Wasm.
-        - **`--pallet`**: The name of the pallet you wish to benchmark. This pallet must be configured in your runtime and defined in `define_benchmarks`.
-        - **`--extrinsic`**: Which extrinsic to test. Using `""` implies all extrinsics will be benchmarked.
-        - **`--template`**: Defines how weight information should be formatted.
-        - **`--output`**: Where the output of the auto-generated weights will reside.
-
-The generated `weights.rs` file contains weight annotations for your extrinsics, ready to be added to your pallet. The output should be similar to the following. Some output is omitted for brevity:
+You will see terminal output similar to the following as your benchmark tests pass:
 
 <div id="termynal" data-termynal>
-  <span data-ty="input"><span class="file-path"></span>frame-omni-bencher v1 benchmark pallet \</span>
-  <span data-ty>--runtime INSERT_PATH_TO_WASM_RUNTIME \</span>
-  <span data-ty>--pallet "INSERT_NAME_OF_PALLET" \</span>
-  <span data-ty>--extrinsic "" \</span>
-  <span data-ty>--template ./frame-weight-template.hbs \</span>
-  <span data-ty>--output ./weights.rs</span>
-  <span data-ty>...</span>
-  <span data-ty>2025-01-15T16:41:33.557045Z INFO polkadot_sdk_frame::benchmark::pallet: [ 0 % ] Starting benchmark: pallet_parachain_template::do_something</span>
-  <span data-ty>2025-01-15T16:41:33.564644Z INFO polkadot_sdk_frame::benchmark::pallet: [ 50 % ] Starting benchmark: pallet_parachain_template::cause_error</span>
-  <span data-ty>...</span>
-  <span data-ty>Created file: "weights.rs"</span>
+  <span data-ty="input"><span class="file-path"></span>cargo test -p pallet-custom --features runtime-benchmarks</span>
+  <span data-ty>test benchmarking::benchmarks::bench_set_counter_value ... ok</span>
+  <span data-ty>test benchmarking::benchmarks::bench_increment ... ok</span>
+  <span data-ty>test benchmarking::benchmarks::bench_decrement ... ok</span>
   <span data-ty="input"><span class="file-path"></span></span>
 </div>
 
-#### Add Benchmark Weights to Pallet
+The `impl_benchmark_test_suite!` macro generates unit tests for each benchmark. Running these tests verifies that your benchmarks compile correctly, execute without panicking, and pass their assertions, catching issues early before building the entire runtime.
 
-Once the `weights.rs` is generated, you must integrate it with your pallet. 
+## Build the Runtime with Benchmarks
 
-1. To begin the integration, import the `weights` module and the `WeightInfo` trait, then add both to your pallet's `Config` trait. Complete the following steps to set up the configuration:
+Compile the runtime with benchmarking enabled to generate the Wasm binary using the following command:
 
-    ```rust title="lib.rs"
+```bash
+cargo build --release --features runtime-benchmarks
+```
+
+This command produces the runtime WASM file needed for benchmarking, typically located at: `target/release/wbuild/parachain-template-runtime/parachain_template_runtime.wasm`
+
+The build includes all the benchmarking infrastructure and special host functions needed for measurement. The resulting WASM runtime contains your benchmark code and can communicate with the benchmarking tool's execution environment. You'll create a different build later for operating your chain in production.
+
+## Install the Benchmarking Tool
+
+Install the `frame-omni-bencher` CLI tool using the following command:
+
+```bash
+cargo install frame-omni-bencher --locked
+```
+
+[`frame-omni-bencher`](https://paritytech.github.io/polkadot-sdk/master/frame_omni_bencher/index.html){target=\_blank} is the official Polkadot SDK tool designed explicitly for FRAME pallet benchmarking. It provides a standardized way to execute benchmarks, measure execution times and storage operations, and generate properly formatted weight files with full integration into the FRAME weight system.
+
+## Download the Weight Template
+
+Download the official weight template file using the following commands:
+
+```bash
+curl -L https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkadot-stable2412/substrate/.maintain/frame-weight-template.hbs \
+--output ./pallets/pallet-custom/frame-weight-template.hbs
+```
+
+The weight template is a Handlebars file that transforms raw benchmark data into a correctly formatted Rust source file. It defines the structure of the generated `weights.rs` file, including imports, trait definitions, documentation comments, and formatting. Using the official template ensures your weight files follow the Polkadot SDK conventions and include all necessary metadata, such as benchmark execution parameters, storage operation counts, and hardware information.
+
+## Execute Benchmarks
+
+Run benchmarks for your pallet to generate weight files using the following commands:
+
+```bash
+frame-omni-bencher v1 benchmark pallet \
+    --runtime ./target/release/wbuild/parachain-template-runtime/parachain_template_runtime.wasm \
+    --pallet pallet_custom \
+    --extrinsic "" \
+    --template ./pallets/pallet-custom/frame-weight-template.hbs \
+    --output ./pallets/pallet-custom/src/weights.rs
+```
+
+Benchmarks execute against the compiled WASM runtime rather than native code because WASM is what actually runs in production on the blockchain. WASM execution can have different performance characteristics than native code due to compilation and sandboxing overhead, so benchmarking against the WASM ensures your weight measurements reflect real-world conditions.
+
+??? note "Additional customization"
+
+    You can customize benchmark execution with additional parameters for more detailed measurements, as shown in the sample code below:
+
+    ```bash
+    frame-omni-bencher v1 benchmark pallet \
+        --runtime ./target/release/wbuild/parachain-template-runtime/parachain_template_runtime.wasm \
+        --pallet pallet_custom \
+        --extrinsic "" \
+        --steps 50 \
+        --repeat 20 \
+        --template ./pallets/pallet-custom/frame-weight-template.hbs \
+        --output ./pallets/pallet-custom/src/weights.rs
+    ```
+    
+    - **`--steps 50`**: Number of different input values to test when using linear components (default: 50). More steps provide finer granularity for detecting complexity trends but increase benchmarking time.
+    - **`--repeat 20`**: Number of repetitions for each measurement (default: 20). More repetitions improve statistical accuracy by averaging out variance, reducing the impact of system noise, and providing more reliable weight estimates.
+    - **`--heap-pages 4096`**: WASM heap pages allocation. Affects available memory during execution.
+    - **`--wasm-execution compiled`**: WASM execution method. Use `compiled` for performance closest to production conditions.
+
+## Use Generated Weights
+
+After running benchmarks, a `weights.rs` file is generated containing measured weights based on actual measurements of your code running on real hardware, accounting for the specific complexity of your logic, storage access patterns, and computational requirements.
+
+Follow these steps to use the generated weights with your pallet:
+
+1. Integrate the generated weights by adding the weights module to your pallet's `lib.rs` as follows:
+
+    ```rust title="pallets/pallet-custom/src/lib.rs"
+    #![cfg_attr(not(feature = "std"), no_std)]
+
+    extern crate alloc;
+    use alloc::vec::Vec;
+
+    pub use pallet::*;
+
+    #[cfg(feature = "runtime-benchmarks")]
+    mod benchmarking;
+
     pub mod weights;
-    use crate::weights::WeightInfo;
 
-    /// Configure the pallet by specifying the parameters and types on which it depends.
-    #[pallet::config]
-    pub trait Config: frame_system::Config {
-        // ...
-        /// A type representing the weights required by the dispatchables of this pallet.
-        type WeightInfo: WeightInfo;
+    #[frame::pallet]
+    pub mod pallet {
+        use super::*;
+        use frame::prelude::*;
+        use crate::weights::WeightInfo;
+        // ... rest of pallet
     }
     ```
 
-2. Next, you must add this to the `#[pallet::weight]` annotation in all the extrinsics via the `Config` as follows:
+    Unlike the benchmarking module (which is only needed when running benchmarks), the weights module must be available in all builds because the runtime needs to call the weight functions during regular operation to calculate transaction fees and enforce block limits.
 
-    ```rust hl_lines="2" title="lib.rs"
-    #[pallet::call_index(0)]
-    #[pallet::weight(T::WeightInfo::do_something())]
-    pub fn do_something(origin: OriginFor<T>) -> DispatchResultWithPostInfo { Ok(()) }
-    ```
+2. Update your runtime configuration to use the generated weights instead of the placeholder `()` implementation by adding the following code:
 
-3. Finally, configure the actual weight values in your runtime. In `runtime/src/config/mod.rs`, add the following code:
-
-    ```rust title="mod.rs"
-    // Configure pallet.
-    impl pallet_parachain_template::Config for Runtime {
-        // ...
-        type WeightInfo = pallet_parachain_template::weights::SubstrateWeight<Runtime>;
+    ```rust title="runtime/src/configs/mod.rs"
+    impl pallet_custom::Config for Runtime {
+        type RuntimeEvent = RuntimeEvent;
+        type CounterMaxValue = ConstU32<1000>;
+        type WeightInfo = pallet_custom::weights::SubstrateWeight<Runtime>;
     }
     ```
 
-## Where to Go Next
+    This change activates your benchmarked weights in the production runtime. Now, when users submit transactions that call your pallet's extrinsics, the runtime will use the actual measured weights to calculate fees and enforce block limits.
 
-- View the Rust Docs for a more comprehensive, low-level view of the [FRAME V2 Benchmarking Suite](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/v2/index.html){target=_blank}.
-- Read the [FRAME Benchmarking and Weights](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/frame_benchmarking_weight/index.html){target=_blank} reference document, a concise guide which details how weights and benchmarking work.
+??? code "Example generated weight file"
+    
+    The generated `weights.rs` file will look similar to this:
+
+    ```rust title="pallets/pallet-custom/src/weights.rs"
+    //! Autogenerated weights for `pallet_custom`
+    //!
+    //! THIS FILE WAS AUTO-GENERATED USING THE SUBSTRATE BENCHMARK CLI VERSION 32.0.0
+    //! DATE: 2025-01-15, STEPS: `50`, REPEAT: `20`
+
+    #![cfg_attr(rustfmt, rustfmt_skip)]
+    #![allow(unused_parens)]
+    #![allow(unused_imports)]
+    #![allow(missing_docs)]
+
+    use frame_support::{traits::Get, weights::{Weight, constants::RocksDbWeight}};
+    use core::marker::PhantomData;
+
+    pub trait WeightInfo {
+        fn set_counter_value() -> Weight;
+        fn increment() -> Weight;
+        fn decrement() -> Weight;
+    }
+
+    pub struct SubstrateWeight<T>(PhantomData<T>);
+    impl<T: frame_system::Config> WeightInfo for SubstrateWeight<T> {
+        fn set_counter_value() -> Weight {
+            Weight::from_parts(8_234_000, 0)
+                .saturating_add(T::DbWeight::get().reads(1))
+                .saturating_add(T::DbWeight::get().writes(1))
+        }
+
+        fn increment() -> Weight {
+            Weight::from_parts(12_456_000, 0)
+                .saturating_add(T::DbWeight::get().reads(2))
+                .saturating_add(T::DbWeight::get().writes(2))
+        }
+
+        fn decrement() -> Weight {
+            Weight::from_parts(11_987_000, 0)
+                .saturating_add(T::DbWeight::get().reads(2))
+                .saturating_add(T::DbWeight::get().writes(2))
+        }
+    }
+    ```
+
+    The actual numbers in your `weights.rs` file will vary based on your hardware and implementation complexity. The [`DbWeight`](https://paritytech.github.io/polkadot-sdk/master/frame_support/weights/struct.RuntimeDbWeight.html){target=\_blank} accounts for database read and write operations.
+
+Congratulations, you've successfully benchmarked a pallet and updated your runtime to use the generated weight values.
+
+## Related Resources
+
+- [FRAME Benchmarking Documentation](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/index.html){target=\_blank}
+- [Weight Struct Documentation](https://paritytech.github.io/polkadot-sdk/master/frame_support/weights/struct.Weight.html){target=\_blank}
+- [Benchmarking v2 API](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/v2/index.html){target=\_blank}
+- [frame-omni-bencher Tool](https://paritytech.github.io/polkadot-sdk/master/frame_omni_bencher/index.html){target=\_blank}
 
 
 ---
@@ -2059,7 +2208,7 @@ This command validates all pallet configurations and prepares the build for depl
 
 ## Run Your Chain Locally
 
-Launch your parachain locally to test the new pallet functionality using the [Polkadot Omni Node](https://crates.io/crates/polkadot-omni-node){target=\_blank}.
+Launch your parachain locally to test the new pallet functionality using the [Polkadot Omni Node](https://crates.io/crates/polkadot-omni-node){target=\_blank}. For instructions on setting up the Polkadot Omni Node and [Polkadot Chain Spec Builder](https://crates.io/crates/staging-chain-spec-builder){target=\_blank}, refer to the [Set Up a Parachain Template](/parachains/launch-a-parachain/set-up-the-parachain-template/){target=\_blank} guide.
 
 ### Generate a Chain Specification
 
@@ -6332,737 +6481,6 @@ This section covers the most common customization patterns you'll encounter:
 
 ---
 
-Page Title: Pallet Unit Testing
-
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/parachains-customize-runtime-pallet-development-pallet-testing.md
-- Canonical (HTML): https://docs.polkadot.com/parachains/customize-runtime/pallet-development/pallet-testing/
-- Summary: Learn how to write comprehensive unit tests for your custom pallets using mock runtimes, ensuring reliability and correctness before deployment.
-
-# Pallet Unit Testing
-
-## Introduction
-
-Unit testing in the Polkadot SDK helps ensure that the functions provided by a pallet behave as expected. It also confirms that data and events associated with a pallet are processed correctly during interactions. With your mock runtime in place from the [previous guide](/parachains/customize-runtime/pallet-development/mock-runtime/), you can now write comprehensive tests that verify your pallet's behavior in isolation.
-
-In this guide, you'll learn how to:
-
-- Structure test modules effectively.
-- Test dispatchable functions.
-- Verify storage changes.
-- Check event emission.
-- Test error conditions.
-- Use genesis configurations in tests.
-
-## Prerequisites
-
-Before you begin, ensure you:
-
-- Completed the [Make a Custom Pallet](/parachains/customize-runtime/pallet-development/create-a-pallet/) guide.
-- Completed the [Mock Your Runtime](/parachains/customize-runtime/pallet-development/mock-runtime/) guide.
-- Configured custom counter pallet with mock runtime in `pallets/pallet-custom`.
-- Understood the basics of [Rust testing](https://doc.rust-lang.org/book/ch11-00-testing.html){target=\_blank}.
-
-## Understanding FRAME Testing Tools
-
-[FRAME](/reference/glossary/#frame-framework-for-runtime-aggregation-of-modularized-entities){target=\_blank} provides specialized testing macros and utilities that make pallet testing more efficient:
-
-### Assertion Macros
-
-- **[`assert_ok!`](https://paritytech.github.io/polkadot-sdk/master/frame_support/macro.assert_ok.html){target=\_blank}** - Asserts that a dispatchable call succeeds.
-- **[`assert_noop!`](https://paritytech.github.io/polkadot-sdk/master/frame_support/macro.assert_noop.html){target=\_blank}** - Asserts that a call fails without changing state (no operation).
-- **[`assert_eq!`](https://doc.rust-lang.org/std/macro.assert_eq.html){target=\_blank}** - Standard Rust equality assertion.
-
-!!!info "`assert_noop!` Explained"
-    Use `assert_noop!` to ensure the operation fails without any state changes. This is critical for testing error conditions - it verifies both that the error occurs AND that no storage was modified.
-
-### System Pallet Test Helpers
-
-The [`frame_system`](https://paritytech.github.io/polkadot-sdk/master/frame_system/index.html){target=\_blank} pallet provides useful methods for testing:
-
-- **[`System::events()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.events){target=\_blank}** - Returns all events emitted during the test.
-- **[`System::assert_last_event()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.assert_last_event){target=\_blank}** - Asserts the last event matches expectations.
-- **[`System::set_block_number()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.set_block_number){target=\_blank}** - Sets the current block number.
-
-!!!info "Events and Block Number"
-    Events are not emitted on block 0 (genesis block). If you need to test events, ensure you set the block number to at least 1 using `System::set_block_number(1)`.
-
-### Origin Types
-
-- **[`RuntimeOrigin::root()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/enum.RawOrigin.html#variant.Root){target=\_blank}** - Root/sudo origin for privileged operations.
-- **[`RuntimeOrigin::signed(account)`](https://paritytech.github.io/polkadot-sdk/master/frame_system/enum.RawOrigin.html#variant.Signed){target=\_blank}** - Signed origin from a specific account.
-- **[`RuntimeOrigin::none()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/enum.RawOrigin.html#variant.None){target=\_blank}** - No origin (typically fails for most operations).
-
-Learn more about origins in the [FRAME Origin reference document](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/frame_origin/index.html){target=\_blank}.
-
-## Create the Tests Module
-
-Create a new file for your tests within the pallet directory:
-
-1. Navigate to your pallet directory:
-
-    ```bash
-    cd pallets/pallet-custom/src
-    ```
-
-2. Create a new file named `tests.rs`:
-
-    ```bash
-    touch tests.rs
-    ```
-
-3. Open `src/lib.rs` and add the tests module declaration after the mock module:
-
-    ```rust title="src/lib.rs"
-    #![cfg_attr(not(feature = "std"), no_std)]
-
-    pub use pallet::*;
-
-    #[cfg(test)]
-    mod mock;
-
-    #[cfg(test)]
-    mod tests;
-
-    #[frame::pallet]
-    pub mod pallet {
-        // ... existing pallet code
-    }
-    ```
-
-## Set Up the Test Module
-
-Open `src/tests.rs` and add the basic structure with necessary imports:
-
-```rust
-use crate::{mock::*, Error, Event};
-use frame::deps::frame_support::{assert_noop, assert_ok};
-use frame::deps::sp_runtime::DispatchError;
-```
-
-This setup imports:
-
-- The mock runtime and test utilities from `mock.rs`
-- Your pallet's `Error` and `Event` types
-- FRAME's assertion macros via `frame::deps`
-- `DispatchError` for testing origin checks
-
-???+ code "Complete Pallet Code Reference"
-    Here's the complete pallet code that you'll be testing throughout this guide:
-
-    ```rust
-    #![cfg_attr(not(feature = "std"), no_std)]
-
-    pub use pallet::*;
-
-    #[frame::pallet]
-    pub mod pallet {
-        use frame::prelude::*;
-
-        #[pallet::pallet]
-        pub struct Pallet<T>(_);
-
-        #[pallet::config]
-        pub trait Config: frame_system::Config {
-            type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
-
-            #[pallet::constant]
-            type CounterMaxValue: Get<u32>;
-        }
-
-        #[pallet::event]
-        #[pallet::generate_deposit(pub(super) fn deposit_event)]
-        pub enum Event<T: Config> {
-            CounterValueSet {
-                new_value: u32,
-            },
-            CounterIncremented {
-                new_value: u32,
-                who: T::AccountId,
-                amount: u32,
-            },
-            CounterDecremented {
-                new_value: u32,
-                who: T::AccountId,
-                amount: u32,
-            },
-        }
-
-        #[pallet::error]
-        pub enum Error<T> {
-            NoneValue,
-            Overflow,
-            Underflow,
-            CounterMaxValueExceeded,
-        }
-
-        #[pallet::storage]
-        pub type CounterValue<T> = StorageValue<_, u32, ValueQuery>;
-
-        #[pallet::storage]
-        pub type UserInteractions<T: Config> = StorageMap<
-            _,
-            Blake2_128Concat,
-            T::AccountId,
-            u32,
-            ValueQuery
-        >;
-
-        #[pallet::genesis_config]
-        #[derive(DefaultNoBound)]
-        pub struct GenesisConfig<T: Config> {
-            pub initial_counter_value: u32,
-            pub initial_user_interactions: Vec<(T::AccountId, u32)>,
-        }
-
-        #[pallet::genesis_build]
-        impl<T: Config> BuildGenesisConfig for GenesisConfig<T> {
-            fn build(&self) {
-                CounterValue::<T>::put(self.initial_counter_value);
-                for (account, count) in &self.initial_user_interactions {
-                    UserInteractions::<T>::insert(account, count);
-                }
-            }
-        }
-
-        #[pallet::call]
-        impl<T: Config> Pallet<T> {
-            #[pallet::call_index(0)]
-            #[pallet::weight(0)]
-            pub fn set_counter_value(origin: OriginFor<T>, new_value: u32) -> DispatchResult {
-                ensure_root(origin)?;
-                ensure!(new_value <= T::CounterMaxValue::get(), Error::<T>::CounterMaxValueExceeded);
-                CounterValue::<T>::put(new_value);
-                Self::deposit_event(Event::CounterValueSet { new_value });
-                Ok(())
-            }
-
-            #[pallet::call_index(1)]
-            #[pallet::weight(0)]
-            pub fn increment(origin: OriginFor<T>, amount: u32) -> DispatchResult {
-                let who = ensure_signed(origin)?;
-                let current_value = CounterValue::<T>::get();
-                let new_value = current_value.checked_add(amount).ok_or(Error::<T>::Overflow)?;
-                ensure!(new_value <= T::CounterMaxValue::get(), Error::<T>::CounterMaxValueExceeded);
-                CounterValue::<T>::put(new_value);
-                UserInteractions::<T>::mutate(&who, |count| {
-                    *count = count.saturating_add(1);
-                });
-                Self::deposit_event(Event::CounterIncremented { new_value, who, amount });
-                Ok(())
-            }
-
-            #[pallet::call_index(2)]
-            #[pallet::weight(0)]
-            pub fn decrement(origin: OriginFor<T>, amount: u32) -> DispatchResult {
-                let who = ensure_signed(origin)?;
-                let current_value = CounterValue::<T>::get();
-                let new_value = current_value.checked_sub(amount).ok_or(Error::<T>::Underflow)?;
-                CounterValue::<T>::put(new_value);
-                UserInteractions::<T>::mutate(&who, |count| {
-                    *count = count.saturating_add(1);
-                });
-                Self::deposit_event(Event::CounterDecremented { new_value, who, amount });
-                Ok(())
-            }
-        }
-    }
-
-    ```
-
-## Write Your First Test
-
-Let's start with a simple test to verify the increment function works correctly.
-
-### Test Basic Increment
-
-Test that the increment function increases counter value and emits events.
-
-```rust
-#[test]
-fn increment_works() {
-    new_test_ext().execute_with(|| {
-        // Set block number to 1 so events are registered
-        System::set_block_number(1);
-
-        let account = 1u64;
-
-        // Increment by 50
-        assert_ok!(CustomPallet::increment(RuntimeOrigin::signed(account), 50));
-        assert_eq!(crate::CounterValue::<Test>::get(), 50);
-
-        // Check event was emitted
-        System::assert_last_event(
-            Event::CounterIncremented {
-                new_value: 50,
-                who: account,
-                amount: 50,
-            }
-            .into(),
-        );
-
-        // Check user interactions were tracked
-        assert_eq!(crate::UserInteractions::<Test>::get(account), 1);
-    });
-}
-```
-
-Run your first test:
-
-```bash
-cargo test --package pallet-custom increment_works
-```
-
-You should see:
-
-```
-running 1 test
-test tests::increment_works ... ok
-```
-
-Congratulations! You've written and run your first pallet test.
-
-## Test Error Conditions
-
-Now let's test that our pallet correctly handles errors. Error testing is crucial to ensure your pallet fails safely.
-
-### Test Overflow Protection
-
-Test that incrementing at u32::MAX fails with Overflow error.
-
-```rust
-#[test]
-fn increment_fails_on_overflow() {
-    new_test_ext_with_counter(u32::MAX).execute_with(|| {
-        // Attempt to increment when at max u32 should fail
-        assert_noop!(
-            CustomPallet::increment(RuntimeOrigin::signed(1), 1),
-            Error::<Test>::Overflow
-        );
-    });
-}
-```
-
-Test overflow protection:
-
-```bash
-cargo test --package pallet-custom increment_fails_on_overflow
-```
-
-### Test Underflow Protection
-
-Test that decrementing below zero fails with Underflow error.
-
-```rust
-#[test]
-fn decrement_fails_on_underflow() {
-    new_test_ext_with_counter(10).execute_with(|| {
-        // Attempt to decrement below zero should fail
-        assert_noop!(
-            CustomPallet::decrement(RuntimeOrigin::signed(1), 11),
-            Error::<Test>::Underflow
-        );
-    });
-}
-```
-
-Verify underflow protection:
-
-```bash
-cargo test --package pallet-custom decrement_fails_on_underflow
-```
-
-## Test Access Control
-
-Verify that origin checks work correctly and unauthorized access is prevented.
-
-### Test Root-Only Access
-
-Test that set_counter_value requires root origin and rejects signed origins.
-
-```rust
-#[test]
-fn set_counter_value_requires_root() {
-    new_test_ext().execute_with(|| {
-        let alice = 1u64;
-
-        // When: non-root user tries to set counter
-        // Then: should fail with BadOrigin
-        assert_noop!(
-            CustomPallet::set_counter_value(RuntimeOrigin::signed(alice), 100),
-            DispatchError::BadOrigin
-        );
-
-        // But root should succeed
-        assert_ok!(CustomPallet::set_counter_value(RuntimeOrigin::root(), 100));
-        assert_eq!(crate::CounterValue::<Test>::get(), 100);
-    });
-}
-```
-
-Test access control:
-
-```bash
-cargo test --package pallet-custom set_counter_value_requires_root
-```
-
-## Test Event Emission
-
-Verify that events are emitted correctly with the right data.
-
-### Test Event Data
-
-The [`increment_works`](/parachains/customize-runtime/pallet-development/pallet-testing/#test-basic-increment) test (shown earlier) already demonstrates event testing by:
-
-1. Setting the block number to 1 to enable event emission.
-2. Calling the dispatchable function.
-3. Using `System::assert_last_event()` to verify the correct event was emitted with expected data.
-
-This pattern applies to all dispatchables that emit events. For a dedicated event-only test focusing on the `set_counter_value` function:
-
-Test that set_counter_value updates storage and emits correct event.
-
-```rust
-#[test]
-fn set_counter_value_works() {
-    new_test_ext().execute_with(|| {
-        // Set block number to 1 so events are registered
-        System::set_block_number(1);
-
-        // Set counter to 100
-        assert_ok!(CustomPallet::set_counter_value(RuntimeOrigin::root(), 100));
-        assert_eq!(crate::CounterValue::<Test>::get(), 100);
-
-        // Check event was emitted
-        System::assert_last_event(Event::CounterValueSet { new_value: 100 }.into());
-    });
-}
-```
-
-Run the event test:
-
-```bash
-cargo test --package pallet-custom set_counter_value_works
-```
-
-## Test Genesis Configuration
-
-Verify that genesis configuration works correctly.
-
-### Test Genesis Setup
-
-Test that genesis configuration correctly initializes counter and user interactions.
-
-```rust
-#[test]
-fn genesis_config_works() {
-    new_test_ext_with_interactions(42, vec![(1, 5), (2, 10)]).execute_with(|| {
-        // Check initial counter value
-        assert_eq!(crate::CounterValue::<Test>::get(), 42);
-
-        // Check initial user interactions
-        assert_eq!(crate::UserInteractions::<Test>::get(1), 5);
-        assert_eq!(crate::UserInteractions::<Test>::get(2), 10);
-    });
-}
-```
-
-Test genesis configuration:
-
-```bash
-cargo test --package pallet-custom genesis_config_works
-```
-
-## Run All Tests
-
-Now run all your tests together:
-
-```bash
-cargo test --package pallet-custom
-```
-
-You should see all tests passing:
-
-<div id="termynal" data-termynal>
-  <span data-ty="input">$ cargo test --package pallet-custom</span>
-  <span data-ty>running 15 tests</span>
-  <span data-ty>test mock::__construct_runtime_integrity_test::runtime_integrity_tests ... ok</span>
-  <span data-ty>test mock::test_genesis_config_builds ... ok</span>
-  <span data-ty>test tests::decrement_fails_on_underflow ... ok</span>
-  <span data-ty>test tests::decrement_tracks_multiple_interactions ... ok</span>
-  <span data-ty>test tests::decrement_works ... ok</span>
-  <span data-ty>test tests::different_users_tracked_separately ... ok</span>
-  <span data-ty>test tests::genesis_config_works ... ok</span>
-  <span data-ty>test tests::increment_fails_on_overflow ... ok</span>
-  <span data-ty>test tests::increment_respects_max_value ... ok</span>
-  <span data-ty>test tests::increment_tracks_multiple_interactions ... ok</span>
-  <span data-ty>test tests::increment_works ... ok</span>
-  <span data-ty>test tests::mixed_increment_and_decrement_works ... ok</span>
-  <span data-ty>test tests::set_counter_value_requires_root ... ok</span>
-  <span data-ty>test tests::set_counter_value_respects_max_value ... ok</span>
-  <span data-ty>test tests::set_counter_value_works ... ok</span>
-  <span data-ty></span>
-  <span data-ty>test result: ok. 15 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out</span>
-</div>
-
-!!!note "Mock Runtime Tests"
-    You'll notice 2 additional tests from the `mock` module:
-
-    - `mock::__construct_runtime_integrity_test::runtime_integrity_tests` - Auto-generated test that validates runtime construction
-    - `mock::test_genesis_config_builds` - Validates that genesis configuration builds correctly
-
-    These tests are automatically generated from your mock runtime setup and help ensure the test environment itself is valid.
-
-Congratulations! You have a well-tested pallet covering the essential testing patterns!
-
-These tests demonstrate comprehensive coverage including basic operations, error conditions, access control, event emission, state management, and genesis configuration. As you build more complex pallets, you'll apply these same patterns to test additional functionality.
-
-??? code "Full Test Suite Code"
-    Here's the complete `tests.rs` file for quick reference:
-
-    ```rust
-    use crate::{mock::*, Error, Event};
-    use frame::deps::frame_support::{assert_noop, assert_ok};
-    use frame::deps::sp_runtime::DispatchError;
-
-    #[test]
-    fn set_counter_value_works() {
-        new_test_ext().execute_with(|| {
-            // Set block number to 1 so events are registered
-            System::set_block_number(1);
-
-            // Set counter to 100
-            assert_ok!(CustomPallet::set_counter_value(RuntimeOrigin::root(), 100));
-            assert_eq!(crate::CounterValue::<Test>::get(), 100);
-
-            // Check event was emitted
-            System::assert_last_event(Event::CounterValueSet { new_value: 100 }.into());
-        });
-    }
-
-    #[test]
-    fn set_counter_value_requires_root() {
-        new_test_ext().execute_with(|| {
-            // Attempt to set counter with non-root origin should fail
-            assert_noop!(
-                CustomPallet::set_counter_value(RuntimeOrigin::signed(1), 100),
-                DispatchError::BadOrigin
-            );
-        });
-    }
-
-    #[test]
-    fn set_counter_value_respects_max_value() {
-        new_test_ext().execute_with(|| {
-            // Attempt to set counter above max value (1000) should fail
-            assert_noop!(
-                CustomPallet::set_counter_value(RuntimeOrigin::root(), 1001),
-                Error::<Test>::CounterMaxValueExceeded
-            );
-
-            // Setting to exactly max value should work
-            assert_ok!(CustomPallet::set_counter_value(RuntimeOrigin::root(), 1000));
-            assert_eq!(crate::CounterValue::<Test>::get(), 1000);
-        });
-    }
-
-    #[test]
-    fn increment_works() {
-        new_test_ext().execute_with(|| {
-            // Set block number to 1 so events are registered
-            System::set_block_number(1);
-
-            let account = 1u64;
-
-            // Increment by 50
-            assert_ok!(CustomPallet::increment(RuntimeOrigin::signed(account), 50));
-            assert_eq!(crate::CounterValue::<Test>::get(), 50);
-
-            // Check event was emitted
-            System::assert_last_event(
-                Event::CounterIncremented {
-                    new_value: 50,
-                    who: account,
-                    amount: 50,
-                }
-                .into(),
-            );
-
-            // Check user interactions were tracked
-            assert_eq!(crate::UserInteractions::<Test>::get(account), 1);
-        });
-    }
-
-    #[test]
-    fn increment_tracks_multiple_interactions() {
-        new_test_ext().execute_with(|| {
-            let account = 1u64;
-
-            // Increment multiple times
-            assert_ok!(CustomPallet::increment(RuntimeOrigin::signed(account), 10));
-            assert_ok!(CustomPallet::increment(RuntimeOrigin::signed(account), 20));
-            assert_ok!(CustomPallet::increment(RuntimeOrigin::signed(account), 30));
-
-            // Check counter value
-            assert_eq!(crate::CounterValue::<Test>::get(), 60);
-
-            // Check user interactions were tracked (should be 3)
-            assert_eq!(crate::UserInteractions::<Test>::get(account), 3);
-        });
-    }
-
-    #[test]
-    fn increment_fails_on_overflow() {
-        new_test_ext_with_counter(u32::MAX).execute_with(|| {
-            // Attempt to increment when at max u32 should fail
-            assert_noop!(
-                CustomPallet::increment(RuntimeOrigin::signed(1), 1),
-                Error::<Test>::Overflow
-            );
-        });
-    }
-
-    #[test]
-    fn increment_respects_max_value() {
-        new_test_ext_with_counter(950).execute_with(|| {
-            // Incrementing past max value (1000) should fail
-            assert_noop!(
-                CustomPallet::increment(RuntimeOrigin::signed(1), 51),
-                Error::<Test>::CounterMaxValueExceeded
-            );
-
-            // Incrementing to exactly max value should work
-            assert_ok!(CustomPallet::increment(RuntimeOrigin::signed(1), 50));
-            assert_eq!(crate::CounterValue::<Test>::get(), 1000);
-        });
-    }
-
-    #[test]
-    fn decrement_works() {
-        new_test_ext_with_counter(100).execute_with(|| {
-            // Set block number to 1 so events are registered
-            System::set_block_number(1);
-
-            let account = 2u64;
-
-            // Decrement by 30
-            assert_ok!(CustomPallet::decrement(RuntimeOrigin::signed(account), 30));
-            assert_eq!(crate::CounterValue::<Test>::get(), 70);
-
-            // Check event was emitted
-            System::assert_last_event(
-                Event::CounterDecremented {
-                    new_value: 70,
-                    who: account,
-                    amount: 30,
-                }
-                .into(),
-            );
-
-            // Check user interactions were tracked
-            assert_eq!(crate::UserInteractions::<Test>::get(account), 1);
-        });
-    }
-
-    #[test]
-    fn decrement_fails_on_underflow() {
-        new_test_ext_with_counter(10).execute_with(|| {
-            // Attempt to decrement below zero should fail
-            assert_noop!(
-                CustomPallet::decrement(RuntimeOrigin::signed(1), 11),
-                Error::<Test>::Underflow
-            );
-        });
-    }
-
-    #[test]
-    fn decrement_tracks_multiple_interactions() {
-        new_test_ext_with_counter(100).execute_with(|| {
-            let account = 3u64;
-
-            // Decrement multiple times
-            assert_ok!(CustomPallet::decrement(RuntimeOrigin::signed(account), 10));
-            assert_ok!(CustomPallet::decrement(RuntimeOrigin::signed(account), 20));
-
-            // Check counter value
-            assert_eq!(crate::CounterValue::<Test>::get(), 70);
-
-            // Check user interactions were tracked (should be 2)
-            assert_eq!(crate::UserInteractions::<Test>::get(account), 2);
-        });
-    }
-
-    #[test]
-    fn mixed_increment_and_decrement_works() {
-        new_test_ext_with_counter(50).execute_with(|| {
-            let account = 4u64;
-
-            // Mix of increment and decrement
-            assert_ok!(CustomPallet::increment(RuntimeOrigin::signed(account), 25));
-            assert_eq!(crate::CounterValue::<Test>::get(), 75);
-
-            assert_ok!(CustomPallet::decrement(RuntimeOrigin::signed(account), 15));
-            assert_eq!(crate::CounterValue::<Test>::get(), 60);
-
-            assert_ok!(CustomPallet::increment(RuntimeOrigin::signed(account), 10));
-            assert_eq!(crate::CounterValue::<Test>::get(), 70);
-
-            // Check user interactions were tracked (should be 3)
-            assert_eq!(crate::UserInteractions::<Test>::get(account), 3);
-        });
-    }
-
-    #[test]
-    fn different_users_tracked_separately() {
-        new_test_ext().execute_with(|| {
-            let account1 = 1u64;
-            let account2 = 2u64;
-
-            // User 1 increments
-            assert_ok!(CustomPallet::increment(RuntimeOrigin::signed(account1), 10));
-            assert_ok!(CustomPallet::increment(RuntimeOrigin::signed(account1), 10));
-
-            // User 2 decrements
-            assert_ok!(CustomPallet::decrement(RuntimeOrigin::signed(account2), 5));
-
-            // Check counter value (10 + 10 - 5 = 15)
-            assert_eq!(crate::CounterValue::<Test>::get(), 15);
-
-            // Check user interactions are tracked separately
-            assert_eq!(crate::UserInteractions::<Test>::get(account1), 2);
-            assert_eq!(crate::UserInteractions::<Test>::get(account2), 1);
-        });
-    }
-
-    #[test]
-    fn genesis_config_works() {
-        new_test_ext_with_interactions(42, vec![(1, 5), (2, 10)]).execute_with(|| {
-            // Check initial counter value
-            assert_eq!(crate::CounterValue::<Test>::get(), 42);
-
-            // Check initial user interactions
-            assert_eq!(crate::UserInteractions::<Test>::get(1), 5);
-            assert_eq!(crate::UserInteractions::<Test>::get(2), 10);
-        });
-    }
-    ```
-
-## Where to Go Next
-
-<div class="grid cards" markdown>
-
--   <span class="badge guide">Guide</span> __Add Your Custom Pallet to the Runtime__
-
-    ---
-
-    Your pallet is tested and ready! Learn how to integrate it into your runtime.
-
-    [:octicons-arrow-right-24: Integrate](/parachains/customize-runtime/pallet-development/add-to-runtime/)
-
-</div>
-
-
----
-
 Page Title: Run a Parachain Network
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/parachains-testing-run-a-parachain-network.md
@@ -8961,6 +8379,142 @@ The system maintains precise conversion mechanisms between:
 - Different resource metrics within the multi-dimensional model.
 
 This ensures accurate fee calculation while maintaining compatibility with existing Ethereum tools and workflows.
+
+
+---
+
+Page Title: Unit Test Pallets
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/parachains-customize-runtime-pallet-development-pallet-testing.md
+- Canonical (HTML): https://docs.polkadot.com/parachains/customize-runtime/pallet-development/pallet-testing/
+- Summary: Learn how to efficiently test pallets in the Polkadot SDK, ensuring the reliability and security of your pallets operations.
+
+# Unit Test Pallets
+
+## Introduction
+
+Unit testing in the Polkadot SDK helps ensure that the functions provided by a pallet behave as expected. It also confirms that data and events associated with a pallet are processed correctly during interactions. The Polkadot SDK offers a set of APIs to create a test environment to simulate runtime and mock transaction execution for extrinsics and queries.
+
+To begin unit testing, you must first set up a mock runtime that simulates blockchain behavior, incorporating the necessary pallets. For a deeper understanding, consult the [Mock Runtime](/parachains/customize-runtime/pallet-development/mock-runtime/){target=\_blank} guide.
+
+## Writing Unit Tests
+
+Once the mock runtime is in place, the next step is to write unit tests that evaluate the functionality of your pallet. Unit tests allow you to test specific pallet features in isolation, ensuring that each function behaves correctly under various conditions. These tests typically reside in your pallet module's `test.rs` file.
+
+Unit tests in the Polkadot SDK use the Rust testing framework, and the mock runtime you've defined earlier will serve as the test environment. Below are the typical steps involved in writing unit tests for a pallet.
+
+The tests confirm that:
+
+- **Pallets initialize correctly**: At the start of each test, the system should initialize with block number 0, and the pallets should be in their default states.
+- **Pallets modify each other's state**: The second test shows how one pallet can trigger changes in another pallet's internal state, confirming proper cross-pallet interactions.
+- **State transitions between blocks are seamless**: By simulating block transitions, the tests validate that the runtime responds correctly to changes in the block number.
+
+Testing pallet interactions within the runtime is critical for ensuring the blockchain behaves as expected under real-world conditions. Writing integration tests allows validation of how pallets function together, preventing issues that might arise when the system is fully assembled.
+
+This approach provides a comprehensive view of the runtime's functionality, ensuring the blockchain is stable and reliable.
+
+### Test Initialization
+
+Each test starts by initializing the runtime environment, typically using the `new_test_ext()` function, which sets up the mock storage and environment.
+
+```rust
+#[test]
+fn test_pallet_functionality() {
+    new_test_ext().execute_with(|| {
+        // Test logic goes here
+    });
+}
+```
+
+### Function Call Testing
+
+Call the pallet's extrinsics or functions to simulate user interaction or internal logic. Use the `assert_ok!` macro to check for successful execution and `assert_err!` to verify that errors are correctly handled.
+
+```rust
+#[test]
+fn it_works_for_valid_input() {
+    new_test_ext().execute_with(|| {
+        // Call an extrinsic or function
+        assert_ok!(TemplateModule::some_function(Origin::signed(1), valid_param));
+    });
+}
+
+#[test]
+fn it_fails_for_invalid_input() {
+    new_test_ext().execute_with(|| {
+        // Call an extrinsic with invalid input and expect an error
+        assert_err!(
+            TemplateModule::some_function(Origin::signed(1), invalid_param),
+            Error::<Test>::InvalidInput
+        );
+    });
+}
+```
+
+### Storage Testing
+
+After calling a function or extrinsic in your pallet, it's essential to verify that the state changes in the pallet's storage match the expected behavior to ensure data is updated correctly based on the actions taken.
+
+The following example shows how to test the storage behavior before and after the function call:
+
+```rust
+#[test]
+fn test_storage_update_on_extrinsic_call() {
+    new_test_ext().execute_with(|| {
+        // Check the initial storage state (before the call)
+        assert_eq!(Something::<Test>::get(), None);
+
+        // Dispatch a signed extrinsic, which modifies storage
+        assert_ok!(TemplateModule::do_something(RuntimeOrigin::signed(1), 42));
+
+        // Validate that the storage has been updated as expected (after the call)
+        assert_eq!(Something::<Test>::get(), Some(42));
+    });
+}
+
+```
+
+### Event Testing
+
+It's also crucial to test the events that your pallet emits during execution. By default, events generated in a pallet using the [`#generate_deposit`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.generate_deposit.html){target=\_blank} macro are stored under the system's event storage key (system/events) as [`EventRecord`](https://paritytech.github.io/polkadot-sdk/master/frame_system/struct.EventRecord.html){target=\_blank} entries. These can be accessed using [`System::events()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.events){target=\_blank} or verified with specific helper methods provided by the system pallet, such as [`assert_has_event`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.assert_has_event){target=\_blank} and [`assert_last_event`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.assert_last_event){target=\_blank}.
+
+Here's an example of testing events in a mock runtime:
+
+```rust
+#[test]
+fn it_emits_events_on_success() {
+    new_test_ext().execute_with(|| {
+        // Call an extrinsic or function
+        assert_ok!(TemplateModule::some_function(Origin::signed(1), valid_param));
+
+        // Verify that the expected event was emitted
+        assert!(System::events().iter().any(|record| {
+            record.event == Event::TemplateModule(TemplateEvent::SomeEvent)
+        }));
+    });
+}
+```
+
+Some key considerations are:
+
+- **Block number**: Events are not emitted on the genesis block, so you need to set the block number using [`System::set_block_number()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.set_block_number){target=\_blank} to ensure events are triggered.
+- **Converting events**: Use `.into()` when instantiating your pallet's event to convert it into a generic event type, as required by the system's event storage.
+
+## Where to Go Next
+
+- Dive into the full implementation of the [`mock.rs`](https://github.com/paritytech/polkadot-sdk/blob/master/templates/solochain/pallets/template/src/mock.rs){target=\_blank} and [`test.rs`](https://github.com/paritytech/polkadot-sdk/blob/master/templates/solochain/pallets/template/src/tests.rs){target=\_blank} files in the [Solochain Template](https://github.com/paritytech/polkadot-sdk/tree/master/templates/solochain){target=_blank}.
+
+<div class="grid cards" markdown>
+
+-   <span class="badge guide">Guide</span> __Benchmarking__
+
+    ---
+
+    Explore methods to measure the performance and execution cost of your pallet.
+
+    [:octicons-arrow-right-24: Reference](/develop/parachains/testing/benchmarking)
+
+</div>
 
 
 ---

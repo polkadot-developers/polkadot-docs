@@ -1361,14 +1361,14 @@
   },
   {
     "id": "parachains-customize-runtime-pallet-development-benchmark-pallet",
-    "title": "Benchmarking FRAME Pallets",
+    "title": "Benchmark Your Pallet",
     "slug": "parachains-customize-runtime-pallet-development-benchmark-pallet",
     "categories": [
       "Parachains"
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/parachains-customize-runtime-pallet-development-benchmark-pallet.md",
     "html_url": "https://docs.polkadot.com/parachains/customize-runtime/pallet-development/benchmark-pallet/",
-    "preview": "Benchmarking is a critical component of developing efficient and secure blockchain runtimes. In the Polkadot ecosystem, accurately benchmarking your custom pallets ensures that each extrinsic has a precise [weight](/reference/glossary/#weight){target=\\_blank}, representing its computational and storage demands. This process is vital for maintaining the blockchain's performance and preventing potential vulnerabilities, such as Denial of Service (DoS) attacks.",
+    "preview": "Benchmarking is the process of measuring the computational resources (execution time and storage) required by your pallet's extrinsics. Accurate [weight](https://paritytech.github.io/polkadot-sdk/master/frame_support/weights/index.html){target=\\_blank} calculations are essential for ensuring your blockchain can process transactions efficiently while protecting against denial-of-service attacks.",
     "outline": [
       {
         "depth": 2,
@@ -1377,52 +1377,92 @@
       },
       {
         "depth": 2,
-        "title": "The Case for Benchmarking",
-        "anchor": "the-case-for-benchmarking"
-      },
-      {
-        "depth": 3,
-        "title": "Benchmarking and Weight",
-        "anchor": "benchmarking-and-weight"
+        "title": "Prerequisites",
+        "anchor": "prerequisites"
       },
       {
         "depth": 2,
-        "title": "Benchmarking Process",
-        "anchor": "benchmarking-process"
-      },
-      {
-        "depth": 3,
-        "title": "Prepare Your Environment",
-        "anchor": "prepare-your-environment"
-      },
-      {
-        "depth": 3,
-        "title": "Write Benchmark Tests",
-        "anchor": "write-benchmark-tests"
-      },
-      {
-        "depth": 3,
-        "title": "Add Benchmarks to Runtime",
-        "anchor": "add-benchmarks-to-runtime"
-      },
-      {
-        "depth": 3,
-        "title": "Run Benchmarks",
-        "anchor": "run-benchmarks"
+        "title": "Create the Benchmarking Module",
+        "anchor": "create-the-benchmarking-module"
       },
       {
         "depth": 2,
-        "title": "Where to Go Next",
-        "anchor": "where-to-go-next"
+        "title": "Define the Weight Trait",
+        "anchor": "define-the-weight-trait"
+      },
+      {
+        "depth": 2,
+        "title": "Add WeightInfo to Config",
+        "anchor": "add-weightinfo-to-config"
+      },
+      {
+        "depth": 2,
+        "title": "Update Extrinsic Weight Annotations",
+        "anchor": "update-extrinsic-weight-annotations"
+      },
+      {
+        "depth": 2,
+        "title": "Include the Benchmarking Module",
+        "anchor": "include-the-benchmarking-module"
+      },
+      {
+        "depth": 2,
+        "title": "Configure Pallet Dependencies",
+        "anchor": "configure-pallet-dependencies"
+      },
+      {
+        "depth": 2,
+        "title": "Update Mock Runtime",
+        "anchor": "update-mock-runtime"
+      },
+      {
+        "depth": 2,
+        "title": "Configure Runtime Benchmarking",
+        "anchor": "configure-runtime-benchmarking"
+      },
+      {
+        "depth": 2,
+        "title": "Test Benchmark Compilation",
+        "anchor": "test-benchmark-compilation"
+      },
+      {
+        "depth": 2,
+        "title": "Build the Runtime with Benchmarks",
+        "anchor": "build-the-runtime-with-benchmarks"
+      },
+      {
+        "depth": 2,
+        "title": "Install the Benchmarking Tool",
+        "anchor": "install-the-benchmarking-tool"
+      },
+      {
+        "depth": 2,
+        "title": "Download the Weight Template",
+        "anchor": "download-the-weight-template"
+      },
+      {
+        "depth": 2,
+        "title": "Execute Benchmarks",
+        "anchor": "execute-benchmarks"
+      },
+      {
+        "depth": 2,
+        "title": "Use Generated Weights",
+        "anchor": "use-generated-weights"
+      },
+      {
+        "depth": 2,
+        "title": "Related Resources",
+        "anchor": "related-resources"
       }
     ],
     "stats": {
-      "chars": 14715,
-      "words": 1879,
-      "headings": 9,
-      "estimated_token_count_total": 3338
+      "chars": 19780,
+      "words": 2425,
+      "headings": 17,
+      "estimated_token_count_total": 4492
     },
-    "hash": "sha256:915bc91edd56cdedd516e871dbe450d70c9f99fb467cc00ff231ea3a74f61d96",
+    "hash": "sha256:cee5050dcc0967da1f1ddaabc769376514223bd453966fb3b6f8322d78755160",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -1568,12 +1608,12 @@
       }
     ],
     "stats": {
-      "chars": 26671,
-      "words": 3041,
+      "chars": 26958,
+      "words": 3085,
       "headings": 26,
-      "estimated_token_count_total": 6113
+      "estimated_token_count_total": 6194
     },
-    "hash": "sha256:607e283aaa1295de0af191d97de7f6f87afb722c601a447821fde6a09b97f1af",
+    "hash": "sha256:dad68ea59fd05fd60dc8890c4cf5615243c7ea879830b0dcf3a5e5e53c3ccec7",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -1664,7 +1704,7 @@
   },
   {
     "id": "parachains-customize-runtime-pallet-development-pallet-testing",
-    "title": "Pallet Unit Testing",
+    "title": "Unit Test Pallets",
     "slug": "parachains-customize-runtime-pallet-development-pallet-testing",
     "categories": [
       "Parachains"
@@ -1780,12 +1820,12 @@
       }
     ],
     "stats": {
-      "chars": 25092,
-      "words": 2533,
-      "headings": 21,
-      "estimated_token_count_total": 5673
+      "chars": 6895,
+      "words": 912,
+      "headings": 7,
+      "estimated_token_count_total": 1563
     },
-    "hash": "sha256:5b6975fc79037690c912a0644a0a438212248e984d7fdb35bd6aea820e637965",
+    "hash": "sha256:041ccd82f0c1ddfb93be05feb6cf9d7d4a7e37af6caa8fa8fdab5d5538017122",
     "token_estimator": "heuristic-v1"
   },
   {

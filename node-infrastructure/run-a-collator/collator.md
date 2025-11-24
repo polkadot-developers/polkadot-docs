@@ -308,7 +308,9 @@ Sync time depends on:
 
 The relay chain uses warp sync for faster synchronization.
 
-**Important**: Do not proceed with registration until both chains are fully synced. Monitor sync progress using the log viewing commands in the [Log Management](#log-management) section.
+!!! warning
+
+    Do not proceed with registration until both chains are fully synced. Monitor sync progress using the log viewing commands in the [Log Management](#log-management) section.
 
 ## Generate Session Keys
 

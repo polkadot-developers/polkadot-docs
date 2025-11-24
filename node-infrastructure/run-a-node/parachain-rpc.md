@@ -45,7 +45,9 @@ curl -L https://raw.githubusercontent.com/paritytech/polkadot-sdk/master/cumulus
 
 For non-system parachains, check the parachain's documentation for official chain specification files.
 
-**Note**: Throughout this guide, we use **People Chain** as the example. To set up a different parachain, substitute the chain spec file, snapshot path, and chain name with values for your target parachain.
+!!! note
+
+    Throughout this guide, we use **People Chain** as the example. To set up a different parachain, substitute the chain spec file, snapshot path, and chain name with values for your target parachain.
 
 ## Prerequisites
 
@@ -71,7 +73,9 @@ RPC nodes serving production traffic require robust hardware:
         - 9615 (Prometheus metrics - optional)
     - Consider DDoS protection and rate limiting for production deployments
 
-**Note**: For development or low-traffic scenarios, you can reduce these requirements proportionally. Consider using a reverse proxy (nginx, Caddy) for production deployments.
+!!! note
+
+    For development or low-traffic scenarios, you can reduce these requirements proportionally. Consider using a reverse proxy (nginx, Caddy) for production deployments.
 
 ### Software Requirements
 
@@ -102,7 +106,9 @@ Using pre-synchronized snapshots significantly reduces initial sync time from se
 
 **Snapshot Provider**: https://snapshots.polkadot.io/
 
-**Note**: Snapshots are available for system parachains and the Polkadot relay chain. For other parachains, check with the parachain team for snapshot availability or sync from genesis.
+!!! note
+
+    Snapshots are available for system parachains and the Polkadot relay chain. For other parachains, check with the parachain team for snapshot availability or sync from genesis.
 
 #### Create Directories
 
@@ -139,7 +145,9 @@ rm files.txt
 - `--retries-sleep 10s`: Waits 10 seconds between retry attempts
 - `--size-only`: Only transfers if sizes differ (prevents unnecessary re-downloads)
 
-**Note**: If a snapshot is not available, you can sync from scratch (which will take longer) or check https://snapshots.polkadot.io/ for alternative snapshot providers.
+!!! note
+
+    If a snapshot is not available, you can sync from scratch (which will take longer) or check https://snapshots.polkadot.io/ for alternative snapshot providers.
 
 #### Download Polkadot Relay Chain Snapshot
 
@@ -171,7 +179,9 @@ Launch the node using the official Parity Docker image.
 
 **Docker Image**: https://hub.docker.com/r/parity/polkadot-parachain
 
-**Note**: The `parity/polkadot-parachain` image works for system parachains and parachains built with standard Cumulus templates. For parachains with custom runtimes, check the parachain's documentation for their specific Docker image or binary.
+!!! note
+
+    The `parity/polkadot-parachain` image works for system parachains and parachains built with standard Cumulus templates. For parachains with custom runtimes, check the parachain's documentation for their specific Docker image or binary.
 
 ```bash
 docker run -d --name people-chain-rpc --restart unless-stopped \
@@ -334,7 +344,9 @@ docker start people-chain-rpc
 docker rm people-chain-rpc
 ```
 
-**Note**: For update procedures, see the [Updates and Upgrades](#updates-and-upgrades) section.
+!!! note
+
+    For update procedures, see the [Updates and Upgrades](#updates-and-upgrades) section.
 
 ---
 

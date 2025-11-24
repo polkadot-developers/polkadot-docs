@@ -12,8 +12,6 @@ Page Title: Accounts in Asset Hub Smart Contracts
 
 # Accounts on Asset Hub Smart Contracts
 
-!!! smartcontract "PolkaVM Preview Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 ## Introduction
 
 Asset Hub natively utilizes Polkadot's 32-byte account system while providing interoperability with Ethereum's 20-byte addresses through an automatic conversion system. When interacting with smart contracts:
@@ -128,8 +126,6 @@ Page Title: Block Explorers
 
 # Block Explorers
 
-!!! smartcontract "PolkaVM Preview Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 ## Introduction
 
 Block explorers serve as comprehensive blockchain analytics platforms that provide access to on-chain data. These web applications function as search engines for blockchain networks, allowing users to query, visualize, and analyze blockchain data in real time through intuitive interfaces.
@@ -170,8 +166,6 @@ Page Title: Connect to Polkadot
 
 # Connect to Polkadot
 
-!!! smartcontract "PolkaVM Preview Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 <div class="button-wrapper">
     <a href="#" class="md-button connectMetaMask" value="passetHub">Connect to Polkadot Hub TestNet</a>
 </div>
@@ -2010,8 +2004,6 @@ Page Title: Deploy Contracts to Polkadot Hub with Ethers.js
 
 # Ethers.js
 
-!!! smartcontract "PolkaVM Preview Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 ## Introduction
 
 [Ethers.js](https://docs.ethers.org/v6/){target=\_blank} is a lightweight library that enables interaction with Ethereum Virtual Machine (EVM)-compatible blockchains through JavaScript. Ethers is widely used as a toolkit to establish connections and read and write blockchain data. This article demonstrates using Ethers.js to interact and deploy smart contracts to Polkadot Hub.
@@ -2690,9 +2682,6 @@ Add the Solidity compiler so you can generate standard EVM bytecode:
 npm install --save-dev solc
 ```
 
-!!! tip
-    The sample scripts use ECMAScript modules. Add `"type": "module"` to your `package.json` (or rename the files to `.mjs`) so that `node` can run the `import` statements.
-
 ## Set Up the Web3 Provider
 
 The provider configuration is the foundation of any Web3.js application. It serves as a bridge between your application and the blockchain, allowing you to query blockchain data and interact with smart contracts.
@@ -2749,7 +2738,7 @@ With the provider set up, you can start querying the blockchain. For instance, t
     const PROVIDER_RPC = {
       rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
       chainId: 420420422,
-      name: 'polkadot-hub-testnet',
+      name: 'polkadotTestNet',
     };
 
     const main = async () => {
@@ -3012,7 +3001,7 @@ You can create a `deploy.js` script in the `scripts` directory of your project t
     const providerConfig = {
       rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io', // TODO: replace to `https://services.polkadothub-rpc.com/testnet` when ready
       chainId: 420420422,
-      name: 'polkadot-hub-testnet',
+      name: 'polkadotTestNet',
     };
 
     const privateKey = 'INSERT_PRIVATE_KEY';
@@ -3120,7 +3109,7 @@ You can create a `deploy.js` script in the `scripts` directory of your project t
     const providerConfig = {
       rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io', // TODO: replace to `https://services.polkadothub-rpc.com/testnet` when ready
       chainId: 420420422,
-      name: 'polkadot-hub-testnet',
+      name: 'polkadotTestNet',
     };
 
     const privateKey = 'INSERT_PRIVATE_KEY';
@@ -3140,7 +3129,7 @@ After running this script, your contract will be deployed to Polkadot Hub, and i
 
 ## Interact with the Contract
 
-Once the contract is deployed, you can interact with it by calling its functions. For example, to set a number, read it and then modify that number by its double, you can create a file named `updateStorage.js` in the `scripts` directory of your project and add the following code:
+Once the contract is deployed, you can interact with it by calling its functions. For example, to read the current stored value and then update it to a new value, you can create a file named `updateStorage.js` in the `scripts` directory of your project and add the following code:
 
 ```js title="scripts/updateStorage.js"
 const { readFileSync } = require('fs');
@@ -3210,7 +3199,7 @@ updateStorage(config)
   .catch((error) => console.error('Update error'));
 ```
 
-Ensure you replace the `INSERT_MNEMONIC`, `INSERT_CONTRACT_ADDRESS`, and `INSERT_ADDRESS_TO_CHECK` placeholders with actual values. Also, ensure the contract ABI file (`Storage.json`) is correctly referenced. The script prints the balance for `ADDRESS_TO_CHECK` before it writes and doubles the stored value, so pick any account you want to monitor.
+Ensure you replace the `INSERT_PRIVATE_KEY` and `INSERT_CONTRACT_ADDRESS` placeholders with actual values. Also, ensure the contract ABI file (`Storage.json`) is correctly referenced. The script reads the current stored value, sets it to 1, and then displays the updated value.
 
 To interact with the contract, run:
 
@@ -3329,8 +3318,6 @@ Page Title: Dual Virtual Machine Stack
 
 # Dual Virtual Machine Stack
 
-!!! smartcontract "PolkaVM Preview Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 ## Introduction
 
 Polkadot's smart contract platform supports two distinct virtual machine (VM) architectures, providing developers with flexibility in selecting the optimal execution backend for their specific needs. This approach strikes a balance between immediate Ethereum compatibility and long-term innovation, enabling developers to deploy either unmodified (Ethereum Virtual Machine) EVM contracts using Rust Ethereum Virtual Machine (REVM) or optimize for higher performance using PolkaVM (PVM).
@@ -4460,8 +4447,6 @@ Page Title: JSON-RPC APIs
 
 # JSON-RPC APIs
 
-!!! smartcontract "PolkaVM Preview Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 ## Introduction
 
 Polkadot Hub provides Ethereum compatibility through its JSON-RPC interface, allowing developers to interact with the chain using familiar Ethereum tooling and methods. This document outlines the supported [Ethereum JSON-RPC methods](https://ethereum.org/developers/docs/apis/json-rpc/#json-rpc-methods){target=\_blank} and provides examples of how to use them.
@@ -6019,8 +6004,6 @@ Page Title: Smart Contracts Overview
 
 # Smart Contracts on Polkadot
 
-!!! smartcontract "PolkaVM Preview Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 ## Introduction
 
 Polkadot offers developers multiple approaches to building and deploying smart contracts within its ecosystem. As a multi-chain network designed for interoperability, Polkadot provides various environments optimized for different developer preferences and application requirements. From native smart contract support on Polkadot Hub to specialized parachain environments, developers can choose the platform that best suits their technical needs while benefiting from Polkadot's shared security model and cross-chain messaging capabilities.
@@ -6121,8 +6104,6 @@ Page Title: Transactions and Fees on Asset Hub
 
 # Blocks, Transactions, and Fees
 
-!!! smartcontract "PolkaVM Preview Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 ## Introduction
 
 Asset Hub smart contracts operate within the Polkadot ecosystem using the [`pallet_revive`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/){target=\_blank} implementation, which provides EVM compatibility. While many aspects of blocks and transactions are inherited from the underlying parachain architecture, there are specific considerations and mechanisms unique to smart contract operations on Asset Hub.
@@ -6216,165 +6197,6 @@ The system maintains precise conversion mechanisms between:
 - Different resource metrics within the multi-dimensional model.
 
 This ensures accurate fee calculation while maintaining compatibility with existing Ethereum tools and workflows.
-
-
----
-
-Page Title: Troubleshooting Remix IDE
-
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-remix-troubleshooting-faq.md
-- Canonical (HTML): https://docs.polkadot.com/smart-contracts/dev-environments/remix/troubleshooting-faq/
-- Summary: Common issues related to developing, compiling, and deploying smart contracts using Remix IDE on Polkadot Hub paired with troubleshooting suggestions.
-
-# Remix IDE Troubleshooting
-
-This guide provides solutions to common issues you may encounter when using Remix IDE with Polkadot Hub. If you're experiencing problems with compilation, deployment, or contract interaction, you'll likely find the solution here.
-
-## Contract fails to compile or shows errors in the terminal
-
-- **Check Solidity version compatibility**:
-    - Ensure your contract's pragma statement matches the compiler version selected in the **Solidity Compiler** tab.
-    - Example: If your contract uses `pragma solidity ^0.8.0;`, select compiler version 0.8.x or higher.
-
-- **Review syntax errors**:
-    - Carefully read error messages in the terminal panel at the bottom of the screen.
-    - Common issues include missing semicolons, incorrect function visibility, or mismatched brackets.
-
-- **Clear cache and recompile**:
-    - Delete the `artifacts` folder in the **File Explorer**.
-    - Try compiling again with `Ctrl+S` or click the **Compile** button.
-
-## The `artifacts` folder doesn't appear after compilation
-
-- Ensure compilation completed successfully without errors.
-- Refresh the **File Explorer** by clicking away and back to the **File Explorer** tab.
-- Check that your `.sol` file is saved before compiling.
-
-## Remix doesn't detect your wallet extension (MetaMask, Talisman, etc.)
-
-- **Verify wallet installation**:
-    - Ensure your wallet extension is properly installed and enabled in your browser.
-    - Check that the extension icon appears in your browser toolbar.
-
-- **Refresh the page**:
-    - Reload the Remix IDE page and try reconnecting.
-
-- **Check browser permissions**:
-    - Ensure Remix has permission to interact with the wallet extension.
-    - Check your browser's extension settings.
-
-- **Use correct environment**:
-    - In the **Deploy & Run Transactions** tab, select **Browser Extension** from the **Environment** dropdown.
-    - Choose **Injected Provider - MetaMask** (works with most wallet providers).
-
-## Wallet is connected but to the wrong network
-
-1. Open your wallet extension.
-2. Switch to the Polkadot Hub network.
-3. Refresh the Remix IDE if the network change isn't detected automatically.
-4. Verify the network name and chain ID match Polkadot Hub's configuration.
-
-## Deployment fails with "insufficient funds" or similar error
-
-- **Check your balance**:
-    - Verify you have enough test tokens in your connected wallet.
-    - Visit the [Polkadot faucet](/smart-contracts/faucet/){target=\_blank} to obtain test tokens.
-
-- **Wait for faucet tokens**:
-    - Allow a few minutes for faucet transactions to complete.
-    - Refresh your wallet to see the updated balance.
-
-## Deployment transaction is rejected or fails
-
-- **Increase gas limit**:
-    - In the **Deploy & Run Transactions** tab, adjust the **Gas Limit** field.
-    - Try increasing it by 20-30% from the estimated amount.
-
-- **Check contract constructor parameters**:
-    - Ensure any required constructor parameters are provided correctly.
-    - Verify parameter types match the contract's constructor signature.
-
-- **Verify contract selection**:
-    - Ensure you've selected the correct contract from the **Contract** dropdown.
-    - If you have multiple contracts, make sure you're deploying the intended one.
-
-## The "Injected Provider - MetaMask" option doesn't appear in the Environment dropdown
-
-- Select **Browser Extension** from the **Environment** dropdown to populate the **Injected Provider - Metamask** option.
-- Ensure your wallet extension is unlocked and active.
-- Try disabling and re-enabling the wallet extension.
-- Refresh the Remix IDE page.
-
-## Wallet rejects transactions when trying to interact with deployed contracts
-
-- **Check wallet unlock status**:
-    - Ensure your wallet is unlocked.
-    - Verify you're approving the transaction in the wallet pop-up.
-
-- **Verify sufficient gas**:
-    - Ensure you have enough tokens to cover the transaction fee.
-    - The wallet pop-up should show the estimated gas cost.
-
-- **Network mismatch**:
-    - Confirm your wallet is still connected to Polkadot Hub.
-    - Check that Remix is using the same network.
-
-## Deployed contract doesn't show in the **Deployed/Unpinned Contracts** section
-
-- Wait for the transaction to be confirmed on-chain.
-- Check the Remix terminal for deployment confirmation.
-- Scroll down in the **Deploy & Run Transactions** panel to find the deployed contracts section.
-- If the deployment transaction failed, check the terminal for error messages.
-
-## Blue buttons (read functions) don't display return values
-
-- **Check the terminal**:
-    - Return values appear in the terminal panel at the bottom.
-    - Look for the decoded output section.
-
-- **Verify contract state**:
-    - Ensure the contract has been properly initialized.
-    - Check if the function requires a specific contract state to return values.
-
-- **Network connection**:
-    - Verify you're still connected to the correct network.
-    - Try refreshing the connection to your wallet.
-
-
-## Orange/red buttons (write functions) execute, but the state doesn't change
-
-- **Wait for transaction confirmation**:
-    - Transactions need to be mined before state changes are reflected.
-    - Check the terminal for transaction status.
-    - Wait a few seconds and try rereading the state.
-
-- **Transaction failed**:
-    - Check if the transaction was actually successful in the terminal.
-    - Look for revert reasons or error messages.
-    - Verify you approved the transaction in your wallet.
-
-- **Check transaction parameters**:
-    - Ensure you're passing the correct parameters to the function.
-    - For payable functions (red buttons), verify you're sending the correct amount.
-
-## Remix takes a long time to load or becomes unresponsive
-
-- **Clear browser cache**:
-    - Clear your browser's cache and cookies.
-    - Restart your browser.
-
-- **Disable unnecessary plugins**:
-    - In Remix, deactivate plugins you're not using via the Plugin Manager.
-
-- **Use a supported browser**:
-    - Use Chrome, Firefox, or Brave for the best compatibility.
-    - Ensure your browser is up to date.
-
-## Changes to files or folders don't appear in the File Explorer
-
-- Click the refresh icon in the **File Explorer**.
-- Switch to a different tab and back to **File Explorer**.
-- Save your work and reload the Remix IDE page.
 
 
 ---
@@ -6909,6 +6731,165 @@ This guide provides solutions to common issues you may encounter when using Hard
 
 ---
 
+Page Title: Troubleshooting Remix IDE
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-remix-troubleshooting-faq.md
+- Canonical (HTML): https://docs.polkadot.com/smart-contracts/dev-environments/remix/troubleshooting-faq/
+- Summary: Common issues related to developing, compiling, and deploying smart contracts using Remix IDE on Polkadot Hub paired with troubleshooting suggestions.
+
+# Remix IDE Troubleshooting
+
+This guide provides solutions to common issues you may encounter when using Remix IDE with Polkadot Hub. If you're experiencing problems with compilation, deployment, or contract interaction, you'll likely find the solution here.
+
+## Contract fails to compile or shows errors in the terminal
+
+- **Check Solidity version compatibility**:
+    - Ensure your contract's pragma statement matches the compiler version selected in the **Solidity Compiler** tab.
+    - Example: If your contract uses `pragma solidity ^0.8.0;`, select compiler version 0.8.x or higher.
+
+- **Review syntax errors**:
+    - Carefully read error messages in the terminal panel at the bottom of the screen.
+    - Common issues include missing semicolons, incorrect function visibility, or mismatched brackets.
+
+- **Clear cache and recompile**:
+    - Delete the `artifacts` folder in the **File Explorer**.
+    - Try compiling again with `Ctrl+S` or click the **Compile** button.
+
+## The `artifacts` folder doesn't appear after compilation
+
+- Ensure compilation completed successfully without errors.
+- Refresh the **File Explorer** by clicking away and back to the **File Explorer** tab.
+- Check that your `.sol` file is saved before compiling.
+
+## Remix doesn't detect your wallet extension (MetaMask, Talisman, etc.)
+
+- **Verify wallet installation**:
+    - Ensure your wallet extension is properly installed and enabled in your browser.
+    - Check that the extension icon appears in your browser toolbar.
+
+- **Refresh the page**:
+    - Reload the Remix IDE page and try reconnecting.
+
+- **Check browser permissions**:
+    - Ensure Remix has permission to interact with the wallet extension.
+    - Check your browser's extension settings.
+
+- **Use correct environment**:
+    - In the **Deploy & Run Transactions** tab, select **Browser Extension** from the **Environment** dropdown.
+    - Choose **Injected Provider - MetaMask** (works with most wallet providers).
+
+## Wallet is connected but to the wrong network
+
+1. Open your wallet extension.
+2. Switch to the Polkadot Hub network.
+3. Refresh the Remix IDE if the network change isn't detected automatically.
+4. Verify the network name and chain ID match Polkadot Hub's configuration.
+
+## Deployment fails with "insufficient funds" or similar error
+
+- **Check your balance**:
+    - Verify you have enough test tokens in your connected wallet.
+    - Visit the [Polkadot faucet](/smart-contracts/faucet/){target=\_blank} to obtain test tokens.
+
+- **Wait for faucet tokens**:
+    - Allow a few minutes for faucet transactions to complete.
+    - Refresh your wallet to see the updated balance.
+
+## Deployment transaction is rejected or fails
+
+- **Increase gas limit**:
+    - In the **Deploy & Run Transactions** tab, adjust the **Gas Limit** field.
+    - Try increasing it by 20-30% from the estimated amount.
+
+- **Check contract constructor parameters**:
+    - Ensure any required constructor parameters are provided correctly.
+    - Verify parameter types match the contract's constructor signature.
+
+- **Verify contract selection**:
+    - Ensure you've selected the correct contract from the **Contract** dropdown.
+    - If you have multiple contracts, make sure you're deploying the intended one.
+
+## The "Injected Provider - MetaMask" option doesn't appear in the Environment dropdown
+
+- Select **Browser Extension** from the **Environment** dropdown to populate the **Injected Provider - Metamask** option.
+- Ensure your wallet extension is unlocked and active.
+- Try disabling and re-enabling the wallet extension.
+- Refresh the Remix IDE page.
+
+## Wallet rejects transactions when trying to interact with deployed contracts
+
+- **Check wallet unlock status**:
+    - Ensure your wallet is unlocked.
+    - Verify you're approving the transaction in the wallet pop-up.
+
+- **Verify sufficient gas**:
+    - Ensure you have enough tokens to cover the transaction fee.
+    - The wallet pop-up should show the estimated gas cost.
+
+- **Network mismatch**:
+    - Confirm your wallet is still connected to Polkadot Hub.
+    - Check that Remix is using the same network.
+
+## Deployed contract doesn't show in the **Deployed/Unpinned Contracts** section
+
+- Wait for the transaction to be confirmed on-chain.
+- Check the Remix terminal for deployment confirmation.
+- Scroll down in the **Deploy & Run Transactions** panel to find the deployed contracts section.
+- If the deployment transaction failed, check the terminal for error messages.
+
+## Blue buttons (read functions) don't display return values
+
+- **Check the terminal**:
+    - Return values appear in the terminal panel at the bottom.
+    - Look for the decoded output section.
+
+- **Verify contract state**:
+    - Ensure the contract has been properly initialized.
+    - Check if the function requires a specific contract state to return values.
+
+- **Network connection**:
+    - Verify you're still connected to the correct network.
+    - Try refreshing the connection to your wallet.
+
+
+## Orange/red buttons (write functions) execute, but the state doesn't change
+
+- **Wait for transaction confirmation**:
+    - Transactions need to be mined before state changes are reflected.
+    - Check the terminal for transaction status.
+    - Wait a few seconds and try rereading the state.
+
+- **Transaction failed**:
+    - Check if the transaction was actually successful in the terminal.
+    - Look for revert reasons or error messages.
+    - Verify you approved the transaction in your wallet.
+
+- **Check transaction parameters**:
+    - Ensure you're passing the correct parameters to the function.
+    - For payable functions (red buttons), verify you're sending the correct amount.
+
+## Remix takes a long time to load or becomes unresponsive
+
+- **Clear browser cache**:
+    - Clear your browser's cache and cookies.
+    - Restart your browser.
+
+- **Disable unnecessary plugins**:
+    - In Remix, deactivate plugins you're not using via the Plugin Manager.
+
+- **Use a supported browser**:
+    - Use Chrome, Firefox, or Brave for the best compatibility.
+    - Ensure your browser is up to date.
+
+## Changes to files or folders don't appear in the File Explorer
+
+- Click the refresh icon in the **File Explorer**.
+- Switch to a different tab and back to **File Explorer**.
+- Save your work and reload the Remix IDE page.
+
+
+---
+
 Page Title: Use Hardhat with Polkadot Hub
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-hardhat-get-started.md
@@ -7155,8 +7136,6 @@ Page Title: viem for Polkadot Hub Smart Contracts
 
 # viem
 
-!!! smartcontract "PolkaVM Preview Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 ## Introduction
 
 [viem](https://viem.sh/){target=\_blank} is a lightweight TypeScript library designed for interacting with Ethereum-compatible blockchains. This comprehensive guide will walk you through using viem to interact with and deploy smart contracts to Polkadot Hub.
@@ -7700,8 +7679,6 @@ Page Title: Wagmi for Polkadot Hub Smart Contracts
 
 # Wagmi
 
-!!! smartcontract "PolkaVM Preview Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 ## Introduction
 
 [Wagmi](https://wagmi.sh/){target=\_blank} is a collection of [React Hooks](https://wagmi.sh/react/api/hooks){target=\_blank} for interacting with Ethereum-compatible blockchains, focusing on developer experience, feature richness, and reliability.
@@ -8264,8 +8241,6 @@ Page Title: Web3.py
 
 # Web3.py
 
-!!! smartcontract "PolkaVM Preview Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 ## Introduction
 
 Interacting with blockchains typically requires an interface between your application and the network. [Web3.py](https://web3py.readthedocs.io/en/stable/index.html){target=\_blank} offers this interface through a collection of libraries, facilitating seamless interaction with the nodes using HTTP or WebSocket protocols. 

@@ -2899,7 +2899,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-connect.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/connect/",
-    "preview": "!!! smartcontract \"PolkaVM Preview Release\" PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**. <div class=\"button-wrapper\"> <a href=\"#\" class=\"md-button connectMetaMask\" value=\"passetHub\">Connect to Polkadot Hub TestNet</a> </div>",
+    "preview": "<div class=\"button-wrapper\"> <a href=\"#\" class=\"md-button connectMetaMask\" value=\"passetHub\">Connect to Polkadot Hub TestNet</a> </div>",
     "outline": [
       {
         "depth": 2,
@@ -2918,12 +2918,12 @@
       }
     ],
     "stats": {
-      "chars": 3459,
-      "words": 476,
+      "chars": 3289,
+      "words": 455,
       "headings": 3,
       "estimated_token_count_total": 558
     },
-    "hash": "sha256:a2490223926957381913ae0ed22e2df3611a6713ec9d77a3015d1cd6a578b3f6",
+    "hash": "sha256:a9432dcdc170da339b55fc9106810e8ea95c2b8ee7c96f200e7a78da7e513b4d",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -3068,7 +3068,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-eth-dapps-uniswap-v2.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/cookbook/eth-dapps/uniswap-v2/",
-    "preview": "!!! smartcontract \"PolkaVM Preview Release\" PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**. ## Introduction",
+    "preview": "Decentralized exchanges (DEXs) are a cornerstone of the DeFi ecosystem, allowing for permissionless token swaps without intermediaries. [Uniswap V2](https://docs.uniswap.org/contracts/v2/overview){target=\\_blank}, with its Automated Market Maker (AMM) model, revolutionized DEXs by enabling liquidity provision for any ERC-20 token pair.",
     "outline": [
       {
         "depth": 2,
@@ -3107,12 +3107,12 @@
       }
     ],
     "stats": {
-      "chars": 11280,
-      "words": 1560,
+      "chars": 11110,
+      "words": 1539,
       "headings": 7,
       "estimated_token_count_total": 2671
     },
-    "hash": "sha256:2a42198668c759f63aa602115bf2d290ec7d03bbc3a3df20e30e85027e1b1cc3",
+    "hash": "sha256:f729472b1f6f1f6c05eb072bd79d499b2c953ff4126509ebd1dd991e1009f451",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4258,7 +4258,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-explorers.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/explorers/",
-    "preview": "!!! smartcontract \"PolkaVM Preview Release\" PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**. ## Introduction",
+    "preview": "Block explorers serve as comprehensive blockchain analytics platforms that provide access to on-chain data. These web applications function as search engines for blockchain networks, allowing users to query, visualize, and analyze blockchain data in real time through intuitive interfaces.",
     "outline": [
       {
         "depth": 2,
@@ -4282,12 +4282,12 @@
       }
     ],
     "stats": {
-      "chars": 1793,
-      "words": 223,
+      "chars": 1623,
+      "words": 202,
       "headings": 4,
       "estimated_token_count_total": 309
     },
-    "hash": "sha256:93e8a3043d65583e3d66f8f5f0ed6f4ef89a908ef85da2b6ca906a1100b7dded",
+    "hash": "sha256:cf46f9fd9c463e5384a5ae8acacffc84ea9d23d3780dfc213c4bab54352e9ffc",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4336,7 +4336,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-for-eth-devs-accounts.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/for-eth-devs/accounts/",
-    "preview": "!!! smartcontract \"PolkaVM Preview Release\" PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**. ## Introduction",
+    "preview": "Asset Hub natively utilizes Polkadot's 32-byte account system while providing interoperability with Ethereum's 20-byte addresses through an automatic conversion system. When interacting with smart contracts:",
     "outline": [
       {
         "depth": 2,
@@ -4385,12 +4385,12 @@
       }
     ],
     "stats": {
-      "chars": 8521,
-      "words": 1138,
+      "chars": 8351,
+      "words": 1117,
       "headings": 9,
       "estimated_token_count_total": 1816
     },
-    "hash": "sha256:dc95833b74404d8630a13e8746df3962e2d9d4777e5f18ca9a25d8d9302ebd53",
+    "hash": "sha256:c6711d11391b18ab775b498d2dc601213e406ac3d5f44443d968cf5e94a59bbd",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4403,7 +4403,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-for-eth-devs-blocks-transactions-fees.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/for-eth-devs/blocks-transactions-fees/",
-    "preview": "!!! smartcontract \"PolkaVM Preview Release\" PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**. ## Introduction",
+    "preview": "Asset Hub smart contracts operate within the Polkadot ecosystem using the [`pallet_revive`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/){target=\\_blank} implementation, which provides EVM compatibility. While many aspects of blocks and transactions are inherited from the underlying parachain architecture, there are specific considerations and mechanisms unique to smart contract operations on Asset Hub.",
     "outline": [
       {
         "depth": 2,
@@ -4447,12 +4447,12 @@
       }
     ],
     "stats": {
-      "chars": 6366,
-      "words": 791,
+      "chars": 6196,
+      "words": 770,
       "headings": 8,
       "estimated_token_count_total": 1182
     },
-    "hash": "sha256:9542f40acae725e628f4c3155ad1e7e0e18b2eb518484856ad439a1d9f86d1f3",
+    "hash": "sha256:78886f6ef1aa3be30f2bba2e08abd4d9638a4c87536eacb1e4e31916454f5750",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4547,7 +4547,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-for-eth-devs-dual-vm-stack.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/for-eth-devs/dual-vm-stack/",
-    "preview": "!!! smartcontract \"PolkaVM Preview Release\" PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**. ## Introduction",
+    "preview": "Polkadot's smart contract platform supports two distinct virtual machine (VM) architectures, providing developers with flexibility in selecting the optimal execution backend for their specific needs. This approach strikes a balance between immediate Ethereum compatibility and long-term innovation, enabling developers to deploy either unmodified (Ethereum Virtual Machine) EVM contracts using Rust Ethereum Virtual Machine (REVM) or optimize for higher performance using PolkaVM (PVM).",
     "outline": [
       {
         "depth": 2,
@@ -4586,12 +4586,12 @@
       }
     ],
     "stats": {
-      "chars": 5383,
-      "words": 702,
+      "chars": 5213,
+      "words": 681,
       "headings": 7,
       "estimated_token_count_total": 986
     },
-    "hash": "sha256:2d918017faecf489ec786f34de6cd4366a86e9f1cecfbb7722cc03079e6b64ea",
+    "hash": "sha256:8618a3633c67049a370417b35d2435935bdf8083661a56bd8e249988ba8c0fe9",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4659,7 +4659,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-for-eth-devs-json-rpc-apis.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/for-eth-devs/json-rpc-apis/",
-    "preview": "!!! smartcontract \"PolkaVM Preview Release\" PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**. ## Introduction",
+    "preview": "Polkadot Hub provides Ethereum compatibility through its JSON-RPC interface, allowing developers to interact with the chain using familiar Ethereum tooling and methods. This document outlines the supported [Ethereum JSON-RPC methods](https://ethereum.org/developers/docs/apis/json-rpc/#json-rpc-methods){target=\\_blank} and provides examples of how to use them.",
     "outline": [
       {
         "depth": 2,
@@ -4838,12 +4838,12 @@
       }
     ],
     "stats": {
-      "chars": 31444,
-      "words": 3848,
+      "chars": 31274,
+      "words": 3827,
       "headings": 35,
       "estimated_token_count_total": 9562
     },
-    "hash": "sha256:da1669344010a793a5296c9397b2d5a85240ff6fbe37b885bce0139298364423",
+    "hash": "sha256:ef851649797d7a65de72c2390495dba0c449ce254135bb96dea3ff82d8835148",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5086,7 +5086,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-libraries-ethers-js.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/libraries/ethers-js/",
-    "preview": "!!! smartcontract \"PolkaVM Preview Release\" PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**. ## Introduction",
+    "preview": "[Ethers.js](https://docs.ethers.org/v6/){target=\\_blank} is a lightweight library that enables interaction with Ethereum Virtual Machine (EVM)-compatible blockchains through JavaScript. Ethers is widely used as a toolkit to establish connections and read and write blockchain data. This article demonstrates using Ethers.js to interact and deploy smart contracts to Polkadot Hub.",
     "outline": [
       {
         "depth": 2,
@@ -5155,12 +5155,12 @@
       }
     ],
     "stats": {
-      "chars": 20457,
-      "words": 2333,
+      "chars": 20287,
+      "words": 2312,
       "headings": 13,
       "estimated_token_count_total": 4474
     },
-    "hash": "sha256:c74a28d8d62369591c5734535136508db3d1f7380e486fd214f98d433cafd6e7",
+    "hash": "sha256:d4818fa4725f30843a17dac0a27d4e279cc7fff775ca154c0849833356d6b5cd",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5173,7 +5173,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-libraries-viem.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/libraries/viem/",
-    "preview": "!!! smartcontract \"PolkaVM Preview Release\" PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**. ## Introduction",
+    "preview": "[viem](https://viem.sh/){target=\\_blank} is a lightweight TypeScript library designed for interacting with Ethereum-compatible blockchains. This comprehensive guide will walk you through using viem to interact with and deploy smart contracts to Polkadot Hub.",
     "outline": [
       {
         "depth": 2,
@@ -5247,12 +5247,12 @@
       }
     ],
     "stats": {
-      "chars": 16600,
-      "words": 1940,
+      "chars": 16430,
+      "words": 1919,
       "headings": 14,
       "estimated_token_count_total": 3891
     },
-    "hash": "sha256:e27657e4e4a14fe86f424b96631946ec36fb90d277e6010b6cbd64c4769aba8a",
+    "hash": "sha256:d9deb7ed02c83a68dce5225e0f99ab0ac122d97d03624d1eb81a1cc9feecc67c",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5265,7 +5265,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-libraries-wagmi.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/libraries/wagmi/",
-    "preview": "!!! smartcontract \"PolkaVM Preview Release\" PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**. ## Introduction",
+    "preview": "[Wagmi](https://wagmi.sh/){target=\\_blank} is a collection of [React Hooks](https://wagmi.sh/react/api/hooks){target=\\_blank} for interacting with Ethereum-compatible blockchains, focusing on developer experience, feature richness, and reliability.",
     "outline": [
       {
         "depth": 2,
@@ -5319,12 +5319,12 @@
       }
     ],
     "stats": {
-      "chars": 13604,
-      "words": 1515,
+      "chars": 13434,
+      "words": 1494,
       "headings": 10,
       "estimated_token_count_total": 3250
     },
-    "hash": "sha256:bc771f912627fa09cad64adab1bc81c052f650d6c5a3b4f0c91883a98f6628da",
+    "hash": "sha256:5244656d425ae26a0ddf011ceced892904defa1d397b1c18b28d0c0b293305b8",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5401,12 +5401,12 @@
       }
     ],
     "stats": {
-      "chars": 20325,
-      "words": 2290,
+      "chars": 20056,
+      "words": 2249,
       "headings": 12,
-      "estimated_token_count_total": 4600
+      "estimated_token_count_total": 4523
     },
-    "hash": "sha256:7cf1e07d1b8ef4e7b893398976907159a932f23f708d4e1d7ac1d09b80881787",
+    "hash": "sha256:ac33422a87258d65a70e63f388279cc2afa4a1e3eec9c1b1aff52ac1ebf9e1a8",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5419,7 +5419,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-libraries-web3-py.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/libraries/web3-py/",
-    "preview": "!!! smartcontract \"PolkaVM Preview Release\" PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**. ## Introduction",
+    "preview": "Interacting with blockchains typically requires an interface between your application and the network. [Web3.py](https://web3py.readthedocs.io/en/stable/index.html){target=\\_blank} offers this interface through a collection of libraries, facilitating seamless interaction with the nodes using HTTP or WebSocket protocols.",
     "outline": [
       {
         "depth": 2,
@@ -5453,12 +5453,12 @@
       }
     ],
     "stats": {
-      "chars": 11627,
-      "words": 1333,
+      "chars": 11457,
+      "words": 1312,
       "headings": 6,
       "estimated_token_count_total": 2509
     },
-    "hash": "sha256:205892e350168b3d0da7ccc280c67c3217ad1e45e87a53d124fa1dd69661aa5e",
+    "hash": "sha256:41f74cf62c476d5ee8696f6c7ffa966be8a6ff9387f183c6627d5075d48eb5b8",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5471,7 +5471,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-overview.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/overview/",
-    "preview": "!!! smartcontract \"PolkaVM Preview Release\" PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**. ## Introduction",
+    "preview": "Polkadot offers developers multiple approaches to building and deploying smart contracts within its ecosystem. As a multi-chain network designed for interoperability, Polkadot provides various environments optimized for different developer preferences and application requirements. From native smart contract support on Polkadot Hub to specialized parachain environments, developers can choose the platform that best suits their technical needs while benefiting from Polkadot's shared security model",
     "outline": [
       {
         "depth": 2,
@@ -5525,12 +5525,12 @@
       }
     ],
     "stats": {
-      "chars": 6305,
-      "words": 804,
+      "chars": 6135,
+      "words": 783,
       "headings": 10,
       "estimated_token_count_total": 1122
     },
-    "hash": "sha256:ee87115c828928c82937de26f5f938cecd4c3bb1225fdb61627e8092e6ea5951",
+    "hash": "sha256:333c4b8e566d251ff53530bd65efa7556af21acd15876805a7c5c7df0de565fa",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5649,7 +5649,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-precompiles.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/precompiles/",
-    "preview": "!!! smartcontract \"PolkaVM Preview Release\" PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**. ## Introduction",
+    "preview": "Precompiles serve a dual purpose in the Polkadot ecosystem: they not only enable high-performance smart contracts by providing native, optimized implementations of frequently used functions but will also eventually act as critical bridges, allowing contracts to interact with core platform capabilities.",
     "outline": [
       {
         "depth": 2,
@@ -5668,12 +5668,12 @@
       }
     ],
     "stats": {
-      "chars": 2525,
-      "words": 328,
+      "chars": 2355,
+      "words": 307,
       "headings": 3,
       "estimated_token_count_total": 412
     },
-    "hash": "sha256:a40e3f34f70db22bfe39e40d68dc5a53a726ce47cb73b602d8605355c61ffd22",
+    "hash": "sha256:4f19b6655acf73973872285c17039e09a79864b8a12c15bed5679157a285122a",
     "token_estimator": "heuristic-v1"
   }
 ]

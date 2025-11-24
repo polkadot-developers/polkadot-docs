@@ -59,22 +59,49 @@ With the Web3 provider set up, start querying the blockchain. For instance, you 
     --8<-- "code/smart-contracts/libraries/web3-py/fetch_last_block.py"
     ```
 
-## Sample Storage Contract
+## Compile Contracts
 
-Polkadot Hub exposes an Ethereum JSON-RPC endpoint, so you can compile Solidity contracts to familiar EVM bytecode with the [`py-solc-x`](https://solcx.readthedocs.io/en/latest/){target=\_blank} compiler.
+Polkadot Hub exposes an Ethereum JSON-RPC endpoint, so you can compile Solidity contracts to familiar EVM bytecode with the [`py-solc-x`](https://solcx.readthedocs.io/en/latest/){target=\_blank} compiler. The resulting artifacts work with any EVM-compatible toolchain and can be deployed through Web3.py.
 
-To follow this guide, you can use the following Solidity contract as an example:
+First, install the `py-solc-x` package:
+
+```bash
+pip install py-solc-x
+```
+
+### Sample Storage Smart Contract
+
+This example demonstrates compiling a `Storage.sol` Solidity contract for deployment to Polkadot Hub. The contract's functionality stores a number and permits users to update it with a new value.
 
 ```solidity title="Storage.sol"
 --8<-- "code/smart-contracts/libraries/web3-py/Storage.sol"
 ```
 
-<!-- TODO: Add instructions on how to compile contracts using py-solc-x -->
+### Compile the Smart Contract
 
-After you've compiled the `Storage.sol` contract, you should have:
+To compile this contract, create a Python script named `compile.py`:
 
-- **An ABI (`.json`) file**: Provides a JSON interface describing the contract's functions and how to interact with it.
-- **A bytecode (`.bin`) file**: Contains the low-level machine code executable on EVM that represents the compiled smart contract ready for blockchain deployment.
+```python title="compile.py"
+--8<-- "code/smart-contracts/libraries/web3-py/compile.py"
+```
+
+!!! note 
+    The script above is tailored to the `Storage.sol` contract. It can be adjusted for other contracts by changing the file name or modifying the ABI and bytecode paths.
+
+The ABI (Application Binary Interface) is a JSON representation of your contract's functions, events, and their parameters. It serves as the interface between your Python code and the deployed smart contract, allowing your application to know how to format function calls and interpret returned data.
+
+Execute the script by running:
+
+```bash
+python compile.py
+```
+
+After executing the script, the Solidity contract is compiled into standard EVM bytecode. The ABI and bytecode are saved into files with `.json` and `.bin` extensions, respectively:
+
+- **ABI file** (`abis/Storage.json`): Provides a JSON interface describing the contract's functions and how to interact with it.
+- **Bytecode file** (`artifacts/Storage.bin`): Contains the low-level machine code executable on EVM that represents the compiled smart contract ready for blockchain deployment.
+
+You can now proceed with deploying the contract to Polkadot Hub, as outlined in the next section.
 
 ## Contract Deployment
 

@@ -1,11 +1,11 @@
-// Deploy an EVM-compatible smart contract using ethers.js
 const { writeFileSync, existsSync, readFileSync } = require('fs');
 const { join } = require('path');
 const { ethers, JsonRpcProvider } = require('ethers');
 
-const codegenDir = join(__dirname);
+const scriptsDir = __dirname;
+const artifactsDir = join(__dirname, '../contracts');
 
-// Creates an Ethereum provider with specified RPC URL and chain details
+// Creates a provider with specified RPC URL and chain details
 const createProvider = (rpcUrl, chainId, chainName) => {
   const provider = new JsonRpcProvider(rpcUrl, {
     chainId: chainId,
@@ -17,9 +17,8 @@ const createProvider = (rpcUrl, chainId, chainName) => {
 // Reads and parses the ABI file for a given contract
 const getAbi = (contractName) => {
   try {
-    return JSON.parse(
-      readFileSync(join(codegenDir, `${contractName}.json`), 'utf8'),
-    );
+    const abiPath = join(artifactsDir, `${contractName}.json`);
+    return JSON.parse(readFileSync(abiPath, 'utf8'));
   } catch (error) {
     console.error(
       `Could not find ABI for contract ${contractName}:`,
@@ -32,12 +31,10 @@ const getAbi = (contractName) => {
 // Reads the compiled bytecode for a given contract
 const getByteCode = (contractName) => {
   try {
-    const bytecodePath = join(
-      codegenDir,
-      '../contracts',
-      `${contractName}.polkavm`,
-    );
-    return `0x${readFileSync(bytecodePath).toString('hex')}`;
+    const bytecodePath = join(artifactsDir, `${contractName}.bin`);
+    const bytecode = readFileSync(bytecodePath, 'utf8').trim();
+    // Add 0x prefix if not present
+    return bytecode.startsWith('0x') ? bytecode : `0x${bytecode}`;
   } catch (error) {
     console.error(
       `Could not find bytecode for contract ${contractName}:`,
@@ -49,7 +46,6 @@ const getByteCode = (contractName) => {
 
 const deployContract = async (contractName, mnemonic, providerConfig) => {
   console.log(`Deploying ${contractName}...`);
-
   try {
     // Step 1: Set up provider and wallet
     const provider = createProvider(
@@ -73,10 +69,11 @@ const deployContract = async (contractName, mnemonic, providerConfig) => {
     const address = await contract.getAddress();
     console.log(`Contract ${contractName} deployed at: ${address}`);
 
-    const addressesFile = join(codegenDir, 'contract-address.json');
+    const addressesFile = join(scriptsDir, 'contract-address.json');
     const addresses = existsSync(addressesFile)
       ? JSON.parse(readFileSync(addressesFile, 'utf8'))
       : {};
+
     addresses[contractName] = address;
     writeFileSync(addressesFile, JSON.stringify(addresses, null, 2), 'utf8');
   } catch (error) {
@@ -85,7 +82,7 @@ const deployContract = async (contractName, mnemonic, providerConfig) => {
 };
 
 const providerConfig = {
-  rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
+  rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io', //TODO: replace to `https://services.polkadothub-rpc.com/testnet` when ready
   chainId: 420420422,
   name: 'polkadot-hub-testnet',
 };

@@ -1,10 +1,10 @@
 ---
-title: Pallet Unit Testing
-description: Learn how to write comprehensive unit tests for your custom pallets using mock runtimes, ensuring reliability and correctness before deployment.
+title: Unit Test Pallets
+description: Learn how to efficiently test pallets in the Polkadot SDK, ensuring the reliability and security of your pallets operations.
 categories: Parachains
 ---
 
-# Pallet Unit Testing
+# Unit Test Pallets
 
 ## Introduction
 

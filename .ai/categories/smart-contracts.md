@@ -2026,7 +2026,7 @@ ethers-project
 ├── abis
 │   ├── Storage.json
 ├── artifacts
-│   ├── Storage.polkavm
+│   ├── Storage.bin
 ├── contract-address.json
 ├── node_modules/
 ├── package.json
@@ -2051,6 +2051,17 @@ Next, run the following command to install the Ethers.js library:
 ```bash
 npm install ethers
 ```
+
+Add the Solidity compiler so you can generate standard EVM bytecode:
+
+```bash
+npm install --save-dev solc
+```
+
+This guide uses `solc` version `0.8.33`.
+
+!!! tip
+    The sample scripts use ECMAScript modules. Add `"type": "module"` to your `package.json` (or rename the files to `.mjs`) so that `node` can run the `import` statements.
 
 ## Set Up the Ethers.js Provider
 
@@ -2094,12 +2105,12 @@ createProvider(PROVIDER_RPC.rpc, PROVIDER_RPC.chainId, PROVIDER_RPC.name);
 To connect to the provider, execute:
 
 ```bash
-node connectToProvider
+node scripts/connectToProvider.js
 ```
 
 With the provider set up, you can start querying the blockchain. For instance, to fetch the latest block number:
 
-??? code "Fetch Last Block code"
+??? code "fetchLastBlock.js code"
 
     ```js title="scripts/fetchLastBlock.js"
     const { JsonRpcProvider } = require('ethers');
@@ -2139,22 +2150,7 @@ With the provider set up, you can start querying the blockchain. For instance, t
 
 ## Compile Contracts
 
-!!! note "Contracts Code Blob Size Disclaimer"
-    The maximum contract code blob size on Polkadot Hub networks is _100 kilobytes_, significantly larger than Ethereum’s EVM limit of 24 kilobytes.
-
-    For detailed comparisons and migration guidelines, see the [EVM vs. PolkaVM](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm/#current-memory-limits){target=\_blank} documentation page.
-
-The `revive` compiler transforms Solidity smart contracts into [PolkaVM](/smart-contracts/overview/#native-smart-contracts){target=\_blank} bytecode for deployment on Polkadot Hub. Revive's Ethereum RPC interface allows you to use familiar tools like Ethers.js and MetaMask to interact with contracts.
-
-### Install the Revive Library
-
-The [`@parity/resolc`](https://www.npmjs.com/package/@parity/resolc){target=\_blank} library will compile your Solidity code for deployment on Polkadot Hub. Run the following command in your terminal to install the library:
-
-```bash
-npm install --save-dev @parity/resolc 
-```
-
-This guide uses `@parity/resolc` version `0.2.0`.
+Polkadot Hub exposes an Ethereum JSON-RPC endpoint, so you can compile Solidity contracts to familiar EVM bytecode with the upstream [`solc`](https://www.npmjs.com/package/solc){target=\_blank} compiler. The resulting artifacts work with any EVM-compatible toolchain and can be deployed through Ethers.js.
 
 ### Sample Storage Smart Contract
 
@@ -2189,40 +2185,74 @@ contract Storage {
 To compile this contract, use the following script:
 
 ```js title="scripts/compile.js"
-const { compile } = require('@parity/resolc');
-const { readFileSync, writeFileSync } = require('fs');
+const solc = require('solc');
+const { readFileSync, writeFileSync, mkdirSync, existsSync } = require('fs');
 const { basename, join } = require('path');
 
-const compileContract = async (solidityFilePath, outputDir) => {
+const ensureDir = (dirPath) => {
+  if (!existsSync(dirPath)) {
+    mkdirSync(dirPath, { recursive: true });
+  }
+};
+
+const compileContract = (solidityFilePath, abiDir, artifactsDir) => {
   try {
     // Read the Solidity file
     const source = readFileSync(solidityFilePath, 'utf8');
-
-    // Construct the input object for the compiler
+    const fileName = basename(solidityFilePath);
+    
+    // Construct the input object for the Solidity compiler
     const input = {
-      [basename(solidityFilePath)]: { content: source },
+      language: 'Solidity',
+      sources: {
+        [fileName]: {
+          content: source,
+        },
+      },
+      settings: {
+        outputSelection: {
+          '*': {
+            '*': ['abi', 'evm.bytecode'],
+          },
+        },
+      },
     };
-
-    console.log(`Compiling contract: ${basename(solidityFilePath)}...`);
-
+    
+    console.log(`Compiling contract: ${fileName}...`);
+    
     // Compile the contract
-    const out = await compile(input);
+    const output = JSON.parse(solc.compile(JSON.stringify(input)));
+    
+    // Check for errors
+    if (output.errors) {
+      const errors = output.errors.filter(error => error.severity === 'error');
+      if (errors.length > 0) {
+        console.error('Compilation errors:');
+        errors.forEach(err => console.error(err.formattedMessage));
+        return;
+      }
+      // Show warnings
+      const warnings = output.errors.filter(error => error.severity === 'warning');
+      warnings.forEach(warn => console.warn(warn.formattedMessage));
+    }
+    
+    // Ensure output directories exist
+    ensureDir(abiDir);
+    ensureDir(artifactsDir);
 
-    for (const contracts of Object.values(out.contracts)) {
-      for (const [name, contract] of Object.entries(contracts)) {
-        console.log(`Compiled contract: ${name}`);
-
+    // Process compiled contracts
+    for (const [sourceFile, contracts] of Object.entries(output.contracts)) {
+      for (const [contractName, contract] of Object.entries(contracts)) {
+        console.log(`Compiled contract: ${contractName}`);
+        
         // Write the ABI
-        const abiPath = join(outputDir, `${name}.json`);
+        const abiPath = join(abiDir, `${contractName}.json`);
         writeFileSync(abiPath, JSON.stringify(contract.abi, null, 2));
         console.log(`ABI saved to ${abiPath}`);
-
+        
         // Write the bytecode
-        const bytecodePath = join(outputDir, `${name}.polkavm`);
-        writeFileSync(
-          bytecodePath,
-          Buffer.from(contract.evm.bytecode.object, 'hex'),
-        );
+        const bytecodePath = join(artifactsDir, `${contractName}.bin`);
+        writeFileSync(bytecodePath, contract.evm.bytecode.object);
         console.log(`Bytecode saved to ${bytecodePath}`);
       }
     }
@@ -2232,10 +2262,10 @@ const compileContract = async (solidityFilePath, outputDir) => {
 };
 
 const solidityFilePath = join(__dirname, '../contracts/Storage.sol');
-const outputDir = join(__dirname, '../contracts');
+const abiDir = join(__dirname, '../abis');
+const artifactsDir = join(__dirname, '../artifacts');
 
-compileContract(solidityFilePath, outputDir);
-
+compileContract(solidityFilePath, abiDir, artifactsDir);
 ```
 
 !!! note 
@@ -2246,10 +2276,10 @@ The ABI (Application Binary Interface) is a JSON representation of your contract
 Execute the script above by running:
 
 ```bash
-node compile
+node scripts/compile.js
 ```
 
-After executing the script, the Solidity contract will be compiled into the required PolkaVM bytecode format. The ABI and bytecode will be saved into files with `.json` and `.polkavm` extensions, respectively. You can now proceed with deploying the contract to Polkadot Hub, as outlined in the next section.
+After executing the script, the Solidity contract is compiled into standard EVM bytecode. The ABI and bytecode are saved into files with `.json` and `.bin` extensions, respectively. You can now proceed with deploying the contract to Polkadot Hub, as outlined in the next section.
 
 ## Deploy the Compiled Contract
 
@@ -2260,19 +2290,17 @@ You can create a `deploy.js` script in the root of your project to achieve this.
 1. Set up the required imports and utilities:
 
     ```js title="scripts/deploy.js"
-    // Deploy an EVM-compatible smart contract using ethers.js
     const { writeFileSync, existsSync, readFileSync } = require('fs');
     const { join } = require('path');
     const { ethers, JsonRpcProvider } = require('ethers');
 
-    const codegenDir = join(__dirname);
     ```
 
 2. Create a provider to connect to Polkadot Hub:
 
     ```js title="scripts/deploy.js"
 
-    // Creates an Ethereum provider with specified RPC URL and chain details
+    // Creates a provider with specified RPC URL and chain details
     const createProvider = (rpcUrl, chainId, chainName) => {
       const provider = new JsonRpcProvider(rpcUrl, {
         chainId: chainId,
@@ -2288,9 +2316,8 @@ You can create a `deploy.js` script in the root of your project to achieve this.
     // Reads and parses the ABI file for a given contract
     const getAbi = (contractName) => {
       try {
-        return JSON.parse(
-          readFileSync(join(codegenDir, `${contractName}.json`), 'utf8'),
-        );
+        const abiPath = join(artifactsDir, `${contractName}.json`);
+        return JSON.parse(readFileSync(abiPath, 'utf8'));
       } catch (error) {
         console.error(
           `Could not find ABI for contract ${contractName}:`,
@@ -2303,12 +2330,10 @@ You can create a `deploy.js` script in the root of your project to achieve this.
     // Reads the compiled bytecode for a given contract
     const getByteCode = (contractName) => {
       try {
-        const bytecodePath = join(
-          codegenDir,
-          '../contracts',
-          `${contractName}.polkavm`,
-        );
-        return `0x${readFileSync(bytecodePath).toString('hex')}`;
+        const bytecodePath = join(artifactsDir, `${contractName}.bin`);
+        const bytecode = readFileSync(bytecodePath, 'utf8').trim();
+        // Add 0x prefix if not present
+        return bytecode.startsWith('0x') ? bytecode : `0x${bytecode}`;
       } catch (error) {
         console.error(
           `Could not find bytecode for contract ${contractName}:`,
@@ -2317,15 +2342,14 @@ You can create a `deploy.js` script in the root of your project to achieve this.
         throw error;
       }
     };
+
     ```
 
 4. Create the main deployment function:
 
     ```js title="scripts/deploy.js"
-
     const deployContract = async (contractName, mnemonic, providerConfig) => {
       console.log(`Deploying ${contractName}...`);
-
       try {
         // Step 1: Set up provider and wallet
         const provider = createProvider(
@@ -2349,10 +2373,11 @@ You can create a `deploy.js` script in the root of your project to achieve this.
         const address = await contract.getAddress();
         console.log(`Contract ${contractName} deployed at: ${address}`);
 
-        const addressesFile = join(codegenDir, 'contract-address.json');
+        const addressesFile = join(scriptsDir, 'contract-address.json');
         const addresses = existsSync(addressesFile)
           ? JSON.parse(readFileSync(addressesFile, 'utf8'))
           : {};
+
         addresses[contractName] = address;
         writeFileSync(addressesFile, JSON.stringify(addresses, null, 2), 'utf8');
       } catch (error) {
@@ -2365,7 +2390,7 @@ You can create a `deploy.js` script in the root of your project to achieve this.
 
     ```js title="scripts/deploy.js"
     const providerConfig = {
-      rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
+      rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io', //TODO: replace to `https://services.polkadothub-rpc.com/testnet` when ready
       chainId: 420420422,
       name: 'polkadot-hub-testnet',
     };
@@ -2383,14 +2408,14 @@ You can create a `deploy.js` script in the root of your project to achieve this.
 ??? code "View complete script"
 
     ```js title="scripts/deploy.js"
-    // Deploy an EVM-compatible smart contract using ethers.js
     const { writeFileSync, existsSync, readFileSync } = require('fs');
     const { join } = require('path');
     const { ethers, JsonRpcProvider } = require('ethers');
 
-    const codegenDir = join(__dirname);
+    const scriptsDir = __dirname;
+    const artifactsDir = join(__dirname, '../contracts');
 
-    // Creates an Ethereum provider with specified RPC URL and chain details
+    // Creates a provider with specified RPC URL and chain details
     const createProvider = (rpcUrl, chainId, chainName) => {
       const provider = new JsonRpcProvider(rpcUrl, {
         chainId: chainId,
@@ -2402,9 +2427,8 @@ You can create a `deploy.js` script in the root of your project to achieve this.
     // Reads and parses the ABI file for a given contract
     const getAbi = (contractName) => {
       try {
-        return JSON.parse(
-          readFileSync(join(codegenDir, `${contractName}.json`), 'utf8'),
-        );
+        const abiPath = join(artifactsDir, `${contractName}.json`);
+        return JSON.parse(readFileSync(abiPath, 'utf8'));
       } catch (error) {
         console.error(
           `Could not find ABI for contract ${contractName}:`,
@@ -2417,12 +2441,10 @@ You can create a `deploy.js` script in the root of your project to achieve this.
     // Reads the compiled bytecode for a given contract
     const getByteCode = (contractName) => {
       try {
-        const bytecodePath = join(
-          codegenDir,
-          '../contracts',
-          `${contractName}.polkavm`,
-        );
-        return `0x${readFileSync(bytecodePath).toString('hex')}`;
+        const bytecodePath = join(artifactsDir, `${contractName}.bin`);
+        const bytecode = readFileSync(bytecodePath, 'utf8').trim();
+        // Add 0x prefix if not present
+        return bytecode.startsWith('0x') ? bytecode : `0x${bytecode}`;
       } catch (error) {
         console.error(
           `Could not find bytecode for contract ${contractName}:`,
@@ -2434,7 +2456,6 @@ You can create a `deploy.js` script in the root of your project to achieve this.
 
     const deployContract = async (contractName, mnemonic, providerConfig) => {
       console.log(`Deploying ${contractName}...`);
-
       try {
         // Step 1: Set up provider and wallet
         const provider = createProvider(
@@ -2458,10 +2479,11 @@ You can create a `deploy.js` script in the root of your project to achieve this.
         const address = await contract.getAddress();
         console.log(`Contract ${contractName} deployed at: ${address}`);
 
-        const addressesFile = join(codegenDir, 'contract-address.json');
+        const addressesFile = join(scriptsDir, 'contract-address.json');
         const addresses = existsSync(addressesFile)
           ? JSON.parse(readFileSync(addressesFile, 'utf8'))
           : {};
+
         addresses[contractName] = address;
         writeFileSync(addressesFile, JSON.stringify(addresses, null, 2), 'utf8');
       } catch (error) {
@@ -2470,7 +2492,7 @@ You can create a `deploy.js` script in the root of your project to achieve this.
     };
 
     const providerConfig = {
-      rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
+      rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io', //TODO: replace to `https://services.polkadothub-rpc.com/testnet` when ready
       chainId: 420420422,
       name: 'polkadot-hub-testnet',
     };
@@ -2478,13 +2500,12 @@ You can create a `deploy.js` script in the root of your project to achieve this.
     const mnemonic = 'INSERT_MNEMONIC';
 
     deployContract('Storage', mnemonic, providerConfig);
-
     ```
 
 To run the script, execute the following command:
 
 ```bash
-node deploy
+node scripts/deploy.js
 ```
 
 After running this script, your contract will be deployed to Polkadot Hub, and its address will be saved in `contract-address.json` within your project directory. You can use this address for future contract interactions.
@@ -2498,6 +2519,8 @@ const { ethers } = require('ethers');
 const { readFileSync } = require('fs');
 const { join } = require('path');
 
+const artifactsDir = join(__dirname, '../contracts');
+
 const createProvider = (providerConfig) => {
   return new ethers.JsonRpcProvider(providerConfig.rpc, {
     chainId: providerConfig.chainId,
@@ -2509,7 +2532,7 @@ const createWallet = (mnemonic, provider) => {
   return ethers.Wallet.fromPhrase(mnemonic).connect(provider);
 };
 
-const loadContractAbi = (contractName, directory = __dirname) => {
+const loadContractAbi = (contractName, directory = artifactsDir) => {
   const contractPath = join(directory, `${contractName}.json`);
   const contractJson = JSON.parse(readFileSync(contractPath, 'utf8'));
   return contractJson.abi || contractJson; // Depending on JSON structure
@@ -2565,9 +2588,9 @@ const providerConfig = {
   chainId: 420420422,
 };
 
-const mnemonic = 'INSERT_MNEMONIC';
+const mnemonic = 'INSERT_MNEMONIC'
 const contractName = 'Storage';
-const contractAddress = 'INSERT_CONTRACT_ADDRESS';
+const contractAddress = 'INSERT_CONTRACT_ADDRESS'
 const newNumber = 42;
 
 interactWithStorageContract(
@@ -2577,15 +2600,14 @@ interactWithStorageContract(
   providerConfig,
   newNumber,
 );
-
 ```
 
-Ensure you replace the `INSERT_MNEMONIC`, `INSERT_CONTRACT_ADDRESS`, and `INSERT_ADDRESS_TO_CHECK` placeholders with actual values. Also, ensure the contract ABI file (`Storage.json`) is correctly referenced.
+Ensure you replace the `INSERT_MNEMONIC` and `INSERT_CONTRACT_ADDRESS` placeholders with actual values. Also, ensure the contract ABI file (`Storage.json`) is correctly referenced. The script prints the balance for `ADDRESS_TO_CHECK` before it writes and doubles the stored value, so pick any account you want to monitor.
 
 To interact with the contract, run:
 
 ```bash
-node checkStorage
+node scripts/checkStorage.js
 ```
 
 ## Where to Go Next
@@ -3206,9 +3228,9 @@ node scripts/updateStorage.js
 
     ---
 
-    Explore the Web3.js documentation to learn how to use additional features, such as wallet management, signing messages, subscribing to events, etc.
+    Explore the Web3.js documentation to learn how to use additional features, such as wallet management, signing messages, subscribing to events, and more.
 
-    [:octicons-arrow-right-24: Get Started](https://web3js.readthedocs.io/en/v1.10.0/)
+    [:octicons-arrow-right-24: Get Started](https://web3js.readthedocs.io/en/v1.10.0/){target=\_blank}
 
 </div>
 
@@ -6640,13 +6662,13 @@ viem-project/
 │   └── interact.ts
 ├── contracts/
 │   └── Storage.sol
+├── abis/
+│   └── Storage.json
 └── artifacts/
-    ├── Storage.json
-    └── Storage.polkavm
+    └── Storage.bin
 ```
 
 ## Set Up the Project
-
 First, create a new folder and initialize your project:
 
 ```bash
@@ -6657,11 +6679,11 @@ npm init -y
 
 ## Install Dependencies
 
-Install viem along with other necessary dependencies, including [@parity/resolc](https://www.npmjs.com/package/@parity/resolc){target=\_blank}, which enables to compile smart contracts to [PolkaVM](/smart-contracts/for-eth-devs/#polkavm){target=\_blank} bytecode:
+Install viem along with other necessary dependencies, including [`solc`](https://www.npmjs.com/package/solc){target=\_blank}, which enables compiling smart contracts' EVM bytecode.
 
 ```bash
 # Install viem and resolc
-npm install viem @parity/resolc
+npm install viem solc
 
 # Install TypeScript and development dependencies
 npm install --save-dev typescript ts-node @types/node
@@ -6764,7 +6786,7 @@ After setting up the [Public Client](https://viem.sh/docs/clients/public#public-
     ```js title="src/fetchLastBlock.ts"
     import { createPublicClient, http } from 'viem';
 
-    const transport = http('https://testnet-passet-hub-eth-rpc.polkadot.io');
+    const transport = http('https://testnet-passet-hub-eth-rpc.polkadot.io'); // TODO: change to paseo asset hub once ready
 
     // Configure the Polkadot Hub chain
     const polkadotHubTestnet = {
@@ -6778,7 +6800,7 @@ After setting up the [Public Client](https://viem.sh/docs/clients/public#public-
       },
       rpcUrls: {
         default: {
-          http: ['https://testnet-passet-hub-eth-rpc.polkadot.io'],
+          http: ['https://testnet-passet-hub-eth-rpc.polkadot.io'], // TODO: change to paseo asset hub once ready
         },
       },
     } as const;
@@ -6881,60 +6903,82 @@ contract Storage {
 
 ## Compile the Contract
 
-!!! note "Contracts Code Blob Size Disclaimer"
-    The maximum contract code blob size on Polkadot Hub networks is _100 kilobytes_, significantly larger than Ethereum’s EVM limit of 24 kilobytes.
-
-    For detailed comparisons and migration guidelines, see the [EVM vs. PolkaVM](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm/#current-memory-limits){target=\_blank} documentation page.
-
 Create a new file at `src/compile.ts` for handling contract compilation:
 
 ```typescript title="src/compile.ts"
-import { compile } from '@parity/resolc';
-import { readFileSync, writeFileSync } from 'fs';
+import solc from 'solc';
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
 import { basename, join } from 'path';
 
-const compileContract = async (
+const ensureDir = (dirPath: string): void => {
+  if (!existsSync(dirPath)) {
+    mkdirSync(dirPath, { recursive: true });
+  }
+};
+
+const compileContract = (
   solidityFilePath: string,
-  outputDir: string
-): Promise<void> => {
+  abiDir: string,
+  artifactsDir: string
+): void => {
   try {
     // Read the Solidity file
     const source: string = readFileSync(solidityFilePath, 'utf8');
-
-    // Construct the input object for the compiler
-    const input: Record<string, { content: string }> = {
-      [basename(solidityFilePath)]: { content: source },
+    const fileName: string = basename(solidityFilePath);
+    
+    // Construct the input object for the Solidity compiler
+    const input = {
+      language: 'Solidity',
+      sources: {
+        [fileName]: {
+          content: source,
+        },
+      },
+      settings: {
+        outputSelection: {
+          '*': {
+            '*': ['abi', 'evm.bytecode'],
+          },
+        },
+      },
     };
-
-    console.log(`Compiling contract: ${basename(solidityFilePath)}...`);
-
+    
+    console.log(`Compiling contract: ${fileName}...`);
+    
     // Compile the contract
-    const out = await compile(input);
-
-    for (const contracts of Object.values(out.contracts)) {
-      for (const [name, contract] of Object.entries(contracts)) {
-        console.log(`Compiled contract: ${name}`);
-
+    const output = JSON.parse(solc.compile(JSON.stringify(input)));
+    
+    // Check for errors
+    if (output.errors) {
+      const errors = output.errors.filter((error: any) => error.severity === 'error');
+      if (errors.length > 0) {
+        console.error('Compilation errors:');
+        errors.forEach((err: any) => console.error(err.formattedMessage));
+        return;
+      }
+      // Show warnings
+      const warnings = output.errors.filter((error: any) => error.severity === 'warning');
+      warnings.forEach((warn: any) => console.warn(warn.formattedMessage));
+    }
+    
+    // Ensure output directories exist
+    ensureDir(abiDir);
+    ensureDir(artifactsDir);
+    
+    // Process compiled contracts
+    for (const [sourceFile, contracts] of Object.entries(output.contracts)) {
+      for (const [contractName, contract] of Object.entries(contracts as any)) {
+        console.log(`Compiled contract: ${contractName}`);
+        
         // Write the ABI
-        const abiPath = join(outputDir, `${name}.json`);
-        writeFileSync(abiPath, JSON.stringify(contract.abi, null, 2));
+        const abiPath = join(abiDir, `${contractName}.json`);
+        writeFileSync(abiPath, JSON.stringify((contract as any).abi, null, 2));
         console.log(`ABI saved to ${abiPath}`);
-
+        
         // Write the bytecode
-        if (
-          contract.evm &&
-          contract.evm.bytecode &&
-          contract.evm.bytecode.object
-        ) {
-          const bytecodePath = join(outputDir, `${name}.polkavm`);
-          writeFileSync(
-            bytecodePath,
-            Buffer.from(contract.evm.bytecode.object, 'hex')
-          );
-          console.log(`Bytecode saved to ${bytecodePath}`);
-        } else {
-          console.warn(`No bytecode found for contract: ${name}`);
-        }
+        const bytecodePath = join(artifactsDir, `${contractName}.bin`);
+        writeFileSync(bytecodePath, (contract as any).evm.bytecode.object);
+        console.log(`Bytecode saved to ${bytecodePath}`);
       }
     }
   } catch (error) {
@@ -6943,9 +6987,10 @@ const compileContract = async (
 };
 
 const solidityFilePath: string = './contracts/Storage.sol';
-const outputDir: string = './artifacts/';
+const abiDir: string = './abis';
+const artifactsDir: string = './artifacts';
 
-compileContract(solidityFilePath, outputDir);
+compileContract(solidityFilePath, abiDir, artifactsDir);
 ```
 
 To compile your contract:
@@ -6954,17 +6999,23 @@ To compile your contract:
 npm run compile
 ```
 
-After executing this script, you will see the compilation results including the generated `Storage.json` (containing the contract's ABI) and `Storage.polkavm` (containing the compiled bytecode) files in the `artifacts` folder. These files contain all the necessary information for deploying and interacting with your smart contract on Polkadot Hub.
+After executing this script, you will see the compilation results including the generated `Storage.json` (containing the contract's ABI) and `Storage.bin` (containing the compiled bytecode).
 
 ## Deploy the Contract
 
 Create a new file at `src/deploy.ts` for handling contract deployment:
 
 ```typescript title="src/deploy.ts"
-import { readFileSync } from 'fs';
-import { join } from 'path';
-import { createWallet } from './createWallet';
-import { publicClient } from './createClient';
+import { existsSync, readFileSync } from 'fs';
+import { dirname, join } from 'path';
+import { fileURLToPath } from 'url';
+import { createWallet } from './createWallet.ts';
+import { publicClient } from './createClient.ts';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const ABIS_DIR = join(__dirname, '../abis');
+const ARTIFACTS_DIR = join(__dirname, '../artifacts');
 
 const deployContract = async (
   contractName: string,
@@ -6973,16 +7024,20 @@ const deployContract = async (
   try {
     console.log(`Deploying ${contractName}...`);
 
+    const abiPath = join(ABIS_DIR, `${contractName}.json`);
+    const bytecodePath = join(ARTIFACTS_DIR, `${contractName}.bin`);
+
+    if (!existsSync(abiPath) || !existsSync(bytecodePath)) {
+      throw new Error(
+        `Missing artifacts for ${contractName}. Try running "npm run compile" first.`
+      );
+    }
+
     // Read contract artifacts
     const abi = JSON.parse(
-      readFileSync(
-        join(__dirname, '../artifacts', `${contractName}.json`),
-        'utf8'
-      )
+      readFileSync(abiPath, 'utf8')
     );
-    const bytecode = `0x${readFileSync(
-      join(__dirname, '../artifacts', `${contractName}.polkavm`)
-    ).toString('hex')}` as `0x${string}`;
+    const bytecode = `0x${readFileSync(bytecodePath, 'utf8').trim()}` as `0x${string}`;
 
     // Create wallet
     const wallet = createWallet(privateKey);
@@ -7028,13 +7083,17 @@ If everything is successful, you will see the address of your deployed contract 
 Create a new file at `src/interact.ts` for interacting with your deployed contract:
 
 ```typescript title="src/interact.ts"
-import { publicClient } from './createClient';
-import { createWallet } from './createWallet';
 import { readFileSync } from 'fs';
+import { dirname, join } from 'path';
+import { fileURLToPath } from 'url';
+import { publicClient } from './createClient.ts';
+import { createWallet } from './createWallet.ts';
 
-const STORAGE_ABI = JSON.parse(
-  readFileSync('./artifacts/Storage.json', 'utf8')
-);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const ABI_PATH = join(__dirname, '../abis/Storage.json');
+
+const STORAGE_ABI = JSON.parse(readFileSync(ABI_PATH, 'utf8'));
 
 const interactWithStorage = async (
   contractAddress: `0x${string}`,
@@ -7079,7 +7138,6 @@ const PRIVATE_KEY = 'INSERT_PRIVATE_KEY';
 const CONTRACT_ADDRESS = 'INSERT_CONTRACT_ADDRESS';
 
 interactWithStorage(CONTRACT_ADDRESS, PRIVATE_KEY);
-
 ```
 
 Ensure to replace `INSERT_PRIVATE_KEY` and `INSERT_CONTRACT_ADDRESS` with the proper values.
@@ -7746,74 +7804,61 @@ This guide illustrates how to utilize Web3.py for interactions with Polkadot Hub
 
 ## Set Up the Web3 Provider
 
-The [provider](https://web3py.readthedocs.io/en/stable/providers.html){target=\_blank} configuration is the foundation of any Web3.py application. The following example establishes a connection to Polkadot Hub. Follow these steps to use the provider configuration:
+The [provider](https://web3py.readthedocs.io/en/stable/providers.html){target=\_blank} configuration is the foundation of any Web3.py application.  It serves as a bridge between your application and the blockchain, allowing you to query blockchain data and interact with smart contracts.
 
-1. Replace `INSERT_RPC_URL` with the appropriate value. For instance, to connect to Polkadot Hub TestNet, use the following parameter:
+To interact with Polkadot Hub, you must set up a Web3.py provider. This provider connects to a blockchain node, allowing you to query blockchain data and interact with smart contracts. The following code sets up the provider configuration:
+
+```python
+from web3 import Web3
+
+PROVIDER_RPC = "INSERT_RPC_URL"
+web3 = Web3(Web3.HTTPProvider(PROVIDER_RPC))
+
+```
+
+!!! note
+    Replace `INSERT_RPC_URL` with the appropriate value. For instance, to connect to Polkadot Hub TestNet, use the following parameter:
 
     ```python
     PROVIDER_RPC = 'https://testnet-passet-hub-eth-rpc.polkadot.io'
     ```
 
-    The provider connection script should look something like this:
+With the Web3 provider set up, start querying the blockchain. For instance, you can use the following code snippet to fetch the latest block number of the chain.
 
-    ```python title="connect_to_provider.py"
-    from web3 import Web3
-
-    def create_provider(rpc_url):
-        web3 = Web3(Web3.HTTPProvider(rpc_url))
-        return web3
-
-    PROVIDER_RPC = 'INSERT_RPC_URL'
-
-    create_provider(PROVIDER_RPC)
-    ```
-
-1. With the Web3 provider set up, start querying the blockchain. For instance, you can use the following code snippet to fetch the latest block number of the chain:
+??? code "Fetch last block example"
 
     ```python title="fetch_last_block.py"
+    from web3 import Web3
+
+
     def main():
         try:
-            web3 = create_provider(PROVIDER_RPC)
+            PROVIDER_RPC = "https://testnet-passet-hub-eth-rpc.polkadot.io"
+            web3 = Web3(Web3.HTTPProvider(PROVIDER_RPC))
             latest_block = web3.eth.block_number
-            print('Last block: ' + str(latest_block))
+            print("Last block: " + str(latest_block))
         except Exception as error:
-            print('Error connecting to Polkadot Hub TestNet: ' + str(error))
+            print("Error connecting to Polkadot Hub TestNet: " + str(error))
+
 
     if __name__ == "__main__":
         main()
+
     ```
 
-    ??? code "View complete script"
+## Compile Contracts
 
-        ```python title="fetch_last_block.py"
-        from web3 import Web3
+Polkadot Hub exposes an Ethereum JSON-RPC endpoint, so you can compile Solidity contracts to familiar EVM bytecode with the [`py-solc-x`](https://solcx.readthedocs.io/en/latest/){target=\_blank} compiler. The resulting artifacts work with any EVM-compatible toolchain and can be deployed through Web3.py.
 
-        def create_provider(rpc_url):
-            web3 = Web3(Web3.HTTPProvider(rpc_url))
-            return web3
+First, install the `py-solc-x` package:
 
-        PROVIDER_RPC = 'https://testnet-passet-hub-eth-rpc.polkadot.io'
+```bash
+pip install py-solc-x
+```
 
-        def main():
-            try:
-                web3 = create_provider(PROVIDER_RPC)
-                latest_block = web3.eth.block_number
-                print('Last block: ' + str(latest_block))
-            except Exception as error:
-                print('Error connecting to Polkadot Hub TestNet: ' + str(error))
+### Sample Storage Smart Contract
 
-        if __name__ == "__main__":
-            main()
-        ```
-
-## Contract Deployment
-
-Before deploying your contracts, make sure you've compiled them and obtained two key files:
-
-- An ABI (.json) file, which provides a JSON interface describing the contract's functions and how to interact with it.
-- A bytecode (.polkavm) file, which contains the low-level machine code executable on [PolkaVM](/smart-contracts/for-eth-devs/#polkavm){target=\_blank} that represents the compiled smart contract ready for blockchain deployment.
-
-To follow this guide, you can use the following solidity contract as an example:
+This example demonstrates compiling a `Storage.sol` Solidity contract for deployment to Polkadot Hub. The contract's functionality stores a number and permits users to update it with a new value.
 
 ```solidity title="Storage.sol"
 //SPDX-License-Identifier: MIT
@@ -7839,15 +7884,87 @@ contract Storage {
 }
 ```
 
+### Compile the Smart Contract
+
+To compile this contract, create a Python script named `compile.py`:
+
+```python title="compile.py"
+import json
+import solcx
+from pathlib import Path
+
+SOLC_VERSION = '0.8.9'
+try:
+    solcx.install_solc(SOLC_VERSION)
+except Exception as e:
+    print(f"Solc version {SOLC_VERSION} already installed or error: {e}")
+
+solcx.set_solc_version(SOLC_VERSION)
+
+contract_path = Path('Storage.sol')
+with open(contract_path, 'r') as file:
+    contract_source = file.read()
+
+compiled_sol = solcx.compile_source(
+    contract_source,
+    output_values=['abi', 'bin'],
+    solc_version=SOLC_VERSION
+)
+
+contract_id, contract_interface = compiled_sol.popitem()
+
+bytecode = contract_interface['bin']
+abi = contract_interface['abi']
+
+Path('abis').mkdir(exist_ok=True)
+Path('artifacts').mkdir(exist_ok=True)
+
+with open('abis/Storage.json', 'w') as abi_file:
+    json.dump(abi, abi_file, indent=2)
+
+with open('artifacts/Storage.bin', 'w') as bin_file:
+    bin_file.write(bytecode)
+
+print("✅ Contract compiled successfully!")
+print(f"📄 ABI saved to: abis/Storage.json")
+print(f"📦 Bytecode saved to: artifacts/Storage.bin")
+```
+
+!!! note 
+    The script above is tailored to the `Storage.sol` contract. It can be adjusted for other contracts by changing the file name or modifying the ABI and bytecode paths.
+
+The ABI (Application Binary Interface) is a JSON representation of your contract's functions, events, and their parameters. It serves as the interface between your Python code and the deployed smart contract, allowing your application to know how to format function calls and interpret returned data.
+
+Execute the script by running:
+
+```bash
+python compile.py
+```
+
+After executing the script, the Solidity contract is compiled into standard EVM bytecode. The ABI and bytecode are saved into files with `.json` and `.bin` extensions, respectively:
+
+- **ABI file (`abis/Storage.json`)**: Provides a JSON interface describing the contract's functions and how to interact with it.
+- **Bytecode file (`artifacts/Storage.bin`)**: Contains the low-level machine code executable on EVM that represents the compiled smart contract ready for blockchain deployment.
+
+You can now proceed with deploying the contract to Polkadot Hub, as outlined in the next section.
+
+## Contract Deployment
+
 To deploy your compiled contract to Polkadot Hub using Web3.py, you'll need an account with a private key to sign the deployment transaction. The deployment process is exactly the same as for any Ethereum-compatible chain, involving creating a contract instance, estimating gas, and sending a deployment transaction. Here's how to deploy the contract. Replace `INSERT_RPC_URL` and `INSERT_PRIVATE_KEY` with the appropriate values:
 
 ```python title="deploy.py"
 from web3 import Web3
 import json
+import time
+from pathlib import Path
+
+ARTIFACTS_DIR = Path(__file__).parent
+ABI_DIR = ARTIFACTS_DIR / "abis"
+BYTECODE_DIR = ARTIFACTS_DIR / "artifacts"
 
 def get_abi(contract_name):
     try:
-        with open(f"{contract_name}.json", 'r') as file:
+        with open(ABI_DIR / f"{contract_name}.json", 'r') as file:
             return json.load(file)
     except Exception as error:
         print(f"❌ Could not find ABI for contract {contract_name}: {error}")
@@ -7855,192 +7972,220 @@ def get_abi(contract_name):
 
 def get_bytecode(contract_name):
     try:
-        with open(f"{contract_name}.polkavm", 'rb') as file:
-            return '0x' + file.read().hex()
+        with open(BYTECODE_DIR / f"{contract_name}.bin", 'r') as file:
+            bytecode = file.read().strip()
+            return bytecode if bytecode.startswith('0x') else f"0x{bytecode}"
     except Exception as error:
         print(f"❌ Could not find bytecode for contract {contract_name}: {error}")
         raise error
 
-async def deploy(config):
+def deploy_with_retry(config, max_retries=3):
+    """Deploy with retry logic for RPC errors"""
+    for attempt in range(max_retries):
+        try:
+            return deploy(config)
+        except Exception as error:
+            error_str = str(error)
+            if "500" in error_str or "Internal Server Error" in error_str or "Connection" in error_str:
+                if attempt < max_retries - 1:
+                    wait_time = (attempt + 1) * 3
+                    print(f"RPC error, retrying in {wait_time} seconds... (attempt {attempt + 1}/{max_retries})")
+                    time.sleep(wait_time)
+                    continue
+            raise error
+
+def deploy(config):
     try:
-        # Initialize Web3 with RPC URL
-        web3 = Web3(Web3.HTTPProvider(config["rpc_url"]))
+        # Initialize Web3 with RPC URL and longer timeout
+        web3 = Web3(Web3.HTTPProvider(
+            config["rpc_url"],
+            request_kwargs={'timeout': 120}
+        ))
         
         # Prepare account
-        account = web3.eth.account.from_key(config["private_key"])
-        print(f"address: {account.address}")
+        formatted_private_key = config["private_key"] if config["private_key"].startswith('0x') else f"0x{config['private_key']}"
+        account = web3.eth.account.from_key(formatted_private_key)
+        print(f"Deploying from address: {account.address}")
         
-        # Load ABI
+        # Load ABI and bytecode
         abi = get_abi('Storage')
+        bytecode = get_bytecode('Storage')
+        print(f"Bytecode length: {len(bytecode)}")
         
         # Create contract instance
-        contract = web3.eth.contract(abi=abi, bytecode=get_bytecode('Storage'))
+        contract = web3.eth.contract(abi=abi, bytecode=bytecode)
         
-        # Get current nonce
+        # Get current nonce (this will test the connection)
+        print("Getting nonce...")
         nonce = web3.eth.get_transaction_count(account.address)
+        print(f"Nonce: {nonce}")
         
-        # Prepare deployment transaction
-        transaction = {
+        # Estimate gas
+        print("Estimating gas...")
+        gas_estimate = web3.eth.estimate_gas({
+            'from': account.address,
+            'data': bytecode
+        })
+        print(f"Estimated gas: {gas_estimate}")
+        
+        # Get gas price
+        print("Getting gas price...")
+        gas_price = web3.eth.gas_price
+        print(f"Gas price: {web3.from_wei(gas_price, 'gwei')} gwei")
+        
+        # Build deployment transaction
+        print("Building transaction...")
+        construct_txn = contract.constructor().build_transaction({
             'from': account.address,
             'nonce': nonce,
-        }
+            'gas': gas_estimate,
+            'gasPrice': gas_price,
+        })
         
-        # Build and sign transaction
-        construct_txn = contract.constructor().build_transaction(transaction)
-        signed_txn = web3.eth.account.sign_transaction(construct_txn, private_key=config["private_key"])
+        # Sign transaction
+        print("Signing transaction...")
+        signed_txn = web3.eth.account.sign_transaction(construct_txn, private_key=formatted_private_key)
         
         # Send transaction
+        print("Sending transaction...")
         tx_hash = web3.eth.send_raw_transaction(signed_txn.raw_transaction)
         print(f"Transaction hash: {tx_hash.hex()}")
         
         # Wait for transaction receipt
-        tx_receipt = web3.eth.wait_for_transaction_receipt(tx_hash)
+        print("Waiting for transaction receipt...")
+        tx_receipt = web3.eth.wait_for_transaction_receipt(tx_hash, timeout=300)
         contract_address = tx_receipt.contractAddress
         
-        # Log and return contract details
-        print(f"Contract deployed at: {contract_address}")
+        # Log results
+        print(f"✅ Contract deployed at: {contract_address}")
+        print(f"Gas used: {tx_receipt.gasUsed}")
+        print(f"Block number: {tx_receipt.blockNumber}")
+        
         return web3.eth.contract(address=contract_address, abi=abi)
     
     except Exception as error:
-        print('Deployment failed:', error)
+        print(f'❌ Deployment failed: {error}')
         raise error
 
 if __name__ == "__main__":
-    # Example usage
-    import asyncio
-    
     deployment_config = {
-        "rpc_url": "INSERT_RPC_URL",
-        "private_key": "INSERT_PRIVATE_KEY",
+        "rpc_url": "https://testnet-passet-hub-eth-rpc.polkadot.io",
+        "private_key": "0xd505c673c48556d560696d129f0e611f041638cd42d81c33ddc0e490cdcf65fc"
     }
     
-    asyncio.run(deploy(deployment_config))
+    deploy_with_retry(deployment_config)
 ```
 
 !!!warning
-    Never commit or share your private key. Exposed keys can lead to immediate theft of all associated funds. Use environment variables instead.
+    Never commit or share your private key. Exposed keys can lead to immediate theft of all associated funds.
+
+To run the script, execute the following command:
+
+```bash
+python deploy.py
+```
+
+After running this script, your contract will be deployed to Polkadot Hub, and its address will be printed in your terminal. You can use this address for future contract interactions.
 
 ## Interact with the Contract
 
-After deployment, interact with your contract using Web3.py methods. The example below demonstrates how to set and retrieve a number. Be sure to replace the `INSERT_RPC_URL`, `INSERT_PRIVATE_KEY`, and `INSERT_CONTRACT_ADDRESS` placeholders with your specific values:
+After deployment, interact with your contract using Web3.py methods. The example below demonstrates how to set and retrieve a number.
 
 ```python title="update_storage.py"
 from web3 import Web3
 import json
 
+
 def get_abi(contract_name):
     try:
-        with open(f"{contract_name}.json", 'r') as file:
+        with open(f"{contract_name}.json", "r") as file:
             return json.load(file)
     except Exception as error:
         print(f"❌ Could not find ABI for contract {contract_name}: {error}")
         raise error
 
+
 async def update_storage(config):
     try:
         # Initialize Web3 with RPC URL
         web3 = Web3(Web3.HTTPProvider(config["rpc_url"]))
-        
+
         # Prepare account
         account = web3.eth.account.from_key(config["private_key"])
-        
+
         # Load ABI
-        abi = get_abi('Storage')
-        
+        abi = get_abi("Storage")
+
         # Create contract instance
         contract = web3.eth.contract(address=config["contract_address"], abi=abi)
-        
+
         # Get initial value
         initial_value = contract.functions.storedNumber().call()
-        print('Current stored value:', initial_value)
-        
+        print("Current stored value:", initial_value)
+
         # Get current nonce
         nonce = web3.eth.get_transaction_count(account.address)
-        
+
         # Prepare transaction
-        transaction = contract.functions.setNumber(1).build_transaction({
-            'from': account.address,
-            'nonce': nonce
-        })
-        
+        transaction = contract.functions.setNumber(1).build_transaction(
+            {"from": account.address, "nonce": nonce}
+        )
+
         # Sign transaction
-        signed_txn = web3.eth.account.sign_transaction(transaction, private_key=config["private_key"])
-        
+        signed_txn = web3.eth.account.sign_transaction(
+            transaction, private_key=config["private_key"]
+        )
+
         # Send transaction
         tx_hash = web3.eth.send_raw_transaction(signed_txn.raw_transaction)
         print(f"Transaction hash: {tx_hash.hex()}")
-        
+
         # Wait for receipt
         receipt = web3.eth.wait_for_transaction_receipt(tx_hash)
-        
+
         # Get updated value
         new_value = contract.functions.storedNumber().call()
-        print('New stored value:', new_value)
-        
+        print("New stored value:", new_value)
+
         return receipt
-    
+
     except Exception as error:
-        print('Update failed:', error)
+        print("Update failed:", error)
         raise error
+
 
 if __name__ == "__main__":
     # Example usage
     import asyncio
-    
+
     config = {
         "rpc_url": "INSERT_RPC_URL",
         "private_key": "INSERT_PRIVATE_KEY",
         "contract_address": "INSERT_CONTRACT_ADDRESS",
     }
-    
+
     asyncio.run(update_storage(config))
+
+```
+
+Be sure to replace the `INSERT_RPC_URL`, `INSERT_PRIVATE_KEY`, and `INSERT_CONTRACT_ADDRESS` placeholders with your specific values.
+
+To interact with the contract, run:
+
+```bash
+python update_storage.py
 ```
 
 ## Where to Go Next
 
-Now that you have the foundation for using Web3.py with Polkadot Hub, consider exploring:
-
 <div class="grid cards" markdown>
 
--   <span class="badge external">External</span> __Advanced Web3.py Features__
-  
-    ---
-    Explore Web3.py's documentation:
-    <ul class="card-list">
-    <li>[:octicons-arrow-right-24: Middleware](https://web3py.readthedocs.io/en/stable/middleware.html){target=\_blank}</li>
-    <li>[:octicons-arrow-right-24: Filters & Events](https://web3py.readthedocs.io/en/stable/filters.html){target=\_blank}</li>
-    <li>[:octicons-arrow-right-24: ENS](https://web3py.readthedocs.io/en/stable/ens_overview.html){target=\_blank}</li>
-    </ul>
-
--   <span class="badge external">External</span> __Testing Frameworks__
+-   <span class="badge external">External</span> __Web3.py Docs__
 
     ---
-    Integrate Web3.py with Python testing frameworks:
 
-    <ul class="card-list">
-    <li>[:octicons-arrow-right-24: Pytest](https://docs.pytest.org/){target=\_blank}</li>
-    <li>[:octicons-arrow-right-24: Brownie](https://eth-brownie.readthedocs.io/){target=\_blank}</li>
-    </ul>
+    Explore the Web3.py documentation to learn how to use additional features, such as wallet management, signing messages, subscribing to events, and more.
 
--   <span class="badge external">External</span> __Transaction Management__
-
-    ---
-    Learn advanced transaction handling:
-
-    <ul class="card-list">
-    <li>[:octicons-arrow-right-24: Gas Strategies](https://web3py.readthedocs.io/en/stable/gas_price.html){target=\_blank}</li>
-    <li>[:octicons-arrow-right-24: Account Management](https://web3py.readthedocs.io/en/stable/web3.eth.account.html){target=\_blank}</li>
-    </ul>
-
--   <span class="badge external">External</span> __Building dApps__
-
-    ---
-    Combine Web3.py with these frameworks to create full-stack applications:
-
-    <ul class="card-list">
-    <li>[:octicons-arrow-right-24: Flask](https://flask.palletsprojects.com/){target=\_blank}</li>
-    <li>[:octicons-arrow-right-24: Django](https://www.djangoproject.com/){target=\_blank}</li>
-    <li>[:octicons-arrow-right-24: FastAPI](https://fastapi.tiangolo.com/){target=\_blank}</li>
-    </ul>
+    [:octicons-arrow-right-24: Get Started](https://web3py.readthedocs.io/en/stable/){target=\_blank}
 
 </div>

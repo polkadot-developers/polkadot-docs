@@ -41,7 +41,7 @@ Before you begin, ensure you have the following:
 
 ## Configure Hardhat
 
-Open `hardhat.config.ts` and update to add `polkadotHubTestnet` to the `networks` configuration as highlighted in the following example code:
+Open `hardhat.config.ts` and update to add `polkadotTestnet` to the `networks` configuration as highlighted in the following example code:
 
 ```typescript title="hardhat.config.ts" hl_lines='39-44'
 --8<-- 'code/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-hardhat/hardhat.config.ts'
@@ -93,7 +93,7 @@ You are now ready to deploy the contract to your chosen network. This example de
 4. Deploy your contract to Polkadot Hub TestNet using the following command:
 
     ```bash
-    npx hardhat ignition deploy ignition/modules/MyNFT.ts --network polkadotHubTestnet
+    npx hardhat ignition deploy ignition/modules/MyNFT.ts --network polkadotTestnet
     ```
 
 5. Confirm the target deployment network name and chain ID when prompted:

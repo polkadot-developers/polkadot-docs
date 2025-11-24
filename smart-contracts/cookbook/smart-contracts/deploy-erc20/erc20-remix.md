@@ -29,7 +29,7 @@ Follow the steps below to create the ERC-20 contract:
 1. Navigate to [Remix IDE](https://remix.ethereum.org/){target=\_blank} in your web browser.
 2. Select the **Create new file** button under the **contracts** folder, and name your contract `MyToken.sol`.
 
-    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix/erc20-remix-1.webp)
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix/remix-01.webp)
 
 3. Now, paste the following ERC-20 contract code into `MyToken.sol`:
 
@@ -51,7 +51,7 @@ Ensure your `MyToken.sol` contract is open in the Remix IDE Editor, and use the 
 
 The **Solidity Compiler** icon will display a green checkmark once the contract compiles successfully. If any issues arise during contract compilation, errors and warnings will appear in the terminal panel at the bottom of the screen.
 
-![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix/erc20-remix-3.gif)
+![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix/remix-03.gif)
 
 ## Deploy the Contract
 
@@ -64,7 +64,7 @@ Follow these steps to deploy the contract using Remix:
 4. Approve the transaction in your MetaMask wallet when prompted.
 6. You will see the transaction details in the terminal when the deployment succeeds, including the contract address and deployment transaction hash.
 
-![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix/erc20-remix-4.gif)
+![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix/remix-04.gif)
 
 Once successfully deployed, your contract will appear in the **Deployed Contracts** section, ready for interaction.
 
@@ -78,7 +78,7 @@ Once deployed, you can interact with your contract through Remix. Find your cont
 4. You will see a green check mark in the terminal when the transaction is successful.
 5. You can also call the **balanceOf** function by passing the address of the **mint** call to confirm the new balance.
 
-![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix/erc20-remix-5.gif)
+![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix/remix-05.gif)
 
 Feel free to explore and interact with the contract's other functions by selecting the method, providing any required parameters, and confirming the transaction in MetaMask when prompted.
 

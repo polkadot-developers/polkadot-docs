@@ -36,7 +36,7 @@ const config: HardhatUserConfig = {
       url: configVariable('SEPOLIA_RPC_URL'),
       accounts: [configVariable('SEPOLIA_PRIVATE_KEY')],
     },
-    polkadotHubTestnet: {
+    polkadotTestnet: {
       url: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
       chainId: 420420422,
       accounts: [configVariable('PRIVATE_KEY')],

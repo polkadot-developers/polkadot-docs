@@ -6,8 +6,6 @@ categories: Smart Contracts
 
 # Connect to Polkadot
 
---8<-- 'text/smart-contracts/polkaVM-warning.md'
-
 <div class="button-wrapper">
     <a href="#" class="md-button connectMetaMask" value="passetHub">Connect to Polkadot Hub TestNet</a>
 </div>

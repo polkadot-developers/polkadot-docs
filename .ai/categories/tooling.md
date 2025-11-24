@@ -1736,9 +1736,6 @@ Add the Solidity compiler so you can generate standard EVM bytecode:
 npm install --save-dev solc
 ```
 
-!!! tip
-    The sample scripts use ECMAScript modules. Add `"type": "module"` to your `package.json` (or rename the files to `.mjs`) so that `node` can run the `import` statements.
-
 ## Set Up the Web3 Provider
 
 The provider configuration is the foundation of any Web3.js application. It serves as a bridge between your application and the blockchain, allowing you to query blockchain data and interact with smart contracts.
@@ -1795,7 +1792,7 @@ With the provider set up, you can start querying the blockchain. For instance, t
     const PROVIDER_RPC = {
       rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
       chainId: 420420422,
-      name: 'polkadot-hub-testnet',
+      name: 'polkadotTestNet',
     };
 
     const main = async () => {
@@ -2058,7 +2055,7 @@ You can create a `deploy.js` script in the `scripts` directory of your project t
     const providerConfig = {
       rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io', // TODO: replace to `https://services.polkadothub-rpc.com/testnet` when ready
       chainId: 420420422,
-      name: 'polkadot-hub-testnet',
+      name: 'polkadotTestNet',
     };
 
     const privateKey = 'INSERT_PRIVATE_KEY';
@@ -2166,7 +2163,7 @@ You can create a `deploy.js` script in the `scripts` directory of your project t
     const providerConfig = {
       rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io', // TODO: replace to `https://services.polkadothub-rpc.com/testnet` when ready
       chainId: 420420422,
-      name: 'polkadot-hub-testnet',
+      name: 'polkadotTestNet',
     };
 
     const privateKey = 'INSERT_PRIVATE_KEY';
@@ -2186,7 +2183,7 @@ After running this script, your contract will be deployed to Polkadot Hub, and i
 
 ## Interact with the Contract
 
-Once the contract is deployed, you can interact with it by calling its functions. For example, to set a number, read it and then modify that number by its double, you can create a file named `updateStorage.js` in the `scripts` directory of your project and add the following code:
+Once the contract is deployed, you can interact with it by calling its functions. For example, to read the current stored value and then update it to a new value, you can create a file named `updateStorage.js` in the `scripts` directory of your project and add the following code:
 
 ```js title="scripts/updateStorage.js"
 const { readFileSync } = require('fs');
@@ -2256,7 +2253,7 @@ updateStorage(config)
   .catch((error) => console.error('Update error'));
 ```
 
-Ensure you replace the `INSERT_MNEMONIC`, `INSERT_CONTRACT_ADDRESS`, and `INSERT_ADDRESS_TO_CHECK` placeholders with actual values. Also, ensure the contract ABI file (`Storage.json`) is correctly referenced. The script prints the balance for `ADDRESS_TO_CHECK` before it writes and doubles the stored value, so pick any account you want to monitor.
+Ensure you replace the `INSERT_PRIVATE_KEY` and `INSERT_CONTRACT_ADDRESS` placeholders with actual values. Also, ensure the contract ABI file (`Storage.json`) is correctly referenced. The script reads the current stored value, sets it to 1, and then displays the updated value.
 
 To interact with the contract, run:
 
@@ -6341,165 +6338,6 @@ This ensures accurate fee calculation while maintaining compatibility with exist
 
 ---
 
-Page Title: Troubleshooting Remix IDE
-
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-remix-troubleshooting-faq.md
-- Canonical (HTML): https://docs.polkadot.com/smart-contracts/dev-environments/remix/troubleshooting-faq/
-- Summary: Common issues related to developing, compiling, and deploying smart contracts using Remix IDE on Polkadot Hub paired with troubleshooting suggestions.
-
-# Remix IDE Troubleshooting
-
-This guide provides solutions to common issues you may encounter when using Remix IDE with Polkadot Hub. If you're experiencing problems with compilation, deployment, or contract interaction, you'll likely find the solution here.
-
-## Contract fails to compile or shows errors in the terminal
-
-- **Check Solidity version compatibility**:
-    - Ensure your contract's pragma statement matches the compiler version selected in the **Solidity Compiler** tab.
-    - Example: If your contract uses `pragma solidity ^0.8.0;`, select compiler version 0.8.x or higher.
-
-- **Review syntax errors**:
-    - Carefully read error messages in the terminal panel at the bottom of the screen.
-    - Common issues include missing semicolons, incorrect function visibility, or mismatched brackets.
-
-- **Clear cache and recompile**:
-    - Delete the `artifacts` folder in the **File Explorer**.
-    - Try compiling again with `Ctrl+S` or click the **Compile** button.
-
-## The `artifacts` folder doesn't appear after compilation
-
-- Ensure compilation completed successfully without errors.
-- Refresh the **File Explorer** by clicking away and back to the **File Explorer** tab.
-- Check that your `.sol` file is saved before compiling.
-
-## Remix doesn't detect your wallet extension (MetaMask, Talisman, etc.)
-
-- **Verify wallet installation**:
-    - Ensure your wallet extension is properly installed and enabled in your browser.
-    - Check that the extension icon appears in your browser toolbar.
-
-- **Refresh the page**:
-    - Reload the Remix IDE page and try reconnecting.
-
-- **Check browser permissions**:
-    - Ensure Remix has permission to interact with the wallet extension.
-    - Check your browser's extension settings.
-
-- **Use correct environment**:
-    - In the **Deploy & Run Transactions** tab, select **Browser Extension** from the **Environment** dropdown.
-    - Choose **Injected Provider - MetaMask** (works with most wallet providers).
-
-## Wallet is connected but to the wrong network
-
-1. Open your wallet extension.
-2. Switch to the Polkadot Hub network.
-3. Refresh the Remix IDE if the network change isn't detected automatically.
-4. Verify the network name and chain ID match Polkadot Hub's configuration.
-
-## Deployment fails with "insufficient funds" or similar error
-
-- **Check your balance**:
-    - Verify you have enough test tokens in your connected wallet.
-    - Visit the [Polkadot faucet](/smart-contracts/faucet/){target=\_blank} to obtain test tokens.
-
-- **Wait for faucet tokens**:
-    - Allow a few minutes for faucet transactions to complete.
-    - Refresh your wallet to see the updated balance.
-
-## Deployment transaction is rejected or fails
-
-- **Increase gas limit**:
-    - In the **Deploy & Run Transactions** tab, adjust the **Gas Limit** field.
-    - Try increasing it by 20-30% from the estimated amount.
-
-- **Check contract constructor parameters**:
-    - Ensure any required constructor parameters are provided correctly.
-    - Verify parameter types match the contract's constructor signature.
-
-- **Verify contract selection**:
-    - Ensure you've selected the correct contract from the **Contract** dropdown.
-    - If you have multiple contracts, make sure you're deploying the intended one.
-
-## The "Injected Provider - MetaMask" option doesn't appear in the Environment dropdown
-
-- Select **Browser Extension** from the **Environment** dropdown to populate the **Injected Provider - Metamask** option.
-- Ensure your wallet extension is unlocked and active.
-- Try disabling and re-enabling the wallet extension.
-- Refresh the Remix IDE page.
-
-## Wallet rejects transactions when trying to interact with deployed contracts
-
-- **Check wallet unlock status**:
-    - Ensure your wallet is unlocked.
-    - Verify you're approving the transaction in the wallet pop-up.
-
-- **Verify sufficient gas**:
-    - Ensure you have enough tokens to cover the transaction fee.
-    - The wallet pop-up should show the estimated gas cost.
-
-- **Network mismatch**:
-    - Confirm your wallet is still connected to Polkadot Hub.
-    - Check that Remix is using the same network.
-
-## Deployed contract doesn't show in the **Deployed/Unpinned Contracts** section
-
-- Wait for the transaction to be confirmed on-chain.
-- Check the Remix terminal for deployment confirmation.
-- Scroll down in the **Deploy & Run Transactions** panel to find the deployed contracts section.
-- If the deployment transaction failed, check the terminal for error messages.
-
-## Blue buttons (read functions) don't display return values
-
-- **Check the terminal**:
-    - Return values appear in the terminal panel at the bottom.
-    - Look for the decoded output section.
-
-- **Verify contract state**:
-    - Ensure the contract has been properly initialized.
-    - Check if the function requires a specific contract state to return values.
-
-- **Network connection**:
-    - Verify you're still connected to the correct network.
-    - Try refreshing the connection to your wallet.
-
-
-## Orange/red buttons (write functions) execute, but the state doesn't change
-
-- **Wait for transaction confirmation**:
-    - Transactions need to be mined before state changes are reflected.
-    - Check the terminal for transaction status.
-    - Wait a few seconds and try rereading the state.
-
-- **Transaction failed**:
-    - Check if the transaction was actually successful in the terminal.
-    - Look for revert reasons or error messages.
-    - Verify you approved the transaction in your wallet.
-
-- **Check transaction parameters**:
-    - Ensure you're passing the correct parameters to the function.
-    - For payable functions (red buttons), verify you're sending the correct amount.
-
-## Remix takes a long time to load or becomes unresponsive
-
-- **Clear browser cache**:
-    - Clear your browser's cache and cookies.
-    - Restart your browser.
-
-- **Disable unnecessary plugins**:
-    - In Remix, deactivate plugins you're not using via the Plugin Manager.
-
-- **Use a supported browser**:
-    - Use Chrome, Firefox, or Brave for the best compatibility.
-    - Ensure your browser is up to date.
-
-## Changes to files or folders don't appear in the File Explorer
-
-- Click the refresh icon in the **File Explorer**.
-- Switch to a different tab and back to **File Explorer**.
-- Save your work and reload the Remix IDE page.
-
-
----
-
 Page Title: Troubleshooting Hardhat
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-hardhat-troubleshooting-faq.md
@@ -7026,6 +6864,165 @@ This guide provides solutions to common issues you may encounter when using Hard
     const { vars } = require('hardhat/config');
     const value = vars.get('VARIABLE_NAME');
     ```
+
+
+---
+
+Page Title: Troubleshooting Remix IDE
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-remix-troubleshooting-faq.md
+- Canonical (HTML): https://docs.polkadot.com/smart-contracts/dev-environments/remix/troubleshooting-faq/
+- Summary: Common issues related to developing, compiling, and deploying smart contracts using Remix IDE on Polkadot Hub paired with troubleshooting suggestions.
+
+# Remix IDE Troubleshooting
+
+This guide provides solutions to common issues you may encounter when using Remix IDE with Polkadot Hub. If you're experiencing problems with compilation, deployment, or contract interaction, you'll likely find the solution here.
+
+## Contract fails to compile or shows errors in the terminal
+
+- **Check Solidity version compatibility**:
+    - Ensure your contract's pragma statement matches the compiler version selected in the **Solidity Compiler** tab.
+    - Example: If your contract uses `pragma solidity ^0.8.0;`, select compiler version 0.8.x or higher.
+
+- **Review syntax errors**:
+    - Carefully read error messages in the terminal panel at the bottom of the screen.
+    - Common issues include missing semicolons, incorrect function visibility, or mismatched brackets.
+
+- **Clear cache and recompile**:
+    - Delete the `artifacts` folder in the **File Explorer**.
+    - Try compiling again with `Ctrl+S` or click the **Compile** button.
+
+## The `artifacts` folder doesn't appear after compilation
+
+- Ensure compilation completed successfully without errors.
+- Refresh the **File Explorer** by clicking away and back to the **File Explorer** tab.
+- Check that your `.sol` file is saved before compiling.
+
+## Remix doesn't detect your wallet extension (MetaMask, Talisman, etc.)
+
+- **Verify wallet installation**:
+    - Ensure your wallet extension is properly installed and enabled in your browser.
+    - Check that the extension icon appears in your browser toolbar.
+
+- **Refresh the page**:
+    - Reload the Remix IDE page and try reconnecting.
+
+- **Check browser permissions**:
+    - Ensure Remix has permission to interact with the wallet extension.
+    - Check your browser's extension settings.
+
+- **Use correct environment**:
+    - In the **Deploy & Run Transactions** tab, select **Browser Extension** from the **Environment** dropdown.
+    - Choose **Injected Provider - MetaMask** (works with most wallet providers).
+
+## Wallet is connected but to the wrong network
+
+1. Open your wallet extension.
+2. Switch to the Polkadot Hub network.
+3. Refresh the Remix IDE if the network change isn't detected automatically.
+4. Verify the network name and chain ID match Polkadot Hub's configuration.
+
+## Deployment fails with "insufficient funds" or similar error
+
+- **Check your balance**:
+    - Verify you have enough test tokens in your connected wallet.
+    - Visit the [Polkadot faucet](/smart-contracts/faucet/){target=\_blank} to obtain test tokens.
+
+- **Wait for faucet tokens**:
+    - Allow a few minutes for faucet transactions to complete.
+    - Refresh your wallet to see the updated balance.
+
+## Deployment transaction is rejected or fails
+
+- **Increase gas limit**:
+    - In the **Deploy & Run Transactions** tab, adjust the **Gas Limit** field.
+    - Try increasing it by 20-30% from the estimated amount.
+
+- **Check contract constructor parameters**:
+    - Ensure any required constructor parameters are provided correctly.
+    - Verify parameter types match the contract's constructor signature.
+
+- **Verify contract selection**:
+    - Ensure you've selected the correct contract from the **Contract** dropdown.
+    - If you have multiple contracts, make sure you're deploying the intended one.
+
+## The "Injected Provider - MetaMask" option doesn't appear in the Environment dropdown
+
+- Select **Browser Extension** from the **Environment** dropdown to populate the **Injected Provider - Metamask** option.
+- Ensure your wallet extension is unlocked and active.
+- Try disabling and re-enabling the wallet extension.
+- Refresh the Remix IDE page.
+
+## Wallet rejects transactions when trying to interact with deployed contracts
+
+- **Check wallet unlock status**:
+    - Ensure your wallet is unlocked.
+    - Verify you're approving the transaction in the wallet pop-up.
+
+- **Verify sufficient gas**:
+    - Ensure you have enough tokens to cover the transaction fee.
+    - The wallet pop-up should show the estimated gas cost.
+
+- **Network mismatch**:
+    - Confirm your wallet is still connected to Polkadot Hub.
+    - Check that Remix is using the same network.
+
+## Deployed contract doesn't show in the **Deployed/Unpinned Contracts** section
+
+- Wait for the transaction to be confirmed on-chain.
+- Check the Remix terminal for deployment confirmation.
+- Scroll down in the **Deploy & Run Transactions** panel to find the deployed contracts section.
+- If the deployment transaction failed, check the terminal for error messages.
+
+## Blue buttons (read functions) don't display return values
+
+- **Check the terminal**:
+    - Return values appear in the terminal panel at the bottom.
+    - Look for the decoded output section.
+
+- **Verify contract state**:
+    - Ensure the contract has been properly initialized.
+    - Check if the function requires a specific contract state to return values.
+
+- **Network connection**:
+    - Verify you're still connected to the correct network.
+    - Try refreshing the connection to your wallet.
+
+
+## Orange/red buttons (write functions) execute, but the state doesn't change
+
+- **Wait for transaction confirmation**:
+    - Transactions need to be mined before state changes are reflected.
+    - Check the terminal for transaction status.
+    - Wait a few seconds and try rereading the state.
+
+- **Transaction failed**:
+    - Check if the transaction was actually successful in the terminal.
+    - Look for revert reasons or error messages.
+    - Verify you approved the transaction in your wallet.
+
+- **Check transaction parameters**:
+    - Ensure you're passing the correct parameters to the function.
+    - For payable functions (red buttons), verify you're sending the correct amount.
+
+## Remix takes a long time to load or becomes unresponsive
+
+- **Clear browser cache**:
+    - Clear your browser's cache and cookies.
+    - Restart your browser.
+
+- **Disable unnecessary plugins**:
+    - In Remix, deactivate plugins you're not using via the Plugin Manager.
+
+- **Use a supported browser**:
+    - Use Chrome, Firefox, or Brave for the best compatibility.
+    - Ensure your browser is up to date.
+
+## Changes to files or folders don't appear in the File Explorer
+
+- Click the refresh icon in the **File Explorer**.
+- Switch to a different tab and back to **File Explorer**.
+- Save your work and reload the Remix IDE page.
 
 
 ---

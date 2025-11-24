@@ -2,7 +2,7 @@
 title: Migration FAQs and Considerations
 description: Learn how to migrate your existing Ethereum contracts to the Polkadot Hub using REVM and PolkaVM by following these considerations.
 categories: Smart Contracts
-url: https://docs.polkadot.com/smart-contracts/for-eth-devs/migration/
+url: https://docs.polkadot.com/smart-contracts/for-eth-devs/.migration/
 ---
 
 # Migration FAQs and Considerations

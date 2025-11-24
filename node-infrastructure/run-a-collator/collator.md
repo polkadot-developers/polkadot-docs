@@ -388,10 +388,20 @@ The registration process varies by system parachain. General steps include the f
 
 Monitoring the following items will help ensure your collator runs efficiently to avoid service interruptions or down time:
 
-- **Block Production**: monitor for block production using the following command:
-    ```bash
-    sudo journalctl -u polkadot-collator | grep -i "prepared block"
-    ```
+- **Block Production**: Monitor for block production using the appropriate command for your setup:
+
+    === "Docker Setup"
+
+        ```bash
+        docker logs polkadot-collator 2>&1 | grep -i "prepared block"
+        ```
+
+    === "systemd Setup"
+
+        ```bash
+        sudo journalctl -u polkadot-collator | grep -i "prepared block"
+        ```
+
 - **Peer Connections**: Maintain a sufficient amount of peers for good connectivity and set up alerts to notify if peer connections falls below ten.
 - **Resource Usage**: Monitor CPU, RAM, and disk I/O and set up alerts for unusual or high usage.
 - **Sync Status**: Ensure both chains stay synced and set up alerts for sync issues.
@@ -419,32 +429,64 @@ Key metrics to monitor via Prometheus include the following:
 
 ## Log Management
 
-Effecient log management is essential to ensure collator performance and uptime. Use the following commands to help you manage logs to monitor and maintain your collator:
+Efficient log management is essential to ensure collator performance and uptime. Use the following commands to help you manage logs to monitor and maintain your collator:
 
-- View recent logs:
-    ```bash
-    sudo journalctl -u polkadot-collator -n 100
-    ```
-- Follow logs in real-time:
-    ```bash
-    sudo journalctl -u polkadot-collator -f
-    ```
-- Filter for errors:
-    ```bash
-    sudo journalctl -u polkadot-collator | grep -i error
-    ```
-- Filter for block production:
-    ```bash
-    sudo journalctl -u polkadot-collator | grep -i "imported"
-    ```
+=== "Docker Setup"
+
+    - View logs:
+        ```bash
+        docker logs -f polkadot-collator
+        ```
+    - View recent logs (last 100 lines):
+        ```bash
+        docker logs --tail 100 polkadot-collator
+        ```
+    - Filter for errors:
+        ```bash
+        docker logs polkadot-collator 2>&1 | grep -i error
+        ```
+    - Filter for block production:
+        ```bash
+        docker logs polkadot-collator 2>&1 | grep -i "imported"
+        ```
+
+=== "systemd Setup"
+
+    - View recent logs:
+        ```bash
+        sudo journalctl -u polkadot-collator -n 100
+        ```
+    - Follow logs in real-time:
+        ```bash
+        sudo journalctl -u polkadot-collator -f
+        ```
+    - Filter for errors:
+        ```bash
+        sudo journalctl -u polkadot-collator | grep -i error
+        ```
+    - Filter for block production:
+        ```bash
+        sudo journalctl -u polkadot-collator | grep -i "imported"
+        ```
 
 ## Database Maintenance
 
-You can check database size using the following command:
-```bash
-du -sh /var/lib/polkadot-collator
-```
-The collator node handles pruning automatically.
+Check database size periodically using the commands for your selected setup:
+
+=== "Docker Setup"
+
+    ```bash
+    # Replace with your mounted data directory path
+    du -sh ./collator-data
+    ```
+
+=== "systemd Setup"
+
+    ```bash
+    du -sh /var/lib/polkadot-collator
+    ```
+
+The collator node handles pruning automatically based on configuration.
 
 ## Updates and Upgrades
 

@@ -129,7 +129,7 @@ Select the best option for your project, then use the steps in the following tab
 
                       rm files.txt
                     ```
-    3. Launch Polkadot Hub Node using the official [Parity Docker image](https://hub.docker.com/r/parity/polkadot-omni-node){target=\_blank} with the following command:
+    3. Launch Polkadot Hub Node using the official [Parity Docker image](https://hub.docker.com/r/parity/polkadot-parachain){target=\_blank} with the following command:
         ```bash
         docker run -d --name polkadot-hub-rpc --restart unless-stopped \
           -p 9944:9944 \
@@ -139,7 +139,7 @@ Select the best option for your project, then use the steps in the following tab
           -p 30333:30333 \
           -v $(pwd)/asset-hub-polkadot.json:/asset-hub-polkadot.json \
           -v $(pwd)/my-node-data:/data \
-          parity/polkadot-omni-node:v1.20.2 \
+          parity/polkadot-parachain:stable2509-2 \
           --name=PolkadotHubRPC \
           --base-path=/data \
           --chain=/asset-hub-polkadot.json \
@@ -246,46 +246,28 @@ Select the best option for your project, then use the steps in the following tab
 
 === "Manual systemd Setup"
 
-    This option uses systemd to provide more control and is recommended for production environments requiring custom configurations.
+    This option provides more control and is recommended for production environments requiring custom configurations.
 
-    1. Install Rust and required toolchain using the following command:
+    1. Install the Polkadot Parachain binary by extracting it from the official Docker image:
         ```bash
-        # Install Rust
-        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-        source $HOME/.cargo/env
+        # Pull the image and extract binary
+        docker pull parity/polkadot-parachain:stable2509-2
+        docker create --name temp-parachain parity/polkadot-parachain:stable2509-2
+        sudo docker cp temp-parachain:/usr/local/bin/polkadot-parachain /usr/local/bin/
+        docker rm temp-parachain
 
-        # Install specific Rust version
-        rustup install 1.91.1
-        rustup default 1.91.1
-        rustup target add wasm32-unknown-unknown --toolchain 1.91.1
-        rustup component add rust-src --toolchain 1.91.1
+        # Verify installation
+        polkadot-parachain --version
         ```
 
-    2. Install required dependencies using the following commands:
-        - System dependencies:
-            ```bash
-            sudo apt update
-            sudo apt install -y build-essential git clang curl libssl-dev llvm libudev-dev make protobuf-compiler
-            ```
-        - Polkadot Omni node:
-            ```bash
-            cargo install --locked polkadot-omni-node@0.11.0
-            ```
-            You can verify successful installation of Polkadot Omni node using the version command:
-            ```bash
-            polkadot-omni-node --version
-            ```
+        Check [Docker Hub](https://hub.docker.com/r/parity/polkadot-parachain/tags){target=\_blank} for the latest stable tags.
 
-            !!! tip
-
-                Compiling polkadot-omni-node from source requires significant RAM (minimum 24GB recommended). The compilation may take 10-15 minutes on systems with adequate resources.
-
-    3. Download the Polkadot Hub chain specification:
+    2. Download the Polkadot Hub chain specification:
         ```bash
         curl -L https://raw.githubusercontent.com/paritytech/polkadot-sdk/master/cumulus/parachains/chain-specs/asset-hub-polkadot.json -o asset-hub-polkadot.json
         ```
 
-    4. Create user and directory structures using the following commands:
+    3. Create user and directory structures using the following commands:
         - Create a dedicated user:
             ```bash
             sudo useradd -r -s /bin/bash polkadot
@@ -303,12 +285,12 @@ Select the best option for your project, then use the steps in the following tab
             sudo chown -R polkadot:polkadot /var/lib/polkadot-hub-rpc
             ```
 
-    5. Create a systemd service file for the Polkadot SDK RPC node:
+    4. Create a systemd service file for the Polkadot SDK RPC node:
         ```bash
         sudo nano /etc/systemd/system/polkadot-hub-rpc.service
         ```
 
-    6. Open the new service file and add the following configuration:
+    5. Open the new service file and add the following configuration:
         ```ini
         [Unit]
         Description=Polkadot Hub RPC Node
@@ -320,7 +302,7 @@ Select the best option for your project, then use the steps in the following tab
         Group=polkadot
         WorkingDirectory=/var/lib/polkadot-hub-rpc
 
-        ExecStart=/usr/local/bin/polkadot-omni-node \
+        ExecStart=/usr/local/bin/polkadot-parachain \
           --name=PolkadotHubRPC \
           --chain=/var/lib/polkadot-hub-rpc/asset-hub-polkadot.json \
           --base-path=/var/lib/polkadot-hub-rpc \
@@ -349,7 +331,7 @@ Select the best option for your project, then use the steps in the following tab
         WantedBy=multi-user.target
         ```
 
-    7. Start the service using the following commands:
+    6. Start the service using the following commands:
         - Reload systemd:
             ```bash
             sudo systemctl daemon-reload
@@ -368,7 +350,7 @@ Select the best option for your project, then use the steps in the following tab
             sudo journalctl -u polkadot-hub-rpc -f
             ```
 
-    8. You can use a few different commands to verify your node is running properly:
+    7. You can use a few different commands to verify your node is running properly:
         - Get chain information:
             ```bash
             curl -H "Content-Type: application/json" \
@@ -472,7 +454,7 @@ Use the following commands for updating or upgrading your RPC node according to 
         ```
     2. Pull the latest image:
         ```bash
-        docker pull parity/polkadot-omni-node:<NEW_TAG>
+        docker pull parity/polkadot-parachain:<NEW_TAG>
         ```
     3. Start the new container using the same command from the setup section with the updated image tag.
 
@@ -486,9 +468,12 @@ Use the following commands for updating or upgrading your RPC node according to 
         ```bash
         sudo cp -r /var/lib/polkadot-hub-rpc /var/lib/polkadot-hub-rpc.backup
         ```
-    3. Update the binary:
+    3. Pull the new image and extract the binary:
         ```bash
-        cargo install --locked --force polkadot-omni-node@<NEW_VERSION>
+        docker pull parity/polkadot-parachain:<NEW_TAG>
+        docker create --name temp-parachain parity/polkadot-parachain:<NEW_TAG>
+        sudo docker cp temp-parachain:/usr/local/bin/polkadot-parachain /usr/local/bin/
+        docker rm temp-parachain
         ```
     4. Restart the service:
         ```bash

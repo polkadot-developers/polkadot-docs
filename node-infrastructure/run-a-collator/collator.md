@@ -96,28 +96,17 @@ This guide provides two deployment options. Select the option that best fits you
 
 === "Manual Setup"
 
-    1. Install Rust using the following commands:
-        ```bash
-        # Install Rust
-        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-        source $HOME/.cargo/env
+    Extract the binary from the official Docker image:
 
-        # Install specific Rust version
-        rustup install 1.91.1
-        rustup default 1.91.1
-        rustup target add wasm32-unknown-unknown --toolchain 1.91.1
-        rustup component add rust-src --toolchain 1.91.1
-        ```
+    ```bash
+    # Create a temporary container and copy the binary
+    docker create --name temp-parachain parity/polkadot-parachain:stable2509-2
+    sudo docker cp temp-parachain:/usr/local/bin/polkadot-parachain /usr/local/bin/
+    docker rm temp-parachain
 
-    2. Install the Polkadot Omni Node using the following command:
-        ```bash
-        cargo install --locked polkadot-omni-node@0.11.0
-        ```
-
-    3. Verify a successful installation using the `--version` flag:
-        ```bash
-        polkadot-omni-node --version
-        ```
+    # Verify installation
+    polkadot-parachain --version
+    ```
 
 ## Generate Node Key
 
@@ -245,7 +234,7 @@ Follow these steps to build a chainspec from the runtime:
   WorkingDirectory=/var/lib/polkadot-collator
 
   # Block-Producing Collator Configuration
-  ExecStart=/usr/local/bin/polkadot-omni-node \
+  ExecStart=/usr/local/bin/polkadot-parachain \
     --collator \
     --chain=/var/lib/polkadot-collator/chain-spec.json \
     --base-path=/var/lib/polkadot-collator \
@@ -500,14 +489,17 @@ Updates or upgrades can happen on either the runtime or client. Runtime upgrades
         sudo cp -r /var/lib/polkadot-collator /var/lib/polkadot-collator.backup
         ```
 
-    3. Update `polkadot-omni-node`:
+    3. Pull the new image and extract the binary:
         ```bash
-        cargo install --locked --force polkadot-omni-node@<NEW_VERSION>
+        docker pull parity/polkadot-parachain:<NEW_TAG>
+        docker create --name temp-parachain parity/polkadot-parachain:<NEW_TAG>
+        sudo docker cp temp-parachain:/usr/local/bin/polkadot-parachain /usr/local/bin/
+        docker rm temp-parachain
         ```
 
-    4. Verify `polkadot-omni-node` version to confirm successful update:
+    4. Verify `polkadot-parachain` version to confirm successful update:
         ```bash
-        polkadot-omni-node --version
+        polkadot-parachain --version
         ```
 
     5. Restart the service:

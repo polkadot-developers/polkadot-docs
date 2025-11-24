@@ -57,18 +57,12 @@ Block-producing collators require robust hardware for reliable operation:
 
 ### Software Requirements
 
-Collators use the **Polkadot Omni Node**, a universal binary that runs any parachain using a chain specification file.
+Collators use the **Polkadot Parachain** binary, the standard client for running Polkadot system parachains.
 
 Required software:
 
 - **Operating System**: Ubuntu 22.04 LTS (recommended) or similar Linux distribution
-- **Docker**: For running subkey utility
-- **Rust Toolchain**: Version 1.91.1 or as specified by the runtime
-- **Dependencies**:
-  ```bash
-  sudo apt update
-  sudo apt install -y build-essential git clang curl libssl-dev llvm libudev-dev make protobuf-compiler
-  ```
+- **Docker**: Required for obtaining binaries and running containers
 
 ### Account Requirements
 
@@ -80,54 +74,81 @@ You'll need:
 
 ## Installation
 
-### Step 1: Install Rust and Required Toolchain
+### Step 1: Install the Polkadot Parachain Binary
+
+**For Docker deployment:**
 
 ```bash
-# Install Rust
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-source $HOME/.cargo/env
-
-# Install specific Rust version
-rustup install 1.91.1
-rustup default 1.91.1
-rustup target add wasm32-unknown-unknown --toolchain 1.91.1
-rustup component add rust-src --toolchain 1.91.1
-```
-
-### Step 2: Install the Polkadot Omni Node
-
-```bash
-# Install polkadot-omni-node
-cargo install --locked polkadot-omni-node@0.11.0
+# Pull the polkadot-parachain image
+docker pull parity/polkadot-parachain:stable2509-2
 
 # Verify installation
-polkadot-omni-node --version
+docker run --rm parity/polkadot-parachain:stable2509-2 --version
 ```
 
-### Step 3: Generate Node Key
+**For bare-metal deployment:**
+
+Extract the binary from the Docker image:
+
+```bash
+# Create a temporary container and copy the binary
+docker create --name temp-parachain parity/polkadot-parachain:stable2509-2
+sudo docker cp temp-parachain:/usr/local/bin/polkadot-parachain /usr/local/bin/
+docker rm temp-parachain
+
+# Verify installation
+polkadot-parachain --version
+```
+
+Check [Docker Hub](https://hub.docker.com/r/parity/polkadot-parachain/tags) for the latest stable tags.
+
+### Step 2: Generate Node Key
 
 Generate a stable node key for consistent peer ID:
 
 ```bash
 # Create directory for node data
 sudo mkdir -p /var/lib/polkadot-collator
+```
 
-# Generate node key using Docker
-docker run -it parity/subkey:latest generate-node-key > /var/lib/polkadot-collator/node.key
+**Using Docker:**
 
-# The output displays your peer ID
-# Example: 12D3KooWExcVYu7Mvjd4kxPVLwN2ZPnZ5NyLZ5ft477wqzfP2q6E
+```bash
+# Generate node key (outputs peer ID to console, saves key to file)
+docker run --rm -v /var/lib/polkadot-collator:/data \
+  parity/polkadot-parachain:stable2509-2 \
+  key generate-node-key --file /data/node.key
+
+# Example output: 12D3KooWExcVYu7Mvjd4kxPVLwN2ZPnZ5NyLZ5ft477wqzfP2q6E
+```
+
+**Using native binary:**
+
+```bash
+# Generate node key
+polkadot-parachain key generate-node-key --file /var/lib/polkadot-collator/node.key
+
+# Example output: 12D3KooWExcVYu7Mvjd4kxPVLwN2ZPnZ5NyLZ5ft477wqzfP2q6E
 ```
 
 Save the peer ID for future reference.
 
-### Step 4: Generate Account Key
+### Step 3: Generate Account Key
 
 Generate an account for on-chain transactions:
 
+**Using Docker:**
+
 ```bash
 # Generate account key with sr25519 scheme
-docker run -it parity/subkey:latest generate --scheme sr25519
+docker run --rm parity/polkadot-parachain:stable2509-2 key generate --scheme sr25519
+```
+
+**Using native binary:**
+
+```bash
+# Generate account key with sr25519 scheme
+polkadot-parachain key generate --scheme sr25519
 ```
 
 Save the output containing:
@@ -139,7 +160,7 @@ Save the output containing:
 
 **Security**: Store the secret phrase securely. Never share it. Consider using a hardware wallet for production collators.
 
-### Step 5: Obtain Chain Specification
+### Step 4: Obtain Chain Specification
 
 Download the chain specification for your target system parachain:
 
@@ -178,7 +199,7 @@ chain-spec-builder create \
 - People Chain: 1004
 - Coretime Chain: 1005
 
-### Step 6: Create User and Directory Structure
+### Step 5: Create User and Directory Structure
 
 ```bash
 # Create dedicated user
@@ -193,7 +214,7 @@ sudo chown -R polkadot:polkadot /var/lib/polkadot-collator
 
 ## Configuration
 
-### Create Systemd Service File
+### Native Binary Systemd Service
 
 Create a service file for your collator:
 
@@ -215,7 +236,7 @@ Group=polkadot
 WorkingDirectory=/var/lib/polkadot-collator
 
 # Block-Producing Collator Configuration
-ExecStart=/usr/local/bin/polkadot-omni-node \
+ExecStart=/usr/local/bin/polkadot-parachain \
   --collator \
   --chain=/var/lib/polkadot-collator/chain-spec.json \
   --base-path=/var/lib/polkadot-collator \
@@ -244,6 +265,55 @@ WantedBy=multi-user.target
 - `--node-key-file`: Uses the generated node key for stable peer ID
 - `--name`: Your collator name (visible in telemetry)
 - Relay chain uses `--sync=warp` for faster initial sync
+
+### Docker Systemd Service
+
+If using Docker, create a service file with Docker configuration:
+
+```bash
+sudo nano /etc/systemd/system/polkadot-collator.service
+```
+
+Add the following configuration:
+
+```ini
+[Unit]
+Description=Polkadot System Parachain Collator (Docker)
+After=network.target docker.service
+Requires=docker.service
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=10
+TimeoutStartSec=0
+
+ExecStartPre=-/usr/bin/docker stop polkadot-collator
+ExecStartPre=-/usr/bin/docker rm polkadot-collator
+
+ExecStart=/usr/bin/docker run --rm \
+  --name polkadot-collator \
+  --network host \
+  -v /var/lib/polkadot-collator:/data \
+  parity/polkadot-parachain:stable2509-2 \
+  --collator \
+  --chain=/data/chain-spec.json \
+  --base-path=/data \
+  --port=30333 \
+  --rpc-port=9944 \
+  --prometheus-port=9615 \
+  --node-key-file=/data/node.key \
+  --name="YourCollatorName" \
+  -- \
+  --chain=polkadot \
+  --port=30334 \
+  --sync=warp
+
+ExecStop=/usr/bin/docker stop polkadot-collator
+
+[Install]
+WantedBy=multi-user.target
+```
 
 ## Running the Collator
 
@@ -491,7 +561,7 @@ The node handles pruning automatically.
     - Fellowship GitHub
     - Matrix channels
 
-**Upgrade Procedure**:
+**Upgrade Procedure (Bare-Metal)**:
 
 ```bash
 # Stop the service
@@ -500,13 +570,38 @@ sudo systemctl stop polkadot-collator
 # Backup data (recommended)
 sudo cp -r /var/lib/polkadot-collator /var/lib/polkadot-collator.backup
 
-# Update polkadot-omni-node
-cargo install --locked --force polkadot-omni-node@<NEW_VERSION>
+# Pull new image and extract binary
+docker pull parity/polkadot-parachain:<NEW_TAG>
+docker create --name temp-parachain parity/polkadot-parachain:<NEW_TAG>
+sudo docker cp temp-parachain:/usr/local/bin/polkadot-parachain /usr/local/bin/
+docker rm temp-parachain
 
 # Verify version
-polkadot-omni-node --version
+polkadot-parachain --version
 
 # Restart service
+sudo systemctl start polkadot-collator
+
+# Verify service is running
+sudo systemctl status polkadot-collator
+```
+
+**Upgrade Procedure (Docker)**:
+
+```bash
+# Stop the service
+sudo systemctl stop polkadot-collator
+
+# Backup data (recommended)
+sudo cp -r /var/lib/polkadot-collator /var/lib/polkadot-collator.backup
+
+# Pull new image
+docker pull parity/polkadot-parachain:<NEW_TAG>
+
+# Update the image tag in /etc/systemd/system/polkadot-collator.service
+
+# Reload systemd and restart
+sudo systemctl daemon-reload
 sudo systemctl start polkadot-collator
 
 # Verify service is running

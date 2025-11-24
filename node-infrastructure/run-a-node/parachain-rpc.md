@@ -1,37 +1,59 @@
 ---
-title: Run an RPC Node for System Parachains
-description: Complete guide to set up and run an RPC node for Polkadot system parachains including Bridge Hub, People Chain, and Coretime Chain.
+title: Run a Parachain RPC Node
+description: Complete guide to set up and run an RPC node for any Polkadot parachain, with system parachains as examples.
 categories: Infrastructure
 ---
 
-# Run an RPC Node for System Parachains
+# Run a Parachain RPC Node
 
 ## Overview
 
-System parachains are core infrastructure parachains that provide essential services to the Polkadot network. Running an RPC node for these parachains enables applications, wallets, and users to interact with their specialized functionality:
+Running an RPC node for a parachain enables applications, wallets, and users to interact with the parachain's functionality. This guide applies to **any parachain** in the Polkadot ecosystem, including:
 
-- **Bridge Hub**: Cross-chain asset transfers via trustless bridges
-- **People Chain**: Identity and social credential management
-- **Coretime Chain**: Blockspace allocation and core time management
+- **System parachains**: Bridge Hub, People Chain, Coretime Chain
+- **Common good parachains**: Collectives, Encointer
+- **Commercial parachains**: Any parachain with a publicly available chain specification
 
-Each system parachain RPC node provides access through:
-- **Polkadot SDK Node RPC** (Port 9944): Native Polkadot API (WebSocket and HTTP)
-
-This setup enables block explorer indexing and provides full compatibility with Polkadot SDK development tools.
+Each parachain RPC node provides access through the Polkadot SDK Node RPC (Port 9944), offering native Polkadot API access via WebSocket and HTTP. This setup enables block explorer indexing and provides full compatibility with Polkadot SDK development tools.
 
 **Important Note**: The parameters and configurations in this guide are provided as illustrative examples. You may need to modify them according to your specific environment, hardware capabilities, and network conditions.
 
-## Choosing a System Parachain
+## Obtaining a Chain Specification
 
-This guide uses **People Chain** as the example, but the same principles and setup procedures apply to all system parachains. Simply substitute the appropriate values from the table below for your chosen parachain:
+To run an RPC node for any parachain, you need its **chain specification file**. This JSON file defines the network parameters, genesis state, and bootnodes.
 
-| Parachain | Para ID | Chain Spec File | Snapshot Path | Chain Name |
-|-----------|---------|-----------------|---------------|------------|
-| **Bridge Hub** | 1002 | `bridge-hub-polkadot.json` | `polkadot-bridge-hub-rocksdb-archive` | `bridge-hub-polkadot` |
-| **People Chain** | 1004 | `people-polkadot.json` | `polkadot-people-rocksdb-archive` | `people-polkadot` |
-| **Coretime Chain** | 1005 | `coretime-polkadot.json` | `polkadot-coretime-rocksdb-archive` | `coretime-polkadot` |
+### System Parachains
 
-**Note**: Throughout this guide, we use People Chain values. To set up a different system parachain, replace the chain spec file, snapshot path, and chain name with the corresponding values from the table above.
+System parachain chain specs are available from multiple sources:
+
+**Option 1: Chainspec Collection (Recommended)**
+
+Visit the [Chainspec Collection](https://paritytech.github.io/chainspecs/) to download official chain specifications.
+
+**Option 2: Polkadot SDK Repository**
+
+Download directly from the Polkadot SDK repository:
+
+```bash
+# Example for People Chain
+curl -L https://raw.githubusercontent.com/paritytech/polkadot-sdk/master/cumulus/parachains/chain-specs/people-polkadot.json -o chain-spec.json
+```
+
+| System Parachain | Para ID | Chain Spec File | Snapshot Path |
+|------------------|---------|-----------------|---------------|
+| **Bridge Hub** | 1002 | `bridge-hub-polkadot.json` | `polkadot-bridge-hub-rocksdb-archive` |
+| **People Chain** | 1004 | `people-polkadot.json` | `polkadot-people-rocksdb-archive` |
+| **Coretime Chain** | 1005 | `coretime-polkadot.json` | `polkadot-coretime-rocksdb-archive` |
+
+### Other Parachains
+
+For non-system parachains:
+
+- **Check the parachain's documentation** for official chain specification files
+- **Contact the parachain team** if no public chain spec is available
+- **Export from a running node** using `system_chainSpec` RPC method if you have access to an existing node
+
+**Note**: Throughout this guide, we use **People Chain** as the example. To set up a different parachain, substitute the chain spec file, snapshot path, and chain name with values for your target parachain.
 
 ## Prerequisites
 
@@ -64,9 +86,8 @@ RPC nodes serving production traffic require robust hardware:
 Required software:
 
 - **Operating System**: Ubuntu 22.04 LTS (recommended) or similar Linux distribution
-- **Docker**: Latest version installed and running (for Docker-based setup)
+- **Docker**: Required for obtaining binaries and running containers
 - **rclone**: (Optional but recommended) Command-line program for managing files on cloud storage (https://rclone.org/downloads/)
-- **Rust Toolchain**: Version 1.91.1 or as specified by runtime (for manual build)
 
 ## Setup Options
 
@@ -83,21 +104,13 @@ Choose the option that best fits your needs.
 
 This option uses Docker containers for the Polkadot SDK node, making it easy to set up and manage.
 
-### Step 1: Download Chain Specification
-
-Download the official chain specification for People Chain:
-
-```bash
-curl -L https://raw.githubusercontent.com/paritytech/polkadot-sdk/master/cumulus/parachains/chain-specs/people-polkadot.json -o people-polkadot.json
-```
-
-**Note**: This chain specification is the official configuration file that defines the network parameters for People Chain.
-
-### Step 2: Download Database Snapshots (Optional but Recommended)
+### Step 1: Download Database Snapshots (Optional but Recommended)
 
 Using pre-synchronized snapshots significantly reduces initial sync time from several days to just a few hours. You need to download both parachain and relay chain data.
 
 **Snapshot Provider**: https://snapshots.polkadot.io/
+
+**Note**: Snapshots are available for system parachains and the Polkadot relay chain. For other parachains, check with the parachain team for snapshot availability or sync from genesis.
 
 #### Create Directories
 
@@ -160,11 +173,13 @@ rm files.txt
 - Pruned snapshot: `polkadot-rocksdb-prune` (smaller size, recent state)
 - Archive snapshot: `polkadot-rocksdb-archive` (complete history, larger size)
 
-### Step 3: Start People Chain Node
+### Step 2: Start the Parachain Node
 
 Launch the node using the official Parity Docker image.
 
-**Docker Image**: https://hub.docker.com/r/parity/polkadot-omni-node
+**Docker Image**: https://hub.docker.com/r/parity/polkadot-parachain
+
+**Note**: The `parity/polkadot-parachain` image works for system parachains and parachains built with standard Cumulus templates. For parachains with custom runtimes, check the parachain's documentation for their specific Docker image or binary.
 
 ```bash
 docker run -d --name people-chain-rpc --restart unless-stopped \
@@ -175,7 +190,7 @@ docker run -d --name people-chain-rpc --restart unless-stopped \
   -p 30333:30333 \
   -v $(pwd)/people-polkadot.json:/people-polkadot.json \
   -v $(pwd)/my-node-data:/data \
-  parity/polkadot-omni-node:v1.20.2 \
+  parity/polkadot-parachain:stable2509-2 \
   --name=PeopleChainRPC \
   --base-path=/data \
   --chain=/people-polkadot.json \
@@ -215,7 +230,7 @@ docker run -d --name people-chain-rpc --restart unless-stopped \
 
 **Security Warning**: The `--unsafe-rpc-external` flag should only be used in development or properly secured environments. For production, use a reverse proxy with authentication.
 
-### Step 4: Monitor Synchronization
+### Step 3: Monitor Synchronization
 
 Monitor the node synchronization status:
 
@@ -245,7 +260,7 @@ curl -H "Content-Type: application/json" \
 - **In Progress**: `currentBlock` < `highestBlock`
 - **Complete**: `currentBlock` = `highestBlock`
 
-### Step 5: Verify Setup
+### Step 4: Verify Setup
 
 Let's verify the Polkadot SDK RPC endpoint is working correctly.
 
@@ -335,39 +350,26 @@ docker rm people-chain-rpc
 
 This option provides more control and is recommended for production environments requiring custom configurations.
 
-### Step 1: Install Rust and Required Toolchain
+### Step 1: Install the Polkadot Parachain Binary
+
+Extract the binary from the official Docker image:
 
 ```bash
-# Install Rust
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-source $HOME/.cargo/env
-
-# Install specific Rust version
-rustup install 1.91.1
-rustup default 1.91.1
-rustup target add wasm32-unknown-unknown --toolchain 1.91.1
-rustup component add rust-src --toolchain 1.91.1
-```
-
-### Step 2: Install the Polkadot Omni Node
-
-```bash
-# Install polkadot-omni-node
-cargo install --locked polkadot-omni-node@0.11.0
+# Pull the image and extract binary
+docker pull parity/polkadot-parachain:stable2509-2
+docker create --name temp-parachain parity/polkadot-parachain:stable2509-2
+sudo docker cp temp-parachain:/usr/local/bin/polkadot-parachain /usr/local/bin/
+docker rm temp-parachain
 
 # Verify installation
-polkadot-omni-node --version
+polkadot-parachain --version
 ```
 
-### Step 3: Obtain Chain Specification
+Check [Docker Hub](https://hub.docker.com/r/parity/polkadot-parachain/tags) for the latest stable tags.
 
-Download the People Chain specification:
+### Step 2: Create User and Directory Structure
 
-```bash
-curl -L https://raw.githubusercontent.com/paritytech/polkadot-sdk/master/cumulus/parachains/chain-specs/people-polkadot.json -o people-polkadot.json
-```
-
-### Step 4: Create User and Directory Structure
+Ensure you have downloaded your parachain's chain specification as described in [Obtaining a Chain Specification](#obtaining-a-chain-specification).
 
 ```bash
 # Create dedicated user (skip if already exists)
@@ -383,9 +385,9 @@ sudo cp people-polkadot.json /var/lib/people-chain-rpc/
 sudo chown -R polkadot:polkadot /var/lib/people-chain-rpc
 ```
 
-### Step 5: Create Systemd Service
+### Step 3: Create Systemd Service
 
-Create a service file for the People Chain RPC node:
+Create a service file for your parachain RPC node:
 
 ```bash
 sudo nano /etc/systemd/system/people-chain-rpc.service
@@ -404,7 +406,7 @@ User=polkadot
 Group=polkadot
 WorkingDirectory=/var/lib/people-chain-rpc
 
-ExecStart=/usr/local/bin/polkadot-omni-node \
+ExecStart=/usr/local/bin/polkadot-parachain \
   --name=PeopleChainRPC \
   --chain=/var/lib/people-chain-rpc/people-polkadot.json \
   --base-path=/var/lib/people-chain-rpc \
@@ -433,7 +435,7 @@ LimitNOFILE=65536
 WantedBy=multi-user.target
 ```
 
-### Step 6: Start Service
+### Step 4: Start Service
 
 ```bash
 # Reload systemd
@@ -450,9 +452,9 @@ sudo systemctl status people-chain-rpc
 sudo journalctl -u people-chain-rpc -f
 ```
 
-### Step 7: Verify Setup
+### Step 5: Verify Setup
 
-Use the same verification tests as in the Docker setup (see Step 5 above).
+Use the same verification tests as in the Docker setup (see Step 4 above).
 
 ---
 
@@ -530,13 +532,13 @@ The node handles pruning automatically based on configuration unless running in 
 
 ```bash
 # Pull latest image
-docker pull parity/polkadot-omni-node:v1.20.2
+docker pull parity/polkadot-parachain:<NEW_TAG>
 
 # Restart container
 docker stop people-chain-rpc
 docker rm people-chain-rpc
 
-# Start new container (use same command from setup)
+# Start new container (use same command from setup with updated image tag)
 ```
 
 **Systemd Setup**:
@@ -548,8 +550,11 @@ sudo systemctl stop people-chain-rpc
 # Backup data
 sudo cp -r /var/lib/people-chain-rpc /var/lib/people-chain-rpc.backup
 
-# Update binary
-cargo install --locked --force polkadot-omni-node@<NEW_VERSION>
+# Pull new image and extract binary
+docker pull parity/polkadot-parachain:<NEW_TAG>
+docker create --name temp-parachain parity/polkadot-parachain:<NEW_TAG>
+sudo docker cp temp-parachain:/usr/local/bin/polkadot-parachain /usr/local/bin/
+docker rm temp-parachain
 
 # Restart service
 sudo systemctl start people-chain-rpc
@@ -557,11 +562,11 @@ sudo systemctl start people-chain-rpc
 
 ## Conclusion
 
-Running an RPC node for system parachains provides critical infrastructure for accessing specialized Polkadot network services. By following this guide, you have set up a production-ready RPC node that:
+Running a parachain RPC node provides critical infrastructure for accessing Polkadot network services. By following this guide, you have set up a production-ready RPC node that:
 
-- Enables applications and users to interact with essential system parachain features (identity management, cross-chain bridges, or coretime allocation)
+- Provides reliable access to parachain functionality for applications and users
 - Supports flexible deployment with both Docker and systemd options
 - Implements comprehensive monitoring, security, and maintenance practices
-- Can be easily adapted for any system parachain by substituting the appropriate chain specification
+- Can be adapted for any parachain by substituting the appropriate chain specification
 
-Whether you're running a node for People Chain, Bridge Hub, or Coretime Chain, regular maintenance and monitoring will ensure your RPC node continues to provide reliable service. Stay updated with the latest releases and best practices to keep your infrastructure secure and performant.
+Whether you're running a node for system parachains (People Chain, Bridge Hub, Coretime Chain) or other parachains in the ecosystem, regular maintenance and monitoring will ensure your RPC node continues to provide reliable service. Stay updated with the latest releases and best practices to keep your infrastructure secure and performant.

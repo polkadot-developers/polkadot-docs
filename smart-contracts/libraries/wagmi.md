@@ -6,8 +6,6 @@ categories: Smart Contracts, Tooling
 
 # Wagmi
 
---8<-- 'text/smart-contracts/polkaVM-warning.md'
-
 ## Introduction
 
 [Wagmi](https://wagmi.sh/){target=\_blank} is a collection of [React Hooks](https://wagmi.sh/react/api/hooks){target=\_blank} for interacting with Ethereum-compatible blockchains, focusing on developer experience, feature richness, and reliability.

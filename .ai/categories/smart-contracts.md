@@ -7748,9 +7748,8 @@ This guide demonstrates how to use Wagmi to interact with and deploy smart contr
 To start working with Wagmi, create a new React project and initialize it by running the following commands in your terminal:
 
 ```bash
-# Create a new React project using Next.js
-npx create-next-app@latest wagmi-asset-hub
-cd wagmi-asset-hub
+npx create-next-app@latest wagmi-polkadot-hub
+cd wagmi-polkadot-hub
 ```
 
 ## Install Dependencies
@@ -7758,15 +7757,14 @@ cd wagmi-asset-hub
 Install Wagmi and its peer dependencies:
 
 ```bash
-# Install Wagmi and its dependencies
 npm install wagmi viem @tanstack/react-query
 ```
 
 ## Configure Wagmi for Polkadot Hub
 
-Create a configuration file to initialize Wagmi with Polkadot Hub. In your project, create a file named `src/lib/wagmi.ts` and add the code below. Be sure to replace `INSERT_RPC_URL`, `INSERT_CHAIN_ID`, `INSERT_CHAIN_NAME`, `INSERT_NETWORK_NAME`, `INSERT_CHAIN_DECIMALS`, `INSERT_CURRENCY_NAME`, and `INSERT_CURRENCY_SYMBOL` with your specific values.
+Create a configuration file to initialize Wagmi with Polkadot Hub. In your project, create a file named `app/lib/wagmi.ts` and add the code below. Be sure to replace `INSERT_RPC_URL`, `INSERT_CHAIN_ID`, `INSERT_CHAIN_NAME`, `INSERT_NETWORK_NAME`, `INSERT_CHAIN_DECIMALS`, `INSERT_CURRENCY_NAME`, and `INSERT_CURRENCY_SYMBOL` with your specific values.
 
-```typescript title="src/lib/wagmi.ts"
+```typescript title="app/lib/wagmi.ts"
 import { http, createConfig } from 'wagmi'
 
 // Configure the Polkadot Hub chain
@@ -7812,7 +7810,7 @@ export const config = createConfig({
       },
       rpcUrls: {
         default: {
-          http: ['https://testnet-passet-hub-eth-rpc.polkadot.io'],
+          http: ['https://testnet-passet-hub-eth-rpc.polkadot.io'], // TODO: change to paseo asset hub once ready
         },
       },
     } as const;
@@ -7952,7 +7950,7 @@ This component uses the following React hooks:
 
 ## Interact with Deployed Contract
 
-This guide uses a simple Storage contract already deployed to the Polkadot Hub TestNet (`0x58053f0e8ede1a47a1af53e43368cd04ddcaf66f`). The code of that contract is:
+This guide uses a simple Storage contract already deployed to the Polkadot Hub TestNet. The code of that contract is:
 
 ??? code "Storage.sol"
 
@@ -7993,7 +7991,7 @@ import {
 } from "wagmi";
 
 const CONTRACT_ADDRESS =
-  "0xabBd46Ef74b88E8B1CDa49BeFb5057710443Fd29" as `0x${string}`;
+  "INSERT_CONTRACT_ADDRESS" as `0x${string}`;
 
 export function StorageContract() {
   const [number, setNumber] = useState<string>("42");

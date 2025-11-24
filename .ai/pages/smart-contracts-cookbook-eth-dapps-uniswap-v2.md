@@ -7,8 +7,6 @@ url: https://docs.polkadot.com/smart-contracts/cookbook/eth-dapps/uniswap-v2/
 
 # Deploy Uniswap V2
 
-!!! smartcontract "PolkaVM Preview Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 ## Introduction
 
 Decentralized exchanges (DEXs) are a cornerstone of the DeFi ecosystem, allowing for permissionless token swaps without intermediaries. [Uniswap V2](https://docs.uniswap.org/contracts/v2/overview){target=\_blank}, with its Automated Market Maker (AMM) model, revolutionized DEXs by enabling liquidity provision for any ERC-20 token pair.
@@ -21,13 +19,13 @@ Before starting, make sure you have:
 
 - Node.js (v16.0.0 or later) and npm installed.
 - Basic understanding of Solidity and JavaScript.
-- Familiarity with [`hardhat-polkadot`](/smart-contracts/dev-environments/hardhat/get-started/){target=\_blank} development environment.
+- Familiarity with `hardhat-polkadot` development environment.
 - Some PAS test tokens to cover transaction fees (obtained from the [Polkadot faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}).
 - Basic understanding of how AMMs and liquidity pools work.
 
 ## Set Up the Project
 
-Let's start by cloning the Uniswap V2 project:
+Start by cloning the Uniswap V2 project:
 
 1. Clone the Uniswap V2 repository:
 
@@ -42,7 +40,7 @@ Let's start by cloning the Uniswap V2 project:
     npm install
     ```
 
-3. Update the `hardhat.config.js` file so the paths for the Substrate node and the ETH-RPC adapter match with the paths on your machine. For more info, check the [Testing your Contract](/smart-contracts/dev-environments/hardhat/compile-and-test/){target=\_blank} section in the Hardhat guide.
+3. Update the `hardhat.config.js` file so the paths for the Substrate node and the ETH-RPC adapter match with the paths on your machine:
 
     ```js title="hardhat.config.js"
     hardhat: {

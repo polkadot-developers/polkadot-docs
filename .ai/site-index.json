@@ -1361,14 +1361,14 @@
   },
   {
     "id": "parachains-customize-runtime-pallet-development-benchmark-pallet",
-    "title": "Benchmarking FRAME Pallets",
+    "title": "Benchmark Your Pallet",
     "slug": "parachains-customize-runtime-pallet-development-benchmark-pallet",
     "categories": [
       "Parachains"
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/parachains-customize-runtime-pallet-development-benchmark-pallet.md",
     "html_url": "https://docs.polkadot.com/parachains/customize-runtime/pallet-development/benchmark-pallet/",
-    "preview": "Benchmarking is a critical component of developing efficient and secure blockchain runtimes. In the Polkadot ecosystem, accurately benchmarking your custom pallets ensures that each extrinsic has a precise [weight](/reference/glossary/#weight){target=\\_blank}, representing its computational and storage demands. This process is vital for maintaining the blockchain's performance and preventing potential vulnerabilities, such as Denial of Service (DoS) attacks.",
+    "preview": "Benchmarking is the process of measuring the computational resources (execution time and storage) required by your pallet's extrinsics. Accurate [weight](https://paritytech.github.io/polkadot-sdk/master/frame_support/weights/index.html){target=\\_blank} calculations are essential for ensuring your blockchain can process transactions efficiently while protecting against denial-of-service attacks.",
     "outline": [
       {
         "depth": 2,
@@ -1377,52 +1377,92 @@
       },
       {
         "depth": 2,
-        "title": "The Case for Benchmarking",
-        "anchor": "the-case-for-benchmarking"
-      },
-      {
-        "depth": 3,
-        "title": "Benchmarking and Weight",
-        "anchor": "benchmarking-and-weight"
+        "title": "Prerequisites",
+        "anchor": "prerequisites"
       },
       {
         "depth": 2,
-        "title": "Benchmarking Process",
-        "anchor": "benchmarking-process"
-      },
-      {
-        "depth": 3,
-        "title": "Prepare Your Environment",
-        "anchor": "prepare-your-environment"
-      },
-      {
-        "depth": 3,
-        "title": "Write Benchmark Tests",
-        "anchor": "write-benchmark-tests"
-      },
-      {
-        "depth": 3,
-        "title": "Add Benchmarks to Runtime",
-        "anchor": "add-benchmarks-to-runtime"
-      },
-      {
-        "depth": 3,
-        "title": "Run Benchmarks",
-        "anchor": "run-benchmarks"
+        "title": "Create the Benchmarking Module",
+        "anchor": "create-the-benchmarking-module"
       },
       {
         "depth": 2,
-        "title": "Where to Go Next",
-        "anchor": "where-to-go-next"
+        "title": "Define the Weight Trait",
+        "anchor": "define-the-weight-trait"
+      },
+      {
+        "depth": 2,
+        "title": "Add WeightInfo to Config",
+        "anchor": "add-weightinfo-to-config"
+      },
+      {
+        "depth": 2,
+        "title": "Update Extrinsic Weight Annotations",
+        "anchor": "update-extrinsic-weight-annotations"
+      },
+      {
+        "depth": 2,
+        "title": "Include the Benchmarking Module",
+        "anchor": "include-the-benchmarking-module"
+      },
+      {
+        "depth": 2,
+        "title": "Configure Pallet Dependencies",
+        "anchor": "configure-pallet-dependencies"
+      },
+      {
+        "depth": 2,
+        "title": "Update Mock Runtime",
+        "anchor": "update-mock-runtime"
+      },
+      {
+        "depth": 2,
+        "title": "Configure Runtime Benchmarking",
+        "anchor": "configure-runtime-benchmarking"
+      },
+      {
+        "depth": 2,
+        "title": "Test Benchmark Compilation",
+        "anchor": "test-benchmark-compilation"
+      },
+      {
+        "depth": 2,
+        "title": "Build the Runtime with Benchmarks",
+        "anchor": "build-the-runtime-with-benchmarks"
+      },
+      {
+        "depth": 2,
+        "title": "Install the Benchmarking Tool",
+        "anchor": "install-the-benchmarking-tool"
+      },
+      {
+        "depth": 2,
+        "title": "Download the Weight Template",
+        "anchor": "download-the-weight-template"
+      },
+      {
+        "depth": 2,
+        "title": "Execute Benchmarks",
+        "anchor": "execute-benchmarks"
+      },
+      {
+        "depth": 2,
+        "title": "Use Generated Weights",
+        "anchor": "use-generated-weights"
+      },
+      {
+        "depth": 2,
+        "title": "Related Resources",
+        "anchor": "related-resources"
       }
     ],
     "stats": {
-      "chars": 14715,
-      "words": 1879,
-      "headings": 9,
-      "estimated_token_count_total": 3338
+      "chars": 19780,
+      "words": 2425,
+      "headings": 17,
+      "estimated_token_count_total": 4492
     },
-    "hash": "sha256:915bc91edd56cdedd516e871dbe450d70c9f99fb467cc00ff231ea3a74f61d96",
+    "hash": "sha256:cee5050dcc0967da1f1ddaabc769376514223bd453966fb3b6f8322d78755160",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -1568,12 +1608,12 @@
       }
     ],
     "stats": {
-      "chars": 26671,
-      "words": 3041,
+      "chars": 26958,
+      "words": 3085,
       "headings": 26,
-      "estimated_token_count_total": 6113
+      "estimated_token_count_total": 6194
     },
-    "hash": "sha256:607e283aaa1295de0af191d97de7f6f87afb722c601a447821fde6a09b97f1af",
+    "hash": "sha256:dad68ea59fd05fd60dc8890c4cf5615243c7ea879830b0dcf3a5e5e53c3ccec7",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -1664,7 +1704,7 @@
   },
   {
     "id": "parachains-customize-runtime-pallet-development-pallet-testing",
-    "title": "Pallet Unit Testing",
+    "title": "Unit Test Pallets",
     "slug": "parachains-customize-runtime-pallet-development-pallet-testing",
     "categories": [
       "Parachains"
@@ -1780,12 +1820,12 @@
       }
     ],
     "stats": {
-      "chars": 25092,
+      "chars": 25090,
       "words": 2533,
       "headings": 21,
       "estimated_token_count_total": 5673
     },
-    "hash": "sha256:5b6975fc79037690c912a0644a0a438212248e984d7fdb35bd6aea820e637965",
+    "hash": "sha256:6eee6865753a1819286bc2a3732513fa8aca27b9ea2d7f3a6c51cd47e51bdc17",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -2899,7 +2939,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-connect.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/connect/",
-    "preview": "!!! smartcontract \"PolkaVM Preview Release\" PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**. <div class=\"button-wrapper\"> <a href=\"#\" class=\"md-button connectMetaMask\" value=\"passetHub\">Connect to Polkadot Hub TestNet</a> </div>",
+    "preview": "<div class=\"button-wrapper\"> <a href=\"#\" class=\"md-button connectMetaMask\" value=\"passetHub\">Connect to Polkadot Hub TestNet</a> </div>",
     "outline": [
       {
         "depth": 2,
@@ -2918,12 +2958,12 @@
       }
     ],
     "stats": {
-      "chars": 3459,
-      "words": 476,
+      "chars": 3289,
+      "words": 455,
       "headings": 3,
       "estimated_token_count_total": 558
     },
-    "hash": "sha256:a2490223926957381913ae0ed22e2df3611a6713ec9d77a3015d1cd6a578b3f6",
+    "hash": "sha256:a9432dcdc170da339b55fc9106810e8ea95c2b8ee7c96f200e7a78da7e513b4d",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -3050,12 +3090,12 @@
       }
     ],
     "stats": {
-      "chars": 31207,
-      "words": 3688,
+      "chars": 31198,
+      "words": 3684,
       "headings": 22,
-      "estimated_token_count_total": 6967
+      "estimated_token_count_total": 6960
     },
-    "hash": "sha256:59084ceaad3ff22227c58d4fe3af81ee968ca33fb5bffd256bdc92a1ffe7a0c4",
+    "hash": "sha256:2cf0f7d5525bba7e5d0532b6563dae0bf1727ab171762a7bdfd2ed0d7542309a",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -3068,7 +3108,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-eth-dapps-uniswap-v2.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/cookbook/eth-dapps/uniswap-v2/",
-    "preview": "!!! smartcontract \"PolkaVM Preview Release\" PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**. ## Introduction",
+    "preview": "Decentralized exchanges (DEXs) are a cornerstone of the DeFi ecosystem, allowing for permissionless token swaps without intermediaries. [Uniswap V2](https://docs.uniswap.org/contracts/v2/overview){target=\\_blank}, with its Automated Market Maker (AMM) model, revolutionized DEXs by enabling liquidity provision for any ERC-20 token pair.",
     "outline": [
       {
         "depth": 2,
@@ -3107,12 +3147,12 @@
       }
     ],
     "stats": {
-      "chars": 11280,
-      "words": 1560,
+      "chars": 10874,
+      "words": 1505,
       "headings": 7,
-      "estimated_token_count_total": 2671
+      "estimated_token_count_total": 2601
     },
-    "hash": "sha256:2a42198668c759f63aa602115bf2d290ec7d03bbc3a3df20e30e85027e1b1cc3",
+    "hash": "sha256:264252e73c47c4d1ca86f3070c4c63051cdba4acff3839e67387df9be13b428e",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -3313,15 +3353,15 @@
     "token_estimator": "heuristic-v1"
   },
   {
-    "id": "smart-contracts-cookbook-smart-contracts-deploy-basic-hardhat",
+    "id": "smart-contracts-cookbook-smart-contracts-deploy-basic-basic-hardhat",
     "title": "Deploy a Basic Contract with Hardhat",
-    "slug": "smart-contracts-cookbook-smart-contracts-deploy-basic-hardhat",
+    "slug": "smart-contracts-cookbook-smart-contracts-deploy-basic-basic-hardhat",
     "categories": [
       "Smart Contracts"
     ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-basic-hardhat.md",
-    "html_url": "https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-basic/hardhat/",
-    "preview": "This guide demonstrates how to deploy a basic Solidity smart contract to Polkadot Hub using [Hardhat](https://hardhat.org/){target=\\_blank}, which provides a comprehensive development environment with built-in testing, debugging, and deployment capabilities. It's ideal for professional development workflows and team projects.",
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-basic-basic-hardhat.md",
+    "html_url": "https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-basic/basic-hardhat/",
+    "preview": "This guide demonstrates how to deploy a basic Solidity smart contract to Polkadot Hub TestNet using [Hardhat](https://hardhat.org/){target=\\_blank}, which provides a comprehensive development environment with built-in testing, debugging, and deployment capabilities. It's ideal for professional development workflows and team projects.",
     "outline": [
       {
         "depth": 2,
@@ -3345,18 +3385,13 @@
       },
       {
         "depth": 2,
-        "title": "Create Your Contract",
-        "anchor": "create-your-contract"
+        "title": "Create the Contract",
+        "anchor": "create-the-contract"
       },
       {
         "depth": 2,
-        "title": "Compile",
-        "anchor": "compile"
-      },
-      {
-        "depth": 2,
-        "title": "Set Up Deployment",
-        "anchor": "set-up-deployment"
+        "title": "Compile the Contract",
+        "anchor": "compile-the-contract"
       },
       {
         "depth": 2,
@@ -3370,23 +3405,23 @@
       }
     ],
     "stats": {
-      "chars": 4051,
-      "words": 475,
-      "headings": 9,
-      "estimated_token_count_total": 981
+      "chars": 6424,
+      "words": 819,
+      "headings": 8,
+      "estimated_token_count_total": 1565
     },
-    "hash": "sha256:98f5c5c1a26db913e1c4c435062d214ca8c4b5f2dbed5b64d2e54c3435f06452",
+    "hash": "sha256:df834cafbdbb2ece429e2e05ebd54e055734d4ef72364feeb8600036f29ef0a3",
     "token_estimator": "heuristic-v1"
   },
   {
-    "id": "smart-contracts-cookbook-smart-contracts-deploy-basic-remix",
+    "id": "smart-contracts-cookbook-smart-contracts-deploy-basic-basic-remix",
     "title": "Deploy a Basic Contract with Remix IDE",
-    "slug": "smart-contracts-cookbook-smart-contracts-deploy-basic-remix",
+    "slug": "smart-contracts-cookbook-smart-contracts-deploy-basic-basic-remix",
     "categories": [
       "Smart Contracts"
     ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-basic-remix.md",
-    "html_url": "https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-basic/remix/",
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-basic-basic-remix.md",
+    "html_url": "https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-basic/basic-remix/",
     "preview": "This guide demonstrates how to deploy a basic Solidity smart contract to Polkadot Hub using [Remix IDE](https://remix.ethereum.org/){target=\\_blank}, which offers a visual, browser-based environment perfect for rapid prototyping and learning. It requires no local installation and provides an intuitive interface for contract development.",
     "outline": [
       {
@@ -3401,18 +3436,18 @@
       },
       {
         "depth": 2,
-        "title": "Access Remix",
-        "anchor": "access-remix"
+        "title": "Locate Your Contract",
+        "anchor": "locate-your-contract"
       },
       {
         "depth": 2,
-        "title": "Compile",
-        "anchor": "compile"
+        "title": "Compile the Contract",
+        "anchor": "compile-the-contract"
       },
       {
         "depth": 2,
-        "title": "Deploy",
-        "anchor": "deploy"
+        "title": "Deploy the Contract",
+        "anchor": "deploy-the-contract"
       },
       {
         "depth": 2,
@@ -3421,17 +3456,17 @@
       }
     ],
     "stats": {
-      "chars": 2978,
-      "words": 430,
+      "chars": 3882,
+      "words": 560,
       "headings": 6,
-      "estimated_token_count_total": 738
+      "estimated_token_count_total": 899
     },
-    "hash": "sha256:0c00544ba0be9c0a6fa0c54bdb38045d64e95af714785b86e57f885a03b4b17a",
+    "hash": "sha256:132e000dcdfb0f30ac8e67d82d4aaab430137da0525c7aa1c189c066989c4390",
     "token_estimator": "heuristic-v1"
   },
   {
     "id": "smart-contracts-cookbook-smart-contracts-deploy-erc20-erc20-hardhat",
-    "title": "Deploy an ERC-20 to Polkadot Hub",
+    "title": "Deploy an ERC-20 Using Hardhat",
     "slug": "smart-contracts-cookbook-smart-contracts-deploy-erc20-erc20-hardhat",
     "categories": [
       "Basics",
@@ -3439,7 +3474,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-erc20-erc20-hardhat.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-hardhat/",
-    "preview": "[ERC-20](https://eips.ethereum.org/EIPS/eip-20){target=\\_blank} tokens are fungible tokens commonly used for creating cryptocurrencies, governance tokens, and staking mechanisms. Polkadot Hub enables easy token deployment with Ethereum-compatible smart contracts and tools via the EVM backend.",
+    "preview": "[ERC-20](https://eips.ethereum.org/EIPS/eip-20){target=\\_blank} tokens are fungible tokens commonly used for creating cryptocurrencies, governance tokens, and staking mechanisms. Polkadot Hub enables easy deployment of ERC-20 tokens via Ethereum-compatible smart contracts and tools.",
     "outline": [
       {
         "depth": 2,
@@ -3463,18 +3498,18 @@
       },
       {
         "depth": 2,
-        "title": "Compile your Contract",
-        "anchor": "compile-your-contract"
+        "title": "Compile the Contract",
+        "anchor": "compile-the-contract"
       },
       {
         "depth": 2,
-        "title": "Test your Contract",
-        "anchor": "test-your-contract"
+        "title": "Test the Contract",
+        "anchor": "test-the-contract"
       },
       {
         "depth": 2,
-        "title": "Deploy your Contract",
-        "anchor": "deploy-your-contract"
+        "title": "Deploy the Contract",
+        "anchor": "deploy-the-contract"
       },
       {
         "depth": 2,
@@ -3483,17 +3518,17 @@
       }
     ],
     "stats": {
-      "chars": 8131,
-      "words": 1205,
+      "chars": 7075,
+      "words": 1002,
       "headings": 8,
-      "estimated_token_count_total": 2156
+      "estimated_token_count_total": 1902
     },
-    "hash": "sha256:4036cb47abaf081ce480654bece336f83bd043f5225d5d8d20f152fb91aa2157",
+    "hash": "sha256:7a648b4a19a4d0177247f6462c808f98e142360baeff36ca73a495f2ee664f29",
     "token_estimator": "heuristic-v1"
   },
   {
     "id": "smart-contracts-cookbook-smart-contracts-deploy-erc20-erc20-remix",
-    "title": "Deploy an ERC-20 to Polkadot Hub",
+    "title": "Deploy an ERC-20 Using Remix IDE",
     "slug": "smart-contracts-cookbook-smart-contracts-deploy-erc20-erc20-remix",
     "categories": [
       "Basics",
@@ -3520,18 +3555,18 @@
       },
       {
         "depth": 2,
-        "title": "Compile",
-        "anchor": "compile"
+        "title": "Compile the Contract",
+        "anchor": "compile-the-contract"
       },
       {
         "depth": 2,
-        "title": "Deploy",
-        "anchor": "deploy"
+        "title": "Deploy the Contract",
+        "anchor": "deploy-the-contract"
       },
       {
         "depth": 2,
-        "title": "Interact with Your Contract",
-        "anchor": "interact-with-your-contract"
+        "title": "Interact with the Contract",
+        "anchor": "interact-with-the-contract"
       },
       {
         "depth": 2,
@@ -3540,12 +3575,12 @@
       }
     ],
     "stats": {
-      "chars": 9121,
-      "words": 1261,
+      "chars": 6072,
+      "words": 860,
       "headings": 7,
-      "estimated_token_count_total": 2183
+      "estimated_token_count_total": 1430
     },
-    "hash": "sha256:992767525da7c1323f28bcaee5b6d1256ee2c0c70dbd16ae521245299858d996",
+    "hash": "sha256:51961c4a5c343b76a0ad8383579e65e88df447d44bd6496e0ad1b94cb7b25b06",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -3611,15 +3646,15 @@
     "token_estimator": "heuristic-v1"
   },
   {
-    "id": "smart-contracts-cookbook-smart-contracts-deploy-nft-hardhat",
-    "title": "Deploy an NFT to Polkadot Hub with Hardhat",
-    "slug": "smart-contracts-cookbook-smart-contracts-deploy-nft-hardhat",
+    "id": "smart-contracts-cookbook-smart-contracts-deploy-nft-nft-hardhat",
+    "title": "Deploy an ERC-721 Using Hardhat",
+    "slug": "smart-contracts-cookbook-smart-contracts-deploy-nft-nft-hardhat",
     "categories": [
       "Basics",
       "Smart Contracts"
     ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-nft-hardhat.md",
-    "html_url": "https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-nft/hardhat/",
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-nft-nft-hardhat.md",
+    "html_url": "https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-hardhat/",
     "preview": "Non-Fungible Tokens (NFTs) represent unique digital assets commonly used for digital art, collectibles, gaming, and identity verification.",
     "outline": [
       {
@@ -3644,23 +3679,18 @@
       },
       {
         "depth": 2,
-        "title": "Create Your Contract",
-        "anchor": "create-your-contract"
+        "title": "Create the Contract",
+        "anchor": "create-the-contract"
       },
       {
         "depth": 2,
-        "title": "Compile",
-        "anchor": "compile"
+        "title": "Compile the Contract",
+        "anchor": "compile-the-contract"
       },
       {
         "depth": 2,
-        "title": "Set Up Deployment",
-        "anchor": "set-up-deployment"
-      },
-      {
-        "depth": 2,
-        "title": "Deploy",
-        "anchor": "deploy"
+        "title": "Deploy the Contract",
+        "anchor": "deploy-the-contract"
       },
       {
         "depth": 2,
@@ -3669,24 +3699,24 @@
       }
     ],
     "stats": {
-      "chars": 4837,
-      "words": 565,
-      "headings": 9,
-      "estimated_token_count_total": 1152
+      "chars": 7561,
+      "words": 956,
+      "headings": 8,
+      "estimated_token_count_total": 1865
     },
-    "hash": "sha256:1e44c9df24715affa822f0df9680413cd995909f2c086d3a70499ee69901985e",
+    "hash": "sha256:62bec2f5962bbff26a622ffc3e126f0aaf285201d5f529da4d15add5b4c5abbe",
     "token_estimator": "heuristic-v1"
   },
   {
-    "id": "smart-contracts-cookbook-smart-contracts-deploy-nft-remix",
-    "title": "Deploy an NFT to Polkadot Hub with Remix",
-    "slug": "smart-contracts-cookbook-smart-contracts-deploy-nft-remix",
+    "id": "smart-contracts-cookbook-smart-contracts-deploy-nft-nft-remix",
+    "title": "Deploy an ERC-721 NFT Using Remix",
+    "slug": "smart-contracts-cookbook-smart-contracts-deploy-nft-nft-remix",
     "categories": [
       "Basics",
       "Smart Contracts"
     ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-nft-remix.md",
-    "html_url": "https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-nft/remix/",
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-nft-nft-remix.md",
+    "html_url": "https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix/",
     "preview": "Non-Fungible Tokens (NFTs) represent unique digital assets commonly used for digital art, collectibles, gaming, and identity verification.",
     "outline": [
       {
@@ -3701,23 +3731,18 @@
       },
       {
         "depth": 2,
-        "title": "Access Remix",
-        "anchor": "access-remix"
-      },
-      {
-        "depth": 2,
         "title": "Create Your Contract",
         "anchor": "create-your-contract"
       },
       {
         "depth": 2,
-        "title": "Compile",
-        "anchor": "compile"
+        "title": "Compile the Contract",
+        "anchor": "compile-the-contract"
       },
       {
         "depth": 2,
-        "title": "Deploy",
-        "anchor": "deploy"
+        "title": "Deploy the Contract",
+        "anchor": "deploy-the-contract"
       },
       {
         "depth": 2,
@@ -3726,17 +3751,17 @@
       }
     ],
     "stats": {
-      "chars": 3754,
-      "words": 505,
-      "headings": 7,
-      "estimated_token_count_total": 928
+      "chars": 4877,
+      "words": 672,
+      "headings": 6,
+      "estimated_token_count_total": 1166
     },
-    "hash": "sha256:12a8debfbc05c5ac0e2c94daa40167adab837dc4e1b2731f5b48ae8bc9bc2c93",
+    "hash": "sha256:b8cc739143bf9cc114da59c6ff6c462708040fef7e50d1e584b67e310db85b1a",
     "token_estimator": "heuristic-v1"
   },
   {
     "id": "smart-contracts-cookbook",
-    "title": "Smart Contracts Cookbook Index",
+    "title": "Smart Contracts Cookbook",
     "slug": "smart-contracts-cookbook",
     "categories": [
       "Basics",
@@ -3754,8 +3779,8 @@
       },
       {
         "depth": 2,
-        "title": "EVM/PVM Smart Contracts",
-        "anchor": "evmpvm-smart-contracts"
+        "title": "EVM Smart Contracts",
+        "anchor": "evm-smart-contracts"
       },
       {
         "depth": 2,
@@ -3764,85 +3789,45 @@
       }
     ],
     "stats": {
-      "chars": 2815,
-      "words": 206,
+      "chars": 2835,
+      "words": 207,
       "headings": 3,
-      "estimated_token_count_total": 1014
+      "estimated_token_count_total": 1022
     },
-    "hash": "sha256:cea0745bf1f1ac5680690a78494977b5e111c33638f5ceaa2c19ce0804cc74ad",
+    "hash": "sha256:a3baacc936731020103ecb94a0ad41df0392fcf7e0f6039fa9b71bf363559e6a",
     "token_estimator": "heuristic-v1"
   },
   {
-    "id": "smart-contracts-dev-environments-hardhat-compile-and-test",
-    "title": "smart-contracts-dev-environments-hardhat-compile-and-test",
-    "slug": "smart-contracts-dev-environments-hardhat-compile-and-test",
-    "categories": [
-      "Uncategorized"
-    ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-hardhat-compile-and-test.md",
-    "html_url": "https://docs.polkadot.com/smart-contracts/dev-environments/hardhat/compile-and-test/",
-    "preview": "TODO",
-    "outline": [],
-    "stats": {
-      "chars": 5,
-      "words": 1,
-      "headings": 0,
-      "estimated_token_count_total": 0
-    },
-    "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
-    "token_estimator": "heuristic-v1"
-  },
-  {
-    "id": "smart-contracts-dev-environments-hardhat-deploy-a-contract",
-    "title": "smart-contracts-dev-environments-hardhat-deploy-a-contract",
-    "slug": "smart-contracts-dev-environments-hardhat-deploy-a-contract",
-    "categories": [
-      "Uncategorized"
-    ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-hardhat-deploy-a-contract.md",
-    "html_url": "https://docs.polkadot.com/smart-contracts/dev-environments/hardhat/deploy-a-contract/",
-    "preview": "TODO",
-    "outline": [],
-    "stats": {
-      "chars": 5,
-      "words": 1,
-      "headings": 0,
-      "estimated_token_count_total": 0
-    },
-    "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
-    "token_estimator": "heuristic-v1"
-  },
-  {
-    "id": "smart-contracts-dev-environments-hardhat-get-started",
+    "id": "smart-contracts-dev-environments-hardhat",
     "title": "Use Hardhat with Polkadot Hub",
-    "slug": "smart-contracts-dev-environments-hardhat-get-started",
+    "slug": "smart-contracts-dev-environments-hardhat",
     "categories": [
       "Smart Contracts",
       "Tooling"
     ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-hardhat-get-started.md",
-    "html_url": "https://docs.polkadot.com/smart-contracts/dev-environments/hardhat/get-started/",
-    "preview": "Building on Polkadot Hub often starts with a Solidity codebase, and Hardhat keeps that workflow familiar while giving teams repeatable scripts, rich debugging, and CLI automation suited to the network's Ethereum-compatible execution layer.",
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-hardhat.md",
+    "html_url": "https://docs.polkadot.com/smart-contracts/dev-environments/hardhat/",
+    "preview": "[Hardhat](https://hardhat.org/){target=\\_blank} is a flexible development environment for building, testing, and deploying smart contracts on Polkadot. Its task runner and plugin system support organizing contract code, running tests, managing deployments, and adding custom tooling. This page demonstrates how to set up a Hardhat project for Polkadot Hub.",
     "outline": [
       {
         "depth": 2,
-        "title": "Overview",
-        "anchor": "overview"
+        "title": "Introduction",
+        "anchor": "introduction"
       },
       {
         "depth": 2,
-        "title": "Hardhat Workflow",
-        "anchor": "hardhat-workflow"
+        "title": "Prerequisites",
+        "anchor": "prerequisites"
       },
       {
         "depth": 2,
-        "title": "Project Anatomy",
-        "anchor": "project-anatomy"
+        "title": "Initialize a Hardhat Project",
+        "anchor": "initialize-a-hardhat-project"
       },
       {
         "depth": 2,
-        "title": "Core Functionalities",
-        "anchor": "core-functionalities"
+        "title": "Configure Hardhat for Polkadot Hub",
+        "anchor": "configure-hardhat-for-polkadot-hub"
       },
       {
         "depth": 2,
@@ -3851,174 +3836,12 @@
       }
     ],
     "stats": {
-      "chars": 4795,
-      "words": 589,
+      "chars": 4828,
+      "words": 646,
       "headings": 5,
-      "estimated_token_count_total": 1057
+      "estimated_token_count_total": 1144
     },
-    "hash": "sha256:39bef792d34440bab5986dd030660af167537019c959526603900811a7b6d408",
-    "token_estimator": "heuristic-v1"
-  },
-  {
-    "id": "smart-contracts-dev-environments-hardhat-install-and-config",
-    "title": "smart-contracts-dev-environments-hardhat-install-and-config",
-    "slug": "smart-contracts-dev-environments-hardhat-install-and-config",
-    "categories": [
-      "Uncategorized"
-    ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-hardhat-install-and-config.md",
-    "html_url": "https://docs.polkadot.com/smart-contracts/dev-environments/hardhat/install-and-config/",
-    "preview": "TODO",
-    "outline": [],
-    "stats": {
-      "chars": 5,
-      "words": 1,
-      "headings": 0,
-      "estimated_token_count_total": 0
-    },
-    "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
-    "token_estimator": "heuristic-v1"
-  },
-  {
-    "id": "smart-contracts-dev-environments-hardhat-troubleshooting-faq",
-    "title": "Troubleshooting Hardhat",
-    "slug": "smart-contracts-dev-environments-hardhat-troubleshooting-faq",
-    "categories": [
-      "Smart Contracts",
-      "Tooling"
-    ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-hardhat-troubleshooting-faq.md",
-    "html_url": "https://docs.polkadot.com/smart-contracts/dev-environments/hardhat/troubleshooting-faq/",
-    "preview": "This guide provides solutions to common issues you may encounter when using Hardhat with Polkadot Hub. If you're experiencing problems with installation, compilation, deployment, testing, or contract interaction, you'll likely find the solution here.",
-    "outline": [
-      {
-        "depth": 2,
-        "title": "Hardhat fails to install or run with version-related errors",
-        "anchor": "hardhat-fails-to-install-or-run-with-version-related-errors"
-      },
-      {
-        "depth": 2,
-        "title": "Installation of Hardhat or its dependencies via npm fails",
-        "anchor": "installation-of-hardhat-or-its-dependencies-via-npm-fails"
-      },
-      {
-        "depth": 2,
-        "title": "Hardhat Toolbox fails to install or causes conflicts",
-        "anchor": "hardhat-toolbox-fails-to-install-or-causes-conflicts"
-      },
-      {
-        "depth": 2,
-        "title": "Your contract fails to compile or shows errors in the terminal",
-        "anchor": "your-contract-fails-to-compile-or-shows-errors-in-the-terminal"
-      },
-      {
-        "depth": 2,
-        "title": "The artifacts folder is empty or missing expected files",
-        "anchor": "the-artifacts-folder-is-empty-or-missing-expected-files"
-      },
-      {
-        "depth": 2,
-        "title": "Errors related to Solidity compiler version or features",
-        "anchor": "errors-related-to-solidity-compiler-version-or-features"
-      },
-      {
-        "depth": 2,
-        "title": "Tests don't execute or Hardhat throws errors when running tests",
-        "anchor": "tests-dont-execute-or-hardhat-throws-errors-when-running-tests"
-      },
-      {
-        "depth": 2,
-        "title": "The Hardhat node fails to start or becomes unresponsive",
-        "anchor": "the-hardhat-node-fails-to-start-or-becomes-unresponsive"
-      },
-      {
-        "depth": 2,
-        "title": "Tests run but fail with assertion errors",
-        "anchor": "tests-run-but-fail-with-assertion-errors"
-      },
-      {
-        "depth": 2,
-        "title": "Hardhat cannot connect to the local development node",
-        "anchor": "hardhat-cannot-connect-to-the-local-development-node"
-      },
-      {
-        "depth": 2,
-        "title": "Hardhat cannot access or use the configured private key",
-        "anchor": "hardhat-cannot-access-or-use-the-configured-private-key"
-      },
-      {
-        "depth": 2,
-        "title": "Deployment or transactions go to the wrong network",
-        "anchor": "deployment-or-transactions-go-to-the-wrong-network"
-      },
-      {
-        "depth": 2,
-        "title": "Deployment fails with \"insufficient funds\" error",
-        "anchor": "deployment-fails-with-insufficient-funds-error"
-      },
-      {
-        "depth": 2,
-        "title": "Deployment using Hardhat Ignition fails or throws errors",
-        "anchor": "deployment-using-hardhat-ignition-fails-or-throws-errors"
-      },
-      {
-        "depth": 2,
-        "title": "Custom deployment scripts fail to execute",
-        "anchor": "custom-deployment-scripts-fail-to-execute"
-      },
-      {
-        "depth": 2,
-        "title": "Contract deployment hangs or times out",
-        "anchor": "contract-deployment-hangs-or-times-out"
-      },
-      {
-        "depth": 2,
-        "title": "Scripts fail to interact with a deployed contract",
-        "anchor": "scripts-fail-to-interact-with-a-deployed-contract"
-      },
-      {
-        "depth": 2,
-        "title": "Transactions revert when calling contract functions",
-        "anchor": "transactions-revert-when-calling-contract-functions"
-      },
-      {
-        "depth": 2,
-        "title": "View or pure functions don't return expected values",
-        "anchor": "view-or-pure-functions-dont-return-expected-values"
-      },
-      {
-        "depth": 2,
-        "title": "State-changing functions execute but don't update state",
-        "anchor": "state-changing-functions-execute-but-dont-update-state"
-      },
-      {
-        "depth": 2,
-        "title": "Contract compilation takes a long time",
-        "anchor": "contract-compilation-takes-a-long-time"
-      },
-      {
-        "depth": 2,
-        "title": "Can't start Hardhat console or console commands fail",
-        "anchor": "cant-start-hardhat-console-or-console-commands-fail"
-      },
-      {
-        "depth": 2,
-        "title": "Hardhat plugins not working correctly",
-        "anchor": "hardhat-plugins-not-working-correctly"
-      },
-      {
-        "depth": 2,
-        "title": "Scripts cannot read environment variables",
-        "anchor": "scripts-cannot-read-environment-variables"
-      }
-    ],
-    "stats": {
-      "chars": 14684,
-      "words": 1668,
-      "headings": 24,
-      "estimated_token_count_total": 3320
-    },
-    "hash": "sha256:f9ab9d7d25947a3bb4059d812eac8b1eb77e2271cac8e7828936f8ffa115eb0b",
+    "hash": "sha256:26f8738aa4eb89dd78c957b2a37d27875e325d3ba70532fefd0b2f17ed6bd0c0",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4258,7 +4081,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-explorers.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/explorers/",
-    "preview": "!!! smartcontract \"PolkaVM Preview Release\" PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**. ## Introduction",
+    "preview": "Block explorers serve as comprehensive blockchain analytics platforms that provide access to on-chain data. These web applications function as search engines for blockchain networks, allowing users to query, visualize, and analyze blockchain data in real time through intuitive interfaces.",
     "outline": [
       {
         "depth": 2,
@@ -4282,12 +4105,12 @@
       }
     ],
     "stats": {
-      "chars": 1793,
-      "words": 223,
+      "chars": 1623,
+      "words": 202,
       "headings": 4,
       "estimated_token_count_total": 309
     },
-    "hash": "sha256:93e8a3043d65583e3d66f8f5f0ed6f4ef89a908ef85da2b6ca906a1100b7dded",
+    "hash": "sha256:cf46f9fd9c463e5384a5ae8acacffc84ea9d23d3780dfc213c4bab54352e9ffc",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4417,7 +4240,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-for-eth-devs-accounts.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/for-eth-devs/accounts/",
-    "preview": "!!! smartcontract \"PolkaVM Preview Release\" PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**. ## Introduction",
+    "preview": "Asset Hub natively utilizes Polkadot's 32-byte account system while providing interoperability with Ethereum's 20-byte addresses through an automatic conversion system. When interacting with smart contracts:",
     "outline": [
       {
         "depth": 2,
@@ -4466,12 +4289,12 @@
       }
     ],
     "stats": {
-      "chars": 8521,
-      "words": 1138,
+      "chars": 8351,
+      "words": 1117,
       "headings": 9,
       "estimated_token_count_total": 1816
     },
-    "hash": "sha256:dc95833b74404d8630a13e8746df3962e2d9d4777e5f18ca9a25d8d9302ebd53",
+    "hash": "sha256:c6711d11391b18ab775b498d2dc601213e406ac3d5f44443d968cf5e94a59bbd",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4484,7 +4307,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-for-eth-devs-blocks-transactions-fees.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/for-eth-devs/blocks-transactions-fees/",
-    "preview": "!!! smartcontract \"PolkaVM Preview Release\" PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**. ## Introduction",
+    "preview": "Asset Hub smart contracts operate within the Polkadot ecosystem using the [`pallet_revive`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/){target=\\_blank} implementation, which provides EVM compatibility. While many aspects of blocks and transactions are inherited from the underlying parachain architecture, there are specific considerations and mechanisms unique to smart contract operations on Asset Hub.",
     "outline": [
       {
         "depth": 2,
@@ -4528,12 +4351,12 @@
       }
     ],
     "stats": {
-      "chars": 6366,
-      "words": 791,
+      "chars": 6196,
+      "words": 770,
       "headings": 8,
       "estimated_token_count_total": 1182
     },
-    "hash": "sha256:9542f40acae725e628f4c3155ad1e7e0e18b2eb518484856ad439a1d9f86d1f3",
+    "hash": "sha256:78886f6ef1aa3be30f2bba2e08abd4d9638a4c87536eacb1e4e31916454f5750",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4628,7 +4451,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-for-eth-devs-dual-vm-stack.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/for-eth-devs/dual-vm-stack/",
-    "preview": "!!! smartcontract \"PolkaVM Preview Release\" PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**. ## Introduction",
+    "preview": "Polkadot's smart contract platform supports two distinct virtual machine (VM) architectures, providing developers with flexibility in selecting the optimal execution backend for their specific needs. This approach strikes a balance between immediate Ethereum compatibility and long-term innovation, enabling developers to deploy either unmodified (Ethereum Virtual Machine) EVM contracts using Rust Ethereum Virtual Machine (REVM) or optimize for higher performance using PolkaVM (PVM).",
     "outline": [
       {
         "depth": 2,
@@ -4667,12 +4490,12 @@
       }
     ],
     "stats": {
-      "chars": 5383,
-      "words": 702,
+      "chars": 5213,
+      "words": 681,
       "headings": 7,
       "estimated_token_count_total": 986
     },
-    "hash": "sha256:2d918017faecf489ec786f34de6cd4366a86e9f1cecfbb7722cc03079e6b64ea",
+    "hash": "sha256:8618a3633c67049a370417b35d2435935bdf8083661a56bd8e249988ba8c0fe9",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4740,7 +4563,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-for-eth-devs-json-rpc-apis.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/for-eth-devs/json-rpc-apis/",
-    "preview": "!!! smartcontract \"PolkaVM Preview Release\" PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**. ## Introduction",
+    "preview": "Polkadot Hub provides Ethereum compatibility through its JSON-RPC interface, allowing developers to interact with the chain using familiar Ethereum tooling and methods. This document outlines the supported [Ethereum JSON-RPC methods](https://ethereum.org/developers/docs/apis/json-rpc/#json-rpc-methods){target=\\_blank} and provides examples of how to use them.",
     "outline": [
       {
         "depth": 2,
@@ -4919,15 +4742,99 @@
       }
     ],
     "stats": {
-      "chars": 31444,
-      "words": 3848,
+      "chars": 31274,
+      "words": 3827,
       "headings": 35,
       "estimated_token_count_total": 9562
     },
-    "hash": "sha256:da1669344010a793a5296c9397b2d5a85240ff6fbe37b885bce0139298364423",
+    "hash": "sha256:ef851649797d7a65de72c2390495dba0c449ce254135bb96dea3ff82d8835148",
     "token_estimator": "heuristic-v1"
   },
   {
+<<<<<<< HEAD
+=======
+    "id": "smart-contracts-for-eth-devs-migration",
+    "title": "Migration FAQs and Considerations",
+    "slug": "smart-contracts-for-eth-devs-migration",
+    "categories": [
+      "Smart Contracts"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-for-eth-devs-migration.md",
+    "html_url": "https://docs.polkadot.com/smart-contracts/for-eth-devs/migration/",
+    "preview": "This guide helps Ethereum developers migrate their smart contracts to Polkadot Hub. Most contracts work without modifications on the REVM backend, while the PolkaVM backend offers enhanced performance with minimal adaptation for standard patterns.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Migration Considerations",
+        "anchor": "migration-considerations"
+      },
+      {
+        "depth": 2,
+        "title": "Migration Checklist",
+        "anchor": "migration-checklist"
+      },
+      {
+        "depth": 2,
+        "title": "Migration FAQs",
+        "anchor": "migration-faqs"
+      },
+      {
+        "depth": 3,
+        "title": "Which backend should I choose?",
+        "anchor": "which-backend-should-i-choose"
+      },
+      {
+        "depth": 3,
+        "title": "Do I need to rewrite my Solidity code?",
+        "anchor": "do-i-need-to-rewrite-my-solidity-code"
+      },
+      {
+        "depth": 3,
+        "title": "What about factory contracts?",
+        "anchor": "what-about-factory-contracts"
+      },
+      {
+        "depth": 3,
+        "title": "How do gas costs compare?",
+        "anchor": "how-do-gas-costs-compare"
+      },
+      {
+        "depth": 3,
+        "title": "Which Solidity features are not supported?",
+        "anchor": "which-solidity-features-are-not-supported"
+      },
+      {
+        "depth": 3,
+        "title": "How do I handle the existential deposit?",
+        "anchor": "how-do-i-handle-the-existential-deposit"
+      },
+      {
+        "depth": 3,
+        "title": "Can I use my existing development tools?",
+        "anchor": "can-i-use-my-existing-development-tools"
+      },
+      {
+        "depth": 2,
+        "title": "Conclusion",
+        "anchor": "conclusion"
+      }
+    ],
+    "stats": {
+      "chars": 6079,
+      "words": 779,
+      "headings": 12,
+      "estimated_token_count_total": 1279
+    },
+    "hash": "sha256:87a8fd24c2ed6dac3281c040136ad6cdca95b632c6febf3e1dfab617d66a321d",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+>>>>>>> staging/product-ia
     "id": "smart-contracts-get-started",
     "title": "Get Started with Smart Contracts",
     "slug": "smart-contracts-get-started",
@@ -4976,12 +4883,21 @@
       }
     ],
     "stats": {
+<<<<<<< HEAD
       "chars": 9927,
       "words": 920,
       "headings": 7,
       "estimated_token_count_total": 2853
     },
     "hash": "sha256:00c0e3087ee9cce562e6318a7f20b584484a791a003a045251b97b23f3d14806",
+=======
+      "chars": 8758,
+      "words": 794,
+      "headings": 7,
+      "estimated_token_count_total": 2586
+    },
+    "hash": "sha256:12509c044da89e7699aa30d454c932548d49f00de2e94f6ed5b2ab9a97cdbc5f",
+>>>>>>> staging/product-ia
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5086,7 +5002,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-libraries-ethers-js.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/libraries/ethers-js/",
-    "preview": "!!! smartcontract \"PolkaVM Preview Release\" PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**. ## Introduction",
+    "preview": "[Ethers.js](https://docs.ethers.org/v6/){target=\\_blank} is a lightweight library that enables interaction with Ethereum Virtual Machine (EVM)-compatible blockchains through JavaScript. Ethers is widely used as a toolkit to establish connections and read and write blockchain data. This article demonstrates using Ethers.js to interact and deploy smart contracts to Polkadot Hub.",
     "outline": [
       {
         "depth": 2,
@@ -5125,11 +5041,6 @@
       },
       {
         "depth": 3,
-        "title": "Install the Revive Library",
-        "anchor": "install-the-revive-library"
-      },
-      {
-        "depth": 3,
         "title": "Sample Storage Smart Contract",
         "anchor": "sample-storage-smart-contract"
       },
@@ -5155,12 +5066,12 @@
       }
     ],
     "stats": {
-      "chars": 20457,
-      "words": 2333,
-      "headings": 13,
-      "estimated_token_count_total": 4474
+      "chars": 21292,
+      "words": 2412,
+      "headings": 12,
+      "estimated_token_count_total": 4742
     },
-    "hash": "sha256:c74a28d8d62369591c5734535136508db3d1f7380e486fd214f98d433cafd6e7",
+    "hash": "sha256:3493aaeec569be8d72f418c9b1abeeed64ff3bbcc316b42a33dad5f172c4e841",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5173,7 +5084,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-libraries-viem.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/libraries/viem/",
-    "preview": "!!! smartcontract \"PolkaVM Preview Release\" PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**. ## Introduction",
+    "preview": "[viem](https://viem.sh/){target=\\_blank} is a lightweight TypeScript library designed for interacting with Ethereum-compatible blockchains. This comprehensive guide will walk you through using viem to interact with and deploy smart contracts to Polkadot Hub.",
     "outline": [
       {
         "depth": 2,
@@ -5247,12 +5158,12 @@
       }
     ],
     "stats": {
-      "chars": 16600,
-      "words": 1940,
+      "chars": 17416,
+      "words": 2000,
       "headings": 14,
-      "estimated_token_count_total": 3891
+      "estimated_token_count_total": 4151
     },
-    "hash": "sha256:e27657e4e4a14fe86f424b96631946ec36fb90d277e6010b6cbd64c4769aba8a",
+    "hash": "sha256:dc93c1418e6cfc56ea714a2105b8ba82d72f9888a022feb356c1847fbb913b54",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5265,7 +5176,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-libraries-wagmi.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/libraries/wagmi/",
-    "preview": "!!! smartcontract \"PolkaVM Preview Release\" PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**. ## Introduction",
+    "preview": "[Wagmi](https://wagmi.sh/){target=\\_blank} is a collection of [React Hooks](https://wagmi.sh/react/api/hooks){target=\\_blank} for interacting with Ethereum-compatible blockchains, focusing on developer experience, feature richness, and reliability.",
     "outline": [
       {
         "depth": 2,
@@ -5319,12 +5230,12 @@
       }
     ],
     "stats": {
-      "chars": 13604,
-      "words": 1515,
+      "chars": 13340,
+      "words": 1488,
       "headings": 10,
-      "estimated_token_count_total": 3250
+      "estimated_token_count_total": 3240
     },
-    "hash": "sha256:bc771f912627fa09cad64adab1bc81c052f650d6c5a3b4f0c91883a98f6628da",
+    "hash": "sha256:031259a4d4f3755c9f5c04ed78126abd90831a5fe9fae3a45913e2560a91db6e",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5401,12 +5312,21 @@
       }
     ],
     "stats": {
+<<<<<<< HEAD
       "chars": 20056,
       "words": 2249,
       "headings": 12,
       "estimated_token_count_total": 4523
     },
     "hash": "sha256:ac33422a87258d65a70e63f388279cc2afa4a1e3eec9c1b1aff52ac1ebf9e1a8",
+=======
+      "chars": 20077,
+      "words": 2252,
+      "headings": 12,
+      "estimated_token_count_total": 4530
+    },
+    "hash": "sha256:7e3d9a39fafd48ef71f23b07d20f7fb5572ba67e06fcbe6a199fe0468af6dbca",
+>>>>>>> staging/product-ia
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5419,7 +5339,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-libraries-web3-py.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/libraries/web3-py/",
-    "preview": "!!! smartcontract \"PolkaVM Preview Release\" PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**. ## Introduction",
+    "preview": "Interacting with blockchains typically requires an interface between your application and the network. [Web3.py](https://web3py.readthedocs.io/en/stable/index.html){target=\\_blank} offers this interface through a collection of libraries, facilitating seamless interaction with the nodes using HTTP or WebSocket protocols.",
     "outline": [
       {
         "depth": 2,
@@ -5438,6 +5358,21 @@
       },
       {
         "depth": 2,
+        "title": "Compile Contracts",
+        "anchor": "compile-contracts"
+      },
+      {
+        "depth": 3,
+        "title": "Sample Storage Smart Contract",
+        "anchor": "sample-storage-smart-contract"
+      },
+      {
+        "depth": 3,
+        "title": "Compile the Smart Contract",
+        "anchor": "compile-the-smart-contract"
+      },
+      {
+        "depth": 2,
         "title": "Contract Deployment",
         "anchor": "contract-deployment"
       },
@@ -5453,12 +5388,12 @@
       }
     ],
     "stats": {
-      "chars": 11627,
-      "words": 1333,
-      "headings": 6,
-      "estimated_token_count_total": 2509
+      "chars": 14097,
+      "words": 1665,
+      "headings": 9,
+      "estimated_token_count_total": 2987
     },
-    "hash": "sha256:205892e350168b3d0da7ccc280c67c3217ad1e45e87a53d124fa1dd69661aa5e",
+    "hash": "sha256:22e632b20dd4e0459bcd93ed7984b270642e5d8ec2267623be91b63fe3023c75",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5471,7 +5406,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-overview.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/overview/",
-    "preview": "!!! smartcontract \"PolkaVM Preview Release\" PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**. ## Introduction",
+    "preview": "Polkadot offers developers multiple approaches to building and deploying smart contracts within its ecosystem. As a multi-chain network designed for interoperability, Polkadot provides various environments optimized for different developer preferences and application requirements. From native smart contract support on Polkadot Hub to specialized parachain environments, developers can choose the platform that best suits their technical needs while benefiting from Polkadot's shared security model",
     "outline": [
       {
         "depth": 2,
@@ -5525,12 +5460,12 @@
       }
     ],
     "stats": {
-      "chars": 6305,
-      "words": 804,
+      "chars": 6135,
+      "words": 783,
       "headings": 10,
       "estimated_token_count_total": 1122
     },
-    "hash": "sha256:ee87115c828928c82937de26f5f938cecd4c3bb1225fdb61627e8092e6ea5951",
+    "hash": "sha256:333c4b8e566d251ff53530bd65efa7556af21acd15876805a7c5c7df0de565fa",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5632,12 +5567,12 @@
       }
     ],
     "stats": {
-      "chars": 10705,
-      "words": 1436,
+      "chars": 10608,
+      "words": 1423,
       "headings": 9,
-      "estimated_token_count_total": 2325
+      "estimated_token_count_total": 2294
     },
-    "hash": "sha256:c084190ea7d676128e7e399e8fe88598ca150f88d684db279a687ee1c3956120",
+    "hash": "sha256:791faa6c434c52dfd02efd6e9da9dbd367dc7f672c45fe31d7808e015fe5d17e",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5649,7 +5584,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-precompiles.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/precompiles/",
-    "preview": "!!! smartcontract \"PolkaVM Preview Release\" PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**. ## Introduction",
+    "preview": "Precompiles serve a dual purpose in the Polkadot ecosystem: they not only enable high-performance smart contracts by providing native, optimized implementations of frequently used functions but will also eventually act as critical bridges, allowing contracts to interact with core platform capabilities.",
     "outline": [
       {
         "depth": 2,
@@ -5668,12 +5603,12 @@
       }
     ],
     "stats": {
-      "chars": 2525,
-      "words": 328,
+      "chars": 2355,
+      "words": 307,
       "headings": 3,
       "estimated_token_count_total": 412
     },
-    "hash": "sha256:a40e3f34f70db22bfe39e40d68dc5a53a726ce47cb73b602d8605355c61ffd22",
+    "hash": "sha256:4f19b6655acf73973872285c17039e09a79864b8a12c15bed5679157a285122a",
     "token_estimator": "heuristic-v1"
   }
 ]

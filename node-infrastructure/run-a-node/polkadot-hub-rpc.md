@@ -79,7 +79,7 @@ Select the best option for your project, then use the steps in the following tab
 
             This chain specification is the official configuration file that defines the network parameters for Polkadot Hub.
 
-    2. (Optional but recommended) Download database snapshots
+    2. (Optional but recommended) Download database snapshots:
         - Using pre-synchronized snapshots significantly reduces initial sync time from several days to just a few hours. You need to download both parachain and relay chain data.
         - You can obtain the latest snapshot from the [Snapshot Provider](https://snapshots.polkadot.io/){target=\_blank}. Follow these steps to download and use snapshots:
             1. Create new directories with the following commands:
@@ -189,7 +189,7 @@ Select the best option for your project, then use the steps in the following tab
           ```
 
         You should see a response similar to the following:
-
+<!--TODO move into a terminal output element-->
         ```json
         {
           "jsonrpc":"2.0",

@@ -1504,22 +1504,17 @@
       },
       {
         "depth": 2,
-        "title": "Run Your Chain Locally",
-        "anchor": "run-your-chain-locally"
-      },
-      {
-        "depth": 2,
         "title": "Related Resources",
         "anchor": "related-resources"
       }
     ],
     "stats": {
-      "chars": 22752,
-      "words": 2813,
-      "headings": 18,
-      "estimated_token_count_total": 5191
+      "chars": 19780,
+      "words": 2425,
+      "headings": 17,
+      "estimated_token_count_total": 4492
     },
-    "hash": "sha256:c1b53ecbfc3dea02097104c7a4c652e61ccc42ad56325a9c80684850a198fbdd",
+    "hash": "sha256:cee5050dcc0967da1f1ddaabc769376514223bd453966fb3b6f8322d78755160",
     "token_estimator": "heuristic-v1"
   },
   {

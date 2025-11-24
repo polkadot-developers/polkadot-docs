@@ -1330,22 +1330,19 @@ Page Title: Benchmark Your Pallet
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/parachains-customize-runtime-pallet-development-benchmark-pallet.md
 - Canonical (HTML): https://docs.polkadot.com/parachains/customize-runtime/pallet-development/benchmark-pallet/
-- Summary: Learn how to benchmark your custom pallet extrinsics to generate accurate weight calculations for production use.
+- Summary: Learn how to benchmark extrinsics in your custom pallet to generate precise weight calculations suitable for production use.
 
 ## Introduction
 
 Benchmarking is the process of measuring the computational resources (execution time and storage) required by your pallet's extrinsics. Accurate [weight](https://paritytech.github.io/polkadot-sdk/master/frame_support/weights/index.html){target=\_blank} calculations are essential for ensuring your blockchain can process transactions efficiently while protecting against denial-of-service attacks.
 
-This guide continues building on what you've learned through the pallet development series. You'll learn how to benchmark the custom counter pallet extrinsics and integrate the generated weights into your runtime.
+This guide demonstrates how to benchmark a pallet and incorporate the resulting weight values. This example uses the custom counter pallet from previous guides in this series, but you can replace it with the code from another pallet if desired.
 
 ## Prerequisites
 
 Before you begin, ensure you have:
 
-- Completed the previous pallet development tutorials:
-    - [Create a Pallet](/parachains/customize-runtime/pallet-development/create-a-pallet/){target=\_blank}
-    - [Mock Your Runtime](/parachains/customize-runtime/pallet-development/mock-runtime/){target=\_blank}
-    - [Unit Test Pallets](/parachains/customize-runtime/pallet-development/pallet-testing/){target=\_blank}
+- A pallet to benchmark. If you followed the pallet development tutorials, you can use the counter pallet from the [Create a Pallet](/parachains/customize-runtime/pallet-development/create-a-pallet/){target=\_blank} guide. You can also follow these steps to benchmark a custom pallet by updating the `benchmarking.rs` functions, and instances of usage in future steps, to calculate weights using your specific pallet functionality.
 - Basic understanding of [computational complexity](https://en.wikipedia.org/wiki/Computational_complexity){target=\_blank}.
 - Familiarity with [Rust's testing framework](https://doc.rust-lang.org/book/ch11-00-testing.html){target=\_blank}.
 - Familiarity setting up the Polkadot Omni Node and [Polkadot Chain Spec Builder](https://crates.io/crates/staging-chain-spec-builder){target=\_blank}. Refer to the [Set Up a Parachain Template](/parachains/launch-a-parachain/set-up-the-parachain-template/){target=\_blank} guide for instructions if needed.
@@ -1406,13 +1403,13 @@ mod benchmarks {
 }
 ```
 
-This module contains all the [benchmarking definitions](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/v2/index.html){target=\_blank} for your pallet.
+This module contains all the [benchmarking definitions](https://paritytech.github.io/polkadot-sdk/master/frame_benchmarking/v2/index.html){target=\_blank} for your pallet. If you are benchmarking a different pallet, update the testing logic as needed to test your pallet's functionality. 
 
 ## Define the Weight Trait
 
 Add a `weights` module to your pallet that defines the `WeightInfo` trait using the following code:
 
-```rust title="pallets/pallet-custom/src/lib.rs"
+```rust title="pallets/pallet-custom/src/weights.rs"
 #[frame::pallet]
 pub mod pallet {
     use frame::prelude::*;
@@ -1444,7 +1441,7 @@ pub mod pallet {
 }
 ```
 
-The `()` implementation provides placeholder weights for development.
+The `WeightInfo for ()` implementation provides placeholder weights for development. If you are using a different pallet, update the `weights` module to use your pallet's function names.
 
 ## Add WeightInfo to Config 
 
@@ -1492,6 +1489,8 @@ impl<T: Config> Pallet<T> {
 ```
 
 By calling `T::WeightInfo::function_name()` instead of using hardcoded `Weight::from_parts()` values, your extrinsics automatically use whichever weight implementation is configured in the runtime. You can switch between placeholder weights for testing and benchmarked weights for production easily, without changing any pallet code.
+
+If you are using a different pallet, be sure to update the functions for `WeightInfo` accordingly.
 
 ## Include the Benchmarking Module
 
@@ -1569,7 +1568,7 @@ To execute benchmarks, your pallet must be integrated into the runtime's benchma
 
     When you build the runtime with `--features runtime-benchmarks`, this configuration ensures all necessary benchmarking code across all pallets (including yours) is included.
 
-2. **Update runtime configuration**: Run development benchmarks with the placeholder implementation and use the resulting weights file to update benchmark weights as follows:
+2. **Update runtime configuration**: Using the the placeholder implementation, run development benchmarks as follows:
 
     ```rust title="runtime/src/configs/mod.rs"
     impl pallet_custom::Config for Runtime {
@@ -1614,7 +1613,7 @@ The `impl_benchmark_test_suite!` macro generates unit tests for each benchmark. 
 
 ## Build the Runtime with Benchmarks
 
-Compile the runtime with benchmarking enabled to generate the WASM binary using the following command:
+Compile the runtime with benchmarking enabled to generate the Wasm binary using the following command:
 
 ```bash
 cargo build --release --features runtime-benchmarks
@@ -1675,10 +1674,10 @@ Benchmarks execute against the compiled WASM runtime rather than native code bec
         --output ./pallets/pallet-custom/src/weights.rs
     ```
     
-    - `--steps 50`: Number of different input values to test when using linear components (default: 50). More steps provide finer granularity for detecting complexity trends but increase benchmarking time.
-    - `--repeat 20`: Number of repetitions for each measurement (default: 20). More repetitions improve statistical accuracy by averaging out variance, reducing the impact of system noise, and providing more reliable weight estimates.
-    - `--heap-pages 4096`: WASM heap pages allocation. Affects available memory during execution.
-    - `--wasm-execution compiled`: WASM execution method. Use `compiled` for performance closest to production conditions.
+    - **`--steps 50`**: Number of different input values to test when using linear components (default: 50). More steps provide finer granularity for detecting complexity trends but increase benchmarking time.
+    - **`--repeat 20`**: Number of repetitions for each measurement (default: 20). More repetitions improve statistical accuracy by averaging out variance, reducing the impact of system noise, and providing more reliable weight estimates.
+    - **`--heap-pages 4096`**: WASM heap pages allocation. Affects available memory during execution.
+    - **`--wasm-execution compiled`**: WASM execution method. Use `compiled` for performance closest to production conditions.
 
 ## Use Generated Weights
 
@@ -1772,62 +1771,7 @@ Follow these steps to use the generated weights with your pallet:
 
     The actual numbers in your `weights.rs` file will vary based on your hardware and implementation complexity. The [`DbWeight`](https://paritytech.github.io/polkadot-sdk/master/frame_support/weights/struct.RuntimeDbWeight.html){target=\_blank} accounts for database read and write operations.
 
-## Run Your Chain Locally
-
-Now that you've added the pallet to your runtime, you can follow these steps to launch your parachain locally to test the new functionality using the [Polkadot Omni Node](https://crates.io/crates/polkadot-omni-node){target=\_blank}: 
-
-1. Before running your chain, rebuild the production runtime without the `runtime-benchmarks` feature using the following command:
-
-    ```bash
-    cargo build --release
-    ```
-
-    The `runtime-benchmarks` feature flag adds special host functions that are only available in the benchmarking execution environment. A runtime compiled with benchmarking features will fail to start on a production node.
-
-    This build produces a production-ready WASM runtime at `target/release/wbuild/parachain-template-runtime/parachain_template_runtime.compact.compressed.wasm`.
-
-    !!! note "Compare build types"
-        - `cargo build --release --features runtime-benchmarks` - Compiles with benchmarking host functions for measurement. Use this ONLY when running benchmarks with `frame-omni-bencher`.
-        - `cargo build --release` - Compiles production runtime without benchmarking features. Use this for running your chain in production.
-
-2.  Generate a new chain specification file with the updated runtime using the following commands:
-
-    ```bash
-    chain-spec-builder create -t development \
-    --relay-chain paseo \
-    --para-id 1000 \
-    --runtime ./target/release/wbuild/parachain-template-runtime/parachain_template_runtime.compact.compressed.wasm \
-    named-preset development
-    ```
-
-    This command generates a chain specification file, `chain_spec.json`, for your parachain with the updated runtime, which defines the initial state and configuration of your blockchain, including the runtime WASM code, genesis storage, and network parameters. Generating this new chain spec with your updated runtime ensures nodes starting from this spec will use the correct version of your code with proper weight calculations.
-
-3. Start the parachain node using the Polkadot Omni Node with the generated chain specification by running the following command:
-
-    ```bash
-    polkadot-omni-node --chain ./chain_spec.json --dev
-    ```
-
-    The node will start and display initialization information, including:
-
-    - The chain specification name
-    - The node identity and peer ID
-    - Database location
-    - Network endpoints (JSON-RPC and Prometheus)
-
-4. Once the node is running, you will see log messages confirming successful production of blocks similar to the following:
-
-    <div id="termynal" data-termynal>
-    <span data-ty="input"><span class="file-path"></span>polkadot-omni-node --chain ./chain_spec.json --dev</span>
-    <span data-ty>[Parachain] 🔨 Initializing Genesis block/state (state: 0x47ce…ec8d, header-hash: 0xeb12…fecc)</span>
-    <span data-ty>[Parachain] 🎁 Prepared block for proposing at 1 (3 ms) ...</span>
-    <span data-ty>[Parachain] 🏆 Imported #1 (0xeb12…fecc → 0xee51…98d2)</span>
-    <span data-ty>[Parachain] 🎁 Prepared block for proposing at 2 (3 ms) ...</span>
-    <span data-ty>[Parachain] 🏆 Imported #2 (0xee51…98d2 → 0x35e0…cc32)</span>
-    <span data-ty="input"><span class="file-path"></span></span>
-    </div>
-
-    The parachain will produce new blocks every few seconds. You can now interact with your pallet's extrinsics through the JSON-RPC endpoint at `http://127.0.0.1:9944` using tools like [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank}.
+Congratulations, you've successfully benchmarked a pallet and updated your runtime to use the generated weight values.
 
 ## Related Resources
 
@@ -6900,142 +6844,6 @@ This section covers the most common customization patterns you'll encounter:
 
 ---
 
-Page Title: Pallet Testing
-
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/parachains-customize-runtime-pallet-development-pallet-testing.md
-- Canonical (HTML): https://docs.polkadot.com/parachains/customize-runtime/pallet-development/pallet-testing/
-- Summary: Learn how to efficiently test pallets in the Polkadot SDK, ensuring the reliability and security of your pallets operations.
-
-# Pallet Testing
-
-## Introduction
-
-Unit testing in the Polkadot SDK helps ensure that the functions provided by a pallet behave as expected. It also confirms that data and events associated with a pallet are processed correctly during interactions. The Polkadot SDK offers a set of APIs to create a test environment to simulate runtime and mock transaction execution for extrinsics and queries.
-
-To begin unit testing, you must first set up a mock runtime that simulates blockchain behavior, incorporating the necessary pallets. For a deeper understanding, consult the [Mock Runtime](/parachains/customize-runtime/pallet-development/mock-runtime/){target=\_blank} guide.
-
-## Writing Unit Tests
-
-Once the mock runtime is in place, the next step is to write unit tests that evaluate the functionality of your pallet. Unit tests allow you to test specific pallet features in isolation, ensuring that each function behaves correctly under various conditions. These tests typically reside in your pallet module's `test.rs` file.
-
-Unit tests in the Polkadot SDK use the Rust testing framework, and the mock runtime you've defined earlier will serve as the test environment. Below are the typical steps involved in writing unit tests for a pallet.
-
-The tests confirm that:
-
-- **Pallets initialize correctly**: At the start of each test, the system should initialize with block number 0, and the pallets should be in their default states.
-- **Pallets modify each other's state**: The second test shows how one pallet can trigger changes in another pallet's internal state, confirming proper cross-pallet interactions.
-- **State transitions between blocks are seamless**: By simulating block transitions, the tests validate that the runtime responds correctly to changes in the block number.
-
-Testing pallet interactions within the runtime is critical for ensuring the blockchain behaves as expected under real-world conditions. Writing integration tests allows validation of how pallets function together, preventing issues that might arise when the system is fully assembled.
-
-This approach provides a comprehensive view of the runtime's functionality, ensuring the blockchain is stable and reliable.
-
-### Test Initialization
-
-Each test starts by initializing the runtime environment, typically using the `new_test_ext()` function, which sets up the mock storage and environment.
-
-```rust
-#[test]
-fn test_pallet_functionality() {
-    new_test_ext().execute_with(|| {
-        // Test logic goes here
-    });
-}
-```
-
-### Function Call Testing
-
-Call the pallet's extrinsics or functions to simulate user interaction or internal logic. Use the `assert_ok!` macro to check for successful execution and `assert_err!` to verify that errors are correctly handled.
-
-```rust
-#[test]
-fn it_works_for_valid_input() {
-    new_test_ext().execute_with(|| {
-        // Call an extrinsic or function
-        assert_ok!(TemplateModule::some_function(Origin::signed(1), valid_param));
-    });
-}
-
-#[test]
-fn it_fails_for_invalid_input() {
-    new_test_ext().execute_with(|| {
-        // Call an extrinsic with invalid input and expect an error
-        assert_err!(
-            TemplateModule::some_function(Origin::signed(1), invalid_param),
-            Error::<Test>::InvalidInput
-        );
-    });
-}
-```
-
-### Storage Testing
-
-After calling a function or extrinsic in your pallet, it's essential to verify that the state changes in the pallet's storage match the expected behavior to ensure data is updated correctly based on the actions taken.
-
-The following example shows how to test the storage behavior before and after the function call:
-
-```rust
-#[test]
-fn test_storage_update_on_extrinsic_call() {
-    new_test_ext().execute_with(|| {
-        // Check the initial storage state (before the call)
-        assert_eq!(Something::<Test>::get(), None);
-
-        // Dispatch a signed extrinsic, which modifies storage
-        assert_ok!(TemplateModule::do_something(RuntimeOrigin::signed(1), 42));
-
-        // Validate that the storage has been updated as expected (after the call)
-        assert_eq!(Something::<Test>::get(), Some(42));
-    });
-}
-
-```
-
-### Event Testing
-
-It's also crucial to test the events that your pallet emits during execution. By default, events generated in a pallet using the [`#generate_deposit`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.generate_deposit.html){target=\_blank} macro are stored under the system's event storage key (system/events) as [`EventRecord`](https://paritytech.github.io/polkadot-sdk/master/frame_system/struct.EventRecord.html){target=\_blank} entries. These can be accessed using [`System::events()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.events){target=\_blank} or verified with specific helper methods provided by the system pallet, such as [`assert_has_event`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.assert_has_event){target=\_blank} and [`assert_last_event`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.assert_last_event){target=\_blank}.
-
-Here's an example of testing events in a mock runtime:
-
-```rust
-#[test]
-fn it_emits_events_on_success() {
-    new_test_ext().execute_with(|| {
-        // Call an extrinsic or function
-        assert_ok!(TemplateModule::some_function(Origin::signed(1), valid_param));
-
-        // Verify that the expected event was emitted
-        assert!(System::events().iter().any(|record| {
-            record.event == Event::TemplateModule(TemplateEvent::SomeEvent)
-        }));
-    });
-}
-```
-
-Some key considerations are:
-
-- **Block number**: Events are not emitted on the genesis block, so you need to set the block number using [`System::set_block_number()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.set_block_number){target=\_blank} to ensure events are triggered.
-- **Converting events**: Use `.into()` when instantiating your pallet's event to convert it into a generic event type, as required by the system's event storage.
-
-## Where to Go Next
-
-- Dive into the full implementation of the [`mock.rs`](https://github.com/paritytech/polkadot-sdk/blob/master/templates/solochain/pallets/template/src/mock.rs){target=\_blank} and [`test.rs`](https://github.com/paritytech/polkadot-sdk/blob/master/templates/solochain/pallets/template/src/tests.rs){target=\_blank} files in the [Solochain Template](https://github.com/paritytech/polkadot-sdk/tree/master/templates/solochain){target=_blank}.
-
-<div class="grid cards" markdown>
-
--   <span class="badge guide">Guide</span> __Benchmarking__
-
-    ---
-
-    Explore methods to measure the performance and execution cost of your pallet.
-
-    [:octicons-arrow-right-24: Reference](/develop/parachains/testing/benchmarking)
-
-</div>
-
-
----
-
 Page Title: Run a Parachain Network
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/parachains-testing-run-a-parachain-network.md
@@ -8938,6 +8746,142 @@ The system maintains precise conversion mechanisms between:
 - Different resource metrics within the multi-dimensional model.
 
 This ensures accurate fee calculation while maintaining compatibility with existing Ethereum tools and workflows.
+
+
+---
+
+Page Title: Unit Test Pallets
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/parachains-customize-runtime-pallet-development-pallet-testing.md
+- Canonical (HTML): https://docs.polkadot.com/parachains/customize-runtime/pallet-development/pallet-testing/
+- Summary: Learn how to efficiently test pallets in the Polkadot SDK, ensuring the reliability and security of your pallets operations.
+
+# Unit Test Pallets
+
+## Introduction
+
+Unit testing in the Polkadot SDK helps ensure that the functions provided by a pallet behave as expected. It also confirms that data and events associated with a pallet are processed correctly during interactions. The Polkadot SDK offers a set of APIs to create a test environment to simulate runtime and mock transaction execution for extrinsics and queries.
+
+To begin unit testing, you must first set up a mock runtime that simulates blockchain behavior, incorporating the necessary pallets. For a deeper understanding, consult the [Mock Runtime](/parachains/customize-runtime/pallet-development/mock-runtime/){target=\_blank} guide.
+
+## Writing Unit Tests
+
+Once the mock runtime is in place, the next step is to write unit tests that evaluate the functionality of your pallet. Unit tests allow you to test specific pallet features in isolation, ensuring that each function behaves correctly under various conditions. These tests typically reside in your pallet module's `test.rs` file.
+
+Unit tests in the Polkadot SDK use the Rust testing framework, and the mock runtime you've defined earlier will serve as the test environment. Below are the typical steps involved in writing unit tests for a pallet.
+
+The tests confirm that:
+
+- **Pallets initialize correctly**: At the start of each test, the system should initialize with block number 0, and the pallets should be in their default states.
+- **Pallets modify each other's state**: The second test shows how one pallet can trigger changes in another pallet's internal state, confirming proper cross-pallet interactions.
+- **State transitions between blocks are seamless**: By simulating block transitions, the tests validate that the runtime responds correctly to changes in the block number.
+
+Testing pallet interactions within the runtime is critical for ensuring the blockchain behaves as expected under real-world conditions. Writing integration tests allows validation of how pallets function together, preventing issues that might arise when the system is fully assembled.
+
+This approach provides a comprehensive view of the runtime's functionality, ensuring the blockchain is stable and reliable.
+
+### Test Initialization
+
+Each test starts by initializing the runtime environment, typically using the `new_test_ext()` function, which sets up the mock storage and environment.
+
+```rust
+#[test]
+fn test_pallet_functionality() {
+    new_test_ext().execute_with(|| {
+        // Test logic goes here
+    });
+}
+```
+
+### Function Call Testing
+
+Call the pallet's extrinsics or functions to simulate user interaction or internal logic. Use the `assert_ok!` macro to check for successful execution and `assert_err!` to verify that errors are correctly handled.
+
+```rust
+#[test]
+fn it_works_for_valid_input() {
+    new_test_ext().execute_with(|| {
+        // Call an extrinsic or function
+        assert_ok!(TemplateModule::some_function(Origin::signed(1), valid_param));
+    });
+}
+
+#[test]
+fn it_fails_for_invalid_input() {
+    new_test_ext().execute_with(|| {
+        // Call an extrinsic with invalid input and expect an error
+        assert_err!(
+            TemplateModule::some_function(Origin::signed(1), invalid_param),
+            Error::<Test>::InvalidInput
+        );
+    });
+}
+```
+
+### Storage Testing
+
+After calling a function or extrinsic in your pallet, it's essential to verify that the state changes in the pallet's storage match the expected behavior to ensure data is updated correctly based on the actions taken.
+
+The following example shows how to test the storage behavior before and after the function call:
+
+```rust
+#[test]
+fn test_storage_update_on_extrinsic_call() {
+    new_test_ext().execute_with(|| {
+        // Check the initial storage state (before the call)
+        assert_eq!(Something::<Test>::get(), None);
+
+        // Dispatch a signed extrinsic, which modifies storage
+        assert_ok!(TemplateModule::do_something(RuntimeOrigin::signed(1), 42));
+
+        // Validate that the storage has been updated as expected (after the call)
+        assert_eq!(Something::<Test>::get(), Some(42));
+    });
+}
+
+```
+
+### Event Testing
+
+It's also crucial to test the events that your pallet emits during execution. By default, events generated in a pallet using the [`#generate_deposit`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.generate_deposit.html){target=\_blank} macro are stored under the system's event storage key (system/events) as [`EventRecord`](https://paritytech.github.io/polkadot-sdk/master/frame_system/struct.EventRecord.html){target=\_blank} entries. These can be accessed using [`System::events()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.events){target=\_blank} or verified with specific helper methods provided by the system pallet, such as [`assert_has_event`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.assert_has_event){target=\_blank} and [`assert_last_event`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.assert_last_event){target=\_blank}.
+
+Here's an example of testing events in a mock runtime:
+
+```rust
+#[test]
+fn it_emits_events_on_success() {
+    new_test_ext().execute_with(|| {
+        // Call an extrinsic or function
+        assert_ok!(TemplateModule::some_function(Origin::signed(1), valid_param));
+
+        // Verify that the expected event was emitted
+        assert!(System::events().iter().any(|record| {
+            record.event == Event::TemplateModule(TemplateEvent::SomeEvent)
+        }));
+    });
+}
+```
+
+Some key considerations are:
+
+- **Block number**: Events are not emitted on the genesis block, so you need to set the block number using [`System::set_block_number()`](https://paritytech.github.io/polkadot-sdk/master/frame_system/pallet/struct.Pallet.html#method.set_block_number){target=\_blank} to ensure events are triggered.
+- **Converting events**: Use `.into()` when instantiating your pallet's event to convert it into a generic event type, as required by the system's event storage.
+
+## Where to Go Next
+
+- Dive into the full implementation of the [`mock.rs`](https://github.com/paritytech/polkadot-sdk/blob/master/templates/solochain/pallets/template/src/mock.rs){target=\_blank} and [`test.rs`](https://github.com/paritytech/polkadot-sdk/blob/master/templates/solochain/pallets/template/src/tests.rs){target=\_blank} files in the [Solochain Template](https://github.com/paritytech/polkadot-sdk/tree/master/templates/solochain){target=_blank}.
+
+<div class="grid cards" markdown>
+
+-   <span class="badge guide">Guide</span> __Benchmarking__
+
+    ---
+
+    Explore methods to measure the performance and execution cost of your pallet.
+
+    [:octicons-arrow-right-24: Reference](/develop/parachains/testing/benchmarking)
+
+</div>
 
 
 ---

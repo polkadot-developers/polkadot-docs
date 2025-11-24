@@ -5438,8 +5438,18 @@
       },
       {
         "depth": 2,
-        "title": "Sample Storage Contract",
-        "anchor": "sample-storage-contract"
+        "title": "Compile Contracts",
+        "anchor": "compile-contracts"
+      },
+      {
+        "depth": 3,
+        "title": "Sample Storage Smart Contract",
+        "anchor": "sample-storage-smart-contract"
+      },
+      {
+        "depth": 3,
+        "title": "Compile the Smart Contract",
+        "anchor": "compile-the-smart-contract"
       },
       {
         "depth": 2,
@@ -5458,12 +5468,12 @@
       }
     ],
     "stats": {
-      "chars": 11372,
-      "words": 1282,
-      "headings": 7,
-      "estimated_token_count_total": 2355
+      "chars": 13755,
+      "words": 1613,
+      "headings": 9,
+      "estimated_token_count_total": 2913
     },
-    "hash": "sha256:429ebcf91cf74b12b1e0981f1d75aefd13b6d94ebd08699e227ea91cddcb0e23",
+    "hash": "sha256:5fbab4f9cb63609db819f46d01739b1c37d95cdc0b1d44bd9ae414cfbcef4d77",
     "token_estimator": "heuristic-v1"
   },
   {

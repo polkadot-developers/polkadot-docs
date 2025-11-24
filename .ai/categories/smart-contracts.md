@@ -1113,14 +1113,6 @@ npx hardhat ignition deploy ignition/modules/Storage.ts --network polkadotHubTes
 
 <div class="grid cards" markdown>
 
--   <span class="badge guide">Guide</span> __Verify Your Contract__
-
-    ---
-
-    Now that you've deployed a basic contract, learn how to verify it with Hardhat.
-
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/dev-environments/hardhat/verify-a-contract/)
-
 -   <span class="badge guide">Guide</span> __Deploy an ERC-20__
 
     ---
@@ -1869,15 +1861,6 @@ npx hardhat ignition deploy ignition/modules/MyNFT.ts --network polkadotHubTestn
 
 <div class="grid cards" markdown>
 
--   <span class="badge guide">Guide</span> __Verify Your Contract__
-
-    ---
-
-    Now that you've deployed an NFT contract, learn how to verify it with Hardhat.
-
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/dev-environments/hardhat/verify-a-contract/)
-
-
 -   <span class="badge guide">Guide</span> __Deploy an ERC-20__
 
     ---
@@ -1885,6 +1868,14 @@ npx hardhat ignition deploy ignition/modules/MyNFT.ts --network polkadotHubTestn
     Walk through deploying a fully-functional ERC-20 to the Polkadot Hub using Hardhat.
 
     [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-erc20/hardhat/)
+
+-   <span class="badge guide">Guide</span> __Create a DApp__
+
+    ---
+
+    Learn step-by-step how to build a fully functional dApp that interacts with a smart contract deployed via Hardhat.
+
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/dapps/zero-to-hero/)
 
 </div>
 
@@ -3568,30 +3559,24 @@ This resource provides quick-starts for building smart contracts on Polkadot Hub
 
 Kick off development fast with curated links for connecting, funding, exploring, and deploying your first contract.
 
-|                                             Quick Start                                             |         Tools         |                           Description                           |
-|:---------------------------------------------------------------------------------------------------:|:---------------------:|:---------------------------------------------------------------:|
-|                  [Connect to Polkadot](/smart-contracts/connect/){target=\_blank}                   | Polkadot.js, MetaMask | Add the network, configure RPC, verify activity in the explorer |
-|                    [Get Test Tokens](/smart-contracts/faucets/){target=\_blank}                     |           -           |    Request test funds to deploy and interact with contracts     |
-|                 [Explore Transactions](/smart-contracts/explorers/){target=\_blank}                 |        Subscan        | Inspect transactions, logs, token transfers, and contract state |
-|   [Deploy with Remix](/smart-contracts/dev-environments/remix/deploy-a-contract/){target=\_blank}   |         Remix         |          One‑click browser deployment to Polkadot Hub           |
-| [Deploy with Foundry](/smart-contracts/dev-environments/foundry/deploy-a-contract/){target=\_blank} |        Foundry        |          Scripted deployments and testing from the CLI          |
-| [Deploy with Hardhat](/smart-contracts/dev-environments/hardhat/deploy-a-contract/){target=\_blank} |        Hardhat        |          Project scaffolding, testing, and deployments          |
+|                                           Quick Start                                           |         Tools         |                           Description                           |
+|:-----------------------------------------------------------------------------------------------:|:---------------------:|:---------------------------------------------------------------:|
+|                [Connect to Polkadot](/smart-contracts/connect/){target=\_blank}                 | Polkadot.js, MetaMask | Add the network, configure RPC, verify activity in the explorer |
+|                  [Get Test Tokens](/smart-contracts/faucets/){target=\_blank}                   |           -           |    Request test funds to deploy and interact with contracts     |
+|               [Explore Transactions](/smart-contracts/explorers/){target=\_blank}               |        Subscan        | Inspect transactions, logs, token transfers, and contract state |
+| [Deploy with Remix](/smart-contracts/dev-environments/remix/deploy-a-contract/){target=\_blank} |         Remix         |          One‑click browser deployment to Polkadot Hub           |
 
 ## Build and Test Locally
 
 Set up local environments and CI-friendly workflows to iterate quickly and validate changes before deploying.
 
-|                                            Build and Test Locally                                            |       Tools       |                     Description                      |
-|:------------------------------------------------------------------------------------------------------------:|:-----------------:|:----------------------------------------------------:|
-|          [Run a Local Dev Node](/smart-contracts/dev-environments/local-dev-node/){target=\_blank}           | Polkadot SDK node |    Spin up a local node for iterative development    |
-|          [Remix: Get Started](/smart-contracts/dev-environments/remix/get-started/){target=\_blank}          |       Remix       | Connect Remix to Polkadot Hub and configure accounts |
-|    [Remix: Verify a Contract](/smart-contracts/dev-environments/remix/verify-a-contract/){target=\_blank}    |       Remix       |         Publish verified source on explorers         |
-| [Foundry: Install and Config](/smart-contracts/dev-environments/foundry/install-and-config/){target=\_blank} |      Foundry      |       Install toolchain and configure networks       |
-|   [Foundry: Compile and Test](/smart-contracts/dev-environments/foundry/compile-and-test/){target=\_blank}   |      Foundry      |         Write and run Solidity tests locally         |
-|  [Foundry: Verify a Contract](/smart-contracts/dev-environments/foundry/verify-a-contract/){target=\_blank}  |      Foundry      |        Verify deployed bytecode and metadata         |
-| [Hardhat: Install and Config](/smart-contracts/dev-environments/hardhat/install-and-config/){target=\_blank} |      Hardhat      |     Initialize a project and configure networks      |
-|   [Hardhat: Compile and Test](/smart-contracts/dev-environments/hardhat/compile-and-test/){target=\_blank}   |      Hardhat      |         Unit test contracts and run scripts          |
-|  [Hardhat: Verify a Contract](/smart-contracts/dev-environments/hardhat/verify-a-contract/){target=\_blank}  |      Hardhat      |           Verify deployments on explorers            |
+|                                         Build and Test Locally                                         |       Tools       |                     Description                      |
+|:------------------------------------------------------------------------------------------------------:|:-----------------:|:----------------------------------------------------:|
+|       [Run a Local Dev Node](/smart-contracts/dev-environments/local-dev-node/){target=\_blank}        | Polkadot SDK node |    Spin up a local node for iterative development    |
+|       [Remix: Get Started](/smart-contracts/dev-environments/remix/get-started/){target=\_blank}       |       Remix       | Connect Remix to Polkadot Hub and configure accounts |
+| [Remix: Verify a Contract](/smart-contracts/dev-environments/remix/verify-a-contract/){target=\_blank} |       Remix       |         Publish verified source on explorers         |
+|       [Use Hardhat for Development](/smart-contracts/dev-environments/hardhat/){target=\_blank}        |      Hardhat      |        Project scaffolding and configuration         |
+
 
 ## Ethereum Developer Resources
 
@@ -4432,7 +4417,7 @@ By building and executing XCM programs, developers can build cross-chain applica
 
 ## Next Steps
 
-Head to the Polkadot Hub TestNet and start playing around with the precompile using [Hardhat](/smart-contracts/dev-environments/hardhat/get-started/){target=\_blank} or [Foundry](/smart-contracts/dev-environments/foundry/get-started/){target=\_blank}.
+Head to the Polkadot Hub TestNet and start playing around with the precompile using [Hardhat](/smart-contracts/dev-environments/hardhat/){target=\_blank}.
 
 You can use PAPI to build XCM programs and test them with Chopsticks.
 
@@ -6201,536 +6186,6 @@ This ensures accurate fee calculation while maintaining compatibility with exist
 
 ---
 
-Page Title: Troubleshooting Hardhat
-
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-hardhat-troubleshooting-faq.md
-- Canonical (HTML): https://docs.polkadot.com/smart-contracts/dev-environments/hardhat/troubleshooting-faq/
-- Summary: Common issues related to developing, compiling, and deploying smart contracts using Hardhat on Polkadot Hub, paired with troubleshooting suggestions.
-
-# Hardhat Troubleshooting
-
-This guide provides solutions to common issues you may encounter when using Hardhat with Polkadot Hub. If you're experiencing problems with installation, compilation, deployment, testing, or contract interaction, you'll likely find the solution here.
-
-## Hardhat fails to install or run with version-related errors
-
-- **Check Node.js version**:
-    - Ensure you have an LTS version of Node.js installed (18.x, 20.x, or 22.x).
-    - Check your current version with `node --version`.
-    - Download the appropriate LTS version from [nodejs.org](https://nodejs.org/).
-
-- **Use nvm for version management**:
-    - Install nvm (Node Version Manager) to to switch between Node versions easily.
-    - Run `nvm install --lts` to install the latest LTS version.
-    - Run `nvm use --lts` to switch to it.
-
-## Installation of Hardhat or its dependencies via npm fails
-
-- **Clear npm cache**:
-    ```bash
-    npm cache clean --force
-    ```
-
-- **Delete `node_modules` and `package-lock.json`**:
-    ```bash
-    rm -rf node_modules package-lock.json
-    npm install
-    ```
-
-- **Check npm version**:
-    - Ensure you have npm 7.x or higher
-    - Update npm with `npm install -g npm@latest`
-
-- **Install with specific version**:
-    ```bash
-    npm install --save-dev hardhat@^2.26.0
-    ```
-
-## Hardhat Toolbox fails to install or causes conflicts
-
-- **Install Hardhat Toolbox separately**:
-    ```bash
-    npm install --save-dev @nomicfoundation/hardhat-toolbox
-    ```
-
-- **Check for peer dependency conflicts**:
-    - Review the error messages for conflicting package versions.
-    - Try using `npm install --legacy-peer-deps` if conflicts persist.
-
-## Your contract fails to compile or shows errors in the terminal
-
-- **Check Solidity version compatibility**:
-    - Ensure your contract's pragma statement matches the compiler version in `hardhat.config.js`.
-        - Example: If your contract uses `pragma solidity ^0.8.0;`, set `solidity: "0.8.28"` or another compatible version.
-
-- **Verify imports**:
-    - Ensure all imported contracts are in the correct paths.
-    - For OpenZeppelin contracts, make sure dependencies are installed using the command: 
-        ```bash
-        `npm install @openzeppelin/contracts`
-        ```
-
-- **Clear artifacts and cache**:
-    ```bash
-    npx hardhat clean
-    npx hardhat compile
-    ```
-
-- **Check for syntax errors**:
-    - Carefully read error messages in the terminal.
-    - Check for common syntax errors, such as missing semicolons, incorrect function visibility, or type mismatches.
-
-## The artifacts folder is empty or missing expected files
-
-- **Ensure compilation completed successfully**:
-    - Check the terminal output for any error messages.
-    - Look for the "Compiled X Solidity files successfully" message.
-
-- **Verify contract file location**:
-    - Contracts must be in the `contracts` directory or subdirectories.
-    - File must have `.sol` extension.
-
-- **Check `hardhat.config.js` settings**:
-    - Ensure the paths configuration is correct.
-    - Default artifacts location is `./artifacts`.
-
-## Errors related to Solidity compiler version or features
-
-- **Match pragma version with config**:
-    ```javascript
-    module.exports = {
-      solidity: {
-        version: '0.8.28',
-        settings: {
-          optimizer: {
-            enabled: true,
-            runs: 200
-          }
-        }
-      }
-    };
-    ```
-
-- **Use multiple compiler versions** (if needed):
-    ```javascript
-    module.exports = {
-      solidity: {
-        compilers: [
-          { version: '0.8.28' },
-          { version: '0.8.20' }
-        ]
-      }
-    };
-    ```
-
-## Tests don't execute or Hardhat throws errors when running tests
-
-- **Verify test file location**:
-    - Test files must be in the `test` directory.
-    - Files should end with `.js` or `.test.js`.
-
-- **Check test framework imports**:
-    ```javascript
-    const { expect } = require('chai');
-    const { ethers } = require('hardhat');
-    ```
-
-- **Ensure Hardhat Toolbox is installed**:
-    ```bash
-    npm install --save-dev @nomicfoundation/hardhat-toolbox
-    ```
-
-- **Run tests with verbose output**:
-    ```bash
-    npx hardhat test --verbose
-    ```
-
-## The Hardhat node fails to start or becomes unresponsive
-
-1. **Check if port 8545 is already in use**:
-    - Kill any process using port 8545 as follows:
-        - **Linux/Mac**: `lsof -ti:8545 | xargs kill -9`
-        - **Windows**: `netstat -ano | findstr :8545`, then kill the process with the appropriate process ID
-
-2. **Specify a different port**:
-    ```bash
-    npx hardhat node --port 8546
-    ```
-
-3. **Reset the node**:
-    - Stop the node (Ctrl+C).
-    - Start it again with a fresh state.
-
-## Tests run but fail with assertion errors
-
-- **Check account balances**:
-    - Ensure test accounts have sufficient ETH.
-    - Hardhat node provides test accounts with 10,000 ETH each.
-
-- **Wait for transaction confirmations**:
-    ```javascript
-    const tx = await contract.someFunction();
-    await tx.wait(); // Wait for transaction to be mined
-    ```
-
-- **Verify contract state**:
-    - Use `console.log` to debug values.
-    - Check if the contract was properly deployed in `beforeEach` hooks.
-
-- **Review timing issues**:
-    - Add appropriate waits between transactions.
-    - Use `await ethers.provider.send('evm_mine')` to mine blocks manually.
-
-## Hardhat cannot connect to the local development node
-
-1. **Verify the node is running**:
-    - Ensure your local development node is started.
-    - Check the [Local Development Node](/smart-contracts/dev-environments/local-dev-node/) guide.
-
-2. **Check network configuration**:
-    ```javascript
-    module.exports = {
-      networks: {
-        polkadotTestNet: {
-          url: 'http://localhost:8545',
-          chainId: 420420420,
-          accounts: [PRIVATE_KEY]
-        }
-      }
-    };
-    ```
-
-3. **Verify URL and port**:
-    - Ensure the URL matches your local node's RPC endpoint.
-    - Default is usually `http://localhost:8545`.
-
-4. **Check firewall settings**:
-    - Ensure your firewall allows connections to `localhost:8545`.
-
-## Hardhat cannot access or use the configured private key
-
-- **Verify private key is set**:
-    ```bash
-    npx hardhat vars get PRIVATE_KEY
-    ```
-
-- **Set private key correctly**:
-    ```bash
-    npx hardhat vars set PRIVATE_KEY "0x..."
-    ```
-    - Ensure the key starts with "0x".
-    - Do not include quotes within the actual key value.
-
-- **Check key format in config**:
-    ```javascript
-    const { vars } = require('hardhat/config');
-    const PRIVATE_KEY = vars.get('PRIVATE_KEY');
-    
-    module.exports = {
-      networks: {
-        polkadotTestNet: {
-          accounts: [PRIVATE_KEY] // Should be an array
-        }
-      }
-    };
-    ```
-
-- **Alternative: Use mnemonic**:
-    ```javascript
-    accounts: {
-      mnemonic: 'test test test test test test test test test test test junk'
-    }
-    ```
-
-## Deployment or transactions go to the wrong network
-
-- **Specify network explicitly**:
-    ```bash
-    npx hardhat run scripts/deploy.js --network polkadotTestNet
-    ```
-
-- **Verify network in config**:
-    - Check that the network name matches what you're using in commands.
-    - Ensure chainId matches the target network.
-
-- **Check default network**:
-    ```javascript
-    module.exports = {
-      defaultNetwork: 'polkadotTestNet',
-      networks: {
-        // network configs
-      }
-    };
-    ```
-
-## Deployment fails with "insufficient funds" error
-
-- **Check account balance**:
-    - Verify you have enough test tokens in your account.
-    - For the local development node, accounts should be pre-funded.
-
-- **Get test tokens**:
-    - Visit the [Polkadot faucet](/smart-contracts/faucet/){target=\_blank} for test networks.
-    - Wait a few minutes for faucet transactions to complete.
-
-- **Verify account address**:
-    - Ensure the private key corresponds to the account you think you're using.
-    - Check the account balance matches expectations.
-
-## Deployment using Hardhat Ignition fails or throws errors
-
-- **Check ignition module syntax**:
-    ```javascript
-    const { buildModule } = require('@nomicfoundation/hardhat-ignition/modules');
-    
-    module.exports = buildModule('LockModule', (m) => {
-      const unlockTime = m.getParameter('unlockTime');
-      const lock = m.contract('Lock', [unlockTime]);
-      return { lock };
-    });
-    ```
-
-- **Verify constructor parameters**:
-    - Ensure all required constructor parameters are provided.
-    - Check parameter types match the contract's constructor.
-
-- **Clear previous deployments**:
-    ```bash
-    rm -rf ignition/deployments/
-    ```
-
-- **Use deployment script alternative**:
-    - Create a manual deployment script in the `scripts` folder if Ignition continues to fail.
-
-## Custom deployment scripts fail to execute
-
-- **Check script imports**:
-    ```javascript
-    const hre = require('hardhat');
-    // or
-    const { ethers } = require('hardhat');
-    ```
-
-- **Verify contract factory**:
-    ```javascript
-    const Contract = await ethers.getContractFactory('INSERT_CONTRACT_NAME');
-    const contract = await Contract.deploy(INSERT_CONSTRUCTOR_ARGS);
-    await contract.deployed();
-    ```
-
-- **Add error handling**:
-    ```javascript
-    try {
-      // deployment code
-    } catch (error) {
-      console.error('Deployment failed: ', error);
-      process.exit(1);
-    }
-    ```
-
-- **Check gas settings**:
-    ```javascript
-    const contract = await Contract.deploy({
-      gasLimit: 5000000
-    });
-    ```
-
-## Contract deployment hangs or times out
-
-- **Increase timeout in config**:
-    ```javascript
-    module.exports = {
-      networks: {
-        polkadotTestNet: {
-          timeout: 60000 // 60 seconds
-        }
-      }
-    };
-    ```
-
-- **Check network connection**:
-    - Verify the RPC endpoint is responsive.
-    - Test with a simple read operation first.
-
-- **Reduce contract complexity**:
-    - Large contracts may take longer to deploy.
-    - Consider splitting into multiple contracts.
-
-## Scripts fail to interact with a deployed contract
-
-- **Verify contract address**:
-    - Ensure you're using the correct deployed contract address.
-    - Check the deployment output or ignition deployment files.
-
-- **Check contract ABI**:
-    ```javascript
-    const Contract = await ethers.getContractFactory('INSERT_CONTRACT_NAME');
-    const contract = Contract.attach(contractAddress);
-    ```
-
-- **Verify network connection**:
-    - Ensure you're connected to the same network where the contract was deployed.
-    - Use the `--network` flag when running scripts.
-
-## Transactions revert when calling contract functions
-
-- **Check function requirements**:
-    - Verify all `require()` conditions in the contract are satisfied.
-    - Ensure you're meeting any access control requirements.
-
-- **Add debugging**:
-    ```javascript
-    try {
-      const tx = await contract.someFunction();
-      const receipt = await tx.wait();
-      console.log('Transaction successful: ', receipt);
-    } catch (error) {
-      console.error('Transaction failed: ', error.message);
-    }
-    ```
-
-- **Check gas limits**:
-    ```javascript
-    const tx = await contract.someFunction({
-      gasLimit: 500000
-    });
-    ```
-
-- **Verify function parameters**:
-    - Ensure parameter types match the function signature.
-    - Check for the correct number of parameters.
-
-## View or pure functions don't return expected values
-
-- **Use `call()` for read-only functions**:
-    ```javascript
-    const value = await contract.someViewFunction();
-    console.log('Returned value: ', value);
-    ```
-
-- **Check contract state**:
-    - Verify the contract has been properly initialized.
-    - Ensure any required state changes have been completed.
-
-- **Handle `BigNumber` returns**:
-    ```javascript
-    const value = await contract.someFunction();
-    console.log('Value: ', value.toString());
-    ```
-
-## State-changing functions execute but don't update state
-
-- **Wait for transaction confirmation**:
-    ```javascript
-    const tx = await contract.someFunction();
-    await tx.wait(); // Wait for the transaction to be mined
-    const newState = await contract.getState();
-    ```
-
-- **Check transaction receipt**:
-    ```javascript
-    const tx = await contract.someFunction();
-    const receipt = await tx.wait();
-    console.log('Transaction status: ', receipt.status);
-    ```
-
-- **Verify transaction success**:
-    - Check that `receipt.status === 1` (success).
-    - Review any events emitted by the transaction.
-
-- **Check for reverts**:
-    - Look for any revert reasons in the error message.
-    - Verify contract logic and access controls.
-
-## Contract compilation takes a long time
-
-- **Enable compiler cache**:
-    - Hardhat caches compilation results by default.
-    - Ensure the cache folder is not ignored in `.gitignore`.
-
-- **Optimize compiler settings**:
-    ```javascript
-    module.exports = {
-      solidity: {
-        version: '0.8.28',
-        settings: {
-          optimizer: {
-            enabled: true,
-            runs: 200
-          }
-        }
-      }
-    };
-    ```
-
-- **Compile specific contracts**:
-    ```bash
-    npx hardhat compile --force
-    ```
-
-## Can't start Hardhat console or console commands fail
-
-- **Start console with correct network**:
-    ```bash
-    npx hardhat console --network polkadotTestNet
-    ```
-
-- **Check console imports**:
-    ```javascript
-    // In console
-    const Contract = await ethers.getContractFactory('INSERT_CONTRACT_NAME');
-    ```
-
-- **Verify network connection**:
-    - Ensure the target network is accessible.
-    - Check network configuration in `hardhat.config.js`.
-
-## Hardhat plugins not working correctly
-
-- **Verify plugin installation**:
-    ```bash
-    npm list @nomicfoundation/hardhat-toolbox
-    ```
-
-- **Check plugin import in config**:
-    ```javascript
-    require("@nomicfoundation/hardhat-toolbox");
-    ```
-
-- **Update plugins to latest versions**:
-    ```bash
-    npm update @nomicfoundation/hardhat-toolbox
-    ```
-
-- **Check for plugin conflicts**:
-    - Review `package.json` for version conflicts.
-    - Try removing and reinstalling conflicting plugins.
-
-## Scripts cannot read environment variables
-
-- **Use Hardhat vars correctly**:
-    ```bash
-    npx hardhat vars set VARIABLE_NAME "value"
-    npx hardhat vars get VARIABLE_NAME
-    ```
-
-- **Alternatively, use dotenv**:
-    ```bash
-    npm install dotenv
-    ```
-    ```javascript
-    require('dotenv').config();
-    const value = process.env.VARIABLE_NAME;
-    ```
-
-- **Check variable access in config**:
-    ```javascript
-    const { vars } = require('hardhat/config');
-    const value = vars.get('VARIABLE_NAME');
-    ```
-
-
----
-
 Page Title: Troubleshooting Remix IDE
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-remix-troubleshooting-faq.md
@@ -6892,127 +6347,147 @@ This guide provides solutions to common issues you may encounter when using Remi
 
 Page Title: Use Hardhat with Polkadot Hub
 
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-hardhat-get-started.md
-- Canonical (HTML): https://docs.polkadot.com/smart-contracts/dev-environments/hardhat/get-started/
-- Summary: Overview of Hardhat, a powerful development environment for creating, compiling, testing, and deploying smart contracts on Polkadot Hub.
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-hardhat.md
+- Canonical (HTML): https://docs.polkadot.com/smart-contracts/dev-environments/hardhat/
+- Summary: Learn how to create, compile, test, and deploy smart contracts on Polkadot Hub using Hardhat, a powerful development environment for blockchain developers.
 
 # Hardhat
 
-## Overview
+## Introduction
 
-Building on Polkadot Hub often starts with a Solidity codebase, and Hardhat keeps that workflow familiar while giving teams repeatable scripts, rich debugging, and CLI automation suited to the network's Ethereum-compatible execution layer.
+[Hardhat](https://hardhat.org/){target=\_blank} is a flexible development environment for building, testing, and deploying smart contracts on Polkadot. Its task runner and plugin system support organizing contract code, running tests, managing deployments, and adding custom tooling. This page demonstrates how to set up a Hardhat project for Polkadot Hub.
 
-Hardhat is a comprehensive development environment for building, testing, and deploying smart contracts. It provides developers with a complete toolkit, including compilation, local testing nodes, debugging tools, and deployment automation.
+## Prerequisites
 
-## Hardhat Workflow
+Before setting up Hardhat, make sure the following are installed:
 
-From the first sketch of a contract to ongoing operations, Hardhat encourages a repeatable cycle: define the functionality you need, scaffold the workspace, write and refine Solidity code, compile it into deployable artifacts, validate behavior with automated tests, deploy confidently to the target network, and keep iterating with scripts that monitor and interact with what you shipped.
+- [Node.js](https://nodejs.org/){target=\_blank} (Hardhat requires an LTS Node version, even major numbers like 18.x, 20.x, or 22.x)
+- A package manager like [npm](https://www.npmjs.com/){target=\_blank}, [pnpm](https://pnpm.io/){target=\_blank}, or [yarn](https://yarnpkg.com/){target=\_blank}
 
-```mermaid
-flowchart LR
-    plan[Plan Contract]
-    scaffold[Scaffold Project]
-    develop[Write & Update Contracts]
-    compile[Compile Sources]
-    test[Run Automated Tests]
-    deploy[Deploy to Target Network]
-    operate[Interact & Monitor]
+## Initialize a Hardhat Project
 
-    plan --> scaffold --> develop --> compile --> test --> deploy --> operate
-```
+1. Create a directory to hold your project files:
 
-## Project Anatomy
+    ```bash
+    mkdir hardhat-example
+    cd hardhat-example
+    ```
 
-A freshly initialized Hardhat project keeps code, configuration, and automation neatly separated:
+2. Initialize a Hardhat project:
 
-```
-.
-├── contracts/
-│   └── MyContract.sol
-├── ignition/
-│   └── modules/
-├── scripts/
-│   └── interact.js
-├── test/
-│   └── MyContract.test.js
-└── hardhat.config.js
-```
+    === "npm"
 
-- `contracts/`: Solidity sources that define your smart contracts.
-- `test/`: Automated tests written in JavaScript or TypeScript.
-- `ignition/`: Deployment modules that orchestrate repeatable rollouts.
-- `scripts/`: Utility scripts for deploying, validating, or interacting with contracts.
-- `hardhat.config.js`: Central configuration for networks, compilers, and tooling.
+        This single command sets up your project, installs Hardhat (and optionally the Toolbox), and intializes the project:
 
-## Core Functionalities
+        ```bash
+        npx hardhat@^2.27.0 init
+        ```
 
-- **Project structure**: Organizes contracts, tests, scripts, and configuration into a consistent workspace. Provides a clear folder layout and a single configuration file (`hardhat.config.js`) to manage compilers, networks, and tooling.
-- **Compilation**: Compiles Solidity sources, supports multiple compiler versions, and generates ABI and bytecode artifacts.
-- **Local testing**: Runs tests written in JavaScript or TypeScript against an integrated local network, enabling fast feedback when validating contract behavior.
-- **Task automation**: Automates deployments, maintenance operations, and recurring workflows through custom scripts and Hardhat tasks.
-- **Contract interaction**: Enables reading contract state, sending transactions, and calling contract functions.
+    === "pnpm"
+
+        This single command sets up your project, installs Hardhat (and optionally the Toolbox), and intializes the project:
+
+        ```bash
+        pnpm dlx hardhat@^2.27.0 init
+        ```
+
+    === "yarn"
+
+        These commands manually set up your project, install Hardhat (and optionally the Toolbox), and initializes the project:
+
+        ```bash
+        # Initialize a new Node.js project
+        yarn init -y
+
+        # Install Hardhat and the Hardhat Toolbox locally
+        yarn add --dev hardhat@^2.27.0 @nomicfoundation/hardhat-toolbox
+
+        # Initialize a Hardhat project
+        npx hardhat init
+        ```
+
+3. You will be prompted to select certain configurations for your project. To quickly create a working setup, you can accept the default answers, which will create a JavaScript project, initialize it in the current directory, add a `.gitignore`, and install all dependencies.
+
+After completing the setup, your Hardhat project will be fully initialized with all necessary files and dependencies. You'll see the following core components in your project:
+
+- **`contracts`**: Stores your Solidity smart contracts.
+- **`ignition`**: Contains deployment modules for safely deploying your contracts to various networks.
+- **`test`**: Contains test files that validate contract functionality.
+- **`hardhat.config.js | .ts`**: Defines your project's settings, including networks, compiler options, and plugins.
+
+## Configure Hardhat for Polkadot Hub
+
+To use Hardhat with Polkadot Hub, define the network configuration in your `hardhat.config.ts` file:
+
+=== "Polkadot TestNet"
+
+    ```ts title='hardhat.config.ts'
+    import type { HardhatUserConfig } from 'hardhat/config';
+    import '@nomicfoundation/hardhat-toolbox';
+
+    // If you want to use a variable for your private key
+    import { vars } from 'hardhat/config';
+
+    const config: HardhatUserConfig = {
+    solidity: '0.8.28',
+    networks: {
+        polkadotTestnet: {
+        url: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
+        chainId: 420420422,
+        accounts: [vars.get('PRIVATE_KEY')],
+        },
+    },
+    };
+
+    export default config;
+    ```
+
+!!! tip
+
+    To define a [configuration variable](https://v2.hardhat.org/hardhat-runner/docs/guides/configuration-variables){target=\_blank} for your private key, run:
+
+    ```bash
+    npx hardhat vars set PRIVATE_KEY
+    ```
+
+    Hardhat will prompt you to enter your private key and store it so it can be referenced in your configuration file.
 
 ## Where to Go Next
 
-Ready to explore the specifics? Dive into these guides to continue your Hardhat journey:
 
 <div class="grid cards" markdown>
 
--   <span class="badge guide">Guide</span> __Install and Configure Hardhat__
+-   <span class="badge guide">Guide</span> __Deploy a Basic Contract__
 
     ---
 
-    Initialize your workspace and adjust project settings for this toolchain.
+    Ready to start using Hardhat? Learn how to compile, test, and deploy a basic contract.
 
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/dev-environments/hardhat/install-and-config/){target=\_blank}
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-basic/hardhat/)
 
--   <span class="badge guide">Guide</span> __Compile Smart Contracts__
-
-    ---
-
-    Configure compiler options and generate deployable artifacts.
-
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/dev-environments/hardhat/compile-and-test/){target=\_blank}
-
--   <span class="badge guide">Guide</span> __Test Your Smart Contracts__
+-   <span class="badge guide">Guide</span> __Deploy an ERC-20__
 
     ---
 
-    Build automated tests and run them against a local node.
+    Walk through deploying a fully-functional ERC-20 to Polkadot Hub using Hardhat.
 
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/dev-environments/hardhat/compile-and-test/){target=\_blank}
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-erc20/hardhat/)
 
--   <span class="badge guide">Guide</span> __Deploy Smart Contracts__
-
-    ---
-
-    Roll out contracts to local, test, or production networks with repeatable scripts.
-
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/dev-environments/hardhat/deploy-a-contract/){target=\_blank}
-
--   <span class="badge guide">Guide</span> __Interact with Smart Contracts__
+-   <span class="badge guide">Guide</span> __Deploy an NFT__
 
     ---
 
-    Script on-chain interactions and automate maintenance tasks.
+    Walk through deploying a NFT to Polkadot Hub using Hardhat.
 
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/dev-environments/hardhat/interact-with-a-contract/){target=\_blank}
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-nft/hardhat/)
 
--   <span class="badge external">External</span> __Hardhat Documentation__
-
-    ---
-
-    Explore Hardhat's official documentation for advanced features and best practices.
-
-    [:octicons-arrow-right-24: Learn More](https://hardhat.org/docs){target=\_blank}
-
--   <span class="badge external">External</span> __OpenZeppelin Contracts__
+-   <span class="badge guide">Guide</span> __Create a DApp__
 
     ---
 
-    Use prebuilt, audited contract templates to bootstrap your projects.
+    Learn step-by-step how to build a fully functional dApp that interacts with a smart contract deployed via Hardhat.
 
-    [:octicons-arrow-right-24: Explore](https://www.openzeppelin.com/solidity-contracts){target=\_blank}
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/dapps/zero-to-hero/)
 
 </div>
 

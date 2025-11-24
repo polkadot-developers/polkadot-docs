@@ -3107,12 +3107,12 @@
       }
     ],
     "stats": {
-      "chars": 11110,
-      "words": 1539,
+      "chars": 10880,
+      "words": 1507,
       "headings": 7,
-      "estimated_token_count_total": 2671
+      "estimated_token_count_total": 2604
     },
-    "hash": "sha256:f729472b1f6f1f6c05eb072bd79d499b2c953ff4126509ebd1dd991e1009f451",
+    "hash": "sha256:43f6f137f1126fc52c4e2b20c7fbad96ed7caeef57f0e5b036243fd65378beb2",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -3370,12 +3370,12 @@
       }
     ],
     "stats": {
-      "chars": 4051,
-      "words": 475,
+      "chars": 3781,
+      "words": 437,
       "headings": 9,
-      "estimated_token_count_total": 981
+      "estimated_token_count_total": 910
     },
-    "hash": "sha256:98f5c5c1a26db913e1c4c435062d214ca8c4b5f2dbed5b64d2e54c3435f06452",
+    "hash": "sha256:87bcd7240889cd678fd15e8406000452406160cf315634a456dc483ddd1e4337",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -3669,12 +3669,12 @@
       }
     ],
     "stats": {
-      "chars": 4837,
-      "words": 565,
+      "chars": 4850,
+      "words": 569,
       "headings": 9,
-      "estimated_token_count_total": 1152
+      "estimated_token_count_total": 1155
     },
-    "hash": "sha256:1e44c9df24715affa822f0df9680413cd995909f2c086d3a70499ee69901985e",
+    "hash": "sha256:b02dec5b4312daff2b28bf5d0979e865bf4c7c38ab987b5519bcb3a48e307c0e",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -3773,76 +3773,36 @@
     "token_estimator": "heuristic-v1"
   },
   {
-    "id": "smart-contracts-dev-environments-hardhat-compile-and-test",
-    "title": "smart-contracts-dev-environments-hardhat-compile-and-test",
-    "slug": "smart-contracts-dev-environments-hardhat-compile-and-test",
-    "categories": [
-      "Uncategorized"
-    ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-hardhat-compile-and-test.md",
-    "html_url": "https://docs.polkadot.com/smart-contracts/dev-environments/hardhat/compile-and-test/",
-    "preview": "TODO",
-    "outline": [],
-    "stats": {
-      "chars": 5,
-      "words": 1,
-      "headings": 0,
-      "estimated_token_count_total": 0
-    },
-    "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
-    "token_estimator": "heuristic-v1"
-  },
-  {
-    "id": "smart-contracts-dev-environments-hardhat-deploy-a-contract",
-    "title": "smart-contracts-dev-environments-hardhat-deploy-a-contract",
-    "slug": "smart-contracts-dev-environments-hardhat-deploy-a-contract",
-    "categories": [
-      "Uncategorized"
-    ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-hardhat-deploy-a-contract.md",
-    "html_url": "https://docs.polkadot.com/smart-contracts/dev-environments/hardhat/deploy-a-contract/",
-    "preview": "TODO",
-    "outline": [],
-    "stats": {
-      "chars": 5,
-      "words": 1,
-      "headings": 0,
-      "estimated_token_count_total": 0
-    },
-    "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
-    "token_estimator": "heuristic-v1"
-  },
-  {
-    "id": "smart-contracts-dev-environments-hardhat-get-started",
+    "id": "smart-contracts-dev-environments-hardhat",
     "title": "Use Hardhat with Polkadot Hub",
-    "slug": "smart-contracts-dev-environments-hardhat-get-started",
+    "slug": "smart-contracts-dev-environments-hardhat",
     "categories": [
       "Smart Contracts",
       "Tooling"
     ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-hardhat-get-started.md",
-    "html_url": "https://docs.polkadot.com/smart-contracts/dev-environments/hardhat/get-started/",
-    "preview": "Building on Polkadot Hub often starts with a Solidity codebase, and Hardhat keeps that workflow familiar while giving teams repeatable scripts, rich debugging, and CLI automation suited to the network's Ethereum-compatible execution layer.",
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-hardhat.md",
+    "html_url": "https://docs.polkadot.com/smart-contracts/dev-environments/hardhat/",
+    "preview": "[Hardhat](https://hardhat.org/){target=\\_blank} is a flexible development environment for building, testing, and deploying smart contracts on Polkadot. Its task runner and plugin system support organizing contract code, running tests, managing deployments, and adding custom tooling. This page demonstrates how to set up a Hardhat project for Polkadot Hub.",
     "outline": [
       {
         "depth": 2,
-        "title": "Overview",
-        "anchor": "overview"
+        "title": "Introduction",
+        "anchor": "introduction"
       },
       {
         "depth": 2,
-        "title": "Hardhat Workflow",
-        "anchor": "hardhat-workflow"
+        "title": "Prerequisites",
+        "anchor": "prerequisites"
       },
       {
         "depth": 2,
-        "title": "Project Anatomy",
-        "anchor": "project-anatomy"
+        "title": "Initialize a Hardhat Project",
+        "anchor": "initialize-a-hardhat-project"
       },
       {
         "depth": 2,
-        "title": "Core Functionalities",
-        "anchor": "core-functionalities"
+        "title": "Configure Hardhat for Polkadot Hub",
+        "anchor": "configure-hardhat-for-polkadot-hub"
       },
       {
         "depth": 2,
@@ -3851,174 +3811,12 @@
       }
     ],
     "stats": {
-      "chars": 4795,
-      "words": 589,
+      "chars": 4812,
+      "words": 643,
       "headings": 5,
-      "estimated_token_count_total": 1057
+      "estimated_token_count_total": 1138
     },
-    "hash": "sha256:39bef792d34440bab5986dd030660af167537019c959526603900811a7b6d408",
-    "token_estimator": "heuristic-v1"
-  },
-  {
-    "id": "smart-contracts-dev-environments-hardhat-install-and-config",
-    "title": "smart-contracts-dev-environments-hardhat-install-and-config",
-    "slug": "smart-contracts-dev-environments-hardhat-install-and-config",
-    "categories": [
-      "Uncategorized"
-    ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-hardhat-install-and-config.md",
-    "html_url": "https://docs.polkadot.com/smart-contracts/dev-environments/hardhat/install-and-config/",
-    "preview": "TODO",
-    "outline": [],
-    "stats": {
-      "chars": 5,
-      "words": 1,
-      "headings": 0,
-      "estimated_token_count_total": 0
-    },
-    "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
-    "token_estimator": "heuristic-v1"
-  },
-  {
-    "id": "smart-contracts-dev-environments-hardhat-troubleshooting-faq",
-    "title": "Troubleshooting Hardhat",
-    "slug": "smart-contracts-dev-environments-hardhat-troubleshooting-faq",
-    "categories": [
-      "Smart Contracts",
-      "Tooling"
-    ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-hardhat-troubleshooting-faq.md",
-    "html_url": "https://docs.polkadot.com/smart-contracts/dev-environments/hardhat/troubleshooting-faq/",
-    "preview": "This guide provides solutions to common issues you may encounter when using Hardhat with Polkadot Hub. If you're experiencing problems with installation, compilation, deployment, testing, or contract interaction, you'll likely find the solution here.",
-    "outline": [
-      {
-        "depth": 2,
-        "title": "Hardhat fails to install or run with version-related errors",
-        "anchor": "hardhat-fails-to-install-or-run-with-version-related-errors"
-      },
-      {
-        "depth": 2,
-        "title": "Installation of Hardhat or its dependencies via npm fails",
-        "anchor": "installation-of-hardhat-or-its-dependencies-via-npm-fails"
-      },
-      {
-        "depth": 2,
-        "title": "Hardhat Toolbox fails to install or causes conflicts",
-        "anchor": "hardhat-toolbox-fails-to-install-or-causes-conflicts"
-      },
-      {
-        "depth": 2,
-        "title": "Your contract fails to compile or shows errors in the terminal",
-        "anchor": "your-contract-fails-to-compile-or-shows-errors-in-the-terminal"
-      },
-      {
-        "depth": 2,
-        "title": "The artifacts folder is empty or missing expected files",
-        "anchor": "the-artifacts-folder-is-empty-or-missing-expected-files"
-      },
-      {
-        "depth": 2,
-        "title": "Errors related to Solidity compiler version or features",
-        "anchor": "errors-related-to-solidity-compiler-version-or-features"
-      },
-      {
-        "depth": 2,
-        "title": "Tests don't execute or Hardhat throws errors when running tests",
-        "anchor": "tests-dont-execute-or-hardhat-throws-errors-when-running-tests"
-      },
-      {
-        "depth": 2,
-        "title": "The Hardhat node fails to start or becomes unresponsive",
-        "anchor": "the-hardhat-node-fails-to-start-or-becomes-unresponsive"
-      },
-      {
-        "depth": 2,
-        "title": "Tests run but fail with assertion errors",
-        "anchor": "tests-run-but-fail-with-assertion-errors"
-      },
-      {
-        "depth": 2,
-        "title": "Hardhat cannot connect to the local development node",
-        "anchor": "hardhat-cannot-connect-to-the-local-development-node"
-      },
-      {
-        "depth": 2,
-        "title": "Hardhat cannot access or use the configured private key",
-        "anchor": "hardhat-cannot-access-or-use-the-configured-private-key"
-      },
-      {
-        "depth": 2,
-        "title": "Deployment or transactions go to the wrong network",
-        "anchor": "deployment-or-transactions-go-to-the-wrong-network"
-      },
-      {
-        "depth": 2,
-        "title": "Deployment fails with \"insufficient funds\" error",
-        "anchor": "deployment-fails-with-insufficient-funds-error"
-      },
-      {
-        "depth": 2,
-        "title": "Deployment using Hardhat Ignition fails or throws errors",
-        "anchor": "deployment-using-hardhat-ignition-fails-or-throws-errors"
-      },
-      {
-        "depth": 2,
-        "title": "Custom deployment scripts fail to execute",
-        "anchor": "custom-deployment-scripts-fail-to-execute"
-      },
-      {
-        "depth": 2,
-        "title": "Contract deployment hangs or times out",
-        "anchor": "contract-deployment-hangs-or-times-out"
-      },
-      {
-        "depth": 2,
-        "title": "Scripts fail to interact with a deployed contract",
-        "anchor": "scripts-fail-to-interact-with-a-deployed-contract"
-      },
-      {
-        "depth": 2,
-        "title": "Transactions revert when calling contract functions",
-        "anchor": "transactions-revert-when-calling-contract-functions"
-      },
-      {
-        "depth": 2,
-        "title": "View or pure functions don't return expected values",
-        "anchor": "view-or-pure-functions-dont-return-expected-values"
-      },
-      {
-        "depth": 2,
-        "title": "State-changing functions execute but don't update state",
-        "anchor": "state-changing-functions-execute-but-dont-update-state"
-      },
-      {
-        "depth": 2,
-        "title": "Contract compilation takes a long time",
-        "anchor": "contract-compilation-takes-a-long-time"
-      },
-      {
-        "depth": 2,
-        "title": "Can't start Hardhat console or console commands fail",
-        "anchor": "cant-start-hardhat-console-or-console-commands-fail"
-      },
-      {
-        "depth": 2,
-        "title": "Hardhat plugins not working correctly",
-        "anchor": "hardhat-plugins-not-working-correctly"
-      },
-      {
-        "depth": 2,
-        "title": "Scripts cannot read environment variables",
-        "anchor": "scripts-cannot-read-environment-variables"
-      }
-    ],
-    "stats": {
-      "chars": 14684,
-      "words": 1668,
-      "headings": 24,
-      "estimated_token_count_total": 3320
-    },
-    "hash": "sha256:f9ab9d7d25947a3bb4059d812eac8b1eb77e2271cac8e7828936f8ffa115eb0b",
+    "hash": "sha256:84c08d07b216ac445642f395a5d25dda90f76c1290dc2c6321d1a66ff0d49e57",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4976,12 +4774,12 @@
       }
     ],
     "stats": {
-      "chars": 10103,
-      "words": 937,
+      "chars": 8716,
+      "words": 791,
       "headings": 7,
-      "estimated_token_count_total": 2888
+      "estimated_token_count_total": 2574
     },
-    "hash": "sha256:8ec1a9444ba7ec4a35361f14bb0268be87d1ebee8079bb9740f47f69c90f877a",
+    "hash": "sha256:598274271582e2aceb303d6cca364b4518d6b02d388c4ac09df86ec24eb3b78c",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5632,12 +5430,12 @@
       }
     ],
     "stats": {
-      "chars": 10705,
-      "words": 1436,
+      "chars": 10608,
+      "words": 1423,
       "headings": 9,
-      "estimated_token_count_total": 2325
+      "estimated_token_count_total": 2294
     },
-    "hash": "sha256:c084190ea7d676128e7e399e8fe88598ca150f88d684db279a687ee1c3956120",
+    "hash": "sha256:791faa6c434c52dfd02efd6e9da9dbd367dc7f672c45fe31d7808e015fe5d17e",
     "token_estimator": "heuristic-v1"
   },
   {

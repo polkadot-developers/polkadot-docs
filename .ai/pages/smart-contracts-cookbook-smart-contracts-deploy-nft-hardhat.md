@@ -156,15 +156,6 @@ npx hardhat ignition deploy ignition/modules/MyNFT.ts --network polkadotHubTestn
 
 <div class="grid cards" markdown>
 
--   <span class="badge guide">Guide</span> __Verify Your Contract__
-
-    ---
-
-    Now that you've deployed an NFT contract, learn how to verify it with Hardhat.
-
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/dev-environments/hardhat/verify-a-contract/)
-
-
 -   <span class="badge guide">Guide</span> __Deploy an ERC-20__
 
     ---
@@ -172,5 +163,13 @@ npx hardhat ignition deploy ignition/modules/MyNFT.ts --network polkadotHubTestn
     Walk through deploying a fully-functional ERC-20 to the Polkadot Hub using Hardhat.
 
     [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-erc20/hardhat/)
+
+-   <span class="badge guide">Guide</span> __Create a DApp__
+
+    ---
+
+    Learn step-by-step how to build a fully functional dApp that interacts with a smart contract deployed via Hardhat.
+
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/dapps/zero-to-hero/)
 
 </div>

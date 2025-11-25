@@ -7959,15 +7959,21 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-parachains-consensus-inclusion-pipeline.md",
     "html_url": "https://docs.polkadot.com/reference/parachains/consensus/inclusion-pipeline/",
-    "preview": "The multi-step pipeline through which parablocks are processed into the Polkadot relay chain:",
-    "outline": [],
+    "preview": "The inclusion pipeline is the multi-stage process through which every parachain block (parablock) is **validated** and **secured** before being finalized in the Polkadot relay chain.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Pipeline Stages",
+        "anchor": "pipeline-stages"
+      }
+    ],
     "stats": {
-      "chars": 2620,
-      "words": 395,
-      "headings": 0,
-      "estimated_token_count_total": 0
+      "chars": 3317,
+      "words": 487,
+      "headings": 1,
+      "estimated_token_count_total": 628
     },
-    "hash": "sha256:7159549558d5a7d8565f3ca84ba989bc349ec3f8a5edf6c512f9a1166ad5f6f8",
+    "hash": "sha256:563b15fef73a7dbdeca0b5daf54921ca6cd0eb9bca3ed4514591722d7470946b",
     "token_estimator": "heuristic-v1"
   },
   {

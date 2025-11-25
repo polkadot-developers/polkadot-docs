@@ -1,4 +1,4 @@
 nav:
  - 'Local Development Node': local-dev-node.md
- - 'Remix IDE': remix
+ - ':custom-remix: Remix IDE': remix.md
  - ':custom-hardhat: Hardhat': hardhat.md

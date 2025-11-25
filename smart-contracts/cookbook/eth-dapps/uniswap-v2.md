@@ -20,7 +20,7 @@ Before starting, make sure you have:
 
 - Node.js (v16.0.0 or later) and npm installed.
 - Basic understanding of Solidity and JavaScript.
-- Familiarity with [`hardhat`](/smart-contracts/dev-environments/hardhat/){target=\_blank} development environment.
+- Familiarity with [Hardhat](/smart-contracts/dev-environments/hardhat/){target=\_blank} development environment.
 - Some test tokens to cover transaction fees (obtained from the [Polkadot faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}).
 - Basic understanding of how AMMs and liquidity pools work.
 

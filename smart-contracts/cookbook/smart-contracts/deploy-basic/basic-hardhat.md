@@ -26,19 +26,19 @@ Use the following terminal commands to create a directory and initialize your Ha
 ```bash
 mkdir hardhat-deployment
 cd hardhat-deployment
-npx hardhat --init
+npx hardhat@^2.27.0 init
 ```
 
 ## Configure Hardhat
 
 Open `hardhat.config.ts` and update to add `polkadotTestnet` to the `networks` configuration as highlighted in the following example code:
 
-```typescript title='hardhat.config.ts' hl_lines='39-43'
+```typescript title='hardhat.config.ts' hl_lines='19-23'
 --8<-- 'code/smart-contracts/cookbook/smart-contracts/deploy-basic/basic-hardhat/hardhat.config.ts'
 ```
 
 !!! tip
-    Visit the Hardhat [Config Variables](https://hardhat.org/docs/learn-more/configuration-variables){target=\_blank} documentation to learn how to use Hardhat to handle your private keys securely.
+    Visit the Hardhat [Configuration variables](https://v2.hardhat.org/hardhat-runner/docs/guides/configuration-variables){target=\_blank} documentation to learn how to use Hardhat to handle your private keys securely.
 
 ## Create the Contract
 
@@ -49,6 +49,7 @@ Follow these steps to create your smart contract:
 2. Create a new file named `Storage.sol` inside the `contracts` directory.
 
 3. Add the following code to create the `Storage.sol` smart contract:
+
     ```solidity title="Storage.sol"
     --8<-- 'code/smart-contracts/cookbook/smart-contracts/deploy-basic/basic-hardhat/Storage.sol'
     ```

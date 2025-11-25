@@ -3639,7 +3639,6 @@ Bridge your Ethereum knowledge with Polkadot Hub specifics: account mapping, fee
 |                   [Gas Model](/smart-contracts/for-eth-devs/gas-model/){target=\_blank}                   |        Gas vs. weight, proof size, and storage deposits         |
 |         [Contract Deployment](/smart-contracts/for-eth-devs/contract-deployment/){target=\_blank}         |     Deployment patterns and best practices on Polkadot Hub      |
 |               [JSON‑RPC APIs](/smart-contracts/for-eth-devs/json-rpc-apis/){target=\_blank}               |        Supported Ethereum JSON‑RPC methods and examples         |
-|                   [Migration](/smart-contracts/for-eth-devs/migration/){target=\_blank}                   |         Port existing apps and tooling to Polkadot Hub          |
 |               [Dual VM Stack](/smart-contracts/for-eth-devs/dual-vm-stack/){target=\_blank}               |         Overview of EVM and native execution on the Hub         |
 
 ## Cookbook: Hands‑on Tutorials
@@ -5480,8 +5479,8 @@ You can connect wallets, deploy contracts using Remix or Hardhat, and interact w
 
 Page Title: Migration FAQs and Considerations
 
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-for-eth-devs-migration.md
-- Canonical (HTML): https://docs.polkadot.com/smart-contracts/for-eth-devs/migration/
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-for-eth-devs-.migration.md
+- Canonical (HTML): https://docs.polkadot.com/smart-contracts/for-eth-devs/.migration/
 - Summary: Learn how to migrate your existing Ethereum contracts to the Polkadot Hub using REVM and PolkaVM by following these considerations.
 
 # Migration FAQs and Considerations

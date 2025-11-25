@@ -39,7 +39,7 @@ Navigate to [https://remix.ethereum.org/](https://remix.ethereum.org/){target=\_
 You can connect Remix to Polkadot from the **Deploy & run transactions** tab in the plugin panel:
 
 1. Switch your MetaMask network to Polkadot. For detailed steps on setting up MetaMask for Polkadot, see the [Wallet Integrations](/smart-contracts/integrations/wallets/#metamask){target=\_blank} guide.
-1. Click on the **Environment** dropdown.
+2. Click on the **Environment** dropdown.
 2. Hover over **browser extension**.
 3. Select **Injected Provider - MetaMask**.
 

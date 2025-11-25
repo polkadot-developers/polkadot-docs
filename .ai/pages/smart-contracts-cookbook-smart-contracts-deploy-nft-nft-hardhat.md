@@ -29,7 +29,7 @@ Before you begin, ensure you have the following:
     ```bash
     mkdir hardhat-nft-deployment
     cd hardhat-nft-deployment
-    npx hardhat --init
+    npx hardhat@^2.27.0 init
     ```
 
 2. Install the OpenZeppelin contract dependencies using the command:
@@ -42,50 +42,28 @@ Before you begin, ensure you have the following:
 
 Open `hardhat.config.ts` and update to add `polkadotTestnet` to the `networks` configuration as highlighted in the following example code:
 
-```typescript title="hardhat.config.ts" hl_lines='39-44'
+```typescript title="hardhat.config.ts" hl_lines='18-23'
 import type { HardhatUserConfig } from 'hardhat/config';
 
 import hardhatToolboxViemPlugin from '@nomicfoundation/hardhat-toolbox-viem';
-import { configVariable } from 'hardhat/config';
+import { vars } from 'hardhat/config';
 
 const config: HardhatUserConfig = {
   plugins: [hardhatToolboxViemPlugin],
   solidity: {
-    profiles: {
-      default: {
-        version: '0.8.28',
-      },
-      production: {
-        version: '0.8.28',
-        settings: {
-          optimizer: {
-            enabled: true,
-            runs: 200,
-          },
-        },
+    version: '0.8.28',
+    settings: {
+      optimizer: {
+        enabled: true,
+        runs: 200,
       },
     },
   },
   networks: {
-    hardhatMainnet: {
-      type: 'edr-simulated',
-      chainType: 'l1',
-    },
-    hardhatOp: {
-      type: 'edr-simulated',
-      chainType: 'op',
-    },
-    sepolia: {
-      type: 'http',
-      chainType: 'l1',
-      url: configVariable('SEPOLIA_RPC_URL'),
-      accounts: [configVariable('SEPOLIA_PRIVATE_KEY')],
-    },
     polkadotTestnet: {
-      type: 'http',
       url: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
       chainId: 420420422,
-      accounts: [configVariable('PRIVATE_KEY')],
+      accounts: [vars.get('PRIVATE_KEY')],
     },
   },
 };
@@ -94,7 +72,7 @@ export default config;
 ```
 
 !!! tip
-    Visit the Hardhat [Config Variables](https://hardhat.org/docs/learn-more/configuration-variables){target=\_blank} documentation to learn how to use Hardhat to handle your private keys securely.
+    Visit the Hardhat [Configuration variables](https://v2.hardhat.org/hardhat-runner/docs/guides/configuration-variables){target=\_blank} documentation to learn how to use Hardhat to handle your private keys securely.
 
 ## Create the Contract
 
@@ -208,5 +186,13 @@ Congratulations! You've successfully deployed an ERC-721 NFT contract to Polkado
     Walk through deploying a fully-functional ERC-20 to Polkadot Hub using Hardhat.
 
     [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-hardhat/)
+
+-   <span class="badge guide">Guide</span> __Create a DApp__
+
+    ---
+
+    Learn step-by-step how to build a fully functional dApp that interacts with a smart contract deployed via Hardhat.
+
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/dapps/zero-to-hero/)
 
 </div>

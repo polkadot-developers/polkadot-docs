@@ -2958,12 +2958,12 @@
       }
     ],
     "stats": {
-      "chars": 3289,
-      "words": 455,
+      "chars": 3512,
+      "words": 488,
       "headings": 3,
-      "estimated_token_count_total": 558
+      "estimated_token_count_total": 623
     },
-    "hash": "sha256:a9432dcdc170da339b55fc9106810e8ea95c2b8ee7c96f200e7a78da7e513b4d",
+    "hash": "sha256:756036b9e401b1d56d03054cbfc21e168e7101aab4c8ab911734b606034a2504",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -3344,12 +3344,12 @@
       }
     ],
     "stats": {
-      "chars": 2731,
+      "chars": 2732,
       "words": 355,
       "headings": 7,
       "estimated_token_count_total": 598
     },
-    "hash": "sha256:63defd84f302f0778c90129abbe69ecd2a5d9d83c622f2b7e5c2ffc9bcb3312f",
+    "hash": "sha256:e3777a84b71a1ee3b6b1d01a9fc2e879d555f6f4191212c651f36d73d6b18ff5",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -3841,7 +3841,7 @@
       "headings": 5,
       "estimated_token_count_total": 1144
     },
-    "hash": "sha256:26f8738aa4eb89dd78c957b2a37d27875e325d3ba70532fefd0b2f17ed6bd0c0",
+    "hash": "sha256:7911b91e6c8dc9caa7403756d92d6aa78438c45ebf42088dbdcbefd3d396e6ee",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -3886,63 +3886,16 @@
     "token_estimator": "heuristic-v1"
   },
   {
-    "id": "smart-contracts-dev-environments-remix-deploy-a-contract",
-    "title": "Deploy Contracts Using Remix IDE",
-    "slug": "smart-contracts-dev-environments-remix-deploy-a-contract",
-    "categories": [
-      "Smart Contracts",
-      "Tooling"
-    ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-remix-deploy-a-contract.md",
-    "html_url": "https://docs.polkadot.com/smart-contracts/dev-environments/remix/deploy-a-contract/",
-    "preview": "After compiling your smart contract in Remix IDE, the next step is to deploy it to the Polkadot Hub network. This guide will walk you through the deployment process using a wallet provider and show you how to interact with your deployed contracts directly from the Remix interface.",
-    "outline": [
-      {
-        "depth": 2,
-        "title": "Overview",
-        "anchor": "overview"
-      },
-      {
-        "depth": 2,
-        "title": "Prerequisites",
-        "anchor": "prerequisites"
-      },
-      {
-        "depth": 2,
-        "title": "Deploy Contracts",
-        "anchor": "deploy-contracts"
-      },
-      {
-        "depth": 2,
-        "title": "Interact with Contracts",
-        "anchor": "interact-with-contracts"
-      },
-      {
-        "depth": 2,
-        "title": "Where to Go Next",
-        "anchor": "where-to-go-next"
-      }
-    ],
-    "stats": {
-      "chars": 3828,
-      "words": 565,
-      "headings": 5,
-      "estimated_token_count_total": 887
-    },
-    "hash": "sha256:00209001a769a1bce5d78b123dcb0d4243e8fd80a77d3b7fd55cf35635bd980b",
-    "token_estimator": "heuristic-v1"
-  },
-  {
-    "id": "smart-contracts-dev-environments-remix-get-started",
+    "id": "smart-contracts-dev-environments-remix",
     "title": "Use the Remix IDE on Polkadot Hub",
-    "slug": "smart-contracts-dev-environments-remix-get-started",
+    "slug": "smart-contracts-dev-environments-remix",
     "categories": [
       "Smart Contracts",
       "Tooling"
     ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-remix-get-started.md",
-    "html_url": "https://docs.polkadot.com/smart-contracts/dev-environments/remix/get-started/",
-    "preview": "Remix IDE is a robust browser-based development environment for smart contracts. This guide will walk you through the essentials of the [Remix IDE](https://remix.ethereum.org/){target=\\_blank} to understand the processes of compiling, developing, and deploying smart contracts on Polkadot Hub.",
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-remix.md",
+    "html_url": "https://docs.polkadot.com/smart-contracts/dev-environments/remix/",
+    "preview": "[Remix](https://remix.ethereum.org/){target=\\_blank} is a browser-based IDE that makes it easy to write, compile, and deploy smart contracts without installing any local tools. It’s a great place to experiment, learn, and quickly test contracts on Polkadot. This page introduces the main parts of the Remix interface and shows how to connect it to Polkadot so you can deploy and interact with contracts directly from your browser.",
     "outline": [
       {
         "depth": 2,
@@ -3961,13 +3914,8 @@
       },
       {
         "depth": 2,
-        "title": "Create a New Contract",
-        "anchor": "create-a-new-contract"
-      },
-      {
-        "depth": 2,
-        "title": "Compile Your Contract",
-        "anchor": "compile-your-contract"
+        "title": "Connect Remix to Polkadot",
+        "anchor": "connect-remix-to-polkadot"
       },
       {
         "depth": 2,
@@ -3976,99 +3924,12 @@
       }
     ],
     "stats": {
-      "chars": 3422,
-      "words": 456,
-      "headings": 6,
-      "estimated_token_count_total": 784
+      "chars": 4200,
+      "words": 594,
+      "headings": 5,
+      "estimated_token_count_total": 979
     },
-    "hash": "sha256:51d23086e729a9bd299c33409a3a647c385e1444961e0d41019455002561e009",
-    "token_estimator": "heuristic-v1"
-  },
-  {
-    "id": "smart-contracts-dev-environments-remix-troubleshooting-faq",
-    "title": "Troubleshooting Remix IDE",
-    "slug": "smart-contracts-dev-environments-remix-troubleshooting-faq",
-    "categories": [
-      "Smart Contracts",
-      "Tooling"
-    ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-remix-troubleshooting-faq.md",
-    "html_url": "https://docs.polkadot.com/smart-contracts/dev-environments/remix/troubleshooting-faq/",
-    "preview": "This guide provides solutions to common issues you may encounter when using Remix IDE with Polkadot Hub. If you're experiencing problems with compilation, deployment, or contract interaction, you'll likely find the solution here.",
-    "outline": [
-      {
-        "depth": 2,
-        "title": "Contract fails to compile or shows errors in the terminal",
-        "anchor": "contract-fails-to-compile-or-shows-errors-in-the-terminal"
-      },
-      {
-        "depth": 2,
-        "title": "The `artifacts` folder doesn't appear after compilation",
-        "anchor": "the-artifacts-folder-doesnt-appear-after-compilation"
-      },
-      {
-        "depth": 2,
-        "title": "Remix doesn't detect your wallet extension (MetaMask, Talisman, etc.)",
-        "anchor": "remix-doesnt-detect-your-wallet-extension-metamask-talisman-etc"
-      },
-      {
-        "depth": 2,
-        "title": "Wallet is connected but to the wrong network",
-        "anchor": "wallet-is-connected-but-to-the-wrong-network"
-      },
-      {
-        "depth": 2,
-        "title": "Deployment fails with \"insufficient funds\" or similar error",
-        "anchor": "deployment-fails-with-insufficient-funds-or-similar-error"
-      },
-      {
-        "depth": 2,
-        "title": "Deployment transaction is rejected or fails",
-        "anchor": "deployment-transaction-is-rejected-or-fails"
-      },
-      {
-        "depth": 2,
-        "title": "The \"Injected Provider - MetaMask\" option doesn't appear in the Environment dropdown",
-        "anchor": "the-injected-provider-metamask-option-doesnt-appear-in-the-environment-dropdown"
-      },
-      {
-        "depth": 2,
-        "title": "Wallet rejects transactions when trying to interact with deployed contracts",
-        "anchor": "wallet-rejects-transactions-when-trying-to-interact-with-deployed-contracts"
-      },
-      {
-        "depth": 2,
-        "title": "Deployed contract doesn't show in the **Deployed/Unpinned Contracts** section",
-        "anchor": "deployed-contract-doesnt-show-in-the-deployedunpinned-contracts-section"
-      },
-      {
-        "depth": 2,
-        "title": "Blue buttons (read functions) don't display return values",
-        "anchor": "blue-buttons-read-functions-dont-display-return-values"
-      },
-      {
-        "depth": 2,
-        "title": "Orange/red buttons (write functions) execute, but the state doesn't change",
-        "anchor": "orangered-buttons-write-functions-execute-but-the-state-doesnt-change"
-      },
-      {
-        "depth": 2,
-        "title": "Remix takes a long time to load or becomes unresponsive",
-        "anchor": "remix-takes-a-long-time-to-load-or-becomes-unresponsive"
-      },
-      {
-        "depth": 2,
-        "title": "Changes to files or folders don't appear in the File Explorer",
-        "anchor": "changes-to-files-or-folders-dont-appear-in-the-file-explorer"
-      }
-    ],
-    "stats": {
-      "chars": 6316,
-      "words": 872,
-      "headings": 13,
-      "estimated_token_count_total": 1306
-    },
-    "hash": "sha256:fccd676c0aee4f3dcbaccbcfb31fb6e3802445188eaea04ff79b759f018b562d",
+    "hash": "sha256:8f8e097dfeef01ea12b521b295a346d84901ece48a5dc49a95a9aaf173972fa0",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4799,12 +4660,12 @@
       }
     ],
     "stats": {
-      "chars": 7862,
-      "words": 715,
+      "chars": 7287,
+      "words": 674,
       "headings": 7,
-      "estimated_token_count_total": 2253
+      "estimated_token_count_total": 2126
     },
-    "hash": "sha256:207323879f8949c103ca9d0b643d48cbc4ad1db3bfd5ad1befb897a4d119c5e1",
+    "hash": "sha256:911a13f9d77c863bfb13a04f88e5e48375ef46af772525cb0f50e53523778217",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5465,12 +5326,12 @@
       }
     ],
     "stats": {
-      "chars": 10608,
-      "words": 1423,
+      "chars": 10584,
+      "words": 1419,
       "headings": 9,
-      "estimated_token_count_total": 2294
+      "estimated_token_count_total": 2286
     },
-    "hash": "sha256:791faa6c434c52dfd02efd6e9da9dbd367dc7f672c45fe31d7808e015fe5d17e",
+    "hash": "sha256:446787a59b8f499385fa59d5f8df6b91902bea242701597732cc5e73e1317d93",
     "token_estimator": "heuristic-v1"
   },
   {

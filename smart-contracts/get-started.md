@@ -12,23 +12,21 @@ This resource provides quick-starts for building smart contracts on Polkadot Hub
 
 Kick off development fast with curated links for connecting, funding, exploring, and deploying your first contract.
 
-|                                   Quick Start                                   |         Tools         |                           Description                           |
-|:-------------------------------------------------------------------------------:|:---------------------:|:---------------------------------------------------------------:|
-|                [Connect to Polkadot](/smart-contracts/connect/)                 | Polkadot.js, MetaMask | Add the network, configure RPC, verify activity in the explorer |
-|                  [Get Test Tokens](/smart-contracts/faucets/)                   |           -           |    Request test funds to deploy and interact with contracts     |
-|               [Explore Transactions](/smart-contracts/explorers/)               |        Subscan        | Inspect transactions, logs, token transfers, and contract state |
-| [Deploy with Remix](/smart-contracts/dev-environments/remix/deploy-a-contract/) |         Remix         |          One‑click browser deployment to Polkadot Hub           |
+|                     Quick Start                     |         Tools         |                           Description                           |
+|:---------------------------------------------------:|:---------------------:|:---------------------------------------------------------------:|
+|  [Connect to Polkadot](/smart-contracts/connect/)   | Polkadot.js, MetaMask | Add the network, configure RPC, verify activity in the explorer |
+|    [Get Test Tokens](/smart-contracts/faucets/)     |           -           |    Request test funds to deploy and interact with contracts     |
+| [Explore Transactions](/smart-contracts/explorers/) |        Subscan        | Inspect transactions, logs, token transfers, and contract state |
 
 ## Build and Test Locally
 
 Set up local environments and CI-friendly workflows to iterate quickly and validate changes before deploying.
 
-|                                 Build and Test Locally                                 |       Tools       |                     Description                      |
-|:--------------------------------------------------------------------------------------:|:-----------------:|:----------------------------------------------------:|
-|       [Run a Local Dev Node](/smart-contracts/dev-environments/local-dev-node/)        | Polkadot SDK node |    Spin up a local node for iterative development    |
-|       [Remix: Get Started](/smart-contracts/dev-environments/remix/get-started/)       |       Remix       | Connect Remix to Polkadot Hub and configure accounts |
-| [Remix: Verify a Contract](/smart-contracts/dev-environments/remix/verify-a-contract/) |       Remix       |         Publish verified source on explorers         |
-|       [Use Hardhat for Development](/smart-contracts/dev-environments/hardhat/)        |      Hardhat      |        Project scaffolding and configuration         |
+|                          Build and Test Locally                           |       Tools       |                  Description                   |
+|:-------------------------------------------------------------------------:|:-----------------:|:----------------------------------------------:|
+| [Run a Local Dev Node](/smart-contracts/dev-environments/local-dev-node/) | Polkadot SDK node | Spin up a local node for iterative development |
+|   [Use Remix for Development](/smart-contracts/dev-environments/remix/)   |       Remix       |         Connect Remix to Polkadot Hub          |
+| [Use Hardhat for Development](/smart-contracts/dev-environments/hardhat/) |      Hardhat      |     Project scaffolding and configuration      |
 
 
 ## Ethereum Developer Resources

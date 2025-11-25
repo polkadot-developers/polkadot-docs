@@ -2739,7 +2739,7 @@ Before you begin, ensure you have the following:
 
 Open `hardhat.config.ts` and update to add `polkadotTestnet` to the `networks` configuration as highlighted in the following example code:
 
-```typescript title="hardhat.config.ts" hl_lines='19-23'
+```typescript title="hardhat.config.ts" hl_lines='18-23'
 import type { HardhatUserConfig } from 'hardhat/config';
 
 import hardhatToolboxViemPlugin from '@nomicfoundation/hardhat-toolbox-viem';

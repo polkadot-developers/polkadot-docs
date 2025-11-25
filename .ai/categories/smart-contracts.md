@@ -242,19 +242,27 @@ For your next steps, explore the various smart contract guides demonstrating how
 
 <div class="grid cards" markdown>
 
--   <span class="badge guide">Guide</span> __Deploy your first contract with Remix__
+-   <span class="badge guide">Guide</span> __Get started with Remix__
 
     ---
 
-    Explore the smart contract development and deployment process on Polkadot Hub using the Remix IDE.
+    Learn how to get started with Remix, a browser-based IDE for writing, deploying, and interacting with smart contracts.
 
-    [:octicons-arrow-right-24: Build with Remix IDE](/smart-contracts/dev-environments/remix/get-started/)
+    [:octicons-arrow-right-24: Build with Remix IDE](/smart-contracts/dev-environments/remix/)
+
+-   <span class="badge guide">Guide</span> __Deploy a contract using Remix__
+
+    ---
+
+    Deploy your first contract on Polkadot Hub using the Remix IDE.
+
+    [:octicons-arrow-right-24: Build with Remix IDE](/smart-contracts/cookbook/smart-contracts/deploy-basic/basic-remix/)
 
 -   <span class="badge guide">Guide</span> __Interact with the blockchain with viem__
 
     ---
 
-    Use viem for interacting with Ethereum-compatible chains, to deploy and interact with smart contracts on Polkadot Hub.
+    Use viem to deploy and interact with smart contracts on Polkadot Hub.
 
     [:octicons-arrow-right-24: Build with viem](/smart-contracts/libraries/viem/)
 
@@ -965,7 +973,7 @@ Replace the `YOUR_PRIVATE_KEY` placeholder with your actual private key.
 
     ---
 
-    Walk through deploying a NFT to the Polkadot Hub using Foundry.
+    Walk through deploying an NFT to the Polkadot Hub using Foundry.
 
     [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-nft/foundry/)
 
@@ -3265,92 +3273,6 @@ node scripts/updateStorage.js
 
 ---
 
-Page Title: Deploy Contracts Using Remix IDE
-
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-remix-deploy-a-contract.md
-- Canonical (HTML): https://docs.polkadot.com/smart-contracts/dev-environments/remix/deploy-a-contract/
-- Summary: Learn how to deploy smart contracts to the Polkadot Hub network and interact with them using the Remix IDE and wallet providers, covering deployment and state.
-
-# Deploy Smart Contracts Using Remix IDE
-
-## Overview
-
-After compiling your smart contract in Remix IDE, the next step is to deploy it to the Polkadot Hub network. This guide will walk you through the deployment process using a wallet provider and show you how to interact with your deployed contracts directly from the Remix interface.
-
-## Prerequisites
-
-Before deploying your contract, ensure you have:
-
-- Completed the [Remix IDE setup](/smart-contracts/dev-environments/remix/get-started/){target=\_blank} and have a compiled contract ready.
-- A compatible wallet extension installed (e.g., [MetaMask](https://metamask.io/){target=\_blank} or [Talisman](https://www.talisman.xyz/){target=\_blank}).
-- Your wallet connected to the Polkadot Hub network. Check the [Connect to Polkadot](/smart-contracts/connect/){target=\_blank} guide for more information.
-- Test tokens in your wallet to cover deployment and transaction fees (available from the [Polkadot faucet](/smart-contracts/faucet/){target=\_blank}).
-
-## Deploy Contracts
-
-The steps to use Remix IDE to deploy a contract to Polkadot Hub are as follows:
-
-1. Navigate to [Remix](https://remix.ethereum.org/){target=\_blank} in your web browser.
-2. Locate the **Deploy & Run Transactions** tab.
-3. Select the **Environment** dropdown.
-4. Select **Browser Extension**.
-5. Select the **Injected Provider - MetaMask** option.
-6. Click the **Deploy** button and then click **Confirm** in the wallet popup.
-
-Once your contract is deployed successfully, you will see the deployment confirmation in the Remix terminal.
-
-![](/images/smart-contracts/dev-environments/remix/deploy-a-contract/remix-1.gif)
-
-## Interact with Contracts
-
-Deployed contracts appear in the **Deployed/Unpinned Contracts** section. Follow these steps to interact with the deployed contract:
-
-1. Expand the contract to view available methods.
-
-    !!! tip
-        Pin your frequently used contracts to the **Pinned Contracts** section for easy access.
-
-2. Select any of the exposed methods to interact with the contract.
-
-    You can use these methods to interact with your deployed contract by reading or writing to its state. Remix IDE uses a color-coding scheme for method buttons to help differentiate between types of available methods as follows:
-
-    - **Blue buttons**: indicate `view` or `pure` functions which read state only. Interactions do not create a new transaction and do not incur gas fees.
-    - **Orange buttons**: label `non-payable` functions which change contract state but don't accept any value (ETH or other tokens) being sent with the transaction.
-    - **Red buttons**: designate `payable` functions which create a transaction and can accept a value (ETH or other tokens) to send with the transaction.
-
-If you deployed the `Counter.sol` contract from [Remix IDE setup](/smart-contracts/dev-environments/remix/get-started/){target=\_blank}, you can try interacting with the exposed methods as follows:
-
-1. Select the **GetCount** button to read the current count value.
-
-2. Select the **Increment** button to increment the count value.
-
-3. Submit the transaction and click the **Confirm** button in the wallet pop-up.
-
-Once the transaction is confirmed, you will see the updated count value in the Remix terminal.
-
-![](/images/smart-contracts/dev-environments/remix/deploy-a-contract/remix-2.gif)
-
-## Where to Go Next
-
-You've successfully deployed and interacted with your smart contract on Polkadot Hub using Remix IDE. Continue enhancing your development workflow with these resources:
-
-<div class="grid cards" markdown>
-
-
-
--   <span class="badge guide">Guide</span> __Troubleshooting__
-
-    ---
-
-    Find solutions to common issues when working with Remix IDE.
-
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/dev-environments/remix/troubleshooting-faq/)
-
-</div>
-
-
----
-
 Page Title: Dual Virtual Machine Stack
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-for-eth-devs-dual-vm-stack.md
@@ -3609,23 +3531,21 @@ This resource provides quick-starts for building smart contracts on Polkadot Hub
 
 Kick off development fast with curated links for connecting, funding, exploring, and deploying your first contract.
 
-|                                           Quick Start                                           |         Tools         |                           Description                           |
-|:-----------------------------------------------------------------------------------------------:|:---------------------:|:---------------------------------------------------------------:|
-|                [Connect to Polkadot](/smart-contracts/connect/){target=\_blank}                 | Polkadot.js, MetaMask | Add the network, configure RPC, verify activity in the explorer |
-|                  [Get Test Tokens](/smart-contracts/faucets/){target=\_blank}                   |           -           |    Request test funds to deploy and interact with contracts     |
-|               [Explore Transactions](/smart-contracts/explorers/){target=\_blank}               |        Subscan        | Inspect transactions, logs, token transfers, and contract state |
-| [Deploy with Remix](/smart-contracts/dev-environments/remix/deploy-a-contract/){target=\_blank} |         Remix         |          One‑click browser deployment to Polkadot Hub           |
+|                             Quick Start                             |         Tools         |                           Description                           |
+|:-------------------------------------------------------------------:|:---------------------:|:---------------------------------------------------------------:|
+|  [Connect to Polkadot](/smart-contracts/connect/){target=\_blank}   | Polkadot.js, MetaMask | Add the network, configure RPC, verify activity in the explorer |
+|    [Get Test Tokens](/smart-contracts/faucets/){target=\_blank}     |           -           |    Request test funds to deploy and interact with contracts     |
+| [Explore Transactions](/smart-contracts/explorers/){target=\_blank} |        Subscan        | Inspect transactions, logs, token transfers, and contract state |
 
 ## Build and Test Locally
 
 Set up local environments and CI-friendly workflows to iterate quickly and validate changes before deploying.
 
-|                                         Build and Test Locally                                         |       Tools       |                     Description                      |
-|:------------------------------------------------------------------------------------------------------:|:-----------------:|:----------------------------------------------------:|
-|       [Run a Local Dev Node](/smart-contracts/dev-environments/local-dev-node/){target=\_blank}        | Polkadot SDK node |    Spin up a local node for iterative development    |
-|       [Remix: Get Started](/smart-contracts/dev-environments/remix/get-started/){target=\_blank}       |       Remix       | Connect Remix to Polkadot Hub and configure accounts |
-| [Remix: Verify a Contract](/smart-contracts/dev-environments/remix/verify-a-contract/){target=\_blank} |       Remix       |         Publish verified source on explorers         |
-|       [Use Hardhat for Development](/smart-contracts/dev-environments/hardhat/){target=\_blank}        |      Hardhat      |        Project scaffolding and configuration         |
+|                                  Build and Test Locally                                   |       Tools       |                  Description                   |
+|:-----------------------------------------------------------------------------------------:|:-----------------:|:----------------------------------------------:|
+| [Run a Local Dev Node](/smart-contracts/dev-environments/local-dev-node/){target=\_blank} | Polkadot SDK node | Spin up a local node for iterative development |
+|   [Use Remix for Development](/smart-contracts/dev-environments/remix/){target=\_blank}   |       Remix       |         Connect Remix to Polkadot Hub          |
+| [Use Hardhat for Development](/smart-contracts/dev-environments/hardhat/){target=\_blank} |      Hardhat      |     Project scaffolding and configuration      |
 
 
 ## Ethereum Developer Resources
@@ -4302,7 +4222,7 @@ Located at the fixed address `0x00000000000000000000000000000000000a0000`, the X
 - **`send`**: For cross-chain message transmission.
 - **`weighMessage`**: For cost estimation.
 
-This guide demonstrates how to interact with the XCM precompile through Solidity smart contracts using [Remix IDE](/smart-contracts/dev-environments/remix/get-started/){target=\_blank}.
+This guide demonstrates how to interact with the XCM precompile through Solidity smart contracts using [Remix IDE](/smart-contracts/dev-environments/remix/){target=\_blank}.
 
 !!!note
     The XCM precompile provides the barebones XCM functionality. While it provides a lot of flexibility, it doesn't provide abstractions to hide away XCM details. These have to be built on top.
@@ -4366,7 +4286,7 @@ For further information, check the [`precompiles/IXCM.sol`](https://github.com/p
 
 ## Interact with the XCM Precompile
 
-To interact with the XCM precompile, you can use the precompile interface directly in [Remix IDE](/smart-contracts/dev-environments/remix/get-started/){target=\_blank}:
+To interact with the XCM precompile, you can use the precompile interface directly in [Remix IDE](/smart-contracts/dev-environments/remix/){target=\_blank}:
 
 1. Create a new file called `IXcm.sol` in Remix.
 2. Copy and paste the `IXcm` interface code into the file.
@@ -6235,165 +6155,6 @@ This ensures accurate fee calculation while maintaining compatibility with exist
 
 ---
 
-Page Title: Troubleshooting Remix IDE
-
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-remix-troubleshooting-faq.md
-- Canonical (HTML): https://docs.polkadot.com/smart-contracts/dev-environments/remix/troubleshooting-faq/
-- Summary: Common issues related to developing, compiling, and deploying smart contracts using Remix IDE on Polkadot Hub paired with troubleshooting suggestions.
-
-# Remix IDE Troubleshooting
-
-This guide provides solutions to common issues you may encounter when using Remix IDE with Polkadot Hub. If you're experiencing problems with compilation, deployment, or contract interaction, you'll likely find the solution here.
-
-## Contract fails to compile or shows errors in the terminal
-
-- **Check Solidity version compatibility**:
-    - Ensure your contract's pragma statement matches the compiler version selected in the **Solidity Compiler** tab.
-    - Example: If your contract uses `pragma solidity ^0.8.0;`, select compiler version 0.8.x or higher.
-
-- **Review syntax errors**:
-    - Carefully read error messages in the terminal panel at the bottom of the screen.
-    - Common issues include missing semicolons, incorrect function visibility, or mismatched brackets.
-
-- **Clear cache and recompile**:
-    - Delete the `artifacts` folder in the **File Explorer**.
-    - Try compiling again with `Ctrl+S` or click the **Compile** button.
-
-## The `artifacts` folder doesn't appear after compilation
-
-- Ensure compilation completed successfully without errors.
-- Refresh the **File Explorer** by clicking away and back to the **File Explorer** tab.
-- Check that your `.sol` file is saved before compiling.
-
-## Remix doesn't detect your wallet extension (MetaMask, Talisman, etc.)
-
-- **Verify wallet installation**:
-    - Ensure your wallet extension is properly installed and enabled in your browser.
-    - Check that the extension icon appears in your browser toolbar.
-
-- **Refresh the page**:
-    - Reload the Remix IDE page and try reconnecting.
-
-- **Check browser permissions**:
-    - Ensure Remix has permission to interact with the wallet extension.
-    - Check your browser's extension settings.
-
-- **Use correct environment**:
-    - In the **Deploy & Run Transactions** tab, select **Browser Extension** from the **Environment** dropdown.
-    - Choose **Injected Provider - MetaMask** (works with most wallet providers).
-
-## Wallet is connected but to the wrong network
-
-1. Open your wallet extension.
-2. Switch to the Polkadot Hub network.
-3. Refresh the Remix IDE if the network change isn't detected automatically.
-4. Verify the network name and chain ID match Polkadot Hub's configuration.
-
-## Deployment fails with "insufficient funds" or similar error
-
-- **Check your balance**:
-    - Verify you have enough test tokens in your connected wallet.
-    - Visit the [Polkadot faucet](/smart-contracts/faucet/){target=\_blank} to obtain test tokens.
-
-- **Wait for faucet tokens**:
-    - Allow a few minutes for faucet transactions to complete.
-    - Refresh your wallet to see the updated balance.
-
-## Deployment transaction is rejected or fails
-
-- **Increase gas limit**:
-    - In the **Deploy & Run Transactions** tab, adjust the **Gas Limit** field.
-    - Try increasing it by 20-30% from the estimated amount.
-
-- **Check contract constructor parameters**:
-    - Ensure any required constructor parameters are provided correctly.
-    - Verify parameter types match the contract's constructor signature.
-
-- **Verify contract selection**:
-    - Ensure you've selected the correct contract from the **Contract** dropdown.
-    - If you have multiple contracts, make sure you're deploying the intended one.
-
-## The "Injected Provider - MetaMask" option doesn't appear in the Environment dropdown
-
-- Select **Browser Extension** from the **Environment** dropdown to populate the **Injected Provider - Metamask** option.
-- Ensure your wallet extension is unlocked and active.
-- Try disabling and re-enabling the wallet extension.
-- Refresh the Remix IDE page.
-
-## Wallet rejects transactions when trying to interact with deployed contracts
-
-- **Check wallet unlock status**:
-    - Ensure your wallet is unlocked.
-    - Verify you're approving the transaction in the wallet pop-up.
-
-- **Verify sufficient gas**:
-    - Ensure you have enough tokens to cover the transaction fee.
-    - The wallet pop-up should show the estimated gas cost.
-
-- **Network mismatch**:
-    - Confirm your wallet is still connected to Polkadot Hub.
-    - Check that Remix is using the same network.
-
-## Deployed contract doesn't show in the **Deployed/Unpinned Contracts** section
-
-- Wait for the transaction to be confirmed on-chain.
-- Check the Remix terminal for deployment confirmation.
-- Scroll down in the **Deploy & Run Transactions** panel to find the deployed contracts section.
-- If the deployment transaction failed, check the terminal for error messages.
-
-## Blue buttons (read functions) don't display return values
-
-- **Check the terminal**:
-    - Return values appear in the terminal panel at the bottom.
-    - Look for the decoded output section.
-
-- **Verify contract state**:
-    - Ensure the contract has been properly initialized.
-    - Check if the function requires a specific contract state to return values.
-
-- **Network connection**:
-    - Verify you're still connected to the correct network.
-    - Try refreshing the connection to your wallet.
-
-
-## Orange/red buttons (write functions) execute, but the state doesn't change
-
-- **Wait for transaction confirmation**:
-    - Transactions need to be mined before state changes are reflected.
-    - Check the terminal for transaction status.
-    - Wait a few seconds and try rereading the state.
-
-- **Transaction failed**:
-    - Check if the transaction was actually successful in the terminal.
-    - Look for revert reasons or error messages.
-    - Verify you approved the transaction in your wallet.
-
-- **Check transaction parameters**:
-    - Ensure you're passing the correct parameters to the function.
-    - For payable functions (red buttons), verify you're sending the correct amount.
-
-## Remix takes a long time to load or becomes unresponsive
-
-- **Clear browser cache**:
-    - Clear your browser's cache and cookies.
-    - Restart your browser.
-
-- **Disable unnecessary plugins**:
-    - In Remix, deactivate plugins you're not using via the Plugin Manager.
-
-- **Use a supported browser**:
-    - Use Chrome, Firefox, or Brave for the best compatibility.
-    - Ensure your browser is up to date.
-
-## Changes to files or folders don't appear in the File Explorer
-
-- Click the refresh icon in the **File Explorer**.
-- Switch to a different tab and back to **File Explorer**.
-- Save your work and reload the Remix IDE page.
-
-
----
-
 Page Title: Use Hardhat with Polkadot Hub
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-hardhat.md
@@ -6503,7 +6264,6 @@ To use Hardhat with Polkadot Hub, define the network configuration in your `hard
 
 ## Where to Go Next
 
-
 <div class="grid cards" markdown>
 
 -   <span class="badge guide">Guide</span> __Deploy a Basic Contract__
@@ -6526,7 +6286,7 @@ To use Hardhat with Polkadot Hub, define the network configuration in your `hard
 
     ---
 
-    Walk through deploying a NFT to Polkadot Hub using Hardhat.
+    Walk through deploying an NFT to Polkadot Hub using Hardhat.
 
     [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-hardhat/)
 
@@ -6545,107 +6305,80 @@ To use Hardhat with Polkadot Hub, define the network configuration in your `hard
 
 Page Title: Use the Remix IDE on Polkadot Hub
 
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-remix-get-started.md
-- Canonical (HTML): https://docs.polkadot.com/smart-contracts/dev-environments/remix/get-started/
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-dev-environments-remix.md
+- Canonical (HTML): https://docs.polkadot.com/smart-contracts/dev-environments/remix/
 - Summary: Explore the smart contract development and deployment process on Polkadot Hub using Remix IDE, a visual IDE for blockchain developers.
 
 # Remix IDE
 
 ## Introduction
 
-Remix IDE is a robust browser-based development environment for smart contracts. This guide will walk you through the essentials of the [Remix IDE](https://remix.ethereum.org/){target=\_blank} to understand the processes of compiling, developing, and deploying smart contracts on Polkadot Hub.
+[Remix](https://remix.ethereum.org/){target=\_blank} is a browser-based IDE that makes it easy to write, compile, and deploy smart contracts without installing any local tools. It’s a great place to experiment, learn, and quickly test contracts on Polkadot. This page introduces the main parts of the Remix interface and shows how to connect it to Polkadot so you can deploy and interact with contracts directly from your browser.
 
 ## Prerequisites
 
 Before getting started, ensure you have:
 
-- A web browser with the [MetaMask](https://metamask.io/){target=\_blank} extension installed.
-- Basic understanding of Solidity programming.
-- Some test tokens to cover transaction fees (easily obtainable from the [Polkadot faucet](/smart-contracts/faucet/){target=\_blank}).
+- A browser with the [MetaMask](https://metamask.io/){target=\_blank} extension installed
+- MetaMask connected to Polkadot (see the [Wallet Integrations](/smart-contracts/integrations/wallets/#metamask){target=\_blank} guide for setup steps)
 
 ## Access Remix IDE
 
-Navigate to [https://remix.ethereum.org/](https://remix.ethereum.org/){target=\_blank}. The interface will load with a default workspace containing sample contracts.
+Navigate to [https://remix.ethereum.org/](https://remix.ethereum.org/){target=\_blank}. The interface will load with a default workspace containing sample contracts. In this interface, you can access the following:
 
-![](/images/smart-contracts/dev-environments/remix/get-started/remix-1.webp)
+- **Editor panel**: The main coding area where you write and modify your smart contract files. Supports syntax highlighting, auto-completion, and linting.
+- **Terminal**: Shows logs from the compiler, deployment events, transactions, and console.log output. Useful for debugging and tracking execution.
+- **Plugin panel**: Displays icons for each of the preloaded plugins, the plugin manager, and the settings menu. You'll see a few icons there for each of the preloaded plugins:
 
-In this interface, you can access a file explorer, edit your code, interact with various development plugins, and use a terminal.
+    - **File explorer**: Displays your project workspace. You can create, open, rename, and organize Solidity files, scripts, and folders.
+    - **File search**: A quick search tool for finding symbols, functions, or text within your project files.
+    - **Solidity compiler**: A plugin that compiles your Solidity contracts. It allows you to select compiler versions, enable optimizations, and view compilation errors or warnings.
+    - **Deploy & run transactions**: Used to deploy contracts and interact with them. Allows you to choose an environment (JavaScript VM, injected provider, or custom RPC), deploy contracts, send transactions, and call read/write functions.
+    - **Debugger**: Allows you to step through a transaction execution line-by-line. You can inspect variables, stack values, storage slots, and opcodes to understand exactly how your contract behaved during a specific transaction.
+    - **Git**: Enables basic Git version control directly inside Remix. You can initialize repositories, view diffs, commit changes, and browse project history without needing an external Git client.
 
-## Create a New Contract
+![](/images/smart-contracts/dev-environments/remix/remix-01.webp)
 
-To create a new contract using the Remix IDE, you can follow these steps:
+## Connect Remix to Polkadot
 
-1. Select the **Create a new file** button in the `contracts` folder.
+You can connect Remix to Polkadot from the **Deploy & run transactions** tab in the plugin panel:
 
-2. Name your file with a `.sol` extension, in this case, `Counter.sol`.
+1. Switch your MetaMask network to Polkadot. For detailed steps on setting up MetaMask for Polkadot, see the [Wallet Integrations](/smart-contracts/integrations/wallets/#metamask){target=\_blank} guide.
+2. Click on the **Environment** dropdown.
+3. Hover over **browser extension**.
+4. Select **Injected Provider - MetaMask**.
 
-3. Write your Solidity code in the editor. You can use the following code as an example:
+![](/images/smart-contracts/dev-environments/remix/remix-02.webp)
 
-    ??? code "Counter.sol"
-        
-        ```solidity
-        // SPDX-License-Identifier: MIT
-        pragma solidity ^0.8.0;
-
-        contract Counter {
-            int256 private count;
-
-            function increment() public {
-                count += 1;
-            }
-
-            function decrement() public {
-                count -= 1;
-            }
-
-            function getCount() public view returns (int256) {
-                return count;
-            }
-        }
-        ```
-
-    ![](/images/smart-contracts/dev-environments/remix/get-started/remix-2.gif)
-
-
-## Compile Your Contract
-
-To compile your contract, you need to:
-
-1. Navigate to the **Solidity Compiler** tab.
-2. Select **Compile** or use `Ctrl+S`.
-
-    !!! note
-        Compilation errors and warnings appear in the terminal panel at the bottom of the screen.
-
-3. After compiling your contract, you can navigate to the **File Explorer** tab and check that:
-    1. The **artifacts** folder is present.
-    2. The `Counter_metadata.json` and the `Counter.json` files have been generated.
-
-        ![](/images/smart-contracts/dev-environments/remix/get-started/remix-3.gif)
+Once connected, Remix will display your MetaMask account address under **Accounts**. To switch accounts, change it in MetaMask—Remix updates automatically.
 
 ## Where to Go Next
 
-Remix offers an environment for developing, compiling, and deploying smart contracts on Polkadot Hub. Its intuitive interface allows developers to easily write Solidity code, compile contracts, and interact with them directly in the browser.
-
-Explore more about smart contracts through these resources:
-
 <div class="grid cards" markdown>
 
--   <span class="badge guide">Guide</span> __Deploy a Contract__
+-   <span class="badge guide">Guide</span> __Deploy a Basic Contract__
 
     ---
 
-    Learn how to deploy smart contracts using Remix IDE.
+    Ready to start using Remix? Learn how to compile, test, and deploy a basic contract.
 
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/dev-environments/remix/deploy-a-contract/)
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-basic/basic-remix/)
 
--   <span class="badge external">External</span> __OpenZeppelin Contracts__
+-   <span class="badge guide">Guide</span> __Deploy an ERC-20__
 
     ---
 
-    Test your skills by deploying simple contracts using prebuilt templates.
+    Walk through deploying a fully-functional ERC-20 to Polkadot Hub using Remix.
 
-    [:octicons-arrow-right-24: Get Started](https://www.openzeppelin.com/solidity-contracts){target=\_blank}
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix/)
+
+-   <span class="badge guide">Guide</span> __Deploy an NFT__
+
+    ---
+
+    Walk through deploying an NFT to Polkadot Hub using Remix.
+
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix/)
 
 </div>
 

@@ -30,8 +30,13 @@ flowchart LR
 
 * **Unincluded Segments**: Chains of candidate parablocks that have yet to be included in the relay chain, i.e. they can contain blocks at any stage pre-inclusion. The core functionality that asynchronous backing brings is the ability to build on these unincluded segments of block ancestors rather than building only on ancestors included in the relay chain state. This context source lives on the collators.
 
-**Generation**: Collators *execute* their blockchain's core functionality to generate a new block, producing a [candidate receipt](https://paritytech.github.io/polkadot-sdk/book/types/candidate.html#candidate-receipt), which is passed to validators selected for backing.
+**Generation**: Collators *execute* their blockchain's core functionality to generate a new block, producing a [proof-of-validity](https://paritytech.github.io/polkadot-sdk/book/types/availability.html?#proof-of-validity) (PoV), which is passed to validators selected for backing. The PoV is composed of:
 
-**Backing**: A subset of active validators verify if the parablock follows the state transition rules of the parachain and sign *Proof of Validity* (PoV) statements that can have a positive or negative outcome. With enough positive statements, the block is backed and included in the relay chain, but is still pending approval.
+- The block candidate (list of state transitions)
+- The values in the parachain's database that the block modifies
+- The hashes of the unaffected points in the Merkle tree
+
+
+**Backing**: A subset of active validators verify that the parablock follows the state transition rules of the parachain and sign a [validity statement](https://paritytech.github.io/polkadot-sdk/book/types/backing.html?#validity-attestation) about the PoV which can have a positive or negative outcome. With enough positive statements, the block is backed and noted on the relay chain, but is still pending approval.
 
 **Inclusion**: Validators gossip [erasure code chunks](https://paritytech.github.io/polkadot-sdk/book/types/availability.html#erasure-chunk) and put the parablock through the final [approval process](https://paritytech.github.io/polkadot-sdk/book/protocol-approval.html) before it is considered *included* in the relay chain.

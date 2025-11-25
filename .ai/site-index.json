@@ -7962,12 +7962,12 @@
     "preview": "The multi-step pipeline through which parablocks are processed into the Polkadot relay chain:",
     "outline": [],
     "stats": {
-      "chars": 2323,
-      "words": 346,
+      "chars": 2620,
+      "words": 395,
       "headings": 0,
       "estimated_token_count_total": 0
     },
-    "hash": "sha256:76da0913066aec01f50c6579719094c14e50a2048d263179a0bc3f033771a7e3",
+    "hash": "sha256:7159549558d5a7d8565f3ca84ba989bc349ec3f8a5edf6c512f9a1166ad5f6f8",
     "token_estimator": "heuristic-v1"
   },
   {

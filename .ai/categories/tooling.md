@@ -6392,7 +6392,7 @@ Page Title: Use the Remix IDE on Polkadot Hub
 Before getting started, ensure you have:
 
 - A browser with the [MetaMask](https://metamask.io/){target=\_blank} extension installed
-- MetaMask connected to Polkadot (see the [Wallet Integrations](/smart-contracts/integrations/wallets/#metamask){target=_blank} guide for setup steps)
+- MetaMask connected to Polkadot (see the [Wallet Integrations](/smart-contracts/integrations/wallets/#metamask){target=\_blank} guide for setup steps)
 
 ## Access Remix IDE
 
@@ -6416,9 +6416,9 @@ Navigate to [https://remix.ethereum.org/](https://remix.ethereum.org/){target=\_
 You can connect Remix to Polkadot from the **Deploy & run transactions** tab in the plugin panel:
 
 1. Switch your MetaMask network to Polkadot. For detailed steps on setting up MetaMask for Polkadot, see the [Wallet Integrations](/smart-contracts/integrations/wallets/#metamask){target=\_blank} guide.
-1. Click on the **Environment** dropdown.
-2. Hover over **browser extension**.
-3. Select **Injected Provider - MetaMask**.
+2. Click on the **Environment** dropdown.
+3. Hover over **browser extension**.
+4. Select **Injected Provider - MetaMask**.
 
 ![](/images/smart-contracts/dev-environments/remix/remix-02.webp)
 

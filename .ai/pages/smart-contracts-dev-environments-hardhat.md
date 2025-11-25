@@ -108,7 +108,6 @@ To use Hardhat with Polkadot Hub, define the network configuration in your `hard
 
 ## Where to Go Next
 
-
 <div class="grid cards" markdown>
 
 -   <span class="badge guide">Guide</span> __Deploy a Basic Contract__
@@ -131,7 +130,7 @@ To use Hardhat with Polkadot Hub, define the network configuration in your `hard
 
     ---
 
-    Walk through deploying a NFT to Polkadot Hub using Hardhat.
+    Walk through deploying an NFT to Polkadot Hub using Hardhat.
 
     [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-hardhat/)
 

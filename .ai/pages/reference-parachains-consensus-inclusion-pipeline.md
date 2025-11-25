@@ -5,7 +5,15 @@ categories: Polkadot Protocol
 url: https://docs.polkadot.com/reference/parachains/consensus/inclusion-pipeline/
 ---
 
-The multi-step pipeline through which parablocks are processed into the Polkadot relay chain:
+The inclusion pipeline is the multi-stage process through which every parachain block (parablock) is **validated** and **secured** before being finalized in the Polkadot relay chain.
+
+This pipeline ensures that all parablocks meet Polkadot's security guarantees through progressive verification: each parablock passes through multiple validation stages with different validator sets, ensuring that invalid parablocks cannot be finalized even if some validators *or collators* are malicious/compromised.
+
+By configuring [Async Backing](/reference/parachains/consensus/async-backing), a parachin can run this pipeline in parallel for many blocks, allowing for high throughput.
+
+## Pipeline Stages
+
+The inclusion pipeline consists of three main stages:
 
 ```mermaid
 %%{init: {"flowchart": {"nodeSpacing": 40, "rankSpacing": 60}}}%%
@@ -24,11 +32,11 @@ flowchart LR
 
   classDef nobox fill:none,stroke:none,color:inherit;
 ```
-**Context**: Context of state is provided as input in order for collators and validators to build a parablocks during the generation and backing stages, respectively. This context is provided by two sources:
+**Context**: Context of state is provided as input in order for collators and validators to build a parablock during the generation and backing stages, respectively. This context is provided by two sources:
 
 * **Relay Parent**: The relay chain block which a given parablock is anchored to. Note that the relay parent of a parablock and the relay block including that parablock are always different. This context source lives on the relay chain.
 
-* **Unincluded Segments**: Chains of candidate parablocks that have yet to be included in the relay chain, i.e. they can contain blocks at any stage pre-inclusion. The core functionality that asynchronous backing brings is the ability to build on these unincluded segments of block ancestors rather than building only on ancestors included in the relay chain state. This context source lives on the collators.
+* **Unincluded Segments**: Chains of candidate parablocks that have yet to be included in the relay chain, i.e. they can contain blocks at any stage pre-inclusion. The core functionality that [Async Backing](/reference/parachains/consensus/async-backing) brings is the ability to build on these unincluded segments of block ancestors rather than building only on ancestors included in the relay chain state. This context source lives on the collators.
 
 **Generation**: Collators *execute* their blockchain's core functionality to generate a new block, producing a [proof-of-validity](https://paritytech.github.io/polkadot-sdk/book/types/availability.html?#proof-of-validity) (PoV), which is passed to validators selected for backing. The PoV is composed of:
 

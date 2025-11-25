@@ -43,7 +43,7 @@ Before you begin, ensure you have the following:
 
 Open `hardhat.config.ts` and update to add `polkadotTestnet` to the `networks` configuration as highlighted in the following example code:
 
-```typescript title="hardhat.config.ts" hl_lines='19-23'
+```typescript title="hardhat.config.ts" hl_lines='18-23'
 --8<-- 'code/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-hardhat/hardhat.config.ts'
 ```
 

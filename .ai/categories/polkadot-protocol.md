@@ -304,7 +304,7 @@ export default config;
 ```
 
 !!! tip
-    Visit the Hardhat [Config Variables](https://hardhat.org/docs/learn-more/configuration-variables){target=\_blank} documentation to learn how to use Hardhat to handle your private keys securely.
+    Visit the Hardhat [Configuration variables](https://v2.hardhat.org/hardhat-runner/docs/guides/configuration-variables){target=\_blank} documentation to learn how to use Hardhat to handle your private keys securely.
 
 ## Compile the Contract 
 
@@ -359,9 +359,10 @@ If tests are successful, you will see outputs similar to the following:
 You are now ready to deploy the contract to your chosen network. This example demonstrates deployment to the Polkadot TestNet. Deploy the contract as follows:
 
 1. Run the following command in your terminal:
-  ```bash
-  npx hardhat ignition deploy ./ignition/modules/MyToken.ts --network polkadotTestnet
-  ```
+
+    ```bash
+    npx hardhat ignition deploy ./ignition/modules/MyToken.ts --network polkadotTestnet
+    ```
 
 2. Confirm the target deployment network name and chain ID when prompted:
 
@@ -393,13 +394,21 @@ Congratulations! You've successfully deployed an ERC-20 token contract to Polkad
 
 <div class="grid cards" markdown>
 
--   <span class="badge guide">Guide</span> __Deploy an NFT with Remix__
+-   <span class="badge guide">Guide</span> __Deploy an NFT__
 
     ---
 
-    Walk through deploying an ERC-721 Non-Fungible Token (NFT) using OpenZeppelin's battle-tested NFT implementation and Remix.
+    Walk through deploying an NFT to the Polkadot Hub using Hardhat.
 
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix/)
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-hardhat/)
+
+-   <span class="badge guide">Guide</span> __Create a DApp__
+
+    ---
+
+    Learn step-by-step how to build a fully functional dApp that interacts with a smart contract deployed via Hardhat.
+
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/dapps/zero-to-hero/)
 
 </div>
 
@@ -818,6 +827,14 @@ Congratulations! You've successfully deployed an ERC-721 NFT contract to Polkado
     Walk through deploying a fully-functional ERC-20 to Polkadot Hub using Hardhat.
 
     [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-hardhat/)
+
+-   <span class="badge guide">Guide</span> __Create a DApp__
+
+    ---
+
+    Learn step-by-step how to build a fully functional dApp that interacts with a smart contract deployed via Hardhat.
+
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/dapps/zero-to-hero/)
 
 </div>
 

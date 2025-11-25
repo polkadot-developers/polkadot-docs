@@ -15,7 +15,7 @@ categories: Smart Contracts, Tooling
 Before getting started, ensure you have:
 
 - A browser with the [MetaMask](https://metamask.io/){target=\_blank} extension installed
-- MetaMask connected to Polkadot (see the [Wallet Integrations](/smart-contracts/integrations/wallets/#metamask){target=_blank} guide for setup steps)
+- MetaMask connected to Polkadot (see the [Wallet Integrations](/smart-contracts/integrations/wallets/#metamask){target=\_blank} guide for setup steps)
 
 ## Access Remix IDE
 

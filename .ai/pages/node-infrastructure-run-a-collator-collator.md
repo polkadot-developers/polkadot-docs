@@ -31,7 +31,7 @@ Block-producing collators perform critical functions:
 - Send block candidates to relay chain validators.
 - Enable cross-chain message passing using XCM
 
-Unlike relay chain validators, collators do not provide security guarantees—that responsibility lies with relay chain validators through the ELVES protocol. Rather, collators are essential for network liveness and censorship resistance.
+Unlike relay chain validators, collators do not provide security guarantees—that responsibility lies with relay chain validators through the [ELVES protocol](https://wiki.polkadot.com/learn/learn-parachains-protocol/){target=\_blank}. Rather, collators are essential for network liveness and censorship resistance.
 
 ## Prerequisites
 
@@ -57,7 +57,7 @@ Uptime is critical. Consider redundancy and monitoring to maintain block product
 
 ### Software Requirements
 
-Collators use the **Polkadot Parachain** binary, the standard client for running Polkadot system parachains.
+Collators use the Polkadot Parachain binary, the standard client for running Polkadot system parachains.
 
 Required software includes the following:
 
@@ -143,6 +143,17 @@ Generate an account for on-chain transactions as follows:
   docker run -it parity/subkey:latest generate --scheme sr25519
   ```
 
+  The output will be similar to the following:
+  ```bash
+  Secret phrase:       embody rail hour peanut .... badge syrup luggage canvas
+    Network ID:        substrate
+    Secret seed:       0x6498dd3416c491406e2c8283c76760ce4ca018478888b42315e7718778f2c2e1
+    Public key (hex):  0x2202210357e49390d4f8d868da983940fe220a0a0e00bc6feaeda462aa031810
+    Account ID:        0x2202210357e49390d4f8d868da983940fe220a0a0e00bc6feaeda462aa031810
+    Public key (SS58): 5CqJ7n72GvvF5ZzUT2HMj83KyDje4n8sXR8kuiK8HWtfDktF
+    SS58 Address:      5CqJ7n72GvvF5ZzUT2HMj83KyDje4n8sXR8kuiK8HWtfDktF
+  ```
+
 2. Save the following items displayed in the output:
     - Secret phrase (seed) - Keep this secure!
     - Public key (hex)
@@ -161,7 +172,7 @@ Download the chain specification for your target system parachain using one of t
 
 Follow these steps to download your specification from the Chainspec Collection:
 
-1. Visit the [Chainspec Collection](https://paritytech.github.io/chainspecs/) website.
+1. Visit the [Chainspec Collection](https://paritytech.github.io/chainspecs/){target=\_blank} website.
 2. Find your target system parachain.
 3. Download the chain specification JSON file.
 4. Save it as `chain-spec.json`.
@@ -315,6 +326,8 @@ The relay chain uses warp sync for faster synchronization.
 
 ## Generate Session Keys
 
+Session keys are cryptographic keys used by your collator node to sign authorship information when producing blocks. They uniquely identify your collator on the network and must be registered on-chain before your collator can participate in block production.
+
 Once your node is fully synced, use the following command to generate session keys via RPC:
 
 ```bash
@@ -338,7 +351,7 @@ System parachains use different collator selection mechanisms. Explore the follo
 
 === "On-chain Selection"
 
-    - Some parachains use pallet-collator-selection.
+    - Some parachains use [pallet-collator-selection](https://paritytech.github.io/polkadot-sdk/master/pallet_collator_selection/index.html){target=\_blank}.
     - May require bonding tokens.
     - Automatic selection based on criteria.
 
@@ -348,6 +361,8 @@ System parachains use different collator selection mechanisms. Explore the follo
     - Requires Fellowship membership or approval.
 
 ### Registration Process
+
+Collator registration authorizes your node to produce blocks on the network. The parachain's collator selection mechanism uses this on-chain registration to determine which nodes are eligible to author blocks.
 
 The registration process varies by system parachain. General steps include the following:
 
@@ -375,60 +390,18 @@ The registration process varies by system parachain. General steps include the f
         - `proof`: 0x00 (typically)
     6. Submit and sign the transaction.
     
-4. If the parachain requires bonding tokens, use the follow these steps to submit them using Polkadot.js Apps:
+4. (Optional - primarily for non-system parachains) If the parachain uses on-chain bonding for collator selection, register as a candidate using Polkadot.js Apps:
+
+    !!! note
+        Most system parachains use invulnerables lists exclusively and do not require this step. Skip to step 5 if you're running a collator for a system parachain.
+
     1. Locate **Developer > Extrinsics**.
     2. Select `collatorSelection.registerAsCandidate`.
-    3. Submit the transaction with the required bond amount.
-    4. Sign the transaction.
+    3. Submit and sign the transaction. The required bond amount will be automatically reserved from your account based on the pallet's configured `CandidacyBond`.
 
-5. If applying to join the invulnerables list, you must now await governance approval for your proposal. Monitor the [Polkadot Forum](https://forum.polkadot.network){target=\_blank} governance channels and announcements. Once approved, your collator is added to the invulnerables list and will begin producing blocks in the next session or era. 
+5. For system parachains using invulnerables lists, await governance approval for your proposal. Monitor the [Polkadot Forum](https://forum.polkadot.network){target=\_blank} governance channels and announcements. Once approved, your collator is added to the invulnerables list and will begin producing blocks in the next session or era. 
 
 6. Verify your collator is active by monitoring logs for block production messages like "Prepared block for proposing" and "Imported #123". See the [Log Management](#log-management) section for log viewing commands.
-
-## Monitor and Maintain Your Collator
-
-Monitoring the following items will help ensure your collator runs efficiently to avoid service interruptions or down time:
-
-- **Block Production**: Monitor for block production using the appropriate command for your setup:
-
-    === "Docker Setup"
-
-        ```bash
-        docker logs polkadot-collator 2>&1 | grep -i "prepared block"
-        ```
-
-    === "systemd Setup"
-
-        ```bash
-        sudo journalctl -u polkadot-collator | grep -i "prepared block"
-        ```
-
-- **Peer Connections**: Maintain a sufficient amount of peers for good connectivity and set up alerts to notify if peer connections falls below ten.
-- **Resource Usage**: Monitor CPU, RAM, and disk I/O and set up alerts for unusual or high usage.
-- **Sync Status**: Ensure both chains stay synced and set up alerts for sync issues.
-
-### Prometheus Metrics
-
-You can use the following information to configure [Prometheus](https://prometheus.io/docs/introduction/first_steps/){target=\_blank} to monitor, collect, and store your collator node metrics:
-
-- **URL**: Metrics are available to view at `http://localhost:9615/metrics`
-- **Example Prometheus configuration**: Update your `prometheus.yml` to add the following code:
-    {% raw %}
-    ```yaml
-    scrape_configs:
-      - job_name: 'polkadot-collator'
-        static_configs:
-          - targets: ['localhost:9615']
-    ```
-    {% endraw %}
-
-Key metrics to monitor via Prometheus include the following:
-
-- `substrate_block_height`: Current block height
-- `substrate_finalized_height`: Finalized block height
-- `substrate_peers_count`: Peer connections
-- `substrate_ready_transactions_number`: Transaction queue
-
 
 ## Log Management
 

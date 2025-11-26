@@ -24,7 +24,12 @@ RPC nodes provide API access to blockchain data without participating in consens
 - **Wallets**: Check balances and broadcast transactions
 - **Development**: Test and debug applications
 
-RPC nodes can be run for both the relay chain and parachains, with varying levels of data retention (pruned vs archive).
+RPC nodes can be run for both the relay chain and parachains, with varying levels of data retention:
+
+- **Pruned Nodes**: Keep recent state and a limited number of finalized blocks. Suitable for most applications that only need current state and recent history. More efficient in terms of storage and sync time.
+- **Archive Nodes**: Maintain complete historical state and all blocks since genesis. Required for block explorers, analytics platforms, or applications that need to query historical data at any point in time.
+
+**Transaction Broadcasting**: RPC nodes play a crucial role in transaction submission and propagation. When a client submits a transaction via RPC methods like `author_submitExtrinsic`, the node validates the transaction format, adds it to its local transaction pool, and broadcasts it across the P2P network. Block producers (collators or validators) then pick up these transactions from their pools for inclusion in blocks. This makes RPC nodes the primary gateway for users and applications to interact with the blockchain.
 
 ### Collators
 
@@ -32,17 +37,17 @@ Collators are block producers for parachains. They perform critical functions:
 
 - **Collect transactions**: Aggregate user transactions into blocks
 - **Produce blocks**: Create parachain block candidates
-- **Generate proofs**: Produce state transition proofs (Proof-of-Validity)
-- **Submit to validators**: Send block candidates to relay chain validators
+- **Generate and package PoV**: Generate the Proof-of-Validity containing the state transition proof and necessary witness data for validation
+- **Submit to validators**: Send block candidates and PoVs to relay chain validators
 
 Unlike validators, collators do not provide security guarantees—that responsibility lies with relay chain validators. However, collators are essential for parachain liveness and censorship resistance.
 
 ### Validators
 
-Validators secure the Polkadot relay chain through Nominated Proof of Stake (NPoS). They:
+Validators secure the Polkadot relay chain through [Nominated Proof of Stake (NPoS)](https://wiki.polkadot.network/docs/learn-staking){target=\_blank}. They:
 
 - **Validate blocks**: Verify parachain blocks and relay chain transactions
-- **Participate in consensus**: Run BABE and GRANDPA protocols
+- **Participate in consensus**: Run [BABE](https://wiki.polkadot.network/docs/learn-consensus#babe-block-production){target=\_blank} and [GRANDPA](https://wiki.polkadot.network/docs/learn-consensus#grandpa-finality-gadget){target=\_blank} protocols
 - **Earn rewards**: Receive staking rewards for honest behavior
 - **Risk slashing**: Face penalties for misbehavior or downtime
 

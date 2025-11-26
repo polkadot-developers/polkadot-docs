@@ -16,6 +16,7 @@ url: https://docs.polkadot.com/node-infrastructure/run-a-node/polkadot-hub-rpc/
 - **Cross-chain Communication**: XCM message handling
 
 Running an RPC node for Polkadot Hub enables applications, wallets, and users to interact with the parachain through:
+
 - **Polkadot SDK Node RPC** (Port 9944): Native Polkadot API (WebSocket and HTTP)
 
 This setup enables block explorer indexing and provides full compatibility with Polkadot SDK development tools.
@@ -33,7 +34,7 @@ RPC nodes serving production traffic require robust hardware. The following shou
 - **CPU**: 8+ cores (16+ cores for high traffic)
 - **Memory**: 64 GB RAM minimum (128 GB recommended for high traffic)
 - **Storage**:
-    - 500 GB+ NVMe SSD for parachain state (archive nodes require 2-4 TB+)
+    - 500 GB+ NVMe SSD for parachain state (archive nodes require 600-800 GB+)
     - Additional 200+ GB for relay chain pruned database
     - Fast disk I/O is critical for query performance
 - **Network**:
@@ -80,7 +81,7 @@ Select the best option for your project, then use the steps in the following tab
 
             This chain specification is the official configuration file that defines the network parameters for Polkadot Hub.
 
-    2. (Optional but recommended) Download database snapshots
+    2. (Optional but recommended) Download database snapshots:
         - Using pre-synchronized snapshots significantly reduces initial sync time from several days to just a few hours. You need to download both parachain and relay chain data.
         - You can obtain the latest snapshot from the [Snapshot Provider](https://snapshots.polkadot.io/){target=\_blank}. Follow these steps to download and use snapshots:
             1. Create new directories with the following commands:
@@ -88,34 +89,29 @@ Select the best option for your project, then use the steps in the following tab
                 mkdir -p my-node-data/chains/asset-hub-polkadot/db
                 mkdir -p my-node-data/chains/polkadot/db
                 ```
-            2. Download the appropriate snapshot using the following commands:
+            2. Download the appropriate snapshots using the following commands:
 
-                === "Archive snapshot"
+                === "Archive Node"
 
-                    Contains complete history, recommended for RPC with historical data.
+                    Archive node setup maintains complete parachain history (~600-800 GB total). Download both Asset Hub archive and Relay chain pruned snapshots:
+
+                    **Asset Hub archive snapshot** (~400 GB):
                     ```bash
                     # Check https://snapshots.polkadot.io/ for the latest snapshot URL
                     export SNAPSHOT_URL_ASSET_HUB="https://snapshots.polkadot.io/polkadot-asset-hub-rocksdb-archive/LATEST"
 
                     rclone copyurl $SNAPSHOT_URL_ASSET_HUB/files.txt files.txt
                     rclone copy --progress --transfers 20 \
-                    --http-url $SNAPSHOT_URL_ASSET_HUB \
-                    --no-traverse --http-no-head --disable-http2 \
-                    --inplace --no-gzip-encoding --size-only \
-                    --retries 6 --retries-sleep 10s \
-                    --files-from files.txt :http: my-node-data/chains/asset-hub-polkadot/db/
+                      --http-url $SNAPSHOT_URL_ASSET_HUB \
+                      --no-traverse --http-no-head --disable-http2 \
+                      --inplace --no-gzip-encoding --size-only \
+                      --retries 6 --retries-sleep 10s \
+                      --files-from files.txt :http: my-node-data/chains/asset-hub-polkadot/db/
 
                     rm files.txt
                     ```
 
-                    - `--transfers 20`: Uses 20 parallel transfers for faster download.
-                    - `--retries 6`: Automatically retries failed transfers up to 6 times.
-                    - `--retries-sleep 10s`: Waits 10 seconds between retry attempts.
-                    - `--size-only`: Only transfers if sizes differ (prevents unnecessary re-downloads).
-
-                === "Pruned snapshot"
-
-                    Contains recent state for a smaller package size, recommended for RPC nodes.
+                    **Relay chain pruned snapshot** (~200 GB):
                     ```bash
                     # Check https://snapshots.polkadot.io/ for the latest snapshot URL
                     export SNAPSHOT_URL_RELAY="https://snapshots.polkadot.io/polkadot-rocksdb-prune/LATEST"
@@ -128,37 +124,125 @@ Select the best option for your project, then use the steps in the following tab
                       --retries 6 --retries-sleep 10s \
                       --files-from files.txt :http: my-node-data/chains/polkadot/db/
 
-                      rm files.txt
+                    rm files.txt
                     ```
-    3. Launch Polkadot Hub Node using the official [Parity Docker image](https://hub.docker.com/r/parity/polkadot-parachain){target=\_blank} with the following command:
-        ```bash
-        docker run -d --name polkadot-hub-rpc --restart unless-stopped \
-          -p 9944:9944 \
-          -p 9933:9933 \
-          -p 9615:9615 \
-          -p 30334:30334 \
-          -p 30333:30333 \
-          -v $(pwd)/asset-hub-polkadot.json:/asset-hub-polkadot.json \
-          -v $(pwd)/my-node-data:/data \
-          parity/polkadot-parachain:stable2509-2 \
-          --name=PolkadotHubRPC \
-          --base-path=/data \
-          --chain=/asset-hub-polkadot.json \
-          --prometheus-external \
-          --prometheus-port 9615 \
-          --unsafe-rpc-external \
-          --rpc-port=9944 \
-          --rpc-cors=all \
-          --rpc-methods=safe \
-          --rpc-max-connections=1000 \
-          --state-pruning=archive \
-          --blocks-pruning=archive \
-          -- \
-          --base-path=/data \
-          --chain=polkadot \
-          --state-pruning=256 \
-          --blocks-pruning=archive-canonical
-        ```
+
+                    **rclone parameters:**
+
+                    - `--transfers 20`: Uses 20 parallel transfers for faster download
+                    - `--retries 6`: Automatically retries failed transfers up to 6 times
+                    - `--retries-sleep 10s`: Waits 10 seconds between retry attempts
+                    - `--size-only`: Only transfers if sizes differ (prevents unnecessary re-downloads)
+
+                === "Pruned Node"
+
+                    Pruned node setup keeps recent state for smaller storage (~500 GB total). Download both Asset Hub pruned and Relay chain pruned snapshots:
+
+                    **Asset Hub pruned snapshot**:
+                    ```bash
+                    # Check https://snapshots.polkadot.io/ for the latest snapshot URL
+                    export SNAPSHOT_URL_ASSET_HUB="https://snapshots.polkadot.io/polkadot-asset-hub-rocksdb-prune/LATEST"
+
+                    rclone copyurl $SNAPSHOT_URL_ASSET_HUB/files.txt files.txt
+                    rclone copy --progress --transfers 20 \
+                      --http-url $SNAPSHOT_URL_ASSET_HUB \
+                      --no-traverse --http-no-head --disable-http2 \
+                      --inplace --no-gzip-encoding --size-only \
+                      --retries 6 --retries-sleep 10s \
+                      --files-from files.txt :http: my-node-data/chains/asset-hub-polkadot/db/
+
+                    rm files.txt
+                    ```
+
+                    **Relay chain pruned snapshot** (~200 GB):
+                    ```bash
+                    # Check https://snapshots.polkadot.io/ for the latest snapshot URL
+                    export SNAPSHOT_URL_RELAY="https://snapshots.polkadot.io/polkadot-rocksdb-prune/LATEST"
+
+                    rclone copyurl $SNAPSHOT_URL_RELAY/files.txt files.txt
+                    rclone copy --progress --transfers 20 \
+                      --http-url $SNAPSHOT_URL_RELAY \
+                      --no-traverse --http-no-head --disable-http2 \
+                      --inplace --no-gzip-encoding --size-only \
+                      --retries 6 --retries-sleep 10s \
+                      --files-from files.txt :http: my-node-data/chains/polkadot/db/
+
+                    rm files.txt
+                    ```
+
+                    **rclone parameters:**
+
+                    - `--transfers 20`: Uses 20 parallel transfers for faster download
+                    - `--retries 6`: Automatically retries failed transfers up to 6 times
+                    - `--retries-sleep 10s`: Waits 10 seconds between retry attempts
+                    - `--size-only`: Only transfers if sizes differ (prevents unnecessary re-downloads)
+    3. Launch Polkadot Hub Node using the official [Parity Docker image](https://hub.docker.com/r/parity/polkadot-parachain){target=\_blank}:
+
+        === "Archive Node"
+
+            Archive node configuration maintains complete parachain history for historical queries:
+
+            ```bash
+            docker run -d --name polkadot-hub-rpc --restart unless-stopped \
+              -p 9944:9944 \
+              -p 9933:9933 \
+              -p 9615:9615 \
+              -p 30334:30334 \
+              -p 30333:30333 \
+              -v $(pwd)/asset-hub-polkadot.json:/asset-hub-polkadot.json \
+              -v $(pwd)/my-node-data:/data \
+              parity/polkadot-parachain:stable2509-2 \
+              --name=PolkadotHubRPC \
+              --base-path=/data \
+              --chain=/asset-hub-polkadot.json \
+              --prometheus-external \
+              --prometheus-port 9615 \
+              --unsafe-rpc-external \
+              --rpc-port=9944 \
+              --rpc-cors=all \
+              --rpc-methods=safe \
+              --rpc-max-connections=1000 \
+              --state-pruning=archive \
+              --blocks-pruning=archive \
+              -- \
+              --base-path=/data \
+              --chain=polkadot \
+              --state-pruning=256 \
+              --blocks-pruning=archive-canonical
+            ```
+
+        === "Pruned Node"
+
+            Pruned node configuration keeps recent state for smaller storage requirements:
+
+            ```bash
+            docker run -d --name polkadot-hub-rpc --restart unless-stopped \
+              -p 9944:9944 \
+              -p 9933:9933 \
+              -p 9615:9615 \
+              -p 30334:30334 \
+              -p 30333:30333 \
+              -v $(pwd)/asset-hub-polkadot.json:/asset-hub-polkadot.json \
+              -v $(pwd)/my-node-data:/data \
+              parity/polkadot-parachain:stable2509-2 \
+              --name=PolkadotHubRPC \
+              --base-path=/data \
+              --chain=/asset-hub-polkadot.json \
+              --prometheus-external \
+              --prometheus-port 9615 \
+              --unsafe-rpc-external \
+              --rpc-port=9944 \
+              --rpc-cors=all \
+              --rpc-methods=safe \
+              --rpc-max-connections=1000 \
+              --state-pruning=1000 \
+              --blocks-pruning=256 \
+              -- \
+              --base-path=/data \
+              --chain=polkadot \
+              --state-pruning=256 \
+              --blocks-pruning=archive-canonical
+            ```
 
         Critical configuration parameters include port mappings and node parameters:
 
@@ -174,8 +258,8 @@ Select the best option for your project, then use the steps in the following tab
             - `--unsafe-rpc-external`: Enables external RPC access
             - `--rpc-cors=all`: Allows all origins for CORS
             - `--rpc-methods=safe`: Only allows safe RPC methods
-            - `--state-pruning=archive`: Keeps complete state history
-            - `--blocks-pruning=archive`: Keeps all block data
+            - `--state-pruning=archive` or `--state-pruning=1000`: Archive keeps complete state history, pruned keeps last 1000 blocks
+            - `--blocks-pruning=archive` or `--blocks-pruning=256`: Archive keeps all blocks, pruned keeps last 256 finalized blocks
             - `--prometheus-external`: Exposes metrics externally
 
         !!! warning
@@ -183,6 +267,7 @@ Select the best option for your project, then use the steps in the following tab
             The `--unsafe-rpc-external` flag should only be used in development or properly secured environments. For production, use a reverse proxy with authentication.
 
     4. Monitor the node synchronization status using the following command:
+
           ```bash
           curl -H "Content-Type: application/json" \
           -d '{"id":1, "jsonrpc":"2.0", "method": "system_syncState", "params":[]}' \
@@ -190,7 +275,7 @@ Select the best option for your project, then use the steps in the following tab
           ```
 
         You should see a response similar to the following:
-
+        
         ```json
         {
           "jsonrpc":"2.0",
@@ -205,20 +290,8 @@ Select the best option for your project, then use the steps in the following tab
 
         When synchronization is complete, `currentBlock` will be equal to `highestBlock`.
 
-    5. You can use a few different commands to verify your node is running properly:
+    5. You can use the `system_health` command to verify your node is running properly:
 
-        - Get chain information:
-            ```bash
-            curl -H "Content-Type: application/json" \
-            -d '{"id":1, "jsonrpc":"2.0", "method": "system_chain", "params":[]}' \
-            http://localhost:9944
-            ```
-        - Get the latest block:
-            ```bash
-            curl -H "Content-Type: application/json" \
-            -d '{"id":1, "jsonrpc":"2.0", "method": "chain_getHeader", "params":[]}' \
-            http://localhost:9944
-            ```
         - Query node health:
             ```bash
             curl -H "Content-Type: application/json" \
@@ -290,46 +363,95 @@ Select the best option for your project, then use the steps in the following tab
         sudo nano /etc/systemd/system/polkadot-hub-rpc.service
         ```
 
-    5. Open the new service file and add the following configuration:
-        ```ini
-        [Unit]
-        Description=Polkadot Hub RPC Node
-        After=network.target
+    5. Open the new service file and add the configuration for your chosen node type:
 
-        [Service]
-        Type=simple
-        User=polkadot
-        Group=polkadot
-        WorkingDirectory=/var/lib/polkadot-hub-rpc
+        === "Archive Node"
 
-        ExecStart=/usr/local/bin/polkadot-parachain \
-          --name=PolkadotHubRPC \
-          --chain=/var/lib/polkadot-hub-rpc/asset-hub-polkadot.json \
-          --base-path=/var/lib/polkadot-hub-rpc \
-          --port=30333 \
-          --rpc-port=9944 \
-          --rpc-external \
-          --rpc-cors=all \
-          --rpc-methods=safe \
-          --rpc-max-connections=1000 \
-          --prometheus-port=9615 \
-          --prometheus-external \
-          --state-pruning=archive \
-          --blocks-pruning=archive \
-          -- \
-          --chain=polkadot \
-          --base-path=/var/lib/polkadot-hub-rpc \
-          --port=30334 \
-          --state-pruning=256 \
-          --blocks-pruning=archive-canonical
+            Archive node configuration maintains complete parachain history for historical queries:
 
-        Restart=always
-        RestartSec=10
-        LimitNOFILE=65536
+            ```ini
+            [Unit]
+            Description=Polkadot Hub RPC Node
+            After=network.target
 
-        [Install]
-        WantedBy=multi-user.target
-        ```
+            [Service]
+            Type=simple
+            User=polkadot
+            Group=polkadot
+            WorkingDirectory=/var/lib/polkadot-hub-rpc
+
+            ExecStart=/usr/local/bin/polkadot-parachain \
+              --name=PolkadotHubRPC \
+              --chain=/var/lib/polkadot-hub-rpc/asset-hub-polkadot.json \
+              --base-path=/var/lib/polkadot-hub-rpc \
+              --port=30333 \
+              --rpc-port=9944 \
+              --rpc-external \
+              --rpc-cors=all \
+              --rpc-methods=safe \
+              --rpc-max-connections=1000 \
+              --prometheus-port=9615 \
+              --prometheus-external \
+              --state-pruning=archive \
+              --blocks-pruning=archive \
+              -- \
+              --chain=polkadot \
+              --base-path=/var/lib/polkadot-hub-rpc \
+              --port=30334 \
+              --state-pruning=256 \
+              --blocks-pruning=archive-canonical
+
+            Restart=always
+            RestartSec=10
+            LimitNOFILE=65536
+
+            [Install]
+            WantedBy=multi-user.target
+            ```
+
+        === "Pruned Node"
+
+            Pruned node configuration keeps recent state for smaller storage requirements:
+
+            ```ini
+            [Unit]
+            Description=Polkadot Hub RPC Node
+            After=network.target
+
+            [Service]
+            Type=simple
+            User=polkadot
+            Group=polkadot
+            WorkingDirectory=/var/lib/polkadot-hub-rpc
+
+            ExecStart=/usr/local/bin/polkadot-parachain \
+              --name=PolkadotHubRPC \
+              --chain=/var/lib/polkadot-hub-rpc/asset-hub-polkadot.json \
+              --base-path=/var/lib/polkadot-hub-rpc \
+              --port=30333 \
+              --rpc-port=9944 \
+              --rpc-external \
+              --rpc-cors=all \
+              --rpc-methods=safe \
+              --rpc-max-connections=1000 \
+              --prometheus-port=9615 \
+              --prometheus-external \
+              --state-pruning=1000 \
+              --blocks-pruning=256 \
+              -- \
+              --chain=polkadot \
+              --base-path=/var/lib/polkadot-hub-rpc \
+              --port=30334 \
+              --state-pruning=256 \
+              --blocks-pruning=archive-canonical
+
+            Restart=always
+            RestartSec=10
+            LimitNOFILE=65536
+
+            [Install]
+            WantedBy=multi-user.target
+            ```
 
     6. Start the service using the following commands:
         - Reload systemd:
@@ -369,117 +491,6 @@ Select the best option for your project, then use the steps in the following tab
             -d '{"id":1, "jsonrpc":"2.0", "method": "system_health", "params":[]}' \
             http://localhost:9944
             ```
-
-## Monitor and Maintain RPC Node
-
-There are a few key monitoring and maintenance commands that can help you ensure RPC node uptime and performance including log monitoring and metrics.
-
-To view node logs, use the appropriate command for your setup:
-
-=== "Docker Setup"
-
-    ```bash
-    docker logs -f polkadot-hub-rpc
-    ```
-
-=== "systemd Setup"
-
-    - View node logs:
-        ```bash
-        sudo journalctl -u polkadot-hub-rpc -f
-        ```
-    - View recent logs:
-        ```bash
-        sudo journalctl -u polkadot-hub-rpc -n 100
-        ```
-    - Filter for errors:
-        ```bash
-        sudo journalctl -u polkadot-hub-rpc | grep -i error
-        ```
-
-Monitoring key metrics like the following items can help you stay up to date on the performance and health of your node and allow you to intervene at the first sign of issues:
-
-- **Sync status**: Ensure node stays fully synced.
-- **Peer connections**: Maintain 30+ peers for good connectivity.
-- **Resource usage**: Monitor CPU, RAM, and disk I/O.
-- **RPC request latency**: Track response times for the Polkadot SDK API.
-- **Connection count**: Monitor active RPC connections.
-
-You can use the following information to configure [Prometheus](https://prometheus.io/docs/introduction/first_steps/){target=\_blank} to monitor, collect, and store your RPC node metrics:
-
-- **URL**: Metrics are available to view at `http://localhost:9615/metrics`
-- **Example Prometheus configuration**: Update your `prometheus.yml` to add the following code:
-    {% raw %}
-    ```yaml
-    scrape_configs:
-      - job_name: 'polkadot-hub-rpc'
-        static_configs:
-          - targets: ['localhost:9615']
-    ```
-    {% endraw %}
-
-Key metrics to monitor via Prometheus include:
-
-- `substrate_block_height`: Current block height
-- `substrate_finalized_height`: Finalized block height
-- `substrate_peers_count`: Number of connected peers
-- `substrate_ready_transactions_number`: Transaction queue size
-
-### Database Maintenance
-
-Check database size periodically using the commands for your selected setup:
-
-=== "Docker Setup"
-
-    ```bash
-    du -sh my-node-data
-    ```
-
-=== "systemd Setup"
-
-    ```bash
-    du -sh /var/lib/polkadot-hub-rpc
-    ```
-
-The node handles pruning automatically based on configuration unless running in archive mode.
-
-### Updates and Upgrades
-
-Use the following commands for updating or upgrading your RPC node according to your setup:
-
-=== "Docker Setup"
-
-    1. Stop and remove the existing container:
-        ```bash
-        docker stop polkadot-hub-rpc
-        docker rm polkadot-hub-rpc
-        ```
-    2. Pull the latest image:
-        ```bash
-        docker pull parity/polkadot-parachain:<NEW_TAG>
-        ```
-    3. Start the new container using the same command from the setup section with the updated image tag.
-
-=== "systemd Setup"
-
-    1. Stop the service:
-        ```bash
-        sudo systemctl stop polkadot-hub-rpc
-        ```
-    2. Backup data:
-        ```bash
-        sudo cp -r /var/lib/polkadot-hub-rpc /var/lib/polkadot-hub-rpc.backup
-        ```
-    3. Download the new binary from [GitHub releases](https://github.com/paritytech/polkadot-sdk/releases){target=\_blank}:
-        ```bash
-        wget https://github.com/paritytech/polkadot-sdk/releases/download/<NEW_VERSION>/polkadot-parachain
-        chmod +x polkadot-parachain
-        sudo mv polkadot-parachain /usr/local/bin/
-        ```
-    4. Restart the service:
-        ```bash
-        sudo systemctl start polkadot-hub-rpc
-        ```
 
 ## Conclusion
 

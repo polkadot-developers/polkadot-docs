@@ -28,20 +28,29 @@ The Polkadot-parachain protocol originally operated in synchronous mode, where b
             #item1 { fill: #450693; stroke: #450693; } \n
             #item2 { fill: #8C00FF; stroke: #8C00FF; } \n
             #item3 { fill: #FFC400; stroke: #FFC400; } \n
-            #r     { fill: #eb4172; stroke: none; } \n
-            #p1padTop { display: none; } \n
+            #r     { fill: #eb4172; stroke:none; font-size: 20px; } \n
+            svg text { font-size: 20px !important; } \n
+            svg .sectionTitle { font-size: 20px !important; } \n    #p1padTop { display: none; } \n
 
-            /* Hide ALL task labels (inside or outside), across breakpoints */
+            /* Hide ALL task labels by default */
             text.taskText,
             text.taskTextOutside,
             [class*='taskText'] tspan { display: none !important; } \n
 
-            /* Keep outside labels + section titles styled */
-            .taskTextOutside, .sectionTitle { fill: #000 !important; color: #000 !important; font-weight: 700; } \n
+            /* Show labels for the 'r' group (inside or outside, incl. tspans) */
+            text.taskText[id^='r'],
+            text.taskTextOutside[id^='r'],
+            text[id^='r'] tspan { display: inline !important; font-size: 20px; color: #000 !important; } \n
 
+            /* Keep section titles styled */
+            .sectionTitle { fill: #000 !important; font-weight: 700; font-size: 18px; } \n
 
-            svg { width: 100% !important; height: auto !important; aspect-ratio: 21 / 9; } \n
+            /* Hide the first two section titles (F1, F2). Change indexes if needed. */
+            .sectionTitle:nth-of-type(1),
+            .sectionTitle:nth-of-type(2) { display: none !important; } \n
 
+            /* Also hide SPACING row labels on the left */
+            text.taskTextOutside[id^='p1padTop'] { display: none !important; } \n
         "
         themeVariables:
             sectionBkgColor: '#fff'
@@ -50,6 +59,7 @@ The Polkadot-parachain protocol originally operated in synchronous mode, where b
             barHeight: 70
             gridLineStartPadding: 100
 ---
+%%{init: {"gantt": {"barHeight": 70 }}}%%
 gantt
     dateFormat YYYY
     axisFormat %y
@@ -64,7 +74,6 @@ gantt
     section F2
     SPACING : p1padTop, 1901, 1924
 
-
     section P1
     X          : item1, 1900, 1901
     Backing    : item2, 1901, 1906
@@ -74,6 +83,8 @@ gantt
     X          : item1, 1912, 1913
     Backing    : item2, 1913, 1918
     Inclusion  : item3, 1918, 1924
+    
+
 ```
 
 <!-- In the asynchronous scenario, where both the collators and validators have access to [Unincluded Segments](/reference/parachains/consensus/inclusion-pipeline) as an additional context source, the Backing and Generation steps are no longer coupled to the prior block completing the full inclusion pipeline. Instead, the prior parablock only needs to complete the generation step and be added to the Unincluded Segments before the next parablock can begin the Backing and Generation steps.

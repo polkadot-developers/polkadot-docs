@@ -26,7 +26,7 @@ Key responsibilities include:
 
 ## Consensus and Validation
 
-Parachain consensus operates in tandem with the relay chain, leveraging Nominated Proof of Stake (NPoS) for shared security. The process ensures parachain transactions achieve finality through the following steps:
+Parachain consensus operates in tandem with the relay chain, leveraging [Nominated Proof of Stake (NPoS)](/reference/glossary/#nominated-proof-of-stake-npos){target=\_blank} for shared security. The process ensures parachain transactions achieve finality through the following steps:
 
 1. **Packaging transactions**: Collators bundle transactions into PoV blocks (parablocks).
 2. **Submission to validator**: Parablocks are submitted to a randomly selected subset of relay chain validators, known as paravalidators.
@@ -37,13 +37,13 @@ The following sections describe the actions taking place during each stage of th
 
 ### Path of a Parachain Block
 
-Polkadot achieves scalability through execution sharding, where each parachain operates as an independent shard with its own blockchain and state. Shared security for all parachains is provided by the relay chain, powered by [Nominated Proof of Staking (NPoS)](/reference/glossary/#nominated-proof-of-stake-npos){target=\_blank}. This framework allows parachains to focus on transaction processing and state management, while the relay chain ensures validation and finality.
+Polkadot achieves scalability through execution sharding, where each parachain operates as an independent shard with its own blockchain and state. Shared security for all parachains is provided by the relay chain, powered by Nominated Proof of Stake (NPoS). This framework allows parachains to focus on transaction processing and state management, while the relay chain ensures validation and finality.
 
-The journey parachain transactions follow to reach consensus and finality can be described as follows:
+The journey of parachain transactions to reach consensus and finality can be described as follows:
 
 - Collators and parablocks:
 
-    - Collators, specialized nodes on parachains, package network transactions into Proof of Validity (PoV) blocks, also called parablocks.
+    - Collators, specialized nodes on parachains, package transactions into Proof of Validity (PoV) blocks, also called parablocks.
     - These parablocks are sent to a subset of relay chain validators, known as paravalidators, for validation.
     - The parachain's state transition function (Wasm blob) is not re-sent, as it is already stored on the relay chain.
 
@@ -123,7 +123,7 @@ Explore more about Parachain consensus through these resources:
 
     Learn more about how Elastic Scaling boosts parachain performance.
 
-    [:octicons-arrow-right-24: Elastic Scaling](../elastic-scaling/){target=\_blank}
+    [:octicons-arrow-right-24: Elastic Scaling](/reference/parachains/consensus/elastic-scaling/){target=\_blank}
 
 -   <span class="badge learn">Learn</span> __Asynchronous Backing__
 
@@ -131,7 +131,7 @@ Explore more about Parachain consensus through these resources:
 
     Read about pipelining parachain block production via Async Backing.
 
-    [:octicons-arrow-right-24: Asynchronous Backing](../async-backing/){target=\_blank}
+    [:octicons-arrow-right-24: Asynchronous Backing](/reference/parachains/consensus/async-backing/){target=\_blank}
 
 
 

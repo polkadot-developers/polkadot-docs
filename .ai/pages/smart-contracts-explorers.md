@@ -24,7 +24,7 @@ These block explorers provide essential capabilities for interacting with smart 
 
 ## Available Block Explorers
 
-The following block explorers are available for PolkaVM smart contracts, providing specialized tools for monitoring and analyzing contract activity within the Polkadot ecosystem:
+The following block explorers are available for PolkaVM smart contracts, providing specialized tools for monitoring and analyzing contract activity within the Polkadot ecosystem.
 
 
 
@@ -34,4 +34,4 @@ BlockScout is an open-source explorer platform with a user-friendly interface ad
 
 - [Polkadot Hub TestNet BlockScout](https://blockscout-passet-hub.parity-testnet.parity.io/){target=\_blank}
 
-![](/images/smart-contracts/explorers/block-explorers-2.webp)
+![](/images/smart-contracts/explorers/explorers-01.webp)

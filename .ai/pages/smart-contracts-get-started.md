@@ -16,7 +16,7 @@ Kick off development fast with curated links for connecting, funding, exploring,
 |                     Quick Start                     |         Tools         |                           Description                           |
 |:---------------------------------------------------:|:---------------------:|:---------------------------------------------------------------:|
 |  [Connect to Polkadot](/smart-contracts/connect/)   | Polkadot.js, MetaMask | Add the network, configure RPC, verify activity in the explorer |
-|    [Get Test Tokens](/smart-contracts/faucets/)     |           -           |    Request test funds to deploy and interact with contracts     |
+|     [Get Test Tokens](/smart-contracts/faucet/)     |           -           |    Request test funds to deploy and interact with contracts     |
 | [Explore Transactions](/smart-contracts/explorers/) |        Subscan        | Inspect transactions, logs, token transfers, and contract state |
 
 ## Build and Test Locally
@@ -74,8 +74,6 @@ Integrate essential services like wallets, indexers, and oracles to round out yo
 |                     Integration                     |                Description                |
 |:---------------------------------------------------:|:-----------------------------------------:|
 |  [Wallets](/smart-contracts/integrations/wallets/)  | Supported wallets and configuration notes |
-| [Indexers](/smart-contracts/integrations/indexers/) |      Index and query blockchain data      |
-|  [Oracles](/smart-contracts/integrations/oracles/)  |       Bring external data on‑chain        |
 
 ## Precompiles
 
@@ -85,7 +83,6 @@ Discover precompiled system contracts available on the Hub and how to use them.
 |:--------------------------------------------------------:|:---------------------------------------------------:|
 | [Overview of Precompiles](/smart-contracts/precompiles/) |      What precompiles are available on the Hub      |
 |  [ETH Native](/smart-contracts/precompiles/eth-native/)  |           EVM precompiles and interfaces            |
-|     [Staking](/smart-contracts/precompiles/staking/)     | Interact with staking functionality via precompiles |
 |         [XCM](/smart-contracts/precompiles/xcm/)         |     Cross‑chain messaging helpers for contracts     |
 
 From here, follow the quick starts to get connected, iterate locally with your preferred tools, and use the guides, libraries, integrations, and precompiles as you grow into production‑ready dApps. If you get stuck, [open an issue](https://github.com/polkadot-developers/polkadot-docs/issues/new?template=docs-issue.yml){target=\_blank} or reach out in the community channels.

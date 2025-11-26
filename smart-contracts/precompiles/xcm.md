@@ -34,7 +34,11 @@ The interface defines a `Weight` struct that represents the computational cost o
 - **`refTime`**: Computational time on reference hardware.
 - **`proofSize`**: The size of the proof required for execution.
 
-All XCM messages must be encoded using the [SCALE codec](/reference/parachains/data-encoding/#data-encoding){target=\_blank}, Polkadot's standard serialization format.
+All XCM messages must be encoded using the [SCALE codec](https://github.com/paritytech/parity-scale-codec?tab=readme-ov-file#parity-scale-codec){target=\_blank}, Polkadot's standard serialization format.
+
+<!-- 
+TODO POST-MVP: Update above link
+All XCM messages must be encoded using the [SCALE codec](/reference/parachains/data-encoding/#data-encoding){target=\_blank}, Polkadot's standard serialization format. -->
 
 For further information, check the [`precompiles/IXCM.sol`](https://github.com/paritytech/polkadot-sdk/blob/cb629d46ebf00aa65624013a61f9c69ebf02b0b4/polkadot/xcm/pallet-xcm/src/precompiles/IXcm.sol){target=\_blank} file present in `pallet-xcm`.
 

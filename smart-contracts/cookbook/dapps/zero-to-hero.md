@@ -310,7 +310,7 @@ This file initializes a viem client, providing helper functions for obtaining a 
 
 ## Set Up the Smart Contract Interface
 
-For this dApp, you'll use a simple [Storage contract](/tutorials/smart-contracts/launch-your-first-project/create-contracts){target=\_blank} that's already deployed in the Polkadot Hub TestNet: `0xc01Ee7f10EA4aF4673cFff62710E1D7792aBa8f3`. To interact with it, you need to define the contract interface.
+For this dApp, you'll use a simple [Storage contract](/smart-contracts/cookbook/smart-contracts/deploy-basic/basic-hardhat/#create-the-contract){target=\_blank} that's already deployed in the Polkadot Hub TestNet: `0xc01Ee7f10EA4aF4673cFff62710E1D7792aBa8f3`. To interact with it, you need to define the contract interface.
 
 Create a folder called `abis` at the root of your project, then create a file named `Storage.json` and paste the corresponding ABI of the Storage contract. You can copy and paste the following:
 
@@ -916,7 +916,7 @@ cd zero-to-hero-dapp
 
     Learn how to port an Ethereum project to Polkadot Hub using Hardhat and Viem.
 
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/eth-dapps/)
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/eth-dapps/uniswap-v2/)
 
 -   <span class="badge guide">Guide</span> __Dive Deeper into Polkadot Precompiles__
 
@@ -924,5 +924,5 @@ cd zero-to-hero-dapp
 
     Learn how to use the Polkadot precompiles to interact with the blockchain.
 
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/polkadot-precompiles/)
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/precompiles/)
 </div>

@@ -53,54 +53,7 @@ This command downloads the latest Polkadot metadata and generates TypeScript des
 Create a file named `papi-fee-calculator.ts`:
 
 ```typescript title="papi-fee-calculator.ts"
-import { createClient } from "polkadot-api";
-import { withPolkadotSdkCompat } from "polkadot-api/polkadot-sdk-compat";
-import { polkadotTestNet } from "@polkadot-api/descriptors";
-import { getWsProvider } from "polkadot-api/ws-provider";
-
-async function calculateFees() {
-  // Connect to chain
-  const client = createClient(
-    withPolkadotSdkCompat(getWsProvider("INSERT_WS_ENDPOINT"))
-  );
-
-  // Get typed API
-  const api = client.getTypedApi(polkadotTestNet);
-
-  // Define sender and recipient addresses
-  const aliceAddress = "INSERT_ALICE_ADDRESS";
-  const bobAddress = "INSERT_BOB_ADDRESS";
-
-  // Amount to transfer (1 DOT = 10^10 plancks)
-  const amount = 1_000_000_000_000n; // 1 DOT
-
-  try {
-    // Create the transaction
-    const tx = api.tx.Balances.transfer_keep_alive({
-      dest: {
-        type: "Id",
-        value: bobAddress,
-      },
-      value: amount,
-    });
-
-    // Estimate fees
-    const estimatedFees = await tx.getEstimatedFees(aliceAddress);
-
-    console.log(`Estimated fee: ${Number(estimatedFees) / 1e10} DOT`);
-    console.log(`Transaction amount: ${Number(amount) / 1e10} DOT`);
-    console.log(
-      `Total deducted: ${Number(estimatedFees + amount) / 1e10} DOT`
-    );
-  } catch (error) {
-    console.error("Error calculating fees:", error);
-  } finally {
-    // Clean up
-    client.destroy();
-  }
-}
-
-calculateFees();
+--8<-- 'code/chain-interactions/send-transactions/calculate-transaction-fees/papi-fee-calculator.ts'
 ```
 
 Ensure to replace `INSERT_WS_ENDPOINT` with your WebSocket endpoint, `INSERT_ALICE_ADDRESS` with the sender's address, and `INSERT_BOB_ADDRESS` with the recipient's address.
@@ -120,13 +73,7 @@ npx tsx papi-fee-calculator.ts
 
 You should see output similar to:
 
-<div class="termynal" data-termynal>
-    <span data-ty="input"><span class="file-path"></span>npx tsx papi-fee-calculator.ts</span>
-    <span data-ty="progress"></span>
-    <span data-ty>Estimated fee: 0.0014668864 DOT</span>
-    <span data-ty>Transaction amount: 100 DOT</span>
-    <span data-ty>Total deducted: 100.0014668864 DOT</span>
-</div>
+--8<-- 'code/chain-interactions/send-transactions/calculate-transaction-fees/papi-fee-calculator-output.html'
 
 ## Polkadot.js API
 
@@ -141,44 +88,7 @@ npm install @polkadot/api
 Create a file named `polkadotjs-fee-calculator.ts`:
 
 ```typescript title="polkadotjs-fee-calculator.ts"
-import { ApiPromise, WsProvider } from "@polkadot/api";
-
-async function calculateFees() {
-  // Connect to chain
-  const wsProvider = new WsProvider("INSERT_WS_ENDPOINT");
-  const api = await ApiPromise.create({ provider: wsProvider });
-
-  // Wait for API to be ready
-  await api.isReady;
-
-  // Define sender and recipient addresses
-  const aliceAddress = "INSERT_ALICE_ADDRESS";
-  const bobAddress = "INSERT_BOB_ADDRESS";
-
-  // Amount to transfer (1 DOT = 10^10 plancks)
-  const amount = 1_000_000_000_000n; // 1 DOT
-
-  try {
-    // Create the transaction
-    const tx = api.tx.balances.transferKeepAlive(bobAddress, amount);
-
-    // Get payment information
-    const paymentInfo = await tx.paymentInfo(aliceAddress);
-
-    console.log(`Estimated fee: ${Number(paymentInfo.partialFee.toBigInt()) / 1e10} DOT`);
-    console.log(`Transaction amount: ${Number(amount) / 1e10} DOT`);
-    console.log(
-      `Total deducted: ${Number(paymentInfo.partialFee.toBigInt() + amount) / 1e10} DOT`
-    );
-  } catch (error) {
-    console.error("Error calculating fees:", error);
-  } finally {
-    // Clean up
-    await api.disconnect();
-  }
-}
-
-calculateFees();
+--8<-- 'code/chain-interactions/send-transactions/calculate-transaction-fees/polkadotjs-fee-calculator.ts'
 ```
 
 Ensure to replace `INSERT_WS_ENDPOINT` with your WebSocket endpoint, `INSERT_ALICE_ADDRESS` with the sender's address, and `INSERT_BOB_ADDRESS` with the recipient's address.
@@ -197,13 +107,7 @@ npx tsx polkadotjs-fee-calculator.ts
 
 You should see output similar to:
 
-<div class="termynal" data-termynal>
-    <span data-ty="input"><span class="file-path"></span>npx tsx polkadotjs-fee-calculator.ts</span>
-    <span data-ty="progress"></span>
-    <span data-ty>Estimated fee: 0.0014668864 DOT</span>
-    <span data-ty>Transaction amount: 100 DOT</span>
-    <span data-ty>Total deducted: 100.0014668864 DOT</span>
-</div>
+--8<-- 'code/chain-interactions/send-transactions/calculate-transaction-fees/polkadotjs-fee-calculator-output.html'
 
 ## Polkadot-JS Apps Interface
 

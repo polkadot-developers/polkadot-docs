@@ -26,7 +26,7 @@ This guide uses a default contract contract provided by Remix IDE. Follow these 
 
 2. Once the default workspace loads, locate the `contracts` folder. Inside `contracts`, locate the `Storage.sol` file which you will use as your sample contract throughout this guide.
 
-![](/images/smart-contracts/cookbook/smart-contracts/deploy-basic/basic-remix/basic-remix-01.webp)
+![](/images/smart-contracts/cookbook/smart-contracts/deploy-basic/basic-remix/remix-01.webp)
 
 ## Compile the Contract
 
@@ -37,9 +37,9 @@ Ensure your `Storage.sol` contract is open in the Remix IDE editor, and use the 
 1. Select the **Solidity Compiler** plugin from the left panel.
 2. Select the **Compile Storage.sol** button.
 
-The **Solidity Compiler** icon will display a green checkmark once the contract compiles successfully. If any issues arise during contract compilation, errors and warnings will appear in the terminal panel at the bottom of the screen.
+![](/images/smart-contracts/cookbook/smart-contracts/deploy-basic/basic-remix/remix-02.webp)
 
-![](/images/smart-contracts/cookbook/smart-contracts/deploy-basic/deploy-basic/deploy-basic-02.webp)
+The **Solidity Compiler** icon will display a green checkmark once the contract compiles successfully. If any issues arise during contract compilation, errors and warnings will appear in the terminal panel at the bottom of the screen.
 
 ## Deploy the Contract
 
@@ -48,12 +48,10 @@ Follow these steps to deploy the contract using Remix:
 1. Select **Deploy & Run Transactions** from the left panel.
 2. Ensure your MetaMask wallet is connected to Polkadot Hub TestNet, then select the **Environment** dropdown and select **Injected Provider - MetaMask**.
 3. Select the **Deploy** button to initiate the deployment.
-4. Approve the transaction in your MetaMask wallet when prompted.
-5. You will see the transaction details in the terminal when the deployment succeeds, including the contract address and deployment transaction hash.
 
-![](/images/smart-contracts/cookbook/smart-contracts/deploy-basic/deploy-basic/deploy-basic-03.webp)
+![](/images/smart-contracts/cookbook/smart-contracts/deploy-basic/basic-remix/remix-03.webp)
 
-Once successfully deployed, your contract will appear in the **Deployed Contracts** section, ready for interaction.
+When prompted, approve the transaction in your MetaMask wallet. After the deployment succeeds, the terminal will display the transaction details, including the contract address and transaction hash, and your contract will appear in the **Deployed Contracts** section.
 
 Congratulations! You've successfully deployed a basic smart contract to Polkadot Hub TestNet using Remix IDE. Consider the following resources to build upon your progress.
 

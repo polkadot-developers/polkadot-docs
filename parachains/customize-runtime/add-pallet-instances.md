@@ -26,8 +26,8 @@ In this guide, you'll learn how to:
 
 Before you begin, ensure you have:
 
-- A working [Polkadot SDK development environment](/parachains/launch-a-parachain/choose-a-template){target=\_blank}.
-- Basic understanding of [adding pallets to a runtime](/parachains/customize-runtime/add-a-pallet){target=\_blank}.
+- A working [Polkadot SDK development environment](/parachains/launch-a-parachain/set-up-the-parachain-template/){target=\_blank}.
+- Basic understanding of [adding pallets to a runtime](/parachains/customize-runtime/add-existing-pallets/){target=\_blank}.
 
 ## Understanding Instantiable Pallets
 

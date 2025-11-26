@@ -30,7 +30,10 @@ Before you begin, ensure you:
 
 ## Understanding FRAME Testing Tools
 
-[FRAME](/reference/glossary/#frame-framework-for-runtime-aggregation-of-modularized-entities){target=\_blank} provides specialized testing macros and utilities that make pallet testing more efficient:
+[FRAME](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/frame_runtime/index.html){target=\_blank} provides specialized testing macros and utilities that make pallet testing more efficient.
+
+<!-- TODO POST-MVP: Update above link
+[FRAME (Framework for Runtime Aggregation of Modularized Entities)](/reference/glossary/#frame-framework-for-runtime-aggregation-of-modularized-entities){target=\_blank} -->
 
 ### Assertion Macros
 
@@ -600,12 +603,12 @@ These tests demonstrate comprehensive coverage including basic operations, error
 
 <div class="grid cards" markdown>
 
--   <span class="badge guide">Guide</span> __Add Your Custom Pallet to the Runtime__
+-   <span class="badge guide">Guide</span> __Benchmark Your Pallet__
 
     ---
 
-    Your pallet is tested and ready! Learn how to integrate it into your runtime.
+    Learn how to benchmark extrinsics in your custom pallet to generate precise weight calculations suitable for production use.
 
-    [:octicons-arrow-right-24: Integrate](/parachains/customize-runtime/pallet-development/add-to-runtime/)
+    [:octicons-arrow-right-24: Integrate](/parachains/customize-runtime/pallet-development/benchmark-pallet/)
 
 </div>

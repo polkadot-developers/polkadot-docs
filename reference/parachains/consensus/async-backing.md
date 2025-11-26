@@ -16,11 +16,10 @@ The following configurations can be set by on-chain governance, dictating how ma
 
 ## Synchronous VS. Asynchronous Processing
 
-*in progress*
+<!-- In the synchronous scenario, both the collators and validators draw context from the relay parent of the prior parablock, which lives on the relay chain. This makes the Backing and Generation steps tightly coupled to the prior parablock completing the inclusion pipeline. As a result, one parablock can be processed *every other* relay block, and only `0.5` seconds are assigned for execution. -->
 
-In the synchronous scenario, both the collators and validators draw context from the relay parent of the prior parablock, which lives on the relay chain. This makes the Backing and Generation steps tightly coupled to the prior parablock completing the inclusion pipeline. As a result, one parablock can be processed *every other* relay block, and only `0.5` seconds are assigned for execution.
+The Polkadot-parachain protocol originally operated in synchronous mode, where both collators and validators drew context exclusively from the relay parent of the prior parablock, which lives on the relay chain. This made the Backing and Generation steps tightly coupled to the prior parablock completing the entire inclusion pipeline. As a result, one parablock could only be processed every other relay block, with just 0.5 seconds assigned for execution.
 
-<div className="merm-16x9">
 ```mermaid
 ---
     displayMode: compact
@@ -76,11 +75,14 @@ gantt
     Backing    : item2, 1913, 1918
     Inclusion  : item3, 1918, 1924
 ```
-</div>
 
-In the asynchronous scenario, where both the collators and validators have access to [Unincluded Segments](/reference/parachains/consensus/inclusion-pipeline) as an additional context source, the Backing and Generation steps are no longer coupled to the prior block completing the full inclusion pipeline. Instead, the prior parablock only needs to complete the generation step and be added to the Unincluded Segments before the next parablock can begin the Backing and Generation steps.
+<!-- In the asynchronous scenario, where both the collators and validators have access to [Unincluded Segments](/reference/parachains/consensus/inclusion-pipeline) as an additional context source, the Backing and Generation steps are no longer coupled to the prior block completing the full inclusion pipeline. Instead, the prior parablock only needs to complete the generation step and be added to the Unincluded Segments before the next parablock can begin the Backing and Generation steps.
 
-This results in one parablock being processed *every* relay block, and allows for `2` seconds of execution.
+This results in one parablock being processed *every* relay block, and allows for `2` seconds of execution. -->
+
+The modern protocol now uses asynchronous backing, where both collators and validators have access to [Unincluded Segments](/reference/parachains/consensus/inclusion-pipeline) as an additional context source. The Backing and Generation steps are no longer coupled to the prior block completing the full inclusion pipeline. Instead, the prior parablock only needs to complete the generation step and be added to the Unincluded Segments before the next parablock can begin the Backing and Generation steps.
+
+This results in one parablock being processed every relay block (instead of every other relay block), and allows for more time to execute during the Generation step (0.5s → 2s).
 
 ```mermaid
 ---
@@ -157,9 +159,8 @@ gantt
     Backing   : item2, 1920, 1930
 ```
 
-Notice how `P2` starts before the backing stage of `P1`.
+<!-- In the multi-core scenario, by using elastic scaling we can further increase the the number of parablocks processed for each relay block. By using two cores, here we double the number of parablocks being processed in a 30 second period:
 
-In the multi-core scenario
 ```mermaid
 ---
     displayMode: compact
@@ -252,4 +253,4 @@ gantt
     X   :            item1, 1912, 1914
     Backing   :            item2, 1914, 1924
     Inclusion   :            item3, 1924, 1930
-```
+``` -->

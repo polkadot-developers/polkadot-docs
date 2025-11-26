@@ -39,7 +39,7 @@ flowchart LR
 
 **Generation**: Collators *execute* their blockchain's core functionality to generate a new block, producing a [proof-of-validity](https://paritytech.github.io/polkadot-sdk/book/types/availability.html?#proof-of-validity) (PoV), which is passed to validators selected for backing. The PoV is composed of:
 
-- The block candidate (list of state transitions)
+- A list of state transitions called the **block candidate**
 - The values in the parachain's database that the block modifies
 - The hashes of the unaffected points in the Merkle tree
 

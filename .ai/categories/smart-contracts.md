@@ -5938,7 +5938,7 @@ Page Title: Smart Contracts Overview
 
 ## Introduction
 
-Polkadot Hub provides a production-ready smart contract platform that combines Ethereum compatibility with the performance and cross-chain capabilities of the Polkadot ecosystem. Developers can deploy smart contracts directly on Polkadot Hubwhile using familiar Ethereum tooling, workflows, and programming languages.
+Polkadot Hub provides a production-ready smart contract platform that combines Ethereum compatibility with the performance and cross-chain capabilities of the Polkadot ecosystem. Developers can deploy smart contracts directly on Polkadot Hub while using familiar Ethereum tooling, workflows, and programming languages.
 
 Built with a dual-VM approach, Polkadot Hub offers two execution backends: REVM for unmodified EVM compatibility and native PolkaVM for optimized computationally expensive workloads. This dual-VM architecture enables developers to migrate existing Ethereum contracts instantly or optimize for speed and efficiency with native execution.
 
@@ -5962,9 +5962,11 @@ Choose between two execution backends:
 
 Both backends share the same RPC interface and tooling support, allowing seamless transitions.
 
-### Cross-Chain Capabilities
+### Cross-VM  & Cross-Chain Capabilities
 
-Smart contracts can interact directly with other blockchains in the Polkadot ecosystem through the [XCM (Cross-Consensus Messaging) protocol](/parachains/interoperability/get-started/){target=\_blank}, enabling token transfers, remote execution, and cross-chain composability without bridges or intermediaries.
+Smart contracts written for one VM (for example, EVM) can interact directly with other smart contracts written for the RISC-V PolkaVM, and back. This allows 
+
+Furthermore, all smart contracts in Polkadot Hub can interact with any service in the Polkadot ecosystem through [XCM](/smart-contracts/precompiles/xcm/){target=\_blank}, enabling token transfers, remote execution, and cross-chain composability without bridges or intermediaries.
 
 ## Other Smart Contract Environments
 

@@ -5165,7 +5165,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-overview.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/overview/",
-    "preview": "Polkadot Hub provides a production-ready smart contract platform that combines Ethereum compatibility with the performance and cross-chain capabilities of the Polkadot ecosystem. Developers can deploy smart contracts directly on Polkadot Hubwhile using familiar Ethereum tooling, workflows, and programming languages.",
+    "preview": "Polkadot Hub provides a production-ready smart contract platform that combines Ethereum compatibility with the performance and cross-chain capabilities of the Polkadot ecosystem. Developers can deploy smart contracts directly on Polkadot Hub while using familiar Ethereum tooling, workflows, and programming languages.",
     "outline": [
       {
         "depth": 2,
@@ -5189,8 +5189,8 @@
       },
       {
         "depth": 3,
-        "title": "Cross-Chain Capabilities",
-        "anchor": "cross-chain-capabilities"
+        "title": "Cross-VM  & Cross-Chain Capabilities",
+        "anchor": "cross-vm-cross-chain-capabilities"
       },
       {
         "depth": 2,
@@ -5204,12 +5204,12 @@
       }
     ],
     "stats": {
-      "chars": 4043,
-      "words": 515,
+      "chars": 4184,
+      "words": 543,
       "headings": 7,
-      "estimated_token_count_total": 827
+      "estimated_token_count_total": 861
     },
-    "hash": "sha256:06b45e06f6fe7c25501ca9c81633da82eec1d228d5be265190a71254f005302b",
+    "hash": "sha256:54904d345da77d63f301bb0bff5b52cc8b054b47ed368bb3a46379360b0e833b",
     "token_estimator": "heuristic-v1"
   },
   {

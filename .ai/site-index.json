@@ -5165,7 +5165,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-overview.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/overview/",
-    "preview": "Polkadot offers developers multiple approaches to building and deploying smart contracts within its ecosystem. As a multi-chain network designed for interoperability, Polkadot provides various environments optimized for different developer preferences and application requirements. From native smart contract support on Polkadot Hub to specialized parachain environments, developers can choose the platform that best suits their technical needs while benefiting from Polkadot's shared security model",
+    "preview": "Polkadot Hub provides a production-ready smart contract platform that combines Ethereum compatibility with the performance and cross-chain capabilities of the Polkadot ecosystem. Developers can deploy smart contracts directly on Polkadot Hubwhile using familiar Ethereum tooling, workflows, and programming languages.",
     "outline": [
       {
         "depth": 2,
@@ -5174,38 +5174,23 @@
       },
       {
         "depth": 2,
-        "title": "Native Smart Contracts",
-        "anchor": "native-smart-contracts"
+        "title": "Why Build on Polkadot Hub",
+        "anchor": "why-build-on-polkadot-hub"
       },
       {
         "depth": 3,
-        "title": "Introduction",
-        "anchor": "introduction-2"
+        "title": "Ethereum Compatibility",
+        "anchor": "ethereum-compatibility"
       },
       {
         "depth": 3,
-        "title": "Smart Contract Development",
-        "anchor": "smart-contract-development"
-      },
-      {
-        "depth": 3,
-        "title": "Technical Architecture",
-        "anchor": "technical-architecture"
-      },
-      {
-        "depth": 3,
-        "title": "Development Tools and Resources",
-        "anchor": "development-tools-and-resources"
+        "title": "Performance Options",
+        "anchor": "performance-options"
       },
       {
         "depth": 3,
         "title": "Cross-Chain Capabilities",
         "anchor": "cross-chain-capabilities"
-      },
-      {
-        "depth": 3,
-        "title": "Use Cases",
-        "anchor": "use-cases"
       },
       {
         "depth": 2,
@@ -5214,17 +5199,17 @@
       },
       {
         "depth": 2,
-        "title": "Where to Go Next",
-        "anchor": "where-to-go-next"
+        "title": "Next Steps",
+        "anchor": "next-steps"
       }
     ],
     "stats": {
-      "chars": 6029,
-      "words": 772,
-      "headings": 10,
-      "estimated_token_count_total": 1098
+      "chars": 4043,
+      "words": 515,
+      "headings": 7,
+      "estimated_token_count_total": 827
     },
-    "hash": "sha256:6c6c72c374412ef664898738a2250788a921407ddba4b7744e39bb8064e4e9db",
+    "hash": "sha256:06b45e06f6fe7c25501ca9c81633da82eec1d228d5be265190a71254f005302b",
     "token_estimator": "heuristic-v1"
   },
   {

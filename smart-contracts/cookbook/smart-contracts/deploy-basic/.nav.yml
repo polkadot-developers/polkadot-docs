@@ -1,4 +1,4 @@
 nav:
-  - 'Using Remix IDE': remix.md
-  - 'Using Hardhat': hardhat.md
+  - ':custom-remix: Remix IDE': basic-remix.md
+  - ':custom-hardhat: Hardhat': basic-hardhat.md
   # - 'Using Foundry': foundry.md

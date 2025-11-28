@@ -17,7 +17,7 @@ Located at the fixed address `0x00000000000000000000000000000000000a0000`, the X
 - **`send`**: For cross-chain message transmission.
 - **`weighMessage`**: For cost estimation.
 
-This guide demonstrates how to interact with the XCM precompile through Solidity smart contracts using [Remix IDE](/smart-contracts/dev-environments/remix/get-started/){target=\_blank}.
+This guide demonstrates how to interact with the XCM precompile through Solidity smart contracts using [Remix IDE](/smart-contracts/dev-environments/remix/){target=\_blank}.
 
 !!!note
     The XCM precompile provides the barebones XCM functionality. While it provides a lot of flexibility, it doesn't provide abstractions to hide away XCM details. These have to be built on top.
@@ -75,13 +75,15 @@ The interface defines a `Weight` struct that represents the computational cost o
 - **`refTime`**: Computational time on reference hardware.
 - **`proofSize`**: The size of the proof required for execution.
 
-All XCM messages must be encoded using the [SCALE codec](/reference/parachains/data-encoding/#data-encoding){target=\_blank}, Polkadot's standard serialization format.
+All XCM messages must be encoded using the [SCALE codec](https://github.com/paritytech/parity-scale-codec?tab=readme-ov-file#parity-scale-codec){target=\_blank}, Polkadot's standard serialization format.
+
+
 
 For further information, check the [`precompiles/IXCM.sol`](https://github.com/paritytech/polkadot-sdk/blob/cb629d46ebf00aa65624013a61f9c69ebf02b0b4/polkadot/xcm/pallet-xcm/src/precompiles/IXcm.sol){target=\_blank} file present in `pallet-xcm`.
 
 ## Interact with the XCM Precompile
 
-To interact with the XCM precompile, you can use the precompile interface directly in [Remix IDE](/smart-contracts/dev-environments/remix/get-started/){target=\_blank}:
+To interact with the XCM precompile, you can use the precompile interface directly in [Remix IDE](/smart-contracts/dev-environments/remix/){target=\_blank}:
 
 1. Create a new file called `IXcm.sol` in Remix.
 2. Copy and paste the `IXcm` interface code into the file.
@@ -181,6 +183,6 @@ By building and executing XCM programs, developers can build cross-chain applica
 
 ## Next Steps
 
-Head to the Polkadot Hub TestNet and start playing around with the precompile using [Hardhat](/smart-contracts/dev-environments/hardhat/get-started/){target=\_blank} or [Foundry](/smart-contracts/dev-environments/foundry/get-started/){target=\_blank}.
+Head to the Polkadot Hub TestNet and start playing around with the precompile using [Hardhat](/smart-contracts/dev-environments/hardhat/){target=\_blank}.
 
 You can use PAPI to build XCM programs and test them with Chopsticks.

@@ -6,8 +6,6 @@ categories: Smart Contracts
 
 # Connect to Polkadot
 
---8<-- 'text/smart-contracts/polkaVM-warning.md'
-
 <div class="button-wrapper">
     <a href="#" class="md-button connectMetaMask" value="passetHub">Connect to Polkadot Hub TestNet</a>
 </div>
@@ -15,7 +13,7 @@ categories: Smart Contracts
 For more information about how to connect to Polkadot Hub, please check the [Wallets for Polkadot Hub](/smart-contracts/integrations/wallets/){target=\_blank} guide.
 
 !!! warning "Account Mapping"
-    If you are using a native Polkadot account (32-byte format) that was created with a Polkadot/Substrate keypair (Ed25519/Sr25519) rather than an Ethereum-compatible keypair (secp256k1), you'll need to map your account to enable Ethereum compatibility. See the [Account Mapping](/polkadot-protocol/smart-contract-basics/accounts#account-mapping-for-native-polkadot-accounts){target=\_blank} section for more details.
+    If you are using a native Polkadot account (32-byte format) that was created with a Polkadot/Substrate keypair (Ed25519/Sr25519) rather than an Ethereum-compatible keypair (secp256k1), you'll need to map your account to enable Ethereum compatibility. See the [Account Mapping](/smart-contracts/for-eth-devs/accounts/#account-mapping-for-native-polkadot-accounts){target=\_blank} section for more details.
 
 ## Networks Details
 
@@ -84,19 +82,27 @@ For your next steps, explore the various smart contract guides demonstrating how
 
 <div class="grid cards" markdown>
 
--   <span class="badge guide">Guide</span> __Deploy your first contract with Remix__
+-   <span class="badge guide">Guide</span> __Get started with Remix__
 
     ---
 
-    Explore the smart contract development and deployment process on Polkadot Hub using the Remix IDE.
+    Learn how to get started with Remix, a browser-based IDE for writing, deploying, and interacting with smart contracts.
 
-    [:octicons-arrow-right-24: Build with Remix IDE](/smart-contracts/dev-environments/remix/get-started/)
+    [:octicons-arrow-right-24: Build with Remix IDE](/smart-contracts/dev-environments/remix/)
+
+-   <span class="badge guide">Guide</span> __Deploy a contract using Remix__
+
+    ---
+
+    Deploy your first contract on Polkadot Hub using the Remix IDE.
+
+    [:octicons-arrow-right-24: Build with Remix IDE](/smart-contracts/cookbook/smart-contracts/deploy-basic/basic-remix/)
 
 -   <span class="badge guide">Guide</span> __Interact with the blockchain with viem__
 
     ---
 
-    Use viem for interacting with Ethereum-compatible chains, to deploy and interact with smart contracts on Polkadot Hub.
+    Use viem to deploy and interact with smart contracts on Polkadot Hub.
 
     [:octicons-arrow-right-24: Build with viem](/smart-contracts/libraries/viem/)
 

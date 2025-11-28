@@ -12,8 +12,6 @@ Page Title: Accounts in Asset Hub Smart Contracts
 
 # Accounts on Asset Hub Smart Contracts
 
-!!! smartcontract "PolkaVM Preview Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 ## Introduction
 
 Asset Hub natively utilizes Polkadot's 32-byte account system while providing interoperability with Ethereum's 20-byte addresses through an automatic conversion system. When interacting with smart contracts:
@@ -32,7 +30,9 @@ This dual-format approach enables Asset Hub to maintain compatibility with Ether
 The platform handles two distinct address formats:
 
 - [Ethereum-style addresses (20 bytes)](https://ethereum.org/developers/docs/accounts/#account-creation){target=\_blank}
-- [Polkadot native account IDs (32 bytes)](/reference/parachains/accounts/){target=\_blank}
+- [Polkadot native account IDs (32 bytes)](https://wiki.polkadot.com/learn/learn-account-advanced/#address-format){target=\_blank}
+
+
 
 ### Ethereum to Polkadot Mapping
 
@@ -116,1145 +116,6 @@ The address mapping system maintains security through several design choices evi
 - The system prevents double-mapping through the [`ensure!(!Self::is_mapped(account_id))`](https://github.com/paritytech/polkadot-sdk/blob/stable2412/substrate/frame/revive/src/address.rs#L125){target=\_blank} check.
 
 All source code references are from the [`address.rs`](https://github.com/paritytech/polkadot-sdk/blob/stable2412/substrate/frame/revive/src/address.rs){target=\_blank} file in the Revive pallet of the Polkadot SDK repository.
-
-
----
-
-Page Title: Add Pallets to the Runtime
-
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/parachains-customize-runtime-pallet-development-add-pallet-to-runtime.md
-- Canonical (HTML): https://docs.polkadot.com/parachains/customize-runtime/pallet-development/add-pallet-to-runtime/
-- Summary: Add pallets to your runtime for custom functionality. Learn to configure and integrate pallets in Polkadot SDK-based blockchains.
-
-# Add Pallets to the Runtime
-
-## Introduction
-
-In previous tutorials, you learned how to [create a custom pallet](/tutorials/polkadot-sdk/parachains/zero-to-hero/build-custom-pallet/){target=\_blank} and [test it](/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-unit-testing/){target=\_blank}. The next step is to include this pallet in your runtime, integrating it into the core logic of your blockchain.
-
-This tutorial will guide you through adding two pallets to your runtime: the custom pallet you previously developed and the [utility pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_utility/index.html){target=\_blank}. This standard Polkadot SDK pallet provides powerful dispatch functionality. The utility pallet offers, for example, batch dispatch, a stateless operation that enables executing multiple calls in a single transaction.
-
-## Add the Pallets as Dependencies
-
-First, you'll update the runtime's `Cargo.toml` file to include the Utility pallet and your custom pallets as dependencies for the runtime. Follow these steps:
-
-1. Open the `runtime/Cargo.toml` file and locate the `[dependencies]` section. Add pallet-utility as one of the features for the `polkadot-sdk` dependency with the following line:
-
-    ```toml hl_lines="4" title="runtime/Cargo.toml"
-    [dependencies]
-    ...
-    polkadot-sdk = { workspace = true, features = [
-      "pallet-utility",
-        ...
-    ], default-features = false }
-    ```
-
-2. In the same `[dependencies]` section, add the custom pallet that you built from scratch with the following line:
-
-    ```toml hl_lines="3" title="Cargo.toml"
-    [dependencies]
-    ...
-    custom-pallet = { path = "../pallets/custom-pallet", default-features = false }
-    ```
-
-3. In the `[features]` section, add the custom pallet to the `std` feature list:
-
-    ```toml hl_lines="5" title="Cargo.toml"
-    [features]
-    default = ["std"]
-    std = [
-      ...
-      "custom-pallet/std",
-      ...
-    ]
-    ```
-
-3. Save the changes and close the `Cargo.toml` file.
-
-    Once you have saved your file, it should look like the following:
-
-    ???- code "runtime/Cargo.toml"
-        
-        ```rust title="runtime/Cargo.toml"
-        [package]
-        name = "parachain-template-runtime"
-        description = "A parachain runtime template built with Substrate and Cumulus, part of Polkadot Sdk."
-        version = "0.1.0"
-        license = "Unlicense"
-        authors.workspace = true
-        homepage.workspace = true
-        repository.workspace = true
-        edition.workspace = true
-        publish = false
-
-        [package.metadata.docs.rs]
-        targets = ["x86_64-unknown-linux-gnu"]
-
-        [build-dependencies]
-        docify = { workspace = true }
-        substrate-wasm-builder = { optional = true, workspace = true, default-features = true }
-
-        [dependencies]
-        codec = { features = ["derive"], workspace = true }
-        cumulus-pallet-parachain-system.workspace = true
-        docify = { workspace = true }
-        hex-literal = { optional = true, workspace = true, default-features = true }
-        log = { workspace = true }
-        pallet-parachain-template = { path = "../pallets/template", default-features = false }
-        polkadot-sdk = { workspace = true, features = [
-          "pallet-utility",
-          "cumulus-pallet-aura-ext",
-          "cumulus-pallet-session-benchmarking",
-          "cumulus-pallet-weight-reclaim",
-          "cumulus-pallet-xcm",
-          "cumulus-pallet-xcmp-queue",
-          "cumulus-primitives-aura",
-          "cumulus-primitives-core",
-          "cumulus-primitives-utility",
-          "pallet-aura",
-          "pallet-authorship",
-          "pallet-balances",
-          "pallet-collator-selection",
-          "pallet-message-queue",
-          "pallet-session",
-          "pallet-sudo",
-          "pallet-timestamp",
-          "pallet-transaction-payment",
-          "pallet-transaction-payment-rpc-runtime-api",
-          "pallet-xcm",
-          "parachains-common",
-          "polkadot-parachain-primitives",
-          "polkadot-runtime-common",
-          "runtime",
-          "staging-parachain-info",
-          "staging-xcm",
-          "staging-xcm-builder",
-          "staging-xcm-executor",
-        ], default-features = false }
-        scale-info = { features = ["derive"], workspace = true }
-        serde_json = { workspace = true, default-features = false, features = [
-          "alloc",
-        ] }
-        smallvec = { workspace = true, default-features = true }
-
-        custom-pallet = { path = "../pallets/custom-pallet", default-features = false }
-
-        [features]
-        default = ["std"]
-        std = [
-          "codec/std",
-          "cumulus-pallet-parachain-system/std",
-          "log/std",
-          "pallet-parachain-template/std",
-          "polkadot-sdk/std",
-          "scale-info/std",
-          "serde_json/std",
-          "substrate-wasm-builder",
-          "custom-pallet/std",
-        ]
-
-        runtime-benchmarks = [
-          "cumulus-pallet-parachain-system/runtime-benchmarks",
-          "hex-literal",
-          "pallet-parachain-template/runtime-benchmarks",
-          "polkadot-sdk/runtime-benchmarks",
-        ]
-
-        try-runtime = [
-          "cumulus-pallet-parachain-system/try-runtime",
-          "pallet-parachain-template/try-runtime",
-          "polkadot-sdk/try-runtime",
-        ]
-
-        # Enable the metadata hash generation.
-        #
-        # This is hidden behind a feature because it increases the compile time.
-        # The wasm binary needs to be compiled twice, once to fetch the metadata,
-        # generate the metadata hash and then a second time with the
-        # `RUNTIME_METADATA_HASH` environment variable set for the `CheckMetadataHash`
-        # extension.
-        metadata-hash = ["substrate-wasm-builder/metadata-hash"]
-
-        # A convenience feature for enabling things when doing a build
-        # for an on-chain release.
-        on-chain-release-build = ["metadata-hash"]
-
-        ```
-
-Update your root parachain template's `Cargo.toml` file to include your custom pallet as a dependency. Follow these steps:
-
-1. Open the `./Cargo.toml` file and locate the `[workspace]` section. 
-    
-    Make sure the `custom-pallet` is a member of the workspace:
-
-    ```toml hl_lines="4" title="Cargo.toml"
-     [workspace]
-     default-members = ["pallets/template", "runtime"]
-     members = [
-         "node", "pallets/custom-pallet",
-         "pallets/template",
-         "runtime",
-     ]
-    ```
-
-???- code "./Cargo.toml"
-
-    ```rust title="./Cargo.toml"
-    [workspace.package]
-    license = "MIT-0"
-    authors = ["Parity Technologies <admin@parity.io>"]
-    homepage = "https://paritytech.github.io/polkadot-sdk/"
-    repository = "https://github.com/paritytech/polkadot-sdk-parachain-template.git"
-    edition = "2021"
-
-    [workspace]
-    default-members = ["pallets/template", "runtime"]
-    members = [
-        "node", "pallets/custom-pallet",
-        "pallets/template",
-        "runtime",
-    ]
-    resolver = "2"
-
-    [workspace.dependencies]
-    parachain-template-runtime = { path = "./runtime", default-features = false }
-    pallet-parachain-template = { path = "./pallets/template", default-features = false }
-    clap = { version = "4.5.13" }
-    color-print = { version = "0.3.4" }
-    docify = { version = "0.2.9" }
-    futures = { version = "0.3.31" }
-    jsonrpsee = { version = "0.24.3" }
-    log = { version = "0.4.22", default-features = false }
-    polkadot-sdk = { version = "2503.0.1", default-features = false }
-    prometheus-endpoint = { version = "0.17.2", default-features = false, package = "substrate-prometheus-endpoint" }
-    serde = { version = "1.0.214", default-features = false }
-    codec = { version = "3.7.4", default-features = false, package = "parity-scale-codec" }
-    cumulus-pallet-parachain-system = { version = "0.20.0", default-features = false }
-    hex-literal = { version = "0.4.1", default-features = false }
-    scale-info = { version = "2.11.6", default-features = false }
-    serde_json = { version = "1.0.132", default-features = false }
-    smallvec = { version = "1.11.0", default-features = false }
-    substrate-wasm-builder = { version = "26.0.1", default-features = false }
-    frame = { version = "0.9.1", default-features = false, package = "polkadot-sdk-frame" }
-
-    [profile.release]
-    opt-level = 3
-    panic = "unwind"
-
-    [profile.production]
-    codegen-units = 1
-    inherits = "release"
-    lto = true
-    ```
-
-
-### Update the Runtime Configuration
-
-Configure the pallets by implementing their `Config` trait and update the runtime macro to include the new pallets:
-
-1. Add the `OriginCaller` import:
-
-    ```rust title="mod.rs" hl_lines="8"
-    // Local module imports
-    use super::OriginCaller;
-    ...
-    ```
-
-2. Implement the [`Config`](https://paritytech.github.io/polkadot-sdk/master/pallet_utility/pallet/trait.Config.html){target=\_blank} trait for both pallets at the end of the `runtime/src/config/mod.rs` file:
-
-    ```rust title="mod.rs" hl_lines="8-25"
-    ...
-    /// Configure the pallet template in pallets/template.
-    impl pallet_parachain_template::Config for Runtime {
-        type RuntimeEvent = RuntimeEvent;
-        type WeightInfo = pallet_parachain_template::weights::SubstrateWeight<Runtime>;
-    }
-
-    // Configure utility pallet.
-    impl pallet_utility::Config for Runtime {
-        type RuntimeEvent = RuntimeEvent;
-        type RuntimeCall = RuntimeCall;
-        type PalletsOrigin = OriginCaller;
-        type WeightInfo = pallet_utility::weights::SubstrateWeight<Runtime>;
-    }
-    // Define counter max value runtime constant.
-    parameter_types! {
-        pub const CounterMaxValue: u32 = 500;
-    }
-
-    // Configure custom pallet.
-    impl custom_pallet::Config for Runtime {
-        type RuntimeEvent = RuntimeEvent;
-        type CounterMaxValue = CounterMaxValue;
-    }
-    ```
-
-3. Locate the `#[frame_support::runtime]` macro in the `runtime/src/lib.rs` file and add the pallets:
-
-    ```rust hl_lines="9-14" title="lib.rs"
-    #[frame_support::runtime]
-    mod runtime {
-        #[runtime::runtime]
-        #[runtime::derive(
-            ...
-            )]
-            pub struct Runtime;
-        #[runtime::pallet_index(51)]
-        pub type Utility = pallet_utility;
-
-        #[runtime::pallet_index(52)]
-        pub type CustomPallet = custom_pallet;
-    }
-    ```
-
-## Recompile the Runtime
-
-After adding and configuring your pallets in the runtime, the next step is to ensure everything is set up correctly. To do this, recompile the runtime with the following command (make sure you're in the project's root directory):
-
-```bash
-cargo build --release
-```
-
-This command ensures the runtime compiles without errors, validates the pallet configurations, and prepares the build for subsequent testing or deployment.
-
-## Run Your Chain Locally
-
-Launch your parachain locally and start producing blocks:
-
-!!!tip
-    Generated chain TestNet specifications include development accounts "Alice" and "Bob." These accounts are pre-funded with native parachain currency, allowing you to sign and send TestNet transactions. Take a look at the [Polkadot.js Accounts section](https://polkadot.js.org/apps/#/accounts){target=\_blank} to view the development accounts for your chain.
-
-1. Create a new chain specification file with the updated runtime:
-
-    ```bash
-    chain-spec-builder create -t development \
-    --relay-chain paseo \
-    --para-id 1000 \
-    --runtime ./target/release/wbuild/parachain-template-runtime/parachain_template_runtime.compact.compressed.wasm \
-    named-preset development
-    ```
-
-2. Start the omni node with the generated chain specification:
-
-    ```bash
-    polkadot-omni-node --chain ./chain_spec.json --dev
-    ```
-
-3. Verify you can interact with the new pallets using the [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9944#/extrinsics){target=\_blank} interface. Navigate to the **Extrinsics** tab and check that you can see both pallets:
-
-    - Utility pallet
-
-        ![](/images/parachains/customize-runtime/pallet-development/add-pallet-to-runtime/add-pallets-to-runtime-01.webp)
-    
-
-    - Custom pallet
-
-        ![](/images/parachains/customize-runtime/pallet-development/add-pallet-to-runtime/add-pallets-to-runtime-02.webp)
-
-## Where to Go Next
-
-<div class="grid cards" markdown>
-
--   <span class="badge tutorial">Tutorial</span> __Deploy on Paseo TestNet__
-
-    ---
-
-    Deploy your Polkadot SDK blockchain on Paseo! Follow this step-by-step guide for a seamless journey to a successful TestNet deployment.
-
-    [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/parachains/zero-to-hero/deploy-to-testnet/)
-
--   <span class="badge tutorial">Tutorial</span> __Pallet Benchmarking (Optional)__
-
-    ---
-
-    Discover how to measure extrinsic costs and assign precise weights to optimize your pallet for accurate fees and runtime performance.
-
-    [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/parachains/zero-to-hero/pallet-benchmarking/)
-
-</div>
-
-
----
-
-Page Title: Agile Coretime
-
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-polkadot-hub-consensus-and-security-agile-coretime.md
-- Canonical (HTML): https://docs.polkadot.com/reference/polkadot-hub/consensus-and-security/agile-coretime/
-- Summary: Explore the efficient scheduling mechanisms to access Polkadot cores to produce blockspace continuously or on-demand.
-
-# Agile Coretime
-
-## Introduction
-
-Agile Coretime is the [scheduling](https://en.wikipedia.org/wiki/Scheduling_(computing)){target=\_blank} framework on Polkadot that lets parachains efficiently access cores, which comprise an active validator set tasked with parablock validation. As the first blockchain to enable a flexible scheduling system for blockspace production, Polkadot offers unparalleled adaptability for parachains.
-
-``` mermaid
-graph TB
-    A[Cores Designation]
-    B[Bulk Coretime]
-    C[On-Demand Coretime]
-    A --continuous--> B
-    A --flexible--> C 
-```
-
-Cores can be designated to a parachain either continuously through [bulk coretime](#bulk-coretime) or dynamically via [on-demand coretime](#on-demand-coretime). Additionally, Polkadot supports scheduling multiple cores in parallel through [elastic scaling](https://wiki.polkadot.com/learn/learn-elastic-scaling/){target=\_blank}, which is a feature under active development on Polkadot. This flexibility empowers parachains to optimize their resource usage and block production according to their unique needs.
-
-In this guide, you'll learn how bulk coretime enables continuous core access with features like interlacing and splitting, and how on-demand coretime provides flexible, pay-per-use scheduling for parachains. For a deep dive on Agile Coretime and its terminology, refer to the [Wiki doc](https://wiki.polkadot.com/learn/learn-agile-coretime/#introduction-to-agile-coretime){target=\_blank}.
-
-## Bulk Coretime
-
-Bulk coretime is a fixed duration of continuous coretime represented by an NFT that can be purchased through [coretime sales](#coretime-sales) in DOT and can be split, shared, or resold. Currently, the duration of bulk coretime is set to 28 days. Coretime purchased in bulk and assigned to a single parachain is eligible for a price-capped renewal, providing a form of rent-controlled access, which is important for predicting the running costs in the near future. Suppose the bulk coretime is [interlaced](#coretime-interlacing) or [split](#coretime-splitting) or is kept idle without assigning it to a parachain. In that case, it will be ineligible for the price-capped renewal.
-
-### Coretime Interlacing
-
-It is the action of dividing bulk coretime across multiple parachains that produce blocks spaced uniformly in time. For example, think of multiple parachains taking turns producing blocks, demonstrating a simple form of interlacing. This feature can be used by parachains with a low transaction volume and need not continuously produce blocks.
-
-### Coretime Splitting
-
-It is the action of dividing bulk coretime into multiple contiguous regions. This feature can be used by parachains that need to produce blocks continuously but do not require the whole 28 days of bulk coretime and require only part of it.
-
-## On-Demand Coretime
-
-Polkadot has dedicated cores assigned to provide core time on demand. These cores are excluded from the coretime sales and are reserved for on-demand parachains, which pay in DOT per block.
-
-
----
-
-Page Title: Asset Hub
-
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-polkadot-hub-assets-and-smart-contracts.md
-- Canonical (HTML): https://docs.polkadot.com/reference/polkadot-hub/assets-and-smart-contracts/
-- Summary: Learn about Asset Hub in Polkadot, managing on-chain assets, foreign asset integration, and using XCM for cross-chain asset transfers.
-
-# Asset Hub
-
-## Introduction
-
-The Asset Hub is a critical component in the Polkadot ecosystem, enabling the management of fungible and non-fungible assets across the network. Since the relay chain focuses on maintaining security and consensus without direct asset management, Asset Hub provides a streamlined platform for creating, managing, and using on-chain assets in a fee-efficient manner. This guide outlines the core features of Asset Hub, including how it handles asset operations, cross-chain transfers, and asset integration using XCM, as well as essential tools like [API Sidecar](#api-sidecar) and [`TxWrapper`](#txwrapper) for developers working with on-chain assets.
-
-## Assets Basics
-
-In the Polkadot ecosystem, the relay chain does not natively support additional assets beyond its native token (DOT for Polkadot, KSM for Kusama). The Asset Hub parachain on Polkadot and Kusama provides a fungible and non-fungible assets framework. Asset Hub allows developers and users to create, manage, and use assets across the ecosystem.
-
-Asset creators can use Asset Hub to track their asset issuance across multiple parachains and manage assets through operations such as minting, burning, and transferring. Projects that need a standardized method of handling on-chain assets will find this particularly useful. The fungible asset interface provided by Asset Hub closely resembles Ethereum's ERC-20 standard but is directly integrated into Polkadot's runtime, making it more efficient in terms of speed and transaction fees.
-
-Integrating with Asset Hub offers several key benefits, particularly for infrastructure providers and users:
-
-- **Support for non-native on-chain assets**: Asset Hub enables seamless asset creation and management, allowing projects to develop tokens or assets that can interact with the broader ecosystem.
-- **Lower transaction fees**: Asset Hub offers significantly lower transaction costs—approximately one-tenth of the fees on the relay chain, providing cost-efficiency for regular operations.
-- **Reduced deposit requirements**: Depositing assets in Asset Hub is more accessible, with deposit requirements that are around one one-hundredth of those on the relay chain.
-- **Payment of transaction fees with non-native assets**: Users can pay transaction fees in assets other than the native token (DOT or KSM), offering more flexibility for developers and users.
-
-Assets created on the Asset Hub are stored as part of a map, where each asset has a unique ID that links to information about the asset, including details like:
-
-- The management team.
-- The total supply.
-- The number of accounts holding the asset.
-- **Sufficiency for account existence**: Whether the asset alone is enough to maintain an account without a native token balance.
-- The metadata of the asset, including its name, symbol, and the number of decimals for representation.
-
-Some assets can be regarded as sufficient to maintain an account's existence, meaning that users can create accounts on the network without needing a native token balance (i.e., no existential deposit required). Developers can also set minimum balances for their assets. If an account's balance drops below the minimum, the balance is considered dust and may be cleared.
-
-## Assets Pallet
-
-The Polkadot SDK's Assets pallet is a powerful module designated for creating and managing fungible asset classes with a fixed supply. It offers a secure and flexible way to issue, transfer, freeze, and destroy assets. The pallet supports various operations and includes permissioned and non-permissioned functions to cater to simple and advanced use cases.
-
-Visit the [Assets Pallet Rust docs](https://paritytech.github.io/polkadot-sdk/master/pallet_assets/index.html){target=\_blank} for more in-depth information.
-
-### Key Features
-
-Key features of the Assets pallet include:
-
-- **Asset issuance**: Allows the creation of a new asset, where the total supply is assigned to the creator's account.
-- **Asset transfer**: Enables transferring assets between accounts while maintaining a balance in both accounts.
-- **Asset freezing**: Prevents transfers of a specific asset from one account, locking it from further transactions.
-- **Asset destruction**: Allows accounts to burn or destroy their holdings, removing those assets from circulation.
-- **Non-custodial transfers**: A non-custodial mechanism to enable one account to approve a transfer of assets on behalf of another.
-
-### Main Functions
-
-The Assets pallet provides a broad interface for managing fungible assets. Some of the main dispatchable functions include:
-
-- **`create()`**: Create a new asset class by placing a deposit, applicable when asset creation is permissionless.
-- **`issue()`**: Mint a fixed supply of a new asset and assign it to the creator's account.
-- **`transfer()`**: Transfer a specified amount of an asset between two accounts.
-- **`approve_transfer()`**: Approve a non-custodial transfer, allowing a third party to move assets between accounts.
-- **`destroy()`**: Destroy an entire asset class, removing it permanently from the chain.
-- **`freeze()` and `thaw()`**: Administrators or privileged users can lock or unlock assets from being transferred.
-
-For a full list of dispatchable and privileged functions, see the [dispatchables Rust docs](https://docs.rs/pallet-assets/latest/pallet_assets/pallet/enum.Call.html){target=\_blank}.
-
-### Querying Functions
-
-The Assets pallet exposes several key querying functions that developers can interact with programmatically. These functions allow you to query asset information and perform operations essential for managing assets across accounts. The two main querying functions are:
-
-- **`balance(asset_id, account)`**: Retrieves the balance of a given asset for a specified account. Useful for checking the holdings of an asset class across different accounts.
-
-- **`total_supply(asset_id)`**: Returns the total supply of the asset identified by `asset_id`. Allows users to verify how much of the asset exists on-chain.
-
-In addition to these basic functions, other utility functions are available for querying asset metadata and performing asset transfers. You can view the complete list of querying functions in the [Struct Pallet Rust docs](https://docs.rs/pallet-assets/latest/pallet_assets/pallet/struct.Pallet.html){target=\_blank}.
-
-### Permission Models and Roles
-
-The Assets pallet incorporates a robust permission model, enabling control over who can perform specific operations like minting, transferring, or freezing assets. The key roles within the permission model are:
-
-- **Admin**: Can freeze (preventing transfers) and forcibly transfer assets between accounts. Admins also have the power to reduce the balance of an asset class across arbitrary accounts. They manage the more sensitive and administrative aspects of the asset class.
-- **Issuer**: Responsible for minting new tokens. When new assets are created, the Issuer is the account that controls their distribution to other accounts.
-- **Freezer**: Can lock the transfer of assets from an account, preventing the account holder from moving their balance. This function is useful for freezing accounts involved in disputes or fraud.
-- **Owner**: Has overarching control, including destroying an entire asset class. Owners can also set or update the Issuer, Freezer, and Admin roles.
-
-These permissions provide fine-grained control over assets, enabling developers and asset managers to ensure secure, controlled operations. Each of these roles is crucial for managing asset lifecycles and ensuring that assets are used appropriately across the network.
-
-### Asset Freezing
-
-The Assets pallet allows you to freeze assets. This feature prevents transfers or spending from a specific account, effectively locking the balance of an asset class until it is explicitly unfrozen. Asset freezing is beneficial when assets are restricted due to security concerns or disputes.
-
-Freezing assets is controlled by the Freezer role, as mentioned earlier. Only the account with the Freezer privilege can perform these operations. Here are the key freezing functions:
-
-- **`freeze(asset_id, account)`**: Locks the specified asset of the account. While the asset is frozen, no transfers can be made from the frozen account.
-- **`thaw(asset_id, account)`**: Corresponding function for unfreezing, allowing the asset to be transferred again.
-
-This approach enables secure and flexible asset management, providing administrators the tools to control asset movement in special circumstances.
-
-### Non-Custodial Transfers (Approval API)
-
-The Assets pallet also supports non-custodial transfers through the Approval API. This feature allows one account to approve another account to transfer a specific amount of its assets to a third-party recipient without granting full control over the account's balance. Non-custodial transfers enable secure transactions where trust is required between multiple parties.
-
-Here's a brief overview of the key functions for non-custodial asset transfers:
-
-- **`approve_transfer(asset_id, delegate, amount)`**: Approves a delegate to transfer up to a certain amount of the asset on behalf of the original account holder.
-- **`cancel_approval(asset_id, delegate)`**: Cancels a previous approval for the delegate. Once canceled, the delegate no longer has permission to transfer the approved amount.
-- **`transfer_approved(asset_id, owner, recipient, amount)`**: Executes the approved asset transfer from the owner’s account to the recipient. The delegate account can call this function once approval is granted.
-
-These delegated operations make it easier to manage multi-step transactions and dApps that require complex asset flows between participants.
-
-## Foreign Assets
-
-Foreign assets in Asset Hub refer to assets originating from external blockchains or parachains that are registered in the Asset Hub. These assets are typically native tokens from other parachains within the Polkadot ecosystem or bridged tokens from external blockchains such as Ethereum.
-
-Once a foreign asset is registered in the Asset Hub by its originating blockchain's root origin, users are able to send these tokens to the Asset Hub and interact with them as they would any other asset within the Polkadot ecosystem.
-
-### Handling Foreign Assets
-
-The Foreign Assets pallet, an instance of the Assets pallet, manages these assets. Since foreign assets are integrated into the same interface as native assets, developers can use the same functionalities, such as transferring and querying balances. However, there are important distinctions when dealing with foreign assets.
-
-- **Asset identifier**: Unlike native assets, foreign assets are identified using an XCM Multilocation rather than a simple numeric `AssetId`. This multilocation identifier represents the cross-chain location of the asset and provides a standardized way to reference it across different parachains and relay chains.
-
-- **Transfers**: Once registered in the Asset Hub, foreign assets can be transferred between accounts, just like native assets. Users can also send these assets back to their originating blockchain if supported by the relevant cross-chain messaging mechanisms.
-
-## Integration
-
-Asset Hub supports a variety of integration tools that make it easy for developers to manage assets and interact with the blockchain in their applications. The tools and libraries provided by Parity Technologies enable streamlined operations, such as querying asset information, building transactions, and monitoring cross-chain asset transfers.
-
-Developers can integrate Asset Hub into their projects using these core tools:
-
-### API Sidecar
-
-[API Sidecar](https://github.com/paritytech/substrate-api-sidecar){target=\_blank} is a RESTful service that can be deployed alongside Polkadot and Kusama nodes. It provides endpoints to retrieve real-time blockchain data, including asset information. When used with Asset Hub, Sidecar allows querying:
-
-- **Asset look-ups**: Retrieve specific assets using `AssetId`.
-- **Asset balances**: View the balance of a particular asset on Asset Hub.
-
-Public instances of API Sidecar connected to Asset Hub are available, such as:
-
-- [Polkadot Asset Hub Sidecar](https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/){target=\_blank}
-- [Kusama Asset Hub Sidecar](https://kusama-asset-hub-public-sidecar.parity-chains.parity.io/){target=\_blank}
-
-These public instances are primarily for ad-hoc testing and quick checks.
-
-### TxWrapper
-
-[`TxWrapper`](https://github.com/paritytech/txwrapper-core){target=\_blank} is a library that simplifies constructing and signing transactions for Polkadot SDK-based chains, including Polkadot and Kusama. This tool includes support for working with Asset Hub, enabling developers to:
-
-- Construct offline transactions.
-- Leverage asset-specific functions such as minting, burning, and transferring assets.
-
-`TxWrapper` provides the flexibility needed to integrate asset operations into custom applications while maintaining the security and efficiency of Polkadot's transaction model.
-
-
-### Parachain Node
-
-To fully leverage the Asset Hub's functionality, developers will need to run a system parachain node. Setting up an Asset Hub node allows users to interact with the parachain in real time, syncing data and participating in the broader Polkadot ecosystem. Guidelines for setting up an [Asset Hub node](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2506-2/cumulus#asset-hub-){target=\_blank} are available in the Parity documentation.
-
-Using these integration tools, developers can manage assets seamlessly and integrate Asset Hub functionality into their applications, leveraging Polkadot's powerful infrastructure.
-
-## XCM Transfer Monitoring
-
-Since Asset Hub facilitates cross-chain asset transfers across the Polkadot ecosystem, XCM transfer monitoring becomes an essential practice for developers and infrastructure providers. This section outlines how to monitor the cross-chain movement of assets between parachains, the relay chain, and other systems.
-
-### Monitor XCM Deposits
-
-As assets move between chains, tracking the cross-chain transfers in real time is crucial. Whether assets are transferred via a teleport from system parachains or through a reserve-backed transfer from any other parachain, each transfer emits a relevant event (such as the `balances.minted` event).
-
-To ensure accurate monitoring of these events:
-
-- **Track XCM deposits**: Query every new block created in the relay chain or Asset Hub, loop through the events array, and filter for any `balances.minted` events which confirm the asset was successfully transferred to the account.
-- **Track event origins**: Each `balances.minted` event points to a specific address. By monitoring this, service providers can verify that assets have arrived in the correct account.
-
-### Track XCM Information Back to the Source
-
-While the `balances.minted` event confirms the arrival of assets, there may be instances where you need to trace the origin of the cross-chain message that triggered the event. In such cases, you can:
-
-1. Query the relevant chain at the block where the `balances.minted` event was emitted.
-2. Look for a `messageQueue(Processed)` event within that block's initialization. This event contains a parameter (`Id`) that identifies the cross-chain message received by the relay chain or Asset Hub. You can use this `Id` to trace the message back to its origin chain, offering full visibility of the asset transfer's journey.
-
-### Practical Monitoring Examples
-
-The preceding sections outline the process of monitoring XCM deposits to specific accounts and then tracing back the origin of these deposits. The process of tracking an XCM transfer and the specific events to monitor may vary based on the direction of the XCM message. Here are some examples to showcase the slight differences:
-
-- **Transfer from parachain to relay chain**: Track `parachainsystem(UpwardMessageSent)` on the parachain and `messagequeue(Processed)` on the relay chain.
-- **Transfer from relay chain to parachain**: Track `xcmPallet(sent)` on the relay chain and `dmpqueue(ExecutedDownward)` on the parachain.
-- **Transfer between parachains**: Track `xcmpqueue(XcmpMessageSent)` on the system parachain and `xcmpqueue(Success)` on the destination parachain.
-
-### Monitor for Failed XCM Transfers
-
-Sometimes, XCM transfers may fail due to liquidity or other errors. Failed transfers emit specific error events, which are key to resolving issues in asset transfers. Monitoring for these failure events helps catch issues before they affect asset balances.
-
-- **Relay chain to system parachain**: Look for the `dmpqueue(ExecutedDownward)` event on the parachain with an `Incomplete` outcome and an error type such as `UntrustedReserveLocation`.
-- **Parachain to parachain**: Monitor for `xcmpqueue(Fail)` on the destination parachain with error types like `TooExpensive`.
-
-For detailed error management in XCM, see Gavin Wood's blog post on [XCM Execution and Error Management](https://polkadot.com/blog/xcm-part-three-execution-and-error-management/){target=\_blank}.
-
-## Where to Go Next
-
-<div class="grid cards" markdown>
-
--   <span class="badge tutorial">Tutorial</span> __Register a Local Asset__
-
-    ---
-
-    Comprehensive guide to registering a local asset on the Asset Hub system parachain, including step-by-step instructions.
-
-    [:octicons-arrow-right-24: Reference](/chain-interactions/token-operations/register-local-asset/)
-
--   <span class="badge tutorial">Tutorial</span> __Register a Foreign Asset__
-
-    ---
-
-    An in-depth guide to registering a foreign asset on the Asset Hub parachain, providing clear, step-by-step instructions.
-
-    [:octicons-arrow-right-24: Reference](/chain-interactions/token-operations/register-foreign-asset/)
-
--   <span class="badge tutorial">Tutorial</span> __Convert Assets__
-
-    ---
-
-    A guide detailing the step-by-step process of converting assets on Asset Hub, helping users efficiently navigate asset management on the platform.
-
-    [:octicons-arrow-right-24: Reference](/chain-interactions/token-operations/convert-assets/)
-
-</div>
-
-
----
-
-Page Title: Blocks
-
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-parachains-blocks-transactions-fees-blocks.md
-- Canonical (HTML): https://docs.polkadot.com/reference/parachains/blocks-transactions-fees/blocks/
-- Summary: Understand how blocks are produced, validated, and imported in Polkadot SDK-based blockchains, covering initialization, finalization, and authoring processes.
-
-# Blocks
-
-## Introduction
-
-In the Polkadot SDK, blocks are fundamental to the functioning of the blockchain, serving as containers for [transactions](/reference/parachains/blocks-transactions-fees/transactions/){target=\_blank} and changes to the chain's state. Blocks consist of headers and an array of transactions, ensuring the integrity and validity of operations on the network. This guide explores the essential components of a block, the process of block production, and how blocks are validated and imported across the network. By understanding these concepts, developers can better grasp how blockchains maintain security, consistency, and performance within the Polkadot ecosystem.
-
-## What is a Block?
-
-In the Polkadot SDK, a block is a fundamental unit that encapsulates both the header and an array of transactions. The block header includes critical metadata to ensure the integrity and sequence of the blockchain. Here's a breakdown of its components:
-
-- **Block height**: Indicates the number of blocks created in the chain so far.
-- **Parent hash**: The hash of the previous block, providing a link to maintain the blockchain's immutability.
-- **Transaction root**: Cryptographic digest summarizing all transactions in the block.
-- **State root**: A cryptographic digest representing the post-execution state.
-- **Digest**: Additional information that can be attached to a block, such as consensus-related messages.
-
-Each transaction is part of a series that is executed according to the runtime's rules. The transaction root is a cryptographic digest of this series, which prevents alterations and enables succinct verification by light clients. This verification process allows light clients to confirm whether a transaction exists in a block with only the block header, avoiding downloading the entire block.
-
-## Block Production
-
-When an authoring node is authorized to create a new block, it selects transactions from the transaction queue based on priority. This step, known as block production, relies heavily on the executive module to manage the initialization and finalization of blocks. The process is summarized as follows:
-
-### Initialize Block
-
-The block initialization process begins with a series of function calls that prepare the block for transaction execution:
-
-1. **Call `on_initialize`**: The executive module calls the [`on_initialize`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/trait.Hooks.html#method.on_initialize){target=\_blank} hook from the system pallet and other runtime pallets to prepare for the block's transactions.
-2. **Coordinate runtime calls**: Coordinates function calls in the order defined by the transaction queue.
-3. **Verify information**: Once [`on_initialize`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/trait.Hooks.html#method.on_initialize){target=\_blank} functions are executed, the executive module checks the parent hash in the block header and the trie root to verify information is consistent.
-
-### Finalize Block
-
-Once transactions are processed, the block must be finalized before being broadcast to the network. The finalization steps are as follows:
-
-1. **Call `on_finalize`**: The executive module calls the [`on_finalize`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/trait.Hooks.html#method.on_finalize){target=\_blank} hooks in each pallet to ensure any remaining state updates or checks are completed before the block is sealed and published.
-2. **Verify information**: The block's digest and storage root in the header are checked against the initialized block to ensure consistency.
-3. **Call `on_idle`**: The [`on_idle`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/trait.Hooks.html#method.on_idle){target=\_blank} hook is triggered to process any remaining tasks using the leftover weight from the block.
-
-## Block Authoring and Import
-
-Once the block is finalized, it is gossiped to other nodes in the network. Nodes follow this procedure:
-
-1. **Receive transactions**: The authoring node collects transactions from the network.
-2. **Validate**: Transactions are checked for validity.
-3. **Queue**: Valid transactions are placed in the transaction pool for execution.
-4. **Execute**: State changes are made as the transactions are executed.
-5. **Publish**: The finalized block is broadcast to the network.
-
-### Block Import Queue
-
-After a block is published, other nodes on the network can import it into their chain state. The block import queue is part of the outer node in every Polkadot SDK-based node and ensures incoming blocks are valid before adding them to the node's state.
-
-In most cases, you don't need to know details about how transactions are gossiped or how other nodes on the network import blocks. The following traits are relevant, however, if you plan to write any custom consensus logic or want a deeper dive into the block import queue:
-
-- **[`ImportQueue`](https://paritytech.github.io/polkadot-sdk/master/sc_consensus/import_queue/trait.ImportQueue.html){target=\_blank}**: The trait that defines the block import queue.
-- **[`Link`](https://paritytech.github.io/polkadot-sdk/master/sc_consensus/import_queue/trait.Link.html){target=\_blank}**: The trait that defines the link between the block import queue and the network.
-- **[`BasicQueue`](https://paritytech.github.io/polkadot-sdk/master/sc_consensus/import_queue/struct.BasicQueue.html){target=\_blank}**: A basic implementation of the block import queue.
-- **[`Verifier`](https://paritytech.github.io/polkadot-sdk/master/sc_consensus/import_queue/trait.Verifier.html){target=\_blank}**: The trait that defines the block verifier.
-- **[`BlockImport`](https://paritytech.github.io/polkadot-sdk/master/sc_consensus/block_import/trait.BlockImport.html){target=\_blank}**: The trait that defines the block import process.
-
-These traits govern how blocks are validated and imported across the network, ensuring consistency and security.
-
-## Additional Resources
-
-To learn more about the block structure in the Polkadot SDK runtime, see the [`Block` reference](https://paritytech.github.io/polkadot-sdk/master/sp_runtime/traits/trait.Block.html){target=\_blank} entry in the Rust Docs.
-
-
----
-
-Page Title: Bridge Hub
-
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-polkadot-hub-bridging.md
-- Canonical (HTML): https://docs.polkadot.com/reference/polkadot-hub/bridging/
-- Summary: Learn about the Bridge Hub system parachain, a parachain that facilitates the interactions from Polkadot to the rest of Web3.
-
-# Bridge Hub
-
-## Introduction
-
-The Bridge Hub system parachain plays a crucial role in facilitating trustless interactions between Polkadot, Kusama, Ethereum, and other blockchain ecosystems. By implementing on-chain light clients and supporting protocols like BEEFY and GRANDPA, Bridge Hub ensures seamless message transmission and state verification across chains. It also provides essential [pallets](/reference/glossary/#pallet){target=\_blank} for sending and receiving messages, making it a cornerstone of Polkadot’s interoperability framework. With built-in support for XCM (Cross-Consensus Messaging), Bridge Hub enables secure, efficient communication between diverse blockchain networks.
-
-This guide covers the architecture, components, and deployment of the Bridge Hub system. You'll explore its trustless bridging mechanisms, key pallets for various blockchains, and specific implementations like Snowbridge and the Polkadot <> Kusama bridge. By the end, you'll understand how Bridge Hub enhances connectivity within the Polkadot ecosystem and beyond.
-
-## Trustless Bridging
-
-Bridge Hub provides a mode of trustless bridging through its implementation of on-chain light clients and trustless relayers. Trustless bridges are essentially two one-way bridges, where each chain has a method of verifying the state of the other in a trustless manner through consensus proofs. In this context, "trustless" refers to the lack of need to trust a human when interacting with various system components. Trustless systems are based instead on trusting mathematics, cryptography, and code. The target chain and source chain both provide ways of verifying one another's state and actions (such as a transfer) based on the consensus and finality of both chains rather than an external mechanism controlled by a third party.
-
-[BEEFY (Bridge Efficiency Enabling Finality Yielder)](/reference/polkadot-hub/consensus-and-security/pos-consensus/#bridging-beefy){target=\_blank} is instrumental in this solution. It provides a more efficient way to verify the consensus on the relay chain. It allows the participants in a network to verify finality proofs, meaning a remote chain like Ethereum can verify the state of Polkadot at a given block height. 
-
-For example, the Ethereum and Polkadot bridging solution that [Snowbridge](https://docs.snowbridge.network/){target=\_blank} implements involves two light clients: one which verifies the state of Polkadot and the other which verifies the state of Ethereum. The light client for Polkadot is implemented in the runtime as a pallet, whereas the light client for Ethereum is implemented as a smart contract on the beacon chain.
-
-## Bridging Components
-
-In any given Bridge Hub implementation (Kusama, Polkadot, or other relay chains), there are a few primary pallets that are utilized:
-
-- **[Pallet Bridge GRANDPA](https://paritytech.github.io/polkadot-sdk/master/pallet_bridge_grandpa/index.html){target=\_blank}**: An on-chain GRANDPA light client for Substrate based chains.
-- **[Pallet Bridge Parachains](https://paritytech.github.io/polkadot-sdk/master/pallet_bridge_parachains/index.html){target=\_blank}**: A finality module for parachains.
-- **[Pallet Bridge Messages](https://paritytech.github.io/polkadot-sdk/master/pallet_bridge_messages/index.html){target=\_blank}**: A pallet which allows sending, receiving, and tracking of inbound and outbound messages.
-- **[Pallet XCM Bridge](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm_bridge_hub/index.html){target=\_blank}**: A pallet which, with the Bridge Messages pallet, adds XCM support to bridge pallets.
-
-### Ethereum-Specific Support
-
-Bridge Hub also has a set of components and pallets that support a bridge between Polkadot and Ethereum through [Snowbridge](https://github.com/Snowfork/snowbridge){target=\_blank}.
-
-To view the complete list of which pallets are included in Bridge Hub, visit the Subscan [Runtime Modules](https://bridgehub-polkadot.subscan.io/runtime){target=\_blank} page. Alternatively, the source code for those pallets can be found in the Polkadot SDK [Snowbridge Pallets](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2506-2/bridges/snowbridge/pallets){target=\_blank} repository.
-
-## Deployed Bridges
-
-- [**Snowbridge**](https://wiki.polkadot.com/learn/learn-snowbridge/){target=\_blank}: A general-purpose, trustless bridge between Polkadot and Ethereum.
-- [**Hyperbridge**](https://wiki.polkadot.com/learn/learn-hyperbridge/){target=\_blank}: A cross-chain solution built as an interoperability coprocessor, providing state-proof-based interoperability across all blockchains.
-- [**Polkadot <> Kusama Bridge**](https://wiki.polkadot.com/learn/learn-dot-ksm-bridge/){target=\_blank}: A bridge that utilizes relayers to bridge the Polkadot and Kusama relay chains trustlessly.
-
-## Where to Go Next
-
-- Go over the Bridge Hub README in the Polkadot SDK [Bridge-hub Parachains](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/cumulus/parachains/runtimes/bridge-hubs/README.md){target=\_blank} repository.
-- Take a deeper dive into bridging architecture in the Polkadot SDK [High-Level Bridge](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/bridges/docs/high-level-overview.md){target=\_blank} documentation.
-- Read more about [BEEFY and Bridging in the Polkadot Wiki](/reference/polkadot-hub/consensus-and-security/pos-consensus/#bridging-beefy){target=\_blank}.
-
-
----
-
-Page Title: Chain Data
-
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-parachains-chain-data.md
-- Canonical (HTML): https://docs.polkadot.com/reference/parachains/chain-data/
-- Summary: Learn how to expose and utilize chain data for blockchain applications. Discover runtime metadata, RPC APIs, and tools for efficient development.
-
-# Chain Data
-
-## Introduction
-
-Understanding and leveraging on-chain data is a fundamental aspect of blockchain development. Whether you're building frontend applications or backend systems, accessing and decoding runtime metadata is vital to interacting with the blockchain. This guide introduces you to the tools and processes for generating and retrieving metadata, explains its role in application development, and outlines the additional APIs available for interacting with a Polkadot node. By mastering these components, you can ensure seamless communication between your applications and the blockchain.
-
-## Application Development
-
-You might not be directly involved in building frontend applications as a blockchain developer. However, most applications that run on a blockchain require some form of frontend or user-facing client to enable users or other programs to access and modify the data that the blockchain stores. For example, you might develop a browser-based, mobile, or desktop application that allows users to submit transactions, post articles, view their assets, or track previous activity. The backend for that application is configured in the runtime logic for your blockchain, but the frontend client makes the runtime features accessible to your users.
-
-For your custom chain to be useful to others, you'll need to provide a client application that allows users to view, interact with, or update information that the blockchain keeps track of. In this article, you'll learn how to expose information about your runtime so that client applications can use it, see examples of the information exposed, and explore tools and libraries that use it.
-
-## Understand Metadata
-
-Polkadot SDK-based blockchain networks are designed to expose their runtime information, allowing developers to learn granular details regarding pallets, RPC calls, and runtime APIs. The metadata also exposes their related documentation. The chain's metadata is [SCALE-encoded](/reference/parachains/data-encoding/){target=\_blank}, allowing for the development of browser-based, mobile, or desktop applications to support the chain's runtime upgrades seamlessly. It is also possible to develop applications compatible with multiple Polkadot SDK-based chains simultaneously.
-
-## Expose Runtime Information as Metadata
-
-To interact with a node or the state of the blockchain, you need to know how to connect to the chain and access the exposed runtime features. This interaction involves a Remote Procedure Call (RPC) through a node endpoint address, commonly through a secure web socket connection.
-
-An application developer typically needs to know the contents of the runtime logic, including the following details:
-
-- Version of the runtime the application is connecting to.
-- Supported APIs.
-- Implemented pallets.
-- Defined functions and corresponding type signatures.
-- Defined custom types.
-- Exposed parameters users can set.
-
-As the Polkadot SDK is modular and provides a composable framework for building blockchains, there are limitless opportunities to customize the schema of properties. Each runtime can be configured with its properties, including function calls and types, which can be changed over time with runtime upgrades.
-
-The Polkadot SDK enables you to generate the runtime metadata schema to capture information unique to a runtime. The metadata for a runtime describes the pallets in use and types defined for a specific runtime version. The metadata includes information about each pallet's storage items, functions, events, errors, and constants. The metadata also provides type definitions for any custom types included in the runtime.
-
-Metadata provides a complete inventory of a chain's runtime. It is key to enabling client applications to interact with the node, parse responses, and correctly format message payloads sent back to that chain.
-
-## Generate Metadata
-
-To efficiently use the blockchain's networking resources and minimize the data transmitted over the network, the metadata schema is encoded using the [Parity SCALE Codec](https://github.com/paritytech/parity-scale-codec?tab=readme-ov-file#parity-scale-codec){target=\_blank}. This encoding is done automatically through the [`scale-info`](https://docs.rs/scale-info/latest/scale_info/){target=\_blank}crate.
-
-At a high level, generating the metadata involves the following steps:
-
-1. The pallets in the runtime logic expose callable functions, types, parameters, and documentation that need to be encoded in the metadata.
-2. The `scale-info` crate collects type information for the pallets in the runtime, builds a registry of the pallets that exist in a particular runtime, and the relevant types for each pallet in the registry. The type information is detailed enough to enable encoding and decoding for every type.
-3. The [`frame-metadata`](https://github.com/paritytech/frame-metadata){target=\_blank} crate describes the structure of the runtime based on the registry provided by the `scale-info` crate.
-4. Nodes provide the RPC method `state_getMetadata` to return a complete description of all the types in the current runtime as a hex-encoded vector of SCALE-encoded bytes.
-
-## Retrieve Runtime Metadata
-
-The type information provided by the metadata enables applications to communicate with nodes using different runtime versions and across chains that expose different calls, events, types, and storage items. The metadata also allows libraries to generate a substantial portion of the code needed to communicate with a given node, enabling libraries like [`subxt`](https://github.com/paritytech/subxt){target=\_blank} to generate frontend interfaces that are specific to a target chain.
-
-### Use Polkadot.js
-
-Visit the [Polkadot.js Portal](https://polkadot.js.org/apps/#/rpc){target=\_blank} and select the **Developer** dropdown in the top banner. Select **RPC Calls** to make the call to request metadata. Follow these steps to make the RPC call:
-
-1. Select **state** as the endpoint to call.
-2. Select **`getMetadata(at)`** as the method to call.
-3. Click **Submit RPC call** to submit the call and return the metadata in JSON format.
-
-### Use Curl 
-
-You can fetch the metadata for the network by calling the node's RPC endpoint. This request returns the metadata in bytes rather than human-readable JSON:
-
-```sh
-curl -H "Content-Type: application/json" \
--d '{"id":1, "jsonrpc":"2.0", "method": "state_getMetadata"}' \
-https://rpc.polkadot.io
-
-```
-
-### Use Subxt
-
-[`subxt`](https://github.com/paritytech/subxt){target=\_blank} may also be used to fetch the metadata of any data in a human-readable JSON format: 
-
-```sh
-subxt metadata  --url wss://rpc.polkadot.io --format json > spec.json
-```
-
-Another option is to use the [`subxt` explorer web UI](https://paritytech.github.io/subxt-explorer/#/){target=\_blank}.
-
-## Client Applications and Metadata
-
-The metadata exposes the expected way to decode each type, meaning applications can send, retrieve, and process application information without manual encoding and decoding. Client applications must use the [SCALE codec library](https://github.com/paritytech/parity-scale-codec?tab=readme-ov-file#parity-scale-codec){target=\_blank} to encode and decode RPC payloads to use the metadata. Client applications use the metadata to interact with the node, parse responses, and format message payloads sent to the node.
-
-## Metadata Format
-
-Although the SCALE-encoded bytes can be decoded using the `frame-metadata` and [`parity-scale-codec`](https://github.com/paritytech/parity-scale-codec){target=\_blank} libraries, there are other tools, such as `subxt` and the Polkadot-JS API, that can convert the raw data to human-readable JSON format.
-
-The types and type definitions included in the metadata returned by the `state_getMetadata` RPC call depend on the runtime's metadata version.
-
-In general, the metadata includes the following information:
-
-- A constant identifying the file as containing metadata.
-- The version of the metadata format used in the runtime.
-- Type definitions for all types used in the runtime and generated by the `scale-info` crate.
-- Pallet information for the pallets included in the runtime in the order that they are defined in the `construct_runtime` macro.
-
-!!!tip 
-    Depending on the frontend library used (such as the [Polkadot API](https://papi.how/){target=\_blank}), they may format the metadata differently than the raw format shown.
-
-The following example illustrates a condensed and annotated section of metadata decoded and converted to JSON:
-
-```json
-[
-    1635018093,
-    {
-        "V14": {
-            "types": {
-                "types": [{}]
-            },
-            "pallets": [{}],
-            "extrinsic": {
-                "ty": 126,
-                "version": 4,
-                "signed_extensions": [{}]
-            },
-            "ty": 141
-        }
-    }
-]
-
-```
-
-The constant `1635018093` is a magic number that identifies the file as a metadata file. The rest of the metadata is divided into the `types`, `pallets`, and `extrinsic` sections:
-
-- The `types` section contains an index of the types and information about each type's type signature.
-- The `pallets` section contains information about each pallet in the runtime.
-- The `extrinsic` section describes the type identifier and transaction format version that the runtime uses.
-
-Different extrinsic versions can have varying formats, especially when considering [signed transactions](/reference/parachains/blocks-transactions-fees/transactions/#signed-transactions){target=\_blank}. 
-
-### Pallets
-
-The following is a condensed and annotated example of metadata for a single element in the `pallets` array (the [`sudo`](https://paritytech.github.io/polkadot-sdk/master/pallet_sudo/index.html){target=\_blank} pallet):
-
-```json
-{
-    "name": "Sudo",
-    "storage": {
-        "prefix": "Sudo",
-        "entries": [
-            {
-                "name": "Key",
-                "modifier": "Optional",
-                "ty": {
-                    "Plain": 0
-                },
-                "default": [0],
-                "docs": ["The `AccountId` of the sudo key."]
-            }
-        ]
-    },
-    "calls": {
-        "ty": 117
-    },
-    "event": {
-        "ty": 42
-    },
-    "constants": [],
-    "error": {
-        "ty": 124
-    },
-    "index": 8
-}
-
-```
-
-Every element metadata contains the name of the pallet it represents and information about its storage, calls, events, and errors. You can look up details about the definition of the calls, events, and errors by viewing the type index identifier. The type index identifier is the `u32` integer used to access the type information for that item. For example, the type index identifier for calls in the Sudo pallet is 117. If you view information for that type identifier in the `types` section of the metadata, it provides information about the available calls, including the documentation for each call.
-
-For example, the following is a condensed excerpt of the calls for the Sudo pallet:
-
-```json
-{
-    "id": 117,
-    "type": {
-        "path": ["pallet_sudo", "pallet", "Call"],
-        "params": [
-            {
-                "name": "T",
-                "type": null
-            }
-        ],
-        "def": {
-            "variant": {
-                "variants": [
-                    {
-                        "name": "sudo",
-                        "fields": [
-                            {
-                                "name": "call",
-                                "type": 114,
-                                "typeName": "Box<<T as Config>::RuntimeCall>"
-                            }
-                        ],
-                        "index": 0,
-                        "docs": [
-                            "Authenticates sudo key, dispatches a function call with `Root` origin"
-                        ]
-                    },
-                    {
-                        "name": "sudo_unchecked_weight",
-                        "fields": [
-                            {
-                                "name": "call",
-                                "type": 114,
-                                "typeName": "Box<<T as Config>::RuntimeCall>"
-                            },
-                            {
-                                "name": "weight",
-                                "type": 8,
-                                "typeName": "Weight"
-                            }
-                        ],
-                        "index": 1,
-                        "docs": [
-                            "Authenticates sudo key, dispatches a function call with `Root` origin"
-                        ]
-                    },
-                    {
-                        "name": "set_key",
-                        "fields": [
-                            {
-                                "name": "new",
-                                "type": 103,
-                                "typeName": "AccountIdLookupOf<T>"
-                            }
-                        ],
-                        "index": 2,
-                        "docs": [
-                            "Authenticates current sudo key, sets the given AccountId (`new`) as the new sudo"
-                        ]
-                    },
-                    {
-                        "name": "sudo_as",
-                        "fields": [
-                            {
-                                "name": "who",
-                                "type": 103,
-                                "typeName": "AccountIdLookupOf<T>"
-                            },
-                            {
-                                "name": "call",
-                                "type": 114,
-                                "typeName": "Box<<T as Config>::RuntimeCall>"
-                            }
-                        ],
-                        "index": 3,
-                        "docs": [
-                            "Authenticates sudo key, dispatches a function call with `Signed` origin from a given account"
-                        ]
-                    }
-                ]
-            }
-        }
-    }
-}
-
-```
-
-For each field, you can access type information and metadata for the following:
-
-- **Storage metadata**: Provides the information required to enable applications to get information for specific storage items.
-- **Call metadata**: Includes information about the runtime calls defined by the `#[pallet]` macro including call names, arguments and documentation.
-- **Event metadata**: Provides the metadata generated by the `#[pallet::event]` macro, including the name, arguments, and documentation for each pallet event.
-- **Constants metadata**: Provides metadata generated by the `#[pallet::constant]` macro, including the name, type, and hex-encoded value of the constant.
-- **Error metadata**: Provides metadata generated by the `#[pallet::error]` macro, including the name and documentation for each pallet error.
-
-!!!tip
-    Type identifiers change from time to time, so you should avoid relying on specific type identifiers in your applications.
-
-### Extrinsic
-
-The runtime generates extrinsic metadata and provides useful information about transaction format. When decoded, the metadata contains the transaction version and the list of signed extensions.
-
-For example:
-
-```json
-{
-    "extrinsic": {
-        "ty": 126,
-        "version": 4,
-        "signed_extensions": [
-            {
-                "identifier": "CheckNonZeroSender",
-                "ty": 132,
-                "additional_signed": 41
-            },
-            {
-                "identifier": "CheckSpecVersion",
-                "ty": 133,
-                "additional_signed": 4
-            },
-            {
-                "identifier": "CheckTxVersion",
-                "ty": 134,
-                "additional_signed": 4
-            },
-            {
-                "identifier": "CheckGenesis",
-                "ty": 135,
-                "additional_signed": 11
-            },
-            {
-                "identifier": "CheckMortality",
-                "ty": 136,
-                "additional_signed": 11
-            },
-            {
-                "identifier": "CheckNonce",
-                "ty": 138,
-                "additional_signed": 41
-            },
-            {
-                "identifier": "CheckWeight",
-                "ty": 139,
-                "additional_signed": 41
-            },
-            {
-                "identifier": "ChargeTransactionPayment",
-                "ty": 140,
-                "additional_signed": 41
-            }
-        ]
-    },
-    "ty": 141
-}
-
-```
-
-The type system is [composite](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/frame_runtime_types/index.html){target=\_blank}, meaning each type identifier contains a reference to a specific type or to another type identifier that provides information about the associated primitive types.
-
-For example, you can encode the `BitVec<Order, Store>` type, but to decode it properly, you must know the types used for the `Order` and `Store` types. To find type information for `Order` and `Store`, you can use the path in the decoded JSON to locate their type identifiers.
-
-## Included RPC APIs
-
-A standard node comes with the following APIs to interact with a node:
-
-- **[`AuthorApiServer`](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/author/trait.AuthorApiServer.html){target=\_blank}**: Make calls into a full node, including authoring extrinsics and verifying session keys.
-- **[`ChainApiServer`](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/chain/trait.ChainApiServer.html){target=\_blank}**: Retrieve block header and finality information.
-- **[`OffchainApiServer`](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/offchain/trait.OffchainApiServer.html){target=\_blank}**: Make RPC calls for off-chain workers.
-- **[`StateApiServer`](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/state/trait.StateApiServer.html){target=\_blank}**: Query information about on-chain state such as runtime version, storage items, and proofs.
-- **[`SystemApiServer`](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/system/trait.SystemApiServer.html){target=\_blank}**: Retrieve information about network state, such as connected peers and node roles.
-
-## Additional Resources
-
-The following tools can help you locate and decode metadata:
-
-- [Subxt Explorer](https://paritytech.github.io/subxt-explorer/#/){target=\_blank}
-- [Metadata Portal 🌗](https://github.com/paritytech/metadata-portal){target=\_blank}
-- [De[code] Sub[strate]](https://github.com/paritytech/desub){target=\_blank}
-
-
----
-
-Page Title: Collectives Chain
-
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-polkadot-hub-collectives-and-daos.md
-- Canonical (HTML): https://docs.polkadot.com/reference/polkadot-hub/collectives-and-daos/
-- Summary: Learn how the Collectives chain provides infrastructure for governance organizations, enabling decentralized network stewardship and decision-making.
-
-## Introduction
-
-Established through [Referendum 81](https://polkadot-old.polkassembly.io/referendum/81){target=\_blank}, the Collectives chain operates as a dedicated parachain exclusive to the Polkadot network with no counterpart on Kusama. This specialized infrastructure provides a foundation for various on-chain governance groups essential to Polkadot's ecosystem.
-
-The architecture enables entire networks to function as unified entities, allowing them to present cohesive positions and participate in cross-network governance through [Bridge Hub](/polkadot-protocol/architecture/system-chains/bridge-hub){target=\_blank}. This capability represents a fundamental advancement in Web3 principles, eliminating dependencies on traditional third-party intermediaries such as legal systems or jurisdictional authorities.
-
-## Key Collectives
-
-The Collectives chain hosts several important governance bodies:
-
-- [**Polkadot Technical Fellowship**](https://wiki.polkadot.com/learn/learn-polkadot-technical-fellowship/){target=\_blank}: A self-governing assembly of protocol experts and developers who oversee technical aspects of the Polkadot and Kusama networks. The Fellowship operates both on-chain through the collectives system and off-chain via GitHub repositories, public discussion forums, and monthly development calls that are publicly accessible.
-
-- [**Polkadot Alliance**](https://wiki.polkadot.com/general/glossary/#polkadot-alliance){target=\_blank}: A consortium founded by seven leading parachain projects (Acala, Astar, Interlay, Kilt, Moonbeam, Phala, and Subscan) to establish development standards and ethical guidelines within the ecosystem. This ranked collective, comprised of "Fellows" and "Allies," focuses on promoting best practices and identifying potential bad actors. Membership is primarily designed for organizations, projects, and other networks rather than individuals.
-
-These collectives serve as pillars of Polkadot's decentralized governance model, enabling community-driven decision-making and establishing technical standards that shape the network's evolution. Through structured on-chain representation, they provide transparent mechanisms for ecosystem development while maintaining the core Web3 principles of trustlessness and decentralization.
 
 
 ---
@@ -1370,305 +231,34 @@ Both backends support contract deployment effectively, with REVM offering drop-i
 
 ---
 
-Page Title: Cryptography
-
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-parachains-cryptography.md
-- Canonical (HTML): https://docs.polkadot.com/reference/parachains/cryptography/
-- Summary: A concise guide to cryptography in blockchain, covering hash functions, encryption types, digital signatures, and elliptic curve applications.
-
-# Cryptography
-
-## Introduction
-
-Cryptography forms the backbone of blockchain technology, providing the mathematical verifiability crucial for consensus systems, data integrity, and user security. While a deep understanding of the underlying mathematical processes isn't necessary for most blockchain developers, grasping the fundamental applications of cryptography is essential. This page comprehensively overviews cryptographic implementations used across Polkadot SDK-based chains and the broader blockchain ecosystem.
-
-## Hash Functions
-
-Hash functions are fundamental to blockchain technology, creating a unique digital fingerprint for any piece of data, including simple text, images, or any other form of file. They map input data of any size to a fixed-size output (typically 32 bytes) using complex mathematical operations. Hashing is used to verify data integrity, create digital signatures, and provide a secure way to store passwords. This form of mapping is known as the ["pigeonhole principle,"](https://en.wikipedia.org/wiki/Pigeonhole_principle){target=\_blank} it is primarily implemented to efficiently and verifiably identify data from large sets.
-
-### Key Properties of Hash Functions
-
-- **Deterministic**: The same input always produces the same output.
-- **Quick computation**: It's easy to calculate the hash value for any given input.
-- **Pre-image resistance**: It's infeasible to generate the input data from its hash.
-- **Small changes in input yield large changes in output**: Known as the ["avalanche effect"](https://en.wikipedia.org/wiki/Avalanche_effect){target=\_blank}.
-- **Collision resistance**: The probabilities are extremely low to find two different inputs with the same hash.
-
-### Blake2
-
-The Polkadot SDK utilizes Blake2, a state-of-the-art hashing method that offers:
-
-- Equal or greater security compared to [SHA-2](https://en.wikipedia.org/wiki/SHA-2){target=\_blank}.
-- Significantly faster performance than other algorithms.
-
-These properties make Blake2 ideal for blockchain systems, reducing sync times for new nodes and lowering the resources required for validation. For detailed technical specifications about Blake2, see the [official Blake2 paper](https://www.blake2.net/blake2.pdf){target=\_blank}.
-
-## Types of Cryptography
-
-There are two different ways that cryptographic algorithms are implemented: symmetric cryptography and asymmetric cryptography.
-
-### Symmetric Cryptography
-
-Symmetric encryption is a branch of cryptography that isn't based on one-way functions, unlike asymmetric cryptography. It uses the same cryptographic key to encrypt plain text and decrypt the resulting ciphertext.
-
-Symmetric cryptography is a type of encryption that has been used throughout history, such as the Enigma Cipher and the Caesar Cipher. It is still widely used today and can be found in Web2 and Web3 applications alike. There is only one single key, and a recipient must also have access to it to access the contained information.
-
-#### Advantages {: #symmetric-advantages }
-
-- Fast and efficient for large amounts of data.
-- Requires less computational power.
-
-#### Disadvantages {: #symmetric-disadvantages }
-
-- Key distribution can be challenging.
-- Scalability issues in systems with many users.
-
-### Asymmetric Cryptography
-
-Asymmetric encryption is a type of cryptography that uses two different keys, known as a keypair: a public key, used to encrypt plain text, and a private counterpart, used to decrypt the ciphertext.
-
-The public key encrypts a fixed-length message that can only be decrypted with the recipient's private key and, sometimes, a set password. The public key can be used to cryptographically verify that the corresponding private key was used to create a piece of data without compromising the private key, such as with digital signatures. This has obvious implications for identity, ownership, and properties and is used in many different protocols across Web2 and Web3.
-
-#### Advantages {: #asymmetric-advantages }
-
-- Solves the key distribution problem.
-- Enables digital signatures and secure key exchange.
-
-#### Disadvantages {: #asymmetric-disadvantages }
-
-- Slower than symmetric encryption.
-- Requires more computational resources.
-
-### Trade-offs and Compromises
-
-Symmetric cryptography is faster and requires fewer bits in the key to achieve the same level of security that asymmetric cryptography provides. However, it requires a shared secret before communication can occur, which poses issues to its integrity and a potential compromise point. On the other hand, asymmetric cryptography doesn't require the secret to be shared ahead of time, allowing for far better end-user security.
-
-Hybrid symmetric and asymmetric cryptography is often used to overcome the engineering issues of asymmetric cryptography, as it is slower and requires more bits in the key to achieve the same level of security. It encrypts a key and then uses the comparatively lightweight symmetric cipher to do the "heavy lifting" with the message.
-
-## Digital Signatures
-
-Digital signatures are a way of verifying the authenticity of a document or message using asymmetric keypairs. They are used to ensure that a sender or signer's document or message hasn't been tampered with in transit, and for recipients to verify that the data is accurate and from the expected sender.
-
-Signing digital signatures only requires a low-level understanding of mathematics and cryptography. For a conceptual example -- when signing a check, it is expected that it cannot be cashed multiple times. This isn't a feature of the signature system but rather the check serialization system. The bank will check that the serial number on the check hasn't already been used. Digital signatures essentially combine these two concepts, allowing the signature to provide the serialization via a unique cryptographic fingerprint that cannot be reproduced.
-
-Unlike pen-and-paper signatures, knowledge of a digital signature cannot be used to create other signatures. Digital signatures are often used in bureaucratic processes, as they are more secure than simply scanning in a signature and pasting it onto a document.
-
-Polkadot SDK provides multiple different cryptographic schemes and is generic so that it can support anything that implements the [`Pair` trait](https://paritytech.github.io/polkadot-sdk/master/sp_core/crypto/trait.Pair.html){target=\_blank}.
-
-### Example of Creating a Digital Signature
-
-The process of creating and verifying a digital signature involves several steps:
-
-1. The sender creates a hash of the message.
-2. The hash is encrypted using the sender's private key, creating the signature.
-3. The message and signature are sent to the recipient.
-4. The recipient decrypts the signature using the sender's public key.
-5. The recipient hashes the received message and compares it to the decrypted hash.
-
-If the hashes match, the signature is valid, confirming the message's integrity and the sender's identity.
-
-## Elliptic Curve
-
-Blockchain technology requires the ability to have multiple keys creating a signature for block proposal and validation. To this end, Elliptic Curve Digital Signature Algorithm (ECDSA) and Schnorr signatures are two of the most commonly used methods. While ECDSA is a far simpler implementation, Schnorr signatures are more efficient when it comes to multi-signatures.
-
-Schnorr signatures bring some noticeable features over the ECDSA/EdDSA schemes:
-
-- It is better for hierarchical deterministic key derivations.
-- It allows for native multi-signature through [signature aggregation](https://bitcoincore.org/en/2017/03/23/schnorr-signature-aggregation/){target=\_blank}.
-- It is generally more resistant to misuse.
-
-One sacrifice that is made when using Schnorr signatures over ECDSA is that both require 64 bytes, but only ECDSA signatures communicate their public key.
-
-### Various Implementations
-
-- **[ECDSA](https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm){target=\_blank}**: Polkadot SDK provides an ECDSA signature scheme using the [secp256k1](https://en.bitcoin.it/wiki/Secp256k1){target=\_blank} curve. This is the same cryptographic algorithm used to secure [Bitcoin](https://en.wikipedia.org/wiki/Bitcoin){target=\_blank} and [Ethereum](https://en.wikipedia.org/wiki/Ethereum){target=\_blank}.
-
-- **[Ed25519](https://en.wikipedia.org/wiki/EdDSA#Ed25519){target=\_blank}**: An EdDSA signature scheme using [Curve25519](https://en.wikipedia.org/wiki/Curve25519){target=\_blank}. It is carefully engineered at several levels of design and implementation to achieve very high speeds without compromising security.
-
-- **[SR25519](https://research.web3.foundation/Polkadot/security/keys/accounts-more){target=\_blank}**: Based on the same underlying curve as Ed25519. However, it uses Schnorr signatures instead of the EdDSA scheme.
-
-
----
-
-Page Title: Data Encoding
-
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-parachains-data-encoding.md
-- Canonical (HTML): https://docs.polkadot.com/reference/parachains/data-encoding/
-- Summary: SCALE codec enables fast, efficient data encoding, ideal for resource-constrained environments like Wasm, supporting custom types and compact encoding.
-
-# Data Encoding
-
-## Introduction
-
-The Polkadot SDK uses a lightweight and efficient encoding/decoding mechanism to optimize data transmission across the network. This mechanism, known as the _SCALE_ codec, is used for serializing and deserializing data.
-
-The SCALE codec enables communication between the runtime and the outer node. This mechanism is designed for high-performance, copy-free data encoding and decoding in resource-constrained environments like the Polkadot SDK [Wasm runtime](/develop/parachains/deployment/build-deterministic-runtime/#introduction){target=\_blank}.
-
-It is not self-describing, meaning the decoding context must fully know the encoded data types. 
-
-Parity's libraries utilize the [`parity-scale-codec`](https://github.com/paritytech/parity-scale-codec){target=\_blank} crate (a Rust implementation of the SCALE codec) to handle encoding and decoding for interactions between RPCs and the runtime.
-
-The `codec` mechanism is ideal for Polkadot SDK-based chains because:
-
-- It is lightweight compared to generic serialization frameworks like [`serde`](https://serde.rs/){target=\_blank}, which add unnecessary bulk to binaries.
-- It doesn’t rely on Rust’s `libstd`, making it compatible with `no_std` environments like Wasm runtime.
-- It integrates seamlessly with Rust, allowing easy derivation of encoding and decoding logic for new types using `#[derive(Encode, Decode)]`.
-
-Defining a custom encoding scheme in the Polkadot SDK-based chains, rather than using an existing Rust codec library, is crucial for enabling cross-platform and multi-language support. 
-
-## SCALE Codec
-
-The codec is implemented using the following traits:
-
-- [`Encode`](#encode)
-- [`Decode`](#decode)
-- [`CompactAs`](#compactas)
-- [`HasCompact`](#hascompact)
-- [`EncodeLike`](#encodelike)
-
-### Encode
-
-The [`Encode`](https://docs.rs/parity-scale-codec/latest/parity_scale_codec/trait.Encode.html){target=\_blank} trait handles data encoding into SCALE format and includes the following key functions:
-
-- **`size_hint(&self) -> usize`**: Estimates the number of bytes required for encoding to prevent multiple memory allocations. This should be inexpensive and avoid complex operations. Optional if the size isn’t known.
-- **`encode_to<T: Output>(&self, dest: &mut T)`**: Encodes the data, appending it to a destination buffer.
-- **`encode(&self) -> Vec<u8>`**: Encodes the data and returns it as a byte vector.
-- **`using_encoded<R, F: FnOnce(&[u8]) -> R>(&self, f: F) -> R`**: Encodes the data and passes it to a closure, returning the result.
-- **`encoded_size(&self) -> usize`**: Calculates the encoded size. Should be used when the encoded data isn’t required.
-
-!!!tip
-    For best performance, value types should override `using_encoded`, and allocating types should override `encode_to`. It's recommended to implement `size_hint` for all types where possible.
-
-### Decode
-
-The [`Decode`](https://docs.rs/parity-scale-codec/latest/parity_scale_codec/trait.Decode.html){target=\_blank} trait handles decoding SCALE-encoded data back into the appropriate types:
-
-- **`fn decode<I: Input>(value: &mut I) -> Result<Self, Error>`**: Decodes data from the SCALE format, returning an error if decoding fails.
-
-### CompactAs
-
-The [`CompactAs`](https://docs.rs/parity-scale-codec/latest/parity_scale_codec/trait.CompactAs.html){target=\_blank} trait wraps custom types for compact encoding:
-
-- **`encode_as(&self) -> &Self::As`**: Encodes the type as a compact type.
-- **`decode_from(_: Self::As) -> Result<Self, Error>`**: decodes from a compact encoded type.
-
-### HasCompact
-
-The [`HasCompact`](https://docs.rs/parity-scale-codec/latest/parity_scale_codec/trait.HasCompact.html){target=\_blank} trait indicates a type supports compact encoding.
-
-### EncodeLike
-
-The [`EncodeLike`](https://docs.rs/parity-scale-codec/latest/parity_scale_codec/trait.EncodeLike.html){target=\_blank} trait is used to ensure multiple types that encode similarly are accepted by the same function. When using `derive`, it is automatically implemented.
-
-### Data Types
-
-The table below outlines how the Rust implementation of the Parity SCALE codec encodes different data types.
-
-| Type                          | Description                                                                                                                                                                                                                                                                                                                | Example SCALE Decoded Value                                                                                                                        | SCALE Encoded Value                                                     |
-|-------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------|
-| Boolean                       | Boolean values are encoded using the least significant bit of a single byte.                                                                                                                                                                                                                                               | `false` / `true`                                                                                                                                   | `0x00` / `0x01`                                                         |
-| Compact/general integers      | A "compact" or general integer encoding is sufficient for encoding large integers (up to 2^536) and is more efficient at encoding most values than the fixed-width version.                                                                                                                                                | `unsigned integer 0` / `unsigned integer 1` / `unsigned integer 42` / `unsigned integer 69` / `unsigned integer 65535` / `BigInt(100000000000000)` | `0x00` / `0x04` / `0xa8` / `0x1501` / `0xfeff0300` / `0x0b00407a10f35a` |
-| Enumerations (tagged-unions)  | A fixed number of variants, each mutually exclusive and potentially implying a further value or series of values. Encoded as the first byte identifying the index of the variant that the value is. Any further bytes are used to encode any data that the variant implies. Thus, no more than 256 variants are supported. | `Int(42)` and `Bool(true)` where `enum IntOrBool { Int(u8), Bool(bool) }`                                                                          | `0x002a` and `0x0101`                                                   |
-| Fixed-width integers          | Basic integers are encoded using a fixed-width little-endian (LE) format.                                                                                                                                                                                                                                                  | `signed 8-bit integer 69` / `unsigned 16-bit integer 42` / `unsigned 32-bit integer 16777215`                                                      | `0x45` / `0x2a00` / `0xffffff00`                                        |
-| Options                       | One or zero values of a particular type.                                                                                                                                                                                                                                                                                   | `Some` / `None`                                                                                                                                    | `0x01` followed by the encoded value / `0x00`                           |
-| Results                       | Results are commonly used enumerations which indicate whether certain operations were successful or unsuccessful.                                                                                                                                                                                                          | `Ok(42)` / `Err(false)`                                                                                                                            | `0x002a` / `0x0100`                                                     |
-| Strings                       | Strings are Vectors of bytes (Vec<u8>) containing a valid UTF8 sequence.                                                                                                                                                                                                                                                   |                                                                                                                                                    |                                                                         |
-| Structs                       | For structures, the values are named, but that is irrelevant for the encoding (names are ignored - only order matters).                                                                                                                                                                                                    | `SortedVecAsc::from([3, 5, 2, 8])`                                                                                                                 | `[3, 2, 5, 8] `                                                         |
-| Tuples                        | A fixed-size series of values, each with a possibly different but predetermined and fixed type. This is simply the concatenation of each encoded value.                                                                                                                                                                    | Tuple of compact unsigned integer and boolean: `(3, false)`                                                                                        | `0x0c00`                                                                |
-| Vectors (lists, series, sets) | A collection of same-typed values is encoded, prefixed with a compact encoding of the number of items, followed by each item's encoding concatenated in turn.                                                                                                                                                              | Vector of unsigned `16`-bit integers: `[4, 8, 15, 16, 23, 42]`                                                                                     | `0x18040008000f00100017002a00`                                          |
-
-## Encode and Decode Rust Trait Implementations
-
-Here's how the `Encode` and `Decode` traits are implemented:
-
-
-```rust
-use parity_scale_codec::{Encode, Decode};
-
-[derive(Debug, PartialEq, Encode, Decode)]
-enum EnumType {
-    #[codec(index = 15)]
-    A,
-    B(u32, u64),
-    C {
-        a: u32,
-        b: u64,
-    },
-}
-
-let a = EnumType::A;
-let b = EnumType::B(1, 2);
-let c = EnumType::C { a: 1, b: 2 };
-
-a.using_encoded(|ref slice| {
-    assert_eq!(slice, &b"\x0f");
-});
-
-b.using_encoded(|ref slice| {
-    assert_eq!(slice, &b"\x01\x01\0\0\0\x02\0\0\0\0\0\0\0");
-});
-
-c.using_encoded(|ref slice| {
-    assert_eq!(slice, &b"\x02\x01\0\0\0\x02\0\0\0\0\0\0\0");
-});
-
-let mut da: &[u8] = b"\x0f";
-assert_eq!(EnumType::decode(&mut da).ok(), Some(a));
-
-let mut db: &[u8] = b"\x01\x01\0\0\0\x02\0\0\0\0\0\0\0";
-assert_eq!(EnumType::decode(&mut db).ok(), Some(b));
-
-let mut dc: &[u8] = b"\x02\x01\0\0\0\x02\0\0\0\0\0\0\0";
-assert_eq!(EnumType::decode(&mut dc).ok(), Some(c));
-
-let mut dz: &[u8] = &[0];
-assert_eq!(EnumType::decode(&mut dz).ok(), None);
-```
-
-## SCALE Codec Libraries
-
-Several SCALE codec implementations are available in various languages. Here's a list of them:
-
-- **AssemblyScript**: [`LimeChain/as-scale-codec`](https://github.com/LimeChain/as-scale-codec){target=\_blank}
-- **C**: [`MatthewDarnell/cScale`](https://github.com/MatthewDarnell/cScale){target=\_blank}
-- **C++**: [`qdrvm/scale-codec-cpp`](https://github.com/qdrvm/scale-codec-cpp){target=\_blank}
-- **JavaScript**: [`polkadot-js/api`](https://github.com/polkadot-js/api){target=\_blank}
-- **Dart**: [`leonardocustodio/polkadart`](https://github.com/leonardocustodio/polkadart){target=\_blank}
-- **Haskell**: [`airalab/hs-web3`](https://github.com/airalab/hs-web3/tree/master/packages/scale){target=\_blank}
-- **Golang**: [`itering/scale.go`](https://github.com/itering/scale.go){target=\_blank}
-- **Java**: [`splix/polkaj`](https://github.com/splix/polkaj){target=\_blank}
-- **Python**: [`polkascan/py-scale-codec`](https://github.com/polkascan/py-scale-codec){target=\_blank}
-- **Ruby**: [` wuminzhe/scale_rb`](https://github.com/wuminzhe/scale_rb){target=\_blank}
-- **TypeScript**: [`parity-scale-codec-ts`](https://github.com/tjjfvi/subshape){target=\_blank}, [`scale-ts`](https://github.com/unstoppablejs/unstoppablejs/tree/main/packages/scale-ts#scale-ts){target=\_blank}, [`soramitsu/scale-codec-js-library`](https://github.com/soramitsu/scale-codec-js-library){target=\_blank}, [`subsquid/scale-codec`](https://github.com/subsquid/squid-sdk/tree/master/substrate/scale-codec){target=\_blank}
-
-
----
-
-Page Title: Deploy an ERC-20 to Polkadot Hub
+Page Title: Deploy an ERC-20 Using Hardhat
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-erc20-erc20-hardhat.md
 - Canonical (HTML): https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-hardhat/
 - Summary: Deploy an ERC-20 token on Polkadot Hub using PolkaVM. This guide covers contract creation, compilation, deployment, and interaction via Hardhat.
 
-# Deploy an ERC-20 to Polkadot Hub
+# Deploy an ERC-20 Using Hardhat
 
 ## Introduction
 
-[ERC-20](https://eips.ethereum.org/EIPS/eip-20){target=\_blank} tokens are fungible tokens commonly used for creating cryptocurrencies, governance tokens, and staking mechanisms. Polkadot Hub enables easy token deployment with Ethereum-compatible smart contracts and tools via the EVM backend.
+[ERC-20](https://eips.ethereum.org/EIPS/eip-20){target=\_blank} tokens are fungible tokens commonly used for creating cryptocurrencies, governance tokens, and staking mechanisms. Polkadot Hub enables easy deployment of ERC-20 tokens via Ethereum-compatible smart contracts and tools.
 
-This tutorial covers deploying an ERC-20 contract on the Polkadot Hub TestNet using [Hardhat](https://hardhat.org/){target=\_blank}, an Ethereum development environment. The ERC-20 contract can be retrieved from OpenZeppelin's [GitHub repository](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/v5.4.0/contracts/token/ERC20){target=\_blank}  or their [Contract Wizard](https://wizard.openzeppelin.com/){target=\_blank}.
+This guide demonstrates how to deploy an ERC-20 contract on Polkadot Hub TestNet using [Hardhat](https://hardhat.org/){target=\_blank}, an Ethereum development environment. The ERC-20 contract can be retrieved from OpenZeppelin's [GitHub repository](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/v5.4.0/contracts/token/ERC20){target=\_blank} or their [Contract Wizard](https://wizard.openzeppelin.com/){target=\_blank}.
 
 ## Prerequisites
 
-Before starting, make sure you have:
+Before you begin, ensure you have the following:
 
-- Basic understanding of Solidity programming and fungible tokens.
-- Node.js v22.13.1 or later.
-- A funded account with tokens for transaction fees. This example will deploy the contract to the Polkadot TestNet, so you'll [need some TestNet tokens](/smart-contracts/faucet/#get-test-tokens){target=\_blank} from the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}.
+- A basic understanding of [Solidity](https://www.soliditylang.org/){target=\_blank} programming and [ERC-20](https://ethereum.org/developers/docs/standards/tokens/erc-20/){target=\_blank} fungible tokens.
+- [Node.js](https://nodejs.org/en/download){target=\_blank} v22.13.1 or later installed.
+- Test tokens for gas fees, available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}. See [Get Test Tokens](/smart-contracts/faucet/#get-test-tokens){target=\_blank} for a guide to using the faucet.
+- A wallet with a private key for signing transactions.
 
 ## Set Up Your Project
 
-This tutorial uses a [Hardhat ERC-20 template](https://github.com/polkadot-developers/revm-hardhat-examples/tree/master/erc20-hardhat){target=\_blank} that contains all the necessary files. To get started, take the following steps:
+This tutorial uses a [Hardhat ERC-20 template](https://github.com/polkadot-developers/revm-hardhat-examples/tree/master/erc20-hardhat){target=\_blank} that contains all the necessary files. 
+
+To get started, take the following steps:
 
 1. Clone the GitHub repository locally:
 
@@ -1677,38 +267,19 @@ This tutorial uses a [Hardhat ERC-20 template](https://github.com/polkadot-devel
     cd revm-hardhat-examples/erc20-hardhat
     ```
 
-2. Install the dependencies:
+2. Install the dependencies using the following command:
 
     ```bash
     npm i
     ```
-
-This will fetch all the necessary packages to help you deploy an ERC-20 with Hardhat to Polkadot.
+    
+    This command will fetch all the necessary packages to help you use Hardhat to deploy an ERC-20 to Polkadot.
 
 ## Configure Hardhat
 
-Once you've [setup your project](#set-up-your-project), you can configure the `hardhat.config.ts` to your needs. This tutorial has the file prepared to deploy to the Polkadot TestNet.
+If you started with the cloned Hardhat ERC-20 template, `hardhat.config.ts` is already configured to deploy to the Polkadot TestNet as shown in the example below:
 
-To store and use private keys or network URLs, you can use Hardhat's configuration variables. This can be set via tasks in the **vars** scope. For example, to store the private key to deploy to the Polkadot TestNet, run the following command:
-
-```bash
-npx hardhat vars set TESTNET_PRIVATE_KEY
-```
-
-The command will initiate a wizard in which you'll have to enter the value to be stored:
-
-<div id="termynal" data-termynal markdown>
-  <span data-ty="input">npx hardhat vars set TESTNET_PRIVATE_KEY</span>
-  <span data-ty>✔ Enter value: · •••••••••</span>
-  <span data-ty>The configuration variable has been stored in /Users/albertoviera/Library/Preferences/hardhat-nodejs/vars.json</span>
-</div>
-
-??? warning "Key Encryption"
-    This solution just prevents variables to be included in the code repository. You should find a solution that encrypts private keys and access them securely.
-
-You can now use the account related to this private key by importing it into the Hardhat configuration file:
-
-```ts title="hardhat.config.ts" hl_lines="1 17"
+```ts title="hardhat.config.ts" hl_lines="14-19"
 
 const config: HardhatUserConfig = {
   solidity: {
@@ -1734,45 +305,38 @@ const config: HardhatUserConfig = {
 export default config;
 ```
 
-## Compile your Contract
+!!! tip
+    Visit the Hardhat [Configuration variables](https://v2.hardhat.org/hardhat-runner/docs/guides/configuration-variables){target=\_blank} documentation to learn how to use Hardhat to handle your private keys securely.
 
-Once you've configured Hardhat, you can compile the contract. 
+## Compile the Contract 
 
-In this tutorial, a simple ERC-20 is provided. Therefore, to compile the contract you can run the following command:
+Next, compile the contract included with the template by running the following command:
 
 ```bash
 npx hardhat compile
 ```
 
-If everything compiles successfully, you should see the following output:
+If everything compiles successfully, you will see output similar to the following:
 
-<div id="termynal" data-termynal markdown>
-  <span data-ty="input">npx hardhat compile</span>
-  <span data-ty>Generating typings for: 23 artifacts in dir: typechain-types for target: ethers-v6</span>
-  <span data-ty>Successfully generated 62 typings!</span>
-  <span data-ty>Compiled 21 Solidity files successfully (evm target: paris).</span>
-</div>
 
-## Test your Contract
+## Test the Contract
 
-Hardhat has a native feature to test contracts. You can run tests against the local Hardhat development node, but it could have some technical differences to Polkadot. Therefore, in this tutorial, you'll be testing against the Polkadot TestNet
+You can view the predefined test file at [`test/MyToken.test.ts`](https://github.com/polkadot-developers/revm-hardhat-examples/blob/master/erc20-hardhat/test/MyToken.test.ts){target=\_blank}. This example test includes verification of the following:
 
-This example has a predefined test file located in [`test/Token.test.js`](https://github.com/polkadot-developers/revm-hardhat-examples/blob/master/erc20-hardhat/test/MyToken.test.ts){target=\_blank}, that runs the following tests:
+- The token name and symbol exist (confirms deployment) and are correct.
+- The token owner is correctly configured.
+- The initial token supply is zero.
+- The owner can mint tokens.
+- The total supply increases after a mint.
+- Successful mints to different test addresses with expected account balance and total supply changes.
 
-1. The token was deployed by verifying its **name** and **symbol**.
-2. The token has the right owner configured.
-3. The token has an initial supply of zero.
-4. The owner can mint tokens.
-5. The total supply is increased after a mint.
-6. Perform multiple mints to different addresses and checks the balance of each address and the new total supply.
-
-To run the test, you can execute the following command:
+Run the tests using the following command:
 
 ```bash
 npx hardhat test --network polkadotTestnet
 ```
 
-If tests are successful, you should see the following logs:
+If tests are successful, you will see outputs similar to the following:
 
 <div id="termynal" data-termynal markdown>
   <span data-ty="input">npx hardhat test --network polkadotTestnet</span>
@@ -1789,92 +353,102 @@ If tests are successful, you should see the following logs:
   <span data-ty>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✔ Should correctly track balance after multiple mints</span>
   <span data-ty></span>
   <span data-ty>&nbsp;&nbsp;6 passing (369ms)</span>
+  <span data-ty="input"><span class="file-path"></span></span>
 </div>
 
-## Deploy your Contract
+## Deploy the Contract
 
-With the Hardhat configuration file ready, the private key stored as a variable under **vars**, and the contract compiled, you can proceed to deploy the contract to a given network. In this tutorial, you are deploying it to the Polkadot TestNet.
+You are now ready to deploy the contract to your chosen network. This example demonstrates deployment to the Polkadot TestNet. Deploy the contract as follows:
 
-To deploy the contract, run the following command:
+1. Run the following command in your terminal:
 
-```bash
-npx hardhat ignition deploy ./ignition/modules/MyToken.ts --network polkadotTestnet
-```
+    ```bash
+    npx hardhat ignition deploy ./ignition/modules/MyToken.ts --network polkadotTestnet
+    ```
 
-You'll need to confirm the target network (by chain ID):
+2. Confirm the target deployment network name and chain ID when prompted:
 
-<div id="termynal" data-termynal markdown>
-  <span data-ty="input">npx hardhat ignition deploy ./ignition/modules/MyToken.ts --network polkadotTestnet</span>
-  <span data-ty>✔ Confirm deploy to network polkadotTestnet (420420420)? … yes</span>
-  <span data-ty>&nbsp;</span>
-  <span data-ty>Hardhat Ignition 🚀</span>
-  <span data-ty>&nbsp;</span>
-  <span data-ty>Deploying [ TokenModule ]</span>
-  <span data-ty>&nbsp;</span>
-  <span data-ty>Batch #1</span>
-  <span data-ty>  Executed TokenModule#MyToken</span>
-  <span data-ty>&nbsp;</span>
-  <span data-ty>Batch #2</span>
-  <span data-ty>  Executed TokenModule#MyToken.mint</span>
-  <span data-ty>&nbsp;</span>
-  <span data-ty>[ TokenModule ] successfully deployed 🚀</span>
-  <span data-ty>&nbsp;</span>
-  <span data-ty>Deployed Addresses</span>
-  <span data-ty>&nbsp;</span>
-  <span data-ty>TokenModule#MyToken - 0xc01Ee7f10EA4aF4673cFff62710E1D7792aBa8f3</span>
-</div>
+    <div id="termynal" data-termynal markdown>
+      <span data-ty="input">npx hardhat ignition deploy ./ignition/modules/MyToken.ts --network polkadotTestnet</span>
+      <span data-ty>✔ Confirm deploy to network polkadotTestnet (420420420)? … yes</span>
+      <span data-ty>&nbsp;</span>
+      <span data-ty>Hardhat Ignition 🚀</span>
+      <span data-ty>&nbsp;</span>
+      <span data-ty>Deploying [ TokenModule ]</span>
+      <span data-ty>&nbsp;</span>
+      <span data-ty>Batch #1</span>
+      <span data-ty> Executed TokenModule#MyToken</span>
+      <span data-ty>&nbsp;</span>
+      <span data-ty>Batch #2</span>
+      <span data-ty> Executed TokenModule#MyToken.mint</span>
+      <span data-ty>&nbsp;</span>
+      <span data-ty>[ TokenModule ] successfully deployed 🚀</span>
+      <span data-ty>&nbsp;</span>
+      <span data-ty>Deployed Addresses</span>
+      <span data-ty>&nbsp;</span>
+      <span data-ty>TokenModule#MyToken - 0xc01Ee7f10EA4aF4673cFff62710E1D7792aBa8f3</span>
+      <span data-ty="input"><span class="file-path"></span></span>
+    </div>
 
-And that is it! You've successfully deployed an ERC-20 token contract to the Polkadot TestNet using Hardhat.
+Congratulations! You've successfully deployed an ERC-20 token contract to Polkadot Hub TestNet using Hardhat. Consider the following resources to build upon your progress.
 
 ## Where to Go Next
 
 <div class="grid cards" markdown>
 
--   <span class="badge guide">Guide</span> __Deploy an NFT with Remix__
+-   <span class="badge guide">Guide</span> __Deploy an NFT__
 
     ---
 
-    Walk through deploying an ERC-721 Non-Fungible Token (NFT) using OpenZeppelin's battle-tested NFT implementation and Remix.
+    Walk through deploying an NFT to the Polkadot Hub using Hardhat.
 
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-nft/remix/)
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-hardhat/)
+
+-   <span class="badge guide">Guide</span> __Create a DApp__
+
+    ---
+
+    Learn step-by-step how to build a fully functional dApp that interacts with a smart contract deployed via Hardhat.
+
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/dapps/zero-to-hero/)
 
 </div>
 
 
 ---
 
-Page Title: Deploy an ERC-20 to Polkadot Hub
+Page Title: Deploy an ERC-20 Using Remix IDE
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-erc20-erc20-remix.md
 - Canonical (HTML): https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix/
 - Summary: Deploy an ERC-20 token contract on Polkadot Hub. This guide covers contract creation, compilation, deployment, and interaction via the Remix IDE.
 
-# Deploy an ERC-20 to Polkadot Hub
+# Deploy an ERC-20 Using Remix IDE
 
 ## Introduction
 
 [ERC-20](https://eips.ethereum.org/EIPS/eip-20){target=\_blank} tokens are fungible tokens commonly used for creating cryptocurrencies, governance tokens, and staking mechanisms. Polkadot Hub enables easy token deployment with Ethereum-compatible smart contracts and tools via the EVM backend.
 
-This tutorial covers deploying an ERC-20 contract on the Polkadot Hub TestNet using [Remix IDE](https://remix.ethereum.org/){target=\_blank}, a web-based development tool. The ERC-20 contract can be retrieved from OpenZeppelin's [GitHub repository](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/v5.4.0/contracts/token/ERC20){target=\_blank}  or their [Contract Wizard](https://wizard.openzeppelin.com/){target=\_blank}.
+This tutorial covers deploying an ERC-20 contract on Polkadot Hub TestNet using [Remix IDE](https://remix.ethereum.org/){target=\_blank}, a web-based development tool. The ERC-20 contract can be retrieved from OpenZeppelin's [GitHub repository](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/v5.4.0/contracts/token/ERC20){target=\_blank} or their [Contract Wizard](https://wizard.openzeppelin.com/){target=\_blank}.
 
 ## Prerequisites
 
-Before starting, make sure you have:
+Before you begin, ensure you have:
 
-- Basic understanding of Solidity programming and fungible tokens.
-- An EVM-compatible wallet [connected to Polkadot Hub](/smart-contracts/integrations/wallets){target=\_blank}. This example utilizes [MetaMask](https://metamask.io/){target=\_blank}.
-- A funded account with tokens for transaction fees. This example will deploy the contract to the Polkadot TestNet, so you'll [need some TestNet tokens](/smart-contracts/faucet/#get-test-tokens){target=\_blank} from the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}.
+- A basic understanding of [Solidity](https://www.soliditylang.org/){target=\_blank} programming and [ERC-20](https://ethereum.org/developers/docs/standards/tokens/erc-20/){target=\_blank} fungible tokens.
+- An EVM-compatible [wallet](/smart-contracts/connect/){target=\_blank} connected to Polkadot Hub. This example utilizes [MetaMask](https://metamask.io/){target=\_blank}.
+- Test tokens for gas fees, available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}. See [Get Test Tokens](/smart-contracts/faucet/#get-test-tokens){target=\_blank} for a guide to using the faucet.
 
 ## Create Your Contract
 
-To create the ERC-20 contract, you can follow the steps below:
+Follow the steps below to create the ERC-20 contract:
 
-1. Navigate to the [Polkadot Remix IDE](https://remix.polkadot.io){target=\_blank}.
-2. Click in the **Create new file** button under the **contracts** folder, and name your contract as `MyToken.sol`.
+1. Navigate to [Remix IDE](https://remix.ethereum.org/){target=\_blank} in your web browser.
+2. Select the **Create new file** button under the **contracts** folder, and name your contract `MyToken.sol`.
 
-    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix-1.webp)
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix/remix-01.webp)
 
-3. Now, paste the following ERC-20 contract code into the editor:
+3. Now, paste the following ERC-20 contract code into `MyToken.sol`:
 
     ```solidity title="MyToken.sol"
     // SPDX-License-Identifier: MIT
@@ -1897,90 +471,53 @@ To create the ERC-20 contract, you can follow the steps below:
         }
     }
     ```
-
-    The key components of the code above are:
-
-    - Contract imports:
-
-        - **[`ERC20.sol`](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/v5.4.0/contracts/token/ERC20/ERC20.sol){target=\_blank}**: The base contract for fungible tokens, implementing core functionality like transfers, approvals, and balance tracking.
-        - **[`ERC20Permit.sol`](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/v5.4.0/contracts/token/ERC20/extensions/ERC20Permit.sol){target=\_blank}**: [EIP-2612](https://eips.ethereum.org/EIPS/eip-2612){target=\_blank} extension for ERC-20 that adds the [permit function](https://docs.openzeppelin.com/contracts/5.x/api/token/erc20#ERC20Permit-permit-address-address-uint256-uint256-uint8-bytes32-bytes32-){target=\_blank}, allowing approvals via off-chain signatures (no on-chain tx from the holder). Manages nonces and EIP-712 domain separator and updates allowances when a valid signature is presented.
-        - **[`Ownable.sol`](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/v5.4.0/contracts/access/Ownable.sol){target=\_blank}**: Provides basic authorization control, ensuring only the contract owner can mint new tokens.
     
-    - Constructor parameters:
-
-        - **`initialOwner`**: Sets the address that will have administrative rights over the contract.
-        - **`"MyToken"`**: The full name of your token.
-        - **`"MTK"`**: The symbol representing your token in wallets and exchanges.
-
-    - Key functions:
-
-        - **`mint(address to, uint256 amount)`**: Allows the contract owner to create new tokens for any address. The amount should include 18 decimals (e.g., 1 token = 1000000000000000000).
-        - Inherited [Standard ERC-20](https://ethereum.org/en/developers/docs/standards/tokens/erc-20/){target=\_blank} functions:
-            - **`transfer(address recipient, uint256 amount)`**: Sends a specified amount of tokens to another address.
-            - **`approve(address spender, uint256 amount)`**: Grants permission for another address to spend a specific number of tokens on behalf of the token owner.
-            - **`transferFrom(address sender, address recipient, uint256 amount)`**: Transfers tokens from one address to another, if previously approved.
-            - **`balanceOf(address account)`**: Returns the token balance of a specific address.
-            - **`allowance(address owner, address spender)`**: Checks how many tokens an address is allowed to spend on behalf of another address.
-
     !!! tip
-        Use the [OpenZeppelin Contracts Wizard](https://wizard.openzeppelin.com/){target=\_blank} to generate customized smart contracts quickly. Simply configure your contract, copy the generated code, and paste it into the Remix IDE for deployment. Below is an example of an ERC-20 token contract created with it:
-
-        ![Screenshot of the OpenZeppelin Contracts Wizard showing an ERC-20 contract configuration.](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix-2.webp)
+        The [OpenZeppelin Contracts Wizard](https://wizard.openzeppelin.com/){target=\_blank} was used to generate this example ERC-20 contract.
         
+## Compile the Contract
 
-## Compile 
+Solidity source code compiles into bytecode that can be deployed on the blockchain. During this process, the compiler checks the contract for syntax errors, ensures type safety, and generates the machine-readable instructions needed for blockchain execution.
 
-The compilation transforms your Solidity source code into bytecode that can be deployed on the blockchain. During this process, the compiler checks your contract for syntax errors, ensures type safety, and generates the machine-readable instructions needed for blockchain execution. 
-
-To compile your contract, ensure you have it opened in the Remix IDE Editor, and follow the instructions below:
+Ensure your `MyToken.sol` contract is open in the Remix IDE Editor, and use the following steps to compile:
 
 1. Select the **Solidity Compiler** plugin from the left panel.
-2. Click the **Compile MyToken.sol** button.
-3. If the compilation succeeded, you'll see a green checkmark indicating success in the **Solidity Compiler** icon.
+2. Select the **Compile MyToken.sol** button.
 
-![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix-3.gif)
+The **Solidity Compiler** icon will display a green checkmark once the contract compiles successfully. If any issues arise during contract compilation, errors and warnings will appear in the terminal panel at the bottom of the screen.
 
-## Deploy
+![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix/remix-03.gif)
 
-Deployment is the process of publishing your compiled smart contract to the blockchain, making it permanently available for interaction. During deployment, you'll create a new instance of your contract on the blockchain, which involves:
+## Deploy the Contract
 
-1. Select the **Deploy & Run Transactions** plugin from the left panel.
-2. Configure the deployment settings:
-    1. From the **ENVIRONMENT** dropdown, select **Injected Provider - MetaMask** (check the [Deploying Contracts](/smart-contracts/dev-environments/remix/deploy-a-contract/){target=\_blank} section of the Remix IDE guide for more details).
-    2. (Optional) From the **ACCOUNT** dropdown, select the acccount you want to use for the deploy.
+Follow these steps to deploy the contract using Remix:
 
-3. Configure the contract parameters:
-    1. Enter the address that will own the deployed token contract.
-    2. Click the **Deploy** button to initiate the deployment.
+1. Select **Deploy & Run Transactions** from the left panel.
+2. Ensure your MetaMask wallet is connected to Polkadot Hub TestNet, then select the **Environment** dropdown and select **Injected Provider - MetaMask**.
+3. Configure the contract parameters by entering the address that will own the deployed token contract.
+4. Select the **Deploy** button to initiate the deployment.
+4. Approve the transaction in your MetaMask wallet when prompted.
+6. You will see the transaction details in the terminal when the deployment succeeds, including the contract address and deployment transaction hash.
 
-4. **MetaMask will pop up**: Review the transaction details. Click **Confirm** to deploy your contract.
-5. If the deployment process succeeded, you will see the transaction details in the terminal, including the contract address and deployment transaction hash.
+![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix/remix-04.gif)
 
-![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix-4.gif)
+Once successfully deployed, your contract will appear in the **Deployed Contracts** section, ready for interaction.
 
-## Interact with Your Contract
+## Interact with the Contract
 
-Once deployed, you can interact with your contract through Remix. Find your contract under **Deployed/Unpinned Contracts**, and click it to expand the available methods. In this example, you'll mint some tokens to a given address:
+Once deployed, you can interact with your contract through Remix. Find your contract under **Deployed/Unpinned Contracts**, and select it to expand the available methods. In this example, you'll mint some tokens to a given address using the following steps:
 
-1. Expand the **mint** function:
-    1. Enter the recipient address and the amount (remember to add 18 zeros for 1 whole token).
-    2. Click **transact**.
+1. Expand the **mint** function, then enter the recipient address and the amount (remember to add 18 zeros for one whole token).
+2. Select **transact**.
+3. Approve the transaction in your MetaMask wallet when prompted.
+4. You will see a green check mark in the terminal when the transaction is successful.
+5. You can also call the **balanceOf** function by passing the address of the **mint** call to confirm the new balance.
 
-2. Click **Approve** to confirm the transaction in the MetaMask popup.
+![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix/remix-05.gif)
 
-3. If the transaction succeeds, you will see a green check mark in the terminal.
+Feel free to explore and interact with the contract's other functions by selecting the method, providing any required parameters, and confirming the transaction in MetaMask when prompted.
 
-4. You can also call the **balanceOf** function by passing the address of the **mint** call to confirm the new balance.
-
-![](/images/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix-5.gif)
-
-
-Other standard functions you can use:
-
-- **`transfer(address to, uint256 amount)`**: Send tokens to another address.
-- **`approve(address spender, uint256 amount)`**: Allow another address to spend your tokens.
-
-Feel free to explore and interact with the contract's other functions using the same approach: select the method, provide any required parameters, and confirm the transaction in MetaMask when needed.
+Congratulations! You've successfully deployed an ERC-20 token contract to Polkadot Hub TestNet using Remix IDE. Consider the following resources to build upon your progress. 
 
 ## Where to Go Next
 
@@ -1992,7 +529,314 @@ Feel free to explore and interact with the contract's other functions using the 
 
     Walk through deploying an ERC-721 Non-Fungible Token (NFT) using OpenZeppelin's battle-tested NFT implementation and Remix.
 
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-nft/remix/)
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix/)
+
+</div>
+
+
+---
+
+Page Title: Deploy an ERC-721 NFT Using Remix
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-nft-nft-remix.md
+- Canonical (HTML): https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix/
+- Summary: Learn how to deploy an ERC-721 NFT contract to Polkadot Hub using Remix, a browser-based IDE for quick prototyping and learning.
+
+# Deploy an NFT with Remix
+
+## Introduction
+
+Non-Fungible Tokens (NFTs) represent unique digital assets commonly used for digital art, collectibles, gaming, and identity verification.
+
+This guide demonstrates how to deploy an [ERC-721](https://eips.ethereum.org/EIPS/eip-721){target=\_blank} NFT contract to [Polkadot Hub](/smart-contracts/overview/#smart-contract-development){target=\_blank}. You'll use [OpenZeppelin's battle-tested NFT implementation](https://github.com/OpenZeppelin/openzeppelin-contracts){target=\_blank} and [Remix](https://remix.ethereum.org/){target=\_blank}, a visual, browser-based environment perfect for rapid prototyping and learning. It requires no local installation and provides an intuitive interface for contract development.
+
+## Prerequisites
+
+- A basic understanding of [Solidity](https://www.soliditylang.org/){target=\_blank} programming and [ERC-721 NFT](https://ethereum.org/developers/docs/standards/tokens/erc-721/) standards.
+- An EVM-compatible [wallet](/smart-contracts/connect/){target=\_blank} connected to Polkadot Hub. This example utilizes [MetaMask](https://metamask.io/){target=\_blank}.
+- Test tokens for gas fees (available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}). See [Get Test Tokens](/smart-contracts/faucet/#get-test-tokens){target=\_blank} for a guide to using the faucet.
+
+## Create Your Contract
+
+Follow the steps below to create the ERC-721 contract:
+
+1. Navigate to [Remix IDE](https://remix.ethereum.org/){target=\_blank} in your web browser.
+2. Select the **Create new file** button under the **contracts** folder, and name your contract `MyNFT.sol`.
+
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix/remix-01.webp)
+
+3. Now, paste the following ERC-721 contract code into `MyNFT.sol`:
+
+    ```solidity title="contracts/MyNFT.sol"
+    // SPDX-License-Identifier: MIT
+    pragma solidity ^0.8.20;
+
+    import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+    import "@openzeppelin/contracts/access/Ownable.sol";
+
+    contract MyNFT is ERC721, Ownable {
+        uint256 private _nextTokenId;
+
+        constructor(
+            address initialOwner
+        ) ERC721("MyToken", "MTK") Ownable(initialOwner) {}
+
+        function safeMint(address to) public onlyOwner {
+            uint256 tokenId = _nextTokenId++;
+            _safeMint(to, tokenId);
+        }
+    }
+
+    ```
+
+    !!! tip
+        The [OpenZeppelin Contracts Wizard](https://wizard.openzeppelin.com/){target=\_blank} was used to generate this example ERC-721 contract.
+
+## Compile the Contract
+
+Solidity source code compiles into bytecode that can be deployed on the blockchain. During this process, the compiler checks the contract for syntax errors, ensures type safety, and generates the machine-readable instructions needed for blockchain execution.
+
+Ensure your `MyNFT.sol` contract is open in the Remix IDE Editor, and use the following steps to compile:
+
+1. Select the **Solidity Compiler** plugin from the left panel.
+2. Select the **Compile MyToken.sol** button.
+
+The **Solidity Compiler** icon will display a green checkmark once the contract compiles successfully. If any issues arise during contract compilation, errors and warnings will appear in the terminal panel at the bottom of the screen.
+
+![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix/remix-02.webp)
+
+## Deploy the Contract
+
+Follow these steps to deploy the contract using Remix:
+
+1. Select **Deploy & Run Transactions** from the left panel.
+2. Ensure your MetaMask wallet is connected to Polkadot Hub TestNet, then select the **Environment** dropdown and select **Injected Provider - MetaMask**.
+
+    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix/remix-03.webp)
+
+3. Configure the contract parameters by entering the address that will own the deployed NFT contract.
+4. Select the **Deploy** button to initiate the deployment.
+5. Approve the transaction in your MetaMask wallet when prompted.
+6. You will see the transaction details in the terminal when the deployment succeeds, including the contract address and deployment transaction hash.
+
+![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix/remix-04.webp)
+
+Once successfully deployed, your contract will appear in the **Deployed Contracts** section, ready for interaction.
+
+Congratulations! You've successfully deployed an ERC-721 NFT contract to Polkadot Hub TestNet using Remix IDE. Consider the following resources to build upon your progress.
+
+## Where to Go Next
+
+<div class="grid cards" markdown>
+
+-   <span class="badge guide">Guide</span> __Deploy an ERC-20__
+
+    ---
+
+    Walk through deploying a fully-functional ERC-20 to Polkadot Hub using Remix.
+
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix/)
+
+</div>
+
+
+---
+
+Page Title: Deploy an ERC-721 Using Hardhat
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-nft-nft-hardhat.md
+- Canonical (HTML): https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-hardhat/
+- Summary: Learn how to deploy an ERC-721 NFT contract to Polkadot Hub using Hardhat, a comprehensive development environment with built-in deployment capabilities.
+
+# Deploy an ERC-721 Using Hardhat
+
+## Introduction
+
+Non-Fungible Tokens (NFTs) represent unique digital assets commonly used for digital art, collectibles, gaming, and identity verification.
+
+This guide demonstrates how to deploy an [ERC-721](https://eips.ethereum.org/EIPS/eip-721){target=\_blank} NFT contract to [Polkadot Hub](/smart-contracts/overview/#smart-contract-development){target=\_blank} TestNet. You'll use OpenZeppelin's battle-tested [NFT implementation](https://github.com/OpenZeppelin/openzeppelin-contracts){target=\_blank} and [Hardhat](https://hardhat.org/docs/getting-started){target=\_blank}, a comprehensive development environment with built-in testing, debugging, and deployment capabilities. Hardhat uses standard Solidity compilation to generate EVM bytecode, making it fully compatible with Polkadot Hub's EVM environment.
+
+## Prerequisites
+
+Before you begin, ensure you have the following:
+
+- A basic understanding of [Solidity](https://www.soliditylang.org/){target=\_blank} programming and [ERC-721](https://ethereum.org/developers/docs/standards/tokens/erc-721/){target=\_blank} non-fungible tokens.
+- [Node.js](https://nodejs.org/en/download){target=\_blank} v22.13.1 or later installed.
+- Test tokens for gas fees, available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}. See [Get Test Tokens](/smart-contracts/faucet/#get-test-tokens){target=\_blank} for a guide to using the faucet.
+- A wallet with a private key for signing transactions.
+
+## Set Up Your Project
+
+1. Use the following terminal commands to create a directory and initialize your Hardhat project inside of it:
+
+    ```bash
+    mkdir hardhat-nft-deployment
+    cd hardhat-nft-deployment
+    npx hardhat@^2.27.0 init
+    ```
+
+2. Install the OpenZeppelin contract dependencies using the command:
+
+    ```bash
+    npm install @openzeppelin/contracts
+    ```
+
+## Configure Hardhat
+
+Open `hardhat.config.ts` and update to add `polkadotTestnet` to the `networks` configuration as highlighted in the following example code:
+
+```typescript title="hardhat.config.ts" hl_lines='18-23'
+import type { HardhatUserConfig } from 'hardhat/config';
+
+import hardhatToolboxViemPlugin from '@nomicfoundation/hardhat-toolbox-viem';
+import { vars } from 'hardhat/config';
+
+const config: HardhatUserConfig = {
+  plugins: [hardhatToolboxViemPlugin],
+  solidity: {
+    version: '0.8.28',
+    settings: {
+      optimizer: {
+        enabled: true,
+        runs: 200,
+      },
+    },
+  },
+  networks: {
+    polkadotTestnet: {
+      url: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
+      chainId: 420420422,
+      accounts: [vars.get('PRIVATE_KEY')],
+    },
+  },
+};
+
+export default config;
+```
+
+!!! tip
+    Visit the Hardhat [Configuration variables](https://v2.hardhat.org/hardhat-runner/docs/guides/configuration-variables){target=\_blank} documentation to learn how to use Hardhat to handle your private keys securely.
+
+## Create the Contract
+
+Follow these steps to create your smart contract:
+
+1. Delete the default contract file(s) in the `contracts` directory.
+
+2. Create a new file named `MyNFT.sol` inside the `contracts` directory.
+
+3. Add the following code to create the `MyNFT.sol` smart contract:
+    ```solidity title="contracts/MyNFT.sol"
+    // SPDX-License-Identifier: MIT
+    pragma solidity ^0.8.20;
+
+    import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+    import "@openzeppelin/contracts/access/Ownable.sol";
+
+    contract MyNFT is ERC721, Ownable {
+        uint256 private _nextTokenId;
+
+        constructor(
+            address initialOwner
+        ) ERC721("MyToken", "MTK") Ownable(initialOwner) {}
+
+        function safeMint(address to) public onlyOwner {
+            uint256 tokenId = _nextTokenId++;
+            _safeMint(to, tokenId);
+        }
+    }
+
+    ```
+
+## Compile the Contract
+
+Compile your `MyNFT.sol` contract using the following command:
+
+```bash
+npx hardhat compile
+```
+
+You will see a message in the terminal confirming the contract was successfully compiled, similar to the following:
+
+<div id="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>npx hardhat compile</span>
+  <span data-ty>Downloading solc 0.8.28</span>
+  <span data-ty>Downloading solc 0.8.28 (WASM build)</span>
+  <span data-ty>Compiled 1 Solidity file with solc 0.8.28 (evm target: cancun)</span>
+  <span data-ty="input"><span class="file-path"></span></span>
+</div>
+## Deploy the Contract
+
+You are now ready to deploy the contract to your chosen network. This example demonstrates deployment to the Polkadot TestNet. Deploy the contract as follows:
+
+1. Delete the default file(s) inside the `ignition/modules` directory.
+
+2. Create a new file named `MyNFT.ts` inside the `ignition/modules` directory.
+
+3. Open `ignition/modules/MyNFT.ts` and add the following code to create your deployment module:
+    ```typescript title="ignition/modules/MyNFT.ts"
+    import { buildModule } from '@nomicfoundation/hardhat-ignition/modules';
+
+    export default buildModule('MyNFTModule', (m) => {
+      const initialOwner = m.getParameter('initialOwner', 'INSERT_OWNER_ADDRESS');
+      const myNFT = m.contract('MyNFT', [initialOwner]);
+      return { myNFT };
+    });
+
+    ```
+
+    Replace `INSERT_OWNER_ADDRESS` with your desired owner address.
+
+4. Deploy your contract to Polkadot Hub TestNet using the following command:
+
+    ```bash
+    npx hardhat ignition deploy ignition/modules/MyNFT.ts --network polkadotTestnet
+    ```
+
+5. Confirm the target deployment network name and chain ID when prompted:
+
+    <div id="termynal" data-termynal markdown>
+      <span data-ty="input">npx hardhat ignition deploy ignition/modules/MyNFT.ts --network polkadotHubTestnet</span>
+      <span data-ty>✔ Confirm deploy to network polkadotTestnet (420420420)? … yes</span>
+      <span data-ty>&nbsp;</span>
+      <span data-ty>Hardhat Ignition 🚀</span>
+      <span data-ty>&nbsp;</span>
+      <span data-ty>Deploying [ MyNFTModule ]</span>
+      <span data-ty>&nbsp;</span>
+      <span data-ty>Batch #1</span>
+      <span data-ty> Executed MyNFTModule#MyNFT</span>
+      <span data-ty>&nbsp;</span>
+      <span data-ty>Batch #2</span>
+      <span data-ty> Executed MyNFTModule#MyNFT.safeMint</span>
+      <span data-ty>&nbsp;</span>
+      <span data-ty>[ TokenModule ] successfully deployed 🚀</span>
+      <span data-ty>&nbsp;</span>
+      <span data-ty>Deployed Addresses</span>
+      <span data-ty>&nbsp;</span>
+      <span data-ty>MyNFTModule#MyNFT - 0x1234.......</span>
+      <span data-ty="input"><span class="file-path"></span></span>
+    </div>
+Congratulations! You've successfully deployed an ERC-721 NFT contract to Polkadot Hub TestNet using Hardhat. Consider the following resources to build upon your progress. 
+
+## Where to Go Next
+
+<div class="grid cards" markdown>
+
+-   <span class="badge guide">Guide</span> __Deploy an ERC-20__
+
+    ---
+
+    Walk through deploying a fully-functional ERC-20 to Polkadot Hub using Hardhat.
+
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-hardhat/)
+
+-   <span class="badge guide">Guide</span> __Create a DApp__
+
+    ---
+
+    Learn step-by-step how to build a fully functional dApp that interacts with a smart contract deployed via Hardhat.
+
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/dapps/zero-to-hero/)
 
 </div>
 
@@ -2135,290 +979,6 @@ Replace `YOUR_PRIVATE_KEY` with your private key and `YOUR_OWNER_ADDRESS` with t
 
 ---
 
-Page Title: Deploy an NFT to Polkadot Hub with Hardhat
-
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-nft-hardhat.md
-- Canonical (HTML): https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-nft/hardhat/
-- Summary: Learn how to deploy an ERC-721 NFT contract to Polkadot Hub with Hardhat, a comprehenive development environment with built-in deployment capabilities.
-
-# Deploy an NFT with Hardhat
-
-## Introduction
-
-Non-Fungible Tokens (NFTs) represent unique digital assets commonly used for digital art, collectibles, gaming, and identity verification.
-
-This guide demonstrates how to deploy an [ERC-721](https://eips.ethereum.org/EIPS/eip-721){target=\_blank} NFT contract to [Polkadot Hub](/smart-contracts/overview/#smart-contract-development){target=\_blank}. You'll use [OpenZeppelin's battle-tested NFT implementation](https://github.com/OpenZeppelin/openzeppelin-contracts){target=\_blank} and [Hardhat](https://hardhat.org/docs/getting-started){target=\_blank}, a comprehensive development environment with built-in testing, debugging, and deployment capabilities. Hardhat uses standard Solidity compilation to generate EVM bytecode, making it fully compatible with Polkadot Hub's EVM environment.
-
-## Prerequisites
-
-- Basic understanding of Solidity programming and NFT standards.
-- Node.js v22.13.1 or later.
-- A funded account with tokens for transaction fees. This example will deploy the contract to the Polkadot TestNet, so you'll [need some TestNet tokens](/smart-contracts/faucet/#get-test-tokens){target=\_blank} from the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}.
-- A wallet with a private key for signing transactions.
-
-## Set Up Your Project
-
-Take the following steps to get started:
-
-1. Initialize your Hardhat project:
-
-    ```bash
-    mkdir hardhat-nft-deployment
-    cd hardhat-nft-deployment
-    npx hardhat --init
-    ```
-
-2. Install OpenZeppelin contracts:
-
-    ```bash
-    npm install @openzeppelin/contracts
-    ```
-
-## Configure Hardhat
-
-Edit `hardhat.config.ts`:
-
-```typescript title="hardhat.config.ts"
-import type { HardhatUserConfig } from 'hardhat/config';
-
-import hardhatToolboxViemPlugin from '@nomicfoundation/hardhat-toolbox-viem';
-import { configVariable } from 'hardhat/config';
-
-const config: HardhatUserConfig = {
-  plugins: [hardhatToolboxViemPlugin],
-  solidity: {
-    profiles: {
-      default: {
-        version: '0.8.28',
-      },
-      production: {
-        version: '0.8.28',
-        settings: {
-          optimizer: {
-            enabled: true,
-            runs: 200,
-          },
-        },
-      },
-    },
-  },
-  networks: {
-    hardhatMainnet: {
-      type: 'edr-simulated',
-      chainType: 'l1',
-    },
-    hardhatOp: {
-      type: 'edr-simulated',
-      chainType: 'op',
-    },
-    sepolia: {
-      type: 'http',
-      chainType: 'l1',
-      url: configVariable('SEPOLIA_RPC_URL'),
-      accounts: [configVariable('SEPOLIA_PRIVATE_KEY')],
-    },
-    polkadotHubTestnet: {
-      type: 'http',
-      url: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
-      chainId: 420420422,
-      accounts: [configVariable('PRIVATE_KEY')],
-    },
-  },
-};
-
-export default config;
-```
-
-!!! tip
-    Learn how to use Hardhat's [Config Variables](https://hardhat.org/docs/learn-more/configuration-variables){target=\_blank} to handle your private keys in a secure way.
-
-## Create Your Contract
-
-Create `contracts/MyNFT.sol`:
-
-```solidity title="contracts/MyNFT.sol"
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
-
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
-
-contract MyNFT is ERC721, Ownable {
-    uint256 private _nextTokenId;
-
-    constructor(address initialOwner)
-        ERC721("MyToken", "MTK")
-        Ownable(initialOwner)
-    {}
-
-    function safeMint(address to) public onlyOwner {
-        uint256 tokenId = _nextTokenId++;
-        _safeMint(to, tokenId);
-    }
-}
-```
-
-## Compile
-
-```bash
-npx hardhat compile
-```
-
-## Set Up Deployment
-
-Create a deployment module in `ignition/modules/MyNFT.ts`:
-
-```typescript title="ignition/modules/MyNFT.ts"
-import { buildModule } from '@nomicfoundation/hardhat-ignition/modules';
-
-export default buildModule('MyNFTModule', (m) => {
-  const initialOwner = m.getParameter('initialOwner', 'INSERT_OWNER_ADDRESS');
-  const myNFT = m.contract('MyNFT', [initialOwner]);
-  return { myNFT };
-});
-```
-
-Replace `INSERT_OWNER_ADDRESS` with your desired owner address.
-
-## Deploy
-
-Deploy to Polkadot Hub TestNet:
-
-```bash
-npx hardhat ignition deploy ignition/modules/MyNFT.ts --network polkadotHubTestnet
-```
-
-## Where to Go Next
-
-<div class="grid cards" markdown>
-
--   <span class="badge guide">Guide</span> __Verify Your Contract__
-
-    ---
-
-    Now that you've deployed an NFT contract, learn how to verify it with Hardhat.
-
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/dev-environments/hardhat/verify-a-contract/)
-
-
--   <span class="badge guide">Guide</span> __Deploy an ERC-20__
-
-    ---
-
-    Walk through deploying a fully-functional ERC-20 to the Polkadot Hub using Hardhat.
-
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-erc20/hardhat/)
-
-</div>
-
-
----
-
-Page Title: Deploy an NFT to Polkadot Hub with Remix
-
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-nft-remix.md
-- Canonical (HTML): https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-nft/remix/
-- Summary: Learn how to deploy an ERC-721 NFT contract to Polkadot Hub using Remix, a browser-based IDE for quick prototyping and learning.
-
-# Deploy an NFT with Remix
-
-## Introduction
-
-Non-Fungible Tokens (NFTs) represent unique digital assets commonly used for digital art, collectibles, gaming, and identity verification.
-
-This guide demonstrates how to deploy an [ERC-721](https://eips.ethereum.org/EIPS/eip-721){target=\_blank} NFT contract to [Polkadot Hub](/smart-contracts/overview/#smart-contract-development){target=\_blank}. You'll use [OpenZeppelin's battle-tested NFT implementation](https://github.com/OpenZeppelin/openzeppelin-contracts){target=\_blank} and [Remix](https://remix.ethereum.org/){target=\_blank}, a visual, browser-based environment perfect for rapid prototyping and learning. It requires no local installation and provides an intuitive interface for contract development.
-
-## Prerequisites
-
-- Basic understanding of Solidity programming and NFT standards.
-- Test tokens for gas fees (available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}). See the [step-by-step instructions](/smart-contracts/faucet/#get-test-tokens){target=\_blank}
-- A wallet with a private key for signing transactions.
-
-## Access Remix
-
-Navigate to [Remix](https://remix.ethereum.org/){target=\_blank} in your web browser.
-
-The interface will load with a default workspace containing sample contracts. In this interface, you can access a file explorer, edit your code, interact with various plugins for development, and use a terminal.
-
-## Create Your Contract
-
-1. Create a new file `contracts/MyNFT.sol`.
-2. Paste the following code:
-
-    ```solidity title="contracts/MyNFT.sol"
-    // SPDX-License-Identifier: MIT
-    pragma solidity ^0.8.20;
-
-    import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-    import "@openzeppelin/contracts/access/Ownable.sol";
-
-    contract MyNFT is ERC721, Ownable {
-        uint256 private _nextTokenId;
-
-        constructor(address initialOwner)
-            ERC721("MyToken", "MTK")
-            Ownable(initialOwner)
-        {}
-
-        function safeMint(address to) public onlyOwner {
-            uint256 tokenId = _nextTokenId++;
-            _safeMint(to, tokenId);
-        }
-    }
-    ```
-
-![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/remix/remix-01.webp)
-
-## Compile
-
-1. Navigate to the **Solidity Compiler** tab (third icon in the left sidebar).
-2. Click **Compile MyNFT.sol** or press `Ctrl+S`.
-
-![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/remix/remix-02.webp)
-
-Compilation errors and warnings appear in the terminal panel at the bottom of the screen.
-
-## Deploy
-
-1. Navigate to the **Deploy & Run Transactions** tab.
-2. Click the **Environment** dropdown, select **Browser Extension**, and click on **Injected Provider - MetaMask**.
-
-    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/remix/remix-03.webp)
-
-3. In the deploy section, enter the initial owner address in the constructor parameter field.
-4. Click **Deploy**.
-
-    ![](/images/smart-contracts/cookbook/smart-contracts/deploy-nft/remix/remix-04.webp)
-
-5. Approve the transaction in your MetaMask wallet.
-
-Your deployed contract will appear in the **Deployed Contracts** section, ready for interaction.
-
-## Where to Go Next
-
-<div class="grid cards" markdown>
-
--   <span class="badge guide">Guide</span> __Verify Your Contract__
-
-    ---
-
-    Now that you've deployed an NFT contract, learn how to verify it with Remix.
-
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/dev-environments/remix/verify-a-contract/)
-
--   <span class="badge guide">Guide</span> __Deploy an ERC-20__
-
-    ---
-
-    Walk through deploying a fully-functional ERC-20 to the Polkadot Hub using Remix.
-
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-erc20/remix/)
-
-</div>
-
-
----
-
 Page Title: Dual Virtual Machine Stack
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-for-eth-devs-dual-vm-stack.md
@@ -2427,8 +987,6 @@ Page Title: Dual Virtual Machine Stack
 
 # Dual Virtual Machine Stack
 
-!!! smartcontract "PolkaVM Preview Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 ## Introduction
 
 Polkadot's smart contract platform supports two distinct virtual machine (VM) architectures, providing developers with flexibility in selecting the optimal execution backend for their specific needs. This approach strikes a balance between immediate Ethereum compatibility and long-term innovation, enabling developers to deploy either unmodified (Ethereum Virtual Machine) EVM contracts using Rust Ethereum Virtual Machine (REVM) or optimize for higher performance using PolkaVM (PVM).
@@ -2674,19 +1232,18 @@ The following sections provide practical recipes for building parachains on Polk
 
 Quick start guides help developers set up and interact with the Polkadot parachain ecosystem using various tools and frameworks.
 
-|                                            Tutorial                                            |             Tools              |                               Description                               |
-| :--------------------------------------------------------------------------------------------: | :----------------------------: | :---------------------------------------------------------------------: |
-| [Set Up the Parachain Template](/parachains/launch-a-parachain/set-up-the-parachain-template/) |          Polkadot SDK          | Learn how to set up and run the Polkadot SDK Parachain Template locally |
-|            [Launch a Local Parachain](/parachains/testing/run-a-parachain-network/)            |     Zombienet, Chopsticks      |           Set up a local development environment for testing            |
-|           [Connect to Polkadot](/chain-interactions/query-on-chain-data/query-sdks/)           | Polkadot.js, Substrate Connect |              Connect your application to Polkadot networks              |
-|              [Fork an Existing Parachain](/parachains/testing/fork-a-parachain/)               |           Chopsticks           |           Create a local fork of a live parachain for testing           |
+|                                            Tutorial                                            |         Tools         |                               Description                               |
+|:----------------------------------------------------------------------------------------------:|:---------------------:|:-----------------------------------------------------------------------:|
+| [Set Up the Parachain Template](/parachains/launch-a-parachain/set-up-the-parachain-template/) |     Polkadot SDK      | Learn how to set up and run the Polkadot SDK Parachain Template locally |
+|            [Launch a Local Parachain](/parachains/testing/run-a-parachain-network/)            | Zombienet, Chopsticks |           Set up a local development environment for testing            |
+|              [Fork an Existing Parachain](/parachains/testing/fork-a-parachain/)               |      Chopsticks       |           Create a local fork of a live parachain for testing           |
 
 ## Launch a Simple Parachain
 
 Learn the fundamentals of launching and deploying a parachain to the Polkadot network.
 
 |                                            Tutorial                                            |                                Description                                |
-| :--------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------: |
+|:----------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------:|
 | [Set Up the Parachain Template](/parachains/launch-a-parachain/set-up-the-parachain-template/) |                               Polkadot SDK                                |
 |            [Deploy to Polkadot](/parachains/launch-a-parachain/deploy-to-polkadot/)            |       Step-by-step tutorial to deploying your parachain to Polkadot       |
 |               [Obtain Coretime](/parachains/launch-a-parachain/obtain-coretime/)               | Learn how to acquire blockspace using Polkadot's coretime model (RegionX) |
@@ -2696,7 +1253,7 @@ Learn the fundamentals of launching and deploying a parachain to the Polkadot ne
 Build custom functionality for your parachain by composing and creating pallets.
 
 |                                              Tutorial                                               |                            Description                            |
-| :-------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------: |
+|:---------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------:|
 |     [Add Existing Pallets to the Runtime](/parachains/customize-runtime/add-existing-pallets/)      |       Integrate pre-built pallets from the FRAME ecosystem        |
 |      [Add Multiple Instances of a Pallet](/parachains/customize-runtime/add-pallet-instances/)      |      Configure and use multiple instances of the same pallet      |
 | [Add Smart Contract Functionality](/parachains/customize-runtime/add-smart-contract-functionality/) | Enable smart contract capabilities using Contracts or EVM pallets |
@@ -2705,20 +1262,19 @@ Build custom functionality for your parachain by composing and creating pallets.
 
 Deep dive into creating and managing custom pallets for your parachain.
 
-|                                                     Tutorial                                                     |                        Description                        |
-| :--------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------: |
-|           [Create a Custom Pallet](/parachains/customize-runtime/pallet-development/create-a-pallet/)            |       Build a pallet from scratch with custom logic       |
-|               [Mock Your Runtime](/parachains/customize-runtime/pallet-development/mock-runtime/)                |       Set up a mock runtime environment for testing       |
-|             [Pallet Unit Testing](/parachains/customize-runtime/pallet-development/pallet-testing/)              |      Write comprehensive tests for your pallet logic      |
-| [Add Your Custom Pallet to the Runtime](/parachains/customize-runtime/pallet-development/add-pallet-to-runtime/) | Integrate your custom pallet into your parachain runtime  |
-|        [Benchmark the Custom Pallet](/parachains/customize-runtime/pallet-development/benchmark-pallet/)         | Measure and optimize pallet performance with benchmarking |
+|                                             Tutorial                                              |                        Description                        |
+|:-------------------------------------------------------------------------------------------------:|:---------------------------------------------------------:|
+|    [Create a Custom Pallet](/parachains/customize-runtime/pallet-development/create-a-pallet/)    |       Build a pallet from scratch with custom logic       |
+|        [Mock Your Runtime](/parachains/customize-runtime/pallet-development/mock-runtime/)        |       Set up a mock runtime environment for testing       |
+|      [Pallet Unit Testing](/parachains/customize-runtime/pallet-development/pallet-testing/)      |      Write comprehensive tests for your pallet logic      |
+| [Benchmark the Custom Pallet](/parachains/customize-runtime/pallet-development/benchmark-pallet/) | Measure and optimize pallet performance with benchmarking |
 
 ## Testing
 
 Test your parachain in various environments before production deployment.
 
 |                                Tutorial                                 |                       Description                       |
-| :---------------------------------------------------------------------: | :-----------------------------------------------------: |
+|:-----------------------------------------------------------------------:|:-------------------------------------------------------:|
 |        [Fork a Parachain](/parachains/testing/fork-a-parachain/)        |    Use Chopsticks to create a local fork for testing    |
 | [Run a Parachain Network](/parachains/testing/run-a-parachain-network/) | Launch a complete parachain test network with Zombienet |
 
@@ -2727,7 +1283,7 @@ Test your parachain in various environments before production deployment.
 Manage your parachain's lifecycle with forkless upgrades and maintenance operations.
 
 |                                 Tutorial                                  |                     Description                      |
-| :-----------------------------------------------------------------------: | :--------------------------------------------------: |
+|:-------------------------------------------------------------------------:|:----------------------------------------------------:|
 |   [Runtime Upgrades](/parachains/runtime-maintenance/runtime-upgrades/)   |   Perform forkless runtime upgrades via governance   |
 | [Storage Migrations](/parachains/runtime-maintenance/storage-migrations/) |  Safely migrate storage when updating runtime logic  |
 |  [Unlock Parachains](/parachains/runtime-maintenance/unlock-parachains/)  | Understand parachain lifecycle and unlock mechanisms |
@@ -2737,7 +1293,7 @@ Manage your parachain's lifecycle with forkless upgrades and maintenance operati
 Configure your parachain for cross-chain communication using XCM (Cross-Consensus Messaging).
 
 |                                                  Tutorial                                                  |                      Description                       |
-| :--------------------------------------------------------------------------------------------------------: | :----------------------------------------------------: |
+|:----------------------------------------------------------------------------------------------------------:|:------------------------------------------------------:|
 |     [Open HRMP Channels Between Parachains](/parachains/interoperability/channels-between-parachains/)     | Establish communication channels with other parachains |
 | [Open HRMP Channels with System Parachains](/parachains/interoperability/channels-with-system-parachains/) |   Connect with Asset Hub and other system parachains   |
 
@@ -2746,7 +1302,7 @@ Configure your parachain for cross-chain communication using XCM (Cross-Consensu
 Integrate your parachain with essential ecosystem tools and services.
 
 |                    Tutorial                    |                      Description                       |
-| :--------------------------------------------: | :----------------------------------------------------: |
+|:----------------------------------------------:|:------------------------------------------------------:|
 |  [Wallets](/parachains/integrations/wallets/)  |     Integrate wallet support for user interactions     |
 | [Indexers](/parachains/integrations/indexers/) | Set up indexing solutions for querying blockchain data |
 |  [Oracles](/parachains/integrations/oracles/)  |    Connect your parachain to off-chain data sources    |
@@ -2773,89 +1329,77 @@ This resource provides quick-starts for building smart contracts on Polkadot Hub
 
 Kick off development fast with curated links for connecting, funding, exploring, and deploying your first contract.
 
-|                                             Quick Start                                             |         Tools         |                           Description                           |
-|:---------------------------------------------------------------------------------------------------:|:---------------------:|:---------------------------------------------------------------:|
-|                  [Connect to Polkadot](/smart-contracts/connect/){target=\_blank}                   | Polkadot.js, MetaMask | Add the network, configure RPC, verify activity in the explorer |
-|                    [Get Test Tokens](/smart-contracts/faucets/){target=\_blank}                     |           -           |    Request test funds to deploy and interact with contracts     |
-|                 [Explore Transactions](/smart-contracts/explorers/){target=\_blank}                 |        Subscan        | Inspect transactions, logs, token transfers, and contract state |
-|   [Deploy with Remix](/smart-contracts/dev-environments/remix/deploy-a-contract/){target=\_blank}   |         Remix         |          One‑click browser deployment to Polkadot Hub           |
-| [Deploy with Foundry](/smart-contracts/dev-environments/foundry/deploy-a-contract/){target=\_blank} |        Foundry        |          Scripted deployments and testing from the CLI          |
-| [Deploy with Hardhat](/smart-contracts/dev-environments/hardhat/deploy-a-contract/){target=\_blank} |        Hardhat        |          Project scaffolding, testing, and deployments          |
+|                     Quick Start                     |         Tools         |                           Description                           |
+|:---------------------------------------------------:|:---------------------:|:---------------------------------------------------------------:|
+|  [Connect to Polkadot](/smart-contracts/connect/)   | Polkadot.js, MetaMask | Add the network, configure RPC, verify activity in the explorer |
+|     [Get Test Tokens](/smart-contracts/faucet/)     |           -           |    Request test funds to deploy and interact with contracts     |
+| [Explore Transactions](/smart-contracts/explorers/) |        Subscan        | Inspect transactions, logs, token transfers, and contract state |
 
 ## Build and Test Locally
 
 Set up local environments and CI-friendly workflows to iterate quickly and validate changes before deploying.
 
-|                                            Build and Test Locally                                            |       Tools       |                     Description                      |
-|:------------------------------------------------------------------------------------------------------------:|:-----------------:|:----------------------------------------------------:|
-|          [Run a Local Dev Node](/smart-contracts/dev-environments/local-dev-node/){target=\_blank}           | Polkadot SDK node |    Spin up a local node for iterative development    |
-|          [Remix: Get Started](/smart-contracts/dev-environments/remix/get-started/){target=\_blank}          |       Remix       | Connect Remix to Polkadot Hub and configure accounts |
-|    [Remix: Verify a Contract](/smart-contracts/dev-environments/remix/verify-a-contract/){target=\_blank}    |       Remix       |         Publish verified source on explorers         |
-| [Foundry: Install and Config](/smart-contracts/dev-environments/foundry/install-and-config/){target=\_blank} |      Foundry      |       Install toolchain and configure networks       |
-|   [Foundry: Compile and Test](/smart-contracts/dev-environments/foundry/compile-and-test/){target=\_blank}   |      Foundry      |         Write and run Solidity tests locally         |
-|  [Foundry: Verify a Contract](/smart-contracts/dev-environments/foundry/verify-a-contract/){target=\_blank}  |      Foundry      |        Verify deployed bytecode and metadata         |
-| [Hardhat: Install and Config](/smart-contracts/dev-environments/hardhat/install-and-config/){target=\_blank} |      Hardhat      |     Initialize a project and configure networks      |
-|   [Hardhat: Compile and Test](/smart-contracts/dev-environments/hardhat/compile-and-test/){target=\_blank}   |      Hardhat      |         Unit test contracts and run scripts          |
-|  [Hardhat: Verify a Contract](/smart-contracts/dev-environments/hardhat/verify-a-contract/){target=\_blank}  |      Hardhat      |           Verify deployments on explorers            |
+|                          Build and Test Locally                           |       Tools       |                  Description                   |
+|:-------------------------------------------------------------------------:|:-----------------:|:----------------------------------------------:|
+| [Run a Local Dev Node](/smart-contracts/dev-environments/local-dev-node/) | Polkadot SDK node | Spin up a local node for iterative development |
+|   [Use Remix for Development](/smart-contracts/dev-environments/remix/)   |       Remix       |         Connect Remix to Polkadot Hub          |
+| [Use Hardhat for Development](/smart-contracts/dev-environments/hardhat/) |      Hardhat      |     Project scaffolding and configuration      |
+
 
 ## Ethereum Developer Resources
 
 Bridge your Ethereum knowledge with Polkadot Hub specifics: account mapping, fees, JSON‑RPC, and deployment.
 
-|                                         Ethereum Developer Guides                                         |                           Description                           |
-|:---------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------:|
-|                    [Accounts](/smart-contracts/for-eth-devs/accounts/){target=\_blank}                    | How 20‑byte Ethereum addresses map to 32‑byte Polkadot accounts |
-| [Blocks, Transactions, and Fees](/smart-contracts/for-eth-devs/blocks-transactions-fees/){target=\_blank} |     Transaction types, fees, and multi‑dimensional metering     |
-|                   [Gas Model](/smart-contracts/for-eth-devs/gas-model/){target=\_blank}                   |        Gas vs. weight, proof size, and storage deposits         |
-|         [Contract Deployment](/smart-contracts/for-eth-devs/contract-deployment/){target=\_blank}         |     Deployment patterns and best practices on Polkadot Hub      |
-|               [JSON‑RPC APIs](/smart-contracts/for-eth-devs/json-rpc-apis/){target=\_blank}               |        Supported Ethereum JSON‑RPC methods and examples         |
-|                   [Migration](/smart-contracts/for-eth-devs/migration/){target=\_blank}                   |         Port existing apps and tooling to Polkadot Hub          |
-|               [Dual VM Stack](/smart-contracts/for-eth-devs/dual-vm-stack/){target=\_blank}               |         Overview of EVM and native execution on the Hub         |
+|                                 Ethereum Developer Guides                                 |                           Description                           |
+|:-----------------------------------------------------------------------------------------:|:---------------------------------------------------------------:|
+|                    [Accounts](/smart-contracts/for-eth-devs/accounts/)                    | How 20‑byte Ethereum addresses map to 32‑byte Polkadot accounts |
+| [Blocks, Transactions, and Fees](/smart-contracts/for-eth-devs/blocks-transactions-fees/) |     Transaction types, fees, and multi‑dimensional metering     |
+|                   [Gas Model](/smart-contracts/for-eth-devs/gas-model/)                   |        Gas vs. weight, proof size, and storage deposits         |
+|         [Contract Deployment](/smart-contracts/for-eth-devs/contract-deployment/)         |     Deployment patterns and best practices on Polkadot Hub      |
+|               [JSON‑RPC APIs](/smart-contracts/for-eth-devs/json-rpc-apis/)               |        Supported Ethereum JSON‑RPC methods and examples         |
+|               [Dual VM Stack](/smart-contracts/for-eth-devs/dual-vm-stack/)               |         Overview of EVM and native execution on the Hub         |
 
 ## Cookbook: Hands‑on Tutorials
 
 Follow step‑by‑step guides that walk through common tasks and complete dApp examples.
 
-|                                                 Tutorial                                                 |        Tools        |                Description                |
-|:--------------------------------------------------------------------------------------------------------:|:-------------------:|:-----------------------------------------:|
-| [Deploy a Basic Contract](/smart-contracts/cookbook/smart-contracts/deploy-basic/remix/){target=\_blank} |        Remix        |      Minimal deployment walkthrough       |
-|    [Deploy an ERC‑20](/smart-contracts/cookbook/smart-contracts/deploy-erc20/remix/){target=\_blank}     | Remix, OpenZeppelin | Create, deploy, and mint a fungible token |
-|  [Deploy an NFT (ERC‑721)](/smart-contracts/cookbook/smart-contracts/deploy-nft/remix/){target=\_blank}  | Remix, OpenZeppelin |    Build and deploy an NFT collection     |
-|              [Uniswap V2](/smart-contracts/cookbook/eth-dapps/uniswap-v2/){target=\_blank}               |       Hardhat       | Full dApp project: compile, test, deploy  |
-|            [Zero‑to‑Hero dApp](/smart-contracts/cookbook/dapps/zero-to-hero/){target=\_blank}            |      Multiple       |  End‑to‑end dApp patterns and practices   |
+|                                            Tutorial                                            |        Tools        |                Description                |
+|:----------------------------------------------------------------------------------------------:|:-------------------:|:-----------------------------------------:|
+| [Deploy a Basic Contract](/smart-contracts/cookbook/smart-contracts/deploy-basic/basic-remix/) |        Remix        |      Minimal deployment walkthrough       |
+|    [Deploy an ERC‑20](/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix/)     | Remix, OpenZeppelin | Create, deploy, and mint a fungible token |
+|   [Deploy an NFT (ERC‑721)](/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix/)   | Remix, OpenZeppelin |    Build and deploy an NFT collection     |
+|                 [Uniswap V2](/smart-contracts/cookbook/eth-dapps/uniswap-v2/)                  |       Hardhat       | Full dApp project: compile, test, deploy  |
+|               [Zero‑to‑Hero dApp](/smart-contracts/cookbook/dapps/zero-to-hero/)               |      Multiple       |  End‑to‑end dApp patterns and practices   |
 
 ## Libraries
 
 Choose the client libraries that fit your stack for connecting wallets and calling contracts.
 
-|                              Library                               |                       Description                       |
-|:------------------------------------------------------------------:|:-------------------------------------------------------:|
-| [Ethers.js](/smart-contracts/libraries/ethers-js/){target=\_blank} | Connect, sign, and interact with contracts using Ethers |
-|      [viem](/smart-contracts/libraries/viem/){target=\_blank}      |        Type‑safe EVM interactions and utilities         |
-|     [Wagmi](/smart-contracts/libraries/wagmi/){target=\_blank}     |  React hooks for wallet connections and contract calls  |
-|   [Web3.js](/smart-contracts/libraries/web3-js/){target=\_blank}   |             Web3 provider and contract APIs             |
-|   [Web3.py](/smart-contracts/libraries/web3-py/){target=\_blank}   |  Python toolkit for on‑chain interactions and scripts   |
+|                      Library                       |                       Description                       |
+|:--------------------------------------------------:|:-------------------------------------------------------:|
+| [Ethers.js](/smart-contracts/libraries/ethers-js/) | Connect, sign, and interact with contracts using Ethers |
+|      [viem](/smart-contracts/libraries/viem/)      |        Type‑safe EVM interactions and utilities         |
+|     [Wagmi](/smart-contracts/libraries/wagmi/)     |  React hooks for wallet connections and contract calls  |
+|   [Web3.js](/smart-contracts/libraries/web3-js/)   |             Web3 provider and contract APIs             |
+|   [Web3.py](/smart-contracts/libraries/web3-py/)   |  Python toolkit for on‑chain interactions and scripts   |
 
 ## Integrations
 
 Integrate essential services like wallets, indexers, and oracles to round out your dApp.
 
-|                             Integration                             |                Description                |
-|:-------------------------------------------------------------------:|:-----------------------------------------:|
-|  [Wallets](/smart-contracts/integrations/wallets/){target=\_blank}  | Supported wallets and configuration notes |
-| [Indexers](/smart-contracts/integrations/indexers/){target=\_blank} |      Index and query blockchain data      |
-|  [Oracles](/smart-contracts/integrations/oracles/){target=\_blank}  |       Bring external data on‑chain        |
+|                     Integration                     |                Description                |
+|:---------------------------------------------------:|:-----------------------------------------:|
+|  [Wallets](/smart-contracts/integrations/wallets/)  | Supported wallets and configuration notes |
 
 ## Precompiles
 
 Discover precompiled system contracts available on the Hub and how to use them.
 
-|                                  Topic                                   |                     Description                     |
-|:------------------------------------------------------------------------:|:---------------------------------------------------:|
-| [Overview of Precompiles](/smart-contracts/precompiles/){target=\_blank} |      What precompiles are available on the Hub      |
-|  [ETH Native](/smart-contracts/precompiles/eth-native/){target=\_blank}  |           EVM precompiles and interfaces            |
-|     [Staking](/smart-contracts/precompiles/staking/){target=\_blank}     | Interact with staking functionality via precompiles |
-|         [XCM](/smart-contracts/precompiles/xcm/){target=\_blank}         |     Cross‑chain messaging helpers for contracts     |
+|                          Topic                           |                     Description                     |
+|:--------------------------------------------------------:|:---------------------------------------------------:|
+| [Overview of Precompiles](/smart-contracts/precompiles/) |      What precompiles are available on the Hub      |
+|  [ETH Native](/smart-contracts/precompiles/eth-native/)  |           EVM precompiles and interfaces            |
+|         [XCM](/smart-contracts/precompiles/xcm/)         |     Cross‑chain messaging helpers for contracts     |
 
 From here, follow the quick starts to get connected, iterate locally with your preferred tools, and use the guides, libraries, integrations, and precompiles as you grow into production‑ready dApps. If you get stuck, [open an issue](https://github.com/polkadot-developers/polkadot-docs/issues/new?template=docs-issue.yml){target=\_blank} or reach out in the community channels.
 
@@ -2946,7 +1490,9 @@ The message consists of three instructions described as follows:
 
     The first instruction takes as an input the MultiAsset that should be withdrawn. The MultiAsset describes the native parachain token with the `Here` keyword. The `amount` parameter is the number of tokens that are transferred. The withdrawal account depends on the origin of the message. In this example the origin of the message is Alice. The `WithdrawAsset` instruction moves `amount` number of native tokens from Alice's account into the holding register.
 
-- **[BuyExecution](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#buyexecution){target=\_blank}**: Allocates fees to cover the execution [weight](/reference/glossary/#weight){target=\_blank} of the XCM instructions.
+- **[BuyExecution](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#buyexecution){target=\_blank}**: Allocates fees to cover the execution weight of the XCM instructions.
+
+    
 
     ```rust
         BuyExecution { 
@@ -3858,8 +2404,6 @@ Page Title: JSON-RPC APIs
 
 # JSON-RPC APIs
 
-!!! smartcontract "PolkaVM Preview Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 ## Introduction
 
 Polkadot Hub provides Ethereum compatibility through its JSON-RPC interface, allowing developers to interact with the chain using familiar Ethereum tooling and methods. This document outlines the supported [Ethereum JSON-RPC methods](https://ethereum.org/developers/docs/apis/json-rpc/#json-rpc-methods){target=\_blank} and provides examples of how to use them.
@@ -5071,7 +3615,9 @@ Page Title: Overview of FRAME
 
 ## Introduction
 
-A blockchain runtime is more than just a fixed set of rules—it's a dynamic foundation that you can shape to match your specific needs. With Polkadot SDK's [FRAME (Framework for Runtime Aggregation of Modularized Entities)](/reference/glossary/#frame-framework-for-runtime-aggregation-of-modularized-entities){target=\_blank}, customizing your runtime is straightforward and modular. Instead of building everything from scratch, you combine pre-built pallets with your own custom logic to create a runtime suited to your blockchain's purpose.
+A blockchain runtime is more than just a fixed set of rules—it's a dynamic foundation that you can shape to match your specific needs. With Polkadot SDK's [FRAME (Framework for Runtime Aggregation of Modularized Entities)](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/frame_runtime/index.html){target=\_blank}, customizing your runtime is straightforward and modular. Instead of building everything from scratch, you combine pre-built pallets with your own custom logic to create a runtime suited to your blockchain's purpose.
+
+
 
 This overview explains how runtime customization works, introduces the building blocks you'll use, and guides you through the key patterns for extending your runtime.
 
@@ -6464,7 +5010,7 @@ Run the following commands to set up the correct Rust version:
 
 This tutorial requires two essential tools:
 
-- [**Chain spec builder**](https://crates.io/crates/staging-chain-spec-builder/10.0.0){target=\_blank}: A Polkadot SDK utility for generating chain specifications. Refer to the [Generate Chain Specs](/develop/parachains/deployment/generate-chain-specs/){target=\_blank} documentation for detailed usage.
+- [**Chain spec builder**](https://crates.io/crates/staging-chain-spec-builder/10.0.0){target=\_blank}: A Polkadot SDK utility for generating chain specifications. Refer to the [Generate Chain Specs](/parachains/launch-a-parachain/deploy-to-polkadot/#generate-the-chain-specification){target=\_blank} documentation for detailed usage.
     
     Install it by executing the following command:
     
@@ -6630,14 +5176,14 @@ To stop the local node:
 
     Learn how to deploy your parachain template to a relay chain testnet. Configure your chain specification, register as a parachain, and start producing blocks.
 
-    [:octicons-arrow-right-24: Get Started](/parachains/launch-a-parachain/deploy-to-polkadot.md)
+    [:octicons-arrow-right-24: Get Started](/parachains/launch-a-parachain/deploy-to-polkadot/)
 
 </div>
 
 
 ---
 
-Page Title: Smart Contracts Cookbook Index
+Page Title: Smart Contracts Cookbook
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook.md
 - Canonical (HTML): https://docs.polkadot.com/smart-contracts/cookbook/
@@ -6658,12 +5204,12 @@ This page contains a list of all relevant tutorials and guides to help you get s
 |------------------------------------|:-----------:|-------|-----------------------------------------------------------------------------------------------------------------------|
 | [Faucet](/smart-contracts/faucet/) | 🟢 Beginner | N/A   | Learn how to obtain test tokens from Polkadot faucets for development and testing purposes across different networks. |
 
-## EVM/PVM Smart Contracts
+## EVM Smart Contracts
 
-| Title                                                                                             | Difficulty  | Tools                          | Description                                                                                                                                                 |
-|---------------------------------------------------------------------------------------------------|:-----------:|--------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [Deploy an ERC-20 to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-erc20/remix/) | 🟢 Beginner | EVM Wallet, Polkadot Remix IDE | Deploy an ERC-20 token on Polkadot Hub using PolkaVM. This guide covers contract creation, compilation, deployment, and interaction via Polkadot Remix IDE. |
-| [Deploy an NFT to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-nft/remix/)      | 🟢 Beginner | EVM Wallet, Polkadot Remix IDE | Deploy an NFT on Polkadot Hub using PolkaVM and OpenZeppelin. Learn how to compile, deploy, and interact with your contract using Polkadot Remix IDE.       |
+| Title                                                                                                   | Difficulty  | Tools                          | Description                                                                                                                                                 |
+|---------------------------------------------------------------------------------------------------------|:-----------:|--------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [Deploy an ERC-20 to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix/) | 🟢 Beginner | EVM Wallet, Polkadot Remix IDE | Deploy an ERC-20 token on Polkadot Hub using PolkaVM. This guide covers contract creation, compilation, deployment, and interaction via Polkadot Remix IDE. |
+| [Deploy an NFT to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix/)        | 🟢 Beginner | EVM Wallet, Polkadot Remix IDE | Deploy an NFT on Polkadot Hub using PolkaVM and OpenZeppelin. Learn how to compile, deploy, and interact with your contract using Polkadot Remix IDE.       |
 
 ## Port Ethereum DApps
 
@@ -6678,63 +5224,41 @@ Page Title: Smart Contracts Overview
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-overview.md
 - Canonical (HTML): https://docs.polkadot.com/smart-contracts/overview/
-- Summary: Learn about smart contract development capabilities in the Polkadot ecosystem, either by leveraging Polkadot Hub or other alternatives.
+- Summary: Learn about smart contract development on Polkadot Hub with native PolkaVM support, dual-VM execution, and seamless cross-chain capabilities.
 
-# Smart Contracts on Polkadot
+# Smart Contracts on Polkadot Hub
 
-!!! smartcontract "PolkaVM Preview Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 ## Introduction
 
-Polkadot offers developers multiple approaches to building and deploying smart contracts within its ecosystem. As a multi-chain network designed for interoperability, Polkadot provides various environments optimized for different developer preferences and application requirements. From native smart contract support on Polkadot Hub to specialized parachain environments, developers can choose the platform that best suits their technical needs while benefiting from Polkadot's shared security model and cross-chain messaging capabilities.
+Polkadot Hub provides a production-ready smart contract platform that combines Ethereum compatibility with the performance and cross-chain capabilities of the Polkadot ecosystem. Developers can deploy smart contracts directly on Polkadot Hub while using familiar Ethereum tooling, workflows, and programming languages.
 
-Whether you're looking for Ethereum compatibility through EVM-based parachains like [Moonbeam](https://docs.moonbeam.network/){target=\_blank}, [Astar](https://docs.astar.network/){target=\_blank}, and [Acala](https://evmdocs.acala.network/){target=\_blank} or prefer PolkaVM-based development with [ink!](https://use.ink/docs/v6/){target=\_blank}, the Polkadot ecosystem accommodates a range of diverse developers.
+Built with a dual-VM approach, Polkadot Hub offers two execution backends: REVM for unmodified EVM compatibility and native PolkaVM for optimized computationally expensive workloads. This dual-VM architecture enables developers to migrate existing Ethereum contracts instantly or optimize for speed and efficiency with native execution.
 
-These guides explore the diverse smart contract options available in the Polkadot ecosystem, helping developers understand the unique advantages of each approach and make informed decisions about where to deploy their decentralized applications.
+## Why Build on Polkadot Hub
 
-## Native Smart Contracts
+### Ethereum Compatibility
 
-### Introduction
+Deploy existing Ethereum contracts with zero modifications while maintaining full compatibility with your existing development stack:
 
-Polkadot Hub enables smart contract deployment and execution through PolkaVM, a cutting-edge virtual machine designed specifically for the Polkadot ecosystem. This native integration allows developers to deploy smart contracts directly on Polkadot's system chain while maintaining compatibility with Ethereum development tools and workflows.
+- **Complete JSON-RPC API support**: Use MetaMask, Hardhat, Remix, Foundry, and all standard Ethereum tooling.
+- **Standard libraries**: Integrate Ethers.js, Web3.js, Viem, Wagmi, and Web3.py without changes.
+- **Solidity development**: Write contracts in Solidity or migrate existing code directly.
+- **Familiar workflows**: Maintain your existing deployment, testing, and monitoring processes.
 
-### Smart Contract Development
+### Performance Options
 
-The smart contract platform on Polkadot Hub combines _Polkadot's robust security and scalability_ with the extensive Ethereum development ecosystem. Developers can utilize familiar Ethereum libraries for contract interactions and leverage industry-standard development environments for writing and testing smart contracts.
+Choose between two execution backends:
 
-Polkadot Hub provides _full Ethereum JSON-RPC API compatibility_, ensuring seamless integration with existing development tools and services. This compatibility enables developers to maintain their preferred workflows while building on Polkadot's native infrastructure.
+- **REVM**: Run unmodified Ethereum contracts with full EVM/Ethereum compatibility.
+- **PolkaVM**: Compile to optimized RISC-V bytecode for enhanced performance and lower fees while keeping Ethereum-compatibility.
 
-### Technical Architecture
+Both backends share the same RPC interface and tooling support, allowing seamless transitions. In addition, smart contracts can interact with Polkadot native services via [precompile contracts](/smart-contracts/precompiles/){target=\_blank}.
 
-PolkaVM, the underlying virtual machine, utilizes a RISC-V-based register architecture _optimized for the Polkadot ecosystem_. This design choice offers several advantages:
+### Cross-VM  & Cross-Chain Capabilities
 
-- Enhanced performance for smart contract execution.
-- Improved gas efficiency for complex operations.
-- Native compatibility with Polkadot's runtime environment.
-- Optimized storage and state management.
+Smart contracts written for one VM (for example, EVM) can interact directly with other smart contracts written for the RISC-V PolkaVM, and back. This allows to use full EVM compatible contracts but extend to heavy/complex execution workloads to the PolkaVM RISC-V backend.
 
-### Development Tools and Resources
-
-Polkadot Hub supports a comprehensive suite of development tools familiar to Ethereum developers. The platform integrates with popular development frameworks, testing environments, and deployment tools. Key features include:
-
-- Contract development in Solidity or Rust.
-- Support for standard Ethereum development libraries.
-- Integration with widely used development environments.
-- Access to blockchain explorers and indexing solutions.
-- Compatibility with contract monitoring and management tools.
-
-### Cross-Chain Capabilities
-
-Smart contracts deployed on Polkadot Hub can leverage Polkadot's [cross-consensus messaging (XCM) protocol](/parachains/interoperability/get-started/){target=\_blank} protocol to seamlessly _transfer tokens and call functions on other blockchain networks_ within the Polkadot ecosystem, all without complex bridging infrastructure or third-party solutions. For further references, check the [Interoperability](/develop/interoperability/){target=\_blank} section.
-
-### Use Cases
-
-Polkadot Hub's smart contract platform is suitable for a wide range of applications:
-
-- DeFi protocols leveraging _cross-chain capabilities_.
-- NFT platforms utilizing Polkadot's native token standards.
-- Governance systems integrated with Polkadot's democracy mechanisms.
-- Cross-chain bridges and asset management solutions.
+Furthermore, all smart contracts in Polkadot Hub can interact with any service in the Polkadot ecosystem through [XCM](/smart-contracts/precompiles/xcm/){target=\_blank}, enabling token transfers, remote execution, and cross-chain composability without bridges or intermediaries.
 
 ## Other Smart Contract Environments
 
@@ -6744,32 +5268,41 @@ Beyond Polkadot Hub's native PolkaVM support, the ecosystem offers two main alte
 
 - **Rust (ink!)**: ink! is a Rust-based framework that can compile to PolkaVM. It uses [`#[ink(...)]`](https://use.ink/docs/v6/macros-attributes/){target=\_blank} attribute macros to create Polkadot SDK-compatible PolkaVM bytecode, offering strong memory safety from Rust, an advanced type system, high-performance PolkaVM execution, and platform independence with sandboxed security.
 
-
-Each environment provides unique advantages based on developer preferences and application requirements.
-
-## Where to Go Next
-
-Developers can use their existing Ethereum development tools and connect to Polkadot Hub's RPC endpoints. The platform's Ethereum compatibility layer ensures a smooth transition for teams already building on Ethereum-compatible chains.
-
-Subsequent sections of this guide provide detailed information about specific development tools, advanced features, and best practices for building on Polkadot Hub.
+## Next Steps
 
 <div class="grid cards" markdown>
 
--   <span class="badge guide">Guide</span> __Libraries__
+-   <span class="badge guide">Guide</span> __Get Started__
 
     ---
 
-    Explore essential libraries to optimize smart contract development and interaction.
+    Quick-start guides for connecting, deploying, and building your first smart contract.
 
-    [:octicons-arrow-right-24: Reference](/smart-contracts/libraries/ethers-js/)
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/get-started/)
 
--   <span class="badge guide">Guide</span> __Dev Environments__
+-   <span class="badge guide">Guide</span> __Cookbook__
 
     ---
 
-    Set up your development environment for seamless contract deployment and testing.
+    Step-by-step tutorials for deploying contracts, tokens, NFTs, and full dApps.
 
-    [:octicons-arrow-right-24: Reference](/smart-contracts/dev-environments/local-dev-node/)
+    [:octicons-arrow-right-24: View Tutorials](/smart-contracts/cookbook/)
+
+-   <span class="badge guide">Guide</span> __Ethereum Developers__
+
+    ---
+
+    Understand key differences in accounts, fees, gas model, and deployment on Polkadot Hub.
+
+    [:octicons-arrow-right-24: Learn More](/smart-contracts/for-eth-devs/accounts/)
+
+-   <span class="badge guide">Guide</span> __Precompiles__
+
+    ---
+
+    Discover advanced functionalities including XCM for cross-chain interactions.
+
+    [:octicons-arrow-right-24: Explore Precompiles](/smart-contracts/precompiles/)
 
 </div>
 
@@ -7176,8 +5709,6 @@ Page Title: Transactions and Fees on Asset Hub
 
 # Blocks, Transactions, and Fees
 
-!!! smartcontract "PolkaVM Preview Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 ## Introduction
 
 Asset Hub smart contracts operate within the Polkadot ecosystem using the [`pallet_revive`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/){target=\_blank} implementation, which provides EVM compatibility. While many aspects of blocks and transactions are inherited from the underlying parachain architecture, there are specific considerations and mechanisms unique to smart contract operations on Asset Hub.
@@ -7240,7 +5771,7 @@ Gas serves as the fundamental unit for measuring computational costs, with each 
         - Implements a deposit-based system for long-term storage.
         - Refundable when storage is freed.
 
-These resources can be limited at both transaction and contract levels, similar to Ethereum's gas limits. For more information, check the [Gas Model](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm#gas-model){target=\_blank} section in the [EVM vs PolkaVM](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm/){target=\_blank} article.
+These resources can be limited at both transaction and contract levels, similar to Ethereum's gas limits. For more information, check the [Gas Model](/smart-contracts/for-eth-devs/gas-model/){target=\_blank} documentation.
 
 ### Fee Components
 

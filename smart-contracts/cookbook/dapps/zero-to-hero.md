@@ -310,7 +310,7 @@ This file initializes a viem client, providing helper functions for obtaining a 
 
 ## Set Up the Smart Contract Interface
 
-For this dApp, you'll use a simple [Storage contract](/tutorials/smart-contracts/launch-your-first-project/create-contracts){target=\_blank} that's already deployed in the Polkadot Hub TestNet: `0xc01Ee7f10EA4aF4673cFff62710E1D7792aBa8f3`. To interact with it, you need to define the contract interface.
+For this dApp, you'll use a simple [Storage contract](/smart-contracts/cookbook/smart-contracts/deploy-basic/basic-hardhat/#create-the-contract){target=\_blank} that's already deployed in the Polkadot Hub TestNet: `0xc01Ee7f10EA4aF4673cFff62710E1D7792aBa8f3`. To interact with it, you need to define the contract interface.
 
 Create a folder called `abis` at the root of your project, then create a file named `Storage.json` and paste the corresponding ABI of the Storage contract. You can copy and paste the following:
 
@@ -352,7 +352,7 @@ This file defines the contract address, ABI, and functions to create a viem [con
 
 ## Create the Wallet Connection Component
 
-Now, let's create a component to handle wallet connections. Create a new file called `components/WalletConnect.tsx`:
+Now, you can create a component to handle wallet connections. Create a new file called `components/WalletConnect.tsx`:
 
 ```typescript title="WalletConnect.tsx"
 "use client";
@@ -535,7 +535,7 @@ This component handles connecting to the wallet, switching networks if necessary
 
 ## Create the Read Contract Component
 
-Now, let's create a component to read data from the contract. Create a file called `components/ReadContract.tsx`:
+Next, create a component to read data from the contract. Create a file called `components/ReadContract.tsx`:
 
 ```typescript title="ReadContract.tsx"
 'use client';
@@ -608,7 +608,7 @@ This component reads the `storedNumber` value from the contract and displays it 
 
 ## Create the Write Contract Component
 
-Finally, let's create a component that allows users to update the stored number. Create a file called `components/WriteContract.tsx`:
+Finally, create a component that allows users to update the stored number. Create a file called `components/WriteContract.tsx`:
 
 ```typescript title="WriteContract.tsx"
 "use client";
@@ -916,7 +916,7 @@ cd zero-to-hero-dapp
 
     Learn how to port an Ethereum project to Polkadot Hub using Hardhat and Viem.
 
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/eth-dapps/)
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/eth-dapps/uniswap-v2/)
 
 -   <span class="badge guide">Guide</span> __Dive Deeper into Polkadot Precompiles__
 
@@ -924,5 +924,5 @@ cd zero-to-hero-dapp
 
     Learn how to use the Polkadot precompiles to interact with the blockchain.
 
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/polkadot-precompiles/)
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/precompiles/)
 </div>

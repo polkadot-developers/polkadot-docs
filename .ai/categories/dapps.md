@@ -10811,8 +10811,6 @@ Wallet types fall into two categories based on their connection to the internet:
 - **[Cold wallets](#cold-wallets)**: Offline storage using hardware devices or air-gapped systems.
 - **[Wallet Tools](#wallet-tools)**: Libraries and SDKs for integrating wallet functionality into dApps.
 
-
-
 ## Hot Wallets
 
 <div class="grid cards" markdown>
@@ -10865,9 +10863,6 @@ Wallet types fall into two categories based on their connection to the internet:
 
 </div>
 
-
-</div>
-
 ## Wallet Tools
 
 <div class="grid cards" markdown>
@@ -10879,7 +10874,6 @@ Wallet types fall into two categories based on their connection to the internet:
     A comprehensive React library for integrating Polkadot wallet connections into decentralized applications. Provides a unified API for connecting to major Polkadot ecosystem wallets including Polkadot{.js}, SubWallet, Talisman, Nova Wallet, PolkaGate, WalletConnect, Enkrypt, Fearless, and Mimir. Features include pre-built UI components with customizable theming, comprehensive React hooks library, full TypeScript support, multi-chain support for Polkadot, Kusama and parachains, and flexible integration patterns. Use as a complete solution with built-in chain support or integrate only wallet connection features with your preferred API solution (Dedot, PAPI, @polkadot/api).
 
     [:octicons-arrow-right-24: Reference](https://www.lunolab.xyz/){target=\_blank}
-
 
 </div>
 

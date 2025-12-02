@@ -12,11 +12,11 @@ Polkadot SDK-based blockchains store data in a key-value database that can be qu
 
 This guide demonstrates how to query on-chain storage using five popular SDKs:
 
-- **[Polkadot API (PAPI)](/reference/tools/papi/)** - Modern TypeScript library with type-safe APIs
-- **[Polkadot.js API](/reference/tools/polkadot-js-api/)** - Comprehensive JavaScript library (maintenance mode)
-- **[Dedot](/reference/tools/dedot/)** - Lightweight TypeScript library optimized for performance
-- **[Python Substrate Interface](/reference/tools/py-substrate-interface/)** - Python library for Substrate chains
-- **[Subxt](/reference/tools/subxt/)** - Rust library with compile-time type safety
+- **[Polkadot API (PAPI)](/reference/tools/papi/){target=\_blank}** - Modern TypeScript library with type-safe APIs
+- **[Polkadot.js API](/reference/tools/polkadot-js-api/){target=\_blank}** - Comprehensive JavaScript library (maintenance mode)
+- **[Dedot](/reference/tools/dedot/){target=\_blank}** - Lightweight TypeScript library optimized for performance
+- **[Python Substrate Interface](/reference/tools/py-substrate-interface/){target=\_blank}** - Python library for Substrate chains
+- **[Subxt](/reference/tools/subxt/){target=\_blank}** - Rust library with compile-time type safety
 
 Select your preferred SDK below to see complete, runnable examples that query Polkadot Hub for account balances and asset information.
 
@@ -24,7 +24,7 @@ Select your preferred SDK below to see complete, runnable examples that query Po
 
 === "PAPI"
 
-    [Polkadot API (PAPI)](/reference/tools/papi/) is a modern, type-safe TypeScript library optimized for light-client functionality.
+    [Polkadot API (PAPI)](/reference/tools/papi/){target=\_blank} is a modern, type-safe TypeScript library optimized for light-client functionality.
 
     **Prerequisites**
 
@@ -90,7 +90,7 @@ Select your preferred SDK below to see complete, runnable examples that query Po
     !!! warning "Maintenance Mode Only"
         The Polkadot.js API is no longer actively developed. New projects should use [PAPI](/reference/tools/papi/){target=\_blank} or [Dedot](/reference/tools/dedot/){target=\_blank} as actively maintained alternatives.
 
-    [Polkadot.js API](/reference/tools/polkadot-js-api/) is a comprehensive JavaScript library with extensive ecosystem support.
+    [Polkadot.js API](/reference/tools/polkadot-js-api/){target=\_blank} is a comprehensive JavaScript library with extensive ecosystem support.
 
     **Prerequisites**
 
@@ -146,7 +146,7 @@ Select your preferred SDK below to see complete, runnable examples that query Po
 
 === "Dedot"
 
-    [Dedot](/reference/tools/dedot/) is a next-generation TypeScript client that's lightweight, tree-shakable, and maintains API compatibility with Polkadot.js.
+    [Dedot](/reference/tools/dedot/){target=\_blank} is a next-generation TypeScript client that's lightweight, tree-shakable, and maintains API compatibility with Polkadot.js.
 
     **Prerequisites**
 
@@ -203,7 +203,7 @@ Select your preferred SDK below to see complete, runnable examples that query Po
 
 === "Python"
 
-    [Python Substrate Interface](/reference/tools/py-substrate-interface/) provides a Python library for interacting with Substrate-based chains.
+    [Python Substrate Interface](/reference/tools/py-substrate-interface/){target=\_blank} provides a Python library for interacting with Substrate-based chains.
 
     **Prerequisites**
 
@@ -259,7 +259,7 @@ Select your preferred SDK below to see complete, runnable examples that query Po
 
 === "Subxt"
 
-    [Subxt](/reference/tools/subxt/) is a Rust library that provides compile-time type safety through code generation from chain metadata.
+    [Subxt](/reference/tools/subxt/){target=\_blank} is a Rust library that provides compile-time type safety through code generation from chain metadata.
 
     **Prerequisites**
 

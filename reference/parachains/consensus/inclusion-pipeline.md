@@ -8,7 +8,7 @@ The inclusion pipeline is the multi-stage process through which every parachain 
 
 This pipeline ensures that all parablocks meet Polkadot's security guarantees through progressive verification: each parablock passes through multiple validation stages with different validator sets, ensuring that invalid parablocks cannot be finalized even if some validators *or collators* are malicious/compromised.
 
-By configuring [Async Backing](/reference/parachains/consensus/async-backing), a parachin can run this pipeline in parallel for many blocks, allowing for high throughput.
+By configuring [Async Backing](/reference/parachains/consensus/async-backing){target=\_blank}, a parachain can run this pipeline in parallel for many blocks, allowing for high throughput.
 
 ## Pipeline Stages
 
@@ -35,7 +35,7 @@ flowchart LR
 
 * **Relay Parent**: The relay chain block which a given parablock is anchored to. Note that the relay parent of a parablock and the relay block including that parablock are always different. This context source lives on the relay chain.
 
-* **Unincluded Segments**: Chains of candidate parablocks that have yet to be included in the relay chain, i.e. they can contain blocks at any stage pre-inclusion. The core functionality that [Async Backing](/reference/parachains/consensus/async-backing) brings is the ability to build on these unincluded segments of block ancestors rather than building only on ancestors included in the relay chain state. This context source lives on the collators.
+* **Unincluded Segments**: Chains of candidate parablocks that have yet to be included in the relay chain, i.e. they can contain blocks at any stage pre-inclusion. The core functionality that [Async Backing](/reference/parachains/consensus/async-backing){target=\_blank} brings is the ability to build on these unincluded segments of block ancestors rather than building only on ancestors included in the relay chain state. This context source lives on the collators.
 
 **Generation**: Collators *execute* their blockchain's core functionality to generate a new block, producing a [proof-of-validity](https://paritytech.github.io/polkadot-sdk/book/types/availability.html?#proof-of-validity) (PoV), which is passed to validators selected for backing. The PoV is composed of:
 

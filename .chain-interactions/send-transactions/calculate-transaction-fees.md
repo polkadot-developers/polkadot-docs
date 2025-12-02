@@ -32,7 +32,7 @@ Create a new project directory and initialize it:
 ```bash
 mkdir fee-calculator
 cd fee-calculator
-npm init -y
+npm init -y && npm pkg set type=module
 ```
 
 Install the required packages:
@@ -120,7 +120,7 @@ Navigate to the [Polkadot-JS Apps interface](https://polkadot.js.org/apps){targe
 To see fees before submitting a transfer:
 
 1. Navigate to **Accounts** > **Accounts** in the top menu
-2. Choice an account and click **send**
+2. Choose an account and click **send**
 3. Fill in the transfer details:
     - **Send to address**: Enter Bob's address
     - **Amount**: Enter the amount you wish to transfer (e.g., 1 DOT)

@@ -17,7 +17,7 @@ async function calculateFees() {
   const bobAddress = "INSERT_BOB_ADDRESS";
 
   // Amount to transfer (1 DOT = 10^10 plancks)
-  const amount = 1_000_000_000_000n; // 1 DOT
+  const amount = 10_000_000_000n; // 1 DOT
 
   try {
     // Create the transaction

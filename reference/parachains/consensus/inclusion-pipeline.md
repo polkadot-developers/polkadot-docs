@@ -4,11 +4,15 @@ description: Understand each of the core components of the Inclusion Pipeline.
 categories: Polkadot Protocol
 ---
 
-The inclusion pipeline is the multi-stage process through which every parachain block (parablock) is **validated** and **secured** before being finalized in the Polkadot relay chain.
+# Inclusion Pipeline
 
-This pipeline ensures that all parablocks meet Polkadot's security guarantees through progressive verification: each parablock passes through multiple validation stages with different validator sets, ensuring that invalid parablocks cannot be finalized even if some validators *or collators* are malicious/compromised.
+## Introduction
 
-By configuring [Async Backing](/reference/parachains/consensus/async-backing){target=\_blank}, a parachain can run this pipeline in parallel for many blocks, allowing for high throughput.
+The inclusion pipeline is the multi-stage process through which every parachain block (parablock) is validated and secured before being finalized in the Polkadot relay chain.
+
+This pipeline ensures that all parablocks meet Polkadot's security guarantees through progressive verification. Each one passes through multiple validation stages with different validator sets, preventing invalid parablocks from being finalized even if some validators or collators are malicious/compromised.
+
+By configuring [Async Backing](/reference/parachains/consensus/async-backing){target=\_blank}, a parachain can run this pipeline in parallel for many blocks, enabling high throughput.
 
 ## Pipeline Stages
 
@@ -31,19 +35,27 @@ flowchart LR
 
   classDef nobox fill:none,stroke:none,color:inherit;
 ```
-**Context**: Context of state is provided as input in order for collators and validators to build a parablock during the generation and backing stages, respectively. This context is provided by two sources:
+### Context
 
-* **Relay Parent**: The relay chain block which a given parablock is anchored to. Note that the relay parent of a parablock and the relay block including that parablock are always different. This context source lives on the relay chain.
+To build a parablock during the generation and backing stages, collators and validators require access to the state context of the parachain. This context is derived from two sources:
 
-* **Unincluded Segments**: Chains of candidate parablocks that have yet to be included in the relay chain, i.e. they can contain blocks at any stage pre-inclusion. The core functionality that [Async Backing](/reference/parachains/consensus/async-backing){target=\_blank} brings is the ability to build on these unincluded segments of block ancestors rather than building only on ancestors included in the relay chain state. This context source lives on the collators.
+  - **Relay Parent**: The relay chain block to which the parablock is anchored. Note that the relay parent of a parablock is always different from the relay chain block that eventually includes it. This context source resides on the relay chain.
 
-**Generation**: Collators *execute* their blockchain's core functionality to generate a new block, producing a [proof-of-validity](https://paritytech.github.io/polkadot-sdk/book/types/availability.html?#proof-of-validity) (PoV), which is passed to validators selected for backing. The PoV is composed of:
+  - **Unincluded Segments**: Chains of candidate parablocks that have not yet been included in the relay chain. These segments represent sequences of block ancestors and may contain candidates at any stage pre-inclusion. A key feature enabled by [Async Backing](/reference/parachains/consensus/async-backing){target=\_blank} is that collators can build new parablocks on top of these unincluded ancestors rather than being limited to ancestors already included in the relay chain state. This context source resides on the collators.
 
-- A list of state transitions called the **block candidate**
-- The values in the parachain's database that the block modifies
-- The hashes of the unaffected points in the Merkle tree
+### Generation
+
+Collators execute their blockchain core functionality to generate a new block, producing a [proof-of-validity](https://paritytech.github.io/polkadot-sdk/book/types/availability.html?#proof-of-validity) (PoV), which is passed to validators selected for backing. The PoV is composed of:
+
+  - A list of state transitions called the **block candidate**
+  - The values in the parachain's database that the block modifies
+  - The hashes of the unaffected points in the Merkle tree
 
 
-**Backing**: A subset of active validators verify that the parablock follows the state transition rules of the parachain and sign a [validity statement](https://paritytech.github.io/polkadot-sdk/book/types/backing.html?#validity-attestation) about the PoV which can have a positive or negative outcome. With enough positive statements (at least 2/3 of assigned validators), the candidate is considered backable. It is then noted in a fork on the relay chain, at which point it is considered backed, ready for the next stage of the pipeline.
+### Backing 
 
-**Inclusion**: Validators gossip [erasure code chunks](https://paritytech.github.io/polkadot-sdk/book/types/availability.html#erasure-chunk) and put the parablock through the final [approval process](https://paritytech.github.io/polkadot-sdk/book/protocol-approval.html) before it is considered *included* in the relay chain.
+A subset of active validators verify that the parablock follows the state transition rules of the parachain and sign a [validity statement](https://paritytech.github.io/polkadot-sdk/book/types/backing.html?#validity-attestation) about the PoV which can have a positive or negative outcome. With enough positive statements (at least 2/3 of assigned validators), the candidate is considered backable. It is then noted in a fork on the relay chain, at which point it is considered backed, ready for the next stage of the pipeline.
+
+### Inclusion
+
+ Validators gossip [erasure code chunks](https://paritytech.github.io/polkadot-sdk/book/types/availability.html#erasure-chunk) and put the parablock through the final [approval process](https://paritytech.github.io/polkadot-sdk/book/protocol-approval.html) before it is considered *included* in the relay chain.

@@ -69,6 +69,10 @@ Select your preferred SDK below to see complete, runnable examples that query Po
     npx tsx query-balance.ts
     ```
 
+    You should see output similar to:
+
+    --8<-- 'code/chain-interactions/query-data/query-sdks/papi/query-balance-ts.html'
+
     **Query Asset Information**
 
     The following example queries the `Assets` pallet to retrieve metadata and balance information for USDT (asset ID 1984).
@@ -84,6 +88,10 @@ Select your preferred SDK below to see complete, runnable examples that query Po
     ```bash
     npx tsx query-asset.ts
     ```
+
+    You should see output similar to:
+
+    --8<-- 'code/chain-interactions/query-data/query-sdks/papi/query-asset-ts.html'
 
 === "Polkadot.js"
 
@@ -128,6 +136,10 @@ Select your preferred SDK below to see complete, runnable examples that query Po
     node query-balance.js
     ```
 
+    You should see output similar to:
+
+    --8<-- 'code/chain-interactions/query-data/query-sdks/pjs/query-balance-js.html'
+
     **Query Asset Information**
 
     The following example queries the `Assets` pallet to retrieve metadata and balance information for USDT (asset ID 1984).
@@ -143,6 +155,10 @@ Select your preferred SDK below to see complete, runnable examples that query Po
     ```bash
     node query-asset.js
     ```
+
+    You should see output similar to:
+
+    --8<-- 'code/chain-interactions/query-data/query-sdks/pjs/query-asset-js.html'
 
 === "Dedot"
 
@@ -185,6 +201,10 @@ Select your preferred SDK below to see complete, runnable examples that query Po
     npx tsx query-balance.ts
     ```
 
+    You should see output similar to:
+
+    --8<-- 'code/chain-interactions/query-data/query-sdks/dedot/query-balance-ts.html'
+
     **Query Asset Information**
 
     The following example queries the `Assets` pallet to retrieve metadata and balance information for USDT (asset ID 1984).
@@ -200,6 +220,10 @@ Select your preferred SDK below to see complete, runnable examples that query Po
     ```bash
     npx tsx query-asset.ts
     ```
+
+    You should see output similar to:
+
+    --8<-- 'code/chain-interactions/query-data/query-sdks/dedot/query-asset-ts.html'
 
 === "Python"
 
@@ -241,6 +265,10 @@ Select your preferred SDK below to see complete, runnable examples that query Po
     python query_balance.py
     ```
 
+    You should see output similar to:
+
+    --8<-- 'code/chain-interactions/query-data/query-sdks/psi/query-balance-py.html'
+
     **Query Asset Information**
 
     The following example queries the `Assets` pallet to retrieve metadata and balance information for USDT (asset ID 1984).
@@ -256,6 +284,10 @@ Select your preferred SDK below to see complete, runnable examples that query Po
     ```bash
     python query_asset.py
     ```
+
+    You should see output similar to:
+
+    --8<-- 'code/chain-interactions/query-data/query-sdks/psi/query-asset-py.html'
 
 === "Subxt"
 
@@ -308,6 +340,13 @@ Select your preferred SDK below to see complete, runnable examples that query Po
     cargo run --bin query_balance
     ```
 
+    You should see output similar to:
+
+    --8<-- 'code/chain-interactions/query-data/query-sdks/subxt/query-balance-rs.html'
+
+    !!! note
+        Subxt's `fetch()` method returns `None` for accounts with zero balance that have no on-chain storage entry, resulting in "Account not found". Accounts with activity will display their balance information.
+
     **Query Asset Information**
 
     The following example queries the `Assets` pallet to retrieve metadata and balance information for USDT (asset ID 1984).
@@ -323,6 +362,10 @@ Select your preferred SDK below to see complete, runnable examples that query Po
     ```bash
     cargo run --bin query_asset
     ```
+
+    You should see output similar to:
+
+    --8<-- 'code/chain-interactions/query-data/query-sdks/subxt/query-asset-rs.html'
 
 ## Where to Go Next
 

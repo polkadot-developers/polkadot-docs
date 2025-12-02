@@ -48,7 +48,7 @@ Add the Polkadot relay chain to generate type-safe descriptors:
 npx papi add polkadotTestNet -w INSERT_WS_ENDPOINT
 ```
 
-This command downloads the latest Polkadot metadata and generates TypeScript descriptors in the `@polkadot-api/descriptors` package. Ensure to replace `INSERT_WS_ENDPOINT` with the proper websocket endpoint.
+This command downloads the latest Polkadot metadata and generates TypeScript descriptors in the `@polkadot-api/descriptors` package. Ensure to replace `INSERT_WS_ENDPOINT` with the proper websocket endpoint. For this example, we will use the Polkadot Testnet (`wss://pas-rpc.stakeworld.io/assethub`).
 
 Create a file named `papi-fee-calculator.ts`:
 

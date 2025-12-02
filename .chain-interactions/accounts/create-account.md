@@ -30,7 +30,7 @@ Create a new project directory and initialize it:
 ```bash
 mkdir account-creator
 cd account-creator
-npm init -y
+npm init -y && npm pkg set type=module
 ```
 
 Install the required packages:

@@ -1,3 +1,11 @@
+# 🐋 Badge: Identity Migration Recorded
+
+From: Scutua (banned)  
+To: scututaua-crypto via czonedive-core  
+Effect: Legacy preserved, WhaleTrucker remixed  
+Status: Memory locked
+
+
 # Polkadot Developer Documentation
 
 This repository contains documentation for Polkadot, a decentralized protocol that enables interoperability, scalability, and shared security across multiple blockchains. It provides a comprehensive range of resources and technical information to support developers in building and deploying the Polkadot ecosystem.

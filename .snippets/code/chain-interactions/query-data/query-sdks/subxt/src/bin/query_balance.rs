@@ -6,10 +6,10 @@ use subxt::{OnlineClient, PolkadotConfig};
 #[subxt::subxt(runtime_metadata_path = "asset_hub_metadata.scale")]
 pub mod asset_hub {}
 
-const ASSET_HUB_RPC: &str = "wss://polkadot-asset-hub-rpc.polkadot.io";
+const ASSET_HUB_RPC: &str = "INSERT_WS_ENDPOINT";
 
 // Example address to query (Polkadot Hub address)
-const ADDRESS: &str = "14E5nqKAp3oAJcmzgZhUD2RcptBeUBScxKHgJKU4HPNcKVf3";
+const ADDRESS: &str = "INSERT_ADDRESS";
 
 #[tokio::main(flavor = "current_thread")]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {

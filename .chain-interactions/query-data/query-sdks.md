@@ -20,6 +20,9 @@ This guide demonstrates how to query on-chain storage using five popular SDKs:
 
 Select your preferred SDK below to see complete, runnable examples that query Polkadot Hub for account balances and asset information.
 
+!!! note
+    Ensure to replace `INSERT_WS_ENDPOINT` with the proper WebSocket endpoint and `INSERT_ADDRESS` with the account address you want to query. For this example, you can use Polkadot Hub (`wss://polkadot-asset-hub-rpc.polkadot.io`).
+
 ## Query On-Chain Data
 
 === "PAPI"
@@ -315,7 +318,7 @@ Select your preferred SDK below to see complete, runnable examples that query Po
     3. Download the Polkadot Hub metadata:
 
         ```bash
-        subxt metadata --url wss://polkadot-asset-hub-rpc.polkadot.io -o asset_hub_metadata.scale
+        subxt metadata --url INSERT_WS_ENDPOINT -o asset_hub_metadata.scale
         ```
 
     4. Update `Cargo.toml` with the required dependencies:

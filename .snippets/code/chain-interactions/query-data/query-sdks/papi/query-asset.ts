@@ -3,13 +3,13 @@ import { getWsProvider } from "polkadot-api/ws-provider/node";
 import { withPolkadotSdkCompat } from "polkadot-api/polkadot-sdk-compat";
 import { pah } from "@polkadot-api/descriptors";
 
-const ASSET_HUB_RPC = "wss://polkadot-asset-hub-rpc.polkadot.io";
+const ASSET_HUB_RPC = "INSERT_WS_ENDPOINT";
 
 // USDT on Polkadot Hub
 const USDT_ASSET_ID = 1984;
 
 // Example address to query asset balance
-const ADDRESS = "14E5nqKAp3oAJcmzgZhUD2RcptBeUBScxKHgJKU4HPNcKVf3";
+const ADDRESS = "INSERT_ADDRESS";
 
 async function main() {
   // Create the client connection

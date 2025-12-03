@@ -1,10 +1,10 @@
 import { DedotClient, WsProvider } from "dedot";
 import type { PolkadotAssetHubApi } from "@dedot/chaintypes";
 
-const ASSET_HUB_RPC = "wss://polkadot-asset-hub-rpc.polkadot.io";
+const ASSET_HUB_RPC = "INSERT_WS_ENDPOINT";
 
 // Example address to query (Polkadot Hub address)
-const ADDRESS = "14E5nqKAp3oAJcmzgZhUD2RcptBeUBScxKHgJKU4HPNcKVf3";
+const ADDRESS = "INSERT_ADDRESS";
 
 async function main() {
   // Initialize provider and client with Asset Hub types

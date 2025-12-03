@@ -1,12 +1,12 @@
 from substrateinterface import SubstrateInterface
 
-ASSET_HUB_RPC = "wss://polkadot-asset-hub-rpc.polkadot.io"
+ASSET_HUB_RPC = "INSERT_WS_ENDPOINT"
 
 # USDT on Polkadot Hub
 USDT_ASSET_ID = 1984
 
 # Example address to query asset balance
-ADDRESS = "14E5nqKAp3oAJcmzgZhUD2RcptBeUBScxKHgJKU4HPNcKVf3"
+ADDRESS = "INSERT_ADDRESS"
 
 
 def main():

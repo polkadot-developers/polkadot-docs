@@ -4,15 +4,19 @@ description: Understand how asynchronous backing pipelines parachain block produ
 categories: Polkadot Protocol
 ---
 
-Asynchronous backing (often shortened to ***Async Backing***) is a parachain [configuration](https://github.com/paritytech/polkadot-sdk/blob/f204e3264f945c33b4cea18a49f7232c180b07c5/polkadot/primitives/src/vstaging/mod.rs#L43) set by on-chain governance. It allows collators and validators to build *some* number of blocks ahead of the relay chain during the **generation** and **backing** stages of the [Inclusion Pipeline](/reference/parachains/consensus/inclusion-pipeline).
+# Asynchronous Backing
 
-Async Backing improves throughput of the overall Polkadot Network by using coretime more efficiently, and enables the parallel processing needed for parachains to further scale throughput via [Elastic Scaling](/reference/parachains/consensus/elastic-scaling).
+## Introduction
+
+Asynchronous backing often shortened to _Async Backing_ is a parachain protocol feature that significantly improves performance, enabling parachains to produce blocks twice as fast (every 6 seconds instead of every 12) and to provide 4x more execution time per block (2 seconds instead of 0.5). 
+
+Technically, async backing is a parachain [configuration](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/relay_chain/struct.AsyncBackingParams.html){target=\_blank} that allows collators and validators to build blocks ahead of the relay chain during the generation and backing stages of the [Inclusion Pipeline](/reference/parachains/consensus/inclusion-pipeline){target=\_blank} by using unincluded segments, which are chains of parachain blocks that have not yet been fully included in the relay chain. This decouples parachain block production from relay chain inclusion, improves coretime efficiency, and enables the parallel processing required for parachains to further scale throughput using [Elastic Scaling](/reference/parachains/consensus/elastic-scaling){target=\_blank}.
 
 ## Configurations
 The following configurations can be set by on-chain governance, dictating how many blocks ahead of the relay chain a given parachain's collators can run:
 
-* [`max_candidate_depth`](https://github.com/paritytech/polkadot-sdk/blob/f204e3264f945c33b4cea18a49f7232c180b07c5/polkadot/primitives/src/vstaging/mod.rs#L49): the number of parablocks a collator can produce that are not yet included in the relay chain. A value of `2` means that there can be a maximum of 3 unincluded parablocks at any given time.
-* [`allowed_ancestry_len`](https://github.com/paritytech/polkadot-sdk/blob/f204e3264f945c33b4cea18a49f7232c180b07c5/polkadot/primitives/src/vstaging/mod.rs#L54): the oldest relay parent a parablock can be built on top of. A value of `1` means collators can start building blocks 6 seconds in advance.
+- [**`max_candidate_depth`**](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/relay_chain/struct.AsyncBackingParams.html#structfield.max_candidate_depth){target=\_blank}: the number of parablocks a collator can produce that are not yet included in the relay chain. A value of `2` means that there can be a maximum of 3 unincluded parablocks at any given time.
+- [**`allowed_ancestry_len`**](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/relay_chain/struct.AsyncBackingParams.html#structfield.allowed_ancestry_len){target=\_blank}: the oldest relay parent a parablock can be built on top of. A value of `1` means collators can start building blocks 6 seconds in advance.
 
 ## Synchronous VS. Asynchronous Processing
 
@@ -91,7 +95,7 @@ gantt
 
 This results in one parablock being processed *every* relay block, and allows for `2` seconds of execution. -->
 
-The modern protocol now uses asynchronous backing, where both collators and validators have access to [Unincluded Segments](/reference/parachains/consensus/inclusion-pipeline) as an additional context source. The Backing and Generation steps are no longer coupled to the prior block completing the full inclusion pipeline. Instead, the prior parablock only needs to complete the generation step and be added to the Unincluded Segments before the next parablock can begin the Backing and Generation steps.
+The modern protocol now uses asynchronous backing, where both collators and validators have access to [unincluded segments](/reference/parachains/consensus/inclusion-pipeline){target=\_blank} as an additional context source. The Backing and Generation steps are no longer coupled to the prior block completing the full inclusion pipeline. Instead, the prior parablock only needs to complete the generation step and be added to the Unincluded Segments before the next parablock can begin the Backing and Generation steps.
 
 This results in one parablock being processed every relay block (instead of every other relay block), and allows for more time to execute during the Generation step (0.5s → 2s).
 
@@ -162,7 +166,7 @@ gantt
     
     section P3
     X         : item1, 1912, 1914
-    Backing   : item2, 1914, 1924
+    Backing   : item2, 1914, 1924f
     Inclusion : item3, 1924, 1930
 
     section P4

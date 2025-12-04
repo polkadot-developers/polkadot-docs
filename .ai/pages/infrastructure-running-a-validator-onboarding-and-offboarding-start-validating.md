@@ -76,7 +76,6 @@ The next step is to sync your node with the chosen blockchain network. Synchroni
 
 If you'd like to speed up the process further, you can use a database snapshot. Snapshots are compressed backups of the blockchain's database directory and can significantly reduce the time required to sync a new node. Here are a few public snapshot providers:
 
-- [Stakeworld](https://stakeworld.io/snapshot){target=\_blank}
 - [Polkachu](https://polkachu.com/substrate_snapshots){target=\_blank}
 - [Polkashots](https://polkashots.io/){target=\_blank}
 - [ITRocket](https://itrocket.net/services/mainnet/polkadot/#snapshot){target=\_blank}

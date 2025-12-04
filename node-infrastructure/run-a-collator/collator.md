@@ -50,7 +50,6 @@ Block-producing collators require robust hardware for reliable operation includi
     - Open ports:
         - 30333 (parachain P2P)
         - 30334 (relay chain P2P)
-        - 9944 (WebSocket RPC - for management)
 
 Uptime is critical. Consider redundancy and monitoring to maintain block production reliability.
 
@@ -105,6 +104,7 @@ This guide provides two deployment options. Select the option that best fits you
     # Make it executable and move to system path
     chmod +x polkadot-parachain
     sudo mv polkadot-parachain /usr/local/bin/
+    sudo chown root:root /usr/local/bin/polkadot-parachain
 
     # Verify installation
     polkadot-parachain --version
@@ -258,11 +258,18 @@ Follow these steps to build a chainspec from the runtime:
     --prometheus-port=9615 \
     --node-key-file=/var/lib/polkadot-collator/node.key \
     --name="YourCollatorName" \
+    --blocks-pruning=256 \
+    --state-pruning=256 \
+    --database=paritydb \
     -- \
-    --execution=wasm \
     --chain=polkadot \
     --port=30334 \
-    --sync=warp
+    --sync=fast \
+    --blocks-pruning=256 \
+    --state-pruning=256 \
+    --database=paritydb \
+    --pool-limit=0 \
+    --rpc-port=0
 
   Restart=always
   RestartSec=10
@@ -277,7 +284,11 @@ Follow these steps to build a chainspec from the runtime:
     - `--collator`: Enables block production mode
     - `--node-key-file`: Uses the generated node key for stable peer ID
     - `--name`: Your collator name (visible in telemetry)
-    - Relay chain uses `--sync=warp` for faster initial sync
+    - `--blocks-pruning=256` and `--state-pruning=256`: Keeps only recent blocks and state, reducing disk usage (collators don't need archive data)
+    - `--database=paritydb`: Uses ParityDB for better performance
+    - `--sync=fast`: Fast sync mode for the relay chain
+    - `--pool-limit=0`: Disables transaction pool on relay chain (collators don't need it)
+    - `--rpc-port=0` (relay chain): Disables RPC on the embedded relay chain node (not needed for collators)
 
 ## Run the Collator
 
@@ -317,7 +328,7 @@ Sync time depends on:
 - Disk I/O speed
 - Current chain size
 
-The relay chain uses warp sync for faster synchronization.
+The relay chain uses fast sync for faster synchronization.
 
 !!! warning
 

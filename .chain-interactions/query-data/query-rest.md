@@ -1,1 +1,255 @@
-TODO
+---
+title: Query On-Chain State with Sidecar REST API
+description: Learn how to query on-chain storage data using the Substrate API Sidecar REST API service.
+categories: Chain Interactions
+---
+
+# Query On-Chain State with Sidecar REST API
+
+## Introduction
+
+[Substrate API Sidecar](https://github.com/paritytech/substrate-api-sidecar){target=\_blank} is a REST service that makes it easy to interact with Polkadot SDK-based blockchains. It provides a simple HTTP interface to query account balances, asset information, block data, and other on-chain state without requiring WebSocket connections or SDK integrations.
+
+This guide demonstrates how to query on-chain storage using the Sidecar REST API with `curl` commands. You'll learn to retrieve account balances, asset metadata, and block information from Polkadot Hub.
+
+## Prerequisites
+
+- [curl](https://curl.se/){target=\_blank} or any HTTP client
+- Access to a Sidecar instance (public or self-hosted)
+
+## Public Sidecar Endpoints
+
+Parity provides public Sidecar instances for Polkadot ecosystem chains:
+
+| Chain | Endpoint |
+|-------|----------|
+| Polkadot | `https://polkadot-public-sidecar.parity-chains.parity.io` |
+| Kusama | `https://kusama-public-sidecar.parity-chains.parity.io` |
+| Polkadot Hub | `https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io` |
+| Kusama Asset Hub | `https://kusama-asset-hub-public-sidecar.parity-chains.parity.io` |
+
+For production applications, consider running your own Sidecar instance. See [Running Sidecar Locally](#running-sidecar-locally) for instructions.
+
+## Query Account Balance
+
+The `/accounts/{accountId}/balance-info` endpoint returns an account's native token balance, including free, reserved, and frozen amounts.
+
+### Request
+
+```bash
+curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/accounts/14E5nqKAp3oAJcmzgZhUD2RcptBeUBScxKHgJKU4HPNcKVf3/balance-info"
+```
+
+### Response
+
+```json
+--8<-- "code/chain-interactions/query-data/query-rest/balance-info-response.json"
+```
+
+### Response Fields
+
+| Field | Description |
+|-------|-------------|
+| `at.hash` | Block hash at which the query was executed |
+| `at.height` | Block number at which the query was executed |
+| `nonce` | Number of transactions sent from this account |
+| `tokenSymbol` | Native token symbol of the chain |
+| `free` | Balance available for transfers (in planck) |
+| `reserved` | Balance locked for on-chain activities |
+| `frozen` | Balance frozen and unavailable for transfers |
+| `transferable` | Actual balance available to transfer |
+| `locks` | Array of balance locks with their reasons |
+
+### Query at a Specific Block
+
+You can query the balance at a specific block height or hash using the `at` query parameter:
+
+```bash
+# Query at block height
+curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/accounts/14E5nqKAp3oAJcmzgZhUD2RcptBeUBScxKHgJKU4HPNcKVf3/balance-info?at=10000000"
+
+# Query at block hash
+curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/accounts/14E5nqKAp3oAJcmzgZhUD2RcptBeUBScxKHgJKU4HPNcKVf3/balance-info?at=0x..."
+```
+
+## Query Asset Balances
+
+The `/accounts/{accountId}/asset-balances` endpoint returns an account's balances for assets managed by the Assets pallet.
+
+### Request All Asset Balances
+
+```bash
+curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/accounts/14E5nqKAp3oAJcmzgZhUD2RcptBeUBScxKHgJKU4HPNcKVf3/asset-balances"
+```
+
+### Request Specific Asset Balance
+
+To query a specific asset (e.g., USDT with asset ID 1984):
+
+```bash
+curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/accounts/14E5nqKAp3oAJcmzgZhUD2RcptBeUBScxKHgJKU4HPNcKVf3/asset-balances?assets[]=1984"
+```
+
+### Response
+
+```json
+--8<-- "code/chain-interactions/query-data/query-rest/asset-balances-response.json"
+```
+
+### Response Fields
+
+| Field | Description |
+|-------|-------------|
+| `assetId` | Unique identifier for the asset |
+| `balance` | Account's balance of this asset (in smallest unit) |
+| `isFrozen` | Whether the account's asset balance is frozen |
+| `isSufficient` | Whether this account's existence is being paid for by this asset balance (per-account flag, not the asset's global sufficiency setting) |
+
+!!! note
+    The `isSufficient` field in the asset balance response is a per-account flag. To check if an asset is configured as a sufficient asset (can pay for account existence), query the [Asset Details](#query-asset-details) endpoint and check the `isSufficient` field there.
+
+### Query Multiple Assets
+
+You can query multiple assets in a single request:
+
+```bash
+curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/accounts/14E5nqKAp3oAJcmzgZhUD2RcptBeUBScxKHgJKU4HPNcKVf3/asset-balances?assets[]=1984&assets[]=1337"
+```
+
+## Query Asset Metadata
+
+Use the pallet storage endpoint to query asset metadata like name, symbol, and decimals.
+
+### Request
+
+```bash
+curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/pallets/assets/storage/Metadata?keys[]=1984"
+```
+
+### Response
+
+```json
+--8<-- "code/chain-interactions/query-data/query-rest/asset-metadata-response.json"
+```
+
+The `name` and `symbol` fields are returned as hex-encoded strings. To decode them:
+
+- `0x54657468657220555344` decodes to "Tether USD"
+- `0x55534474` decodes to "USDt"
+
+## Query Asset Details
+
+Query the asset configuration including owner, supply, and account count:
+
+### Request
+
+```bash
+curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/pallets/assets/storage/Asset?keys[]=1984"
+```
+
+### Response
+
+```json
+--8<-- "code/chain-interactions/query-data/query-rest/asset-details-response.json"
+```
+
+### Response Fields
+
+| Field | Description |
+|-------|-------------|
+| `owner` | Account that owns the asset |
+| `issuer` | Account authorized to mint new tokens |
+| `admin` | Account with administrative privileges |
+| `freezer` | Account that can freeze balances |
+| `supply` | Total supply of the asset (in smallest unit) |
+| `minBalance` | Minimum balance required to hold this asset |
+| `isSufficient` | Whether this asset can pay for account existence (accounts holding only this asset don't need native tokens) |
+| `accounts` | Number of accounts holding this asset |
+| `sufficients` | Number of accounts whose existence is paid for by this asset |
+| `status` | Asset status (Live, Frozen, or Destroying) |
+
+## Query Block Information
+
+The `/blocks/{blockId}` endpoint returns detailed block information including extrinsics and events.
+
+### Request Latest Block
+
+```bash
+curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/blocks/head"
+```
+
+### Request Specific Block
+
+```bash
+# By block number
+curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/blocks/10000000"
+
+# By block hash
+curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/blocks/0x..."
+```
+
+### Response
+
+```json
+--8<-- "code/chain-interactions/query-data/query-rest/block-response.json"
+```
+
+## Query Foreign Asset Balances
+
+For cross-chain assets (foreign assets), use the `/accounts/{accountId}/foreign-asset-balances` endpoint:
+
+```bash
+curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/accounts/14E5nqKAp3oAJcmzgZhUD2RcptBeUBScxKHgJKU4HPNcKVf3/foreign-asset-balances"
+```
+
+## Running Sidecar Locally
+
+For production applications or high-frequency queries, run your own Sidecar instance.
+
+### Using npm
+
+```bash
+# Install globally
+npm install -g @substrate/api-sidecar
+
+# Run with default settings (connects to ws://127.0.0.1:9944)
+substrate-api-sidecar
+
+# Run with custom node URL
+SAS_SUBSTRATE_URL=wss://polkadot-asset-hub-rpc.polkadot.io substrate-api-sidecar
+```
+
+### Using Docker
+
+```bash
+docker run --rm -p 8080:8080 \
+  -e SAS_SUBSTRATE_URL=wss://polkadot-asset-hub-rpc.polkadot.io \
+  parity/substrate-api-sidecar
+```
+
+Once running, access your local instance at `http://localhost:8080`.
+
+## API Reference
+
+For a complete list of endpoints and parameters, see the [Sidecar API Documentation](https://paritytech.github.io/substrate-api-sidecar/docsv2/){target=\_blank}.
+
+Common endpoints include:
+
+| Endpoint | Description |
+|----------|-------------|
+| `/accounts/{accountId}/balance-info` | Native token balance |
+| `/accounts/{accountId}/asset-balances` | Assets pallet balances |
+| `/accounts/{accountId}/foreign-asset-balances` | Foreign assets balances |
+| `/accounts/{accountId}/pool-asset-balances` | Pool asset balances |
+| `/blocks/{blockId}` | Block information |
+| `/blocks/head` | Latest block |
+| `/pallets/{palletId}/storage/{storageItemId}` | Pallet storage queries |
+| `/transaction/material` | Transaction construction material |
+
+## Where to Go Next
+
+Now that you understand how to query on-chain state with the REST API, explore these related topics:
+
+- **[Query with SDKs](/chain-interactions/query-data/query-sdks/)** - Use TypeScript, Python, or Rust SDKs for programmatic access
+- **[Runtime API Calls](/chain-interactions/query-data/runtime-api-calls/)** - Execute runtime APIs for specialized queries
+- **[Send Transactions](/chain-interactions/send-transactions/with-sdks/)** - Learn to construct and submit transactions

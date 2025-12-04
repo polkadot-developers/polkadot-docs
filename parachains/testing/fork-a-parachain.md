@@ -193,12 +193,12 @@ These are the methods that can be invoked and their parameters:
 
 <div class="grid cards" markdown>
 
--   <span class="badge tutorial">Tutorial</span> __Fork a Chain with Chopsticks__
+-   <span class="badge external">External</span> __Chopsticks Documentation__
 
     ---
 
-    Visit this guide for step-by-step instructions for configuring and interacting with your forked chain.
+    For reference documentation on the methods exposed by Chopsticks, see the official Chopsticks documentation.
 
-    [:octicons-arrow-right-24: Reference](/tutorials/polkadot-sdk/testing/fork-live-chains/)
+    [:octicons-arrow-right-24: Get Started](https://acalanetwork.github.io/chopsticks/docs/){target=\_blank}
 
 </div>

@@ -260,8 +260,8 @@ If it fails, you'll receive detailed error information:
 
 For more information, see:
 
-- [Dry Run Call](/develop/interoperability/xcm-runtime-apis/#dry-run-call){target=\_blank} to simulate a full extrinsic
-- [Dry Run XCM](/develop/interoperability/xcm-runtime-apis/#dry-run-xcm){target=\_blank} to simulate a raw XCM
+- [Dry Run Call](https://paritytech.github.io/polkadot-sdk/master/xcm_runtime_apis/dry_run/trait.DryRunApi.html#method.dry_run_call){target=\_blank} to simulate a full extrinsic
+- [Dry Run XCM](https://paritytech.github.io/polkadot-sdk/master/xcm_runtime_apis/dry_run/trait.DryRunApi.html#method.dry_run_xcm){target=\_blank} to simulate a raw XCM
 
 ## Review and Debug
 
@@ -290,13 +290,5 @@ Replaying XCMs with full logging provides fine-grained control and visibility in
     Learn how to use XCM effectively.
 
     [:octicons-arrow-right-24: Get Started](/parachains/interoperability/get-started/)
-
--   <span class="badge tutorial">Tutorial</span> __XCM Runtime APIs__
-
-    ---
-
-    Learn how to use XCM Runtime APIs.
-
-    [:octicons-arrow-right-24: Get Started](/develop/interoperability/xcm-runtime-apis/)
 
 </div>

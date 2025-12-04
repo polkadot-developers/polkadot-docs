@@ -6,8 +6,6 @@ categories: Basics, Polkadot Protocol
 
 # Accounts on Asset Hub Smart Contracts
 
---8<-- 'text/smart-contracts/polkaVM-warning.md'
-
 ## Introduction
 
 Asset Hub natively utilizes Polkadot's 32-byte account system while providing interoperability with Ethereum's 20-byte addresses through an automatic conversion system. When interacting with smart contracts:
@@ -26,7 +24,10 @@ This dual-format approach enables Asset Hub to maintain compatibility with Ether
 The platform handles two distinct address formats:
 
 - [Ethereum-style addresses (20 bytes)](https://ethereum.org/developers/docs/accounts/#account-creation){target=\_blank}
-- [Polkadot native account IDs (32 bytes)](/reference/parachains/accounts/){target=\_blank}
+- [Polkadot native account IDs (32 bytes)](https://wiki.polkadot.com/learn/learn-account-advanced/#address-format){target=\_blank}
+
+<!-- TODO POST-MVP: Update above link to:
+- [Polkadot native account IDs (32 bytes)](/reference/parachains/accounts/){target=\_blank} -->
 
 ### Ethereum to Polkadot Mapping
 

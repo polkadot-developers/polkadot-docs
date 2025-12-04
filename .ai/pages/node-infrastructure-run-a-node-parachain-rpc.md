@@ -73,7 +73,6 @@ RPC nodes serving production traffic require robust hardware:
         - 30334 (relay chain P2P)
         - 9944 (Polkadot SDK WebSocket RPC)
         - 9933 (Polkadot SDK HTTP RPC)
-        - 9615 (Prometheus metrics - optional)
     - Consider DDoS protection and rate limiting for production deployments
 
 !!! note
@@ -236,7 +235,8 @@ Select the best option for your project, then use the steps in the following tab
               --base-path=/data \
               --chain=polkadot \
               --state-pruning=256 \
-              --blocks-pruning=archive-canonical
+              --blocks-pruning=256 \
+              --rpc-port=0
             ```
 
         === "Pruned Node"
@@ -269,7 +269,8 @@ Select the best option for your project, then use the steps in the following tab
               --base-path=/data \
               --chain=polkadot \
               --state-pruning=256 \
-              --blocks-pruning=archive-canonical
+              --blocks-pruning=256 \
+              --rpc-port=0
             ```
 
         !!! note
@@ -441,7 +442,8 @@ Select the best option for your project, then use the steps in the following tab
               --base-path=/var/lib/people-chain-rpc \
               --port=30334 \
               --state-pruning=256 \
-              --blocks-pruning=archive-canonical
+              --blocks-pruning=256 \
+              --rpc-port=0
 
             Restart=always
             RestartSec=10
@@ -485,7 +487,8 @@ Select the best option for your project, then use the steps in the following tab
               --base-path=/var/lib/people-chain-rpc \
               --port=30334 \
               --state-pruning=256 \
-              --blocks-pruning=archive-canonical
+              --blocks-pruning=256 \
+              --rpc-port=0
 
             Restart=always
             RestartSec=10

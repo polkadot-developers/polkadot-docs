@@ -1,6 +1,6 @@
 ---
 title: Calculate Transaction Fees
-description: Learn how to calculate transaction fees for transfers between accounts using Polkadot-API, Polkadot.js API, and Polkadot-JS Apps UI.
+description: Learn how to calculate transaction fees for transfers between accounts using Polkadot-API, Polkadot.js API, and the Polkadot.js Apps UI.
 categories: Basics, Transactions, Developer Tools
 ---
 
@@ -60,10 +60,10 @@ Ensure to replace `INSERT_WS_ENDPOINT` with your WebSocket endpoint, `INSERT_ALI
 
 Key aspects of the code:
 
-- **Transaction creation**: The `api.tx.Balances.transfer_keep_alive()` method constructs a balance transfer transaction
-- **`dest` parameter**: Specifies the recipient using a `MultiAddress` type with `Id` variant
-- **`getEstimatedFees()`**: Returns the estimated fee in plancks (the smallest unit, where 1 DOT = 10^10 plancks)
-- The method applies a dummy signature internally to simulate the transaction
+- **Transaction creation**: The `api.tx.Balances.transfer_keep_alive()` method constructs a balance transfer transaction.
+- **`dest` parameter**: Specifies the recipient using a `MultiAddress` type with `Id` variant.
+- **`getEstimatedFees()`**: Returns the estimated fee in plancks (the smallest unit, where 1 DOT = 10^10 plancks).
+- The method applies a dummy signature internally to simulate the transaction.
 
 Execute the script using `tsx`:
 
@@ -95,9 +95,9 @@ Ensure to replace `INSERT_WS_ENDPOINT` with your WebSocket endpoint, `INSERT_ALI
 
 Key aspects of the code:
 
-- **Transaction creation**: The `api.tx.balances.transferKeepAlive()` method constructs a balance transfer transaction
+- **Transaction creation**: The `api.tx.balances.transferKeepAlive()` method constructs a balance transfer transaction.
 - **`paymentInfo()`**: Applies a dummy signature and queries the RPC endpoint for fee estimation
-- **Return values**: The `partialFee` property contains the estimated fee in the smallest unit (plancks)
+- **Return values**: The `partialFee` property contains the estimated fee in the smallest unit (plancks).
 
 Execute the script using `tsx`:
 
@@ -119,13 +119,13 @@ Navigate to the [Polkadot-JS Apps interface](https://polkadot.js.org/apps){targe
 
 To see fees before submitting a transfer:
 
-1. Navigate to **Accounts** > **Accounts** in the top menu
-2. Choose an account and click **send**
+1. Navigate to **Accounts** > **Accounts** in the top menu.
+2. Choose an account and click **send**.
 3. Fill in the transfer details:
-    - **Send to address**: Enter Bob's address
-    - **Amount**: Enter the amount you wish to transfer (e.g., 1 DOT)
-4. Click **Sign and Submit**
-5. The transaction fee will be displayed in the confirmation dialog before you sign
+    - **Send to address**: Enter Bob's address.
+    - **Amount**: Enter the amount you wish to transfer (e.g., 1 DOT).
+4. Click **Sign and Submit**.
+5. The transaction fee will be displayed in the confirmation dialog before you sign.
 
     ![](/images/chain-interactions/send-transactions/calculate-transaction-fees/calculate-transaction-fees.gif)
 

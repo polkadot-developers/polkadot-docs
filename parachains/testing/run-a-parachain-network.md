@@ -1,10 +1,10 @@
 ---
-title: Get Started 
+title: Run a Parachain Network 
 description: Quickly install and configure Zombienet to deploy and test Polkadot-based blockchain networks with this comprehensive getting-started guide.
 categories: Parachains, Tooling
 ---
 
-# Get Started
+# Run a Parachain Network Using Zombienet
 
 ## Introduction
 
@@ -244,7 +244,7 @@ The following sections will guide you through the primary usage of the Zombienet
 #### CLI Commands
 
 - **`spawn <networkConfig>`**: Spawn the network defined in the [configuration file](#configuration-files).
-- **`test <testFile>`**: Run tests on the spawned network using the assertions and tests defined in the [test file](/develop/toolkit/parachains/spawn-chains/zombienet/write-tests/#the-test-file){target=\_blank}.
+- **`test <testFile>`**: Run tests on the spawned network using the assertions and tests defined in the test file.
 - **`setup <binaries>`**: Set up the Zombienet development environment to download and use the `polkadot` or `polkadot-parachain` executable.
 - **`convert <filePath>`**: Transforms a [polkadot-launch](https://github.com/paritytech/polkadot-launch){target=\_blank} configuration file with a `.js` or `.json` extension into a Zombienet configuration file.
 - **`version`**: Prints Zombienet version.
@@ -826,14 +826,5 @@ You can use the `hrmp_channels` keyword to define further parameters for the XCM
     [:octicons-arrow-right-24: Zombienet repository](https://github.com/paritytech/zombienet){target=\_blank}
 
     [:octicons-arrow-right-24: Element public channel](https://matrix.to/#/!FWyuEyNvIFygLnWNMh:parity.io?via=parity.io&via=matrix.org&via=web3.foundation){target=\_blank}
-
-
--   <span class="badge tutorial">Tutorial</span> __Spawn a Basic Chain with Zombienet__
-
-    ---
-
-    Learn to spawn, connect to and monitor a basic blockchain network with Zombienet, using customizable configurations for streamlined development and debugging.
-
-    [:octicons-arrow-right-24: Reference](/tutorials/polkadot-sdk/testing/spawn-basic-chain/)
 
 </div>

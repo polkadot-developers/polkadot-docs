@@ -1,10 +1,10 @@
 ---
-title: Introduction to XCM
+title: Get Started with XCM
 description: Unlock blockchain interoperability with XCM — Polkadot's Cross-Consensus Messaging format for cross-chain interactions.
 categories: Basics, Polkadot Protocol
 ---
 
-# Introduction to XCM
+# Get Started with XCM
 
 ## Introduction
 
@@ -66,7 +66,10 @@ The message consists of three instructions described as follows:
 
     The first instruction takes as an input the MultiAsset that should be withdrawn. The MultiAsset describes the native parachain token with the `Here` keyword. The `amount` parameter is the number of tokens that are transferred. The withdrawal account depends on the origin of the message. In this example the origin of the message is Alice. The `WithdrawAsset` instruction moves `amount` number of native tokens from Alice's account into the holding register.
 
-- **[BuyExecution](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#buyexecution){target=\_blank}**: Allocates fees to cover the execution [weight](/reference/glossary/#weight){target=\_blank} of the XCM instructions.
+- **[BuyExecution](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#buyexecution){target=\_blank}**: Allocates fees to cover the execution weight of the XCM instructions.
+
+    <!-- TODO POST-MVP: Restore link for weights above
+    [weight](/reference/glossary/#weight){target=\_blank} -->
 
     ```rust
     --8<-- 'code/parachains/interoperability/get-started/XCM-first-look.rs:3:6'

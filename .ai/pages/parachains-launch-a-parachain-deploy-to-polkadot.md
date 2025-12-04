@@ -9,7 +9,7 @@ url: https://docs.polkadot.com/parachains/launch-a-parachain/deploy-to-polkadot/
 
 ## Introduction
 
-Previously, you learned how to [choose and set up a parachain template](/parachains/launch-a-parachain/choose-a-template/){target=\_blank}. Now, you'll take the next step towards a production-like environment by deploying your parachain to the Polkadot TestNet. Deploying to a TestNet is a crucial step for validating your parachain's functionality and preparing it for eventual MainNet deployment.
+Previously, you learned how to [choose and set up a parachain template](/parachains/launch-a-parachain/set-up-the-parachain-template/){target=\_blank}. Now, you'll take the next step towards a production-like environment by deploying your parachain to the Polkadot TestNet. Deploying to a TestNet is a crucial step for validating your parachain's functionality and preparing it for eventual MainNet deployment.
 
 ## Get Started with an Account and Tokens
 
@@ -75,7 +75,9 @@ To reserve a parachain identifier, follow these steps:
 
 ## Generate Custom Keys for Your Collators
 
-To securely deploy your parachain, it is essential to generate custom keys specifically for your [collators](/reference/glossary/#collator){target=\_blank} (block producers). You should generate two sets of keys for each collator:
+To securely deploy your parachain, it is essential to generate custom keys specifically for your collators (block producers). You should generate two sets of keys for each collator:
+
+
 
 - **Account keys**: Used to interact with the network and manage funds. These should be protected carefully and should never exist on the filesystem of the collator node.
 
@@ -89,12 +91,18 @@ docker run -it parity/subkey:latest generate --scheme sr25519
 
 The output should look similar to the following:
 
+<div id="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>docker run -it parity/subkey:latest generate --scheme sr25519</span>
+  <span> <br />Secret phrase: lemon play remain picture leopard frog mad bridge hire hazard best buddy <br />Network ID: substrate <br />Secret seed: 0xb748b501de061bae1fcab1c0b814255979d74d9637b84e06414a57a1a149c004 <br />Public key (hex): 0xf4ec62ec6e70a3c0f8dcbe0531e2b1b8916cf16d30635bbe9232f6ed3f0bf422 <br />Account ID: 0xf4ec62ec6e70a3c0f8dcbe0531e2b1b8916cf16d30635bbe9232f6ed3f0bf422 <br />Public key (SS58): 5HbqmBBJ5ALUzho7tw1k1jEgKBJM7dNsQwrtfSfUskT1a3oe <br />SS58 Address: 5HbqmBBJ5ALUzho7tw1k1jEgKBJM7dNsQwrtfSfUskT1a3oe </span>
+</div>
 
 Ensure that this command is executed twice to generate the keys for both the account and session keys. Save them for future reference.
 
 ## Generate the Chain Specification
 
-Polkadot SDK-based parachains are defined by a file called the [chain specification](/reference/glossary/#chain-specification){target=\_blank}, or chain spec for short. There are two types of chain spec files:
+Polkadot SDK-based parachains are defined by a file called the chain specification, or chain spec for short. There are two types of chain spec files:
+
+
 
 - **Plain chain spec**: A human-readable JSON file that can be modified to suit your parachain's requirements. It serves as a template for initial configuration and includes human-readable keys and structures.
 - **Raw chain spec**: A binary-encoded file used to start your parachain node. This file is generated from the plain chain spec and contains the encoded information necessary for the parachain node to synchronize with the blockchain network. It ensures compatibility across different runtime versions by providing data in a format directly interpretable by the node's runtime, regardless of upgrades since the chain's genesis.
@@ -126,7 +134,67 @@ To define your chain specification:
     - Modify the `sudo` value to specify the account that will have sudo access to the parachain.
   
     ```json
-    
+    {
+        "bootNodes": [],
+        "chainType": "Live",
+        "codeSubstitutes": {},
+        "genesis": {
+            "runtimeGenesis": {
+                "code": "0x...",
+                "patch": {
+                    "aura": {
+                        "authorities": []
+                    },
+                    "auraExt": {},
+                    "balances": {
+                        "balances": [["INSERT_SUDO_ACCOUNT", 1152921504606846976]]
+                    },
+                    "collatorSelection": {
+                        "candidacyBond": 16000000000,
+                        "desiredCandidates": 0,
+                        "invulnerables": ["INSERT_ACCOUNT_ID_COLLATOR_1"]
+                    },
+                    "parachainInfo": {
+                        "parachainId": "INSERT_PARA_ID"
+                    },
+                    "parachainSystem": {},
+                    "polkadotXcm": {
+                        "safeXcmVersion": 4
+                    },
+                    "session": {
+                        "keys": [
+                            [
+                                "INSERT_ACCOUNT_ID_COLLATOR_1",
+                                "INSERT_ACCOUNT_ID_COLLATOR_1",
+                                {
+                                    "aura": "INSERT_SESSION_KEY_COLLATOR_1"
+                                }
+                            ]
+                        ],
+                        "nonAuthorityKeys": []
+                    },
+                    "sudo": {
+                        "key": "INSERT_SUDO_ACCOUNT"
+                    },
+                    "system": {},
+                    "transactionPayment": {
+                        "multiplier": "1000000000000000000"
+                    }
+                }
+            }
+        },
+        "id": "INSERT_ID",
+        "name": "INSERT_NAME",
+        "para_id": "INSERT_PARA_ID",
+        "properties": {
+            "tokenDecimals": 12,
+            "tokenSymbol": "UNIT"
+        },
+        "protocolId": "INSERT_PROTOCOL_ID",
+        "relay_chain": "paseo",
+        "telemetryEndpoints": null
+    }
+
     ```
 
     For this tutorial, the `plain_chain_spec.json` file should look similar to the following. Take into account that the same account is being used for the collator and sudo, which must not be the case in a production environment:
@@ -134,7 +202,74 @@ To define your chain specification:
     ??? code "View complete script"
 
         ```json title="plain_chain_spec.json"
-        
+        {
+            "bootNodes": [],
+            "chainType": "Live",
+            "codeSubstitutes": {},
+            "genesis": {
+                "runtimeGenesis": {
+                    "code": "0x...",
+                    "patch": {
+                        "aura": {
+                            "authorities": []
+                        },
+                        "auraExt": {},
+                        "balances": {
+                            "balances": [
+                                [
+                                    "5F9Zteceg3Q4ywi63AxQNVb2b2r5caFSqjQxBkCrux6j8ZpS",
+                                    1152921504606846976
+                                ]
+                            ]
+                        },
+                        "collatorSelection": {
+                            "candidacyBond": 16000000000,
+                            "desiredCandidates": 0,
+                            "invulnerables": [
+                                "5F9Zteceg3Q4ywi63AxQNVb2b2r5caFSqjQxBkCrux6j8ZpS"
+                            ]
+                        },
+                        "parachainInfo": {
+                            "parachainId": 4508
+                        },
+                        "parachainSystem": {},
+                        "polkadotXcm": {
+                            "safeXcmVersion": 4
+                        },
+                        "session": {
+                            "keys": [
+                                [
+                                    "5F9Zteceg3Q4ywi63AxQNVb2b2r5caFSqjQxBkCrux6j8ZpS",
+                                    "5F9Zteceg3Q4ywi63AxQNVb2b2r5caFSqjQxBkCrux6j8ZpS",
+                                    {
+                                        "aura": "5GcAKNdYcw5ybb2kAnta8WVFyiQbGJ5od3aH9MsgYDmVcrhJ"
+                                    }
+                                ]
+                            ],
+                            "nonAuthorityKeys": []
+                        },
+                        "sudo": {
+                            "key": "5F9Zteceg3Q4ywi63AxQNVb2b2r5caFSqjQxBkCrux6j8ZpS"
+                        },
+                        "system": {},
+                        "transactionPayment": {
+                            "multiplier": "1000000000000000000"
+                        }
+                    }
+                }
+            },
+            "id": "custom",
+            "name": "Custom",
+            "para_id": 4508,
+            "properties": {
+                "tokenDecimals": 12,
+                "tokenSymbol": "UNIT"
+            },
+            "protocolId": null,
+            "relay_chain": "paseo",
+            "telemetryEndpoints": null
+        }
+
         ```
 
 3. Save your changes and close the plain text chain specification file.
@@ -184,7 +319,7 @@ Once you have the genesis state and runtime, you can now register these with you
 
     ![](/images/parachains/launch-a-parachain/deploy-to-polkadot/deploy-to-polkadot-9.webp)
    
-3. Confirm your details and **+ Submit** button, where there should be a new Parathread with your parachain ID and an active **Deregister** button.
+3. Confirm your details and click the **+ Submit** button, where there should be a new Parathread with your parachain ID and an active **Deregister** button.
 
     ![](/images/parachains/launch-a-parachain/deploy-to-polkadot/deploy-to-polkadot-10.webp)
 
@@ -205,6 +340,12 @@ polkadot-omni-node key generate-node-key \
 
 After running the command, you should see the following output, indicating the base path now has a suitable node key: 
 
+<div id="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>polkadot-omni-node key generate-node-key --base-path data --chain raw_chain_spec.json</span>
+  <br />
+  <span data-ty="progress">Generating key in "/data/chains/custom/network/secret_ed25519"</span>
+  <span data-ty="progress">12D3KooWKGW964eG4fAwsNMFdckbj3GwhpmSGFU9dd8LFAVAa4EE</span>
+</div>
 
 You must have the ports for the collator publicly accessible and discoverable to enable parachain nodes to peer with Paseo validator nodes to produce blocks. You can specify the ports with the `--port` command-line option. You can start the collator with a command similar to the following:
 

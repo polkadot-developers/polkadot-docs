@@ -12,6 +12,7 @@ import yaml
 import argparse
 import textwrap
 import requests
+import shutil
 from pathlib import Path
 
 # -------------- CLI flags (module-level toggles) --------------
@@ -310,6 +311,29 @@ def build_raw_url(config: dict, slug: str) -> str:
     return f"https://raw.githubusercontent.com/{org}/{repo}/{branch}/{public_root}/{pages_dirname}/{slug}"
 
 # ----------------------------
+# Word count, token estimate
+# ----------------------------
+
+def word_count(s: str) -> int:
+    return len(re.findall(r"\b\w+\b", s, flags=re.UNICODE))
+
+def _heuristic_token_count(s: str) -> int:
+    return len(re.findall(r"\w+|[^\s\w]", s, flags=re.UNICODE))
+
+def _cl100k_token_count(s: str) -> int:
+    try:
+        import tiktoken  # type: ignore
+        enc = tiktoken.get_encoding("cl100k_base")
+        return len(enc.encode(s))
+    except Exception:
+        return _heuristic_token_count(s)
+
+def estimate_tokens(text: str, estimator: str = "heuristic-v1") -> int:
+    if estimator == "cl100k":
+        return _cl100k_token_count(text)
+    return _heuristic_token_count(text)
+
+# ----------------------------
 # Writer
 # ----------------------------
 
@@ -332,6 +356,21 @@ def write_ai_page(ai_pages_dir: Path, slug: str, header: dict, body: str):
 # ----------------------------
 # Main
 # ----------------------------
+
+def reset_ai_pages_dir(ai_pages_dir: Path):
+    """Remove all existing AI pages so runs always reflect current docs."""
+    if DRY_RUN:
+        print(f"[dry-run] Would remove existing files under {ai_pages_dir}")
+        return
+
+    if not ai_pages_dir.exists():
+        return
+
+    for entry in ai_pages_dir.iterdir():
+        if entry.is_dir():
+            shutil.rmtree(entry)
+        else:
+            entry.unlink()
 
 def main():
     global ALLOW_REMOTE, DRY_RUN
@@ -365,7 +404,6 @@ def main():
     variables = load_yaml(str(variables_path))
 
     # Config bits
-    fm_flag = config.get("content", {}).get("exclusions", {}).get("frontmatter_flag", "ai_exclude")
     skip_basenames = set(config.get("content", {}).get("exclusions", {}).get("skip_basenames", []))
     skip_parts = set(config.get("content", {}).get("exclusions", {}).get("skip_paths", []))
     docs_base_url = config.get("project", {}).get("docs_base_url", "").rstrip("/") + "/"
@@ -374,6 +412,8 @@ def main():
     public_root = config.get("outputs", {}).get("public_root", "/.ai/").strip("/")
     pages_dirname = config.get("outputs", {}).get("files", {}).get("pages_dir", "pages")
     ai_pages_dir = (repo_root / public_root / pages_dirname).resolve()
+    ai_pages_dir.mkdir(parents=True, exist_ok=True)
+    reset_ai_pages_dir(ai_pages_dir)
 
     # Collect files
     files = get_all_markdown_files(str(docs_dir), skip_basenames, skip_parts)

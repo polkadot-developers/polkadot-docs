@@ -1,5 +1,4 @@
 nav:
-  - 'Using Ethers.js': ethers.md
-  - 'Using Remix IDE': remix.md
-  - 'Using Hardhat': hardhat.md
-  - 'Using Foundry': foundry.md
+  - ':custom-remix: Remix IDE': basic-remix.md
+  - ':custom-hardhat: Hardhat': basic-hardhat.md
+  # - 'Using Foundry': foundry.md

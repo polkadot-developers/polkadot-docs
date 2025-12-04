@@ -6,8 +6,6 @@ categories: Basics, Polkadot Protocol
 
 # Blocks, Transactions, and Fees
 
---8<-- 'text/smart-contracts/polkaVM-warning.md'
-
 ## Introduction
 
 Asset Hub smart contracts operate within the Polkadot ecosystem using the [`pallet_revive`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/){target=\_blank} implementation, which provides EVM compatibility. While many aspects of blocks and transactions are inherited from the underlying parachain architecture, there are specific considerations and mechanisms unique to smart contract operations on Asset Hub.
@@ -70,7 +68,7 @@ Gas serves as the fundamental unit for measuring computational costs, with each 
         - Implements a deposit-based system for long-term storage.
         - Refundable when storage is freed.
 
-These resources can be limited at both transaction and contract levels, similar to Ethereum's gas limits. For more information, check the [Gas Model](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm#gas-model){target=\_blank} section in the [EVM vs PolkaVM](/polkadot-protocol/smart-contract-basics/evm-vs-polkavm/){target=\_blank} article.
+These resources can be limited at both transaction and contract levels, similar to Ethereum's gas limits. For more information, check the [Gas Model](/smart-contracts/for-eth-devs/gas-model/){target=\_blank} documentation.
 
 ### Fee Components
 

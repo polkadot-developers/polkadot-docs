@@ -4,4 +4,4 @@ nav:
 - 'Contract Deployment': contract-deployment.md
 - 'Blocks, Transactions, and Fees': blocks-transactions-fees.md
 - 'JSON-RPC APIs': json-rpc-apis.md
-- 'Migration Guide': migration.md
+# - 'Migration Guide': migration.md

@@ -127,7 +127,7 @@ To see fees before submitting a transfer:
 4. Click **Sign and Submit**.
 5. The transaction fee will be displayed in the confirmation dialog before you sign.
 
-    ![](/images/chain-interactions/send-transactions/calculate-transaction-fees/calculate-transaction-fees.gif)
+    ![](/images/chain-interactions/send-transactions/calculate-transaction-fees/calculate-transaction-fees-01.gif)
 
 ## Where to Go Next
 

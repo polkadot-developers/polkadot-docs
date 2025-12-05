@@ -2,7 +2,7 @@
 title: Validator Key Management
 description: Learn how to generate and manage validator keys, including session keys for consensus participation and node keys for maintaining a stable network identity.
 categories: Infrastructure
-url: https://docs.polkadot.com/nodes-and-validators/run-a-validator/onboarding-and-offboarding/key-management/
+url: https://docs.polkadot.com/node-infrastructure/run-a-validator/onboarding-and-offboarding/key-management/
 ---
 
 # Key Management

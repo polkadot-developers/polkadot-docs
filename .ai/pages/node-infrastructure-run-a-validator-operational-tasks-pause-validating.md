@@ -2,7 +2,7 @@
 title: Pause Validating
 description: Learn how to temporarily pause staking activity in Polkadot using the chill extrinsic, with guidance for validators and nominators.
 categories: Infrastructure
-url: https://docs.polkadot.com/nodes-and-validators/run-a-validator/operational-tasks/pause-validating/
+url: https://docs.polkadot.com/node-infrastructure/run-a-validator/operational-tasks/pause-validating/
 ---
 
 # Pause Validating

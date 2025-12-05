@@ -1,9 +1,9 @@
 "use client";
 
-import { useBlockNumber, useBalance, useAccount } from "wagmi";
+import { useBlockNumber, useBalance, useConnection } from "wagmi";
 
 export function BlockchainInfo() {
-  const { address } = useAccount();
+  const { address } = useConnection();
   // Get the latest block number
   const { data: blockNumber } = useBlockNumber({ watch: true });
 

@@ -10,6 +10,8 @@ categories: Basics, Accounts, Developer Tools
 
 Creating accounts is a fundamental operation when building applications on Polkadot and its parachains. Accounts serve as the basis for identity, asset ownership, and transaction signing. Understanding how to generate and manage accounts programmatically enables you to build wallets, automate operations, and create seamless user experiences.
 
+Polkadot accounts are based on the SR25519 signature scheme by default, though ED25519 and ECDSA are also supported. Each account consists of a public key (address) and a private key (seed/mnemonic). **Keep your private keys secure and never share them**.
+
 This tutorial will guide you through creating accounts using different programming languages and libraries.
 
 ## Prerequisites
@@ -20,137 +22,134 @@ Before starting, make sure you have:
 - Development environment set up for your chosen language
 - Familiarity with the programming language you'll be using
 
-!!! note
-    Polkadot accounts are based on the SR25519 signature scheme by default, though ED25519 and ECDSA are also supported. Each account consists of a public key (address) and a private key (seed/mnemonic). Keep your private keys secure and never share them.
+## Use JavaScript/TypeScript
 
-## JavaScript/TypeScript
+JavaScript/TypeScript developers can use the Polkadot.js API to create and manage Polkadot accounts.
 
-Create a new project directory and initialize it:
+1. Create a new project directory and initialize it:
 
-```bash
-mkdir account-creator
-cd account-creator
-npm init -y && npm pkg set type=module
-```
+    ```bash
+    mkdir account-creator
+    cd account-creator
+    npm init -y && npm pkg set type=module
+    ```
 
-Install the required packages:
+2. Install the required packages:
 
-```bash
-npm install @polkadot/util-crypto @polkadot/keyring
-npm install --save-dev typescript tsx
-```
+    ```bash
+    npm install @polkadot/util-crypto @polkadot/keyring
+    npm install --save-dev typescript tsx
+    ```
 
-Create a file named `create-account.ts`:
+3. Create a file named `create-account.ts` and add the following code to it:
 
-```typescript title="create-account.ts"
---8<-- 'code/chain-interactions/accounts/create-account/create-account.ts'
-```
+    ```typescript title="create-account.ts"
+    --8<-- 'code/chain-interactions/accounts/create-account/create-account.ts'
+    ```
 
-Key aspects of the code:
+    Key aspects of the code:
 
-- **Mnemonic generation**: Uses `mnemonicGenerate()` to create a 12-word BIP39 mnemonic phrase for human-readable key backup
-- **Keyring**: The `Keyring` class manages accounts with specified signature scheme and address format
-- **SS58 format**: Setting `ss58Format: 0` configures addresses for the Polkadot relay chain
+    - **Mnemonic generation**: Uses `mnemonicGenerate()` to create a 12-word BIP39 mnemonic phrase for human-readable key backup.
+    - **Keyring**: The `Keyring` class manages accounts with a specified signature scheme and address format.
+    - **SS58 format**: Setting `ss58Format: 0` configures addresses for the Polkadot relay chain.
 
-Execute the script using `tsx`:
+4. Execute the script using `tsx`:
 
-```bash
-npx tsx create-account.ts
-```
+    ```bash
+    npx tsx create-account.ts
+    ```
 
-You should see output similar to:
+    You should see output similar to:
 
---8<-- 'code/chain-interactions/accounts/create-account/create-account-ts.html'
+    --8<-- 'code/chain-interactions/accounts/create-account/create-account-ts.html'
 
 ## Python
 
 Python developers can use the `substrate-interface` library to create and manage Polkadot accounts.
 
-Create a new project directory and set up a virtual environment:
+1. Create a new project directory and set up a virtual environment:
 
-```bash
-mkdir account-creator-python
-cd account-creator-python
-python3 -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
+    ```bash
+    mkdir account-creator-python
+    cd account-creator-python
+    python3 -m venv venv
+    source venv/bin/activate  # On Windows: venv\Scripts\activate
+    ```
 
-Install the required package:
+2. Install the required package:
 
-```bash
-pip install substrate-interface
-```
+    ```bash
+    pip install substrate-interface
+    ```
 
-Create a file named `create_account.py`:
+3. Create a file named `create_account.py`:
 
-```python title="create_account.py"
---8<-- 'code/chain-interactions/accounts/create-account/create_account.py'
-```
+    ```python title="create_account.py"
+    --8<-- 'code/chain-interactions/accounts/create-account/create_account.py'
+    ```
 
-Key aspects of the code:
+    Key aspects of the code:
 
-- **Mnemonic generation**: The `generate_mnemonic()` function creates a BIP39-compatible phrase
-- **Keypair creation**: `Keypair.create_from_mnemonic()` derives keys from the mnemonic
+    - **Mnemonic generation**: The `generate_mnemonic()` function creates a BIP39-compatible phrase.
+    - **Keypair creation**: `Keypair.create_from_mnemonic()` derives keys from the mnemonic.
 
-Execute the script:
+4. Execute the script:
 
-```bash
-python create_account.py
-```
+    ```bash
+    python create_account.py
+    ```
 
-You should see output similar to:
+    You should see output similar to:
 
---8<-- 'code/chain-interactions/accounts/create-account/create-account-py.html'
+    --8<-- 'code/chain-interactions/accounts/create-account/create-account-py.html'
 
 ## Rust
 
 Rust provides low-level access to Substrate primitives for account creation through the `sp-core` and `sp-keyring` crates.
 
-Create a new Rust project:
+1. Create a new Rust project:
 
-```bash
-cargo new account-creator-rust
-cd account-creator-rust
-```
+    ```bash
+    cargo new account-creator-rust
+    cd account-creator-rust
+    ```
 
-Add dependencies to your `Cargo.toml`:
+2. Add dependencies to your `Cargo.toml`:
 
-```toml title="Cargo.toml"
-[package]
-name = "account-creator-rust"
-version = "0.1.0"
-edition = "2021"
+    ```toml title="Cargo.toml"
+    [package]
+    name = "account-creator-rust"
+    version = "0.1.0"
+    edition = "2021"
 
-[dependencies]
-sp-core = "28.0"
-sp-runtime = "31.0"
-```
+    [dependencies]
+    sp-core = "28.0"
+    sp-runtime = "31.0"
+    ```
 
-Create your account generation code in `src/main.rs`:
+3. Create your account generation code in `src/main.rs`:
 
-```rust title="src/main.rs"
---8<-- 'code/chain-interactions/accounts/create-account/create-account.rs'
-```
+    ```rust title="src/main.rs"
+    --8<-- 'code/chain-interactions/accounts/create-account/create-account.rs'
+    ```
 
-Key aspects of the code:
+    Key aspects of the code:
 
-- **Keypair generation**: [`sr25519::Pair::generate_with_phrase()`](https://docs.rs/sp-core/latest/sp_core/crypto/trait.Pair.html#method.generate_with_phrase){target=\_blank} creates a new key pair with mnemonic
-- **Public key extraction**: The [`public()`](https://docs.rs/sp-core/latest/sp_core/crypto/trait.Pair.html#tymethod.public){target=\_blank} method retrieves the public key from the pair
-- **SS58 encoding**: Uses Polkadot's address format for the human-readable address
+    - **Keypair generation**: [`sr25519::Pair::generate_with_phrase()`](https://docs.rs/sp-core/latest/sp_core/crypto/trait.Pair.html#method.generate_with_phrase){target=\_blank} creates a new key pair with mnemonic.
+    - **Public key extraction**: The [`public()`](https://docs.rs/sp-core/latest/sp_core/crypto/trait.Pair.html#tymethod.public){target=\_blank} method retrieves the public key from the pair.
+    - **SS58 encoding**: Uses Polkadot's address format for the human-readable address.
 
-Build and run the project:
+4. Build and run the project:
 
-```bash
-cargo run
-```
+    ```bash
+    cargo run
+    ```
 
-You should see output similar to:
+    You should see output similar to:
 
---8<-- 'code/chain-interactions/accounts/create-account/create-account-rs.html'
+    --8<-- 'code/chain-interactions/accounts/create-account/create-account-rs.html'
 
 ## Where to Go Next
-
-Now that you can create accounts programmatically, explore related guides to fund accounts and send transactions.
 
 <div class="grid cards" markdown>
 
@@ -174,7 +173,7 @@ Now that you can create accounts programmatically, explore related guides to fun
 
     ---
 
-    Explore different methods for querying blockchain data including account balances and other chain state.
+    Explore different methods for querying blockchain data, including account balances and other chain state.
 
     [:octicons-arrow-right-24: Get Started](/chain-interactions/query-data/query-sdks/)
 

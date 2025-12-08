@@ -96,7 +96,7 @@ Ensure to replace `INSERT_WS_ENDPOINT` with your WebSocket endpoint, `INSERT_ALI
 Key aspects of the code:
 
 - **Transaction creation**: The `api.tx.balances.transferKeepAlive()` method constructs a balance transfer transaction.
-- **`paymentInfo()`**: Applies a dummy signature and queries the RPC endpoint for fee estimation
+- **`paymentInfo()`**: Applies a dummy signature and queries the RPC endpoint for fee estimation.
 - **Return values**: The `partialFee` property contains the estimated fee in the smallest unit (plancks).
 
 Execute the script using `tsx`:
@@ -109,11 +109,11 @@ You should see output similar to:
 
 --8<-- 'code/chain-interactions/send-transactions/calculate-transaction-fees/polkadotjs-fee-calculator-output.html'
 
-## Polkadot-JS Apps Interface
+## Polkadot.js Apps Interface
 
 For non-programmatic fee inspection, the PolkadotJS Apps interface provides a visual way to estimate transaction fees.
 
-Navigate to the [Polkadot-JS Apps interface](https://polkadot.js.org/apps){target=\_blank} and ensure you're connected to the Polkadot relay chain (or your desired network).
+Navigate to the [Polkadot.js Apps interface](https://polkadot.js.org/apps){target=\_blank} and ensure you're connected to the Polkadot relay chain (or your desired network).
 
 ### Estimate Fees via Transfer Interface
 

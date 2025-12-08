@@ -8,23 +8,21 @@ categories: Chain Interactions
 
 ## Introduction
 
-Polkadot SDK-based blockchains store data in a key-value database that can be queried by external applications. This on-chain state includes account balances, asset information, governance proposals, and any other data the runtime manages.
+Polkadot SDK-based blockchains store data in a key-value database that external applications can query. This on-chain state includes account balances, asset information, governance proposals, and any other data the runtime manages.
 
 This guide demonstrates how to query on-chain storage using five popular SDKs:
 
-- **[Polkadot API (PAPI)](/reference/tools/papi/){target=\_blank}** - Modern TypeScript library with type-safe APIs
-- **[Polkadot.js API](/reference/tools/polkadot-js-api/){target=\_blank}** - Comprehensive JavaScript library (maintenance mode)
-- **[Dedot](/reference/tools/dedot/){target=\_blank}** - Lightweight TypeScript library optimized for performance
-- **[Python Substrate Interface](/reference/tools/py-substrate-interface/){target=\_blank}** - Python library for Substrate chains
-- **[Subxt](/reference/tools/subxt/){target=\_blank}** - Rust library with compile-time type safety
+- **[Polkadot API (PAPI)](/reference/tools/papi/){target=\_blank}**: Modern TypeScript library with type-safe APIs
+- **[Polkadot.js API](/reference/tools/polkadot-js-api/){target=\_blank}**: Comprehensive JavaScript library (maintenance mode)
+- **[Dedot](/reference/tools/dedot/){target=\_blank}**: Lightweight TypeScript library optimized for performance
+- **[Python Substrate Interface](/reference/tools/py-substrate-interface/){target=\_blank}**: Python library for Substrate chains
+- **[Subxt](/reference/tools/subxt/){target=\_blank}**: Rust library with compile-time type safety
 
 Select your preferred SDK below to see complete, runnable examples that query Polkadot Hub for account balances and asset information.
 
 ## Query On-Chain Data
 
 === "PAPI"
-
-    [Polkadot API (PAPI)](/reference/tools/papi/){target=\_blank} is a modern, type-safe TypeScript library optimized for light-client functionality.
 
     **Prerequisites**
 
@@ -57,7 +55,7 @@ Select your preferred SDK below to see complete, runnable examples that query Po
 
     The following example queries the `System.Account` storage to retrieve an account's native token balance.
 
-    Create a file named `query-balance.ts`:
+    Create a file named `query-balance.ts` and add the following code to it:
 
     ```typescript title="query-balance.ts"
     --8<-- "code/chain-interactions/query-data/query-sdks/papi/query-balance.ts"
@@ -79,7 +77,7 @@ Select your preferred SDK below to see complete, runnable examples that query Po
 
     The following example queries the `Assets` pallet to retrieve metadata and balance information for USDT (asset ID 1984).
 
-    Create a file named `query-asset.ts`:
+    Create a file named `query-asset.ts` and add the following code to it:
 
     ```typescript title="query-asset.ts"
     --8<-- "code/chain-interactions/query-data/query-sdks/papi/query-asset.ts"
@@ -101,8 +99,6 @@ Select your preferred SDK below to see complete, runnable examples that query Po
 
     !!! warning "Maintenance Mode Only"
         The Polkadot.js API is no longer actively developed. New projects should use [PAPI](/reference/tools/papi/){target=\_blank} or [Dedot](/reference/tools/dedot/){target=\_blank} as actively maintained alternatives.
-
-    [Polkadot.js API](/reference/tools/polkadot-js-api/){target=\_blank} is a comprehensive JavaScript library with extensive ecosystem support.
 
     **Prerequisites**
 
@@ -128,7 +124,7 @@ Select your preferred SDK below to see complete, runnable examples that query Po
 
     The following example queries the `System.Account` storage to retrieve an account's native token balance.
 
-    Create a file named `query-balance.js`:
+    Create a file named `query-balance.js` and add the following code to it:
 
     ```javascript title="query-balance.js"
     --8<-- "code/chain-interactions/query-data/query-sdks/pjs/query-balance.js"
@@ -150,7 +146,7 @@ Select your preferred SDK below to see complete, runnable examples that query Po
 
     The following example queries the `Assets` pallet to retrieve metadata and balance information for USDT (asset ID 1984).
 
-    Create a file named `query-asset.js`:
+    Create a file named `query-asset.js` and add the following code to it:
 
     ```javascript title="query-asset.js"
     --8<-- "code/chain-interactions/query-data/query-sdks/pjs/query-asset.js"
@@ -169,8 +165,6 @@ Select your preferred SDK below to see complete, runnable examples that query Po
     --8<-- 'code/chain-interactions/query-data/query-sdks/pjs/query-asset-js.html'
 
 === "Dedot"
-
-    [Dedot](/reference/tools/dedot/){target=\_blank} is a next-generation TypeScript client that's lightweight, tree-shakable, and maintains API compatibility with Polkadot.js.
 
     **Prerequisites**
 
@@ -197,7 +191,7 @@ Select your preferred SDK below to see complete, runnable examples that query Po
 
     The following example queries the `System.Account` storage to retrieve an account's native token balance.
 
-    Create a file named `query-balance.ts`:
+    Create a file named `query-balance.ts` and add the following code to it:
 
     ```typescript title="query-balance.ts"
     --8<-- "code/chain-interactions/query-data/query-sdks/dedot/query-balance.ts"
@@ -219,7 +213,7 @@ Select your preferred SDK below to see complete, runnable examples that query Po
 
     The following example queries the `Assets` pallet to retrieve metadata and balance information for USDT (asset ID 1984).
 
-    Create a file named `query-asset.ts`:
+    Create a file named `query-asset.ts` and add the following code to it:
 
     ```typescript title="query-asset.ts"
     --8<-- "code/chain-interactions/query-data/query-sdks/dedot/query-asset.ts"
@@ -237,9 +231,7 @@ Select your preferred SDK below to see complete, runnable examples that query Po
 
     --8<-- 'code/chain-interactions/query-data/query-sdks/dedot/query-asset-ts.html'
 
-=== "Python"
-
-    [Python Substrate Interface](/reference/tools/py-substrate-interface/){target=\_blank} provides a Python library for interacting with Substrate-based chains.
+=== "Py Substrate Interface"
 
     **Prerequisites**
 
@@ -265,7 +257,7 @@ Select your preferred SDK below to see complete, runnable examples that query Po
 
     The following example queries the `System.Account` storage to retrieve an account's native token balance.
 
-    Create a file named `query_balance.py`:
+    Create a file named `query_balance.py` and add the following code to it:
 
     ```python title="query_balance.py"
     --8<-- "code/chain-interactions/query-data/query-sdks/psi/query_balance.py"
@@ -287,7 +279,7 @@ Select your preferred SDK below to see complete, runnable examples that query Po
 
     The following example queries the `Assets` pallet to retrieve metadata and balance information for USDT (asset ID 1984).
 
-    Create a file named `query_asset.py`:
+    Create a file named `query_asset.py` and add the following code to it:
 
     ```python title="query_asset.py"
     --8<-- "code/chain-interactions/query-data/query-sdks/psi/query_asset.py"
@@ -346,7 +338,7 @@ Select your preferred SDK below to see complete, runnable examples that query Po
 
     The following example queries the `System.Account` storage to retrieve an account's native token balance.
 
-    Create a file at `src/bin/query_balance.rs`:
+    Create a file at `src/bin/query_balance.rs` and add the following code to it:
 
     ```rust title="src/bin/query_balance.rs"
     --8<-- "code/chain-interactions/query-data/query-sdks/subxt/src/bin/query_balance.rs"
@@ -371,7 +363,7 @@ Select your preferred SDK below to see complete, runnable examples that query Po
 
     The following example queries the `Assets` pallet to retrieve metadata and balance information for USDT (asset ID 1984).
 
-    Create a file at `src/bin/query_asset.rs`:
+    Create a file at `src/bin/query_asset.rs` and add the following code to it:
 
     ```rust title="src/bin/query_asset.rs"
     --8<-- "code/chain-interactions/query-data/query-sdks/subxt/src/bin/query_asset.rs"
@@ -391,8 +383,22 @@ Select your preferred SDK below to see complete, runnable examples that query Po
 
 ## Where to Go Next
 
-Now that you understand how to query on-chain state, explore these related topics:
+<div class="grid cards" markdown>
 
-- **[Runtime API Calls](/chain-interactions/query-data/runtime-api-calls/)** - Execute runtime APIs for specialized queries
-- **[Send Transactions](/chain-interactions/send-transactions/with-sdks/)** - Learn to construct and submit transactions
-- **[SDK Reference Pages](/reference/tools/papi/)** - Detailed documentation for each SDK
+- <span class="badge guide">Guide</span> **Runtime API Calls**
+
+    ---
+
+    Execute runtime APIs for specialized queries.
+
+    [:octicons-arrow-right-24: Get Started](/chain-interactions/query-data/runtime-api-calls/)
+
+- <span class="badge guide">Guide</span> **Send Transactions**
+
+    ---
+
+    Learn how to construct and submit transactions.
+
+    [:octicons-arrow-right-24: Get Started](/chain-interactions/send-transactions/with-sdks/)
+
+</div>

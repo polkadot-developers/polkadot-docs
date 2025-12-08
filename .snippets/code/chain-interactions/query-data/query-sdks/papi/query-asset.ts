@@ -1,15 +1,15 @@
-import { createClient } from "polkadot-api";
-import { getWsProvider } from "polkadot-api/ws-provider/node";
-import { withPolkadotSdkCompat } from "polkadot-api/polkadot-sdk-compat";
-import { pah } from "@polkadot-api/descriptors";
+import { createClient } from 'polkadot-api';
+import { getWsProvider } from 'polkadot-api/ws-provider/node';
+import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
+import { pah } from '@polkadot-api/descriptors';
 
-const ASSET_HUB_RPC = "INSERT_WS_ENDPOINT";
+const ASSET_HUB_RPC = 'INSERT_WS_ENDPOINT';
 
 // USDT on Polkadot Hub
 const USDT_ASSET_ID = 1984;
 
 // Example address to query asset balance
-const ADDRESS = "INSERT_ADDRESS";
+const ADDRESS = 'INSERT_ADDRESS';
 
 async function main() {
   // Create the client connection
@@ -20,14 +20,14 @@ async function main() {
   // Get the typed API for Polkadot Hub
   const api = client.getTypedApi(pah);
 
-  console.log("Connected to Polkadot Hub");
+  console.log('Connected to Polkadot Hub');
   console.log(`Querying asset ID: ${USDT_ASSET_ID}\n`);
 
   // Query asset metadata
   const assetMetadata = await api.query.Assets.Metadata.getValue(USDT_ASSET_ID);
 
   if (assetMetadata) {
-    console.log("Asset Metadata:");
+    console.log('Asset Metadata:');
     console.log(`  Name: ${assetMetadata.name.asText()}`);
     console.log(`  Symbol: ${assetMetadata.symbol.asText()}`);
     console.log(`  Decimals: ${assetMetadata.decimals}`);
@@ -37,7 +37,7 @@ async function main() {
   const assetDetails = await api.query.Assets.Asset.getValue(USDT_ASSET_ID);
 
   if (assetDetails) {
-    console.log("\nAsset Details:");
+    console.log('\nAsset Details:');
     console.log(`  Owner: ${assetDetails.owner}`);
     console.log(`  Supply: ${assetDetails.supply}`);
     console.log(`  Accounts: ${assetDetails.accounts}`);
@@ -53,11 +53,11 @@ async function main() {
   );
 
   if (assetAccount) {
-    console.log("\nAsset Account:");
+    console.log('\nAsset Account:');
     console.log(`  Balance: ${assetAccount.balance}`);
     console.log(`  Status: ${assetAccount.status.type}`);
   } else {
-    console.log("\nNo asset balance found for this account");
+    console.log('\nNo asset balance found for this account');
   }
 
   // Disconnect the client

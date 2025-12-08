@@ -1,9 +1,9 @@
-import { ApiPromise, WsProvider } from "@polkadot/api";
+import { ApiPromise, WsProvider } from '@polkadot/api';
 
-const ASSET_HUB_RPC = "INSERT_WS_ENDPOINT";
+const ASSET_HUB_RPC = 'INSERT_WS_ENDPOINT';
 
 // Example address to query (Polkadot Hub address)
-const ADDRESS = "INSERT_ADDRESS";
+const ADDRESS = 'INSERT_ADDRESS';
 
 async function main() {
   // Create a WebSocket provider
@@ -12,7 +12,7 @@ async function main() {
   // Initialize the API
   const api = await ApiPromise.create({ provider: wsProvider });
 
-  console.log("Connected to Polkadot Hub");
+  console.log('Connected to Polkadot Hub');
   console.log(`Querying balance for: ${ADDRESS}\n`);
 
   // Query the system.account storage
@@ -22,7 +22,7 @@ async function main() {
   const { nonce, data } = accountInfo;
   const { free, reserved, frozen } = data;
 
-  console.log("Account Information:");
+  console.log('Account Information:');
   console.log(`  Nonce: ${nonce.toString()}`);
   console.log(`  Free Balance: ${free.toString()}`);
   console.log(`  Reserved: ${reserved.toString()}`);

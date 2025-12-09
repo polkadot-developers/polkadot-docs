@@ -24,8 +24,8 @@ RPC nodes serving production traffic require robust hardware. The following shou
 - **CPU**: 8+ cores (16+ cores for high traffic)
 - **Memory**: 64 GB RAM minimum (128 GB recommended for high traffic)
 - **Storage**:
-    - 500 GB+ NVMe SSD for parachain state (archive nodes require 600-800 GB+)
-    - Additional 200+ GB for relay chain pruned database
+    - Archive node: ~1.2 TB NVMe SSD total (~392 GB for Asset Hub archive + ~822 GB for relay chain pruned snapshot)
+    - Pruned node: 200+ GB NVMe SSD (with pruning enabled for both parachain and relay chain)
     - Fast disk I/O is critical for query performance
 - **Network**:
     - Public IP address

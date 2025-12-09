@@ -42,8 +42,7 @@ Block-producing collators require robust hardware for reliable operation includi
 - **CPU**: 4+ cores (8+ cores recommended for optimal performance)
 - **Memory**: 32 GB RAM minimum (64 GB recommended)
 - **Storage**:
-    - 500 GB+ NVMe SSD for parachain data
-    - Additional 200+ GB for relay chain pruned database
+    - 200+ GB NVMe SSD (with pruning enabled for both parachain and relay chain)
     - Fast disk I/O is critical for block production performance
 - **Network**:
     - Public IP address (required)
@@ -213,72 +212,151 @@ Follow these steps to build a chainspec from the runtime:
     - People Chain: 1004
     - Coretime Chain: 1005
 
-## Create User and Directory Structure
+## Run the Collator
 
-1. Create a dedicated user with the following command:
-  ```bash
-  sudo useradd -r -s /bin/bash polkadot
-  ```
+Select your preferred deployment method:
 
-2. Use the following command to copy your chain spec to the directory:
-  ```bash
-  sudo cp chain-spec.json /var/lib/polkadot-collator/
-  ```
+=== "Docker Setup"
 
-3. Set permissions using the following command:
-  ```bash
-  sudo chown -R polkadot:polkadot /var/lib/polkadot-collator
-  ```
+    1. Create a directory for collator data and copy the chain spec:
+        ```bash
+        mkdir -p collator-data
+        cp chain-spec.json collator-data/
+        cp /var/lib/polkadot-collator/node.key collator-data/
+        ```
 
-## Create Systemd Service File
+    2. Launch the collator using Docker:
+        ```bash
+        docker run -d --name polkadot-collator --restart unless-stopped \
+          -p 30333:30333 \
+          -p 30334:30334 \
+          -p 9944:9944 \
+          -p 9615:9615 \
+          -v $(pwd)/collator-data:/data \
+          -v $(pwd)/chain-spec.json:/chain-spec.json \
+          parity/polkadot-parachain:stable2509-2 \
+          --collator \
+          --chain=/chain-spec.json \
+          --base-path=/data \
+          --port=30333 \
+          --rpc-port=9944 \
+          --prometheus-port=9615 \
+          --prometheus-external \
+          --node-key-file=/data/node.key \
+          --name="YourCollatorName" \
+          --blocks-pruning=256 \
+          --state-pruning=256 \
+          --database=paritydb \
+          -- \
+          --chain=polkadot \
+          --port=30334 \
+          --sync=fast \
+          --blocks-pruning=256 \
+          --state-pruning=256 \
+          --database=paritydb \
+          --pool-limit=0 \
+          --rpc-port=0
+        ```
 
-1. Create a service file to hold the configuration for your collator:
-  ```bash
-  sudo nano /etc/systemd/system/polkadot-collator.service
-  ```
+    3. View logs to monitor sync progress:
+        ```bash
+        docker logs -f polkadot-collator
+        ```
 
-2. Open the new file and add the following configuration code:
-  ```ini title="systemd/system/polkadot-collator.service"
-  [Unit]
-  Description=Polkadot System Parachain Collator
-  After=network.target
+    4. Use the following commands to manage your Docker container:
+        - Stop container:
+            ```bash
+            docker stop polkadot-collator
+            ```
+        - Start container:
+            ```bash
+            docker start polkadot-collator
+            ```
+        - Remove container:
+            ```bash
+            docker rm polkadot-collator
+            ```
 
-  [Service]
-  Type=simple
-  User=polkadot
-  Group=polkadot
-  WorkingDirectory=/var/lib/polkadot-collator
+=== "systemd Setup"
 
-  # Block-Producing Collator Configuration
-  ExecStart=/usr/local/bin/polkadot-parachain \
-    --collator \
-    --chain=/var/lib/polkadot-collator/chain-spec.json \
-    --base-path=/var/lib/polkadot-collator \
-    --port=30333 \
-    --rpc-port=9944 \
-    --prometheus-port=9615 \
-    --node-key-file=/var/lib/polkadot-collator/node.key \
-    --name="YourCollatorName" \
-    --blocks-pruning=256 \
-    --state-pruning=256 \
-    --database=paritydb \
-    -- \
-    --chain=polkadot \
-    --port=30334 \
-    --sync=fast \
-    --blocks-pruning=256 \
-    --state-pruning=256 \
-    --database=paritydb \
-    --pool-limit=0 \
-    --rpc-port=0
+    1. Create a dedicated user:
+        ```bash
+        sudo useradd -r -s /bin/bash polkadot
+        ```
 
-  Restart=always
-  RestartSec=10
-  LimitNOFILE=65536
+    2. Copy your chain spec to the directory:
+        ```bash
+        sudo cp chain-spec.json /var/lib/polkadot-collator/
+        ```
 
-  [Install]
-  WantedBy=multi-user.target
-  ```
+    3. Set permissions:
+        ```bash
+        sudo chown -R polkadot:polkadot /var/lib/polkadot-collator
+        ```
+
+    4. Create a systemd service file:
+        ```bash
+        sudo nano /etc/systemd/system/polkadot-collator.service
+        ```
+
+    5. Add the following configuration:
+        ```ini title="systemd/system/polkadot-collator.service"
+        [Unit]
+        Description=Polkadot System Parachain Collator
+        After=network.target
+
+        [Service]
+        Type=simple
+        User=polkadot
+        Group=polkadot
+        WorkingDirectory=/var/lib/polkadot-collator
+
+        ExecStart=/usr/local/bin/polkadot-parachain \
+          --collator \
+          --chain=/var/lib/polkadot-collator/chain-spec.json \
+          --base-path=/var/lib/polkadot-collator \
+          --port=30333 \
+          --rpc-port=9944 \
+          --prometheus-port=9615 \
+          --node-key-file=/var/lib/polkadot-collator/node.key \
+          --name="YourCollatorName" \
+          --blocks-pruning=256 \
+          --state-pruning=256 \
+          --database=paritydb \
+          -- \
+          --chain=polkadot \
+          --port=30334 \
+          --sync=fast \
+          --blocks-pruning=256 \
+          --state-pruning=256 \
+          --database=paritydb \
+          --pool-limit=0 \
+          --rpc-port=0
+
+        Restart=always
+        RestartSec=10
+        LimitNOFILE=65536
+
+        [Install]
+        WantedBy=multi-user.target
+        ```
+
+    6. Start the service:
+        ```bash
+        sudo systemctl daemon-reload
+        sudo systemctl enable polkadot-collator
+        sudo systemctl start polkadot-collator
+        ```
+
+    7. Check the status:
+        ```bash
+        sudo systemctl status polkadot-collator
+        ```
+
+    8. View logs:
+        ```bash
+        sudo journalctl -u polkadot-collator -f
+        ```
 
 ??? note "Configuration notes"
 
@@ -290,34 +368,6 @@ Follow these steps to build a chainspec from the runtime:
     - `--sync=fast`: Fast sync mode for the relay chain
     - `--pool-limit=0`: Disables transaction pool on relay chain (collators don't need it)
     - `--rpc-port=0` (relay chain): Disables RPC on the embedded relay chain node (not needed for collators)
-
-## Run the Collator
-
-Follow these steps to run your collator node:
-
-1. Reload systemd using the following command:
-  ```bash
-  sudo systemctl daemon-reload
-  ```
-
-2. Next, enable the service to start on boot using the command:
-  ```bash
-  sudo systemctl enable polkadot-collator
-  ```
-3. Now, start the service with the following command:
-  ```bash
-  sudo systemctl start polkadot-collator
-  ```
-
-4. Finally, you can check the status of the service using the command:
-  ```bash
-  sudo systemctl status polkadot-collator
-  ```
-
-To view collator service logs, use the command:
-```bash
-sudo journalctl -u polkadot-collator -f
-```
 
 ## Complete Initial Sync
 

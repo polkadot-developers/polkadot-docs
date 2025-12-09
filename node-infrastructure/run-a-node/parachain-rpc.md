@@ -21,8 +21,8 @@ RPC nodes serving production traffic require robust hardware:
 - **CPU**: 8+ cores (16+ cores for high traffic)
 - **Memory**: 64 GB RAM minimum (128 GB recommended for high traffic)
 - **Storage**:
-    - Archive node: Storage varies by parachain. Using snapshots, system parachain totals are: Asset Hub (~1.2 TB), Bridge Hub (~1.1 TB), Collectives (~1 TB), People Chain (~900 GB), Coretime (~900 GB). For non-system parachains, check the [snapshot sizes](https://snapshots.polkadot.io/){target=\_blank} and add ~822 GB for the relay chain.
-    - Pruned node: 200+ GB NVMe SSD (with pruning enabled for both parachain and relay chain)
+    - **Archive node**: Storage varies by parachain. Using snapshots, system parachain totals are: Asset Hub (~1.2 TB), Bridge Hub (~1.1 TB), Collectives (~1 TB), People Chain (~900 GB), Coretime (~900 GB). For non-system parachains, check the [snapshot sizes](https://snapshots.polkadot.io/){target=\_blank} and add ~822 GB for the relay chain
+    - **Pruned node**: 200+ GB NVMe SSD (with pruning enabled for both parachain and relay chain)
     - Fast disk I/O is critical for query performance
 - **Network**:
     - Public IP address
@@ -77,11 +77,11 @@ This guide uses **People Chain** as an example. To set up a different parachain,
 
 System parachain details:
 
-| System Parachain   | Para ID | Chain Spec File            | Snapshot Path                         |
-|--------------------|---------|----------------------------|---------------------------------------|
-| **Bridge Hub**     | 1002    | `bridge-hub-polkadot.json` | `polkadot-bridge-hub-rocksdb-archive` |
-| **People Chain**   | 1004    | `people-polkadot.json`     | `polkadot-people-rocksdb-archive`     |
-| **Coretime Chain** | 1005    | `coretime-polkadot.json`   | `polkadot-coretime-rocksdb-archive`   |
+| System Parachain   | Para ID | Chain Spec File            | Snapshot Path                          |
+|--------------------|---------|----------------------------|----------------------------------------|
+| **Bridge Hub**     | 1002    | `bridge-hub-polkadot.json` | `polkadot-bridge-hub-paritydb-archive` |
+| **People Chain**   | 1004    | `people-polkadot.json`     | `polkadot-people-rocksdb-archive`      |
+| **Coretime Chain** | 1005    | `coretime-polkadot.json`   | `polkadot-coretime-rocksdb-archive`    |
 
 === "Docker"
 
@@ -99,7 +99,7 @@ System parachain details:
             mkdir -p my-node-data/chains/polkadot/db
             ```
 
-        2. Choose between archive (complete history; ~400 GB) or pruned (recent state; TODO: ERIN) snapshots of the parachain and set the snapshot URL accordingly:
+        2. Choose between archive (complete history; ~71 GB for People Chain) or pruned (recent state; TODO: ERIN) snapshots of the parachain and set the snapshot URL accordingly:
 
             === "Archive"
 
@@ -136,7 +136,7 @@ System parachain details:
                 - **`--retries-sleep 10s`**: Waits 10 seconds between retry attempts
                 - **`--size-only`**: Only transfers if sizes differ (prevents unnecessary re-downloads)
 
-        4. Repeat the process with the pruned relay chain snapshot (~200 GB):
+        4. Repeat the process for the pruned relay chain snapshot (~822 GB):
 
             ```bash
             # Check https://snapshots.polkadot.io/ for the latest snapshot URL

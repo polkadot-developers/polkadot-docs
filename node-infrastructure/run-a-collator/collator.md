@@ -41,8 +41,7 @@ Block-producing collators require robust hardware for reliable operation includi
 - **CPU**: 4+ cores (8+ cores recommended for optimal performance)
 - **Memory**: 32 GB RAM minimum (64 GB recommended)
 - **Storage**:
-    - 500 GB+ NVMe SSD for parachain data
-    - Additional 200+ GB for relay chain pruned database
+    - 200+ GB NVMe SSD (with pruning enabled for both parachain and relay chain)
     - Fast disk I/O is critical for block production performance
 - **Network**:
     - Public IP address (required)

@@ -26,6 +26,11 @@ Select your preferred SDK below to see complete, runnable examples that send bal
 !!! warning
     Never share your mnemonic phrase or private keys. The examples below use mnemonics for demonstration purposes only. In production, use secure key management solutions.
 
+## Prerequisites
+
+- Access to a Polkadot-SDK-compatible wallet, with its mnemonic phrase or private key.
+- A funded account on Polkadot Hub, with some testnet tokens. You can use the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank} to obtain test tokens.
+
 ## Send Transactions
 
 === "PAPI"

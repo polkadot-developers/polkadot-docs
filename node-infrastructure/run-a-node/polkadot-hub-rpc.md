@@ -24,8 +24,8 @@ RPC nodes serving production traffic require robust hardware. The following shou
 - **CPU**: 8+ cores (16+ cores for high traffic)
 - **Memory**: 64 GB RAM minimum (128 GB recommended for high traffic)
 - **Storage**:
-    - Archive node: ~1.2 TB NVMe SSD total (~392 GB for Asset Hub archive + ~822 GB for relay chain pruned snapshot)
-    - Pruned node: 200+ GB NVMe SSD (with pruning enabled for both parachain and relay chain)
+    - **Archive node**: ~1.2 TB NVMe SSD total (~392 GB for Asset Hub archive + ~822 GB for relay chain pruned snapshot)
+    - **Pruned node**: 200+ GB NVMe SSD (with pruning enabled for both parachain and relay chain)
     - Fast disk I/O is critical for query performance
 - **Network**:
     - Public IP address
@@ -75,7 +75,7 @@ Select the best option for your project, then use the steps in the following tab
             mkdir -p my-node-data/chains/polkadot/db
             ```
 
-        2. Choose between Asset Hub archive (complete history; ~400 GB) or pruned (recent state; TODO: ERIN) snapshots and set the snapshot URL accordingly:
+        2. Choose between Asset Hub archive (complete history; ~392 GB GB) or pruned (recent state; TODO: ERIN) snapshots and set the snapshot URL accordingly:
 
             === "Archive"
 
@@ -112,7 +112,7 @@ Select the best option for your project, then use the steps in the following tab
                 - **`--retries-sleep 10s`**: Waits 10 seconds between retry attempts
                 - **`--size-only`**: Only transfers if sizes differ (prevents unnecessary re-downloads)
 
-        4. Repeat the process with the pruned relay chain snapshot (~200 GB):
+        4. Repeat the process with the pruned relay chain snapshot (~822 GB):
 
             ```bash
             # Check https://snapshots.polkadot.io/ for the latest snapshot URL

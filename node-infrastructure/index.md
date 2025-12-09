@@ -70,7 +70,7 @@ Running a validator requires significant technical expertise, reliable infrastru
 
     Produce blocks for system parachains or your own parachain.
 
-    [:octicons-arrow-right-24: Run a Collator](/node-infrastructure/run-a-collator/collator/)
+    [:octicons-arrow-right-24: Run a Collator](/node-infrastructure/run-a-collator/)
 
 -   **Run a Validator**
 

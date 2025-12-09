@@ -114,93 +114,46 @@ Select the best option for your project, then use the steps in the following tab
                 mkdir -p my-node-data/chains/people-polkadot/db
                 mkdir -p my-node-data/chains/polkadot/db
                 ```
-            2. Download the appropriate snapshots using the following commands:
+            2. Download the snapshots:
 
-                === "Archive Node"
+                **Parachain archive snapshot** (People Chain example, ~71 GB):
+                ```bash
+                # Check https://snapshots.polkadot.io/ for the latest snapshot URL
+                export SNAPSHOT_URL_PARACHAIN="https://snapshots.polkadot.io/polkadot-people-rocksdb-archive/LATEST"
 
-                    Archive node setup maintains complete parachain history. Download both parachain archive and relay chain pruned snapshots:
+                rclone copyurl $SNAPSHOT_URL_PARACHAIN/files.txt files.txt
+                rclone copy --progress --transfers 20 \
+                  --http-url $SNAPSHOT_URL_PARACHAIN \
+                  --no-traverse --http-no-head --disable-http2 \
+                  --inplace --no-gzip-encoding --size-only \
+                  --retries 6 --retries-sleep 10s \
+                  --files-from files.txt :http: my-node-data/chains/people-polkadot/db/
 
-                    **Parachain archive snapshot** (People Chain example):
-                    ```bash
-                    # Check https://snapshots.polkadot.io/ for the latest snapshot URL
-                    export SNAPSHOT_URL_PARACHAIN="https://snapshots.polkadot.io/polkadot-people-rocksdb-archive/LATEST"
+                rm files.txt
+                ```
 
-                    rclone copyurl $SNAPSHOT_URL_PARACHAIN/files.txt files.txt
-                    rclone copy --progress --transfers 20 \
-                      --http-url $SNAPSHOT_URL_PARACHAIN \
-                      --no-traverse --http-no-head --disable-http2 \
-                      --inplace --no-gzip-encoding --size-only \
-                      --retries 6 --retries-sleep 10s \
-                      --files-from files.txt :http: my-node-data/chains/people-polkadot/db/
+                **Relay chain pruned snapshot** (~822 GB):
+                ```bash
+                # Check https://snapshots.polkadot.io/ for the latest snapshot URL
+                export SNAPSHOT_URL_RELAY="https://snapshots.polkadot.io/polkadot-paritydb-prune/LATEST"
 
-                    rm files.txt
-                    ```
+                rclone copyurl $SNAPSHOT_URL_RELAY/files.txt files.txt
+                rclone copy --progress --transfers 20 \
+                  --http-url $SNAPSHOT_URL_RELAY \
+                  --no-traverse --http-no-head --disable-http2 \
+                  --inplace --no-gzip-encoding --size-only \
+                  --retries 6 --retries-sleep 10s \
+                  --files-from files.txt :http: my-node-data/chains/polkadot/db/
 
-                    **Relay chain pruned snapshot** (~822 GB):
-                    ```bash
-                    # Check https://snapshots.polkadot.io/ for the latest snapshot URL
-                    export SNAPSHOT_URL_RELAY="https://snapshots.polkadot.io/polkadot-paritydb-prune/LATEST"
+                rm files.txt
+                ```
 
-                    rclone copyurl $SNAPSHOT_URL_RELAY/files.txt files.txt
-                    rclone copy --progress --transfers 20 \
-                      --http-url $SNAPSHOT_URL_RELAY \
-                      --no-traverse --http-no-head --disable-http2 \
-                      --inplace --no-gzip-encoding --size-only \
-                      --retries 6 --retries-sleep 10s \
-                      --files-from files.txt :http: my-node-data/chains/polkadot/db/
+                **rclone parameters:**
 
-                    rm files.txt
-                    ```
-
-                    **rclone parameters:**
-
-                    - `--transfers 20`: Uses 20 parallel transfers for faster download
-                    - `--retries 6`: Automatically retries failed transfers up to 6 times
-                    - `--retries-sleep 10s`: Waits 10 seconds between retry attempts
-                    - `--size-only`: Only transfers if sizes differ (prevents unnecessary re-downloads)
-
-                === "Pruned Node"
-
-                    Pruned node setup keeps recent state for smaller storage. Since no pruned parachain snapshots are available for most system parachains, this setup uses the parachain archive snapshot with the relay chain pruned snapshot.
-
-                    **Parachain archive snapshot** (People Chain example, ~71 GB):
-                    ```bash
-                    # Check https://snapshots.polkadot.io/ for the latest snapshot URL
-                    export SNAPSHOT_URL_PARACHAIN="https://snapshots.polkadot.io/polkadot-people-rocksdb-archive/LATEST"
-
-                    rclone copyurl $SNAPSHOT_URL_PARACHAIN/files.txt files.txt
-                    rclone copy --progress --transfers 20 \
-                      --http-url $SNAPSHOT_URL_PARACHAIN \
-                      --no-traverse --http-no-head --disable-http2 \
-                      --inplace --no-gzip-encoding --size-only \
-                      --retries 6 --retries-sleep 10s \
-                      --files-from files.txt :http: my-node-data/chains/people-polkadot/db/
-
-                    rm files.txt
-                    ```
-
-                    **Relay chain pruned snapshot** (~822 GB):
-                    ```bash
-                    # Check https://snapshots.polkadot.io/ for the latest snapshot URL
-                    export SNAPSHOT_URL_RELAY="https://snapshots.polkadot.io/polkadot-paritydb-prune/LATEST"
-
-                    rclone copyurl $SNAPSHOT_URL_RELAY/files.txt files.txt
-                    rclone copy --progress --transfers 20 \
-                      --http-url $SNAPSHOT_URL_RELAY \
-                      --no-traverse --http-no-head --disable-http2 \
-                      --inplace --no-gzip-encoding --size-only \
-                      --retries 6 --retries-sleep 10s \
-                      --files-from files.txt :http: my-node-data/chains/polkadot/db/
-
-                    rm files.txt
-                    ```
-
-                    **rclone parameters:**
-
-                    - `--transfers 20`: Uses 20 parallel transfers for faster download
-                    - `--retries 6`: Automatically retries failed transfers up to 6 times
-                    - `--retries-sleep 10s`: Waits 10 seconds between retry attempts
-                    - `--size-only`: Only transfers if sizes differ (prevents unnecessary re-downloads)
+                - `--transfers 20`: Uses 20 parallel transfers for faster download
+                - `--retries 6`: Automatically retries failed transfers up to 6 times
+                - `--retries-sleep 10s`: Waits 10 seconds between retry attempts
+                - `--size-only`: Only transfers if sizes differ (prevents unnecessary re-downloads)
 
     3. Launch the parachain node using the official [Parity Docker image](https://hub.docker.com/r/parity/polkadot-parachain){target=\_blank}:
 

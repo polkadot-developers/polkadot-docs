@@ -34,8 +34,8 @@ RPC nodes serving production traffic require robust hardware. The following shou
 - **CPU**: 8+ cores (16+ cores for high traffic)
 - **Memory**: 64 GB RAM minimum (128 GB recommended for high traffic)
 - **Storage**:
-    - 500 GB+ NVMe SSD for parachain state (archive nodes require 600-800 GB+)
-    - Additional 200+ GB for relay chain pruned database
+    - Archive node: ~1.2 TB NVMe SSD total (~392 GB for Asset Hub archive + ~822 GB for relay chain pruned snapshot)
+    - Pruned node: 200+ GB NVMe SSD (with pruning enabled for both parachain and relay chain)
     - Fast disk I/O is critical for query performance
 - **Network**:
     - Public IP address
@@ -88,93 +88,46 @@ Select the best option for your project, then use the steps in the following tab
                 mkdir -p my-node-data/chains/asset-hub-polkadot/db
                 mkdir -p my-node-data/chains/polkadot/db
                 ```
-            2. Download the appropriate snapshots using the following commands:
+            2. Download the snapshots (~1.2 TB total):
 
-                === "Archive Node"
+                **Asset Hub archive snapshot** (~392 GB):
+                ```bash
+                # Check https://snapshots.polkadot.io/ for the latest snapshot URL
+                export SNAPSHOT_URL_ASSET_HUB="https://snapshots.polkadot.io/polkadot-asset-hub-paritydb-archive/LATEST"
 
-                    Archive node setup maintains complete parachain history (~600-800 GB total). Download both Asset Hub archive and Relay chain pruned snapshots:
+                rclone copyurl $SNAPSHOT_URL_ASSET_HUB/files.txt files.txt
+                rclone copy --progress --transfers 20 \
+                  --http-url $SNAPSHOT_URL_ASSET_HUB \
+                  --no-traverse --http-no-head --disable-http2 \
+                  --inplace --no-gzip-encoding --size-only \
+                  --retries 6 --retries-sleep 10s \
+                  --files-from files.txt :http: my-node-data/chains/asset-hub-polkadot/db/
 
-                    **Asset Hub archive snapshot** (~400 GB):
-                    ```bash
-                    # Check https://snapshots.polkadot.io/ for the latest snapshot URL
-                    export SNAPSHOT_URL_ASSET_HUB="https://snapshots.polkadot.io/polkadot-asset-hub-rocksdb-archive/LATEST"
+                rm files.txt
+                ```
 
-                    rclone copyurl $SNAPSHOT_URL_ASSET_HUB/files.txt files.txt
-                    rclone copy --progress --transfers 20 \
-                      --http-url $SNAPSHOT_URL_ASSET_HUB \
-                      --no-traverse --http-no-head --disable-http2 \
-                      --inplace --no-gzip-encoding --size-only \
-                      --retries 6 --retries-sleep 10s \
-                      --files-from files.txt :http: my-node-data/chains/asset-hub-polkadot/db/
+                **Relay chain pruned snapshot** (~822 GB):
+                ```bash
+                # Check https://snapshots.polkadot.io/ for the latest snapshot URL
+                export SNAPSHOT_URL_RELAY="https://snapshots.polkadot.io/polkadot-paritydb-prune/LATEST"
 
-                    rm files.txt
-                    ```
+                rclone copyurl $SNAPSHOT_URL_RELAY/files.txt files.txt
+                rclone copy --progress --transfers 20 \
+                  --http-url $SNAPSHOT_URL_RELAY \
+                  --no-traverse --http-no-head --disable-http2 \
+                  --inplace --no-gzip-encoding --size-only \
+                  --retries 6 --retries-sleep 10s \
+                  --files-from files.txt :http: my-node-data/chains/polkadot/db/
 
-                    **Relay chain pruned snapshot** (~200 GB):
-                    ```bash
-                    # Check https://snapshots.polkadot.io/ for the latest snapshot URL
-                    export SNAPSHOT_URL_RELAY="https://snapshots.polkadot.io/polkadot-rocksdb-prune/LATEST"
+                rm files.txt
+                ```
 
-                    rclone copyurl $SNAPSHOT_URL_RELAY/files.txt files.txt
-                    rclone copy --progress --transfers 20 \
-                      --http-url $SNAPSHOT_URL_RELAY \
-                      --no-traverse --http-no-head --disable-http2 \
-                      --inplace --no-gzip-encoding --size-only \
-                      --retries 6 --retries-sleep 10s \
-                      --files-from files.txt :http: my-node-data/chains/polkadot/db/
+                **rclone parameters:**
 
-                    rm files.txt
-                    ```
-
-                    **rclone parameters:**
-
-                    - `--transfers 20`: Uses 20 parallel transfers for faster download
-                    - `--retries 6`: Automatically retries failed transfers up to 6 times
-                    - `--retries-sleep 10s`: Waits 10 seconds between retry attempts
-                    - `--size-only`: Only transfers if sizes differ (prevents unnecessary re-downloads)
-
-                === "Pruned Node"
-
-                    Pruned node setup keeps recent state for smaller storage (~500 GB total). Download both Asset Hub pruned and Relay chain pruned snapshots:
-
-                    **Asset Hub pruned snapshot**:
-                    ```bash
-                    # Check https://snapshots.polkadot.io/ for the latest snapshot URL
-                    export SNAPSHOT_URL_ASSET_HUB="https://snapshots.polkadot.io/polkadot-asset-hub-rocksdb-prune/LATEST"
-
-                    rclone copyurl $SNAPSHOT_URL_ASSET_HUB/files.txt files.txt
-                    rclone copy --progress --transfers 20 \
-                      --http-url $SNAPSHOT_URL_ASSET_HUB \
-                      --no-traverse --http-no-head --disable-http2 \
-                      --inplace --no-gzip-encoding --size-only \
-                      --retries 6 --retries-sleep 10s \
-                      --files-from files.txt :http: my-node-data/chains/asset-hub-polkadot/db/
-
-                    rm files.txt
-                    ```
-
-                    **Relay chain pruned snapshot** (~200 GB):
-                    ```bash
-                    # Check https://snapshots.polkadot.io/ for the latest snapshot URL
-                    export SNAPSHOT_URL_RELAY="https://snapshots.polkadot.io/polkadot-rocksdb-prune/LATEST"
-
-                    rclone copyurl $SNAPSHOT_URL_RELAY/files.txt files.txt
-                    rclone copy --progress --transfers 20 \
-                      --http-url $SNAPSHOT_URL_RELAY \
-                      --no-traverse --http-no-head --disable-http2 \
-                      --inplace --no-gzip-encoding --size-only \
-                      --retries 6 --retries-sleep 10s \
-                      --files-from files.txt :http: my-node-data/chains/polkadot/db/
-
-                    rm files.txt
-                    ```
-
-                    **rclone parameters:**
-
-                    - `--transfers 20`: Uses 20 parallel transfers for faster download
-                    - `--retries 6`: Automatically retries failed transfers up to 6 times
-                    - `--retries-sleep 10s`: Waits 10 seconds between retry attempts
-                    - `--size-only`: Only transfers if sizes differ (prevents unnecessary re-downloads)
+                - `--transfers 20`: Uses 20 parallel transfers for faster download
+                - `--retries 6`: Automatically retries failed transfers up to 6 times
+                - `--retries-sleep 10s`: Waits 10 seconds between retry attempts
+                - `--size-only`: Only transfers if sizes differ (prevents unnecessary re-downloads)
     3. Launch Polkadot Hub Node using the official [Parity Docker image](https://hub.docker.com/r/parity/polkadot-parachain){target=\_blank}:
 
         === "Archive Node"

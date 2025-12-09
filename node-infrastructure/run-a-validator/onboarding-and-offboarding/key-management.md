@@ -8,7 +8,7 @@ categories: Infrastructure
 
 ## Introduction
 
-After setting up your node environment as shown in the [Setup](/nodes-and-validators/run-a-validator/onboarding-and-offboarding/set-up-validator/){target=\_blank} section, you'll need to configure multiple keys for your validator to operate properly. This includes setting up session keys, which are essential for participating in the consensus process, and configuring a node key that maintains a stable network identity. This guide walks you through the key management process, showing you how to generate, store, and register these keys.
+After setting up your node environment as shown in the [Setup](/node-infrastructure/run-a-validator/onboarding-and-offboarding/set-up-validator/){target=\_blank} section, you'll need to configure multiple keys for your validator to operate properly. This includes setting up session keys, which are essential for participating in the consensus process, and configuring a node key that maintains a stable network identity. This guide walks you through the key management process, showing you how to generate, store, and register these keys.
 
 ## Set Session Keys
 
@@ -29,7 +29,7 @@ There are multiple ways to create the session keys. It can be done by interactin
         3. Click the **Submit RPC Call** button.
         4. Copy the hex-encoded public key from the response.
 
-        ![](/images/nodes-and-validators/run-a-validator/onboarding-and-offboarding/key-management/key-management-01.webp)
+        ![](/images/node-infrastructure/run-a-validator/onboarding-and-offboarding/key-management/key-management-01.webp)
 
 === "Curl"
 
@@ -53,7 +53,7 @@ There are multiple ways to create the session keys. It can be done by interactin
 
     When you run the command, it produces output similar to this example:
 
-    --8<-- 'code/nodes-and-validators/run-a-validator/onboarding-and-offboarding/key-management/subkey-generate.html'
+    --8<-- 'code/node-infrastructure/run-a-validator/onboarding-and-offboarding/key-management/subkey-generate.html'
 
     To properly store these keys, create a file in your keystore directory with a specific naming convention. The filename must consist of the hex string `61757261` (which represents "aura" in hex) followed by the public key without its `0x` prefix.
 
@@ -77,7 +77,7 @@ Now that you have generated your session keys, you must submit them to the chain
 2. Select **Set Session Key** on the bonding account you generated earlier.
 3. Paste the hex-encoded session key string you generated (from either the UI or CLI) into the input field and submit the transaction.
 
-![](/images/nodes-and-validators/run-a-validator/onboarding-and-offboarding/key-management/key-management-02.webp)
+![](/images/node-infrastructure/run-a-validator/onboarding-and-offboarding/key-management/key-management-02.webp)
 
 Once the transaction is signed and submitted, your session keys will be registered on-chain.
 
@@ -96,7 +96,7 @@ Validators on Polkadot need a static network key (also known as the node key) to
 
 Starting with Polkadot version 1.11, validators without a stable network key may encounter the following error on startup:
 
---8<-- 'code/nodes-and-validators/run-a-validator/onboarding-and-offboarding/key-management/node-key-error-01.html'
+--8<-- 'code/node-infrastructure/run-a-validator/onboarding-and-offboarding/key-management/node-key-error-01.html'
 
 ### Generate the Node Key
 

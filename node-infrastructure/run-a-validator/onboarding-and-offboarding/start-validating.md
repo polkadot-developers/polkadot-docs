@@ -8,7 +8,7 @@ categories: Infrastructure
 
 ## Introduction
 
-After configuring your node keys as shown in the [Key Management](/nodes-and-validators/run-a-validator/onboarding-and-offboarding/key-management/){target=\_blank} section and ensuring your system is set up, you're ready to begin the validator setup process. This guide will walk you through choosing a network, synchronizing your node with the blockchain, bonding your DOT tokens, and starting your validator.
+After configuring your node keys as shown in the [Key Management](/node-infrastructure/run-a-validator/onboarding-and-offboarding/key-management/){target=\_blank} section and ensuring your system is set up, you're ready to begin the validator setup process. This guide will walk you through choosing a network, synchronizing your node with the blockchain, bonding your DOT tokens, and starting your validator.
 
 ## Choose a Network
 
@@ -52,7 +52,7 @@ The next step is to sync your node with the chosen blockchain network. Synchroni
 
 2. **Monitor sync progress**: Once the sync starts, you will see a stream of logs providing information about the node's status and progress. Here's an example of what the output might look like:
 
-    --8<-- 'code/nodes-and-validators/run-a-validator/onboarding-and-offboarding/start-validating/terminal-output-01.html'
+    --8<-- 'code/node-infrastructure/run-a-validator/onboarding-and-offboarding/start-validating/terminal-output-01.html'
 
     The output logs provide information such as the current block number, node name, and network connections. Monitor the sync progress and any errors that might occur during the process. Look for information about the latest processed block and compare it with the current highest block using tools like [Telemetry](https://telemetry.polkadot.io/#list/Polkadot%20CC1){target=\_blank} or [Polkadot.js Apps Explorer](https://polkadot.js.org/apps/#/explorer){target=\_blank}.
 
@@ -68,13 +68,13 @@ If you'd like to speed up the process further, you can use a database snapshot. 
 !!!warning
     Although snapshots are convenient, syncing from scratch is recommended for security purposes. If snapshots become corrupted and most nodes rely on them, the network could inadvertently run on a non-canonical chain.
 
---8<-- 'code/nodes-and-validators/run-a-validator/onboarding-and-offboarding/start-validating/terminal-output-02.html'
+--8<-- 'code/node-infrastructure/run-a-validator/onboarding-and-offboarding/start-validating/terminal-output-02.html'
 
 If you see terminal output similar to the preceding, and you are unable to synchronize the chain due to having zero peers, make sure you have libp2p port `30333` activated. It will take some time to discover other peers over the network.
 
 ## Bond DOT
 
-Once your validator node is synced, the next step is bonding DOT. A bonded account, or stash, holds your staked tokens (DOT) that back your validator node. Bonding your DOT means locking it for a period, during which it cannot be transferred or spent but is used to secure your validator's role in the network. Visit the [Minimum Bond Requirement](/nodes-and-validators/run-a-validator/requirements/#minimum-bond-requirement) section for details on how much DOT is required.
+Once your validator node is synced, the next step is bonding DOT. A bonded account, or stash, holds your staked tokens (DOT) that back your validator node. Bonding your DOT means locking it for a period, during which it cannot be transferred or spent but is used to secure your validator's role in the network. Visit the [Minimum Bond Requirement](/node-infrastructure/run-a-validator/requirements/#minimum-bond-requirement) section for details on how much DOT is required.
 
 The following sections will guide you through bonding DOT for your validator.
 
@@ -106,29 +106,29 @@ Follow these steps to use Polkadot.js Apps to activate your validator:
 
 1. In Polkadot.js Apps, navigate to **Network** and select **Staking**:
 
-    ![](/images/nodes-and-validators/run-a-validator/onboarding-and-offboarding/start-validating/start-validating-01.webp)
+    ![](/images/node-infrastructure/run-a-validator/onboarding-and-offboarding/start-validating/start-validating-01.webp)
 
 2. Open the **Accounts** tab and click on **+ Validator**:
 
-    ![](/images/nodes-and-validators/run-a-validator/onboarding-and-offboarding/start-validating/start-validating-02.webp)
+    ![](/images/node-infrastructure/run-a-validator/onboarding-and-offboarding/start-validating/start-validating-02.webp)
 
 3. Set a bond amount in the **value bonded** field and then click **next**:
 
-    ![](/images/nodes-and-validators/run-a-validator/onboarding-and-offboarding/start-validating/start-validating-03.webp)
+    ![](/images/node-infrastructure/run-a-validator/onboarding-and-offboarding/start-validating/start-validating-03.webp)
 
 4. Paste the hex output from `author_rotateKeys`, set the commission, allow or block new nominations, then click **Bond & Validate** to link your validator with its session keys.
 
-    ![](/images/nodes-and-validators/run-a-validator/onboarding-and-offboarding/start-validating/start-validating-04.webp)
+    ![](/images/node-infrastructure/run-a-validator/onboarding-and-offboarding/start-validating/start-validating-04.webp)
 
     You can also set the **commission** and **blocked** nominations option via `staking.validate` extrinsic. By default, the blocked option is set to FALSE (i.e., the validator accepts nominations).
 
-    ![](/images/nodes-and-validators/run-a-validator/onboarding-and-offboarding/start-validating/start-validating-05.webp)
+    ![](/images/node-infrastructure/run-a-validator/onboarding-and-offboarding/start-validating/start-validating-05.webp)
 
 ### Monitor Validation Status and Slots
 
 On the [**Staking**](https://polkadot.js.org/apps/#/staking){target=\_blank} tab in Polkadot.js Apps, you can see your validator's status, the number of available validator slots, and the nodes that have signaled their intent to validate. Your node may initially appear in the waiting queue, especially if the validator slots are full. The following is an example view of the **Staking** tab:
 
-![staking queue](/images/nodes-and-validators/run-a-validator/onboarding-and-offboarding/start-validating/start-validating-06.webp)
+![staking queue](/images/node-infrastructure/run-a-validator/onboarding-and-offboarding/start-validating/start-validating-06.webp)
 
 The validator set refreshes each era. If there's an available slot in the next era, your node may be selected to move from the waiting queue to the active validator set, allowing it to start validating blocks. If your validator is not selected, it remains in the waiting queue. Increasing your stake or gaining more nominators may improve your chance of being selected in future eras.
 
@@ -140,7 +140,7 @@ This following sections will walk you through creating and managing a systemd se
 
 Ensure the following requirements are met before proceeding with the systemd setup:
 
-- Confirm your system meets the [requirements](/nodes-and-validators/run-a-validator/requirements/){target=\_blank} for running a validator.
+- Confirm your system meets the [requirements](/node-infrastructure/run-a-validator/requirements/){target=\_blank} for running a validator.
 - Ensure you meet the [minimum bond requirements](https://wiki.polkadot.com/general/chain-state-values/#minimum-validator-bond){target=\_blank} for validating.
 - Verify the Polkadot binary is [installed](#install-the-polkadot-binaries).
 

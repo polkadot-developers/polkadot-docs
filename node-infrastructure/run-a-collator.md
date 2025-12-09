@@ -6,24 +6,17 @@ categories: Infrastructure
 
 # Run a Block-Producing Collator
 
-## Overview
+## Introduction
 
-Block-producing collators are the backbone of system parachain operations. Unlike RPC or archive nodes, which maintain state, collators actively produce blocks and submit them to relay chain validators for inclusion.
+Block-producing collators are the backbone of system parachain operations. Unlike RPC or archive nodes, which maintain state, collators actively produce blocks and submit them to relay chain validators for inclusion. They ensure network liveness, censorship resistance, and cross-chain message processing.
 
-This guide covers setting up a block-producing collator for Polkadot system parachains. Running a collator requires:
-
-- Meeting hardware requirements for reliable block production
-- Setting up and registering session keys
-- Obtaining governance approval or meeting selection criteria
-- Maintaining high uptime and performance
-
-System parachain collators typically require governance approval or being added to the invulnerables list. This is different from non-system parachains where collator selection may be more permissionless.
+This guide explains how to set up a block-producing collator for Polkadot system parachains, covering all key requirements, setting up and registering session keys, and meeting governance approval or invulnerables-list criteria (required for system parachains, non-system parachains may be more permissionless).
 
 ## Collator Responsibilities
 
 Block-producing collators perform critical functions:
 
-- Maintain full nodes for relay chain and parachain.
+- Maintain full nodes for relay chain and parachain with high uptime and performance.
 - Aggregate user transactions into blocks.
 - Create parachain block candidates.
 - Produce state transition proofs (Proof-of-Validity).
@@ -51,16 +44,15 @@ Block-producing collators require robust hardware for reliable operation includi
         - 30333 (parachain P2P)
         - 30334 (relay chain P2P)
 
-Uptime is critical. Consider redundancy and monitoring to maintain block production reliability.
+!!! warning "Uptime is critical"
+    Consider redundancy and monitoring to maintain block production reliability.
 
 ### Software Requirements
 
-Collators use the Polkadot Parachain binary, the standard client for running Polkadot system parachains.
+Required software:
 
-Required software includes the following:
-
-- **Operating System**: Ubuntu 22.04 LTS (recommended) or similar Linux distribution
-- **Docker**: Required for obtaining binaries and running containers
+- **Operating system**: Ubuntu 22.04 LTS (recommended) or similar Linux distribution
+- **[Docker](https://www.docker.com/get-started/){target=\_blank}**: Required for obtaining binaries and running containers
 
 ### Account Requirements
 
@@ -74,10 +66,10 @@ Your account must meet the following requirements:
 
 This guide provides two deployment options. Select the option that best fits your needs:
 
-- **Docker-based Setup**: Best for simpler setup and maintenance
-- **Manual/systemd Setup**: Best for production environments requiring more control
+- **Docker**: Best for simpler setup and maintenance
+- **systemd**: Best for production environments requiring more control
 
-=== "Docker Setup"
+=== "Docker"
 
     Pull the Polkadot Parachain Docker image:
 

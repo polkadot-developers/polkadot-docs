@@ -24,10 +24,10 @@ cd wagmi-polkadot-hub
 
 ## Install Dependencies
 
-Install Wagmi and its peer dependencies:
+Install Wagmi v3 and its peer dependencies:
 
 ```bash
-npm install wagmi viem @tanstack/react-query
+npm install wagmi@3 viem @tanstack/react-query
 ```
 
 ## Configure Wagmi for Polkadot Hub
@@ -140,12 +140,12 @@ Create a component to connect wallets to your dApp. Create a file named `app/com
 "use client";
 
 import React from "react";
-import { useConnect, useAccount, useDisconnect } from "wagmi";
+import { useConnect, useConnection, useDisconnect } from "wagmi";
 import { injected } from "wagmi/connectors";
 
 export function ConnectWallet() {
   const { connect } = useConnect();
-  const { address, isConnected } = useAccount();
+  const { address, isConnected } = useConnection();
   const { disconnect } = useDisconnect();
 
   if (isConnected) {
@@ -170,7 +170,7 @@ This component uses the following React hooks:
 
 - **[`useConnect`](https://wagmi.sh/react/api/hooks/useConnect#useconnect){target=\_blank}**: Provides functions and state for connecting the user's wallet to your dApp. The `connect` function initiates the connection flow with the specified connector.
 - **[`useDisconnect`](https://wagmi.sh/react/api/hooks/useDisconnect#usedisconnect){target=\_blank}**: Provides a function to disconnect the currently connected wallet.
-- **[`useAccount`](https://2.x.wagmi.sh/react/api/hooks/useAccount#useaccount){target=\_blank}**: Returns data about the connected account, including the address and connection status.
+- **[`useConnection`](https://wagmi.sh/react/api/hooks/useConnection#useconnection){target=\_blank}**: Returns data about the connected account, including the address and connection status. In Wagmi v3, `useAccount` has been renamed to `useConnection`.
 
 ## Fetch Blockchain Data
 
@@ -179,10 +179,10 @@ Wagmi provides various hooks to fetch blockchain data. Here's an example compone
 ```typescript title="app/components/BlockchainInfo.tsx"
 "use client";
 
-import { useBlockNumber, useBalance, useAccount } from "wagmi";
+import { useBlockNumber, useBalance, useConnection } from "wagmi";
 
 export function BlockchainInfo() {
-  const { address } = useAccount();
+  const { address } = useConnection();
   // Get the latest block number
   const { data: blockNumber } = useBlockNumber({ watch: true });
 
@@ -373,10 +373,10 @@ Update your main page to combine all the components. Create or update the file `
 import { BlockchainInfo } from "./components/BlockchainInfo";
 import { ConnectWallet } from "./components/ConnectWallet";
 import { StorageContract } from "./components/StorageContract";
-import { useAccount } from "wagmi";
+import { useConnection } from "wagmi";
 
 export default function Home() {
-  const { isConnected } = useAccount();
+  const { isConnected } = useConnection();
 
   return (
     <main>

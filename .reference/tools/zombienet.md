@@ -306,14 +306,6 @@ For detailed configuration options, see:
 
 <div class="grid cards" markdown>
 
--   <span class="badge tutorial">Tutorial</span> __Spawn a Basic Chain with Zombienet__
-
-    ---
-
-    Learn to spawn, connect to, and monitor a basic blockchain network with Zombienet using customizable configurations.
-
-    [:octicons-arrow-right-24: Get Started](/tutorials/polkadot-sdk/testing/spawn-basic-chain/)
-
 -   <span class="badge external">External</span> __Zombienet Support__
 
     ---

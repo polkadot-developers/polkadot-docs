@@ -17,6 +17,33 @@ This guide demonstrates how to query on-chain storage using the Sidecar REST API
 - [curl](https://curl.se/){target=\_blank} or any HTTP client
 - Access to a Sidecar instance (public or self-hosted)
 
+## Running Sidecar Locally
+
+For production applications or high-frequency queries, run your own Sidecar instance.
+
+=== "Using npm"
+
+```bash
+# Install globally
+npm install -g @substrate/api-sidecar
+
+# Run with default settings (connects to ws://127.0.0.1:9944)
+substrate-api-sidecar
+
+# Run with custom node URL
+SAS_SUBSTRATE_URL=wss://polkadot-asset-hub-rpc.polkadot.io substrate-api-sidecar
+```
+
+=== "Using Docker"
+
+```bash
+docker run --rm -p 8080:8080 \
+  -e SAS_SUBSTRATE_URL=wss://polkadot-asset-hub-rpc.polkadot.io \
+  parity/substrate-api-sidecar
+```
+
+Once running, access your local instance at `http://localhost:8080`.
+
 ## Public Sidecar Endpoints
 
 Parity provides public Sidecar instances for Polkadot ecosystem chains:
@@ -37,7 +64,7 @@ The `/accounts/{accountId}/balance-info` endpoint returns an account's native to
 ### Request
 
 ```bash
-curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/accounts/14E5nqKAp3oAJcmzgZhUD2RcptBeUBScxKHgJKU4HPNcKVf3/balance-info"
+curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/accounts/<INSERT_ADDRESS>/balance-info"
 ```
 
 ### Response
@@ -66,10 +93,10 @@ You can query the balance at a specific block height or hash using the `at` quer
 
 ```bash
 # Query at block height
-curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/accounts/14E5nqKAp3oAJcmzgZhUD2RcptBeUBScxKHgJKU4HPNcKVf3/balance-info?at=10000000"
+curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/accounts/<INSERT_ADDRESS>/balance-info?at=10000000"
 
 # Query at block hash
-curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/accounts/14E5nqKAp3oAJcmzgZhUD2RcptBeUBScxKHgJKU4HPNcKVf3/balance-info?at=0x..."
+curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/accounts/<INSERT_ADDRESS>/balance-info?at=0x..."
 ```
 
 ## Query Asset Balances
@@ -79,7 +106,7 @@ The `/accounts/{accountId}/asset-balances` endpoint returns an account's balance
 ### Request All Asset Balances
 
 ```bash
-curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/accounts/14E5nqKAp3oAJcmzgZhUD2RcptBeUBScxKHgJKU4HPNcKVf3/asset-balances"
+curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/accounts/<INSERT_ADDRESS>/asset-balances"
 ```
 
 ### Request Specific Asset Balance
@@ -87,7 +114,7 @@ curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/accou
 To query a specific asset (e.g., USDT with asset ID 1984):
 
 ```bash
-curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/accounts/14E5nqKAp3oAJcmzgZhUD2RcptBeUBScxKHgJKU4HPNcKVf3/asset-balances?assets[]=1984"
+curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/accounts/<INSERT_ADDRESS>/asset-balances?assets[]=1984"
 ```
 
 ### Response
@@ -113,7 +140,7 @@ curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/accou
 You can query multiple assets in a single request:
 
 ```bash
-curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/accounts/14E5nqKAp3oAJcmzgZhUD2RcptBeUBScxKHgJKU4HPNcKVf3/asset-balances?assets[]=1984&assets[]=1337"
+curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/accounts/<INSERT_ADDRESS>/asset-balances?assets[]=1984&assets[]=1337"
 ```
 
 ## Query Asset Metadata
@@ -168,6 +195,14 @@ curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/palle
 | `sufficients` | Number of accounts whose existence is paid for by this asset |
 | `status` | Asset status (Live, Frozen, or Destroying) |
 
+## Query Foreign Asset Balances
+
+For cross-chain assets (foreign assets), use the `/accounts/{accountId}/foreign-asset-balances` endpoint:
+
+```bash
+curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/accounts/<INSERT_ADDRESS>/foreign-asset-balances"
+```
+
 ## Query Block Information
 
 The `/blocks/{blockId}` endpoint returns detailed block information including extrinsics and events.
@@ -194,57 +229,9 @@ curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/block
 --8<-- "code/chain-interactions/query-data/query-rest/block-response.json"
 ```
 
-## Query Foreign Asset Balances
-
-For cross-chain assets (foreign assets), use the `/accounts/{accountId}/foreign-asset-balances` endpoint:
-
-```bash
-curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/accounts/14E5nqKAp3oAJcmzgZhUD2RcptBeUBScxKHgJKU4HPNcKVf3/foreign-asset-balances"
-```
-
-## Running Sidecar Locally
-
-For production applications or high-frequency queries, run your own Sidecar instance.
-
-### Using npm
-
-```bash
-# Install globally
-npm install -g @substrate/api-sidecar
-
-# Run with default settings (connects to ws://127.0.0.1:9944)
-substrate-api-sidecar
-
-# Run with custom node URL
-SAS_SUBSTRATE_URL=wss://polkadot-asset-hub-rpc.polkadot.io substrate-api-sidecar
-```
-
-### Using Docker
-
-```bash
-docker run --rm -p 8080:8080 \
-  -e SAS_SUBSTRATE_URL=wss://polkadot-asset-hub-rpc.polkadot.io \
-  parity/substrate-api-sidecar
-```
-
-Once running, access your local instance at `http://localhost:8080`.
-
 ## API Reference
 
 For a complete list of endpoints and parameters, see the [Sidecar API Documentation](https://paritytech.github.io/substrate-api-sidecar/docsv2/){target=\_blank}.
-
-Common endpoints include:
-
-| Endpoint | Description |
-|----------|-------------|
-| `/accounts/{accountId}/balance-info` | Native token balance |
-| `/accounts/{accountId}/asset-balances` | Assets pallet balances |
-| `/accounts/{accountId}/foreign-asset-balances` | Foreign assets balances |
-| `/accounts/{accountId}/pool-asset-balances` | Pool asset balances |
-| `/blocks/{blockId}` | Block information |
-| `/blocks/head` | Latest block |
-| `/pallets/{palletId}/storage/{storageItemId}` | Pallet storage queries |
-| `/transaction/material` | Transaction construction material |
 
 ## Where to Go Next
 

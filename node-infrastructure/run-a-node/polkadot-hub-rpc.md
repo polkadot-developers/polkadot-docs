@@ -21,22 +21,23 @@ Through the Polkadot SDK node RPC (WebSocket port 9944, HTTP port 9933), your no
 
 RPC nodes serving production traffic require robust hardware. The following should be considered the minimum standard to effectively operate an RPC node:
 
-- **CPU**: 8+ cores (16+ cores for high traffic)
-- **Memory**: 64 GB RAM minimum (128 GB recommended for high traffic)
+- **CPU**: 8+ cores; 16+ cores for high traffic
+- **Memory**: 64 GB RAM minimum; 128 GB recommended for high traffic
 - **Storage**:
     - **Archive node**: ~1.2 TB NVMe SSD total (~392 GB for Asset Hub archive + ~822 GB for relay chain pruned snapshot)
+    <!-- TODO-ERIN: this means ~1.4 TB? 👇 -->
     - **Pruned node**: 200+ GB NVMe SSD (with pruning enabled for both parachain and relay chain)
     - Fast disk I/O is critical for query performance
 - **Network**:
     - Public IP address
-    - 1 Gbps connection (for high traffic scenarios)
     - Stable internet connection with sufficient bandwidth
-    - Open ports:
-        - 30333 (parachain P2P)
-        - 30334 (relay chain P2P)
-        - 9944 (Polkadot SDK WebSocket RPC)
-        - 9933 (Polkadot SDK HTTP RPC)
+    - 1 Gbps connection for high traffic scenarios
     - Consider DDoS protection and rate limiting for production deployments
+    - Open ports:
+        - **30333**: Parachain P2P
+        - **30334**: Relay chain P2P
+        - **9944**: Polkadot SDK WebSocket RPC
+        - **9933**: Polkadot SDK HTTP RPC
 
 !!! note
     For development or low-traffic scenarios, you can reduce these requirements proportionally. Consider using a reverse proxy ([nginx](https://nginx.org/){target=\_blank}, [Caddy](https://caddyserver.com/){target=\_blank}) for production deployments.
@@ -75,25 +76,12 @@ Select the best option for your project, then use the steps in the following tab
             mkdir -p my-node-data/chains/polkadot/db
             ```
 
-        2. Choose between Asset Hub archive (complete history; ~392 GB GB) or pruned (recent state; TODO: ERIN) snapshots and set the snapshot URL accordingly:
-
-            === "Archive"
-
-                ```bash
-                # Check https://snapshots.polkadot.io/ for the latest snapshot URL
-                export SNAPSHOT_URL_ASSET_HUB="https://snapshots.polkadot.io/polkadot-asset-hub-rocksdb-archive/INSERT_LATEST"
-                ```
-            
-            === "Pruned"
-
-                ```bash
-                # Check https://snapshots.polkadot.io/ for the latest snapshot URL
-                export SNAPSHOT_URL_ASSET_HUB="https://snapshots.polkadot.io/polkadot-asset-hub-rocksdb-prune/INSERT_LATEST"
-                ```
-        
-        3. Use `rclone` to download and save the Asset Hub snapshots:
+        2. Download and save the archive Asset Hub snapshot:
 
             ```bash
+            # Check https://snapshots.polkadot.io/ for the latest snapshot URL
+            export SNAPSHOT_URL_ASSET_HUB="https://snapshots.polkadot.io/polkadot-asset-hub-rocksdb-archive/INSERT_LATEST"
+
             rclone copyurl $SNAPSHOT_URL_ASSET_HUB/files.txt files.txt
             rclone copy --progress --transfers 20 \
               --http-url $SNAPSHOT_URL_ASSET_HUB \
@@ -112,7 +100,7 @@ Select the best option for your project, then use the steps in the following tab
                 - **`--retries-sleep 10s`**: Waits 10 seconds between retry attempts
                 - **`--size-only`**: Only transfers if sizes differ (prevents unnecessary re-downloads)
 
-        4. Repeat the process with the pruned relay chain snapshot (~822 GB):
+        3. Repeat the process with the pruned relay chain snapshot:
 
             ```bash
             # Check https://snapshots.polkadot.io/ for the latest snapshot URL
@@ -403,25 +391,25 @@ Use the following commands to manage your node:
 
 === "Docker"
 
-    - View node logs:
+    - **View node logs**:
 
         ```bash
         docker logs -f polkadot-hub-rpc
         ```
 
-    - Stop container:
+    - **Stop container**:
 
         ```bash
         docker stop polkadot-hub-rpc
         ```
 
-    - Start container:
+    - **Start container**:
 
         ```bash
         docker start polkadot-hub-rpc
         ```
 
-    - Remove container:
+    - **Remove container**:
 
         ```bash
         docker rm polkadot-hub-rpc
@@ -429,31 +417,31 @@ Use the following commands to manage your node:
 
 === "systemd"
 
-    - Check status
+    - **Check status**:
 
         ```bash
         sudo systemctl status polkadot-hub-rpc
         ```
 
-    - View node logs:
+    - **View node logs**:
 
         ```bash
         sudo journalctl -u polkadot-hub-rpc -f
         ```
 
-    - Stop service:
+    - **Stop service**:
 
         ```bash
         sudo systemctl stop polkadot-hub-rpc
         ```
 
-    - Enable service:
+    - **Enable service**:
 
         ```bash
         sudo systemctl enable polkadot-hub-rpc
         ```
 
-    - Start service:
+    - **Start service**:
 
         ```bash
         sudo systemctl start polkadot-hub-rpc

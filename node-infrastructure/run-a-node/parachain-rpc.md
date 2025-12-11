@@ -37,10 +37,10 @@ RPC nodes serving production traffic require robust hardware:
     - 1 Gbps connection for high traffic scenarios
     - Consider DDoS protection and rate limiting for production deployments
     - Open ports:
-        - 30333 (parachain P2P)
-        - 30334 (relay chain P2P)
-        - 9944 (Polkadot SDK WebSocket RPC)
-        - 9933 (Polkadot SDK HTTP RPC)
+        - **30333**: Parachain P2P
+        - **30334**: Relay chain P2P
+        - **9944**: Polkadot SDK WebSocket RPC
+        - **9933**: Polkadot SDK HTTP RPC
 
 !!! note
     For development or low-traffic scenarios, you can reduce these requirements proportionally. Consider using a reverse proxy ([nginx](https://nginx.org/){target=\_blank}, [Caddy](https://caddyserver.com/){target=\_blank}) for production deployments.

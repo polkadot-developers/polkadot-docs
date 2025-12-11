@@ -18,22 +18,29 @@ Through the parachain RPC (WebSocket port 9944, HTTP port 9933), your node acts 
 
 RPC nodes serving production traffic require robust hardware:
 
-- **CPU**: 8+ cores (16+ cores for high traffic)
-- **Memory**: 64 GB RAM minimum (128 GB recommended for high traffic)
-- **Storage**:
-    - **Archive node**: Storage varies by parachain. Using snapshots, system parachain totals are: Asset Hub (~1.2 TB), Bridge Hub (~1.1 TB), Collectives (~1 TB), People Chain (~900 GB), Coretime (~900 GB). For non-system parachains, check the [snapshot sizes](https://snapshots.polkadot.io/){target=\_blank} and add ~822 GB for the relay chain
-    - **Pruned node**: 200+ GB NVMe SSD (with pruning enabled for both parachain and relay chain)
-    - Fast disk I/O is critical for query performance
+- **CPU**: 8+ cores; 16+ cores for high traffic
+- **Memory**: 64 GB RAM minimum; 128 GB recommended for high traffic
+- **Storage**: Storage requirements vary by parachain. Fast NVMe I/O is critical for RPC query performance
+    - **System parachains**: [Snapshots](https://snapshots.polkadot.io/){target=\_blank} _may_ be available
+        - **Archive node**: Using snapshots, expected storage requirements (including ~822 GB for the pruned relay chain) are:
+            - **Asset Hub**: ~1.2 TB
+            - **Bridge Hub**: ~1.1 TB
+            - **Collectives**: ~1 TB
+            - **People Chain**: ~900 GB
+            - **Coretime**: ~900 GB
+        <!-- TODO-ERIN: this makes no sense to me 👇 -->
+        - **Pruned node**: 200+ GB for both parachain and relay chain 
+    - **Non-system parachains**: Consult the parachain team or documentation, then add ~822 GB for the pruned relay chain
 - **Network**:
     - Public IP address
-    - 1 Gbps connection (for high traffic scenarios)
     - Stable internet connection with sufficient bandwidth
+    - 1 Gbps connection for high traffic scenarios
+    - Consider DDoS protection and rate limiting for production deployments
     - Open ports:
         - 30333 (parachain P2P)
         - 30334 (relay chain P2P)
         - 9944 (Polkadot SDK WebSocket RPC)
         - 9933 (Polkadot SDK HTTP RPC)
-    - Consider DDoS protection and rate limiting for production deployments
 
 !!! note
     For development or low-traffic scenarios, you can reduce these requirements proportionally. Consider using a reverse proxy ([nginx](https://nginx.org/){target=\_blank}, [Caddy](https://caddyserver.com/){target=\_blank}) for production deployments.
@@ -87,7 +94,7 @@ System parachain details:
 
     1. Download your parachain's chain specification as described in [Obtain the Chain Specification](#obtain-the-chain-specification).
 
-    2. (Optional but recommended) Download pre-synced snapshots from the [Snapshot Provider](https://snapshots.polkadot.io/){target=\_blank} to cut initial sync time from days to hours:
+    2. (Optional but recommended) Download pre-synced [snapshots](https://snapshots.polkadot.io/){target=\_blank} to cut initial sync time from days to hours:
 
         !!! note
             Snapshots are available for system parachains and the Polkadot relay chain. For other parachains, check with the parachain team for snapshot availability or sync from genesis.
@@ -99,25 +106,12 @@ System parachain details:
             mkdir -p my-node-data/chains/polkadot/db
             ```
 
-        2. Choose between archive (complete history; ~71 GB for People Chain) or pruned (recent state; TODO: ERIN) snapshots of the parachain and set the snapshot URL accordingly:
-
-            === "Archive"
-
-                ```bash
-                # Check https://snapshots.polkadot.io/ for the latest snapshot URL
-                export SNAPSHOT_URL_PARACHAIN="https://snapshots.polkadot.io/polkadot-people-rocksdb-archive/INSERT_LATEST"
-                ```
-
-            === "Pruned"
-
-                ```bash
-                # Check https://snapshots.polkadot.io/ for the latest snapshot URL
-                export SNAPSHOT_URL_PARACHAIN="https://snapshots.polkadot.io/polkadot-people-rocksdb-prune/INSERT_LATEST"
-                ```
-
-        3. Use `rclone` to download and save the parachain snapshots:
+        2. Download and save the archive parachain snapshot:
 
             ```bash
+            # Check https://snapshots.polkadot.io/ for the latest snapshot URL
+            export SNAPSHOT_URL_PARACHAIN="https://snapshots.polkadot.io/polkadot-people-rocksdb-archive/INSERT_LATEST"
+
             rclone copyurl $SNAPSHOT_URL_PARACHAIN/files.txt files.txt
             rclone copy --progress --transfers 20 \
               --http-url $SNAPSHOT_URL_PARACHAIN \
@@ -136,7 +130,7 @@ System parachain details:
                 - **`--retries-sleep 10s`**: Waits 10 seconds between retry attempts
                 - **`--size-only`**: Only transfers if sizes differ (prevents unnecessary re-downloads)
 
-        4. Repeat the process for the pruned relay chain snapshot (~822 GB):
+        3. Repeat the process for the pruned relay chain snapshot:
 
             ```bash
             # Check https://snapshots.polkadot.io/ for the latest snapshot URL
@@ -242,7 +236,7 @@ System parachain details:
 
     2. Download your parachain's chain specification as described in [Obtain the Chain Specification](#obtain-the-chain-specification).
 
-    3. Create user and directory structures using the following commands:
+    3. Create user and directory structures:
 
         ```bash
         # Create a dedicated user
@@ -426,25 +420,25 @@ Use the following commands to manage your node:
 
 === "Docker"
 
-    - View node logs:
+    - **View node logs**:
 
         ```bash
         docker logs -f people-chain-rpc
         ```
 
-    - Stop container:
+    - **Stop container**:
 
         ```bash
         docker stop people-chain-rpc
         ```
 
-    - Start container:
+    - **Start container**:
 
         ```bash
         docker start people-chain-rpc
         ```
 
-    - Remove container:
+    - **Remove container**:
 
         ```bash
         docker rm people-chain-rpc
@@ -452,31 +446,31 @@ Use the following commands to manage your node:
 
 === "systemd"
 
-    - Check status
+    - **Check status**:
 
         ```bash
         sudo systemctl status people-chain-rpc
         ```
 
-    - View node logs:
+    - **View node logs**:
 
         ```bash
         sudo journalctl -u people-chain-rpc -f
         ```
 
-    - Stop service:
+    - **Stop service**:
 
         ```bash
         sudo systemctl stop people-chain-rpc
         ```
 
-    - Enable service:
+    - **Enable service**:
 
         ```bash
         sudo systemctl enable people-chain-rpc
         ```
 
-    - Start service:
+    - **Start service**:
 
         ```bash
         sudo systemctl start people-chain-rpc

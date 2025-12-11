@@ -1,6 +1,6 @@
 from substrateinterface import SubstrateInterface, Keypair
 
-POLKADOT_TESTNET_RPC = "INSERT_RPC_URL"
+POLKADOT_TESTNET_RPC = "INSERT_WS_ENDPOINT"
 SENDER_MNEMONIC = "INSERT_MNEMONIC"
 DEST_ADDRESS = "INSERT_DEST_ADDRESS"
 AMOUNT = 1_000_000_000  # 1 PAS (adjust decimals as needed)

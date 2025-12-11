@@ -25,8 +25,8 @@ RPC nodes provide API access to blockchain data without participating in consens
 
 RPC nodes can be run for both the relay chain and parachains, with varying levels of data retention:
 
-- **Pruned Nodes**: Keep recent state and a limited number of finalized blocks. Suitable for most applications that only need the current state and recent history. More efficient in terms of storage and sync time.
-- **Archive Nodes**: Maintain complete historical state and all blocks since genesis. Required for block explorers, analytics platforms, or applications that need to query historical data at any point in time.
+- **Pruned nodes**: Keep recent state and a limited number of finalized blocks. Suitable for most applications that only need the current state and recent history. More efficient in terms of storage and sync time.
+- **Archive nodes**: Maintain complete historical state and all blocks since genesis. Required for block explorers, analytics platforms, or applications that need to query historical data at any point in time.
 
 **Transaction Broadcasting**: RPC nodes play a crucial role in transaction submission and propagation. When a client submits a transaction via RPC methods like `author_submitExtrinsic`, the node validates the transaction format, adds it to its local transaction pool, and broadcasts it across the P2P network. Block producers (collators or validators) then pick up these transactions from their pools for inclusion in blocks. This makes RPC nodes the primary gateway for users and applications to interact with the blockchain.
 

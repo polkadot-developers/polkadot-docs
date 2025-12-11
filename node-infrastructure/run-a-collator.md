@@ -23,7 +23,6 @@ Block-producing collators require robust hardware for reliable operation, includ
 - **CPU**: 4+ cores (8+ cores recommended for optimal performance)
 - **Memory**: 32 GB RAM minimum (64 GB recommended)
 - **Storage**:
-    <!-- TODO-ERIN: knowing the issues with the other pages, this needs to be double-checked. 200 GB doesn't seem correct. 👇 -->
     - 200+ GB NVMe SSD (with pruning enabled for both parachain and relay chain)
     - Fast disk I/O is critical for block production performance
 - **Network**:
@@ -442,7 +441,7 @@ The registration process varies by system parachain. General steps include the f
 
     ![](/images/node-infrastructure/run-a-collator/run-a-collator-03.webp)
 
-5. For system parachains using invulnerables lists, await governance approval for your proposal. Monitor the [Polkadot Forum](https://forum.polkadot.network){target=\_blank} governance channels and announcements. Once approved, your collator is added to the invulnerables list and will begin producing blocks in the next session or era. 
+5. For system parachains using invulnerables lists, await governance approval for your proposal. Once approved, your collator is added to the invulnerables list and will begin producing blocks in the next session or era. 
 
 6. Verify your collator is active by monitoring logs for block production messages like "Prepared block for proposing" and "Imported #123". See the [Log Management](#commands-for-log-management) section for commands for log viewing.
 

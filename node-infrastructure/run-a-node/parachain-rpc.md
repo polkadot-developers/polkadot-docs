@@ -22,14 +22,13 @@ RPC nodes serving production traffic require robust hardware:
 - **Memory**: 64 GB RAM minimum; 128 GB recommended for high traffic
 - **Storage**: Storage requirements vary by parachain. Fast NVMe I/O is critical for RPC query performance
     - **System parachains**: [Snapshots](https://snapshots.polkadot.io/){target=\_blank} _may_ be available
-        - **Archive node**: Using snapshots, expected storage requirements (including ~822 GB for the pruned relay chain) are:
+        - **Archive node (complete history)**: Using snapshots, expected storage requirements (including ~822 GB for the pruned relay chain) are:
             - **Asset Hub**: ~1.2 TB
             - **Bridge Hub**: ~1.1 TB
             - **Collectives**: ~1 TB
             - **People Chain**: ~900 GB
             - **Coretime**: ~900 GB
-        <!-- TODO-ERIN: this makes no sense to me 👇 -->
-        - **Pruned node**: 200+ GB for both parachain and relay chain 
+        - **Pruned node (recent state)**: ~200 GB total for both parachain and relay chain 
     - **Non-system parachains**: Consult the parachain team or documentation, then add ~822 GB for the pruned relay chain
 - **Network**:
     - Public IP address

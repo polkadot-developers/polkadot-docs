@@ -111,3 +111,15 @@ Use one of the channels below to get live technical support or ask questions.
     👉 **[Explore on Polkassembly](https://polkadot.polkassembly.io/){target=\_blank}**
 
 </div>
+
+## AI Resources
+
+<div class="grid cards support" markdown>
+
+-   :fontawesome-solid-robot:{ .sub } **AI Ready Documentation**
+
+    Access documentation structured and optimized for use with large language models (LLMs) and AI tools. These resources help build AI assistants, power code search, or enable custom tooling trained on Polkadot’s documentation.
+
+    👉 **[Access LLM Files](/get-support/ai-ready-docs/){target=\_blank}**
+
+</div>

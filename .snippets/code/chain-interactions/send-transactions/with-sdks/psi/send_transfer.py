@@ -38,9 +38,7 @@ def main():
     extrinsic = substrate.create_signed_extrinsic(call=call, keypair=keypair)
 
     # Submit and wait for inclusion
-    receipt = substrate.submit_extrinsic(
-        extrinsic, wait_for_inclusion=True
-    )
+    receipt = substrate.submit_extrinsic(extrinsic, wait_for_inclusion=True)
 
     if receipt.is_success:
         print("\nTransaction successful!")

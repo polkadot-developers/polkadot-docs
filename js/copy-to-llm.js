@@ -468,7 +468,7 @@
           case 'view-markdown': {
             trackButtonClick('view_page_markdown');
             const mdUrl = getMarkdownUrl(slug);
-            window.open(mdUrl, '_blank', 'noopener');
+            window.open(mdUrl, '_blank', 'noopener,noreferrer');
             break;
           }
           case 'download-markdown': {

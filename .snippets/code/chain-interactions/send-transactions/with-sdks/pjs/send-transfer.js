@@ -2,7 +2,7 @@ import { ApiPromise, WsProvider } from '@polkadot/api';
 import { Keyring } from '@polkadot/keyring';
 import { cryptoWaitReady } from '@polkadot/util-crypto';
 
-const POLKADOT_TESTNET_RPC = 'INSERT_RPC_URL';
+const POLKADOT_TESTNET_RPC = 'INSERT_WS_ENDPOINT';
 const SENDER_MNEMONIC = 'INSERT_MNEMONIC';
 const DEST_ADDRESS = 'INSERT_DEST_ADDRESS';
 const AMOUNT = 1_000_000_000n; // 1 PAS (adjust decimals as needed)

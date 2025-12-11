@@ -1,6 +1,6 @@
 ---
 title: Query Account Information with SDKs
-description: Learn how to query account information using five popular SDKs: Polkadot API (PAPI), Polkadot.js API, Dedot, Python Substrate Interface, and Subxt.
+description: Learn how to query account information using five popular SDKs—Polkadot API (PAPI), Polkadot.js API, Dedot, Python Substrate Interface, and Subxt.
 categories: Basics, Polkadot Protocol
 ---
 
@@ -12,16 +12,13 @@ Querying account information is a fundamental operation when interacting with Po
 
 This guide demonstrates how to query account information using five popular SDKs:
 
-- **[Polkadot API (PAPI)](/reference/tools/papi/){target=\_blank}** - Modern TypeScript library with type-safe APIs
-- **[Polkadot.js API](/reference/tools/polkadot-js-api/){target=\_blank}** - Comprehensive JavaScript library (maintenance mode)
-- **[Dedot](/reference/tools/dedot/){target=\_blank}** - Lightweight TypeScript library optimized for performance
-- **[Python Substrate Interface](/reference/tools/py-substrate-interface/){target=\_blank}** - Python library for Substrate chains
-- **[Subxt](/reference/tools/subxt/){target=\_blank}** - Rust library with compile-time type safety
+- **[Polkadot API (PAPI)](/reference/tools/papi/){target=\_blank}**: Modern TypeScript library with type-safe APIs
+- **[Polkadot.js API](/reference/tools/polkadot-js-api/){target=\_blank}**: Comprehensive JavaScript library (maintenance mode)
+- **[Dedot](/reference/tools/dedot/){target=\_blank}**: Lightweight TypeScript library optimized for performance
+- **[Python Substrate Interface](/reference/tools/py-substrate-interface/){target=\_blank}**: Python library for Substrate chains
+- **[Subxt](/reference/tools/subxt/){target=\_blank}**: Rust library with compile-time type safety
 
 Select your preferred SDK below to see complete, runnable examples that query account information on Polkadot Hub.
-
-!!! note
-    Ensure to replace `INSERT_WS_ENDPOINT` with the proper WebSocket endpoint and `INSERT_ACCOUNT_ADDRESS` with the account address you want to query. For this example, you can use Polkadot Hub (`wss://asset-hub-paseo.dotters.network`).
 
 ## Prerequisites
 
@@ -31,8 +28,6 @@ Select your preferred SDK below to see complete, runnable examples that query ac
 ## Query Account Information
 
 === "PAPI"
-
-    [Polkadot API (PAPI)](/reference/tools/papi/){target=\_blank} is a modern, type-safe TypeScript library optimized for light-client functionality.
 
     **Prerequisites**
 
@@ -65,11 +60,14 @@ Select your preferred SDK below to see complete, runnable examples that query ac
 
     The following example queries account information including balance, nonce, and other account data.
 
-    Create a file named `query-account.ts`:
+    Create a file named `query-account.ts` and add the following code to it:
 
     ```typescript title="query-account.ts"
-    --8<-- "code/chain-interactions/accounts/query-account/papi-query-account.ts"
+    --8<-- "code/chain-interactions/accounts/query-account/papi/query-account.ts"
     ```
+
+    !!! note    
+        Ensure to replace `INSERT_WS_ENDPOINT` with a valid WebSocket endpoint (e.g., `wss://asset-hub-paseo.dotters.network`) and `INSERT_ADDRESS` with the account address you want to query.
 
     Run the script:
 
@@ -79,15 +77,13 @@ Select your preferred SDK below to see complete, runnable examples that query ac
 
     You should see output similar to:
 
-    --8<-- "code/chain-interactions/accounts/query-account/papi-query-account-output.html"
+    --8<-- "code/chain-interactions/accounts/query-account/papi/query-account-output.html"
 
 
 === "Polkadot.js"
 
     !!! warning "Maintenance Mode Only"
         The Polkadot.js API is no longer actively developed. New projects should use [PAPI](/reference/tools/papi/){target=\_blank} or [Dedot](/reference/tools/dedot/){target=\_blank} as actively maintained alternatives.
-
-    [Polkadot.js API](/reference/tools/polkadot-js-api/){target=\_blank} is a comprehensive JavaScript library with extensive ecosystem support.
 
     **Prerequisites**
 
@@ -113,11 +109,14 @@ Select your preferred SDK below to see complete, runnable examples that query ac
 
     The following example queries account information including balance, nonce, and other account data.
 
-    Create a file named `query-account.js`:
+    Create a file named `query-account.js` and add the following code to it:
 
     ```javascript title="query-account.js"
-    --8<-- "code/chain-interactions/accounts/query-account/polkadot-js-query-account.js"
+    --8<-- "code/chain-interactions/accounts/query-account/pjs/query-account.js"
     ```
+
+    !!! note    
+        Ensure to replace `INSERT_WS_ENDPOINT` with a valid WebSocket endpoint (e.g., `wss://asset-hub-paseo.dotters.network`) and `INSERT_ADDRESS` with the account address you want to query.
 
     Run the script:
 
@@ -127,11 +126,9 @@ Select your preferred SDK below to see complete, runnable examples that query ac
 
     You should see output similar to:
 
-    --8<-- "code/chain-interactions/accounts/query-account/polkadot-js-query-account-output.html"
+    --8<-- "code/chain-interactions/accounts/query-account/pjs/query-account-output.html"
 
 === "Dedot"
-
-    [Dedot](/reference/tools/dedot/){target=\_blank} is a next-generation TypeScript client that's lightweight, tree-shakable, and maintains API compatibility with Polkadot.js.
 
     **Prerequisites**
 
@@ -158,11 +155,14 @@ Select your preferred SDK below to see complete, runnable examples that query ac
 
     The following example queries account information including balance, nonce, and other account data.
 
-    Create a file named `query-account.ts`:
+    Create a file named `query-account.ts` and add the following code to it:
 
     ```typescript title="query-account.ts"
-    --8<-- "code/chain-interactions/accounts/query-account/dedot-query-account.ts"
+    --8<-- "code/chain-interactions/accounts/query-account/dedot/query-account.ts"
     ```
+
+    !!! note    
+        Ensure to replace `INSERT_WS_ENDPOINT` with a valid WebSocket endpoint (e.g., `wss://asset-hub-paseo.dotters.network`) and `INSERT_ADDRESS` with the account address you want to query.
 
     Run the script:
 
@@ -172,11 +172,9 @@ Select your preferred SDK below to see complete, runnable examples that query ac
 
     You should see output similar to:
 
-    --8<-- "code/chain-interactions/accounts/query-account/dedot-query-account-output.html"
+    --8<-- "code/chain-interactions/accounts/query-account/dedot/query-account-output.html"
 
-=== "Python"
-
-    [Python Substrate Interface](/reference/tools/py-substrate-interface/){target=\_blank} provides a Python library for interacting with Substrate-based chains.
+=== "Python Substrate Interface"
 
     **Prerequisites**
 
@@ -202,11 +200,14 @@ Select your preferred SDK below to see complete, runnable examples that query ac
 
     The following example queries account information including balance, nonce, and other account data.
 
-    Create a file named `query_account.py`:
+    Create a file named `query_account.py` and add the following code to it:
 
     ```python title="query_account.py"
-    --8<-- "code/chain-interactions/accounts/query-account/psi_query_account.py"
+    --8<-- "code/chain-interactions/accounts/query-account/psi/query_account.py"
     ```
+
+    !!! note    
+        Ensure to replace `INSERT_WS_ENDPOINT` with a valid WebSocket endpoint (e.g., `wss://asset-hub-paseo.dotters.network`) and `INSERT_ADDRESS` with the account address you want to query.
 
     Run the script:
 
@@ -216,11 +217,9 @@ Select your preferred SDK below to see complete, runnable examples that query ac
 
     You should see output similar to:
 
-    --8<-- "code/chain-interactions/accounts/query-account/psi-query-account-output.html"
+    --8<-- "code/chain-interactions/accounts/query-account/psi/query-account-output.html"
 
 === "Subxt"
-
-    [Subxt](/reference/tools/subxt/){target=\_blank} is a Rust library that provides compile-time type safety through code generation from chain metadata.
 
     **Prerequisites**
 
@@ -268,11 +267,14 @@ Select your preferred SDK below to see complete, runnable examples that query ac
 
     The following example queries account information including balance, nonce, and other account data.
 
-    Create a file at `src/bin/query_account.rs`:
+    Create a file at `src/bin/query_account.rs` and add the following code to it:
 
     ```rust title="src/bin/query_account.rs"
-    --8<-- "code/chain-interactions/accounts/query-account/subxt-query-account.rs"
+    --8<-- "code/chain-interactions/accounts/query-account/subxt/query-account.rs"
     ```
+
+    !!! note    
+        Ensure to replace `INSERT_WS_ENDPOINT` with a valid WebSocket endpoint (e.g., `wss://asset-hub-paseo.dotters.network`) and `INSERT_ADDRESS` with the account address you want to query.
 
     Run the script:
 
@@ -282,27 +284,40 @@ Select your preferred SDK below to see complete, runnable examples that query ac
 
     You should see output similar to:
 
-    --8<-- "code/chain-interactions/accounts/query-account/subxt-query-account-output.html"
+    --8<-- "code/chain-interactions/accounts/query-account/subxt/query-account-output.html"
 
 ## Understanding Account Data
 
 When querying account information, you'll receive several key fields:
 
-- **Nonce** - the number of transactions sent from this account, used to prevent replay attacks
-- **Consumers** - the number of modules depending on this account's existence
-- **Providers** - the number of modules providing for this account's existence
-- **Sufficients** - the number of modules that allow this account to exist on its own
-- **Free Balance** - the transferable balance available for transactions
-- **Reserved Balance** - balance that is locked for specific purposes (staking, governance, etc.)
-- **Frozen Balance** - balance that cannot be used for transfers but may be used for other operations
+- **Nonce**: The number of transactions sent from this account, used to prevent replay attacks.
+- **Consumers**: The number of modules depending on this account's existence.
+- **Providers**: The number of modules providing for this account's existence.
+- **Sufficients**: The number of modules that allow this account to exist on its own.
+- **Free Balance**: The transferable balance available for transactions.
+- **Reserved Balance**: Balance that is locked for specific purposes (staking, governance, etc.).
+- **Frozen Balance**: Balance that cannot be used for transfers but may be used for other operations.
 
 The total balance is the sum of free and reserved balances.
 
 ## Where to Go Next
 
-Now that you understand how to query account information, explore these related topics:
+<div class="grid cards" markdown>
 
-- **[Send Transactions with SDKs](/chain-interactions/send-transactions/with-sdks/)** - Learn to construct and submit transactions
-- **[Query On-Chain State](/chain-interactions/query-data/query-sdks/)** - Explore other types of storage queries
-- **[Calculate Transaction Fees](/chain-interactions/send-transactions/calculate-transaction-fees/)** - Estimate fees before sending transactions
-- **[SDK Reference Pages](/reference/tools/)** - Detailed documentation for each SDK
+- <span class="badge guide">Guide</span> **Query On-Chain State**
+
+    ---
+
+    Explore other types of storage queries.
+
+    [:octicons-arrow-right-24: Get Started](/chain-interactions/query-data/query-sdks/)
+
+- <span class="badge guide">Guide</span> **Send Transactions**
+
+    ---
+
+    Learn how to construct and submit transactions.
+
+    [:octicons-arrow-right-24: Get Started](/chain-interactions/send-transactions/with-sdks/)
+
+</div>

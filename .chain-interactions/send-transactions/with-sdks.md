@@ -12,19 +12,13 @@ Sending transactions on Polkadot SDK-based blockchains involves constructing an 
 
 This guide demonstrates how to send transactions using five popular SDKs:
 
-- **[Polkadot API (PAPI)](/reference/tools/papi/){target=\_blank}** - Modern TypeScript library with type-safe APIs
-- **[Polkadot.js API](/reference/tools/polkadot-js-api/){target=\_blank}** - Comprehensive JavaScript library (maintenance mode)
-- **[Dedot](/reference/tools/dedot/){target=\_blank}** - Lightweight TypeScript library optimized for performance
-- **[Python Substrate Interface](/reference/tools/py-substrate-interface/){target=\_blank}** - Python library for Substrate chains
-- **[Subxt](/reference/tools/subxt/){target=\_blank}** - Rust library with compile-time type safety
+- **[Polkadot API (PAPI)](/reference/tools/papi/){target=\_blank}**: Modern TypeScript library with type-safe APIs
+- **[Polkadot.js API](/reference/tools/polkadot-js-api/){target=\_blank}**: Comprehensive JavaScript library (maintenance mode)
+- **[Dedot](/reference/tools/dedot/){target=\_blank}**: Lightweight TypeScript library optimized for performance
+- **[Python Substrate Interface](/reference/tools/py-substrate-interface/){target=\_blank}**: Python library for Substrate chains
+- **[Subxt](/reference/tools/subxt/){target=\_blank}**: Rust library with compile-time type safety
 
 Select your preferred SDK below to see complete, runnable examples that send balance transfer transactions on Polkadot Hub.
-
-!!! note
-    Ensure to replace `INSERT_WS_ENDPOINT` with the proper WebSocket endpoint, `INSERT_SENDER_MNEMONIC` with your account's mnemonic phrase, and `INSERT_DEST_ADDRESS` with the recipient address. For this example, you can use Polkadot Hub (`wss://polkadot-asset-hub-rpc.polkadot.io`).
-
-!!! warning
-    Never share your mnemonic phrase or private keys. The examples below use mnemonics for demonstration purposes only. In production, use secure key management solutions.
 
 ## Prerequisites
 
@@ -33,9 +27,10 @@ Select your preferred SDK below to see complete, runnable examples that send bal
 
 ## Send Transactions
 
-=== "PAPI"
+!!! warning
+    Never share your mnemonic phrase or private keys. The examples below use mnemonics for demonstration purposes only. In production, use secure key management solutions.
 
-    [Polkadot API (PAPI)](/reference/tools/papi/){target=\_blank} is a modern, type-safe TypeScript library optimized for light-client functionality.
+=== "PAPI"
 
     **Prerequisites**
 
@@ -68,11 +63,14 @@ Select your preferred SDK below to see complete, runnable examples that send bal
 
     The following example constructs, signs, and submits a balance transfer transaction.
 
-    Create a file named `send-transfer.ts`:
+    Create a file named `send-transfer.ts` and add the following code to it:
 
     ```typescript title="send-transfer.ts"
     --8<-- "code/chain-interactions/send-transactions/with-sdks/papi/send-transfer.ts"
     ```
+
+    !!! note
+        Ensure to replace `INSERT_WS_ENDPOINT` with the proper WebSocket endpoint, `INSERT_SENDER_MNEMONIC` with your account's mnemonic phrase, and `INSERT_DEST_ADDRESS` with the recipient address. For this example, you can use Polkadot Hub (`wss://polkadot-asset-hub-rpc.polkadot.io`).
 
     Run the script:
 
@@ -88,8 +86,6 @@ Select your preferred SDK below to see complete, runnable examples that send bal
 
     !!! warning "Maintenance Mode Only"
         The Polkadot.js API is no longer actively developed. New projects should use [PAPI](/reference/tools/papi/){target=\_blank} or [Dedot](/reference/tools/dedot/){target=\_blank} as actively maintained alternatives.
-
-    [Polkadot.js API](/reference/tools/polkadot-js-api/){target=\_blank} is a comprehensive JavaScript library with extensive ecosystem support.
 
     **Prerequisites**
 
@@ -115,11 +111,14 @@ Select your preferred SDK below to see complete, runnable examples that send bal
 
     The following example constructs, signs, and submits a balance transfer transaction.
 
-    Create a file named `send-transfer.js`:
+    Create a file named `send-transfer.js` and add the following code:
 
     ```javascript title="send-transfer.js"
     --8<-- "code/chain-interactions/send-transactions/with-sdks/pjs/send-transfer.js"
     ```
+
+    !!! note
+        Ensure to replace `INSERT_WS_ENDPOINT` with the proper WebSocket endpoint, `INSERT_SENDER_MNEMONIC` with your account's mnemonic phrase, and `INSERT_DEST_ADDRESS` with the recipient address. For this example, you can use Polkadot Hub (`wss://polkadot-asset-hub-rpc.polkadot.io`).
 
     Run the script:
 
@@ -132,8 +131,6 @@ Select your preferred SDK below to see complete, runnable examples that send bal
     --8<-- 'code/chain-interactions/send-transactions/with-sdks/pjs/send-transfer-js.html'
 
 === "Dedot"
-
-    [Dedot](/reference/tools/dedot/){target=\_blank} is a next-generation TypeScript client that's lightweight, tree-shakable, and maintains API compatibility with Polkadot.js.
 
     **Prerequisites**
 
@@ -160,11 +157,14 @@ Select your preferred SDK below to see complete, runnable examples that send bal
 
     The following example constructs, signs, and submits a balance transfer transaction.
 
-    Create a file named `send-transfer.ts`:
+    Create a file named `send-transfer.ts` and add the following code to it:
 
     ```typescript title="send-transfer.ts"
     --8<-- "code/chain-interactions/send-transactions/with-sdks/dedot/send-transfer.ts"
     ```
+
+    !!! note
+        Ensure to replace `INSERT_WS_ENDPOINT` with the proper WebSocket endpoint, `INSERT_SENDER_MNEMONIC` with your account's mnemonic phrase, and `INSERT_DEST_ADDRESS` with the recipient address. For this example, you can use Polkadot Hub (`wss://polkadot-asset-hub-rpc.polkadot.io`).
 
     Run the script:
 
@@ -176,9 +176,7 @@ Select your preferred SDK below to see complete, runnable examples that send bal
 
     --8<-- 'code/chain-interactions/send-transactions/with-sdks/dedot/send-transfer-ts.html'
 
-=== "Python"
-
-    [Python Substrate Interface](/reference/tools/py-substrate-interface/){target=\_blank} provides a Python library for interacting with Substrate-based chains.
+=== "Python Substrate Interface"
 
     **Prerequisites**
 
@@ -204,11 +202,14 @@ Select your preferred SDK below to see complete, runnable examples that send bal
 
     The following example constructs, signs, and submits a balance transfer transaction.
 
-    Create a file named `send_transfer.py`:
+    Create a file named `send_transfer.py` and add the following code to it:
 
     ```python title="send_transfer.py"
     --8<-- "code/chain-interactions/send-transactions/with-sdks/psi/send_transfer.py"
     ```
+
+    !!! note
+        Ensure to replace `INSERT_WS_ENDPOINT` with the proper WebSocket endpoint, `INSERT_SENDER_MNEMONIC` with your account's mnemonic phrase, and `INSERT_DEST_ADDRESS` with the recipient address. For this example, you can use Polkadot Hub (`wss://polkadot-asset-hub-rpc.polkadot.io`).
 
     Run the script:
 
@@ -259,11 +260,14 @@ Select your preferred SDK below to see complete, runnable examples that send bal
 
     The following example constructs, signs, and submits a balance transfer transaction.
 
-    Create a file at `src/bin/send_transfer.rs`:
+    Create a file at `src/bin/send_transfer.rs` and add the following code to it:
 
     ```rust title="src/bin/send_transfer.rs"
     --8<-- "code/chain-interactions/send-transactions/with-sdks/subxt/src/bin/send_transfer.rs"
     ```
+
+    !!! note
+        Ensure to replace `INSERT_WS_ENDPOINT` with the proper WebSocket endpoint, `INSERT_SENDER_MNEMONIC` with your account's mnemonic phrase, and `INSERT_DEST_ADDRESS` with the recipient address. For this example, you can use Polkadot Hub (`wss://polkadot-asset-hub-rpc.polkadot.io`).
 
     Run the script:
 
@@ -277,8 +281,22 @@ Select your preferred SDK below to see complete, runnable examples that send bal
 
 ## Where to Go Next
 
-Now that you understand how to send transactions, explore these related topics:
+<div class="grid cards" markdown>
 
-- **[Query On-Chain State](/chain-interactions/query-data/query-sdks/)** - Learn to query storage and runtime data
-- **[Calculate Transaction Fees](/chain-interactions/send-transactions/calculate-transaction-fees/)** - Estimate fees before sending transactions
-- **[SDK Reference Pages](/reference/tools/papi/)** - Detailed documentation for each SDK
+- <span class="badge guide">Guide</span> **Query On-Chain State**
+
+    ---
+
+    Learn how to query storage and runtime data with the SDKs used in this guide.
+
+    [:octicons-arrow-right-24: Get Started](/chain-interactions/query-data/query-sdks/)
+
+- <span class="badge guide">Guide</span> **Calculate Transaction Fees**
+
+    ---
+
+    Estimate fees before sending transactions
+
+    [:octicons-arrow-right-24: Get Started](/chain-interactions/send-transactions/calculate-transaction-fees/)
+
+</div>

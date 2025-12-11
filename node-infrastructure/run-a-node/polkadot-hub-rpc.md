@@ -183,7 +183,7 @@ Select the best option for your project, then use the steps in the following tab
               --rpc-port=0
             ```
 
-        Refer to the [Port Mappings](#port-mappings) and [Node Configuration Parameters](#node-configuration-parameters) sections for details on the command's configurations.
+        Refer to the [Port Mappings](#port-mappings) and [Node Configuration Arguments](#node-configuration-arguments) sections for details on the command's configurations.
     
 === "systemd"
 
@@ -317,7 +317,7 @@ Select the best option for your project, then use the steps in the following tab
             WantedBy=multi-user.target
             ```
 
-        Refer to the [Port Mappings](#port-mappings) and [Node Configuration Parameters](#node-configuration-parameters) sections for details on the command's configurations.
+        Refer to the [Port Mappings](#port-mappings) and [Node Configuration Arguments](#node-configuration-arguments) sections for details on the command's configurations.
 
     6. Start the service:
 
@@ -339,7 +339,7 @@ Select the best option for your project, then use the steps in the following tab
 - **`9615`**: Prometheus metrics endpoint
 - **`30333/30334`**: P2P networking ports
 
-### Node Configuration Parameters
+### Node Configuration Arguments
 
 - **`--unsafe-rpc-external`**: Enables external RPC access. **This command should only be used in development or properly secured environments**. For production, use a reverse proxy with authentication.
 - **`--rpc-cors=all`**: Allows all origins for CORS.

@@ -45,7 +45,7 @@ To build a parablock during the generation and backing stages, collators and val
 
 ### Generation
 
-Collators execute their blockchain core functionality to generate a new block, producing a [proof-of-validity](https://paritytech.github.io/polkadot-sdk/book/types/availability.html?#proof-of-validity){target=\_blank} (PoV), which is passed to validators selected for backing. The PoV is composed of:
+Collators execute their blockchain core functionality to generate a new block, producing a [proof-of-validity](https://wiki.polkadot.com/general/glossary/#proof-of-validity){target=\_blank} (PoV), which is passed to validators selected for backing. The PoV is composed of:
 
   - A list of state transitions called the **block candidate**
   - The values in the parachain's database that the block modifies

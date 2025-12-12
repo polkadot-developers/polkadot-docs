@@ -1,0 +1,8 @@
+[package]
+name = "dummy"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+# This is a placeholder crate to satisfy the Cargo workspace requirements.
+# The actual code snippets in this repository are standalone files used for documentation.

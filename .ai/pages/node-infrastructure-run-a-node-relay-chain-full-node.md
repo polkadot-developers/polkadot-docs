@@ -27,7 +27,7 @@ Before getting started, ensure the following prerequisites are met:
 - [Install the necessary dependencies for the Polkadot SDK](/parachains/install-polkadot-sdk/){target=\_blank}.
 
 !!! warning
-    This setup is not recommended for validators. If you plan to run a validator, refer to the [Running a Validator](/nodes-and-validators/run-a-validator/onboarding-and-offboarding/set-up-validator/){target=\_blank} guide for proper instructions.
+    This setup is not recommended for validators. If you plan to run a validator, refer to the [Running a Validator](/node-infrastructure/run-a-validator/onboarding-and-offboarding/set-up-validator/){target=\_blank} guide for proper instructions.
 
 ### Install and Build the Polkadot Binary
 
@@ -58,10 +58,9 @@ This section will walk you through installing and building the Polkadot binary f
     You should see output similar to the following:
 
     <div id="termynal" data-termynal>
-      <span data-ty="input"
-        ><span class="file-path"></span>rustup show <br />
-        rustup +nightly show</span
-      >
+      <span data-ty="input"><span class="file-path"></span>rustup show</span>
+      <span data-ty>rustup +nightly show</span>
+      <span data-ty></span>
       <span data-ty>active toolchain</span>
       <span data-ty>----------------</span>
       <span data-ty></span>
@@ -143,10 +142,8 @@ This section will walk you through installing and building the Polkadot binary f
     You should see output similar to the following:
 
     <div id="termynal" data-termynal>
-      <span data-ty="input"
-        ><span class="file-path"></span>rustup show <br />
-        rustup +nightly show</span
-      >
+      <span data-ty="input"><span class="file-path"></span>rustup show</span>
+      <span data-ty></span>
       <span data-ty>active toolchain</span>
       <span data-ty>----------------</span>
       <span data-ty></span>

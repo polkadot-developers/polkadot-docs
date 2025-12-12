@@ -1,56 +1,17 @@
 ---
 title: Run a Parachain RPC Node
-description: Complete guide to set up and run an RPC node for any Polkadot parachain, with system parachains as examples.
+description: Follow this guide to understand hardware and software requirements and how to set up and run an RPC node for any parachain, including system parachains.
 categories: Infrastructure
 url: https://docs.polkadot.com/node-infrastructure/run-a-node/parachain-rpc/
 ---
 
 # Run a Parachain RPC Node
 
-## Overview
+## Introduction
 
-Running an RPC node for a parachain enables applications, wallets, and users to interact with the parachain's functionality.
+A parachain RPC node provides direct access to a specific parachain on the Polkadot network, enabling developers and applications to interact with its assets, governance, cross-chain messages, and more. Running your own node also supports essential infrastructure tasks, such as block indexing and compatibility with Polkadot SDK tools.
 
-Each parachain RPC node provides access through the Polkadot SDK Node RPC (Port 9944), offering native Polkadot API access via WebSocket and HTTP. This setup enables block explorer indexing and provides full compatibility with Polkadot SDK development tools.
-
-!!! note
-
-    The parameters and configurations in this guide are provided as illustrative examples. You may need to modify them according to your specific environment, hardware capabilities, and network conditions.
-
-## Obtaining a Chain Specification
-
-To run an RPC node for any parachain, you need its **chain specification file**. This JSON file defines the network parameters, genesis state, and bootnodes.
-
-### System Parachains
-
-System parachain chain specs are available from multiple sources:
-
-**Option 1: Chainspec Collection (Recommended)**
-
-Visit the [Chainspec Collection](https://paritytech.github.io/chainspecs/) to download official chain specifications.
-
-**Option 2: Polkadot SDK Repository**
-
-Download directly from the Polkadot SDK repository:
-
-```bash
-# Example for People Chain
-curl -L https://raw.githubusercontent.com/paritytech/polkadot-sdk/master/cumulus/parachains/chain-specs/people-polkadot.json -o chain-spec.json
-```
-
-| System Parachain | Para ID | Chain Spec File | Snapshot Path |
-|------------------|---------|-----------------|---------------|
-| **Bridge Hub** | 1002 | `bridge-hub-polkadot.json` | `polkadot-bridge-hub-paritydb-archive` |
-| **People Chain** | 1004 | `people-polkadot.json` | `polkadot-people-rocksdb-archive` |
-| **Coretime Chain** | 1005 | `coretime-polkadot.json` | `polkadot-coretime-rocksdb-archive` |
-
-### Other Parachains
-
-For non-system parachains, check the parachain's documentation for official chain specification files.
-
-!!! note
-
-    Throughout this guide, we use **People Chain** as the example. To set up a different parachain, substitute the chain spec file, snapshot path, and chain name with values for your target parachain.
+Through the parachain RPC (WebSocket port 9944, HTTP port 9933), your node acts as the bridge between the parachain and applications. This page walks through setting up a node from scratch, covering hardware requirements and deployment options using Docker or systemd.
 
 ## Prerequisites
 
@@ -58,109 +19,137 @@ For non-system parachains, check the parachain's documentation for official chai
 
 RPC nodes serving production traffic require robust hardware:
 
-- **CPU**: 8+ cores (16+ cores for high traffic)
-- **Memory**: 64 GB RAM minimum (128 GB recommended for high traffic)
-- **Storage**:
-    - Archive node: Storage varies by parachain. Using snapshots, system parachain totals are: Asset Hub (~1.2 TB), Bridge Hub (~1.1 TB), Collectives (~1 TB), People Chain (~900 GB), Coretime (~900 GB). For non-system parachains, check the [snapshot sizes](https://snapshots.polkadot.io/){target=\_blank} and add ~822 GB for the relay chain.
-    - Pruned node: 200+ GB NVMe SSD (with pruning enabled for both parachain and relay chain)
-    - Fast disk I/O is critical for query performance
+- **CPU**: 8+ cores; 16+ cores for high traffic
+- **Memory**: 64 GB RAM minimum; 128 GB recommended for high traffic
+- **Storage**: Storage requirements vary by parachain. Fast NVMe I/O is critical for RPC query performance
+    - **System parachains**: [Snapshots](https://snapshots.polkadot.io/){target=\_blank} _may_ be available
+        - **Archive node (complete history)**: Using snapshots, expected storage requirements (including ~822 GB for the pruned relay chain) are:
+            - **Asset Hub**: ~1.2 TB
+            - **Bridge Hub**: ~1.1 TB
+            - **Collectives**: ~1 TB
+            - **People Chain**: ~900 GB
+            - **Coretime**: ~900 GB
+        - **Pruned node (recent state)**: ~200 GB total for both parachain and relay chain 
+    - **Non-system parachains**: Consult the parachain team or documentation, then add ~822 GB for the pruned relay chain
 - **Network**:
     - Public IP address
-    - 1 Gbps connection (for high traffic scenarios)
     - Stable internet connection with sufficient bandwidth
-    - Open ports:
-        - 30333 (parachain P2P)
-        - 30334 (relay chain P2P)
-        - 9944 (Polkadot SDK WebSocket RPC)
-        - 9933 (Polkadot SDK HTTP RPC)
+    - 1 Gbps connection for high traffic scenarios
     - Consider DDoS protection and rate limiting for production deployments
+    - Open ports:
+        - **30333**: Parachain P2P
+        - **30334**: Relay chain P2P
+        - **9944**: Polkadot SDK WebSocket RPC
+        - **9933**: Polkadot SDK HTTP RPC
 
 !!! note
-
-    For development or low-traffic scenarios, you can reduce these requirements proportionally. Consider using a reverse proxy (nginx, Caddy) for production deployments.
+    For development or low-traffic scenarios, you can reduce these requirements proportionally. Consider using a reverse proxy ([nginx](https://nginx.org/){target=\_blank}, [Caddy](https://caddyserver.com/){target=\_blank}) for production deployments.
 
 ### Software Requirements
 
 Required software:
 
-- **Operating System**: Ubuntu 22.04 LTS (recommended) or similar Linux distribution
-- **Docker**: Required for obtaining binaries and running containers
-- **rclone**: (Optional but recommended) Command-line program for managing files on cloud storage (https://rclone.org/downloads/)
+- **Operating system**: Ubuntu 22.04 LTS (recommended) or similar Linux distribution
+- **[Docker](https://www.docker.com/get-started/){target=\_blank}**: Required for obtaining binaries and running containers
+- **[rclone](https://rclone.org/downloads/){target=\_blank}**: (Optional but recommended) Command-line program for managing files on cloud storage
 
-## Setup Options
+## Obtain the Chain Specification
 
-This guide provides two options for deployment:
+To run an RPC node for a parachain, you need its chain specification file. This JSON file defines the network parameters, genesis state, and bootnodes. The process for obtaining the chain spec may differ depending on whether you’re running a system parachain or a regular parachain.
 
-- **Docker-based Setup**: Best for simpler set up and maintenance
-- **Manual/systemd Setup**: Best for production environments requiring more control
+### System Parachains
 
-Select the best option for your project, then use the steps in the following tabs to complete set up.
+System parachain chain specs are available from multiple sources:
 
-=== "Docker-Based Setup"
+- **[Chainspec Collection](https://paritytech.github.io/chainspecs/)**: (Recommended) Choose a file to download from the **List of Chainspecs** section.
+- **[Polkadot SDK repository](https://github.com/paritytech/polkadot-sdk){target=\_blank}**: Download directly from the Polkadot SDK repository:
 
-    This option uses Docker containers for the Polkadot SDK node, making it easy to set up and manage. Follow these steps to set your RPC node using Docker:
+    ```bash
+    # Example for People Chain
+    curl -L https://raw.githubusercontent.com/paritytech/polkadot-sdk/master/cumulus/parachains/chain-specs/people-polkadot.json -o chain-spec.json
+    ```
 
-    1. Download your parachain's chain specification as described in [Obtaining a Chain Specification](#obtaining-a-chain-specification).
+### Other Parachains
 
-    2. (Optional but recommended) Download database snapshots:
-        - Using pre-synchronized snapshots significantly reduces initial sync time from several days to just a few hours. You need to download both parachain and relay chain data.
-        - You can obtain the latest snapshot from the [Snapshot Provider](https://snapshots.polkadot.io/){target=\_blank}. Follow these steps to download and use snapshots:
+For non-system parachains, check the parachain's documentation for official chain specification files.
 
-            !!! note
+## Spin Up a Node
 
-                Snapshots are available for system parachains and the Polkadot relay chain. For other parachains, check with the parachain team for snapshot availability or sync from genesis.
+Choose the deployment option that fits your project, and follow the steps in the appropriate tab to complete setup:
 
-            1. Create new directories with the following commands:
-                ```bash
-                mkdir -p my-node-data/chains/people-polkadot/db
-                mkdir -p my-node-data/chains/polkadot/db
-                ```
-            2. Download the snapshots:
+- **Docker**: Best for simpler set up and maintenance
+- **systemd**: Best for production environments requiring more control
 
-                **Parachain archive snapshot** (People Chain example, ~71 GB):
-                ```bash
-                # Check https://snapshots.polkadot.io/ for the latest snapshot URL
-                export SNAPSHOT_URL_PARACHAIN="https://snapshots.polkadot.io/polkadot-people-rocksdb-archive/LATEST"
+This guide uses **People Chain** as an example. To set up a different parachain, replace the chain spec file, snapshot path, and chain name with the corresponding values for your target parachain.
 
-                rclone copyurl $SNAPSHOT_URL_PARACHAIN/files.txt files.txt
-                rclone copy --progress --transfers 20 \
-                  --http-url $SNAPSHOT_URL_PARACHAIN \
-                  --no-traverse --http-no-head --disable-http2 \
-                  --inplace --no-gzip-encoding --size-only \
-                  --retries 6 --retries-sleep 10s \
-                  --files-from files.txt :http: my-node-data/chains/people-polkadot/db/
+System parachain details:
 
-                rm files.txt
-                ```
+| System Parachain   | Para ID | Chain Spec File            | Snapshot Path                          |
+|--------------------|---------|----------------------------|----------------------------------------|
+| **Bridge Hub**     | 1002    | `bridge-hub-polkadot.json` | `polkadot-bridge-hub-paritydb-archive` |
+| **People Chain**   | 1004    | `people-polkadot.json`     | `polkadot-people-rocksdb-archive`      |
+| **Coretime Chain** | 1005    | `coretime-polkadot.json`   | `polkadot-coretime-rocksdb-archive`    |
 
-                **Relay chain pruned snapshot** (~822 GB):
-                ```bash
-                # Check https://snapshots.polkadot.io/ for the latest snapshot URL
-                export SNAPSHOT_URL_RELAY="https://snapshots.polkadot.io/polkadot-paritydb-prune/LATEST"
+=== "Docker"
 
-                rclone copyurl $SNAPSHOT_URL_RELAY/files.txt files.txt
-                rclone copy --progress --transfers 20 \
-                  --http-url $SNAPSHOT_URL_RELAY \
-                  --no-traverse --http-no-head --disable-http2 \
-                  --inplace --no-gzip-encoding --size-only \
-                  --retries 6 --retries-sleep 10s \
-                  --files-from files.txt :http: my-node-data/chains/polkadot/db/
+    1. Download your parachain's chain specification as described in [Obtain the Chain Specification](#obtain-the-chain-specification).
 
-                rm files.txt
-                ```
+    2. (Optional but recommended) Download pre-synced [snapshots](https://snapshots.polkadot.io/){target=\_blank} to cut initial sync time from days to hours:
 
-                **rclone parameters:**
+        !!! note
+            Snapshots are available for system parachains and the Polkadot relay chain. For other parachains, check with the parachain team for snapshot availability or sync from genesis.
 
-                - `--transfers 20`: Uses 20 parallel transfers for faster download
-                - `--retries 6`: Automatically retries failed transfers up to 6 times
-                - `--retries-sleep 10s`: Waits 10 seconds between retry attempts
-                - `--size-only`: Only transfers if sizes differ (prevents unnecessary re-downloads)
+        1. Create new directories:
+
+            ```bash
+            mkdir -p my-node-data/chains/people-polkadot/db
+            mkdir -p my-node-data/chains/polkadot/db
+            ```
+
+        2. Download and save the archive parachain snapshot:
+
+            ```bash
+            # Check https://snapshots.polkadot.io/ for the latest snapshot URL
+            export SNAPSHOT_URL_PARACHAIN="https://snapshots.polkadot.io/polkadot-people-rocksdb-archive/INSERT_LATEST"
+
+            rclone copyurl $SNAPSHOT_URL_PARACHAIN/files.txt files.txt
+            rclone copy --progress --transfers 20 \
+              --http-url $SNAPSHOT_URL_PARACHAIN \
+              --no-traverse --http-no-head --disable-http2 \
+              --inplace --no-gzip-encoding --size-only \
+              --retries 6 --retries-sleep 10s \
+              --files-from files.txt :http: my-node-data/chains/people-polkadot/db/
+
+            rm files.txt
+            ```
+
+            ??? interface "rclone parameters"
+
+                - **`--transfers 20`**: Uses 20 parallel transfers for faster download
+                - **`--retries 6`**: Automatically retries failed transfers up to 6 times
+                - **`--retries-sleep 10s`**: Waits 10 seconds between retry attempts
+                - **`--size-only`**: Only transfers if sizes differ (prevents unnecessary re-downloads)
+
+        3. Repeat the process for the pruned relay chain snapshot:
+
+            ```bash
+            # Check https://snapshots.polkadot.io/ for the latest snapshot URL
+            export SNAPSHOT_URL_RELAY="https://snapshots.polkadot.io/polkadot-rocksdb-prune/INSERT_LATEST"
+
+            rclone copyurl $SNAPSHOT_URL_RELAY/files.txt files.txt
+            rclone copy --progress --transfers 20 \
+              --http-url $SNAPSHOT_URL_RELAY \
+              --no-traverse --http-no-head --disable-http2 \
+              --inplace --no-gzip-encoding --size-only \
+              --retries 6 --retries-sleep 10s \
+              --files-from files.txt :http: my-node-data/chains/polkadot/db/
+
+            rm files.txt
+            ```
 
     3. Launch the parachain node using the official [Parity Docker image](https://hub.docker.com/r/parity/polkadot-parachain){target=\_blank}:
 
-        === "Archive Node"
-
-            Archive node configuration maintains complete parachain history for historical queries:
+        === "Archive"
 
             ```bash
             docker run -d --name people-chain-rpc --restart unless-stopped \
@@ -192,9 +181,7 @@ Select the best option for your project, then use the steps in the following tab
               --rpc-port=0
             ```
 
-        === "Pruned Node"
-
-            Pruned node configuration keeps recent state for smaller storage requirements:
+        === "Pruned"
 
             ```bash
             docker run -d --name people-chain-rpc --restart unless-stopped \
@@ -227,99 +214,14 @@ Select the best option for your project, then use the steps in the following tab
             ```
 
         !!! note
-
             The `parity/polkadot-parachain` image works for system parachains and parachains built with standard Cumulus templates. For parachains with custom runtimes, check the parachain's documentation for their specific Docker image or binary.
 
-        Critical configuration parameters include port mappings and node parameters:
+        Refer to the [Port Mappings](#port-mappings) and [Node Configuration Arguments](#node-configuration-arguments) sections for details on the command's configurations.
 
-        === "Port mappings"
-
-            - `9944`: Polkadot SDK RPC endpoint (WebSocket/HTTP)
-            - `9933`: Polkadot SDK HTTP RPC endpoint
-            - `9615`: Prometheus metrics endpoint
-            - `30333/30334`: P2P networking ports
-
-        === "Node parameters"
-
-            - `--unsafe-rpc-external`: Enables external RPC access
-            - `--rpc-cors=all`: Allows all origins for CORS
-            - `--rpc-methods=safe`: Only allows safe RPC methods
-            - `--state-pruning=archive` or `--state-pruning=1000`: Archive keeps complete state history, pruned keeps last 1000 blocks
-            - `--blocks-pruning=archive` or `--blocks-pruning=256`: Archive keeps all blocks, pruned keeps last 256 finalized blocks
-            - `--prometheus-external`: Exposes metrics externally
-
-        !!! warning
-
-            The `--unsafe-rpc-external` flag should only be used in development or properly secured environments. For production, use a reverse proxy with authentication.
-
-    4. Monitor the node synchronization status using the following command:
-        ```bash
-        curl -H "Content-Type: application/json" \
-          -d '{"id":1, "jsonrpc":"2.0", "method": "system_syncState", "params":[]}' \
-          http://localhost:9944
-        ```
-
-        You should see a response similar to the following:
-
-        ```json
-        {
-          "jsonrpc":"2.0",
-          "id":1,
-          "result":{
-            "startingBlock":0,
-            "currentBlock":3394816,
-            "highestBlock":3394816
-          }
-        }
-        ```
-
-        When synchronization is complete, `currentBlock` will be equal to `highestBlock`.
-
-    5. You can use a few different commands to verify your node is running properly:
-
-        - Get chain information:
-            ```bash
-            curl -H "Content-Type: application/json" \
-              -d '{"id":1, "jsonrpc":"2.0", "method": "system_chain", "params":[]}' \
-              http://localhost:9944
-            ```
-        - Get the latest block:
-            ```bash
-            curl -H "Content-Type: application/json" \
-              -d '{"id":1, "jsonrpc":"2.0", "method": "chain_getHeader", "params":[]}' \
-              http://localhost:9944
-            ```
-        - Query node health:
-            ```bash
-            curl -H "Content-Type: application/json" \
-              -d '{"id":1, "jsonrpc":"2.0", "method": "system_health", "params":[]}' \
-              http://localhost:9944
-            ```
-
-    6. Use the following commands to manage your Docker containers:
-
-        - View node logs:
-            ```bash
-            docker logs -f people-chain-rpc
-            ```
-        - Stop container:
-            ```bash
-            docker stop people-chain-rpc
-            ```
-        - Start container:
-            ```bash
-            docker start people-chain-rpc
-            ```
-        - Remove container:
-            ```bash
-            docker rm people-chain-rpc
-            ```
-
-=== "Manual systemd Setup"
-
-    This option provides more control and is recommended for production environments requiring custom configurations.
+=== "systemd"
 
     1. Download the `polkadot-parachain` binary from the latest stable [Polkadot SDK release](https://github.com/paritytech/polkadot-sdk/releases){target=\_blank}:
+
         ```bash
         # Download the latest stable release (check releases page for current version)
         wget https://github.com/paritytech/polkadot-sdk/releases/download/polkadot-stable2509-2/polkadot-parachain
@@ -332,38 +234,33 @@ Select the best option for your project, then use the steps in the following tab
         polkadot-parachain --version
         ```
 
-        Check the [Polkadot SDK releases](https://github.com/paritytech/polkadot-sdk/releases){target=\_blank} page for the latest stable version.
+    2. Download your parachain's chain specification as described in [Obtain the Chain Specification](#obtain-the-chain-specification).
 
-    2. Download your parachain's chain specification as described in [Obtaining a Chain Specification](#obtaining-a-chain-specification).
+    3. Create user and directory structures:
 
-    3. Create user and directory structures using the following commands:
-        - Create a dedicated user:
-            ```bash
-            sudo useradd -r -s /bin/bash polkadot
-            ```
-        - Create data directory:
-            ```bash
-            sudo mkdir -p /var/lib/people-chain-rpc
-            ```
-        - Copy the chain spec to the directory:
-            ```bash
-            sudo cp people-polkadot.json /var/lib/people-chain-rpc/
-            ```
-        - Set permissions:
-            ```bash
-            sudo chown -R polkadot:polkadot /var/lib/people-chain-rpc
-            ```
+        ```bash
+        # Create a dedicated user
+        sudo useradd -r -s /bin/bash polkadot
+        
+        # Create data directory
+        sudo mkdir -p /var/lib/people-chain-rpc
+
+        # Copy the chain spec to the directory
+        sudo cp asset-hub-polkadot.json /var/lib/people-chain-rpc/
+
+        # Set permissions
+        sudo chown -R polkadot:polkadot /var/lib/people-chain-rpc
+        ```
 
     4. Create a systemd service file for the Polkadot SDK RPC node:
+
         ```bash
         sudo nano /etc/systemd/system/people-chain-rpc.service
         ```
 
-    5. Open the new service file and add the configuration for your chosen node type:
+    5. Open the new service file and add the configuration for either an archive (complete history) or pruned (recent state) node:
 
-        === "Archive Node"
-
-            Archive node configuration maintains complete parachain history for historical queries:
+        === "Archive"
 
             ```ini
             [Unit]
@@ -406,9 +303,7 @@ Select the best option for your project, then use the steps in the following tab
             WantedBy=multi-user.target
             ```
 
-        === "Pruned Node"
-
-            Pruned node configuration keeps recent state for smaller storage requirements:
+        === "Pruned"
 
             ```ini
             [Unit]
@@ -451,44 +346,135 @@ Select the best option for your project, then use the steps in the following tab
             WantedBy=multi-user.target
             ```
 
-    6. Start the service using the following commands:
-        - Reload systemd:
-            ```bash
-            sudo systemctl daemon-reload
-            ```
-        - Enable service to start on boot:
-            ```bash
-            sudo systemctl enable people-chain-rpc
-            ```
-        - Start the Polkadot SDK node:
-            ```bash
-            sudo systemctl start people-chain-rpc
-            ```
-        - Check status and wait for sync:
-            ```bash
-            sudo systemctl status people-chain-rpc
-            sudo journalctl -u people-chain-rpc -f
-            ```
+        Refer to the [Port Mappings](#port-mappings) and [Node Configuration Arguments](#node-configuration-arguments) sections for details on the command's configurations.
 
-    7. You can use a few different commands to verify your node is running properly:
-        - Get chain information:
-            ```bash
-            curl -H "Content-Type: application/json" \
-              -d '{"id":1, "jsonrpc":"2.0", "method": "system_chain", "params":[]}' \
-              http://localhost:9944
-            ```
-        - Get the latest block:
-            ```bash
-            curl -H "Content-Type: application/json" \
-              -d '{"id":1, "jsonrpc":"2.0", "method": "chain_getHeader", "params":[]}' \
-              http://localhost:9944
-            ```
-        - Query node health:
-            ```bash
-            curl -H "Content-Type: application/json" \
-              -d '{"id":1, "jsonrpc":"2.0", "method": "system_health", "params":[]}' \
-              http://localhost:9944
-            ```
+    6. Start the service:
+
+        ```bash
+        # Reload systemd
+        sudo systemctl daemon-reload
+
+        # Enable service to start on boot
+        sudo systemctl enable people-chain-rpc
+        
+        # Start the Polkadot SDK node:
+        sudo systemctl start people-chain-rpc
+        ```
+
+### Port Mappings
+
+- **`9944`**: Polkadot SDK RPC endpoint (WebSocket/HTTP)
+- **`9933`**: Polkadot SDK HTTP RPC endpoint
+- **`9615`**: Prometheus metrics endpoint
+- **`30333/30334`**: P2P networking ports
+
+### Node Configuration Parameters
+
+- **`--unsafe-rpc-external`**: Enables external RPC access. **This command should only be used in development or properly secured environments**. For production, use a reverse proxy with authentication.
+- **`--rpc-cors=all`**: Allows all origins for CORS.
+- **`--rpc-methods=safe`**: Only allows safe RPC methods.
+- **`--state-pruning`**: Archive keeps complete state history, pruned keeps last specified number of blocks.
+- **`--blocks-pruning`**: Archive keeps all blocks, pruned keeps last specified number of finalized blocks.
+- **`--prometheus-external`**: Exposes metrics externally.
+
+## Monitor Node Synchronization
+
+Monitor the node synchronization status:
+
+```bash
+curl -H "Content-Type: application/json" \
+-d '{"id":1, "jsonrpc":"2.0", "method": "system_syncState", "params":[]}' \
+http://localhost:9944
+```
+
+When synchronization is complete, `currentBlock` will be equal to `highestBlock`:
+
+<div class="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>curl -H "Content-Type: application/json" \
+  -d '{"id":1, "jsonrpc":"2.0", "method": "system_syncState", "params":[]}' \
+  http://localhost:9944</span>
+  <span data-ty><pre>{
+  "jsonrpc":"2.0",
+  "id":1,
+  "result":{
+    "startingBlock":0,
+    "currentBlock":3394816,
+    "highestBlock":3394816
+  }
+}
+  </pre></span>
+</div>
+
+!!! tip
+    You can use the `system_health` command to verify your node is running properly.
+
+    ```bash
+    curl -H "Content-Type: application/json" \
+    -d '{"id":1, "jsonrpc":"2.0", "method": "system_health", "params":[]}' \
+    http://localhost:9944
+    ```
+
+## Commands for Managing Your Node
+
+Use the following commands to manage your node:
+
+=== "Docker"
+
+    - **View node logs**:
+
+        ```bash
+        docker logs -f people-chain-rpc
+        ```
+
+    - **Stop container**:
+
+        ```bash
+        docker stop people-chain-rpc
+        ```
+
+    - **Start container**:
+
+        ```bash
+        docker start people-chain-rpc
+        ```
+
+    - **Remove container**:
+
+        ```bash
+        docker rm people-chain-rpc
+        ```
+
+=== "systemd"
+
+    - **Check status**:
+
+        ```bash
+        sudo systemctl status people-chain-rpc
+        ```
+
+    - **View node logs**:
+
+        ```bash
+        sudo journalctl -u people-chain-rpc -f
+        ```
+
+    - **Stop service**:
+
+        ```bash
+        sudo systemctl stop people-chain-rpc
+        ```
+
+    - **Enable service**:
+
+        ```bash
+        sudo systemctl enable people-chain-rpc
+        ```
+
+    - **Start service**:
+
+        ```bash
+        sudo systemctl start people-chain-rpc
+        ```
 
 ## Conclusion
 

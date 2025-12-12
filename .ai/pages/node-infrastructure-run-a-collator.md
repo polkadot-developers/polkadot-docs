@@ -2,6 +2,7 @@
 title: Run a Block-Producing Collator
 description: Learn how to set up and run a block-producing collator for Polkadot system parachains, including registration and session key management.
 categories: Infrastructure
+url: https://docs.polkadot.com/node-infrastructure/run-a-collator/
 ---
 
 # Run a Block-Producing Collator

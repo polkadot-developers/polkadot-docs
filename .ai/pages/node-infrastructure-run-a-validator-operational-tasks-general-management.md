@@ -391,28 +391,28 @@ To configure Grafana, take these steps:
         sudo systemctl restart grafana-server
         ```
 
-![Grafana login screen](/images/nodes-and-validators/run-a-validator/operational-tasks/general-management/general-management-01.webp)
+![Grafana login screen](/images/node-infrastructure/run-a-validator/operational-tasks/general-management/general-management-01.webp)
 
 To visualize node metrics, follow these steps:
 
 1. Select the gear icon to access **Data Sources** settings.
 2. Select **Add data source** to define the data source.
 
-    ![Select Prometheus](/images/nodes-and-validators/run-a-validator/operational-tasks/general-management/general-management-02.webp)
+    ![Select Prometheus](/images/node-infrastructure/run-a-validator/operational-tasks/general-management/general-management-02.webp)
 
 3. Select **Prometheus**.
 
-    ![Save and test](/images/nodes-and-validators/run-a-validator/operational-tasks/general-management/general-management-03.webp)
+    ![Save and test](/images/node-infrastructure/run-a-validator/operational-tasks/general-management/general-management-03.webp)
 
 4. Enter `http://localhost:9090` in the **URL** field and click **Save & Test**. If **"Data source is working"** appears, your connection is configured correctly.
 
-    ![Import dashboard](/images/nodes-and-validators/run-a-validator/operational-tasks/general-management/general-management-04.webp)
+    ![Import dashboard](/images/node-infrastructure/run-a-validator/operational-tasks/general-management/general-management-04.webp)
 
 5. Select **Import** from the left menu, choose **Prometheus** from the dropdown, and click **Import**.
 
 6. Start your Polkadot node by running `./polkadot`. You should now be able to monitor node performance, block height, network traffic, and tasks tasks on the Grafana dashboard.
 
-    ![Live dashboard](/images/nodes-and-validators/run-a-validator/operational-tasks/general-management/general-management-05.webp)
+    ![Live dashboard](/images/node-infrastructure/run-a-validator/operational-tasks/general-management/general-management-05.webp)
 
 The [Grafana dashboards](https://grafana.com/grafana/dashboards){target=\_blank} page features user created dashboards made available for public use. For an example, see the [Substrate Node Metrics](https://grafana.com/grafana/dashboards/21715-substrate-node-metrics/){target=\_blank} dashboard.
 
@@ -656,13 +656,13 @@ Validators in Polkadot's Proof of Stake (PoS) network play a critical role in ma
 
 ### Key Management
 
-Though they don't transfer funds, session keys are essential for validators as they sign messages related to consensus and parachains. Securing session keys is crucial as allowing them to be exploited or used across multiple nodes can lead to a loss of staked funds via [slashing](/nodes-and-validators/run-a-validator/staking-mechanics/offenses-and-slashes/){target=\_blank}.
+Though they don't transfer funds, session keys are essential for validators as they sign messages related to consensus and parachains. Securing session keys is crucial as allowing them to be exploited or used across multiple nodes can lead to a loss of staked funds via [slashing](/node-infrastructure/run-a-validator/staking-mechanics/offenses-and-slashes/){target=\_blank}.
 
 Given the current limitations in high-availability setups and the risks associated with double-signing, it’s recommended to run only a single validator instance. Keys should be securely managed, and processes automated to minimize human error.
 
 There are two approaches for generating session keys:
 
-- **Generate and store in node**: Using the `author.rotateKeys` RPC call. For most users, generating keys directly within the client is recommended. You must submit a session certificate from your staking proxy to register new keys. See the [How to Validate](/nodes-and-validators/run-a-validator/onboarding-and-offboarding/set-up-validator/){target=\_blank} guide for instructions on setting keys.
+- **Generate and store in node**: Using the `author.rotateKeys` RPC call. For most users, generating keys directly within the client is recommended. You must submit a session certificate from your staking proxy to register new keys. See the [How to Validate](/node-infrastructure/run-a-validator/onboarding-and-offboarding/set-up-validator/){target=\_blank} guide for instructions on setting keys.
 
 - **Generate outside node and insert**: Using the `author.setKeys` RPC call. This flexibility accommodates advanced security setups and should only be used by experienced validator operators.
 

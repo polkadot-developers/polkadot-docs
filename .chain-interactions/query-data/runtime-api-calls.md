@@ -1,6 +1,6 @@
 ---
 title: Runtime API Calls
-description: Learn how to call runtime APIs on Polkadot Hub using PAPI, Polkadot.js, Dedot, Python Substrate Interface, and Subxt.
+description: Learn how to call runtime APIs on Polkadot using PAPI, Polkadot.js, Dedot, Python Substrate Interface, and Subxt.
 categories: Chain Interactions
 ---
 
@@ -26,7 +26,7 @@ This guide demonstrates how to call runtime APIs using five popular SDKs:
 - **[Python Substrate Interface](/reference/tools/py-substrate-interface/){target=\_blank}** - Python library for Substrate chains
 - **[Subxt](/reference/tools/subxt/){target=\_blank}** - Rust library with compile-time type safety
 
-Select your preferred SDK below to see complete, runnable examples that query Polkadot Hub for account nonces and metadata information.
+Select your preferred SDK below to see complete, runnable examples that query Polkadot Hub TestNet (Paseo Asset Hub) for account nonces and metadata information.
 
 ## Call Runtime APIs
 
@@ -53,10 +53,10 @@ Select your preferred SDK below to see complete, runnable examples that query Po
         npm install --save-dev @types/node tsx typescript
         ```
 
-    3. Generate types for Polkadot Hub:
+    3. Generate types for Polkadot Hub TestNet:
 
         ```bash
-        npx papi add pah -n polkadot_asset_hub
+        npx papi add polkadotTestNet -w wss://asset-hub-paseo.dotters.network
         ```
 
     **Call Runtime APIs**
@@ -72,7 +72,7 @@ Select your preferred SDK below to see complete, runnable examples that query Po
     --8<-- "code/chain-interactions/query-data/runtime-api-calls/papi/runtime-apis.ts"
     ```
 
-    Ensure to replace `INSERT_WS_ENDPOINT` with a valid WebSocket endpoint (e.g., `wss://polkadot-asset-hub-rpc.polkadot.io`) and `INSERT_ADDRESS` with the account address you want to query.
+    Ensure to replace `INSERT_WS_ENDPOINT` with a valid WebSocket endpoint (e.g., `wss://asset-hub-paseo.dotters.network`) and `INSERT_ADDRESS` with the account address you want to query.
 
     Run the script:
 
@@ -122,7 +122,7 @@ Select your preferred SDK below to see complete, runnable examples that query Po
     --8<-- "code/chain-interactions/query-data/runtime-api-calls/pjs/runtime-apis.js"
     ```
 
-    Ensure to replace `INSERT_WS_ENDPOINT` with a valid WebSocket endpoint (e.g., `wss://polkadot-asset-hub-rpc.polkadot.io`) and `INSERT_ADDRESS` with the account address you want to query.
+    Ensure to replace `INSERT_WS_ENDPOINT` with a valid WebSocket endpoint (e.g., `wss://asset-hub-paseo.dotters.network`) and `INSERT_ADDRESS` with the account address you want to query.
 
     Run the script:
 
@@ -170,7 +170,7 @@ Select your preferred SDK below to see complete, runnable examples that query Po
     --8<-- "code/chain-interactions/query-data/runtime-api-calls/dedot/runtime-apis.ts"
     ```
 
-    Ensure to replace `INSERT_WS_ENDPOINT` with a valid WebSocket endpoint (e.g., `wss://polkadot-asset-hub-rpc.polkadot.io`) and `INSERT_ADDRESS` with the account address you want to query.
+    Ensure to replace `INSERT_WS_ENDPOINT` with a valid WebSocket endpoint (e.g., `wss://asset-hub-paseo.dotters.network`) and `INSERT_ADDRESS` with the account address you want to query.
 
     Run the script:
 
@@ -217,7 +217,7 @@ Select your preferred SDK below to see complete, runnable examples that query Po
     --8<-- "code/chain-interactions/query-data/runtime-api-calls/psi/runtime_apis.py"
     ```
 
-    Ensure to replace `INSERT_WS_ENDPOINT` with a valid WebSocket endpoint (e.g., `wss://polkadot-asset-hub-rpc.polkadot.io`) and `INSERT_ADDRESS` with the account address you want to query.
+    Ensure to replace `INSERT_WS_ENDPOINT` with a valid WebSocket endpoint (e.g., `wss://asset-hub-paseo.dotters.network`) and `INSERT_ADDRESS` with the account address you want to query.
 
     Run the script:
 
@@ -252,13 +252,13 @@ Select your preferred SDK below to see complete, runnable examples that query Po
         cargo install subxt-cli@{{ dependencies.crates.subxt_cli.version }}
         ```
 
-    3. Download the Polkadot Hub metadata:
+    3. Download the Polkadot Hub TestNet metadata:
 
         ```bash
         subxt metadata --url INSERT_WS_ENDPOINT -o asset_hub_metadata.scale
         ```
 
-        Ensure to replace `INSERT_WS_ENDPOINT` with the proper WebSocket endpoint, such as `wss://polkadot-asset-hub-rpc.polkadot.io` for Polkadot Hub.
+        Ensure to replace `INSERT_WS_ENDPOINT` with the proper WebSocket endpoint, such as `wss://asset-hub-paseo.dotters.network` for Polkadot Hub TestNet (Paseo Asset Hub).
 
     4. Update `Cargo.toml` with the required dependencies:
 
@@ -279,7 +279,7 @@ Select your preferred SDK below to see complete, runnable examples that query Po
     --8<-- "code/chain-interactions/query-data/runtime-api-calls/subxt/src/bin/runtime_apis.rs"
     ```
 
-    Ensure to replace `INSERT_WS_ENDPOINT` with a valid WebSocket endpoint (e.g., `wss://polkadot-asset-hub-rpc.polkadot.io`) and `INSERT_ADDRESS` with the account address you want to query.
+    Ensure to replace `INSERT_WS_ENDPOINT` with a valid WebSocket endpoint (e.g., `wss://asset-hub-paseo.dotters.network`) and `INSERT_ADDRESS` with the account address you want to query.
 
     Run the script:
 

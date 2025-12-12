@@ -2,15 +2,15 @@ from substrateinterface import SubstrateInterface
 
 ASSET_HUB_RPC = "INSERT_WS_ENDPOINT"
 
-# Example address to query (Polkadot Hub address)
+# Example address to query
 ADDRESS = "INSERT_ADDRESS"
 
 
 def main():
-    # Connect to Polkadot Hub
+    # Connect to Polkadot Hub TestNet (Paseo Asset Hub)
     substrate = SubstrateInterface(url=ASSET_HUB_RPC)
 
-    print("Connected to Polkadot Hub")
+    print("Connected to Polkadot Hub TestNet")
     print(f"Querying runtime APIs for: {ADDRESS}\n")
 
     # Call AccountNonceApi to get the account nonce

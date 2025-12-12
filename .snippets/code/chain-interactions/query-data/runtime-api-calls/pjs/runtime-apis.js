@@ -2,7 +2,7 @@ import { ApiPromise, WsProvider } from '@polkadot/api';
 
 const ASSET_HUB_RPC = 'INSERT_WS_ENDPOINT';
 
-// Example address to query (Polkadot Hub address)
+// Example address to query
 const ADDRESS = 'INSERT_ADDRESS';
 
 async function main() {
@@ -12,7 +12,7 @@ async function main() {
   // Initialize the API
   const api = await ApiPromise.create({ provider: wsProvider });
 
-  console.log('Connected to Polkadot Hub');
+  console.log('Connected to Polkadot Hub TestNet');
   console.log(`Querying runtime APIs for: ${ADDRESS}\n`);
 
   // Call AccountNonceApi to get the account nonce

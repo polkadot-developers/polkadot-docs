@@ -1,11 +1,11 @@
 import { createClient } from 'polkadot-api';
 import { getWsProvider } from 'polkadot-api/ws-provider/node';
 import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
-import { pah } from '@polkadot-api/descriptors';
+import { polkadotTestNet } from '@polkadot-api/descriptors';
 
 const ASSET_HUB_RPC = 'INSERT_WS_ENDPOINT';
 
-// Example address to query (Polkadot Hub address)
+// Example address to query
 const ADDRESS = 'INSERT_ADDRESS';
 
 async function main() {
@@ -14,10 +14,10 @@ async function main() {
     withPolkadotSdkCompat(getWsProvider(ASSET_HUB_RPC))
   );
 
-  // Get the typed API for Polkadot Hub
-  const api = client.getTypedApi(pah);
+  // Get the typed API for Polkadot Hub TestNet (Paseo Asset Hub)
+  const api = client.getTypedApi(polkadotTestNet);
 
-  console.log('Connected to Polkadot Hub');
+  console.log('Connected to Polkadot Hub TestNet');
   console.log(`Querying runtime APIs for: ${ADDRESS}\n`);
 
   // Call AccountNonceApi to get the account nonce

@@ -9,7 +9,7 @@ pub mod asset_hub {}
 
 const ASSET_HUB_RPC: &str = "INSERT_WS_ENDPOINT";
 
-// Example address to query (Polkadot Hub address)
+// Example address to query
 const ADDRESS: &str = "INSERT_ADDRESS";
 
 #[tokio::main(flavor = "current_thread")]
@@ -17,7 +17,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Initialize the Subxt client
     let api = OnlineClient::<PolkadotConfig>::from_url(ASSET_HUB_RPC).await?;
 
-    println!("Connected to Polkadot Hub");
+    println!("Connected to Polkadot Hub TestNet");
     println!("Querying runtime APIs for: {}\n", ADDRESS);
 
     // Parse the address

@@ -23,7 +23,7 @@ Zombienet releases are available on the [Zombienet repository](https://github.co
 
 === "Use the executable"
 
-    Download the appropriate executable for your operating system from the [latest release](https://github.com/paritytech/zombienet/releases){target=\_blank} page. Each release includes executables for Linux and macOS, generated using [pkg](https://github.com/vercel/pkg){target=\_blank}, which allows Zombienet to run without Node.js.
+    Download the appropriate executable for your operating system from the [latest release](https://github.com/paritytech/zombienet/releases){target=\_blank} page. Each release includes executables for Linux and macOS.
 
     Make the downloaded file executable:
 
@@ -290,7 +290,7 @@ Some frequently used assertions include:
 
 - **Well-known functions**: `alice: is up`, `alice: parachain 100 is registered within 225 seconds`.
 - **Metrics**: `alice: reports node_roles is 4`.
-- **Logs**: `alice: log line matches glob "rted #1" within 10 seconds`.
+- **Logs**: `alice: log line matches glob "Imported #1" within 10 seconds`.
 - **System events**: `alice: system event matches ""paraId":[0-9]+" within 10 seconds`.
 - **Custom scripts**: `alice: js-script ./script.js return is greater than 1 within 200 seconds`.
 

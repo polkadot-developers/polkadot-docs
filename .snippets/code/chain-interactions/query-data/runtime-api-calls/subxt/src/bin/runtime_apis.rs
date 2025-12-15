@@ -7,7 +7,7 @@ use subxt::{OnlineClient, PolkadotConfig};
 #[subxt::subxt(runtime_metadata_path = "asset_hub_metadata.scale")]
 pub mod asset_hub {}
 
-const ASSET_HUB_RPC: &str = "INSERT_WS_ENDPOINT";
+const POLKADOT_TESTNET_RPC: &str = "INSERT_WS_ENDPOINT";
 
 // Example address to query
 const ADDRESS: &str = "INSERT_ADDRESS";
@@ -15,7 +15,7 @@ const ADDRESS: &str = "INSERT_ADDRESS";
 #[tokio::main(flavor = "current_thread")]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Initialize the Subxt client
-    let api = OnlineClient::<PolkadotConfig>::from_url(ASSET_HUB_RPC).await?;
+    let api = OnlineClient::<PolkadotConfig>::from_url(POLKADOT_TESTNET_RPC).await?;
 
     println!("Connected to Polkadot Hub TestNet");
     println!("Querying runtime APIs for: {}\n", ADDRESS);

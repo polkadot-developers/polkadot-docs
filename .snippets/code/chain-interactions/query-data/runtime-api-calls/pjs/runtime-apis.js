@@ -1,13 +1,13 @@
 import { ApiPromise, WsProvider } from '@polkadot/api';
 
-const ASSET_HUB_RPC = 'INSERT_WS_ENDPOINT';
+const POLKADOT_TESTNET_RPC = 'INSERT_WS_ENDPOINT';
 
 // Example address to query
 const ADDRESS = 'INSERT_ADDRESS';
 
 async function main() {
   // Create a WebSocket provider
-  const wsProvider = new WsProvider(ASSET_HUB_RPC);
+  const wsProvider = new WsProvider(POLKADOT_TESTNET_RPC);
 
   // Initialize the API
   const api = await ApiPromise.create({ provider: wsProvider });

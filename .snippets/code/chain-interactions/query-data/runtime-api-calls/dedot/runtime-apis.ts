@@ -1,14 +1,14 @@
 import { DedotClient, WsProvider } from 'dedot';
 import type { PolkadotAssetHubApi } from '@dedot/chaintypes';
 
-const ASSET_HUB_RPC = 'INSERT_WS_ENDPOINT';
+const POLKADOT_TESTNET_RPC = 'INSERT_WS_ENDPOINT';
 
 // Example address to query
 const ADDRESS = 'INSERT_ADDRESS';
 
 async function main() {
   // Initialize provider and client with Polkadot TestNet types
-  const provider = new WsProvider(ASSET_HUB_RPC);
+  const provider = new WsProvider(POLKADOT_TESTNET_RPC);
   const client = await DedotClient.new<PolkadotAssetHubApi>(provider);
 
   console.log('Connected to Polkadot Hub TestNet');

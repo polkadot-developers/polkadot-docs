@@ -1,6 +1,6 @@
 from substrateinterface import SubstrateInterface
 
-ASSET_HUB_RPC = "INSERT_WS_ENDPOINT"
+POLKADOT_TESTNET_RPC = "INSERT_WS_ENDPOINT"
 
 # Example address to query
 ADDRESS = "INSERT_ADDRESS"
@@ -8,7 +8,7 @@ ADDRESS = "INSERT_ADDRESS"
 
 def main():
     # Connect to Polkadot Hub TestNet
-    substrate = SubstrateInterface(url=ASSET_HUB_RPC)
+    substrate = SubstrateInterface(url=POLKADOT_TESTNET_RPC)
 
     print("Connected to Polkadot Hub TestNet")
     print(f"Querying runtime APIs for: {ADDRESS}\n")

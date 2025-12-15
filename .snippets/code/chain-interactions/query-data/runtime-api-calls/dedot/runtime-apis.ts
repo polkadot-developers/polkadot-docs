@@ -7,7 +7,7 @@ const ASSET_HUB_RPC = 'INSERT_WS_ENDPOINT';
 const ADDRESS = 'INSERT_ADDRESS';
 
 async function main() {
-  // Initialize provider and client with Asset Hub types
+  // Initialize provider and client with Polkadot TestNet types
   const provider = new WsProvider(ASSET_HUB_RPC);
   const client = await DedotClient.new<PolkadotAssetHubApi>(provider);
 

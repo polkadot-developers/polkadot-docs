@@ -4,8 +4,8 @@ use subxt::utils::AccountId32;
 use subxt::{OnlineClient, PolkadotConfig};
 
 // Generate an interface from the node's metadata
-#[subxt::subxt(runtime_metadata_path = "asset_hub_metadata.scale")]
-pub mod asset_hub {}
+#[subxt::subxt(runtime_metadata_path = "polkadot_testnet_metadata.scale")]
+pub mod polkadot_testnet {}
 
 const POLKADOT_TESTNET_RPC: &str = "INSERT_WS_ENDPOINT";
 
@@ -24,7 +24,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let account = AccountId32::from_str(ADDRESS)?;
 
     // Call AccountNonceApi using static interface
-    let nonce_call = asset_hub::apis()
+    let nonce_call = polkadot_testnet::apis()
         .account_nonce_api()
         .account_nonce(account.clone());
     let nonce = api.runtime_api().at_latest().await?.call(nonce_call).await?;

@@ -255,7 +255,7 @@ Select your preferred SDK below to see complete, runnable examples that query Po
     3. Download the Polkadot Hub TestNet metadata:
 
         ```bash
-        subxt metadata --url INSERT_WS_ENDPOINT -o asset_hub_metadata.scale
+        subxt metadata --url INSERT_WS_ENDPOINT -o polkadot_testnet_metadata.scale
         ```
 
         Ensure to replace `INSERT_WS_ENDPOINT` with the proper WebSocket endpoint, such as `wss://asset-hub-paseo.dotters.network` for Polkadot Hub TestNet.

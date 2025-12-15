@@ -258,7 +258,7 @@ Select your preferred SDK below to see complete, runnable examples that query Po
         subxt metadata --url INSERT_WS_ENDPOINT -o asset_hub_metadata.scale
         ```
 
-        Ensure to replace `INSERT_WS_ENDPOINT` with the proper WebSocket endpoint, such as `wss://asset-hub-paseo.dotters.network` for Polkadot Hub TestNet (Paseo Asset Hub).
+        Ensure to replace `INSERT_WS_ENDPOINT` with the proper WebSocket endpoint, such as `wss://asset-hub-paseo.dotters.network` for Polkadot Hub TestNet.
 
     4. Update `Cargo.toml` with the required dependencies:
 

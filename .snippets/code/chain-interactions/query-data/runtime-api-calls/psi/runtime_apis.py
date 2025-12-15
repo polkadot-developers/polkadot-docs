@@ -7,7 +7,7 @@ ADDRESS = "INSERT_ADDRESS"
 
 
 def main():
-    # Connect to Polkadot Hub TestNet (Paseo Asset Hub)
+    # Connect to Polkadot Hub TestNet
     substrate = SubstrateInterface(url=ASSET_HUB_RPC)
 
     print("Connected to Polkadot Hub TestNet")

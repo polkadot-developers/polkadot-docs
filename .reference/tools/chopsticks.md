@@ -126,23 +126,7 @@ The Chopsticks source repository includes a collection of [YAML](https://yaml.or
 An example of a configuration file for Polkadot is as follows:
 
 ```yaml title="polkadot.yml"
-endpoint:
-  - wss://rpc.ibp.network/polkadot
-  - wss://polkadot-rpc.dwellir.com
-mock-signature-host: true
-block: ${env.POLKADOT_BLOCK_NUMBER}
-db: ./db.sqlite
-runtime-log-level: 5
-
-import-storage:
-  System:
-    Account:
-      - - - 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY
-        - providers: 1
-          data:
-            free: '10000000000000000000'
-  ParasDisputes:
-    $removePrefix: ['disputes'] # those can makes block building super slow
+--8<-- 'code/reference/tools/chopsticks/polkadot.yml'
 ```
 
 The configuration file allows you to modify the storage of the forked network by rewriting the pallet, state component and value that you want to change. For example, Polkadot's file rewrites Alice's `system.Account` storage so that the free balance is set to `10000000000000000000`.
@@ -180,10 +164,7 @@ npx @acala-network/chopsticks \
 
 If the fork is successful, you will see output indicating the RPC is listening:
 
-<div class="termynal" data-termynal>
-  <span data-ty="input">npx @acala-network/chopsticks --endpoint wss://polkadot-rpc.dwellir.com --block 100</span>
-  <span data-ty="output">[19:12:21.023] INFO: Polkadot RPC listening on port 8000</span>
-</div>
+---8<-- 'code/reference/tools/chopsticks/polkadot-output.html'
 
 You can now access the running Chopsticks fork using the default address: `ws://localhost:8000`.
 
@@ -213,18 +194,7 @@ You can interact with the forked chain using various libraries such as [Polkadot
     For programmatic interaction, you can use the [Polkadot.js](/reference/tools/polkadot-js-api/){target=\_blank} library:
 
     ```typescript title="connect-to-fork.ts"
-    import { ApiPromise, WsProvider } from '@polkadot/api';
-
-    async function connectToFork() {
-        const wsProvider = new WsProvider('ws://localhost:8000');
-        const api = await ApiPromise.create({ provider: wsProvider });
-        await api.isReady;
-
-        // Now you can use 'api' to interact with your fork
-        console.log(`Connected to chain: ${await api.rpc.system.chain()}`);
-    }
-
-    connectToFork();
+    --8<-- 'code/reference/tools/chopsticks/connect-to-fork.ts'
     ```
 
 ### Replay Blocks
@@ -266,14 +236,7 @@ npx @acala-network/chopsticks xcm \
 
 After running it, you should see output indicating connections between the chains:
 
-<div class="termynal" data-termynal>
-  <span data-ty="input">npx @acala-network/chopsticks xcm --r polkadot --p moonbeam --p astar</span>
-  <span data-ty="output">[13:46:12.631] INFO: Moonbeam RPC listening on port 8000</span>
-  <span data-ty="output">[13:46:23.669] INFO: Astar RPC listening on port 8001</span>
-  <span data-ty="output">[13:46:53.320] INFO: Polkadot RPC listening on port 8002</span>
-  <span data-ty="output">[13:46:54.038] INFO (xcm): Connected relaychain 'Polkadot' with parachain 'Moonbeam'</span>
-  <span data-ty="output">[13:46:55.028] INFO (xcm): Connected relaychain 'Polkadot' with parachain 'Astar'</span>
-</div>
+---8<-- 'code/reference/tools/chopsticks/xcm-output.html'
 
 Now you can interact with your forked chains using the ports specified in the output and test XCM messages between them.
 
@@ -299,16 +262,7 @@ Chopstick's internal WebSocket server has special endpoints that allow the manip
     **Example:**
 
     ```typescript title="dev-newblock-example.ts"
-    import { ApiPromise, WsProvider } from '@polkadot/api';
-
-    async function main() {
-        const wsProvider = new WsProvider('ws://localhost:8000');
-        const api = await ApiPromise.create({ provider: wsProvider });
-        await api.isReady;
-        await api.rpc('dev_newBlock', { count: 1 });
-    }
-
-    main();
+    --8<-- 'code/reference/tools/chopsticks/dev-new-block-example.ts'
     ```
 
 === "dev_setBlockBuildMode"
@@ -325,16 +279,7 @@ Chopstick's internal WebSocket server has special endpoints that allow the manip
     **Example:**
 
     ```typescript title="dev-setBlockBuildMode-example.ts"
-    import { ApiPromise, WsProvider } from '@polkadot/api';
-
-    async function main() {
-        const wsProvider = new WsProvider('ws://localhost:8000');
-        const api = await ApiPromise.create({ provider: wsProvider });
-        await api.isReady;
-        await api.rpc('dev_setBlockBuildMode', 'Instant');
-    }
-
-    main();
+    --8<-- 'code/reference/tools/chopsticks/dev-setBlockBuildMode-example.ts'
     ```
 
 === "dev_setHead"
@@ -348,16 +293,7 @@ Chopstick's internal WebSocket server has special endpoints that allow the manip
     **Example:**
 
     ```typescript title="dev-setHead-example.ts"
-    import { ApiPromise, WsProvider } from '@polkadot/api';
-
-    async function main() {
-        const wsProvider = new WsProvider('ws://localhost:8000');
-        const api = await ApiPromise.create({ provider: wsProvider });
-        await api.isReady;
-        await api.rpc('dev_setHead', 500);
-    }
-
-    main();
+    --8<-- 'code/reference/tools/chopsticks/dev-setHead-example.ts'
     ```
 
 === "dev_setRuntimeLogLevel"
@@ -371,16 +307,7 @@ Chopstick's internal WebSocket server has special endpoints that allow the manip
     **Example:**
 
     ```typescript title="dev-setRuntimeLogLevel-example.ts"
-    import { ApiPromise, WsProvider } from '@polkadot/api';
-
-    async function main() {
-        const wsProvider = new WsProvider('ws://localhost:8000');
-        const api = await ApiPromise.create({ provider: wsProvider });
-        await api.isReady;
-        await api.rpc('dev_setRuntimeLogLevel', 1);
-    }
-
-    main();
+    --8<-- 'code/reference/tools/chopsticks/dev-setRuntimeLogLevel-example.ts'
     ```
 === "dev_setStorage"
 
@@ -394,24 +321,7 @@ Chopstick's internal WebSocket server has special endpoints that allow the manip
     **Example:**
 
     ```typescript title="dev-setStorage-example.ts"
-    import { ApiPromise, WsProvider } from '@polkadot/api';
-    import { Keyring } from '@polkadot/keyring';
-
-    async function main() {
-        const wsProvider = new WsProvider('ws://localhost:8000');
-        const api = await ApiPromise.create({ provider: wsProvider });
-        await api.isReady;
-        const keyring = new Keyring({ type: 'ed25519' });
-        const bob = keyring.addFromUri('//Bob');
-        const storage = {
-            System: {
-            Account: [[[bob.address], { data: { free: 100000 }, nonce: 1 }]],
-            },
-        };
-        await api.rpc('dev_setStorage', storage);
-    }
-
-    main();
+    --8<-- 'code/reference/tools/chopsticks/dev-setStorage-example.ts'
     ```
 
 === "dev_timeTravel"
@@ -425,16 +335,7 @@ Chopstick's internal WebSocket server has special endpoints that allow the manip
     **Example:**
 
     ```typescript title="dev-timeTravel-example.ts"
-    import { ApiPromise, WsProvider } from '@polkadot/api';
-
-    async function main() {
-        const wsProvider = new WsProvider('ws://localhost:8000');
-        const api = await ApiPromise.create({ provider: wsProvider });
-        await api.isReady;
-        await api.rpc('dev_timeTravel', '2030-08-15T00:00:00');
-    }
-
-    main();
+    --8<-- 'code/reference/tools/chopsticks/dev-timeTravel-example.ts'
     ```
 
 ## Where to Go Next

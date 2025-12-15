@@ -26,7 +26,7 @@ This guide demonstrates how to call runtime APIs using five popular SDKs:
 - **[Python Substrate Interface](/reference/tools/py-substrate-interface/){target=\_blank}** - Python library for Substrate chains
 - **[Subxt](/reference/tools/subxt/){target=\_blank}** - Rust library with compile-time type safety
 
-Select your preferred SDK below to see complete, runnable examples that query Polkadot Hub TestNet (Paseo Asset Hub) for account nonces and metadata information.
+Select your preferred SDK below to see complete, runnable examples that query Polkadot Hub TestNet for account nonces and metadata information.
 
 ## Call Runtime APIs
 

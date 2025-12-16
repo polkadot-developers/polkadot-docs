@@ -14,7 +14,7 @@ async function main() {
     withPolkadotSdkCompat(getWsProvider(POLKADOT_TESTNET_RPC))
   );
 
-  // Get the typed API for Polkadot Hub TestNet (Paseo Asset Hub)
+  // Get the typed API for Polkadot Hub TestNet
   const api = client.getTypedApi(polkadotTestNet);
 
   console.log('Connected to Polkadot Hub TestNet');

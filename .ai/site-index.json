@@ -5479,7 +5479,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-overview.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/overview/",
-    "preview": "Polkadot Hub provides a production-ready smart contract platform that combines Ethereum compatibility with the performance and cross-chain capabilities of the Polkadot ecosystem. Developers can deploy smart contracts directly on Polkadot Hub while using familiar Ethereum tooling, workflows, and programming languages.",
+    "preview": "Polkadot Hub is a production-ready Solidity smart contract platform that brings full Ethereum compatibility to the Polkadot ecosystem. Deploy your existing Ethereum contracts without modifications, use familiar tools like Hardhat and Remix, and gain access to Polkadot's cross-chain capabilities.",
     "outline": [
       {
         "depth": 2,
@@ -5493,18 +5493,18 @@
       },
       {
         "depth": 3,
-        "title": "Ethereum Compatibility",
-        "anchor": "ethereum-compatibility"
+        "title": "Full Ethereum Compatibility",
+        "anchor": "full-ethereum-compatibility"
       },
       {
         "depth": 3,
-        "title": "Performance Options",
-        "anchor": "performance-options"
+        "title": "Cross-Chain Capabilities",
+        "anchor": "cross-chain-capabilities"
       },
       {
         "depth": 3,
-        "title": "Cross-VM  & Cross-Chain Capabilities",
-        "anchor": "cross-vm-cross-chain-capabilities"
+        "title": "Native Polkadot Integration",
+        "anchor": "native-polkadot-integration"
       },
       {
         "depth": 2,
@@ -5518,12 +5518,12 @@
       }
     ],
     "stats": {
-      "chars": 4414,
-      "words": 580,
+      "chars": 3337,
+      "words": 424,
       "headings": 7,
-      "estimated_token_count_total": 915
+      "estimated_token_count_total": 701
     },
-    "hash": "sha256:367436ac4b733aae2bddf4391400ca59ed3d7c0af8bc7fb11fd6a017e4b09fd5",
+    "hash": "sha256:e3012105369276ce06f76c41edf4b1756c192aa8b81b1511668a8f72f4d70864",
     "token_estimator": "heuristic-v1"
   },
   {

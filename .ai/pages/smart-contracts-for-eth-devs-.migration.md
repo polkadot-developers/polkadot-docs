@@ -1,6 +1,6 @@
 ---
 title: Migration FAQs and Considerations
-description: Learn how to migrate your existing Ethereum contracts to the Polkadot Hub using REVM and PolkaVM by following these considerations.
+description: Learn how to migrate your existing Ethereum contracts to the Polkadot Hub using REVM and PVM by following these considerations.
 categories: Smart Contracts
 url: https://docs.polkadot.com/smart-contracts/for-eth-devs/.migration/
 ---
@@ -9,7 +9,7 @@ url: https://docs.polkadot.com/smart-contracts/for-eth-devs/.migration/
 
 ## Introduction
 
-This guide helps Ethereum developers migrate their smart contracts to Polkadot Hub. Most contracts work without modifications on the REVM backend, while the PolkaVM backend offers enhanced performance with minimal adaptation for standard patterns.
+This guide helps Ethereum developers migrate their smart contracts to Polkadot Hub. Most contracts work without modifications on the REVM backend, while the PVM backend offers enhanced performance with minimal adaptation for standard patterns.
 
 ## Migration Considerations
 
@@ -39,13 +39,13 @@ Before migrating your contracts, review this checklist:
     - Compatibility with tools that inspect EVM bytecode.
     - Rapid deployment without optimization.
 
-- Choose PolkaVM if you want:
+- Choose PVM if you want:
 
     - Better performance for computation-heavy applications.
     - Lower execution costs for intensive operations.
     - Access to next-generation smart contract features.
 
-If you are unsure which to choose, start with REVM for immediate compatibility, then consider PolkaVM for performance optimization once deployed.
+If you are unsure which to choose, start with REVM for immediate compatibility, then consider PVM for performance optimization once deployed.
 
 ### Do I need to rewrite my Solidity code?
 
@@ -67,7 +67,7 @@ No, for most contracts. Standard Solidity patterns work on both backends.
     }
     ```
 
-- **PolkaVM**: Factory contracts require pre-uploading dependent contracts. 
+- **PVM**: Factory contracts require pre-uploading dependent contracts. 
 
     Here's how to adapt the original factory pattern:
 
@@ -88,7 +88,7 @@ No, for most contracts. Standard Solidity patterns work on both backends.
     }
     ```
 
-The deployment steps for PolkaVM factories are:
+The deployment steps for PVM factories are:
 
 1. Upload the contract code to the chain.
 2. Note the returned code hash.
@@ -103,7 +103,7 @@ For more information on gas costs, see the [Gas Model](/smart-contracts/for-eth-
 
 For REVM, any Solidity feature will function smoothly without requiring changes or adaptations. For PVM, there are considerations, as was mentioned above. 
 
-For PolkaVM, there are some considerations:
+For PVM, there are some considerations:
 
 - `EXTCODECOPY`: Only works in constructor code.
 - Runtime code modification: Use on-chain constructors instead.
@@ -139,12 +139,12 @@ Connect to Polkadot Hub's Ethereum JSON-RPC endpoint and use your familiar workf
 
 ## Conclusion
 
-Most Ethereum contracts migrate to Polkadot Hub with minimal or no changes. Use REVM for seamless compatibility or PolkaVM for enhanced performance.
+Most Ethereum contracts migrate to Polkadot Hub with minimal or no changes. Use REVM for seamless compatibility or PVM for enhanced performance.
 
 There are a few key points to keep in mind during migration:
 
 - Replace `transfer()` and `send()` with `.call{value}("")` and use reentrancy guards (for projects that will use PVM bytecode, not EVM bytecode).
-- PolkaVM factory contracts using PVM bytecode need pre-uploaded dependencies.
+- PVM factory contracts using PVM bytecode need pre-uploaded dependencies.
 - Don't hardcode gas values.
 - Test thoroughly on [TestNet](/smart-contracts/connect/#__tabbed_1_1){target=\_blank} before mainnet deployment.
 

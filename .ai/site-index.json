@@ -3164,7 +3164,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-.deploy-basic-pvm.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/.deploy-basic-pvm/",
-    "preview": "Deploying smart contracts to [Polkadot Hub](/smart-contracts/overview/#smart-contract-development){target=\\_blank} can be accomplished through various tools and environments, each suited to different development workflows. This guide demonstrates how to deploy a basic PolkaVM (PVM) smart contract using four popular approaches: JavaScript with [Ethers.js](https://docs.ethers.org/v6/){target=\\_blank}, [Remix IDE](https://remix.live/){target=\\_blank}, [Hardhat](https://hardhat.org/){target=\\_blank}",
+    "preview": "Deploying smart contracts to [Polkadot Hub](/smart-contracts/overview/#smart-contract-development){target=\\_blank} can be accomplished through various tools and environments, each suited to different development workflows. This guide demonstrates how to deploy a basic PVM (PVM) smart contract using four popular approaches: JavaScript with [Ethers.js](https://docs.ethers.org/v6/){target=\\_blank}, [Remix IDE](https://remix.live/){target=\\_blank}, [Hardhat](https://hardhat.org/){target=\\_blank}",
     "outline": [
       {
         "depth": 2,
@@ -4019,7 +4019,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-for-eth-devs-.migration.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/for-eth-devs/.migration/",
-    "preview": "This guide helps Ethereum developers migrate their smart contracts to Polkadot Hub. Most contracts work without modifications on the REVM backend, while the PolkaVM backend offers enhanced performance with minimal adaptation for standard patterns.",
+    "preview": "This guide helps Ethereum developers migrate their smart contracts to Polkadot Hub. Most contracts work without modifications on the REVM backend, while the PVM backend offers enhanced performance with minimal adaptation for standard patterns.",
     "outline": [
       {
         "depth": 2,
@@ -4230,7 +4230,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-for-eth-devs-contract-deployment.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/for-eth-devs/contract-deployment/",
-    "preview": "Polkadot's smart contract platform supports two distinct virtual machine backends: Rust Ethereum Virtual Machine (REVM) and PolkaVM. Each backend has its own deployment characteristics and optimization strategies. REVM provides full Ethereum compatibility with familiar single-step deployment, while the RISC-V-based PolkaVM uses a more structured two-step approach optimized for its architecture. Understanding these differences ensures smooth deployment regardless of which backend you choose for y",
+    "preview": "Polkadot's smart contract platform supports two distinct virtual machine backends: Rust Ethereum Virtual Machine (REVM) and PVM. Each backend has its own deployment characteristics and optimization strategies. REVM provides full Ethereum compatibility with familiar single-step deployment, while the RISC-V-based PVM uses a more structured two-step approach optimized for its architecture. Understanding these differences ensures smooth deployment regardless of which backend you choose for y",
     "outline": [
       {
         "depth": 2,
@@ -4244,7 +4244,7 @@
       },
       {
         "depth": 2,
-        "title": "PolkaVM Deployment",
+        "title": "PVM Deployment",
         "anchor": "polkavm-deployment"
       },
       {
@@ -4312,7 +4312,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-for-eth-devs-dual-vm-stack.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/for-eth-devs/dual-vm-stack/",
-    "preview": "Polkadot's smart contract platform supports two distinct virtual machine (VM) architectures, providing developers with flexibility in selecting the optimal execution backend for their specific needs. This approach strikes a balance between immediate Ethereum compatibility and long-term innovation, enabling developers to deploy either unmodified (Ethereum Virtual Machine) EVM contracts using Rust Ethereum Virtual Machine (REVM) or optimize for higher performance using PolkaVM (PVM).",
+    "preview": "Polkadot's smart contract platform supports two distinct virtual machine (VM) architectures, providing developers with flexibility in selecting the optimal execution backend for their specific needs. This approach strikes a balance between immediate Ethereum compatibility and long-term innovation, enabling developers to deploy either unmodified (Ethereum Virtual Machine) EVM contracts using Rust Ethereum Virtual Machine (REVM) or optimize for higher performance using PVM (PVM).",
     "outline": [
       {
         "depth": 2,
@@ -4326,7 +4326,7 @@
       },
       {
         "depth": 2,
-        "title": "Upgrade to PolkaVM",
+        "title": "Upgrade to PVM",
         "anchor": "upgrade-to-polkavm"
       },
       {
@@ -4341,7 +4341,7 @@
       },
       {
         "depth": 3,
-        "title": "PolkaVM Design Fundamentals",
+        "title": "PVM Design Fundamentals",
         "anchor": "polkavm-design-fundamentals"
       },
       {

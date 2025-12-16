@@ -1,6 +1,6 @@
 ---
 title: Dual Virtual Machine Stack
-description: Compare Polkadot’s dual smart contract VMs—REVM for EVM compatibility and PolkaVM for RISC-V performance, flexibility, and efficiency.
+description: Compare Polkadot’s dual smart contract VMs—REVM for EVM compatibility and PVM for RISC-V performance, flexibility, and efficiency.
 categories: Basics, Polkadot Protocol
 url: https://docs.polkadot.com/smart-contracts/for-eth-devs/dual-vm-stack/
 ---
@@ -9,7 +9,7 @@ url: https://docs.polkadot.com/smart-contracts/for-eth-devs/dual-vm-stack/
 
 ## Introduction
 
-Polkadot's smart contract platform supports two distinct virtual machine (VM) architectures, providing developers with flexibility in selecting the optimal execution backend for their specific needs. This approach strikes a balance between immediate Ethereum compatibility and long-term innovation, enabling developers to deploy either unmodified (Ethereum Virtual Machine) EVM contracts using Rust Ethereum Virtual Machine (REVM) or optimize for higher performance using PolkaVM (PVM).
+Polkadot's smart contract platform supports two distinct virtual machine (VM) architectures, providing developers with flexibility in selecting the optimal execution backend for their specific needs. This approach strikes a balance between immediate Ethereum compatibility and long-term innovation, enabling developers to deploy either unmodified (Ethereum Virtual Machine) EVM contracts using Rust Ethereum Virtual Machine (REVM) or optimize for higher performance using PVM (PVM).
 
 Both VM options share common infrastructure, including RPC interfaces, tooling support, and precompiles. The following sections compare architectures and guide you in selecting the best VM for your project's needs.
 
@@ -27,9 +27,9 @@ REVM allows developers to use their existing Ethereum tooling and infrastructure
 
 REVM enables Ethereum developers to seamlessly migrate to Polkadot, achieving performance and fee improvements without modifying their existing contracts or developer tooling stack.
 
-## Upgrade to PolkaVM
+## Upgrade to PVM
 
-[**PolkaVM**](https://github.com/paritytech/polkavm){target=\_blank} is a custom virtual machine optimized for performance with [RISC-V-based](https://en.wikipedia.org/wiki/RISC-V){target=\_blank} architecture, supporting Solidity and additional high-performance languages. It serves as the core execution environment, integrated directly within the runtime. Choose the PolkaVM for:
+[**PVM**](https://github.com/paritytech/polkavm){target=\_blank} is a custom virtual machine optimized for performance with [RISC-V-based](https://en.wikipedia.org/wiki/RISC-V){target=\_blank} architecture, supporting Solidity and additional high-performance languages. It serves as the core execution environment, integrated directly within the runtime. Choose the PVM for:
 
 - An efficient interpreter for immediate code execution.
 - A planned [Just In Time (JIT)](https://en.wikipedia.org/wiki/Just-in-time_compilation){target=\_blank} compiler for optimized performance.
@@ -40,7 +40,7 @@ The interpreter remains particularly beneficial for contracts with minimal code 
 
 ## Architecture
 
-The following key components of PolkaVM work together to enable Ethereum compatibility on Polkadot-based chains. 
+The following key components of PVM work together to enable Ethereum compatibility on Polkadot-based chains. 
 
 ### Revive Pallet
 
@@ -57,7 +57,7 @@ sequenceDiagram
     Proxy->>Chain: Repackage as Polkadot Compatible Transaction
     Chain->>Pallet: Process Transaction
     Pallet->>Pallet: Decode Ethereum Transaction
-    Pallet->>Pallet: Execute Contract via PolkaVM
+    Pallet->>Pallet: Execute Contract via PVM
     Pallet->>Chain: Return Results
     Chain->>Proxy: Forward Results
     Proxy->>User: Return Ethereum-compatible Response
@@ -65,18 +65,18 @@ sequenceDiagram
 
 This proxy-based approach eliminates the need for node binary modifications, maintaining compatibility across different client implementations. Preserving the original Ethereum transaction payload simplifies the adaptation of existing tools, which can continue processing familiar transaction formats.
 
-### PolkaVM Design Fundamentals
+### PVM Design Fundamentals
 
-PolkaVM differs from the EVM in two key ways that make it faster, more hardware-efficient, and easier to extend:
+PVM differs from the EVM in two key ways that make it faster, more hardware-efficient, and easier to extend:
 
-- **Register-based design**: Instead of a stack machine, PolkaVM uses a RISC-V–style register model. This design:
+- **Register-based design**: Instead of a stack machine, PVM uses a RISC-V–style register model. This design:
 
     - Uses a fixed set of registers to pass arguments, not an infinite stack.
     - Maps cleanly to real hardware like x86-64.
     - Simplifies compilation and boosts runtime efficiency.
     - Enables tighter control over register allocation and performance tuning.
 
-- **64-bit word size**: PolkaVM runs on a native 64-bit word size, aligning directly with modern CPUs. This design:
+- **64-bit word size**: PVM runs on a native 64-bit word size, aligning directly with modern CPUs. This design:
 
     - Executes arithmetic operations with direct hardware support.
     - Maintains compatibility with Solidity’s 256-bit types via YUL translation.

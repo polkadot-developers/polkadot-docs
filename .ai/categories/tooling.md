@@ -6240,7 +6240,7 @@ Before setting up Hardhat, make sure the following are installed:
         yarn add --dev hardhat@^2.27.0 @nomicfoundation/hardhat-toolbox
 
         # Initialize a Hardhat project
-        npx hardhat init
+        npx hardhat --init
         ```
 
 3. You will be prompted to select certain configurations for your project. To quickly create a working setup, you can accept the default answers, which will create a JavaScript project, initialize it in the current directory, add a `.gitignore`, and install all dependencies.

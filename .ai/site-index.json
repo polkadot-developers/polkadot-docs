@@ -199,14 +199,277 @@
     "token_estimator": "heuristic-v1"
   },
   {
-    "id": "nodes-and-validators-run-a-node-bootnode",
-    "title": "Set Up a Bootnode",
-    "slug": "nodes-and-validators-run-a-node-bootnode",
+    "id": "node-infrastructure-run-a-collator",
+    "title": "Run a Block-Producing Collator",
+    "slug": "node-infrastructure-run-a-collator",
     "categories": [
       "Infrastructure"
     ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/nodes-and-validators-run-a-node-bootnode.md",
-    "html_url": "https://docs.polkadot.com/nodes-and-validators/run-a-node/bootnode/",
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/node-infrastructure-run-a-collator.md",
+    "html_url": "https://docs.polkadot.com/node-infrastructure/run-a-collator/",
+    "preview": "Block-producing collators are the backbone of system parachain operations. Unlike RPC or archive nodes, which maintain state, collators actively produce blocks and submit them to relay chain validators for inclusion. They ensure network liveness, censorship resistance, and cross-chain message processing.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Prerequisites",
+        "anchor": "prerequisites"
+      },
+      {
+        "depth": 3,
+        "title": "Hardware Requirements",
+        "anchor": "hardware-requirements"
+      },
+      {
+        "depth": 3,
+        "title": "Software Requirements",
+        "anchor": "software-requirements"
+      },
+      {
+        "depth": 3,
+        "title": "Account Requirements",
+        "anchor": "account-requirements"
+      },
+      {
+        "depth": 2,
+        "title": "Install Dependencies",
+        "anchor": "install-dependencies"
+      },
+      {
+        "depth": 2,
+        "title": "Generate Node Key",
+        "anchor": "generate-node-key"
+      },
+      {
+        "depth": 2,
+        "title": "Obtain Chain Specification",
+        "anchor": "obtain-chain-specification"
+      },
+      {
+        "depth": 2,
+        "title": "Run the Collator",
+        "anchor": "run-the-collator"
+      },
+      {
+        "depth": 2,
+        "title": "Generate Session Keys",
+        "anchor": "generate-session-keys"
+      },
+      {
+        "depth": 2,
+        "title": "Register Collator for Selection",
+        "anchor": "register-collator-for-selection"
+      },
+      {
+        "depth": 3,
+        "title": "Registration Process",
+        "anchor": "registration-process"
+      },
+      {
+        "depth": 2,
+        "title": "Commands for Node Management",
+        "anchor": "commands-for-node-management"
+      },
+      {
+        "depth": 2,
+        "title": "Commands for Log Management",
+        "anchor": "commands-for-log-management"
+      },
+      {
+        "depth": 2,
+        "title": "Database Maintenance",
+        "anchor": "database-maintenance"
+      },
+      {
+        "depth": 2,
+        "title": "Updates and Upgrades",
+        "anchor": "updates-and-upgrades"
+      },
+      {
+        "depth": 2,
+        "title": "Conclusion",
+        "anchor": "conclusion"
+      }
+    ],
+    "stats": {
+      "chars": 22952,
+      "words": 2648,
+      "headings": 17,
+      "estimated_token_count_total": 5050
+    },
+    "hash": "sha256:f04cbabee3dc8ee2a555fb8da86e97705e6be6c50814fef5ee4315214565419d",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "node-infrastructure-run-a-node-parachain-rpc",
+    "title": "Run a Parachain RPC Node",
+    "slug": "node-infrastructure-run-a-node-parachain-rpc",
+    "categories": [
+      "Infrastructure"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/node-infrastructure-run-a-node-parachain-rpc.md",
+    "html_url": "https://docs.polkadot.com/node-infrastructure/run-a-node/parachain-rpc/",
+    "preview": "A parachain RPC node provides direct access to a specific parachain on the Polkadot network, enabling developers and applications to interact with its assets, governance, cross-chain messages, and more. Running your own node also supports essential infrastructure tasks, such as block indexing and compatibility with Polkadot SDK tools.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Prerequisites",
+        "anchor": "prerequisites"
+      },
+      {
+        "depth": 3,
+        "title": "Hardware Requirements",
+        "anchor": "hardware-requirements"
+      },
+      {
+        "depth": 3,
+        "title": "Software Requirements",
+        "anchor": "software-requirements"
+      },
+      {
+        "depth": 2,
+        "title": "Obtain the Chain Specification",
+        "anchor": "obtain-the-chain-specification"
+      },
+      {
+        "depth": 3,
+        "title": "System Parachains",
+        "anchor": "system-parachains"
+      },
+      {
+        "depth": 3,
+        "title": "Other Parachains",
+        "anchor": "other-parachains"
+      },
+      {
+        "depth": 2,
+        "title": "Spin Up a Node",
+        "anchor": "spin-up-a-node"
+      },
+      {
+        "depth": 3,
+        "title": "Port Mappings",
+        "anchor": "port-mappings"
+      },
+      {
+        "depth": 3,
+        "title": "Node Configuration Parameters",
+        "anchor": "node-configuration-parameters"
+      },
+      {
+        "depth": 2,
+        "title": "Monitor Node Synchronization",
+        "anchor": "monitor-node-synchronization"
+      },
+      {
+        "depth": 2,
+        "title": "Commands for Managing Your Node",
+        "anchor": "commands-for-managing-your-node"
+      },
+      {
+        "depth": 2,
+        "title": "Conclusion",
+        "anchor": "conclusion"
+      }
+    ],
+    "stats": {
+      "chars": 18303,
+      "words": 2066,
+      "headings": 13,
+      "estimated_token_count_total": 4197
+    },
+    "hash": "sha256:b35503211c051bd634831f183aaa9cd857980d7e8446f66b2e3d644c2a061796",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "node-infrastructure-run-a-node-polkadot-hub-rpc",
+    "title": "Run an RPC Node for Polkadot Hub",
+    "slug": "node-infrastructure-run-a-node-polkadot-hub-rpc",
+    "categories": [
+      "Infrastructure"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/node-infrastructure-run-a-node-polkadot-hub-rpc.md",
+    "html_url": "https://docs.polkadot.com/node-infrastructure/run-a-node/polkadot-hub-rpc/",
+    "preview": "Polkadot Hub is the gateway to the Polkadot network, providing access to core services such as asset management, governance, and cross-chain messaging. Running your own RPC node gives developers and applications direct access to these services while also supporting infrastructure tasks like block indexing and SDK tool compatibility.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Prerequisites",
+        "anchor": "prerequisites"
+      },
+      {
+        "depth": 3,
+        "title": "Hardware Requirements",
+        "anchor": "hardware-requirements"
+      },
+      {
+        "depth": 3,
+        "title": "Software Requirements",
+        "anchor": "software-requirements"
+      },
+      {
+        "depth": 2,
+        "title": "Spin Up a Node",
+        "anchor": "spin-up-a-node"
+      },
+      {
+        "depth": 3,
+        "title": "Port Mappings",
+        "anchor": "port-mappings"
+      },
+      {
+        "depth": 3,
+        "title": "Node Configuration Arguments",
+        "anchor": "node-configuration-arguments"
+      },
+      {
+        "depth": 2,
+        "title": "Monitor Node Synchronization",
+        "anchor": "monitor-node-synchronization"
+      },
+      {
+        "depth": 2,
+        "title": "Commands for Managing Your Node",
+        "anchor": "commands-for-managing-your-node"
+      },
+      {
+        "depth": 2,
+        "title": "Conclusion",
+        "anchor": "conclusion"
+      }
+    ],
+    "stats": {
+      "chars": 16086,
+      "words": 1818,
+      "headings": 10,
+      "estimated_token_count_total": 3654
+    },
+    "hash": "sha256:a75eb7d4b79c8fece9e5ba3e6e81be15772accf9e140640713baae38c39fc722",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "node-infrastructure-run-a-node-relay-chain-bootnode",
+    "title": "Set Up a Bootnode",
+    "slug": "node-infrastructure-run-a-node-relay-chain-bootnode",
+    "categories": [
+      "Infrastructure"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/node-infrastructure-run-a-node-relay-chain-bootnode.md",
+    "html_url": "https://docs.polkadot.com/node-infrastructure/run-a-node/relay-chain/bootnode/",
     "preview": "Bootnodes are essential for helping blockchain nodes discover peers and join the network. When a node starts, it needs to find other nodes, and bootnodes provide an initial point of contact. Once connected, a node can expand its peer connections and play its role in the network, like participating as a validator.",
     "outline": [
       {
@@ -265,14 +528,14 @@
     "token_estimator": "heuristic-v1"
   },
   {
-    "id": "nodes-and-validators-run-a-node-full-node",
+    "id": "node-infrastructure-run-a-node-relay-chain-full-node",
     "title": "Set Up a Node",
-    "slug": "nodes-and-validators-run-a-node-full-node",
+    "slug": "node-infrastructure-run-a-node-relay-chain-full-node",
     "categories": [
       "Infrastructure"
     ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/nodes-and-validators-run-a-node-full-node.md",
-    "html_url": "https://docs.polkadot.com/nodes-and-validators/run-a-node/full-node/",
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/node-infrastructure-run-a-node-relay-chain-full-node.md",
+    "html_url": "https://docs.polkadot.com/node-infrastructure/run-a-node/relay-chain/full-node/",
     "preview": "Running a node on Polkadot provides direct interaction with the network, enhanced privacy, and full control over RPC requests, transactions, and data queries. As the backbone of the network, nodes ensure decentralized data propagation, transaction validation, and seamless communication across the ecosystem.",
     "outline": [
       {
@@ -322,23 +585,23 @@
       }
     ],
     "stats": {
-      "chars": 15944,
-      "words": 2481,
+      "chars": 15943,
+      "words": 2487,
       "headings": 9,
-      "estimated_token_count_total": 4196
+      "estimated_token_count_total": 4212
     },
-    "hash": "sha256:924fab837818610c825be5cefde0a7bacd46985b4fa05cfa0376a941105b9869",
+    "hash": "sha256:3a83cc1db015aa7dbf7be93e0be39c18b0185d090d06be60b3970d2a9117f966",
     "token_estimator": "heuristic-v1"
   },
   {
-    "id": "nodes-and-validators-run-a-node-secure-wss",
+    "id": "node-infrastructure-run-a-node-relay-chain-secure-wss",
     "title": "Set Up Secure WebSocket",
-    "slug": "nodes-and-validators-run-a-node-secure-wss",
+    "slug": "node-infrastructure-run-a-node-relay-chain-secure-wss",
     "categories": [
       "Infrastructure"
     ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/nodes-and-validators-run-a-node-secure-wss.md",
-    "html_url": "https://docs.polkadot.com/nodes-and-validators/run-a-node/secure-wss/",
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/node-infrastructure-run-a-node-relay-chain-secure-wss.md",
+    "html_url": "https://docs.polkadot.com/node-infrastructure/run-a-node/relay-chain/secure-wss/",
     "preview": "Ensuring secure WebSocket communication is crucial for maintaining the integrity and security of a Polkadot or Kusama node when interacting with remote clients. This guide walks you through setting up a secure WebSocket (WSS) connection for your node by leveraging SSL encryption with popular web server proxies like nginx or Apache.",
     "outline": [
       {
@@ -378,24 +641,24 @@
       }
     ],
     "stats": {
-      "chars": 5568,
-      "words": 774,
+      "chars": 5567,
+      "words": 773,
       "headings": 7,
-      "estimated_token_count_total": 1280
+      "estimated_token_count_total": 1278
     },
-    "hash": "sha256:992082e4ad87348b283f6c37ea886ae0e7bf016852b6470000876f3d169c65a4",
+    "hash": "sha256:e72cc6ea46416bf6115679ae7af8766913a32f252491563658b8b84565b52d33",
     "token_estimator": "heuristic-v1"
   },
   {
-    "id": "nodes-and-validators-run-a-validator-onboarding-and-offboarding-key-management",
+    "id": "node-infrastructure-run-a-validator-onboarding-and-offboarding-key-management",
     "title": "Validator Key Management",
-    "slug": "nodes-and-validators-run-a-validator-onboarding-and-offboarding-key-management",
+    "slug": "node-infrastructure-run-a-validator-onboarding-and-offboarding-key-management",
     "categories": [
       "Infrastructure"
     ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/nodes-and-validators-run-a-validator-onboarding-and-offboarding-key-management.md",
-    "html_url": "https://docs.polkadot.com/nodes-and-validators/run-a-validator/onboarding-and-offboarding/key-management/",
-    "preview": "After setting up your node environment as shown in the [Setup](/nodes-and-validators/run-a-validator/onboarding-and-offboarding/set-up-validator/){target=\\_blank} section, you'll need to configure multiple keys for your validator to operate properly. This includes setting up session keys, which are essential for participating in the consensus process, and configuring a node key that maintains a stable network identity. This guide walks you through the key management process, showing you how to g",
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/node-infrastructure-run-a-validator-onboarding-and-offboarding-key-management.md",
+    "html_url": "https://docs.polkadot.com/node-infrastructure/run-a-validator/onboarding-and-offboarding/key-management/",
+    "preview": "After setting up your node environment as shown in the [Setup](/node-infrastructure/run-a-validator/onboarding-and-offboarding/set-up-validator/){target=\\_blank} section, you'll need to configure multiple keys for your validator to operate properly. This includes setting up session keys, which are essential for participating in the consensus process, and configuring a node key that maintains a stable network identity. This guide walks you through the key management process, showing you how to ge",
     "outline": [
       {
         "depth": 2,
@@ -439,23 +702,23 @@
       }
     ],
     "stats": {
-      "chars": 8227,
-      "words": 1183,
+      "chars": 8224,
+      "words": 1180,
       "headings": 8,
-      "estimated_token_count_total": 1840
+      "estimated_token_count_total": 1834
     },
-    "hash": "sha256:0fb5a83835aab263c0b9aa886028c8aa8a2d6d0897d7b9fff4b5258835d30dfe",
+    "hash": "sha256:2e4379400aee873a61f805eb741cd5288ade3dabd59e5812ef79b93f4e0ba9b6",
     "token_estimator": "heuristic-v1"
   },
   {
-    "id": "nodes-and-validators-run-a-validator-onboarding-and-offboarding-set-up-validator",
+    "id": "node-infrastructure-run-a-validator-onboarding-and-offboarding-set-up-validator",
     "title": "Set Up a Validator",
-    "slug": "nodes-and-validators-run-a-validator-onboarding-and-offboarding-set-up-validator",
+    "slug": "node-infrastructure-run-a-validator-onboarding-and-offboarding-set-up-validator",
     "categories": [
       "Infrastructure"
     ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/nodes-and-validators-run-a-validator-onboarding-and-offboarding-set-up-validator.md",
-    "html_url": "https://docs.polkadot.com/nodes-and-validators/run-a-validator/onboarding-and-offboarding/set-up-validator/",
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/node-infrastructure-run-a-validator-onboarding-and-offboarding-set-up-validator.md",
+    "html_url": "https://docs.polkadot.com/node-infrastructure/run-a-validator/onboarding-and-offboarding/set-up-validator/",
     "preview": "Setting up a Polkadot validator node is essential for securing the network and earning staking rewards. This guide walks you through the technical steps to set up a validator, from installing the necessary software to managing keys and synchronizing your node with the chain.",
     "outline": [
       {
@@ -520,24 +783,24 @@
       }
     ],
     "stats": {
-      "chars": 11921,
-      "words": 1678,
+      "chars": 11915,
+      "words": 1672,
       "headings": 12,
-      "estimated_token_count_total": 2592
+      "estimated_token_count_total": 2580
     },
-    "hash": "sha256:d2c1c91734bc8185057d8eeec6829ea91e0316f7ba884c5dc3922a5e5778815e",
+    "hash": "sha256:00731c195bddb0923c76ec1b4ffa5b79fea9fa1b074e284eb0a6aacba31628a2",
     "token_estimator": "heuristic-v1"
   },
   {
-    "id": "nodes-and-validators-run-a-validator-onboarding-and-offboarding-start-validating",
+    "id": "node-infrastructure-run-a-validator-onboarding-and-offboarding-start-validating",
     "title": "Start Validating",
-    "slug": "nodes-and-validators-run-a-validator-onboarding-and-offboarding-start-validating",
+    "slug": "node-infrastructure-run-a-validator-onboarding-and-offboarding-start-validating",
     "categories": [
       "Infrastructure"
     ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/nodes-and-validators-run-a-validator-onboarding-and-offboarding-start-validating.md",
-    "html_url": "https://docs.polkadot.com/nodes-and-validators/run-a-validator/onboarding-and-offboarding/start-validating/",
-    "preview": "After configuring your node keys as shown in the [Key Management](/nodes-and-validators/run-a-validator/onboarding-and-offboarding/key-management/){target=\\_blank} section and ensuring your system is set up, you're ready to begin the validator setup process. This guide will walk you through choosing a network, synchronizing your node with the blockchain, bonding your DOT tokens, and starting your validator.",
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/node-infrastructure-run-a-validator-onboarding-and-offboarding-start-validating.md",
+    "html_url": "https://docs.polkadot.com/node-infrastructure/run-a-validator/onboarding-and-offboarding/start-validating/",
+    "preview": "After configuring your node keys as shown in the [Key Management](/node-infrastructure/run-a-validator/onboarding-and-offboarding/key-management/){target=\\_blank} section and ensuring your system is set up, you're ready to begin the validator setup process. This guide will walk you through choosing a network, synchronizing your node with the blockchain, bonding your DOT tokens, and starting your validator.",
     "outline": [
       {
         "depth": 2,
@@ -606,23 +869,23 @@
       }
     ],
     "stats": {
-      "chars": 15820,
-      "words": 2446,
+      "chars": 15811,
+      "words": 2437,
       "headings": 13,
-      "estimated_token_count_total": 3861
+      "estimated_token_count_total": 3843
     },
-    "hash": "sha256:67a43e787805244196e1e9cb962069292c69ed5fdb1110df57c942019892b953",
+    "hash": "sha256:b503ef546f7c8702c5d4c12170ab440e502ba8d2e933ef1f0d46f23fd933c265",
     "token_estimator": "heuristic-v1"
   },
   {
-    "id": "nodes-and-validators-run-a-validator-onboarding-and-offboarding-stop-validating",
+    "id": "node-infrastructure-run-a-validator-onboarding-and-offboarding-stop-validating",
     "title": "Stop Validating",
-    "slug": "nodes-and-validators-run-a-validator-onboarding-and-offboarding-stop-validating",
+    "slug": "node-infrastructure-run-a-validator-onboarding-and-offboarding-stop-validating",
     "categories": [
       "Infrastructure"
     ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/nodes-and-validators-run-a-validator-onboarding-and-offboarding-stop-validating.md",
-    "html_url": "https://docs.polkadot.com/nodes-and-validators/run-a-validator/onboarding-and-offboarding/stop-validating/",
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/node-infrastructure-run-a-validator-onboarding-and-offboarding-stop-validating.md",
+    "html_url": "https://docs.polkadot.com/node-infrastructure/run-a-validator/onboarding-and-offboarding/stop-validating/",
     "preview": "If you're ready to stop validating on Polkadot, there are essential steps to ensure a smooth transition while protecting your funds and account integrity. Whether you're taking a break for maintenance or unbonding entirely, you'll need to chill your validator, purge session keys, and unbond your tokens. This guide explains how to use Polkadot's tools and extrinsics to safely withdraw from validation activities, safeguarding your account's future usability.",
     "outline": [
       {
@@ -652,23 +915,23 @@
       }
     ],
     "stats": {
-      "chars": 3230,
-      "words": 500,
+      "chars": 3229,
+      "words": 499,
       "headings": 5,
-      "estimated_token_count_total": 629
+      "estimated_token_count_total": 627
     },
-    "hash": "sha256:0d6db361bfa7a3022849bbe39989bfdac0429537498d7f534adadec131afca98",
+    "hash": "sha256:24a16cd9c5aa66ca65f0d1592982797a2a9985db37d2d08beb5b2f41bba6a194",
     "token_estimator": "heuristic-v1"
   },
   {
-    "id": "nodes-and-validators-run-a-validator-operational-tasks-general-management",
+    "id": "node-infrastructure-run-a-validator-operational-tasks-general-management",
     "title": "General Management",
-    "slug": "nodes-and-validators-run-a-validator-operational-tasks-general-management",
+    "slug": "node-infrastructure-run-a-validator-operational-tasks-general-management",
     "categories": [
       "Infrastructure"
     ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/nodes-and-validators-run-a-validator-operational-tasks-general-management.md",
-    "html_url": "https://docs.polkadot.com/nodes-and-validators/run-a-validator/operational-tasks/general-management/",
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/node-infrastructure-run-a-validator-operational-tasks-general-management.md",
+    "html_url": "https://docs.polkadot.com/node-infrastructure/run-a-validator/operational-tasks/general-management/",
     "preview": "Validator performance is pivotal in maintaining the security and stability of the Polkadot network. As a validator, optimizing your setup ensures efficient transaction processing, minimizes latency, and maintains system reliability during high-demand periods. Proper configuration and proactive monitoring also help mitigate risks like slashing and service interruptions.",
     "outline": [
       {
@@ -763,23 +1026,23 @@
       }
     ],
     "stats": {
-      "chars": 26673,
-      "words": 3357,
+      "chars": 26666,
+      "words": 3350,
       "headings": 18,
-      "estimated_token_count_total": 5866
+      "estimated_token_count_total": 5852
     },
-    "hash": "sha256:81eb0fe77f05155f1ec0511cd066120fc9994961e9d91e21b6666377e65b4586",
+    "hash": "sha256:a4fbafd2b4580c980b86c6b1322ef4274b672ca58d0ec277f3bb04b446b9c1ac",
     "token_estimator": "heuristic-v1"
   },
   {
-    "id": "nodes-and-validators-run-a-validator-operational-tasks-pause-validating",
+    "id": "node-infrastructure-run-a-validator-operational-tasks-pause-validating",
     "title": "Pause Validating",
-    "slug": "nodes-and-validators-run-a-validator-operational-tasks-pause-validating",
+    "slug": "node-infrastructure-run-a-validator-operational-tasks-pause-validating",
     "categories": [
       "Infrastructure"
     ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/nodes-and-validators-run-a-validator-operational-tasks-pause-validating.md",
-    "html_url": "https://docs.polkadot.com/nodes-and-validators/run-a-validator/operational-tasks/pause-validating/",
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/node-infrastructure-run-a-validator-operational-tasks-pause-validating.md",
+    "html_url": "https://docs.polkadot.com/node-infrastructure/run-a-validator/operational-tasks/pause-validating/",
     "preview": "If you need to temporarily stop participating in Polkadot staking activities without fully unbonding your funds, chilling your account allows you to do so efficiently. Chilling removes your node from active validation or nomination in the next era while keeping your funds bonded, making it ideal for planned downtimes or temporary pauses.",
     "outline": [
       {
@@ -823,14 +1086,14 @@
     "token_estimator": "heuristic-v1"
   },
   {
-    "id": "nodes-and-validators-run-a-validator-operational-tasks-upgrade-your-node",
+    "id": "node-infrastructure-run-a-validator-operational-tasks-upgrade-your-node",
     "title": "Upgrade a Validator Node",
-    "slug": "nodes-and-validators-run-a-validator-operational-tasks-upgrade-your-node",
+    "slug": "node-infrastructure-run-a-validator-operational-tasks-upgrade-your-node",
     "categories": [
       "Infrastructure"
     ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/nodes-and-validators-run-a-validator-operational-tasks-upgrade-your-node.md",
-    "html_url": "https://docs.polkadot.com/nodes-and-validators/run-a-validator/operational-tasks/upgrade-your-node/",
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/node-infrastructure-run-a-validator-operational-tasks-upgrade-your-node.md",
+    "html_url": "https://docs.polkadot.com/node-infrastructure/run-a-validator/operational-tasks/upgrade-your-node/",
     "preview": "Upgrading a Polkadot validator node is essential for staying current with network updates and maintaining optimal performance. This guide covers routine and extended maintenance scenarios, including software upgrades and major server changes. Following these steps, you can manage session keys and transition smoothly between servers without risking downtime, slashing, or network disruptions. The process requires strategic planning, especially if you need to perform long-lead maintenance, ensuring",
     "outline": [
       {
@@ -870,23 +1133,23 @@
       }
     ],
     "stats": {
-      "chars": 5650,
-      "words": 851,
+      "chars": 5647,
+      "words": 848,
       "headings": 7,
-      "estimated_token_count_total": 1185
+      "estimated_token_count_total": 1179
     },
-    "hash": "sha256:888230b128d8c648c4f06a18d3b1d1b06dd1bf22a0de4add1f28210ffccb2549",
+    "hash": "sha256:1d8dd7ed76091d3739d7940ab9e2e247c307629c591c92046e29c17b4050bff7",
     "token_estimator": "heuristic-v1"
   },
   {
-    "id": "nodes-and-validators-run-a-validator-requirements",
+    "id": "node-infrastructure-run-a-validator-requirements",
     "title": "Validator Requirements",
-    "slug": "nodes-and-validators-run-a-validator-requirements",
+    "slug": "node-infrastructure-run-a-validator-requirements",
     "categories": [
       "Infrastructure"
     ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/nodes-and-validators-run-a-validator-requirements.md",
-    "html_url": "https://docs.polkadot.com/nodes-and-validators/run-a-validator/requirements/",
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/node-infrastructure-run-a-validator-requirements.md",
+    "html_url": "https://docs.polkadot.com/node-infrastructure/run-a-validator/requirements/",
     "preview": "Running a validator in the Polkadot ecosystem is essential for maintaining network security and decentralization. Validators are responsible for validating transactions and adding new blocks to the chain, ensuring the system operates smoothly. In return for their services, validators earn rewards. However, the role comes with inherent risks, such as slashing penalties for misbehavior or technical failures. If you’re new to validation, starting on Kusama provides a lower-stakes environment to gai",
     "outline": [
       {
@@ -916,23 +1179,23 @@
       }
     ],
     "stats": {
-      "chars": 6842,
-      "words": 944,
+      "chars": 6840,
+      "words": 942,
       "headings": 5,
-      "estimated_token_count_total": 1485
+      "estimated_token_count_total": 1481
     },
-    "hash": "sha256:46435b97c37ef6798d2c75c69df31c5e5f07e04b218c370ec5af6b1838d43aac",
+    "hash": "sha256:67ca42c939160ca05c61590582de6d7c3cdfabcd0692279c4397b8032b1fcc45",
     "token_estimator": "heuristic-v1"
   },
   {
-    "id": "nodes-and-validators-run-a-validator-staking-mechanics-offenses-and-slashes",
+    "id": "node-infrastructure-run-a-validator-staking-mechanics-offenses-and-slashes",
     "title": "Offenses and Slashes",
-    "slug": "nodes-and-validators-run-a-validator-staking-mechanics-offenses-and-slashes",
+    "slug": "node-infrastructure-run-a-validator-staking-mechanics-offenses-and-slashes",
     "categories": [
       "Infrastructure"
     ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/nodes-and-validators-run-a-validator-staking-mechanics-offenses-and-slashes.md",
-    "html_url": "https://docs.polkadot.com/nodes-and-validators/run-a-validator/staking-mechanics/offenses-and-slashes/",
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/node-infrastructure-run-a-validator-staking-mechanics-offenses-and-slashes.md",
+    "html_url": "https://docs.polkadot.com/node-infrastructure/run-a-validator/staking-mechanics/offenses-and-slashes/",
     "preview": "In Polkadot's Nominated Proof of Stake (NPoS) system, validator misconduct is deterred through a combination of slashing, disabling, and reputation penalties. Validators and nominators who stake tokens face consequences for validator misbehavior, which range from token slashes to restrictions on network participation.",
     "outline": [
       {
@@ -991,14 +1254,14 @@
     "token_estimator": "heuristic-v1"
   },
   {
-    "id": "nodes-and-validators-run-a-validator-staking-mechanics-rewards",
+    "id": "node-infrastructure-run-a-validator-staking-mechanics-rewards",
     "title": "Rewards Payout",
-    "slug": "nodes-and-validators-run-a-validator-staking-mechanics-rewards",
+    "slug": "node-infrastructure-run-a-validator-staking-mechanics-rewards",
     "categories": [
       "Infrastructure"
     ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/nodes-and-validators-run-a-validator-staking-mechanics-rewards.md",
-    "html_url": "https://docs.polkadot.com/nodes-and-validators/run-a-validator/staking-mechanics/rewards/",
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/node-infrastructure-run-a-validator-staking-mechanics-rewards.md",
+    "html_url": "https://docs.polkadot.com/node-infrastructure/run-a-validator/staking-mechanics/rewards/",
     "preview": "Understanding how rewards are distributed to validators and nominators is essential for network participants. In Polkadot and Kusama, validators earn rewards based on their era points, which are accrued through actions like block production and parachain validation.",
     "outline": [
       {
@@ -1039,6 +1302,57 @@
       "estimated_token_count_total": 2565
     },
     "hash": "sha256:2c25b7054cbf0b3bfa8145b0873e885c27b560f942677a718fcfd4f4a6a1b2f1",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "node-infrastructure",
+    "title": "Node Infrastructure",
+    "slug": "node-infrastructure",
+    "categories": [
+      "Infrastructure"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/node-infrastructure.md",
+    "html_url": "https://docs.polkadot.com/node-infrastructure/",
+    "preview": "The Polkadot network relies on various types of nodes to maintain security, provide data access, and produce blocks. This section covers everything you need to know about running infrastructure for the Polkadot ecosystem.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Node Types",
+        "anchor": "node-types"
+      },
+      {
+        "depth": 3,
+        "title": "RPC Nodes",
+        "anchor": "rpc-nodes"
+      },
+      {
+        "depth": 3,
+        "title": "Collators",
+        "anchor": "collators"
+      },
+      {
+        "depth": 3,
+        "title": "Validators",
+        "anchor": "validators"
+      },
+      {
+        "depth": 2,
+        "title": "Next Steps",
+        "anchor": "next-steps"
+      }
+    ],
+    "stats": {
+      "chars": 3954,
+      "words": 536,
+      "headings": 6,
+      "estimated_token_count_total": 835
+    },
+    "hash": "sha256:2588b692d85481e6fe41b64651dc4232344bfd57443629f21cd05c340d03b1fb",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -1351,12 +1665,12 @@
       }
     ],
     "stats": {
-      "chars": 6655,
+      "chars": 6607,
       "words": 833,
       "headings": 16,
       "estimated_token_count_total": 1631
     },
-    "hash": "sha256:6297bb5e0809fdd0585d6170054599f7ab4a3ce7c687ad03ae43092057c493b7",
+    "hash": "sha256:aa02e672b856e349e82683be074cd70d9976ad8e6f960c959d8b5e48c4a0a321",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -3164,7 +3478,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-.deploy-basic-pvm.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/.deploy-basic-pvm/",
-    "preview": "Deploying smart contracts to [Polkadot Hub](/smart-contracts/overview/#smart-contract-development){target=\\_blank} can be accomplished through various tools and environments, each suited to different development workflows. This guide demonstrates how to deploy a basic PVM (PVM) smart contract using four popular approaches: JavaScript with [Ethers.js](https://docs.ethers.org/v6/){target=\\_blank}, [Remix IDE](https://remix.live/){target=\\_blank}, [Hardhat](https://hardhat.org/){target=\\_blank}",
+    "preview": "Deploying smart contracts to [Polkadot Hub](/smart-contracts/overview/#smart-contract-development){target=\\_blank} can be accomplished through various tools and environments, each suited to different development workflows. This guide demonstrates how to deploy a basic PVM (PVM) smart contract using four popular approaches: JavaScript with [Ethers.js](https://docs.ethers.org/v6/){target=\\_blank}, [Remix IDE](https://remix.live/){target=\\_blank}, [Hardhat](https://hardhat.org/){target=\\_blank}, an",
     "outline": [
       {
         "depth": 2,
@@ -3288,12 +3602,12 @@
       }
     ],
     "stats": {
-      "chars": 13872,
+      "chars": 13860,
       "words": 1640,
       "headings": 24,
       "estimated_token_count_total": 3228
     },
-    "hash": "sha256:8f29b0f0b56f8c136206211a858cdc5bc27bcd9119eab179a6cd306182d910cb",
+    "hash": "sha256:a494466822a39e3db0a12ef72f2c9df1bb2a03e096874e837c959c05bd0f1980",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -3789,12 +4103,12 @@
       }
     ],
     "stats": {
-      "chars": 2835,
+      "chars": 2827,
       "words": 207,
       "headings": 3,
       "estimated_token_count_total": 1022
     },
-    "hash": "sha256:a3baacc936731020103ecb94a0ad41df0392fcf7e0f6039fa9b71bf363559e6a",
+    "hash": "sha256:1392e4674ab293133b8cbc8e075d736ad3e5f05d736575eba37c527788e7a5f2",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -3836,12 +4150,12 @@
       }
     ],
     "stats": {
-      "chars": 4828,
+      "chars": 4830,
       "words": 646,
       "headings": 5,
-      "estimated_token_count_total": 1144
+      "estimated_token_count_total": 1146
     },
-    "hash": "sha256:7911b91e6c8dc9caa7403756d92d6aa78438c45ebf42088dbdcbefd3d396e6ee",
+    "hash": "sha256:26ec243230fb084494d3eaefc1af664c37036a04d4edbe0682a3e69cea048204",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -3966,12 +4280,12 @@
       }
     ],
     "stats": {
-      "chars": 1618,
+      "chars": 1610,
       "words": 201,
       "headings": 4,
       "estimated_token_count_total": 307
     },
-    "hash": "sha256:bb41c42439f9076628abf553347a1cd46557e900f73554c519cd8a075f6e14e2",
+    "hash": "sha256:46f73abd0e8d8d380f0033627ff1b9bcd390c714a549802c795d4bafad2ec2ab",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4083,12 +4397,12 @@
       }
     ],
     "stats": {
-      "chars": 6079,
+      "chars": 6047,
       "words": 779,
       "headings": 12,
       "estimated_token_count_total": 1279
     },
-    "hash": "sha256:87a8fd24c2ed6dac3281c040136ad6cdca95b632c6febf3e1dfab617d66a321d",
+    "hash": "sha256:6d72afe48e3c76e8e72efa36d210f17ca6c95ec8b9c6b2dd5d714dc28edade72",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4230,7 +4544,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-for-eth-devs-contract-deployment.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/for-eth-devs/contract-deployment/",
-    "preview": "Polkadot's smart contract platform supports two distinct virtual machine backends: Rust Ethereum Virtual Machine (REVM) and PVM. Each backend has its own deployment characteristics and optimization strategies. REVM provides full Ethereum compatibility with familiar single-step deployment, while the RISC-V-based PVM uses a more structured two-step approach optimized for its architecture. Understanding these differences ensures smooth deployment regardless of which backend you choose for y",
+    "preview": "Polkadot's smart contract platform supports two distinct virtual machine backends: Rust Ethereum Virtual Machine (REVM) and PVM. Each backend has its own deployment characteristics and optimization strategies. REVM provides full Ethereum compatibility with familiar single-step deployment, while the RISC-V-based PVM uses a more structured two-step approach optimized for its architecture. Understanding these differences ensures smooth deployment regardless of which backend you choose for your smar",
     "outline": [
       {
         "depth": 2,
@@ -4245,7 +4559,7 @@
       {
         "depth": 2,
         "title": "PVM Deployment",
-        "anchor": "polkavm-deployment"
+        "anchor": "pvm-deployment"
       },
       {
         "depth": 3,
@@ -4294,12 +4608,12 @@
       }
     ],
     "stats": {
-      "chars": 5999,
+      "chars": 5931,
       "words": 766,
       "headings": 12,
       "estimated_token_count_total": 1133
     },
-    "hash": "sha256:0792e3956242eb8e08ab82e2d73964c381074cc8b1ea46f396d136856fa6cc07",
+    "hash": "sha256:87948c1f47cc614f8fad3008a5a7742f065f31fbd54d2743aa7aca786e67bd49",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4327,7 +4641,7 @@
       {
         "depth": 2,
         "title": "Upgrade to PVM",
-        "anchor": "upgrade-to-polkavm"
+        "anchor": "upgrade-to-pvm"
       },
       {
         "depth": 2,
@@ -4342,7 +4656,7 @@
       {
         "depth": 3,
         "title": "PVM Design Fundamentals",
-        "anchor": "polkavm-design-fundamentals"
+        "anchor": "pvm-design-fundamentals"
       },
       {
         "depth": 2,
@@ -4351,12 +4665,12 @@
       }
     ],
     "stats": {
-      "chars": 5213,
+      "chars": 5173,
       "words": 681,
       "headings": 7,
       "estimated_token_count_total": 986
     },
-    "hash": "sha256:8618a3633c67049a370417b35d2435935bdf8083661a56bd8e249988ba8c0fe9",
+    "hash": "sha256:de6a108794a7872a72c0091dc8456a0ab25d645d5bb80594b09cb4beea0485e7",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5204,12 +5518,12 @@
       }
     ],
     "stats": {
-      "chars": 4446,
+      "chars": 4414,
       "words": 580,
       "headings": 7,
       "estimated_token_count_total": 915
     },
-    "hash": "sha256:2af857ea833cbc7fd2bcdf1a286da37b45ff446bbf2a0e46395c739a6521804e",
+    "hash": "sha256:367436ac4b733aae2bddf4391400ca59ed3d7c0af8bc7fb11fd6a017e4b09fd5",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5245,12 +5559,12 @@
       }
     ],
     "stats": {
-      "chars": 5232,
+      "chars": 5228,
       "words": 532,
       "headings": 4,
       "estimated_token_count_total": 1192
     },
-    "hash": "sha256:f17db5daca8feae70ce428e03a5a4870ef87dfc8571b07376327cd80d057b759",
+    "hash": "sha256:760b697fc144c5d65678eda21472c573ce861459fda8b27af38532e04e71994c",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5347,12 +5661,12 @@
       }
     ],
     "stats": {
-      "chars": 2355,
+      "chars": 2319,
       "words": 307,
       "headings": 3,
       "estimated_token_count_total": 412
     },
-    "hash": "sha256:4f19b6655acf73973872285c17039e09a79864b8a12c15bed5679157a285122a",
+    "hash": "sha256:a99b6ca675e289b3a8bbcd7bd71a85551b226d25df3f65ec64f6f56aef86fd90",
     "token_estimator": "heuristic-v1"
   }
 ]

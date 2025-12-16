@@ -25,13 +25,9 @@ This dual-format approach enables Asset Hub to maintain compatibility with Ether
 The platform handles two distinct address formats:
 
 - [Ethereum-style addresses (20 bytes)](https://ethereum.org/developers/docs/accounts/#account-creation){target=\_blank}
-<<<<<<< HEAD:.ai/pages/smart-contracts-for-eth-devs-accounts.md
 - [Polkadot native account IDs (32 bytes)](https://wiki.polkadot.com/learn/learn-account-advanced/#address-format){target=\_blank}
 
 
-=======
-- [Polkadot native account IDs (32 bytes)](/polkadot-protocol/parachain-basics/accounts/){target=\_blank}
->>>>>>> master:polkadot-protocol/smart-contract-basics/accounts.md
 
 ### Ethereum to Polkadot Mapping
 

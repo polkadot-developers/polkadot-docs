@@ -4103,12 +4103,12 @@
       }
     ],
     "stats": {
-      "chars": 2827,
-      "words": 207,
+      "chars": 2808,
+      "words": 203,
       "headings": 3,
-      "estimated_token_count_total": 1022
+      "estimated_token_count_total": 1018
     },
-    "hash": "sha256:1392e4674ab293133b8cbc8e075d736ad3e5f05d736575eba37c527788e7a5f2",
+    "hash": "sha256:dacc949c82d4c3196e3ff3e846e6a34ac43f480a0e0811ff914de0623f42ac6a",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4280,12 +4280,12 @@
       }
     ],
     "stats": {
-      "chars": 1610,
-      "words": 201,
+      "chars": 1557,
+      "words": 193,
       "headings": 4,
-      "estimated_token_count_total": 307
+      "estimated_token_count_total": 299
     },
-    "hash": "sha256:46f73abd0e8d8d380f0033627ff1b9bcd390c714a549802c795d4bafad2ec2ab",
+    "hash": "sha256:e07e2812e0247e62d7585aa485a5f591dc60c776c09c4a8614d21bdaaa95cd04",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4544,7 +4544,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-for-eth-devs-contract-deployment.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/for-eth-devs/contract-deployment/",
-    "preview": "Polkadot's smart contract platform supports two distinct virtual machine backends: Rust Ethereum Virtual Machine (REVM) and PVM. Each backend has its own deployment characteristics and optimization strategies. REVM provides full Ethereum compatibility with familiar single-step deployment, while the RISC-V-based PVM uses a more structured two-step approach optimized for its architecture. Understanding these differences ensures smooth deployment regardless of which backend you choose for your smar",
+    "preview": "Deploying smart contracts to Polkadot Hub works exactly like deploying to Ethereum. Use your existing Solidity contracts, familiar tools like Hardhat, Foundry, or Remix, and deploy without any modifications.",
     "outline": [
       {
         "depth": 2,
@@ -4553,80 +4553,65 @@
       },
       {
         "depth": 2,
-        "title": "REVM Deployment",
-        "anchor": "revm-deployment"
+        "title": "Deployment Process",
+        "anchor": "deployment-process"
       },
       {
         "depth": 2,
-        "title": "PVM Deployment",
-        "anchor": "pvm-deployment"
+        "title": "Using Your Existing Workflow",
+        "anchor": "using-your-existing-workflow"
       },
       {
         "depth": 3,
-        "title": "Standard Contract Deployment",
-        "anchor": "standard-contract-deployment"
+        "title": "With Hardhat",
+        "anchor": "with-hardhat"
       },
       {
         "depth": 3,
-        "title": "Two-Step Deployment Model",
-        "anchor": "two-step-deployment-model"
+        "title": "With Foundry",
+        "anchor": "with-foundry"
       },
       {
         "depth": 3,
-        "title": "Factory Pattern Considerations",
-        "anchor": "factory-pattern-considerations"
-      },
-      {
-        "depth": 3,
-        "title": "Migration Strategy for Factory Contracts",
-        "anchor": "migration-strategy-for-factory-contracts"
-      },
-      {
-        "depth": 3,
-        "title": "Architecture-Specific Limitations",
-        "anchor": "architecture-specific-limitations"
-      },
-      {
-        "depth": 3,
-        "title": "On-Chain Constructors",
-        "anchor": "on-chain-constructors"
+        "title": "With Remix",
+        "anchor": "with-remix"
       },
       {
         "depth": 2,
-        "title": "Gas Estimation vs Actual Consumption",
-        "anchor": "gas-estimation-vs-actual-consumption"
+        "title": "Gas Estimation",
+        "anchor": "gas-estimation"
       },
       {
         "depth": 2,
-        "title": "Deployment Comparison",
-        "anchor": "deployment-comparison"
+        "title": "Network Configuration",
+        "anchor": "network-configuration"
       },
       {
         "depth": 2,
-        "title": "Conclusion",
-        "anchor": "conclusion"
+        "title": "Next Steps",
+        "anchor": "next-steps"
       }
     ],
     "stats": {
-      "chars": 5931,
-      "words": 766,
-      "headings": 12,
-      "estimated_token_count_total": 1133
+      "chars": 2217,
+      "words": 284,
+      "headings": 9,
+      "estimated_token_count_total": 485
     },
-    "hash": "sha256:87948c1f47cc614f8fad3008a5a7742f065f31fbd54d2743aa7aca786e67bd49",
+    "hash": "sha256:2cbb7ed6a13429e613a95bddee45222e223593a65d25c69becb3ed2afa058ed1",
     "token_estimator": "heuristic-v1"
   },
   {
-    "id": "smart-contracts-for-eth-devs-dual-vm-stack",
-    "title": "Dual Virtual Machine Stack",
-    "slug": "smart-contracts-for-eth-devs-dual-vm-stack",
+    "id": "smart-contracts-for-eth-devs-ethereum-compatibility",
+    "title": "Ethereum Compatibility",
+    "slug": "smart-contracts-for-eth-devs-ethereum-compatibility",
     "categories": [
       "Basics",
       "Polkadot Protocol"
     ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-for-eth-devs-dual-vm-stack.md",
-    "html_url": "https://docs.polkadot.com/smart-contracts/for-eth-devs/dual-vm-stack/",
-    "preview": "Polkadot's smart contract platform supports two distinct virtual machine (VM) architectures, providing developers with flexibility in selecting the optimal execution backend for their specific needs. This approach strikes a balance between immediate Ethereum compatibility and long-term innovation, enabling developers to deploy either unmodified (Ethereum Virtual Machine) EVM contracts using Rust Ethereum Virtual Machine (REVM) or optimize for higher performance using PVM (PVM).",
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-for-eth-devs-ethereum-compatibility.md",
+    "html_url": "https://docs.polkadot.com/smart-contracts/for-eth-devs/ethereum-compatibility/",
+    "preview": "Polkadot Hub provides full Ethereum compatibility through the REVM (Rust Ethereum Virtual Machine) backend. This enables developers to deploy existing Solidity contracts without modifications, use familiar Ethereum tooling, and benefit from Polkadot's cross-chain capabilities.",
     "outline": [
       {
         "depth": 2,
@@ -4635,13 +4620,18 @@
       },
       {
         "depth": 2,
-        "title": "Migrate from EVM",
-        "anchor": "migrate-from-evm"
+        "title": "REVM Backend",
+        "anchor": "revm-backend"
       },
       {
-        "depth": 2,
-        "title": "Upgrade to PVM",
-        "anchor": "upgrade-to-pvm"
+        "depth": 3,
+        "title": "Key Benefits",
+        "anchor": "key-benefits"
+      },
+      {
+        "depth": 3,
+        "title": "How It Works",
+        "anchor": "how-it-works"
       },
       {
         "depth": 2,
@@ -4655,8 +4645,13 @@
       },
       {
         "depth": 3,
-        "title": "PVM Design Fundamentals",
-        "anchor": "pvm-design-fundamentals"
+        "title": "Full JSON-RPC Support",
+        "anchor": "full-json-rpc-support"
+      },
+      {
+        "depth": 2,
+        "title": "Alternative: PVM Backend",
+        "anchor": "alternative-pvm-backend"
       },
       {
         "depth": 2,
@@ -4665,12 +4660,12 @@
       }
     ],
     "stats": {
-      "chars": 5173,
-      "words": 681,
-      "headings": 7,
-      "estimated_token_count_total": 986
+      "chars": 3577,
+      "words": 445,
+      "headings": 9,
+      "estimated_token_count_total": 706
     },
-    "hash": "sha256:de6a108794a7872a72c0091dc8456a0ab25d645d5bb80594b09cb4beea0485e7",
+    "hash": "sha256:177a0f9c15af3a264dfecd63c4a4e1dffbb5d066a7c04a2d0df001f88e9207d7",
     "token_estimator": "heuristic-v1"
   },
   {

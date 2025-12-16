@@ -1,6 +1,6 @@
 ---
 title: Block Explorers
-description: Access PVM explorers like Subscan, BlockScout, and Routescan to track transactions, analyze contracts, and view on-chain data from smart contracts.
+description: Access block explorers like Subscan, BlockScout, and Routescan to track transactions, analyze contracts, and view on-chain data from smart contracts.
 categories: Smart Contracts, Tooling
 ---
 
@@ -12,7 +12,7 @@ Block explorers serve as comprehensive blockchain analytics platforms that provi
 
 ## Core Functionality
 
-These block explorers provide essential capabilities for interacting with smart contracts in Polkadot Hub:
+Block explorers provide essential capabilities for interacting with smart contracts on Polkadot Hub:
 
 - **Transaction tracking**: Monitor transaction status, confirmations, fees, and metadata.
 - **Address analysis**: View account balances, transaction history, and associated contracts.
@@ -23,11 +23,11 @@ These block explorers provide essential capabilities for interacting with smart 
 
 ## Available Block Explorers
 
-The following block explorers are available for PVM smart contracts, providing specialized tools for monitoring and analyzing contract activity within the Polkadot ecosystem.
+The following block explorers are available for Polkadot Hub smart contracts, providing specialized tools for monitoring and analyzing contract activity.
 
 <!-- ### Subscan
 
-Subscan is the flagship Polkadot ecosystem block explorer with comprehensive support for PVM smart contracts. It provides robust transaction indexing, account analysis, and monitoring tools specifically optimized for Polkadot SDK-based networks.
+Subscan is the flagship Polkadot ecosystem block explorer with comprehensive support for smart contracts. It provides robust transaction indexing, account analysis, and monitoring tools specifically optimized for Polkadot SDK-based networks.
 
 - [Westend Hub Subscan](https://assethub-westend.subscan.io/){target=\_blank}
 
@@ -35,7 +35,7 @@ Subscan is the flagship Polkadot ecosystem block explorer with comprehensive sup
 
 ### BlockScout
 
-BlockScout is an open-source explorer platform with a user-friendly interface adapted for PVM contracts. It excels at detailed contract analytics and provides developers with comprehensive API access.
+BlockScout is an open-source explorer platform with a user-friendly interface. It excels at detailed contract analytics and provides developers with comprehensive API access.
 
 - [Polkadot Hub TestNet BlockScout](https://blockscout-passet-hub.parity-testnet.parity.io/){target=\_blank}
 
@@ -43,7 +43,7 @@ BlockScout is an open-source explorer platform with a user-friendly interface ad
 
 <!-- ### Routescan
 
-Routescan delivers multi-chain explorer capabilities with specialized support for PVM environments.
+Routescan delivers multi-chain explorer capabilities with specialized support for Polkadot Hub.
 
 - [Westend Hub Routescan](https://420420421.testnet.routescan.io/){target=\_blank}
 

@@ -17744,7 +17744,6 @@ flowchart LR
   E[Transaction] --> D
   D --> F[(New State)]
   D --> G[Execution Logs]
-  style A stroke:#000000,stroke-width:1px
 ```
 
 In addition, because smart contracts are programs that execute on top of existing chains, teams don't have to think about the underlying consensus they are built on.
@@ -17813,9 +17812,6 @@ flowchart TD
     I --> F
     F --> J[(New Ethereum<br/>Emulated State)]
     F --> K[Execution Logs]
-
-    style C stroke:#000000,stroke-width:1px
-    style F stroke:#000000,stroke-width:1px
 ```
 
 Although it seems complex, users and developers are abstracted of that complexity, and tools can easily interact with the parachain as they would with any other Ethereum-compatible environment.
@@ -17849,8 +17845,6 @@ flowchart TD
     D --> A
     A --> F[(New State)]
     A --> G[Execution Logs]
-
-    style A stroke:#000000,stroke-width:1px
 ```
 
 

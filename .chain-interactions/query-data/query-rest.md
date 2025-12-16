@@ -111,11 +111,19 @@ curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/accou
 
 ### Request Specific Asset Balance
 
-To query a specific asset (e.g., USDT with asset ID 1984):
+To query a specific asset, provide the asset ID as a query parameter:
 
 ```bash
-curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/accounts/<INSERT_ADDRESS>/asset-balances?assets[]=1984"
+curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/accounts/<INSERT_ADDRESS>/asset-balances?assets[]=<INSERT_ASSET_ID>"
 ```
+
+??? example "Query USDT balance"
+
+    USDT on Polkadot Hub has asset ID `1984`. To query a specific account's USDT balance:
+
+    ```bash
+    curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/accounts/<INSERT_ADDRESS>/asset-balances?assets[]=1984"
+    ```
 
 ### Response
 
@@ -140,8 +148,16 @@ curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/accou
 You can query multiple assets in a single request:
 
 ```bash
-curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/accounts/<INSERT_ADDRESS>/asset-balances?assets[]=1984&assets[]=1337"
+curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/accounts/<INSERT_ADDRESS>/asset-balances?assets[]=<INSERT_ASSET_ID_1>&assets[]=<INSERT_ASSET_ID_2>"
 ```
+
+??? example "Query USDT and USDC balances"
+
+    Query both USDT (asset ID `1984`) and USDC (asset ID `1337`) in a single request:
+
+    ```bash
+    curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/accounts/<INSERT_ADDRESS>/asset-balances?assets[]=1984&assets[]=1337"
+    ```
 
 ## Query Asset Metadata
 

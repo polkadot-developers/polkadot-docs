@@ -2247,7 +2247,7 @@ Before starting, make sure you have:
 
 - [Talisman](https://talisman.xyz/){target=\_blank} installed and connected to the Polkadot Hub TestNet. Check the [Connect to Polkadot](/develop/smart-contracts/connect-to-polkadot/){target=\_blank} guide for more information.
 - A funded account with some PAS tokens (you can get them from the [Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}, noting that the faucet imposes a daily token limit, which may require multiple requests to obtain sufficient funds for testing).
-- Basic understanding of Solidity and NFTs, see the [Solidity Basics](https://soliditylang.org/){target=\_blank} and the [NFT Overview](https://ethereum.org/nft/){target=\_blank} guides for more details.
+- Basic understanding of Solidity and NFTs, see the [Solidity Basics](https://www.soliditylang.org/){target=\_blank} and the [NFT Overview](https://ethereum.org/nft/){target=\_blank} guides for more details.
 
 ## Create the NFT Contract
 
@@ -6041,7 +6041,7 @@ Polkadot is designed to support an ecosystem of parachains, rather than hosting 
 This guide outlines the primary approaches to developing smart contracts in the Polkadot ecosystem:
 
 - **PolkaVM-compatible contracts**: Support Solidity and any language that compiles down to RISC-V while maintaining compatibility with Ethereum based tools.
-- **EVM-compatible contracts**: Support languages like [Solidity](https://soliditylang.org/){target=\_blank} and [Vyper](https://vyperlang.org/){target=\_blank}, offering compatibility with popular Ethereum tools and wallets.
+- **EVM-compatible contracts**: Support languages like [Solidity](https://www.soliditylang.org/){target=\_blank} and [Vyper](https://vyperlang.org/){target=\_blank}, offering compatibility with popular Ethereum tools and wallets.
 - **Wasm-based smart contracts**: Using [ink!](https://use.ink/){target=\_blank}, a Rust-based embedded domain-specific language (eDSL), enabling developers to leverage Rust’s safety and tooling.
 
 You'll explore the key differences between these development paths, along with considerations for parachain developers integrating smart contract functionality.

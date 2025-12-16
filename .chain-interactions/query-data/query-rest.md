@@ -53,7 +53,7 @@ Parity provides public Sidecar instances for Polkadot ecosystem chains:
 | Polkadot | `https://polkadot-public-sidecar.parity-chains.parity.io` |
 | Kusama | `https://kusama-public-sidecar.parity-chains.parity.io` |
 | Polkadot Hub | `https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io` |
-| Kusama Asset Hub | `https://kusama-asset-hub-public-sidecar.parity-chains.parity.io` |
+| Kusama Hub | `https://kusama-asset-hub-public-sidecar.parity-chains.parity.io` |
 
 For production applications, consider running your own Sidecar instance. See [Running Sidecar Locally](#running-sidecar-locally) for instructions.
 

@@ -3478,7 +3478,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-.deploy-basic-pvm.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/.deploy-basic-pvm/",
-    "preview": "Deploying smart contracts to [Polkadot Hub](/smart-contracts/overview/#smart-contract-development){target=\\_blank} can be accomplished through various tools and environments, each suited to different development workflows. This guide demonstrates how to deploy a basic PVM (PVM) smart contract using four popular approaches: JavaScript with [Ethers.js](https://docs.ethers.org/v6/){target=\\_blank}, [Remix IDE](https://remix.live/){target=\\_blank}, [Hardhat](https://hardhat.org/){target=\\_blank}, an",
+    "preview": "Deploying smart contracts to [Polkadot Hub](/smart-contracts/overview/#smart-contract-development){target=\\_blank} can be accomplished through various tools and environments, each suited to different development workflows. This guide demonstrates how to deploy a basic PVM smart contract using four popular approaches: JavaScript with [Ethers.js](https://docs.ethers.org/v6/){target=\\_blank}, [Remix IDE](https://remix.live/){target=\\_blank}, [Hardhat](https://hardhat.org/){target=\\_blank}, and [Fou",
     "outline": [
       {
         "depth": 2,
@@ -3602,12 +3602,12 @@
       }
     ],
     "stats": {
-      "chars": 13860,
-      "words": 1640,
+      "chars": 13854,
+      "words": 1639,
       "headings": 24,
-      "estimated_token_count_total": 3228
+      "estimated_token_count_total": 3225
     },
-    "hash": "sha256:a494466822a39e3db0a12ef72f2c9df1bb2a03e096874e837c959c05bd0f1980",
+    "hash": "sha256:41dfbfc0f218b74d51677d457ebc5ae23cb7b16a674f25012c6519a082ffc9c7",
     "token_estimator": "heuristic-v1"
   },
   {

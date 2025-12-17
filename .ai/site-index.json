@@ -5393,22 +5393,99 @@
   },
   {
     "id": "reference-tools-chopsticks",
-    "title": "reference-tools-chopsticks",
+    "title": "Chopsticks",
     "slug": "reference-tools-chopsticks",
     "categories": [
-      "Uncategorized"
+      "Parachains",
+      "Tooling"
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-tools-chopsticks.md",
     "html_url": "https://docs.polkadot.com/reference/tools/chopsticks/",
-    "preview": "TODO",
-    "outline": [],
+    "preview": "[Chopsticks](https://github.com/AcalaNetwork/chopsticks/){target=\\_blank}, developed by the [Acala Foundation](https://github.com/AcalaNetwork){target=\\_blank}, is a versatile tool tailored for developers working on Polkadot SDK-based blockchains. With Chopsticks, you can fork live chains locally, replay blocks to analyze extrinsics, and simulate complex scenarios like XCM interactions, all without deploying to a live network.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 3,
+        "title": "Key Features",
+        "anchor": "key-features"
+      },
+      {
+        "depth": 2,
+        "title": "Prerequisites",
+        "anchor": "prerequisites"
+      },
+      {
+        "depth": 2,
+        "title": "Installation",
+        "anchor": "installation"
+      },
+      {
+        "depth": 3,
+        "title": "Global Installation",
+        "anchor": "global-installation"
+      },
+      {
+        "depth": 3,
+        "title": "Local Installation",
+        "anchor": "local-installation"
+      },
+      {
+        "depth": 2,
+        "title": "Get Started",
+        "anchor": "get-started"
+      },
+      {
+        "depth": 3,
+        "title": "Configuration Options",
+        "anchor": "configuration-options"
+      },
+      {
+        "depth": 3,
+        "title": "Configuration File",
+        "anchor": "configuration-file"
+      },
+      {
+        "depth": 3,
+        "title": "Create a Fork",
+        "anchor": "create-a-fork"
+      },
+      {
+        "depth": 3,
+        "title": "Interact with a Fork",
+        "anchor": "interact-with-a-fork"
+      },
+      {
+        "depth": 3,
+        "title": "Replay Blocks",
+        "anchor": "replay-blocks"
+      },
+      {
+        "depth": 3,
+        "title": "Test XCM",
+        "anchor": "test-xcm"
+      },
+      {
+        "depth": 2,
+        "title": "WebSocket Commands",
+        "anchor": "websocket-commands"
+      },
+      {
+        "depth": 2,
+        "title": "Where to Go Next",
+        "anchor": "where-to-go-next"
+      }
+    ],
     "stats": {
-      "chars": 5,
-      "words": 1,
-      "headings": 0,
-      "estimated_token_count_total": 0
+      "chars": 15763,
+      "words": 2070,
+      "headings": 15,
+      "estimated_token_count_total": 4021
     },
-    "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
+    "hash": "sha256:90e24f11e952b1f61ea4b53d8a0618c231293b032ebac0ee657d9bf55e75264f",
     "token_estimator": "heuristic-v1"
   },
   {

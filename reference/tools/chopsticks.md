@@ -8,7 +8,7 @@ categories: Parachains, Tooling
 
 ## Introduction
 
-[Chopsticks](https://github.com/AcalaNetwork/chopsticks/){target=\_blank}, developed by the [Acala Foundation](https://github.com/AcalaNetwork){target=\_blank}, is a versatile tool tailored for developers working on Polkadot SDK-based blockchains. With Chopsticks, you can fork live chains locally, replay blocks to analyze extrinsics, and simulate complex scenarios like XCM interactions all without deploying to a live network.
+[Chopsticks](https://github.com/AcalaNetwork/chopsticks/){target=\_blank}, developed by the [Acala Foundation](https://github.com/AcalaNetwork){target=\_blank}, is a versatile tool tailored for developers working on Polkadot SDK-based blockchains. With Chopsticks, you can fork live chains locally, replay blocks to analyze extrinsics, and simulate complex scenarios like XCM interactions, all without deploying to a live network.
 
 By streamlining testing and experimentation, Chopsticks empowers developers to innovate and accelerate their blockchain projects within the Polkadot ecosystem.
 
@@ -103,7 +103,7 @@ npx @acala-network/chopsticks --help
 
 ### Configuration Options
 
-To run Chopsticks, you need to configure some parameters. This can be set either through using a configuration file or the command line interface (CLI). The parameters that can be configured are as follows:
+To run Chopsticks, you need to configure some parameters. This can be set either via a configuration file or the command-line interface (CLI). The parameters that can be configured are as follows:
 
 - **`genesis`**: The link to a parachain's raw genesis file to build the fork from, instead of an endpoint.
 - **`timestamp`**: Timestamp of the block to fork from.
@@ -129,7 +129,7 @@ An example of a configuration file for Polkadot is as follows:
 --8<-- 'code/reference/tools/chopsticks/polkadot.yml'
 ```
 
-The configuration file allows you to modify the storage of the forked network by rewriting the pallet, state component and value that you want to change. For example, Polkadot's file rewrites Alice's `system.Account` storage so that the free balance is set to `10000000000000000000`.
+The configuration file allows you to modify the storage of the forked network by rewriting the pallet, state component, and value that you want to change. For example, Polkadot's file rewrites Alice's `system.Account` storage so that the free balance is set to `10000000000000000000`.
 
 ### Create a Fork
 
@@ -199,7 +199,7 @@ You can interact with the forked chain using various libraries such as [Polkadot
 
 ### Replay Blocks
 
-Chopsticks allows you to replay specific blocks from a chain, which is useful for debugging and analyzing state changes. Use the `run-block` subcommand with the following options:
+Chopsticks lets you replay specific blocks in a chain, which is useful for debugging and analyzing state changes. Use the `run-block` subcommand with the following options:
 
 - **`output-path`**: Path to print output.
 - **`html`**: Generate HTML with storage diff.
@@ -225,7 +225,7 @@ Use the `xcm` subcommand with:
 - **`-r` / `--relaychain`**: Relay chain config file
 - **`-p` / `--parachain`**: Parachain config file (can be specified multiple times)
 
-For example, to fork Moonbeam, Astar, and Polkadot enabling XCM between them:
+For example, to fork Moonbeam, Astar, and Polkadot, enabling XCM between them:
 
 ```bash
 npx @acala-network/chopsticks xcm \
@@ -242,7 +242,7 @@ Now you can interact with your forked chains using the ports specified in the ou
 
 ## WebSocket Commands
 
-Chopstick's internal WebSocket server has special endpoints that allow the manipulation of the local Polkadot SDK chain.
+Chopstick's internal WebSocket server has special endpoints that allow manipulating the local Polkadot SDK chain.
 
 ???+ interface "dev_newBlock"
 
@@ -327,7 +327,7 @@ Chopstick's internal WebSocket server has special endpoints that allow the manip
 
 ??? interface "dev_timeTravel"
 
-    Sets the timestamp of the block to a specific date. All future blocks will be sequentially created after this point in time.
+    Sets the block's timestamp to a specific date. All future blocks will be sequentially created after this point in time.
 
     **Parameters:**
 

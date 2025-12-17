@@ -4849,15 +4849,15 @@
     "token_estimator": "heuristic-v1"
   },
   {
-    "id": "reference-polkadot-hub-assets-and-smart-contracts",
-    "title": "Asset Hub",
-    "slug": "reference-polkadot-hub-assets-and-smart-contracts",
+    "id": "reference-polkadot-hub-assets",
+    "title": "Polkadot Hub Assets",
+    "slug": "reference-polkadot-hub-assets",
     "categories": [
       "Polkadot Protocol"
     ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-polkadot-hub-assets-and-smart-contracts.md",
-    "html_url": "https://docs.polkadot.com/reference/polkadot-hub/assets-and-smart-contracts/",
-    "preview": "The Asset Hub is a critical component in the Polkadot ecosystem, enabling the management of fungible and non-fungible assets across the network. Since the relay chain focuses on maintaining security and consensus without direct asset management, Asset Hub provides a streamlined platform for creating, managing, and using on-chain assets in a fee-efficient manner. This guide outlines the core features of Asset Hub, including how it handles asset operations, cross-chain transfers, and asset integra",
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-polkadot-hub-assets.md",
+    "html_url": "https://docs.polkadot.com/reference/polkadot-hub/assets/",
+    "preview": "Polkadot Hub is Polkadot’s system parachain that provides core functionality for the network, including issuing and managing on-chain assets. While the relay chain provides security, Polkadot Hub handles asset logic—minting, burning, transfers, and metadata—efficiently and cost-effectively.",
     "outline": [
       {
         "depth": 2,
@@ -4866,112 +4866,62 @@
       },
       {
         "depth": 2,
-        "title": "Assets Basics",
-        "anchor": "assets-basics"
+        "title": "Why Use Polkadot Hub?",
+        "anchor": "why-use-polkadot-hub"
       },
       {
         "depth": 2,
-        "title": "Assets Pallet",
-        "anchor": "assets-pallet"
-      },
-      {
-        "depth": 3,
-        "title": "Key Features",
-        "anchor": "key-features"
-      },
-      {
-        "depth": 3,
-        "title": "Main Functions",
-        "anchor": "main-functions"
-      },
-      {
-        "depth": 3,
-        "title": "Querying Functions",
-        "anchor": "querying-functions"
-      },
-      {
-        "depth": 3,
-        "title": "Permission Models and Roles",
-        "anchor": "permission-models-and-roles"
-      },
-      {
-        "depth": 3,
-        "title": "Asset Freezing",
-        "anchor": "asset-freezing"
-      },
-      {
-        "depth": 3,
-        "title": "Non-Custodial Transfers (Approval API)",
-        "anchor": "non-custodial-transfers-approval-api"
+        "title": "Types of Assets",
+        "anchor": "types-of-assets"
       },
       {
         "depth": 2,
-        "title": "Foreign Assets",
-        "anchor": "foreign-assets"
-      },
-      {
-        "depth": 3,
-        "title": "Handling Foreign Assets",
-        "anchor": "handling-foreign-assets"
+        "title": "Asset Structure",
+        "anchor": "asset-structure"
       },
       {
         "depth": 2,
-        "title": "Integration",
-        "anchor": "integration"
+        "title": "How Native Assets Work",
+        "anchor": "how-native-assets-work"
       },
       {
         "depth": 3,
-        "title": "API Sidecar",
-        "anchor": "api-sidecar"
+        "title": "Asset Operations",
+        "anchor": "asset-operations"
       },
       {
         "depth": 3,
-        "title": "TxWrapper",
-        "anchor": "txwrapper"
+        "title": "Roles and Permissions",
+        "anchor": "roles-and-permissions"
       },
       {
         "depth": 3,
-        "title": "Parachain Node",
-        "anchor": "parachain-node"
+        "title": "Freezing Assets",
+        "anchor": "freezing-assets"
+      },
+      {
+        "depth": 3,
+        "title": "Delegated Transfers",
+        "anchor": "delegated-transfers"
       },
       {
         "depth": 2,
-        "title": "XCM Transfer Monitoring",
-        "anchor": "xcm-transfer-monitoring"
-      },
-      {
-        "depth": 3,
-        "title": "Monitor XCM Deposits",
-        "anchor": "monitor-xcm-deposits"
-      },
-      {
-        "depth": 3,
-        "title": "Track XCM Information Back to the Source",
-        "anchor": "track-xcm-information-back-to-the-source"
-      },
-      {
-        "depth": 3,
-        "title": "Practical Monitoring Examples",
-        "anchor": "practical-monitoring-examples"
-      },
-      {
-        "depth": 3,
-        "title": "Monitor for Failed XCM Transfers",
-        "anchor": "monitor-for-failed-xcm-transfers"
+        "title": "How Foreign Assets Work",
+        "anchor": "how-foreign-assets-work"
       },
       {
         "depth": 2,
-        "title": "Where to Go Next",
-        "anchor": "where-to-go-next"
+        "title": "Moving Assets Across Chains",
+        "anchor": "moving-assets-across-chains"
       }
     ],
     "stats": {
-      "chars": 18211,
-      "words": 2649,
-      "headings": 21,
-      "estimated_token_count_total": 3678
+      "chars": 7453,
+      "words": 1061,
+      "headings": 11,
+      "estimated_token_count_total": 1493
     },
-    "hash": "sha256:3d10c04cffc5f737ff75b079d661c2c1904629d23ae1e415e64fd6ae4e98759e",
+    "hash": "sha256:98b6ce18a56ea53a3f2e4bd2ebe8e25647d3d79404a63cd87d39cfb79adc0e94",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5325,6 +5275,47 @@
       "estimated_token_count_total": 876
     },
     "hash": "sha256:8239d1e8d8642cb7c10e9e5f971c99b999e9e4a87373b50bf4a691225c1e4702",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "reference-polkadot-hub-smart-contracts",
+    "title": "Polkadot Hub Smart Contracts",
+    "slug": "reference-polkadot-hub-smart-contracts",
+    "categories": [
+      "Polkadot Protocol"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-polkadot-hub-smart-contracts.md",
+    "html_url": "https://docs.polkadot.com/reference/polkadot-hub/smart-contracts/",
+    "preview": "Polkadot Hub enables developers to deploy and interact with Solidity contracts through REVM, a high-performance, Rust-based Ethereum Virtual Machine implementation. Polkadot-native precompiles bring Ethereum compatibility to Polkadot Hub, letting teams use familiar Solidity tooling, integrate with on-chain features like governance and XCM, and take advantage of cross-chain interoperability.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 3,
+        "title": "REVM Smart Contracts",
+        "anchor": "revm-smart-contracts"
+      },
+      {
+        "depth": 3,
+        "title": "PVM Smart Contracts",
+        "anchor": "pvm-smart-contracts"
+      },
+      {
+        "depth": 2,
+        "title": "Where to Go Next",
+        "anchor": "where-to-go-next"
+      }
+    ],
+    "stats": {
+      "chars": 3309,
+      "words": 452,
+      "headings": 4,
+      "estimated_token_count_total": 652
+    },
+    "hash": "sha256:f92ae15a26b1cd86d398cb66a05b93bc7e0b4125a6b1523026854c8d79af8b77",
     "token_estimator": "heuristic-v1"
   },
   {

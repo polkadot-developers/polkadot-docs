@@ -1,8 +1,6 @@
 ---
 title: Support
 description: Start here to get developer support for Polkadot. Connect with the team, find help, and explore resources beyond the documentation.
-hide:
-  - footer
 ---
 
 # Polkadot Developer Support
@@ -25,7 +23,7 @@ Use one of the channels below to get live technical support or ask questions.
     <li> **Topics:** Any developer-related question is welcome. </li>
     </ul>
 
-    👉 **[Join Telegram](https://t.me/substratedevs){target=\_blank}**
+    👉 [Join Telegram](https://t.me/substratedevs){target=\_blank}
 
 -   :simple-discord:{ .sub } **Discord: Polkadot Official Server**
  
@@ -35,7 +33,7 @@ Use one of the channels below to get live technical support or ask questions.
     <li> **Response time:** Within **1 business day (usually faster)**. </li>
     </ul>
 
-    👉 **[Join Discord](https://polkadot-discord.w3f.tools/){target=\_blank}**
+    👉 [Join Discord](https://polkadot-discord.w3f.tools/){target=\_blank}
 
 -   :simple-matrix:{ .sub } **Matrix: Polkadot Developer Support**
 
@@ -46,7 +44,7 @@ Use one of the channels below to get live technical support or ask questions.
     <li> Bridged with Telegram (all messages synced). </li>
     </ul>
 
-    👉 **[Join Matrix](https://matrix.to/#/#substratedevs:matrix.org){target=\_blank}**
+    👉 [Join Matrix](https://matrix.to/#/#substratedevs:matrix.org){target=\_blank}
 
 </div>
 
@@ -61,7 +59,7 @@ Use one of the channels below to get live technical support or ask questions.
     <li> Ask your own and get detailed responses from experienced devs. </li>
     </ul>
 
-    👉 **[Visit Polkadot Stack Exchange](https://substrate.stackexchange.com/){target=\_blank}**
+    👉 [Visit Polkadot Stack Exchange](https://substrate.stackexchange.com/){target=\_blank}
 
 -   :simple-reddit:{ .sub } **Reddit: r/Polkadot**
     
@@ -70,7 +68,7 @@ Use one of the channels below to get live technical support or ask questions.
     <li> Developer questions are welcome — just tag them appropriately. </li>
     </ul>
 
-    👉 **[Visit r/Polkadot](https://www.reddit.com/r/Polkadot/){target=\_blank}**
+    👉 [Visit r/Polkadot](https://www.reddit.com/r/Polkadot/){target=\_blank}
 
 -   :simple-youtube:{ .sub } **YouTube: @PolkadotNetwork**
     
@@ -80,7 +78,7 @@ Use one of the channels below to get live technical support or ask questions.
     <li> Event recordings and walkthroughs. </li>
     </ul>
 
-    👉 **[Watch on YouTube](https://www.youtube.com/@PolkadotNetwork){target=\_blank}**
+    👉 [Watch on YouTube](https://www.youtube.com/@PolkadotNetwork){target=\_blank}
 
 -   :fontawesome-brands-x-twitter:{ .sub } **X (Twitter): Official Accounts**
     
@@ -99,7 +97,7 @@ Use one of the channels below to get live technical support or ask questions.
     <li> Join community discussions around the direction of the ecosystem. </li>
     </ul>
 
-    👉 **[Visit the Polkadot Forum](https://forum.polkadot.network/){target=\_blank}**
+    👉 [Visit the Polkadot Forum](https://forum.polkadot.network/){target=\_blank}
 
 -   :material-vote:{ .sub } **Polkassembly: OpenGov**
     
@@ -108,7 +106,7 @@ Use one of the channels below to get live technical support or ask questions.
     <li> Help shape the future of the network. </li>
     </ul>
 
-    👉 **[Explore on Polkassembly](https://polkadot.polkassembly.io/){target=\_blank}**
+    👉 [Explore on Polkassembly](https://polkadot.polkassembly.io/){target=\_blank}
 
 </div>
 
@@ -120,6 +118,6 @@ Use one of the channels below to get live technical support or ask questions.
 
     Access documentation structured and optimized for use with large language models (LLMs) and AI tools. These resources help build AI assistants, power code search, or enable custom tooling trained on Polkadot’s documentation.
 
-    👉 **[Access LLM Files](/get-support/ai-ready-docs/){target=\_blank}**
+    👉 [Access LLM Files](/get-support/ai-ready-docs/){target=\_blank}
 
 </div>

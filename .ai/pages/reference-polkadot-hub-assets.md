@@ -9,7 +9,7 @@ url: https://docs.polkadot.com/reference/polkadot-hub/assets/
 
 ## Introduction
 
-Polkadot Hub is Polkadot's system parachain for issuing and managing on-chain assets. While the relay chain provides security, Polkadot Hub handles asset logic—minting, burning, transfers, and metadata—efficiently and cost-effectively.
+Polkadot Hub is Polkadot’s system parachain that provides core functionality for the network, including issuing and managing on-chain assets. While the relay chain provides security, Polkadot Hub handles asset logic—minting, burning, transfers, and metadata—efficiently and cost-effectively.
 
 Polkadot Hub supports native assets issued on the parachain and foreign assets from other chains, both of which can move seamlessly across the network via XCM.
 

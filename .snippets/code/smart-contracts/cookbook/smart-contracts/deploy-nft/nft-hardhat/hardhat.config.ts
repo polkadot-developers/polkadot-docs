@@ -16,8 +16,8 @@ const config: HardhatUserConfig = {
   },
   networks: {
     polkadotTestnet: {
-      url: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
-      chainId: 420420422,
+      url: 'https://services.polkadothub-rpc.com/testnet',
+      chainId: 420420417,
       accounts: [vars.get('PRIVATE_KEY')],
     },
   },

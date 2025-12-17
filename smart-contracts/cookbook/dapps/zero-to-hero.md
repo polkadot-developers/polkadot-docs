@@ -165,7 +165,7 @@ const config: HardhatUserConfig = {
     polkadotTestNet: {
       type: "http",
       chainType: "l1",
-      url: 'http://127.0.0.1:8545',
+      url: 'https://services.polkadothub-rpc.com/testnet',
       accounts: [process.env.PRIVATE_KEY || ''],
     },
   },
@@ -222,7 +222,7 @@ You should see output similar to:
   <span data-ty="input"><span class="file-path"></span>npx hardhat ignition deploy ./ignition/modules/Storage.ts --network polkadotTestNet</span>
   <span data-ty>WARNING: You are using Node.js 23.11.0 which is not supported by Hardhat.</span>
   <span data-ty>Please upgrade to 22.10.0 or a later LTS version (even major version number)</span>
-  <span data-ty>✔ Confirm deploy to network polkadotTestNet (420420420)? … yes</span>
+  <span data-ty>✔ Confirm deploy to network polkadotTestNet (420420417)? … yes</span>
   <span data-ty>Hardhat Ignition 🚀</span>
   <span data-ty>Deploying [ StorageModule ]</span>
   <span data-ty>Batch #1</span>
@@ -267,7 +267,7 @@ To interact with Polkadot Hub, you need to set up a [Public Client](https://viem
 import { createPublicClient, http, createWalletClient, custom } from 'viem'
 import 'viem/window';
 
-const transport = http('http://127.0.0.1:8545') // TODO: change to the paseo asset hub RPC URL when it's available
+const transport = http('https://services.polkadothub-rpc.com/testnet')
 
 // Configure the Polkadot Testnet Hub chain
 export const polkadotTestnet = {
@@ -281,7 +281,7 @@ export const polkadotTestnet = {
   },
   rpcUrls: {
     default: {
-      http: ['http://127.0.0.1:8545'], // TODO: change to the paseo asset hub RPC URL
+      http: ['https://services.polkadothub-rpc.com/testnet'],
     },
   },
 } as const

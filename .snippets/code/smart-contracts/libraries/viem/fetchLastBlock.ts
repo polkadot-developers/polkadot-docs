@@ -1,10 +1,10 @@
 import { createPublicClient, http } from 'viem';
 
-const transport = http('https://testnet-passet-hub-eth-rpc.polkadot.io'); // TODO: change to paseo asset hub once ready
+const transport = http('https://services.polkadothub-rpc.com/testnet');
 
 // Configure the Polkadot Hub chain
 const polkadotHubTestnet = {
-  id: 420420422,
+  id: 420420417,
   name: 'Polkadot Hub TestNet',
   network: 'polkadot-hub-testnet',
   nativeCurrency: {
@@ -14,7 +14,7 @@ const polkadotHubTestnet = {
   },
   rpcUrls: {
     default: {
-      http: ['https://testnet-passet-hub-eth-rpc.polkadot.io'], // TODO: change to paseo asset hub once ready
+      http: ['https://services.polkadothub-rpc.com/testnet'],
     },
   },
 } as const;

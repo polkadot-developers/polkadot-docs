@@ -120,6 +120,741 @@ All source code references are from the [`address.rs`](https://github.com/parity
 
 ---
 
+Page Title: Agile Coretime
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-polkadot-hub-consensus-and-security-agile-coretime.md
+- Canonical (HTML): https://docs.polkadot.com/reference/polkadot-hub/consensus-and-security/agile-coretime/
+- Summary: Explore the efficient scheduling mechanisms to access Polkadot cores to produce blockspace continuously or on-demand.
+
+# Agile Coretime
+
+## Introduction
+
+Agile Coretime is the [scheduling](https://en.wikipedia.org/wiki/Scheduling_(computing)){target=\_blank} framework on Polkadot that lets parachains efficiently access cores, which comprise an active validator set tasked with parablock validation. As the first blockchain to enable a flexible scheduling system for blockspace production, Polkadot offers unparalleled adaptability for parachains.
+
+``` mermaid
+graph TB
+    A[Cores Designation]
+    B[Bulk Coretime]
+    C[On-Demand Coretime]
+    A --continuous--> B
+    A --flexible--> C 
+```
+
+Cores can be designated to a parachain either continuously through [bulk coretime](#bulk-coretime) or dynamically via [on-demand coretime](#on-demand-coretime). Additionally, Polkadot supports scheduling multiple cores in parallel through [elastic scaling](https://wiki.polkadot.com/learn/learn-elastic-scaling/){target=\_blank}, which is a feature under active development on Polkadot. This flexibility empowers parachains to optimize their resource usage and block production according to their unique needs.
+
+In this guide, you'll learn how bulk coretime enables continuous core access with features like interlacing and splitting, and how on-demand coretime provides flexible, pay-per-use scheduling for parachains. For a deep dive on Agile Coretime and its terminology, refer to the [Wiki doc](https://wiki.polkadot.com/learn/learn-agile-coretime/#introduction-to-agile-coretime){target=\_blank}.
+
+## Bulk Coretime
+
+Bulk coretime is a fixed duration of continuous coretime represented by an NFT that can be purchased through [coretime sales](#coretime-sales) in DOT and can be split, shared, or resold. Currently, the duration of bulk coretime is set to 28 days. Coretime purchased in bulk and assigned to a single parachain is eligible for a price-capped renewal, providing a form of rent-controlled access, which is important for predicting the running costs in the near future. Suppose the bulk coretime is [interlaced](#coretime-interlacing) or [split](#coretime-splitting) or is kept idle without assigning it to a parachain. In that case, it will be ineligible for the price-capped renewal.
+
+### Coretime Interlacing
+
+It is the action of dividing bulk coretime across multiple parachains that produce blocks spaced uniformly in time. For example, think of multiple parachains taking turns producing blocks, demonstrating a simple form of interlacing. This feature can be used by parachains with a low transaction volume and need not continuously produce blocks.
+
+### Coretime Splitting
+
+It is the action of dividing bulk coretime into multiple contiguous regions. This feature can be used by parachains that need to produce blocks continuously but do not require the whole 28 days of bulk coretime and require only part of it.
+
+## On-Demand Coretime
+
+Polkadot has dedicated cores assigned to provide core time on demand. These cores are excluded from the coretime sales and are reserved for on-demand parachains, which pay in DOT per block.
+
+
+---
+
+Page Title: Asynchronous Backing
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-parachains-consensus-async-backing.md
+- Canonical (HTML): https://docs.polkadot.com/reference/parachains/consensus/async-backing/
+- Summary: Understand how asynchronous backing pipelines parachain block production, the protocol changes it introduces on the Relay Chain, and how parachains participate safely and efficiently.
+
+# Asynchronous Backing
+
+## Introduction
+
+Asynchronous backing often shortened to _Async Backing_ is a parachain protocol feature that significantly improves performance, enabling parachains to produce blocks twice as fast (every 6 seconds instead of every 12) and to provide 4x more execution time per block (2 seconds instead of 0.5). 
+
+Technically, async backing is a parachain [configuration](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/relay_chain/struct.AsyncBackingParams.html){target=\_blank} that allows collators and validators to build blocks ahead of the relay chain during the generation and backing stages of the [Inclusion Pipeline](/reference/parachains/consensus/inclusion-pipeline){target=\_blank} by using unincluded segments, which are chains of parachain blocks that have not yet been fully included in the relay chain. This decouples parachain block production from relay chain inclusion, improves coretime efficiency, and enables the parallel processing required for parachains to further scale throughput using [Elastic Scaling](/reference/parachains/consensus/elastic-scaling){target=\_blank}.
+
+## Configurations
+The following configurations can be set by on-chain governance, dictating how many blocks ahead of the relay chain a given parachain's collators can run:
+
+- [**`max_candidate_depth`**](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/relay_chain/struct.AsyncBackingParams.html#structfield.max_candidate_depth){target=\_blank}: the number of parablocks a collator can produce that are not yet included in the relay chain. A value of `2` means that there can be a maximum of 3 unincluded parablocks at any given time.
+- [**`allowed_ancestry_len`**](https://paritytech.github.io/polkadot-sdk/master/cumulus_primitives_core/relay_chain/struct.AsyncBackingParams.html#structfield.allowed_ancestry_len){target=\_blank}: the oldest relay parent a parablock can be built on top of. A value of `1` means collators can start building blocks 6 seconds in advance.
+
+## Synchronous VS. Asynchronous Processing
+
+The Polkadot-parachain protocol originally operated in synchronous mode, where both collators and validators drew context exclusively from the relay parent of the prior parablock, which lives on the relay chain. This made the Backing and Generation steps tightly coupled to the prior parablock completing the entire inclusion pipeline. As a result, one parablock could only be processed every other relay block, with just 0.5 seconds assigned for execution.
+
+```mermaid
+---
+    displayMode: compact
+    config:
+        themeCSS: "
+            #item1 { fill: #450693; stroke: #450693; } \n
+            #item2 { fill: #8C00FF; stroke: #8C00FF; } \n
+            #item3 { fill: #FFC400; stroke: #FFC400; } \n
+            #r     { fill: #eb4172; stroke:none; font-size: 20px; } \n
+            svg text { font-size: 20px !important; } \n
+            svg .sectionTitle { font-size: 20px !important; } \n    #p1padTop { display: none; } \n
+
+            /* Hide ALL task labels by default */
+            text.taskText,
+            text.taskTextOutside,
+            [class*='taskText'] tspan { display: none !important; } \n
+
+            /* Show labels for the 'r' group (inside or outside, incl. tspans) */
+            text.taskText[id^='r'],
+            text.taskTextOutside[id^='r'],
+            text[id^='r'] tspan { display: inline !important; font-size: 20px; fill: var(--white) !important; } \n
+
+            /* Keep section titles styled */
+            .sectionTitle { fill: var(--md-default-fg-color) !important; font-weight: 700; font-size: 18px; } \n
+
+            /* Hide the first two section titles (F1, F2). Change indexes if needed. */
+            .sectionTitle:nth-of-type(1),
+            .sectionTitle:nth-of-type(2) { display: none !important; } \n
+
+            /* Also hide SPACING row labels on the left */
+            text.taskTextOutside[id^='p1padTop'] { display: none !important; } \n
+
+            .grid .tick text { fill: var(--md-default-fg-color) !important; font-size: 20px !important; }
+
+        "
+        themeVariables:
+            sectionBkgColor: '#fff'
+        gantt:
+            numberSectionStyles: 1
+            barHeight: 70
+            gridLineStartPadding: 100
+---
+%%{init: {"gantt": {"barHeight": 70 }}}%%
+gantt
+    dateFormat YYYY
+    axisFormat %y
+    tickInterval '10year'
+
+    section F1
+    R1 : r, 1905, 1907
+    R2 : r, 1911, 1913
+    R3 : r, 1917, 1919
+    R4 : r, 1923, 1925
+
+    section F2
+    SPACING : p1padTop, 1901, 1924
+
+    section P1
+    X          : item1, 1900, 1901
+    Backing    : item2, 1901, 1906
+    Inclusion  : item3, 1906, 1912
+
+    section P2
+    X          : item1, 1912, 1913
+    Backing    : item2, 1913, 1918
+    Inclusion  : item3, 1918, 1924
+    
+
+```
+
+The modern protocol now uses asynchronous backing, where both collators and validators have access to [unincluded segments](/reference/parachains/consensus/inclusion-pipeline){target=\_blank} as an additional context source. The Backing and Generation steps are no longer coupled to the prior block completing the full inclusion pipeline. Instead, the prior parablock only needs to complete the generation step and be added to the Unincluded Segments before the next parablock can begin the Backing and Generation steps.
+
+This results in one parablock being processed every relay block (instead of every other relay block), and allows for more time to execute during the Generation step (0.5s → 2s).
+
+```mermaid
+---
+    displayMode: compact
+    config:
+        themeCSS: "
+            #item1 { fill: #450693; stroke: #450693; } \n
+            #item2 { fill: #8C00FF; stroke: #8C00FF; } \n
+            #item3 { fill: #FFC400; stroke: #FFC400; } \n
+            #r     { fill: #eb4172; stroke:none; font-size: 20px; } \n
+            svg text { font-size: 20px !important; } \n
+            svg .sectionTitle { font-size: 20px !important; } \n    #p1padTop { display: none; } \n
+
+            /* Hide ALL task labels by default */
+            text.taskText,
+            text.taskTextOutside,
+            [class*='taskText'] tspan { display: none !important; } \n
+
+            /* Show labels for the 'r' group (inside or outside, incl. tspans) */
+            text.taskText[id^='r'],
+            text.taskTextOutside[id^='r'],
+            text[id^='r'] tspan { display: inline !important; font-size: 20px; color: var(--white) !important; } \n
+
+            /* Keep section titles styled */
+            .sectionTitle { fill: var(--md-default-fg-color) !important; font-weight: 700; font-size: 18px; } \n
+
+            /* Hide the first two section titles (F1, F2). Change indexes if needed. */
+            .sectionTitle:nth-of-type(1),
+            .sectionTitle:nth-of-type(2) { display: none !important; } \n
+
+            /* Also hide SPACING row labels on the left */
+            text.taskTextOutside[id^='p1padTop'] { display: none !important; } \n
+
+            .taskTextOutsideRight { fill: var(--md-default-fg-color) !important; font-size: 20px !important; }
+
+            .grid .tick text { fill: var(--md-default-fg-color) !important; font-size: 20px !important; }
+        "
+        themeVariables:
+            sectionBkgColor: '#fff'
+        gantt:
+            numberSectionStyles: 1
+            barHeight: 70
+            gridLineStartPadding: 100
+---
+%%{init: {"gantt": {"barHeight": 70 }}}%%
+gantt
+    dateFormat YYYY
+    axisFormat %y
+    tickInterval '10year'
+
+    section F1
+    R1 : r, 1905, 1907
+    R2 : r, 1911, 1913
+    R3 : r, 1917, 1919
+    R4 : r, 1923, 1925
+    R5 : r, 1929, 1931
+
+    section F2
+    SPACING : p1padTop, 1901, 1930
+
+    section P1
+    X         : item1, 1900, 1902
+    Backing   : item2, 1902, 1912
+    Inclusion : item3, 1912, 1918
+
+    section P2
+    X         : item1, 1906, 1908
+    Backing   : item2, 1908, 1918
+    Inclusion : item3, 1918, 1924
+    
+    section P3
+    X         : item1, 1912, 1914
+    Backing   : item2, 1914, 1924f
+    Inclusion : item3, 1924, 1930
+
+    section P4
+    X         : item1, 1918, 1920
+    Backing   : item2, 1920, 1930
+```
+
+
+---
+
+Page Title: Blocks
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-parachains-blocks-transactions-fees-blocks.md
+- Canonical (HTML): https://docs.polkadot.com/reference/parachains/blocks-transactions-fees/blocks/
+- Summary: Understand how blocks are produced, validated, and imported in Polkadot SDK-based blockchains, covering initialization, finalization, and authoring processes.
+
+# Blocks
+
+## Introduction
+
+In the Polkadot SDK, blocks are fundamental to the functioning of the blockchain, serving as containers for [transactions](/reference/parachains/blocks-transactions-fees/transactions/){target=\_blank} and changes to the chain's state. Blocks consist of headers and an array of transactions, ensuring the integrity and validity of operations on the network. This guide explores the essential components of a block, the process of block production, and how blocks are validated and imported across the network. By understanding these concepts, developers can better grasp how blockchains maintain security, consistency, and performance within the Polkadot ecosystem.
+
+## What is a Block?
+
+In the Polkadot SDK, a block is a fundamental unit that encapsulates both the header and an array of transactions. The block header includes critical metadata to ensure the integrity and sequence of the blockchain. Here's a breakdown of its components:
+
+- **Block height**: Indicates the number of blocks created in the chain so far.
+- **Parent hash**: The hash of the previous block, providing a link to maintain the blockchain's immutability.
+- **Transaction root**: Cryptographic digest summarizing all transactions in the block.
+- **State root**: A cryptographic digest representing the post-execution state.
+- **Digest**: Additional information that can be attached to a block, such as consensus-related messages.
+
+Each transaction is part of a series that is executed according to the runtime's rules. The transaction root is a cryptographic digest of this series, which prevents alterations and enables succinct verification by light clients. This verification process allows light clients to confirm whether a transaction exists in a block with only the block header, avoiding downloading the entire block.
+
+## Block Production
+
+When an authoring node is authorized to create a new block, it selects transactions from the transaction queue based on priority. This step, known as block production, relies heavily on the executive module to manage the initialization and finalization of blocks. The process is summarized as follows:
+
+### Initialize Block
+
+The block initialization process begins with a series of function calls that prepare the block for transaction execution:
+
+1. **Call `on_initialize`**: The executive module calls the [`on_initialize`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/trait.Hooks.html#method.on_initialize){target=\_blank} hook from the system pallet and other runtime pallets to prepare for the block's transactions.
+2. **Coordinate runtime calls**: Coordinates function calls in the order defined by the transaction queue.
+3. **Verify information**: Once [`on_initialize`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/trait.Hooks.html#method.on_initialize){target=\_blank} functions are executed, the executive module checks the parent hash in the block header and the trie root to verify information is consistent.
+
+### Finalize Block
+
+Once transactions are processed, the block must be finalized before being broadcast to the network. The finalization steps are as follows:
+
+1. **Call `on_finalize`**: The executive module calls the [`on_finalize`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/trait.Hooks.html#method.on_finalize){target=\_blank} hooks in each pallet to ensure any remaining state updates or checks are completed before the block is sealed and published.
+2. **Verify information**: The block's digest and storage root in the header are checked against the initialized block to ensure consistency.
+3. **Call `on_idle`**: The [`on_idle`](https://paritytech.github.io/polkadot-sdk/master/frame_support/traits/trait.Hooks.html#method.on_idle){target=\_blank} hook is triggered to process any remaining tasks using the leftover weight from the block.
+
+## Block Authoring and Import
+
+Once the block is finalized, it is gossiped to other nodes in the network. Nodes follow this procedure:
+
+1. **Receive transactions**: The authoring node collects transactions from the network.
+2. **Validate**: Transactions are checked for validity.
+3. **Queue**: Valid transactions are placed in the transaction pool for execution.
+4. **Execute**: State changes are made as the transactions are executed.
+5. **Publish**: The finalized block is broadcast to the network.
+
+### Block Import Queue
+
+After a block is published, other nodes on the network can import it into their chain state. The block import queue is part of the outer node in every Polkadot SDK-based node and ensures incoming blocks are valid before adding them to the node's state.
+
+In most cases, you don't need to know details about how transactions are gossiped or how other nodes on the network import blocks. The following traits are relevant, however, if you plan to write any custom consensus logic or want a deeper dive into the block import queue:
+
+- **[`ImportQueue`](https://paritytech.github.io/polkadot-sdk/master/sc_consensus/import_queue/trait.ImportQueue.html){target=\_blank}**: The trait that defines the block import queue.
+- **[`Link`](https://paritytech.github.io/polkadot-sdk/master/sc_consensus/import_queue/trait.Link.html){target=\_blank}**: The trait that defines the link between the block import queue and the network.
+- **[`BasicQueue`](https://paritytech.github.io/polkadot-sdk/master/sc_consensus/import_queue/struct.BasicQueue.html){target=\_blank}**: A basic implementation of the block import queue.
+- **[`Verifier`](https://paritytech.github.io/polkadot-sdk/master/sc_consensus/import_queue/trait.Verifier.html){target=\_blank}**: The trait that defines the block verifier.
+- **[`BlockImport`](https://paritytech.github.io/polkadot-sdk/master/sc_consensus/block_import/trait.BlockImport.html){target=\_blank}**: The trait that defines the block import process.
+
+These traits govern how blocks are validated and imported across the network, ensuring consistency and security.
+
+## Additional Resources
+
+To learn more about the block structure in the Polkadot SDK runtime, see the [`Block` reference](https://paritytech.github.io/polkadot-sdk/master/sp_runtime/traits/trait.Block.html){target=\_blank} entry in the Rust Docs.
+
+
+---
+
+Page Title: Bridge Hub
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-polkadot-hub-bridging.md
+- Canonical (HTML): https://docs.polkadot.com/reference/polkadot-hub/bridging/
+- Summary: Learn about the Bridge Hub system parachain, a parachain that facilitates the interactions from Polkadot to the rest of Web3.
+
+# Bridge Hub
+
+## Introduction
+
+The Bridge Hub system parachain plays a crucial role in facilitating trustless interactions between Polkadot, Kusama, Ethereum, and other blockchain ecosystems. By implementing on-chain light clients and supporting protocols like BEEFY and GRANDPA, Bridge Hub ensures seamless message transmission and state verification across chains. It also provides essential [pallets](/reference/glossary/#pallet){target=\_blank} for sending and receiving messages, making it a cornerstone of Polkadot’s interoperability framework. With built-in support for XCM (Cross-Consensus Messaging), Bridge Hub enables secure, efficient communication between diverse blockchain networks.
+
+This guide covers the architecture, components, and deployment of the Bridge Hub system. You'll explore its trustless bridging mechanisms, key pallets for various blockchains, and specific implementations like Snowbridge and the Polkadot <> Kusama bridge. By the end, you'll understand how Bridge Hub enhances connectivity within the Polkadot ecosystem and beyond.
+
+## Trustless Bridging
+
+Bridge Hub provides a mode of trustless bridging through its implementation of on-chain light clients and trustless relayers. Trustless bridges are essentially two one-way bridges, where each chain has a method of verifying the state of the other in a trustless manner through consensus proofs. In this context, "trustless" refers to the lack of need to trust a human when interacting with various system components. Trustless systems are based instead on trusting mathematics, cryptography, and code. The target chain and source chain both provide ways of verifying one another's state and actions (such as a transfer) based on the consensus and finality of both chains rather than an external mechanism controlled by a third party.
+
+[BEEFY (Bridge Efficiency Enabling Finality Yielder)](/reference/polkadot-hub/consensus-and-security/pos-consensus/#bridging-beefy){target=\_blank} is instrumental in this solution. It provides a more efficient way to verify the consensus on the relay chain. It allows the participants in a network to verify finality proofs, meaning a remote chain like Ethereum can verify the state of Polkadot at a given block height. 
+
+For example, the Ethereum and Polkadot bridging solution that [Snowbridge](https://docs.snowbridge.network/){target=\_blank} implements involves two light clients: one which verifies the state of Polkadot and the other which verifies the state of Ethereum. The light client for Polkadot is implemented in the runtime as a pallet, whereas the light client for Ethereum is implemented as a smart contract on the beacon chain.
+
+## Bridging Components
+
+In any given Bridge Hub implementation (Kusama, Polkadot, or other relay chains), there are a few primary pallets that are utilized:
+
+- **[Pallet Bridge GRANDPA](https://paritytech.github.io/polkadot-sdk/master/pallet_bridge_grandpa/index.html){target=\_blank}**: An on-chain GRANDPA light client for Substrate based chains.
+- **[Pallet Bridge Parachains](https://paritytech.github.io/polkadot-sdk/master/pallet_bridge_parachains/index.html){target=\_blank}**: A finality module for parachains.
+- **[Pallet Bridge Messages](https://paritytech.github.io/polkadot-sdk/master/pallet_bridge_messages/index.html){target=\_blank}**: A pallet which allows sending, receiving, and tracking of inbound and outbound messages.
+- **[Pallet XCM Bridge](https://paritytech.github.io/polkadot-sdk/master/pallet_xcm_bridge_hub/index.html){target=\_blank}**: A pallet which, with the Bridge Messages pallet, adds XCM support to bridge pallets.
+
+### Ethereum-Specific Support
+
+Bridge Hub also has a set of components and pallets that support a bridge between Polkadot and Ethereum through [Snowbridge](https://github.com/Snowfork/snowbridge){target=\_blank}.
+
+To view the complete list of which pallets are included in Bridge Hub, visit the Subscan [Runtime Modules](https://bridgehub-polkadot.subscan.io/runtime){target=\_blank} page. Alternatively, the source code for those pallets can be found in the Polkadot SDK [Snowbridge Pallets](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2506-2/bridges/snowbridge/pallets){target=\_blank} repository.
+
+## Deployed Bridges
+
+- [**Snowbridge**](https://wiki.polkadot.com/learn/learn-snowbridge/){target=\_blank}: A general-purpose, trustless bridge between Polkadot and Ethereum.
+- [**Hyperbridge**](https://wiki.polkadot.com/learn/learn-hyperbridge/){target=\_blank}: A cross-chain solution built as an interoperability coprocessor, providing state-proof-based interoperability across all blockchains.
+- [**Polkadot <> Kusama Bridge**](https://wiki.polkadot.com/learn/learn-dot-ksm-bridge/){target=\_blank}: A bridge that utilizes relayers to bridge the Polkadot and Kusama relay chains trustlessly.
+
+## Where to Go Next
+
+- Go over the Bridge Hub README in the Polkadot SDK [Bridge-hub Parachains](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/cumulus/parachains/runtimes/bridge-hubs/README.md){target=\_blank} repository.
+- Take a deeper dive into bridging architecture in the Polkadot SDK [High-Level Bridge](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/bridges/docs/high-level-overview.md){target=\_blank} documentation.
+- Read more about [BEEFY and Bridging in the Polkadot Wiki](/reference/polkadot-hub/consensus-and-security/pos-consensus/#bridging-beefy){target=\_blank}.
+
+
+---
+
+Page Title: Chain Data
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-parachains-chain-data.md
+- Canonical (HTML): https://docs.polkadot.com/reference/parachains/chain-data/
+- Summary: Learn how to expose and utilize chain data for blockchain applications. Discover runtime metadata, RPC APIs, and tools for efficient development.
+
+# Chain Data
+
+## Introduction
+
+Understanding and leveraging on-chain data is a fundamental aspect of blockchain development. Whether you're building frontend applications or backend systems, accessing and decoding runtime metadata is vital to interacting with the blockchain. This guide introduces you to the tools and processes for generating and retrieving metadata, explains its role in application development, and outlines the additional APIs available for interacting with a Polkadot node. By mastering these components, you can ensure seamless communication between your applications and the blockchain.
+
+## Application Development
+
+You might not be directly involved in building frontend applications as a blockchain developer. However, most applications that run on a blockchain require some form of frontend or user-facing client to enable users or other programs to access and modify the data that the blockchain stores. For example, you might develop a browser-based, mobile, or desktop application that allows users to submit transactions, post articles, view their assets, or track previous activity. The backend for that application is configured in the runtime logic for your blockchain, but the frontend client makes the runtime features accessible to your users.
+
+For your custom chain to be useful to others, you'll need to provide a client application that allows users to view, interact with, or update information that the blockchain keeps track of. In this article, you'll learn how to expose information about your runtime so that client applications can use it, see examples of the information exposed, and explore tools and libraries that use it.
+
+## Understand Metadata
+
+Polkadot SDK-based blockchain networks are designed to expose their runtime information, allowing developers to learn granular details regarding pallets, RPC calls, and runtime APIs. The metadata also exposes their related documentation. The chain's metadata is [SCALE-encoded](/reference/parachains/data-encoding/){target=\_blank}, allowing for the development of browser-based, mobile, or desktop applications to support the chain's runtime upgrades seamlessly. It is also possible to develop applications compatible with multiple Polkadot SDK-based chains simultaneously.
+
+## Expose Runtime Information as Metadata
+
+To interact with a node or the state of the blockchain, you need to know how to connect to the chain and access the exposed runtime features. This interaction involves a Remote Procedure Call (RPC) through a node endpoint address, commonly through a secure web socket connection.
+
+An application developer typically needs to know the contents of the runtime logic, including the following details:
+
+- Version of the runtime the application is connecting to.
+- Supported APIs.
+- Implemented pallets.
+- Defined functions and corresponding type signatures.
+- Defined custom types.
+- Exposed parameters users can set.
+
+As the Polkadot SDK is modular and provides a composable framework for building blockchains, there are limitless opportunities to customize the schema of properties. Each runtime can be configured with its properties, including function calls and types, which can be changed over time with runtime upgrades.
+
+The Polkadot SDK enables you to generate the runtime metadata schema to capture information unique to a runtime. The metadata for a runtime describes the pallets in use and types defined for a specific runtime version. The metadata includes information about each pallet's storage items, functions, events, errors, and constants. The metadata also provides type definitions for any custom types included in the runtime.
+
+Metadata provides a complete inventory of a chain's runtime. It is key to enabling client applications to interact with the node, parse responses, and correctly format message payloads sent back to that chain.
+
+## Generate Metadata
+
+To efficiently use the blockchain's networking resources and minimize the data transmitted over the network, the metadata schema is encoded using the [Parity SCALE Codec](https://github.com/paritytech/parity-scale-codec?tab=readme-ov-file#parity-scale-codec){target=\_blank}. This encoding is done automatically through the [`scale-info`](https://docs.rs/scale-info/latest/scale_info/){target=\_blank}crate.
+
+At a high level, generating the metadata involves the following steps:
+
+1. The pallets in the runtime logic expose callable functions, types, parameters, and documentation that need to be encoded in the metadata.
+2. The `scale-info` crate collects type information for the pallets in the runtime, builds a registry of the pallets that exist in a particular runtime, and the relevant types for each pallet in the registry. The type information is detailed enough to enable encoding and decoding for every type.
+3. The [`frame-metadata`](https://github.com/paritytech/frame-metadata){target=\_blank} crate describes the structure of the runtime based on the registry provided by the `scale-info` crate.
+4. Nodes provide the RPC method `state_getMetadata` to return a complete description of all the types in the current runtime as a hex-encoded vector of SCALE-encoded bytes.
+
+## Retrieve Runtime Metadata
+
+The type information provided by the metadata enables applications to communicate with nodes using different runtime versions and across chains that expose different calls, events, types, and storage items. The metadata also allows libraries to generate a substantial portion of the code needed to communicate with a given node, enabling libraries like [`subxt`](https://github.com/paritytech/subxt){target=\_blank} to generate frontend interfaces that are specific to a target chain.
+
+### Use Polkadot.js
+
+Visit the [Polkadot.js Portal](https://polkadot.js.org/apps/#/rpc){target=\_blank} and select the **Developer** dropdown in the top banner. Select **RPC Calls** to make the call to request metadata. Follow these steps to make the RPC call:
+
+1. Select **state** as the endpoint to call.
+2. Select **`getMetadata(at)`** as the method to call.
+3. Click **Submit RPC call** to submit the call and return the metadata in JSON format.
+
+### Use Curl 
+
+You can fetch the metadata for the network by calling the node's RPC endpoint. This request returns the metadata in bytes rather than human-readable JSON:
+
+```sh
+curl -H "Content-Type: application/json" \
+-d '{"id":1, "jsonrpc":"2.0", "method": "state_getMetadata"}' \
+https://rpc.polkadot.io
+
+```
+
+### Use Subxt
+
+[`subxt`](https://github.com/paritytech/subxt){target=\_blank} may also be used to fetch the metadata of any data in a human-readable JSON format: 
+
+```sh
+subxt metadata  --url wss://rpc.polkadot.io --format json > spec.json
+```
+
+Another option is to use the [`subxt` explorer web UI](https://paritytech.github.io/subxt-explorer/#/){target=\_blank}.
+
+## Client Applications and Metadata
+
+The metadata exposes the expected way to decode each type, meaning applications can send, retrieve, and process application information without manual encoding and decoding. Client applications must use the [SCALE codec library](https://github.com/paritytech/parity-scale-codec?tab=readme-ov-file#parity-scale-codec){target=\_blank} to encode and decode RPC payloads to use the metadata. Client applications use the metadata to interact with the node, parse responses, and format message payloads sent to the node.
+
+## Metadata Format
+
+Although the SCALE-encoded bytes can be decoded using the `frame-metadata` and [`parity-scale-codec`](https://github.com/paritytech/parity-scale-codec){target=\_blank} libraries, there are other tools, such as `subxt` and the Polkadot-JS API, that can convert the raw data to human-readable JSON format.
+
+The types and type definitions included in the metadata returned by the `state_getMetadata` RPC call depend on the runtime's metadata version.
+
+In general, the metadata includes the following information:
+
+- A constant identifying the file as containing metadata.
+- The version of the metadata format used in the runtime.
+- Type definitions for all types used in the runtime and generated by the `scale-info` crate.
+- Pallet information for the pallets included in the runtime in the order that they are defined in the `construct_runtime` macro.
+
+!!!tip 
+    Depending on the frontend library used (such as the [Polkadot API](https://papi.how/){target=\_blank}), they may format the metadata differently than the raw format shown.
+
+The following example illustrates a condensed and annotated section of metadata decoded and converted to JSON:
+
+```json
+[
+    1635018093,
+    {
+        "V14": {
+            "types": {
+                "types": [{}]
+            },
+            "pallets": [{}],
+            "extrinsic": {
+                "ty": 126,
+                "version": 4,
+                "signed_extensions": [{}]
+            },
+            "ty": 141
+        }
+    }
+]
+
+```
+
+The constant `1635018093` is a magic number that identifies the file as a metadata file. The rest of the metadata is divided into the `types`, `pallets`, and `extrinsic` sections:
+
+- The `types` section contains an index of the types and information about each type's type signature.
+- The `pallets` section contains information about each pallet in the runtime.
+- The `extrinsic` section describes the type identifier and transaction format version that the runtime uses.
+
+Different extrinsic versions can have varying formats, especially when considering [signed transactions](/reference/parachains/blocks-transactions-fees/transactions/#signed-transactions){target=\_blank}. 
+
+### Pallets
+
+The following is a condensed and annotated example of metadata for a single element in the `pallets` array (the [`sudo`](https://paritytech.github.io/polkadot-sdk/master/pallet_sudo/index.html){target=\_blank} pallet):
+
+```json
+{
+    "name": "Sudo",
+    "storage": {
+        "prefix": "Sudo",
+        "entries": [
+            {
+                "name": "Key",
+                "modifier": "Optional",
+                "ty": {
+                    "Plain": 0
+                },
+                "default": [0],
+                "docs": ["The `AccountId` of the sudo key."]
+            }
+        ]
+    },
+    "calls": {
+        "ty": 117
+    },
+    "event": {
+        "ty": 42
+    },
+    "constants": [],
+    "error": {
+        "ty": 124
+    },
+    "index": 8
+}
+
+```
+
+Every element metadata contains the name of the pallet it represents and information about its storage, calls, events, and errors. You can look up details about the definition of the calls, events, and errors by viewing the type index identifier. The type index identifier is the `u32` integer used to access the type information for that item. For example, the type index identifier for calls in the Sudo pallet is 117. If you view information for that type identifier in the `types` section of the metadata, it provides information about the available calls, including the documentation for each call.
+
+For example, the following is a condensed excerpt of the calls for the Sudo pallet:
+
+```json
+{
+    "id": 117,
+    "type": {
+        "path": ["pallet_sudo", "pallet", "Call"],
+        "params": [
+            {
+                "name": "T",
+                "type": null
+            }
+        ],
+        "def": {
+            "variant": {
+                "variants": [
+                    {
+                        "name": "sudo",
+                        "fields": [
+                            {
+                                "name": "call",
+                                "type": 114,
+                                "typeName": "Box<<T as Config>::RuntimeCall>"
+                            }
+                        ],
+                        "index": 0,
+                        "docs": [
+                            "Authenticates sudo key, dispatches a function call with `Root` origin"
+                        ]
+                    },
+                    {
+                        "name": "sudo_unchecked_weight",
+                        "fields": [
+                            {
+                                "name": "call",
+                                "type": 114,
+                                "typeName": "Box<<T as Config>::RuntimeCall>"
+                            },
+                            {
+                                "name": "weight",
+                                "type": 8,
+                                "typeName": "Weight"
+                            }
+                        ],
+                        "index": 1,
+                        "docs": [
+                            "Authenticates sudo key, dispatches a function call with `Root` origin"
+                        ]
+                    },
+                    {
+                        "name": "set_key",
+                        "fields": [
+                            {
+                                "name": "new",
+                                "type": 103,
+                                "typeName": "AccountIdLookupOf<T>"
+                            }
+                        ],
+                        "index": 2,
+                        "docs": [
+                            "Authenticates current sudo key, sets the given AccountId (`new`) as the new sudo"
+                        ]
+                    },
+                    {
+                        "name": "sudo_as",
+                        "fields": [
+                            {
+                                "name": "who",
+                                "type": 103,
+                                "typeName": "AccountIdLookupOf<T>"
+                            },
+                            {
+                                "name": "call",
+                                "type": 114,
+                                "typeName": "Box<<T as Config>::RuntimeCall>"
+                            }
+                        ],
+                        "index": 3,
+                        "docs": [
+                            "Authenticates sudo key, dispatches a function call with `Signed` origin from a given account"
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+}
+
+```
+
+For each field, you can access type information and metadata for the following:
+
+- **Storage metadata**: Provides the information required to enable applications to get information for specific storage items.
+- **Call metadata**: Includes information about the runtime calls defined by the `#[pallet]` macro including call names, arguments and documentation.
+- **Event metadata**: Provides the metadata generated by the `#[pallet::event]` macro, including the name, arguments, and documentation for each pallet event.
+- **Constants metadata**: Provides metadata generated by the `#[pallet::constant]` macro, including the name, type, and hex-encoded value of the constant.
+- **Error metadata**: Provides metadata generated by the `#[pallet::error]` macro, including the name and documentation for each pallet error.
+
+!!!tip
+    Type identifiers change from time to time, so you should avoid relying on specific type identifiers in your applications.
+
+### Extrinsic
+
+The runtime generates extrinsic metadata and provides useful information about transaction format. When decoded, the metadata contains the transaction version and the list of signed extensions.
+
+For example:
+
+```json
+{
+    "extrinsic": {
+        "ty": 126,
+        "version": 4,
+        "signed_extensions": [
+            {
+                "identifier": "CheckNonZeroSender",
+                "ty": 132,
+                "additional_signed": 41
+            },
+            {
+                "identifier": "CheckSpecVersion",
+                "ty": 133,
+                "additional_signed": 4
+            },
+            {
+                "identifier": "CheckTxVersion",
+                "ty": 134,
+                "additional_signed": 4
+            },
+            {
+                "identifier": "CheckGenesis",
+                "ty": 135,
+                "additional_signed": 11
+            },
+            {
+                "identifier": "CheckMortality",
+                "ty": 136,
+                "additional_signed": 11
+            },
+            {
+                "identifier": "CheckNonce",
+                "ty": 138,
+                "additional_signed": 41
+            },
+            {
+                "identifier": "CheckWeight",
+                "ty": 139,
+                "additional_signed": 41
+            },
+            {
+                "identifier": "ChargeTransactionPayment",
+                "ty": 140,
+                "additional_signed": 41
+            }
+        ]
+    },
+    "ty": 141
+}
+
+```
+
+The type system is [composite](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/frame_runtime_types/index.html){target=\_blank}, meaning each type identifier contains a reference to a specific type or to another type identifier that provides information about the associated primitive types.
+
+For example, you can encode the `BitVec<Order, Store>` type, but to decode it properly, you must know the types used for the `Order` and `Store` types. To find type information for `Order` and `Store`, you can use the path in the decoded JSON to locate their type identifiers.
+
+## Included RPC APIs
+
+A standard node comes with the following APIs to interact with a node:
+
+- **[`AuthorApiServer`](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/author/trait.AuthorApiServer.html){target=\_blank}**: Make calls into a full node, including authoring extrinsics and verifying session keys.
+- **[`ChainApiServer`](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/chain/trait.ChainApiServer.html){target=\_blank}**: Retrieve block header and finality information.
+- **[`OffchainApiServer`](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/offchain/trait.OffchainApiServer.html){target=\_blank}**: Make RPC calls for off-chain workers.
+- **[`StateApiServer`](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/state/trait.StateApiServer.html){target=\_blank}**: Query information about on-chain state such as runtime version, storage items, and proofs.
+- **[`SystemApiServer`](https://paritytech.github.io/polkadot-sdk/master/sc_rpc/system/trait.SystemApiServer.html){target=\_blank}**: Retrieve information about network state, such as connected peers and node roles.
+
+## Additional Resources
+
+The following tools can help you locate and decode metadata:
+
+- [Subxt Explorer](https://paritytech.github.io/subxt-explorer/#/){target=\_blank}
+- [Metadata Portal 🌗](https://github.com/paritytech/metadata-portal){target=\_blank}
+- [De[code] Sub[strate]](https://github.com/paritytech/desub){target=\_blank}
+
+
+---
+
+Page Title: Collectives Chain
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-polkadot-hub-collectives-and-daos.md
+- Canonical (HTML): https://docs.polkadot.com/reference/polkadot-hub/collectives-and-daos/
+- Summary: Learn how the Collectives chain provides infrastructure for governance organizations, enabling decentralized network stewardship and decision-making.
+
+## Introduction
+
+Established through [Referendum 81](https://polkadot-old.polkassembly.io/referendum/81){target=\_blank}, the Collectives chain operates as a dedicated parachain exclusive to the Polkadot network with no counterpart on Kusama. This specialized infrastructure provides a foundation for various on-chain governance groups essential to Polkadot's ecosystem.
+
+The architecture enables entire networks to function as unified entities, allowing them to present cohesive positions and participate in cross-network governance through [Bridge Hub](/polkadot-protocol/architecture/system-chains/bridge-hub){target=\_blank}. This capability represents a fundamental advancement in Web3 principles, eliminating dependencies on traditional third-party intermediaries such as legal systems or jurisdictional authorities.
+
+## Key Collectives
+
+The Collectives chain hosts several important governance bodies:
+
+- [**Polkadot Technical Fellowship**](https://wiki.polkadot.com/learn/learn-polkadot-technical-fellowship/){target=\_blank}: A self-governing assembly of protocol experts and developers who oversee technical aspects of the Polkadot and Kusama networks. The Fellowship operates both on-chain through the collectives system and off-chain via GitHub repositories, public discussion forums, and monthly development calls that are publicly accessible.
+
+- [**Polkadot Alliance**](https://wiki.polkadot.com/general/glossary/#polkadot-alliance){target=\_blank}: A consortium founded by seven leading parachain projects (Acala, Astar, Interlay, Kilt, Moonbeam, Phala, and Subscan) to establish development standards and ethical guidelines within the ecosystem. This ranked collective, comprised of "Fellows" and "Allies," focuses on promoting best practices and identifying potential bad actors. Membership is primarily designed for organizations, projects, and other networks rather than individuals.
+
+These collectives serve as pillars of Polkadot's decentralized governance model, enabling community-driven decision-making and establishing technical standards that shape the network's evolution. Through structured on-chain representation, they provide transparent mechanisms for ecosystem development while maintaining the core Web3 principles of trustlessness and decentralization.
+
+
+---
+
 Page Title: Contract Deployment
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-for-eth-devs-contract-deployment.md
@@ -227,6 +962,280 @@ Both REVM and PolkaVM deployments may show significant differences between gas e
 ## Conclusion
 
 Both backends support contract deployment effectively, with REVM offering drop-in Ethereum compatibility and PolkaVM providing a more structured two-step approach. For the majority of use cases—deploying standard contracts like tokens or applications—both backends work seamlessly. Advanced patterns like factory contracts may require adjustment for PolkaVM, but these adaptations are straightforward with proper planning.
+
+
+---
+
+Page Title: Cryptography
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-parachains-cryptography.md
+- Canonical (HTML): https://docs.polkadot.com/reference/parachains/cryptography/
+- Summary: A concise guide to cryptography in blockchain, covering hash functions, encryption types, digital signatures, and elliptic curve applications.
+
+# Cryptography
+
+## Introduction
+
+Cryptography forms the backbone of blockchain technology, providing the mathematical verifiability crucial for consensus systems, data integrity, and user security. While a deep understanding of the underlying mathematical processes isn't necessary for most blockchain developers, grasping the fundamental applications of cryptography is essential. This page comprehensively overviews cryptographic implementations used across Polkadot SDK-based chains and the broader blockchain ecosystem.
+
+## Hash Functions
+
+Hash functions are fundamental to blockchain technology, creating a unique digital fingerprint for any piece of data, including simple text, images, or any other form of file. They map input data of any size to a fixed-size output (typically 32 bytes) using complex mathematical operations. Hashing is used to verify data integrity, create digital signatures, and provide a secure way to store passwords. This form of mapping is known as the ["pigeonhole principle,"](https://en.wikipedia.org/wiki/Pigeonhole_principle){target=\_blank} it is primarily implemented to efficiently and verifiably identify data from large sets.
+
+### Key Properties of Hash Functions
+
+- **Deterministic**: The same input always produces the same output.
+- **Quick computation**: It's easy to calculate the hash value for any given input.
+- **Pre-image resistance**: It's infeasible to generate the input data from its hash.
+- **Small changes in input yield large changes in output**: Known as the ["avalanche effect"](https://en.wikipedia.org/wiki/Avalanche_effect){target=\_blank}.
+- **Collision resistance**: The probabilities are extremely low to find two different inputs with the same hash.
+
+### Blake2
+
+The Polkadot SDK utilizes Blake2, a state-of-the-art hashing method that offers:
+
+- Equal or greater security compared to [SHA-2](https://en.wikipedia.org/wiki/SHA-2){target=\_blank}.
+- Significantly faster performance than other algorithms.
+
+These properties make Blake2 ideal for blockchain systems, reducing sync times for new nodes and lowering the resources required for validation. For detailed technical specifications about Blake2, see the [official Blake2 paper](https://www.blake2.net/blake2.pdf){target=\_blank}.
+
+## Types of Cryptography
+
+There are two different ways that cryptographic algorithms are implemented: symmetric cryptography and asymmetric cryptography.
+
+### Symmetric Cryptography
+
+Symmetric encryption is a branch of cryptography that isn't based on one-way functions, unlike asymmetric cryptography. It uses the same cryptographic key to encrypt plain text and decrypt the resulting ciphertext.
+
+Symmetric cryptography is a type of encryption that has been used throughout history, such as the Enigma Cipher and the Caesar Cipher. It is still widely used today and can be found in Web2 and Web3 applications alike. There is only one single key, and a recipient must also have access to it to access the contained information.
+
+#### Advantages {: #symmetric-advantages }
+
+- Fast and efficient for large amounts of data.
+- Requires less computational power.
+
+#### Disadvantages {: #symmetric-disadvantages }
+
+- Key distribution can be challenging.
+- Scalability issues in systems with many users.
+
+### Asymmetric Cryptography
+
+Asymmetric encryption is a type of cryptography that uses two different keys, known as a keypair: a public key, used to encrypt plain text, and a private counterpart, used to decrypt the ciphertext.
+
+The public key encrypts a fixed-length message that can only be decrypted with the recipient's private key and, sometimes, a set password. The public key can be used to cryptographically verify that the corresponding private key was used to create a piece of data without compromising the private key, such as with digital signatures. This has obvious implications for identity, ownership, and properties and is used in many different protocols across Web2 and Web3.
+
+#### Advantages {: #asymmetric-advantages }
+
+- Solves the key distribution problem.
+- Enables digital signatures and secure key exchange.
+
+#### Disadvantages {: #asymmetric-disadvantages }
+
+- Slower than symmetric encryption.
+- Requires more computational resources.
+
+### Trade-offs and Compromises
+
+Symmetric cryptography is faster and requires fewer bits in the key to achieve the same level of security that asymmetric cryptography provides. However, it requires a shared secret before communication can occur, which poses issues to its integrity and a potential compromise point. On the other hand, asymmetric cryptography doesn't require the secret to be shared ahead of time, allowing for far better end-user security.
+
+Hybrid symmetric and asymmetric cryptography is often used to overcome the engineering issues of asymmetric cryptography, as it is slower and requires more bits in the key to achieve the same level of security. It encrypts a key and then uses the comparatively lightweight symmetric cipher to do the "heavy lifting" with the message.
+
+## Digital Signatures
+
+Digital signatures are a way of verifying the authenticity of a document or message using asymmetric keypairs. They are used to ensure that a sender or signer's document or message hasn't been tampered with in transit, and for recipients to verify that the data is accurate and from the expected sender.
+
+Signing digital signatures only requires a low-level understanding of mathematics and cryptography. For a conceptual example -- when signing a check, it is expected that it cannot be cashed multiple times. This isn't a feature of the signature system but rather the check serialization system. The bank will check that the serial number on the check hasn't already been used. Digital signatures essentially combine these two concepts, allowing the signature to provide the serialization via a unique cryptographic fingerprint that cannot be reproduced.
+
+Unlike pen-and-paper signatures, knowledge of a digital signature cannot be used to create other signatures. Digital signatures are often used in bureaucratic processes, as they are more secure than simply scanning in a signature and pasting it onto a document.
+
+Polkadot SDK provides multiple different cryptographic schemes and is generic so that it can support anything that implements the [`Pair` trait](https://paritytech.github.io/polkadot-sdk/master/sp_core/crypto/trait.Pair.html){target=\_blank}.
+
+### Example of Creating a Digital Signature
+
+The process of creating and verifying a digital signature involves several steps:
+
+1. The sender creates a hash of the message.
+2. The hash is encrypted using the sender's private key, creating the signature.
+3. The message and signature are sent to the recipient.
+4. The recipient decrypts the signature using the sender's public key.
+5. The recipient hashes the received message and compares it to the decrypted hash.
+
+If the hashes match, the signature is valid, confirming the message's integrity and the sender's identity.
+
+## Elliptic Curve
+
+Blockchain technology requires the ability to have multiple keys creating a signature for block proposal and validation. To this end, Elliptic Curve Digital Signature Algorithm (ECDSA) and Schnorr signatures are two of the most commonly used methods. While ECDSA is a far simpler implementation, Schnorr signatures are more efficient when it comes to multi-signatures.
+
+Schnorr signatures bring some noticeable features over the ECDSA/EdDSA schemes:
+
+- It is better for hierarchical deterministic key derivations.
+- It allows for native multi-signature through [signature aggregation](https://bitcoincore.org/en/2017/03/23/schnorr-signature-aggregation/){target=\_blank}.
+- It is generally more resistant to misuse.
+
+One sacrifice that is made when using Schnorr signatures over ECDSA is that both require 64 bytes, but only ECDSA signatures communicate their public key.
+
+### Various Implementations
+
+- **[ECDSA](https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm){target=\_blank}**: Polkadot SDK provides an ECDSA signature scheme using the [secp256k1](https://en.bitcoin.it/wiki/Secp256k1){target=\_blank} curve. This is the same cryptographic algorithm used to secure [Bitcoin](https://en.wikipedia.org/wiki/Bitcoin){target=\_blank} and [Ethereum](https://en.wikipedia.org/wiki/Ethereum){target=\_blank}.
+
+- **[Ed25519](https://en.wikipedia.org/wiki/EdDSA#Ed25519){target=\_blank}**: An EdDSA signature scheme using [Curve25519](https://en.wikipedia.org/wiki/Curve25519){target=\_blank}. It is carefully engineered at several levels of design and implementation to achieve very high speeds without compromising security.
+
+- **[SR25519](https://research.web3.foundation/Polkadot/security/keys/accounts-more){target=\_blank}**: Based on the same underlying curve as Ed25519. However, it uses Schnorr signatures instead of the EdDSA scheme.
+
+
+---
+
+Page Title: Data Encoding
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-parachains-data-encoding.md
+- Canonical (HTML): https://docs.polkadot.com/reference/parachains/data-encoding/
+- Summary: SCALE codec enables fast, efficient data encoding, ideal for resource-constrained environments like Wasm, supporting custom types and compact encoding.
+
+# Data Encoding
+
+## Introduction
+
+The Polkadot SDK uses a lightweight and efficient encoding/decoding mechanism to optimize data transmission across the network. This mechanism, known as the _SCALE_ codec, is used for serializing and deserializing data.
+
+The SCALE codec enables communication between the runtime and the outer node. This mechanism is designed for high-performance, copy-free data encoding and decoding in resource-constrained environments like the Polkadot SDK [Wasm runtime](/develop/parachains/deployment/build-deterministic-runtime/#introduction){target=\_blank}.
+
+It is not self-describing, meaning the decoding context must fully know the encoded data types. 
+
+Parity's libraries utilize the [`parity-scale-codec`](https://github.com/paritytech/parity-scale-codec){target=\_blank} crate (a Rust implementation of the SCALE codec) to handle encoding and decoding for interactions between RPCs and the runtime.
+
+The `codec` mechanism is ideal for Polkadot SDK-based chains because:
+
+- It is lightweight compared to generic serialization frameworks like [`serde`](https://serde.rs/){target=\_blank}, which add unnecessary bulk to binaries.
+- It doesn’t rely on Rust’s `libstd`, making it compatible with `no_std` environments like Wasm runtime.
+- It integrates seamlessly with Rust, allowing easy derivation of encoding and decoding logic for new types using `#[derive(Encode, Decode)]`.
+
+Defining a custom encoding scheme in the Polkadot SDK-based chains, rather than using an existing Rust codec library, is crucial for enabling cross-platform and multi-language support. 
+
+## SCALE Codec
+
+The codec is implemented using the following traits:
+
+- [`Encode`](#encode)
+- [`Decode`](#decode)
+- [`CompactAs`](#compactas)
+- [`HasCompact`](#hascompact)
+- [`EncodeLike`](#encodelike)
+
+### Encode
+
+The [`Encode`](https://docs.rs/parity-scale-codec/latest/parity_scale_codec/trait.Encode.html){target=\_blank} trait handles data encoding into SCALE format and includes the following key functions:
+
+- **`size_hint(&self) -> usize`**: Estimates the number of bytes required for encoding to prevent multiple memory allocations. This should be inexpensive and avoid complex operations. Optional if the size isn’t known.
+- **`encode_to<T: Output>(&self, dest: &mut T)`**: Encodes the data, appending it to a destination buffer.
+- **`encode(&self) -> Vec<u8>`**: Encodes the data and returns it as a byte vector.
+- **`using_encoded<R, F: FnOnce(&[u8]) -> R>(&self, f: F) -> R`**: Encodes the data and passes it to a closure, returning the result.
+- **`encoded_size(&self) -> usize`**: Calculates the encoded size. Should be used when the encoded data isn’t required.
+
+!!!tip
+    For best performance, value types should override `using_encoded`, and allocating types should override `encode_to`. It's recommended to implement `size_hint` for all types where possible.
+
+### Decode
+
+The [`Decode`](https://docs.rs/parity-scale-codec/latest/parity_scale_codec/trait.Decode.html){target=\_blank} trait handles decoding SCALE-encoded data back into the appropriate types:
+
+- **`fn decode<I: Input>(value: &mut I) -> Result<Self, Error>`**: Decodes data from the SCALE format, returning an error if decoding fails.
+
+### CompactAs
+
+The [`CompactAs`](https://docs.rs/parity-scale-codec/latest/parity_scale_codec/trait.CompactAs.html){target=\_blank} trait wraps custom types for compact encoding:
+
+- **`encode_as(&self) -> &Self::As`**: Encodes the type as a compact type.
+- **`decode_from(_: Self::As) -> Result<Self, Error>`**: decodes from a compact encoded type.
+
+### HasCompact
+
+The [`HasCompact`](https://docs.rs/parity-scale-codec/latest/parity_scale_codec/trait.HasCompact.html){target=\_blank} trait indicates a type supports compact encoding.
+
+### EncodeLike
+
+The [`EncodeLike`](https://docs.rs/parity-scale-codec/latest/parity_scale_codec/trait.EncodeLike.html){target=\_blank} trait is used to ensure multiple types that encode similarly are accepted by the same function. When using `derive`, it is automatically implemented.
+
+### Data Types
+
+The table below outlines how the Rust implementation of the Parity SCALE codec encodes different data types.
+
+| Type                          | Description                                                                                                                                                                                                                                                                                                                | Example SCALE Decoded Value                                                                                                                        | SCALE Encoded Value                                                     |
+|-------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| Boolean                       | Boolean values are encoded using the least significant bit of a single byte.                                                                                                                                                                                                                                               | `false` / `true`                                                                                                                                   | `0x00` / `0x01`                                                         |
+| Compact/general integers      | A "compact" or general integer encoding is sufficient for encoding large integers (up to 2^536) and is more efficient at encoding most values than the fixed-width version.                                                                                                                                                | `unsigned integer 0` / `unsigned integer 1` / `unsigned integer 42` / `unsigned integer 69` / `unsigned integer 65535` / `BigInt(100000000000000)` | `0x00` / `0x04` / `0xa8` / `0x1501` / `0xfeff0300` / `0x0b00407a10f35a` |
+| Enumerations (tagged-unions)  | A fixed number of variants, each mutually exclusive and potentially implying a further value or series of values. Encoded as the first byte identifying the index of the variant that the value is. Any further bytes are used to encode any data that the variant implies. Thus, no more than 256 variants are supported. | `Int(42)` and `Bool(true)` where `enum IntOrBool { Int(u8), Bool(bool) }`                                                                          | `0x002a` and `0x0101`                                                   |
+| Fixed-width integers          | Basic integers are encoded using a fixed-width little-endian (LE) format.                                                                                                                                                                                                                                                  | `signed 8-bit integer 69` / `unsigned 16-bit integer 42` / `unsigned 32-bit integer 16777215`                                                      | `0x45` / `0x2a00` / `0xffffff00`                                        |
+| Options                       | One or zero values of a particular type.                                                                                                                                                                                                                                                                                   | `Some` / `None`                                                                                                                                    | `0x01` followed by the encoded value / `0x00`                           |
+| Results                       | Results are commonly used enumerations which indicate whether certain operations were successful or unsuccessful.                                                                                                                                                                                                          | `Ok(42)` / `Err(false)`                                                                                                                            | `0x002a` / `0x0100`                                                     |
+| Strings                       | Strings are Vectors of bytes (Vec<u8>) containing a valid UTF8 sequence.                                                                                                                                                                                                                                                   |                                                                                                                                                    |                                                                         |
+| Structs                       | For structures, the values are named, but that is irrelevant for the encoding (names are ignored - only order matters).                                                                                                                                                                                                    | `SortedVecAsc::from([3, 5, 2, 8])`                                                                                                                 | `[3, 2, 5, 8] `                                                         |
+| Tuples                        | A fixed-size series of values, each with a possibly different but predetermined and fixed type. This is simply the concatenation of each encoded value.                                                                                                                                                                    | Tuple of compact unsigned integer and boolean: `(3, false)`                                                                                        | `0x0c00`                                                                |
+| Vectors (lists, series, sets) | A collection of same-typed values is encoded, prefixed with a compact encoding of the number of items, followed by each item's encoding concatenated in turn.                                                                                                                                                              | Vector of unsigned `16`-bit integers: `[4, 8, 15, 16, 23, 42]`                                                                                     | `0x18040008000f00100017002a00`                                          |
+
+## Encode and Decode Rust Trait Implementations
+
+Here's how the `Encode` and `Decode` traits are implemented:
+
+
+```rust
+use parity_scale_codec::{Encode, Decode};
+
+[derive(Debug, PartialEq, Encode, Decode)]
+enum EnumType {
+    #[codec(index = 15)]
+    A,
+    B(u32, u64),
+    C {
+        a: u32,
+        b: u64,
+    },
+}
+
+let a = EnumType::A;
+let b = EnumType::B(1, 2);
+let c = EnumType::C { a: 1, b: 2 };
+
+a.using_encoded(|ref slice| {
+    assert_eq!(slice, &b"\x0f");
+});
+
+b.using_encoded(|ref slice| {
+    assert_eq!(slice, &b"\x01\x01\0\0\0\x02\0\0\0\0\0\0\0");
+});
+
+c.using_encoded(|ref slice| {
+    assert_eq!(slice, &b"\x02\x01\0\0\0\x02\0\0\0\0\0\0\0");
+});
+
+let mut da: &[u8] = b"\x0f";
+assert_eq!(EnumType::decode(&mut da).ok(), Some(a));
+
+let mut db: &[u8] = b"\x01\x01\0\0\0\x02\0\0\0\0\0\0\0";
+assert_eq!(EnumType::decode(&mut db).ok(), Some(b));
+
+let mut dc: &[u8] = b"\x02\x01\0\0\0\x02\0\0\0\0\0\0\0";
+assert_eq!(EnumType::decode(&mut dc).ok(), Some(c));
+
+let mut dz: &[u8] = &[0];
+assert_eq!(EnumType::decode(&mut dz).ok(), None);
+```
+
+## SCALE Codec Libraries
+
+Several SCALE codec implementations are available in various languages. Here's a list of them:
+
+- **AssemblyScript**: [`LimeChain/as-scale-codec`](https://github.com/LimeChain/as-scale-codec){target=\_blank}
+- **C**: [`MatthewDarnell/cScale`](https://github.com/MatthewDarnell/cScale){target=\_blank}
+- **C++**: [`qdrvm/scale-codec-cpp`](https://github.com/qdrvm/scale-codec-cpp){target=\_blank}
+- **JavaScript**: [`polkadot-js/api`](https://github.com/polkadot-js/api){target=\_blank}
+- **Dart**: [`leonardocustodio/polkadart`](https://github.com/leonardocustodio/polkadart){target=\_blank}
+- **Haskell**: [`airalab/hs-web3`](https://github.com/airalab/hs-web3/tree/master/packages/scale){target=\_blank}
+- **Golang**: [`itering/scale.go`](https://github.com/itering/scale.go){target=\_blank}
+- **Java**: [`splix/polkaj`](https://github.com/splix/polkaj){target=\_blank}
+- **Python**: [`polkascan/py-scale-codec`](https://github.com/polkascan/py-scale-codec){target=\_blank}
+- **Ruby**: [` wuminzhe/scale_rb`](https://github.com/wuminzhe/scale_rb){target=\_blank}
+- **TypeScript**: [`parity-scale-codec-ts`](https://github.com/tjjfvi/subshape){target=\_blank}, [`scale-ts`](https://github.com/unstoppablejs/unstoppablejs/tree/main/packages/scale-ts#scale-ts){target=\_blank}, [`soramitsu/scale-codec-js-library`](https://github.com/soramitsu/scale-codec-js-library){target=\_blank}, [`subsquid/scale-codec`](https://github.com/subsquid/squid-sdk/tree/master/substrate/scale-codec){target=\_blank}
 
 
 ---
@@ -1719,7 +2728,7 @@ A mechanism for specifying the initial state of a blockchain. By convention, thi
 
 ## GRANDPA
 
-A deterministic finality mechanism for blockchains that is implemented in the [Rust](https://www.rust-lang.org/){target=\_blank} programming language.
+A deterministic finality mechanism for blockchains that is implemented in the [Rust](https://rust-lang.org/){target=\_blank} programming language.
 
 The [formal specification](https://github.com/w3f/consensus/blob/master/pdf/grandpa-old.pdf){target=\_blank} is maintained by the [Web3 Foundation](https://web3.foundation/){target=\_blank}.
 
@@ -1855,7 +2864,7 @@ Learn more in the [storage items](https://paritytech.github.io/polkadot-sdk/mast
 
 ## Substrate
 
-A flexible framework for building modular, efficient, and upgradeable blockchains. Substrate is written in the [Rust](https://www.rust-lang.org/){target=\_blank} programming language and is maintained by [Parity Technologies](https://www.parity.io/){target=\_blank}.
+A flexible framework for building modular, efficient, and upgradeable blockchains. Substrate is written in the [Rust](https://rust-lang.org/){target=\_blank} programming language and is maintained by [Parity Technologies](https://www.parity.io/){target=\_blank}.
 
 ## Transaction
 
@@ -1882,7 +2891,7 @@ An execution architecture that allows for the efficient, platform-neutral expres
 deterministic, machine-executable logic.
 
 [Wasm](https://webassembly.org/){target=\_blank} can be compiled from many languages, including
-the [Rust](https://www.rust-lang.org/){target=\_blank} programming language. Polkadot SDK-based chains use a Wasm binary to provide portable [runtimes](#runtime) that can be included as part of the chain's state.
+the [Rust](https://rust-lang.org/){target=\_blank} programming language. Polkadot SDK-based chains use a Wasm binary to provide portable [runtimes](#runtime) that can be included as part of the chain's state.
 
 ## Weight
 
@@ -1900,6 +2909,71 @@ By defining weights, you can trade-off the number of transactions per second and
 ## Westend
 
 Westend is a Parity-maintained, Polkadot SDK-based blockchain that serves as a test network for the [Polkadot](#polkadot) network.
+
+
+---
+
+Page Title: Inclusion Pipeline
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-parachains-consensus-inclusion-pipeline.md
+- Canonical (HTML): https://docs.polkadot.com/reference/parachains/consensus/inclusion-pipeline/
+- Summary: Learn how Polkadot validates parachain blocks through the Inclusion Pipeline, detailing context, generation, backing, and inclusion stages.
+
+# Inclusion Pipeline
+
+## Introduction
+
+The inclusion pipeline is the multi-stage process through which every parachain block (parablock) is validated and secured before being finalized in the Polkadot relay chain. This pipeline ensures that all parachain blocks meet validity requirements through progressive verification by multiple sets of validators.
+
+The pipeline exists to provide Polkadot's security guarantees, rather than relying on a single validator group. Each parablock passes through multiple validation stages with different validator sets, ensuring that invalid blocks cannot be finalized even if some validators are malicious or compromised.
+
+Whether a parachain uses synchronous or [asynchronous backing](/reference/parachains/consensus/async-backing){target=\_blank}, all parablocks follow the same inclusion pipeline. The difference is in the timing: asynchronous backing allows multiple blocks to be at different stages of the pipeline simultaneously (pipelining), while synchronous backing processes one block through the entire pipeline before starting the next.
+
+## Pipeline Stages
+
+The inclusion pipeline consists of three main stages:
+
+```mermaid
+%%{init: {"flowchart": {"nodeSpacing": 40, "rankSpacing": 60}}}%%
+flowchart LR
+  %% Keep the pipeline on one row (container is hidden)
+  subgraph Row[" "]
+    direction LR
+    G["Generation"] --> B["Backing"] --> I["Inclusion"]
+  end
+  style Row fill:none,stroke:none
+
+  %% Context: plain text (no box) pointing to both G and B
+  C["Context"]:::nobox
+  C -.-> G
+  C -.-> B
+
+  classDef nobox fill:none,stroke:none,color:inherit;
+```
+### Context
+
+To build a parablock during the generation and backing stages, collators and validators require access to the state context of the parachain. This context is derived from two sources:
+
+  - **Relay Parent**: The relay chain block to which the parablock is anchored. Note that the relay parent of a parablock is always different from the relay chain block that eventually includes it. This context source resides on the relay chain.
+
+  - **Unincluded Segments**: Chains of candidate parablocks that have not yet been included in the relay chain. These segments represent sequences of block ancestors and may contain candidates at any stage pre-inclusion. A key feature enabled by [async backing](/reference/parachains/consensus/async-backing){target=\_blank} is that collators can build new parablocks on top of these unincluded ancestors rather than being limited to ancestors already included in the relay chain state. This context source resides on the collators.
+
+### Generation
+
+Collators execute their blockchain core functionality to generate a new block, producing a [proof-of-validity](https://wiki.polkadot.com/general/glossary/#proof-of-validity){target=\_blank} (PoV), which is passed to validators selected for backing. The PoV is composed of:
+
+  - A list of state transitions called the **block candidate**
+  - The values in the parachain's database that the block modifies
+  - The hashes of the unaffected points in the Merkle tree
+
+
+### Backing 
+
+A subset of active validators verify that the parablock follows the state transition rules of the parachain and sign a [validity statement](https://paritytech.github.io/polkadot-sdk/book/types/backing.html?#validity-attestation){target=\_blank} about the PoV which can have a positive or negative outcome. With enough positive statements (at least 2/3 of assigned validators), the candidate is considered backable. It is then noted in a fork on the relay chain, at which point it is considered backed, ready for the next stage of the pipeline.
+
+### Inclusion
+
+ Validators gossip [erasure code chunks](https://paritytech.github.io/polkadot-sdk/book/types/availability.html#erasure-chunk){target=\_blank} and put the parablock through the final [approval process](https://paritytech.github.io/polkadot-sdk/book/protocol-approval.html){target=\_blank} before it is considered *included* in the relay chain.
 
 
 ---
@@ -3889,8 +4963,8 @@ This architectural evolution promises to enhance Polkadot's scalability and flex
 
 Page Title: Parachain Consensus
 
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-parachains-consensus-overview.md
-- Canonical (HTML): https://docs.polkadot.com/reference/parachains/consensus/overview/
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-parachains-consensus.md
+- Canonical (HTML): https://docs.polkadot.com/reference/parachains/consensus/
 - Summary: Understand how the blocks authored by parachain collators are secured by the relay chain validators and how the parachain transactions achieve finality.
 
 # Parachain Consensus
@@ -4331,6 +5405,328 @@ You must contact specific registrars individually to request judgment. Each regi
     Source code for the People chain runtime, detailing the technical architecture of decentralized identity management.
 
     [:octicons-arrow-right-24: Reference](https://github.com/polkadot-fellows/runtimes/tree/main/system-parachains/people)
+
+</div>
+
+
+---
+
+Page Title: Polkadot Hub Assets
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-polkadot-hub-assets.md
+- Canonical (HTML): https://docs.polkadot.com/reference/polkadot-hub/assets/
+- Summary: Learn about asset management on Polkadot Hub, including on-chain assets, foreign asset integration, and XCM for cross-chain asset transfers.
+
+# Assets on Polkadot Hub
+
+## Introduction
+
+Polkadot Hub is Polkadot’s system parachain that provides core functionality for the network, including issuing and managing on-chain assets. While the relay chain provides security, Polkadot Hub handles asset logic—minting, burning, transfers, and metadata—efficiently and cost-effectively.
+
+Polkadot Hub supports native assets issued on the parachain and foreign assets from other chains, both of which can move seamlessly across the network via XCM.
+
+This guide explains how assets are created, managed, and moved across chains, including key operations, roles, and the differences between native and foreign assets.
+
+## Why Use Polkadot Hub?
+
+Polkadot Hub provides a standardized framework for creating and managing fungible and non-fungible assets. Projects can issue tokens, manage supply, and transfer assets across parachains, extending the functionality of the Polkadot relay chain, which only supports its native token (DOT).
+
+**Key features**:
+
+- **Built-in asset operations**: Mint, burn, and transfer like ERC-20 on Ethereum, but native to Polkadot's runtime.
+- **Custom asset creation**: Issue tokens or NFTs with configurable permissions and metadata.
+- **Low fees**: Transactions cost roughly one-tenth of relay chain fees.
+- **Lower deposits**: Minimal on-chain storage costs for asset data.
+- **Pay fees in any asset**: Users don’t need DOT to transact; supported assets can cover fees.
+- **Cross-chain ready**: Assets can be transferred to other parachains using XCM.
+
+## Types of Assets
+
+Polkadot Hub supports two types of assets:
+
+- **Native assets**: Tokens and NFTs issued directly on Polkadot Hub using the Assets pallet. These assets benefit from the platform's custom features, such as configurable permissions and low fees
+- **Foreign assets**: Tokens originating from other Polkadot parachains or external networks (like Ethereum, via bridges). Once registered on Polkadot Hub, they are treated similarly to native assets.
+
+## Asset Structure
+
+Each asset is identified by a unique ID and stores:
+
+- Asset administrators
+- Total supply and holder count
+- Minimum balance configuration
+- Sufficiency–whether the asset can keep an account alive without DOT
+- Metadata (name, symbol, decimals)
+
+If a balance falls below the configured minimum, called the [existential deposit](/reference/glossary/#existential-deposit){target=\_blank}, it may be removed as “dust.” This ensures efficient storage while giving developers control over asset economics.
+
+## How Native Assets Work
+
+Native assets on Polkadot Hub are created and managed via the Assets pallet from the Polkadot SDK. This pallet defines the runtime logic for issuing, configuring, and administering fungible assets with customizable permissions.
+
+It supports both permissioned and permissionless asset creation, enabling everything from simple user-issued tokens to governed assets controlled by teams or DAOs.
+
+For implementation details, see the [Assets Pallet Rust docs](https://paritytech.github.io/polkadot-sdk/master/pallet_assets/index.html){target=\_blank}.
+
+### Asset Operations
+
+The Assets pallet provides both state-changing operations and read-only queries for full lifecycle management of assets.
+
+Core operations include:
+
+- **Asset issuance**: Create new assets and assign initial supply.
+- **Transfers**: Move assets between accounts with balance tracking.
+- **Burning**: Reduce total supply by destroying tokens.
+- **Delegated transfers**: Approve transfers on behalf of another account without giving up custody.
+- **Freezing and thawing**: Temporarily lock and unlock an account's balance.
+
+For a complete list of extrinsics, see the [`pallet-assets` dispatchable functions reference](https://docs.rs/pallet-assets/latest/pallet_assets/pallet/enum.Call.html){target=\_blank}.
+
+Data queries make it possible to:
+
+- Check account balances and total supply.
+- Retrieve asset metadata and configuration details.
+- Inspect account and asset status on-chain.
+
+For a full list of queries, see the [Pallet reference](https://docs.rs/pallet-assets/latest/pallet_assets/pallet/struct.Pallet.html){target=\_blank}.
+
+### Roles and Permissions
+
+The Assets pallet uses role-based permissions to control who can manage different parts of an asset’s lifecycle:
+
+- **Owner**: Overarching control, including destroying an asset class; can set or update Issuer, Freezer, and Admin roles.
+- **Admin**: Can freeze assets and forcibly transfer balances between accounts. Admins can also reduce the balance of an asset class across arbitrary accounts.
+- **Issuer**: Responsible for minting new tokens. When new assets are created, the Issuer is the account that controls their distribution to other accounts.
+- **Freezer**: Can lock the transfer of assets from an account, preventing the account holder from moving their balance.
+
+These roles allow projects to enforce governance and security policies around their assets.
+
+### Freezing Assets
+
+Assets can be temporarily locked to prevent transfers from specific accounts. This is useful for dispute resolution, fraud prevention, or compliance controls.
+
+**How it works**:
+
+- Only authorized parties can freeze or unfreeze (thaw) assets.
+- Freezing pauses the movement of the asset without burning or removing it.
+- Once thawed, the asset can be transferred normally.
+
+Freezing provides a safe way to control asset flow while maintaining full ownership.
+
+**Key functions**: `freeze` and `thaw`.
+
+### Delegated Transfers
+
+Polkadot Hub supports delegated asset transfers, allowing one account to authorize another to move a limited amount of its assets—without giving up full control. This is useful for escrow logic, automated payments, and multi-party applications.
+
+**How it works**:
+
+- An account can grant permission to another account to transfer a specific amount of its assets.
+- Permissions can be revoked at any time, preventing further transfers.
+- Authorized accounts can execute transfers on behalf of the original owner within the approved limits.
+
+Delegated transfers simplify multi-step transactions and enable complex asset flows.
+
+**Key functions**: `approve_transfer`, `cancel_approval`, and `transfer_approved`.
+
+## How Foreign Assets Work
+
+Foreign assets are assets originating from other chains and are managed on Polkadot Hub via an instance of the Assets pallet that is configured specifically for foreign assets. It enables transfers, balance checks, and other standard asset operations, while handling foreign-asset specifics such as:
+
+- **Asset identifiers**: Foreign assets use an XCM multilocation as their identifier, rather than a numeric AssetId. This ensures assets from different chains can be referenced and moved safely across parachains.
+
+- **Transfers**: Once registered on Polkadot Hub, foreign assets can be transferred between accounts just like native assets. If supported, they can also be returned to their original blockchain using cross-chain messaging.
+
+This unified interface makes it easy for dApps to handle both native and cross-chain assets.
+
+## Moving Assets Across Chains
+
+Polkadot Hub enables assets to move safely between parachains and the relay chain using XCM (Cross-Consensus Messaging). XCM ensures assets can move securely between chains while preserving ownership and traceability
+
+To learn more about asset transfers with XCM, please refer to the [Introduction to XCM](/parachains/interoperability/get-started/) page.
+
+
+---
+
+Page Title: Polkadot Hub Overview
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-polkadot-hub.md
+- Canonical (HTML): https://docs.polkadot.com/reference/polkadot-hub/
+- Summary: Learn how Polkadot Hub serves as the entry point to Polkadot, providing access to smart contracts, staking, governance, identity management, and cross-ecosystem interoperability.
+
+## Introduction
+
+Polkadot Hub is the entry point for all users and application developers to Polkadot. It provides access to essential Web3 services, including smart contracts, staking, governance, identity management, and cross-ecosystem interoperability—without requiring you to deploy or manage a parachain.
+
+The Hub encompasses a set of core functionality that enables developers and users to build and interact with applications on Polkadot. This specialized system of parachains and services works together seamlessly to deliver a unified platform experience. The modular approach lets you interact with services optimized for specific use cases, while still benefiting from Polkadot's shared security.
+
+## Polkadot Hub Capabilities
+
+Whether you're just getting started or building complex applications, the Hub supports the ability to:
+ 
+- Hold, send, and receive DOT and other assets across the network.
+- Stake DOT to participate in network security and earn rewards.
+- Vote in governance referendums and shape Polkadot's future.
+- Create both fungible and non-fungible tokens and assets for your projects.
+- Pay transaction fees in any asset, not just DOT.
+- Register as an individual and establish your on-chain identity.
+
+For more sophisticated development use cases, the Hub enables you to:
+
+- Deploy Ethereum-compatible smart contracts using Solidity or other EVM languages.
+- Build decentralized applications that leverage Polkadot's security and interoperability.
+- Create and manage fungible tokens and NFTs with low fees and flexible operations.
+- Manage cross-chain interactions through XCM messaging with other parachains.
+- Set verified identities and apply for network opportunities like the Ambassador Program.
+- Join collectives and participate in governance organizations with specialized roles.
+
+## Core Components
+
+The Polkadot Hub consists of several specialized system parachains and services working together as described in the following sections. 
+
+### Smart Contracts
+
+[Smart Contracts](/reference/polkadot-hub/smart-contracts/){target=\_blank} on Polkadot Hub enable developers to deploy Ethereum-compatible smart contracts written in Solidity and other familiar EVM languages. Build decentralized applications with full access to Polkadot's security, interoperability, and cross-chain capabilities. Smart contracts on the Hub benefit from lower fees and integration with native Polkadot features, such as identity management and asset operations.
+
+### Asset Management
+
+[Asset Management](/reference/polkadot-hub/assets/){target=\_blank} provides the foundation for on-chain asset management. Create, manage, and transfer fungible tokens and NFTs across the ecosystem. Asset Management offers significantly lower transaction fees—approximately one-tenth the cost of relay chain transactions—and reduced deposit requirements, making it ideal for projects managing digital assets at scale. It also enables payment of transaction fees in non-native assets, providing developers and users with greater flexibility.
+
+### People Chain
+
+[People Chain](/reference/polkadot-hub/people-and-identity/){target=\_blank} powers Polkadot's decentralized identity system. Establish verifiable on-chain identities, control disclosure of personal information, and receive verification from trusted registrars. People Chain enables secure identity management with hierarchical sub-account support, forming the foundation for trusted interactions throughout the ecosystem.
+
+### Bridge Hub
+
+[Bridge Hub](/reference/polkadot-hub/bridging/){target=\_blank} facilitates trustless interactions between Polkadot and external blockchains like Ethereum and Kusama. Through implementations such as Snowbridge, Bridge Hub enables secure cross-chain communication via on-chain light clients and trustless relayers. This component ensures seamless interoperability beyond the Polkadot ecosystem.
+
+### Consensus & Security
+
+[Consensus and Security](/reference/polkadot-hub/consensus-and-security/){target=\_blank} covers the fundamental mechanisms that protect the network. Learn about validator participation, how the relay chain validates all transactions, and the cryptoeconomic incentives that secure Polkadot. Understanding these mechanisms is essential for validators and anyone building critical infrastructure on the network.
+
+### Collectives & DAOs
+
+[Collectives and DAOs](/reference/polkadot-hub/collectives-and-daos/){target=\_blank} enable specialized governance organizations within Polkadot. Participate in collective membership, manage treasury operations, and engage in coordinated decision-making with groups aligned around specific purposes. This functionality supports the creation of autonomous organizations on Polkadot.
+
+## Where to Go Next
+
+Consider the following resources to explore specific Hub functionality.
+
+<div class="grid cards" markdown>
+
+- <span class="badge learn">Learn</span> **Smart Contracts**
+
+    ---
+
+    Deploy Ethereum-compatible smart contracts and build decentralized applications.
+
+    [:octicons-arrow-right-24: Reference](/reference/polkadot-hub/smart-contracts/)
+
+- <span class="badge learn">Learn</span> **Asset Management**
+
+    ---
+
+    Manage fungible tokens and NFTs with low fees and flexible asset operations.
+
+    [:octicons-arrow-right-24: Reference](/reference/polkadot-hub/assets/)
+
+- <span class="badge learn">Learn</span> **People Chain**
+
+    ---
+
+    Establish and verify decentralized identities for trusted interactions on Polkadot.
+
+    [:octicons-arrow-right-24: Reference](/reference/polkadot-hub/people-and-identity/)
+
+- <span class="badge learn">Learn</span> **Bridge Hub**
+
+    ---
+
+    Facilitate trustless cross-chain interactions with Ethereum and other blockchains.
+
+    [:octicons-arrow-right-24: Reference](/reference/polkadot-hub/bridging/)
+
+- <span class="badge learn">Learn</span> **Consensus & Security**
+
+    ---
+
+    Understand how Polkadot validates transactions and secures the network.
+
+    [:octicons-arrow-right-24: Reference](/reference/polkadot-hub/consensus-and-security/)
+
+- <span class="badge learn">Learn</span> **Collectives & DAOs**
+
+    ---
+
+    Participate in specialized governance organizations with coordinated decision-making.
+
+    [:octicons-arrow-right-24: Reference](/reference/polkadot-hub/collectives-and-daos/)
+
+</div>
+
+
+---
+
+Page Title: Polkadot Hub Smart Contracts
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-polkadot-hub-smart-contracts.md
+- Canonical (HTML): https://docs.polkadot.com/reference/polkadot-hub/smart-contracts/
+- Summary: Learn how Polkadot Hub supports smart contracts through the REVM, a Rust-based Ethereum Virtual Machine compatible runtime.
+
+# Smart Contracts on Polkadot Hub
+
+## Introduction
+
+Polkadot Hub enables developers to deploy and interact with Solidity contracts through REVM, a high-performance, Rust-based Ethereum Virtual Machine implementation. Polkadot-native precompiles bring Ethereum compatibility to Polkadot Hub, letting teams use familiar Solidity tooling, integrate with on-chain features like governance and XCM, and take advantage of cross-chain interoperability.
+
+For projects that require maximum computational performance, Polkadot Hub also supports PolkaVM (PVM), a native RISC-V execution engine. PVM is optional and designed for high-throughput, performance-intensive smart contracts.
+
+### REVM Smart Contracts
+
+[REVM](https://github.com/bluealloy/revm){target=_blank} brings full EVM compatibility to Polkadot Hub through a fast, memory-safe Rust implementation of the Ethereum Virtual Machine. Unlike PolkaVM, which compiles contracts to RISC-V for native execution, REVM executes standard Ethereum bytecode directly—making it ideal for teams who want to migrate existing Solidity projects to Polkadot with minimal changes.
+
+With REVM, developers can:
+
+- Deploy existing Solidity contracts without rewriting them.
+- Use familiar Ethereum tooling like Hardhat, Foundry, Remix, and MetaMask.
+- Interact with other parachains and on-chain assets using XCM and Polkadot Hub features.
+
+REVM builds on Rust’s safety guarantees and performance optimizations while retaining full opcode compatibility with the EVM. 
+
+Ethereum-native developers can use Polkadot-native precompiles to access Polkadot features—such as governance, treasury, multisig, and XCM—within a unified, interoperable runtime environment.
+
+### PVM Smart Contracts
+
+PVM is Polkadot Hub’s native, high-performance smart contract engine. Instead of emulating EVM bytecode, it runs contracts compiled to a [RISC-V](https://en.wikipedia.org/wiki/RISC-V){target=_blank} instruction set, unlocking higher performance and parallel execution while staying friendly to Ethereum-style development.
+
+With PVM, developers can:
+
+- Write Solidity contracts and use familiar tooling (e.g., Hardhat, Foundry) targeting PVM
+- Benefit from fast, predictable execution with carefully metered gas/weight.
+- Access detailed observability through Substrate events and contract logs for indexing and debugging.
+
+PolkaVM delivers maximum performance for computationally intensive contracts, offering a native, high-throughput option for Ethereum-style developers on Polkadot Hub.
+
+!!! smartcontract "PolkaVM Preview Release"
+    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
+## Where to Go Next
+
+<div class="grid cards" markdown>
+
+-   <span class="badge guide">Guide</span> __Deploy a Basic Contract__
+
+    ---
+
+    Learn step-by-step how to deploy a basic Solidity smart contract to Polkadot Hub.
+
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-basic/basic-remix/)
+
+-   <span class="badge guide">Guide</span> __Explore Development Environments__
+
+    ---
+
+    Check out the development environments you can use to build, test, and deploy smart contracts.
+
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/dev-environments/local-dev-node/)
 
 </div>
 
@@ -4982,7 +6378,7 @@ By the end of this guide, you'll have a working template ready to customize and 
 
 Before getting started, ensure you have done the following:
 
-- Completed the [Install Polkadot SDK](/parachains/install-polkadot-sdk/){target=\_blank} guide and successfully installed [Rust](https://www.rust-lang.org/){target=\_blank} and the required packages to set up your development environment.
+- Completed the [Install Polkadot SDK](/parachains/install-polkadot-sdk/){target=\_blank} guide and successfully installed [Rust](https://rust-lang.org/){target=\_blank} and the required packages to set up your development environment.
 
 For this tutorial series, you need to use Rust `1.86`. Newer versions of the compiler may not work with this parachain template version.
 
@@ -5325,12 +6721,12 @@ This guide organizes technical documentation across five core areas: Polkadot Hu
 
 ## Polkadot Hub
 
-[Polkadot Hub](/reference/polkadot-hub/){target=\_blank} is the entry point to Polkadot for all users and application developers. It provides access to essential Web3 services, including smart contracts, staking, governance, identity management, and cross-ecosystem interoperability—without requiring you to deploy or manage a parachain.
+[Polkadot Hub](/reference/polkadot-hub/){target=\_blank} is the entry point to Polkadot for all users and application developers. It provides access to essential Web3 services including smart contracts, asset management, staking, governance, identity management, and cross-ecosystem interoperability—without requiring you to deploy or manage a parachain.
 
 The Hub encompasses a set of core functionality that enables developers and users to build and interact with applications on Polkadot. Key capabilities include:
 
 - **Smart contracts**: Deploy Ethereum-compatible smart contracts and build decentralized applications.
-- **Assets and tokens**: Create, manage, and transfer fungible tokens and NFTs across the ecosystem.
+- **Asset management**: Create, manage, and transfer fungible tokens and NFTs across the ecosystem.
 - **Staking**: Participate in network security and earn rewards by staking DOT.
 - **Governance**: Vote on proposals and participate in Polkadot's decentralized decision-making through OpenGov.
 - **Identity services**: Register and manage on-chain identities, enabling access to governance roles and network opportunities.

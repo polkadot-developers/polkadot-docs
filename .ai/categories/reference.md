@@ -186,7 +186,7 @@ A mechanism for specifying the initial state of a blockchain. By convention, thi
 
 ## GRANDPA
 
-A deterministic finality mechanism for blockchains that is implemented in the [Rust](https://www.rust-lang.org/){target=\_blank} programming language.
+A deterministic finality mechanism for blockchains that is implemented in the [Rust](https://rust-lang.org/){target=\_blank} programming language.
 
 The [formal specification](https://github.com/w3f/consensus/blob/master/pdf/grandpa-old.pdf){target=\_blank} is maintained by the [Web3 Foundation](https://web3.foundation/){target=\_blank}.
 
@@ -322,7 +322,7 @@ Learn more in the [storage items](https://paritytech.github.io/polkadot-sdk/mast
 
 ## Substrate
 
-A flexible framework for building modular, efficient, and upgradeable blockchains. Substrate is written in the [Rust](https://www.rust-lang.org/){target=\_blank} programming language and is maintained by [Parity Technologies](https://www.parity.io/){target=\_blank}.
+A flexible framework for building modular, efficient, and upgradeable blockchains. Substrate is written in the [Rust](https://rust-lang.org/){target=\_blank} programming language and is maintained by [Parity Technologies](https://www.parity.io/){target=\_blank}.
 
 ## Transaction
 
@@ -349,7 +349,7 @@ An execution architecture that allows for the efficient, platform-neutral expres
 deterministic, machine-executable logic.
 
 [Wasm](https://webassembly.org/){target=\_blank} can be compiled from many languages, including
-the [Rust](https://www.rust-lang.org/){target=\_blank} programming language. Polkadot SDK-based chains use a Wasm binary to provide portable [runtimes](#runtime) that can be included as part of the chain's state.
+the [Rust](https://rust-lang.org/){target=\_blank} programming language. Polkadot SDK-based chains use a Wasm binary to provide portable [runtimes](#runtime) that can be included as part of the chain's state.
 
 ## Weight
 
@@ -1256,12 +1256,12 @@ This guide organizes technical documentation across five core areas: Polkadot Hu
 
 ## Polkadot Hub
 
-[Polkadot Hub](/reference/polkadot-hub/){target=\_blank} is the entry point to Polkadot for all users and application developers. It provides access to essential Web3 services, including smart contracts, staking, governance, identity management, and cross-ecosystem interoperability—without requiring you to deploy or manage a parachain.
+[Polkadot Hub](/reference/polkadot-hub/){target=\_blank} is the entry point to Polkadot for all users and application developers. It provides access to essential Web3 services including smart contracts, asset management, staking, governance, identity management, and cross-ecosystem interoperability—without requiring you to deploy or manage a parachain.
 
 The Hub encompasses a set of core functionality that enables developers and users to build and interact with applications on Polkadot. Key capabilities include:
 
 - **Smart contracts**: Deploy Ethereum-compatible smart contracts and build decentralized applications.
-- **Assets and tokens**: Create, manage, and transfer fungible tokens and NFTs across the ecosystem.
+- **Asset management**: Create, manage, and transfer fungible tokens and NFTs across the ecosystem.
 - **Staking**: Participate in network security and earn rewards by staking DOT.
 - **Governance**: Vote on proposals and participate in Polkadot's decentralized decision-making through OpenGov.
 - **Identity services**: Register and manage on-chain identities, enabling access to governance roles and network opportunities.

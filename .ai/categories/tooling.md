@@ -705,6 +705,532 @@ Both backends support contract deployment effectively, with REVM offering drop-i
 
 ---
 
+Page Title: Cryptography
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-parachains-cryptography.md
+- Canonical (HTML): https://docs.polkadot.com/reference/parachains/cryptography/
+- Summary: A concise guide to cryptography in blockchain, covering hash functions, encryption types, digital signatures, and elliptic curve applications.
+
+# Cryptography
+
+## Introduction
+
+Cryptography forms the backbone of blockchain technology, providing the mathematical verifiability crucial for consensus systems, data integrity, and user security. While a deep understanding of the underlying mathematical processes isn't necessary for most blockchain developers, grasping the fundamental applications of cryptography is essential. This page comprehensively overviews cryptographic implementations used across Polkadot SDK-based chains and the broader blockchain ecosystem.
+
+## Hash Functions
+
+Hash functions are fundamental to blockchain technology, creating a unique digital fingerprint for any piece of data, including simple text, images, or any other form of file. They map input data of any size to a fixed-size output (typically 32 bytes) using complex mathematical operations. Hashing is used to verify data integrity, create digital signatures, and provide a secure way to store passwords. This form of mapping is known as the ["pigeonhole principle,"](https://en.wikipedia.org/wiki/Pigeonhole_principle){target=\_blank} it is primarily implemented to efficiently and verifiably identify data from large sets.
+
+### Key Properties of Hash Functions
+
+- **Deterministic**: The same input always produces the same output.
+- **Quick computation**: It's easy to calculate the hash value for any given input.
+- **Pre-image resistance**: It's infeasible to generate the input data from its hash.
+- **Small changes in input yield large changes in output**: Known as the ["avalanche effect"](https://en.wikipedia.org/wiki/Avalanche_effect){target=\_blank}.
+- **Collision resistance**: The probabilities are extremely low to find two different inputs with the same hash.
+
+### Blake2
+
+The Polkadot SDK utilizes Blake2, a state-of-the-art hashing method that offers:
+
+- Equal or greater security compared to [SHA-2](https://en.wikipedia.org/wiki/SHA-2){target=\_blank}.
+- Significantly faster performance than other algorithms.
+
+These properties make Blake2 ideal for blockchain systems, reducing sync times for new nodes and lowering the resources required for validation. For detailed technical specifications about Blake2, see the [official Blake2 paper](https://www.blake2.net/blake2.pdf){target=\_blank}.
+
+## Types of Cryptography
+
+There are two different ways that cryptographic algorithms are implemented: symmetric cryptography and asymmetric cryptography.
+
+### Symmetric Cryptography
+
+Symmetric encryption is a branch of cryptography that isn't based on one-way functions, unlike asymmetric cryptography. It uses the same cryptographic key to encrypt plain text and decrypt the resulting ciphertext.
+
+Symmetric cryptography is a type of encryption that has been used throughout history, such as the Enigma Cipher and the Caesar Cipher. It is still widely used today and can be found in Web2 and Web3 applications alike. There is only one single key, and a recipient must also have access to it to access the contained information.
+
+#### Advantages {: #symmetric-advantages }
+
+- Fast and efficient for large amounts of data.
+- Requires less computational power.
+
+#### Disadvantages {: #symmetric-disadvantages }
+
+- Key distribution can be challenging.
+- Scalability issues in systems with many users.
+
+### Asymmetric Cryptography
+
+Asymmetric encryption is a type of cryptography that uses two different keys, known as a keypair: a public key, used to encrypt plain text, and a private counterpart, used to decrypt the ciphertext.
+
+The public key encrypts a fixed-length message that can only be decrypted with the recipient's private key and, sometimes, a set password. The public key can be used to cryptographically verify that the corresponding private key was used to create a piece of data without compromising the private key, such as with digital signatures. This has obvious implications for identity, ownership, and properties and is used in many different protocols across Web2 and Web3.
+
+#### Advantages {: #asymmetric-advantages }
+
+- Solves the key distribution problem.
+- Enables digital signatures and secure key exchange.
+
+#### Disadvantages {: #asymmetric-disadvantages }
+
+- Slower than symmetric encryption.
+- Requires more computational resources.
+
+### Trade-offs and Compromises
+
+Symmetric cryptography is faster and requires fewer bits in the key to achieve the same level of security that asymmetric cryptography provides. However, it requires a shared secret before communication can occur, which poses issues to its integrity and a potential compromise point. On the other hand, asymmetric cryptography doesn't require the secret to be shared ahead of time, allowing for far better end-user security.
+
+Hybrid symmetric and asymmetric cryptography is often used to overcome the engineering issues of asymmetric cryptography, as it is slower and requires more bits in the key to achieve the same level of security. It encrypts a key and then uses the comparatively lightweight symmetric cipher to do the "heavy lifting" with the message.
+
+## Digital Signatures
+
+Digital signatures are a way of verifying the authenticity of a document or message using asymmetric keypairs. They are used to ensure that a sender or signer's document or message hasn't been tampered with in transit, and for recipients to verify that the data is accurate and from the expected sender.
+
+Signing digital signatures only requires a low-level understanding of mathematics and cryptography. For a conceptual example -- when signing a check, it is expected that it cannot be cashed multiple times. This isn't a feature of the signature system but rather the check serialization system. The bank will check that the serial number on the check hasn't already been used. Digital signatures essentially combine these two concepts, allowing the signature to provide the serialization via a unique cryptographic fingerprint that cannot be reproduced.
+
+Unlike pen-and-paper signatures, knowledge of a digital signature cannot be used to create other signatures. Digital signatures are often used in bureaucratic processes, as they are more secure than simply scanning in a signature and pasting it onto a document.
+
+Polkadot SDK provides multiple different cryptographic schemes and is generic so that it can support anything that implements the [`Pair` trait](https://paritytech.github.io/polkadot-sdk/master/sp_core/crypto/trait.Pair.html){target=\_blank}.
+
+### Example of Creating a Digital Signature
+
+The process of creating and verifying a digital signature involves several steps:
+
+1. The sender creates a hash of the message.
+2. The hash is encrypted using the sender's private key, creating the signature.
+3. The message and signature are sent to the recipient.
+4. The recipient decrypts the signature using the sender's public key.
+5. The recipient hashes the received message and compares it to the decrypted hash.
+
+If the hashes match, the signature is valid, confirming the message's integrity and the sender's identity.
+
+## Elliptic Curve
+
+Blockchain technology requires the ability to have multiple keys creating a signature for block proposal and validation. To this end, Elliptic Curve Digital Signature Algorithm (ECDSA) and Schnorr signatures are two of the most commonly used methods. While ECDSA is a far simpler implementation, Schnorr signatures are more efficient when it comes to multi-signatures.
+
+Schnorr signatures bring some noticeable features over the ECDSA/EdDSA schemes:
+
+- It is better for hierarchical deterministic key derivations.
+- It allows for native multi-signature through [signature aggregation](https://bitcoincore.org/en/2017/03/23/schnorr-signature-aggregation/){target=\_blank}.
+- It is generally more resistant to misuse.
+
+One sacrifice that is made when using Schnorr signatures over ECDSA is that both require 64 bytes, but only ECDSA signatures communicate their public key.
+
+### Various Implementations
+
+- **[ECDSA](https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm){target=\_blank}**: Polkadot SDK provides an ECDSA signature scheme using the [secp256k1](https://en.bitcoin.it/wiki/Secp256k1){target=\_blank} curve. This is the same cryptographic algorithm used to secure [Bitcoin](https://en.wikipedia.org/wiki/Bitcoin){target=\_blank} and [Ethereum](https://en.wikipedia.org/wiki/Ethereum){target=\_blank}.
+
+- **[Ed25519](https://en.wikipedia.org/wiki/EdDSA#Ed25519){target=\_blank}**: An EdDSA signature scheme using [Curve25519](https://en.wikipedia.org/wiki/Curve25519){target=\_blank}. It is carefully engineered at several levels of design and implementation to achieve very high speeds without compromising security.
+
+- **[SR25519](https://research.web3.foundation/Polkadot/security/keys/accounts-more){target=\_blank}**: Based on the same underlying curve as Ed25519. However, it uses Schnorr signatures instead of the EdDSA scheme.
+
+
+---
+
+Page Title: Data Encoding
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-parachains-data-encoding.md
+- Canonical (HTML): https://docs.polkadot.com/reference/parachains/data-encoding/
+- Summary: SCALE codec enables fast, efficient data encoding, ideal for resource-constrained environments like Wasm, supporting custom types and compact encoding.
+
+# Data Encoding
+
+## Introduction
+
+The Polkadot SDK uses a lightweight and efficient encoding/decoding mechanism to optimize data transmission across the network. This mechanism, known as the _SCALE_ codec, is used for serializing and deserializing data.
+
+The SCALE codec enables communication between the runtime and the outer node. This mechanism is designed for high-performance, copy-free data encoding and decoding in resource-constrained environments like the Polkadot SDK [Wasm runtime](/develop/parachains/deployment/build-deterministic-runtime/#introduction){target=\_blank}.
+
+It is not self-describing, meaning the decoding context must fully know the encoded data types. 
+
+Parity's libraries utilize the [`parity-scale-codec`](https://github.com/paritytech/parity-scale-codec){target=\_blank} crate (a Rust implementation of the SCALE codec) to handle encoding and decoding for interactions between RPCs and the runtime.
+
+The `codec` mechanism is ideal for Polkadot SDK-based chains because:
+
+- It is lightweight compared to generic serialization frameworks like [`serde`](https://serde.rs/){target=\_blank}, which add unnecessary bulk to binaries.
+- It doesn’t rely on Rust’s `libstd`, making it compatible with `no_std` environments like Wasm runtime.
+- It integrates seamlessly with Rust, allowing easy derivation of encoding and decoding logic for new types using `#[derive(Encode, Decode)]`.
+
+Defining a custom encoding scheme in the Polkadot SDK-based chains, rather than using an existing Rust codec library, is crucial for enabling cross-platform and multi-language support. 
+
+## SCALE Codec
+
+The codec is implemented using the following traits:
+
+- [`Encode`](#encode)
+- [`Decode`](#decode)
+- [`CompactAs`](#compactas)
+- [`HasCompact`](#hascompact)
+- [`EncodeLike`](#encodelike)
+
+### Encode
+
+The [`Encode`](https://docs.rs/parity-scale-codec/latest/parity_scale_codec/trait.Encode.html){target=\_blank} trait handles data encoding into SCALE format and includes the following key functions:
+
+- **`size_hint(&self) -> usize`**: Estimates the number of bytes required for encoding to prevent multiple memory allocations. This should be inexpensive and avoid complex operations. Optional if the size isn’t known.
+- **`encode_to<T: Output>(&self, dest: &mut T)`**: Encodes the data, appending it to a destination buffer.
+- **`encode(&self) -> Vec<u8>`**: Encodes the data and returns it as a byte vector.
+- **`using_encoded<R, F: FnOnce(&[u8]) -> R>(&self, f: F) -> R`**: Encodes the data and passes it to a closure, returning the result.
+- **`encoded_size(&self) -> usize`**: Calculates the encoded size. Should be used when the encoded data isn’t required.
+
+!!!tip
+    For best performance, value types should override `using_encoded`, and allocating types should override `encode_to`. It's recommended to implement `size_hint` for all types where possible.
+
+### Decode
+
+The [`Decode`](https://docs.rs/parity-scale-codec/latest/parity_scale_codec/trait.Decode.html){target=\_blank} trait handles decoding SCALE-encoded data back into the appropriate types:
+
+- **`fn decode<I: Input>(value: &mut I) -> Result<Self, Error>`**: Decodes data from the SCALE format, returning an error if decoding fails.
+
+### CompactAs
+
+The [`CompactAs`](https://docs.rs/parity-scale-codec/latest/parity_scale_codec/trait.CompactAs.html){target=\_blank} trait wraps custom types for compact encoding:
+
+- **`encode_as(&self) -> &Self::As`**: Encodes the type as a compact type.
+- **`decode_from(_: Self::As) -> Result<Self, Error>`**: decodes from a compact encoded type.
+
+### HasCompact
+
+The [`HasCompact`](https://docs.rs/parity-scale-codec/latest/parity_scale_codec/trait.HasCompact.html){target=\_blank} trait indicates a type supports compact encoding.
+
+### EncodeLike
+
+The [`EncodeLike`](https://docs.rs/parity-scale-codec/latest/parity_scale_codec/trait.EncodeLike.html){target=\_blank} trait is used to ensure multiple types that encode similarly are accepted by the same function. When using `derive`, it is automatically implemented.
+
+### Data Types
+
+The table below outlines how the Rust implementation of the Parity SCALE codec encodes different data types.
+
+| Type                          | Description                                                                                                                                                                                                                                                                                                                | Example SCALE Decoded Value                                                                                                                        | SCALE Encoded Value                                                     |
+|-------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| Boolean                       | Boolean values are encoded using the least significant bit of a single byte.                                                                                                                                                                                                                                               | `false` / `true`                                                                                                                                   | `0x00` / `0x01`                                                         |
+| Compact/general integers      | A "compact" or general integer encoding is sufficient for encoding large integers (up to 2^536) and is more efficient at encoding most values than the fixed-width version.                                                                                                                                                | `unsigned integer 0` / `unsigned integer 1` / `unsigned integer 42` / `unsigned integer 69` / `unsigned integer 65535` / `BigInt(100000000000000)` | `0x00` / `0x04` / `0xa8` / `0x1501` / `0xfeff0300` / `0x0b00407a10f35a` |
+| Enumerations (tagged-unions)  | A fixed number of variants, each mutually exclusive and potentially implying a further value or series of values. Encoded as the first byte identifying the index of the variant that the value is. Any further bytes are used to encode any data that the variant implies. Thus, no more than 256 variants are supported. | `Int(42)` and `Bool(true)` where `enum IntOrBool { Int(u8), Bool(bool) }`                                                                          | `0x002a` and `0x0101`                                                   |
+| Fixed-width integers          | Basic integers are encoded using a fixed-width little-endian (LE) format.                                                                                                                                                                                                                                                  | `signed 8-bit integer 69` / `unsigned 16-bit integer 42` / `unsigned 32-bit integer 16777215`                                                      | `0x45` / `0x2a00` / `0xffffff00`                                        |
+| Options                       | One or zero values of a particular type.                                                                                                                                                                                                                                                                                   | `Some` / `None`                                                                                                                                    | `0x01` followed by the encoded value / `0x00`                           |
+| Results                       | Results are commonly used enumerations which indicate whether certain operations were successful or unsuccessful.                                                                                                                                                                                                          | `Ok(42)` / `Err(false)`                                                                                                                            | `0x002a` / `0x0100`                                                     |
+| Strings                       | Strings are Vectors of bytes (Vec<u8>) containing a valid UTF8 sequence.                                                                                                                                                                                                                                                   |                                                                                                                                                    |                                                                         |
+| Structs                       | For structures, the values are named, but that is irrelevant for the encoding (names are ignored - only order matters).                                                                                                                                                                                                    | `SortedVecAsc::from([3, 5, 2, 8])`                                                                                                                 | `[3, 2, 5, 8] `                                                         |
+| Tuples                        | A fixed-size series of values, each with a possibly different but predetermined and fixed type. This is simply the concatenation of each encoded value.                                                                                                                                                                    | Tuple of compact unsigned integer and boolean: `(3, false)`                                                                                        | `0x0c00`                                                                |
+| Vectors (lists, series, sets) | A collection of same-typed values is encoded, prefixed with a compact encoding of the number of items, followed by each item's encoding concatenated in turn.                                                                                                                                                              | Vector of unsigned `16`-bit integers: `[4, 8, 15, 16, 23, 42]`                                                                                     | `0x18040008000f00100017002a00`                                          |
+
+## Encode and Decode Rust Trait Implementations
+
+Here's how the `Encode` and `Decode` traits are implemented:
+
+
+```rust
+use parity_scale_codec::{Encode, Decode};
+
+[derive(Debug, PartialEq, Encode, Decode)]
+enum EnumType {
+    #[codec(index = 15)]
+    A,
+    B(u32, u64),
+    C {
+        a: u32,
+        b: u64,
+    },
+}
+
+let a = EnumType::A;
+let b = EnumType::B(1, 2);
+let c = EnumType::C { a: 1, b: 2 };
+
+a.using_encoded(|ref slice| {
+    assert_eq!(slice, &b"\x0f");
+});
+
+b.using_encoded(|ref slice| {
+    assert_eq!(slice, &b"\x01\x01\0\0\0\x02\0\0\0\0\0\0\0");
+});
+
+c.using_encoded(|ref slice| {
+    assert_eq!(slice, &b"\x02\x01\0\0\0\x02\0\0\0\0\0\0\0");
+});
+
+let mut da: &[u8] = b"\x0f";
+assert_eq!(EnumType::decode(&mut da).ok(), Some(a));
+
+let mut db: &[u8] = b"\x01\x01\0\0\0\x02\0\0\0\0\0\0\0";
+assert_eq!(EnumType::decode(&mut db).ok(), Some(b));
+
+let mut dc: &[u8] = b"\x02\x01\0\0\0\x02\0\0\0\0\0\0\0";
+assert_eq!(EnumType::decode(&mut dc).ok(), Some(c));
+
+let mut dz: &[u8] = &[0];
+assert_eq!(EnumType::decode(&mut dz).ok(), None);
+```
+
+## SCALE Codec Libraries
+
+Several SCALE codec implementations are available in various languages. Here's a list of them:
+
+- **AssemblyScript**: [`LimeChain/as-scale-codec`](https://github.com/LimeChain/as-scale-codec){target=\_blank}
+- **C**: [`MatthewDarnell/cScale`](https://github.com/MatthewDarnell/cScale){target=\_blank}
+- **C++**: [`qdrvm/scale-codec-cpp`](https://github.com/qdrvm/scale-codec-cpp){target=\_blank}
+- **JavaScript**: [`polkadot-js/api`](https://github.com/polkadot-js/api){target=\_blank}
+- **Dart**: [`leonardocustodio/polkadart`](https://github.com/leonardocustodio/polkadart){target=\_blank}
+- **Haskell**: [`airalab/hs-web3`](https://github.com/airalab/hs-web3/tree/master/packages/scale){target=\_blank}
+- **Golang**: [`itering/scale.go`](https://github.com/itering/scale.go){target=\_blank}
+- **Java**: [`splix/polkaj`](https://github.com/splix/polkaj){target=\_blank}
+- **Python**: [`polkascan/py-scale-codec`](https://github.com/polkascan/py-scale-codec){target=\_blank}
+- **Ruby**: [` wuminzhe/scale_rb`](https://github.com/wuminzhe/scale_rb){target=\_blank}
+- **TypeScript**: [`parity-scale-codec-ts`](https://github.com/tjjfvi/subshape){target=\_blank}, [`scale-ts`](https://github.com/unstoppablejs/unstoppablejs/tree/main/packages/scale-ts#scale-ts){target=\_blank}, [`soramitsu/scale-codec-js-library`](https://github.com/soramitsu/scale-codec-js-library){target=\_blank}, [`subsquid/scale-codec`](https://github.com/subsquid/squid-sdk/tree/master/substrate/scale-codec){target=\_blank}
+
+
+---
+
+Page Title: Dedot
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-tools-dedot.md
+- Canonical (HTML): https://docs.polkadot.com/reference/tools/dedot/
+- Summary: Dedot is a next-gen JavaScript client for Polkadot and Polkadot SDK-based blockchains, offering lightweight, tree-shakable APIs with strong TypeScript support.
+
+# Dedot
+
+## Introduction
+
+[Dedot](https://github.com/dedotdev/dedot){target=\_blank} is a next-generation JavaScript client for Polkadot and Polkadot SDK-based blockchains. Designed to elevate the dApp development experience, Dedot is built and optimized to be lightweight and tree-shakable, offering precise types and APIs suggestions for individual Polkadot SDK-based blockchains and [ink! smart contracts](https://use.ink/){target=\_blank}.
+
+### Key Features
+
+- **Lightweight and tree-shakable**: No more bn.js or WebAssembly blobs, optimized for dapps bundle size.
+- **Fully typed API**: Comprehensive TypeScript support for seamless on-chain interaction and ink! smart contract integration.
+- **Multi-version JSON-RPC support**: Compatible with both [legacy](https://github.com/w3f/PSPs/blob/master/PSPs/drafts/psp-6.md){target=\_blank} and [new](https://paritytech.github.io/json-rpc-interface-spec/introduction.html){target=\_blank} JSON-RPC APIs for broad ecosystem interoperability.
+- **Light client support**: Designed to work with light clients such as [Smoldot](https://github.com/smol-dot/smoldot){target=\_blank}.
+- **Native TypeScript for scale codec**: Implements scale codec parsing directly in TypeScript without relying on custom wrappers.
+- **Wallet integration**: Works out-of-the-box with [@polkadot/extension-based](https://github.com/polkadot-js/extension?tab=readme-ov-file#api-interface){target=\_blank} wallets.
+- **Familiar API design**: Similar API style to Polkadot.js for easy and fast migration.
+
+## Installation
+
+To add Dedot to your project, use the following command:
+
+=== "npm"
+
+    ```bash
+    npm i dedot
+    ```
+
+=== "pnpm"
+
+    ```bash
+    pnpm add dedot
+    ```
+
+=== "yarn"
+
+    ```bash
+    yarn add dedot
+    ```
+
+To enable auto-completion/IntelliSense for individual chains, install the [`@dedot/chaintypes`](https://www.npmjs.com/package/@dedot/chaintypes){target=\_blank} package as a development dependency:
+
+=== "npm"
+
+    ```bash
+    npm i -D @dedot/chaintypes
+    ```
+
+=== "pnpm"
+
+    ```bash
+    pnpm add -D @dedot/chaintypes
+    ```
+
+=== "yarn"
+
+    ```bash
+    yarn add -D @dedot/chaintypes
+    ```
+
+## Get Started
+
+### Initialize a Client Instance
+
+To connect to and interact with different networks, Dedot provides two client options depending on your needs:
+
+- **[`DedotClient`](https://docs.dedot.dev/clients-and-providers/clients#dedotclient){target=\_blank}**: Interacts with chains via the [new JSON-RPC APIs](https://paritytech.github.io/json-rpc-interface-spec/introduction.html){target=\_blank}.
+- **[`LegacyClient`](https://docs.dedot.dev/clients-and-providers/clients#legacyclient){target=\_blank}**: Interacts with chains via the [legacy JSON-RPC APIs](https://github.com/w3f/PSPs/blob/master/PSPs/drafts/psp-6.md){target=\_blank}.
+
+Use the following snippets to connect to Polkadot using `DedotClient`:
+
+=== "WebSocket"
+
+    ```typescript
+    import { DedotClient, WsProvider } from 'dedot';
+    import type { PolkadotApi } from '@dedot/chaintypes';
+
+    // Initialize providers & clients
+    const provider = new WsProvider('wss://rpc.polkadot.io');
+    const client = await DedotClient.new<PolkadotApi>(provider);
+
+    ```
+
+=== "Light Client (Smoldot)"
+
+    ```typescript
+    import { DedotClient, SmoldotProvider } from 'dedot';
+    import type { PolkadotApi } from '@dedot/chaintypes';
+    import * as smoldot from 'smoldot';
+
+    // import `polkadot` chain spec to connect to Polkadot
+    import { polkadot } from '@substrate/connect-known-chains';
+
+    // Start smoldot instance & initialize a chain
+    const client = smoldot.start();
+    const chain = await client.addChain({ chainSpec: polkadot });
+
+    // Initialize providers & clients
+    const provider = new SmoldotProvider(chain);
+    const client = await DedotClient.new<PolkadotApi>(provider);
+
+    ```
+
+If the node doesn't support new JSON-RPC APIs yet, you can connect to the network using the `LegacyClient`, which is built on top of the legacy JSON-RPC APIs.
+
+```typescript
+import { LegacyClient, WsProvider } from 'dedot';
+import type { PolkadotApi } from '@dedot/chaintypes';
+
+const provider = new WsProvider('wss://rpc.polkadot.io');
+const client = await LegacyClient.new<PolkadotApi>(provider);
+
+```
+
+### Enable Type and API Suggestions
+
+It is recommended to specify the `ChainApi` interface (e.g., `PolkadotApi` in the example in the previous section) of the chain you want to interact with. This enables type and API suggestions/autocompletion for that particular chain (via IntelliSense). If you don't specify a `ChainApi` interface, a default `SubstrateApi` interface will be used.
+
+```typescript
+import { DedotClient, WsProvider } from 'dedot';
+import type { PolkadotApi, KusamaApi } from '@dedot/chaintypes';
+
+const polkadotClient = await DedotClient.new<PolkadotApi>(
+  new WsProvider('wss://rpc.polkadot.io')
+);
+const kusamaClient = await DedotClient.new<KusamaApi>(
+  new WsProvider('wss://kusama-rpc.polkadot.io')
+);
+const genericClient = await DedotClient.new(
+  new WsProvider('ws://localhost:9944')
+);
+
+```
+
+If you don't find the `ChainApi` for the network you're working with in [the list](https://github.com/dedotdev/chaintypes?tab=readme-ov-file#supported-networks){target=\_blank}, you can generate the `ChainApi` (types and APIs) using the built-in [`dedot` cli](https://docs.dedot.dev/cli){target=\_blank}.
+
+```bash
+# Generate ChainApi interface for Polkadot network via rpc endpoint: wss://rpc.polkadot.io
+npx dedot chaintypes -w wss://rpc.polkadot.io
+```
+
+Or open a pull request to add your favorite network to the [`@dedot/chaintypes`](https://github.com/dedotdev/chaintypes){target=\_blank} repo.
+
+### Read On-Chain Data
+
+Dedot provides several ways to read data from the chain:
+
+- **Access runtime constants**: Use the syntax `client.consts.<pallet>.<constantName>` to inspect runtime constants (parameter types).
+
+    ```typescript
+    const ss58Prefix = client.consts.system.ss58Prefix;
+    console.log('Polkadot ss58Prefix:', ss58Prefix);
+
+    ```
+
+- **Storage queries**: Use the syntax `client.query.<pallet>.<storgeEntry>` to query on-chain storage.
+
+    ```typescript
+    const balance = await client.query.system.account('INSERT_ADDRESS');
+    console.log('Balance:', balance.data.free);
+
+    ```
+
+- **Subscribe to storage changes**:
+
+    ```typescript
+    const unsub = await client.query.system.number((blockNumber) => {
+      console.log(`Current block number: ${blockNumber}`);
+    });
+
+    ```
+
+- **Call Runtime APIs**: Use the syntax `client.call.<runtimeApi>.<methodName>` to execute Runtime APIs.
+
+    ```typescript
+    const metadata = await client.call.metadata.metadataAtVersion(15);
+    console.log('Metadata V15', metadata);
+
+    ```
+
+- **Watch on-chain events**: Use the syntax `client.events.<pallet>.<eventName>` to access pallet events.
+    
+    ```typescript
+    const unsub = await client.events.system.NewAccount.watch((events) => {
+      console.log('New Account Created', events);
+    });
+
+    ```
+
+### Sign and Send Transactions
+
+Sign the transaction using `IKeyringPair` from Keyring ([`@polkadot/keyring`](https://polkadot.js.org/docs/keyring/start/sign-verify/){target=\_blank}) and send the transaction.
+
+```typescript
+import { cryptoWaitReady } from '@polkadot/util-crypto';
+import { Keyring } from '@polkadot/keyring';
+// Setup keyring
+await cryptoWaitReady();
+const keyring = new Keyring({ type: 'sr25519' });
+const alice = keyring.addFromUri('//Alice');
+// Send transaction
+const unsub = await client.tx.balances
+  .transferKeepAlive('INSERT_DEST_ADDRESS', 2_000_000_000_000n)
+  .signAndSend(alice, async ({ status }) => {
+    console.log('Transaction status', status.type);
+    if (status.type === 'BestChainBlockIncluded') {
+      console.log(`Transaction is included in best block`);
+    }
+    if (status.type === 'Finalized') {
+      console.log(
+        `Transaction completed at block hash ${status.value.blockHash}`
+      );
+      await unsub();
+    }
+  });
+
+```
+
+You can also use `Signer` from wallet extensions:
+
+```typescript
+const injected = await window.injectedWeb3['polkadot-js'].enable('My dApp');
+const account = (await injected.accounts.get())[0];
+const signer = injected.signer;
+const unsub = await client.tx.balances
+  .transferKeepAlive('INSERT_DEST_ADDRESS', 2_000_000_000_000n)
+  .signAndSend(account.address, { signer }, async ({ status }) => {
+    console.log('Transaction status', status.type);
+    if (status.type === 'BestChainBlockIncluded') {
+      console.log(`Transaction is included in best block`);
+    }
+    if (status.type === 'Finalized') {
+      console.log(
+        `Transaction completed at block hash ${status.value.blockHash}`
+      );
+      await unsub();
+    }
+  });
+
+```
+
+## Where to Go Next
+
+For more detailed information about Dedot, check the [official documentation](https://dedot.dev/){target=\_blank}.
+
+
+---
+
 Page Title: Deploy an ERC-20 Using Hardhat
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-erc20-erc20-hardhat.md
@@ -4119,7 +4645,7 @@ A mechanism for specifying the initial state of a blockchain. By convention, thi
 
 ## GRANDPA
 
-A deterministic finality mechanism for blockchains that is implemented in the [Rust](https://www.rust-lang.org/){target=\_blank} programming language.
+A deterministic finality mechanism for blockchains that is implemented in the [Rust](https://rust-lang.org/){target=\_blank} programming language.
 
 The [formal specification](https://github.com/w3f/consensus/blob/master/pdf/grandpa-old.pdf){target=\_blank} is maintained by the [Web3 Foundation](https://web3.foundation/){target=\_blank}.
 
@@ -4255,7 +4781,7 @@ Learn more in the [storage items](https://paritytech.github.io/polkadot-sdk/mast
 
 ## Substrate
 
-A flexible framework for building modular, efficient, and upgradeable blockchains. Substrate is written in the [Rust](https://www.rust-lang.org/){target=\_blank} programming language and is maintained by [Parity Technologies](https://www.parity.io/){target=\_blank}.
+A flexible framework for building modular, efficient, and upgradeable blockchains. Substrate is written in the [Rust](https://rust-lang.org/){target=\_blank} programming language and is maintained by [Parity Technologies](https://www.parity.io/){target=\_blank}.
 
 ## Transaction
 
@@ -4282,7 +4808,7 @@ An execution architecture that allows for the efficient, platform-neutral expres
 deterministic, machine-executable logic.
 
 [Wasm](https://webassembly.org/){target=\_blank} can be compiled from many languages, including
-the [Rust](https://www.rust-lang.org/){target=\_blank} programming language. Polkadot SDK-based chains use a Wasm binary to provide portable [runtimes](#runtime) that can be included as part of the chain's state.
+the [Rust](https://rust-lang.org/){target=\_blank} programming language. Polkadot SDK-based chains use a Wasm binary to provide portable [runtimes](#runtime) that can be included as part of the chain's state.
 
 ## Weight
 
@@ -6769,6 +7295,125 @@ To dive deeper into Polkadart, refer to the [official Polkadart documentation](
 
 ---
 
+Page Title: Polkadot Hub Overview
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-polkadot-hub.md
+- Canonical (HTML): https://docs.polkadot.com/reference/polkadot-hub/
+- Summary: Learn how Polkadot Hub serves as the entry point to Polkadot, providing access to smart contracts, staking, governance, identity management, and cross-ecosystem interoperability.
+
+## Introduction
+
+Polkadot Hub is the entry point for all users and application developers to Polkadot. It provides access to essential Web3 services, including smart contracts, staking, governance, identity management, and cross-ecosystem interoperability—without requiring you to deploy or manage a parachain.
+
+The Hub encompasses a set of core functionality that enables developers and users to build and interact with applications on Polkadot. This specialized system of parachains and services works together seamlessly to deliver a unified platform experience. The modular approach lets you interact with services optimized for specific use cases, while still benefiting from Polkadot's shared security.
+
+## Polkadot Hub Capabilities
+
+Whether you're just getting started or building complex applications, the Hub supports the ability to:
+ 
+- Hold, send, and receive DOT and other assets across the network.
+- Stake DOT to participate in network security and earn rewards.
+- Vote in governance referendums and shape Polkadot's future.
+- Create both fungible and non-fungible tokens and assets for your projects.
+- Pay transaction fees in any asset, not just DOT.
+- Register as an individual and establish your on-chain identity.
+
+For more sophisticated development use cases, the Hub enables you to:
+
+- Deploy Ethereum-compatible smart contracts using Solidity or other EVM languages.
+- Build decentralized applications that leverage Polkadot's security and interoperability.
+- Create and manage fungible tokens and NFTs with low fees and flexible operations.
+- Manage cross-chain interactions through XCM messaging with other parachains.
+- Set verified identities and apply for network opportunities like the Ambassador Program.
+- Join collectives and participate in governance organizations with specialized roles.
+
+## Core Components
+
+The Polkadot Hub consists of several specialized system parachains and services working together as described in the following sections. 
+
+### Smart Contracts
+
+[Smart Contracts](/reference/polkadot-hub/smart-contracts/){target=\_blank} on Polkadot Hub enable developers to deploy Ethereum-compatible smart contracts written in Solidity and other familiar EVM languages. Build decentralized applications with full access to Polkadot's security, interoperability, and cross-chain capabilities. Smart contracts on the Hub benefit from lower fees and integration with native Polkadot features, such as identity management and asset operations.
+
+### Asset Management
+
+[Asset Management](/reference/polkadot-hub/assets/){target=\_blank} provides the foundation for on-chain asset management. Create, manage, and transfer fungible tokens and NFTs across the ecosystem. Asset Management offers significantly lower transaction fees—approximately one-tenth the cost of relay chain transactions—and reduced deposit requirements, making it ideal for projects managing digital assets at scale. It also enables payment of transaction fees in non-native assets, providing developers and users with greater flexibility.
+
+### People Chain
+
+[People Chain](/reference/polkadot-hub/people-and-identity/){target=\_blank} powers Polkadot's decentralized identity system. Establish verifiable on-chain identities, control disclosure of personal information, and receive verification from trusted registrars. People Chain enables secure identity management with hierarchical sub-account support, forming the foundation for trusted interactions throughout the ecosystem.
+
+### Bridge Hub
+
+[Bridge Hub](/reference/polkadot-hub/bridging/){target=\_blank} facilitates trustless interactions between Polkadot and external blockchains like Ethereum and Kusama. Through implementations such as Snowbridge, Bridge Hub enables secure cross-chain communication via on-chain light clients and trustless relayers. This component ensures seamless interoperability beyond the Polkadot ecosystem.
+
+### Consensus & Security
+
+[Consensus and Security](/reference/polkadot-hub/consensus-and-security/){target=\_blank} covers the fundamental mechanisms that protect the network. Learn about validator participation, how the relay chain validates all transactions, and the cryptoeconomic incentives that secure Polkadot. Understanding these mechanisms is essential for validators and anyone building critical infrastructure on the network.
+
+### Collectives & DAOs
+
+[Collectives and DAOs](/reference/polkadot-hub/collectives-and-daos/){target=\_blank} enable specialized governance organizations within Polkadot. Participate in collective membership, manage treasury operations, and engage in coordinated decision-making with groups aligned around specific purposes. This functionality supports the creation of autonomous organizations on Polkadot.
+
+## Where to Go Next
+
+Consider the following resources to explore specific Hub functionality.
+
+<div class="grid cards" markdown>
+
+- <span class="badge learn">Learn</span> **Smart Contracts**
+
+    ---
+
+    Deploy Ethereum-compatible smart contracts and build decentralized applications.
+
+    [:octicons-arrow-right-24: Reference](/reference/polkadot-hub/smart-contracts/)
+
+- <span class="badge learn">Learn</span> **Asset Management**
+
+    ---
+
+    Manage fungible tokens and NFTs with low fees and flexible asset operations.
+
+    [:octicons-arrow-right-24: Reference](/reference/polkadot-hub/assets/)
+
+- <span class="badge learn">Learn</span> **People Chain**
+
+    ---
+
+    Establish and verify decentralized identities for trusted interactions on Polkadot.
+
+    [:octicons-arrow-right-24: Reference](/reference/polkadot-hub/people-and-identity/)
+
+- <span class="badge learn">Learn</span> **Bridge Hub**
+
+    ---
+
+    Facilitate trustless cross-chain interactions with Ethereum and other blockchains.
+
+    [:octicons-arrow-right-24: Reference](/reference/polkadot-hub/bridging/)
+
+- <span class="badge learn">Learn</span> **Consensus & Security**
+
+    ---
+
+    Understand how Polkadot validates transactions and secures the network.
+
+    [:octicons-arrow-right-24: Reference](/reference/polkadot-hub/consensus-and-security/)
+
+- <span class="badge learn">Learn</span> **Collectives & DAOs**
+
+    ---
+
+    Participate in specialized governance organizations with coordinated decision-making.
+
+    [:octicons-arrow-right-24: Reference](/reference/polkadot-hub/collectives-and-daos/)
+
+</div>
+
+
+---
+
 Page Title: Polkadot Omni Node
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-tools-omninode.md
@@ -9005,7 +9650,7 @@ By the end of this guide, you'll have a working template ready to customize and 
 
 Before getting started, ensure you have done the following:
 
-- Completed the [Install Polkadot SDK](/parachains/install-polkadot-sdk/){target=\_blank} guide and successfully installed [Rust](https://www.rust-lang.org/){target=\_blank} and the required packages to set up your development environment.
+- Completed the [Install Polkadot SDK](/parachains/install-polkadot-sdk/){target=\_blank} guide and successfully installed [Rust](https://rust-lang.org/){target=\_blank} and the required packages to set up your development environment.
 
 For this tutorial series, you need to use Rust `1.86`. Newer versions of the compiler may not work with this parachain template version.
 
@@ -9202,6 +9847,161 @@ To stop the local node:
     [:octicons-arrow-right-24: Get Started](/parachains/launch-a-parachain/deploy-to-polkadot/)
 
 </div>
+
+
+---
+
+Page Title: Sidecar REST API
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-tools-sidecar.md
+- Canonical (HTML): https://docs.polkadot.com/reference/tools/sidecar/
+- Summary: Learn about Substrate API Sidecar, a REST service that provides endpoints for interacting with Polkadot SDK-based chains and simplifies blockchain interactions.
+
+# Sidecar API
+
+## Introduction
+
+The [Sidecar REST API](https://github.com/paritytech/substrate-api-sidecar){target=\_blank} is a service that provides a REST interface for interacting with Polkadot SDK-based blockchains. With this API, developers can easily access a broad range of endpoints for nodes, accounts, transactions, parachains, and more.
+
+Sidecar functions as a caching layer between your application and a Polkadot SDK-based node, offering standardized REST endpoints that simplify interactions without requiring complex, direct RPC calls. This approach is especially valuable for developers who prefer REST APIs or build applications in languages with limited WebSocket support.
+
+Some of the key features of the Sidecar API include:
+
+- **REST API interface**: Provides a familiar REST API interface for interacting with Polkadot SDK-based chains.
+- **Standardized endpoints**: Offers consistent endpoint formats across different chain implementations.
+- **Caching layer**: Acts as a caching layer to improve performance and reduce direct node requests.
+- **Multiple chain support**: Works with any Polkadot SDK-based chain, including Polkadot, Kusama, and custom chains.
+
+## Prerequisites
+
+Sidecar API requires Node.js version 18.14 LTS or higher. Verify your Node.js version:
+
+```bash
+node --version
+```
+
+If you need to install or update Node.js, visit the [official Node.js website](https://nodejs.org/){target=\_blank} to download and install the latest LTS version.
+
+## Installation
+
+To install Substrate API Sidecar, use one of the following commands:
+
+=== "npm"
+
+    ```bash
+    npm install -g @substrate/api-sidecar
+    ```
+
+=== "pnpm"
+
+    ```bash
+    pnpm install -g @substrate/api-sidecar
+    ```
+
+=== "yarn"
+
+    ```bash
+    yarn global add @substrate/api-sidecar
+    ```
+
+You can confirm the installation by running:
+
+```bash
+substrate-api-sidecar --version
+```
+
+For more information about the Sidecar API installation, see the [installation and usage](https://github.com/paritytech/substrate-api-sidecar?tab=readme-ov-file#npm-package-installation-and-usage){target=\_blank} section of the Sidecar API README.
+
+## Usage
+
+To use the Sidecar API, you have two options:
+
+- **Local node**: Run a node locally, which Sidecar will connect to by default, requiring no additional configuration. To start, run the following:
+
+    ```bash
+    substrate-api-sidecar
+    ```
+
+- **Remote node**: Connect Sidecar to a remote node by specifying the RPC endpoint for that chain. For example, to gain access to the Polkadot Asset Hub associated endpoints.
+
+    ```bash
+    SAS_SUBSTRATE_URL=wss://polkadot-asset-hub-rpc.polkadot.io substrate-api-sidecar
+    ```
+
+    For more configuration details, see the [Configuration](https://github.com/paritytech/substrate-api-sidecar?tab=readme-ov-file#configuration){target=\_blank} section of the Sidecar API documentation.
+
+Once the Sidecar API is running, you’ll see output similar to this:
+
+<div id="termynal" data-termynal>
+    <span data-ty='input'><span class='file-path'></span>SAS_SUBSTRATE_URL=wss://polkadot-asset-hub-rpc.polkadot.io substrate-api-sidecar</span>
+    <br>
+    <span data-ty>SAS:</span>
+    <span data-ty>📦 LOG:</span>
+    <span data-ty>   ✅ LEVEL: "info"</span>
+    <span data-ty>   ✅ JSON: false</span>
+    <span data-ty>   ✅ FILTER_RPC: false</span>
+    <span data-ty>   ✅ STRIP_ANSI: false</span>
+    <span data-ty>   ✅ WRITE: false</span>
+    <span data-ty>   ✅ WRITE_PATH: "/opt/homebrew/lib/node_modules/@substrate/api-sidecar/build/src/logs"</span>
+    <span data-ty>   ✅ WRITE_MAX_FILE_SIZE: 5242880</span>
+    <span data-ty>   ✅ WRITE_MAX_FILES: 5</span>
+    <span data-ty>📦 SUBSTRATE:</span>
+    <span data-ty>   ✅ URL: "wss://polkadot-asset-hub-rpc.polkadot.io"</span>
+    <span data-ty>   ✅ TYPES_BUNDLE: undefined</span>
+    <span data-ty>   ✅ TYPES_CHAIN: undefined</span>
+    <span data-ty>   ✅ TYPES_SPEC: undefined</span>
+    <span data-ty>   ✅ TYPES: undefined</span>
+    <span data-ty>   ✅ CACHE_CAPACITY: undefined</span>
+    <span data-ty>📦 EXPRESS:</span>
+    <span data-ty>   ✅ BIND_HOST: "127.0.0.1"</span>
+    <span data-ty>   ✅ PORT: 8080</span>
+    <span data-ty>   ✅ KEEP_ALIVE_TIMEOUT: 5000</span>
+    <span data-ty>📦 METRICS:</span>
+    <span data-ty>   ✅ ENABLED: false</span>
+    <span data-ty>   ✅ PROM_HOST: "127.0.0.1"</span>
+    <span data-ty>   ✅ PROM_PORT: 9100</span>
+    <span data-ty>   ✅ LOKI_HOST: "127.0.0.1"</span>
+    <span data-ty>   ✅ LOKI_PORT: 3100</span>
+    <span data-ty>   ✅ INCLUDE_QUERYPARAMS: false</span>
+    <br>
+    <span data-ty>2024-11-06 08:06:01 info: Version: 19.3.0</span>
+    <span data-ty>2024-11-06 08:06:02 warn: API/INIT: RPC methods not decorated: chainHead_v1_body, chainHead_v1_call, chainHead_v1_continue, chainHead_v1_follow, chainHead_v1_header, chainHead_v1_stopOperation, chainHead_v1_storage, chainHead_v1_unfollow, chainHead_v1_unpin, chainSpec_v1_chainName, chainSpec_v1_genesisHash, chainSpec_v1_properties, transactionWatch_v1_submitAndWatch, transactionWatch_v1_unwatch, transaction_v1_broadcast, transaction_v1_stop</span>
+    <span data-ty>2024-11-06 08:06:02 info: Connected to chain Polkadot Asset Hub on the statemint client at wss://polkadot-asset-hub-rpc.polkadot.io</span>
+    <span data-ty>2024-11-06 08:06:02 info: Listening on http://127.0.0.1:8080/</span>
+    <span data-ty>2024-11-06 08:06:02 info: Check the root endpoint (http://127.0.0.1:8080/) to see the available endpoints for the current node</span>
+</div>
+With Sidecar running, you can access the exposed endpoints via a browser, [`Postman`](https://www.postman.com/){target=\_blank}, [`curl`](https://curl.se/){target=\_blank}, or your preferred tool.
+
+### Endpoints
+
+Sidecar API provides a set of REST endpoints that allow you to query different aspects of the chain, including blocks, accounts, and transactions. Each endpoint offers specific insights into the chain’s state and activities.
+
+For example, to retrieve the version of the node, use the `/node/version` endpoint:
+
+```bash
+curl -X 'GET' \
+  'http://127.0.0.1:8080/node/version' \
+  -H 'accept: application/json'
+```
+
+Alternatively, you can access `http://127.0.0.1:8080/node/version` directly in a browser since it’s a `GET` request.
+
+In response, you’ll see output similar to this (assuming you’re connected to Polkadot Asset Hub):
+
+<div id="termynal" data-termynal>
+    <span data-ty="input"><span class="file-path"></span>curl -X 'GET' 'http://127.0.0.1:8080/node/version' -H 'accept: application/json'</span>
+    <br>
+    <span data-ty>{</span>
+    <span data-ty>    "clientVersion": "1.16.1-835e0767fe8",</span>
+    <span data-ty>    "clientImplName": "statemint",</span>
+    <span data-ty>    "chain": "Polkadot Asset Hub"</span>
+    <span data-ty>}</span>
+</div>
+For a complete list of available endpoints and their documentation, visit the [Sidecar API list endpoints](https://paritytech.github.io/substrate-api-sidecar/dist/){target=\_blank}. You can learn about the endpoints and how to use them in your applications.
+
+## Where to Go Next
+
+To dive deeper, refer to the [official Sidecar documentation](https://github.com/paritytech/substrate-api-sidecar?tab=readme-ov-file#substrateapi-sidecar){target=\_blank}. This provides a comprehensive guide to the available configurations and advanced usage.
 
 
 ---
@@ -9561,12 +10361,12 @@ This guide organizes technical documentation across five core areas: Polkadot Hu
 
 ## Polkadot Hub
 
-[Polkadot Hub](/reference/polkadot-hub/){target=\_blank} is the entry point to Polkadot for all users and application developers. It provides access to essential Web3 services, including smart contracts, staking, governance, identity management, and cross-ecosystem interoperability—without requiring you to deploy or manage a parachain.
+[Polkadot Hub](/reference/polkadot-hub/){target=\_blank} is the entry point to Polkadot for all users and application developers. It provides access to essential Web3 services including smart contracts, asset management, staking, governance, identity management, and cross-ecosystem interoperability—without requiring you to deploy or manage a parachain.
 
 The Hub encompasses a set of core functionality that enables developers and users to build and interact with applications on Polkadot. Key capabilities include:
 
 - **Smart contracts**: Deploy Ethereum-compatible smart contracts and build decentralized applications.
-- **Assets and tokens**: Create, manage, and transfer fungible tokens and NFTs across the ecosystem.
+- **Asset management**: Create, manage, and transfer fungible tokens and NFTs across the ecosystem.
 - **Staking**: Participate in network security and earn rewards by staking DOT.
 - **Governance**: Vote on proposals and participate in Polkadot's decentralized decision-making through OpenGov.
 - **Identity services**: Register and manage on-chain identities, enabling access to governance roles and network opportunities.
@@ -10038,6 +10838,351 @@ The system maintains precise conversion mechanisms between:
 - Different resource metrics within the multi-dimensional model.
 
 This ensures accurate fee calculation while maintaining compatibility with existing Ethereum tools and workflows.
+
+
+---
+
+Page Title: Transactions Weights and Fees
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-parachains-blocks-transactions-fees-fees.md
+- Canonical (HTML): https://docs.polkadot.com/reference/parachains/blocks-transactions-fees/fees/
+- Summary: Overview of transaction weights and fees in Polkadot SDK chains, detailing how fees are calculated using a defined formula and runtime specifics.
+
+# Transactions Weights and Fees
+
+## Introductions
+
+When transactions are executed, or data is stored on-chain, the activity changes the chain's state and consumes blockchain resources. Because the resources available to a blockchain are limited, managing how operations on-chain consume them is important. In addition to being limited in practical terms, such as storage capacity, blockchain resources represent a potential attack vector for malicious users. For example, a malicious user might attempt to overload the network with messages to stop the network from producing new blocks. To protect blockchain resources from being drained or overloaded, you need to manage how they are made available and how they are consumed. The resources to be aware of include:
+
+- Memory usage
+- Storage input and output
+- Computation
+- Transaction and block size
+- State database size
+
+The Polkadot SDK provides block authors with several ways to manage access to resources and to prevent individual components of the chain from consuming too much of any single resource. Two of the most important mechanisms available to block authors are weights and transaction fees.
+
+[Weights](/reference/glossary/#weight){target=\_blank} manage the time it takes to validate a block and characterize the time it takes to execute the calls in the block's body. By controlling the execution time a block can consume, weights set limits on storage input, output, and computation.
+
+Some of the weight allowed for a block is consumed as part of the block's initialization and finalization. The weight might also be used to execute mandatory inherent extrinsic calls. To help ensure blocks don’t consume too much execution time and prevent malicious users from overloading the system with unnecessary calls, weights are combined with transaction fees.
+
+[Transaction fees](/reference/parachains/blocks-transactions-fees/transactions/#transaction-fees){target=\_blank} provide an economic incentive to limit execution time, computation, and the number of calls required to perform operations. Transaction fees are also used to make the blockchain economically sustainable because they are typically applied to transactions initiated by users and deducted before a transaction request is executed.
+
+## How Fees are Calculated
+
+The final fee for a transaction is calculated using the following parameters:
+
+- **`base fee`**: This is the minimum amount a user pays for a transaction. It is declared a base weight in the runtime and converted to a fee using the [`WeightToFee`](https://docs.rs/pallet-transaction-payment/latest/pallet_transaction_payment/pallet/trait.Config.html#associatedtype.WeightToFee){target=\_blank} conversion.
+- **`weight fee`**: A fee proportional to the execution time (input and output and computation) that a transaction consumes.
+- **`length fee`**: A fee proportional to the encoded length of the transaction.
+- **`tip`**: An optional tip to increase the transaction’s priority, giving it a higher chance to be included in the transaction queue.
+
+The base fee and proportional weight and length fees constitute the inclusion fee. The inclusion fee is the minimum fee that must be available for a transaction to be included in a block.
+
+```text
+inclusion fee = base fee + weight fee + length fee
+```
+
+Transaction fees are withdrawn before the transaction is executed. After the transaction is executed, the weight can be adjusted to reflect the resources used. If a transaction uses fewer resources than expected, the transaction fee is corrected, and the adjusted transaction fee is deposited.
+
+## Using the Transaction Payment Pallet
+
+The [Transaction Payment pallet](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2506-2/substrate/frame/transaction-payment){target=\_blank} provides the basic logic for calculating the inclusion fee. You can also use the Transaction Payment pallet to:
+
+- Convert a weight value into a deductible fee based on a currency type using [`Config::WeightToFee`](https://docs.rs/pallet-transaction-payment/latest/pallet_transaction_payment/pallet/trait.Config.html#associatedtype.WeightToFee){target=\_blank}.
+- Update the fee for the next block by defining a multiplier based on the chain’s final state at the end of the previous block using [`Config::FeeMultiplierUpdate`](https://docs.rs/pallet-transaction-payment/latest/pallet_transaction_payment/pallet/trait.Config.html#associatedtype.FeeMultiplierUpdate){target=\_blank}.
+- Manage the withdrawal, refund, and deposit of transaction fees using [`Config::OnChargeTransaction`](https://docs.rs/pallet-transaction-payment/latest/pallet_transaction_payment/pallet/trait.Config.html#associatedtype.OnChargeTransaction){target=\_blank}.
+
+You can learn more about these configuration traits in the [Transaction Payment documentation](https://paritytech.github.io/polkadot-sdk/master/pallet_transaction_payment/index.html){target=\_blank}.
+
+### Understanding the Inclusion Fee
+
+The formula for calculating the inclusion fee is as follows:
+
+```text
+inclusion_fee = base_fee + length_fee + [targeted_fee_adjustment * weight_fee]
+```
+
+And then, for calculating the final fee:
+
+```text
+final_fee = inclusion_fee + tip
+```
+
+In the first formula, the `targeted_fee_adjustment` is a multiplier that can tune the final fee based on the network’s congestion.
+
+- The `base_fee` derived from the base weight covers inclusion overhead like signature verification.
+- The `length_fee` is a per-byte fee that is multiplied by the length of the encoded extrinsic.
+- The `weight_fee` fee is calculated using two parameters:
+  - The `ExtrinsicBaseWeight` that is declared in the runtime and applies to all extrinsics.
+  - The `#[pallet::weight]` annotation that accounts for an extrinsic's complexity.
+
+To convert the weight to `Currency`, the runtime must define a `WeightToFee` struct that implements a conversion function, [`Convert<Weight,Balance>`](https://docs.rs/pallet-transaction-payment/latest/pallet_transaction_payment/pallet/struct.Pallet.html#method.weight_to_fee){target=\_blank}.
+
+Note that the extrinsic sender is charged the inclusion fee before the extrinsic is invoked. The fee is deducted from the sender's balance even if the transaction fails upon execution.
+
+### Accounts with an Insufficient Balance
+
+If an account does not have a sufficient balance to pay the inclusion fee and remain alive—that is, enough to pay the inclusion fee and maintain the minimum existential deposit—then you should ensure the transaction is canceled so that no fee is deducted and the transaction does not begin execution.
+
+The Polkadot SDK doesn't enforce this rollback behavior. However, this scenario would be rare because the transaction queue and block-making logic perform checks to prevent it before adding an extrinsic to a block.
+
+### Fee Multipliers
+
+The inclusion fee formula always results in the same fee for the same input. However, weight can be dynamic and—based on how [`WeightToFee`](https://docs.rs/pallet-transaction-payment/latest/pallet_transaction_payment/pallet/trait.Config.html#associatedtype.WeightToFee){target=\_blank} is defined—the final fee can include some degree of variability.
+The Transaction Payment pallet provides the [`FeeMultiplierUpdate`](https://docs.rs/pallet-transaction-payment/latest/pallet_transaction_payment/pallet/trait.Config.html#associatedtype.FeeMultiplierUpdate){target=\_blank} configurable parameter to account for this variability.
+
+The Polkadot network inspires the default update function and implements a targeted adjustment in which a target saturation level of block weight is defined. If the previous block is more saturated, the fees increase slightly. Similarly, if the last block has fewer transactions than the target, fees are decreased by a small amount. For more information about fee multiplier adjustments, see the [Web3 Research Page](https://research.web3.foundation/Polkadot/overview/token-economics#relay-chain-transaction-fees-and-per-block-transaction-limits){target=\_blank}.
+
+## Transactions with Special Requirements
+
+Inclusion fees must be computable before execution and can only represent fixed logic. Some transactions warrant limiting resources with other strategies. For example:
+
+- Bonds are a type of fee that might be returned or slashed after some on-chain event. For example, you might want to require users to place a bond to participate in a vote. The bond might then be returned at the end of the referendum or slashed if the voter attempted malicious behavior.
+- Deposits are fees that might be returned later. For example, you might require users to pay a deposit to execute an operation that uses storage. The user’s deposit could be returned if a subsequent operation frees up storage.
+- Burn operations are used to pay for a transaction based on its internal logic. For example, a transaction might burn funds from the sender if the transaction creates new storage items to pay for the increased state size.
+- Limits enable you to enforce constant or configurable limits on specific operations. For example, the default [Staking pallet](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2506-2/substrate/frame/staking){target=\_blank} only allows nominators to nominate 16 validators to limit the complexity of the validator election process.
+
+It is important to note that if you query the chain for a transaction fee, it only returns the inclusion fee.
+
+## Default Weight Annotations
+
+All dispatchable functions in the Polkadot SDK must specify a weight. The way of doing that is using the annotation-based system that lets you combine fixed values for database read/write weight and/or fixed values based on benchmarks. The most basic example would look like this:
+
+```rust
+#[pallet::weight(100_000)]
+fn my_dispatchable() {
+    // ...
+}
+```
+
+Note that the [`ExtrinsicBaseWeight`](https://crates.parity.io/frame_support/weights/constants/struct.ExtrinsicBaseWeight.html){target=\_blank} is automatically added to the declared weight to account for the costs of simply including an empty extrinsic into a block.
+
+### Weights and Database Read/Write Operations
+
+To make weight annotations independent of the deployed database backend, they are defined as a constant and then used in the annotations when expressing database accesses performed by the dispatchable:
+
+```rust
+#[pallet::weight(T::DbWeight::get().reads_writes(1, 2) + 20_000)]
+fn my_dispatchable() {
+    // ...
+}
+```
+
+This dispatchable allows one database to read and two to write, in addition to other things that add the additional 20,000. Database access is generally every time a value declared inside the [`#[pallet::storage]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.storage.html){target=\_blank} block is accessed. However, unique accesses are counted because after a value is accessed, it is cached, and reaccessing it does not result in a database operation. That is:
+
+- Multiple reads of the exact value count as one read.
+- Multiple writes of the exact value count as one write.
+- Multiple reads of the same value, followed by a write to that value, count as one read and one write.
+- A write followed by a read-only counts as one write.
+
+### Dispatch Classes
+
+Dispatches are broken into three classes:
+
+- Normal
+- Operational
+- Mandatory
+
+If a dispatch is not defined as `Operational` or `Mandatory` in the weight annotation, the dispatch is identified as `Normal` by default. You can specify that the dispatchable uses another class like this:
+
+```rust
+#[pallet::dispatch((DispatchClass::Operational))]
+fn my_dispatchable() {
+    // ...
+}
+```
+
+This tuple notation also allows you to specify a final argument determining whether the user is charged based on the annotated weight. If you don't specify otherwise, `Pays::Yes` is assumed:
+
+```rust
+#[pallet::dispatch(DispatchClass::Normal, Pays::No)]
+fn my_dispatchable() {
+    // ...
+}
+```
+
+#### Normal Dispatches
+
+Dispatches in this class represent normal user-triggered transactions. These types of dispatches only consume a portion of a block's total weight limit. For information about the maximum portion of a block that can be consumed for normal dispatches, see [`AvailableBlockRatio`](https://paritytech.github.io/polkadot-sdk/master/frame_system/limits/struct.BlockLength.html){target=\_blank}. Normal dispatches are sent to the transaction pool.
+
+#### Operational Dispatches
+
+Unlike normal dispatches, which represent the usage of network capabilities, operational dispatches are those that provide network capabilities. Operational dispatches can consume the entire weight limit of a block. They are not bound by the [`AvailableBlockRatio`](https://paritytech.github.io/polkadot-sdk/master/frame_system/limits/struct.BlockLength.html){target=\_blank}. Dispatches in this class are given maximum priority and are exempt from paying the [`length_fee`](https://docs.rs/pallet-transaction-payment/latest/pallet_transaction_payment/){target=\_blank}.
+
+#### Mandatory Dispatches
+
+Mandatory dispatches are included in a block even if they cause the block to surpass its weight limit. You can only use the mandatory dispatch class for inherent transactions that the block author submits. This dispatch class is intended to represent functions in the block validation process. Because these dispatches are always included in a block regardless of the function weight, the validation process must prevent malicious nodes from abusing the function to craft valid but impossibly heavy blocks. You can typically accomplish this by ensuring that:
+
+- The operation performed is always light.
+- The operation can only be included in a block once.
+
+To make it more difficult for malicious nodes to abuse mandatory dispatches, they cannot be included in blocks that return errors. This dispatch class serves the assumption that it is better to allow an overweight block to be created than not to allow any block to be created at all.
+
+### Dynamic Weights
+
+In addition to purely fixed weights and constants, the weight calculation can consider the input arguments of a dispatchable. The weight should be trivially computable from the input arguments with some basic arithmetic:
+
+```rust
+use frame_support:: {
+    dispatch:: {
+        DispatchClass::Normal,
+        Pays::Yes,
+    },
+   weights::Weight,
+};
+
+#[pallet::weight(FunctionOf(
+  |args: (&Vec<User>,)| args.0.len().saturating_mul(10_000),
+  )
+]
+fn handle_users(origin, calls: Vec<User>) {
+    // Do something per user
+}
+```
+
+## Post Dispatch Weight Correction
+
+Depending on the execution logic, a dispatchable function might consume less weight than was prescribed pre-dispatch. To correct weight, the function declares a different return type and returns its actual weight:
+
+```rust
+#[pallet::weight(10_000 + 500_000_000)]
+fn expensive_or_cheap(input: u64) -> DispatchResultWithPostInfo {
+    let was_heavy = do_calculation(input);
+
+    if (was_heavy) {
+        // None means "no correction" from the weight annotation.
+        Ok(None.into())
+    } else {
+        // Return the actual weight consumed.
+        Ok(Some(10_000).into())
+    }
+}
+```
+
+## Custom Fees
+
+You can also define custom fee systems through custom weight functions or inclusion fee functions.
+
+### Custom Weights
+
+Instead of using the default weight annotations, you can create a custom weight calculation type using the weights module. The custom weight calculation type must implement the following traits:
+
+- [`WeighData<T>`](https://crates.parity.io/frame_support/weights/trait.WeighData.html){target=\_blank} to determine the weight of the dispatch.
+- [`ClassifyDispatch<T>`](https://crates.parity.io/frame_support/weights/trait.ClassifyDispatch.html){target=\_blank} to determine the class of the dispatch.
+- [`PaysFee<T>`](https://crates.parity.io/frame_support/weights/trait.PaysFee.html){target=\_blank} to determine whether the sender of the dispatch pays fees.
+ 
+The Polkadot SDK then bundles the output information of the three traits into the [`DispatchInfo`](https://paritytech.github.io/polkadot-sdk/master/frame_support/dispatch/struct.DispatchInfo.html){target=\_blank} struct and provides it by implementing the [`GetDispatchInfo`](https://docs.rs/frame-support/latest/frame_support/dispatch/trait.GetDispatchInfo.html){target=\_blank} for all `Call` variants and opaque extrinsic types. This is used internally by the System and Executive modules.
+
+`ClassifyDispatch`, `WeighData`, and `PaysFee` are generic over T, which gets resolved into the tuple of all dispatch arguments except for the origin. The following example illustrates a struct that calculates the weight as `m * len(args)`, where `m` is a given multiplier and args is the concatenated tuple of all dispatch arguments. In this example, the dispatch class is `Operational` if the transaction has more than 100 bytes of length in arguments and will pay fees if the encoded length exceeds 10 bytes.
+
+```rust
+struct LenWeight(u32);
+impl<T> WeighData<T> for LenWeight {
+    fn weigh_data(&self, target: T) -> Weight {
+        let multiplier = self.0;
+        let encoded_len = target.encode().len() as u32;
+        multiplier * encoded_len
+    }
+}
+
+impl<T> ClassifyDispatch<T> for LenWeight {
+    fn classify_dispatch(&self, target: T) -> DispatchClass {
+        let encoded_len = target.encode().len() as u32;
+        if encoded_len > 100 {
+            DispatchClass::Operational
+        } else {
+            DispatchClass::Normal
+        }
+    }
+}
+
+impl<T> PaysFee<T> {
+    fn pays_fee(&self, target: T) -> Pays {
+        let encoded_len = target.encode().len() as u32;
+        if encoded_len > 10 {
+            Pays::Yes
+        } else {
+            Pays::No
+        }
+    }
+}
+```
+
+A weight calculator function can also be coerced to the final type of the argument instead of defining it as a vague type that can be encoded. The code would roughly look like this:
+
+```rust
+struct CustomWeight;
+impl WeighData<(&u32, &u64)> for CustomWeight {
+    fn weigh_data(&self, target: (&u32, &u64)) -> Weight {
+        ...
+    }
+}
+
+// given a dispatch:
+#[pallet::call]
+impl<T: Config<I>, I: 'static> Pallet<T, I> {
+    #[pallet::weight(CustomWeight)]
+    fn foo(a: u32, b: u64) { ... }
+}
+```
+
+In this example, the `CustomWeight` can only be used in conjunction with a dispatch with a particular signature `(u32, u64)`, as opposed to `LenWeight`, which can be used with anything because there aren't any assumptions about `<T>`.
+
+#### Custom Inclusion Fee
+
+The following example illustrates how to customize your inclusion fee. You must configure the appropriate associated types in the respective module.
+
+```rust
+// Assume this is the balance type
+type Balance = u64;
+
+// Assume we want all the weights to have a `100 + 2 * w` conversion to fees
+struct CustomWeightToFee;
+impl WeightToFee<Weight, Balance> for CustomWeightToFee {
+    fn convert(w: Weight) -> Balance {
+        let a = Balance::from(100);
+        let b = Balance::from(2);
+        let w = Balance::from(w);
+        a + b * w
+    }
+}
+
+parameter_types! {
+    pub const ExtrinsicBaseWeight: Weight = 10_000_000;
+}
+
+impl frame_system::Config for Runtime {
+    type ExtrinsicBaseWeight = ExtrinsicBaseWeight;
+}
+
+parameter_types! {
+    pub const TransactionByteFee: Balance = 10;
+}
+
+impl transaction_payment::Config {
+    type TransactionByteFee = TransactionByteFee;
+    type WeightToFee = CustomWeightToFee;
+    type FeeMultiplierUpdate = TargetedFeeAdjustment<TargetBlockFullness>;
+}
+
+struct TargetedFeeAdjustment<T>(sp_std::marker::PhantomData<T>);
+impl<T: Get<Perquintill>> WeightToFee<Fixed128, Fixed128> for TargetedFeeAdjustment<T> {
+    fn convert(multiplier: Fixed128) -> Fixed128 {
+        // Don't change anything. Put any fee update info here.
+        multiplier
+    }
+}
+```
+
+## Additional Resources
+
+You now know the weight system, how it affects transaction fee computation, and how to specify weights for your dispatchable calls. The next step is determining the correct weight for your dispatchable operations. You can use Substrate benchmarking functions and frame-benchmarking calls to test your functions with different parameters and empirically determine the proper weight in their worst-case scenarios.
+
+- [Benchmark](/parachains/customize-runtime/pallet-development/benchmark-pallet/)
+- [`SignedExtension`](https://paritytech.github.io/polkadot-sdk/master/sp_runtime/traits/trait.SignedExtension.html){target=\_blank}
+- [Custom weights for the Example pallet](https://github.com/paritytech/polkadot-sdk/blob/polkadot-stable2506-2/substrate/frame/examples/basic/src/weights.rs){target=\_blank}
+- [Web3 Foundation Research](https://research.web3.foundation/Polkadot/overview/token-economics#relay-chain-transaction-fees-and-per-block-transaction-limits){target=\_blank}
 
 
 ---
@@ -10876,10 +12021,10 @@ cd wagmi-polkadot-hub
 
 ## Install Dependencies
 
-Install Wagmi and its peer dependencies:
+Install Wagmi v3 and its peer dependencies:
 
 ```bash
-npm install wagmi viem @tanstack/react-query
+npm install wagmi@3 viem @tanstack/react-query
 ```
 
 ## Configure Wagmi for Polkadot Hub
@@ -10992,12 +12137,12 @@ Create a component to connect wallets to your dApp. Create a file named `app/com
 "use client";
 
 import React from "react";
-import { useConnect, useAccount, useDisconnect } from "wagmi";
+import { useConnect, useConnection, useDisconnect } from "wagmi";
 import { injected } from "wagmi/connectors";
 
 export function ConnectWallet() {
   const { connect } = useConnect();
-  const { address, isConnected } = useAccount();
+  const { address, isConnected } = useConnection();
   const { disconnect } = useDisconnect();
 
   if (isConnected) {
@@ -11022,7 +12167,7 @@ This component uses the following React hooks:
 
 - **[`useConnect`](https://wagmi.sh/react/api/hooks/useConnect#useconnect){target=\_blank}**: Provides functions and state for connecting the user's wallet to your dApp. The `connect` function initiates the connection flow with the specified connector.
 - **[`useDisconnect`](https://wagmi.sh/react/api/hooks/useDisconnect#usedisconnect){target=\_blank}**: Provides a function to disconnect the currently connected wallet.
-- **[`useAccount`](https://2.x.wagmi.sh/react/api/hooks/useAccount#useaccount){target=\_blank}**: Returns data about the connected account, including the address and connection status.
+- **[`useConnection`](https://wagmi.sh/react/api/hooks/useConnection#useconnection){target=\_blank}**: Returns data about the connected account, including the address and connection status. In Wagmi v3, `useAccount` has been renamed to `useConnection`.
 
 ## Fetch Blockchain Data
 
@@ -11031,10 +12176,10 @@ Wagmi provides various hooks to fetch blockchain data. Here's an example compone
 ```typescript title="app/components/BlockchainInfo.tsx"
 "use client";
 
-import { useBlockNumber, useBalance, useAccount } from "wagmi";
+import { useBlockNumber, useBalance, useConnection } from "wagmi";
 
 export function BlockchainInfo() {
-  const { address } = useAccount();
+  const { address } = useConnection();
   // Get the latest block number
   const { data: blockNumber } = useBlockNumber({ watch: true });
 
@@ -11225,10 +12370,10 @@ Update your main page to combine all the components. Create or update the file `
 import { BlockchainInfo } from "./components/BlockchainInfo";
 import { ConnectWallet } from "./components/ConnectWallet";
 import { StorageContract } from "./components/StorageContract";
-import { useAccount } from "wagmi";
+import { useConnection } from "wagmi";
 
 export default function Home() {
-  const { isConnected } = useAccount();
+  const { isConnected } = useConnection();
 
   return (
     <main>
@@ -11368,7 +12513,6 @@ Wallet types fall into two categories based on their connection to the internet:
     A React library for integrating Polkadot wallet connections into dApps. It offers a unified API for major wallets like Polkadot.js, SubWallet, Talisman, Nova Wallet, PolkaGate, WalletConnect, Enkrypt, Fearless, and Mimir. Includes customizable UI components, React hooks, full TypeScript and multi-chain support, and flexible integration with APIs such as Dedot, PAPI, or Polkadot.js.
 
     [:octicons-arrow-right-24: Reference](https://www.lunolab.xyz/){target=\_blank}
-
 
 </div>
 
@@ -12940,4 +14084,329 @@ cd zero-to-hero-dapp
     Learn how to use the Polkadot precompiles to interact with the blockchain.
 
     [:octicons-arrow-right-24: Get Started](/smart-contracts/precompiles/)
+</div>
+
+
+---
+
+Page Title: Zombienet
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-tools-zombienet.md
+- Canonical (HTML): https://docs.polkadot.com/reference/tools/zombienet/
+- Summary: Zombienet is a testing framework for Polkadot SDK-based blockchain networks, enabling developers to deploy and test ephemeral environments across various platforms.
+
+# Zombienet
+
+## Introduction
+
+Zombienet is a testing framework designed for Polkadot SDK-based blockchain networks. It enables developers to efficiently deploy and test ephemeral blockchain environments on platforms like Kubernetes, Podman, and native setups. With its simple CLI and Domain Specific Language (DSL) for writing tests, Zombienet streamlines network spawning, testing, and performance validation.
+
+Key features include:
+
+- **Multi-provider support**: Run networks on Kubernetes, Podman, or locally as native processes.
+- **Network orchestration**: Spawn relay chains with multiple validators and parachains with collators.
+- **Test DSL**: Write natural-language test scripts to evaluate metrics, logs, events, and on-chain storage.
+- **Monitoring integration**: Built-in support for Prometheus, Grafana, and Tempo on supported providers.
+
+## Install Zombienet
+
+Zombienet releases are available on the [Zombienet repository](https://github.com/paritytech/zombienet){target=\_blank}. Choose one of the following installation methods:
+
+=== "Use the executable"
+
+    Download the appropriate executable for your operating system from the [latest release](https://github.com/paritytech/zombienet/releases){target=\_blank} page. Each release includes executables for Linux and macOS.
+
+    Make the downloaded file executable:
+
+    ```bash
+    chmod +x zombienet-macos-arm64
+    ```
+
+    Verify the installation:
+
+    ```bash
+    ./zombienet-macos-arm64 version
+    ```
+
+    Optionally, move the executable to your PATH:
+
+    ```bash
+    mv zombienet-macos-arm64 /usr/local/bin/zombienet
+    ```
+
+    Now you can use the `zombienet` command directly:
+
+    ```bash
+    zombienet version
+    ```
+
+=== "Use Nix"
+
+    For Nix users, the Zombienet repository provides a [`flake.nix`](https://github.com/paritytech/zombienet/blob/main/flake.nix){target=\_blank} file. You need [Flakes](https://nixos.wiki/wiki/Flakes#Enable_flakes){target=\_blank} enabled.
+    
+    Run Zombienet directly:
+
+    ```bash
+    nix run github:paritytech/zombienet/INSERT_ZOMBIENET_VERSION -- \
+    spawn INSERT_ZOMBIENET_CONFIG_FILE_NAME.toml
+    ```
+
+    Or include Zombienet in your current shell:
+    
+    ```bash
+    nix shell github:paritytech/zombienet/INSERT_ZOMBIENET_VERSION
+    ```
+
+=== "Use Docker"
+
+    Run Zombienet using Docker:
+
+    ```bash
+    docker run -it --rm \
+    -v $(pwd):/home/nonroot/zombie-net/host-current-files \
+    paritytech/zombienet
+    ```
+
+    Inside the container, set up the necessary binaries:
+
+    ```bash
+    npm run zombie -- setup polkadot polkadot-parachain
+    ```
+
+    Add the binaries to your PATH:
+
+    ```bash
+    export PATH=/home/nonroot/zombie-net:$PATH
+    ```
+
+    Spawn a network:
+
+    ```bash
+    npm run zombie -- -p native spawn host-current-files/minimal.toml
+    ```
+
+## Providers
+
+Zombienet supports different backend providers for running nodes: [Kubernetes](https://kubernetes.io/){target=\_blank}, [Podman](https://podman.io/){target=\_blank}, and native (local processes). Specify the provider using the `--provider` flag or in your network configuration file:
+
+```bash
+zombienet spawn network.toml --provider INSERT_PROVIDER
+```
+
+Or set it in the configuration:
+
+```toml title="network.toml"
+[settings]
+provider = "INSERT_PROVIDER"
+...
+```
+
+Ensure to replace `INSERT_PROVIDER` with the appropriate provider: `kubernetes`, `podman`, or `native`.
+
+### Kubernetes
+
+Kubernetes is compatible with [GKE](https://cloud.google.com/kubernetes-engine){target=\_blank}, [Docker Desktop](https://docs.docker.com/desktop/features/kubernetes/){target=\_blank}, and [kind](https://kind.sigs.k8s.io/){target=\_blank}.
+
+- **Requirements**: Install [`kubectl`](https://kubernetes.io/docs/tasks/tools/#kubectl){target=\_blank} and ensure proper cluster permissions.
+- **Features**: Uses Prometheus operator for monitoring when available.
+
+### Podman
+
+Podman is a daemonless container engine for Linux. Zombienet supports Podman rootless as a provider.
+
+- **Requirements**: Install [Podman](https://podman.io/getting-started/installation){target=\_blank} on Linux.
+
+- **Features**: Deploys Prometheus, Tempo, and Grafana for monitoring. Services are accessible at `http://127.0.0.1:34123` (Prometheus), `http://127.0.0.1:34125` (Tempo), and `http://127.0.0.1:41461` (Grafana).
+
+### Native
+
+The native provider runs nodes as local processes on your machine.
+
+- **Requirements**: Have the necessary binaries (`polkadot`, `polkadot-parachain`) in your PATH. Install them using:
+
+    ```bash
+    zombienet setup polkadot polkadot-parachain
+    ```
+
+    For custom binaries, specify the path in your configuration or add them to your PATH:
+
+    ```bash
+    export PATH=$PATH:INSERT_PATH_TO_BINARY
+    ```
+
+- **Features**: No additional monitoring features.
+
+## Configure Zombienet
+
+Zombienet uses JSON or TOML configuration files to define network topology, nodes, and parameters. The [Zombienet repository](https://github.com/paritytech/zombienet/tree/main/examples){target=\_blank} provides example configurations.
+
+### Basic Configuration
+
+A minimal configuration includes settings, relay chain configuration, and parachain configuration:
+
+=== "TOML"
+
+    ```toml title="basic-network.toml"
+    [settings]
+    timeout = 1000
+
+    [relaychain]
+    chain = "rococo-local"
+    default_command = "polkadot"
+
+        [[relaychain.nodes]]
+        name = "alice"
+        validator = true
+
+        [[relaychain.nodes]]
+        name = "bob"
+        validator = true
+
+    [[parachains]]
+    id = 1000
+    chain = "asset-hub-rococo-local"
+
+        [parachains.collator]
+        name = "collator-01"
+        command = "polkadot-parachain"
+    ```
+
+=== "JSON"
+
+    ```json title="basic-network.json"
+    {
+      "settings": {
+        "timeout": 1000
+      },
+      "relaychain": {
+        "chain": "rococo-local",
+        "default_command": "polkadot",
+        "nodes": [
+          {
+            "name": "alice",
+            "validator": true
+          },
+          {
+            "name": "bob",
+            "validator": true
+          }
+        ]
+      },
+      "parachains": [
+        {
+          "id": 1000,
+          "chain": "asset-hub-rococo-local",
+          "collator": {
+            "name": "collator-01",
+            "command": "polkadot-parachain"
+          }
+        }
+      ]
+    }
+    ```
+
+### CLI Commands
+
+Zombienet provides the following commands:
+
+- **`spawn <networkConfig>`**: Spawn the network defined in the configuration file.
+- **`test <testFile>`**: Run tests on the spawned network.
+- **`setup <binaries>`**: Download and set up `polkadot` or `polkadot-parachain` binaries.
+- **`convert <filePath>`**: Convert a [polkadot-launch](https://github.com/paritytech/polkadot-launch){target=\_blank} configuration to Zombienet format.
+- **`version`**: Print Zombienet version.
+- **`help`**: Print help information.
+
+Common flags:
+
+- **`-p`, `--provider`**: Override the provider.
+- **`-d`, `--dir`**: Specify directory for network files.
+- **`-m`, `--monitor`**: Start as monitor without auto cleanup.
+- **`-c`, `--spawn-concurrency`**: Number of concurrent spawning processes.
+
+## Spawn a Network
+
+To spawn a network, create a configuration file and run:
+
+```bash
+zombienet spawn network.toml --provider native
+```
+
+Zombienet will:
+
+1. Download or locate the required binaries.
+2. Generate chain specifications.
+3. Start relay chain validators.
+4. Register and start parachain collators.
+5. Display connection endpoints and logs.
+
+Access the running nodes via the provided RPC endpoints (typically `ws://127.0.0.1:9944` for the first node).
+
+## Write Tests
+
+Zombienet provides a Domain Specific Language (DSL) for writing tests in `.zndsl` files. Tests can evaluate:
+
+- Metrics from Prometheus
+- Log patterns
+- System events
+- On-chain storage
+- Custom JavaScript/TypeScript scripts
+
+### Test File Structure
+
+Test files contain a header and body:
+
+```toml title="example-test.zndsl"
+Description: Example test suite
+Network: ./network.toml
+Creds: config
+
+# Test assertions
+alice: is up
+bob: is up
+alice: parachain 1000 is registered within 200 seconds
+alice: parachain 1000 block height is at least 10 within 300 seconds
+```
+
+### Run Tests
+
+Execute tests using:
+
+```bash
+zombienet test example-test.zndsl --provider native
+```
+
+The test runner will execute each assertion and report pass/fail status.
+
+### Common Assertions
+
+Some frequently used assertions include:
+
+- **Well-known functions**: `alice: is up`, `alice: parachain 100 is registered within 225 seconds`
+- **Metrics**: `alice: reports node_roles is 4`
+- **Logs**: `alice: log line matches glob "Imported #1" within 10 seconds`
+- **System events**: `alice: system event matches ""paraId":[0-9]+" within 10 seconds`
+- **Custom scripts**: `alice: js-script ./script.js return is greater than 1 within 200 seconds`
+
+## Configuration Reference
+
+For detailed configuration options, see:
+
+- [Configuration examples](https://github.com/paritytech/zombienet/tree/main/examples){target=\_blank}: Sample configurations for various scenarios.
+- [Testing DSL specification](https://paritytech.github.io/zombienet/cli/test-dsl-definition-spec.html){target=\_blank}: Complete DSL syntax reference.
+- [Zombienet book](https://paritytech.github.io/zombienet/){target=\_blank}: Comprehensive documentation.
+
+## Where to Go Next
+
+<div class="grid cards" markdown>
+
+-   <span class="badge external">External</span> __Zombienet Support__
+
+    ---
+
+    For further support and information, refer to the official resources.
+
+    [:octicons-arrow-right-24: GitHub Repository](https://github.com/paritytech/zombienet){target=\_blank}
+
+    [:octicons-arrow-right-24: Element Channel](https://matrix.to/#/!FWyuEyNvIFygLnWNMh:parity.io?via=parity.io&via=matrix.org&via=web3.foundation){target=\_blank}
+
 </div>

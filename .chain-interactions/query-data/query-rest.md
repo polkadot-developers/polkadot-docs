@@ -1,6 +1,6 @@
 ---
 title: Query On-Chain State with Sidecar REST API
-description: Learn how to query on-chain storage data using the Substrate API Sidecar REST API service.
+description: Learn how to query on-chain state on Polkadot using the Sidecar REST API with curl, including account balances, asset data, and block information.
 categories: Chain Interactions
 ---
 
@@ -252,6 +252,30 @@ For a complete list of endpoints and parameters, see the [Sidecar API Documentat
 
 Now that you understand how to query on-chain state with the REST API, explore these related topics:
 
-- **[Query with SDKs](/chain-interactions/query-data/query-sdks/)** - Use TypeScript, Python, or Rust SDKs for programmatic access
-- **[Runtime API Calls](/chain-interactions/query-data/runtime-api-calls/)** - Execute runtime APIs for specialized queries
-- **[Send Transactions](/chain-interactions/send-transactions/with-sdks/)** - Learn to construct and submit transactions
+<div class="grid cards" markdown>
+
+-   __Query with SDKs__
+
+    ---
+
+    Use TypeScript, Python, or Rust SDKs for programmatic access.
+
+    [:octicons-arrow-right-24: Get Started](/chain-interactions/query-data/query-sdks/)
+
+-   __Runtime API Calls__
+
+    ---
+
+    Learn how to execute Polkadot runtime APIs for specialized queries.
+
+    [:octicons-arrow-right-24: Get Started](/chain-interactions/query-data/runtime-api-calls/)
+
+-   __Send Transactions__
+
+    ---
+
+    Learn to construct and submit transactions.
+
+    [:octicons-arrow-right-24: Get Started](/chain-interactions/send-transactions/with-sdks)        
+
+</div>

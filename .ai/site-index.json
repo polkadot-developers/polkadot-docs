@@ -6142,22 +6142,104 @@
   },
   {
     "id": "reference-tools-zombienet",
-    "title": "reference-tools-zombienet",
+    "title": "Zombienet",
     "slug": "reference-tools-zombienet",
     "categories": [
-      "Uncategorized"
+      "Parachains",
+      "Tooling"
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-tools-zombienet.md",
     "html_url": "https://docs.polkadot.com/reference/tools/zombienet/",
-    "preview": "TODO",
-    "outline": [],
+    "preview": "Zombienet is a testing framework designed for Polkadot SDK-based blockchain networks. It enables developers to efficiently deploy and test ephemeral blockchain environments on platforms like Kubernetes, Podman, and native setups. With its simple CLI and Domain Specific Language (DSL) for writing tests, Zombienet streamlines network spawning, testing, and performance validation.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Install Zombienet",
+        "anchor": "install-zombienet"
+      },
+      {
+        "depth": 2,
+        "title": "Providers",
+        "anchor": "providers"
+      },
+      {
+        "depth": 3,
+        "title": "Kubernetes",
+        "anchor": "kubernetes"
+      },
+      {
+        "depth": 3,
+        "title": "Podman",
+        "anchor": "podman"
+      },
+      {
+        "depth": 3,
+        "title": "Native",
+        "anchor": "native"
+      },
+      {
+        "depth": 2,
+        "title": "Configure Zombienet",
+        "anchor": "configure-zombienet"
+      },
+      {
+        "depth": 3,
+        "title": "Basic Configuration",
+        "anchor": "basic-configuration"
+      },
+      {
+        "depth": 3,
+        "title": "CLI Commands",
+        "anchor": "cli-commands"
+      },
+      {
+        "depth": 2,
+        "title": "Spawn a Network",
+        "anchor": "spawn-a-network"
+      },
+      {
+        "depth": 2,
+        "title": "Write Tests",
+        "anchor": "write-tests"
+      },
+      {
+        "depth": 3,
+        "title": "Test File Structure",
+        "anchor": "test-file-structure"
+      },
+      {
+        "depth": 3,
+        "title": "Run Tests",
+        "anchor": "run-tests"
+      },
+      {
+        "depth": 3,
+        "title": "Common Assertions",
+        "anchor": "common-assertions"
+      },
+      {
+        "depth": 2,
+        "title": "Configuration Reference",
+        "anchor": "configuration-reference"
+      },
+      {
+        "depth": 2,
+        "title": "Where to Go Next",
+        "anchor": "where-to-go-next"
+      }
+    ],
     "stats": {
-      "chars": 5,
-      "words": 1,
-      "headings": 0,
-      "estimated_token_count_total": 0
+      "chars": 9774,
+      "words": 1173,
+      "headings": 16,
+      "estimated_token_count_total": 2390
     },
-    "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
+    "hash": "sha256:4694c22724f22398dc3d68ac4d158b041f6d1159d00bfdaa03ab3080c153b7db",
     "token_estimator": "heuristic-v1"
   },
   {

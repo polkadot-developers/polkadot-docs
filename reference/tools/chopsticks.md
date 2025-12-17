@@ -14,13 +14,13 @@ By streamlining testing and experimentation, Chopsticks empowers developers to i
 
 ### Key Features
 
-- **Local chain forking**: Fork live Polkadot SDK chains locally for testing and development
-- **Block replay**: Replay specific blocks to analyze state changes and debug extrinsics
-- **XCM testing**: Simulate cross-chain messaging between multiple parachains and relay chains
-- **Storage manipulation**: Override storage values to test specific scenarios
-- **WebSocket commands**: Control the forked environment with specialized RPC methods
-- **Time travel**: Manipulate block timestamps for testing time-dependent logic
-- **Build block modes**: Choose between batch, instant, or manual block production
+- **Local chain forking**: Fork live Polkadot SDK chains locally for testing and development.
+- **Block replay**: Replay specific blocks to analyze state changes and debug extrinsics.
+- **XCM testing**: Simulate cross-chain messaging between multiple parachains and relay chains.
+- **Storage manipulation**: Override storage values to test specific scenarios.
+- **WebSocket commands**: Control the forked environment with specialized RPC methods.
+- **Time travel**: Manipulate block timestamps for testing time-dependent logic.
+- **Build block modes**: Choose between batch, instant, or manual block production.
 
 !!! warning
     Chopsticks uses [Smoldot](https://github.com/smol-dot/smoldot){target=\_blank} light client, which only supports the native Polkadot SDK API. Consequently, a Chopsticks-based fork doesn't support Ethereum JSON-RPC calls, meaning you cannot use it to fork your chain and connect Metamask.
@@ -30,7 +30,7 @@ By streamlining testing and experimentation, Chopsticks empowers developers to i
 Before you begin, ensure you have the following installed:
 
 - [Node.js](https://nodejs.org/en/){target=\_blank}
-- A package manager such as [npm](https://www.npmjs.com/){target=\_blank}, which should be installed with Node.js by default, or [Yarn](https://yarnpkg.com/){target=\_blank}
+- A package manager such as [npm](https://www.npmjs.com/){target=\_blank}, which should be installed with Node.js by default, or [yarn](https://yarnpkg.com/){target=\_blank}
 
 ## Installation
 
@@ -105,19 +105,19 @@ npx @acala-network/chopsticks --help
 
 To run Chopsticks, you need to configure some parameters. This can be set either through using a configuration file or the command line interface (CLI). The parameters that can be configured are as follows:
 
-- **`genesis`**: The link to a parachain's raw genesis file to build the fork from, instead of an endpoint
-- **`timestamp`**: Timestamp of the block to fork from
-- **`endpoint`**: The endpoint of the parachain to fork
-- **`block`**: Use to specify at which block hash or number to replay the fork
-- **`wasm-override`**: Path of the Wasm to use as the parachain runtime, instead of an endpoint's runtime
-- **`db`**: Path to the name of the file that stores or will store the parachain's database
-- **`config`**: Path or URL of the config file
-- **`port`**: The port to expose an endpoint on
-- **`build-block-mode`**: How blocks should be built in the fork: batch, manual, instant
-- **`import-storage`**: A pre-defined JSON/YAML storage path to override in the parachain's storage
-- **`allow-unresolved-imports`**: Whether to allow Wasm unresolved imports when using a Wasm to build the parachain
-- **`html`**: Include to generate storage diff preview between blocks
-- **`mock-signature-host`**: Mock signature host so that any signature starts with `0xdeadbeef` and filled by `0xcd` is considered valid
+- **`genesis`**: The link to a parachain's raw genesis file to build the fork from, instead of an endpoint.
+- **`timestamp`**: Timestamp of the block to fork from.
+- **`endpoint`**: The endpoint of the parachain to fork.
+- **`block`**: Use to specify at which block hash or number to replay the fork.
+- **`wasm-override`**: Path of the Wasm to use as the parachain runtime, instead of an endpoint's runtime.
+- **`db`**: Path to the name of the file that stores or will store the parachain's database.
+- **`config`**: Path or URL of the config file.
+- **`port`**: The port to expose an endpoint on.
+- **`build-block-mode`**: How blocks should be built in the fork: batch, manual, instant.
+- **`import-storage`**: A pre-defined JSON/YAML storage path to override in the parachain's storage.
+- **`allow-unresolved-imports`**: Whether to allow Wasm unresolved imports when using a Wasm to build the parachain.
+- **`html`**: Include to generate storage diff preview between blocks.
+- **`mock-signature-host`**: Mock signature host so that any signature starts with `0xdeadbeef` and filled by `0xcd` is considered valid.
 
 ### Configuration File
 
@@ -176,20 +176,20 @@ You can interact with the forked chain using various libraries such as [Polkadot
 
     To interact with Chopsticks via the hosted user interface, visit [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} and follow these steps:
 
-    1. Select the network icon in the top left corner
+    1. Select the network icon in the top left corner.
 
         ![](/images/reference/tools/chopsticks/chopsticks-1.webp)
 
-    2. Scroll to the bottom and select **Development**
-    3. Choose **Custom**
-    4. Enter `ws://localhost:8000` in the input field
-    5. Select the **Switch** button
+    2. Scroll to the bottom and select **Development**.
+    3. Choose **Custom**.
+    4. Enter `ws://localhost:8000` in the input field.
+    5. Select the **Switch** button.
 
         ![](/images/reference/tools/chopsticks/chopsticks-2.webp)
 
     You should now be connected to your local fork and can interact with it as you would with a real chain.
 
-=== "Via Polkadot.js Library"
+=== "Via Polkadot.js API"
 
     For programmatic interaction, you can use the [Polkadot.js](/reference/tools/polkadot-js-api/){target=\_blank} library:
 
@@ -201,9 +201,9 @@ You can interact with the forked chain using various libraries such as [Polkadot
 
 Chopsticks allows you to replay specific blocks from a chain, which is useful for debugging and analyzing state changes. Use the `run-block` subcommand with the following options:
 
-- **`output-path`**: Path to print output
-- **`html`**: Generate HTML with storage diff
-- **`open`**: Open generated HTML
+- **`output-path`**: Path to print output.
+- **`html`**: Generate HTML with storage diff.
+- **`open`**: Open generated HTML.
 
 For example, to replay block 1000 from Polkadot and save the output to a JSON file:
 
@@ -309,6 +309,7 @@ Chopstick's internal WebSocket server has special endpoints that allow the manip
     ```typescript title="dev-setRuntimeLogLevel-example.ts"
     --8<-- 'code/reference/tools/chopsticks/dev-setRuntimeLogLevel-example.ts'
     ```
+
 === "dev_setStorage"
 
     Creates or overwrites the value of any storage.
@@ -340,4 +341,16 @@ Chopstick's internal WebSocket server has special endpoints that allow the manip
 
 ## Where to Go Next
 
-For additional support and information, visit the [Chopsticks GitHub repository](https://github.com/AcalaNetwork/chopsticks){target=\_blank} or reach out through [GitHub Issues](https://github.com/AcalaNetwork/chopsticks/issues){target=\_blank}.
+<div class="grid cards" markdown>
+
+-   <span class="badge external">External</span> __Chopsticks Support__
+
+    ---
+
+    For further support and information, refer to the official resources.
+
+    [:octicons-arrow-right-24: GitHub Repository](https://github.com/AcalaNetwork/chopsticks){target=\_blank}
+
+    [:octicons-arrow-right-24: Create a GitHub Issue for Support](https://github.com/AcalaNetwork/chopsticks/issues){target=\_blank}
+
+</div>

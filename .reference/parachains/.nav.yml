@@ -1,4 +1,5 @@
 nav:
+ - 'Overview': index.md
  - 'Consensus': consensus
  - 'Accounts': accounts.md
  - 'Blocks, Transactions, and Fees': blocks-transactions-and-fees

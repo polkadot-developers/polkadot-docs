@@ -22,7 +22,7 @@ Before you begin, ensure you have access to the [Polkadot.js Apps](https://polka
 
 You need to ensure that your Asset Hub account balance is a bit more than the sum of those two deposits, which should seamlessly account for the required deposits and transaction fees.
 
-## Steps to Register a Local Asset
+## Register a Local Asset
 
 To register a local asset on the Asset Hub parachain, follow these steps:
 

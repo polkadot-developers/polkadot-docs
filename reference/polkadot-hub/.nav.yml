@@ -1,0 +1,8 @@
+nav:
+ - 'Overview': index.md
+ - 'Smart Contracts': smart-contracts.md
+ - 'Consensus and Security': consensus-and-security
+ - 'Asset Management': assets.md
+ - 'Bridging': bridging.md
+ - 'People and Identity': people-and-identity.md
+ - 'Collectives and DAOs': collectives-and-daos.md

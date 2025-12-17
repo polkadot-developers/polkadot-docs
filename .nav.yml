@@ -4,5 +4,5 @@ nav:
   - 'Parachains': parachains
   # - 'Chain Interactions': chain-interactions
   - 'Node Infrastructure': node-infrastructure
-  - 'Get Support': get-support
   - 'Technical Reference': reference
+  - 'Get Support': get-support

@@ -43,10 +43,10 @@ The Polkadot-parachain protocol originally operated in synchronous mode, where b
             /* Show labels for the 'r' group (inside or outside, incl. tspans) */
             text.taskText[id^='r'],
             text.taskTextOutside[id^='r'],
-            text[id^='r'] tspan { display: inline !important; font-size: 20px; color: #000 !important; } \n
+            text[id^='r'] tspan { display: inline !important; font-size: 20px; fill: var(--white) !important; } \n
 
             /* Keep section titles styled */
-            .sectionTitle { fill: #000 !important; font-weight: 700; font-size: 18px; } \n
+            .sectionTitle { fill: var(--md-default-fg-color) !important; font-weight: 700; font-size: 18px; } \n
 
             /* Hide the first two section titles (F1, F2). Change indexes if needed. */
             .sectionTitle:nth-of-type(1),
@@ -54,6 +54,9 @@ The Polkadot-parachain protocol originally operated in synchronous mode, where b
 
             /* Also hide SPACING row labels on the left */
             text.taskTextOutside[id^='p1padTop'] { display: none !important; } \n
+
+            .grid .tick text { fill: var(--md-default-fg-color) !important; font-size: 20px !important; }
+
         "
         themeVariables:
             sectionBkgColor: '#fff'
@@ -114,10 +117,10 @@ This results in one parablock being processed every relay block (instead of ever
             /* Show labels for the 'r' group (inside or outside, incl. tspans) */
             text.taskText[id^='r'],
             text.taskTextOutside[id^='r'],
-            text[id^='r'] tspan { display: inline !important; font-size: 20px; color: #000 !important; } \n
+            text[id^='r'] tspan { display: inline !important; font-size: 20px; color: var(--white) !important; } \n
 
             /* Keep section titles styled */
-            .sectionTitle { fill: #000 !important; font-weight: 700; font-size: 18px; } \n
+            .sectionTitle { fill: var(--md-default-fg-color) !important; font-weight: 700; font-size: 18px; } \n
 
             /* Hide the first two section titles (F1, F2). Change indexes if needed. */
             .sectionTitle:nth-of-type(1),
@@ -125,6 +128,10 @@ This results in one parablock being processed every relay block (instead of ever
 
             /* Also hide SPACING row labels on the left */
             text.taskTextOutside[id^='p1padTop'] { display: none !important; } \n
+
+            .taskTextOutsideRight { fill: var(--md-default-fg-color) !important; font-size: 20px !important; }
+
+            .grid .tick text { fill: var(--md-default-fg-color) !important; font-size: 20px !important; }
         "
         themeVariables:
             sectionBkgColor: '#fff'

@@ -75,7 +75,7 @@ Most developers should start with REVM for its simplicity and full Ethereum comp
 
     ---
 
-    Learn how to deploy your Solidity contracts to Polkadot Hub.
+    Understand deployment mechanics, gas estimation behavior, and storage considerations.
 
     [:octicons-arrow-right-24: Reference](/smart-contracts/for-eth-devs/contract-deployment/)
 

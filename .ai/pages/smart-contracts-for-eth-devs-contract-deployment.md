@@ -1,6 +1,6 @@
 ---
 title: Contract Deployment
-description: Learn how to deploy Solidity smart contracts to Polkadot Hub using familiar Ethereum tooling and workflows.
+description: Understand how smart contract deployment works on Polkadot Hub compared to Ethereum, including transaction processing, gas estimation, and storage considerations.
 categories: Smart Contracts, Basics
 url: https://docs.polkadot.com/smart-contracts/for-eth-devs/contract-deployment/
 ---
@@ -9,61 +9,88 @@ url: https://docs.polkadot.com/smart-contracts/for-eth-devs/contract-deployment/
 
 ## Introduction
 
-Deploying smart contracts to Polkadot Hub works exactly like deploying to Ethereum. Use your existing Solidity contracts, familiar tools like Hardhat, Foundry, or Remix, and deploy without any modifications.
+Smart contract deployment on Polkadot Hub follows the same conceptual model as Ethereum. This page explains the underlying mechanisms and key behavioral differences that Ethereum developers should understand when deploying contracts to Polkadot Hub.
 
-## Deployment Process
+## Deployment Model
 
-Polkadot Hub uses the REVM backend, which provides full Ethereum compatibility. This means:
+Polkadot Hub uses the REVM backend, which implements the Ethereum Virtual Machine specification. This means deployment transactions are processed identically to Ethereum:
 
-- **Single-step deployment**: Contracts deploy in a single transaction, just like Ethereum.
-- **Factory patterns work**: Create new contracts at runtime using standard factory patterns.
-- **Full Solidity support**: All Solidity features including inline assembly are supported.
-- **Familiar tools**: Hardhat, Foundry, Remix, and other Ethereum tools work out of the box.
+- **CREATE opcode**: Deploys contracts to deterministic addresses based on sender and nonce
+- **CREATE2 opcode**: Enables counterfactual deployment with salt-based address derivation
+- **Constructor execution**: Runs initialization code and returns runtime bytecode
+- **Factory patterns**: Contracts can deploy other contracts at runtime without restrictions
 
-## Using Your Existing Workflow
+The deployment transaction contains the contract's initialization bytecode in the `data` field, and the EVM executes this code to produce the runtime bytecode stored on-chain.
 
-### With Hardhat
+## Transaction Processing
 
-```bash
-npx hardhat ignition deploy ./ignition/modules/MyContract.ts --network polkadotHub
-```
+When you submit a deployment transaction, it flows through the following layers:
 
-### With Foundry
+1. **JSON-RPC Proxy** - Receives the standard Ethereum transaction format
+2. **Transaction Repackaging** - Wraps the Ethereum transaction in a Substrate extrinsic
+3. **pallet_revive** - Decodes and executes the EVM transaction
+4. **REVM Execution** - Processes the deployment using standard EVM semantics
+5. **State Commitment** - Stores the contract code and initializes storage
 
-```bash
-forge create --rpc-url $POLKADOT_HUB_RPC --private-key $PRIVATE_KEY src/MyContract.sol:MyContract
-```
+This architecture means your deployment transactions look and behave exactly like Ethereum transactions from the client perspective, while benefiting from Polkadot's consensus and finality guarantees.
 
-### With Remix
+## Gas Estimation Behavior
 
-1. Connect MetaMask to Polkadot Hub
-2. Select "Injected Provider - MetaMask" in Remix
-3. Deploy as you would to any EVM chain
+Ethereum developers may notice that gas estimates on Polkadot Hub are higher than actual consumption. This is expected behavior stemming from architectural differences:
 
-## Gas Estimation
+### Why Estimates Differ
 
-You might notice that gas estimates are higher than actual consumption (often around 30% of the estimate is used). This is normal behavior because:
+Polkadot's runtime uses a multi-dimensional resource model:
 
-- Pre-dispatch estimation cannot distinguish between computation weight and storage deposits
-- Contract deployments consume significant storage deposits for code storage
-- The system uses conservative overestimation to ensure transactions succeed
+- **Computation weight** - Processing time consumed by the transaction
+- **Proof size** - Data required for light client verification
+- **Storage deposits** - Refundable deposits for on-chain storage
 
-## Network Configuration
+When you call `eth_estimateGas`, the system must return a single gas value that covers all three dimensions. Since pre-dispatch estimation cannot perfectly predict the breakdown between computation and storage, the system uses conservative overestimation.
 
-Add Polkadot Hub to your development environment:
+### Practical Impact
 
-| Parameter | Value |
-|-----------|-------|
-| Network Name | Polkadot Hub TestNet |
-| RPC URL | `https://testnet-passet-hub-eth-rpc.polkadot.io` |
-| Chain ID | `420420421` |
-| Currency Symbol | PAS |
-| Block Explorer | [BlockScout](https://blockscout-passet-hub.parity-testnet.parity.io/){target=\_blank} |
+- Estimates may show 3x the actual gas consumed
+- Transactions still succeed because the estimate provides sufficient headroom
+- Actual costs are based on real consumption, not the estimate
+- Unused gas is refunded as on Ethereum
 
-## Next Steps
+This behavior does not affect transaction success or final costs—it only means the estimated values appear higher than what you might expect from Ethereum mainnet.
 
-Once deployed, your contracts can:
+## Storage Model
 
-- Interact with other contracts on Polkadot Hub
-- Access Polkadot-native functionality via [precompiles](/smart-contracts/precompiles/)
-- Communicate cross-chain using [XCM](/smart-contracts/precompiles/xcm/)
+Contract deployment consumes storage for:
+
+- **Code storage** - The runtime bytecode is stored on-chain
+- **Account creation** - A new account entry is created for the contract
+- **Initial state** - Any storage slots set during construction
+
+Polkadot Hub uses a storage deposit system where deployers pay a refundable deposit proportional to the storage consumed. This deposit is returned when the contract is destroyed and storage is freed.
+
+## Address Derivation
+
+Contract addresses are derived using the same algorithms as Ethereum:
+
+| Method | Address Calculation |
+|--------|-------------------|
+| CREATE | `keccak256(rlp([sender, nonce]))[12:]` |
+| CREATE2 | `keccak256(0xff ++ sender ++ salt ++ keccak256(init_code))[12:]` |
+
+This means you can predict deployment addresses using the same tools and techniques as on Ethereum.
+
+## Finality Considerations
+
+Unlike Ethereum's probabilistic finality, Polkadot provides deterministic finality through its GRANDPA consensus mechanism. Once a block containing your deployment is finalized:
+
+- The contract deployment is irreversible
+- No chain reorganization can remove the contract
+- Finality typically occurs within seconds, not minutes
+
+This faster finality means you can begin interacting with deployed contracts more quickly and with stronger guarantees than on Ethereum.
+
+## Where to Go Next
+
+For step-by-step deployment tutorials using specific tools, see:
+
+- [Deploy with Remix](/smart-contracts/cookbook/smart-contracts/deploy-basic/basic-remix/) - Browser-based deployment walkthrough
+- [Hardhat Setup](/smart-contracts/dev-environments/hardhat/) - Local development environment configuration

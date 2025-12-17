@@ -61,7 +61,8 @@ Select your preferred SDK below to see complete, runnable examples that query Po
     --8<-- "code/chain-interactions/query-data/query-sdks/papi/query-balance.ts"
     ```
 
-    Ensure to replace `INSERT_WS_ENDPOINT` with a valid WebSocket endpoint (e.g., `wss://polkadot-asset-hub-rpc.polkadot.io`) and `INSERT_ADDRESS` with the account address you want to query.
+    !!! note
+        Ensure to replace `INSERT_WS_ENDPOINT` with a valid WebSocket endpoint (e.g., `wss://polkadot-asset-hub-rpc.polkadot.io`) and `INSERT_ADDRESS` with the account address you want to query.
 
     Run the script:
 
@@ -83,7 +84,8 @@ Select your preferred SDK below to see complete, runnable examples that query Po
     --8<-- "code/chain-interactions/query-data/query-sdks/papi/query-asset.ts"
     ```
 
-    Ensure to replace `INSERT_WS_ENDPOINT` with a valid WebSocket endpoint (e.g., `wss://polkadot-asset-hub-rpc.polkadot.io`) and `INSERT_ADDRESS` with the account address you want to query.
+    !!! note
+        Ensure to replace `INSERT_WS_ENDPOINT` with a valid WebSocket endpoint (e.g., `wss://polkadot-asset-hub-rpc.polkadot.io`) and `INSERT_ADDRESS` with the account address you want to query.
 
     Run the script:
 
@@ -130,7 +132,8 @@ Select your preferred SDK below to see complete, runnable examples that query Po
     --8<-- "code/chain-interactions/query-data/query-sdks/pjs/query-balance.js"
     ```
 
-    Ensure to replace `INSERT_WS_ENDPOINT` with a valid WebSocket endpoint (e.g., `wss://polkadot-asset-hub-rpc.polkadot.io`) and `INSERT_ADDRESS` with the account address you want to query.
+    !!! note
+        Ensure to replace `INSERT_WS_ENDPOINT` with a valid WebSocket endpoint (e.g., `wss://polkadot-asset-hub-rpc.polkadot.io`) and `INSERT_ADDRESS` with the account address you want to query.
 
     Run the script:
 
@@ -152,8 +155,9 @@ Select your preferred SDK below to see complete, runnable examples that query Po
     --8<-- "code/chain-interactions/query-data/query-sdks/pjs/query-asset.js"
     ```
 
-    Ensure to replace `INSERT_WS_ENDPOINT` with a valid WebSocket endpoint (e.g., `wss://polkadot-asset-hub-rpc.polkadot.io`) and `INSERT_ADDRESS` with the account address you want to query.
-
+    !!! note
+        Ensure to replace `INSERT_WS_ENDPOINT` with a valid WebSocket endpoint (e.g., `wss://polkadot-asset-hub-rpc.polkadot.io`) and `INSERT_ADDRESS` with the account address you want to query.
+    
     Run the script:
 
     ```bash
@@ -197,7 +201,8 @@ Select your preferred SDK below to see complete, runnable examples that query Po
     --8<-- "code/chain-interactions/query-data/query-sdks/dedot/query-balance.ts"
     ```
 
-    Ensure to replace `INSERT_WS_ENDPOINT` with a valid WebSocket endpoint (e.g., `wss://polkadot-asset-hub-rpc.polkadot.io`) and `INSERT_ADDRESS` with the account address you want to query.
+    !!! note
+        Ensure to replace `INSERT_WS_ENDPOINT` with a valid WebSocket endpoint (e.g., `wss://polkadot-asset-hub-rpc.polkadot.io`) and `INSERT_ADDRESS` with the account address you want to query.
 
     Run the script:
 
@@ -219,7 +224,8 @@ Select your preferred SDK below to see complete, runnable examples that query Po
     --8<-- "code/chain-interactions/query-data/query-sdks/dedot/query-asset.ts"
     ```
 
-    Ensure to replace `INSERT_WS_ENDPOINT` with a valid WebSocket endpoint (e.g., `wss://polkadot-asset-hub-rpc.polkadot.io`) and `INSERT_ADDRESS` with the account address you want to query.
+    !!! note
+        Ensure to replace `INSERT_WS_ENDPOINT` with a valid WebSocket endpoint (e.g., `wss://polkadot-asset-hub-rpc.polkadot.io`) and `INSERT_ADDRESS` with the account address you want to query.
 
     Run the script:
 
@@ -263,7 +269,8 @@ Select your preferred SDK below to see complete, runnable examples that query Po
     --8<-- "code/chain-interactions/query-data/query-sdks/psi/query_balance.py"
     ```
 
-    Ensure to replace `INSERT_WS_ENDPOINT` with a valid WebSocket endpoint (e.g., `wss://polkadot-asset-hub-rpc.polkadot.io`) and `INSERT_ADDRESS` with the account address you want to query.
+    !!! note
+        Ensure to replace `INSERT_WS_ENDPOINT` with a valid WebSocket endpoint (e.g., `wss://polkadot-asset-hub-rpc.polkadot.io`) and `INSERT_ADDRESS` with the account address you want to query.
 
     Run the script:
 
@@ -285,7 +292,8 @@ Select your preferred SDK below to see complete, runnable examples that query Po
     --8<-- "code/chain-interactions/query-data/query-sdks/psi/query_asset.py"
     ```
 
-    Ensure to replace `INSERT_WS_ENDPOINT` with a valid WebSocket endpoint (e.g., `wss://polkadot-asset-hub-rpc.polkadot.io`) and `INSERT_ADDRESS` with the account address you want to query.
+    !!! note
+        Ensure to replace `INSERT_WS_ENDPOINT` with a valid WebSocket endpoint (e.g., `wss://polkadot-asset-hub-rpc.polkadot.io`) and `INSERT_ADDRESS` with the account address you want to query.
 
     Run the script:
 
@@ -326,7 +334,8 @@ Select your preferred SDK below to see complete, runnable examples that query Po
         subxt metadata --url INSERT_WS_ENDPOINT -o asset_hub_metadata.scale
         ```
 
-        Ensure to replace `INSERT_WS_ENDPOINT` with the proper WebSocket endpoint, such as `wss://polkadot-asset-hub-rpc.polkadot.io` for Polkadot Hub.
+        !!! note
+            Ensure to replace `INSERT_WS_ENDPOINT` with the proper WebSocket endpoint, such as `wss://polkadot-asset-hub-rpc.polkadot.io` for Polkadot Hub.
 
     4. Update `Cargo.toml` with the required dependencies:
 
@@ -344,7 +353,8 @@ Select your preferred SDK below to see complete, runnable examples that query Po
     --8<-- "code/chain-interactions/query-data/query-sdks/subxt/src/bin/query_balance.rs"
     ```
 
-    Ensure to replace `INSERT_WS_ENDPOINT` with a valid WebSocket endpoint (e.g., `wss://polkadot-asset-hub-rpc.polkadot.io`) and `INSERT_ADDRESS` with the account address you want to query.
+    !!! note
+        Ensure to replace `INSERT_WS_ENDPOINT` with a valid WebSocket endpoint (e.g., `wss://polkadot-asset-hub-rpc.polkadot.io`) and `INSERT_ADDRESS` with the account address you want to query.
 
     Run the script:
 
@@ -369,7 +379,8 @@ Select your preferred SDK below to see complete, runnable examples that query Po
     --8<-- "code/chain-interactions/query-data/query-sdks/subxt/src/bin/query_asset.rs"
     ```
 
-    Ensure to replace `INSERT_WS_ENDPOINT` with a valid WebSocket endpoint (e.g., `wss://polkadot-asset-hub-rpc.polkadot.io`) and `INSERT_ADDRESS` with the account address you want to query.
+    !!! note
+        Ensure to replace `INSERT_WS_ENDPOINT` with a valid WebSocket endpoint (e.g., `wss://polkadot-asset-hub-rpc.polkadot.io`) and `INSERT_ADDRESS` with the account address you want to query.
 
     Run the script:
 

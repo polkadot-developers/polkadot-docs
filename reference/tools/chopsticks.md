@@ -244,7 +244,7 @@ Now you can interact with your forked chains using the ports specified in the ou
 
 Chopstick's internal WebSocket server has special endpoints that allow the manipulation of the local Polkadot SDK chain.
 
-=== "dev_newBlock"
+???+ interface "dev_newBlock"
 
     Generates one or more new blocks.
 
@@ -265,7 +265,7 @@ Chopstick's internal WebSocket server has special endpoints that allow the manip
     --8<-- 'code/reference/tools/chopsticks/dev-new-block-example.ts'
     ```
 
-=== "dev_setBlockBuildMode"
+??? interface "dev_setBlockBuildMode"
 
     Sets block build mode.
 
@@ -282,7 +282,7 @@ Chopstick's internal WebSocket server has special endpoints that allow the manip
     --8<-- 'code/reference/tools/chopsticks/dev-setBlockBuildMode-example.ts'
     ```
 
-=== "dev_setHead"
+??? interface "dev_setHead"
 
     Sets the head of the blockchain to a specific hash or number.
 
@@ -296,7 +296,7 @@ Chopstick's internal WebSocket server has special endpoints that allow the manip
     --8<-- 'code/reference/tools/chopsticks/dev-setHead-example.ts'
     ```
 
-=== "dev_setRuntimeLogLevel"
+??? interface "dev_setRuntimeLogLevel"
 
     Sets the runtime log level.
 
@@ -310,7 +310,7 @@ Chopstick's internal WebSocket server has special endpoints that allow the manip
     --8<-- 'code/reference/tools/chopsticks/dev-setRuntimeLogLevel-example.ts'
     ```
 
-=== "dev_setStorage"
+??? interface "dev_setStorage"
 
     Creates or overwrites the value of any storage.
 
@@ -325,7 +325,7 @@ Chopstick's internal WebSocket server has special endpoints that allow the manip
     --8<-- 'code/reference/tools/chopsticks/dev-setStorage-example.ts'
     ```
 
-=== "dev_timeTravel"
+??? interface "dev_timeTravel"
 
     Sets the timestamp of the block to a specific date. All future blocks will be sequentially created after this point in time.
 

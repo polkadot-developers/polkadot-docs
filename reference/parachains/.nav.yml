@@ -2,7 +2,7 @@ nav:
  - 'Overview': index.md
  - 'Consensus': consensus
  - 'Accounts': accounts.md
- - 'Blocks, Transactions, and Fees': blocks-transactions-and-fees
+ - 'Blocks, Transactions, and Fees': blocks-transactions-fees
  - 'Node and Runtime': node-and-runtime.md
  - 'Interoperability': interoperability.md
  - 'Randomness': randomness.md

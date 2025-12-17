@@ -4956,8 +4956,8 @@ This architectural evolution promises to enhance Polkadot's scalability and flex
 
 Page Title: Parachain Consensus
 
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-parachains-consensus-overview.md
-- Canonical (HTML): https://docs.polkadot.com/reference/parachains/consensus/overview/
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-parachains-consensus.md
+- Canonical (HTML): https://docs.polkadot.com/reference/parachains/consensus/
 - Summary: Understand how the blocks authored by parachain collators are secured by the relay chain validators and how the parachain transactions achieve finality.
 
 # Parachain Consensus

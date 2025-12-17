@@ -4322,15 +4322,15 @@
     "token_estimator": "heuristic-v1"
   },
   {
-    "id": "reference-parachains-consensus-overview",
+    "id": "reference-parachains-consensus",
     "title": "Parachain Consensus",
-    "slug": "reference-parachains-consensus-overview",
+    "slug": "reference-parachains-consensus",
     "categories": [
       "Polkadot Protocol",
       "Parachains"
     ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-parachains-consensus-overview.md",
-    "html_url": "https://docs.polkadot.com/reference/parachains/consensus/overview/",
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-parachains-consensus.md",
+    "html_url": "https://docs.polkadot.com/reference/parachains/consensus/",
     "preview": "Parachains are independent blockchains built with the Polkadot SDK, designed to leverage Polkadot’s relay chain for shared security and transaction finality. These specialized chains operate as part of Polkadot’s execution sharding model, where each parachain manages its own state and transactions while relying on the relay chain for validation and consensus.",
     "outline": [
       {
@@ -4366,26 +4366,6 @@
       "estimated_token_count_total": 1296
     },
     "hash": "sha256:58e87829668cd9e3e034d94fcaf48b090970093f6d5a6136630e5d268a8846c8",
-    "token_estimator": "heuristic-v1"
-  },
-  {
-    "id": "reference-parachains-consensus",
-    "title": "reference-parachains-consensus",
-    "slug": "reference-parachains-consensus",
-    "categories": [
-      "Uncategorized"
-    ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-parachains-consensus.md",
-    "html_url": "https://docs.polkadot.com/reference/parachains/consensus/",
-    "preview": "TODO",
-    "outline": [],
-    "stats": {
-      "chars": 5,
-      "words": 1,
-      "headings": 0,
-      "estimated_token_count_total": 0
-    },
-    "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
     "token_estimator": "heuristic-v1"
   },
   {

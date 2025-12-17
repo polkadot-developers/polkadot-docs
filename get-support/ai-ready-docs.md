@@ -16,7 +16,7 @@ Polkadot provides files to make documentation content available in a structure o
 
 These AI-ready files do not include any persona or system prompts. They are purely informational and can be used without conflicting with your existing agent or tool prompting. 
 
-## Download LLM Files
+## Access LLM Files
 
 | Category                   | Description                                                                                                                                         | File                                                           | Actions                                                                                                                                                                                                                                       |
 |----------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|

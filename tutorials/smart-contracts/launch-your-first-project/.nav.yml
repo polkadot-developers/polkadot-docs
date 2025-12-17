@@ -1,7 +1,0 @@
-title: Launch Your First Project
-nav:
-  - index.md
-  - create-contracts.md
-  - test-and-deploy-with-hardhat.md
-  - 'Create a DApp with Viem': create-dapp-viem.md
-  - 'Create a DApp with Ethers.js': create-dapp-ethers-js.md

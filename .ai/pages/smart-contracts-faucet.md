@@ -1,5 +1,5 @@
 ---
-title: Faucet
+title: Get Tokens from the Official Faucet
 description: Learn how to obtain test tokens from Polkadot faucets for development and testing purposes across different networks.
 categories: Smart Contracts
 url: https://docs.polkadot.com/smart-contracts/faucet/

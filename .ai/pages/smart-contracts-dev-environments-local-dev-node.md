@@ -7,8 +7,6 @@ url: https://docs.polkadot.com/smart-contracts/dev-environments/local-dev-node/
 
 # Local Development Node
 
-!!! smartcontract "PolkaVM Preview Release"
-    PolkaVM smart contracts with Ethereum compatibility are in **early-stage development and may be unstable or incomplete**.
 ## Introduction
 
 A local development node provides an isolated blockchain environment where you can deploy, test, and debug smart contracts without incurring network fees or waiting for block confirmations. This guide demonstrates how to set up a local Polkadot SDK-based node with smart contract capabilities.
@@ -22,7 +20,7 @@ By the end of this guide, you'll have:
 
 Before getting started, ensure you have done the following:
 
-- Completed the [Install Polkadot SDK Dependencies](/parachains/install-polkadot-sdk/){target=\_blank} guide and successfully installed [Rust](https://www.rust-lang.org/){target=\_blank} and the required packages to set up your development environment.
+- Completed the [Install Polkadot SDK Dependencies](/parachains/install-polkadot-sdk/){target=\_blank} guide and successfully installed [Rust](https://rust-lang.org/){target=\_blank} and the required packages to set up your development environment.
 
 ## Install the Revive Dev Node and ETH-RPC Adapter
 
@@ -31,7 +29,6 @@ The Polkadot SDK repository contains both the [Revive Dev node](https://github.c
 ```bash
 git clone https://github.com/paritytech/polkadot-sdk.git
 cd polkadot-sdk
-git checkout 8e2b6f742a38bb13688e12abacded0aab2dbbb23
 ```
 
 Next, you need to compile the two essential components for your development environment. The Substrate node provides the core blockchain runtime with smart contract support, while the ETH-RPC adapter enables Ethereum JSON-RPC compatibility for existing tooling:

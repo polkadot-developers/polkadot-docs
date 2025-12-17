@@ -1,7 +1,13 @@
-import { readFileSync } from 'fs';
-import { join } from 'path';
-import { createWallet } from './createWallet';
-import { publicClient } from './createClient';
+import { existsSync, readFileSync } from 'fs';
+import { dirname, join } from 'path';
+import { fileURLToPath } from 'url';
+import { createWallet } from './createWallet.ts';
+import { publicClient } from './createClient.ts';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const ABIS_DIR = join(__dirname, '../abis');
+const ARTIFACTS_DIR = join(__dirname, '../artifacts');
 
 const deployContract = async (
   contractName: string,
@@ -10,16 +16,20 @@ const deployContract = async (
   try {
     console.log(`Deploying ${contractName}...`);
 
+    const abiPath = join(ABIS_DIR, `${contractName}.json`);
+    const bytecodePath = join(ARTIFACTS_DIR, `${contractName}.bin`);
+
+    if (!existsSync(abiPath) || !existsSync(bytecodePath)) {
+      throw new Error(
+        `Missing artifacts for ${contractName}. Try running "npm run compile" first.`
+      );
+    }
+
     // Read contract artifacts
     const abi = JSON.parse(
-      readFileSync(
-        join(__dirname, '../artifacts', `${contractName}.json`),
-        'utf8'
-      )
+      readFileSync(abiPath, 'utf8')
     );
-    const bytecode = `0x${readFileSync(
-      join(__dirname, '../artifacts', `${contractName}.polkavm`)
-    ).toString('hex')}` as `0x${string}`;
+    const bytecode = `0x${readFileSync(bytecodePath, 'utf8').trim()}` as `0x${string}`;
 
     // Create wallet
     const wallet = createWallet(privateKey);

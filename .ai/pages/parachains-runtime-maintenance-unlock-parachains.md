@@ -96,7 +96,8 @@ You can identify your parachain's sovereign account using either of these method
 
         - For parent/child chains use the prefix `0x70617261` (which decodes to `b"para"`).
          
-    2. Encode your parachain ID as a u32 [SCALE](/polkadot-protocol/parachain-basics/data-encoding#data-types){target=\_blank} value:
+    2. Encode your parachain ID as a u32 SCALE value:
+        
 
         - For parachain 2006, this would be `d6070000`.
 
@@ -105,7 +106,7 @@ You can identify your parachain's sovereign account using either of these method
         - **Hex**: `0x70617261d6070000000000000000000000000000000000000000000000000000`
         - **SS58 format**: `5Ec4AhPW97z4ZyYkd3mYkJrSeZWcwVv4wiANES2QrJi1x17F`
 
-You can transfer funds to this account from any account on the relay chain using a standard transfer. To calculate the amount needed, refer to the [XCM Payment API](/develop/interoperability/xcm-runtime-apis/#xcm-payment-api){target=\_blank}. The calculation will depend on the XCM built in the next step.
+You can transfer funds to this account from any account on the relay chain using a standard transfer. To calculate the amount needed, refer to the [XCM Payment API](https://paritytech.github.io/polkadot-sdk/master/xcm_runtime_apis/fees/trait.XcmPaymentApi.html){target=\_blank}. The calculation will depend on the XCM built in the next step.
 
 ### Craft and Submit the XCM
 

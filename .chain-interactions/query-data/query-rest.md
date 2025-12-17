@@ -23,24 +23,23 @@ For production applications or high-frequency queries, run your own Sidecar inst
 
 === "Using npm"
 
-```bash
-# Install globally
-npm install -g @substrate/api-sidecar
+    ```bash
+    # Install globally
+    npm install -g @substrate/api-sidecar
 
-# Run with default settings (connects to ws://127.0.0.1:9944)
-substrate-api-sidecar
+    # Run with default settings (connects to ws://127.0.0.1:9944)
+    substrate-api-sidecar
 
-# Run with custom node URL
-SAS_SUBSTRATE_URL=wss://polkadot-asset-hub-rpc.polkadot.io substrate-api-sidecar
-```
-
+    # Run with custom node URL
+    SAS_SUBSTRATE_URL=wss://polkadot-asset-hub-rpc.polkadot.io substrate-api-sidecar
+    ```
 === "Using Docker"
 
-```bash
-docker run --rm -p 8080:8080 \
-  -e SAS_SUBSTRATE_URL=wss://polkadot-asset-hub-rpc.polkadot.io \
-  parity/substrate-api-sidecar
-```
+    ```bash
+    docker run --rm -p 8080:8080 \
+      -e SAS_SUBSTRATE_URL=wss://polkadot-asset-hub-rpc.polkadot.io \
+      parity/substrate-api-sidecar
+    ```
 
 Once running, access your local instance at `http://localhost:8080`.
 

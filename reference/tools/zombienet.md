@@ -121,7 +121,7 @@ Kubernetes is compatible with [GKE](https://cloud.google.com/kubernetes-engine){
 
 ### Podman
 
-Podman is a daemonless container engine that works on Linux-based systems. Zombienet supports Podman rootless as a provider.
+Podman is a daemonless container engine for Linux. Zombienet supports Podman rootless as a provider.
 
 - **Requirements**: Install [Podman](https://podman.io/getting-started/installation){target=\_blank} on Linux.
 
@@ -133,21 +133,21 @@ The native provider runs nodes as local processes on your machine.
 
 - **Requirements**: Have the necessary binaries (`polkadot`, `polkadot-parachain`) in your PATH. Install them using:
 
-```bash
-zombienet setup polkadot polkadot-parachain
-```
+    ```bash
+    zombienet setup polkadot polkadot-parachain
+    ```
 
-For custom binaries, specify the path in your configuration or add them to your PATH:
+    For custom binaries, specify the path in your configuration or add them to your PATH:
 
-```bash
-export PATH=$PATH:INSERT_PATH_TO_BINARY
-```
+    ```bash
+    export PATH=$PATH:INSERT_PATH_TO_BINARY
+    ```
 
 - **Features**: No additional monitoring features.
 
 ## Configure Zombienet
 
-Zombienet uses configuration files in JSON or TOML format to define network topology, nodes, and parameters. The [Zombienet repository](https://github.com/paritytech/zombienet/tree/main/examples){target=\_blank} provides example configurations.
+Zombienet uses JSON or TOML configuration files to define network topology, nodes, and parameters. The [Zombienet repository](https://github.com/paritytech/zombienet/tree/main/examples){target=\_blank} provides example configurations.
 
 ### Basic Configuration
 
@@ -254,11 +254,11 @@ Access the running nodes via the provided RPC endpoints (typically `ws://127.0.0
 
 Zombienet provides a Domain Specific Language (DSL) for writing tests in `.zndsl` files. Tests can evaluate:
 
-- Metrics from Prometheus.
-- Log patterns.
-- System events.
-- On-chain storage.
-- Custom JavaScript/TypeScript scripts.
+- Metrics from Prometheus
+- Log patterns
+- System events
+- On-chain storage
+- Custom JavaScript/TypeScript scripts
 
 ### Test File Structure
 
@@ -290,19 +290,19 @@ The test runner will execute each assertion and report pass/fail status.
 
 Some frequently used assertions include:
 
-- **Well-known functions**: `alice: is up`, `alice: parachain 100 is registered within 225 seconds`.
-- **Metrics**: `alice: reports node_roles is 4`.
-- **Logs**: `alice: log line matches glob "Imported #1" within 10 seconds`.
-- **System events**: `alice: system event matches ""paraId":[0-9]+" within 10 seconds`.
-- **Custom scripts**: `alice: js-script ./script.js return is greater than 1 within 200 seconds`.
+- **Well-known functions**: `alice: is up`, `alice: parachain 100 is registered within 225 seconds`
+- **Metrics**: `alice: reports node_roles is 4`
+- **Logs**: `alice: log line matches glob "Imported #1" within 10 seconds`
+- **System events**: `alice: system event matches ""paraId":[0-9]+" within 10 seconds`
+- **Custom scripts**: `alice: js-script ./script.js return is greater than 1 within 200 seconds`
 
 ## Configuration Reference
 
 For detailed configuration options, see:
 
-- [Configuration examples](https://github.com/paritytech/zombienet/tree/main/examples){target=\_blank} - Sample configurations for various scenarios.
-- [Testing DSL specification](https://paritytech.github.io/zombienet/cli/test-dsl-definition-spec.html){target=\_blank} - Complete DSL syntax reference.
-- [Zombienet book](https://paritytech.github.io/zombienet/){target=\_blank} - Comprehensive documentation.
+- [Configuration examples](https://github.com/paritytech/zombienet/tree/main/examples){target=\_blank}: Sample configurations for various scenarios.
+- [Testing DSL specification](https://paritytech.github.io/zombienet/cli/test-dsl-definition-spec.html){target=\_blank}: Complete DSL syntax reference.
+- [Zombienet book](https://paritytech.github.io/zombienet/){target=\_blank}: Comprehensive documentation.
 
 ## Where to Go Next
 

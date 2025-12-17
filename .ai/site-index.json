@@ -869,12 +869,12 @@
       }
     ],
     "stats": {
-      "chars": 15811,
-      "words": 2437,
+      "chars": 15748,
+      "words": 2430,
       "headings": 13,
-      "estimated_token_count_total": 3843
+      "estimated_token_count_total": 3822
     },
-    "hash": "sha256:b503ef546f7c8702c5d4c12170ab440e502ba8d2e933ef1f0d46f23fd933c265",
+    "hash": "sha256:58db84beec026186697286a156553f64239c3bbe4b73db5eaa4d8f874a21b0d2",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -2501,12 +2501,12 @@
       }
     ],
     "stats": {
-      "chars": 3588,
+      "chars": 3587,
       "words": 489,
       "headings": 4,
       "estimated_token_count_total": 786
     },
-    "hash": "sha256:1c65342056983806d639fb8393fdfbdf2ef644ffd41ed749947a16fb3839753d",
+    "hash": "sha256:1c3608c6572dbe22a7e25719786f9a739107444cf19d08dfdac69712477d0a15",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -2904,12 +2904,12 @@
       }
     ],
     "stats": {
-      "chars": 10617,
-      "words": 1514,
+      "chars": 10613,
+      "words": 1513,
       "headings": 11,
-      "estimated_token_count_total": 2384
+      "estimated_token_count_total": 2382
     },
-    "hash": "sha256:cb5c18ff247cb9cf84d20aed7827322065694c8e1d62679183a4c266fea5d386",
+    "hash": "sha256:1c983b0b0bc6d34b34998b08ec218c068243b6da5b28c267d1026ac99852758a",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -3572,12 +3572,12 @@
       }
     ],
     "stats": {
-      "chars": 24739,
-      "words": 3626,
+      "chars": 24727,
+      "words": 3623,
       "headings": 63,
-      "estimated_token_count_total": 5273
+      "estimated_token_count_total": 5267
     },
-    "hash": "sha256:40bd67811e7eabc79ca5d105eae388b19380d9f035022da17fc0d6bb173c817c",
+    "hash": "sha256:6d4c4d98759e43199291722b1044c05b12c0cfd39e324b2209d145ec7e338446",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4201,12 +4201,12 @@
       }
     ],
     "stats": {
-      "chars": 7709,
-      "words": 946,
+      "chars": 8095,
+      "words": 996,
       "headings": 3,
-      "estimated_token_count_total": 1678
+      "estimated_token_count_total": 1799
     },
-    "hash": "sha256:1d292a263a4d95cea4a325f18947f0e45a1b0dd220f67dcc5b7aec66f6242180",
+    "hash": "sha256:3c7c48fdeefd6802d2e363efe2d8f31a617d86648dabe666dae34dfd705be6c9",
     "token_estimator": "heuristic-v1"
   },
   {

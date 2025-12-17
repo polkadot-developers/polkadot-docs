@@ -208,10 +208,10 @@ The Polkadot-parachain protocol originally operated in synchronous mode, where b
             /* Show labels for the 'r' group (inside or outside, incl. tspans) */
             text.taskText[id^='r'],
             text.taskTextOutside[id^='r'],
-            text[id^='r'] tspan { display: inline !important; font-size: 20px; color: #000 !important; } \n
+            text[id^='r'] tspan { display: inline !important; font-size: 20px; fill: var(--white) !important; } \n
 
             /* Keep section titles styled */
-            .sectionTitle { fill: #000 !important; font-weight: 700; font-size: 18px; } \n
+            .sectionTitle { fill: var(--md-default-fg-color) !important; font-weight: 700; font-size: 18px; } \n
 
             /* Hide the first two section titles (F1, F2). Change indexes if needed. */
             .sectionTitle:nth-of-type(1),
@@ -219,6 +219,9 @@ The Polkadot-parachain protocol originally operated in synchronous mode, where b
 
             /* Also hide SPACING row labels on the left */
             text.taskTextOutside[id^='p1padTop'] { display: none !important; } \n
+
+            .grid .tick text { fill: var(--md-default-fg-color) !important; font-size: 20px !important; }
+
         "
         themeVariables:
             sectionBkgColor: '#fff'
@@ -279,10 +282,10 @@ This results in one parablock being processed every relay block (instead of ever
             /* Show labels for the 'r' group (inside or outside, incl. tspans) */
             text.taskText[id^='r'],
             text.taskTextOutside[id^='r'],
-            text[id^='r'] tspan { display: inline !important; font-size: 20px; color: #000 !important; } \n
+            text[id^='r'] tspan { display: inline !important; font-size: 20px; color: var(--white) !important; } \n
 
             /* Keep section titles styled */
-            .sectionTitle { fill: #000 !important; font-weight: 700; font-size: 18px; } \n
+            .sectionTitle { fill: var(--md-default-fg-color) !important; font-weight: 700; font-size: 18px; } \n
 
             /* Hide the first two section titles (F1, F2). Change indexes if needed. */
             .sectionTitle:nth-of-type(1),
@@ -290,6 +293,10 @@ This results in one parablock being processed every relay block (instead of ever
 
             /* Also hide SPACING row labels on the left */
             text.taskTextOutside[id^='p1padTop'] { display: none !important; } \n
+
+            .taskTextOutsideRight { fill: var(--md-default-fg-color) !important; font-size: 20px !important; }
+
+            .grid .tick text { fill: var(--md-default-fg-color) !important; font-size: 20px !important; }
         "
         themeVariables:
             sectionBkgColor: '#fff'
@@ -2721,7 +2728,7 @@ A mechanism for specifying the initial state of a blockchain. By convention, thi
 
 ## GRANDPA
 
-A deterministic finality mechanism for blockchains that is implemented in the [Rust](https://www.rust-lang.org/){target=\_blank} programming language.
+A deterministic finality mechanism for blockchains that is implemented in the [Rust](https://rust-lang.org/){target=\_blank} programming language.
 
 The [formal specification](https://github.com/w3f/consensus/blob/master/pdf/grandpa-old.pdf){target=\_blank} is maintained by the [Web3 Foundation](https://web3.foundation/){target=\_blank}.
 
@@ -2857,7 +2864,7 @@ Learn more in the [storage items](https://paritytech.github.io/polkadot-sdk/mast
 
 ## Substrate
 
-A flexible framework for building modular, efficient, and upgradeable blockchains. Substrate is written in the [Rust](https://www.rust-lang.org/){target=\_blank} programming language and is maintained by [Parity Technologies](https://www.parity.io/){target=\_blank}.
+A flexible framework for building modular, efficient, and upgradeable blockchains. Substrate is written in the [Rust](https://rust-lang.org/){target=\_blank} programming language and is maintained by [Parity Technologies](https://www.parity.io/){target=\_blank}.
 
 ## Transaction
 
@@ -2884,7 +2891,7 @@ An execution architecture that allows for the efficient, platform-neutral expres
 deterministic, machine-executable logic.
 
 [Wasm](https://webassembly.org/){target=\_blank} can be compiled from many languages, including
-the [Rust](https://www.rust-lang.org/){target=\_blank} programming language. Polkadot SDK-based chains use a Wasm binary to provide portable [runtimes](#runtime) that can be included as part of the chain's state.
+the [Rust](https://rust-lang.org/){target=\_blank} programming language. Polkadot SDK-based chains use a Wasm binary to provide portable [runtimes](#runtime) that can be included as part of the chain's state.
 
 ## Weight
 
@@ -6371,7 +6378,7 @@ By the end of this guide, you'll have a working template ready to customize and 
 
 Before getting started, ensure you have done the following:
 
-- Completed the [Install Polkadot SDK](/parachains/install-polkadot-sdk/){target=\_blank} guide and successfully installed [Rust](https://www.rust-lang.org/){target=\_blank} and the required packages to set up your development environment.
+- Completed the [Install Polkadot SDK](/parachains/install-polkadot-sdk/){target=\_blank} guide and successfully installed [Rust](https://rust-lang.org/){target=\_blank} and the required packages to set up your development environment.
 
 For this tutorial series, you need to use Rust `1.86`. Newer versions of the compiler may not work with this parachain template version.
 

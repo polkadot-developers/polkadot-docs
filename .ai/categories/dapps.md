@@ -2769,7 +2769,7 @@ A mechanism for specifying the initial state of a blockchain. By convention, thi
 
 ## GRANDPA
 
-A deterministic finality mechanism for blockchains that is implemented in the [Rust](https://www.rust-lang.org/){target=\_blank} programming language.
+A deterministic finality mechanism for blockchains that is implemented in the [Rust](https://rust-lang.org/){target=\_blank} programming language.
 
 The [formal specification](https://github.com/w3f/consensus/blob/master/pdf/grandpa-old.pdf){target=\_blank} is maintained by the [Web3 Foundation](https://web3.foundation/){target=\_blank}.
 
@@ -2905,7 +2905,7 @@ Learn more in the [storage items](https://paritytech.github.io/polkadot-sdk/mast
 
 ## Substrate
 
-A flexible framework for building modular, efficient, and upgradeable blockchains. Substrate is written in the [Rust](https://www.rust-lang.org/){target=\_blank} programming language and is maintained by [Parity Technologies](https://www.parity.io/){target=\_blank}.
+A flexible framework for building modular, efficient, and upgradeable blockchains. Substrate is written in the [Rust](https://rust-lang.org/){target=\_blank} programming language and is maintained by [Parity Technologies](https://www.parity.io/){target=\_blank}.
 
 ## Transaction
 
@@ -2932,7 +2932,7 @@ An execution architecture that allows for the efficient, platform-neutral expres
 deterministic, machine-executable logic.
 
 [Wasm](https://webassembly.org/){target=\_blank} can be compiled from many languages, including
-the [Rust](https://www.rust-lang.org/){target=\_blank} programming language. Polkadot SDK-based chains use a Wasm binary to provide portable [runtimes](#runtime) that can be included as part of the chain's state.
+the [Rust](https://rust-lang.org/){target=\_blank} programming language. Polkadot SDK-based chains use a Wasm binary to provide portable [runtimes](#runtime) that can be included as part of the chain's state.
 
 ## Weight
 
@@ -6496,7 +6496,7 @@ By the end of this guide, you'll have a working template ready to customize and 
 
 Before getting started, ensure you have done the following:
 
-- Completed the [Install Polkadot SDK](/parachains/install-polkadot-sdk/){target=\_blank} guide and successfully installed [Rust](https://www.rust-lang.org/){target=\_blank} and the required packages to set up your development environment.
+- Completed the [Install Polkadot SDK](/parachains/install-polkadot-sdk/){target=\_blank} guide and successfully installed [Rust](https://rust-lang.org/){target=\_blank} and the required packages to set up your development environment.
 
 For this tutorial series, you need to use Rust `1.86`. Newer versions of the compiler may not work with this parachain template version.
 
@@ -8114,7 +8114,6 @@ Wallet types fall into two categories based on their connection to the internet:
     A React library for integrating Polkadot wallet connections into dApps. It offers a unified API for major wallets like Polkadot.js, SubWallet, Talisman, Nova Wallet, PolkaGate, WalletConnect, Enkrypt, Fearless, and Mimir. Includes customizable UI components, React hooks, full TypeScript and multi-chain support, and flexible integration with APIs such as Dedot, PAPI, or Polkadot.js.
 
     [:octicons-arrow-right-24: Reference](https://www.lunolab.xyz/){target=\_blank}
-
 
 </div>
 

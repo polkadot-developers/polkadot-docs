@@ -6,7 +6,7 @@
 This directory lists URLs for raw Markdown pages that complement the rendered pages on the documentation site. Use these Markdown files to retain semantic context when prompting models while avoiding passing HTML elements.
 
 ## Metadata
-- Documentation pages: 80
+- Documentation pages: 84
 - Categories: 11
 
 ## Docs
@@ -93,9 +93,12 @@ Docs: Polkadot Protocol
 - [Dual Virtual Machine Stack](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-for-eth-devs-dual-vm-stack.md): Compare Polkadot’s dual smart contract VMs—REVM for EVM compatibility and PolkaVM for RISC-V performance, flexibility, and efficiency.
 
 Docs: Infrastructure
-- [Set Up a Bootnode](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/node-infrastructure-run-a-node-bootnode.md): Learn how to configure and run a bootnode for Polkadot, including P2P, WS, and secure WSS connections with network key management and proxies.
-- [Set Up a Node](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/node-infrastructure-run-a-node-full-node.md): Learn how to install, configure, and run Polkadot nodes, including setting up different node types and connecting to the network.
-- [Set Up Secure WebSocket](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/node-infrastructure-run-a-node-secure-wss.md): Instructions on enabling SSL for your node and setting up a secure WebSocket proxy server using nginx for remote connections.
+- [Run a Block-Producing Collator](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/node-infrastructure-run-a-collator.md): Learn how to set up and run a block-producing collator for Polkadot system parachains, including registration and session key management.
+- [Run a Parachain RPC Node](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/node-infrastructure-run-a-node-parachain-rpc.md): Follow this guide to understand hardware and software requirements and how to set up and run an RPC node for any parachain, including system parachains.
+- [Run an RPC Node for Polkadot Hub](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/node-infrastructure-run-a-node-polkadot-hub-rpc.md): Follow this guide to understand hardware and software requirements and how to set up and run an RPC node for Polkadot Hub with Polkadot SDK RPC endpoints.
+- [Set Up a Bootnode](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/node-infrastructure-run-a-node-relay-chain-bootnode.md): Learn how to configure and run a bootnode for Polkadot, including P2P, WS, and secure WSS connections with network key management and proxies.
+- [Set Up a Node](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/node-infrastructure-run-a-node-relay-chain-full-node.md): Learn how to install, configure, and run Polkadot nodes, including setting up different node types and connecting to the network.
+- [Set Up Secure WebSocket](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/node-infrastructure-run-a-node-relay-chain-secure-wss.md): Instructions on enabling SSL for your node and setting up a secure WebSocket proxy server using nginx for remote connections.
 - [Validator Key Management](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/node-infrastructure-run-a-validator-onboarding-and-offboarding-key-management.md): Learn how to generate and manage validator keys, including session keys for consensus participation and node keys for maintaining a stable network identity.
 - [Set Up a Validator](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/node-infrastructure-run-a-validator-onboarding-and-offboarding-set-up-validator.md): Set up a Polkadot validator node to secure the network and earn staking rewards. Follow this step-by-step guide to install, configure, and manage your node.
 - [Start Validating](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/node-infrastructure-run-a-validator-onboarding-and-offboarding-start-validating.md): Learn how to start validating on Polkadot by choosing a network, syncing your node, bonding DOT tokens, and activating your validator.
@@ -106,6 +109,7 @@ Docs: Infrastructure
 - [Validator Requirements](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/node-infrastructure-run-a-validator-requirements.md): Explore the technical and system requirements for running a Polkadot validator, including setup, hardware, staking prerequisites, and security best practices.
 - [Offenses and Slashes](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/node-infrastructure-run-a-validator-staking-mechanics-offenses-and-slashes.md): Learn about how Polkadot discourages validator misconduct via an offenses and slashing system, including details on offenses and their consequences.
 - [Rewards Payout](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/node-infrastructure-run-a-validator-staking-mechanics-rewards.md): Learn how validator rewards work on the network, including era points, payout distribution, running multiple validators, and nominator payments.
+- [Node Infrastructure](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/node-infrastructure.md): From running RPC endpoints to producing parachain blocks or validating the relay chain, this guide explains your options and how to begin.
 
 Docs: Tooling
 - [Install Polkadot SDK](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/parachains-install-polkadot-sdk.md): Install all required Polkadot SDK dependencies, set up the SDK itself, and verify that it runs correctly on your machine.

@@ -1082,8 +1082,8 @@ PolkaVM differs from the EVM in two key ways that make it faster, more hardware-
 
 Page Title: General Management
 
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/nodes-and-validators-run-a-validator-operational-tasks-general-management.md
-- Canonical (HTML): https://docs.polkadot.com/nodes-and-validators/run-a-validator/operational-tasks/general-management/
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/node-infrastructure-run-a-validator-operational-tasks-general-management.md
+- Canonical (HTML): https://docs.polkadot.com/node-infrastructure/run-a-validator/operational-tasks/general-management/
 - Summary: Optimize your Polkadot validator setup with advanced configuration techniques. Learn how to boost performance, enhance security, and ensure seamless operations.
 
 # General Management
@@ -1472,28 +1472,28 @@ To configure Grafana, take these steps:
         sudo systemctl restart grafana-server
         ```
 
-![Grafana login screen](/images/nodes-and-validators/run-a-validator/operational-tasks/general-management/general-management-01.webp)
+![Grafana login screen](/images/node-infrastructure/run-a-validator/operational-tasks/general-management/general-management-01.webp)
 
 To visualize node metrics, follow these steps:
 
 1. Select the gear icon to access **Data Sources** settings.
 2. Select **Add data source** to define the data source.
 
-    ![Select Prometheus](/images/nodes-and-validators/run-a-validator/operational-tasks/general-management/general-management-02.webp)
+    ![Select Prometheus](/images/node-infrastructure/run-a-validator/operational-tasks/general-management/general-management-02.webp)
 
 3. Select **Prometheus**.
 
-    ![Save and test](/images/nodes-and-validators/run-a-validator/operational-tasks/general-management/general-management-03.webp)
+    ![Save and test](/images/node-infrastructure/run-a-validator/operational-tasks/general-management/general-management-03.webp)
 
 4. Enter `http://localhost:9090` in the **URL** field and click **Save & Test**. If **"Data source is working"** appears, your connection is configured correctly.
 
-    ![Import dashboard](/images/nodes-and-validators/run-a-validator/operational-tasks/general-management/general-management-04.webp)
+    ![Import dashboard](/images/node-infrastructure/run-a-validator/operational-tasks/general-management/general-management-04.webp)
 
 5. Select **Import** from the left menu, choose **Prometheus** from the dropdown, and click **Import**.
 
 6. Start your Polkadot node by running `./polkadot`. You should now be able to monitor node performance, block height, network traffic, and tasks tasks on the Grafana dashboard.
 
-    ![Live dashboard](/images/nodes-and-validators/run-a-validator/operational-tasks/general-management/general-management-05.webp)
+    ![Live dashboard](/images/node-infrastructure/run-a-validator/operational-tasks/general-management/general-management-05.webp)
 
 The [Grafana dashboards](https://grafana.com/grafana/dashboards){target=\_blank} page features user created dashboards made available for public use. For an example, see the [Substrate Node Metrics](https://grafana.com/grafana/dashboards/21715-substrate-node-metrics/){target=\_blank} dashboard.
 
@@ -1737,13 +1737,13 @@ Validators in Polkadot's Proof of Stake (PoS) network play a critical role in ma
 
 ### Key Management
 
-Though they don't transfer funds, session keys are essential for validators as they sign messages related to consensus and parachains. Securing session keys is crucial as allowing them to be exploited or used across multiple nodes can lead to a loss of staked funds via [slashing](/nodes-and-validators/run-a-validator/staking-mechanics/offenses-and-slashes/){target=\_blank}.
+Though they don't transfer funds, session keys are essential for validators as they sign messages related to consensus and parachains. Securing session keys is crucial as allowing them to be exploited or used across multiple nodes can lead to a loss of staked funds via [slashing](/node-infrastructure/run-a-validator/staking-mechanics/offenses-and-slashes/){target=\_blank}.
 
 Given the current limitations in high-availability setups and the risks associated with double-signing, it’s recommended to run only a single validator instance. Keys should be securely managed, and processes automated to minimize human error.
 
 There are two approaches for generating session keys:
 
-- **Generate and store in node**: Using the `author.rotateKeys` RPC call. For most users, generating keys directly within the client is recommended. You must submit a session certificate from your staking proxy to register new keys. See the [How to Validate](/nodes-and-validators/run-a-validator/onboarding-and-offboarding/set-up-validator/){target=\_blank} guide for instructions on setting keys.
+- **Generate and store in node**: Using the `author.rotateKeys` RPC call. For most users, generating keys directly within the client is recommended. You must submit a session certificate from your staking proxy to register new keys. See the [How to Validate](/node-infrastructure/run-a-validator/onboarding-and-offboarding/set-up-validator/){target=\_blank} guide for instructions on setting keys.
 
 - **Generate outside node and insert**: Using the `author.setKeys` RPC call. This flexibility accommodates advanced security setups and should only be used by experienced validator operators.
 
@@ -3414,10 +3414,97 @@ If an error occurs, the response will include an error object:
 
 ---
 
+Page Title: Node Infrastructure
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/node-infrastructure.md
+- Canonical (HTML): https://docs.polkadot.com/node-infrastructure/
+- Summary: From running RPC endpoints to producing parachain blocks or validating the relay chain, this guide explains your options and how to begin.
+
+# Node Infrastructure Overview
+
+## Introduction
+
+The Polkadot network relies on various types of nodes to maintain security, provide data access, and produce blocks. This section covers everything you need to know about running infrastructure for the Polkadot ecosystem.
+
+Whether you want to provide RPC endpoints for applications, produce blocks for a parachain, or secure the relay chain as a validator, this guide will help you understand your options and get started.
+
+## Node Types
+
+### RPC Nodes
+
+RPC nodes provide API access to blockchain data without participating in consensus. They are essential infrastructure for:
+
+- **Applications and dApps**: Query blockchain state and submit transactions.
+- **Block explorers**: Index and display blockchain data.
+- **Wallets**: Check balances and broadcast transactions.
+- **Development**: Test and debug applications.
+
+RPC nodes can be run for both the relay chain and parachains, with varying levels of data retention:
+
+- **Pruned nodes**: Keep recent state and a limited number of finalized blocks. Suitable for most applications that only need the current state and recent history. More efficient in terms of storage and sync time.
+- **Archive nodes**: Maintain complete historical state and all blocks since genesis. Required for block explorers, analytics platforms, or applications that need to query historical data at any point in time.
+
+**Transaction Broadcasting**: RPC nodes play a crucial role in transaction submission and propagation. When a client submits a transaction via RPC methods like `author_submitExtrinsic`, the node validates the transaction format, adds it to its local transaction pool, and broadcasts it across the P2P network. Block producers (collators or validators) then pick up these transactions from their pools for inclusion in blocks. This makes RPC nodes the primary gateway for users and applications to interact with the blockchain.
+
+### Collators
+
+Collators are block producers for parachains. They perform critical functions:
+
+- **Collect transactions**: Aggregate user transactions into blocks.
+- **Produce blocks**: Create parachain block candidates.
+- **Generate and package PoV**: Generate the Proof-of-Validity containing the state transition proof and necessary witness data for validation.
+- **Submit to validators**: Send block candidates and PoVs to relay chain validators.
+
+Unlike validators, collators do not provide security guarantees—that responsibility lies with the relay chain validators. However, collators are essential for parachain liveness and censorship resistance.
+
+### Validators
+
+Validators secure the Polkadot relay chain through [Nominated Proof of Stake (NPoS)](https://wiki.polkadot.network/docs/learn-staking){target=\_blank}. They:
+
+- **Validate blocks**: Verify parachain blocks and relay chain transactions.
+- **Participate in consensus**: Run [BABE](https://wiki.polkadot.network/docs/learn-consensus#babe-block-production){target=\_blank} and [GRANDPA](https://wiki.polkadot.network/docs/learn-consensus#grandpa-finality-gadget){target=\_blank} protocols.
+- **Earn rewards**: Receive staking rewards for honest behavior.
+- **Risk slashing**: Face penalties for misbehavior or downtime.
+
+Running a validator requires significant technical expertise, reliable infrastructure, and a stake of DOT tokens.
+
+## Next Steps
+
+<div class="grid cards" markdown>
+
+-   **Run RPC Nodes**
+
+    ---
+
+    Provide API access for applications, explorers, and wallets.
+
+    [:octicons-arrow-right-24: Run a Node](/node-infrastructure/run-a-node/polkadot-hub-rpc/)
+
+-   **Run a Collator**
+
+    ---
+
+    Produce blocks for system parachains or your own parachain.
+
+    [:octicons-arrow-right-24: Run a Collator](/node-infrastructure/run-a-collator/)
+
+-   **Run a Validator**
+
+    ---
+
+    Secure the relay chain and earn staking rewards.
+
+    [:octicons-arrow-right-24: Run a Validator](/node-infrastructure/run-a-validator/requirements/)
+
+</div>
+
+
+---
+
 Page Title: Offenses and Slashes
 
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/nodes-and-validators-run-a-validator-staking-mechanics-offenses-and-slashes.md
-- Canonical (HTML): https://docs.polkadot.com/nodes-and-validators/run-a-validator/staking-mechanics/offenses-and-slashes/
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/node-infrastructure-run-a-validator-staking-mechanics-offenses-and-slashes.md
+- Canonical (HTML): https://docs.polkadot.com/node-infrastructure/run-a-validator/staking-mechanics/offenses-and-slashes/
 - Summary: Learn about how Polkadot discourages validator misconduct via an offenses and slashing system, including details on offenses and their consequences.
 
 # Offenses and Slashes
@@ -3726,8 +3813,8 @@ This section covers the most common customization patterns you'll encounter:
 
 Page Title: Pause Validating
 
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/nodes-and-validators-run-a-validator-operational-tasks-pause-validating.md
-- Canonical (HTML): https://docs.polkadot.com/nodes-and-validators/run-a-validator/operational-tasks/pause-validating/
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/node-infrastructure-run-a-validator-operational-tasks-pause-validating.md
+- Canonical (HTML): https://docs.polkadot.com/node-infrastructure/run-a-validator/operational-tasks/pause-validating/
 - Summary: Learn how to temporarily pause staking activity in Polkadot using the chill extrinsic, with guidance for validators and nominators.
 
 # Pause Validating
@@ -3775,8 +3862,8 @@ This control mechanism included a `ChillThreshold`, which was structured to defi
 
 Page Title: Rewards Payout
 
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/nodes-and-validators-run-a-validator-staking-mechanics-rewards.md
-- Canonical (HTML): https://docs.polkadot.com/nodes-and-validators/run-a-validator/staking-mechanics/rewards/
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/node-infrastructure-run-a-validator-staking-mechanics-rewards.md
+- Canonical (HTML): https://docs.polkadot.com/node-infrastructure/run-a-validator/staking-mechanics/rewards/
 - Summary: Learn how validator rewards work on the network, including era points, payout distribution, running multiple validators, and nominator payments.
 
 # Rewards Payout
@@ -3981,10 +4068,1631 @@ Bob holds a smaller percentage of their node's total stake, making their stake r
 
 ---
 
+Page Title: Run a Block-Producing Collator
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/node-infrastructure-run-a-collator.md
+- Canonical (HTML): https://docs.polkadot.com/node-infrastructure/run-a-collator/
+- Summary: Learn how to set up and run a block-producing collator for Polkadot system parachains, including registration and session key management.
+
+# Run a Block-Producing Collator
+
+## Introduction
+
+Block-producing collators are the backbone of system parachain operations. Unlike RPC or archive nodes, which maintain state, collators actively produce blocks and submit them to relay chain validators for inclusion. They ensure network liveness, censorship resistance, and cross-chain message processing.
+
+Collators maintain fully synced relay chain and parachain nodes, aggregate transactions into blocks, create parachain block candidates, generate state transition proofs (Proof-of-Validity), and send block candidates to relay chain validators. They also enable cross-chain message handling via XCM. While critical for liveness, collators do not secure the network—security is provided by relay chain validators through the [ELVES protocol](https://wiki.polkadot.com/learn/learn-parachains-protocol/){target=\_blank}.
+
+This guide explains how to set up a collator for Polkadot system parachains, covering all key requirements, setting up and registering session keys, and meeting governance approval or invulnerables-list criteria (required for system parachains; non-system parachains may be more permissionless).
+
+## Prerequisites
+
+### Hardware Requirements
+
+Block-producing collators require robust hardware for reliable operation, including the following:
+
+- **CPU**: 4+ cores (8+ cores recommended for optimal performance)
+- **Memory**: 32 GB RAM minimum (64 GB recommended)
+- **Storage**:
+    - 200+ GB NVMe SSD (with pruning enabled for both parachain and relay chain)
+    - Fast disk I/O is critical for block production performance
+- **Network**:
+    - Public IP address
+    - 100+ Mbps connection; a stable connection is critical
+    - Open ports:
+        - **30333**: Parachain P2P
+        - **30334**: Relay chain P2P
+
+!!! warning "Uptime is critical"
+    Consider redundancy and monitoring to maintain block production reliability.
+
+### Software Requirements
+
+Required software:
+
+- **Operating system**: Ubuntu 22.04 LTS (recommended) or similar Linux distribution
+- **[Docker](https://www.docker.com/get-started/){target=\_blank}**: Required for obtaining binaries and running containers
+
+### Account Requirements
+
+??? interface "Need to create an account?"
+
+    You can generate an account by taking the following steps:
+
+    1. Generate an account key with the `sr25519` scheme using the following command:
+
+        ```bash
+        docker run -it parity/subkey:latest generate --scheme sr25519
+        ```
+
+        The output will be similar to the following:
+
+        <div class="termynal" data-termynal>
+        <span data-ty="input"><span class="file-path"></span>docker run -it parity/subkey:latest generate --scheme sr25519</span>
+        <span data-ty><pre>Secret phrase:       embody rail hour peanut .... badge syrup luggage canvas
+            Network ID:        substrate
+            Secret seed:       0x6498dd3416c491406e2c8283c76760ce4ca018478888b42315e7718778f2c2e1
+            Public key (hex):  0x2202210357e49390d4f8d868da983940fe220a0a0e00bc6feaeda462aa031810
+            Account ID:        0x2202210357e49390d4f8d868da983940fe220a0a0e00bc6feaeda462aa031810
+            Public key (SS58): 5CqJ7n72GvvF5ZzUT2HMj83KyDje4n8sXR8kuiK8HWtfDktF
+            SS58 Address:      5CqJ7n72GvvF5ZzUT2HMj83KyDje4n8sXR8kuiK8HWtfDktF
+        </pre></span>
+        </div>
+
+    2. Save the following items displayed in the output:
+        - Secret phrase (seed) - Keep this secure!
+        - Public key (hex)
+        - Account ID
+        - SS58 Address
+
+        !!! warning
+        
+            Store the secret phrase securely. Never share it. Consider using a hardware wallet for production collators.
+
+Your account must meet the following requirements:
+
+- **Funded account**: For on-chain transactions and potential bonding
+
+You will also need the following, which are generated or configured later in this guide:
+
+- **Session keys**: For collator identification (generated after node setup)
+- **Node key**: For stable P2P peer ID (recommended)
+
+## Install Dependencies
+
+This guide provides two deployment options. Select the option that best fits your needs:
+
+- **Docker**: Best for simpler setup and maintenance
+- **systemd**: Best for production environments requiring more control
+
+=== "Docker"
+
+    1. Pull the Polkadot Parachain Docker image using the latest stable tag on [Docker Hub](https://hub.docker.com/r/parity/polkadot-parachain/tags){target=\_blank}:
+
+        ```bash
+        docker pull parity/polkadot-parachain:stable2509-2
+        ```
+
+    2. Verify the installation:
+
+        ```bash
+        docker run --rm parity/polkadot-parachain:stable2509-2 --version
+        ```
+
+=== "systemd"
+
+    1. Download the `polkadot-parachain` binary using the latest stable [Polkadot SDK release](https://github.com/paritytech/polkadot-sdk/releases){target=\_blank}:
+
+        ```bash
+        wget https://github.com/paritytech/polkadot-sdk/releases/download/polkadot-stable2509-2/polkadot-parachain
+        ```
+
+    2. Make it executable and move it to your system path:
+        
+        ```bash
+        chmod +x polkadot-parachain
+        sudo mv polkadot-parachain /usr/local/bin/
+        sudo chown root:root /usr/local/bin/polkadot-parachain
+        ```
+
+    3. Verify installation:
+
+        ```bash
+        polkadot-parachain --version
+        ```
+
+## Generate Node Key
+
+Generating a stable node key enables a consistent peer ID across the network. Follow these steps to generate a node key:
+
+1. Create a directory for node data:
+
+    ```bash
+    sudo mkdir -p /var/lib/polkadot-collator
+    ```
+
+2. Generate your node key using Docker:
+
+    ```bash
+    docker run -it parity/subkey:latest generate-node-key > /var/lib/polkadot-collator/node.key
+    ```
+
+3. Locate your peer ID in the displayed output. It will be similar to the following example:
+
+    ```bash
+    12D3KooWExcVYu7Mvjd4kxPVLwN2ZPnZ5NyLZ5ft477wqzfP2q6E
+    ```
+
+Be sure to save the peer ID for future reference.
+
+## Obtain Chain Specification
+
+Download the chain specification for your target system parachain using one of the following options:
+
+=== "Download from Chainspec Collection (Recommended)"
+
+    Follow these steps to download your specification from the [Chainspec Collection](https://paritytech.github.io/chainspecs/){target=\_blank}:
+
+    1. Find your target system parachain under the [**List of Chainspecs**](https://paritytech.github.io/chainspecs/#list-of-chainspecs){target=\_blank}.
+    2. Download the chain specification JSON file.
+    3. Save it as `chain-spec.json`.
+
+=== "Build Chain Spec from Runtime"
+
+    Follow these steps to build a chainspec from the runtime:
+
+    1. Clone the runtimes repository and navigate into it:
+
+        ```bash
+        git clone https://github.com/polkadot-fellows/runtimes.git
+        cd runtimes
+        ```
+
+    2. Build the desired runtime. Use the following command for Polkadot Hub:
+
+        ```bash
+        cargo build --release -p asset-hub-polkadot-runtime
+        ```
+
+    3. Install the `chain-spec-builder` dependency:
+
+        ```bash
+        cargo install --locked staging-chain-spec-builder@14.0.0
+        ```
+
+    4. Finally, generate the chain spec:
+
+        ```bash
+        chain-spec-builder create \
+            --relay-chain polkadot \
+            --para-id 1000 \
+            --runtime target/release/wbuild/asset-hub-polkadot-runtime/asset_hub_polkadot_runtime.compact.compressed.wasm \
+            named-preset production > chain-spec.json
+        ```
+
+        ??? tip "System Parachain Para IDs"
+
+            - **Polkadot Hub**: 1000
+            - **Bridge Hub**: 1002
+            - **People Chain**: 1004
+            - **Coretime Chain**: 1005
+
+## Run the Collator
+
+Using your preferred deployment method, take the following steps to set up and run your collator:
+
+=== "Docker"
+
+    1. Create a directory for collator data and copy the chain spec:
+
+        ```bash
+        mkdir -p collator-data
+        cp chain-spec.json collator-data/
+        cp /var/lib/polkadot-collator/node.key collator-data/
+        ```
+
+    2. Launch the collator using Docker:
+
+        ```bash
+        docker run -d --name polkadot-collator --restart unless-stopped \
+          -p 30333:30333 \
+          -p 30334:30334 \
+          -p 9944:9944 \
+          -p 9615:9615 \
+          -v $(pwd)/collator-data:/data \
+          -v $(pwd)/chain-spec.json:/chain-spec.json \
+          parity/polkadot-parachain:stable2509-2 \
+          --collator \
+          --chain=/chain-spec.json \
+          --base-path=/data \
+          --port=30333 \
+          --rpc-port=9944 \
+          --prometheus-port=9615 \
+          --prometheus-external \
+          --node-key-file=/data/node.key \
+          --name="INSERT_YOUR_COLLATOR_NAME" \
+          --blocks-pruning=256 \
+          --state-pruning=256 \
+          --database=paritydb \
+          -- \
+          --chain=polkadot \
+          --port=30334 \
+          --sync=fast \
+          --blocks-pruning=256 \
+          --state-pruning=256 \
+          --database=paritydb \
+          --pool-limit=0 \
+          --rpc-port=0
+        ```
+
+    3. View logs to monitor sync progress:
+
+        ```bash
+        docker logs -f polkadot-collator
+        ```
+
+=== "systemd"
+
+    1. Create a dedicated user:
+
+        ```bash
+        sudo useradd -r -s /bin/bash polkadot
+        ```
+
+    2. Copy your chain spec to the directory:
+
+        ```bash
+        sudo cp chain-spec.json /var/lib/polkadot-collator/
+        ```
+
+    3. Set permissions:
+
+        ```bash
+        sudo chown -R polkadot:polkadot /var/lib/polkadot-collator
+        ```
+
+    4. Create a systemd service file:
+
+        ```bash
+        sudo nano /etc/systemd/system/polkadot-collator.service
+        ```
+
+    5. Add the following configuration:
+
+        ```ini title="systemd/system/polkadot-collator.service"
+        [Unit]
+        Description=Polkadot System Parachain Collator
+        After=network.target
+
+        [Service]
+        Type=simple
+        User=polkadot
+        Group=polkadot
+        WorkingDirectory=/var/lib/polkadot-collator
+
+        ExecStart=/usr/local/bin/polkadot-parachain \
+          --collator \
+          --chain=/var/lib/polkadot-collator/chain-spec.json \
+          --base-path=/var/lib/polkadot-collator \
+          --port=30333 \
+          --rpc-port=9944 \
+          --prometheus-port=9615 \
+          --node-key-file=/var/lib/polkadot-collator/node.key \
+          --name="INSERT_YOUR_COLLATOR_NAME" \
+          --blocks-pruning=256 \
+          --state-pruning=256 \
+          --database=paritydb \
+          -- \
+          --chain=polkadot \
+          --port=30334 \
+          --sync=fast \
+          --blocks-pruning=256 \
+          --state-pruning=256 \
+          --database=paritydb \
+          --pool-limit=0 \
+          --rpc-port=0
+
+        Restart=always
+        RestartSec=10
+        LimitNOFILE=65536
+
+        [Install]
+        WantedBy=multi-user.target
+        ```
+
+    6. Start the service:
+
+        ```bash
+        sudo systemctl daemon-reload
+        sudo systemctl enable polkadot-collator
+        sudo systemctl start polkadot-collator
+        ```
+
+    7. Check the status:
+
+        ```bash
+        sudo systemctl status polkadot-collator
+        ```
+
+    8. View logs:
+
+        ```bash
+        sudo journalctl -u polkadot-collator -f
+        ```
+
+??? interface "Configuration Arguments"
+
+    - **`--collator`**: Enables block production mode.
+    - **`--node-key-file`**: Uses the generated node key for stable peer ID.
+    - **`--name`**: Your collator name (visible in [telemetry](https://telemetry.polkadot.io/){target=\_blank}).
+    - **`--blocks-pruning=256`**: Keeps the last 256 blocks.
+    - **`--state-pruning=256`**: Keeps the state history of the last 256 blocks.
+    - **`--database=paritydb`**: Uses ParityDB for better performance.
+    - **`--sync=fast`**: Fast sync mode for the relay chain.
+    - **`--pool-limit=0`**: Disables transaction pool on relay chain (not needed for collators).
+    - **`--rpc-port=0` (relay chain)**: Disables RPC on the embedded relay chain node (not needed for collators).
+
+Your collator must sync both the relay chain and parachain before producing blocks. The relay chain uses fast sync to speed up synchronization. Overall sync time depends on:
+
+- Network bandwidth
+- Disk I/O speed
+- Current chain size
+
+!!! warning
+
+    Do not proceed with registration until both chains are fully synced. Monitor sync progress using the log viewing commands in the [Log Management](#commands-for-log-management) section.
+
+## Generate Session Keys
+
+Session keys are cryptographic keys used by your collator node to sign authorship information when producing blocks. They uniquely identify your collator on the network and must be registered on-chain before your collator can participate in block production.
+
+Once your node is fully synced, use the following command to generate session keys via RPC:
+
+```bash
+curl -H "Content-Type: application/json" \
+  -d '{"id":1, "jsonrpc":"2.0", "method": "author_rotateKeys", "params":[]}' \
+  http://localhost:9944
+```
+
+This command returns session keys as a hex string in the terminal. You must save these session keys as you'll need them for on-chain registration. As session keys are stored in the node's database, if you wipe the database, you'll also need to generate new keys.
+
+## Register Collator for Selection
+
+System parachains use different mechanisms for selecting collators. A quick breakdown of each mechanism is as follows:
+
+| Method                   | How it Works                                                                                                                                                                                              | Requirements                                                     |
+|--------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------|
+| **Invulnerables list**   | Fixed list defined through governance. Most common for system parachains.                                                                                                                                 | Permissioned via governance                                      |
+| **On-chain selection**   | Runtime automatically selects eligible collators. Some parachains use [pallet-collator-selection](https://paritytech.github.io/polkadot-sdk/master/pallet_collator_selection/index.html){target=\_blank}. | Semi-permissionless (criteria-based; may require bonding tokens) |
+| **Fellowship decisions** | Technical fellowship may manage some system parachain collators.                                                                                                                                          | Permissioned via Fellowship                                      |
+
+### Registration Process
+
+Collator registration authorizes your node to produce blocks on the network. The parachain's collator selection mechanism uses this on-chain registration to determine which nodes are eligible to author blocks.
+
+The registration process varies by system parachain. General steps include the following:
+
+1. Check the existing collators for your target parachain:
+    1. Navigate to Polkadot.js Apps and connect to your system parachain.
+    2. Locate **Developer > Chain State**.
+    3. Query **`collatorSelection.invulnerables()`**.
+
+    ![](/images/node-infrastructure/run-a-collator/run-a-collator-01.webp)
+
+2. Prepare a governance proposal for invulnerables-based selection, including the following information:
+
+    - **Draft proposal**: Explain why you should be added as a collator.
+    - **Technical details**: Provide your session keys and account ID.
+    - **Infrastructure**: Describe your hardware and monitoring setup.
+    - **Experience**: Detail your relevant experience.
+
+    Submit the proposal to the relevant governance channels.
+
+3. Once approved (or if using on-chain selection), follow these steps to register session keys using Polkadot.js Apps:
+
+    1. Locate **Developer > Extrinsics**.
+    2. Select your account.
+    3. Choose the **`session.setKeys`** extrinsic.
+    4. Enter the following information:
+        - **`keys`**: Your session keys (from `author_rotateKeys`)
+        - **`proof`**: 0x00 (typically)
+    5. Click **Submit Transaction** and sign the transaction.
+    
+    ![](/images/node-infrastructure/run-a-collator/run-a-collator-02.webp)
+
+4. (Optional - primarily for non-system parachains) If the parachain uses on-chain bonding for collator selection, register as a candidate using Polkadot.js Apps:
+
+    !!! note
+        Most system parachains use invulnerables lists exclusively and do not require this step. Skip to step 5 if you're running a collator for a system parachain.
+
+    1. Locate **Developer > Extrinsics**.
+    2. Select your account.
+    3. Select `collatorSelection.registerAsCandidate`.
+    4. Click **Submit Transaction** and sign the transaction. The required bond amount will be automatically reserved from your account based on the pallet's configured `CandidacyBond`.
+
+    ![](/images/node-infrastructure/run-a-collator/run-a-collator-03.webp)
+
+5. For system parachains using invulnerables lists, await governance approval for your proposal. Once approved, your collator is added to the invulnerables list and will begin producing blocks in the next session or era. 
+
+6. Verify your collator is active by monitoring logs for block production messages like "Prepared block for proposing" and "Imported #123". See the [Log Management](#commands-for-log-management) section for commands for log viewing.
+
+## Commands for Node Management
+
+Use the following commands to manage your node:
+
+=== "Docker"
+
+    - **Stop container**:
+
+        ```bash
+        docker stop polkadot-collator
+        ```
+
+    - **Start container**:
+
+        ```bash
+        docker start polkadot-collator
+        ```
+
+    - **Remove container**:
+
+        ```bash
+        docker rm polkadot-collator
+        ```
+
+=== "systemd"
+
+    - **Check status**:
+
+        ```bash
+        sudo systemctl status polkadot-collator
+        ```
+
+    - **Stop service**:
+
+        ```bash
+        sudo systemctl stop polkadot-collator
+        ```
+
+    - **Enable service**:
+
+        ```bash
+        sudo systemctl enable polkadot-collator
+        ```
+
+    - **Start service**:
+
+        ```bash
+        sudo systemctl start polkadot-collator
+        ```
+
+## Commands for Log Management
+
+Efficient log management is essential to ensure collator performance and uptime. Use the following commands to help you manage logs to monitor and maintain your collator:
+
+=== "Docker"
+
+    - **View logs**:
+
+        ```bash
+        docker logs -f polkadot-collator
+        ```
+
+    - **View recent logs (last 100 lines)**:
+
+        ```bash
+        docker logs --tail 100 polkadot-collator
+        ```
+
+    - **Filter for errors**:
+
+        ```bash
+        docker logs polkadot-collator 2>&1 | grep -i error
+        ```
+
+    - **Filter for block production**:
+
+        ```bash
+        docker logs polkadot-collator 2>&1 | grep -i "imported"
+        ```
+
+=== "systemd"
+
+    - **View recent logs**:
+
+        ```bash
+        sudo journalctl -u polkadot-collator -n 100
+        ```
+
+    - **Follow logs in real-time**:
+
+        ```bash
+        sudo journalctl -u polkadot-collator -f
+        ```
+
+    - **Filter for errors**:
+
+        ```bash
+        sudo journalctl -u polkadot-collator | grep -i error
+        ```
+
+    - **Filter for block production**:
+
+        ```bash
+        sudo journalctl -u polkadot-collator | grep -i "imported"
+        ```
+
+## Database Maintenance
+
+Check database size periodically using the commands for your selected setup:
+
+=== "Docker"
+
+    ```bash
+    # Replace with your mounted data directory path
+    du -sh ./collator-data
+    ```
+
+=== "systemd"
+
+    ```bash
+    du -sh /var/lib/polkadot-collator
+    ```
+
+The collator node automatically prunes based on configuration.
+
+## Updates and Upgrades
+
+Updates or upgrades can happen on either the runtime or client. Runtime upgrades are automatically applied via on-chain governance and do not require any manual action on your part. Client upgrades do require a manual binary update process performed via terminal commands as follows:
+
+=== "Docker"
+
+    1. Stop the service:
+
+        ```bash
+        sudo systemctl stop polkadot-collator
+        ```
+
+    2. Backup data (recommended):
+
+        ```bash
+        sudo cp -r /var/lib/polkadot-collator /var/lib/polkadot-collator.backup
+        ```
+
+    3. Pull the new Docker image:
+
+        ```bash
+        docker pull parity/polkadot-parachain:<NEW_TAG>
+        ```
+
+    4. Update the image tag in your systemd service file:
+
+        ```bash
+        sudo nano /etc/systemd/system/polkadot-collator.service
+        ```
+
+    5. Reload systemd and restart the service:
+
+        ```bash
+        sudo systemctl daemon-reload
+        sudo systemctl start polkadot-collator
+        ```
+
+    6. Verify the service is running:
+
+        ```bash
+        sudo systemctl status polkadot-collator
+        ```
+
+=== "systemd"
+
+    1. Stop the service:
+
+        ```bash
+        sudo systemctl stop polkadot-collator
+        ```
+
+    2. Backup data (recommended):
+
+        ```bash
+        sudo cp -r /var/lib/polkadot-collator /var/lib/polkadot-collator.backup
+        ```
+
+    3. Download the new binary from [GitHub releases](https://github.com/paritytech/polkadot-sdk/releases){target=\_blank}:
+
+        ```bash
+        wget https://github.com/paritytech/polkadot-sdk/releases/download/INSERT_NEW_VERSION/polkadot-parachain
+        chmod +x polkadot-parachain
+        sudo mv polkadot-parachain /usr/local/bin/
+        ```
+
+    4. Verify `polkadot-parachain` version to confirm successful update:
+
+        ```bash
+        polkadot-parachain --version
+        ```
+
+    5. Restart the service:
+
+        ```bash
+        sudo systemctl start polkadot-collator
+        ```
+
+    6. Verify the service is running:
+
+        ```bash
+        sudo systemctl status polkadot-collator
+        ```
+
+## Conclusion
+
+Running a collator node is essential for parachain operation and network security. By following this guide, you have set up a production-ready collator that:
+
+- Produces blocks for your parachain and maintains network consensus.
+- Implements comprehensive security measures to protect keys and operations.
+- Supports robust monitoring and alerting for reliable performance.
+- Follows best practices for both Docker and systemd deployments.
+
+As a collator operator, you play a vital role in your parachain's infrastructure. Regular maintenance, security updates, and monitoring will ensure your collator continues to perform reliably. Stay engaged with your parachain community and keep up with updates to maintain optimal performance and security.
+
+
+---
+
+Page Title: Run a Parachain RPC Node
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/node-infrastructure-run-a-node-parachain-rpc.md
+- Canonical (HTML): https://docs.polkadot.com/node-infrastructure/run-a-node/parachain-rpc/
+- Summary: Follow this guide to understand hardware and software requirements and how to set up and run an RPC node for any parachain, including system parachains.
+
+# Run a Parachain RPC Node
+
+## Introduction
+
+A parachain RPC node provides direct access to a specific parachain on the Polkadot network, enabling developers and applications to interact with its assets, governance, cross-chain messages, and more. Running your own node also supports essential infrastructure tasks, such as block indexing and compatibility with Polkadot SDK tools.
+
+Through the parachain RPC (WebSocket port 9944, HTTP port 9933), your node acts as the bridge between the parachain and applications. This page walks through setting up a node from scratch, covering hardware requirements and deployment options using Docker or systemd.
+
+## Prerequisites
+
+### Hardware Requirements
+
+RPC nodes serving production traffic require robust hardware:
+
+- **CPU**: 8+ cores; 16+ cores for high traffic
+- **Memory**: 64 GB RAM minimum; 128 GB recommended for high traffic
+- **Storage**: Storage requirements vary by parachain. Fast NVMe I/O is critical for RPC query performance
+    - **System parachains**: [Snapshots](https://snapshots.polkadot.io/){target=\_blank} _may_ be available
+        - **Archive node (complete history)**: Using snapshots, expected storage requirements (including ~822 GB for the pruned relay chain) are:
+            - **Asset Hub**: ~1.2 TB
+            - **Bridge Hub**: ~1.1 TB
+            - **Collectives**: ~1 TB
+            - **People Chain**: ~900 GB
+            - **Coretime**: ~900 GB
+        - **Pruned node (recent state)**: ~200 GB total for both parachain and relay chain 
+    - **Non-system parachains**: Consult the parachain team or documentation, then add ~822 GB for the pruned relay chain
+- **Network**:
+    - Public IP address
+    - Stable internet connection with sufficient bandwidth
+    - 1 Gbps connection for high traffic scenarios
+    - Consider DDoS protection and rate limiting for production deployments
+    - Open ports:
+        - **30333**: Parachain P2P
+        - **30334**: Relay chain P2P
+        - **9944**: Polkadot SDK WebSocket RPC
+        - **9933**: Polkadot SDK HTTP RPC
+
+!!! note
+    For development or low-traffic scenarios, you can reduce these requirements proportionally. Consider using a reverse proxy ([nginx](https://nginx.org/){target=\_blank}, [Caddy](https://caddyserver.com/){target=\_blank}) for production deployments.
+
+### Software Requirements
+
+Required software:
+
+- **Operating system**: Ubuntu 22.04 LTS (recommended) or similar Linux distribution
+- **[Docker](https://www.docker.com/get-started/){target=\_blank}**: Required for obtaining binaries and running containers
+- **[rclone](https://rclone.org/downloads/){target=\_blank}**: (Optional but recommended) Command-line program for managing files on cloud storage
+
+## Obtain the Chain Specification
+
+To run an RPC node for a parachain, you need its chain specification file. This JSON file defines the network parameters, genesis state, and bootnodes. The process for obtaining the chain spec may differ depending on whether you’re running a system parachain or a regular parachain.
+
+### System Parachains
+
+System parachain chain specs are available from multiple sources:
+
+- **[Chainspec Collection](https://paritytech.github.io/chainspecs/)**: (Recommended) Choose a file to download from the **List of Chainspecs** section.
+- **[Polkadot SDK repository](https://github.com/paritytech/polkadot-sdk){target=\_blank}**: Download directly from the Polkadot SDK repository:
+
+    ```bash
+    # Example for People Chain
+    curl -L https://raw.githubusercontent.com/paritytech/polkadot-sdk/master/cumulus/parachains/chain-specs/people-polkadot.json -o chain-spec.json
+    ```
+
+### Other Parachains
+
+For non-system parachains, check the parachain's documentation for official chain specification files.
+
+## Spin Up a Node
+
+Choose the deployment option that fits your project, and follow the steps in the appropriate tab to complete setup:
+
+- **Docker**: Best for simpler set up and maintenance
+- **systemd**: Best for production environments requiring more control
+
+This guide uses **People Chain** as an example. To set up a different parachain, replace the chain spec file, snapshot path, and chain name with the corresponding values for your target parachain.
+
+System parachain details:
+
+| System Parachain   | Para ID | Chain Spec File            | Snapshot Path                          |
+|--------------------|---------|----------------------------|----------------------------------------|
+| **Bridge Hub**     | 1002    | `bridge-hub-polkadot.json` | `polkadot-bridge-hub-paritydb-archive` |
+| **People Chain**   | 1004    | `people-polkadot.json`     | `polkadot-people-rocksdb-archive`      |
+| **Coretime Chain** | 1005    | `coretime-polkadot.json`   | `polkadot-coretime-rocksdb-archive`    |
+
+=== "Docker"
+
+    1. Download your parachain's chain specification as described in [Obtain the Chain Specification](#obtain-the-chain-specification).
+
+    2. (Optional but recommended) Download pre-synced [snapshots](https://snapshots.polkadot.io/){target=\_blank} to cut initial sync time from days to hours:
+
+        !!! note
+            Snapshots are available for system parachains and the Polkadot relay chain. For other parachains, check with the parachain team for snapshot availability or sync from genesis.
+
+        1. Create new directories:
+
+            ```bash
+            mkdir -p my-node-data/chains/people-polkadot/db
+            mkdir -p my-node-data/chains/polkadot/db
+            ```
+
+        2. Download and save the archive parachain snapshot:
+
+            ```bash
+            # Check https://snapshots.polkadot.io/ for the latest snapshot URL
+            export SNAPSHOT_URL_PARACHAIN="https://snapshots.polkadot.io/polkadot-people-rocksdb-archive/INSERT_LATEST"
+
+            rclone copyurl $SNAPSHOT_URL_PARACHAIN/files.txt files.txt
+            rclone copy --progress --transfers 20 \
+              --http-url $SNAPSHOT_URL_PARACHAIN \
+              --no-traverse --http-no-head --disable-http2 \
+              --inplace --no-gzip-encoding --size-only \
+              --retries 6 --retries-sleep 10s \
+              --files-from files.txt :http: my-node-data/chains/people-polkadot/db/
+
+            rm files.txt
+            ```
+
+            ??? interface "rclone parameters"
+
+                - **`--transfers 20`**: Uses 20 parallel transfers for faster download
+                - **`--retries 6`**: Automatically retries failed transfers up to 6 times
+                - **`--retries-sleep 10s`**: Waits 10 seconds between retry attempts
+                - **`--size-only`**: Only transfers if sizes differ (prevents unnecessary re-downloads)
+
+        3. Repeat the process for the pruned relay chain snapshot:
+
+            ```bash
+            # Check https://snapshots.polkadot.io/ for the latest snapshot URL
+            export SNAPSHOT_URL_RELAY="https://snapshots.polkadot.io/polkadot-rocksdb-prune/INSERT_LATEST"
+
+            rclone copyurl $SNAPSHOT_URL_RELAY/files.txt files.txt
+            rclone copy --progress --transfers 20 \
+              --http-url $SNAPSHOT_URL_RELAY \
+              --no-traverse --http-no-head --disable-http2 \
+              --inplace --no-gzip-encoding --size-only \
+              --retries 6 --retries-sleep 10s \
+              --files-from files.txt :http: my-node-data/chains/polkadot/db/
+
+            rm files.txt
+            ```
+
+    3. Launch the parachain node using the official [Parity Docker image](https://hub.docker.com/r/parity/polkadot-parachain){target=\_blank}:
+
+        === "Archive"
+
+            ```bash
+            docker run -d --name people-chain-rpc --restart unless-stopped \
+              -p 9944:9944 \
+              -p 9933:9933 \
+              -p 9615:9615 \
+              -p 30334:30334 \
+              -p 30333:30333 \
+              -v $(pwd)/people-polkadot.json:/people-polkadot.json \
+              -v $(pwd)/my-node-data:/data \
+              parity/polkadot-parachain:stable2509-2 \
+              --name=PeopleChainRPC \
+              --base-path=/data \
+              --chain=/people-polkadot.json \
+              --prometheus-external \
+              --prometheus-port 9615 \
+              --unsafe-rpc-external \
+              --rpc-port=9944 \
+              --rpc-cors=all \
+              --rpc-methods=safe \
+              --rpc-max-connections=1000 \
+              --state-pruning=archive \
+              --blocks-pruning=archive \
+              -- \
+              --base-path=/data \
+              --chain=polkadot \
+              --state-pruning=256 \
+              --blocks-pruning=256 \
+              --rpc-port=0
+            ```
+
+        === "Pruned"
+
+            ```bash
+            docker run -d --name people-chain-rpc --restart unless-stopped \
+              -p 9944:9944 \
+              -p 9933:9933 \
+              -p 9615:9615 \
+              -p 30334:30334 \
+              -p 30333:30333 \
+              -v $(pwd)/people-polkadot.json:/people-polkadot.json \
+              -v $(pwd)/my-node-data:/data \
+              parity/polkadot-parachain:stable2509-2 \
+              --name=PeopleChainRPC \
+              --base-path=/data \
+              --chain=/people-polkadot.json \
+              --prometheus-external \
+              --prometheus-port 9615 \
+              --unsafe-rpc-external \
+              --rpc-port=9944 \
+              --rpc-cors=all \
+              --rpc-methods=safe \
+              --rpc-max-connections=1000 \
+              --state-pruning=1000 \
+              --blocks-pruning=256 \
+              -- \
+              --base-path=/data \
+              --chain=polkadot \
+              --state-pruning=256 \
+              --blocks-pruning=256 \
+              --rpc-port=0
+            ```
+
+        !!! note
+            The `parity/polkadot-parachain` image works for system parachains and parachains built with standard Cumulus templates. For parachains with custom runtimes, check the parachain's documentation for their specific Docker image or binary.
+
+        Refer to the [Port Mappings](#port-mappings) and [Node Configuration Arguments](#node-configuration-arguments) sections for details on the command's configurations.
+
+=== "systemd"
+
+    1. Download the `polkadot-parachain` binary from the latest stable [Polkadot SDK release](https://github.com/paritytech/polkadot-sdk/releases){target=\_blank}:
+
+        ```bash
+        # Download the latest stable release (check releases page for current version)
+        wget https://github.com/paritytech/polkadot-sdk/releases/download/polkadot-stable2509-2/polkadot-parachain
+
+        # Make it executable and move to system path
+        chmod +x polkadot-parachain
+        sudo mv polkadot-parachain /usr/local/bin/
+
+        # Verify installation
+        polkadot-parachain --version
+        ```
+
+    2. Download your parachain's chain specification as described in [Obtain the Chain Specification](#obtain-the-chain-specification).
+
+    3. Create user and directory structures:
+
+        ```bash
+        # Create a dedicated user
+        sudo useradd -r -s /bin/bash polkadot
+        
+        # Create data directory
+        sudo mkdir -p /var/lib/people-chain-rpc
+
+        # Copy the chain spec to the directory
+        sudo cp asset-hub-polkadot.json /var/lib/people-chain-rpc/
+
+        # Set permissions
+        sudo chown -R polkadot:polkadot /var/lib/people-chain-rpc
+        ```
+
+    4. Create a systemd service file for the Polkadot SDK RPC node:
+
+        ```bash
+        sudo nano /etc/systemd/system/people-chain-rpc.service
+        ```
+
+    5. Open the new service file and add the configuration for either an archive (complete history) or pruned (recent state) node:
+
+        === "Archive"
+
+            ```ini
+            [Unit]
+            Description=People Chain RPC Node
+            After=network.target
+
+            [Service]
+            Type=simple
+            User=polkadot
+            Group=polkadot
+            WorkingDirectory=/var/lib/people-chain-rpc
+
+            ExecStart=/usr/local/bin/polkadot-parachain \
+              --name=PeopleChainRPC \
+              --chain=/var/lib/people-chain-rpc/people-polkadot.json \
+              --base-path=/var/lib/people-chain-rpc \
+              --port=30333 \
+              --rpc-port=9944 \
+              --rpc-external \
+              --rpc-cors=all \
+              --rpc-methods=safe \
+              --rpc-max-connections=1000 \
+              --prometheus-port=9615 \
+              --prometheus-external \
+              --state-pruning=archive \
+              --blocks-pruning=archive \
+              -- \
+              --chain=polkadot \
+              --base-path=/var/lib/people-chain-rpc \
+              --port=30334 \
+              --state-pruning=256 \
+              --blocks-pruning=256 \
+              --rpc-port=0
+
+            Restart=always
+            RestartSec=10
+            LimitNOFILE=65536
+
+            [Install]
+            WantedBy=multi-user.target
+            ```
+
+        === "Pruned"
+
+            ```ini
+            [Unit]
+            Description=People Chain RPC Node
+            After=network.target
+
+            [Service]
+            Type=simple
+            User=polkadot
+            Group=polkadot
+            WorkingDirectory=/var/lib/people-chain-rpc
+
+            ExecStart=/usr/local/bin/polkadot-parachain \
+              --name=PeopleChainRPC \
+              --chain=/var/lib/people-chain-rpc/people-polkadot.json \
+              --base-path=/var/lib/people-chain-rpc \
+              --port=30333 \
+              --rpc-port=9944 \
+              --rpc-external \
+              --rpc-cors=all \
+              --rpc-methods=safe \
+              --rpc-max-connections=1000 \
+              --prometheus-port=9615 \
+              --prometheus-external \
+              --state-pruning=1000 \
+              --blocks-pruning=256 \
+              -- \
+              --chain=polkadot \
+              --base-path=/var/lib/people-chain-rpc \
+              --port=30334 \
+              --state-pruning=256 \
+              --blocks-pruning=256 \
+              --rpc-port=0
+
+            Restart=always
+            RestartSec=10
+            LimitNOFILE=65536
+
+            [Install]
+            WantedBy=multi-user.target
+            ```
+
+        Refer to the [Port Mappings](#port-mappings) and [Node Configuration Arguments](#node-configuration-arguments) sections for details on the command's configurations.
+
+    6. Start the service:
+
+        ```bash
+        # Reload systemd
+        sudo systemctl daemon-reload
+
+        # Enable service to start on boot
+        sudo systemctl enable people-chain-rpc
+        
+        # Start the Polkadot SDK node:
+        sudo systemctl start people-chain-rpc
+        ```
+
+### Port Mappings
+
+- **`9944`**: Polkadot SDK RPC endpoint (WebSocket/HTTP)
+- **`9933`**: Polkadot SDK HTTP RPC endpoint
+- **`9615`**: Prometheus metrics endpoint
+- **`30333/30334`**: P2P networking ports
+
+### Node Configuration Parameters
+
+- **`--unsafe-rpc-external`**: Enables external RPC access. **This command should only be used in development or properly secured environments**. For production, use a reverse proxy with authentication.
+- **`--rpc-cors=all`**: Allows all origins for CORS.
+- **`--rpc-methods=safe`**: Only allows safe RPC methods.
+- **`--state-pruning`**: Archive keeps complete state history, pruned keeps last specified number of blocks.
+- **`--blocks-pruning`**: Archive keeps all blocks, pruned keeps last specified number of finalized blocks.
+- **`--prometheus-external`**: Exposes metrics externally.
+
+## Monitor Node Synchronization
+
+Monitor the node synchronization status:
+
+```bash
+curl -H "Content-Type: application/json" \
+-d '{"id":1, "jsonrpc":"2.0", "method": "system_syncState", "params":[]}' \
+http://localhost:9944
+```
+
+When synchronization is complete, `currentBlock` will be equal to `highestBlock`:
+
+<div class="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>curl -H "Content-Type: application/json" \
+  -d '{"id":1, "jsonrpc":"2.0", "method": "system_syncState", "params":[]}' \
+  http://localhost:9944</span>
+  <span data-ty><pre>{
+  "jsonrpc":"2.0",
+  "id":1,
+  "result":{
+    "startingBlock":0,
+    "currentBlock":3394816,
+    "highestBlock":3394816
+  }
+}
+  </pre></span>
+</div>
+
+!!! tip
+    You can use the `system_health` command to verify your node is running properly.
+
+    ```bash
+    curl -H "Content-Type: application/json" \
+    -d '{"id":1, "jsonrpc":"2.0", "method": "system_health", "params":[]}' \
+    http://localhost:9944
+    ```
+
+## Commands for Managing Your Node
+
+Use the following commands to manage your node:
+
+=== "Docker"
+
+    - **View node logs**:
+
+        ```bash
+        docker logs -f people-chain-rpc
+        ```
+
+    - **Stop container**:
+
+        ```bash
+        docker stop people-chain-rpc
+        ```
+
+    - **Start container**:
+
+        ```bash
+        docker start people-chain-rpc
+        ```
+
+    - **Remove container**:
+
+        ```bash
+        docker rm people-chain-rpc
+        ```
+
+=== "systemd"
+
+    - **Check status**:
+
+        ```bash
+        sudo systemctl status people-chain-rpc
+        ```
+
+    - **View node logs**:
+
+        ```bash
+        sudo journalctl -u people-chain-rpc -f
+        ```
+
+    - **Stop service**:
+
+        ```bash
+        sudo systemctl stop people-chain-rpc
+        ```
+
+    - **Enable service**:
+
+        ```bash
+        sudo systemctl enable people-chain-rpc
+        ```
+
+    - **Start service**:
+
+        ```bash
+        sudo systemctl start people-chain-rpc
+        ```
+
+## Conclusion
+
+Running a parachain RPC node provides critical infrastructure for accessing Polkadot network services. By following this guide, you have set up a production-ready RPC node that:
+
+- Provides reliable access to parachain functionality for applications and users.
+- Supports flexible deployment with both Docker and systemd options.
+- Implements comprehensive monitoring, security, and maintenance practices.
+- Can be adapted for any parachain by substituting the appropriate chain specification.
+
+Whether you're running a node for system parachains (People Chain, Bridge Hub, Coretime Chain) or other parachains in the ecosystem, regular maintenance and monitoring will ensure your RPC node continues to provide reliable service. Stay updated with the latest releases and best practices to keep your infrastructure secure and performant.
+
+
+---
+
+Page Title: Run an RPC Node for Polkadot Hub
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/node-infrastructure-run-a-node-polkadot-hub-rpc.md
+- Canonical (HTML): https://docs.polkadot.com/node-infrastructure/run-a-node/polkadot-hub-rpc/
+- Summary: Follow this guide to understand hardware and software requirements and how to set up and run an RPC node for Polkadot Hub with Polkadot SDK RPC endpoints.
+
+# Run an RPC Node for Polkadot Hub
+
+## Introduction
+
+Polkadot Hub is the gateway to the Polkadot network, providing access to core services such as asset management, governance, and cross-chain messaging. Running your own RPC node gives developers and applications direct access to these services while also supporting infrastructure tasks like block indexing and SDK tool compatibility.
+
+
+
+Through the Polkadot SDK node RPC (WebSocket port 9944, HTTP port 9933), your node serves as the bridge between the network and applications. This page guides you through setting up a node from scratch, including hardware requirements and deployment options using Docker or systemd.
+
+## Prerequisites
+
+### Hardware Requirements
+
+RPC nodes serving production traffic require robust hardware. The following should be considered the minimum standard to effectively operate an RPC node:
+
+- **CPU**: 8+ cores; 16+ cores for high traffic
+- **Memory**: 64 GB RAM minimum; 128 GB recommended for high traffic
+- **Storage**:
+    - **Archive node (complete history)**: ~1.2 TB NVMe SSD total (~392 GB for Asset Hub archive + ~822 GB for relay chain pruned snapshot)
+    - **Pruned node (recent state)**: ~200 GB NVMe SSD total (with pruning enabled for both parachain and relay chain)
+    - Fast disk I/O is critical for query performance
+- **Network**:
+    - Public IP address
+    - Stable internet connection with sufficient bandwidth
+    - 1 Gbps connection for high traffic scenarios
+    - Consider DDoS protection and rate limiting for production deployments
+    - Open ports:
+        - **30333**: Parachain P2P
+        - **30334**: Relay chain P2P
+        - **9944**: Polkadot SDK WebSocket RPC
+        - **9933**: Polkadot SDK HTTP RPC
+
+!!! note
+    For development or low-traffic scenarios, you can reduce these requirements proportionally. Consider using a reverse proxy ([nginx](https://nginx.org/){target=\_blank}, [Caddy](https://caddyserver.com/){target=\_blank}) for production deployments.
+
+### Software Requirements
+
+Required software:
+
+- **Operating system**: Ubuntu 22.04 LTS (recommended) or similar Linux distribution
+- **[Docker](https://www.docker.com/get-started/){target=\_blank}**: Required for obtaining binaries and running containers
+- **[rclone](https://rclone.org/downloads/){target=\_blank}**: (Optional but recommended) Command-line program for managing files on cloud storage
+
+## Spin Up a Node
+
+This guide provides two options for deployment:
+
+- **Docker**: Best for simpler set up and maintenance
+- **systemd**: Best for production environments requiring more control
+
+Select the best option for your project, then use the steps in the following tabs to complete set up.
+
+=== "Docker"
+
+    1. Download the official Polkadot Hub (formerly known as Asset Hub) chain specification file:
+
+        ```bash
+        curl -L https://raw.githubusercontent.com/paritytech/polkadot-sdk/master/cumulus/parachains/chain-specs/asset-hub-polkadot.json -o asset-hub-polkadot.json
+        ```
+
+    2. (Optional but recommended) Download pre-synced snapshots from the [Snapshot Provider](https://snapshots.polkadot.io/){target=\_blank} to cut initial sync time from days to hours:
+
+        1. Create new directories:
+
+            ```bash
+            mkdir -p my-node-data/chains/asset-hub-polkadot/db
+            mkdir -p my-node-data/chains/polkadot/db
+            ```
+
+        2. Download and save the archive Asset Hub snapshot:
+
+            ```bash
+            # Check https://snapshots.polkadot.io/ for the latest snapshot URL
+            export SNAPSHOT_URL_ASSET_HUB="https://snapshots.polkadot.io/polkadot-asset-hub-rocksdb-archive/INSERT_LATEST"
+
+            rclone copyurl $SNAPSHOT_URL_ASSET_HUB/files.txt files.txt
+            rclone copy --progress --transfers 20 \
+              --http-url $SNAPSHOT_URL_ASSET_HUB \
+              --no-traverse --http-no-head --disable-http2 \
+              --inplace --no-gzip-encoding --size-only \
+              --retries 6 --retries-sleep 10s \
+              --files-from files.txt :http: my-node-data/chains/asset-hub-polkadot/db/
+
+            rm files.txt
+            ```
+
+            ??? interface "rclone parameters"
+
+                - **`--transfers 20`**: Uses 20 parallel transfers for faster download
+                - **`--retries 6`**: Automatically retries failed transfers up to 6 times
+                - **`--retries-sleep 10s`**: Waits 10 seconds between retry attempts
+                - **`--size-only`**: Only transfers if sizes differ (prevents unnecessary re-downloads)
+
+        3. Repeat the process with the pruned relay chain snapshot:
+
+            ```bash
+            # Check https://snapshots.polkadot.io/ for the latest snapshot URL
+            export SNAPSHOT_URL_RELAY="https://snapshots.polkadot.io/polkadot-rocksdb-prune/INSERT_LATEST"
+
+            rclone copyurl $SNAPSHOT_URL_RELAY/files.txt files.txt
+            rclone copy --progress --transfers 20 \
+              --http-url $SNAPSHOT_URL_RELAY \
+              --no-traverse --http-no-head --disable-http2 \
+              --inplace --no-gzip-encoding --size-only \
+              --retries 6 --retries-sleep 10s \
+              --files-from files.txt :http: my-node-data/chains/polkadot/db/
+
+            rm files.txt
+            ```
+
+    3. Launch your Polkadot Hub node using the official [Parity Docker image](https://hub.docker.com/r/parity/polkadot-parachain){target=\_blank}:
+
+        === "Archive"
+
+            ```bash
+            docker run -d --name polkadot-hub-rpc --restart unless-stopped \
+              -p 9944:9944 \
+              -p 9933:9933 \
+              -p 9615:9615 \
+              -p 30334:30334 \
+              -p 30333:30333 \
+              -v $(pwd)/asset-hub-polkadot.json:/asset-hub-polkadot.json \
+              -v $(pwd)/my-node-data:/data \
+              parity/polkadot-parachain:stable2509-2 \
+              --name=PolkadotHubRPC \
+              --base-path=/data \
+              --chain=/asset-hub-polkadot.json \
+              --prometheus-external \
+              --prometheus-port 9615 \
+              --unsafe-rpc-external \
+              --rpc-port=9944 \
+              --rpc-cors=all \
+              --rpc-methods=safe \
+              --rpc-max-connections=1000 \
+              --state-pruning=archive \
+              --blocks-pruning=archive \
+              -- \
+              --base-path=/data \
+              --chain=polkadot \
+              --state-pruning=256 \
+              --blocks-pruning=256 \
+              --rpc-port=0
+            ```
+
+        === "Pruned"
+
+            ```bash
+            docker run -d --name polkadot-hub-rpc --restart unless-stopped \
+              -p 9944:9944 \
+              -p 9933:9933 \
+              -p 9615:9615 \
+              -p 30334:30334 \
+              -p 30333:30333 \
+              -v $(pwd)/asset-hub-polkadot.json:/asset-hub-polkadot.json \
+              -v $(pwd)/my-node-data:/data \
+              parity/polkadot-parachain:stable2509-2 \
+              --name=PolkadotHubRPC \
+              --base-path=/data \
+              --chain=/asset-hub-polkadot.json \
+              --prometheus-external \
+              --prometheus-port 9615 \
+              --unsafe-rpc-external \
+              --rpc-port=9944 \
+              --rpc-cors=all \
+              --rpc-methods=safe \
+              --rpc-max-connections=1000 \
+              --state-pruning=1000 \
+              --blocks-pruning=256 \
+              -- \
+              --base-path=/data \
+              --chain=polkadot \
+              --state-pruning=256 \
+              --blocks-pruning=256 \
+              --rpc-port=0
+            ```
+
+        Refer to the [Port Mappings](#port-mappings) and [Node Configuration Arguments](#node-configuration-arguments) sections for details on the command's configurations.
+    
+=== "systemd"
+
+    1. Download the `polkadot-parachain` binary from the latest stable [Polkadot SDK release](https://github.com/paritytech/polkadot-sdk/releases){target=\_blank}:
+
+        ```bash
+        # Download the latest stable release (check releases page for current version)
+        wget https://github.com/paritytech/polkadot-sdk/releases/download/polkadot-stable2509-2/polkadot-parachain
+
+        # Make it executable and move to system path
+        chmod +x polkadot-parachain
+        sudo mv polkadot-parachain /usr/local/bin/
+
+        # Verify installation
+        polkadot-parachain --version
+        ```
+
+    2. Download the Polkadot Hub chain specification:
+
+        ```bash
+        curl -L https://raw.githubusercontent.com/paritytech/polkadot-sdk/master/cumulus/parachains/chain-specs/asset-hub-polkadot.json -o asset-hub-polkadot.json
+        ```
+
+    3. Create user and directory structures:
+
+        ```bash
+        # Create a dedicated user
+        sudo useradd -r -s /bin/bash polkadot
+        
+        # Create data directory
+        sudo mkdir -p /var/lib/polkadot-hub-rpc
+
+        # Copy the chain spec to the directory
+        sudo cp asset-hub-polkadot.json /var/lib/polkadot-hub-rpc/
+
+        # Set permissions
+        sudo chown -R polkadot:polkadot /var/lib/polkadot-hub-rpc
+        ```
+
+    4. Create a systemd service file for the Polkadot SDK RPC node:
+
+        ```bash
+        sudo nano /etc/systemd/system/polkadot-hub-rpc.service
+        ```
+
+    5. Open the new service file and add the configuration for either an archive (complete history) or pruned (recent state) node:
+
+        === "Archive"
+
+            ```ini
+            [Unit]
+            Description=Polkadot Hub RPC Node
+            After=network.target
+
+            [Service]
+            Type=simple
+            User=polkadot
+            Group=polkadot
+            WorkingDirectory=/var/lib/polkadot-hub-rpc
+
+            ExecStart=/usr/local/bin/polkadot-parachain \
+              --name=PolkadotHubRPC \
+              --chain=/var/lib/polkadot-hub-rpc/asset-hub-polkadot.json \
+              --base-path=/var/lib/polkadot-hub-rpc \
+              --port=30333 \
+              --rpc-port=9944 \
+              --rpc-external \
+              --rpc-cors=all \
+              --rpc-methods=safe \
+              --rpc-max-connections=1000 \
+              --prometheus-port=9615 \
+              --prometheus-external \
+              --state-pruning=archive \
+              --blocks-pruning=archive \
+              -- \
+              --chain=polkadot \
+              --base-path=/var/lib/polkadot-hub-rpc \
+              --port=30334 \
+              --state-pruning=256 \
+              --blocks-pruning=256 \
+              --rpc-port=0
+
+            Restart=always
+            RestartSec=10
+            LimitNOFILE=65536
+
+            [Install]
+            WantedBy=multi-user.target
+            ```
+
+        === "Pruned Node"
+
+            ```ini
+            [Unit]
+            Description=Polkadot Hub RPC Node
+            After=network.target
+
+            [Service]
+            Type=simple
+            User=polkadot
+            Group=polkadot
+            WorkingDirectory=/var/lib/polkadot-hub-rpc
+
+            ExecStart=/usr/local/bin/polkadot-parachain \
+              --name=PolkadotHubRPC \
+              --chain=/var/lib/polkadot-hub-rpc/asset-hub-polkadot.json \
+              --base-path=/var/lib/polkadot-hub-rpc \
+              --port=30333 \
+              --rpc-port=9944 \
+              --rpc-external \
+              --rpc-cors=all \
+              --rpc-methods=safe \
+              --rpc-max-connections=1000 \
+              --prometheus-port=9615 \
+              --prometheus-external \
+              --state-pruning=1000 \
+              --blocks-pruning=256 \
+              -- \
+              --chain=polkadot \
+              --base-path=/var/lib/polkadot-hub-rpc \
+              --port=30334 \
+              --state-pruning=256 \
+              --blocks-pruning=256 \
+              --rpc-port=0
+
+            Restart=always
+            RestartSec=10
+            LimitNOFILE=65536
+
+            [Install]
+            WantedBy=multi-user.target
+            ```
+
+        Refer to the [Port Mappings](#port-mappings) and [Node Configuration Arguments](#node-configuration-arguments) sections for details on the command's configurations.
+
+    6. Start the service:
+
+        ```bash
+        # Reload systemd
+        sudo systemctl daemon-reload
+
+        # Enable service to start on boot
+        sudo systemctl enable polkadot-hub-rpc
+        
+        # Start the Polkadot SDK node:
+        sudo systemctl start polkadot-hub-rpc
+        ```
+
+### Port Mappings
+
+- **`9944`**: Polkadot SDK RPC endpoint (WebSocket/HTTP)
+- **`9933`**: Polkadot SDK HTTP RPC endpoint
+- **`9615`**: Prometheus metrics endpoint
+- **`30333/30334`**: P2P networking ports
+
+### Node Configuration Arguments
+
+- **`--unsafe-rpc-external`**: Enables external RPC access. **This command should only be used in development or properly secured environments**. For production, use a reverse proxy with authentication.
+- **`--rpc-cors=all`**: Allows all origins for CORS.
+- **`--rpc-methods=safe`**: Only allows safe RPC methods.
+- **`--state-pruning`**: Archive keeps complete state history, pruned keeps last specified number of blocks.
+- **`--blocks-pruning`**: Archive keeps all blocks, pruned keeps last specified number of finalized blocks.
+- **`--prometheus-external`**: Exposes metrics externally.
+
+## Monitor Node Synchronization
+
+Monitor the node synchronization status:
+
+```bash
+curl -H "Content-Type: application/json" \
+-d '{"id":1, "jsonrpc":"2.0", "method": "system_syncState", "params":[]}' \
+http://localhost:9944
+```
+
+When synchronization is complete, `currentBlock` will be equal to `highestBlock`:
+
+<div class="termynal" data-termynal>
+  <span data-ty="input"><span class="file-path"></span>curl -H "Content-Type: application/json" \
+  -d '{"id":1, "jsonrpc":"2.0", "method": "system_syncState", "params":[]}' \
+  http://localhost:9944</span>
+  <span data-ty><pre>{
+  "jsonrpc":"2.0",
+  "id":1,
+  "result":{
+    "startingBlock":0,
+    "currentBlock":3394816,
+    "highestBlock":3394816
+  }
+}
+  </pre></span>
+</div>
+
+!!! tip
+    You can use the `system_health` command to verify your node is running properly.
+
+    ```bash
+    curl -H "Content-Type: application/json" \
+    -d '{"id":1, "jsonrpc":"2.0", "method": "system_health", "params":[]}' \
+    http://localhost:9944
+    ```
+
+## Commands for Managing Your Node
+
+Use the following commands to manage your node:
+
+=== "Docker"
+
+    - **View node logs**:
+
+        ```bash
+        docker logs -f polkadot-hub-rpc
+        ```
+
+    - **Stop container**:
+
+        ```bash
+        docker stop polkadot-hub-rpc
+        ```
+
+    - **Start container**:
+
+        ```bash
+        docker start polkadot-hub-rpc
+        ```
+
+    - **Remove container**:
+
+        ```bash
+        docker rm polkadot-hub-rpc
+        ```
+
+=== "systemd"
+
+    - **Check status**:
+
+        ```bash
+        sudo systemctl status polkadot-hub-rpc
+        ```
+
+    - **View node logs**:
+
+        ```bash
+        sudo journalctl -u polkadot-hub-rpc -f
+        ```
+
+    - **Stop service**:
+
+        ```bash
+        sudo systemctl stop polkadot-hub-rpc
+        ```
+
+    - **Enable service**:
+
+        ```bash
+        sudo systemctl enable polkadot-hub-rpc
+        ```
+
+    - **Start service**:
+
+        ```bash
+        sudo systemctl start polkadot-hub-rpc
+        ```
+
+## Conclusion
+
+Running an RPC node for Polkadot Hub provides essential infrastructure for applications and users to interact with the network. By following this guide, you have set up a production-ready RPC node that:
+
+- Provides reliable access to Polkadot Hub's asset management, governance, and cross-chain communication features.
+- Supports both Docker and systemd deployment options for flexibility.
+- Implements proper monitoring, security, and maintenance practices.
+- Serves as a foundation for building and operating Polkadot SDK applications.
+
+Regular maintenance, security updates, and monitoring will ensure your RPC node continues to serve your users reliably. As the Polkadot network evolves, stay informed about updates and best practices through the official channels and community resources listed in this guide.
+
+
+---
+
 Page Title: Set Up a Bootnode
 
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/nodes-and-validators-run-a-node-bootnode.md
-- Canonical (HTML): https://docs.polkadot.com/nodes-and-validators/run-a-node/bootnode/
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/node-infrastructure-run-a-node-relay-chain-bootnode.md
+- Canonical (HTML): https://docs.polkadot.com/node-infrastructure/run-a-node/relay-chain/bootnode/
 - Summary: Learn how to configure and run a bootnode for Polkadot, including P2P, WS, and secure WSS connections with network key management and proxies.
 
 # Set Up a Bootnode
@@ -4116,8 +5824,8 @@ polkadot --chain polkadot \
 
 Page Title: Set Up a Node
 
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/nodes-and-validators-run-a-node-full-node.md
-- Canonical (HTML): https://docs.polkadot.com/nodes-and-validators/run-a-node/full-node/
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/node-infrastructure-run-a-node-relay-chain-full-node.md
+- Canonical (HTML): https://docs.polkadot.com/node-infrastructure/run-a-node/relay-chain/full-node/
 - Summary: Learn how to install, configure, and run Polkadot nodes, including setting up different node types and connecting to the network.
 
 # Set Up a Node
@@ -4142,7 +5850,7 @@ Before getting started, ensure the following prerequisites are met:
 - [Install the necessary dependencies for the Polkadot SDK](/parachains/install-polkadot-sdk/){target=\_blank}.
 
 !!! warning
-    This setup is not recommended for validators. If you plan to run a validator, refer to the [Running a Validator](/nodes-and-validators/run-a-validator/onboarding-and-offboarding/set-up-validator/){target=\_blank} guide for proper instructions.
+    This setup is not recommended for validators. If you plan to run a validator, refer to the [Running a Validator](/node-infrastructure/run-a-validator/onboarding-and-offboarding/set-up-validator/){target=\_blank} guide for proper instructions.
 
 ### Install and Build the Polkadot Binary
 
@@ -4173,10 +5881,9 @@ This section will walk you through installing and building the Polkadot binary f
     You should see output similar to the following:
 
     <div id="termynal" data-termynal>
-      <span data-ty="input"
-        ><span class="file-path"></span>rustup show <br />
-        rustup +nightly show</span
-      >
+      <span data-ty="input"><span class="file-path"></span>rustup show</span>
+      <span data-ty>rustup +nightly show</span>
+      <span data-ty></span>
       <span data-ty>active toolchain</span>
       <span data-ty>----------------</span>
       <span data-ty></span>
@@ -4258,10 +5965,8 @@ This section will walk you through installing and building the Polkadot binary f
     You should see output similar to the following:
 
     <div id="termynal" data-termynal>
-      <span data-ty="input"
-        ><span class="file-path"></span>rustup show <br />
-        rustup +nightly show</span
-      >
+      <span data-ty="input"><span class="file-path"></span>rustup show</span>
+      <span data-ty></span>
       <span data-ty>active toolchain</span>
       <span data-ty>----------------</span>
       <span data-ty></span>
@@ -4457,8 +6162,8 @@ ws://127.0.0.1:9944
 
 Page Title: Set Up a Validator
 
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/nodes-and-validators-run-a-validator-onboarding-and-offboarding-set-up-validator.md
-- Canonical (HTML): https://docs.polkadot.com/nodes-and-validators/run-a-validator/onboarding-and-offboarding/set-up-validator/
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/node-infrastructure-run-a-validator-onboarding-and-offboarding-set-up-validator.md
+- Canonical (HTML): https://docs.polkadot.com/node-infrastructure/run-a-validator/onboarding-and-offboarding/set-up-validator/
 - Summary: Set up a Polkadot validator node to secure the network and earn staking rewards. Follow this step-by-step guide to install, configure, and manage your node.
 
 # Set Up a Validator
@@ -4473,10 +6178,10 @@ Running a validator requires a commitment to maintaining a stable, secure infras
 
 To get the most from this guide, ensure you've done the following before going forward:
 
-- Read [Validator Requirements](/nodes-and-validators/run-a-validator/requirements/){target=\_blank} and understand the recommended minimum skill level and hardware needs.
-- Read [General Management](/nodes-and-validators/run-a-validator/operational-tasks/general-management/){target=\_blank}, [Upgrade Your Node](/nodes-and-validators/run-a-validator/operational-tasks/upgrade-your-node/){target=\_blank}, and [Pause Validating](/nodes-and-validators/run-a-validator/operational-tasks/pause-validating/){target=\_blank} and understand the tasks required to keep your validator operational.
-- Read [Rewards Payout](/nodes-and-validators/run-a-validator/staking-mechanics/rewards/){target=\_blank} and understand how validator rewards are determined and paid out.
-- Read [Offenses and Slashes](/nodes-and-validators/run-a-validator/staking-mechanics/offenses-and-slashes/){target=\_blank} and understand how validator performance and security can affect tokens staked by you or your nominators.
+- Read [Validator Requirements](/node-infrastructure/run-a-validator/requirements/){target=\_blank} and understand the recommended minimum skill level and hardware needs.
+- Read [General Management](/node-infrastructure/run-a-validator/operational-tasks/general-management/){target=\_blank}, [Upgrade Your Node](/node-infrastructure/run-a-validator/operational-tasks/upgrade-your-node/){target=\_blank}, and [Pause Validating](/node-infrastructure/run-a-validator/operational-tasks/pause-validating/){target=\_blank} and understand the tasks required to keep your validator operational.
+- Read [Rewards Payout](/node-infrastructure/run-a-validator/staking-mechanics/rewards/){target=\_blank} and understand how validator rewards are determined and paid out.
+- Read [Offenses and Slashes](/node-infrastructure/run-a-validator/staking-mechanics/offenses-and-slashes/){target=\_blank} and understand how validator performance and security can affect tokens staked by you or your nominators.
 
 ## Initial Setup
 
@@ -4673,8 +6378,8 @@ Once the Polkadot binaries are installed, it's essential to verify that everythi
 
 Page Title: Set Up Secure WebSocket
 
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/nodes-and-validators-run-a-node-secure-wss.md
-- Canonical (HTML): https://docs.polkadot.com/nodes-and-validators/run-a-node/secure-wss/
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/node-infrastructure-run-a-node-relay-chain-secure-wss.md
+- Canonical (HTML): https://docs.polkadot.com/node-infrastructure/run-a-node/relay-chain/secure-wss/
 - Summary: Instructions on enabling SSL for your node and setting up a secure WebSocket proxy server using nginx for remote connections.
 
 # Set Up Secure WebSocket
@@ -4794,7 +6499,7 @@ Apache2 can run in various modes, including `prefork`, `worker`, and `event`. In
     wss://example.com:443
     ```
 
-![A sync-in-progress chain connected to Polkadot.js UI](/images/nodes-and-validators/run-a-node/secure-wss/secure-wss-01.webp)
+![A sync-in-progress chain connected to Polkadot.js UI](/images/node-infrastructure/run-a-node/secure-wss/secure-wss-01.webp)
 
 
 ---
@@ -4826,7 +6531,7 @@ By the end of this guide, you'll have a working template ready to customize and 
 
 Before getting started, ensure you have done the following:
 
-- Completed the [Install Polkadot SDK](/parachains/install-polkadot-sdk/){target=\_blank} guide and successfully installed [Rust](https://www.rust-lang.org/){target=\_blank} and the required packages to set up your development environment.
+- Completed the [Install Polkadot SDK](/parachains/install-polkadot-sdk/){target=\_blank} guide and successfully installed [Rust](https://rust-lang.org/){target=\_blank} and the required packages to set up your development environment.
 
 For this tutorial series, you need to use Rust `1.86`. Newer versions of the compiler may not work with this parachain template version.
 
@@ -5155,15 +6860,15 @@ Beyond Polkadot Hub's native PolkaVM support, the ecosystem offers two main alte
 
 Page Title: Start Validating
 
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/nodes-and-validators-run-a-validator-onboarding-and-offboarding-start-validating.md
-- Canonical (HTML): https://docs.polkadot.com/nodes-and-validators/run-a-validator/onboarding-and-offboarding/start-validating/
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/node-infrastructure-run-a-validator-onboarding-and-offboarding-start-validating.md
+- Canonical (HTML): https://docs.polkadot.com/node-infrastructure/run-a-validator/onboarding-and-offboarding/start-validating/
 - Summary: Learn how to start validating on Polkadot by choosing a network, syncing your node, bonding DOT tokens, and activating your validator.
 
 # Start Validating
 
 ## Introduction
 
-After configuring your node keys as shown in the [Key Management](/nodes-and-validators/run-a-validator/onboarding-and-offboarding/key-management/){target=\_blank} section and ensuring your system is set up, you're ready to begin the validator setup process. This guide will walk you through choosing a network, synchronizing your node with the blockchain, bonding your DOT tokens, and starting your validator.
+After configuring your node keys as shown in the [Key Management](/node-infrastructure/run-a-validator/onboarding-and-offboarding/key-management/){target=\_blank} section and ensuring your system is set up, you're ready to begin the validator setup process. This guide will walk you through choosing a network, synchronizing your node with the blockchain, bonding your DOT tokens, and starting your validator.
 
 ## Choose a Network
 
@@ -5230,7 +6935,6 @@ The next step is to sync your node with the chosen blockchain network. Synchroni
 
 If you'd like to speed up the process further, you can use a database snapshot. Snapshots are compressed backups of the blockchain's database directory and can significantly reduce the time required to sync a new node. Here are a few public snapshot providers:
 
-- [Stakeworld](https://stakeworld.io/snapshot){target=\_blank}
 - [Polkachu](https://polkachu.com/substrate_snapshots){target=\_blank}
 - [Polkashots](https://polkashots.io/){target=\_blank}
 - [ITRocket](https://itrocket.net/services/mainnet/polkadot/#snapshot){target=\_blank}
@@ -5253,7 +6957,7 @@ If you see terminal output similar to the preceding, and you are unable to synch
 
 ## Bond DOT
 
-Once your validator node is synced, the next step is bonding DOT. A bonded account, or stash, holds your staked tokens (DOT) that back your validator node. Bonding your DOT means locking it for a period, during which it cannot be transferred or spent but is used to secure your validator's role in the network. Visit the [Minimum Bond Requirement](/nodes-and-validators/run-a-validator/requirements/#minimum-bond-requirement) section for details on how much DOT is required.
+Once your validator node is synced, the next step is bonding DOT. A bonded account, or stash, holds your staked tokens (DOT) that back your validator node. Bonding your DOT means locking it for a period, during which it cannot be transferred or spent but is used to secure your validator's role in the network. Visit the [Minimum Bond Requirement](/node-infrastructure/run-a-validator/requirements/#minimum-bond-requirement) section for details on how much DOT is required.
 
 The following sections will guide you through bonding DOT for your validator.
 
@@ -5285,29 +6989,29 @@ Follow these steps to use Polkadot.js Apps to activate your validator:
 
 1. In Polkadot.js Apps, navigate to **Network** and select **Staking**:
 
-    ![](/images/nodes-and-validators/run-a-validator/onboarding-and-offboarding/start-validating/start-validating-01.webp)
+    ![](/images/node-infrastructure/run-a-validator/onboarding-and-offboarding/start-validating/start-validating-01.webp)
 
 2. Open the **Accounts** tab and click on **+ Validator**:
 
-    ![](/images/nodes-and-validators/run-a-validator/onboarding-and-offboarding/start-validating/start-validating-02.webp)
+    ![](/images/node-infrastructure/run-a-validator/onboarding-and-offboarding/start-validating/start-validating-02.webp)
 
 3. Set a bond amount in the **value bonded** field and then click **next**:
 
-    ![](/images/nodes-and-validators/run-a-validator/onboarding-and-offboarding/start-validating/start-validating-03.webp)
+    ![](/images/node-infrastructure/run-a-validator/onboarding-and-offboarding/start-validating/start-validating-03.webp)
 
 4. Paste the hex output from `author_rotateKeys`, set the commission, allow or block new nominations, then click **Bond & Validate** to link your validator with its session keys.
 
-    ![](/images/nodes-and-validators/run-a-validator/onboarding-and-offboarding/start-validating/start-validating-04.webp)
+    ![](/images/node-infrastructure/run-a-validator/onboarding-and-offboarding/start-validating/start-validating-04.webp)
 
     You can also set the **commission** and **blocked** nominations option via `staking.validate` extrinsic. By default, the blocked option is set to FALSE (i.e., the validator accepts nominations).
 
-    ![](/images/nodes-and-validators/run-a-validator/onboarding-and-offboarding/start-validating/start-validating-05.webp)
+    ![](/images/node-infrastructure/run-a-validator/onboarding-and-offboarding/start-validating/start-validating-05.webp)
 
 ### Monitor Validation Status and Slots
 
 On the [**Staking**](https://polkadot.js.org/apps/#/staking){target=\_blank} tab in Polkadot.js Apps, you can see your validator's status, the number of available validator slots, and the nodes that have signaled their intent to validate. Your node may initially appear in the waiting queue, especially if the validator slots are full. The following is an example view of the **Staking** tab:
 
-![staking queue](/images/nodes-and-validators/run-a-validator/onboarding-and-offboarding/start-validating/start-validating-06.webp)
+![staking queue](/images/node-infrastructure/run-a-validator/onboarding-and-offboarding/start-validating/start-validating-06.webp)
 
 The validator set refreshes each era. If there's an available slot in the next era, your node may be selected to move from the waiting queue to the active validator set, allowing it to start validating blocks. If your validator is not selected, it remains in the waiting queue. Increasing your stake or gaining more nominators may improve your chance of being selected in future eras.
 
@@ -5319,7 +7023,7 @@ This following sections will walk you through creating and managing a systemd se
 
 Ensure the following requirements are met before proceeding with the systemd setup:
 
-- Confirm your system meets the [requirements](/nodes-and-validators/run-a-validator/requirements/){target=\_blank} for running a validator.
+- Confirm your system meets the [requirements](/node-infrastructure/run-a-validator/requirements/){target=\_blank} for running a validator.
 - Ensure you meet the [minimum bond requirements](https://wiki.polkadot.com/general/chain-state-values/#minimum-validator-bond){target=\_blank} for validating.
 - Verify the Polkadot binary is [installed](#install-the-polkadot-binaries).
 
@@ -5412,8 +7116,8 @@ Once your validator is active, it's officially part of Polkadot's security infra
 
 Page Title: Stop Validating
 
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/nodes-and-validators-run-a-validator-onboarding-and-offboarding-stop-validating.md
-- Canonical (HTML): https://docs.polkadot.com/nodes-and-validators/run-a-validator/onboarding-and-offboarding/stop-validating/
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/node-infrastructure-run-a-validator-onboarding-and-offboarding-stop-validating.md
+- Canonical (HTML): https://docs.polkadot.com/node-infrastructure/run-a-validator/onboarding-and-offboarding/stop-validating/
 - Summary: Learn to safely stop validating on Polkadot, including chilling, unbonding tokens, and purging validator keys.
 
 # Stop Validating
@@ -5436,7 +7140,7 @@ The following are steps to ensure a smooth stop to validation:
 
 When stepping back from validating, the first step is to chill your validator status. This action stops your validator from being considered for the next era without fully unbonding your tokens, which can be useful for temporary pauses like maintenance or planned downtime.
 
-Use the `staking.chill` extrinsic to initiate this. For more guidance on chilling your node, refer to the [Pause Validating](/nodes-and-validators/run-a-validator/operational-tasks/pause-validating/){target=\_blank} guide. You may also claim any pending staking rewards at this point.
+Use the `staking.chill` extrinsic to initiate this. For more guidance on chilling your node, refer to the [Pause Validating](/node-infrastructure/run-a-validator/operational-tasks/pause-validating/){target=\_blank} guide. You may also claim any pending staking rewards at this point.
 
 ## Purge Validator Session Keys
 
@@ -5565,8 +7269,8 @@ This ensures accurate fee calculation while maintaining compatibility with exist
 
 Page Title: Upgrade a Validator Node
 
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/nodes-and-validators-run-a-validator-operational-tasks-upgrade-your-node.md
-- Canonical (HTML): https://docs.polkadot.com/nodes-and-validators/run-a-validator/operational-tasks/upgrade-your-node/
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/node-infrastructure-run-a-validator-operational-tasks-upgrade-your-node.md
+- Canonical (HTML): https://docs.polkadot.com/node-infrastructure/run-a-validator/operational-tasks/upgrade-your-node/
 - Summary: Guide to seamlessly upgrading your Polkadot validator node, managing session keys, and executing server maintenance while avoiding downtime and slashing risks.
 
 # Upgrade a Validator Node
@@ -5581,7 +7285,7 @@ This guide will allow validators to seamlessly substitute an active validator se
 
 Before beginning the upgrade process for your validator node, ensure the following:
 
-- You have a fully functional validator setup with all required binaries installed. See [Set Up a Validator](/nodes-and-validators/run-a-validator/onboarding-and-offboarding/set-up-validator/){target=\_blank} and [Validator Requirements](/nodes-and-validators/run-a-validator/requirements/){target=\_blank} for additional guidance.
+- You have a fully functional validator setup with all required binaries installed. See [Set Up a Validator](/node-infrastructure/run-a-validator/onboarding-and-offboarding/set-up-validator/){target=\_blank} and [Validator Requirements](/node-infrastructure/run-a-validator/requirements/){target=\_blank} for additional guidance.
 - Your VPS infrastructure has enough capacity to run a secondary validator instance temporarily for the upgrade process.
 
 ## Session Keys
@@ -5592,7 +7296,7 @@ Remembering this delayed effect when planning upgrades is crucial to ensure that
 
 ## Keystore
 
-Your validator server's `keystore` folder holds the private keys needed for signing network-level transactions. It is important not to duplicate or transfer this folder between validator instances. Doing so could result in multiple validators signing with the duplicate keys, leading to severe consequences such as [equivocation slashing](/nodes-and-validators/run-a-validator/staking-mechanics/offenses-and-slashes/#equivocation-slash){target=\_blank}. Instead, always generate new session keys for each validator instance.
+Your validator server's `keystore` folder holds the private keys needed for signing network-level transactions. It is important not to duplicate or transfer this folder between validator instances. Doing so could result in multiple validators signing with the duplicate keys, leading to severe consequences such as [equivocation slashing](/node-infrastructure/run-a-validator/staking-mechanics/offenses-and-slashes/#equivocation-slash){target=\_blank}. Instead, always generate new session keys for each validator instance.
 
 The default path to the `keystore` is as follows:
 
@@ -5643,15 +7347,15 @@ Keep Validator B active until the session during which you executed the `set-key
 
 Page Title: Validator Key Management
 
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/nodes-and-validators-run-a-validator-onboarding-and-offboarding-key-management.md
-- Canonical (HTML): https://docs.polkadot.com/nodes-and-validators/run-a-validator/onboarding-and-offboarding/key-management/
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/node-infrastructure-run-a-validator-onboarding-and-offboarding-key-management.md
+- Canonical (HTML): https://docs.polkadot.com/node-infrastructure/run-a-validator/onboarding-and-offboarding/key-management/
 - Summary: Learn how to generate and manage validator keys, including session keys for consensus participation and node keys for maintaining a stable network identity.
 
 # Key Management
 
 ## Introduction
 
-After setting up your node environment as shown in the [Setup](/nodes-and-validators/run-a-validator/onboarding-and-offboarding/set-up-validator/){target=\_blank} section, you'll need to configure multiple keys for your validator to operate properly. This includes setting up session keys, which are essential for participating in the consensus process, and configuring a node key that maintains a stable network identity. This guide walks you through the key management process, showing you how to generate, store, and register these keys.
+After setting up your node environment as shown in the [Setup](/node-infrastructure/run-a-validator/onboarding-and-offboarding/set-up-validator/){target=\_blank} section, you'll need to configure multiple keys for your validator to operate properly. This includes setting up session keys, which are essential for participating in the consensus process, and configuring a node key that maintains a stable network identity. This guide walks you through the key management process, showing you how to generate, store, and register these keys.
 
 ## Set Session Keys
 
@@ -5672,7 +7376,7 @@ There are multiple ways to create the session keys. It can be done by interactin
         3. Click the **Submit RPC Call** button.
         4. Copy the hex-encoded public key from the response.
 
-        ![](/images/nodes-and-validators/run-a-validator/onboarding-and-offboarding/key-management/key-management-01.webp)
+        ![](/images/node-infrastructure/run-a-validator/onboarding-and-offboarding/key-management/key-management-01.webp)
 
 === "Curl"
 
@@ -5731,7 +7435,7 @@ Now that you have generated your session keys, you must submit them to the chain
 2. Select **Set Session Key** on the bonding account you generated earlier.
 3. Paste the hex-encoded session key string you generated (from either the UI or CLI) into the input field and submit the transaction.
 
-![](/images/nodes-and-validators/run-a-validator/onboarding-and-offboarding/key-management/key-management-02.webp)
+![](/images/node-infrastructure/run-a-validator/onboarding-and-offboarding/key-management/key-management-02.webp)
 
 Once the transaction is signed and submitted, your session keys will be registered on-chain.
 
@@ -5801,8 +7505,8 @@ Following these steps ensures that your node retains its identity, making it dis
 
 Page Title: Validator Requirements
 
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/nodes-and-validators-run-a-validator-requirements.md
-- Canonical (HTML): https://docs.polkadot.com/nodes-and-validators/run-a-validator/requirements/
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/node-infrastructure-run-a-validator-requirements.md
+- Canonical (HTML): https://docs.polkadot.com/node-infrastructure/run-a-validator/requirements/
 - Summary: Explore the technical and system requirements for running a Polkadot validator, including setup, hardware, staking prerequisites, and security best practices.
 
 # Validator Requirements
@@ -5818,8 +7522,8 @@ This guide covers everything you need to know about becoming a validator, includ
 Running a validator requires solid system administration skills and a secure, well-maintained infrastructure. Below are the primary requirements you need to be aware of before getting started:
 
 - **System administration expertise**: Handling technical anomalies and maintaining node infrastructure is critical. Validators must be able to troubleshoot and optimize their setup.
-- **Security**: Ensure your setup follows best practices for securing your node. Refer to the [Secure Your Validator](/nodes-and-validators/run-a-validator/operational-tasks/general-management/#secure-your-validator){target=\_blank} section to learn about important security measures.
-- **Network choice**: Start with [Kusama](/nodes-and-validators/run-a-validator/onboarding-and-offboarding/set-up-validator/#run-a-kusama-validator){target=\_blank} to gain experience. Look for "Adjustments for Kusama" throughout these guides for tips on adapting the provided instructions for the Kusama network.
+- **Security**: Ensure your setup follows best practices for securing your node. Refer to the [Secure Your Validator](/node-infrastructure/run-a-validator/operational-tasks/general-management/#secure-your-validator){target=\_blank} section to learn about important security measures.
+- **Network choice**: Start with [Kusama](/node-infrastructure/run-a-validator/onboarding-and-offboarding/set-up-validator/#run-a-kusama-validator){target=\_blank} to gain experience. Look for "Adjustments for Kusama" throughout these guides for tips on adapting the provided instructions for the Kusama network.
 - **Staking requirements**: A minimum amount of native token (KSM or DOT) is required to be elected into the validator set. The required stake can come from your own holdings or from nominators.
 - **Risk of slashing**: Any DOT you stake is at risk if your setup fails or your validator misbehaves. If you’re unsure of your ability to maintain a reliable validator, consider nominating your DOT to a trusted validator.
 

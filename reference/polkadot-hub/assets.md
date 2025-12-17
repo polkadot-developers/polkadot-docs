@@ -8,7 +8,7 @@ categories: Polkadot Protocol
 
 ## Introduction
 
-Polkadot Hub is Polkadot's system parachain for issuing and managing on-chain assets. While the relay chain provides security, Polkadot Hub handles asset logic—minting, burning, transfers, and metadata—efficiently and cost-effectively.
+Polkadot Hub is Polkadot’s system parachain that provides core functionality for the network, including issuing and managing on-chain assets. While the relay chain provides security, Polkadot Hub handles asset logic—minting, burning, transfers, and metadata—efficiently and cost-effectively.
 
 Polkadot Hub supports native assets issued on the parachain and foreign assets from other chains, both of which can move seamlessly across the network via XCM.
 
@@ -130,3 +130,34 @@ This unified interface makes it easy for dApps to handle both native and cross-c
 Polkadot Hub enables assets to move safely between parachains and the relay chain using XCM (Cross-Consensus Messaging). XCM ensures assets can move securely between chains while preserving ownership and traceability
 
 To learn more about asset transfers with XCM, please refer to the [Introduction to XCM](/parachains/interoperability/get-started/) page.
+
+<!-- TODO POST-MVP: Uncomment this section once chain interactions goes live -->
+<!-- ## Where to Go Next
+
+<div class="grid cards" markdown>
+
+-  <span class="badge guide">Guide</span> __Register a Foreign Asset__
+
+    ---
+
+    Learn step-by-step how to register a foreign asset on the Asset Hub parachain.
+
+    [:octicons-arrow-right-24: Get Started](/chain-interactions/token-operations/register-foreign-asset/)
+
+-  <span class="badge guide">Guide</span> __Register a Local Asset__
+
+    ---
+
+    Learn step-by-step how to register a local asset on the Asset Hub parachain.
+
+    [:octicons-arrow-right-24: Get Started](/chain-interactions/token-operations/register-local-asset/)
+
+-  <span class="badge guide">Guide</span> __Convert Assets__
+
+    ---
+
+    Learn how to convert and manage assets on Asset Hub, including creating liquidity pools, adding liquidity, swapping assets, and withdrawing liquidity.
+
+    [:octicons-arrow-right-24: Get Started](/chain-interactions/token-operations/convert-assets/)
+
+</div> -->

@@ -8,7 +8,7 @@ categories: Polkadot Protocol
 
 ## Introduction
 
-Polkadot Hub enables developers to deploy and interact with Solidity contracts through REVM, a high-performance, Rust-based Ethereum Virtual Machine implementation. This brings Ethereum compatibility to Polkadot Hub, letting teams use familiar Solidity tooling, integrate with on-chain features like governance and XCM, and take advantage of cross-chain interoperability.
+Polkadot Hub enables developers to deploy and interact with Solidity contracts through REVM, a high-performance, Rust-based Ethereum Virtual Machine implementation. Polkadot-native precompiles bring Ethereum compatibility to Polkadot Hub, letting teams use familiar Solidity tooling, integrate with on-chain features like governance and XCM, and take advantage of cross-chain interoperability.
 
 For projects that require maximum computational performance, Polkadot Hub also supports PolkaVM (PVM), a native RISC-V execution engine. PVM is optional and designed for high-throughput, performance-intensive smart contracts.
 
@@ -22,7 +22,9 @@ With REVM, developers can:
 - Use familiar Ethereum tooling like Hardhat, Foundry, Remix, and MetaMask.
 - Interact with other parachains and on-chain assets using XCM and Polkadot Hub features.
 
-REVM builds on Rust’s safety guarantees and performance optimizations while retaining full opcode compatibility with the EVM. This provides a reliable path for Ethereum-native developers to access Polkadot’s native features—such as governance, treasury, multisig, and XCM—within a unified, interoperable runtime environment.
+REVM builds on Rust’s safety guarantees and performance optimizations while retaining full opcode compatibility with the EVM. 
+
+Ethereum-native developers can use Polkadot-native precompiles to access Polkadot features—such as governance, treasury, multisig, and XCM—within a unified, interoperable runtime environment.
 
 ### PVM Smart Contracts
 
@@ -38,3 +40,24 @@ PolkaVM delivers maximum performance for computationally intensive contracts, of
 
 --8<-- 'text/smart-contracts/polkaVM-warning.md'
 
+## Where to Go Next
+
+<div class="grid cards" markdown>
+
+-   <span class="badge guide">Guide</span> __Deploy a Basic Contract__
+
+    ---
+
+    Learn step-by-step how to deploy a basic Solidity smart contract to Polkadot Hub.
+
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-basic/basic-remix/)
+
+-   <span class="badge guide">Guide</span> __Explore Development Environments__
+
+    ---
+
+    Check out the development environments you can use to build, test, and deploy smart contracts.
+
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/dev-environments/local-dev-node/)
+
+</div>

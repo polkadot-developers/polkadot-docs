@@ -1,14 +1,17 @@
 ---
-title: Ethereum Compatibility
-description: Learn how Polkadot Hub provides full Ethereum compatibility through REVM, enabling seamless migration of Solidity contracts and tooling.
+title: Dual Virtual Machine Stack
+description: Compare Polkadot’s dual smart contract VMs—REVM for EVM compatibility and PolkaVM for RISC-V performance, flexibility, and efficiency.
 categories: Basics, Polkadot Protocol
+url: https://docs.polkadot.com/smart-contracts/for-eth-devs/dual-vm-stack/
 ---
 
-# Ethereum Compatibility
+# Dual Virtual Machine Stack
 
 ## Introduction
 
-Polkadot Hub provides full Ethereum compatibility through the REVM (Rust Ethereum Virtual Machine) backend. This enables developers to deploy existing Solidity contracts without modifications, use familiar Ethereum tooling, and benefit from Polkadot's cross-chain capabilities.
+Polkadot's smart contract platform supports two distinct virtual machine (VM) architectures, providing developers with flexibility in selecting the optimal execution backend for their specific needs. This approach strikes a balance between immediate Ethereum compatibility and long-term innovation, enabling developers to deploy either unmodified (Ethereum Virtual Machine) EVM contracts using Rust Ethereum Virtual Machine (REVM) or optimize for higher performance using PolkaVM (PVM).
+
+Both VM options share common infrastructure, including RPC interfaces, tooling support, and precompiles. The following sections compare architectures and guide you in selecting the best VM for your project's needs.
 
 ## REVM Backend
 
@@ -50,15 +53,6 @@ sequenceDiagram
 ```
 
 This proxy-based approach eliminates the need for node binary modifications, maintaining compatibility across different client implementations. Preserving the original Ethereum transaction payload simplifies the adaptation of existing tools, which can continue processing familiar transaction formats.
-
-### Full JSON-RPC Support
-
-Polkadot Hub supports the standard Ethereum JSON-RPC API, ensuring compatibility with:
-
-- **Wallets**: MetaMask, Rainbow, and other Ethereum wallets
-- **Development tools**: Hardhat, Foundry, Remix IDE
-- **Libraries**: Ethers.js, Web3.js, Viem, Wagmi
-- **Infrastructure**: The Graph, Tenderly, and other Ethereum infrastructure
 
 ## Alternative: PVM Backend
 

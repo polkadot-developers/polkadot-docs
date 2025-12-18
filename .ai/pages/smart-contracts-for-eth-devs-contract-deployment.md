@@ -1,6 +1,6 @@
 ---
 title: Contract Deployment
-description: Understand how smart contract deployment works on Polkadot Hub compared to Ethereum, including transaction processing, gas estimation, and storage considerations.
+description: Compare deployment flows for REVM and PVM-based smart contracts on the Polkadot Hub. Includes single-step REVM flows and PVM's two-step deployment model.
 categories: Smart Contracts, Basics
 url: https://docs.polkadot.com/smart-contracts/for-eth-devs/contract-deployment/
 ---
@@ -9,88 +9,100 @@ url: https://docs.polkadot.com/smart-contracts/for-eth-devs/contract-deployment/
 
 ## Introduction
 
-Smart contract deployment on Polkadot Hub follows the same conceptual model as Ethereum. This page explains the underlying mechanisms and key behavioral differences that Ethereum developers should understand when deploying contracts to Polkadot Hub.
+Polkadot's smart contract platform supports two distinct virtual machine backends: Rust Ethereum Virtual Machine (REVM) and PVM. Each backend has its own deployment characteristics and optimization strategies. REVM provides full Ethereum compatibility with familiar single-step deployment, while the RISC-V-based PVM uses a more structured two-step approach optimized for its architecture. Understanding these differences ensures smooth deployment regardless of which backend you choose for your smart contracts.
 
-## Deployment Model
+## REVM Deployment
 
-Polkadot Hub uses the REVM backend, which implements the Ethereum Virtual Machine specification. This means deployment transactions are processed identically to Ethereum:
+The REVM backend enables seamless deployment of Ethereum contracts without modification. Contracts deploy exactly as they would on Ethereum, using familiar tools and workflows.
 
-- **CREATE opcode**: Deploys contracts to deterministic addresses based on sender and nonce
-- **CREATE2 opcode**: Enables counterfactual deployment with salt-based address derivation
-- **Constructor execution**: Runs initialization code and returns runtime bytecode
-- **Factory patterns**: Contracts can deploy other contracts at runtime without restrictions
+With REVM, deployment mirrors the Ethereum flow exactly including:
 
-The deployment transaction contains the contract's initialization bytecode in the `data` field, and the EVM executes this code to produce the runtime bytecode stored on-chain.
+- Contracts are bundled and deployed in a single transaction.
+- Factory contracts can create new contracts at runtime.
+- Runtime code generation, including inline assembly, is supported.
+- Existing familiar tools like Hardhat, Foundry, and Remix work out of the box.
 
-## Transaction Processing
+## PVM Deployment
 
-When you submit a deployment transaction, it flows through the following layers:
+PVM implements a fundamentally different deployment model optimized for its RISC-V architecture. While simple contract deployments work seamlessly, advanced patterns like factory contracts require understanding the two-step deployment process.
 
-1. **JSON-RPC Proxy** - Receives the standard Ethereum transaction format
-2. **Transaction Repackaging** - Wraps the Ethereum transaction in a Substrate extrinsic
-3. **pallet_revive** - Decodes and executes the EVM transaction
-4. **REVM Execution** - Processes the deployment using standard EVM semantics
-5. **State Commitment** - Stores the contract code and initializes storage
+### Standard Contract Deployment
 
-This architecture means your deployment transactions look and behave exactly like Ethereum transactions from the client perspective, while benefiting from Polkadot's consensus and finality guarantees.
+For most use cases, such as deploying ERC-20 tokens, NFT collections, or standalone contracts, deployment is transparent and requires no special steps. The [Revive compiler](https://github.com/paritytech/revive){target=\_blank} handles the deployment process automatically when using standard Solidity patterns.
 
-## Gas Estimation Behavior
+### Two-Step Deployment Model
 
-Ethereum developers may notice that gas estimates on Polkadot Hub are higher than actual consumption. This is expected behavior stemming from architectural differences:
+PVM separates contract deployment into distinct phases:
 
-### Why Estimates Differ
+1. **Code upload**: Contract bytecode must be uploaded to the chain before instantiation.
+2. **Contract instantiation**: Contracts are created by referencing previously uploaded code via its hash.
 
-Polkadot's runtime uses a multi-dimensional resource model:
+This architecture differs from the EVM's bundled approach and has important implications for specific deployment patterns.
 
-- **Computation weight** - Processing time consumed by the transaction
-- **Proof size** - Data required for light client verification
-- **Storage deposits** - Refundable deposits for on-chain storage
+### Factory Pattern Considerations
 
-When you call `eth_estimateGas`, the system must return a single gas value that covers all three dimensions. Since pre-dispatch estimation cannot perfectly predict the breakdown between computation and storage, the system uses conservative overestimation.
+The common EVM pattern, where contracts dynamically create other contracts, requires adaptation for PVM as follows:
 
-### Practical Impact
+**EVM Factory Pattern:**
+```solidity
+// This works on REVM but requires modification for PVM
+contract Factory {
+    function createToken() public returns (address) {
+        // EVM bundles bytecode in the factory
+        return address(new Token());
+    }
+}
+```
 
-- Estimates may show 3x the actual gas consumed
-- Transactions still succeed because the estimate provides sufficient headroom
-- Actual costs are based on real consumption, not the estimate
-- Unused gas is refunded as on Ethereum
+**PVM Requirements:**
 
-This behavior does not affect transaction success or final costs—it only means the estimated values appear higher than what you might expect from Ethereum mainnet.
+- **Pre-upload dependent contracts**: All contracts that will be instantiated at runtime must be uploaded to the chain before the factory attempts to create them.
+- **Code hash references**: Factory contracts work with pre-uploaded code hashes rather than embedding bytecode.
+- **No runtime code generation**: Dynamic bytecode generation is not supported due to PVM's RISC-V format.
 
-## Storage Model
+### Migration Strategy for Factory Contracts
 
-Contract deployment consumes storage for:
+When migrating factory contracts from Ethereum to PVM:
 
-- **Code storage** - The runtime bytecode is stored on-chain
-- **Account creation** - A new account entry is created for the contract
-- **Initial state** - Any storage slots set during construction
+1. **Identify all contracts**: Determine which contracts will be instantiated at runtime.
+2. **Upload dependencies first**: Deploy all dependent contracts to the chain before deploying the factory.
+3. **Use on-chain constructors**: Leverage PVM's on-chain constructor feature for flexible instantiation.
+4. **Avoid assembly creation**: Don't use `create` or `create2` opcodes in assembly blocks for manual deployment.
 
-Polkadot Hub uses a storage deposit system where deployers pay a refundable deposit proportional to the storage consumed. This deposit is returned when the contract is destroyed and storage is freed.
+### Architecture-Specific Limitations
 
-## Address Derivation
+PVM's deployment model creates several specific constraints:
 
-Contract addresses are derived using the same algorithms as Ethereum:
+- **`EXTCODECOPY` limitations**: Contracts using `EXTCODECOPY` to manipulate code at runtime will encounter issues.
+- **Runtime code modification**: Patterns that construct and mutate contract code on-the-fly are not supported.
+- **Assembly-based factories**: Factory contracts written in YUL assembly that generate code at runtime will fail with `CodeNotFound` errors.
 
-| Method | Address Calculation |
-|--------|-------------------|
-| CREATE | `keccak256(rlp([sender, nonce]))[12:]` |
-| CREATE2 | `keccak256(0xff ++ sender ++ salt ++ keccak256(init_code))[12:]` |
+These patterns are rare in practice and typically require dropping down to assembly, making them non-issues for standard Solidity development.
 
-This means you can predict deployment addresses using the same tools and techniques as on Ethereum.
+### On-Chain Constructors
 
-## Finality Considerations
+PVM provides on-chain constructors as an elegant alternative to runtime code modification:
 
-Unlike Ethereum's probabilistic finality, Polkadot provides deterministic finality through its GRANDPA consensus mechanism. Once a block containing your deployment is finalized:
+- Enable contract instantiation without runtime code generation.
+- Support flexible initialization patterns.
+- Maintain separation between code upload and contract creation.
+- Provide predictable deployment costs.
 
-- The contract deployment is irreversible
-- No chain reorganization can remove the contract
-- Finality typically occurs within seconds, not minutes
+## Gas Estimation vs Actual Consumption
 
-This faster finality means you can begin interacting with deployed contracts more quickly and with stronger guarantees than on Ethereum.
+Both REVM and PVM deployments may show significant differences between gas estimation and actual consumption. You might see estimates that are several times higher than the actual gas consumed (often around 30% of the estimate). This is normal behavior because pre-dispatch estimation cannot distinguish between computation weight and storage deposits, leading to conservative overestimation. Contract deployments are particularly affected as they consume significant storage deposits for code storage.
 
-## Where to Go Next
+## Deployment Comparison
 
-For step-by-step deployment tutorials using specific tools, see:
+| Feature | REVM Backend | PVM Backend |
+|:-------:|:-------------:|:----------------:|
+| **Deployment Model** | Single-step bundled | Two-step upload and instantiate |
+| **Factory Patterns** | Direct runtime creation | Requires pre-uploaded code |
+| **Code Bundling** | Bytecode in transaction | Code hash references |
+| **Runtime Codegen** | Fully supported | Not supported |
+| **Simple Contracts** | No modifications needed | No modifications needed |
+| **Assembly Creation** | Supported | Discouraged, limited support |
 
-- [Deploy with Remix](/smart-contracts/cookbook/smart-contracts/deploy-basic/basic-remix/) - Browser-based deployment walkthrough
-- [Hardhat Setup](/smart-contracts/dev-environments/hardhat/) - Local development environment configuration
+## Conclusion
+
+Both backends support contract deployment effectively, with REVM offering drop-in Ethereum compatibility and PVM providing a more structured two-step approach. For the majority of use cases—deploying standard contracts like tokens or applications—both backends work seamlessly. Advanced patterns like factory contracts may require adjustment for PVM, but these adaptations are straightforward with proper planning.

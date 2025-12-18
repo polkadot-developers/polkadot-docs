@@ -60,19 +60,19 @@ For production applications, consider running your own Sidecar instance. See [Ru
 
 The `/accounts/{accountId}/balance-info` endpoint returns an account's native token balance, including free, reserved, and frozen amounts.
 
-### Request
+**Request**
 
 ```bash
 curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/accounts/<INSERT_ADDRESS>/balance-info"
 ```
 
-### Response
+**Response**
 
 ```json
 --8<-- "code/chain-interactions/query-data/query-rest/balance-info-response.json"
 ```
 
-### Response Fields
+**Response fields**
 
 | Field | Description |
 |-------|-------------|
@@ -86,7 +86,7 @@ curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/accou
 | `transferable` | Actual balance available to transfer |
 | `locks` | Array of balance locks with their reasons |
 
-### Query at a Specific Block
+**Query at a specific block**
 
 You can query the balance at a specific block height or hash using the `at` query parameter:
 
@@ -102,13 +102,13 @@ curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/accou
 
 The `/accounts/{accountId}/asset-balances` endpoint returns an account's balances for assets managed by the Assets pallet.
 
-### Request All Asset Balances
+**Request all asset balances**
 
 ```bash
 curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/accounts/<INSERT_ADDRESS>/asset-balances"
 ```
 
-### Request Specific Asset Balance
+**Request Specific Asset Balance**
 
 To query a specific asset, provide the asset ID as a query parameter:
 
@@ -124,16 +124,18 @@ curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/accou
     curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/accounts/<INSERT_ADDRESS>/asset-balances?assets[]=1984"
     ```
 
-### Response
+**Response**
 
 ```json
 --8<-- "code/chain-interactions/query-data/query-rest/asset-balances-response.json"
 ```
 
-### Response Fields
+**Response fields**
 
 | Field | Description |
 |-------|-------------|
+| `at.hash` | Block hash at which the query was executed |
+| `at.height` | Block number at which the query was executed |
 | `assetId` | Unique identifier for the asset |
 | `balance` | Account's balance of this asset (in smallest unit) |
 | `isFrozen` | Whether the account's asset balance is frozen |
@@ -142,7 +144,7 @@ curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/accou
 !!! note
     The `isSufficient` field in the asset balance response is a per-account flag. To check if an asset is configured as a sufficient asset (can pay for account existence), query the [Asset Details](#query-asset-details) endpoint and check the `isSufficient` field there.
 
-### Query Multiple Assets
+**Query multiple assets**
 
 You can query multiple assets in a single request:
 
@@ -162,13 +164,13 @@ curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/accou
 
 Use the pallet storage endpoint to query asset metadata like name, symbol, and decimals.
 
-### Request
+**Request**
 
 ```bash
 curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/pallets/assets/storage/Metadata?keys[]=1984"
 ```
 
-### Response
+**Response**
 
 ```json
 --8<-- "code/chain-interactions/query-data/query-rest/asset-metadata-response.json"
@@ -183,22 +185,24 @@ The `name` and `symbol` fields are returned as hex-encoded strings. To decode th
 
 Query the asset configuration including owner, supply, and account count:
 
-### Request
+**Request**
 
 ```bash
 curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/pallets/assets/storage/Asset?keys[]=1984"
 ```
 
-### Response
+**Response**
 
 ```json
 --8<-- "code/chain-interactions/query-data/query-rest/asset-details-response.json"
 ```
 
-### Response Fields
+**Response fields**
 
 | Field | Description |
 |-------|-------------|
+| `at.hash` | Block hash at which the query was executed |
+| `at.height` | Block number at which the query was executed |
 | `owner` | Account that owns the asset |
 | `issuer` | Account authorized to mint new tokens |
 | `admin` | Account with administrative privileges |
@@ -222,13 +226,13 @@ curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/accou
 
 The `/blocks/{blockId}` endpoint returns detailed block information including extrinsics and events.
 
-### Request Latest Block
+**Request latest block**
 
 ```bash
 curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/blocks/head"
 ```
 
-### Request Specific Block
+**Request specific block**
 
 ```bash
 # By block number
@@ -238,7 +242,7 @@ curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/block
 curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/blocks/0x..."
 ```
 
-### Response
+**Response**
 
 ```json
 --8<-- "code/chain-interactions/query-data/query-rest/block-response.json"

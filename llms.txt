@@ -6,7 +6,7 @@
 This directory lists URLs for raw Markdown pages that complement the rendered pages on the documentation site. Use these Markdown files to retain semantic context when prompting models while avoiding passing HTML elements.
 
 ## Metadata
-- Documentation pages: 127
+- Documentation pages: 125
 - Categories: 13
 
 ## Docs
@@ -221,8 +221,6 @@ Docs: Polkadot Hub
 
 Docs: Uncategorized
 - [AI Ready Docs](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/get-support-ai-ready-docs.md): Download LLM-optimized files of the Polkadot documentation, including full content and category-specific resources for AI agents.
-- [Subscribe to Updates](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/get-support-explore-resources.md): Find Polkadot developer resources, tutorials, forums, governance proposals, and community platforms like StackExchange, Reddit, and YouTube.
-- [Get in Touch](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/get-support-get-in-touch.md): Developer support for Polkadot via Telegram, Matrix, and Discord. Get help with parachains, smart contracts, nodes, and ecosystem tools.
 - [Support](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/get-support.md): Start here to get developer support for Polkadot. Connect with the team, find help, and explore resources beyond the documentation.
 - [Polkadot Developer Docs](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/index.md): Explore everything you need to start building on top of Polkadot, a protocol that provides parachains with shared security and interoperability using XCM.
 - [ParaSpell XCM SDK](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-tools-paraspell.md): A powerful open-source library that simplifies XCM integration, enabling developers to easily build interoperable dApps on Polkadot.

@@ -34,9 +34,11 @@ Before you start, ensure that you have:
 
 This guide will use Polkadot, its local Asset Hub instance, and the [Astar](https://astar.network/){target=\_blank} parachain (`ID` 2006), as stated in the [Test Environment Setup](#test-environment-setup) section. However, the process is the same for other relay chains and their respective Asset Hub parachain, regardless of the network you are using and the parachain owner of the foreign asset.
 
-## Steps to Register a Foreign Asset
+## Register a Foreign Asset
 
 ### Asset Hub
+
+To register a foreign asset on the Asset Hub parachain, follow these steps:
 
 1. Open the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} interface and connect to the Asset Hub parachain using the network selector in the top left corner.
 
@@ -85,6 +87,8 @@ This guide will use Polkadot, its local Asset Hub instance, and the [Astar](http
         ```
 
 ### Source Parachain
+
+With the encoded call data you generated in the previous section, you can take the following steps on the source parachain to complete the asset registration process:
 
 1. Navigate to the **Developer > Extrinsics** section.
 2. Create the extrinsic to register the foreign asset through XCM:

@@ -1,6 +1,6 @@
 ---
 title: Runtime API Calls
-description: Learn how to call runtime APIs on Polkadot using PAPI, Polkadot.js, Dedot, Python Substrate Interface, and Subxt.
+description: Learn how to call Polkadot runtime APIs to access the Wasm runtime and retrieve computed results using PAPI, Polkadot.js, Dedot, Python, and Subxt.
 categories: Chain Interactions
 ---
 
@@ -12,23 +12,23 @@ Polkadot SDK runtime APIs provide direct access to the blockchain's WebAssembly 
 
 Common runtime APIs include:
 
-- **AccountNonceApi** - retrieves the current transaction nonce for an account
-- **Metadata** - queries available metadata versions and runtime information
-- **TransactionPaymentApi** - estimates transaction fees before submission
-- **NominationPoolsApi** - retrieves staking pool information and pending rewards
-- **StakingApi** - accesses staking-related computations
-
-This guide demonstrates how to call runtime APIs using five popular SDKs:
-
-- **[Polkadot API (PAPI)](/reference/tools/papi/){target=\_blank}** - modern TypeScript library with type-safe APIs
-- **[Polkadot.js API](/reference/tools/polkadot-js-api/){target=\_blank}** - comprehensive JavaScript library (maintenance mode)
-- **[Dedot](/reference/tools/dedot/){target=\_blank}** - lightweight TypeScript library optimized for performance
-- **[Python Substrate Interface](/reference/tools/py-substrate-interface/){target=\_blank}** - Python library for Substrate chains
-- **[Subxt](/reference/tools/subxt/){target=\_blank}** - Rust library with compile-time type safety
-
-Select your preferred SDK below to see complete, runnable examples that query Polkadot Hub TestNet for account nonces and metadata information.
+- **AccountNonceApi**: Retrieves the current transaction nonce for an account.
+- **Metadata**: Queries available metadata versions and runtime information.
+- **TransactionPaymentApi**: Estimates transaction fees before submission.
+- **NominationPoolsApi**: Retrieves staking pool information and pending rewards.
+- **StakingApi**: Accesses staking-related computations.
 
 ## Call Runtime APIs
+
+This section demonstrates how to call runtime APIs using the following SDKs:
+
+- **Polkadot API (PAPI)**: Modern TypeScript library with type-safe APIs.
+- **Polkadot.js API**: Comprehensive JavaScript library (maintenance mode).
+- **Dedot**: Lightweight TypeScript library optimized for performance.
+- **Python Substrate Interface**: Python library for Substrate chains.
+- **Subxt**: Rust library with compile-time type safety.
+
+Select your preferred SDK below to see complete, runnable examples that query Polkadot Hub TestNet for account nonces and metadata information.
 
 === "PAPI"
 
@@ -63,8 +63,8 @@ Select your preferred SDK below to see complete, runnable examples that query Po
 
     The following example demonstrates calling several runtime APIs:
 
-    - `AccountNonceApi.account_nonce` - gets the current nonce for an account
-    - `Metadata.metadata_versions` - retrieves supported metadata versions
+    - **`AccountNonceApi.account_nonce`**: Gets the current nonce for an account.
+    - **`Metadata.metadata_versions`**: Retrieves supported metadata versions.
 
     Create a file named `runtime-apis.ts` and add the following code:
 
@@ -113,8 +113,8 @@ Select your preferred SDK below to see complete, runnable examples that query Po
 
     The following example demonstrates calling several runtime APIs:
 
-    - `accountNonceApi.accountNonce` - gets the current nonce for an account
-    - `metadata.metadataVersions` - retrieves supported metadata versions
+    - **`accountNonceApi.accountNonce`**: Gets the current nonce for an account.
+    - **`metadata.metadataVersions`**: Retrieves supported metadata versions.
 
     Create a file named `runtime-apis.js` and add the following code:
 
@@ -161,8 +161,8 @@ Select your preferred SDK below to see complete, runnable examples that query Po
 
     The following example demonstrates calling several runtime APIs:
 
-    - `accountNonceApi.accountNonce` - gets the current nonce for an account
-    - `metadata.metadataVersions` - retrieves supported metadata versions
+    - **`accountNonceApi.accountNonce`**: Gets the current nonce for an account.
+    - **`metadata.metadataVersions`**: Retrieves supported metadata versions.
 
     Create a file named `runtime-apis.ts` and add the following code:
 
@@ -208,8 +208,8 @@ Select your preferred SDK below to see complete, runnable examples that query Po
 
     The following example demonstrates calling several runtime APIs:
 
-    - `AccountNonceApi.account_nonce` - gets the current nonce for an account
-    - `Core.version` - retrieves runtime version information
+    - **`AccountNonceApi.account_nonce`**: Gets the current nonce for an account.
+    - **`Core.version`**: Retrieves runtime version information.
 
     Create a file named `runtime_apis.py` and add the following code:
 
@@ -270,8 +270,8 @@ Select your preferred SDK below to see complete, runnable examples that query Po
 
     The following example demonstrates calling several runtime APIs:
 
-    - `AccountNonceApi.account_nonce` - gets the current nonce using the static interface
-    - `Metadata.metadata_versions` - retrieves supported metadata versions using the dynamic interface
+    - **`AccountNonceApi.account_nonce`**: Gets the current nonce using the static interface.
+    - **`Metadata.metadata_versions`**: Retrieves supported metadata versions using the dynamic interface.
 
     Create a file at `src/bin/runtime_apis.rs` and add the following code:
 
@@ -316,22 +316,32 @@ The following runtime APIs are commonly available on Polkadot SDK-based chains:
 
 ## Where to Go Next
 
+Now that you understand how to call runtime APIs to execute logic within the runtime, explore these related topics:
+
 <div class="grid cards" markdown>
 
-- <span class="badge guide">Guide</span> **Query On-Chain State**
+-   __Query with SDKs__
 
     ---
 
-    Learn how to query storage data from the blockchain.
+    Use TypeScript, Python, or Rust SDKs for programmatic access.
 
     [:octicons-arrow-right-24: Get Started](/chain-interactions/query-data/query-sdks/)
 
-- <span class="badge guide">Guide</span> **Send Transactions**
+-   __Query On-Chain State with Sidecar REST API__
 
     ---
 
-    Learn how to construct and submit transactions.
+    Learn how to query on-chain state using the Sidecar REST API
 
-    [:octicons-arrow-right-24: Get Started](/chain-interactions/send-transactions/with-sdks/)
+    [:octicons-arrow-right-24: Get Started](/chain-interactions/query-data/query-rest.md)
+
+-   __Send Transactions__
+
+    ---
+
+    Learn to construct and submit transactions.
+
+    [:octicons-arrow-right-24: Get Started](/chain-interactions/send-transactions/with-sdks)        
 
 </div>

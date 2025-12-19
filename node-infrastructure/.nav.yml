@@ -1,0 +1,5 @@
+nav:
+ - 'Overview': index.md
+ - 'Run a Node': run-a-node
+ - 'Run a Collator': run-a-collator.md
+ - 'Run a Validator': run-a-validator

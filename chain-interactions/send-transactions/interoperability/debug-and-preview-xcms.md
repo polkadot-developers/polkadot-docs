@@ -7,7 +7,7 @@ description: Replay and dry-run XCMs using Chopsticks with full logging enabled.
 
 ## Introduction
 
-This guide demonstrates how to replay and dry-run XCMs using [Chopsticks](/reference/tools/chopsticks){target=\_blank}, a powerful tool for forking live Polkadot SDK-based chains in your local environment. These techniques are essential for debugging cross-chain message failures, tracing execution across relay chains and parachains, analyzing weight usage and error types, and safely simulating XCMs without committing state changes.
+This guide demonstrates how to replay and dry-run XCMs using [Chopsticks](/reference/tools/chopsticks/){target=\_blank}, a powerful tool for forking live Polkadot SDK-based chains in your local environment. These techniques are essential for debugging cross-chain message failures, tracing execution across relay chains and parachains, analyzing weight usage and error types, and safely simulating XCMs without committing state changes.
 
 By following this guide, you will learn how to set up a local fork, capture and replay real XCMs, and use dry-run features to diagnose and resolve complex cross-chain issues.
 
@@ -15,7 +15,7 @@ By following this guide, you will learn how to set up a local fork, capture and 
 
 Before you begin, make sure you have:
 
-- [Chopsticks](/reference/tools/chopsticks){target=\_blank} installed
+- [Chopsticks](/reference/tools/chopsticks/){target=\_blank} installed
 - Access to the endpoint or genesis file of the parachain you want to fork
 - The block number or hash where the XCM was sent
 - (Optional) A Chopsticks config file for repeated setups

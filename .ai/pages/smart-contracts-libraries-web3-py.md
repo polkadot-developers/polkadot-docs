@@ -53,7 +53,7 @@ web3 = Web3(Web3.HTTPProvider(PROVIDER_RPC))
     Replace `INSERT_RPC_URL` with the appropriate value. For instance, to connect to Polkadot Hub TestNet, use the following parameter:
 
     ```python
-    PROVIDER_RPC = 'https://testnet-passet-hub-eth-rpc.polkadot.io'
+    PROVIDER_RPC = 'https://services.polkadothub-rpc.com/testnet'
     ```
 
 With the Web3 provider set up, start querying the blockchain. For instance, you can use the following code snippet to fetch the latest block number of the chain.
@@ -66,7 +66,7 @@ With the Web3 provider set up, start querying the blockchain. For instance, you 
 
     def main():
         try:
-            PROVIDER_RPC = "https://testnet-passet-hub-eth-rpc.polkadot.io"
+            PROVIDER_RPC = "https://services.polkadothub-rpc.com/testnet"
             web3 = Web3(Web3.HTTPProvider(PROVIDER_RPC))
             latest_block = web3.eth.block_number
             print("Last block: " + str(latest_block))

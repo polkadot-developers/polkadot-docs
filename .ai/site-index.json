@@ -17,129 +17,17 @@
       },
       {
         "depth": 2,
-        "title": "Download LLM Files",
-        "anchor": "download-llm-files"
+        "title": "Access LLM Files",
+        "anchor": "access-llm-files"
       }
     ],
     "stats": {
-      "chars": 7998,
+      "chars": 7996,
       "words": 825,
       "headings": 2,
       "estimated_token_count_total": 2232
     },
-    "hash": "sha256:5a8da69a5cea8bd598ee4d102b9abed5d1a29153802a567e22bb4ee720410b32",
-    "token_estimator": "heuristic-v1"
-  },
-  {
-    "id": "get-support-explore-resources",
-    "title": "Subscribe to Updates",
-    "slug": "get-support-explore-resources",
-    "categories": [
-      "Uncategorized"
-    ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/get-support-explore-resources.md",
-    "html_url": "https://docs.polkadot.com/get-support/explore-resources/",
-    "preview": "Looking for answers beyond the documentation? These platforms are full of useful content and experienced developers sharing insights.",
-    "outline": [
-      {
-        "depth": 2,
-        "title": "🧠 Stack Exchange",
-        "anchor": "stack-exchange"
-      },
-      {
-        "depth": 2,
-        "title": "🧵 Reddit: r/Polkadot",
-        "anchor": "reddit-rpolkadot"
-      },
-      {
-        "depth": 2,
-        "title": "💬 Discord (Community Threads Only)",
-        "anchor": "discord-community-threads-only"
-      },
-      {
-        "depth": 2,
-        "title": "🎥 YouTube: @PolkadotNetwork",
-        "anchor": "youtube-polkadotnetwork"
-      },
-      {
-        "depth": 2,
-        "title": "Community-Led Platforms and Ecosystem Updates",
-        "anchor": "community-led-platforms-and-ecosystem-updates"
-      },
-      {
-        "depth": 3,
-        "title": "🔷 X (Twitter): Official Accounts",
-        "anchor": "x-twitter-official-accounts"
-      },
-      {
-        "depth": 3,
-        "title": "🔁 X (Twitter): Community Accounts",
-        "anchor": "x-twitter-community-accounts"
-      },
-      {
-        "depth": 3,
-        "title": "🗣️ Polkadot Forum",
-        "anchor": "polkadot-forum"
-      },
-      {
-        "depth": 3,
-        "title": "🧑‍⚖️ Polkassembly: OpenGov",
-        "anchor": "polkassembly-opengov"
-      },
-      {
-        "depth": 3,
-        "title": "📸 Instagram",
-        "anchor": "instagram"
-      }
-    ],
-    "stats": {
-      "chars": 2426,
-      "words": 295,
-      "headings": 10,
-      "estimated_token_count_total": 579
-    },
-    "hash": "sha256:670221ac20ab1f1b550ba2a1db06cd924c24bd3afc4d8a768b617d8a409243cb",
-    "token_estimator": "heuristic-v1"
-  },
-  {
-    "id": "get-support-get-in-touch",
-    "title": "Get in Touch",
-    "slug": "get-support-get-in-touch",
-    "categories": [
-      "Uncategorized"
-    ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/get-support-get-in-touch.md",
-    "html_url": "https://docs.polkadot.com/get-support/get-in-touch/",
-    "preview": "Use one of the channels below to get live technical support or ask questions.",
-    "outline": [
-      {
-        "depth": 2,
-        "title": "Need Help Fast?",
-        "anchor": "need-help-fast"
-      },
-      {
-        "depth": 2,
-        "title": "📱 Telegram: Polkadot Developer Support",
-        "anchor": "telegram-polkadot-developer-support"
-      },
-      {
-        "depth": 2,
-        "title": "🔌 Discord: Polkadot Official Server",
-        "anchor": "discord-polkadot-official-server"
-      },
-      {
-        "depth": 2,
-        "title": "🧬 Matrix: Polkadot Developer Support",
-        "anchor": "matrix-polkadot-developer-support"
-      }
-    ],
-    "stats": {
-      "chars": 1949,
-      "words": 258,
-      "headings": 4,
-      "estimated_token_count_total": 557
-    },
-    "hash": "sha256:993e93b05c8fbdfc2f7510c61ac86bc4c2ff0f03e573695b2f260933c8b62f78",
+    "hash": "sha256:1aa997c6fecf9ff5f6b2fde718c928518d6697bb818f71aa391fbb38a1946ff4",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -151,31 +39,31 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/get-support.md",
     "html_url": "https://docs.polkadot.com/get-support/",
-    "preview": "Use one of the channels below to get live technical support or ask questions.",
+    "preview": "You're already in the docs — solid start. But sometimes you need more: answers, real examples, someone to talk to. This support hub is here to help you move forward — faster.",
     "outline": [
       {
         "depth": 2,
-        "title": "Need More than Just Documentation?",
-        "anchor": "need-more-than-just-documentation"
+        "title": "Support Channels",
+        "anchor": "support-channels"
       },
       {
         "depth": 2,
-        "title": "What You Can Do Here",
-        "anchor": "what-you-can-do-here"
+        "title": "Community Resources",
+        "anchor": "community-resources"
       },
       {
         "depth": 2,
-        "title": "Help Us Improve",
-        "anchor": "help-us-improve"
+        "title": "AI Resources",
+        "anchor": "ai-resources"
       }
     ],
     "stats": {
-      "chars": 1658,
-      "words": 244,
+      "chars": 4621,
+      "words": 579,
       "headings": 3,
-      "estimated_token_count_total": 280
+      "estimated_token_count_total": 1223
     },
-    "hash": "sha256:5bdc575ac798a971867a15651c2b4d5139bf0b1fe6854d1865deff280ae6d7f6",
+    "hash": "sha256:69e5bcd8ec2f35e39ff674b7f709c7526dd34427ddd66d449ecb01d29a405321",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -6308,12 +6196,12 @@
       }
     ],
     "stats": {
-      "chars": 3502,
-      "words": 488,
+      "chars": 3468,
+      "words": 481,
       "headings": 3,
-      "estimated_token_count_total": 623
+      "estimated_token_count_total": 609
     },
-    "hash": "sha256:302a3aeed61fdf8c23f07676ef5faf7b5af9ccca406b9bc6820c7dedeac96600",
+    "hash": "sha256:f546392ad577e0f4038f5fed10414ec9ab457deffb2e1c56c19a22d13b438d04",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -6440,12 +6328,12 @@
       }
     ],
     "stats": {
-      "chars": 31211,
-      "words": 3687,
+      "chars": 31166,
+      "words": 3665,
       "headings": 22,
-      "estimated_token_count_total": 6967
+      "estimated_token_count_total": 6938
     },
-    "hash": "sha256:7601883deaf979854d5b08a13d2119ce2a6c1c6d3b6158d823e86da580a19722",
+    "hash": "sha256:e6ef23e520129c8c7521de3cfdf261991e2feb10429797d8308f170f116cd7f4",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -6755,12 +6643,12 @@
       }
     ],
     "stats": {
-      "chars": 5979,
-      "words": 795,
+      "chars": 5977,
+      "words": 793,
       "headings": 8,
-      "estimated_token_count_total": 1476
+      "estimated_token_count_total": 1472
     },
-    "hash": "sha256:16a5788a6935cb86da1e18be7929e413e74811c57dbab06de4fa4048c752e508",
+    "hash": "sha256:eac3464009cc775ebc7405fbe6b0ba6c931c263c94ea3f6104c234a98f93aadb",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -6873,7 +6761,7 @@
       "headings": 8,
       "estimated_token_count_total": 1964
     },
-    "hash": "sha256:19b1f0953c1333eaee44165be25e549189c21acb624ddf4ab11bd989bfcde7ef",
+    "hash": "sha256:b991f2b4dbb0e34bbf2f57e79ecefe360abfb4224f8cbe911c6a67702b289e97",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -7049,12 +6937,12 @@
       }
     ],
     "stats": {
-      "chars": 7377,
-      "words": 972,
+      "chars": 7375,
+      "words": 970,
       "headings": 8,
-      "estimated_token_count_total": 1844
+      "estimated_token_count_total": 1840
     },
-    "hash": "sha256:4bb4fcee01cd8203d4e382ca2ec2a45eb9ef86a531d3bb8b61b7286d10917129",
+    "hash": "sha256:9a7d1c8e9bc42dad6357335f07a91786f628c9e615945c60d215eff182801923",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -7186,12 +7074,12 @@
       }
     ],
     "stats": {
-      "chars": 4828,
-      "words": 646,
+      "chars": 4838,
+      "words": 644,
       "headings": 5,
-      "estimated_token_count_total": 1144
+      "estimated_token_count_total": 1140
     },
-    "hash": "sha256:7911b91e6c8dc9caa7403756d92d6aa78438c45ebf42088dbdcbefd3d396e6ee",
+    "hash": "sha256:45538095463b6edd3c461774771751226abac06886b5933d9997240ff91a0281",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -7311,17 +7199,17 @@
       },
       {
         "depth": 3,
-        "title": "BlockScout",
-        "anchor": "blockscout"
+        "title": "Routescan",
+        "anchor": "routescan"
       }
     ],
     "stats": {
-      "chars": 1618,
-      "words": 201,
+      "chars": 1442,
+      "words": 174,
       "headings": 4,
-      "estimated_token_count_total": 307
+      "estimated_token_count_total": 263
     },
-    "hash": "sha256:bb41c42439f9076628abf553347a1cd46557e900f73554c519cd8a075f6e14e2",
+    "hash": "sha256:1f401a2aef16cd120ceb6ddc575cbfc19ea0ce985a6d045825aefc54e456dddc",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -7352,12 +7240,12 @@
       }
     ],
     "stats": {
-      "chars": 1890,
-      "words": 279,
+      "chars": 1861,
+      "words": 275,
       "headings": 3,
-      "estimated_token_count_total": 313
+      "estimated_token_count_total": 305
     },
-    "hash": "sha256:c609bc98cba5efa2d2a808548cf93ad9d0a06455b35a8fd9f534daf52824f506",
+    "hash": "sha256:f66362afa44ba90cabc6d28a169e3df7f0d045123c0ea3a29570a33db3b8f064",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -7953,12 +7841,12 @@
       }
     ],
     "stats": {
-      "chars": 31274,
-      "words": 3827,
+      "chars": 31210,
+      "words": 3763,
       "headings": 35,
-      "estimated_token_count_total": 9562
+      "estimated_token_count_total": 9434
     },
-    "hash": "sha256:ef851649797d7a65de72c2390495dba0c449ce254135bb96dea3ff82d8835148",
+    "hash": "sha256:63eb49ba8dc71fa07d161a87787d79b36f26d9854d1030282cda490a4ed753f2",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -8087,11 +7975,6 @@
       },
       {
         "depth": 3,
-        "title": "SubWallet",
-        "anchor": "subwallet"
-      },
-      {
-        "depth": 3,
         "title": "Talisman",
         "anchor": "talisman"
       },
@@ -8102,12 +7985,12 @@
       }
     ],
     "stats": {
-      "chars": 7131,
-      "words": 1015,
-      "headings": 6,
-      "estimated_token_count_total": 1617
+      "chars": 4417,
+      "words": 629,
+      "headings": 5,
+      "estimated_token_count_total": 975
     },
-    "hash": "sha256:ef59012ff4338bc606910c173299130e93f4e47e1fc9c9d9e99e0d5dd0d66e9e",
+    "hash": "sha256:94aa482d3b91711a3a5246120649f1d0c831e1353de96ce8f04793b22e90a0d7",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -8184,12 +8067,12 @@
       }
     ],
     "stats": {
-      "chars": 21292,
-      "words": 2412,
+      "chars": 21115,
+      "words": 2378,
       "headings": 12,
-      "estimated_token_count_total": 4742
+      "estimated_token_count_total": 4672
     },
-    "hash": "sha256:3493aaeec569be8d72f418c9b1abeeed64ff3bbcc316b42a33dad5f172c4e841",
+    "hash": "sha256:8245452657e900455ae4a9cc8da74c07d49b2b28fca10827b82ec0d7306c0e9f",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -8276,12 +8159,12 @@
       }
     ],
     "stats": {
-      "chars": 17416,
-      "words": 2000,
+      "chars": 17320,
+      "words": 1980,
       "headings": 14,
-      "estimated_token_count_total": 4151
+      "estimated_token_count_total": 4121
     },
-    "hash": "sha256:dc93c1418e6cfc56ea714a2105b8ba82d72f9888a022feb356c1847fbb913b54",
+    "hash": "sha256:e31c9182aee0369c64d3c6ba3ec20f45379360ba692dc0f9358d5a22eb841711",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -8348,12 +8231,12 @@
       }
     ],
     "stats": {
-      "chars": 13435,
-      "words": 1499,
+      "chars": 13387,
+      "words": 1489,
       "headings": 10,
-      "estimated_token_count_total": 3258
+      "estimated_token_count_total": 3243
     },
-    "hash": "sha256:99916a667b468415b029bd745edfa23716e23dfc7cd313921a1bb0ea3378f644",
+    "hash": "sha256:ffe8afac7a4724c125a9520e0fc2ddc28e5fd4666ce9edce6eaffddeccc70ba0",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -8430,12 +8313,12 @@
       }
     ],
     "stats": {
-      "chars": 20077,
-      "words": 2252,
+      "chars": 19911,
+      "words": 2220,
       "headings": 12,
-      "estimated_token_count_total": 4530
+      "estimated_token_count_total": 4464
     },
-    "hash": "sha256:7e3d9a39fafd48ef71f23b07d20f7fb5572ba67e06fcbe6a199fe0468af6dbca",
+    "hash": "sha256:236c1f97eab1bdab9d65ca308634fdeec75fdb2ee02a5e6b78789228f84dda1b",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -8497,12 +8380,12 @@
       }
     ],
     "stats": {
-      "chars": 14097,
-      "words": 1665,
+      "chars": 14093,
+      "words": 1661,
       "headings": 9,
-      "estimated_token_count_total": 2987
+      "estimated_token_count_total": 2979
     },
-    "hash": "sha256:22e632b20dd4e0459bcd93ed7984b270642e5d8ec2267623be91b63fe3023c75",
+    "hash": "sha256:cc9f7ae91578eb82243752ec5d5fae34905a6252170cff47d59688426e77d536",
     "token_estimator": "heuristic-v1"
   },
   {

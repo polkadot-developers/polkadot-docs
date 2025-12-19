@@ -102,8 +102,8 @@ createProvider(PROVIDER_RPC.rpc);
 
     ```js
     const PROVIDER_RPC = {
-      rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
-      chainId: 420420422,
+      rpc: 'https://services.polkadothub-rpc.com/testnet',
+      chainId: 420420417,
       name: 'polkadot-hub-testnet'
     };
     ```
@@ -127,8 +127,8 @@ With the provider set up, you can start querying the blockchain. For instance, t
     };
 
     const PROVIDER_RPC = {
-      rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
-      chainId: 420420422,
+      rpc: 'https://services.polkadothub-rpc.com/testnet',
+      chainId: 420420417,
       name: 'polkadotTestNet',
     };
 
@@ -390,8 +390,8 @@ You can create a `deploy.js` script in the `scripts` directory of your project t
 
     ```js title="scripts/deploy.js"
     const providerConfig = {
-      rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io', // TODO: replace to `https://services.polkadothub-rpc.com/testnet` when ready
-      chainId: 420420422,
+      rpc: 'https://services.polkadothub-rpc.com/testnet',
+      chainId: 420420417,
       name: 'polkadotTestNet',
     };
 
@@ -498,8 +498,8 @@ You can create a `deploy.js` script in the `scripts` directory of your project t
     };
 
     const providerConfig = {
-      rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io', // TODO: replace to `https://services.polkadothub-rpc.com/testnet` when ready
-      chainId: 420420422,
+      rpc: 'https://services.polkadothub-rpc.com/testnet',
+      chainId: 420420417,
       name: 'polkadotTestNet',
     };
 
@@ -580,7 +580,7 @@ const updateStorage = async (config) => {
 };
 
 const config = {
-  rpcUrl: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
+  rpcUrl: 'https://services.polkadothub-rpc.com/testnet',
   privateKey: 'INSERT_PRIVATE_KEY',
   contractAddress: 'INSERT_CONTRACT_ADDRESS',
 };

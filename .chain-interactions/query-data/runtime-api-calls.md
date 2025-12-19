@@ -334,7 +334,7 @@ Now that you understand how to call runtime APIs to execute logic within the run
 
     Learn how to query on-chain state using the Sidecar REST API
 
-    [:octicons-arrow-right-24: Get Started](/chain-interactions/query-data/query-rest.md)
+    [:octicons-arrow-right-24: Get Started](/chain-interactions/query-data/query-rest/)
 
 -   __Send Transactions__
 

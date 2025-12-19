@@ -93,14 +93,14 @@ Both REVM and PVM deployments may show significant differences between gas estim
 
 ## Deployment Comparison
 
-| Feature | REVM Backend | PVM Backend |
-|:-------:|:-------------:|:----------------:|
-| **Deployment Model** | Single-step bundled | Two-step upload and instantiate |
-| **Factory Patterns** | Direct runtime creation | Requires pre-uploaded code |
-| **Code Bundling** | Bytecode in transaction | Code hash references |
-| **Runtime Codegen** | Fully supported | Not supported |
-| **Simple Contracts** | No modifications needed | No modifications needed |
-| **Assembly Creation** | Supported | Discouraged, limited support |
+|        Feature        |      REVM Backend       |           PVM Backend           |
+|:---------------------:|:-----------------------:|:-------------------------------:|
+| **Deployment Model**  |   Single-step bundled   | Two-step upload and instantiate |
+| **Factory Patterns**  | Direct runtime creation |   Requires pre-uploaded code    |
+|   **Code Bundling**   | Bytecode in transaction |      Code hash references       |
+|  **Runtime Codegen**  |     Fully supported     |          Not supported          |
+| **Simple Contracts**  | No modifications needed |     No modifications needed     |
+| **Assembly Creation** |        Supported        |  Discouraged, limited support   |
 
 ## Conclusion
 

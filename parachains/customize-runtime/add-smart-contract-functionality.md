@@ -32,11 +32,11 @@ This guide covers three approaches to adding smart contracts to your blockchain:
 
 `pallet-revive` accepts smart contracts from multiple languages and compilation paths:
 
-| Language | Compiler | Output Bytecode | Execution Backend |
-|----------|----------|-----------------|-------------------|
-| Solidity | `resolc` | PVM | PVM |
-| Solidity | `solc` | EVM | REVM |
-| Rust (ink!) | `cargo-contract` | PVM | PVM | 
+| Language    | Compiler         | Output Bytecode | Execution Backend |
+|-------------|------------------|-----------------|-------------------|
+| Solidity    | `resolc`         | PVM             | PVM               |
+| Solidity    | `solc`           | EVM             | REVM              |
+| Rust (ink!) | `cargo-contract` | PVM             | PVM               |
 
 Any language that can compile to PVM bytecode and utilize `pallet-revive`'s host functions (via [`pallet-revive-uapi`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive_uapi/index.html){target=\_blank}) is supported.
 

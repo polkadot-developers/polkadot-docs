@@ -342,6 +342,6 @@ Now that you understand how to call runtime APIs to execute logic within the run
 
     Learn to construct and submit transactions.
 
-    [:octicons-arrow-right-24: Get Started](/chain-interactions/send-transactions/with-sdks)        
+    [:octicons-arrow-right-24: Get Started](/chain-interactions/send-transactions/with-sdks/)        
 
 </div>

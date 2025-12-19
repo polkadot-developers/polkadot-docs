@@ -17,129 +17,17 @@
       },
       {
         "depth": 2,
-        "title": "Download LLM Files",
-        "anchor": "download-llm-files"
+        "title": "Access LLM Files",
+        "anchor": "access-llm-files"
       }
     ],
     "stats": {
-      "chars": 7998,
+      "chars": 7996,
       "words": 825,
       "headings": 2,
       "estimated_token_count_total": 2232
     },
-    "hash": "sha256:5a8da69a5cea8bd598ee4d102b9abed5d1a29153802a567e22bb4ee720410b32",
-    "token_estimator": "heuristic-v1"
-  },
-  {
-    "id": "get-support-explore-resources",
-    "title": "Subscribe to Updates",
-    "slug": "get-support-explore-resources",
-    "categories": [
-      "Uncategorized"
-    ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/get-support-explore-resources.md",
-    "html_url": "https://docs.polkadot.com/get-support/explore-resources/",
-    "preview": "Looking for answers beyond the documentation? These platforms are full of useful content and experienced developers sharing insights.",
-    "outline": [
-      {
-        "depth": 2,
-        "title": "🧠 Stack Exchange",
-        "anchor": "stack-exchange"
-      },
-      {
-        "depth": 2,
-        "title": "🧵 Reddit: r/Polkadot",
-        "anchor": "reddit-rpolkadot"
-      },
-      {
-        "depth": 2,
-        "title": "💬 Discord (Community Threads Only)",
-        "anchor": "discord-community-threads-only"
-      },
-      {
-        "depth": 2,
-        "title": "🎥 YouTube: @PolkadotNetwork",
-        "anchor": "youtube-polkadotnetwork"
-      },
-      {
-        "depth": 2,
-        "title": "Community-Led Platforms and Ecosystem Updates",
-        "anchor": "community-led-platforms-and-ecosystem-updates"
-      },
-      {
-        "depth": 3,
-        "title": "🔷 X (Twitter): Official Accounts",
-        "anchor": "x-twitter-official-accounts"
-      },
-      {
-        "depth": 3,
-        "title": "🔁 X (Twitter): Community Accounts",
-        "anchor": "x-twitter-community-accounts"
-      },
-      {
-        "depth": 3,
-        "title": "🗣️ Polkadot Forum",
-        "anchor": "polkadot-forum"
-      },
-      {
-        "depth": 3,
-        "title": "🧑‍⚖️ Polkassembly: OpenGov",
-        "anchor": "polkassembly-opengov"
-      },
-      {
-        "depth": 3,
-        "title": "📸 Instagram",
-        "anchor": "instagram"
-      }
-    ],
-    "stats": {
-      "chars": 2426,
-      "words": 295,
-      "headings": 10,
-      "estimated_token_count_total": 579
-    },
-    "hash": "sha256:670221ac20ab1f1b550ba2a1db06cd924c24bd3afc4d8a768b617d8a409243cb",
-    "token_estimator": "heuristic-v1"
-  },
-  {
-    "id": "get-support-get-in-touch",
-    "title": "Get in Touch",
-    "slug": "get-support-get-in-touch",
-    "categories": [
-      "Uncategorized"
-    ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/get-support-get-in-touch.md",
-    "html_url": "https://docs.polkadot.com/get-support/get-in-touch/",
-    "preview": "Use one of the channels below to get live technical support or ask questions.",
-    "outline": [
-      {
-        "depth": 2,
-        "title": "Need Help Fast?",
-        "anchor": "need-help-fast"
-      },
-      {
-        "depth": 2,
-        "title": "📱 Telegram: Polkadot Developer Support",
-        "anchor": "telegram-polkadot-developer-support"
-      },
-      {
-        "depth": 2,
-        "title": "🔌 Discord: Polkadot Official Server",
-        "anchor": "discord-polkadot-official-server"
-      },
-      {
-        "depth": 2,
-        "title": "🧬 Matrix: Polkadot Developer Support",
-        "anchor": "matrix-polkadot-developer-support"
-      }
-    ],
-    "stats": {
-      "chars": 1949,
-      "words": 258,
-      "headings": 4,
-      "estimated_token_count_total": 557
-    },
-    "hash": "sha256:993e93b05c8fbdfc2f7510c61ac86bc4c2ff0f03e573695b2f260933c8b62f78",
+    "hash": "sha256:1aa997c6fecf9ff5f6b2fde718c928518d6697bb818f71aa391fbb38a1946ff4",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -151,31 +39,31 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/get-support.md",
     "html_url": "https://docs.polkadot.com/get-support/",
-    "preview": "Use one of the channels below to get live technical support or ask questions.",
+    "preview": "You're already in the docs — solid start. But sometimes you need more: answers, real examples, someone to talk to. This support hub is here to help you move forward — faster.",
     "outline": [
       {
         "depth": 2,
-        "title": "Need More than Just Documentation?",
-        "anchor": "need-more-than-just-documentation"
+        "title": "Support Channels",
+        "anchor": "support-channels"
       },
       {
         "depth": 2,
-        "title": "What You Can Do Here",
-        "anchor": "what-you-can-do-here"
+        "title": "Community Resources",
+        "anchor": "community-resources"
       },
       {
         "depth": 2,
-        "title": "Help Us Improve",
-        "anchor": "help-us-improve"
+        "title": "AI Resources",
+        "anchor": "ai-resources"
       }
     ],
     "stats": {
-      "chars": 1658,
-      "words": 244,
+      "chars": 4621,
+      "words": 579,
       "headings": 3,
-      "estimated_token_count_total": 280
+      "estimated_token_count_total": 1223
     },
-    "hash": "sha256:5bdc575ac798a971867a15651c2b4d5139bf0b1fe6854d1865deff280ae6d7f6",
+    "hash": "sha256:69e5bcd8ec2f35e39ff674b7f709c7526dd34427ddd66d449ecb01d29a405321",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -869,12 +757,12 @@
       }
     ],
     "stats": {
-      "chars": 15811,
-      "words": 2437,
+      "chars": 15748,
+      "words": 2430,
       "headings": 13,
-      "estimated_token_count_total": 3843
+      "estimated_token_count_total": 3822
     },
-    "hash": "sha256:b503ef546f7c8702c5d4c12170ab440e502ba8d2e933ef1f0d46f23fd933c265",
+    "hash": "sha256:58db84beec026186697286a156553f64239c3bbe4b73db5eaa4d8f874a21b0d2",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -1665,12 +1553,12 @@
       }
     ],
     "stats": {
-      "chars": 6607,
+      "chars": 6729,
       "words": 833,
       "headings": 16,
-      "estimated_token_count_total": 1631
+      "estimated_token_count_total": 1642
     },
-    "hash": "sha256:aa02e672b856e349e82683be074cd70d9976ad8e6f960c959d8b5e48c4a0a321",
+    "hash": "sha256:c89fd7963b09729601e92b0ffbf0c61630077de56a6e1c87c07b571bf68bb9a6",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -2501,12 +2389,12 @@
       }
     ],
     "stats": {
-      "chars": 3588,
+      "chars": 3587,
       "words": 489,
       "headings": 4,
       "estimated_token_count_total": 786
     },
-    "hash": "sha256:1c65342056983806d639fb8393fdfbdf2ef644ffd41ed749947a16fb3839753d",
+    "hash": "sha256:1c3608c6572dbe22a7e25719786f9a739107444cf19d08dfdac69712477d0a15",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -2904,12 +2792,12 @@
       }
     ],
     "stats": {
-      "chars": 10617,
-      "words": 1514,
+      "chars": 10613,
+      "words": 1513,
       "headings": 11,
-      "estimated_token_count_total": 2384
+      "estimated_token_count_total": 2382
     },
-    "hash": "sha256:cb5c18ff247cb9cf84d20aed7827322065694c8e1d62679183a4c266fea5d386",
+    "hash": "sha256:1c983b0b0bc6d34b34998b08ec218c068243b6da5b28c267d1026ac99852758a",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -3242,6 +3130,3042 @@
       "estimated_token_count_total": 9761
     },
     "hash": "sha256:2a765ad6d0a676b644ef3dd3565f2db58bfafbc9ef43c49e9eefe8bb0aeeee0a",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "reference-glossary",
+    "title": "Glossary",
+    "slug": "reference-glossary",
+    "categories": [
+      "Reference"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-glossary.md",
+    "html_url": "https://docs.polkadot.com/reference/glossary/",
+    "preview": "Key definitions, concepts, and terminology specific to the Polkadot ecosystem are included here.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Authority",
+        "anchor": "authority"
+      },
+      {
+        "depth": 2,
+        "title": "Authority Round (Aura)",
+        "anchor": "authority-round-aura"
+      },
+      {
+        "depth": 2,
+        "title": "Blind Assignment of Blockchain Extension (BABE)",
+        "anchor": "blind-assignment-of-blockchain-extension-babe"
+      },
+      {
+        "depth": 2,
+        "title": "Block Author",
+        "anchor": "block-author"
+      },
+      {
+        "depth": 2,
+        "title": "Byzantine Fault Tolerance (BFT)",
+        "anchor": "byzantine-fault-tolerance-bft"
+      },
+      {
+        "depth": 3,
+        "title": "Byzantine Failure",
+        "anchor": "byzantine-failure"
+      },
+      {
+        "depth": 3,
+        "title": "Practical Byzantine Fault Tolerance (pBFT)",
+        "anchor": "practical-byzantine-fault-tolerance-pbft"
+      },
+      {
+        "depth": 3,
+        "title": "Preimage",
+        "anchor": "preimage"
+      },
+      {
+        "depth": 2,
+        "title": "Call",
+        "anchor": "call"
+      },
+      {
+        "depth": 2,
+        "title": "Chain Specification",
+        "anchor": "chain-specification"
+      },
+      {
+        "depth": 2,
+        "title": "Collator",
+        "anchor": "collator"
+      },
+      {
+        "depth": 2,
+        "title": "Collective",
+        "anchor": "collective"
+      },
+      {
+        "depth": 2,
+        "title": "Consensus",
+        "anchor": "consensus"
+      },
+      {
+        "depth": 2,
+        "title": "Consensus Algorithm",
+        "anchor": "consensus-algorithm"
+      },
+      {
+        "depth": 2,
+        "title": "Consensus Engine",
+        "anchor": "consensus-engine"
+      },
+      {
+        "depth": 2,
+        "title": "Coretime",
+        "anchor": "coretime"
+      },
+      {
+        "depth": 2,
+        "title": "Development Phrase",
+        "anchor": "development-phrase"
+      },
+      {
+        "depth": 2,
+        "title": "Digest",
+        "anchor": "digest"
+      },
+      {
+        "depth": 2,
+        "title": "Dispatchable",
+        "anchor": "dispatchable"
+      },
+      {
+        "depth": 2,
+        "title": "Events",
+        "anchor": "events"
+      },
+      {
+        "depth": 2,
+        "title": "Executor",
+        "anchor": "executor"
+      },
+      {
+        "depth": 2,
+        "title": "Existential Deposit",
+        "anchor": "existential-deposit"
+      },
+      {
+        "depth": 2,
+        "title": "Extrinsic",
+        "anchor": "extrinsic"
+      },
+      {
+        "depth": 2,
+        "title": "Fork Choice Rule/Strategy",
+        "anchor": "fork-choice-rulestrategy"
+      },
+      {
+        "depth": 2,
+        "title": "FRAME (Framework for Runtime Aggregation of Modularized Entities)",
+        "anchor": "frame-framework-for-runtime-aggregation-of-modularized-entities"
+      },
+      {
+        "depth": 2,
+        "title": "Full Node",
+        "anchor": "full-node"
+      },
+      {
+        "depth": 2,
+        "title": "Genesis Configuration",
+        "anchor": "genesis-configuration"
+      },
+      {
+        "depth": 2,
+        "title": "GRANDPA",
+        "anchor": "grandpa"
+      },
+      {
+        "depth": 2,
+        "title": "Header",
+        "anchor": "header"
+      },
+      {
+        "depth": 2,
+        "title": "Hybrid Consensus",
+        "anchor": "hybrid-consensus"
+      },
+      {
+        "depth": 2,
+        "title": "Inherent Transactions",
+        "anchor": "inherent-transactions"
+      },
+      {
+        "depth": 2,
+        "title": "JSON-RPC",
+        "anchor": "json-rpc"
+      },
+      {
+        "depth": 2,
+        "title": "Keystore",
+        "anchor": "keystore"
+      },
+      {
+        "depth": 2,
+        "title": "Kusama",
+        "anchor": "kusama"
+      },
+      {
+        "depth": 2,
+        "title": "libp2p",
+        "anchor": "libp2p"
+      },
+      {
+        "depth": 2,
+        "title": "Light Client",
+        "anchor": "light-client"
+      },
+      {
+        "depth": 2,
+        "title": "Metadata",
+        "anchor": "metadata"
+      },
+      {
+        "depth": 2,
+        "title": "Nominated Proof of Stake (NPoS)",
+        "anchor": "nominated-proof-of-stake-npos"
+      },
+      {
+        "depth": 2,
+        "title": "Oracle",
+        "anchor": "oracle"
+      },
+      {
+        "depth": 2,
+        "title": "Origin",
+        "anchor": "origin"
+      },
+      {
+        "depth": 2,
+        "title": "Pallet",
+        "anchor": "pallet"
+      },
+      {
+        "depth": 2,
+        "title": "Parachain",
+        "anchor": "parachain"
+      },
+      {
+        "depth": 2,
+        "title": "Paseo",
+        "anchor": "paseo"
+      },
+      {
+        "depth": 2,
+        "title": "Polkadot",
+        "anchor": "polkadot"
+      },
+      {
+        "depth": 2,
+        "title": "Polkadot Cloud",
+        "anchor": "polkadot-cloud"
+      },
+      {
+        "depth": 2,
+        "title": "Polkadot Hub",
+        "anchor": "polkadot-hub"
+      },
+      {
+        "depth": 2,
+        "title": "PVM",
+        "anchor": "pvm"
+      },
+      {
+        "depth": 2,
+        "title": "Relay Chain",
+        "anchor": "relay-chain"
+      },
+      {
+        "depth": 2,
+        "title": "Rococo",
+        "anchor": "rococo"
+      },
+      {
+        "depth": 2,
+        "title": "Runtime",
+        "anchor": "runtime"
+      },
+      {
+        "depth": 2,
+        "title": "Slot",
+        "anchor": "slot"
+      },
+      {
+        "depth": 2,
+        "title": "Sovereign Account",
+        "anchor": "sovereign-account"
+      },
+      {
+        "depth": 2,
+        "title": "SS58 Address Format",
+        "anchor": "ss58-address-format"
+      },
+      {
+        "depth": 2,
+        "title": "State Transition Function (STF)",
+        "anchor": "state-transition-function-stf"
+      },
+      {
+        "depth": 2,
+        "title": "Storage Item",
+        "anchor": "storage-item"
+      },
+      {
+        "depth": 2,
+        "title": "Substrate",
+        "anchor": "substrate"
+      },
+      {
+        "depth": 2,
+        "title": "Transaction",
+        "anchor": "transaction"
+      },
+      {
+        "depth": 2,
+        "title": "Transaction Era",
+        "anchor": "transaction-era"
+      },
+      {
+        "depth": 2,
+        "title": "Trie (Patricia Merkle Tree)",
+        "anchor": "trie-patricia-merkle-tree"
+      },
+      {
+        "depth": 2,
+        "title": "Validator",
+        "anchor": "validator"
+      },
+      {
+        "depth": 2,
+        "title": "WebAssembly (Wasm)",
+        "anchor": "webassembly-wasm"
+      },
+      {
+        "depth": 2,
+        "title": "Weight",
+        "anchor": "weight"
+      },
+      {
+        "depth": 2,
+        "title": "Westend",
+        "anchor": "westend"
+      }
+    ],
+    "stats": {
+      "chars": 24750,
+      "words": 3627,
+      "headings": 63,
+      "estimated_token_count_total": 5273
+    },
+    "hash": "sha256:4a00e1f87640b9f582202e6f94136570382b637fca71317b17b903ebf08bd65f",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "reference-governance-origins-tracks",
+    "title": "Origins and Tracks",
+    "slug": "reference-governance-origins-tracks",
+    "categories": [
+      "Polkadot Protocol"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-governance-origins-tracks.md",
+    "html_url": "https://docs.polkadot.com/reference/governance/origins-tracks/",
+    "preview": "Polkadot's OpenGov system empowers decentralized decision-making and active community participation by tailoring the governance process to the impact of proposed changes. Through a system of origins and tracks, OpenGov ensures that every referendum receives the appropriate scrutiny, balancing security, inclusivity, and efficiency.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Origins",
+        "anchor": "origins"
+      },
+      {
+        "depth": 2,
+        "title": "Tracks",
+        "anchor": "tracks"
+      },
+      {
+        "depth": 2,
+        "title": "Additional Resources",
+        "anchor": "additional-resources"
+      }
+    ],
+    "stats": {
+      "chars": 3333,
+      "words": 469,
+      "headings": 4,
+      "estimated_token_count_total": 631
+    },
+    "hash": "sha256:baba9dd41091b792d09005d55d3df0bf65b35f42b40ebe63caf425a0978a22b0",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "reference-governance",
+    "title": "On-Chain Governance Overview",
+    "slug": "reference-governance",
+    "categories": [
+      "Basics",
+      "Polkadot Protocol"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-governance.md",
+    "html_url": "https://docs.polkadot.com/reference/governance/",
+    "preview": "Polkadot’s governance system exemplifies decentralized decision-making, empowering its community of stakeholders to shape the network’s future through active participation. The latest evolution, OpenGov, builds on Polkadot’s foundation by providing a more inclusive and efficient governance model.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Governance Evolution",
+        "anchor": "governance-evolution"
+      },
+      {
+        "depth": 2,
+        "title": "OpenGov Key Features",
+        "anchor": "opengov-key-features"
+      },
+      {
+        "depth": 2,
+        "title": "Origins and Tracks",
+        "anchor": "origins-and-tracks"
+      },
+      {
+        "depth": 2,
+        "title": "Referendums",
+        "anchor": "referendums"
+      },
+      {
+        "depth": 3,
+        "title": "Vote on Referendums",
+        "anchor": "vote-on-referendums"
+      },
+      {
+        "depth": 3,
+        "title": "Delegate Voting Power",
+        "anchor": "delegate-voting-power"
+      },
+      {
+        "depth": 3,
+        "title": "Cancel a Referendum",
+        "anchor": "cancel-a-referendum"
+      },
+      {
+        "depth": 2,
+        "title": "Additional Resources",
+        "anchor": "additional-resources"
+      }
+    ],
+    "stats": {
+      "chars": 7493,
+      "words": 1019,
+      "headings": 9,
+      "estimated_token_count_total": 1611
+    },
+    "hash": "sha256:62beec261e72529f70e07a641177d489d2c8872f9c9d618cbadf1ac0fd881986",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "reference-parachains-accounts",
+    "title": "Polkadot SDK Accounts",
+    "slug": "reference-parachains-accounts",
+    "categories": [
+      "Basics",
+      "Polkadot Protocol"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-parachains-accounts.md",
+    "html_url": "https://docs.polkadot.com/reference/parachains/accounts/",
+    "preview": "Accounts are essential for managing identity, transactions, and governance on the network in the Polkadot SDK. Understanding these components is critical for seamless development and operation on the network, whether you're building or interacting with Polkadot-based chains.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Account Data Structure",
+        "anchor": "account-data-structure"
+      },
+      {
+        "depth": 3,
+        "title": "Account",
+        "anchor": "account"
+      },
+      {
+        "depth": 3,
+        "title": "Account Info",
+        "anchor": "account-info"
+      },
+      {
+        "depth": 3,
+        "title": "Account Reference Counters",
+        "anchor": "account-reference-counters"
+      },
+      {
+        "depth": 2,
+        "title": "Account Balance Types",
+        "anchor": "account-balance-types"
+      },
+      {
+        "depth": 3,
+        "title": "Balance Types",
+        "anchor": "balance-types"
+      },
+      {
+        "depth": 3,
+        "title": "Locks",
+        "anchor": "locks"
+      },
+      {
+        "depth": 3,
+        "title": "Balance Types on Polkadot.js",
+        "anchor": "balance-types-on-polkadotjs"
+      },
+      {
+        "depth": 2,
+        "title": "Address Formats",
+        "anchor": "address-formats"
+      },
+      {
+        "depth": 3,
+        "title": "Basic Format",
+        "anchor": "basic-format"
+      },
+      {
+        "depth": 3,
+        "title": "Address Type",
+        "anchor": "address-type"
+      },
+      {
+        "depth": 3,
+        "title": "Address Length",
+        "anchor": "address-length"
+      },
+      {
+        "depth": 3,
+        "title": "Checksum Types",
+        "anchor": "checksum-types"
+      },
+      {
+        "depth": 3,
+        "title": "Validating Addresses",
+        "anchor": "validating-addresses"
+      }
+    ],
+    "stats": {
+      "chars": 29604,
+      "words": 4194,
+      "headings": 15,
+      "estimated_token_count_total": 6507
+    },
+    "hash": "sha256:0104a9132a69345a2faac37fca0e2853a2ded1efb009511a83a98d44509ab887",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "reference-parachains-blocks-transactions-fees-blocks",
+    "title": "Blocks",
+    "slug": "reference-parachains-blocks-transactions-fees-blocks",
+    "categories": [
+      "Basics",
+      "Polkadot Protocol"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-parachains-blocks-transactions-fees-blocks.md",
+    "html_url": "https://docs.polkadot.com/reference/parachains/blocks-transactions-fees/blocks/",
+    "preview": "In the Polkadot SDK, blocks are fundamental to the functioning of the blockchain, serving as containers for [transactions](/reference/parachains/blocks-transactions-fees/transactions/){target=\\_blank} and changes to the chain's state. Blocks consist of headers and an array of transactions, ensuring the integrity and validity of operations on the network. This guide explores the essential components of a block, the process of block production, and how blocks are validated and imported across the",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "What is a Block?",
+        "anchor": "what-is-a-block"
+      },
+      {
+        "depth": 2,
+        "title": "Block Production",
+        "anchor": "block-production"
+      },
+      {
+        "depth": 3,
+        "title": "Initialize Block",
+        "anchor": "initialize-block"
+      },
+      {
+        "depth": 3,
+        "title": "Finalize Block",
+        "anchor": "finalize-block"
+      },
+      {
+        "depth": 2,
+        "title": "Block Authoring and Import",
+        "anchor": "block-authoring-and-import"
+      },
+      {
+        "depth": 3,
+        "title": "Block Import Queue",
+        "anchor": "block-import-queue"
+      },
+      {
+        "depth": 2,
+        "title": "Additional Resources",
+        "anchor": "additional-resources"
+      }
+    ],
+    "stats": {
+      "chars": 6252,
+      "words": 910,
+      "headings": 8,
+      "estimated_token_count_total": 1395
+    },
+    "hash": "sha256:424783c102bea5dae5b8749635858c6c59055563442a98f57521f0027dafa8d3",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "reference-parachains-blocks-transactions-fees-fees",
+    "title": "Transactions Weights and Fees",
+    "slug": "reference-parachains-blocks-transactions-fees-fees",
+    "categories": [
+      "Basics",
+      "Polkadot Protocol"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-parachains-blocks-transactions-fees-fees.md",
+    "html_url": "https://docs.polkadot.com/reference/parachains/blocks-transactions-fees/fees/",
+    "preview": "When transactions are executed, or data is stored on-chain, the activity changes the chain's state and consumes blockchain resources. Because the resources available to a blockchain are limited, managing how operations on-chain consume them is important. In addition to being limited in practical terms, such as storage capacity, blockchain resources represent a potential attack vector for malicious users. For example, a malicious user might attempt to overload the network with messages to stop th",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introductions",
+        "anchor": "introductions"
+      },
+      {
+        "depth": 2,
+        "title": "How Fees are Calculated",
+        "anchor": "how-fees-are-calculated"
+      },
+      {
+        "depth": 2,
+        "title": "Using the Transaction Payment Pallet",
+        "anchor": "using-the-transaction-payment-pallet"
+      },
+      {
+        "depth": 3,
+        "title": "Understanding the Inclusion Fee",
+        "anchor": "understanding-the-inclusion-fee"
+      },
+      {
+        "depth": 3,
+        "title": "Accounts with an Insufficient Balance",
+        "anchor": "accounts-with-an-insufficient-balance"
+      },
+      {
+        "depth": 3,
+        "title": "Fee Multipliers",
+        "anchor": "fee-multipliers"
+      },
+      {
+        "depth": 2,
+        "title": "Transactions with Special Requirements",
+        "anchor": "transactions-with-special-requirements"
+      },
+      {
+        "depth": 2,
+        "title": "Default Weight Annotations",
+        "anchor": "default-weight-annotations"
+      },
+      {
+        "depth": 3,
+        "title": "Weights and Database Read/Write Operations",
+        "anchor": "weights-and-database-readwrite-operations"
+      },
+      {
+        "depth": 3,
+        "title": "Dispatch Classes",
+        "anchor": "dispatch-classes"
+      },
+      {
+        "depth": 3,
+        "title": "Dynamic Weights",
+        "anchor": "dynamic-weights"
+      },
+      {
+        "depth": 2,
+        "title": "Post Dispatch Weight Correction",
+        "anchor": "post-dispatch-weight-correction"
+      },
+      {
+        "depth": 2,
+        "title": "Custom Fees",
+        "anchor": "custom-fees"
+      },
+      {
+        "depth": 3,
+        "title": "Custom Weights",
+        "anchor": "custom-weights"
+      },
+      {
+        "depth": 2,
+        "title": "Additional Resources",
+        "anchor": "additional-resources"
+      }
+    ],
+    "stats": {
+      "chars": 20800,
+      "words": 2917,
+      "headings": 15,
+      "estimated_token_count_total": 4464
+    },
+    "hash": "sha256:7d0c3fa7982b3e1843adb8f27422456397580b3a3eba5047b381da8517742536",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "reference-parachains-blocks-transactions-fees-transactions",
+    "title": "Transactions",
+    "slug": "reference-parachains-blocks-transactions-fees-transactions",
+    "categories": [
+      "Basics",
+      "Polkadot Protocol"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-parachains-blocks-transactions-fees-transactions.md",
+    "html_url": "https://docs.polkadot.com/reference/parachains/blocks-transactions-fees/transactions/",
+    "preview": "Transactions are essential components of blockchain networks, enabling state changes and the execution of key operations. In the Polkadot SDK, transactions, often called extrinsics, come in multiple forms, including signed, unsigned, and inherent transactions.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "What Is a Transaction?",
+        "anchor": "what-is-a-transaction"
+      },
+      {
+        "depth": 3,
+        "title": "Signed Transactions",
+        "anchor": "signed-transactions"
+      },
+      {
+        "depth": 3,
+        "title": "Unsigned Transactions",
+        "anchor": "unsigned-transactions"
+      },
+      {
+        "depth": 3,
+        "title": "Inherent Transactions",
+        "anchor": "inherent-transactions"
+      },
+      {
+        "depth": 2,
+        "title": "Transaction Formats",
+        "anchor": "transaction-formats"
+      },
+      {
+        "depth": 3,
+        "title": "Types of Transaction Formats",
+        "anchor": "types-of-transaction-formats"
+      },
+      {
+        "depth": 3,
+        "title": "Signed Transaction Data Structure",
+        "anchor": "signed-transaction-data-structure"
+      },
+      {
+        "depth": 3,
+        "title": "Signed Extensions",
+        "anchor": "signed-extensions"
+      },
+      {
+        "depth": 2,
+        "title": "Transaction Construction",
+        "anchor": "transaction-construction"
+      },
+      {
+        "depth": 3,
+        "title": "Construct a Signed Transaction",
+        "anchor": "construct-a-signed-transaction"
+      },
+      {
+        "depth": 3,
+        "title": "Transaction Encoding",
+        "anchor": "transaction-encoding"
+      },
+      {
+        "depth": 3,
+        "title": "Customize Transaction Construction",
+        "anchor": "customize-transaction-construction"
+      },
+      {
+        "depth": 2,
+        "title": "Lifecycle of a Transaction",
+        "anchor": "lifecycle-of-a-transaction"
+      },
+      {
+        "depth": 3,
+        "title": "Define Transaction Properties",
+        "anchor": "define-transaction-properties"
+      },
+      {
+        "depth": 3,
+        "title": "Process on a Block Authoring Node",
+        "anchor": "process-on-a-block-authoring-node"
+      },
+      {
+        "depth": 3,
+        "title": "Validate and Queue",
+        "anchor": "validate-and-queue"
+      },
+      {
+        "depth": 3,
+        "title": "Transaction Ordering and Priority",
+        "anchor": "transaction-ordering-and-priority"
+      },
+      {
+        "depth": 3,
+        "title": "Transaction Execution",
+        "anchor": "transaction-execution"
+      },
+      {
+        "depth": 2,
+        "title": "Transaction Mortality",
+        "anchor": "transaction-mortality"
+      },
+      {
+        "depth": 2,
+        "title": "Unique Identifiers for Extrinsics",
+        "anchor": "unique-identifiers-for-extrinsics"
+      },
+      {
+        "depth": 2,
+        "title": "Additional Resources",
+        "anchor": "additional-resources"
+      }
+    ],
+    "stats": {
+      "chars": 23610,
+      "words": 3333,
+      "headings": 22,
+      "estimated_token_count_total": 4708
+    },
+    "hash": "sha256:66726634d3a51cd9c471621054a6e5f09c8061dca6144b64c8bcf45626359617",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "reference-parachains-chain-data",
+    "title": "Chain Data",
+    "slug": "reference-parachains-chain-data",
+    "categories": [
+      "Basics",
+      "Polkadot Protocol"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-parachains-chain-data.md",
+    "html_url": "https://docs.polkadot.com/reference/parachains/chain-data/",
+    "preview": "Understanding and leveraging on-chain data is a fundamental aspect of blockchain development. Whether you're building frontend applications or backend systems, accessing and decoding runtime metadata is vital to interacting with the blockchain. This guide introduces you to the tools and processes for generating and retrieving metadata, explains its role in application development, and outlines the additional APIs available for interacting with a Polkadot node. By mastering these components, you",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Application Development",
+        "anchor": "application-development"
+      },
+      {
+        "depth": 2,
+        "title": "Understand Metadata",
+        "anchor": "understand-metadata"
+      },
+      {
+        "depth": 2,
+        "title": "Expose Runtime Information as Metadata",
+        "anchor": "expose-runtime-information-as-metadata"
+      },
+      {
+        "depth": 2,
+        "title": "Generate Metadata",
+        "anchor": "generate-metadata"
+      },
+      {
+        "depth": 2,
+        "title": "Retrieve Runtime Metadata",
+        "anchor": "retrieve-runtime-metadata"
+      },
+      {
+        "depth": 3,
+        "title": "Use Polkadot.js",
+        "anchor": "use-polkadotjs"
+      },
+      {
+        "depth": 3,
+        "title": "Use Curl",
+        "anchor": "use-curl"
+      },
+      {
+        "depth": 3,
+        "title": "Use Subxt",
+        "anchor": "use-subxt"
+      },
+      {
+        "depth": 2,
+        "title": "Client Applications and Metadata",
+        "anchor": "client-applications-and-metadata"
+      },
+      {
+        "depth": 2,
+        "title": "Metadata Format",
+        "anchor": "metadata-format"
+      },
+      {
+        "depth": 3,
+        "title": "Pallets",
+        "anchor": "pallets"
+      },
+      {
+        "depth": 3,
+        "title": "Extrinsic",
+        "anchor": "extrinsic"
+      },
+      {
+        "depth": 2,
+        "title": "Included RPC APIs",
+        "anchor": "included-rpc-apis"
+      },
+      {
+        "depth": 2,
+        "title": "Additional Resources",
+        "anchor": "additional-resources"
+      }
+    ],
+    "stats": {
+      "chars": 18650,
+      "words": 2216,
+      "headings": 15,
+      "estimated_token_count_total": 3774
+    },
+    "hash": "sha256:49238d1e9e2c33e0fcd3a84b5e30f0d3840d7d23a783b538875e0a23f38efc1d",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "reference-parachains-consensus-async-backing",
+    "title": "Asynchronous Backing",
+    "slug": "reference-parachains-consensus-async-backing",
+    "categories": [
+      "Polkadot Protocol"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-parachains-consensus-async-backing.md",
+    "html_url": "https://docs.polkadot.com/reference/parachains/consensus/async-backing/",
+    "preview": "Asynchronous backing often shortened to _Async Backing_ is a parachain protocol feature that significantly improves performance, enabling parachains to produce blocks twice as fast (every 6 seconds instead of every 12) and to provide 4x more execution time per block (2 seconds instead of 0.5).",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Configurations",
+        "anchor": "configurations"
+      },
+      {
+        "depth": 2,
+        "title": "Synchronous VS. Asynchronous Processing",
+        "anchor": "synchronous-vs-asynchronous-processing"
+      }
+    ],
+    "stats": {
+      "chars": 8095,
+      "words": 996,
+      "headings": 3,
+      "estimated_token_count_total": 1799
+    },
+    "hash": "sha256:3c7c48fdeefd6802d2e363efe2d8f31a617d86648dabe666dae34dfd705be6c9",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "reference-parachains-consensus-elastic-scaling",
+    "title": "Elastic Scaling",
+    "slug": "reference-parachains-consensus-elastic-scaling",
+    "categories": [
+      "Polkadot Protocol"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-parachains-consensus-elastic-scaling.md",
+    "html_url": "https://docs.polkadot.com/reference/parachains/consensus/elastic-scaling/",
+    "preview": "Polkadot's architecture delivers scalability and security through its shared security model, where the relay chain coordinates and validates multiple parallel chains.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "How Elastic Scaling Works",
+        "anchor": "how-elastic-scaling-works"
+      },
+      {
+        "depth": 2,
+        "title": "Benefits of Elastic Scaling",
+        "anchor": "benefits-of-elastic-scaling"
+      },
+      {
+        "depth": 2,
+        "title": "Use Cases",
+        "anchor": "use-cases"
+      },
+      {
+        "depth": 3,
+        "title": "Handling Sudden Traffic Spikes",
+        "anchor": "handling-sudden-traffic-spikes"
+      },
+      {
+        "depth": 3,
+        "title": "Supporting Early-Stage Growth",
+        "anchor": "supporting-early-stage-growth"
+      },
+      {
+        "depth": 3,
+        "title": "Scaling Massive IoT Networks",
+        "anchor": "scaling-massive-iot-networks"
+      },
+      {
+        "depth": 3,
+        "title": "Powering Real-Time, Low-Latency Systems",
+        "anchor": "powering-real-time-low-latency-systems"
+      }
+    ],
+    "stats": {
+      "chars": 7871,
+      "words": 1047,
+      "headings": 8,
+      "estimated_token_count_total": 1440
+    },
+    "hash": "sha256:2d228c52844df8952520fafdd3e6f0e26bfd2f32b5ee60c6241cf7d38603643c",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "reference-parachains-consensus-inclusion-pipeline",
+    "title": "Inclusion Pipeline",
+    "slug": "reference-parachains-consensus-inclusion-pipeline",
+    "categories": [
+      "Polkadot Protocol"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-parachains-consensus-inclusion-pipeline.md",
+    "html_url": "https://docs.polkadot.com/reference/parachains/consensus/inclusion-pipeline/",
+    "preview": "The inclusion pipeline is the multi-stage process through which every parachain block (parablock) is validated and secured before being finalized in the Polkadot relay chain. This pipeline ensures that all parachain blocks meet validity requirements through progressive verification by multiple sets of validators.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Pipeline Stages",
+        "anchor": "pipeline-stages"
+      },
+      {
+        "depth": 3,
+        "title": "Context",
+        "anchor": "context"
+      },
+      {
+        "depth": 3,
+        "title": "Generation",
+        "anchor": "generation"
+      },
+      {
+        "depth": 3,
+        "title": "Backing",
+        "anchor": "backing"
+      },
+      {
+        "depth": 3,
+        "title": "Inclusion",
+        "anchor": "inclusion"
+      }
+    ],
+    "stats": {
+      "chars": 3982,
+      "words": 579,
+      "headings": 6,
+      "estimated_token_count_total": 851
+    },
+    "hash": "sha256:e5c569a4e12fadc186a5f22224f9763c58bae00db6acc485727e59ddef31053d",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "reference-parachains-consensus",
+    "title": "Parachain Consensus",
+    "slug": "reference-parachains-consensus",
+    "categories": [
+      "Polkadot Protocol",
+      "Parachains"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-parachains-consensus.md",
+    "html_url": "https://docs.polkadot.com/reference/parachains/consensus/",
+    "preview": "Parachains are independent blockchains built with the Polkadot SDK, designed to leverage Polkadot’s relay chain for shared security and transaction finality. These specialized chains operate as part of Polkadot’s execution sharding model, where each parachain manages its own state and transactions while relying on the relay chain for validation and consensus.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "The Role of Collators",
+        "anchor": "the-role-of-collators"
+      },
+      {
+        "depth": 2,
+        "title": "Consensus and Validation",
+        "anchor": "consensus-and-validation"
+      },
+      {
+        "depth": 3,
+        "title": "Path of a Parachain Block",
+        "anchor": "path-of-a-parachain-block"
+      },
+      {
+        "depth": 2,
+        "title": "Where to Go Next",
+        "anchor": "where-to-go-next"
+      }
+    ],
+    "stats": {
+      "chars": 6874,
+      "words": 873,
+      "headings": 5,
+      "estimated_token_count_total": 1296
+    },
+    "hash": "sha256:58e87829668cd9e3e034d94fcaf48b090970093f6d5a6136630e5d268a8846c8",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "reference-parachains-cryptography",
+    "title": "Cryptography",
+    "slug": "reference-parachains-cryptography",
+    "categories": [
+      "Basics",
+      "Polkadot Protocol"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-parachains-cryptography.md",
+    "html_url": "https://docs.polkadot.com/reference/parachains/cryptography/",
+    "preview": "Cryptography forms the backbone of blockchain technology, providing the mathematical verifiability crucial for consensus systems, data integrity, and user security. While a deep understanding of the underlying mathematical processes isn't necessary for most blockchain developers, grasping the fundamental applications of cryptography is essential. This page comprehensively overviews cryptographic implementations used across Polkadot SDK-based chains and the broader blockchain ecosystem.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Hash Functions",
+        "anchor": "hash-functions"
+      },
+      {
+        "depth": 3,
+        "title": "Key Properties of Hash Functions",
+        "anchor": "key-properties-of-hash-functions"
+      },
+      {
+        "depth": 3,
+        "title": "Blake2",
+        "anchor": "blake2"
+      },
+      {
+        "depth": 2,
+        "title": "Types of Cryptography",
+        "anchor": "types-of-cryptography"
+      },
+      {
+        "depth": 3,
+        "title": "Symmetric Cryptography",
+        "anchor": "symmetric-cryptography"
+      },
+      {
+        "depth": 3,
+        "title": "Asymmetric Cryptography",
+        "anchor": "asymmetric-cryptography"
+      },
+      {
+        "depth": 3,
+        "title": "Trade-offs and Compromises",
+        "anchor": "trade-offs-and-compromises"
+      },
+      {
+        "depth": 2,
+        "title": "Digital Signatures",
+        "anchor": "digital-signatures"
+      },
+      {
+        "depth": 3,
+        "title": "Example of Creating a Digital Signature",
+        "anchor": "example-of-creating-a-digital-signature"
+      },
+      {
+        "depth": 2,
+        "title": "Elliptic Curve",
+        "anchor": "elliptic-curve"
+      },
+      {
+        "depth": 3,
+        "title": "Various Implementations",
+        "anchor": "various-implementations"
+      }
+    ],
+    "stats": {
+      "chars": 8860,
+      "words": 1293,
+      "headings": 12,
+      "estimated_token_count_total": 1797
+    },
+    "hash": "sha256:259dcef86aadc513675258b665cc3940db65af6eb32a5db85da6ac339966fa60",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "reference-parachains-data-encoding",
+    "title": "Data Encoding",
+    "slug": "reference-parachains-data-encoding",
+    "categories": [
+      "Basics",
+      "Polkadot Protocol"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-parachains-data-encoding.md",
+    "html_url": "https://docs.polkadot.com/reference/parachains/data-encoding/",
+    "preview": "The Polkadot SDK uses a lightweight and efficient encoding/decoding mechanism to optimize data transmission across the network. This mechanism, known as the _SCALE_ codec, is used for serializing and deserializing data.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "SCALE Codec",
+        "anchor": "scale-codec"
+      },
+      {
+        "depth": 3,
+        "title": "Encode",
+        "anchor": "encode"
+      },
+      {
+        "depth": 3,
+        "title": "Decode",
+        "anchor": "decode"
+      },
+      {
+        "depth": 3,
+        "title": "CompactAs",
+        "anchor": "compactas"
+      },
+      {
+        "depth": 3,
+        "title": "HasCompact",
+        "anchor": "hascompact"
+      },
+      {
+        "depth": 3,
+        "title": "EncodeLike",
+        "anchor": "encodelike"
+      },
+      {
+        "depth": 3,
+        "title": "Data Types",
+        "anchor": "data-types"
+      },
+      {
+        "depth": 2,
+        "title": "Encode and Decode Rust Trait Implementations",
+        "anchor": "encode-and-decode-rust-trait-implementations"
+      },
+      {
+        "depth": 2,
+        "title": "SCALE Codec Libraries",
+        "anchor": "scale-codec-libraries"
+      }
+    ],
+    "stats": {
+      "chars": 13629,
+      "words": 1314,
+      "headings": 10,
+      "estimated_token_count_total": 3213
+    },
+    "hash": "sha256:e448294b6e52291ac0add5fa6533572814e6cd27af42bdaccc2000b86f52d775",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "reference-parachains-interoperability",
+    "title": "Interoperability",
+    "slug": "reference-parachains-interoperability",
+    "categories": [
+      "Basics",
+      "Polkadot Protocol"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-parachains-interoperability.md",
+    "html_url": "https://docs.polkadot.com/reference/parachains/interoperability/",
+    "preview": "Interoperability lies at the heart of the Polkadot ecosystem, enabling communication and collaboration across a diverse range of blockchains. By bridging the gaps between parachains, relay chains, and even external networks, Polkadot unlocks the potential for truly decentralized applications, efficient resource sharing, and scalable solutions.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Why Interoperability Matters",
+        "anchor": "why-interoperability-matters"
+      },
+      {
+        "depth": 2,
+        "title": "Key Mechanisms for Interoperability",
+        "anchor": "key-mechanisms-for-interoperability"
+      },
+      {
+        "depth": 3,
+        "title": "Cross-Consensus Messaging (XCM): The Backbone of Communication",
+        "anchor": "cross-consensus-messaging-xcm-the-backbone-of-communication"
+      },
+      {
+        "depth": 3,
+        "title": "Bridges: Connecting External Networks",
+        "anchor": "bridges-connecting-external-networks"
+      },
+      {
+        "depth": 2,
+        "title": "The Polkadot Advantage",
+        "anchor": "the-polkadot-advantage"
+      },
+      {
+        "depth": 2,
+        "title": "Looking Ahead",
+        "anchor": "looking-ahead"
+      }
+    ],
+    "stats": {
+      "chars": 4636,
+      "words": 585,
+      "headings": 7,
+      "estimated_token_count_total": 773
+    },
+    "hash": "sha256:6d91e4459ae2fca5f55e77d69a2b14c1205c78c064f2fc99ae5b92927e85601a",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "reference-parachains-networks",
+    "title": "Networks",
+    "slug": "reference-parachains-networks",
+    "categories": [
+      "Basics",
+      "Polkadot Protocol",
+      "Networks"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-parachains-networks.md",
+    "html_url": "https://docs.polkadot.com/reference/parachains/networks/",
+    "preview": "The Polkadot ecosystem is built on a robust set of networks designed to enable secure and scalable development. Whether you are testing new features or deploying to live production, Polkadot offers several layers of networks tailored for each stage of the development process. From local environments to experimental networks like Kusama and community-run TestNets such as Paseo, developers can thoroughly test, iterate, and validate their applications. This guide will introduce you to Polkadot's va",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Network Overview",
+        "anchor": "network-overview"
+      },
+      {
+        "depth": 2,
+        "title": "Polkadot Development Networks",
+        "anchor": "polkadot-development-networks"
+      },
+      {
+        "depth": 2,
+        "title": "Kusama Network",
+        "anchor": "kusama-network"
+      },
+      {
+        "depth": 2,
+        "title": "Test Networks",
+        "anchor": "test-networks"
+      },
+      {
+        "depth": 3,
+        "title": "Westend",
+        "anchor": "westend"
+      },
+      {
+        "depth": 3,
+        "title": "Paseo",
+        "anchor": "paseo"
+      },
+      {
+        "depth": 2,
+        "title": "Local Test Networks",
+        "anchor": "local-test-networks"
+      },
+      {
+        "depth": 3,
+        "title": "Zombienet",
+        "anchor": "zombienet"
+      },
+      {
+        "depth": 3,
+        "title": "Chopsticks",
+        "anchor": "chopsticks"
+      }
+    ],
+    "stats": {
+      "chars": 7834,
+      "words": 1111,
+      "headings": 10,
+      "estimated_token_count_total": 1473
+    },
+    "hash": "sha256:e49e063a2cc0fb5a48c6cdc3de266bb6e025a006940fea8e90cc4d5f9884900f",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "reference-parachains-node-and-runtime",
+    "title": "Node and Runtime",
+    "slug": "reference-parachains-node-and-runtime",
+    "categories": [
+      "Basics",
+      "Polkadot Protocol"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-parachains-node-and-runtime.md",
+    "html_url": "https://docs.polkadot.com/reference/parachains/node-and-runtime/",
+    "preview": "Every blockchain platform relies on a decentralized network of computers, called nodes, that communicate with each other about transactions and blocks. In this context, a node refers to the software running on the connected devices rather than the physical or virtual machines in the network.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Architectural Principles",
+        "anchor": "architectural-principles"
+      },
+      {
+        "depth": 3,
+        "title": "Advantages of this Architecture",
+        "anchor": "advantages-of-this-architecture"
+      },
+      {
+        "depth": 2,
+        "title": "Node (Client)",
+        "anchor": "node-client"
+      },
+      {
+        "depth": 2,
+        "title": "Runtime",
+        "anchor": "runtime"
+      },
+      {
+        "depth": 3,
+        "title": "Characteristics",
+        "anchor": "characteristics"
+      },
+      {
+        "depth": 3,
+        "title": "Key Functions",
+        "anchor": "key-functions"
+      },
+      {
+        "depth": 2,
+        "title": "Communication Between Node and Runtime",
+        "anchor": "communication-between-node-and-runtime"
+      },
+      {
+        "depth": 3,
+        "title": "Runtime APIs",
+        "anchor": "runtime-apis"
+      },
+      {
+        "depth": 3,
+        "title": "Host Functions",
+        "anchor": "host-functions"
+      }
+    ],
+    "stats": {
+      "chars": 4937,
+      "words": 628,
+      "headings": 10,
+      "estimated_token_count_total": 914
+    },
+    "hash": "sha256:8122e21c149d0863cfe3b37fc5606bcdb91668e9d265f0f05451a61ff70e4e93",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "reference-parachains-randomness",
+    "title": "Randomness",
+    "slug": "reference-parachains-randomness",
+    "categories": [
+      "Basics",
+      "Polkadot Protocol"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-parachains-randomness.md",
+    "html_url": "https://docs.polkadot.com/reference/parachains/randomness/",
+    "preview": "Randomness is crucial in Proof of Stake (PoS) blockchains to ensure a fair and unpredictable distribution of validator duties. However, computers are inherently deterministic, meaning the same input always produces the same output. What we typically refer to as \"random\" numbers on a computer are actually pseudo-random. These numbers rely on an initial \"seed,\" which can come from external sources like [atmospheric noise](https://www.random.org/randomness/){target=\\_blank}, [heart rates](https://m",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "VRF",
+        "anchor": "vrf"
+      },
+      {
+        "depth": 3,
+        "title": "How VRF Works",
+        "anchor": "how-vrf-works"
+      },
+      {
+        "depth": 2,
+        "title": "RANDAO",
+        "anchor": "randao"
+      },
+      {
+        "depth": 2,
+        "title": "VDFs",
+        "anchor": "vdfs"
+      },
+      {
+        "depth": 2,
+        "title": "Additional Resources",
+        "anchor": "additional-resources"
+      }
+    ],
+    "stats": {
+      "chars": 6503,
+      "words": 1005,
+      "headings": 6,
+      "estimated_token_count_total": 1388
+    },
+    "hash": "sha256:c7d8a5a4263fd21af458ab0bd102377104affdf2431b4fe74eeff4ebe62a4a81",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "reference-parachains",
+    "title": "Parachains Overview",
+    "slug": "reference-parachains",
+    "categories": [
+      "Basics",
+      "Parachains"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-parachains.md",
+    "html_url": "https://docs.polkadot.com/reference/parachains/",
+    "preview": "A parachain is a specialized blockchain that connects to the Polkadot relay chain, benefiting from shared security, interoperability, and scalability. Parachains are built using the [Polkadot SDK](https://github.com/paritytech/polkadot-sdk){target=\\_blank}, a powerful toolkit written in Rust that provides everything needed to create custom blockchain logic while integrating seamlessly with the Polkadot network.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Polkadot SDK: Parachain Architecture",
+        "anchor": "polkadot-sdk-parachain-architecture"
+      },
+      {
+        "depth": 3,
+        "title": "Substrate: The Foundation",
+        "anchor": "substrate-the-foundation"
+      },
+      {
+        "depth": 3,
+        "title": "FRAME: Building Blocks for Your Runtime",
+        "anchor": "frame-building-blocks-for-your-runtime"
+      },
+      {
+        "depth": 3,
+        "title": "Cumulus: Parachain-Specific Functionality",
+        "anchor": "cumulus-parachain-specific-functionality"
+      },
+      {
+        "depth": 2,
+        "title": "Where to Go Next",
+        "anchor": "where-to-go-next"
+      }
+    ],
+    "stats": {
+      "chars": 8495,
+      "words": 1029,
+      "headings": 6,
+      "estimated_token_count_total": 1759
+    },
+    "hash": "sha256:ecb0d9459e08920db7d2d59dc7c01aba7a91ce8c9e39256bd0c3efa473dbaa17",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "reference-polkadot-hub-assets",
+    "title": "Polkadot Hub Assets",
+    "slug": "reference-polkadot-hub-assets",
+    "categories": [
+      "Polkadot Protocol"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-polkadot-hub-assets.md",
+    "html_url": "https://docs.polkadot.com/reference/polkadot-hub/assets/",
+    "preview": "Polkadot Hub is Polkadot’s system parachain that provides core functionality for the network, including issuing and managing on-chain assets. While the relay chain provides security, Polkadot Hub handles asset logic—minting, burning, transfers, and metadata—efficiently and cost-effectively.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Why Use Polkadot Hub?",
+        "anchor": "why-use-polkadot-hub"
+      },
+      {
+        "depth": 2,
+        "title": "Types of Assets",
+        "anchor": "types-of-assets"
+      },
+      {
+        "depth": 2,
+        "title": "Asset Structure",
+        "anchor": "asset-structure"
+      },
+      {
+        "depth": 2,
+        "title": "How Native Assets Work",
+        "anchor": "how-native-assets-work"
+      },
+      {
+        "depth": 3,
+        "title": "Asset Operations",
+        "anchor": "asset-operations"
+      },
+      {
+        "depth": 3,
+        "title": "Roles and Permissions",
+        "anchor": "roles-and-permissions"
+      },
+      {
+        "depth": 3,
+        "title": "Freezing Assets",
+        "anchor": "freezing-assets"
+      },
+      {
+        "depth": 3,
+        "title": "Delegated Transfers",
+        "anchor": "delegated-transfers"
+      },
+      {
+        "depth": 2,
+        "title": "How Foreign Assets Work",
+        "anchor": "how-foreign-assets-work"
+      },
+      {
+        "depth": 2,
+        "title": "Moving Assets Across Chains",
+        "anchor": "moving-assets-across-chains"
+      }
+    ],
+    "stats": {
+      "chars": 7453,
+      "words": 1061,
+      "headings": 11,
+      "estimated_token_count_total": 1493
+    },
+    "hash": "sha256:98b6ce18a56ea53a3f2e4bd2ebe8e25647d3d79404a63cd87d39cfb79adc0e94",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "reference-polkadot-hub-bridging",
+    "title": "Bridge Hub",
+    "slug": "reference-polkadot-hub-bridging",
+    "categories": [
+      "Polkadot Protocol"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-polkadot-hub-bridging.md",
+    "html_url": "https://docs.polkadot.com/reference/polkadot-hub/bridging/",
+    "preview": "The Bridge Hub system parachain plays a crucial role in facilitating trustless interactions between Polkadot, Kusama, Ethereum, and other blockchain ecosystems. By implementing on-chain light clients and supporting protocols like BEEFY and GRANDPA, Bridge Hub ensures seamless message transmission and state verification across chains. It also provides essential [pallets](/reference/glossary/#pallet){target=\\_blank} for sending and receiving messages, making it a cornerstone of Polkadot’s interope",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Trustless Bridging",
+        "anchor": "trustless-bridging"
+      },
+      {
+        "depth": 2,
+        "title": "Bridging Components",
+        "anchor": "bridging-components"
+      },
+      {
+        "depth": 3,
+        "title": "Ethereum-Specific Support",
+        "anchor": "ethereum-specific-support"
+      },
+      {
+        "depth": 2,
+        "title": "Deployed Bridges",
+        "anchor": "deployed-bridges"
+      },
+      {
+        "depth": 2,
+        "title": "Where to Go Next",
+        "anchor": "where-to-go-next"
+      }
+    ],
+    "stats": {
+      "chars": 5467,
+      "words": 776,
+      "headings": 6,
+      "estimated_token_count_total": 1220
+    },
+    "hash": "sha256:86734ba8bcdea7913f488edf666a6104bed0a18649d57abde82c149c41c2b871",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "reference-polkadot-hub-collectives-and-daos",
+    "title": "Collectives Chain",
+    "slug": "reference-polkadot-hub-collectives-and-daos",
+    "categories": [
+      "Polkadot Protocol"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-polkadot-hub-collectives-and-daos.md",
+    "html_url": "https://docs.polkadot.com/reference/polkadot-hub/collectives-and-daos/",
+    "preview": "Established through [Referendum 81](https://polkadot-old.polkassembly.io/referendum/81){target=\\_blank}, the Collectives chain operates as a dedicated parachain exclusive to the Polkadot network with no counterpart on Kusama. This specialized infrastructure provides a foundation for various on-chain governance groups essential to Polkadot's ecosystem.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Key Collectives",
+        "anchor": "key-collectives"
+      }
+    ],
+    "stats": {
+      "chars": 2288,
+      "words": 293,
+      "headings": 2,
+      "estimated_token_count_total": 424
+    },
+    "hash": "sha256:59ec351fbb8d3a392e90f4f5bf6b62f58b21d6d7a900c5e367e5d2e09ecb3aca",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "reference-polkadot-hub-consensus-and-security-agile-coretime",
+    "title": "Agile Coretime",
+    "slug": "reference-polkadot-hub-consensus-and-security-agile-coretime",
+    "categories": [
+      "Polkadot Protocol"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-polkadot-hub-consensus-and-security-agile-coretime.md",
+    "html_url": "https://docs.polkadot.com/reference/polkadot-hub/consensus-and-security/agile-coretime/",
+    "preview": "Agile Coretime is the [scheduling](https://en.wikipedia.org/wiki/Scheduling_(computing)){target=\\_blank} framework on Polkadot that lets parachains efficiently access cores, which comprise an active validator set tasked with parablock validation. As the first blockchain to enable a flexible scheduling system for blockspace production, Polkadot offers unparalleled adaptability for parachains.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Bulk Coretime",
+        "anchor": "bulk-coretime"
+      },
+      {
+        "depth": 3,
+        "title": "Coretime Interlacing",
+        "anchor": "coretime-interlacing"
+      },
+      {
+        "depth": 3,
+        "title": "Coretime Splitting",
+        "anchor": "coretime-splitting"
+      },
+      {
+        "depth": 2,
+        "title": "On-Demand Coretime",
+        "anchor": "on-demand-coretime"
+      }
+    ],
+    "stats": {
+      "chars": 3028,
+      "words": 452,
+      "headings": 5,
+      "estimated_token_count_total": 619
+    },
+    "hash": "sha256:00be43ac8d666bbe15c5c2fa5a5085697d0bb5a6f341ebbb943a209f0be355df",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "reference-polkadot-hub-consensus-and-security-pos-consensus",
+    "title": "Proof of Stake Consensus",
+    "slug": "reference-polkadot-hub-consensus-and-security-pos-consensus",
+    "categories": [
+      "Polkadot Protocol"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-polkadot-hub-consensus-and-security-pos-consensus.md",
+    "html_url": "https://docs.polkadot.com/reference/polkadot-hub/consensus-and-security/pos-consensus/",
+    "preview": "Polkadot's Proof of Stake consensus model leverages a unique hybrid approach by design to promote decentralized and secure network operations. In traditional Proof of Stake (PoS) systems, a node's ability to validate transactions is tied to its token holdings, which can lead to centralization risks and limited validator participation. Polkadot addresses these concerns through its [Nominated Proof of Stake (NPoS)](/reference/glossary/#nominated-proof-of-stake-npos){target=\\_blank} model and a com",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Nominated Proof of Stake",
+        "anchor": "nominated-proof-of-stake"
+      },
+      {
+        "depth": 2,
+        "title": "Hybrid Consensus",
+        "anchor": "hybrid-consensus"
+      },
+      {
+        "depth": 2,
+        "title": "Block Production - BABE",
+        "anchor": "block-production-babe"
+      },
+      {
+        "depth": 3,
+        "title": "Validator Participation",
+        "anchor": "validator-participation"
+      },
+      {
+        "depth": 3,
+        "title": "Additional Resources",
+        "anchor": "additional-resources"
+      },
+      {
+        "depth": 2,
+        "title": "Finality Gadget - GRANDPA",
+        "anchor": "finality-gadget-grandpa"
+      },
+      {
+        "depth": 3,
+        "title": "Probabilistic vs. Provable Finality",
+        "anchor": "probabilistic-vs-provable-finality"
+      },
+      {
+        "depth": 3,
+        "title": "Additional Resources",
+        "anchor": "additional-resources-2"
+      },
+      {
+        "depth": 2,
+        "title": "Fork Choice",
+        "anchor": "fork-choice"
+      },
+      {
+        "depth": 3,
+        "title": "Additional Resources",
+        "anchor": "additional-resources-3"
+      },
+      {
+        "depth": 2,
+        "title": "Bridging - BEEFY",
+        "anchor": "bridging-beefy"
+      },
+      {
+        "depth": 3,
+        "title": "Additional Resources",
+        "anchor": "additional-resources-4"
+      }
+    ],
+    "stats": {
+      "chars": 12753,
+      "words": 1834,
+      "headings": 13,
+      "estimated_token_count_total": 2526
+    },
+    "hash": "sha256:231fc555eefe5f910fb36e0c03945147d0fb235272850797391751f4444b0a9c",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "reference-polkadot-hub-consensus-and-security-relay-chain",
+    "title": "Overview of the Polkadot Relay Chain",
+    "slug": "reference-polkadot-hub-consensus-and-security-relay-chain",
+    "categories": [
+      "Basics",
+      "Polkadot Protocol",
+      "Parachains"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-polkadot-hub-consensus-and-security-relay-chain.md",
+    "html_url": "https://docs.polkadot.com/reference/polkadot-hub/consensus-and-security/relay-chain/",
+    "preview": "Polkadot is a next-generation blockchain protocol designed to support a multi-chain future by enabling secure communication and interoperability between different blockchains. Built as a Layer-0 protocol, Polkadot introduces innovations like application-specific Layer-1 chains ([parachains](/polkadot-protocol/architecture/parachains/){targe=\\_blank}), shared security through [Nominated Proof of Stake (NPoS)](/reference/glossary/#nominated-proof-of-stake-npos){target=\\_blank}, and cross-chain int",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Polkadot 1.0",
+        "anchor": "polkadot-10"
+      },
+      {
+        "depth": 3,
+        "title": "High-Level Architecture",
+        "anchor": "high-level-architecture"
+      },
+      {
+        "depth": 3,
+        "title": "Polkadot's Additional Functionalities",
+        "anchor": "polkadots-additional-functionalities"
+      },
+      {
+        "depth": 3,
+        "title": "Polkadot's Resilience",
+        "anchor": "polkadots-resilience"
+      },
+      {
+        "depth": 3,
+        "title": "Polkadot's Blockspace",
+        "anchor": "polkadots-blockspace"
+      },
+      {
+        "depth": 2,
+        "title": "DOT Token",
+        "anchor": "dot-token"
+      },
+      {
+        "depth": 3,
+        "title": "Redenomination of DOT",
+        "anchor": "redenomination-of-dot"
+      },
+      {
+        "depth": 3,
+        "title": "The Planck Unit",
+        "anchor": "the-planck-unit"
+      },
+      {
+        "depth": 3,
+        "title": "Uses for DOT",
+        "anchor": "uses-for-dot"
+      },
+      {
+        "depth": 2,
+        "title": "JAM and the Road Ahead",
+        "anchor": "jam-and-the-road-ahead"
+      }
+    ],
+    "stats": {
+      "chars": 12458,
+      "words": 1774,
+      "headings": 11,
+      "estimated_token_count_total": 2580
+    },
+    "hash": "sha256:60f5ac9f67fb9f2188121219830538d334028b3b9e85d42bd1e7279043654e39",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "reference-polkadot-hub-people-and-identity",
+    "title": "People Chain",
+    "slug": "reference-polkadot-hub-people-and-identity",
+    "categories": [
+      "Polkadot Protocol"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-polkadot-hub-people-and-identity.md",
+    "html_url": "https://docs.polkadot.com/reference/polkadot-hub/people-and-identity/",
+    "preview": "People chain is a specialized parachain within the Polkadot ecosystem dedicated to secure, decentralized identity management.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Identity Management System",
+        "anchor": "identity-management-system"
+      },
+      {
+        "depth": 3,
+        "title": "Sub-Identities",
+        "anchor": "sub-identities"
+      },
+      {
+        "depth": 2,
+        "title": "Verification Process",
+        "anchor": "verification-process"
+      },
+      {
+        "depth": 3,
+        "title": "Judgment Requests",
+        "anchor": "judgment-requests"
+      },
+      {
+        "depth": 3,
+        "title": "Judgment Classifications",
+        "anchor": "judgment-classifications"
+      },
+      {
+        "depth": 3,
+        "title": "Registrars",
+        "anchor": "registrars"
+      },
+      {
+        "depth": 2,
+        "title": "Where to Go Next",
+        "anchor": "where-to-go-next"
+      }
+    ],
+    "stats": {
+      "chars": 4750,
+      "words": 606,
+      "headings": 8,
+      "estimated_token_count_total": 876
+    },
+    "hash": "sha256:8239d1e8d8642cb7c10e9e5f971c99b999e9e4a87373b50bf4a691225c1e4702",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "reference-polkadot-hub-smart-contracts",
+    "title": "Polkadot Hub Smart Contracts",
+    "slug": "reference-polkadot-hub-smart-contracts",
+    "categories": [
+      "Polkadot Protocol"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-polkadot-hub-smart-contracts.md",
+    "html_url": "https://docs.polkadot.com/reference/polkadot-hub/smart-contracts/",
+    "preview": "Polkadot Hub enables developers to deploy and interact with Solidity contracts through REVM, a high-performance, Rust-based Ethereum Virtual Machine implementation. Polkadot-native precompiles bring Ethereum compatibility to Polkadot Hub, letting teams use familiar Solidity tooling, integrate with on-chain features like governance and XCM, and take advantage of cross-chain interoperability.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 3,
+        "title": "REVM Smart Contracts",
+        "anchor": "revm-smart-contracts"
+      },
+      {
+        "depth": 3,
+        "title": "PVM Smart Contracts",
+        "anchor": "pvm-smart-contracts"
+      },
+      {
+        "depth": 2,
+        "title": "Where to Go Next",
+        "anchor": "where-to-go-next"
+      }
+    ],
+    "stats": {
+      "chars": 3301,
+      "words": 452,
+      "headings": 4,
+      "estimated_token_count_total": 652
+    },
+    "hash": "sha256:68dd65010db12cce45955289394ae3c6ef9883d42e98664c771097d1c6d784f2",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "reference-polkadot-hub",
+    "title": "Polkadot Hub Overview",
+    "slug": "reference-polkadot-hub",
+    "categories": [
+      "Basics",
+      "Polkadot Protocol",
+      "Polkadot Hub"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-polkadot-hub.md",
+    "html_url": "https://docs.polkadot.com/reference/polkadot-hub/",
+    "preview": "Polkadot Hub is the entry point for all users and application developers to Polkadot. It provides access to essential Web3 services, including smart contracts, staking, governance, identity management, and cross-ecosystem interoperability—without requiring you to deploy or manage a parachain.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Polkadot Hub Capabilities",
+        "anchor": "polkadot-hub-capabilities"
+      },
+      {
+        "depth": 2,
+        "title": "Core Components",
+        "anchor": "core-components"
+      },
+      {
+        "depth": 3,
+        "title": "Smart Contracts",
+        "anchor": "smart-contracts"
+      },
+      {
+        "depth": 3,
+        "title": "Asset Management",
+        "anchor": "asset-management"
+      },
+      {
+        "depth": 3,
+        "title": "People Chain",
+        "anchor": "people-chain"
+      },
+      {
+        "depth": 3,
+        "title": "Bridge Hub",
+        "anchor": "bridge-hub"
+      },
+      {
+        "depth": 3,
+        "title": "Consensus & Security",
+        "anchor": "consensus-security"
+      },
+      {
+        "depth": 3,
+        "title": "Collectives & DAOs",
+        "anchor": "collectives-daos"
+      },
+      {
+        "depth": 2,
+        "title": "Where to Go Next",
+        "anchor": "where-to-go-next"
+      }
+    ],
+    "stats": {
+      "chars": 6331,
+      "words": 816,
+      "headings": 10,
+      "estimated_token_count_total": 1237
+    },
+    "hash": "sha256:f902cd087e0b1267b3acbcb6419dcf491ee39f7f58f07613b4bda56415018679",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "reference-tools-chopsticks",
+    "title": "reference-tools-chopsticks",
+    "slug": "reference-tools-chopsticks",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-tools-chopsticks.md",
+    "html_url": "https://docs.polkadot.com/reference/tools/chopsticks/",
+    "preview": "TODO",
+    "outline": [],
+    "stats": {
+      "chars": 5,
+      "words": 1,
+      "headings": 0,
+      "estimated_token_count_total": 0
+    },
+    "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "reference-tools-dedot",
+    "title": "Dedot",
+    "slug": "reference-tools-dedot",
+    "categories": [
+      "Tooling",
+      "Dapps"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-tools-dedot.md",
+    "html_url": "https://docs.polkadot.com/reference/tools/dedot/",
+    "preview": "[Dedot](https://github.com/dedotdev/dedot){target=\\_blank} is a next-generation JavaScript client for Polkadot and Polkadot SDK-based blockchains. Designed to elevate the dApp development experience, Dedot is built and optimized to be lightweight and tree-shakable, offering precise types and APIs suggestions for individual Polkadot SDK-based blockchains and [ink! smart contracts](https://use.ink/){target=\\_blank}.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 3,
+        "title": "Key Features",
+        "anchor": "key-features"
+      },
+      {
+        "depth": 2,
+        "title": "Installation",
+        "anchor": "installation"
+      },
+      {
+        "depth": 2,
+        "title": "Get Started",
+        "anchor": "get-started"
+      },
+      {
+        "depth": 3,
+        "title": "Initialize a Client Instance",
+        "anchor": "initialize-a-client-instance"
+      },
+      {
+        "depth": 3,
+        "title": "Enable Type and API Suggestions",
+        "anchor": "enable-type-and-api-suggestions"
+      },
+      {
+        "depth": 3,
+        "title": "Read On-Chain Data",
+        "anchor": "read-on-chain-data"
+      },
+      {
+        "depth": 3,
+        "title": "Sign and Send Transactions",
+        "anchor": "sign-and-send-transactions"
+      },
+      {
+        "depth": 2,
+        "title": "Where to Go Next",
+        "anchor": "where-to-go-next"
+      }
+    ],
+    "stats": {
+      "chars": 8855,
+      "words": 1100,
+      "headings": 9,
+      "estimated_token_count_total": 2300
+    },
+    "hash": "sha256:ba24e31e2ad94fbf1d73f1878da92dd2e1476db00170780bbdf0e65ab18bc961",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "reference-tools-light-clients",
+    "title": "Light Clients",
+    "slug": "reference-tools-light-clients",
+    "categories": [
+      "Parachains",
+      "Tooling"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-tools-light-clients.md",
+    "html_url": "https://docs.polkadot.com/reference/tools/light-clients/",
+    "preview": "Light clients enable secure and efficient blockchain interaction without running a full node. They provide a trust-minimized alternative to JSON-RPC by verifying data through cryptographic proofs rather than blindly trusting remote nodes.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Light Clients Workflow",
+        "anchor": "light-clients-workflow"
+      },
+      {
+        "depth": 2,
+        "title": "JSON-RPC and Light Client Comparison",
+        "anchor": "json-rpc-and-light-client-comparison"
+      },
+      {
+        "depth": 2,
+        "title": "Using Light Clients",
+        "anchor": "using-light-clients"
+      },
+      {
+        "depth": 3,
+        "title": "PAPI Light Client Support",
+        "anchor": "papi-light-client-support"
+      },
+      {
+        "depth": 3,
+        "title": "Substrate Connect - Browser Extension",
+        "anchor": "substrate-connect-browser-extension"
+      },
+      {
+        "depth": 2,
+        "title": "Resources",
+        "anchor": "resources"
+      }
+    ],
+    "stats": {
+      "chars": 6490,
+      "words": 870,
+      "headings": 7,
+      "estimated_token_count_total": 1430
+    },
+    "hash": "sha256:1284c42be692167e01bcc44e2e134ec20615402675fac26df246c00aa1588d80",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "reference-tools-moonwall",
+    "title": "E2E Testing with Moonwall",
+    "slug": "reference-tools-moonwall",
+    "categories": [
+      "Parachains",
+      "Tooling"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-tools-moonwall.md",
+    "html_url": "https://docs.polkadot.com/reference/tools/moonwall/",
+    "preview": "Moonwall is an end-to-end testing framework designed explicitly for Polkadot SDK-based blockchain networks. It addresses one of the most significant challenges in blockchain development: managing complex test environments and network configurations.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Prerequisites",
+        "anchor": "prerequisites"
+      },
+      {
+        "depth": 2,
+        "title": "Install Moonwall",
+        "anchor": "install-moonwall"
+      },
+      {
+        "depth": 3,
+        "title": "Global Installation",
+        "anchor": "global-installation"
+      },
+      {
+        "depth": 3,
+        "title": "Local Installation",
+        "anchor": "local-installation"
+      },
+      {
+        "depth": 2,
+        "title": "Initialize Moonwall",
+        "anchor": "initialize-moonwall"
+      },
+      {
+        "depth": 2,
+        "title": "Writing Tests",
+        "anchor": "writing-tests"
+      },
+      {
+        "depth": 2,
+        "title": "Running the Tests",
+        "anchor": "running-the-tests"
+      },
+      {
+        "depth": 2,
+        "title": "Where to Go Next",
+        "anchor": "where-to-go-next"
+      }
+    ],
+    "stats": {
+      "chars": 10240,
+      "words": 1295,
+      "headings": 9,
+      "estimated_token_count_total": 2453
+    },
+    "hash": "sha256:2c77cfb38bb2e466a8f56dabbb706fcd2e90cf1634fc9beb7f0ee95a75735653",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "reference-tools-omninode",
+    "title": "Polkadot Omni Node",
+    "slug": "reference-tools-omninode",
+    "categories": [
+      "Parachains",
+      "Tooling"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-tools-omninode.md",
+    "html_url": "https://docs.polkadot.com/reference/tools/omninode/",
+    "preview": "The [`polkadot-omni-node`](https://crates.io/crates/polkadot-omni-node/0.7.0){target=\\_blank} crate is a versatile, pre-built binary designed to simplify running parachains in the Polkadot ecosystem. Unlike traditional node binaries that are tightly coupled to specific runtime code, the `polkadot-omni-node` operates using an external [chain specification](/polkadot-protocol/glossary#chain-specification){target=\\_blank} file, allowing it to adapt dynamically to different parachains.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Prerequisites",
+        "anchor": "prerequisites"
+      },
+      {
+        "depth": 2,
+        "title": "Install Polkadot Omni Node",
+        "anchor": "install-polkadot-omni-node"
+      },
+      {
+        "depth": 2,
+        "title": "Obtain Chain Specifications",
+        "anchor": "obtain-chain-specifications"
+      },
+      {
+        "depth": 2,
+        "title": "Run a Parachain Full Node",
+        "anchor": "run-a-parachain-full-node"
+      },
+      {
+        "depth": 2,
+        "title": "Interact with the Node",
+        "anchor": "interact-with-the-node"
+      },
+      {
+        "depth": 2,
+        "title": "Parachain Compatibility",
+        "anchor": "parachain-compatibility"
+      },
+      {
+        "depth": 3,
+        "title": "Required Runtime APIs",
+        "anchor": "required-runtime-apis"
+      },
+      {
+        "depth": 3,
+        "title": "Required Pallets",
+        "anchor": "required-pallets"
+      }
+    ],
+    "stats": {
+      "chars": 8913,
+      "words": 1164,
+      "headings": 9,
+      "estimated_token_count_total": 2017
+    },
+    "hash": "sha256:7db2d31ba37abad20b026c875f632b89739b45707e58809e2e8b32a09715c6f9",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "reference-tools-papi",
+    "title": "Polkadot-API",
+    "slug": "reference-tools-papi",
+    "categories": [
+      "Tooling",
+      "Dapps"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-tools-papi.md",
+    "html_url": "https://docs.polkadot.com/reference/tools/papi/",
+    "preview": "[Polkadot-API](https://github.com/polkadot-api/polkadot-api){target=\\_blank} (PAPI) is a set of libraries built to be modular, composable, and grounded in a “light-client first” approach. Its primary aim is to equip dApp developers with an extensive toolkit for building fully decentralized applications.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Get Started",
+        "anchor": "get-started"
+      },
+      {
+        "depth": 3,
+        "title": "API Instantiation",
+        "anchor": "api-instantiation"
+      },
+      {
+        "depth": 3,
+        "title": "Reading Chain Data",
+        "anchor": "reading-chain-data"
+      },
+      {
+        "depth": 3,
+        "title": "Sending Transactions",
+        "anchor": "sending-transactions"
+      },
+      {
+        "depth": 2,
+        "title": "Where to Go Next",
+        "anchor": "where-to-go-next"
+      }
+    ],
+    "stats": {
+      "chars": 8957,
+      "words": 1156,
+      "headings": 6,
+      "estimated_token_count_total": 1987
+    },
+    "hash": "sha256:2ca93b09d3bb9159bbf53816886a9b242bb3c13b996c51fd52962e049e2d5477",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "reference-tools-paraspell",
+    "title": "ParaSpell XCM SDK",
+    "slug": "reference-tools-paraspell",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-tools-paraspell.md",
+    "html_url": "https://docs.polkadot.com/reference/tools/paraspell/",
+    "preview": "[ParaSpell](https://paraspell.github.io/docs/){target=\\_blank} is a comprehensive suite of open-source tools designed to simplify cross-chain interactions within the Polkadot ecosystem. At its core, ParaSpell is dedicated to enhancing the functionality of the [XCM (Cross-Consensus Messaging)](/parachains/interoperability/get-started/){target=\\_blank} protocol by providing developers with a unified and streamlined experience for building interoperable decentralized applications (dApps).",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 3,
+        "title": "ParaSpell XCM SDK",
+        "anchor": "paraspell-xcm-sdk"
+      },
+      {
+        "depth": 2,
+        "title": "Install ParaSpell",
+        "anchor": "install-paraspell"
+      },
+      {
+        "depth": 2,
+        "title": "Where to Go Next",
+        "anchor": "where-to-go-next"
+      }
+    ],
+    "stats": {
+      "chars": 4043,
+      "words": 562,
+      "headings": 4,
+      "estimated_token_count_total": 888
+    },
+    "hash": "sha256:c8741954ea656680aa3322c825e3f6acbaac369baaa42232b06af9e5e482f74f",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "reference-tools-polkadart",
+    "title": "Polkadart",
+    "slug": "reference-tools-polkadart",
+    "categories": [
+      "Tooling",
+      "Dapps"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-tools-polkadart.md",
+    "html_url": "https://docs.polkadot.com/reference/tools/polkadart/",
+    "preview": "Polkadart is the most comprehensive Dart/Flutter SDK for interacting with Polkadot, Substrate, and other compatible blockchain networks. Designed with a Dart-first approach and type-safe APIs, it provides everything developers need to build powerful decentralized applications.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Installation",
+        "anchor": "installation"
+      },
+      {
+        "depth": 2,
+        "title": "Get Started",
+        "anchor": "get-started"
+      },
+      {
+        "depth": 3,
+        "title": "Type Generation",
+        "anchor": "type-generation"
+      },
+      {
+        "depth": 3,
+        "title": "Run Generator",
+        "anchor": "run-generator"
+      },
+      {
+        "depth": 3,
+        "title": "Use Generated Types",
+        "anchor": "use-generated-types"
+      },
+      {
+        "depth": 3,
+        "title": "Creating an API Instance",
+        "anchor": "creating-an-api-instance"
+      },
+      {
+        "depth": 3,
+        "title": "Reading Chain Data",
+        "anchor": "reading-chain-data"
+      },
+      {
+        "depth": 3,
+        "title": "Subscribe to New Blocks",
+        "anchor": "subscribe-to-new-blocks"
+      },
+      {
+        "depth": 3,
+        "title": "Send a Transaction",
+        "anchor": "send-a-transaction"
+      },
+      {
+        "depth": 2,
+        "title": "Where to Go Next",
+        "anchor": "where-to-go-next"
+      }
+    ],
+    "stats": {
+      "chars": 5178,
+      "words": 624,
+      "headings": 10,
+      "estimated_token_count_total": 1084
+    },
+    "hash": "sha256:7f533abe61586af8438e350c41b741d74a8edb839f9dc4139bc4619ba3748258",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "reference-tools-polkadot-js-api",
+    "title": "Polkadot.js API",
+    "slug": "reference-tools-polkadot-js-api",
+    "categories": [
+      "Tooling",
+      "Dapps"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-tools-polkadot-js-api.md",
+    "html_url": "https://docs.polkadot.com/reference/tools/polkadot-js-api/",
+    "preview": "!!! warning \"Maintenance Mode Only\" The Polkadot.js API is now in maintenance mode and is no longer actively developed. New projects should use [Dedot](/develop/toolkit/api-libraries/dedot){target=\\_blank} (TypeScript-first API) or [Polkadot API](/develop/toolkit/api-libraries/papi){target=\\_blank} (modern, type-safe API) as actively maintained alternatives.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 3,
+        "title": "Dynamic API Generation",
+        "anchor": "dynamic-api-generation"
+      },
+      {
+        "depth": 3,
+        "title": "Available API Categories",
+        "anchor": "available-api-categories"
+      },
+      {
+        "depth": 2,
+        "title": "Installation",
+        "anchor": "installation"
+      },
+      {
+        "depth": 2,
+        "title": "Get Started",
+        "anchor": "get-started"
+      },
+      {
+        "depth": 3,
+        "title": "Creating an API Instance",
+        "anchor": "creating-an-api-instance"
+      },
+      {
+        "depth": 3,
+        "title": "Reading Chain Data",
+        "anchor": "reading-chain-data"
+      },
+      {
+        "depth": 3,
+        "title": "Sending Transactions",
+        "anchor": "sending-transactions"
+      },
+      {
+        "depth": 2,
+        "title": "Where to Go Next",
+        "anchor": "where-to-go-next"
+      }
+    ],
+    "stats": {
+      "chars": 5042,
+      "words": 684,
+      "headings": 9,
+      "estimated_token_count_total": 1166
+    },
+    "hash": "sha256:ed3986f30880fefca5975fcdc847c68b4aca65862c63e3002b25391b0521781d",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "reference-tools-py-substrate-interface",
+    "title": "Python Substrate Interface",
+    "slug": "reference-tools-py-substrate-interface",
+    "categories": [
+      "Tooling",
+      "Dapps"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-tools-py-substrate-interface.md",
+    "html_url": "https://docs.polkadot.com/reference/tools/py-substrate-interface/",
+    "preview": "The [Python Substrate Interface](https://github.com/polkascan/py-substrate-interface){target=\\_blank} is a powerful library that enables interaction with Polkadot SDK-based chains. It provides essential functionality for:",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Installation",
+        "anchor": "installation"
+      },
+      {
+        "depth": 2,
+        "title": "Get Started",
+        "anchor": "get-started"
+      },
+      {
+        "depth": 3,
+        "title": "Establishing Connection",
+        "anchor": "establishing-connection"
+      },
+      {
+        "depth": 3,
+        "title": "Reading Chain State",
+        "anchor": "reading-chain-state"
+      },
+      {
+        "depth": 3,
+        "title": "Submitting Transactions",
+        "anchor": "submitting-transactions"
+      },
+      {
+        "depth": 2,
+        "title": "Where to Go Next",
+        "anchor": "where-to-go-next"
+      }
+    ],
+    "stats": {
+      "chars": 4302,
+      "words": 541,
+      "headings": 7,
+      "estimated_token_count_total": 942
+    },
+    "hash": "sha256:8987fc35cd28602054ee018031f773e2e3837425107c51d0e2ac68a94b86e9c0",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "reference-tools-sidecar",
+    "title": "Sidecar REST API",
+    "slug": "reference-tools-sidecar",
+    "categories": [
+      "Tooling",
+      "Dapps"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-tools-sidecar.md",
+    "html_url": "https://docs.polkadot.com/reference/tools/sidecar/",
+    "preview": "The [Sidecar REST API](https://github.com/paritytech/substrate-api-sidecar){target=\\_blank} is a service that provides a REST interface for interacting with Polkadot SDK-based blockchains. With this API, developers can easily access a broad range of endpoints for nodes, accounts, transactions, parachains, and more.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Prerequisites",
+        "anchor": "prerequisites"
+      },
+      {
+        "depth": 2,
+        "title": "Installation",
+        "anchor": "installation"
+      },
+      {
+        "depth": 2,
+        "title": "Usage",
+        "anchor": "usage"
+      },
+      {
+        "depth": 3,
+        "title": "Endpoints",
+        "anchor": "endpoints"
+      },
+      {
+        "depth": 2,
+        "title": "Where to Go Next",
+        "anchor": "where-to-go-next"
+      }
+    ],
+    "stats": {
+      "chars": 7309,
+      "words": 1033,
+      "headings": 6,
+      "estimated_token_count_total": 1945
+    },
+    "hash": "sha256:0795462182cb97256bb5c2acb035855fe0d6557185de8ac99482725ecb4f94c1",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "reference-tools-subxt",
+    "title": "Subxt Rust API",
+    "slug": "reference-tools-subxt",
+    "categories": [
+      "Tooling",
+      "Dapps"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-tools-subxt.md",
+    "html_url": "https://docs.polkadot.com/reference/tools/subxt/",
+    "preview": "Subxt is a Rust library designed to interact with Polkadot SDK-based blockchains. It provides a type-safe interface for submitting transactions, querying on-chain state, and performing other blockchain interactions. By leveraging Rust's strong type system, subxt ensures that your code is validated at compile time, reducing runtime errors and improving reliability.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Prerequisites",
+        "anchor": "prerequisites"
+      },
+      {
+        "depth": 2,
+        "title": "Installation",
+        "anchor": "installation"
+      },
+      {
+        "depth": 2,
+        "title": "Get Started",
+        "anchor": "get-started"
+      },
+      {
+        "depth": 3,
+        "title": "Download Chain Metadata",
+        "anchor": "download-chain-metadata"
+      },
+      {
+        "depth": 3,
+        "title": "Generate Type-Safe Interfaces",
+        "anchor": "generate-type-safe-interfaces"
+      },
+      {
+        "depth": 3,
+        "title": "Initialize the Subxt Client",
+        "anchor": "initialize-the-subxt-client"
+      },
+      {
+        "depth": 3,
+        "title": "Read Chain Data",
+        "anchor": "read-chain-data"
+      },
+      {
+        "depth": 3,
+        "title": "Submit Transactions",
+        "anchor": "submit-transactions"
+      },
+      {
+        "depth": 2,
+        "title": "Where to Go Next",
+        "anchor": "where-to-go-next"
+      }
+    ],
+    "stats": {
+      "chars": 9174,
+      "words": 1175,
+      "headings": 10,
+      "estimated_token_count_total": 2187
+    },
+    "hash": "sha256:56269d9ea47f5b4e92cd7d5a1e65ab06d181a9c380f90bb3ef285529b12299f7",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "reference-tools-xcm-tools",
+    "title": "XCM Tools",
+    "slug": "reference-tools-xcm-tools",
+    "categories": [
+      "Basics",
+      "Tooling",
+      "Dapps"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-tools-xcm-tools.md",
+    "html_url": "https://docs.polkadot.com/reference/tools/xcm-tools/",
+    "preview": "As described in the [Interoperability](/develop/interoperability){target=\\_blank} section, XCM (Cross-Consensus Messaging) is a protocol used in the Polkadot and Kusama ecosystems to enable communication and interaction between chains. It facilitates cross-chain communication, allowing assets, data, and messages to flow seamlessly across the ecosystem.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Popular XCM Tools",
+        "anchor": "popular-xcm-tools"
+      },
+      {
+        "depth": 3,
+        "title": "Moonsong Labs XCM Tools",
+        "anchor": "moonsong-labs-xcm-tools"
+      },
+      {
+        "depth": 3,
+        "title": "ParaSpell",
+        "anchor": "paraspell"
+      },
+      {
+        "depth": 3,
+        "title": "Astar XCM Tools",
+        "anchor": "astar-xcm-tools"
+      },
+      {
+        "depth": 3,
+        "title": "Chopsticks",
+        "anchor": "chopsticks"
+      },
+      {
+        "depth": 3,
+        "title": "Moonbeam XCM SDK",
+        "anchor": "moonbeam-xcm-sdk"
+      }
+    ],
+    "stats": {
+      "chars": 6146,
+      "words": 852,
+      "headings": 7,
+      "estimated_token_count_total": 1377
+    },
+    "hash": "sha256:674e4f60c82fc7544c7af8e09f1e0f677c9907cdff88b107f6c8489e97a43487",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "reference-tools-zombienet",
+    "title": "Zombienet",
+    "slug": "reference-tools-zombienet",
+    "categories": [
+      "Parachains",
+      "Tooling"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-tools-zombienet.md",
+    "html_url": "https://docs.polkadot.com/reference/tools/zombienet/",
+    "preview": "Zombienet is a testing framework designed for Polkadot SDK-based blockchain networks. It enables developers to efficiently deploy and test ephemeral blockchain environments on platforms like Kubernetes, Podman, and native setups. With its simple CLI and Domain Specific Language (DSL) for writing tests, Zombienet streamlines network spawning, testing, and performance validation.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Install Zombienet",
+        "anchor": "install-zombienet"
+      },
+      {
+        "depth": 2,
+        "title": "Providers",
+        "anchor": "providers"
+      },
+      {
+        "depth": 3,
+        "title": "Kubernetes",
+        "anchor": "kubernetes"
+      },
+      {
+        "depth": 3,
+        "title": "Podman",
+        "anchor": "podman"
+      },
+      {
+        "depth": 3,
+        "title": "Native",
+        "anchor": "native"
+      },
+      {
+        "depth": 2,
+        "title": "Configure Zombienet",
+        "anchor": "configure-zombienet"
+      },
+      {
+        "depth": 3,
+        "title": "Basic Configuration",
+        "anchor": "basic-configuration"
+      },
+      {
+        "depth": 3,
+        "title": "CLI Commands",
+        "anchor": "cli-commands"
+      },
+      {
+        "depth": 2,
+        "title": "Spawn a Network",
+        "anchor": "spawn-a-network"
+      },
+      {
+        "depth": 2,
+        "title": "Write Tests",
+        "anchor": "write-tests"
+      },
+      {
+        "depth": 3,
+        "title": "Test File Structure",
+        "anchor": "test-file-structure"
+      },
+      {
+        "depth": 3,
+        "title": "Run Tests",
+        "anchor": "run-tests"
+      },
+      {
+        "depth": 3,
+        "title": "Common Assertions",
+        "anchor": "common-assertions"
+      },
+      {
+        "depth": 2,
+        "title": "Configuration Reference",
+        "anchor": "configuration-reference"
+      },
+      {
+        "depth": 2,
+        "title": "Where to Go Next",
+        "anchor": "where-to-go-next"
+      }
+    ],
+    "stats": {
+      "chars": 9774,
+      "words": 1173,
+      "headings": 16,
+      "estimated_token_count_total": 2390
+    },
+    "hash": "sha256:4694c22724f22398dc3d68ac4d158b041f6d1159d00bfdaa03ab3080c153b7db",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "reference",
+    "title": "Technical Reference Overview",
+    "slug": "reference",
+    "categories": [
+      "Basics",
+      "Polkadot Protocol",
+      "Reference"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference.md",
+    "html_url": "https://docs.polkadot.com/reference/",
+    "preview": "The Technical Reference section provides comprehensive documentation of Polkadot's architecture, core concepts, and development tooling. Whether you're exploring how Polkadot's relay chain coordinates parachains, understanding governance mechanisms, or building applications on the network, this reference covers the technical foundations you need.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Polkadot Hub",
+        "anchor": "polkadot-hub"
+      },
+      {
+        "depth": 2,
+        "title": "Parachains",
+        "anchor": "parachains"
+      },
+      {
+        "depth": 2,
+        "title": "On-Chain Governance",
+        "anchor": "on-chain-governance"
+      },
+      {
+        "depth": 2,
+        "title": "Glossary",
+        "anchor": "glossary"
+      },
+      {
+        "depth": 2,
+        "title": "Tools",
+        "anchor": "tools"
+      },
+      {
+        "depth": 2,
+        "title": "Where to Go Next",
+        "anchor": "where-to-go-next"
+      }
+    ],
+    "stats": {
+      "chars": 7664,
+      "words": 938,
+      "headings": 7,
+      "estimated_token_count_total": 1683
+    },
+    "hash": "sha256:78eaa8df72e6118d81d3609aca4800d0b2180a7d645ac3cc7b05bd55e574626a",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4103,12 +7027,12 @@
       }
     ],
     "stats": {
-      "chars": 2808,
+      "chars": 2778,
       "words": 203,
       "headings": 3,
-      "estimated_token_count_total": 1018
+      "estimated_token_count_total": 1004
     },
-    "hash": "sha256:dacc949c82d4c3196e3ff3e846e6a34ac43f480a0e0811ff914de0623f42ac6a",
+    "hash": "sha256:f7d8ea43078576a62e5857a12fb1eb9d0d22be3fd3a080bdb4cb3f680d36fe1c",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4150,12 +7074,12 @@
       }
     ],
     "stats": {
-      "chars": 4830,
+      "chars": 4828,
       "words": 646,
       "headings": 5,
-      "estimated_token_count_total": 1146
+      "estimated_token_count_total": 1144
     },
-    "hash": "sha256:26ec243230fb084494d3eaefc1af664c37036a04d4edbe0682a3e69cea048204",
+    "hash": "sha256:7911b91e6c8dc9caa7403756d92d6aa78438c45ebf42088dbdcbefd3d396e6ee",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4544,7 +7468,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-for-eth-devs-contract-deployment.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/for-eth-devs/contract-deployment/",
-    "preview": "Deploying smart contracts to Polkadot Hub works exactly like deploying to Ethereum. Use your existing Solidity contracts, familiar tools like Hardhat, Foundry, or Remix, and deploy without any modifications.",
+    "preview": "Polkadot's smart contract platform supports two distinct virtual machine backends: Rust Ethereum Virtual Machine (REVM) and PVM. Each backend has its own deployment characteristics and optimization strategies. REVM provides full Ethereum compatibility with familiar single-step deployment, while the RISC-V-based PVM uses a more structured two-step approach optimized for its architecture. Understanding these differences ensures smooth deployment regardless of which backend you choose for your smar",
     "outline": [
       {
         "depth": 2,
@@ -4553,65 +7477,80 @@
       },
       {
         "depth": 2,
-        "title": "Deployment Process",
-        "anchor": "deployment-process"
+        "title": "REVM Deployment",
+        "anchor": "revm-deployment"
       },
       {
         "depth": 2,
-        "title": "Using Your Existing Workflow",
-        "anchor": "using-your-existing-workflow"
+        "title": "PVM Deployment",
+        "anchor": "pvm-deployment"
       },
       {
         "depth": 3,
-        "title": "With Hardhat",
-        "anchor": "with-hardhat"
+        "title": "Standard Contract Deployment",
+        "anchor": "standard-contract-deployment"
       },
       {
         "depth": 3,
-        "title": "With Foundry",
-        "anchor": "with-foundry"
+        "title": "Two-Step Deployment Model",
+        "anchor": "two-step-deployment-model"
       },
       {
         "depth": 3,
-        "title": "With Remix",
-        "anchor": "with-remix"
+        "title": "Factory Pattern Considerations",
+        "anchor": "factory-pattern-considerations"
+      },
+      {
+        "depth": 3,
+        "title": "Migration Strategy for Factory Contracts",
+        "anchor": "migration-strategy-for-factory-contracts"
+      },
+      {
+        "depth": 3,
+        "title": "Architecture-Specific Limitations",
+        "anchor": "architecture-specific-limitations"
+      },
+      {
+        "depth": 3,
+        "title": "On-Chain Constructors",
+        "anchor": "on-chain-constructors"
       },
       {
         "depth": 2,
-        "title": "Gas Estimation",
-        "anchor": "gas-estimation"
+        "title": "Gas Estimation vs Actual Consumption",
+        "anchor": "gas-estimation-vs-actual-consumption"
       },
       {
         "depth": 2,
-        "title": "Network Configuration",
-        "anchor": "network-configuration"
+        "title": "Deployment Comparison",
+        "anchor": "deployment-comparison"
       },
       {
         "depth": 2,
-        "title": "Next Steps",
-        "anchor": "next-steps"
+        "title": "Conclusion",
+        "anchor": "conclusion"
       }
     ],
     "stats": {
-      "chars": 2217,
-      "words": 284,
-      "headings": 9,
-      "estimated_token_count_total": 485
+      "chars": 6093,
+      "words": 766,
+      "headings": 12,
+      "estimated_token_count_total": 1172
     },
-    "hash": "sha256:2cbb7ed6a13429e613a95bddee45222e223593a65d25c69becb3ed2afa058ed1",
+    "hash": "sha256:9d3bcc157500d2275c35773e2dcb1ac8e0226be5ba174395d4554f1ff4aad0fc",
     "token_estimator": "heuristic-v1"
   },
   {
-    "id": "smart-contracts-for-eth-devs-ethereum-compatibility",
-    "title": "Ethereum Compatibility",
-    "slug": "smart-contracts-for-eth-devs-ethereum-compatibility",
+    "id": "smart-contracts-for-eth-devs-dual-vm-stack",
+    "title": "Dual Virtual Machine Stack",
+    "slug": "smart-contracts-for-eth-devs-dual-vm-stack",
     "categories": [
       "Basics",
       "Polkadot Protocol"
     ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-for-eth-devs-ethereum-compatibility.md",
-    "html_url": "https://docs.polkadot.com/smart-contracts/for-eth-devs/ethereum-compatibility/",
-    "preview": "Polkadot Hub provides full Ethereum compatibility through the REVM (Rust Ethereum Virtual Machine) backend. This enables developers to deploy existing Solidity contracts without modifications, use familiar Ethereum tooling, and benefit from Polkadot's cross-chain capabilities.",
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-for-eth-devs-dual-vm-stack.md",
+    "html_url": "https://docs.polkadot.com/smart-contracts/for-eth-devs/dual-vm-stack/",
+    "preview": "Polkadot's smart contract platform supports two distinct virtual machine (VM) architectures, providing developers with flexibility in selecting the optimal execution backend for their specific needs. This approach strikes a balance between immediate Ethereum compatibility and long-term innovation, enabling developers to deploy either unmodified (Ethereum Virtual Machine) EVM contracts using Rust Ethereum Virtual Machine (REVM) or optimize for higher performance using PolkaVM (PVM).",
     "outline": [
       {
         "depth": 2,
@@ -4644,11 +7583,6 @@
         "anchor": "revive-pallet"
       },
       {
-        "depth": 3,
-        "title": "Full JSON-RPC Support",
-        "anchor": "full-json-rpc-support"
-      },
-      {
         "depth": 2,
         "title": "Alternative: PVM Backend",
         "anchor": "alternative-pvm-backend"
@@ -4660,12 +7594,12 @@
       }
     ],
     "stats": {
-      "chars": 3577,
-      "words": 445,
-      "headings": 9,
-      "estimated_token_count_total": 706
+      "chars": 3675,
+      "words": 461,
+      "headings": 8,
+      "estimated_token_count_total": 692
     },
-    "hash": "sha256:177a0f9c15af3a264dfecd63c4a4e1dffbb5d066a7c04a2d0df001f88e9207d7",
+    "hash": "sha256:9cb955a91618e3bfd0f199ce18d8991aa485ff52a7323a051e9f9eba4eec3013",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4969,12 +7903,12 @@
       }
     ],
     "stats": {
-      "chars": 6972,
-      "words": 643,
+      "chars": 6926,
+      "words": 642,
       "headings": 7,
-      "estimated_token_count_total": 2058
+      "estimated_token_count_total": 2049
     },
-    "hash": "sha256:f0436d4bb1ab0899210c8637c7a05291c9c988d279dac13214e05a4cc9ee3148",
+    "hash": "sha256:13dbe634dbd47697bb0df9759138b6d88c38a662f3a34dd047bfb4ef9dcbbb39",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5474,7 +8408,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-overview.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/overview/",
-    "preview": "Polkadot Hub is a production-ready Solidity smart contract platform that brings full Ethereum compatibility to the Polkadot ecosystem. Deploy your existing Ethereum contracts without modifications, use familiar tools like Hardhat and Remix, and gain access to Polkadot's cross-chain capabilities.",
+    "preview": "Polkadot Hub provides a production-ready smart contract platform that combines Ethereum compatibility with the performance and cross-chain capabilities of the Polkadot ecosystem. Developers can deploy smart contracts directly on Polkadot Hub while using familiar Ethereum tooling, workflows, and programming languages.",
     "outline": [
       {
         "depth": 2,
@@ -5488,18 +8422,18 @@
       },
       {
         "depth": 3,
-        "title": "Full Ethereum Compatibility",
-        "anchor": "full-ethereum-compatibility"
+        "title": "Ethereum Compatibility",
+        "anchor": "ethereum-compatibility"
       },
       {
         "depth": 3,
-        "title": "Cross-Chain Capabilities",
-        "anchor": "cross-chain-capabilities"
+        "title": "Performance Options",
+        "anchor": "performance-options"
       },
       {
         "depth": 3,
-        "title": "Native Polkadot Integration",
-        "anchor": "native-polkadot-integration"
+        "title": "Cross-VM  & Cross-Chain Capabilities",
+        "anchor": "cross-vm-cross-chain-capabilities"
       },
       {
         "depth": 2,
@@ -5513,12 +8447,12 @@
       }
     ],
     "stats": {
-      "chars": 3337,
-      "words": 424,
+      "chars": 4414,
+      "words": 580,
       "headings": 7,
-      "estimated_token_count_total": 701
+      "estimated_token_count_total": 915
     },
-    "hash": "sha256:e3012105369276ce06f76c41edf4b1756c192aa8b81b1511668a8f72f4d70864",
+    "hash": "sha256:367436ac4b733aae2bddf4391400ca59ed3d7c0af8bc7fb11fd6a017e4b09fd5",
     "token_estimator": "heuristic-v1"
   },
   {

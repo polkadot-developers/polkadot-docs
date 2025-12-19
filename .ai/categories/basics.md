@@ -557,70 +557,109 @@ Page Title: Contract Deployment
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-for-eth-devs-contract-deployment.md
 - Canonical (HTML): https://docs.polkadot.com/smart-contracts/for-eth-devs/contract-deployment/
-- Summary: Learn how to deploy Solidity smart contracts to Polkadot Hub using familiar Ethereum tooling and workflows.
+- Summary: Compare deployment flows for REVM and PVM-based smart contracts on the Polkadot Hub. Includes single-step REVM flows and PVM's two-step deployment model.
 
 # Contract Deployment
 
 ## Introduction
 
-Deploying smart contracts to Polkadot Hub works exactly like deploying to Ethereum. Use your existing Solidity contracts, familiar tools like Hardhat, Foundry, or Remix, and deploy without any modifications.
+Polkadot's smart contract platform supports two distinct virtual machine backends: Rust Ethereum Virtual Machine (REVM) and PVM. Each backend has its own deployment characteristics and optimization strategies. REVM provides full Ethereum compatibility with familiar single-step deployment, while the RISC-V-based PVM uses a more structured two-step approach optimized for its architecture. Understanding these differences ensures smooth deployment regardless of which backend you choose for your smart contracts.
 
-## Deployment Process
+## REVM Deployment
 
-Polkadot Hub uses the REVM backend, which provides full Ethereum compatibility. This means:
+The REVM backend enables seamless deployment of Ethereum contracts without modification. Contracts deploy exactly as they would on Ethereum, using familiar tools and workflows.
 
-- **Single-step deployment**: Contracts deploy in a single transaction, just like Ethereum.
-- **Factory patterns work**: Create new contracts at runtime using standard factory patterns.
-- **Full Solidity support**: All Solidity features including inline assembly are supported.
-- **Familiar tools**: Hardhat, Foundry, Remix, and other Ethereum tools work out of the box.
+With REVM, deployment mirrors the Ethereum flow exactly including:
 
-## Using Your Existing Workflow
+- Contracts are bundled and deployed in a single transaction.
+- Factory contracts can create new contracts at runtime.
+- Runtime code generation, including inline assembly, is supported.
+- Existing familiar tools like Hardhat, Foundry, and Remix work out of the box.
 
-### With Hardhat
+## PVM Deployment
 
-```bash
-npx hardhat ignition deploy ./ignition/modules/MyContract.ts --network polkadotHub
+PVM implements a fundamentally different deployment model optimized for its RISC-V architecture. While simple contract deployments work seamlessly, advanced patterns like factory contracts require understanding the two-step deployment process.
+
+### Standard Contract Deployment
+
+For most use cases, such as deploying ERC-20 tokens, NFT collections, or standalone contracts, deployment is transparent and requires no special steps. The [Revive compiler](https://github.com/paritytech/revive){target=\_blank} handles the deployment process automatically when using standard Solidity patterns.
+
+### Two-Step Deployment Model
+
+PVM separates contract deployment into distinct phases:
+
+1. **Code upload**: Contract bytecode must be uploaded to the chain before instantiation.
+2. **Contract instantiation**: Contracts are created by referencing previously uploaded code via its hash.
+
+This architecture differs from the EVM's bundled approach and has important implications for specific deployment patterns.
+
+### Factory Pattern Considerations
+
+The common EVM pattern, where contracts dynamically create other contracts, requires adaptation for PVM as follows:
+
+**EVM Factory Pattern:**
+```solidity
+// This works on REVM but requires modification for PVM
+contract Factory {
+    function createToken() public returns (address) {
+        // EVM bundles bytecode in the factory
+        return address(new Token());
+    }
+}
 ```
 
-### With Foundry
+**PVM Requirements:**
 
-```bash
-forge create --rpc-url $POLKADOT_HUB_RPC --private-key $PRIVATE_KEY src/MyContract.sol:MyContract
-```
+- **Pre-upload dependent contracts**: All contracts that will be instantiated at runtime must be uploaded to the chain before the factory attempts to create them.
+- **Code hash references**: Factory contracts work with pre-uploaded code hashes rather than embedding bytecode.
+- **No runtime code generation**: Dynamic bytecode generation is not supported due to PVM's RISC-V format.
 
-### With Remix
+### Migration Strategy for Factory Contracts
 
-1. Connect MetaMask to Polkadot Hub
-2. Select "Injected Provider - MetaMask" in Remix
-3. Deploy as you would to any EVM chain
+When migrating factory contracts from Ethereum to PVM:
 
-## Gas Estimation
+1. **Identify all contracts**: Determine which contracts will be instantiated at runtime.
+2. **Upload dependencies first**: Deploy all dependent contracts to the chain before deploying the factory.
+3. **Use on-chain constructors**: Leverage PVM's on-chain constructor feature for flexible instantiation.
+4. **Avoid assembly creation**: Don't use `create` or `create2` opcodes in assembly blocks for manual deployment.
 
-You might notice that gas estimates are higher than actual consumption (often around 30% of the estimate is used). This is normal behavior because:
+### Architecture-Specific Limitations
 
-- Pre-dispatch estimation cannot distinguish between computation weight and storage deposits
-- Contract deployments consume significant storage deposits for code storage
-- The system uses conservative overestimation to ensure transactions succeed
+PVM's deployment model creates several specific constraints:
 
-## Network Configuration
+- **`EXTCODECOPY` limitations**: Contracts using `EXTCODECOPY` to manipulate code at runtime will encounter issues.
+- **Runtime code modification**: Patterns that construct and mutate contract code on-the-fly are not supported.
+- **Assembly-based factories**: Factory contracts written in YUL assembly that generate code at runtime will fail with `CodeNotFound` errors.
 
-Add Polkadot Hub to your development environment:
+These patterns are rare in practice and typically require dropping down to assembly, making them non-issues for standard Solidity development.
 
-| Parameter | Value |
-|-----------|-------|
-| Network Name | Polkadot Hub TestNet |
-| RPC URL | `https://testnet-passet-hub-eth-rpc.polkadot.io` |
-| Chain ID | `420420421` |
-| Currency Symbol | PAS |
-| Block Explorer | [BlockScout](https://blockscout-passet-hub.parity-testnet.parity.io/){target=\_blank} |
+### On-Chain Constructors
 
-## Next Steps
+PVM provides on-chain constructors as an elegant alternative to runtime code modification:
 
-Once deployed, your contracts can:
+- Enable contract instantiation without runtime code generation.
+- Support flexible initialization patterns.
+- Maintain separation between code upload and contract creation.
+- Provide predictable deployment costs.
 
-- Interact with other contracts on Polkadot Hub
-- Access Polkadot-native functionality via [precompiles](/smart-contracts/precompiles/)
-- Communicate cross-chain using [XCM](/smart-contracts/precompiles/xcm/)
+## Gas Estimation vs Actual Consumption
+
+Both REVM and PVM deployments may show significant differences between gas estimation and actual consumption. You might see estimates that are several times higher than the actual gas consumed (often around 30% of the estimate). This is normal behavior because pre-dispatch estimation cannot distinguish between computation weight and storage deposits, leading to conservative overestimation. Contract deployments are particularly affected as they consume significant storage deposits for code storage.
+
+## Deployment Comparison
+
+|        Feature        |      REVM Backend       |           PVM Backend           |
+|:---------------------:|:-----------------------:|:-------------------------------:|
+| **Deployment Model**  |   Single-step bundled   | Two-step upload and instantiate |
+| **Factory Patterns**  | Direct runtime creation |   Requires pre-uploaded code    |
+|   **Code Bundling**   | Bytecode in transaction |      Code hash references       |
+|  **Runtime Codegen**  |     Fully supported     |          Not supported          |
+| **Simple Contracts**  | No modifications needed |     No modifications needed     |
+| **Assembly Creation** |        Supported        |  Discouraged, limited support   |
+
+## Conclusion
+
+Both backends support contract deployment effectively, with REVM offering drop-in Ethereum compatibility and PVM providing a more structured two-step approach. For the majority of use cases—deploying standard contracts like tokens or applications—both backends work seamlessly. Advanced patterns like factory contracts may require adjustment for PVM, but these adaptations are straightforward with proper planning.
 
 
 ---
@@ -1647,17 +1686,19 @@ Replace `YOUR_PRIVATE_KEY` with your private key and `YOUR_OWNER_ADDRESS` with t
 
 ---
 
-Page Title: Ethereum Compatibility
+Page Title: Dual Virtual Machine Stack
 
-- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-for-eth-devs-ethereum-compatibility.md
-- Canonical (HTML): https://docs.polkadot.com/smart-contracts/for-eth-devs/ethereum-compatibility/
-- Summary: Learn how Polkadot Hub provides full Ethereum compatibility through REVM, enabling seamless migration of Solidity contracts and tooling.
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-for-eth-devs-dual-vm-stack.md
+- Canonical (HTML): https://docs.polkadot.com/smart-contracts/for-eth-devs/dual-vm-stack/
+- Summary: Compare Polkadot’s dual smart contract VMs—REVM for EVM compatibility and PolkaVM for RISC-V performance, flexibility, and efficiency.
 
-# Ethereum Compatibility
+# Dual Virtual Machine Stack
 
 ## Introduction
 
-Polkadot Hub provides full Ethereum compatibility through the REVM (Rust Ethereum Virtual Machine) backend. This enables developers to deploy existing Solidity contracts without modifications, use familiar Ethereum tooling, and benefit from Polkadot's cross-chain capabilities.
+Polkadot's smart contract platform supports two distinct virtual machine (VM) architectures, providing developers with flexibility in selecting the optimal execution backend for their specific needs. This approach strikes a balance between immediate Ethereum compatibility and long-term innovation, enabling developers to deploy either unmodified (Ethereum Virtual Machine) EVM contracts using Rust Ethereum Virtual Machine (REVM) or optimize for higher performance using PolkaVM (PVM).
+
+Both VM options share common infrastructure, including RPC interfaces, tooling support, and precompiles. The following sections compare architectures and guide you in selecting the best VM for your project's needs.
 
 ## REVM Backend
 
@@ -1700,15 +1741,6 @@ sequenceDiagram
 
 This proxy-based approach eliminates the need for node binary modifications, maintaining compatibility across different client implementations. Preserving the original Ethereum transaction payload simplifies the adaptation of existing tools, which can continue processing familiar transaction formats.
 
-### Full JSON-RPC Support
-
-Polkadot Hub supports the standard Ethereum JSON-RPC API, ensuring compatibility with:
-
-- **Wallets**: MetaMask, Rainbow, and other Ethereum wallets
-- **Development tools**: Hardhat, Foundry, Remix IDE
-- **Libraries**: Ethers.js, Web3.js, Viem, Wagmi
-- **Infrastructure**: The Graph, Tenderly, and other Ethereum infrastructure
-
 ## Alternative: PVM Backend
 
 For advanced use cases requiring maximum performance, Polkadot Hub also supports the [PVM (Polkadot Virtual Machine)](https://github.com/paritytech/polkavm){target=\_blank} backend. PVM uses a RISC-V-based architecture that can provide performance optimizations for computationally intensive workloads. Solidity contracts can be compiled to PVM bytecode using the `resolc` compiler.
@@ -1723,7 +1755,7 @@ Most developers should start with REVM for its simplicity and full Ethereum comp
 
     ---
 
-    Learn how to deploy your Solidity contracts to Polkadot Hub.
+    Understand deployment mechanics, gas estimation behavior, and storage considerations.
 
     [:octicons-arrow-right-24: Reference](/smart-contracts/for-eth-devs/contract-deployment/)
 
@@ -1869,7 +1901,7 @@ Bridge your Ethereum knowledge with Polkadot Hub specifics: account mapping, fee
 |                    [Accounts](/smart-contracts/for-eth-devs/accounts/)                    | How 20‑byte Ethereum addresses map to 32‑byte Polkadot accounts |
 | [Blocks, Transactions, and Fees](/smart-contracts/for-eth-devs/blocks-transactions-fees/) |     Transaction types, fees, and multi‑dimensional metering     |
 |                   [Gas Model](/smart-contracts/for-eth-devs/gas-model/)                   |        Gas vs. weight, proof size, and storage deposits         |
-|         [Contract Deployment](/smart-contracts/for-eth-devs/contract-deployment/)         |     Deployment patterns and best practices on Polkadot Hub      |
+|         [Contract Deployment](/smart-contracts/for-eth-devs/contract-deployment/)         |     Deployment mechanics, gas estimation, and storage model     |
 |               [JSON‑RPC APIs](/smart-contracts/for-eth-devs/json-rpc-apis/)               |        Supported Ethereum JSON‑RPC methods and examples         |
 |               [Dual VM Stack](/smart-contracts/for-eth-devs/dual-vm-stack/)               |         Overview of EVM and native execution on the Hub         |
 
@@ -1901,19 +1933,19 @@ Choose the client libraries that fit your stack for connecting wallets and calli
 
 Integrate essential services like wallets, indexers, and oracles to round out your dApp.
 
-|                     Integration                     |                Description                |
-|:---------------------------------------------------:|:-----------------------------------------:|
-|  [Wallets](/smart-contracts/integrations/wallets/)  | Supported wallets and configuration notes |
+|                    Integration                    |                Description                |
+|:-------------------------------------------------:|:-----------------------------------------:|
+| [Wallets](/smart-contracts/integrations/wallets/) | Supported wallets and configuration notes |
 
 ## Precompiles
 
 Discover precompiled system contracts available on the Hub and how to use them.
 
-|                          Topic                           |                     Description                     |
-|:--------------------------------------------------------:|:---------------------------------------------------:|
-| [Overview of Precompiles](/smart-contracts/precompiles/) |      What precompiles are available on the Hub      |
-|  [ETH Native](/smart-contracts/precompiles/eth-native/)  |           EVM precompiles and interfaces            |
-|         [XCM](/smart-contracts/precompiles/xcm/)         |     Cross‑chain messaging helpers for contracts     |
+|                          Topic                           |                 Description                 |
+|:--------------------------------------------------------:|:-------------------------------------------:|
+| [Overview of Precompiles](/smart-contracts/precompiles/) |  What precompiles are available on the Hub  |
+|  [ETH Native](/smart-contracts/precompiles/eth-native/)  |       EVM precompiles and interfaces        |
+|         [XCM](/smart-contracts/precompiles/xcm/)         | Cross‑chain messaging helpers for contracts |
 
 From here, follow the quick starts to get connected, iterate locally with your preferred tools, and use the guides, libraries, integrations, and precompiles as you grow into production‑ready dApps. If you get stuck, [open an issue](https://github.com/polkadot-developers/polkadot-docs/issues/new?template=docs-issue.yml){target=\_blank} or reach out in the community channels.
 
@@ -4153,7 +4185,6 @@ This page contains a list of all relevant tutorials and guides to help you get s
 
 
 
-
 ## Get Tokens from the Faucet
 
 | Title                              | Difficulty  | Tools | Description                                                                                                           |
@@ -4162,10 +4193,10 @@ This page contains a list of all relevant tutorials and guides to help you get s
 
 ## EVM Smart Contracts
 
-| Title                                                                                                   | Difficulty  | Tools                          | Description                                                                                                                                                 |
-|---------------------------------------------------------------------------------------------------------|:-----------:|--------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Title                                                                                                   | Difficulty  | Tools                          | Description                                                                                                                                   |
+|---------------------------------------------------------------------------------------------------------|:-----------:|--------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
 | [Deploy an ERC-20 to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix/) | 🟢 Beginner | EVM Wallet, Polkadot Remix IDE | Deploy an ERC-20 token on Polkadot Hub. This guide covers contract creation, compilation, deployment, and interaction via Polkadot Remix IDE. |
-| [Deploy an NFT to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix/)        | 🟢 Beginner | EVM Wallet, Polkadot Remix IDE | Deploy an NFT on Polkadot Hub with OpenZeppelin. Learn how to compile, deploy, and interact with your contract using Polkadot Remix IDE.       |
+| [Deploy an NFT to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix/)        | 🟢 Beginner | EVM Wallet, Polkadot Remix IDE | Deploy an NFT on Polkadot Hub with OpenZeppelin. Learn how to compile, deploy, and interact with your contract using Polkadot Remix IDE.      |
 
 ## Port Ethereum DApps
 
@@ -4180,48 +4211,49 @@ Page Title: Smart Contracts Overview
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-overview.md
 - Canonical (HTML): https://docs.polkadot.com/smart-contracts/overview/
-- Summary: Learn about smart contract development on Polkadot Hub with full Ethereum compatibility, Solidity support, and seamless cross-chain capabilities.
+- Summary: Learn about smart contract development on Polkadot Hub with native PVM support, dual-VM execution, and seamless cross-chain capabilities.
 
 # Smart Contracts on Polkadot Hub
 
 ## Introduction
 
-Polkadot Hub is a production-ready Solidity smart contract platform that brings full Ethereum compatibility to the Polkadot ecosystem. Deploy your existing Ethereum contracts without modifications, use familiar tools like Hardhat and Remix, and gain access to Polkadot's cross-chain capabilities.
+Polkadot Hub provides a production-ready smart contract platform that combines Ethereum compatibility with the performance and cross-chain capabilities of the Polkadot ecosystem. Developers can deploy smart contracts directly on Polkadot Hub while using familiar Ethereum tooling, workflows, and programming languages.
+
+Built with a dual-VM approach, Polkadot Hub offers two execution backends: REVM for unmodified EVM compatibility and native PVM for optimized computationally expensive workloads. This dual-VM architecture enables developers to migrate existing Ethereum contracts instantly or optimize for speed and efficiency with native execution.
 
 ## Why Build on Polkadot Hub
 
-### Full Ethereum Compatibility
+### Ethereum Compatibility
 
-Polkadot Hub runs the REVM (Rust Ethereum Virtual Machine) backend, providing complete EVM compatibility. Your Solidity contracts work exactly as they do on Ethereum:
+Deploy existing Ethereum contracts with zero modifications while maintaining full compatibility with your existing development stack:
 
-- **Zero modifications required**: Deploy existing Ethereum contracts directly without any code changes.
 - **Complete JSON-RPC API support**: Use MetaMask, Hardhat, Remix, Foundry, and all standard Ethereum tooling.
 - **Standard libraries**: Integrate Ethers.js, Web3.js, Viem, Wagmi, and Web3.py without changes.
-- **Solidity development**: Write contracts in Solidity using the same patterns and best practices you already know.
+- **Solidity development**: Write contracts in Solidity or migrate existing code directly.
 - **Familiar workflows**: Maintain your existing deployment, testing, and monitoring processes.
 
-### Cross-Chain Capabilities
+### Performance Options
 
-Smart contracts on Polkadot Hub can interact with any service in the Polkadot ecosystem through [XCM](/smart-contracts/precompiles/xcm/){target=\_blank}, enabling:
+Choose between two execution backends:
 
-- Token transfers across parachains
-- Remote execution on other chains
-- Cross-chain composability without bridges or intermediaries
+- **REVM**: Run unmodified Ethereum contracts with full EVM/Ethereum compatibility.
+- **PVM**: Compile to optimized RISC-V bytecode for enhanced performance and lower fees while keeping Ethereum-compatibility.
 
-### Native Polkadot Integration
+Both backends share the same RPC interface and tooling support, allowing seamless transitions. In addition, smart contracts can interact with Polkadot native services via [precompile contracts](/smart-contracts/precompiles/){target=\_blank}.
 
-Access Polkadot-native functionality directly from your Solidity contracts via [precompiles](/smart-contracts/precompiles/){target=\_blank}, including asset management, staking operations, and cross-chain messaging.
+### Cross-VM  & Cross-Chain Capabilities
 
-!!! note
-    Polkadot Hub also supports PVM (Polkadot Virtual Machine) as an alternative execution backend for advanced use cases.
+Smart contracts written for one VM (for example, EVM) can interact directly with other smart contracts written for the RISC-V PVM, and back. This allows to use full EVM compatible contracts but extend to heavy/complex execution workloads to the PVM RISC-V backend.
+
+Furthermore, all smart contracts in Polkadot Hub can interact with any service in the Polkadot ecosystem through [XCM](/smart-contracts/precompiles/xcm/){target=\_blank}, enabling token transfers, remote execution, and cross-chain composability without bridges or intermediaries.
 
 ## Other Smart Contract Environments
 
-Beyond Polkadot Hub, the ecosystem offers EVM-compatible parachains that provide access to Ethereum's extensive developer ecosystem with established tooling like Hardhat, Remix, Foundry, and OpenZeppelin:
+Beyond Polkadot Hub's native PVM support, the ecosystem offers two main alternatives for smart contract development:
 
-- **Moonbeam**: The first full Ethereum-compatible parachain, serving as an interoperability hub.
-- **Astar**: Features dual VM support for both EVM and WebAssembly contracts.
-- **Acala**: DeFi-focused with enhanced Acala EVM+ offering advanced DeFi primitives.
+- **EVM-compatible parachains**: Provide access to Ethereum's extensive developer ecosystem, smart contract portability, and established tooling like Hardhat, Remix, Foundry, and OpenZeppelin. The main options include Moonbeam (the first full Ethereum-compatible parachain serving as an interoperability hub), Astar (featuring dual VM support for both EVM and WebAssembly contracts), and Acala (DeFi-focused with enhanced Acala EVM+ offering advanced DeFi primitives).
+
+- **Rust (ink!)**: ink! is a Rust-based framework that can compile to PVM. It uses [`#[ink(...)]`](https://use.ink/docs/v6/macros-attributes/){target=\_blank} attribute macros to create Polkadot SDK-compatible PVM bytecode, offering strong memory safety from Rust, an advanced type system, high-performance PVM execution, and platform independence with sandboxed security.
 
 ## Next Steps
 

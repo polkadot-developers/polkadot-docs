@@ -18,11 +18,11 @@ Before you begin, make sure you have:
 - [Chopsticks](/reference/tools/chopsticks){target=\_blank} installed
 - Access to the endpoint or genesis file of the parachain you want to fork
 - The block number or hash where the XCM was sent
-- (Optional) A Chopsticks config file for repeated setups.
+- (Optional) A Chopsticks config file for repeated setups
 
 ## Set Up Your Project
 
-Let's start by creating a dedicated workspace for your XCM replay and dry-run experiments.
+Start by creating a dedicated workspace for your XCM replay and dry-run experiments:
 
 1. Create a new directory and navigate into it:
 
@@ -163,7 +163,7 @@ Full execution logs only work if the runtime was compiled with logging enabled. 
 
 To replay an XCM, you'll first need to identify the exact extrinsic that triggered it. In this example, we'll use block 9079592 on the Polkadot Asset Hub.
 
-1. Find and open the block on Subscan to inspect its extrinsics and events. In this case, the block is [9079592](https://assethub-polkadot.subscan.io/block/9079592){target=\_blank}
+1. Find and open the block on Subscan to inspect its extrinsics and events. In this case, the block is [9079592](https://assethub-polkadot.subscan.io/block/9079592){target=\_blank}.
 
 2. Copy the block hash. Look for the block hash at the top of the page. For block 9079592, the hash is:
 
@@ -171,7 +171,7 @@ To replay an XCM, you'll first need to identify the exact extrinsic that trigger
     0xeb5a5737d47367dc1c02b978232283cdb096eb7e51d2eb22366a106a011347f6
     ```
 
-3. Explore and view the block in [Polkadot.js Apps](https://polkadot.js.org/apps){target=\_blank} using this direct link: [Block Hash Explorer](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fpolkadot-asset-hub-rpc.polkadot.io#/explorer/query/0xeb5a5737d47367dc1c02b978232283cdb096eb7e51d2eb22366a106a011347f6){target=\_blank}
+3. Explore and view the block in [Polkadot.js Apps](https://polkadot.js.org/apps){target=\_blank} using this direct link: [Block Hash Explorer](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fpolkadot-asset-hub-rpc.polkadot.io#/explorer/query/0xeb5a5737d47367dc1c02b978232283cdb096eb7e51d2eb22366a106a011347f6){target=\_blank}.
 
 4. Locate and decode the XCM extrinsic. Once you've found the extrinsic (e.g., 9079592-2), extract and decode its call data. For example, the call data is:
    
@@ -256,8 +256,8 @@ If it fails, you'll receive detailed error information:
 
 For more information, see:
 
-- [Dry Run Call](https://paritytech.github.io/polkadot-sdk/master/xcm_runtime_apis/dry_run/trait.DryRunApi.html#method.dry_run_call){target=\_blank} to simulate a full extrinsic
-- [Dry Run XCM](https://paritytech.github.io/polkadot-sdk/master/xcm_runtime_apis/dry_run/trait.DryRunApi.html#method.dry_run_xcm){target=\_blank} to simulate a raw XCM
+- [Dry Run Call](https://paritytech.github.io/polkadot-sdk/master/xcm_runtime_apis/dry_run/trait.DryRunApi.html#method.dry_run_call){target=\_blank} to simulate a full extrinsic.
+- [Dry Run XCM](https://paritytech.github.io/polkadot-sdk/master/xcm_runtime_apis/dry_run/trait.DryRunApi.html#method.dry_run_xcm){target=\_blank} to simulate a raw XCM.
 
 ## Review and Debug
 
@@ -273,7 +273,7 @@ Replaying XCMs with full logging provides fine-grained control and visibility in
 
     View the official Chopsticks GitHub repository.
 
-    [:octicons-arrow-right-24: Get Started](https://github.com/AcalaNetwork/chopsticks/)
+    [:octicons-arrow-right-24: Get Started](https://github.com/AcalaNetwork/chopsticks/){target=\_blank}
 
 - <span class="badge guide">Guide</span> **Get Started with XCM**
 

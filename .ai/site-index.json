@@ -7408,7 +7408,7 @@
   },
   {
     "id": "smart-contracts-for-eth-devs-accounts",
-    "title": "Accounts in Asset Hub Smart Contracts",
+    "title": "Accounts in Polkadot Hub Smart Contracts",
     "slug": "smart-contracts-for-eth-devs-accounts",
     "categories": [
       "Basics",
@@ -7416,7 +7416,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-for-eth-devs-accounts.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/for-eth-devs/accounts/",
-    "preview": "Asset Hub natively utilizes Polkadot's 32-byte account system while providing interoperability with Ethereum's 20-byte addresses through an automatic conversion system. When interacting with smart contracts:",
+    "preview": "The Polkadot Hub natively utilizes Polkadot's 32-byte account system while providing interoperability with Ethereum's 20-byte addresses through an automatic conversion system. When interacting with smart contracts:",
     "outline": [
       {
         "depth": 2,
@@ -7440,6 +7440,11 @@
       },
       {
         "depth": 3,
+        "title": "Interacting with Unmapped Substrate Accounts",
+        "anchor": "interacting-with-unmapped-substrate-accounts"
+      },
+      {
+        "depth": 3,
         "title": "Account Mapping for Native Polkadot Accounts",
         "anchor": "account-mapping-for-native-polkadot-accounts"
       },
@@ -7454,6 +7459,11 @@
         "anchor": "fallback-accounts"
       },
       {
+        "depth": 3,
+        "title": "How Fallback Works with Unmapped Accounts",
+        "anchor": "how-fallback-works-with-unmapped-accounts"
+      },
+      {
         "depth": 2,
         "title": "Contract Address Generation",
         "anchor": "contract-address-generation"
@@ -7465,12 +7475,12 @@
       }
     ],
     "stats": {
-      "chars": 8392,
-      "words": 1124,
-      "headings": 9,
-      "estimated_token_count_total": 1831
+      "chars": 12316,
+      "words": 1686,
+      "headings": 11,
+      "estimated_token_count_total": 2599
     },
-    "hash": "sha256:9654d715be52c5670713bb927973e1e67a2ee2215ead82c712de9067f96b534e",
+    "hash": "sha256:44363b537df0a86a158709c5064ccc871acc82d7f4dd58414b6ce371067301ed",
     "token_estimator": "heuristic-v1"
   },
   {

@@ -32,11 +32,11 @@ For example, to connect to the Polkadot Hub TestNet via MetaMask, you need to fo
 
     ![](/images/smart-contracts/integrations/wallets/wallets-3.webp){: .browser-extension}
 
-3. Complete the necessary fields, then click the **Save** button (refer to the [Networks](/smart-contracts/connect/#networks-details){target=\_blank} section for copy and paste parameters).
+4. Complete the necessary fields, then click the **Save** button (refer to the [Networks](/smart-contracts/connect/#networks-details){target=\_blank} section for copy and paste parameters).
 
     ![](/images/smart-contracts/integrations/wallets/wallets-3.webp){: .browser-extension}
 
-4. Click on **Polkadot Hub TestNet** to switch the network.
+5. Click on **Polkadot Hub TestNet** to switch the network.
 
     ![](/images/smart-contracts/integrations/wallets/wallets-4.webp){: .browser-extension}
 
@@ -94,16 +94,15 @@ To use Talisman with Polkadot Hub TestNet:
 
     ![](/images/smart-contracts/integrations/wallets/wallets-7.webp)
 
-7. Fill in the form with the required parameters and click the ave** button.
+5. Fill in the form with the required parameters and click the ave** button.
 
     ![](/images/smart-contracts/integrations/wallets/wallets-8.webp)
 
-8. After that, you will see the **Polkadot Hub TestNet** in the list.
+6. After that, you will see the **Polkadot Hub TestNet** in the list.
 
     ![](/images/smart-contracts/integrations/wallets/wallets-9.webp)
 
 After selecting the network, Talisman will automatically configure the necessary RPC URL and chain ID for you. You can now use Talisman to interact with the Polkadot Hub TestNet.
-
 
 ## Conclusion
 

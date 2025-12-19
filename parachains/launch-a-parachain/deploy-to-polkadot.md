@@ -99,10 +99,7 @@ Ensure that this command is executed twice to generate the keys for both the acc
 
 ## Generate the Chain Specification
 
-Polkadot SDK-based parachains are defined by a file called the chain specification, or chain spec for short. There are two types of chain spec files:
-
-<!-- TODO POST-MVP: Restore above chain specification link
-[chain specification](/reference/glossary/#chain-specification){target=\_blank} -->
+Polkadot SDK-based parachains are defined by a file called the [chain specification](/reference/glossary/#chain-specification){target=\_blank}, or chain spec for short. There are two types of chain spec files:
 
 - **Plain chain spec**: A human-readable JSON file that can be modified to suit your parachain's requirements. It serves as a template for initial configuration and includes human-readable keys and structures.
 - **Raw chain spec**: A binary-encoded file used to start your parachain node. This file is generated from the plain chain spec and contains the encoded information necessary for the parachain node to synchronize with the blockchain network. It ensures compatibility across different runtime versions by providing data in a format directly interpretable by the node's runtime, regardless of upgrades since the chain's genesis.

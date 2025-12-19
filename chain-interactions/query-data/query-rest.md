@@ -68,9 +68,7 @@ curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/accou
 
 **Response**
 
-```json
---8<-- "code/chain-interactions/query-data/query-rest/balance-info-response.json"
-```
+--8<-- "code/chain-interactions/query-data/query-rest/balance-info-response.html"
 
 **Response fields**
 
@@ -126,9 +124,7 @@ curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/accou
 
 **Response**
 
-```json
---8<-- "code/chain-interactions/query-data/query-rest/asset-balances-response.json"
-```
+--8<-- "code/chain-interactions/query-data/query-rest/asset-balances-response.html"
 
 **Response fields**
 
@@ -172,9 +168,23 @@ curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/palle
 
 **Response**
 
-```json
---8<-- "code/chain-interactions/query-data/query-rest/asset-metadata-response.json"
-```
+--8<-- "code/chain-interactions/query-data/query-rest/asset-metadata-response.html"
+
+**Response fields**
+
+| Field | Description |
+|-------|-------------|
+| `at.hash` | Block hash at which the query was executed |
+| `at.height` | Block number at which the query was executed |
+| `pallet` | Name of the pallet containing the storage item |
+| `palletIndex` | Numeric index of the pallet in the runtime |
+| `storageItem` | Name of the storage item being queried |
+| `keys` | Array of keys used to query the storage map |
+| `value.deposit` | Deposit held for storing this metadata |
+| `value.name` | Asset name (hex-encoded string) |
+| `value.symbol` | Asset symbol (hex-encoded string) |
+| `value.decimals` | Number of decimal places for display |
+| `value.isFrozen` | Whether the asset metadata is frozen |
 
 The `name` and `symbol` fields are returned as hex-encoded strings. To decode them:
 
@@ -193,9 +203,7 @@ curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/palle
 
 **Response**
 
-```json
---8<-- "code/chain-interactions/query-data/query-rest/asset-details-response.json"
-```
+--8<-- "code/chain-interactions/query-data/query-rest/asset-details-response.html"
 
 **Response fields**
 
@@ -203,6 +211,10 @@ curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/palle
 |-------|-------------|
 | `at.hash` | Block hash at which the query was executed |
 | `at.height` | Block number at which the query was executed |
+| `pallet` | Name of the pallet containing the storage item |
+| `palletIndex` | Numeric index of the pallet in the runtime |
+| `storageItem` | Name of the storage item being queried |
+| `keys` | Array of keys used to query the storage map |
 | `owner` | Account that owns the asset |
 | `issuer` | Account authorized to mint new tokens |
 | `admin` | Account with administrative privileges |
@@ -244,9 +256,7 @@ curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/block
 
 **Response**
 
-```json
---8<-- "code/chain-interactions/query-data/query-rest/block-response.json"
-```
+--8<-- "code/chain-interactions/query-data/query-rest/block-response.html"
 
 ## API Reference
 

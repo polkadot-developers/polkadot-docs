@@ -2,7 +2,7 @@ nav:
   - 'Home': index.md
   - 'Smart Contracts': smart-contracts
   - 'Parachains': parachains
-  # - 'Chain Interactions': chain-interactions
+  - 'Chain Interactions': chain-interactions
   - 'Node Infrastructure': node-infrastructure
   - 'Technical Reference': reference
   - 'Get Support': get-support

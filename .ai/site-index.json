@@ -17,129 +17,17 @@
       },
       {
         "depth": 2,
-        "title": "Download LLM Files",
-        "anchor": "download-llm-files"
+        "title": "Access LLM Files",
+        "anchor": "access-llm-files"
       }
     ],
     "stats": {
-      "chars": 7998,
+      "chars": 7996,
       "words": 825,
       "headings": 2,
       "estimated_token_count_total": 2232
     },
-    "hash": "sha256:5a8da69a5cea8bd598ee4d102b9abed5d1a29153802a567e22bb4ee720410b32",
-    "token_estimator": "heuristic-v1"
-  },
-  {
-    "id": "get-support-explore-resources",
-    "title": "Subscribe to Updates",
-    "slug": "get-support-explore-resources",
-    "categories": [
-      "Uncategorized"
-    ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/get-support-explore-resources.md",
-    "html_url": "https://docs.polkadot.com/get-support/explore-resources/",
-    "preview": "Looking for answers beyond the documentation? These platforms are full of useful content and experienced developers sharing insights.",
-    "outline": [
-      {
-        "depth": 2,
-        "title": "🧠 Stack Exchange",
-        "anchor": "stack-exchange"
-      },
-      {
-        "depth": 2,
-        "title": "🧵 Reddit: r/Polkadot",
-        "anchor": "reddit-rpolkadot"
-      },
-      {
-        "depth": 2,
-        "title": "💬 Discord (Community Threads Only)",
-        "anchor": "discord-community-threads-only"
-      },
-      {
-        "depth": 2,
-        "title": "🎥 YouTube: @PolkadotNetwork",
-        "anchor": "youtube-polkadotnetwork"
-      },
-      {
-        "depth": 2,
-        "title": "Community-Led Platforms and Ecosystem Updates",
-        "anchor": "community-led-platforms-and-ecosystem-updates"
-      },
-      {
-        "depth": 3,
-        "title": "🔷 X (Twitter): Official Accounts",
-        "anchor": "x-twitter-official-accounts"
-      },
-      {
-        "depth": 3,
-        "title": "🔁 X (Twitter): Community Accounts",
-        "anchor": "x-twitter-community-accounts"
-      },
-      {
-        "depth": 3,
-        "title": "🗣️ Polkadot Forum",
-        "anchor": "polkadot-forum"
-      },
-      {
-        "depth": 3,
-        "title": "🧑‍⚖️ Polkassembly: OpenGov",
-        "anchor": "polkassembly-opengov"
-      },
-      {
-        "depth": 3,
-        "title": "📸 Instagram",
-        "anchor": "instagram"
-      }
-    ],
-    "stats": {
-      "chars": 2426,
-      "words": 295,
-      "headings": 10,
-      "estimated_token_count_total": 579
-    },
-    "hash": "sha256:670221ac20ab1f1b550ba2a1db06cd924c24bd3afc4d8a768b617d8a409243cb",
-    "token_estimator": "heuristic-v1"
-  },
-  {
-    "id": "get-support-get-in-touch",
-    "title": "Get in Touch",
-    "slug": "get-support-get-in-touch",
-    "categories": [
-      "Uncategorized"
-    ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/get-support-get-in-touch.md",
-    "html_url": "https://docs.polkadot.com/get-support/get-in-touch/",
-    "preview": "Use one of the channels below to get live technical support or ask questions.",
-    "outline": [
-      {
-        "depth": 2,
-        "title": "Need Help Fast?",
-        "anchor": "need-help-fast"
-      },
-      {
-        "depth": 2,
-        "title": "📱 Telegram: Polkadot Developer Support",
-        "anchor": "telegram-polkadot-developer-support"
-      },
-      {
-        "depth": 2,
-        "title": "🔌 Discord: Polkadot Official Server",
-        "anchor": "discord-polkadot-official-server"
-      },
-      {
-        "depth": 2,
-        "title": "🧬 Matrix: Polkadot Developer Support",
-        "anchor": "matrix-polkadot-developer-support"
-      }
-    ],
-    "stats": {
-      "chars": 1949,
-      "words": 258,
-      "headings": 4,
-      "estimated_token_count_total": 557
-    },
-    "hash": "sha256:993e93b05c8fbdfc2f7510c61ac86bc4c2ff0f03e573695b2f260933c8b62f78",
+    "hash": "sha256:1aa997c6fecf9ff5f6b2fde718c928518d6697bb818f71aa391fbb38a1946ff4",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -151,31 +39,31 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/get-support.md",
     "html_url": "https://docs.polkadot.com/get-support/",
-    "preview": "Use one of the channels below to get live technical support or ask questions.",
+    "preview": "You're already in the docs — solid start. But sometimes you need more: answers, real examples, someone to talk to. This support hub is here to help you move forward — faster.",
     "outline": [
       {
         "depth": 2,
-        "title": "Need More than Just Documentation?",
-        "anchor": "need-more-than-just-documentation"
+        "title": "Support Channels",
+        "anchor": "support-channels"
       },
       {
         "depth": 2,
-        "title": "What You Can Do Here",
-        "anchor": "what-you-can-do-here"
+        "title": "Community Resources",
+        "anchor": "community-resources"
       },
       {
         "depth": 2,
-        "title": "Help Us Improve",
-        "anchor": "help-us-improve"
+        "title": "AI Resources",
+        "anchor": "ai-resources"
       }
     ],
     "stats": {
-      "chars": 1658,
-      "words": 244,
+      "chars": 4621,
+      "words": 579,
       "headings": 3,
-      "estimated_token_count_total": 280
+      "estimated_token_count_total": 1223
     },
-    "hash": "sha256:5bdc575ac798a971867a15651c2b4d5139bf0b1fe6854d1865deff280ae6d7f6",
+    "hash": "sha256:69e5bcd8ec2f35e39ff674b7f709c7526dd34427ddd66d449ecb01d29a405321",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5373,22 +5261,99 @@
   },
   {
     "id": "reference-tools-chopsticks",
-    "title": "reference-tools-chopsticks",
+    "title": "Chopsticks",
     "slug": "reference-tools-chopsticks",
     "categories": [
-      "Uncategorized"
+      "Parachains",
+      "Tooling"
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-tools-chopsticks.md",
     "html_url": "https://docs.polkadot.com/reference/tools/chopsticks/",
-    "preview": "TODO",
-    "outline": [],
+    "preview": "[Chopsticks](https://github.com/AcalaNetwork/chopsticks/){target=\\_blank}, developed by the [Acala Foundation](https://github.com/AcalaNetwork){target=\\_blank}, is a versatile tool tailored for developers working on Polkadot SDK-based blockchains. With Chopsticks, you can fork live chains locally, replay blocks to analyze extrinsics, and simulate complex scenarios like XCM interactions, all without deploying to a live network.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 3,
+        "title": "Key Features",
+        "anchor": "key-features"
+      },
+      {
+        "depth": 2,
+        "title": "Prerequisites",
+        "anchor": "prerequisites"
+      },
+      {
+        "depth": 2,
+        "title": "Installation",
+        "anchor": "installation"
+      },
+      {
+        "depth": 3,
+        "title": "Global Installation",
+        "anchor": "global-installation"
+      },
+      {
+        "depth": 3,
+        "title": "Local Installation",
+        "anchor": "local-installation"
+      },
+      {
+        "depth": 2,
+        "title": "Get Started",
+        "anchor": "get-started"
+      },
+      {
+        "depth": 3,
+        "title": "Configuration Options",
+        "anchor": "configuration-options"
+      },
+      {
+        "depth": 3,
+        "title": "Configuration File",
+        "anchor": "configuration-file"
+      },
+      {
+        "depth": 3,
+        "title": "Create a Fork",
+        "anchor": "create-a-fork"
+      },
+      {
+        "depth": 3,
+        "title": "Interact with a Fork",
+        "anchor": "interact-with-a-fork"
+      },
+      {
+        "depth": 3,
+        "title": "Replay Blocks",
+        "anchor": "replay-blocks"
+      },
+      {
+        "depth": 3,
+        "title": "Test XCM",
+        "anchor": "test-xcm"
+      },
+      {
+        "depth": 2,
+        "title": "WebSocket Commands",
+        "anchor": "websocket-commands"
+      },
+      {
+        "depth": 2,
+        "title": "Where to Go Next",
+        "anchor": "where-to-go-next"
+      }
+    ],
     "stats": {
-      "chars": 5,
-      "words": 1,
-      "headings": 0,
-      "estimated_token_count_total": 0
+      "chars": 15763,
+      "words": 2070,
+      "headings": 15,
+      "estimated_token_count_total": 4021
     },
-    "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
+    "hash": "sha256:90e24f11e952b1f61ea4b53d8a0618c231293b032ebac0ee657d9bf55e75264f",
     "token_estimator": "heuristic-v1"
   },
   {

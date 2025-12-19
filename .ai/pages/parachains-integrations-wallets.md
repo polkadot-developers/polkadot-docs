@@ -81,5 +81,4 @@ Wallet types fall into two categories based on their connection to the internet:
 
     [:octicons-arrow-right-24: Reference](https://www.lunolab.xyz/){target=\_blank}
 
-
 </div>

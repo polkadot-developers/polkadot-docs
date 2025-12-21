@@ -41,7 +41,7 @@ Developers can leverage smart contracts across diverse networks, from TestNets t
     Chain ID
     
     ```text
-    420420422
+    420420417
     ```
 
     ---
@@ -49,7 +49,7 @@ Developers can leverage smart contracts across diverse networks, from TestNets t
     RPC URL
     
     ```text
-    https://testnet-passet-hub-eth-rpc.polkadot.io
+    https://services.polkadothub-rpc.com/testnet
     ```
 
     ---
@@ -57,7 +57,7 @@ Developers can leverage smart contracts across diverse networks, from TestNets t
     Block explorer URL
     
     ```text
-    https://blockscout-passet-hub.parity-testnet.parity.io/
+    https://polkadot.testnet.routescan.io/
     ```
 
 
@@ -65,7 +65,7 @@ Developers can leverage smart contracts across diverse networks, from TestNets t
 
 You will need testnet tokens to perform transactions and engage with smart contracts on any chain. Here's how to obtain Paseo (PAS) tokens for testing purposes:
 
-1. Navigate to the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}. If the desired network is not already selected, choose it from the Network drop-down.
+1. Navigate to the [Polkadot Faucet](https://faucet.polkadot.io/){target=\_blank}. If the desired network is not already selected, choose it from the Network drop-down.
 
 2. Copy your address linked to the TestNet and paste it into the designated field.
 

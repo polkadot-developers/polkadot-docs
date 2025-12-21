@@ -66,9 +66,9 @@ const interactWithStorageContract = async (
 };
 
 const providerConfig = {
-  name: 'asset-hub-smart-contracts',
-  rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
-  chainId: 420420422,
+  name: 'polkadot-hub',
+  rpc: 'https://services.polkadothub-rpc.com/testnet',
+  chainId: 420420417,
 };
 
 const mnemonic = 'INSERT_MNEMONIC'

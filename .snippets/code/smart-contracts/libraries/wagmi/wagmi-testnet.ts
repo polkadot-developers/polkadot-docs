@@ -2,7 +2,7 @@ import { http, createConfig } from 'wagmi';
 
 // Configure the Polkadot Hub chain
 const assetHub = {
-  id: 420420422,
+  id: 420420417,
   name: 'polkadot-hub-testnet',
   network: 'polkadot-hub-testnet',
   nativeCurrency: {
@@ -12,7 +12,7 @@ const assetHub = {
   },
   rpcUrls: {
     default: {
-      http: ['https://testnet-passet-hub-eth-rpc.polkadot.io'], // TODO: change to paseo asset hub once ready
+      http: ['https://services.polkadothub-rpc.com/testnet'],
     },
   },
 } as const;

@@ -82,14 +82,14 @@ To use Hardhat with Polkadot Hub, define the network configuration in your `hard
     import { vars } from 'hardhat/config';
 
     const config: HardhatUserConfig = {
-    solidity: '0.8.28',
-    networks: {
+      solidity: '0.8.28',
+      networks: {
         polkadotTestnet: {
-        url: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
-        chainId: 420420422,
-        accounts: [vars.get('PRIVATE_KEY')],
+          url: 'https://services.polkadothub-rpc.com/testnet',
+          chainId: 420420417,
+          accounts: [vars.get('PRIVATE_KEY')],
         },
-    },
+      },
     };
 
     export default config;

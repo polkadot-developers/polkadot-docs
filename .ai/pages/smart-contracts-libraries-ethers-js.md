@@ -108,8 +108,8 @@ createProvider(PROVIDER_RPC.rpc, PROVIDER_RPC.chainId, PROVIDER_RPC.name);
 
     ```js
     const PROVIDER_RPC = {
-        rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
-        chainId: 420420422,
+        rpc: 'https://services.polkadothub-rpc.com/testnet',
+        chainId: 420420417,
         name: 'polkadot-hub-testnet'
     };
     ```
@@ -137,8 +137,8 @@ With the provider set up, you can start querying the blockchain. For instance, t
     };
 
     const PROVIDER_RPC = {
-      rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
-      chainId: 420420422,
+      rpc: 'https://services.polkadothub-rpc.com/testnet',
+      chainId: 420420417,
       name: 'polkadot-hub-testnet',
     };
 
@@ -402,8 +402,8 @@ You can create a `deploy.js` script in the root of your project to achieve this.
 
     ```js title="scripts/deploy.js"
     const providerConfig = {
-      rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io', //TODO: replace to `https://services.polkadothub-rpc.com/testnet` when ready
-      chainId: 420420422,
+      rpc: 'https://services.polkadothub-rpc.com/testnet',
+      chainId: 420420417,
       name: 'polkadot-hub-testnet',
     };
 
@@ -504,8 +504,8 @@ You can create a `deploy.js` script in the root of your project to achieve this.
     };
 
     const providerConfig = {
-      rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io', //TODO: replace to `https://services.polkadothub-rpc.com/testnet` when ready
-      chainId: 420420422,
+      rpc: 'https://services.polkadothub-rpc.com/testnet',
+      chainId: 420420417,
       name: 'polkadot-hub-testnet',
     };
 
@@ -595,9 +595,9 @@ const interactWithStorageContract = async (
 };
 
 const providerConfig = {
-  name: 'asset-hub-smart-contracts',
-  rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
-  chainId: 420420422,
+  name: 'polkadot-hub',
+  rpc: 'https://services.polkadothub-rpc.com/testnet',
+  chainId: 420420417,
 };
 
 const mnemonic = 'INSERT_MNEMONIC'

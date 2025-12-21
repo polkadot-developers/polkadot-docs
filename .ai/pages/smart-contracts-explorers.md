@@ -28,10 +28,10 @@ The following block explorers are available for PolkaVM smart contracts, providi
 
 
 
-### BlockScout
 
-BlockScout is an open-source explorer platform with a user-friendly interface adapted for PolkaVM contracts. It excels at detailed contract analytics and provides developers with comprehensive API access.
 
-- [Polkadot Hub TestNet BlockScout](https://blockscout-passet-hub.parity-testnet.parity.io/){target=\_blank}
+### Routescan
 
-![](/images/smart-contracts/explorers/explorers-01.webp)
+Routescan delivers multi-chain explorer capabilities with specialized support for PolkaVM environments.
+
+- [Polkadot Hub TestNet Routescan](https://polkadot.testnet.routescan.io/){target=\_blank}

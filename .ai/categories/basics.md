@@ -1077,7 +1077,7 @@ You are now ready to deploy the contract to your chosen network. This example de
 
     <div id="termynal" data-termynal markdown>
       <span data-ty="input">npx hardhat ignition deploy ./ignition/modules/MyToken.ts --network polkadotTestnet</span>
-      <span data-ty>✔ Confirm deploy to network polkadotTestnet (420420420)? … yes</span>
+      <span data-ty>✔ Confirm deploy to network polkadotTestnet (420420417)? … yes</span>
       <span data-ty>&nbsp;</span>
       <span data-ty>Hardhat Ignition 🚀</span>
       <span data-ty>&nbsp;</span>
@@ -1411,8 +1411,8 @@ const config: HardhatUserConfig = {
   },
   networks: {
     polkadotTestnet: {
-      url: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
-      chainId: 420420422,
+      url: 'https://services.polkadothub-rpc.com/testnet',
+      chainId: 420420417,
       accounts: [vars.get('PRIVATE_KEY')],
     },
   },

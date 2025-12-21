@@ -19,13 +19,13 @@ Polkadot has a faucet that distributes free TestNet tokens to developers for tes
 
 ## Get Test Tokens
 
-For Polkadot Hub TestNet, you can use the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank} to obtain test tokens. Here's how to do it:
+For Polkadot Hub TestNet, you can use the [Polkadot Faucet](https://faucet.polkadot.io/){target=\_blank} to obtain test tokens. Here's how to do it:
 
-1. Navigate to the [Polkadot Faucet](https://faucet.polkadot.io/?parachain=1111){target=\_blank}. If the desired network is not already selected, choose it from the **Network** drop-down. This example uses the Polkadot Hub TestNet.
+1. Navigate to the [Polkadot Faucet](https://faucet.polkadot.io/){target=\_blank}. If the desired network is not already selected, choose it from the **Network** drop-down. This example uses the Polkadot Hub TestNet.
 2. Copy your address linked to the TestNet and paste it into the designated field.
 3. Click the **Get Some PASs** button to request free test PAS tokens. These tokens will be sent to your wallet shortly.
 
-![Polkadot Faucet](/images/smart-contracts/faucet/faucet-1.gif)
+![Polkadot Faucet](/images/smart-contracts/faucet/faucet-01.gif)
 
 ## Things to Consider
 

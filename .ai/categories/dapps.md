@@ -1330,7 +1330,7 @@ You are now ready to deploy the contract to your chosen network. This example de
 
     <div id="termynal" data-termynal markdown>
       <span data-ty="input">npx hardhat ignition deploy ./ignition/modules/MyToken.ts --network polkadotTestnet</span>
-      <span data-ty>✔ Confirm deploy to network polkadotTestnet (420420420)? … yes</span>
+      <span data-ty>✔ Confirm deploy to network polkadotTestnet (420420417)? … yes</span>
       <span data-ty>&nbsp;</span>
       <span data-ty>Hardhat Ignition 🚀</span>
       <span data-ty>&nbsp;</span>
@@ -1664,8 +1664,8 @@ const config: HardhatUserConfig = {
   },
   networks: {
     polkadotTestnet: {
-      url: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
-      chainId: 420420422,
+      url: 'https://services.polkadothub-rpc.com/testnet',
+      chainId: 420420417,
       accounts: [vars.get('PRIVATE_KEY')],
     },
   },
@@ -3513,7 +3513,7 @@ Polkadot Hub provides Ethereum compatibility through its JSON-RPC interface, all
 This guide uses the Polkadot Hub TestNet endpoint:
 
 ```text
-https://testnet-passet-hub-eth-rpc.polkadot.io
+https://services.polkadothub-rpc.com/testnet
 ```
 
 ## Available Methods
@@ -3529,7 +3529,7 @@ None.
 **Example**:
 
 ```bash title="eth_accounts"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -3552,7 +3552,7 @@ None.
 **Example**:
 
 ```bash title="eth_blockNumber"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -3582,7 +3582,7 @@ Executes a new message call immediately without creating a transaction. [Referen
 **Example**:
 
 ```bash title="eth_call"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -3610,7 +3610,7 @@ None.
 **Example**:
 
 ```bash title="eth_chainId"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -3640,7 +3640,7 @@ Estimates gas required for a transaction. [Reference](https://ethereum.org/devel
 **Example**:
 
 ```bash title="eth_estimateGas"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -3668,7 +3668,7 @@ None.
 **Example**:
 
 ```bash title="eth_gasPrice"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -3692,7 +3692,7 @@ Returns the balance of a given address. [Reference](https://ethereum.org/develop
 **Example**:
 
 ```bash title="eth_getBalance"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -3718,7 +3718,7 @@ Returns information about a block by its hash. [Reference](https://ethereum.org/
 **Example**:
 
 ```bash title="eth_getBlockByHash"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -3744,7 +3744,7 @@ Returns information about a block by its number. [Reference](https://ethereum.or
 **Example**:
 
 ```bash title="eth_getBlockByNumber"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -3769,7 +3769,7 @@ Returns the number of transactions in a block from a block number. [Reference](h
 **Example**:
 
 ```bash title="eth_getBlockTransactionCountByNumber"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -3794,7 +3794,7 @@ Returns the number of transactions in a block from a block hash. [Reference](htt
 **Example**:
 
 ```bash title="eth_getBlockTransactionCountByHash"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -3820,7 +3820,7 @@ Returns the code at a given address. [Reference](https://ethereum.org/developers
 **Example**:
 
 ```bash title="eth_getCode"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -3850,7 +3850,7 @@ Returns an array of all logs matching a given filter object. [Reference](https:/
 **Example**:
 
 ```bash title="eth_getLogs"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -3878,7 +3878,7 @@ Returns the value from a storage position at a given address. [Reference](https:
 **Example**:
 
 ```bash title="eth_getStorageAt"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -3904,7 +3904,7 @@ Returns the number of transactions sent from an address (nonce). [Reference](htt
 **Example**:
 
 ```bash title="eth_getTransactionCount"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -3929,7 +3929,7 @@ Returns information about a transaction by its hash. [Reference](https://ethereu
 **Example**:
 
 ```bash title="eth_getTransactionByHash"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -3955,7 +3955,7 @@ Returns information about a transaction by block number and transaction index. [
 **Example**:
 
 ```bash title="eth_getTransactionByBlockNumberAndIndex"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -3981,7 +3981,7 @@ Returns information about a transaction by block hash and transaction index. [Re
 **Example**:
 
 ```bash title="eth_getTransactionByBlockHashAndIndex"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -4006,7 +4006,7 @@ Returns the receipt of a transaction by transaction hash. [Reference](https://et
 **Example**:
 
 ```bash title="eth_getTransactionReceipt"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -4031,7 +4031,7 @@ None.
 **Example**:
 
 ```bash title="eth_maxPriorityFeePerGas"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -4054,7 +4054,7 @@ Submits a raw transaction. [Reference](https://ethereum.org/developers/docs/apis
 **Example**:
 
 ```bash title="eth_sendRawTransaction"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -4086,7 +4086,7 @@ Creates and sends a new transaction. [Reference](https://ethereum.org/developers
 **Example**:
 
 ```bash title="eth_sendTransaction"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -4119,7 +4119,7 @@ None.
 **Example**:
 
 ```bash title="eth_syncing"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -4142,7 +4142,7 @@ None.
 **Example**:
 
 ```bash title="net_listening"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -4165,7 +4165,7 @@ None.
 **Example**:
 
 ```bash title="net_peerCount"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -4188,7 +4188,7 @@ None.
 **Example**:
 
 ```bash title="net_version"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -4211,7 +4211,7 @@ None.
 **Example**:
 
 ```bash title="system_health"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -4234,7 +4234,7 @@ None.
 **Example**:
 
 ```bash title="web3_clientVersion"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -4260,7 +4260,7 @@ Traces a block's execution by its number and returns a detailed execution trace 
 **Example**:
 
 ```bash title="debug_traceBlockByNumber"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -4286,7 +4286,7 @@ Traces the execution of a single transaction by its hash and returns a detailed 
 **Example**:
 
 ```bash title="debug_traceTransaction"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -4319,7 +4319,7 @@ Executes a new message call and returns a detailed execution trace without creat
 **Example**:
 
 ```bash title="debug_traceCall"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",

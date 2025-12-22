@@ -1,6 +1,7 @@
 ---
 title: Replay and Dry Run XCMs
 description: Replay and dry-run XCMs using Chopsticks with full logging enabled. Diagnose issues, trace message flow, and debug complex cross-chain interactions.
+url: https://docs.polkadot.com/chain-interactions/send-transactions/interoperability/debug-and-preview-xcms/
 ---
 
 # Replay and Dry Run XCMs Using Chopsticks
@@ -132,6 +133,7 @@ Full execution logs only work if the runtime was compiled with logging enabled. 
 
 5. Edit `configs/polkadot-asset-hub-override.yaml` to include:
 
+    {% raw %}
     ```yaml title="configs/polkadot-asset-hub-override.yaml"
     ...
     runtime-log-level: 5
@@ -139,6 +141,7 @@ Full execution logs only work if the runtime was compiled with logging enabled. 
     wasm-override: wasms/asset_hub_polkadot_runtime.compact.compressed.wasm    # Use this if you built with `release`
     ...
     ```
+    {% endraw %}
 
 6. Start the forked chains using your custom config:
 
@@ -157,7 +160,17 @@ Full execution logs only work if the runtime was compiled with logging enabled. 
 
     You'll also see runtime logs such as:
 
-    --8<-- 'code/chain-interactions/send-transactions/interoperability/debug-and-preview-xcms/launch-chopsticks.html'
+    <div class="termynal" data-termynal>
+      <span data-ty="input">npx @acala-network/chopsticks xcm \ -r polkadot \ -p configs/polkadot-asset-hub-override.yaml \ -p acala</span>
+      <span data-ty>[09:29:14.988] INFO: Polkadot Asset Hub RPC listening on http://[::]:8000 and ws://[::]:8000</span>
+      <span data-ty>[09:29:14.988] INFO: Loading config file https://raw.githubusercontent.com/AcalaNetwork/chopsticks/master/configs/acala.yml</span>
+      <span data-ty>[09:29:15.984] INFO: Acala RPC listening on http://[::]:8001 and ws://[::]:8001</span>
+      <span data-ty>[09:29:15.990] INFO (xcm): Connected parachains [1000,2000]</span>
+      <span data-ty>[09:29:15.990] INFO: Loading config file https://raw.githubusercontent.com/AcalaNetwork/chopsticks/master/configs/polkadot.yml</span>
+      <span data-ty>[09:29:16.927] INFO: Polkadot RPC listening on http://[::]:8002 and ws://[::]:8002</span>
+      <span data-ty>[09:29:16.984] INFO (xcm): Connected relaychain 'Polkadot' with parachain 'Polkadot Asset Hub'</span>
+      <span data-ty>[09:29:17.028] INFO (xcm): Connected relaychain 'Polkadot' with parachain 'Acala'</span>
+    </div>
 
 ## Identify and Extract the XCM
 
@@ -207,7 +220,97 @@ npx papi add polkadotHub -w ws://localhost:8000
 Create a file named `replay-xcm.ts` and add the following code to it:
 
 ```ts title="replay-xcm.ts"
---8<-- 'code/chain-interactions/send-transactions/interoperability/debug-and-preview-xcms/replay-xcm.ts'
+import { Binary, createClient, Transaction } from 'polkadot-api';
+import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
+import { getPolkadotSigner } from 'polkadot-api/signer';
+import { getWsProvider } from 'polkadot-api/ws-provider/web';
+import { polkadotHub } from '@polkadot-api/descriptors';
+import { sr25519CreateDerive } from '@polkadot-labs/hdkd';
+import {
+  DEV_PHRASE,
+  entropyToMiniSecret,
+  mnemonicToEntropy,
+} from '@polkadot-labs/hdkd-helpers';
+
+const toHuman = (_key: any, value: any) => {
+  if (typeof value === 'bigint') {
+    return Number(value);
+  }
+
+  if (value && typeof value === 'object' && typeof value.asHex === 'function') {
+    return value.asHex();
+  }
+
+  return value;
+};
+
+function getSigner() {
+  const entropy = mnemonicToEntropy(DEV_PHRASE);
+  const miniSecret = entropyToMiniSecret(entropy);
+  const derive = sr25519CreateDerive(miniSecret);
+  const alice = derive('//Alice');
+
+  return getPolkadotSigner(alice.publicKey, 'Sr25519', alice.sign);
+}
+
+async function main() {
+  const provider = withPolkadotSdkCompat(getWsProvider('ws://localhost:8000'));
+  const client = createClient(provider);
+  const api = client.getTypedApi(polkadotHub);
+  const aliceSigner = getSigner();
+
+  const callData = Binary.fromHex(
+    '0x1f0803010100411f0300010100fc39fcf04a8071b7409823b7c82427ce67910c6ed80aa0e5093aff234624c8200304000002043205011f0092e81d790000000000',
+  );
+  const tx: Transaction<any, string, string, any> =
+    await api.txFromCallData(callData);
+  console.log('👀 Executing XCM:', JSON.stringify(tx.decodedCall, toHuman, 2));
+
+  await new Promise<void>((resolve) => {
+    const subscription = tx.signSubmitAndWatch(aliceSigner).subscribe((ev) => {
+      if (
+        ev.type === 'finalized' ||
+        (ev.type === 'txBestBlocksState' && ev.found)
+      ) {
+        console.log(
+          `📦 Included in block #${ev.block.number}: ${ev.block.hash}`,
+        );
+
+        if (!ev.ok) {
+          const dispatchError = ev.dispatchError;
+          if (dispatchError.type === 'Module') {
+            const modErr: any = dispatchError.value;
+            console.error(
+              `❌ Dispatch error in module: ${modErr.type} → ${modErr.value?.type}`,
+            );
+          } else {
+            console.error(
+              '❌ Dispatch error:',
+              JSON.stringify(dispatchError, toHuman, 2),
+            );
+          }
+        }
+
+        for (const event of ev.events) {
+          console.log(
+            '📣 Event:',
+            event.type,
+            JSON.stringify(event.value, toHuman, 2),
+          );
+        }
+
+        console.log('✅ Process completed, exiting...');
+        subscription.unsubscribe();
+        resolve();
+      }
+    });
+  });
+
+  client.destroy();
+}
+
+main().catch(console.error);
+
 ```
 
 ### Execute the Replay Script
@@ -222,7 +325,38 @@ npx tsx replay-xcm.ts
 
 You should see output similar to:
 
---8<-- 'code/chain-interactions/send-transactions/interoperability/debug-and-preview-xcms/replay-xcm-result.html'
+<div class="termynal" data-termynal>
+  <span data-ty="input">npx tsx replay-xcm.ts</span>
+  <pre data-ty>
+executing xcm: {
+  "type": "polkadotxcm",
+  "value": {
+    "type": "limited_reserve_transfer_assets",
+    "value": {
+      "dest": { "parents": 0, "interior": { "X1": [{ "Parachain": 2006 }] } },
+      "beneficiary": { "parents": 0, "interior": { "X1": [{ "AccountId32": { "network": null, "id": "0x..." } }] } },
+      "assets": [{ "id": { "Concrete": { "parents": 0, "interior": "Here" } }, "fun": { "Fungible": 120000000000 } }],
+      "fee_asset_item": 0,
+      "weight_limit": { "type": "Unlimited" }
+    }
+  }
+}
+  </pre>
+  <span data-ty>📦 Included in block #9079592: 0x227a11c64f6051ba2e090a13abd17e5f7581640a80f6c03fc2d43fac66ab7949</span>
+  <span data-ty>📣 Event: Balances { "type": "Upgraded", "value": { ... } }</span>
+  <span data-ty>📣 Event: Balances { "type": "Withdraw", "value": { ... } }</span>
+  <span data-ty>📣 Event: Assets { "type": "Transferred", "value": { ... } }</span>
+  <span data-ty>📣 Event: PolkadotXcm { "type": "Attempted", "value": { ... } }</span>
+  <span data-ty>📣 Event: Balances { "type": "Burned", "value": { ... } }</span>
+  <span data-ty>📣 Event: Balances { "type": "Minted", "value": { ... } }</span>
+  <span data-ty>📣 Event: PolkadotXcm { "type": "FeesPaid", "value": { ... } }</span>
+  <span data-ty>📣 Event: XcmpQueue { "type": "XcmpMessageSent", "value": { ... } }</span>
+  <span data-ty>📣 Event: PolkadotXcm { "type": "Sent", "value": { ... } }</span>
+  <span data-ty>📣 Event: Balances { "type": "Deposit", "value": { ... } }</span>
+  <span data-ty>📣 Event: TransactionPayment { "type": "TransactionFeePaid", "value": { ... } }</span>
+  <span data-ty>📣 Event: System { "type": "ExtrinsicSuccess", "value": { ... } }</span>
+  <span data-ty>✅ Process completed, exiting...</span>
+</div>
 
 ## Dry Run the XCM
 
@@ -233,7 +367,48 @@ To simulate the XCM without actually sending it, you can use the `dry_run_call` 
 Assuming you have the `tx` transaction from the previous step, create a new script named `dry-run-call.ts` and add the following code to it:
 
 ```ts title="dry-run-call.ts"
---8<-- 'code/chain-interactions/send-transactions/interoperability/debug-and-preview-xcms/dry-run-call.ts'
+import { Binary, createClient, Enum } from 'polkadot-api';
+import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
+import { getWsProvider } from 'polkadot-api/ws-provider/web';
+import { polkadotHub } from '@polkadot-api/descriptors';
+import { sr25519CreateDerive } from '@polkadot-labs/hdkd';
+import {
+  DEV_PHRASE,
+  entropyToMiniSecret,
+  mnemonicToEntropy,
+  ss58Address,
+} from '@polkadot-labs/hdkd-helpers';
+
+const XCM_VERSION = 5;
+
+async function main() {
+  const provider = withPolkadotSdkCompat(getWsProvider('ws://localhost:8000'));
+  const client = createClient(provider);
+  const api = client.getTypedApi(polkadotHub);
+
+  const entropy = mnemonicToEntropy(DEV_PHRASE);
+  const miniSecret = entropyToMiniSecret(entropy);
+  const derive = sr25519CreateDerive(miniSecret);
+  const alice = derive('//Alice');
+  const aliceAddress = ss58Address(alice.publicKey);
+
+  const callData = Binary.fromHex(
+    '0x1f0803010100411f0300010100fc39fcf04a8071b7409823b7c82427ce67910c6ed80aa0e5093aff234624c8200304000002043205011f0092e81d790000000000',
+  );
+  const tx: any = await api.txFromCallData(callData);
+  const origin = Enum('system', Enum('Signed', aliceAddress));
+  const dryRunResult: any = await api.apis.DryRunApi.dry_run_call(
+    origin,
+    tx.decodedCall,
+    XCM_VERSION,
+  );
+  console.dir(dryRunResult.value, { depth: null });
+
+  client.destroy();
+}
+
+main().catch(console.error);
+
 ```
 
 Ensure your local Chopsticks fork is running and the ports match those used in the script.
@@ -248,11 +423,46 @@ npx tsx dry-run-call.ts
 
 If successful, the dry run confirms that the XCM would execute correctly:
 
---8<-- 'code/chain-interactions/send-transactions/interoperability/debug-and-preview-xcms/dry-run-success.html'
+<div class="termynal" data-termynal>
+  <span data-ty="input">npx tsx dry-run-call.ts</span>
+  <pre data-ty>
+execution_result: {
+  "success": true,
+  "value": {
+    "post_info": { "actual_weight": 123456, "pays_fee": "Yes" },
+    "result": "Ok"
+  }
+}
+emitted_events: [ { "section": "Balances", "method": "Transfer", "data": { "from": "0x...", "to": "0x...", "amount": 1000000000 } } ]
+local_xcm: { "type": "SomeType", "value": { ... } }
+forwarded_xcms: []
+  </pre>
+  <span data-ty>✅ Dry run succeeded</span>
+  <span data-ty>✅ Process completed, exiting...</span>
+</div>
 
 If it fails, you'll receive detailed error information:
 
---8<-- 'code/chain-interactions/send-transactions/interoperability/debug-and-preview-xcms/dry-run-failure.html'
+<div class="termynal" data-termynal>
+  <span data-ty="input">npx tsx dry-run-call.ts</span>
+  <pre data-ty>
+execution_result: {
+  "success": false,
+  "value": {
+    "post_info": { "actual_weight": 123456, "pays_fee": "Yes" },
+    "error": {
+      "type": "Module",
+      "value": {
+        "type": "PolkadotXcm",
+        "value": { "type": "LocalExecutionIncomplete", "value": null }
+      }
+    }
+  }
+}
+  </pre>
+  <span data-ty>❌ Dry run failed: LocalExecutionIncomplete</span>
+  <span data-ty>✅ Process completed, exiting...</span>
+</div>
 
 For more information, see:
 

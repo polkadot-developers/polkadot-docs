@@ -1,5 +1,951 @@
 [
   {
+    "id": "chain-interactions-accounts-create-account",
+    "title": "Create an Account",
+    "slug": "chain-interactions-accounts-create-account",
+    "categories": [
+      "Basics",
+      "Accounts",
+      "Developer Tools"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/chain-interactions-accounts-create-account.md",
+    "html_url": "https://docs.polkadot.com/chain-interactions/accounts/create-account/",
+    "preview": "Creating accounts is a fundamental operation when building applications on Polkadot and its parachains. Accounts serve as the basis for identity, asset ownership, and transaction signing. Understanding how to generate and manage accounts programmatically enables you to build wallets, automate operations, and create seamless user experiences.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Prerequisites",
+        "anchor": "prerequisites"
+      },
+      {
+        "depth": 2,
+        "title": "Use JavaScript/TypeScript",
+        "anchor": "use-javascripttypescript"
+      },
+      {
+        "depth": 2,
+        "title": "Python",
+        "anchor": "python"
+      },
+      {
+        "depth": 2,
+        "title": "Rust",
+        "anchor": "rust"
+      },
+      {
+        "depth": 2,
+        "title": "Where to Go Next",
+        "anchor": "where-to-go-next"
+      }
+    ],
+    "stats": {
+      "chars": 7166,
+      "words": 903,
+      "headings": 6,
+      "estimated_token_count_total": 1678
+    },
+    "hash": "sha256:cd9abe504b8d5ad6ba10c6cb56b76283f73481691af86d69b3bd66e0c350d9b8",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "chain-interactions-accounts-query-accounts",
+    "title": "Query Account Information with SDKs",
+    "slug": "chain-interactions-accounts-query-accounts",
+    "categories": [
+      "Basics",
+      "Polkadot Protocol"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/chain-interactions-accounts-query-accounts.md",
+    "html_url": "https://docs.polkadot.com/chain-interactions/accounts/query-accounts/",
+    "preview": "Querying account information is a fundamental operation when interacting with Polkadot SDK-based blockchains. Account queries allow you to retrieve balances, nonces, account data, and other state information stored on-chain. Each SDK provides different methods for accessing this data efficiently.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Prerequisites",
+        "anchor": "prerequisites"
+      },
+      {
+        "depth": 2,
+        "title": "Query Account Information",
+        "anchor": "query-account-information"
+      },
+      {
+        "depth": 2,
+        "title": "Understanding Account Data",
+        "anchor": "understanding-account-data"
+      },
+      {
+        "depth": 2,
+        "title": "Where to Go Next",
+        "anchor": "where-to-go-next"
+      }
+    ],
+    "stats": {
+      "chars": 25153,
+      "words": 2742,
+      "headings": 5,
+      "estimated_token_count_total": 6304
+    },
+    "hash": "sha256:902fa8e275385f7a1a1e4a2545dcaa051593028aef179e1da4e91808a26d1b2d",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "chain-interactions-query-data-query-rest",
+    "title": "Query On-Chain State with Sidecar REST API",
+    "slug": "chain-interactions-query-data-query-rest",
+    "categories": [
+      "Chain Interactions"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/chain-interactions-query-data-query-rest.md",
+    "html_url": "https://docs.polkadot.com/chain-interactions/query-data/query-rest/",
+    "preview": "[Substrate API Sidecar](https://github.com/paritytech/substrate-api-sidecar){target=\\_blank} is a REST service that makes it easy to interact with Polkadot SDK-based blockchains. It provides a simple HTTP interface to query account balances, asset information, block data, and other on-chain state without requiring WebSocket connections or SDK integrations.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Prerequisites",
+        "anchor": "prerequisites"
+      },
+      {
+        "depth": 2,
+        "title": "Running Sidecar Locally",
+        "anchor": "running-sidecar-locally"
+      },
+      {
+        "depth": 2,
+        "title": "Public Sidecar Endpoints",
+        "anchor": "public-sidecar-endpoints"
+      },
+      {
+        "depth": 2,
+        "title": "Query Account Balance",
+        "anchor": "query-account-balance"
+      },
+      {
+        "depth": 2,
+        "title": "Query Asset Balances",
+        "anchor": "query-asset-balances"
+      },
+      {
+        "depth": 2,
+        "title": "Query Asset Metadata",
+        "anchor": "query-asset-metadata"
+      },
+      {
+        "depth": 2,
+        "title": "Query Asset Details",
+        "anchor": "query-asset-details"
+      },
+      {
+        "depth": 2,
+        "title": "Query Foreign Asset Balances",
+        "anchor": "query-foreign-asset-balances"
+      },
+      {
+        "depth": 2,
+        "title": "Query Block Information",
+        "anchor": "query-block-information"
+      },
+      {
+        "depth": 2,
+        "title": "API Reference",
+        "anchor": "api-reference"
+      },
+      {
+        "depth": 2,
+        "title": "Where to Go Next",
+        "anchor": "where-to-go-next"
+      }
+    ],
+    "stats": {
+      "chars": 13741,
+      "words": 1659,
+      "headings": 12,
+      "estimated_token_count_total": 3669
+    },
+    "hash": "sha256:9ef1922dc8e715ea88b2d5ae1e1b0dbaea46fa52322d0c8be9bc30c0a11f1acb",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "chain-interactions-query-data-query-sdks",
+    "title": "Query On-Chain State with SDKs",
+    "slug": "chain-interactions-query-data-query-sdks",
+    "categories": [
+      "Chain Interactions"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/chain-interactions-query-data-query-sdks.md",
+    "html_url": "https://docs.polkadot.com/chain-interactions/query-data/query-sdks/",
+    "preview": "Polkadot SDK-based blockchains store data in a key-value database that external applications can query. This on-chain state includes account balances, asset information, governance proposals, and any other data the runtime manages.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Query On-Chain Data",
+        "anchor": "query-on-chain-data"
+      },
+      {
+        "depth": 2,
+        "title": "Where to Go Next",
+        "anchor": "where-to-go-next"
+      }
+    ],
+    "stats": {
+      "chars": 37210,
+      "words": 4159,
+      "headings": 3,
+      "estimated_token_count_total": 8860
+    },
+    "hash": "sha256:054cbf1039cf240e2469220622cda7712b7eb6a46a6d0ca8e52ce3223a15b8f3",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "chain-interactions-query-data-runtime-api-calls",
+    "title": "Runtime API Calls",
+    "slug": "chain-interactions-query-data-runtime-api-calls",
+    "categories": [
+      "Chain Interactions"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/chain-interactions-query-data-runtime-api-calls.md",
+    "html_url": "https://docs.polkadot.com/chain-interactions/query-data/runtime-api-calls/",
+    "preview": "Polkadot SDK runtime APIs provide direct access to the blockchain's WebAssembly (Wasm) runtime, enabling specialized queries and computations that go beyond simple storage reads. Unlike storage queries that fetch static data, runtime APIs execute logic within the runtime to compute results dynamically.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Call Runtime APIs",
+        "anchor": "call-runtime-apis"
+      },
+      {
+        "depth": 2,
+        "title": "Available Runtime APIs",
+        "anchor": "available-runtime-apis"
+      },
+      {
+        "depth": 2,
+        "title": "Where to Go Next",
+        "anchor": "where-to-go-next"
+      }
+    ],
+    "stats": {
+      "chars": 20308,
+      "words": 2306,
+      "headings": 4,
+      "estimated_token_count_total": 4670
+    },
+    "hash": "sha256:ac5261924996d7940abcaffec54ffaca28b23becba42f7847c0e5f6749b4c1ac",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "chain-interactions-send-transactions-calculate-transaction-fees",
+    "title": "Calculate Transaction Fees",
+    "slug": "chain-interactions-send-transactions-calculate-transaction-fees",
+    "categories": [
+      "Basics",
+      "Transactions",
+      "Developer Tools"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/chain-interactions-send-transactions-calculate-transaction-fees.md",
+    "html_url": "https://docs.polkadot.com/chain-interactions/send-transactions/calculate-transaction-fees/",
+    "preview": "Transaction fees are essential costs for executing operations on Polkadot and its parachains. Understanding how to estimate these fees helps you manage account balances and build better user experiences in your applications.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Prerequisites",
+        "anchor": "prerequisites"
+      },
+      {
+        "depth": 2,
+        "title": "Polkadot-API (PAPI)",
+        "anchor": "polkadot-api-papi"
+      },
+      {
+        "depth": 2,
+        "title": "Polkadot.js API",
+        "anchor": "polkadotjs-api"
+      },
+      {
+        "depth": 2,
+        "title": "Polkadot.js Apps Interface",
+        "anchor": "polkadotjs-apps-interface"
+      },
+      {
+        "depth": 3,
+        "title": "Estimate Fees via Transfer Interface",
+        "anchor": "estimate-fees-via-transfer-interface"
+      },
+      {
+        "depth": 2,
+        "title": "Where to Go Next",
+        "anchor": "where-to-go-next"
+      }
+    ],
+    "stats": {
+      "chars": 8873,
+      "words": 1145,
+      "headings": 7,
+      "estimated_token_count_total": 2094
+    },
+    "hash": "sha256:37eb8b9121c883e3e7c2240ec0c3701c8aa31e052d3163ac5b56bd92a8757fd4",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "chain-interactions-send-transactions-interoperability-.estimate-xcm-fees",
+    "title": "XCM Fee Estimation",
+    "slug": "chain-interactions-send-transactions-interoperability-.estimate-xcm-fees",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/chain-interactions-send-transactions-interoperability-.estimate-xcm-fees.md",
+    "html_url": "https://docs.polkadot.com/chain-interactions/send-transactions/interoperability/.estimate-xcm-fees/",
+    "preview": "When sending cross-chain messages, ensure that the transaction will be successful not only in the local chain but also in the destination chain and any intermediate chains.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Fee Mechanism",
+        "anchor": "fee-mechanism"
+      },
+      {
+        "depth": 2,
+        "title": "Environment Setup",
+        "anchor": "environment-setup"
+      },
+      {
+        "depth": 2,
+        "title": "Client and API Setup",
+        "anchor": "client-and-api-setup"
+      },
+      {
+        "depth": 2,
+        "title": "Create the XCM Message",
+        "anchor": "create-the-xcm-message"
+      },
+      {
+        "depth": 2,
+        "title": "Fee Estimation Function",
+        "anchor": "fee-estimation-function"
+      },
+      {
+        "depth": 2,
+        "title": "Complete Implementation",
+        "anchor": "complete-implementation"
+      },
+      {
+        "depth": 2,
+        "title": "Full Code",
+        "anchor": "full-code"
+      },
+      {
+        "depth": 2,
+        "title": "Running the Script",
+        "anchor": "running-the-script"
+      },
+      {
+        "depth": 2,
+        "title": "Conclusion",
+        "anchor": "conclusion"
+      }
+    ],
+    "stats": {
+      "chars": 38625,
+      "words": 3786,
+      "headings": 10,
+      "estimated_token_count_total": 7755
+    },
+    "hash": "sha256:086a87823ab67ceac102358030e316583cd733c0ec326316e7f29061fe7f6934",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "chain-interactions-send-transactions-interoperability-.transfer-assets-out-of-polkadot",
+    "title": "chain-interactions-send-transactions-interoperability-.transfer-assets-out-of-polkadot",
+    "slug": "chain-interactions-send-transactions-interoperability-.transfer-assets-out-of-polkadot",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/chain-interactions-send-transactions-interoperability-.transfer-assets-out-of-polkadot.md",
+    "html_url": "https://docs.polkadot.com/chain-interactions/send-transactions/interoperability/.transfer-assets-out-of-polkadot/",
+    "preview": "TODO",
+    "outline": [],
+    "stats": {
+      "chars": 5,
+      "words": 1,
+      "headings": 0,
+      "estimated_token_count_total": 0
+    },
+    "hash": "sha256:56ba36249ea8216ad513b13df3de6c0e490ba214897674d30331f1c7e7edbef3",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "chain-interactions-send-transactions-interoperability-debug-and-preview-xcms",
+    "title": "Replay and Dry Run XCMs",
+    "slug": "chain-interactions-send-transactions-interoperability-debug-and-preview-xcms",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/chain-interactions-send-transactions-interoperability-debug-and-preview-xcms.md",
+    "html_url": "https://docs.polkadot.com/chain-interactions/send-transactions/interoperability/debug-and-preview-xcms/",
+    "preview": "This guide demonstrates how to replay and dry-run XCMs using [Chopsticks](/reference/tools/chopsticks/){target=\\_blank}, a powerful tool for forking live Polkadot SDK-based chains in your local environment. These techniques are essential for debugging cross-chain message failures, tracing execution across relay chains and parachains, analyzing weight usage and error types, and safely simulating XCMs without committing state changes.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Prerequisites",
+        "anchor": "prerequisites"
+      },
+      {
+        "depth": 2,
+        "title": "Set Up Your Project",
+        "anchor": "set-up-your-project"
+      },
+      {
+        "depth": 2,
+        "title": "Capture the XCM to Replay",
+        "anchor": "capture-the-xcm-to-replay"
+      },
+      {
+        "depth": 2,
+        "title": "Fork the Relevant Chains",
+        "anchor": "fork-the-relevant-chains"
+      },
+      {
+        "depth": 3,
+        "title": "Set the Block Numbers",
+        "anchor": "set-the-block-numbers"
+      },
+      {
+        "depth": 3,
+        "title": "Enable Logging and Wasm Override",
+        "anchor": "enable-logging-and-wasm-override"
+      },
+      {
+        "depth": 2,
+        "title": "Identify and Extract the XCM",
+        "anchor": "identify-and-extract-the-xcm"
+      },
+      {
+        "depth": 2,
+        "title": "Replay the XCM",
+        "anchor": "replay-the-xcm"
+      },
+      {
+        "depth": 3,
+        "title": "Add the Polkadot Hub Descriptor",
+        "anchor": "add-the-polkadot-hub-descriptor"
+      },
+      {
+        "depth": 3,
+        "title": "Create a Replay Script",
+        "anchor": "create-a-replay-script"
+      },
+      {
+        "depth": 3,
+        "title": "Execute the Replay Script",
+        "anchor": "execute-the-replay-script"
+      },
+      {
+        "depth": 3,
+        "title": "Expected Output",
+        "anchor": "expected-output"
+      },
+      {
+        "depth": 2,
+        "title": "Dry Run the XCM",
+        "anchor": "dry-run-the-xcm"
+      },
+      {
+        "depth": 3,
+        "title": "Create a Dry Run Script",
+        "anchor": "create-a-dry-run-script"
+      },
+      {
+        "depth": 3,
+        "title": "Execute the Dry Run Script",
+        "anchor": "execute-the-dry-run-script"
+      },
+      {
+        "depth": 2,
+        "title": "Review and Debug",
+        "anchor": "review-and-debug"
+      },
+      {
+        "depth": 2,
+        "title": "Where to Go Next",
+        "anchor": "where-to-go-next"
+      }
+    ],
+    "stats": {
+      "chars": 18278,
+      "words": 2255,
+      "headings": 18,
+      "estimated_token_count_total": 4607
+    },
+    "hash": "sha256:16951bde1f8d6939a7040b59c9ed524c365fab7b92032cce9f14406c954de5e9",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "chain-interactions-send-transactions-interoperability-transfer-assets-parachains",
+    "title": "Transfer Assets Between Parachains",
+    "slug": "chain-interactions-send-transactions-interoperability-transfer-assets-parachains",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/chain-interactions-send-transactions-interoperability-transfer-assets-parachains.md",
+    "html_url": "https://docs.polkadot.com/chain-interactions/send-transactions/interoperability/transfer-assets-parachains/",
+    "preview": "This guide walks you through transferring tokens between two parachains using the [ParaSpell XCM SDK](/reference/tools/paraspell/){target=\\_blank}. This example utilizes [Asset Hub](/polkadot-protocol/architecture/system-chains/asset-hub/){target=\\_blank} and the [People Chain](/polkadot-protocol/architecture/system-chains/people/){target=\\_blank}. However, the same approach can be applied to transfers between other parachains.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 3,
+        "title": "Prerequisites",
+        "anchor": "prerequisites"
+      },
+      {
+        "depth": 2,
+        "title": "Initialize Your Project",
+        "anchor": "initialize-your-project"
+      },
+      {
+        "depth": 2,
+        "title": "Build a Token Transfer Transaction",
+        "anchor": "build-a-token-transfer-transaction"
+      },
+      {
+        "depth": 2,
+        "title": "Perform a Dry Run",
+        "anchor": "perform-a-dry-run"
+      },
+      {
+        "depth": 2,
+        "title": "Verify the Existential Deposit",
+        "anchor": "verify-the-existential-deposit"
+      },
+      {
+        "depth": 2,
+        "title": "Get Transfer Info and Fee Estimates",
+        "anchor": "get-transfer-info-and-fee-estimates"
+      },
+      {
+        "depth": 2,
+        "title": "Next Steps",
+        "anchor": "next-steps"
+      }
+    ],
+    "stats": {
+      "chars": 26753,
+      "words": 2286,
+      "headings": 8,
+      "estimated_token_count_total": 5262
+    },
+    "hash": "sha256:74dd49a739c87aa7332baa83182d3971502127fe873e11f955b1f13f9aac4af4",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "chain-interactions-send-transactions-pay-fees-with-different-tokens",
+    "title": "Send a Transaction While Paying the Fee with a Different Token",
+    "slug": "chain-interactions-send-transactions-pay-fees-with-different-tokens",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/chain-interactions-send-transactions-pay-fees-with-different-tokens.md",
+    "html_url": "https://docs.polkadot.com/chain-interactions/send-transactions/pay-fees-with-different-tokens/",
+    "preview": "The Asset Hub provides a powerful feature that allows users to pay transaction fees using alternative tokens instead of the native token of the chain.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Environment Setup",
+        "anchor": "environment-setup"
+      },
+      {
+        "depth": 2,
+        "title": "Local Asset Hub Setup",
+        "anchor": "local-asset-hub-setup"
+      },
+      {
+        "depth": 2,
+        "title": "Implementation",
+        "anchor": "implementation"
+      },
+      {
+        "depth": 3,
+        "title": "Import Dependencies",
+        "anchor": "import-dependencies"
+      },
+      {
+        "depth": 3,
+        "title": "Define Constants",
+        "anchor": "define-constants"
+      },
+      {
+        "depth": 3,
+        "title": "Create a Signer",
+        "anchor": "create-a-signer"
+      },
+      {
+        "depth": 3,
+        "title": "Setup the Client and API",
+        "anchor": "setup-the-client-and-api"
+      },
+      {
+        "depth": 3,
+        "title": "Create the Transaction",
+        "anchor": "create-the-transaction"
+      },
+      {
+        "depth": 3,
+        "title": "Sign and Submit with Alternative Fee Payment",
+        "anchor": "sign-and-submit-with-alternative-fee-payment"
+      },
+      {
+        "depth": 2,
+        "title": "Full Code",
+        "anchor": "full-code"
+      },
+      {
+        "depth": 2,
+        "title": "Running the Script",
+        "anchor": "running-the-script"
+      },
+      {
+        "depth": 2,
+        "title": "Expected Output",
+        "anchor": "expected-output"
+      },
+      {
+        "depth": 2,
+        "title": "Conclusion",
+        "anchor": "conclusion"
+      }
+    ],
+    "stats": {
+      "chars": 9257,
+      "words": 1126,
+      "headings": 14,
+      "estimated_token_count_total": 2132
+    },
+    "hash": "sha256:1b9efd2fe00b251d3b4054c9cfcb55f9b5a1384238eeaca81a6f1542fc36d75c",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "chain-interactions-send-transactions-with-sdks",
+    "title": "Send Transactions with SDKs",
+    "slug": "chain-interactions-send-transactions-with-sdks",
+    "categories": [
+      "Chain Interactions"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/chain-interactions-send-transactions-with-sdks.md",
+    "html_url": "https://docs.polkadot.com/chain-interactions/send-transactions/with-sdks/",
+    "preview": "Sending transactions on Polkadot SDK-based blockchains involves constructing an extrinsic (transaction), signing it with your account's private key, and submitting it to the network. Each SDK provides different methods for transaction construction, signing, and submission.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Prerequisites",
+        "anchor": "prerequisites"
+      },
+      {
+        "depth": 2,
+        "title": "Send Transactions",
+        "anchor": "send-transactions"
+      },
+      {
+        "depth": 2,
+        "title": "Where to Go Next",
+        "anchor": "where-to-go-next"
+      }
+    ],
+    "stats": {
+      "chars": 27167,
+      "words": 2790,
+      "headings": 4,
+      "estimated_token_count_total": 5872
+    },
+    "hash": "sha256:21afea74d16ddb9067638f6c1d7ddaaf05d5771ac537b25bf97af3ff558162e8",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "chain-interactions-token-operations-convert-assets",
+    "title": "Convert Assets on Asset Hub",
+    "slug": "chain-interactions-token-operations-convert-assets",
+    "categories": [
+      "dApps"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/chain-interactions-token-operations-convert-assets.md",
+    "html_url": "https://docs.polkadot.com/chain-interactions/token-operations/convert-assets/",
+    "preview": "Asset Conversion is an Automated Market Maker (AMM) utilizing [Uniswap V2](https://github.com/Uniswap/v2-core){target=\\_blank} logic and implemented as a pallet on Polkadot's Asset Hub.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Prerequisites",
+        "anchor": "prerequisites"
+      },
+      {
+        "depth": 2,
+        "title": "Create a Liquidity Pool",
+        "anchor": "create-a-liquidity-pool"
+      },
+      {
+        "depth": 2,
+        "title": "Add Liquidity to a Pool",
+        "anchor": "add-liquidity-to-a-pool"
+      },
+      {
+        "depth": 2,
+        "title": "Swap Assets",
+        "anchor": "swap-assets"
+      },
+      {
+        "depth": 3,
+        "title": "Swap from an Exact Amount of Tokens",
+        "anchor": "swap-from-an-exact-amount-of-tokens"
+      },
+      {
+        "depth": 3,
+        "title": "Swap to an Exact Amount of Tokens",
+        "anchor": "swap-to-an-exact-amount-of-tokens"
+      },
+      {
+        "depth": 2,
+        "title": "Withdraw Liquidity from a Pool",
+        "anchor": "withdraw-liquidity-from-a-pool"
+      },
+      {
+        "depth": 2,
+        "title": "Test Environment Setup",
+        "anchor": "test-environment-setup"
+      }
+    ],
+    "stats": {
+      "chars": 18507,
+      "words": 2590,
+      "headings": 9,
+      "estimated_token_count_total": 4063
+    },
+    "hash": "sha256:bd07cdae71bf63786994865d2f33fba5f7bf8855dce6399414ad44ab0ec6635c",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "chain-interactions-token-operations-register-foreign-asset",
+    "title": "Register a Foreign Asset on Asset Hub",
+    "slug": "chain-interactions-token-operations-register-foreign-asset",
+    "categories": [
+      "dApps"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/chain-interactions-token-operations-register-foreign-asset.md",
+    "html_url": "https://docs.polkadot.com/chain-interactions/token-operations/register-foreign-asset/",
+    "preview": "As outlined in the [Asset Hub Overview](/polkadot-protocol/architecture/system-chains/asset-hub){target=\\_blank}, Asset Hub supports two categories of assets: local and foreign. Local assets are created on the Asset Hub system parachain and are identified by integer IDs. On the other hand, foreign assets, which originate outside of Asset Hub, are recognized by [Multilocations](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#7-universal-consensus-location-identifiers){target=\\_b",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Prerequisites",
+        "anchor": "prerequisites"
+      },
+      {
+        "depth": 2,
+        "title": "Register a Foreign Asset",
+        "anchor": "register-a-foreign-asset"
+      },
+      {
+        "depth": 3,
+        "title": "Asset Hub",
+        "anchor": "asset-hub"
+      },
+      {
+        "depth": 3,
+        "title": "Source Parachain",
+        "anchor": "source-parachain"
+      },
+      {
+        "depth": 2,
+        "title": "Asset Registration Verification",
+        "anchor": "asset-registration-verification"
+      },
+      {
+        "depth": 2,
+        "title": "Test Environment Setup",
+        "anchor": "test-environment-setup"
+      }
+    ],
+    "stats": {
+      "chars": 9993,
+      "words": 1460,
+      "headings": 7,
+      "estimated_token_count_total": 2267
+    },
+    "hash": "sha256:320ee51d7da0c85188d818a7ee23ecfd6f3b694ac4e5c55fb0f0c82f5f9a771f",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "chain-interactions-token-operations-register-local-asset",
+    "title": "Register a Local Asset",
+    "slug": "chain-interactions-token-operations-register-local-asset",
+    "categories": [
+      "Basics",
+      "dApps"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/chain-interactions-token-operations-register-local-asset.md",
+    "html_url": "https://docs.polkadot.com/chain-interactions/token-operations/register-local-asset/",
+    "preview": "As detailed in the [Asset Hub Overview](/polkadot-protocol/architecture/system-chains/asset-hub){target=\\_blank} page, Asset Hub accommodates two types of assets: local and foreign. Local assets are those that were created in Asset Hub and are identifiable by an integer ID. On the other hand, foreign assets originate from a sibling parachain and are identified by a Multilocation.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Prerequisites",
+        "anchor": "prerequisites"
+      },
+      {
+        "depth": 2,
+        "title": "Register a Local Asset",
+        "anchor": "register-a-local-asset"
+      },
+      {
+        "depth": 2,
+        "title": "Verify Asset Registration",
+        "anchor": "verify-asset-registration"
+      },
+      {
+        "depth": 2,
+        "title": "Test Setup Environment",
+        "anchor": "test-setup-environment"
+      }
+    ],
+    "stats": {
+      "chars": 6346,
+      "words": 1013,
+      "headings": 5,
+      "estimated_token_count_total": 1521
+    },
+    "hash": "sha256:bc7830a2c2624d35a48630f46bcd67b76ec67c5e3d4db8d3f7c6e492032027eb",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "chain-interactions",
+    "title": "Chain Interactions Overview",
+    "slug": "chain-interactions",
+    "categories": [
+      "Chain Interactions"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/chain-interactions.md",
+    "html_url": "https://docs.polkadot.com/chain-interactions/",
+    "preview": "Chain interactions form the foundation of building applications on Polkadot. Whether you're querying on-chain data, executing transactions, enabling cross-chain communication, or managing accounts, understanding how to interact with Polkadot-based chains is essential for application developers.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Core Interaction Patterns",
+        "anchor": "core-interaction-patterns"
+      },
+      {
+        "depth": 3,
+        "title": "Query On-Chain Data",
+        "anchor": "query-on-chain-data"
+      },
+      {
+        "depth": 3,
+        "title": "Send Transactions",
+        "anchor": "send-transactions"
+      },
+      {
+        "depth": 3,
+        "title": "Send Cross-Chain Transactions",
+        "anchor": "send-cross-chain-transactions"
+      },
+      {
+        "depth": 3,
+        "title": "Manage Tokens",
+        "anchor": "manage-tokens"
+      },
+      {
+        "depth": 3,
+        "title": "Manage Accounts",
+        "anchor": "manage-accounts"
+      },
+      {
+        "depth": 2,
+        "title": "Development Tools and SDKs",
+        "anchor": "development-tools-and-sdks"
+      },
+      {
+        "depth": 2,
+        "title": "Next Steps",
+        "anchor": "next-steps"
+      }
+    ],
+    "stats": {
+      "chars": 6632,
+      "words": 831,
+      "headings": 9,
+      "estimated_token_count_total": 1488
+    },
+    "hash": "sha256:ff1d106bd19f80de0c8108b0a658cfef83d73a4560a012ace9c842acdeefd1a5",
+    "token_estimator": "heuristic-v1"
+  },
+  {
     "id": "get-support-ai-ready-docs",
     "title": "AI Ready Docs",
     "slug": "get-support-ai-ready-docs",
@@ -4781,15 +5727,20 @@
         "depth": 2,
         "title": "Moving Assets Across Chains",
         "anchor": "moving-assets-across-chains"
+      },
+      {
+        "depth": 2,
+        "title": "Where to Go Next",
+        "anchor": "where-to-go-next"
       }
     ],
     "stats": {
-      "chars": 7453,
-      "words": 1061,
-      "headings": 11,
-      "estimated_token_count_total": 1493
+      "chars": 8381,
+      "words": 1188,
+      "headings": 12,
+      "estimated_token_count_total": 1727
     },
-    "hash": "sha256:98b6ce18a56ea53a3f2e4bd2ebe8e25647d3d79404a63cd87d39cfb79adc0e94",
+    "hash": "sha256:bdd4b074e477c96714660ece3fb970da9f5af3455a85b3ebd2cc2a615be67eba",
     "token_estimator": "heuristic-v1"
   },
   {

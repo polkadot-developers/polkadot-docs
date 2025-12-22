@@ -71,12 +71,4 @@ Most developers should start with REVM for its simplicity and full Ethereum comp
 
     [:octicons-arrow-right-24: Reference](/smart-contracts/for-eth-devs/contract-deployment/)
 
--   <span class="badge learn">Learn</span> __Smart Contracts on Polkadot Hub__
-
-    ---
-
-    Learn about smart contracts on Polkadot Hub, including REVM and PVM.
-
-    [:octicons-arrow-right-24: Reference](/reference/polkadot-hub/smart-contracts/)
-
 </div>

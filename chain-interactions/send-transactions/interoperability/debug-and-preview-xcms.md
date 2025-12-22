@@ -161,7 +161,7 @@ Full execution logs only work if the runtime was compiled with logging enabled. 
 
 ## Identify and Extract the XCM
 
-To replay an XCM, you'll first need to identify the exact extrinsic that triggered it. In this example, we'll use block 9079592 on the Polkadot Hub.
+To replay an XCM, you'll first need to identify the exact extrinsic that triggered it. This example uses block 9079592 on Polkadot Hub.
 
 1. Find and open the block on Subscan to inspect its extrinsics and events. In this case, the block is [9079592](https://assethub-polkadot.subscan.io/block/9079592){target=\_blank}.
 
@@ -200,7 +200,7 @@ npx papi add polkadotHub -w ws://localhost:8000
 ```
 
 !!! note
-    The script assumes the Polkadot Hub is served on `ws://localhost:8000`. If you're using a different port or configuration, update the WebSocket endpoint in the script or descriptor.
+    The script assumes Polkadot Hub is served on `ws://localhost:8000`. If you're using a different port or configuration, update the WebSocket endpoint in the script or descriptor.
 
 ### Create a Replay Script
 

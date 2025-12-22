@@ -34,7 +34,7 @@ Start by creating a dedicated workspace for your XCM replay and dry-run experime
 2. Initialize a new Node project:
 
     ```bash
-    npm init -y
+    npm init -y && npm pkg set type=module
     ```
 
 3. Install Chopsticks globally (recommended to avoid conflicts with local installs):

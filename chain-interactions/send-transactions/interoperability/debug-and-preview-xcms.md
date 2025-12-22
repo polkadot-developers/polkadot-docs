@@ -81,7 +81,7 @@ Create or edit a `.env` file with the block heights for each chain. These should
 
 ```text title=".env"
 POLKADOT_BLOCK_NUMBER=26481107
-POLKADOT_ASSET_HUB_BLOCK_NUMBER=9079591
+POLKADOT_HUB_BLOCK_NUMBER=9079591
 ACALA_BLOCK_NUMBER=8826385
 ```
 
@@ -95,7 +95,7 @@ Full execution logs only work if the runtime was compiled with logging enabled. 
     git clone git@github.com:polkadot-fellows/runtimes.git
     ```
 
-2. Build the Polkadot Asset Hub runtime:
+2. Build the Polkadot Hub runtime:
 
     ```bash
     cd runtimes
@@ -151,7 +151,7 @@ Full execution logs only work if the runtime was compiled with logging enabled. 
 
     This command starts the relay chain and parachains locally with full runtime execution logs enabled. Once the chains are running, you should see output indicating that the following RPC endpoints are available:
 
-    - Polkadot Asset Hub RPC on `http://localhost:8000`
+    - Polkadot Hub RPC on `http://localhost:8000`
     - Acala RPC on `http://localhost:8001`
     - Polkadot RPC on `http://localhost:8002`
 
@@ -161,7 +161,7 @@ Full execution logs only work if the runtime was compiled with logging enabled. 
 
 ## Identify and Extract the XCM
 
-To replay an XCM, you'll first need to identify the exact extrinsic that triggered it. In this example, we'll use block 9079592 on the Polkadot Asset Hub.
+To replay an XCM, you'll first need to identify the exact extrinsic that triggered it. In this example, we'll use block 9079592 on the Polkadot Hub.
 
 1. Find and open the block on Subscan to inspect its extrinsics and events. In this case, the block is [9079592](https://assethub-polkadot.subscan.io/block/9079592){target=\_blank}.
 
@@ -191,16 +191,16 @@ This is useful for:
 - Inspecting all emitted events
 - Verifying behavior before submitting a real transaction
 
-### Add the Asset Hub Descriptor
+### Add the Polkadot Hub Descriptor
 
-Add the Asset Hub descriptor to use type-safe APIs with PAPI:
+Add the Polkadot Hub descriptor to use type-safe APIs with PAPI:
 
 ```bash
-npx papi add assetHub -w ws://localhost:8000
+npx papi add polkadotHub -w ws://localhost:8000
 ```
 
 !!! note
-    The script assumes the Polkadot Asset Hub is served on `ws://localhost:8000`. If you're using a different port or configuration, update the WebSocket endpoint in the script or descriptor.
+    The script assumes the Polkadot Hub is served on `ws://localhost:8000`. If you're using a different port or configuration, update the WebSocket endpoint in the script or descriptor.
 
 ### Create a Replay Script
 
@@ -212,7 +212,7 @@ Create a file named `replay-xcm.ts` and add the following code to it:
 
 ### Execute the Replay Script
 
-Ensure Chopsticks is running and serving a chain that includes `pallet-xcm`, such as a Polkadot Asset Hub fork. Run the script:
+Ensure Chopsticks is running and serving a chain that includes `pallet-xcm`, such as a Polkadot Hub fork. Run the script:
 
 ```bash
 npx tsx replay-xcm.ts

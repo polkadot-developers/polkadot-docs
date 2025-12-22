@@ -63,10 +63,10 @@ Native Polkadot accounts (32-byte format) that haven't been explicitly mapped ha
 
 Unmapped Substrate accounts (those created with Ed25519 or Sr25519 keypairs) face the following restrictions:
 
-- **Cannot initiate transactions** through Ethereum-compatible interfaces (like MetaMask or other EVM-compatible wallets)
-- **Cannot directly call smart contracts** using Ethereum RPC methods
-- **Cannot transfer funds** to or from 20-byte Ethereum-compatible addresses without proper mapping
-- **Limited interoperability** with Ethereum tooling and existing EVM infrastructure
+- Cannot initiate transactions through Ethereum-compatible interfaces (like MetaMask or other EVM-compatible wallets).
+- Cannot directly call smart contracts using Ethereum RPC methods.
+- Cannot transfer funds to or from 20-byte Ethereum-compatible addresses without proper mapping.
+- Limited interoperability with Ethereum tooling and existing EVM infrastructure.
 
 The system can *receive* funds at the hashed 20-byte address derived from the 32-byte account, but the original account owner cannot control or access those funds through Ethereum-compatible methods without first establishing a proper mapping.
 
@@ -74,16 +74,16 @@ The system can *receive* funds at the hashed 20-byte address derived from the 32
 
 Account mapping is **required** when:
 
-1. You want to interact with smart contracts using Ethereum-compatible tools (MetaMask, Web3.js, Ethers.js)
-2. You need to transfer funds using 20-byte address format
-3. You want your existing Polkadot account to be accessible through EVM-compatible interfaces
-4. You need bidirectional compatibility between Polkadot and Ethereum address formats
+- You want to interact with smart contracts using Ethereum-compatible tools (MetaMask, Web3.js, Ethers.js).
+- You need to transfer funds using 20-byte address format.
+- You want your existing Polkadot account to be accessible through EVM-compatible interfaces.
+- You need bidirectional compatibility between Polkadot and Ethereum address formats.
 
 Account mapping is **not required** when:
 
-- Using native Polkadot addresses (32-byte) exclusively with Substrate-native interfaces
-- Interacting with parachains that don't use the Ethereum-compatible layer
-- Using accounts that were originally created with secp256k1 keys (Ethereum-compatible from the start)
+- Using native Polkadot addresses (32-byte) exclusively with Substrate-native interfaces.
+- Interacting with parachains that don't use the Ethereum-compatible layer.
+- Using accounts that were originally created with secp256k1 keys (Ethereum-compatible from the start).
 
 ### Account Mapping for Native Polkadot Accounts
 
@@ -93,16 +93,16 @@ To map your account, call the [`map_account`](https://paritytech.github.io/polka
 
 **Mapping Process:**
 
-1. **Call the extrinsic**: Use your Substrate wallet to call `pallet_revive.map_account()`
-2. **Pay the deposit**: A deposit is required and held while the mapping exists (refundable upon unmapping)
-3. **Receive confirmation**: Once mapped, your account can be used with both Polkadot and Ethereum interfaces
+1. **Call the extrinsic**: Use your Substrate wallet to call `pallet_revive.map_account()`.
+2. **Pay the deposit**: A deposit is required and held while the mapping exists (refundable upon unmapping).
+3. **Receive confirmation**: Once mapped, your account can be used with both Polkadot and Ethereum interfaces.
 
 Once mapped, you'll be able to:
 
-- Transfer funds between 20-byte format addresses
-- Interact with smart contracts using Ethereum-compatible tools like MetaMask
-- Maintain full reversibility to your original 32-byte account format
-- Access funds at both your 32-byte Polkadot address and the mapped 20-byte Ethereum address
+- Transfer funds between 20-byte format addresses.
+- Interact with smart contracts using Ethereum-compatible tools like MetaMask.
+- Maintain full reversibility to your original 32-byte account format.
+- Access funds at both your 32-byte Polkadot address and the mapped 20-byte Ethereum address.
 
 !!! warning "Mapping Requirement"
     Without this mapping, native Polkadot accounts cannot transfer funds or interact with the Ethereum-compatible layer on the Hub. Attempting to send funds to an unmapped account's hashed Ethereum address may result in funds being inaccessible through standard Ethereum tools.
@@ -120,25 +120,25 @@ The registration process is implemented through the [`map`](https://paritytech.g
 
 The fallback mechanism is integrated into the [`to_account_id`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/trait.AddressMapper.html#tymethod.to_account_id){target=\_blank} function. It provides a safety net for address conversion by:
 
-- First, attempting to retrieve stored mapping data from [`OriginalAccount`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/pallet/storage_types/struct.OriginalAccount.html){target=\_blank} storage
-- Falling back to the default conversion method (Keccak-256 hash) if no explicit mapping exists
-- Maintaining consistency in address representation across the system
+- First, attempting to retrieve stored mapping data from [`OriginalAccount`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/pallet/storage_types/struct.OriginalAccount.html){target=\_blank} storage.
+- Falling back to the default conversion method (Keccak-256 hash) if no explicit mapping exists.
+- Maintaining consistency in address representation across the system.
 
 ### How Fallback Works with Unmapped Accounts
 
 When an unmapped 32-byte Polkadot account needs to be represented as a 20-byte Ethereum address, the system:
 
-1. **Checks for explicit mapping**: First looks in the `OriginalAccount` storage to see if the account has been explicitly mapped via `map_account`
+1. **Checks for explicit mapping**: First looks in the `OriginalAccount` storage to see if the account has been explicitly mapped via `map_account`.
 2. **Applies fallback conversion**: If no mapping exists, automatically converts the 32-byte account to a 20-byte address by:
-   - Hashing the full 32-byte account with Keccak-256
-   - Taking the last 20 bytes of the resulting hash
-3. **Uses the derived address**: This fallback address can receive funds, but the account owner cannot spend those funds through Ethereum-compatible interfaces without explicit mapping
+   - Hashing the full 32-byte account with Keccak-256.
+   - Taking the last 20 bytes of the resulting hash.
+3. **Uses the derived address**: This fallback address can receive funds, but the account owner cannot spend those funds through Ethereum-compatible interfaces without explicit mapping.
 
 **Important Considerations:**
 
-- The fallback mechanism is **one-way for unmapped accounts** - while you can derive the 20-byte address from a 32-byte account, you cannot recover the original 32-byte account from the 20-byte hash without the stored mapping
-- Funds sent to a fallback address of an unmapped account are not lost, but require explicit mapping to be accessible through Ethereum tools
-- For security and usability, it's recommended to establish explicit mappings rather than relying on fallback addresses for accounts that need Ethereum compatibility
+- The fallback mechanism is **one-way for unmapped accounts**. While you can derive the 20-byte address from a 32-byte account, you cannot recover the original 32-byte account from the 20-byte hash without the stored mapping.
+- Funds sent to a fallback address of an unmapped account are not lost, but require explicit mapping to be accessible through Ethereum tools.
+- For security and usability, it's recommended to establish explicit mappings rather than relying on fallback addresses for accounts that need Ethereum compatibility.
 
 ## Contract Address Generation
 

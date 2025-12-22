@@ -4,11 +4,11 @@ description: Bridges Ethereum's 20-byte addresses with Polkadot's 32-byte accoun
 categories: Basics, Polkadot Protocol
 ---
 
-# Accounts on the Polkadot Hub Smart Contracts
+# Accounts Polkadot Hub Smart Contracts
 
 ## Introduction
 
-The Polkadot Hub natively utilizes Polkadot's 32-byte account system while providing interoperability with Ethereum's 20-byte addresses through an automatic conversion system. When interacting with smart contracts:
+Polkadot Hub natively utilizes Polkadot's 32-byte account system while providing interoperability with Ethereum's 20-byte addresses through an automatic conversion system. When interacting with smart contracts:
 
 - Ethereum-compatible wallets (like MetaMask) can use their familiar 20-byte addresses.
 - Polkadot accounts continue using their native 32-byte format.
@@ -17,7 +17,7 @@ The Polkadot Hub natively utilizes Polkadot's 32-byte account system while provi
     - 20-byte Ethereum addresses are padded with `0xEE` bytes to create valid 32-byte Polkadot accounts.
     - 32-byte Polkadot accounts can optionally register a mapping to a 20-byte address for Ethereum compatibility.
 
-This dual-format approach enables the Polkadot Hub to maintain compatibility with Ethereum tooling while fully integrating with the Polkadot ecosystem.
+This dual-format approach enables Polkadot Hub to maintain compatibility with Ethereum tooling while fully integrating with the Polkadot ecosystem.
 
 ## Address Types and Mappings
 
@@ -57,7 +57,7 @@ The conversion process is implemented through the [`to_address`](https://parityt
 
 ### Interacting with Unmapped Substrate Accounts
 
-Native Polkadot accounts (32-byte format) that haven't been explicitly mapped have limited interaction capabilities with the Ethereum-compatible smart contract layer. Understanding these limitations and when mapping is required is essential for developers working with the Polkadot Hub.
+Native Polkadot accounts (32-byte format) that haven't been explicitly mapped have limited interaction capabilities with the Ethereum-compatible smart contract layer. Understanding these limitations and when mapping is required is essential for developers working with Polkadot Hub Smart Contracts.
 
 #### Limitations of Unmapped Accounts
 

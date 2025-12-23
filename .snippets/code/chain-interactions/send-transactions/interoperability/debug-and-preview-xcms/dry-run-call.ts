@@ -1,7 +1,7 @@
 import { Binary, createClient, Enum } from 'polkadot-api';
 import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
 import { getWsProvider } from 'polkadot-api/ws-provider/web';
-import { assetHub } from '@polkadot-api/descriptors';
+import { polkadotHub } from '@polkadot-api/descriptors';
 import { sr25519CreateDerive } from '@polkadot-labs/hdkd';
 import {
   DEV_PHRASE,
@@ -15,7 +15,7 @@ const XCM_VERSION = 5;
 async function main() {
   const provider = withPolkadotSdkCompat(getWsProvider('ws://localhost:8000'));
   const client = createClient(provider);
-  const api = client.getTypedApi(assetHub);
+  const api = client.getTypedApi(polkadotHub);
 
   const entropy = mnemonicToEntropy(DEV_PHRASE);
   const miniSecret = entropyToMiniSecret(entropy);

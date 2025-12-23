@@ -30,9 +30,7 @@ This dual-format approach enables Asset Hub to maintain compatibility with Ether
 The platform handles two distinct address formats:
 
 - [Ethereum-style addresses (20 bytes)](https://ethereum.org/developers/docs/accounts/#account-creation){target=\_blank}
-- [Polkadot native account IDs (32 bytes)](https://wiki.polkadot.com/learn/learn-account-advanced/#address-format){target=\_blank}
-
-
+- [Polkadot native account IDs (32 bytes)](/reference/parachains/accounts/){target=\_blank}
 
 ### Ethereum to Polkadot Mapping
 
@@ -191,6 +189,268 @@ These traits govern how blocks are validated and imported across the network, en
 ## Additional Resources
 
 To learn more about the block structure in the Polkadot SDK runtime, see the [`Block` reference](https://paritytech.github.io/polkadot-sdk/master/sp_runtime/traits/trait.Block.html){target=\_blank} entry in the Rust Docs.
+
+
+---
+
+Page Title: Calculate Transaction Fees
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/chain-interactions-send-transactions-calculate-transaction-fees.md
+- Canonical (HTML): https://docs.polkadot.com/chain-interactions/send-transactions/calculate-transaction-fees/
+- Summary: Learn how to calculate transaction fees on Polkadot using Polkadot-API, Polkadot.js API, and the Polkadot.js Apps UI to estimate transfer costs.
+
+# Calculate Transaction Fees
+
+## Introduction
+
+Transaction fees are essential costs for executing operations on Polkadot and its parachains. Understanding how to estimate these fees helps you manage account balances and build better user experiences in your applications. 
+
+This tutorial will guide you through different methods for calculating transaction fees.
+
+## Prerequisites
+
+Before starting, make sure you have:
+
+- [Node.js](https://nodejs.org/){target=\_blank} version 18 or higher installed
+- Basic understanding of JavaScript/TypeScript
+- Test accounts with sufficient balance to pay transaction fees
+
+!!! note
+    Transaction fees on Polkadot are calculated based on three components: a base fee, a length fee (proportional to transaction size), and a weight fee (proportional to computational complexity). An optional tip can be added to prioritize transaction inclusion.
+
+## Polkadot-API (PAPI)
+
+[Polkadot-API](/reference/tools/papi){target=\_blank} is the modern, recommended library for building TypeScript applications with type safety and light client support.
+
+Create a new project directory and initialize it:
+
+```bash
+mkdir fee-calculator
+cd fee-calculator
+npm init -y && npm pkg set type=module
+```
+
+Install the required packages:
+
+```bash
+npm install polkadot-api
+npm install --save-dev typescript tsx
+```
+
+Add the Polkadot relay chain to generate type-safe descriptors:
+
+```bash
+npx papi add polkadotTestNet -w INSERT_WS_ENDPOINT
+```
+
+This command downloads the latest Polkadot metadata and generates TypeScript descriptors in the `@polkadot-api/descriptors` package. Ensure to replace `INSERT_WS_ENDPOINT` with the proper websocket endpoint. For this example, we will use the Polkadot Testnet (`wss://pas-rpc.stakeworld.io/assethub`).
+
+Create a file named `papi-fee-calculator.ts`:
+
+```typescript title="papi-fee-calculator.ts"
+import { createClient } from 'polkadot-api';
+import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
+import { polkadotTestNet } from '@polkadot-api/descriptors';
+import { getWsProvider } from 'polkadot-api/ws-provider';
+
+async function calculateFees() {
+  // Connect to chain
+  const client = createClient(
+    withPolkadotSdkCompat(getWsProvider('INSERT_WS_ENDPOINT'))
+  );
+
+  // Get typed API
+  const api = client.getTypedApi(polkadotTestNet);
+
+  // Define sender and recipient addresses
+  const aliceAddress = 'INSERT_ALICE_ADDRESS';
+  const bobAddress = 'INSERT_BOB_ADDRESS';
+
+  // Amount to transfer (1 DOT = 10^10 plancks)
+  const amount = 10_000_000_000n; // 1 DOT
+
+  try {
+    // Create the transaction
+    const tx = api.tx.Balances.transfer_keep_alive({
+      dest: {
+        type: 'Id',
+        value: bobAddress,
+      },
+      value: amount,
+    });
+
+    // Estimate fees
+    const estimatedFees = await tx.getEstimatedFees(aliceAddress);
+
+    console.log(`Estimated fee: ${Number(estimatedFees) / 1e10} DOT`);
+    console.log(`Transaction amount: ${Number(amount) / 1e10} DOT`);
+    console.log(`Total deducted: ${Number(estimatedFees + amount) / 1e10} DOT`);
+  } catch (error) {
+    console.error('Error calculating fees:', error);
+  } finally {
+    // Clean up
+    client.destroy();
+  }
+}
+
+calculateFees();
+```
+
+Ensure to replace `INSERT_WS_ENDPOINT` with your WebSocket endpoint, `INSERT_ALICE_ADDRESS` with the sender's address, and `INSERT_BOB_ADDRESS` with the recipient's address.
+
+Key aspects of the code:
+
+- **Transaction creation**: The `api.tx.Balances.transfer_keep_alive()` method constructs a balance transfer transaction.
+- **`dest` parameter**: Specifies the recipient using a `MultiAddress` type with `Id` variant.
+- **`getEstimatedFees()`**: Returns the estimated fee in plancks (the smallest unit, where 1 DOT = 10^10 plancks).
+- The method applies a dummy signature internally to simulate the transaction.
+
+Execute the script using `tsx`:
+
+```bash
+npx tsx papi-fee-calculator.ts
+```
+
+You should see output similar to:
+
+<div class="termynal" data-termynal>
+    <span data-ty="input"><span class="file-path"></span>npx tsx papi-fee-calculator.ts</span>
+    <span data-ty="progress"></span>
+    <span data-ty>Estimated fee: 0.0014668864 DOT</span>
+    <span data-ty>Transaction amount: 1 DOT</span>
+    <span data-ty>Total deducted: 1.0014668864 DOT</span>
+</div>
+## Polkadot.js API
+
+[Polkadot.js API](https://polkadot.js.org/docs/api/){target=\_blank} is a mature JavaScript/TypeScript library for interacting with Polkadot SDK-based chains, providing comprehensive RPC client functionality and transaction building capabilities.
+
+In the same project directory (or a new one), install the Polkadot.js packages:
+
+```bash
+npm install @polkadot/api
+```
+
+Create a file named `polkadotjs-fee-calculator.ts`:
+
+```typescript title="polkadotjs-fee-calculator.ts"
+import { ApiPromise, WsProvider } from '@polkadot/api';
+
+async function calculateFees() {
+  // Connect to chain
+  const wsProvider = new WsProvider('INSERT_WS_ENDPOINT');
+  const api = await ApiPromise.create({ provider: wsProvider });
+
+  // Wait for API to be ready
+  await api.isReady;
+
+  // Define sender and recipient addresses
+  const aliceAddress = 'INSERT_ALICE_ADDRESS';
+  const bobAddress = 'INSERT_BOB_ADDRESS';
+
+  // Amount to transfer (1 DOT = 10^10 plancks)
+  const amount = 10_000_000_000n; // 1 DOT
+
+  try {
+    // Create the transaction
+    const tx = api.tx.balances.transferKeepAlive(bobAddress, amount);
+
+    // Get payment information
+    const paymentInfo = await tx.paymentInfo(aliceAddress);
+
+    console.log(
+      `Estimated fee: ${Number(paymentInfo.partialFee.toBigInt()) / 1e10} DOT`
+    );
+    console.log(`Transaction amount: ${Number(amount) / 1e10} DOT`);
+    console.log(
+      `Total deducted: ${
+        Number(paymentInfo.partialFee.toBigInt() + amount) / 1e10
+      } DOT`
+    );
+  } catch (error) {
+    console.error('Error calculating fees:', error);
+  } finally {
+    // Clean up
+    await api.disconnect();
+  }
+}
+
+calculateFees();
+```
+
+Ensure to replace `INSERT_WS_ENDPOINT` with your WebSocket endpoint, `INSERT_ALICE_ADDRESS` with the sender's address, and `INSERT_BOB_ADDRESS` with the recipient's address.
+
+Key aspects of the code:
+
+- **Transaction creation**: The `api.tx.balances.transferKeepAlive()` method constructs a balance transfer transaction.
+- **`paymentInfo()`**: Applies a dummy signature and queries the RPC endpoint for fee estimation.
+- **Return values**: The `partialFee` property contains the estimated fee in the smallest unit (plancks).
+
+Execute the script using `tsx`:
+
+```bash
+npx tsx polkadotjs-fee-calculator.ts
+```
+
+You should see output similar to:
+
+<div class="termynal" data-termynal>
+    <span data-ty="input"><span class="file-path"></span>npx tsx polkadotjs-fee-calculator.ts</span>
+    <span data-ty="progress"></span>
+    <span data-ty>Estimated fee: 0.0014668864 DOT</span>
+    <span data-ty>Transaction amount: 1 DOT</span>
+    <span data-ty>Total deducted: 1.0014668864 DOT</span>
+</div>
+## Polkadot.js Apps Interface
+
+For non-programmatic fee inspection, the PolkadotJS Apps interface provides a visual way to estimate transaction fees.
+
+Navigate to the [Polkadot.js Apps interface](https://polkadot.js.org/apps){target=\_blank} and ensure you're connected to the Polkadot relay chain (or your desired network).
+
+### Estimate Fees via Transfer Interface
+
+To see fees before submitting a transfer:
+
+1. Navigate to **Accounts** > **Accounts** in the top menu.
+2. Choose an account and click **send**.
+3. Fill in the transfer details:
+    - **Send to address**: Enter Bob's address.
+    - **Amount**: Enter the amount you wish to transfer (e.g., 1 DOT).
+4. Click **Sign and Submit**.
+5. The transaction fee will be displayed in the confirmation dialog before you sign.
+
+    ![](/images/chain-interactions/send-transactions/calculate-transaction-fees/calculate-transaction-fees-01.gif)
+
+## Where to Go Next
+
+Now that you can calculate transaction fees, explore related guides to send transactions and manage fees in your applications.
+
+<div class="grid cards" markdown>
+
+-   <span class="badge guide">Guide</span> __Pay Fees with Different Tokens__
+
+    ---
+
+    Learn how to send transactions while paying fees using alternative tokens instead of the native chain token.
+
+    [:octicons-arrow-right-24: Get Started](/chain-interactions/send-transactions/pay-fees-with-different-tokens/)
+
+-   <span class="badge guide">Guide</span> __Send Transactions with SDKs__
+
+    ---
+
+    Learn how to send signed transactions using Polkadot-API and Polkadot.js API libraries.
+
+    [:octicons-arrow-right-24: Get Started](/chain-interactions/send-transactions/with-sdks/)
+
+-   <span class="badge guide">Guide</span> __Query Chain Data__
+
+    ---
+
+    Explore different methods for querying blockchain data using REST APIs, SDKs, and runtime API calls.
+
+    [:octicons-arrow-right-24: Get Started](/chain-interactions/query-data/query-sdks/)
+
+</div>
 
 
 ---
@@ -661,6 +921,589 @@ Both REVM and PVM deployments may show significant differences between gas estim
 ## Conclusion
 
 Both backends support contract deployment effectively, with REVM offering drop-in Ethereum compatibility and PVM providing a more structured two-step approach. For the majority of use cases—deploying standard contracts like tokens or applications—both backends work seamlessly. Advanced patterns like factory contracts may require adjustment for PVM, but these adaptations are straightforward with proper planning.
+
+
+---
+
+Page Title: Convert Assets on Asset Hub
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/chain-interactions-token-operations-convert-assets.md
+- Canonical (HTML): https://docs.polkadot.com/chain-interactions/token-operations/convert-assets/
+- Summary: A guide detailing the step-by-step process of converting assets on Asset Hub, helping users efficiently navigate asset management on the platform.
+
+# Convert Assets on Asset Hub
+
+## Introduction
+
+Asset Conversion is an Automated Market Maker (AMM) utilizing [Uniswap V2](https://github.com/Uniswap/v2-core){target=\_blank} logic and implemented as a pallet on Polkadot's Asset Hub.
+
+This guide will provide detailed information about the key functionalities offered by the [Asset Conversion](https://github.com/paritytech/polkadot-sdk/tree/polkadot-stable2506-2/substrate/frame/asset-conversion){target=\_blank} pallet on Asset Hub, including:
+
+- Creating a liquidity pool.
+- Adding liquidity to a pool.
+- Swapping assets.
+- Withdrawing liquidity from a pool.
+
+## Prerequisites
+
+Before converting assets on Asset Hub, you must ensure you have:
+
+- Access to the [Polkadot.js Apps](https://polkadot.js.org/apps){target=\_blank} interface and a connection with the intended blockchain.
+- A funded wallet containing the assets you wish to convert and enough available funds to cover the transaction fees.
+- An asset registered on Asset Hub that you want to convert. If you haven't created an asset on Asset Hub yet, refer to the [Register a Local Asset](/chain-interactions/token-operations/register-local-asset/){target=\_blank} or [Register a Foreign Asset](/chain-interactions/token-operations/register-foreign-asset/){target=\_blank} documentation to create an asset.
+
+## Create a Liquidity Pool
+
+If an asset on Asset Hub does not have an existing liquidity pool, the first step is to create one.
+
+The asset conversion pallet provides the `createPool` extrinsic to create a new liquidity pool, creating an empty liquidity pool and a new `LP token` asset.
+
+!!! tip
+    A testing token with the asset ID `1112` and the name `PPM` was created for this example.
+
+As stated in the [Test Environment Setup](#test-environment-setup) section, this tutorial is based on the assumption that you have an instance of Polkadot Asset Hub running locally. Therefore, the demo liquidity pool will be created between DOT and PPM tokens. However, the same steps can be applied to any other asset on Asset Hub.
+
+From the Asset Hub perspective, the Multilocation that identifies the PPM token is the following:
+
+```javascript
+{
+  parents: 0,
+  interior: {
+    X2: [{ PalletInstance: 50 }, { GeneralIndex: 1112 }]
+  }
+}
+```
+
+The `PalletInstance` value of `50` represents the Assets pallet on Asset Hub. The `GeneralIndex` value of `1112` is the PPM asset's asset ID.
+
+To create the liquidity pool, you can follow these steps:
+
+1. Navigate to the **Extrinsics** section on the Polkadot.js Apps interface:
+
+    1. Select **Developer** from the top menu.
+    2. Click on **Extrinsics** from the dropdown menu.
+
+    ![Extrinsics Section](/images/chain-interactions/token-operations/convert-assets/convert-assets-01.webp)
+
+2. Select extrinsic to create the pool:
+
+    1. Select the **`AssetConversion`** pallet.
+    2. Choose the **`createPool`** extrinsic from the list of available extrinsics.
+
+    ![Create Pool Extrinsic](/images/chain-interactions/token-operations/convert-assets/convert-assets-02.webp)
+
+3. Fill in the required fields:
+
+    1. **`asset1`**: The Multilocation of the first asset in the pool. In this case, it is the DOT token, which the following Multilocation represents.
+
+        ```javascript
+        {
+          parents: 0,
+          interior: 'Here'
+        }
+        ```
+
+    2. **`asset2`**: The second asset's Multilocation within the pool. This refers to the PPM token, which the following Multilocation identifies.
+
+        ```javascript
+        {
+          parents: 0,
+          interior: {
+            X2: [{ PalletInstance: 50 }, { GeneralIndex: 1112 }]
+          }
+        }
+        ```
+
+    3. Click on **Submit Transaction** to create the liquidity pool.
+
+    ![Create Pool Fields](/images/chain-interactions/token-operations/convert-assets/convert-assets-03.webp)
+
+Signing and submitting the transaction triggers the creation of the liquidity pool. To verify the new pool's creation, check the **Explorer** section on the Polkadot.js Apps interface and ensure that the **`PoolCreated`** event was emitted.
+
+![Pool Created Event](/images/chain-interactions/token-operations/convert-assets/convert-assets-04.webp)
+
+As the preceding image shows, the **`lpToken`** ID created for this pool is 19. This ID is essential to identify the liquidity pool and associated LP tokens.
+
+## Add Liquidity to a Pool
+
+The `addLiquidity` extrinsic allows users to provide liquidity to a pool of two assets. Users specify their preferred amounts for both assets and minimum acceptable quantities. The function determines the best asset contribution, which may vary from the amounts desired but won't fall below the specified minimums. Providers receive liquidity tokens representing their pool portion in return for their contribution.
+
+To add liquidity to a pool, follow these steps:
+
+1. Navigate to the **Extrinsics** section on the Polkadot.js Apps interface:
+
+    1. Select **Developer** from the top menu.
+    2. Click on **Extrinsics** from the dropdown menu.
+
+    ![Extrinsics Section](/images/chain-interactions/token-operations/convert-assets/convert-assets-01.webp)
+
+2. Select extrinsic to add liqudity:
+
+    1. Select the **`assetConversion`** pallet.
+    2. Choose the **`addLiquidity`** extrinsic from the list of available extrinsics.
+
+    ![Add Liquidity Extrinsic](/images/chain-interactions/token-operations/convert-assets/convert-assets-05.webp)
+
+3. Fill in the required fields:
+
+    1. **`asset1`**: The Multilocation of the first asset in the pool. In this case, it is the DOT token, which the following Multilocation represents.
+
+        ```javascript
+        {
+          parents: 0,
+          interior: 'Here'
+        }
+        ```
+
+    2. **`asset2`**: The second asset's Multilocation within the pool. This refers to the PPM token, which the following Multilocation identifies.
+
+        ```javascript
+        {
+          parents: 0,
+          interior: {
+            X2: [{ PalletInstance: 50 }, { GeneralIndex: 1112 }]
+          }
+        }
+        ```
+
+    3. **`amount1Desired`**: The amount of the first asset that will be contributed to the pool.
+    4. **`amount2Desired`**: The quantity of the second asset intended for pool contribution.
+    5. **`amount1Min`**: The minimum amount of the first asset that will be contributed.
+    6. **`amount2Min`**: The lowest acceptable quantity of the second asset for contribution.
+    7. **`mintTo`**: The account to which the liquidity tokens will be minted.
+    8. Click on **Submit Transaction** to add liquidity to the pool.
+
+    ![Add Liquidity Fields](/images/chain-interactions/token-operations/convert-assets/convert-assets-06.webp)
+
+    !!! warning
+        Ensure that the appropriate amount of tokens provided has been minted previously and is available in your account before adding liquidity to the pool.
+
+    In this case, the liquidity provided to the pool is between DOT tokens and PPM tokens with the asset ID 1112 on Polkadot Asset Hub. The intention is to provide liquidity for 1 DOT token (`u128` value of 1000000000000 as it has 10 decimals) and 1 PPM token (`u128` value of 1000000000000 as it also has 10 decimals).
+
+Signing and submitting the transaction adds liquidity to the pool. To verify the liquidity addition, check the **Explorer** section on the Polkadot.js Apps interface and ensure that the **`LiquidityAdded`** event was emitted.
+
+![Liquidity Added Event](/images/chain-interactions/token-operations/convert-assets/convert-assets-07.webp)
+
+## Swap Assets
+
+### Swap from an Exact Amount of Tokens
+
+The asset conversion pallet enables users to exchange a specific quantity of one asset for another in a designated liquidity pool by swapping them for an exact amount of tokens. It guarantees the user will receive at least a predetermined minimum amount of the second asset. This function increases trading predictability and allows users to conduct asset exchanges with confidence that they are assured a minimum return.
+
+To swap assets for an exact amount of tokens, follow these steps:
+
+1. Navigate to the **Extrinsics** section on the Polkadot.js Apps interface:
+
+    1. Select **Developer** from the top menu.
+    2. Click on **Extrinsics** from the dropdown menu.
+
+    ![Extrinsics Section](/images/chain-interactions/token-operations/convert-assets/convert-assets-01.webp)
+
+2. Select extrinsic to swap assets:
+
+    1. Select the **`AssetConversion`** pallet.
+    2. Choose the **`swapExactTokensForTokens`** extrinsic from the list of available extrinsics.
+
+    ![Swap From Exact Tokens Extrinsic](/images/chain-interactions/token-operations/convert-assets/convert-assets-08.webp)
+
+3. Fill in the required fields:
+
+    1. **`path: Vec<StagingXcmV3MultiLocation>`**: An array of Multilocations representing the path of the swap. The first and last elements of the array are the input and output assets, respectively. In this case, the path consists of two elements:
+
+        - **`0: StagingXcmV3MultiLocation`**: The Multilocation of the first asset in the pool. In this case, it is the DOT token, which the following Multilocation represents.
+
+            ```javascript
+            {
+              parents: 0,
+              interior: 'Here'
+            }
+            ```
+
+        - **`1: StagingXcmV3MultiLocation`**: The second asset's Multilocation within the pool. This refers to the PPM token, which the following Multilocation identifies.
+
+            ```javascript
+            {
+              parents: 0,
+              interior: {
+                X2: [{ PalletInstance: 50 }, { GeneralIndex: 1112 }]
+              }
+            }
+            ```
+
+    2. **`amountOut`**: The exact amount of the second asset that the user wants to receive.
+    3. **`amountInMax`**: The maximum amount of the first asset that the user is willing to swap.
+    4. **`sendTo`**: The account to which the swapped assets will be sent.
+    5. **`keepAlive`**: A boolean value that determines whether the pool should be kept alive after the swap.
+    6. Click on **Submit Transaction** to swap assets for an exact amount of tokens.
+
+    ![Swap For Exact Tokens Fields](/images/chain-interactions/token-operations/convert-assets/convert-assets-09.webp)
+
+    !!! warning
+        Ensure that the appropriate amount of tokens provided has been minted previously and is available in your account before adding liquidity to the pool.
+
+    In this case, the intention is to swap 0.01 DOT token (u128 value of 100000000000 as it has 10 decimals) for 0.04 PPM token (u128 value of 400000000000 as it also has 10 decimals).
+
+Signing and submitting the transaction will execute the swap. To verify execution, check the **Explorer** section on the Polkadot.js Apps interface and make sure that the **`SwapExecuted`** event was emitted.
+
+![Swap From Exact Tokens Event](/images/chain-interactions/token-operations/convert-assets/convert-assets-10.webp)
+
+### Swap to an Exact Amount of Tokens
+
+Conversely, the Asset Conversion pallet comes with a function that allows users to trade a variable amount of one asset to acquire a precise quantity of another. It ensures that users stay within a set maximum of the initial asset to obtain the desired amount of the second asset. This provides a method to control transaction costs while achieving the intended result.
+
+To swap assets for an exact amount of tokens, follow these steps:
+
+1. Navigate to the **Extrinsics** section on the Polkadot.js Apps interface:
+
+    1. Select **Developer** from the top menu.
+    2. Click on **Extrinsics** from the dropdown menu.
+
+    ![Extrinsics Section](/images/chain-interactions/token-operations/convert-assets/convert-assets-01.webp)
+
+2. Select extrinsic to swap tokens:
+
+    1. Select the **`AssetConversion`** pallet.
+    2. Choose the **`swapTokensForExactTokens`** extrinsic from the list of available extrinsics.
+
+    ![Swap Tokens For Exact Tokens Extrinsic](/images/chain-interactions/token-operations/convert-assets/convert-assets-11.webp)
+
+3. Fill in the required fields:
+
+    1. **`path: Vec<StagingXcmV3MultiLocation\>`**: An array of Multilocations representing the path of the swap. The first and last elements of the array are the input and output assets, respectively. In this case, the path consists of two elements:
+        - **`0: StagingXcmV3MultiLocation`**: The Multilocation of the first asset in the pool. In this case, it is the PPM token, which the following Multilocation represents.
+
+            ```javascript
+            {
+              parents: 0,
+              interior: {
+                X2: [{ PalletInstance: 50 }, { GeneralIndex: 1112 }]
+              }
+            }
+            ```
+
+        - **`1: StagingXcmV3MultiLocation`**: The second asset's Multilocation within the pool. This refers to the DOT token, which the following Multilocation identifies.
+
+            ```javascript
+            {
+              parents: 0,
+              interior: 'Here'
+            }
+            ```
+
+    2. **`amountOut`**: The exact amount of the second asset that the user wants to receive.
+    3. **`amountInMax`**: The maximum amount of the first asset that the user is willing to swap.
+    4. **`sendTo`**: The account to which the swapped assets will be sent.
+    5. **`keepAlive`**: A boolean value that determines whether the pool should be kept alive after the swap.
+    6. Click on **Submit Transaction** to swap assets for an exact amount of tokens.
+
+    ![Swap Tokens For Exact Tokens Fields](/images/chain-interactions/token-operations/convert-assets/convert-assets-12.webp)
+
+    !!! warning
+        Before swapping assets, ensure that the tokens provided have been minted previously and are available in your account.
+
+    In this case, the intention is to swap 0.01 DOT token (`u128` value of 100000000000 as it has ten decimals) for 0.04 PPM token (`u128` value of 400000000000 as it also has ten decimals).
+
+Signing and submitting the transaction will execute the swap. To verify execution, check the **Explorer** section on the Polkadot.js Apps interface and make sure that the **`SwapExecuted`** event was emitted.
+
+![Swap Tokens For Exact Tokens Event](/images/chain-interactions/token-operations/convert-assets/convert-assets-13.webp)
+
+## Withdraw Liquidity from a Pool
+
+The Asset Conversion pallet provides the `removeLiquidity` extrinsic to remove liquidity from a pool. This function allows users to withdraw the liquidity they offered from a pool, returning the original assets. When calling this function, users specify the number of liquidity tokens (representing their share in the pool) they wish to burn. They also set minimum acceptable amounts for the assets they expect to receive back. This mechanism ensures that users can control the minimum value they receive, protecting against unfavorable price movements during the withdrawal process.
+
+To withdraw liquidity from a pool, follow these steps:
+
+1. Navigate to the **Extrinsics** section on the Polkadot.js Apps interface:
+
+    1. Select **Developer** from the top menu.
+    2. Click on **Extrinsics** from the dropdown menu.
+
+    ![Extrinsics Section](/images/chain-interactions/token-operations/convert-assets/convert-assets-01.webp)
+
+2. Select extrinsic to withdraw liqudity from a pool:
+
+    1. Select the **`AssetConversion`** pallet.
+    2. Choose the **`removeLiquidity`** extrinsic from the list of available extrinsics.
+
+    ![Remove Liquidity Extrinsic](/images/chain-interactions/token-operations/convert-assets/convert-assets-14.webp)
+
+3. Fill in the required fields:
+
+    1. **`asset1`**: The Multilocation of the first asset in the pool. In this case, it is the DOT token, which the following Multilocation represents.
+
+        ```javascript
+        {
+          parents: 0,
+          interior: 'Here'
+        }
+        ```
+
+    2. **`asset2`**: The second asset's Multilocation within the pool. This refers to the PPM token, which the following Multilocation identifies.
+
+        ```javascript
+        {
+          parents: 0,
+          interior: {
+            X2: [{ PalletInstance: 50 }, { GeneralIndex: 1112 }]
+          }
+        }
+        ```
+
+    3. **`lpTokenBurn`**: The number of liquidity tokens to burn.
+    4. **`amount1MinReceived`**: The minimum amount of the first asset that the user expects to receive.
+    5. **`amount2MinReceived`**: The minimum quantity of the second asset the user expects to receive.
+    6. **`withdrawTo`**: The account to which the withdrawn assets will be sent.
+    7. Click on **Submit Transaction** to withdraw liquidity from the pool.
+
+    ![Remove Liquidity Fields](/images/chain-interactions/token-operations/convert-assets/convert-assets-15.webp)
+
+    !!! warning
+        Ensure that the tokens provided have been minted previously and are available in your account before withdrawing liquidity from the pool.
+
+    In this case, the intention is to withdraw 0.05 liquidity tokens from the pool, expecting to receive 0.004 DOT token (`u128` value of 40000000000 as it has 10 decimals) and 0.04 PPM token (`u128` value of 400000000000 as it also has 10 decimals).
+
+Signing and submitting the transaction will initiate the withdrawal of liquidity from the pool. To verify the withdrawal, check the **Explorer** section on the Polkadot.js Apps interface and ensure that the **`LiquidityRemoved`** event was emitted.
+
+![Remove Liquidity Event](/images/chain-interactions/token-operations/convert-assets/convert-assets-16.webp)
+
+## Test Environment Setup
+
+To test the Asset Conversion pallet, you can set up a local test environment to simulate different scenarios. This guide uses Chopsticks to spin up an instance of Polkadot Asset Hub. For further details on using Chopsticks, please refer to the [Chopsticks documentation](/develop/toolkit/parachains/fork-chains/chopsticks/get-started){target=\_blank}.
+
+To set up a local test environment, execute the following command:
+
+```bash
+npx @acala-network/chopsticks \
+--config=https://raw.githubusercontent.com/AcalaNetwork/chopsticks/master/configs/polkadot-asset-hub.yml
+```
+
+This command initiates a lazy fork of Polkadot Asset Hub, including the most recent block information from the network. For Kusama Asset Hub testing, simply switch out `polkadot-asset-hub.yml` with `kusama-asset-hub.yml` in the command.
+
+You now have a local Asset Hub instance up and running, ready for you to test various asset conversion procedures. The process here mirrors what you'd do on MainNet. After completing a transaction on TestNet, you can apply the same steps to convert assets on MainNet.
+
+
+---
+
+Page Title: Create an Account
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/chain-interactions-accounts-create-account.md
+- Canonical (HTML): https://docs.polkadot.com/chain-interactions/accounts/create-account/
+- Summary: Step-by-step guide to creating Polkadot accounts using different programming languages and libraries, including JavaScript, Python, and Rust examples.
+
+# Create an Account
+
+## Introduction
+
+Creating accounts is a fundamental operation when building applications on Polkadot and its parachains. Accounts serve as the basis for identity, asset ownership, and transaction signing. Understanding how to generate and manage accounts programmatically enables you to build wallets, automate operations, and create seamless user experiences.
+
+Polkadot accounts are based on the SR25519 signature scheme by default, though ED25519 and ECDSA are also supported. Each account consists of a public key (address) and a private key (seed/mnemonic). **Keep your private keys secure and never share them**.
+
+This tutorial will guide you through creating accounts using different programming languages and libraries.
+
+## Prerequisites
+
+Before starting, make sure you have:
+
+- Basic understanding of public-key cryptography concepts
+- Development environment set up for your chosen language
+- Familiarity with the programming language you'll be using
+
+## Use JavaScript/TypeScript
+
+JavaScript/TypeScript developers can use the Polkadot.js API to create and manage Polkadot accounts.
+
+1. Create a new project directory and initialize it:
+
+    ```bash
+    mkdir account-creator
+    cd account-creator
+    npm init -y && npm pkg set type=module
+    ```
+
+2. Install the required packages:
+
+    ```bash
+    npm install @polkadot/util-crypto @polkadot/keyring
+    npm install --save-dev typescript tsx
+    ```
+
+3. Create a file named `create-account.ts` and add the following code to it:
+
+    ```typescript title="create-account.ts"
+    import { cryptoWaitReady, mnemonicGenerate } from '@polkadot/util-crypto';
+    import { Keyring } from '@polkadot/keyring';
+
+    async function main() {
+      await cryptoWaitReady();
+
+      const mnemonic = mnemonicGenerate(12);
+      const keyring = new Keyring({ type: 'sr25519', ss58Format: 0 });
+      const pair = keyring.addFromMnemonic(mnemonic);
+
+      console.log(`Address: ${pair.address}`);
+      console.log(`Mnemonic: ${mnemonic}`);
+    }
+
+    main().catch(console.error);
+
+    ```
+
+    Key aspects of the code:
+
+    - **Mnemonic generation**: Uses `mnemonicGenerate()` to create a 12-word BIP39 mnemonic phrase for human-readable key backup.
+    - **Keyring**: The `Keyring` class manages accounts with a specified signature scheme and address format.
+    - **SS58 format**: Setting `ss58Format: 0` configures addresses for the Polkadot relay chain.
+
+4. Execute the script using `tsx`:
+
+    ```bash
+    npx tsx create-account.ts
+    ```
+
+    You should see output similar to:
+
+    <div class="termynal" data-termynal>
+        <span data-ty="input"><span class="file-path"></span>npx tsx create-account.ts</span>
+        <span data-ty="progress"></span>
+        <span data-ty>Address: 15oF4uVJwmo4TdGW7VfQxNLavjCXviqxT9S1MgbjMNHr6Sp5</span>
+        <span data-ty>Mnemonic: cushion dog echo people vendor curve truck begin latin romance rebuild ...</span>
+    </div>
+## Python
+
+Python developers can use the `substrate-interface` library to create and manage Polkadot accounts.
+
+1. Create a new project directory and set up a virtual environment:
+
+    ```bash
+    mkdir account-creator-python
+    cd account-creator-python
+    python3 -m venv venv
+    source venv/bin/activate  # On Windows: venv\Scripts\activate
+    ```
+
+2. Install the required package:
+
+    ```bash
+    pip install substrate-interface
+    ```
+
+3. Create a file named `create_account.py`:
+
+    ```python title="create_account.py"
+    from substrateinterface import Keypair
+
+    mnemonic = Keypair.generate_mnemonic()
+    keypair = Keypair.create_from_mnemonic(mnemonic)
+
+    print(f"Address: {keypair.ss58_address}")
+    print(f"Mnemonic: {mnemonic}")
+
+    ```
+
+    Key aspects of the code:
+
+    - **Mnemonic generation**: The `generate_mnemonic()` function creates a BIP39-compatible phrase.
+    - **Keypair creation**: `Keypair.create_from_mnemonic()` derives keys from the mnemonic.
+
+4. Execute the script:
+
+    ```bash
+    python create_account.py
+    ```
+
+    You should see output similar to:
+
+    <div class="termynal" data-termynal>
+        <span data-ty="input"><span class="file-path"></span>python create_account.py</span>
+        <span data-ty>Address: 15oF4uVJwmo4TdGW7VfQxNLavjCXviqxT9S1MgbjMNHr6Sp5</span>
+        <span data-ty>Mnemonic: cushion dog echo people vendor curve truck begin latin romance rebuild ...</span>
+    </div>
+## Rust
+
+Rust provides low-level access to Substrate primitives for account creation through the `sp-core` and `sp-keyring` crates.
+
+1. Create a new Rust project:
+
+    ```bash
+    cargo new account-creator-rust
+    cd account-creator-rust
+    ```
+
+2. Add dependencies to your `Cargo.toml`:
+
+    ```toml title="Cargo.toml"
+    [package]
+    name = "account-creator-rust"
+    version = "0.1.0"
+    edition = "2021"
+
+    [dependencies]
+    sp-core = "28.0"
+    sp-runtime = "31.0"
+    ```
+
+3. Create your account generation code in `src/main.rs`:
+
+    ```rust title="src/main.rs"
+    use sp_core::{crypto::Ss58Codec, Pair};
+
+    fn main() {
+        let (pair, phrase, _) = sp_core::sr25519::Pair::generate_with_phrase(None);
+        let address = pair.public().to_ss58check();
+        
+        println!("Address: {}", address);
+        println!("Mnemonic: {}", phrase);
+    }
+    ```
+
+    Key aspects of the code:
+
+    - **Keypair generation**: [`sr25519::Pair::generate_with_phrase()`](https://docs.rs/sp-core/latest/sp_core/crypto/trait.Pair.html#method.generate_with_phrase){target=\_blank} creates a new key pair with mnemonic.
+    - **Public key extraction**: The [`public()`](https://docs.rs/sp-core/latest/sp_core/crypto/trait.Pair.html#tymethod.public){target=\_blank} method retrieves the public key from the pair.
+    - **SS58 encoding**: Uses Polkadot's address format for the human-readable address.
+
+4. Build and run the project:
+
+    ```bash
+    cargo run
+    ```
+
+    You should see output similar to:
+
+    <div class="termynal" data-termynal>
+        <span data-ty="input"><span class="file-path"></span>cargo run</span>
+        <span data-ty>Address: 15oF4uVJwmo4TdGW7VfQxNLavjCXviqxT9S1MgbjMNHr6Sp5</span>
+        <span data-ty>Mnemonic: cushion dog echo people vendor curve truck begin latin romance rebuild ...</span>
+    </div>
+## Where to Go Next
+
+<div class="grid cards" markdown>
+
+-   <span class="badge guide">Guide</span> __Send Transactions with SDKs__
+
+    ---
+
+    Learn how to send signed transactions using your newly created accounts with Polkadot-API and Polkadot.js API libraries.
+
+    [:octicons-arrow-right-24: Get Started](/chain-interactions/send-transactions/with-sdks/)
+
+-   <span class="badge guide">Guide</span> __Calculate Transaction Fees__
+
+    ---
+
+    Learn how to estimate transaction fees before sending transactions from your accounts.
+
+    [:octicons-arrow-right-24: Get Started](/chain-interactions/send-transactions/calculate-transaction-fees/)
+
+-   <span class="badge guide">Guide</span> __Query Chain Data__
+
+    ---
+
+    Explore different methods for querying blockchain data, including account balances and other chain state.
+
+    [:octicons-arrow-right-24: Get Started](/chain-interactions/query-data/query-sdks/)
+
+</div>
 
 
 ---
@@ -2517,9 +3360,7 @@ The message consists of three instructions described as follows:
 
     The first instruction takes as an input the MultiAsset that should be withdrawn. The MultiAsset describes the native parachain token with the `Here` keyword. The `amount` parameter is the number of tokens that are transferred. The withdrawal account depends on the origin of the message. In this example the origin of the message is Alice. The `WithdrawAsset` instruction moves `amount` number of native tokens from Alice's account into the holding register.
 
-- **[BuyExecution](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#buyexecution){target=\_blank}**: Allocates fees to cover the execution weight of the XCM instructions.
-
-    
+- **[BuyExecution](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#buyexecution){target=\_blank}**: Allocates fees to cover the execution [weight](/reference/glossary/#weight){target=\_blank} of the XCM instructions.
 
     ```rust
         BuyExecution { 
@@ -4677,9 +5518,7 @@ Page Title: Overview of FRAME
 
 ## Introduction
 
-A blockchain runtime is more than just a fixed set of rules—it's a dynamic foundation that you can shape to match your specific needs. With Polkadot SDK's [FRAME (Framework for Runtime Aggregation of Modularized Entities)](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/frame_runtime/index.html){target=\_blank}, customizing your runtime is straightforward and modular. Instead of building everything from scratch, you combine pre-built pallets with your own custom logic to create a runtime suited to your blockchain's purpose.
-
-
+A blockchain runtime is more than just a fixed set of rules—it's a dynamic foundation that you can shape to match your specific needs. With Polkadot SDK's [FRAME (Framework for Runtime Aggregation of Modularized Entities)](/reference/glossary/#frame-framework-for-runtime-aggregation-of-modularized-entities){target=\_blank}, customizing your runtime is straightforward and modular. Instead of building everything from scratch, you combine pre-built pallets with your own custom logic to create a runtime suited to your blockchain's purpose.
 
 This overview explains how runtime customization works, introduces the building blocks you'll use, and guides you through the key patterns for extending your runtime.
 
@@ -6358,6 +7197,735 @@ For comprehensive reference materials and advanced features, see the [Python Sub
 
 ---
 
+Page Title: Query Account Information with SDKs
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/chain-interactions-accounts-query-accounts.md
+- Canonical (HTML): https://docs.polkadot.com/chain-interactions/accounts/query-accounts/
+- Summary: Learn how to query account information using five popular SDKs—Polkadot API (PAPI), Polkadot.js API, Dedot, Python Substrate Interface, and Subxt.
+
+# Query Account Information with SDKs
+
+## Introduction
+
+Querying account information is a fundamental operation when interacting with Polkadot SDK-based blockchains. Account queries allow you to retrieve balances, nonces, account data, and other state information stored on-chain. Each SDK provides different methods for accessing this data efficiently.
+
+This guide demonstrates how to query account information using five popular SDKs:
+
+- **[Polkadot API (PAPI)](/reference/tools/papi/){target=\_blank}**: Modern TypeScript library with type-safe APIs
+- **[Polkadot.js API](/reference/tools/polkadot-js-api/){target=\_blank}**: Comprehensive JavaScript library (maintenance mode)
+- **[Dedot](/reference/tools/dedot/){target=\_blank}**: Lightweight TypeScript library optimized for performance
+- **[Python Substrate Interface](/reference/tools/py-substrate-interface/){target=\_blank}**: Python library for Substrate chains
+- **[Subxt](/reference/tools/subxt/){target=\_blank}**: Rust library with compile-time type safety
+
+Select your preferred SDK below to see complete, runnable examples that query account information on Polkadot Hub.
+
+## Prerequisites
+
+- Access to a Polkadot SDK-compatible blockchain endpoint (WebSocket URL)
+- An account address to query (can be any valid SS58 address)
+
+## Query Account Information
+
+=== "PAPI"
+
+    **Prerequisites**
+
+    - [Node.js](https://nodejs.org/){target=\_blank} v18 or higher
+    - npm, pnpm, or yarn package manager
+
+    **Environment Setup**
+
+    1. Create and initialize a new project:
+
+        ```bash
+        mkdir papi-query-account-example && cd papi-query-account-example && \
+        npm init -y && npm pkg set type=module
+        ```
+
+    2. Install dependencies:
+
+        ```bash
+        npm install polkadot-api && \
+        npm install --save-dev @types/node tsx typescript
+        ```
+
+    3. Generate types for Polkadot Hub:
+
+        ```bash
+        npx papi add polkadotTestNet -w wss://asset-hub-paseo.dotters.network
+        ```
+
+    **Query Account Data**
+
+    The following example queries account information including balance, nonce, and other account data.
+
+    Create a file named `query-account.ts` and add the following code to it:
+
+    ```typescript title="query-account.ts"
+    import { createClient } from 'polkadot-api';
+    import { getWsProvider } from 'polkadot-api/ws-provider';
+    import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
+    import { polkadotTestNet } from '@polkadot-api/descriptors';
+
+    const POLKADOT_HUB_RPC = 'INSERT_WS_ENDPOINT';
+    const ACCOUNT_ADDRESS = 'INSERT_ACCOUNT_ADDRESS';
+    const PAS_UNITS = 10_000_000_000;
+
+    async function main() {
+      try {
+        // Create the client connection
+        const client = createClient(
+          withPolkadotSdkCompat(getWsProvider(POLKADOT_HUB_RPC))
+        );
+
+        // Get the typed API
+        const api = client.getTypedApi(polkadotTestNet);
+        console.log('Connected to Polkadot Hub');
+
+        console.log(`\nQuerying account: ${ACCOUNT_ADDRESS}\n`);
+
+        // Query account information
+        const accountInfo = await api.query.System.Account.getValue(
+          ACCOUNT_ADDRESS
+        );
+
+        // Display account information
+        console.log('Account Information:');
+        console.log('===================');
+        console.log(`Nonce: ${accountInfo.nonce}`);
+        console.log(`Consumers: ${accountInfo.consumers}`);
+        console.log(`Providers: ${accountInfo.providers}`);
+        console.log(`Sufficients: ${accountInfo.sufficients}`);
+
+        console.log('\nBalance Details:');
+        console.log('================');
+        console.log(
+          `Free Balance: ${accountInfo.data.free} (${
+            Number(accountInfo.data.free) / PAS_UNITS
+          } PAS)`
+        );
+        console.log(
+          `Reserved Balance: ${accountInfo.data.reserved} (${
+            Number(accountInfo.data.reserved) / PAS_UNITS
+          } PAS)`
+        );
+        console.log(
+          `Frozen Balance: ${accountInfo.data.frozen} (${
+            Number(accountInfo.data.frozen) / PAS_UNITS
+          } PAS)`
+        );
+
+        const total =
+          Number(accountInfo.data.free) + Number(accountInfo.data.reserved);
+        console.log(`\nTotal Balance: ${total} (${total / PAS_UNITS} PAS)`);
+
+        await client.destroy();
+        console.log('\nDisconnected');
+      } catch (error) {
+        console.error('Error:', error);
+        process.exit(1);
+      }
+    }
+
+    main();
+
+    ```
+
+    !!! note    
+        Ensure to replace `INSERT_WS_ENDPOINT` with a valid WebSocket endpoint (e.g., `wss://asset-hub-paseo.dotters.network`) and `INSERT_ADDRESS` with the account address you want to query.
+
+    Run the script:
+
+    ```bash
+    npx tsx query-account.ts
+    ```
+
+    You should see output similar to:
+
+    <div class="termynal" data-termynal>
+        <span data-ty="input"><span class="file-path"></span>npx tsx query-account.ts</span>
+        <span data-ty>Connected to Polkadot Hub</span>
+        <span data-ty></span>
+        <span data-ty>Querying account: 5GgbDVeKZwCmMHzn58iFSgSZDTojRMM52arXnuNXto28R7mg</span>
+        <span data-ty></span>
+        <span data-ty>Account Information:</span>
+        <span data-ty>===================</span>
+        <span data-ty>Nonce: 15</span>
+        <span data-ty>Consumers: 0</span>
+        <span data-ty>Providers: 1</span>
+        <span data-ty>Sufficients: 0</span>
+        <span data-ty></span>
+        <span data-ty>Balance Details:</span>
+        <span data-ty>================</span>
+        <span data-ty>Free Balance: 59781317040 (5.978131704 PAS)</span>
+        <span data-ty>Reserved Balance: 0 (0 PAS)</span>
+        <span data-ty>Frozen Balance: 0 (0 PAS)</span>
+        <span data-ty></span>
+        <span data-ty>Total Balance: 59781317040 (5.978131704 PAS)</span>
+        <span data-ty></span>
+        <span data-ty>Disconnected</span>
+    </div>
+=== "Polkadot.js"
+
+    !!! warning "Maintenance Mode Only"
+        The Polkadot.js API is no longer actively developed. New projects should use [PAPI](/reference/tools/papi/){target=\_blank} or [Dedot](/reference/tools/dedot/){target=\_blank} as actively maintained alternatives.
+
+    **Prerequisites**
+
+    - [Node.js](https://nodejs.org/){target=\_blank} v18 or higher
+    - npm, pnpm, or yarn package manager
+
+    **Environment Setup**
+
+    1. Create and initialize a new project:
+
+        ```bash
+        mkdir pjs-query-account-example && cd pjs-query-account-example && \
+        npm init -y && npm pkg set type=module
+        ```
+
+    2. Install dependencies:
+
+        ```bash
+        npm install @polkadot/api
+        ```
+
+    **Query Account Data**
+
+    The following example queries account information including balance, nonce, and other account data.
+
+    Create a file named `query-account.js` and add the following code to it:
+
+    ```javascript title="query-account.js"
+    import { ApiPromise, WsProvider } from '@polkadot/api';
+
+    const POLKADOT_HUB_RPC = 'INSERT_WS_ENDPOINT';
+    const ACCOUNT_ADDRESS = 'INSERT_ACCOUNT_ADDRESS';
+    const PAS_UNITS = 10_000_000_000;
+
+    async function main() {
+      // Create a WebSocket provider
+      const wsProvider = new WsProvider(POLKADOT_HUB_RPC);
+
+      // Initialize the API
+      const api = await ApiPromise.create({ provider: wsProvider });
+      console.log('Connected to Polkadot Hub');
+
+      console.log(`\nQuerying account: ${ACCOUNT_ADDRESS}\n`);
+
+      // Query account information
+      const accountInfo = await api.query.system.account(ACCOUNT_ADDRESS);
+
+      // Display account information
+      console.log('Account Information:');
+      console.log('===================');
+      console.log(`Nonce: ${accountInfo.nonce.toString()}`);
+      console.log(`Consumers: ${accountInfo.consumers.toString()}`);
+      console.log(`Providers: ${accountInfo.providers.toString()}`);
+      console.log(`Sufficients: ${accountInfo.sufficients.toString()}`);
+
+      console.log('\nBalance Details:');
+      console.log('================');
+      console.log(
+        `Free Balance: ${accountInfo.data.free.toString()} (${
+          Number(accountInfo.data.free.toBigInt()) / PAS_UNITS
+        } PAS)`
+      );
+      console.log(
+        `Reserved Balance: ${accountInfo.data.reserved.toString()} (${
+          Number(accountInfo.data.reserved.toBigInt()) / PAS_UNITS
+        } PAS)`
+      );
+      console.log(
+        `Frozen Balance: ${accountInfo.data.frozen.toString()} (${
+          Number(accountInfo.data.frozen.toBigInt()) / PAS_UNITS
+        } PAS)`
+      );
+
+      const total =
+        Number(accountInfo.data.free.toBigInt()) +
+        Number(accountInfo.data.reserved.toBigInt());
+      console.log(`\nTotal Balance: ${total} (${total / PAS_UNITS} PAS)`);
+
+      // Disconnect from the node
+      await api.disconnect();
+      console.log('\nDisconnected');
+    }
+
+    main().catch(console.error);
+
+    ```
+
+    !!! note    
+        Ensure to replace `INSERT_WS_ENDPOINT` with a valid WebSocket endpoint (e.g., `wss://asset-hub-paseo.dotters.network`) and `INSERT_ADDRESS` with the account address you want to query.
+
+    Run the script:
+
+    ```bash
+    node query-account.js
+    ```
+
+    You should see output similar to:
+
+    <div class="termynal" data-termynal>
+        <span data-ty="input"><span class="file-path"></span>node query-account.js</span>
+        <span data-ty>Connected to Polkadot Hub</span>
+        <span data-ty></span>
+        <span data-ty>Querying account: 5GgbDVeKZwCmMHzn58iFSgSZDTojRMM52arXnuNXto28R7mg</span>
+        <span data-ty></span>
+        <span data-ty>Account Information:</span>
+        <span data-ty>===================</span>
+        <span data-ty>Nonce: 15</span>
+        <span data-ty>Consumers: 0</span>
+        <span data-ty>Providers: 1</span>
+        <span data-ty>Sufficients: 0</span>
+        <span data-ty></span>
+        <span data-ty>Balance Details:</span>
+        <span data-ty>================</span>
+        <span data-ty>Free Balance: 59781317040 (5.978131704 PAS)</span>
+        <span data-ty>Reserved Balance: 0 (0 PAS)</span>
+        <span data-ty>Frozen Balance: 0 (0 PAS)</span>
+        <span data-ty></span>
+        <span data-ty>Total Balance: 59781317040 (5.978131704 PAS)</span>
+        <span data-ty></span>
+        <span data-ty>Disconnected</span>
+    </div>
+=== "Dedot"
+
+    **Prerequisites**
+
+    - [Node.js](https://nodejs.org/){target=\_blank} v18 or higher
+    - npm, pnpm, or yarn package manager
+
+    **Environment Setup**
+
+    1. Create and initialize a new project:
+
+        ```bash
+        mkdir dedot-query-account-example && cd dedot-query-account-example && \
+        npm init -y && npm pkg set type=module
+        ```
+
+    2. Install dependencies:
+
+        ```bash
+        npm install dedot && \
+        npm install --save-dev @dedot/chaintypes @types/node tsx typescript
+        ```
+
+    **Query Account Data**
+
+    The following example queries account information including balance, nonce, and other account data.
+
+    Create a file named `query-account.ts` and add the following code to it:
+
+    ```typescript title="query-account.ts"
+    import { DedotClient, WsProvider } from 'dedot';
+    import type { PolkadotAssetHubApi } from '@dedot/chaintypes';
+
+    const POLKADOT_HUB_RPC = 'INSERT_WS_ENDPOINT';
+    const ACCOUNT_ADDRESS = 'INSERT_ACCOUNT_ADDRESS';
+    const PAS_UNITS = 10_000_000_000;
+
+    async function main() {
+      // Initialize provider and client with Asset Hub types
+      const provider = new WsProvider(POLKADOT_HUB_RPC);
+      const client = await DedotClient.new<PolkadotAssetHubApi>(provider);
+
+      console.log('Connected to Polkadot Hub');
+
+      console.log(`\nQuerying account: ${ACCOUNT_ADDRESS}\n`);
+
+      // Query account information
+      const accountInfo = await client.query.system.account(ACCOUNT_ADDRESS);
+
+      // Display account information
+      console.log('Account Information:');
+      console.log('===================');
+      console.log(`Nonce: ${accountInfo.nonce}`);
+      console.log(`Consumers: ${accountInfo.consumers}`);
+      console.log(`Providers: ${accountInfo.providers}`);
+      console.log(`Sufficients: ${accountInfo.sufficients}`);
+
+      console.log('\nBalance Details:');
+      console.log('================');
+      console.log(
+        `Free Balance: ${accountInfo.data.free} (${
+          Number(accountInfo.data.free) / PAS_UNITS
+        } PAS)`
+      );
+      console.log(
+        `Reserved Balance: ${accountInfo.data.reserved} (${
+          Number(accountInfo.data.reserved) / PAS_UNITS
+        } PAS)`
+      );
+      console.log(
+        `Frozen Balance: ${accountInfo.data.frozen} (${
+          Number(accountInfo.data.frozen) / PAS_UNITS
+        } PAS)`
+      );
+
+      const total =
+        Number(accountInfo.data.free) + Number(accountInfo.data.reserved);
+      console.log(`\nTotal Balance: ${total} (${total / PAS_UNITS} PAS)`);
+
+      // Disconnect the client
+      await client.disconnect();
+      console.log('\nDisconnected from Polkadot Hub');
+    }
+
+    main().catch(console.error);
+
+    ```
+
+    !!! note    
+        Ensure to replace `INSERT_WS_ENDPOINT` with a valid WebSocket endpoint (e.g., `wss://asset-hub-paseo.dotters.network`) and `INSERT_ADDRESS` with the account address you want to query.
+
+    Run the script:
+
+    ```bash
+    npx tsx query-account.ts
+    ```
+
+    You should see output similar to:
+
+    <div class="termynal" data-termynal>
+        <span data-ty="input"><span class="file-path"></span>npx tsx query-account.ts</span>
+        <span data-ty>Connected to Polkadot Hub</span>
+        <span data-ty></span>
+        <span data-ty>Querying account: 5GgbDVeKZwCmMHzn58iFSgSZDTojRMM52arXnuNXto28R7mg</span>
+        <span data-ty></span>
+        <span data-ty>Account Information:</span>
+        <span data-ty>===================</span>
+        <span data-ty>Nonce: 15</span>
+        <span data-ty>Consumers: 0</span>
+        <span data-ty>Providers: 1</span>
+        <span data-ty>Sufficients: 0</span>
+        <span data-ty></span>
+        <span data-ty>Balance Details:</span>
+        <span data-ty>================</span>
+        <span data-ty>Free Balance: 59781317040 (5.978131704 PAS)</span>
+        <span data-ty>Reserved Balance: 0 (0 PAS)</span>
+        <span data-ty>Frozen Balance: 0 (0 PAS)</span>
+        <span data-ty></span>
+        <span data-ty>Total Balance: 59781317040 (5.978131704 PAS)</span>
+        <span data-ty></span>
+        <span data-ty>Disconnected from Polkadot Hub</span>
+    </div>
+=== "Python Substrate Interface"
+
+    **Prerequisites**
+
+    - [Python](https://www.python.org/){target=\_blank} 3.8 or higher
+    - pip package manager
+
+    **Environment Setup**
+
+    1. Create a new project directory and set up a virtual environment:
+
+        ```bash
+        mkdir psi-query-account-example && cd psi-query-account-example && \
+        python3 -m venv venv && source venv/bin/activate
+        ```
+
+    2. Install the substrate-interface package:
+
+        ```bash
+        pip install substrate-interface
+        ```
+
+    **Query Account Data**
+
+    The following example queries account information including balance, nonce, and other account data.
+
+    Create a file named `query_account.py` and add the following code to it:
+
+    ```python title="query_account.py"
+        from substrateinterface import SubstrateInterface
+
+        POLKADOT_HUB_RPC = "INSERT_WS_ENDPOINT"
+        ACCOUNT_ADDRESS = "INSERT_ACCOUNT_ADDRESS"
+        PAS_UNITS = 10_000_000_000
+
+        def main():
+            # Connect to Polkadot Hub
+            substrate = SubstrateInterface(url=POLKADOT_HUB_RPC)
+
+            print("Connected to Polkadot Hub")
+
+            print(f"\nQuerying account: {ACCOUNT_ADDRESS}\n")
+
+            # Query account information
+            account_info = substrate.query(
+                module="System", storage_function="Account", params=[ACCOUNT_ADDRESS]
+            )
+
+            # Display account information
+            print("Account Information:")
+            print("===================")
+            print(f"Nonce: {account_info.value['nonce']}")
+            print(f"Consumers: {account_info.value['consumers']}")
+            print(f"Providers: {account_info.value['providers']}")
+            print(f"Sufficients: {account_info.value['sufficients']}")
+
+            print("\nBalance Details:")
+            print("================")
+            free_balance = account_info.value["data"]["free"]
+            reserved_balance = account_info.value["data"]["reserved"]
+            frozen_balance = account_info.value["data"]["frozen"]
+
+            print(f"Free Balance: {free_balance} ({free_balance / PAS_UNITS} PAS)")
+            print(
+                f"Reserved Balance: {reserved_balance} ({reserved_balance / PAS_UNITS} PAS)"
+            )
+            print(f"Frozen Balance: {frozen_balance} ({frozen_balance / PAS_UNITS} PAS)")
+
+            total = free_balance + reserved_balance
+            print(f"\nTotal Balance: {total} ({total / PAS_UNITS} PAS)")
+
+            # Close connection
+            substrate.close()
+            print("\nDisconnected")
+
+
+        if __name__ == "__main__":
+            main()
+    ```
+
+    !!! note    
+        Ensure to replace `INSERT_WS_ENDPOINT` with a valid WebSocket endpoint (e.g., `wss://asset-hub-paseo.dotters.network`) and `INSERT_ADDRESS` with the account address you want to query.
+
+    Run the script:
+
+    ```bash
+    python query_account.py
+    ```
+
+    You should see output similar to:
+
+    <div class="termynal" data-termynal>
+        <span data-ty="input"><span class="file-path"></span>python3 query_account.py</span>
+        <span data-ty>Connected to Polkadot Hub</span>
+        <span data-ty></span>
+        <span data-ty>Querying account: 5GgbDVeKZwCmMHzn58iFSgSZDTojRMM52arXnuNXto28R7mg</span>
+        <span data-ty></span>
+        <span data-ty>Account Information:</span>
+        <span data-ty>===================</span>
+        <span data-ty>Nonce: 15</span>
+        <span data-ty>Consumers: 0</span>
+        <span data-ty>Providers: 1</span>
+        <span data-ty>Sufficients: 0</span>
+        <span data-ty></span>
+        <span data-ty>Balance Details:</span>
+        <span data-ty>================</span>
+        <span data-ty>Free Balance: 59781317040 (5.978131704 PAS)</span>
+        <span data-ty>Reserved Balance: 0 (0.0 PAS)</span>
+        <span data-ty>Frozen Balance: 0 (0.0 PAS)</span>
+        <span data-ty></span>
+        <span data-ty>Total Balance: 59781317040 (5.978131704 PAS)</span>
+        <span data-ty></span>
+        <span data-ty>Disconnected</span>
+    </div>
+=== "Subxt"
+
+    **Prerequisites**
+
+    - [Rust](https://rustup.rs/){target=\_blank} toolchain (latest stable)
+    - Cargo package manager
+
+    **Environment Setup**
+
+    1. Create a new Rust project:
+
+        ```bash
+        cargo new subxt-query-account-example && cd subxt-query-account-example
+        ```
+
+    2. Install the Subxt CLI:
+
+        ```bash
+        cargo install subxt-cli@0.35.3
+        ```
+
+    3. Download the Polkadot Hub metadata:
+
+        ```bash
+        subxt metadata --url INSERT_WS_ENDPOINT -o polkadot_testnet_metadata.scale
+        ```
+
+    4. Update `Cargo.toml` with the required dependencies:
+
+        ```toml title="Cargo.toml"
+        [package]
+        name = "subxt-query-account-example"
+        version = "0.1.0"
+        edition = "2021"
+
+        [[bin]]
+        name = "query_account"
+        path = "src/bin/query_account.rs"
+
+        [dependencies]
+        subxt = { version = "0.44.0" }
+        tokio = { version = "1.36.0", features = ["macros", "rt"] }
+        ```
+
+    **Query Account Data**
+
+    The following example queries account information including balance, nonce, and other account data.
+
+    Create a file at `src/bin/query_account.rs` and add the following code to it:
+
+    ```rust title="src/bin/query_account.rs"
+    use std::str::FromStr;
+    use subxt::utils::AccountId32;
+    use subxt::{OnlineClient, PolkadotConfig};
+
+    // Generate an interface from the node's metadata
+    #[subxt::subxt(runtime_metadata_path = "polkadot_testnet_metadata.scale")]
+    pub mod polkadot_testnet {}
+
+    const POLKADOT_TESTNET_RPC: &str = "INSERT_WS_ENDPOINT";
+    const ACCOUNT_ADDRESS: &str = "INSERT_ACCOUNT_ADDRESS";
+    const PAS_UNITS: u128 = 10_000_000_000;
+
+    #[tokio::main(flavor = "current_thread")]
+    async fn main() -> Result<(), Box<dyn std::error::Error>> {
+        // Initialize the Subxt client
+        let api = OnlineClient::<PolkadotConfig>::from_url(POLKADOT_TESTNET_RPC).await?;
+
+        println!("Connected to Polkadot Hub");
+
+        // Convert the account address into an AccountId32
+        let account = AccountId32::from_str(ACCOUNT_ADDRESS)?;
+
+        println!("\nQuerying account: {}\n", account);
+
+        // Query account information
+        let storage_query = polkadot_testnet::storage().system().account(account);
+        let account_info = api
+            .storage()
+            .at_latest()
+            .await?
+            .fetch(&storage_query)
+            .await?;
+
+        if let Some(info) = account_info {
+            // Display account information
+            println!("Account Information:");
+            println!("===================");
+            println!("Nonce: {}", info.nonce);
+            println!("Consumers: {}", info.consumers);
+            println!("Providers: {}", info.providers);
+            println!("Sufficients: {}", info.sufficients);
+
+            println!("\nBalance Details:");
+            println!("================");
+            println!(
+                "Free Balance: {} ({} PAS)",
+                info.data.free,
+                info.data.free as f64 / PAS_UNITS as f64
+            );
+            println!(
+                "Reserved Balance: {} ({} PAS)",
+                info.data.reserved,
+                info.data.reserved as f64 / PAS_UNITS as f64
+            );
+            println!(
+                "Frozen Balance: {} ({} PAS)",
+                info.data.frozen,
+                info.data.frozen as f64 / PAS_UNITS as f64
+            );
+
+            let total = info.data.free + info.data.reserved;
+            println!(
+                "\nTotal Balance: {} ({} PAS)",
+                total,
+                total as f64 / PAS_UNITS as f64
+            );
+        } else {
+            println!("Account not found or has no data");
+        }
+
+        println!("\nDisconnected");
+
+        Ok(())
+    }
+    ```
+
+    !!! note    
+        Ensure to replace `INSERT_WS_ENDPOINT` with a valid WebSocket endpoint (e.g., `wss://asset-hub-paseo.dotters.network`) and `INSERT_ADDRESS` with the account address you want to query.
+
+    Run the script:
+
+    ```bash
+    cargo run --bin query_account
+    ```
+
+    You should see output similar to:
+
+    <div class="termynal" data-termynal>
+        <span data-ty="input"><span class="file-path"></span>cargo run --bin query_account</span>
+        <span data-ty>Connected to Polkadot Hub</span>
+        <span data-ty></span>
+        <span data-ty>Querying account: 5GgbDVeKZwCmMHzn58iFSgSZDTojRMM52arXnuNXto28R7mg</span>
+        <span data-ty></span>
+        <span data-ty>Account Information:</span>
+        <span data-ty>===================</span>
+        <span data-ty>Nonce: 15</span>
+        <span data-ty>Consumers: 0</span>
+        <span data-ty>Providers: 1</span>
+        <span data-ty>Sufficients: 0</span>
+        <span data-ty></span>
+        <span data-ty>Balance Details:</span>
+        <span data-ty>================</span>
+        <span data-ty>Free Balance: 59781317040 (5.978131704 PAS)</span>
+        <span data-ty>Reserved Balance: 0 (0 PAS)</span>
+        <span data-ty>Frozen Balance: 0 (0 PAS)</span>
+        <span data-ty></span>
+        <span data-ty>Total Balance: 59781317040 (5.978131704 PAS)</span>
+        <span data-ty></span>
+        <span data-ty>Disconnected</span>
+    </div>
+## Understanding Account Data
+
+When querying account information, you'll receive several key fields:
+
+- **Nonce**: The number of transactions sent from this account, used to prevent replay attacks.
+- **Consumers**: The number of modules depending on this account's existence.
+- **Providers**: The number of modules providing for this account's existence.
+- **Sufficients**: The number of modules that allow this account to exist on its own.
+- **Free Balance**: The transferable balance available for transactions.
+- **Reserved Balance**: Balance that is locked for specific purposes (staking, governance, etc.).
+- **Frozen Balance**: Balance that cannot be used for transfers but may be used for other operations.
+
+The total balance is the sum of free and reserved balances.
+
+## Where to Go Next
+
+<div class="grid cards" markdown>
+
+- <span class="badge guide">Guide</span> **Query On-Chain State**
+
+    ---
+
+    Explore other types of storage queries.
+
+    [:octicons-arrow-right-24: Get Started](/chain-interactions/query-data/query-sdks/)
+
+- <span class="badge guide">Guide</span> **Send Transactions**
+
+    ---
+
+    Learn how to construct and submit transactions.
+
+    [:octicons-arrow-right-24: Get Started](/chain-interactions/send-transactions/with-sdks/)
+
+</div>
+
+
+---
+
 Page Title: Randomness
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-parachains-randomness.md
@@ -6442,6 +8010,252 @@ However, VDF likely requires specialized ASIC devices to run separately from s
 For more information about the reasoning for choices made along with proofs, see Polkadot's research on blockchain randomness and sortition in the [Block production](https://research.web3.foundation/Polkadot/protocols/block-production){target=\_blank} entry of the Polkadot Wiki. 
 
 For a discussion with Web3 Foundation researchers about when and under what conditions Polkadot's randomness can be utilized, see the [Discussion on Randomness used in Polkadot](https://github.com/use-ink/ink/issues/57){target=\_blank} issue on GitHub.
+
+
+---
+
+Page Title: Register a Foreign Asset on Asset Hub
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/chain-interactions-token-operations-register-foreign-asset.md
+- Canonical (HTML): https://docs.polkadot.com/chain-interactions/token-operations/register-foreign-asset/
+- Summary: An in-depth guide to registering a foreign asset on the Asset Hub parachain, providing clear, step-by-step instructions.
+
+# Register a Foreign Asset on Asset Hub
+
+## Introduction
+
+As outlined in the [Asset Hub Overview](/polkadot-protocol/architecture/system-chains/asset-hub){target=\_blank}, Asset Hub supports two categories of assets: local and foreign. Local assets are created on the Asset Hub system parachain and are identified by integer IDs. On the other hand, foreign assets, which originate outside of Asset Hub, are recognized by [Multilocations](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#7-universal-consensus-location-identifiers){target=\_blank}.
+
+When registering a foreign asset on Asset Hub, it's essential to notice that the process involves communication between two parachains. The Asset Hub parachain will be the destination of the foreign asset, while the source parachain will be the origin of the asset. The communication between the two parachains is facilitated by the [Cross-Chain Message Passing (XCMP)](/parachains/interoperability/get-started/){target=\_blank} protocol.
+
+This guide will take you through the process of registering a foreign asset on the Asset Hub parachain.
+
+## Prerequisites
+
+The Asset Hub parachain is one of the system parachains on a relay chain, such as [Polkadot](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fpolkadot.api.onfinality.io%2Fpublic-ws#/explorer){target=\_blank} or [Kusama](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fkusama.api.onfinality.io%2Fpublic-ws#/explorer){target=\_blank}. To interact with these parachains, you can use the [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} interface for:
+
+- [Polkadot Asset Hub](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fasset-hub-polkadot-rpc.dwellir.com#/explorer){target=\_blank}
+- [Kusama Asset Hub](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fsys.ibp.network%2Fstatemine#/explorer){target=\_blank}
+
+For testing purposes, you can also interact with the Asset Hub instance on the following test networks:
+
+- [Paseo Asset Hub](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fpas-rpc.stakeworld.io%2Fassethub#/explorer){target=\_blank}
+
+Before you start, ensure that you have: 
+
+- Access to the Polkadot.js Apps interface, and you are connected to the desired chain.
+- A parachain that supports the XCMP protocol to interact with the Asset Hub parachain.
+- A funded wallet to pay for the transaction fees and subsequent registration of the foreign asset.
+
+This guide will use Polkadot, its local Asset Hub instance, and the [Astar](https://astar.network/){target=\_blank} parachain (`ID` 2006), as stated in the [Test Environment Setup](#test-environment-setup) section. However, the process is the same for other relay chains and their respective Asset Hub parachain, regardless of the network you are using and the parachain owner of the foreign asset.
+
+## Register a Foreign Asset
+
+### Asset Hub
+
+To register a foreign asset on the Asset Hub parachain, follow these steps:
+
+1. Open the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} interface and connect to the Asset Hub parachain using the network selector in the top left corner.
+
+      - Testing foreign asset registration is recommended on TestNet before proceeding to MainNet. If you haven't set up a local testing environment yet, consult the [Environment setup](#test-environment-setup) guide. After setting up, connect to the Local Node (Chopsticks) at `ws://127.0.0.1:8000`.
+      - For live network operations, connect to the Asset Hub parachain. You can choose either Polkadot or Kusama Asset Hub from the dropdown menu, selecting your preferred RPC provider.
+
+2. Navigate to the **Extrinsics** page:
+
+      1. Click on the **Developer** tab from the top navigation bar.
+      2. Select **Extrinsics** from the dropdown.
+
+    ![Access to Developer Extrinsics section](/images/chain-interactions/token-operations/register-foreign-asset/register-a-foreign-asset-01.webp)
+
+3. Select the Foreign Assets pallet:
+
+      3. Select the **`foreignAssets`** pallet from the dropdown list.
+      4. Choose the **`create`** extrinsic.
+
+    ![Select the Foreign Asset pallet](/images/chain-interactions/token-operations/register-foreign-asset/register-a-foreign-asset-02.webp)
+
+3. Fill out the required fields and click on the copy icon to copy the **encoded call data** to your clipboard. The fields to be filled are:
+
+    - **id**: As this is a foreign asset, the ID will be represented by a Multilocation that reflects its origin. For this case, the Multilocation of the asset will be from the source parachain perspective.
+  
+        ```javascript
+        { parents: 1, interior: { X1: [{ Parachain: 2006 }] } }
+        ```
+
+    - **admin**: Refers to the account that will be the admin of this asset. This account will be able to manage the asset, including updating its metadata. As the registered asset corresponds to a native asset of the source parachain, the admin account should be the sovereign account of the source parachain.
+      
+        The sovereign account can be obtained through [Substrate Utilities](https://www.shawntabrizi.com/substrate-js-utilities/){target=\_blank}.
+
+        Ensure that **Sibling** is selected and that the **Para ID** corresponds to the source parachain. In this case, since the guide follows the test setup stated in the [Test Environment Setup](#test-environment-setup) section, the **Para ID** is `2006`.
+
+        ![Get parachain sovereign account](/images/chain-interactions/token-operations/register-foreign-asset/register-a-foreign-asset-03.webp)
+
+
+    - **`minBalance`**: The minimum balance required to hold this asset.
+
+    ![Fill out the required fields](/images/chain-interactions/token-operations/register-foreign-asset/register-a-foreign-asset-04.webp)
+
+    !!! tip 
+        If you need an example of the encoded call data, you can copy the following:
+        ```
+        0x3500010100591f007369626cd6070000000000000000000000000000000000000000000000000000a0860100000000000000000000000000
+        ```
+
+### Source Parachain
+
+With the encoded call data you generated in the previous section, you can take the following steps on the source parachain to complete the asset registration process:
+
+1. Navigate to the **Developer > Extrinsics** section.
+2. Create the extrinsic to register the foreign asset through XCM:
+
+      1. Paste the **encoded call data** copied in the previous step.
+      2. Click the **Submit Transaction** button.
+
+    ![Register foreign asset through XCM](/images/chain-interactions/token-operations/register-foreign-asset/register-a-foreign-asset-05.webp)
+
+    This XCM call involves withdrawing DOT from the sibling account of the parachain, using it to initiate an execution. The transaction will be carried out with XCM as the origin kind, and will be a hex-encoded call to create a foreign asset on Asset Hub for the specified parachain asset multilocation. Any surplus will be refunded, and the asset will be deposited into the sibling account.
+
+    !!! warning
+        Note that the sovereign account on the Asset Hub parachain must have a sufficient balance to cover the XCM `BuyExecution` instruction. If the account does not have enough balance, the transaction will fail.
+
+    If you want to have the whole XCM call ready to be copied, go to the **Developer > Extrinsics > Decode** section and paste the following hex-encoded call data:
+
+    ```text
+    0x6300330003010100a10f030c000400010000070010a5d4e81300010000070010a5d4e80006030700b4f13501419ce03500010100591f007369626cd607000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    ```
+
+    Be sure to replace the encoded call data with the one you copied in the previous step.
+
+After the transaction is successfully executed, the foreign asset will be registered on the Asset Hub parachain. 
+
+## Asset Registration Verification
+
+To confirm that a foreign asset has been successfully accepted and registered on the Asset Hub parachain, you can navigate to the `Network > Explorer` section of the Polkadot.js Apps interface for Asset Hub. You should be able to see an event that includes the following details:
+
+![Asset registration event](/images/chain-interactions/token-operations/register-foreign-asset/register-a-foreign-asset-06.webp)
+
+In the image above, the **success** field indicates whether the asset registration was successful.
+
+## Test Environment Setup
+
+To test the foreign asset registration process before deploying it on a live network, you can set up a local parachain environment. This guide uses Chopsticks to simulate that process. For more information on using Chopsticks, please refer to the [Chopsticks documentation](/develop/toolkit/parachains/fork-chains/chopsticks/get-started){target=\_blank}.
+
+To set up a test environment, run the following command:
+
+```bash
+npx @acala-network/chopsticks xcm \
+--r polkadot \
+--p polkadot-asset-hub \
+--p astar
+```
+
+The preceding command will create a lazy fork of Polkadot as the relay chain, its Asset Hub instance, and the Astar parachain. The `xcm` parameter enables communication through the XCMP protocol between the relay chain and the parachains, allowing the registration of foreign assets on Asset Hub. For further information on the chopsticks usage of the XCMP protocol, refer to the [XCM Testing](/tutorials/polkadot-sdk/testing/fork-live-chains/#xcm-testing){target=\_blank} section of the Chopsticks documentation.
+
+After executing the command, the terminal will display output indicating the Polkadot relay chain, the Polkadot Asset Hub, and the Astar parachain are running locally and connected through XCM. You can access them individually via the Polkadot.js Apps interface.
+
+- [Polkadot Relay Chain](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Flocalhost%3A8002#/explorer){target=\_blank}
+- [Polkadot Asset Hub](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Flocalhost%3A8000#/explorer){target=\_blank}
+- [Astar Parachain](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Flocalhost%3A8001#/explorer){target=\_blank}
+
+
+---
+
+Page Title: Register a Local Asset
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/chain-interactions-token-operations-register-local-asset.md
+- Canonical (HTML): https://docs.polkadot.com/chain-interactions/token-operations/register-local-asset/
+- Summary: Comprehensive guide to registering a local asset on the Asset Hub system parachain, including step-by-step instructions.
+
+# Register a Local Asset on Asset Hub
+
+## Introduction
+
+As detailed in the [Asset Hub Overview](/polkadot-protocol/architecture/system-chains/asset-hub){target=\_blank} page, Asset Hub accommodates two types of assets: local and foreign. Local assets are those that were created in Asset Hub and are identifiable by an integer ID. On the other hand, foreign assets originate from a sibling parachain and are identified by a Multilocation.
+
+This guide will take you through the steps of registering a local asset on the Asset Hub parachain.
+
+## Prerequisites
+
+Before you begin, ensure you have access to the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} interface and a funded wallet with DOT or KSM.
+
+- For Polkadot Asset Hub, you would need a deposit of 10 DOT and around 0.201 DOT for the metadata.
+- For Kusama Asset Hub, the deposit is 0.1 KSM and around 0.000669 KSM for the metadata.
+
+You need to ensure that your Asset Hub account balance is a bit more than the sum of those two deposits, which should seamlessly account for the required deposits and transaction fees.
+
+## Register a Local Asset
+
+To register a local asset on the Asset Hub parachain, follow these steps:
+
+1. Open the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} interface and connect to the Asset Hub parachain using the network selector in the top left corner.
+
+      - You may prefer to test local asset registration on TestNet before registering the asset on a MainNet hub. If you still need to set up a local testing environment, review the [Environment setup](#test-setup-environment) section for instructions. Once the local environment is set up, connect to the Local Node (Chopsticks) available on `ws://127.0.0.1:8000`.
+      - For the live network, connect to the **Asset Hub** parachain. Either Polkadot or Kusama Asset Hub can be selected from the dropdown list, choosing the desired RPC provider.
+
+2. Click on the **Network** tab on the top navigation bar and select **Assets** from the dropdown list.
+
+      ![Access to Asset Hub through Polkadot.JS](/images/chain-interactions/token-operations/register-local-asset/register-a-local-asset-01.webp)
+
+3. Now, you need to examine all the registered asset IDs. This step is crucial to ensure that the asset ID you are about to register is unique. Asset IDs are displayed in the **assets** column.
+
+      ![Asset IDs on Asset Hub](/images/chain-interactions/token-operations/register-local-asset/register-a-local-asset-02.webp)
+
+4. Once you have confirmed that the asset ID is unique, click on the **Create** button on the top right corner of the page.
+
+      ![Create a new asset](/images/chain-interactions/token-operations/register-local-asset/register-a-local-asset-03.webp)
+
+5. Fill in the required fields in the **Create Asset** form:
+
+    1. **creator account**: The account to be used for creating this asset and setting up the initial metadata.
+    2. **asset name**: The descriptive name of the asset you are registering.
+    3. **asset symbol**: The symbol that will be used to represent the asset.
+    4. **asset decimals**: The number of decimal places for this token, with a maximum of 20 allowed through the user interface.
+    5. **minimum balance**: The minimum balance for the asset. This is specified in the units and decimals as requested.
+    6. **asset ID**: The selected id for the asset. This should not match an already-existing asset id.
+    7. Click on the **Next** button.
+ 
+    ![Create Asset Form](/images/chain-interactions/token-operations/register-local-asset/register-a-local-asset-04.webp)
+
+6. Choose the accounts for the roles listed below:
+
+    1. **admin account**: The account designated for continuous administration of the token.
+    2. **issuer account**: The account that will be used for issuing this token.
+    3. **freezer account**: The account that will be used for performing token freezing operations.
+    4. Click on the **Create** button.
+
+    ![Admin, Issuer, Freezer accounts](/images/chain-interactions/token-operations/register-local-asset/register-a-local-asset-05.webp)
+
+7. Click on the **Sign and Submit** button to complete the asset registration process.
+
+    ![Sign and Submit](/images/chain-interactions/token-operations/register-local-asset/register-a-local-asset-06.webp)
+
+## Verify Asset Registration
+
+After completing these steps, the asset will be successfully registered. You can now view your asset listed on the [**Assets**](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fasset-hub-polkadot-rpc.dwellir.com#/assets){target=\_blank} section of the Polkadot.js Apps interface.
+
+![Asset listed on Polkadot.js Apps](/images/chain-interactions/token-operations/register-local-asset/register-a-local-asset-07.webp)
+
+!!! tip
+    Take into consideration that the **Assets** section’s link may differ depending on the network you are using. For the local environment, enter `ws://127.0.0.1:8000` into the **Custom Endpoint** field.
+
+In this way, you have successfully registered a local asset on the Asset Hub parachain.
+
+For an in-depth explanation about Asset Hub and its features, see the [Asset Hub](/chain-interactions/token-operations/convert-assets/){target=\_blank} entry in the Polkadot Wiki.
+
+## Test Setup Environment
+
+You can set up a local parachain environment to test the asset registration process before deploying it on the live network. This guide uses Chopsticks to simulate that process. For further information on chopsticks usage, refer to the [Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started){target=\_blank} documentation.
+
+To set up a test environment, execute the following command:
+
+```bash
+npx @acala-network/chopsticks \
+--config=https://raw.githubusercontent.com/AcalaNetwork/chopsticks/master/configs/polkadot-asset-hub.yml
+```
+
+The above command will spawn a lazy fork of Polkadot Asset Hub with the latest block data from the network. If you need to test Kusama Asset Hub, replace `polkadot-asset-hub.yml` with `kusama-asset-hub.yml` in the command.
+
+An Asset Hub instance is now running locally, and you can proceed with the asset registration process. Note that the local registration process does not differ from the live network process. Once you have a successful TestNet transaction, you can use the same steps to register the asset on MainNet.
 
 
 ---

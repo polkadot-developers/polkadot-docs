@@ -131,8 +131,7 @@ Polkadot Hub enables assets to move safely between parachains and the relay chai
 
 To learn more about asset transfers with XCM, please refer to the [Introduction to XCM](/parachains/interoperability/get-started/) page.
 
-<!-- TODO POST-MVP: Uncomment this section once chain interactions goes live -->
-<!-- ## Where to Go Next
+## Where to Go Next
 
 <div class="grid cards" markdown>
 
@@ -160,4 +159,4 @@ To learn more about asset transfers with XCM, please refer to the [Introduction 
 
     [:octicons-arrow-right-24: Get Started](/chain-interactions/token-operations/convert-assets/)
 
-</div> -->
+</div>

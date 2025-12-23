@@ -4,7 +4,7 @@ description: Bridges Ethereum's 20-byte addresses with Polkadot's 32-byte accoun
 categories: Basics, Polkadot Protocol
 ---
 
-# Accounts Polkadot Hub Smart Contracts
+# Accounts in Polkadot Hub Smart Contracts
 
 ## Introduction
 

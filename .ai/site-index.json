@@ -1233,7 +1233,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/node-infrastructure-run-a-node-polkadot-hub-rpc.md",
     "html_url": "https://docs.polkadot.com/node-infrastructure/run-a-node/polkadot-hub-rpc/",
-    "preview": "Polkadot Hub is the gateway to the Polkadot network, providing access to core services such as asset management, governance, and cross-chain messaging. Running your own RPC node gives developers and applications direct access to these services while also supporting infrastructure tasks like block indexing and SDK tool compatibility.",
+    "preview": "[Polkadot Hub](/reference/polkadot-hub/){target=\\_blank} is the gateway to the Polkadot network, providing access to core services such as asset management, governance, and cross-chain messaging. Running your own RPC node gives developers and applications direct access to these services while also supporting infrastructure tasks like block indexing and SDK tool compatibility.",
     "outline": [
       {
         "depth": 2,
@@ -1287,12 +1287,12 @@
       }
     ],
     "stats": {
-      "chars": 16086,
-      "words": 1818,
+      "chars": 16128,
+      "words": 1823,
       "headings": 10,
-      "estimated_token_count_total": 3654
+      "estimated_token_count_total": 3671
     },
-    "hash": "sha256:a75eb7d4b79c8fece9e5ba3e6e81be15772accf9e140640713baae38c39fc722",
+    "hash": "sha256:43ed7022b09fa201b0d67401a08736baef17eeaa5ac410483ba73d62d84f4603",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -2130,12 +2130,12 @@
       }
     ],
     "stats": {
-      "chars": 10907,
-      "words": 1745,
+      "chars": 10976,
+      "words": 1753,
       "headings": 6,
-      "estimated_token_count_total": 2565
+      "estimated_token_count_total": 2588
     },
-    "hash": "sha256:2c25b7054cbf0b3bfa8145b0873e885c27b560f942677a718fcfd4f4a6a1b2f1",
+    "hash": "sha256:d5d6d72eb2cf10f624d84c65f2274f7df90acb5d071bf170bc8eae8d98a810a5",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -2499,12 +2499,12 @@
       }
     ],
     "stats": {
-      "chars": 6655,
+      "chars": 6729,
       "words": 833,
       "headings": 16,
-      "estimated_token_count_total": 1631
+      "estimated_token_count_total": 1642
     },
-    "hash": "sha256:6297bb5e0809fdd0585d6170054599f7ab4a3ce7c687ad03ae43092057c493b7",
+    "hash": "sha256:c89fd7963b09729601e92b0ffbf0c61630077de56a6e1c87c07b571bf68bb9a6",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -2968,12 +2968,12 @@
       }
     ],
     "stats": {
-      "chars": 25145,
-      "words": 2534,
+      "chars": 25183,
+      "words": 2539,
       "headings": 21,
-      "estimated_token_count_total": 5674
+      "estimated_token_count_total": 5679
     },
-    "hash": "sha256:cfcf28e31e80ec0a60cffb544b1ba41a91d7b3c3dd3295b900882003f3854eba",
+    "hash": "sha256:3b9377571dc23ac16c0d435446f39310f912602ab0a45143c73a919e61e4d3ef",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -2986,7 +2986,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/parachains-customize-runtime.md",
     "html_url": "https://docs.polkadot.com/parachains/customize-runtime/",
-    "preview": "A blockchain runtime is more than just a fixed set of rules—it's a dynamic foundation that you can shape to match your specific needs. With Polkadot SDK's [FRAME (Framework for Runtime Aggregation of Modularized Entities)](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/frame_runtime/index.html){target=\\_blank}, customizing your runtime is straightforward and modular. Instead of building everything from scratch, you combine pre-built pallets with your own custom l",
+    "preview": "A blockchain runtime is more than just a fixed set of rules—it's a dynamic foundation that you can shape to match your specific needs. With Polkadot SDK's [FRAME (Framework for Runtime Aggregation of Modularized Entities)](/reference/glossary/#frame-framework-for-runtime-aggregation-of-modularized-entities){target=\\_blank}, customizing your runtime is straightforward and modular. Instead of building everything from scratch, you combine pre-built pallets with your own custom logic to create a run",
     "outline": [
       {
         "depth": 2,
@@ -3035,12 +3035,12 @@
       }
     ],
     "stats": {
-      "chars": 8259,
-      "words": 1103,
+      "chars": 8237,
+      "words": 1101,
       "headings": 9,
-      "estimated_token_count_total": 1832
+      "estimated_token_count_total": 1828
     },
-    "hash": "sha256:b6141c210dae3784b98ad1f351387b308e908ddc64dce09ef3d9f4420964ebd9",
+    "hash": "sha256:28501589d5290f932b55cd3319f6a3fd78d7297ba42810da5ad2784a297224fd",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -3514,12 +3514,12 @@
       }
     ],
     "stats": {
-      "chars": 7410,
-      "words": 970,
+      "chars": 7451,
+      "words": 975,
       "headings": 7,
-      "estimated_token_count_total": 1484
+      "estimated_token_count_total": 1501
     },
-    "hash": "sha256:0f10e053bf69fa2ac9291a4731b8fc2f2c1a6d6442e895b5d83d8a9cd434a8eb",
+    "hash": "sha256:71ec75e18ea13b80d5955f96c10edd86ba679379d508a16c77e638f57a19361d",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -3580,12 +3580,12 @@
       }
     ],
     "stats": {
-      "chars": 20159,
-      "words": 2348,
+      "chars": 20217,
+      "words": 2354,
       "headings": 9,
-      "estimated_token_count_total": 4097
+      "estimated_token_count_total": 4116
     },
-    "hash": "sha256:ae4bc731c0f73254c1bb985ccc31bd0ea9bdfddb81530a40ec814607870bb43e",
+    "hash": "sha256:584baf939550e087b8a2c32defcb5bf73ddb52ad8b3cd85f66825f7ed5abee35",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -3906,12 +3906,12 @@
       }
     ],
     "stats": {
-      "chars": 9197,
-      "words": 1270,
+      "chars": 9255,
+      "words": 1278,
       "headings": 6,
-      "estimated_token_count_total": 2010
+      "estimated_token_count_total": 2033
     },
-    "hash": "sha256:874d566e6e38096e2405b6594d92cc6e9b468614ea9415e1e5b78bf1fc98ce20",
+    "hash": "sha256:83264676ac23bfd86bac7c40be829001e551e041a4c7f7350d0474a23f03a911",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4321,8 +4321,8 @@
       },
       {
         "depth": 2,
-        "title": "PolkaVM",
-        "anchor": "polkavm"
+        "title": "PVM",
+        "anchor": "pvm"
       },
       {
         "depth": 2,
@@ -4406,12 +4406,12 @@
       }
     ],
     "stats": {
-      "chars": 24727,
-      "words": 3623,
+      "chars": 24750,
+      "words": 3627,
       "headings": 63,
-      "estimated_token_count_total": 5267
+      "estimated_token_count_total": 5273
     },
-    "hash": "sha256:6d4c4d98759e43199291722b1044c05b12c0cfd39e324b2209d145ec7e338446",
+    "hash": "sha256:4a00e1f87640b9f582202e6f94136570382b637fca71317b17b903ebf08bd65f",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -6129,12 +6129,12 @@
       }
     ],
     "stats": {
-      "chars": 3309,
+      "chars": 3301,
       "words": 452,
       "headings": 4,
       "estimated_token_count_total": 652
     },
-    "hash": "sha256:f92ae15a26b1cd86d398cb66a05b93bc7e0b4125a6b1523026854c8d79af8b77",
+    "hash": "sha256:68dd65010db12cce45955289394ae3c6ef9883d42e98664c771097d1c6d784f2",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -7430,7 +7430,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-.deploy-basic-pvm.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/.deploy-basic-pvm/",
-    "preview": "Deploying smart contracts to [Polkadot Hub](/smart-contracts/overview/#smart-contract-development){target=\\_blank} can be accomplished through various tools and environments, each suited to different development workflows. This guide demonstrates how to deploy a basic PolkaVM (PVM) smart contract using four popular approaches: JavaScript with [Ethers.js](https://docs.ethers.org/v6/){target=\\_blank}, [Remix IDE](https://remix.live/){target=\\_blank}, [Hardhat](https://hardhat.org/){target=\\_blank}",
+    "preview": "Deploying smart contracts to [Polkadot Hub](/smart-contracts/overview/#smart-contract-development){target=\\_blank} can be accomplished through various tools and environments, each suited to different development workflows. This guide demonstrates how to deploy a basic PVM smart contract using four popular approaches: JavaScript with [Ethers.js](https://docs.ethers.org/v6/){target=\\_blank}, [Remix IDE](https://remix.live/){target=\\_blank}, [Hardhat](https://hardhat.org/){target=\\_blank}, and [Fou",
     "outline": [
       {
         "depth": 2,
@@ -7554,12 +7554,12 @@
       }
     ],
     "stats": {
-      "chars": 13872,
-      "words": 1640,
+      "chars": 13854,
+      "words": 1639,
       "headings": 24,
-      "estimated_token_count_total": 3228
+      "estimated_token_count_total": 3225
     },
-    "hash": "sha256:8f29b0f0b56f8c136206211a858cdc5bc27bcd9119eab179a6cd306182d910cb",
+    "hash": "sha256:41dfbfc0f218b74d51677d457ebc5ae23cb7b16a674f25012c6519a082ffc9c7",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -8055,12 +8055,12 @@
       }
     ],
     "stats": {
-      "chars": 2835,
-      "words": 207,
+      "chars": 2778,
+      "words": 203,
       "headings": 3,
-      "estimated_token_count_total": 1022
+      "estimated_token_count_total": 1004
     },
-    "hash": "sha256:a3baacc936731020103ecb94a0ad41df0392fcf7e0f6039fa9b71bf363559e6a",
+    "hash": "sha256:f7d8ea43078576a62e5857a12fb1eb9d0d22be3fd3a080bdb4cb3f680d36fe1c",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -8232,12 +8232,12 @@
       }
     ],
     "stats": {
-      "chars": 1618,
-      "words": 201,
+      "chars": 1557,
+      "words": 193,
       "headings": 4,
-      "estimated_token_count_total": 307
+      "estimated_token_count_total": 299
     },
-    "hash": "sha256:bb41c42439f9076628abf553347a1cd46557e900f73554c519cd8a075f6e14e2",
+    "hash": "sha256:e07e2812e0247e62d7585aa485a5f591dc60c776c09c4a8614d21bdaaa95cd04",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -8285,7 +8285,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-for-eth-devs-.migration.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/for-eth-devs/.migration/",
-    "preview": "This guide helps Ethereum developers migrate their smart contracts to Polkadot Hub. Most contracts work without modifications on the REVM backend, while the PolkaVM backend offers enhanced performance with minimal adaptation for standard patterns.",
+    "preview": "This guide helps Ethereum developers migrate their smart contracts to Polkadot Hub. Most contracts work without modifications on the REVM backend, while the PVM backend offers enhanced performance with minimal adaptation for standard patterns.",
     "outline": [
       {
         "depth": 2,
@@ -8349,12 +8349,12 @@
       }
     ],
     "stats": {
-      "chars": 6079,
+      "chars": 6047,
       "words": 779,
       "headings": 12,
       "estimated_token_count_total": 1279
     },
-    "hash": "sha256:87a8fd24c2ed6dac3281c040136ad6cdca95b632c6febf3e1dfab617d66a321d",
+    "hash": "sha256:6d72afe48e3c76e8e72efa36d210f17ca6c95ec8b9c6b2dd5d714dc28edade72",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -8416,12 +8416,12 @@
       }
     ],
     "stats": {
-      "chars": 8392,
-      "words": 1124,
+      "chars": 8351,
+      "words": 1117,
       "headings": 9,
-      "estimated_token_count_total": 1831
+      "estimated_token_count_total": 1816
     },
-    "hash": "sha256:9654d715be52c5670713bb927973e1e67a2ee2215ead82c712de9067f96b534e",
+    "hash": "sha256:c6711d11391b18ab775b498d2dc601213e406ac3d5f44443d968cf5e94a59bbd",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -8496,7 +8496,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-for-eth-devs-contract-deployment.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/for-eth-devs/contract-deployment/",
-    "preview": "Polkadot's smart contract platform supports two distinct virtual machine backends: Rust Ethereum Virtual Machine (REVM) and PolkaVM. Each backend has its own deployment characteristics and optimization strategies. REVM provides full Ethereum compatibility with familiar single-step deployment, while the RISC-V-based PolkaVM uses a more structured two-step approach optimized for its architecture. Understanding these differences ensures smooth deployment regardless of which backend you choose for y",
+    "preview": "Polkadot's smart contract platform supports two distinct virtual machine backends: Rust Ethereum Virtual Machine (REVM) and PVM. Each backend has its own deployment characteristics and optimization strategies. REVM provides full Ethereum compatibility with familiar single-step deployment, while the RISC-V-based PVM uses a more structured two-step approach optimized for its architecture. Understanding these differences ensures smooth deployment regardless of which backend you choose for your smar",
     "outline": [
       {
         "depth": 2,
@@ -8510,8 +8510,8 @@
       },
       {
         "depth": 2,
-        "title": "PolkaVM Deployment",
-        "anchor": "polkavm-deployment"
+        "title": "PVM Deployment",
+        "anchor": "pvm-deployment"
       },
       {
         "depth": 3,
@@ -8560,12 +8560,12 @@
       }
     ],
     "stats": {
-      "chars": 5999,
+      "chars": 6093,
       "words": 766,
       "headings": 12,
-      "estimated_token_count_total": 1133
+      "estimated_token_count_total": 1172
     },
-    "hash": "sha256:0792e3956242eb8e08ab82e2d73964c381074cc8b1ea46f396d136856fa6cc07",
+    "hash": "sha256:9d3bcc157500d2275c35773e2dcb1ac8e0226be5ba174395d4554f1ff4aad0fc",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -8587,13 +8587,18 @@
       },
       {
         "depth": 2,
-        "title": "Migrate from EVM",
-        "anchor": "migrate-from-evm"
+        "title": "REVM Backend",
+        "anchor": "revm-backend"
       },
       {
-        "depth": 2,
-        "title": "Upgrade to PolkaVM",
-        "anchor": "upgrade-to-polkavm"
+        "depth": 3,
+        "title": "Key Benefits",
+        "anchor": "key-benefits"
+      },
+      {
+        "depth": 3,
+        "title": "How It Works",
+        "anchor": "how-it-works"
       },
       {
         "depth": 2,
@@ -8606,9 +8611,9 @@
         "anchor": "revive-pallet"
       },
       {
-        "depth": 3,
-        "title": "PolkaVM Design Fundamentals",
-        "anchor": "polkavm-design-fundamentals"
+        "depth": 2,
+        "title": "Alternative: PVM Backend",
+        "anchor": "alternative-pvm-backend"
       },
       {
         "depth": 2,
@@ -8617,12 +8622,12 @@
       }
     ],
     "stats": {
-      "chars": 5213,
-      "words": 681,
-      "headings": 7,
-      "estimated_token_count_total": 986
+      "chars": 3675,
+      "words": 461,
+      "headings": 8,
+      "estimated_token_count_total": 692
     },
-    "hash": "sha256:8618a3633c67049a370417b35d2435935bdf8083661a56bd8e249988ba8c0fe9",
+    "hash": "sha256:9cb955a91618e3bfd0f199ce18d8991aa485ff52a7323a051e9f9eba4eec3013",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -8926,12 +8931,12 @@
       }
     ],
     "stats": {
-      "chars": 6972,
-      "words": 643,
+      "chars": 6926,
+      "words": 642,
       "headings": 7,
-      "estimated_token_count_total": 2058
+      "estimated_token_count_total": 2049
     },
-    "hash": "sha256:f0436d4bb1ab0899210c8637c7a05291c9c988d279dac13214e05a4cc9ee3148",
+    "hash": "sha256:13dbe634dbd47697bb0df9759138b6d88c38a662f3a34dd047bfb4ef9dcbbb39",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -9470,12 +9475,12 @@
       }
     ],
     "stats": {
-      "chars": 4446,
+      "chars": 4414,
       "words": 580,
       "headings": 7,
       "estimated_token_count_total": 915
     },
-    "hash": "sha256:2af857ea833cbc7fd2bcdf1a286da37b45ff446bbf2a0e46395c739a6521804e",
+    "hash": "sha256:367436ac4b733aae2bddf4391400ca59ed3d7c0af8bc7fb11fd6a017e4b09fd5",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -9511,12 +9516,12 @@
       }
     ],
     "stats": {
-      "chars": 5232,
+      "chars": 5228,
       "words": 532,
       "headings": 4,
       "estimated_token_count_total": 1192
     },
-    "hash": "sha256:f17db5daca8feae70ce428e03a5a4870ef87dfc8571b07376327cd80d057b759",
+    "hash": "sha256:760b697fc144c5d65678eda21472c573ce861459fda8b27af38532e04e71994c",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -9577,12 +9582,12 @@
       }
     ],
     "stats": {
-      "chars": 10622,
-      "words": 1427,
+      "chars": 10584,
+      "words": 1419,
       "headings": 9,
-      "estimated_token_count_total": 2302
+      "estimated_token_count_total": 2286
     },
-    "hash": "sha256:5ea2661451e3c6216ec8b3dff777fafd5b825c60976eaed60191273151cc55a2",
+    "hash": "sha256:446787a59b8f499385fa59d5f8df6b91902bea242701597732cc5e73e1317d93",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -9613,12 +9618,12 @@
       }
     ],
     "stats": {
-      "chars": 2355,
+      "chars": 2319,
       "words": 307,
       "headings": 3,
       "estimated_token_count_total": 412
     },
-    "hash": "sha256:4f19b6655acf73973872285c17039e09a79864b8a12c15bed5679157a285122a",
+    "hash": "sha256:a99b6ca675e289b3a8bbcd7bd71a85551b226d25df3f65ec64f6f56aef86fd90",
     "token_estimator": "heuristic-v1"
   }
 ]

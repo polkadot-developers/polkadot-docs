@@ -57,7 +57,7 @@ The conversion process is implemented through the [`to_address`](https://parityt
 
 ### Interacting with Unmapped Substrate Accounts
 
-Native Polkadot accounts (32-byte format) that haven't been explicitly mapped have limited interaction capabilities with the Ethereum-compatible smart contract layer. Understanding these limitations and when mapping is required is essential for developers working with Polkadot Hub Smart Contracts.
+Native Polkadot accounts (32-byte format) that haven't been explicitly mapped have limited interaction capabilities with the Ethereum-compatible smart contract layer. Understanding these limitations and when mapping is required is essential for developers working with Polkadot Hub smart contracts.
 
 #### Limitations of Unmapped Accounts
 

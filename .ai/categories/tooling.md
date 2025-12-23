@@ -1797,7 +1797,7 @@ You are now ready to deploy the contract to your chosen network. This example de
 
     <div id="termynal" data-termynal markdown>
       <span data-ty="input">npx hardhat ignition deploy ignition/modules/MyNFT.ts --network polkadotHubTestnet</span>
-      <span data-ty>✔ Confirm deploy to network polkadotTestnet (420420420)? … yes</span>
+      <span data-ty>✔ Confirm deploy to network polkadotTestnet (420420417)? … yes</span>
       <span data-ty>&nbsp;</span>
       <span data-ty>Hardhat Ignition 🚀</span>
       <span data-ty>&nbsp;</span>
@@ -1899,7 +1899,7 @@ libs = ["lib"]
 remappings = ['@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/']
 
 [rpc_endpoints]
-polkadot_hub_testnet = "https://testnet-passet-hub-eth-rpc.polkadot.io"
+polkadot_hub_testnet = "https://services.polkadothub-rpc.com/testnet"
 ```
 
 ## Create Your Contract
@@ -12908,8 +12908,8 @@ def deploy(config):
 
 if __name__ == "__main__":
     deployment_config = {
-        "rpc_url": "https://testnet-passet-hub-eth-rpc.polkadot.io",
-        "private_key": "0xd505c673c48556d560696d129f0e611f041638cd42d81c33ddc0e490cdcf65fc"
+        "rpc_url": "https://services.polkadothub-rpc.com/testnet",
+        "private_key": "INSERT_PRIVATE_KEY"
     }
     
     deploy_with_retry(deployment_config)
@@ -13392,8 +13392,8 @@ const transport = http('https://services.polkadothub-rpc.com/testnet')
 
 // Configure the Polkadot Testnet Hub chain
 export const polkadotTestnet = {
-  id: 420420420,
-  name: 'Polkadot Testnet',
+  id: 420420417,
+  name: 'Polkadot Hub TestNet',
   network: 'polkadot-testnet',
   nativeCurrency: {
     decimals: 18,

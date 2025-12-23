@@ -1806,7 +1806,7 @@ You are now ready to deploy the contract to your chosen network. This example de
 
     <div id="termynal" data-termynal markdown>
       <span data-ty="input">npx hardhat ignition deploy ignition/modules/MyNFT.ts --network polkadotHubTestnet</span>
-      <span data-ty>✔ Confirm deploy to network polkadotTestnet (420420420)? … yes</span>
+      <span data-ty>✔ Confirm deploy to network polkadotTestnet (420420417)? … yes</span>
       <span data-ty>&nbsp;</span>
       <span data-ty>Hardhat Ignition 🚀</span>
       <span data-ty>&nbsp;</span>
@@ -1908,7 +1908,7 @@ libs = ["lib"]
 remappings = ['@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/']
 
 [rpc_endpoints]
-polkadot_hub_testnet = "https://testnet-passet-hub-eth-rpc.polkadot.io"
+polkadot_hub_testnet = "https://services.polkadothub-rpc.com/testnet"
 ```
 
 ## Create Your Contract

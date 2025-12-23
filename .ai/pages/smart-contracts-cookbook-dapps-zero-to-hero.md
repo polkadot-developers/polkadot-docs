@@ -271,8 +271,8 @@ const transport = http('https://services.polkadothub-rpc.com/testnet')
 
 // Configure the Polkadot Testnet Hub chain
 export const polkadotTestnet = {
-  id: 420420420,
-  name: 'Polkadot Testnet',
+  id: 420420417,
+  name: 'Polkadot Hub TestNet',
   network: 'polkadot-testnet',
   nativeCurrency: {
     decimals: 18,

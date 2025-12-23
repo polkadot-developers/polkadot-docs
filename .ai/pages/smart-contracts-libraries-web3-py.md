@@ -302,8 +302,8 @@ def deploy(config):
 
 if __name__ == "__main__":
     deployment_config = {
-        "rpc_url": "https://testnet-passet-hub-eth-rpc.polkadot.io",
-        "private_key": "0xd505c673c48556d560696d129f0e611f041638cd42d81c33ddc0e490cdcf65fc"
+        "rpc_url": "https://services.polkadothub-rpc.com/testnet",
+        "private_key": "INSERT_PRIVATE_KEY"
     }
     
     deploy_with_retry(deployment_config)

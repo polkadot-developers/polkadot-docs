@@ -204,8 +204,8 @@ const deployContract = async (contractName, mnemonic, providerConfig) => {
 };
 
 const providerConfig = {
-  rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
-  chainId: 420420422,
+  rpc: 'https://services.polkadothub-rpc.com/testnet',
+  chainId: 420420417,
   name: 'polkadot-hub-testnet',
 };
 
@@ -309,8 +309,8 @@ module.exports = {
         },
         polkadotHubTestnet: {
             polkavm: true,
-            url: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
-            chainId: 420420422,
+            url: 'https://services.polkadothub-rpc.com/testnet',
+            chainId: 420420417,
             accounts: [vars.get('PRIVATE_KEY')],
         },
     },
@@ -407,7 +407,7 @@ libs = ["lib"]
 resolc_compile = true
 
 [rpc_endpoints]
-polkadot_hub_testnet = "https://testnet-passet-hub-eth-rpc.polkadot.io"
+polkadot_hub_testnet = "https://services.polkadothub-rpc.com/testnet"
 ```
 
 ### Create Your Contract

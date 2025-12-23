@@ -2,7 +2,7 @@ import { Binary, createClient, Transaction } from 'polkadot-api';
 import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
 import { getPolkadotSigner } from 'polkadot-api/signer';
 import { getWsProvider } from 'polkadot-api/ws-provider/web';
-import { assetHub } from '@polkadot-api/descriptors';
+import { polkadotHub } from '@polkadot-api/descriptors';
 import { sr25519CreateDerive } from '@polkadot-labs/hdkd';
 import {
   DEV_PHRASE,
@@ -34,7 +34,7 @@ function getSigner() {
 async function main() {
   const provider = withPolkadotSdkCompat(getWsProvider('ws://localhost:8000'));
   const client = createClient(provider);
-  const api = client.getTypedApi(assetHub);
+  const api = client.getTypedApi(polkadotHub);
   const aliceSigner = getSigner();
 
   const callData = Binary.fromHex(

@@ -8367,7 +8367,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-for-eth-devs-accounts.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/for-eth-devs/accounts/",
-    "preview": "The Polkadot Hub natively utilizes Polkadot's 32-byte account system while providing interoperability with Ethereum's 20-byte addresses through an automatic conversion system. When interacting with smart contracts:",
+    "preview": "Polkadot Hub natively utilizes Polkadot's 32-byte account system while providing interoperability with Ethereum's 20-byte addresses through an automatic conversion system. When interacting with smart contracts:",
     "outline": [
       {
         "depth": 2,
@@ -8426,21 +8426,12 @@
       }
     ],
     "stats": {
-<<<<<<< HEAD
-      "chars": 12316,
-      "words": 1686,
+      "chars": 12282,
+      "words": 1673,
       "headings": 11,
-      "estimated_token_count_total": 2599
+      "estimated_token_count_total": 2591
     },
-    "hash": "sha256:44363b537df0a86a158709c5064ccc871acc82d7f4dd58414b6ce371067301ed",
-=======
-      "chars": 8351,
-      "words": 1117,
-      "headings": 9,
-      "estimated_token_count_total": 1816
-    },
-    "hash": "sha256:c6711d11391b18ab775b498d2dc601213e406ac3d5f44443d968cf5e94a59bbd",
->>>>>>> staging/product-ia
+    "hash": "sha256:17209d0ac221130fee1c056be7e1742c42e1fb07ae54d6832ce5fee746b9ffc3",
     "token_estimator": "heuristic-v1"
   },
   {

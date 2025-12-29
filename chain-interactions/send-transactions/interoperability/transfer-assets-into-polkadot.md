@@ -7,7 +7,7 @@ description: A step-by-step guide to bridging assets from Ethereum to Polkadot u
 
 ## Introduction
 
-This guide walks you through transferring tokens from Ethereum to Polkadot using the [ParaSpell XCM SDK](/reference/tools/paraspell/){target=\_blank} and [Snowbridge](https://docs.snowbridge.network/){target=\_blank}. Snowbridge is a trustless, decentralized bridge integrated into the Polkadot protocol that enables secure asset transfers between Ethereum and Polkadot ecosystems.
+This guide walks you through transferring tokens from Ethereum to Polkadot using the [ParaSpell XCM SDK](/reference/tools/paraspell/){target=\_blank} and [Snowbridge](https://docs.snowbridge.network/){target=\_blank}. Snowbridge is a trustless, decentralized bridge integrated into the Polkadot protocol that enables secure asset transfers between the Ethereum and Polkadot ecosystems.
 
 ### How the Bridge Works
 
@@ -43,15 +43,15 @@ In this guide, you will:
 - Build and execute a bridge transfer from Ethereum to Polkadot Hub
 - Monitor the transfer status
 
-### Prerequisites
+## Prerequisites
 
 Before you begin, ensure you have the following:
 
-- A basic understanding of [XCM](/parachains/interoperability/get-started/){target=\_blank}
-- Familiarity with JavaScript/TypeScript and Ethereum development
-- [Node.js](https://nodejs.org/){target=\_blank} v18 or higher and npm installed
-- An Ethereum wallet with WETH tokens (see next section to wrap ETH)
-- A Polkadot account to receive the bridged assets
+- A basic understanding of [XCM](/parachains/interoperability/get-started/){target=\_blank}.
+- Familiarity with JavaScript/TypeScript and Ethereum development.
+- [Node.js](https://nodejs.org/){target=\_blank} v18 or higher and npm installed.
+- An Ethereum wallet with WETH tokens. See [Prepare Tokens for Bridging](#prepare-tokens-for-bridging) for instructions to wrap ETH if needed.
+- A Polkadot account to receive the bridged assets.
 
 ## Prepare Tokens for Bridging
 
@@ -62,7 +62,7 @@ To bridge ETH, you need to wrap it into WETH first. The WETH contract on Ethereu
 ```
 
 !!!note "Why WETH instead of ETH?"
-    Snowbridge only supports ERC-20 tokens—it cannot bridge native ETH directly. The bridge uses a standardized token interface to lock assets on Ethereum and mint corresponding representations on Polkadot. Since native ETH doesn't conform to the ERC-20 standard, you must first wrap it into WETH (Wrapped ETH), which is an ERC-20-compliant token pegged 1:1 with ETH.
+    Snowbridge only supports ERC-20 tokens—it cannot bridge native ETH directly. The bridge uses a standardized token interface to lock assets on Ethereum and mint corresponding representations on Polkadot. Since native ETH doesn't conform to the ERC-20 standard, you must first wrap it into WETH (Wrapped ETH), an ERC-20-compliant token pegged 1:1 to ETH.
 
 You can wrap ETH by:
 
@@ -72,14 +72,15 @@ You can wrap ETH by:
 
 ## Initialize Your Project
 
-Create the project folder:
+Follow these steps to setup and initialize your project:
+1. Create the project folder using the following commands:
 
 ```bash
 mkdir eth-to-polkadot-bridge && \
 cd eth-to-polkadot-bridge
 ```
 
-Initialize the JavaScript project:
+2. Initialize the JavaScript project:
 
 ```bash
 npm init -y && npm pkg set type=module
@@ -91,7 +92,7 @@ Install dev dependencies:
 npm install --save-dev @types/node tsx typescript
 ```
 
-Install the required dependencies. The Ethereum to Polkadot direction requires the PJS version of the ParaSpell SDK:
+Sending assets from Ethereum to Polkadot requires the PJS version of the ParaSpell SDK. Install the necessary dependencies using the following command:
 
 ```bash
 npm install @paraspell/sdk-pjs@12.0.2 @polkadot/api@16.5.3 @polkadot/types@16.5.3 ethers@6.15.0
@@ -110,7 +111,7 @@ Replace `INSERT_YOUR_POLKADOT_ADDRESS` with your Polkadot account address (SS58 
 
 ## Approve Tokens for Bridging
 
-Before bridging ERC-20 tokens, you must approve the Snowbridge Gateway contract to spend your tokens. The ParaSpell SDK provides helper functions for this:
+Before bridging ERC-20 tokens, you must approve the Snowbridge Gateway contract to spend your tokens. The ParaSpell SDK provides the following helper functions for approving spending:
 
 ```ts title="index.ts"
 --8<-- 'code/chain-interactions/send-transactions/interoperability/transfer-assets-into-polkadot/index.ts:31:51'
@@ -122,7 +123,7 @@ Run the approval script:
 npx tsx index.ts
 ```
 
-You should see output confirming the token balance and approval:
+You will see output confirming the token balance and approval similar to the following:
 
 --8<-- 'code/chain-interactions/send-transactions/interoperability/transfer-assets-into-polkadot/approval-output.html'
 
@@ -140,7 +141,7 @@ Comment out the `approveTokens()` function and run the transfer:
 npx tsx index.ts
 ```
 
-After submitting the transaction, you will see the Ethereum transaction hash:
+After submitting the transaction, you will see the Ethereum transaction hash included in the terminal output similar to the following:
 
 --8<-- 'code/chain-interactions/send-transactions/interoperability/transfer-assets-into-polkadot/transfer-output.html'
 
@@ -165,7 +166,7 @@ Snowbridge can bridge any ERC-20 token from Ethereum, but the destination chain 
 !!!warning "Verify Foreign Assets"
     Foreign asset creation on Polkadot Hub is permissionless—anyone can register a foreign asset. Before bridging, verify that the foreign asset registered on Polkadot Hub corresponds to the legitimate token on Ethereum by checking the asset's multilocation and confirming the Ethereum contract address matches the official token contract.
 
-You can query which assets are supported for a specific route using the ParaSpell SDK:
+You can query which assets are supported for a specific route using the ParaSpell SDK as follows:
 
 ```ts title="index.ts"
 import { getSupportedAssets } from '@paraspell/sdk-pjs';
@@ -174,6 +175,8 @@ import { getSupportedAssets } from '@paraspell/sdk-pjs';
 const supportedAssets = getSupportedAssets('Ethereum', 'AssetHubPolkadot');
 console.log('Supported assets:', supportedAssets.map(a => a.symbol));
 ```
+
+Running this script will return a list of supported assets in the terminal similar to the following:
 
 --8<-- 'code/chain-interactions/send-transactions/interoperability/transfer-assets-into-polkadot/supported-assets-output.html'
 
@@ -185,7 +188,7 @@ Common supported tokens on Polkadot Hub include:
 | Wrapped Bitcoin | WBTC | Bitcoin wrapped as an ERC-20 token |
 | Shiba Inu | SHIB | Popular ERC-20 meme token |
 
-To transfer to a different destination, change the `.to()` parameter and verify the asset is supported:
+To transfer to a different destination, change the `.to()` parameter and verify the asset is supported using the following code:
 
 ```ts title="index.ts"
 // Check if WETH is supported on Hydration
@@ -204,7 +207,7 @@ if (wethSupported) {
 
 --8<-- 'code/chain-interactions/send-transactions/interoperability/transfer-assets-into-polkadot/hydration-check-output.html'
 
-???- code "Full Code"
+???- code "Complete `index.ts` script"
 
     ```typescript title="index.ts"
     --8<-- 'code/chain-interactions/send-transactions/interoperability/transfer-assets-into-polkadot/index.ts'
@@ -217,5 +220,5 @@ if (wethSupported) {
 
 ## Where to Go Next
 
-- **Read the docs** - Dive deeper into the [ParaSpell XCM SDK](https://paraspell.github.io/docs/sdk/getting-started.html){target=\_blank} and [Snowbridge](https://docs.snowbridge.network/){target=\_blank} documentation
+- **External Documentation** - Dive deeper into the [ParaSpell XCM SDK](https://paraspell.github.io/docs/sdk/getting-started.html){target=\_blank} and [Snowbridge](https://docs.snowbridge.network/){target=\_blank} documentation resources.
 - **Learn about XCM** - Understand the underlying protocol by visiting the [Get Started with XCM](/parachains/interoperability/get-started/) guide

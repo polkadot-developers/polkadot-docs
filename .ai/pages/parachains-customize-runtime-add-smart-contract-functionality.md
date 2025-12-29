@@ -13,18 +13,18 @@ When building your custom blockchain with the Polkadot SDK, you can add smart co
 
 This guide covers three approaches to adding smart contracts to your blockchain:
 
-- **[`pallet-revive`](#pallet-revive)**: Modern unified solution supporting both PolkaVM and EVM bytecode
+- **[`pallet-revive`](#pallet-revive)**: Modern unified solution supporting both PVM and EVM bytecode
 - **[Frontier](#frontier)**: Ethereum compatibility layer for Polkadot SDK-based chains
 - **[`pallet-contracts`](#pallet-contracts-legacy)**: Wasm smart contract support
 
 ## pallet-revive
 
-[`pallet-revive`](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame/revive){target=\_blank} is the modern smart contract solution for Polkadot SDK-based chains. It provides a unified execution environment that supports both PolkaVM and EVM bytecode through dual execution backends.
+[`pallet-revive`](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame/revive){target=\_blank} is the modern smart contract solution for Polkadot SDK-based chains. It provides a unified execution environment that supports both PVM and EVM bytecode through dual execution backends.
 
 ### Core Components
 
 **Essential Pallet:**
-**[`pallet-revive`](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame/revive){target=\_blank}** provides the core smart contract execution environment with [PolkaVM](https://github.com/polkadot-developers/polkadot-docs/blob/71e1b51bb42ef55e20c2f3b953db86e8c26cd591/smart-contracts/for-eth-devs/dual-vm-stack.md#upgrade-to-polkavm){target=\_blank} and [REVM](https://github.com/polkadot-developers/polkadot-docs/blob/71e1b51bb42ef55e20c2f3b953db86e8c26cd591/smart-contracts/for-eth-devs/dual-vm-stack.md#migrate-from-evm){target=\_blank} backends.
+**[`pallet-revive`](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame/revive){target=\_blank}** provides the core smart contract execution environment with [PVM](https://github.com/polkadot-developers/polkadot-docs/blob/71e1b51bb42ef55e20c2f3b953db86e8c26cd591/smart-contracts/for-eth-devs/dual-vm-stack.md#upgrade-to-polkavm){target=\_blank} and [REVM](https://github.com/polkadot-developers/polkadot-docs/blob/71e1b51bb42ef55e20c2f3b953db86e8c26cd591/smart-contracts/for-eth-devs/dual-vm-stack.md#migrate-from-evm){target=\_blank} backends.
 
 **RPC Adapter:**
 **[`pallet-revive-eth-rpc`](https://crates.io/crates/pallet-revive-eth-rpc){target=\_blank}** adds full Ethereum RPC compatibility for Ethereum tooling integration.
@@ -33,25 +33,25 @@ This guide covers three approaches to adding smart contracts to your blockchain:
 
 `pallet-revive` accepts smart contracts from multiple languages and compilation paths:
 
-| Language | Compiler | Output Bytecode | Execution Backend |
-|----------|----------|-----------------|-------------------|
-| Solidity | `resolc` | PolkaVM | PolkaVM |
-| Solidity | `solc` | EVM | REVM |
-| Rust (ink!) | `cargo-contract` | PolkaVM | PolkaVM | 
+| Language    | Compiler         | Output Bytecode | Execution Backend |
+|-------------|------------------|-----------------|-------------------|
+| Solidity    | `resolc`         | PVM             | PVM               |
+| Solidity    | `solc`           | EVM             | REVM              |
+| Rust (ink!) | `cargo-contract` | PVM             | PVM               |
 
-Any language that can compile to PolkaVM bytecode and utilize `pallet-revive`'s host functions (via [`pallet-revive-uapi`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive_uapi/index.html){target=\_blank}) is supported.
+Any language that can compile to PVM bytecode and utilize `pallet-revive`'s host functions (via [`pallet-revive-uapi`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive_uapi/index.html){target=\_blank}) is supported.
 
 ### How It Works
 
 **Dual Execution Model:**
 
-1. **PolkaVM Backend**: Executes PolkaVM bytecode with native performance optimization.
+1. **PVM Backend**: Executes PVM bytecode with native performance optimization.
 2. **REVM Backend**: Implements EVM bytecode for compatibility with existing Ethereum contracts, ensuring seamless migration.
 
 ### Key Benefits
 
-- **Unified platform**: Deploys both PolkaVM-optimized and EVM-compatible contracts using a single pallet.
-- **Performance**: PolkaVM execution provides improved performance compared to the traditional EVM, leveraging the [RISC-V](https://en.wikipedia.org/wiki/RISC-V){target=\_blank} architecture to map instructions to the CPU and requires little transpiling.
+- **Unified platform**: Deploys both PVM-optimized and EVM-compatible contracts using a single pallet.
+- **Performance**: PVM execution provides improved performance compared to the traditional EVM, leveraging the [RISC-V](https://en.wikipedia.org/wiki/RISC-V){target=\_blank} architecture to map instructions to the CPU and requires little transpiling.
 - **Ethereum compatibility**: Supports full integration with Ethereum tooling via RPC adapter.
 
 ### Implementation Examples

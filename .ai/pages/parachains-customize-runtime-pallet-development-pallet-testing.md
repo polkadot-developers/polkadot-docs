@@ -31,9 +31,7 @@ Before you begin, ensure you:
 
 ## Understanding FRAME Testing Tools
 
-[FRAME](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/frame_runtime/index.html){target=\_blank} provides specialized testing macros and utilities that make pallet testing more efficient.
-
-
+[FRAME (Framework for Runtime Aggregation of Modularized Entities)](/reference/glossary/#frame-framework-for-runtime-aggregation-of-modularized-entities){target=\_blank} provides specialized testing macros and utilities that make pallet testing more efficient.
 
 ### Assertion Macros
 

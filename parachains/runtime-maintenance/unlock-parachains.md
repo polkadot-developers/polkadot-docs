@@ -95,10 +95,7 @@ You can identify your parachain's sovereign account using either of these method
 
         - For parent/child chains use the prefix `0x70617261` (which decodes to `b"para"`).
          
-    2. Encode your parachain ID as a u32 SCALE value:
-        <!-- 
-        TODO POST-MVP: Restore above SCALE link
-        [SCALE](/polkadot-protocol/parachain-basics/data-encoding#data-types){target=\_blank} -->
+    2. Encode your parachain ID as a u32 [SCALE](/reference/parachains/data-encoding/#data-types){target=\_blank} value:
 
         - For parachain 2006, this would be `d6070000`.
 

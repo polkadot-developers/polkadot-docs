@@ -167,7 +167,7 @@ Snowbridge can bridge any ERC-20 token from Ethereum, but the destination chain 
 
 You can query which assets are supported for a specific route using the ParaSpell SDK:
 
-```ts
+```ts title="index.ts"
 import { getSupportedAssets } from '@paraspell/sdk-pjs';
 
 // Get assets supported for Ethereum → Polkadot Hub transfers
@@ -185,16 +185,9 @@ Common supported tokens on Polkadot Hub include:
 | Wrapped Bitcoin | WBTC | Bitcoin wrapped as an ERC-20 token |
 | Shiba Inu | SHIB | Popular ERC-20 meme token |
 
-The bridge can transfer assets to multiple destinations within the Polkadot ecosystem, provided the destination chain supports the asset:
-
-- **Polkadot Hub** - The primary destination for bridged assets
-- **Hydration** - DeFi-focused parachain
-- **Moonbeam** - EVM-compatible parachain
-- **Bifrost** - Liquid staking parachain
-
 To transfer to a different destination, change the `.to()` parameter and verify the asset is supported:
 
-```ts
+```ts title="index.ts"
 // Check if WETH is supported on Hydration
 const hydrationAssets = getSupportedAssets('Ethereum', 'Hydration');
 const wethSupported = hydrationAssets.some(a => a.symbol === 'WETH');
@@ -217,8 +210,12 @@ if (wethSupported) {
     --8<-- 'code/chain-interactions/send-transactions/interoperability/transfer-assets-into-polkadot/index.ts'
     ```
 
-## Next Steps
+!!!info "Transfer Assets Out of Polkadot"
 
-- **Transfer assets out of Polkadot** - Learn how to bridge assets back to Ethereum in the [Transfer Assets Out of Polkadot](/chain-interactions/send-transactions/interoperability/transfer-assets-out-of-polkadot/) guide
+    To transfer assets out of Polkadot, you can use the ParaSpell XCM SDK to build and execute a bridge transfer from Polkadot to Ethereum. Check out the [Polkadot to Ethereum](https://paraspell.github.io/docs/sdk/xcmPallet.html#polkadot-ethereum-transfer){target=\_blank} section of the ParaSpell XCM SDK documentation.
+
+
+## Where to Go Next
+
 - **Read the docs** - Dive deeper into the [ParaSpell XCM SDK](https://paraspell.github.io/docs/sdk/getting-started.html){target=\_blank} and [Snowbridge](https://docs.snowbridge.network/){target=\_blank} documentation
 - **Learn about XCM** - Understand the underlying protocol by visiting the [Get Started with XCM](/parachains/interoperability/get-started/) guide

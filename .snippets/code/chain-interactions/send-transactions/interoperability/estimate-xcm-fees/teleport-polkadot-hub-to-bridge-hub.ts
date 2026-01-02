@@ -1,4 +1,4 @@
-import { paseoAssetHub, paseoBridgeHub } from '@polkadot-api/descriptors';
+import { polkadotHub, paseoBridgeHub } from '@polkadot-api/descriptors';
 import { createClient, FixedSizeBinary, Enum } from 'polkadot-api';
 import { getWsProvider } from 'polkadot-api/ws-provider/node';
 import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
@@ -19,9 +19,9 @@ import {
 const PAS_UNITS = 10_000_000_000n; // 1 PAS
 const PAS_CENTS = 100_000_000n; // 0.01 PAS
 
-// Paseo Asset Hub constants
-const PASEO_ASSET_HUB_RPC_ENDPOINT = 'ws://localhost:8001';
-const ASSET_HUB_ACCOUNT = '15oF4uVJwmo4TdGW7VfQxNLavjCXviqxT9S1MgbjMNHr6Sp5'; // Alice (Paseo Asset Hub)
+// Polkadot Hub constants
+const POLKADOT_HUB_RPC_ENDPOINT = 'ws://localhost:8001';
+const POLKADOT_HUB_ACCOUNT = '15oF4uVJwmo4TdGW7VfQxNLavjCXviqxT9S1MgbjMNHr6Sp5'; // Alice (Polkadot Hub)
 
 // Bridge Hub destination
 const BRIDGE_HUB_RPC_ENDPOINT = 'ws://localhost:8000';
@@ -29,17 +29,17 @@ const BRIDGE_HUB_PARA_ID = 1002;
 const BRIDGE_HUB_BENEFICIARY =
   '14E5nqKAp3oAJcmzgZhUD2RcptBeUBScxKHgJKU4HPNcKVf3'; // Bob (Bridge Hub)
 
-// Create the XCM message for teleport (Asset Hub → Bridge Hub)
+// Create the XCM message for teleport (Polkadot Hub → Bridge Hub)
 function createTeleportXcmToBridgeHub(paraId: number) {
   return XcmVersionedXcm.V5([
-    // Withdraw PAS from Asset Hub (PAS on parachains is parents:1, interior: Here)
+    // Withdraw PAS from Polkadot Hub (PAS on parachains is parents:1, interior: Here)
     XcmV5Instruction.WithdrawAsset([
       {
         id: { parents: 1, interior: XcmV5Junctions.Here() },
         fun: XcmV3MultiassetFungibility.Fungible(1n * PAS_UNITS), // 1 PAS
       },
     ]),
-    // Pay local fees on Asset Hub in PAS
+    // Pay local fees on Polkadot Hub in PAS
     XcmV5Instruction.PayFees({
       asset: {
         id: { parents: 1, interior: XcmV5Junctions.Here() },
@@ -83,24 +83,24 @@ function createTeleportXcmToBridgeHub(paraId: number) {
   ]);
 }
 
-async function estimateXcmFeesFromAssetHubToBridgeHub(
+async function estimateXcmFeesFromPolkadotHubToBridgeHub(
   xcm: any,
-  assetHubApi: any,
+  polkadotHubApi: any,
 ) {
-  console.log('=== Fee Estimation Process (Asset Hub → Bridge Hub) ===');
+  console.log('=== Fee Estimation Process (Polkadot Hub → Bridge Hub) ===');
 
-  // 1. LOCAL EXECUTION FEES on Asset Hub
-  console.log('1. Calculating local execution fees on Asset Hub...');
+  // 1. LOCAL EXECUTION FEES on Polkadot Hub
+  console.log('1. Calculating local execution fees on Polkadot Hub...');
   let localExecutionFees = 0n;
 
   const weightResult =
-    await assetHubApi.apis.XcmPaymentApi.query_xcm_weight(xcm);
+    await polkadotHubApi.apis.XcmPaymentApi.query_xcm_weight(xcm);
   if (weightResult.success) {
-    console.log('✓ XCM weight (Asset Hub):', weightResult.value);
+    console.log('✓ XCM weight (Polkadot Hub):', weightResult.value);
 
-    // Convert weight to PAS fees from Asset Hub's perspective (parents:1, Here)
+    // Convert weight to PAS fees from Polkadot Hub's perspective (parents:1, Here)
     const executionFeesResult =
-      await assetHubApi.apis.XcmPaymentApi.query_weight_to_asset_fee(
+      await polkadotHubApi.apis.XcmPaymentApi.query_weight_to_asset_fee(
         weightResult.value,
         XcmVersionedAssetId.V4({
           parents: 1,
@@ -111,7 +111,7 @@ async function estimateXcmFeesFromAssetHubToBridgeHub(
     if (executionFeesResult.success) {
       localExecutionFees = executionFeesResult.value;
       console.log(
-        '✓ Local execution fees (Asset Hub):',
+        '✓ Local execution fees (Polkadot Hub):',
         localExecutionFees.toString(),
         'PAS units',
       );
@@ -123,7 +123,7 @@ async function estimateXcmFeesFromAssetHubToBridgeHub(
     }
   } else {
     console.log(
-      '✗ Failed to query XCM weight on Asset Hub:',
+      '✗ Failed to query XCM weight on Polkadot Hub:',
       weightResult.value,
     );
   }
@@ -133,19 +133,19 @@ async function estimateXcmFeesFromAssetHubToBridgeHub(
   let deliveryFees = 0n;
   let remoteExecutionFees = 0n; // Skipped (Bridge Hub descriptor not available)
 
-  // Origin from Asset Hub perspective
+  // Origin from Polkadot Hub perspective
   const origin = XcmVersionedLocation.V5({
     parents: 0,
     interior: XcmV5Junctions.X1(
       XcmV5Junction.AccountId32({
-        id: FixedSizeBinary.fromAccountId32(ASSET_HUB_ACCOUNT),
+        id: FixedSizeBinary.fromAccountId32(POLKADOT_HUB_ACCOUNT),
         network: undefined,
       }),
     ),
   });
 
-  // Dry run the XCM locally on Asset Hub
-  const dryRunResult = await assetHubApi.apis.DryRunApi.dry_run_xcm(
+  // Dry run the XCM locally on Polkadot Hub
+  const dryRunResult = await polkadotHubApi.apis.DryRunApi.dry_run_xcm(
     origin,
     xcm,
   );
@@ -154,7 +154,7 @@ async function estimateXcmFeesFromAssetHubToBridgeHub(
     dryRunResult.success &&
     dryRunResult.value.execution_result.type === 'Complete'
   ) {
-    console.log('✓ Local dry run on Asset Hub successful');
+    console.log('✓ Local dry run on Polkadot Hub successful');
 
     const { forwarded_xcms: forwardedXcms } = dryRunResult.value;
 
@@ -174,9 +174,9 @@ async function estimateXcmFeesFromAssetHubToBridgeHub(
 
       console.log('✓ Found XCM message to Bridge Hub');
 
-      // Calculate delivery fees from Asset Hub to Bridge Hub
+      // Calculate delivery fees from Polkadot Hub to Bridge Hub
       const deliveryFeesResult =
-        await assetHubApi.apis.XcmPaymentApi.query_delivery_fees(
+        await polkadotHubApi.apis.XcmPaymentApi.query_delivery_fees(
           destination,
           remoteXcm,
         );
@@ -229,13 +229,13 @@ async function estimateXcmFeesFromAssetHubToBridgeHub(
       console.log('✗ No XCM message found to Bridge Hub');
     }
   } else {
-    console.log('✗ Local dry run failed on Asset Hub:', dryRunResult.value);
+    console.log('✗ Local dry run failed on Polkadot Hub:', dryRunResult.value);
   }
 
   // 4. TOTAL FEES
   const totalFees = localExecutionFees + deliveryFees + remoteExecutionFees;
 
-  console.log('\n=== Fee Summary (Asset Hub → Bridge Hub) ===');
+  console.log('\n=== Fee Summary (Polkadot Hub → Bridge Hub) ===');
   console.log(
     'Local execution fees:',
     localExecutionFees.toString(),
@@ -263,30 +263,30 @@ async function estimateXcmFeesFromAssetHubToBridgeHub(
 }
 
 async function main() {
-  // Connect to the Asset Hub parachain
-  const assetHubClient = createClient(
-    withPolkadotSdkCompat(getWsProvider(PASEO_ASSET_HUB_RPC_ENDPOINT)),
+  // Connect to the Polkadot Hub parachain
+  const polkadotHubClient = createClient(
+    withPolkadotSdkCompat(getWsProvider(POLKADOT_HUB_RPC_ENDPOINT)),
   );
 
-  // Get the typed API for Asset Hub
-  const assetHubApi = assetHubClient.getTypedApi(paseoAssetHub);
+  // Get the typed API for Polkadot Hub
+  const polkadotHubApi = polkadotHubClient.getTypedApi(polkadotHub);
 
   try {
-    // Create the XCM message for teleport (Asset Hub → Bridge Hub)
+    // Create the XCM message for teleport (Polkadot Hub → Bridge Hub)
     const xcm = createTeleportXcmToBridgeHub(BRIDGE_HUB_PARA_ID);
 
-    console.log('=== XCM Teleport: Paseo Asset Hub → Bridge Hub ===');
-    console.log('From:', ASSET_HUB_ACCOUNT, '(Alice on Asset Hub)');
+    console.log('=== XCM Teleport: Polkadot Hub → Bridge Hub ===');
+    console.log('From:', POLKADOT_HUB_ACCOUNT, '(Alice on Polkadot Hub)');
     console.log('To:', BRIDGE_HUB_BENEFICIARY, '(Beneficiary on Bridge Hub)');
     console.log('Amount:', '1 PAS');
     console.log('');
 
     // Estimate all fees
-    const fees = await estimateXcmFeesFromAssetHubToBridgeHub(xcm, assetHubApi);
+    const fees = await estimateXcmFeesFromPolkadotHubToBridgeHub(xcm, polkadotHubApi);
     void fees; // prevent unused var under isolatedModules
 
-    // Create the execute transaction on Asset Hub
-    const tx = assetHubApi.tx.PolkadotXcm.execute({
+    // Create the execute transaction on Polkadot Hub
+    const tx = polkadotHubApi.tx.PolkadotXcm.execute({
       message: xcm,
       max_weight: {
         ref_time: 6000000000n,
@@ -305,7 +305,7 @@ async function main() {
     }
   } finally {
     // Ensure client is always destroyed
-    assetHubClient.destroy();
+    polkadotHubClient.destroy();
   }
 }
 

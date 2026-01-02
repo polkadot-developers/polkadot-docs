@@ -114,7 +114,7 @@ Ensure to replace `INSERT_PROVIDER` with the appropriate provider: `kubernetes`,
 
 ### Kubernetes
 
-Kubernetes is compatible with [GKE](https://cloud.google.com/kubernetes-engine){target=\_blank}, [Docker Desktop](https://docs.docker.com/desktop/features/kubernetes/){target=\_blank}, and [kind](https://kind.sigs.k8s.io/){target=\_blank}.
+Kubernetes is compatible with [GKE](https://cloud.google.com/kubernetes-engine){target=\_blank}, [Docker Desktop](https://docs.docker.com/desktop/use-desktop/kubernetes/){target=\_blank}, and [kind](https://kind.sigs.k8s.io/){target=\_blank}.
 
 - **Requirements**: Install [`kubectl`](https://kubernetes.io/docs/tasks/tools/#kubectl){target=\_blank} and ensure proper cluster permissions.
 - **Features**: Uses Prometheus operator for monitoring when available.

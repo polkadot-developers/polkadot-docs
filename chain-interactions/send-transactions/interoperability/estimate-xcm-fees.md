@@ -1,6 +1,6 @@
 ---
 title: XCM Fee Estimation
-description: This tutorial demonstrates how to estimate the fees for teleporting assets from the Polkadot Hub TestNet to the Paseo Bridge Hub chain.
+description: This tutorial demonstrates how to estimate the fees for teleporting assets from the Polkadot Hub TestNet to the Paseo People Chain.
 ---
 
 # XCM Fee Estimation
@@ -11,7 +11,7 @@ When sending cross-chain messages, ensure that the transaction will be successfu
 
 Sending cross-chain messages requires estimating the fees for the operation. 
 
-This tutorial will demonstrate how to dry-run and estimate the fees for teleporting assets from the Polkadot Hub TestNet to the Paseo Bridge Hub chain.
+This tutorial will demonstrate how to dry-run and estimate the fees for teleporting assets from the Polkadot Hub TestNet to the Paseo People Chain.
 
 ## Fee Mechanism
 
@@ -23,13 +23,13 @@ There are three types of fees that can be charged when sending a cross-chain mes
 
 If there are multiple intermediate chains, delivery fees and remote execution fees will be charged for each one.
 
-In this example, you will estimate the fees for teleporting assets from the Polkadot Hub to the Paseo Bridge Hub chain. The fee structure will be as follows:
+In this example, you will estimate the fees for teleporting assets from the Polkadot Hub to the Paseo People Chain. The fee structure will be as follows:
 
 ```mermaid
 flowchart LR
-    PolkadotHub[Polkadot Hub] -->|Delivery Fees| BridgeHub[Paseo Bridge Hub]
+    PolkadotHub[Polkadot Hub] -->|Delivery Fees| PeopleChain[Paseo People Chain]
     PolkadotHub -->|<br />Local<br />Execution<br />Fees| PolkadotHub
-    BridgeHub -->|<br />Remote<br />Execution<br />Fees| BridgeHub
+    PeopleChain -->|<br />Remote<br />Execution<br />Fees| PeopleChain
 ```
 
 The overall fees are `local_execution_fees` + `delivery_fees` + `remote_execution_fees`.
@@ -69,32 +69,32 @@ First, you need to set up your environment:
     npx tsc --init
     ```
 
-6. Generate the types for the Polkadot API for Paseo Bridge Hub and Polkadot Hub TestNet:
+6. Generate the types for the Polkadot API for Paseo People Chain and Polkadot Hub TestNet:
 
     ```bash
     npx papi add polkadotHub -n paseo_asset_hub && \
-    npx papi add paseoBridgeHub -w wss://bridge-hub-paseo.dotters.network
+    npx papi add paseoPeopleChain -w wss://people-paseo.rpc.amforc.com
     ```
 
     !!!info "Polkadot Hub"
         The `paseo_asset_hub` is the identifier for the Polkadot Hub TestNet.
 
-7. Create a new file called `teleport-polkadot-hub-to-bridge-hub.ts`:
+7. Create a new file called `teleport-polkadot-hub-to-people-chain.ts`:
 
     ```bash
-    touch teleport-polkadot-hub-to-bridge-hub.ts
+    touch teleport-polkadot-hub-to-people-chain.ts
     ```
 
-8. Import the necessary modules. Add the following code to the `teleport-polkadot-hub-to-bridge-hub.ts` file:
+8. Import the necessary modules. Add the following code to the `teleport-polkadot-hub-to-people-chain.ts` file:
 
-    ```typescript title="teleport-polkadot-hub-to-bridge-hub.ts"
-    --8<-- "code/chain-interactions/send-transactions/interoperability/estimate-xcm-fees/teleport-polkadot-hub-to-bridge-hub.ts::16"
+    ```typescript title="teleport-polkadot-hub-to-people-chain.ts"
+    --8<-- "code/chain-interactions/send-transactions/interoperability/estimate-xcm-fees/teleport-polkadot-hub-to-people-chain.ts::16"
     ```
 
 9. Define constants and a `main` function where you will implement all the logic:
 
-    ```typescript title="teleport-polkadot-hub-to-bridge-hub.ts"
-    --8<-- "code/chain-interactions/send-transactions/interoperability/estimate-xcm-fees/teleport-polkadot-hub-to-bridge-hub.ts:18:29"
+    ```typescript title="teleport-polkadot-hub-to-people-chain.ts"
+    --8<-- "code/chain-interactions/send-transactions/interoperability/estimate-xcm-fees/teleport-polkadot-hub-to-people-chain.ts:18:29"
 
     async function main() {
       // Code will go here
@@ -109,18 +109,18 @@ Now you are ready to start implementing the logic for the fee estimation for the
 
 Create the API client. You will need to create a client for the Polkadot Hub TestNet:
 
-```typescript title="teleport-polkadot-hub-to-bridge-hub.ts"
---8<-- "code/chain-interactions/send-transactions/interoperability/estimate-xcm-fees/teleport-polkadot-hub-to-bridge-hub.ts:266:272"
+```typescript title="teleport-polkadot-hub-to-people-chain.ts"
+--8<-- "code/chain-interactions/send-transactions/interoperability/estimate-xcm-fees/teleport-polkadot-hub-to-people-chain.ts:266:272"
 ```
 
 Ensure that you replace the endpoint URLs with the actual WebSocket endpoints. This example uses local chopsticks endpoints, but you can use public endpoints or run local nodes.
 
 ## Create the XCM Message
 
-Now, you can construct a proper XCM message using the new XCM V5 instructions for teleporting from Polkadot Hub TestNet to the Bridge Hub Chain:
+Now, you can construct a proper XCM message using the new XCM V5 instructions for teleporting from Polkadot Hub TestNet to the People Chain:
 
-```typescript title="teleport-polkadot-hub-to-bridge-hub.ts"
---8<-- "code/chain-interactions/send-transactions/interoperability/estimate-xcm-fees/teleport-polkadot-hub-to-bridge-hub.ts:33:84"
+```typescript title="teleport-polkadot-hub-to-people-chain.ts"
+--8<-- "code/chain-interactions/send-transactions/interoperability/estimate-xcm-fees/teleport-polkadot-hub-to-people-chain.ts:33:84"
 ```
 
 ## Fee Estimation Function
@@ -129,72 +129,72 @@ Below is a four-step breakdown of the logic needed to estimate the fees for the 
 
 First, you need to create the function that will estimate the fees for the teleport:
 
-```typescript title="teleport-polkadot-hub-to-bridge-hub.ts"
---8<-- "code/chain-interactions/send-transactions/interoperability/estimate-xcm-fees/teleport-polkadot-hub-to-bridge-hub.ts:86:89"
+```typescript title="teleport-polkadot-hub-to-people-chain.ts"
+--8<-- "code/chain-interactions/send-transactions/interoperability/estimate-xcm-fees/teleport-polkadot-hub-to-people-chain.ts:86:89"
   // Code will go here
 }
 ```
 
 1. **Local execution fees on Polkadot Hub**: Compute the XCM weight locally, then convert that weight to PAS using Polkadot Hub's view of PAS (`parents: 1, interior: Here`). Add the code to the function:
 
-    ```typescript title="teleport-polkadot-hub-to-bridge-hub.ts"
-    --8<-- "code/chain-interactions/send-transactions/interoperability/estimate-xcm-fees/teleport-polkadot-hub-to-bridge-hub.ts:90:129"
+    ```typescript title="teleport-polkadot-hub-to-people-chain.ts"
+    --8<-- "code/chain-interactions/send-transactions/interoperability/estimate-xcm-fees/teleport-polkadot-hub-to-people-chain.ts:90:129"
     ```
 
-2. **Dry-run and delivery fees to Bridge Hub**: Dry-run the XCM on Polkadot Hub to capture forwarded messages, locate the one targeting Bridge Hub (`parents: 1, interior: Here`), and ask for delivery fees. Add the code to the function:
+2. **Dry-run and delivery fees to People Chain**: Dry-run the XCM on Polkadot Hub to capture forwarded messages, locate the one targeting People Chain (`parents: 1, interior: Here`), and ask for delivery fees. Add the code to the function:
 
-    ```typescript title="teleport-polkadot-hub-to-bridge-hub.ts"
-    --8<-- "code/chain-interactions/send-transactions/interoperability/estimate-xcm-fees/teleport-polkadot-hub-to-bridge-hub.ts:131:193"
+    ```typescript title="teleport-polkadot-hub-to-people-chain.ts"
+    --8<-- "code/chain-interactions/send-transactions/interoperability/estimate-xcm-fees/teleport-polkadot-hub-to-people-chain.ts:131:193"
     ```
 
-3. **Remote execution fees on Bridge Hub**: Connect to Bridge Hub, recompute the forwarded XCM weight there, and convert weight to PAS (`parents: 0, interior: Here`). Add the code to the function:
+3. **Remote execution fees on People Chain**: Connect to People Chain, recompute the forwarded XCM weight there, and convert weight to PAS (`parents: 0, interior: Here`). Add the code to the function:
 
-    ```typescript title="teleport-polkadot-hub-to-bridge-hub.ts"
-    --8<-- "code/chain-interactions/send-transactions/interoperability/estimate-xcm-fees/teleport-polkadot-hub-to-bridge-hub.ts:195:233"
+    ```typescript title="teleport-polkadot-hub-to-people-chain.ts"
+    --8<-- "code/chain-interactions/send-transactions/interoperability/estimate-xcm-fees/teleport-polkadot-hub-to-people-chain.ts:195:233"
     ```
 
 4. **Sum and return totals**: Aggregate all parts, print a short summary, and return a structured result. Add the code to the function:
 
-    ```typescript title="teleport-polkadot-hub-to-bridge-hub.ts"
-    --8<-- "code/chain-interactions/send-transactions/interoperability/estimate-xcm-fees/teleport-polkadot-hub-to-bridge-hub.ts:235:263"
+    ```typescript title="teleport-polkadot-hub-to-people-chain.ts"
+    --8<-- "code/chain-interactions/send-transactions/interoperability/estimate-xcm-fees/teleport-polkadot-hub-to-people-chain.ts:235:263"
     ```
 
 The full code for the fee estimation function is the following:
 
 ??? code "Fee Estimation Function"
 
-    ```typescript title="teleport-polkadot-hub-to-bridge-hub.ts"
-    --8<-- "code/chain-interactions/send-transactions/interoperability/estimate-xcm-fees/teleport-polkadot-hub-to-bridge-hub.ts:86:263"
+    ```typescript title="teleport-polkadot-hub-to-people-chain.ts"
+    --8<-- "code/chain-interactions/send-transactions/interoperability/estimate-xcm-fees/teleport-polkadot-hub-to-people-chain.ts:86:263"
     ```
 
 ## Complete Implementation
 
 Now put it all together in the main function:
 
-```typescript title="teleport-polkadot-hub-to-bridge-hub.ts"
---8<-- "code/chain-interactions/send-transactions/interoperability/estimate-xcm-fees/teleport-polkadot-hub-to-bridge-hub.ts:265:310"
+```typescript title="teleport-polkadot-hub-to-people-chain.ts"
+--8<-- "code/chain-interactions/send-transactions/interoperability/estimate-xcm-fees/teleport-polkadot-hub-to-people-chain.ts:265:310"
 ```
 
 ## Full Code
 
 The full code for the complete implementation is the following:
 
-??? code "Teleport from Polkadot Hub to Bridge Hub"
+??? code "Teleport from Polkadot Hub to People Chain"
 
-    ```typescript title="teleport-polkadot-hub-to-bridge-hub.ts"
-    --8<-- "code/chain-interactions/send-transactions/interoperability/estimate-xcm-fees/teleport-polkadot-hub-to-bridge-hub.ts"
+    ```typescript title="teleport-polkadot-hub-to-people-chain.ts"
+    --8<-- "code/chain-interactions/send-transactions/interoperability/estimate-xcm-fees/teleport-polkadot-hub-to-people-chain.ts"
     ```
 
 ## Running the Script
 
-Before running the script, you can use chopsticks to fork the Polkadot Hub TestNet and Paseo Bridge Hub chains locally. To do so, you can use the following files and commands:
+Before running the script, you can use chopsticks to fork the Polkadot Hub TestNet and Paseo People Chain locally. To do so, you can use the following files and commands:
 
 1. Create a new directory called `.chopsticks` and add the files:
 
-    ??? code "paseo-bridge-hub.yml"
+    ??? code "paseo-people-chain.yml"
 
-        ```yaml title=".chopsticks/paseo-bridge-hub.yml"
-        --8<-- "code/chain-interactions/send-transactions/interoperability/estimate-xcm-fees/paseo-bridge-hub.yml"
+        ```yaml title=".chopsticks/paseo-people-chain.yml"
+        --8<-- "code/chain-interactions/send-transactions/interoperability/estimate-xcm-fees/paseo-people-chain.yml"
         ```
     
     ??? code "paseo-asset-hub.yml"
@@ -203,15 +203,15 @@ Before running the script, you can use chopsticks to fork the Polkadot Hub TestN
         --8<-- "code/chain-interactions/send-transactions/interoperability/estimate-xcm-fees/paseo-asset-hub.yml"
         ```
 
-2. Run the following command to fork the Paseo Bridge Hub chain:
+2. Run the following command to fork the Paseo People Chain:
 
     ```bash
-    chopsticks --config=.chopsticks/paseo-bridge-hub.yml
+    chopsticks --config=.chopsticks/paseo-people-chain.yml
     ```
 
     After running the command, you will see the following output:
 
-    --8<-- "code/chain-interactions/send-transactions/interoperability/estimate-xcm-fees/paseo-terminal-output-chopsticks.html"
+    --8<-- "code/chain-interactions/send-transactions/interoperability/estimate-xcm-fees/paseo-people-chain-terminal-output-chopsticks.html"
 
 3. Run the following command to fork the Polkadot Hub TestNet chain:
 
@@ -226,7 +226,7 @@ Before running the script, you can use chopsticks to fork the Polkadot Hub TestN
 4. Run the script:
 
     ```bash
-    npx ts-node teleport-polkadot-hub-to-bridge-hub.ts
+    npx ts-node teleport-polkadot-hub-to-people-chain.ts
     ```
 
 After running the script, you will see the following output:
@@ -235,6 +235,6 @@ After running the script, you will see the following output:
 
 ## Conclusion
 
-This approach provides accurate fee estimation for XCM teleports from Polkadot Hub TestNet to Bridge Hub Chain by properly simulating execution on both chains and utilizing dedicated runtime APIs for fee calculation. The fee breakdown helps you understand the cost structure of reverse cross-chain operations (parachain → bridge hub chain) and ensures your transactions have sufficient funds to complete successfully.
+This approach provides accurate fee estimation for XCM teleports from Polkadot Hub TestNet to People Chain by properly simulating execution on both chains and utilizing dedicated runtime APIs for fee calculation. The fee breakdown helps you understand the cost structure of cross-chain operations (asset hub → system parachain) and ensures your transactions have sufficient funds to complete successfully.
 
 The key insight is understanding how asset references change based on the perspective of each chain in the XCM ecosystem, which is crucial for proper fee estimation and XCM construction.

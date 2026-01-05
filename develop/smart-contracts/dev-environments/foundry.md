@@ -6,13 +6,16 @@ description: Learn to install, configure, and use foundry-polkadot for smart con
 # Foundry
 
 !!! warning
-    Consider that features like Anvil (Foundry's local blockchain) and `forge test` (for running Solidity tests) are not yet supported in `foundry-polkadot`.
+    The described state reflects the state of the art of the foundry-polkadot release starting from version 1.5.0
 
 ## Overview
 
-Foundry is a fast, modular, and extensible toolkit for Ethereum application development written in Rust. It provides a suite of command-line tools, including `forge` for compiling, testing, and deploying smart contracts and `cast` for interacting with blockchains.
+Foundry is a fast, modular, and extensible toolkit for Ethereum application development written in Rust. It provides a suite of command-line tools, including `forge` for compiling, testing, and deploying smart contracts, `cast` for interacting with blockchains and `anvil-polkadot` for local blockchain simulation.
 
-[`foundry-polkadot`](https://github.com/paritytech/foundry-polkadot/){target=\_blank} is an adaptation explicitly engineered for the Polkadot Hub, tailored for developers already familiar with Foundry who seek to leverage its capabilities within the Polkadot ecosystem. Additionally, this guide offers detailed information on the `forge` and `cast` commands supported within `foundry-polkadot`, complete with simple, runnable examples for quick reference.
+[`foundry-polkadot`](https://github.com/paritytech/foundry-polkadot/){target=\_blank} is an adaptation explicitly engineered for the Polkadot Hub, tailored for developers already familiar with Foundry who seek to leverage its capabilities within the Polkadot ecosystem. Additionally, this guide offers detailed information on the `forge`, `cast`, `anvil-polkadot` commands supported within `foundry-polkadot`, complete with simple, runnable examples for quick reference.
+
+!!! note
+    If you want to work with EVM bytecode and are not interested in testing your code with the Polkadot EVM backend, you can directly use the [original Foundry](https://github.com/foundry-rs/foundry/) instead of `foundry-polkadot`.
 
 ## Installation
 
@@ -30,14 +33,14 @@ The installation process is tailored for the Polkadot variant:
     foundryup-polkadot
     ```
 
-    This command will install the `forge` and `cast` binaries, which are explained below. Windows users must use a Unix-like terminal environment such as Git BASH or Windows Subsystem for Linux (WSL), as PowerShell and Command Prompt are not currently supported by `foundryup`.
+    This command will install the `forge`, `cast`, `anvil-polkadot` binaries, which are explained below. Windows users must use a Unix-like terminal environment such as Git BASH or Windows Subsystem for Linux (WSL), as PowerShell and Command Prompt are not currently supported by `foundryup`.
 
 ## Compiler Integration
 
 A core divergence lies in the underlying Solidity compiler.
 
 - `foundry` is built to interface with the `solc` compiler, which targets Ethereum's Ethereum Virtual Machine (EVM).
-- `foundry-polkadot`, in contrast, introduces and primarily utilizes the `resolc` compiler to compile down Solidity contracts into PolkaVM bytecode. 
+- `foundry-polkadot`, in contrast, while supporting original foundry functionality, introduces and utilizes the `resolc` compiler to compile Solidity contracts into PolkaVM bytecode.
 
     - **Command-Line Flag**: For commands that involve compilation (e.g., `forge build`), you can use the `--resolc` flag to enable `resolc` compilation. For example:
 
@@ -50,7 +53,7 @@ A core divergence lies in the underlying Solidity compiler.
     - **Configuration File**: Alternatively, you can configure `resolc` usage in the `foundry.toml` file. Add the following:
 
         ```toml
-        [profile.default.resolc]
+        [profile.default.polkadot]
         resolc_compile = true
         ```
 
@@ -66,8 +69,8 @@ Not all functionalities from the original Foundry are present or behave identica
 
 - **Currently unsupported**:
     - Compilation of Yul code is not yet supported.
-    - Support for factory contracts deployment is a known issue that is currently unresolved.
-- **Broader feature limitations**: Integration with `Anvil` and `Chisel` (Foundry's local blockchain and EVM toolkit, respectively) is not available. This limitation directly impacts the support for several key commands, including `forge test` for running tests, `forge snapshot` for creating blockchain state snapshots, and `forge script` for complex deployment and interaction scripts.
+    - Support for factory contracts deployment with `cast` command is a known issue that is currently unresolved.
+- **Broader feature limitations**: Integration with `Chisel` (the Rust REPL for EVM) is not available. `forge script` for complex deployment and interaction scripts is not supported.
 - **Modified feature**: The most notable modification is in the **compilation output**. When ``resolc`` is employed, the resulting bytecode will fundamentally differ from that generated by ``solc``, reflecting PolkaVM's distinct architectural requirements.
 
 ## Set up a Project
@@ -97,7 +100,7 @@ Compile contracts using `forge build`:
 forge build --resolc
 ```
 
-!!!note 
+!!! note
     You can still use `forge build` for compiling to regular EVM bytecode.
 
 PolkaVM bytecode starts with `0x505` prefix. Inspect compiled artifacts with:

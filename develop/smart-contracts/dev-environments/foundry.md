@@ -141,6 +141,66 @@ forge create MyToken \
 !!! note "Network Compatibility"
     Use the `--resolc` flag when deploying to PolkaVM-compatible networks. Omit it for Ethereum-compatible networks.
 
+## Test Contracts
+
+The `foundry-polkadot` integration enables testing of Solidity contracts against both Polkadot's EVM and PVM backends using `forge test`.
+
+### Run Tests
+
+Run tests using the `forge test` command with runtime selection:
+
+```bash
+# Polkadot EVM runtime
+forge test --polkadot=evm
+
+# Polkadot PVM runtime (experimental)
+forge test --polkadot=pvm
+```
+
+!!! note
+    When `resolc_compile = true` is configured in `[profile.default.polkadot]` of your `foundry.toml`, running `forge test` without any flags will test against the Polkadot PVM runtime. By default (without this configuration), `forge test` uses standard Foundry behavior.
+
+### Example Test
+
+Create a test file in the `test/` directory (e.g., `test/Simple.t.sol`):
+
+```solidity
+// Simple contract to be tested
+contract Simple {
+    function get() public pure returns (uint256) {
+        return 6;
+    }
+}
+
+contract FooTest is Test {
+    function testSimple() public {
+        Simple testContract = new Simple();
+        uint256 number = testContract.get();
+        assertEq(6, number);
+    }
+}
+```
+
+Run the test with:
+
+```bash
+forge test --polkadot=evm
+```
+
+### Best Practices
+
+- **Production**: Use EVM mode (`--polkadot=evm`) for stable, deterministic, and Ethereum-compatible testing
+- **Research**: Use PVM mode (`--polkadot=pvm`) to explore PVM capabilities (experimental)
+
+### Known Limitations
+
+Tests on standard open-source projects have shown a 90-100% pass rate using the Polkadot EVM backend. However, be aware of these limitations:
+
+1. **Cheatcodes**: Cheatcodes are only handled in the top-level test contract, not in nested contracts. This differs from original Foundry behavior
+2. **Gas Model**: The gas metering in `foundry-polkadot` is not fully aligned with Polkadot's production gas model. Tests relying on precise gas checks may fail
+3. **Balance Types**: Ethereum uses `u256` for balances, while Polkadot uses `u128`. Tests involving amounts exceeding `u128::MAX` will fail in the Polkadot runtime
+4. **PVM Integration Maturity**: The PVM backend is experimental. Tests may not work when using libraries or proxy patterns
+
 ## Supported `foundry-polkadot` Commands
 
 This section provides a detailed breakdown of the `forge` and `cast` commands supported in `foundry-polkadot`.
@@ -252,6 +312,10 @@ This section provides a detailed breakdown of the `forge` and `cast` commands su
     - **Command**: `forge selectors cache`.
     - **Description**: Caches function selectors for faster lookup.
 
+- **`test`**:
+    - **Command**: `forge test [--polkadot=<BACKEND>]`.
+    - **Description**: Runs tests for your Solidity contracts. Use `--polkadot=evm` to test against the Polkadot EVM runtime or `--polkadot=pvm` for the PVM runtime.
+
 - **`tree`**:
     - **Command**: `forge tree`.
     - **Description**: Displays the dependency tree of your Solidity contracts.
@@ -262,8 +326,8 @@ This section provides a detailed breakdown of the `forge` and `cast` commands su
 
     - **`clone`**: This command is not supported in `foundry-polkadot`.
     - **`coverage`**: Code coverage analysis is not supported.
+    - **`script`**: Complex deployment and interaction scripts are not supported.
     - **`snapshot`**: Creating blockchain state snapshots is not supported.
-    - **`test`**: Running Solidity tests is not supported.
 
 ### Cast Commands
 

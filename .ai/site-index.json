@@ -6027,12 +6027,12 @@
       }
     ],
     "stats": {
-      "chars": 12458,
-      "words": 1774,
+      "chars": 12372,
+      "words": 1761,
       "headings": 11,
-      "estimated_token_count_total": 2580
+      "estimated_token_count_total": 2551
     },
-    "hash": "sha256:60f5ac9f67fb9f2188121219830538d334028b3b9e85d42bd1e7279043654e39",
+    "hash": "sha256:0c346630a12fc5da9617525b87f1aca4df0b4bddf61a89691fee080758cdf534",
     "token_estimator": "heuristic-v1"
   },
   {

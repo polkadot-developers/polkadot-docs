@@ -1,6 +1,6 @@
-endpoint: wss://bridge-hub-paseo.dotters.network
+endpoint: wss://people-paseo.rpc.amforc.com
 mock-signature-host: true
-block: ${env.PASEO_BRIDGE_HUB_BLOCK_NUMBER}
+block: ${env.PASEO_PEOPLE_CHAIN_BLOCK_NUMBER}
 db: ./db.sqlite
 
 import-storage:
@@ -14,3 +14,4 @@ import-storage:
         - providers: 1
           data:
             free: '10000000000000000000'
+

@@ -6,7 +6,7 @@ description: Learn to install, configure, and use foundry-polkadot for smart con
 # Foundry
 
 !!! warning
-    The described state reflects the state of the art of the foundry-polkadot release starting from version 1.5.0
+    This guide applies to `foundry-polkadot` version 1.5.0 and later.
 
 ## Overview
 

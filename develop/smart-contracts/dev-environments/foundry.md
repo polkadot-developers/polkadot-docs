@@ -15,7 +15,7 @@ Foundry is a fast, modular, and extensible toolkit for Ethereum application deve
 [`foundry-polkadot`](https://github.com/paritytech/foundry-polkadot/){target=\_blank} is an adaptation explicitly engineered for the Polkadot Hub, tailored for developers already familiar with Foundry who seek to leverage its capabilities within the Polkadot ecosystem. Additionally, this guide offers detailed information on the `forge`, `cast`, `anvil-polkadot` commands supported within `foundry-polkadot`, complete with simple, runnable examples for quick reference.
 
 !!! note
-    If you want to work with EVM bytecode and are not interested in testing your code with the Polkadot EVM backend, you can directly use the [original Foundry](https://github.com/foundry-rs/foundry/) instead of `foundry-polkadot`.
+    If you want to work with EVM bytecode and are not interested in testing your code with the Polkadot EVM or PVM backend, you can directly use the [original Foundry](https://github.com/foundry-rs/foundry/) instead of `foundry-polkadot`.
 
 ## Installation
 
@@ -200,6 +200,21 @@ Tests on standard open-source projects have shown a 90-100% pass rate using the 
 2. **Gas Model**: The gas metering in `foundry-polkadot` is not fully aligned with Polkadot's production gas model. Tests relying on precise gas checks may fail
 3. **Balance Types**: Ethereum uses `u256` for balances, while Polkadot uses `u128`. Tests involving amounts exceeding `u128::MAX` will fail in the Polkadot runtime
 4. **PVM Integration Maturity**: The PVM backend is experimental. Tests may not work when using libraries or proxy patterns
+
+## Local Development with Anvil-Polkadot
+
+`anvil-polkadot` is a local blockchain simulator designed for development and testing. It is based on a customized Substrate node that implements additional features required by Anvil, including support for the major RPC methods available in the original Anvil.
+
+Start a local development node with:
+
+```bash
+anvil-polkadot
+```
+
+This launches a local Substrate-based blockchain with instant block mining by default and pre-funded development accounts, allowing you to deploy and test contracts locally before deploying to a live network.
+
+!!! warning "Fork Mode Not Supported"
+    The major limitation of `anvil-polkadot` is that it does not currently support fork mode, which allows forking state from live networks.
 
 ## Supported `foundry-polkadot` Commands
 

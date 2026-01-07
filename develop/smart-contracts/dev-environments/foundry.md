@@ -138,8 +138,8 @@ forge create MyToken \
     --resolc
 ```
 
-!!! note "Network Compatibility"
-    Use the `--resolc` flag when deploying to PolkaVM-compatible networks. Omit it for Ethereum-compatible networks.
+!!! note "Compiler Selection"
+    Use the `--resolc` flag when deploying to PolkaVM-compatible networks. Omit it for Ethereum-compatible networks. Polkadot Hub supports both EVM and PolkaVM bytecode through its dual backend architecture.
 
 ## Test Contracts
 
@@ -147,63 +147,35 @@ The `foundry-polkadot` integration enables testing of Solidity contracts against
 
 ### Run Tests
 
-Run tests using the `forge test` command with runtime selection:
+The default project includes a `Counter.t.sol` test file in the `test/` directory. Run tests using the `forge test` command with runtime selection.
+
+For the Polkadot EVM runtime backend:
 
 ```bash
-# Polkadot EVM runtime
 forge test --polkadot=evm
+```
 
-# Polkadot PVM runtime (experimental)
+For the Polkadot PVM runtime backend:
+
+```bash
 forge test --polkadot=pvm
 ```
 
 !!! note
-    When `resolc_compile = true` is configured in `[profile.default.polkadot]` of your `foundry.toml`, running `forge test` without any flags will test against the Polkadot PVM runtime. By default (without this configuration), `forge test` uses standard Foundry behavior.
-
-### Example Test
-
-Create a test file in the `test/` directory (e.g., `test/Simple.t.sol`):
-
-```solidity
-// Simple contract to be tested
-contract Simple {
-    function get() public pure returns (uint256) {
-        return 6;
-    }
-}
-
-contract FooTest is Test {
-    function testSimple() public {
-        Simple testContract = new Simple();
-        uint256 number = testContract.get();
-        assertEq(6, number);
-    }
-}
-```
-
-Run the test with:
-
-```bash
-forge test --polkadot=evm
-```
-
-### Best Practices
-
-- **Production**: Use EVM mode (`--polkadot=evm`) for stable, deterministic, and Ethereum-compatible testing
-- **Research**: Use PVM mode (`--polkadot=pvm`) to explore PVM capabilities (experimental)
+    When `resolc_compile = true` is configured in `[profile.default.polkadot]` of your `foundry.toml`, running `forge test` without any flags will test against the Polkadot PVM runtime, equivalent to using `--polkadot=pvm`.
 
 ### Known Limitations
 
 Tests on standard open-source projects have shown a 90-100% pass rate using the Polkadot EVM backend. However, be aware of these limitations:
 
-1. **Cheatcodes**: Cheatcodes are only handled in the top-level test contract, not in nested contracts. This differs from original Foundry behavior
-2. **Gas Model**: The gas metering in `foundry-polkadot` is not fully aligned with Polkadot's production gas model. Tests relying on precise gas checks may fail
-3. **Balance Types**: Ethereum uses `u256` for balances, while Polkadot uses `u128`. Tests involving amounts exceeding `u128::MAX` will fail in the Polkadot runtime
-4. **PVM Integration Maturity**: The PVM backend is experimental. Tests may not work when using libraries or proxy patterns
+- **Cheatcodes**: Cheatcodes are only handled in the top-level test contract, not in nested contracts. This differs from original Foundry behavior.
+- **Gas Model**: The gas metering in `foundry-polkadot` is not fully aligned with Polkadot's production gas model. Tests relying on precise gas checks may fail.
+- **Balance Types**: Ethereum uses `u256` for balances, while Polkadot uses `u128`. Tests involving amounts exceeding `u128::MAX` will fail in the Polkadot runtime.
+- **PVM Integration Maturity**: The PVM backend is experimental. Tests may not work when using libraries or proxy patterns.
 
-## Local Development with Anvil-Polkadot
+## Local Development Node
 
-`anvil-polkadot` is a local blockchain simulator designed for development and testing. It is based on a customized Substrate node that implements additional features required by Anvil, including support for the major RPC methods available in the original Anvil.
+`anvil-polkadot` is a local development node for testing smart contracts. It runs a customized Substrate node with support for the major RPC methods available in original Foundry's Anvil.
 
 Start a local development node with:
 
@@ -211,7 +183,7 @@ Start a local development node with:
 anvil-polkadot
 ```
 
-This launches a local Substrate-based blockchain with instant block mining by default and pre-funded development accounts, allowing you to deploy and test contracts locally before deploying to a live network.
+This launches a local Substrate-based blockchain with instant block mining by default and pre-funded development accounts, allowing you to deploy and test contracts locally before deploying to a live network. Use `http://localhost:8545` as the RPC URL when deploying or interacting with contracts.
 
 !!! warning "Fork Mode Not Supported"
     The major limitation of `anvil-polkadot` is that it does not currently support fork mode, which allows forking state from live networks.

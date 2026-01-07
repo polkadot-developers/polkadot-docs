@@ -16,24 +16,16 @@ The following diagram shows the complete flow when bridging WETH from Ethereum t
 ```mermaid
 sequenceDiagram
     participant User
-    participant WETH as WETH Contract
-    participant Gateway as Snowbridge Gateway
+    participant Ethereum
     participant Relayers
-    participant BridgeHub as Bridge Hub
-    participant PolkadotHub as Polkadot Hub
+    participant Polkadot
 
-    User->>WETH: 1. Approve Gateway to spend WETH
-    WETH-->>User: Approval confirmed
-    User->>Gateway: 2. Call sendToken(WETH, amount, destination)
-    Gateway->>WETH: Transfer WETH from user
-    Gateway->>Gateway: Lock tokens & emit OutboundMessageAccepted
-    Gateway-->>User: Ethereum tx confirmed
-    Note over Relayers: ~30 minutes
-    Relayers->>BridgeHub: 3. Relay message to Polkadot
-    BridgeHub->>BridgeHub: Verify Ethereum consensus proof
-    BridgeHub->>PolkadotHub: 4. Forward via XCM
-    PolkadotHub->>PolkadotHub: Mint wrapped WETH as foreign asset
-    PolkadotHub-->>User: 5. Tokens available in account
+    User->>Ethereum: 1. Approve & send tokens
+    Ethereum->>Ethereum: Lock tokens
+    Note over Relayers: ~30 min relay
+    Relayers->>Polkadot: 2. Relay message
+    Polkadot->>Polkadot: Verify & mint tokens
+    Polkadot-->>User: 3. Tokens available
 ```
 
 In this guide, you will:

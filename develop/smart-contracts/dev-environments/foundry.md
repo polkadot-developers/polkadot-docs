@@ -164,6 +164,8 @@ forge test --polkadot=pvm
 !!! note
     When `resolc_compile = true` is configured in `[profile.default.polkadot]` of your `foundry.toml`, running `forge test` without any flags will test against the Polkadot PVM runtime, equivalent to using `--polkadot=pvm`.
 
+For a complete list of supported cheatcodes, see the [Cheatcodes Reference](foundry-cheatcodes.md).
+
 ### Known Limitations
 
 Tests on standard open-source projects have shown a 90-100% pass rate using the Polkadot EVM backend. However, be aware of these limitations:
@@ -184,6 +186,8 @@ anvil-polkadot
 ```
 
 This launches a local Substrate-based blockchain with instant block mining by default and pre-funded development accounts, allowing you to deploy and test contracts locally before deploying to a live network. Use `http://localhost:8545` as the RPC URL when deploying or interacting with contracts.
+
+For a complete list of supported RPC methods, see the [Anvil-Polkadot RPC Reference](foundry-anvil-rpc.md).
 
 !!! warning "Fork Mode Not Supported"
     The major limitation of `anvil-polkadot` is that it does not currently support fork mode, which allows forking state from live networks.

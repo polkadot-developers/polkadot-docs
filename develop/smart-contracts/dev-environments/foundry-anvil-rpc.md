@@ -153,7 +153,7 @@ This page lists all RPC methods supported by `anvil-polkadot`. Methods marked wi
 | Method | Status | Description |
 |--------|--------|-------------|
 | `anvil_mine` | ✅ | Mine one or more blocks |
-| `anvil_setAutomine` | ✅ | Enable or disable automine |
+| `evm_setAutomine` | ✅ | Enable or disable automine |
 | `anvil_getAutomine` | ✅ | Get the current automine status |
 | `anvil_setIntervalMining` | ✅ | Set the mining interval |
 | `anvil_getIntervalMining` | ✅ | Get the current mining interval |

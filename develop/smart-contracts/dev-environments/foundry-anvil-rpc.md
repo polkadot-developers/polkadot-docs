@@ -29,7 +29,7 @@ This page lists all RPC methods supported by `anvil-polkadot`. Methods marked wi
 | Method | Status | Description |
 |--------|--------|-------------|
 | `eth_blockNumber` | ✅ | Returns the number of most recent block |
-| `eth_getBlockByHash` | ✅ | Returns information about a block by hash |
+| `eth_getBlockByHash` | ✅ | Returns information about a block by Ethereum hash |
 | `eth_getBlockByNumber` | ✅ | Returns information about a block by number |
 | `eth_getBlockReceipts` | ❌ | Returns all transaction receipts for a given block |
 

@@ -132,6 +132,7 @@ This page lists all RPC methods supported by `anvil-polkadot`. Methods marked wi
 |--------|--------|-------------|
 | `debug_traceTransaction` | ✅ | Returns a full trace of a transaction's execution |
 | `debug_traceCall` | ✅ | Returns a full trace of a call's execution |
+| `debug_traceBlockByNumber` | ✅ | Returns a full trace by executing all transactions in the block specified by number |
 | `debug_getRawTransaction` | ❌ | Returns the raw transaction data |
 | `debug_codeByHash` | ❌ | Returns the code for a given code hash |
 | `trace_transaction` | ✅ | Returns a Parity-style trace of a transaction |

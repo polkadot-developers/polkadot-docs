@@ -177,7 +177,6 @@ This page lists all RPC methods supported by `anvil-polkadot`. Methods marked wi
 | `anvil_setERC20Allowance` | ❌ | Sets ERC20 allowance |
 | `evm_setTime` | ✅ | Sets the block timestamp |
 | `evm_setNextBlockTimestamp` | ✅ | Sets the timestamp of the next block |
-| `evm_setBlockGasLimit` | ✅ | Sets the block gas limit |
 | `anvil_setBlockTimestampInterval` | ✅ | Sets the block timestamp interval |
 | `anvil_removeBlockTimestampInterval` | ✅ | Removes the block timestamp interval |
 | `evm_increaseTime` | ✅ | Increase the current timestamp |

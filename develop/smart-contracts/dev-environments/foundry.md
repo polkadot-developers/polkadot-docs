@@ -12,7 +12,7 @@ description: Learn to install, configure, and use foundry-polkadot for smart con
 
 Foundry is a fast, modular, and extensible toolkit for Ethereum application development written in Rust. It provides a suite of command-line tools, including `forge` for compiling, testing, and deploying smart contracts, `cast` for interacting with blockchains, and `anvil-polkadot` for local blockchain simulation.
 
-[`foundry-polkadot`](https://github.com/paritytech/foundry-polkadot/){target=\_blank} is an adaptation explicitly engineered for the Polkadot Hub, tailored for developers already familiar with Foundry who seek to leverage its capabilities within the Polkadot ecosystem. Additionally, this guide offers detailed information on the `forge`, `cast`, `anvil-polkadot` commands supported within `foundry-polkadot`, complete with simple, runnable examples for quick reference.
+[`foundry-polkadot`](https://github.com/paritytech/foundry-polkadot/){target=\_blank} is an adaptation explicitly engineered for the Polkadot Hub, tailored for developers already familiar with Foundry who seek to leverage its capabilities within the Polkadot ecosystem. Additionally, this guide offers detailed information on the `forge`, `cast`, and `anvil-polkadot` commands supported within `foundry-polkadot`, complete with simple, runnable examples for quick reference.
 
 !!! note
     If you want to work with EVM bytecode and are not interested in testing your code with the Polkadot EVM or PVM backend, you can directly use the [original Foundry](https://github.com/foundry-rs/foundry/) instead of `foundry-polkadot`.

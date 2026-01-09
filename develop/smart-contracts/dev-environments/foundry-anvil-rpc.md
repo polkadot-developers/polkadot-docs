@@ -21,7 +21,7 @@ This page lists all RPC methods supported by `anvil-polkadot`. Methods marked wi
 | Method | Status | Description |
 |--------|--------|-------------|
 | `eth_chainId` | ✅ | Returns the chain ID |
-| `net_version` | ✅ | Returns the network ID |
+| `eth_networkId` | ✅ | Returns the network ID |
 | `net_listening` | ✅ | Returns true if client is actively listening for network connections |
 
 ### Block Methods

@@ -33,7 +33,7 @@ The installation process is tailored for the Polkadot variant:
     foundryup-polkadot
     ```
 
-    This command will install the `forge`, `cast`, `anvil-polkadot` binaries, which are explained below. Windows users must use a Unix-like terminal environment such as Git BASH or Windows Subsystem for Linux (WSL), as PowerShell and Command Prompt are not currently supported by `foundryup`.
+    This command will install the `forge`, `cast`, and `anvil-polkadot` binaries, which are explained below. Windows users must use a Unix-like terminal environment such as Git BASH or Windows Subsystem for Linux (WSL), as PowerShell and Command Prompt are not currently supported by `foundryup`.
 
 ## Compiler Integration
 

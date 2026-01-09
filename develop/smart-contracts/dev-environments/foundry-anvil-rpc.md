@@ -32,6 +32,8 @@ This page lists all RPC methods supported by `anvil-polkadot`. Methods marked wi
 | `eth_getBlockByHash` | ✅ | Returns information about a block by Ethereum hash |
 | `eth_getBlockByNumber` | ✅ | Returns information about a block by number |
 | `eth_getBlockReceipts` | ❌ | Returns all transaction receipts for a given block |
+| `eth_getBlockTransactionCountByHash` | ✅ | Returns the number of transactions in a block by block hash |
+| `eth_getBlockTransactionCountByNumber` | ✅ | Returns the number of transactions in a block by block number |
 
 ### Account Methods
 
@@ -45,8 +47,6 @@ This page lists all RPC methods supported by `anvil-polkadot`. Methods marked wi
 | `eth_getCode` | ✅ | Returns code at a given address |
 | `eth_getProof` | ❌ | Returns the account and storage values including the Merkle proof |
 | `eth_getTransactionCount` | ✅ | Returns the number of transactions sent from an address |
-| `eth_getTransactionCountByHash` | ✅ | Returns the number of transactions in a block by block hash |
-| `eth_getTransactionCountByNumber` | ✅ | Returns the number of transactions in a block by block number |
 
 ### Transaction Methods
 

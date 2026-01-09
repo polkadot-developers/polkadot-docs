@@ -178,7 +178,7 @@ This page lists all RPC methods supported by `anvil-polkadot`. Methods marked wi
 | `evm_setTime` | ✅ | Sets the block timestamp |
 | `evm_setNextBlockTimestamp` | ✅ | Sets the timestamp of the next block |
 | `evm_setBlockGasLimit` | ✅ | Sets the block gas limit |
-| `evm_setBlockTimestampInterval` | ✅ | Sets the block timestamp interval |
+| `anvil_setBlockTimestampInterval` | ✅ | Sets the block timestamp interval |
 | `evm_removeBlockTimestampInterval` | ✅ | Removes the block timestamp interval |
 | `evm_increaseTime` | ✅ | Increase the current timestamp |
 

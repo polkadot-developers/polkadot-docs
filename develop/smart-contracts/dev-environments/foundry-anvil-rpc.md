@@ -208,7 +208,7 @@ This page lists all RPC methods supported by `anvil-polkadot`. Methods marked wi
 | `anvil_setRpcUrl` | ❌ | Sets the RPC URL for forking |
 | `anvil_nodeInfo` | ✅ | Returns information about the node |
 | `anvil_metadata` | ✅ | Returns metadata about the Anvil instance |
-| `anvil_setLogging` | ✅ | Enables or disables logging |
+| `anvil_setLoggingEnabled` | ✅ | Enables or disables logging |
 | `anvil_enableTraces` | ❌ | Enables call traces |
 
 ### Advanced

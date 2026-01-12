@@ -4,35 +4,33 @@ Includes shared base categories: Basics, Reference
 
 ---
 
-Page Title: Accounts in Asset Hub Smart Contracts
+Page Title: Accounts in Polkadot Hub Smart Contracts
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-for-eth-devs-accounts.md
 - Canonical (HTML): https://docs.polkadot.com/smart-contracts/for-eth-devs/accounts/
 - Summary: Bridges Ethereum's 20-byte addresses with Polkadot's 32-byte accounts, enabling seamless interaction while maintaining compatibility with Ethereum tooling.
 
-# Accounts on Asset Hub Smart Contracts
+# Accounts in Polkadot Hub Smart Contracts
 
 ## Introduction
 
-Asset Hub natively utilizes Polkadot's 32-byte account system while providing interoperability with Ethereum's 20-byte addresses through an automatic conversion system. When interacting with smart contracts:
+Polkadot Hub natively utilizes Polkadot's 32-byte account system while providing interoperability with Ethereum's 20-byte addresses through an automatic conversion system. When interacting with smart contracts:
 
 - Ethereum-compatible wallets (like MetaMask) can use their familiar 20-byte addresses.
 - Polkadot accounts continue using their native 32-byte format.
-- The Asset Hub chain automatically handles conversion between the two formats behind the scenes:
+- The Polkadot Hub chain automatically handles conversion between the two formats behind the scenes:
 
     - 20-byte Ethereum addresses are padded with `0xEE` bytes to create valid 32-byte Polkadot accounts.
     - 32-byte Polkadot accounts can optionally register a mapping to a 20-byte address for Ethereum compatibility.
 
-This dual-format approach enables Asset Hub to maintain compatibility with Ethereum tooling while fully integrating with the Polkadot ecosystem.
+This dual-format approach enables Polkadot Hub to maintain compatibility with Ethereum tooling while fully integrating with the Polkadot ecosystem.
 
 ## Address Types and Mappings
 
 The platform handles two distinct address formats:
 
 - [Ethereum-style addresses (20 bytes)](https://ethereum.org/developers/docs/accounts/#account-creation){target=\_blank}
-- [Polkadot native account IDs (32 bytes)](https://wiki.polkadot.com/learn/learn-account-advanced/#address-format){target=\_blank}
-
-
+- [Polkadot native account IDs (32 bytes)](/reference/parachains/accounts/){target=\_blank}
 
 ### Ethereum to Polkadot Mapping
 
@@ -60,20 +58,57 @@ The conversion process is implemented through the [`to_address`](https://parityt
 **Stateful Mapping for Reversibility** : Since the conversion from 32-byte to 20-byte addresses is inherently lossy, the system provides an optional stateful mapping through the [`OriginalAccount`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/pallet/storage_types/struct.OriginalAccount.html){target=\_blank} storage. When a Polkadot account registers a mapping (via the [`map`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/trait.AddressMapper.html#tymethod.map){target=\_blank} function), the system stores the original 32-byte account ID, enabling the [`to_account_id`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/trait.AddressMapper.html#tymethod.to_account_id){target=\_blank} function to recover the exact original account rather than falling back to a default conversion.
 
 
+### Interacting with Unmapped Substrate Accounts
+
+Native Polkadot accounts (32-byte format) that haven't been explicitly mapped have limited interaction capabilities with the Ethereum-compatible smart contract layer. Understanding these limitations and when mapping is required is essential for developers working with Polkadot Hub smart contracts.
+
+#### Limitations of Unmapped Accounts
+
+Unmapped Substrate accounts (those created with Ed25519 or Sr25519 keypairs) face the following restrictions:
+
+- Cannot initiate transactions through Ethereum-compatible interfaces (like MetaMask or other EVM-compatible wallets).
+- Cannot directly call smart contracts using Ethereum RPC methods.
+- Cannot transfer funds to or from 20-byte Ethereum-compatible addresses without proper mapping.
+- Limited interoperability with Ethereum tooling and existing EVM infrastructure.
+
+The system can *receive* funds at the hashed 20-byte address derived from the 32-byte account, but the original account owner cannot control or access those funds through Ethereum-compatible methods without first establishing a proper mapping.
+
+#### When Mapping is Required
+
+Account mapping is **required** when:
+
+- You want to interact with smart contracts using Ethereum-compatible tools (MetaMask, Web3.js, Ethers.js).
+- You need to transfer funds using 20-byte address format.
+- You want your existing Polkadot account to be accessible through EVM-compatible interfaces.
+- You need bidirectional compatibility between Polkadot and Ethereum address formats.
+
+Account mapping is **not required** when:
+
+- Using native Polkadot addresses (32-byte) exclusively with Substrate-native interfaces.
+- Interacting with parachains that don't use the Ethereum-compatible layer.
+- Using accounts that were originally created with secp256k1 keys (Ethereum-compatible from the start).
+
 ### Account Mapping for Native Polkadot Accounts
 
 If you have a native Polkadot account (32-byte format) that was created with a Polkadot/Substrate keypair (Ed25519/Sr25519) rather than an Ethereum-compatible keypair (secp256k1), you'll need to map your account to enable Ethereum compatibility.
 
 To map your account, call the [`map_account`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/pallet/dispatchables/fn.map_account.html){target=\_blank} extrinsic of the [`pallet_revive`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/index.html){target=\_blank} pallet using your original Substrate account. This creates a stateful mapping that allows your 32-byte account to interact with the Ethereum-compatible smart contract system.
 
+**Mapping Process:**
+
+1. **Call the extrinsic**: Use your Substrate wallet to call `pallet_revive.map_account()`.
+2. **Pay the deposit**: A deposit is required and held while the mapping exists (refundable upon unmapping).
+3. **Receive confirmation**: Once mapped, your account can be used with both Polkadot and Ethereum interfaces.
+
 Once mapped, you'll be able to:
 
 - Transfer funds between 20-byte format addresses.
 - Interact with smart contracts using Ethereum-compatible tools like MetaMask.
 - Maintain full reversibility to your original 32-byte account format.
+- Access funds at both your 32-byte Polkadot address and the mapped 20-byte Ethereum address.
 
 !!! warning "Mapping Requirement"
-    Without this mapping, native Polkadot accounts cannot transfer funds or interact with the Ethereum-compatible layer on the Hub.
+    Without this mapping, native Polkadot accounts cannot transfer funds or interact with the Ethereum-compatible layer on the Hub. Attempting to send funds to an unmapped account's hashed Ethereum address may result in funds being inaccessible through standard Ethereum tools.
 
 ## Account Registration
 
@@ -88,9 +123,25 @@ The registration process is implemented through the [`map`](https://paritytech.g
 
 The fallback mechanism is integrated into the [`to_account_id`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/trait.AddressMapper.html#tymethod.to_account_id){target=\_blank} function. It provides a safety net for address conversion by:
 
-- First, attempting to retrieve stored mapping data.
-- Falling back to the default conversion method if no mapping exists.
-- Maintaining consistency in address representation.
+- First, attempting to retrieve stored mapping data from [`OriginalAccount`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/pallet/storage_types/struct.OriginalAccount.html){target=\_blank} storage.
+- Falling back to the default conversion method (Keccak-256 hash) if no explicit mapping exists.
+- Maintaining consistency in address representation across the system.
+
+### How Fallback Works with Unmapped Accounts
+
+When an unmapped 32-byte Polkadot account needs to be represented as a 20-byte Ethereum address, the system:
+
+1. **Checks for explicit mapping**: First looks in the `OriginalAccount` storage to see if the account has been explicitly mapped via `map_account`.
+2. **Applies fallback conversion**: If no mapping exists, automatically converts the 32-byte account to a 20-byte address by:
+   - Hashing the full 32-byte account with Keccak-256.
+   - Taking the last 20 bytes of the resulting hash.
+3. **Uses the derived address**: This fallback address can receive funds, but the account owner cannot spend those funds through Ethereum-compatible interfaces without explicit mapping.
+
+**Important Considerations:**
+
+- The fallback mechanism is **one-way for unmapped accounts**. While you can derive the 20-byte address from a 32-byte account, you cannot recover the original 32-byte account from the 20-byte hash without the stored mapping.
+- Funds sent to a fallback address of an unmapped account are not lost, but require explicit mapping to be accessible through Ethereum tools.
+- For security and usability, it's recommended to establish explicit mappings rather than relying on fallback addresses for accounts that need Ethereum compatibility.
 
 ## Contract Address Generation
 
@@ -124,7 +175,7 @@ Page Title: Block Explorers
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-explorers.md
 - Canonical (HTML): https://docs.polkadot.com/smart-contracts/explorers/
-- Summary: Access PolkaVM explorers like Subscan, BlockScout, and Routescan to track transactions, analyze contracts, and view on-chain data from smart contracts.
+- Summary: Access block explorers like Subscan, BlockScout, and Routescan to track transactions, analyze contracts, and view on-chain data from smart contracts.
 
 # Block Explorers
 
@@ -134,7 +185,7 @@ Block explorers serve as comprehensive blockchain analytics platforms that provi
 
 ## Core Functionality
 
-These block explorers provide essential capabilities for interacting with smart contracts in Polkadot Hub:
+Block explorers provide essential capabilities for interacting with smart contracts on Polkadot Hub:
 
 - **Transaction tracking**: Monitor transaction status, confirmations, fees, and metadata.
 - **Address analysis**: View account balances, transaction history, and associated contracts.
@@ -145,11 +196,15 @@ These block explorers provide essential capabilities for interacting with smart 
 
 ## Available Block Explorers
 
-The following block explorers are available for PolkaVM smart contracts, providing specialized tools for monitoring and analyzing contract activity within the Polkadot ecosystem.
+The following block explorers are available for Polkadot Hub smart contracts, providing specialized tools for monitoring and analyzing contract activity.
 
 
 
 
+<<<<<<< HEAD
+=======
+BlockScout is an open-source explorer platform with a user-friendly interface. It excels at detailed contract analytics and provides developers with comprehensive API access.
+>>>>>>> staging/product-ia
 
 ### Routescan
 
@@ -231,6 +286,268 @@ These traits govern how blocks are validated and imported across the network, en
 ## Additional Resources
 
 To learn more about the block structure in the Polkadot SDK runtime, see the [`Block` reference](https://paritytech.github.io/polkadot-sdk/master/sp_runtime/traits/trait.Block.html){target=\_blank} entry in the Rust Docs.
+
+
+---
+
+Page Title: Calculate Transaction Fees
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/chain-interactions-send-transactions-calculate-transaction-fees.md
+- Canonical (HTML): https://docs.polkadot.com/chain-interactions/send-transactions/calculate-transaction-fees/
+- Summary: Learn how to calculate transaction fees on Polkadot using Polkadot-API, Polkadot.js API, and the Polkadot.js Apps UI to estimate transfer costs.
+
+# Calculate Transaction Fees
+
+## Introduction
+
+Transaction fees are essential costs for executing operations on Polkadot and its parachains. Understanding how to estimate these fees helps you manage account balances and build better user experiences in your applications. 
+
+This tutorial will guide you through different methods for calculating transaction fees.
+
+## Prerequisites
+
+Before starting, make sure you have:
+
+- [Node.js](https://nodejs.org/){target=\_blank} version 18 or higher installed
+- Basic understanding of JavaScript/TypeScript
+- Test accounts with sufficient balance to pay transaction fees
+
+!!! note
+    Transaction fees on Polkadot are calculated based on three components: a base fee, a length fee (proportional to transaction size), and a weight fee (proportional to computational complexity). An optional tip can be added to prioritize transaction inclusion.
+
+## Polkadot-API (PAPI)
+
+[Polkadot-API](/reference/tools/papi){target=\_blank} is the modern, recommended library for building TypeScript applications with type safety and light client support.
+
+Create a new project directory and initialize it:
+
+```bash
+mkdir fee-calculator
+cd fee-calculator
+npm init -y && npm pkg set type=module
+```
+
+Install the required packages:
+
+```bash
+npm install polkadot-api
+npm install --save-dev typescript tsx
+```
+
+Add the Polkadot relay chain to generate type-safe descriptors:
+
+```bash
+npx papi add polkadotTestNet -w INSERT_WS_ENDPOINT
+```
+
+This command downloads the latest Polkadot metadata and generates TypeScript descriptors in the `@polkadot-api/descriptors` package. Ensure to replace `INSERT_WS_ENDPOINT` with the proper websocket endpoint. For this example, we will use the Polkadot Testnet (`wss://pas-rpc.stakeworld.io/assethub`).
+
+Create a file named `papi-fee-calculator.ts`:
+
+```typescript title="papi-fee-calculator.ts"
+import { createClient } from 'polkadot-api';
+import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
+import { polkadotTestNet } from '@polkadot-api/descriptors';
+import { getWsProvider } from 'polkadot-api/ws-provider';
+
+async function calculateFees() {
+  // Connect to chain
+  const client = createClient(
+    withPolkadotSdkCompat(getWsProvider('INSERT_WS_ENDPOINT'))
+  );
+
+  // Get typed API
+  const api = client.getTypedApi(polkadotTestNet);
+
+  // Define sender and recipient addresses
+  const aliceAddress = 'INSERT_ALICE_ADDRESS';
+  const bobAddress = 'INSERT_BOB_ADDRESS';
+
+  // Amount to transfer (1 DOT = 10^10 plancks)
+  const amount = 10_000_000_000n; // 1 DOT
+
+  try {
+    // Create the transaction
+    const tx = api.tx.Balances.transfer_keep_alive({
+      dest: {
+        type: 'Id',
+        value: bobAddress,
+      },
+      value: amount,
+    });
+
+    // Estimate fees
+    const estimatedFees = await tx.getEstimatedFees(aliceAddress);
+
+    console.log(`Estimated fee: ${Number(estimatedFees) / 1e10} DOT`);
+    console.log(`Transaction amount: ${Number(amount) / 1e10} DOT`);
+    console.log(`Total deducted: ${Number(estimatedFees + amount) / 1e10} DOT`);
+  } catch (error) {
+    console.error('Error calculating fees:', error);
+  } finally {
+    // Clean up
+    client.destroy();
+  }
+}
+
+calculateFees();
+```
+
+Ensure to replace `INSERT_WS_ENDPOINT` with your WebSocket endpoint, `INSERT_ALICE_ADDRESS` with the sender's address, and `INSERT_BOB_ADDRESS` with the recipient's address.
+
+Key aspects of the code:
+
+- **Transaction creation**: The `api.tx.Balances.transfer_keep_alive()` method constructs a balance transfer transaction.
+- **`dest` parameter**: Specifies the recipient using a `MultiAddress` type with `Id` variant.
+- **`getEstimatedFees()`**: Returns the estimated fee in plancks (the smallest unit, where 1 DOT = 10^10 plancks).
+- The method applies a dummy signature internally to simulate the transaction.
+
+Execute the script using `tsx`:
+
+```bash
+npx tsx papi-fee-calculator.ts
+```
+
+You should see output similar to:
+
+<div class="termynal" data-termynal>
+    <span data-ty="input"><span class="file-path"></span>npx tsx papi-fee-calculator.ts</span>
+    <span data-ty="progress"></span>
+    <span data-ty>Estimated fee: 0.0014668864 DOT</span>
+    <span data-ty>Transaction amount: 1 DOT</span>
+    <span data-ty>Total deducted: 1.0014668864 DOT</span>
+</div>
+## Polkadot.js API
+
+[Polkadot.js API](https://polkadot.js.org/docs/api/){target=\_blank} is a mature JavaScript/TypeScript library for interacting with Polkadot SDK-based chains, providing comprehensive RPC client functionality and transaction building capabilities.
+
+In the same project directory (or a new one), install the Polkadot.js packages:
+
+```bash
+npm install @polkadot/api
+```
+
+Create a file named `polkadotjs-fee-calculator.ts`:
+
+```typescript title="polkadotjs-fee-calculator.ts"
+import { ApiPromise, WsProvider } from '@polkadot/api';
+
+async function calculateFees() {
+  // Connect to chain
+  const wsProvider = new WsProvider('INSERT_WS_ENDPOINT');
+  const api = await ApiPromise.create({ provider: wsProvider });
+
+  // Wait for API to be ready
+  await api.isReady;
+
+  // Define sender and recipient addresses
+  const aliceAddress = 'INSERT_ALICE_ADDRESS';
+  const bobAddress = 'INSERT_BOB_ADDRESS';
+
+  // Amount to transfer (1 DOT = 10^10 plancks)
+  const amount = 10_000_000_000n; // 1 DOT
+
+  try {
+    // Create the transaction
+    const tx = api.tx.balances.transferKeepAlive(bobAddress, amount);
+
+    // Get payment information
+    const paymentInfo = await tx.paymentInfo(aliceAddress);
+
+    console.log(
+      `Estimated fee: ${Number(paymentInfo.partialFee.toBigInt()) / 1e10} DOT`
+    );
+    console.log(`Transaction amount: ${Number(amount) / 1e10} DOT`);
+    console.log(
+      `Total deducted: ${
+        Number(paymentInfo.partialFee.toBigInt() + amount) / 1e10
+      } DOT`
+    );
+  } catch (error) {
+    console.error('Error calculating fees:', error);
+  } finally {
+    // Clean up
+    await api.disconnect();
+  }
+}
+
+calculateFees();
+```
+
+Ensure to replace `INSERT_WS_ENDPOINT` with your WebSocket endpoint, `INSERT_ALICE_ADDRESS` with the sender's address, and `INSERT_BOB_ADDRESS` with the recipient's address.
+
+Key aspects of the code:
+
+- **Transaction creation**: The `api.tx.balances.transferKeepAlive()` method constructs a balance transfer transaction.
+- **`paymentInfo()`**: Applies a dummy signature and queries the RPC endpoint for fee estimation.
+- **Return values**: The `partialFee` property contains the estimated fee in the smallest unit (plancks).
+
+Execute the script using `tsx`:
+
+```bash
+npx tsx polkadotjs-fee-calculator.ts
+```
+
+You should see output similar to:
+
+<div class="termynal" data-termynal>
+    <span data-ty="input"><span class="file-path"></span>npx tsx polkadotjs-fee-calculator.ts</span>
+    <span data-ty="progress"></span>
+    <span data-ty>Estimated fee: 0.0014668864 DOT</span>
+    <span data-ty>Transaction amount: 1 DOT</span>
+    <span data-ty>Total deducted: 1.0014668864 DOT</span>
+</div>
+## Polkadot.js Apps Interface
+
+For non-programmatic fee inspection, the PolkadotJS Apps interface provides a visual way to estimate transaction fees.
+
+Navigate to the [Polkadot.js Apps interface](https://polkadot.js.org/apps){target=\_blank} and ensure you're connected to the Polkadot relay chain (or your desired network).
+
+### Estimate Fees via Transfer Interface
+
+To see fees before submitting a transfer:
+
+1. Navigate to **Accounts** > **Accounts** in the top menu.
+2. Choose an account and click **send**.
+3. Fill in the transfer details:
+    - **Send to address**: Enter Bob's address.
+    - **Amount**: Enter the amount you wish to transfer (e.g., 1 DOT).
+4. Click **Sign and Submit**.
+5. The transaction fee will be displayed in the confirmation dialog before you sign.
+
+    ![](/images/chain-interactions/send-transactions/calculate-transaction-fees/calculate-transaction-fees-01.gif)
+
+## Where to Go Next
+
+Now that you can calculate transaction fees, explore related guides to send transactions and manage fees in your applications.
+
+<div class="grid cards" markdown>
+
+-   <span class="badge guide">Guide</span> __Pay Fees with Different Tokens__
+
+    ---
+
+    Learn how to send transactions while paying fees using alternative tokens instead of the native chain token.
+
+    [:octicons-arrow-right-24: Get Started](/chain-interactions/send-transactions/pay-fees-with-different-tokens/)
+
+-   <span class="badge guide">Guide</span> __Send Transactions with SDKs__
+
+    ---
+
+    Learn how to send signed transactions using Polkadot-API and Polkadot.js API libraries.
+
+    [:octicons-arrow-right-24: Get Started](/chain-interactions/send-transactions/with-sdks/)
+
+-   <span class="badge guide">Guide</span> __Query Chain Data__
+
+    ---
+
+    Explore different methods for querying blockchain data using REST APIs, SDKs, and runtime API calls.
+
+    [:octicons-arrow-right-24: Get Started](/chain-interactions/query-data/query-sdks/)
+
+</div>
 
 
 ---
@@ -711,28 +1028,28 @@ Page Title: Contract Deployment
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-for-eth-devs-contract-deployment.md
 - Canonical (HTML): https://docs.polkadot.com/smart-contracts/for-eth-devs/contract-deployment/
-- Summary: Compare deployment flows for REVM and PVM-based smart contracts on the Polkadot Hub. Includes single-step REVM flows and PVM’s two-step deployment model.
+- Summary: Compare deployment flows for REVM and PVM-based smart contracts on the Polkadot Hub. Includes single-step REVM flows and PVM's two-step deployment model.
 
 # Contract Deployment
 
 ## Introduction
 
-Polkadot's smart contract platform supports two distinct virtual machine backends: Rust Ethereum Virtual Machine (REVM) and PolkaVM. Each backend has its own deployment characteristics and optimization strategies. REVM provides full Ethereum compatibility with familiar single-step deployment, while the RISC-V-based PolkaVM uses a more structured two-step approach optimized for its architecture. Understanding these differences ensures smooth deployment regardless of which backend you choose for your smart contracts.
+Polkadot's smart contract platform supports two distinct virtual machine backends: Rust Ethereum Virtual Machine (REVM) and PVM. Each backend has its own deployment characteristics and optimization strategies. REVM provides full Ethereum compatibility with familiar single-step deployment, while the RISC-V-based PVM uses a more structured two-step approach optimized for its architecture. Understanding these differences ensures smooth deployment regardless of which backend you choose for your smart contracts.
 
 ## REVM Deployment
 
 The REVM backend enables seamless deployment of Ethereum contracts without modification. Contracts deploy exactly as they would on Ethereum, using familiar tools and workflows.
 
-With REVM, deployment mirrors the Ethereum flow exactly including: 
+With REVM, deployment mirrors the Ethereum flow exactly including:
 
-- Contracts are bundled and deployed in a single transaction. 
+- Contracts are bundled and deployed in a single transaction.
 - Factory contracts can create new contracts at runtime.
 - Runtime code generation, including inline assembly, is supported.
 - Existing familiar tools like Hardhat, Foundry, and Remix work out of the box.
 
-## PolkaVM Deployment
+## PVM Deployment
 
-PolkaVM implements a fundamentally different deployment model optimized for its RISC-V architecture. While simple contract deployments work seamlessly, advanced patterns like factory contracts require understanding the two-step deployment process.
+PVM implements a fundamentally different deployment model optimized for its RISC-V architecture. While simple contract deployments work seamlessly, advanced patterns like factory contracts require understanding the two-step deployment process.
 
 ### Standard Contract Deployment
 
@@ -740,7 +1057,7 @@ For most use cases, such as deploying ERC-20 tokens, NFT collections, or standal
 
 ### Two-Step Deployment Model
 
-PolkaVM separates contract deployment into distinct phases:
+PVM separates contract deployment into distinct phases:
 
 1. **Code upload**: Contract bytecode must be uploaded to the chain before instantiation.
 2. **Contract instantiation**: Contracts are created by referencing previously uploaded code via its hash.
@@ -749,11 +1066,11 @@ This architecture differs from the EVM's bundled approach and has important impl
 
 ### Factory Pattern Considerations
 
-The common EVM pattern, where contracts dynamically create other contracts, requires adaptation for PolkaVM as follows:
+The common EVM pattern, where contracts dynamically create other contracts, requires adaptation for PVM as follows:
 
 **EVM Factory Pattern:**
 ```solidity
-// This works on REVM but requires modification for PolkaVM
+// This works on REVM but requires modification for PVM
 contract Factory {
     function createToken() public returns (address) {
         // EVM bundles bytecode in the factory
@@ -762,24 +1079,24 @@ contract Factory {
 }
 ```
 
-**PolkaVM Requirements:**
+**PVM Requirements:**
 
 - **Pre-upload dependent contracts**: All contracts that will be instantiated at runtime must be uploaded to the chain before the factory attempts to create them.
 - **Code hash references**: Factory contracts work with pre-uploaded code hashes rather than embedding bytecode.
-- **No runtime code generation**: Dynamic bytecode generation is not supported due to PolkaVM's RISC-V format.
+- **No runtime code generation**: Dynamic bytecode generation is not supported due to PVM's RISC-V format.
 
 ### Migration Strategy for Factory Contracts
 
-When migrating factory contracts from Ethereum to PolkaVM:
+When migrating factory contracts from Ethereum to PVM:
 
 1. **Identify all contracts**: Determine which contracts will be instantiated at runtime.
 2. **Upload dependencies first**: Deploy all dependent contracts to the chain before deploying the factory.
-3. **Use on-chain constructors**: Leverage PolkaVM's on-chain constructor feature for flexible instantiation.
+3. **Use on-chain constructors**: Leverage PVM's on-chain constructor feature for flexible instantiation.
 4. **Avoid assembly creation**: Don't use `create` or `create2` opcodes in assembly blocks for manual deployment.
 
 ### Architecture-Specific Limitations
 
-PolkaVM's deployment model creates several specific constraints:
+PVM's deployment model creates several specific constraints:
 
 - **`EXTCODECOPY` limitations**: Contracts using `EXTCODECOPY` to manipulate code at runtime will encounter issues.
 - **Runtime code modification**: Patterns that construct and mutate contract code on-the-fly are not supported.
@@ -789,7 +1106,7 @@ These patterns are rare in practice and typically require dropping down to assem
 
 ### On-Chain Constructors
 
-PolkaVM provides on-chain constructors as an elegant alternative to runtime code modification:
+PVM provides on-chain constructors as an elegant alternative to runtime code modification:
 
 - Enable contract instantiation without runtime code generation.
 - Support flexible initialization patterns.
@@ -798,22 +1115,246 @@ PolkaVM provides on-chain constructors as an elegant alternative to runtime code
 
 ## Gas Estimation vs Actual Consumption
 
-Both REVM and PolkaVM deployments may show significant differences between gas estimation and actual consumption. You might see estimates that are several times higher than the actual gas consumed (often around 30% of the estimate). This is normal behavior because pre-dispatch estimation cannot distinguish between computation weight and storage deposits, leading to conservative overestimation. Contract deployments are particularly affected as they consume significant storage deposits for code storage.
+Both REVM and PVM deployments may show significant differences between gas estimation and actual consumption. You might see estimates that are several times higher than the actual gas consumed (often around 30% of the estimate). This is normal behavior because pre-dispatch estimation cannot distinguish between computation weight and storage deposits, leading to conservative overestimation. Contract deployments are particularly affected as they consume significant storage deposits for code storage.
 
 ## Deployment Comparison
 
-| Feature | REVM Backend | PolkaVM Backend |
-|:-------:|:-------------:|:----------------:|
-| **Deployment Model** | Single-step bundled | Two-step upload and instantiate |
-| **Factory Patterns** | Direct runtime creation | Requires pre-uploaded code |
-| **Code Bundling** | Bytecode in transaction | Code hash references |
-| **Runtime Codegen** | Fully supported | Not supported |
-| **Simple Contracts** | No modifications needed | No modifications needed |
-| **Assembly Creation** | Supported | Discouraged, limited support |
+|        Feature        |      REVM Backend       |           PVM Backend           |
+|:---------------------:|:-----------------------:|:-------------------------------:|
+| **Deployment Model**  |   Single-step bundled   | Two-step upload and instantiate |
+| **Factory Patterns**  | Direct runtime creation |   Requires pre-uploaded code    |
+|   **Code Bundling**   | Bytecode in transaction |      Code hash references       |
+|  **Runtime Codegen**  |     Fully supported     |          Not supported          |
+| **Simple Contracts**  | No modifications needed |     No modifications needed     |
+| **Assembly Creation** |        Supported        |  Discouraged, limited support   |
 
 ## Conclusion
 
-Both backends support contract deployment effectively, with REVM offering drop-in Ethereum compatibility and PolkaVM providing a more structured two-step approach. For the majority of use cases—deploying standard contracts like tokens or applications—both backends work seamlessly. Advanced patterns like factory contracts may require adjustment for PolkaVM, but these adaptations are straightforward with proper planning.
+Both backends support contract deployment effectively, with REVM offering drop-in Ethereum compatibility and PVM providing a more structured two-step approach. For the majority of use cases—deploying standard contracts like tokens or applications—both backends work seamlessly. Advanced patterns like factory contracts may require adjustment for PVM, but these adaptations are straightforward with proper planning.
+
+
+---
+
+Page Title: Create an Account
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/chain-interactions-accounts-create-account.md
+- Canonical (HTML): https://docs.polkadot.com/chain-interactions/accounts/create-account/
+- Summary: Step-by-step guide to creating Polkadot accounts using different programming languages and libraries, including JavaScript, Python, and Rust examples.
+
+# Create an Account
+
+## Introduction
+
+Creating accounts is a fundamental operation when building applications on Polkadot and its parachains. Accounts serve as the basis for identity, asset ownership, and transaction signing. Understanding how to generate and manage accounts programmatically enables you to build wallets, automate operations, and create seamless user experiences.
+
+Polkadot accounts are based on the SR25519 signature scheme by default, though ED25519 and ECDSA are also supported. Each account consists of a public key (address) and a private key (seed/mnemonic). **Keep your private keys secure and never share them**.
+
+This tutorial will guide you through creating accounts using different programming languages and libraries.
+
+## Prerequisites
+
+Before starting, make sure you have:
+
+- Basic understanding of public-key cryptography concepts
+- Development environment set up for your chosen language
+- Familiarity with the programming language you'll be using
+
+## Use JavaScript/TypeScript
+
+JavaScript/TypeScript developers can use the Polkadot.js API to create and manage Polkadot accounts.
+
+1. Create a new project directory and initialize it:
+
+    ```bash
+    mkdir account-creator
+    cd account-creator
+    npm init -y && npm pkg set type=module
+    ```
+
+2. Install the required packages:
+
+    ```bash
+    npm install @polkadot/util-crypto @polkadot/keyring
+    npm install --save-dev typescript tsx
+    ```
+
+3. Create a file named `create-account.ts` and add the following code to it:
+
+    ```typescript title="create-account.ts"
+    import { cryptoWaitReady, mnemonicGenerate } from '@polkadot/util-crypto';
+    import { Keyring } from '@polkadot/keyring';
+
+    async function main() {
+      await cryptoWaitReady();
+
+      const mnemonic = mnemonicGenerate(12);
+      const keyring = new Keyring({ type: 'sr25519', ss58Format: 0 });
+      const pair = keyring.addFromMnemonic(mnemonic);
+
+      console.log(`Address: ${pair.address}`);
+      console.log(`Mnemonic: ${mnemonic}`);
+    }
+
+    main().catch(console.error);
+
+    ```
+
+    Key aspects of the code:
+
+    - **Mnemonic generation**: Uses `mnemonicGenerate()` to create a 12-word BIP39 mnemonic phrase for human-readable key backup.
+    - **Keyring**: The `Keyring` class manages accounts with a specified signature scheme and address format.
+    - **SS58 format**: Setting `ss58Format: 0` configures addresses for the Polkadot relay chain.
+
+4. Execute the script using `tsx`:
+
+    ```bash
+    npx tsx create-account.ts
+    ```
+
+    You should see output similar to:
+
+    <div class="termynal" data-termynal>
+        <span data-ty="input"><span class="file-path"></span>npx tsx create-account.ts</span>
+        <span data-ty="progress"></span>
+        <span data-ty>Address: 15oF4uVJwmo4TdGW7VfQxNLavjCXviqxT9S1MgbjMNHr6Sp5</span>
+        <span data-ty>Mnemonic: cushion dog echo people vendor curve truck begin latin romance rebuild ...</span>
+    </div>
+## Python
+
+Python developers can use the `substrate-interface` library to create and manage Polkadot accounts.
+
+1. Create a new project directory and set up a virtual environment:
+
+    ```bash
+    mkdir account-creator-python
+    cd account-creator-python
+    python3 -m venv venv
+    source venv/bin/activate  # On Windows: venv\Scripts\activate
+    ```
+
+2. Install the required package:
+
+    ```bash
+    pip install substrate-interface
+    ```
+
+3. Create a file named `create_account.py`:
+
+    ```python title="create_account.py"
+    from substrateinterface import Keypair
+
+    mnemonic = Keypair.generate_mnemonic()
+    keypair = Keypair.create_from_mnemonic(mnemonic)
+
+    print(f"Address: {keypair.ss58_address}")
+    print(f"Mnemonic: {mnemonic}")
+
+    ```
+
+    Key aspects of the code:
+
+    - **Mnemonic generation**: The `generate_mnemonic()` function creates a BIP39-compatible phrase.
+    - **Keypair creation**: `Keypair.create_from_mnemonic()` derives keys from the mnemonic.
+
+4. Execute the script:
+
+    ```bash
+    python create_account.py
+    ```
+
+    You should see output similar to:
+
+    <div class="termynal" data-termynal>
+        <span data-ty="input"><span class="file-path"></span>python create_account.py</span>
+        <span data-ty>Address: 15oF4uVJwmo4TdGW7VfQxNLavjCXviqxT9S1MgbjMNHr6Sp5</span>
+        <span data-ty>Mnemonic: cushion dog echo people vendor curve truck begin latin romance rebuild ...</span>
+    </div>
+## Rust
+
+Rust provides low-level access to Substrate primitives for account creation through the `sp-core` and `sp-keyring` crates.
+
+1. Create a new Rust project:
+
+    ```bash
+    cargo new account-creator-rust
+    cd account-creator-rust
+    ```
+
+2. Add dependencies to your `Cargo.toml`:
+
+    ```toml title="Cargo.toml"
+    [package]
+    name = "account-creator-rust"
+    version = "0.1.0"
+    edition = "2021"
+
+    [dependencies]
+    sp-core = "28.0"
+    sp-runtime = "31.0"
+    ```
+
+3. Create your account generation code in `src/main.rs`:
+
+    ```rust title="src/main.rs"
+    use sp_core::{crypto::Ss58Codec, Pair};
+
+    fn main() {
+        let (pair, phrase, _) = sp_core::sr25519::Pair::generate_with_phrase(None);
+        let address = pair.public().to_ss58check();
+        
+        println!("Address: {}", address);
+        println!("Mnemonic: {}", phrase);
+    }
+    ```
+
+    Key aspects of the code:
+
+    - **Keypair generation**: [`sr25519::Pair::generate_with_phrase()`](https://docs.rs/sp-core/latest/sp_core/crypto/trait.Pair.html#method.generate_with_phrase){target=\_blank} creates a new key pair with mnemonic.
+    - **Public key extraction**: The [`public()`](https://docs.rs/sp-core/latest/sp_core/crypto/trait.Pair.html#tymethod.public){target=\_blank} method retrieves the public key from the pair.
+    - **SS58 encoding**: Uses Polkadot's address format for the human-readable address.
+
+4. Build and run the project:
+
+    ```bash
+    cargo run
+    ```
+
+    You should see output similar to:
+
+    <div class="termynal" data-termynal>
+        <span data-ty="input"><span class="file-path"></span>cargo run</span>
+        <span data-ty>Address: 15oF4uVJwmo4TdGW7VfQxNLavjCXviqxT9S1MgbjMNHr6Sp5</span>
+        <span data-ty>Mnemonic: cushion dog echo people vendor curve truck begin latin romance rebuild ...</span>
+    </div>
+## Where to Go Next
+
+<div class="grid cards" markdown>
+
+-   <span class="badge guide">Guide</span> __Send Transactions with SDKs__
+
+    ---
+
+    Learn how to send signed transactions using your newly created accounts with Polkadot-API and Polkadot.js API libraries.
+
+    [:octicons-arrow-right-24: Get Started](/chain-interactions/send-transactions/with-sdks/)
+
+-   <span class="badge guide">Guide</span> __Calculate Transaction Fees__
+
+    ---
+
+    Learn how to estimate transaction fees before sending transactions from your accounts.
+
+    [:octicons-arrow-right-24: Get Started](/chain-interactions/send-transactions/calculate-transaction-fees/)
+
+-   <span class="badge guide">Guide</span> __Query Chain Data__
+
+    ---
+
+    Explore different methods for querying blockchain data, including account balances and other chain state.
+
+    [:octicons-arrow-right-24: Get Started](/chain-interactions/query-data/query-sdks/)
+
+</div>
 
 
 ---
@@ -1096,15 +1637,15 @@ Page Title: Deploy a Basic Contract to Polkadot Hub
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-.deploy-basic-pvm.md
 - Canonical (HTML): https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/.deploy-basic-pvm/
-- Summary: Learn how to deploy a basic smart contract to Polkadot Hub using the PolkaVM.
+- Summary: Learn how to deploy a basic smart contract to Polkadot Hub using the PVM.
 
 # Deploy a Basic Contract
 
 ## Introduction
 
-Deploying smart contracts to [Polkadot Hub](/smart-contracts/overview/#smart-contract-development){target=\_blank} can be accomplished through various tools and environments, each suited to different development workflows. This guide demonstrates how to deploy a basic PolkaVM (PVM) smart contract using four popular approaches: JavaScript with [Ethers.js](https://docs.ethers.org/v6/){target=\_blank}, [Remix IDE](https://remix.live/){target=\_blank}, [Hardhat](https://hardhat.org/){target=\_blank}, and [Foundry](https://getfoundry.sh/){target=\_blank}.
+Deploying smart contracts to [Polkadot Hub](/smart-contracts/overview/#smart-contract-development){target=\_blank} can be accomplished through various tools and environments, each suited to different development workflows. This guide demonstrates how to deploy a basic PVM smart contract using four popular approaches: JavaScript with [Ethers.js](https://docs.ethers.org/v6/){target=\_blank}, [Remix IDE](https://remix.live/){target=\_blank}, [Hardhat](https://hardhat.org/){target=\_blank}, and [Foundry](https://getfoundry.sh/){target=\_blank}.
 
-All these tools leverage the `revive` compiler to transform Solidity smart contracts into PolkaVM bytecode, making them compatible with Polkadot Hub's native smart contract environment. Whether you prefer working with lightweight JavaScript libraries, visual browser-based IDEs, comprehensive development frameworks, or fast command-line toolkits, this guide covers the deployment process for each approach.
+All these tools leverage the `revive` compiler to transform Solidity smart contracts into PVM bytecode, making them compatible with Polkadot Hub's native smart contract environment. Whether you prefer working with lightweight JavaScript libraries, visual browser-based IDEs, comprehensive development frameworks, or fast command-line toolkits, this guide covers the deployment process for each approach.
 
 **Prerequisites:**
 
@@ -1556,7 +2097,7 @@ This guide has demonstrated four different approaches to deploying smart contrac
 - **Hardhat**: Perfect for professional workflows requiring comprehensive testing and debugging
 - **Foundry**: Excellent for developers who prefer fast, command-line driven development
 
-All approaches use the `resolc` compiler to generate PolkaVM-compatible bytecode, ensuring your contracts run natively on Polkadot Hub. Choose the tool that best fits your workflow and project requirements.
+All approaches use the `resolc` compiler to generate PVM-compatible bytecode, ensuring your contracts run natively on Polkadot Hub. Choose the tool that best fits your workflow and project requirements.
 
 ### Next Steps
 
@@ -1963,7 +2504,7 @@ Page Title: Deploy an ERC-20 Using Hardhat
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-cookbook-smart-contracts-deploy-erc20-erc20-hardhat.md
 - Canonical (HTML): https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-hardhat/
-- Summary: Deploy an ERC-20 token on Polkadot Hub using PolkaVM. This guide covers contract creation, compilation, deployment, and interaction via Hardhat.
+- Summary: Deploy an ERC-20 token on Polkadot Hub using PVM. This guide covers contract creation, compilation, deployment, and interaction via Hardhat.
 
 # Deploy an ERC-20 Using Hardhat
 
@@ -3971,38 +4512,27 @@ Polkadot's smart contract platform supports two distinct virtual machine (VM) ar
 
 Both VM options share common infrastructure, including RPC interfaces, tooling support, and precompiles. The following sections compare architectures and guide you in selecting the best VM for your project's needs.
 
-## Migrate from EVM
+## REVM Backend
 
-The [REVM backend](https://github.com/bluealloy/revm){target=\_blank} integrates a complete Rust implementation of the EVM, enabling Solidity contracts to run unchanged on Polkadot's smart contract platform.
+The [REVM backend](https://github.com/bluealloy/revm){target=\_blank} is a complete Rust implementation of the Ethereum Virtual Machine, enabling Solidity contracts to run unchanged on Polkadot Hub.
 
-REVM allows developers to use their existing Ethereum tooling and infrastructure to build on Polkadot. Choose REVM to:
+### Key Benefits
 
-- Migrate existing Ethereum contracts without modifications.
-- Retain exact EVM behavior for audit tools. 
-- Use developer tools that rely upon inspecting EVM bytecode.
-- Prioritize rapid deployment over optimization.
-- Work with established Ethereum infrastructure and tooling to build on Polkadot.
+- **Zero modifications required**: Deploy existing Ethereum contracts exactly as they are.
+- **Full EVM compatibility**: Exact EVM behavior for audit tools and bytecode inspection.
+- **Familiar tooling**: Use Hardhat, Foundry, Remix, and all standard Ethereum development tools.
+- **Rapid deployment**: Get your contracts running on Polkadot immediately.
+- **Established infrastructure**: Work with the Ethereum tooling ecosystem you already know.
 
-REVM enables Ethereum developers to seamlessly migrate to Polkadot, achieving performance and fee improvements without modifying their existing contracts or developer tooling stack.
+### How It Works
 
-## Upgrade to PolkaVM
-
-[**PolkaVM**](https://github.com/paritytech/polkavm){target=\_blank} is a custom virtual machine optimized for performance with [RISC-V-based](https://en.wikipedia.org/wiki/RISC-V){target=\_blank} architecture, supporting Solidity and additional high-performance languages. It serves as the core execution environment, integrated directly within the runtime. Choose the PolkaVM for:
-
-- An efficient interpreter for immediate code execution.
-- A planned [Just In Time (JIT)](https://en.wikipedia.org/wiki/Just-in-time_compilation){target=\_blank} compiler for optimized performance.
-- Dual-mode execution capability, allowing selection of the most appropriate backend for specific workloads.
-- Optimized performance for short-running contract calls through the interpreter.
-
-The interpreter remains particularly beneficial for contracts with minimal code execution, as it enables immediate code execution through lazy interpretation.
+REVM enables Ethereum developers to seamlessly migrate to Polkadot, achieving improved performance and lower fees without modifying their existing contracts or development workflows.
 
 ## Architecture
 
-The following key components of PolkaVM work together to enable Ethereum compatibility on Polkadot-based chains. 
-
 ### Revive Pallet
 
-[**`pallet_revive`**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/index.html){target=\_blank} is a runtime module that executes smart contracts by adding extrinsics, runtime APIs, and logic to convert Ethereum-style transactions into formats compatible with Polkadot SDK-based blockchains. It processes Ethereum-style transactions through the following workflow:
+[**`pallet_revive`**](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/index.html){target=\_blank} is the runtime module that executes smart contracts. It processes Ethereum-style transactions through the following workflow:
 
 ```mermaid
 sequenceDiagram
@@ -4010,12 +4540,12 @@ sequenceDiagram
     participant Proxy as Ethereum JSON RPC Proxy
     participant Chain as Blockchain Node
     participant Pallet as pallet_revive
-    
+
     User->>Proxy: Submit Ethereum Transaction
     Proxy->>Chain: Repackage as Polkadot Compatible Transaction
     Chain->>Pallet: Process Transaction
     Pallet->>Pallet: Decode Ethereum Transaction
-    Pallet->>Pallet: Execute Contract via PolkaVM
+    Pallet->>Pallet: Execute Contract
     Pallet->>Chain: Return Results
     Chain->>Proxy: Forward Results
     Proxy->>User: Return Ethereum-compatible Response
@@ -4023,23 +4553,11 @@ sequenceDiagram
 
 This proxy-based approach eliminates the need for node binary modifications, maintaining compatibility across different client implementations. Preserving the original Ethereum transaction payload simplifies the adaptation of existing tools, which can continue processing familiar transaction formats.
 
-### PolkaVM Design Fundamentals
+## Alternative: PVM Backend
 
-PolkaVM differs from the EVM in two key ways that make it faster, more hardware-efficient, and easier to extend:
+For advanced use cases requiring maximum performance, Polkadot Hub also supports the [PVM (Polkadot Virtual Machine)](https://github.com/paritytech/polkavm){target=\_blank} backend. PVM uses a RISC-V-based architecture that can provide performance optimizations for computationally intensive workloads. Solidity contracts can be compiled to PVM bytecode using the `resolc` compiler.
 
-- **Register-based design**: Instead of a stack machine, PolkaVM uses a RISC-V–style register model. This design:
-
-    - Uses a fixed set of registers to pass arguments, not an infinite stack.
-    - Maps cleanly to real hardware like x86-64.
-    - Simplifies compilation and boosts runtime efficiency.
-    - Enables tighter control over register allocation and performance tuning.
-
-- **64-bit word size**: PolkaVM runs on a native 64-bit word size, aligning directly with modern CPUs. This design:
-
-    - Executes arithmetic operations with direct hardware support.
-    - Maintains compatibility with Solidity’s 256-bit types via YUL translation.
-    - Accelerates computation-heavy workloads through native word alignment.
-    - Integrates easily with low-level, performance-focused components.
+Most developers should start with REVM for its simplicity and full Ethereum compatibility. PVM is available for projects with specific performance requirements.
 
 ## Where To Go Next
 
@@ -4049,7 +4567,7 @@ PolkaVM differs from the EVM in two key ways that make it faster, more hardware-
 
     ---
 
-    Learn how REVM and PVM compare for compiling and deploying smart contracts.
+    Understand deployment mechanics, gas estimation behavior, and storage considerations.
 
     [:octicons-arrow-right-24: Reference](/smart-contracts/for-eth-devs/contract-deployment/)
 
@@ -4070,7 +4588,7 @@ Page Title: Ethereum-Native Precompiles
 
 Ethereum-native precompiles are special contract implementations that provide essential cryptographic and utility functions at the runtime level. These precompiles are available at predefined addresses and offer optimized, native implementations of commonly used operations that would be computationally expensive or impractical to implement in pure contract code.
 
-In Polkadot Hub's Revive pallet, these precompiles maintain compatibility with standard Ethereum addresses, allowing developers familiar with Ethereum to seamlessly transition their smart contracts while benefiting from the performance optimizations of the PolkaVM runtime.
+In Polkadot Hub's Revive pallet, these precompiles maintain compatibility with standard Ethereum addresses, allowing developers familiar with Ethereum to seamlessly transition their smart contracts while benefiting from the performance optimizations of the PVM runtime.
 
 ## How to Use Precompiles
 
@@ -4240,7 +4758,7 @@ Bridge your Ethereum knowledge with Polkadot Hub specifics: account mapping, fee
 |                    [Accounts](/smart-contracts/for-eth-devs/accounts/)                    | How 20‑byte Ethereum addresses map to 32‑byte Polkadot accounts |
 | [Blocks, Transactions, and Fees](/smart-contracts/for-eth-devs/blocks-transactions-fees/) |     Transaction types, fees, and multi‑dimensional metering     |
 |                   [Gas Model](/smart-contracts/for-eth-devs/gas-model/)                   |        Gas vs. weight, proof size, and storage deposits         |
-|         [Contract Deployment](/smart-contracts/for-eth-devs/contract-deployment/)         |     Deployment patterns and best practices on Polkadot Hub      |
+|         [Contract Deployment](/smart-contracts/for-eth-devs/contract-deployment/)         |     Deployment mechanics, gas estimation, and storage model     |
 |               [JSON‑RPC APIs](/smart-contracts/for-eth-devs/json-rpc-apis/)               |        Supported Ethereum JSON‑RPC methods and examples         |
 |               [Dual VM Stack](/smart-contracts/for-eth-devs/dual-vm-stack/)               |         Overview of EVM and native execution on the Hub         |
 
@@ -4272,19 +4790,19 @@ Choose the client libraries that fit your stack for connecting wallets and calli
 
 Integrate essential services like wallets, indexers, and oracles to round out your dApp.
 
-|                     Integration                     |                Description                |
-|:---------------------------------------------------:|:-----------------------------------------:|
-|  [Wallets](/smart-contracts/integrations/wallets/)  | Supported wallets and configuration notes |
+|                    Integration                    |                Description                |
+|:-------------------------------------------------:|:-----------------------------------------:|
+| [Wallets](/smart-contracts/integrations/wallets/) | Supported wallets and configuration notes |
 
 ## Precompiles
 
 Discover precompiled system contracts available on the Hub and how to use them.
 
-|                          Topic                           |                     Description                     |
-|:--------------------------------------------------------:|:---------------------------------------------------:|
-| [Overview of Precompiles](/smart-contracts/precompiles/) |      What precompiles are available on the Hub      |
-|  [ETH Native](/smart-contracts/precompiles/eth-native/)  |           EVM precompiles and interfaces            |
-|         [XCM](/smart-contracts/precompiles/xcm/)         |     Cross‑chain messaging helpers for contracts     |
+|                          Topic                           |                 Description                 |
+|:--------------------------------------------------------:|:-------------------------------------------:|
+| [Overview of Precompiles](/smart-contracts/precompiles/) |  What precompiles are available on the Hub  |
+|  [ETH Native](/smart-contracts/precompiles/eth-native/)  |       EVM precompiles and interfaces        |
+|         [XCM](/smart-contracts/precompiles/xcm/)         | Cross‑chain messaging helpers for contracts |
 
 From here, follow the quick starts to get connected, iterate locally with your preferred tools, and use the guides, libraries, integrations, and precompiles as you grow into production‑ready dApps. If you get stuck, [open an issue](https://github.com/polkadot-developers/polkadot-docs/issues/new?template=docs-issue.yml){target=\_blank} or reach out in the community channels.
 
@@ -4375,9 +4893,7 @@ The message consists of three instructions described as follows:
 
     The first instruction takes as an input the MultiAsset that should be withdrawn. The MultiAsset describes the native parachain token with the `Here` keyword. The `amount` parameter is the number of tokens that are transferred. The withdrawal account depends on the origin of the message. In this example the origin of the message is Alice. The `WithdrawAsset` instruction moves `amount` number of native tokens from Alice's account into the holding register.
 
-- **[BuyExecution](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#buyexecution){target=\_blank}**: Allocates fees to cover the execution weight of the XCM instructions.
-
-    
+- **[BuyExecution](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#buyexecution){target=\_blank}**: Allocates fees to cover the execution [weight](/reference/glossary/#weight){target=\_blank} of the XCM instructions.
 
     ```rust
         BuyExecution { 
@@ -4740,9 +5256,9 @@ Polkadot Cloud is a platform for deploying resilient, customizable and scalable 
 
 Polkadot Hub is a Layer 1 platform that serves as the primary entry point to the Polkadot ecosystem, providing essential functionality without requiring parachain deployment. It offers core services including smart contracts, identity management, staking, governance, and interoperability with other ecosystems, making it simple and fast for both builders and users to get started in Web3.
 
-## PolkaVM
+## PVM
 
-PolkaVM is a custom virtual machine optimized for performance, leveraging a RISC-V-based architecture to support Solidity and any language that compiles to RISC-V. It is specifically designed for the Polkadot ecosystem, enabling smart contract deployment and execution.
+The Polkadot Virtual Machine (PVM) is a custom virtual machine optimized for performance, leveraging a RISC-V-based architecture to support Solidity and any language that compiles to RISC-V. It is specifically designed for the Polkadot ecosystem, enabling smart contract deployment and execution.
 
 ## Relay Chain
 
@@ -5330,9 +5846,7 @@ The interface defines a `Weight` struct that represents the computational cost o
 - **`refTime`**: Computational time on reference hardware.
 - **`proofSize`**: The size of the proof required for execution.
 
-All XCM messages must be encoded using the [SCALE codec](https://github.com/paritytech/parity-scale-codec?tab=readme-ov-file#parity-scale-codec){target=\_blank}, Polkadot's standard serialization format.
-
-
+All XCM messages must be encoded using the [SCALE codec](/reference/parachains/data-encoding/#data-encoding){target=\_blank}, Polkadot's standard serialization format.
 
 For further information, check the [`precompiles/IXCM.sol`](https://github.com/paritytech/polkadot-sdk/blob/cb629d46ebf00aa65624013a61f9c69ebf02b0b4/polkadot/xcm/pallet-xcm/src/precompiles/IXcm.sol){target=\_blank} file present in `pallet-xcm`.
 
@@ -6523,13 +7037,13 @@ Page Title: Migration FAQs and Considerations
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-for-eth-devs-.migration.md
 - Canonical (HTML): https://docs.polkadot.com/smart-contracts/for-eth-devs/.migration/
-- Summary: Learn how to migrate your existing Ethereum contracts to the Polkadot Hub using REVM and PolkaVM by following these considerations.
+- Summary: Learn how to migrate your existing Ethereum contracts to the Polkadot Hub using REVM and PVM by following these considerations.
 
 # Migration FAQs and Considerations
 
 ## Introduction
 
-This guide helps Ethereum developers migrate their smart contracts to Polkadot Hub. Most contracts work without modifications on the REVM backend, while the PolkaVM backend offers enhanced performance with minimal adaptation for standard patterns.
+This guide helps Ethereum developers migrate their smart contracts to Polkadot Hub. Most contracts work without modifications on the REVM backend, while the PVM backend offers enhanced performance with minimal adaptation for standard patterns.
 
 ## Migration Considerations
 
@@ -6559,13 +7073,13 @@ Before migrating your contracts, review this checklist:
     - Compatibility with tools that inspect EVM bytecode.
     - Rapid deployment without optimization.
 
-- Choose PolkaVM if you want:
+- Choose PVM if you want:
 
     - Better performance for computation-heavy applications.
     - Lower execution costs for intensive operations.
     - Access to next-generation smart contract features.
 
-If you are unsure which to choose, start with REVM for immediate compatibility, then consider PolkaVM for performance optimization once deployed.
+If you are unsure which to choose, start with REVM for immediate compatibility, then consider PVM for performance optimization once deployed.
 
 ### Do I need to rewrite my Solidity code?
 
@@ -6587,7 +7101,7 @@ No, for most contracts. Standard Solidity patterns work on both backends.
     }
     ```
 
-- **PolkaVM**: Factory contracts require pre-uploading dependent contracts. 
+- **PVM**: Factory contracts require pre-uploading dependent contracts. 
 
     Here's how to adapt the original factory pattern:
 
@@ -6608,7 +7122,7 @@ No, for most contracts. Standard Solidity patterns work on both backends.
     }
     ```
 
-The deployment steps for PolkaVM factories are:
+The deployment steps for PVM factories are:
 
 1. Upload the contract code to the chain.
 2. Note the returned code hash.
@@ -6623,7 +7137,7 @@ For more information on gas costs, see the [Gas Model](/smart-contracts/for-eth-
 
 For REVM, any Solidity feature will function smoothly without requiring changes or adaptations. For PVM, there are considerations, as was mentioned above. 
 
-For PolkaVM, there are some considerations:
+For PVM, there are some considerations:
 
 - `EXTCODECOPY`: Only works in constructor code.
 - Runtime code modification: Use on-chain constructors instead.
@@ -6659,12 +7173,12 @@ Connect to Polkadot Hub's Ethereum JSON-RPC endpoint and use your familiar workf
 
 ## Conclusion
 
-Most Ethereum contracts migrate to Polkadot Hub with minimal or no changes. Use REVM for seamless compatibility or PolkaVM for enhanced performance.
+Most Ethereum contracts migrate to Polkadot Hub with minimal or no changes. Use REVM for seamless compatibility or PVM for enhanced performance.
 
 There are a few key points to keep in mind during migration:
 
 - Replace `transfer()` and `send()` with `.call{value}("")` and use reentrancy guards (for projects that will use PVM bytecode, not EVM bytecode).
-- PolkaVM factory contracts using PVM bytecode need pre-uploaded dependencies.
+- PVM factory contracts using PVM bytecode need pre-uploaded dependencies.
 - Don't hardcode gas values.
 - Test thoroughly on [TestNet](/smart-contracts/connect/#__tabbed_1_1){target=\_blank} before mainnet deployment.
 
@@ -6975,9 +7489,7 @@ Page Title: Overview of FRAME
 
 ## Introduction
 
-A blockchain runtime is more than just a fixed set of rules—it's a dynamic foundation that you can shape to match your specific needs. With Polkadot SDK's [FRAME (Framework for Runtime Aggregation of Modularized Entities)](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/frame_runtime/index.html){target=\_blank}, customizing your runtime is straightforward and modular. Instead of building everything from scratch, you combine pre-built pallets with your own custom logic to create a runtime suited to your blockchain's purpose.
-
-
+A blockchain runtime is more than just a fixed set of rules—it's a dynamic foundation that you can shape to match your specific needs. With Polkadot SDK's [FRAME (Framework for Runtime Aggregation of Modularized Entities)](/reference/glossary/#frame-framework-for-runtime-aggregation-of-modularized-entities){target=\_blank}, customizing your runtime is straightforward and modular. Instead of building everything from scratch, you combine pre-built pallets with your own custom logic to create a runtime suited to your blockchain's purpose.
 
 This overview explains how runtime customization works, introduces the building blocks you'll use, and guides you through the key patterns for extending your runtime.
 
@@ -7202,7 +7714,7 @@ Polkadot is built on core blockspace principles, but there's room for improvemen
 
 Delegating these responsibilities to [system chains](/polkadot-protocol/architecture/system-chains/){target=\_blank} could enhance flexibility and allow the relay chain to concentrate on providing shared security and interoperability.
 
-For more information about blockspace, watch [Robert Habermeier’s interview](https://www.youtube.com/watch?v=e1vISppPwe4){target=\_blank} or read his [technical blog post](https://www.rob.tech/blog/polkadot-blockspace-over-blockchains/){target=\_blank}.
+For more information about blockspace, read [Robert Habermeier’s technical blog post](https://www.rob.tech/blog/polkadot-blockspace-over-blockchains/){target=\_blank}.
 
 ## DOT Token
 
@@ -7954,6 +8466,735 @@ Support for encoding and decoding Polkadot SDK SS58 addresses has been implement
 
 ---
 
+Page Title: Query Account Information with SDKs
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/chain-interactions-accounts-query-accounts.md
+- Canonical (HTML): https://docs.polkadot.com/chain-interactions/accounts/query-accounts/
+- Summary: Learn how to query account information using five popular SDKs—Polkadot API (PAPI), Polkadot.js API, Dedot, Python Substrate Interface, and Subxt.
+
+# Query Account Information with SDKs
+
+## Introduction
+
+Querying account information is a fundamental operation when interacting with Polkadot SDK-based blockchains. Account queries allow you to retrieve balances, nonces, account data, and other state information stored on-chain. Each SDK provides different methods for accessing this data efficiently.
+
+This guide demonstrates how to query account information using five popular SDKs:
+
+- **[Polkadot API (PAPI)](/reference/tools/papi/){target=\_blank}**: Modern TypeScript library with type-safe APIs
+- **[Polkadot.js API](/reference/tools/polkadot-js-api/){target=\_blank}**: Comprehensive JavaScript library (maintenance mode)
+- **[Dedot](/reference/tools/dedot/){target=\_blank}**: Lightweight TypeScript library optimized for performance
+- **[Python Substrate Interface](/reference/tools/py-substrate-interface/){target=\_blank}**: Python library for Substrate chains
+- **[Subxt](/reference/tools/subxt/){target=\_blank}**: Rust library with compile-time type safety
+
+Select your preferred SDK below to see complete, runnable examples that query account information on Polkadot Hub.
+
+## Prerequisites
+
+- Access to a Polkadot SDK-compatible blockchain endpoint (WebSocket URL)
+- An account address to query (can be any valid SS58 address)
+
+## Query Account Information
+
+=== "PAPI"
+
+    **Prerequisites**
+
+    - [Node.js](https://nodejs.org/){target=\_blank} v18 or higher
+    - npm, pnpm, or yarn package manager
+
+    **Environment Setup**
+
+    1. Create and initialize a new project:
+
+        ```bash
+        mkdir papi-query-account-example && cd papi-query-account-example && \
+        npm init -y && npm pkg set type=module
+        ```
+
+    2. Install dependencies:
+
+        ```bash
+        npm install polkadot-api && \
+        npm install --save-dev @types/node tsx typescript
+        ```
+
+    3. Generate types for Polkadot Hub:
+
+        ```bash
+        npx papi add polkadotTestNet -w wss://asset-hub-paseo.dotters.network
+        ```
+
+    **Query Account Data**
+
+    The following example queries account information including balance, nonce, and other account data.
+
+    Create a file named `query-account.ts` and add the following code to it:
+
+    ```typescript title="query-account.ts"
+    import { createClient } from 'polkadot-api';
+    import { getWsProvider } from 'polkadot-api/ws-provider';
+    import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
+    import { polkadotTestNet } from '@polkadot-api/descriptors';
+
+    const POLKADOT_HUB_RPC = 'INSERT_WS_ENDPOINT';
+    const ACCOUNT_ADDRESS = 'INSERT_ACCOUNT_ADDRESS';
+    const PAS_UNITS = 10_000_000_000;
+
+    async function main() {
+      try {
+        // Create the client connection
+        const client = createClient(
+          withPolkadotSdkCompat(getWsProvider(POLKADOT_HUB_RPC))
+        );
+
+        // Get the typed API
+        const api = client.getTypedApi(polkadotTestNet);
+        console.log('Connected to Polkadot Hub');
+
+        console.log(`\nQuerying account: ${ACCOUNT_ADDRESS}\n`);
+
+        // Query account information
+        const accountInfo = await api.query.System.Account.getValue(
+          ACCOUNT_ADDRESS
+        );
+
+        // Display account information
+        console.log('Account Information:');
+        console.log('===================');
+        console.log(`Nonce: ${accountInfo.nonce}`);
+        console.log(`Consumers: ${accountInfo.consumers}`);
+        console.log(`Providers: ${accountInfo.providers}`);
+        console.log(`Sufficients: ${accountInfo.sufficients}`);
+
+        console.log('\nBalance Details:');
+        console.log('================');
+        console.log(
+          `Free Balance: ${accountInfo.data.free} (${
+            Number(accountInfo.data.free) / PAS_UNITS
+          } PAS)`
+        );
+        console.log(
+          `Reserved Balance: ${accountInfo.data.reserved} (${
+            Number(accountInfo.data.reserved) / PAS_UNITS
+          } PAS)`
+        );
+        console.log(
+          `Frozen Balance: ${accountInfo.data.frozen} (${
+            Number(accountInfo.data.frozen) / PAS_UNITS
+          } PAS)`
+        );
+
+        const total =
+          Number(accountInfo.data.free) + Number(accountInfo.data.reserved);
+        console.log(`\nTotal Balance: ${total} (${total / PAS_UNITS} PAS)`);
+
+        await client.destroy();
+        console.log('\nDisconnected');
+      } catch (error) {
+        console.error('Error:', error);
+        process.exit(1);
+      }
+    }
+
+    main();
+
+    ```
+
+    !!! note    
+        Ensure to replace `INSERT_WS_ENDPOINT` with a valid WebSocket endpoint (e.g., `wss://asset-hub-paseo.dotters.network`) and `INSERT_ADDRESS` with the account address you want to query.
+
+    Run the script:
+
+    ```bash
+    npx tsx query-account.ts
+    ```
+
+    You should see output similar to:
+
+    <div class="termynal" data-termynal>
+        <span data-ty="input"><span class="file-path"></span>npx tsx query-account.ts</span>
+        <span data-ty>Connected to Polkadot Hub</span>
+        <span data-ty></span>
+        <span data-ty>Querying account: 5GgbDVeKZwCmMHzn58iFSgSZDTojRMM52arXnuNXto28R7mg</span>
+        <span data-ty></span>
+        <span data-ty>Account Information:</span>
+        <span data-ty>===================</span>
+        <span data-ty>Nonce: 15</span>
+        <span data-ty>Consumers: 0</span>
+        <span data-ty>Providers: 1</span>
+        <span data-ty>Sufficients: 0</span>
+        <span data-ty></span>
+        <span data-ty>Balance Details:</span>
+        <span data-ty>================</span>
+        <span data-ty>Free Balance: 59781317040 (5.978131704 PAS)</span>
+        <span data-ty>Reserved Balance: 0 (0 PAS)</span>
+        <span data-ty>Frozen Balance: 0 (0 PAS)</span>
+        <span data-ty></span>
+        <span data-ty>Total Balance: 59781317040 (5.978131704 PAS)</span>
+        <span data-ty></span>
+        <span data-ty>Disconnected</span>
+    </div>
+=== "Polkadot.js"
+
+    !!! warning "Maintenance Mode Only"
+        The Polkadot.js API is no longer actively developed. New projects should use [PAPI](/reference/tools/papi/){target=\_blank} or [Dedot](/reference/tools/dedot/){target=\_blank} as actively maintained alternatives.
+
+    **Prerequisites**
+
+    - [Node.js](https://nodejs.org/){target=\_blank} v18 or higher
+    - npm, pnpm, or yarn package manager
+
+    **Environment Setup**
+
+    1. Create and initialize a new project:
+
+        ```bash
+        mkdir pjs-query-account-example && cd pjs-query-account-example && \
+        npm init -y && npm pkg set type=module
+        ```
+
+    2. Install dependencies:
+
+        ```bash
+        npm install @polkadot/api
+        ```
+
+    **Query Account Data**
+
+    The following example queries account information including balance, nonce, and other account data.
+
+    Create a file named `query-account.js` and add the following code to it:
+
+    ```javascript title="query-account.js"
+    import { ApiPromise, WsProvider } from '@polkadot/api';
+
+    const POLKADOT_HUB_RPC = 'INSERT_WS_ENDPOINT';
+    const ACCOUNT_ADDRESS = 'INSERT_ACCOUNT_ADDRESS';
+    const PAS_UNITS = 10_000_000_000;
+
+    async function main() {
+      // Create a WebSocket provider
+      const wsProvider = new WsProvider(POLKADOT_HUB_RPC);
+
+      // Initialize the API
+      const api = await ApiPromise.create({ provider: wsProvider });
+      console.log('Connected to Polkadot Hub');
+
+      console.log(`\nQuerying account: ${ACCOUNT_ADDRESS}\n`);
+
+      // Query account information
+      const accountInfo = await api.query.system.account(ACCOUNT_ADDRESS);
+
+      // Display account information
+      console.log('Account Information:');
+      console.log('===================');
+      console.log(`Nonce: ${accountInfo.nonce.toString()}`);
+      console.log(`Consumers: ${accountInfo.consumers.toString()}`);
+      console.log(`Providers: ${accountInfo.providers.toString()}`);
+      console.log(`Sufficients: ${accountInfo.sufficients.toString()}`);
+
+      console.log('\nBalance Details:');
+      console.log('================');
+      console.log(
+        `Free Balance: ${accountInfo.data.free.toString()} (${
+          Number(accountInfo.data.free.toBigInt()) / PAS_UNITS
+        } PAS)`
+      );
+      console.log(
+        `Reserved Balance: ${accountInfo.data.reserved.toString()} (${
+          Number(accountInfo.data.reserved.toBigInt()) / PAS_UNITS
+        } PAS)`
+      );
+      console.log(
+        `Frozen Balance: ${accountInfo.data.frozen.toString()} (${
+          Number(accountInfo.data.frozen.toBigInt()) / PAS_UNITS
+        } PAS)`
+      );
+
+      const total =
+        Number(accountInfo.data.free.toBigInt()) +
+        Number(accountInfo.data.reserved.toBigInt());
+      console.log(`\nTotal Balance: ${total} (${total / PAS_UNITS} PAS)`);
+
+      // Disconnect from the node
+      await api.disconnect();
+      console.log('\nDisconnected');
+    }
+
+    main().catch(console.error);
+
+    ```
+
+    !!! note    
+        Ensure to replace `INSERT_WS_ENDPOINT` with a valid WebSocket endpoint (e.g., `wss://asset-hub-paseo.dotters.network`) and `INSERT_ADDRESS` with the account address you want to query.
+
+    Run the script:
+
+    ```bash
+    node query-account.js
+    ```
+
+    You should see output similar to:
+
+    <div class="termynal" data-termynal>
+        <span data-ty="input"><span class="file-path"></span>node query-account.js</span>
+        <span data-ty>Connected to Polkadot Hub</span>
+        <span data-ty></span>
+        <span data-ty>Querying account: 5GgbDVeKZwCmMHzn58iFSgSZDTojRMM52arXnuNXto28R7mg</span>
+        <span data-ty></span>
+        <span data-ty>Account Information:</span>
+        <span data-ty>===================</span>
+        <span data-ty>Nonce: 15</span>
+        <span data-ty>Consumers: 0</span>
+        <span data-ty>Providers: 1</span>
+        <span data-ty>Sufficients: 0</span>
+        <span data-ty></span>
+        <span data-ty>Balance Details:</span>
+        <span data-ty>================</span>
+        <span data-ty>Free Balance: 59781317040 (5.978131704 PAS)</span>
+        <span data-ty>Reserved Balance: 0 (0 PAS)</span>
+        <span data-ty>Frozen Balance: 0 (0 PAS)</span>
+        <span data-ty></span>
+        <span data-ty>Total Balance: 59781317040 (5.978131704 PAS)</span>
+        <span data-ty></span>
+        <span data-ty>Disconnected</span>
+    </div>
+=== "Dedot"
+
+    **Prerequisites**
+
+    - [Node.js](https://nodejs.org/){target=\_blank} v18 or higher
+    - npm, pnpm, or yarn package manager
+
+    **Environment Setup**
+
+    1. Create and initialize a new project:
+
+        ```bash
+        mkdir dedot-query-account-example && cd dedot-query-account-example && \
+        npm init -y && npm pkg set type=module
+        ```
+
+    2. Install dependencies:
+
+        ```bash
+        npm install dedot && \
+        npm install --save-dev @dedot/chaintypes @types/node tsx typescript
+        ```
+
+    **Query Account Data**
+
+    The following example queries account information including balance, nonce, and other account data.
+
+    Create a file named `query-account.ts` and add the following code to it:
+
+    ```typescript title="query-account.ts"
+    import { DedotClient, WsProvider } from 'dedot';
+    import type { PolkadotAssetHubApi } from '@dedot/chaintypes';
+
+    const POLKADOT_HUB_RPC = 'INSERT_WS_ENDPOINT';
+    const ACCOUNT_ADDRESS = 'INSERT_ACCOUNT_ADDRESS';
+    const PAS_UNITS = 10_000_000_000;
+
+    async function main() {
+      // Initialize provider and client with Asset Hub types
+      const provider = new WsProvider(POLKADOT_HUB_RPC);
+      const client = await DedotClient.new<PolkadotAssetHubApi>(provider);
+
+      console.log('Connected to Polkadot Hub');
+
+      console.log(`\nQuerying account: ${ACCOUNT_ADDRESS}\n`);
+
+      // Query account information
+      const accountInfo = await client.query.system.account(ACCOUNT_ADDRESS);
+
+      // Display account information
+      console.log('Account Information:');
+      console.log('===================');
+      console.log(`Nonce: ${accountInfo.nonce}`);
+      console.log(`Consumers: ${accountInfo.consumers}`);
+      console.log(`Providers: ${accountInfo.providers}`);
+      console.log(`Sufficients: ${accountInfo.sufficients}`);
+
+      console.log('\nBalance Details:');
+      console.log('================');
+      console.log(
+        `Free Balance: ${accountInfo.data.free} (${
+          Number(accountInfo.data.free) / PAS_UNITS
+        } PAS)`
+      );
+      console.log(
+        `Reserved Balance: ${accountInfo.data.reserved} (${
+          Number(accountInfo.data.reserved) / PAS_UNITS
+        } PAS)`
+      );
+      console.log(
+        `Frozen Balance: ${accountInfo.data.frozen} (${
+          Number(accountInfo.data.frozen) / PAS_UNITS
+        } PAS)`
+      );
+
+      const total =
+        Number(accountInfo.data.free) + Number(accountInfo.data.reserved);
+      console.log(`\nTotal Balance: ${total} (${total / PAS_UNITS} PAS)`);
+
+      // Disconnect the client
+      await client.disconnect();
+      console.log('\nDisconnected from Polkadot Hub');
+    }
+
+    main().catch(console.error);
+
+    ```
+
+    !!! note    
+        Ensure to replace `INSERT_WS_ENDPOINT` with a valid WebSocket endpoint (e.g., `wss://asset-hub-paseo.dotters.network`) and `INSERT_ADDRESS` with the account address you want to query.
+
+    Run the script:
+
+    ```bash
+    npx tsx query-account.ts
+    ```
+
+    You should see output similar to:
+
+    <div class="termynal" data-termynal>
+        <span data-ty="input"><span class="file-path"></span>npx tsx query-account.ts</span>
+        <span data-ty>Connected to Polkadot Hub</span>
+        <span data-ty></span>
+        <span data-ty>Querying account: 5GgbDVeKZwCmMHzn58iFSgSZDTojRMM52arXnuNXto28R7mg</span>
+        <span data-ty></span>
+        <span data-ty>Account Information:</span>
+        <span data-ty>===================</span>
+        <span data-ty>Nonce: 15</span>
+        <span data-ty>Consumers: 0</span>
+        <span data-ty>Providers: 1</span>
+        <span data-ty>Sufficients: 0</span>
+        <span data-ty></span>
+        <span data-ty>Balance Details:</span>
+        <span data-ty>================</span>
+        <span data-ty>Free Balance: 59781317040 (5.978131704 PAS)</span>
+        <span data-ty>Reserved Balance: 0 (0 PAS)</span>
+        <span data-ty>Frozen Balance: 0 (0 PAS)</span>
+        <span data-ty></span>
+        <span data-ty>Total Balance: 59781317040 (5.978131704 PAS)</span>
+        <span data-ty></span>
+        <span data-ty>Disconnected from Polkadot Hub</span>
+    </div>
+=== "Python Substrate Interface"
+
+    **Prerequisites**
+
+    - [Python](https://www.python.org/){target=\_blank} 3.8 or higher
+    - pip package manager
+
+    **Environment Setup**
+
+    1. Create a new project directory and set up a virtual environment:
+
+        ```bash
+        mkdir psi-query-account-example && cd psi-query-account-example && \
+        python3 -m venv venv && source venv/bin/activate
+        ```
+
+    2. Install the substrate-interface package:
+
+        ```bash
+        pip install substrate-interface
+        ```
+
+    **Query Account Data**
+
+    The following example queries account information including balance, nonce, and other account data.
+
+    Create a file named `query_account.py` and add the following code to it:
+
+    ```python title="query_account.py"
+        from substrateinterface import SubstrateInterface
+
+        POLKADOT_HUB_RPC = "INSERT_WS_ENDPOINT"
+        ACCOUNT_ADDRESS = "INSERT_ACCOUNT_ADDRESS"
+        PAS_UNITS = 10_000_000_000
+
+        def main():
+            # Connect to Polkadot Hub
+            substrate = SubstrateInterface(url=POLKADOT_HUB_RPC)
+
+            print("Connected to Polkadot Hub")
+
+            print(f"\nQuerying account: {ACCOUNT_ADDRESS}\n")
+
+            # Query account information
+            account_info = substrate.query(
+                module="System", storage_function="Account", params=[ACCOUNT_ADDRESS]
+            )
+
+            # Display account information
+            print("Account Information:")
+            print("===================")
+            print(f"Nonce: {account_info.value['nonce']}")
+            print(f"Consumers: {account_info.value['consumers']}")
+            print(f"Providers: {account_info.value['providers']}")
+            print(f"Sufficients: {account_info.value['sufficients']}")
+
+            print("\nBalance Details:")
+            print("================")
+            free_balance = account_info.value["data"]["free"]
+            reserved_balance = account_info.value["data"]["reserved"]
+            frozen_balance = account_info.value["data"]["frozen"]
+
+            print(f"Free Balance: {free_balance} ({free_balance / PAS_UNITS} PAS)")
+            print(
+                f"Reserved Balance: {reserved_balance} ({reserved_balance / PAS_UNITS} PAS)"
+            )
+            print(f"Frozen Balance: {frozen_balance} ({frozen_balance / PAS_UNITS} PAS)")
+
+            total = free_balance + reserved_balance
+            print(f"\nTotal Balance: {total} ({total / PAS_UNITS} PAS)")
+
+            # Close connection
+            substrate.close()
+            print("\nDisconnected")
+
+
+        if __name__ == "__main__":
+            main()
+    ```
+
+    !!! note    
+        Ensure to replace `INSERT_WS_ENDPOINT` with a valid WebSocket endpoint (e.g., `wss://asset-hub-paseo.dotters.network`) and `INSERT_ADDRESS` with the account address you want to query.
+
+    Run the script:
+
+    ```bash
+    python query_account.py
+    ```
+
+    You should see output similar to:
+
+    <div class="termynal" data-termynal>
+        <span data-ty="input"><span class="file-path"></span>python3 query_account.py</span>
+        <span data-ty>Connected to Polkadot Hub</span>
+        <span data-ty></span>
+        <span data-ty>Querying account: 5GgbDVeKZwCmMHzn58iFSgSZDTojRMM52arXnuNXto28R7mg</span>
+        <span data-ty></span>
+        <span data-ty>Account Information:</span>
+        <span data-ty>===================</span>
+        <span data-ty>Nonce: 15</span>
+        <span data-ty>Consumers: 0</span>
+        <span data-ty>Providers: 1</span>
+        <span data-ty>Sufficients: 0</span>
+        <span data-ty></span>
+        <span data-ty>Balance Details:</span>
+        <span data-ty>================</span>
+        <span data-ty>Free Balance: 59781317040 (5.978131704 PAS)</span>
+        <span data-ty>Reserved Balance: 0 (0.0 PAS)</span>
+        <span data-ty>Frozen Balance: 0 (0.0 PAS)</span>
+        <span data-ty></span>
+        <span data-ty>Total Balance: 59781317040 (5.978131704 PAS)</span>
+        <span data-ty></span>
+        <span data-ty>Disconnected</span>
+    </div>
+=== "Subxt"
+
+    **Prerequisites**
+
+    - [Rust](https://rustup.rs/){target=\_blank} toolchain (latest stable)
+    - Cargo package manager
+
+    **Environment Setup**
+
+    1. Create a new Rust project:
+
+        ```bash
+        cargo new subxt-query-account-example && cd subxt-query-account-example
+        ```
+
+    2. Install the Subxt CLI:
+
+        ```bash
+        cargo install subxt-cli@0.35.3
+        ```
+
+    3. Download the Polkadot Hub metadata:
+
+        ```bash
+        subxt metadata --url INSERT_WS_ENDPOINT -o polkadot_testnet_metadata.scale
+        ```
+
+    4. Update `Cargo.toml` with the required dependencies:
+
+        ```toml title="Cargo.toml"
+        [package]
+        name = "subxt-query-account-example"
+        version = "0.1.0"
+        edition = "2021"
+
+        [[bin]]
+        name = "query_account"
+        path = "src/bin/query_account.rs"
+
+        [dependencies]
+        subxt = { version = "0.44.0" }
+        tokio = { version = "1.36.0", features = ["macros", "rt"] }
+        ```
+
+    **Query Account Data**
+
+    The following example queries account information including balance, nonce, and other account data.
+
+    Create a file at `src/bin/query_account.rs` and add the following code to it:
+
+    ```rust title="src/bin/query_account.rs"
+    use std::str::FromStr;
+    use subxt::utils::AccountId32;
+    use subxt::{OnlineClient, PolkadotConfig};
+
+    // Generate an interface from the node's metadata
+    #[subxt::subxt(runtime_metadata_path = "polkadot_testnet_metadata.scale")]
+    pub mod polkadot_testnet {}
+
+    const POLKADOT_TESTNET_RPC: &str = "INSERT_WS_ENDPOINT";
+    const ACCOUNT_ADDRESS: &str = "INSERT_ACCOUNT_ADDRESS";
+    const PAS_UNITS: u128 = 10_000_000_000;
+
+    #[tokio::main(flavor = "current_thread")]
+    async fn main() -> Result<(), Box<dyn std::error::Error>> {
+        // Initialize the Subxt client
+        let api = OnlineClient::<PolkadotConfig>::from_url(POLKADOT_TESTNET_RPC).await?;
+
+        println!("Connected to Polkadot Hub");
+
+        // Convert the account address into an AccountId32
+        let account = AccountId32::from_str(ACCOUNT_ADDRESS)?;
+
+        println!("\nQuerying account: {}\n", account);
+
+        // Query account information
+        let storage_query = polkadot_testnet::storage().system().account(account);
+        let account_info = api
+            .storage()
+            .at_latest()
+            .await?
+            .fetch(&storage_query)
+            .await?;
+
+        if let Some(info) = account_info {
+            // Display account information
+            println!("Account Information:");
+            println!("===================");
+            println!("Nonce: {}", info.nonce);
+            println!("Consumers: {}", info.consumers);
+            println!("Providers: {}", info.providers);
+            println!("Sufficients: {}", info.sufficients);
+
+            println!("\nBalance Details:");
+            println!("================");
+            println!(
+                "Free Balance: {} ({} PAS)",
+                info.data.free,
+                info.data.free as f64 / PAS_UNITS as f64
+            );
+            println!(
+                "Reserved Balance: {} ({} PAS)",
+                info.data.reserved,
+                info.data.reserved as f64 / PAS_UNITS as f64
+            );
+            println!(
+                "Frozen Balance: {} ({} PAS)",
+                info.data.frozen,
+                info.data.frozen as f64 / PAS_UNITS as f64
+            );
+
+            let total = info.data.free + info.data.reserved;
+            println!(
+                "\nTotal Balance: {} ({} PAS)",
+                total,
+                total as f64 / PAS_UNITS as f64
+            );
+        } else {
+            println!("Account not found or has no data");
+        }
+
+        println!("\nDisconnected");
+
+        Ok(())
+    }
+    ```
+
+    !!! note    
+        Ensure to replace `INSERT_WS_ENDPOINT` with a valid WebSocket endpoint (e.g., `wss://asset-hub-paseo.dotters.network`) and `INSERT_ADDRESS` with the account address you want to query.
+
+    Run the script:
+
+    ```bash
+    cargo run --bin query_account
+    ```
+
+    You should see output similar to:
+
+    <div class="termynal" data-termynal>
+        <span data-ty="input"><span class="file-path"></span>cargo run --bin query_account</span>
+        <span data-ty>Connected to Polkadot Hub</span>
+        <span data-ty></span>
+        <span data-ty>Querying account: 5GgbDVeKZwCmMHzn58iFSgSZDTojRMM52arXnuNXto28R7mg</span>
+        <span data-ty></span>
+        <span data-ty>Account Information:</span>
+        <span data-ty>===================</span>
+        <span data-ty>Nonce: 15</span>
+        <span data-ty>Consumers: 0</span>
+        <span data-ty>Providers: 1</span>
+        <span data-ty>Sufficients: 0</span>
+        <span data-ty></span>
+        <span data-ty>Balance Details:</span>
+        <span data-ty>================</span>
+        <span data-ty>Free Balance: 59781317040 (5.978131704 PAS)</span>
+        <span data-ty>Reserved Balance: 0 (0 PAS)</span>
+        <span data-ty>Frozen Balance: 0 (0 PAS)</span>
+        <span data-ty></span>
+        <span data-ty>Total Balance: 59781317040 (5.978131704 PAS)</span>
+        <span data-ty></span>
+        <span data-ty>Disconnected</span>
+    </div>
+## Understanding Account Data
+
+When querying account information, you'll receive several key fields:
+
+- **Nonce**: The number of transactions sent from this account, used to prevent replay attacks.
+- **Consumers**: The number of modules depending on this account's existence.
+- **Providers**: The number of modules providing for this account's existence.
+- **Sufficients**: The number of modules that allow this account to exist on its own.
+- **Free Balance**: The transferable balance available for transactions.
+- **Reserved Balance**: Balance that is locked for specific purposes (staking, governance, etc.).
+- **Frozen Balance**: Balance that cannot be used for transfers but may be used for other operations.
+
+The total balance is the sum of free and reserved balances.
+
+## Where to Go Next
+
+<div class="grid cards" markdown>
+
+- <span class="badge guide">Guide</span> **Query On-Chain State**
+
+    ---
+
+    Explore other types of storage queries.
+
+    [:octicons-arrow-right-24: Get Started](/chain-interactions/query-data/query-sdks/)
+
+- <span class="badge guide">Guide</span> **Send Transactions**
+
+    ---
+
+    Learn how to construct and submit transactions.
+
+    [:octicons-arrow-right-24: Get Started](/chain-interactions/send-transactions/with-sdks/)
+
+</div>
+
+
+---
+
 Page Title: Randomness
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-parachains-randomness.md
@@ -8038,6 +9279,106 @@ However, VDF likely requires specialized ASIC devices to run separately from s
 For more information about the reasoning for choices made along with proofs, see Polkadot's research on blockchain randomness and sortition in the [Block production](https://research.web3.foundation/Polkadot/protocols/block-production){target=\_blank} entry of the Polkadot Wiki. 
 
 For a discussion with Web3 Foundation researchers about when and under what conditions Polkadot's randomness can be utilized, see the [Discussion on Randomness used in Polkadot](https://github.com/use-ink/ink/issues/57){target=\_blank} issue on GitHub.
+
+
+---
+
+Page Title: Register a Local Asset
+
+- Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/chain-interactions-token-operations-register-local-asset.md
+- Canonical (HTML): https://docs.polkadot.com/chain-interactions/token-operations/register-local-asset/
+- Summary: Comprehensive guide to registering a local asset on the Asset Hub system parachain, including step-by-step instructions.
+
+# Register a Local Asset on Asset Hub
+
+## Introduction
+
+As detailed in the [Asset Hub Overview](/polkadot-protocol/architecture/system-chains/asset-hub){target=\_blank} page, Asset Hub accommodates two types of assets: local and foreign. Local assets are those that were created in Asset Hub and are identifiable by an integer ID. On the other hand, foreign assets originate from a sibling parachain and are identified by a Multilocation.
+
+This guide will take you through the steps of registering a local asset on the Asset Hub parachain.
+
+## Prerequisites
+
+Before you begin, ensure you have access to the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} interface and a funded wallet with DOT or KSM.
+
+- For Polkadot Asset Hub, you would need a deposit of 10 DOT and around 0.201 DOT for the metadata.
+- For Kusama Asset Hub, the deposit is 0.1 KSM and around 0.000669 KSM for the metadata.
+
+You need to ensure that your Asset Hub account balance is a bit more than the sum of those two deposits, which should seamlessly account for the required deposits and transaction fees.
+
+## Register a Local Asset
+
+To register a local asset on the Asset Hub parachain, follow these steps:
+
+1. Open the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} interface and connect to the Asset Hub parachain using the network selector in the top left corner.
+
+      - You may prefer to test local asset registration on TestNet before registering the asset on a MainNet hub. If you still need to set up a local testing environment, review the [Environment setup](#test-setup-environment) section for instructions. Once the local environment is set up, connect to the Local Node (Chopsticks) available on `ws://127.0.0.1:8000`.
+      - For the live network, connect to the **Asset Hub** parachain. Either Polkadot or Kusama Asset Hub can be selected from the dropdown list, choosing the desired RPC provider.
+
+2. Click on the **Network** tab on the top navigation bar and select **Assets** from the dropdown list.
+
+      ![Access to Asset Hub through Polkadot.JS](/images/chain-interactions/token-operations/register-local-asset/register-a-local-asset-01.webp)
+
+3. Now, you need to examine all the registered asset IDs. This step is crucial to ensure that the asset ID you are about to register is unique. Asset IDs are displayed in the **assets** column.
+
+      ![Asset IDs on Asset Hub](/images/chain-interactions/token-operations/register-local-asset/register-a-local-asset-02.webp)
+
+4. Once you have confirmed that the asset ID is unique, click on the **Create** button on the top right corner of the page.
+
+      ![Create a new asset](/images/chain-interactions/token-operations/register-local-asset/register-a-local-asset-03.webp)
+
+5. Fill in the required fields in the **Create Asset** form:
+
+    1. **creator account**: The account to be used for creating this asset and setting up the initial metadata.
+    2. **asset name**: The descriptive name of the asset you are registering.
+    3. **asset symbol**: The symbol that will be used to represent the asset.
+    4. **asset decimals**: The number of decimal places for this token, with a maximum of 20 allowed through the user interface.
+    5. **minimum balance**: The minimum balance for the asset. This is specified in the units and decimals as requested.
+    6. **asset ID**: The selected id for the asset. This should not match an already-existing asset id.
+    7. Click on the **Next** button.
+ 
+    ![Create Asset Form](/images/chain-interactions/token-operations/register-local-asset/register-a-local-asset-04.webp)
+
+6. Choose the accounts for the roles listed below:
+
+    1. **admin account**: The account designated for continuous administration of the token.
+    2. **issuer account**: The account that will be used for issuing this token.
+    3. **freezer account**: The account that will be used for performing token freezing operations.
+    4. Click on the **Create** button.
+
+    ![Admin, Issuer, Freezer accounts](/images/chain-interactions/token-operations/register-local-asset/register-a-local-asset-05.webp)
+
+7. Click on the **Sign and Submit** button to complete the asset registration process.
+
+    ![Sign and Submit](/images/chain-interactions/token-operations/register-local-asset/register-a-local-asset-06.webp)
+
+## Verify Asset Registration
+
+After completing these steps, the asset will be successfully registered. You can now view your asset listed on the [**Assets**](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fasset-hub-polkadot-rpc.dwellir.com#/assets){target=\_blank} section of the Polkadot.js Apps interface.
+
+![Asset listed on Polkadot.js Apps](/images/chain-interactions/token-operations/register-local-asset/register-a-local-asset-07.webp)
+
+!!! tip
+    Take into consideration that the **Assets** section’s link may differ depending on the network you are using. For the local environment, enter `ws://127.0.0.1:8000` into the **Custom Endpoint** field.
+
+In this way, you have successfully registered a local asset on the Asset Hub parachain.
+
+For an in-depth explanation about Asset Hub and its features, see the [Asset Hub](/chain-interactions/token-operations/convert-assets/){target=\_blank} entry in the Polkadot Wiki.
+
+## Test Setup Environment
+
+You can set up a local parachain environment to test the asset registration process before deploying it on the live network. This guide uses Chopsticks to simulate that process. For further information on chopsticks usage, refer to the [Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started){target=\_blank} documentation.
+
+To set up a test environment, execute the following command:
+
+```bash
+npx @acala-network/chopsticks \
+--config=https://raw.githubusercontent.com/AcalaNetwork/chopsticks/master/configs/polkadot-asset-hub.yml
+```
+
+The above command will spawn a lazy fork of Polkadot Asset Hub with the latest block data from the network. If you need to test Kusama Asset Hub, replace `polkadot-asset-hub.yml` with `kusama-asset-hub.yml` in the command.
+
+An Asset Hub instance is now running locally, and you can proceed with the asset registration process. Note that the local registration process does not differ from the live network process. Once you have a successful TestNet transaction, you can use the same steps to register the asset on MainNet.
 
 
 ---
@@ -8284,7 +9625,6 @@ This page contains a list of all relevant tutorials and guides to help you get s
 
 
 
-
 ## Get Tokens from the Faucet
 
 | Title                              | Difficulty  | Tools | Description                                                                                                           |
@@ -8293,10 +9633,10 @@ This page contains a list of all relevant tutorials and guides to help you get s
 
 ## EVM Smart Contracts
 
-| Title                                                                                                   | Difficulty  | Tools                          | Description                                                                                                                                                 |
-|---------------------------------------------------------------------------------------------------------|:-----------:|--------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [Deploy an ERC-20 to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix/) | 🟢 Beginner | EVM Wallet, Polkadot Remix IDE | Deploy an ERC-20 token on Polkadot Hub using PolkaVM. This guide covers contract creation, compilation, deployment, and interaction via Polkadot Remix IDE. |
-| [Deploy an NFT to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix/)        | 🟢 Beginner | EVM Wallet, Polkadot Remix IDE | Deploy an NFT on Polkadot Hub using PolkaVM and OpenZeppelin. Learn how to compile, deploy, and interact with your contract using Polkadot Remix IDE.       |
+| Title                                                                                                   | Difficulty  | Tools                          | Description                                                                                                                                   |
+|---------------------------------------------------------------------------------------------------------|:-----------:|--------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
+| [Deploy an ERC-20 to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix/) | 🟢 Beginner | EVM Wallet, Polkadot Remix IDE | Deploy an ERC-20 token on Polkadot Hub. This guide covers contract creation, compilation, deployment, and interaction via Polkadot Remix IDE. |
+| [Deploy an NFT to Polkadot Hub](/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix/)        | 🟢 Beginner | EVM Wallet, Polkadot Remix IDE | Deploy an NFT on Polkadot Hub with OpenZeppelin. Learn how to compile, deploy, and interact with your contract using Polkadot Remix IDE.      |
 
 ## Port Ethereum DApps
 
@@ -8311,7 +9651,7 @@ Page Title: Smart Contracts Overview
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-overview.md
 - Canonical (HTML): https://docs.polkadot.com/smart-contracts/overview/
-- Summary: Learn about smart contract development on Polkadot Hub with native PolkaVM support, dual-VM execution, and seamless cross-chain capabilities.
+- Summary: Learn about smart contract development on Polkadot Hub with native PVM support, dual-VM execution, and seamless cross-chain capabilities.
 
 # Smart Contracts on Polkadot Hub
 
@@ -8319,7 +9659,7 @@ Page Title: Smart Contracts Overview
 
 Polkadot Hub provides a production-ready smart contract platform that combines Ethereum compatibility with the performance and cross-chain capabilities of the Polkadot ecosystem. Developers can deploy smart contracts directly on Polkadot Hub while using familiar Ethereum tooling, workflows, and programming languages.
 
-Built with a dual-VM approach, Polkadot Hub offers two execution backends: REVM for unmodified EVM compatibility and native PolkaVM for optimized computationally expensive workloads. This dual-VM architecture enables developers to migrate existing Ethereum contracts instantly or optimize for speed and efficiency with native execution.
+Built with a dual-VM approach, Polkadot Hub offers two execution backends: REVM for unmodified EVM compatibility and native PVM for optimized computationally expensive workloads. This dual-VM architecture enables developers to migrate existing Ethereum contracts instantly or optimize for speed and efficiency with native execution.
 
 ## Why Build on Polkadot Hub
 
@@ -8337,23 +9677,23 @@ Deploy existing Ethereum contracts with zero modifications while maintaining ful
 Choose between two execution backends:
 
 - **REVM**: Run unmodified Ethereum contracts with full EVM/Ethereum compatibility.
-- **PolkaVM**: Compile to optimized RISC-V bytecode for enhanced performance and lower fees while keeping Ethereum-compatibility.
+- **PVM**: Compile to optimized RISC-V bytecode for enhanced performance and lower fees while keeping Ethereum-compatibility.
 
 Both backends share the same RPC interface and tooling support, allowing seamless transitions. In addition, smart contracts can interact with Polkadot native services via [precompile contracts](/smart-contracts/precompiles/){target=\_blank}.
 
 ### Cross-VM  & Cross-Chain Capabilities
 
-Smart contracts written for one VM (for example, EVM) can interact directly with other smart contracts written for the RISC-V PolkaVM, and back. This allows to use full EVM compatible contracts but extend to heavy/complex execution workloads to the PolkaVM RISC-V backend.
+Smart contracts written for one VM (for example, EVM) can interact directly with other smart contracts written for the RISC-V PVM, and back. This allows to use full EVM compatible contracts but extend to heavy/complex execution workloads to the PVM RISC-V backend.
 
 Furthermore, all smart contracts in Polkadot Hub can interact with any service in the Polkadot ecosystem through [XCM](/smart-contracts/precompiles/xcm/){target=\_blank}, enabling token transfers, remote execution, and cross-chain composability without bridges or intermediaries.
 
 ## Other Smart Contract Environments
 
-Beyond Polkadot Hub's native PolkaVM support, the ecosystem offers two main alternatives for smart contract development:
+Beyond Polkadot Hub's native PVM support, the ecosystem offers two main alternatives for smart contract development:
 
 - **EVM-compatible parachains**: Provide access to Ethereum's extensive developer ecosystem, smart contract portability, and established tooling like Hardhat, Remix, Foundry, and OpenZeppelin. The main options include Moonbeam (the first full Ethereum-compatible parachain serving as an interoperability hub), Astar (featuring dual VM support for both EVM and WebAssembly contracts), and Acala (DeFi-focused with enhanced Acala EVM+ offering advanced DeFi primitives).
 
-- **Rust (ink!)**: ink! is a Rust-based framework that can compile to PolkaVM. It uses [`#[ink(...)]`](https://use.ink/docs/v6/macros-attributes/){target=\_blank} attribute macros to create Polkadot SDK-compatible PolkaVM bytecode, offering strong memory safety from Rust, an advanced type system, high-performance PolkaVM execution, and platform independence with sandboxed security.
+- **Rust (ink!)**: ink! is a Rust-based framework that can compile to PVM. It uses [`#[ink(...)]`](https://use.ink/docs/v6/macros-attributes/){target=\_blank} attribute macros to create Polkadot SDK-compatible PVM bytecode, offering strong memory safety from Rust, an advanced type system, high-performance PVM execution, and platform independence with sandboxed security.
 
 ## Next Steps
 

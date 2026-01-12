@@ -13,25 +13,25 @@ This article explores how Polkadot leverages precompiles within the Revive palle
 
 ## What are Precompiles?
 
-Precompiles are special contract implementations that run directly at the runtime level rather than as on-chain PolkaVM contracts. In typical EVM environments, precompiles provide essential cryptographic and utility functionality at addresses that start with specific patterns. Revive follows this design pattern but with its own implementation optimized for PolkaVM.
+Precompiles are special contract implementations that run directly at the runtime level rather than as on-chain PVM contracts. In typical EVM environments, precompiles provide essential cryptographic and utility functionality at addresses that start with specific patterns. Revive follows this design pattern but with its own implementation optimized for PVM.
 
-Users interact with the dApp/contract, which in turn calls the PolkaVM. The PolkaVM detects the precompile address and calls the corresponding precompile. The precompile executes the native code and returns the result to the dApp/contract. The dApp/contract then returns the result to the user.
+Users interact with the dApp/contract, which in turn calls the PVM. The PVM detects the precompile address and calls the corresponding precompile. The precompile executes the native code and returns the result to the dApp/contract. The dApp/contract then returns the result to the user.
 
 ```mermaid
 flowchart LR
     User(["User"])
     dApp["DApp/Contract"]
-    PolkaVM["ETH RPC Adapter"]
+    PVM["ETH RPC Adapter"]
     Precompiles["Precompiles"]
-    Runtime["PolkaVM"]
+    Runtime["PVM"]
 
     User --> dApp
-    dApp -->|"Call<br>function"| PolkaVM
-    PolkaVM -->|"Detect<br>precompile<br>address"| Precompiles
+    dApp -->|"Call<br>function"| PVM
+    PVM -->|"Detect<br>precompile<br>address"| Precompiles
     Precompiles -->|"Execute<br>optimized<br>native code"| Runtime
 
     subgraph "Polkadot Hub"
-        PolkaVM
+        PVM
         Precompiles
         Runtime
     end

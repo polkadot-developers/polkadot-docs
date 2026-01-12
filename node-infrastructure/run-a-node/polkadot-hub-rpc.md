@@ -8,10 +8,7 @@ categories: Infrastructure
 
 ## Introduction
 
-Polkadot Hub is the gateway to the Polkadot network, providing access to core services such as asset management, governance, and cross-chain messaging. Running your own RPC node gives developers and applications direct access to these services while also supporting infrastructure tasks like block indexing and SDK tool compatibility.
-
-<!-- TODO POST-MVP: Update above link
-[Polkadot Hub](/reference/polkadot-hub/){target=\_blank} -->
+[Polkadot Hub](/reference/polkadot-hub/){target=\_blank} is the gateway to the Polkadot network, providing access to core services such as asset management, governance, and cross-chain messaging. Running your own RPC node gives developers and applications direct access to these services while also supporting infrastructure tasks like block indexing and SDK tool compatibility.
 
 Through the Polkadot SDK node RPC (WebSocket port 9944, HTTP port 9933), your node serves as the bridge between the network and applications. This page guides you through setting up a node from scratch, including hardware requirements and deployment options using Docker or systemd.
 

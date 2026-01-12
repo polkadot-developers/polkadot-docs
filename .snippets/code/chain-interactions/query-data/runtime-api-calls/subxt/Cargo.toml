@@ -1,0 +1,12 @@
+[package]
+name = "subxt-runtime-api-example"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "runtime_apis"
+path = "src/bin/runtime_apis.rs"
+
+[dependencies]
+subxt = "0.44.0"
+tokio = { version = "1", features = ["rt", "macros"] }

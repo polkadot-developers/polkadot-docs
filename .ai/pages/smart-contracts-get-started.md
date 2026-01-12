@@ -39,7 +39,7 @@ Bridge your Ethereum knowledge with Polkadot Hub specifics: account mapping, fee
 |                    [Accounts](/smart-contracts/for-eth-devs/accounts/)                    | How 20‑byte Ethereum addresses map to 32‑byte Polkadot accounts |
 | [Blocks, Transactions, and Fees](/smart-contracts/for-eth-devs/blocks-transactions-fees/) |     Transaction types, fees, and multi‑dimensional metering     |
 |                   [Gas Model](/smart-contracts/for-eth-devs/gas-model/)                   |        Gas vs. weight, proof size, and storage deposits         |
-|         [Contract Deployment](/smart-contracts/for-eth-devs/contract-deployment/)         |     Deployment patterns and best practices on Polkadot Hub      |
+|         [Contract Deployment](/smart-contracts/for-eth-devs/contract-deployment/)         |     Deployment mechanics, gas estimation, and storage model     |
 |               [JSON‑RPC APIs](/smart-contracts/for-eth-devs/json-rpc-apis/)               |        Supported Ethereum JSON‑RPC methods and examples         |
 |               [Dual VM Stack](/smart-contracts/for-eth-devs/dual-vm-stack/)               |         Overview of EVM and native execution on the Hub         |
 
@@ -71,18 +71,18 @@ Choose the client libraries that fit your stack for connecting wallets and calli
 
 Integrate essential services like wallets, indexers, and oracles to round out your dApp.
 
-|                     Integration                     |                Description                |
-|:---------------------------------------------------:|:-----------------------------------------:|
-|  [Wallets](/smart-contracts/integrations/wallets/)  | Supported wallets and configuration notes |
+|                    Integration                    |                Description                |
+|:-------------------------------------------------:|:-----------------------------------------:|
+| [Wallets](/smart-contracts/integrations/wallets/) | Supported wallets and configuration notes |
 
 ## Precompiles
 
 Discover precompiled system contracts available on the Hub and how to use them.
 
-|                          Topic                           |                     Description                     |
-|:--------------------------------------------------------:|:---------------------------------------------------:|
-| [Overview of Precompiles](/smart-contracts/precompiles/) |      What precompiles are available on the Hub      |
-|  [ETH Native](/smart-contracts/precompiles/eth-native/)  |           EVM precompiles and interfaces            |
-|         [XCM](/smart-contracts/precompiles/xcm/)         |     Cross‑chain messaging helpers for contracts     |
+|                          Topic                           |                 Description                 |
+|:--------------------------------------------------------:|:-------------------------------------------:|
+| [Overview of Precompiles](/smart-contracts/precompiles/) |  What precompiles are available on the Hub  |
+|  [ETH Native](/smart-contracts/precompiles/eth-native/)  |       EVM precompiles and interfaces        |
+|         [XCM](/smart-contracts/precompiles/xcm/)         | Cross‑chain messaging helpers for contracts |
 
 From here, follow the quick starts to get connected, iterate locally with your preferred tools, and use the guides, libraries, integrations, and precompiles as you grow into production‑ready dApps. If you get stuck, [open an issue](https://github.com/polkadot-developers/polkadot-docs/issues/new?template=docs-issue.yml){target=\_blank} or reach out in the community channels.

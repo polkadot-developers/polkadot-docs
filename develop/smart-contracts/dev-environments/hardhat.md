@@ -90,7 +90,7 @@ The plugin will compile your Solidity contracts for Solidity versions `0.8.0` an
 1. Make sure your Hardhat configuration file looks like the following. Note that it may differ slightly based on the language choice made during the `init` step of setting up Hardhat:
 
     ```javascript title="hardhat.config.js" hl_lines="5-7 19-21 25-27"
-    --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:7:'
+    --8<-- 'code/develop/smart-contracts/dev-environments/hardhat/hardhat.config.js:7'
     ```
 
     To obtain the `dev-node` and `eth-rpc` binaries required in `nodeConfig` and `adapterConfig` respectively, check this [release](https://github.com/paritytech/hardhat-polkadot/releases/tag/nodes-19071579107){target=\_blank} and download the binaries as per your development platform and update the paths in your Hardhat config. 

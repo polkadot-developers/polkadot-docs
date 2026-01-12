@@ -29,13 +29,9 @@ The following block explorers are available for Polkadot Hub smart contracts, pr
 
 
 
-<<<<<<< HEAD
-=======
-BlockScout is an open-source explorer platform with a user-friendly interface. It excels at detailed contract analytics and provides developers with comprehensive API access.
->>>>>>> staging/product-ia
 
 ### Routescan
 
-Routescan delivers multi-chain explorer capabilities with specialized support for PolkaVM environments.
+Routescan delivers multi-chain explorer capabilities with specialized support for Polkadot Hub.
 
 - [Polkadot Hub TestNet Routescan](https://polkadot.testnet.routescan.io/){target=\_blank}

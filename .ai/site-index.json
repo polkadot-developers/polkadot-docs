@@ -316,77 +316,6 @@
     "token_estimator": "heuristic-v1"
   },
   {
-    "id": "chain-interactions-send-transactions-interoperability-.estimate-xcm-fees",
-    "title": "XCM Fee Estimation",
-    "slug": "chain-interactions-send-transactions-interoperability-.estimate-xcm-fees",
-    "categories": [
-      "Uncategorized"
-    ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/chain-interactions-send-transactions-interoperability-.estimate-xcm-fees.md",
-    "html_url": "https://docs.polkadot.com/chain-interactions/send-transactions/interoperability/.estimate-xcm-fees/",
-    "preview": "When sending cross-chain messages, ensure that the transaction will be successful not only in the local chain but also in the destination chain and any intermediate chains.",
-    "outline": [
-      {
-        "depth": 2,
-        "title": "Introduction",
-        "anchor": "introduction"
-      },
-      {
-        "depth": 2,
-        "title": "Fee Mechanism",
-        "anchor": "fee-mechanism"
-      },
-      {
-        "depth": 2,
-        "title": "Environment Setup",
-        "anchor": "environment-setup"
-      },
-      {
-        "depth": 2,
-        "title": "Client and API Setup",
-        "anchor": "client-and-api-setup"
-      },
-      {
-        "depth": 2,
-        "title": "Create the XCM Message",
-        "anchor": "create-the-xcm-message"
-      },
-      {
-        "depth": 2,
-        "title": "Fee Estimation Function",
-        "anchor": "fee-estimation-function"
-      },
-      {
-        "depth": 2,
-        "title": "Complete Implementation",
-        "anchor": "complete-implementation"
-      },
-      {
-        "depth": 2,
-        "title": "Full Code",
-        "anchor": "full-code"
-      },
-      {
-        "depth": 2,
-        "title": "Running the Script",
-        "anchor": "running-the-script"
-      },
-      {
-        "depth": 2,
-        "title": "Conclusion",
-        "anchor": "conclusion"
-      }
-    ],
-    "stats": {
-      "chars": 38625,
-      "words": 3786,
-      "headings": 10,
-      "estimated_token_count_total": 7755
-    },
-    "hash": "sha256:086a87823ab67ceac102358030e316583cd733c0ec326316e7f29061fe7f6934",
-    "token_estimator": "heuristic-v1"
-  },
-  {
     "id": "chain-interactions-send-transactions-interoperability-.transfer-assets-out-of-polkadot",
     "title": "chain-interactions-send-transactions-interoperability-.transfer-assets-out-of-polkadot",
     "slug": "chain-interactions-send-transactions-interoperability-.transfer-assets-out-of-polkadot",
@@ -515,6 +444,77 @@
       "estimated_token_count_total": 4607
     },
     "hash": "sha256:16951bde1f8d6939a7040b59c9ed524c365fab7b92032cce9f14406c954de5e9",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "chain-interactions-send-transactions-interoperability-estimate-xcm-fees",
+    "title": "XCM Fee Estimation",
+    "slug": "chain-interactions-send-transactions-interoperability-estimate-xcm-fees",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/chain-interactions-send-transactions-interoperability-estimate-xcm-fees.md",
+    "html_url": "https://docs.polkadot.com/chain-interactions/send-transactions/interoperability/estimate-xcm-fees/",
+    "preview": "When sending cross-chain messages, ensure that the transaction will be successful not only in the local chain but also in the destination chain and any intermediate chains.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Fee Mechanism",
+        "anchor": "fee-mechanism"
+      },
+      {
+        "depth": 2,
+        "title": "Environment Setup",
+        "anchor": "environment-setup"
+      },
+      {
+        "depth": 2,
+        "title": "Client and API Setup",
+        "anchor": "client-and-api-setup"
+      },
+      {
+        "depth": 2,
+        "title": "Create the XCM Message",
+        "anchor": "create-the-xcm-message"
+      },
+      {
+        "depth": 2,
+        "title": "Fee Estimation Function",
+        "anchor": "fee-estimation-function"
+      },
+      {
+        "depth": 2,
+        "title": "Complete Implementation",
+        "anchor": "complete-implementation"
+      },
+      {
+        "depth": 2,
+        "title": "Full Code",
+        "anchor": "full-code"
+      },
+      {
+        "depth": 2,
+        "title": "Running the Script",
+        "anchor": "running-the-script"
+      },
+      {
+        "depth": 2,
+        "title": "Conclusion",
+        "anchor": "conclusion"
+      }
+    ],
+    "stats": {
+      "chars": 39502,
+      "words": 3806,
+      "headings": 10,
+      "estimated_token_count_total": 7800
+    },
+    "hash": "sha256:a00fd975f5ca8e61ad69cd359e51337b615f5732ac6fb90c4f7d6d0fd9649375",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -7554,21 +7554,12 @@
       }
     ],
     "stats": {
-<<<<<<< HEAD
-      "chars": 13866,
-      "words": 1634,
+      "chars": 13848,
+      "words": 1633,
       "headings": 24,
-      "estimated_token_count_total": 3216
+      "estimated_token_count_total": 3213
     },
-    "hash": "sha256:bc1e4b8242a51a5165adba10654f7624c3f87a0eb694054262061673347d90fb",
-=======
-      "chars": 13854,
-      "words": 1639,
-      "headings": 24,
-      "estimated_token_count_total": 3225
-    },
-    "hash": "sha256:41dfbfc0f218b74d51677d457ebc5ae23cb7b16a674f25012c6519a082ffc9c7",
->>>>>>> staging/product-ia
+    "hash": "sha256:264a9b866ca79ca66a6600bbf48343f54daf20a44e8f0d37ef276cbe5f01b90d",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -8241,21 +8232,12 @@
       }
     ],
     "stats": {
-<<<<<<< HEAD
-      "chars": 1442,
-      "words": 174,
+      "chars": 1403,
+      "words": 170,
       "headings": 4,
-      "estimated_token_count_total": 263
+      "estimated_token_count_total": 259
     },
-    "hash": "sha256:1f401a2aef16cd120ceb6ddc575cbfc19ea0ce985a6d045825aefc54e456dddc",
-=======
-      "chars": 1557,
-      "words": 193,
-      "headings": 4,
-      "estimated_token_count_total": 299
-    },
-    "hash": "sha256:e07e2812e0247e62d7585aa485a5f591dc60c776c09c4a8614d21bdaaa95cd04",
->>>>>>> staging/product-ia
+    "hash": "sha256:6f0bd78dccc791a41e93c9222b627428c9e7c61bc8b4c593029493d8c6e52a1e",
     "token_estimator": "heuristic-v1"
   },
   {

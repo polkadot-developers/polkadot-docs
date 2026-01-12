@@ -535,6 +535,9 @@
   }
 
   function initialize() {
+    if (window.__md_is_404 || document.querySelector('h1.not-found')) {
+      return;
+    }
     addSectionCopyButtons();
   }
 

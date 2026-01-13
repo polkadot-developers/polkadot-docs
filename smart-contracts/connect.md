@@ -91,6 +91,14 @@ Developers can leverage smart contracts across diverse networks, from TestNets t
     https://kusama-asset-hub-eth-rpc.polkadot.io
     ```
 
+    ---
+
+    Block explorer URL
+    
+    ```text
+    https://blockscout-kusama-asset-hub.parity-chains-scw.parity.io/
+    ```
+
 
 ## Test Tokens
 

@@ -518,6 +518,77 @@
     "token_estimator": "heuristic-v1"
   },
   {
+    "id": "chain-interactions-send-transactions-interoperability-transfer-assets-into-polkadot",
+    "title": "Transfer Assets from Ethereum into Polkadot",
+    "slug": "chain-interactions-send-transactions-interoperability-transfer-assets-into-polkadot",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/chain-interactions-send-transactions-interoperability-transfer-assets-into-polkadot.md",
+    "html_url": "https://docs.polkadot.com/chain-interactions/send-transactions/interoperability/transfer-assets-into-polkadot/",
+    "preview": "This guide walks you through transferring tokens from Ethereum to Polkadot using the [ParaSpell XCM SDK](/reference/tools/paraspell/){target=\\_blank} and [Snowbridge](https://docs.snowbridge.network/){target=\\_blank}. Snowbridge is a trustless, decentralized bridge integrated into the Polkadot protocol that enables secure asset transfers between the Ethereum and Polkadot ecosystems.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 3,
+        "title": "How the Bridge Works",
+        "anchor": "how-the-bridge-works"
+      },
+      {
+        "depth": 2,
+        "title": "Prerequisites",
+        "anchor": "prerequisites"
+      },
+      {
+        "depth": 2,
+        "title": "Prepare Tokens for Bridging",
+        "anchor": "prepare-tokens-for-bridging"
+      },
+      {
+        "depth": 2,
+        "title": "Initialize Your Project",
+        "anchor": "initialize-your-project"
+      },
+      {
+        "depth": 2,
+        "title": "Approve Tokens for Bridging",
+        "anchor": "approve-tokens-for-bridging"
+      },
+      {
+        "depth": 2,
+        "title": "Build and Execute the Bridge Transfer",
+        "anchor": "build-and-execute-the-bridge-transfer"
+      },
+      {
+        "depth": 2,
+        "title": "Monitor the Transfer",
+        "anchor": "monitor-the-transfer"
+      },
+      {
+        "depth": 2,
+        "title": "Supported Assets and Destinations",
+        "anchor": "supported-assets-and-destinations"
+      },
+      {
+        "depth": 2,
+        "title": "Where to Go Next",
+        "anchor": "where-to-go-next"
+      }
+    ],
+    "stats": {
+      "chars": 15811,
+      "words": 1986,
+      "headings": 10,
+      "estimated_token_count_total": 3760
+    },
+    "hash": "sha256:ceeac5fa048d01023511f4acacdc7394cb7cb289a4defff8bb22bb8b5c06b784",
+    "token_estimator": "heuristic-v1"
+  },
+  {
     "id": "chain-interactions-send-transactions-interoperability-transfer-assets-parachains",
     "title": "Transfer Assets Between Parachains",
     "slug": "chain-interactions-send-transactions-interoperability-transfer-assets-parachains",

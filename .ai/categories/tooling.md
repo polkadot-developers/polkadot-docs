@@ -14389,7 +14389,7 @@ To use Talisman with Polkadot Hub TestNet:
 
     ![](/images/smart-contracts/integrations/wallets/wallets-7.webp)
 
-5. Fill in the form with the required parameters and click the ave** button.
+5. Fill in the form with the required parameters and click the Save** button.
 
     ![](/images/smart-contracts/integrations/wallets/wallets-8.webp)
 

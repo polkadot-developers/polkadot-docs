@@ -9028,12 +9028,12 @@
       }
     ],
     "stats": {
-      "chars": 4417,
+      "chars": 4418,
       "words": 629,
       "headings": 5,
       "estimated_token_count_total": 975
     },
-    "hash": "sha256:94aa482d3b91711a3a5246120649f1d0c831e1353de96ce8f04793b22e90a0d7",
+    "hash": "sha256:624401e1e7b45de821e304f75517e9c4d643d4ac51192baca6f8ad065d01107e",
     "token_estimator": "heuristic-v1"
   },
   {

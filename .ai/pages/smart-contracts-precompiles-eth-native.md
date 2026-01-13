@@ -19,21 +19,7 @@ To use a precompile in your smart contract, simply call the precompile's address
 
 For example, to use the ECRecover precompile to verify a signature, you would call address `0x0000000000000000000000000000000000000001` with the properly formatted signature data. The precompile handles the complex cryptographic operations efficiently and returns the recovered public key.
 
-<<<<<<< HEAD:.ai/pages/smart-contracts-precompiles-eth-native.md
 You can find sample contracts for each precompile in the [`precompiles-hardhat`](https://github.com/polkadot-developers/polkavm-hardhat-examples/tree/master/precompiles-hardhat/contracts){target=\_blank} project.
-=======
-    User --> DApp
-    DApp -->|"Call<br>function"| PolkaEVM
-    PolkaEVM -->|"Detect<br>precompile<br>address"| Precompiles
-    Precompiles -->|"Execute<br>optimized<br>native code"| Runtime
-
-    subgraph "Polkadot Hub"
-        PolkaEVM
-        Precompiles
-        Runtime
-    end
-```
->>>>>>> master:develop/smart-contracts/precompiles/index.md
 
 ## Standard Precompiles in Polkadot Hub
 

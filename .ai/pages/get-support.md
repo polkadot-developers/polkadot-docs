@@ -4,7 +4,6 @@ description: Start here to get developer support for Polkadot. Connect with the 
 url: https://docs.polkadot.com/get-support/
 ---
 
-<<<<<<< HEAD
 # Polkadot Developer Support
 
 You're already in the docs — solid start. But sometimes you need more: answers, real examples, someone to talk to. This support hub is here to help you move forward — faster.
@@ -123,44 +122,3 @@ Use one of the channels below to get live technical support or ask questions.
     👉 [Access LLM Files](/get-support/ai-ready-docs/){target=\_blank}
 
 </div>
-=======
-# Need Help Fast?
-
-Use one of the channels below to get live technical support or ask questions.
-
-<div class="button-wrapper" style="display: flex; justify-content: flex-start;">
-  <a href="https://t.me/substratedevs" class="md-button" style="margin-right: 1rem; text-decoration: none;">
-    Connect to Telegram
-  </a>
-  <a href="https://polkadot-discord.w3f.tools/" class="md-button" style="text-decoration: none;">
-    Connect to Discord
-  </a>
-</div>
-
-
-## Need More than Just Documentation?
-
-You're already in the docs — solid start.  
-But sometimes you need more: answers, real examples, someone to talk to.  
-This support hub is here to help you move forward — faster.
-
-Whether you're building something new, integrating into the ecosystem, or running into blockers — **don't stay stuck**.
-
-## What You Can Do Here
-
-- 📨 [**Get In Touch**](/get-support/get-in-touch/)  
-  Reach out to the Polkadot support team and community via Telegram, Matrix, or Discord.  
-  Ask technical questions, report blockers, or share feedback — and get a human response.
-
-- 🧠 [**Explore Available Resources**](/get-support/explore-resources/)  
-  Find answers beyond the documentation: developer forums, Stack Exchange, Reddit, YouTube, governance hubs, and more.
-
-This hub is evolving. More support tools and shortcuts are on the way, including enhanced onboarding, CLI helpers, development environments, and live feedback channels.
-
-## Help Us Improve
-
-If something’s missing, unclear, or broken — **tell us**.  
-Your feedback makes the whole ecosystem better for everyone.
-
-👉 [**Get In Touch**](/get-support/get-in-touch/) and help shape the future of developer support.
->>>>>>> master

@@ -8,7 +8,7 @@ categories: Parachains, Tooling
 
 ## Introduction
 
-The [`polkadot-omni-node`](https://crates.io/crates/polkadot-omni-node/{{dependencies.crates.polkadot_omni_node.version}}){target=\_blank} crate is a versatile, pre-built binary designed to simplify running parachains in the Polkadot ecosystem. Unlike traditional node binaries that are tightly coupled to specific runtime code, the `polkadot-omni-node` operates using an external [chain specification](/polkadot-protocol/glossary#chain-specification){target=\_blank} file, allowing it to adapt dynamically to different parachains.
+The [`polkadot-omni-node`](https://crates.io/crates/polkadot-omni-node/{{dependencies.crates.polkadot_omni_node.version}}){target=\_blank} crate is a versatile, pre-built binary designed to simplify running parachains in the Polkadot ecosystem. Unlike traditional node binaries that are tightly coupled to specific runtime code, the `polkadot-omni-node` operates using an external [chain specification](/reference/glossary#chain-specification){target=\_blank} file, allowing it to adapt dynamically to different parachains.
 
 This approach enables it to act as a white-labeled node binary, capable of running most parachains that do not require custom node-level logic or extensions. Developers can leverage this flexibility to test, deploy, or operate parachain nodes without maintaining a dedicated codebase for each network.
 
@@ -89,7 +89,7 @@ Once started, the node will begin connecting to peers and syncing with the netwo
 By default, `polkadot-omni-node` exposes a WebSocket endpoint at `ws://localhost:9944`,  which you can use to interact with the running node. You can connect using:
 
 - **[Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank}**: A web-based interface for exploring and interacting with Polkadot SDK-based chains.
-- Custom scripts using compatible [libraries](/develop/toolkit/api-libraries/){target=\_blank}.
+- Custom scripts using compatible [libraries](/chain-interactions/#development-tools-and-sdks){target=\_blank}.
 
 Once connected, you can review blocks, call extrinsics, inspect storage, and interact with the runtime.
 

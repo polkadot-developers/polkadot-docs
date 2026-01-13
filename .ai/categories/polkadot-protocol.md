@@ -1153,7 +1153,7 @@ Page Title: Collectives Chain
 
 Established through [Referendum 81](https://polkadot-old.polkassembly.io/referendum/81){target=\_blank}, the Collectives chain operates as a dedicated parachain exclusive to the Polkadot network with no counterpart on Kusama. This specialized infrastructure provides a foundation for various on-chain governance groups essential to Polkadot's ecosystem.
 
-The architecture enables entire networks to function as unified entities, allowing them to present cohesive positions and participate in cross-network governance through [Bridge Hub](/polkadot-protocol/architecture/system-chains/bridge-hub){target=\_blank}. This capability represents a fundamental advancement in Web3 principles, eliminating dependencies on traditional third-party intermediaries such as legal systems or jurisdictional authorities.
+The architecture enables entire networks to function as unified entities, allowing them to present cohesive positions and participate in cross-network governance through [Bridge Hub](/reference/polkadot-hub/bridging/){target=\_blank}. This capability represents a fundamental advancement in Web3 principles, eliminating dependencies on traditional third-party intermediaries such as legal systems or jurisdictional authorities.
 
 ## Key Collectives
 
@@ -1635,7 +1635,7 @@ Page Title: Data Encoding
 
 The Polkadot SDK uses a lightweight and efficient encoding/decoding mechanism to optimize data transmission across the network. This mechanism, known as the _SCALE_ codec, is used for serializing and deserializing data.
 
-The SCALE codec enables communication between the runtime and the outer node. This mechanism is designed for high-performance, copy-free data encoding and decoding in resource-constrained environments like the Polkadot SDK [Wasm runtime](/develop/parachains/deployment/build-deterministic-runtime/#introduction){target=\_blank}.
+The SCALE codec enables communication between the runtime and the outer node. This mechanism is designed for high-performance, copy-free data encoding and decoding in resource-constrained environments like the Polkadot SDK Wasm runtime.
 
 It is not self-describing, meaning the decoding context must fully know the encoded data types. 
 
@@ -2617,7 +2617,7 @@ Polkadot's architecture delivers scalability and security through its shared sec
 
 Elastic scaling enhances this architecture by allowing parachains to utilize multiple computational cores simultaneously, breaking the previous 1:1 relationship between parachain and relay chain blocks.
 
-This technical advancement enables parachains to process multiple blocks within a single relay chain block, significantly increasing throughput capabilities. By leveraging [Agile Coretime](/polkadot-protocol/architecture/polkadot-chain/agile-coretime){target=\_blank}, parachains can dynamically adjust their processing capacity based on demand, creating an efficient and responsive infrastructure for high-throughput applications.
+This technical advancement enables parachains to process multiple blocks within a single relay chain block, significantly increasing throughput capabilities. By leveraging [Agile Coretime](/reference/polkadot-hub/consensus-and-security/agile-coretime/){target=\_blank}, parachains can dynamically adjust their processing capacity based on demand, creating an efficient and responsive infrastructure for high-throughput applications.
 
 ## How Elastic Scaling Works
 
@@ -3217,8 +3217,6 @@ If the Balances pallet reference to an account is dropped, the account can be [r
 A general term for data that originates outside the runtime, is included in a block, and leads to some action. This includes user-initiated transactions and inherent transactions placed into the block by the block builder.
 
 It is a SCALE-encoded array typically consisting of a version number, signature, and varying data types indicating the resulting runtime function to be called. Extrinsics can take two forms: [inherents](#inherent-transactions) and [transactions](#transaction). 
-
-For more technical details, see the [Polkadot spec](https://spec.polkadot.network/id-extrinsics){target=\_blank}.
 
 ## Fork Choice Rule/Strategy
 
@@ -4965,7 +4963,7 @@ Polkadot SDK-based nodes consist of two main components, each with distinct resp
 
 If the system were a monolithic protocol, any modification would require updating the entire system. Instead, Polkadot achieves true upgradeability by defining an immutable meta-protocol (the client) and a protocol (the runtime) that can be upgraded independently.
 
-This separation gives the [Polkadot Relay Chain](/polkadot-protocol/architecture/polkadot-chain){target=\_blank} and all connected [parachains](/polkadot-protocol/architecture/parachains){target=\_blank} an evolutionary advantage over other blockchain platforms.
+This separation gives the [Polkadot relay chain](/reference/polkadot-hub/consensus-and-security/relay-chain/){target=\_blank} and all connected [parachains](/reference/parachains/){target=\_blank} an evolutionary advantage over other blockchain platforms.
 
 ## Architectural Principles
 
@@ -5026,7 +5024,7 @@ The runtime performs several critical functions, such as:
 
 ## Communication Between Node and Runtime
 
-The client and runtime communicate exclusively using [SCALE-encoded](/polkadot-protocol/parachain-basics/data-encoding){target=\_blank} communication. This ensures efficient and compact data exchange between the two components.
+The client and runtime communicate exclusively using [SCALE-encoded](/reference/parachains/data-encoding/){target=\_blank} communication. This ensures efficient and compact data exchange between the two components.
 
 ### Runtime APIs
 
@@ -5294,7 +5292,7 @@ Customizing your runtime typically follows these patterns:
 
 The following diagram illustrates how pallets combine to form a complete runtime:
 
-![](/images/parachains/customize-runtime/index/frame-overview-02.webp)
+![](/images/parachains/customize-runtime/index/frame-overview-02.webp){ style="background:white" }
 
 ## Starting Templates
 
@@ -5335,7 +5333,7 @@ Page Title: Overview of the Polkadot Relay Chain
 
 ## Introduction
 
-Polkadot is a next-generation blockchain protocol designed to support a multi-chain future by enabling secure communication and interoperability between different blockchains. Built as a Layer-0 protocol, Polkadot introduces innovations like application-specific Layer-1 chains ([parachains](/polkadot-protocol/architecture/parachains/){targe=\_blank}), shared security through [Nominated Proof of Stake (NPoS)](/reference/glossary/#nominated-proof-of-stake-npos){target=\_blank}, and cross-chain interactions via its native [Cross-Consensus Messaging Format (XCM)](/parachains/interoperability/get-started/){target=\_blank}.
+Polkadot is a next-generation blockchain protocol designed to support a multi-chain future by enabling secure communication and interoperability between different blockchains. Built as a Layer-0 protocol, Polkadot introduces innovations like application-specific Layer-1 chains ([parachains](/reference/parachains/){targe=\_blank}), shared security through [Nominated Proof of Stake (NPoS)](/reference/glossary/#nominated-proof-of-stake-npos){target=\_blank}, and cross-chain interactions via its native [Cross-Consensus Messaging Format (XCM)](/parachains/interoperability/get-started/){target=\_blank}.
 
 This guide covers key aspects of Polkadot’s architecture, including its high-level protocol structure, blockspace commoditization, and the role of its native token, DOT, in governance, staking, and resource allocation.
 
@@ -5379,7 +5377,7 @@ In order to interact with chains that want to use their own finalization process
 
 ### Polkadot's Additional Functionalities
 
-Historically, obtaining core slots on Polkadot chain relied upon crowdloans and auctions. Chain cores were leased through auctions for three-month periods, up to a maximum of two years. Crowdloans enabled users to securely lend funds to teams for lease deposits in exchange for pre-sale tokens, which is the only way to access slots on Polkadot 1.0. Auctions are now deprecated in favor of [coretime](/polkadot-protocol/architecture/system-chains/coretime/){target=\_blank}.
+Historically, obtaining core slots on Polkadot chain relied upon crowdloans and auctions. Chain cores were leased through auctions for three-month periods, up to a maximum of two years. Crowdloans enabled users to securely lend funds to teams for lease deposits in exchange for pre-sale tokens, which is the only way to access slots on Polkadot 1.0. Auctions are now deprecated in favor of [coretime](/reference/polkadot-hub/consensus-and-security/agile-coretime/){target=\_blank}.
 
 Additionally, the chain handles [staking](https://wiki.polkadot.com/learn/learn-staking/){target=\_blank}, [accounts](/reference/parachains/accounts/){target=\_blank}, balances, and [governance](/reference/governance/){target=\_blank}.
 
@@ -5424,7 +5422,7 @@ Blockspace is a blockchain's capacity to finalize and commit operations, encompa
 
 Polkadot is built on core blockspace principles, but there's room for improvement. Tasks like balance transfers, staking, and governance are managed on the relay chain.
 
-Delegating these responsibilities to [system chains](/polkadot-protocol/architecture/system-chains/){target=\_blank} could enhance flexibility and allow the relay chain to concentrate on providing shared security and interoperability.
+Delegating these responsibilities to [system chains](/reference/polkadot-hub/#core-components){target=\_blank} could enhance flexibility and allow the relay chain to concentrate on providing shared security and interoperability.
 
 For more information about blockspace, read [Robert Habermeier’s technical blog post](https://www.rob.tech/blog/polkadot-blockspace-over-blockchains/){target=\_blank}.
 
@@ -6062,7 +6060,7 @@ To learn more about asset transfers with XCM, please refer to the [Introduction 
 
     ---
 
-    Learn step-by-step how to register a foreign asset on the Asset Hub parachain.
+    Learn step-by-step how to register a foreign asset on Polkadot Hub.
 
     [:octicons-arrow-right-24: Get Started](/chain-interactions/token-operations/register-foreign-asset/)
 
@@ -6070,7 +6068,7 @@ To learn more about asset transfers with XCM, please refer to the [Introduction 
 
     ---
 
-    Learn step-by-step how to register a local asset on the Asset Hub parachain.
+    Learn step-by-step how to register a local asset on Polkadot Hub.
 
     [:octicons-arrow-right-24: Get Started](/chain-interactions/token-operations/register-local-asset/)
 
@@ -6728,15 +6726,13 @@ There are two lottery outcomes for any given slot that initiate additional proce
 
 - **Multiple validators in a slot**: Due to the randomness, multiple validators can be selected to produce a block for the same slot. When this happens, each validator produces a block and broadcasts it to the network resulting in a race condition. The network's topology and latency then determine which block reaches the majority of nodes first. BABE allows both chains to continue building until the finalization process resolves which one becomes canonical. The [Fork Choice](#fork-choice) rule is then used to decide which chain the network should follow.
 
-- **No validators in a slot**: On occasions when no validator is selected by the lottery, a [secondary validator selection algorithm](https://spec.polkadot.network/sect-block-production#defn-babe-secondary-slots){target=\_blank} steps in. This backup ensures that a block is still produced, preventing skipped slots. However, if the primary block produced by a verifiable random function [(VRF)-selected](/reference/parachains/randomness/#vrf){target=\_blank} validator exists for that slot, the secondary block will be ignored. As a result, every slot will have either a primary or a secondary block.
+- **No validators in a slot**: On occasions when no validator is selected by the lottery, a secondary validator selection algorithm steps in. This backup ensures that a block is still produced, preventing skipped slots. However, if the primary block produced by a verifiable random function [(VRF)-selected](/reference/parachains/randomness/#vrf){target=\_blank} validator exists for that slot, the secondary block will be ignored. As a result, every slot will have either a primary or a secondary block.
 
 This design ensures continuous block production, even in cases of multiple competing validators or an absence of selected validators.
 
 ### Additional Resources
 
 For further technical insights about BABE, including cryptographic details and formal proofs, see the [BABE paper](https://research.web3.foundation/Polkadot/protocols/block-production/Babe){target=\_blank} from Web3 Foundation.
-
-For BABE technical definitions, constants, and formulas, see the [Block Production Lottery](https://spec.polkadot.network/sect-block-production#sect-block-production-lottery){target=\_blank} section of the Polkadot Protocol Specification.
 
 ## Finality Gadget - GRANDPA
 
@@ -6795,10 +6791,6 @@ Key features of BEEFY include:
 - **Merkle Mountain Ranges (MMR)**: This data structure is used to efficiently store and transmit proofs between chains, optimizing data storage and reducing transmission overhead.
 - **ECDSA signature schemes**: BEEFY uses ECDSA signatures, which are widely supported on Ethereum and other EVM-based chains, making integration with these ecosystems smoother.
 - **Light client optimization**: BEEFY reduces the computational burden on light clients by allowing them to check for a super-majority of validator votes rather than needing to process all validator signatures, improving performance.
-
-### Additional Resources
-
-For BEEFY technical definitions, constants, and formulas, see the [Bridge design (BEEFY)](https://spec.polkadot.network/sect-finality#sect-grandpa-beefy){target=\_blank} section of the Polkadot Protocol Specification.
 
 
 ---
@@ -7624,41 +7616,41 @@ Page Title: Register a Local Asset
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/chain-interactions-token-operations-register-local-asset.md
 - Canonical (HTML): https://docs.polkadot.com/chain-interactions/token-operations/register-local-asset/
-- Summary: Comprehensive guide to registering a local asset on the Asset Hub system parachain, including step-by-step instructions.
+- Summary: Learn how to register a local asset on Polkadot Hub, including prerequisites, deposits, and step-by-step instructions using Polkadot.js Apps.
 
-# Register a Local Asset on Asset Hub
+# Register a Local Asset on Polkadot Hub
 
 ## Introduction
 
-As detailed in the [Asset Hub Overview](/polkadot-protocol/architecture/system-chains/asset-hub){target=\_blank} page, Asset Hub accommodates two types of assets: local and foreign. Local assets are those that were created in Asset Hub and are identifiable by an integer ID. On the other hand, foreign assets originate from a sibling parachain and are identified by a Multilocation.
+As detailed in the [Assets on Polkadot Hub Overview](/reference/polkadot-hub/assets/){target=\_blank} page, Polkadot Hub accommodates two types of assets: local and foreign. Local assets are those that were created in Polkadot Hub and are identifiable by an integer ID. On the other hand, foreign assets originate from a sibling parachain and are identified by a Multilocation.
 
-This guide will take you through the steps of registering a local asset on the Asset Hub parachain.
+This guide will take you through the steps of registering a local asset on Polkadot Hub.
 
 ## Prerequisites
 
 Before you begin, ensure you have access to the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} interface and a funded wallet with DOT or KSM.
 
-- For Polkadot Asset Hub, you would need a deposit of 10 DOT and around 0.201 DOT for the metadata.
-- For Kusama Asset Hub, the deposit is 0.1 KSM and around 0.000669 KSM for the metadata.
+- For Polkadot Hub, you would need a deposit of 10 DOT and around 0.201 DOT for the metadata.
+- For Kusama Hub, the deposit is 0.1 KSM and around 0.000669 KSM for the metadata.
 
-You need to ensure that your Asset Hub account balance is a bit more than the sum of those two deposits, which should seamlessly account for the required deposits and transaction fees.
+You need to ensure that your Polkadot Hub account balance is a bit more than the sum of those two deposits, which should seamlessly account for the required deposits and transaction fees.
 
 ## Register a Local Asset
 
-To register a local asset on the Asset Hub parachain, follow these steps:
+To register a local asset on Polkadot Hub, follow these steps:
 
-1. Open the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} interface and connect to the Asset Hub parachain using the network selector in the top left corner.
+1. Open the [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} interface and connect to the Polkadot Asset Hub using the network selector in the top left corner.
 
       - You may prefer to test local asset registration on TestNet before registering the asset on a MainNet hub. If you still need to set up a local testing environment, review the [Environment setup](#test-setup-environment) section for instructions. Once the local environment is set up, connect to the Local Node (Chopsticks) available on `ws://127.0.0.1:8000`.
       - For the live network, connect to the **Asset Hub** parachain. Either Polkadot or Kusama Asset Hub can be selected from the dropdown list, choosing the desired RPC provider.
 
 2. Click on the **Network** tab on the top navigation bar and select **Assets** from the dropdown list.
 
-      ![Access to Asset Hub through Polkadot.JS](/images/chain-interactions/token-operations/register-local-asset/register-a-local-asset-01.webp)
+      ![Access to Polkadot Hub through Polkadot.JS](/images/chain-interactions/token-operations/register-local-asset/register-a-local-asset-01.webp)
 
 3. Now, you need to examine all the registered asset IDs. This step is crucial to ensure that the asset ID you are about to register is unique. Asset IDs are displayed in the **assets** column.
 
-      ![Asset IDs on Asset Hub](/images/chain-interactions/token-operations/register-local-asset/register-a-local-asset-02.webp)
+      ![Asset IDs on Polkadot Hub](/images/chain-interactions/token-operations/register-local-asset/register-a-local-asset-02.webp)
 
 4. Once you have confirmed that the asset ID is unique, click on the **Create** button on the top right corner of the page.
 
@@ -7698,13 +7690,13 @@ After completing these steps, the asset will be successfully registered. You can
 !!! tip
     Take into consideration that the **Assets** section’s link may differ depending on the network you are using. For the local environment, enter `ws://127.0.0.1:8000` into the **Custom Endpoint** field.
 
-In this way, you have successfully registered a local asset on the Asset Hub parachain.
+In this way, you have successfully registered a local asset on the Polkadot Hub.
 
-For an in-depth explanation about Asset Hub and its features, see the [Asset Hub](/chain-interactions/token-operations/convert-assets/){target=\_blank} entry in the Polkadot Wiki.
+For an in-depth explanation about Polkadot Hub and its features, see the [Polkadot Hub](/chain-interactions/token-operations/convert-assets/){target=\_blank} entry in the Polkadot Wiki.
 
 ## Test Setup Environment
 
-You can set up a local parachain environment to test the asset registration process before deploying it on the live network. This guide uses Chopsticks to simulate that process. For further information on chopsticks usage, refer to the [Chopsticks](/develop/toolkit/parachains/fork-chains/chopsticks/get-started){target=\_blank} documentation.
+You can set up a local parachain environment to test the asset registration process before deploying it on the live network. This guide uses Chopsticks to simulate that process. For further information on chopsticks usage, refer to the [Chopsticks](/parachains/testing/fork-a-parachain/){target=\_blank} documentation.
 
 To set up a test environment, execute the following command:
 
@@ -7713,9 +7705,9 @@ npx @acala-network/chopsticks \
 --config=https://raw.githubusercontent.com/AcalaNetwork/chopsticks/master/configs/polkadot-asset-hub.yml
 ```
 
-The above command will spawn a lazy fork of Polkadot Asset Hub with the latest block data from the network. If you need to test Kusama Asset Hub, replace `polkadot-asset-hub.yml` with `kusama-asset-hub.yml` in the command.
+The above command will spawn a lazy fork of Polkadot Hub with the latest block data from the network. If you need to test Kusama Hub, replace `polkadot-asset-hub.yml` with `kusama-asset-hub.yml` in the command.
 
-An Asset Hub instance is now running locally, and you can proceed with the asset registration process. Note that the local registration process does not differ from the live network process. Once you have a successful TestNet transaction, you can use the same steps to register the asset on MainNet.
+A Polkadot Hub instance is now running locally, and you can proceed with the asset registration process. Note that the local registration process does not differ from the live network process. Once you have a successful TestNet transaction, you can use the same steps to register the asset on MainNet.
 
 
 ---
@@ -8083,7 +8075,7 @@ Page Title: Technical Reference Overview
 
 The Technical Reference section provides comprehensive documentation of Polkadot's architecture, core concepts, and development tooling. Whether you're exploring how Polkadot's relay chain coordinates parachains, understanding governance mechanisms, or building applications on the network, this reference covers the technical foundations you need.
 
-Polkadot is a multi-chain network that enables diverse, interconnected blockchains to share security and communicate seamlessly. Understanding how these components interact from the [relay chain](/polkadot-protocol/glossary#relay-chain){target=\_blank} that validates [parachains](/polkadot-protocol/glossary#parachain){target=\_blank} to the [governance](/reference/glossary#governance){target=\_blank} mechanisms that evolve the protocol is essential for developers, validators, and network participants.
+Polkadot is a multi-chain network that enables diverse, interconnected blockchains to share security and communicate seamlessly. Understanding how these components interact from the [relay chain](/reference/glossary#relay-chain){target=\_blank} that validates [parachains](/reference/glossary#parachain){target=\_blank} to the [governance](/reference/glossary#governance){target=\_blank} mechanisms that evolve the protocol is essential for developers, validators, and network participants.
 
 This guide organizes technical documentation across five core areas: Polkadot Hub, Parachains, On-Chain Governance, Glossary, and Tools, each providing detailed information on different aspects of the Polkadot ecosystem.
 
@@ -8925,7 +8917,7 @@ Page Title: XCM Tools
 
 ## Introduction
 
-As described in the [Interoperability](/develop/interoperability){target=\_blank} section, XCM (Cross-Consensus Messaging) is a protocol used in the Polkadot and Kusama ecosystems to enable communication and interaction between chains. It facilitates cross-chain communication, allowing assets, data, and messages to flow seamlessly across the ecosystem.
+As described in the [Interoperability](/parachains/interoperability/get-started/){target=\_blank} section, XCM (Cross-Consensus Messaging) is a protocol used in the Polkadot and Kusama ecosystems to enable communication and interaction between chains. It facilitates cross-chain communication, allowing assets, data, and messages to flow seamlessly across the ecosystem.
 
 As XCM is central to enabling communication between blockchains, developers need robust tools to help interact with, build, and test XCM messages. Several XCM tools simplify working with the protocol by providing libraries, frameworks, and utilities that enhance the development process, ensuring that applications built within the Polkadot ecosystem can efficiently use cross-chain functionalities.
 
@@ -8980,7 +8972,7 @@ For more details on using Astar xcm-tools, consult the [official documentation](
 
 ### Chopsticks
 
-The Chopsticks library provides XCM functionality for testing XCM messages across networks, enabling you to fork multiple parachains along with a relay chain. For further details, see the [Chopsticks documentation](/tutorials/polkadot-sdk/testing/fork-live-chains/){target=\_blank} about XCM.
+The Chopsticks library provides XCM functionality for testing XCM messages across networks, enabling you to fork multiple parachains along with a relay chain. For further details, see the [Replay and Dry Run XCMs using Chopsticks](/chain-interactions/send-transactions/interoperability/debug-and-preview-xcms/){target=\_blank} guide.
 
 ### Moonbeam XCM SDK
 

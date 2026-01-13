@@ -46,7 +46,7 @@ Unlike validators, collators do not provide security guarantees—that responsib
 Validators secure the Polkadot relay chain through [Nominated Proof of Stake (NPoS)](https://wiki.polkadot.network/docs/learn-staking){target=\_blank}. They:
 
 - **Validate blocks**: Verify parachain blocks and relay chain transactions.
-- **Participate in consensus**: Run [BABE](https://wiki.polkadot.network/docs/learn-consensus#babe-block-production){target=\_blank} and [GRANDPA](https://wiki.polkadot.network/docs/learn-consensus#grandpa-finality-gadget){target=\_blank} protocols.
+- **Participate in consensus**: Run [BABE](/reference/polkadot-hub/consensus-and-security/pos-consensus/#block-production-babe){target=\_blank} and [GRANDPA](/reference/polkadot-hub/consensus-and-security/pos-consensus/#finality-gadget-grandpa){target=\_blank} protocols.
 - **Earn rewards**: Receive staking rewards for honest behavior.
 - **Risk slashing**: Face penalties for misbehavior or downtime.
 

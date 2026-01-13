@@ -19,18 +19,7 @@
   }
 
   function getSiteBaseUrl() {
-    const configuredSiteUrl =
-      typeof window.__md_site_url === 'string'
-        ? window.__md_site_url.trim()
-        : '';
-    if (!configuredSiteUrl) {
-      return null;
-    }
-    try {
-      return new URL(configuredSiteUrl);
-    } catch (error) {
-      return null;
-    }
+    return new URL(window.location.origin);
   }
 
   function getPageSlug() {
@@ -39,21 +28,13 @@
 
   function getMarkdownUrl(slug) {
     const baseUrl = getSiteBaseUrl();
-    if (!baseUrl) {
-      return null;
-    }
     return new URL(`ai/pages/${slug}.md`, baseUrl).href;
   }
 
   const NO_MARKDOWN_MESSAGE = 'No Markdown file available.';
-  const NO_BASE_URL_MESSAGE = 'AI base URL not configured.';
 
   async function fetchMarkdown(slug) {
     const url = getMarkdownUrl(slug);
-    if (!url) {
-      console.warn('Copy to LLM: missing site_url');
-      return { text: null, url: null, status: 'missing_base' };
-    }
     try {
       const response = await fetch(url, { credentials: 'omit' });
       if (!response.ok) {
@@ -72,10 +53,6 @@
 
   async function downloadMarkdown(slug, filename) {
     const url = getMarkdownUrl(slug);
-    if (!url) {
-      console.warn('Copy to LLM: missing site_url');
-      return { success: false, status: 'missing_base' };
-    }
     try {
       const response = await fetch(url, { credentials: 'omit' });
       if (!response.ok) {
@@ -400,7 +377,7 @@
         let copySucceeded = false;
         const slug = getPageSlug();
 
-        const { text } = await fetchMarkdown(slug);
+        const { text, status } = await fetchMarkdown(slug);
 
         if (text) {
           copySucceeded = await copyToClipboard(
@@ -411,7 +388,9 @@
         }
 
         if (!text) {
-          showToast(NO_BASE_URL_MESSAGE);
+          if (status === 404) {
+            showToast(NO_MARKDOWN_MESSAGE);
+          }
         }
 
         if (!text || !copySucceeded) {
@@ -471,10 +450,6 @@
           case 'view-markdown': {
             trackButtonClick('view_page_markdown');
             const mdUrl = getMarkdownUrl(slug);
-            if (!mdUrl) {
-              showToast(NO_BASE_URL_MESSAGE);
-              break;
-            }
             window.open(mdUrl, '_blank', 'noopener,noreferrer');
             break;
           }
@@ -483,8 +458,6 @@
             const result = await downloadMarkdown(slug, `${slug}.md`);
             if (result.success) {
               showCopySuccess(item);
-            } else if (result.status === 'missing_base') {
-              showToast(NO_BASE_URL_MESSAGE);
             } else if (result.status === 404) {
               showToast(NO_MARKDOWN_MESSAGE);
             } else {
@@ -495,10 +468,6 @@
           case 'open-chatgpt': {
             trackButtonClick('open_chatgpt');
             const mdUrl = getMarkdownUrl(slug);
-            if (!mdUrl) {
-              showToast(NO_BASE_URL_MESSAGE);
-              break;
-            }
             const prompt = `Read ${mdUrl} so I can ask questions about it.`;
             const chatGPTUrl = `https://chatgpt.com/?hints=search&q=${encodeURIComponent(
               prompt
@@ -509,10 +478,6 @@
           case 'open-claude': {
             trackButtonClick('open_claude');
             const mdUrl = getMarkdownUrl(slug);
-            if (!mdUrl) {
-              showToast(NO_BASE_URL_MESSAGE);
-              break;
-            }
             const prompt = `Read ${mdUrl} so I can ask questions about it.`;
             const claudeUrl = `https://claude.ai/new?q=${encodeURIComponent(
               prompt

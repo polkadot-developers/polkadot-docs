@@ -968,6 +968,38 @@ Developers can leverage smart contracts across diverse networks, from TestNets t
     https://polkadot.testnet.routescan.io/
     ```
 
+=== "Kusama Hub"
+
+    Network name
+
+    ```text
+    Kusama Hub
+    ```
+
+    ---
+
+    Currency symbol
+    
+    ```text
+    KUS
+    ```
+
+    ---
+    
+    Chain ID
+    
+    ```text
+    420420418
+    ```
+
+    ---
+    
+    RPC URL
+    
+    ```text
+    https://kusama-asset-hub-eth-rpc.polkadot.io
+    ```
+
 
 ## Test Tokens
 

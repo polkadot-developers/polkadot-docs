@@ -42,7 +42,7 @@ out = "out"
 libs = ["lib"]
 
 [rpc_endpoints]
-polkadot_hub_testnet = "https://testnet-passet-hub-eth-rpc.polkadot.io"
+polkadot_hub_testnet = "https://services.polkadothub-rpc.com/testnet"
 ```
 
 ## Create Your Contract

@@ -6,8 +6,8 @@ const createProvider = (rpcUrl) => {
 };
 
 const PROVIDER_RPC = {
-  rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
-  chainId: 420420422,
+  rpc: 'https://services.polkadothub-rpc.com/testnet',
+  chainId: 420420417,
   name: 'polkadotTestNet',
 };
 

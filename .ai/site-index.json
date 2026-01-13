@@ -316,77 +316,6 @@
     "token_estimator": "heuristic-v1"
   },
   {
-    "id": "chain-interactions-send-transactions-interoperability-.estimate-xcm-fees",
-    "title": "XCM Fee Estimation",
-    "slug": "chain-interactions-send-transactions-interoperability-.estimate-xcm-fees",
-    "categories": [
-      "Uncategorized"
-    ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/chain-interactions-send-transactions-interoperability-.estimate-xcm-fees.md",
-    "html_url": "https://docs.polkadot.com/chain-interactions/send-transactions/interoperability/.estimate-xcm-fees/",
-    "preview": "When sending cross-chain messages, ensure that the transaction will be successful not only in the local chain but also in the destination chain and any intermediate chains.",
-    "outline": [
-      {
-        "depth": 2,
-        "title": "Introduction",
-        "anchor": "introduction"
-      },
-      {
-        "depth": 2,
-        "title": "Fee Mechanism",
-        "anchor": "fee-mechanism"
-      },
-      {
-        "depth": 2,
-        "title": "Environment Setup",
-        "anchor": "environment-setup"
-      },
-      {
-        "depth": 2,
-        "title": "Client and API Setup",
-        "anchor": "client-and-api-setup"
-      },
-      {
-        "depth": 2,
-        "title": "Create the XCM Message",
-        "anchor": "create-the-xcm-message"
-      },
-      {
-        "depth": 2,
-        "title": "Fee Estimation Function",
-        "anchor": "fee-estimation-function"
-      },
-      {
-        "depth": 2,
-        "title": "Complete Implementation",
-        "anchor": "complete-implementation"
-      },
-      {
-        "depth": 2,
-        "title": "Full Code",
-        "anchor": "full-code"
-      },
-      {
-        "depth": 2,
-        "title": "Running the Script",
-        "anchor": "running-the-script"
-      },
-      {
-        "depth": 2,
-        "title": "Conclusion",
-        "anchor": "conclusion"
-      }
-    ],
-    "stats": {
-      "chars": 38625,
-      "words": 3786,
-      "headings": 10,
-      "estimated_token_count_total": 7755
-    },
-    "hash": "sha256:086a87823ab67ceac102358030e316583cd733c0ec326316e7f29061fe7f6934",
-    "token_estimator": "heuristic-v1"
-  },
-  {
     "id": "chain-interactions-send-transactions-interoperability-.transfer-assets-out-of-polkadot",
     "title": "chain-interactions-send-transactions-interoperability-.transfer-assets-out-of-polkadot",
     "slug": "chain-interactions-send-transactions-interoperability-.transfer-assets-out-of-polkadot",
@@ -515,6 +444,77 @@
       "estimated_token_count_total": 4607
     },
     "hash": "sha256:16951bde1f8d6939a7040b59c9ed524c365fab7b92032cce9f14406c954de5e9",
+    "token_estimator": "heuristic-v1"
+  },
+  {
+    "id": "chain-interactions-send-transactions-interoperability-estimate-xcm-fees",
+    "title": "XCM Fee Estimation",
+    "slug": "chain-interactions-send-transactions-interoperability-estimate-xcm-fees",
+    "categories": [
+      "Uncategorized"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/chain-interactions-send-transactions-interoperability-estimate-xcm-fees.md",
+    "html_url": "https://docs.polkadot.com/chain-interactions/send-transactions/interoperability/estimate-xcm-fees/",
+    "preview": "When sending cross-chain messages, ensure that the transaction will be successful not only in the local chain but also in the destination chain and any intermediate chains.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Fee Mechanism",
+        "anchor": "fee-mechanism"
+      },
+      {
+        "depth": 2,
+        "title": "Environment Setup",
+        "anchor": "environment-setup"
+      },
+      {
+        "depth": 2,
+        "title": "Client and API Setup",
+        "anchor": "client-and-api-setup"
+      },
+      {
+        "depth": 2,
+        "title": "Create the XCM Message",
+        "anchor": "create-the-xcm-message"
+      },
+      {
+        "depth": 2,
+        "title": "Fee Estimation Function",
+        "anchor": "fee-estimation-function"
+      },
+      {
+        "depth": 2,
+        "title": "Complete Implementation",
+        "anchor": "complete-implementation"
+      },
+      {
+        "depth": 2,
+        "title": "Full Code",
+        "anchor": "full-code"
+      },
+      {
+        "depth": 2,
+        "title": "Running the Script",
+        "anchor": "running-the-script"
+      },
+      {
+        "depth": 2,
+        "title": "Conclusion",
+        "anchor": "conclusion"
+      }
+    ],
+    "stats": {
+      "chars": 39502,
+      "words": 3806,
+      "headings": 10,
+      "estimated_token_count_total": 7800
+    },
+    "hash": "sha256:a00fd975f5ca8e61ad69cd359e51337b615f5732ac6fb90c4f7d6d0fd9649375",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -7224,12 +7224,12 @@
       }
     ],
     "stats": {
-      "chars": 3502,
-      "words": 488,
+      "chars": 3896,
+      "words": 521,
       "headings": 3,
-      "estimated_token_count_total": 623
+      "estimated_token_count_total": 717
     },
-    "hash": "sha256:302a3aeed61fdf8c23f07676ef5faf7b5af9ccca406b9bc6820c7dedeac96600",
+    "hash": "sha256:210bd9ddc94265a2e6ef9500f897ac2ba3f915a1feba679361a92ae771d39b67",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -7356,12 +7356,12 @@
       }
     ],
     "stats": {
-      "chars": 31211,
-      "words": 3687,
+      "chars": 31170,
+      "words": 3666,
       "headings": 22,
-      "estimated_token_count_total": 6967
+      "estimated_token_count_total": 6939
     },
-    "hash": "sha256:7601883deaf979854d5b08a13d2119ce2a6c1c6d3b6158d823e86da580a19722",
+    "hash": "sha256:615b714948feb761a6fdc72dfc56eb992bf1462c5c0a4fcb24f24975564a5a9c",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -7554,12 +7554,12 @@
       }
     ],
     "stats": {
-      "chars": 13854,
-      "words": 1639,
+      "chars": 13848,
+      "words": 1633,
       "headings": 24,
-      "estimated_token_count_total": 3225
+      "estimated_token_count_total": 3213
     },
-    "hash": "sha256:41dfbfc0f218b74d51677d457ebc5ae23cb7b16a674f25012c6519a082ffc9c7",
+    "hash": "sha256:264a9b866ca79ca66a6600bbf48343f54daf20a44e8f0d37ef276cbe5f01b90d",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -7610,12 +7610,12 @@
       }
     ],
     "stats": {
-      "chars": 2732,
-      "words": 355,
+      "chars": 2730,
+      "words": 353,
       "headings": 7,
-      "estimated_token_count_total": 598
+      "estimated_token_count_total": 594
     },
-    "hash": "sha256:e3777a84b71a1ee3b6b1d01a9fc2e879d555f6f4191212c651f36d73d6b18ff5",
+    "hash": "sha256:d19d64b4cf5f9763c4e45453e63fce1f6b47350bd233b840e7f8532b63d938a9",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -7671,12 +7671,12 @@
       }
     ],
     "stats": {
-      "chars": 5979,
-      "words": 795,
+      "chars": 5977,
+      "words": 793,
       "headings": 8,
-      "estimated_token_count_total": 1476
+      "estimated_token_count_total": 1472
     },
-    "hash": "sha256:16a5788a6935cb86da1e18be7929e413e74811c57dbab06de4fa4048c752e508",
+    "hash": "sha256:eac3464009cc775ebc7405fbe6b0ba6c931c263c94ea3f6104c234a98f93aadb",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -7789,7 +7789,7 @@
       "headings": 8,
       "estimated_token_count_total": 1964
     },
-    "hash": "sha256:19b1f0953c1333eaee44165be25e549189c21acb624ddf4ab11bd989bfcde7ef",
+    "hash": "sha256:b991f2b4dbb0e34bbf2f57e79ecefe360abfb4224f8cbe911c6a67702b289e97",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -7903,12 +7903,12 @@
       }
     ],
     "stats": {
-      "chars": 3489,
-      "words": 438,
+      "chars": 3487,
+      "words": 436,
       "headings": 8,
-      "estimated_token_count_total": 847
+      "estimated_token_count_total": 843
     },
-    "hash": "sha256:c4b410125946db479b9c262a5132a31bb7730a778501c3a95910ad9d38007cf4",
+    "hash": "sha256:0921613d38aeb0af46dd2152abbf87475c5cdac43a5ea38e44c08806381d5be8",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -7965,12 +7965,12 @@
       }
     ],
     "stats": {
-      "chars": 7377,
-      "words": 972,
+      "chars": 7375,
+      "words": 970,
       "headings": 8,
-      "estimated_token_count_total": 1844
+      "estimated_token_count_total": 1840
     },
-    "hash": "sha256:4bb4fcee01cd8203d4e382ca2ec2a45eb9ef86a531d3bb8b61b7286d10917129",
+    "hash": "sha256:2d4df9e37d4fdfdb5b0561fa1b26c43053aa1b003950aa42cecb533156026636",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -8102,12 +8102,12 @@
       }
     ],
     "stats": {
-      "chars": 4828,
-      "words": 646,
+      "chars": 4838,
+      "words": 644,
       "headings": 5,
-      "estimated_token_count_total": 1144
+      "estimated_token_count_total": 1140
     },
-    "hash": "sha256:7911b91e6c8dc9caa7403756d92d6aa78438c45ebf42088dbdcbefd3d396e6ee",
+    "hash": "sha256:45538095463b6edd3c461774771751226abac06886b5933d9997240ff91a0281",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -8227,17 +8227,17 @@
       },
       {
         "depth": 3,
-        "title": "BlockScout",
-        "anchor": "blockscout"
+        "title": "Routescan",
+        "anchor": "routescan"
       }
     ],
     "stats": {
-      "chars": 1557,
-      "words": 193,
+      "chars": 1403,
+      "words": 170,
       "headings": 4,
-      "estimated_token_count_total": 299
+      "estimated_token_count_total": 259
     },
-    "hash": "sha256:e07e2812e0247e62d7585aa485a5f591dc60c776c09c4a8614d21bdaaa95cd04",
+    "hash": "sha256:6f0bd78dccc791a41e93c9222b627428c9e7c61bc8b4c593029493d8c6e52a1e",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -8268,12 +8268,12 @@
       }
     ],
     "stats": {
-      "chars": 1890,
-      "words": 279,
+      "chars": 1861,
+      "words": 275,
       "headings": 3,
-      "estimated_token_count_total": 313
+      "estimated_token_count_total": 305
     },
-    "hash": "sha256:c609bc98cba5efa2d2a808548cf93ad9d0a06455b35a8fd9f534daf52824f506",
+    "hash": "sha256:f66362afa44ba90cabc6d28a169e3df7f0d045123c0ea3a29570a33db3b8f064",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -8884,12 +8884,12 @@
       }
     ],
     "stats": {
-      "chars": 31274,
-      "words": 3827,
+      "chars": 31210,
+      "words": 3763,
       "headings": 35,
-      "estimated_token_count_total": 9562
+      "estimated_token_count_total": 9434
     },
-    "hash": "sha256:ef851649797d7a65de72c2390495dba0c449ce254135bb96dea3ff82d8835148",
+    "hash": "sha256:63eb49ba8dc71fa07d161a87787d79b36f26d9854d1030282cda490a4ed753f2",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -9018,11 +9018,6 @@
       },
       {
         "depth": 3,
-        "title": "SubWallet",
-        "anchor": "subwallet"
-      },
-      {
-        "depth": 3,
         "title": "Talisman",
         "anchor": "talisman"
       },
@@ -9033,12 +9028,12 @@
       }
     ],
     "stats": {
-      "chars": 7131,
-      "words": 1015,
-      "headings": 6,
-      "estimated_token_count_total": 1617
+      "chars": 4418,
+      "words": 629,
+      "headings": 5,
+      "estimated_token_count_total": 975
     },
-    "hash": "sha256:ef59012ff4338bc606910c173299130e93f4e47e1fc9c9d9e99e0d5dd0d66e9e",
+    "hash": "sha256:624401e1e7b45de821e304f75517e9c4d643d4ac51192baca6f8ad065d01107e",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -9115,12 +9110,12 @@
       }
     ],
     "stats": {
-      "chars": 21292,
-      "words": 2412,
+      "chars": 21115,
+      "words": 2378,
       "headings": 12,
-      "estimated_token_count_total": 4742
+      "estimated_token_count_total": 4672
     },
-    "hash": "sha256:3493aaeec569be8d72f418c9b1abeeed64ff3bbcc316b42a33dad5f172c4e841",
+    "hash": "sha256:8245452657e900455ae4a9cc8da74c07d49b2b28fca10827b82ec0d7306c0e9f",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -9207,12 +9202,12 @@
       }
     ],
     "stats": {
-      "chars": 17416,
-      "words": 2000,
+      "chars": 17320,
+      "words": 1980,
       "headings": 14,
-      "estimated_token_count_total": 4151
+      "estimated_token_count_total": 4121
     },
-    "hash": "sha256:dc93c1418e6cfc56ea714a2105b8ba82d72f9888a022feb356c1847fbb913b54",
+    "hash": "sha256:e31c9182aee0369c64d3c6ba3ec20f45379360ba692dc0f9358d5a22eb841711",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -9279,12 +9274,12 @@
       }
     ],
     "stats": {
-      "chars": 13435,
-      "words": 1499,
+      "chars": 13387,
+      "words": 1489,
       "headings": 10,
-      "estimated_token_count_total": 3258
+      "estimated_token_count_total": 3243
     },
-    "hash": "sha256:99916a667b468415b029bd745edfa23716e23dfc7cd313921a1bb0ea3378f644",
+    "hash": "sha256:ffe8afac7a4724c125a9520e0fc2ddc28e5fd4666ce9edce6eaffddeccc70ba0",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -9361,12 +9356,12 @@
       }
     ],
     "stats": {
-      "chars": 20077,
-      "words": 2252,
+      "chars": 19911,
+      "words": 2220,
       "headings": 12,
-      "estimated_token_count_total": 4530
+      "estimated_token_count_total": 4464
     },
-    "hash": "sha256:7e3d9a39fafd48ef71f23b07d20f7fb5572ba67e06fcbe6a199fe0468af6dbca",
+    "hash": "sha256:236c1f97eab1bdab9d65ca308634fdeec75fdb2ee02a5e6b78789228f84dda1b",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -9428,12 +9423,12 @@
       }
     ],
     "stats": {
-      "chars": 14097,
-      "words": 1665,
+      "chars": 14043,
+      "words": 1659,
       "headings": 9,
-      "estimated_token_count_total": 2987
+      "estimated_token_count_total": 2975
     },
-    "hash": "sha256:22e632b20dd4e0459bcd93ed7984b270642e5d8ec2267623be91b63fe3023c75",
+    "hash": "sha256:3a6dc67481833d691076853263aaca6b859173b38ae029127dbce847578649dd",
     "token_estimator": "heuristic-v1"
   },
   {

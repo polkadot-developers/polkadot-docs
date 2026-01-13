@@ -200,13 +200,13 @@ The following block explorers are available for Polkadot Hub smart contracts, pr
 
 
 
-### BlockScout
 
-BlockScout is an open-source explorer platform with a user-friendly interface. It excels at detailed contract analytics and provides developers with comprehensive API access.
 
-- [Polkadot Hub TestNet BlockScout](https://blockscout-passet-hub.parity-testnet.parity.io/){target=\_blank}
+### Routescan
 
-![](/images/smart-contracts/explorers/explorers-01.webp)
+Routescan delivers multi-chain explorer capabilities with specialized support for Polkadot Hub.
+
+- [Polkadot Hub TestNet Routescan](https://polkadot.testnet.routescan.io/){target=\_blank}
 
 
 ---
@@ -2373,7 +2373,7 @@ You are now ready to deploy the contract to your chosen network. This example de
 
     <div id="termynal" data-termynal markdown>
       <span data-ty="input">npx hardhat ignition deploy ./ignition/modules/MyToken.ts --network polkadotTestnet</span>
-      <span data-ty>✔ Confirm deploy to network polkadotTestnet (420420420)? … yes</span>
+      <span data-ty>✔ Confirm deploy to network polkadotTestnet (420420417)? … yes</span>
       <span data-ty>&nbsp;</span>
       <span data-ty>Hardhat Ignition 🚀</span>
       <span data-ty>&nbsp;</span>
@@ -2707,8 +2707,8 @@ const config: HardhatUserConfig = {
   },
   networks: {
     polkadotTestnet: {
-      url: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
-      chainId: 420420422,
+      url: 'https://services.polkadothub-rpc.com/testnet',
+      chainId: 420420417,
       accounts: [vars.get('PRIVATE_KEY')],
     },
   },
@@ -2800,7 +2800,7 @@ You are now ready to deploy the contract to your chosen network. This example de
 
     <div id="termynal" data-termynal markdown>
       <span data-ty="input">npx hardhat ignition deploy ignition/modules/MyNFT.ts --network polkadotHubTestnet</span>
-      <span data-ty>✔ Confirm deploy to network polkadotTestnet (420420420)? … yes</span>
+      <span data-ty>✔ Confirm deploy to network polkadotTestnet (420420417)? … yes</span>
       <span data-ty>&nbsp;</span>
       <span data-ty>Hardhat Ignition 🚀</span>
       <span data-ty>&nbsp;</span>
@@ -2902,7 +2902,7 @@ libs = ["lib"]
 remappings = ['@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/']
 
 [rpc_endpoints]
-polkadot_hub_testnet = "https://testnet-passet-hub-eth-rpc.polkadot.io"
+polkadot_hub_testnet = "https://services.polkadothub-rpc.com/testnet"
 ```
 
 ## Create Your Contract
@@ -3091,8 +3091,8 @@ createProvider(PROVIDER_RPC.rpc, PROVIDER_RPC.chainId, PROVIDER_RPC.name);
 
     ```js
     const PROVIDER_RPC = {
-        rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
-        chainId: 420420422,
+        rpc: 'https://services.polkadothub-rpc.com/testnet',
+        chainId: 420420417,
         name: 'polkadot-hub-testnet'
     };
     ```
@@ -3120,8 +3120,8 @@ With the provider set up, you can start querying the blockchain. For instance, t
     };
 
     const PROVIDER_RPC = {
-      rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
-      chainId: 420420422,
+      rpc: 'https://services.polkadothub-rpc.com/testnet',
+      chainId: 420420417,
       name: 'polkadot-hub-testnet',
     };
 
@@ -3385,8 +3385,8 @@ You can create a `deploy.js` script in the root of your project to achieve this.
 
     ```js title="scripts/deploy.js"
     const providerConfig = {
-      rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io', //TODO: replace to `https://services.polkadothub-rpc.com/testnet` when ready
-      chainId: 420420422,
+      rpc: 'https://services.polkadothub-rpc.com/testnet',
+      chainId: 420420417,
       name: 'polkadot-hub-testnet',
     };
 
@@ -3487,8 +3487,8 @@ You can create a `deploy.js` script in the root of your project to achieve this.
     };
 
     const providerConfig = {
-      rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io', //TODO: replace to `https://services.polkadothub-rpc.com/testnet` when ready
-      chainId: 420420422,
+      rpc: 'https://services.polkadothub-rpc.com/testnet',
+      chainId: 420420417,
       name: 'polkadot-hub-testnet',
     };
 
@@ -3578,9 +3578,9 @@ const interactWithStorageContract = async (
 };
 
 const providerConfig = {
-  name: 'asset-hub-smart-contracts',
-  rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
-  chainId: 420420422,
+  name: 'polkadot-hub',
+  rpc: 'https://services.polkadothub-rpc.com/testnet',
+  chainId: 420420417,
 };
 
 const mnemonic = 'INSERT_MNEMONIC'
@@ -3719,8 +3719,8 @@ createProvider(PROVIDER_RPC.rpc);
 
     ```js
     const PROVIDER_RPC = {
-      rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
-      chainId: 420420422,
+      rpc: 'https://services.polkadothub-rpc.com/testnet',
+      chainId: 420420417,
       name: 'polkadot-hub-testnet'
     };
     ```
@@ -3744,8 +3744,8 @@ With the provider set up, you can start querying the blockchain. For instance, t
     };
 
     const PROVIDER_RPC = {
-      rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
-      chainId: 420420422,
+      rpc: 'https://services.polkadothub-rpc.com/testnet',
+      chainId: 420420417,
       name: 'polkadotTestNet',
     };
 
@@ -4007,8 +4007,8 @@ You can create a `deploy.js` script in the `scripts` directory of your project t
 
     ```js title="scripts/deploy.js"
     const providerConfig = {
-      rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io', // TODO: replace to `https://services.polkadothub-rpc.com/testnet` when ready
-      chainId: 420420422,
+      rpc: 'https://services.polkadothub-rpc.com/testnet',
+      chainId: 420420417,
       name: 'polkadotTestNet',
     };
 
@@ -4115,8 +4115,8 @@ You can create a `deploy.js` script in the `scripts` directory of your project t
     };
 
     const providerConfig = {
-      rpc: 'https://testnet-passet-hub-eth-rpc.polkadot.io', // TODO: replace to `https://services.polkadothub-rpc.com/testnet` when ready
-      chainId: 420420422,
+      rpc: 'https://services.polkadothub-rpc.com/testnet',
+      chainId: 420420417,
       name: 'polkadotTestNet',
     };
 
@@ -4197,7 +4197,7 @@ const updateStorage = async (config) => {
 };
 
 const config = {
-  rpcUrl: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
+  rpcUrl: 'https://services.polkadothub-rpc.com/testnet',
   privateKey: 'INSERT_PRIVATE_KEY',
   contractAddress: 'INSERT_CONTRACT_ADDRESS',
 };
@@ -6367,7 +6367,7 @@ Polkadot Hub provides Ethereum compatibility through its JSON-RPC interface, all
 This guide uses the Polkadot Hub TestNet endpoint:
 
 ```text
-https://testnet-passet-hub-eth-rpc.polkadot.io
+https://services.polkadothub-rpc.com/testnet
 ```
 
 ## Available Methods
@@ -6383,7 +6383,7 @@ None.
 **Example**:
 
 ```bash title="eth_accounts"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -6406,7 +6406,7 @@ None.
 **Example**:
 
 ```bash title="eth_blockNumber"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -6436,7 +6436,7 @@ Executes a new message call immediately without creating a transaction. [Referen
 **Example**:
 
 ```bash title="eth_call"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -6464,7 +6464,7 @@ None.
 **Example**:
 
 ```bash title="eth_chainId"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -6494,7 +6494,7 @@ Estimates gas required for a transaction. [Reference](https://ethereum.org/devel
 **Example**:
 
 ```bash title="eth_estimateGas"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -6522,7 +6522,7 @@ None.
 **Example**:
 
 ```bash title="eth_gasPrice"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -6546,7 +6546,7 @@ Returns the balance of a given address. [Reference](https://ethereum.org/develop
 **Example**:
 
 ```bash title="eth_getBalance"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -6572,7 +6572,7 @@ Returns information about a block by its hash. [Reference](https://ethereum.org/
 **Example**:
 
 ```bash title="eth_getBlockByHash"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -6598,7 +6598,7 @@ Returns information about a block by its number. [Reference](https://ethereum.or
 **Example**:
 
 ```bash title="eth_getBlockByNumber"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -6623,7 +6623,7 @@ Returns the number of transactions in a block from a block number. [Reference](h
 **Example**:
 
 ```bash title="eth_getBlockTransactionCountByNumber"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -6648,7 +6648,7 @@ Returns the number of transactions in a block from a block hash. [Reference](htt
 **Example**:
 
 ```bash title="eth_getBlockTransactionCountByHash"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -6674,7 +6674,7 @@ Returns the code at a given address. [Reference](https://ethereum.org/developers
 **Example**:
 
 ```bash title="eth_getCode"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -6704,7 +6704,7 @@ Returns an array of all logs matching a given filter object. [Reference](https:/
 **Example**:
 
 ```bash title="eth_getLogs"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -6732,7 +6732,7 @@ Returns the value from a storage position at a given address. [Reference](https:
 **Example**:
 
 ```bash title="eth_getStorageAt"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -6758,7 +6758,7 @@ Returns the number of transactions sent from an address (nonce). [Reference](htt
 **Example**:
 
 ```bash title="eth_getTransactionCount"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -6783,7 +6783,7 @@ Returns information about a transaction by its hash. [Reference](https://ethereu
 **Example**:
 
 ```bash title="eth_getTransactionByHash"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -6809,7 +6809,7 @@ Returns information about a transaction by block number and transaction index. [
 **Example**:
 
 ```bash title="eth_getTransactionByBlockNumberAndIndex"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -6835,7 +6835,7 @@ Returns information about a transaction by block hash and transaction index. [Re
 **Example**:
 
 ```bash title="eth_getTransactionByBlockHashAndIndex"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -6860,7 +6860,7 @@ Returns the receipt of a transaction by transaction hash. [Reference](https://et
 **Example**:
 
 ```bash title="eth_getTransactionReceipt"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -6885,7 +6885,7 @@ None.
 **Example**:
 
 ```bash title="eth_maxPriorityFeePerGas"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -6908,7 +6908,7 @@ Submits a raw transaction. [Reference](https://ethereum.org/developers/docs/apis
 **Example**:
 
 ```bash title="eth_sendRawTransaction"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -6940,7 +6940,7 @@ Creates and sends a new transaction. [Reference](https://ethereum.org/developers
 **Example**:
 
 ```bash title="eth_sendTransaction"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -6973,7 +6973,7 @@ None.
 **Example**:
 
 ```bash title="eth_syncing"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -6996,7 +6996,7 @@ None.
 **Example**:
 
 ```bash title="net_listening"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -7019,7 +7019,7 @@ None.
 **Example**:
 
 ```bash title="net_peerCount"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -7042,7 +7042,7 @@ None.
 **Example**:
 
 ```bash title="net_version"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -7065,7 +7065,7 @@ None.
 **Example**:
 
 ```bash title="system_health"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -7088,7 +7088,7 @@ None.
 **Example**:
 
 ```bash title="web3_clientVersion"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -7114,7 +7114,7 @@ Traces a block's execution by its number and returns a detailed execution trace 
 **Example**:
 
 ```bash title="debug_traceBlockByNumber"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -7140,7 +7140,7 @@ Traces the execution of a single transaction by its hash and returns a detailed 
 **Example**:
 
 ```bash title="debug_traceTransaction"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -7173,7 +7173,7 @@ Executes a new message call and returns a detailed execution trace without creat
 **Example**:
 
 ```bash title="debug_traceCall"
-curl -X POST https://testnet-passet-hub-eth-rpc.polkadot.io \
+curl -X POST https://services.polkadothub-rpc.com/testnet \
 -H "Content-Type: application/json" \
 --data '{
     "jsonrpc":"2.0",
@@ -13075,14 +13075,14 @@ To use Hardhat with Polkadot Hub, define the network configuration in your `hard
     import { vars } from 'hardhat/config';
 
     const config: HardhatUserConfig = {
-    solidity: '0.8.28',
-    networks: {
+      solidity: '0.8.28',
+      networks: {
         polkadotTestnet: {
-        url: 'https://testnet-passet-hub-eth-rpc.polkadot.io',
-        chainId: 420420422,
-        accounts: [vars.get('PRIVATE_KEY')],
+          url: 'https://services.polkadothub-rpc.com/testnet',
+          chainId: 420420417,
+          accounts: [vars.get('PRIVATE_KEY')],
         },
-    },
+      },
     };
 
     export default config;
@@ -13382,11 +13382,11 @@ After setting up the [Public Client](https://viem.sh/docs/clients/public#public-
     ```js title="src/fetchLastBlock.ts"
     import { createPublicClient, http } from 'viem';
 
-    const transport = http('https://testnet-passet-hub-eth-rpc.polkadot.io'); // TODO: change to paseo asset hub once ready
+    const transport = http('https://services.polkadothub-rpc.com/testnet');
 
     // Configure the Polkadot Hub chain
     const polkadotHubTestnet = {
-      id: 420420422,
+      id: 420420417,
       name: 'Polkadot Hub TestNet',
       network: 'polkadot-hub-testnet',
       nativeCurrency: {
@@ -13396,7 +13396,7 @@ After setting up the [Public Client](https://viem.sh/docs/clients/public#public-
       },
       rpcUrls: {
         default: {
-          http: ['https://testnet-passet-hub-eth-rpc.polkadot.io'], // TODO: change to paseo asset hub once ready
+          http: ['https://services.polkadothub-rpc.com/testnet'],
         },
       },
     } as const;
@@ -13871,7 +13871,7 @@ export const config = createConfig({
 
     // Configure the Polkadot Hub chain
     const assetHub = {
-      id: 420420422,
+      id: 420420417,
       name: 'polkadot-hub-testnet',
       network: 'polkadot-hub-testnet',
       nativeCurrency: {
@@ -13881,7 +13881,7 @@ export const config = createConfig({
       },
       rpcUrls: {
         default: {
-          http: ['https://testnet-passet-hub-eth-rpc.polkadot.io'], // TODO: change to paseo asset hub once ready
+          http: ['https://services.polkadothub-rpc.com/testnet'],
         },
       },
     } as const;
@@ -14345,58 +14345,29 @@ To get started with MetaMask, you need to install the [MetaMask extension](https
 
 For example, to connect to the Polkadot Hub TestNet via MetaMask, you need to follow these steps:
 
-1. Open the MetaMask extension and click on the network icon to switch to the Polkadot Hub TestNet.
+1. Open the MetaMask extension and click on the network dropdown to switch to the Polkadot Hub TestNet.
 
     ![](/images/smart-contracts/integrations/wallets/wallets-1.webp){: .browser-extension}
 
-2. Click on the **Add a custom network** button.
+2. Click on the **Custom** tab.
 
     ![](/images/smart-contracts/integrations/wallets/wallets-2.webp){: .browser-extension}
 
-3. Complete the necessary fields, then click the **Save** button (refer to the [Networks](/smart-contracts/connect/#networks-details){target=\_blank} section for copy and paste parameters).
+3. Click on the **Add a custom network** button.
 
     ![](/images/smart-contracts/integrations/wallets/wallets-3.webp){: .browser-extension}
 
-4. Click on **Polkadot Hub TestNet** to switch the network.
+4. Complete the necessary fields, then click the **Save** button (refer to the [Networks](/smart-contracts/connect/#networks-details){target=\_blank} section for copy and paste parameters).
+
+    ![](/images/smart-contracts/integrations/wallets/wallets-3.webp){: .browser-extension}
+
+5. Click on **Polkadot Hub TestNet** to switch the network.
 
     ![](/images/smart-contracts/integrations/wallets/wallets-4.webp){: .browser-extension}
 
 The steps in the preceding section can be used to connect to any chain by modifying the network specification and endpoint parameters.
 
-### SubWallet
 
-[SubWallet](https://www.subwallet.app/){target=\_blank} is a popular non-custodial wallet solution for Polkadot and Ethereum ecosystems. It offers seamless integration with Polkadot SDK-based networks while maintaining Ethereum compatibility, making the wallet an ideal choice for users and developers to interact with Polkadot Hub.
-
-SubWallet now fully supports the [Polkadot Hub TestNet](/smart-contracts/connect/){target=\_blank} where developers can deploy and interact with Ethereum-compatible, Solidity smart contracts.
-
-You can easily view and manage your Paseo native token (PAS) using the Ethereum RPC endpoint (Passet Hub EVM) or the Substrate node RPC endpoint (passet-hub).
-
-??? code "Polkadot Hub TestNet"
-    You can see support here for Polkadot Hub's TestNet. The **Passet Hub EVM** network uses an ETH RPC endpoint, and the **passet-hub** uses a Substrate endpoint.
-    The ETH RPC endpoint will let you send transactions that follow an ETH format, while the Substrate endpoint will follow a Substrate transaction format.
-    Note the PAS token, which is the native token of the Polkadot Hub TestNet.
-
-    ![](/images/smart-contracts/integrations/wallets/subwallet-PAS.webp){: .browser-extension}
-
-To connect to Polkadot Hub TestNet using SubWallet, follow these steps:
-
-1. Install the [SubWallet browser extension](https://chromewebstore.google.com/detail/subwallet-polkadot-wallet/onhogfjeacnfoofkfgppdlbmlmnplgbn?hl=en){target=\_blank} and set up your wallet by following the on-screen instructions, or refer to our [step-by-step guide](https://docs.subwallet.app/main/extension-user-guide/getting-started/install-subwallet){target=\_blank} for assistance.
-
-2. After setting up your wallet, click the List icon at the top left corner of the extension window to open **Settings**.
-
-    ![](/images/smart-contracts/integrations/wallets/subwallet-01.webp){: .browser-extension}
-
-3. Scroll down and select **Manage networks**.
-
-    ![](/images/smart-contracts/integrations/wallets/subwallet-02.webp){: .browser-extension}
-
-4. In the Manage network screen, either scroll down or type in the search bar to find the networks. Once done, enable the toggle next to the network name.
-
-    ![](/images/smart-contracts/integrations/wallets/subwallet-03.webp){: .browser-extension}
-
-   You are now ready to use SubWallet to interact with [Polkadot Hub TestNet](/smart-contracts/connect/#networks-details){target=\_blank} seamlessly!
-
-![](/images/smart-contracts/integrations/wallets/subwallet-04.webp){: .browser-extension}
 
 ### Talisman
 
@@ -14406,36 +14377,27 @@ To use Talisman with Polkadot Hub TestNet:
 
 1. Install the [Talisman extension](https://talisman.xyz/download){target=\_blank} and set up your wallet by following the on-screen instructions.
 
-2. Once installed, click on the Talisman icon in your browser extensions and click on the **Settings** button.
+2. Once installed, click on the Talisman icon in your browser extensions and click on the **More** button.
 
     ![](/images/smart-contracts/integrations/wallets/wallets-5.webp){: .browser-extension}
 
-3. Click the button **All settings**.
+3. Click the button **Manage Networks**.
 
     ![](/images/smart-contracts/integrations/wallets/wallets-6.webp){: .browser-extension}
 
-4. Go to the **Networks & Tokens** section.
+4. Click on the **+ Add network** button.
 
     ![](/images/smart-contracts/integrations/wallets/wallets-7.webp)
 
-5. Click the **Manage networks** button.
+5. Fill in the form with the required parameters and click the Save** button.
 
     ![](/images/smart-contracts/integrations/wallets/wallets-8.webp)
 
-6. Click the **+ Add network** button.
+6. After that, you will see the **Polkadot Hub TestNet** in the list.
 
     ![](/images/smart-contracts/integrations/wallets/wallets-9.webp)
 
-7. Fill in the form with the required parameters and click the **Add network** button.
-
-    ![](/images/smart-contracts/integrations/wallets/wallets-10.webp)
-
-8. After that, you can switch to the Polkadot Hub TestNet by clicking on the network icon and selecting **Polkadot Hub TestNet**.
-
-    ![](/images/smart-contracts/integrations/wallets/wallets-11.webp)
-
 After selecting the network, Talisman will automatically configure the necessary RPC URL and chain ID for you. You can now use Talisman to interact with the Polkadot Hub TestNet.
-
 
 ## Conclusion
 
@@ -14501,7 +14463,7 @@ web3 = Web3(Web3.HTTPProvider(PROVIDER_RPC))
     Replace `INSERT_RPC_URL` with the appropriate value. For instance, to connect to Polkadot Hub TestNet, use the following parameter:
 
     ```python
-    PROVIDER_RPC = 'https://testnet-passet-hub-eth-rpc.polkadot.io'
+    PROVIDER_RPC = 'https://services.polkadothub-rpc.com/testnet'
     ```
 
 With the Web3 provider set up, start querying the blockchain. For instance, you can use the following code snippet to fetch the latest block number of the chain.
@@ -14514,7 +14476,7 @@ With the Web3 provider set up, start querying the blockchain. For instance, you 
 
     def main():
         try:
-            PROVIDER_RPC = "https://testnet-passet-hub-eth-rpc.polkadot.io"
+            PROVIDER_RPC = "https://services.polkadothub-rpc.com/testnet"
             web3 = Web3(Web3.HTTPProvider(PROVIDER_RPC))
             latest_block = web3.eth.block_number
             print("Last block: " + str(latest_block))
@@ -14750,8 +14712,8 @@ def deploy(config):
 
 if __name__ == "__main__":
     deployment_config = {
-        "rpc_url": "https://testnet-passet-hub-eth-rpc.polkadot.io",
-        "private_key": "0xd505c673c48556d560696d129f0e611f041638cd42d81c33ddc0e490cdcf65fc"
+        "rpc_url": "https://services.polkadothub-rpc.com/testnet",
+        "private_key": "INSERT_PRIVATE_KEY"
     }
     
     deploy_with_retry(deployment_config)
@@ -15128,7 +15090,7 @@ const config: HardhatUserConfig = {
     polkadotTestNet: {
       type: "http",
       chainType: "l1",
-      url: 'http://127.0.0.1:8545',
+      url: 'https://services.polkadothub-rpc.com/testnet',
       accounts: [process.env.PRIVATE_KEY || ''],
     },
   },
@@ -15185,7 +15147,7 @@ You should see output similar to:
   <span data-ty="input"><span class="file-path"></span>npx hardhat ignition deploy ./ignition/modules/Storage.ts --network polkadotTestNet</span>
   <span data-ty>WARNING: You are using Node.js 23.11.0 which is not supported by Hardhat.</span>
   <span data-ty>Please upgrade to 22.10.0 or a later LTS version (even major version number)</span>
-  <span data-ty>✔ Confirm deploy to network polkadotTestNet (420420420)? … yes</span>
+  <span data-ty>✔ Confirm deploy to network polkadotTestNet (420420417)? … yes</span>
   <span data-ty>Hardhat Ignition 🚀</span>
   <span data-ty>Deploying [ StorageModule ]</span>
   <span data-ty>Batch #1</span>
@@ -15230,12 +15192,12 @@ To interact with Polkadot Hub, you need to set up a [Public Client](https://viem
 import { createPublicClient, http, createWalletClient, custom } from 'viem'
 import 'viem/window';
 
-const transport = http('http://127.0.0.1:8545') // TODO: change to the paseo asset hub RPC URL when it's available
+const transport = http('https://services.polkadothub-rpc.com/testnet')
 
 // Configure the Polkadot Testnet Hub chain
 export const polkadotTestnet = {
-  id: 420420420,
-  name: 'Polkadot Testnet',
+  id: 420420417,
+  name: 'Polkadot Hub TestNet',
   network: 'polkadot-testnet',
   nativeCurrency: {
     decimals: 18,
@@ -15244,7 +15206,7 @@ export const polkadotTestnet = {
   },
   rpcUrls: {
     default: {
-      http: ['http://127.0.0.1:8545'], // TODO: change to the paseo asset hub RPC URL
+      http: ['https://services.polkadothub-rpc.com/testnet'],
     },
   },
 } as const

@@ -53,7 +53,7 @@ web3 = Web3(Web3.HTTPProvider(PROVIDER_RPC))
     Replace `INSERT_RPC_URL` with the appropriate value. For instance, to connect to Polkadot Hub TestNet, use the following parameter:
 
     ```python
-    PROVIDER_RPC = 'https://testnet-passet-hub-eth-rpc.polkadot.io'
+    PROVIDER_RPC = 'https://services.polkadothub-rpc.com/testnet'
     ```
 
 With the Web3 provider set up, start querying the blockchain. For instance, you can use the following code snippet to fetch the latest block number of the chain.
@@ -66,7 +66,7 @@ With the Web3 provider set up, start querying the blockchain. For instance, you 
 
     def main():
         try:
-            PROVIDER_RPC = "https://testnet-passet-hub-eth-rpc.polkadot.io"
+            PROVIDER_RPC = "https://services.polkadothub-rpc.com/testnet"
             web3 = Web3(Web3.HTTPProvider(PROVIDER_RPC))
             latest_block = web3.eth.block_number
             print("Last block: " + str(latest_block))
@@ -302,8 +302,8 @@ def deploy(config):
 
 if __name__ == "__main__":
     deployment_config = {
-        "rpc_url": "https://testnet-passet-hub-eth-rpc.polkadot.io",
-        "private_key": "0xd505c673c48556d560696d129f0e611f041638cd42d81c33ddc0e490cdcf65fc"
+        "rpc_url": "https://services.polkadothub-rpc.com/testnet",
+        "private_key": "INSERT_PRIVATE_KEY"
     }
     
     deploy_with_retry(deployment_config)

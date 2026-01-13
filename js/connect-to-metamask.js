@@ -2,10 +2,10 @@ const provider = window.ethereum;
 const supportedNetworks = {
   passetHub: {
     name: 'Polkadot Hub TestNet',
-    chainId: '0x190F1B46', //Hex value of "420420422"
+    chainId: '0x190f1b41', //Hex value of "420420417"
     chainName: 'Polkadot Hub TestNet',
-    rpcUrls: ['https://testnet-passet-hub-eth-rpc.polkadot.io'],
-    blockExplorerUrls: ['https://blockscout-passet-hub.parity-testnet.parity.io/'],
+    rpcUrls: ['https://services.polkadothub-rpc.com/testnet'],
+    blockExplorerUrls: ['https://polkadot.testnet.routescan.io/'],
     nativeCurrency: {
       name: 'Paseo Token',
       symbol: 'PAS',

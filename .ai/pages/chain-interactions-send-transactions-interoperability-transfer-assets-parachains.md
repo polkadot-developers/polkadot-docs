@@ -8,9 +8,9 @@ url: https://docs.polkadot.com/chain-interactions/send-transactions/interoperabi
 
 ## Introduction
 
-This guide walks you through transferring tokens between two parachains using the [ParaSpell XCM SDK](/reference/tools/paraspell/){target=\_blank}. This example utilizes [Asset Hub](/polkadot-protocol/architecture/system-chains/asset-hub/){target=\_blank} and the [People Chain](/polkadot-protocol/architecture/system-chains/people/){target=\_blank}. However, the same approach can be applied to transfers between other parachains.
+This guide walks you through transferring tokens between two parachains using the [ParaSpell XCM SDK](/reference/tools/paraspell/){target=\_blank}. This example utilizes [Asset Hub](/reference/polkadot-hub/#asset-management){target=\_blank} and the [People Chain](/reference/polkadot-hub/#people-chain){target=\_blank}. However, the same approach can be applied to transfers between other parachains.
 
-For development purposes, this guide will use the [Polkadot TestNet](/develop/networks/#paseo){target=\_blank}, so the transferred token will be PAS.
+For development purposes, this guide will use the [Polkadot TestNet](/smart-contracts/connect/#networks-details){target=\_blank}, so the transferred token will be PAS.
 
 In this guide, you will:
 
@@ -295,7 +295,7 @@ The result of the dry run will look similar to the following example output:
 </div>
 ## Verify the Existential Deposit
 
-Check if the recipient account meets the [Existential Deposit (ED)](/polkadot-protocol/glossary/#existential-deposit){target=\_blank} requirement before sending by using [`verifyEdOnDestination`](https://paraspell.github.io/docs/sdk/xcmUtils.html#verify-ed-on-destination){target=\_blank}:
+Check if the recipient account meets the [Existential Deposit (ED)](/reference/glossary/#existential-deposit){target=\_blank} requirement before sending by using [`verifyEdOnDestination`](https://paraspell.github.io/docs/sdk/xcmUtils.html#verify-ed-on-destination){target=\_blank}:
 
 ```ts title="index.ts"
 async function verifyED() {

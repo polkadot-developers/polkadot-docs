@@ -85,7 +85,7 @@ Customizing your runtime typically follows these patterns:
 
 The following diagram illustrates how pallets combine to form a complete runtime:
 
-![](/images/parachains/customize-runtime/index/frame-overview-02.webp)
+![](/images/parachains/customize-runtime/index/frame-overview-02.webp){ style="background:white" }
 
 ## Starting Templates
 

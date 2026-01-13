@@ -139,7 +139,7 @@ To learn more about asset transfers with XCM, please refer to the [Introduction 
 
     ---
 
-    Learn step-by-step how to register a foreign asset on the Asset Hub parachain.
+    Learn step-by-step how to register a foreign asset on Polkadot Hub.
 
     [:octicons-arrow-right-24: Get Started](/chain-interactions/token-operations/register-foreign-asset/)
 
@@ -147,7 +147,7 @@ To learn more about asset transfers with XCM, please refer to the [Introduction 
 
     ---
 
-    Learn step-by-step how to register a local asset on the Asset Hub parachain.
+    Learn step-by-step how to register a local asset on Polkadot Hub.
 
     [:octicons-arrow-right-24: Get Started](/chain-interactions/token-operations/register-local-asset/)
 

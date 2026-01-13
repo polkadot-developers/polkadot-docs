@@ -597,7 +597,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/chain-interactions-send-transactions-interoperability-transfer-assets-parachains.md",
     "html_url": "https://docs.polkadot.com/chain-interactions/send-transactions/interoperability/transfer-assets-parachains/",
-    "preview": "This guide walks you through transferring tokens between two parachains using the [ParaSpell XCM SDK](/reference/tools/paraspell/){target=\\_blank}. This example utilizes [Asset Hub](/polkadot-protocol/architecture/system-chains/asset-hub/){target=\\_blank} and the [People Chain](/polkadot-protocol/architecture/system-chains/people/){target=\\_blank}. However, the same approach can be applied to transfers between other parachains.",
+    "preview": "This guide walks you through transferring tokens between two parachains using the [ParaSpell XCM SDK](/reference/tools/paraspell/){target=\\_blank}. This example utilizes [Asset Hub](/reference/polkadot-hub/#asset-management){target=\\_blank} and the [People Chain](/reference/polkadot-hub/#people-chain){target=\\_blank}. However, the same approach can be applied to transfers between other parachains.",
     "outline": [
       {
         "depth": 2,
@@ -641,12 +641,12 @@
       }
     ],
     "stats": {
-      "chars": 26753,
-      "words": 2286,
+      "chars": 26732,
+      "words": 2284,
       "headings": 8,
-      "estimated_token_count_total": 5262
+      "estimated_token_count_total": 5258
     },
-    "hash": "sha256:74dd49a739c87aa7332baa83182d3971502127fe873e11f955b1f13f9aac4af4",
+    "hash": "sha256:346a641c9657f0a31f3e48706273b8d0fb2fb5edcfffca365bc535f791085e9f",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -839,24 +839,24 @@
       }
     ],
     "stats": {
-      "chars": 18507,
-      "words": 2590,
+      "chars": 18482,
+      "words": 2587,
       "headings": 9,
-      "estimated_token_count_total": 4063
+      "estimated_token_count_total": 4058
     },
-    "hash": "sha256:bd07cdae71bf63786994865d2f33fba5f7bf8855dce6399414ad44ab0ec6635c",
+    "hash": "sha256:f3de32c782fbd9f22db17e291423550042bf8fe5f4f120582f193f78b4756f83",
     "token_estimator": "heuristic-v1"
   },
   {
     "id": "chain-interactions-token-operations-register-foreign-asset",
-    "title": "Register a Foreign Asset on Asset Hub",
+    "title": "Register a Foreign Asset",
     "slug": "chain-interactions-token-operations-register-foreign-asset",
     "categories": [
       "dApps"
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/chain-interactions-token-operations-register-foreign-asset.md",
     "html_url": "https://docs.polkadot.com/chain-interactions/token-operations/register-foreign-asset/",
-    "preview": "As outlined in the [Asset Hub Overview](/polkadot-protocol/architecture/system-chains/asset-hub){target=\\_blank}, Asset Hub supports two categories of assets: local and foreign. Local assets are created on the Asset Hub system parachain and are identified by integer IDs. On the other hand, foreign assets, which originate outside of Asset Hub, are recognized by [Multilocations](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#7-universal-consensus-location-identifiers){target=\\_b",
+    "preview": "As outlined in the [Assets on Polkadot Hub Overview](/reference/polkadot-hub/assets/){target=\\_blank}, Polkadot Hub supports two categories of assets: local and foreign. Local assets are created on Polkadot Hub and are identified by integer IDs. On the other hand, foreign assets, which originate outside of Polkadot Hub, are recognized by [Multilocations](https://github.com/polkadot-fellows/xcm-format?tab=readme-ov-file#7-universal-consensus-location-identifiers){target=\\_blank}.",
     "outline": [
       {
         "depth": 2,
@@ -875,8 +875,8 @@
       },
       {
         "depth": 3,
-        "title": "Asset Hub",
-        "anchor": "asset-hub"
+        "title": "Polkadot Hub",
+        "anchor": "polkadot-hub"
       },
       {
         "depth": 3,
@@ -895,12 +895,12 @@
       }
     ],
     "stats": {
-      "chars": 9993,
-      "words": 1460,
+      "chars": 9853,
+      "words": 1428,
       "headings": 7,
-      "estimated_token_count_total": 2267
+      "estimated_token_count_total": 2233
     },
-    "hash": "sha256:320ee51d7da0c85188d818a7ee23ecfd6f3b694ac4e5c55fb0f0c82f5f9a771f",
+    "hash": "sha256:f2b5a197f7fcdc687af47a9678d9334aacfa89f15e8d03e46d770c568b51e66d",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -913,7 +913,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/chain-interactions-token-operations-register-local-asset.md",
     "html_url": "https://docs.polkadot.com/chain-interactions/token-operations/register-local-asset/",
-    "preview": "As detailed in the [Asset Hub Overview](/polkadot-protocol/architecture/system-chains/asset-hub){target=\\_blank} page, Asset Hub accommodates two types of assets: local and foreign. Local assets are those that were created in Asset Hub and are identifiable by an integer ID. On the other hand, foreign assets originate from a sibling parachain and are identified by a Multilocation.",
+    "preview": "As detailed in the [Assets on Polkadot Hub Overview](/reference/polkadot-hub/assets/){target=\\_blank} page, Polkadot Hub accommodates two types of assets: local and foreign. Local assets are those that were created in Polkadot Hub and are identifiable by an integer ID. On the other hand, foreign assets originate from a sibling parachain and are identified by a Multilocation.",
     "outline": [
       {
         "depth": 2,
@@ -942,12 +942,12 @@
       }
     ],
     "stats": {
-      "chars": 6346,
-      "words": 1013,
+      "chars": 6282,
+      "words": 1000,
       "headings": 5,
-      "estimated_token_count_total": 1521
+      "estimated_token_count_total": 1504
     },
-    "hash": "sha256:bc7830a2c2624d35a48630f46bcd67b76ec67c5e3d4db8d3f7c6e492032027eb",
+    "hash": "sha256:8c9ccad688893e6bb1e040766de61253b1014791b27b87a42c3183fc5a710ef1",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -1008,12 +1008,12 @@
       }
     ],
     "stats": {
-      "chars": 6632,
-      "words": 831,
+      "chars": 6638,
+      "words": 834,
       "headings": 9,
-      "estimated_token_count_total": 1488
+      "estimated_token_count_total": 1492
     },
-    "hash": "sha256:ff1d106bd19f80de0c8108b0a658cfef83d73a4560a012ace9c842acdeefd1a5",
+    "hash": "sha256:7c2aa4a08bcbb906a62dccb38a4163759f4bd743562acd6226c6b9d38e60f825",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -2201,12 +2201,12 @@
       }
     ],
     "stats": {
-      "chars": 10976,
-      "words": 1753,
+      "chars": 10915,
+      "words": 1745,
       "headings": 6,
-      "estimated_token_count_total": 2588
+      "estimated_token_count_total": 2565
     },
-    "hash": "sha256:d5d6d72eb2cf10f624d84c65f2274f7df90acb5d071bf170bc8eae8d98a810a5",
+    "hash": "sha256:cf0f18434b08f9e989f3889c0bfd5a4109ef40116b8036ab33a070223cebfe8b",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -2252,12 +2252,12 @@
       }
     ],
     "stats": {
-      "chars": 3954,
-      "words": 536,
+      "chars": 3976,
+      "words": 538,
       "headings": 6,
-      "estimated_token_count_total": 835
+      "estimated_token_count_total": 839
     },
-    "hash": "sha256:2588b692d85481e6fe41b64651dc4232344bfd57443629f21cd05c340d03b1fb",
+    "hash": "sha256:5893d1f5f93361eb3f1a92e7df2667a6d35ebac465bce74a4f5768bd5cf2cdd3",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -3106,12 +3106,12 @@
       }
     ],
     "stats": {
-      "chars": 8237,
-      "words": 1101,
+      "chars": 8265,
+      "words": 1104,
       "headings": 9,
-      "estimated_token_count_total": 1828
+      "estimated_token_count_total": 1837
     },
-    "hash": "sha256:28501589d5290f932b55cd3319f6a3fd78d7297ba42810da5ad2784a297224fd",
+    "hash": "sha256:40b9f5db2a38d625e0f49df4b32f161c912170a6735ec7b0e0472f4deba70a6e",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -4477,12 +4477,12 @@
       }
     ],
     "stats": {
-      "chars": 24750,
-      "words": 3627,
+      "chars": 24635,
+      "words": 3611,
       "headings": 63,
-      "estimated_token_count_total": 5273
+      "estimated_token_count_total": 5240
     },
-    "hash": "sha256:4a00e1f87640b9f582202e6f94136570382b637fca71317b17b903ebf08bd65f",
+    "hash": "sha256:e2fad9e0fa84e010e7dbb9977a97f547cffea4ab2bfb3cdbcca7f662171b5703",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5167,12 +5167,12 @@
       }
     ],
     "stats": {
-      "chars": 7871,
-      "words": 1047,
+      "chars": 7872,
+      "words": 1048,
       "headings": 8,
-      "estimated_token_count_total": 1440
+      "estimated_token_count_total": 1443
     },
-    "hash": "sha256:2d228c52844df8952520fafdd3e6f0e26bfd2f32b5ee60c6241cf7d38603643c",
+    "hash": "sha256:9995a10aa4661a537f68bafd25932d8755abeff69b22235c4e5eeec9f966d601",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5419,12 +5419,12 @@
       }
     ],
     "stats": {
-      "chars": 13629,
-      "words": 1314,
+      "chars": 13537,
+      "words": 1305,
       "headings": 10,
-      "estimated_token_count_total": 3213
+      "estimated_token_count_total": 3188
     },
-    "hash": "sha256:e448294b6e52291ac0add5fa6533572814e6cd27af42bdaccc2000b86f52d775",
+    "hash": "sha256:6a5f734491ddb29e644580d877ebeee10e92211aae824eac59a1fe124e42a2a2",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5621,12 +5621,12 @@
       }
     ],
     "stats": {
-      "chars": 4937,
-      "words": 628,
+      "chars": 4917,
+      "words": 627,
       "headings": 10,
-      "estimated_token_count_total": 914
+      "estimated_token_count_total": 915
     },
-    "hash": "sha256:8122e21c149d0863cfe3b37fc5606bcdb91668e9d265f0f05451a61ff70e4e93",
+    "hash": "sha256:281f7fbab0734878c8d7e0895703d98d9e20e0710329484d6383f2428d5196e2",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5806,12 +5806,12 @@
       }
     ],
     "stats": {
-      "chars": 8381,
-      "words": 1188,
+      "chars": 8359,
+      "words": 1184,
       "headings": 12,
-      "estimated_token_count_total": 1727
+      "estimated_token_count_total": 1723
     },
-    "hash": "sha256:bdd4b074e477c96714660ece3fb970da9f5af3455a85b3ebd2cc2a615be67eba",
+    "hash": "sha256:6328eadd580b7290fc393d15c8da9b830d32a8066d923cb0f7c894f36ced4b15",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -5888,12 +5888,12 @@
       }
     ],
     "stats": {
-      "chars": 2288,
-      "words": 293,
+      "chars": 2265,
+      "words": 290,
       "headings": 2,
-      "estimated_token_count_total": 424
+      "estimated_token_count_total": 419
     },
-    "hash": "sha256:59ec351fbb8d3a392e90f4f5bf6b62f58b21d6d7a900c5e367e5d2e09ecb3aca",
+    "hash": "sha256:3ffa0bd3906658036b05a59abc2fcdfc9555c0b2d65d0174cd7e0bbde8022540",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -6012,20 +6012,15 @@
         "depth": 2,
         "title": "Bridging - BEEFY",
         "anchor": "bridging-beefy"
-      },
-      {
-        "depth": 3,
-        "title": "Additional Resources",
-        "anchor": "additional-resources-4"
       }
     ],
     "stats": {
-      "chars": 12753,
-      "words": 1834,
-      "headings": 13,
-      "estimated_token_count_total": 2526
+      "chars": 12171,
+      "words": 1759,
+      "headings": 12,
+      "estimated_token_count_total": 2380
     },
-    "hash": "sha256:231fc555eefe5f910fb36e0c03945147d0fb235272850797391751f4444b0a9c",
+    "hash": "sha256:c228eb11bb76ff3a11f026744c86af8f7ac9cf84bd4ec187ceac92ce43c4e9a0",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -6039,7 +6034,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-polkadot-hub-consensus-and-security-relay-chain.md",
     "html_url": "https://docs.polkadot.com/reference/polkadot-hub/consensus-and-security/relay-chain/",
-    "preview": "Polkadot is a next-generation blockchain protocol designed to support a multi-chain future by enabling secure communication and interoperability between different blockchains. Built as a Layer-0 protocol, Polkadot introduces innovations like application-specific Layer-1 chains ([parachains](/polkadot-protocol/architecture/parachains/){targe=\\_blank}), shared security through [Nominated Proof of Stake (NPoS)](/reference/glossary/#nominated-proof-of-stake-npos){target=\\_blank}, and cross-chain int",
+    "preview": "Polkadot is a next-generation blockchain protocol designed to support a multi-chain future by enabling secure communication and interoperability between different blockchains. Built as a Layer-0 protocol, Polkadot introduces innovations like application-specific Layer-1 chains ([parachains](/reference/parachains/){targe=\\_blank}), shared security through [Nominated Proof of Stake (NPoS)](/reference/glossary/#nominated-proof-of-stake-npos){target=\\_blank}, and cross-chain interactions via its nat",
     "outline": [
       {
         "depth": 2,
@@ -6098,12 +6093,12 @@
       }
     ],
     "stats": {
-      "chars": 12372,
+      "chars": 12352,
       "words": 1761,
       "headings": 11,
       "estimated_token_count_total": 2551
     },
-    "hash": "sha256:0c346630a12fc5da9617525b87f1aca4df0b4bddf61a89691fee080758cdf534",
+    "hash": "sha256:d5b2955950a64a269a92257c567864f8b787279a7fd0af23c1f5647fe2ce8444",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -6494,12 +6489,12 @@
       }
     ],
     "stats": {
-      "chars": 6490,
-      "words": 870,
+      "chars": 6253,
+      "words": 841,
       "headings": 7,
-      "estimated_token_count_total": 1430
+      "estimated_token_count_total": 1361
     },
-    "hash": "sha256:1284c42be692167e01bcc44e2e134ec20615402675fac26df246c00aa1588d80",
+    "hash": "sha256:50d1cf70e8a8cd7fb8a6bf730db4b104c96e8081756930f84a9e7277918cb2cf",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -6579,7 +6574,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-tools-omninode.md",
     "html_url": "https://docs.polkadot.com/reference/tools/omninode/",
-    "preview": "The [`polkadot-omni-node`](https://crates.io/crates/polkadot-omni-node/0.7.0){target=\\_blank} crate is a versatile, pre-built binary designed to simplify running parachains in the Polkadot ecosystem. Unlike traditional node binaries that are tightly coupled to specific runtime code, the `polkadot-omni-node` operates using an external [chain specification](/polkadot-protocol/glossary#chain-specification){target=\\_blank} file, allowing it to adapt dynamically to different parachains.",
+    "preview": "The [`polkadot-omni-node`](https://crates.io/crates/polkadot-omni-node/0.7.0){target=\\_blank} crate is a versatile, pre-built binary designed to simplify running parachains in the Polkadot ecosystem. Unlike traditional node binaries that are tightly coupled to specific runtime code, the `polkadot-omni-node` operates using an external [chain specification](/reference/glossary#chain-specification){target=\\_blank} file, allowing it to adapt dynamically to different parachains.",
     "outline": [
       {
         "depth": 2,
@@ -6628,12 +6623,12 @@
       }
     ],
     "stats": {
-      "chars": 8913,
-      "words": 1164,
+      "chars": 8921,
+      "words": 1165,
       "headings": 9,
-      "estimated_token_count_total": 2017
+      "estimated_token_count_total": 2019
     },
-    "hash": "sha256:7db2d31ba37abad20b026c875f632b89739b45707e58809e2e8b32a09715c6f9",
+    "hash": "sha256:fd08d6272ebe9c0a8b37aa26ed2d5e4341c6c570b8840c6c891c888c6dd1408e",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -6811,7 +6806,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-tools-polkadot-js-api.md",
     "html_url": "https://docs.polkadot.com/reference/tools/polkadot-js-api/",
-    "preview": "!!! warning \"Maintenance Mode Only\" The Polkadot.js API is now in maintenance mode and is no longer actively developed. New projects should use [Dedot](/develop/toolkit/api-libraries/dedot){target=\\_blank} (TypeScript-first API) or [Polkadot API](/develop/toolkit/api-libraries/papi){target=\\_blank} (modern, type-safe API) as actively maintained alternatives.",
+    "preview": "!!! warning \"Maintenance Mode Only\" The Polkadot.js API is now in maintenance mode and is no longer actively developed. New projects should use [Dedot](/reference/tools/dedot/){target=\\_blank} (TypeScript-first API) or [Polkadot API](/reference/tools/papi/){target=\\_blank} (modern, type-safe API) as actively maintained alternatives.",
     "outline": [
       {
         "depth": 2,
@@ -6860,12 +6855,12 @@
       }
     ],
     "stats": {
-      "chars": 5042,
-      "words": 684,
+      "chars": 5016,
+      "words": 680,
       "headings": 9,
       "estimated_token_count_total": 1166
     },
-    "hash": "sha256:ed3986f30880fefca5975fcdc847c68b4aca65862c63e3002b25391b0521781d",
+    "hash": "sha256:605ff82cd981caa7b3e8fe31277ad85aa371cd9f1ce6f6ad039b05fc2a3d808e",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -7060,7 +7055,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/reference-tools-xcm-tools.md",
     "html_url": "https://docs.polkadot.com/reference/tools/xcm-tools/",
-    "preview": "As described in the [Interoperability](/develop/interoperability){target=\\_blank} section, XCM (Cross-Consensus Messaging) is a protocol used in the Polkadot and Kusama ecosystems to enable communication and interaction between chains. It facilitates cross-chain communication, allowing assets, data, and messages to flow seamlessly across the ecosystem.",
+    "preview": "As described in the [Interoperability](/parachains/interoperability/get-started/){target=\\_blank} section, XCM (Cross-Consensus Messaging) is a protocol used in the Polkadot and Kusama ecosystems to enable communication and interaction between chains. It facilitates cross-chain communication, allowing assets, data, and messages to flow seamlessly across the ecosystem.",
     "outline": [
       {
         "depth": 2,
@@ -7099,12 +7094,12 @@
       }
     ],
     "stats": {
-      "chars": 6146,
-      "words": 852,
+      "chars": 6203,
+      "words": 860,
       "headings": 7,
-      "estimated_token_count_total": 1377
+      "estimated_token_count_total": 1390
     },
-    "hash": "sha256:674e4f60c82fc7544c7af8e09f1e0f677c9907cdff88b107f6c8489e97a43487",
+    "hash": "sha256:e3a175ada6f75d53e74aefe3a6f30a00e5ec53cab5e6b0e3890de11c35ac9375",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -7259,12 +7254,12 @@
       }
     ],
     "stats": {
-      "chars": 7664,
-      "words": 938,
+      "chars": 7648,
+      "words": 936,
       "headings": 7,
-      "estimated_token_count_total": 1683
+      "estimated_token_count_total": 1679
     },
-    "hash": "sha256:78eaa8df72e6118d81d3609aca4800d0b2180a7d645ac3cc7b05bd55e574626a",
+    "hash": "sha256:91619a82ebb3a5695b9a2a5a3e5aba875bcb0ab9805b60d6ffacf6941b710cd1",
     "token_estimator": "heuristic-v1"
   },
   {

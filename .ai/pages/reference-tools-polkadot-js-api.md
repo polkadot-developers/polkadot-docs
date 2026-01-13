@@ -8,7 +8,7 @@ url: https://docs.polkadot.com/reference/tools/polkadot-js-api/
 # Polkadot.js API
 
 !!! warning "Maintenance Mode Only"
-    The Polkadot.js API is now in maintenance mode and is no longer actively developed. New projects should use [Dedot](/develop/toolkit/api-libraries/dedot){target=\_blank} (TypeScript-first API) or [Polkadot API](/develop/toolkit/api-libraries/papi){target=\_blank} (modern, type-safe API) as actively maintained alternatives.
+    The Polkadot.js API is now in maintenance mode and is no longer actively developed. New projects should use [Dedot](/reference/tools/dedot/){target=\_blank} (TypeScript-first API) or [Polkadot API](/reference/tools/papi/){target=\_blank} (modern, type-safe API) as actively maintained alternatives.
 
 ## Introduction
 

@@ -49,8 +49,8 @@ Transactions are the primary mechanism for modifying blockchain state. Understan
 
 Polkadot enables native cross-chain capabilities through Cross-Consensus Messaging (XCM), allowing chains to securely communicate and transfer assets across the ecosystem.
 
-- **[Transfer assets between parachains](/chain-interactions/send-transactions/interoperability/transfer-assets-parachains/)**: Understand how to construct and send XCM messages using [ParaSpell XCM SDK](/reference/tools/paraspell/){target=\_blank} and [Polkadot API (PAPI)](/reference/tools/papi/){target=\_blank}.
-- **[Transfer assets out of Polkadot](/chain-interactions/send-transactions/interoperability/transfer-assets-out-of-polkadot/)**: Connect to blockchains outside the Polkadot ecosystem using [Snowbridge](https://wiki.polkadot.com/learn/learn-snowbridge/){target=\_blank} and other bridge solutions.
+- **[Transfer assets between parachains](/chain-interactions/send-transactions/interoperability/transfer-assets-parachains/)**: Understand how to construct and send XCM messages using [ParaSpell XCM SDK](/reference/tools/paraspell/) and [Polkadot API (PAPI)](/reference/tools/papi/).
+- **[Transfer assets into Polkadot](/chain-interactions/send-transactions/interoperability/transfer-assets-into-polkadot/)**: A step-by-step guide to bridging assets from Ethereum to Polkadot using the [ParaSpell XCM SDK](/reference/tools/paraspell/) and [Snowbridge](https://wiki.polkadot.com/learn/learn-snowbridge/){target=\_blank}.
 
 ### Manage Tokens
 

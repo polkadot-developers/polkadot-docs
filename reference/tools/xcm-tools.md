@@ -8,7 +8,7 @@ categories: Basics, Tooling, Dapps
 
 ## Introduction
 
-As described in the [Interoperability](/develop/interoperability){target=\_blank} section, XCM (Cross-Consensus Messaging) is a protocol used in the Polkadot and Kusama ecosystems to enable communication and interaction between chains. It facilitates cross-chain communication, allowing assets, data, and messages to flow seamlessly across the ecosystem.
+As described in the [Interoperability](/parachains/interoperability/get-started/){target=\_blank} section, XCM (Cross-Consensus Messaging) is a protocol used in the Polkadot and Kusama ecosystems to enable communication and interaction between chains. It facilitates cross-chain communication, allowing assets, data, and messages to flow seamlessly across the ecosystem.
 
 As XCM is central to enabling communication between blockchains, developers need robust tools to help interact with, build, and test XCM messages. Several XCM tools simplify working with the protocol by providing libraries, frameworks, and utilities that enhance the development process, ensuring that applications built within the Polkadot ecosystem can efficiently use cross-chain functionalities.
 
@@ -63,7 +63,7 @@ For more details on using Astar xcm-tools, consult the [official documentation](
 
 ### Chopsticks
 
-The Chopsticks library provides XCM functionality for testing XCM messages across networks, enabling you to fork multiple parachains along with a relay chain. For further details, see the [Chopsticks documentation](/tutorials/polkadot-sdk/testing/fork-live-chains/){target=\_blank} about XCM.
+The Chopsticks library provides XCM functionality for testing XCM messages across networks, enabling you to fork multiple parachains along with a relay chain. For further details, see the [Replay and Dry Run XCMs using Chopsticks](/chain-interactions/send-transactions/interoperability/debug-and-preview-xcms/){target=\_blank} guide.
 
 ### Moonbeam XCM SDK
 

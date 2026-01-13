@@ -15,7 +15,7 @@ Polkadot SDK-based nodes consist of two main components, each with distinct resp
 
 If the system were a monolithic protocol, any modification would require updating the entire system. Instead, Polkadot achieves true upgradeability by defining an immutable meta-protocol (the client) and a protocol (the runtime) that can be upgraded independently.
 
-This separation gives the [Polkadot Relay Chain](/polkadot-protocol/architecture/polkadot-chain){target=\_blank} and all connected [parachains](/polkadot-protocol/architecture/parachains){target=\_blank} an evolutionary advantage over other blockchain platforms.
+This separation gives the [Polkadot relay chain](/reference/polkadot-hub/consensus-and-security/relay-chain/){target=\_blank} and all connected [parachains](/reference/parachains/){target=\_blank} an evolutionary advantage over other blockchain platforms.
 
 ## Architectural Principles
 
@@ -76,7 +76,7 @@ The runtime performs several critical functions, such as:
 
 ## Communication Between Node and Runtime
 
-The client and runtime communicate exclusively using [SCALE-encoded](/polkadot-protocol/parachain-basics/data-encoding){target=\_blank} communication. This ensures efficient and compact data exchange between the two components.
+The client and runtime communicate exclusively using [SCALE-encoded](/reference/parachains/data-encoding/){target=\_blank} communication. This ensures efficient and compact data exchange between the two components.
 
 ### Runtime APIs
 

@@ -55,15 +55,13 @@ There are two lottery outcomes for any given slot that initiate additional proce
 
 - **Multiple validators in a slot**: Due to the randomness, multiple validators can be selected to produce a block for the same slot. When this happens, each validator produces a block and broadcasts it to the network resulting in a race condition. The network's topology and latency then determine which block reaches the majority of nodes first. BABE allows both chains to continue building until the finalization process resolves which one becomes canonical. The [Fork Choice](#fork-choice) rule is then used to decide which chain the network should follow.
 
-- **No validators in a slot**: On occasions when no validator is selected by the lottery, a [secondary validator selection algorithm](https://spec.polkadot.network/sect-block-production#defn-babe-secondary-slots){target=\_blank} steps in. This backup ensures that a block is still produced, preventing skipped slots. However, if the primary block produced by a verifiable random function [(VRF)-selected](/reference/parachains/randomness/#vrf){target=\_blank} validator exists for that slot, the secondary block will be ignored. As a result, every slot will have either a primary or a secondary block.
+- **No validators in a slot**: On occasions when no validator is selected by the lottery, a secondary validator selection algorithm steps in. This backup ensures that a block is still produced, preventing skipped slots. However, if the primary block produced by a verifiable random function [(VRF)-selected](/reference/parachains/randomness/#vrf){target=\_blank} validator exists for that slot, the secondary block will be ignored. As a result, every slot will have either a primary or a secondary block.
 
 This design ensures continuous block production, even in cases of multiple competing validators or an absence of selected validators.
 
 ### Additional Resources
 
 For further technical insights about BABE, including cryptographic details and formal proofs, see the [BABE paper](https://research.web3.foundation/Polkadot/protocols/block-production/Babe){target=\_blank} from Web3 Foundation.
-
-For BABE technical definitions, constants, and formulas, see the [Block Production Lottery](https://spec.polkadot.network/sect-block-production#sect-block-production-lottery){target=\_blank} section of the Polkadot Protocol Specification.
 
 ## Finality Gadget - GRANDPA
 
@@ -122,11 +120,6 @@ Key features of BEEFY include:
 - **Merkle Mountain Ranges (MMR)**: This data structure is used to efficiently store and transmit proofs between chains, optimizing data storage and reducing transmission overhead.
 - **ECDSA signature schemes**: BEEFY uses ECDSA signatures, which are widely supported on Ethereum and other EVM-based chains, making integration with these ecosystems smoother.
 - **Light client optimization**: BEEFY reduces the computational burden on light clients by allowing them to check for a super-majority of validator votes rather than needing to process all validator signatures, improving performance.
-
-### Additional Resources
-
-For BEEFY technical definitions, constants, and formulas, see the [Bridge design (BEEFY)](https://spec.polkadot.network/sect-finality#sect-grandpa-beefy){target=\_blank} section of the Polkadot Protocol Specification.
- 
 
 
 

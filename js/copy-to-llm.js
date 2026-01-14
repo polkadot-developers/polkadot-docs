@@ -387,7 +387,7 @@
           );
         }
 
-        if (!text) {
+        else {
           if (status === 404) {
             showToast(NO_MARKDOWN_MESSAGE);
           }
@@ -517,7 +517,7 @@
   }
 
   function initialize() {
-    if (window.__md_is_404 || document.querySelector('h1.not-found')) {
+    if (document.querySelector('h1.not-found')) {
       return;
     }
     addSectionCopyButtons();

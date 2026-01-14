@@ -1039,124 +1039,12 @@
       }
     ],
     "stats": {
-      "chars": 9395,
+      "chars": 9393,
       "words": 1028,
       "headings": 2,
       "estimated_token_count_total": 2782
     },
-    "hash": "sha256:4dfe37ff47552eb5bdd25f35dcf081138839ecd880971be8e866ee368c766fb3",
-    "token_estimator": "heuristic-v1"
-  },
-  {
-    "id": "get-support-explore-resources",
-    "title": "Subscribe to Updates",
-    "slug": "get-support-explore-resources",
-    "categories": [
-      "Uncategorized"
-    ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/get-support-explore-resources.md",
-    "html_url": "https://docs.polkadot.com/get-support/explore-resources/",
-    "preview": "Looking for answers beyond the documentation? These platforms are full of useful content and experienced developers sharing insights.",
-    "outline": [
-      {
-        "depth": 2,
-        "title": "🧠 Stack Exchange",
-        "anchor": "stack-exchange"
-      },
-      {
-        "depth": 2,
-        "title": "🧵 Reddit: r/Polkadot",
-        "anchor": "reddit-rpolkadot"
-      },
-      {
-        "depth": 2,
-        "title": "💬 Discord (Community Threads Only)",
-        "anchor": "discord-community-threads-only"
-      },
-      {
-        "depth": 2,
-        "title": "🎥 YouTube: @PolkadotNetwork",
-        "anchor": "youtube-polkadotnetwork"
-      },
-      {
-        "depth": 2,
-        "title": "Community-Led Platforms and Ecosystem Updates",
-        "anchor": "community-led-platforms-and-ecosystem-updates"
-      },
-      {
-        "depth": 3,
-        "title": "🔷 X (Twitter): Official Accounts",
-        "anchor": "x-twitter-official-accounts"
-      },
-      {
-        "depth": 3,
-        "title": "🔁 X (Twitter): Community Accounts",
-        "anchor": "x-twitter-community-accounts"
-      },
-      {
-        "depth": 3,
-        "title": "🗣️ Polkadot Forum",
-        "anchor": "polkadot-forum"
-      },
-      {
-        "depth": 3,
-        "title": "🧑‍⚖️ Polkassembly: OpenGov",
-        "anchor": "polkassembly-opengov"
-      },
-      {
-        "depth": 3,
-        "title": "📸 Instagram",
-        "anchor": "instagram"
-      }
-    ],
-    "stats": {
-      "chars": 2426,
-      "words": 295,
-      "headings": 10,
-      "estimated_token_count_total": 579
-    },
-    "hash": "sha256:670221ac20ab1f1b550ba2a1db06cd924c24bd3afc4d8a768b617d8a409243cb",
-    "token_estimator": "heuristic-v1"
-  },
-  {
-    "id": "get-support-get-in-touch",
-    "title": "Get in Touch",
-    "slug": "get-support-get-in-touch",
-    "categories": [
-      "Uncategorized"
-    ],
-    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/get-support-get-in-touch.md",
-    "html_url": "https://docs.polkadot.com/get-support/get-in-touch/",
-    "preview": "Use one of the channels below to get live technical support or ask questions.",
-    "outline": [
-      {
-        "depth": 2,
-        "title": "Need Help Fast?",
-        "anchor": "need-help-fast"
-      },
-      {
-        "depth": 2,
-        "title": "📱 Telegram: Polkadot Developer Support",
-        "anchor": "telegram-polkadot-developer-support"
-      },
-      {
-        "depth": 2,
-        "title": "🔌 Discord: Polkadot Official Server",
-        "anchor": "discord-polkadot-official-server"
-      },
-      {
-        "depth": 2,
-        "title": "🧬 Matrix: Polkadot Developer Support",
-        "anchor": "matrix-polkadot-developer-support"
-      }
-    ],
-    "stats": {
-      "chars": 1949,
-      "words": 258,
-      "headings": 4,
-      "estimated_token_count_total": 557
-    },
-    "hash": "sha256:993e93b05c8fbdfc2f7510c61ac86bc4c2ff0f03e573695b2f260933c8b62f78",
+    "hash": "sha256:b8e727d641ade597405d416f5f8d7bda2d3dece61af1ac32c37f496bfbd49ee2",
     "token_estimator": "heuristic-v1"
   },
   {

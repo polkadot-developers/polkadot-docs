@@ -1,6 +1,0 @@
-title: Testing
-nav:
-  - index.md
-  - 'Mock Runtime': mock-runtime.md
-  - 'Pallet Testing': pallet-testing.md
-  - 'Benchmarking': benchmarking.md

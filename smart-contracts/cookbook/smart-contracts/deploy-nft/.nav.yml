@@ -1,0 +1,4 @@
+nav:
+- ':custom-remix: Remix IDE': nft-remix.md
+- ':custom-hardhat: Hardhat': nft-hardhat.md
+# - 'Using Foundry': foundry.md

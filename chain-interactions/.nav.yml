@@ -1,0 +1,7 @@
+nav:
+ - 'Overview': index.md
+ - 'Build Smart Contracts': /smart-contracts/cookbook/
+ - 'Query On-Chain Data': query-data
+ - 'Send Transactions': send-transactions
+ - 'Manage Tokens': token-operations
+ - 'Manage Accounts': accounts

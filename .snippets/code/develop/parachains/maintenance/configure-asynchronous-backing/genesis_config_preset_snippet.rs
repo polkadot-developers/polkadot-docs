@@ -1,6 +1,0 @@
-...
-"async_backing_params": {
-    "max_candidate_depth": 3,
-    "allowed_ancestry_len": 2
-},
-...

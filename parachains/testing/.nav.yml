@@ -1,0 +1,3 @@
+nav:
+ - 'Fork a Parachain': fork-a-parachain.md
+ - 'Run a Parachain Network': run-a-parachain-network.md

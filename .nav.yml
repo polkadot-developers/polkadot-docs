@@ -1,7 +1,8 @@
 nav:
   - 'Home': index.md
-  - develop
-  - infrastructure
-  - polkadot-protocol
-  - tutorials
-  - get-support
+  - 'Smart Contracts': smart-contracts
+  - 'Parachains': parachains
+  - 'Chain Interactions': chain-interactions
+  - 'Node Infrastructure': node-infrastructure
+  - 'Technical Reference': reference
+  - 'Get Support': get-support

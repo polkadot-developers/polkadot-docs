@@ -1,0 +1,4 @@
+nav:
+- ':custom-remix: Remix IDE': erc20-remix.md
+- ':custom-hardhat: Hardhat': erc20-hardhat.md
+# - 'Foundry': erc20-foundry.md

@@ -230,7 +230,7 @@ After setting up the environment, install and configure the latest version of Pr
 
     If you set the server up properly, you should see terminal output similar to the following:
 
-    -8<-- 'code/infrastructure/running-a-validator/operational-tasks/general-management/terminal-ouput-01.html'
+    -8<-- 'code/infrastructure/running-a-validator/operational-tasks/general-management/terminal-output-01.html'
 
 2. Verify you can access the Prometheus interface by navigating to:
 
@@ -577,4 +577,3 @@ Additional best practices can add an additional layer of security and operationa
 - [HSM Policies and the Importance of Validator Security](https://medium.com/loom-network/hsm-policies-and-the-importance-of-validator-security-ec8a4cc1b6f){target=\_blank}
 
 For additional guidance, connect with other validators and the Polkadot engineering team in the [Polkadot Validator Lounge](https://matrix.to/#/#polkadotvalidatorlounge:web3.foundation){target=\_blank} on Element.
-

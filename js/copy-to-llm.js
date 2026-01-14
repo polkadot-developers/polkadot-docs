@@ -13,22 +13,13 @@
   if (typeof window === 'undefined') {
     return;
   }
-  function buildSlugFromPath(pathname) {
-    const route = (pathname || '').replace(/^\/+|\/+$/g, '');
+  function getPageSlug() {
+    const route = (window.location.pathname || '').replace(/^\/+|\/+$/g, '');
     return route.split('/').filter(Boolean).join('-');
   }
 
-  function getSiteBaseUrl() {
-    return new URL(window.location.origin);
-  }
-
-  function getPageSlug() {
-    return buildSlugFromPath(window.location.pathname);
-  }
-
   function getMarkdownUrl(slug) {
-    const baseUrl = getSiteBaseUrl();
-    return new URL(`ai/pages/${slug}.md`, baseUrl).href;
+    return `${window.location.origin}/ai/pages/${slug}.md`;
   }
 
   const NO_MARKDOWN_MESSAGE = 'No Markdown file available.';

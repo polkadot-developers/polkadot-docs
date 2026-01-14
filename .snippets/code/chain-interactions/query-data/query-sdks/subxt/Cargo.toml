@@ -1,0 +1,16 @@
+[package]
+name = "subxt-query-example"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "query_balance"
+path = "src/bin/query_balance.rs"
+
+[[bin]]
+name = "query_asset"
+path = "src/bin/query_asset.rs"
+
+[dependencies]
+subxt = "0.44.0"
+tokio = { version = "1", features = ["rt", "macros"] }

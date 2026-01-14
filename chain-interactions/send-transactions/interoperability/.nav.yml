@@ -1,0 +1,6 @@
+nav:
+ - 'Transfer Assets into Polkadot': transfer-assets-into-polkadot.md
+ - 'Transfer Assets Between Parachains': transfer-assets-parachains.md
+#  - 'Transfer Assets Out of Polkadot': transfer-assets-out-of-polkadot.md
+ - 'Estimate XCM Transfer Fees': estimate-xcm-fees.md
+ - 'Debug and Preview XCM Messages': debug-and-preview-xcms.md

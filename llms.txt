@@ -6,7 +6,7 @@
 This directory lists URLs for raw Markdown pages that complement the rendered pages on the documentation site. Use these Markdown files to retain semantic context when prompting models while avoiding passing HTML elements.
 
 ## Metadata
-- Documentation pages: 142
+- Documentation pages: 143
 - Categories: 17
 
 ## Docs
@@ -80,6 +80,7 @@ Docs: Smart Contracts
 - [Web3.py](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-libraries-web3-py.md): Learn how to interact with Polkadot Hub using the Web3 python library, deploying Solidity contracts, and interacting with deployed smart contracts.
 - [Smart Contracts Overview](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-overview.md): Learn about smart contract development on Polkadot Hub with native PVM support, dual-VM execution, and seamless cross-chain capabilities.
 - [Ethereum-Native Precompiles](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-precompiles-eth-native.md): General overview of Ethereum-native precompiles in Polkadot Hub’s Revive pallet, including usage basics and details on standard precompiles for smart contracts.
+- [Interact with the System Precompile](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-precompiles-system.md): Learn how to use the System precompile to access core runtime functionality, cryptographic operations, and system utilities from your smart contracts.
 - [Interact with the XCM Precompile](https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-precompiles-xcm.md): Learn how to use the XCM precompile to send cross-chain messages, execute XCM instructions, and estimate costs from your smart contracts.
 
 Docs: Parachains

@@ -8947,7 +8947,7 @@ Page Title: Run an RPC Node for Polkadot Hub
 
 - Source (raw): https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/node-infrastructure-run-a-node-polkadot-hub-rpc.md
 - Canonical (HTML): https://docs.polkadot.com/node-infrastructure/run-a-node/polkadot-hub-rpc/
-- Summary: Follow this guide to understand hardware and software requirements and how to set up and run an RPC node for Polkadot Hub with Polkadot SDK RPC endpoints and optional Ethereum RPC compatibility.
+- Summary: Learn how to set up and run an RPC node for Polkadot Hub with Polkadot SDK and Ethereum RPC compatibility.
 
 # Run an RPC Node for Polkadot Hub
 
@@ -8979,7 +8979,7 @@ RPC nodes serving production traffic require robust hardware. The following shou
         - **30334**: Relay chain P2P
         - **9944**: Polkadot SDK WebSocket RPC
         - **9933**: Polkadot SDK HTTP RPC
-        - **8545**: Ethereum JSON-RPC (if running eth-rpc adapter)
+        - **8545**: Ethereum JSON-RPC (if running `eth-rpc` adapter)
 
 !!! note
     For development or low-traffic scenarios, you can reduce these requirements proportionally. Consider using a reverse proxy ([nginx](https://nginx.org/){target=\_blank}, [Caddy](https://caddyserver.com/){target=\_blank}) for production deployments.
@@ -9398,7 +9398,7 @@ Polkadot Hub supports Ethereum RPC compatibility through the `eth-rpc` adapter, 
 Before starting the Ethereum RPC adapter:
 
 - Your Polkadot Hub node must be **fully synchronized**
-- The Substrate RPC endpoint must be accessible (default: `ws://127.0.0.1:9944`)
+- The Polkadot SDK-based RPC endpoint must be accessible (default: `ws://127.0.0.1:9944`)
 
 ### Run the Ethereum RPC Adapter
 
@@ -9480,14 +9480,15 @@ You can run the Ethereum RPC adapter using Docker or as a systemd service.
 The adapter accepts the following key parameters:
 
 | Parameter | Description | Default |
-|-----------|-------------|---------|
-| `--node-rpc-url` | Substrate node WebSocket URL | `ws://127.0.0.1:9944` |
+|:---------:|:-----------:|:-------:|
+| `--node-rpc-url` | Polkadot SDK-based node WebSocket URL | `ws://127.0.0.1:9944` |
 | `--rpc-port` | Ethereum RPC server port | `8545` |
 | `--unsafe-rpc-external` | Enable external RPC access | Disabled |
 | `--rpc-cors` | CORS allowed origins | None |
 | `--cache-size` | Maximum blocks to cache in memory | `256` |
 | `--database-url` | SQLite database for receipts | `sqlite::memory:` |
 | `--index-last-n-blocks` | Index last N blocks on startup | None |
+| `--earliest-receipt-block` | Earliest block for receipt searches | None |
 
 !!! warning
     The `--unsafe-rpc-external` flag exposes your RPC endpoint publicly. For production deployments, use a reverse proxy with proper authentication and rate limiting.
@@ -9497,40 +9498,13 @@ The adapter accepts the following key parameters:
 Your node setup provides two distinct API interfaces:
 
 | Interface | Port | Protocol | Use Cases |
-|-----------|------|----------|-----------|
-| **Substrate RPC** | 9944 | WebSocket/HTTP | Substrate-native applications, parachain-specific operations, governance |
-| **Ethereum RPC** | 8545 | HTTP | Web3 libraries, Ethereum tools, EVM-compatible dApps |
+|:---------:|:----:|:--------:|:---------:|
+| **Polkadot SDK RPC** | 9944 | WebSocket/HTTP | Polkadot SDK-native applications, parachain-specific operations, governance |
+| **Ethereum RPC** | 8545 | HTTP | EVM libraries, Ethereum tools, EVM-compatible dApps |
 
 ### Verify the Ethereum RPC Adapter
 
-Test the Ethereum RPC endpoint to confirm proper operation:
-
-=== "Get Chain ID"
-
-    ```bash
-    curl -X POST \
-      -H "Content-Type: application/json" \
-      -d '{"jsonrpc":"2.0","method":"eth_chainId","params":[],"id":1}' \
-      http://localhost:8545
-    ```
-
-=== "Get Latest Block Number"
-
-    ```bash
-    curl -X POST \
-      -H "Content-Type: application/json" \
-      -d '{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":1}' \
-      http://localhost:8545
-    ```
-
-=== "Get Block Details"
-
-    ```bash
-    curl -X POST \
-      -H "Content-Type: application/json" \
-      -d '{"jsonrpc":"2.0","method":"eth_getBlockByNumber","params":["latest", true],"id":1}' \
-      http://localhost:8545
-    ```
+To verify the Ethereum RPC adapter is working correctly, you can test standard Ethereum JSON-RPC methods like `eth_chainId`, `eth_blockNumber`, and `eth_getBlockByNumber`. For a complete list of supported methods and example queries, see the [JSON-RPC APIs](/develop/smart-contracts/dev-tools/json-rpc-apis/){target=\_blank} reference.
 
 ### Manage the Ethereum RPC Adapter
 
@@ -9582,7 +9556,7 @@ Running an RPC node for Polkadot Hub provides essential infrastructure for appli
 - Supports both Docker and systemd deployment options for flexibility
 - Implements proper monitoring, security, and maintenance practices
 - Serves as a foundation for building and operating Polkadot SDK applications
-- Optionally enables Ethereum RPC compatibility for seamless integration with Web3 tools and wallets
+- Optionally enables Ethereum RPC compatibility for seamless integration with EVM tools and wallets
 
 Regular maintenance, security updates, and monitoring will ensure your RPC node continues to serve your users reliably. As the Polkadot network evolves, stay informed about updates and best practices through the official channels and community resources listed in this guide.
 

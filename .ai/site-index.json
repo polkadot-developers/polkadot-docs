@@ -3818,6 +3818,77 @@
     "token_estimator": "heuristic-v1"
   },
   {
+    "id": "parachains-runtime-maintenance-coretime-renewal",
+    "title": "Coretime Renewal",
+    "slug": "parachains-runtime-maintenance-coretime-renewal",
+    "categories": [
+      "Parachains"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/parachains-runtime-maintenance-coretime-renewal.md",
+    "html_url": "https://docs.polkadot.com/parachains/runtime-maintenance/coretime-renewal/",
+    "preview": "Coretime can be purchased in bulk for a period of 28 days, providing access to Polkadot's shared security and interoperability for Polkadot parachains. The bulk purchase of coretime includes a rent-control mechanism that keeps future purchases within a predictable price range of the initial purchase. This allows cores to be renewed at a known price without competing against other participants in the open market.",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Bulk Sale Phases",
+        "anchor": "bulk-sale-phases"
+      },
+      {
+        "depth": 2,
+        "title": "Renewal Timing",
+        "anchor": "renewal-timing"
+      },
+      {
+        "depth": 2,
+        "title": "Manual Renewal",
+        "anchor": "manual-renewal"
+      },
+      {
+        "depth": 2,
+        "title": "Auto-Renewal",
+        "anchor": "auto-renewal"
+      },
+      {
+        "depth": 3,
+        "title": "Set Up an HRMP Channel",
+        "anchor": "set-up-an-hrmp-channel"
+      },
+      {
+        "depth": 3,
+        "title": "Fund Sovereign Account",
+        "anchor": "fund-sovereign-account"
+      },
+      {
+        "depth": 3,
+        "title": "Auto-Renewal Configuration Extrinsics",
+        "anchor": "auto-renewal-configuration-extrinsics"
+      },
+      {
+        "depth": 3,
+        "title": "Construct the Enable Auto-Renewal Extrinsic",
+        "anchor": "construct-the-enable-auto-renewal-extrinsic"
+      },
+      {
+        "depth": 3,
+        "title": "Submit the XCM from Your Parachain",
+        "anchor": "submit-the-xcm-from-your-parachain"
+      }
+    ],
+    "stats": {
+      "chars": 13896,
+      "words": 1894,
+      "headings": 10,
+      "estimated_token_count_total": 3069
+    },
+    "hash": "sha256:d9ab9ae55aafe0ed3d2ff133fddbf0dcfd78665b2aaa3340660f03a0aff9c21f",
+    "token_estimator": "heuristic-v1"
+  },
+  {
     "id": "parachains-runtime-maintenance-runtime-upgrades",
     "title": "Runtime Upgrades",
     "slug": "parachains-runtime-maintenance-runtime-upgrades",

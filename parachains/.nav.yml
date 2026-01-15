@@ -4,6 +4,6 @@ nav:
  - 'Launch a Simple Parachain': launch-a-parachain
  - 'Customize Your Runtime': customize-runtime
  - 'Test Your Runtime': testing
- - 'Maintain and Upgrade Your Runtime': runtime-maintenance
+ - 'Maintain and Upgrade Your Parachain': runtime-maintenance
  - 'Enable Interoperability': interoperability
  - 'Integrations': integrations

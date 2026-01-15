@@ -2343,12 +2343,12 @@
       }
     ],
     "stats": {
-      "chars": 11893,
-      "words": 1580,
+      "chars": 12480,
+      "words": 1657,
       "headings": 14,
-      "estimated_token_count_total": 2714
+      "estimated_token_count_total": 2875
     },
-    "hash": "sha256:91ac8b9f927485eaa7b147110a7f5057eea982f9ea9783fe039aae613b05b404",
+    "hash": "sha256:799f2fe0e37fad8b0e64dba077e4288272514b6b04abf65c1ddca0c14c1bcc80",
     "token_estimator": "heuristic-v1"
   },
   {
@@ -3809,12 +3809,12 @@
       }
     ],
     "stats": {
-      "chars": 10613,
-      "words": 1513,
+      "chars": 11202,
+      "words": 1592,
       "headings": 11,
-      "estimated_token_count_total": 2382
+      "estimated_token_count_total": 2546
     },
-    "hash": "sha256:1c983b0b0bc6d34b34998b08ec218c068243b6da5b28c267d1026ac99852758a",
+    "hash": "sha256:5807dc3be78df26125659bb9beb4055ae7444d6b04949d46676681b2abf4d2a4",
     "token_estimator": "heuristic-v1"
   },
   {

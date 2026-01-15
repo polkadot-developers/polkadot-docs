@@ -435,6 +435,11 @@ To interact with the pallet:
 
 You can now test the pallet's functionality by submitting transactions through the interface.
 
+!!! tip "Verified Tutorial"
+    This tutorial is verified by automated tests. View the [test source](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/parachains/customize-runtime/add-existing-pallets/tests/guide.test.ts){target=\_blank} for implementation details.
+
+    [![Add Existing Pallets](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-add-existing-pallets.yml/badge.svg)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-add-existing-pallets.yml){target=\_blank}
+
 ## Where to Go Next
 
 <div class="grid cards" markdown>
@@ -12628,6 +12633,11 @@ To stop the local node:
 1. Return to the terminal window where the node output is displayed.
 2. Press `Control-C` to stop the running process.
 3. Verify that your terminal returns to the prompt in the `parachain-template` directory.
+
+!!! tip "Verified Tutorial"
+    This tutorial is verified by automated tests. View the [test source](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/parachains/set-up-parachain-template/tests/guide.test.ts){target=\_blank} for implementation details.
+
+    [![Set Up Parachain Template](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-set-up-parachain-template.yml/badge.svg)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-set-up-parachain-template.yml){target=\_blank}
 
 ## Where to Go Next
 

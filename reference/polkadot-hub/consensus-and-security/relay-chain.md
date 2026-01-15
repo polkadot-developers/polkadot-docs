@@ -30,7 +30,7 @@ As a Layer-0 blockchain, Polkadot contributes to the multi-chain vision through 
 
 - **Cultivating the next generation of Web3 developers**: Polkadot supports the growth of Web3 core developers through initiatives such as.
 
-    - [Polkadot Blockchain Academy](https://polkadot.com/blockchain-academy){target=\_blank}
+    - [Polkadot Blockchain Academy](https://polkadot.academy/){target=\_blank}
     - [EdX courses](https://www.edx.org/school/web3x){target=\_blank}
     - Rust and Substrate courses (coming soon)
 
@@ -60,7 +60,7 @@ Additionally, the chain handles [staking](https://wiki.polkadot.com/learn/learn-
 
 The new and more efficient way of obtaining core on Polkadot is to go through the process of purchasing coretime.
 
-[Agile coretime](/reference/polkadot-hub/consensus-and-security/agile-coretime/){target=\_blank} improves the efficient use of Polkadot's network resources and offers economic flexibility for developers, extending Polkadot's capabilities far beyond the original vision outlined in the [whitepaper](https://polkadot.com/papers/Polkadot-whitepaper.pdf){target=\_blank}.
+[Agile coretime](/reference/polkadot-hub/consensus-and-security/agile-coretime/){target=\_blank} improves the efficient use of Polkadot's network resources and offers economic flexibility for developers, extending Polkadot's capabilities far beyond the original vision outlined in the [whitepaper](https://assets.polkadot.network/Polkadot-whitepaper.pdf){target=\_blank}..
 
 It enables parachains to purchase monthly "bulk" allocations of coretime (the time allocated for utilizing a core, measured in Polkadot relay chain blocks), ensuring heavy-duty parachains that can author a block every six seconds with [Asynchronous Backing](https://wiki.polkadot.com/learn/learn-async-backing/#asynchronous-backing){target=\_blank} can reliably renew their coretime each month. Although six-second block times are now the default, parachains have the option of producing blocks less frequently.
 

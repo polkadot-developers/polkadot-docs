@@ -9596,6 +9596,127 @@
     "token_estimator": "heuristic-v1"
   },
   {
+    "id": "smart-contracts-precompiles-system",
+    "title": "Interact with the System Precompile",
+    "slug": "smart-contracts-precompiles-system",
+    "categories": [
+      "Smart Contracts"
+    ],
+    "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-precompiles-system.md",
+    "html_url": "https://docs.polkadot.com/smart-contracts/precompiles/system/",
+    "preview": "The System precompile provides access to essential runtime-level functionality that smart contracts frequently need. Located at the fixed address `0x0000000000000000000000000000000000000900`, it offers a comprehensive set of utilities including:",
+    "outline": [
+      {
+        "depth": 2,
+        "title": "Introduction",
+        "anchor": "introduction"
+      },
+      {
+        "depth": 2,
+        "title": "Precompile Interface",
+        "anchor": "precompile-interface"
+      },
+      {
+        "depth": 2,
+        "title": "Cryptographic Operations",
+        "anchor": "cryptographic-operations"
+      },
+      {
+        "depth": 3,
+        "title": "Compute BLAKE2-256 Hash",
+        "anchor": "compute-blake2-256-hash"
+      },
+      {
+        "depth": 3,
+        "title": "Compute BLAKE2-128 Hash",
+        "anchor": "compute-blake2-128-hash"
+      },
+      {
+        "depth": 3,
+        "title": "Verify SR25519 Signature",
+        "anchor": "verify-sr25519-signature"
+      },
+      {
+        "depth": 3,
+        "title": "Convert ECDSA Public Key to Ethereum Address",
+        "anchor": "convert-ecdsa-public-key-to-ethereum-address"
+      },
+      {
+        "depth": 2,
+        "title": "Account Management",
+        "anchor": "account-management"
+      },
+      {
+        "depth": 3,
+        "title": "Convert Address to Account ID",
+        "anchor": "convert-address-to-account-id"
+      },
+      {
+        "depth": 2,
+        "title": "Runtime Queries",
+        "anchor": "runtime-queries"
+      },
+      {
+        "depth": 3,
+        "title": "Check if Caller is Origin",
+        "anchor": "check-if-caller-is-origin"
+      },
+      {
+        "depth": 3,
+        "title": "Check if Caller is Root",
+        "anchor": "check-if-caller-is-root"
+      },
+      {
+        "depth": 3,
+        "title": "Get Minimum Balance",
+        "anchor": "get-minimum-balance"
+      },
+      {
+        "depth": 3,
+        "title": "Get Own Code Hash",
+        "anchor": "get-own-code-hash"
+      },
+      {
+        "depth": 3,
+        "title": "Get Weight Left",
+        "anchor": "get-weight-left"
+      },
+      {
+        "depth": 2,
+        "title": "Contract Lifecycle",
+        "anchor": "contract-lifecycle"
+      },
+      {
+        "depth": 3,
+        "title": "Terminate Contract",
+        "anchor": "terminate-contract"
+      },
+      {
+        "depth": 2,
+        "title": "Interact with the System Precompile",
+        "anchor": "interact-with-the-system-precompile"
+      },
+      {
+        "depth": 2,
+        "title": "Conclusion",
+        "anchor": "conclusion"
+      },
+      {
+        "depth": 2,
+        "title": "Reference",
+        "anchor": "reference"
+      }
+    ],
+    "stats": {
+      "chars": 12467,
+      "words": 1602,
+      "headings": 20,
+      "estimated_token_count_total": 2810
+    },
+    "hash": "sha256:9e355c9af1c66daa19f206343e50c7ba487cce44061549e49f864db410985caf",
+    "token_estimator": "heuristic-v1"
+  },
+  {
     "id": "smart-contracts-precompiles-xcm",
     "title": "Interact with the XCM Precompile",
     "slug": "smart-contracts-precompiles-xcm",

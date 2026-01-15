@@ -1353,17 +1353,52 @@
       },
       {
         "depth": 2,
+        "title": "Ethereum RPC Compatibility",
+        "anchor": "ethereum-rpc-compatibility"
+      },
+      {
+        "depth": 3,
+        "title": "Prerequisites",
+        "anchor": "prerequisites-2"
+      },
+      {
+        "depth": 3,
+        "title": "Run the Ethereum RPC Adapter",
+        "anchor": "run-the-ethereum-rpc-adapter"
+      },
+      {
+        "depth": 3,
+        "title": "Ethereum RPC Configuration",
+        "anchor": "ethereum-rpc-configuration"
+      },
+      {
+        "depth": 3,
+        "title": "API Endpoints",
+        "anchor": "api-endpoints"
+      },
+      {
+        "depth": 3,
+        "title": "Verify the Ethereum RPC Adapter",
+        "anchor": "verify-the-ethereum-rpc-adapter"
+      },
+      {
+        "depth": 3,
+        "title": "Manage the Ethereum RPC Adapter",
+        "anchor": "manage-the-ethereum-rpc-adapter"
+      },
+      {
+        "depth": 2,
         "title": "Conclusion",
         "anchor": "conclusion"
       }
     ],
     "stats": {
-      "chars": 16128,
-      "words": 1823,
-      "headings": 10,
-      "estimated_token_count_total": 3671
+      "chars": 21497,
+      "words": 2500,
+      "headings": 17,
+      "estimated_token_count_total": 5069
     },
-    "hash": "sha256:43ed7022b09fa201b0d67401a08736baef17eeaa5ac410483ba73d62d84f4603",
+    "hash": "sha256:99aa251784851f42abf1d3d70e9dcf3d5356b936f71eeea298868e7ec82bcf1e",
     "token_estimator": "heuristic-v1"
   },
   {

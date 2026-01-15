@@ -27,11 +27,9 @@ The System precompile implements the `ISystem` interface, which is defined in th
 
 For the complete implementation, refer to the [ISystem.sol](https://github.com/paritytech/polkadot-sdk/blob/62fa27df30d985600963fd5bcec1080e4c63fd4b/substrate/frame/revive/uapi/sol/ISystem.sol){target=\_blank} file in the Polkadot SDK.
 
-## Key Functions
+## Cryptographic Operations
 
-### Cryptographic Operations
-
-#### `hashBlake256`
+### Compute BLAKE2-256 Hash
 
 Computes the BLAKE2 256-bit hash of the provided input data. BLAKE2 is the native hashing algorithm used throughout the Polkadot ecosystem and is more efficient than SHA-256 for most operations on PVM.
 
@@ -55,7 +53,7 @@ bytes memory data = "Hello Polkadot!";
 bytes32 hash = system.hashBlake256(data);
 ```
 
-#### `hashBlake128`
+### Compute BLAKE2-128 Hash
 
 Computes the BLAKE2 128-bit hash of the provided input data. This variant is useful when a shorter hash is acceptable for your use case.
 
@@ -71,7 +69,7 @@ function hashBlake128(bytes memory input) external pure returns (bytes32 digest)
 
 - **`digest`**: The 16-byte BLAKE2-128 hash (returned as bytes32 with padding)
 
-#### `sr25519Verify`
+### Verify SR25519 Signature
 
 Verifies a sr25519 signature. Sr25519 is the signature scheme used by most accounts in Polkadot and is essential for verifying signatures from Polkadot native wallets.
 
@@ -101,7 +99,7 @@ bool isValid = system.sr25519Verify(sig, message, pubKey);
 require(isValid, "Invalid signature");
 ```
 
-#### `ecdsaToEthAddress`
+### Convert ECDSA Public Key to Ethereum Address
 
 Converts a compressed ECDSA public key to an Ethereum address. This is useful when working with Ethereum-style accounts and need to derive addresses from public keys.
 
@@ -117,9 +115,9 @@ function ecdsaToEthAddress(uint8[33] calldata publicKey) external view returns (
 
 - **`bytes20`**: The derived Ethereum address
 
-### Account Management
+## Account Management
 
-#### `toAccountId`
+### Convert Address to Account ID
 
 Converts an H160 Ethereum-style address to the native account ID format used by the runtime. This is crucial when contracts need to interact with runtime functionality that expects account IDs rather than addresses.
 
@@ -146,9 +144,9 @@ address ethAddr = 0x1234567890123456789012345678901234567890;
 bytes memory accountId = system.toAccountId(ethAddr);
 ```
 
-### Runtime Queries
+## Runtime Queries
 
-#### `callerIsOrigin`
+### Check if Caller is Origin
 
 Checks whether the immediate caller of your contract is the origin (the initial caller) of the entire call stack. This is useful for determining if your contract was called directly by a user or through another contract.
 
@@ -167,7 +165,7 @@ ISystem system = ISystem(SYSTEM_ADDR);
 require(system.callerIsOrigin(), "Must be called directly by user");
 ```
 
-#### `callerIsRoot`
+### Check if Caller is Root
 
 Checks whether the caller is a root origin. Root origins have elevated privileges and can perform privileged operations. Note that if this returns `true`, `callerIsOrigin()` will also return `true`, as only the origin can be root.
 
@@ -179,7 +177,7 @@ function callerIsRoot() external view returns (bool);
 
 - **`bool`**: `true` if the caller is root, `false` otherwise
 
-#### `minimumBalance`
+### Get Minimum Balance
 
 Returns the existential deposit - the minimum balance required for an account to exist on the chain. Accounts with balances below this threshold are reaped (removed) from state.
 
@@ -199,7 +197,7 @@ uint minBalance = system.minimumBalance();
 require(msg.value >= minBalance, "Below existential deposit");
 ```
 
-#### `ownCodeHash`
+### Get Own Code Hash
 
 Returns the code hash of the calling contract. This can be used for contract identity verification or to check if a contract has been upgraded.
 
@@ -211,7 +209,7 @@ function ownCodeHash() external view returns (bytes32);
 
 - **`bytes32`**: The BLAKE2-256 hash of the contract's code
 
-#### `weightLeft`
+### Get Weight Left
 
 Returns the amount of computational resources (weight) remaining in the current execution context. Weight is Polkadot's measure of computational cost, consisting of two components:
 
@@ -232,9 +230,9 @@ ISystem system = ISystem(SYSTEM_ADDR);
 require(refTime > 1000000, "Insufficient weight remaining");
 ```
 
-### Contract Lifecycle
+## Contract Lifecycle
 
-#### `terminate`
+### Terminate Contract
 
 Terminates the calling contract and transfers its remaining balance to a specified beneficiary. This is useful for cleanup or when a contract has fulfilled its purpose.
 
@@ -268,93 +266,19 @@ To interact with the System precompile in [Remix IDE](/smart-contracts/dev-envir
 
 1. Create a new file called `ISystem.sol` in Remix
 2. Copy and paste the `ISystem` interface code into the file
+
+    ![](/images/smart-contracts/precompiles/system/system-precompile-01.webp)
+
 3. Compile the interface by selecting the compile button or using **Ctrl + S**
 4. In the **Deploy & Run Transactions** tab, select the `ISystem` interface from the contract dropdown
 5. Enter the precompile address `0x0000000000000000000000000000000000000900` in the **At Address** input field
 6. Select the **At Address** button to connect to the precompile
 
+    ![](/images/smart-contracts/precompiles/system/system-precompile-02.webp)
+
 Once connected, you can interact with any of the System precompile functions directly through the Remix interface.
 
-## Practical Examples
-
-### Example 1: Verifying Polkadot Native Signatures
-
-This example shows how to verify signatures from Polkadot native wallets using sr25519:
-
-```solidity
-contract SignatureVerifier {
-    ISystem private constant system = ISystem(SYSTEM_ADDR);
-    
-    function verifyPolkadotSignature(
-        uint8[64] calldata signature,
-        bytes calldata message,
-        bytes32 publicKey
-    ) public view returns (bool) {
-        return system.sr25519Verify(signature, message, publicKey);
-    }
-}
-```
-
-### Example 2: Hash-Based Data Verification
-
-Using BLAKE2 hashing for data integrity checks:
-
-```solidity
-contract DataRegistry {
-    ISystem private constant system = ISystem(SYSTEM_ADDR);
-    mapping(bytes32 => bool) public registeredHashes;
-    
-    function registerData(bytes memory data) public {
-        bytes32 hash = system.hashBlake256(data);
-        registeredHashes[hash] = true;
-    }
-    
-    function verifyData(bytes memory data) public view returns (bool) {
-        bytes32 hash = system.hashBlake256(data);
-        return registeredHashes[hash];
-    }
-}
-```
-
-### Example 3: Origin and Privilege Checks
-
-Restricting function access based on caller status:
-
-```solidity
-contract PrivilegedContract {
-    ISystem private constant system = ISystem(SYSTEM_ADDR);
-    
-    function directCallOnly() public view {
-        require(system.callerIsOrigin(), "Must be called directly");
-        // Function logic...
-    }
-    
-    function rootOnly() public view {
-        require(system.callerIsRoot(), "Root privileges required");
-        // Privileged operations...
-    }
-}
-```
-
-### Example 4: Weight-Aware Execution
-
-Monitoring remaining computational resources during execution:
-
-```solidity
-contract WeightAwareContract {
-    ISystem private constant system = ISystem(SYSTEM_ADDR);
-    
-    function processWithWeightCheck() public {
-        (uint64 refTime, uint64 proofSize) = system.weightLeft();
-        require(refTime > 5000000, "Insufficient weight for operation");
-        
-        // Perform heavy computation
-        for (uint i = 0; i < 100; i++) {
-            // Processing...
-        }
-    }
-}
-```
+![](/images/smart-contracts/precompiles/system/system-precompile-03.webp)
 
 ## Conclusion
 

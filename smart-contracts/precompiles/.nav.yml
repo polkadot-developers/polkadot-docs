@@ -1,4 +1,5 @@
 nav:
  - 'Overview': index.md
  - 'Ethereum Native': eth-native.md
+ - 'Storage': storage.md
  - 'XCM': xcm.md

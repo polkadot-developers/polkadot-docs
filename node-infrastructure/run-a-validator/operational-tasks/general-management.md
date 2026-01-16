@@ -231,7 +231,7 @@ After setting up the environment, install and configure the latest version of Pr
 
     If you set the server up properly, you should see terminal output similar to the following:
 
-    -8<-- 'code/node-infrastructure/run-a-validator/operational-tasks/general-management/terminal-ouput-01.html'
+    -8<-- 'code/node-infrastructure/run-a-validator/operational-tasks/general-management/terminal-output-01.html'
 
 2. Verify you can access the Prometheus interface by navigating to:
 

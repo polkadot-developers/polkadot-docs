@@ -210,6 +210,11 @@ To stop the local node:
 2. Press `Control-C` to stop the running process.
 3. Verify that your terminal returns to the prompt in the `parachain-template` directory.
 
+!!! tip "Verified Tutorial"
+    This tutorial is verified by automated tests. View the [test source](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/parachains/set-up-parachain-template/tests/guide.test.ts){target=\_blank} for implementation details.
+
+    [![Set Up Parachain Template](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-set-up-parachain-template.yml/badge.svg)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-set-up-parachain-template.yml){target=\_blank}
+
 ## Where to Go Next
 
 <div class="grid cards" markdown>

@@ -1,6 +1,6 @@
 ---
 title: Run an RPC Node for Polkadot Hub
-description: Learn how to set up and run an RPC node for Polkadot Hub with Polkadot SDK and Ethereum RPC compatibility.
+description: Learn how to set up and run an RPC node for Polkadot Hub with Polkadot SDK RPC endpoints and optional Ethereum JSON-RPC compatibility.
 categories: Infrastructure
 ---
 
@@ -466,7 +466,6 @@ You can run the Ethereum RPC adapter using Docker or as a systemd service.
     ```bash
     docker run -d --name eth-rpc --restart unless-stopped \
       --network=host \
-      -p 8545:8545 \
       paritypr/eth-rpc:master-1ea05e17 \
       --node-rpc-url ws://127.0.0.1:9944 \
       --rpc-port 8545 \
@@ -479,10 +478,9 @@ You can run the Ethereum RPC adapter using Docker or as a systemd service.
 
 === "systemd"
 
-    1. Download the `eth-rpc` binary from the latest [Polkadot SDK release](https://github.com/paritytech/polkadot-sdk/releases){target=\_blank} or build it from source:
+    1. Build the `eth-rpc` binary from the Polkadot SDK source:
 
         ```bash
-        # Build from source
         git clone https://github.com/paritytech/polkadot-sdk.git
         cd polkadot-sdk
         cargo build -p pallet-revive-eth-rpc --bin eth-rpc --release
@@ -490,6 +488,9 @@ You can run the Ethereum RPC adapter using Docker or as a systemd service.
         # Move to system path
         sudo mv target/release/eth-rpc /usr/local/bin/
         ```
+
+        !!! note
+            Pre-built binaries may not be available for all platforms. Building from source ensures compatibility with your system.
 
     2. Create a systemd service file:
 
@@ -521,6 +522,9 @@ You can run the Ethereum RPC adapter using Docker or as a systemd service.
         [Install]
         WantedBy=multi-user.target
         ```
+
+        !!! warning
+            The `--unsafe-rpc-external` flag exposes your RPC endpoint publicly. For production deployments, consider using a reverse proxy with authentication and rate limiting, or bind to a specific interface.
 
     4. Start the service:
 

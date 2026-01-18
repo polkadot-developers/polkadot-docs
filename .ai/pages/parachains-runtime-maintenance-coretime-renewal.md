@@ -216,14 +216,20 @@ Once you have these values, construct the extrinsic:
 
 ### Submit the XCM from Your Parachain
 
-To activate auto-renewal, you must submit an XCM from your parachain to the Coretime chain using Root origin.  This can be done through the sudo pallet (if available) or your parachain's governance system.
+To activate auto-renewal, you must submit an XCM from your parachain to the Coretime chain using Root origin. This can be done through the sudo pallet (if available) or your parachain's governance system.
+
+!!! note "XCM Version"
+    The Coretime chain uses XCM v5. When constructing messages in Polkadot.js Apps, select **V5** for the XCM version. Key changes in v5 include:
+
+    - Type renames: `Location` (previously `MultiLocation`), `Asset`/`Assets` (previously `MultiAsset`/`MultiAssets`)
+    - New fee instruction: `PayFees` replaces `BuyExecution`
 
 The XCM needs to execute these operations:
 
 1. Withdraw DOT from your parachain's sovereign account on the Coretime chain.
-2. Buy execution to pay for transaction fees.
+2. Pay fees for execution using the new `PayFees` instruction.
 3. Execute the auto-renewal extrinsic.
-4. Refund surplus DOT back to the sovereign account.
+4. Refund surplus fees and deposit remaining assets back to the sovereign account.
 
 Here's how to submit this XCM using Acala (Parachain 2000) as an example:
 
@@ -233,23 +239,26 @@ Here's how to submit this XCM using Acala (Parachain 2000) as an example:
     1. Use the `sudo.sudo` extrinsic to execute the following call as Root.
     2. Select the **polkadotXcm** pallet.
     3. Choose the **send** extrinsic.
-    4. Set the **dest** parameter as the Coretime chain (Parachain 1005).
+    4. Set the **dest** parameter to target the Coretime chain using XCM v5 `Location` format:
+        - **parents**: `1` (go up to relay chain)
+        - **interior**: `X1` with `Parachain: 1005`
 
     ![](/images/parachains/runtime-maintenance/coretime-renewal/coretime-renewal-5.webp)
 
 
-3. Construct the XCM and submit it:
+3. Construct the XCM message using v5 instructions and submit it:
 
-    1. Add a **WithdrawAsset** instruction.
-    2. Add a **BuyExecution** instruction.
+    1. Add a **WithdrawAsset** instruction with the DOT amount to withdraw (specified as `Assets` in v5).
+    2. Add a **PayFees** instruction to pay for execution fees:
+        - **asset**: The asset to use for fees (must be a subset of the withdrawn assets)
     3. Add a **Transact** instruction with the following parameters:
-
-        - **originKind**: Use `SovereignAccount`.
-        - **requireWeightAtMost**: Use the weight calculated previously.
-        - **call**: Use the encoded call data generated before.
-
-    4. Add a **RefundSurplus** instruction.
-    5. Add a **DepositAsset** instruction to send the remaining funds to the parachain sovereign account.
+        - **originKind**: Use `SovereignAccount`
+        - **requireWeightAtMost**: Use the weight calculated previously (specify both `refTime` and `proofSize`)
+        - **call**: Use the encoded call data generated before
+    4. Add a **RefundSurplus** instruction to return unused fees from the fees register to the holding register.
+    5. Add a **DepositAsset** instruction to return remaining funds:
+        - **assets**: Use `Wild::All` to deposit all remaining assets
+        - **beneficiary**: Your parachain's sovereign account `Location`
     6. Click the **Submit Transaction** button.
 
     ![](/images/parachains/runtime-maintenance/coretime-renewal/coretime-renewal-6.webp)

@@ -31,7 +31,7 @@ For the complete implementation, refer to the [ISystem.sol](https://github.com/p
 
 ### Compute BLAKE2-256 Hash
 
-Computes the BLAKE2 256-bit hash of the provided input data. BLAKE2 is the native hashing algorithm used throughout the Polkadot ecosystem and is more efficient than SHA-256 for most operations on PVM.
+Computes the BLAKE2 256-bit hash of the provided input data. BLAKE2 is the native hashing algorithm used throughout the Polkadot ecosystem and is more efficient than SHA-256 for most operations.
 
 ```solidity
 function hashBlake256(bytes memory input) external pure returns (bytes32 digest);

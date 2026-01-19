@@ -101,7 +101,7 @@ require(isValid, "Invalid signature");
 
 ### Convert ECDSA Public Key to Ethereum Address
 
-Converts a compressed ECDSA public key to an Ethereum address. This is useful when working with Ethereum-style accounts and need to derive addresses from public keys.
+Converts a compressed ECDSA public key to an Ethereum address. This is useful when working with Ethereum-style accounts and you need to derive addresses from public keys.
 
 ```solidity
 function ecdsaToEthAddress(uint8[33] calldata publicKey) external view returns (bytes20);

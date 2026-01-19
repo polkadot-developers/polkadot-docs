@@ -5907,7 +5907,7 @@ For the complete implementation, refer to the [ISystem.sol](https://github.com/p
 
 ### Compute BLAKE2-256 Hash
 
-Computes the BLAKE2 256-bit hash of the provided input data. BLAKE2 is the native hashing algorithm used throughout the Polkadot ecosystem and is more efficient than SHA-256 for most operations on PVM.
+Computes the BLAKE2 256-bit hash of the provided input data. BLAKE2 is the native hashing algorithm used throughout the Polkadot ecosystem and is more efficient than SHA-256 for most operations.
 
 ```solidity
 function hashBlake256(bytes memory input) external pure returns (bytes32 digest);
@@ -5977,7 +5977,7 @@ require(isValid, "Invalid signature");
 
 ### Convert ECDSA Public Key to Ethereum Address
 
-Converts a compressed ECDSA public key to an Ethereum address. This is useful when working with Ethereum-style accounts and need to derive addresses from public keys.
+Converts a compressed ECDSA public key to an Ethereum address. This is useful when working with Ethereum-style accounts and you need to derive addresses from public keys.
 
 ```solidity
 function ecdsaToEthAddress(uint8[33] calldata publicKey) external view returns (bytes20);

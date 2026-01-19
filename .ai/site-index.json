@@ -9708,12 +9708,12 @@
       }
     ],
     "stats": {
-      "chars": 12467,
-      "words": 1602,
+      "chars": 12464,
+      "words": 1601,
       "headings": 20,
-      "estimated_token_count_total": 2810
+      "estimated_token_count_total": 2809
     },
-    "hash": "sha256:9e355c9af1c66daa19f206343e50c7ba487cce44061549e49f864db410985caf",
+    "hash": "sha256:2aa0c052176b574ef621aced616d1b4d5a4816699d6fe6e2766710a79106ee82",
     "token_estimator": "heuristic-v1"
   },
   {

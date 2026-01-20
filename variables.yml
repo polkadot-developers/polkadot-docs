@@ -3,7 +3,7 @@ dependencies:
   repositories:
     zombienet:
       repository_url: https://github.com/paritytech/zombienet
-      version: v1.3.133
+      version: v1.3.138
       architecture: macos-arm64
     polkadot_sdk_solochain_template:
       repository_url: https://github.com/paritytech/polkadot-sdk-solochain-template

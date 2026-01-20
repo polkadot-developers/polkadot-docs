@@ -52,7 +52,7 @@ dependencies:
   javascript_packages:
     chopsticks:
       name: '@acala-network/chopsticks'
-      version: 1.2.2
+      version: 1.2.5
     moonwall:
       name: '@moonwall/cli'
       version: 5.15.0

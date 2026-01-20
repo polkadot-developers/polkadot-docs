@@ -452,8 +452,9 @@ Polkadot Hub supports Ethereum RPC compatibility through the `eth-rpc` adapter, 
 
 Before starting the Ethereum RPC adapter:
 
-- Your Polkadot Hub node must be **fully synchronized**
-- The Polkadot SDK-based RPC endpoint must be accessible (default: `ws://127.0.0.1:9944`)
+- **Node synchronization** - your Polkadot Hub node must be **fully synchronized**. The eth-rpc adapter requires access to current chain state and will fail to start if the node is still syncing
+- **Archive node recommended** - for full Ethereum RPC compatibility, running an **archive node** (`--state-pruning=archive`) is recommended. The eth-rpc adapter may fail to query historical state on pruned nodes
+- **RPC accessibility** - the Polkadot SDK-based RPC endpoint must be accessible (default: `ws://127.0.0.1:9944`)
 
 ### Run the Ethereum RPC Adapter
 

@@ -79,7 +79,7 @@ dependencies:
       version: 4.16.0
     viem:
       name: '@viem'
-      version: 2.23.6 
+      version: 2.44.4 
     ethersjs:
       name: '@ethersjs'
       version: 6.13.5

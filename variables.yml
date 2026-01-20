@@ -58,7 +58,7 @@ dependencies:
       version: 5.18.2
     polkadot_js_api:
       name: '@polkadot/api'
-      version: 16.4.7
+      version: 16.5.4
     polkadot_api:
       name: polkadot-api
       version: 1.17.2

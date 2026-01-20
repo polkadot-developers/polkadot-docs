@@ -122,15 +122,15 @@ Examine the following migration example that transforms a simple `StorageValue` 
 - New `StorageValue` format:
 
     ```rust
-    --8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkadot-stable2409-1/substrate/frame/examples/single-block-migrations/src/lib.rs:166:177'
+    --8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/{{dependencies.repositories.polkadot_sdk.version}}/substrate/frame/examples/single-block-migrations/src/lib.rs:166:177'
 
-    --8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkadot-stable2409-1/substrate/frame/examples/single-block-migrations/src/lib.rs:200:201'
+    --8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/{{dependencies.repositories.polkadot_sdk.version}}/substrate/frame/examples/single-block-migrations/src/lib.rs:200:201'
     ```
 
 - Migration:
 
     ```rust
-    --8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkadot-stable2409-1/substrate/frame/examples/single-block-migrations/src/migrations/v1.rs:18:122'
+    --8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/{{dependencies.repositories.polkadot_sdk.version}}/substrate/frame/examples/single-block-migrations/src/migrations/v1.rs:18:122'
     ```
 
 ### Migration Organization

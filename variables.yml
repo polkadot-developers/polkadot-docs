@@ -85,5 +85,5 @@ dependencies:
       version: 6.16.0
     paraspell_sdk:
       name: '@paraspell/sdk'
-      version: 12.2.2
+      version: 12.3.0
 #   python_packages:

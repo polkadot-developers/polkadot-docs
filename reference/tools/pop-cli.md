@@ -56,7 +56,7 @@ The command above scaffolds a new parachain project using the default template i
 
 Once the project is generated, move into the new directory and build your parachain:
 
-```
+```bash
 cd my-parachain
 pop build --release
 ```

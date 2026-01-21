@@ -52,7 +52,7 @@ Start by creating a dedicated workspace for your XCM replay and dry-run experime
 5. Install the required Polkadot packages:
 
     ```bash
-    npm install polkadot-api @polkadot-labs/hdkd @polkadot-labs/hdkd-helpers
+    npm install polkadot-api@{{dependencies.javascript_packages.polkadot_api.version}} @polkadot-labs/hdkd@{{dependencies.javascript_packages.hdkd.version}} @polkadot-labs/hdkd-helpers@{{dependencies.javascript_packages.hdkd_helpers.version}}
     ```
 
 6. Initialize the TypeScript config:

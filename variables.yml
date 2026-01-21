@@ -86,4 +86,10 @@ dependencies:
     paraspell_sdk:
       name: '@paraspell/sdk'
       version: 12.3.0
+    hdkd:
+      name: '@polkadot-labs/hdkd'
+      version: 0.0.26
+    hdkd_helpers:
+      name: '@polkadot-labs/hdkd-helpers'
+      version: 0.0.27
 #   python_packages:

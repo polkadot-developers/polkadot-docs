@@ -252,7 +252,7 @@ Here's how to submit this XCM using Acala (Parachain 2000) as an example:
         - **asset**: The asset to use for fees (must be a subset of the withdrawn assets)
     3. Add a **Transact** instruction with the following parameters:
         - **originKind**: Use `SovereignAccount`
-        - **requireWeightAtMost**: Use the weight calculated previously (specify both `refTime` and `proofSize`)
+        - **fallbackMaxWeight**: Use the weight calculated previously (specify both `refTime` and `proofSize`)
         - **call**: Use the encoded call data generated before
     4. Add a **RefundSurplus** instruction to return unused fees from the fees register to the holding register.
     5. Add a **DepositAsset** instruction to return remaining funds:

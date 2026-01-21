@@ -230,12 +230,15 @@ The XCM needs to execute these operations:
 3. Execute the auto-renewal extrinsic.
 4. Refund surplus fees and deposit remaining assets back to the sovereign account.
 
-Here's how to submit this XCM using Acala (Parachain 2000) as an example:
+Here's how to submit this XCM using parachain `2000` as an example:
+
+!!! note "Root Origin Required"
+    The following example uses the `sudo` pallet for simplicity. Production parachains typically don't have sudo enabled and would instead submit this XCM through their governance system (e.g., OpenGov referendum, council motion, or democracy proposal).
 
 1. In [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank}, connect to your parachain, navigate to the **Developer** dropdown and select the **Extrinsics** option.
 
 2. Create a `sudo.sudo` extrinsic that executes `polkadotXcm.send`:
-    1. Use the `sudo.sudo` extrinsic to execute the following call as Root.
+    1. Use the `sudo.sudo` extrinsic to execute the following call as Root (or wrap in a governance proposal for production chains).
     2. Select the **polkadotXcm** pallet.
     3. Choose the **send** extrinsic.
     4. Set the **dest** parameter to target the Coretime chain using XCM v5 `Location` format:
@@ -270,3 +273,17 @@ After successful execution, your parachain should have auto-renewal enabled. To 
 You can find this event in the list of recent events. It should look similar to the following:
 
 ![](/images/parachains/runtime-maintenance/coretime-renewal/coretime-renewal-7.webp)
+
+## Where to Go Next
+
+<div class="grid cards" markdown>
+
+-   <span class="badge guide">Guide</span> __Unlock Your Parachain__
+
+    ---
+
+    Learn how to unlock your parachain's potential by migrating from a legacy lease to on-demand or bulk coretime.
+
+    [:octicons-arrow-right-24: Get Started](/parachains/runtime-maintenance/unlock-parachains/)
+
+</div>

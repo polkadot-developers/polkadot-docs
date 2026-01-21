@@ -1,6 +1,6 @@
 ---
 title: Networks
-description: Explore Polkadot's testing and production networks, with Paseo as the official Polkadot testnet for parachain and dApp development, plus Kusama and Westend for specialized use cases.
+description: Explore Polkadot's testing and production networks, with Paseo as the official Polkadot TestNet for parachain and dApp development, plus Kusama and Westend for specialized use cases.
 categories: Basics, Polkadot Protocol, Networks
 ---
 
@@ -8,16 +8,16 @@ categories: Basics, Polkadot Protocol, Networks
 
 ## Introduction
 
-The Polkadot ecosystem is built on a robust set of networks designed to enable secure and scalable development. Whether you are testing new features or deploying to live production, Polkadot offers several layers of networks tailored for each stage of the development process. From local environments to the official Polkadot testnet (Paseo), developers can thoroughly test, iterate, and validate their applications before deploying to Polkadot mainnet. This guide will introduce you to Polkadot's various networks and explain how they fit into the development workflow.
+The Polkadot ecosystem is built on a robust set of networks designed to enable secure and scalable development. Whether you are testing new features or deploying to live production, Polkadot offers several layers of networks tailored for each stage of the development process. From local environments to the official Polkadot TestNet (Paseo), developers can thoroughly test, iterate, and validate their applications before deploying to Polkadot MainNet. This guide will introduce you to Polkadot's various networks and explain how they fit into the development workflow.
 
 ## Network Overview 
 
-Polkadot's development process is structured to ensure new features and upgrades are rigorously tested before being deployed on live production networks. For most parachain and dApp developers, the typical progression follows a well-defined path: starting from local environments, testing on Paseo (the official Polkadot testnet), and ultimately deploying to Polkadot mainnet. The diagram below outlines the recommended development flow:
+Polkadot's development process is structured to ensure new features and upgrades are rigorously tested before being deployed on live production networks. For most parachain and dApp developers, the typical progression follows a well-defined path: starting from local environments, testing on Paseo (the official Polkadot TestNet), and ultimately deploying to Polkadot MainNet. The diagram below outlines the recommended development flow:
 
 ``` mermaid
 flowchart LR
-    id1[Local] --> id3[Paseo Testnet] --> id5[Polkadot Mainnet]
-    id1[Local] -.-> id2[Westend] -.-> id4[Kusama] -.-> id5[Polkadot Mainnet]
+    id1[Local] --> id3[Paseo TestNet] --> id5[Polkadot MainNet]
+    id1[Local] -.-> id2[Westend] -.-> id4[Kusama] -.-> id5[Polkadot MainNet]
 ```
 
 This flow ensures developers can thoroughly test and iterate without risking real tokens or affecting production networks. Testing tools like [Chopsticks](#chopsticks) and various TestNets make it easier to experiment safely before releasing to production.
@@ -28,52 +28,52 @@ For most parachain teams and dApp developers, the typical journey looks like thi
 
 1. **Local development node**: Development starts in a local environment, where developers can create, test, and iterate on upgrades or new features using a local development node. This stage allows rapid experimentation in an isolated setup without any external dependencies. Parachain developers can leverage local TestNets like [Zombienet](#zombienet) for multi-chain testing scenarios.
 
-2. **Paseo (Polkadot Testnet)**: After testing locally, deploy to [Paseo](#polkadot-testnet-paseo), the official Polkadot testnet. Paseo is a stable, community-run testnet that mirrors Polkadot's runtime and is specifically designed for parachain teams and dApp developers to test before deploying to mainnet. This is the recommended testnet for the vast majority of external developers.
+2. **Paseo (Polkadot TestNet)**: After testing locally, deploy to [Paseo](#polkadot-testnet-paseo), the official Polkadot TestNet. Paseo is a stable, community-run TestNet that mirrors Polkadot's runtime and is specifically designed for parachain teams and dApp developers to test before deploying to MainNet. This is the recommended TestNet for the vast majority of external developers.
 
-3. **Polkadot Mainnet**: After thorough testing on Paseo, features are considered ready for deployment to Polkadot, the live production network.
+3. **Polkadot MainNet**: After thorough testing on Paseo, features are considered ready for deployment to Polkadot, the live production network.
 
 ### Alternative Paths for Specialized Use Cases
 
 The Polkadot ecosystem also provides alternative networks for specific development scenarios:
 
-- **Westend**: A protocol-focused testnet maintained by Parity Technologies, primarily used for testing low-level protocol changes and infrastructure updates before they reach Polkadot. Most external developers do not need to use Westend and should use Paseo instead. See the [Other Networks](#other-networks) section for details.
+- **Westend**: A protocol-focused TestNet maintained by Parity Technologies, primarily used for testing low-level protocol changes and infrastructure updates before they reach Polkadot. Most external developers do not need to use Westend and should use Paseo instead. See the [Other Networks](#other-networks) section for details.
 
 - **Kusama**: An experimental "canary" network with real economic value, suitable for teams that want to test in a production environment with actual incentives before deploying to Polkadot. Kusama moves faster and has lower barriers to entry than Polkadot.
 
 !!!note
-    The Rococo TestNet was deprecated on October 14, 2024. Paseo is now the official Polkadot testnet for parachain and dApp development. For protocol-level testing, teams may use Westend, but most external developers should use Paseo as the default testnet.
+    The Rococo TestNet was deprecated on October 14, 2024. Paseo is now the official Polkadot TestNet for parachain and dApp development. For protocol-level testing, teams may use Westend, but most external developers should use Paseo as the default TestNet.
 
-## Polkadot Mainnet
+## Polkadot MainNet
 
-Polkadot is the production network where real value and live applications operate. After thorough testing on Paseo and local development environments, teams deploy their parachains and dApps to Polkadot mainnet. Polkadot provides enterprise-grade security through its shared security model, where all parachains benefit from the collective security of the relay chain's validator set.
+Polkadot is the production network where real value and live applications operate. After thorough testing on Paseo and local development environments, teams deploy their parachains and dApps to Polkadot MainNet. Polkadot provides enterprise-grade security through its shared security model, where all parachains benefit from the collective security of the relay chain's validator set.
 
 The native token for Polkadot is DOT. For more information about DOT, visit the [Native Assets](https://wiki.polkadot.com/learn/learn-DOT/){target=\_blank} page on the Polkadot Wiki.
 
-## Polkadot Testnet (Paseo)
+## Polkadot TestNet (Paseo)
 
-[Paseo](https://github.com/paseo-network){target=\_blank} is the official Polkadot testnet for parachain teams and dApp developers. As a stable, community-run testnet that mirrors Polkadot's runtime, Paseo is specifically designed to provide a reliable testing environment for teams preparing to deploy to Polkadot mainnet.
+[Paseo](https://github.com/paseo-network){target=\_blank} is the official Polkadot TestNet for parachain teams and dApp developers. As a stable, community-run TestNet that mirrors Polkadot's runtime, Paseo is specifically designed to provide a reliable testing environment for teams preparing to deploy to Polkadot MainNet.
 
-**Paseo is the recommended testnet for the vast majority of external developers.** It provides a Polkadot-like environment without the risks and costs associated with live networks, making it ideal for testing parachains, smart contracts, cross-chain messaging (XCM), governance mechanisms, and other application features.
+**Paseo is the recommended TestNet for the vast majority of external developers.** It provides a Polkadot-like environment without the risks and costs associated with live networks, making it ideal for testing parachains, smart contracts, cross-chain messaging (XCM), governance mechanisms, and other application features.
 
 Key characteristics of Paseo:
 
-- **Official Polkadot testnet**: Recognized as the primary testnet for Polkadot ecosystem development
+- **Official Polkadot TestNet**: Recognized as the primary TestNet for Polkadot ecosystem development
 - **Stable and reliable**: Maintained by the community with a focus on stability and uptime
-- **Runtime parity**: Mirrors Polkadot's runtime, ensuring your tests accurately reflect mainnet behavior
+- **Runtime parity**: Mirrors Polkadot's runtime, ensuring your tests accurately reflect MainNet behavior
 - **Community-driven**: Governed and operated by Polkadot community members
 - **Purpose-built for developers**: Specifically designed for parachain and dApp testing workflows
 
 The native token for Paseo is PAS. TestNet tokens are available from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}. Additional information on PAS is available on the [Native Assets](https://wiki.polkadot.com/learn/learn-dot/#__tabbed_2_1){target=\_blank} page.
 
-For more details about Paseo's role as the official Polkadot testnet, see the [forum announcement](https://forum.polkadot.network/t/testnets-paseo-officially-becomes-the-polkadot-testnet-temporary-passet-hub-chain-for-smart-contracts-testing/13209){target=\_blank}.
+For more details about Paseo's role as the official Polkadot TestNet, see the [forum announcement](https://forum.polkadot.network/t/testnets-paseo-officially-becomes-the-polkadot-testnet-temporary-passet-hub-chain-for-smart-contracts-testing/13209){target=\_blank}.
 
 ## Other Networks
 
-While Paseo serves as the default testnet for most development workflows, the Polkadot ecosystem includes additional networks for specialized use cases.
+While Paseo serves as the default TestNet for most development workflows, the Polkadot ecosystem includes additional networks for specialized use cases.
 
 ### Kusama Network
 
-Kusama is Polkadot's "canary" network—an experimental, production-grade environment with real economic value. Unlike testnets, Kusama operates as a live network with actual incentives and economic consequences. It moves faster than Polkadot and has lower barriers to entry, making it suitable for teams that want to deploy in a real economic environment before moving to Polkadot.
+Kusama is Polkadot's "canary" network—an experimental, production-grade environment with real economic value. Unlike TestNets, Kusama operates as a live network with actual incentives and economic consequences. It moves faster than Polkadot and has lower barriers to entry, making it suitable for teams that want to deploy in a real economic environment before moving to Polkadot.
 
 Kusama is ideal for:
 
@@ -85,13 +85,13 @@ The native token for Kusama is KSM. For more information about KSM, visit the [N
 
 ### Westend
 
-Westend is a protocol-focused testnet maintained by Parity Technologies, primarily used for testing low-level Polkadot protocol changes, runtime upgrades, and infrastructure updates before they reach Kusama or Polkadot. Unlike Paseo, Westend is intentionally unstable and receives cutting-edge protocol changes first, making it more suitable for core protocol development and infrastructure testing than for parachain or dApp development.
+Westend is a protocol-focused TestNet maintained by Parity Technologies, primarily used for testing low-level Polkadot protocol changes, runtime upgrades, and infrastructure updates before they reach Kusama or Polkadot. Unlike Paseo, Westend is intentionally unstable and receives cutting-edge protocol changes first, making it more suitable for core protocol development and infrastructure testing than for parachain or dApp development.
 
 **Important**: Most external developers do not need Westend and should use Paseo instead. Westend is primarily relevant for:
 
 - Core Polkadot protocol developers testing runtime changes
 - Infrastructure teams testing low-level integrations
-- Teams that specifically need to test against upcoming protocol changes before they reach mainnet
+- Teams that specifically need to test against upcoming protocol changes before they reach MainNet
 
 Unlike temporary test networks, Westend is permanent and is not reset to the genesis block, making it an ongoing environment for long-term protocol testing.
 

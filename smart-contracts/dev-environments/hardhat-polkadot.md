@@ -1,6 +1,6 @@
 ---
 title: Use Hardhat with Polkadot Hub
-description: Learn how to create, compile, test, and deploy smart contracts on Polkadot Hub using Hardhat with PolkaVM support.
+description: Learn how to create, compile, test, and deploy smart contracts on Polkadot Hub using Hardhat with PVM support.
 categories: Smart Contracts, Tooling
 ---
 
@@ -8,7 +8,7 @@ categories: Smart Contracts, Tooling
 
 ## Introduction
 
-[Hardhat](https://hardhat.org/){target=\_blank} is a flexible development environment for building, testing, and deploying smart contracts. With the [`@parity/hardhat-polkadot`](https://github.com/paritytech/hardhat-polkadot){target=\_blank} plugin, you can compile Solidity contracts to PolkaVM bytecode and deploy them to Polkadot Hub. This page demonstrates how to set up a Hardhat project for PolkaVM development.
+[Hardhat](https://hardhat.org/){target=\_blank} is a flexible development environment for building, testing, and deploying smart contracts. With the [`@parity/hardhat-polkadot`](https://github.com/paritytech/hardhat-polkadot){target=\_blank} plugin, you can compile Solidity contracts to PVM bytecode and deploy them to Polkadot Hub. This page demonstrates how to set up a Hardhat project for PVM development.
 
 ## Prerequisites
 
@@ -22,8 +22,8 @@ Before setting up Hardhat, make sure the following are installed:
 1. Create a directory to hold your project files:
 
     ```bash
-    mkdir hardhat-polkavm-example
-    cd hardhat-polkavm-example
+    mkdir hardhat-pvm-example
+    cd hardhat-pvm-example
     ```
 
 2. Initialize a new npm project:
@@ -38,7 +38,7 @@ Before setting up Hardhat, make sure the following are installed:
     npm install --save-dev @parity/hardhat-polkadot@0.2.7
     ```
 
-4. Install the resolc compiler (required for compiling Solidity to PolkaVM):
+4. Install the resolc compiler (required for compiling Solidity to PVM):
 
     ```bash
     npm install --save-dev @parity/resolc@0.2.0
@@ -70,7 +70,7 @@ Before setting up Hardhat, make sure the following are installed:
 
 ## Compile Your Contract
 
-The plugin will compile your Solidity contracts (version `0.8.0` and higher) to PolkaVM bytecode using the resolc compiler:
+The plugin will compile your Solidity contracts (version `0.8.0` and higher) to PVM bytecode using the resolc compiler:
 
 ```bash
 npx hardhat compile
@@ -188,7 +188,7 @@ After testing locally, you can deploy to the Polkadot Hub TestNet:
 
     ---
 
-    Ready to start using Hardhat with PolkaVM? Learn how to compile, test, and deploy a basic contract.
+    Ready to start using Hardhat with PVM? Learn how to compile, test, and deploy a basic contract.
 
     [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-basic/basic-hardhat/)
 

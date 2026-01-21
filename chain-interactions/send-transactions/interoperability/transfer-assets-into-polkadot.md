@@ -87,7 +87,7 @@ npm install --save-dev @types/node tsx typescript
 Sending assets from Ethereum to Polkadot requires the PJS version of the ParaSpell SDK. Install the necessary dependencies using the following command:
 
 ```bash
-npm install @paraspell/sdk-pjs@12.0.2 @polkadot/api@16.5.3 @polkadot/types@16.5.3 ethers@6.15.0
+npm install @paraspell/sdk-pjs@{{dependencies.javascript_packages.paraspell_sdk.version}} @polkadot/api@{{dependencies.javascript_packages.polkadot_js_api.version}} @polkadot/types@{{dependencies.javascript_packages.polkadot_js_api.version}} ethers@{{dependencies.javascript_packages.ethersjs.version}}
 ```
 
 Now add the following setup code to `index.ts`:

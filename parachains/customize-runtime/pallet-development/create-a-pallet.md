@@ -12,11 +12,6 @@ categories: Parachains
 
 In this guide, you'll learn how to build a custom counter pallet from scratch that demonstrates core pallet development concepts.
 
-!!! tip "Verified Tutorial"
-    This tutorial is verified by automated tests. View the [test source](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/parachains/customize-runtime/pallet-development/create-a-pallet/tests/guide.test.ts){target=\_blank} for implementation details.
-
-    [![Create a Custom Pallet](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-create-a-pallet.yml/badge.svg)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-create-a-pallet.yml){target=\_blank}
-
 ## Prerequisites
 
 Before you begin, ensure you have:
@@ -410,6 +405,11 @@ You've successfully created and integrated a custom pallet into a Polkadot SDK-b
 - Added the pallet to a runtime and tested it locally.
 
 These components form the foundation for developing sophisticated blockchain logic in Polkadot SDK-based chains.
+
+!!! tip "Verified Tutorial"
+    This tutorial is verified by automated tests. View the [test source](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/parachains/customize-runtime/pallet-development/create-a-pallet/tests/guide.test.ts){target=\_blank} for implementation details.
+
+    [![Create a Custom Pallet](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-create-a-pallet.yml/badge.svg)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-create-a-pallet.yml){target=\_blank}
 
 ## Where to Go Next
 

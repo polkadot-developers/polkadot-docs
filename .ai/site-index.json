@@ -9604,7 +9604,7 @@
     ],
     "raw_md_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.ai/pages/smart-contracts-precompiles-system.md",
     "html_url": "https://docs.polkadot.com/smart-contracts/precompiles/system/",
-    "preview": "The System precompile provides access to essential runtime-level functionality that smart contracts frequently need. Located at the fixed address `0x0000000000000000000000000000000000000900`, it offers a comprehensive set of utilities including:",
+    "preview": "The System precompile provides access to essential runtime-level functionality that smart contracts frequently need. Located at the fixed address `0x0000000000000000000000000000000000000900`, it offers a comprehensive set of utilities, including:",
     "outline": [
       {
         "depth": 2,
@@ -9708,12 +9708,12 @@
       }
     ],
     "stats": {
-      "chars": 12464,
-      "words": 1601,
+      "chars": 12507,
+      "words": 1604,
       "headings": 20,
-      "estimated_token_count_total": 2809
+      "estimated_token_count_total": 2847
     },
-    "hash": "sha256:2aa0c052176b574ef621aced616d1b4d5a4816699d6fe6e2766710a79106ee82",
+    "hash": "sha256:acf986db182f17430164e09d23a1985c544070b2bf03dfcf2a3fbd2e0c81805b",
     "token_estimator": "heuristic-v1"
   },
   {

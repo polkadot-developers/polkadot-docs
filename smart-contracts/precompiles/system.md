@@ -8,12 +8,12 @@ categories: Smart Contracts
 
 ## Introduction
 
-The System precompile provides access to essential runtime-level functionality that smart contracts frequently need. Located at the fixed address `0x0000000000000000000000000000000000000900`, it offers a comprehensive set of utilities including:
+The System precompile provides access to essential runtime-level functionality that smart contracts frequently need. Located at the fixed address `0x0000000000000000000000000000000000000900`, it offers a comprehensive set of utilities, including:
 
-- **Cryptographic operations**: BLAKE2 hashing, sr25519 signature verification, and ECDSA operations
-- **Account management**: Account ID conversions and balance queries
-- **Runtime queries**: Origin checks, code hash retrieval, and weight tracking
-- **Contract lifecycle**: Safe contract termination
+- **Cryptographic operations**: BLAKE2 hashing, sr25519 signature verification, and ECDSA operations.
+- **Account management**: Account ID conversions and balance queries.
+- **Runtime queries**: Origin checks, code hash retrieval, and weight tracking.
+- **Contract lifecycle**: Safe contract termination.
 
 This precompile is particularly useful for contracts that need to interact with Polkadot-native cryptographic primitives or query runtime state information.
 
@@ -39,11 +39,11 @@ function hashBlake256(bytes memory input) external pure returns (bytes32 digest)
 
 **Parameters:**
 
-- **`input`**: The data to hash
+- **`input`**: The data to hash.
 
 **Returns:**
 
-- **`digest`**: The 32-byte BLAKE2-256 hash
+- **`digest`**: The 32-byte BLAKE2-256 hash.
 
 **Example usage:**
 
@@ -63,15 +63,15 @@ function hashBlake128(bytes memory input) external pure returns (bytes32 digest)
 
 **Parameters:**
 
-- **`input`**: The data to hash
+- **`input`**: The data to hash.
 
 **Returns:**
 
-- **`digest`**: The 16-byte BLAKE2-128 hash (returned as bytes32 with padding)
+- **`digest`**: The 16-byte BLAKE2-128 hash (returned as bytes32 with padding).
 
 ### Verify SR25519 Signature
 
-Verifies a sr25519 signature. Sr25519 is the signature scheme used by most accounts in Polkadot and is essential for verifying signatures from Polkadot native wallets.
+Verifies a sr25519 signature. Sr25519 is the signature scheme used by most accounts on Polkadot and is essential for verifying signatures from Polkadot native wallets.
 
 ```solidity
 function sr25519Verify(uint8[64] calldata signature, bytes calldata message, bytes32 publicKey) external view returns (bool);
@@ -79,13 +79,13 @@ function sr25519Verify(uint8[64] calldata signature, bytes calldata message, byt
 
 **Parameters:**
 
-- **`signature`**: The 64-byte signature to verify
-- **`message`**: The message that was signed
-- **`publicKey`**: The 32-byte public key
+- **`signature`**: The 64-byte signature to verify.
+- **`message`**: The message that was signed.
+- **`publicKey`**: The 32-byte public key.
 
 **Returns:**
 
-- **`bool`**: `true` if the signature is valid, `false` otherwise
+- **`bool`**: `true` if the signature is valid, `false` otherwise.
 
 **Example usage:**
 
@@ -101,7 +101,7 @@ require(isValid, "Invalid signature");
 
 ### Convert ECDSA Public Key to Ethereum Address
 
-Converts a compressed ECDSA public key to an Ethereum address. This is useful when working with Ethereum-style accounts and you need to derive addresses from public keys.
+Converts a compressed ECDSA public key to an Ethereum address. This is useful when working with Ethereum-style accounts, and you need to derive addresses from public keys.
 
 ```solidity
 function ecdsaToEthAddress(uint8[33] calldata publicKey) external view returns (bytes20);
@@ -109,11 +109,11 @@ function ecdsaToEthAddress(uint8[33] calldata publicKey) external view returns (
 
 **Parameters:**
 
-- **`publicKey`**: The 33-byte compressed ECDSA public key
+- **`publicKey`**: The 33-byte compressed ECDSA public key.
 
 **Returns:**
 
-- **`bytes20`**: The derived Ethereum address
+- **`bytes20`**: The derived Ethereum address.
 
 ## Account Management
 
@@ -127,11 +127,11 @@ function toAccountId(address input) external view returns (bytes memory account_
 
 **Parameters:**
 
-- **`input`**: The Ethereum address to convert
+- **`input`**: The Ethereum address to convert.
 
 **Returns:**
 
-- **`account_id`**: The native account ID bytes
+- **`account_id`**: The native account ID bytes.
 
 !!!note
     If no mapping exists for the provided address, a fallback account ID will be returned.
@@ -156,7 +156,7 @@ function callerIsOrigin() external view returns (bool);
 
 **Returns:**
 
-- **`bool`**: `true` if the caller is the origin, `false` if called through another contract
+- **`bool`**: `true` if the caller is the origin, `false` if called through another contract.
 
 **Example usage:**
 
@@ -175,7 +175,7 @@ function callerIsRoot() external view returns (bool);
 
 **Returns:**
 
-- **`bool`**: `true` if the caller is root, `false` otherwise
+- **`bool`**: `true` if the caller is root, `false` otherwise.
 
 ### Get Minimum Balance
 
@@ -187,7 +187,7 @@ function minimumBalance() external view returns (uint);
 
 **Returns:**
 
-- **`uint`**: The minimum balance in the smallest unit of the native token
+- **`uint`**: The minimum balance in the smallest unit of the native token.
 
 **Example usage:**
 
@@ -207,7 +207,7 @@ function ownCodeHash() external view returns (bytes32);
 
 **Returns:**
 
-- **`bytes32`**: The BLAKE2-256 hash of the contract's code
+- **`bytes32`**: The BLAKE2-256 hash of the contract's code.
 
 ### Get Weight Left
 
@@ -219,8 +219,8 @@ function weightLeft() external view returns (uint64 refTime, uint64 proofSize);
 
 **Returns:**
 
-- **`refTime`**: Remaining reference time (computational cycles)
-- **`proofSize`**: Remaining proof size allowance (storage proof bytes)
+- **`refTime`**: Remaining reference time (computational cycles).
+- **`proofSize`**: Remaining proof size allowance (storage proof bytes).
 
 **Example usage:**
 
@@ -242,7 +242,7 @@ function terminate(address beneficiary) external;
 
 **Parameters:**
 
-- **`beneficiary`**: The address that will receive the contract's remaining balance
+- **`beneficiary`**: The address that will receive the contract's remaining balance.
 
 !!!warning
     This function will revert if called from:
@@ -262,17 +262,17 @@ system.terminate(beneficiary); // Contract is terminated after this call
 
 ## Interact with the System Precompile
 
-To interact with the System precompile in [Remix IDE](/smart-contracts/dev-environments/remix/){target=\_blank}:
+To interact with the System precompile in the [Remix IDE](/smart-contracts/dev-environments/remix/){target=\_blank}:
 
-1. Create a new file called `ISystem.sol` in Remix
-2. Copy and paste the `ISystem` interface code into the file
+1. Create a new file called `ISystem.sol` in Remix.
+2. Copy and paste the `ISystem` interface code into the file.
 
     ![](/images/smart-contracts/precompiles/system/system-precompile-01.webp)
 
-3. Compile the interface by selecting the compile button or using **Ctrl + S**
-4. In the **Deploy & Run Transactions** tab, select the `ISystem` interface from the contract dropdown
-5. Enter the precompile address `0x0000000000000000000000000000000000000900` in the **At Address** input field
-6. Select the **At Address** button to connect to the precompile
+3. Compile the interface using the **Compile** button at the top or press **Ctrl + S**.
+4. In the **Deploy & Run Transactions** tab, select the `ISystem` interface from the contract dropdown.
+5. Enter the precompile address `0x0000000000000000000000000000000000000900` in the **At Address** input field.
+6. Select the **At Address** button to connect to the precompile.
 
     ![](/images/smart-contracts/precompiles/system/system-precompile-02.webp)
 

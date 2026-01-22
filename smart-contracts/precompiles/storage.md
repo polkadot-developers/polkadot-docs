@@ -1,6 +1,6 @@
 ---
 title: Interact with the Storage Precompile
-description: Learn how to use the Storage precompile for low-level storage operations, including reading, writing, and managing contract storage data.
+description: Learn how to use the Storage precompile for low-level contract storage access, including reads, writes, partial reads, key inspection, and storage management.
 categories: Smart Contracts
 ---
 
@@ -8,12 +8,12 @@ categories: Smart Contracts
 
 ## Introduction
 
-The Storage precompile provides low-level access to contract storage operations at the runtime level. Located at the fixed address `0x0000000000000000000000000000000000000901`, it offers a comprehensive set of utilities including:
+The Storage precompile provides low-level access to contract storage operations at the runtime level. Located at the fixed address `0x0000000000000000000000000000000000000901`, it offers a comprehensive set of utilities, including:
 
-- **Direct storage access**: Read and write raw storage keys and values
-- **Partial reads**: Retrieve specific segments of large values to optimize gas costs
-- **Storage inspection**: Check for key existence and value sizes
-- **Storage management**: Efficiently remove and manage storage entries
+- **Direct storage access**: Read and write raw storage keys and values.
+- **Partial reads**: Retrieve specific segments of large values to optimize gas costs.
+- **Storage inspection**: Check for key existence and value sizes.
+- **Storage management**: Efficiently remove and manage storage entries.
 
 This precompile is particularly useful for contracts that need fine-grained control over storage layout, want to optimize gas costs for large data structures, or need to implement custom storage patterns.
 
@@ -39,11 +39,11 @@ function get(bytes32 key) external view returns (bytes memory);
 
 **Parameters:**
 
-- **`key`**: The storage key to read from
+- **`key`**: The storage key to read from.
 
 **Returns:**
 
-- **`bytes memory`**: The complete value stored at the key
+- **`bytes memory`**: The complete value stored at the key.
 
 **Example usage:**
 
@@ -66,13 +66,13 @@ function get_range(bytes32 key, uint32 offset, uint32 length) external view retu
 
 **Parameters:**
 
-- **`key`**: The storage key to read from
-- **`offset`**: Starting byte position within the stored value
-- **`length`**: Number of bytes to read
+- **`key`**: The storage key to read from.
+- **`offset`**: Starting byte position within the stored value.
+- **`length`**: Number of bytes to read.
 
 **Returns:**
 
-- **`bytes memory`**: The requested segment of the stored value
+- **`bytes memory`**: The requested segment of the stored value.
 
 **Example usage:**
 
@@ -85,7 +85,7 @@ bytes memory segment = storage.get_range(key, 100, 100);
 ```
 
 !!!warning
-    This function will revert if the offset + length exceeds the actual stored value's length.
+    This function will revert if the sum of offset and length exceeds the actual length of the stored value.
 
 ### Read Value Prefix
 
@@ -97,12 +97,12 @@ function get_prefix(bytes32 key, uint32 max_length) external view returns (bytes
 
 **Parameters:**
 
-- **`key`**: The storage key to read from
-- **`max_length`**: Maximum number of bytes to read from the start
+- **`key`**: The storage key to read from.
+- **`max_length`**: Maximum number of bytes to read from the start.
 
 **Returns:**
 
-- **`bytes memory`**: The prefix of the stored value (up to `max_length` bytes)
+- **`bytes memory`**: The prefix of the stored value (up to `max_length` bytes).
 
 **Example usage:**
 
@@ -126,8 +126,8 @@ function set(bytes32 key, bytes memory value) external;
 
 **Parameters:**
 
-- **`key`**: The storage key to write to
-- **`value`**: The data to store
+- **`key`**: The storage key to write to.
+- **`value`**: The data to store.
 
 **Example usage:**
 
@@ -140,7 +140,7 @@ storage.set(key, data);
 ```
 
 !!!note
-    Large storage writes can be expensive in terms of gas. Consider breaking large data into smaller chunks if possible.
+    Large storage writes can be expensive in terms of gas. Breaking large data into smaller chunks is recommended.
 
 ### Remove Value
 
@@ -152,7 +152,7 @@ function remove(bytes32 key) external;
 
 **Parameters:**
 
-- **`key`**: The storage key to delete
+- **`key`**: The storage key to delete.
 
 **Example usage:**
 
@@ -175,11 +175,11 @@ function has_key(bytes32 key) external view returns (bool);
 
 **Parameters:**
 
-- **`key`**: The storage key to check
+- **`key`**: The storage key to check.
 
 **Returns:**
 
-- **`bool`**: `true` if the key exists, `false` otherwise
+- **`bool`**: `true` if the key exists, `false` otherwise.
 
 **Example usage:**
 
@@ -205,11 +205,11 @@ function length(bytes32 key) external view returns (uint32);
 
 **Parameters:**
 
-- **`key`**: The storage key to query
+- **`key`**: The storage key to query.
 
 **Returns:**
 
-- **`uint32`**: The length in bytes of the stored value
+- **`uint32`**: The length in bytes of the stored value.
 
 **Example usage:**
 
@@ -234,19 +234,19 @@ if (size > 10000) {
 
 To interact with the Storage precompile in [Remix IDE](/smart-contracts/dev-environments/remix/){target=\_blank}:
 
-1. Create a new file called `IStorage.sol` in Remix
-2. Copy and paste the `IStorage` interface code into the file
+1. Create a new file called `IStorage.sol` in Remix.
+2. Copy and paste the `IStorage` interface code into the file.
 
     ![](/images/smart-contracts/precompiles/storage/storage-precompile-01.webp)
 
-3. Compile the interface by selecting the compile button or using **Ctrl + S**
-4. In the **Deploy & Run Transactions** tab, select the `IStorage` interface from the contract dropdown
-5. Enter the precompile address `0x0000000000000000000000000000000000000901` in the **At Address** input field
-6. Select the **At Address** button to connect to the precompile
+3. Compile the interface by selecting the compile button or using **Ctrl + S**.
+4. In the **Deploy & Run Transactions** tab, select the `IStorage` interface from the contract dropdown.
+5. Enter the precompile address `0x0000000000000000000000000000000000000901` in the **At Address** input field.
+6. Select the **At Address** button to connect to the precompile.
 
     ![](/images/smart-contracts/precompiles/storage/storage-precompile-02.webp)
 
-Once connected, you can interact with any of the Storage precompile functions directly through the Remix interface.
+Once connected, you can interact with any Storage precompile function directly through the Remix interface.
 
 ![](/images/smart-contracts/precompiles/storage/storage-precompile-03.webp)
 

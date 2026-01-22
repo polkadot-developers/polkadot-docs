@@ -1,4 +1,5 @@
 nav:
  - 'Overview': index.md
  - 'Ethereum Native': eth-native.md
+ - 'ERC-20': erc20.md
  - 'XCM': xcm.md

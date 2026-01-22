@@ -67,7 +67,7 @@ npx hardhat compile
 
 If everything compiles successfully, you will see output similar to the following:
 
---8<-- 'code/smart-contracts/cookbook/smart-contracts/deploy-erc20-token/erc20-hardhat/compile-output.html'
+--8<-- 'code/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-hardhat/compile-output.html'
 
 ## Test the Contract
 

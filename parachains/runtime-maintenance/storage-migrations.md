@@ -130,7 +130,7 @@ Examine the following migration example that transforms a simple `StorageValue` 
 - Migration:
 
     ```rust
-    --8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/{{dependencies.repositories.polkadot_sdk.version}}/substrate/frame/examples/single-block-migrations/src/migrations/v1.rs:18:122'
+    --8<-- 'https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/{{dependencies.repositories.polkadot_sdk.version}}/substrate/frame/examples/single-block-migrations/src/migrations/v1.rs:24:122'
     ```
 
 ### Migration Organization

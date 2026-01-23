@@ -239,7 +239,7 @@ To interact with the Storage precompile in [Remix IDE](/smart-contracts/dev-envi
 
     ![](/images/smart-contracts/precompiles/storage/storage-precompile-01.webp)
 
-3. Compile the interface by selecting the compile button or using **Ctrl + S**.
+3. Compile the interface using the **Compile** button at the top or press **Ctrl + S**.
 4. In the **Deploy & Run Transactions** tab, select the `IStorage` interface from the contract dropdown.
 5. Enter the precompile address `0x0000000000000000000000000000000000000901` in the **At Address** input field.
 6. Select the **At Address** button to connect to the precompile.

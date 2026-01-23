@@ -564,7 +564,7 @@ Your node setup provides two distinct API interfaces:
 
 ### Verify the Ethereum RPC Adapter
 
-To verify the Ethereum RPC adapter is working correctly, you can test standard Ethereum JSON-RPC methods like `eth_chainId`, `eth_blockNumber`, and `eth_getBlockByNumber`. For a complete list of supported methods and example queries, see the [JSON-RPC APIs](/develop/smart-contracts/dev-tools/json-rpc-apis/){target=\_blank} reference.
+To verify the Ethereum RPC adapter is working correctly, you can test standard Ethereum JSON-RPC methods like `eth_chainId`, `eth_blockNumber`, and `eth_getBlockByNumber`. For a complete list of supported methods and example queries, see the [JSON-RPC APIs](/smart-contracts/for-eth-devs/json-rpc-apis/){target=\_blank} reference.
 
 ### Manage the Ethereum RPC Adapter
 

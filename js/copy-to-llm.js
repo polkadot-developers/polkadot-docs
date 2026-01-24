@@ -13,13 +13,23 @@
   if (typeof window === 'undefined') {
     return;
   }
-  function buildSlugFromPath(pathname) {
-    const route = (pathname || '').replace(/^\/+|\/+$/g, '');
-    return route.split('/').filter(Boolean).join('-');
-  }
 
-  function getPageSlug() {
-    return buildSlugFromPath(window.location.pathname);
+  function buildSlugFromPath(pathname, toggleFilename) {
+    const route = (pathname || '').replace(/^\/+|\/+$/g, '');
+
+    if (toggleFilename) {
+      console.log(
+        route.split('/').filter(Boolean).slice(0, -1).join('-') +
+          `-${toggleFilename}`
+      );
+      return (
+        route.split('/').filter(Boolean).slice(0, -1).join('-') +
+        `-${toggleFilename}`
+      );
+    } else {
+      console.log(route.split('/').filter(Boolean).join('-'));
+      return route.split('/').filter(Boolean).join('-');
+    }
   }
 
   function getMarkdownUrl(slug) {
@@ -290,9 +300,8 @@
   }
 
   // Mount UI next to the first H1 and wire handlers (skip if already rendered).
-  function addSectionCopyButtons() {
-    const mainTitle = document.querySelector('.md-content h1');
-    if (mainTitle && !document.querySelector('.copy-to-llm-split-container')) {
+  function addSectionCopyButtons(mainTitle, toggleFilename) {
+    if (mainTitle) {
       const wrapper = document.createElement('div');
       wrapper.className = 'h1-copy-wrapper';
       mainTitle.parentNode.insertBefore(wrapper, mainTitle);
@@ -356,7 +365,10 @@
         }
 
         let copySucceeded = false;
-        const slug = getPageSlug();
+        const slug = buildSlugFromPath(
+          window.location.pathname,
+          toggleFilename
+        );
 
         const { text } = await fetchMarkdown(slug);
 
@@ -418,7 +430,10 @@
         }
 
         const action = item.dataset.action;
-        const slug = getPageSlug();
+        const slug = buildSlugFromPath(
+          window.location.pathname,
+          toggleFilename
+        );
 
         // Each dropdown option maps to one of the shared helpers or a new-tab prompt.
         switch (action) {
@@ -486,7 +501,64 @@
   }
 
   function initialize() {
-    addSectionCopyButtons();
+    const mainTitle = document.querySelectorAll('.md-content h1');
+    // If there's more than one h1 on the page, it's likely due to a page-level toggle.
+    // Let's make sure that it is, and if so, add copy buttons to each variant.
+    if (mainTitle.length > 0) {
+      const toggleOptions = document.querySelectorAll('.toggle-btn');
+      if (
+        toggleOptions.length > 0 &&
+        toggleOptions.length === mainTitle.length
+      ) {
+        toggleOptions.forEach((btn, index) => {
+          console.log(btn.dataset.canonical, btn.dataset.id);
+        });
+
+        mainTitle.forEach((title) => {
+          addSectionCopyButtons(title, true);
+        });
+      }
+    } else {
+      addSectionCopyButtons(mainTitle[0], false);
+    }
+  }
+
+  function initialize() {
+    // Before initializing the copy buttons, we need to check for page-level toggles.
+    // In the case where there are no toggles, we have a single page we need to initialize.
+    // Where there are toggles, we have more than one page to initialize.
+    const toggleContainers = document.querySelectorAll('.toggle-container');
+
+    // CASE 1: No toggles at all → single page
+    if (toggleContainers.length === 0) {
+      const title = document.querySelector('.md-content h1');
+      if (title) {
+        addSectionCopyButtons(title, null);
+      }
+      return;
+    }
+
+    // CASE 2: One or more toggle groups
+    toggleContainers.forEach((container) => {
+      const buttons = container.querySelectorAll('.toggle-btn');
+
+      buttons.forEach((btn) => {
+        console.log(btn.dataset);
+        const variant = btn.dataset.variant;
+        const toggleFilename = btn.dataset.filename || null;
+        if (!variant) return;
+
+        const panel = container.querySelector(
+          `.toggle-panel[data-variant="${variant}"]`
+        );
+        if (!panel) return;
+
+        const title = panel.querySelector('h1');
+        if (!title) return;
+
+        addSectionCopyButtons(title, toggleFilename);
+      });
+    });
   }
 
   if (document.readyState === 'loading') {

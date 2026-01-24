@@ -2,6 +2,10 @@
 title: Use Hardhat with Polkadot Hub
 description: Learn how to create, compile, test, and deploy smart contracts on Polkadot Hub using Hardhat with PVM support.
 categories: Smart Contracts, Tooling
+toggle:
+  group: hardhat
+  variant: pvm
+  label: PVM
 ---
 
 # Hardhat Polkadot

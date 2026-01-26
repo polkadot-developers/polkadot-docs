@@ -496,25 +496,6 @@
   }
 
   function initialize() {
-    const mainTitle = document.querySelectorAll('.md-content h1');
-    // If there's more than one h1 on the page, it's likely due to a page-level toggle.
-    // Let's make sure that it is, and if so, add copy buttons to each variant.
-    if (mainTitle.length > 0) {
-      const toggleOptions = document.querySelectorAll('.toggle-btn');
-      if (
-        toggleOptions.length > 0 &&
-        toggleOptions.length === mainTitle.length
-      ) {
-        mainTitle.forEach((title) => {
-          addSectionCopyButtons(title, true);
-        });
-      }
-    } else {
-      addSectionCopyButtons(mainTitle[0], false);
-    }
-  }
-
-  function initialize() {
     // Before initializing the copy buttons, we need to check for page-level toggles.
     // In the case where there are no toggles, we have a single page we need to initialize.
     // Where there are toggles, we have more than one page to initialize.
@@ -531,22 +512,21 @@
 
     // CASE 2: One or more toggle groups
     toggleContainers.forEach((container) => {
-      const buttons = container.querySelectorAll('.toggle-btn');
+      const headerVariants = container.querySelectorAll(
+        '.toggle-header > span[data-variant]'
+      );
 
-      buttons.forEach((btn) => {
-        const variant = btn.dataset.variant;
-        const toggleFilename = btn.dataset.filename || null;
-        if (!variant) return;
+      headerVariants.forEach((headerSpan) => {
+        const h1 = headerSpan.querySelector('h1');
+        if (!h1) return;
 
-        const panel = container.querySelector(
-          `.toggle-panel[data-variant="${variant}"]`
+        const variant = headerSpan.dataset.variant;
+        const button = container.querySelector(
+          `.toggle-btn[data-variant="${variant}"]`
         );
-        if (!panel) return;
 
-        const title = panel.querySelector('h1');
-        if (!title) return;
-
-        addSectionCopyButtons(title, toggleFilename);
+        const toggleFilename = button?.dataset.filename || null;
+        addSectionCopyButtons(h1, toggleFilename);
       });
     });
   }

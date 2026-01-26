@@ -34,8 +34,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const buttons = container.querySelectorAll('.toggle-btn');
     const panels = container.querySelectorAll('.toggle-panel');
+    const headers = container.querySelectorAll('.toggle-header > span');
 
-    if (!buttons.length || !panels.length) return;
+    if (!buttons.length || !panels.length || !headers.length) return;
 
     // Determine canonical variant
     const canonicalButton = Array.from(buttons).find(
@@ -140,6 +141,9 @@ document.addEventListener('DOMContentLoaded', () => {
       );
       panels.forEach((p) =>
         p.classList.toggle('active', p.dataset.variant === variant)
+      );
+      headers.forEach((h) =>
+        h.classList.toggle('active', h.dataset.variant === variant)
       );
       swapTOC(variant);
     }

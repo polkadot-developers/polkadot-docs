@@ -12,7 +12,7 @@ The ERC20 precompile provides a standard ERC20 token interface for interacting w
 
 Each asset in the Assets pallet is mapped to a unique precompile address based on its asset ID. The precompile implements core ERC20 functionality:
 
-- **Token transfers**: Send assets between accounts using standard `transfer` and `transferFrom` methods
+- **Token transfers**: Send assets between accounts using standard `transfer` and `transferFrom` methods.
 - **Approvals and allowances**: Manage spending permissions with `approve` and `allowance`.
 - **Balance queries**: Check token balances with `balanceOf` and total supply with `totalSupply`.
 

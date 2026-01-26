@@ -1,29 +1,11 @@
-function normalizeId(text) {
-  return text
-    .trim()
-    .toLowerCase()
-    .replace(/\s+/g, '-')
-    .replace(/[^\w\-]/g, '');
-}
-
 document.addEventListener('DOMContentLoaded', () => {
   const containers = document.querySelectorAll('.toggle-container');
 
   containers.forEach((container) => {
-    const group = container.dataset.toggleGroup;
     const buttons = container.querySelectorAll('.toggle-btn');
     const panels = container.querySelectorAll('.toggle-panel');
 
     if (!buttons.length || !panels.length) return;
-
-    // Sidebar TOC <nav>
-    function getSidebarTOC() {
-      return document.querySelector('nav.md-nav.md-nav--secondary');
-    }
-
-    function getAllSidebarTOCs() {
-      return document.querySelectorAll('nav.md-nav.md-nav--secondary');
-    }
 
     // Determine canonical variant
     const canonicalButton = Array.from(buttons).find(
@@ -34,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
       : buttons[0].dataset.variant;
 
     // -----------------------------
-    // Assign normalized IDs (UNCHANGED LOGIC)
+    // Assign normalized IDs
     // -----------------------------
     panels.forEach((panel) => {
       const variant = panel.dataset.variant;
@@ -42,15 +24,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const headers = panel.querySelectorAll('h1, h2, h3, h4, h5, h6');
       headers.forEach((h) => {
-        const text = Array.from(h.childNodes)
+        // Get text content excluding child elements like .headerlink
+        const baseId = Array.from(h.childNodes)
           .filter((n) => n.nodeType === Node.TEXT_NODE)
           .map((n) => n.textContent)
           .join('')
-          .trim();
+          .trim()
+          .toLowerCase()
+          .replace(/\s+/g, '-')
+          .replace(/[^\w\-]/g, '');
 
-        const baseId = normalizeId(text);
         const fullId = isCanonical ? baseId : `${variant}-${baseId}`;
-
         h.id = fullId;
 
         const link = h.querySelector('.headerlink');
@@ -61,16 +45,18 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // -----------------------------
-    // TOC injection
+    // TOC injection - store original canonical TOC for restoration
     // -----------------------------
-    // Store the original canonical TOC so we can restore it
-    const originalCanonicalTOC = getSidebarTOC()?.outerHTML;
+    const originalCanonicalTOC = document.querySelector(
+      'nav.md-nav.md-nav--secondary'
+    )?.outerHTML;
 
     function swapTOC(variant) {
-      const allSidebars = getAllSidebarTOCs();
+      const allSidebars = document.querySelectorAll(
+        'nav.md-nav.md-nav--secondary'
+      );
 
-      const sidebar = getSidebarTOC();
-      if (!sidebar) {
+      if (!allSidebars.length) {
         console.error('[toggle] No sidebar found');
         return;
       }
@@ -78,18 +64,14 @@ document.addEventListener('DOMContentLoaded', () => {
       // If switching to canonical, restore original TOC
       if (variant === canonicalVariant) {
         if (originalCanonicalTOC) {
-          const temp = document.createElement('div');
-          temp.innerHTML = originalCanonicalTOC;
-          const restoredSidebar = temp.firstElementChild;
-          if (restoredSidebar) {
-            // Replace ALL matching sidebars
-            allSidebars.forEach((sb) => {
-              const tempCopy = document.createElement('div');
-              tempCopy.innerHTML = originalCanonicalTOC;
-              const clone = tempCopy.firstElementChild;
-              sb.parentNode.replaceChild(clone, sb);
-            });
-          }
+          allSidebars.forEach((sidebar) => {
+            const temp = document.createElement('div');
+            temp.innerHTML = originalCanonicalTOC;
+            const clone = temp.firstElementChild;
+            if (clone) {
+              sidebar.parentNode.replaceChild(clone, sidebar);
+            }
+          });
         }
         return;
       }
@@ -99,14 +81,14 @@ document.addEventListener('DOMContentLoaded', () => {
       );
       if (!panel || !panel.dataset.tocHtml) return;
 
-      // Replace ALL matching sidebars, not just the first one
-      allSidebars.forEach((sb, i) => {
+      // Replace all matching sidebars
+      allSidebars.forEach((sidebar) => {
         const temp = document.createElement('div');
         temp.innerHTML = panel.dataset.tocHtml;
         const newSidebar = temp.firstElementChild;
 
         if (newSidebar) {
-          sb.parentNode.replaceChild(newSidebar, sb);
+          sidebar.parentNode.replaceChild(newSidebar, sidebar);
         }
       });
     }
@@ -114,25 +96,27 @@ document.addEventListener('DOMContentLoaded', () => {
     // -----------------------------
     // Initial variant from URL
     // -----------------------------
-    const hash = window.location.hash.slice(1);
-    let activeVariant = canonicalVariant;
+    function getInitialVariant() {
+      const hash = window.location.hash.slice(1);
+      const isValidVariant = [...buttons].some(
+        (b) => b.dataset.variant === hash
+      );
+      return isValidVariant ? hash : canonicalVariant;
+    }
 
-    if (hash.startsWith(`${group}-`)) {
-      const maybeVariant = hash.replace(`${group}-`, '').split('-')[0];
-      if ([...buttons].some((b) => b.dataset.variant === maybeVariant)) {
-        activeVariant = maybeVariant;
-      }
+    function activateVariant(variant) {
+      buttons.forEach((b) =>
+        b.classList.toggle('active', b.dataset.variant === variant)
+      );
+      panels.forEach((p) =>
+        p.classList.toggle('active', p.dataset.variant === variant)
+      );
+      swapTOC(variant);
     }
 
     // Initial activation
-    buttons.forEach((b) =>
-      b.classList.toggle('active', b.dataset.variant === activeVariant)
-    );
-    panels.forEach((p) =>
-      p.classList.toggle('active', p.dataset.variant === activeVariant)
-    );
-    // Only swap TOC on page load if active variant is not canonical
-    swapTOC(activeVariant);
+    const activeVariant = getInitialVariant();
+    activateVariant(activeVariant);
 
     // -----------------------------
     // Toggle click handler
@@ -140,18 +124,15 @@ document.addEventListener('DOMContentLoaded', () => {
     buttons.forEach((btn) => {
       btn.addEventListener('click', () => {
         const variant = btn.dataset.variant;
+        const isCanonical = btn.dataset.canonical === 'true';
 
-        buttons.forEach((b) => b.classList.toggle('active', b === btn));
-        panels.forEach((p) =>
-          p.classList.toggle('active', p.dataset.variant === variant)
-        );
+        activateVariant(variant);
 
-        swapTOC(variant);
-
-        if (btn.dataset.canonical === 'true') {
+        // Update URL
+        if (isCanonical) {
           history.replaceState(null, '', window.location.pathname);
         } else {
-          window.location.hash = `${group}-${variant}`;
+          window.location.hash = variant;
         }
       });
     });

@@ -212,7 +212,6 @@ To stop the local node:
 
 !!! tip "Verified Tutorial"
 [![Set Up Parachain Template](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-set-up-parachain-template.yml/badge.svg)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-set-up-parachain-template.yml){target=\_blank}
-
 [:octicons-check-circle-16:](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/parachains/set-up-parachain-template/tests/guide.test.ts "View the test source for implementation details"){target=\_blank}
 {: .verified-tutorial-badges }
 

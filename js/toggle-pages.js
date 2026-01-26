@@ -1,7 +1,37 @@
+function updateToggleSlider(container) {
+  const buttons = container.querySelectorAll('.toggle-btn');
+  if (!buttons.length) return;
+
+  // Create the slider element if it doesn't exist
+  let sliderEl = container.querySelector('.toggle-slider');
+  if (!sliderEl) {
+    sliderEl = document.createElement('div');
+    sliderEl.className = 'toggle-slider';
+    container.querySelector('.toggle-buttons').prepend(sliderEl);
+  }
+
+  const activeBtn = container.querySelector('.toggle-btn.active');
+  if (!activeBtn) return;
+
+  // Calculate position relative to the container
+  const btnRect = activeBtn.getBoundingClientRect();
+  const containerRect = container
+    .querySelector('.toggle-buttons')
+    .getBoundingClientRect();
+
+  sliderEl.style.width = btnRect.width + 'px';
+  sliderEl.style.transform = `translateX(${
+    btnRect.left - containerRect.left
+  }px)`;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   const containers = document.querySelectorAll('.toggle-container');
 
   containers.forEach((container) => {
+    // Initial slider update
+    updateToggleSlider(container);
+
     const buttons = container.querySelectorAll('.toggle-btn');
     const panels = container.querySelectorAll('.toggle-panel');
 
@@ -127,6 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const isCanonical = btn.dataset.canonical === 'true';
 
         activateVariant(variant);
+        updateToggleSlider(container);
 
         // Update URL
         if (isCanonical) {

@@ -18,16 +18,11 @@
     const route = (pathname || '').replace(/^\/+|\/+$/g, '');
 
     if (toggleFilename) {
-      console.log(
-        route.split('/').filter(Boolean).slice(0, -1).join('-') +
-          `-${toggleFilename}`
-      );
       return (
         route.split('/').filter(Boolean).slice(0, -1).join('-') +
         `-${toggleFilename}`
       );
     } else {
-      console.log(route.split('/').filter(Boolean).join('-'));
       return route.split('/').filter(Boolean).join('-');
     }
   }
@@ -510,10 +505,6 @@
         toggleOptions.length > 0 &&
         toggleOptions.length === mainTitle.length
       ) {
-        toggleOptions.forEach((btn, index) => {
-          console.log(btn.dataset.canonical, btn.dataset.id);
-        });
-
         mainTitle.forEach((title) => {
           addSectionCopyButtons(title, true);
         });
@@ -543,7 +534,6 @@
       const buttons = container.querySelectorAll('.toggle-btn');
 
       buttons.forEach((btn) => {
-        console.log(btn.dataset);
         const variant = btn.dataset.variant;
         const toggleFilename = btn.dataset.filename || null;
         if (!variant) return;

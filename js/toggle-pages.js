@@ -27,6 +27,7 @@ function updateToggleSlider(container) {
 
 document.addEventListener('DOMContentLoaded', () => {
   const containers = document.querySelectorAll('.toggle-container');
+  const containerStates = new Map(); // Store setState functions for each container
 
   containers.forEach((container) => {
     // Initial slider update
@@ -34,9 +35,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const buttons = container.querySelectorAll('.toggle-btn');
     const panels = container.querySelectorAll('.toggle-panel');
-    const headers = container.querySelectorAll('.toggle-header > span');
+    const h1Headers = container.querySelectorAll('.toggle-header > span');
 
-    if (!buttons.length || !panels.length || !headers.length) return;
+    if (!buttons.length || !panels.length || !h1Headers.length) return;
 
     // Determine canonical variant
     const canonicalButton = Array.from(buttons).find(
@@ -76,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // -----------------------------
-    // TOC injection - store original canonical TOC for restoration
+    // TOC injection
     // -----------------------------
     const originalCanonicalTOC = document.querySelector(
       'nav.md-nav.md-nav--secondary'
@@ -125,51 +126,105 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // -----------------------------
-    // Initial variant from URL
+    // State management
     // -----------------------------
     function getInitialVariant() {
       const hash = window.location.hash.slice(1);
+      
+      // Check if hash is a variant name directly
       const isValidVariant = [...buttons].some(
         (b) => b.dataset.variant === hash
       );
-      return isValidVariant ? hash : canonicalVariant;
+      if (isValidVariant) return hash;
+      
+      // Check if hash is a section ID that starts with a variant prefix
+      for (const button of buttons) {
+        const variant = button.dataset.variant;
+        if (variant !== canonicalVariant && hash.startsWith(`${variant}-`)) {
+          return variant;
+        }
+      }
+      
+      // Default to canonical
+      return canonicalVariant;
     }
 
-    function activateVariant(variant) {
+    let currentVariant = getInitialVariant();
+
+    function setState(variant, updateUrl = true) {
+      currentVariant = variant;
+
+      // Update all UI based on state
       buttons.forEach((b) =>
         b.classList.toggle('active', b.dataset.variant === variant)
       );
       panels.forEach((p) =>
         p.classList.toggle('active', p.dataset.variant === variant)
       );
-      headers.forEach((h) =>
+      h1Headers.forEach((h) =>
         h.classList.toggle('active', h.dataset.variant === variant)
       );
+
       swapTOC(variant);
+      updateToggleSlider(container);
+
+      // Only update URL if requested (to preserve section hashes)
+      if (updateUrl) {
+        if (variant === canonicalVariant) {
+          history.replaceState(null, '', window.location.pathname);
+        } else {
+          window.location.hash = variant;
+        }
+      }
     }
 
-    // Initial activation
-    const activeVariant = getInitialVariant();
-    activateVariant(activeVariant);
+    // Initialize state without changing the URL (preserve section links)
+    setState(currentVariant, false);
+
+    // Store the setState function and related data for this container
+    containerStates.set(container, {
+      setState,
+      getInitialVariant,
+      canonicalVariant
+    });
 
     // -----------------------------
     // Toggle click handler
     // -----------------------------
     buttons.forEach((btn) => {
       btn.addEventListener('click', () => {
-        const variant = btn.dataset.variant;
-        const isCanonical = btn.dataset.canonical === 'true';
-
-        activateVariant(variant);
-        updateToggleSlider(container);
-
-        // Update URL
-        if (isCanonical) {
-          history.replaceState(null, '', window.location.pathname);
-        } else {
-          window.location.hash = variant;
-        }
+        setState(btn.dataset.variant);
       });
+    });
+  });
+
+  // -----------------------------
+  // Handle browser back/forward and URL changes (global listener)
+  // -----------------------------
+  window.addEventListener('hashchange', () => {
+    // Re-check all containers to see if variant should change
+    containerStates.forEach(({ setState, getInitialVariant, canonicalVariant }, container) => {
+      const newVariant = getInitialVariant();
+
+      // Get the current active button to determine current state
+      const activeBtn = container.querySelector('.toggle-btn.active');
+      const currentVariant = activeBtn?.dataset.variant || canonicalVariant;
+
+      // Only update if variant actually changed, preserve the section hash
+      if (newVariant !== currentVariant) {
+        setState(newVariant, false);
+        
+        // After state updates, manually scroll to the hash target
+        const hash = window.location.hash.slice(1);
+        if (hash) {
+          requestAnimationFrame(() => {
+            const target = document.getElementById(hash);
+            if (target) {
+              target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          });
+        }
+      }
     });
   });
 });

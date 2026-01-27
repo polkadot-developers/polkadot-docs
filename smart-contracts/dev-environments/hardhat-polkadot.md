@@ -52,9 +52,9 @@ Before setting up Hardhat, make sure the following are installed:
 
     Follow the project creation wizard. Your project will be created with three main folders:
 
-    - **`contracts`**: Stores your Solidity smart contracts
-    - **`ignition`**: Contains deployment modules for safely deploying your contracts to various networks
-    - **`test`**: Contains test files that validate contract functionality
+    - **`contracts`**: Stores your Solidity smart contracts.
+    - **`ignition`**: Contains deployment modules for safely deploying your contracts to various networks.
+    - **`test`**: Contains test files that validate contract functionality.
 
 6. Add the following folder to the `.gitignore` file if it is not already there:
 
@@ -126,7 +126,7 @@ npx hardhat test
 ```
 
 !!! warning "Compatibility Note"
-    Be aware that [`@nomicfoundation/hardhat-toolbox/network-helpers`](https://hardhat.org/hardhat-network-helpers/docs/overview){target=\_blank} is not fully compatible with Polkadot Hub's available RPCs. Specifically, helpers like `time` and `loadFixture` may not work due to missing RPC calls in the node. For more details, refer to the [Compatibility](https://github.com/paritytech/hardhat-polkadot/tree/main/packages/hardhat-polkadot-node#compatibility){target=\_blank} section in the hardhat-polkadot documentation.
+    Be aware that [`@nomicfoundation/hardhat-toolbox/network-helpers`](https://hardhat.org/hardhat-network-helpers/docs/overview){target=\_blank} is not fully compatible with Polkadot Hub's available RPCs. Specifically, helpers like `time` and `loadFixture` may not work due to missing RPC calls in the node. For more details, refer to the [Compatibility](https://github.com/paritytech/hardhat-polkadot/tree/main/packages/hardhat-polkadot-node#compatibility){target=\_blank} section in the `hardhat-polkadot` documentation.
 
 ### Deploy to Local Node
 
@@ -151,7 +151,7 @@ Before deploying to a live network, you can deploy your contract to a local node
 
 After testing locally, you can deploy to the Polkadot Hub TestNet:
 
-1. Fund your deployment account with PAS test tokens from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}
+1. Fund your deployment account with PAS test tokens from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}.
 
 2. Set your private key as a configuration variable:
 

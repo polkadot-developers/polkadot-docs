@@ -1,9 +1,12 @@
 #![cfg_attr(not(feature = "std"), no_std)]
 
+extern crate alloc;
+
 pub use pallet::*;
 
 #[frame::pallet]
 pub mod pallet {
+    use alloc::vec::Vec;
     use frame::prelude::*;
 
     #[pallet::pallet]

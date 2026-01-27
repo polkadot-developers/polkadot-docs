@@ -1,6 +1,7 @@
 nav:
  - 'Zombienet': zombienet.md
  - 'Chopsticks': chopsticks.md
+ - 'Pop CLI': pop-cli.md
  - 'Moonwall': moonwall.md
  - 'ParaSpell': paraspell.md
  - 'XCM Tools': xcm-tools.md

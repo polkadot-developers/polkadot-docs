@@ -177,28 +177,21 @@ To define pallet parameters:
 !!! tip
     You can define separate parameters for each instance if you need different configurations. For example, you might want a technical committee with a shorter motion duration and fewer members than a general council.
 
-### Create Instance Type Definitions
+### Import Instance Types
 
-Each pallet instance needs a unique type identifier. The Polkadot SDK provides numbered instance types (`Instance1`, `Instance2`, etc.) that you can use to create these identifiers.
+Each pallet instance needs a unique type identifier. The Polkadot SDK provides numbered instance types (`Instance1`, `Instance2`, etc.) in the `frame_support::instances` module.
 
-In the `runtime/src/configs/mod.rs` file, add type definitions for each instance:
+In the `runtime/src/configs/mod.rs` file, import the instance types:
 
 ```rust title="runtime/src/configs/mod.rs"
-// Technical Committee instance
-pub type TechnicalCollective = pallet_collective::Instance1;
-
-// Council instance  
-pub type CouncilCollective = pallet_collective::Instance2;
+use frame_support::instances::{Instance1, Instance2};
 ```
 
-These type aliases:
+These instance types:
 
-- Create distinct identities for each instance.
-- Make your code more readable and maintainable.
+- Create distinct identities for each pallet instance.
 - Are used when implementing the `Config` trait and adding to the runtime construct.
-
-!!! note
-    The names `TechnicalCollective` and `CouncilCollective` are descriptive examples. Choose names that reflect the purpose of each instance in your specific use case.
+- Are provided by `frame_support`, not by individual pallets.
 
 ### Implement Config Trait for First Instance
 
@@ -208,7 +201,7 @@ In the `runtime/src/configs/mod.rs` file, add the following implementation:
 
 ```rust title="runtime/src/configs/mod.rs"
 /// Configure the Technical Committee collective
-impl pallet_collective::Config<TechnicalCollective> for Runtime {
+impl pallet_collective::Config<Instance1> for Runtime {
     type RuntimeOrigin = RuntimeOrigin;
     type Proposal = RuntimeCall;
     type RuntimeEvent = RuntimeEvent;
@@ -245,7 +238,7 @@ In the `runtime/src/configs/mod.rs` file, add the following implementation:
 
 ```rust title="runtime/src/configs/mod.rs"
 /// Configure the Council collective
-impl pallet_collective::Config<CouncilCollective> for Runtime {
+impl pallet_collective::Config<Instance2> for Runtime {
     type RuntimeOrigin = RuntimeOrigin;
     type Proposal = RuntimeCall;
     type RuntimeEvent = RuntimeEvent;
@@ -302,17 +295,17 @@ To add the pallet instances to the runtime construct:
         // ... other pallets
 
         #[runtime::pallet_index(50)]
-        pub type TechnicalCommittee = pallet_collective<TechnicalCollective>;
+        pub type TechnicalCommittee = pallet_collective<Instance1>;
 
         #[runtime::pallet_index(51)]
-        pub type Council = pallet_collective<CouncilCollective>;
+        pub type Council = pallet_collective<Instance2>;
     }
     ```
 
 Important considerations when adding instances:
 
 - **Unique indices**: Each instance must have a different `pallet_index`.
-- **Instance type**: Specify the instance type in angle brackets (e.g., `<TechnicalCollective>`).
+- **Instance type**: Specify the instance type in angle brackets (e.g., `<Instance1>`).
 - **Descriptive names**: Use names that reflect the instance's purpose (e.g., `TechnicalCommittee`, `Council`).
 - **Index management**: Track which indices are used to avoid conflicts.
 
@@ -421,6 +414,11 @@ To test instance independence:
     - Both instances can process proposals simultaneously.
 
 You can now use both collective instances for different governance purposes in your parachain, such as technical decisions that require expertise and general governance decisions that require broader consensus.
+
+!!! note "Automated verification"
+    This tutorial is verified by automated tests. View the [test source](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/parachains/customize-runtime/add-pallet-instances/tests/guide.test.ts){target=\_blank} for implementation details.
+
+    [![Add Pallet Instances](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-add-pallet-instances.yml/badge.svg)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-add-pallet-instances.yml){target=\_blank}
 
 ## Where to Go Next
 

@@ -96,7 +96,7 @@ Developers can leverage smart contracts across diverse networks, from TestNets t
     Block explorer URL
     
     ```text
-    Coming Soon
+    https://blockscout.polkadot.io/
     ```
 
 === "Kusama Hub"

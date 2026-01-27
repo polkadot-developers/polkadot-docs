@@ -50,30 +50,47 @@ document.addEventListener('DOMContentLoaded', () => {
     // -----------------------------
     // Assign normalized IDs
     // -----------------------------
+    const setHeaderId = (header, text, variant) => {
+      const baseId = text.trim()
+        .toLowerCase()
+        .replace(/\s+/g, '-')
+        .replace(/[^\w\-]/g, '');
+      
+      const isCanonical = variant === canonicalVariant;
+      const fullId = isCanonical ? baseId : `${variant}-${baseId}`
+      header.id = fullId;
+
+      const link = header.querySelector('a, .headerlink');
+      if (link) {
+        link.setAttribute('href', `#${fullId}`);
+      }
+    };
+
+    // Process headers inside panels
     panels.forEach((panel) => {
       const variant = panel.dataset.variant;
-      const isCanonical = variant === canonicalVariant;
 
       const headers = panel.querySelectorAll('h1, h2, h3, h4, h5, h6');
       headers.forEach((h) => {
         // Get text content excluding child elements like .headerlink
-        const baseId = Array.from(h.childNodes)
+        const text = Array.from(h.childNodes)
           .filter((n) => n.nodeType === Node.TEXT_NODE)
           .map((n) => n.textContent)
-          .join('')
-          .trim()
-          .toLowerCase()
-          .replace(/\s+/g, '-')
-          .replace(/[^\w\-]/g, '');
+          .join('');
 
-        const fullId = isCanonical ? baseId : `${variant}-${baseId}`;
-        h.id = fullId;
-
-        const link = h.querySelector('.headerlink');
-        if (link) {
-          link.setAttribute('href', `#${fullId}`);
-        }
+        setHeaderId(h, text, variant);
       });
+    });
+
+    // Process h1 headers outside panels (.toggle-header > span)
+    h1Headers.forEach((span) => {
+      const variant = span.dataset.variant;
+      if (!variant) return;
+      
+      const h1 = span.querySelector('h1');
+      if (!h1) return;
+      
+      setHeaderId(h1, h1.textContent, variant);
     });
 
     // -----------------------------

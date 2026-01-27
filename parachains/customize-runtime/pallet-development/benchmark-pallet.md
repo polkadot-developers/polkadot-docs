@@ -310,7 +310,7 @@ cargo install frame-omni-bencher --locked
 Download the official weight template file using the following commands:
 
 ```bash
-curl -L https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkadot-stable2412/substrate/.maintain/frame-weight-template.hbs \
+curl -L https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/{{dependencies.repositories.polkadot_sdk.version}}/substrate/.maintain/frame-weight-template.hbs \
 --output ./pallets/pallet-custom/frame-weight-template.hbs
 ```
 

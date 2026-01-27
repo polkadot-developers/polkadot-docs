@@ -52,7 +52,7 @@ npm install --save-dev @types/node@^22.12.0 tsx@^4.20.6 typescript@^5.7.3
 Install the required dependencies:
 
 ```bash
-npm install --save @paraspell/sdk@11.12.6 polkadot-api@1.20.0 @polkadot-labs/hdkd-helpers@0.0.26 @polkadot-labs/hdkd@0.0.25
+npm install --save @paraspell/sdk@{{dependencies.javascript_packages.paraspell_sdk.version}} polkadot-api@{{dependencies.javascript_packages.polkadot_api.version}} @polkadot-labs/hdkd-helpers@{{dependencies.javascript_packages.hdkd_helpers.version}} @polkadot-labs/hdkd@{{dependencies.javascript_packages.hdkd.version}}
 ```
 
 Now add the following setup code to `index.ts`:

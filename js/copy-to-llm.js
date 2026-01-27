@@ -28,9 +28,7 @@
   }
 
   function getMarkdownUrl(slug) {
-    const host = window.location ? window.location.host : '';
-    const protocol = window.location ? window.location.protocol : 'https:';
-    return `${protocol}//${host}/ai/pages/${slug}.md`;
+    return `${window.location.origin}/ai/pages/${slug}.md`;
   }
 
   const NO_MARKDOWN_MESSAGE = 'No Markdown file available.';
@@ -260,6 +258,12 @@
     dropdownMenu.setAttribute('role', 'menu');
     dropdownMenu.setAttribute('aria-labelledby', 'dropdown-button');
     dropdownMenu.innerHTML = `
+      <button class="copy-to-llm-dropdown-item" data-action="view-markdown" role="menuitem" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+          <path d="M8 2c1.981 0 3.671.992 4.933 2.078 1.27 1.091 2.187 2.345 2.637 3.023a1.62 1.62 0 0 1 0 1.798c-.45.678-1.367 1.932-2.637 3.023C11.67 13.008 9.981 14 8 14c-1.981 0-3.671-.992-4.933-2.078C1.797 10.83.88 9.576.43 8.898a1.62 1.62 0 0 1 0-1.798c.45-.677 1.367-1.931 2.637-3.022C4.33 2.992 6.019 2 8 2ZM1.679 7.932a.12.12 0 0 0 0 .136c.411.622 1.241 1.75 2.366 2.717C5.176 11.758 6.527 12.5 8 12.5c1.473 0 2.825-.742 3.955-1.715 1.124-.967 1.954-2.096 2.366-2.717a.12.12 0 0 0 0-.136c-.412-.621-1.242-1.75-2.366-2.717C10.824 4.242 9.473 3.5 8 3.5c-1.473 0-2.825.742-3.955 1.715-1.124.967-1.954 2.096-2.366 2.717ZM8 10a2 2 0 1 1-.001-3.999A2 2 0 0 1 8 10Z"/>
+        </svg>
+        <span>View Page in Markdown</span>
+      </button>
       <button class="copy-to-llm-dropdown-item" data-action="download-markdown" role="menuitem" tabindex="-1">
         <svg class="octicon" aria-hidden="true" width="16" height="16" viewBox="0 0 16 16">
           <path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"/>
@@ -294,7 +298,7 @@
     return { container, copyButton, dropdownButton, dropdownMenu };
   }
 
-  // Mount UI next to the first H1 and wire handlers (skip if already rendered).
+  // Mount UI next to the first H1 (skip if already rendered or on the home page).
   function addSectionCopyButtons(mainTitle, toggleFilename) {
     if (mainTitle) {
       const wrapper = document.createElement('div');
@@ -365,7 +369,7 @@
           toggleFilename
         );
 
-        const { text } = await fetchMarkdown(slug);
+        const { text, status } = await fetchMarkdown(slug);
 
         if (text) {
           copySucceeded = await copyToClipboard(
@@ -373,6 +377,12 @@
             copyButton,
             'markdown_content'
           );
+        }
+
+        else {
+          if (status === 404) {
+            showToast(NO_MARKDOWN_MESSAGE);
+          }
         }
 
         if (!text || !copySucceeded) {
@@ -432,6 +442,12 @@
 
         // Each dropdown option maps to one of the shared helpers or a new-tab prompt.
         switch (action) {
+          case 'view-markdown': {
+            trackButtonClick('view_page_markdown');
+            const mdUrl = getMarkdownUrl(slug);
+            window.open(mdUrl, '_blank', 'noopener,noreferrer');
+            break;
+          }
           case 'download-markdown': {
             trackButtonClick('download_page_markdown');
             const result = await downloadMarkdown(slug, `${slug}.md`);
@@ -496,9 +512,14 @@
   }
 
   function initialize() {
+    // Don't show the llm dropdown on 404 pages
+    if (document.querySelector('h1.not-found')) {
+      return;
+    }
+
     // Before initializing the copy buttons, we need to check for page-level toggles.
     // In the case where there are no toggles, we have a single page we need to initialize.
-    // Where there are toggles, we have more than one page to initialize.
+    // Where there are toggles, we have more than one page to initialize
     const toggleContainers = document.querySelectorAll('.toggle-container');
 
     // CASE 1: No toggles at all → single page

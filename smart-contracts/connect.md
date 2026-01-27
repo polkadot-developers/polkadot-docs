@@ -56,7 +56,7 @@ Developers can leverage smart contracts across diverse networks, from TestNets t
     Block explorer URL
     
     ```text
-    https://polkadot.testnet.routescan.io/
+    https://blockscout-testnet.polkadot.io/
     ```
 
 === "Polkadot Hub"
@@ -88,7 +88,7 @@ Developers can leverage smart contracts across diverse networks, from TestNets t
     RPC URL
     
     ```text
-    https://services.polkadothub-rpc.com/testnet
+    https://services.polkadothub-rpc.com/mainnet
     ```
 
     ---

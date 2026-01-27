@@ -8,7 +8,7 @@ categories: Parachains
 
 ## Introduction
 
-Coretime can be purchased in bulk for a period of 28 days, providing access to Polkadot's shared security and interoperability for Polkadot parachains. The bulk purchase of coretime includes a rent-control mechanism that keeps future purchases within a predictable price range of the initial purchase. This allows cores to be renewed at a known price without competing against other participants in the open market.
+Coretime can be purchased in bulk for 28 days, providing access to Polkadot's shared security and interoperability for Polkadot parachains. The bulk purchase of coretime includes a rent-control mechanism that keeps future purchases within a predictable price range of the initial purchase, allowing cores to be renewed at a known price without competing against other participants in the open market.
 
 ## Bulk Sale Phases
 
@@ -16,7 +16,7 @@ The bulk sale process consists of three distinct phases:
 
 1. **Interlude phase**: The period between bulk sales when renewals are prioritized.
 2. **Lead-in phase**: Following the interlude phase, a new `start_price` is set, and a Dutch auction begins, lasting for `leadin_length` blocks. During this phase, prices experience downward pressure as the system aims to find market equilibrium. The final price at the end of this phase becomes the `regular_price`, which will be used in the subsequent fixed price phase.
-3. **Fixed price phase**: The final phase where remaining cores are sold at the `regular_price` established during the lead-in phase. This provides a stable and predictable pricing environment for participants who did not purchase during the price discovery period.
+3. **Fixed price phase**: The final phase where remaining cores are sold at the `regular_price` established during the lead-in phase, providing a stable and predictable pricing environment for participants who did not purchase during the price discovery period.
 
 For more comprehensive information about the coretime sales process, refer to the [Coretime Sales](https://wiki.polkadot.com/learn/learn-agile-coretime/#coretime-sales){target=\_blank} section in the Polkadot Wiki.
 
@@ -50,7 +50,7 @@ For optimal results, the renewal should be performed during the interlude phase.
 
 ## Auto-Renewal
 
-The coretime auto-renewal feature simplifies maintaining continuous coretime allocation by automatically renewing cores at the beginning of each sale period. This eliminates the need for parachains to manually renew their cores for each bulk period, reducing operational overhead and the risk of missing renewal deadlines.
+The coretime auto-renewal feature simplifies maintaining continuous coretime allocation by automatically renewing cores at the start of each sale period, eliminating the need for parachains to renew their cores for each bulk period manually and reducing operational overhead and the risk of missing renewal deadlines.
 
 When auto-renewal is enabled, the system follows this process at the start of each sale:
 
@@ -59,7 +59,7 @@ When auto-renewal is enabled, the system follows this process at the start of ea
 3. Upon successful payment, the system emits a `Renewed` event and secures the core for the next period.
 4. If payment fails due to insufficient funds or other issues, the system emits an `AutoRenewalFailed` event.
 
-Even if an auto-renewal attempt fails, the auto-renewal setting remains active for subsequent sales. This means the setting persists across multiple periods once you've configured auto-renewal.
+Even if an auto-renewal attempt fails, the auto-renewal setting remains active for subsequent sales. Instead, the setting persists across multiple periods once you've configured auto-renewal.
 
 To enable auto-renewal for your parachain, you must configure several components, as detailed in the following sections.
 
@@ -102,7 +102,7 @@ The Coretime chain provides two primary extrinsics for managing the auto-renewal
 
     - **`core`**: The core currently assigned to the task.
     - **`task`**: The task for which auto-renewal is being enabled.
-    - **`workload_end_hint`**: The timeslice at which the currently assigned core will stop being used. This value helps the system determine when auto-renewal should begin. It is recommended to always provide this value to avoid ambiguity.
+    - **`workload_end_hint`**: The timeslice at which the currently assigned core will stop being used. This value helps the system determine when auto-renewal should begin. You should always provide this value to avoid ambiguity.
 
         - If the coretime expires in the current sale period, use the last timeslice of the current sale period.
 
@@ -121,7 +121,7 @@ The Coretime chain provides two primary extrinsics for managing the auto-renewal
 
 To configure auto-renewal, you'll need to gather specific information for the `enable_auto_renew` extrinsic parameters:
 
-- **`core`**: Identify which core your parachain is assigned to when it expires. This requires checking both current assignments and planned future assignments.
+- **`core`**: Identify which core your parachain is assigned to when it expires by checking both current assignments and planned future assignments.
     - **For current period**: Query `broker.workload()`.
     - **For next period**: Query `broker.workplan()`.
 
@@ -151,7 +151,7 @@ To configure auto-renewal, you'll need to gather specific information for the `e
         ]
         ```
 
-    **Note:** Use the core from workplan (`48` in this example) if your task appears there. Only use the core from workload if it's not listed in workplan.
+    If your task appears in the `workplan` query results, use the core from `workplan` (`48` in this example). Only use the core from `workload` if your task is not listed in `workplan`.
 
 - **`task`**: Use your parachain ID, which can be verified by connecting to your parachain and querying `parachainInfo.parachainId()`.
 
@@ -233,7 +233,7 @@ The XCM needs to execute these operations:
 Here's how to submit this XCM using parachain `2000` as an example:
 
 !!! note "Root Origin Required"
-    The following example uses the `sudo` pallet for simplicity. Production parachains typically don't have sudo enabled and would instead submit this XCM through their governance system (e.g., OpenGov referendum, council motion, or democracy proposal).
+    The following example uses the `sudo` pallet for simplicity. Production parachains typically don't have sudo enabled and instead submit this XCM through their governance system (e.g., an OpenGov referendum, a council motion, or a democracy proposal).
 
 1. In [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank}, connect to your parachain, navigate to the **Developer** dropdown and select the **Extrinsics** option.
 

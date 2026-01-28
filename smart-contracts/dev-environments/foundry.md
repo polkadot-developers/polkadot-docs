@@ -18,7 +18,7 @@ categories: Smart Contracts, Tooling
 This page demonstrates how to set up Foundry to work with Polkadot Hub, including installation, compilation, deployment, and verification.
 
 !!! tip "Native Polkadot Support"
-    Foundry's nightly build includes native support for Polkadot chains, allowing you to use `--chain polkadotTestnet`, `--chain polkadot`, or `--chain kusama` without manually specifying RPC URLs. This makes development more streamlined and reduces configuration.
+    Foundry's nightly build includes native support for Polkadot chains, allowing you to use `--chain polkadot-testnet`, `--chain polkadot`, or `--chain kusama` without manually specifying RPC URLs. This makes development more streamlined and reduces configuration.
 
 ## Prerequisites
 
@@ -26,7 +26,7 @@ Before setting up Foundry, make sure you have:
 
 - A Unix-based operating system (Linux or macOS) or Windows with [WSL](https://learn.microsoft.com/en-us/windows/wsl/install){target=\_blank}
 - [Git](https://git-scm.com/){target=\_blank} installed
-- A funded account on Polkadot Hub (see the [Connect](/smart-contracts/connect/){target=\_blank} guide to get testnet tokens)
+- A funded account on Polkadot Hub (see the [Connect to Polkadot](/smart-contracts/connect/){target=\_blank} guide to get TestNet tokens)
 
 ## Install Foundry
 
@@ -49,18 +49,13 @@ This installs the latest nightly versions of `forge`, `cast`, `anvil`, and `chis
 
 To verify the installation:
 
-```bash
-forge --version
-```
-
-You should see output indicating the nightly version, similar to:
-
-```text
-forge Version: 1.6.0-nightly
-Commit SHA: 8b4f318e6a3e83a06dc4e989b9aba87894dca88e
-Build Timestamp: 2026-01-28T06:06:35.086737000Z (1769580395)
-Build Profile: dist
-```
+<div class="termynal" data-termynal>
+    <span data-ty="input">forge --version</span>
+    <span data-ty>forge Version: 1.6.0-nightly</span>
+    <span data-ty>Commit SHA: 8b4f318e6a3e83a06dc4e989b9aba87894dca88e</span>
+    <span data-ty>Build Timestamp: 2026-01-28T06:06:35.086737000Z (1769580395)</span>
+    <span data-ty>Build Profile: dist</span>
+</div>
 
 ## Initialize a Foundry Project
 
@@ -89,30 +84,49 @@ To compile your contracts, run:
 forge build
 ```
 
-Forge compiles all contracts in the `src/` directory and outputs the artifacts to the `out/` directory. You'll see output similar to:
+You should see output similar to:
 
-```text
-[⠊] Compiling...
-[⠒] Compiling 3 files with Solc 0.8.28
-[⠢] Solc 0.8.28 finished in 1.23s
-Compiler run successful!
-```
+<div class="termynal" data-termynal>
+    <span data-ty="input">forge build</span>
+    <span data-ty>[⠊] Compiling...</span>
+    <span data-ty>[⠒] Compiling 3 files with Solc 0.8.28</span>
+    <span data-ty>[⠢] Solc 0.8.28 finished in 1.23s</span>
+    <span data-ty>Compiler run successful!</span>
+</div>
+
+Forge compiles all contracts in the `src/` directory and outputs the artifacts to the `out/` directory.
 
 ## Configure Foundry for Polkadot Hub
 
-Foundry's nightly build includes native support for Polkadot chains. The nightly build includes `polkadotTestnet`, `polkadot`, and `kusama` as recognized chains with default RPC endpoints:
+Foundry's nightly build includes native support for Polkadot chains with `polkadot-testnet`, `polkadot`, and `kusama` as recognized chains with default RPC endpoints.
 
-With the nightly build configuration, you can use `--chain polkadotTestnet` in your commands without specifying the RPC URL explicitly.
+Create or modify your `foundry.toml` file:
+
+```toml title='foundry.toml'
+[profile.default]
+src = "src"
+out = "out"
+libs = ["lib"]
+solc_version = "0.8.28"
+
+[etherscan]
+polkadot-testnet = { key = "verifyContract", url = "https://api.routescan.io/v2/network/testnet/evm/420420417/etherscan" }
+```
+
+With this configuration, you can use `--chain polkadot-testnet` in your commands without specifying the RPC URL explicitly.
+
+!!! note
+    The `[etherscan]` section is used for contract verification using the Routescan API.
 
 ### Available Networks and RPC Endpoints
 
 Foundry's nightly build supports three Polkadot chains:
 
-| Network | Chain Flag | Built-in RPC Endpoint | Chain ID |
-|:---------:|:-----------:|:----------------------:|:----------:|
-| **Polkadot TestNet** | `--chain polkadotTestnet` | `https://services.polkadothub-rpc.com/testnet` | `420420417` |
-| **Polkadot** | `--chain polkadot` | `https://services.polkadothub-rpc.com/mainnet` | `420420419` |
-| **Kusama** | `--chain kusama` | `https://kusama-asset-hub-eth-rpc.polkadot.io` | `420420418` |
+|       Network        |         Chain Flag         |             Built-in RPC Endpoint              |  Chain ID   |
+| :------------------: | :------------------------: | :--------------------------------------------: | :---------: |
+| **Polkadot TestNet** | `--chain polkadot-testnet` | `https://services.polkadothub-rpc.com/testnet` | `420420417` |
+|     **Polkadot**     |     `--chain polkadot`     | `https://services.polkadothub-rpc.com/mainnet` | `420420419` |
+|      **Kusama**      |      `--chain kusama`      | `https://kusama-asset-hub-eth-rpc.polkadot.io` | `420420418` |
 
 ## Deploy a Contract
 
@@ -120,7 +134,7 @@ Foundry's nightly build supports three Polkadot chains:
 
 Create a `.env` file in your project root (make sure to add it to `.gitignore`):
 
-```bash
+```text title='.env'
 PRIVATE_KEY=INSERT_PRIVATE_KEY_HERE
 ```
 
@@ -139,17 +153,26 @@ To deploy a contract to Polkadot Hub TestNet:
 
 ```bash
 forge create src/Counter.sol:Counter \
-    --chain polkadotTestnet \
-    --private-key $PRIVATE_KEY
+    --chain polkadot-testnet \
+    --rpc-url https://services.polkadothub-rpc.com/testnet \
+    --private-key $PRIVATE_KEY \
+    --broadcast
 ```
 
 You'll see output with the deployed contract address:
 
-```text
-Deployer: 0xYourAddress...
-Deployed to: 0xContractAddress...
-Transaction hash: 0xTransactionHash...
-```
+<div class="termynal" data-termynal>
+    <span data-ty="input"><span class="file-path"></span>forge create src/Counter.sol:Counter \
+    <span data-ty>--chain polkadot-testnet</span>
+    <span data-ty>--rpc-url https://services.polkadothub-rpc.com/testnet</span>
+    <span data-ty>--private-key $PRIVATE_KEY</span>
+    <span data-ty>--broadcast</span>
+    <span data-ty>[⠊] Compiling...</span>
+    <span data-ty>No files changed, compilation skipped</span>
+    <span data-ty>Deployer: 0x3427D90f1Ee5c5D3627c2EBb37f90393526066fd</span>
+    <span data-ty>Deployed to: 0xF1fbAf96A16458A512A33b31c4414C4a81f50EF4</span>
+    <span data-ty>Transaction hash: 0x1cba7b61c771192b297024766bed8b6e607f218e12899739fe61a3eed2690779</span>
+</div>
 
 ### Deploy Using Scripts
 
@@ -183,7 +206,7 @@ Run the deployment script:
 
 ```bash
 forge script script/Counter.s.sol:CounterScript \
-    --chain polkadotTestnet \
+    --chain polkadot-testnet \
     --broadcast
 ```
 
@@ -191,40 +214,52 @@ The `--broadcast` flag tells Forge to submit the transactions to the network.
 
 ## Verify a Contract
 
-To verify your deployed contract on Polkadot Hub, use the nightly build's verification feature with the Routescan verifier.
+To verify your deployed contract on Polkadot Hub, use the verification feature with the Polkadot Hub explorer verifier.
 
 ### Basic Verification
 
 ```bash
-forge verify-contract <CONTRACT_ADDRESS> \
+forge verify-contract <INSERT_CONTRACT_ADDRESS> \
     src/Counter.sol:Counter \
-    --chain polkadotTestnet \
-    --verifier-url https://polkadot-testnet.routescan.io/api \
-    --verifier blockscout
+    --verifier-url 'https://api.routescan.io/v2/network/testnet/evm/420420417/etherscan' \
+    --etherscan-api-key "verifyContract" \
+    --chain polkadot-testnet
 ```
 
-Replace `<CONTRACT_ADDRESS>` with your deployed contract's address.
+Replace `<INSERT_CONTRACT_ADDRESS>` with your deployed contract's address.
+
+The `--verifier-url` is the URL of the Polkadot Hub explorer verifier. The Routescan API v2 structure is `https://api.routescan.io/v2/network/{testnet|mainnet}/evm/{CHAIN_ID}/etherscan`.
+
+You should see output similar to:
+
+<div class="termynal" data-termynal>
+    <span data-ty="input">forge verify-contract 0xF1fbAf96A16458A512A33b31c4414C4a81f50EF4 \
+    src/Counter.sol:Counter \</span>
+    <span data-ty>--verifier-url 'https://api.routescan.io/v2/network/testnet/evm/420420417/etherscan'</span>
+    <span data-ty>--etherscan-api-key "verifyContract"</span>
+    <span data-ty>--chain polkadot-testnet</span>
+    <span data-ty>Start verifying contract `0xF1fbAf96A16458A512A33b31c4414C4a81f50EF4` deployed on polkadot-testnet</span>
+    <span data-ty>Submitting verification for [src/Counter.sol:Counter] 0xF1fbAf96A16458A512A33b31c4414C4a81f50EF4.</span>
+    <span data-ty>Submitted contract for verification:</span>
+    <span data-ty>	Response: `OK`</span>
+    <span data-ty>	GUID: `71d14e5b-eda1-5e85-98c5-2faf93306526`</span>
+    <span data-ty>	URL: https://blockscout-testnet.polkadot.io/address/0xf1fbaf96a16458a512a33b31c4414c4a81f50ef4</span>
+</div>
 
 ### Verification with Constructor Arguments
 
 For contracts with constructor arguments:
 
 ```bash
-forge verify-contract <CONTRACT_ADDRESS> \
-    src/MyContract.sol:MyContract \
-    --chain polkadotTestnet \
-    --verifier-url https://polkadot-testnet.routescan.io/api \
-    --verifier blockscout \
-    --constructor-args $(cast abi-encode "constructor(uint256,address)" 42 0xYourAddress)
+forge verify-contract <INSERT_CONTRACT_ADDRESS> \
+    src/Counter.sol:Counter \
+    --verifier-url 'https://api.routescan.io/v2/network/testnet/evm/420420417/etherscan' \
+    --etherscan-api-key "verifyContract" \
+    --chain polkadot-testnet \
+    --constructor-args $(cast abi-encode "constructor(uint256,address)" 42 <INSERT_DEPLOYER_ADDRESS>)
 ```
 
-Upon successful verification, you'll receive a link to view your verified contract on the block explorer:
-
-```text
-Submitting verification for contract at 0xYourContractAddress...
-Contract successfully verified!
-View on explorer: https://blockscout-testnet.polkadot.io/address/0xYourContractAddress
-```
+Replace `<INSERT_CONTRACT_ADDRESS>` with your deployed contract's address.
 
 ## Interact with Contracts
 
@@ -235,22 +270,22 @@ Cast is a powerful command-line tool for interacting with deployed contracts.
 #### Read from a Contract
 
 ```bash
-cast call <CONTRACT_ADDRESS> "number()(uint256)" \
-    --chain polkadotTestnet
+cast call <INSERT_CONTRACT_ADDRESS> "number()(uint256)" \
+    --chain polkadot-testnet
 ```
 
 #### Write to a Contract
 
 ```bash
-cast send <CONTRACT_ADDRESS> "setNumber(uint256)" 42 \
-    --chain polkadotTestnet \
+cast send <INSERT_CONTRACT_ADDRESS> "setNumber(uint256)" 42 \
+    --chain polkadot-testnet \
     --private-key $PRIVATE_KEY
 ```
 
 #### Get Account Balance
 
 ```bash
-cast balance <YOUR_ADDRESS> --chain polkadotTestnet
+cast balance <INSERT_ACCOUNT_ADDRESS> --chain polkadot-testnet
 ```
 
 ### Using Forge Scripts

@@ -117,7 +117,7 @@ Developers can leverage smart contracts across diverse networks, from TestNets t
 
     ---
     
-    ChainD
+    Chain ID
     
     ```text
     420420418

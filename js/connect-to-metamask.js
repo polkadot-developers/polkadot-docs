@@ -29,7 +29,7 @@ const supportedNetworks = {
     chainId: '0x190f1b42', //Hex value of "420420418"
     chainName: 'Kusama Hub',
     rpcUrls: ['https://eth-rpc-kusama.polkadot.io/'],
-    blockExplorerUrls: ['https://blockscout-kusama.polkadot.io/'],
+    blockExplorerUrls: ['https://blockscout-kusama.polkadot.io/', 'https://kusama.routescan.io/'],
     nativeCurrency: {
       name: 'Kusama Token',
       symbol: 'KSM',

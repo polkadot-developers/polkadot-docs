@@ -40,11 +40,9 @@ Furthermore, all smart contracts in Polkadot Hub can interact with any service i
 
 ## Other Smart Contract Environments
 
-Beyond Polkadot Hub's native PVM support, the ecosystem offers two main alternatives for smart contract development:
+Beyond Polkadot Hub's native PVM support, the ecosystem offers one main alternative for smart contract development:
 
 - **EVM-compatible parachains**: Provide access to Ethereum's extensive developer ecosystem, smart contract portability, and established tooling like Hardhat, Remix, Foundry, and OpenZeppelin. The main options include Moonbeam (the first full Ethereum-compatible parachain serving as an interoperability hub), Astar (featuring dual VM support for both EVM and WebAssembly contracts), and Acala (DeFi-focused with enhanced Acala EVM+ offering advanced DeFi primitives).
-
-- **Rust (ink!)**: ink! is a Rust-based framework that can compile to PVM. It uses [`#[ink(...)]`](https://use.ink/docs/v6/macros-attributes/){target=\_blank} attribute macros to create Polkadot SDK-compatible PVM bytecode, offering strong memory safety from Rust, an advanced type system, high-performance PVM execution, and platform independence with sandboxed security.
 
 ## Next Steps
 

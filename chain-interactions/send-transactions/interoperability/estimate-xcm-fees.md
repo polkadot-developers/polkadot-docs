@@ -60,7 +60,7 @@ First, you need to set up your environment:
 4. Install dependencies:
 
     ```bash
-    npm install --save @polkadot-labs/hdkd@^0.0.13 @polkadot-labs/hdkd-helpers@^0.0.13 polkadot-api@1.9.5
+    npm install --save @polkadot-labs/hdkd@{{dependencies.javascript_packages.hdkd.version}} @polkadot-labs/hdkd-helpers@{{dependencies.javascript_packages.hdkd_helpers.version}} polkadot-api@{{dependencies.javascript_packages.polkadot_api.version}}
     ```
 
 5. Create TypeScript configuration:

@@ -159,7 +159,7 @@ System parachain details:
               -p 30333:30333 \
               -v $(pwd)/people-polkadot.json:/people-polkadot.json \
               -v $(pwd)/my-node-data:/data \
-              parity/polkadot-parachain:stable2509-2 \
+              parity/polkadot-parachain:{{dependencies.repositories.polkadot_sdk.docker_image_version}} \
               --name=PeopleChainRPC \
               --base-path=/data \
               --chain=/people-polkadot.json \
@@ -191,7 +191,7 @@ System parachain details:
               -p 30333:30333 \
               -v $(pwd)/people-polkadot.json:/people-polkadot.json \
               -v $(pwd)/my-node-data:/data \
-              parity/polkadot-parachain:stable2509-2 \
+              parity/polkadot-parachain:{{dependencies.repositories.polkadot_sdk.docker_image_version}} \
               --name=PeopleChainRPC \
               --base-path=/data \
               --chain=/people-polkadot.json \
@@ -223,7 +223,7 @@ System parachain details:
 
         ```bash
         # Download the latest stable release (check releases page for current version)
-        wget https://github.com/paritytech/polkadot-sdk/releases/download/polkadot-stable2509-2/polkadot-parachain
+        wget https://github.com/paritytech/polkadot-sdk/releases/download/{{dependencies.repositories.polkadot_sdk.version}}/polkadot-parachain
 
         # Make it executable and move to system path
         chmod +x polkadot-parachain
@@ -245,7 +245,7 @@ System parachain details:
         sudo mkdir -p /var/lib/people-chain-rpc
 
         # Copy the chain spec to the directory
-        sudo cp asset-hub-polkadot.json /var/lib/people-chain-rpc/
+        sudo cp people-polkadot.json /var/lib/people-chain-rpc/
 
         # Set permissions
         sudo chown -R polkadot:polkadot /var/lib/people-chain-rpc

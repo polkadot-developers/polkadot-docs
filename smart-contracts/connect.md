@@ -56,7 +56,47 @@ Developers can leverage smart contracts across diverse networks, from TestNets t
     Block explorer URL
     
     ```text
-    https://polkadot.testnet.routescan.io/
+    https://blockscout-testnet.polkadot.io/
+    ```
+
+=== "Polkadot Hub"
+
+    Network name
+
+    ```text
+    Polkadot Hub
+    ```
+
+    ---
+
+    Currency symbol
+    
+    ```text
+    DOT
+    ```
+
+    ---
+    
+    Chain ID
+    
+    ```text
+    420420419
+    ```
+
+    ---
+    
+    RPC URL
+    
+    ```text
+    https://services.polkadothub-rpc.com/mainnet
+    ```
+
+    ---
+    
+    Block explorer URL
+    
+    ```text
+    https://blockscout.polkadot.io/
     ```
 
 === "Kusama Hub"
@@ -72,7 +112,7 @@ Developers can leverage smart contracts across diverse networks, from TestNets t
     Currency symbol
     
     ```text
-    KUS
+    KSM
     ```
 
     ---

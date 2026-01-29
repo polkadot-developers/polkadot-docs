@@ -1,23 +1,35 @@
 const provider = window.ethereum;
 const supportedNetworks = {
-  passetHub: {
+  polkadotTestNet: {
     name: 'Polkadot Hub TestNet',
     chainId: '0x190f1b41', //Hex value of "420420417"
     chainName: 'Polkadot Hub TestNet',
-    rpcUrls: ['https://services.polkadothub-rpc.com/testnet'],
-    blockExplorerUrls: ['https://polkadot.testnet.routescan.io/'],
+    rpcUrls: ['https://eth-rpc-testnet.polkadot.io/', 'https://services.polkadothub-rpc.com/testnet/'],
+    blockExplorerUrls: ['https://blockscout-testnet.polkadot.io/', 'https://polkadot.testnet.routescan.io/'],
     nativeCurrency: {
       name: 'Paseo Token',
       symbol: 'PAS',
       decimals: 18,
     },
   },
-  kusamaHub: {
+  polkadot: {
+    name: 'Polkadot Hub',
+    chainId: '0x190f1b43', //Hex value of "420420419"
+    chainName: 'Polkadot Hub',
+    rpcUrls: ['https://eth-rpc.polkadot.io/', 'https://services.polkadothub-rpc.com/mainnet/'],
+    blockExplorerUrls: ['https://blockscout.polkadot.io/'/* , 'https://polkadot.routescan.io/' */],
+    nativeCurrency: {
+      name: 'Polkadot Token',
+      symbol: 'DOT',
+      decimals: 18,
+    },
+  },
+  kusama: {
     name: 'Kusama Hub',
     chainId: '0x190f1b42', //Hex value of "420420418"
-    chainName: 'Kusama Hub TestNet',
-    rpcUrls: ['https://kusama-asset-hub-eth-rpc.polkadot.io'],
-    blockExplorerUrls: ['https://blockscout-kusama-asset-hub.parity-chains-scw.parity.io/'],
+    chainName: 'Kusama Hub',
+    rpcUrls: ['https://eth-rpc-kusama.polkadot.io/'],
+    blockExplorerUrls: ['https://blockscout-kusama.polkadot.io/'/* , 'https://kusama.routescan.io/' */],
     nativeCurrency: {
       name: 'Kusama Token',
       symbol: 'KSM',
@@ -111,7 +123,7 @@ const handleError = (message) => {
  Directly connect to the network specified in 'value'
  */
 const connectMetaMaskBodyButtons =
-  document.querySelectorAll('.connectMetaMask');
+  document.querySelectorAll('.connect-metamask');
 connectMetaMaskBodyButtons.forEach((btn) => {
   btn.addEventListener('click', async (e) => {
     e.preventDefault();

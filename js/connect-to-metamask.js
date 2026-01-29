@@ -123,7 +123,7 @@ const handleError = (message) => {
  Directly connect to the network specified in 'value'
  */
 const connectMetaMaskBodyButtons =
-  document.querySelectorAll('.connectMetaMask');
+  document.querySelectorAll('.connect-metamask');
 connectMetaMaskBodyButtons.forEach((btn) => {
   btn.addEventListener('click', async (e) => {
     e.preventDefault();

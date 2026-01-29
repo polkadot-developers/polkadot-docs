@@ -7,15 +7,15 @@ categories: Smart Contracts
 # Connect to Polkadot
 
 <div class="button-wrapper">
-  <a href="#" class="md-button connectMetaMask" value="polkadotTestNet">
+  <a href="#" class="md-button connect-metamask" value="polkadotTestNet">
     Connect to Polkadot Hub TestNet
   </a>
   
-  <a href="#" class="md-button connectMetaMask" value="polkadot">
+  <a href="#" class="md-button connect-metamask" value="polkadot">
     Connect to Polkadot Hub
   </a>
 
-  <a href="#" class="md-button connectMetaMask" value="kusama">
+  <a href="#" class="md-button connect-metamask" value="kusama">
     Connect to Kusama Hub
   </a>
 </div>

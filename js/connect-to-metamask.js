@@ -1,23 +1,35 @@
 const provider = window.ethereum;
 const supportedNetworks = {
-  passetHub: {
-    name: 'Polkadot Hub TestNet',
-    chainId: '0x190f1b41', //Hex value of "420420417"
+  polkadot: {
+    name: 'Polkadot Hub',
+    chainId: '0x190f1b43', //Hex value of "420420419"
     chainName: 'Polkadot Hub TestNet',
-    rpcUrls: ['https://services.polkadothub-rpc.com/testnet'],
-    blockExplorerUrls: ['https://polkadot.testnet.routescan.io/'],
+    rpcUrls: ['https://services.polkadothub-rpc.com/mainnet', 'https://eth-rpc.polkadot.io/'],
+    blockExplorerUrls: ['https://blockscout.polkadot.io/', 'https://polkadot.routescan.io/'],
     nativeCurrency: {
       name: 'Paseo Token',
       symbol: 'PAS',
       decimals: 18,
     },
   },
-  kusamaHub: {
+  polkadotTestNet: {
+    name: 'Polkadot Hub TestNet',
+    chainId: '0x190f1b41', //Hex value of "420420417"
+    chainName: 'Polkadot Hub TestNet',
+    rpcUrls: ['https://services.polkadothub-rpc.com/testnet', 'https://eth-rpc-testnet.polkadot.io/'],
+    blockExplorerUrls: ['https://blockscout-testnet.polkadot.io/','https://polkadot.testnet.routescan.io/'],
+    nativeCurrency: {
+      name: 'Paseo Token',
+      symbol: 'PAS',
+      decimals: 18,
+    },
+  },
+  kusama: {
     name: 'Kusama Hub',
     chainId: '0x190f1b42', //Hex value of "420420418"
     chainName: 'Kusama Hub TestNet',
-    rpcUrls: ['https://kusama-asset-hub-eth-rpc.polkadot.io'],
-    blockExplorerUrls: ['https://blockscout-kusama-asset-hub.parity-chains-scw.parity.io/'],
+    rpcUrls: ['https://eth-rpc-kusama.polkadot.io/'],
+    blockExplorerUrls: ['https://blockscout-kusama.polkadot.io/'],
     nativeCurrency: {
       name: 'Kusama Token',
       symbol: 'KSM',

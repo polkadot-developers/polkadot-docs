@@ -66,7 +66,7 @@ Developers can leverage smart contracts across diverse networks, from TestNets t
     === "OpsLayer"
 
         ```text
-        https://services.polkadothub-rpc.com/testnet
+        https://services.polkadothub-rpc.com/testnet/
         ```
 
     ---
@@ -83,7 +83,7 @@ Developers can leverage smart contracts across diverse networks, from TestNets t
 
         ```text
         https://polkadot.testnet.routescan.io/
-        ```    
+        ```
 
 === "Polkadot Hub"
 
@@ -122,26 +122,18 @@ Developers can leverage smart contracts across diverse networks, from TestNets t
     === "OpsLayer"
 
         ```text
-        https://services.polkadothub-rpc.com/mainnet
+        https://services.polkadothub-rpc.com/mainnet/
         ```
 
     ---
     
     Block explorer URL
 
-    === "Blockscout"
+    === "Blockscout" 
 
         ```text
         https://blockscout.polkadot.io/
         ```
-
-    === "Routescan"
-
-        ```text
-        https://polkadot.routescan.io/
-        ```
-
-    ---
 
 === "Kusama Hub"
 
@@ -170,19 +162,28 @@ Developers can leverage smart contracts across diverse networks, from TestNets t
     ---
     
     RPC URL
+
+    === "Parity"
     
-    ```text
-    https://eth-rpc-kusama.polkadot.io/
-    ```
+        ```text
+        https://eth-rpc-kusama.polkadot.io/
+        ```
 
     ---
 
     Block explorer URL
-    
-    ```text
-    https://blockscout-kusama.polkadot.io/
-    ```
 
+    === "Blockscout"
+
+        ```text
+        https://blockscout-kusama.polkadot.io/
+        ```
+
+<!--     === "Routescan"
+
+        ```text
+        https://kusama.routescan.io/
+        ``` -->
 
 ## Test Tokens
 

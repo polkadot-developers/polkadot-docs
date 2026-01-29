@@ -7,8 +7,8 @@ const supportedNetworks = {
     rpcUrls: ['https://services.polkadothub-rpc.com/mainnet', 'https://eth-rpc.polkadot.io/'],
     blockExplorerUrls: ['https://blockscout.polkadot.io/', 'https://polkadot.routescan.io/'],
     nativeCurrency: {
-      name: 'Paseo Token',
-      symbol: 'PAS',
+      name: 'Polkadot Token',
+      symbol: 'DOT',
       decimals: 18,
     },
   },
@@ -27,7 +27,7 @@ const supportedNetworks = {
   kusama: {
     name: 'Kusama Hub',
     chainId: '0x190f1b42', //Hex value of "420420418"
-    chainName: 'Kusama Hub TestNet',
+    chainName: 'Kusama Hub',
     rpcUrls: ['https://eth-rpc-kusama.polkadot.io/'],
     blockExplorerUrls: ['https://blockscout-kusama.polkadot.io/'],
     nativeCurrency: {

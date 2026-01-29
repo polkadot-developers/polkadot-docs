@@ -129,7 +129,7 @@ Developers can leverage smart contracts across diverse networks, from TestNets t
     
     Block explorer URL
 
-    === "Blockscout" 
+    === "Blockscout"
 
         ```text
         https://blockscout.polkadot.io/

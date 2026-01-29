@@ -4,8 +4,8 @@ const supportedNetworks = {
     name: 'Polkadot Hub TestNet',
     chainId: '0x190f1b41', //Hex value of "420420417"
     chainName: 'Polkadot Hub TestNet',
-    rpcUrls: ['https://services.polkadothub-rpc.com/testnet', 'https://eth-rpc-testnet.polkadot.io/'],
-    blockExplorerUrls: ['https://blockscout-testnet.polkadot.io/','https://polkadot.testnet.routescan.io/'],
+    rpcUrls: ['https://eth-rpc-testnet.polkadot.io/', 'https://services.polkadothub-rpc.com/testnet/'],
+    blockExplorerUrls: ['https://blockscout-testnet.polkadot.io/', 'https://polkadot.testnet.routescan.io/'],
     nativeCurrency: {
       name: 'Paseo Token',
       symbol: 'PAS',
@@ -16,7 +16,7 @@ const supportedNetworks = {
     name: 'Polkadot Hub',
     chainId: '0x190f1b43', //Hex value of "420420419"
     chainName: 'Polkadot Hub',
-    rpcUrls: ['https://services.polkadothub-rpc.com/mainnet', 'https://eth-rpc.polkadot.io/'],
+    rpcUrls: ['https://eth-rpc.polkadot.io/', 'https://services.polkadothub-rpc.com/mainnet/'],
     blockExplorerUrls: ['https://blockscout.polkadot.io/'/* , 'https://polkadot.routescan.io/' */],
     nativeCurrency: {
       name: 'Polkadot Token',

@@ -28,8 +28,8 @@ In this example, you will estimate the fees for teleporting assets from the Polk
 ```mermaid
 flowchart LR
     PolkadotHub[Polkadot Hub] -->|Delivery Fees| PeopleChain[Paseo People Chain]
-    PolkadotHub -->|<br />Local<br />Execution<br />Fees| PolkadotHub
-    PeopleChain -->|<br />Remote<br />Execution<br />Fees| PeopleChain
+    PolkadotHub -->|Local<br/>Execution<br/>Fees| PolkadotHub
+    PeopleChain -->|Remote<br/>Execution<br/>Fees| PeopleChain
 ```
 
 The overall fees are `local_execution_fees` + `delivery_fees` + `remote_execution_fees`.

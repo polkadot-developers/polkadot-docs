@@ -14,7 +14,7 @@ categories: Basics, Polkadot Protocol
 
     Use the [EVM to SS58 address converter](https://ggwpez.github.io/evm-to-ss58){target=\_blank} to convert addresses.
 
-    ⚠️ Native Polkadot accounts must call [`map_account`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/pallet/dispatchables/fn.map_account.html){target=\_blank} before interacting with smart contracts via Ethereum tools. See [Account Mapping](#account-mapping-for-native-polkadot-accounts) for details.
+    ⚠️ Native Polkadot accounts must call [`map_account`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/pallet/dispatchables/fn.map_account.html){target=\_blank} before interacting with smart contracts using Ethereum tools. See [Account Mapping](#account-mapping-for-native-polkadot-accounts) for details.
 
 ---
 

@@ -9,7 +9,7 @@ categories: Basics, Polkadot Protocol
 !!! tip "Address Conversion Summary"
     Polkadot Hub automatically converts addresses between Ethereum (20-byte) and Polkadot (32-byte) formats:
 
-    - **Ethereum → Polkadot**: Adds twelve `0xEE` bytes to the end (reversible)
+    - **Ethereum to Polkadot**: The system adds twelve `0xEE` bytes to the end of the address, which is a reversible operation.
     - **Polkadot to Ethereum**: The system strips trailing `0xEE` bytes if present; otherwise, it hashes the account to derive a 20-byte address.
 
     Use the [EVM to SS58 address converter](https://ggwpez.github.io/evm-to-ss58){target=\_blank} to convert addresses.

@@ -6,13 +6,13 @@ categories: Basics, Polkadot Protocol
 
 # Accounts in Polkadot Hub Smart Contracts
 
-!!! tip "TL;DR - Quick Address Conversion"
-    Polkadot Hub converts between Ethereum (20-byte) and Polkadot (32-byte) addresses automatically:
+!!! tip "Address Conversion Summary"
+    Polkadot Hub automatically converts addresses between Ethereum (20-byte) and Polkadot (32-byte) formats:
 
     - **Ethereum → Polkadot**: Adds twelve `0xEE` bytes to the end (reversible)
-    - **Polkadot → Ethereum**: Strips `0xEE` bytes if present, or hashes the account otherwise
+    - **Polkadot to Ethereum**: The system strips trailing `0xEE` bytes if present; otherwise, it hashes the account to derive a 20-byte address.
 
-    **Convert addresses:** [EVM to SS58 Address Converter](https://ggwpez.github.io/evm-to-ss58){target=\_blank}
+    Use the [EVM to SS58 address converter](https://ggwpez.github.io/evm-to-ss58){target=\_blank} to convert addresses.
 
     ⚠️ Native Polkadot accounts must call [`map_account`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/pallet/dispatchables/fn.map_account.html){target=\_blank} before interacting with smart contracts via Ethereum tools. See [Account Mapping](#account-mapping-for-native-polkadot-accounts) for details.
 

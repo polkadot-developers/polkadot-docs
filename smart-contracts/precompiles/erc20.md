@@ -27,12 +27,74 @@ pragma solidity ^0.8.0;
 interface IERC20 {
     // Implemented functions
     function totalSupply() external view returns (uint256);
-    function transfer(address to, uint256 amount) external returns (bool);
     function balanceOf(address account) external view returns (uint256);
     function allowance(address owner, address spender) external view returns (uint256);
+    function transfer(address to, uint256 amount) external returns (bool);
     function approve(address spender, uint256 amount) external returns (bool);
     function transferFrom(address from, address to, uint256 amount) external returns (bool);
+    function name() external view returns (string memory);
+    function symbol() external view returns (string memory);
+    function decimals() external view returns (uint8);
 }
+```
+
+## Metadata Functions
+
+### Get Name
+
+Returns the name of the token.
+
+```solidity
+function name() external view returns (string memory);
+```
+
+**Returns:**
+
+- **`string`**: The name of the token
+
+**Example usage:**
+
+```solidity
+IERC20 token = IERC20(0x000007C000000000000000000000000001200000);
+string memory tokenName = token.name();
+```
+
+### Get Symbol
+
+Returns the symbol of the token.
+
+```solidity
+function symbol() external view returns (string memory);
+```
+
+**Returns:**
+
+- **`string`**: The symbol of the token
+
+**Example usage:**
+
+```solidity
+IERC20 token = IERC20(0x000007C000000000000000000000000001200000);
+string memory tokenSymbol = token.symbol();
+```
+
+### Get Decimals
+
+Returns the number of decimals used to get its user representation.
+
+```solidity
+function decimals() external view returns (uint8);
+```
+
+**Returns:**
+
+- **`uint8`**: The number of decimals
+
+**Example usage:**
+
+```solidity
+IERC20 token = IERC20(0x000007C000000000000000000000000001200000);
+uint8 tokenDecimals = token.decimals();
 ```
 
 ## Query Functions
@@ -196,9 +258,6 @@ uint256 amount = 250 * 10**10;
 bool success = token.transferFrom(owner, recipient, amount);
 require(success, "Transfer from failed");
 ```
-
-!!!note "Metadata Functions Not Available"
-    The optional ERC20 metadata functions (`name()`, `symbol()`, `decimals()`) are **not implemented** in this precompile. These functions are only available through the Assets pallet's storage, not via the ERC20 interface.
 
 For the complete implementation, refer to the [ERC20 precompile source code](https://github.com/paritytech/polkadot-sdk/blob/11be995be95ac1e25a5b2a6dd941006e7097bffc/substrate/frame/assets/precompiles/src/lib.rs){target=\_blank} in the Polkadot SDK.
 

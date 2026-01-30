@@ -35,6 +35,9 @@ interface IERC20 {
 }
 ```
 
+!!!warning "Metadata Functions Not Available"
+    The optional ERC20 metadata functions (`name()`, `symbol()`, `decimals()`) are **not implemented** in this precompile. These functions are only available through the Assets pallet's storage, not via the ERC20 interface.
+
 ## Query Functions
 
 ### Get Total Supply
@@ -196,9 +199,6 @@ uint256 amount = 250 * 10**10;
 bool success = token.transferFrom(owner, recipient, amount);
 require(success, "Transfer from failed");
 ```
-
-!!!note "Metadata Functions Not Available"
-    The optional ERC20 metadata functions (`name()`, `symbol()`, `decimals()`) are **not implemented** in this precompile. These functions are only available through the Assets pallet's storage, not via the ERC20 interface.
 
 For the complete implementation, refer to the [ERC20 precompile source code](https://github.com/paritytech/polkadot-sdk/blob/11be995be95ac1e25a5b2a6dd941006e7097bffc/substrate/frame/assets/precompiles/src/lib.rs){target=\_blank} in the Polkadot SDK.
 

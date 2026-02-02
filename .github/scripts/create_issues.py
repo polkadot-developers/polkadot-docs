@@ -63,6 +63,21 @@ def add_comment_to_issue(issue_number, body):
     except Exception as e:
         print(f"Error adding comment to issue: {e}")
 
+def get_issue_comments(issue_number):
+    """Retrieve all comments for a given issue."""
+    try:
+        url = f"{REPO_API_URL}/{issue_number}/comments"
+        headers = {
+            "Authorization": f"token {GITHUB_TOKEN}",
+            "Accept": "application/vnd.github.v3+json",
+        }
+        response = requests.get(url, headers=headers)
+        response.raise_for_status()
+        return [comment['body'] for comment in response.json()]
+    except Exception as e:
+        print(f"Error retrieving comments for issue #{issue_number}: {e}")
+        return []
+
 def format_code_diff(current_code, latest_code):
     """Format the code difference for GitHub markdown."""
     diff_md = "```diff\n"
@@ -133,8 +148,24 @@ Please review the [changelog]({dep['latest_release_url']}) and update the docume
                     body += "\n"
 
         if title in existing_issues:
-            print(f"Issue '{title}' already exists (Issue #{existing_issues[title]}). Adding comment.")
-            add_comment_to_issue(existing_issues[title], body)
+            issue_number = existing_issues[title]
+            comments = get_issue_comments(issue_number)
+            
+            # Check if this update has already been posted
+            # We check if the unique identifier of the update (the version part) is already in any comment
+            duplicate_found = False
+            version_identifier = f"Latest version: {dep['latest_version']}"
+            
+            for comment in comments:
+                if body == comment or version_identifier in comment:
+                     duplicate_found = True
+                     break
+            
+            if duplicate_found:
+                print(f"Skipping comment on issue #{issue_number} as an update for version {dep['latest_version']} already exists.")
+            else:
+                print(f"Issue '{title}' already exists (Issue #{issue_number}). Adding comment.")
+                add_comment_to_issue(issue_number, body)
         else:
             print(f"Creating new issue '{title}'...")
             create_github_issue(title, body)

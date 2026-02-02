@@ -4,10 +4,11 @@ import os
 import sys
 
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
-REPO_API_URL = "https://api.github.com/repos/polkadot-developers/polkadot-docs/issues"
+REPO_NAME = os.environ.get("GITHUB_REPOSITORY", "polkadot-developers/polkadot-docs")
+REPO_API_URL = f"https://api.github.com/repos/{REPO_NAME}/issues"
 
 def get_existing_issues():
-    """Retrieve all existing issues from GitHub and return their titles."""
+    """Retrieve all existing issues from GitHub and return a dictionary of {title: number}."""
     try:
         headers = {
             "Authorization": f"token {GITHUB_TOKEN}",
@@ -18,17 +19,13 @@ def get_existing_issues():
         response.raise_for_status()
 
         issues = response.json()
-        return {issue["title"] for issue in issues}
+        return {issue["title"]: issue["number"] for issue in issues}
     except Exception as e:
         print(f"Error retrieving existing issues: {e}")
         sys.exit(1)
 
-def create_github_issue(title, body, existing_issues):
-    """Create a GitHub issue using the GitHub API if it does not already exist."""
-    if title in existing_issues:
-        print(f"Issue '{title}' already exists. Skipping creation.")
-        return
-
+def create_github_issue(title, body):
+    """Create a GitHub issue using the GitHub API."""
     try:
         headers = {
             "Authorization": f"token {GITHUB_TOKEN}",
@@ -46,6 +43,25 @@ def create_github_issue(title, body, existing_issues):
     except Exception as e:
         print(f"Error creating issue: {e}")
         sys.exit(1)
+
+def add_comment_to_issue(issue_number, body):
+    """Add a comment to an existing GitHub issue."""
+    try:
+        url = f"{REPO_API_URL}/{issue_number}/comments"
+        headers = {
+            "Authorization": f"token {GITHUB_TOKEN}",
+            "Accept": "application/vnd.github.v3+json",
+        }
+        data = {"body": body}
+        response = requests.post(url, headers=headers, json=data)
+
+        if response.status_code == 201:
+            print(f"Successfully added comment to issue #{issue_number}")
+        else:
+            print(f"Failed to add comment to issue #{issue_number}. Status code: {response.status_code}")
+            print(response.text)
+    except Exception as e:
+        print(f"Error adding comment to issue: {e}")
 
 def format_code_diff(current_code, latest_code):
     """Format the code difference for GitHub markdown."""
@@ -80,7 +96,8 @@ def main():
     existing_issues = get_existing_issues()
 
     for dep in data.get("outdated_dependencies", []):
-        title = f"Update needed: {dep['name']} ({dep['current_version']} -> {dep['latest_version']})"
+        # Use generic title to group updates for the same dependency
+        title = f"Update needed: {dep['name']}"
         body = f"""A new release has been detected for {dep['name']}.
 
 **Category:** {dep['category']}
@@ -115,7 +132,12 @@ Please review the [changelog]({dep['latest_release_url']}) and update the docume
                     body += format_code_diff(snippet['current_code'], snippet['latest_code'])
                     body += "\n"
 
-        create_github_issue(title, body, existing_issues)
+        if title in existing_issues:
+            print(f"Issue '{title}' already exists (Issue #{existing_issues[title]}). Adding comment.")
+            add_comment_to_issue(existing_issues[title], body)
+        else:
+            print(f"Creating new issue '{title}'...")
+            create_github_issue(title, body)
 
 if __name__ == "__main__":
     main()

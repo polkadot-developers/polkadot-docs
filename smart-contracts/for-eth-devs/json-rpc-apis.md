@@ -798,6 +798,14 @@ curl -X POST https://services.polkadothub-rpc.com/testnet \
 
 Ensure to replace the `INSERT_TRANSACTION_HASH` with the proper value.
 
+**Differences from Ethereum (Geth):**
+
+When using the default struct logger (opcode tracer), there is a difference in how `gasCost` is calculated for CALL-like opcodes (`CALL`, `DELEGATECALL`, `STATICCALL`, `CREATE`, `CREATE2`):
+Geth behavior: The `gasCost` includes the opcode's intrinsic cost plus all gas forwarded to child calls.
+Revive behavior: The `gasCost` includes only the opcode's intrinsic cost, excluding forwarded gas. The intrinsic cost covers:
+- Base cost of the CALL opcode
+- Post-call costs (e.g., copying return data back to caller's memory)
+
 ---
 
 ### debug_traceCall

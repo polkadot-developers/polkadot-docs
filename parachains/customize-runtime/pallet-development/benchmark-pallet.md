@@ -6,6 +6,10 @@ categories: Parachains
 
 ## Introduction
 
+<div class="status-badge" markdown>
+[![Benchmark Pallet](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-benchmark-pallet.yml/badge.svg)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-benchmark-pallet.yml){target=\_blank}
+</div>
+
 Benchmarking is the process of measuring the computational resources (execution time and storage) required by your pallet's extrinsics. Accurate [weight](https://paritytech.github.io/polkadot-sdk/master/frame_support/weights/index.html){target=\_blank} calculations are essential for ensuring your blockchain can process transactions efficiently while protecting against denial-of-service attacks.
 
 This guide demonstrates how to benchmark a pallet and incorporate the resulting weight values. This example uses the custom counter pallet from previous guides in this series, but you can replace it with the code from another pallet if desired.

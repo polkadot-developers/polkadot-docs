@@ -6,6 +6,10 @@ categories: Parachains
 
 # Unit Test Pallets
 
+<div class="status-badge" markdown>
+[![Unit Test Pallets](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-pallet-testing.yml/badge.svg)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-pallet-testing.yml){target=\_blank}
+</div>
+
 ## Introduction
 
 Unit testing in the Polkadot SDK helps ensure that the functions provided by a pallet behave as expected. It also confirms that data and events associated with a pallet are processed correctly during interactions. With your mock runtime in place from the [previous guide](/parachains/customize-runtime/pallet-development/mock-runtime/), you can now write comprehensive tests that verify your pallet's behavior in isolation.

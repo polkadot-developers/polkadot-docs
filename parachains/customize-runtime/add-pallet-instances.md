@@ -415,10 +415,10 @@ To test instance independence:
 
 You can now use both collective instances for different governance purposes in your parachain, such as technical decisions that require expertise and general governance decisions that require broader consensus.
 
-!!! note "Automated verification"
-    This tutorial is verified by automated tests. View the [test source](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/parachains/customize-runtime/add-pallet-instances/tests/guide.test.ts){target=\_blank} for implementation details.
-
-    [![Add Pallet Instances](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-add-pallet-instances.yml/badge.svg)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-add-pallet-instances.yml){target=\_blank}
+<div class="status-badge" markdown>
+[![Add Pallet Instances](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-add-pallet-instances.yml/badge.svg)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-add-pallet-instances.yml){target=\_blank}
+[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/parachains/customize-runtime/add-pallet-instances/tests/guide.test.ts){ .tests-button target=\_blank}
+</div>
 
 ## Where to Go Next
 

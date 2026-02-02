@@ -596,6 +596,11 @@ These tests demonstrate comprehensive coverage including basic operations, error
     }
     ```
 
+<div class="status-badge" markdown>
+[![Unit Test Pallets](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-pallet-testing.yml/badge.svg)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-pallet-testing.yml){target=\_blank}
+[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/parachains/customize-runtime/pallet-development/pallet-testing/tests/guide.test.ts){ .tests-button target=\_blank}
+</div>
+
 ## Where to Go Next
 
 <div class="grid cards" markdown>

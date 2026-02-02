@@ -333,7 +333,7 @@ forge test --gas-report
 
     ---
 
-    Ready to start using Foundry? Learn how to compile, test, and deploy a basic contract.
+    Ready to deploy a basic contract? Learn how to compile, test, and deploy a smart contract on Polkadot Hub.
 
     [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-basic/basic-hardhat/)
 

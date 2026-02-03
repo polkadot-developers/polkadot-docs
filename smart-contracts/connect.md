@@ -103,7 +103,7 @@ Developers can leverage smart contracts across diverse networks, from TestNets t
     Currency symbol
     
     ```text
-    DOT    
+    DOT
     ```
 
     ---

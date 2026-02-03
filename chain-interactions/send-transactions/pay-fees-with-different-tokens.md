@@ -1,5 +1,5 @@
 ---
-title: Send a Transaction with Fees Paid in Another Token
+title: Pay Transaction Fees with Other Tokens
 description: This tutorial demonstrates how to send a DOT transfer transaction while paying the fees using a different token on the Asset Hub.
 ---
 

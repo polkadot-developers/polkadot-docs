@@ -114,10 +114,10 @@ Use one of the channels below to get live technical support or ask questions.
 
 <div class="grid cards support" markdown>
 
--   :fontawesome-solid-robot:{ .sub } **AI Ready Documentation**
+-   :fontawesome-solid-robot:{ .sub } **AI Resources**
 
     Access documentation structured and optimized for use with large language models (LLMs) and AI tools. These resources help build AI assistants, power code search, or enable custom tooling trained on Polkadot’s documentation.
 
-    👉 [Access LLM Files](/get-support/ai-ready-docs/){target=\_blank}
+    👉 [Access LLM Files](/ai-resources/){target=\_blank}
 
 </div>

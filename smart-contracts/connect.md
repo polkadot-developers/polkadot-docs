@@ -7,7 +7,17 @@ categories: Smart Contracts
 # Connect to Polkadot
 
 <div class="button-wrapper">
-    <a href="#" class="md-button connectMetaMask" value="passetHub">Connect to Polkadot Hub TestNet</a>
+  <a href="#" class="md-button connect-metamask" value="polkadotTestNet">
+    Connect to Polkadot Hub TestNet
+  </a>
+  
+  <a href="#" class="md-button connect-metamask" value="polkadot">
+    Connect to Polkadot Hub
+  </a>
+
+  <a href="#" class="md-button connect-metamask" value="kusama">
+    Connect to Kusama Hub
+  </a>
 </div>
 
 For more information about how to connect to Polkadot Hub, please check the [Wallets for Polkadot Hub](/smart-contracts/integrations/wallets/){target=\_blank} guide.
@@ -47,17 +57,83 @@ Developers can leverage smart contracts across diverse networks, from TestNets t
     
     RPC URL
     
-    ```text
-    https://services.polkadothub-rpc.com/testnet
-    ```
+    === "Parity"
+
+        ```text
+        https://eth-rpc-testnet.polkadot.io/
+        ```
+
+    === "OpsLayer"
+
+        ```text
+        https://services.polkadothub-rpc.com/testnet/
+        ```
 
     ---
     
     Block explorer URL
+
+    === "Blockscout"
+
+        ```text
+        https://blockscout-testnet.polkadot.io/
+        ```
+
+    === "Routescan"
+
+        ```text
+        https://polkadot.testnet.routescan.io/
+        ```
+
+=== "Polkadot Hub"
+
+    Network name
+
+    ```text
+    Polkadot Hub
+    ```
+
+    ---
+
+    Currency symbol
     
     ```text
-    https://polkadot.testnet.routescan.io/
+    DOT
     ```
+
+    ---
+    
+    Chain ID
+    
+    ```text
+    420420419
+    ```
+
+    ---
+    
+    RPC URL
+
+    === "Parity"
+
+        ```text
+        https://eth-rpc.polkadot.io/
+        ```
+
+    === "OpsLayer"
+
+        ```text
+        https://services.polkadothub-rpc.com/mainnet/
+        ```
+
+    ---
+    
+    Block explorer URL
+
+    === "Blockscout"
+
+        ```text
+        https://blockscout.polkadot.io/
+        ```
 
 === "Kusama Hub"
 
@@ -72,7 +148,7 @@ Developers can leverage smart contracts across diverse networks, from TestNets t
     Currency symbol
     
     ```text
-    KUS
+    KSM
     ```
 
     ---
@@ -86,19 +162,28 @@ Developers can leverage smart contracts across diverse networks, from TestNets t
     ---
     
     RPC URL
+
+    === "Parity"
     
-    ```text
-    https://kusama-asset-hub-eth-rpc.polkadot.io
-    ```
+        ```text
+        https://eth-rpc-kusama.polkadot.io/
+        ```
 
     ---
 
     Block explorer URL
-    
-    ```text
-    https://blockscout-kusama-asset-hub.parity-chains-scw.parity.io/
-    ```
 
+    === "Blockscout"
+
+        ```text
+        https://blockscout-kusama.polkadot.io/
+        ```
+
+<!--     === "Routescan"
+
+        ```text
+        https://kusama.routescan.io/
+        ``` -->
 
 ## Test Tokens
 

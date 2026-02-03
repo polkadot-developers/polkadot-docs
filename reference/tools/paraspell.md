@@ -35,19 +35,19 @@ If you want to use ParaSpell in your project you can add it as a dependency with
 === "npm"
 
     ```bash
-    npm install --save @paraspell/sdk@11.12.6
+    npm install --save @paraspell/sdk@{{dependencies.javascript_packages.paraspell_sdk.version}}
     ```
 
 === "pnpm"
 
     ```bash
-    pnpm add @paraspell/sdk@11.12.6
+    pnpm add @paraspell/sdk@{{dependencies.javascript_packages.paraspell_sdk.version}}
     ```
 
 === "yarn"
 
     ```bash
-    yarn add @paraspell/sdk@11.12.6
+    yarn add @paraspell/sdk@{{dependencies.javascript_packages.paraspell_sdk.version}}
     ```
 
 

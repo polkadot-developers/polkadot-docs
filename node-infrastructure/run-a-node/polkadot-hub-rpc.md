@@ -446,7 +446,7 @@ Use the following commands to manage your node:
 
 ## Ethereum RPC Compatibility
 
-Polkadot Hub supports Ethereum RPC compatibility through the `eth-rpc` adapter, which is part of [pallet-revive](https://paritytech.github.io/polkadot-sdk/master/pallet_revive_eth_rpc/index.html){target=\_blank}. This adapter translates Ethereum JSON-RPC calls into Substrate-compatible requests, enabling seamless integration with Ethereum tools like [MetaMask](https://metamask.io/){target=\_blank}, [Hardhat](https://hardhat.org/){target=\_blank}, and [Ethers.js](https://docs.ethers.org/v6/){target=\_blank}.
+Polkadot Hub supports Ethereum RPC compatibility through the `eth-rpc` adapter, which is part of [pallet-revive](https://paritytech.github.io/polkadot-sdk/master/pallet_revive_eth_rpc/index.html){target=\_blank}. This adapter translates Ethereum JSON-RPC calls into Polkadot SDK-compatible requests, enabling seamless integration with Ethereum tools like [MetaMask](https://metamask.io/){target=\_blank}, [Hardhat](https://hardhat.org/){target=\_blank}, and [Ethers.js](https://docs.ethers.org/v6/){target=\_blank}.
 
 ### Prerequisites
 

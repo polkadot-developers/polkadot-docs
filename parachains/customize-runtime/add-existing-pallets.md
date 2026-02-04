@@ -7,6 +7,10 @@ categories: Parachains
 
 # Add an Existing Pallet to the Runtime
 
+<div class="status-badge" markdown>
+[![Add Existing Pallets](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-add-existing-pallets.yml/badge.svg)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-add-existing-pallets.yml){target=\_blank}
+</div>
+
 ## Introduction
 
 The [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk-parachain-template){target=\_blank} provides a functional runtime that includes default [FRAME](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/frame_runtime/index.html){target=\_blank} development modules ([pallets](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/frame_runtime/pallet/index.html){target=\_blank}) to help you get started building a custom parachain. However, you'll often need to extend your runtime by adding additional pallets to enable new functionality.
@@ -262,6 +266,11 @@ To interact with the pallet:
     ![](/images/parachains/customize-runtime/add-existing-pallets/add-pallets-01.webp)
 
 You can now test the pallet's functionality by submitting transactions through the interface.
+
+<div class="status-badge" markdown>
+[![Add Existing Pallets](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-add-existing-pallets.yml/badge.svg)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-add-existing-pallets.yml){target=\_blank}
+[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/parachains/customize-runtime/add-existing-pallets/tests/guide.test.ts){ .tests-button target=\_blank}
+</div>
 
 ## Where to Go Next
 

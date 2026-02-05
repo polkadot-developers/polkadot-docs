@@ -15,8 +15,8 @@ dependencies:
       docker_image_version: 1.88.0
     polkadot_sdk:
       repository_url: https://github.com/paritytech/polkadot-sdk
-      version: polkadot-stable2512
-      docker_image_version: stable2512
+      version: polkadot-stable2512-1
+      docker_image_version: stable2512-1
     open_zeppelin_contracts:
       repository_url: https://github.com/OpenZeppelin/openzeppelin-contracts
       version: v5.5.0

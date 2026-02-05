@@ -50,7 +50,8 @@ This installs the latest nightly versions of `forge`, `cast`, `anvil`, and `chis
 To verify the installation:
 
 <div class="termynal" data-termynal>
-    <span data-ty="input">forge --version</span>
+    <span data-ty="input"><span class="file-path"></span>forge --version</span>
+    <br>
     <span data-ty>forge Version: 1.6.0-nightly</span>
     <span data-ty>Commit SHA: 8b4f318e6a3e83a06dc4e989b9aba87894dca88e</span>
     <span data-ty>Build Timestamp: 2026-01-28T06:06:35.086737000Z (1769580395)</span>

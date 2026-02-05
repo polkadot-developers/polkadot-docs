@@ -197,7 +197,7 @@ cargo build --release
 Finally, add the custom binary to your PATH as follows:
 
 ```bash
-export PATH=$PATH:INSERT_PATH_TO_RUNTIME_TEMPLATES/parachain-template-node/target/release
+export PATH=$PATH:INSERT_PATH_TO_RUNTIME_TEMPLATES/generic-template/target/release
 ```
 
 Alternatively, you can specify the binary path in the network configuration file. The local provider exclusively utilizes the command configuration for nodes, which supports both relative and absolute paths. You can employ the `default_command` configuration to specify the binary for spawning all nodes in the relay chain.
@@ -212,7 +212,7 @@ id = 1000
 
     [parachain.collators]
     name = "collator01"
-    command = "./target/release/parachain-template-node"
+    command = "./target/release/generic-template-node"
 ```
 
 #### Features

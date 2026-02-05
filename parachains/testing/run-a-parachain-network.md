@@ -184,7 +184,8 @@ If you need to use a custom binary, ensure the binary is available in your PATH.
 First, clone the OpenZeppelin template repository using the following command:
 
 ```bash
-git clone https://github.com/OpenZeppelin/polkadot-runtime-templates \
+git clone --branch {{ dependencies.repositories.polkadot_runtime_templates.version }} \
+  https://github.com/OpenZeppelin/polkadot-runtime-templates \
 && cd polkadot-runtime-templates/generic-template
 ```
 

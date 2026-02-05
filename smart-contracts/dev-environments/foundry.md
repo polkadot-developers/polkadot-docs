@@ -88,7 +88,8 @@ forge build
 You should see output similar to:
 
 <div class="termynal" data-termynal>
-    <span data-ty="input">forge build</span>
+    <span data-ty="input"><span class="file-path"></span>forge build</span>
+    <br>
     <span data-ty>[⠊] Compiling...</span>
     <span data-ty>[⠒] Compiling 3 files with Solc 0.8.28</span>
     <span data-ty>[⠢] Solc 0.8.28 finished in 1.23s</span>
@@ -164,6 +165,7 @@ You'll see output with the deployed contract address:
 
 <div class="termynal" data-termynal>
     <span data-ty="input"><span class="file-path"></span>forge create src/Counter.sol:Counter \
+    <br>
     <span data-ty>--chain polkadot-testnet</span>
     <span data-ty>--rpc-url https://services.polkadothub-rpc.com/testnet</span>
     <span data-ty>--private-key $PRIVATE_KEY</span>
@@ -234,8 +236,9 @@ The `--verifier-url` is the URL of the Polkadot Hub explorer verifier. The Route
 You should see output similar to:
 
 <div class="termynal" data-termynal>
-    <span data-ty="input">forge verify-contract 0xF1fbAf96A16458A512A33b31c4414C4a81f50EF4 \
+    <span data-ty="input"><span class="file-path"></span>forge verify-contract 0xF1fbAf96A16458A512A33b31c4414C4a81f50EF4 \
     src/Counter.sol:Counter \</span>
+    <br>
     <span data-ty>--verifier-url 'https://api.routescan.io/v2/network/testnet/evm/420420417/etherscan'</span>
     <span data-ty>--etherscan-api-key "verifyContract"</span>
     <span data-ty>--chain polkadot-testnet</span>

@@ -333,30 +333,6 @@ forge test --gas-report
 
 <div class="grid cards" markdown>
 
--   <span class="badge guide">Guide</span> __Deploy a Basic Contract__
-
-    ---
-
-    Ready to deploy a basic contract? Learn how to compile, test, and deploy a smart contract on Polkadot Hub.
-
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-basic/basic-hardhat/)
-
--   <span class="badge guide">Guide</span> __Deploy an ERC-20__
-
-    ---
-
-    Walk through deploying a fully-functional ERC-20 to Polkadot Hub using smart contract tools.
-
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-hardhat/)
-
--   <span class="badge guide">Guide</span> __Deploy an NFT__
-
-    ---
-
-    Walk through deploying an NFT to Polkadot Hub using smart contract development tools.
-
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-hardhat/)
-
 -   <span class="badge reference">Reference</span> __Connect to Polkadot Hub__
 
     ---
@@ -364,5 +340,13 @@ forge test --gas-report
     View network details and learn how to connect your development tools to Polkadot Hub.
 
     [:octicons-arrow-right-24: View Network Details](/smart-contracts/connect/)
+
+-   <span class="badge guide">Guide</span> __For Ethereum Developers__
+
+    ---
+
+    Learn how smart contracts work on Polkadot Hub.
+
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/for-eth-devs/accounts/)
 
 </div>

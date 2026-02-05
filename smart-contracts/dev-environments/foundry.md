@@ -222,14 +222,14 @@ To verify your deployed contract on Polkadot Hub, use the verification feature w
 ### Basic Verification
 
 ```bash
-forge verify-contract <INSERT_CONTRACT_ADDRESS> \
+forge verify-contract INSERT_CONTRACT_ADDRESS \
     src/Counter.sol:Counter \
     --verifier-url 'https://api.routescan.io/v2/network/testnet/evm/420420417/etherscan' \
     --etherscan-api-key "verifyContract" \
     --chain polkadot-testnet
 ```
 
-Replace `<INSERT_CONTRACT_ADDRESS>` with your deployed contract's address.
+Replace `INSERT_CONTRACT_ADDRESS` with your deployed contract's address.
 
 The `--verifier-url` is the URL of the Polkadot Hub explorer verifier. The Routescan API v2 structure is `https://api.routescan.io/v2/network/{testnet|mainnet}/evm/{CHAIN_ID}/etherscan`.
 
@@ -255,7 +255,7 @@ You should see output similar to:
 For contracts with constructor arguments:
 
 ```bash
-forge verify-contract <INSERT_CONTRACT_ADDRESS> \
+forge verify-contract INSERT_CONTRACT_ADDRESS \
     src/Counter.sol:Counter \
     --verifier-url 'https://api.routescan.io/v2/network/testnet/evm/420420417/etherscan' \
     --etherscan-api-key "verifyContract" \
@@ -263,7 +263,7 @@ forge verify-contract <INSERT_CONTRACT_ADDRESS> \
     --constructor-args $(cast abi-encode "constructor(uint256,address)" 42 <INSERT_DEPLOYER_ADDRESS>)
 ```
 
-Replace `<INSERT_CONTRACT_ADDRESS>` with your deployed contract's address.
+Replace `INSERT_CONTRACT_ADDRESS` with your deployed contract's address.
 
 ## Interact with Contracts
 
@@ -274,14 +274,14 @@ Cast is a powerful command-line tool for interacting with deployed contracts.
 #### Read from a Contract
 
 ```bash
-cast call <INSERT_CONTRACT_ADDRESS> "number()(uint256)" \
+cast call INSERT_CONTRACT_ADDRESS "number()(uint256)" \
     --chain polkadot-testnet
 ```
 
 #### Write to a Contract
 
 ```bash
-cast send <INSERT_CONTRACT_ADDRESS> "setNumber(uint256)" 42 \
+cast send INSERT_CONTRACT_ADDRESS "setNumber(uint256)" 42 \
     --chain polkadot-testnet \
     --private-key $PRIVATE_KEY
 ```

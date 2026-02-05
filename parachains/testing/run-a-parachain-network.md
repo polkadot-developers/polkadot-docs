@@ -201,6 +201,9 @@ Finally, add the custom binary to your PATH as follows:
 export PATH=$PATH:$(pwd)/target/release
 ```
 
+!!! note
+    When using the parachain template {{ dependencies.repositories.polkadot_sdk_parachain_template.version }}, ensure you use a compatible relay chain binary. The recommended version is `{{ dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.polkadot_sdk_version }}`, which you can download from the [Polkadot SDK releases](https://github.com/paritytech/polkadot-sdk/releases/tag/{{ dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.polkadot_sdk_version }}){target=\_blank}.
+
 Alternatively, you can specify the binary path in the network configuration file. The local provider exclusively utilizes the command configuration for nodes, which supports both relative and absolute paths. You can employ the `default_command` configuration to specify the binary for spawning all nodes in the relay chain.
 
 ```toml

@@ -61,7 +61,7 @@ dependencies:
       version: 16.5.4
     polkadot_api:
       name: polkadot-api
-      version: 1.23.2
+      version: 1.23.3
     resolc:
       name: '@parity/resolc'
       version: 0.6.0

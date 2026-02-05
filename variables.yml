@@ -67,7 +67,8 @@ dependencies:
       version: 1.23.3
     resolc:
       name: '@parity/resolc'
-      version: 1.0.0
+      version: 0.6.0
+      ignore_updates: true
     hardhat_polkadot:
       name: '@parity/hardhat-polkadot'
       version: 0.2.7
@@ -85,7 +86,7 @@ dependencies:
       version: 6.16.0
     paraspell_sdk:
       name: '@paraspell/sdk'
-      version: 12.5.1
+      version: 12.6.0
     hdkd:
       name: '@polkadot-labs/hdkd'
       version: 0.0.26

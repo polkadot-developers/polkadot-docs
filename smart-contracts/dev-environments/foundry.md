@@ -289,7 +289,7 @@ cast send INSERT_CONTRACT_ADDRESS "setNumber(uint256)" 42 \
 #### Get Account Balance
 
 ```bash
-cast balance <INSERT_ACCOUNT_ADDRESS> --chain polkadot-testnet
+cast balance INSERT_ACCOUNT_ADDRESS --chain polkadot-testnet
 ```
 
 ### Using Forge Scripts

@@ -37,7 +37,7 @@ Before you begin, ensure you have the following installed:
 You can install Chopsticks globally or locally in your project. Choose the option that best fits your development workflow. 
 
 !!! tip
-    This documentation explains the features of Chopsticks version `1.2.2`. Make sure you're using the correct version to match these instructions.
+    This documentation explains the features of Chopsticks version `{{ dependencies.javascript_packages.chopsticks.version }}`. Make sure you're using the correct version to match these instructions.
 
 ### Global Installation
 
@@ -46,19 +46,19 @@ To install Chopsticks globally, allowing you to use it across multiple projects,
 === "npm"
 
     ```bash
-    npm i -g @acala-network/chopsticks@1.2.2
+    npm i -g @acala-network/chopsticks@{{ dependencies.javascript_packages.chopsticks.version }}
     ```
 
 === "pnpm"
 
     ```bash
-    pnpm add -g @acala-network/chopsticks@1.2.2
+    pnpm add -g @acala-network/chopsticks@{{ dependencies.javascript_packages.chopsticks.version }}
     ```
 
 === "yarn"
 
     ```bash
-    yarn global add @acala-network/chopsticks@1.2.2
+    yarn global add @acala-network/chopsticks@{{ dependencies.javascript_packages.chopsticks.version }}
     ```
 
 Now, you should be able to run the `chopsticks` command from your terminal.
@@ -78,19 +78,19 @@ Then, install Chopsticks as a local dependency:
 === "npm"
 
     ```bash
-    npm i @acala-network/chopsticks@1.2.2
+    npm i @acala-network/chopsticks@{{ dependencies.javascript_packages.chopsticks.version }}
     ```
 
 === "pnpm"
 
     ```bash
-    pnpm add @acala-network/chopsticks@1.2.2
+    pnpm add @acala-network/chopsticks@{{ dependencies.javascript_packages.chopsticks.version }}
     ```
 
 === "yarn"
 
     ```bash
-    yarn add @acala-network/chopsticks@1.2.2
+    yarn add @acala-network/chopsticks@{{ dependencies.javascript_packages.chopsticks.version }}
     ```
 
 Finally, you can run Chopsticks using the `npx` command. To see all available options and commands, run it with the `--help` flag:

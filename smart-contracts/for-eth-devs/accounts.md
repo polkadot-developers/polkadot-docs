@@ -12,7 +12,7 @@ categories: Basics, Polkadot Protocol
     - **Ethereum to Polkadot**: The system adds twelve `0xEE` bytes to the end of the address, which is a reversible operation.
     - **Polkadot to Ethereum**: The system strips trailing `0xEE` bytes if present; otherwise, it hashes the account to derive a 20-byte address.
 
-    <iframe src="https://polkadot-developers.github.io/account-converter/" title="EVM to SS58 Address Converter" width="100%" height="950" frameborder="0"></iframe>
+    <iframe src="https://polkadot-developers.github.io/account-converter/" title="EVM to SS58 Address Converter" width="100%" height="960" frameborder="0"></iframe>
 
     ⚠️ Native Polkadot accounts must call [`map_account`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/pallet/dispatchables/fn.map_account.html){target=\_blank} before interacting with smart contracts using Ethereum tools. See [Account Mapping](#account-mapping-for-native-polkadot-accounts) for details.
 

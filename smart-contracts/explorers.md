@@ -45,5 +45,5 @@ BlockScout is an open-source explorer platform with a user-friendly interface. I
 
 Routescan delivers multi-chain explorer capabilities with specialized support for Polkadot Hub.
 
-- [Polkadot Hub TestNet Routescan](https://polkadot.testnet.routescan.io/){target=\_blank}
+- [Polkadot Hub Routescan](https://polkadot.routescan.io/){target=\_blank}
 

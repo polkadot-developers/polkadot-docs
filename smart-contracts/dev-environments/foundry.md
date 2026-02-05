@@ -260,7 +260,7 @@ forge verify-contract INSERT_CONTRACT_ADDRESS \
     --verifier-url 'https://api.routescan.io/v2/network/testnet/evm/420420417/etherscan' \
     --etherscan-api-key "verifyContract" \
     --chain polkadot-testnet \
-    --constructor-args $(cast abi-encode "constructor(uint256,address)" 42 <INSERT_DEPLOYER_ADDRESS>)
+    --constructor-args $(cast abi-encode "constructor(uint256,address)" 42 INSERT_DEPLOYER_ADDRESS)
 ```
 
 Replace `INSERT_CONTRACT_ADDRESS` with your deployed contract's address.

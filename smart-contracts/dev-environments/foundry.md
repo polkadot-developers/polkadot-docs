@@ -324,10 +324,10 @@ forge test --gas-report
 
 ## Additional Resources
 
-- [Foundry Book](https://book.getfoundry.sh/){target=\_blank} - Comprehensive Foundry documentation
-- [Forge Documentation](https://book.getfoundry.sh/forge/){target=\_blank} - Detailed guide to the Forge tool
-- [Cast Documentation](https://book.getfoundry.sh/cast/){target=\_blank} - Learn about Cast commands
-- [Foundry GitHub](https://github.com/foundry-rs/foundry){target=\_blank} - Source code and issue tracker
+- **[Foundry Book](https://book.getfoundry.sh/){target=\_blank}**: Comprehensive Foundry documentation
+- **[Forge Documentation](https://book.getfoundry.sh/forge/){target=\_blank}**: Detailed guide to the Forge tool
+- **[Cast Documentation](https://book.getfoundry.sh/cast/){target=\_blank}**: Learn about Cast commands
+- **[Foundry GitHub](https://github.com/foundry-rs/foundry){target=\_blank}**: Source code and issue tracker
 
 ## Where to Go Next
 

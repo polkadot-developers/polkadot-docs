@@ -48,7 +48,7 @@ dependencies:
       ignore_updates: true
     polkadot_omni_node:
       name: polkadot-omni-node
-      version: 0.7.0
+      version: 0.13.0
   javascript_packages:
     chopsticks:
       name: '@acala-network/chopsticks'

@@ -55,7 +55,7 @@ dependencies:
       version: 1.2.7
     moonwall:
       name: '@moonwall/cli'
-      version: 5.18.2
+      version: 5.18.3
     polkadot_js_api:
       name: '@polkadot/api'
       version: 16.5.4

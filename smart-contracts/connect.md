@@ -14,10 +14,6 @@ categories: Smart Contracts
   <a href="#" class="md-button connect-metamask" value="polkadot">
     Connect to Polkadot Hub
   </a>
-
-  <a href="#" class="md-button connect-metamask" value="kusama">
-    Connect to Kusama Hub
-  </a>
 </div>
 
 For more information about how to connect to Polkadot Hub, please check the [Wallets for Polkadot Hub](/smart-contracts/integrations/wallets/){target=\_blank} guide.
@@ -85,6 +81,15 @@ Developers can leverage smart contracts across diverse networks, from TestNets t
         https://polkadot.testnet.routescan.io/
         ```
 
+    ---
+
+    WSS URL
+
+    ```text
+    wss://asset-hub-paseo-rpc.n.dwellir.com
+    ```
+
+
 === "Polkadot Hub"
 
     Network name
@@ -135,6 +140,14 @@ Developers can leverage smart contracts across diverse networks, from TestNets t
         https://blockscout.polkadot.io/
         ```
 
+    ---
+
+    WSS URL
+
+    ```text
+    wss://polkadot-asset-hub-rpc.polkadot.io
+    ```
+
 === "Kusama Hub"
 
     Network name
@@ -179,11 +192,14 @@ Developers can leverage smart contracts across diverse networks, from TestNets t
         https://blockscout-kusama.polkadot.io/
         ```
 
-<!--     === "Routescan"
+    ---
 
-        ```text
-        https://kusama.routescan.io/
-        ``` -->
+    WSS URL
+
+    ```text
+    wss://kusama-asset-hub-rpc.polkadot.io
+    ```
+
 
 ## Test Tokens
 

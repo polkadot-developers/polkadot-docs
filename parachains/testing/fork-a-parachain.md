@@ -6,6 +6,10 @@ categories: Parachains, Tooling
 
 # Fork a Parachain Using Chopsticks
 
+<div class="status-badge" markdown>
+[![Fork a Parachain](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-fork-a-parachain.yml/badge.svg)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-fork-a-parachain.yml){target=\_blank}
+</div>
+
 ## Introduction
 
 [Chopsticks](https://github.com/AcalaNetwork/chopsticks/){target=\_blank}, developed by the [Acala Foundation](https://github.com/AcalaNetwork){target=\_blank}, is a versatile tool tailored for developers working on Polkadot SDK-based blockchains. With Chopsticks, you can fork live chains locally, replay blocks to analyze extrinsics, and simulate complex scenarios like XCM interactions all without deploying to a live network.
@@ -188,6 +192,11 @@ These are the methods that can be invoked and their parameters:
         ```js
         --8<-- 'code/parachains/testing/fork-a-parachain/dev-timeTravel-example.js'
         ```
+
+<div class="status-badge" markdown>
+[![Fork a Parachain](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-fork-a-parachain.yml/badge.svg)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-fork-a-parachain.yml){target=\_blank}
+[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/parachains/testing/fork-a-parachain/tests/guide.test.ts){ .tests-button target=\_blank}
+</div>
 
 ## Where to Go Next
 

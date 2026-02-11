@@ -4,172 +4,175 @@
 */
 
 (function () {
-    'use strict';
-  
-    if (typeof window === 'undefined') {
+  'use strict';
+
+  if (typeof window === 'undefined') {
+    return;
+  }
+
+  // ---------- Toast Notifications ----------
+  function showToast(message) {
+    const existingToast = document.querySelector('.ai-actions-toast');
+    if (existingToast) {
+      existingToast.remove();
+    }
+
+    const toast = document.createElement('div');
+    toast.className = 'ai-actions-toast'; // Use strictly our own class to avoid CSS conflicts
+    toast.textContent = message;
+    document.body.appendChild(toast);
+
+    // Force reflow
+    void toast.offsetWidth;
+
+    setTimeout(() => {
+      toast.classList.add('show');
+    }, 10);
+
+    setTimeout(() => {
+      toast.classList.remove('show');
+      setTimeout(() => {
+        toast.remove();
+      }, 300);
+    }, 2500);
+  }
+
+  // ---------- Clipboard / Download Logic ----------
+
+  async function copyToClipboard(text) {
+    // Simple clipboard write, rethrowing error to be caught by caller
+    await navigator.clipboard.writeText(text);
+    return true;
+  }
+
+  async function handleCopy(button) {
+    const url = button.dataset.url;
+    if (!url) return;
+
+    try {
+      const response = await fetch(url);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const text = await response.text();
+
+      await copyToClipboard(text);
+
+      showToast('Content copied to clipboard!');
+    } catch (error) {
+      console.error('Copy error:', error);
+      showToast('Failed to copy content');
+    }
+  }
+
+  async function handleDownload(url, filename) {
+    try {
+      const response = await fetch(url);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+      const blob = await response.blob();
+      const objectUrl = URL.createObjectURL(blob);
+
+      const link = document.createElement('a');
+      link.href = objectUrl;
+      link.download = filename || ''; // Uses server filename if empty
+      document.body.appendChild(link);
+      link.click();
+
+      // Cleanup
+      document.body.removeChild(link);
+      URL.revokeObjectURL(objectUrl);
+
+      showToast('Download started');
+    } catch (error) {
+      console.error('Download error:', error);
+      showToast('Failed to download file');
+    }
+  }
+
+  // ---------- Event Delegation ----------
+
+  document.addEventListener('click', function (event) {
+    // Handle Dropdown Toggle
+    const toggleBtn = event.target.closest('.ai-file-actions-trigger');
+    if (toggleBtn) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      // Close other dropdowns
+      document.querySelectorAll('.ai-file-actions-menu.show').forEach((d) => {
+        if (d !== toggleBtn.nextElementSibling) {
+          d.classList.remove('show');
+          const otherToggle = d.parentElement.querySelector(
+            '.ai-file-actions-trigger',
+          );
+          if (otherToggle) {
+            otherToggle.classList.remove('active');
+            otherToggle.setAttribute('aria-expanded', 'false');
+          }
+        }
+      });
+
+      const dropdown = toggleBtn.nextElementSibling; // The menu is right after the button
+      if (dropdown) {
+        dropdown.classList.toggle('show');
+        const isExpanded = dropdown.classList.contains('show');
+        toggleBtn.setAttribute('aria-expanded', isExpanded);
+        toggleBtn.classList.toggle('active', isExpanded);
+      }
       return;
     }
-  
-    // ---------- Toast Notifications ----------
-    function showToast(message) {
-      const existingToast = document.querySelector('.ai-actions-toast');
-      if (existingToast) {
-        existingToast.remove();
+
+    // Handle Copy Action (Left Button)
+    const copyBtn = event.target.closest('.ai-file-actions-copy');
+    if (copyBtn) {
+      event.preventDefault();
+      handleCopy(copyBtn);
+      return;
+    }
+
+    // Handle Dropdown Items
+    const item = event.target.closest('.ai-file-actions-item');
+    if (item) {
+      event.preventDefault();
+
+      const action = item.dataset.action;
+      const url = item.dataset.url;
+
+      // Close the dropdown
+      const dropdown = item.closest('.ai-file-actions-menu');
+      if (dropdown) {
+        dropdown.classList.remove('show');
+        const trigger = dropdown.parentElement.querySelector(
+          '.ai-file-actions-trigger',
+        );
+        if (trigger) {
+          trigger.classList.remove('active');
+          trigger.setAttribute('aria-expanded', 'false');
+        }
       }
-  
-      const toast = document.createElement('div');
-      toast.className = 'ai-actions-toast'; // Use strictly our own class to avoid CSS conflicts
-      toast.textContent = message;
-      document.body.appendChild(toast);
-  
-      // Force reflow
-      void toast.offsetWidth;
-  
-      setTimeout(() => {
-        toast.classList.add('show');
-      }, 10);
-  
-      setTimeout(() => {
-        toast.classList.remove('show');
-        setTimeout(() => {
-          toast.remove();
-        }, 300);
-      }, 2500);
-    }
-  
-    // ---------- Clipboard / Download Logic ----------
-  
-    async function copyToClipboard(text) {
-      // Simple clipboard write, rethrowing error to be caught by caller
-      await navigator.clipboard.writeText(text);
-      return true;
-    }
-  
-    async function handleCopy(button) {
-      const url = button.dataset.url;
+
       if (!url) return;
 
-      try {
-        const response = await fetch(url);
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        const text = await response.text();
-        
-        await copyToClipboard(text);
-        
-        showToast('Content copied to clipboard!');
-
-      } catch (error) {
-        console.error('Copy error:', error);
-        showToast('Failed to copy content');
+      if (action === 'view-file') {
+        window.open(url, '_blank', 'noopener,noreferrer');
+      } else if (action === 'download-file') {
+        const filename = item.dataset.filename;
+        handleDownload(url, filename);
       }
+      return;
     }
-  
-    async function handleDownload(url, filename) {
-        try {
-            const response = await fetch(url);
-            if (!response.ok) throw new Error(`HTTP ${response.status}`);
-            
-            const blob = await response.blob();
-            const objectUrl = URL.createObjectURL(blob);
-            
-            const link = document.createElement('a');
-            link.href = objectUrl;
-            link.download = filename || ''; // Uses server filename if empty
-            document.body.appendChild(link);
-            link.click();
-            
-            // Cleanup
-            document.body.removeChild(link);
-            URL.revokeObjectURL(objectUrl);
-            
-            showToast('Download started');
-            
-        } catch (error) {
-            console.error('Download error:', error);
-            showToast('Failed to download file');
+
+    // Close dropdowns when clicking outside
+    if (!event.target.closest('.ai-file-actions-container')) {
+      document.querySelectorAll('.ai-file-actions-menu.show').forEach((d) => {
+        d.classList.remove('show');
+        const trigger = d.parentElement.querySelector(
+          '.ai-file-actions-trigger',
+        );
+        if (trigger) {
+          trigger.classList.remove('active');
+          trigger.setAttribute('aria-expanded', 'false');
         }
+      });
     }
-  
-    // ---------- Event Delegation ----------
-  
-    document.addEventListener('click', function (event) {
-        // Handle Dropdown Toggle
-        const toggleBtn = event.target.closest('.ai-file-actions-trigger');
-        if (toggleBtn) {
-            event.preventDefault();
-            event.stopPropagation();
-            
-            // Close other dropdowns
-            document.querySelectorAll('.ai-file-actions-menu.show').forEach(d => {
-                if (d !== toggleBtn.nextElementSibling) {
-                    d.classList.remove('show');
-                    const otherToggle = d.parentElement.querySelector('.ai-file-actions-trigger');
-                     if (otherToggle) {
-                        otherToggle.classList.remove('active');
-                        otherToggle.setAttribute('aria-expanded', 'false');
-                     }
-                }
-            });
-
-            const dropdown = toggleBtn.nextElementSibling; // The menu is right after the button
-            if (dropdown) {
-                dropdown.classList.toggle('show');
-                const isExpanded = dropdown.classList.contains('show');
-                toggleBtn.setAttribute('aria-expanded', isExpanded);
-                toggleBtn.classList.toggle('active', isExpanded);
-            }
-            return;
-        }
-
-        // Handle Copy Action (Left Button)
-        const copyBtn = event.target.closest('.ai-file-actions-copy');
-        if (copyBtn) {
-            event.preventDefault();
-            handleCopy(copyBtn);
-            return;
-        }
-
-        // Handle Dropdown Items
-        const item = event.target.closest('.ai-file-actions-item');
-        if (item) {
-            event.preventDefault(); 
-            
-            const action = item.dataset.action;
-            const url = item.dataset.url;
-            
-            // Close the dropdown
-            const dropdown = item.closest('.ai-file-actions-menu');
-            if (dropdown) {
-                dropdown.classList.remove('show');
-                const trigger = dropdown.parentElement.querySelector('.ai-file-actions-trigger');
-                if (trigger) {
-                    trigger.classList.remove('active');
-                    trigger.setAttribute('aria-expanded', 'false');
-                }
-            }
-
-            if (!url) return;
-
-            if (action === 'view-file') {
-                window.open(url, '_blank', 'noopener,noreferrer');
-            } else if (action === 'download-file') {
-                const filename = item.dataset.filename;
-                handleDownload(url, filename);
-            }
-            return;
-        }
-
-        // Close dropdowns when clicking outside
-        if (!event.target.closest('.ai-file-actions-container')) {
-             document.querySelectorAll('.ai-file-actions-menu.show').forEach(d => {
-                d.classList.remove('show');
-                const trigger = d.parentElement.querySelector('.ai-file-actions-trigger');
-                if (trigger) {
-                    trigger.classList.remove('active');
-                    trigger.setAttribute('aria-expanded', 'false');
-                }
-            });
-        }
-    });
-  
-  })();
+  });
+})();

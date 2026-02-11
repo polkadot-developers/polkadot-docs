@@ -303,7 +303,7 @@ The build includes all the benchmarking infrastructure and special host function
 
 [`frame-omni-bencher`](https://paritytech.github.io/polkadot-sdk/master/frame_omni_bencher/index.html){target=\_blank} is the official Polkadot SDK tool designed explicitly for FRAME pallet benchmarking. It provides a standardized way to execute benchmarks, measure execution times and storage operations, and generate properly formatted weight files with full integration into the FRAME weight system.
 
-Download the pre-built binary from the [Polkadot SDK release](https://github.com/paritytech/polkadot-sdk/releases/tag/{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.polkadot_sdk_version}}){target=\_blank}:
+Download the pre-built binary from the [Polkadot SDK release](https://github.com/paritytech/polkadot-sdk/releases/tag/{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.polkadot_sdk_version}}){target=\_blank} (recommended):
 
 === "macOS"
 
@@ -320,6 +320,12 @@ Download the pre-built binary from the [Polkadot SDK release](https://github.com
     chmod +x frame-omni-bencher
     sudo mv frame-omni-bencher /usr/local/bin/
     ```
+
+Alternatively, you can install from source using `cargo`:
+
+```bash
+cargo install frame-omni-bencher --locked
+```
 
 ## Download the Weight Template
 

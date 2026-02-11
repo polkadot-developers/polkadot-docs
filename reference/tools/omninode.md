@@ -16,7 +16,7 @@ This guide provides step-by-step instructions for installing the `polkadot-omni-
 
 ## Install Polkadot Omni Node
 
-Download the pre-built `polkadot-omni-node` binary from the [Polkadot SDK release](https://github.com/paritytech/polkadot-sdk/releases/tag/{{dependencies.repositories.polkadot_sdk.version}}){target=\_blank}:
+Download the pre-built `polkadot-omni-node` binary from the [Polkadot SDK release](https://github.com/paritytech/polkadot-sdk/releases/tag/{{dependencies.repositories.polkadot_sdk.version}}){target=\_blank} (recommended):
 
 === "macOS"
 
@@ -33,6 +33,12 @@ Download the pre-built `polkadot-omni-node` binary from the [Polkadot SDK releas
     chmod +x polkadot-omni-node
     sudo mv polkadot-omni-node /usr/local/bin/
     ```
+
+Alternatively, you can install from source using `cargo`:
+
+```bash
+cargo install --locked polkadot-omni-node@{{dependencies.crates.polkadot_omni_node.version}}
+```
 
 To confirm the installation, run:
 

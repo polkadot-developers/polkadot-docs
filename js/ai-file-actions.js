@@ -95,7 +95,9 @@
 
       const link = document.createElement('a');
       link.href = objectUrl;
-      link.download = filename || ''; // Uses server filename if empty
+      /* With Blob URLs, we must set the filename manually or fallback to deriving it from the URL, as the browser cannot infer it from the server response headers. */
+      link.download =
+        filename || url.substring(url.lastIndexOf('/') + 1) || 'download';
       document.body.appendChild(link);
       link.click();
 

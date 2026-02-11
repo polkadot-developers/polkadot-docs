@@ -35,9 +35,9 @@ dependencies:
         polkadot_omni_node_version: 0.13.0
         chain_spec_builder_version: 16.0.0
         frame_omni_bencher_version: 0.17.0
-        rust_version: "1.93"
-        rust_toolchain_macos: 1.93-aarch64-apple-darwin
-        rust_toolchain_ubuntu: 1.93.0
+        rust_version: "1.91"
+        rust_toolchain_macos: 1.91-aarch64-apple-darwin
+        rust_toolchain_ubuntu: 1.91.0
   crates:
     subxt:
       name: subxt

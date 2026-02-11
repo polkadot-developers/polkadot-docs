@@ -40,9 +40,31 @@
   // ---------- Clipboard / Download Logic ----------
 
   async function copyToClipboard(text) {
-    // Simple clipboard write, rethrowing error to be caught by caller
-    await navigator.clipboard.writeText(text);
-    return true;
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch (error) {
+      let copied = false;
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+      /* If clipboard API is not available, fallback to execCommand, which still works in most browsers */
+      try {
+        document.execCommand('copy');
+        copied = true;
+      } catch (fallbackError) {
+        console.error('Copy fallback failed', fallbackError);
+      }
+      document.body.removeChild(textarea);
+
+      if (!copied) {
+        throw error;
+      }
+      return true;
+    }
   }
 
   async function handleCopy(button) {

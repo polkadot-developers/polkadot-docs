@@ -32,26 +32,26 @@ Before getting started, ensure you have done the following:
 
 - Completed the [Install Polkadot SDK](/parachains/install-polkadot-sdk/){target=\_blank} guide and successfully installed [Rust](https://rust-lang.org/){target=\_blank} and the required packages to set up your development environment.
 
-For this tutorial series, you need to use Rust `1.86`. Newer versions of the compiler may not work with this parachain template version.
+For this tutorial series, you need to use Rust `1.93`. Newer versions of the compiler may not work with this parachain template version.
 
 Run the following commands to set up the correct Rust version:
 
 === "macOS"
 
     ```bash
-    rustup install 1.86
-    rustup default 1.86
-    rustup target add wasm32-unknown-unknown --toolchain 1.86-aarch64-apple-darwin
-    rustup component add rust-src --toolchain 1.86-aarch64-apple-darwin
+    rustup install 1.93
+    rustup default 1.93
+    rustup target add wasm32-unknown-unknown --toolchain 1.93-aarch64-apple-darwin
+    rustup component add rust-src --toolchain 1.93-aarch64-apple-darwin
     ```
 
 === "Ubuntu"
 
     ```bash
-    rustup toolchain install 1.86.0
-    rustup default 1.86.0
-    rustup target add wasm32-unknown-unknown --toolchain 1.86.0
-    rustup component add rust-src --toolchain 1.86.0
+    rustup toolchain install 1.93.0
+    rustup default 1.93.0
+    rustup target add wasm32-unknown-unknown --toolchain 1.93.0
+    rustup component add rust-src --toolchain 1.93.0
     ```
 
 ## Polkadot SDK Utility Tools

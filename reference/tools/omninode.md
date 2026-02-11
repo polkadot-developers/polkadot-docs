@@ -14,27 +14,25 @@ This approach enables it to act as a white-labeled node binary, capable of runni
 
 This guide provides step-by-step instructions for installing the `polkadot-omni-node`, obtaining a chain specification, and spinning up a parachain node.
 
-## Prerequisites
-
-Before getting started, ensure you have the following prerequisites:
-
-- **[Rust](https://rust-lang.org/tools/install/){target=\_blank}**: Required to build and install the `polkadot-omni-node` binary.
-
-Ensure Rust's `cargo` command is available in your terminal by running:
-
-```bash
-cargo --version
-```
-
 ## Install Polkadot Omni Node
 
-To install `polkadot-omni-node` globally using `cargo`, run:
+Download the pre-built `polkadot-omni-node` binary from the [Polkadot SDK release](https://github.com/paritytech/polkadot-sdk/releases/tag/{{dependencies.repositories.polkadot_sdk.version}}){target=\_blank}:
 
-```bash
-cargo install --locked polkadot-omni-node@{{dependencies.crates.polkadot_omni_node.version}}
-```
+=== "macOS"
 
-This command downloads and installs version {{dependencies.crates.polkadot_omni_node.version}} of the binary, making it available system-wide.
+    ```bash
+    curl -L -o polkadot-omni-node https://github.com/paritytech/polkadot-sdk/releases/download/{{dependencies.repositories.polkadot_sdk.version}}/polkadot-omni-node-aarch64-apple-darwin
+    chmod +x polkadot-omni-node
+    sudo mv polkadot-omni-node /usr/local/bin/
+    ```
+
+=== "Ubuntu"
+
+    ```bash
+    curl -L -o polkadot-omni-node https://github.com/paritytech/polkadot-sdk/releases/download/{{dependencies.repositories.polkadot_sdk.version}}/polkadot-omni-node
+    chmod +x polkadot-omni-node
+    sudo mv polkadot-omni-node /usr/local/bin/
+    ```
 
 To confirm the installation, run:
 

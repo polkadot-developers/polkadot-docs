@@ -58,25 +58,28 @@ Run the following commands to set up the correct Rust version:
 
 This tutorial requires two essential tools:
 
-- [**Chain spec builder**](https://crates.io/crates/staging-chain-spec-builder/{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.chain_spec_builder_version}}){target=\_blank}: A Polkadot SDK utility for generating chain specifications. Refer to the [Generate Chain Specs](/parachains/launch-a-parachain/deploy-to-polkadot/#generate-the-chain-specification){target=\_blank} documentation for detailed usage.
-    
-    Install it by executing the following command:
-    
-    ```bash
-    cargo install --locked staging-chain-spec-builder@{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.chain_spec_builder_version}}
-    ```
+- [**Chain spec builder**](https://crates.io/crates/staging-chain-spec-builder/{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.chain_spec_builder_version}}){target=\_blank} - a Polkadot SDK utility for generating chain specifications. Refer to the [Generate Chain Specs](/parachains/launch-a-parachain/deploy-to-polkadot/#generate-the-chain-specification){target=\_blank} documentation for detailed usage
+- [**Polkadot Omni Node**](https://crates.io/crates/polkadot-omni-node/{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.polkadot_omni_node_version}}){target=\_blank} - a white-labeled binary, released as a part of Polkadot SDK, that can act as the collator of a parachain in production, with all the related auxiliary functionalities that a normal collator node has: RPC server, archiving state, etc. It can also run the Wasm blob of the parachain locally for testing and development
 
-    This command installs the `chain-spec-builder` binary.
+Download the pre-built binaries from the [Polkadot SDK release](https://github.com/paritytech/polkadot-sdk/releases/tag/{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.polkadot_sdk_version}}){target=\_blank}:
 
-- [**Polkadot Omni Node**](https://crates.io/crates/polkadot-omni-node/{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.polkadot_omni_node_version}}){target=\_blank}: A white-labeled binary, released as a part of Polkadot SDK that can act as the collator of a parachain in production, with all the related auxiliary functionalities that a normal collator node has: RPC server, archiving state, etc. Moreover, it can also run the Wasm blob of the parachain locally for testing and development.
-
-    To install it, run the following command:
+=== "macOS"
 
     ```bash
-    cargo install --locked polkadot-omni-node@{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.polkadot_omni_node_version}}
+    curl -L -o chain-spec-builder https://github.com/paritytech/polkadot-sdk/releases/download/{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.polkadot_sdk_version}}/chain-spec-builder-aarch64-apple-darwin
+    curl -L -o polkadot-omni-node https://github.com/paritytech/polkadot-sdk/releases/download/{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.polkadot_sdk_version}}/polkadot-omni-node-aarch64-apple-darwin
+    chmod +x chain-spec-builder polkadot-omni-node
+    sudo mv chain-spec-builder polkadot-omni-node /usr/local/bin/
     ```
 
-    This command installs the `polkadot-omni-node` binary.
+=== "Ubuntu"
+
+    ```bash
+    curl -L -o chain-spec-builder https://github.com/paritytech/polkadot-sdk/releases/download/{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.polkadot_sdk_version}}/chain-spec-builder
+    curl -L -o polkadot-omni-node https://github.com/paritytech/polkadot-sdk/releases/download/{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.polkadot_sdk_version}}/polkadot-omni-node
+    chmod +x chain-spec-builder polkadot-omni-node
+    sudo mv chain-spec-builder polkadot-omni-node /usr/local/bin/
+    ```
 
 ## Clone the Template
 

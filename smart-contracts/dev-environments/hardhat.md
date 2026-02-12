@@ -15,6 +15,9 @@ toggle:
 
 [Hardhat](https://hardhat.org/){target=\_blank} is a flexible development environment for building, testing, and deploying smart contracts on Polkadot. Its task runner and plugin system support organizing contract code, running tests, managing deployments, and adding custom tooling. This page demonstrates how to set up a Hardhat project for Polkadot Hub.
 
+!!! info "Testing and debugging against Polkadot"
+    When using standard Hardhat against Polkadot nodes, some behaviors differ (e.g. network helpers like `time.increase()` or `loadFixture` may not work). See [Differences between Ethereum-native tools and Polkadot EVM networks](/smart-contracts/get-started/#differences-between-ethereum-native-tools-and-polkadot-evm-networks){target=\_blank} for details.
+
 ## Prerequisites
 
 Before setting up Hardhat, make sure the following are installed:

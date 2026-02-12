@@ -158,9 +158,6 @@
     if (item) {
       event.preventDefault();
 
-      const action = item.dataset.action;
-      const url = item.dataset.url;
-
       // Close the dropdown
       const dropdown = item.closest('.ai-file-actions-menu');
       if (dropdown) {
@@ -174,13 +171,16 @@
         }
       }
 
-      if (!url) return;
+      const actionType = item.dataset.actionType;
 
-      if (action === 'view-file') {
-        window.open(url, '_blank', 'noopener,noreferrer');
-      } else if (action === 'download-file') {
-        const filename = item.dataset.filename;
-        handleDownload(url, filename);
+      if (actionType === 'link') {
+        if (item.dataset.download) {
+          handleDownload(item.dataset.href, item.dataset.download);
+        } else if (item.dataset.href) {
+          window.open(item.dataset.href, '_blank', 'noopener,noreferrer');
+        }
+      } else if (actionType === 'clipboard') {
+        handleCopy(item);
       }
       return;
     }

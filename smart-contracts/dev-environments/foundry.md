@@ -104,19 +104,6 @@ Foundry's nightly build includes native support for Polkadot chains with `polkad
 
 Create or modify your `foundry.toml` file:
 
-=== "Routescan"
-
-    ```toml title='foundry.toml'
-    [profile.default]
-    src = "src"
-    out = "out"
-    libs = ["lib"]
-    solc_version = "0.8.28"
-
-    [etherscan]
-    polkadot-testnet = { key = "verifyContract", url = "https://api.routescan.io/v2/network/testnet/evm/420420417/etherscan" }
-    ```
-
 === "Blockscout"
 
     ```toml title='foundry.toml'
@@ -128,6 +115,19 @@ Create or modify your `foundry.toml` file:
 
     [etherscan]
     polkadot-testnet = { key = "", url = "https://blockscout-testnet.polkadot.io/api?" }
+    ```
+
+=== "Routescan"
+
+    ```toml title='foundry.toml'
+    [profile.default]
+    src = "src"
+    out = "out"
+    libs = ["lib"]
+    solc_version = "0.8.28"
+
+    [etherscan]
+    polkadot-testnet = { key = "verifyContract", url = "https://api.routescan.io/v2/network/testnet/evm/420420417/etherscan" }
     ```
 
 With this configuration, you can use `--chain polkadot-testnet` in your commands without specifying the RPC URL explicitly.
@@ -236,6 +236,31 @@ To verify your deployed contract on Polkadot Hub, use the verification feature w
 
 ### Basic Verification
 
+=== "Blockscout"
+
+    ```bash
+    forge verify-contract INSERT_CONTRACT_ADDRESS \
+        src/Counter.sol:Counter \
+        --chain polkadot-testnet
+    ```
+
+    Blockscout does not require an API key. With Foundry's native Polkadot support, `--verifier` and `--verifier-url` are not needed.
+
+    You should see output similar to:
+
+    <div class="termynal" data-termynal>
+        <span data-ty="input"><span class="file-path"></span>forge verify-contract 0xc29C4ebCdd1c49bc77362A13Ab921f22005828A0 \
+        src/Counter.sol:Counter \</span>
+        <br>
+        <span data-ty>--chain polkadot-testnet</span>
+        <span data-ty>Start verifying contract `0xc29C4ebCdd1c49bc77362A13Ab921f22005828A0` deployed on polkadot-testnet</span>
+        <span data-ty>Submitting verification for [src/Counter.sol:Counter] 0xc29C4ebCdd1c49bc77362A13Ab921f22005828A0.</span>
+        <span data-ty>Submitted contract for verification:</span>
+        <span data-ty>	Response: `OK`</span>
+        <span data-ty>	GUID: `c29c4ebcdd1c49bc77362a13ab921f22005828a0698f2622`</span>
+        <span data-ty>	URL: https://blockscout-testnet.polkadot.io/address/0xc29c4ebcdd1c49bc77362a13ab921f22005828a0</span>
+    </div>
+
 === "Routescan"
 
     ```bash
@@ -248,41 +273,37 @@ To verify your deployed contract on Polkadot Hub, use the verification feature w
 
     The Routescan API v2 structure is `https://api.routescan.io/v2/network/{testnet|mainnet}/evm/{CHAIN_ID}/etherscan`. The `--verifier-url` is the URL of the Polkadot Hub explorer verifier.
 
+    You should see output similar to:
+
+    <div class="termynal" data-termynal>
+        <span data-ty="input"><span class="file-path"></span>forge verify-contract 0xF1fbAf96A16458A512A33b31c4414C4a81f50EF4 \
+        src/Counter.sol:Counter \</span>
+        <br>
+        <span data-ty>--verifier-url 'https://api.routescan.io/v2/network/testnet/evm/420420417/etherscan'</span>
+        <span data-ty>--etherscan-api-key "verifyContract"</span>
+        <span data-ty>--chain polkadot-testnet</span>
+        <span data-ty>Start verifying contract `0xF1fbAf96A16458A512A33b31c4414C4a81f50EF4` deployed on polkadot-testnet</span>
+        <span data-ty>Submitting verification for [src/Counter.sol:Counter] 0xF1fbAf96A16458A512A33b31c4414C4a81f50EF4.</span>
+        <span data-ty>Submitted contract for verification:</span>
+        <span data-ty>	Response: `OK`</span>
+        <span data-ty>	GUID: `71d14e5b-eda1-5e85-98c5-2faf93306526`</span>
+        <span data-ty>	URL: https://polkadot.testnet.routescan.io/address/0xf1fbaf96a16458a512a33b31c4414c4a81f50ef4</span>
+    </div>
+
+Replace `INSERT_CONTRACT_ADDRESS` with your deployed contract's address.
+
+### Verification with Constructor Arguments
+
+For contracts with constructor arguments:
+
 === "Blockscout"
 
     ```bash
     forge verify-contract INSERT_CONTRACT_ADDRESS \
         src/Counter.sol:Counter \
-        --verifier blockscout \
-        --verifier-url 'https://blockscout-testnet.polkadot.io/api?' \
-        --chain polkadot-testnet
+        --chain polkadot-testnet \
+        --constructor-args $(cast abi-encode "constructor(uint256,address)" 42 INSERT_DEPLOYER_ADDRESS)
     ```
-
-    Blockscout does not require an API key. Add `/api?` to the end of the Blockscout explorer URL.
-
-Replace `INSERT_CONTRACT_ADDRESS` with your deployed contract's address.
-
-
-You should see output similar to:
-
-<div class="termynal" data-termynal>
-    <span data-ty="input"><span class="file-path"></span>forge verify-contract 0xF1fbAf96A16458A512A33b31c4414C4a81f50EF4 \
-    src/Counter.sol:Counter \</span>
-    <br>
-    <span data-ty>--verifier-url 'https://api.routescan.io/v2/network/testnet/evm/420420417/etherscan'</span>
-    <span data-ty>--etherscan-api-key "verifyContract"</span>
-    <span data-ty>--chain polkadot-testnet</span>
-    <span data-ty>Start verifying contract `0xF1fbAf96A16458A512A33b31c4414C4a81f50EF4` deployed on polkadot-testnet</span>
-    <span data-ty>Submitting verification for [src/Counter.sol:Counter] 0xF1fbAf96A16458A512A33b31c4414C4a81f50EF4.</span>
-    <span data-ty>Submitted contract for verification:</span>
-    <span data-ty>	Response: `OK`</span>
-    <span data-ty>	GUID: `71d14e5b-eda1-5e85-98c5-2faf93306526`</span>
-    <span data-ty>	URL: https://blockscout-testnet.polkadot.io/address/0xf1fbaf96a16458a512a33b31c4414c4a81f50ef4</span>
-</div>
-
-### Verification with Constructor Arguments
-
-For contracts with constructor arguments:
 
 === "Routescan"
 
@@ -291,17 +312,6 @@ For contracts with constructor arguments:
         src/Counter.sol:Counter \
         --verifier-url 'https://api.routescan.io/v2/network/testnet/evm/420420417/etherscan' \
         --etherscan-api-key "verifyContract" \
-        --chain polkadot-testnet \
-        --constructor-args $(cast abi-encode "constructor(uint256,address)" 42 INSERT_DEPLOYER_ADDRESS)
-    ```
-
-=== "Blockscout"
-
-    ```bash
-    forge verify-contract INSERT_CONTRACT_ADDRESS \
-        src/Counter.sol:Counter \
-        --verifier blockscout \
-        --verifier-url 'https://blockscout-testnet.polkadot.io/api?' \
         --chain polkadot-testnet \
         --constructor-args $(cast abi-encode "constructor(uint256,address)" 42 INSERT_DEPLOYER_ADDRESS)
     ```

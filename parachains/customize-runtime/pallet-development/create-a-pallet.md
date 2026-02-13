@@ -7,7 +7,7 @@ categories: Parachains
 # Create a Custom Pallet
 
 <div class="status-badge" markdown>
-[![Create a Custom Pallet](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-create-a-pallet.yml/badge.svg)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-create-a-pallet.yml){target=\_blank}
+[![Create a Custom Pallet](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-create-a-pallet.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-create-a-pallet.yml){target=\_blank}
 </div>
 
 ## Introduction
@@ -411,7 +411,7 @@ You've successfully created and integrated a custom pallet into a Polkadot SDK-b
 These components form the foundation for developing sophisticated blockchain logic in Polkadot SDK-based chains.
 
 <div class="status-badge" markdown>
-[![Create a Custom Pallet](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-create-a-pallet.yml/badge.svg)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-create-a-pallet.yml){target=\_blank}
+[![Create a Custom Pallet](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-create-a-pallet.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-create-a-pallet.yml){target=\_blank}
 [:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/parachains/customize-runtime/pallet-development/create-a-pallet/tests/guide.test.ts){ .tests-button target=\_blank}
 </div>
 

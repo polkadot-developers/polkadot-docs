@@ -6,6 +6,10 @@ categories: Parachains, Tooling
 
 # Run a Parachain Network Using Zombienet
 
+<div class="status-badge" markdown>
+[![Run a Parachain Network](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-run-a-parachain-network.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-run-a-parachain-network.yml){target=\_blank}
+</div>
+
 ## Introduction
 
 Zombienet is a robust testing framework designed for Polkadot SDK-based blockchain networks. It enables developers to efficiently deploy and test ephemeral blockchain environments on platforms like Kubernetes, Podman, and native setups. With its simple and versatile CLI, Zombienet provides an all-in-one solution for spawning networks, running tests, and validating performance.
@@ -810,6 +814,11 @@ You can use the `hrmp_channels` keyword to define further parameters for the XCM
         - **`recipient` ++"number"++**: Parachain ID of the recipient.
         - **`max_capacity` ++"number"++**: Maximum capacity of the HRMP channel.
         - **`max_message_size` ++"number"++**: Maximum message size allowed in the HRMP channel.
+
+<div class="status-badge" markdown>
+[![Run a Parachain Network](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-run-a-parachain-network.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-run-a-parachain-network.yml){target=\_blank}
+[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/networks/run-a-parachain-network/tests/guide.test.ts){ .tests-button target=\_blank}
+</div>
 
 ## Where to Go Next
 

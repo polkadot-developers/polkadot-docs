@@ -20,7 +20,7 @@ Deploy existing Ethereum contracts with zero modifications while maintaining ful
 
 - **Complete JSON-RPC API support**: Use MetaMask, Hardhat, Remix, Foundry, and all standard Ethereum tooling.
 - **Standard libraries**: Integrate Ethers.js, Web3.js, Viem, Wagmi, and Web3.py without changes.
-- **Solidity development**: Write contracts in Solidity or migrate existing code directly.
+- **Solidity development**: Write contracts in Solidity or migrate existing code directly. Use the [OpenZeppelin Contracts Wizard for Polkadot](https://wizard.openzeppelin.com/polkadot){target=\_blank} to generate secure ERC-20, ERC-721, and other OpenZeppelin-standard contracts.
 - **Familiar workflows**: Maintain your existing deployment, testing, and monitoring processes.
 
 ### Performance Options

@@ -28,7 +28,7 @@ Deploy existing Ethereum contracts with zero modifications while maintaining ful
 Choose between two execution backends:
 
 - **REVM**: Run unmodified Ethereum contracts with full EVM/Ethereum compatibility.
-- **PVM**: Compile to optimized RISC-V bytecode for enhanced performance and lower fees while keeping Ethereum-compatibility.
+- **PVM**: Compile to optimized RISC-V bytecode for enhanced performance and lower fees while keeping Ethereum-compatibility. You can write PVM contracts in Solidity (via `resolc`) or Rust—for Rust, tooling is maturing; use LLMs and coding agents to assist development.
 
 Both backends share the same RPC interface and tooling support, allowing seamless transitions. In addition, smart contracts can interact with Polkadot native services via [precompile contracts](/smart-contracts/precompiles/){target=\_blank}.
 

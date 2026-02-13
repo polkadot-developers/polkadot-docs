@@ -8,7 +8,7 @@ categories: Basics, Parachains
 # Set Up the Polkadot SDK Parachain Template
 
 <div class="status-badge" markdown>
-[![Set Up Parachain Template](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-set-up-parachain-template.yml/badge.svg)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-set-up-parachain-template.yml){target=\_blank}
+[![Set Up Parachain Template](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-set-up-parachain-template.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-set-up-parachain-template.yml){target=\_blank}
 </div>
 
 ## Introduction
@@ -215,7 +215,7 @@ To stop the local node:
 3. Verify that your terminal returns to the prompt in the `parachain-template` directory.
 
 <div class="status-badge" markdown>
-[![Set Up Parachain Template](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-set-up-parachain-template.yml/badge.svg)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-set-up-parachain-template.yml){target=\_blank}
+[![Set Up Parachain Template](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-set-up-parachain-template.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-set-up-parachain-template.yml){target=\_blank}
 [:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/parachains/set-up-parachain-template/tests/guide.test.ts){ .tests-button target=\_blank}
 </div>
 

@@ -57,6 +57,8 @@ This proxy-based approach eliminates the need for node binary modifications, mai
 
 For advanced use cases requiring maximum performance, Polkadot Hub also supports the [PVM (Polkadot Virtual Machine)](https://github.com/paritytech/polkavm){target=\_blank} backend. PVM uses a RISC-V-based architecture that can provide performance optimizations for computationally intensive workloads. Solidity contracts can be compiled to PVM bytecode using the `resolc` compiler.
 
+Rust is also well-suited for PVM. Tooling is still limited, so consider using LLMs and coding agents to supplement development.
+
 Most developers should start with REVM for its simplicity and full Ethereum compatibility. PVM is available for projects with specific performance requirements.
 
 ## Where To Go Next

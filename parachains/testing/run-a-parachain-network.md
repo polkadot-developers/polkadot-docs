@@ -7,7 +7,7 @@ categories: Parachains, Tooling
 # Run a Parachain Network Using Zombienet
 
 <div class="status-badge" markdown>
-[![Run a Parachain Network](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-run-a-parachain-network.yml/badge.svg)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-run-a-parachain-network.yml){target=\_blank}
+[![Run a Parachain Network](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-run-a-parachain-network.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-run-a-parachain-network.yml){target=\_blank}
 </div>
 
 ## Introduction
@@ -820,7 +820,7 @@ You can use the `hrmp_channels` keyword to define further parameters for the XCM
         - **`max_message_size` ++"number"++**: Maximum message size allowed in the HRMP channel.
 
 <div class="status-badge" markdown>
-[![Run a Parachain Network](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-run-a-parachain-network.yml/badge.svg)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-run-a-parachain-network.yml){target=\_blank}
+[![Run a Parachain Network](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-run-a-parachain-network.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-run-a-parachain-network.yml){target=\_blank}
 [:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/networks/run-a-parachain-network/tests/guide.test.ts){ .tests-button target=\_blank}
 </div>
 

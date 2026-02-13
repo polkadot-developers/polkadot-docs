@@ -127,18 +127,21 @@
         }, COPY_FEEDBACK_MS);
       }
 
-      navigator.clipboard.writeText(text).then(showCopiedFeedback).catch(() => {
-        // Fallback for older browsers or non-HTTPS
-        try {
-          input.select();
-          input.setSelectionRange(0, 99999);
-          if (document.execCommand('copy')) {
-            showCopiedFeedback();
+      navigator.clipboard
+        .writeText(text)
+        .then(showCopiedFeedback)
+        .catch(() => {
+          // Fallback for older browsers or non-HTTPS
+          try {
+            input.select();
+            input.setSelectionRange(0, 99999);
+            if (document.execCommand('copy')) {
+              showCopiedFeedback();
+            }
+          } catch (e) {
+            console.error('Copy failed:', e);
           }
-        } catch (e) {
-          console.error('Copy failed:', e);
-        }
-      });
+        });
     }
 
     // Expose for inline onclick handlers
@@ -234,7 +237,7 @@
     // Event wiring
     // =========================================================================
 
-    document.addEventListener('DOMContentLoaded', () => {
+    function onReady() {
       buildConverterHTML();
 
       // Cache DOM references
@@ -376,7 +379,13 @@
           }
         });
       }
-    });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', onReady);
+    } else {
+      onReady();
+    }
   }
 
   // =========================================================================

@@ -104,21 +104,36 @@ Foundry's nightly build includes native support for Polkadot chains with `polkad
 
 Create or modify your `foundry.toml` file:
 
-```toml title='foundry.toml'
-[profile.default]
-src = "src"
-out = "out"
-libs = ["lib"]
-solc_version = "0.8.28"
+=== "Routescan"
 
-[etherscan]
-polkadot-testnet = { key = "verifyContract", url = "https://api.routescan.io/v2/network/testnet/evm/420420417/etherscan" }
-```
+    ```toml title='foundry.toml'
+    [profile.default]
+    src = "src"
+    out = "out"
+    libs = ["lib"]
+    solc_version = "0.8.28"
+
+    [etherscan]
+    polkadot-testnet = { key = "verifyContract", url = "https://api.routescan.io/v2/network/testnet/evm/420420417/etherscan" }
+    ```
+
+=== "Blockscout"
+
+    ```toml title='foundry.toml'
+    [profile.default]
+    src = "src"
+    out = "out"
+    libs = ["lib"]
+    solc_version = "0.8.28"
+
+    [etherscan]
+    polkadot-testnet = { key = "", url = "https://blockscout-testnet.polkadot.io/api?" }
+    ```
 
 With this configuration, you can use `--chain polkadot-testnet` in your commands without specifying the RPC URL explicitly.
 
 !!! note
-    The `[etherscan]` section is used for contract verification using the Routescan API.
+    The `[etherscan]` section is used for contract verification. Routescan requires an API key; Blockscout does not.
 
 ### Available Networks and RPC Endpoints
 
@@ -221,17 +236,32 @@ To verify your deployed contract on Polkadot Hub, use the verification feature w
 
 ### Basic Verification
 
-```bash
-forge verify-contract INSERT_CONTRACT_ADDRESS \
-    src/Counter.sol:Counter \
-    --verifier-url 'https://api.routescan.io/v2/network/testnet/evm/420420417/etherscan' \
-    --etherscan-api-key "verifyContract" \
-    --chain polkadot-testnet
-```
+=== "Routescan"
+
+    ```bash
+    forge verify-contract INSERT_CONTRACT_ADDRESS \
+        src/Counter.sol:Counter \
+        --verifier-url 'https://api.routescan.io/v2/network/testnet/evm/420420417/etherscan' \
+        --etherscan-api-key "verifyContract" \
+        --chain polkadot-testnet
+    ```
+
+    The Routescan API v2 structure is `https://api.routescan.io/v2/network/{testnet|mainnet}/evm/{CHAIN_ID}/etherscan`. The `--verifier-url` is the URL of the Polkadot Hub explorer verifier.
+
+=== "Blockscout"
+
+    ```bash
+    forge verify-contract INSERT_CONTRACT_ADDRESS \
+        src/Counter.sol:Counter \
+        --verifier blockscout \
+        --verifier-url 'https://blockscout-testnet.polkadot.io/api?' \
+        --chain polkadot-testnet
+    ```
+
+    Blockscout does not require an API key. Add `/api?` to the end of the Blockscout explorer URL.
 
 Replace `INSERT_CONTRACT_ADDRESS` with your deployed contract's address.
 
-The `--verifier-url` is the URL of the Polkadot Hub explorer verifier. The Routescan API v2 structure is `https://api.routescan.io/v2/network/{testnet|mainnet}/evm/{CHAIN_ID}/etherscan`.
 
 You should see output similar to:
 
@@ -254,14 +284,27 @@ You should see output similar to:
 
 For contracts with constructor arguments:
 
-```bash
-forge verify-contract INSERT_CONTRACT_ADDRESS \
-    src/Counter.sol:Counter \
-    --verifier-url 'https://api.routescan.io/v2/network/testnet/evm/420420417/etherscan' \
-    --etherscan-api-key "verifyContract" \
-    --chain polkadot-testnet \
-    --constructor-args $(cast abi-encode "constructor(uint256,address)" 42 INSERT_DEPLOYER_ADDRESS)
-```
+=== "Routescan"
+
+    ```bash
+    forge verify-contract INSERT_CONTRACT_ADDRESS \
+        src/Counter.sol:Counter \
+        --verifier-url 'https://api.routescan.io/v2/network/testnet/evm/420420417/etherscan' \
+        --etherscan-api-key "verifyContract" \
+        --chain polkadot-testnet \
+        --constructor-args $(cast abi-encode "constructor(uint256,address)" 42 INSERT_DEPLOYER_ADDRESS)
+    ```
+
+=== "Blockscout"
+
+    ```bash
+    forge verify-contract INSERT_CONTRACT_ADDRESS \
+        src/Counter.sol:Counter \
+        --verifier blockscout \
+        --verifier-url 'https://blockscout-testnet.polkadot.io/api?' \
+        --chain polkadot-testnet \
+        --constructor-args $(cast abi-encode "constructor(uint256,address)" 42 INSERT_DEPLOYER_ADDRESS)
+    ```
 
 Replace `INSERT_CONTRACT_ADDRESS` with your deployed contract's address.
 

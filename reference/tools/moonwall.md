@@ -116,7 +116,7 @@ The default configuration requires specific details about your blockchain node a
 
 - The `foundation` object defines how your test blockchain node will be launched and managed. The dev foundation, which runs a local node binary, is used for local development.
 
-    For more information about available options, check the [Foundations](https://moonsong-labs.github.io/moonwall/guide/intro/foundations.html){target=\_blank} section.
+    For more information about available options, check the [Foundations](https://moonsong-labs.github.io/moonwall/guide/foundations.html){target=\_blank} section.
 
 - The `connections` array specifies how your tests will interact with the blockchain node. This typically includes provider configuration and endpoint details.
 

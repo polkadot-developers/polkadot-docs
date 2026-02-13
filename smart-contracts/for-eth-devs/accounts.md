@@ -16,7 +16,7 @@ categories: Basics, Polkadot Protocol
 
 ---
 
-<iframe src="https://polkadot-developers.github.io/account-converter/" width="100%" height="670" frameborder="0" class="converter"></iframe>
+<iframe src="https://polkadot-developers.github.io/account-converter/" width="100%" height="670" class="converter" style="border: 0;"></iframe>
 
 ## Introduction
 

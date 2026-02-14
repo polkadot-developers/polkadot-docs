@@ -22,6 +22,8 @@ extra_css:
 
 <div id="account-converter-root"></div>
 
+<iframe src="https://polkadot-developers.github.io/account-converter/" width="100%" height="670" class="converter" style="border: 0;"></iframe>
+
 ## Introduction
 
 Polkadot Hub natively utilizes Polkadot's 32-byte account system while providing interoperability with Ethereum's 20-byte addresses through an automatic conversion system. When interacting with smart contracts:

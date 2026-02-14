@@ -1,4 +1,4 @@
-frame-benchmarking = { version = "37.0.0", default-features = false }
+frame-benchmarking = { version = "45.0.1", default-features = false }
 runtime-benchmarks = [
   "frame-benchmarking/runtime-benchmarks",
   "frame-support/runtime-benchmarks",

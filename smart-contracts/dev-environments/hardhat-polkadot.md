@@ -39,13 +39,13 @@ Before setting up Hardhat, make sure the following are installed:
 3. Install the Polkadot plugin for Hardhat:
 
     ```bash
-    npm install --save-dev @parity/hardhat-polkadot@0.2.7
+    npm install --save-dev @parity/hardhat-polkadot@{{dependencies.javascript_packages.hardhat_polkadot.version}}
     ```
 
 4. Install the resolc compiler (required for compiling Solidity to PVM):
 
     ```bash
-    npm install --save-dev @parity/resolc@0.2.0
+    npm install --save-dev @parity/resolc@{{dependencies.javascript_packages.resolc.version}}
     ```
 
 5. Initialize a Hardhat project:

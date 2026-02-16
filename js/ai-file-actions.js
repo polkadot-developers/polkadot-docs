@@ -86,26 +86,25 @@
   }
 
   async function handleDownload(linkElement) {
-    const originalHref = linkElement.href;
+    linkElement.dataset.downloading = 'true';
 
     try {
-      const response = await fetch(originalHref);
+      const response = await fetch(linkElement.href);
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
       const blob = await response.blob();
       const objectUrl = URL.createObjectURL(blob);
 
       linkElement.href = objectUrl;
-      linkElement.click();
+      linkElement.click(); // Re-enters event handler but flag lets it pass through natively
 
-      // Restore original href and clean up
-      linkElement.href = originalHref;
       URL.revokeObjectURL(objectUrl);
-
       showToast('Download started');
     } catch (error) {
       console.error('Download error:', error);
       showToast('Failed to download file');
+    } finally {
+      delete linkElement.dataset.downloading;
     }
   }
 
@@ -167,9 +166,13 @@
       }
 
       // Download links: intercept to force download via fetch+blob
+      // On re-entry from handleDownload's .click(), the flag is set
+      // so we skip preventDefault() and let the browser download the blob natively
       if (item.hasAttribute('download')) {
-        event.preventDefault();
-        handleDownload(item);
+        if (!item.dataset.downloading) {
+          event.preventDefault();
+          handleDownload(item);
+        }
         return;
       }
 

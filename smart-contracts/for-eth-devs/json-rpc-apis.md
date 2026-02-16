@@ -801,8 +801,8 @@ Ensure to replace the `INSERT_TRANSACTION_HASH` with the proper value.
 !!!note "Differences from Ethereum (Geth)"
     When using the default struct logger (opcode tracer), there is a difference in how `gasCost` is calculated for CALL-like opcodes (`CALL`, `DELEGATECALL`, `STATICCALL`, `CREATE`, `CREATE2`):
 
-    - **Geth behavior**: the `gasCost` includes the opcode's intrinsic cost plus all gas forwarded to child calls.
-    - **Polkadot Hub behavior**: the `gasCost` includes only the opcode's intrinsic cost, excluding forwarded gas. The intrinsic cost covers:
+    - **Geth behavior**: The `gasCost` includes the opcode's intrinsic cost plus all gas forwarded to child calls.
+    - **Polkadot Hub behavior**: The `gasCost` includes only the opcode's intrinsic cost, excluding forwarded gas. The intrinsic cost covers:
         - Base cost of the CALL opcode.
         - Post-call costs (for example, copying return data back to the caller's memory).
 

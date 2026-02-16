@@ -15,11 +15,11 @@ dependencies:
       docker_image_version: 1.88.0
     polkadot_sdk:
       repository_url: https://github.com/paritytech/polkadot-sdk
-      version: polkadot-stable2512
-      docker_image_version: stable2512
+      version: polkadot-stable2512-1
+      docker_image_version: stable2512-1
     open_zeppelin_contracts:
       repository_url: https://github.com/OpenZeppelin/openzeppelin-contracts
-      version: v5.4.0
+      version: v5.5.0
     polkadot_sdk_contracts_node:
       repository_url: https://github.com/paritytech/polkadot-sdk
       version: polkadot-stable2503-6
@@ -28,7 +28,10 @@ dependencies:
     polkadot_sdk_parachain_template:
       repository_url: https://github.com/paritytech/polkadot-sdk-parachain-template
       version: v0.0.4
+      # Subdependencies are pinned to versions from the template's Cargo.lock.
+      # Update these only when a new template version is released.
       subdependencies:
+        polkadot_sdk_version: polkadot-stable2503-3
         polkadot_omni_node_version: 0.5.0
         chain_spec_builder_version: 10.0.0
         frame_omni_bencher_version: 0.13.0
@@ -48,23 +51,23 @@ dependencies:
       ignore_updates: true
     polkadot_omni_node:
       name: polkadot-omni-node
-      version: 0.7.0
+      version: 0.13.0
   javascript_packages:
     chopsticks:
       name: '@acala-network/chopsticks'
-      version: 1.2.5
+      version: 1.2.7
     moonwall:
       name: '@moonwall/cli'
-      version: 5.18.2
+      version: 5.18.3
     polkadot_js_api:
       name: '@polkadot/api'
       version: 16.5.4
     polkadot_api:
       name: polkadot-api
-      version: 1.23.2
+      version: 1.23.3
     resolc:
       name: '@parity/resolc'
-      version: 0.6.0
+      version: 1.0.0
     hardhat_polkadot:
       name: '@parity/hardhat-polkadot'
       version: 0.2.7
@@ -82,7 +85,7 @@ dependencies:
       version: 6.16.0
     paraspell_sdk:
       name: '@paraspell/sdk'
-      version: 12.3.0
+      version: 12.6.0
     hdkd:
       name: '@polkadot-labs/hdkd'
       version: 0.0.26

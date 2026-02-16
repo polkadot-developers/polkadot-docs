@@ -85,24 +85,21 @@
     }
   }
 
-  async function handleDownload(url, filename) {
+  async function handleDownload(linkElement) {
+    const originalHref = linkElement.href;
+
     try {
-      const response = await fetch(url);
+      const response = await fetch(originalHref);
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
       const blob = await response.blob();
       const objectUrl = URL.createObjectURL(blob);
 
-      const link = document.createElement('a');
-      link.href = objectUrl;
-      /* With Blob URLs, we must set the filename manually or fallback to deriving it from the URL, as the browser cannot infer it from the server response headers. */
-      link.download =
-        filename || url.substring(url.lastIndexOf('/') + 1) || 'download';
-      document.body.appendChild(link);
-      link.click();
+      linkElement.href = objectUrl;
+      linkElement.click();
 
-      // Cleanup
-      document.body.removeChild(link);
+      // Restore original href and clean up
+      linkElement.href = originalHref;
       URL.revokeObjectURL(objectUrl);
 
       showToast('Download started');
@@ -156,8 +153,6 @@
     // Handle Dropdown Items
     const item = event.target.closest('.ai-file-actions-item');
     if (item) {
-      event.preventDefault();
-
       // Close the dropdown
       const dropdown = item.closest('.ai-file-actions-menu');
       if (dropdown) {
@@ -171,15 +166,21 @@
         }
       }
 
-      const actionType = item.dataset.actionType;
+      // Download links: intercept to force download via fetch+blob
+      if (item.hasAttribute('download')) {
+        event.preventDefault();
+        handleDownload(item);
+        return;
+      }
 
-      if (actionType === 'link') {
-        if (item.dataset.download) {
-          handleDownload(item.dataset.href, item.dataset.download);
-        } else if (item.dataset.href) {
-          window.open(item.dataset.href, '_blank', 'noopener,noreferrer');
-        }
-      } else if (actionType === 'clipboard') {
+      // Plain links (<a> without download): let the browser handle natively
+      if (item.tagName === 'A') {
+        return;
+      }
+
+      // Clipboard buttons
+      if (item.dataset.actionType === 'clipboard') {
+        event.preventDefault();
         handleCopy(item);
       }
       return;

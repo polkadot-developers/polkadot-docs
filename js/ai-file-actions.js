@@ -19,6 +19,9 @@
 
     const toast = document.createElement('div');
     toast.className = 'ai-actions-toast'; // Use strictly our own class to avoid CSS conflicts
+    toast.setAttribute('role', 'status');
+    toast.setAttribute('aria-live', 'polite');
+    toast.setAttribute('aria-atomic', 'true');
     toast.textContent = message;
     document.body.appendChild(toast);
 
@@ -53,8 +56,7 @@
       textarea.select();
       /* If clipboard API is not available, fallback to execCommand, which still works in most browsers */
       try {
-        document.execCommand('copy');
-        copied = true;
+        copied = document.execCommand('copy');
       } catch (fallbackError) {
         console.error('Copy fallback failed', fallbackError);
       }

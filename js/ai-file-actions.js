@@ -40,6 +40,21 @@
     }, 2500);
   }
 
+  // ---------- Analytics ----------
+
+  function sendAnalytics(actionId) {
+    if (typeof window.gtag === 'function') {
+      try {
+        window.gtag('event', 'ai_file_action', {
+          event_category: 'engagement',
+          event_label: actionId,
+        });
+      } catch (e) {
+        /* silently fail */
+      }
+    }
+  }
+
   // ---------- Clipboard / Download Logic ----------
 
   async function copyToClipboard(text) {
@@ -110,6 +125,26 @@
     }
   }
 
+  // ---------- Dropdown Helpers ----------
+
+  function closeDropdown(menu) {
+    if (!menu) return;
+    menu.classList.remove('show');
+    const trigger = menu.parentElement.querySelector(
+      '.ai-file-actions-trigger',
+    );
+    if (trigger) {
+      trigger.classList.remove('active');
+      trigger.setAttribute('aria-expanded', 'false');
+    }
+  }
+
+  function closeAllDropdowns(except) {
+    document.querySelectorAll('.ai-file-actions-menu.show').forEach((d) => {
+      if (d !== except) closeDropdown(d);
+    });
+  }
+
   // ---------- Event Delegation ----------
 
   document.addEventListener('click', function (event) {
@@ -120,18 +155,7 @@
       event.stopPropagation();
 
       // Close other dropdowns
-      document.querySelectorAll('.ai-file-actions-menu.show').forEach((d) => {
-        if (d !== toggleBtn.nextElementSibling) {
-          d.classList.remove('show');
-          const otherToggle = d.parentElement.querySelector(
-            '.ai-file-actions-trigger',
-          );
-          if (otherToggle) {
-            otherToggle.classList.remove('active');
-            otherToggle.setAttribute('aria-expanded', 'false');
-          }
-        }
-      });
+      closeAllDropdowns(toggleBtn.nextElementSibling);
 
       const dropdown = toggleBtn.nextElementSibling; // The menu is right after the button
       if (dropdown) {
@@ -147,6 +171,7 @@
     const copyBtn = event.target.closest('.ai-file-actions-copy');
     if (copyBtn) {
       event.preventDefault();
+      sendAnalytics(copyBtn.dataset.action || 'copy-markdown');
       handleCopy(copyBtn);
       return;
     }
@@ -155,17 +180,9 @@
     const item = event.target.closest('.ai-file-actions-item');
     if (item) {
       // Close the dropdown
-      const dropdown = item.closest('.ai-file-actions-menu');
-      if (dropdown) {
-        dropdown.classList.remove('show');
-        const trigger = dropdown.parentElement.querySelector(
-          '.ai-file-actions-trigger',
-        );
-        if (trigger) {
-          trigger.classList.remove('active');
-          trigger.setAttribute('aria-expanded', 'false');
-        }
-      }
+      closeDropdown(item.closest('.ai-file-actions-menu'));
+
+      sendAnalytics(item.dataset.actionId || '');
 
       // Download links: intercept to force download via fetch+blob
       // On re-entry from handleDownload's .click(), the flag is set
@@ -193,16 +210,39 @@
 
     // Close dropdowns when clicking outside
     if (!event.target.closest('.ai-file-actions-container')) {
-      document.querySelectorAll('.ai-file-actions-menu.show').forEach((d) => {
-        d.classList.remove('show');
-        const trigger = d.parentElement.querySelector(
+      closeAllDropdowns();
+    }
+  });
+  // ---------- Keyboard Navigation ----------
+
+  document.addEventListener('keydown', function (event) {
+    const menu = document.querySelector('.ai-file-actions-menu.show');
+    if (!menu) return;
+
+    const items = Array.from(menu.querySelectorAll('.ai-file-actions-item'));
+    if (!items.length) return;
+
+    const currentIndex = items.findIndex(
+      (item) => item === document.activeElement,
+    );
+
+    switch (event.key) {
+      case 'ArrowDown':
+        event.preventDefault();
+        items[(currentIndex + 1) % items.length].focus();
+        break;
+      case 'ArrowUp':
+        event.preventDefault();
+        items[(currentIndex - 1 + items.length) % items.length].focus();
+        break;
+      case 'Escape':
+        event.preventDefault();
+        closeDropdown(menu);
+        var trigger = menu.parentElement.querySelector(
           '.ai-file-actions-trigger',
         );
-        if (trigger) {
-          trigger.classList.remove('active');
-          trigger.setAttribute('aria-expanded', 'false');
-        }
-      });
+        if (trigger) trigger.focus();
+        break;
     }
   });
 })();

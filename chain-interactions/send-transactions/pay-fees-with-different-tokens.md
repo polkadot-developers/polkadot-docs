@@ -117,7 +117,7 @@ This command forks Polkadot Hub chain, making it available at `ws://localhost:80
     2. Install the Subxt CLI to download chain metadata:
 
         ```bash
-        cargo install subxt-cli
+        cargo install subxt-cli@{{ dependencies.crates.subxt_cli.version }}
         ```
 
     3. Download Polkadot Hub metadata from the local Chopsticks fork:
@@ -235,7 +235,7 @@ The key part of this tutorial is specifying an alternative asset for fee payment
     In Polkadot.js, you define the asset as an XCM multi-location object and pass it as the `assetId` option to `signAndSend`:
 
     ```javascript title="fee-payment-transaction.js"
-    --8<-- "code/chain-interactions/send-transactions/pay-fees-with-different-tokens/pjs/fee-payment-transaction.js:25:52"
+    --8<-- "code/chain-interactions/send-transactions/pay-fees-with-different-tokens/pjs/fee-payment-transaction.js:25:83"
     ```
 
 === "Subxt"

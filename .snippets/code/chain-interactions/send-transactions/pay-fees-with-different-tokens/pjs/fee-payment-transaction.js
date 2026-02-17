@@ -32,23 +32,54 @@ async function main() {
 
   // Sign and send the transaction, paying fees with USDT
   console.log('Signing and submitting transaction...');
-  const txHash = await new Promise((resolve, reject) => {
-    tx.signAndSend(alice, { assetId }, ({ status, events, txHash }) => {
-      if (status.isFinalized) {
-        console.log(
-          `\nTransaction finalized in block: ${status.asFinalized.toHex()}`
-        );
-        console.log(`Transaction hash: ${txHash.toHex()}`);
+  await new Promise((resolve, reject) => {
+    let unsubscribe;
+    tx
+      .signAndSend(
+        alice,
+        { assetId },
+        ({ status, events, txHash, dispatchError }) => {
+          if (status.isFinalized) {
+            console.log(
+              `\nTransaction finalized in block: ${status.asFinalized.toHex()}`
+            );
+            console.log(`Transaction hash: ${txHash.toHex()}`);
 
-        // Display all events
-        console.log('\nEvents:');
-        events.forEach(({ event }) => {
-          console.log(`  ${event.section}.${event.method}`);
-        });
+            // Display all events
+            console.log('\nEvents:');
+            events.forEach(({ event }) => {
+              console.log(`  ${event.section}.${event.method}`);
+            });
 
-        resolve(txHash.toHex());
-      }
-    }).catch(reject);
+            if (unsubscribe) {
+              unsubscribe();
+            }
+
+            if (dispatchError) {
+              if (dispatchError.isModule) {
+                const decoded = api.registry.findMetaError(
+                  dispatchError.asModule
+                );
+                const { docs, name, section } = decoded;
+                reject(new Error(`${section}.${name}: ${docs.join(' ')}`));
+              } else {
+                reject(new Error(dispatchError.toString()));
+              }
+            } else {
+              resolve();
+            }
+          }
+        }
+      )
+      .then((unsub) => {
+        unsubscribe = unsub;
+      })
+      .catch((error) => {
+        if (unsubscribe) {
+          unsubscribe();
+        }
+        reject(error);
+      });
   });
 
   // Disconnect from the node

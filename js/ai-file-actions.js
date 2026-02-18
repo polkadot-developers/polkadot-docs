@@ -89,7 +89,7 @@
     if (!url) return;
 
     try {
-      const response = await fetch(url);
+      const response = await fetch(url, { credentials: 'omit' });
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const text = await response.text();
 
@@ -106,7 +106,7 @@
     linkElement.dataset.downloading = 'true';
 
     try {
-      const response = await fetch(linkElement.href);
+      const response = await fetch(linkElement.href, { credentials: 'omit' });
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
       const blob = await response.blob();
@@ -229,11 +229,11 @@
     switch (event.key) {
       case 'ArrowDown':
         event.preventDefault();
-        items[(currentIndex + 1) % items.length].focus();
+        items[currentIndex === -1 ? 0 : (currentIndex + 1) % items.length].focus();
         break;
       case 'ArrowUp':
         event.preventDefault();
-        items[(currentIndex - 1 + items.length) % items.length].focus();
+        items[currentIndex === -1 ? items.length - 1 : (currentIndex - 1 + items.length) % items.length].focus();
         break;
       case 'Escape':
         event.preventDefault();

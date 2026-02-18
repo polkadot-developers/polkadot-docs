@@ -238,7 +238,7 @@
       case 'Escape':
         event.preventDefault();
         closeDropdown(menu);
-        var trigger = menu.parentElement.querySelector(
+        const trigger = menu.parentElement.querySelector(
           '.ai-file-actions-trigger',
         );
         if (trigger) trigger.focus();

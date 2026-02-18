@@ -464,7 +464,7 @@
             trackButtonClick('open_chatgpt');
             const mdUrl = getMarkdownUrl(slug);
             const prompt = `Read ${mdUrl} so I can ask questions about it.`;
-            const chatGPTUrl = `https://chatgpt.com/?hints=search&q=${encodeURIComponent(
+            const chatGPTUrl = `https://chatgpt.com/?hints=search&prompt=${encodeURIComponent(
               prompt
             )}`;
             window.open(chatGPTUrl, '_blank');

@@ -11,33 +11,18 @@
   }
 
   // ---------- Toast Notifications ----------
+  // Reuses Material for MkDocs' built-in .md-dialog element (the same one
+  // used by code-block copy buttons) instead of a custom toast.
   function showToast(message) {
-    const existingToast = document.querySelector('.ai-actions-toast');
-    if (existingToast) {
-      existingToast.remove();
+    var dlg = document.querySelector('.md-dialog');
+    if (dlg) {
+      var msg = dlg.querySelector('.md-dialog__inner');
+      if (msg) msg.textContent = message;
+      dlg.classList.add('md-dialog--active');
+      setTimeout(function () {
+        dlg.classList.remove('md-dialog--active');
+      }, 2000);
     }
-
-    const toast = document.createElement('div');
-    toast.className = 'ai-actions-toast'; // Use strictly our own class to avoid CSS conflicts
-    toast.setAttribute('role', 'status');
-    toast.setAttribute('aria-live', 'polite');
-    toast.setAttribute('aria-atomic', 'true');
-    toast.textContent = message;
-    document.body.appendChild(toast);
-
-    // Force reflow
-    void toast.offsetWidth;
-
-    setTimeout(() => {
-      toast.classList.add('show');
-    }, 10);
-
-    setTimeout(() => {
-      toast.classList.remove('show');
-      setTimeout(() => {
-        toast.remove();
-      }, 300);
-    }, 2500);
   }
 
   // ---------- Analytics ----------

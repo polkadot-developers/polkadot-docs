@@ -29,9 +29,9 @@ Set up local environments and CI-friendly workflows to iterate quickly and valid
 | [Use Hardhat for Development](/smart-contracts/dev-environments/hardhat/) |      Hardhat      |     Project scaffolding and configuration      |
 | [Use Foundry for Development](/smart-contracts/dev-environments/foundry/) |      Foundry      |     Compile, test, deploy, and verify contracts  |
 
-## Differences between Ethereum-native tools and Polkadot EVM networks
+## Differences Between Ethereum-native Tools and Polkadot EVM Networks
 
-**Foundry**, **Hardhat**, and similar tools target standard Ethereum nodes. On Polkadot EVM networks (e.g. Polkadot Hub), nodes use [Ethereum JSON-RPC](https://ethereum.org/developers/docs/apis/json-rpc/){target=\_blank} but run on Substrate (REVM or PVM), so tests and debugging can differ: `forge test` and Hardhat’s default network use their own EVM, not Polkadot; time/snapshot helpers (e.g. `evm_increaseTime`, `loadFixture`) are often unsupported; gas reports may not match on-chain. For chain-specific behavior, run against a [local dev node](/smart-contracts/dev-environments/local-dev-node/) or TestNet. Details: [EVM vs PVM](/smart-contracts/for-eth-devs/evm-vs-pvm/), [Contract Deployment](/smart-contracts/for-eth-devs/contract-deployment/).
+**Foundry**, **Hardhat**, and similar tools target standard Ethereum nodes. On Polkadot EVM networks such as Polkadot Hub, nodes use [Ethereum JSON‑RPC](https://ethereum.org/developers/docs/apis/json-rpc/){target=\_blank} but run on Substrate (REVM or PVM), so tests and debugging can differ. For example, `forge test` and Hardhat’s default network use their own EVM, not Polkadot. Time and snapshot helpers like `evm_increaseTime` and `loadFixture` are often unsupported, and gas reports may not match on-chain. For chain-specific behavior, run against a [local dev node](/smart-contracts/dev-environments/local-dev-node/) or TestNet. For more details, see [EVM vs PVM](/smart-contracts/for-eth-devs/evm-vs-pvm/) and [Contract Deployment](/smart-contracts/for-eth-devs/contract-deployment/).
 
 ## Ethereum Developer Resources
 
@@ -45,7 +45,7 @@ Bridge your Ethereum knowledge with Polkadot Hub specifics: account mapping, fee
 |         [Contract Deployment](/smart-contracts/for-eth-devs/contract-deployment/)         |     Deployment mechanics, gas estimation, and storage model     |
 |               [JSON‑RPC APIs](/smart-contracts/for-eth-devs/json-rpc-apis/)               |        Supported Ethereum JSON‑RPC methods and examples         |
 |               [Dual VM Stack](/smart-contracts/for-eth-devs/dual-vm-stack/)               |         Overview of EVM and native execution on the Hub         |
-| [Differences: Ethereum tools vs Polkadot EVM](/smart-contracts/get-started/#differences-between-ethereum-native-tools-and-polkadot-evm-networks) | Limitations and differences when using Foundry, Hardhat, etc. against Polkadot nodes |
+| [Differences: Ethereum Tools vs Polkadot EVM](/smart-contracts/get-started/#differences-between-ethereum-native-tools-and-polkadot-evm-networks) | Limitations and differences when using Foundry, Hardhat, and other tools against Polkadot nodes |
 
 ## Cookbook: Hands‑on Tutorials
 

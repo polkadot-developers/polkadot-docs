@@ -17,6 +17,9 @@ categories: Smart Contracts, Tooling
 
 This page demonstrates how to set up Foundry to work with Polkadot Hub, including installation, compilation, deployment, and verification.
 
+!!! info "Limitations when using the built-in test framework"
+    **`forge test`** runs against standard **Anvil** (Ethereum node), not a Polkadot node. Anvil does not enforce [Existential Deposit](/smart-contracts/for-eth-devs/evm-vs-pvm/#account-management-existential-deposit){target=\_blank}, and balances, timestamps, block numbers, and runtime behavior (gas, precompiles) follow Ethereum semantics—so tests that pass locally may behave differently on Polkadot. Use `forge test` for unit tests; for Polkadot-specific behavior, run against a [local dev node](/smart-contracts/dev-environments/local-dev-node/) or TestNet. See [Differences between Ethereum-native tools and Polkadot EVM networks](/smart-contracts/get-started/#differences-between-ethereum-native-tools-and-polkadot-evm-networks){target=\_blank} for more.
+
 !!! tip "Native Polkadot Support"
     Foundry's nightly build includes native support for Polkadot chains, allowing you to use `--chain polkadot-testnet`, `--chain polkadot`, or `--chain kusama` without manually specifying RPC URLs. This makes development more streamlined and reduces configuration.
 

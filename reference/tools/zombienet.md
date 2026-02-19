@@ -204,7 +204,7 @@ A minimal configuration includes settings, relay chain configuration, and parach
         "timeout": 1000
       },
       "relaychain": {
-        "chain": "paseo-local",
+        "chain": "paseo",
         "default_command": "polkadot",
         "nodes": [
           {
@@ -220,7 +220,7 @@ A minimal configuration includes settings, relay chain configuration, and parach
       "parachains": [
         {
           "id": 1000,
-          "chain": "asset-hub-paseo-local",
+          "chain_spec_path": "./paseo-asset-hub.json",
           "collator": {
             "name": "collator-01",
             "command": "polkadot-parachain"

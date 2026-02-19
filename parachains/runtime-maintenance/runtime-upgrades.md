@@ -93,7 +93,10 @@ You'll use the `.compact.compressed.wasm` file for the upgrade, as it's the smal
 
 Now submit the new runtime to the chain using the Sudo pallet through Polkadot.js Apps.
 
-1. Open [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} and connect to your node. Click on **Developer** and select **Extrinsics** from the dropdown
+1. Open [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} and connect to your node:
+
+    1. Click on **Developer**
+    2. Select **Extrinsics** from the dropdown
 
     ![Navigate to Developer then Extrinsics](/images/parachains/runtime-maintenance/runtime-upgrades/runtime-upgrade-02.webp)
 
@@ -111,7 +114,10 @@ Now submit the new runtime to the chain using the Sudo pallet through Polkadot.j
 
     ![Select system pallet and setCode extrinsic](/images/parachains/runtime-maintenance/runtime-upgrades/runtime-upgrade-04.webp)
 
-4. For the `code` parameter, click **file upload** and select the `parachain_template_runtime.compact.compressed.wasm` file from `target/release/wbuild/parachain-template-runtime/`
+4. Upload the Wasm binary for the `code` parameter:
+
+    1. Click **file upload**
+    2. Select the `parachain_template_runtime.compact.compressed.wasm` file from `target/release/wbuild/parachain-template-runtime/`
 
     ![Upload the Wasm file](/images/parachains/runtime-maintenance/runtime-upgrades/runtime-upgrade-05.webp)
 
@@ -134,7 +140,10 @@ To confirm the upgrade was successful, navigate to the **Developer** dropdown an
 
 Now query the on-chain runtime version:
 
-1. Select the **system** pallet, then select **lastRuntimeUpgrade()** from the query dropdown, and click the **+** button
+1. Query the last runtime upgrade:
+
+    1. Select the **system** pallet
+    2. Select **lastRuntimeUpgrade()** from the query dropdown
 
     ![Select system pallet and lastRuntimeUpgrade query](/images/parachains/runtime-maintenance/runtime-upgrades/runtime-upgrade-08.webp)
 

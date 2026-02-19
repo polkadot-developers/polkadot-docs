@@ -14,9 +14,9 @@
   // Reuses Material for MkDocs' built-in .md-dialog element (the same one
   // used by code-block copy buttons) instead of a custom toast.
   function showToast(message) {
-    var dlg = document.querySelector('.md-dialog');
+    const dlg = document.querySelector('.md-dialog');
     if (dlg) {
-      var msg = dlg.querySelector('.md-dialog__inner');
+      const msg = dlg.querySelector('.md-dialog__inner');
       if (msg) msg.textContent = message;
       dlg.classList.add('md-dialog--active');
       setTimeout(function () {
@@ -100,7 +100,7 @@
       linkElement.href = objectUrl;
       linkElement.click(); // Re-enters event handler but flag lets it pass through natively
 
-      URL.revokeObjectURL(objectUrl);
+      setTimeout(function () { URL.revokeObjectURL(objectUrl); }, 100);
       showToast('Download started');
     } catch (error) {
       console.error('Download error:', error);
@@ -148,6 +148,10 @@
         const isExpanded = dropdown.classList.contains('show');
         toggleBtn.setAttribute('aria-expanded', isExpanded);
         toggleBtn.classList.toggle('active', isExpanded);
+        if (isExpanded) {
+          var first = dropdown.querySelector('.ai-file-actions-item');
+          if (first) first.focus();
+        }
       }
       return;
     }
@@ -219,6 +223,11 @@
       case 'ArrowUp':
         event.preventDefault();
         items[currentIndex === -1 ? items.length - 1 : (currentIndex - 1 + items.length) % items.length].focus();
+        break;
+      case 'Enter':
+      case ' ':
+        event.preventDefault();
+        if (currentIndex >= 0) items[currentIndex].click();
         break;
       case 'Escape':
         event.preventDefault();

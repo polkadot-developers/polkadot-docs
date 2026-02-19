@@ -7,6 +7,10 @@ categories: Parachains
 
 # Runtime Upgrades
 
+<div class="status-badge" markdown>
+[![Runtime Upgrades](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-runtime-upgrades.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-runtime-upgrades.yml){target=\_blank}
+</div>
+
 ## Introduction
 
 Upgrading the runtime of your Polkadot SDK-based blockchain is a fundamental feature that allows you to add new functionality, fix bugs, or improve performance without requiring a hard fork. Runtime upgrades are performed by submitting a special extrinsic that replaces the existing on-chain Wasm runtime code. This process is trustless, transparent, and can be executed either through governance or using sudo, depending on your chain's configuration.
@@ -166,6 +170,11 @@ Now, you can test the new functionality:
 1. Increment the counter using the existing `increment` function
 2. Use the new `resetCounter` function (note: you'll need sudo/root privileges)
 3. Verify the counter value is reset to `0`
+
+<div class="status-badge" markdown>
+[![Runtime Upgrades](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-runtime-upgrades.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-runtime-upgrades.yml){target=\_blank}
+[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/parachains/runtime-maintenance/runtime-upgrades/tests/guide.test.ts){ .tests-button target=\_blank}
+</div>
 
 ## Where to Go Next
 

@@ -2,6 +2,12 @@
 title: Interact with the ERC20 Precompile
 description: Learn how to use the ERC20 precompile to interact with assets from the assets pallet using standard ERC20 token interfaces in your smart contracts.
 categories: Smart Contracts
+extra_javascript:
+  - https://cdn.jsdelivr.net/npm/@polkadot/util@latest/bundle-polkadot-util.js
+  - https://cdn.jsdelivr.net/npm/@polkadot/util-crypto@latest/bundle-polkadot-util-crypto.js
+  - /js/erc20-asset-converter.js
+extra_css:
+  - /assets/stylesheets/erc20-asset-converter.css
 ---
 
 # ERC20 Precompile
@@ -15,6 +21,8 @@ Each asset in the Assets pallet is mapped to a unique precompile address based o
 - **Token transfers**: Send assets between accounts using standard `transfer` and `transferFrom` methods.
 - **Approvals and allowances**: Manage spending permissions with `approve` and `allowance`.
 - **Balance queries**: Check token balances with `balanceOf` and total supply with `totalSupply`.
+
+<div id="erc20-asset-converter-root"></div>
 
 ## Precompile Interface
 
@@ -213,7 +221,7 @@ To interact with the ERC20 precompile in [Remix IDE](/smart-contracts/dev-enviro
     ![](/images/smart-contracts/precompiles/erc20/erc20-01.webp)
 
 3. Compile the interface by selecting the compile button or using **Ctrl + S**
-4. Calculate the ERC20 precompile address for your asset using the [Asset ID to ERC20 Address Converter](https://tiagobndr.github.io/erc20-precompile-address/){target=\_blank}
+4. Calculate the ERC20 precompile address for your asset using the Asset ID to ERC20 Address converter above
    
     - Each asset has a unique address based on its asset ID
     - Format: `0x[assetId (8 hex)] + [24 zeros] + [prefix (8 hex)]`
@@ -240,4 +248,3 @@ Whether you're building DeFi protocols, token swaps, or any application requirin
 - [ERC20 precompile source code](https://github.com/paritytech/polkadot-sdk/blob/11be995be95ac1e25a5b2a6dd941006e7097bffc/substrate/frame/assets/precompiles/src/lib.rs){target=\_blank}
 - [Assets pallet documentation](https://paritytech.github.io/polkadot-sdk/master/pallet_assets/index.html){target=\_blank}
 - [EIP-20: Token Standard](https://eips.ethereum.org/EIPS/eip-20){target=\_blank}
-- [Asset ID to ERC20 Address Converter](https://tiagobndr.github.io/erc20-precompile-address/){target=\_blank}

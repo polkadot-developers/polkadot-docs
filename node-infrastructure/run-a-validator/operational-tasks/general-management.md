@@ -524,6 +524,8 @@ There are two approaches for generating session keys:
 
 - **Generate outside node and insert**: Using the `author.setKeys` RPC call. This flexibility accommodates advanced security setups and should only be used by experienced validator operators.
 
+- **Set session keys via Polkadot Hub**: Using the `stakingRcClient.set_keys` extrinsic on Polkadot Hub. This method sends the session keys to the relay chain via XCM and is the recommended approach for new validator setups. It is required for validators using pure proxy stash accounts or [Staking Operator proxies](/node-infrastructure/run-a-validator/operational-tasks/staking-operator-proxy/){target=\_blank}. The validator must have already called `bond` and `validate` before `set_keys` will succeed on Polkadot Hub. The legacy relay chain methods remain functional but will eventually be deprecated.
+
 ### Signing Outside the Client
 
 Polkadot plans to support external signing, allowing session keys to reside in secure environments like Hardware Security Modules (HSMs). However, these modules can sign any payload they receive, potentially enabling an attacker to perform slashable actions.

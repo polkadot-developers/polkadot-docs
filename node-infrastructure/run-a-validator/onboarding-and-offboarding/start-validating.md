@@ -85,6 +85,9 @@ To get started with the bond submission, click on the **Accounts** tab, then the
 
 1. **Stash account**: Select your stash account (which is the account with the DOT/KSM balance).
 2. **Value bonded**: Enter how much DOT from the stash account you want to bond/stake. You are not required to bond all of the DOT in that account and you may bond more DOT at a later time. Be aware, withdrawing any bonded amount requires waiting for the unbonding period. The unbonding period is seven days for Kusama and 28 days for Polkadot.
+
+    !!! note
+        Starting in April 2026, the unbonding period for Polkadot nominators is expected to be reduced from 28 days to approximately 2 days, with dynamic scaling based on unbonding queue size. Validator unbonding periods may differ. See [RFC-0097](https://polkadot-fellows.github.io/RFCs/approved/0097-unbonding_queue.html){target=\_blank} for technical details.
 3. **Payment destination**: Add the recipient account for validator rewards. If you'd like to redirect payments to an account that is not the stash account, you can do it by entering the address here. Note that it is extremely unsafe to set an exchange address as the recipient of the staking rewards.
 
 Once everything is filled in properly, select **Bond** and sign the transaction with your stash account. If successful, you should see an `ExtrinsicSuccess` message.
@@ -120,6 +123,9 @@ Follow these steps to use Polkadot.js Apps to activate your validator:
     ![](/images/node-infrastructure/run-a-validator/onboarding-and-offboarding/start-validating/start-validating-04.webp)
 
     You can also set the **commission** and **blocked** nominations option via `staking.validate` extrinsic. By default, the blocked option is set to FALSE (i.e., the validator accepts nominations).
+
+    !!! warning
+        As of the March 2026 runtime upgrade, a **minimum commission of 10%** is required for all validators. Setting a commission rate below 10% will make your validator permissionlessly chill-able through the `staking.chillOther` extrinsic. See [Minimum Commission](/node-infrastructure/run-a-validator/requirements/#minimum-commission){target=\_blank} for details.
 
     ![](/images/node-infrastructure/run-a-validator/onboarding-and-offboarding/start-validating/start-validating-05.webp)
 

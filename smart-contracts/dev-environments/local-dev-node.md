@@ -16,7 +16,7 @@ By the end of this guide, you'll have:
 - An ETH-RPC adapter for Ethereum-compatible tooling integration accessible at `http://localhost:8545`.
 
 !!! info "Tooling differences"
-    The local node exposes a subset of Ethereum JSON-RPC. Some methods used by Foundry, Hardhat, or other Ethereum-native tools (e.g. for time manipulation or debugging) may be missing or behave differently. See [Differences between Ethereum-native tools and Polkadot EVM networks](/smart-contracts/get-started/#differences-between-ethereum-native-tools-and-polkadot-evm-networks){target=\_blank} for implications when running tests and tools against Polkadot nodes.
+    The local node exposes a subset of the Ethereum JSON-RPC API. Some methods used by Foundry, Hardhat, or other Ethereum-native tools (e.g., for time manipulation or debugging) may be missing or behave differently. See [Differences between Ethereum-native tools and Polkadot EVM networks](/smart-contracts/get-started/#differences-between-ethereum-native-tools-and-polkadot-evm-networks){target=\_blank} for implications when running tests and tools against Polkadot nodes.
 
 ## Prerequisites
 

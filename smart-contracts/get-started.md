@@ -33,8 +33,8 @@ Set up local environments and CI-friendly workflows to iterate quickly and valid
 
 Tools like **Foundry** and **Hardhat** are built for standard Ethereum nodes. Polkadot EVM networks (such as Polkadot Hub) use the same [Ethereum JSON‑RPC](https://ethereum.org/developers/docs/apis/json-rpc/){target=\_blank} interface, but run on a different execution environment (Substrate with REVM or PVM). As a result:
 
-- **Local tests** (e.g. `forge test`, Hardhat's default network) run in the tool's own EVM, not Polkadot's—so behavior can differ from the real chain.
-- **Time and snapshot helpers** (e.g. `evm_increaseTime`, `loadFixture`) are often not supported on Polkadot nodes.
+- **Local tests** (e.g., `forge test`, Hardhat's default network) run in the tool's own EVM, not Polkadot's—so behavior can differ from the real chain.
+- **Time and snapshot helpers** (e.g., `evm_increaseTime`, `loadFixture`) are often not supported on Polkadot nodes.
 - **Gas reports** from these tools may not match what you see on-chain.
 
 **Recommendation:** To check chain-specific behavior, run your contracts against a [local dev node](/smart-contracts/dev-environments/local-dev-node/) or a TestNet. For more details, see [EVM vs PVM](/smart-contracts/for-eth-devs/evm-vs-pvm/) and [Contract Deployment](/smart-contracts/for-eth-devs/contract-deployment/).

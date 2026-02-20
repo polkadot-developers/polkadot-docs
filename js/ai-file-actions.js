@@ -11,33 +11,18 @@
   }
 
   // ---------- Toast Notifications ----------
+  // Reuses Material for MkDocs' built-in .md-dialog element (the same one
+  // used by code-block copy buttons) instead of a custom toast.
   function showToast(message) {
-    const existingToast = document.querySelector('.ai-actions-toast');
-    if (existingToast) {
-      existingToast.remove();
+    const dlg = document.querySelector('.md-dialog');
+    if (dlg) {
+      const msg = dlg.querySelector('.md-dialog__inner');
+      if (msg) msg.textContent = message;
+      dlg.classList.add('md-dialog--active');
+      setTimeout(function () {
+        dlg.classList.remove('md-dialog--active');
+      }, 2000);
     }
-
-    const toast = document.createElement('div');
-    toast.className = 'ai-actions-toast'; // Use strictly our own class to avoid CSS conflicts
-    toast.setAttribute('role', 'status');
-    toast.setAttribute('aria-live', 'polite');
-    toast.setAttribute('aria-atomic', 'true');
-    toast.textContent = message;
-    document.body.appendChild(toast);
-
-    // Force reflow
-    void toast.offsetWidth;
-
-    setTimeout(() => {
-      toast.classList.add('show');
-    }, 10);
-
-    setTimeout(() => {
-      toast.classList.remove('show');
-      setTimeout(() => {
-        toast.remove();
-      }, 300);
-    }, 2500);
   }
 
   // ---------- Analytics ----------
@@ -115,7 +100,7 @@
       linkElement.href = objectUrl;
       linkElement.click(); // Re-enters event handler but flag lets it pass through natively
 
-      URL.revokeObjectURL(objectUrl);
+      setTimeout(function () { URL.revokeObjectURL(objectUrl); }, 100);
       showToast('Download started');
     } catch (error) {
       console.error('Download error:', error);
@@ -163,6 +148,10 @@
         const isExpanded = dropdown.classList.contains('show');
         toggleBtn.setAttribute('aria-expanded', isExpanded);
         toggleBtn.classList.toggle('active', isExpanded);
+        if (isExpanded) {
+          var first = dropdown.querySelector('.ai-file-actions-item');
+          if (first) first.focus();
+        }
       }
       return;
     }
@@ -235,10 +224,15 @@
         event.preventDefault();
         items[currentIndex === -1 ? items.length - 1 : (currentIndex - 1 + items.length) % items.length].focus();
         break;
+      case 'Enter':
+      case ' ':
+        event.preventDefault();
+        if (currentIndex >= 0) items[currentIndex].click();
+        break;
       case 'Escape':
         event.preventDefault();
         closeDropdown(menu);
-        var trigger = menu.parentElement.querySelector(
+        const trigger = menu.parentElement.querySelector(
           '.ai-file-actions-trigger',
         );
         if (trigger) trigger.focus();

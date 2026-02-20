@@ -21,9 +21,9 @@ Before starting, ensure you have the following installed:
 
 - [Chopsticks](/reference/tools/chopsticks/){target=\_blank} — to fork Polkadot Hub locally
 - Your preferred SDK:
-    - [Polkadot-API (PAPI)](/reference/tools/papi/){target=\_blank} — TypeScript
-    - [Polkadot.js API](/reference/tools/polkadot-js-api/){target=\_blank} — JavaScript
-    - [Subxt](/reference/tools/subxt/){target=\_blank} — Rust
+    - [Polkadot-API (PAPI)](/reference/tools/papi/){target=\_blank} (TypeScript)
+    - [Polkadot.js API](/reference/tools/polkadot-js-api/){target=\_blank} (JavaScript)
+    - [Subxt](/reference/tools/subxt/){target=\_blank} (Rust)
 
 ## Local Polkadot Hub Setup
 

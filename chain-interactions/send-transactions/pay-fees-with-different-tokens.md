@@ -1,6 +1,7 @@
 ---
 title: Pay Transaction Fees with Different Tokens
 description: Learn how to send a DOT transfer transaction while paying the fees using a different token on Polkadot Hub using multiple SDKs.
+categories: Chain Interactions
 ---
 
 # Send a Transaction While Paying the Fee with a Different Token
@@ -18,7 +19,7 @@ You can follow this tutorial using [Polkadot-API (PAPI)](/reference/tools/papi/)
 
 Before starting, ensure you have the following installed:
 
-- [Chopsticks](/reference/tools/chopsticks/){target=\_blank} — for forking Polkadot Hub locally
+- [Chopsticks](/reference/tools/chopsticks/){target=\_blank} — to fork Polkadot Hub locally
 - Your preferred SDK:
     - [Polkadot-API (PAPI)](/reference/tools/papi/){target=\_blank} — TypeScript
     - [Polkadot.js API](/reference/tools/polkadot-js-api/){target=\_blank} — JavaScript
@@ -32,7 +33,7 @@ Fork the Polkadot Hub locally using [Chopsticks](/reference/tools/chopsticks/){t
 chopsticks -c polkadot-asset-hub
 ```
 
-This command forks Polkadot Hub chain, making it available at `ws://localhost:8000`. When running `polkadot-asset-hub`, you use Polkadot Hub fork with the configuration specified in the [`polkadot-asset-hub.yml`](https://github.com/AcalaNetwork/chopsticks/blob/master/configs/polkadot-asset-hub.yml){target=\_blank} file. This configuration defines Alice's account with USDT assets. If you want to use a different chain, ensure the account you use has the necessary assets.
+This command forks the Polkadot Hub chain, making it available at `ws://localhost:8000`. When running `polkadot-asset-hub`, you use the Polkadot Hub fork with the configuration specified in the [`polkadot-asset-hub.yml`](https://github.com/AcalaNetwork/chopsticks/blob/master/configs/polkadot-asset-hub.yml){target=\_blank} file. This configuration defines Alice's account with USDT assets. If you want to use a different chain, ensure the account you use has the necessary assets.
 
 ## Set Up Your Project
 
@@ -144,7 +145,7 @@ This command forks Polkadot Hub chain, making it available at `ws://localhost:80
 
 ## Implementation
 
-In the following sections, you set up imports and constants, create a transaction signer, connect to Polkadot Hub, and send a DOT transfer transaction while paying fees in USDT.
+The following sections cover how to set up imports and constants, create a transaction signer, connect to Polkadot Hub, and send a DOT transfer transaction while paying fees in USDT.
 
 ### Import Dependencies and Define Constants
 
@@ -310,13 +311,35 @@ When you run the script successfully, you should see output similar to:
 
 The key events to look for are:
 
-- **AssetTxPayment**: Confirms the fees were paid using the alternative asset
-- **AssetConversion**: The alternative asset was swapped to cover native fees
-- **Balances**: The transfer was executed and deposit and withdrawal events were emitted
-- **System**: The transaction completed successfully
+- **`AssetTxPayment`**: Confirms the fees were paid using the alternative asset.
+- **`AssetConversion`**: The alternative asset was swapped to cover native fees.
+- **`Balances`**: The transfer was executed and deposit and withdrawal events were emitted.
+- **`System`**: The transaction completed successfully.
 
 ## Conclusion
 
 Paying transaction fees with alternative tokens on Polkadot Hub provides significant flexibility for users and applications.
 
 The key takeaway is understanding how to specify alternative assets using the XCM location format, which opens up possibilities for building applications that can operate entirely using specific token ecosystems while still leveraging the full power of the network.
+
+## Where to Go Next
+
+<div class="grid cards" markdown>
+
+-   <span class="badge guide">Guide</span> __Send Transactions with SDKs__
+
+    ---
+
+    Learn how to send various types of transactions using different SDKs.
+
+    [:octicons-arrow-right-24: Get Started](/chain-interactions/send-transactions/with-sdks/)
+
+-   <span class="badge guide">Guide</span> __Calculate Transaction Fees__
+
+    ---
+
+    Understand how to estimate transaction fees before submitting.
+
+    [:octicons-arrow-right-24: Get Started](/chain-interactions/send-transactions/calculate-transaction-fees/)
+
+</div>

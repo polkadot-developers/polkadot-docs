@@ -28,8 +28,8 @@ In this example, you will estimate the fees for teleporting assets from the Polk
 ```mermaid
 flowchart LR
     PolkadotHub[Polkadot Hub] -->|Delivery Fees| PeopleChain[Paseo People Chain]
-    PolkadotHub -->|<br />Local<br />Execution<br />Fees| PolkadotHub
-    PeopleChain -->|<br />Remote<br />Execution<br />Fees| PeopleChain
+    PolkadotHub -->|Local<br/>Execution<br/>Fees| PolkadotHub
+    PeopleChain -->|Remote<br/>Execution<br/>Fees| PeopleChain
 ```
 
 The overall fees are `local_execution_fees` + `delivery_fees` + `remote_execution_fees`.
@@ -60,7 +60,7 @@ First, you need to set up your environment:
 4. Install dependencies:
 
     ```bash
-    npm install --save @polkadot-labs/hdkd@^0.0.13 @polkadot-labs/hdkd-helpers@^0.0.13 polkadot-api@1.9.5
+    npm install --save @polkadot-labs/hdkd@{{dependencies.javascript_packages.hdkd.version}} @polkadot-labs/hdkd-helpers@{{dependencies.javascript_packages.hdkd_helpers.version}} polkadot-api@{{dependencies.javascript_packages.polkadot_api.version}}
     ```
 
 5. Create TypeScript configuration:

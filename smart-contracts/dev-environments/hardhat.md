@@ -2,6 +2,11 @@
 title: Use Hardhat with Polkadot Hub
 description: Learn how to create, compile, test, and deploy smart contracts on Polkadot Hub using Hardhat, a powerful development environment for blockchain developers.
 categories: Smart Contracts, Tooling
+toggle:
+  group: hardhat
+  canonical: true
+  variant: evm
+  label: EVM
 ---
 
 # Hardhat
@@ -9,6 +14,9 @@ categories: Smart Contracts, Tooling
 ## Introduction
 
 [Hardhat](https://hardhat.org/){target=\_blank} is a flexible development environment for building, testing, and deploying smart contracts on Polkadot. Its task runner and plugin system support organizing contract code, running tests, managing deployments, and adding custom tooling. This page demonstrates how to set up a Hardhat project for Polkadot Hub.
+
+!!! info "Testing and debugging against Polkadot"
+    When using standard Hardhat against Polkadot nodes, some behaviors differ (e.g., network helpers like `time.increase()` or `loadFixture` may not work). See [Differences between Ethereum-native tools and Polkadot EVM networks](/smart-contracts/get-started/#differences-between-ethereum-native-tools-and-polkadot-evm-networks){target=\_blank} for details.
 
 ## Prerequisites
 
@@ -104,6 +112,129 @@ To use Hardhat with Polkadot Hub, define the network configuration in your `hard
     ```
 
     Hardhat will prompt you to enter your private key and store it so it can be referenced in your configuration file.
+
+## Verify a Contract
+
+To verify your deployed contract on Polkadot Hub, install the Hardhat verification plugin and add the explorer configuration to your config.
+
+### Install the Verification Plugin
+
+```bash
+npm install --save-dev @nomicfoundation/hardhat-verify@^2.0.0
+```
+
+!!! note "Hardhat 2 Compatibility"
+    Use `@nomicfoundation/hardhat-verify@^2.0.0` for Hardhat 2.x. The 3.x release requires Hardhat 3.
+
+Add the plugin to your config file:
+
+```ts
+import "@nomicfoundation/hardhat-verify";
+```
+
+### Add Verification Config
+
+Add the `etherscan` configuration to your `hardhat.config.ts`. Choose Blockscout or Routescan:
+
+=== "Blockscout"
+
+    Blockscout does not require an API key. Add the following to your config:
+
+    ```ts title='hardhat.config.ts'
+    import type { HardhatUserConfig } from 'hardhat/config';
+    import '@nomicfoundation/hardhat-toolbox';
+    import '@nomicfoundation/hardhat-verify';
+    import { vars } from 'hardhat/config';
+
+    const config: HardhatUserConfig = {
+      solidity: '0.8.28',
+      networks: {
+        polkadotTestnet: {
+          url: 'https://services.polkadothub-rpc.com/testnet',
+          chainId: 420420417,
+          accounts: [vars.get('PRIVATE_KEY')],
+        },
+      },
+      etherscan: {
+        apiKey: {
+          polkadotTestnet: 'no-api-key-needed',
+        },
+        customChains: [
+          {
+            network: 'polkadotTestnet',
+            chainId: 420420417,
+            urls: {
+              apiURL: 'https://blockscout-testnet.polkadot.io/api',
+              browserURL: 'https://blockscout-testnet.polkadot.io/',
+            },
+          },
+        ],
+      },
+    };
+
+    export default config;
+    ```
+
+=== "Routescan"
+
+    Routescan uses an Etherscan-compatible API. Get an API key from [Routescan](https://routescan.io/){target=\_blank} or use `verifyContract` for testnets:
+
+    ```ts title='hardhat.config.ts'
+    import type { HardhatUserConfig } from 'hardhat/config';
+    import '@nomicfoundation/hardhat-toolbox';
+    import '@nomicfoundation/hardhat-verify';
+    import { vars } from 'hardhat/config';
+
+    const config: HardhatUserConfig = {
+      solidity: '0.8.28',
+      networks: {
+        polkadotTestnet: {
+          url: 'https://services.polkadothub-rpc.com/testnet',
+          chainId: 420420417,
+          accounts: [vars.get('PRIVATE_KEY')],
+        },
+      },
+      etherscan: {
+        apiKey: {
+          polkadotTestnet: 'verifyContract',
+        },
+        customChains: [
+          {
+            network: 'polkadotTestnet',
+            chainId: 420420417,
+            urls: {
+              apiURL: 'https://api.routescan.io/v2/network/testnet/evm/420420417/etherscan',
+              browserURL: 'https://polkadot.testnet.routescan.io/',
+            },
+          },
+        ],
+      },
+    };
+
+    export default config;
+    ```
+
+### Basic Verification
+
+Replace `INSERT_CONTRACT_ADDRESS` with your deployed contract's address. For contracts without constructor arguments:
+
+```bash
+npx hardhat verify --network polkadotTestnet INSERT_CONTRACT_ADDRESS
+```
+
+### Verification with Constructor Arguments
+
+For contracts with constructor arguments, pass them as additional arguments:
+
+```bash
+npx hardhat verify --network polkadotTestnet INSERT_CONTRACT_ADDRESS "arg1" "arg2"
+```
+
+Example for a contract with constructor `(uint256 initialValue, address owner)`:
+
+```bash
+npx hardhat verify --network polkadotTestnet INSERT_CONTRACT_ADDRESS "42" "0x1234567890123456789012345678901234567890"
+```
 
 ## Where to Go Next
 

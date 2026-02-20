@@ -6,6 +6,10 @@ categories: Parachains
 
 ## Introduction
 
+<div class="status-badge" markdown>
+[![Benchmark Pallet](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-benchmark-pallet.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-benchmark-pallet.yml){target=\_blank}
+</div>
+
 Benchmarking is the process of measuring the computational resources (execution time and storage) required by your pallet's extrinsics. Accurate [weight](https://paritytech.github.io/polkadot-sdk/master/frame_support/weights/index.html){target=\_blank} calculations are essential for ensuring your blockchain can process transactions efficiently while protecting against denial-of-service attacks.
 
 This guide demonstrates how to benchmark a pallet and incorporate the resulting weight values. This example uses the custom counter pallet from previous guides in this series, but you can replace it with the code from another pallet if desired.
@@ -297,20 +301,38 @@ The build includes all the benchmarking infrastructure and special host function
 
 ## Install the Benchmarking Tool
 
-Install the `frame-omni-bencher` CLI tool using the following command:
+[`frame-omni-bencher`](https://paritytech.github.io/polkadot-sdk/master/frame_omni_bencher/index.html){target=\_blank} is the official Polkadot SDK tool designed explicitly for FRAME pallet benchmarking. It provides a standardized way to execute benchmarks, measure execution times and storage operations, and generate properly formatted weight files with full integration into the FRAME weight system.
+
+Download the pre-built binary from the [Polkadot SDK release](https://github.com/paritytech/polkadot-sdk/releases/tag/{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.polkadot_sdk_version}}){target=\_blank} (recommended):
+
+=== "macOS"
+
+    ```bash
+    curl -L -o frame-omni-bencher https://github.com/paritytech/polkadot-sdk/releases/download/{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.polkadot_sdk_version}}/frame-omni-bencher-aarch64-apple-darwin
+    chmod +x frame-omni-bencher
+    sudo mv frame-omni-bencher /usr/local/bin/
+    ```
+
+=== "Ubuntu"
+
+    ```bash
+    curl -L -o frame-omni-bencher https://github.com/paritytech/polkadot-sdk/releases/download/{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.polkadot_sdk_version}}/frame-omni-bencher
+    chmod +x frame-omni-bencher
+    sudo mv frame-omni-bencher /usr/local/bin/
+    ```
+
+Alternatively, you can install from source using `cargo`:
 
 ```bash
 cargo install frame-omni-bencher --locked
 ```
-
-[`frame-omni-bencher`](https://paritytech.github.io/polkadot-sdk/master/frame_omni_bencher/index.html){target=\_blank} is the official Polkadot SDK tool designed explicitly for FRAME pallet benchmarking. It provides a standardized way to execute benchmarks, measure execution times and storage operations, and generate properly formatted weight files with full integration into the FRAME weight system.
 
 ## Download the Weight Template
 
 Download the official weight template file using the following commands:
 
 ```bash
-curl -L https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/polkadot-stable2412/substrate/.maintain/frame-weight-template.hbs \
+curl -L https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/{{dependencies.repositories.polkadot_sdk.version}}/substrate/.maintain/frame-weight-template.hbs \
 --output ./pallets/pallet-custom/frame-weight-template.hbs
 ```
 
@@ -444,6 +466,11 @@ Follow these steps to use the generated weights with your pallet:
     The actual numbers in your `weights.rs` file will vary based on your hardware and implementation complexity. The [`DbWeight`](https://paritytech.github.io/polkadot-sdk/master/frame_support/weights/struct.RuntimeDbWeight.html){target=\_blank} accounts for database read and write operations.
 
 Congratulations, you've successfully benchmarked a pallet and updated your runtime to use the generated weight values.
+
+<div class="status-badge" markdown>
+[![Benchmark Pallet](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-benchmark-pallet.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-benchmark-pallet.yml){target=\_blank}
+[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/parachains/customize-runtime/pallet-development/benchmark-pallet/tests/guide.test.ts){ .tests-button target=\_blank}
+</div>
 
 ## Related Resources
 

@@ -3,7 +3,7 @@ dependencies:
   repositories:
     zombienet:
       repository_url: https://github.com/paritytech/zombienet
-      version: v1.3.133
+      version: v1.3.138
       architecture: macos-arm64
     polkadot_sdk_solochain_template:
       repository_url: https://github.com/paritytech/polkadot-sdk-solochain-template
@@ -15,11 +15,11 @@ dependencies:
       docker_image_version: 1.88.0
     polkadot_sdk:
       repository_url: https://github.com/paritytech/polkadot-sdk
-      version: polkadot-stable2506-2
-      docker_image_version: stable2506-2
+      version: polkadot-stable2512-1
+      docker_image_version: stable2512-1
     open_zeppelin_contracts:
       repository_url: https://github.com/OpenZeppelin/openzeppelin-contracts
-      version: v5.4.0
+      version: v5.5.0
     polkadot_sdk_contracts_node:
       repository_url: https://github.com/paritytech/polkadot-sdk
       version: polkadot-stable2503-6
@@ -27,50 +27,53 @@ dependencies:
       ignore_updates: true
     polkadot_sdk_parachain_template:
       repository_url: https://github.com/paritytech/polkadot-sdk-parachain-template
-      version: v0.0.4
+      version: v0.0.5
+      # Subdependencies are pinned to versions from the template's Cargo.lock.
+      # Update these only when a new template version is released.
       subdependencies:
-        polkadot_omni_node_version: 0.5.0
-        chain_spec_builder_version: 10.0.0
-        frame_omni_bencher_version: 0.13.0
+        polkadot_sdk_version: polkadot-stable2512-1
+        polkadot_omni_node_version: 0.13.0
+        chain_spec_builder_version: 16.0.0
+        frame_omni_bencher_version: 0.17.0
+        rust_version: "1.88"
+        rust_toolchain_macos: 1.88-aarch64-apple-darwin
+        rust_toolchain_ubuntu: 1.88.0
   crates:
     subxt:
       name: subxt
-      version: 0.44.0
+      version: 0.44.2
     subxt_cli:
       name: subxt-cli
-      version: 0.44.0
+      version: 0.44.2
     subxt_signer:
       name: subxt-signer
-      version: 0.44.0
+      version: 0.44.2
     tokio:
       name: tokio
       version: 1.44.2
       ignore_updates: true
     polkadot_omni_node:
       name: polkadot-omni-node
-      version: 0.7.0
+      version: 0.13.0
   javascript_packages:
     chopsticks:
       name: '@acala-network/chopsticks'
-      version: 1.2.2
+      version: 1.2.7
     moonwall:
       name: '@moonwall/cli'
-      version: 5.15.0
+      version: 5.18.3
     polkadot_js_api:
       name: '@polkadot/api'
-      version: 16.4.7
+      version: 16.5.4
     polkadot_api:
       name: polkadot-api
-      version: 1.17.2
-    hardhat_resolc: 
-      name: '@hardhat-resolc'
-      version: 0.0.7  
-    hardhat_revive_node: 
-      name: '@hardhat-revive-node'
-      version: 0.0.6
+      version: 1.23.3
     resolc:
-      name: '@resolc'
-      version: 0.2.0
+      name: '@parity/resolc'
+      version: 1.0.0
+    hardhat_polkadot:
+      name: '@parity/hardhat-polkadot'
+      version: 0.2.7
     solc:
       name: 'solc'
       version: 0.8.33
@@ -79,11 +82,17 @@ dependencies:
       version: 4.16.0
     viem:
       name: '@viem'
-      version: 2.23.6 
+      version: 2.44.4 
     ethersjs:
       name: '@ethersjs'
-      version: 6.13.5
+      version: 6.16.0
     paraspell_sdk:
       name: '@paraspell/sdk'
-      version: 11.7.2
+      version: 12.6.0
+    hdkd:
+      name: '@polkadot-labs/hdkd'
+      version: 0.0.26
+    hdkd_helpers:
+      name: '@polkadot-labs/hdkd-helpers'
+      version: 0.0.27
 #   python_packages:

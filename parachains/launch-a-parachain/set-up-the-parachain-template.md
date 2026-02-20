@@ -7,6 +7,10 @@ categories: Basics, Parachains
 
 # Set Up the Polkadot SDK Parachain Template
 
+<div class="status-badge" markdown>
+[![Set Up Parachain Template](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-set-up-parachain-template.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-set-up-parachain-template.yml){target=\_blank}
+</div>
+
 ## Introduction
 
 The [Polkadot SDK](https://github.com/paritytech/polkadot-sdk){target=\_blank} includes several [templates](/parachains/customize-runtime/#starting-templates){target=\_blank} designed to help you quickly start building your own blockchain. Each template offers a different level of configuration, from minimal setups to feature-rich environments, allowing you to choose the foundation that best fits your project's needs.
@@ -28,51 +32,61 @@ Before getting started, ensure you have done the following:
 
 - Completed the [Install Polkadot SDK](/parachains/install-polkadot-sdk/){target=\_blank} guide and successfully installed [Rust](https://rust-lang.org/){target=\_blank} and the required packages to set up your development environment.
 
-For this tutorial series, you need to use Rust `1.86`. Newer versions of the compiler may not work with this parachain template version.
+For this tutorial series, you need to use Rust `{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.rust_version}}`. Newer versions of the compiler may not work with this parachain template version.
 
 Run the following commands to set up the correct Rust version:
 
 === "macOS"
 
     ```bash
-    rustup install 1.86
-    rustup default 1.86
-    rustup target add wasm32-unknown-unknown --toolchain 1.86-aarch64-apple-darwin
-    rustup component add rust-src --toolchain 1.86-aarch64-apple-darwin
+    rustup install {{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.rust_version}}
+    rustup default {{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.rust_version}}
+    rustup target add wasm32-unknown-unknown --toolchain {{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.rust_toolchain_macos}}
+    rustup component add rust-src --toolchain {{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.rust_toolchain_macos}}
     ```
 
 === "Ubuntu"
 
     ```bash
-    rustup toolchain install 1.86.0
-    rustup default 1.86.0
-    rustup target add wasm32-unknown-unknown --toolchain 1.86.0
-    rustup component add rust-src --toolchain 1.86.0
+    rustup toolchain install {{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.rust_toolchain_ubuntu}}
+    rustup default {{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.rust_toolchain_ubuntu}}
+    rustup target add wasm32-unknown-unknown --toolchain {{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.rust_toolchain_ubuntu}}
+    rustup component add rust-src --toolchain {{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.rust_toolchain_ubuntu}}
     ```
 
 ## Polkadot SDK Utility Tools
 
 This tutorial requires two essential tools:
 
-- [**Chain spec builder**](https://crates.io/crates/staging-chain-spec-builder/{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.chain_spec_builder_version}}){target=\_blank}: A Polkadot SDK utility for generating chain specifications. Refer to the [Generate Chain Specs](/parachains/launch-a-parachain/deploy-to-polkadot/#generate-the-chain-specification){target=\_blank} documentation for detailed usage.
-    
-    Install it by executing the following command:
-    
-    ```bash
-    cargo install --locked staging-chain-spec-builder@{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.chain_spec_builder_version}}
-    ```
+- [**Chain spec builder**](https://crates.io/crates/staging-chain-spec-builder/{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.chain_spec_builder_version}}){target=\_blank} - a Polkadot SDK utility for generating chain specifications. Refer to the [Generate Chain Specs](/parachains/launch-a-parachain/deploy-to-polkadot/#generate-the-chain-specification){target=\_blank} documentation for detailed usage
+- [**Polkadot Omni Node**](https://crates.io/crates/polkadot-omni-node/{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.polkadot_omni_node_version}}){target=\_blank} - a white-labeled binary, released as a part of Polkadot SDK, that can act as the collator of a parachain in production, with all the related auxiliary functionalities that a normal collator node has: RPC server, archiving state, etc. It can also run the Wasm blob of the parachain locally for testing and development
 
-    This command installs the `chain-spec-builder` binary.
+Download the pre-built binaries from the [Polkadot SDK release](https://github.com/paritytech/polkadot-sdk/releases/tag/{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.polkadot_sdk_version}}){target=\_blank} (recommended):
 
-- [**Polkadot Omni Node**](https://crates.io/crates/polkadot-omni-node/{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.polkadot_omni_node_version}}){target=\_blank}: A white-labeled binary, released as a part of Polkadot SDK that can act as the collator of a parachain in production, with all the related auxiliary functionalities that a normal collator node has: RPC server, archiving state, etc. Moreover, it can also run the Wasm blob of the parachain locally for testing and development.
-
-    To install it, run the following command:
+=== "macOS"
 
     ```bash
-    cargo install --locked polkadot-omni-node@{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.polkadot_omni_node_version}}
+    curl -L -o chain-spec-builder https://github.com/paritytech/polkadot-sdk/releases/download/{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.polkadot_sdk_version}}/chain-spec-builder-aarch64-apple-darwin
+    curl -L -o polkadot-omni-node https://github.com/paritytech/polkadot-sdk/releases/download/{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.polkadot_sdk_version}}/polkadot-omni-node-aarch64-apple-darwin
+    chmod +x chain-spec-builder polkadot-omni-node
+    sudo mv chain-spec-builder polkadot-omni-node /usr/local/bin/
     ```
 
-    This command installs the `polkadot-omni-node` binary.
+=== "Ubuntu"
+
+    ```bash
+    curl -L -o chain-spec-builder https://github.com/paritytech/polkadot-sdk/releases/download/{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.polkadot_sdk_version}}/chain-spec-builder
+    curl -L -o polkadot-omni-node https://github.com/paritytech/polkadot-sdk/releases/download/{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.polkadot_sdk_version}}/polkadot-omni-node
+    chmod +x chain-spec-builder polkadot-omni-node
+    sudo mv chain-spec-builder polkadot-omni-node /usr/local/bin/
+    ```
+
+Alternatively, you can install from source using `cargo`:
+
+```bash
+cargo install --locked staging-chain-spec-builder@{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.chain_spec_builder_version}}
+cargo install --locked polkadot-omni-node@{{dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.polkadot_omni_node_version}}
+```
 
 ## Clone the Template
 
@@ -209,6 +223,11 @@ To stop the local node:
 1. Return to the terminal window where the node output is displayed.
 2. Press `Control-C` to stop the running process.
 3. Verify that your terminal returns to the prompt in the `parachain-template` directory.
+
+<div class="status-badge" markdown>
+[![Set Up Parachain Template](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-set-up-parachain-template.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-set-up-parachain-template.yml){target=\_blank}
+[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/parachains/set-up-parachain-template/tests/guide.test.ts){ .tests-button target=\_blank}
+</div>
 
 ## Where to Go Next
 

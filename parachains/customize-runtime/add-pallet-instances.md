@@ -7,6 +7,10 @@ categories: Parachains
 
 # Add Multiple Pallet Instances
 
+<div class="status-badge" markdown>
+[![Add Pallet Instances](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-add-pallet-instances.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-add-pallet-instances.yml){target=\_blank}
+</div>
+
 ## Introduction
 
 The [Polkadot SDK Parachain Template](https://github.com/paritytech/polkadot-sdk-parachain-template){target=\_blank} provides a solid foundation for building custom parachains. While most pallets are typically included as single instances within a runtime, some scenarios benefit from running multiple instances of the same pallet with different configurations. This approach lets you reuse pallet logic without reimplementing it, enabling diverse functionality from a single codebase.
@@ -177,28 +181,21 @@ To define pallet parameters:
 !!! tip
     You can define separate parameters for each instance if you need different configurations. For example, you might want a technical committee with a shorter motion duration and fewer members than a general council.
 
-### Create Instance Type Definitions
+### Import Instance Types
 
-Each pallet instance needs a unique type identifier. The Polkadot SDK provides numbered instance types (`Instance1`, `Instance2`, etc.) that you can use to create these identifiers.
+Each pallet instance needs a unique type identifier. The Polkadot SDK provides numbered instance types (`Instance1`, `Instance2`, etc.) in the `frame_support::instances` module.
 
-In the `runtime/src/configs/mod.rs` file, add type definitions for each instance:
+In the `runtime/src/configs/mod.rs` file, import the instance types:
 
 ```rust title="runtime/src/configs/mod.rs"
-// Technical Committee instance
-pub type TechnicalCollective = pallet_collective::Instance1;
-
-// Council instance  
-pub type CouncilCollective = pallet_collective::Instance2;
+use frame_support::instances::{Instance1, Instance2};
 ```
 
-These type aliases:
+These instance types:
 
-- Create distinct identities for each instance.
-- Make your code more readable and maintainable.
+- Create distinct identities for each pallet instance.
 - Are used when implementing the `Config` trait and adding to the runtime construct.
-
-!!! note
-    The names `TechnicalCollective` and `CouncilCollective` are descriptive examples. Choose names that reflect the purpose of each instance in your specific use case.
+- Are provided by `frame_support`, not by individual pallets.
 
 ### Implement Config Trait for First Instance
 
@@ -208,7 +205,7 @@ In the `runtime/src/configs/mod.rs` file, add the following implementation:
 
 ```rust title="runtime/src/configs/mod.rs"
 /// Configure the Technical Committee collective
-impl pallet_collective::Config<TechnicalCollective> for Runtime {
+impl pallet_collective::Config<Instance1> for Runtime {
     type RuntimeOrigin = RuntimeOrigin;
     type Proposal = RuntimeCall;
     type RuntimeEvent = RuntimeEvent;
@@ -245,7 +242,7 @@ In the `runtime/src/configs/mod.rs` file, add the following implementation:
 
 ```rust title="runtime/src/configs/mod.rs"
 /// Configure the Council collective
-impl pallet_collective::Config<CouncilCollective> for Runtime {
+impl pallet_collective::Config<Instance2> for Runtime {
     type RuntimeOrigin = RuntimeOrigin;
     type Proposal = RuntimeCall;
     type RuntimeEvent = RuntimeEvent;
@@ -302,17 +299,17 @@ To add the pallet instances to the runtime construct:
         // ... other pallets
 
         #[runtime::pallet_index(50)]
-        pub type TechnicalCommittee = pallet_collective<TechnicalCollective>;
+        pub type TechnicalCommittee = pallet_collective<Instance1>;
 
         #[runtime::pallet_index(51)]
-        pub type Council = pallet_collective<CouncilCollective>;
+        pub type Council = pallet_collective<Instance2>;
     }
     ```
 
 Important considerations when adding instances:
 
 - **Unique indices**: Each instance must have a different `pallet_index`.
-- **Instance type**: Specify the instance type in angle brackets (e.g., `<TechnicalCollective>`).
+- **Instance type**: Specify the instance type in angle brackets (e.g., `<Instance1>`).
 - **Descriptive names**: Use names that reflect the instance's purpose (e.g., `TechnicalCommittee`, `Council`).
 - **Index management**: Track which indices are used to avoid conflicts.
 
@@ -421,6 +418,11 @@ To test instance independence:
     - Both instances can process proposals simultaneously.
 
 You can now use both collective instances for different governance purposes in your parachain, such as technical decisions that require expertise and general governance decisions that require broader consensus.
+
+<div class="status-badge" markdown>
+[![Add Pallet Instances](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-add-pallet-instances.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-add-pallet-instances.yml){target=\_blank}
+[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/parachains/customize-runtime/add-pallet-instances/tests/guide.test.ts){ .tests-button target=\_blank}
+</div>
 
 ## Where to Go Next
 

@@ -99,13 +99,13 @@ This guide provides two deployment options. Select the option that best fits you
     1. Pull the Polkadot Parachain Docker image using the latest stable tag on [Docker Hub](https://hub.docker.com/r/parity/polkadot-parachain/tags){target=\_blank}:
 
         ```bash
-        docker pull parity/polkadot-parachain:stable2509-2
+        docker pull parity/polkadot-parachain:{{dependencies.repositories.polkadot_sdk.docker_image_version}}
         ```
 
     2. Verify the installation:
 
         ```bash
-        docker run --rm parity/polkadot-parachain:stable2509-2 --version
+        docker run --rm parity/polkadot-parachain:{{dependencies.repositories.polkadot_sdk.docker_image_version}} --version
         ```
 
 === "systemd"
@@ -113,7 +113,7 @@ This guide provides two deployment options. Select the option that best fits you
     1. Download the `polkadot-parachain` binary using the latest stable [Polkadot SDK release](https://github.com/paritytech/polkadot-sdk/releases){target=\_blank}:
 
         ```bash
-        wget https://github.com/paritytech/polkadot-sdk/releases/download/polkadot-stable2509-2/polkadot-parachain
+        wget https://github.com/paritytech/polkadot-sdk/releases/download/{{dependencies.repositories.polkadot_sdk.version}}/polkadot-parachain
         ```
 
     2. Make it executable and move it to your system path:
@@ -160,11 +160,14 @@ Download the chain specification for your target system parachain using one of t
 
 === "Download from Chainspec Collection (Recommended)"
 
-    Follow these steps to download your specification from the [Chainspec Collection](https://paritytech.github.io/chainspecs/){target=\_blank}:
+    Download the chain specification directly using `curl`. For example, to download the Asset Hub Polkadot chain spec:
 
-    1. Find your target system parachain under the [**List of Chainspecs**](https://paritytech.github.io/chainspecs/#list-of-chainspecs){target=\_blank}.
-    2. Download the chain specification JSON file.
-    3. Save it as `chain-spec.json`.
+    ```bash
+    curl -sL -o chain-spec.json \
+      https://paritytech.github.io/chainspecs/polkadot/parachain/asset-hub/chainspec.json
+    ```
+
+    For other system parachains, find the correct URL in the [Chainspec Collection](https://paritytech.github.io/chainspecs/){target=\_blank} under the [**List of Chainspecs**](https://paritytech.github.io/chainspecs/#list-of-chainspecs){target=\_blank}.
 
 === "Build Chain Spec from Runtime"
 
@@ -230,7 +233,7 @@ Using your preferred deployment method, take the following steps to set up and r
           -p 9615:9615 \
           -v $(pwd)/collator-data:/data \
           -v $(pwd)/chain-spec.json:/chain-spec.json \
-          parity/polkadot-parachain:stable2509-2 \
+          parity/polkadot-parachain:{{dependencies.repositories.polkadot_sdk.docker_image_version}} \
           --collator \
           --chain=/chain-spec.json \
           --base-path=/data \

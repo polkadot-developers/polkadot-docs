@@ -1,4 +1,5 @@
 nav:
  - 'Runtime Upgrades': runtime-upgrades.md
  - 'Storage Migrations': storage-migrations.md
+ - 'Coretime Renewal': coretime-renewal.md
  - 'Unlock Parachains': unlock-parachains.md

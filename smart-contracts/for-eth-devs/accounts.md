@@ -2,9 +2,25 @@
 title: Accounts in Polkadot Hub Smart Contracts
 description: Bridges Ethereum's 20-byte addresses with Polkadot's 32-byte accounts, enabling seamless interaction while maintaining compatibility with Ethereum tooling.
 categories: Basics, Polkadot Protocol
+extra_javascript:
+  - https://cdn.jsdelivr.net/npm/@polkadot/util@latest/bundle-polkadot-util.js
+  - https://cdn.jsdelivr.net/npm/@polkadot/util-crypto@latest/bundle-polkadot-util-crypto.js
+  - /js/account-converter.js
+extra_css:
+  - /assets/stylesheets/account-converter.css
 ---
 
 # Accounts in Polkadot Hub Smart Contracts
+
+!!! tip "Address Conversion Summary"
+    Polkadot Hub automatically converts addresses between Ethereum (20-byte) and Polkadot (32-byte) formats:
+
+    - **Ethereum to Polkadot**: The system adds twelve `0xEE` bytes to the end of the address, which is a reversible operation.
+    - **Polkadot to Ethereum**: The system strips trailing `0xEE` bytes if present; otherwise, it hashes the account to derive a 20-byte address.
+
+    ⚠️ Native Polkadot accounts must call [`map_account`](https://paritytech.github.io/polkadot-sdk/master/pallet_revive/pallet/dispatchables/fn.map_account.html){target=\_blank} before interacting with smart contracts using Ethereum tools. See [Account Mapping](#account-mapping-for-native-polkadot-accounts) for details.
+
+<div id="account-converter-root"></div>
 
 ## Introduction
 

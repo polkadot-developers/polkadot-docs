@@ -6,6 +6,10 @@ categories: Parachains
 
 # Create a Custom Pallet
 
+<div class="status-badge" markdown>
+[![Create a Custom Pallet](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-create-a-pallet.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-create-a-pallet.yml){target=\_blank}
+</div>
+
 ## Introduction
 
 [Framework for Runtime Aggregation of Modular Entities (FRAME)](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/frame_runtime/index.html){target=\_blank} provides a powerful set of tools for blockchain development through modular components called [pallets](https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/polkadot_sdk/frame_runtime/pallet/index.html){target=\_blank}. These Rust-based runtime modules allow you to build custom blockchain functionality with precision and flexibility. While FRAME includes a library of pre-built pallets, its true strength lies in creating custom pallets tailored to your specific needs.
@@ -102,7 +106,7 @@ With dependencies configured, set up the basic scaffold that will hold your pall
     --8<-- 'code/parachains/customize-runtime/pallet-development/create-a-pallet/lib-01.rs'
     ```
 
-    This setup starts with a minimal scaffold without events and errors. These will be added in the following sections after the `Config` trait is correctly configured with the required `RuntimeEvent` type.
+    This setup starts with a minimal scaffold without events and errors. These will be added in the following sections after the `Config` trait is correctly configured with the required `RuntimeEvent` type. The `extern crate alloc;` line is required because the pallet uses `no_std` and will later use `Vec` in the genesis configuration, which comes from the `alloc` crate rather than the standard library.
 
 3. Verify it compiles using the following command:
 
@@ -172,6 +176,12 @@ Genesis configuration allows you to set the initial state of your pallet when th
 - Pre-allocating resources or accounts.
 - Establishing starting conditions for testing.
 - Configuring network-specific initial state.
+
+Since the genesis configuration uses `Vec` for `initial_user_interactions`, you need to import it from the `alloc` crate. Add this import at the top of your pallet module, after the `use frame::prelude::*;` line:
+
+```rust title="src/lib.rs"
+use alloc::vec::Vec;
+```
 
 Add the [`#[pallet::genesis_config]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.genesis_config.html){target=\_blank} and [`#[pallet::genesis_build]`](https://paritytech.github.io/polkadot-sdk/master/frame_support/pallet_macros/attr.genesis_build.html){target=\_blank} sections after your storage items:
 
@@ -399,6 +409,11 @@ You've successfully created and integrated a custom pallet into a Polkadot SDK-b
 - Added the pallet to a runtime and tested it locally.
 
 These components form the foundation for developing sophisticated blockchain logic in Polkadot SDK-based chains.
+
+<div class="status-badge" markdown>
+[![Create a Custom Pallet](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-create-a-pallet.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-create-a-pallet.yml){target=\_blank}
+[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/parachains/customize-runtime/pallet-development/create-a-pallet/tests/guide.test.ts){ .tests-button target=\_blank}
+</div>
 
 ## Where to Go Next
 

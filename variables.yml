@@ -27,14 +27,17 @@ dependencies:
       ignore_updates: true
     polkadot_sdk_parachain_template:
       repository_url: https://github.com/paritytech/polkadot-sdk-parachain-template
-      version: v0.0.4
+      version: v0.0.5
       # Subdependencies are pinned to versions from the template's Cargo.lock.
       # Update these only when a new template version is released.
       subdependencies:
-        polkadot_sdk_version: polkadot-stable2503-3
-        polkadot_omni_node_version: 0.5.0
-        chain_spec_builder_version: 10.0.0
-        frame_omni_bencher_version: 0.13.0
+        polkadot_sdk_version: polkadot-stable2512-1
+        polkadot_omni_node_version: 0.13.0
+        chain_spec_builder_version: 16.0.0
+        frame_omni_bencher_version: 0.17.0
+        rust_version: "1.88"
+        rust_toolchain_macos: 1.88-aarch64-apple-darwin
+        rust_toolchain_ubuntu: 1.88.0
   crates:
     subxt:
       name: subxt

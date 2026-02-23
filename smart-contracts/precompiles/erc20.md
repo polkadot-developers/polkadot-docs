@@ -12,6 +12,8 @@ extra_css:
 
 # ERC20 Precompile
 
+<div id="erc20-asset-converter-root"></div>
+
 ## Introduction
 
 The ERC20 precompile provides a standard ERC20 token interface for interacting with assets managed by the [Assets pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_assets/index.html){target=\_blank}, helping smart contracts to interact with native Polkadot assets (such as USDT, USDC, and other tokens) using familiar Ethereum-style ERC20 calls.
@@ -21,8 +23,6 @@ Each asset in the Assets pallet is mapped to a unique precompile address based o
 - **Token transfers**: Send assets between accounts using standard `transfer` and `transferFrom` methods.
 - **Approvals and allowances**: Manage spending permissions with `approve` and `allowance`.
 - **Balance queries**: Check token balances with `balanceOf` and total supply with `totalSupply`.
-
-<div id="erc20-asset-converter-root"></div>
 
 ## Precompile Interface
 

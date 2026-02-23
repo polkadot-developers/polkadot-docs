@@ -117,7 +117,7 @@
   }
 
   function positionFixedDropdown(dropdown, trigger) {
-    var rect = trigger.getBoundingClientRect();
+    const rect = trigger.getBoundingClientRect();
     dropdown.style.position = 'fixed';
     dropdown.style.top = (rect.bottom + 4) + 'px';
     dropdown.style.right = (window.innerWidth - rect.right) + 'px';
@@ -176,7 +176,7 @@
           }
         }
         if (isExpanded) {
-          var first = dropdown.querySelector('.ai-file-actions-item');
+          const first = dropdown.querySelector('.ai-file-actions-item');
           if (first) first.focus();
         }
       }

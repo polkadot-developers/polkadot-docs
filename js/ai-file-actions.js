@@ -88,10 +88,11 @@
   }
 
   async function handleDownload(linkElement) {
+    const originalHref = linkElement.href;
     linkElement.dataset.downloading = 'true';
 
     try {
-      const response = await fetch(linkElement.href, { credentials: 'omit' });
+      const response = await fetch(originalHref, { credentials: 'omit' });
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
       const blob = await response.blob();
@@ -108,6 +109,7 @@
       console.error('Download error:', error);
       showToast('Failed to download file');
     } finally {
+      linkElement.href = originalHref;
       delete linkElement.dataset.downloading;
     }
   }

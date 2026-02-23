@@ -233,6 +233,14 @@
       closeAllDropdowns();
     }
   });
+  // ---------- Close on Scroll ----------
+  // Fixed-position table dropdowns stay viewport-locked on scroll,
+  // so close them when the page moves.
+
+  window.addEventListener('scroll', function () {
+    closeAllDropdowns();
+  }, true);
+
   // ---------- Keyboard Navigation ----------
 
   document.addEventListener('keydown', function (event) {

@@ -100,7 +100,9 @@
       linkElement.href = objectUrl;
       linkElement.click(); // Re-enters event handler but flag lets it pass through natively
 
-      setTimeout(function () { URL.revokeObjectURL(objectUrl); }, 100);
+      setTimeout(function () {
+        URL.revokeObjectURL(objectUrl);
+      }, 100);
       showToast('Download started');
     } catch (error) {
       console.error('Download error:', error);
@@ -119,8 +121,8 @@
   function positionFixedDropdown(dropdown, trigger) {
     const rect = trigger.getBoundingClientRect();
     dropdown.style.position = 'fixed';
-    dropdown.style.top = (rect.bottom + 4) + 'px';
-    dropdown.style.right = (window.innerWidth - rect.right) + 'px';
+    dropdown.style.top = rect.bottom + 4 + 'px';
+    dropdown.style.right = window.innerWidth - rect.right + 'px';
     dropdown.style.zIndex = '101';
   }
 
@@ -245,11 +247,17 @@
     switch (event.key) {
       case 'ArrowDown':
         event.preventDefault();
-        items[currentIndex === -1 ? 0 : (currentIndex + 1) % items.length].focus();
+        items[
+          currentIndex === -1 ? 0 : (currentIndex + 1) % items.length
+        ].focus();
         break;
       case 'ArrowUp':
         event.preventDefault();
-        items[currentIndex === -1 ? items.length - 1 : (currentIndex - 1 + items.length) % items.length].focus();
+        items[
+          currentIndex === -1
+            ? items.length - 1
+            : (currentIndex - 1 + items.length) % items.length
+        ].focus();
         break;
       case 'Enter':
       case ' ':

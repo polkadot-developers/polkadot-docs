@@ -116,29 +116,9 @@
 
   // ---------- Dropdown Helpers ----------
 
-  function isInTable(el) {
-    return !!el.closest('table');
-  }
-
-  function positionFixedDropdown(dropdown, trigger) {
-    const rect = trigger.getBoundingClientRect();
-    dropdown.style.position = 'fixed';
-    dropdown.style.top = rect.bottom + 4 + 'px';
-    dropdown.style.right = window.innerWidth - rect.right + 'px';
-    dropdown.style.zIndex = '101';
-  }
-
-  function resetDropdownPosition(dropdown) {
-    dropdown.style.position = '';
-    dropdown.style.top = '';
-    dropdown.style.right = '';
-    dropdown.style.zIndex = '';
-  }
-
   function closeDropdown(menu) {
     if (!menu) return;
     menu.classList.remove('show');
-    if (isInTable(menu)) resetDropdownPosition(menu);
     const trigger = menu.parentElement.querySelector(
       '.ai-file-actions-trigger',
     );
@@ -172,13 +152,6 @@
         const isExpanded = dropdown.classList.contains('show');
         toggleBtn.setAttribute('aria-expanded', isExpanded);
         toggleBtn.classList.toggle('active', isExpanded);
-        if (isInTable(dropdown)) {
-          if (isExpanded) {
-            positionFixedDropdown(dropdown, toggleBtn);
-          } else {
-            resetDropdownPosition(dropdown);
-          }
-        }
         if (isExpanded) {
           const first = dropdown.querySelector('.ai-file-actions-item');
           if (first) first.focus();
@@ -233,13 +206,6 @@
       closeAllDropdowns();
     }
   });
-  // ---------- Close on Scroll ----------
-  // Fixed-position table dropdowns stay viewport-locked on scroll,
-  // so close them when the page moves.
-
-  window.addEventListener('scroll', function () {
-    closeAllDropdowns();
-  }, true);
 
   // ---------- Keyboard Navigation ----------
 

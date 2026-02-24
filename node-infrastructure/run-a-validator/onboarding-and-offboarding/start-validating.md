@@ -58,11 +58,7 @@ The next step is to sync your node with the chosen blockchain network. Synchroni
 
 ### Database Snapshot Services
 
-If you'd like to speed up the process further, you can use a database snapshot. Snapshots are compressed backups of the blockchain's database directory and can significantly reduce the time required to sync a new node. Here are a few public snapshot providers:
-
-- [Polkachu](https://polkachu.com/substrate_snapshots){target=\_blank}
-- [Polkashots](https://polkashots.io/){target=\_blank}
-- [ITRocket](https://itrocket.net/services/mainnet/polkadot/#snapshot){target=\_blank}
+If you'd like to speed up the process further, you can use a database snapshot. Snapshots are compressed backups of the blockchain's database directory and can significantly reduce the time required to sync a new node. Parity provides official database snapshots for Polkadot, Kusama, Westend, and other chains at [snapshots.polkadot.io](https://snapshots.polkadot.io/){target=\_blank}.
 
 !!!warning
     Although snapshots are convenient, syncing from scratch is recommended for security purposes. If snapshots become corrupted and most nodes rely on them, the network could inadvertently run on a non-canonical chain.

@@ -33,7 +33,7 @@ dependencies:
       subdependencies:
         polkadot_sdk_version: polkadot-stable2512-1
         polkadot_omni_node_version: 0.13.1
-        chain_spec_builder_version: 16.0.0
+        staging_chain_spec_builder_version: 16.0.0
         frame_omni_bencher_version: 0.17.1
         rust_version: "1.88"
         rust_toolchain_macos: 1.88-aarch64-apple-darwin

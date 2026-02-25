@@ -6,6 +6,10 @@ categories: Basics, Accounts, Developer Tools
 
 # Create an Account
 
+<div class="status-badge" markdown>
+[![Create an Account](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-create-account.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-create-account.yml){target=\_blank}
+</div>
+
 ## Introduction
 
 Creating accounts is a fundamental operation when building applications on Polkadot and its parachains. Accounts serve as the basis for identity, asset ownership, and transaction signing. Understanding how to generate and manage accounts programmatically enables you to build wallets, automate operations, and create seamless user experiences.
@@ -177,4 +181,9 @@ Rust provides low-level access to Substrate primitives for account creation thro
 
     [:octicons-arrow-right-24: Get Started](/chain-interactions/query-data/query-sdks/)
 
+</div>
+
+<div class="status-badge" markdown>
+[![Create an Account](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-create-account.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-create-account.yml){target=\_blank}
+[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/chain-interactions/create-account/tests/recipe.test.ts){ .tests-button target=\_blank}
 </div>

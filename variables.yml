@@ -3,7 +3,7 @@ dependencies:
   repositories:
     zombienet:
       repository_url: https://github.com/paritytech/zombienet
-      version: v1.3.138
+      version: v1.3.139-alpha
       architecture: macos-arm64
     polkadot_sdk_solochain_template:
       repository_url: https://github.com/paritytech/polkadot-sdk-solochain-template
@@ -27,14 +27,17 @@ dependencies:
       ignore_updates: true
     polkadot_sdk_parachain_template:
       repository_url: https://github.com/paritytech/polkadot-sdk-parachain-template
-      version: v0.0.4
+      version: v0.0.5
       # Subdependencies are pinned to versions from the template's Cargo.lock.
       # Update these only when a new template version is released.
       subdependencies:
-        polkadot_sdk_version: polkadot-stable2503-3
-        polkadot_omni_node_version: 0.5.0
-        chain_spec_builder_version: 10.0.0
-        frame_omni_bencher_version: 0.13.0
+        polkadot_sdk_version: polkadot-stable2512-1
+        polkadot_omni_node_version: 0.13.1
+        staging_chain_spec_builder_version: 16.0.0
+        frame_omni_bencher_version: 0.17.1
+        rust_version: "1.88"
+        rust_toolchain_macos: 1.88-aarch64-apple-darwin
+        rust_toolchain_ubuntu: 1.88.0
   crates:
     subxt:
       name: subxt
@@ -51,7 +54,7 @@ dependencies:
       ignore_updates: true
     polkadot_omni_node:
       name: polkadot-omni-node
-      version: 0.13.0
+      version: 0.13.1
   javascript_packages:
     chopsticks:
       name: '@acala-network/chopsticks'
@@ -73,7 +76,7 @@ dependencies:
       version: 0.2.7
     solc:
       name: 'solc'
-      version: 0.8.33
+      version: 0.8.34
     web3_js:
       name: '@web3js'
       version: 4.16.0
@@ -85,7 +88,7 @@ dependencies:
       version: 6.16.0
     paraspell_sdk:
       name: '@paraspell/sdk'
-      version: 12.6.0
+      version: 12.6.1
     hdkd:
       name: '@polkadot-labs/hdkd'
       version: 0.0.26

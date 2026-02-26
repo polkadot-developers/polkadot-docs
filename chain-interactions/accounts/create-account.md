@@ -153,6 +153,11 @@ Rust provides low-level access to Substrate primitives for account creation thro
 
     --8<-- 'code/chain-interactions/accounts/create-account/create-account-rs.html'
 
+<div class="status-badge" markdown>
+[![Create an Account](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-create-account.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-create-account.yml){target=\_blank}
+[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/chain-interactions/create-account/tests/recipe.test.ts){ .tests-button target=\_blank}
+</div>
+
 ## Where to Go Next
 
 <div class="grid cards" markdown>
@@ -181,9 +186,4 @@ Rust provides low-level access to Substrate primitives for account creation thro
 
     [:octicons-arrow-right-24: Get Started](/chain-interactions/query-data/query-sdks/)
 
-</div>
-
-<div class="status-badge" markdown>
-[![Create an Account](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-create-account.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-create-account.yml){target=\_blank}
-[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/chain-interactions/create-account/tests/recipe.test.ts){ .tests-button target=\_blank}
 </div>

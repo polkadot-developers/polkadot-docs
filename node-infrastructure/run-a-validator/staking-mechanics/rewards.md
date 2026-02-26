@@ -127,7 +127,10 @@ With enough stake, you could run more than two validators. However, each validat
 
 A nominator's stake allows them to vote for validators and earn a share of the rewards without managing a validator node. Although staking rewards depend on validator activity during an era, validators themselves never control or own nominator rewards. To trigger payouts, anyone can call the `staking.payoutStakers` or `staking.payoutStakerByPage` methods, which mint and distribute rewards directly to the recipients. This trustless process ensures nominators receive their earned rewards.
 
-Validators set a commission rate as a percentage of the block reward, affecting how rewards are shared with nominators. A 0% commission means the validator keeps only rewards from their self-stake, while a 100% commission means they retain all rewards, leaving none for nominators.
+Validators set a commission rate as a percentage of the block reward, affecting how rewards are shared with nominators. A 100% commission means the validator retains all rewards, leaving none for nominators.
+
+!!! note
+    As of the March 2026 runtime upgrade, a **minimum commission of 10%** is enforced on-chain for all Polkadot validators. Setting a commission rate below 10% is no longer possible on Polkadot MainNet. Validators that do not meet this requirement become permissionlessly chill-able. See [Minimum Commission](/node-infrastructure/run-a-validator/requirements/#minimum-commission){target=\_blank} for details.
 
 The following examples model splitting validator payments between nominator and validator using various commission percentages. For simplicity, these examples assume a Polkadot-SDK based relay chain that uses DOT as a native token and a single nominator per validator. Calculations of KSM reward payouts for Kusama follow the same formula. 
 

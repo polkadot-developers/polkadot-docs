@@ -42,7 +42,10 @@ On Polkadot, offenses to the network incur different penalties depending on seve
 
 Validators engaging in bad actor behavior in the network may be subject to slashing if they commit a qualifying offense. When a validator is slashed, they and their nominators lose a percentage of their staked DOT or KSM, from as little as 0.01% up to 100% based on the severity of the offense. Nominators are evaluated for slashing against their active validations at any given time. Validator nodes are evaluated as discrete entities, meaning an operator can't attempt to mitigate the offense on another node they operate in order to avoid a slash. 
 
-Any slashed DOT or KSM will be added to the [Treasury](https://wiki.polkadot.com/learn/learn-polkadot-opengov-treasury/){target=\_blank} rather than burned or distributed as rewards. Moving slashed funds to the Treasury allows tokens to be quickly moved away from malicious validators while maintaining the ability to revert faulty slashes when needed.
+Any slashed DOT is directed to the [Dynamic Allocation Pool (DAP)](https://forum.polkadot.network/t/proposal-dynamic-allocation-pool-dap/15878){target=\_blank}, a permanent on-chain account introduced in the March 2026 runtime upgrade (v2.1.0). Previously, slashed funds were sent to the Treasury. The DAP collects slashed funds and redirected treasury burns, moving tokens away from malicious validators while maintaining the ability to revert faulty slashes when needed.
+
+!!! note
+    Starting in April 2026, nominators are expected to become unslashable on Polkadot. Once this change takes effect, only the validator's self-stake will be subject to slashing. This change is part of the broader staking reforms that include the introduction of [minimum validator self-stake requirements](/node-infrastructure/run-a-validator/requirements/#minimum-validator-self-stake){target=\_blank}.
 
 A nominator with a very large bond may nominate several validators in a single era. In this case, a slash is proportionate to the amount staked to the offending validator. Stake allocation and validator activation is controlled by the [Phragmén algorithm](https://wiki.polkadot.com/learn/learn-phragmen/#algorithm){target=\_blank}.
 

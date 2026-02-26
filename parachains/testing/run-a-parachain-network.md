@@ -6,6 +6,10 @@ categories: Parachains, Tooling
 
 # Run a Parachain Network Using Zombienet
 
+<div class="status-badge" markdown>
+[![Run a Parachain Network](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-run-a-parachain-network.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-run-a-parachain-network.yml){target=\_blank}
+</div>
+
 ## Introduction
 
 Zombienet is a robust testing framework designed for Polkadot SDK-based blockchain networks. It enables developers to efficiently deploy and test ephemeral blockchain environments on platforms like Kubernetes, Podman, and native setups. With its simple and versatile CLI, Zombienet provides an all-in-one solution for spawning networks, running tests, and validating performance.
@@ -179,13 +183,14 @@ zombienet setup polkadot polkadot-parachain
 
 This command will download and prepare the necessary binaries for Zombienet's use.
 
-If you need to use a custom binary, ensure the binary is available in your PATH. You can also specify the binary path in the network configuration file. The following example uses the custom [OpenZeppelin template](https://github.com/OpenZeppelin/polkadot-runtime-templates){target=\_blank}:
+If you need to use a custom binary, ensure the binary is available in your PATH. You can also specify the binary path in the network configuration file. The following example uses the [parachain template]({{ dependencies.repositories.polkadot_sdk_parachain_template.repository_url }}){target=\_blank}:
 
-First, clone the OpenZeppelin template repository using the following command:
+First, clone the parachain template repository using the following command:
 
 ```bash
-git clone https://github.com/OpenZeppelin/polkadot-runtime-templates \
-&& cd polkadot-runtime-templates/generic-template
+git clone --branch {{ dependencies.repositories.polkadot_sdk_parachain_template.version }} \
+  {{ dependencies.repositories.polkadot_sdk_parachain_template.repository_url }} \
+&& cd polkadot-sdk-parachain-template
 ```
 
 Next, run the command to build the custom binary:
@@ -197,22 +202,25 @@ cargo build --release
 Finally, add the custom binary to your PATH as follows:
 
 ```bash
-export PATH=$PATH:INSERT_PATH_TO_RUNTIME_TEMPLATES/parachain-template-node/target/release
+export PATH=$PATH:$(pwd)/target/release
 ```
+
+!!! note
+    When using the parachain template {{ dependencies.repositories.polkadot_sdk_parachain_template.version }}, ensure you use a compatible relay chain binary. The recommended version is `{{ dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.polkadot_sdk_version }}`, which you can download from the [Polkadot SDK releases](https://github.com/paritytech/polkadot-sdk/releases/tag/{{ dependencies.repositories.polkadot_sdk_parachain_template.subdependencies.polkadot_sdk_version }}){target=\_blank}.
 
 Alternatively, you can specify the binary path in the network configuration file. The local provider exclusively utilizes the command configuration for nodes, which supports both relative and absolute paths. You can employ the `default_command` configuration to specify the binary for spawning all nodes in the relay chain.
 
 ```toml
 [relaychain]
 chain = "rococo-local"
-default_command = "./bin-v1.6.0/polkadot"
+default_command = "./bin/polkadot"
 
-[parachain]
+[[parachains]]
 id = 1000
 
-    [parachain.collators]
-    name = "collator01"
-    command = "./target/release/parachain-template-node"
+[[parachains.collators]]
+name = "collator01"
+command = "./polkadot-sdk-parachain-template/target/release/parachain-template-node"
 ```
 
 #### Features
@@ -810,6 +818,11 @@ You can use the `hrmp_channels` keyword to define further parameters for the XCM
         - **`recipient` ++"number"++**: Parachain ID of the recipient.
         - **`max_capacity` ++"number"++**: Maximum capacity of the HRMP channel.
         - **`max_message_size` ++"number"++**: Maximum message size allowed in the HRMP channel.
+
+<div class="status-badge" markdown>
+[![Run a Parachain Network](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-run-a-parachain-network.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-run-a-parachain-network.yml){target=\_blank}
+[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/networks/run-a-parachain-network/tests/guide.test.ts){ .tests-button target=\_blank}
+</div>
 
 ## Where to Go Next
 

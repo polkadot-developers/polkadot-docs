@@ -2,3 +2,4 @@ nav:
  - 'Get Started': get-started.md
  - 'Open HRMP Channels Between Parachains': channels-between-parachains.md
  - 'Open HRMP Channels With System Parachains': channels-with-system-parachains.md
+ - 'Register your Parachain Asset': /chain-interactions/token-operations/register-foreign-asset/

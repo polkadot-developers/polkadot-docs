@@ -8,9 +8,9 @@ categories: Infrastructure
 
 ## Introduction
 
-The `Staking Operator` proxy is an on-chain proxy type that enables non-custodial validator operations on Polkadot. Introduced in the March 12, 2026 runtime upgrade (v2.1.0), it creates a clear separation between fund management and node operations. This separation allows capital providers (stakers) to delegate day-to-day validator operations to node runners (operators) without granting access to bonded funds.
+The Staking Operator proxy is an on-chain proxy type that enables non-custodial validator operations on Polkadot. Introduced in the March 12, 2026 runtime upgrade (v2.1.0), it creates a clear separation between fund management and node operations. This separation allows capital providers (stakers) to delegate day-to-day validator operations to node runners (operators) without granting access to bonded funds.
 
-In traditional validator setups, the entity running the node typically requires broad access to the staking account, including the ability to bond, unbond, and transfer funds. The `Staking Operator` proxy eliminates this requirement by granting the operator only the permissions needed to manage validator operations, such as setting session keys, adjusting commission rates, and managing validator status.
+In traditional validator setups, the entity running the node typically requires broad access to the staking account, including the ability to bond, unbond, and transfer funds. The Staking Operator proxy eliminates this requirement by granting the operator only the permissions needed to manage validator operations, such as setting session keys, adjusting commission rates, and managing validator status.
 
 This design is particularly valuable for institutional staking arrangements, where a capital provider wants to delegate operations to a professional node operator while maintaining full control over their bonded DOT. The operator can perform all necessary day-to-day tasks without ever having the ability to move or unbond funds.
 
@@ -24,9 +24,9 @@ flowchart LR
 
 ## Staking Operator vs Staking Proxy
 
-The `Staking Operator` proxy is a strict subset of the `Staking` proxy. While the `Staking` proxy grants full access to all staking-related extrinsics, the `Staking Operator` proxy is limited to operations-only permissions. The following table highlights the differences:
+The Staking Operator proxy is a strict subset of the `Staking` proxy. While the `Staking` proxy grants full access to all staking-related extrinsics, the Staking Operator proxy is limited to operations-only permissions. The following table highlights the differences:
 
-| Capability | `Staking` Proxy | `Staking Operator` Proxy |
+| Capability | `Staking` Proxy | Staking Operator Proxy |
 |:---:|:---:|:---:|
 | `staking.validate` (register/update validator) | Yes | Yes |
 | `staking.chill` (deactivate validator) | Yes | Yes |
@@ -40,13 +40,13 @@ The `Staking Operator` proxy is a strict subset of the `Staking` proxy. While th
 | `staking.rebond` | Yes | **No** |
 | `proxy.addProxy` / `proxy.removeProxy` | Yes | **No** |
 
-The key distinction is that the `Staking Operator` proxy cannot perform any action that moves, bonds, or unbonds funds. It also cannot create or remove other proxies, preventing delegation chain attacks.
+The key distinction is that the Staking Operator proxy cannot perform any action that moves, bonds, or unbonds funds. It also cannot create or remove other proxies, preventing delegation chain attacks.
 
 ## Set Up a Staking Operator Proxy
 
-Setting up a `Staking Operator` proxy is the responsibility of the staker (capital provider). Before creating the proxy, the staker must prepare the validator account by bonding funds and registering intent to validate.
+Setting up a Staking Operator proxy is the responsibility of the staker (capital provider). Before creating the proxy, the staker must prepare the validator account by bonding funds and registering intent to validate.
 
-Follow these steps to set up a `Staking Operator` proxy:
+Follow these steps to set up a Staking Operator proxy:
 
 1. **Bond DOT** — bond the desired amount of DOT to the validator stash account. Refer to the [Start Validating](/node-infrastructure/run-a-validator/onboarding-and-offboarding/start-validating/){target=\_blank} guide for detailed instructions on bonding.
 
@@ -55,7 +55,7 @@ Follow these steps to set up a `Staking Operator` proxy:
 3. **Create the proxy** — call `proxy.addProxy` with the following parameters:
 
     - **`delegate`** — the operator's account address.
-    - **`proxy_type`** — set to `Staking Operator`.
+    - **`proxy_type`** — set to Staking Operator.
     - **`delay`** — the number of blocks the proxy call is delayed (set to `0` for immediate execution, or a higher value for added security).
 
 !!! note
@@ -66,7 +66,7 @@ Follow these steps to set up a `Staking Operator` proxy:
 
 ## Operate a Validator with a Staking Operator Proxy
 
-Once the staker has created the `Staking Operator` proxy, the operator can begin managing the validator. All operator actions are submitted as proxy calls through the `proxy.proxy` extrinsic, using the staker's account as the `real` parameter.
+Once the staker has created the Staking Operator proxy, the operator can begin managing the validator. All operator actions are submitted as proxy calls through the `proxy.proxy` extrinsic, using the staker's account as the `real` parameter.
 
 The operator can perform the following actions:
 
@@ -95,11 +95,11 @@ For guidance on rotating session keys during node upgrades, see [Upgrade a Valid
 
 ## Security Considerations
 
-The `Staking Operator` proxy is designed with a minimal-permission model that limits the blast radius of a compromised operator account. Consider the following security properties and best practices:
+The Staking Operator proxy is designed with a minimal-permission model that limits the blast radius of a compromised operator account. Consider the following security properties and best practices:
 
 - **Non-custodial by design** — the operator never has access to bonded funds. The proxy type explicitly excludes all balance-related and fund management extrinsics.
-- **No delegation chains** — a `Staking Operator` proxy cannot create or remove other proxies. This prevents an operator from escalating their permissions or delegating access to additional accounts.
+- **No delegation chains** — a Staking Operator proxy cannot create or remove other proxies. This prevents an operator from escalating their permissions or delegating access to additional accounts.
 - **Time-delay proxies** — the `delay` parameter in `proxy.addProxy` allows the staker to configure a block delay on all proxy calls. During this delay window, the staker can cancel any pending call, providing an additional layer of oversight.
-- **Pure proxy compatibility** — pure proxy stash accounts can use the `Staking Operator` proxy in combination with Polkadot Hub's `stakingRcClient` pallet for session key management. This enables fully non-custodial setups where no single key controls the stash.
-- **Revocable at any time** — the staker retains the ability to remove the `Staking Operator` proxy by calling `proxy.removeProxy`, immediately revoking all operator permissions.
+- **Pure proxy compatibility** — pure proxy stash accounts can use the Staking Operator proxy in combination with Polkadot Hub's `stakingRcClient` pallet for session key management. This enables fully non-custodial setups where no single key controls the stash.
+- **Revocable at any time** — the staker retains the ability to remove the Staking Operator proxy by calling `proxy.removeProxy`, immediately revoking all operator permissions.
 - **Slashing risk remains** — while the operator cannot steal funds, improper session key management (such as running duplicate keys across nodes) can still lead to [equivocation slashing](/node-infrastructure/run-a-validator/staking-mechanics/offenses-and-slashes/){target=\_blank}. Stakers should verify that operators follow proper [key management practices](/node-infrastructure/run-a-validator/operational-tasks/general-management/#key-management){target=\_blank}.

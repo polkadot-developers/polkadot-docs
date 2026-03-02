@@ -48,11 +48,11 @@ Setting up a Staking Operator proxy is the responsibility of the staker (capital
 
 Follow these steps to set up a Staking Operator proxy:
 
-1. **Bond DOT** — bond the desired amount of DOT to the validator stash account. Refer to the [Start Validating](/node-infrastructure/run-a-validator/onboarding-and-offboarding/start-validating/){target=\_blank} guide for detailed instructions on bonding.
+1. **Bond DOT**: Bond the desired amount of DOT to the validator stash account. Refer to the [Start Validating](/node-infrastructure/run-a-validator/onboarding-and-offboarding/start-validating/){target=\_blank} guide for detailed instructions on bonding.
 
-2. **Register intent to validate** — call the `staking.validate` extrinsic from the stash account to register as a validator and set the initial commission rate.
+2. **Register intent to validate**: Call the `staking.validate` extrinsic from the stash account to register as a validator and set the initial commission rate.
 
-3. **Create the proxy** — call `proxy.addProxy` with the following parameters:
+3. **Create the proxy**: Call `proxy.addProxy` with the following parameters:
 
     - **`delegate`**: The operator's account address
     - **`proxy_type`**: Set to `Staking Operator`

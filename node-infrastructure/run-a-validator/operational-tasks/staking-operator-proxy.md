@@ -26,19 +26,19 @@ flowchart LR
 
 The Staking Operator proxy is a strict subset of the `Staking` proxy. While the `Staking` proxy grants full access to all staking-related extrinsics, the Staking Operator proxy is limited to operations-only permissions. The following table highlights the differences:
 
-| Capability | `Staking` Proxy | Staking Operator Proxy |
-|:---:|:---:|:---:|
-| `staking.validate` (register/update validator) | Yes | Yes |
-| `staking.chill` (deactivate validator) | Yes | Yes |
-| `staking.kick` (remove nominators) | Yes | Yes |
-| `session.setKeys` / `session.purgeKeys` | Yes | Yes |
-| `stakingRcClient.set_keys` / `stakingRcClient.purge_keys` | Yes | Yes |
-| `staking.bond` / `staking.bondExtra` | Yes | **No** |
-| `staking.unbond` / `staking.withdrawUnbonded` | Yes | **No** |
-| `staking.nominate` | Yes | **No** |
-| `staking.setPayee` | Yes | **No** |
-| `staking.rebond` | Yes | **No** |
-| `proxy.addProxy` / `proxy.removeProxy` | Yes | **No** |
+|                        Capability                         | `Staking` Proxy | Staking Operator Proxy |
+| :-------------------------------------------------------: | :-------------: | :--------------------: |
+|      `staking.validate` (register/update validator)       |       Yes       |          Yes           |
+|          `staking.chill` (deactivate validator)           |       Yes       |          Yes           |
+|            `staking.kick` (remove nominators)             |       Yes       |          Yes           |
+|          `session.setKeys` / `session.purgeKeys`          |       Yes       |          Yes           |
+| `stakingRcClient.set_keys` / `stakingRcClient.purge_keys` |       Yes       |          Yes           |
+|           `staking.bond` / `staking.bondExtra`            |       Yes       |           No           |
+|       `staking.unbond` / `staking.withdrawUnbonded`       |       Yes       |           No           |
+|                    `staking.nominate`                     |       Yes       |           No           |
+|                    `staking.setPayee`                     |       Yes       |           No           |
+|                     `staking.rebond`                      |       Yes       |           No           |
+|          `proxy.addProxy` / `proxy.removeProxy`           |       Yes       |           No           |
 
 The key distinction is that the Staking Operator proxy cannot perform any action that moves, bonds, or unbonds funds. It also cannot create or remove other proxies, preventing delegation chain attacks.
 

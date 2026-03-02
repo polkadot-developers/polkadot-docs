@@ -51,7 +51,7 @@ Start by cloning the Uniswap V2 project:
 
     Ensure to replace `"INSERT_LOCAL_PRIVATE_KEY"` with a private key available in the local environment (you can get them from this [file](https://github.com/paritytech/hardhat-polkadot/blob/main/packages/hardhat-polkadot-node/src/constants.ts#L21){target=\_blank}). And `"INSERT_AH_PRIVATE_KEY"` with the account's private key you want to use to deploy the contracts. You can get this by exporting the private key from your wallet (e.g., MetaMask).
 
-    !!!warning
+    !!! warning
         Keep your private key safe, and never share it with anyone. If it is compromised, your funds can be stolen.
 
 5. Compile the contracts:
@@ -62,7 +62,7 @@ Start by cloning the Uniswap V2 project:
 
 If the compilation is successful, you should see the following output:
 
---8<-- 'code/smart-contracts/cookbook/eth-dapps/uniswap-v2/compilation-output.html'
+--8<-- 'code/smart-contracts/cookbook/eth-dapps/uniswap-v2/uniswap-v2-pvm/compilation-output.html'
 
 After running the above command, you should see the compiled contracts in the `artifacts` directory. This directory contains the ABI and bytecode of your contracts.
 
@@ -132,7 +132,7 @@ To test it locally, you can run the following commands:
 
 The result should look like this:
 
---8<-- 'code/smart-contracts/cookbook/eth-dapps/uniswap-v2/testing-output.html'
+--8<-- 'code/smart-contracts/cookbook/eth-dapps/uniswap-v2/uniswap-v2-pvm/testing-output.html'
 
 ## Deploy the Contracts
 
@@ -154,7 +154,7 @@ The command above deploys to the actual Polkadot Hub TestNet. It requires test t
 
 The deployment script will output the addresses of the deployed contracts. Save these addresses, as you will need them to interact with the contracts. For example, the output should look like this:
 
---8<-- 'code/smart-contracts/cookbook/eth-dapps/uniswap-v2/deployment-output.html'
+--8<-- 'code/smart-contracts/cookbook/eth-dapps/uniswap-v2/uniswap-v2-pvm/deployment-output.html'
 
 ## Conclusion
 

@@ -54,9 +54,9 @@ Follow these steps to set up a Staking Operator proxy:
 
 3. **Create the proxy** — call `proxy.addProxy` with the following parameters:
 
-    - **`delegate`** — the operator's account address.
-    - **`proxy_type`** — set to Staking Operator.
-    - **`delay`** — the number of blocks the proxy call is delayed (set to `0` for immediate execution, or a higher value for added security).
+    - **`delegate`**: The operator's account address
+    - **`proxy_type`**: Set to `Staking Operator`
+    - **`delay`**: The number of blocks the proxy call is delayed (set to `0` for immediate execution, or a higher value for added security)
 
 !!! note
     The order of operations matters. On Polkadot Hub, validators must `bond` and `validate` before session keys can be set. Ensure steps 1 and 2 are completed before the operator attempts to set session keys in the next section.
@@ -70,11 +70,11 @@ Once the staker has created the Staking Operator proxy, the operator can begin m
 
 The operator can perform the following actions:
 
-- **Set session keys** — rotate or update session keys using `stakingRcClient.set_keys` on Polkadot Hub or `session.setKeys` on the relay chain. See [Key Management](/node-infrastructure/run-a-validator/operational-tasks/general-management/#key-management){target=\_blank} for best practices on managing session keys.
-- **Update commission** — adjust the validator's commission rate by calling `staking.validate` with a new commission value.
-- **Deactivate the validator** — temporarily pause validation by calling `staking.chill`. See [Pause Validating](/node-infrastructure/run-a-validator/operational-tasks/pause-validating/){target=\_blank} for more details on the chilling process.
-- **Remove nominators** — kick specific nominators from the validator's nomination pool using `staking.kick`.
-- **Purge session keys** — remove session keys using `stakingRcClient.purge_keys` on Polkadot Hub or `session.purgeKeys` on the relay chain.
+- **Set session keys**: Rotate or update session keys using `stakingRcClient.set_keys` on Polkadot Hub or `session.setKeys` on the relay chain. See [Key Management](/node-infrastructure/run-a-validator/operational-tasks/general-management/#key-management){target=\_blank} for best practices on managing session keys.
+- **Update commission**: Adjust the validator's commission rate by calling `staking.validate` with a new commission value.
+- **Deactivate the validator**: Temporarily pause validation by calling `staking.chill`. See [Pause Validating](/node-infrastructure/run-a-validator/operational-tasks/pause-validating/){target=\_blank} for more details on the chilling process.
+- **Remove nominators**: Kick specific nominators from the validator's nomination pool using `staking.kick`.
+- **Purge session keys**: Remove session keys using `stakingRcClient.purge_keys` on Polkadot Hub or `session.purgeKeys` on the relay chain.
 
 !!! warning
     The worst-case scenario with a compromised operator is that they could chill the validator, set an unfavorable commission rate, or change session keys. While these actions are disruptive, they cannot result in loss of bonded funds. The staker can revoke the proxy at any time to regain full control.
@@ -85,8 +85,8 @@ Polkadot Hub introduces a new path for session key management through the `staki
 
 The `stakingRcClient` pallet provides two extrinsics for session key management:
 
-- **`stakingRcClient.set_keys`** — set or rotate session keys for the validator. The operator submits this call as a proxy transaction through the staker's account.
-- **`stakingRcClient.purge_keys`** — remove session keys from the validator. This is useful when decommissioning a validator node or rotating to a new server.
+- **`stakingRcClient.set_keys`**: Set or rotate session keys for the validator. The operator submits this call as a proxy transaction through the staker's account.
+- **`stakingRcClient.purge_keys`**: Remove session keys from the validator. This is useful when decommissioning a validator node or rotating to a new server.
 
 !!! note
     The legacy `session.setKeys` and `session.purgeKeys` extrinsics on the relay chain remain functional for validators that do not use pure proxy stash accounts. However, the Polkadot Hub path through `stakingRcClient` is the recommended approach for new setups.
@@ -97,9 +97,9 @@ For guidance on rotating session keys during node upgrades, see [Upgrade a Valid
 
 The Staking Operator proxy is designed with a minimal-permission model that limits the blast radius of a compromised operator account. Consider the following security properties and best practices:
 
-- **Non-custodial by design** — the operator never has access to bonded funds. The proxy type explicitly excludes all balance-related and fund management extrinsics.
-- **No delegation chains** — a Staking Operator proxy cannot create or remove other proxies. This prevents an operator from escalating their permissions or delegating access to additional accounts.
-- **Time-delay proxies** — the `delay` parameter in `proxy.addProxy` allows the staker to configure a block delay on all proxy calls. During this delay window, the staker can cancel any pending call, providing an additional layer of oversight.
-- **Pure proxy compatibility** — pure proxy stash accounts can use the Staking Operator proxy in combination with Polkadot Hub's `stakingRcClient` pallet for session key management. This enables fully non-custodial setups where no single key controls the stash.
-- **Revocable at any time** — the staker retains the ability to remove the Staking Operator proxy by calling `proxy.removeProxy`, immediately revoking all operator permissions.
-- **Slashing risk remains** — while the operator cannot steal funds, improper session key management (such as running duplicate keys across nodes) can still lead to [equivocation slashing](/node-infrastructure/run-a-validator/staking-mechanics/offenses-and-slashes/){target=\_blank}. Stakers should verify that operators follow proper [key management practices](/node-infrastructure/run-a-validator/operational-tasks/general-management/#key-management){target=\_blank}.
+- **Non-custodial by design**: The operator never has access to bonded funds. The proxy type explicitly excludes all balance-related and fund management extrinsics.
+- **No delegation chains**: A `Staking Operator` proxy cannot create or remove other proxies. This prevents an operator from escalating their permissions or delegating access to additional accounts.
+- **Time-delay proxies**: The `delay` parameter in `proxy.addProxy` allows the staker to configure a block delay on all proxy calls. During this delay window, the staker can cancel any pending call, providing an additional layer of oversight.
+- **Pure proxy compatibility**: Pure proxy stash accounts can use the `Staking Operator` proxy in combination with Polkadot Hub's `stakingRcClient` pallet for session key management. This enables fully non-custodial setups where no single key controls the stash.
+- **Revocable at any time**: The staker retains the ability to remove the `Staking Operator` proxy by calling `proxy.removeProxy`, immediately revoking all operator permissions.
+- **Slashing risk remains**: While the operator cannot steal funds, improper session key management (such as running duplicate keys across nodes) can still lead to [equivocation slashing](/node-infrastructure/run-a-validator/staking-mechanics/offenses-and-slashes/){target=\_blank}. Stakers should verify that operators follow proper [key management practices](/node-infrastructure/run-a-validator/operational-tasks/general-management/#key-management){target=\_blank}.

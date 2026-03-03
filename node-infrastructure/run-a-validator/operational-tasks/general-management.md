@@ -573,7 +573,6 @@ Additional best practices can add an additional layer of security and operationa
 
 ## Additional Resources
 
-- [Certus One's Knowledge Base](https://knowledgebase.certus.com/FAQ/){target=\_blank}
 - [EOS Block Producer Security List](https://github.com/slowmist/eos-bp-nodes-security-checklist){target=\_blank}
 - [HSM Policies and the Importance of Validator Security](https://medium.com/loom-network/hsm-policies-and-the-importance-of-validator-security-ec8a4cc1b6f){target=\_blank}
 

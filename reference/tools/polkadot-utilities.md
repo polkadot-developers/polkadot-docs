@@ -3,9 +3,9 @@ title: Polkadot Utilities
 description: Interactive encoding, hashing, and address utility tools for Polkadot development. Convert strings, balances, and numbers to hex, hash inputs with Blake2 and XXHash, and derive or re-encode Polkadot addresses.
 categories: Tooling
 extra_javascript:
-  - https://cdn.jsdelivr.net/npm/@polkadot/util@latest/bundle-polkadot-util.js
-  - https://cdn.jsdelivr.net/npm/@polkadot/util-crypto@latest/bundle-polkadot-util-crypto.js
-  - https://cdn.jsdelivr.net/npm/@polkadot/keyring@latest/bundle-polkadot-keyring.js
+  - https://cdn.jsdelivr.net/npm/@polkadot/util@14.0.1/bundle-polkadot-util.js
+  - https://cdn.jsdelivr.net/npm/@polkadot/util-crypto@14.0.1/bundle-polkadot-util-crypto.js
+  - https://cdn.jsdelivr.net/npm/@polkadot/keyring@14.0.1/bundle-polkadot-keyring.js
   - /js/polkadot-utilities.js
 extra_css:
   - /assets/stylesheets/polkadot-utilities.css

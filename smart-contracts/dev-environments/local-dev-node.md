@@ -6,6 +6,10 @@ categories: Smart Contracts
 
 # Local Development Node
 
+<div class="status-badge" markdown>
+[![Local Development Node](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-local-dev-node.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-local-dev-node.yml){target=\_blank}
+</div>
+
 ## Introduction
 
 A local development node provides an isolated blockchain environment where you can deploy, test, and debug smart contracts without incurring network fees or waiting for block confirmations. This guide demonstrates how to set up a local Polkadot SDK-based node with smart contract capabilities.
@@ -84,3 +88,8 @@ RUST_LOG="info,eth-rpc=debug" ./target/release/eth-rpc --dev
 Your local development environment is now active and accessible at `http://localhost:8545`. This endpoint accepts standard Ethereum JSON-RPC requests, enabling seamless integration with existing Ethereum development tools and workflows. 
 
 You can connect wallets, deploy contracts using Remix or Hardhat, and interact with your smart contracts as you would on any Ethereum-compatible network.
+
+<div class="status-badge" markdown>
+[![Local Development Node](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-local-dev-node.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-local-dev-node.yml){target=\_blank}
+[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/smart-contracts/local-dev-node/tests/recipe.test.ts){ .tests-button target=\_blank}
+</div>

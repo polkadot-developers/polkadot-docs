@@ -82,3 +82,20 @@ For example, on November 19, 2024, the minimum stake backing a validator in Polk
 - [**Chain State Values**](https://wiki.polkadot.com/general/chain-state-values/){target=\_blank}
 - [**Subscan**](https://polkadot.subscan.io/validator_list?status=validator){target=\_blank}
 - [**Staking Dashboard**](https://staking.polkadot.cloud/#/overview){target=\_blank}
+
+## Minimum Validator Self-Stake
+
+As of the March 2026 runtime upgrade, all Polkadot validators must maintain a minimum self-stake of **10,000 DOT** that is slashable. This self-stake must come from the validator's own stash account and is separate from any stake delegated by nominators.
+
+The self-stake requirement ensures that validators have meaningful skin in the game, aligning their incentives with the security of the network. Validators who do not meet this threshold become permissionlessly chill-able — any account can submit a `staking.chillOther` extrinsic to remove the non-compliant validator from the active set.
+
+!!! warning
+    If your self-stake drops below 10,000 DOT (for example, due to a slash), your validator becomes immediately eligible for chilling by any network participant. Monitor your self-stake balance and rebond additional funds promptly if needed.
+
+## Minimum Commission
+
+Validators on Polkadot must set a commission rate of at least **10%**. This minimum is enforced on-chain as of the March 2026 runtime upgrade.
+
+The minimum commission ensures that validators receive adequate compensation for the operational costs of running a node, promoting long-term sustainability of the validator set. Validators with a commission rate below 10% are permissionlessly chill-able through the `staking.chillOther` extrinsic, similar to those not meeting the self-stake requirement.
+
+For more details on how commission rates affect reward distribution between validators and nominators, see [Rewards Payout](/node-infrastructure/run-a-validator/staking-mechanics/rewards/){target=\_blank}. For non-custodial validator operations where the operator manages commission, see [Staking Operator Proxy](/node-infrastructure/run-a-validator/operational-tasks/staking-operator-proxy/){target=\_blank}.

@@ -31,4 +31,7 @@ Hash arbitrary inputs using Blake2 and XXHash — the two hashing algorithms use
 
 Derive, convert, and re-encode Polkadot addresses. These tools cover the full range of address types used in the Polkadot ecosystem — from standard SS58 addresses and Ethereum-compatible addresses to pallet module accounts, sovereign accounts for parachains, and derived sub-accounts.
 
+!!! warning
+    Never enter seed phrases or private key URIs for accounts that hold real funds. Use only test accounts or development keys (e.g. `//Alice`) with the Seed → Address tool.
+
 <div id="address-root"></div>

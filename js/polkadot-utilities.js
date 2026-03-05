@@ -11,8 +11,8 @@
 (function () {
   'use strict';
 
-  const DEBOUNCE_MS = 300;
-  const COPY_FEEDBACK_MS = 2000;
+  var DEBOUNCE_MS = 300;
+  var COPY_FEEDBACK_MS = 2000;
 
   var COPY_SVG =
     '<svg class="pu-copy-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">' +
@@ -285,7 +285,7 @@
             return;
           }
           try {
-            bhHex.value = bnToHex(val, { isLe: true });
+            bhHex.value = bnToHex(val, { bitLength: 128, isLe: true });
           } catch (e) {
             showError(bhErr, bhBal, e.message || 'Enter a valid integer.');
           }
@@ -519,8 +519,9 @@
         }
         try {
           var bits = parseInt(b2cBits.value, 10) || 128;
-          var hash = blake2AsHex(val, bits);
-          hash += isHex(val) ? val.substr(2) : stringToHex(val).substr(2);
+          var inputData = isHex(val) ? hexToU8a(val) : val;
+          var hash = blake2AsHex(inputData, bits);
+          hash += isHex(val) ? val.slice(2) : stringToHex(val).slice(2);
           b2cOut.value = hash;
         } catch (e) {
           showError(b2cErr, b2cInput, e.message || 'Hashing failed.');
@@ -567,8 +568,9 @@
         }
         try {
           var bits = parseInt(xxcBits.value, 10) || 64;
-          var hash = xxhashAsHex(val, bits);
-          hash += isHex(val) ? val.substr(2) : stringToHex(val).substr(2);
+          var inputData = isHex(val) ? hexToU8a(val) : val;
+          var hash = xxhashAsHex(inputData, bits);
+          hash += isHex(val) ? val.slice(2) : stringToHex(val).slice(2);
           xxcOut.value = hash;
         } catch (e) {
           showError(xxcErr, xxcInput, e.message || 'Hashing failed.');
@@ -617,7 +619,7 @@
             '<div class="pu-options-row">' +
             '<div class="pu-option">' +
             '<label class="pu-field-label" for="pu-cp-prefix">SS58 Prefix</label>' +
-            '<input type="number" id="pu-cp-prefix" class="pu-input pu-input-sm" min="0" placeholder="0">' +
+            '<input type="number" id="pu-cp-prefix" class="pu-input pu-input-sm" min="0" placeholder="42">' +
             '</div>' +
             '</div>' +
             fieldGroup('Result', 'pu-cp-out', inputWithCopy('pu-cp-out', '', true)),

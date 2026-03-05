@@ -31,6 +31,15 @@ Zombienet releases are available on the [Zombienet repository](https://github.co
     chmod +x zombienet-{{ dependencies.repositories.zombienet.architecture }}
     ```
 
+    !!! warning "macOS Gatekeeper: Unidentified Developer"
+        If macOS blocks the app with "cannot be opened because it is from an unidentified developer":
+
+        Remove the quarantine attribute so the terminal can run it by running the following command:
+        
+          ```bash
+          xattr -d com.apple.quarantine zombienet-{{ dependencies.repositories.zombienet.architecture }}
+          ```
+
     Verify the installation:
 
     ```bash
@@ -151,7 +160,14 @@ Zombienet uses JSON or TOML configuration files to define network topology, node
 
 ### Basic Configuration
 
-A minimal configuration includes settings, relay chain configuration, and parachain configuration:
+A minimal configuration includes settings, relay chain configuration, and parachain configuration.
+
+!!! important "Polkadot TestNet chain specs"
+    For Polkadot TestNet, use chain specs from the official [Polkadot TestNet chain specs repository](https://github.com/paseo-network/paseo-chain-specs/){target=\_blank}. Download the needed files and set `chain_spec_path` in your config. To download Polkadot Hub TestNet specs, you can use the following command:
+
+    ```bash
+    wget https://paseo-r2.zondax.ch/chain-specs/paseo-asset-hub.json
+    ```
 
 === "TOML"
 
@@ -160,7 +176,7 @@ A minimal configuration includes settings, relay chain configuration, and parach
     timeout = 1000
 
     [relaychain]
-    chain = "rococo-local"
+    chain = "paseo"
     default_command = "polkadot"
 
         [[relaychain.nodes]]
@@ -173,7 +189,7 @@ A minimal configuration includes settings, relay chain configuration, and parach
 
     [[parachains]]
     id = 1000
-    chain = "asset-hub-rococo-local"
+    chain_spec_path = "./paseo-asset-hub.json"
 
         [parachains.collator]
         name = "collator-01"
@@ -188,7 +204,7 @@ A minimal configuration includes settings, relay chain configuration, and parach
         "timeout": 1000
       },
       "relaychain": {
-        "chain": "rococo-local",
+        "chain": "paseo",
         "default_command": "polkadot",
         "nodes": [
           {
@@ -204,7 +220,7 @@ A minimal configuration includes settings, relay chain configuration, and parach
       "parachains": [
         {
           "id": 1000,
-          "chain": "asset-hub-rococo-local",
+          "chain_spec_path": "./paseo-asset-hub.json",
           "collator": {
             "name": "collator-01",
             "command": "polkadot-parachain"

@@ -7,6 +7,10 @@ categories: Parachains
 
 # Opening HRMP Channels Between Parachains
 
+<div class="status-badge" markdown>
+[![Channels Between Parachains](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-channels-between-parachains.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-channels-between-parachains.yml){target=\_blank}
+</div>
+
 ## Introduction
 
 For establishing communication channels between parachains on the Polkadot network using the Horizontal Relay-routed Message Passing (HRMP) protocol, the following steps are required:
@@ -56,7 +60,7 @@ Use [Polkadot.js Apps](https://polkadot.js.org/apps/#/explorer){target=\_blank} 
 
         The sovereign account of parachain 2500 in relay chain will be `0x70617261c4090000000000000000000000000000000000000000000000000000`
         and the SS58 format of this address is `5Ec4AhPSY2GEE4VoHUVheqv5wwq2C1HMKa7c9fVJ1WKivX1Y`.
-    
+
     To perform this conversion, you can also use the **"Para ID" to Address** section in [Substrate Utilities](https://www.shawntabrizi.com/substrate-js-utilities/){target=_blank}.
 
 ### Create Channel Opening Extrinsic
@@ -93,7 +97,7 @@ The XCM message should contain the following instructions:
 - **`RefundSurplus`**: Increases the Refunded Weight Register to the value of the Surplus Weight Register, attempting to reclaim any excess fees paid via BuyExecution.
 - **`DepositAsset`**: Subtracts assets from the Holding Register and deposits equivalent on-chain assets under the specified beneficiary's ownership.
 
-!!!note 
+!!!note
     For more detailed information about XCM's functionality, complexities, and instruction set, refer to the [xcm-format](https://github.com/polkadot-fellows/xcm-format){target=_blank} documentation.
 
 In essence, this process withdraws funds from the parachain's sovereign account to the XCVM Holding Register, then uses these funds to purchase execution time for the XCM `Transact` instruction, executes `Transact`, refunds any unused execution time and deposits any remaining funds into a specified account.
@@ -150,7 +154,7 @@ To fund the account, follow the same process described in the previous section, 
     4. Copy the encoded call data.
 
     ![](/images/parachains/interoperability/channels-between-parachains/parachains-04.webp)
-    
+
     The encoded call data for accepting a channel with parachain 2500 should be `0x3c01c4090000`.
 
 ### Craft and Submit the XCM Message from the Receiver
@@ -185,7 +189,12 @@ After submitting the XCM message to accept the HRMP channel opening, verify that
 
 If the channel has been successfully established, you should see the channel details in the query results.
 
-By following these steps, you will have successfully accepted the HRMP channel request and established a unidirectional channel between the two parachains. 
+By following these steps, you will have successfully accepted the HRMP channel request and established a unidirectional channel between the two parachains.
+
+<div class="status-badge" markdown>
+[![Channels Between Parachains](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-channels-between-parachains.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-channels-between-parachains.yml){target=\_blank}
+[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/parachains/interoperability/channels-between-parachains/tests/guide.test.ts){ .tests-button target=\_blank}
+</div>
 
 !!! note
     Remember that for full bidirectional communication, you'll need to repeat this process in the opposite direction, with parachain 2600 initiating a channel request to parachain 2500.

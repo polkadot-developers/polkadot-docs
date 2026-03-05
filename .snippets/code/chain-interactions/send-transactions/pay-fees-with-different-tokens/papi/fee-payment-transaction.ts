@@ -13,7 +13,7 @@ import { MultiAddress } from "@polkadot-api/descriptors";
 
 const TARGET_ADDRESS = "14E5nqKAp3oAJcmzgZhUD2RcptBeUBScxKHgJKU4HPNcKVf3"; // Bob's address
 const TRANSFER_AMOUNT = 3_000_000_000n; // 3 DOT
-const USD_ASSET_ID = 1337;
+const USDT_ASSET_ID = 1984;
 
 const createSigner = async () => {
   const entropy = mnemonicToEntropy(DEV_PHRASE);
@@ -30,7 +30,7 @@ const createSigner = async () => {
 
 const client = createClient(
   withPolkadotSdkCompat(
-    getWsProvider("ws://localhost:8000") // Chopsticks Asset Hub
+    getWsProvider("ws://localhost:8000") // Chopsticks Polkadot Hub
   )
 );
 
@@ -50,7 +50,7 @@ const result = await tx.signAndSubmit(signer, {
       type: "X2",
       value: [
         { type: "PalletInstance", value: 50 },
-        { type: "GeneralIndex", value: BigInt(USD_ASSET_ID) },
+        { type: "GeneralIndex", value: BigInt(USDT_ASSET_ID) },
       ],
     },
   },

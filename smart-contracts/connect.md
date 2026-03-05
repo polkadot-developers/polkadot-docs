@@ -25,6 +25,9 @@ For more information about how to connect to Polkadot Hub, please check the [Wal
 
 Developers can leverage smart contracts across diverse networks, from TestNets to MainNet. This section outlines the network specifications and connection details for each environment.
 
+!!! note "WebSocket (WSS) endpoints"
+    The WSS endpoints listed below are not behind an eth-rpc proxy. For Ethereum JSON-RPC compatibility, use the HTTP RPC URLs provided for each network instead.
+
 === "Polkadot Hub TestNet"
 
     Network name

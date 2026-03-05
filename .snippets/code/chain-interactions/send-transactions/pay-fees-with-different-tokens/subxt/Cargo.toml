@@ -1,0 +1,14 @@
+[package]
+name = "subxt-fee-payment-example"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "fee_payment_transaction"
+path = "src/bin/fee_payment_transaction.rs"
+
+[dependencies]
+codec = { package = "parity-scale-codec", version = "3", features = ["derive"] }
+subxt = { version = "0.44.2", features = ["jsonrpsee", "native"] }
+subxt-signer = { version = "0.44.2", features = ["sr25519"] }
+tokio = { version = "1.44.2", features = ["macros", "rt-multi-thread"] }

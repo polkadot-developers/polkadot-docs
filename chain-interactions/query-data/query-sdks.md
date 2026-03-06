@@ -6,6 +6,10 @@ categories: Chain Interactions
 
 # Query On-Chain State with SDKs
 
+<div class="status-badge" markdown>
+[![Query On-Chain State with SDKs](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-query-sdks.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-query-sdks.yml){target=\_blank}
+</div>
+
 ## Introduction
 
 Polkadot SDK-based blockchains store data in a key-value database that external applications can query. This on-chain state includes account balances, asset information, governance proposals, and any other data the runtime manages.
@@ -391,6 +395,11 @@ Select your preferred SDK below to see complete, runnable examples that query Po
     You should see output similar to:
 
     --8<-- 'code/chain-interactions/query-data/query-sdks/subxt/query-asset-rs.html'
+
+<div class="status-badge" markdown>
+[![Query On-Chain State with SDKs](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-query-sdks.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-query-sdks.yml){target=\_blank}
+[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/chain-interactions/query-sdks/tests/recipe.test.ts){ .tests-button target=\_blank}
+</div>
 
 ## Where to Go Next
 

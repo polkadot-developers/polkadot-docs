@@ -95,4 +95,13 @@ dependencies:
     hdkd_helpers:
       name: '@polkadot-labs/hdkd-helpers'
       version: 0.0.27
+    polkadot_util:
+      name: '@polkadot/util'
+      version: 14.0.1
+    polkadot_util_crypto:
+      name: '@polkadot/util-crypto'
+      version: 14.0.1
+    polkadot_keyring:
+      name: '@polkadot/keyring'
+      version: 14.0.1
 #   python_packages:

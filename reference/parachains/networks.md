@@ -47,7 +47,7 @@ The Polkadot ecosystem also includes alternative networks, but these are not par
 
 Polkadot is the production network where real value and live applications operate. After thorough testing on Paseo and local development environments, teams deploy their parachains and dApps to Polkadot MainNet. Polkadot provides enterprise-grade security through its shared security model, where all parachains benefit from the collective security of the relay chain's validator set.
 
-The native token for Polkadot is DOT. For more information about DOT, visit the [Native Assets](https://wiki.polkadot.com/learn/learn-DOT/){target=\_blank} page on the Polkadot Wiki.
+The native token for Polkadot is DOT. For more information about DOT, visit the [Native Assets](https://wiki.polkadot.com/learn/learn-dot/){target=\_blank} page on the Polkadot Wiki.
 
 ## Polkadot TestNet (Paseo)
 

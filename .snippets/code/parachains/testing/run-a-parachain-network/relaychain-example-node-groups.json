@@ -2,16 +2,16 @@
     "relaychain": {
         "default_command": "polkadot",
         "default_image": "polkadot-debug:master",
-        "chain": "rococo-local",
+        "chain": "paseo",
         "chain_spec_path": "INSERT_PATH_TO_CHAIN-SPEC.JSON",
-        "default_args": ["--chain", "rococo-local"],
+        "default_args": ["--chain", "paseo"],
         "node_groups": [
             {
                 "name": "group-1",
                 "count": 2,
                 "image": "polkadot-debug:master",
                 "command": "polkadot",
-                "args": ["--chain", "rococo-local"]
+                "args": ["--chain", "paseo"]
             }
         ],
         "...": {}

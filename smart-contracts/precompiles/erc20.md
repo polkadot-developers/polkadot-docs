@@ -210,6 +210,14 @@ require(success, "Transfer from failed");
 
 For the complete implementation, refer to the [ERC20 precompile source code](https://github.com/paritytech/polkadot-sdk/blob/11be995be95ac1e25a5b2a6dd941006e7097bffc/substrate/frame/assets/precompiles/src/lib.rs){target=\_blank} in the Polkadot SDK.
 
+## Common Asset IDs
+
+The following well-known assets are registered on Polkadot Hub and accessible via the ERC20 precompile:
+
+| Asset ID | Symbol | Name | Decimals | ERC20 Precompile Address |
+|:---:|:---:|:---:|:---:|:---:|
+| 1984 | USDt | Tether USD | 6 | `0x000007C000000000000000000000000001200000` |
+| 1337 | USDC | USD Coin | 6 | `0x0000053900000000000000000000000001200000` |
 
 ## Interact with the ERC20 Precompile
 

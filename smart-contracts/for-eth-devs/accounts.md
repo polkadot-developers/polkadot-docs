@@ -1,7 +1,7 @@
 ---
 title: Accounts in Polkadot Hub Smart Contracts
 description: Bridges Ethereum's 20-byte addresses with Polkadot's 32-byte accounts, enabling seamless interaction while maintaining compatibility with Ethereum tooling.
-categories: Basics, Polkadot Protocol
+categories: Smart Contracts, Accounts and Transactions
 extra_javascript:
   - https://cdn.jsdelivr.net/npm/@polkadot/util@latest/bundle-polkadot-util.js
   - https://cdn.jsdelivr.net/npm/@polkadot/util-crypto@latest/bundle-polkadot-util-crypto.js

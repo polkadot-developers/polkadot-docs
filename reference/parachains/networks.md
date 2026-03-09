@@ -1,7 +1,7 @@
 ---
 title: Networks
 description: Explore Polkadot's networks, with Paseo as the official Polkadot TestNet for parachain and dApp development, plus Kusama and Westend for specialized use cases.
-categories: Basics, Polkadot Protocol, Networks
+categories: Basics, Polkadot Protocol, Reference
 ---
 
 # Networks

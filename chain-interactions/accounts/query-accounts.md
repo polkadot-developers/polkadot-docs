@@ -1,7 +1,7 @@
 ---
 title: Query Account Information with SDKs
 description: Learn how to query account information using five popular SDKs—Polkadot API (PAPI), Polkadot.js API, Dedot, Python Substrate Interface, and Subxt.
-categories: Basics, Polkadot Protocol
+categories: Accounts and Transactions, Tooling
 ---
 
 # Query Account Information with SDKs

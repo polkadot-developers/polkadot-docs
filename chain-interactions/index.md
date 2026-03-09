@@ -1,7 +1,7 @@
 ---
 title: Chain Interactions Overview
 description: Learn how to query data, send transactions, enable cross-chain communication, and manage accounts across the Polkadot ecosystem.
-categories: Chain Interactions
+categories: Accounts and Transactions
 ---
 
 # Chain Interactions

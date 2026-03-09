@@ -1,7 +1,7 @@
 ---
 title: Smart Contracts Cookbook
 description: Explore our full collection of tutorials and guides to learn step-by-step how to build, deploy, and work with smart contracts on Polkadot.
-categories: Basics, dApps, Smart Contracts
+categories: Basics, Smart Contracts
 ---
 
 # Smart Contracts Cookbook

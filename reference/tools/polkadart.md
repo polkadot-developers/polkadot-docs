@@ -1,7 +1,7 @@
 ---
 title: Polkadart
 description: Polkadart is a type-safe, native Dart, SDK for Polkadot and any compatible Polkadot-SDK blockchain network.
-categories: Tooling, Dapps
+categories: Tooling
 ---
 
 # Polkadart

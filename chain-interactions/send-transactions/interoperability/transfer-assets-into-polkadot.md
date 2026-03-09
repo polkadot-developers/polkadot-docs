@@ -1,6 +1,7 @@
 ---
 title: Transfer Assets from Ethereum into Polkadot
 description: A step-by-step guide to bridging assets from Ethereum to Polkadot using the ParaSpell XCM SDK and Snowbridge.
+categories: Interoperability
 ---
 
 # Transfer Assets from Ethereum into Polkadot

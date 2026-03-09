@@ -1,7 +1,7 @@
 ---
 title: Create an Account
 description: Step-by-step guide to creating Polkadot accounts using different programming languages and libraries, including JavaScript, Python, and Rust examples.
-categories: Basics, Accounts, Developer Tools
+categories: Basics, Accounts and Transactions
 ---
 
 # Create an Account

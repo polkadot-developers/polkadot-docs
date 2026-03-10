@@ -1,7 +1,7 @@
 ---
 title: Send Transactions with SDKs
 description: Learn how to construct, sign, and submit transactions using PAPI, Polkadot.js, Dedot, Python Substrate Interface, and Subxt.
-categories: Accounts and Transactions, Tooling
+categories: Chain Interactions, Tooling
 ---
 
 # Send Transactions with SDKs

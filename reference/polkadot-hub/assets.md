@@ -55,6 +55,9 @@ The following well-known native assets are registered on Polkadot Hub:
 | 1984 | USDt | Tether USD | 6 | Yes |
 | 1337 | USDC | USD Coin | 6 | Yes |
 
+!!! note
+    The on-chain symbol for Tether on Polkadot Hub is `USDt`, which is commonly referred to as "USDT" on exchanges and in wallets.
+
 A sufficient asset can keep an account alive without requiring a DOT balance.
 
 ## How Native Assets Work

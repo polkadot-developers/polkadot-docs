@@ -1,6 +1,7 @@
 ---
 title: Support
 description: Start here to get developer support for Polkadot. Connect with the team, find help, and explore resources beyond the documentation.
+footer_nav: true
 ---
 
 # Polkadot Developer Support

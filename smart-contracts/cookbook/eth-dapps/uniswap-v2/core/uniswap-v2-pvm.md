@@ -1,11 +1,11 @@
 ---
-title: Deploying Uniswap V2 on Polkadot
-description: Learn how to deploy and test Uniswap V2 on Polkadot Hub using Hardhat, bringing AMM-based token swaps to the Polkadot ecosystem.
+title: Deploying Uniswap V2 Core on Polkadot
+description: Learn how to deploy and test Uniswap V2 Core on Polkadot Hub using Hardhat, bringing AMM-based token swaps to the Polkadot ecosystem.
 tutorial_badge: Intermediate
 categories: Smart Contracts, Tooling
 ---
 
-# Deploy Uniswap V2
+# Deploy Uniswap V2 Core
 
 ## Introduction
 

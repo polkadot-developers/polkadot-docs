@@ -14,4 +14,3 @@ nav:
  - 'Python Substrate Interface': py-substrate-interface.md
  - 'Sidecar REST API': sidecar.md
  - 'Subxt': subxt.md
- - 'Polkadot Utilities': polkadot-utilities.md

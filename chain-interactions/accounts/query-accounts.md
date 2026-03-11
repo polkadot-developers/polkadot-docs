@@ -6,6 +6,10 @@ categories: Chain Interactions, Tooling
 
 # Query Account Information with SDKs
 
+<div class="status-badge" markdown>
+[![Query Account Information](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-query-accounts.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-query-accounts.yml){target=\_blank}
+</div>
+
 ## Introduction
 
 Querying account information is a fundamental operation when interacting with Polkadot SDK-based blockchains. Account queries allow you to retrieve balances, nonces, account data, and other state information stored on-chain. Each SDK provides different methods for accessing this data efficiently.
@@ -299,6 +303,11 @@ When querying account information, you'll receive several key fields:
 - **Frozen Balance**: Balance that cannot be used for transfers but may be used for other operations.
 
 The total balance is the sum of free and reserved balances.
+
+<div class="status-badge" markdown>
+[![Query Account Information](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-query-accounts.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-query-accounts.yml){target=\_blank}
+[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/chain-interactions/query-accounts/tests/recipe.test.ts){ .tests-button target=\_blank}
+</div>
 
 ## Where to Go Next
 

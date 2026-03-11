@@ -18,28 +18,12 @@ Polkadot Hub supports deploying these contracts with no modifications. The tutor
 
 <div class="grid cards" markdown>
 
--   <span class="badge tutorial">Tutorial</span> __V2 Core (EVM)__
+-   <span class="badge tutorial">Tutorial</span> __V2 Core__
 
     ---
 
-    Deploy unmodified Uniswap V2 Factory and Pair contracts on Polkadot Hub using standard Hardhat with the EVM execution path.
+    Deploy unmodified Uniswap V2 Factory and Pair contracts on Polkadot Hub using Hardhat. Supports both EVM and PVM execution paths.
 
     [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/eth-dapps/uniswap-v2/core/uniswap-v2-evm/)
-
--   <span class="badge tutorial">Tutorial</span> __V2 Core (PVM)__
-
-    ---
-
-    Deploy Uniswap V2 using the PVM execution path with the revive compiler for Polkadot-native bytecode.
-
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/eth-dapps/uniswap-v2/core/uniswap-v2-pvm/)
-
--   <span class="badge tutorial">Tutorial</span> __V2 Periphery (EVM)__
-
-    ---
-
-    Deploy Router contracts for user-facing swaps, liquidity management, and WETH wrapping on top of V2 Core.
-
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/eth-dapps/uniswap-v2/periphery/uniswap-v2-periphery-evm/)
 
 </div>

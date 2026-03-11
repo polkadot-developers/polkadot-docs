@@ -4,6 +4,11 @@ description: Deploy and test unmodified Uniswap V2 Core contracts on Polkadot Hu
 tutorial_badge: Intermediate
 categories: dApps, Tooling
 tools: Hardhat
+toggle:
+  group: uniswap-v2-core
+  canonical: true
+  variant: evm
+  label: EVM
 ---
 
 # Deploy Uniswap V2 Core with EVM
@@ -22,8 +27,8 @@ Before starting, make sure you have:
 
 - [Node.js](https://nodejs.org/){target=\_blank} v22.0.0 or later and npm installed
 - Basic understanding of [Solidity](https://www.soliditylang.org/){target=\_blank} and TypeScript
-- Familiarity with the [Hardhat](/smart-contracts/dev-environments/hardhat/) development environment
-- Some test tokens to cover transaction fees, obtained from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}. See [Get Test Tokens](/smart-contracts/faucet/#get-test-tokens) for a guide to using the faucet
+- Familiarity with the [Hardhat](/smart-contracts/dev-environments/hardhat/){target=\_blank} development environment
+- Some test tokens to cover transaction fees, obtained from the [Polkadot faucet](https://faucet.polkadot.io/){target=\_blank}. See [Get Test Tokens](/smart-contracts/faucet/#get-test-tokens){target=\_blank} for a guide to using the faucet
 - A wallet with a private key for signing transactions
 - Basic understanding of how AMMs and liquidity pools work
 
@@ -35,7 +40,9 @@ Start by cloning the EVM Hardhat examples repository, which contains the Uniswap
 
     ```bash
     git clone https://github.com/polkadot-developers/revm-hardhat-examples.git
-    cd revm-hardhat-examples/uniswap-v2-core-hardhat/
+    cd revm-hardhat-examples
+    git checkout b0a8627059a9d9cb759682310219557550186bc4
+    cd uniswap-v2-core-hardhat/
     ```
 
 2. Install the required dependencies:
@@ -74,17 +81,7 @@ When prompted, paste your private key. Hardhat stores it securely and makes it a
 The `hardhat.config.ts` file references the variable conditionally, so the project works without it for local development:
 
 ```typescript title="hardhat.config.ts"
-networks: {
-    localNode: {
-      url: "http://127.0.0.1:8545",
-    },
-    polkadotTestnet: {
-      url: "https://services.polkadothub-rpc.com/testnet",
-      accounts: vars.has("TESTNET_PRIVATE_KEY")
-        ? [vars.get("TESTNET_PRIVATE_KEY")]
-        : [],
-    },
-  },
+--8<-- 'https://raw.githubusercontent.com/polkadot-developers/revm-hardhat-examples/b0a8627059a9d9cb759682310219557550186bc4/uniswap-v2-core-hardhat/hardhat.config.ts:31:41'
 ```
 
 !!! note
@@ -191,22 +188,6 @@ The deployment script outputs the addresses of all deployed contracts. Save thes
 ## Where to Go Next
 
 <div class="grid cards" markdown>
-
--   <span class="badge tutorial">Tutorial</span> __Deploy Uniswap V2 Periphery (EVM)__
-
-    ---
-
-    Deploy Router contracts for user-facing swaps, liquidity management, and WETH wrapping on top of V2 Core.
-
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/eth-dapps/uniswap-v2/periphery/uniswap-v2-periphery-evm/)
-
--   <span class="badge tutorial">Tutorial</span> __Deploy Uniswap V2 Core (PVM)__
-
-    ---
-
-    Deploy Uniswap V2 Core using the PVM execution path with the revive compiler for Polkadot-native bytecode.
-
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/eth-dapps/uniswap-v2/core/uniswap-v2-pvm/)
 
 -   <span class="badge guide">Guide</span> __Hardhat on Polkadot__
 

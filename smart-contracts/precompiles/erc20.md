@@ -219,6 +219,9 @@ The following well-known assets are registered on Polkadot Hub and accessible vi
 | 1984 | USDt | Tether USD | 6 | `0x000007C000000000000000000000000001200000` |
 | 1337 | USDC | USD Coin | 6 | `0x0000053900000000000000000000000001200000` |
 
+!!! note
+    The on-chain symbol for Tether on Polkadot Hub is `USDt`, which is commonly referred to as "USDT" on exchanges and in wallets.
+
 ## Interact with the ERC20 Precompile
 
 To interact with the ERC20 precompile in [Remix IDE](/smart-contracts/dev-environments/remix/){target=\_blank}:

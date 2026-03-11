@@ -16,23 +16,30 @@ The most significant departure from Ethereum comes from PVM's foundation itself.
 
 ```mermaid
 graph TD
+    Solidity["Solidity Source Code"]
+
     subgraph "Ethereum Path"
-        EthCompile["Standard Solidity Compiler"] --> EVM_Bytecode["EVM Bytecode"]
-        EVM_Bytecode --> EVM["Stack-based EVM"]
-        EVM --> EthExecution["Contract Execution"]
+        EthCompile["Standard Solidity Compiler (solc)"]
+        EVM_Bytecode["EVM Bytecode"]
+        EVM["Stack-based EVM"]
     end
 
     subgraph "PVM Path"
-        ReviveCompile["Revive Compiler"] --> RISCV_Bytecode["RISC-V Format Bytecode"]
-        RISCV_Bytecode --> PVM["RISC-V Based PVM"]
-        PVM --> PolkaExecution["Contract Execution"]
+        ReviveCompile["Revive Compiler"]
+        RISCV_Bytecode["RISC-V Bytecode"]
+        PVMNode["RISC-V Based PVM"]
     end
 
-    EthExecution -.-> DifferencesNote["Key Differences:
-    - Instruction Set Architecture
-    - Bytecode Format
-    - Runtime Behavior"]
-    PolkaExecution -.-> DifferencesNote
+    Execution["Contract Execution"]
+
+    Solidity --> EthCompile
+    Solidity --> ReviveCompile
+    EthCompile --> EVM_Bytecode
+    EVM_Bytecode --> EVM
+    EVM --> Execution
+    ReviveCompile --> RISCV_Bytecode
+    RISCV_Bytecode --> PVMNode
+    PVMNode --> Execution
 ```
 
 However, this architectural difference becomes relevant in specific scenarios. Tools that attempt to download and inspect contract bytecode will fail, as they expect EVM bytecode rather than PVM's RISC-V format. Most applications typically pass bytecode as an opaque blob, making this a non-issue for standard use cases.

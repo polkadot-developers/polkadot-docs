@@ -4,6 +4,10 @@ description: Learn how to deploy and test Uniswap V2 Core on Polkadot Hub using 
 tutorial_badge: Intermediate
 categories: dApps, Tooling
 tools: Hardhat
+toggle:
+  group: uniswap-v2-core
+  variant: pvm
+  label: PVM
 ---
 
 # Deploy Uniswap V2 Core

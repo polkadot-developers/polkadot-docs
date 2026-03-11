@@ -1,7 +1,7 @@
 ---
 title: Sidecar REST API
 description: Learn about Substrate API Sidecar, a REST service that provides endpoints for interacting with Polkadot SDK-based chains and simplifies blockchain interactions.
-categories: Tooling, Dapps
+categories: Tooling
 ---
 
 # Sidecar API

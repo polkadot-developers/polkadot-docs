@@ -1,7 +1,7 @@
 ---
 title: EVM vs PVM
 description: Compares EVM and PVM, highlighting key architectural differences, gas models, memory management, and account handling while ensuring Solidity compatibility.
-categories: Basics, Polkadot Protocol
+categories: Smart Contracts, Polkadot Protocol
 ---
 
 # EVM vs PVM

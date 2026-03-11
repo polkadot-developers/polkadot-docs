@@ -1,6 +1,7 @@
 ---
 title: Gas Model on the Polkadot Hub
 description: Learn how gas estimation, pricing, and weight mapping work in the Polkadot Hub.
+categories: Smart Contracts, Polkadot Protocol
 ---
 
 # Gas Model

@@ -1,7 +1,7 @@
 ---
 title: Polkadot Hub Overview
 description: Learn how Polkadot Hub serves as the entry point to Polkadot, providing access to smart contracts, staking, governance, identity management, and cross-ecosystem interoperability.
-categories: Basics, Polkadot Protocol, Polkadot Hub
+categories: Basics, Polkadot Protocol
 ---
 
 ## Introduction

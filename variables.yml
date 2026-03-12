@@ -15,11 +15,11 @@ dependencies:
       docker_image_version: 1.88.0
     polkadot_sdk:
       repository_url: https://github.com/paritytech/polkadot-sdk
-      version: polkadot-stable2512-1
-      docker_image_version: stable2512-1
+      version: polkadot-stable2512-2
+      docker_image_version: stable2512-2
     open_zeppelin_contracts:
       repository_url: https://github.com/OpenZeppelin/openzeppelin-contracts
-      version: v5.5.0
+      version: v5.6.0
     polkadot_sdk_contracts_node:
       repository_url: https://github.com/paritytech/polkadot-sdk
       version: polkadot-stable2503-6
@@ -31,30 +31,30 @@ dependencies:
       # Subdependencies are pinned to versions from the template's Cargo.lock.
       # Update these only when a new template version is released.
       subdependencies:
-        polkadot_sdk_version: polkadot-stable2512-1
-        polkadot_omni_node_version: 0.13.1
+        polkadot_sdk_version: polkadot-stable2512-2
+        polkadot_omni_node_version: 0.13.2
         staging_chain_spec_builder_version: 16.0.0
-        frame_omni_bencher_version: 0.17.1
+        frame_omni_bencher_version: 0.17.3
         rust_version: "1.88"
         rust_toolchain_macos: 1.88-aarch64-apple-darwin
         rust_toolchain_ubuntu: 1.88.0
   crates:
     subxt:
       name: subxt
-      version: 0.44.2
+      version: 0.50.0
     subxt_cli:
       name: subxt-cli
-      version: 0.44.2
+      version: 0.50.0
     subxt_signer:
       name: subxt-signer
-      version: 0.44.2
+      version: 0.50.0
     tokio:
       name: tokio
       version: 1.44.2
       ignore_updates: true
     polkadot_omni_node:
       name: polkadot-omni-node
-      version: 0.13.1
+      version: 0.13.2
   javascript_packages:
     chopsticks:
       name: '@acala-network/chopsticks'
@@ -88,7 +88,7 @@ dependencies:
       version: 6.16.0
     paraspell_sdk:
       name: '@paraspell/sdk'
-      version: 12.6.1
+      version: 12.8.0
     hdkd:
       name: '@polkadot-labs/hdkd'
       version: 0.0.26

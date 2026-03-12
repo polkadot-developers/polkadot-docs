@@ -1,5 +1,5 @@
 use std::str::FromStr;
-use subxt::config::{Config, DefaultExtrinsicParams, DefaultExtrinsicParamsBuilder, PolkadotConfig};
+use subxt::config::{Config, DefaultExtrinsicParamsBuilder, DefaultTransactionExtensions, PolkadotConfig};
 use subxt::utils::AccountId32;
 use subxt::{OnlineClient, SubstrateConfig};
 
@@ -30,7 +30,7 @@ impl Config for AssetHubConfig {
     type Signature = <PolkadotConfig as Config>::Signature;
     type Hasher = <PolkadotConfig as Config>::Hasher;
     type Header = <SubstrateConfig as Config>::Header;
-    type ExtrinsicParams = DefaultExtrinsicParams<AssetHubConfig>;
+    type TransactionExtensions = DefaultTransactionExtensions<AssetHubConfig>;
     type AssetId = Location;
 }
 
@@ -45,13 +45,16 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let api = OnlineClient::<AssetHubConfig>::from_url(POLKADOT_HUB_RPC).await?;
     println!("Connected to Polkadot Hub (Chopsticks fork)");
 
+    // Anchor to the current block
+    let at_block = api.at_current_block().await?;
+
     // Create Alice's dev keypair
     let alice = subxt_signer::sr25519::dev::alice();
     println!("Sender (Alice): {}", AccountId32::from(alice.public_key()));
 
     // Create the balance transfer transaction
     let dest = AccountId32::from_str(TARGET_ADDRESS)?;
-    let tx = asset_hub::tx()
+    let tx = asset_hub::transactions()
         .balances()
         .transfer_keep_alive(dest.into(), TRANSFER_AMOUNT);
 
@@ -71,8 +74,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     // Sign, submit, and watch for finalization
     println!("Signing and submitting transaction...");
-    let progress = api
-        .tx()
+    let progress = at_block
+        .transactions()
         .sign_and_submit_then_watch(&tx, &alice, tx_params)
         .await?;
 

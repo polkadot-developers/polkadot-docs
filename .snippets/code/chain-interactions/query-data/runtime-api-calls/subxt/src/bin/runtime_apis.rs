@@ -17,6 +17,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Initialize the Subxt client
     let api = OnlineClient::<PolkadotConfig>::from_url(POLKADOT_TESTNET_RPC).await?;
 
+    // Anchor to the current block
+    let at_block = api.at_current_block().await?;
+
     println!("Connected to Polkadot Hub TestNet");
     println!("Querying runtime APIs for: {}\n", ADDRESS);
 
@@ -24,26 +27,24 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let account = AccountId32::from_str(ADDRESS)?;
 
     // Call AccountNonceApi using static interface
-    let nonce_call = polkadot_testnet::apis()
+    let nonce_call = polkadot_testnet::runtime_apis()
         .account_nonce_api()
         .account_nonce(account.clone());
-    let nonce = api.runtime_api().at_latest().await?.call(nonce_call).await?;
+    let nonce = at_block.runtime_apis().call(nonce_call).await?;
     println!("AccountNonceApi Results:");
     println!("  Account Nonce: {}", nonce);
 
     // Call Metadata API to get supported versions using dynamic call
     let metadata_versions_call =
-        subxt::dynamic::runtime_api_call("Metadata", "metadata_versions", Vec::<Value>::new());
-    let versions_result = api
-        .runtime_api()
-        .at_latest()
-        .await?
+        subxt::dynamic::runtime_api_call::<_, Value>("Metadata", "metadata_versions", ());
+    let versions_result = at_block
+        .runtime_apis()
         .call(metadata_versions_call)
         .await?;
     println!("\nMetadata API Results:");
     println!(
         "  Supported Metadata Versions: {}",
-        versions_result.to_value()?
+        versions_result
     );
 
     Ok(())

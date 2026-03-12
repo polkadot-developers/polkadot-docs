@@ -241,7 +241,7 @@ Select your preferred SDK below to see complete, runnable examples that query ac
     2. Install the Subxt CLI:
 
         ```bash
-        cargo install subxt-cli@0.35.3
+        cargo install subxt-cli@0.50.0
         ```
 
     3. Download the Polkadot Hub metadata:
@@ -263,7 +263,7 @@ Select your preferred SDK below to see complete, runnable examples that query ac
         path = "src/bin/query_account.rs"
 
         [dependencies]
-        subxt = { version = "0.44.0" }
+        subxt = { version = "0.50.0" }
         tokio = { version = "1.36.0", features = ["macros", "rt"] }
         ```
 

@@ -168,7 +168,7 @@ Set up the required imports and define the target address, transfer amount, and 
     In Subxt, you first generate types from the chain metadata using the `#[subxt::subxt()]` macro. The `derive_for_type` attribute ensures the `Location` type implements the traits needed for encoding. You also define a custom `AssetHubConfig` where `type AssetId = Location`, which enables specifying an XCM location as the fee payment asset:
 
     ```rust title="src/bin/fee_payment_transaction.rs"
-    --8<-- "code/chain-interactions/send-transactions/pay-fees-with-different-tokens/subxt/src/bin/fee_payment_transaction.rs:1:40"
+    --8<-- "code/chain-interactions/send-transactions/pay-fees-with-different-tokens/subxt/src/bin/fee_payment_transaction.rs:1:41"
     ```
 
 ### Create a Signer and Connect
@@ -194,7 +194,7 @@ Create a signer using Alice's development account and connect to the local Polka
     Notice that the `OnlineClient` is parameterized with `AssetHubConfig` instead of the default `PolkadotConfig`:
 
     ```rust title="src/bin/fee_payment_transaction.rs"
-    --8<-- "code/chain-interactions/send-transactions/pay-fees-with-different-tokens/subxt/src/bin/fee_payment_transaction.rs:42:50"
+    --8<-- "code/chain-interactions/send-transactions/pay-fees-with-different-tokens/subxt/src/bin/fee_payment_transaction.rs:43:54"
     ```
 
 ### Create the Transaction
@@ -216,7 +216,7 @@ Create a standard DOT transfer transaction that sends 3 DOT to Bob's address whi
 === "Subxt"
 
     ```rust title="src/bin/fee_payment_transaction.rs"
-    --8<-- "code/chain-interactions/send-transactions/pay-fees-with-different-tokens/subxt/src/bin/fee_payment_transaction.rs:52:56"
+    --8<-- "code/chain-interactions/send-transactions/pay-fees-with-different-tokens/subxt/src/bin/fee_payment_transaction.rs:56:60"
     ```
 
 ### Sign and Submit with Alternative Fee Payment
@@ -244,7 +244,7 @@ The key part of this tutorial is specifying an alternative asset for fee payment
     In Subxt, you use `DefaultExtrinsicParamsBuilder` with `tip_of(0, asset_location)` to specify the fee asset. The first argument is the tip amount (0), and the second is the XCM `Location`. Instead of calling `sign_and_submit_then_watch_default`, you pass the custom `tx_params` to `sign_and_submit_then_watch`:
 
     ```rust title="src/bin/fee_payment_transaction.rs"
-    --8<-- "code/chain-interactions/send-transactions/pay-fees-with-different-tokens/subxt/src/bin/fee_payment_transaction.rs:58:81"
+    --8<-- "code/chain-interactions/send-transactions/pay-fees-with-different-tokens/subxt/src/bin/fee_payment_transaction.rs:62:98"
     ```
 
 ### Full Code

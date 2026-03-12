@@ -45,7 +45,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     // Define the recipient address and transfer amount.
     const DEST_ADDRESS: &str = "INSERT_DEST_ADDRESS";
-    const AMOUNT: u128 = INSERT_AMOUNT;
+    const AMOUNT: u128 = 1_000_000_000_000; // INSERT_AMOUNT
 
     // Convert the recipient address into an `AccountId32`.
     let dest = AccountId32::from_str(DEST_ADDRESS).unwrap();

@@ -22,7 +22,8 @@ use asset_hub::runtime_types::staging_xcm::v5::{
 };
 
 // Define a custom config where AssetId is an XCM Location
-pub enum AssetHubConfig {}
+#[derive(Debug, Default, Clone)]
+pub struct AssetHubConfig;
 
 impl Config for AssetHubConfig {
     type AccountId = <PolkadotConfig as Config>::AccountId;
@@ -92,7 +93,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         println!(
             "  {}.{}",
             event.pallet_name(),
-            event.variant_name()
+            event.event_name()
         );
     }
 

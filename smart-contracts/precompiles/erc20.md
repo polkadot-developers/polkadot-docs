@@ -232,9 +232,7 @@ For the complete implementation, refer to the [ERC20 precompile source code](htt
 
 ## Common Asset IDs and Indexes
 
-### Trust-Backed Assets
-
-The following well-known Trust-Backed Assets are registered on Polkadot Hub and accessible via the ERC20 precompile:
+The following well-known assets are registered on Polkadot Hub and accessible via the ERC20 precompile:
 
 | Asset ID | Symbol | Name | Decimals | ERC20 Precompile Address |
 |:---:|:---:|:---:|:---:|:---:|
@@ -246,17 +244,17 @@ The following well-known Trust-Backed Assets are registered on Polkadot Hub and 
 
 ## Interact with the ERC20 Precompile
 
-To interact with the ERC20 precompile in [Remix IDE](/smart-contracts/dev-environments/remix/):
+To interact with the ERC20 precompile in [Remix IDE](/smart-contracts/dev-environments/remix/){target=\_blank}:
 
 1. Create a new file called `IERC20-precompile.sol` in Remix
 2. Copy and paste the `IERC20` interface code shown above into the file
 
-    ![Remix IDE editor showing the IERC20 interface code pasted into a new Solidity file](/images/smart-contracts/precompiles/erc20/erc20-01.webp)
+    ![](/images/smart-contracts/precompiles/erc20/erc20-01.webp)
 
 3. Compile the interface by selecting the compile button or using **Ctrl + S**
 4. Calculate the ERC20 precompile address for your asset using the Asset ID to ERC20 Address converter above
-   
-    - Each asset has a unique address based on its asset ID or foreign asset index
+
+    - Each asset has a unique address based on its asset ID
     - Select the asset type (Trust-Backed or Foreign) in the converter and enter the ID or index
     - The converter calculates the corresponding ERC20 precompile address
 
@@ -264,21 +262,20 @@ To interact with the ERC20 precompile in [Remix IDE](/smart-contracts/dev-enviro
 6. Enter the calculated precompile address in the **At Address** input field
 7. Select the **At Address** button to connect to the precompile
 
-    ![Remix IDE Deploy and Run Transactions tab with the ERC20 precompile address entered in the At Address field](/images/smart-contracts/precompiles/erc20/erc20-02.webp)
+    ![](/images/smart-contracts/precompiles/erc20/erc20-02.webp)
 
 Once connected, you can interact with any of the ERC20 precompile functions directly through the Remix interface.
 
-![Remix IDE interface showing the deployed ERC20 precompile contract with available functions listed](/images/smart-contracts/precompiles/erc20/erc20-03.webp)
+![](/images/smart-contracts/precompiles/erc20/erc20-03.webp)
 
 ## Conclusion
 
-The ERC20 precompile bridges Polkadot native asset management and the Ethereum token standard. By mapping asset IDs and foreign asset indexes to deterministic precompile addresses, it enables developers to interact with both Trust-Backed Assets and Foreign Assets using standard ERC20 interfaces.
+The ERC20 precompile provides seamless integration between Polkadot's native asset management and Ethereum's familiar token standard. By mapping asset IDs to deterministic precompile addresses, developers can interact with native Polkadot assets using standard ERC20 interfaces.
 
-For applications requiring asset interactions — such as DeFi protocols, token swaps, or cross-chain integrations — the ERC20 precompile supports both on-chain assets and foreign assets from other networks, using the same tools and patterns common in Ethereum development.
+Whether you're building DeFi protocols, token swaps, or any application requiring asset interactions, the ERC20 precompile enables you to leverage Polkadot's rich asset ecosystem with the same tools and patterns used in Ethereum development.
 
 ## Reference
 
 - [ERC20 precompile source code](https://github.com/paritytech/polkadot-sdk/blob/11be995be95ac1e25a5b2a6dd941006e7097bffc/substrate/frame/assets/precompiles/src/lib.rs){target=\_blank}
 - [Assets pallet documentation](https://paritytech.github.io/polkadot-sdk/master/pallet_assets/index.html){target=\_blank}
 - [EIP-20: Token Standard](https://eips.ethereum.org/EIPS/eip-20){target=\_blank}
-- [Foreign Assets ERC20 precompile support (PR #10869)](https://github.com/paritytech/polkadot-sdk/pull/10869){target=\_blank}

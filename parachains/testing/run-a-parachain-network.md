@@ -156,10 +156,10 @@ zombienet spawn network.toml --provider native
 
 Zombienet will:
 
-1. Generate chain specifications
-2. Start relay chain validators (Alice and Bob)
-3. Register and start the parachain collator
-4. Display connection endpoints and logs
+1. Generate chain specifications.
+2. Start relay chain validators (Alice and Bob).
+3. Register and start the parachain collator.
+4. Display connection endpoints and logs.
 
 Wait for the output to confirm the network has launched. You'll see RPC endpoints for each node.
 

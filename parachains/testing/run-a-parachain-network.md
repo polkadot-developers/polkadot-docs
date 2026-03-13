@@ -183,7 +183,7 @@ curl -s -H "Content-Type: application/json" \
   http://127.0.0.1:9988
 ```
 
-To stop the network, press ++ctrl+c++ in the terminal where Zombienet is running.
+To stop the network, press **Ctrl + C** in the terminal where Zombienet is running.
 
 <div class="status-badge" markdown>
 [![Run a Parachain Network](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-run-a-parachain-network.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-run-a-parachain-network.yml){target=\_blank}

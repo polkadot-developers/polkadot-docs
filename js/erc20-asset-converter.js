@@ -2,7 +2,9 @@
  * Asset ID to ERC20 Precompile Address Converter
  *
  * Converts Assets pallet asset IDs (decimal) to ERC20 precompile addresses.
- * Format: 0x + assetId (8 hex) + 24 zeros + 01200000 (Paseo Asset Hub / Trust Backed Asset).
+ * Supports two asset types:
+ *   - Trust-Backed: 0x + assetId (8 hex) + 24 zeros + 01200000
+ *   - Foreign:      0x + foreignAssetIndex (8 hex) + 24 zeros + 02200000
  * Uses EIP-55 checksum via Polkadot.js util-crypto.
  */
 
@@ -13,6 +15,27 @@
   const DEBOUNCE_MS = 300;
   const COPY_FEEDBACK_MS = 2000;
   const OUTPUT_INPUT_ID = 'erc20AddressOutput';
+
+  const ASSET_TYPES = {
+    trustBacked: {
+      value: 'trustBacked',
+      label: 'Trust-Backed Asset',
+      suffix: '01200000',
+      inputLabel: 'Asset ID (Decimal)',
+      placeholder: '1984',
+      resultLabel: 'ERC20 Precompile Address',
+      formatInfo: '<strong>Format:</strong> <code>0x</code> + assetId (8 hex) + 24 zeros + <code>01200000</code>',
+    },
+    foreign: {
+      value: 'foreign',
+      label: 'Foreign Asset',
+      suffix: '02200000',
+      inputLabel: 'Foreign Asset Index (Decimal)',
+      placeholder: '0',
+      resultLabel: 'ERC20 Precompile Address (Foreign)',
+      formatInfo: '<strong>Format:</strong> <code>0x</code> + foreignAssetIndex (8 hex) + 24 zeros + <code>02200000</code>',
+    },
+  };
 
   function initConverter() {
     if (typeof polkadotUtilCrypto === 'undefined') {
@@ -47,9 +70,10 @@
       return checksummed;
     }
 
-    function assetIdToERC20Address(assetId) {
+    function assetIdToERC20Address(assetId, assetType) {
+      const suffix = (assetType && ASSET_TYPES[assetType]) ? ASSET_TYPES[assetType].suffix : ASSET_TYPES.trustBacked.suffix;
       const assetIdHex = padHex(assetId, 8);
-      const address = '0x' + assetIdHex + '0'.repeat(24) + '01200000';
+      const address = '0x' + assetIdHex + '0'.repeat(24) + suffix;
       return toChecksumAddress(address);
     }
 
@@ -105,9 +129,17 @@
         '  <h2 class="erc20-asset-converter-heading">Asset ID to ERC20 Address Converter</h2>' +
         '  <p class="erc20-asset-converter-subtitle">Convert Assets pallet asset IDs to ERC20 precompile addresses</p>' +
         '  <div class="erc20-asset-converter-box">' +
+        '    <div class="erc20-asset-converter-type-selector">' +
+        '      <label class="erc20-asset-converter-type-option">' +
+        '        <input type="radio" name="erc20AssetType" class="erc20-asset-converter-type-radio" value="trustBacked" checked> Trust-Backed Asset' +
+        '      </label>' +
+        '      <label class="erc20-asset-converter-type-option">' +
+        '        <input type="radio" name="erc20AssetType" class="erc20-asset-converter-type-radio" value="foreign"> Foreign Asset' +
+        '      </label>' +
+        '    </div>' +
         '    <div class="erc20-asset-converter-input-section">' +
         '      <div class="erc20-asset-converter-input-wrapper">' +
-        '        <label class="erc20-asset-converter-label" for="erc20AssetId">Asset ID (Decimal)</label>' +
+        '        <label class="erc20-asset-converter-label" id="erc20AssetIdLabel" for="erc20AssetId">Asset ID (Decimal)</label>' +
         '        <input type="number" id="erc20AssetId" class="erc20-asset-converter-input" min="0" max="' +
         MAX_U32 +
         '" placeholder="1984" inputmode="numeric">' +
@@ -116,7 +148,7 @@
         '    </div>' +
         '    <div id="erc20Results" class="erc20-asset-converter-results hidden">' +
         '      <div class="erc20-asset-converter-result-item">' +
-        '        <span class="erc20-asset-converter-result-label">ERC20 Precompile Address</span>' +
+        '        <span class="erc20-asset-converter-result-label" id="erc20ResultLabel">ERC20 Precompile Address</span>' +
         '        <div class="erc20-asset-converter-output-wrapper">' +
         '          <input type="text" id="' +
         OUTPUT_INPUT_ID +
@@ -129,20 +161,40 @@
         '        </div>' +
         '      </div>' +
         '    </div>' +
-        '    <div class="erc20-asset-converter-info">' +
+        '    <div id="erc20FormatInfo" class="erc20-asset-converter-info">' +
         '      <strong>Format:</strong> <code>0x</code> + assetId (8 hex) + 24 zeros + <code>01200000</code>' +
         '    </div>' +
         '  </div>' +
         '</div>';
 
       const assetIdInput = document.getElementById('erc20AssetId');
+      const assetIdLabel = document.getElementById('erc20AssetIdLabel');
       const resultsEl = document.getElementById('erc20Results');
+      const resultLabelEl = document.getElementById('erc20ResultLabel');
       const outputEl = document.getElementById(OUTPUT_INPUT_ID);
       const errorEl = document.getElementById('erc20AssetIdError');
+      const formatInfoEl = document.getElementById('erc20FormatInfo');
       const copyBtn = root.querySelector('.erc20-asset-converter-copy-button');
+      const typeRadios = root.querySelectorAll('.erc20-asset-converter-type-radio');
+
+      function getSelectedType() {
+        for (var i = 0; i < typeRadios.length; i++) {
+          if (typeRadios[i].checked) return typeRadios[i].value;
+        }
+        return 'trustBacked';
+      }
+
+      function applyTypeLabels(assetType) {
+        const config = ASSET_TYPES[assetType] || ASSET_TYPES.trustBacked;
+        if (assetIdLabel) assetIdLabel.textContent = config.inputLabel;
+        if (assetIdInput) assetIdInput.placeholder = config.placeholder;
+        if (resultLabelEl) resultLabelEl.textContent = config.resultLabel;
+        if (formatInfoEl) formatInfoEl.innerHTML = config.formatInfo;
+      }
 
       function updateAddress() {
         const raw = assetIdInput.value.trim();
+        const assetType = getSelectedType();
         clearError(errorEl, assetIdInput);
 
         if (!raw) {
@@ -162,7 +214,7 @@
         }
 
         try {
-          const address = assetIdToERC20Address(assetId);
+          const address = assetIdToERC20Address(assetId, assetType);
           outputEl.value = address;
           resultsEl.classList.remove('hidden');
         } catch (e) {
@@ -170,6 +222,18 @@
           resultsEl.classList.add('hidden');
         }
       }
+
+      typeRadios.forEach(function (radio) {
+        radio.addEventListener('change', function () {
+          applyTypeLabels(getSelectedType());
+          resultsEl.classList.add('hidden');
+          if (outputEl) outputEl.value = '';
+          clearError(errorEl, assetIdInput);
+          if (assetIdInput.value.trim()) {
+            updateAddress();
+          }
+        });
+      });
 
       let debounceTimer;
       assetIdInput.addEventListener('input', function () {
@@ -192,6 +256,7 @@
         });
       }
 
+      applyTypeLabels(getSelectedType());
       updateAddress();
     }
 

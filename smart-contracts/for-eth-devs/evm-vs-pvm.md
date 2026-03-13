@@ -27,7 +27,7 @@ graph TD
     subgraph "PVM Path"
         ReviveCompile["Revive Compiler"]
         RISCV_Bytecode["RISC-V Bytecode"]
-        PVMNode["RISC-V Based PVM"]
+        PVMNode["RISC-V-based PVM"]
     end
 
     Execution["Contract Execution"]

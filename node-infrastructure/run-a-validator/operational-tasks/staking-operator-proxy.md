@@ -8,7 +8,7 @@ categories: Infrastructure
 
 ## Introduction
 
-The Staking Operator proxy is an on-chain proxy type that enables non-custodial validator operations on Polkadot. Introduced in the March 12, 2026 runtime upgrade (v2.1.0), it creates a clear separation between fund management and node operations. This separation allows capital providers (stakers) to delegate day-to-day validator operations to node runners (operators) without granting access to bonded funds.
+The Staking Operator proxy is an on-chain proxy type that enables non-custodial validator operations on Polkadot. It creates a clear separation between fund management and node operations. This separation allows capital providers (stakers) to delegate day-to-day validator operations to node runners (operators) without granting access to bonded funds.
 
 In traditional validator setups, the entity running the node typically requires broad access to the staking account, including the ability to bond, unbond, and transfer funds. The Staking Operator proxy eliminates this requirement by granting the operator only the permissions needed to manage validator operations, such as setting session keys, adjusting commission rates, and managing validator status.
 
@@ -76,6 +76,9 @@ The operator can perform the following actions:
 - **Remove nominators**: Kick specific nominators from the validator's nomination pool using `staking.kick`.
 - **Purge session keys**: Remove session keys using `stakingRcClient.purge_keys` on Polkadot Hub or `session.purgeKeys` on the relay chain.
 
+!!! note
+    While the operator can call `staking.validate` to adjust the commission rate after initial setup, the **initial** `staking.validate` call during onboarding **must** come from the staker. See [Set Up a Staking Operator Proxy](#set-up-a-staking-operator-proxy) for the required setup order.
+
 !!! warning
     The worst-case scenario with a compromised operator is that they could chill the validator, set an unfavorable commission rate, or change session keys. While these actions are disruptive, they cannot result in loss of bonded funds. The staker can revoke the proxy at any time to regain full control.
 
@@ -87,6 +90,9 @@ The `stakingRcClient` pallet provides two extrinsics for session key management:
 
 - **`stakingRcClient.set_keys`**: Set or rotate session keys for the validator. The operator submits this call as a proxy transaction through the staker's account.
 - **`stakingRcClient.purge_keys`**: Remove session keys from the validator. This is useful when decommissioning a validator node or rotating to a new server.
+
+!!! info "Key Deposit Required"
+    Setting session keys via `stakingRcClient.set_keys` requires a deposit of approximately 60 DOT (or ~2 KSM on Kusama) to cover the on-chain storage cost of key registration. This deposit is released when `stakingRcClient.purge_keys` is called.
 
 !!! note
     The legacy `session.setKeys` and `session.purgeKeys` extrinsics on the relay chain remain functional for validators that do not use pure proxy stash accounts. However, the Polkadot Hub path through `stakingRcClient` is the recommended approach for new setups.

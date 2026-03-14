@@ -65,7 +65,7 @@ Start by cloning the Uniswap V2 project:
 
 If the compilation is successful, you should see the following output:
 
---8<-- 'code/smart-contracts/cookbook/eth-dapps/uniswap-v2/uniswap-v2-pvm/compilation-output.html'
+--8<-- 'code/smart-contracts/cookbook/eth-dapps/uniswap-v2/core/core-v2-pvm/compilation-output.html'
 
 After running the above command, you should see the compiled contracts in the `artifacts` directory. This directory contains the ABI and bytecode of your contracts.
 
@@ -135,7 +135,7 @@ To test it locally, you can run the following commands:
 
 The result should look like this:
 
---8<-- 'code/smart-contracts/cookbook/eth-dapps/uniswap-v2/uniswap-v2-pvm/testing-output.html'
+--8<-- 'code/smart-contracts/cookbook/eth-dapps/uniswap-v2/core/core-v2-pvm/testing-output.html'
 
 ## Deploy the Contracts
 
@@ -157,7 +157,7 @@ The command above deploys to the actual Polkadot Hub TestNet. It requires test t
 
 The deployment script will output the addresses of the deployed contracts. Save these addresses, as you will need them to interact with the contracts. For example, the output should look like this:
 
---8<-- 'code/smart-contracts/cookbook/eth-dapps/uniswap-v2/uniswap-v2-pvm/deployment-output.html'
+--8<-- 'code/smart-contracts/cookbook/eth-dapps/uniswap-v2/core/core-v2-pvm/deployment-output.html'
 
 ## Conclusion
 

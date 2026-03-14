@@ -71,9 +71,31 @@ There are multiple ways to create the session keys. It can be done by interactin
 
 ### Submit Transaction to Set Keys
 
-Now that you have generated your session keys, you must submit them to the chain. Follow these steps:
+Now that you have generated your session keys, you must submit them to the chain. There are two methods to register session keys on-chain. Setting keys via Polkadot Hub is the recommended approach.
 
-1. Go to the **Network > Staking > Accounts** section on Polkadot.js Apps.
+#### Set Keys via Polkadot Hub (Recommended) {: #set-keys-assethub }
+
+The recommended method is to use the `stakingRcClient.set_keys` extrinsic on Polkadot Hub, which sends your session keys to the relay chain via XCM. This method is required for validators using pure proxy stash accounts or [Staking Operator proxies](/node-infrastructure/run-a-validator/operational-tasks/staking-operator-proxy/){target=\_blank}.
+
+Follow these steps:
+
+1. Go to [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} and connect to Polkadot Hub.
+2. Navigate to **Developer > Extrinsics**.
+3. Select the account that controls your validator (your stash or proxy account).
+4. Choose the **stakingRcClient** pallet and the **set_keys** extrinsic.
+5. Paste the hex-encoded session key string you generated earlier into the `keys` field.
+6. Set the `proof` field to `0x` (empty proof).
+7. Submit the transaction.
+
+!!! info "Key Deposit Required"
+    Setting session keys on Polkadot Hub requires a deposit of approximately 60 DOT (or ~2 KSM on Kusama) to cover the on-chain storage cost of key registration. This deposit is released when you call `stakingRcClient.purge_keys` to remove your session keys.
+
+#### Set Keys via Relay Chain (Legacy) {: #set-keys-relay }
+
+!!! warning "Deprecation Notice"
+    Setting session keys directly on the relay chain is still supported but will be deprecated in a future runtime upgrade. New validators should use the [Polkadot Hub method](#set-keys-assethub) described above.
+
+1. Go to the **Network > Staking > Accounts** section on [Polkadot.js Apps](https://polkadot.js.org/apps/#/staking/actions){target=\_blank} connected to the relay chain.
 2. Select **Set Session Key** on the bonding account you generated earlier.
 3. Paste the hex-encoded session key string you generated (from either the UI or CLI) into the input field and submit the transaction.
 

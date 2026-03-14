@@ -15,11 +15,14 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Initialize the Subxt client to interact with the blockchain.
     let api = OnlineClient::<PolkadotConfig>::from_url(NODE_URL).await?;
 
+    // Anchor to the current block for all subsequent queries.
+    let at_block = api.at_current_block().await?;
+
     // A query to obtain some constant.
     let constant_query = polkadot::constants().balances().existential_deposit();
 
     // Obtain the value.
-    let value = api.constants().at(&constant_query)?;
+    let value = at_block.constants().entry(constant_query)?;
 
     println!("Existential deposit: {:?}", value);
 
@@ -28,16 +31,15 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let account = AccountId32::from_str(ADDRESS).unwrap();
 
     // Build a storage query to access account information.
-    let storage_query = polkadot::storage().system().account(&account.into());
+    let account_storage = at_block
+        .storage()
+        .entry(polkadot::storage().system().account())?;
 
     // Fetch the latest state for the account.
-    let result = api
-        .storage()
-        .at_latest()
+    let result = account_storage
+        .fetch((account.into(),))
         .await?
-        .fetch(&storage_query)
-        .await?
-        .unwrap();
+        .decode()?;
 
     println!("Account info: {:?}", result);
 
@@ -49,7 +51,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let dest = AccountId32::from_str(DEST_ADDRESS).unwrap();
 
     // Build the balance transfer extrinsic.
-    let balance_transfer_tx = polkadot::tx()
+    let balance_transfer_tx = polkadot::transactions()
         .balances()
         .transfer_allow_death(dest.into(), AMOUNT);
 
@@ -59,15 +61,15 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let sender_keypair = Keypair::from_phrase(&mnemonic, None).unwrap();
 
     // Sign and submit the extrinsic, then wait for it to be finalized.
-    let events = api
-        .tx()
+    let events = at_block
+        .transactions()
         .sign_and_submit_then_watch_default(&balance_transfer_tx, &sender_keypair)
         .await?
         .wait_for_finalized_success()
         .await?;
 
     // Check for a successful transfer event.
-    if let Some(event) = events.find_first::<polkadot::balances::events::Transfer>()? {
+    if let Some(event) = events.find_first::<polkadot::balances::events::Transfer>() {
         println!("Balance transfer successful: {:?}", event);
     }
 

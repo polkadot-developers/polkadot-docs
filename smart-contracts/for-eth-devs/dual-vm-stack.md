@@ -1,7 +1,7 @@
 ---
 title: Dual Virtual Machine Stack
 description: Compare Polkadot’s dual smart contract VMs—REVM for EVM compatibility and PolkaVM for RISC-V performance, flexibility, and efficiency.
-categories: Basics, Polkadot Protocol
+categories: Smart Contracts, Polkadot Protocol
 ---
 
 # Dual Virtual Machine Stack

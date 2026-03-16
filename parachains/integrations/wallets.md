@@ -1,7 +1,7 @@
 ---
 title: Wallets
 description: Explore blockchain wallets. Securely manage digital assets with hot wallets for online access or cold wallets for offline, enhanced security.
-categories: Tooling, Dapps
+categories: Tooling, Parachains
 ---
 
 # Wallets

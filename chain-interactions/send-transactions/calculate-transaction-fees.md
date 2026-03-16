@@ -1,7 +1,7 @@
 ---
 title: Calculate Transaction Fees
 description: Learn how to calculate transaction fees on Polkadot using Polkadot-API, Polkadot.js API, and the Polkadot.js Apps UI to estimate transfer costs.
-categories: Basics, Transactions, Developer Tools
+categories: Chain Interactions, Tooling
 ---
 
 # Calculate Transaction Fees

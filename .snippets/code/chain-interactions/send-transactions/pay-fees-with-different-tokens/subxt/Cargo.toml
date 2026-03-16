@@ -9,6 +9,6 @@ path = "src/bin/fee_payment_transaction.rs"
 
 [dependencies]
 codec = { package = "parity-scale-codec", version = "3", features = ["derive"] }
-subxt = { version = "0.44.2", features = ["jsonrpsee", "native"] }
-subxt-signer = { version = "0.44.2", features = ["sr25519"] }
+subxt = { version = "0.50.0", features = ["jsonrpsee", "native"] }
+subxt-signer = { version = "0.50.0", features = ["sr25519"] }
 tokio = { version = "1.44.2", features = ["macros", "rt-multi-thread"] }

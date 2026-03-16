@@ -8,8 +8,8 @@ name = "send_transfer"
 path = "src/bin/send_transfer.rs"
 
 [dependencies]
-subxt = { version = "0.35", default-features = false, features = ["macros"] }
-subxt-signer = { version = "0.4", features = ["bip39"] }
+subxt = { version = "0.50.0", features = ["native"] }
+subxt-signer = "0.50.0"
 tokio = { version = "1", features = ["rt", "macros"] }
 
 

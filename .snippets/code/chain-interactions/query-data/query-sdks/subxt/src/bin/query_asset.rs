@@ -19,71 +19,61 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Initialize the Subxt client
     let api = OnlineClient::<PolkadotConfig>::from_url(ASSET_HUB_RPC).await?;
 
+    // Anchor to the current block
+    let at_block = api.at_current_block().await?;
+
     println!("Connected to Polkadot Hub");
     println!("Querying asset ID: {}\n", USDT_ASSET_ID);
 
     // Query asset metadata
-    let metadata_query = asset_hub::storage().assets().metadata(USDT_ASSET_ID);
-    let metadata = api
+    let metadata_storage = at_block
         .storage()
-        .at_latest()
+        .entry(asset_hub::storage().assets().metadata())?;
+    let meta = metadata_storage
+        .fetch((USDT_ASSET_ID,))
         .await?
-        .fetch(&metadata_query)
-        .await?;
+        .decode()?;
 
-    if let Some(meta) = metadata {
-        println!("Asset Metadata:");
-        println!(
-            "  Name: {}",
-            String::from_utf8_lossy(&meta.name.0)
-        );
-        println!(
-            "  Symbol: {}",
-            String::from_utf8_lossy(&meta.symbol.0)
-        );
-        println!("  Decimals: {}", meta.decimals);
-    }
+    println!("Asset Metadata:");
+    println!(
+        "  Name: {}",
+        String::from_utf8_lossy(&meta.name.0)
+    );
+    println!(
+        "  Symbol: {}",
+        String::from_utf8_lossy(&meta.symbol.0)
+    );
+    println!("  Decimals: {}", meta.decimals);
 
     // Query asset details
-    let asset_query = asset_hub::storage().assets().asset(USDT_ASSET_ID);
-    let asset_details = api
+    let asset_storage = at_block
         .storage()
-        .at_latest()
+        .entry(asset_hub::storage().assets().asset())?;
+    let details = asset_storage
+        .fetch((USDT_ASSET_ID,))
         .await?
-        .fetch(&asset_query)
-        .await?;
+        .decode()?;
 
-    if let Some(details) = asset_details {
-        println!("\nAsset Details:");
-        println!("  Owner: {}", details.owner);
-        println!("  Supply: {}", details.supply);
-        println!("  Accounts: {}", details.accounts);
-        println!("  Min Balance: {}", details.min_balance);
-    }
+    println!("\nAsset Details:");
+    println!("  Owner: {}", details.owner);
+    println!("  Supply: {}", details.supply);
+    println!("  Accounts: {}", details.accounts);
+    println!("  Min Balance: {}", details.min_balance);
 
     // Query account's asset balance
     let account = AccountId32::from_str(ADDRESS)?;
     println!("\nQuerying asset balance for: {}", ADDRESS);
 
-    let account_query = asset_hub::storage()
-        .assets()
-        .account(USDT_ASSET_ID, account);
-    let asset_account = api
+    let account_storage = at_block
         .storage()
-        .at_latest()
+        .entry(asset_hub::storage().assets().account())?;
+    let asset_account = account_storage
+        .fetch((USDT_ASSET_ID, account))
         .await?
-        .fetch(&account_query)
-        .await?;
+        .decode()?;
 
-    match asset_account {
-        Some(account) => {
-            println!("\nAsset Account:");
-            println!("  Balance: {}", account.balance);
-        }
-        None => {
-            println!("\nNo asset balance found for this account");
-        }
-    }
+    println!("\nAsset Account:");
+    println!("  Balance: {}", asset_account.balance);
 
     Ok(())
 }

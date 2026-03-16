@@ -92,9 +92,9 @@ Once subxt interfaces are generated, you can interact with your node in the foll
 To interact with a blockchain node using subxt, create an asynchronous main function and initialize the client. Replace `INSERT_NODE_URL` with the URL of your target node:
 
 ```rust
---8<-- 'code/reference/tools/subxt/subxt.rs::17'
+--8<-- 'code/reference/tools/subxt/subxt.rs::19'
     // Your code here...
---8<-- 'code/reference/tools/subxt/subxt.rs:73:75'
+--8<-- 'code/reference/tools/subxt/subxt.rs:76:77'
 ```
 
 ### Read Chain Data
@@ -106,7 +106,7 @@ subxt provides multiple ways to access on-chain data:
     For example, to retrieve the existential deposit, use:
     
     ```rust
-    --8<-- 'code/reference/tools/subxt/subxt.rs:18:24'
+    --8<-- 'code/reference/tools/subxt/subxt.rs:21:25'
     ```
 
 - **State**: State refers to the current chain data, which updates with each block.
@@ -114,7 +114,7 @@ subxt provides multiple ways to access on-chain data:
     To fetch account information, replace `INSERT_ADDRESS` with the address you want to fetch data from and use:
 
     ```rust
-    --8<-- 'code/reference/tools/subxt/subxt.rs:26:42'
+    --8<-- 'code/reference/tools/subxt/subxt.rs:29:42'
     ```
 
 ### Submit Transactions
@@ -122,7 +122,7 @@ subxt provides multiple ways to access on-chain data:
 To submit a transaction, you must construct an extrinsic, sign it with your private key, and send it to the blockchain. Replace `INSERT_DEST_ADDRESS` with the recipient's address, `INSERT_AMOUNT` with the amount to transfer, and `INSERT_SECRET_PHRASE` with the sender's mnemonic phrase:
 
 ```rust
---8<-- 'code/reference/tools/subxt/subxt.rs:44:72'
+--8<-- 'code/reference/tools/subxt/subxt.rs:46:74'
 ```
 
 ## Where to Go Next

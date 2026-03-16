@@ -16,35 +16,31 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Initialize the Subxt client
     let api = OnlineClient::<PolkadotConfig>::from_url(ASSET_HUB_RPC).await?;
 
+    // Anchor to the current block
+    let at_block = api.at_current_block().await?;
+
     println!("Connected to Polkadot Hub");
     println!("Querying balance for: {}\n", ADDRESS);
 
     // Parse the address
     let account = AccountId32::from_str(ADDRESS)?;
 
-    // Build storage query for System.Account
-    let storage_query = asset_hub::storage().system().account(account);
+    // Build storage entry for System.Account
+    let account_storage = at_block
+        .storage()
+        .entry(asset_hub::storage().system().account())?;
 
     // Fetch the account information
-    let account_info = api
-        .storage()
-        .at_latest()
+    let info = account_storage
+        .fetch((account,))
         .await?
-        .fetch(&storage_query)
-        .await?;
+        .decode()?;
 
-    match account_info {
-        Some(info) => {
-            println!("Account Information:");
-            println!("  Nonce: {}", info.nonce);
-            println!("  Free Balance: {}", info.data.free);
-            println!("  Reserved: {}", info.data.reserved);
-            println!("  Frozen: {}", info.data.frozen);
-        }
-        None => {
-            println!("Account not found");
-        }
-    }
+    println!("Account Information:");
+    println!("  Nonce: {}", info.nonce);
+    println!("  Free Balance: {}", info.data.free);
+    println!("  Reserved: {}", info.data.reserved);
+    println!("  Frozen: {}", info.data.frozen);
 
     Ok(())
 }

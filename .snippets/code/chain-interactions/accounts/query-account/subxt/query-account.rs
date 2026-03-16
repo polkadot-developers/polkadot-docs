@@ -15,6 +15,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Initialize the Subxt client
     let api = OnlineClient::<PolkadotConfig>::from_url(POLKADOT_TESTNET_RPC).await?;
 
+    // Anchor to the current block
+    let at_block = api.at_current_block().await?;
+
     println!("Connected to Polkadot Hub");
 
     // Convert the account address into an AccountId32
@@ -23,50 +26,46 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("\nQuerying account: {}\n", account);
 
     // Query account information
-    let storage_query = polkadot_testnet::storage().system().account(account);
-    let account_info = api
+    let account_storage = at_block
         .storage()
-        .at_latest()
+        .entry(polkadot_testnet::storage().system().account())?;
+    let info = account_storage
+        .fetch((account,))
         .await?
-        .fetch(&storage_query)
-        .await?;
+        .decode()?;
 
-    if let Some(info) = account_info {
-        // Display account information
-        println!("Account Information:");
-        println!("===================");
-        println!("Nonce: {}", info.nonce);
-        println!("Consumers: {}", info.consumers);
-        println!("Providers: {}", info.providers);
-        println!("Sufficients: {}", info.sufficients);
+    // Display account information
+    println!("Account Information:");
+    println!("===================");
+    println!("Nonce: {}", info.nonce);
+    println!("Consumers: {}", info.consumers);
+    println!("Providers: {}", info.providers);
+    println!("Sufficients: {}", info.sufficients);
 
-        println!("\nBalance Details:");
-        println!("================");
-        println!(
-            "Free Balance: {} ({} PAS)",
-            info.data.free,
-            info.data.free as f64 / PAS_UNITS as f64
-        );
-        println!(
-            "Reserved Balance: {} ({} PAS)",
-            info.data.reserved,
-            info.data.reserved as f64 / PAS_UNITS as f64
-        );
-        println!(
-            "Frozen Balance: {} ({} PAS)",
-            info.data.frozen,
-            info.data.frozen as f64 / PAS_UNITS as f64
-        );
+    println!("\nBalance Details:");
+    println!("================");
+    println!(
+        "Free Balance: {} ({} PAS)",
+        info.data.free,
+        info.data.free as f64 / PAS_UNITS as f64
+    );
+    println!(
+        "Reserved Balance: {} ({} PAS)",
+        info.data.reserved,
+        info.data.reserved as f64 / PAS_UNITS as f64
+    );
+    println!(
+        "Frozen Balance: {} ({} PAS)",
+        info.data.frozen,
+        info.data.frozen as f64 / PAS_UNITS as f64
+    );
 
-        let total = info.data.free + info.data.reserved;
-        println!(
-            "\nTotal Balance: {} ({} PAS)",
-            total,
-            total as f64 / PAS_UNITS as f64
-        );
-    } else {
-        println!("Account not found or has no data");
-    }
+    let total = info.data.free + info.data.reserved;
+    println!(
+        "\nTotal Balance: {} ({} PAS)",
+        total,
+        total as f64 / PAS_UNITS as f64
+    );
 
     println!("\nDisconnected");
 

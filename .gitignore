@@ -1,6 +1,8 @@
 node_modules
 .vscode
 target
+*.scale
+Cargo.lock
 .DS_Store
 scripts/__pycache__/*
 

@@ -2,7 +2,7 @@
 title: Zero to Hero Smart Contract DApp
 description: Learn how to build a decentralized application on Polkadot Hub using Viem and Next.js by creating a simple dApp that interacts with a smart contract.
 tutorial_badge:  Intermediate
-categories: dApp, Tooling
+categories: Smart Contracts, Tooling
 ---
 
 # Zero to Hero Smart Contract DApp

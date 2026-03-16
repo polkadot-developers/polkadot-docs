@@ -2,7 +2,7 @@
 title: Register a Foreign Asset
 description: Learn step-by-step how to register a foreign asset on Polkadot Hub and the origin parachain to enable cross-chain token transfers.
 tutorial_badge: Intermediate
-categories: dApps
+categories: Interoperability, Parachains
 ---
 
 # Register a Foreign Asset on Polkadot Hub

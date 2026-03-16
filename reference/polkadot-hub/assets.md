@@ -46,6 +46,20 @@ Each asset is identified by a unique ID and stores:
 
 If a balance falls below the configured minimum, called the [existential deposit](/reference/glossary/#existential-deposit){target=\_blank}, it may be removed as “dust.” This ensures efficient storage while giving developers control over asset economics.
 
+## Common Asset IDs
+
+The following well-known native assets are registered on Polkadot Hub:
+
+| Asset ID | Symbol | Name | Decimals | Sufficient |
+|:---:|:---:|:---:|:---:|:---:|
+| 1984 | USDt | Tether USD | 6 | Yes |
+| 1337 | USDC | USD Coin | 6 | Yes |
+
+!!! note
+    The on-chain symbol for Tether on Polkadot Hub is `USDt`, which is commonly referred to as "USDT" on exchanges and in wallets.
+
+A sufficient asset can keep an account alive without requiring a DOT balance.
+
 ## How Native Assets Work
 
 Native assets on Polkadot Hub are created and managed via the Assets pallet from the Polkadot SDK. This pallet defines the runtime logic for issuing, configuring, and administering fungible assets with customizable permissions.

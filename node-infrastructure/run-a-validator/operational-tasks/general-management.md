@@ -527,7 +527,7 @@ There are three approaches for managing session keys:
 - **Generate outside node and insert**: Using the `author.setKeys` RPC call. This flexibility accommodates advanced security setups and should only be used by experienced validator operators.
 
 !!! warning "Relay Chain Deprecation"
-    The legacy `session.setKeys` extrinsic on the relay chain is still supported but will be deprecated in a future runtime upgrade. Validators should transition to using `stakingRcClient.set_keys` on Polkadot Hub.
+    The legacy `session.setKeys` extrinsic on the relay chain is still supported, but will be deprecated in a future runtime upgrade. Validators should transition to using `stakingRcClient.set_keys` on Polkadot Hub.
 
 ### Signing Outside the Client
 

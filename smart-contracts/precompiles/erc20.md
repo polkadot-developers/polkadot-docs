@@ -16,13 +16,45 @@ extra_css:
 
 ## Introduction
 
-The ERC20 precompile provides a standard ERC20 token interface for interacting with assets managed by the [Assets pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_assets/index.html){target=\_blank}, helping smart contracts to interact with native Polkadot assets (such as USDT, USDC, and other tokens) using familiar Ethereum-style ERC20 calls.
+The ERC20 precompile provides a standard ERC20 token interface for interacting with assets managed by the [Assets pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_assets/index.html){target=\_blank}, helping smart contracts to interact with native Polkadot assets (such as USDT, USDC, and other tokens) using familiar Ethereum-style ERC20 calls. Polkadot Hub runs three instances of the Assets pallet — Trust-Backed Assets, Foreign Assets, and Pool Assets — each mapped to a distinct ERC20 precompile address prefix.
 
-Each asset in the Assets pallet is mapped to a unique precompile address based on its asset ID. The precompile implements core ERC20 functionality:
+Each asset is mapped to a unique precompile address based on its asset ID or foreign asset index. The precompile implements core ERC20 functionality:
 
 - **Token transfers**: Send assets between accounts using standard `transfer` and `transferFrom` methods.
 - **Approvals and allowances**: Manage spending permissions with `approve` and `allowance`.
 - **Balance queries**: Check token balances with `balanceOf` and total supply with `totalSupply`.
+
+## Supported Asset Types
+
+The ERC20 precompile supports three categories of assets, each with its own address prefix.
+
+### Trust-Backed Assets
+
+Trust-Backed Assets are created directly in the Assets pallet on Polkadot Hub and assigned a u32 asset ID.
+
+- **Address prefix**: `0x0120`
+- **Address format**: `0x` + assetId (8 hex digits, zero-padded) + 24 zero digits + `01200000`
+- **Example**: Asset ID `1984` → `0x000007C000000000000000000000000001200000`
+
+### Foreign Assets
+
+Foreign Assets originate from other chains and are identified on-chain by their XCM Location. The ERC20 precompile uses a u32 index—not the XCM Location directly—to derive the precompile address.
+
+- **Address prefix**: `0x0220`
+- **Address format**: `0x` + foreignAssetIndex (8 hex digits, zero-padded) + 24 zero digits + `02200000`
+- **Example**: Foreign Asset Index `0` → `0x0000000000000000000000000000000002200000`
+
+#### Deriving the Foreign Asset Index
+
+Since foreign asset IDs are XCM Locations (not simple integers), the runtime assigns each foreign asset a sequential u32 index when it is registered. The mapping is stored in two bidirectional storage maps (`XCM Location` ↔ `u32`) in the [`pallet-assets-precompiles`](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame/assets/precompiles/src/foreign_assets.rs){target=\_blank} crate. To find the index for a specific foreign asset, query the `ForeignAssetIdToAssetIndex` storage map, passing the asset's XCM Location. The returned u32 value is what gets embedded in the ERC20 precompile address.
+
+### Pool Assets
+
+Pool Assets are created by liquidity pool operations on Polkadot Hub and assigned a u32 asset ID.
+
+- **Address prefix**: `0x0320`
+- **Address format**: `0x` + assetId (8 hex digits, zero-padded) + 24 zero digits + `03200000`
+- **Example**: Pool Asset ID `0` → `0x0000000000000000000000000000000003200000`
 
 ## Precompile Interface
 
@@ -210,7 +242,7 @@ require(success, "Transfer from failed");
 
 For the complete implementation, refer to the [ERC20 precompile source code](https://github.com/paritytech/polkadot-sdk/blob/11be995be95ac1e25a5b2a6dd941006e7097bffc/substrate/frame/assets/precompiles/src/lib.rs){target=\_blank} in the Polkadot SDK.
 
-## Common Asset IDs
+## Common Asset IDs and Indexes
 
 The following well-known assets are registered on Polkadot Hub and accessible via the ERC20 precompile:
 

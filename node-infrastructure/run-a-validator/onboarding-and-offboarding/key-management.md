@@ -71,7 +71,7 @@ There are multiple ways to create the session keys. It can be done by interactin
 
 ### Submit Transaction to Set Keys
 
-Now that you have generated your session keys, you must submit them to the chain. There are two methods to register session keys on-chain. Setting keys via Polkadot Hub is the recommended approach.
+Now that you have generated your session keys, you must submit them to the chain. There are two methods to register session keys on-chain: via [Polkadot Hub](#set-keys-assethub) (recommended) or via the [relay chain](#set-keys-relay) (legacy).
 
 #### Set Keys via Polkadot Hub (Recommended) {: #set-keys-assethub }
 
@@ -83,8 +83,8 @@ Follow these steps:
 2. Navigate to **Developer > Extrinsics**.
 3. Select the account that controls your validator (your stash or proxy account).
 4. Choose the **stakingRcClient** pallet and the **set_keys** extrinsic.
-5. Paste the hex-encoded session key string you generated earlier into the `keys` field.
-6. Set the `proof` field to `0x` (empty proof).
+5. Paste the hex-encoded session key string you generated earlier into the **keys** field.
+6. Set the **proof** field to `0x` (empty proof).
 7. Submit the transaction.
 
 !!! info "Key Deposit Required"

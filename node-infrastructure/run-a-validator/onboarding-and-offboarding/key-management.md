@@ -93,7 +93,7 @@ Follow these steps:
 #### Set Keys via Relay Chain (Legacy) {: #set-keys-relay }
 
 !!! warning "Deprecation Notice"
-    Setting session keys directly on the relay chain is still supported but will be deprecated in a future runtime upgrade. New validators should use the [Polkadot Hub method](#set-keys-assethub) described above.
+    Setting session keys directly on the relay chain is still supported, but will be deprecated in a future runtime upgrade. New validators should use the [Polkadot Hub method](#set-keys-assethub) described above.
 
 1. Go to the **Network > Staking > Accounts** section on [Polkadot.js Apps](https://polkadot.js.org/apps/#/staking/actions){target=\_blank} connected to the relay chain.
 2. Select **Set Session Key** on the bonding account you generated earlier.

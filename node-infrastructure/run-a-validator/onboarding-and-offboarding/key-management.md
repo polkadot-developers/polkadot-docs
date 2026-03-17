@@ -88,7 +88,7 @@ Follow these steps:
 7. Submit the transaction.
 
 !!! info "Key Deposit Required"
-    Setting session keys on Polkadot Hub requires a deposit of approximately 60 DOT (or ~2 KSM on Kusama) to cover the on-chain storage cost of key registration. This deposit is released when you call `stakingRcClient.purge_keys` to remove your session keys.
+    Setting session keys on Polkadot Hub requires a deposit of approximately 60 DOT (or ~2 KSM on Kusama) to cover the on-chain storage cost of key registration. This deposit is **only** released when you call `stakingRcClient.purge_keys` on Polkadot Hub to remove your session keys. Purging keys via the relay chain (`session.purgeKeys`) does not release this deposit.
 
 #### Set Keys via Relay Chain (Legacy) {: #set-keys-relay }
 

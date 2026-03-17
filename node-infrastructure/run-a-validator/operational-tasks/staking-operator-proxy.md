@@ -92,7 +92,7 @@ The `stakingRcClient` pallet provides two extrinsics for session key management:
 - **`stakingRcClient.purge_keys`**: Remove session keys from the validator. This is useful when decommissioning a validator node or rotating to a new server.
 
 !!! info "Key Deposit Required"
-    Setting session keys via `stakingRcClient.set_keys` requires a deposit of approximately 60 DOT (or ~2 KSM on Kusama) to cover the on-chain storage cost of key registration. This deposit is released when `stakingRcClient.purge_keys` is called.
+    Setting session keys via `stakingRcClient.set_keys` requires a deposit of approximately 60 DOT (or ~2 KSM on Kusama) to cover the on-chain storage cost of key registration. This deposit is **only** released when `stakingRcClient.purge_keys` is called on Polkadot Hub. Purging keys via the relay chain (`session.purgeKeys`) does not release this deposit.
 
 !!! note
     The legacy `session.setKeys` and `session.purgeKeys` extrinsics on the relay chain remain functional for validators that do not use pure proxy stash accounts. However, the Polkadot Hub path through `stakingRcClient` is the recommended approach for new setups.

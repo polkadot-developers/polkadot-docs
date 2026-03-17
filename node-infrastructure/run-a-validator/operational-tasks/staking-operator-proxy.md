@@ -68,6 +68,9 @@ Follow these steps to set up a Staking Operator proxy:
 
 Once the staker has created the Staking Operator proxy, the operator can begin managing the validator. All operator actions are submitted as proxy calls through the `proxy.proxy` extrinsic, using the staker's account as the `real` parameter.
 
+!!! warning "Correct `force_proxy_type` Required"
+    When submitting proxy calls, ensure the `force_proxy_type` parameter is set to `Some(StakingOperator)` or `None`. Using `Some(Staking)` will fail with a `NotProxy` error because the proxy pallet requires an exact match on the proxy type. Since the stored proxy type is `StakingOperator`, passing `Staking` does not match.
+
 The operator can perform the following actions:
 
 - **Set session keys**: Rotate or update session keys using `stakingRcClient.set_keys` on Polkadot Hub or `session.setKeys` on the relay chain. See [Key Management](/node-infrastructure/run-a-validator/operational-tasks/general-management/#key-management){target=\_blank} for best practices on managing session keys.

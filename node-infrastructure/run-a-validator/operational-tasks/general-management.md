@@ -518,13 +518,16 @@ Though they don't transfer funds, session keys are essential for validators as t
 
 Given the current limitations in high-availability setups and the risks associated with double-signing, it’s recommended to run only a single validator instance. Keys should be securely managed, and processes automated to minimize human error.
 
-There are two approaches for generating session keys:
+There are three approaches for managing session keys:
 
-- **Generate and store in node**: Using the `author.rotateKeys` RPC call. For most users, generating keys directly within the client is recommended. You must submit a session certificate from your staking proxy to register new keys. See the [How to Validate](/node-infrastructure/run-a-validator/onboarding-and-offboarding/set-up-validator/){target=\_blank} guide for instructions on setting keys.
+- **Set session keys via Polkadot Hub (recommended)**: Use the `stakingRcClient.set_keys` extrinsic on Polkadot Hub to send session keys to the relay chain via XCM. This is the recommended approach for all validator setups and is required for validators using pure proxy stash accounts or [Staking Operator proxies](/node-infrastructure/run-a-validator/operational-tasks/staking-operator-proxy/){target=\_blank}. Setting session keys on Polkadot Hub requires a deposit of approximately 60 DOT (or ~2 KSM on Kusama) to cover the on-chain storage cost of key registration. This deposit is **only** released when `stakingRcClient.purge_keys` is called on Polkadot Hub to remove the session keys — purging keys via the relay chain does not release the deposit.
+
+- **Generate and store in node**: Using the `author.rotateKeys` RPC call. For most users, generating keys directly within the client is recommended. You must submit a session certificate from your staking proxy to register new keys. See the [Key Management](/node-infrastructure/run-a-validator/onboarding-and-offboarding/key-management/){target=\_blank} guide for instructions on setting keys.
 
 - **Generate outside node and insert**: Using the `author.setKeys` RPC call. This flexibility accommodates advanced security setups and should only be used by experienced validator operators.
 
-- **Set session keys via Polkadot Hub**: Use the `stakingRcClient.set_keys` extrinsic on Polkadot Hub to send session keys to the relay chain via XCM. This is the recommended approach for new validator setups and is required for validators using pure proxy stash accounts or [Staking Operator proxies](/node-infrastructure/run-a-validator/operational-tasks/staking-operator-proxy/){target=\_blank}.
+!!! warning "Relay Chain Deprecation"
+    The legacy `session.setKeys` extrinsic on the relay chain is still supported, but will be deprecated in a future runtime upgrade. Validators should transition to using `stakingRcClient.set_keys` on Polkadot Hub.
 
 ### Signing Outside the Client
 

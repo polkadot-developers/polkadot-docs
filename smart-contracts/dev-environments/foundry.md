@@ -107,6 +107,9 @@ Foundry's nightly build includes native support for Polkadot chains with `polkad
 
 Create or modify your `foundry.toml` file:
 
+!!! note
+    The `[etherscan]` section is used for contract verification. Routescan requires an API key; Blockscout does not.
+
 === "Blockscout"
 
     ```toml title='foundry.toml'
@@ -116,7 +119,7 @@ Create or modify your `foundry.toml` file:
     libs = ["lib"]
     solc_version = "0.8.28"
 
-    [etherscan]
+    [etherscan] # Contract verification configuration
     polkadot-testnet = { key = "", url = "https://blockscout-testnet.polkadot.io/api?" }
     ```
 
@@ -129,14 +132,11 @@ Create or modify your `foundry.toml` file:
     libs = ["lib"]
     solc_version = "0.8.28"
 
-    [etherscan]
+    [etherscan] # Contract verification configuration
     polkadot-testnet = { key = "verifyContract", url = "https://api.routescan.io/v2/network/testnet/evm/420420417/etherscan" }
     ```
 
 With this configuration, you can use `--chain polkadot-testnet` in your commands without specifying the RPC URL explicitly.
-
-!!! note
-    The `[etherscan]` section is used for contract verification. Routescan requires an API key; Blockscout does not.
 
 ### Available Networks and RPC Endpoints
 

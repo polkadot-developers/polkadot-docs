@@ -46,7 +46,11 @@ Foreign Assets originate from other chains and are identified on-chain by their 
 
 #### Deriving the Foreign Asset Index
 
-Since foreign asset IDs are XCM Locations (not simple integers), the runtime assigns each foreign asset a sequential u32 index when it is registered. The mapping is stored in two bidirectional storage maps (`XCM Location` ↔ `u32`) in the [`pallet-assets-precompiles`](https://github.com/paritytech/polkadot-sdk/tree/master/substrate/frame/assets/precompiles/src/foreign_assets.rs){target=\_blank} crate. To find the index for a specific foreign asset, query the `ForeignAssetIdToAssetIndex` storage map, passing the asset's XCM Location. The returned u32 value is what gets embedded in the ERC20 precompile address.
+Since foreign asset IDs are XCM Locations (not simple integers), the runtime assigns each foreign asset a sequential u32 index when it is registered. To derive the ERC20 precompile address for a foreign asset, follow these steps:
+
+1. **Get the XCM Location** of the foreign asset (for example, `{ parents: 1, interior: X1(Parachain(2313)) }`)
+2. **Query the index** — in [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank}, navigate to **Developer → Chain State → assetsPrecompiles → foreignAssetIdToAssetIndex**, pass the XCM Location, and note the returned u32 value (for example, `5`)
+3. **Derive the address** — enter that u32 index into the Foreign Asset mode of the converter above to get the ERC20 precompile address
 
 ### Pool Assets
 

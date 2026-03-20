@@ -29,7 +29,7 @@ Set up local environments and CI-friendly workflows to iterate quickly and valid
 | [Use Hardhat for Development](/smart-contracts/dev-environments/hardhat/) |      Hardhat      |     Project scaffolding and configuration      |
 | [Use Foundry for Development](/smart-contracts/dev-environments/foundry/) |      Foundry      |     Compile, test, deploy, and verify contracts  |
 | [OpenZeppelin Contracts Wizard for Polkadot](https://wizard.openzeppelin.com/polkadot){target=\_blank} | OpenZeppelin | Generate secure ERC-20, ERC-721, and other OpenZeppelin-standard contracts for Polkadot Hub |
-| [Rust for PVM](/smart-contracts/for-eth-devs/dual-vm-stack/#alternative-pvm-backend) | LLMs, coding agents | Write PVM contracts in Rust; use AI assistants while tooling matures. |
+| [Rust for PVM](/smart-contracts/for-eth-devs/dual-vm-stack/#alternative-pvm-backend) | LLMs, coding agents | Write PVM contracts in Rust; use AI assistants while tooling matures |
 
 ## Ethereum Tool Differences on Polkadot EVM
 

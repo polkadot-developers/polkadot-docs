@@ -15,7 +15,7 @@ toggle:
 
 ## Introduction
 
-Polkadot Hub supports two paths for running EVM smart contracts: [PVM](/smart-contracts/cookbook/eth-dapps/uniswap-v2/core/core-v2/#pvm){target=\_blank} (which compiles Solidity to the Polkadot Virtual Machine via the revive compiler) and EVM (powered by [REVM](https://github.com/bluealloy/revm){target=\_blank}, a Rust implementation of the Ethereum Virtual Machine, which runs standard EVM bytecode with zero modifications). This tutorial follows the EVM path.
+Polkadot Hub supports two paths for running EVM smart contracts: [PVM](/smart-contracts/cookbook/eth-dapps/uniswap-v2/core/core-v2-pvm/){target=\_blank} (which compiles Solidity to the Polkadot Virtual Machine via the revive compiler) and EVM (powered by [REVM](https://github.com/bluealloy/revm){target=\_blank}, a Rust implementation of the Ethereum Virtual Machine, which runs standard EVM bytecode with zero modifications). This tutorial follows the EVM path.
 
 With EVM, you deploy the same unmodified Solidity contracts using the same standard Hardhat toolchain you already know. No special compiler plugins, no contract rewrites, and no porting effort. If your project compiles with vanilla Hardhat, it runs on Polkadot Hub through EVM.
 

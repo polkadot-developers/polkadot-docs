@@ -2,7 +2,7 @@
 title: Uniswap V2 Core with EVM on Polkadot
 description: Deploy and test unmodified Uniswap V2 Core contracts on Polkadot Hub using standard Hardhat and TypeScript with the EVM execution path.
 tutorial_badge: Intermediate
-categories: dApps, Tooling
+categories: Smart Contracts, Tooling
 tools: Hardhat
 toggle:
   group: uniswap-v2-core
@@ -15,7 +15,7 @@ toggle:
 
 ## Introduction
 
-Polkadot Hub supports two paths for running EVM smart contracts: [PVM](/smart-contracts/cookbook/eth-dapps/uniswap-v2/core/core-v2-pvm/){target=\_blank} (which compiles Solidity to the Polkadot Virtual Machine via the revive compiler) and EVM (powered by [REVM](https://github.com/bluealloy/revm){target=\_blank}, a Rust implementation of the Ethereum Virtual Machine, which runs standard EVM bytecode with zero modifications). This tutorial follows the EVM path.
+Polkadot Hub supports two paths for running EVM smart contracts: [PVM](/smart-contracts/cookbook/eth-dapps/uniswap-v2/core/core-v2/#pvm){target=\_blank} (which compiles Solidity to the Polkadot Virtual Machine via the revive compiler) and EVM (powered by [REVM](https://github.com/bluealloy/revm){target=\_blank}, a Rust implementation of the Ethereum Virtual Machine, which runs standard EVM bytecode with zero modifications). This tutorial follows the EVM path.
 
 With EVM, you deploy the same unmodified Solidity contracts using the same standard Hardhat toolchain you already know. No special compiler plugins, no contract rewrites, and no porting effort. If your project compiles with vanilla Hardhat, it runs on Polkadot Hub through EVM.
 
@@ -59,7 +59,7 @@ Start by cloning the EVM Hardhat examples repository, which contains the Uniswap
 
     If the compilation is successful, you should see output similar to the following:
 
-    --8<-- 'code/smart-contracts/cookbook/eth-dapps/uniswap-v2/core/core-v2-evm/compilation-output.html'
+    --8<-- 'code/smart-contracts/cookbook/eth-dapps/uniswap-v2/core/core-v2/compilation-output.html'
 
     After running this command, the compiled artifacts (ABI and bytecode) appear in the `artifacts` directory.
 
@@ -93,8 +93,8 @@ Before interacting with the contracts, it is essential to understand the core ar
 
 At the heart of Uniswap V2 lies a simple but powerful system composed of two major smart contracts:
 
-- **Factory contract** - acts as a registry and creator of new trading pairs. When two ERC-20 tokens are to be traded, the Factory contract generates a new Pair contract that manages that specific token pair's liquidity pool. It tracks all deployed pairs and ensures uniqueness, so no duplicate pools can exist for the same token combination
-- **Pair contract** - each Pair contract is a decentralized liquidity pool that holds reserves of two ERC-20 tokens. These contracts implement the core AMM logic, maintaining a constant product invariant (x * y = k) to facilitate swaps and price determination. Users contribute tokens to these pools in return for LP (liquidity provider) tokens, which represent their proportional share of the reserves
+- **Factory contract**: Acts as a registry and creator of new trading pairs. When two ERC-20 tokens are to be traded, the Factory contract generates a new Pair contract that manages that specific token pair's liquidity pool. It tracks all deployed pairs and ensures uniqueness, so no duplicate pools can exist for the same token combination.
+- **Pair contract**: Each Pair contract is a decentralized liquidity pool that holds reserves of two ERC-20 tokens. These contracts implement the core AMM logic, maintaining a constant product invariant (x * y = k) to facilitate swaps and price determination. Users contribute tokens to these pools in return for LP (liquidity provider) tokens, which represent their proportional share of the reserves.
 
 This architecture enables Uniswap to be highly modular, trustless, and extensible. By distributing responsibilities across these components, developers and users can engage with the protocol in a composable and predictable manner.
 
@@ -142,7 +142,7 @@ The project includes a comprehensive test suite with 28 tests across three test 
 
 To run the tests locally:
 
-1. Start the local development node. Follow the steps in the [Local Development Node](/smart-contracts/dev-environments/local-dev-node/){target=\_blank} guide to set it up
+1. Start the local development node. Follow the steps in the [Local Development Node](/smart-contracts/dev-environments/local-dev-node/){target=\_blank} guide to set it up.
 
 2. In a new terminal, run the test suite against the local node:
 
@@ -152,7 +152,7 @@ To run the tests locally:
 
     The tests are configured with a 120-second Mocha timeout to accommodate Polkadot network block times. The result should look similar to the following:
 
-    --8<-- 'code/smart-contracts/cookbook/eth-dapps/uniswap-v2/core/core-v2-evm/testing-output.html'
+    --8<-- 'code/smart-contracts/cookbook/eth-dapps/uniswap-v2/core/core-v2/testing-output.html'
 
 !!! tip
     If tests time out, ensure your local development node is running and accessible at `http://127.0.0.1:8545`.
@@ -183,7 +183,7 @@ This deploys to the actual Polkadot Hub TestNet. It requires test tokens, persis
 
 The deployment script outputs the addresses of all deployed contracts. Save these addresses, as you will need them to interact with the contracts. The output should look similar to the following:
 
---8<-- 'code/smart-contracts/cookbook/eth-dapps/uniswap-v2/core/core-v2-evm/deployment-output.html'
+--8<-- 'code/smart-contracts/cookbook/eth-dapps/uniswap-v2/core/core-v2/deployment-output.html'
 
 ## Where to Go Next
 

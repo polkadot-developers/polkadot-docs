@@ -49,7 +49,14 @@ Foreign Assets originate from other chains and are identified on-chain by their 
 Since foreign asset IDs are XCM Locations (not simple integers), the runtime assigns each foreign asset a sequential u32 index when it is registered. To derive the ERC20 precompile address for a foreign asset, follow these steps:
 
 1. **Get the XCM Location** of the foreign asset (for example, `{ parents: 1, interior: X1(Parachain(2313)) }`)
-2. **Query the index** — in [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank}, navigate to **Developer → Chain State → assetsPrecompiles → foreignAssetIdToAssetIndex**, pass the XCM Location, and note the returned u32 value (for example, `5`)
+2. **Query the index** — in [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank}:
+    1. Navigate to **Developer > Chain State**.
+    2. Select **assetsPrecompiles** from the module dropdown.
+    3. Select **foreignAssetIdToAssetIndex** from the call dropdown.
+    4. Pass the XCM Location and note the returned u32 value (for example, `5`).
+
+    ![](/images/smart-contracts/precompiles/erc20/erc20-01.webp)
+
 3. **Derive the address** — enter that u32 index into the Foreign Asset mode of the converter above to get the ERC20 precompile address
 
 ### Pool Assets
@@ -265,24 +272,24 @@ To interact with the ERC20 precompile in [Remix IDE](/smart-contracts/dev-enviro
 1. Create a new file called `IERC20-precompile.sol` in Remix
 2. Copy and paste the `IERC20` interface code shown above into the file
 
-    ![](/images/smart-contracts/precompiles/erc20/erc20-01.webp)
+    ![](/images/smart-contracts/precompiles/erc20/erc20-02.webp)
 
 3. Compile the interface by selecting the compile button or using **Ctrl + S**
 4. Calculate the ERC20 precompile address for your asset using the Asset ID to ERC20 Address converter above
    
-    - Each asset has a unique address based on its asset ID
-    - Format: `0x[assetId (8 hex)] + [24 zeros] + [prefix (8 hex)]`
-    - Example: Asset ID `1984` (USD Tether) → `0x000007C000000000000000000000000001200000`
+    - **Unique address**: Each asset is mapped to a unique precompile address based on its asset ID.
+    - **Format**: `0x[assetId (8 hex)] + [24 zeros] + [prefix (8 hex)]`
+    - **Example**: Asset ID `1984` (USD Tether) → `0x000007C000000000000000000000000001200000`
 
 5. In the **Deploy & Run Transactions** tab, select the `IERC20` interface from the contract dropdown
 6. Enter the calculated precompile address in the **At Address** input field
 7. Select the **At Address** button to connect to the precompile
 
-    ![](/images/smart-contracts/precompiles/erc20/erc20-02.webp)
+    ![](/images/smart-contracts/precompiles/erc20/erc20-03.webp)
 
 Once connected, you can interact with any of the ERC20 precompile functions directly through the Remix interface.
 
-![](/images/smart-contracts/precompiles/erc20/erc20-03.webp)
+![](/images/smart-contracts/precompiles/erc20/erc20-04.webp)
 
 ## Conclusion
 

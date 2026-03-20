@@ -10,7 +10,7 @@ This resource provides quick-starts for building smart contracts on Polkadot Hub
 
 ## Quick Starts
 
-Use these curated links to get connected, funded, and deploying your first contract.
+Use these curated links to get connected, get funded, and deploy your first contract.
 
 |                     Quick Start                     |         Tools         |                           Description                           |
 |:---------------------------------------------------:|:---------------------:|:---------------------------------------------------------------:|

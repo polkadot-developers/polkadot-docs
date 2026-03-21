@@ -187,7 +187,7 @@ To stop the network, press **Ctrl + C** in the terminal where Zombienet is runni
 
 <div class="status-badge" markdown>
 [![Run a Parachain Network](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-run-a-parachain-network.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-run-a-parachain-network.yml){target=\_blank}
-[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/networks/run-a-parachain-network/tests/guide.test.ts){ .tests-button target=\_blank}
+[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/networks/run-a-parachain-network/tests/docs.test.ts){ .tests-button target=\_blank}
 </div>
 
 ## Where to Go Next

@@ -398,7 +398,7 @@ Select your preferred SDK below to see complete, runnable examples that query Po
 
 <div class="status-badge" markdown>
 [![Query On-Chain State with SDKs](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-query-sdks.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-query-sdks.yml){target=\_blank}
-[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/chain-interactions/query-sdks/tests/recipe.test.ts){ .tests-button target=\_blank}
+[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/chain-interactions/query-sdks/tests/docs.test.ts){ .tests-button target=\_blank}
 </div>
 
 ## Where to Go Next

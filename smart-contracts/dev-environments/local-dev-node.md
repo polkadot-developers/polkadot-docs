@@ -91,5 +91,5 @@ You can connect wallets, deploy contracts using Remix or Hardhat, and interact w
 
 <div class="status-badge" markdown>
 [![Local Development Node](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-local-dev-node.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-local-dev-node.yml){target=\_blank}
-[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/smart-contracts/local-dev-node/tests/recipe.test.ts){ .tests-button target=\_blank}
+[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/smart-contracts/local-dev-node/tests/docs.test.ts){ .tests-button target=\_blank}
 </div>

@@ -3,7 +3,6 @@ title: Uniswap V2 Core with EVM on Polkadot
 description: Deploy and test unmodified Uniswap V2 Core contracts on Polkadot Hub using standard Hardhat and TypeScript with the EVM execution path.
 tutorial_badge: Intermediate
 categories: Smart Contracts, Tooling
-tools: Hardhat
 toggle:
   group: uniswap-v2-core
   canonical: true
@@ -15,7 +14,7 @@ toggle:
 
 ## Introduction
 
-Polkadot Hub supports two paths for running EVM smart contracts: [PVM](/smart-contracts/cookbook/eth-dapps/uniswap-v2/core/core-v2-pvm/){target=\_blank} (which compiles Solidity to the Polkadot Virtual Machine via the revive compiler) and EVM (powered by [REVM](https://github.com/bluealloy/revm){target=\_blank}, a Rust implementation of the Ethereum Virtual Machine, which runs standard EVM bytecode with zero modifications). This tutorial follows the EVM path.
+Polkadot Hub supports two paths for running EVM smart contracts: [PVM](/smart-contracts/cookbook/eth-dapps/uniswap-v2/core-v2/#pvm) (which compiles Solidity to the Polkadot Virtual Machine via the revive compiler) and EVM (powered by [REVM](https://github.com/bluealloy/revm){target=\_blank}, a Rust implementation of the Ethereum Virtual Machine, which runs standard EVM bytecode with zero modifications). This tutorial follows the EVM path.
 
 With EVM, you deploy the same unmodified Solidity contracts using the same standard Hardhat toolchain you already know. No special compiler plugins, no contract rewrites, and no porting effort. If your project compiles with vanilla Hardhat, it runs on Polkadot Hub through EVM.
 
@@ -59,7 +58,7 @@ Start by cloning the EVM Hardhat examples repository, which contains the Uniswap
 
     If the compilation is successful, you should see output similar to the following:
 
-    --8<-- 'code/smart-contracts/cookbook/eth-dapps/uniswap-v2/core/core-v2/compilation-output.html'
+    --8<-- 'code/smart-contracts/cookbook/eth-dapps/uniswap-v2/core-v2/compilation-output.html'
 
     After running this command, the compiled artifacts (ABI and bytecode) appear in the `artifacts` directory.
 
@@ -152,7 +151,7 @@ To run the tests locally:
 
     The tests are configured with a 120-second Mocha timeout to accommodate Polkadot network block times. The result should look similar to the following:
 
-    --8<-- 'code/smart-contracts/cookbook/eth-dapps/uniswap-v2/core/core-v2/testing-output.html'
+    --8<-- 'code/smart-contracts/cookbook/eth-dapps/uniswap-v2/core-v2/testing-output.html'
 
 !!! tip
     If tests time out, ensure your local development node is running and accessible at `http://127.0.0.1:8545`.
@@ -183,7 +182,7 @@ This deploys to the actual Polkadot Hub TestNet. It requires test tokens, persis
 
 The deployment script outputs the addresses of all deployed contracts. Save these addresses, as you will need them to interact with the contracts. The output should look similar to the following:
 
---8<-- 'code/smart-contracts/cookbook/eth-dapps/uniswap-v2/core/core-v2/deployment-output.html'
+--8<-- 'code/smart-contracts/cookbook/eth-dapps/uniswap-v2/core-v2/deployment-output.html'
 
 ## Where to Go Next
 

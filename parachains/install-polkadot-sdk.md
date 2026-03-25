@@ -142,13 +142,13 @@ To install the Rust toolchain on Linux:
     === "Ubuntu"
 
         ```bash
-        sudo apt install --assume-yes git clang curl libssl-dev protobuf-compiler
+        sudo apt install --assume-yes git clang curl libssl-dev llvm libclang-dev libudev-dev make protobuf-compiler
         ```
 
     === "Debian"
 
         ```sh
-        sudo apt install --assume-yes git clang curl libssl-dev llvm libudev-dev make protobuf-compiler
+        sudo apt install --assume-yes git clang curl libssl-dev llvm libclang-dev libudev-dev make protobuf-compiler
         ```
 
     === "Arch"
@@ -269,7 +269,7 @@ To install the Rust toolchain on WSL:
 5. Add the required packages for the Ubuntu distribution by running the following command:
 
     ```bash
-    sudo apt install --assume-yes git clang curl libssl-dev llvm libudev-dev make protobuf-compiler
+    sudo apt install --assume-yes git clang curl libssl-dev llvm libclang-dev libudev-dev make protobuf-compiler
     ```
 
 6. Download the `rustup` installation program and use it to install Rust for the Ubuntu distribution by running the following command:

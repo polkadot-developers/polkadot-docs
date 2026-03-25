@@ -44,7 +44,7 @@ The following instructions outline how to temporarily switch between two validat
 ### Session `N`
 
 1. **Start Validator B**: Launch a secondary node and wait until it is fully synced with the network. Once synced, start it with the `--validator` flag. This node will now act as Validator B.
-2. **Generate session keys**: Create new session keys (and ownership proof) for Validator B. See the [Key Management](/node-infrastructure/run-a-validator/onboarding-and-offboarding/key-management/){target=\_blank} guide for the current procedure.
+2. **Generate session keys**: Create new session keys and ownership proof for Validator B. See the [Key Management](/node-infrastructure/run-a-validator/onboarding-and-offboarding/key-management/){target=\_blank} guide for the current procedure.
 3. **Submit session keys**: Use your staking proxy account to submit the session keys and proof on-chain. See the [Key Management](/node-infrastructure/run-a-validator/onboarding-and-offboarding/key-management/#submit-transaction-to-set-keys){target=\_blank} guide for submission paths.
 4. **Record the session**: Make a note of the session in which you executed this extrinsic.
 5. **Wait for session changes**: Allow the current session to end and then wait for two additional full sessions for the new keys to take effect.

@@ -59,7 +59,7 @@ Follow these steps to set up a Staking Operator proxy:
     - **`proxy_type`**: Set to `Staking Operator`
     - **`delay`**: The number of blocks the proxy call is delayed (set to `0` for immediate execution, or a higher value for added security)
 
-    The proxy can be created by the stash account directly, an Any proxy, or a Staking proxy.
+    The proxy can be created by the stash account directly, an `Any` proxy, or a `Staking` proxy.
 
 3. **Register intent to validate**: The operator calls `staking.validate` wrapped in a `proxy.proxy` call (with the staker's account as the `real` parameter) to register as a validator and set the initial commission rate. This step must be completed before setting session keys.
 

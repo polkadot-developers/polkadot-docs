@@ -32,7 +32,7 @@ The Staking Operator proxy is a strict subset of the `Staking` proxy. While the 
 |          `staking.chill` (deactivate validator)           |       Yes       |          Yes           |
 |            `staking.kick` (remove nominators)             |       Yes       |          Yes           |
 |          `session.setKeys` / `session.purgeKeys`          |       Yes       |          Yes           |
-| `stakingRcClient.set_keys` / `stakingRcClient.purge_keys` |       Yes       |          Yes           |
+| `stakingRcClient.setKeys` / `stakingRcClient.purgeKeys` |       Yes       |          Yes           |
 |           `staking.bond` / `staking.bondExtra`            |       Yes       |           No           |
 |       `staking.unbond` / `staking.withdrawUnbonded`       |       Yes       |           No           |
 |                    `staking.nominate`                     |       Yes       |           No           |
@@ -44,22 +44,32 @@ The key distinction is that the Staking Operator proxy cannot perform any action
 
 ## Set Up a Staking Operator Proxy
 
-Setting up a Staking Operator proxy is the responsibility of the staker (capital provider). Before creating the proxy, the staker must prepare the validator account by bonding funds and registering intent to validate.
+Setting up a Staking Operator proxy is the responsibility of the staker (capital provider). Before creating the proxy, the staker must prepare the validator account by bonding funds.
+
+!!! note
+    All setup operations are performed on Polkadot Hub (Asset Hub), not on the relay chain.
 
 Follow these steps to set up a Staking Operator proxy:
 
-1. **Bond DOT**: Bond the desired amount of DOT to the validator stash account. Refer to the [Start Validating](/node-infrastructure/run-a-validator/onboarding-and-offboarding/start-validating/){target=\_blank} guide for detailed instructions on bonding.
+1. **Bond DOT**: The staker bonds the desired amount of DOT to the stash account. Refer to the [Start Validating](/node-infrastructure/run-a-validator/onboarding-and-offboarding/start-validating/){target=\_blank} guide for detailed instructions on bonding.
 
-2. **Register intent to validate**: Call the `staking.validate` extrinsic from the stash account to register as a validator and set the initial commission rate.
-
-3. **Create the proxy**: Call `proxy.addProxy` with the following parameters:
+2. **Create the proxy**: Call `proxy.addProxy` with the following parameters:
 
     - **`delegate`**: The operator's account address
     - **`proxy_type`**: Set to `Staking Operator`
     - **`delay`**: The number of blocks the proxy call is delayed (set to `0` for immediate execution, or a higher value for added security)
 
+    The proxy can be created by the stash account directly, an `Any` proxy, or a `Staking` proxy.
+
+3. **Register intent to validate**: The operator calls `staking.validate` wrapped in a `proxy.proxy` call (with the staker's account as the `real` parameter) to register as a validator and set the initial commission rate. This step must be completed before setting session keys.
+
+4. **Set session keys**: The operator calls `stakingRcClient.setKeys` wrapped in a `proxy.proxy` call to set the validator's session keys. This requires a deposit of approximately 60 DOT on the validator account, which is released when `stakingRcClient.purgeKeys` is called.
+
 !!! note
-    The order of operations matters. On Polkadot Hub, validators must `bond` and `validate` before session keys can be set. Ensure steps 1 and 2 are completed before the operator attempts to set session keys in the next section.
+    The order of operations matters. On Polkadot Hub, `bond` must be called by the stash account before the proxy can be created, and `validate` must be called by the staking operator (via proxy) before session keys can be set. Ensure the steps above are completed in order.
+
+!!! warning
+    It is strongly recommended that the Validator-`StakingOperator` relationship is 1:1. Assigning the same `StakingOperator` to multiple validators may result in complications and session keys not being properly set. Using a fresh, dedicated, non-validator account as the `StakingOperator` is operationally safer and strongly recommended.
 
 !!! tip
     Consider using a non-zero `delay` value when creating the proxy. A time-delay proxy gives the staker a window to review and potentially cancel any proxy calls before they execute, adding an extra layer of security.
@@ -73,14 +83,11 @@ Once the staker has created the Staking Operator proxy, the operator can begin m
 
 The operator can perform the following actions:
 
-- **Set session keys**: Rotate or update session keys using `stakingRcClient.set_keys` on Polkadot Hub or `session.setKeys` on the relay chain. See [Key Management](/node-infrastructure/run-a-validator/operational-tasks/general-management/#key-management){target=\_blank} for best practices on managing session keys.
+- **Set session keys**: Rotate or update session keys using `stakingRcClient.setKeys` on Polkadot Hub or `session.setKeys` on the relay chain. See [Key Management](/node-infrastructure/run-a-validator/operational-tasks/general-management/#key-management){target=\_blank} for best practices on managing session keys.
 - **Update commission**: Adjust the validator's commission rate by calling `staking.validate` with a new commission value.
 - **Deactivate the validator**: Temporarily pause validation by calling `staking.chill`. See [Pause Validating](/node-infrastructure/run-a-validator/operational-tasks/pause-validating/){target=\_blank} for more details on the chilling process.
 - **Remove nominators**: Kick specific nominators from the validator's nomination pool using `staking.kick`.
-- **Purge session keys**: Remove session keys using `stakingRcClient.purge_keys` on Polkadot Hub or `session.purgeKeys` on the relay chain.
-
-!!! note
-    While the operator can call `staking.validate` to adjust the commission rate after initial setup, the **initial** `staking.validate` call during onboarding **must** come from the staker. See [Set Up a Staking Operator Proxy](#set-up-a-staking-operator-proxy) for the required setup order.
+- **Purge session keys**: Remove session keys using `stakingRcClient.purgeKeys` on Polkadot Hub or `session.purgeKeys` on the relay chain.
 
 !!! warning
     The worst-case scenario with a compromised operator is that they could chill the validator, set an unfavorable commission rate, or change session keys. While these actions are disruptive, they cannot result in loss of bonded funds. The staker can revoke the proxy at any time to regain full control.
@@ -91,11 +98,11 @@ Polkadot Hub introduces a new path for session key management through the `staki
 
 The `stakingRcClient` pallet provides two extrinsics for session key management:
 
-- **`stakingRcClient.set_keys`**: Set or rotate session keys for the validator. The operator submits this call as a proxy transaction through the staker's account.
-- **`stakingRcClient.purge_keys`**: Remove session keys from the validator. This is useful when decommissioning a validator node or rotating to a new server.
+- **`stakingRcClient.setKeys`**: Set or rotate session keys for the validator. The operator submits this call as a proxy transaction through the staker's account.
+- **`stakingRcClient.purgeKeys`**: Remove session keys from the validator. This is useful when decommissioning a validator node or rotating to a new server.
 
 !!! info "Key Deposit Required"
-    Setting session keys via `stakingRcClient.set_keys` requires a deposit of approximately 60 DOT (or ~2 KSM on Kusama) to cover the on-chain storage cost of key registration. This deposit is **only** released when `stakingRcClient.purge_keys` is called on Polkadot Hub. Purging keys via the relay chain (`session.purgeKeys`) does not release this deposit.
+    Setting session keys via `stakingRcClient.setKeys` requires a deposit of approximately 60 DOT (or ~2 KSM on Kusama) to cover the on-chain storage cost of key registration. This deposit is only released when `stakingRcClient.purgeKeys` is called on Polkadot Hub. Purging keys via the relay chain (`session.purgeKeys`) does not release this deposit.
 
 !!! note
     The legacy `session.setKeys` and `session.purgeKeys` extrinsics on the relay chain remain functional for validators that do not use pure proxy stash accounts. However, the Polkadot Hub path through `stakingRcClient` is the recommended approach for new setups.

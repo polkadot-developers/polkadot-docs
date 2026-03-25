@@ -66,7 +66,7 @@ Follow these steps to set up a Staking Operator proxy:
 4. **Set session keys**: The operator calls `stakingRcClient.setKeys` wrapped in a `proxy.proxy` call to set the validator's session keys. This requires a deposit of approximately 60 DOT on the validator account, which is released when `stakingRcClient.purgeKeys` is called.
 
 !!! note
-    The order of operations matters. On Polkadot Hub, the staker must `bond` before the proxy can be created, and `validate` must be called before session keys can be set. Ensure the steps above are completed in order.
+    The order of operations matters. On Polkadot Hub, `bond` must be called by the stash account before the proxy can be created, and `validate` must be called by the staking operator (via proxy) before session keys can be set. Ensure the steps above are completed in order.
 
 !!! warning
     It is strongly recommended that the Validator-StakingOperator relationship is 1:1. Assigning the same StakingOperator to multiple validators may result in complications and session keys not being properly set. Using a fresh, dedicated, non-validator account as the StakingOperator is operationally safer and strongly recommended.

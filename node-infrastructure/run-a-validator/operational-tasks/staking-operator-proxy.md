@@ -91,7 +91,7 @@ Polkadot Hub introduces a new path for session key management through the `staki
 
 The `stakingRcClient` pallet provides two extrinsics for session key management:
 
-- **`stakingRcClient.set_keys`**: Set or rotate session keys for the validator. The operator submits this call as a proxy transaction through the staker's account.
+- **`stakingRcClient.set_keys`**: Set or rotate session keys for the validator. The operator submits this call as a proxy transaction through the staker's account. The `keys` and `proof` parameters must be the values returned by the `author_rotateKeysWithOwner(stash)` RPC call on the validator node.
 - **`stakingRcClient.purge_keys`**: Remove session keys from the validator. This is useful when decommissioning a validator node or rotating to a new server.
 
 !!! info "Key Deposit Required"

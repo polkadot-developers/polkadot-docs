@@ -98,7 +98,7 @@ Congratulations! You've now deployed a basic smart contract to Polkadot Hub Test
 
 <div class="status-badge" markdown>
 [![Deploy a Basic Contract with Hardhat](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-basic-hardhat.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-basic-hardhat.yml){target=\_blank}
-[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/smart-contracts/basic-hardhat/tests/recipe.test.ts){ .tests-button target=\_blank}
+[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/smart-contracts/basic-hardhat/tests/docs.test.ts){ .tests-button target=\_blank}
 </div>
 
 ## Where to Go Next

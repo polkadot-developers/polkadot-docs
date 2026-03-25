@@ -174,7 +174,7 @@ Test the new functionality:
 
 <div class="status-badge" markdown>
 [![Runtime Upgrades](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-runtime-upgrades.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-runtime-upgrades.yml){target=\_blank}
-[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/parachains/runtime-maintenance/runtime-upgrades/tests/guide.test.ts){ .tests-button target=\_blank}
+[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/parachains/runtime-maintenance/runtime-upgrades/tests/docs.test.ts){ .tests-button target=\_blank}
 </div>
 
 ## Where to Go Next

@@ -61,7 +61,7 @@ After generating your session keys and proof, you must submit them on-chain. The
     5. Enter the following parameters:
         - **`keys`**: The session keys hex string returned by `author_rotateKeysWithOwner`.
         - **`proof`**: The proof hex string returned by `author_rotateKeysWithOwner`.
-        - **`maxDeliveryAndRemoteExecutionFee`** - optional maximum fee for the XCM message to the relay chain. Can be left as `None`
+        - **`maxDeliveryAndRemoteExecutionFee`**: Optional maximum fee for the XCM message to the relay chain. Can be left as `None`.
     6. Submit and sign the transaction.
 
     ![](/images/node-infrastructure/run-a-validator/onboarding-and-offboarding/key-management/key-management-03.webp)

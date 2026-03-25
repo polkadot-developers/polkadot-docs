@@ -80,10 +80,10 @@
       return checksummed;
     }
 
-    function assetIdToERC20Address(assetId, assetType) {
+    function idToERC20Address(id, assetType) {
       const suffix = (assetType && ASSET_TYPES[assetType]) ? ASSET_TYPES[assetType].suffix : ASSET_TYPES.trustBacked.suffix;
-      const assetIdHex = padHex(assetId, 8);
-      const address = '0x' + assetIdHex + '0'.repeat(24) + suffix;
+      const idHex = padHex(id, 8);
+      const address = '0x' + idHex + '0'.repeat(24) + suffix;
       return toChecksumAddress(address);
     }
 
@@ -131,55 +131,6 @@
     }
 
     function buildConverterHTML() {
-      const root = document.getElementById('erc20-asset-converter-root');
-      if (!root) return;
-
-      root.innerHTML =
-        '<div class="erc20-asset-converter-container">' +
-        '  <h2 class="erc20-asset-converter-heading">Asset ID to ERC20 Address Converter</h2>' +
-        '  <p class="erc20-asset-converter-subtitle">Convert Assets pallet asset IDs to ERC20 precompile addresses</p>' +
-        '  <div class="erc20-asset-converter-box">' +
-        '    <div class="erc20-asset-converter-type-selector">' +
-        '      <label class="erc20-asset-converter-type-option">' +
-        '        <input type="radio" name="erc20AssetType" class="erc20-asset-converter-type-radio" value="trustBacked" checked> Trust-Backed Asset' +
-        '      </label>' +
-        '      <label class="erc20-asset-converter-type-option">' +
-        '        <input type="radio" name="erc20AssetType" class="erc20-asset-converter-type-radio" value="foreign"> Foreign Asset' +
-        '      </label>' +
-        '      <label class="erc20-asset-converter-type-option">' +
-        '        <input type="radio" name="erc20AssetType" class="erc20-asset-converter-type-radio" value="pool"> Pool Asset' +
-        '      </label>' +
-        '    </div>' +
-        '    <div class="erc20-asset-converter-input-section">' +
-        '      <div class="erc20-asset-converter-input-wrapper">' +
-        '        <label class="erc20-asset-converter-label" id="erc20AssetIdLabel" for="erc20AssetId">Asset ID (Decimal)</label>' +
-        '        <input type="number" id="erc20AssetId" class="erc20-asset-converter-input" min="0" max="' +
-        MAX_U32 +
-        '" placeholder="1984" inputmode="numeric">' +
-        '      </div>' +
-        '      <div id="erc20AssetIdError" class="erc20-asset-converter-error"></div>' +
-        '    </div>' +
-        '    <div id="erc20Results" class="erc20-asset-converter-results hidden">' +
-        '      <div class="erc20-asset-converter-result-item">' +
-        '        <span class="erc20-asset-converter-result-label" id="erc20ResultLabel">ERC20 Precompile Address</span>' +
-        '        <div class="erc20-asset-converter-output-wrapper">' +
-        '          <input type="text" id="' +
-        OUTPUT_INPUT_ID +
-        '" class="erc20-asset-converter-output" readonly spellcheck="false">' +
-        '          <button type="button" class="erc20-asset-converter-copy-button" title="Copy to clipboard" aria-label="Copy to clipboard">' +
-        '            <svg class="erc20-asset-converter-copy-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="9" y="9" width="13" height="13" rx="2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 15H4C2.89543 15 2 14.1046 2 13V4C2 2.89543 2.89543 2 4 2H13C14.1046 2 15 2.89543 15 4V5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
-        '            <svg class="erc20-asset-converter-check-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 6L9 17L4 12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
-        '            <span class="erc20-asset-converter-copy-feedback" aria-live="polite">Copied!</span>' +
-        '          </button>' +
-        '        </div>' +
-        '      </div>' +
-        '    </div>' +
-        '    <div id="erc20FormatInfo" class="erc20-asset-converter-info">' +
-        '      <strong>Format:</strong> <code>0x</code> + assetId (8 hex) + 24 zeros + <code>01200000</code>' +
-        '    </div>' +
-        '  </div>' +
-        '</div>';
-
       const assetIdInput = document.getElementById('erc20AssetId');
       const assetIdLabel = document.getElementById('erc20AssetIdLabel');
       const resultsEl = document.getElementById('erc20Results');
@@ -187,8 +138,8 @@
       const outputEl = document.getElementById(OUTPUT_INPUT_ID);
       const errorEl = document.getElementById('erc20AssetIdError');
       const formatInfoEl = document.getElementById('erc20FormatInfo');
-      const copyBtn = root.querySelector('.erc20-asset-converter-copy-button');
-      const typeRadios = root.querySelectorAll('.erc20-asset-converter-type-radio');
+      const copyBtn = document.querySelector('.erc20-asset-converter-copy-button');
+      const typeRadios = document.querySelectorAll('.erc20-asset-converter-type-radio');
 
       function getSelectedType() {
         for (var i = 0; i < typeRadios.length; i++) {
@@ -227,7 +178,7 @@
         }
 
         try {
-          const address = assetIdToERC20Address(assetId, assetType);
+          const address = idToERC20Address(assetId, assetType);
           outputEl.value = address;
           resultsEl.classList.remove('hidden');
         } catch (e) {

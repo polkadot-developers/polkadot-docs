@@ -12,11 +12,11 @@ extra_css:
 
 # ERC20 Precompile
 
-<div id="erc20-asset-converter-root"></div>
+--8<-- 'code/smart-contracts/precompiles/erc20/erc20-converter.html'
 
 ## Introduction
 
-The ERC20 precompile provides a standard ERC20 token interface for interacting with assets managed by the [Assets pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_assets/index.html){target=\_blank}, helping smart contracts to interact with native Polkadot assets (such as USDT, USDC, and other tokens) using familiar Ethereum-style ERC20 calls. Polkadot Hub runs three instances of the Assets pallet — Trust-Backed Assets, Foreign Assets, and Pool Assets — each mapped to a distinct ERC20 precompile address prefix.
+The ERC20 precompile provides a standard ERC20 token interface for interacting with assets managed by the [Assets pallet](https://paritytech.github.io/polkadot-sdk/master/pallet_assets/index.html){target=\_blank}, helping smart contracts to interact with native Polkadot assets (such as USDT, USDC, and other tokens) using familiar Ethereum-style ERC20 calls. Polkadot Hub runs three instances of the Assets pallet — Trust-Backed Assets, Foreign Assets, and Pool Assets — each mapped to a distinct ERC20 precompile address suffix.
 
 Each asset is mapped to a unique precompile address based on its asset ID or foreign asset index. The precompile implements core ERC20 functionality:
 
@@ -26,13 +26,13 @@ Each asset is mapped to a unique precompile address based on its asset ID or for
 
 ## Supported Asset Types
 
-The ERC20 precompile supports three categories of assets, each with its own address prefix.
+The ERC20 precompile supports three categories of assets, each with its own address suffix.
 
 ### Trust-Backed Assets
 
 Trust-Backed Assets are created directly in the Assets pallet on Polkadot Hub and assigned a u32 asset ID.
 
-- **Address prefix**: `0x0120`
+- **Address suffix**: `01200000`
 - **Address format**: `0x` + assetId (8 hex digits, zero-padded) + 24 zero digits + `01200000`
 - **Example**: Asset ID `1984` → `0x000007C000000000000000000000000001200000`
 
@@ -40,7 +40,7 @@ Trust-Backed Assets are created directly in the Assets pallet on Polkadot Hub an
 
 Foreign Assets originate from other chains and are identified on-chain by their XCM Location. The ERC20 precompile uses a u32 index—not the XCM Location directly—to derive the precompile address.
 
-- **Address prefix**: `0x0220`
+- **Address suffix**: `02200000`
 - **Address format**: `0x` + foreignAssetIndex (8 hex digits, zero-padded) + 24 zero digits + `02200000`
 - **Example**: Foreign Asset Index `0` → `0x0000000000000000000000000000000002200000`
 
@@ -48,8 +48,9 @@ Foreign Assets originate from other chains and are identified on-chain by their 
 
 Since foreign asset IDs are XCM Locations (not simple integers), the runtime assigns each foreign asset a sequential u32 index when it is registered. To derive the ERC20 precompile address for a foreign asset, follow these steps:
 
-1. **Get the XCM Location** of the foreign asset (for example, `{ parents: 1, interior: X1(Parachain(2313)) }`)
-2. **Query the index** — in [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank}:
+1. Get the XCM location of the foreign asset (for example, `{ parents: 1, interior: X1(Parachain(2313)) }`).
+2. Query the index in [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank}:
+
     1. Navigate to **Developer > Chain State**.
     2. Select **assetsPrecompiles** from the module dropdown.
     3. Select **foreignAssetIdToAssetIndex** from the call dropdown.
@@ -57,13 +58,13 @@ Since foreign asset IDs are XCM Locations (not simple integers), the runtime ass
 
     ![](/images/smart-contracts/precompiles/erc20/erc20-01.webp)
 
-3. **Derive the address** — enter that u32 index into the Foreign Asset mode of the converter above to get the ERC20 precompile address
+3. Enter that u32 index into the Foreign Asset mode of the converter above to derive the ERC20 precompile address.
 
 ### Pool Assets
 
 Pool Assets are created by liquidity pool operations on Polkadot Hub and assigned a u32 asset ID.
 
-- **Address prefix**: `0x0320`
+- **Address suffix**: `03200000`
 - **Address format**: `0x` + assetId (8 hex digits, zero-padded) + 24 zero digits + `03200000`
 - **Example**: Pool Asset ID `0` → `0x0000000000000000000000000000000003200000`
 
@@ -253,9 +254,9 @@ require(success, "Transfer from failed");
 
 For the complete implementation, refer to the [ERC20 precompile source code](https://github.com/paritytech/polkadot-sdk/blob/11be995be95ac1e25a5b2a6dd941006e7097bffc/substrate/frame/assets/precompiles/src/lib.rs){target=\_blank} in the Polkadot SDK.
 
-## Common Asset IDs and Indexes
+## Common Trust-Backed Asset IDs
 
-The following well-known assets are registered on Polkadot Hub and accessible via the ERC20 precompile:
+The following well-known Trust-Backed Assets are registered on Polkadot Hub and accessible via the ERC20 precompile:
 
 | Asset ID | Symbol | Name | Decimals | ERC20 Precompile Address |
 |:---:|:---:|:---:|:---:|:---:|
@@ -275,11 +276,10 @@ To interact with the ERC20 precompile in [Remix IDE](/smart-contracts/dev-enviro
     ![](/images/smart-contracts/precompiles/erc20/erc20-02.webp)
 
 3. Compile the interface by selecting the compile button or using **Ctrl + S**
-4. Calculate the ERC20 precompile address for your asset using the Asset ID to ERC20 Address converter above
-   
-    - **Unique address**: Each asset is mapped to a unique precompile address based on its asset ID.
-    - **Format**: `0x[assetId (8 hex)] + [24 zeros] + [prefix (8 hex)]`
-    - **Example**: Asset ID `1984` (USD Tether) → `0x000007C000000000000000000000000001200000`
+4. Calculate the ERC20 precompile address for your asset using the converter above. Select the appropriate asset type (Trust-Backed, Foreign, or Pool), then enter the asset ID or foreign asset index.
+
+    - **Trust-Backed example**: Asset ID `1984` (USDt) → `0x000007C000000000000000000000000001200000`
+    - **Foreign Asset example**: Foreign Asset Index `0` → `0x0000000000000000000000000000000002200000`
 
 5. In the **Deploy & Run Transactions** tab, select the `IERC20` interface from the contract dropdown
 6. Enter the calculated precompile address in the **At Address** input field

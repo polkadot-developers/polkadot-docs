@@ -14,8 +14,8 @@ After setting up your node environment as shown in the [Setup](/node-infrastruct
 
 Setting up your validator's session keys is essential to associate your node with your stash account on the Polkadot network. Validators use session keys to participate in the consensus process. Your validator can only perform its role in the network by properly setting session keys which consist of several key pairs for different parts of the protocol (e.g., GRANDPA, BABE). These keys must be registered on-chain and associated with your validator node to ensure it can participate in validating blocks.
 
-!!! warning "Breaking change in runtime 2603"
-    Starting with the 2603 runtime release (live on Westend, expected on Kusama and Polkadot in April 2026), session key generation uses the new `author_rotateKeysWithOwner` RPC, which requires your stash account as a parameter and returns both the session keys and a cryptographic proof of ownership. This proof must be included when submitting `set_keys`. The previous `author_rotateKeys` RPC and the Subkey approach are no longer supported for new key generation. If your validator already has session keys set on-chain and you are not rotating them, no action is required.
+!!! warning "Breaking change in runtime 2.2.0"
+    Starting with runtime 2.2.0, session key generation uses the new `author_rotateKeysWithOwner` RPC, which requires your stash account as a parameter and returns both the session keys and a cryptographic proof of ownership. This proof must be included when submitting `set_keys`. The previous `author_rotateKeys` RPC and the Subkey approach are no longer supported for new key generation. If your validator already has session keys set on-chain and you are not rotating them, no action is required. These changes can already be tested on Westend.
 
 ### Generate Session Keys
 
@@ -41,7 +41,10 @@ This command returns a JSON object with two fields in the `result`: `keys` (the 
 ```
 
 !!! note "Subkey is no longer supported for session key generation"
-    Previously, validators could generate session keys externally using `subkey` and manually insert them into the node's keystore. This approach is no longer viable because `set_keys` now requires a cryptographic proof of ownership — each private session key must sign the stash account ID. There is no RPC available to generate this proof for externally-created keys; the only way to obtain it is through `author_rotateKeysWithOwner`, which handles key generation, keystore insertion, and proof generation in a single step. Validators who previously relied on `subkey` for session key generation should migrate to using `author_rotateKeysWithOwner` as described above.
+    Previously, validators could generate session keys externally using `subkey` and manually insert them into the node's keystore. This approach is no longer viable because `set_keys` now requires a cryptographic proof of ownership — each private session key must sign the stash account ID. The only way to obtain this proof is through `author_rotateKeysWithOwner`, which handles key generation, keystore insertion, and proof generation in a single step. Validators who previously relied on `subkey` for session key generation should migrate to using `author_rotateKeysWithOwner` as described above.
+
+!!! note "No RPC to generate proof for existing keys"
+    There is currently no RPC endpoint to generate an ownership proof for session keys that are already in the node's keystore. To obtain a valid proof, you must rotate to new keys using `author_rotateKeysWithOwner`. Support for generating proofs from existing keys may be added in a future release.
 
 ### Submit Transaction to Set Keys
 

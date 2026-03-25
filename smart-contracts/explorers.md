@@ -25,25 +25,32 @@ Block explorers provide essential capabilities for interacting with smart contra
 
 The following block explorers are available for Polkadot Hub smart contracts, providing specialized tools for monitoring and analyzing contract activity.
 
-<!-- ### Subscan
+### BlockScout
 
-Subscan is the flagship Polkadot ecosystem block explorer with comprehensive support for smart contracts. It provides robust transaction indexing, account analysis, and monitoring tools specifically optimized for Polkadot SDK-based networks.
+BlockScout is an open-source explorer platform hosted by Parity under the `polkadot.io` domain. It excels at EVM-focused analytics, contract verification without an API key, and provides developers with a full Etherscan-compatible API.
 
-- [Westend Hub Subscan](https://assethub-westend.subscan.io/){target=\_blank}
+- [Polkadot Hub BlockScout](https://blockscout.polkadot.io/){target=\_blank}
+- [Polkadot Hub TestNet BlockScout](https://blockscout-testnet.polkadot.io/){target=\_blank}
+- [Kusama Hub BlockScout](https://blockscout-kusama.polkadot.io/){target=\_blank}
 
-![](/images/smart-contracts/explorers/block-explorers-1.webp) -->
-
-<!-- ### BlockScout
-
-BlockScout is an open-source explorer platform with a user-friendly interface. It excels at detailed contract analytics and provides developers with comprehensive API access.
-
-- [Polkadot Hub TestNet BlockScout](https://blockscout-passet-hub.parity-testnet.parity.io/){target=\_blank}
-
-![](/images/smart-contracts/explorers/explorers-01.webp) -->
+![](/images/smart-contracts/explorers/explorers-01.webp)
 
 ### Routescan
 
-Routescan delivers multi-chain explorer capabilities with specialized support for Polkadot Hub.
+Routescan delivers multi-chain explorer capabilities with an Etherscan-compatible interface and API. It provides contract verification using an API key and supports both Polkadot Hub mainnet and TestNet.
 
 - [Polkadot Hub Routescan](https://polkadot.routescan.io/){target=\_blank}
+- [Polkadot Hub TestNet Routescan](https://polkadot.testnet.routescan.io/){target=\_blank}
+- [Kusama Hub Routescan](https://kusama.routescan.io/){target=\_blank}
 
+![](/images/smart-contracts/explorers/explorers-02.webp)
+
+### Subscan
+
+Subscan is the flagship Polkadot ecosystem block explorer. It is Substrate-native and provides comprehensive support for both Substrate-level data (pallets, extrinsics, events) and EVM transactions and smart contracts, making it well-suited for inspecting both layers simultaneously.
+
+- [Polkadot Hub Subscan](https://assethub-polkadot.subscan.io/){target=\_blank}
+- [Polkadot Hub TestNet Subscan](https://assethub-paseo.subscan.io/){target=\_blank}
+- [Kusama Hub Subscan](https://assethub-kusama.subscan.io/){target=\_blank}
+
+![](/images/smart-contracts/explorers/explorers-03.webp)

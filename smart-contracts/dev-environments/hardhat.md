@@ -11,6 +11,10 @@ toggle:
 
 # Hardhat
 
+<div class="status-badge" markdown>
+[![Hardhat EVM](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-hardhat-evm.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-hardhat-evm.yml){target=\_blank}
+</div>
+
 ## Introduction
 
 [Hardhat](https://hardhat.org/){target=\_blank} is a flexible development environment for building, testing, and deploying smart contracts on Polkadot. Its task runner and plugin system support organizing contract code, running tests, managing deployments, and adding custom tooling. This page demonstrates how to set up a Hardhat project for Polkadot Hub.
@@ -235,6 +239,11 @@ Example for a contract with constructor `(uint256 initialValue, address owner)`:
 ```bash
 npx hardhat verify --network polkadotTestnet INSERT_CONTRACT_ADDRESS "42" "0x1234567890123456789012345678901234567890"
 ```
+
+<div class="status-badge" markdown>
+[![Hardhat EVM](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-hardhat-evm.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-hardhat-evm.yml){target=\_blank}
+[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/smart-contracts/dev-environments/hardhat-evm/tests/recipe.test.ts){ .tests-button target=\_blank}
+</div>
 
 ## Where to Go Next
 

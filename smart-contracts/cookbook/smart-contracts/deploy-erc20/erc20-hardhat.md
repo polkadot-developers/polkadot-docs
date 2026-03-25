@@ -112,7 +112,7 @@ Congratulations! You've successfully deployed an ERC-20 token contract to Polkad
 
 <div class="status-badge" markdown>
 [![Deploy ERC-20 Hardhat](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-erc20-hardhat.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-erc20-hardhat.yml){target=\_blank}
-[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/smart-contracts/erc20-hardhat/tests/recipe.test.ts){ .tests-button target=\_blank}
+[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/smart-contracts/erc20-hardhat/tests/docs.test.ts){ .tests-button target=\_blank}
 </div>
 
 ## Where to Go Next

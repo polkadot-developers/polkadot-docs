@@ -80,7 +80,7 @@ After generating your session keys and proof, you must submit them on-chain. The
     3. Select your stash account.
     4. Choose the **session** pallet and the **setKeys** extrinsic.
     5. Enter the following parameters:
-        - **`keys`** - the session keys hex string returned by `author_rotateKeysWithOwner`
+        - **`keys`**: The session keys hex string returned by `author_rotateKeysWithOwner`.
         - **`proof`** - the proof hex string returned by `author_rotateKeysWithOwner`
     6. Submit and sign the transaction.
 

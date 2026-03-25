@@ -41,7 +41,7 @@ This command returns a JSON object with two fields in the `result`: `keys` (the 
 ```
 
 !!! note "Subkey is no longer supported for session key generation"
-    Previously, validators could generate session keys externally using `subkey` and manually insert them into the node's keystore. This approach is no longer viable because `set_keys` now requires a cryptographic proof of ownership that can only be produced by the node itself — each private session key must sign the stash account ID. The `author_rotateKeysWithOwner` RPC handles key generation, keystore insertion, and proof generation in a single step.
+    Previously, validators could generate session keys externally using `subkey` and manually insert them into the node's keystore. This approach is no longer viable because `set_keys` now requires a cryptographic proof of ownership — each private session key must sign the stash account ID. There is no RPC available to generate this proof for externally-created keys; the only way to obtain it is through `author_rotateKeysWithOwner`, which handles key generation, keystore insertion, and proof generation in a single step. Validators who previously relied on `subkey` for session key generation should migrate to using `author_rotateKeysWithOwner` as described above.
 
 ### Submit Transaction to Set Keys
 

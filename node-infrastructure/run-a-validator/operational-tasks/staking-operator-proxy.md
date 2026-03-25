@@ -101,8 +101,8 @@ Polkadot Hub introduces a new path for session key management through the `staki
 
 The `stakingRcClient` pallet provides two extrinsics for session key management:
 
-- **`stakingRcClient.set_keys`**: Set or rotate session keys for the validator. The operator submits this call as a proxy transaction through the staker's account. This requires a deposit of approximately 60 DOT on the validator account.
-- **`stakingRcClient.purge_keys`**: Remove session keys from the validator. This is useful when decommissioning a validator node or rotating to a new server. Calling this extrinsic releases the key deposit.
+- **`stakingRcClient.set_keys`**: Set or rotate session keys for the validator. The operator submits this call as a proxy transaction through the staker's account. This requires a deposit of approximately 60 DOT (or ~2 KSM on Kusama) on the validator account.
+- **`stakingRcClient.purge_keys`**: Remove session keys from the validator. This is useful when decommissioning a validator node or rotating to a new server. Calling this extrinsic releases the key deposit. Note that purging keys via the relay chain (`session.purgeKeys`) does **not** release this deposit.
 
 !!! info "Key Deposit Required"
     Setting session keys via `stakingRcClient.set_keys` requires a deposit of approximately 60 DOT (or ~2 KSM on Kusama) to cover the on-chain storage cost of key registration. This deposit is **only** released when `stakingRcClient.purge_keys` is called on Polkadot Hub. Purging keys via the relay chain (`session.purgeKeys`) does not release this deposit.

@@ -69,7 +69,7 @@ After generating your session keys and proof, you must submit them on-chain. The
     Polkadot Hub validates the proof locally and forwards the keys to the relay chain via XCM.
 
     !!! note
-        Setting session keys on Polkadot Hub requires a deposit of approximately 60 DOT (or ~2 KSM on Kusama). This deposit is **only** released when you call `stakingRcClient.purgeKeys` on Polkadot Hub — purging keys via the relay chain (`session.purgeKeys`) does not release this deposit.
+        Setting session keys on Polkadot Hub requires a deposit of approximately 60 DOT (or ~2 KSM on Kusama). This deposit is only released when you call `stakingRcClient.purgeKeys` on Polkadot Hub — purging keys via the relay chain (`session.purgeKeys`) does not release this deposit.
 
 === "Relay Chain (Legacy)"
 

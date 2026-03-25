@@ -28,7 +28,7 @@ While simple oracle implementations may rely on a single trusted provider, more 
 
     ---
 
-    DIA is a cross-chain, trustless oracle network delivering verifiable price feeds for the Polkadot ecosystem. DIA sources raw trade data directly from primary markets and computes it onchain, ensuring complete transparency and data integrity.
+    DIA is a trustless oracle network for the Polkadot ecosystem, where data aggregation and computation happen onchain via rollup-based architecture, making every price feed fully verifiable end-to-end. The oracle stack covers the full asset spectrum: real-time price feeds sourced from 100+ exchanges for liquid assets, and fundamental valuation for illiquid assets like tokenized treasuries and yield-bearing tokens.
 
     [:octicons-arrow-right-24: Reference](https://www.diadata.org/docs){target=\_blank}
 

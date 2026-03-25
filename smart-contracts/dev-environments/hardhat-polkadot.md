@@ -10,6 +10,10 @@ toggle:
 
 # Hardhat Polkadot
 
+<div class="status-badge" markdown>
+[![Hardhat PVM](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-hardhat-pvm.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-hardhat-pvm.yml){target=\_blank}
+</div>
+
 ## Introduction
 
 [Hardhat](https://hardhat.org/){target=\_blank} is a flexible development environment for building, testing, and deploying smart contracts. With the [`@parity/hardhat-polkadot`](https://github.com/paritytech/hardhat-polkadot){target=\_blank} plugin, you can compile Solidity contracts to PVM bytecode and deploy them to Polkadot Hub. This page demonstrates how to set up a Hardhat project for PVM development.
@@ -183,6 +187,11 @@ After testing locally, you can deploy to the Polkadot Hub TestNet:
 - **Compilation fails with resolc errors**: Ensure you have `@parity/resolc@0.2.0` installed and the version is specified in your `hardhat.config.js`
 - **Deployment hangs on local node**: You might need to set `ignition.requiredConfirmations: 1` in your config file
 - **Binary permission issues**: Run `chmod +x /path/to/your/binary` and on macOS, use `xattr -d com.apple.quarantine /path/to/your/binary`
+
+<div class="status-badge" markdown>
+[![Hardhat PVM](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-hardhat-pvm.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-hardhat-pvm.yml){target=\_blank}
+[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/smart-contracts/dev-environments/hardhat-pvm/tests/recipe.test.ts){ .tests-button target=\_blank}
+</div>
 
 ## Where to Go Next
 

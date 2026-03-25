@@ -60,7 +60,7 @@ After generating your session keys and proof, you must submit them on-chain. The
     4. Choose the **stakingRcClient** pallet and the **setKeys** extrinsic.
     5. Enter the following parameters:
         - **`keys`**: The session keys hex string returned by `author_rotateKeysWithOwner`.
-        - **`proof`** - the proof hex string returned by `author_rotateKeysWithOwner`
+        - **`proof`**: The proof hex string returned by `author_rotateKeysWithOwner`.
         - **`maxDeliveryAndRemoteExecutionFee`** - optional maximum fee for the XCM message to the relay chain. Can be left as `None`
     6. Submit and sign the transaction.
 

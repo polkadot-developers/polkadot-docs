@@ -155,7 +155,7 @@ Rust provides low-level access to Substrate primitives for account creation thro
 
 <div class="status-badge" markdown>
 [![Create an Account](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-create-account.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-create-account.yml){target=\_blank}
-[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/chain-interactions/create-account/tests/recipe.test.ts){ .tests-button target=\_blank}
+[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/chain-interactions/create-account/tests/docs.test.ts){ .tests-button target=\_blank}
 </div>
 
 ## Where to Go Next

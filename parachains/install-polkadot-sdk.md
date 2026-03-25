@@ -407,7 +407,7 @@ To stop the node, press `Control-C` in the terminal.
 
 <div class="status-badge" markdown>
 [![Install Polkadot SDK](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-install-polkadot-sdk.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-install-polkadot-sdk.yml){target=\_blank}
-[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/parachains/install-polkadot-sdk/tests/guide.test.ts){ .tests-button target=\_blank}
+[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/parachains/install-polkadot-sdk/tests/docs.test.ts){ .tests-button target=\_blank}
 </div>
 
 ## Where to Go Next

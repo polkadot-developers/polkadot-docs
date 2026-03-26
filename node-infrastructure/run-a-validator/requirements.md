@@ -41,7 +41,7 @@ Polkadot validators rely on high-performance hardware to process blocks efficien
 - Storage:
 
     - **NVMe SSD**: At least 2 TB for blockchain data recommended (prioritize latency rather than throughput).
-    - Storage requirements will increase as the chain grows. For current estimates, see the [current chain snapshot](https://stakeworld.io/docs/dbsize){target=\_blank}.
+    - Storage requirements will increase as the chain grows. For current estimates, see the [current chain snapshot](https://stakeworld.github.io/docs/dbsize){target=\_blank}.
 
 - Memory:
 

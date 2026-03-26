@@ -52,7 +52,7 @@ The Polkadot Hub consists of several specialized system parachains and services 
 
 ### Consensus & Security
 
-[Consensus & Security](/reference/polkadot-hub/consensus-and-security/relay-chain/){target=\_blank} covers the fundamental mechanisms that protect the network. Learn about validator participation, how the relay chain validates all transactions, and the cryptoeconomic incentives that secure Polkadot. Understanding these mechanisms is essential for validators and anyone building critical infrastructure on the network.
+[Consensus and Security](/reference/polkadot-hub/consensus-and-security/relay-chain/){target=\_blank} covers the fundamental mechanisms that protect the network. Learn about validator participation, how the relay chain validates all transactions, and the cryptoeconomic incentives that secure Polkadot. Understanding these mechanisms is essential for validators and anyone building critical infrastructure on the network.
 
 ### Collectives & DAOs
 

@@ -4,4 +4,5 @@ nav:
  - 'Query On-Chain Data': query-data
  - 'Send Transactions': send-transactions
  - 'Manage Tokens': token-operations
+ - 'Store Data': store-data
  - 'Manage Accounts': accounts

@@ -154,7 +154,7 @@ The typical lifecycle of data on the Bulletin Chain follows these steps:
 ## Size Limits
 
 | Parameter | Value |
-|:---|:---|
+|:---:|:--:|
 | Max transaction size | ~8 MiB |
 | Max file size (chunked) | ~64 MiB |
 | Retention period (Polkadot TestNet) | ~2 weeks |
@@ -164,7 +164,7 @@ For files larger than the max transaction size, data must be split into chunks u
 ## Network Endpoints
 
 | Network | Endpoint |
-|:---|:---|
+|:--:|:--:|
 | Bulletin Chain RPC (Polkadot TestNet) | `wss://paseo-bulletin-rpc.polkadot.io` |
 | IPFS Gateway (Polkadot TestNet) | `https://paseo-ipfs.polkadot.io` |
 

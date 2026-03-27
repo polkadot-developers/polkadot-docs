@@ -142,13 +142,13 @@ To install the Rust toolchain on Linux:
     === "Ubuntu"
 
         ```bash
-        sudo apt install --assume-yes git clang curl libssl-dev protobuf-compiler
+        sudo apt install --assume-yes git clang curl libssl-dev llvm libclang-dev libudev-dev make protobuf-compiler
         ```
 
     === "Debian"
 
         ```sh
-        sudo apt install --assume-yes git clang curl libssl-dev llvm libudev-dev make protobuf-compiler
+        sudo apt install --assume-yes git clang curl libssl-dev llvm libclang-dev libudev-dev make protobuf-compiler
         ```
 
     === "Arch"
@@ -269,7 +269,7 @@ To install the Rust toolchain on WSL:
 5. Add the required packages for the Ubuntu distribution by running the following command:
 
     ```bash
-    sudo apt install --assume-yes git clang curl libssl-dev llvm libudev-dev make protobuf-compiler
+    sudo apt install --assume-yes git clang curl libssl-dev llvm libclang-dev libudev-dev make protobuf-compiler
     ```
 
 6. Download the `rustup` installation program and use it to install Rust for the Ubuntu distribution by running the following command:
@@ -407,7 +407,7 @@ To stop the node, press `Control-C` in the terminal.
 
 <div class="status-badge" markdown>
 [![Install Polkadot SDK](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-install-polkadot-sdk.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-install-polkadot-sdk.yml){target=\_blank}
-[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/parachains/install-polkadot-sdk/tests/guide.test.ts){ .tests-button target=\_blank}
+[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/parachains/install-polkadot-sdk/tests/docs.test.ts){ .tests-button target=\_blank}
 </div>
 
 ## Where to Go Next

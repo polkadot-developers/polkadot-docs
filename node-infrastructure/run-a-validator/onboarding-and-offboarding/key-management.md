@@ -14,70 +14,78 @@ After setting up your node environment as shown in the [Setup](/node-infrastruct
 
 Setting up your validator's session keys is essential to associate your node with your stash account on the Polkadot network. Validators use session keys to participate in the consensus process. Your validator can only perform its role in the network by properly setting session keys which consist of several key pairs for different parts of the protocol (e.g., GRANDPA, BABE). These keys must be registered on-chain and associated with your validator node to ensure it can participate in validating blocks.
 
+!!! warning "Breaking change in runtime 2.2.0"
+    Starting with runtime 2.2.0, session key generation uses the new `author_rotateKeysWithOwner` RPC, which requires your stash account as a parameter and returns both the session keys and a cryptographic proof of ownership. This proof must be included when submitting `set_keys`. The previous `author_rotateKeys` RPC and the Subkey approach are no longer supported for new key generation. If your validator already has session keys set on-chain and you are not rotating them, no action is required. These changes can already be tested on Westend.
+
 ### Generate Session Keys
 
-There are multiple ways to create the session keys. It can be done by interacting with the [Polkadot.js Apps UI](https://polkadot.js.org/apps/#/explorer){target=\_blank}, using the curl command or by using [Subkey](https://paritytech.github.io/polkadot-sdk/master/subkey/index.html){target=\_blank}.
+Generate session keys by running the following command on your validator node, replacing `INSERT_STASH_ACCOUNT_ID` with your validator's stash account ID:
 
-=== "Polkadot.js Apps UI"
+``` bash
+curl -H "Content-Type: application/json" \
+-d '{"id":1, "jsonrpc":"2.0", "method": "author_rotateKeysWithOwner", "params":["INSERT_STASH_ACCOUNT_ID"]}' \
+http://localhost:9944
+```
 
-    1. In Polkadot.js Apps, connect to your local node, navigate to the **Developer** dropdown, and select the **RPC Calls** option.
+This command returns a JSON object with two fields in the `result`: `keys` (the hex-encoded session keys) and `proof` (the ownership proof). Save both values for later use.
 
-    2. Construct an `author_rotateKeys` RPC call and execute it:
+```json
+{
+  "jsonrpc": "2.0",
+  "result": {
+    "keys": "0xda3861a45e0197f3ca145c2c209f9126e5053fas503e459af4255cf8011d51010",
+    "proof": "0x1a2b3c4d5e6f..."
+  },
+  "id": 1
+}
+```
 
-        1. Select the **author** endpoint.
-        2. Choose the **rotateKeys()** call.
-        3. Click the **Submit RPC Call** button.
-        4. Copy the hex-encoded public key from the response.
+!!! note "Subkey is no longer supported for session key generation"
+    Previously, validators could generate session keys externally using `subkey` and manually insert them into the node's keystore. This approach is no longer viable because `set_keys` now requires a cryptographic proof of ownership — each private session key must sign the stash account ID. The only way to obtain this proof is through `author_rotateKeysWithOwner`, which handles key generation, keystore insertion, and proof generation in a single step. Validators who previously relied on `subkey` for session key generation should migrate to using `author_rotateKeysWithOwner` as described above.
 
-        ![](/images/node-infrastructure/run-a-validator/onboarding-and-offboarding/key-management/key-management-01.webp)
-
-=== "Curl"
-
-    Generate session keys by running the following command on your validator node:
-
-    ``` bash
-    curl -H "Content-Type: application/json" \
-    -d '{"id":1, "jsonrpc":"2.0", "method": "author_rotateKeys", "params":[]}' \
-    http://localhost:9944
-    ```
-
-    This command will return a JSON object. The `result` key is the hex-encoded public part of the newly created session key. Save this for later use.
-    
-    ```json
-    {"jsonrpc":"2.0","result":"0xda3861a45e0197f3ca145c2c209f9126e5053fas503e459af4255cf8011d51010","id":1}
-    ```
-
-=== "Subkey"
-
-    To create a keypair for your node's session keys, use the `subkey generate` command. This generates a set of cryptographic keys that must be stored in your node's keystore directory.
-
-    When you run the command, it produces output similar to this example:
-
-    --8<-- 'code/node-infrastructure/run-a-validator/onboarding-and-offboarding/key-management/subkey-generate.html'
-
-    To properly store these keys, create a file in your keystore directory with a specific naming convention. The filename must consist of the hex string `61757261` (which represents "aura" in hex) followed by the public key without its `0x` prefix.
-
-    Using the example above, you would create a file named:
-
-    ```
-    ./keystores/6175726128cc2fdb6e28835e2bbac9a16feb65c23d448c9314ef12fe083b61bab8fc2755
-    ```
-
-    And store only the secret phrase in the file:
-
-    ```
-    "twist buffalo mixture excess device drastic vague mammal fitness punch match hammer"
-    ```
+!!! note "No RPC to generate proof for existing keys"
+    There is currently no RPC endpoint to generate an ownership proof for session keys that are already in the node's keystore. To obtain a valid proof, you must rotate to new keys using `author_rotateKeysWithOwner`. Support for generating proofs from existing keys may be added in a future release.
 
 ### Submit Transaction to Set Keys
 
-Now that you have generated your session keys, you must submit them to the chain. Follow these steps:
+After generating your session keys and proof, you must submit them on-chain. There are two paths for submitting session keys:
 
-1. Go to the **Network > Staking > Accounts** section on Polkadot.js Apps.
-2. Select **Set Session Key** on the bonding account you generated earlier.
-3. Paste the hex-encoded session key string you generated (from either the UI or CLI) into the input field and submit the transaction.
+=== "Polkadot Hub (Recommended)"
 
-![](/images/node-infrastructure/run-a-validator/onboarding-and-offboarding/key-management/key-management-02.webp)
+    The recommended approach is to use the `stakingRcClient.set_keys` extrinsic on Polkadot Hub. This path is required for validators using pure proxy stash accounts or [Staking Operator proxies](/node-infrastructure/run-a-validator/operational-tasks/staking-operator-proxy/){target=\_blank}.
+
+    1. In Polkadot.js Apps, connect to **Polkadot Hub** (Asset Hub).
+    2. Navigate to **Developer > Extrinsics**.
+    3. Select your stash account (or submit via proxy).
+    4. Choose the **stakingRcClient** pallet and the **setKeys** extrinsic.
+    5. Enter the following parameters:
+        - **`keys`**: The session keys hex string returned by `author_rotateKeysWithOwner`.
+        - **`proof`**: The proof hex string returned by `author_rotateKeysWithOwner`.
+        - **`maxDeliveryAndRemoteExecutionFee`**: Optional maximum fee for the XCM message to the relay chain. Can be left as `None`.
+    6. Submit and sign the transaction.
+
+    ![](/images/node-infrastructure/run-a-validator/onboarding-and-offboarding/key-management/key-management-03.webp)
+
+    Polkadot Hub validates the proof locally and forwards the keys to the relay chain via XCM.
+
+    !!! note
+        Setting session keys on Polkadot Hub requires a deposit of approximately 60 DOT (or ~2 KSM on Kusama). This deposit is only released when you call `stakingRcClient.purgeKeys` on Polkadot Hub — purging keys via the relay chain (`session.purgeKeys`) does not release this deposit.
+
+=== "Relay Chain (Legacy)"
+
+    You can also submit session keys directly on the relay chain using `session.setKeys`. This path will be deprecated in a future release.
+
+    1. In Polkadot.js Apps, connect to the **relay chain**.
+    2. Navigate to **Developer > Extrinsics**.
+    3. Select your stash account.
+    4. Choose the **session** pallet and the **setKeys** extrinsic.
+    5. Enter the following parameters:
+        - **`keys`**: The session keys hex string returned by `author_rotateKeysWithOwner`.
+        - **`proof`**: The proof hex string returned by `author_rotateKeysWithOwner`.
+    6. Submit and sign the transaction.
+
+    !!! warning
+        The relay chain `session.setKeys` path is legacy and will be deprecated. Use the Polkadot Hub path for new setups.
 
 Once the transaction is signed and submitted, your session keys will be registered on-chain.
 

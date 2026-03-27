@@ -114,7 +114,7 @@ Follow these steps to use Polkadot.js Apps to activate your validator:
 
     ![](/images/node-infrastructure/run-a-validator/onboarding-and-offboarding/start-validating/start-validating-03.webp)
 
-4. Paste the hex output from `author_rotateKeys`, set the commission, allow or block new nominations, then click **Bond & Validate** to link your validator with its session keys.
+4. Paste the session keys and proof from `author_rotateKeysWithOwner`, set the commission, allow or block new nominations, then click **Bond & Validate** to link your validator with its session keys.
 
     ![](/images/node-infrastructure/run-a-validator/onboarding-and-offboarding/start-validating/start-validating-04.webp)
 

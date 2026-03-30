@@ -119,9 +119,9 @@ The Bulletin Chain follows a **"write-to-chain, read-from-network"** architectur
 
 When you store data on the Bulletin Chain, the following happens:
 
-1. **CID generation** — the chain computes an IPFS-compatible [Content Identifier (CID)](https://docs.ipfs.tech/concepts/content-addressing/){target=\_blank} from your data using a cryptographic hash. This CID uniquely identifies the content regardless of where it is stored
-2. **Bitswap serving** — Bulletin Chain validator nodes implement the IPFS [Bitswap](https://docs.ipfs.tech/concepts/bitswap/){target=\_blank} wire protocol, which is the standard way IPFS nodes exchange data blocks. IPFS clients can request data directly from validator nodes using the CID
-3. **DHT registration** — validator nodes register as content providers on the IPFS [Kademlia DHT](https://docs.ipfs.tech/concepts/dht/){target=\_blank}, making stored data discoverable by the IPFS network
+1. **CID generation**: The chain computes an IPFS-compatible [Content Identifier (CID)](https://docs.ipfs.tech/concepts/content-addressing/){target=\_blank} from your data using a cryptographic hash. This CID uniquely identifies the content regardless of where it is stored.
+2. **Bitswap serving**: Bulletin Chain validator nodes implement the IPFS [Bitswap](https://docs.ipfs.tech/concepts/bitswap/){target=\_blank} wire protocol, which is the standard way IPFS nodes exchange data blocks. IPFS clients can request data directly from validator nodes using the CID.
+3. **DHT registration**: Validator nodes register as content providers on the IPFS [Kademlia DHT](https://docs.ipfs.tech/concepts/dht/){target=\_blank}, making stored data discoverable by the IPFS network.
 
 ### Retrieval Methods
 
@@ -146,10 +146,10 @@ Content provider records on the DHT are only maintained for data within the rete
 
 The typical lifecycle of data on the Bulletin Chain follows these steps:
 
-1. **Authorization** — obtain authorization to store data through the faucet (Polkadot TestNet) or from a privileged account (mainnet)
-2. **Storage** — submit a `store` or `store_with_cid_config` transaction with your data payload
-3. **Retrieval** — fetch data from validator nodes using the CID via the Console UI, Direct P2P (Helia), the Bulletin Chain IPFS gateway, or (coming soon) the Smoldot light client
-4. **Renewal** — before the retention period expires, submit a `renew` transaction to extend the data's lifetime
+1. **Authorization**: Obtain authorization to store data through the faucet (Polkadot TestNet) or from a privileged account (MainNet).
+2. **Storage**: Submit a `store` or `store_with_cid_config` transaction with your data payload.
+3. **Retrieval**: Fetch data from validator nodes using the CID via the Console UI, Direct P2P (Helia), the Bulletin Chain IPFS gateway, or (coming soon) the Smoldot light client.
+4. **Renewal**: Before the retention period expires, submit a `renew` transaction to extend the data's lifetime.
 
 ## Size Limits
 

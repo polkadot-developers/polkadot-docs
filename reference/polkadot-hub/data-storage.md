@@ -14,18 +14,18 @@ The Bulletin Chain is designed as a utility chain — it has **no native token b
 
 The Bulletin Chain is suited for any scenario where you need decentralized, content-addressable storage on Polkadot. Common use cases include:
 
-- **Static sites** — host a static website entirely on-chain, served via IPFS-compatible gateways
-- **Images and media assets** — store images, icons, or other media files with permanent, verifiable CIDs
-- **Application data** — persist configuration files, metadata, or other structured data that needs to be publicly accessible and tamper-proof
-- **Document storage** — store documents, certificates, or records that benefit from on-chain verifiability
+- **Static sites**: Host a static website entirely on-chain, served via IPFS-compatible gateways.
+- **Images and media assets**: Store images, icons, or other media files with permanent, verifiable CIDs.
+- **Application data**: Persist configuration files, metadata, or other structured data that needs to be publicly accessible and tamper-proof.
+- **Document storage**: Store documents, certificates, or records that benefit from on-chain verifiability.
 
 ## Key Concepts
 
-- **No balances** — the chain does not use token balances for transaction fees. Authorization is required to store data
-- **Authorization-based access** — accounts must be authorized before they can submit storage transactions
-- **Content Identifiers (CIDs)** — stored data is addressable via IPFS-compatible CIDs, enabling interoperability with IPFS tooling
-- **Retention periods** — stored data is retained for a limited period (~2 weeks on Polkadot TestNet) and must be renewed to persist beyond that
-- **Chunked uploads** — large files (up to ~64 MiB) can be split into chunks, each stored as a separate transaction (max ~8 MiB per transaction)
+- **No balances**: The chain does not use token balances for transaction fees. Authorization is required to store data.
+- **Authorization-based access**: Accounts must be authorized before they can submit storage transactions.
+- **Content Identifiers (CIDs)**: Stored data is addressable via IPFS-compatible CIDs, enabling interoperability with IPFS tooling.
+- **Retention periods**: Stored data is retained for a limited period (~2 weeks on Polkadot TestNet) and must be renewed to persist beyond that.
+- **Chunked uploads**: Large files (up to ~64 MiB) can be split into chunks, each stored as a separate transaction (max ~8 MiB per transaction).
 
 ## Authorization
 

@@ -62,7 +62,7 @@ The [Glossary](/reference/glossary/){target=\_blank} provides quick-reference de
 
 ## Tools
 
-[The Tools section](/reference/tools/zombienet/){target=\_blank} documents essential development and interaction tools for the Polkadot ecosystem:
+The [Tools](/reference/tools/zombienet/){target=\_blank} section documents essential development and interaction tools for the Polkadot ecosystem:
 
 - **Light clients**: Lightweight solutions for interacting with the network without running full nodes.
 - **JavaScript/TypeScript tools**: Libraries like [Polkadot.js API](/reference/tools/polkadot-js-api/){target=\_blank} and [PAPI](/reference/tools/papi/){target=\_blank} for building applications.

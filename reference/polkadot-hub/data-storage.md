@@ -74,7 +74,7 @@ When requesting authorization, estimate how many transactions and bytes you need
 The `transactionStorage` pallet is the core module for interacting with the Bulletin Chain. It provides the following extrinsics:
 
 | Extrinsic | Description | Origin |
-|:---|:---|:---:|
+|:--:|:--:|:--:|
 | `store(data)` | Store arbitrary data on-chain. Returns a CID for the stored content | Signed |
 | `store_with_cid_config(data, cid_config)` | Store data with a custom CID configuration (e.g., codec, hash function) | Signed |
 | `renew(block, index)` | Renew a previously stored transaction by specifying the block number and transaction index | Signed |
@@ -126,9 +126,9 @@ When you store data on the Bulletin Chain, the following happens:
 ### Retrieval Methods
 
 | Method | Status | Description |
-|:---|:---:|:---|
+|:--:|:--:|:--:|
 | [Console UI](https://paritytech.github.io/polkadot-bulletin-chain/){target=\_blank} | Available | Download data via the Bulletin Chain Console UI using P2P or the IPFS gateway. The simplest option — no code required |
-| Direct P2P ([Helia](https://helia.io/){target=\_blank}) | Available | Connect to validator nodes via libp2p and fetch data using the CID. The recommended decentralized approach for production applications |
+| Direct P2P ([Helia](https://helia.io/){target=\_blank}) | Available | Connect to validator nodes via [libp2p](https://libp2p.io/){target=\_blank} and fetch data using the CID. The recommended decentralized approach for production applications |
 | Bulletin Chain IPFS Gateway | Available | Access data via `https://paseo-ipfs.polkadot.io/ipfs/<CID>` for Polkadot TestNet. Can also be used programmatically via `fetch()` |
 | Smoldot Light Client | Coming Soon | Fully decentralized retrieval via the `bitswap_block` RPC, enabling trustless data access without connecting to a full node |
 

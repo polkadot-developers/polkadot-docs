@@ -1,6 +1,6 @@
 ---
 title: Store Data on the Bulletin Chain
-description: Learn how to store an image on the Polkadot Bulletin Chain using the Console UI or PAPI with step-by-step instructions.
+description: Learn how to store an image on the Polkadot Bulletin Chain using the Console UI or PAPI, with step-by-step instructions.
 categories: Chain Interactions
 tutorial_badge: Beginner
 ---
@@ -9,7 +9,7 @@ tutorial_badge: Beginner
 
 The [Bulletin Chain](/reference/polkadot-hub/data-storage/){target=\_blank} is a specialized storage chain in the Polkadot ecosystem that provides decentralized data storage with IPFS-compatible content addressing. You can use it to store static sites, images, media assets, application data, or any other files that benefit from on-chain verifiability.
 
-In this tutorial, you'll walk through a common developer scenario: **storing an image on-chain** and obtaining its CID (Content Identifier) so it can be referenced from a dApp, NFT metadata, or any IPFS-compatible system. The same steps apply to any file type — documents, JSON configs, HTML pages, and more.
+In this tutorial, you'll walk through a common developer scenario: storing an image on-chain and obtaining its CID (Content Identifier) so it can be referenced from a dApp, NFT metadata, or any IPFS-compatible system. The same steps apply to any file type — documents, JSON configs, HTML pages, and more.
 
 ## Prerequisites
 
@@ -21,24 +21,24 @@ In this tutorial, you'll walk through a common developer scenario: **storing an 
 
 ## Get Authorization
 
-The Bulletin Chain has **no token balances** — you need authorization before you can store data. Authorization grants your account a specific number of **transactions** and **bytes** that you can use for storage.
+The Bulletin Chain has no token balances — you need authorization before you can store data. Authorization grants your account a specific number of transactions and bytes that you can use for storage.
 
 === "Console UI"
 
-    1. Navigate to the [Bulletin Chain Console](https://paritytech.github.io/polkadot-bulletin-chain/){target=\_blank} and click **Connect** to connect your wallet
+    1. Navigate to the [Bulletin Chain Console](https://paritytech.github.io/polkadot-bulletin-chain/){target=\_blank} and click **Connect** to connect your wallet.
 
         ![](/images/chain-interactions/store-data/bulletin-chain/console-connect-wallet.webp)
 
-    2. Go to the **Faucet** page and select the **Storage Faucet** tab
-    3. Under **Authorize Account**, enter the desired number of **Transactions** and **Bytes** for your storage needs, then click **Authorize Account**
+    2. Go to the **Faucet** page and select the **Storage Faucet** tab.
+    3. Under **Authorize Account**, enter the desired number of **Transactions** and **Bytes** for your storage needs, then click **Authorize Account**.
 
         ![](/images/chain-interactions/store-data/bulletin-chain/faucet-authorize-account.webp)
 
-    4. Approve the transaction in your wallet extension. You should see a success confirmation
+    4. Approve the transaction in your wallet extension. You should see a success confirmation.
 
         ![](/images/chain-interactions/store-data/bulletin-chain/faucet-authorization-success.webp)
 
-    5. To verify your authorization, switch to the **Accounts** tab to view your remaining transactions, bytes, and expiration block
+    5. To verify your authorization, switch to the **Accounts** tab to view your remaining transactions, bytes, and expiration block.
 
         ![](/images/chain-interactions/store-data/bulletin-chain/faucet-your-authorization.webp)
 
@@ -53,23 +53,23 @@ The Bulletin Chain has **no token balances** — you need authorization before y
 Now that your account is authorized, you can store your image on-chain. Choose the method that best fits your workflow.
 
 !!! note
-    You can also interact with the Bulletin Chain directly through [PolkadotJS Apps](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fpaseo-bulletin-rpc.polkadot.io){target=\_blank} by submitting extrinsics from the `transactionStorage` pallet.
+    You can also interact with the Bulletin Chain directly through [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fpaseo-bulletin-rpc.polkadot.io){target=\_blank} by submitting extrinsics from the `transactionStorage` pallet.
 
 === "Console UI"
 
-    1. Navigate to the **Upload** page in the [Bulletin Chain Console](https://paritytech.github.io/polkadot-bulletin-chain/){target=\_blank}. You can see your account's storage usage and authorization quota on the right side panel
+    1. Navigate to the **Upload** page in the [Bulletin Chain Console](https://paritytech.github.io/polkadot-bulletin-chain/){target=\_blank}. You can see your account's storage usage and authorization quota on the right side panel.
 
         ![](/images/chain-interactions/store-data/bulletin-chain/upload-empty.webp)
 
-    2. Select the **File** tab, then drag and drop your image or click to browse. The UI shows the file name and size
+    2. Select the **File** tab, then drag and drop your image or click to browse. The UI shows the file name and size.
 
         ![](/images/chain-interactions/store-data/bulletin-chain/upload-file-selected.webp)
 
-    3. Leave the **CID Configuration** at the defaults (Blake2b-256 hash, Raw codec) unless you have specific requirements
+    3. Leave the **CID Configuration** at the defaults (Blake2b-256 hash, Raw codec) unless you have specific requirements.
 
-    4. Click **Upload to Bulletin Chain** and approve the transaction in your wallet extension
+    4. Click **Upload to Bulletin Chain** and approve the transaction in your wallet extension.
 
-    5. On success, the UI displays your **CID**, **Block Number**, and **Transaction Index**
+    5. On success, the UI displays your **CID**, **Block Number**, and **Transaction Index**.
 
         ![](/images/chain-interactions/store-data/bulletin-chain/upload-success.webp)
 
@@ -95,11 +95,13 @@ Now that your account is authorized, you can store your image on-chain. Choose t
         npm install polkadot-api@{{dependencies.javascript_packages.polkadot_api.version}} @polkadot-labs/hdkd@{{dependencies.javascript_packages.hdkd.version}} @polkadot-labs/hdkd-helpers@{{dependencies.javascript_packages.hdkd_helpers.version}} multiformats
         ```
 
-    3. Add the Bulletin Chain metadata and generate typed descriptors:
+    3. Fetch the Bulletin Chain metadata and generate typed descriptors:
 
         ```bash
         npx papi add bulletin -w wss://paseo-bulletin-rpc.polkadot.io
         ```
+
+        This command connects to the Bulletin Chain RPC endpoint, downloads the chain metadata, and generates typed descriptors that provide full type safety for all pallet interactions.
 
     **Store an Image**
 
@@ -134,14 +136,14 @@ The Bulletin Chain follows a "write-to-chain, read-from-network" architecture �
 
 === "Console UI"
 
-    1. Navigate to the **Download** page in the [Bulletin Chain Console](https://paritytech.github.io/polkadot-bulletin-chain/){target=\_blank}
+    1. Navigate to the **Download** page in the [Bulletin Chain Console](https://paritytech.github.io/polkadot-bulletin-chain/){target=\_blank}.
     2. Choose a retrieval method:
 
-        - **P2P Connection** — connects directly to Bulletin Chain validator nodes (decentralized, recommended)
-        - **IPFS Gateway** — uses the Bulletin Chain's IPFS gateway at `https://paseo-ipfs.polkadot.io`
+        - **P2P Connection**: Connects directly to Bulletin Chain validator nodes (decentralized, recommended).
+        - **IPFS Gateway**: Uses the Bulletin Chain's IPFS gateway at `https://paseo-ipfs.polkadot.io`.
 
-    3. Enter your **CID** in the "Fetch by CID" field — you can use either the `bafk2bzace...` format or the hex-encoded `0x0155a0e4...` format
-    4. Click **Fetch Data** to retrieve your content. The UI also generates a direct **Gateway Link** you can open in your browser
+    3. Enter your **CID** in the "Fetch by CID" field — you can use either the `bafk2bzace...` format or the hex-encoded `0x0155a0e4...` format.
+    4. Click **Fetch Data** to retrieve your content. The UI also generates a direct **Gateway Link** you can open in your browser.
 
         ![](/images/chain-interactions/store-data/bulletin-chain/download-ipfs-gateway.webp)
 
@@ -186,16 +188,16 @@ Stored data is retained for a limited period (~2 weeks on Polkadot TestNet). If 
 
 === "Console UI"
 
-    1. Navigate to the **Renew** page in the [Bulletin Chain Console](https://paritytech.github.io/polkadot-bulletin-chain/){target=\_blank}
-    2. Select your stored transaction from the **Load from History** dropdown, or manually enter the **Block Number** and **Transaction Index**
+    1. Navigate to the **Renew** page in the [Bulletin Chain Console](https://paritytech.github.io/polkadot-bulletin-chain/){target=\_blank}.
+    2. Select your stored transaction from the **Load from History** dropdown, or manually enter the **Block Number** and **Transaction Index**.
 
         ![](/images/chain-interactions/store-data/bulletin-chain/renew-find-transaction.webp)
 
-    3. Click **Lookup Transaction** to view the transaction details, including the content hash, size, and expiration status
+    3. Click **Lookup Transaction** to view the transaction details, including the content hash, size, and expiration status.
 
         ![](/images/chain-interactions/store-data/bulletin-chain/renew-transaction-details.webp)
 
-    4. Click **Renew Storage** and approve the transaction in your wallet extension
+    4. Click **Renew Storage** and approve the transaction in your wallet extension.
 
 === "PAPI"
 

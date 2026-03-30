@@ -27,20 +27,20 @@ The Bulletin Chain has no token balances — you need authorization before you c
 
     1. Navigate to the [Bulletin Chain Console](https://paritytech.github.io/polkadot-bulletin-chain/){target=\_blank} and click **Connect** to connect your wallet.
 
-        ![](/images/chain-interactions/store-data/bulletin-chain/console-connect-wallet.webp)
+        ![](/images/chain-interactions/store-data/bulletin-chain/bulletin-chain-1.webp)
 
     2. Go to the **Faucet** page and select the **Storage Faucet** tab.
     3. Under **Authorize Account**, enter the desired number of **Transactions** and **Bytes** for your storage needs, then click **Authorize Account**.
 
-        ![](/images/chain-interactions/store-data/bulletin-chain/faucet-authorize-account.webp)
+        ![](/images/chain-interactions/store-data/bulletin-chain/bulletin-chain-2.webp)
 
     4. Approve the transaction in your wallet extension. You should see a success confirmation.
 
-        ![](/images/chain-interactions/store-data/bulletin-chain/faucet-authorization-success.webp)
+        ![](/images/chain-interactions/store-data/bulletin-chain/bulletin-chain-3.webp)
 
     5. To verify your authorization, switch to the **Accounts** tab to view your remaining transactions, bytes, and expiration block.
 
-        ![](/images/chain-interactions/store-data/bulletin-chain/faucet-your-authorization.webp)
+        ![](/images/chain-interactions/store-data/bulletin-chain/bulletin-chain-4.webp)
 
     !!! note
         Authorization has an expiration block. Once expired, unused authorization is not refunded — you'll need to request new authorization.
@@ -59,11 +59,11 @@ Now that your account is authorized, you can store your image on-chain. Choose t
 
     1. Navigate to the **Upload** page in the [Bulletin Chain Console](https://paritytech.github.io/polkadot-bulletin-chain/){target=\_blank}. You can see your account's storage usage and authorization quota on the right side panel.
 
-        ![](/images/chain-interactions/store-data/bulletin-chain/upload-empty.webp)
+        ![](/images/chain-interactions/store-data/bulletin-chain/bulletin-chain-5.webp)
 
     2. Select the **File** tab, then drag and drop your image or click to browse. The UI shows the file name and size.
 
-        ![](/images/chain-interactions/store-data/bulletin-chain/upload-file-selected.webp)
+        ![](/images/chain-interactions/store-data/bulletin-chain/bulletin-chain-6.webp)
 
     3. Leave the **CID Configuration** at the defaults (Blake2b-256 hash, Raw codec) unless you have specific requirements.
 
@@ -71,7 +71,7 @@ Now that your account is authorized, you can store your image on-chain. Choose t
 
     5. On success, the UI displays your **CID**, **Block Number**, and **Transaction Index**.
 
-        ![](/images/chain-interactions/store-data/bulletin-chain/upload-success.webp)
+        ![](/images/chain-interactions/store-data/bulletin-chain/bulletin-chain-7.webp)
 
     !!! warning
         Save the **Block Number** and **Transaction Index** — you'll need these values to renew your data before it expires. The Console UI auto-saves this to your browser history, but you should record it separately as well.
@@ -128,7 +128,7 @@ Now that your account is authorized, you can store your image on-chain. Choose t
 
 After storing your image, you can verify it was successfully recorded using the **Explorer** in the Console UI. Navigate to the block number from the `Stored` event to see the `TransactionStorage.Stored` event with the content hash and CID.
 
-![](/images/chain-interactions/store-data/bulletin-chain/explorer-stored-event.webp)
+![](/images/chain-interactions/store-data/bulletin-chain/bulletin-chain-8.webp)
 
 ## Retrieve Your Data
 
@@ -145,7 +145,7 @@ The Bulletin Chain follows a "write-to-chain, read-from-network" architecture �
     3. Enter your **CID** in the "Fetch by CID" field — you can use either the `bafk2bzace...` format or the hex-encoded `0x0155a0e4...` format.
     4. Click **Fetch Data** to retrieve your content. The UI also generates a direct **Gateway Link** you can open in your browser.
 
-        ![](/images/chain-interactions/store-data/bulletin-chain/download-ipfs-gateway.webp)
+        ![](/images/chain-interactions/store-data/bulletin-chain/bulletin-chain-9.webp)
 
     !!! tip
         You can also access your data directly in the browser via the Bulletin Chain IPFS gateway:
@@ -191,11 +191,11 @@ Stored data is retained for a limited period (~2 weeks on Polkadot TestNet). If 
     1. Navigate to the **Renew** page in the [Bulletin Chain Console](https://paritytech.github.io/polkadot-bulletin-chain/){target=\_blank}.
     2. Select your stored transaction from the **Load from History** dropdown, or manually enter the **Block Number** and **Transaction Index**.
 
-        ![](/images/chain-interactions/store-data/bulletin-chain/renew-find-transaction.webp)
+        ![](/images/chain-interactions/store-data/bulletin-chain/bulletin-chain-10.webp)
 
     3. Click **Lookup Transaction** to view the transaction details, including the content hash, size, and expiration status.
 
-        ![](/images/chain-interactions/store-data/bulletin-chain/renew-transaction-details.webp)
+        ![](/images/chain-interactions/store-data/bulletin-chain/bulletin-chain-11.webp)
 
     4. Click **Renew Storage** and approve the transaction in your wallet extension.
 

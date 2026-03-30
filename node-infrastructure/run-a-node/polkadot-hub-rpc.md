@@ -467,12 +467,17 @@ You can run the Ethereum RPC adapter using Docker or as a systemd service.
     ```bash
     docker run -d --name eth-rpc --restart unless-stopped \
       --network=host \
+      -v /var/lib/eth-rpc:/data \
       paritypr/eth-rpc:master-1ea05e17 \
-      --node-rpc-url ws://127.0.0.1:9944 \
-      --rpc-port 8545 \
+      --node-rpc-url=ws://127.0.0.1:9944 \
+      --rpc-port=8545 \
+      --base-path=/data \
       --unsafe-rpc-external \
-      --rpc-cors all
+      --rpc-cors=all
     ```
+
+    !!! note
+        The `-v` flag maps the host directory `/var/lib/eth-rpc` to `/data` inside the container. The `--base-path` flag references this container path to persist the `eth-rpc.db` database across restarts.
 
     !!! note
         Check the [Docker Hub tags page](https://hub.docker.com/r/paritypr/eth-rpc/tags){target=\_blank} for the latest image version. Tags follow the format `master-<commit-hash>`.
@@ -512,10 +517,11 @@ You can run the Ethereum RPC adapter using Docker or as a systemd service.
         Group=polkadot
 
         ExecStart=/usr/local/bin/eth-rpc \
-          --node-rpc-url ws://127.0.0.1:9944 \
-          --rpc-port 8545 \
+          --node-rpc-url=ws://127.0.0.1:9944 \
+          --rpc-port=8545 \
+          --base-path=/var/lib/eth-rpc \
           --unsafe-rpc-external \
-          --rpc-cors all
+          --rpc-cors=all
 
         Restart=always
         RestartSec=10
@@ -545,13 +551,23 @@ The adapter accepts the following key parameters:
 | `--rpc-port` | Ethereum RPC server port | `8545` |
 | `--unsafe-rpc-external` | Enable external RPC access | Disabled |
 | `--rpc-cors` | CORS allowed origins | None |
-| `--cache-size` | Maximum blocks to cache in memory | `256` |
-| `--database-url` | SQLite database for receipts | `sqlite::memory:` |
-| `--index-last-n-blocks` | Index last N blocks on startup | None |
-| `--earliest-receipt-block` | Earliest block for receipt searches | None |
+| `--eth-pruning` | Block storage strategy: `archive` for persistent on-disk DB with full historical sync, or `<N>` for in-memory DB keeping latest N blocks | `archive` |
+| `--base-path` | Directory for persistent database storage (`eth-rpc.db` is created inside this directory) | OS default data directory |
+| `--dev` | Use temporary on-disk directory, deleted on exit | Disabled |
 
 !!! warning
     The `--unsafe-rpc-external` flag exposes your RPC endpoint publicly. For production deployments, use a reverse proxy with proper authentication and rate limiting.
+
+??? note "Migrating from previous CLI flags"
+    As of [PR #11153](https://github.com/paritytech/polkadot-sdk/pull/11153){target=\_blank}, the following flags have been removed and replaced:
+
+    | Previous Flag | Replacement |
+    |:-------------:|:-----------:|
+    | `--cache-size N` | `--eth-pruning N` |
+    | `--database-url sqlite::memory:` | `--eth-pruning N` |
+    | `--database-url /path/to/db` | `--base-path /path/to/dir` |
+    | `--index-last-n-blocks N` | `--eth-pruning archive` |
+    | `--earliest-receipt-block N` | Removed — the adapter now auto-discovers the first EVM block |
 
 ### API Endpoints
 

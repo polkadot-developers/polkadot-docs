@@ -269,7 +269,7 @@ You can now test the pallet's functionality by submitting transactions through t
 
 <div class="status-badge" markdown>
 [![Add Existing Pallets](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-add-existing-pallets.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-add-existing-pallets.yml){target=\_blank}
-[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/parachains/customize-runtime/add-existing-pallets/tests/guide.test.ts){ .tests-button target=\_blank}
+[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/parachains/customize-runtime/add-existing-pallets/tests/docs.test.ts){ .tests-button target=\_blank}
 </div>
 
 ## Where to Go Next

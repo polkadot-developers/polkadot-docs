@@ -3,6 +3,8 @@ title: Support
 description: Start here to get developer support for Polkadot. Connect with the team, find help, and explore resources beyond the documentation.
 categories: Basics
 footer_nav: true
+hide:
+  - navigation
 ---
 
 # Polkadot Developer Support
@@ -109,6 +111,15 @@ Use one of the channels below to get live technical support or ask questions.
     </ul>
 
     👉 [Explore on Polkassembly](https://polkadot.polkassembly.io/){target=\_blank}
+
+-   :material-vote:{ .sub } **Subsquare: OpenGov**
+
+    <ul class="card-list">
+    <li> Track, discuss, and vote on Polkadot OpenGov proposals. </li>
+    <li> Stay informed on governance activity across the network. </li>
+    </ul>
+
+    👉 [Explore on Subsquare](https://polkadot.subsquare.io/){target=\_blank}
 
 </div>
 

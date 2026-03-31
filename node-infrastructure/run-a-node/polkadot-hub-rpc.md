@@ -563,10 +563,10 @@ The adapter accepts the following key parameters:
 
     | Previous Flag | Replacement |
     |:-------------:|:-----------:|
-    | `--cache-size N` | `--eth-pruning N` |
-    | `--database-url sqlite::memory:` | `--eth-pruning N` |
-    | `--database-url /path/to/db` | `--base-path /path/to/dir` |
-    | `--index-last-n-blocks N` | `--eth-pruning archive` |
+    | `--cache-size N` | `--eth-pruning=<N>` |
+    | `--database-url sqlite::memory:` | `--eth-pruning=<N>` |
+    | `--database-url /path/to/db` | `--base-path=/path/to/dir` |
+    | `--index-last-n-blocks N` | `--eth-pruning=archive` |
     | `--earliest-receipt-block N` | Removed — the adapter now auto-discovers the first EVM block |
 
 ### API Endpoints

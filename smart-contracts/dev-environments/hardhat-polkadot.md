@@ -184,7 +184,7 @@ After testing locally, you can deploy to the Polkadot Hub TestNet:
 
 ### Common Issues
 
-- **Compilation fails with resolc errors**: Ensure you have `@parity/resolc@0.2.0` installed and the version is specified in your `hardhat.config.js`
+- **Compilation fails with resolc errors**: Ensure you have `@parity/resolc@{{dependencies.javascript_packages.resolc.version}}` installed and the version is specified in your `hardhat.config.js`
 - **Deployment hangs on local node**: You might need to set `ignition.requiredConfirmations: 1` in your config file
 - **Binary permission issues**: Run `chmod +x /path/to/your/binary` and on macOS, use `xattr -d com.apple.quarantine /path/to/your/binary`
 

@@ -13,6 +13,8 @@ extra_css:
   - /assets/stylesheets/account-converter.css
   - /assets/stylesheets/erc20-asset-converter.css
   - /assets/stylesheets/polkadot-utilities.css
+hide:
+  - navigation
 ---
 
 # Polkadot Utilities

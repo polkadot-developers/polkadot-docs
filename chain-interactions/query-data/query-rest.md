@@ -6,6 +6,10 @@ categories: Chain Interactions, Tooling
 
 # Query On-Chain State with Sidecar REST API
 
+<div class="status-badge" markdown>
+[![Query On-Chain State with Sidecar REST API](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-query-rest.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-query-rest.yml){target=\_blank}
+</div>
+
 ## Introduction
 
 [Substrate API Sidecar](https://github.com/paritytech/substrate-api-sidecar){target=\_blank} is a REST service that makes it easy to interact with Polkadot SDK-based blockchains. It provides a simple HTTP interface to query account balances, asset information, block data, and other on-chain state without requiring WebSocket connections or SDK integrations.
@@ -261,6 +265,11 @@ curl -s "https://polkadot-asset-hub-public-sidecar.parity-chains.parity.io/block
 ## API Reference
 
 For a complete list of endpoints and parameters, see the [Sidecar API Documentation](https://paritytech.github.io/substrate-api-sidecar/docsv2/){target=\_blank}.
+
+<div class="status-badge" markdown>
+[![Query On-Chain State with Sidecar REST API](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-query-rest.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-query-rest.yml){target=\_blank}
+[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/chain-interactions/query-rest/tests/docs.test.ts){ .tests-button target=\_blank}
+</div>
 
 ## Where to Go Next
 

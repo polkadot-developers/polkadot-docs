@@ -44,8 +44,8 @@ The following instructions outline how to temporarily switch between two validat
 ### Session `N`
 
 1. **Start Validator B**: Launch a secondary node and wait until it is fully synced with the network. Once synced, start it with the `--validator` flag. This node will now act as Validator B.
-2. **Generate session keys**: Create new session keys and ownership proof for Validator B. See the [Key Management](/node-infrastructure/run-a-validator/onboarding-and-offboarding/key-management/){target=\_blank} guide for the current procedure.
-3. **Submit session keys**: Use your staking proxy account to submit the session keys and proof on-chain. See the [Key Management](/node-infrastructure/run-a-validator/onboarding-and-offboarding/key-management/#submit-transaction-to-set-keys){target=\_blank} guide for submission paths.
+2. **Generate session keys**: Create new session keys for Validator B. See the [Key Management](/node-infrastructure/run-a-validator/onboarding-and-offboarding/key-management/){target=\_blank} guide for the current procedure.
+3. **Submit session keys**: Use your staking proxy account to submit the session keys on-chain. See the [Key Management](/node-infrastructure/run-a-validator/onboarding-and-offboarding/key-management/#submit-transaction-to-set-keys){target=\_blank} guide for submission paths.
 4. **Record the session**: Make a note of the session in which you executed this extrinsic.
 5. **Wait for session changes**: Allow the current session to end and then wait for two additional full sessions for the new keys to take effect.
 
@@ -60,8 +60,8 @@ At this stage, Validator B becomes your active validator. You can now safely per
 Complete the following steps when you are ready to bring Validator A back online:
 
 1. **Start Validator A**: Launch Validator A, sync the blockchain database, and ensure it is running with the `--validator` flag.
-2. **Generate new session keys for Validator A**: Create fresh session keys for Validator A.
-3. **Submit the `set_key` extrinsic**: Using your staking proxy account, submit a `set_key` extrinsic with the new Validator A session keys.
+2. **Generate new session keys for Validator A**: Create fresh session keys for Validator A. See the [Key Management](/node-infrastructure/run-a-validator/onboarding-and-offboarding/key-management/){target=\_blank} guide for the current procedure.
+3. **Submit session keys**: Using your staking proxy account, submit the session keys on-chain. See the [Key Management](/node-infrastructure/run-a-validator/onboarding-and-offboarding/key-management/#submit-transaction-to-set-keys){target=\_blank} guide for submission paths.
 4. **Record the session**: Again, make a note of the session in which you executed this extrinsic.
 
 Keep Validator B active until the session during which you executed the `set-key` extrinsic completes plus two additional full sessions have passed. Once Validator A has successfully taken over, you can safely stop Validator B. This process helps ensure a smooth handoff between nodes and minimizes the risk of downtime or penalties. Verify the transition by checking for finalized blocks in the new session. The logs should indicate the successful change, similar to the example below:

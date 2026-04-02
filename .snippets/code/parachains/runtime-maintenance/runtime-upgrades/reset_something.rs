@@ -8,6 +8,6 @@
 pub fn reset_counter(origin: OriginFor<T>) -> DispatchResult {
 	ensure_root(origin)?;
 	<CounterValue<T>>::put(0u32);
-	Self::deposit_event(Event::CounterValueSet { counter_value: 0 });
+	Self::deposit_event(Event::CounterValueSet { new_value: 0 });
 	Ok(())
 }

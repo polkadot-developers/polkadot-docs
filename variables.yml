@@ -10,16 +10,16 @@ dependencies:
       version: v0.0.2
     srtool:
       repository_url: https://github.com/paritytech/srtool
-      version: v0.18.3
+      version: v0.18.4
       docker_image_name: paritytech/srtool
-      docker_image_version: 1.88.0
+      docker_image_version: 1.93.0
     polkadot_sdk:
       repository_url: https://github.com/paritytech/polkadot-sdk
-      version: polkadot-stable2512-2
-      docker_image_version: stable2512-2
+      version: polkadot-stable2512-3
+      docker_image_version: stable2512-3
     open_zeppelin_contracts:
       repository_url: https://github.com/OpenZeppelin/openzeppelin-contracts
-      version: v5.6.0
+      version: v5.6.1
     polkadot_sdk_contracts_node:
       repository_url: https://github.com/paritytech/polkadot-sdk
       version: polkadot-stable2503-6
@@ -54,17 +54,17 @@ dependencies:
       ignore_updates: true
     polkadot_omni_node:
       name: polkadot-omni-node
-      version: 0.13.2
+      version: 0.14.0
   javascript_packages:
     chopsticks:
       name: '@acala-network/chopsticks'
-      version: 1.2.7
+      version: 1.2.8
     moonwall:
       name: '@moonwall/cli'
       version: 5.18.3
     polkadot_js_api:
       name: '@polkadot/api'
-      version: 16.5.4
+      version: 16.5.6
     polkadot_api:
       name: polkadot-api
       version: 1.23.3
@@ -88,20 +88,20 @@ dependencies:
       version: 6.16.0
     paraspell_sdk:
       name: '@paraspell/sdk'
-      version: 12.8.0
+      version: 12.8.8
     hdkd:
       name: '@polkadot-labs/hdkd'
-      version: 0.0.26
+      version: 0.0.27
     hdkd_helpers:
       name: '@polkadot-labs/hdkd-helpers'
-      version: 0.0.27
+      version: 0.0.28
     polkadot_util:
       name: '@polkadot/util'
-      version: 14.0.1
+      version: 14.0.2
     polkadot_util_crypto:
       name: '@polkadot/util-crypto'
-      version: 14.0.1
+      version: 14.0.2
     polkadot_keyring:
       name: '@polkadot/keyring'
-      version: 14.0.1
+      version: 14.0.2
 #   python_packages:

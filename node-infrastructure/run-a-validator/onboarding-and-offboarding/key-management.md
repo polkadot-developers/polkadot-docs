@@ -21,7 +21,7 @@ Setting up your validator's session keys is essential to associate your node wit
 
 ### Generate Session Keys
 
-=== "Runtime 2.2.0+ (rotateKeysWithOwner)"
+=== "Runtime 2.2.0+ (`rotateKeysWithOwner`)"
 
     Generate session keys by running the following command on your validator node, replacing `INSERT_STASH_ACCOUNT_ID` with your validator's stash account ID:
 

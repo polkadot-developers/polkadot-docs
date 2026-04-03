@@ -6,9 +6,9 @@ categories: Polkadot Protocol
 
 # Data Storage
 
-The Polkadot Bulletin Chain is for storing raw data and files on-chain — images, HTML, JSON, documents, and more. You get back a CID (Content Identifier) and the data is directly retrievable. Think of it as decentralized file hosting built on a Polkadot SDK-based blockchain with [IPFS](https://ipfs.tech/){target=\_blank}-compatible content addressing. The data has a retention period and needs renewal. There are no ownership semantics — it's just storage.
+The Polkadot Bulletin Chain is for storing raw data and files on-chain — images, HTML, JSON, documents, and more. You get back a CID (Content Identifier) and the data is directly retrievable. Think of it as decentralized file hosting built on a Polkadot SDK-based blockchain with [IPFS](https://ipfs.tech/){target=\_blank}-compatible content addressing. The data is only kept for a specific retention period and needs to be renewed to be kept for longer. There are no ownership semantics — it's just storage.
 
-The Bulletin Chain is designed as a utility chain — it has **no native token balances**. Instead, access is managed through an authorization system that grants accounts or preimages the ability to store data. For more details, see the [Polkadot Bulletin Chain repository](https://github.com/paritytech/polkadot-bulletin-chain){target=\_blank}.
+The Bulletin Chain is designed as a utility chain — it has **no native token balances**. Instead, access is managed through an authorization system that grants accounts or preimages the ability to store data. For more details, see the [Polkadot Bulletin Chain repository](https://github.com/paritytech/polkadot-bulletin-chain){target=\_blank} (will be moving to the [fellowship runtimes repository](https://github.com/polkadot-fellows/runtimes){target=\_blank} in the future).
 
 ## Use Cases
 
@@ -29,7 +29,7 @@ The Bulletin Chain is suited for any scenario where you need decentralized, cont
 
 ## Authorization
 
-The Bulletin Chain has no token balances — there are no fees to pay. Instead, storage access is controlled through an authorization system that prevents spam and ensures fair usage. A privileged account must explicitly grant permission before an account can store data.
+The Bulletin Chain has no token balances — there are no fees to pay. Instead, storage access is controlled through an authorization system that prevents spam and ensures fair usage. Currently, only OpenGov can provide authorizations but the PoP (Proof of Personhood) subsystem is also planned to have this privilege in the future.
 
 Authorization is not a token transfer — it's a **permission entry** recorded in the chain's storage that specifies:
 
@@ -37,7 +37,7 @@ Authorization is not a token transfer — it's a **permission entry** recorded i
 - The number of **transactions** and **bytes** the account can use
 - An optional **expiration block** after which the authorization becomes invalid
 
-Authorization is consumed as you store data — each storage transaction decrements your remaining transaction count and byte allowance. Once your allocation is used up or the expiration block is reached, you need new authorization. Unused authorization is not refunded.
+Authorization is consumed as you store data — each storage transaction decrements your remaining transaction count and byte allowance. Once your allocation is used up or the expiration block is reached, you need a new authorization.
 
 ### Who Grants Authorization
 
@@ -113,22 +113,21 @@ The pallet emits the following events:
 
 ## IPFS Integration and Data Retrieval
 
-The Bulletin Chain follows a **"write-to-chain, read-from-network"** architecture. Data is stored via on-chain transactions and retrieved directly from validator nodes using the CID. The chain is designed to work seamlessly with the [InterPlanetary File System (IPFS)](https://ipfs.tech/){target=\_blank} — Bulletin Chain nodes are themselves IPFS participants.
+The Bulletin Chain follows a **"write-to-chain, read-from-network"** architecture. Data is stored via on-chain transactions and retrieved directly from collator nodes using the CID. The chain is designed to work seamlessly with the [InterPlanetary File System (IPFS)](https://ipfs.tech/){target=\_blank} — Bulletin Chain nodes are themselves IPFS participants.
 
 ### How It Works
 
 When you store data on the Bulletin Chain, the following happens:
 
 1. **CID generation**: The chain computes an IPFS-compatible [Content Identifier (CID)](https://docs.ipfs.tech/concepts/content-addressing/){target=\_blank} from your data using a cryptographic hash. This CID uniquely identifies the content regardless of where it is stored.
-2. **Bitswap serving**: Bulletin Chain validator nodes implement the IPFS [Bitswap](https://docs.ipfs.tech/concepts/bitswap/){target=\_blank} wire protocol, which is the standard way IPFS nodes exchange data blocks. IPFS clients can request data directly from validator nodes using the CID.
-3. **DHT registration**: Validator nodes register as content providers on the IPFS [Kademlia DHT](https://docs.ipfs.tech/concepts/dht/){target=\_blank}, making stored data discoverable by the IPFS network.
+2. **Bitswap serving**: Bulletin Chain collator nodes implement the IPFS [Bitswap](https://docs.ipfs.tech/concepts/bitswap/){target=\_blank} wire protocol, which is the standard way IPFS nodes exchange data blocks. IPFS clients can request data directly from collator nodes using the CID.
 
 ### Retrieval Methods
 
 | Method | Status | Description |
 |:--:|:--:|:--:|
 | [Console UI](https://paritytech.github.io/polkadot-bulletin-chain/){target=\_blank} | Available | Download data via the Bulletin Chain Console UI using P2P or the IPFS gateway. The simplest option — no code required |
-| Direct P2P ([Helia](https://helia.io/){target=\_blank}) | Available | Connect to validator nodes via [libp2p](https://libp2p.io/){target=\_blank} and fetch data using the CID. The recommended decentralized approach for production applications |
+| Direct P2P ([Helia](https://helia.io/){target=\_blank}) | Available | Connect to collator nodes via [libp2p](https://libp2p.io/){target=\_blank} and fetch data using the CID. The recommended decentralized approach for production applications |
 | Bulletin Chain IPFS Gateway | Available | Access data via `https://paseo-ipfs.polkadot.io/ipfs/<CID>` for Polkadot TestNet. Can also be used programmatically via `fetch()` |
 | Smoldot Light Client | Coming Soon | Fully decentralized retrieval via the `bitswap_block` RPC, enabling trustless data access without connecting to a full node |
 
@@ -138,17 +137,13 @@ When you store data on the Bulletin Chain, the following happens:
 !!! tip
     For fully decentralized retrieval, use Direct P2P (Helia) or the upcoming Smoldot light client support.
 
-### Content Provider Record Expiry
-
-Content provider records on the DHT are only maintained for data within the retention period. Once data expires and is not renewed, validator nodes stop advertising it on the DHT. However, if another IPFS node has pinned the data, it remains accessible through that node.
-
 ## Data Lifecycle
 
 The typical lifecycle of data on the Bulletin Chain follows these steps:
 
 1. **Authorization**: Obtain authorization to store data through the faucet (Polkadot TestNet) or from a privileged account (MainNet).
 2. **Storage**: Submit a `store` or `store_with_cid_config` transaction with your data payload.
-3. **Retrieval**: Fetch data from validator nodes using the CID via the Console UI, Direct P2P (Helia), the Bulletin Chain IPFS gateway, or (coming soon) the Smoldot light client.
+3. **Retrieval**: Fetch data from collator nodes using the CID via the Console UI, Direct P2P (Helia), the Bulletin Chain IPFS gateway, or (coming soon) the Smoldot light client.
 4. **Renewal**: Before the retention period expires, submit a `renew` transaction to extend the data's lifetime.
 
 ## Size Limits

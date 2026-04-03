@@ -1,27 +1,29 @@
 ---
-title: Store Data on the Bulletin Chain
-description: Learn how to store an image on the Polkadot Bulletin Chain using the Console UI or PAPI, with step-by-step instructions.
+title: Store and Retrieve Data on the Bulletin Chain
+description: Learn how to store and retrieve an image on the Polkadot Bulletin Chain using the Console UI or PAPI, with step-by-step instructions.
 categories: Chain Interactions
 tutorial_badge: Beginner
 ---
 
-# Store Data on the Bulletin Chain
+# Store and Retrieve Data on the Bulletin Chain
 
-The [Bulletin Chain](/reference/polkadot-hub/data-storage/){target=\_blank} is a specialized storage chain in the Polkadot ecosystem that provides decentralized data storage with IPFS-compatible content addressing. You can use it to store static sites, images, media assets, application data, or any other files that benefit from on-chain verifiability.
+The [Bulletin Chain](/reference/polkadot-hub/data-storage/){target=\_blank} is a specialized storage chain in the Polkadot ecosystem that provides decentralized data storage with IPFS-compatible content addressing. You can use it to store static sites, images, media assets, application data, or any other files that benefit from availability and censorship-resistance.
 
-In this tutorial, you'll walk through a common developer scenario: storing an image on-chain and obtaining its CID (Content Identifier) so it can be referenced from a dApp, NFT metadata, or any IPFS-compatible system. The same steps apply to any file type — documents, JSON configs, HTML pages, and more.
+In this tutorial, you'll walk through a common developer scenario: storing an image using the Bulletin Chain's decentralized storage and obtaining its CID (Content Identifier) so it can be referenced from a dApp, NFT metadata, or any IPFS-compatible system. The same steps apply to any file type — documents, JSON configs, HTML pages, and more.
 
 ## Prerequisites
 
 - A Polkadot account (SS58 format) — see [Create an Account](/chain-interactions/accounts/create-account/){target=\_blank} if you need one
 - A browser wallet extension (Polkadot.js, Talisman, SubWallet, or Fearless)
-- An image or file to store (under ~8 MiB; for larger files, see [Size Limits](/reference/polkadot-hub/data-storage/#size-limits){target=\_blank})
+- An image or file to store (under ~8 MiB per transaction; for larger files, you can chunk your data — see [Size Limits](/reference/polkadot-hub/data-storage/#size-limits){target=\_blank})
 - Authorization to store data on the Bulletin Chain (covered in the next section)
 - For the PAPI method: [Node.js](https://nodejs.org/){target=\_blank} v18 or higher
 
 ## Get Authorization
 
 The Bulletin Chain has no token balances — you need authorization before you can store data. Authorization grants your account a specific number of transactions and bytes that you can use for storage.
+
+For this tutorial, we're going to use the testnet faucet for authorizations.
 
 === "Console UI"
 
@@ -53,7 +55,7 @@ The Bulletin Chain has no token balances — you need authorization before you c
 Now that your account is authorized, you can store your image on-chain. Choose the method that best fits your workflow.
 
 !!! note
-    You can also interact with the Bulletin Chain directly through [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fpaseo-bulletin-rpc.polkadot.io){target=\_blank} by submitting extrinsics from the `transactionStorage` pallet.
+    You can also interact with the Bulletin Chain directly through [Polkadot.js Apps](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fpaseo-bulletin-rpc.polkadot.io){target=\_blank} or [dev.papi.how](https://dev.papi.how/){target=\_blank} by submitting extrinsics from the `transactionStorage` pallet.
 
 === "Console UI"
 
@@ -132,14 +134,14 @@ After storing your image, you can verify it was successfully recorded using the 
 
 ## Retrieve Your Data
 
-The Bulletin Chain follows a "write-to-chain, read-from-network" architecture — you retrieve data from validator nodes using the CID. For a full overview of retrieval methods, see the [reference page](/reference/polkadot-hub/data-storage/#retrieval-methods).
+The Bulletin Chain follows a "write-to-chain, read-from-network" architecture — you retrieve data from collator nodes using the CID. For a full overview of retrieval methods, see the [reference page](/reference/polkadot-hub/data-storage/#retrieval-methods).
 
 === "Console UI"
 
     1. Navigate to the **Download** page in the [Bulletin Chain Console](https://paritytech.github.io/polkadot-bulletin-chain/){target=\_blank}.
     2. Choose a retrieval method:
 
-        - **P2P Connection**: Connects directly to Bulletin Chain validator nodes (decentralized, recommended).
+        - **P2P Connection**: Connects directly to Bulletin Chain collator nodes (decentralized, recommended).
         - **IPFS Gateway**: Uses the Bulletin Chain's IPFS gateway at `https://paseo-ipfs.polkadot.io`.
 
     3. Enter your **CID** in the "Fetch by CID" field — you can use either the `bafk2bzace...` format or the hex-encoded `0x0155a0e4...` format.
@@ -172,15 +174,15 @@ The Bulletin Chain follows a "write-to-chain, read-from-network" architecture �
 
 === "Direct P2P (Helia)"
 
-    For production applications, the recommended decentralized approach is to connect directly to Bulletin Chain validator nodes using [Helia](https://helia.io/){target=\_blank} (a lean IPFS implementation) and retrieve data via the CID over [libp2p](https://libp2p.io/){target=\_blank}.
+    For production applications, the recommended decentralized approach is to connect directly to Bulletin Chain collator nodes using [Helia](https://helia.io/){target=\_blank} (a lean IPFS implementation) and retrieve data via the CID over [libp2p](https://libp2p.io/){target=\_blank}.
 
-    This method requires knowing the public multiaddresses of Bulletin Chain validator nodes. See the [Bulletin Chain repository](https://github.com/paritytech/polkadot-bulletin-chain){target=\_blank} for Helia configuration examples and available validator endpoints.
+    This method requires knowing the public multiaddresses of Bulletin Chain collator nodes. See the [Bulletin Chain repository](https://github.com/paritytech/polkadot-bulletin-chain){target=\_blank} for Helia configuration examples and available collator endpoints.
 
 !!! tip
     Smoldot light client support for retrieval via the `bitswap_block` RPC is coming soon. This will enable fully trustless, decentralized data retrieval without connecting to a full node.
 
 !!! note
-    Stored data is only available within the retention period (~2 weeks on Polkadot TestNet). After that, the data is pruned from the chain and is no longer retrievable unless it has been renewed or pinned by an external IPFS node.
+    Stored data is only available within the retention period (~2 weeks on Polkadot TestNet). After that, the data is pruned from the chain and is no longer retrievable unless it has been renewed.
 
 ## Renew Your Data
 
@@ -218,6 +220,9 @@ Renewal resets the retention timer, keeping your image available for another ful
 
 !!! warning
     Each renewal generates a **new block number and index**. You must track the latest `(block, index)` pair from the `Renewed` event for any subsequent renewals. Using the original values after a renewal will fail.
+
+    !!! note
+        In the future, you'll be able to reference all data by CID instead of needing to track block number and index pairs.
 
 ## Where to Go Next
 

@@ -44,6 +44,7 @@ async function main() {
   console.log(`Read file: ${FILE_PATH} (${fileData.length} bytes)`);
 
   // Submit the store transaction
+  // Note: the signing account must have an active authorization (see Get Authorization section)
   console.log('Submitting store transaction...');
   const result = await api.tx.TransactionStorage.store({
     data: Binary.fromBytes(new Uint8Array(fileData)),

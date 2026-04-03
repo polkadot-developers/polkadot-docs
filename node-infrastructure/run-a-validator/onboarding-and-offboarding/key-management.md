@@ -52,58 +52,58 @@ Setting up your validator's session keys is essential to associate your node wit
 
 === "Pre-2.2.0 (Legacy)"
 
-    If runtime 2.2.0 is **not yet live** on your target network (Kusama or Polkadot), there are multiple ways to create the session keys. It can be done by interacting with the [Polkadot.js Apps UI](https://polkadot.js.org/apps/#/explorer){target=\_blank}, using the curl command or by using [Subkey](https://paritytech.github.io/polkadot-sdk/master/subkey/index.html){target=\_blank}.
+    If runtime 2.2.0 is **not yet live** on your target network (Kusama or Polkadot), there are multiple ways to create the session keys. It can be done by interacting with the [Polkadot.js Apps UI](https://polkadot.js.org/apps/#/explorer){target=\_blank}, using the curl command, or by using [Subkey](https://paritytech.github.io/polkadot-sdk/master/subkey/index.html){target=\_blank}.
 
-    **Polkadot.js Apps UI**
+    === "Polkadot.js Apps UI"
 
-    1. In Polkadot.js Apps, connect to your local node, navigate to the **Developer** dropdown, and select the **RPC Calls** option.
+        1. In Polkadot.js Apps, connect to your local node, navigate to the **Developer** dropdown, and select the **RPC Calls** option.
 
-    2. Construct an `author_rotateKeys` RPC call and execute it:
+        2. Construct an `author_rotateKeys` RPC call and execute it:
 
-        1. Select the **author** endpoint.
-        2. Choose the **rotateKeys()** call.
-        3. Click the **Submit RPC Call** button.
-        4. Copy the hex-encoded public key from the response.
+            1. Select the **author** endpoint.
+            2. Choose the **rotateKeys()** call.
+            3. Click the **Submit RPC Call** button.
+            4. Copy the hex-encoded public key from the response.
 
-        ![](/images/node-infrastructure/run-a-validator/onboarding-and-offboarding/key-management/key-management-01.webp)
+            ![](/images/node-infrastructure/run-a-validator/onboarding-and-offboarding/key-management/key-management-01.webp)
 
-    **Curl**
+    === "Curl"
 
-    Generate session keys by running the following command on your validator node:
+        Generate session keys by running the following command on your validator node:
 
-    ``` bash
-    curl -H "Content-Type: application/json" \
-    -d '{"id":1, "jsonrpc":"2.0", "method": "author_rotateKeys", "params":[]}' \
-    http://localhost:9944
-    ```
+        ``` bash
+        curl -H "Content-Type: application/json" \
+        -d '{"id":1, "jsonrpc":"2.0", "method": "author_rotateKeys", "params":[]}' \
+        http://localhost:9944
+        ```
 
-    This command will return a JSON object. The `result` key is the hex-encoded public part of the newly created session key. Save this for later use.
+        This command will return a JSON object. The `result` key is the hex-encoded public part of the newly created session key. Save this for later use.
 
-    ```json
-    {"jsonrpc":"2.0","result":"0xda3861a45e0197f3ca145c2c209f9126e5053fas503e459af4255cf8011d51010","id":1}
-    ```
+        ```json
+        {"jsonrpc":"2.0","result":"0xda3861a45e0197f3ca145c2c209f9126e5053fas503e459af4255cf8011d51010","id":1}
+        ```
 
-    **Subkey**
+    === "Subkey"
 
-    To create a keypair for your node's session keys, use the `subkey generate` command. This generates a set of cryptographic keys that must be stored in your node's keystore directory.
+        To create a keypair for your node's session keys, use the `subkey generate` command. This generates a set of cryptographic keys that must be stored in your node's keystore directory.
 
-    When you run the command, it produces output similar to this example:
+        When you run the command, it produces output similar to this example:
 
-    --8<-- 'code/node-infrastructure/run-a-validator/onboarding-and-offboarding/key-management/subkey-generate.html'
+        --8<-- 'code/node-infrastructure/run-a-validator/onboarding-and-offboarding/key-management/subkey-generate.html'
 
-    To properly store these keys, create a file in your keystore directory with a specific naming convention. The filename must consist of the hex string `61757261` (which represents "aura" in hex) followed by the public key without its `0x` prefix.
+        To properly store these keys, create a file in your keystore directory with a specific naming convention. The filename must consist of the hex string `61757261` (which represents "aura" in hex) followed by the public key without its `0x` prefix.
 
-    Using the example above, you would create a file named:
+        Using the example above, you would create a file named:
 
-    ```
-    ./keystores/6175726128cc2fdb6e28835e2bbac9a16feb65c23d448c9314ef12fe083b61bab8fc2755
-    ```
+        ```
+        ./keystores/6175726128cc2fdb6e28835e2bbac9a16feb65c23d448c9314ef12fe083b61bab8fc2755
+        ```
 
-    And store only the secret phrase in the file:
+        And store only the secret phrase in the file:
 
-    ```
-    "twist buffalo mixture excess device drastic vague mammal fitness punch match hammer"
-    ```
+        ```
+        "twist buffalo mixture excess device drastic vague mammal fitness punch match hammer"
+        ```
 
     When submitting `setKeys`, use `0x00` as the proof parameter.
 
@@ -118,31 +118,31 @@ After generating your session keys (and proof, if using runtime 2.2.0+), you mus
 
     The recommended approach is to use the `stakingRcClient.set_keys` extrinsic on Polkadot Hub. This path is required for validators using pure proxy stash accounts or [Staking Operator proxies](/node-infrastructure/run-a-validator/operational-tasks/staking-operator-proxy/){target=\_blank}.
 
-    **Runtime 2.2.0+**
+    === "Runtime 2.2.0+"
 
-    1. In Polkadot.js Apps, connect to **Polkadot Hub** (Asset Hub).
-    2. Navigate to **Developer > Extrinsics**.
-    3. Select your stash account (or submit via proxy).
-    4. Choose the **stakingRcClient** pallet and the **setKeys** extrinsic.
-    5. Enter the following parameters:
-        - **`keys`**: The session keys hex string returned by `author_rotateKeysWithOwner`.
-        - **`proof`**: The proof hex string returned by `author_rotateKeysWithOwner`.
-        - **`maxDeliveryAndRemoteExecutionFee`**: Optional maximum fee for the XCM message to the relay chain. Can be left as `None`.
-    6. Submit and sign the transaction.
+        1. In Polkadot.js Apps, connect to **Polkadot Hub** (Asset Hub).
+        2. Navigate to **Developer > Extrinsics**.
+        3. Select your stash account (or submit via proxy).
+        4. Choose the **stakingRcClient** pallet and the **setKeys** extrinsic.
+        5. Enter the following parameters:
+            - **`keys`**: The session keys hex string returned by `author_rotateKeysWithOwner`.
+            - **`proof`**: The proof hex string returned by `author_rotateKeysWithOwner`.
+            - **`maxDeliveryAndRemoteExecutionFee`**: Optional maximum fee for the XCM message to the relay chain. Can be left as `None`.
+        6. Submit and sign the transaction.
 
-    ![](/images/node-infrastructure/run-a-validator/onboarding-and-offboarding/key-management/key-management-03.webp)
+        ![](/images/node-infrastructure/run-a-validator/onboarding-and-offboarding/key-management/key-management-03.webp)
 
-    Polkadot Hub validates the proof locally and forwards the keys to the relay chain via XCM.
+        Polkadot Hub validates the proof locally and forwards the keys to the relay chain via XCM.
 
-    **Pre-2.2.0**
+    === "Pre-2.2.0"
 
-    1. Go to [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} and connect to Polkadot Hub.
-    2. Navigate to **Developer > Extrinsics**.
-    3. Select the account that controls your validator (your stash or proxy account).
-    4. Choose the **stakingRcClient** pallet and the **set_keys** extrinsic.
-    5. Paste the hex-encoded session key string returned by `author_rotateKeys` into the **keys** field.
-    6. Set the **proof** field to `0x` (empty proof).
-    7. Submit the transaction.
+        1. Go to [Polkadot.js Apps](https://polkadot.js.org/apps/){target=\_blank} and connect to Polkadot Hub.
+        2. Navigate to **Developer > Extrinsics**.
+        3. Select the account that controls your validator (your stash or proxy account).
+        4. Choose the **stakingRcClient** pallet and the **set_keys** extrinsic.
+        5. Paste the hex-encoded session key string returned by `author_rotateKeys` into the **keys** field.
+        6. Set the **proof** field to `0x` (empty proof).
+        7. Submit the transaction.
 
     !!! note
         Setting session keys on Polkadot Hub requires a deposit of approximately 60 DOT (or ~2 KSM on Kusama). This deposit is only released when you call `stakingRcClient.purgeKeys` on Polkadot Hub — purging keys via the relay chain (`session.purgeKeys`) does not release this deposit.
@@ -151,22 +151,22 @@ After generating your session keys (and proof, if using runtime 2.2.0+), you mus
 
     You can also submit session keys directly on the relay chain using `session.setKeys`. This path will be deprecated in a future release.
 
-    **Runtime 2.2.0+**
+    === "Runtime 2.2.0+"
 
-    1. In Polkadot.js Apps, connect to the **relay chain**.
-    2. Navigate to **Developer > Extrinsics**.
-    3. Select your stash account.
-    4. Choose the **session** pallet and the **setKeys** extrinsic.
-    5. Enter the following parameters:
-        - **`keys`**: The session keys hex string returned by `author_rotateKeysWithOwner`.
-        - **`proof`**: The proof hex string returned by `author_rotateKeysWithOwner`.
-    6. Submit and sign the transaction.
+        1. In Polkadot.js Apps, connect to the **relay chain**.
+        2. Navigate to **Developer > Extrinsics**.
+        3. Select your stash account.
+        4. Choose the **session** pallet and the **setKeys** extrinsic.
+        5. Enter the following parameters:
+            - **`keys`**: The session keys hex string returned by `author_rotateKeysWithOwner`.
+            - **`proof`**: The proof hex string returned by `author_rotateKeysWithOwner`.
+        6. Submit and sign the transaction.
 
-    **Pre-2.2.0**
+    === "Pre-2.2.0"
 
-    1. Go to the **Network > Staking > Accounts** section on [Polkadot.js Apps](https://polkadot.js.org/apps/#/staking/actions){target=\_blank} connected to the relay chain.
-    2. Select **Set Session Key** on the bonding account you generated earlier.
-    3. Paste the hex-encoded session key string returned by `author_rotateKeys` (from the Polkadot.js Apps UI, curl, or Subkey) into the input field and submit the transaction.
+        1. Go to the **Network > Staking > Accounts** section on [Polkadot.js Apps](https://polkadot.js.org/apps/#/staking/actions){target=\_blank} connected to the relay chain.
+        2. Select **Set Session Key** on the bonding account you generated earlier.
+        3. Paste the hex-encoded session key string returned by `author_rotateKeys` (from the Polkadot.js Apps UI, curl, or Subkey) into the input field and submit the transaction.
 
     !!! warning
         The relay chain `session.setKeys` path is legacy and will be deprecated. Use the Polkadot Hub path for new setups.

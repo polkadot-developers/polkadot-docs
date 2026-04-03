@@ -7,7 +7,8 @@ toggle:
   canonical: true
   variant: evm
   label: EVM
-test_workflow: polkadot-docs-hardhat-evm
+page_badges:
+  test_workflow: polkadot-docs-hardhat-evm
 ---
 
 # Hardhat

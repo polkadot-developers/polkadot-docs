@@ -1,8 +1,9 @@
 ---
 title: Get Tokens from the Official Faucet
 description: Learn how to obtain test tokens from Polkadot faucets for development and testing purposes across different networks.
-tutorial_badge: Beginner
 categories: Smart Contracts
+page_badges:
+  tutorial_badge: Beginner
 ---
 
 # Faucet

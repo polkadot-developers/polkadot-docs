@@ -2,7 +2,8 @@
 title: Unit Test Pallets
 description: Learn how to efficiently test pallets in the Polkadot SDK, ensuring the reliability and security of your pallets operations.
 categories: Parachains
-test_workflow: polkadot-docs-pallet-testing
+page_badges:
+  test_workflow: polkadot-docs-pallet-testing
 ---
 
 # Unit Test Pallets

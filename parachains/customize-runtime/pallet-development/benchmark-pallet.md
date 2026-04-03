@@ -2,7 +2,8 @@
 title: Benchmark Your Pallet
 description: Learn how to benchmark extrinsics in your custom pallet to generate precise weight calculations suitable for production use.
 categories: Parachains
-test_workflow: polkadot-docs-benchmark-pallet
+page_badges:
+  test_workflow: polkadot-docs-benchmark-pallet
 ---
 
 ## Introduction

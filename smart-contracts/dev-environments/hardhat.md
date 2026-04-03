@@ -8,7 +8,7 @@ toggle:
   variant: evm
   label: EVM
 page_badges:
-  tutorial_badge: beginner
+  tutorial_badge: Beginner
   test_workflow: polkadot-docs-hardhat-evm
 ---
 

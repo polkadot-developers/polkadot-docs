@@ -7,7 +7,7 @@ toggle:
   variant: pvm
   label: PVM
 page_badges:
-  tutorial_badge: beginner
+  tutorial_badge: Beginner
   test_workflow: polkadot-docs-hardhat-pvm
 ---
 

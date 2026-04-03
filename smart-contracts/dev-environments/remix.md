@@ -3,7 +3,7 @@ title: Use the Remix IDE on Polkadot Hub
 description: Explore the smart contract development and deployment process on Polkadot Hub using Remix IDE, a visual IDE for blockchain developers.
 categories: Smart Contracts, Tooling
 page_badges:
-  tutorial_badge: beginner
+  tutorial_badge: Beginner
 ---
 
 # Remix IDE

@@ -6,7 +6,9 @@ toggle:
   group: hardhat
   variant: pvm
   label: PVM
-test_workflow: polkadot-docs-hardhat-pvm
+page_badges:
+  tutorial_badge: Beginner
+  test_workflow: polkadot-docs-hardhat-pvm
 ---
 
 # Hardhat Polkadot

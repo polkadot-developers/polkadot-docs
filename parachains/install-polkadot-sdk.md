@@ -2,7 +2,8 @@
 title: Install Polkadot SDK
 description: Install all required Polkadot SDK dependencies, set up the SDK itself, and verify that it runs correctly on your machine.
 categories: Basics, Tooling
-test_workflow: polkadot-docs-install-polkadot-sdk
+page_badges:
+  test_workflow: polkadot-docs-install-polkadot-sdk
 ---
 
 # Install Polkadot SDK

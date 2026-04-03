@@ -1,10 +1,11 @@
 ---
 title: Deploy an ERC-20 Using Hardhat
 description: Deploy an ERC-20 token on Polkadot Hub using PVM. This guide covers contract creation, compilation, deployment, and interaction via Hardhat.
-tutorial_badge: Intermediate
 categories: Basics, Smart Contracts
 tools: Hardhat
-test_workflow: polkadot-docs-erc20-hardhat
+page_badges:
+  tutorial_badge: Intermediate
+  test_workflow: polkadot-docs-erc20-hardhat
 ---
 
 # Deploy an ERC-20 Using Hardhat

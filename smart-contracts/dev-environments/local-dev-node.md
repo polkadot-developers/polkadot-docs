@@ -2,7 +2,8 @@
 title: Local Development Node
 description: Follow this step-by-step guide to install a Revive Dev node and ETH-RPC adapter for smart contract development in a local environment.
 categories: Smart Contracts
-test_workflow: polkadot-docs-local-dev-node
+page_badges:
+  test_workflow: polkadot-docs-local-dev-node
 ---
 
 # Local Development Node

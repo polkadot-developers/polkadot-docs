@@ -2,7 +2,8 @@
 title: Query On-Chain State with SDKs
 description: Learn how to query on-chain storage data on Polkadot Hub using PAPI, Polkadot.js, Dedot, Python Substrate Interface, and Subxt.
 categories: Chain Interactions, Tooling
-test_workflow: polkadot-docs-query-sdks
+page_badges:
+  test_workflow: polkadot-docs-query-sdks
 ---
 
 # Query On-Chain State with SDKs

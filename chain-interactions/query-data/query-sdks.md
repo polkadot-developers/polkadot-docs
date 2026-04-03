@@ -2,13 +2,10 @@
 title: Query On-Chain State with SDKs
 description: Learn how to query on-chain storage data on Polkadot Hub using PAPI, Polkadot.js, Dedot, Python Substrate Interface, and Subxt.
 categories: Chain Interactions, Tooling
+test_workflow: polkadot-docs-query-sdks
 ---
 
 # Query On-Chain State with SDKs
-
-<div class="status-badge" markdown>
-[![Query On-Chain State with SDKs](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-query-sdks.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-query-sdks.yml){target=\_blank}
-</div>
 
 ## Introduction
 

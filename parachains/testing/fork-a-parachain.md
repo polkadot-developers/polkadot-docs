@@ -2,13 +2,10 @@
 title: Fork a Parachain Using Chopsticks
 description: Simplify Polkadot SDK development with Chopsticks. Learn essential features, how to install Chopsticks, and how to configure local blockchain forks.
 categories: Parachains, Tooling
+test_workflow: polkadot-docs-fork-a-parachain
 ---
 
 # Fork a Parachain Using Chopsticks
-
-<div class="status-badge" markdown>
-[![Fork a Parachain](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-fork-a-parachain.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-fork-a-parachain.yml){target=\_blank}
-</div>
 
 ## Introduction
 

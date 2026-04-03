@@ -7,13 +7,10 @@ toggle:
   canonical: true
   variant: evm
   label: EVM
+test_workflow: polkadot-docs-hardhat-evm
 ---
 
 # Hardhat
-
-<div class="status-badge" markdown>
-[![Hardhat EVM](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-hardhat-evm.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-hardhat-evm.yml){target=\_blank}
-</div>
 
 ## Introduction
 

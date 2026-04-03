@@ -2,13 +2,10 @@
 title: Install Polkadot SDK
 description: Install all required Polkadot SDK dependencies, set up the SDK itself, and verify that it runs correctly on your machine.
 categories: Basics, Tooling
+test_workflow: polkadot-docs-install-polkadot-sdk
 ---
 
 # Install Polkadot SDK
-
-<div class="status-badge" markdown>
-[![Install Polkadot SDK](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-install-polkadot-sdk.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-install-polkadot-sdk.yml){target=\_blank}
-</div>
 
 This guide provides step-by-step instructions for installing the Polkadot SDK on macOS, Linux, and Windows. The installation process consists of two main parts:
 

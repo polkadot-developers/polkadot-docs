@@ -3,13 +3,10 @@ title: Runtime Upgrades
 description: Learn how to safely perform runtime upgrades for your Polkadot SDK-based blockchain, including step-by-step instructions.
 tutorial_badge: Intermediate
 categories: Parachains
+test_workflow: polkadot-docs-runtime-upgrades
 ---
 
 # Runtime Upgrades
-
-<div class="status-badge" markdown>
-[![Runtime Upgrades](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-runtime-upgrades.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-runtime-upgrades.yml){target=\_blank}
-</div>
 
 ## Introduction
 

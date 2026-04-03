@@ -3,13 +3,10 @@ title: Add an Existing Pallet to the Runtime
 description: Learn how to include and configure pallets in a Polkadot SDK-based runtime, from adding dependencies to implementing necessary traits.
 tutorial_badge: Intermediate
 categories: Parachains
+test_workflow: polkadot-docs-add-existing-pallets
 ---
 
 # Add an Existing Pallet to the Runtime
-
-<div class="status-badge" markdown>
-[![Add Existing Pallets](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-add-existing-pallets.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-add-existing-pallets.yml){target=\_blank}
-</div>
 
 ## Introduction
 

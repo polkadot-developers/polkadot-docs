@@ -3,13 +3,10 @@ title: Add Multiple Pallet Instances
 description: Learn how to implement multiple instances of the same pallet in your Polkadot SDK-based runtime, from adding dependencies to configuring unique instances.
 tutorial_badge: Intermediate
 categories: Parachains
+test_workflow: polkadot-docs-add-pallet-instances
 ---
 
 # Add Multiple Pallet Instances
-
-<div class="status-badge" markdown>
-[![Add Pallet Instances](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-add-pallet-instances.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-add-pallet-instances.yml){target=\_blank}
-</div>
 
 ## Introduction
 

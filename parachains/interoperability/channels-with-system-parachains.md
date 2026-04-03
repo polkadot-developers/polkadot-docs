@@ -3,13 +3,10 @@ title: Opening HRMP Channels with System Parachains
 description: Learn how to open HRMP channels with Polkadot system parachains. Discover the process for establishing bi-directional communication using a single XCM message.
 tutorial_badge: Advanced
 categories: Parachains, Interoperability
+test_workflow: polkadot-docs-channels-with-system-parachains
 ---
 
 # Opening HRMP Channels with System Parachains
-
-<div class="status-badge" markdown>
-[![Channels with System Parachains](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-channels-with-system-parachains.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-channels-with-system-parachains.yml){target=\_blank}
-</div>
 
 ## Introduction
 

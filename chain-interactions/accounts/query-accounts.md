@@ -2,13 +2,10 @@
 title: Query Account Information with SDKs
 description: Learn how to query account information using five popular SDKs—Polkadot API (PAPI), Polkadot.js API, Dedot, Python Substrate Interface, and Subxt.
 categories: Chain Interactions, Tooling
+test_workflow: polkadot-docs-query-accounts
 ---
 
 # Query Account Information with SDKs
-
-<div class="status-badge" markdown>
-[![Query Account Information](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-query-accounts.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-query-accounts.yml){target=\_blank}
-</div>
 
 ## Introduction
 

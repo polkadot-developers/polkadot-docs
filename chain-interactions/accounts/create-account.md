@@ -2,13 +2,10 @@
 title: Create an Account
 description: Step-by-step guide to creating Polkadot accounts using different programming languages and libraries, including JavaScript, Python, and Rust examples.
 categories: Basics, Chain Interactions
+test_workflow: polkadot-docs-create-account
 ---
 
 # Create an Account
-
-<div class="status-badge" markdown>
-[![Create an Account](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-create-account.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-create-account.yml){target=\_blank}
-</div>
 
 ## Introduction
 

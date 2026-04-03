@@ -6,13 +6,10 @@ toggle:
   group: hardhat
   variant: pvm
   label: PVM
+test_workflow: polkadot-docs-hardhat-pvm
 ---
 
 # Hardhat Polkadot
-
-<div class="status-badge" markdown>
-[![Hardhat PVM](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-hardhat-pvm.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-hardhat-pvm.yml){target=\_blank}
-</div>
 
 ## Introduction
 

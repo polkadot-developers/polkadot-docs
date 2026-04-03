@@ -168,7 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let currentVariant = getInitialVariant();
 
-    const badgeBlocks = container.querySelectorAll('.page-details[data-variant]');
+    const badgeBlocks = container.querySelectorAll('.page-header-row[data-variant]');
 
     function setState(variant, updateUrl = true) {
       currentVariant = variant;

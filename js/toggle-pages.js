@@ -168,6 +168,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let currentVariant = getInitialVariant();
 
+    const badgeBlocks = container.querySelectorAll('.page-details[data-variant]');
+
     function setState(variant, updateUrl = true) {
       currentVariant = variant;
 
@@ -180,6 +182,9 @@ document.addEventListener('DOMContentLoaded', () => {
       );
       h1Headers.forEach((h) =>
         h.classList.toggle('active', h.dataset.variant === variant)
+      );
+      badgeBlocks.forEach((b) =>
+        b.classList.toggle('active', b.dataset.variant === variant)
       );
 
       swapTOC(variant);

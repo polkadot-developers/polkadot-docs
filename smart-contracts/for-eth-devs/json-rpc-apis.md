@@ -90,39 +90,45 @@ Executes a new message call immediately without creating a transaction. [Referen
 
 **Example**:
 
-```bash title="eth_call (basic)"
-curl -X POST https://services.polkadothub-rpc.com/testnet \
--H "Content-Type: application/json" \
---data '{
-    "jsonrpc":"2.0",
-    "method":"eth_call",
-    "params":[{
-        "to": "INSERT_RECIPIENT_ADDRESS",
-        "data": "INSERT_ENCODED_CALL"
-    }, "INSERT_BLOCK_VALUE"],
-    "id":1
-}'
-```
+=== "Basic"
 
-```bash title="eth_call (with state overrides)"
-curl -X POST https://services.polkadothub-rpc.com/testnet \
--H "Content-Type: application/json" \
---data '{
-    "jsonrpc":"2.0",
-    "method":"eth_call",
-    "params":[{
-        "to": "INSERT_RECIPIENT_ADDRESS",
-        "data": "INSERT_ENCODED_CALL"
-    }, "latest", {
-        "INSERT_ADDRESS": {
-            "balance": "0xDE0B6B3A7640000"
-        }
-    }],
-    "id":1
-}'
-```
+    ```bash
+    curl -X POST https://services.polkadothub-rpc.com/testnet \
+    -H "Content-Type: application/json" \
+    --data '{
+        "jsonrpc":"2.0",
+        "method":"eth_call",
+        "params":[{
+            "to": "INSERT_RECIPIENT_ADDRESS",
+            "data": "INSERT_ENCODED_CALL"
+        }, "INSERT_BLOCK_VALUE"],
+        "id":1
+    }'
+    ```
 
-In the state overrides example, the account at `INSERT_ADDRESS` is temporarily assigned a balance of 10^18 Wei for the duration of the call. Ensure to replace `INSERT_RECIPIENT_ADDRESS`, `INSERT_ENCODED_CALL`, and `INSERT_ADDRESS` with the appropriate values.
+    Ensure to replace `INSERT_RECIPIENT_ADDRESS`, `INSERT_ENCODED_CALL`, and `INSERT_BLOCK_VALUE` with the appropriate values.
+
+=== "With state overrides"
+
+    ```bash
+    curl -X POST https://services.polkadothub-rpc.com/testnet \
+    -H "Content-Type: application/json" \
+    --data '{
+        "jsonrpc":"2.0",
+        "method":"eth_call",
+        "params":[{
+            "to": "INSERT_RECIPIENT_ADDRESS",
+            "data": "INSERT_ENCODED_CALL"
+        }, "latest", {
+            "INSERT_ADDRESS": {
+                "balance": "0xDE0B6B3A7640000"
+            }
+        }],
+        "id":1
+    }'
+    ```
+
+    In this example, the account at `INSERT_ADDRESS` is temporarily assigned a balance of 10^18 Wei for the duration of the call. Ensure to replace `INSERT_RECIPIENT_ADDRESS`, `INSERT_ENCODED_CALL`, and `INSERT_ADDRESS` with the appropriate values.
 
 !!! note "Differences from Ethereum"
     Polkadot Hub's `eth_call` state overrides are fully compatible with the [Geth state override specification](https://geth.ethereum.org/docs/interacting-with-geth/rpc/ns-eth#state-override-set){target=\_blank}. One Polkadot-specific extension is that the `code` field accepts both EVM bytecode and PolkaVM (PVM) bytecode, detected automatically via magic bytes at the start of the blob.

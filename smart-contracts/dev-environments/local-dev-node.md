@@ -4,6 +4,8 @@ description: Follow this step-by-step guide to install a Revive Dev node and ETH
 categories: Smart Contracts
 page_badges:
   test_workflow: polkadot-docs-local-dev-node
+page_tests:
+  path: polkadot-docs/smart-contracts/local-dev-node/tests/docs.test.ts
 ---
 
 # Local Development Node
@@ -87,7 +89,3 @@ Your local development environment is now active and accessible at `http://local
 
 You can connect wallets, deploy contracts using Remix or Hardhat, and interact with your smart contracts as you would on any Ethereum-compatible network.
 
-<div class="status-badge" markdown>
-[![Local Development Node](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-local-dev-node.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-local-dev-node.yml){target=\_blank}
-[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/smart-contracts/local-dev-node/tests/docs.test.ts){ .tests-button target=\_blank}
-</div>

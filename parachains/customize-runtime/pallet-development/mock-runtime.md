@@ -4,6 +4,8 @@ description: Learn how to create a mock runtime environment for testing your cus
 categories: Parachains
 page_badges:
   test_workflow: polkadot-docs-mock-runtime
+page_tests:
+  path: polkadot-docs/parachains/customize-runtime/pallet-development/mock-runtime/tests/docs.test.ts
 ---
 
 # Mock Your Runtime
@@ -168,11 +170,6 @@ You've successfully created a mock runtime with a genesis configuration for your
 - Use this minimal setup to test all pallet functionality.
 
 The mock runtime with a genesis configuration is essential for test-driven development, enabling you to verify logic under different initial conditions before integrating it into the actual parachain runtime.
-
-<div class="status-badge" markdown>
-[![Mock Your Runtime](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-mock-runtime.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-mock-runtime.yml){target=\_blank}
-[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/parachains/customize-runtime/pallet-development/mock-runtime/tests/docs.test.ts){ .tests-button target=\_blank}
-</div>
 
 ## Where to Go Next
 

@@ -4,6 +4,8 @@ description: Install all required Polkadot SDK dependencies, set up the SDK itse
 categories: Basics, Tooling
 page_badges:
   test_workflow: polkadot-docs-install-polkadot-sdk
+page_tests:
+  path: polkadot-docs/parachains/install-polkadot-sdk/tests/docs.test.ts
 ---
 
 # Install Polkadot SDK
@@ -402,11 +404,6 @@ Once connected, the interface updates its color scheme to indicate a successful 
 You can now explore the various pallets and features included in the kitchensink node, making it a valuable reference as you develop your own blockchain applications.
 
 To stop the node, press `Control-C` in the terminal.
-
-<div class="status-badge" markdown>
-[![Install Polkadot SDK](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-install-polkadot-sdk.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-install-polkadot-sdk.yml){target=\_blank}
-[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/parachains/install-polkadot-sdk/tests/docs.test.ts){ .tests-button target=\_blank}
-</div>
 
 ## Where to Go Next
 

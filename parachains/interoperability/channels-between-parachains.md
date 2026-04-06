@@ -5,6 +5,8 @@ categories: Parachains, Interoperability
 page_badges:
   tutorial_badge: Advanced
   test_workflow: polkadot-docs-channels-between-parachains
+page_tests:
+  path: polkadot-docs/parachains/interoperability/channels-between-parachains/tests/docs.test.ts
 ---
 
 # Opening HRMP Channels Between Parachains
@@ -189,10 +191,6 @@ If the channel has been successfully established, you should see the channel det
 
 By following these steps, you will have successfully accepted the HRMP channel request and established a unidirectional channel between the two parachains.
 
-<div class="status-badge" markdown>
-[![Channels Between Parachains](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-channels-between-parachains.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-channels-between-parachains.yml){target=\_blank}
-[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/parachains/interoperability/channels-between-parachains/tests/docs.test.ts){ .tests-button target=\_blank}
-</div>
 
 !!! note
     Remember that for full bidirectional communication, you'll need to repeat this process in the opposite direction, with parachain 2600 initiating a channel request to parachain 2500.

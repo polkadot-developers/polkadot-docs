@@ -10,6 +10,8 @@ toggle:
 page_badges:
   tutorial_badge: Beginner
   test_workflow: polkadot-docs-hardhat-evm
+page_tests:
+  path: polkadot-docs/smart-contracts/dev-environments/hardhat-evm/tests/recipe.test.ts
 ---
 
 # Hardhat
@@ -238,11 +240,6 @@ Example for a contract with constructor `(uint256 initialValue, address owner)`:
 ```bash
 npx hardhat verify --network polkadotTestnet INSERT_CONTRACT_ADDRESS "42" "0x1234567890123456789012345678901234567890"
 ```
-
-<div class="status-badge" markdown>
-[![Hardhat EVM](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-hardhat-evm.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-hardhat-evm.yml){target=\_blank}
-[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/smart-contracts/dev-environments/hardhat-evm/tests/recipe.test.ts){ .tests-button target=\_blank}
-</div>
 
 ## Where to Go Next
 

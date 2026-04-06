@@ -4,6 +4,8 @@ description: Learn how to create custom pallets using FRAME, allowing for flexib
 categories: Parachains
 page_badges:
   test_workflow: polkadot-docs-create-a-pallet
+page_tests:
+  path: polkadot-docs/parachains/customize-runtime/pallet-development/create-a-pallet/tests/docs.test.ts
 ---
 
 # Create a Custom Pallet
@@ -407,11 +409,6 @@ You've successfully created and integrated a custom pallet into a Polkadot SDK-b
 - Added the pallet to a runtime and tested it locally.
 
 These components form the foundation for developing sophisticated blockchain logic in Polkadot SDK-based chains.
-
-<div class="status-badge" markdown>
-[![Create a Custom Pallet](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-create-a-pallet.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-create-a-pallet.yml){target=\_blank}
-[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/parachains/customize-runtime/pallet-development/create-a-pallet/tests/docs.test.ts){ .tests-button target=\_blank}
-</div>
 
 ## Where to Go Next
 

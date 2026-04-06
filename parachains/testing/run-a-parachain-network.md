@@ -4,6 +4,8 @@ description: Learn how to deploy a local parachain test network using Zombienet,
 categories: Parachains, Tooling
 page_badges:
   test_workflow: polkadot-docs-run-a-parachain-network
+page_tests:
+  path: polkadot-docs/networks/run-a-parachain-network/tests/docs.test.ts
 ---
 
 # Run a Parachain Network Using Zombienet
@@ -182,11 +184,6 @@ curl -s -H "Content-Type: application/json" \
 ```
 
 To stop the network, press **Ctrl + C** in the terminal where Zombienet is running.
-
-<div class="status-badge" markdown>
-[![Run a Parachain Network](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-run-a-parachain-network.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-run-a-parachain-network.yml){target=\_blank}
-[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/networks/run-a-parachain-network/tests/docs.test.ts){ .tests-button target=\_blank}
-</div>
 
 ## Where to Go Next
 

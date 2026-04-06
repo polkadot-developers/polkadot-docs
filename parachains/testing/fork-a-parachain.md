@@ -4,6 +4,8 @@ description: Simplify Polkadot SDK development with Chopsticks. Learn essential 
 categories: Parachains, Tooling
 page_badges:
   test_workflow: polkadot-docs-fork-a-parachain
+page_tests:
+  path: polkadot-docs/parachains/testing/fork-a-parachain/tests/docs.test.ts
 ---
 
 # Fork a Parachain Using Chopsticks
@@ -190,11 +192,6 @@ These are the methods that can be invoked and their parameters:
         ```js
         --8<-- 'code/parachains/testing/fork-a-parachain/dev-timeTravel-example.js'
         ```
-
-<div class="status-badge" markdown>
-[![Fork a Parachain](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-fork-a-parachain.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-fork-a-parachain.yml){target=\_blank}
-[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/parachains/testing/fork-a-parachain/tests/docs.test.ts){ .tests-button target=\_blank}
-</div>
 
 ## Where to Go Next
 

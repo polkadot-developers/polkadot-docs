@@ -4,6 +4,8 @@ description: Learn how to query account information using five popular SDKs—Po
 categories: Chain Interactions, Tooling
 page_badges:
   test_workflow: polkadot-docs-query-accounts
+page_tests:
+  path: polkadot-docs/chain-interactions/query-accounts/tests/docs.test.ts
 ---
 
 # Query Account Information with SDKs
@@ -301,11 +303,6 @@ When querying account information, you'll receive several key fields:
 - **Frozen Balance**: Balance that cannot be used for transfers but may be used for other operations.
 
 The total balance is the sum of free and reserved balances.
-
-<div class="status-badge" markdown>
-[![Query Account Information](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-query-accounts.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-query-accounts.yml){target=\_blank}
-[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/chain-interactions/query-accounts/tests/docs.test.ts){ .tests-button target=\_blank}
-</div>
 
 ## Where to Go Next
 

@@ -78,24 +78,60 @@ Executes a new message call immediately without creating a transaction. [Referen
     - **`gasPrice` ++"string"++**: (Optional) Gas price per unit of gas. Must be a [quantity](https://ethereum.org/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string.
     - **`value` ++"string"++**: (Optional) Value in wei to send with the call. Must be a [quantity](https://ethereum.org/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string.
 - **`blockValue` ++"string"++**: (Optional) Block tag or block number to execute the call at. Must be a [quantity](https://ethereum.org/developers/docs/apis/json-rpc/#quantities-encoding){target=\_blank} string or a [default block parameter](https://ethereum.org/developers/docs/apis/json-rpc/#default-block){target=\_blank}.
+- **`stateOverrides` ++"object"++**: (Optional) A mapping of addresses to state overrides. Allows temporary modification of account state for the duration of the call without persisting changes on-chain. Conforms to the [Geth state override specification](https://geth.ethereum.org/docs/interacting-with-geth/rpc/ns-eth#state-override-set){target=\_blank}.
+    - **Key**: Account address as a hex string (e.g., `"0x1234..."`)
+    - **Value**: An object with the following optional fields:
+        - **`balance` ++"string"++**: (Optional) Fake balance to set for the account. Must be a quantity string.
+        - **`nonce` ++"string"++**: (Optional) Fake nonce to set for the account. Must be a quantity string.
+        - **`code` ++"string"++**: (Optional) Fake bytecode to inject at the account address. On Polkadot Hub, this field accepts both EVM bytecode and PolkaVM (PVM) bytecode, which is detected automatically via magic bytes.
+        - **`state` ++"object"++**: (Optional) Completely replaces all storage slots for the account. A mapping of storage keys to storage values (both as 32-byte hex strings). Unspecified slots are zeroed. Mutually exclusive with `stateDiff`.
+        - **`stateDiff` ++"object"++**: (Optional) Patches only the specified storage slots, leaving all other slots unchanged. A mapping of storage keys to storage values (both as 32-byte hex strings). Mutually exclusive with `state`.
+        - **`movePrecompileToAddress` ++"string"++**: (Optional) Accepted for Geth compatibility but has no effect, as Polkadot Hub does not use relocatable precompile addresses.
 
 **Example**:
 
-```bash title="eth_call"
-curl -X POST https://services.polkadothub-rpc.com/testnet \
--H "Content-Type: application/json" \
---data '{
-    "jsonrpc":"2.0",
-    "method":"eth_call",
-    "params":[{
-        "to": "INSERT_RECIPIENT_ADDRESS",
-        "data": "INSERT_ENCODED_CALL"
-    }, "INSERT_BLOCK_VALUE"],
-    "id":1
-}'
-```
+=== "Basic"
 
-Ensure to replace the `INSERT_RECIPIENT_ADDRESS`, `INSERT_ENCODED_CALL`, and `INSERT_BLOCK_VALUE` with the proper values.
+    ```bash
+    curl -X POST https://services.polkadothub-rpc.com/testnet \
+    -H "Content-Type: application/json" \
+    --data '{
+        "jsonrpc":"2.0",
+        "method":"eth_call",
+        "params":[{
+            "to": "INSERT_RECIPIENT_ADDRESS",
+            "data": "INSERT_ENCODED_CALL"
+        }, "INSERT_BLOCK_VALUE"],
+        "id":1
+    }'
+    ```
+
+    Ensure to replace `INSERT_RECIPIENT_ADDRESS`, `INSERT_ENCODED_CALL`, and `INSERT_BLOCK_VALUE` with the appropriate values.
+
+=== "With state overrides"
+
+    ```bash
+    curl -X POST https://services.polkadothub-rpc.com/testnet \
+    -H "Content-Type: application/json" \
+    --data '{
+        "jsonrpc":"2.0",
+        "method":"eth_call",
+        "params":[{
+            "to": "INSERT_RECIPIENT_ADDRESS",
+            "data": "INSERT_ENCODED_CALL"
+        }, "latest", {
+            "INSERT_ADDRESS": {
+                "balance": "0xDE0B6B3A7640000"
+            }
+        }],
+        "id":1
+    }'
+    ```
+
+    In this example, the account at `INSERT_ADDRESS` is temporarily assigned a balance of 1 native token (10^18 in its smallest denomination) for the duration of the call. Ensure to replace `INSERT_RECIPIENT_ADDRESS`, `INSERT_ENCODED_CALL`, and `INSERT_ADDRESS` with the appropriate values.
+
+!!! note "Differences from Ethereum"
+    Polkadot Hub's `eth_call` state overrides are fully compatible with the [Geth state override specification](https://geth.ethereum.org/docs/interacting-with-geth/rpc/ns-eth#state-override-set){target=\_blank}. One Polkadot-specific extension is that the `code` field accepts both EVM bytecode and PolkaVM (PVM) bytecode, detected automatically via magic bytes at the start of the blob.
 
 ---
 
@@ -633,7 +669,7 @@ curl -X POST https://services.polkadothub-rpc.com/testnet \
 
 ### net_listening
 
-Returns `true` if the client is currently listening for network connections, otherwise `false`. [Reference](https://ethereum.org/developers/docs/apis/json-rpc/#net_listening){target=\_blank}.
+Returns `true` if the client is actively listening for network connections, otherwise `false`. [Reference](https://ethereum.org/developers/docs/apis/json-rpc/#net_listening){target=\_blank}.
 
 **Parameters**:
 
@@ -656,7 +692,7 @@ curl -X POST https://services.polkadothub-rpc.com/testnet \
 
 ### net_peerCount
 
-Returns the number of peers currently connected to the client.
+Returns the number of peers connected to the client.
 
 **Parameters**:
 
@@ -798,7 +834,7 @@ curl -X POST https://services.polkadothub-rpc.com/testnet \
 
 Ensure to replace the `INSERT_TRANSACTION_HASH` with the proper value.
 
-!!!note "Differences from Ethereum (Geth)"
+!!! note "Differences from Ethereum (Geth)"
     When using the default struct logger (opcode tracer), there is a difference in how `gasCost` is calculated for CALL-like opcodes (`CALL`, `DELEGATECALL`, `STATICCALL`, `CREATE`, `CREATE2`):
 
     - **Geth behavior**: The `gasCost` includes the opcode's intrinsic cost plus all gas forwarded to child calls.

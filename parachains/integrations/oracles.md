@@ -16,12 +16,20 @@ While simple oracle implementations may rely on a single trusted provider, more 
 
 <div class="grid cards" markdown>
 
--   __Acurast__
+- **Acurast**
 
-    ---
+  ***
 
-    Acurast is a decentralized, serverless cloud platform that uses a distributed network of mobile devices for oracle services, addressing centralized trust and data ownership issues. In the Polkadot ecosystem, it allows developers to define off-chain data and computation needs, which are processed by these devices acting as decentralized oracle nodes, delivering results to Substrate (Wasm) and EVM environments.
+  Acurast is a decentralized, serverless cloud platform that uses a distributed network of mobile devices for oracle services, addressing centralized trust and data ownership issues. In the Polkadot ecosystem, it allows developers to define off-chain data and computation needs, which are processed by these devices acting as decentralized oracle nodes, delivering results to Substrate (Wasm) and EVM environments.
 
-    [:octicons-arrow-right-24: Reference](https://acurast.com/){target=\_blank}
+  [:octicons-arrow-right-24: Reference](https://acurast.com/){target=\_blank}
+
+- **DIA**
+
+  ***
+
+    DIA is a trustless oracle network providing verifiable price feeds for the Polkadot ecosystem. Data is aggregated from 100+ exchanges and validated by a network of independent feeders, making each feed fully auditable on-chain. The oracle stack covers 20,000+ assets across different asset classes: token price feeds including DOT/USD, RWAs such as tokenized treasuries, and yield-bearing tokens.
+
+  [:octicons-arrow-right-24: Reference](https://www.diadata.org/app/oracle-playground/DOT){target=\_blank}
 
 </div>

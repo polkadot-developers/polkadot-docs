@@ -6,6 +6,10 @@ categories: Polkadot Protocol, Tooling
 
 # Runtime API Calls
 
+<div class="status-badge" markdown>
+[![Runtime API Calls](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-runtime-api-calls.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-runtime-api-calls.yml){target=\_blank}
+</div>
+
 ## Introduction
 
 Polkadot SDK runtime APIs provide direct access to the blockchain's WebAssembly (Wasm) runtime, enabling specialized queries and computations that go beyond simple storage reads. Unlike storage queries that fetch static data, runtime APIs execute logic within the runtime to compute results dynamically.
@@ -313,6 +317,11 @@ The following runtime APIs are commonly available on Polkadot SDK-based chains:
 
 !!! note
     Available runtime APIs vary by chain. Check your target chain's metadata to see which APIs are exposed.
+
+<div class="status-badge" markdown>
+[![Runtime API Calls](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-runtime-api-calls.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-runtime-api-calls.yml){target=\_blank}
+[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/chain-interactions/runtime-api-calls/tests/docs.test.ts){ .tests-button target=\_blank}
+</div>
 
 ## Where to Go Next
 

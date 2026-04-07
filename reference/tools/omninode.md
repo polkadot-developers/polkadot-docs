@@ -36,6 +36,9 @@ Download the pre-built `polkadot-omni-node` binary from the [Polkadot SDK releas
 
 Alternatively, you can install from source using `cargo`:
 
+!!! note
+    Building from source requires Rust and system dependencies. See [Install Dependencies: macOS](/parachains/install-polkadot-sdk/#install-dependencies-macos) or [Install Dependencies: Linux](/parachains/install-polkadot-sdk/#install-dependencies-linux) before proceeding.
+
 ```bash
 cargo install --locked polkadot-omni-node@{{dependencies.crates.polkadot_omni_node.version}}
 ```

@@ -50,4 +50,4 @@ Convert addresses between Ethereum (EVM) and Polkadot (SS58) formats. Use the ne
 
 Derive the ERC20 precompile address for a given asset ID. This is the address your smart contract uses to interact with Polkadot Hub assets via the standard ERC20 interface.
 
-<div id="erc20-asset-converter-root"></div>
+<div id="erc20-converter-root"></div>

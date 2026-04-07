@@ -31,6 +31,14 @@ Before you install Rust and set up your development environment on macOS, verify
 - Storage of at least 10 GB of available space.
 - Broadband Internet connection.
 
+### Install Command Line Tools
+
+Xcode Command Line Tools provide essential build dependencies including `clang`, `make`, and other tools required to compile native crates like `librocksdb-sys`. To install them, run:
+
+```bash
+xcode-select --install
+```
+
 ### Install Homebrew
 
 In most cases, you should use Homebrew to install and manage packages on macOS computers. If you don't already have Homebrew installed on your local computer, you should download and install it before continuing.
@@ -103,13 +111,7 @@ To install `openssl` and the Rust toolchain on macOS:
     rustup component add rust-src
     ```
 
-8. Install `cmake` using the following command:
-
-    ```bash
-    brew install cmake
-    ```
-
-9. Proceed to [Build the Polkadot SDK](#build-the-polkadot-sdk).
+8. Proceed to [Build the Polkadot SDK](#build-the-polkadot-sdk).
 
 ## Install Dependencies: Linux
 

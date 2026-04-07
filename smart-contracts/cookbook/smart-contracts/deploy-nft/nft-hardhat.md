@@ -2,7 +2,6 @@
 title: Deploy an ERC-721 Using Hardhat
 description: Learn how to deploy an ERC-721 NFT contract to Polkadot Hub using Hardhat, a comprehensive development environment with built-in deployment capabilities.
 categories: Basics, Smart Contracts
-tools: EVM Wallet, Hardhat
 page_badges:
   tutorial_badge: Beginner
 ---

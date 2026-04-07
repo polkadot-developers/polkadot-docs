@@ -22,7 +22,7 @@ For detailed information about Zombienet installation methods, providers, CLI co
 
 Before starting, ensure you have the following installed:
 
-- [Rust](https://www.rust-lang.org/tools/install){target=\_blank} and Cargo
+- [Rust](https://rust-lang.org/tools/install/){target=\_blank} and Cargo
 - The `wasm32-unknown-unknown` target. Add it with:
 
     ```bash

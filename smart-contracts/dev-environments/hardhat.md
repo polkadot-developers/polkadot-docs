@@ -11,7 +11,7 @@ page_badges:
   tutorial_badge: Beginner
   test_workflow: polkadot-docs-hardhat-evm
 page_tests:
-  path: polkadot-docs/smart-contracts/dev-environments/hardhat-evm/tests/recipe.test.ts
+  path: polkadot-docs/smart-contracts/dev-environments/hardhat-evm/tests/docs.test.ts
 ---
 
 # Hardhat

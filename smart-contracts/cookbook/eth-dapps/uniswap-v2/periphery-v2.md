@@ -7,13 +7,17 @@ categories: Smart Contracts, Tooling
 
 # Deploy Uniswap V2 Periphery with EVM
 
+<div class="status-badge" markdown>
+[![Uniswap V2 Periphery with Hardhat](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-uniswap-v2-periphery-hardhat.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-uniswap-v2-periphery-hardhat.yml){target=\_blank}
+</div>
+
 ## Introduction
 
 The [Uniswap V2 Periphery](https://docs.uniswap.org/contracts/v2/overview){target=\_blank} contracts provide the Router layer that sits on top of the [Uniswap V2 Core](/smart-contracts/cookbook/eth-dapps/uniswap-v2/core-v2/){target=\_blank} Factory and Pair contracts. While V2 Core handles the low-level AMM logic, the Periphery Router contracts expose the user-facing functions for adding liquidity, removing liquidity, and executing token swaps safely with built-in deadline and slippage protection.
 
 This tutorial follows the EVM execution path. With EVM (powered by [REVM](https://github.com/bluealloy/revm){target=\_blank}, a Rust implementation of the Ethereum Virtual Machine), you deploy the same unmodified Solidity contracts using the same standard Hardhat toolchain you already know. No special compiler plugins, no contract rewrites, and no porting effort. If your project compiles with vanilla Hardhat, it runs on Polkadot Hub through EVM.
 
-This tutorial walks you through cloning, compiling, testing, and deploying the Uniswap V2 Periphery contracts on Polkadot Hub using Hardhat and TypeScript. By the end, you will have a fully functioning WETH contract, Factory, Router02, two ERC-20 test tokens, and a trading pair deployed to either a local development node or the Polkadot Hub TestNet.
+This tutorial walks you through cloning, compiling, testing, and deploying the Uniswap V2 Periphery contracts on Polkadot Hub using Hardhat and TypeScript. By the end, you will have a fully functioning WETH contract, Factory, Router02, two ERC-20 test tokens, and a trading pair deployed to the Polkadot Hub TestNet.
 
 ## Prerequisites
 
@@ -159,29 +163,15 @@ To run the tests locally:
 
 ## Deploy the Contracts
 
-After successfully testing the contracts, you can deploy them. The deployment script at `scripts/deploy.ts` deploys WETH9, the UniswapV2Factory, the UniswapV2Router02, two test ERC-20 tokens (each with a supply of 10,000 tokens), and creates a trading pair between them.
+After successfully testing the contracts, you can deploy them to the Polkadot Hub TestNet using [Hardhat Ignition](https://hardhat.org/ignition/docs/getting-started#overview){target=\_blank}. The Ignition module at `ignition/modules/UniswapV2Router02.ts` deploys WETH9, the UniswapV2Factory, and the UniswapV2Router02 contracts.
 
-### Deploy to the Local Node
-
-To deploy to your local development node:
+Make sure you have [configured your private key](#configure-secure-key-management) and that your account has test tokens. Then run:
 
 ```bash
-npx hardhat run scripts/deploy.ts --network localNode
+npx hardhat ignition deploy ./ignition/modules/UniswapV2Router02.ts --network polkadotTestnet
 ```
 
-This deploys the contracts to your local blockchain for development and testing. No private key configuration is required for local deployment.
-
-### Deploy to the Polkadot Hub TestNet
-
-To deploy to the Polkadot Hub TestNet, make sure you have [configured your private key](#configure-secure-key-management) and that your account has test tokens. Then run:
-
-```bash
-npx hardhat run scripts/deploy.ts --network polkadotTestnet
-```
-
-This deploys to the actual Polkadot Hub TestNet. It requires test tokens, persists on the network, and operates under real network conditions.
-
-The deployment script outputs the addresses of all deployed contracts. Save these addresses, as you will need them to interact with the contracts. The output should look similar to the following:
+When prompted, confirm the target network name and chain ID. Ignition deploys the contracts in two batches (Factory and WETH9 in parallel, then Router02) and prints all deployed addresses. The output should look similar to the following:
 
 --8<-- 'code/smart-contracts/cookbook/eth-dapps/uniswap-v2/periphery-v2/deployment-output.html'
 

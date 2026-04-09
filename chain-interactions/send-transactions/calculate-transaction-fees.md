@@ -6,6 +6,8 @@ categories: Chain Interactions, Tooling
 
 # Calculate Transaction Fees
 
+[![Calculate Transaction Fees](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-calculate-transaction-fees.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-calculate-transaction-fees.yml)
+
 ## Introduction
 
 Transaction fees are essential costs for executing operations on Polkadot and its parachains. Understanding how to estimate these fees helps you manage account balances and build better user experiences in your applications. 

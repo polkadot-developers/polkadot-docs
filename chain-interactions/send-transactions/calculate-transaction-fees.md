@@ -6,7 +6,9 @@ categories: Chain Interactions, Tooling
 
 # Calculate Transaction Fees
 
-[![Calculate Transaction Fees](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-calculate-transaction-fees.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-calculate-transaction-fees.yml)
+<div class="status-badge" markdown>
+[![Calculate Transaction Fees](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-calculate-transaction-fees.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-calculate-transaction-fees.yml){target=\_blank}
+</div>
 
 ## Introduction
 
@@ -130,6 +132,11 @@ To see fees before submitting a transfer:
 5. The transaction fee will be displayed in the confirmation dialog before you sign.
 
     ![](/images/chain-interactions/send-transactions/calculate-transaction-fees/calculate-transaction-fees-01.gif)
+
+<div class="status-badge" markdown>
+[![Calculate Transaction Fees](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-calculate-transaction-fees.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-calculate-transaction-fees.yml){target=\_blank}
+[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/chain-interactions/calculate-transaction-fees/tests/docs.test.ts){ .tests-button target=\_blank}
+</div>
 
 ## Where to Go Next
 

@@ -6,6 +6,10 @@ categories: Chain Interactions, Tooling
 
 # Send a Transaction While Paying the Fee with a Different Token
 
+<div class="status-badge" markdown>
+[![Pay Fees with Different Tokens](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-pay-fees-different-tokens.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-pay-fees-different-tokens.yml){target=\_blank}
+</div>
+
 ## Introduction
 
 Polkadot Hub allows users to pay transaction fees using alternative tokens instead of the native token. This tutorial demonstrates how to send a DOT transfer transaction while paying the fees using USDT on Polkadot Hub.
@@ -321,6 +325,11 @@ The key events to look for are:
 Paying transaction fees with alternative tokens on Polkadot Hub provides significant flexibility for users and applications.
 
 The key takeaway is understanding how to specify alternative assets using the XCM location format, which opens up possibilities for building applications that can operate entirely using specific token ecosystems while still leveraging the full power of the network.
+
+<div class="status-badge" markdown>
+[![Pay Fees with Different Tokens](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-pay-fees-different-tokens.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-pay-fees-different-tokens.yml){target=\_blank}
+[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/chain-interactions/pay-fees-different-tokens/tests/docs.test.ts){ .tests-button target=\_blank}
+</div>
 
 ## Where to Go Next
 

@@ -2,13 +2,13 @@
 title: Calculate Transaction Fees
 description: Learn how to calculate transaction fees on Polkadot using Polkadot-API, Polkadot.js API, and the Polkadot.js Apps UI to estimate transfer costs.
 categories: Chain Interactions, Tooling
+page_badges:
+  test_workflow: polkadot-docs-calculate-transaction-fees
+page_tests:
+  path: polkadot-docs/chain-interactions/calculate-transaction-fees/tests/docs.test.ts
 ---
 
 # Calculate Transaction Fees
-
-<div class="status-badge" markdown>
-[![Calculate Transaction Fees](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-calculate-transaction-fees.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-calculate-transaction-fees.yml){target=\_blank}
-</div>
 
 ## Introduction
 
@@ -132,11 +132,6 @@ To see fees before submitting a transfer:
 5. The transaction fee will be displayed in the confirmation dialog before you sign.
 
     ![](/images/chain-interactions/send-transactions/calculate-transaction-fees/calculate-transaction-fees-01.gif)
-
-<div class="status-badge" markdown>
-[![Calculate Transaction Fees](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-calculate-transaction-fees.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-calculate-transaction-fees.yml){target=\_blank}
-[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/chain-interactions/calculate-transaction-fees/tests/docs.test.ts){ .tests-button target=\_blank}
-</div>
 
 ## Where to Go Next
 

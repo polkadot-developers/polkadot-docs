@@ -1,15 +1,15 @@
 ---
 title: Deploy an ERC-20 Using Hardhat
 description: Deploy an ERC-20 token on Polkadot Hub using PVM. This guide covers contract creation, compilation, deployment, and interaction via Hardhat.
-tutorial_badge: Intermediate
 categories: Basics, Smart Contracts
+page_badges:
+  tutorial_badge: Intermediate
+  test_workflow: polkadot-docs-erc20-hardhat
+page_tests:
+  path: polkadot-docs/smart-contracts/erc20-hardhat/tests/docs.test.ts
 ---
 
 # Deploy an ERC-20 Using Hardhat
-
-<div class="status-badge" markdown>
-[![Deploy ERC-20 Hardhat](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-erc20-hardhat.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-erc20-hardhat.yml){target=\_blank}
-</div>
 
 ## Introduction
 
@@ -108,11 +108,6 @@ You are now ready to deploy the contract to your chosen network. This example de
     --8<-- 'code/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-hardhat/deploy-output.html'
 
 Congratulations! You've successfully deployed an ERC-20 token contract to Polkadot Hub TestNet using Hardhat. Consider the following resources to build upon your progress.
-
-<div class="status-badge" markdown>
-[![Deploy ERC-20 Hardhat](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-erc20-hardhat.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-erc20-hardhat.yml){target=\_blank}
-[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/smart-contracts/erc20-hardhat/tests/docs.test.ts){ .tests-button target=\_blank}
-</div>
 
 ## Where to Go Next
 

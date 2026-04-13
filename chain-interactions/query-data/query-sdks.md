@@ -2,13 +2,13 @@
 title: Query On-Chain State with SDKs
 description: Learn how to query on-chain storage data on Polkadot Hub using PAPI, Polkadot.js, Dedot, Python Substrate Interface, and Subxt.
 categories: Chain Interactions, Tooling
+page_badges:
+  test_workflow: polkadot-docs-query-sdks
+page_tests:
+  path: polkadot-docs/chain-interactions/query-sdks/tests/docs.test.ts
 ---
 
 # Query On-Chain State with SDKs
-
-<div class="status-badge" markdown>
-[![Query On-Chain State with SDKs](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-query-sdks.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-query-sdks.yml){target=\_blank}
-</div>
 
 ## Introduction
 
@@ -395,11 +395,6 @@ Select your preferred SDK below to see complete, runnable examples that query Po
     You should see output similar to:
 
     --8<-- 'code/chain-interactions/query-data/query-sdks/subxt/query-asset-rs.html'
-
-<div class="status-badge" markdown>
-[![Query On-Chain State with SDKs](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-query-sdks.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-query-sdks.yml){target=\_blank}
-[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/chain-interactions/query-sdks/tests/docs.test.ts){ .tests-button target=\_blank}
-</div>
 
 ## Where to Go Next
 

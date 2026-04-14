@@ -2,13 +2,13 @@
 title: Unit Test Pallets
 description: Learn how to efficiently test pallets in the Polkadot SDK, ensuring the reliability and security of your pallets operations.
 categories: Parachains
+page_badges:
+  test_workflow: polkadot-docs-pallet-testing
+page_tests:
+  path: polkadot-docs/parachains/customize-runtime/pallet-development/pallet-testing/tests/docs.test.ts
 ---
 
 # Unit Test Pallets
-
-<div class="status-badge" markdown>
-[![Unit Test Pallets](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-pallet-testing.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-pallet-testing.yml){target=\_blank}
-</div>
 
 ## Introduction
 
@@ -599,11 +599,6 @@ These tests demonstrate comprehensive coverage including basic operations, error
         });
     }
     ```
-
-<div class="status-badge" markdown>
-[![Unit Test Pallets](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-pallet-testing.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-pallet-testing.yml){target=\_blank}
-[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/parachains/customize-runtime/pallet-development/pallet-testing/tests/docs.test.ts){ .tests-button target=\_blank}
-</div>
 
 ## Where to Go Next
 

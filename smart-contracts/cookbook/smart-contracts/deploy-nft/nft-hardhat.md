@@ -4,6 +4,9 @@ description: Learn how to deploy an ERC-721 NFT contract to Polkadot Hub using H
 categories: Basics, Smart Contracts
 page_badges:
   tutorial_badge: Beginner
+  test_workflow: polkadot-docs-nft-hardhat
+page_tests:
+  path: polkadot-docs/smart-contracts/nft-hardhat/tests/docs.test.ts
 ---
 
 # Deploy an ERC-721 Using Hardhat

@@ -2,13 +2,13 @@
 title: Deploy a Basic Contract with Hardhat
 description: Learn how to deploy a basic smart contract to Polkadot Hub using Hardhat, ideal for professional workflows that require comprehensive testing and debugging.
 categories: Smart Contracts
+page_badges:
+  test_workflow: polkadot-docs-basic-hardhat
+page_tests:
+  path: polkadot-docs/smart-contracts/basic-hardhat/tests/docs.test.ts
 ---
 
 # Deploy a Basic Contract with Hardhat
-
-<div class="status-badge" markdown>
-[![Deploy a Basic Contract with Hardhat](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-basic-hardhat.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-basic-hardhat.yml){target=\_blank}
-</div>
 
 ## Introduction
 
@@ -95,11 +95,6 @@ You are now ready to deploy the contract to your chosen network. This example de
     --8<-- 'code/smart-contracts/cookbook/smart-contracts/deploy-basic/basic-hardhat/deploy-output.html'
 
 Congratulations! You've now deployed a basic smart contract to Polkadot Hub TestNet using Hardhat. Consider the following resources to build upon your progress.
-
-<div class="status-badge" markdown>
-[![Deploy a Basic Contract with Hardhat](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-basic-hardhat.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-basic-hardhat.yml){target=\_blank}
-[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/smart-contracts/basic-hardhat/tests/docs.test.ts){ .tests-button target=\_blank}
-</div>
 
 ## Where to Go Next
 

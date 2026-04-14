@@ -1,15 +1,15 @@
 ---
 title: Add an Existing Pallet to the Runtime
 description: Learn how to include and configure pallets in a Polkadot SDK-based runtime, from adding dependencies to implementing necessary traits.
-tutorial_badge: Intermediate
 categories: Parachains
+page_badges:
+  tutorial_badge: Intermediate
+  test_workflow: polkadot-docs-add-existing-pallets
+page_tests:
+  path: polkadot-docs/parachains/customize-runtime/add-existing-pallets/tests/docs.test.ts
 ---
 
 # Add an Existing Pallet to the Runtime
-
-<div class="status-badge" markdown>
-[![Add Existing Pallets](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-add-existing-pallets.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-add-existing-pallets.yml){target=\_blank}
-</div>
 
 ## Introduction
 
@@ -266,11 +266,6 @@ To interact with the pallet:
     ![](/images/parachains/customize-runtime/add-existing-pallets/add-pallets-01.webp)
 
 You can now test the pallet's functionality by submitting transactions through the interface.
-
-<div class="status-badge" markdown>
-[![Add Existing Pallets](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-add-existing-pallets.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-add-existing-pallets.yml){target=\_blank}
-[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/parachains/customize-runtime/add-existing-pallets/tests/docs.test.ts){ .tests-button target=\_blank}
-</div>
 
 ## Where to Go Next
 

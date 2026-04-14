@@ -4,6 +4,9 @@ description: Learn how to create, compile, test, deploy, and verify smart contra
 categories: Smart Contracts, Tooling
 page_badges:
   tutorial_badge: Beginner
+  test_workflow: polkadot-docs-foundry
+page_tests:
+  path: polkadot-docs/smart-contracts/dev-environments/foundry/tests/docs.test.ts
 ---
 
 # Foundry

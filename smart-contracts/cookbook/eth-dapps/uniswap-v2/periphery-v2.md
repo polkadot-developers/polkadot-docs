@@ -1,15 +1,15 @@
 ---
 title: Uniswap V2 Periphery with EVM on Polkadot
 description: Deploy and test unmodified Uniswap V2 Periphery Router contracts on Polkadot Hub using standard Hardhat and TypeScript with the EVM execution path.
-tutorial_badge: Intermediate
 categories: Smart Contracts, Tooling
+page_badges:
+  tutorial_badge: Intermediate
+  test_workflow: polkadot-docs-uniswap-v2-periphery-hardhat
+page_tests:
+  path: polkadot-docs/smart-contracts/uniswap-v2-periphery-hardhat/tests/docs.test.ts
 ---
 
 # Deploy Uniswap V2 Periphery with EVM
-
-<div class="status-badge" markdown>
-[![Uniswap V2 Periphery with Hardhat](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-uniswap-v2-periphery-hardhat.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-uniswap-v2-periphery-hardhat.yml){target=\_blank}
-</div>
 
 ## Introduction
 

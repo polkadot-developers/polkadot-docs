@@ -1,15 +1,15 @@
 ---
 title: Add Multiple Pallet Instances
 description: Learn how to implement multiple instances of the same pallet in your Polkadot SDK-based runtime, from adding dependencies to configuring unique instances.
-tutorial_badge: Intermediate
 categories: Parachains
+page_badges:
+  tutorial_badge: Intermediate
+  test_workflow: polkadot-docs-add-pallet-instances
+page_tests:
+  path: polkadot-docs/parachains/customize-runtime/add-pallet-instances/tests/docs.test.ts
 ---
 
 # Add Multiple Pallet Instances
-
-<div class="status-badge" markdown>
-[![Add Pallet Instances](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-add-pallet-instances.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-add-pallet-instances.yml){target=\_blank}
-</div>
 
 ## Introduction
 
@@ -418,11 +418,6 @@ To test instance independence:
     - Both instances can process proposals simultaneously.
 
 You can now use both collective instances for different governance purposes in your parachain, such as technical decisions that require expertise and general governance decisions that require broader consensus.
-
-<div class="status-badge" markdown>
-[![Add Pallet Instances](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-add-pallet-instances.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-add-pallet-instances.yml){target=\_blank}
-[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/parachains/customize-runtime/add-pallet-instances/tests/docs.test.ts){ .tests-button target=\_blank}
-</div>
 
 ## Where to Go Next
 

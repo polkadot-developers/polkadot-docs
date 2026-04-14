@@ -2,13 +2,13 @@
 title: Benchmark Your Pallet
 description: Learn how to benchmark extrinsics in your custom pallet to generate precise weight calculations suitable for production use.
 categories: Parachains
+page_badges:
+  test_workflow: polkadot-docs-benchmark-pallet
+page_tests:
+  path: polkadot-docs/parachains/customize-runtime/pallet-development/benchmark-pallet/tests/docs.test.ts
 ---
 
 ## Introduction
-
-<div class="status-badge" markdown>
-[![Benchmark Pallet](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-benchmark-pallet.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-benchmark-pallet.yml){target=\_blank}
-</div>
 
 Benchmarking is the process of measuring the computational resources (execution time and storage) required by your pallet's extrinsics. Accurate [weight](https://paritytech.github.io/polkadot-sdk/master/frame_support/weights/index.html){target=\_blank} calculations are essential for ensuring your blockchain can process transactions efficiently while protecting against denial-of-service attacks.
 
@@ -467,10 +467,6 @@ Follow these steps to use the generated weights with your pallet:
 
 Congratulations, you've successfully benchmarked a pallet and updated your runtime to use the generated weight values.
 
-<div class="status-badge" markdown>
-[![Benchmark Pallet](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-benchmark-pallet.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-benchmark-pallet.yml){target=\_blank}
-[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/parachains/customize-runtime/pallet-development/benchmark-pallet/tests/docs.test.ts){ .tests-button target=\_blank}
-</div>
 
 ## Related Resources
 

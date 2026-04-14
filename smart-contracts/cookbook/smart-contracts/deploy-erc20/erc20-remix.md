@@ -1,8 +1,9 @@
 ---
 title: Deploy an ERC-20 Using Remix IDE
 description: Deploy an ERC-20 token contract on Polkadot Hub. This guide covers contract creation, compilation, deployment, and interaction via the Remix IDE.
-tutorial_badge: Beginner
 categories: Basics, Smart Contracts
+page_badges:
+  tutorial_badge: Beginner
 ---
 
 # Deploy an ERC-20 Using Remix IDE

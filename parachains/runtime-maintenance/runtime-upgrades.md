@@ -1,15 +1,15 @@
 ---
 title: Runtime Upgrades
 description: Learn how to safely perform runtime upgrades for your Polkadot SDK-based blockchain, including step-by-step instructions.
-tutorial_badge: Intermediate
 categories: Parachains
+page_badges:
+  tutorial_badge: Intermediate
+  test_workflow: polkadot-docs-runtime-upgrades
+page_tests:
+  path: polkadot-docs/parachains/runtime-maintenance/runtime-upgrades/tests/docs.test.ts
 ---
 
 # Runtime Upgrades
-
-<div class="status-badge" markdown>
-[![Runtime Upgrades](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-runtime-upgrades.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-runtime-upgrades.yml){target=\_blank}
-</div>
 
 ## Introduction
 
@@ -171,11 +171,6 @@ Test the new functionality:
 1. Increment the counter using the existing `increment` function.
 2. Use the new `resetCounter` function (requires sudo/root privileges).
 3. Verify the counter value is reset to `0`.
-
-<div class="status-badge" markdown>
-[![Runtime Upgrades](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-runtime-upgrades.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-runtime-upgrades.yml){target=\_blank}
-[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/parachains/runtime-maintenance/runtime-upgrades/tests/docs.test.ts){ .tests-button target=\_blank}
-</div>
 
 ## Where to Go Next
 

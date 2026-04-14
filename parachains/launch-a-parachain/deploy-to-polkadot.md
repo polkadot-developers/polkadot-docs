@@ -1,8 +1,9 @@
 ---
 title: Deploy on Polkadot
 description: This guide walks you through the journey of deploying your Polkadot SDK parachain on the Polkadot TestNet, detailing each step to a successful deployment.
-tutorial_badge: Advanced
 categories: Parachains
+page_badges:
+  tutorial_badge: Advanced
 ---
 
 # Deploy on Polkadot

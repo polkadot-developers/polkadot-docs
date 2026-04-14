@@ -1,15 +1,15 @@
 ---
 title: Set Up the Polkadot SDK Parachain Template
 description: Learn how to set up and run the Polkadot SDK Parachain Template locally, creating a ready-to-customize foundation for your parachain.
-tutorial_badge: Beginner
 categories: Basics, Parachains
+page_badges:
+  tutorial_badge: Beginner
+  test_workflow: polkadot-docs-set-up-parachain-template
+page_tests:
+  path: polkadot-docs/parachains/set-up-parachain-template/tests/docs.test.ts
 ---
 
 # Set Up the Polkadot SDK Parachain Template
-
-<div class="status-badge" markdown>
-[![Set Up Parachain Template](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-set-up-parachain-template.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-set-up-parachain-template.yml){target=\_blank}
-</div>
 
 ## Introduction
 
@@ -223,11 +223,6 @@ To stop the local node:
 1. Return to the terminal window where the node output is displayed.
 2. Press `Control-C` to stop the running process.
 3. Verify that your terminal returns to the prompt in the `parachain-template` directory.
-
-<div class="status-badge" markdown>
-[![Set Up Parachain Template](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-set-up-parachain-template.yml/badge.svg?event=push)](https://github.com/polkadot-developers/polkadot-cookbook/actions/workflows/polkadot-docs-set-up-parachain-template.yml){target=\_blank}
-[:material-code-tags: View tests](https://github.com/polkadot-developers/polkadot-cookbook/blob/master/polkadot-docs/parachains/set-up-parachain-template/tests/docs.test.ts){ .tests-button target=\_blank}
-</div>
 
 ## Where to Go Next
 

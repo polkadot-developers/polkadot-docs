@@ -1,7 +1,6 @@
 import { polkadotHub, paseoPeopleChain } from '@polkadot-api/descriptors';
-import { createClient, FixedSizeBinary, Enum } from 'polkadot-api';
-import { getWsProvider } from 'polkadot-api/ws-provider/node';
-import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
+import { AccountId, Binary, createClient, Enum } from 'polkadot-api';
+import { getWsProvider } from 'polkadot-api/ws';
 import {
   XcmVersionedLocation,
   XcmVersionedAssetId,
@@ -28,6 +27,12 @@ const PEOPLE_CHAIN_RPC_ENDPOINT = 'ws://localhost:8000';
 const PEOPLE_CHAIN_PARA_ID = 1004;
 const PEOPLE_CHAIN_BENEFICIARY =
   '14E5nqKAp3oAJcmzgZhUD2RcptBeUBScxKHgJKU4HPNcKVf3'; // Bob (People Chain)
+
+// In polkadot-api v2, FixedSizeBinary is replaced by hex strings typed as
+// SizedHex<32>. Use the AccountId codec to convert an SS58 address into its
+// 32-byte hex representation.
+const accountIdCodec = AccountId();
+const ss58ToHex = (addr: string) => Binary.toHex(accountIdCodec.enc(addr));
 
 // Create the XCM message for teleport (Polkadot Hub → People Chain)
 function createTeleportXcmToPeopleChain(paraId: number) {
@@ -70,7 +75,7 @@ function createTeleportXcmToPeopleChain(paraId: number) {
             interior: XcmV5Junctions.X1(
               XcmV5Junction.AccountId32({
                 network: undefined,
-                id: FixedSizeBinary.fromAccountId32(PEOPLE_CHAIN_BENEFICIARY),
+                id: ss58ToHex(PEOPLE_CHAIN_BENEFICIARY),
               }),
             ),
           },
@@ -138,7 +143,7 @@ async function estimateXcmFeesFromPolkadotHubToPeopleChain(
     parents: 0,
     interior: XcmV5Junctions.X1(
       XcmV5Junction.AccountId32({
-        id: FixedSizeBinary.fromAccountId32(POLKADOT_HUB_ACCOUNT),
+        id: ss58ToHex(POLKADOT_HUB_ACCOUNT),
         network: undefined,
       }),
     ),
@@ -196,7 +201,7 @@ async function estimateXcmFeesFromPolkadotHubToPeopleChain(
       console.log('\n3. Calculating remote execution fees on People Chain');
       try {
         const peopleChainClient = createClient(
-          withPolkadotSdkCompat(getWsProvider(PEOPLE_CHAIN_RPC_ENDPOINT)),
+          getWsProvider(PEOPLE_CHAIN_RPC_ENDPOINT),
         );
         const peopleChainApi = peopleChainClient.getTypedApi(paseoPeopleChain);
         const remoteWeightResult =
@@ -265,7 +270,7 @@ async function estimateXcmFeesFromPolkadotHubToPeopleChain(
 async function main() {
   // Connect to the Polkadot Hub parachain
   const polkadotHubClient = createClient(
-    withPolkadotSdkCompat(getWsProvider(POLKADOT_HUB_RPC_ENDPOINT)),
+    getWsProvider(POLKADOT_HUB_RPC_ENDPOINT),
   );
 
   // Get the typed API for Polkadot Hub
@@ -295,7 +300,7 @@ async function main() {
     });
 
     console.log('\n=== Transaction Details ===');
-    console.log('Transaction hex:', (await tx.getEncodedData()).asHex());
+    console.log('Transaction hex:', Binary.toHex(await tx.getEncodedData()));
     console.log('Ready to submit!');
   } catch (error) {
     console.log('Error stack:', (error as Error).stack);
@@ -310,4 +315,3 @@ async function main() {
 }
 
 main().catch(console.error);
-

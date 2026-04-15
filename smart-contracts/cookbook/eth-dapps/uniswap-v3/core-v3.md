@@ -1,5 +1,5 @@
 ---
-title: Uniswap V3 Core on Polkadot Hub
+title: Uniswap V3 Core with EVM on Polkadot Hub
 description: Deploy and test unmodified Uniswap V3 Core contracts on Polkadot Hub using standard Hardhat and TypeScript with the EVM execution path.
 categories: Smart Contracts, Tooling
 tools: Hardhat
@@ -272,5 +272,13 @@ When prompted, confirm the target network name and chain ID. Ignition deploys th
     Compare with the Uniswap V2 Core deployment to see how V2's uniform liquidity model differs from V3's concentrated approach.
 
     [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/eth-dapps/uniswap-v2/core-v2/)
+
+-   <span class="badge guide">Guide</span> __Local Development Node__
+
+    ---
+
+    Set up and run a local development node for testing your smart contracts against Polkadot.
+
+    [:octicons-arrow-right-24: Set Up](/smart-contracts/dev-environments/local-dev-node/)
 
 </div>

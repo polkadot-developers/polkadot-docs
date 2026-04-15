@@ -61,23 +61,26 @@ async function bridgeToPolkadot() {
 
   // Build and execute the bridge transfer
   // Note: 'AssetHubPolkadot' is the SDK identifier for Polkadot Hub
-  const result = await EvmBuilder(provider)
+  const txHash = await EvmBuilder(provider)
+    .from('Ethereum')
     .to('AssetHubPolkadot')
     .currency({
       symbol: 'WETH',
       amount: AMOUNT,
     })
-    .address(RECIPIENT_ADDRESS)
+    .recipient(RECIPIENT_ADDRESS)
     .signer(signer)
     .build();
 
   console.log('Bridge transaction submitted!');
-  console.log(`Transaction hash: ${result.response.hash}`);
+  console.log(`Transaction hash: ${txHash}`);
   console.log('Transfer will arrive in approximately 30 minutes.');
 
   // Wait for Ethereum confirmation
-  await result.response.wait();
-  console.log('Ethereum transaction confirmed! Waiting for bridge relay...');
+  const receipt = await provider.waitForTransaction(txHash);
+  console.log(
+    `Ethereum transaction confirmed in block ${receipt?.blockNumber}. Waiting for bridge relay...`,
+  );
 }
 
 bridgeToPolkadot();

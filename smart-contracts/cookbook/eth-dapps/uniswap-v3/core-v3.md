@@ -18,7 +18,7 @@ Polkadot Hub supports two execution paths for running smart contracts: PVM (whic
 
 With EVM, you deploy the same unmodified Solidity contracts using the same standard Hardhat toolchain you already know. No special compiler plugins, no contract rewrites, and no porting effort. If your project compiles with vanilla Hardhat, it runs on Polkadot Hub through EVM.
 
-This tutorial walks you through cloning, compiling, testing, and deploying [Uniswap V3 Core](https://developers.uniswap.org/docs/protocols/v3/overview){target=\_blank} on Polkadot Hub using Hardhat and TypeScript. By the end, you will have a fully functioning UniswapV3Factory contract deployed to the Polkadot Hub TestNet.
+This tutorial walks you through cloning, compiling, testing, and deploying [Uniswap V3 Core](https://docs.uniswap.org/contracts/v3/overview){target=\_blank} on Polkadot Hub using Hardhat and TypeScript. By the end, you will have a fully functioning UniswapV3Factory contract deployed to the Polkadot Hub TestNet.
 
 ## Prerequisites
 

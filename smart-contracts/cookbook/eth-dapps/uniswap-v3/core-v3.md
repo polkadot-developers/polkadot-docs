@@ -14,11 +14,11 @@ page_tests:
 
 ## Introduction
 
-Polkadot Hub supports two paths for running EVM smart contracts: PVM (which compiles Solidity to the Polkadot Virtual Machine via the revive compiler) and EVM (powered by [REVM](https://github.com/bluealloy/revm){target=\_blank}, a Rust implementation of the Ethereum Virtual Machine, which runs standard EVM bytecode with zero modifications). This tutorial follows the EVM path.
+Polkadot Hub supports two execution paths for running smart contracts: PVM (which compiles Solidity to the Polkadot Virtual Machine via the revive compiler) and EVM (powered by [REVM](https://github.com/bluealloy/revm){target=\_blank}, a Rust implementation of the Ethereum Virtual Machine, which runs standard EVM bytecode with zero modifications). This tutorial follows the EVM path.
 
 With EVM, you deploy the same unmodified Solidity contracts using the same standard Hardhat toolchain you already know. No special compiler plugins, no contract rewrites, and no porting effort. If your project compiles with vanilla Hardhat, it runs on Polkadot Hub through EVM.
 
-This tutorial walks you through cloning, compiling, testing, and deploying [Uniswap V3 Core](https://docs.uniswap.org/contracts/v3/overview){target=\_blank} on Polkadot Hub using Hardhat and TypeScript. By the end, you will have a fully functioning Factory contract, two ERC-20 test tokens, and a concentrated liquidity pool with a 0.3% fee tier deployed to either a local development node or the Polkadot Hub TestNet.
+This tutorial walks you through cloning, compiling, testing, and deploying [Uniswap V3 Core](https://docs.uniswap.org/contracts/v3/overview){target=\_blank} on Polkadot Hub using Hardhat and TypeScript. By the end, you will have a fully functioning UniswapV3Factory contract deployed to the Polkadot Hub TestNet.
 
 ## Prerequisites
 
@@ -241,29 +241,15 @@ To run the tests locally:
 
 ## Deploy the Contracts
 
-After successfully testing the contracts, you can deploy them. The deployment script at `scripts/deploy.ts` deploys the UniswapV3Factory, two test ERC-20 tokens (each with a supply of 2^255 tokens), and creates a 0.3% fee pool between them.
+After successfully testing the contracts, you can deploy them to the Polkadot Hub TestNet using [Hardhat Ignition](https://hardhat.org/ignition/docs/getting-started#overview){target=\_blank}. The Ignition module at `ignition/modules/UniswapV3Factory.ts` deploys the UniswapV3Factory contract.
 
-### Deploy to the Local Node
-
-To deploy to your local development node:
+Make sure you have [configured your private key](#configure-secure-key-management) and that your account has test tokens. Then run:
 
 ```bash
-npx hardhat run scripts/deploy.ts --network localNode
+npx hardhat ignition deploy ./ignition/modules/UniswapV3Factory.ts --network polkadotTestnet
 ```
 
-This deploys the contracts to your local blockchain for development and testing. No private key configuration is required for local deployment.
-
-### Deploy to the Polkadot Hub TestNet
-
-To deploy to the Polkadot Hub TestNet, make sure you have [configured your private key](#configure-secure-key-management) and that your account has test tokens. Then run:
-
-```bash
-npx hardhat run scripts/deploy.ts --network polkadotTestnet
-```
-
-This deploys to the actual Polkadot Hub TestNet. It requires test tokens, persists on the network, and operates under real network conditions.
-
-The deployment script outputs the addresses of all deployed contracts. Save these addresses, as you will need them to interact with the contracts. The output should look similar to the following:
+When prompted, confirm the target network name and chain ID. Ignition deploys the Factory contract and prints the deployed address. The output should look similar to the following:
 
 --8<-- 'code/smart-contracts/cookbook/eth-dapps/uniswap-v3/core-v3/deployment-output.html'
 

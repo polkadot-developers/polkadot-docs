@@ -37,6 +37,7 @@ async function transfer() {
       amount: 10n * PAS_UNITS, // 10 PAS
     })
     .recipient(RECIPIENT_ADDRESS)
+    .sender(SENDER_ADDRESS)
     .build();
 
   console.log('Built transaction:', inspect(tx, { colors: true, depth: null }));

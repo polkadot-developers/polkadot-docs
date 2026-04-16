@@ -40,7 +40,7 @@ Start by cloning the EVM Hardhat examples repository, which contains the Uniswap
     ```bash
     git clone https://github.com/polkadot-developers/revm-hardhat-examples.git
     cd revm-hardhat-examples
-    git checkout edcf9aa614f7269286c9dba1ac6eb7f705fc0c3a
+    git checkout 3ff28ae44c4ab041a96953f49d0e2dae0408f28f
     cd uniswap-v3-core-hardhat/
     ```
 
@@ -80,7 +80,7 @@ When prompted, paste your private key. Hardhat stores it securely and makes it a
 The `hardhat.config.ts` file references the variable conditionally, so the project works without it for local development:
 
 ```typescript title="hardhat.config.ts"
---8<-- 'https://raw.githubusercontent.com/polkadot-developers/revm-hardhat-examples/edcf9aa614f7269286c9dba1ac6eb7f705fc0c3a/uniswap-v3-core-hardhat/hardhat.config.ts:44:49'
+--8<-- 'https://raw.githubusercontent.com/polkadot-developers/revm-hardhat-examples/3ff28ae44c4ab041a96953f49d0e2dae0408f28f/uniswap-v3-core-hardhat/hardhat.config.ts:44:49'
 ```
 
 !!! note
@@ -91,13 +91,13 @@ The `hardhat.config.ts` file references the variable conditionally, so the proje
 Uniswap V3 Core requires specific Solidity compiler settings to keep the `UniswapV3Factory` contract under the [EIP-170](https://eips.ethereum.org/EIPS/eip-170){target=\_blank} 24KB contract size limit. The `hardhat.config.ts` file sets `bytecodeHash` to `"none"`, which excludes the metadata hash from the compiled bytecode. This matches the original Uniswap V3 Core deployment configuration:
 
 ```typescript title="hardhat.config.ts"
---8<-- 'https://raw.githubusercontent.com/polkadot-developers/revm-hardhat-examples/edcf9aa614f7269286c9dba1ac6eb7f705fc0c3a/uniswap-v3-core-hardhat/hardhat.config.ts:22:35'
+--8<-- 'https://raw.githubusercontent.com/polkadot-developers/revm-hardhat-examples/3ff28ae44c4ab041a96953f49d0e2dae0408f28f/uniswap-v3-core-hardhat/hardhat.config.ts:22:35'
 ```
 
 The configuration also sets a fixed gas price of 50 gwei for the `localNode` network to match the gas price reported by the Polkadot local development node:
 
 ```typescript title="hardhat.config.ts"
---8<-- 'https://raw.githubusercontent.com/polkadot-developers/revm-hardhat-examples/edcf9aa614f7269286c9dba1ac6eb7f705fc0c3a/uniswap-v3-core-hardhat/hardhat.config.ts:40:43'
+--8<-- 'https://raw.githubusercontent.com/polkadot-developers/revm-hardhat-examples/3ff28ae44c4ab041a96953f49d0e2dae0408f28f/uniswap-v3-core-hardhat/hardhat.config.ts:40:43'
 ```
 
 ## Uniswap V3 Core Architecture

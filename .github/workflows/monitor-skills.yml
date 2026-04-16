@@ -1,0 +1,44 @@
+name: Monitor Skills
+
+# v2: Pipeline runs directly in the docs repo — no dispatch hop to mkdocs.
+# Triggers:
+#   - push to master with .md changes
+#   - repository_dispatch: generate-batch (self-chaining for backlog burn-down)
+#   - repository_dispatch: reference-code-updated (upstream ref repo webhook, if configured)
+#   - workflow_dispatch (manual runs, with batch-size and no-chain controls)
+
+on:
+  push:
+    branches: [master]
+    paths: ["**.md"]
+  repository_dispatch:
+    types: [generate-batch, reference-code-updated]
+  workflow_dispatch:
+    inputs:
+      batch-size:
+        description: "Max new candidates to generate per run (default 5)"
+        required: false
+        type: number
+        default: 5
+      no-chain:
+        description: "If true, generate one batch and stop (no auto-chaining)"
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  id-token: write
+
+jobs:
+  monitor-skills:
+    uses: papermoonio/workflows-private/.github/workflows/task-monitor-skills.yml@main
+    with:
+      hub-repo: papermoonio/agent-ready-docs-hub
+      project-id: polkadot-docs
+      batch-only: ${{ github.event.action == 'generate-batch' }}
+      batch-size: ${{ github.event.inputs.batch-size && fromJSON(github.event.inputs.batch-size) || 5 }}
+      no-chain: ${{ github.event.inputs.no-chain == 'true' }}
+    secrets:
+      PRIVATE_REPO_TOKEN: ${{ secrets.PRIVATE_REPO_TOKEN }}
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}

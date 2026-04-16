@@ -1,0 +1,1317 @@
+{
+  "schema_version": "2",
+  "generated": "2026-04-16T00:00:00Z",
+  "project_id": "polkadot-docs",
+  "candidates": [
+    {
+      "skill_id": "create-polkadot-account",
+      "title": "Create a Polkadot Account Programmatically",
+      "source_pages": [
+        "chain-interactions/accounts/create-account.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "notes": "Complete tutorial with steps for JS/TS, Python, and Rust. Produces a new account with mnemonic, public key, and address. CI tested.",
+      "status": "built"
+    },
+    {
+      "skill_id": "query-account-info-sdks",
+      "title": "Query Account Information with SDKs",
+      "source_pages": [
+        "chain-interactions/accounts/query-accounts.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "notes": "Full tutorial with step-by-step instructions for 5 SDKs (PAPI, Polkadot.js, Dedot, Python, Subxt). CI tested.",
+      "status": "built",
+      "built_at": "2026-04-07T00:00:00Z"
+    },
+    {
+      "skill_id": "query-chain-state-sidecar-rest",
+      "title": "Query On-Chain State with Sidecar REST API",
+      "source_pages": [
+        "chain-interactions/query-data/query-rest.md"
+      ],
+      "category": "guide",
+      "priority": "medium",
+      "notes": "Guide showing curl commands to query balances, assets, and blocks via Sidecar REST API. Relies on external Sidecar instance.",
+      "status": "built",
+      "built_at": "2026-04-14T14:00:00Z"
+    },
+    {
+      "skill_id": "query-chain-state-sdks",
+      "title": "Query On-Chain State with SDKs",
+      "source_pages": [
+        "chain-interactions/query-data/query-sdks.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "notes": "Complete tutorial with 5 SDKs showing how to query account balances and asset information. CI tested.",
+      "status": "built",
+      "built_at": "2026-04-06T10:46:00Z"
+    },
+    {
+      "skill_id": "call-runtime-apis-sdks",
+      "title": "Call Runtime APIs with SDKs",
+      "source_pages": [
+        "chain-interactions/query-data/runtime-api-calls.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "notes": "Complete tutorial demonstrating runtime API calls (AccountNonceApi, Metadata) across 5 SDKs. Includes reference table of available runtime APIs.",
+      "status": "built",
+      "built_at": "2026-04-06T10:46:00Z"
+    },
+    {
+      "skill_id": "calculate-transaction-fees",
+      "title": "Calculate Transaction Fees on Polkadot",
+      "source_pages": [
+        "chain-interactions/send-transactions/calculate-transaction-fees.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "notes": "Tutorial with concrete steps to estimate fees using PAPI and Polkadot.js API. Produces fee estimate output.",
+      "status": "built",
+      "built_at": "2026-04-06T10:46:00Z"
+    },
+    {
+      "skill_id": "replay-dry-run-xcm-chopsticks",
+      "title": "Replay and Dry Run XCMs Using Chopsticks",
+      "source_pages": [
+        "chain-interactions/send-transactions/interoperability/debug-and-preview-xcms.md"
+      ],
+      "category": "tutorial",
+      "priority": "medium",
+      "notes": "Detailed tutorial with setup, chain forking, XCM replay, and dry-run scripts. Requires building Wasm runtime locally which adds complexity.",
+      "status": "built",
+      "built_at": "2026-04-06T11:04:25Z"
+    },
+    {
+      "skill_id": "estimate-xcm-fees-teleport",
+      "title": "Estimate XCM Fees for Asset Teleport",
+      "source_pages": [
+        "chain-interactions/send-transactions/interoperability/estimate-xcm-fees.md"
+      ],
+      "category": "tutorial",
+      "priority": "medium",
+      "notes": "Comprehensive tutorial for estimating XCM teleport fees between Polkadot Hub and People Chain. Requires Chopsticks for local forks.",
+      "status": "built",
+      "built_at": "2026-04-14T14:00:00Z"
+    },
+    {
+      "skill_id": "bridge-assets-ethereum-to-polkadot",
+      "title": "Transfer Assets from Ethereum into Polkadot via Snowbridge",
+      "source_pages": [
+        "chain-interactions/send-transactions/interoperability/transfer-assets-into-polkadot.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "notes": "Complete end-to-end tutorial: project setup, token approval, bridge transfer execution, and monitoring. Uses ParaSpell SDK and Snowbridge.",
+      "status": "built",
+      "built_at": "2026-04-06T10:46:00Z"
+    },
+    {
+      "skill_id": "transfer-assets-between-parachains",
+      "title": "Transfer Assets Between Parachains with ParaSpell",
+      "source_pages": [
+        "chain-interactions/send-transactions/interoperability/transfer-assets-parachains.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "notes": "Full tutorial: build XCM transfer, dry run, verify ED, get fee estimates, submit transaction. Uses ParaSpell SDK on Paseo TestNet.",
+      "status": "built",
+      "built_at": "2026-04-06T10:46:00Z"
+    },
+    {
+      "skill_id": "pay-fees-with-different-tokens",
+      "title": "Pay Transaction Fees with Alternative Tokens",
+      "source_pages": [
+        "chain-interactions/send-transactions/pay-fees-with-different-tokens.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "notes": "Tutorial covering 3 SDKs (PAPI, Polkadot.js, Subxt) to send DOT transfer while paying fees in USDT. Uses Chopsticks fork.",
+      "status": "built",
+      "built_at": "2026-04-06T10:46:00Z"
+    },
+    {
+      "skill_id": "send-transactions-sdks",
+      "title": "Send Transactions with SDKs",
+      "source_pages": [
+        "chain-interactions/send-transactions/with-sdks.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "notes": "Complete tutorial demonstrating balance transfer across 5 SDKs (PAPI, Polkadot.js, Dedot, Python, Subxt). CI tested.",
+      "status": "built",
+      "built_at": "2026-04-06T10:46:00Z"
+    },
+    {
+      "skill_id": "convert-assets-asset-hub",
+      "title": "Convert Assets on Asset Hub via AMM",
+      "source_pages": [
+        "chain-interactions/token-operations/convert-assets.md"
+      ],
+      "category": "tutorial",
+      "priority": "medium",
+      "notes": "Tutorial using Polkadot.js Apps UI to create liquidity pools, add/remove liquidity, and swap assets. UI-based rather than programmatic.",
+      "status": "built",
+      "built_at": "2026-04-14T14:00:00Z"
+    },
+    {
+      "skill_id": "register-foreign-asset-polkadot-hub",
+      "title": "Register a Foreign Asset on Polkadot Hub",
+      "source_pages": [
+        "chain-interactions/token-operations/register-foreign-asset.md"
+      ],
+      "category": "tutorial",
+      "priority": "medium",
+      "notes": "Tutorial with UI-based steps using Polkadot.js Apps. Involves XCM call construction and cross-chain registration. Requires Chopsticks multi-chain setup.",
+      "status": "built",
+      "built_at": "2026-04-14T14:00:00Z"
+    },
+    {
+      "skill_id": "register-local-asset-polkadot-hub",
+      "title": "Register a Local Asset on Polkadot Hub",
+      "source_pages": [
+        "chain-interactions/token-operations/register-local-asset.md"
+      ],
+      "category": "tutorial",
+      "priority": "medium",
+      "notes": "Step-by-step UI tutorial using Polkadot.js Apps to register a local asset. Medium priority because it is UI-based (not programmatic).",
+      "status": "built",
+      "built_at": "2026-04-14T14:00:00Z"
+    },
+    {
+      "skill_id": "run-polkadot-collator-node",
+      "title": "Run a Block-Producing Collator for Polkadot System Parachains",
+      "source_pages": [
+        "node-infrastructure/run-a-collator.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "notes": "Complete end-to-end tutorial covering install, node key generation, chain spec, Docker/systemd deployment, session key generation, and on-chain registration.",
+      "status": "built",
+      "built_at": "2026-04-06T10:46:00Z"
+    },
+    {
+      "skill_id": "run-parachain-rpc-node",
+      "title": "Run a Parachain RPC Node on Polkadot",
+      "source_pages": [
+        "node-infrastructure/run-a-node/parachain-rpc.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "notes": "Complete tutorial with Docker or systemd setup, chain spec download, snapshots, node launch, and sync monitoring.",
+      "status": "built",
+      "built_at": "2026-04-06T10:46:00Z"
+    },
+    {
+      "skill_id": "run-polkadot-hub-rpc-node",
+      "title": "Run an RPC Node for Polkadot Hub with Ethereum RPC Compatibility",
+      "source_pages": [
+        "node-infrastructure/run-a-node/polkadot-hub-rpc.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "notes": "Complete tutorial covering Polkadot Hub RPC node setup via Docker/systemd, snapshot usage, and Ethereum RPC adapter setup.",
+      "status": "built",
+      "built_at": "2026-04-06T10:46:00Z"
+    },
+    {
+      "skill_id": "setup-polkadot-bootnode",
+      "title": "Set Up a Polkadot Bootnode",
+      "source_pages": [
+        "node-infrastructure/run-a-node/relay-chain/bootnode.md"
+      ],
+      "category": "guide",
+      "priority": "medium",
+      "notes": "Guide for running a bootnode with P2P/WS/WSS connections, nginx proxy, and testing. Assumes a working polkadot binary and nginx.",
+      "status": "built",
+      "built_at": "2026-04-14T14:30:00Z"
+    },
+    {
+      "skill_id": "run-polkadot-full-node",
+      "title": "Set Up and Run a Polkadot Full Node",
+      "source_pages": [
+        "node-infrastructure/run-a-node/relay-chain/full-node.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "notes": "Complete tutorial covering binary installation (macOS/Windows/Linux/Docker/snap), node configuration, RPC settings, syncing, and Polkadot.js Apps connection.",
+      "status": "built",
+      "built_at": "2026-04-06T10:46:00Z"
+    },
+    {
+      "skill_id": "setup-secure-websocket-polkadot",
+      "title": "Set Up Secure WebSocket for a Polkadot Node",
+      "source_pages": [
+        "node-infrastructure/run-a-node/relay-chain/secure-wss.md"
+      ],
+      "category": "guide",
+      "priority": "medium",
+      "notes": "Guide for securing a node's WebSocket port with SSL using nginx or Apache2 proxy. Assumes a running node already exists.",
+      "status": "built",
+      "built_at": "2026-04-06T11:04:25Z"
+    },
+    {
+      "skill_id": "manage-validator-keys-polkadot",
+      "title": "Manage Polkadot Validator Session and Node Keys",
+      "source_pages": [
+        "node-infrastructure/run-a-validator/onboarding-and-offboarding/key-management.md"
+      ],
+      "category": "guide",
+      "composite": true,
+      "priority": "medium",
+      "notes": "Procedural guide for generating and submitting session keys. Part of the multi-page validator setup flow; not standalone.",
+      "status": "built",
+      "built_at": "2026-04-06T11:04:25Z"
+    },
+    {
+      "skill_id": "setup-polkadot-validator-node",
+      "title": "Set Up a Polkadot Validator Node",
+      "source_pages": [
+        "node-infrastructure/run-a-validator/onboarding-and-offboarding/set-up-validator.md",
+        "node-infrastructure/run-a-validator/onboarding-and-offboarding/key-management.md",
+        "node-infrastructure/run-a-validator/onboarding-and-offboarding/start-validating.md"
+      ],
+      "category": "tutorial",
+      "composite": true,
+      "priority": "high",
+      "notes": "Core composite tutorial spanning 3 pages: binary installation, key management, and activation. Produces an active validator on Polkadot.",
+      "status": "built",
+      "built_at": "2026-04-06T10:46:00Z"
+    },
+    {
+      "skill_id": "stop-polkadot-validator",
+      "title": "Stop Validating on Polkadot",
+      "source_pages": [
+        "node-infrastructure/run-a-validator/onboarding-and-offboarding/stop-validating.md"
+      ],
+      "category": "guide",
+      "priority": "low",
+      "notes": "Short guide covering chilling, purging session keys, and unbonding tokens. Brief, mostly Polkadot.js Apps UI actions.",
+      "status": "built",
+      "built_at": "2026-04-06T11:04:25Z"
+    },
+    {
+      "skill_id": "configure-validator-monitoring-polkadot",
+      "title": "Configure Monitoring and Optimize a Polkadot Validator",
+      "source_pages": [
+        "node-infrastructure/run-a-validator/operational-tasks/general-management.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "notes": "Comprehensive tutorial covering CPU optimization, Prometheus, Grafana setup, Alertmanager with email alerts, and security hardening.",
+      "status": "built",
+      "built_at": "2026-04-06T10:46:00Z"
+    },
+    {
+      "skill_id": "setup-staking-operator-proxy-polkadot",
+      "title": "Set Up a Staking Operator Proxy on Polkadot",
+      "source_pages": [
+        "node-infrastructure/run-a-validator/operational-tasks/staking-operator-proxy.md"
+      ],
+      "category": "guide",
+      "priority": "medium",
+      "notes": "Guide for setting up a Staking Operator proxy for non-custodial validator operations via Polkadot Hub.",
+      "status": "built",
+      "built_at": "2026-04-06T11:04:25Z"
+    },
+    {
+      "skill_id": "upgrade-polkadot-validator-node",
+      "title": "Upgrade a Polkadot Validator Node",
+      "source_pages": [
+        "node-infrastructure/run-a-validator/operational-tasks/upgrade-your-node.md"
+      ],
+      "category": "guide",
+      "priority": "medium",
+      "notes": "Guide for upgrading a validator using a backup node (Validator A/B swap process). Requires existing validator setup.",
+      "status": "built",
+      "built_at": "2026-04-06T11:04:25Z"
+    },
+    {
+      "skill_id": "add-existing-pallet-to-runtime",
+      "title": "Add an Existing Pallet to the Runtime",
+      "source_pages": [
+        "parachains/customize-runtime/add-existing-pallets.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "notes": "Complete tutorial with numbered steps, code examples, cargo build, chain spec generation, local testing. CI tested.",
+      "status": "built",
+      "built_at": "2026-04-06T10:46:00Z"
+    },
+    {
+      "skill_id": "add-multiple-pallet-instances",
+      "title": "Add Multiple Pallet Instances to Runtime",
+      "source_pages": [
+        "parachains/customize-runtime/add-pallet-instances.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "notes": "Complete tutorial for adding multiple instances of pallet-collective. CI tested.",
+      "status": "built",
+      "built_at": "2026-04-06T10:46:00Z"
+    },
+    {
+      "skill_id": "create-custom-pallet",
+      "title": "Create a Custom Pallet from Scratch",
+      "source_pages": [
+        "parachains/customize-runtime/pallet-development/create-a-pallet.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "notes": "Complete tutorial for creating a counter pallet with storage, events, errors, genesis config, and dispatchable functions. CI tested.",
+      "status": "built",
+      "built_at": "2026-04-06T10:46:00Z"
+    },
+    {
+      "skill_id": "create-pallet-mock-runtime",
+      "title": "Create a Mock Runtime for Pallet Testing",
+      "source_pages": [
+        "parachains/customize-runtime/pallet-development/mock-runtime.md",
+        "parachains/customize-runtime/pallet-development/create-a-pallet.md"
+      ],
+      "category": "tutorial",
+      "composite": true,
+      "priority": "high",
+      "notes": "Creates mock.rs with construct_runtime!, frame_system config, genesis storage helpers. Depends on create-a-pallet. CI tested.",
+      "status": "built",
+      "built_at": "2026-04-06T10:46:00Z"
+    },
+    {
+      "skill_id": "unit-test-custom-pallet",
+      "title": "Write Unit Tests for a Custom Pallet",
+      "source_pages": [
+        "parachains/customize-runtime/pallet-development/pallet-testing.md",
+        "parachains/customize-runtime/pallet-development/create-a-pallet.md",
+        "parachains/customize-runtime/pallet-development/mock-runtime.md"
+      ],
+      "category": "tutorial",
+      "composite": true,
+      "priority": "high",
+      "notes": "Full test suite with 15 passing tests covering assert_ok!, assert_noop!, event testing, genesis config, access control. CI tested.",
+      "status": "built",
+      "built_at": "2026-04-06T10:46:00Z"
+    },
+    {
+      "skill_id": "benchmark-custom-pallet",
+      "title": "Benchmark a Custom Pallet",
+      "source_pages": [
+        "parachains/customize-runtime/pallet-development/benchmark-pallet.md",
+        "parachains/customize-runtime/pallet-development/create-a-pallet.md",
+        "parachains/customize-runtime/pallet-development/mock-runtime.md"
+      ],
+      "category": "tutorial",
+      "composite": true,
+      "priority": "high",
+      "notes": "Creates benchmarking module, generates weight files, updates runtime config. Produces production-ready weights.rs. CI tested.",
+      "status": "built",
+      "built_at": "2026-04-06T10:46:00Z"
+    },
+    {
+      "skill_id": "install-polkadot-sdk",
+      "title": "Install Polkadot SDK Dependencies and Build",
+      "source_pages": [
+        "parachains/install-polkadot-sdk.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "notes": "Complete installation tutorial covering macOS, Linux, Windows WSL. Rust setup, SDK clone and build. CI tested.",
+      "status": "built",
+      "built_at": "2026-04-06T10:46:00Z"
+    },
+    {
+      "skill_id": "open-hrmp-channel-between-parachains",
+      "title": "Open HRMP Channels Between Parachains",
+      "source_pages": [
+        "parachains/interoperability/channels-between-parachains.md"
+      ],
+      "category": "tutorial",
+      "priority": "medium",
+      "notes": "Step-by-step tutorial for opening unidirectional HRMP channel. Uses Polkadot.js Apps UI. Requires multi-parachain network setup. CI tested.",
+      "status": "built",
+      "built_at": "2026-04-06T11:04:25Z"
+    },
+    {
+      "skill_id": "open-hrmp-channel-with-system-chain",
+      "title": "Open HRMP Channel with System Parachains",
+      "source_pages": [
+        "parachains/interoperability/channels-with-system-parachains.md"
+      ],
+      "category": "tutorial",
+      "priority": "medium",
+      "notes": "Simpler than between-parachains (single XCM message for bidirectional channel). Requires relay chain + parachain + system chain. CI tested.",
+      "status": "built",
+      "built_at": "2026-04-06T11:04:25Z"
+    },
+    {
+      "skill_id": "deploy-parachain-to-testnet",
+      "title": "Deploy a Parachain to Polkadot TestNet",
+      "source_pages": [
+        "parachains/launch-a-parachain/deploy-to-polkadot.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "notes": "Comprehensive tutorial: account setup, parachain ID reservation, key generation, chain spec config, parathread registration, collator startup.",
+      "status": "built",
+      "built_at": "2026-04-06T10:46:00Z"
+    },
+    {
+      "skill_id": "obtain-coretime-for-parachain",
+      "title": "Obtain Coretime for Parachain Block Production",
+      "source_pages": [
+        "parachains/launch-a-parachain/obtain-coretime.md",
+        "parachains/launch-a-parachain/deploy-to-polkadot.md"
+      ],
+      "category": "tutorial",
+      "composite": true,
+      "priority": "high",
+      "notes": "Tutorial covering on-demand and bulk coretime via RegionX marketplace. Depends on deploy-to-polkadot.",
+      "status": "built",
+      "built_at": "2026-04-06T10:46:00Z"
+    },
+    {
+      "skill_id": "setup-parachain-template",
+      "title": "Set Up and Run the Polkadot SDK Parachain Template",
+      "source_pages": [
+        "parachains/launch-a-parachain/set-up-the-parachain-template.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "notes": "Complete beginner tutorial: clone template, install tools, compile runtime, generate chain spec, run locally. CI tested.",
+      "status": "built",
+      "built_at": "2026-04-06T10:46:00Z"
+    },
+    {
+      "skill_id": "renew-parachain-coretime",
+      "title": "Renew Coretime for Parachain Operation",
+      "source_pages": [
+        "parachains/runtime-maintenance/coretime-renewal.md",
+        "parachains/interoperability/channels-with-system-parachains.md"
+      ],
+      "category": "guide",
+      "composite": true,
+      "priority": "medium",
+      "notes": "Manual renewal via broker.renew and auto-renewal via XCM. Requires existing coretime purchase and HRMP channel setup.",
+      "status": "built",
+      "built_at": "2026-04-06T11:04:25Z"
+    },
+    {
+      "skill_id": "perform-runtime-upgrade",
+      "title": "Perform a Forkless Runtime Upgrade",
+      "source_pages": [
+        "parachains/runtime-maintenance/runtime-upgrades.md",
+        "parachains/customize-runtime/pallet-development/create-a-pallet.md",
+        "parachains/launch-a-parachain/set-up-the-parachain-template.md"
+      ],
+      "category": "tutorial",
+      "composite": true,
+      "priority": "high",
+      "notes": "Adds new dispatchable, bumps spec_version, builds Wasm, submits upgrade via sudo. CI tested.",
+      "status": "built",
+      "built_at": "2026-04-06T10:46:00Z"
+    },
+    {
+      "skill_id": "implement-storage-migration",
+      "title": "Implement Storage Migrations for Runtime Upgrades",
+      "source_pages": [
+        "parachains/runtime-maintenance/storage-migrations.md"
+      ],
+      "category": "guide",
+      "priority": "medium",
+      "notes": "Covers migration scenarios, OnRuntimeUpgrade trait, VersionedMigration pattern, testing hooks. Has code examples but no end-to-end runnable tutorial.",
+      "status": "built",
+      "built_at": "2026-04-06T11:04:25Z"
+    },
+    {
+      "skill_id": "unlock-parachain-via-xcm",
+      "title": "Unlock a Parachain via XCM",
+      "source_pages": [
+        "parachains/runtime-maintenance/unlock-parachains.md"
+      ],
+      "category": "guide",
+      "priority": "medium",
+      "notes": "Guide for checking lock status and sending XCM to relay chain to remove lock. Requires existing deployed parachain with sudo.",
+      "status": "built",
+      "built_at": "2026-04-06T11:04:25Z"
+    },
+    {
+      "skill_id": "fork-parachain-with-chopsticks",
+      "title": "Fork a Live Parachain Using Chopsticks",
+      "source_pages": [
+        "parachains/testing/fork-a-parachain.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "notes": "Complete tutorial with Chopsticks installation, YAML config, CLI flags, and WebSocket commands for chain manipulation. CI tested.",
+      "status": "built",
+      "built_at": "2026-04-06T10:46:00Z"
+    },
+    {
+      "skill_id": "run-parachain-network-with-zombienet",
+      "title": "Run a Parachain Test Network Using Zombienet",
+      "source_pages": [
+        "parachains/testing/run-a-parachain-network.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "notes": "Building parachain binary, downloading relay chain binaries, TOML config, spawning network, verifying block production. CI tested.",
+      "status": "built",
+      "built_at": "2026-04-06T10:46:00Z"
+    },
+    {
+      "skill_id": "fork-chain-with-chopsticks",
+      "title": "Fork and Test Polkadot SDK Chains Locally with Chopsticks",
+      "source_pages": [
+        "reference/tools/chopsticks.md"
+      ],
+      "category": "guide",
+      "priority": "high",
+      "notes": "Installation, configuration, forking chains, replaying blocks, and testing XCM. Clear procedural content with concrete outcomes.",
+      "status": "built",
+      "built_at": "2026-04-06T10:46:00Z"
+    },
+    {
+      "skill_id": "interact-with-chain-using-dedot",
+      "title": "Interact with Polkadot Chains Using Dedot JavaScript Client",
+      "source_pages": [
+        "reference/tools/dedot.md"
+      ],
+      "category": "guide",
+      "priority": "medium",
+      "notes": "Installation, client initialization, reading on-chain data, signing/sending transactions.",
+      "status": "built",
+      "built_at": "2026-04-06T11:04:25Z"
+    },
+    {
+      "skill_id": "setup-e2e-tests-with-moonwall",
+      "title": "Set Up End-to-End Tests for Polkadot SDK Chains with Moonwall",
+      "source_pages": [
+        "reference/tools/moonwall.md"
+      ],
+      "category": "guide",
+      "priority": "medium",
+      "notes": "Installation, initialization, configuration, writing tests, running tests. Produces a working E2E test suite.",
+      "status": "built",
+      "built_at": "2026-04-06T11:04:25Z"
+    },
+    {
+      "skill_id": "run-parachain-with-omninode",
+      "title": "Run a Parachain Node Using Polkadot Omni Node",
+      "source_pages": [
+        "reference/tools/omninode.md"
+      ],
+      "category": "guide",
+      "priority": "high",
+      "notes": "Install binary, obtain chain specs, run a full node, interact with it. Clear procedural content with tangible outcome.",
+      "status": "built",
+      "built_at": "2026-04-06T10:46:00Z"
+    },
+    {
+      "skill_id": "interact-with-chain-using-papi",
+      "title": "Interact with Polkadot Chains Using Polkadot-API (PAPI)",
+      "source_pages": [
+        "reference/tools/papi.md"
+      ],
+      "category": "guide",
+      "priority": "high",
+      "notes": "Installation, API instantiation with multiple providers, reading chain data, sending transactions.",
+      "status": "built",
+      "built_at": "2026-04-06T10:46:00Z"
+    },
+    {
+      "skill_id": "interact-with-chain-using-polkadart",
+      "title": "Interact with Polkadot Chains Using Polkadart Dart SDK",
+      "source_pages": [
+        "reference/tools/polkadart.md"
+      ],
+      "category": "guide",
+      "priority": "low",
+      "notes": "Installation, type generation, API instance creation, reading data, sending transactions in Dart. Niche audience.",
+      "status": "built",
+      "built_at": "2026-04-06T11:04:25Z"
+    },
+    {
+      "skill_id": "interact-with-chain-using-polkadotjs",
+      "title": "Interact with Polkadot Chains Using Polkadot.js API",
+      "source_pages": [
+        "reference/tools/polkadot-js-api.md"
+      ],
+      "category": "guide",
+      "priority": "low",
+      "notes": "Installation, API instance, chain data, transactions. In maintenance mode; lower priority due to deprecation.",
+      "status": "built",
+      "built_at": "2026-04-06T11:04:25Z"
+    },
+    {
+      "skill_id": "bootstrap-parachain-with-pop-cli",
+      "title": "Bootstrap and Run a Parachain Project with Pop CLI",
+      "source_pages": [
+        "reference/tools/pop-cli.md"
+      ],
+      "category": "guide",
+      "priority": "high",
+      "notes": "Install Pop CLI, set up dev environment, scaffold a new parachain project, build it, launch local network.",
+      "status": "built",
+      "built_at": "2026-04-06T10:46:00Z"
+    },
+    {
+      "skill_id": "interact-with-chain-using-python",
+      "title": "Interact with Polkadot Chains Using Python Substrate Interface",
+      "source_pages": [
+        "reference/tools/py-substrate-interface.md"
+      ],
+      "category": "guide",
+      "priority": "medium",
+      "notes": "Installation, connection, reading chain state, submitting transactions in Python.",
+      "status": "built",
+      "built_at": "2026-04-06T11:04:25Z"
+    },
+    {
+      "skill_id": "setup-sidecar-rest-api",
+      "title": "Set Up and Use Substrate Sidecar REST API",
+      "source_pages": [
+        "reference/tools/sidecar.md"
+      ],
+      "category": "guide",
+      "priority": "medium",
+      "notes": "Installation, connecting to local/remote node, querying endpoints. Produces a running REST API service.",
+      "status": "built",
+      "built_at": "2026-04-06T11:04:25Z"
+    },
+    {
+      "skill_id": "interact-with-chain-using-subxt",
+      "title": "Interact with Polkadot Chains Using Subxt Rust Library",
+      "source_pages": [
+        "reference/tools/subxt.md"
+      ],
+      "category": "guide",
+      "priority": "high",
+      "notes": "Install dependencies, download metadata, generate types, read data, submit transactions in Rust.",
+      "status": "built",
+      "built_at": "2026-04-06T10:46:00Z"
+    },
+    {
+      "skill_id": "spawn-test-network-with-zombienet",
+      "title": "Deploy Ephemeral Test Networks with Zombienet",
+      "source_pages": [
+        "reference/tools/zombienet.md"
+      ],
+      "category": "guide",
+      "priority": "high",
+      "notes": "Installation, provider config, network config, spawning networks, writing/running tests.",
+      "status": "built",
+      "built_at": "2026-04-06T10:46:00Z"
+    },
+    {
+      "skill_id": "deploy-basic-contract-remix",
+      "title": "Deploy a Basic Contract with Remix IDE",
+      "source_pages": [
+        "smart-contracts/cookbook/smart-contracts/deploy-basic/basic-remix.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "notes": "Step-by-step tutorial to compile and deploy a basic Storage contract to Polkadot Hub TestNet using Remix IDE.",
+      "status": "built",
+      "built_at": "2026-04-06T10:46:00Z"
+    },
+    {
+      "skill_id": "deploy-erc20-token-remix",
+      "title": "Deploy an ERC-20 Token Using Remix IDE",
+      "source_pages": [
+        "smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "notes": "Complete tutorial to create, compile, deploy, and interact with an ERC-20 token using Remix IDE and OpenZeppelin.",
+      "status": "built",
+      "built_at": "2026-04-06T10:46:00Z"
+    },
+    {
+      "skill_id": "deploy-nft-contract-hardhat",
+      "title": "Deploy an ERC-721 NFT Using Hardhat",
+      "source_pages": [
+        "smart-contracts/cookbook/smart-contracts/deploy-nft/nft-hardhat.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "notes": "Complete tutorial with project setup, Hardhat config, contract creation, compilation, and deployment of an ERC-721 NFT.",
+      "status": "built",
+      "built_at": "2026-04-06T10:46:00Z"
+    },
+    {
+      "skill_id": "deploy-nft-contract-remix",
+      "title": "Deploy an ERC-721 NFT Using Remix IDE",
+      "source_pages": [
+        "smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix.md"
+      ],
+      "category": "tutorial",
+      "priority": "medium",
+      "notes": "Step-by-step tutorial to create, compile, and deploy an ERC-721 NFT contract using Remix IDE and OpenZeppelin.",
+      "status": "built",
+      "built_at": "2026-04-14T14:30:00Z"
+    },
+    {
+      "skill_id": "setup-foundry-and-deploy-contract",
+      "title": "Set Up Foundry and Deploy a Contract on Polkadot Hub",
+      "source_pages": [
+        "smart-contracts/dev-environments/foundry.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "notes": "Comprehensive tutorial covering Foundry installation, project init, compilation, deployment, verification, and interaction.",
+      "status": "built",
+      "built_at": "2026-04-06T10:46:00Z"
+    },
+    {
+      "skill_id": "setup-hardhat-polkadot-pvm",
+      "title": "Set Up Hardhat Polkadot for PVM Development",
+      "source_pages": [
+        "smart-contracts/dev-environments/hardhat-polkadot.md"
+      ],
+      "category": "tutorial",
+      "priority": "medium",
+      "notes": "Step-by-step tutorial for initializing a Hardhat project with the Polkadot PVM plugin, compiling to PVM bytecode, testing locally, and deploying.",
+      "status": "built",
+      "built_at": "2026-04-14T14:30:00Z"
+    },
+    {
+      "skill_id": "connect-remix-to-polkadot",
+      "title": "Connect Remix IDE to Polkadot Hub",
+      "source_pages": [
+        "smart-contracts/dev-environments/remix.md"
+      ],
+      "category": "guide",
+      "priority": "low",
+      "notes": "Short guide on accessing Remix IDE and connecting via MetaMask. Setup prerequisite for Remix-based tutorials.",
+      "status": "built",
+      "built_at": "2026-04-14T15:00:00Z"
+    },
+    {
+      "skill_id": "get-testnet-tokens-from-faucet",
+      "title": "Get Test Tokens from the Polkadot Faucet",
+      "source_pages": [
+        "smart-contracts/faucet.md"
+      ],
+      "category": "guide",
+      "priority": "low",
+      "notes": "Brief 3-step guide for obtaining PAS test tokens. Simple prerequisite action, not a standalone skill.",
+      "status": "built",
+      "built_at": "2026-04-06T11:04:25Z"
+    },
+    {
+      "skill_id": "configure-wallet-for-polkadot-hub",
+      "title": "Configure a Wallet for Polkadot Hub",
+      "source_pages": [
+        "smart-contracts/integrations/wallets.md"
+      ],
+      "category": "guide",
+      "priority": "low",
+      "notes": "Guide to connect MetaMask and Talisman to Polkadot Hub TestNet. Prerequisite setup.",
+      "status": "built",
+      "built_at": "2026-04-06T11:04:25Z"
+    },
+    {
+      "skill_id": "deploy-contract-with-ethers-js",
+      "title": "Deploy and Interact with a Contract Using Ethers.js",
+      "source_pages": [
+        "smart-contracts/libraries/ethers-js.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "notes": "Full tutorial: project setup, provider config, contract compilation, deployment, and interaction using Ethers.js.",
+      "status": "built",
+      "built_at": "2026-04-06T10:46:00Z"
+    },
+    {
+      "skill_id": "deploy-contract-with-viem",
+      "title": "Deploy and Interact with a Contract Using viem",
+      "source_pages": [
+        "smart-contracts/libraries/viem.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "notes": "Full tutorial: TypeScript project setup, chain config, client/wallet setup, contract compilation, deployment, and interaction.",
+      "status": "built",
+      "built_at": "2026-04-06T10:46:00Z"
+    },
+    {
+      "skill_id": "build-dapp-frontend-with-wagmi",
+      "title": "Build a dApp Frontend with Wagmi and React",
+      "source_pages": [
+        "smart-contracts/libraries/wagmi.md"
+      ],
+      "category": "tutorial",
+      "priority": "medium",
+      "notes": "Tutorial to set up a Next.js project with Wagmi v3, connect wallets, fetch blockchain data, and interact with a deployed contract.",
+      "status": "built",
+      "built_at": "2026-04-14T14:30:00Z"
+    },
+    {
+      "skill_id": "deploy-contract-with-web3-js",
+      "title": "Deploy and Interact with a Contract Using Web3.js",
+      "source_pages": [
+        "smart-contracts/libraries/web3-js.md"
+      ],
+      "category": "tutorial",
+      "priority": "low",
+      "notes": "Full tutorial for Web3.js project setup, compilation, deployment, and interaction. Web3.js is sunset, reducing priority.",
+      "status": "built",
+      "built_at": "2026-04-14T15:00:00Z"
+    },
+    {
+      "skill_id": "deploy-contract-with-web3-py",
+      "title": "Deploy and Interact with a Contract Using Web3.py",
+      "source_pages": [
+        "smart-contracts/libraries/web3-py.md"
+      ],
+      "category": "tutorial",
+      "priority": "medium",
+      "notes": "Full Python tutorial: project setup, contract compilation with py-solc-x, deployment, and interaction.",
+      "status": "built",
+      "built_at": "2026-04-14T14:30:00Z"
+    },
+    {
+      "skill_id": "interact-with-xcm-precompile",
+      "title": "Interact with the XCM Precompile via Remix",
+      "source_pages": [
+        "smart-contracts/precompiles/xcm.md"
+      ],
+      "category": "guide",
+      "priority": "medium",
+      "notes": "Guide for using XCM precompile for cross-chain messaging from smart contracts via Remix. Includes weighing, executing, and sending XCM messages.",
+      "status": "built",
+      "built_at": "2026-04-06T11:04:25Z"
+    }
+  ],
+  "supplementary_only": [
+    {
+      "page": "reference/glossary.md",
+      "category": "reference",
+      "relevant_to": [
+        "create-polkadot-account",
+        "send-transactions-sdks",
+        "deploy-basic-contract-hardhat"
+      ],
+      "notes": "Glossary of terms and definitions for the Polkadot ecosystem"
+    },
+    {
+      "page": "reference/parachains/accounts.md",
+      "category": "reference",
+      "relevant_to": [
+        "create-polkadot-account",
+        "query-account-info-sdks"
+      ],
+      "notes": "Documents account data structures, balance types, reference counters, and SS58 address formats"
+    },
+    {
+      "page": "reference/parachains/blocks-transactions-fees/fees.md",
+      "category": "reference",
+      "relevant_to": [
+        "calculate-transaction-fees",
+        "pay-fees-with-different-tokens"
+      ],
+      "notes": "Documents weight system, fee calculation formulas, dispatch classes, and custom weight annotations"
+    },
+    {
+      "page": "reference/parachains/blocks-transactions-fees/transactions.md",
+      "category": "reference",
+      "relevant_to": [
+        "send-transactions-sdks",
+        "calculate-transaction-fees"
+      ],
+      "notes": "Documents transaction types, formats, lifecycle, signed extensions, and construction"
+    },
+    {
+      "page": "reference/parachains/chain-data.md",
+      "category": "reference",
+      "relevant_to": [
+        "query-chain-state-sdks",
+        "call-runtime-apis-sdks"
+      ],
+      "notes": "Documents runtime metadata, RPC APIs, and how to retrieve/use chain data"
+    },
+    {
+      "page": "reference/parachains/data-encoding.md",
+      "category": "reference",
+      "relevant_to": [
+        "create-custom-pallet",
+        "send-transactions-sdks"
+      ],
+      "notes": "Documents SCALE codec encoding/decoding traits, data type encodings, and available libraries"
+    },
+    {
+      "page": "reference/parachains/networks.md",
+      "category": "reference",
+      "relevant_to": [
+        "deploy-basic-contract-hardhat",
+        "deploy-erc20-token-hardhat",
+        "setup-hardhat-and-verify-contract",
+        "deploy-parachain-to-testnet"
+      ],
+      "notes": "Documents available Polkadot networks (MainNet, Paseo, Kusama, Westend) and development path"
+    },
+    {
+      "page": "reference/polkadot-hub/assets.md",
+      "category": "reference",
+      "relevant_to": [
+        "register-local-asset-polkadot-hub",
+        "register-foreign-asset-polkadot-hub",
+        "convert-assets-asset-hub"
+      ],
+      "notes": "Documents asset types, structure, operations, and roles/permissions on Polkadot Hub"
+    },
+    {
+      "page": "reference/polkadot-hub/bridging.md",
+      "category": "reference",
+      "relevant_to": [
+        "bridge-assets-ethereum-to-polkadot"
+      ],
+      "notes": "Documents Bridge Hub architecture, pallets, trustless bridging mechanisms, and deployed bridges"
+    },
+    {
+      "page": "reference/tools/paraspell.md",
+      "category": "reference",
+      "relevant_to": [
+        "transfer-assets-between-parachains",
+        "bridge-assets-ethereum-to-polkadot"
+      ],
+      "notes": "Overview of ParaSpell XCM SDK suite. Links to separate tutorials for actual usage."
+    },
+    {
+      "page": "reference/tools/xcm-tools.md",
+      "category": "reference",
+      "relevant_to": [
+        "transfer-assets-between-parachains",
+        "open-hrmp-channel-between-parachains",
+        "replay-dry-run-xcm-chopsticks"
+      ],
+      "notes": "Overview of XCM tool collections (Moonsong Labs, ParaSpell, Astar, Chopsticks, Moonbeam SDK)"
+    },
+    {
+      "page": "smart-contracts/connect.md",
+      "category": "reference",
+      "relevant_to": [
+        "deploy-basic-contract-hardhat",
+        "deploy-erc20-token-hardhat",
+        "setup-hardhat-and-verify-contract",
+        "deploy-uniswap-v2-on-polkadot",
+        "build-zero-to-hero-dapp",
+        "set-up-local-dev-node"
+      ],
+      "notes": "Lists network details (chain IDs, RPC URLs, explorer URLs) and faucet steps"
+    },
+    {
+      "page": "smart-contracts/explorers.md",
+      "category": "reference",
+      "relevant_to": [
+        "deploy-basic-contract-hardhat",
+        "deploy-erc20-token-hardhat",
+        "setup-foundry-and-deploy-contract",
+        "setup-hardhat-and-verify-contract"
+      ],
+      "notes": "Lists available block explorers (BlockScout, Routescan, Subscan) with links"
+    },
+    {
+      "page": "smart-contracts/for-eth-devs/accounts.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "deploy-basic-contract-hardhat",
+        "deploy-erc20-token-hardhat",
+        "build-zero-to-hero-dapp"
+      ],
+      "notes": "Explains Ethereum-to-Polkadot address mapping, account types, and account registration"
+    },
+    {
+      "page": "smart-contracts/for-eth-devs/blocks-transactions-fees.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "deploy-basic-contract-hardhat",
+        "setup-foundry-and-deploy-contract"
+      ],
+      "notes": "Explains block structure, EVM transaction types, and fee components"
+    },
+    {
+      "page": "smart-contracts/for-eth-devs/contract-deployment.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "setup-hardhat-polkadot-pvm",
+        "setup-foundry-and-deploy-contract",
+        "deploy-basic-contract-hardhat"
+      ],
+      "notes": "Compares REVM and PVM deployment models, factory patterns, two-step deployment"
+    },
+    {
+      "page": "smart-contracts/for-eth-devs/dual-vm-stack.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "setup-hardhat-polkadot-pvm",
+        "setup-foundry-and-deploy-contract"
+      ],
+      "notes": "Explains Polkadot's dual VM architecture (REVM vs PVM) and when to choose each backend"
+    },
+    {
+      "page": "smart-contracts/for-eth-devs/evm-vs-pvm.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "setup-hardhat-polkadot-pvm"
+      ],
+      "notes": "Deep technical comparison of EVM and PVM: architecture, gas model, memory management, YUL IR translation"
+    },
+    {
+      "page": "smart-contracts/for-eth-devs/gas-model.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "deploy-basic-contract-hardhat",
+        "setup-foundry-and-deploy-contract",
+        "deploy-uniswap-v2-on-polkadot"
+      ],
+      "notes": "Explains gas estimation, weight-to-gas mapping, dynamic pricing on Polkadot Hub"
+    },
+    {
+      "page": "smart-contracts/for-eth-devs/json-rpc-apis.md",
+      "category": "reference",
+      "relevant_to": [
+        "deploy-basic-contract-hardhat",
+        "setup-foundry-and-deploy-contract",
+        "build-zero-to-hero-dapp"
+      ],
+      "notes": "Documents supported Ethereum JSON-RPC methods with parameters and curl examples"
+    },
+    {
+      "page": "smart-contracts/precompiles/erc20.md",
+      "category": "reference",
+      "relevant_to": [
+        "deploy-erc20-token-hardhat",
+        "deploy-erc20-token-remix"
+      ],
+      "notes": "Documents the ERC20 precompile interface, query functions, token operations, and common asset IDs"
+    },
+    {
+      "page": "smart-contracts/precompiles/eth-native.md",
+      "category": "reference",
+      "relevant_to": [
+        "deploy-basic-contract-hardhat",
+        "setup-foundry-and-deploy-contract"
+      ],
+      "notes": "Documents standard Ethereum-native precompiles (ECRecover, SHA-256, etc.) available on Polkadot Hub"
+    },
+    {
+      "page": "smart-contracts/precompiles/storage.md",
+      "category": "reference",
+      "relevant_to": [
+        "deploy-basic-contract-hardhat",
+        "build-zero-to-hero-dapp"
+      ],
+      "notes": "Documents the Storage precompile interface with read/write/inspect functions"
+    },
+    {
+      "page": "smart-contracts/precompiles/system.md",
+      "category": "reference",
+      "relevant_to": [
+        "deploy-basic-contract-hardhat",
+        "build-zero-to-hero-dapp"
+      ],
+      "notes": "Documents the System precompile interface: cryptographic operations, account management, runtime queries"
+    },
+    {
+      "page": "node-infrastructure/run-a-validator/requirements.md",
+      "category": "reference",
+      "relevant_to": [
+        "setup-polkadot-validator-node"
+      ],
+      "notes": "Documents hardware requirements, VPS providers, minimum bond (10,000 DOT), and minimum commission (10%)"
+    },
+    {
+      "page": "node-infrastructure/run-a-validator/operational-tasks/pause-validating.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "setup-polkadot-validator-node",
+        "stop-polkadot-validator"
+      ],
+      "notes": "Explains the chill mechanism for validators and nominators, staking election timing"
+    },
+    {
+      "page": "node-infrastructure/run-a-validator/staking-mechanics/offenses-and-slashes.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "setup-polkadot-validator-node",
+        "upgrade-polkadot-validator-node"
+      ],
+      "notes": "Explains offense types, penalty levels, slash calculation formulas, and avoidance best practices"
+    },
+    {
+      "page": "node-infrastructure/run-a-validator/staking-mechanics/rewards.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "setup-polkadot-validator-node"
+      ],
+      "notes": "Explains era points, reward variance, payout scheme, and nominator/validator payment splits"
+    },
+    {
+      "page": "parachains/customize-runtime/add-smart-contract-functionality.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "add-existing-pallet-to-runtime"
+      ],
+      "notes": "Explains three approaches to adding smart contracts (pallet-revive, Frontier, pallet-contracts) without step-by-step implementation"
+    },
+    {
+      "page": "parachains/interoperability/get-started.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "open-hrmp-channel-between-parachains",
+        "open-hrmp-channel-with-system-chain"
+      ],
+      "notes": "Introduces XCM concepts: four principles, tech stack, core functionalities"
+    },
+    {
+      "page": "reference/polkadot-hub/smart-contracts.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "deploy-erc20-token-hardhat",
+        "deploy-basic-contract-hardhat",
+        "setup-hardhat-and-verify-contract"
+      ],
+      "notes": "Overview of smart contract support on Polkadot Hub via REVM and PVM"
+    },
+    {
+      "page": "reference/tools/light-clients.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "interact-with-chain-using-papi"
+      ],
+      "notes": "Explains light client concepts and workflow. Brief tool mentions but no complete procedural workflow."
+    }
+  ],
+  "not_applicable": [
+    {
+      "page": "parachains/get-started.md",
+      "category": "not_applicable",
+      "reason": "Landing/index page linking to all parachain tutorials and guides. No procedural content."
+    },
+    {
+      "page": "parachains/integrations/indexers.md",
+      "category": "conceptual",
+      "reason": "Brief list of blockchain indexers (Subsquid, Subquery) with no procedural steps or code."
+    },
+    {
+      "page": "parachains/integrations/oracles.md",
+      "category": "conceptual",
+      "reason": "Brief list of oracle providers (Acurast). No procedural steps or code."
+    },
+    {
+      "page": "parachains/integrations/wallets.md",
+      "category": "conceptual",
+      "reason": "Lists wallet options (Nova, Talisman, Subwallet, Ledger) with descriptions. No procedural steps."
+    },
+    {
+      "page": "smart-contracts/get-started.md",
+      "category": "not_applicable",
+      "reason": "Landing/overview page with tables linking to other pages. No procedural content."
+    },
+    {
+      "page": "smart-contracts/overview.md",
+      "category": "not_applicable",
+      "reason": "High-level overview of Polkadot Hub smart contract platform. No procedural content."
+    },
+    {
+      "page": "reference/governance/origins-tracks.md",
+      "category": "conceptual",
+      "reason": "Explains OpenGov origins and tracks system conceptually. No procedural steps."
+    },
+    {
+      "page": "reference/parachains/blocks-transactions-fees/blocks.md",
+      "category": "conceptual",
+      "reason": "Explains block structure, production, and import processes. No actionable steps."
+    },
+    {
+      "page": "reference/parachains/consensus/async-backing.md",
+      "category": "conceptual",
+      "reason": "Explains asynchronous backing protocol feature conceptually. No procedural steps."
+    },
+    {
+      "page": "reference/parachains/consensus/elastic-scaling.md",
+      "category": "conceptual",
+      "reason": "Explains elastic scaling architecture and benefits. No actionable steps."
+    },
+    {
+      "page": "reference/parachains/consensus/inclusion-pipeline.md",
+      "category": "conceptual",
+      "reason": "Explains the multi-stage parablock validation pipeline. No procedural content."
+    },
+    {
+      "page": "reference/parachains/cryptography.md",
+      "category": "conceptual",
+      "reason": "Explains cryptographic concepts used in Polkadot. No procedural steps."
+    },
+    {
+      "page": "reference/parachains/interoperability.md",
+      "category": "conceptual",
+      "reason": "High-level overview of interoperability (XCM, bridges). No procedural steps."
+    },
+    {
+      "page": "reference/parachains/node-and-runtime.md",
+      "category": "conceptual",
+      "reason": "Explains node/runtime architecture separation. No actionable steps."
+    },
+    {
+      "page": "reference/parachains/randomness.md",
+      "category": "conceptual",
+      "reason": "Explains randomness generation methods (VRF, RANDAO, VDFs). No procedural steps."
+    },
+    {
+      "page": "reference/polkadot-hub/collectives-and-daos.md",
+      "category": "conceptual",
+      "reason": "Explains the Collectives chain, Technical Fellowship, and Polkadot Alliance. No procedural steps."
+    },
+    {
+      "page": "reference/polkadot-hub/consensus-and-security/agile-coretime.md",
+      "category": "conceptual",
+      "reason": "Explains Agile Coretime scheduling framework. No actionable developer steps."
+    },
+    {
+      "page": "reference/polkadot-hub/consensus-and-security/pos-consensus.md",
+      "category": "conceptual",
+      "reason": "Explains NPoS, BABE, GRANDPA, BEEFY consensus protocols. No procedural steps."
+    },
+    {
+      "page": "reference/polkadot-hub/consensus-and-security/relay-chain.md",
+      "category": "conceptual",
+      "reason": "High-level overview of Polkadot architecture, blockspace, DOT token, and JAM roadmap."
+    },
+    {
+      "page": "reference/polkadot-hub/people-and-identity.md",
+      "category": "conceptual",
+      "reason": "Explains People chain identity management system. No developer-facing procedural steps."
+    },
+    {
+      "page": "get-support.md",
+      "category": "not_applicable",
+      "reason": "Support hub listing Telegram, Discord, and Matrix channels. No procedural content."
+    },
+    {
+      "page": "policies/ai-chatbot-policy.md",
+      "category": "not_applicable",
+      "reason": "Legal/policy page. No procedural or developer-facing content."
+    },
+    {
+      "page": "policies/cookie-policy.md",
+      "category": "not_applicable",
+      "reason": "Legal/policy page. No procedural or developer-facing content."
+    },
+    {
+      "page": "policies/privacy-policy.md",
+      "category": "not_applicable",
+      "reason": "Legal/policy page. No procedural or developer-facing content."
+    },
+    {
+      "page": "policies/terms-of-use.md",
+      "category": "not_applicable",
+      "reason": "Legal/policy page. No procedural or developer-facing content."
+    }
+  ],
+  "scoring_rubric_version": "1.0"
+}

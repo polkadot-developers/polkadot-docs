@@ -10,8 +10,8 @@ const WETH_ADDRESS = '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2';
 // WETH has 18 decimals
 const WETH_UNITS = 1_000_000_000_000_000_000n;
 
-// Amount to bridge: 0.001 WETH
-const AMOUNT = (WETH_UNITS / 1000n).toString();
+// Amount to bridge: 0.001 WETH (raw units as bigint)
+const AMOUNT = WETH_UNITS / 1000n;
 
 // Your Polkadot address to receive the bridged tokens (SS58 format)
 const RECIPIENT_ADDRESS = 'INSERT_YOUR_POLKADOT_ADDRESS';
@@ -42,7 +42,7 @@ async function approveTokens() {
   }
 
   // Approve the Snowbridge Gateway contract to spend WETH
-  const { result: approveTx } = await approveToken(signer, BigInt(AMOUNT), 'WETH');
+  const { result: approveTx } = await approveToken(signer, AMOUNT, 'WETH');
   console.log(`Approval transaction hash: ${approveTx.hash}`);
 
   // Wait for confirmation

@@ -9,7 +9,7 @@ name: Monitor Skills
 
 on:
   push:
-    branches: [master]
+    branches: [master, aljosamakevic/skill-gen-workflow]
     paths: ["**.md"]
   repository_dispatch:
     types: [generate-batch, reference-code-updated]

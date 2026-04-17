@@ -37,8 +37,8 @@ jobs:
         id: app-token
         uses: actions/create-github-app-token@v1
         with:
-          app-id: ${{ secrets.SKILL_BOT_APP_ID }}
-          private-key: ${{ secrets.SKILL_BOT_APP_PRIVATE_KEY }}
+          app-id: ${{ secrets.SKILLS_APP_ID }}
+          private-key: ${{ secrets.SKILLS_APP_PRIVATE_KEY }}
           owner: papermoonio
           repositories: workflows-private
 

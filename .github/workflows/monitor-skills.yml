@@ -1,11 +1,11 @@
 name: Monitor Skills
 
-# v2: Pipeline runs directly in the docs repo — no dispatch hop to mkdocs.
-# Triggers:
-#   - push to master with .md changes
-#   - repository_dispatch: generate-batch (self-chaining for backlog burn-down)
-#   - repository_dispatch: reference-code-updated (upstream ref repo webhook, if configured)
-#   - workflow_dispatch (manual runs, with batch-size and no-chain controls)
+# Minimal dispatcher. The real pipeline lives in
+# papermoonio/workflows-private/.github/workflows/task-monitor-skills.yml.
+# This workflow mints a GitHub App token and triggers that workflow
+# via the workflow_dispatch API. This pattern is used (instead of
+# calling the private workflow as a reusable workflow via `uses:`)
+# because public repos cannot call private reusable workflows.
 
 on:
   push:
@@ -27,18 +27,46 @@ on:
         default: false
 
 permissions:
-  contents: write
-  id-token: write
+  contents: read
 
 jobs:
-  monitor-skills:
-    uses: papermoonio/workflows-private/.github/workflows/task-monitor-skills.yml@main
-    with:
-      hub-repo: papermoonio/agent-ready-docs-hub
-      project-id: polkadot-docs
-      batch-only: ${{ github.event.action == 'generate-batch' }}
-      batch-size: ${{ github.event.inputs.batch-size && fromJSON(github.event.inputs.batch-size) || 5 }}
-      no-chain: ${{ github.event.inputs.no-chain == 'true' }}
-    secrets:
-      PRIVATE_REPO_TOKEN: ${{ secrets.PRIVATE_REPO_TOKEN }}
-      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+  trigger-pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Mint App token for workflows-private
+        id: app-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.SKILL_BOT_APP_ID }}
+          private-key: ${{ secrets.SKILL_BOT_APP_PRIVATE_KEY }}
+          owner: papermoonio
+          repositories: workflows-private
+
+      - name: Trigger skill generation pipeline
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          BATCH_ONLY="${{ github.event.action == 'generate-batch' && 'true' || 'false' }}"
+          BATCH_SIZE="${{ github.event.inputs.batch-size || 5 }}"
+          NO_CHAIN="${{ github.event.inputs.no-chain || 'false' }}"
+
+          echo "Dispatching task-monitor-skills.yml with:"
+          echo "  docs-owner: ${{ github.repository_owner }}"
+          echo "  docs-name: ${{ github.event.repository.name }}"
+          echo "  docs-branch: ${{ github.event.repository.default_branch }}"
+          echo "  batch-only: $BATCH_ONLY"
+          echo "  batch-size: $BATCH_SIZE"
+          echo "  no-chain: $NO_CHAIN"
+
+          gh workflow run task-monitor-skills.yml \
+            --repo papermoonio/workflows-private \
+            --ref main \
+            -f docs-owner="${{ github.repository_owner }}" \
+            -f docs-name="${{ github.event.repository.name }}" \
+            -f docs-branch="${{ github.event.repository.default_branch }}" \
+            -f hub-owner="papermoonio" \
+            -f hub-name="agent-ready-docs-hub" \
+            -f project-id="polkadot-docs" \
+            -f batch-only="$BATCH_ONLY" \
+            -f batch-size="$BATCH_SIZE" \
+            -f no-chain="$NO_CHAIN"

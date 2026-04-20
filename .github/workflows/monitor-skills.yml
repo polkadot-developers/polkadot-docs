@@ -67,14 +67,6 @@ jobs:
       - name: Determine mode
         id: mode
         run: |
-          # TEMPORARY TEST OVERRIDE: force triage-only mode on push trigger.
-          # Revert this block before merging.
-          if [ "${{ github.event_name }}" = "push" ]; then
-            echo "mode=triage-only" >> "$GITHUB_OUTPUT"
-            echo "TEST OVERRIDE: forcing triage-only"
-            exit 0
-          fi
-
           EVENT="${{ github.event_name }}"
           ACTION="${{ github.event.action }}"
 

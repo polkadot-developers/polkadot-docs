@@ -6,22 +6,44 @@ name: Monitor Skills
 # via the workflow_dispatch API. This pattern is used (instead of
 # calling the private workflow as a reusable workflow via `uses:`)
 # because public repos cannot call private reusable workflows.
+#
+# Event-to-mode mapping:
+#   push / reference-code-updated   → full              (detect + triage-loop + generate-loop)
+#   workflow_dispatch               → triage-only or full (user chooses)
+#   repository_dispatch:
+#     - triage-batch-full           → triage-batch-full  (continue triage, then generate)
+#     - triage-batch-only           → triage-batch-only  (continue triage, then stop)
+#     - generate-batch              → generate-batch     (continue generate loop)
 
 on:
   push:
     branches: [master, aljosamakevic/skill-gen-workflow]
     paths: ["**.md"]
   repository_dispatch:
-    types: [generate-batch, reference-code-updated]
+    types:
+      - generate-batch
+      - triage-batch-full
+      - triage-batch-only
+      - reference-code-updated
   workflow_dispatch:
     inputs:
+      triage-only:
+        description: "If true, run triage to completion then stop (never generate skills)"
+        required: false
+        type: boolean
+        default: false
+      triage-batch-size:
+        description: "Max uncovered pages to classify per triage run (default 20)"
+        required: false
+        type: number
+        default: 20
       batch-size:
         description: "Max new candidates to generate per run (default 5)"
         required: false
         type: number
         default: 5
       no-chain:
-        description: "If true, generate one batch and stop (no auto-chaining)"
+        description: "If true, run one batch and stop (no auto-chaining)"
         required: false
         type: boolean
         default: false
@@ -42,11 +64,33 @@ jobs:
           owner: papermoonio
           repositories: workflows-private
 
+      - name: Determine mode
+        id: mode
+        run: |
+          EVENT="${{ github.event_name }}"
+          ACTION="${{ github.event.action }}"
+
+          if [ "$EVENT" = "repository_dispatch" ] && [ "$ACTION" = "generate-batch" ]; then
+            MODE="generate-batch"
+          elif [ "$EVENT" = "repository_dispatch" ] && [ "$ACTION" = "triage-batch-full" ]; then
+            MODE="triage-batch-full"
+          elif [ "$EVENT" = "repository_dispatch" ] && [ "$ACTION" = "triage-batch-only" ]; then
+            MODE="triage-batch-only"
+          elif [ "$EVENT" = "workflow_dispatch" ] && [ "${{ github.event.inputs.triage-only }}" = "true" ]; then
+            MODE="triage-only"
+          else
+            MODE="full"
+          fi
+
+          echo "mode=$MODE" >> "$GITHUB_OUTPUT"
+          echo "Selected mode: $MODE"
+
       - name: Trigger skill generation pipeline
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          MODE: ${{ steps.mode.outputs.mode }}
         run: |
-          BATCH_ONLY="${{ github.event.action == 'generate-batch' && 'true' || 'false' }}"
+          TRIAGE_BATCH_SIZE="${{ github.event.inputs.triage-batch-size || 20 }}"
           BATCH_SIZE="${{ github.event.inputs.batch-size || 5 }}"
           NO_CHAIN="${{ github.event.inputs.no-chain || 'false' }}"
 
@@ -54,7 +98,8 @@ jobs:
           echo "  docs-owner: ${{ github.repository_owner }}"
           echo "  docs-name: ${{ github.event.repository.name }}"
           echo "  docs-branch: ${{ github.event.repository.default_branch }}"
-          echo "  batch-only: $BATCH_ONLY"
+          echo "  mode: $MODE"
+          echo "  triage-batch-size: $TRIAGE_BATCH_SIZE"
           echo "  batch-size: $BATCH_SIZE"
           echo "  no-chain: $NO_CHAIN"
 
@@ -67,6 +112,7 @@ jobs:
             -f hub-owner="papermoonio" \
             -f hub-name="agent-ready-docs-hub" \
             -f project-id="polkadot-docs" \
-            -f batch-only="$BATCH_ONLY" \
+            -f mode="$MODE" \
+            -f triage-batch-size="$TRIAGE_BATCH_SIZE" \
             -f batch-size="$BATCH_SIZE" \
             -f no-chain="$NO_CHAIN"

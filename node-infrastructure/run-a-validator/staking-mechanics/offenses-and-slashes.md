@@ -64,7 +64,7 @@ The Web3 Foundation's [Slashing mechanisms](https://wiki.polkadot.com/learn/lear
 - **Level 4**: Misconduct that poses severe security or monetary risk to the system or mass collusion. Examples include signs of extensive coordination, creating a serious security risk to the system, or forcing the system to use extensive resources to counter the misconduct.
     - **Penalty**: Slash of up to 100% of stake in the validator slot.
 
-See the next section to understand how slash amounts for equivocations are calculated. If you want to know more details about slashing, please look at the research page on [Slashing mechanisms](https://wiki.polkadot.com/learn/learn-offenses/#slashings){target=\_blank}.
+See the next section to understand how slash amounts for equivocations are calculated. If you want to know more details about slashing, please look at the research page on [Slashing mechanisms](https://wiki.polkadot.com/learn/learn-offenses/){target=\_blank}.
 
 #### Slash Calculation for Equivocation
 

@@ -32,7 +32,7 @@ Learn more by reading the official [Aura consensus algorithm](https://openethere
 
 A [block authoring](#block-author) protocol similar to [Aura](#authority-round-aura), except [authorities](#authority) win [slots](#slot) based on a Verifiable Random Function (VRF) instead of the round-robin selection method. The winning authority can select a chain and submit a new block.
 
-Learn more by reading the official Web3 Foundation [BABE research document](https://wiki.polkadot.com/learn/learn-consensus/#block-production-babe){target=\_blank}.
+Learn more by reading the Polkadot Wiki page on [BABE](https://wiki.polkadot.com/learn/learn-consensus/#block-production-babe){target=\_blank}.
 
 ## Block Author
 

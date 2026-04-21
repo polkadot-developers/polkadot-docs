@@ -33,10 +33,10 @@ on:
         type: boolean
         default: false
       triage-batch-size:
-        description: "Max uncovered pages to classify per triage run (default 20)"
+        description: "Max uncovered pages to classify per triage run (default 10)"
         required: false
         type: number
-        default: 20
+        default: 10
       batch-size:
         description: "Max new candidates to generate per run (default 5)"
         required: false
@@ -90,7 +90,7 @@ jobs:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
           MODE: ${{ steps.mode.outputs.mode }}
         run: |
-          TRIAGE_BATCH_SIZE="${{ github.event.inputs.triage-batch-size || 20 }}"
+          TRIAGE_BATCH_SIZE="${{ github.event.inputs.triage-batch-size || 10 }}"
           BATCH_SIZE="${{ github.event.inputs.batch-size || 5 }}"
           NO_CHAIN="${{ github.event.inputs.no-chain || 'false' }}"
 

@@ -53,7 +53,7 @@ A validator slash creates an `unapplied` state transition. You can view pending 
 
 #### Equivocation Slash
 
-The Web3 Foundation's [Slashing mechanisms](https://research.web3.foundation/Polkadot/security/slashing/amounts){target=\_blank} page provides guidelines for evaluating the security threat level of different offenses and determining penalties proportionate to the threat level of the offense. Offenses requiring coordination between validators or extensive computational costs to the system will typically call for harsher penalties than those more likely to be unintentional than malicious. A description of potential offenses for each threat level and the corresponding penalties is as follows:
+The Web3 Foundation's [Slashing mechanisms](https://wiki.polkadot.com/learn/learn-offenses/#slashing){target=\_blank} page provides guidelines for evaluating the security threat level of different offenses and determining penalties proportionate to the threat level of the offense. Offenses requiring coordination between validators or extensive computational costs to the system will typically call for harsher penalties than those more likely to be unintentional than malicious. A description of potential offenses for each threat level and the corresponding penalties is as follows:
 
 - **Level 1**: Honest misconduct such as isolated cases of unresponsiveness.
     - **Penalty**: Validator can be kicked out or slashed up to 0.1% of stake in the validator slot.
@@ -64,7 +64,7 @@ The Web3 Foundation's [Slashing mechanisms](https://research.web3.foundation/Pol
 - **Level 4**: Misconduct that poses severe security or monetary risk to the system or mass collusion. Examples include signs of extensive coordination, creating a serious security risk to the system, or forcing the system to use extensive resources to counter the misconduct.
     - **Penalty**: Slash of up to 100% of stake in the validator slot.
 
-See the next section to understand how slash amounts for equivocations are calculated. If you want to know more details about slashing, please look at the research page on [Slashing mechanisms](https://research.web3.foundation/Polkadot/security/slashing/amounts){target=\_blank}.
+See the next section to understand how slash amounts for equivocations are calculated. If you want to know more details about slashing, please look at the research page on [Slashing mechanisms](https://wiki.polkadot.com/learn/learn-offenses/#slashings){target=\_blank}.
 
 #### Slash Calculation for Equivocation
 

@@ -61,7 +61,7 @@ This design ensures continuous block production, even in cases of multiple compe
 
 ### Additional Resources
 
-For further technical insights about BABE, including cryptographic details and formal proofs, see the [BABE paper](https://research.web3.foundation/Polkadot/protocols/block-production/Babe){target=\_blank} from Web3 Foundation.
+For further technical insights about BABE, including cryptographic details and formal proofs, see the [BABE paper](https://github.com/paritytech/research/blob/master/docs/Polkadot/protocols/block-production/Babe.md){target=\_blank} from Web3 Foundation.
 
 ## Finality Gadget - GRANDPA
 

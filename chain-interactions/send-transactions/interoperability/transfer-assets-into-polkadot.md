@@ -208,10 +208,10 @@ if (wethSupported) {
 
 !!!info "Transfer Assets Out of Polkadot"
 
-    To transfer assets out of Polkadot, you can use the ParaSpell XCM SDK to build and execute a bridge transfer from Polkadot to Ethereum. Check out the [Polkadot to Ethereum](https://paraspell.github.io/docs/sdk/xcmPallet.html#polkadot-ethereum-transfer){target=\_blank} section of the ParaSpell XCM SDK documentation.
+    To transfer assets out of Polkadot, you can use the ParaSpell XCM SDK to build and execute a bridge transfer from Polkadot to Ethereum. Check out the [Polkadot to Ethereum](https://paraspell.github.io/docs/xcm-sdk/send-xcm.html#polkadot-ethereum-transfer){target=\_blank} section of the ParaSpell XCM SDK documentation.
 
 
 ## Where to Go Next
 
-- **External Documentation** - Dive deeper into the [ParaSpell XCM SDK](https://paraspell.github.io/docs/sdk/getting-started.html){target=\_blank} and [Snowbridge](https://docs.snowbridge.network/){target=\_blank} documentation resources.
+- **External Documentation** - Dive deeper into the [ParaSpell XCM SDK](https://paraspell.github.io/docs/xcm-sdk/getting-started.html){target=\_blank} and [Snowbridge](https://docs.snowbridge.network/){target=\_blank} documentation resources.
 - **Learn about XCM** - Understand the underlying protocol by visiting the [Get Started with XCM](/parachains/interoperability/get-started/) guide

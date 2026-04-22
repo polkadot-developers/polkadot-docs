@@ -104,7 +104,7 @@ The result of the dry run will look similar to the following example output:
 
 ## Verify the Existential Deposit
 
-Check if the recipient account meets the [Existential Deposit (ED)](/reference/glossary/#existential-deposit){target=\_blank} requirement before sending by using [`verifyEdOnDestination`](https://paraspell.github.io/docs/sdk/xcmUtils.html#verify-ed-on-destination){target=\_blank}:
+Check if the recipient account meets the [Existential Deposit (ED)](/reference/glossary/#existential-deposit){target=\_blank} requirement before sending by using [`verifyEdOnDestination`](https://paraspell.github.io/docs/xcm-sdk/xcm-utils.html#verify-ed-on-destination){target=\_blank}:
 
 ```ts title="index.ts"
 --8<-- 'code/chain-interactions/send-transactions/interoperability/transfer-assets-parachains/index.ts:72:88'
@@ -123,7 +123,7 @@ After that, you will get output confirming the ED which will look similar to the
 
 Before sending an XCM transaction, it is helpful to estimate the fees associated with executing and delivering the cross-chain message.
 
-ParaSpell has a helpful function for this: [`getTransferInfo()`](https://paraspell.github.io/docs/sdk/xcmUtils.html#xcm-transfer-info){target=\_blank}. This function returns an estimate of the associated XCM fees, along with the account's balance before and after the fees are paid.
+ParaSpell has a helpful function for this: [`getTransferInfo()`](https://paraspell.github.io/docs/xcm-sdk/xcm-utils.html#xcm-transfer-info){target=\_blank}. This function returns an estimate of the associated XCM fees, along with the account's balance before and after the fees are paid.
 
 ```ts title="index.ts"
 --8<-- 'code/chain-interactions/send-transactions/interoperability/transfer-assets-parachains/index.ts:90:106'
@@ -185,6 +185,6 @@ You have now successfully created and sent a cross-chain transfer using the Para
 
 ## Next Steps
 
-- **Read the docs**: Dive deeper into the features of the [ParaSpell XCM SDK](https://paraspell.github.io/docs/sdk/getting-started.html){target=\_blank} documentation.
+- **Read the docs**: Dive deeper into the features of the [ParaSpell XCM SDK](https://paraspell.github.io/docs/xcm-sdk/getting-started.html){target=\_blank} documentation.
 
 - **Learn about XCM**: Understand the underlying protocol by visiting the [Get Started with XCM](/parachains/interoperability/get-started/) guide.

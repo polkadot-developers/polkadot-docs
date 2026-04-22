@@ -18,7 +18,7 @@ name: Monitor Skills
 on:
   push:
     branches: [master]
-    paths: ["**.md"]
+    paths: ["**/*.md"]
   repository_dispatch:
     types:
       - generate-batch

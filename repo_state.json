@@ -1,0 +1,15 @@
+{
+  "schema_version": "1",
+  "last_checked": "2026-04-21T14:42:33Z",
+  "docs_repo": {},
+  "reference_repos": {
+    "revm-hardhat-examples": {
+      "branch": "master",
+      "last_checked_commit": "96696ad15c3cf01b9168a71ad5114f27c34a8726"
+    },
+    "polkadot-cookbook": {
+      "branch": "main",
+      "last_checked_commit": null
+    }
+  }
+}

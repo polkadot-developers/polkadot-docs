@@ -1,0 +1,31 @@
+{
+  "schema_version": "1",
+  "generated": "2026-04-21T14:42:33Z",
+  "summary": {
+    "reference_changes": 0,
+    "skills_affected": 0
+  },
+  "alerts": [],
+  "history": [
+    {
+      "checked_at": "2026-04-21T10:48:25Z",
+      "alerts_found": 0
+    },
+    {
+      "checked_at": "2026-04-21T11:06:03Z",
+      "alerts_found": 0
+    },
+    {
+      "checked_at": "2026-04-21T11:29:48Z",
+      "alerts_found": 0
+    },
+    {
+      "checked_at": "2026-04-21T12:00:28Z",
+      "alerts_found": 0
+    },
+    {
+      "checked_at": "2026-04-21T14:42:33Z",
+      "alerts_found": 0
+    }
+  ]
+}

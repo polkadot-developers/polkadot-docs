@@ -77,9 +77,17 @@ jobs:
             MODE="triage-batch-full"
           elif [ "$EVENT" = "repository_dispatch" ] && [ "$ACTION" = "triage-batch-only" ]; then
             MODE="triage-batch-only"
+          elif [ "$EVENT" = "repository_dispatch" ] && [ "$ACTION" = "reference-code-updated" ]; then
+            # Upstream ref repo change — run the full pipeline to refresh affected skills
+            MODE="full"
           elif [ "$EVENT" = "workflow_dispatch" ] && [ "${{ github.event.inputs['triage-only'] }}" = "true" ]; then
             MODE="triage-only"
+          elif [ "$EVENT" = "push" ] || [ "$EVENT" = "workflow_dispatch" ]; then
+            # Human-initiated run (md push or manual dispatch without triage-only) — full pipeline
+            MODE="full"
           else
+            # Unrecognized event — default to full so we don't silently do the wrong thing
+            echo "::warning::Unrecognized event '$EVENT' / action '$ACTION' — defaulting to mode=full"
             MODE="full"
           fi
 

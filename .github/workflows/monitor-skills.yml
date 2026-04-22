@@ -67,6 +67,7 @@ jobs:
       - name: Determine mode
         id: mode
         run: |
+          set -euo pipefail
           EVENT="${{ github.event_name }}"
           ACTION="${{ github.event.action }}"
 
@@ -90,6 +91,7 @@ jobs:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
           MODE: ${{ steps.mode.outputs.mode }}
         run: |
+          set -euo pipefail
           # Preserve user's original settings across chained iterations.
           # - workflow_dispatch → values come from github.event.inputs
           # - repository_dispatch (self-chain) → values come from github.event.client_payload

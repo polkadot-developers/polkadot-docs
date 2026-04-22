@@ -76,7 +76,7 @@ jobs:
             MODE="triage-batch-full"
           elif [ "$EVENT" = "repository_dispatch" ] && [ "$ACTION" = "triage-batch-only" ]; then
             MODE="triage-batch-only"
-          elif [ "$EVENT" = "workflow_dispatch" ] && [ "${{ github.event.inputs.triage-only }}" = "true" ]; then
+          elif [ "$EVENT" = "workflow_dispatch" ] && [ "${{ github.event.inputs['triage-only'] }}" = "true" ]; then
             MODE="triage-only"
           else
             MODE="full"
@@ -95,9 +95,9 @@ jobs:
           # - repository_dispatch (self-chain) → values come from github.event.client_payload
           #   (workflows-private includes them when dispatching generate-batch or triage-batch-*)
           # - repository_dispatch without a payload → fall back to defaults
-          TRIAGE_BATCH_SIZE="${{ github.event.inputs.triage-batch-size || github.event.client_payload['triage-batch-size'] || 5 }}"
-          BATCH_SIZE="${{ github.event.inputs.batch-size || github.event.client_payload['batch-size'] || 5 }}"
-          NO_CHAIN="${{ github.event.inputs.no-chain || github.event.client_payload['no-chain'] || 'false' }}"
+          TRIAGE_BATCH_SIZE="${{ github.event.inputs['triage-batch-size'] || github.event.client_payload['triage-batch-size'] || 5 }}"
+          BATCH_SIZE="${{ github.event.inputs['batch-size'] || github.event.client_payload['batch-size'] || 5 }}"
+          NO_CHAIN="${{ github.event.inputs['no-chain'] || github.event.client_payload['no-chain'] || 'false' }}"
 
           echo "Dispatching task-monitor-skills.yml with:"
           echo "  docs-owner: ${{ github.repository_owner }}"

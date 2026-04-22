@@ -124,10 +124,10 @@ Prices in Uniswap V3 are represented as the square root of the price ratio, stor
 
 At the heart of Uniswap V3 are four core smart contracts:
 
-- **UniswapV3Factory** - Creates and registers new pools. Each unique combination of two tokens and a fee tier produces a single pool. The Factory also controls protocol fee settings and ownership.
-- **UniswapV3Pool** - The main contract for each trading pair and fee tier. It manages concentrated liquidity positions, executes swaps using the tick-based price system, and maintains a built-in TWAP (time-weighted average price) oracle.
-- **UniswapV3PoolDeployer** - A helper contract used by the Factory to deploy new pools via `CREATE2`, ensuring deterministic pool addresses.
-- **NoDelegateCall** - A security base contract that prevents delegate call exploits by verifying the execution context matches the original deployment address.
+- **`UniswapV3Factory`**: Creates and registers new pools. Each unique combination of two tokens and a fee tier produces a single pool. The Factory also controls protocol fee settings and ownership.
+- **`UniswapV3Pool`**: The main contract for each trading pair and fee tier. It manages concentrated liquidity positions, executes swaps using the tick-based price system, and maintains a built-in TWAP (time-weighted average price) oracle.
+- **`UniswapV3PoolDeployer`**: A helper contract used by the Factory to deploy new pools via `CREATE2`, ensuring deterministic pool addresses.
+- **`NoDelegateCall`**: A security base contract that prevents delegate call exploits by verifying the execution context matches the original deployment address.
 
 ### Math Libraries
 
@@ -219,8 +219,8 @@ Key differences from V2 are significant. The Solidity contracts use version 0.7.
 
 The project includes a comprehensive test suite with 187 tests across two test files:
 
-- **`UniswapV3Factory.test.ts`** - 21 tests covering factory operations, pool creation, fee tier management, and ownership controls
-- **`UniswapV3Pool.test.ts`** - 166 tests covering concentrated liquidity positions, swaps across tick boundaries, fee accumulation, flash loans, oracle observations, and edge cases
+- **`UniswapV3Factory.test.ts`**: 21 tests covering factory operations, pool creation, fee tier management, and ownership controls.
+- **`UniswapV3Pool.test.ts`**: 166 tests covering concentrated liquidity positions, swaps across tick boundaries, fee accumulation, flash loans, oracle observations, and edge cases.
 
 To run the tests locally:
 

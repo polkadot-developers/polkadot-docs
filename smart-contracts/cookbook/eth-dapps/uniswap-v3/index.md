@@ -1,6 +1,6 @@
 ---
 title: Uniswap V3 on Polkadot
-description: Deploy and test Uniswap V3 Core contracts on Polkadot Hub — concentrated liquidity, multiple fee tiers, and TWAP oracles using standard Ethereum tooling.
+description: Deploy and test Uniswap V3 Core contracts on Polkadot Hub with concentrated liquidity, multiple fee tiers, and TWAP oracles using standard Ethereum tooling.
 categories: Smart Contracts, Tooling
 ---
 
@@ -10,9 +10,9 @@ categories: Smart Contracts, Tooling
 
 Key innovations in Uniswap V3 include:
 
-- **Concentrated liquidity** - Liquidity providers choose specific price ranges, enabling up to 4000x capital efficiency over V2.
-- **Multiple fee tiers** - Three fee levels (0.05%, 0.30%, 1.00%) let pools match the risk profile of different token pairs.
-- **Advanced TWAP oracles** - On-chain time-weighted average price oracles with improved accuracy and lower gas costs.
+- **Concentrated liquidity**: Liquidity providers choose specific price ranges, enabling up to 4000x capital efficiency over V2.
+- **Multiple fee tiers**: Three fee levels (0.05%, 0.30%, 1.00%) let pools match the risk profile of different token pairs.
+- **Advanced TWAP oracles**: On-chain time-weighted average price oracles with improved accuracy and lower gas costs.
 
 Polkadot Hub supports deploying these contracts with no modifications. The tutorial below walks you through deploying, testing, and interacting with the V3 Core layer.
 

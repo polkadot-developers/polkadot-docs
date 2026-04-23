@@ -2,6 +2,10 @@
 title: XCM Fee Estimation
 description: This tutorial demonstrates how to estimate the fees for teleporting assets from the Polkadot Hub TestNet to the Paseo People Chain.
 categories: Interoperability, Chain Interactions
+page_badges:
+  test_workflow: polkadot-docs-estimate-xcm-fees
+page_tests:
+  path: polkadot-docs/chain-interactions/estimate-xcm-fees/tests/docs.test.ts
 ---
 
 # XCM Fee Estimation

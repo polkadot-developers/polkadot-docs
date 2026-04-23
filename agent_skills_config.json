@@ -1,11 +1,9 @@
 {
   "schema_version": "0.1",
   "generated": "2026-04-21T23:59:00Z",
-  "content_hash": "sha256:b9fcc356e7673fb77911efa114edd9d68661b5a6d30ba7c7ee3753c0070e1920",
+  "content_hash": "sha256:3845ff1d0df1428da25667fdc1443cf4c6164563335d65e820ec2400eb02d556",
   "project": {
-    "id": "polkadot-docs",
-    "name": "Polkadot Developer Docs",
-    "docs_base_url": "https://docs.polkadot.com"
+    "name": "Polkadot Developer Docs"
   },
   "skills": [
     {

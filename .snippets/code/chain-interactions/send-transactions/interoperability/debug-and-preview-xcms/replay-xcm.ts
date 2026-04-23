@@ -1,7 +1,6 @@
 import { Binary, createClient, Transaction } from 'polkadot-api';
-import { withPolkadotSdkCompat } from 'polkadot-api/polkadot-sdk-compat';
 import { getPolkadotSigner } from 'polkadot-api/signer';
-import { getWsProvider } from 'polkadot-api/ws-provider/web';
+import { getWsProvider } from 'polkadot-api/ws';
 import { polkadotHub } from '@polkadot-api/descriptors';
 import { sr25519CreateDerive } from '@polkadot-labs/hdkd';
 import {
@@ -15,8 +14,9 @@ const toHuman = (_key: any, value: any) => {
     return Number(value);
   }
 
-  if (value && typeof value === 'object' && typeof value.asHex === 'function') {
-    return value.asHex();
+  // In v2, raw binary values are Uint8Arrays rather than Binary instances.
+  if (value instanceof Uint8Array) {
+    return Binary.toHex(value);
   }
 
   return value;
@@ -32,16 +32,15 @@ function getSigner() {
 }
 
 async function main() {
-  const provider = withPolkadotSdkCompat(getWsProvider('ws://localhost:8000'));
-  const client = createClient(provider);
+  const client = createClient(getWsProvider('ws://localhost:8000'));
   const api = client.getTypedApi(polkadotHub);
   const aliceSigner = getSigner();
 
   const callData = Binary.fromHex(
     '0x1f0803010100411f0300010100fc39fcf04a8071b7409823b7c82427ce67910c6ed80aa0e5093aff234624c8200304000002043205011f0092e81d790000000000',
   );
-  const tx: Transaction<any, string, string, any> =
-    await api.txFromCallData(callData);
+  // In v2, Transaction has two generic parameters: <Asset, Ext>.
+  const tx: Transaction<string, any> = await api.txFromCallData(callData);
   console.log('👀 Executing XCM:', JSON.stringify(tx.decodedCall, toHuman, 2));
 
   await new Promise<void>((resolve) => {

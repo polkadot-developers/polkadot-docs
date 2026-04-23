@@ -23,7 +23,7 @@ The ParaSpell suite includes:
 
 ### ParaSpell XCM SDK
 
-The [ParaSpell XCM SDK](https://paraspell.github.io/docs/sdk/getting-started.html){target=\_blank} is a core component of the ParaSpell toolset and a foundational library for developers looking to leverage XCM in their applications. It is the first and only XCM SDK in the ecosystem to support both PolkadotJS and Polkadot API, providing developers with flexibility and choice.
+The [ParaSpell XCM SDK](https://paraspell.github.io/docs/xcm-sdk/getting-started.html){target=\_blank} is a core component of the ParaSpell toolset and a foundational library for developers looking to leverage XCM in their applications. It is the first and only XCM SDK in the ecosystem to support both PolkadotJS and Polkadot API, providing developers with flexibility and choice.
 
 The SDK simplifies the process of creating and sending XCM messages by providing a user-friendly builder pattern. This allows developers to construct complex XCM calls with just a few lines of code, reducing the likelihood of errors and ensuring that messages are constructed correctly.
 

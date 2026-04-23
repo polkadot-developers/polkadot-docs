@@ -173,6 +173,6 @@ For files larger than the max transaction size, data must be split into chunks u
 
     Learn how to authorize your account, store an image, retrieve it, and manage renewals using the Console UI or PAPI.
 
-    [:octicons-arrow-right-24: Get Started](/chain-interactions/store-data/)
+    [:octicons-arrow-right-24: Get Started](/chain-interactions/store-data/bulletin-chain/)
 
 </div>

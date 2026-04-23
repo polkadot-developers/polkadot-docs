@@ -7,10 +7,11 @@ import { start } from 'polkadot-api/smoldot';
 
 // Initialize Smoldot client
 const smoldot = start();
-const chain = await smoldot.addChain({ chainSpec });
 
 // Set up a client to connect to the Polkadot relay chain
-const client = createClient(getSmProvider(chain));
+const client = createClient(
+  getSmProvider(() => smoldot.addChain({ chainSpec })),
+);
 
 // Access the `TypedApi` to interact with all available chain calls and types
 const dotApi = client.getTypedApi(dot);

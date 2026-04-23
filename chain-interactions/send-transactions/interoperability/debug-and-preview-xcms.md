@@ -2,6 +2,10 @@
 title: Replay and Dry Run XCMs
 description: Replay and dry-run XCMs using Chopsticks with full logging enabled. Diagnose issues, trace message flow, and debug complex cross-chain interactions.
 categories: Interoperability, Tooling
+page_badges:
+  test_workflow: polkadot-docs-debug-and-preview-xcms
+page_tests:
+  path: polkadot-docs/chain-interactions/debug-and-preview-xcms/tests/docs.test.ts
 ---
 
 # Replay and Dry Run XCMs Using Chopsticks

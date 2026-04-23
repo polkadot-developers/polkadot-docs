@@ -7,8 +7,7 @@ import {
 import { getPolkadotSigner } from "polkadot-api/signer";
 import { createClient } from "polkadot-api";
 import { assetHub } from "@polkadot-api/descriptors";
-import { withPolkadotSdkCompat } from "polkadot-api/polkadot-sdk-compat";
-import { getWsProvider } from "polkadot-api/ws-provider/node";
+import { getWsProvider } from "polkadot-api/ws";
 import { MultiAddress } from "@polkadot-api/descriptors";
 
 const TARGET_ADDRESS = "14E5nqKAp3oAJcmzgZhUD2RcptBeUBScxKHgJKU4HPNcKVf3"; // Bob's address
@@ -29,9 +28,7 @@ const createSigner = async () => {
 };
 
 const client = createClient(
-  withPolkadotSdkCompat(
-    getWsProvider("ws://localhost:8000") // Chopsticks Polkadot Hub
-  )
+  getWsProvider("ws://localhost:8000") // Chopsticks Polkadot Hub
 );
 
 const api = client.getTypedApi(assetHub);

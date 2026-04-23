@@ -79,6 +79,6 @@ However, VDF likely requires specialized ASIC devices to run separately from s
 
 ## Additional Resources
 
-For more information about the reasoning for choices made along with proofs, see Polkadot's research on blockchain randomness and sortition in the [Block production](https://research.web3.foundation/Polkadot/protocols/block-production){target=\_blank} entry of the Polkadot Wiki. 
+For more information about the reasoning for choices made along with proofs, see Polkadot's research on blockchain randomness and sortition in the [Randomness](https://wiki.polkadot.com/learn/learn-cryptography/#randomness){target=\_blank} entry of the Polkadot Wiki.
 
 For a discussion with Web3 Foundation researchers about when and under what conditions Polkadot's randomness can be utilized, see the [Discussion on Randomness used in Polkadot](https://github.com/use-ink/ink/issues/57){target=\_blank} issue on GitHub.

@@ -1,7 +1,7 @@
 {
   "schema_version": "0.1",
   "generated": "2026-04-21T23:59:00Z",
-  "content_hash": "sha256:3845ff1d0df1428da25667fdc1443cf4c6164563335d65e820ec2400eb02d556",
+  "content_hash": "sha256:691fd091c4b97743c56034264953767db374ac0b836614798a9ad29257a7ffb6",
   "project": {
     "name": "Polkadot Developer Docs"
   },
@@ -9,7 +9,6 @@
     {
       "id": "create-polkadot-account",
       "title": "Create a Polkadot Account Programmatically",
-      "objective": "Generate a new SR25519 Polkadot account including a 12-word mnemonic phrase and SS58 address using TypeScript.",
       "description": "Generates a new Polkadot SR25519 account (mnemonic, public key, SS58 address) using @polkadot/util-crypto and @polkadot/keyring. Use when you need to create a wallet, automate key generation, or produce a signing account for testing. Supports TypeScript (primary), Python (substrate-interface), and Rust (sp-core). Trigger phrases: 'create a Polkadot account', 'generate wallet keypair', 'new account', 'key generation'. Output: console-printed 12-word BIP39 mnemonic and SS58 address. No network connection required.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -136,7 +135,6 @@
     {
       "id": "query-account-info-sdks",
       "title": "Query Account Information with SDKs",
-      "objective": "Retrieve account balance, nonce, and account data from Polkadot Hub using Polkadot API (PAPI) in TypeScript.",
       "description": "Queries Polkadot Hub for account balance, nonce, and account state using the Polkadot API (PAPI) TypeScript library. Use when you need to inspect an account's free/reserved/frozen balance or transaction count programmatically. Also supports Polkadot.js, Dedot, Python Substrate Interface, and Subxt. Trigger phrases: 'query account balance', 'check account info', 'get account nonce', 'read wallet balance'. No tokens required — read-only operation against any funded or unfunded address.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -275,7 +273,6 @@
     {
       "id": "query-chain-state-sdks",
       "title": "Query On-Chain State with SDKs",
-      "objective": "Read System.Account balance and Assets pallet metadata from Polkadot Hub using Polkadot API (PAPI) in TypeScript.",
       "description": "Queries on-chain storage on Polkadot Hub using PAPI TypeScript library: System.Account for account balance and Assets pallet for USDT (asset ID 1984) metadata and balance. Use when you need to read chain state programmatically beyond account info — including asset balances and pallet storage. Also supports Polkadot.js, Dedot, Python Substrate Interface, and Subxt. Trigger phrases: 'query chain state', 'read on-chain storage', 'get asset balance', 'check USDT balance on Asset Hub'. No tokens required — read-only.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -426,7 +423,6 @@
     {
       "id": "call-runtime-apis-sdks",
       "title": "Call Runtime APIs with SDKs",
-      "objective": "Call AccountNonceApi and Metadata runtime APIs on Polkadot Hub using Polkadot API (PAPI) in TypeScript.",
       "description": "Executes Polkadot SDK runtime APIs — AccountNonceApi.account_nonce and Metadata.metadata_versions — using the PAPI TypeScript library. Use when you need computed results from runtime logic rather than raw storage reads, such as the current transaction nonce or supported metadata versions. Also supports Polkadot.js, Dedot, Python Substrate Interface, and Subxt. Trigger phrases: 'call runtime API', 'get account nonce via runtime', 'query metadata versions', 'AccountNonceApi'. No tokens required — read-only operation.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -565,7 +561,6 @@
     {
       "id": "send-transactions-sdks",
       "title": "Send Transactions with SDKs",
-      "objective": "Construct, sign, and submit a balance transfer transaction on Polkadot Hub using Polkadot API (PAPI) in TypeScript.",
       "description": "Constructs, signs, and submits a Balances.transfer_keep_alive extrinsic to Polkadot Hub using the PAPI TypeScript library. Use when you need to send tokens programmatically from a funded account. Also supports Polkadot.js, Dedot, Python Substrate Interface, and Subxt. Requires a funded account mnemonic and testnet PAS tokens. Trigger phrases: 'send a transaction', 'transfer tokens programmatically', 'sign and submit extrinsic', 'send PAS balance'. Uses dotenv to protect the sender mnemonic.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -753,7 +748,6 @@
     {
       "id": "install-polkadot-sdk",
       "title": "Install the Polkadot SDK",
-      "objective": "Install Rust, system dependencies, and the Polkadot SDK on macOS, Linux, or Windows WSL, then verify the build produces working binaries.",
       "description": "Installs all Polkadot SDK build dependencies and compiles the SDK from source on macOS, Linux (Ubuntu/Debian/Arch/Fedora/OpenSUSE), and Windows WSL. Use when setting up a new development machine for Polkadot parachain or runtime development. Covers OS package installation, Rust toolchain setup, wasm32 target addition, git clone, and a full cargo build. Trigger phrases: 'install Polkadot SDK', 'set up parachain dev environment', 'install Rust for Polkadot', 'build polkadot-sdk', 'set up Substrate environment'. Expected outcome: polkadot binary executes and prints its version string.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -903,7 +897,6 @@
     {
       "id": "deploy-basic-contract-hardhat",
       "title": "Deploy a Basic Smart Contract with Hardhat",
-      "objective": "Scaffold a Hardhat project, create a Storage.sol contract, compile it, and deploy it to Polkadot Hub TestNet using Hardhat Ignition.",
       "description": "Scaffolds a Hardhat v2 TypeScript project, configures it for Polkadot Hub TestNet (chain ID 420420417), creates a Storage.sol contract, compiles it, and deploys via Hardhat Ignition. Use when deploying a first EVM smart contract to Polkadot Hub using a professional Hardhat workflow. Uses dotenv for private key security. Trigger phrases: 'deploy smart contract with Hardhat', 'Hardhat deployment Polkadot', 'deploy Storage contract', 'Hardhat Ignition deploy'. Requires testnet PAS tokens. Do NOT use for PVM (PolkaVM) deployments; use set-up-hardhat-pvm for that.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -1104,7 +1097,6 @@
     {
       "id": "deploy-erc20-token-hardhat",
       "title": "Deploy an ERC-20 Token Using Hardhat",
-      "objective": "Clone the revm-hardhat-examples ERC-20 template, compile and test it, then deploy an OpenZeppelin ERC-20 contract to Polkadot Hub TestNet.",
       "description": "Clones the polkadot-developers/revm-hardhat-examples ERC-20 template, installs dependencies, configures dotenv for private key security, compiles the OpenZeppelin ERC-20 contract, runs the test suite against TestNet, and deploys via Hardhat Ignition. Use when deploying a standards-compliant ERC-20 fungible token on Polkadot Hub. Requires testnet PAS tokens. Trigger phrases: 'deploy ERC-20 token', 'deploy fungible token Polkadot', 'ERC-20 Hardhat Polkadot', 'deploy MyToken'. Uses OpenZeppelin Contracts v5.4.0+ — requires evmVersion cancun.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -1274,7 +1266,6 @@
     {
       "id": "set-up-hardhat-pvm",
       "title": "Set Up Hardhat with the Polkadot Plugin (PVM)",
-      "objective": "Initialize a Hardhat project with the @parity/hardhat-polkadot plugin to compile Solidity contracts to PVM bytecode and deploy to Polkadot Hub TestNet.",
       "description": "Sets up a Hardhat project using the @parity/hardhat-polkadot plugin and the resolc compiler to compile Solidity to PolkaVM (PVM) bytecode. Use when targeting Polkadot Hub's PVM runtime rather than the standard EVM runtime. Covers project initialization, resolc installation, dotenv private key setup, TestNet config with gasPrice, and a compile-verify step. Trigger phrases: 'Hardhat PVM', 'hardhat-polkadot plugin', 'compile to PolkaVM', 'resolc Hardhat', 'PVM smart contract Polkadot'. Do NOT use this skill for standard EVM deployments; use set-up-hardhat-evm instead.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -1459,7 +1450,6 @@
     {
       "id": "set-up-hardhat-evm",
       "title": "Set Up Hardhat for Polkadot Hub (EVM)",
-      "objective": "Initialize a Hardhat v2 TypeScript project configured for Polkadot Hub's EVM runtime, with dotenv-based private key management and optional contract verification.",
       "description": "Initializes a Hardhat v2 TypeScript project for the standard Polkadot Hub EVM runtime (not PVM). Configures the polkadotTestnet network with correct RPC URL, chain ID (420420417), gasPrice (5000 gwei), and dotenv-based private key management. Optionally configures Blockscout or Routescan contract verification. Use when setting up a reusable EVM development environment before deploying any contract. Trigger phrases: 'set up Hardhat for Polkadot EVM', 'configure Hardhat Polkadot Hub', 'Hardhat EVM Polkadot setup', 'Hardhat network config Polkadot'. Do NOT use for PVM; use set-up-hardhat-pvm instead.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -1614,7 +1604,6 @@
     {
       "id": "query-chain-data-sidecar-rest",
       "title": "Query On-Chain Data with Sidecar REST API",
-      "objective": "Run Substrate API Sidecar locally connected to Polkadot Hub TestNet and query account balances, asset metadata, and block data via curl commands.",
       "description": "Runs the Substrate API Sidecar REST service connected to Polkadot Hub TestNet and queries on-chain data via curl. Use when you need account balances, asset info, or block data without writing SDK code. Covers Sidecar installation, startup with a TestNet endpoint, and the primary query endpoints: /accounts/{addr}/balance-info, /assets/{id}/asset-info, and /blocks/{id}. Trigger phrases: 'query with Sidecar', 'Sidecar REST API', 'curl Polkadot balance', 'query chain data REST', 'Substrate API Sidecar'. No private key required — read-only operations only.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -1762,7 +1751,6 @@
     {
       "id": "calculate-transaction-fees-papi",
       "title": "Estimate Transaction Fees with PAPI",
-      "objective": "Calculate the estimated fee for a Balances.transfer_keep_alive transaction on Polkadot Hub TestNet using PAPI getPaymentInfo before submitting.",
       "description": "Estimates the fee for a Polkadot Hub balance transfer using the PAPI TypeScript library's getPaymentInfo method. Use when you need to preview gas costs before submitting — for fee UIs, budget checks, or preflight validation. Returns partial_fee in planck, human-readable PAS, and weight breakdown. Also covers the Polkadot.js paymentInfo alternative described in the source page. Trigger phrases: 'estimate transaction fee', 'calculate fee Polkadot', 'getPaymentInfo PAPI', 'how much does a transaction cost', 'fee estimation Polkadot Hub'. No private key or testnet tokens required — fee estimation is read-only.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -1899,7 +1887,6 @@
     {
       "id": "transfer-assets-parachains-paraspell",
       "title": "Transfer Assets Between Parachains with ParaSpell XCM SDK",
-      "objective": "Use the ParaSpell XCM SDK to build, dry-run, estimate fees for, and submit an asset transfer between two Polkadot parachains on Paseo testnet.",
       "description": "Transfers assets cross-chain between Polkadot parachains using the ParaSpell XCM SDK. Covers the full workflow: install the SDK, build an XCM transfer, dry-run for feasibility, verify existential deposit requirements, estimate fees, and submit against Paseo testnet. Use when you need to move tokens programmatically between parachains (e.g., Asset Hub to another system parachain). Requires a funded Paseo testnet mnemonic. Trigger phrases: 'XCM transfer ParaSpell', 'cross-chain transfer Polkadot', 'transfer assets between parachains', 'send tokens XCM', 'ParaSpell SDK'. Uses dotenv for mnemonic security.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -2066,7 +2053,6 @@
     {
       "id": "pay-fees-alternative-token",
       "title": "Pay Transaction Fees with an Alternative Token",
-      "objective": "Fork Polkadot Hub state locally with Chopsticks and submit a transaction with fees paid in USDT (asset ID 1984) instead of native PAS using PAPI, demonstrating the asset-conversion fee proxy mechanism.",
       "description": "Forks Polkadot Hub state locally with Chopsticks and submits a transaction where fees are paid in USDT (asset ID 1984) rather than native PAS, using PAPI's ChargeAssetTxPayment signed extension. Use when demonstrating or testing the asset-conversion fee proxy mechanism without spending real testnet tokens. Uses Alice's dev account via Chopsticks mock-signature mode — no faucet required. Trigger phrases: 'pay fees in USDT', 'alternative fee token Polkadot', 'ChargeAssetTxPayment', 'fee proxy Polkadot Hub', 'Chopsticks fee demo'. Covers PAPI, Polkadot.js, and Subxt alternatives from the source page.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -2213,7 +2199,6 @@
     {
       "id": "run-parachain-rpc-node",
       "title": "Run a Parachain RPC Node",
-      "objective": "Set up and run a Polkadot system parachain RPC node (People Chain as example) in archive or pruned mode using Docker or a systemd service, and verify it syncs and serves RPC requests.",
       "description": "Runs a Polkadot system parachain RPC node (using People Chain as example) in archive or pruned mode via Docker or systemd. Covers Docker image selection, binary installation, systemd service configuration, and sync verification. A substitution table adapts the steps for Collectives, BridgeHub, and other system parachains. Use when you need a self-hosted parachain RPC endpoint. Trigger phrases: 'run parachain node', 'People Chain RPC node', 'parachain RPC Docker', 'set up system parachain node', 'run parachain RPC systemd'. No tokens required.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -2360,7 +2345,6 @@
     {
       "id": "replay-dry-run-xcm-chopsticks",
       "title": "Replay and Dry-Run XCMs Using Chopsticks",
-      "objective": "Fork a Polkadot chain locally with Chopsticks, replay a historical XCM call using its encoded call data from Subscan, and dry-run it to debug or preview the outcome without spending real tokens.",
       "description": "Forks a Polkadot chain locally with Chopsticks to replay and dry-run historical XCM messages using their on-chain call data. Covers building a Wasm binary, starting a Chopsticks fork, fetching encoded call data from Subscan, and invoking the xcmPallet.execute dry-run RPC method. Use when debugging a failing XCM, previewing execution outcomes, or verifying fee coverage before submitting to a live network. Requires Rust and the Polkadot SDK build environment. Manual step: locating the call data hex on Subscan. Trigger phrases: 'replay XCM', 'dry-run XCM Chopsticks', 'debug XCM Polkadot', 'preview XCM execution', 'XCM dry run local fork'.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -2505,7 +2489,6 @@
     {
       "id": "estimate-xcm-fees-teleport",
       "title": "Estimate XCM Fees for Asset Teleport",
-      "objective": "Estimate local execution, delivery, and remote execution fees for an XCM asset teleport between Polkadot Hub TestNet and People Chain using Chopsticks-forked chains and PAPI fee estimation calls.",
       "description": "Estimates all three fee components for an XCM teleport: local execution fee (source chain), delivery fee (network transport), and remote execution fee (destination chain). Uses Chopsticks to fork both Polkadot Hub TestNet and People Chain locally, then calls PAPI fee estimation methods against the forks. Use when you need to budget XCM fees before submitting a teleport, or when a BuyExecution instruction is failing due to insufficient fees. No real tokens required — Chopsticks mock-signature mode is used. Trigger phrases: 'estimate XCM fees', 'XCM teleport fee', 'BuyExecution fee calculation', 'cross-chain fee estimate Polkadot'.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -2660,7 +2643,6 @@
     {
       "id": "set-up-parachain-template",
       "title": "Set Up the Polkadot SDK Parachain Template",
-      "objective": "Clone, build, and run the Polkadot SDK Parachain Template locally to verify the development environment is correctly configured before proceeding to register the parachain on a test relay chain.",
       "description": "Clones the Polkadot SDK Parachain Template, compiles it in release mode, and runs a local development node to verify the build and environment. Use as the first step in the parachain launch workflow before registering on Paseo testnet or a local relay chain. Requires the Polkadot SDK build environment from the install-polkadot-sdk skill. The template provides a minimal parachain runtime with Aura consensus, FRAME pallets, and a pre-configured Cumulus integration. Trigger phrases: 'parachain template', 'set up parachain Polkadot SDK', 'clone parachain template', 'build parachain template', 'Polkadot SDK parachain starter'. First step in the three-page parachain launch series.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -2803,7 +2785,6 @@
     {
       "id": "run-collator-system-parachain",
       "title": "Run a Block-Producing Collator for a System Parachain",
-      "objective": "Install and configure a collator node for a Polkadot system parachain, generate a node key, obtain the chain spec, start the collator, generate session keys, and register them on-chain.",
       "description": "Configures a full collator node for a Polkadot system parachain (e.g., Collectives, BridgeHub) via Docker or a systemd binary. Covers binary installation, node key generation, chain spec retrieval, collator startup, session key generation via RPC, and on-chain session key registration. Governance approval is required for system parachain collator registration. Use when you need to run a block-producing node for a system parachain. No testnet tokens required for setup; on-chain registration requires native token for extrinsic fees. Trigger phrases: 'run collator', 'system parachain collator', 'set up collator Polkadot', 'collator node setup', 'register collator session keys'.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -2969,7 +2950,6 @@
     {
       "id": "run-polkadot-hub-rpc-node",
       "title": "Run an RPC Node for Polkadot Hub",
-      "objective": "Set up and run a Polkadot Hub RPC node in archive or pruned mode using Docker or a systemd service, optionally with the Ethereum RPC adapter (eth-rpc), and verify it syncs and serves requests.",
       "description": "Sets up a Polkadot Hub (Asset Hub) RPC node in archive or pruned mode via Docker or systemd, with an optional Ethereum-compatible JSON-RPC adapter (eth-rpc) for EVM tooling. Covers Docker image selection, binary installation, snapshot download for faster sync, systemd service configuration, and sync verification. Use when you need a self-hosted Polkadot Hub RPC endpoint for Substrate or Ethereum-compatible tools. Trigger phrases: 'run Polkadot Hub node', 'Asset Hub RPC node', 'Polkadot Hub Docker node', 'eth-rpc Polkadot Hub', 'Polkadot Hub archive node'. No tokens required.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -3126,7 +3106,6 @@
     {
       "id": "set-up-relay-chain-bootnode",
       "title": "Set Up a Relay Chain Bootnode",
-      "objective": "Configure and run a Polkadot relay chain bootnode with P2P, WebSocket, and secure WSS endpoints so other nodes can discover and join the network.",
       "description": "Configures a Polkadot relay chain bootnode exposing P2P, WebSocket, and secure WSS endpoints for peer discovery. Covers node key generation, polkadot startup flags, nginx SSL reverse-proxy configuration for WSS, and three-protocol connection testing. Use when you need to run a stable, publicly accessible bootnode for a Polkadot relay chain. Trigger phrases: 'set up a bootnode', 'run Polkadot bootnode', 'configure bootnode nginx', 'P2P WSS bootnode'. Prerequisites: polkadot binary in PATH and nginx installed. Output: bootnode reachable on P2P (30310), WS (30311), and WSS (30312).",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -3258,7 +3237,6 @@
     {
       "id": "set-up-polkadot-validator-node",
       "title": "Set Up a Polkadot Validator Node",
-      "objective": "Install polkadot, polkadot-prepare-worker, and polkadot-execute-worker binaries on a Linux server, configure NTP and Landlock, and verify all three binaries are at matching versions.",
       "description": "Installs the three Polkadot validator binaries (polkadot, polkadot-prepare-worker, polkadot-execute-worker) needed to run a validator node, and prepares the server with NTP time synchronization and Landlock security. Covers four installation paths: GPG-verified curl download, APT package manager (Ubuntu/Debian), Docker image, or building from source. Use when provisioning a new validator server or upgrading binaries on an existing one. Trigger phrases: 'install Polkadot validator binaries', 'set up validator node', 'install polkadot-prepare-worker', 'configure validator server'. First step in the full validator onboarding flow before key management and bonding.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -3411,7 +3389,6 @@
     {
       "id": "set-up-chopsticks-fork",
       "title": "Set Up and Use Chopsticks for Chain Forking",
-      "objective": "Install Chopsticks, create a local fork of a Polkadot SDK chain from a live RPC endpoint, and interact with it via block replay and WebSocket manipulation commands.",
       "description": "Installs Chopsticks and creates a local fork of any Polkadot SDK-based chain for testing, debugging, and XCM simulation without touching live state. Covers global and local npm installation, YAML config file setup, fork creation via CLI flags or config, Polkadot.js interaction, block replay, and multi-chain XCM testing. Use when you need to test extrinsics, replay historical blocks, override chain storage, or simulate XCM messages locally. Trigger phrases: 'fork a chain with Chopsticks', 'local chain fork', 'replay blocks Chopsticks', 'test XCM locally', 'Chopsticks install'. Version: 1.2.7. Note: Chopsticks uses the Smoldot light client and does not support Ethereum JSON-RPC — MetaMask cannot connect to a Chopsticks fork.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -3558,7 +3535,6 @@
     {
       "id": "set-up-e2e-testing-moonwall",
       "title": "Set Up End-to-End Testing with Moonwall",
-      "objective": "Install Moonwall, initialize a test environment configuration, write a test suite using describeSuite, and run tests against a local or remote Polkadot SDK blockchain node.",
       "description": "Installs and configures Moonwall, an end-to-end testing framework for Polkadot SDK-based blockchains. Covers global and local npm installation, interactive configuration initialization, moonwall.config.json structure, writing test suites with the describeSuite function, and running tests via the CLI. Use when you need a standardized test environment for a Substrate-based chain — local dev node, remote testnet, or Chopsticks fork. Trigger phrases: 'set up Moonwall', 'e2e tests Polkadot SDK', 'Moonwall testing framework', 'describeSuite Moonwall', 'install moonwall cli'. Version: 5.18.3.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -3693,7 +3669,6 @@
     {
       "id": "fork-parachain-chopsticks",
       "title": "Fork a Parachain Using Chopsticks",
-      "objective": "Install Chopsticks, configure a local fork of a Polkadot SDK parachain from a live endpoint, and manipulate fork state using WebSocket commands.",
       "description": "Installs Chopsticks and forks a live Polkadot SDK parachain locally for testing and development. Covers global npm installation, YAML configuration, fork startup, and WebSocket dev commands (dev_newBlock, dev_setStorage, dev_setHead, dev_timeTravel, dev_setRuntimeLogLevel). Use when testing parachain-specific logic, extrinsics, or storage mutations without deploying to a live network. Trigger phrases: 'fork a parachain', 'Chopsticks parachain fork', 'dev_setStorage chopsticks', 'local parachain test environment'. Version: 1.2.7. Note: does not support Ethereum JSON-RPC — MetaMask cannot connect.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -3828,7 +3803,6 @@
     {
       "id": "build-dapp-viem-nextjs",
       "title": "Build a Zero-to-Hero Smart Contract DApp with Viem and Next.js",
-      "objective": "Deploy a Storage smart contract to Polkadot Hub TestNet and connect it to a Next.js frontend that reads and writes contract state using Viem.",
       "description": "Scaffolds a full-stack Polkadot Hub dApp: deploys a Solidity Storage contract via Hardhat Ignition to TestNet, then builds a Next.js 14 frontend with Viem wallet connect, read, and write components. Use when building a complete end-to-end smart contract application on Polkadot Hub from scratch. Trigger phrases: 'build a dapp polkadot', 'zero to hero tutorial', 'smart contract with frontend viem', 'deploy and connect next.js'. Covers dotenv private key security, 5000 gwei gas config, evmVersion cancun, Ignition recovery, and Next.js/Viem component wiring. Output: running dApp at localhost:3000.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -4036,7 +4010,6 @@
     {
       "id": "deploy-uniswap-v2-polkadot-hub",
       "title": "Deploy Uniswap V2 on Polkadot Hub",
-      "objective": "Compile and deploy Uniswap V2 Factory and Pair contracts to Polkadot Hub TestNet using Hardhat.",
       "description": "Clones and deploys Uniswap V2 (Factory and Pair contracts) to Polkadot Hub TestNet using Hardhat. Use when you need a Uniswap V2-compatible AMM deployment on Polkadot Hub for testing or integration. Trigger phrases: 'deploy uniswap v2 polkadot', 'uniswap v2 asset hub', 'AMM factory polkadot hub'. Covers dotenv credential setup for local and TestNet keys, 5000 gwei gas configuration, evmVersion cancun, Ignition deployment of Factory and Pair, and stuck-transaction recovery. Requires testnet PAS for gas.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -4226,7 +4199,6 @@
     {
       "id": "deploy-erc20-token-remix",
       "title": "Deploy an ERC-20 Token Using Remix IDE",
-      "objective": "Deploy an OpenZeppelin ERC-20 token contract to Polkadot Hub TestNet using the Remix browser IDE with MetaMask.",
       "description": "Deploys a Solidity ERC-20 token contract to Polkadot Hub TestNet entirely through the Remix browser IDE with MetaMask wallet injection. Use when you prefer a no-CLI workflow or are demonstrating contract deployment to non-developers. Trigger phrases: 'deploy ERC-20 remix', 'erc20 token remix polkadot', 'deploy token browser IDE'. Covers fetching contract code from revm-hardhat-examples, Remix compile settings (evmVersion cancun for OpenZeppelin v5), MetaMask TestNet configuration, and minting tokens via the Remix UI. No local environment required beyond a browser and MetaMask.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -4367,7 +4339,6 @@
     {
       "id": "deploy-contracts-ethers-js",
       "title": "Deploy Contracts to Polkadot Hub with Ethers.js",
-      "objective": "Compile a Solidity contract and deploy it to Polkadot Hub TestNet using Ethers.js v6 scripts from scratch.",
       "description": "Sets up a Node.js project, compiles a Solidity contract with solc, deploys to Polkadot Hub TestNet using Ethers.js v6, and interacts with the deployed contract via read and write script calls. Use when integrating Ethers.js into a new or existing Node.js project targeting Polkadot Hub. Trigger phrases: 'deploy with ethers.js polkadot', 'ethers.js contract deployment', 'use ethers polkadot hub', 'ethersjs testnet'. Covers dotenv credential setup, custom Polkadot Hub provider configuration, and the compile-deploy-interact workflow. Produces a deployed contract with verified read/write interaction.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -4557,7 +4528,6 @@
     {
       "id": "deploy-contracts-viem",
       "title": "Deploy Contracts to Polkadot Hub with Viem",
-      "objective": "Compile a Solidity contract and deploy it to Polkadot Hub TestNet using Viem v2 TypeScript scripts.",
       "description": "Sets up a TypeScript project, compiles a Solidity contract, deploys to Polkadot Hub TestNet using Viem v2 walletClient.deployContract, and interacts with the deployed contract via publicClient and walletClient. Use when building a TypeScript project that needs direct Viem integration with Polkadot Hub without a Hardhat setup. Trigger phrases: 'deploy with viem polkadot', 'viem contract deployment', 'use viem polkadot hub', 'deploy viem typescript'. Covers custom Polkadot Hub chain definition, dotenv credential setup, and the compile-deploy-interact pattern. Companion to deploy-contracts-ethers-js.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -4735,7 +4705,6 @@
     {
       "id": "set-up-pallet-mock-runtime",
       "title": "Set Up a Mock Runtime for Pallet Unit Testing",
-      "objective": "Create a mock.rs module in a FRAME pallet that provides a minimal test runtime, enabling isolated unit tests without a full parachain runtime.",
       "description": "Creates a mock runtime module for FRAME pallet unit testing using construct_runtime! and derive_impl. Use when you need a self-contained test environment for a custom FRAME pallet before writing unit tests. Configures frame_system with test defaults, satisfies pallet Config traits, and provides genesis storage helpers for different initial states. Trigger phrases: 'mock runtime pallet', 'set up pallet testing', 'construct_runtime test', 'pallet test environment', 'derive_impl TestDefaultConfig'. Requires a completed FRAME pallet in pallets/pallet-custom. Do NOT use for full parachain runtime integration testing.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -4854,7 +4823,6 @@
     {
       "id": "unit-test-frame-pallet",
       "title": "Write Unit Tests for a FRAME Pallet",
-      "objective": "Create a tests.rs module and write comprehensive unit tests covering basic operations, error conditions, access control, event emission, and genesis configuration.",
       "description": "Writes a complete tests.rs module for a FRAME pallet using assert_ok!, assert_noop!, and System::assert_last_event macros. Use after completing the mock runtime guide to verify pallet logic in complete isolation. Covers all critical test categories: dispatchable success paths, arithmetic guard errors, root-only origin checks, event data correctness, user-interaction tracking, and genesis state loading. Trigger phrases: 'unit test FRAME pallet', 'test pallet logic', 'assert_noop assert_ok', 'pallet test suite', 'test dispatchable'. Requires completed create-a-pallet and set-up-pallet-mock-runtime guides. Do NOT use for integration or end-to-end testing of a full parachain.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -4989,7 +4957,6 @@
     {
       "id": "benchmark-frame-pallet",
       "title": "Benchmark a FRAME Pallet and Generate Weight Files",
-      "objective": "Create a benchmarking.rs module, build the WASM runtime with benchmarking enabled, run frame-omni-bencher, and replace placeholder weights with measured production values.",
       "description": "Implements full FRAME pallet benchmarking: adds benchmarking.rs with #[benchmark] functions, defines WeightInfo trait, wires it into pallet Config, configures Cargo.toml features, builds release WASM, installs frame-omni-bencher, downloads the weight template, and generates weights.rs. Use when a custom pallet needs accurate extrinsic weights before production deployment. Trigger phrases: 'benchmark pallet', 'frame-omni-bencher', 'generate weight file', 'WeightInfo', 'pallet weights production'. Requires a working parachain template with the custom pallet integrated. Do NOT use for estimating gas on EVM contracts.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -5173,7 +5140,6 @@
     {
       "id": "set-up-local-dev-node",
       "title": "Set Up a Local Development Node",
-      "objective": "Clone the polkadot-sdk repository, build the revive-dev-node and eth-rpc adapter binaries, and run a local Ethereum-compatible blockchain at http://localhost:8545.",
       "description": "Builds and runs a local Polkadot SDK development node with smart contract support and an ETH-RPC adapter at http://localhost:8545. Use when you need a fee-free isolated environment for deploying and testing EVM smart contracts before using Polkadot Hub TestNet. Supports Ethereum tools (Hardhat, Remix, MetaMask, Ethers.js) via the ETH-RPC adapter. Trigger phrases: 'local dev node', 'run node locally', 'revive-dev-node', 'localhost:8545', 'local Polkadot blockchain'. Requires Rust and Polkadot SDK build dependencies installed. Do NOT use as a substitute for TestNet validation — the local node exposes a subset of the Ethereum JSON-RPC API.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -5315,7 +5281,6 @@
     {
       "id": "set-up-validator-monitoring-stack",
       "title": "Set Up Prometheus, Grafana, and Alertmanager for a Validator Node",
-      "objective": "Install and configure a Prometheus, Grafana, and Alertmanager monitoring stack on a Linux validator server, with real-time metrics dashboards and email alerts for node downtime.",
       "description": "Installs and configures Prometheus, Grafana, and Alertmanager as systemd services on a Linux validator host. Scrapes node metrics from port 9615, visualizes them in Grafana, and routes email alerts via Alertmanager. Use when operating a Polkadot validator node and needing visibility into performance and automated downtime alerting. Trigger phrases: 'monitor validator', 'Prometheus Grafana validator', 'validator alerts', 'node metrics', 'alertmanager email'. Requires a running Polkadot validator node on Ubuntu/Debian with systemd and sudo access. Do NOT use for EVM smart contract monitoring.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -5474,7 +5439,6 @@
     {
       "id": "interact-with-chain-dedot",
       "title": "Interact with Polkadot Chains Using Dedot",
-      "objective": "Query on-chain storage and submit signed transactions on a Polkadot SDK chain using the Dedot TypeScript client.",
       "description": "Sets up a lightweight Dedot TypeScript client to read chain state and send transactions on any Polkadot SDK blockchain. Use when you need a modern, tree-shakable alternative to Polkadot.js for querying storage, subscribing to events, calling runtime APIs, or submitting signed extrinsics. Trigger phrases: 'use Dedot', 'query chain with Dedot', 'Dedot client', 'interact with chain TypeScript'. Output: account balance, runtime constants, and submitted transaction hash. No testnet tokens required for read-only steps.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -5609,7 +5573,6 @@
     {
       "id": "run-parachain-node-omni-node",
       "title": "Run a Parachain Node with Polkadot Omni Node",
-      "objective": "Install the polkadot-omni-node binary, obtain a chain specification, and launch a syncing full node for any compatible parachain.",
       "description": "Installs the polkadot-omni-node pre-built binary and runs a full node for any compatible Polkadot parachain using an external chain spec file. Use when you need to run a parachain node without maintaining a custom node codebase, or when testing a runtime against a live network. Trigger phrases: 'run a parachain node', 'polkadot-omni-node', 'spin up a parachain full node', 'start omni node'. Output: syncing parachain node with WebSocket RPC at ws://localhost:9944. Requires a chain spec JSON file for the target parachain.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -5725,7 +5688,6 @@
     {
       "id": "interact-with-chain-polkadart",
       "title": "Interact with a Polkadot Chain Using Polkadart",
-      "objective": "Connect to a Polkadot SDK blockchain from a Dart or Flutter application, query on-chain state, and submit a signed balance transfer using Polkadart.",
       "description": "Sets up Polkadart — the native Dart/Flutter SDK for Polkadot — to generate type-safe chain bindings, query on-chain storage, subscribe to new blocks, and sign and send a balance transfer. Use when building Dart or Flutter applications that interact with Polkadot or any Polkadot SDK blockchain. Trigger phrases: 'Polkadart', 'Dart Polkadot SDK', 'Flutter blockchain', 'query Polkadot in Dart', 'Dart dApp'. Output: account balance, block subscription, and submitted transaction result.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -5862,7 +5824,6 @@
     {
       "id": "interact-polkadot-node-py-substrate",
       "title": "Interact with a Polkadot Node Using Python Substrate Interface",
-      "objective": "Connect to a Polkadot SDK node from Python, query account balance, and submit a signed balance transfer using the Python Substrate Interface library.",
       "description": "Sets up the Python Substrate Interface library to connect to any Polkadot SDK blockchain, query on-chain storage (account balance, nonce), and submit signed extrinsics. Use when building Python scripts, data pipelines, or backend services that need to read or write chain state without a JavaScript runtime. Trigger phrases: 'Python Substrate Interface', 'py-substrate-interface', 'query Polkadot with Python', 'Substrate Python', 'substrate-interface pip'. Output: printed account balance details and transaction receipt with extrinsic and block hash.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -5989,7 +5950,6 @@
     {
       "id": "interact-polkadot-node-subxt",
       "title": "Interact with a Polkadot Node Using Subxt (Rust)",
-      "objective": "Download chain metadata, generate a type-safe Rust interface, and use Subxt to query constants, account storage, and submit a signed balance transfer to a Polkadot SDK node.",
       "description": "Scaffolds a Rust project with the Subxt library to interact with any Polkadot SDK blockchain using compile-time type safety. Use when building Rust services, CLI tools, or backend applications that need to query chain state, call runtime APIs, or submit transactions without an external RPC framework. Trigger phrases: 'Subxt', 'Rust Polkadot client', 'interact with Polkadot in Rust', 'subxt-cli metadata', 'type-safe Polkadot Rust'. Output: existential deposit constant, account info, and confirmed balance transfer event.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -6128,7 +6088,6 @@
     {
       "id": "deploy-erc721-nft-hardhat",
       "title": "Deploy an ERC-721 NFT Using Hardhat",
-      "objective": "Scaffold a Hardhat project from scratch, create an OpenZeppelin ERC-721 NFT contract, compile it, and deploy it to Polkadot Hub TestNet using Hardhat Ignition.",
       "description": "Scaffolds a Hardhat project manually, installs OpenZeppelin contracts and dotenv, creates a MyNFT.sol ERC-721 contract and Ignition deployment module, compiles with Cancun EVM version, and deploys to Polkadot Hub TestNet via Hardhat Ignition. Use when deploying an ERC-721 NFT to Polkadot Hub. Requires testnet PAS tokens and a funded EVM wallet. Trigger phrases: 'deploy NFT Polkadot', 'ERC-721 Hardhat', 'deploy non-fungible token', 'mint NFT Polkadot Hub'. Uses OpenZeppelin Contracts v5.4.0+ requiring evmVersion cancun. Do NOT use for ERC-20 tokens; use deploy-erc20-token-hardhat instead.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -6314,7 +6273,6 @@
     {
       "id": "deploy-erc721-nft-remix",
       "title": "Deploy an ERC-721 NFT Using Remix IDE",
-      "objective": "Create, compile, and deploy an OpenZeppelin ERC-721 NFT contract to Polkadot Hub TestNet using the Remix IDE browser-based environment and MetaMask.",
       "description": "Guides the user through deploying an ERC-721 NFT contract via Remix IDE (browser-based) connected to MetaMask on Polkadot Hub TestNet. Use when preferring no local toolchain or rapid prototyping. Covers contract creation using OpenZeppelin ERC-721, compilation in Remix, and deployment via MetaMask injected provider. Trigger phrases: 'deploy NFT Remix', 'ERC-721 Remix Polkadot', 'mint NFT using browser', 'Remix NFT Polkadot Hub'. All steps are GUI-based — agent delegates browser actions to the user. Do NOT use for automated or CLI-based deployments; use deploy-erc721-nft-hardhat instead.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -6433,7 +6391,6 @@
     {
       "id": "set-up-foundry-polkadot-hub",
       "title": "Use Foundry with Polkadot Hub",
-      "objective": "Install Foundry nightly, initialize a project, compile contracts, deploy to Polkadot Hub TestNet, verify on a block explorer, and interact using Cast.",
       "description": "Installs the Foundry nightly build (required for native Polkadot chain support), initializes a Forge project, configures foundry.toml for Polkadot Hub TestNet, deploys a contract via forge create, verifies it on Blockscout or Routescan, and interacts with it using cast. Use when building or deploying Solidity contracts on Polkadot Hub with the Foundry toolkit. Trigger phrases: 'Foundry Polkadot', 'forge deploy', 'forge create Polkadot', 'cast call Polkadot Hub'. Requires Foundry nightly — stable release lacks Polkadot chain definitions.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -6610,7 +6567,6 @@
     {
       "id": "spawn-test-network-zombienet",
       "title": "Spawn and Test a Parachain Network with Zombienet",
-      "objective": "Install Zombienet, download relay chain binaries, write a TOML network configuration, spawn a local test network, write DSL test assertions, and run the test suite.",
       "description": "Installs Zombienet (executable, Nix, or Docker), downloads polkadot and polkadot-parachain binaries, writes a TOML network config defining relay chain validators and parachain collators, spawns the network via the native provider, writes .zndsl test files using Zombienet's DSL, and runs the test suite. Use when spawning and testing ephemeral Polkadot SDK networks locally. Trigger phrases: 'Zombienet', 'spawn local parachain', 'test parachain network', 'local relay chain Zombienet', 'zndsl test'. Requires polkadot and polkadot-parachain binaries.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -6755,7 +6711,6 @@
     {
       "id": "deploy-interact-contracts-web3js",
       "title": "Deploy and Interact with Smart Contracts Using Web3.js",
-      "objective": "Set up a Node.js Web3.js project, compile a Solidity contract with solc, deploy it to Polkadot Hub TestNet, and interact with it via read and write scripts.",
       "description": "Sets up a Node.js project with Web3.js and solc, creates a Storage Solidity contract, configures a provider for Polkadot Hub TestNet, compiles to EVM bytecode, deploys, and interacts via read/write scripts. Use when integrating Polkadot Hub with Web3.js. Trigger phrases: 'Web3.js Polkadot', 'deploy contract Web3', 'web3js smart contract Polkadot'. NOTE: Web3.js has been sunset — for new projects use deploy-contracts-ethers-js or deploy-contracts-viem instead. All code files require substituting INSERT_* placeholders before execution.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -6918,7 +6873,6 @@
     {
       "id": "bridge-eth-to-polkadot-snowbridge",
       "title": "Bridge Assets from Ethereum to Polkadot via Snowbridge",
-      "objective": "Use the ParaSpell SDK to bridge ERC-20 tokens from Ethereum mainnet to Polkadot Hub Asset Hub via the Snowbridge protocol.",
       "description": "Bridges ERC-20 tokens from Ethereum mainnet to Polkadot Hub Asset Hub using the ParaSpell SDK's Snowbridge integration. Covers Node.js project setup, ERC-20 approval on Ethereum, building a Snowbridge transfer with the ParaSpell Builder API, signing with ethers.js, submitting, and monitoring bridge relay status. Use when a user needs to move WETH or other ERC-20s from Ethereum to the Polkadot ecosystem. Trigger phrases: 'bridge Ethereum to Polkadot', 'Snowbridge transfer', 'send WETH Polkadot Hub', 'ParaSpell Snowbridge', 'ERC-20 Polkadot bridge'. Requires real Ethereum mainnet ETH and ERC-20 tokens — no testnet path exists. Bridge relay takes 15-30 minutes. Uses dotenv for private key security.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -7089,7 +7043,6 @@
     {
       "id": "convert-assets-asset-hub",
       "title": "Convert Assets on Asset Hub via AMM",
-      "objective": "Use the AssetConversion pallet on Polkadot Hub Asset Hub via Polkadot.js Apps to create liquidity pools, add or remove liquidity, and swap assets.",
       "description": "Demonstrates the AssetConversion AMM pallet on Polkadot Hub Asset Hub — creating token pools, managing liquidity, and swapping assets via the Polkadot.js Apps browser UI. Use when a user wants to create a liquidity pool between DOT and a local or foreign asset, add or withdraw liquidity, or swap tokens via the AssetConversion extrinsics. Trigger phrases: 'convert assets Asset Hub', 'create liquidity pool Polkadot', 'swap tokens AMM', 'AssetConversion pallet', 'add liquidity Polkadot Hub'. Requires DOT and a second fungible asset on Asset Hub. All workflow steps use Polkadot.js Apps browser UI — no CLI tooling required.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -7218,7 +7171,6 @@
     {
       "id": "register-foreign-asset-polkadot-hub",
       "title": "Register a Foreign Asset on Polkadot Hub",
-      "objective": "Register an asset from another parachain as a foreign asset on Polkadot Hub Asset Hub via a two-step XCM governance dispatch using Polkadot.js Apps.",
       "description": "Registers a cross-chain asset from another parachain on Polkadot Hub Asset Hub using the foreignAssets pallet. Covers generating the encoded forceCreate call data on Asset Hub, funding the source parachain sovereign account on Asset Hub, and dispatching the registration XCM from the source parachain. Use when a parachain team needs their token available on Polkadot Hub for swapping or bridging. Trigger phrases: 'register foreign asset Polkadot Hub', 'foreignAssets forceCreate', 'XCM asset registration', 'list token Asset Hub', 'register cross-chain asset'. Requires sudo or governance rights on the source parachain. All steps use Polkadot.js Apps — no CLI required.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -7349,7 +7301,6 @@
     {
       "id": "register-local-asset-polkadot-hub",
       "title": "Register a Local Asset on Polkadot Hub",
-      "objective": "Create a new local integer-ID fungible asset on Polkadot Hub Asset Hub using the Assets pallet via the Polkadot.js Apps Network > Assets UI.",
       "description": "Creates a new local fungible asset with an integer asset ID on Polkadot Hub Asset Hub using the Assets pallet, accessible through the Polkadot.js Apps Network-Assets interface. Covers asset creation, setting metadata (name, symbol, decimals), minting initial supply, and verification. Use when a team needs to create a new token on Polkadot Hub's native asset pallet — stablecoins, project tokens, or test assets. Trigger phrases: 'create local asset Polkadot Hub', 'register asset Asset Hub', 'Assets pallet create', 'mint token Asset Hub', 'new fungible asset Polkadot'. Requires a DOT-funded account for the creation deposit. All steps use Polkadot.js Apps — no CLI required.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -7473,7 +7424,6 @@
     {
       "id": "set-up-relay-chain-full-node",
       "title": "Set Up a Polkadot Relay Chain Full Node",
-      "objective": "Install and run a Polkadot relay chain node in pruned or archive mode using a pre-built binary, Docker, Snap package, or compiled from source.",
       "description": "Installs and starts a Polkadot relay chain full node using one of four methods: pre-built binary, Docker, Snap, or compiled from source. Covers binary selection and installation, pruned vs archive sync mode, systemd service configuration, and sync verification. Use when running a self-hosted Polkadot relay chain node for RPC access, validator setup, or personal infrastructure. Trigger phrases: 'run Polkadot relay chain node', 'install polkadot full node', 'polkadot archive node', 'relay chain sync', 'self-hosted Polkadot node'. Requires a Linux server with 100 GB+ SSD (pruned) or 2+ TB SSD (archive). No tokens required. Companion skills: set-up-relay-chain-bootnode, set-up-polkadot-validator-node.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -7651,7 +7601,6 @@
     {
       "id": "set-up-secure-wss-relay-node",
       "title": "Set Up Secure WebSocket (WSS) for a Relay Chain Node",
-      "objective": "Configure a TLS-secured WebSocket endpoint (wss://) for a Polkadot relay chain node using nginx or Apache2 as a reverse proxy with a Let's Encrypt or self-signed SSL certificate.",
       "description": "Adds a WSS (WebSocket Secure) reverse proxy in front of a Polkadot relay chain node so that wallets, dApps, and light clients can connect over wss:// instead of the unencrypted ws://. Covers installing nginx or Apache2, obtaining an SSL certificate with Let's Encrypt (certbot), writing the reverse proxy virtual host config, and verifying the WSS connection. Use when exposing a relay chain RPC endpoint publicly or when MetaMask or Polkadot.js Apps require a wss:// URL. Requires an existing running relay chain node (companion skill: set-up-relay-chain-full-node). Trigger phrases: 'secure websocket relay node', 'wss relay chain', 'nginx ssl polkadot node', 'let's encrypt polkadot rpc', 'configure wss endpoint'.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -7800,7 +7749,6 @@
     {
       "id": "onboard-polkadot-validator",
       "title": "Onboard as a Polkadot Validator (Full Flow)",
-      "objective": "Install, configure, and activate a Polkadot validator node from binary installation through session key registration, DOT bonding, and systemd service setup.",
       "description": "Walks through the complete Polkadot validator onboarding workflow across three phases: (1) installing the polkadot binary and worker executables; (2) generating and registering session keys and the node identity key; (3) syncing the chain, bonding DOT via Polkadot.js Apps, submitting session keys on-chain, and configuring a systemd service for persistence. Use when setting up a new Polkadot validator node from scratch. Trigger phrases: 'become a Polkadot validator', 'onboard validator', 'set up validator node', 'bond DOT validator', 'register session keys', 'start validating Polkadot'. Prerequisite: a Linux server meeting hardware requirements (see set-up-polkadot-validator-node). Note: bonding and key submission steps involve Polkadot.js Apps GUI and must be delegated to the user.",
       "version": "1.1.0",
       "chain_role": "isolated",
@@ -7999,7 +7947,6 @@
     {
       "id": "add-existing-pallet-to-runtime",
       "title": "Add an Existing Pallet to a Parachain Runtime",
-      "objective": "Integrate a Polkadot SDK pallet (such as pallet-utility) into a parachain runtime by adding the Cargo dependency, implementing the Config trait, and registering it in construct_runtime!.",
       "description": "Integrates an existing Polkadot SDK pallet into a local parachain runtime. Covers adding the pallet crate to Cargo.toml, implementing the pallet's Config trait in runtime/src/lib.rs, registering the pallet in the construct_runtime! macro, compiling the runtime, generating a chain spec, and running the parachain locally to verify the pallet is active. Use when extending a Polkadot SDK parachain template with standard SDK pallets (pallet-utility, pallet-multisig, pallet-proxy, etc.). Trigger phrases: 'add pallet to runtime', 'integrate pallet parachain', 'pallet-utility runtime', 'extend parachain runtime', 'construct_runtime pallet'. Prerequisite: working parachain template dev environment (see set-up-the-parachain-template). Final GUI verification uses Polkadot.js Apps.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -8149,7 +8096,6 @@
     {
       "id": "configure-multiple-pallet-instances",
       "title": "Configure Multiple Instances of a Pallet in a Runtime",
-      "objective": "Add two named instances of an instantiable Polkadot SDK pallet (e.g., pallet-collective as TechnicalCommittee and Council) to a parachain runtime with independent configurations.",
       "description": "Configures two independent instances of an instantiable Polkadot SDK pallet within a single parachain runtime. Uses pallet-collective as the example to demonstrate adding TechnicalCommittee (Instance1) and Council (Instance2) with separate membership and voting parameters. Covers identifying instantiable pallets, adding per-instance Cargo dependencies, implementing Config(Instance1) and Config(Instance2) traits, registering both instances in construct_runtime!, compiling, and verifying instance independence. Use when a runtime needs two separate governance bodies, two token pools, or any other scenario requiring two isolated instances of the same pallet logic. Trigger phrases: 'multiple pallet instances', 'two collective instances', 'pallet-collective council technical committee', 'instantiable pallet runtime'. Prerequisite: working parachain template (see add-existing-pallet-to-runtime).",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -8297,7 +8243,6 @@
     {
       "id": "create-frame-pallet",
       "title": "Create a Custom FRAME Pallet",
-      "objective": "Build a custom FRAME pallet from scratch inside the Polkadot SDK parachain template, defining storage, events, errors, and extrinsics, then integrate it into the runtime.",
       "description": "Guides through building a custom FRAME pallet from scratch using the Polkadot SDK. Uses a counter pallet (increment and decrement extrinsics with bounded storage) as the example to demonstrate all core FRAME patterns: pallet directory layout, Cargo.toml configuration, #[pallet::config], #[pallet::storage], #[pallet::event], #[pallet::error], #[pallet::call], and genesis config. After implementing the pallet, integrates it into the parachain runtime (Cargo dependency, Config impl, construct_runtime!), compiles, and runs locally. Use when building any new runtime module with on-chain state and extrinsics. Trigger phrases: 'create FRAME pallet', 'custom pallet from scratch', 'write a pallet', 'FRAME storage events extrinsics', 'build counter pallet'. Prerequisites: Polkadot SDK installed, parachain template set up. Verification step uses Polkadot.js Apps GUI.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -8451,7 +8396,6 @@
     {
       "id": "open-hrmp-channel-between-parachains",
       "title": "Open an HRMP Channel Between Parachains",
-      "objective": "Establish a unidirectional HRMP channel from one user parachain to another by encoding hrmpInitOpenChannel and hrmpAcceptOpenChannel extrinsics and dispatching them via XCM through the relay chain.",
       "description": "Walks through the two-step HRMP channel setup between two user parachains. Step 1 (sender): fund the parachain sovereign account on the relay chain, construct an hrmpInitOpenChannel extrinsic, copy the encoded call data, and submit it via a polkadotXcm.send XCM message using sudo. Step 2 (receiver): repeat funding, construct hrmpAcceptOpenChannel, and submit via XCM. Use when enabling cross-chain messaging between two custom parachains on Polkadot. Trigger phrases: 'open HRMP channel', 'establish parachain communication', 'hrmpInitOpenChannel', 'XCM channel setup between parachains'. All steps use the Polkadot.js Apps GUI — no CLI. Repeat in reverse order for bidirectional communication.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -8595,7 +8539,6 @@
     {
       "id": "open-hrmp-channel-with-system-parachain",
       "title": "Open an HRMP Channel with a System Parachain",
-      "objective": "Establish a bidirectional HRMP channel between a user parachain and a system parachain (such as Asset Hub) using a single establish_channel_with_system XCM message.",
       "description": "Guides through the simplified one-step process for opening a bidirectional HRMP channel between a user parachain and a Polkadot system parachain. Unlike regular parachain channels that require a two-step request and acceptance, a single XCM message with the establish_channel_with_system extrinsic opens channels in both directions simultaneously. Use when your parachain needs to communicate with Asset Hub (para 1000), Bridge Hub, or other system chains. Trigger phrases: 'open channel with Asset Hub', 'HRMP channel system parachain', 'establish_channel_with_system', 'parachain to Asset Hub channel'. All steps use Polkadot.js Apps GUI — no CLI. Channels become active at the start of the next session.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -8714,7 +8657,6 @@
     {
       "id": "perform-runtime-upgrade",
       "title": "Perform a Forkless Runtime Upgrade",
-      "objective": "Upgrade a running Polkadot SDK parachain by adding a new extrinsic to a custom pallet, incrementing spec_version, building the Wasm binary, and submitting it via sudo.system.setCode.",
       "description": "Guides through a complete forkless runtime upgrade cycle for a Polkadot SDK chain. You add a Root-only reset_counter dispatchable to a custom pallet, increment spec_version from 1 to 2 in the runtime VERSION constant, rebuild the Wasm binary with cargo build --release, and submit system.setCode via the Sudo pallet in Polkadot.js Apps. Use when adding features, fixing bugs, or upgrading runtime logic without a hard fork on a running local or testnet chain. Trigger phrases: 'runtime upgrade', 'forkless upgrade', 'update runtime', 'bump spec_version', 'submit setCode'. Prerequisite: a running chain with a custom pallet (see create-frame-pallet). Final submission step requires Polkadot.js Apps GUI — no CLI for that step.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -8874,7 +8816,6 @@
     {
       "id": "spawn-local-parachain-network-zombienet",
       "title": "Spawn a Local Parachain Test Network with Zombienet",
-      "objective": "Deploy a local Paseo-based relay chain with two validators and one parachain collator using Zombienet's native provider and verify block production via JSON-RPC.",
       "description": "Guides through spawning a local Polkadot parachain test network using Zombienet. You clone and build the Polkadot SDK parachain template, download polkadot/polkadot-prepare-worker/polkadot-execute-worker relay chain binaries and chain-spec-builder, download the Paseo runtime Wasm (requires INSERT_PASEO_RUNTIME_VERSION substitution), generate a local Paseo chain spec, write a network.toml, and run zombienet spawn. Use when you need a reproducible local multi-chain integration test environment. Trigger phrases: 'local parachain network', 'zombienet spawn', 'test parachain locally', 'relay chain and parachain local'. Requires Rust, Cargo, wasm32 target, Zombienet CLI, and Git. INSERT_PASEO_RUNTIME_VERSION in the Paseo runtime download URL must be replaced with an actual release tag before running.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -9060,7 +9001,6 @@
     {
       "id": "retrieve-runtime-metadata",
       "title": "Retrieve Polkadot Runtime Metadata",
-      "objective": "Fetch SCALE-encoded runtime metadata from a Polkadot SDK node using curl, the subxt CLI, or Polkadot.js Apps to inspect pallets, calls, events, storage, and type definitions.",
       "description": "Provides three methods for fetching Polkadot SDK runtime metadata: curl JSON-RPC (state_getMetadata, returns raw hex bytes), subxt CLI (human-readable JSON, ideal for inspection), and Polkadot.js Apps RPC UI (interactive). Use when building client libraries, inspecting pallet structure, or verifying runtime composition after an upgrade. Trigger phrases: 'get runtime metadata', 'state_getMetadata', 'inspect pallet calls', 'fetch chain metadata', 'subxt metadata', 'what pallets are on chain'. No private key or wallet required. The metadata output describes all pallets, storage items, calls, events, errors, and constants in the current runtime.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -9178,7 +9118,6 @@
     {
       "id": "use-polkadot-js-api",
       "title": "Query and Transact on Polkadot Chains with the Polkadot.js API",
-      "objective": "Connect to a Polkadot chain, read chain constants and account state, and submit a signed balance transfer using the @polkadot/api library.",
       "description": "Installs @polkadot/api and demonstrates creating a WsProvider connection, reading chain constants and on-chain storage, and submitting a signed balance transfer. Use when maintaining or migrating legacy TypeScript/JavaScript projects that already depend on @polkadot/api. Warning: this library is in maintenance mode — new projects should use Polkadot API (PAPI) or Dedot. Trigger phrases: 'polkadot.js api', '@polkadot/api', 'polkadot javascript sdk', 'use polkadot js'. Outcome: TypeScript script that connects to a node, reads account state, and sends a signed transaction.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -9328,7 +9267,6 @@
     {
       "id": "bootstrap-parachain-pop-cli",
       "title": "Bootstrap Parachain Development with Pop CLI",
-      "objective": "Scaffold, build, and launch a new Polkadot SDK parachain project locally using Pop CLI.",
       "description": "Installs Pop CLI and uses it to set up Polkadot SDK build dependencies, scaffold a new parachain project, compile it in release mode, and spin up a local test network. Use when starting a new parachain from scratch and wanting an opinionated, guided scaffold over manual Polkadot SDK setup. Requires Rust stable toolchain and build dependencies from parachains/install-polkadot-sdk. Trigger phrases: 'pop cli', 'pop new parachain', 'bootstrap parachain pop', 'scaffold parachain with pop cli'. Outcome: local parachain network running with a freshly scaffolded template.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -9481,7 +9419,6 @@
     {
       "id": "deploy-basic-contract-remix",
       "title": "Deploy a Basic Smart Contract with Remix IDE",
-      "objective": "Deploy Remix IDE's built-in Storage.sol contract to Polkadot Hub TestNet using the browser-based IDE and MetaMask.",
       "description": "Guides the user through deploying Remix IDE's default Storage.sol contract to Polkadot Hub TestNet via the browser-based Remix IDE and MetaMask wallet. All steps are browser GUI interactions — no local toolchain required. Use when testing the Polkadot Hub EVM environment, learning contract deployment basics, or demonstrating how Remix works with Polkadot Hub. Prerequisites: MetaMask installed and configured for Polkadot Hub TestNet (chain ID 420420417), testnet PAS tokens from https://faucet.polkadot.io/. Trigger phrases: 'deploy contract remix polkadot', 'remix ide polkadot hub', 'deploy storage contract remix'. Outcome: Storage contract deployed on Polkadot Hub TestNet.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -9619,7 +9556,6 @@
     {
       "id": "connect-remix-polkadot",
       "title": "Connect Remix IDE to Polkadot Hub",
-      "objective": "Configure Remix IDE to use MetaMask as the injected provider so it can deploy and call contracts on Polkadot Hub TestNet.",
       "description": "Walks the user through selecting the MetaMask injected provider in Remix IDE's Deploy and Run tab to connect the browser-based IDE to Polkadot Hub TestNet. All steps are browser GUI interactions. Use before deploying or testing smart contracts via Remix on Polkadot Hub. Prerequisite: MetaMask must be installed and already configured with Polkadot Hub TestNet (chain ID 420420417) — use the connect-wallet-polkadot-hub skill first if needed. Trigger phrases: 'connect remix to polkadot', 'use remix ide polkadot hub', 'remix metamask polkadot', 'injected provider remix'. Outcome: Remix displays the MetaMask account address and is ready for contract deployment.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -9731,7 +9667,6 @@
     {
       "id": "connect-wallet-polkadot-hub",
       "title": "Connect a Wallet to Polkadot Hub",
-      "objective": "Add Polkadot Hub TestNet to MetaMask or Talisman and switch to it so the wallet is ready for smart contract interactions.",
       "description": "Guides the user through adding Polkadot Hub TestNet (RPC, chain ID 420420417, PAS token) to MetaMask or Talisman and switching the active network. All steps are browser extension GUI interactions. Use before deploying smart contracts, using Remix IDE with Polkadot Hub, or obtaining testnet tokens. Trigger phrases: 'connect metamask polkadot hub', 'add polkadot network metamask', 'set up wallet polkadot testnet', 'configure talisman polkadot hub'. Outcome: wallet shows Polkadot Hub TestNet as active network and is ready for on-chain interactions.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -9854,7 +9789,6 @@
     {
       "id": "use-wagmi-polkadot-hub",
       "title": "Build a Wagmi dApp Connected to Polkadot Hub",
-      "objective": "Create a Next.js 15 + Wagmi v3 dApp that connects a wallet, reads on-chain data, and calls a pre-deployed Storage contract on Polkadot Hub TestNet.",
       "description": "Scaffolds a Next.js 15 application with Wagmi v3 and viem, configures the Polkadot Hub TestNet chain, and implements wallet connection, block-number polling (useBlockNumber), and Storage contract read/write (useReadContract + useWriteContract). Use when building EVM dApps that target Polkadot Hub using the Wagmi React hooks library. Key capabilities: project scaffold with create-next-app, WagmiProvider setup, custom chain config for Polkadot Hub TestNet (chain ID 420420417), wallet connector UI, contract interaction hooks. Trigger phrases: 'wagmi polkadot', 'next.js wagmi dapp', 'wagmi contract interaction', 'useReadContract polkadot', 'wagmi v3 tutorial'. All wallet and browser steps are delegated to the user. No reference cookbook repo — all code is inlined in the steps.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -10032,7 +9966,6 @@
     {
       "id": "deploy-interact-contracts-web3py",
       "title": "Deploy and Interact with Smart Contracts on Polkadot Hub Using Web3.py",
-      "objective": "Compile a Solidity Storage contract with py-solc-x, deploy it to Polkadot Hub TestNet using Web3.py, and call its store/retrieve functions from Python scripts.",
       "description": "Python workflow for compiling Solidity contracts with py-solc-x, deploying them to Polkadot Hub TestNet (chain ID 420420417) using Web3.py, and reading/writing contract state. Uses a Python virtualenv, .env file for the private key, and three scripts: compile.py, deploy.py, interact.py. Use when your project is Python-based and you need EVM contract interaction without Node.js. Key capabilities: virtualenv setup, py-solc-x Solidity compilation, Web3.py contract deployment, transaction signing with a local account, contract function calls. NOTE: Web3.js (the JavaScript library) has been sunset — for new JavaScript/TypeScript projects prefer Ethers.js or viem. This skill covers Web3.py (Python), which is actively maintained. Trigger phrases: 'web3.py polkadot', 'python smart contract deployment', 'deploy contract python', 'web3 python tutorial'.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -10205,7 +10138,6 @@
     {
       "id": "interact-erc20-precompile-polkadot-hub",
       "title": "Interact with the ERC-20 Precompile on Polkadot Hub via Remix",
-      "objective": "Use Remix IDE to load the ERC-20 precompile interface and call balanceOf, transfer, and approve on the native PAS token wrapped as an ERC-20 on Polkadot Hub TestNet.",
       "description": "Guides through using the ERC-20 precompile on Polkadot Hub, which wraps the native PAS token as an ERC-20 compatible interface at a fixed precompile address. Workflow: connect MetaMask to Polkadot Hub TestNet, load the precompile ABI in Remix IDE, and call read functions (balanceOf, allowance) and write functions (transfer, approve, transferFrom). Use when you need to interact with native PAS as an ERC-20 token from a Solidity contract or Remix. Key capabilities: MetaMask wallet connection, Remix At Address deployment against precompile, ERC-20 standard function calls on the native token. NOTE: The exact precompile address is documented in the source page — load https://docs.polkadot.com/ai/pages/smart-contracts-precompiles-erc20.md to find it. Trigger phrases: 'erc20 precompile polkadot', 'native token as erc20', 'pas erc20 interface', 'precompile erc20 remix'.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -10350,7 +10282,6 @@
     {
       "id": "interact-storage-precompile-remix",
       "title": "Interact with the Storage Precompile on Polkadot Hub via Remix",
-      "objective": "Use Remix IDE to load the Storage precompile interface and call setBytes/getBytes to store and retrieve arbitrary byte values keyed by bytes32 on Polkadot Hub TestNet.",
       "description": "Six-step workflow for using the Storage precompile on Polkadot Hub via Remix IDE. The Storage precompile provides a persistent key-value store accessible from smart contracts, mapping bytes32 keys to bytes values. Workflow: connect MetaMask, find the precompile address from the source page, create the precompile interface in Remix, load it via At Address, and call setBytes/getBytes. Use when you need on-chain persistent storage accessible directly from precompile calls without deploying a storage contract. Key capabilities: bytes32 key encoding, bytes value storage, Storage precompile ABI definition in Remix, MetaMask transaction signing. NOTE: The exact precompile address is documented in the source page — load https://docs.polkadot.com/ai/pages/smart-contracts-precompiles-storage.md to find it. Trigger phrases: 'storage precompile polkadot', 'setBytes getBytes precompile', 'polkadot hub key value storage', 'precompile storage remix'.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -10495,7 +10426,6 @@
     {
       "id": "interact-system-precompile-remix",
       "title": "Interact with the System Precompile on Polkadot Hub via Remix",
-      "objective": "Use Remix IDE to load the System precompile interface and call BLAKE2 hashing, sr25519 signature verification, and account/contract lifecycle functions on Polkadot Hub TestNet.",
       "description": "Guides through using the System precompile on Polkadot Hub via Remix IDE. The System precompile exposes Substrate-native operations to EVM contracts: BLAKE2b/BLAKE2s hashing, sr25519 signature verification, account existence checks, and contract lifecycle operations (self-destruct, code retrieval). Workflow: connect MetaMask, find the precompile address from the source page, create the interface in Remix, load it via At Address, and call individual functions. NOTE: Several example inputs (sig, pubKey) are placeholder values — the step descriptions mark these as INSERT_SIGNATURE and INSERT_PUBLIC_KEY with instructions on how to obtain them. NOTE: The exact precompile address is documented in the source page — load https://docs.polkadot.com/ai/pages/smart-contracts-precompiles-system.md to find it. Use when you need Substrate cryptographic primitives from an EVM contract. Trigger phrases: 'system precompile polkadot', 'blake2 hash solidity', 'sr25519 verification evm', 'polkadot hub system precompile remix'.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -10648,7 +10578,6 @@
     {
       "id": "interact-xcm-precompile-remix",
       "title": "Interact with the XCM Precompile via Remix IDE",
-      "objective": "Weigh, execute, and send XCM messages from a Solidity smart contract using the XCM precompile on Polkadot Hub via Remix IDE.",
       "description": "Guides you through creating an IXcm Solidity interface in Remix, loading the XCM precompile, and calling weighMessage, execute, and send functions. Use when you need to test XCM message dispatch from a smart contract, estimate XCM execution weight, or send cross-chain messages from Polkadot Hub via Solidity. All interaction is browser-based using Remix IDE with MetaMask. Trigger phrases: 'XCM precompile', 'send XCM from contract', 'weighMessage', 'xcm execute', 'cross-chain from Solidity', 'IXcm interface'. Output: XCM weight estimates and on-chain transaction receipts.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -10804,7 +10733,6 @@
     {
       "id": "manage-validator-session-keys",
       "title": "Manage Validator Session Keys and Node Key",
-      "objective": "Generate and register session keys for a Polkadot validator node by calling the rotate_keys RPC and submitting the set_keys extrinsic on-chain.",
       "description": "Walks through generating new session keys on a running Polkadot validator via the local RPC endpoint, recording the output hex, and submitting the set_keys extrinsic on-chain via Polkadot.js Apps. Also covers generating a static node key for a consistent P2P peer ID. Use after setting up a validator node (see set-up-polkadot-validator-node skill) or when rotating keys for security maintenance. Trigger phrases: 'rotate session keys', 'set_keys validator', 'generate node key', 'validator key management', 'author_rotateKeys'. Prerequisite: a fully synced validator node with RPC port 9944 bound to localhost.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -10939,7 +10867,6 @@
     {
       "id": "upgrade-validator-node-backup",
       "title": "Upgrade a Validator Node Using a Backup Server",
-      "objective": "Safely rotate a Polkadot validator from the primary server to a backup server across two session boundaries to perform maintenance without incurring slashing penalties.",
       "description": "Guides through the zero-downtime validator upgrade process using two servers (Validator A and Validator B). Session keys are rotated to Validator B in session N, take effect in session N+2, and Validator A is taken offline in session N+3 for maintenance. Use when upgrading the Polkadot binary, patching the OS, or replacing hardware on an active validator without missing blocks. Trigger phrases: 'upgrade validator', 'validator maintenance', 'rotate validator backup', 'zero-downtime validator upgrade'. Requires two fully configured validator servers and an active on-chain validator stash.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -11080,7 +11007,6 @@
     {
       "id": "deploy-parachain-to-polkadot-testnet",
       "title": "Deploy a Parachain to the Polkadot TestNet (Paseo)",
-      "objective": "Register a Polkadot SDK parachain on Paseo TestNet by reserving a para ID, building chain specs, exporting genesis data, registering a parathread, and starting a collator.",
       "description": "Covers the end-to-end parachain launch workflow on Paseo TestNet: obtain PAS tokens, reserve a para ID via Polkadot.js Apps, generate collator keys with subkey (Docker), build plain and raw chain specs with chain-spec-builder, export genesis wasm and state with polkadot-omni-node, register a parathread on-chain, generate a node key, start the collator, and insert session keys via RPC. Use this skill after completing the set-up-parachain-template skill. Trigger phrases: 'deploy parachain', 'register parachain Paseo', 'launch parachain TestNet', 'reserve para ID', 'parachain registration'. Part of the three-page launch series: set-up-the-parachain-template to deploy-to-polkadot to obtain-coretime.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -11281,7 +11207,6 @@
     {
       "id": "obtain-coretime-parachain",
       "title": "Obtain Coretime for a Parachain",
-      "objective": "Activate block production for a registered parachain by purchasing on-demand or bulk coretime on Paseo TestNet.",
       "description": "Guides through obtaining Polkadot coretime for a registered parathread: placing on-demand coretime orders via the Polkadot.js Apps onDemandAssignmentProvider extrinsic, or purchasing and assigning bulk coretime via the RegionX marketplace. Use after the parachain is registered on TestNet (see deploy-parachain-to-polkadot-testnet skill). Trigger phrases: 'obtain coretime', 'on-demand coretime', 'bulk coretime', 'parachain block production', 'RegionX', 'placeOrderAllowDeath'. All steps are GUI-driven. workflow_pattern: conditional-branch — choose on-demand (step 2) or bulk (steps 3-4).",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -11418,7 +11343,6 @@
     {
       "id": "get-testnet-tokens-faucet",
       "title": "Get TestNet Tokens from the Polkadot Faucet",
-      "objective": "Fund an EVM wallet address with PAS test tokens on Polkadot Hub TestNet (chain ID 420420417) using the Polkadot faucet UI.",
       "description": "Guides the user through the three-step Polkadot Hub TestNet faucet workflow: navigate to the faucet site, enter an EVM address, and submit the token request. Use when a deployment or contract tutorial requires a funded account and the user does not yet have testnet tokens. Trigger phrases: 'get test tokens', 'fund my wallet', 'need PAS tokens', 'Polkadot faucet', 'testnet tokens'. Output: the specified EVM address is credited with PAS tokens on Polkadot Hub TestNet (chain ID 420420417). Note: this is a browser UI workflow that must be delegated to the user.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -11518,7 +11442,6 @@
     {
       "id": "renew-parachain-coretime",
       "title": "Renew Coretime for a Parachain",
-      "objective": "Renew or configure auto-renewal of a parachain's bulk coretime lease before expiry using Polkadot.js Apps.",
       "description": "Guides operators through renewing an existing bulk coretime lease: manually via the broker.renew extrinsic, or automatically via the enable_auto_renew XCM call from the parachain to the Coretime chain. Use when a parachain's coretime region is approaching its end block and the operator wants to maintain continuous block production. Trigger phrases: 'renew coretime', 'coretime expiry', 'auto-renew parachain', 'broker.renew', 'enable_auto_renew'. Prerequisites: existing parachain with active bulk coretime; DOT/PAS for fees; Polkadot.js Apps with connected operator account. Note: entirely GUI-driven via Polkadot.js Apps — all steps must be delegated to the user.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -11636,7 +11559,6 @@
     {
       "id": "unlock-parachain-via-xcm",
       "title": "Unlock a Parachain via XCM",
-      "objective": "Remove a manager lock on a parachain by sending a registrar.removeLock XCM call from the parachain to the relay chain using sudo via Polkadot.js Apps.",
       "description": "Walks operators through unlocking a locked parachain: verify lock status via Chain State, encode the registrar.removeLock extrinsic, fund the sovereign account, and submit the XCM message via sudo. Use when a parachain is stuck in a locked state after initial onboarding and needs to transition to self-managing. Trigger phrases: 'unlock parachain', 'remove parachain lock', 'registrar.removeLock', 'parachain locked', 'parachain stuck'. Prerequisites: running parachain with sudo access; sovereign account funded on relay chain; Polkadot.js Apps. Note: entirely GUI-driven via Polkadot.js Apps — all steps must be delegated to the user.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -11761,7 +11683,6 @@
     {
       "id": "connect-polkadot-hub-testnet",
       "title": "Connect to Polkadot Hub and Get Test Tokens",
-      "objective": "Add Polkadot Hub TestNet to MetaMask and fund an EVM address with PAS test tokens to prepare a smart contract development environment.",
       "description": "Provides Polkadot Hub TestNet and MainNet network parameters and walks through adding the network to MetaMask and requesting PAS test tokens from the faucet. Use when setting up a new smart contract development environment or when a skill needs TestNet connection reference data (RPC URLs, WSS endpoints, chain IDs). Trigger phrases: 'connect to Polkadot Hub', 'add TestNet to MetaMask', 'Polkadot Hub network config', 'chain ID 420420417', 'configure RPC endpoint'. Output: MetaMask configured with Polkadot Hub TestNet (chain ID 420420417) and account funded with PAS. This skill is primarily a network reference — consult it for endpoint URLs and chain IDs needed by other skills.",
       "version": "1.0.0",
       "chain_role": "isolated",
@@ -11864,7 +11785,6 @@
     {
       "id": "start-validating-on-polkadot",
       "title": "Start Validating on Polkadot",
-      "objective": "Sync a Polkadot validator node with the relay chain, bond DOT tokens, activate the validator via Polkadot.js Apps, and configure the node as a persistent systemd service.",
       "description": "Syncs a Polkadot validator node with the relay chain, bonds DOT tokens via Polkadot.js Apps, activates the validator, and configures it as a persistent systemd service. Use after completing node setup and session key registration (see set-up-polkadot-validator-node and manage-validator-session-keys). Key capabilities: full and warp sync options with progress monitoring; GUI bonding and activation steps delegated to the user; systemd unit file creation for auto-restarting operation; recovery guidance for zero-peer and stuck-waiting scenarios. Trigger phrases: 'start validating', 'bond DOT validator', 'activate my validator', 'run validator systemd', 'sync validator node', 'validator waiting set'.",
       "version": "1.0.0",
       "chain_role": "isolated",

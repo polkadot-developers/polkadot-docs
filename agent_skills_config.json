@@ -1,7 +1,7 @@
 {
   "schema_version": "0.1",
   "generated": "2026-04-21T23:59:00Z",
-  "content_hash": "sha256:4770f91e559f9061cd2bf50273a9c7f8edb3efe619521f568db5c067b4435b81",
+  "content_hash": "sha256:1138555008efd84c3ac8e011bac8118ddcfc53c34dc0c219ee38deb16133bca3",
   "project": {
     "name": "Polkadot Developer Docs"
   },
@@ -99,13 +99,13 @@
           {
             "slug": "chain-interactions-send-transactions-with-sdks",
             "title": "Send Transactions with SDKs",
-            "url": "https://docs.polkadot.com/ai/pages/chain-interactions-send-transactions-with-sdks.md",
+            "url": "https://docs.polkadot.com/chain-interactions/send-transactions/with-sdks.md",
             "relevance": "How to use the newly created account to sign and submit transactions on Polkadot Hub."
           },
           {
             "slug": "chain-interactions-accounts-query-accounts",
             "title": "Query Account Information with SDKs",
-            "url": "https://docs.polkadot.com/ai/pages/chain-interactions-accounts-query-accounts.md",
+            "url": "https://docs.polkadot.com/chain-interactions/accounts/query-accounts.md",
             "relevance": "How to query the balance and account state of the newly created account."
           }
         ]
@@ -240,13 +240,13 @@
           {
             "slug": "reference-tools-papi",
             "title": "Polkadot-API",
-            "url": "https://docs.polkadot.com/ai/pages/reference-tools-papi.md",
+            "url": "https://docs.polkadot.com/reference/tools/papi.md",
             "relevance": "Full PAPI API reference for understanding query methods and typed API usage."
           },
           {
             "slug": "chain-interactions-send-transactions-with-sdks",
             "title": "Send Transactions with SDKs",
-            "url": "https://docs.polkadot.com/ai/pages/chain-interactions-send-transactions-with-sdks.md",
+            "url": "https://docs.polkadot.com/chain-interactions/send-transactions/with-sdks.md",
             "relevance": "How to send a transaction from the account after verifying its balance."
           }
         ]
@@ -393,13 +393,13 @@
           {
             "slug": "reference-tools-papi",
             "title": "Polkadot-API",
-            "url": "https://docs.polkadot.com/ai/pages/reference-tools-papi.md",
+            "url": "https://docs.polkadot.com/reference/tools/papi.md",
             "relevance": "Full PAPI API reference for understanding storage query methods and typed API patterns."
           },
           {
             "slug": "chain-interactions-query-data-runtime-api-calls",
             "title": "Runtime API Calls",
-            "url": "https://docs.polkadot.com/ai/pages/chain-interactions-query-data-runtime-api-calls.md",
+            "url": "https://docs.polkadot.com/chain-interactions/query-data/runtime-api-calls.md",
             "relevance": "How to call runtime APIs for computed results (e.g., nonce, fee estimation) beyond static storage reads."
           }
         ]
@@ -534,13 +534,13 @@
           {
             "slug": "chain-interactions-query-data-query-sdks",
             "title": "Query On-Chain State with SDKs",
-            "url": "https://docs.polkadot.com/ai/pages/chain-interactions-query-data-query-sdks.md",
+            "url": "https://docs.polkadot.com/chain-interactions/query-data/query-sdks.md",
             "relevance": "Storage-based queries using the same PAPI setup — compare with runtime API calls."
           },
           {
             "slug": "reference-tools-papi",
             "title": "Polkadot-API",
-            "url": "https://docs.polkadot.com/ai/pages/reference-tools-papi.md",
+            "url": "https://docs.polkadot.com/reference/tools/papi.md",
             "relevance": "Full PAPI reference listing all available runtime APIs and their method signatures."
           }
         ]
@@ -718,19 +718,19 @@
           {
             "slug": "smart-contracts-faucet",
             "title": "Get Tokens from the Official Faucet",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-faucet.md",
+            "url": "https://docs.polkadot.com/smart-contracts/faucet.md",
             "relevance": "How to obtain testnet PAS tokens from the Polkadot faucet."
           },
           {
             "slug": "chain-interactions-send-transactions-calculate-transaction-fees",
             "title": "Calculate Transaction Fees",
-            "url": "https://docs.polkadot.com/ai/pages/chain-interactions-send-transactions-calculate-transaction-fees.md",
+            "url": "https://docs.polkadot.com/chain-interactions/send-transactions/calculate-transaction-fees.md",
             "relevance": "How to estimate transaction fees before submitting to avoid insufficient balance errors."
           },
           {
             "slug": "chain-interactions-accounts-create-account",
             "title": "Create an Account",
-            "url": "https://docs.polkadot.com/ai/pages/chain-interactions-accounts-create-account.md",
+            "url": "https://docs.polkadot.com/chain-interactions/accounts/create-account.md",
             "relevance": "How to create a new Polkadot account if the user does not yet have a sender mnemonic."
           }
         ]
@@ -876,13 +876,13 @@
           {
             "slug": "parachains-launch-a-parachain-set-up-the-parachain-template",
             "title": "Set Up the Polkadot SDK Parachain Template",
-            "url": "https://docs.polkadot.com/ai/pages/parachains-launch-a-parachain-set-up-the-parachain-template.md",
+            "url": "https://docs.polkadot.com/parachains/launch-a-parachain/set-up-the-parachain-template.md",
             "relevance": "Next step after SDK installation: clone and run the Polkadot SDK parachain template locally."
           },
           {
             "slug": "parachains-get-started",
             "title": "Get Started with Parachain Development",
-            "url": "https://docs.polkadot.com/ai/pages/parachains-get-started.md",
+            "url": "https://docs.polkadot.com/parachains/get-started.md",
             "relevance": "Overview of parachain development paths and starting points available after SDK setup."
           }
         ]
@@ -1082,13 +1082,13 @@
           {
             "slug": "smart-contracts-cookbook-smart-contracts-deploy-erc20-erc20-hardhat",
             "title": "Deploy an ERC-20 Using Hardhat",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-cookbook-smart-contracts-deploy-erc20-erc20-hardhat.md",
+            "url": "https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-hardhat.md",
             "relevance": "Next step: deploy an ERC-20 token using the same Hardhat workflow."
           },
           {
             "slug": "smart-contracts-dev-environments-hardhat",
             "title": "Use Hardhat with Polkadot Hub",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-dev-environments-hardhat.md",
+            "url": "https://docs.polkadot.com/smart-contracts/dev-environments/hardhat.md",
             "relevance": "Hardhat configuration reference for Polkadot Hub including verification setup."
           }
         ]
@@ -1253,13 +1253,13 @@
           {
             "slug": "smart-contracts-cookbook-dapps-zero-to-hero",
             "title": "Zero to Hero Smart Contract DApp",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-cookbook-dapps-zero-to-hero.md",
+            "url": "https://docs.polkadot.com/smart-contracts/cookbook/dapps/zero-to-hero.md",
             "relevance": "Build a full dApp (Next.js + Viem) on top of a deployed smart contract."
           },
           {
             "slug": "smart-contracts-libraries-ethers-js",
             "title": "Deploy Contracts to Polkadot Hub with Ethers.js",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-libraries-ethers-js.md",
+            "url": "https://docs.polkadot.com/smart-contracts/libraries/ethers-js.md",
             "relevance": "How to interact with the deployed ERC-20 contract using Ethers.js."
           }
         ]
@@ -1445,13 +1445,13 @@
           {
             "slug": "smart-contracts-cookbook-smart-contracts-deploy-basic-basic-hardhat",
             "title": "Deploy a Basic Contract with Hardhat",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-cookbook-smart-contracts-deploy-basic-basic-hardhat.md",
+            "url": "https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-basic/basic-hardhat.md",
             "relevance": "Next step: deploy a basic contract once the Hardhat PVM environment is set up."
           },
           {
             "slug": "smart-contracts-for-eth-devs-evm-vs-pvm",
             "title": "EVM vs PVM",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-for-eth-devs-evm-vs-pvm.md",
+            "url": "https://docs.polkadot.com/smart-contracts/for-eth-devs/evm-vs-pvm.md",
             "relevance": "Understand the differences between EVM and PVM to choose the right compilation target."
           }
         ]
@@ -1602,13 +1602,13 @@
           {
             "slug": "smart-contracts-cookbook-smart-contracts-deploy-basic-basic-hardhat",
             "title": "Deploy a Basic Contract with Hardhat",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-cookbook-smart-contracts-deploy-basic-basic-hardhat.md",
+            "url": "https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-basic/basic-hardhat.md",
             "relevance": "Next step: deploy a basic Storage contract using the configured Hardhat project."
           },
           {
             "slug": "smart-contracts-cookbook-smart-contracts-deploy-erc20-erc20-hardhat",
             "title": "Deploy an ERC-20 Using Hardhat",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-cookbook-smart-contracts-deploy-erc20-erc20-hardhat.md",
+            "url": "https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-hardhat.md",
             "relevance": "Deploy an ERC-20 token using the configured Hardhat environment."
           }
         ]
@@ -1749,19 +1749,19 @@
           {
             "slug": "chain-interactions-query-data-query-sdks",
             "title": "Query On-Chain State with SDKs",
-            "url": "https://docs.polkadot.com/ai/pages/chain-interactions-query-data-query-sdks.md",
+            "url": "https://docs.polkadot.com/chain-interactions/query-data/query-sdks.md",
             "relevance": "SDK-based alternative to Sidecar — query the same on-chain data using PAPI or Polkadot.js TypeScript code."
           },
           {
             "slug": "reference-tools-sidecar",
             "title": "Sidecar REST API",
-            "url": "https://docs.polkadot.com/ai/pages/reference-tools-sidecar.md",
+            "url": "https://docs.polkadot.com/reference/tools/sidecar.md",
             "relevance": "Full Sidecar API reference listing all available endpoints, query parameters, and response schemas."
           },
           {
             "slug": "chain-interactions-accounts-query-accounts",
             "title": "Query Account Information with SDKs",
-            "url": "https://docs.polkadot.com/ai/pages/chain-interactions-accounts-query-accounts.md",
+            "url": "https://docs.polkadot.com/chain-interactions/accounts/query-accounts.md",
             "relevance": "SDK approach to querying the same account balance data returned by the Sidecar balance-info endpoint."
           }
         ]
@@ -1892,13 +1892,13 @@
           {
             "slug": "chain-interactions-send-transactions-with-sdks",
             "title": "Send Transactions with SDKs",
-            "url": "https://docs.polkadot.com/ai/pages/chain-interactions-send-transactions-with-sdks.md",
+            "url": "https://docs.polkadot.com/chain-interactions/send-transactions/with-sdks.md",
             "relevance": "How to sign and submit the same transaction whose fee was estimated — the natural next step."
           },
           {
             "slug": "reference-tools-papi",
             "title": "Polkadot-API",
-            "url": "https://docs.polkadot.com/ai/pages/reference-tools-papi.md",
+            "url": "https://docs.polkadot.com/reference/tools/papi.md",
             "relevance": "Full PAPI reference including getPaymentInfo signatures and other typed transaction methods."
           }
         ]
@@ -2054,19 +2054,19 @@
           {
             "slug": "chain-interactions-send-transactions-interoperability-estimate-xcm-fees",
             "title": "XCM Fee Estimation",
-            "url": "https://docs.polkadot.com/ai/pages/chain-interactions-send-transactions-interoperability-estimate-xcm-fees.md",
+            "url": "https://docs.polkadot.com/chain-interactions/send-transactions/interoperability/estimate-xcm-fees.md",
             "relevance": "Detailed XCM fee estimation covering local, delivery, and remote execution components."
           },
           {
             "slug": "reference-tools-paraspell",
             "title": "ParaSpell XCM SDK",
-            "url": "https://docs.polkadot.com/ai/pages/reference-tools-paraspell.md",
+            "url": "https://docs.polkadot.com/reference/tools/paraspell.md",
             "relevance": "Full ParaSpell SDK reference including supported chains, asset IDs, and Builder API documentation."
           },
           {
             "slug": "chain-interactions-send-transactions-interoperability-debug-and-preview-xcms",
             "title": "Replay and Dry Run XCMs",
-            "url": "https://docs.polkadot.com/ai/pages/chain-interactions-send-transactions-interoperability-debug-and-preview-xcms.md",
+            "url": "https://docs.polkadot.com/chain-interactions/send-transactions/interoperability/debug-and-preview-xcms.md",
             "relevance": "How to debug a failing XCM transfer by replaying it with Chopsticks before submitting to TestNet."
           }
         ]
@@ -2208,13 +2208,13 @@
           {
             "slug": "reference-tools-chopsticks",
             "title": "Chopsticks",
-            "url": "https://docs.polkadot.com/ai/pages/reference-tools-chopsticks.md",
+            "url": "https://docs.polkadot.com/reference/tools/chopsticks.md",
             "relevance": "Full Chopsticks reference including all config options, RPC override methods, and mock-signature-host details."
           },
           {
             "slug": "chain-interactions-send-transactions-calculate-transaction-fees",
             "title": "Calculate Transaction Fees",
-            "url": "https://docs.polkadot.com/ai/pages/chain-interactions-send-transactions-calculate-transaction-fees.md",
+            "url": "https://docs.polkadot.com/chain-interactions/send-transactions/calculate-transaction-fees.md",
             "relevance": "How to estimate fees for a standard transaction — compare with the fee proxy approach to understand the difference."
           }
         ]
@@ -2351,19 +2351,19 @@
           {
             "slug": "node-infrastructure-run-a-node-polkadot-hub-rpc",
             "title": "Run an RPC Node for Polkadot Hub",
-            "url": "https://docs.polkadot.com/ai/pages/node-infrastructure-run-a-node-polkadot-hub-rpc.md",
+            "url": "https://docs.polkadot.com/node-infrastructure/run-a-node/polkadot-hub-rpc.md",
             "relevance": "How to run an RPC node for Polkadot Hub specifically — different chain spec and optional Ethereum RPC adapter."
           },
           {
             "slug": "node-infrastructure-run-a-node-relay-chain-secure-wss",
             "title": "Set Up Secure WebSocket",
-            "url": "https://docs.polkadot.com/ai/pages/node-infrastructure-run-a-node-relay-chain-secure-wss.md",
+            "url": "https://docs.polkadot.com/node-infrastructure/run-a-node/relay-chain/secure-wss.md",
             "relevance": "How to add a WSS (TLS) reverse proxy in front of the RPC port using nginx — required for production endpoints."
           },
           {
             "slug": "node-infrastructure-run-a-node-relay-chain-full-node",
             "title": "Set Up a Node",
-            "url": "https://docs.polkadot.com/ai/pages/node-infrastructure-run-a-node-relay-chain-full-node.md",
+            "url": "https://docs.polkadot.com/node-infrastructure/run-a-node/relay-chain/full-node.md",
             "relevance": "How to run a standalone Polkadot relay chain full node, separate from the embedded relay client."
           }
         ]
@@ -2498,19 +2498,19 @@
           {
             "slug": "chain-interactions-send-transactions-interoperability-estimate-xcm-fees",
             "title": "XCM Fee Estimation",
-            "url": "https://docs.polkadot.com/ai/pages/chain-interactions-send-transactions-interoperability-estimate-xcm-fees.md",
+            "url": "https://docs.polkadot.com/chain-interactions/send-transactions/interoperability/estimate-xcm-fees.md",
             "relevance": "How to estimate XCM fees before submission — helps diagnose BuyExecution failures in a dry-run."
           },
           {
             "slug": "reference-tools-chopsticks",
             "title": "Chopsticks",
-            "url": "https://docs.polkadot.com/ai/pages/reference-tools-chopsticks.md",
+            "url": "https://docs.polkadot.com/reference/tools/chopsticks.md",
             "relevance": "Full Chopsticks reference including all config options, block forking, and RPC override methods."
           },
           {
             "slug": "chain-interactions-send-transactions-interoperability-transfer-assets-parachains",
             "title": "Transfer Assets Between Parachains",
-            "url": "https://docs.polkadot.com/ai/pages/chain-interactions-send-transactions-interoperability-transfer-assets-parachains.md",
+            "url": "https://docs.polkadot.com/chain-interactions/send-transactions/interoperability/transfer-assets-parachains.md",
             "relevance": "How to submit a real XCM transfer between parachains — use after debugging with Chopsticks."
           }
         ]
@@ -2655,19 +2655,19 @@
           {
             "slug": "chain-interactions-send-transactions-interoperability-debug-and-preview-xcms",
             "title": "Replay and Dry Run XCMs",
-            "url": "https://docs.polkadot.com/ai/pages/chain-interactions-send-transactions-interoperability-debug-and-preview-xcms.md",
+            "url": "https://docs.polkadot.com/chain-interactions/send-transactions/interoperability/debug-and-preview-xcms.md",
             "relevance": "How to dry-run a full XCM message after fee estimation to verify it executes correctly before submitting."
           },
           {
             "slug": "chain-interactions-send-transactions-interoperability-transfer-assets-parachains",
             "title": "Transfer Assets Between Parachains",
-            "url": "https://docs.polkadot.com/ai/pages/chain-interactions-send-transactions-interoperability-transfer-assets-parachains.md",
+            "url": "https://docs.polkadot.com/chain-interactions/send-transactions/interoperability/transfer-assets-parachains.md",
             "relevance": "How to submit the actual XCM teleport transfer once fees are estimated and verified."
           },
           {
             "slug": "reference-tools-chopsticks",
             "title": "Chopsticks",
-            "url": "https://docs.polkadot.com/ai/pages/reference-tools-chopsticks.md",
+            "url": "https://docs.polkadot.com/reference/tools/chopsticks.md",
             "relevance": "Full Chopsticks reference including multi-chain fork setup, config options, and mock-signature details."
           }
         ]
@@ -2802,7 +2802,7 @@
           {
             "slug": "parachains-install-polkadot-sdk",
             "title": "Install Polkadot SDK",
-            "url": "https://docs.polkadot.com/ai/pages/parachains-install-polkadot-sdk.md",
+            "url": "https://docs.polkadot.com/parachains/install-polkadot-sdk.md",
             "relevance": "Prerequisite: install Rust, system dependencies, and the Polkadot SDK build environment before building the template."
           },
           {
@@ -2814,7 +2814,7 @@
           {
             "slug": "reference-parachains-networks",
             "title": "Networks",
-            "url": "https://docs.polkadot.com/ai/pages/reference-parachains-networks.md",
+            "url": "https://docs.polkadot.com/reference/parachains/networks.md",
             "relevance": "Network endpoints and chain IDs for Paseo testnet and Polkadot mainnet parachain environments."
           }
         ]
@@ -2968,19 +2968,19 @@
           {
             "slug": "node-infrastructure-run-a-node-parachain-rpc",
             "title": "Run a Parachain RPC Node",
-            "url": "https://docs.polkadot.com/ai/pages/node-infrastructure-run-a-node-parachain-rpc.md",
+            "url": "https://docs.polkadot.com/node-infrastructure/run-a-node/parachain-rpc.md",
             "relevance": "How to run a parachain RPC node (non-collator) — useful as reference for the underlying node setup without the collator flags."
           },
           {
             "slug": "node-infrastructure-run-a-node-polkadot-hub-rpc",
             "title": "Run an RPC Node for Polkadot Hub",
-            "url": "https://docs.polkadot.com/ai/pages/node-infrastructure-run-a-node-polkadot-hub-rpc.md",
+            "url": "https://docs.polkadot.com/node-infrastructure/run-a-node/polkadot-hub-rpc.md",
             "relevance": "How to run an RPC node specifically for Polkadot Hub — includes Ethereum RPC adapter setup."
           },
           {
             "slug": "node-infrastructure-run-a-node-relay-chain-full-node",
             "title": "Set Up a Node",
-            "url": "https://docs.polkadot.com/ai/pages/node-infrastructure-run-a-node-relay-chain-full-node.md",
+            "url": "https://docs.polkadot.com/node-infrastructure/run-a-node/relay-chain/full-node.md",
             "relevance": "How to run a standalone Polkadot relay chain full node, which the embedded relay chain client in the collator replaces."
           }
         ]
@@ -3128,19 +3128,19 @@
           {
             "slug": "node-infrastructure-run-a-node-parachain-rpc",
             "title": "Run a Parachain RPC Node",
-            "url": "https://docs.polkadot.com/ai/pages/node-infrastructure-run-a-node-parachain-rpc.md",
+            "url": "https://docs.polkadot.com/node-infrastructure/run-a-node/parachain-rpc.md",
             "relevance": "How to run RPC nodes for other system parachains (People Chain, Collectives, BridgeHub) using the same polkadot-parachain binary."
           },
           {
             "slug": "node-infrastructure-run-a-node-relay-chain-secure-wss",
             "title": "Set Up Secure WebSocket",
-            "url": "https://docs.polkadot.com/ai/pages/node-infrastructure-run-a-node-relay-chain-secure-wss.md",
+            "url": "https://docs.polkadot.com/node-infrastructure/run-a-node/relay-chain/secure-wss.md",
             "relevance": "How to add a WSS (TLS) reverse proxy in front of the RPC port using nginx — required for production endpoints."
           },
           {
             "slug": "node-infrastructure-run-a-node-relay-chain-full-node",
             "title": "Set Up a Node",
-            "url": "https://docs.polkadot.com/ai/pages/node-infrastructure-run-a-node-relay-chain-full-node.md",
+            "url": "https://docs.polkadot.com/node-infrastructure/run-a-node/relay-chain/full-node.md",
             "relevance": "How to run a standalone Polkadot relay chain full node, separate from the embedded relay client."
           }
         ]
@@ -3263,19 +3263,19 @@
           {
             "slug": "node-infrastructure-run-a-node-relay-chain-secure-wss",
             "title": "Set Up Secure WebSocket",
-            "url": "https://docs.polkadot.com/ai/pages/node-infrastructure-run-a-node-relay-chain-secure-wss.md",
+            "url": "https://docs.polkadot.com/node-infrastructure/run-a-node/relay-chain/secure-wss.md",
             "relevance": "Detailed guide for adding nginx or Apache2 SSL/TLS reverse proxy to any Polkadot node WebSocket endpoint."
           },
           {
             "slug": "node-infrastructure-run-a-node-relay-chain-full-node",
             "title": "Set Up a Node",
-            "url": "https://docs.polkadot.com/ai/pages/node-infrastructure-run-a-node-relay-chain-full-node.md",
+            "url": "https://docs.polkadot.com/node-infrastructure/run-a-node/relay-chain/full-node.md",
             "relevance": "How to run a full Polkadot relay chain node using the same binary with different role flags."
           },
           {
             "slug": "node-infrastructure-run-a-validator-onboarding-and-offboarding-set-up-validator",
             "title": "Set Up a Validator",
-            "url": "https://docs.polkadot.com/ai/pages/node-infrastructure-run-a-validator-onboarding-and-offboarding-set-up-validator.md",
+            "url": "https://docs.polkadot.com/node-infrastructure/run-a-validator/onboarding-and-offboarding/set-up-validator.md",
             "relevance": "How to install the polkadot binary on the server if it is not yet available."
           }
         ]
@@ -3412,25 +3412,25 @@
           {
             "slug": "node-infrastructure-run-a-validator-requirements",
             "title": "Validator Requirements",
-            "url": "https://docs.polkadot.com/ai/pages/node-infrastructure-run-a-validator-requirements.md",
+            "url": "https://docs.polkadot.com/node-infrastructure/run-a-validator/requirements.md",
             "relevance": "Minimum hardware and skill requirements before starting a validator — read before this skill."
           },
           {
             "slug": "node-infrastructure-run-a-validator-onboarding-and-offboarding-key-management",
             "title": "Validator Key Management",
-            "url": "https://docs.polkadot.com/ai/pages/node-infrastructure-run-a-validator-onboarding-and-offboarding-key-management.md",
+            "url": "https://docs.polkadot.com/node-infrastructure/run-a-validator/onboarding-and-offboarding/key-management.md",
             "relevance": "Next step after binary installation: generating and registering session keys."
           },
           {
             "slug": "node-infrastructure-run-a-validator-onboarding-and-offboarding-start-validating",
             "title": "Start Validating",
-            "url": "https://docs.polkadot.com/ai/pages/node-infrastructure-run-a-validator-onboarding-and-offboarding-start-validating.md",
+            "url": "https://docs.polkadot.com/node-infrastructure/run-a-validator/onboarding-and-offboarding/start-validating.md",
             "relevance": "Syncing the node, bonding DOT, and activating the validator after binary setup."
           },
           {
             "slug": "node-infrastructure-run-a-validator-operational-tasks-general-management",
             "title": "General Management",
-            "url": "https://docs.polkadot.com/ai/pages/node-infrastructure-run-a-validator-operational-tasks-general-management.md",
+            "url": "https://docs.polkadot.com/node-infrastructure/run-a-validator/operational-tasks/general-management.md",
             "relevance": "Prometheus and Grafana monitoring stack setup and security best practices for running validators."
           }
         ]
@@ -3569,19 +3569,19 @@
           {
             "slug": "parachains-testing-fork-a-parachain",
             "title": "Fork a Parachain Using Chopsticks",
-            "url": "https://docs.polkadot.com/ai/pages/parachains-testing-fork-a-parachain.md",
+            "url": "https://docs.polkadot.com/parachains/testing/fork-a-parachain.md",
             "relevance": "Step-by-step cookbook tutorial for forking a parachain with Chopsticks — same tool, focused on the parachain testing workflow with a CI-backed example."
           },
           {
             "slug": "chain-interactions-send-transactions-interoperability-debug-and-preview-xcms",
             "title": "Replay and Dry Run XCMs",
-            "url": "https://docs.polkadot.com/ai/pages/chain-interactions-send-transactions-interoperability-debug-and-preview-xcms.md",
+            "url": "https://docs.polkadot.com/chain-interactions/send-transactions/interoperability/debug-and-preview-xcms.md",
             "relevance": "Using Chopsticks to replay and dry-run XCM messages — advanced XCM debugging workflow."
           },
           {
             "slug": "chain-interactions-send-transactions-interoperability-estimate-xcm-fees",
             "title": "XCM Fee Estimation",
-            "url": "https://docs.polkadot.com/ai/pages/chain-interactions-send-transactions-interoperability-estimate-xcm-fees.md",
+            "url": "https://docs.polkadot.com/chain-interactions/send-transactions/interoperability/estimate-xcm-fees.md",
             "relevance": "Estimating XCM fees for teleports using Chopsticks local forks of Polkadot Hub and People Chain."
           }
         ]
@@ -3710,13 +3710,13 @@
           {
             "slug": "reference-tools-chopsticks",
             "title": "Chopsticks",
-            "url": "https://docs.polkadot.com/ai/pages/reference-tools-chopsticks.md",
+            "url": "https://docs.polkadot.com/reference/tools/chopsticks.md",
             "relevance": "Setting up a Chopsticks fork as the 'chopsticks' foundation type for Moonwall tests."
           },
           {
             "slug": "smart-contracts-dev-environments-local-dev-node",
             "title": "Local Development Node",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-dev-environments-local-dev-node.md",
+            "url": "https://docs.polkadot.com/smart-contracts/dev-environments/local-dev-node.md",
             "relevance": "How to run a local development node to use as the 'dev' foundation in Moonwall."
           }
         ]
@@ -3842,19 +3842,19 @@
           {
             "slug": "reference-tools-chopsticks",
             "title": "Chopsticks",
-            "url": "https://docs.polkadot.com/ai/pages/reference-tools-chopsticks.md",
+            "url": "https://docs.polkadot.com/reference/tools/chopsticks.md",
             "relevance": "Full Chopsticks reference page covering all configuration options, block replay, and multi-chain XCM testing."
           },
           {
             "slug": "chain-interactions-send-transactions-interoperability-debug-and-preview-xcms",
             "title": "Replay and Dry Run XCMs",
-            "url": "https://docs.polkadot.com/ai/pages/chain-interactions-send-transactions-interoperability-debug-and-preview-xcms.md",
+            "url": "https://docs.polkadot.com/chain-interactions/send-transactions/interoperability/debug-and-preview-xcms.md",
             "relevance": "Using Chopsticks to replay and dry-run XCM messages for debugging cross-chain transfers."
           },
           {
             "slug": "parachains-testing-run-a-parachain-network",
             "title": "Run a Parachain Network",
-            "url": "https://docs.polkadot.com/ai/pages/parachains-testing-run-a-parachain-network.md",
+            "url": "https://docs.polkadot.com/parachains/testing/run-a-parachain-network.md",
             "relevance": "Alternative testing approach: spawn a full local relay chain + parachain test network using Zombienet."
           }
         ]
@@ -4051,19 +4051,19 @@
           {
             "slug": "smart-contracts-dev-environments-hardhat",
             "title": "Use Hardhat with Polkadot Hub",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-dev-environments-hardhat.md",
+            "url": "https://docs.polkadot.com/smart-contracts/dev-environments/hardhat.md",
             "relevance": "Full Hardhat EVM configuration options for Polkadot Hub, including network settings and contract verification."
           },
           {
             "slug": "smart-contracts-libraries-viem",
             "title": "viem for Polkadot Hub Smart Contracts",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-libraries-viem.md",
+            "url": "https://docs.polkadot.com/smart-contracts/libraries/viem.md",
             "relevance": "Viem library reference for chain config, wallet client, and contract interaction patterns on Polkadot Hub."
           },
           {
             "slug": "smart-contracts-connect",
             "title": "Connect to Polkadot",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-connect.md",
+            "url": "https://docs.polkadot.com/smart-contracts/connect.md",
             "relevance": "Network parameters (RPC URLs, chain IDs, WSS) for Polkadot Hub TestNet and Mainnet."
           }
         ]
@@ -4244,19 +4244,19 @@
           {
             "slug": "smart-contracts-dev-environments-hardhat",
             "title": "Use Hardhat with Polkadot Hub",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-dev-environments-hardhat.md",
+            "url": "https://docs.polkadot.com/smart-contracts/dev-environments/hardhat.md",
             "relevance": "Hardhat EVM configuration options for Polkadot Hub, including network settings and gas configuration."
           },
           {
             "slug": "smart-contracts-dev-environments-local-dev-node",
             "title": "Local Development Node",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-dev-environments-local-dev-node.md",
+            "url": "https://docs.polkadot.com/smart-contracts/dev-environments/local-dev-node.md",
             "relevance": "How to set up a local Polkadot Hub dev node for running tests before deploying to TestNet."
           },
           {
             "slug": "smart-contracts-connect",
             "title": "Connect to Polkadot",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-connect.md",
+            "url": "https://docs.polkadot.com/smart-contracts/connect.md",
             "relevance": "Network parameters for Polkadot Hub TestNet and Mainnet."
           }
         ]
@@ -4389,19 +4389,19 @@
           {
             "slug": "smart-contracts-cookbook-smart-contracts-deploy-erc20-erc20-hardhat",
             "title": "Deploy an ERC-20 Using Hardhat",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-cookbook-smart-contracts-deploy-erc20-erc20-hardhat.md",
+            "url": "https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-hardhat.md",
             "relevance": "CLI-based ERC-20 deployment using Hardhat — use when the user prefers a terminal workflow over Remix."
           },
           {
             "slug": "smart-contracts-connect",
             "title": "Connect to Polkadot",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-connect.md",
+            "url": "https://docs.polkadot.com/smart-contracts/connect.md",
             "relevance": "Network parameters for manually adding Polkadot Hub to MetaMask."
           },
           {
             "slug": "smart-contracts-dev-environments-remix",
             "title": "Use the Remix IDE on Polkadot Hub",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-dev-environments-remix.md",
+            "url": "https://docs.polkadot.com/smart-contracts/dev-environments/remix.md",
             "relevance": "How to connect Remix IDE to Polkadot Hub via MetaMask Injected Provider."
           }
         ]
@@ -4581,19 +4581,19 @@
           {
             "slug": "smart-contracts-connect",
             "title": "Connect to Polkadot",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-connect.md",
+            "url": "https://docs.polkadot.com/smart-contracts/connect.md",
             "relevance": "Network parameters (RPC URLs, chain IDs, WebSocket endpoints) for all Polkadot Hub environments."
           },
           {
             "slug": "smart-contracts-libraries-viem",
             "title": "viem for Polkadot Hub Smart Contracts",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-libraries-viem.md",
+            "url": "https://docs.polkadot.com/smart-contracts/libraries/viem.md",
             "relevance": "Alternative to Ethers.js: Viem deployment pattern for Polkadot Hub (more type-safe, recommended for new projects)."
           },
           {
             "slug": "smart-contracts-cookbook-smart-contracts-deploy-basic-basic-hardhat",
             "title": "Deploy a Basic Contract with Hardhat",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-cookbook-smart-contracts-deploy-basic-basic-hardhat.md",
+            "url": "https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-basic/basic-hardhat.md",
             "relevance": "Hardhat-based deployment workflow — use when the project needs a full Hardhat setup rather than lightweight scripts."
           }
         ]
@@ -4761,19 +4761,19 @@
           {
             "slug": "smart-contracts-connect",
             "title": "Connect to Polkadot",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-connect.md",
+            "url": "https://docs.polkadot.com/smart-contracts/connect.md",
             "relevance": "Network parameters for Polkadot Hub including chain IDs, RPC URLs, and WebSocket endpoints."
           },
           {
             "slug": "smart-contracts-libraries-ethers-js",
             "title": "Deploy Contracts to Polkadot Hub with Ethers.js",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-libraries-ethers-js.md",
+            "url": "https://docs.polkadot.com/smart-contracts/libraries/ethers-js.md",
             "relevance": "Ethers.js equivalent workflow — use when the user prefers Ethers.js v6 over Viem."
           },
           {
             "slug": "smart-contracts-cookbook-dapps-zero-to-hero",
             "title": "Zero to Hero Smart Contract DApp",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-cookbook-dapps-zero-to-hero.md",
+            "url": "https://docs.polkadot.com/smart-contracts/cookbook/dapps/zero-to-hero.md",
             "relevance": "Full-stack dApp tutorial combining Viem with a Next.js frontend — the natural next step after deploying a contract with Viem."
           }
         ]
@@ -4892,13 +4892,13 @@
           {
             "slug": "parachains-customize-runtime-pallet-development-pallet-testing",
             "title": "Unit Test Pallets",
-            "url": "https://docs.polkadot.com/ai/pages/parachains-customize-runtime-pallet-development-pallet-testing.md",
+            "url": "https://docs.polkadot.com/parachains/customize-runtime/pallet-development/pallet-testing.md",
             "relevance": "Next step: write comprehensive unit tests using the mock runtime."
           },
           {
             "slug": "parachains-customize-runtime-pallet-development-create-a-pallet",
             "title": "Create a Custom Pallet",
-            "url": "https://docs.polkadot.com/ai/pages/parachains-customize-runtime-pallet-development-create-a-pallet.md",
+            "url": "https://docs.polkadot.com/parachains/customize-runtime/pallet-development/create-a-pallet.md",
             "relevance": "Prerequisite: the custom counter pallet that this mock runtime is written for."
           }
         ]
@@ -5026,13 +5026,13 @@
           {
             "slug": "parachains-customize-runtime-pallet-development-benchmark-pallet",
             "title": "Benchmark Your Pallet",
-            "url": "https://docs.polkadot.com/ai/pages/parachains-customize-runtime-pallet-development-benchmark-pallet.md",
+            "url": "https://docs.polkadot.com/parachains/customize-runtime/pallet-development/benchmark-pallet.md",
             "relevance": "Next step: benchmark extrinsics and generate production weight files."
           },
           {
             "slug": "parachains-customize-runtime-pallet-development-mock-runtime",
             "title": "Mock Your Runtime",
-            "url": "https://docs.polkadot.com/ai/pages/parachains-customize-runtime-pallet-development-mock-runtime.md",
+            "url": "https://docs.polkadot.com/parachains/customize-runtime/pallet-development/mock-runtime.md",
             "relevance": "Prerequisite: the mock runtime providing new_test_ext helpers and the Test runtime type."
           }
         ]
@@ -5208,13 +5208,13 @@
           {
             "slug": "parachains-customize-runtime-pallet-development-create-a-pallet",
             "title": "Create a Custom Pallet",
-            "url": "https://docs.polkadot.com/ai/pages/parachains-customize-runtime-pallet-development-create-a-pallet.md",
+            "url": "https://docs.polkadot.com/parachains/customize-runtime/pallet-development/create-a-pallet.md",
             "relevance": "The custom counter pallet being benchmarked."
           },
           {
             "slug": "parachains-launch-a-parachain-set-up-the-parachain-template",
             "title": "Set Up the Polkadot SDK Parachain Template",
-            "url": "https://docs.polkadot.com/ai/pages/parachains-launch-a-parachain-set-up-the-parachain-template.md",
+            "url": "https://docs.polkadot.com/parachains/launch-a-parachain/set-up-the-parachain-template.md",
             "relevance": "The parachain template runtime structure required for benchmark integration."
           }
         ]
@@ -5356,13 +5356,13 @@
           {
             "slug": "parachains-install-polkadot-sdk",
             "title": "Install Polkadot SDK",
-            "url": "https://docs.polkadot.com/ai/pages/parachains-install-polkadot-sdk.md",
+            "url": "https://docs.polkadot.com/parachains/install-polkadot-sdk.md",
             "relevance": "Prerequisite: installing Rust and Polkadot SDK build dependencies."
           },
           {
             "slug": "smart-contracts-dev-environments-hardhat",
             "title": "Use Hardhat with Polkadot Hub",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-dev-environments-hardhat.md",
+            "url": "https://docs.polkadot.com/smart-contracts/dev-environments/hardhat.md",
             "relevance": "Configure Hardhat to connect to http://localhost:8545 for local testing."
           }
         ]
@@ -5515,13 +5515,13 @@
           {
             "slug": "node-infrastructure-run-a-validator-onboarding-and-offboarding-set-up-validator",
             "title": "Set Up a Validator",
-            "url": "https://docs.polkadot.com/ai/pages/node-infrastructure-run-a-validator-onboarding-and-offboarding-set-up-validator.md",
+            "url": "https://docs.polkadot.com/node-infrastructure/run-a-validator/onboarding-and-offboarding/set-up-validator.md",
             "relevance": "Validator node setup — prerequisite for having a running node to monitor."
           },
           {
             "slug": "node-infrastructure-run-a-validator-staking-mechanics-offenses-and-slashes",
             "title": "Offenses and Slashes",
-            "url": "https://docs.polkadot.com/ai/pages/node-infrastructure-run-a-validator-staking-mechanics-offenses-and-slashes.md",
+            "url": "https://docs.polkadot.com/node-infrastructure/run-a-validator/staking-mechanics/offenses-and-slashes.md",
             "relevance": "Slashing conditions — understanding which downtime events trigger slash penalties."
           }
         ]
@@ -5655,13 +5655,13 @@
           {
             "slug": "chain-interactions-accounts-query-accounts",
             "title": "Query Account Information with SDKs",
-            "url": "https://docs.polkadot.com/ai/pages/chain-interactions-accounts-query-accounts.md",
+            "url": "https://docs.polkadot.com/chain-interactions/accounts/query-accounts.md",
             "relevance": "Multi-SDK tutorial showing how to query account balance using PAPI, Polkadot.js, Dedot, and other clients side-by-side."
           },
           {
             "slug": "chain-interactions-send-transactions-with-sdks",
             "title": "Send Transactions with SDKs",
-            "url": "https://docs.polkadot.com/ai/pages/chain-interactions-send-transactions-with-sdks.md",
+            "url": "https://docs.polkadot.com/chain-interactions/send-transactions/with-sdks.md",
             "relevance": "How to construct and submit signed transactions using multiple SDKs including Dedot."
           }
         ]
@@ -5772,13 +5772,13 @@
           {
             "slug": "parachains-launch-a-parachain-set-up-the-parachain-template",
             "title": "Set Up the Polkadot SDK Parachain Template",
-            "url": "https://docs.polkadot.com/ai/pages/parachains-launch-a-parachain-set-up-the-parachain-template.md",
+            "url": "https://docs.polkadot.com/parachains/launch-a-parachain/set-up-the-parachain-template.md",
             "relevance": "How to build a parachain template runtime that is compatible with polkadot-omni-node."
           },
           {
             "slug": "parachains-install-polkadot-sdk",
             "title": "Install Polkadot SDK",
-            "url": "https://docs.polkadot.com/ai/pages/parachains-install-polkadot-sdk.md",
+            "url": "https://docs.polkadot.com/parachains/install-polkadot-sdk.md",
             "relevance": "Install Rust and system dependencies needed if building polkadot-omni-node from source."
           }
         ]
@@ -5909,13 +5909,13 @@
           {
             "slug": "chain-interactions-accounts-query-accounts",
             "title": "Query Account Information with SDKs",
-            "url": "https://docs.polkadot.com/ai/pages/chain-interactions-accounts-query-accounts.md",
+            "url": "https://docs.polkadot.com/chain-interactions/accounts/query-accounts.md",
             "relevance": "Comparison of account query patterns across multiple SDKs including Python Substrate Interface and Subxt."
           },
           {
             "slug": "chain-interactions-send-transactions-with-sdks",
             "title": "Send Transactions with SDKs",
-            "url": "https://docs.polkadot.com/ai/pages/chain-interactions-send-transactions-with-sdks.md",
+            "url": "https://docs.polkadot.com/chain-interactions/send-transactions/with-sdks.md",
             "relevance": "How to sign and submit transactions using different SDK clients — useful context alongside the Polkadart send pattern."
           }
         ]
@@ -6039,13 +6039,13 @@
           {
             "slug": "chain-interactions-accounts-query-accounts",
             "title": "Query Account Information with SDKs",
-            "url": "https://docs.polkadot.com/ai/pages/chain-interactions-accounts-query-accounts.md",
+            "url": "https://docs.polkadot.com/chain-interactions/accounts/query-accounts.md",
             "relevance": "Multi-SDK account query tutorial including a Python Substrate Interface example alongside PAPI and Polkadot.js."
           },
           {
             "slug": "chain-interactions-send-transactions-with-sdks",
             "title": "Send Transactions with SDKs",
-            "url": "https://docs.polkadot.com/ai/pages/chain-interactions-send-transactions-with-sdks.md",
+            "url": "https://docs.polkadot.com/chain-interactions/send-transactions/with-sdks.md",
             "relevance": "How to construct and submit transactions using multiple SDK clients including Python Substrate Interface."
           }
         ]
@@ -6178,13 +6178,13 @@
           {
             "slug": "chain-interactions-accounts-query-accounts",
             "title": "Query Account Information with SDKs",
-            "url": "https://docs.polkadot.com/ai/pages/chain-interactions-accounts-query-accounts.md",
+            "url": "https://docs.polkadot.com/chain-interactions/accounts/query-accounts.md",
             "relevance": "Multi-SDK account query tutorial including Subxt alongside PAPI, Polkadot.js, and Python Substrate Interface."
           },
           {
             "slug": "chain-interactions-send-transactions-with-sdks",
             "title": "Send Transactions with SDKs",
-            "url": "https://docs.polkadot.com/ai/pages/chain-interactions-send-transactions-with-sdks.md",
+            "url": "https://docs.polkadot.com/chain-interactions/send-transactions/with-sdks.md",
             "relevance": "How to sign and submit transactions with multiple SDK clients — context for the Subxt transaction pattern."
           }
         ]
@@ -6363,13 +6363,13 @@
           {
             "slug": "smart-contracts-cookbook-dapps-zero-to-hero",
             "title": "Zero to Hero Smart Contract DApp",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-cookbook-dapps-zero-to-hero.md",
+            "url": "https://docs.polkadot.com/smart-contracts/cookbook/dapps/zero-to-hero.md",
             "relevance": "Build a full dApp (Next.js + Viem) on top of a deployed smart contract on Polkadot Hub."
           },
           {
             "slug": "smart-contracts-dev-environments-hardhat",
             "title": "Use Hardhat with Polkadot Hub",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-dev-environments-hardhat.md",
+            "url": "https://docs.polkadot.com/smart-contracts/dev-environments/hardhat.md",
             "relevance": "Reference for full Hardhat EVM environment setup and network configuration for Polkadot Hub."
           }
         ]
@@ -6485,13 +6485,13 @@
           {
             "slug": "smart-contracts-dev-environments-remix",
             "title": "Use the Remix IDE on Polkadot Hub",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-dev-environments-remix.md",
+            "url": "https://docs.polkadot.com/smart-contracts/dev-environments/remix.md",
             "relevance": "How to connect Remix IDE to Polkadot Hub and configure MetaMask for the TestNet."
           },
           {
             "slug": "smart-contracts-cookbook-smart-contracts-deploy-nft-nft-hardhat",
             "title": "Deploy an ERC-721 Using Hardhat",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-cookbook-smart-contracts-deploy-nft-nft-hardhat.md",
+            "url": "https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-hardhat.md",
             "relevance": "Alternative CLI-based NFT deployment using Hardhat — better for production or CI/CD workflows."
           }
         ]
@@ -6661,13 +6661,13 @@
           {
             "slug": "smart-contracts-for-eth-devs-evm-vs-pvm",
             "title": "EVM vs PVM",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-for-eth-devs-evm-vs-pvm.md",
+            "url": "https://docs.polkadot.com/smart-contracts/for-eth-devs/evm-vs-pvm.md",
             "relevance": "Explains differences between Polkadot Hub EVM and standard Ethereum including gas model and existential deposit."
           },
           {
             "slug": "smart-contracts-connect",
             "title": "Connect to Polkadot",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-connect.md",
+            "url": "https://docs.polkadot.com/smart-contracts/connect.md",
             "relevance": "Network details for Polkadot Hub TestNet and MainNet RPC endpoints and chain IDs."
           }
         ]
@@ -6807,13 +6807,13 @@
           {
             "slug": "parachains-testing-run-a-parachain-network",
             "title": "Run a Parachain Network",
-            "url": "https://docs.polkadot.com/ai/pages/parachains-testing-run-a-parachain-network.md",
+            "url": "https://docs.polkadot.com/parachains/testing/run-a-parachain-network.md",
             "relevance": "Full tutorial for spawning a local parachain test network including building the parachain template binary."
           },
           {
             "slug": "parachains-testing-fork-a-parachain",
             "title": "Fork a Parachain Using Chopsticks",
-            "url": "https://docs.polkadot.com/ai/pages/parachains-testing-fork-a-parachain.md",
+            "url": "https://docs.polkadot.com/parachains/testing/fork-a-parachain.md",
             "relevance": "Alternative testing approach using Chopsticks to fork a live parachain for isolated state testing."
           }
         ]
@@ -6973,13 +6973,13 @@
           {
             "slug": "smart-contracts-libraries-ethers-js",
             "title": "Deploy Contracts to Polkadot Hub with Ethers.js",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-libraries-ethers-js.md",
+            "url": "https://docs.polkadot.com/smart-contracts/libraries/ethers-js.md",
             "relevance": "Recommended modern alternative to Web3.js for deploying and interacting with contracts on Polkadot Hub."
           },
           {
             "slug": "smart-contracts-libraries-viem",
             "title": "viem for Polkadot Hub Smart Contracts",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-libraries-viem.md",
+            "url": "https://docs.polkadot.com/smart-contracts/libraries/viem.md",
             "relevance": "TypeScript-native alternative library for Polkadot Hub contract interactions."
           }
         ]
@@ -7142,13 +7142,13 @@
           {
             "slug": "chain-interactions-send-transactions-interoperability-transfer-assets-parachains",
             "title": "Transfer Assets Between Parachains",
-            "url": "https://docs.polkadot.com/ai/pages/chain-interactions-send-transactions-interoperability-transfer-assets-parachains.md",
+            "url": "https://docs.polkadot.com/chain-interactions/send-transactions/interoperability/transfer-assets-parachains.md",
             "relevance": "How to transfer assets between Polkadot parachains using ParaSpell XCM — use when tokens are already in the Polkadot ecosystem."
           },
           {
             "slug": "chain-interactions-send-transactions-interoperability-estimate-xcm-fees",
             "title": "XCM Fee Estimation",
-            "url": "https://docs.polkadot.com/ai/pages/chain-interactions-send-transactions-interoperability-estimate-xcm-fees.md",
+            "url": "https://docs.polkadot.com/chain-interactions/send-transactions/interoperability/estimate-xcm-fees.md",
             "relevance": "Understanding XCM fees on the Polkadot side when bridged assets arrive on Polkadot Hub."
           }
         ]
@@ -7275,13 +7275,13 @@
           {
             "slug": "chain-interactions-token-operations-register-local-asset",
             "title": "Register a Local Asset",
-            "url": "https://docs.polkadot.com/ai/pages/chain-interactions-token-operations-register-local-asset.md",
+            "url": "https://docs.polkadot.com/chain-interactions/token-operations/register-local-asset.md",
             "relevance": "How to register a new local integer-ID asset on Asset Hub before using it in an AssetConversion pool."
           },
           {
             "slug": "chain-interactions-token-operations-register-foreign-asset",
             "title": "Register a Foreign Asset",
-            "url": "https://docs.polkadot.com/ai/pages/chain-interactions-token-operations-register-foreign-asset.md",
+            "url": "https://docs.polkadot.com/chain-interactions/token-operations/register-foreign-asset.md",
             "relevance": "How to register a foreign cross-chain asset on Asset Hub, which can then be used in an AssetConversion pool."
           }
         ]
@@ -7401,19 +7401,19 @@
           {
             "slug": "chain-interactions-send-transactions-interoperability-transfer-assets-parachains",
             "title": "Transfer Assets Between Parachains",
-            "url": "https://docs.polkadot.com/ai/pages/chain-interactions-send-transactions-interoperability-transfer-assets-parachains.md",
+            "url": "https://docs.polkadot.com/chain-interactions/send-transactions/interoperability/transfer-assets-parachains.md",
             "relevance": "How to transfer assets between parachains via XCM — useful for understanding how foreign assets flow after registration."
           },
           {
             "slug": "chain-interactions-token-operations-convert-assets",
             "title": "Convert Assets on Asset Hub",
-            "url": "https://docs.polkadot.com/ai/pages/chain-interactions-token-operations-convert-assets.md",
+            "url": "https://docs.polkadot.com/chain-interactions/token-operations/convert-assets.md",
             "relevance": "How to create AMM liquidity pools on Asset Hub — foreign assets can be used in AssetConversion pools after registration."
           },
           {
             "slug": "reference-parachains-interoperability",
             "title": "Interoperability",
-            "url": "https://docs.polkadot.com/ai/pages/reference-parachains-interoperability.md",
+            "url": "https://docs.polkadot.com/reference/parachains/interoperability.md",
             "relevance": "XCM instruction set reference, MultiLocation syntax, and sovereign account derivation."
           }
         ]
@@ -7532,13 +7532,13 @@
           {
             "slug": "chain-interactions-token-operations-convert-assets",
             "title": "Convert Assets on Asset Hub",
-            "url": "https://docs.polkadot.com/ai/pages/chain-interactions-token-operations-convert-assets.md",
+            "url": "https://docs.polkadot.com/chain-interactions/token-operations/convert-assets.md",
             "relevance": "How to create an AssetConversion liquidity pool using the newly registered local asset."
           },
           {
             "slug": "chain-interactions-token-operations-register-foreign-asset",
             "title": "Register a Foreign Asset",
-            "url": "https://docs.polkadot.com/ai/pages/chain-interactions-token-operations-register-foreign-asset.md",
+            "url": "https://docs.polkadot.com/chain-interactions/token-operations/register-foreign-asset.md",
             "relevance": "How to register a cross-chain foreign asset on Asset Hub — contrast with the local integer-ID asset registration covered here."
           }
         ]
@@ -7699,25 +7699,25 @@
           {
             "slug": "node-infrastructure-run-a-node-relay-chain-secure-wss",
             "title": "Set Up Secure WebSocket",
-            "url": "https://docs.polkadot.com/ai/pages/node-infrastructure-run-a-node-relay-chain-secure-wss.md",
+            "url": "https://docs.polkadot.com/node-infrastructure/run-a-node/relay-chain/secure-wss.md",
             "relevance": "How to add a WSS (TLS) reverse proxy via nginx — required for production public RPC endpoints."
           },
           {
             "slug": "node-infrastructure-run-a-node-relay-chain-bootnode",
             "title": "Set Up a Bootnode",
-            "url": "https://docs.polkadot.com/ai/pages/node-infrastructure-run-a-node-relay-chain-bootnode.md",
+            "url": "https://docs.polkadot.com/node-infrastructure/run-a-node/relay-chain/bootnode.md",
             "relevance": "How to configure a relay chain node as a bootnode with P2P, WS, and WSS endpoints."
           },
           {
             "slug": "node-infrastructure-run-a-validator-onboarding-and-offboarding-set-up-validator",
             "title": "Set Up a Validator",
-            "url": "https://docs.polkadot.com/ai/pages/node-infrastructure-run-a-validator-onboarding-and-offboarding-set-up-validator.md",
+            "url": "https://docs.polkadot.com/node-infrastructure/run-a-validator/onboarding-and-offboarding/set-up-validator.md",
             "relevance": "Setting up a Polkadot validator — builds on relay chain full node installation as a prerequisite."
           },
           {
             "slug": "parachains-install-polkadot-sdk",
             "title": "Install Polkadot SDK",
-            "url": "https://docs.polkadot.com/ai/pages/parachains-install-polkadot-sdk.md",
+            "url": "https://docs.polkadot.com/parachains/install-polkadot-sdk.md",
             "relevance": "Install Rust and Polkadot SDK system dependencies — required before compiling polkadot from source."
           }
         ]
@@ -7859,19 +7859,19 @@
           {
             "slug": "node-infrastructure-run-a-node-relay-chain-full-node",
             "title": "Set Up a Node",
-            "url": "https://docs.polkadot.com/ai/pages/node-infrastructure-run-a-node-relay-chain-full-node.md",
+            "url": "https://docs.polkadot.com/node-infrastructure/run-a-node/relay-chain/full-node.md",
             "relevance": "Prerequisite: installing and running the Polkadot relay chain node that this WSS proxy sits in front of."
           },
           {
             "slug": "node-infrastructure-run-a-node-relay-chain-bootnode",
             "title": "Set Up a Bootnode",
-            "url": "https://docs.polkadot.com/ai/pages/node-infrastructure-run-a-node-relay-chain-bootnode.md",
+            "url": "https://docs.polkadot.com/node-infrastructure/run-a-node/relay-chain/bootnode.md",
             "relevance": "Configuring the node as a bootnode — WSS is required for bootnode multi-address advertisements."
           },
           {
             "slug": "node-infrastructure-run-a-validator-onboarding-and-offboarding-set-up-validator",
             "title": "Set Up a Validator",
-            "url": "https://docs.polkadot.com/ai/pages/node-infrastructure-run-a-validator-onboarding-and-offboarding-set-up-validator.md",
+            "url": "https://docs.polkadot.com/node-infrastructure/run-a-validator/onboarding-and-offboarding/set-up-validator.md",
             "relevance": "Validator node setup — WSS is needed if the validator exposes a public RPC."
           }
         ]
@@ -8051,25 +8051,25 @@
           {
             "slug": "node-infrastructure-run-a-validator-onboarding-and-offboarding-set-up-validator",
             "title": "Set Up a Validator",
-            "url": "https://docs.polkadot.com/ai/pages/node-infrastructure-run-a-validator-onboarding-and-offboarding-set-up-validator.md",
+            "url": "https://docs.polkadot.com/node-infrastructure/run-a-validator/onboarding-and-offboarding/set-up-validator.md",
             "relevance": "Binary installation and initial validator node configuration — Phase 1 of the onboarding flow."
           },
           {
             "slug": "node-infrastructure-run-a-validator-onboarding-and-offboarding-key-management",
             "title": "Validator Key Management",
-            "url": "https://docs.polkadot.com/ai/pages/node-infrastructure-run-a-validator-onboarding-and-offboarding-key-management.md",
+            "url": "https://docs.polkadot.com/node-infrastructure/run-a-validator/onboarding-and-offboarding/key-management.md",
             "relevance": "Session key generation, node key management, and keystore operations — Phase 2 of the onboarding flow."
           },
           {
             "slug": "node-infrastructure-run-a-validator-onboarding-and-offboarding-start-validating",
             "title": "Start Validating",
-            "url": "https://docs.polkadot.com/ai/pages/node-infrastructure-run-a-validator-onboarding-and-offboarding-start-validating.md",
+            "url": "https://docs.polkadot.com/node-infrastructure/run-a-validator/onboarding-and-offboarding/start-validating.md",
             "relevance": "Bonding, activating the validator, and verifying status — Phase 3 of the onboarding flow."
           },
           {
             "slug": "node-infrastructure-run-a-node-relay-chain-full-node",
             "title": "Set Up a Node",
-            "url": "https://docs.polkadot.com/ai/pages/node-infrastructure-run-a-node-relay-chain-full-node.md",
+            "url": "https://docs.polkadot.com/node-infrastructure/run-a-node/relay-chain/full-node.md",
             "relevance": "Full relay chain node setup — validator node is a specialization of the full node setup."
           }
         ]
@@ -8205,25 +8205,25 @@
           {
             "slug": "parachains-install-polkadot-sdk",
             "title": "Install Polkadot SDK",
-            "url": "https://docs.polkadot.com/ai/pages/parachains-install-polkadot-sdk.md",
+            "url": "https://docs.polkadot.com/parachains/install-polkadot-sdk.md",
             "relevance": "Rust toolchain and system dependencies required before building any parachain runtime."
           },
           {
             "slug": "parachains-launch-a-parachain-set-up-the-parachain-template",
             "title": "Set Up the Polkadot SDK Parachain Template",
-            "url": "https://docs.polkadot.com/ai/pages/parachains-launch-a-parachain-set-up-the-parachain-template.md",
+            "url": "https://docs.polkadot.com/parachains/launch-a-parachain/set-up-the-parachain-template.md",
             "relevance": "Prerequisite: setting up the parachain template development environment."
           },
           {
             "slug": "parachains-customize-runtime-add-pallet-instances",
             "title": "Add Multiple Pallet Instances",
-            "url": "https://docs.polkadot.com/ai/pages/parachains-customize-runtime-add-pallet-instances.md",
+            "url": "https://docs.polkadot.com/parachains/customize-runtime/add-pallet-instances.md",
             "relevance": "Next step: adding multiple instances of the same pallet (e.g., two pallet-collective instances)."
           },
           {
             "slug": "parachains-customize-runtime-pallet-development-create-a-pallet",
             "title": "Create a Custom Pallet",
-            "url": "https://docs.polkadot.com/ai/pages/parachains-customize-runtime-pallet-development-create-a-pallet.md",
+            "url": "https://docs.polkadot.com/parachains/customize-runtime/pallet-development/create-a-pallet.md",
             "relevance": "Building a custom FRAME pallet from scratch and integrating it into the runtime."
           }
         ]
@@ -8363,19 +8363,19 @@
           {
             "slug": "parachains-customize-runtime-add-existing-pallets",
             "title": "Add an Existing Pallet to the Runtime",
-            "url": "https://docs.polkadot.com/ai/pages/parachains-customize-runtime-add-existing-pallets.md",
+            "url": "https://docs.polkadot.com/parachains/customize-runtime/add-existing-pallets.md",
             "relevance": "Prerequisite: adding a single pallet to a runtime — covers the Cargo, Config, and construct_runtime! basics."
           },
           {
             "slug": "parachains-customize-runtime-pallet-development-create-a-pallet",
             "title": "Create a Custom Pallet",
-            "url": "https://docs.polkadot.com/ai/pages/parachains-customize-runtime-pallet-development-create-a-pallet.md",
+            "url": "https://docs.polkadot.com/parachains/customize-runtime/pallet-development/create-a-pallet.md",
             "relevance": "Building a custom pallet from scratch — next step after mastering pallet integration."
           },
           {
             "slug": "parachains-install-polkadot-sdk",
             "title": "Install Polkadot SDK",
-            "url": "https://docs.polkadot.com/ai/pages/parachains-install-polkadot-sdk.md",
+            "url": "https://docs.polkadot.com/parachains/install-polkadot-sdk.md",
             "relevance": "Rust toolchain and build dependency installation."
           }
         ]
@@ -8514,19 +8514,19 @@
           {
             "slug": "parachains-install-polkadot-sdk",
             "title": "Install Polkadot SDK",
-            "url": "https://docs.polkadot.com/ai/pages/parachains-install-polkadot-sdk.md",
+            "url": "https://docs.polkadot.com/parachains/install-polkadot-sdk.md",
             "relevance": "Rust and system dependencies required before building any FRAME pallet."
           },
           {
             "slug": "parachains-launch-a-parachain-set-up-the-parachain-template",
             "title": "Set Up the Polkadot SDK Parachain Template",
-            "url": "https://docs.polkadot.com/ai/pages/parachains-launch-a-parachain-set-up-the-parachain-template.md",
+            "url": "https://docs.polkadot.com/parachains/launch-a-parachain/set-up-the-parachain-template.md",
             "relevance": "Setting up the parachain template workspace where the custom pallet lives."
           },
           {
             "slug": "parachains-customize-runtime-add-existing-pallets",
             "title": "Add an Existing Pallet to the Runtime",
-            "url": "https://docs.polkadot.com/ai/pages/parachains-customize-runtime-add-existing-pallets.md",
+            "url": "https://docs.polkadot.com/parachains/customize-runtime/add-existing-pallets.md",
             "relevance": "Adding an existing SDK pallet to a runtime — prerequisite concepts for runtime integration."
           },
           {
@@ -8673,13 +8673,13 @@
           {
             "slug": "parachains-interoperability-get-started",
             "title": "Get Started with XCM",
-            "url": "https://docs.polkadot.com/ai/pages/parachains-interoperability-get-started.md",
+            "url": "https://docs.polkadot.com/parachains/interoperability/get-started.md",
             "relevance": "XCM concepts (asynchronous, absolute, asymmetric, agnostic) and the WithdrawAsset/BuyExecution/Transact/DepositAsset instruction pattern used in HRMP channel setup messages."
           },
           {
             "slug": "parachains-interoperability-channels-with-system-parachains",
             "title": "Opening HRMP Channels with System Parachains",
-            "url": "https://docs.polkadot.com/ai/pages/parachains-interoperability-channels-with-system-parachains.md",
+            "url": "https://docs.polkadot.com/parachains/interoperability/channels-with-system-parachains.md",
             "relevance": "Simpler single-message alternative when the target is a system parachain like Asset Hub."
           }
         ]
@@ -8796,13 +8796,13 @@
           {
             "slug": "parachains-interoperability-get-started",
             "title": "Get Started with XCM",
-            "url": "https://docs.polkadot.com/ai/pages/parachains-interoperability-get-started.md",
+            "url": "https://docs.polkadot.com/parachains/interoperability/get-started.md",
             "relevance": "XCM concepts and the instruction set (WithdrawAsset, BuyExecution, Transact, DepositAsset) used in the channel setup message."
           },
           {
             "slug": "parachains-interoperability-channels-between-parachains",
             "title": "Opening HRMP Channels Between Parachains",
-            "url": "https://docs.polkadot.com/ai/pages/parachains-interoperability-channels-between-parachains.md",
+            "url": "https://docs.polkadot.com/parachains/interoperability/channels-between-parachains.md",
             "relevance": "Two-step alternative for opening channels between two user parachains (not system chains)."
           }
         ]
@@ -8950,19 +8950,19 @@
           {
             "slug": "parachains-customize-runtime-pallet-development-create-a-pallet",
             "title": "Create a Custom Pallet",
-            "url": "https://docs.polkadot.com/ai/pages/parachains-customize-runtime-pallet-development-create-a-pallet.md",
+            "url": "https://docs.polkadot.com/parachains/customize-runtime/pallet-development/create-a-pallet.md",
             "relevance": "Required prerequisite: building the custom pallet whose extrinsic is extended in this skill."
           },
           {
             "slug": "parachains-runtime-maintenance-storage-migrations",
             "title": "Storage Migrations",
-            "url": "https://docs.polkadot.com/ai/pages/parachains-runtime-maintenance-storage-migrations.md",
+            "url": "https://docs.polkadot.com/parachains/runtime-maintenance/storage-migrations.md",
             "relevance": "When the runtime upgrade changes storage layout (type changes, key changes), a storage migration is required alongside the spec_version bump."
           },
           {
             "slug": "parachains-launch-a-parachain-set-up-the-parachain-template",
             "title": "Set Up the Polkadot SDK Parachain Template",
-            "url": "https://docs.polkadot.com/ai/pages/parachains-launch-a-parachain-set-up-the-parachain-template.md",
+            "url": "https://docs.polkadot.com/parachains/launch-a-parachain/set-up-the-parachain-template.md",
             "relevance": "Setting up the parachain template that this upgrade workflow runs on."
           }
         ]
@@ -9144,13 +9144,13 @@
           {
             "slug": "reference-tools-zombienet",
             "title": "Zombienet",
-            "url": "https://docs.polkadot.com/ai/pages/reference-tools-zombienet.md",
+            "url": "https://docs.polkadot.com/reference/tools/zombienet.md",
             "relevance": "Zombienet installation methods (executable, Nix, Docker), available providers, and full network.toml configuration reference including all relay chain, parachain, and collator options."
           },
           {
             "slug": "parachains-launch-a-parachain-set-up-the-parachain-template",
             "title": "Set Up the Polkadot SDK Parachain Template",
-            "url": "https://docs.polkadot.com/ai/pages/parachains-launch-a-parachain-set-up-the-parachain-template.md",
+            "url": "https://docs.polkadot.com/parachains/launch-a-parachain/set-up-the-parachain-template.md",
             "relevance": "Setting up and building the Polkadot SDK parachain template used as the collator in this skill."
           }
         ]
@@ -9269,13 +9269,13 @@
           {
             "slug": "reference-tools-subxt",
             "title": "Subxt Rust API",
-            "url": "https://docs.polkadot.com/ai/pages/reference-tools-subxt.md",
+            "url": "https://docs.polkadot.com/reference/tools/subxt.md",
             "relevance": "Subxt library usage for generating typed client code from runtime metadata — the primary consumer of metadata in Rust applications."
           },
           {
             "slug": "reference-parachains-data-encoding",
             "title": "Data Encoding",
-            "url": "https://docs.polkadot.com/ai/pages/reference-parachains-data-encoding.md",
+            "url": "https://docs.polkadot.com/reference/parachains/data-encoding.md",
             "relevance": "SCALE encoding details that explain why the raw curl metadata output is hex-encoded bytes rather than readable JSON."
           }
         ]
@@ -9414,19 +9414,19 @@
           {
             "slug": "reference-tools-papi",
             "title": "Polkadot-API",
-            "url": "https://docs.polkadot.com/ai/pages/reference-tools-papi.md",
+            "url": "https://docs.polkadot.com/reference/tools/papi.md",
             "relevance": "Polkadot API (PAPI) — the recommended replacement for @polkadot/api in new projects."
           },
           {
             "slug": "reference-tools-dedot",
             "title": "Dedot",
-            "url": "https://docs.polkadot.com/ai/pages/reference-tools-dedot.md",
+            "url": "https://docs.polkadot.com/reference/tools/dedot.md",
             "relevance": "Dedot — modern lightweight alternative to @polkadot/api with better TypeScript inference."
           },
           {
             "slug": "chain-interactions-send-transactions-with-sdks",
             "title": "Send Transactions with SDKs",
-            "url": "https://docs.polkadot.com/ai/pages/chain-interactions-send-transactions-with-sdks.md",
+            "url": "https://docs.polkadot.com/chain-interactions/send-transactions/with-sdks.md",
             "relevance": "Multi-SDK transaction guide covering PAPI, Polkadot.js, Dedot, and Subxt variants."
           }
         ]
@@ -9569,19 +9569,19 @@
           {
             "slug": "parachains-install-polkadot-sdk",
             "title": "Install Polkadot SDK",
-            "url": "https://docs.polkadot.com/ai/pages/parachains-install-polkadot-sdk.md",
+            "url": "https://docs.polkadot.com/parachains/install-polkadot-sdk.md",
             "relevance": "Full Polkadot SDK installation guide with system dependencies for all OS platforms."
           },
           {
             "slug": "parachains-launch-a-parachain-set-up-the-parachain-template",
             "title": "Set Up the Polkadot SDK Parachain Template",
-            "url": "https://docs.polkadot.com/ai/pages/parachains-launch-a-parachain-set-up-the-parachain-template.md",
+            "url": "https://docs.polkadot.com/parachains/launch-a-parachain/set-up-the-parachain-template.md",
             "relevance": "Manual parachain template setup guide for users who prefer not to use Pop CLI."
           },
           {
             "slug": "reference-tools-zombienet",
             "title": "Zombienet",
-            "url": "https://docs.polkadot.com/ai/pages/reference-tools-zombienet.md",
+            "url": "https://docs.polkadot.com/reference/tools/zombienet.md",
             "relevance": "Zombienet documentation for writing and running network.toml configs used by pop up network."
           }
         ]
@@ -9708,19 +9708,19 @@
           {
             "slug": "smart-contracts-integrations-wallets",
             "title": "Wallets for Polkadot Hub",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-integrations-wallets.md",
+            "url": "https://docs.polkadot.com/smart-contracts/integrations/wallets.md",
             "relevance": "How to configure MetaMask or Talisman for Polkadot Hub TestNet."
           },
           {
             "slug": "smart-contracts-faucet",
             "title": "Get Tokens from the Official Faucet",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-faucet.md",
+            "url": "https://docs.polkadot.com/smart-contracts/faucet.md",
             "relevance": "How to obtain testnet PAS tokens for deployment transactions."
           },
           {
             "slug": "smart-contracts-cookbook-smart-contracts-deploy-basic-basic-hardhat",
             "title": "Deploy a Basic Contract with Hardhat",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-cookbook-smart-contracts-deploy-basic-basic-hardhat.md",
+            "url": "https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-basic/basic-hardhat.md",
             "relevance": "CLI-based alternative: deploy the same Storage contract using Hardhat and a local toolchain."
           }
         ]
@@ -9827,13 +9827,13 @@
           {
             "slug": "smart-contracts-integrations-wallets",
             "title": "Wallets for Polkadot Hub",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-integrations-wallets.md",
+            "url": "https://docs.polkadot.com/smart-contracts/integrations/wallets.md",
             "relevance": "How to add Polkadot Hub TestNet to MetaMask before using Remix."
           },
           {
             "slug": "smart-contracts-cookbook-smart-contracts-deploy-basic-basic-remix",
             "title": "Deploy a Basic Contract with Remix IDE",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-cookbook-smart-contracts-deploy-basic-basic-remix.md",
+            "url": "https://docs.polkadot.com/smart-contracts/cookbook/smart-contracts/deploy-basic/basic-remix.md",
             "relevance": "Next step after connecting Remix: deploy the default Storage.sol contract."
           }
         ]
@@ -9947,19 +9947,19 @@
           {
             "slug": "smart-contracts-connect",
             "title": "Connect to Polkadot",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-connect.md",
+            "url": "https://docs.polkadot.com/smart-contracts/connect.md",
             "relevance": "Full network connection reference with RPC URLs, chain IDs, and WSS endpoints for all Polkadot Hub environments."
           },
           {
             "slug": "smart-contracts-faucet",
             "title": "Get Tokens from the Official Faucet",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-faucet.md",
+            "url": "https://docs.polkadot.com/smart-contracts/faucet.md",
             "relevance": "Step-by-step guide to obtaining testnet PAS tokens from the Polkadot faucet."
           },
           {
             "slug": "smart-contracts-dev-environments-remix",
             "title": "Use the Remix IDE on Polkadot Hub",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-dev-environments-remix.md",
+            "url": "https://docs.polkadot.com/smart-contracts/dev-environments/remix.md",
             "relevance": "How to connect Remix IDE to Polkadot Hub using the configured MetaMask wallet."
           }
         ]
@@ -10124,19 +10124,19 @@
           {
             "slug": "smart-contracts-libraries-viem",
             "title": "viem for Polkadot Hub Smart Contracts",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-libraries-viem.md",
+            "url": "https://docs.polkadot.com/smart-contracts/libraries/viem.md",
             "relevance": "Lower-level viem library for direct contract calls without React hooks — useful when Wagmi is not needed."
           },
           {
             "slug": "smart-contracts-integrations-wallets",
             "title": "Wallets for Polkadot Hub",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-integrations-wallets.md",
+            "url": "https://docs.polkadot.com/smart-contracts/integrations/wallets.md",
             "relevance": "How to add Polkadot Hub TestNet to MetaMask — required before the wallet connection step works."
           },
           {
             "slug": "smart-contracts-libraries-wagmi",
             "title": "Wagmi for Polkadot Hub Smart Contracts",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-libraries-wagmi.md",
+            "url": "https://docs.polkadot.com/smart-contracts/libraries/wagmi.md",
             "relevance": "Full Wagmi source page with the pre-deployed Storage contract address and complete code snippets."
           }
         ]
@@ -10299,7 +10299,7 @@
           {
             "slug": "smart-contracts-libraries-web3-py",
             "title": "Web3.py",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-libraries-web3-py.md",
+            "url": "https://docs.polkadot.com/smart-contracts/libraries/web3-py.md",
             "relevance": "Full Web3.py source page with complete code snippets and additional contract examples."
           },
           {
@@ -10311,7 +10311,7 @@
           {
             "slug": "smart-contracts-connect",
             "title": "Connect to Polkadot",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-connect.md",
+            "url": "https://docs.polkadot.com/smart-contracts/connect.md",
             "relevance": "Full network connection reference with RPC URL, chain ID, and WSS endpoints for Polkadot Hub."
           }
         ]
@@ -10445,19 +10445,19 @@
           {
             "slug": "smart-contracts-precompiles-erc20",
             "title": "Interact with the ERC20 Precompile",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-precompiles-erc20.md",
+            "url": "https://docs.polkadot.com/smart-contracts/precompiles/erc20.md",
             "relevance": "Full ERC-20 precompile source page with the exact precompile address, complete ABI, and additional usage examples."
           },
           {
             "slug": "smart-contracts-integrations-wallets",
             "title": "Wallets for Polkadot Hub",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-integrations-wallets.md",
+            "url": "https://docs.polkadot.com/smart-contracts/integrations/wallets.md",
             "relevance": "How to add Polkadot Hub TestNet to MetaMask — required prerequisite for this skill."
           },
           {
             "slug": "smart-contracts-dev-environments-remix",
             "title": "Use the Remix IDE on Polkadot Hub",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-dev-environments-remix.md",
+            "url": "https://docs.polkadot.com/smart-contracts/dev-environments/remix.md",
             "relevance": "How to connect Remix IDE to Polkadot Hub via MetaMask injected provider."
           }
         ]
@@ -10592,19 +10592,19 @@
           {
             "slug": "smart-contracts-precompiles-storage",
             "title": "Interact with the Storage Precompile",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-precompiles-storage.md",
+            "url": "https://docs.polkadot.com/smart-contracts/precompiles/storage.md",
             "relevance": "Full Storage precompile source page with the exact precompile address, full ABI, and key encoding examples."
           },
           {
             "slug": "smart-contracts-dev-environments-remix",
             "title": "Use the Remix IDE on Polkadot Hub",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-dev-environments-remix.md",
+            "url": "https://docs.polkadot.com/smart-contracts/dev-environments/remix.md",
             "relevance": "How to connect Remix IDE to Polkadot Hub via MetaMask injected provider."
           },
           {
             "slug": "smart-contracts-integrations-wallets",
             "title": "Wallets for Polkadot Hub",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-integrations-wallets.md",
+            "url": "https://docs.polkadot.com/smart-contracts/integrations/wallets.md",
             "relevance": "How to add Polkadot Hub TestNet to MetaMask — required prerequisite."
           }
         ]
@@ -10747,19 +10747,19 @@
           {
             "slug": "smart-contracts-precompiles-system",
             "title": "Interact with the System Precompile",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-precompiles-system.md",
+            "url": "https://docs.polkadot.com/smart-contracts/precompiles/system.md",
             "relevance": "Full System precompile source page with the exact precompile address, authoritative ABI, and all function signatures."
           },
           {
             "slug": "smart-contracts-dev-environments-remix",
             "title": "Use the Remix IDE on Polkadot Hub",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-dev-environments-remix.md",
+            "url": "https://docs.polkadot.com/smart-contracts/dev-environments/remix.md",
             "relevance": "How to connect Remix IDE to Polkadot Hub via MetaMask injected provider."
           },
           {
             "slug": "smart-contracts-precompiles-erc20",
             "title": "Interact with the ERC20 Precompile",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-precompiles-erc20.md",
+            "url": "https://docs.polkadot.com/smart-contracts/precompiles/erc20.md",
             "relevance": "ERC-20 precompile — often used alongside the System precompile in contract interactions."
           }
         ]
@@ -10907,19 +10907,19 @@
           {
             "slug": "smart-contracts-precompiles-xcm",
             "title": "Interact with the XCM Precompile",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-precompiles-xcm.md",
+            "url": "https://docs.polkadot.com/smart-contracts/precompiles/xcm.md",
             "relevance": "Authoritative XCM precompile address, IXcm interface definition, and SCALE-encoded message examples."
           },
           {
             "slug": "reference-tools-xcm-tools",
             "title": "XCM Tools",
-            "url": "https://docs.polkadot.com/ai/pages/reference-tools-xcm-tools.md",
+            "url": "https://docs.polkadot.com/reference/tools/xcm-tools.md",
             "relevance": "XCM tooling for encoding, debugging, and monitoring message delivery."
           },
           {
             "slug": "smart-contracts-connect",
             "title": "Connect to Polkadot",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-connect.md",
+            "url": "https://docs.polkadot.com/smart-contracts/connect.md",
             "relevance": "Polkadot Hub TestNet network details and RPC endpoints."
           }
         ]
@@ -11047,19 +11047,19 @@
           {
             "slug": "node-infrastructure-run-a-validator-onboarding-and-offboarding-set-up-validator",
             "title": "Set Up a Validator",
-            "url": "https://docs.polkadot.com/ai/pages/node-infrastructure-run-a-validator-onboarding-and-offboarding-set-up-validator.md",
+            "url": "https://docs.polkadot.com/node-infrastructure/run-a-validator/onboarding-and-offboarding/set-up-validator.md",
             "relevance": "Installing the validator binary and starting the node — prerequisite for this skill."
           },
           {
             "slug": "node-infrastructure-run-a-validator-onboarding-and-offboarding-start-validating",
             "title": "Start Validating",
-            "url": "https://docs.polkadot.com/ai/pages/node-infrastructure-run-a-validator-onboarding-and-offboarding-start-validating.md",
+            "url": "https://docs.polkadot.com/node-infrastructure/run-a-validator/onboarding-and-offboarding/start-validating.md",
             "relevance": "Bonding DOT and activating the validator after session keys are registered."
           },
           {
             "slug": "node-infrastructure-run-a-validator-requirements",
             "title": "Validator Requirements",
-            "url": "https://docs.polkadot.com/ai/pages/node-infrastructure-run-a-validator-requirements.md",
+            "url": "https://docs.polkadot.com/node-infrastructure/run-a-validator/requirements.md",
             "relevance": "Hardware requirements and minimum stake constraints."
           }
         ]
@@ -11187,19 +11187,19 @@
           {
             "slug": "node-infrastructure-run-a-validator-onboarding-and-offboarding-key-management",
             "title": "Validator Key Management",
-            "url": "https://docs.polkadot.com/ai/pages/node-infrastructure-run-a-validator-onboarding-and-offboarding-key-management.md",
+            "url": "https://docs.polkadot.com/node-infrastructure/run-a-validator/onboarding-and-offboarding/key-management.md",
             "relevance": "Detailed key generation and set_keys submission steps — use for the RPC commands in steps 2-3."
           },
           {
             "slug": "node-infrastructure-run-a-validator-onboarding-and-offboarding-set-up-validator",
             "title": "Set Up a Validator",
-            "url": "https://docs.polkadot.com/ai/pages/node-infrastructure-run-a-validator-onboarding-and-offboarding-set-up-validator.md",
+            "url": "https://docs.polkadot.com/node-infrastructure/run-a-validator/onboarding-and-offboarding/set-up-validator.md",
             "relevance": "Binary installation guide — use when setting up Validator B from scratch."
           },
           {
             "slug": "node-infrastructure-run-a-validator-operational-tasks-staking-operator-proxy",
             "title": "Staking Operator Proxy on Polkadot",
-            "url": "https://docs.polkadot.com/ai/pages/node-infrastructure-run-a-validator-operational-tasks-staking-operator-proxy.md",
+            "url": "https://docs.polkadot.com/node-infrastructure/run-a-validator/operational-tasks/staking-operator-proxy.md",
             "relevance": "Using a staking operator proxy to submit set_keys without exposing the controller key."
           }
         ]
@@ -11389,19 +11389,19 @@
           {
             "slug": "parachains-launch-a-parachain-set-up-the-parachain-template",
             "title": "Set Up the Polkadot SDK Parachain Template",
-            "url": "https://docs.polkadot.com/ai/pages/parachains-launch-a-parachain-set-up-the-parachain-template.md",
+            "url": "https://docs.polkadot.com/parachains/launch-a-parachain/set-up-the-parachain-template.md",
             "relevance": "Required prerequisite: build the parachain template locally before deploying to TestNet."
           },
           {
             "slug": "parachains-launch-a-parachain-obtain-coretime",
             "title": "Obtain Coretime",
-            "url": "https://docs.polkadot.com/ai/pages/parachains-launch-a-parachain-obtain-coretime.md",
+            "url": "https://docs.polkadot.com/parachains/launch-a-parachain/obtain-coretime.md",
             "relevance": "Next step: obtain on-demand or bulk coretime to activate parachain block production."
           },
           {
             "slug": "parachains-testing-run-a-parachain-network",
             "title": "Run a Parachain Network",
-            "url": "https://docs.polkadot.com/ai/pages/parachains-testing-run-a-parachain-network.md",
+            "url": "https://docs.polkadot.com/parachains/testing/run-a-parachain-network.md",
             "relevance": "Test the parachain locally with Zombienet before deploying to TestNet."
           }
         ]
@@ -11529,19 +11529,19 @@
           {
             "slug": "parachains-launch-a-parachain-deploy-to-polkadot",
             "title": "Deploy on Polkadot",
-            "url": "https://docs.polkadot.com/ai/pages/parachains-launch-a-parachain-deploy-to-polkadot.md",
+            "url": "https://docs.polkadot.com/parachains/launch-a-parachain/deploy-to-polkadot.md",
             "relevance": "Required prerequisite: deploy the parachain to TestNet before obtaining coretime."
           },
           {
             "slug": "reference-polkadot-hub-consensus-and-security-agile-coretime",
             "title": "Agile Coretime",
-            "url": "https://docs.polkadot.com/ai/pages/reference-polkadot-hub-consensus-and-security-agile-coretime.md",
+            "url": "https://docs.polkadot.com/reference/polkadot-hub/consensus-and-security/agile-coretime.md",
             "relevance": "Conceptual background on agile coretime, region types, and the coretime marketplace."
           },
           {
             "slug": "parachains-runtime-maintenance-coretime-renewal",
             "title": "Coretime Renewal",
-            "url": "https://docs.polkadot.com/ai/pages/parachains-runtime-maintenance-coretime-renewal.md",
+            "url": "https://docs.polkadot.com/parachains/runtime-maintenance/coretime-renewal.md",
             "relevance": "How to renew or auto-renew coretime when the current region expires."
           }
         ]
@@ -11638,13 +11638,13 @@
           {
             "slug": "smart-contracts-connect",
             "title": "Connect to Polkadot",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-connect.md",
+            "url": "https://docs.polkadot.com/smart-contracts/connect.md",
             "relevance": "Full network parameters (RPC endpoints, chain IDs, WSS URLs) for Polkadot Hub TestNet and MainNet."
           },
           {
             "slug": "smart-contracts-dev-environments-hardhat",
             "title": "Use Hardhat with Polkadot Hub",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-dev-environments-hardhat.md",
+            "url": "https://docs.polkadot.com/smart-contracts/dev-environments/hardhat.md",
             "relevance": "Hardhat setup for Polkadot Hub deployment — requires a funded account from this faucet step."
           }
         ]
@@ -11756,13 +11756,13 @@
           {
             "slug": "parachains-launch-a-parachain-obtain-coretime",
             "title": "Obtain Coretime",
-            "url": "https://docs.polkadot.com/ai/pages/parachains-launch-a-parachain-obtain-coretime.md",
+            "url": "https://docs.polkadot.com/parachains/launch-a-parachain/obtain-coretime.md",
             "relevance": "How to initially obtain coretime — the prerequisite workflow before renewal applies."
           },
           {
             "slug": "reference-polkadot-hub-consensus-and-security-agile-coretime",
             "title": "Agile Coretime",
-            "url": "https://docs.polkadot.com/ai/pages/reference-polkadot-hub-consensus-and-security-agile-coretime.md",
+            "url": "https://docs.polkadot.com/reference/polkadot-hub/consensus-and-security/agile-coretime.md",
             "relevance": "Conceptual overview of agile coretime, bulk sale phases, and the Renewals window mechanics."
           }
         ]
@@ -11882,13 +11882,13 @@
           {
             "slug": "parachains-launch-a-parachain-deploy-to-polkadot",
             "title": "Deploy on Polkadot",
-            "url": "https://docs.polkadot.com/ai/pages/parachains-launch-a-parachain-deploy-to-polkadot.md",
+            "url": "https://docs.polkadot.com/parachains/launch-a-parachain/deploy-to-polkadot.md",
             "relevance": "Parachain onboarding workflow — the context in which parachains typically end up locked after deployment."
           },
           {
             "slug": "parachains-interoperability-channels-with-system-parachains",
             "title": "Opening HRMP Channels with System Parachains",
-            "url": "https://docs.polkadot.com/ai/pages/parachains-interoperability-channels-with-system-parachains.md",
+            "url": "https://docs.polkadot.com/parachains/interoperability/channels-with-system-parachains.md",
             "relevance": "XCM channel setup context for inter-chain communication from parachain to relay chain."
           }
         ]
@@ -11989,13 +11989,13 @@
           {
             "slug": "smart-contracts-dev-environments-hardhat",
             "title": "Use Hardhat with Polkadot Hub",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-dev-environments-hardhat.md",
+            "url": "https://docs.polkadot.com/smart-contracts/dev-environments/hardhat.md",
             "relevance": "Hardhat network configuration using the TestNet RPC URL and chain ID provided by this skill."
           },
           {
             "slug": "smart-contracts-faucet",
             "title": "Get Tokens from the Official Faucet",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-faucet.md",
+            "url": "https://docs.polkadot.com/smart-contracts/faucet.md",
             "relevance": "Detailed faucet workflow for obtaining PAS test tokens."
           }
         ]
@@ -12154,19 +12154,19 @@
           {
             "slug": "node-infrastructure-run-a-validator-requirements",
             "title": "Validator Requirements",
-            "url": "https://docs.polkadot.com/ai/pages/node-infrastructure-run-a-validator-requirements.md",
+            "url": "https://docs.polkadot.com/node-infrastructure/run-a-validator/requirements.md",
             "relevance": "Hardware requirements, minimum bond thresholds, and VPS recommendations — review before setting up a validator."
           },
           {
             "slug": "node-infrastructure-run-a-validator-onboarding-and-offboarding-key-management",
             "title": "Validator Key Management",
-            "url": "https://docs.polkadot.com/ai/pages/node-infrastructure-run-a-validator-onboarding-and-offboarding-key-management.md",
+            "url": "https://docs.polkadot.com/node-infrastructure/run-a-validator/onboarding-and-offboarding/key-management.md",
             "relevance": "Session key generation and registration — must be completed before bonding and activation."
           },
           {
             "slug": "node-infrastructure-run-a-validator-staking-mechanics-rewards",
             "title": "Rewards Payout",
-            "url": "https://docs.polkadot.com/ai/pages/node-infrastructure-run-a-validator-staking-mechanics-rewards.md",
+            "url": "https://docs.polkadot.com/node-infrastructure/run-a-validator/staking-mechanics/rewards.md",
             "relevance": "How validator rewards are calculated and distributed after becoming active."
           }
         ]

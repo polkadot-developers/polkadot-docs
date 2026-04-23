@@ -190,9 +190,10 @@ const wethSupported = hydrationAssets.some(a => a.symbol === 'WETH');
 
 if (wethSupported) {
   await EvmBuilder(provider)
+    .from('Ethereum')
     .to('Hydration')
     .currency({ symbol: 'WETH', amount: amount })
-    .address(recipientAddress)
+    .recipient(recipientAddress)
     .signer(signer)
     .build();
 }

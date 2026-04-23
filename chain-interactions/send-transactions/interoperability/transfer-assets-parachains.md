@@ -2,6 +2,10 @@
 title: Transfer Assets Between Parachains
 description: A step-by-step guide to using the ParaSpell XCM SDK to build, verify, and execute a transfer from one Parachain to another.
 categories: Interoperability, Parachains
+page_badges:
+  test_workflow: polkadot-docs-transfer-assets-parachains
+page_tests:
+  path: polkadot-docs/chain-interactions/transfer-assets-parachains/tests/docs.test.ts
 ---
 
 # Transfer Assets Between Parachains
@@ -104,7 +108,7 @@ The result of the dry run will look similar to the following example output:
 
 ## Verify the Existential Deposit
 
-Check if the recipient account meets the [Existential Deposit (ED)](/reference/glossary/#existential-deposit){target=\_blank} requirement before sending by using [`verifyEdOnDestination`](https://paraspell.github.io/docs/xcm-sdk/xcm-utils.html#verify-ed-on-destination){target=\_blank}:
+Check if the recipient account meets the [Existential Deposit (ED)](/reference/glossary/#existential-deposit){target=\_blank} requirement before sending by using [`verifyEdOnDestination`](https://paraspell.github.io/docs/xcm-api/xcm-sdk-functionality.html#verify-ed-on-destination){target=\_blank}:
 
 ```ts title="index.ts"
 --8<-- 'code/chain-interactions/send-transactions/interoperability/transfer-assets-parachains/index.ts:72:88'

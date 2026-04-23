@@ -4,6 +4,9 @@ description: A guide detailing the step-by-step process of converting assets on 
 categories: Chain Interactions, Tooling
 page_badges:
   tutorial_badge: Intermediate
+  test_workflow: polkadot-docs-convert-assets
+page_tests:
+  path: polkadot-docs/chain-interactions/convert-assets/tests/docs.test.ts
 ---
 
 # Convert Assets on Asset Hub

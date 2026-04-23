@@ -179,13 +179,13 @@ When prompted, confirm the target network name and chain ID. Ignition deploys th
 
 <div class="grid cards" markdown>
 
--   <span class="badge tutorial">Tutorial</span> __Deploy Uniswap V2 Core__
+-   <span class="badge tutorial">Tutorial</span> __Uniswap V3 Core__
 
     ---
 
-    Deploy the underlying Uniswap V2 Factory and Pair contracts on Polkadot Hub using Hardhat.
+    Deploy unmodified Uniswap V3 Core contracts on Polkadot Hub using Hardhat and the EVM execution path.
 
-    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/eth-dapps/uniswap-v2/core-v2/)
+    [:octicons-arrow-right-24: Get Started](/smart-contracts/cookbook/eth-dapps/uniswap-v3/core-v3/)
 
 -   <span class="badge guide">Guide</span> __Hardhat on Polkadot__
 

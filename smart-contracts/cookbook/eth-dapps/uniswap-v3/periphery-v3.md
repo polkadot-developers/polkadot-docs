@@ -2,6 +2,7 @@
 title: Uniswap V3 Periphery with EVM on Polkadot Hub
 description: Deploy and test unmodified Uniswap V3 Periphery contracts, SwapRouter and NonfungiblePositionManager, on Polkadot Hub using standard Hardhat and TypeScript with the EVM execution path.
 categories: Smart Contracts, Tooling
+tools: Hardhat
 page_badges:
   tutorial_badge: Intermediate
   test_workflow: polkadot-docs-uniswap-v3-periphery-hardhat
@@ -13,7 +14,7 @@ page_tests:
 
 ## Introduction
 
-The [Uniswap V3 Periphery](https://developers.uniswap.org/docs/protocols/v3/overview){target=\_blank} contracts provide the user-facing layer that sits on top of the [Uniswap V3 Core](/smart-contracts/cookbook/eth-dapps/uniswap-v3/core-v3/){target=\_blank} Factory and Pool contracts. While V3 Core handles the low-level concentrated liquidity engine, the Periphery contracts expose the functions that users and applications interact with directly: executing token swaps through one or more pools and managing concentrated liquidity positions as ERC-721 NFTs.
+The [Uniswap V3 Periphery](https://docs.uniswap.org/contracts/v3/overview){target=\_blank} contracts provide the user-facing layer that sits on top of the [Uniswap V3 Core](/smart-contracts/cookbook/eth-dapps/uniswap-v3/core-v3/){target=\_blank} Factory and Pool contracts. While V3 Core handles the low-level concentrated liquidity engine, the Periphery contracts expose the functions that users and applications interact with directly: executing token swaps through one or more pools and managing concentrated liquidity positions as ERC-721 NFTs.
 
 This tutorial follows the EVM execution path. With EVM (powered by [REVM](https://github.com/bluealloy/revm){target=\_blank}, a Rust implementation of the Ethereum Virtual Machine), you deploy the same unmodified Solidity contracts using the same standard Hardhat toolchain you already know. No special compiler plugins, no contract rewrites, and no porting effort. If your project compiles with vanilla Hardhat, it runs on Polkadot Hub through EVM.
 
@@ -40,7 +41,7 @@ Start by cloning the EVM Hardhat examples repository, which contains the Uniswap
     ```bash
     git clone https://github.com/polkadot-developers/revm-hardhat-examples.git
     cd revm-hardhat-examples
-    git checkout <PINNED_COMMIT>
+    git checkout 96696ad15c3cf01b9168a71ad5114f27c34a8726
     cd uniswap-v3-periphery-hardhat/
     ```
 
@@ -83,7 +84,7 @@ When prompted, paste your private key. Hardhat stores it securely and makes it a
 The `hardhat.config.ts` file references the variable conditionally, so the project works without it for local development:
 
 ```typescript title="hardhat.config.ts"
---8<-- 'https://raw.githubusercontent.com/polkadot-developers/revm-hardhat-examples/<PINNED_COMMIT>/uniswap-v3-periphery-hardhat/hardhat.config.ts:46:51'
+--8<-- 'https://raw.githubusercontent.com/polkadot-developers/revm-hardhat-examples/96696ad15c3cf01b9168a71ad5114f27c34a8726/uniswap-v3-periphery-hardhat/hardhat.config.ts:46:51'
 ```
 
 !!! note
@@ -94,13 +95,13 @@ The `hardhat.config.ts` file references the variable conditionally, so the proje
 The Periphery project uses the same critical compiler setting as V3 Core: `bytecodeHash` is set to `"none"`, which excludes the metadata hash from the compiled bytecode. This is required so that the compiled `UniswapV3Pool` bytecode matches the hardcoded `POOL_INIT_CODE_HASH` constant in `PoolAddress.sol`. The Periphery contracts use this constant to compute pool addresses via CREATE2 — a mismatch causes every swap and LP operation to silently call the wrong address:
 
 ```typescript title="hardhat.config.ts"
---8<-- 'https://raw.githubusercontent.com/polkadot-developers/revm-hardhat-examples/<PINNED_COMMIT>/uniswap-v3-periphery-hardhat/hardhat.config.ts:21:37'
+--8<-- 'https://raw.githubusercontent.com/polkadot-developers/revm-hardhat-examples/96696ad15c3cf01b9168a71ad5114f27c34a8726/uniswap-v3-periphery-hardhat/hardhat.config.ts:21:37'
 ```
 
 The configuration also sets `allowUnlimitedContractSize: true` for the local Hardhat network, which is required because several Periphery contracts exceed the standard 24KB EIP-170 size limit. For the `localNode` network, a fixed gas price of 50 gwei matches the gas price reported by the Polkadot local development node:
 
 ```typescript title="hardhat.config.ts"
---8<-- 'https://raw.githubusercontent.com/polkadot-developers/revm-hardhat-examples/<PINNED_COMMIT>/uniswap-v3-periphery-hardhat/hardhat.config.ts:38:45'
+--8<-- 'https://raw.githubusercontent.com/polkadot-developers/revm-hardhat-examples/96696ad15c3cf01b9168a71ad5114f27c34a8726/uniswap-v3-periphery-hardhat/hardhat.config.ts:38:45'
 ```
 
 ## Uniswap V3 Periphery Architecture

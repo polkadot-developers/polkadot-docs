@@ -1,6 +1,6 @@
 ---
 title: Uniswap V3 Periphery with EVM on Polkadot Hub
-description: Deploy and test unmodified Uniswap V3 Periphery contracts — SwapRouter and NonfungiblePositionManager — on Polkadot Hub using standard Hardhat and TypeScript with the EVM execution path.
+description: Deploy and test unmodified Uniswap V3 Periphery contracts, SwapRouter and NonfungiblePositionManager, on Polkadot Hub using standard Hardhat and TypeScript with the EVM execution path.
 categories: Smart Contracts, Tooling
 page_badges:
   tutorial_badge: Intermediate
@@ -119,21 +119,21 @@ Accumulated fees are tracked separately from principal liquidity and are staged 
 
 The `SwapRouter` contract routes token swaps through one or more V3 pools. It supports four swap modes:
 
-- **`exactInputSingle`** — Spend a fixed amount of one token to receive as much of another token as possible through a single pool. The `amountOutMinimum` parameter enforces a slippage floor, and `sqrtPriceLimitX96` optionally caps how far the price can move (enabling partial fills).
-- **`exactInput`** — Execute a multi-hop swap along an ABI-encoded path of pools. Each hop specifies a `tokenIn`, `fee`, and `tokenOut`. The full input amount is consumed and the final output must meet `amountOutMinimum`.
-- **`exactOutputSingle`** — Buy a precise amount of one token using as little of another token as possible through a single pool. The `amountInMaximum` parameter caps the input, and the router refunds any unused allowance.
-- **`exactOutput`** — Execute a multi-hop exact-output swap. The path is encoded in reverse (from the output token back to the input token), and the caller specifies the exact amount to receive.
+- **`exactInputSingle`**: Spend a fixed amount of one token to receive as much of another token as possible through a single pool. The `amountOutMinimum` parameter enforces a slippage floor, and `sqrtPriceLimitX96` optionally caps how far the price can move (enabling partial fills).
+- **`exactInput`**: Execute a multi-hop swap along an ABI-encoded path of pools. Each hop specifies a `tokenIn`, `fee`, and `tokenOut`. The full input amount is consumed and the final output must meet `amountOutMinimum`.
+- **`exactOutputSingle`**: Buy a precise amount of one token using as little of another token as possible through a single pool. The `amountInMaximum` parameter caps the input, and the router refunds any unused allowance.
+- **`exactOutput`**: Execute a multi-hop exact-output swap. The path is encoded in reverse (from the output token back to the input token), and the caller specifies the exact amount to receive.
 
 ### NonfungiblePositionManager
 
 The `NonfungiblePositionManager` (NFPM) represents each concentrated liquidity position as an ERC-721 NFT. A single contract manages the full LP lifecycle:
 
-- **`createAndInitializePoolIfNecessary`** — Creates a new V3 pool for a token pair and fee tier if none exists, and sets its initial price as a `sqrtPriceX96` value. Calling this on an already-initialized pool is a safe no-op.
-- **`mint`** — Opens a new position within a specified tick range and mints an NFT to the recipient. The `tokenId` returned uniquely identifies the position. The `amount0Min` and `amount1Min` parameters guard against slippage during the initial deposit.
-- **`increaseLiquidity`** — Adds more capital to an existing position identified by its `tokenId`. The position's tick range and fee tier remain unchanged.
-- **`decreaseLiquidity`** — Removes a specified amount of liquidity from a position. Tokens are not transferred to the owner immediately; they are staged in the position's `tokensOwed0` and `tokensOwed1` fields. This two-step design allows the owner to decide when to withdraw.
-- **`collect`** — Transfers the amounts staged in `tokensOwed` (from both `decreaseLiquidity` and accumulated fees) to a specified recipient. The `amount0Max` and `amount1Max` parameters allow partial collection.
-- **`burn`** — Destroys the NFT for a position that has been fully exited. The position must have `liquidity == 0` and `tokensOwed0 == tokensOwed1 == 0`; attempting to burn a live or uncollected position reverts.
+- **`createAndInitializePoolIfNecessary`**: Creates a new V3 pool for a token pair and fee tier if none exists, and sets its initial price as a `sqrtPriceX96` value. Calling this on an already-initialized pool is a safe no-op.
+- **`mint`**: Opens a new position within a specified tick range and mints an NFT to the recipient. The `tokenId` returned uniquely identifies the position. The `amount0Min` and `amount1Min` parameters guard against slippage during the initial deposit.
+- **`increaseLiquidity`**: Adds more capital to an existing position identified by its `tokenId`. The position's tick range and fee tier remain unchanged.
+- **`decreaseLiquidity`**: Removes a specified amount of liquidity from a position. Tokens are not transferred to the owner immediately; they are staged in the position's `tokensOwed0` and `tokensOwed1` fields. This two-step design allows the owner to decide when to withdraw.
+- **`collect`**: Transfers the amounts staged in `tokensOwed` (from both `decreaseLiquidity` and accumulated fees) to a specified recipient. The `amount0Max` and `amount1Max` parameters allow partial collection.
+- **`burn`**: Destroys the NFT for a position that has been fully exited. The position must have `liquidity == 0` and `tokensOwed0 == tokensOwed1 == 0`; attempting to burn a live or uncollected position reverts.
 
 ### Project Structure
 
@@ -190,8 +190,8 @@ Key differences from the V3 Core project are minimal. The Solidity contracts use
 
 The project includes a test suite with 39 tests across two test files:
 
-- **`SwapRouter.test.ts`** — 14 tests covering all four swap modes (exactInputSingle, exactInput, exactOutputSingle, exactOutput), slippage protection enforcement, recipient routing, sqrtPriceLimitX96 partial fills, and on-chain pool state changes after swaps
-- **`NonfungiblePositionManager.test.ts`** — 25 tests covering the full LP lifecycle: pool creation and initialization, minting in-range and out-of-range positions, increasing and decreasing liquidity, fee collection through real swaps, and the complete burn cleanup sequence
+- **`SwapRouter.test.ts`**: 14 tests covering all four swap modes (exactInputSingle, exactInput, exactOutputSingle, exactOutput), slippage protection enforcement, recipient routing, sqrtPriceLimitX96 partial fills, and on-chain pool state changes after swaps.
+- **`NonfungiblePositionManager.test.ts`**: 25 tests covering the full LP lifecycle: pool creation and initialization, minting in-range and out-of-range positions, increasing and decreasing liquidity, fee collection through real swaps, and the complete burn cleanup sequence.
 
 To run the tests locally:
 

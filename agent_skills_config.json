@@ -1,10 +1,7 @@
 {
   "schema_version": "0.1",
   "generated": "2026-04-21T23:59:00Z",
-  "content_hash": "sha256:1138555008efd84c3ac8e011bac8118ddcfc53c34dc0c219ee38deb16133bca3",
-  "project": {
-    "name": "Polkadot Developer Docs"
-  },
+  "content_hash": "sha256:baa77872cb276111bce49b6294c4964626a51bfb239f70ed353276956891ffbd",
   "skills": [
     {
       "id": "create-polkadot-account",

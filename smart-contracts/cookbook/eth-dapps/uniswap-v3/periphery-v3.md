@@ -92,7 +92,7 @@ The `hardhat.config.ts` file references the variable conditionally, so the proje
 
 ### V3-Specific Configuration
 
-The Periphery project uses the same critical compiler setting as V3 Core: `bytecodeHash` is set to `"none"`, which excludes the metadata hash from the compiled bytecode. This is required so that the compiled `UniswapV3Pool` bytecode matches the hardcoded `POOL_INIT_CODE_HASH` constant in `PoolAddress.sol`. The Periphery contracts use this constant to compute pool addresses via CREATE2. If there is a mismatch, every swap and LP operation silently calls the wrong address:
+The Periphery project uses the same critical compiler setting as V3 Core: `bytecodeHash` is set to `"none"`, which excludes the metadata hash from the compiled bytecode. This is required so that the compiled `UniswapV3Pool` bytecode matches the hardcoded `POOL_INIT_CODE_HASH` constant in `PoolAddress.sol`. The Periphery contracts use this constant to compute pool addresses via `CREATE2`. If there is a mismatch, every swap and LP operation silently calls the wrong address:
 
 ```typescript title="hardhat.config.ts"
 --8<-- 'https://raw.githubusercontent.com/polkadot-developers/revm-hardhat-examples/96696ad15c3cf01b9168a71ad5114f27c34a8726/uniswap-v3-periphery-hardhat/hardhat.config.ts:21:37'
@@ -191,8 +191,8 @@ Key differences from the V3 Core project are minimal. The Solidity contracts use
 
 The project includes a test suite with 39 tests across two test files:
 
-- **`SwapRouter.test.ts`**: 14 tests covering all four swap modes (exactInputSingle, exactInput, exactOutputSingle, exactOutput), slippage protection enforcement, recipient routing, sqrtPriceLimitX96 partial fills, and on-chain pool state changes after swaps.
-- **`NonfungiblePositionManager.test.ts`**: 25 tests covering the full LP lifecycle: pool creation and initialization, minting in-range and out-of-range positions, increasing and decreasing liquidity, fee collection through real swaps, and the complete burn cleanup sequence.
+- **`SwapRouter.test.ts`**: 14 tests covering all four swap modes (`exactInputSingle`, `exactInput`, `exactOutputSingle`, `exactOutput`), slippage protection enforcement, recipient routing, `sqrtPriceLimitX96` partial fills, and on-chain pool state changes after swaps.
+- **`NonfungiblePositionManager.test.ts`**: 25 tests covering the full LP lifecycle, including pool creation and initialization, minting in-range and out-of-range positions, increasing and decreasing liquidity, fee collection through real swaps, and the complete burn cleanup sequence.
 
 To run the tests locally:
 
@@ -209,7 +209,7 @@ To run the tests locally:
     --8<-- 'code/smart-contracts/cookbook/eth-dapps/uniswap-v3/periphery-v3/testing-output.html'
 
 !!! tip
-    If tests time out, ensure your local development node is running and accessible at `http://127.0.0.1:8545`.
+    If the tests fail due to a timeout, ensure your local development node is running and accessible at `http://127.0.0.1:8545`.
 
 ## Deploy the Contracts
 

@@ -1,5 +1,6 @@
 nav:
   - 'Home': index.md
+  - 'Apps': apps
   - 'Smart Contracts': smart-contracts
   - 'Parachains': parachains
   - 'Chain Interactions': chain-interactions

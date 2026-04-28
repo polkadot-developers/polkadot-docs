@@ -1,0 +1,11 @@
+nav:
+ - 'Start a Local Dev Loop': start-a-local-dev-loop.md
+ - 'Accounts and Signing': accounts-and-signing.md
+ - 'Read Chain State': read-chain-state.md
+ - 'Store Data On-Chain': store-data-on-chain.md
+ - 'Exchange Ephemeral Messages': exchange-ephemeral-messages.md
+ - 'Add Chat': add-chat.md
+ - 'Use Personhood in Your App': use-personhood-in-your-app.md
+ - 'Request Permissions': request-permissions.md
+ - 'Persist Data Locally': persist-data-locally.md
+ - 'Accept a Payment': accept-a-payment.md

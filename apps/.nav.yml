@@ -1,0 +1,7 @@
+nav:
+ - 'Overview': index.md
+ - 'Quick Start': quick-start.md
+ - 'Build a Full Product': build-a-full-product.md
+ - 'Set Up': set-up
+ - 'Build': build
+ - 'Deploy and Publish': deploy-and-publish

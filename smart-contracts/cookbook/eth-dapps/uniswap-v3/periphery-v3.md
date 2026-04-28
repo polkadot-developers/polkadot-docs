@@ -92,7 +92,7 @@ The `hardhat.config.ts` file references the variable conditionally, so the proje
 
 ### V3-Specific Configuration
 
-The Periphery project uses the same critical compiler setting as V3 Core: `bytecodeHash` is set to `"none"`, which excludes the metadata hash from the compiled bytecode. This is required so that the compiled `UniswapV3Pool` bytecode matches the hardcoded `POOL_INIT_CODE_HASH` constant in `PoolAddress.sol`. The Periphery contracts use this constant to compute pool addresses via `CREATE2`. If there is a mismatch, every swap and LP operation silently calls the wrong address:
+The Periphery project uses the same critical compiler setting as V3 Core: `bytecodeHash` is set to `none`, which excludes the metadata hash from the compiled bytecode. This is required so that the compiled `UniswapV3Pool` bytecode matches the hardcoded `POOL_INIT_CODE_HASH` constant in `PoolAddress.sol`. The Periphery contracts use this constant to compute pool addresses via `CREATE2`. If there is a mismatch, every swap and LP operation silently calls the wrong address:
 
 ```typescript title="hardhat.config.ts"
 --8<-- 'https://raw.githubusercontent.com/polkadot-developers/revm-hardhat-examples/96696ad15c3cf01b9168a71ad5114f27c34a8726/uniswap-v3-periphery-hardhat/hardhat.config.ts:21:37'

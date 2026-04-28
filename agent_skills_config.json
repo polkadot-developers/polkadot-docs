@@ -1,7 +1,7 @@
 {
   "schema_version": "0.1",
-  "generated": "2026-04-28T14:21:29Z",
-  "content_hash": "sha256:4b29d7eab121d0cb03d2619eeb31344c686cedfb81fa3ca9c68c134f47aacb9d",
+  "generated": "2026-04-28T14:29:30Z",
+  "content_hash": "sha256:eab18ac07e1236cc262b00bd02649cb698aab9de952def0211ce0b322eb917b2",
   "skills": [
     {
       "id": "create-polkadot-account",
@@ -8283,31 +8283,31 @@
           "order": 1,
           "action": "Verify pallet supports instantiation",
           "working_directory": ".",
-          "description": "Not all pallets support multiple instances. An instantiable pallet uses a second generic type parameter (the Instance) in its Config trait definition, e.g.: pub trait Config<I: 'static = ()>: frame_system::Config. Check the pallet's source or documentation for this pattern. pallet-collective and pallet-membership are standard examples. If the pallet does not have the Instance generic, it cannot be instantiated multiple times."
+          "description": "Not all pallets support multiple instances. An instantiable pallet uses a second generic type parameter (the Instance) in its Config trait definition, e.g.: `pub trait Config<I: 'static = ()>: frame_system::Config`. Check the pallet's source or documentation for this pattern. pallet-collective and pallet-membership are standard examples. If the pallet does not have the Instance generic, it cannot be instantiated multiple times."
         },
         {
           "order": 2,
           "action": "Add pallet dependencies to runtime/Cargo.toml",
           "working_directory": ".",
-          "description": "Open runtime/Cargo.toml. A single pallet crate covers all instances — add it once:\n\n[dependencies]\n...\npallet-collective = { version = \"<SDK_VERSION>\", default-features = false }\npallet-membership = { version = \"<SDK_VERSION>\", default-features = false }\n\nReplace <SDK_VERSION> with the version matching your other SDK pallets (check existing entries). Add both to the std feature list:\n\n[features]\nstd = [\n    ...\n    \"pallet-collective/std\",\n    \"pallet-membership/std\",\n]\n\nVerify: cargo check -p runtime 2>&1 | head -20"
+          "description": "Open runtime/Cargo.toml. A single pallet crate covers all instances — add it once:\n\n```toml\n[dependencies]\n...\npallet-collective = { version = \"<SDK_VERSION>\", default-features = false }\npallet-membership = { version = \"<SDK_VERSION>\", default-features = false }\n```\n\nReplace `<SDK_VERSION>` with the version matching your other SDK pallets (check existing entries). Add both to the std feature list:\n\n```toml\n[features]\nstd = [\n    ...\n    \"pallet-collective/std\",\n    \"pallet-membership/std\",\n]\n```\n\nVerify: `cargo check -p runtime 2>&1 | head -20`"
         },
         {
           "order": 3,
           "action": "Implement Config<Instance1> for TechnicalCommittee",
           "working_directory": ".",
-          "description": "Open runtime/src/lib.rs. Add the first instance's Config implementation. For pallet-collective as TechnicalCommittee:\n\ntype TechnicalCommitteeInstance = pallet_collective::Instance1;\n\nimpl pallet_collective::Config<TechnicalCommitteeInstance> for Runtime {\n    type RuntimeOrigin = RuntimeOrigin;\n    type Proposal = RuntimeCall;\n    type RuntimeEvent = RuntimeEvent;\n    type MotionDuration = ConstU32<5>;\n    type MaxProposals = ConstU32<100>;\n    type MaxMembers = ConstU32<100>;\n    type DefaultVote = pallet_collective::PrimeDefaultVote;\n    type WeightInfo = pallet_collective::weights::SubstrateWeight<Runtime>;\n    type SetMembersOrigin = EnsureRoot<AccountId>;\n    type MaxProposalWeight = BlockWeights;\n}\n\nSubstitute ConstU32 values with the desired governance parameters."
+          "description": "Open runtime/src/lib.rs. Add the first instance's Config implementation. For pallet-collective as TechnicalCommittee:\n\n```rust\ntype TechnicalCommitteeInstance = pallet_collective::Instance1;\n\nimpl pallet_collective::Config<TechnicalCommitteeInstance> for Runtime {\n    type RuntimeOrigin = RuntimeOrigin;\n    type Proposal = RuntimeCall;\n    type RuntimeEvent = RuntimeEvent;\n    type MotionDuration = ConstU32<5>;\n    type MaxProposals = ConstU32<100>;\n    type MaxMembers = ConstU32<100>;\n    type DefaultVote = pallet_collective::PrimeDefaultVote;\n    type WeightInfo = pallet_collective::weights::SubstrateWeight<Runtime>;\n    type SetMembersOrigin = EnsureRoot<AccountId>;\n    type MaxProposalWeight = BlockWeights;\n}\n```\n\nSubstitute `ConstU32` values with the desired governance parameters."
         },
         {
           "order": 4,
           "action": "Implement Config<Instance2> for Council",
           "working_directory": ".",
-          "description": "Add the second instance's Config implementation immediately after the first:\n\ntype CouncilInstance = pallet_collective::Instance2;\n\nimpl pallet_collective::Config<CouncilInstance> for Runtime {\n    type RuntimeOrigin = RuntimeOrigin;\n    type Proposal = RuntimeCall;\n    type RuntimeEvent = RuntimeEvent;\n    type MotionDuration = ConstU32<7>;\n    type MaxProposals = ConstU32<50>;\n    type MaxMembers = ConstU32<20>;\n    type DefaultVote = pallet_collective::PrimeDefaultVote;\n    type WeightInfo = pallet_collective::weights::SubstrateWeight<Runtime>;\n    type SetMembersOrigin = EnsureRoot<AccountId>;\n    type MaxProposalWeight = BlockWeights;\n}\n\nThe instances share the same pallet code but maintain completely independent storage — MotionDuration, MaxProposals, and MaxMembers can differ per instance."
+          "description": "Add the second instance's Config implementation immediately after the first:\n\n```rust\ntype CouncilInstance = pallet_collective::Instance2;\n\nimpl pallet_collective::Config<CouncilInstance> for Runtime {\n    type RuntimeOrigin = RuntimeOrigin;\n    type Proposal = RuntimeCall;\n    type RuntimeEvent = RuntimeEvent;\n    type MotionDuration = ConstU32<7>;\n    type MaxProposals = ConstU32<50>;\n    type MaxMembers = ConstU32<20>;\n    type DefaultVote = pallet_collective::PrimeDefaultVote;\n    type WeightInfo = pallet_collective::weights::SubstrateWeight<Runtime>;\n    type SetMembersOrigin = EnsureRoot<AccountId>;\n    type MaxProposalWeight = BlockWeights;\n}\n```\n\nThe instances share the same pallet code but maintain completely independent storage — `MotionDuration`, `MaxProposals`, and `MaxMembers` can differ per instance."
         },
         {
           "order": 5,
           "action": "Register both instances in construct_runtime!",
           "working_directory": ".",
-          "description": "Find construct_runtime! in runtime/src/lib.rs and add both instances with unique names:\n\nconstruct_runtime!(\n    pub enum Runtime where ... {\n        // ... existing pallets ...\n        TechnicalCommittee: pallet_collective::<Instance1>,\n        Council: pallet_collective::<Instance2>,\n    }\n);\n\nThe names TechnicalCommittee and Council become the on-chain pallet identifiers for storage and extrinsics — choose carefully as renaming requires a migration. The ::<Instance1> and ::<Instance2> syntax routes to the correct Config impl."
+          "description": "Find `construct_runtime!` in runtime/src/lib.rs and add both instances with unique names:\n\n```rust\nconstruct_runtime!(\n    pub enum Runtime where ... {\n        // ... existing pallets ...\n        TechnicalCommittee: pallet_collective::<Instance1>,\n        Council: pallet_collective::<Instance2>,\n    }\n);\n```\n\nThe names `TechnicalCommittee` and `Council` become the on-chain pallet identifiers for storage and extrinsics — choose carefully as renaming requires a migration. The `::<Instance1>` and `::<Instance2>` syntax tells the macro which Instance type alias to bind to each pallet entry."
         },
         {
           "order": 6,

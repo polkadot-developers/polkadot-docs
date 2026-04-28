@@ -1,7 +1,7 @@
 {
   "schema_version": "0.1",
-  "generated": "2026-04-28T14:38:43Z",
-  "content_hash": "sha256:da06ee6ab4d98a7317facd1223827812c1fed07d72ec3484cdb1b0b30e027002",
+  "generated": "2026-04-28T15:12:44Z",
+  "content_hash": "sha256:4a11171838e931595e7f0d500bc08160fec34e06cda2efc47585757857e10cf5",
   "skills": [
     {
       "id": "create-polkadot-account",
@@ -48,7 +48,8 @@
           "order": 3,
           "action": "Fetch the account creation script",
           "working_directory": "account-creator",
-          "description": "Create a file named `create-account.ts` in the project root with the following content:\n\n```typescript\nimport { cryptoWaitReady, mnemonicGenerate } from \"@polkadot/util-crypto\";\nimport { Keyring } from \"@polkadot/keyring\";\n\nasync function main() {\n  await cryptoWaitReady();\n\n  const mnemonic = mnemonicGenerate(12);\n  const keyring = new Keyring({ type: \"sr25519\", ss58Format: 0 });\n  const pair = keyring.addFromMnemonic(mnemonic);\n\n  console.log(`Address: ${pair.address}`);\n  console.log(`Mnemonic: ${mnemonic}`);\n}\n\nmain().catch(console.error);\n```\n\nNo substitutions needed — the script generates a fresh random account on each execution. `cryptoWaitReady()` initializes the @polkadot/util-crypto WASM module; `mnemonicGenerate(12)` produces a 12-word BIP39 phrase; the keyring derives an SR25519 account at the standard Polkadot SS58 prefix (0). The mnemonic is printed in full so the user can record it for later signing — never log mnemonics in production code."
+          "description": "Fetch the reference file and save it as `create-account.ts`. No substitutions needed — the script generates a fresh random account on each execution. `cryptoWaitReady()` initializes the @polkadot/util-crypto WASM module; `mnemonicGenerate(12)` produces a 12-word BIP39 phrase; the keyring derives an SR25519 account at the standard Polkadot SS58 prefix (0).",
+          "reference_file": "create-account.ts"
         },
         {
           "order": 4,
@@ -62,10 +63,15 @@
         }
       ],
       "reference_code": {
-        "repo": "none",
-        "branch": "",
-        "base_path": "",
-        "files": []
+        "repo": "polkadot-developers/polkadot-docs",
+        "branch": "master",
+        "base_path": ".snippets/code/chain-interactions/accounts/create-account",
+        "files": [
+          {
+            "path": "create-account.ts",
+            "description": "Generates a new SR25519 keypair using mnemonicGenerate(); prints SS58 address and mnemonic"
+          }
+        ]
       },
       "error_patterns": [
         {
@@ -198,9 +204,9 @@
         }
       ],
       "reference_code": {
-        "repo": "polkadot-developers/polkadot-cookbook",
+        "repo": "polkadot-developers/polkadot-docs",
         "branch": "master",
-        "base_path": "polkadot-docs/chain-interactions/query-accounts",
+        "base_path": ".snippets/code/chain-interactions/accounts/query-account",
         "files": [
           {
             "path": "papi/query-account.ts",
@@ -347,9 +353,9 @@
         }
       ],
       "reference_code": {
-        "repo": "polkadot-developers/polkadot-cookbook",
+        "repo": "polkadot-developers/polkadot-docs",
         "branch": "master",
-        "base_path": "polkadot-docs/chain-interactions/query-sdks",
+        "base_path": ".snippets/code/chain-interactions/query-data/query-sdks",
         "files": [
           {
             "path": "papi/query-balance.ts",
@@ -492,9 +498,9 @@
         }
       ],
       "reference_code": {
-        "repo": "polkadot-developers/polkadot-cookbook",
+        "repo": "polkadot-developers/polkadot-docs",
         "branch": "master",
-        "base_path": "polkadot-docs/chain-interactions/runtime-api-calls",
+        "base_path": ".snippets/code/chain-interactions/query-data/runtime-api-calls",
         "files": [
           {
             "path": "papi/runtime-apis.ts",
@@ -650,8 +656,8 @@
           "order": 5,
           "action": "Fetch and adapt the send-transfer script",
           "working_directory": "papi-send-tx-example",
-          "reference_file": "with-sdks/papi/send-transfer.ts",
-          "description": "Fetch the reference file and save it as 'send-transfer.ts'. Then apply these modifications: (1) Add 'import \"dotenv/config\";' as the very first line of the file. (2) Replace 'const POLKADOT_TESTNET_RPC = \\'INSERT_WS_ENDPOINT\\';' with 'const POLKADOT_TESTNET_RPC = process.env.WS_ENDPOINT!;'. (3) Replace 'const SENDER_MNEMONIC = \\'INSERT_MNEMONIC\\';' with 'const SENDER_MNEMONIC = process.env.SENDER_MNEMONIC!;'. (4) Replace 'const DEST_ADDRESS = \\'INSERT_DEST_ADDRESS\\';' with 'const DEST_ADDRESS = process.env.DEST_ADDRESS!;'. Save the file. If the AI fetch is blocked, run: curl -sL https://raw.githubusercontent.com/polkadot-developers/polkadot-cookbook/main/polkadot-docs/chain-interactions/send-transactions/with-sdks/papi/send-transfer.ts -o send-transfer.ts"
+          "reference_file": "papi/send-transfer.ts",
+          "description": "Fetch the reference file and save it as 'send-transfer.ts'. Then apply these modifications: (1) Add 'import \"dotenv/config\";' as the very first line of the file. (2) Replace 'const POLKADOT_TESTNET_RPC = \\'INSERT_WS_ENDPOINT\\';' with 'const POLKADOT_TESTNET_RPC = process.env.WS_ENDPOINT!;'. (3) Replace 'const SENDER_MNEMONIC = \\'INSERT_MNEMONIC\\';' with 'const SENDER_MNEMONIC = process.env.SENDER_MNEMONIC!;'. (4) Replace 'const DEST_ADDRESS = \\'INSERT_DEST_ADDRESS\\';' with 'const DEST_ADDRESS = process.env.DEST_ADDRESS!;'. Save the file."
         },
         {
           "order": 6,
@@ -671,12 +677,12 @@
         }
       ],
       "reference_code": {
-        "repo": "polkadot-developers/polkadot-cookbook",
+        "repo": "polkadot-developers/polkadot-docs",
         "branch": "master",
-        "base_path": "polkadot-docs/chain-interactions/send-transactions",
+        "base_path": ".snippets/code/chain-interactions/send-transactions/with-sdks",
         "files": [
           {
-            "path": "with-sdks/papi/send-transfer.ts",
+            "path": "papi/send-transfer.ts",
             "description": "PAPI TypeScript script that signs and submits a Balances.transfer_keep_alive extrinsic"
           }
         ]
@@ -988,14 +994,14 @@
           "action": "Fetch and configure hardhat.config.ts",
           "working_directory": "hardhat-deployment",
           "reference_file": "hardhat.config.ts",
-          "description": "Fetch the reference file and save it as 'hardhat.config.ts'. Then apply all of the following modifications before saving:\n(1) Add 'import \"dotenv/config\";' as the very first line of the file.\n(2) Replace any 'vars.get(\"PRIVATE_KEY\")' or \"vars.get('PRIVATE_KEY')\" with 'process.env.PRIVATE_KEY as string'.\n(3) In the polkadotTestnet network block, add 'gasPrice: 5000000000000,' (5000 gwei — 5x the TestNet base fee of 1000 gwei; prevents stuck transactions).\n(4) Add an 'ignition: { requiredConfirmations: 1 }' top-level key to the config object (zero confirmations only works on local nodes — on TestNet it causes IGN401 dropped-transaction errors).\nIf the AI fetch tool is blocked, run: curl -sL https://raw.githubusercontent.com/polkadot-developers/polkadot-cookbook/main/polkadot-docs/smart-contracts/basic-hardhat/hardhat.config.ts -o hardhat.config.ts"
+          "description": "Fetch the reference file and save it as 'hardhat.config.ts'. Then apply all of the following modifications before saving:\n(1) Add 'import \"dotenv/config\";' as the very first line of the file.\n(2) Replace any 'vars.get(\"PRIVATE_KEY\")' or \"vars.get('PRIVATE_KEY')\" with 'process.env.PRIVATE_KEY as string'.\n(3) In the polkadotTestnet network block, add 'gasPrice: 5000000000000,' (5000 gwei — 5x the TestNet base fee of 1000 gwei; prevents stuck transactions).\n(4) Add an 'ignition: { requiredConfirmations: 1 }' top-level key to the config object (zero confirmations only works on local nodes — on TestNet it causes IGN401 dropped-transaction errors)."
         },
         {
           "order": 6,
           "action": "Fetch Storage.sol contract",
           "working_directory": "hardhat-deployment",
-          "reference_file": "contracts/Storage.sol",
-          "description": "Fetch the reference file and save it as 'contracts/Storage.sol'. No substitutions needed — this is a generic Storage contract with get/set functions. If the AI fetch tool is blocked, run: curl -sL https://raw.githubusercontent.com/polkadot-developers/polkadot-cookbook/main/polkadot-docs/smart-contracts/basic-hardhat/contracts/Storage.sol -o contracts/Storage.sol"
+          "reference_file": "Storage.sol",
+          "description": "Fetch the reference file and save it as 'contracts/Storage.sol'. No substitutions needed — this is a generic Storage contract with get/set functions."
         },
         {
           "order": 7,
@@ -1011,8 +1017,8 @@
           "order": 8,
           "action": "Fetch the Ignition deployment module",
           "working_directory": "hardhat-deployment",
-          "reference_file": "ignition/modules/Storage.ts",
-          "description": "Fetch the reference file and save it as 'ignition/modules/Storage.ts'. No substitutions needed — the module deploys the Storage contract by name. If the AI fetch tool is blocked, run: curl -sL https://raw.githubusercontent.com/polkadot-developers/polkadot-cookbook/main/polkadot-docs/smart-contracts/basic-hardhat/ignition/modules/Storage.ts -o ignition/modules/Storage.ts"
+          "reference_file": "storage.ts",
+          "description": "Fetch the reference file and save it as 'ignition/modules/Storage.ts'. No substitutions needed — the module deploys the Storage contract by name."
         },
         {
           "order": 9,
@@ -1027,20 +1033,20 @@
         }
       ],
       "reference_code": {
-        "repo": "polkadot-developers/polkadot-cookbook",
+        "repo": "polkadot-developers/polkadot-docs",
         "branch": "master",
-        "base_path": "polkadot-docs/smart-contracts/basic-hardhat",
+        "base_path": ".snippets/code/smart-contracts/cookbook/smart-contracts/deploy-basic/basic-hardhat",
         "files": [
           {
             "path": "hardhat.config.ts",
             "description": "Hardhat config with polkadotTestnet network (RPC, chain ID, accounts via vars). Requires dotenv conversion and gasPrice addition per skill steps."
           },
           {
-            "path": "contracts/Storage.sol",
+            "path": "Storage.sol",
             "description": "Simple Storage contract with uint256 store/retrieve functions"
           },
           {
-            "path": "ignition/modules/Storage.ts",
+            "path": "storage.ts",
             "description": "Hardhat Ignition module that deploys the Storage contract"
           }
         ]
@@ -1378,8 +1384,7 @@
           "order": 6,
           "action": "Fetch and configure hardhat.config.ts for TestNet",
           "working_directory": "hardhat-pvm-example",
-          "reference_file": "hardhat.config.ts",
-          "description": "Fetch the reference hardhat.config.ts and replace the existing one in the project root. Then apply all of the following modifications:\n(1) Add 'import \"dotenv/config\";' as the very first line.\n(2) Replace any vars.get('PRIVATE_KEY') with process.env.PRIVATE_KEY as string.\n(3) Confirm the polkadotTestnet network block contains: url: 'https://services.polkadothub-rpc.com/testnet', chainId: 420420417, and accounts: [process.env.PRIVATE_KEY as string].\n(4) Add 'gasPrice: 5000000000000,' to the polkadotTestnet block (5000 gwei — 5x the 1000 gwei TestNet base fee).\n(5) Set or confirm 'ignition: { requiredConfirmations: 1 }' in the top-level config object.\nSave the file.\nIf the AI fetch tool is blocked, run: curl -sL https://raw.githubusercontent.com/polkadot-developers/polkadot-cookbook/main/polkadot-docs/smart-contracts/dev-environments/hardhat-pvm/hardhat.config.ts -o hardhat.config.ts"
+          "description": "Fetch the reference hardhat.config.ts and replace the existing one in the project root. Then apply all of the following modifications:\n(1) Add 'import \"dotenv/config\";' as the very first line.\n(2) Replace any vars.get('PRIVATE_KEY') with process.env.PRIVATE_KEY as string.\n(3) Confirm the polkadotTestnet network block contains: url: 'https://services.polkadothub-rpc.com/testnet', chainId: 420420417, and accounts: [process.env.PRIVATE_KEY as string].\n(4) Add 'gasPrice: 5000000000000,' to the polkadotTestnet block (5000 gwei — 5x the 1000 gwei TestNet base fee).\n(5) Set or confirm 'ignition: { requiredConfirmations: 1 }' in the top-level config object.\nSave the file."
         },
         {
           "order": 7,
@@ -1393,15 +1398,10 @@
         }
       ],
       "reference_code": {
-        "repo": "polkadot-developers/polkadot-cookbook",
-        "branch": "master",
-        "base_path": "polkadot-docs/smart-contracts/dev-environments/hardhat-pvm",
-        "files": [
-          {
-            "path": "hardhat.config.ts",
-            "description": "Hardhat config with @parity/hardhat-polkadot plugin, resolc compiler settings, polkadotTestnet and localNode networks"
-          }
-        ]
+        "repo": "none",
+        "branch": "",
+        "base_path": "",
+        "files": []
       },
       "error_patterns": [
         {
@@ -1550,20 +1550,14 @@
           "order": 5,
           "action": "Fetch and configure hardhat.config.ts",
           "working_directory": "hardhat-example",
-          "reference_file": "hardhat.config.ts",
-          "description": "Fetch the reference hardhat.config.ts and save it to the project root. Then apply all of the following modifications:\n(1) Add 'import \"dotenv/config\";' as the very first line.\n(2) Replace any vars.get('PRIVATE_KEY') with process.env.PRIVATE_KEY as string.\n(3) Remove the 'import { vars } from \"hardhat/config\";' line if present.\n(4) In the polkadotTestnet network block, confirm or add: url: 'https://services.polkadothub-rpc.com/testnet', chainId: 420420417, accounts: [process.env.PRIVATE_KEY as string].\n(5) Add 'gasPrice: 5000000000000,' to the polkadotTestnet block (5000 gwei — 5x the TestNet 1000 gwei base fee; prevents stuck deployment transactions).\n(6) Add top-level 'ignition: { requiredConfirmations: 1 }' to the config object.\nSave the file.\nIf the AI fetch is blocked: curl -sL https://raw.githubusercontent.com/polkadot-developers/polkadot-cookbook/main/polkadot-docs/smart-contracts/dev-environments/hardhat-evm/hardhat.config.ts -o hardhat.config.ts"
+          "description": "Fetch the reference hardhat.config.ts and save it to the project root. Then apply all of the following modifications:\n(1) Add 'import \"dotenv/config\";' as the very first line.\n(2) Replace any vars.get('PRIVATE_KEY') with process.env.PRIVATE_KEY as string.\n(3) Remove the 'import { vars } from \"hardhat/config\";' line if present.\n(4) In the polkadotTestnet network block, confirm or add: url: 'https://services.polkadothub-rpc.com/testnet', chainId: 420420417, accounts: [process.env.PRIVATE_KEY as string].\n(5) Add 'gasPrice: 5000000000000,' to the polkadotTestnet block (5000 gwei — 5x the TestNet 1000 gwei base fee; prevents stuck deployment transactions).\n(6) Add top-level 'ignition: { requiredConfirmations: 1 }' to the config object.\nSave the file."
         }
       ],
       "reference_code": {
-        "repo": "polkadot-developers/polkadot-cookbook",
-        "branch": "master",
-        "base_path": "polkadot-docs/smart-contracts/dev-environments/hardhat-evm",
-        "files": [
-          {
-            "path": "hardhat.config.ts",
-            "description": "Hardhat config with polkadotTestnet network, solidity version, and Hardhat Toolbox import. Requires dotenv conversion and gasPrice addition per skill steps."
-          }
-        ]
+        "repo": "none",
+        "branch": "",
+        "base_path": "",
+        "files": []
       },
       "error_patterns": [
         {
@@ -4499,13 +4493,13 @@
           "order": 4,
           "action": "Fetch the contract compilation script",
           "working_directory": "ethers-deploy",
-          "description": "Fetch the Solidity compilation helper from polkadot-cookbook. Run:\ncurl -sL https://raw.githubusercontent.com/polkadot-developers/polkadot-cookbook/main/polkadot-docs/smart-contracts/libraries/ethers-js/compile.ts -o compile.ts\n\nIf the path returns 404, try without the compile.ts extension or check the available files at:\ncurl -s https://api.github.com/repos/polkadot-developers/polkadot-cookbook/contents/polkadot-docs/smart-contracts/libraries/ethers-js\n\nSubstitutions to apply in compile.ts: none — the file compiles a contract inline or from a local .sol file."
+          "description": "Fetch the Solidity compilation helper from polkadot-cookbook. Run:\n\nIf the path returns 404, try without the compile.ts extension or check the available files at:\ncurl -s https://api.github.com/repos/polkadot-developers/polkadot-cookbook/contents/polkadot-docs/smart-contracts/libraries/ethers-js\n\nSubstitutions to apply in compile.ts: none — the file compiles a contract inline or from a local .sol file."
         },
         {
           "order": 5,
           "action": "Fetch the contract and deployment scripts",
           "working_directory": "ethers-deploy",
-          "description": "Fetch the main deployment script from polkadot-cookbook:\ncurl -sL https://raw.githubusercontent.com/polkadot-developers/polkadot-cookbook/main/polkadot-docs/smart-contracts/libraries/ethers-js/deploy.ts -o deploy.ts\n\nAlso fetch the interaction script:\ncurl -sL https://raw.githubusercontent.com/polkadot-developers/polkadot-cookbook/main/polkadot-docs/smart-contracts/libraries/ethers-js/interact.ts -o interact.ts\n\nIf a contract .sol file is referenced in the scripts, fetch it as well. Apply ALL of these substitutions across any fetched files:\n1. Add 'import \"dotenv/config\";' as the first line of each script.\n2. Replace INSERT_RPC_URL with process.env.RPC_URL.\n3. Replace INSERT_CHAIN_ID or any hardcoded chain ID with 420420417.\n4. Replace INSERT_PRIVATE_KEY, INSERT_MNEMONIC, or any hardcoded credential with process.env.PRIVATE_KEY.\n5. For any provider construction, ensure it points to 'https://services.polkadothub-rpc.com/testnet'."
+          "description": "Fetch the main deployment script from polkadot-cookbook:\n\nAlso fetch the interaction script:\n\nIf a contract .sol file is referenced in the scripts, fetch it as well. Apply ALL of these substitutions across any fetched files:\n1. Add 'import \"dotenv/config\";' as the first line of each script.\n2. Replace INSERT_RPC_URL with process.env.RPC_URL.\n3. Replace INSERT_CHAIN_ID or any hardcoded chain ID with 420420417.\n4. Replace INSERT_PRIVATE_KEY, INSERT_MNEMONIC, or any hardcoded credential with process.env.PRIVATE_KEY.\n5. For any provider construction, ensure it points to 'https://services.polkadothub-rpc.com/testnet'."
         },
         {
           "order": 6,
@@ -4539,10 +4533,31 @@
         }
       ],
       "reference_code": {
-        "repo": "polkadot-developers/polkadot-cookbook",
+        "repo": "polkadot-developers/polkadot-docs",
         "branch": "master",
-        "base_path": "polkadot-docs/smart-contracts/libraries/ethers-js",
-        "files": []
+        "base_path": ".snippets/code/smart-contracts/libraries/ethers-js",
+        "files": [
+          {
+            "path": "Storage.sol",
+            "description": "Simple Storage contract with uint256 store/retrieve functions"
+          },
+          {
+            "path": "compile.js",
+            "description": "Solidity compiler wrapper using solc; produces ABI + bytecode artifacts"
+          },
+          {
+            "path": "deploy.js",
+            "description": "Deploys the compiled Storage contract to Polkadot Hub via ethers.js Wallet + ContractFactory"
+          },
+          {
+            "path": "checkStorage.js",
+            "description": "Reads the deployed contract's stored value via ethers.js Contract.connect"
+          },
+          {
+            "path": "connectToProvider.js",
+            "description": "Initializes ethers.js JsonRpcProvider for Polkadot Hub TestNet"
+          }
+        ]
       },
       "error_patterns": [
         {
@@ -4687,19 +4702,19 @@
           "order": 4,
           "action": "Fetch the chain configuration file",
           "working_directory": "viem-deploy",
-          "description": "Fetch the Polkadot Hub chain definition from polkadot-cookbook:\ncurl -sL https://raw.githubusercontent.com/polkadot-developers/polkadot-cookbook/main/polkadot-docs/smart-contracts/libraries/viem/chain.ts -o chain.ts\n\nApply substitutions in chain.ts:\n1. Ensure the chain ID is 420420417.\n2. Ensure the RPC URL is 'https://services.polkadothub-rpc.com/testnet'.\n3. If the file uses INSERT_RPC_URL or INSERT_CHAIN_ID placeholders, replace them.\nIf chain.ts does not exist in the cookbook, create it manually with this content:\nimport { defineChain } from 'viem';\nexport const polkadotHubTestnet = defineChain({ id: 420420417, name: 'Polkadot Hub TestNet', nativeCurrency: { name: 'PAS', symbol: 'PAS', decimals: 18 }, rpcUrls: { default: { http: ['https://services.polkadothub-rpc.com/testnet'] } } });"
+          "description": "Fetch the Polkadot Hub chain definition from polkadot-cookbook:\n\nApply substitutions in chain.ts:\n1. Ensure the chain ID is 420420417.\n2. Ensure the RPC URL is 'https://services.polkadothub-rpc.com/testnet'.\n3. If the file uses INSERT_RPC_URL or INSERT_CHAIN_ID placeholders, replace them.\nIf chain.ts does not exist in the cookbook, create it manually with this content:\nimport { defineChain } from 'viem';\nexport const polkadotHubTestnet = defineChain({ id: 420420417, name: 'Polkadot Hub TestNet', nativeCurrency: { name: 'PAS', symbol: 'PAS', decimals: 18 }, rpcUrls: { default: { http: ['https://services.polkadothub-rpc.com/testnet'] } } });"
         },
         {
           "order": 5,
           "action": "Fetch the compilation and deployment scripts",
           "working_directory": "viem-deploy",
-          "description": "Fetch the deployment script from polkadot-cookbook:\ncurl -sL https://raw.githubusercontent.com/polkadot-developers/polkadot-cookbook/main/polkadot-docs/smart-contracts/libraries/viem/deploy.ts -o deploy.ts\n\nFetch the interaction script:\ncurl -sL https://raw.githubusercontent.com/polkadot-developers/polkadot-cookbook/main/polkadot-docs/smart-contracts/libraries/viem/read.ts -o read.ts\ncurl -sL https://raw.githubusercontent.com/polkadot-developers/polkadot-cookbook/main/polkadot-docs/smart-contracts/libraries/viem/write.ts -o write.ts\n\nApply ALL substitutions across fetched files:\n1. Add 'import \"dotenv/config\";' as the first line of deploy.ts.\n2. Replace INSERT_PRIVATE_KEY with process.env.PRIVATE_KEY as `0x${string}`.\n3. Replace INSERT_RPC_URL with 'https://services.polkadothub-rpc.com/testnet'.\n4. Replace INSERT_CHAIN_ID with 420420417n (BigInt for Viem chain ID fields) or 420420417.\n5. Replace INSERT_CONTRACT_ADDRESS in read.ts/write.ts with the deployed address (available after step 6).\nIf any script is not found, check the cookbook directory listing: curl -s https://api.github.com/repos/polkadot-developers/polkadot-cookbook/contents/polkadot-docs/smart-contracts/libraries/viem"
+          "description": "Fetch the deployment script from polkadot-cookbook:\n\nFetch the interaction script:\n\nApply ALL substitutions across fetched files:\n1. Add 'import \"dotenv/config\";' as the first line of deploy.ts.\n2. Replace INSERT_PRIVATE_KEY with process.env.PRIVATE_KEY as `0x${string}`.\n3. Replace INSERT_RPC_URL with 'https://services.polkadothub-rpc.com/testnet'.\n4. Replace INSERT_CHAIN_ID with 420420417n (BigInt for Viem chain ID fields) or 420420417.\n5. Replace INSERT_CONTRACT_ADDRESS in read.ts/write.ts with the deployed address (available after step 6).\nIf any script is not found, check the cookbook directory listing: curl -s https://api.github.com/repos/polkadot-developers/polkadot-cookbook/contents/polkadot-docs/smart-contracts/libraries/viem"
         },
         {
           "order": 6,
           "action": "Compile the Solidity contract",
           "working_directory": "viem-deploy",
-          "description": "If the deployment scripts reference a .sol file or require a compiled ABI/bytecode JSON, fetch or create the contract file first:\ncurl -sL https://raw.githubusercontent.com/polkadot-developers/polkadot-cookbook/main/polkadot-docs/smart-contracts/libraries/viem/Storage.sol -o Storage.sol\n\nThen compile with solc:\nnpx --yes solc@latest --combined-json abi,bin Storage.sol -o artifacts/\n\nAlternatively, if the script includes a compile step, run it: npx tsx compile.ts\n\nVerify ABI and bytecode artifacts exist in the artifacts/ directory before deploying."
+          "description": "If the deployment scripts reference a .sol file or require a compiled ABI/bytecode JSON, fetch or create the contract file first:\n\nThen compile with solc:\nnpx --yes solc@latest --combined-json abi,bin Storage.sol -o artifacts/\n\nAlternatively, if the script includes a compile step, run it: npx tsx compile.ts\n\nVerify ABI and bytecode artifacts exist in the artifacts/ directory before deploying."
         },
         {
           "order": 7,
@@ -4719,10 +4734,39 @@
         }
       ],
       "reference_code": {
-        "repo": "polkadot-developers/polkadot-cookbook",
+        "repo": "polkadot-developers/polkadot-docs",
         "branch": "master",
-        "base_path": "polkadot-docs/smart-contracts/libraries/viem",
-        "files": []
+        "base_path": ".snippets/code/smart-contracts/libraries/viem",
+        "files": [
+          {
+            "path": "Storage.sol",
+            "description": "Simple Storage contract with uint256 store/retrieve functions"
+          },
+          {
+            "path": "chainConfig.ts",
+            "description": "Custom Polkadot Hub TestNet chain definition for viem (chain ID, RPC, native currency)"
+          },
+          {
+            "path": "compile.ts",
+            "description": "Solidity compiler wrapper that produces ABI + bytecode artifacts"
+          },
+          {
+            "path": "createClient.ts",
+            "description": "viem PublicClient construction against Polkadot Hub TestNet"
+          },
+          {
+            "path": "createWallet.ts",
+            "description": "viem WalletClient construction with PRIVATE_KEY from env"
+          },
+          {
+            "path": "deploy.ts",
+            "description": "Deploys the compiled Storage contract via viem WalletClient.deployContract"
+          },
+          {
+            "path": "interact.ts",
+            "description": "Reads + writes the deployed Storage contract via viem readContract/writeContract"
+          }
+        ]
       },
       "error_patterns": [
         {
@@ -4836,7 +4880,7 @@
           "action": "Fetch and save the complete mock.rs",
           "working_directory": "pallets/pallet-custom/src",
           "reference_file": "mock.rs",
-          "description": "Fetch the reference file and save it as 'mock.rs', replacing the empty placeholder. The file must contain: (1) imports including construct_runtime!, frame_system, and IdentityLookup; (2) Test runtime type and Block type alias via construct_runtime!; (3) #[derive_impl(frame_system::config_preludes::TestDefaultConfig)] for System with AccountId = u64, Lookup = IdentityLookup, Block = Block; (4) impl pallet_custom::Config for Test with type RuntimeEvent = RuntimeEvent and type CounterMaxValue = ConstU32<1000>; (5) new_test_ext() genesis helper; (6) new_test_ext_with_counter(val: u32) helper; (7) new_test_ext_with_interactions() helper accepting counter value and Vec of (AccountId, u32) interactions. If the AI fetch tool is blocked, run: curl -sL https://raw.githubusercontent.com/polkadot-developers/polkadot-cookbook/main/polkadot-docs/parachains/customize-runtime/pallet-development/mock-runtime/mock.rs -o mock.rs"
+          "description": "Fetch the reference file and save it as 'mock.rs', replacing the empty placeholder. The file must contain: (1) imports including construct_runtime!, frame_system, and IdentityLookup; (2) Test runtime type and Block type alias via construct_runtime!; (3) #[derive_impl(frame_system::config_preludes::TestDefaultConfig)] for System with AccountId = u64, Lookup = IdentityLookup, Block = Block; (4) impl pallet_custom::Config for Test with type RuntimeEvent = RuntimeEvent and type CounterMaxValue = ConstU32<1000>; (5) new_test_ext() genesis helper; (6) new_test_ext_with_counter(val: u32) helper; (7) new_test_ext_with_interactions() helper accepting counter value and Vec of (AccountId, u32) interactions."
         },
         {
           "order": 3,
@@ -4850,9 +4894,9 @@
         }
       ],
       "reference_code": {
-        "repo": "polkadot-developers/polkadot-cookbook",
+        "repo": "polkadot-developers/polkadot-docs",
         "branch": "master",
-        "base_path": "polkadot-docs/parachains/customize-runtime/pallet-development/mock-runtime",
+        "base_path": ".snippets/code/parachains/customize-runtime/pallet-development/mock-runtime",
         "files": [
           {
             "path": "mock.rs",
@@ -5171,9 +5215,9 @@
         }
       ],
       "reference_code": {
-        "repo": "polkadot-developers/polkadot-cookbook",
+        "repo": "polkadot-developers/polkadot-docs",
         "branch": "master",
-        "base_path": "polkadot-docs/parachains/customize-runtime/pallet-development/benchmark-pallet",
+        "base_path": ".snippets/code/parachains/customize-runtime/pallet-development/benchmark-pallet",
         "files": []
       },
       "error_patterns": [
@@ -6291,13 +6335,13 @@
           "order": 6,
           "action": "Create the MyNFT.sol contract",
           "working_directory": "hardhat-nft-deployment",
-          "description": "Create 'contracts/MyNFT.sol' with the following OpenZeppelin ERC-721 contract. If the raw file is accessible, fetch it with: curl -sL https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/main/code/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-hardhat/MyNFT.sol -o contracts/MyNFT.sol\n\nOtherwise create it manually:\n```solidity\n// SPDX-License-Identifier: MIT\npragma solidity ^0.8.22;\n\nimport {ERC721} from '@openzeppelin/contracts/token/ERC721/ERC721.sol';\nimport {ERC721URIStorage} from '@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol';\nimport {Ownable} from '@openzeppelin/contracts/access/Ownable.sol';\n\ncontract MyNFT is ERC721, ERC721URIStorage, Ownable {\n    uint256 private _nextTokenId;\n    constructor(address initialOwner) ERC721('MyNFT', 'MNFT') Ownable(initialOwner) {}\n    function safeMint(address to, string memory uri) public onlyOwner {\n        uint256 tokenId = _nextTokenId++;\n        _safeMint(to, tokenId);\n        _setTokenURI(tokenId, uri);\n    }\n    function tokenURI(uint256 tokenId) public view override(ERC721, ERC721URIStorage) returns (string memory) { return super.tokenURI(tokenId); }\n    function supportsInterface(bytes4 interfaceId) public view override(ERC721, ERC721URIStorage) returns (bool) { return super.supportsInterface(interfaceId); }\n}\n```"
+          "description": "Create 'contracts/MyNFT.sol' with the following OpenZeppelin ERC-721 contract.Use the inline content below:\n```solidity\n// SPDX-License-Identifier: MIT\npragma solidity ^0.8.22;\n\nimport {ERC721} from '@openzeppelin/contracts/token/ERC721/ERC721.sol';\nimport {ERC721URIStorage} from '@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol';\nimport {Ownable} from '@openzeppelin/contracts/access/Ownable.sol';\n\ncontract MyNFT is ERC721, ERC721URIStorage, Ownable {\n    uint256 private _nextTokenId;\n    constructor(address initialOwner) ERC721('MyNFT', 'MNFT') Ownable(initialOwner) {}\n    function safeMint(address to, string memory uri) public onlyOwner {\n        uint256 tokenId = _nextTokenId++;\n        _safeMint(to, tokenId);\n        _setTokenURI(tokenId, uri);\n    }\n    function tokenURI(uint256 tokenId) public view override(ERC721, ERC721URIStorage) returns (string memory) { return super.tokenURI(tokenId); }\n    function supportsInterface(bytes4 interfaceId) public view override(ERC721, ERC721URIStorage) returns (bool) { return super.supportsInterface(interfaceId); }\n}\n```"
         },
         {
           "order": 7,
           "action": "Create the Ignition deployment module",
           "working_directory": "hardhat-nft-deployment",
-          "description": "Create 'ignition/modules/MyNFT.ts'. Replace INSERT_OWNER_ADDRESS with the Ethereum address that should own the NFT contract (typically the address derived from your PRIVATE_KEY):\n\n```typescript\nimport { buildModule } from '@nomicfoundation/hardhat-ignition/modules';\n\nconst MyNFTModule = buildModule('MyNFTModule', (m) => {\n  const myNFT = m.contract('MyNFT', ['INSERT_OWNER_ADDRESS']);\n  return { myNFT };\n});\n\nexport default MyNFTModule;\n```\n\nAlternatively fetch: curl -sL https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/main/code/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-hardhat/MyNFT.ts -o ignition/modules/MyNFT.ts — then replace INSERT_OWNER_ADDRESS."
+          "description": "Create 'ignition/modules/MyNFT.ts'. Replace INSERT_OWNER_ADDRESS with the Ethereum address that should own the NFT contract (typically the address derived from your PRIVATE_KEY):\n\n```typescript\nimport { buildModule } from '@nomicfoundation/hardhat-ignition/modules';\n\nconst MyNFTModule = buildModule('MyNFTModule', (m) => {\n  const myNFT = m.contract('MyNFT', ['INSERT_OWNER_ADDRESS']);\n  return { myNFT };\n});\n\nexport default MyNFTModule;\n```"
         },
         {
           "order": 8,
@@ -6322,9 +6366,23 @@
         }
       ],
       "reference_code": {
-        "repo": "none",
-        "base_path": "",
-        "files": []
+        "repo": "polkadot-developers/polkadot-docs",
+        "base_path": ".snippets/code/smart-contracts/cookbook/smart-contracts/deploy-nft/nft-hardhat",
+        "files": [
+          {
+            "path": "MyNFT.sol",
+            "description": "OpenZeppelin ERC-721 NFT contract with ERC721URIStorage extension"
+          },
+          {
+            "path": "MyNFT.ts",
+            "description": "Hardhat Ignition deployment module for the MyNFT contract"
+          },
+          {
+            "path": "hardhat.config.ts",
+            "description": "Hardhat config with polkadotTestnet network (chain ID 420420422, RPC URL, account from PRIVATE_KEY)"
+          }
+        ],
+        "branch": "master"
       },
       "error_patterns": [
         {
@@ -6900,13 +6958,15 @@
           "commands": [
             "mkdir -p contracts scripts abis artifacts"
           ],
-          "description": "Create the expected directory structure, then create 'contracts/Storage.sol':\n\n```solidity\n// SPDX-License-Identifier: GPL-3.0\npragma solidity ^0.8.9;\n\ncontract Storage {\n    uint256 number;\n    function store(uint256 num) public { number = num; }\n    function retrieve() public view returns (uint256) { return number; }\n}\n```\n\nAlternatively fetch: curl -sL https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/main/code/smart-contracts/libraries/web3-js/Storage.sol -o contracts/Storage.sol"
+          "description": "Create the expected directory structure (contracts/, scripts/, abis/, artifacts/), then fetch the reference file `Storage.sol` and save it as `contracts/Storage.sol`. The contract is a simple Solidity Storage contract with `store(uint256)` and `retrieve()` functions:\n\n```solidity\n// SPDX-License-Identifier: GPL-3.0\npragma solidity ^0.8.9;\n\ncontract Storage {\n    uint256 number;\n    function store(uint256 num) public { number = num; }\n    function retrieve() public view returns (uint256) { return number; }\n}\n```",
+          "reference_file": "Storage.sol"
         },
         {
           "order": 4,
           "action": "Create the provider connection script and verify connectivity",
           "working_directory": "web3js-project",
-          "description": "Fetch the provider script: curl -sL https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/main/code/smart-contracts/libraries/web3-js/connectToProvider.js -o scripts/connectToProvider.js\n\nOpen scripts/connectToProvider.js and make these substitutions:\n(1) Replace INSERT_RPC_URL with 'https://services.polkadothub-rpc.com/testnet'\n(2) Replace INSERT_CHAIN_ID with 420420417\n(3) Replace INSERT_CHAIN_NAME with 'polkadot-hub-testnet'\n\nThen verify: node scripts/connectToProvider.js\nExpected output: 'Connected to chain ID: 420420417'"
+          "description": "Fetch the reference file `connectToProvider.js` and save it as `scripts/connectToProvider.js`. Then make these substitutions:\n(1) Replace `INSERT_RPC_URL` with `https://services.polkadothub-rpc.com/testnet`\n(2) Replace `INSERT_CHAIN_ID` with `420420417`\n(3) Replace `INSERT_CHAIN_NAME` with `polkadot-hub-testnet`\n\nThen verify: `node scripts/connectToProvider.js`\nExpected output: `Connected to chain ID: 420420417`",
+          "reference_file": "connectToProvider.js"
         },
         {
           "order": 5,
@@ -6916,25 +6976,54 @@
             "node scripts/compile.js"
           ],
           "expected_output": "ABI and bytecode saved",
-          "description": "Fetch the compile script: curl -sL https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/main/code/smart-contracts/libraries/web3-js/compile.js -o scripts/compile.js\n\nThe script reads contracts/Storage.sol, compiles it with solc, saves ABI to abis/Storage.json and bytecode to artifacts/Storage.bin. Then run it to compile."
+          "description": "Fetch the reference file `compile.js` and save it as `scripts/compile.js`. The script reads `contracts/Storage.sol`, compiles it with solc, saves ABI to `abis/Storage.json` and bytecode to `artifacts/Storage.bin`. Then run it to compile.",
+          "reference_file": "compile.js"
         },
         {
           "order": 6,
           "action": "Create the deployment script and deploy the contract",
           "working_directory": "web3js-project",
-          "description": "Fetch the deploy script: curl -sL https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/main/code/smart-contracts/libraries/web3-js/deploy.js -o scripts/deploy.js\n\nOpen deploy.js and substitute:\n(1) Replace INSERT_PRIVATE_KEY with process.env.PRIVATE_KEY (do NOT hardcode the key)\n(2) Ensure the RPC URL points to 'https://services.polkadothub-rpc.com/testnet'\n\nSet PRIVATE_KEY in your environment: export PRIVATE_KEY=0x... (never commit this). Then deploy:\n```bash\nnode scripts/deploy.js\n```\nExpected: contract address saved in contract-address.json. Record this address."
+          "description": "Fetch the reference file `deploy.js` and save it as `scripts/deploy.js`. Then substitute:\n(1) Replace `INSERT_PRIVATE_KEY` with `process.env.PRIVATE_KEY` (do NOT hardcode the key)\n(2) Ensure the RPC URL points to `https://services.polkadothub-rpc.com/testnet`\n\nSet `PRIVATE_KEY` in your environment: `export PRIVATE_KEY=0x...` (never commit this). Then deploy:\n\n```bash\nnode scripts/deploy.js\n```\n\nExpected: contract address saved in `contract-address.json`. Record this address.",
+          "reference_file": "deploy.js"
         },
         {
           "order": 7,
           "action": "Create the interaction script and interact with the contract",
           "working_directory": "web3js-project",
-          "description": "Fetch the interaction script: curl -sL https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/main/code/smart-contracts/libraries/web3-js/updateStorage.js -o scripts/updateStorage.js\n\nOpen updateStorage.js and substitute:\n(1) Replace INSERT_PRIVATE_KEY with process.env.PRIVATE_KEY\n(2) Replace INSERT_CONTRACT_ADDRESS with the address from step 6, or ensure contract-address.json is read automatically\n(3) Verify the ABI references 'abis/Storage.json'\n\nThen run: node scripts/updateStorage.js\nExpected: current stored value displayed, then updated to 1."
+          "description": "Fetch the reference file `updateStorage.js` and save it as `scripts/updateStorage.js`. Then substitute:\n(1) Replace `INSERT_PRIVATE_KEY` with `process.env.PRIVATE_KEY`\n(2) Replace `INSERT_CONTRACT_ADDRESS` with the address from step 6, or ensure `contract-address.json` is read automatically\n(3) Verify the ABI references `abis/Storage.json`\n\nThen run: `node scripts/updateStorage.js`\nExpected: current stored value displayed, then updated to 1.",
+          "reference_file": "updateStorage.js"
         }
       ],
       "reference_code": {
-        "repo": "none",
-        "base_path": "",
-        "files": []
+        "repo": "polkadot-developers/polkadot-docs",
+        "base_path": ".snippets/code/smart-contracts/libraries/web3-js",
+        "files": [
+          {
+            "path": "Storage.sol",
+            "description": "Simple Storage contract with uint256 store/retrieve functions"
+          },
+          {
+            "path": "connectToProvider.js",
+            "description": "Web3.js provider connection to Polkadot Hub TestNet"
+          },
+          {
+            "path": "compile.js",
+            "description": "Solidity compiler wrapper using solc; produces ABI + bytecode artifacts"
+          },
+          {
+            "path": "deploy.js",
+            "description": "Deploys the compiled Storage contract via Web3.js Contract.deploy().send()"
+          },
+          {
+            "path": "updateStorage.js",
+            "description": "Calls store(value) on the deployed Storage contract via Web3.js"
+          },
+          {
+            "path": "fetchLastBlock.js",
+            "description": "Reads the latest block number to verify provider connection"
+          }
+        ],
+        "branch": "master"
       },
       "error_patterns": [
         {

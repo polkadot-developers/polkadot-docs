@@ -1,7 +1,7 @@
 {
   "schema_version": "0.1",
-  "generated": "2026-04-28T14:16:12Z",
-  "content_hash": "sha256:1f155a10affd4bf0b9d737d7f7e55331e9159f2b790b593c5d1d27e1f860de63",
+  "generated": "2026-04-28T14:21:29Z",
+  "content_hash": "sha256:4b29d7eab121d0cb03d2619eeb31344c686cedfb81fa3ca9c68c134f47aacb9d",
   "skills": [
     {
       "id": "create-polkadot-account",
@@ -8176,8 +8176,7 @@
         "repo": "polkadot-developers/polkadot-cookbook",
         "branch": "master",
         "base_path": "",
-        "files": [],
-        "raw_base_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-cookbook/main"
+        "files": []
       },
       "error_patterns": [
         {
@@ -8334,8 +8333,7 @@
         "repo": "polkadot-developers/polkadot-cookbook",
         "branch": "master",
         "base_path": "",
-        "files": [],
-        "raw_base_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-cookbook/main"
+        "files": []
       },
       "error_patterns": [
         {
@@ -8480,8 +8478,7 @@
         "repo": "polkadot-developers/polkadot-cookbook",
         "branch": "master",
         "base_path": "",
-        "files": [],
-        "raw_base_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-cookbook/main"
+        "files": []
       },
       "error_patterns": [
         {
@@ -8644,8 +8641,7 @@
         "repo": "polkadot-developers/polkadot-cookbook",
         "branch": "master",
         "base_path": "",
-        "files": [],
-        "raw_base_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-cookbook/main"
+        "files": []
       },
       "error_patterns": [
         {
@@ -8767,8 +8763,7 @@
         "repo": "polkadot-developers/polkadot-cookbook",
         "branch": "master",
         "base_path": "",
-        "files": [],
-        "raw_base_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-cookbook/main"
+        "files": []
       },
       "error_patterns": [
         {
@@ -8916,8 +8911,7 @@
         "repo": "polkadot-developers/polkadot-cookbook",
         "branch": "master",
         "base_path": "",
-        "files": [],
-        "raw_base_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-cookbook/main"
+        "files": []
       },
       "error_patterns": [
         {
@@ -9115,8 +9109,7 @@
         "repo": "polkadot-developers/polkadot-cookbook",
         "branch": "master",
         "base_path": "",
-        "files": [],
-        "raw_base_url": "https://raw.githubusercontent.com/polkadot-developers/polkadot-cookbook/main"
+        "files": []
       },
       "error_patterns": [
         {

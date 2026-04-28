@@ -1,7 +1,7 @@
 {
   "schema_version": "0.1",
-  "generated": "2026-04-28T13:23:02Z",
-  "content_hash": "sha256:22678a7f9640430a80bf7f26b03a1c197a4d555eb623ed5288329751e81003c7",
+  "generated": "2026-04-28T14:09:54Z",
+  "content_hash": "sha256:fe2641ffec358bef3a966bbb39e209e04c1990c02059be4fc04edabaa6595408",
   "skills": [
     {
       "id": "create-polkadot-account",
@@ -3241,7 +3241,7 @@
         {
           "pattern": "polkadot: command not found",
           "cause": "The polkadot binary is not installed or not in $PATH.",
-          "resolution": "Install the binary following node-infrastructure/run-a-validator/onboarding-and-offboarding/set-up-validator.md. Verify the installation directory is in $PATH: echo $PATH."
+          "resolution": "Install the binary following https://docs.polkadot.com/node-infrastructure/run-a-validator/onboarding-and-offboarding/set-up-validator.md. Verify the installation directory is in $PATH: echo $PATH."
         },
         {
           "pattern": "nginx: configuration file test failed",
@@ -7583,7 +7583,7 @@
         "runtime": [
           "64-bit Linux server (Ubuntu 22.04+ or similar) with systemd",
           "For Docker method: Docker v24+",
-          "For compile-from-source: Rust toolchain and SDK build dependencies (see parachains/install-polkadot-sdk.md)",
+          "For compile-from-source: Rust toolchain and SDK build dependencies (see https://docs.polkadot.com/parachains/install-polkadot-sdk.md)",
           "Disk: 100+ GB SSD for pruned node; 2+ TB SSD for archive node",
           "RAM: minimum 8 GB; 16 GB recommended for archive nodes; 4+ CPU cores for compilation"
         ],
@@ -7599,7 +7599,7 @@
           "order": 1,
           "action": "Choose installation method and sync mode",
           "working_directory": ".",
-          "description": "Choose an installation method before proceeding:\n(A) Pre-built binary — fastest setup; continue with step 2\n(B) Docker — containerized with managed restarts; skip to step 3\n(C) Snap — managed updates on Ubuntu; skip to step 4\n(D) Compile from source — requires parachains/install-polkadot-sdk.md prerequisites; skip to step 5\n\nAlso choose sync mode:\n- Pruned (--state-pruning=1000 --blocks-pruning=1000): retains last 1000 blocks; ~100 GB disk; recommended for most use cases\n- Archive (no pruning flags): full historical state; 2+ TB disk; required for historical queries\n- Warp sync (--sync=warp): downloads state snapshot first, fastest initial sync; recommended for pruned nodes"
+          "description": "Choose an installation method before proceeding:\n(A) Pre-built binary — fastest setup; continue with step 2\n(B) Docker — containerized with managed restarts; skip to step 3\n(C) Snap — managed updates on Ubuntu; skip to step 4\n(D) Compile from source — requires https://docs.polkadot.com/parachains/install-polkadot-sdk.md prerequisites; skip to step 5\n\nAlso choose sync mode:\n- Pruned (--state-pruning=1000 --blocks-pruning=1000): retains last 1000 blocks; ~100 GB disk; recommended for most use cases\n- Archive (no pruning flags): full historical state; 2+ TB disk; required for historical queries\n- Warp sync (--sync=warp): downloads state snapshot first, fastest initial sync; recommended for pruned nodes"
         },
         {
           "order": 2,
@@ -7643,7 +7643,7 @@
             "cd polkadot-sdk && cargo build --release -p polkadot -p polkadot-execute-worker -p polkadot-prepare-worker",
             "sudo install -m 755 target/release/polkadot target/release/polkadot-execute-worker target/release/polkadot-prepare-worker /usr/local/bin/"
           ],
-          "description": "Clone the polkadot-sdk repo and compile. Requires Rust toolchain and SDK dependencies — complete parachains/install-polkadot-sdk.md first. Replace 'stable2412' with the target stable branch. Compilation takes 20-45 minutes on 4+ cores. Verify: polkadot --version. Proceed to step 6."
+          "description": "Clone the polkadot-sdk repo and compile. Requires Rust toolchain and SDK dependencies — complete https://docs.polkadot.com/parachains/install-polkadot-sdk.md first. Replace 'stable2412' with the target stable branch. Compilation takes 20-45 minutes on 4+ cores. Verify: polkadot --version. Proceed to step 6."
         },
         {
           "order": 6,
@@ -8116,8 +8116,8 @@
       "prerequisites": {
         "runtime": [
           "Rust toolchain with the wasm32-unknown-unknown target (`rustup target add wasm32-unknown-unknown`)",
-          "Polkadot SDK system dependencies installed (see parachains/install-polkadot-sdk.md)",
-          "A working parachain template checkout with a successful local build (see parachains/launch-a-parachain/set-up-the-parachain-template.md)"
+          "Polkadot SDK system dependencies installed (see https://docs.polkadot.com/parachains/install-polkadot-sdk.md)",
+          "A working parachain template checkout with a successful local build (see https://docs.polkadot.com/parachains/launch-a-parachain/set-up-the-parachain-template.md)"
         ],
         "network": [
           "No external network required — all compilation and testing is local"
@@ -8270,8 +8270,8 @@
       "prerequisites": {
         "runtime": [
           "Rust toolchain with wasm32-unknown-unknown target",
-          "Polkadot SDK system dependencies (see parachains/install-polkadot-sdk.md)",
-          "Working parachain template with a successful build (see set-up-the-parachain-template.md)",
+          "Polkadot SDK system dependencies (see https://docs.polkadot.com/parachains/install-polkadot-sdk.md)",
+          "Working parachain template with a successful build (see https://docs.polkadot.com/parachains/launch-a-parachain/set-up-the-parachain-template.md)",
           "Familiarity with adding a single pallet to a runtime (see add-existing-pallet-to-runtime)"
         ],
         "network": [
@@ -8421,8 +8421,8 @@
       "prerequisites": {
         "runtime": [
           "Rust toolchain with wasm32-unknown-unknown target (rustup target add wasm32-unknown-unknown)",
-          "Polkadot SDK system dependencies (see parachains/install-polkadot-sdk.md)",
-          "Working parachain template checkout with a successful build (see set-up-the-parachain-template.md)"
+          "Polkadot SDK system dependencies (see https://docs.polkadot.com/parachains/install-polkadot-sdk.md)",
+          "Working parachain template checkout with a successful build (see https://docs.polkadot.com/parachains/launch-a-parachain/set-up-the-parachain-template.md)"
         ],
         "network": [
           "No external network required — all work is local"
@@ -8846,8 +8846,8 @@
       "prerequisites": {
         "runtime": [
           "Rust toolchain with wasm32-unknown-unknown target (rustup target add wasm32-unknown-unknown)",
-          "Polkadot SDK installed (see parachains/install-polkadot-sdk.md)",
-          "Parachain template built and running locally (see set-up-the-parachain-template.md)",
+          "Polkadot SDK installed (see https://docs.polkadot.com/parachains/install-polkadot-sdk.md)",
+          "Parachain template built and running locally (see https://docs.polkadot.com/parachains/launch-a-parachain/set-up-the-parachain-template.md)",
           "Custom pallet integrated into the runtime (see create-frame-pallet skill)"
         ],
         "network": [
@@ -9010,7 +9010,7 @@
         "runtime": [
           "Rust toolchain (stable) with wasm32-unknown-unknown target (rustup target add wasm32-unknown-unknown)",
           "Cargo",
-          "Zombienet CLI installed — see reference/tools/zombienet.md for installation instructions",
+          "Zombienet CLI installed — see https://docs.polkadot.com/reference/tools/zombienet.md for installation instructions",
           "Git"
         ],
         "network": [
@@ -9468,7 +9468,7 @@
       "prerequisites": {
         "runtime": [
           "Rust stable toolchain (install via rustup: https://rustup.rs)",
-          "Polkadot SDK system dependencies — run the install script from parachains/install-polkadot-sdk.md first"
+          "Polkadot SDK system dependencies — run the install script from https://docs.polkadot.com/parachains/install-polkadot-sdk.md first"
         ]
       },
       "env_vars": [],
@@ -10061,7 +10061,7 @@
           "order": 7,
           "action": "Add Storage contract read interaction using useReadContract",
           "working_directory": "wagmi-dapp",
-          "description": "The source page at https://docs.polkadot.com/smart-contracts/libraries/wagmi/ documents a pre-deployed Storage contract on Polkadot Hub TestNet. Load https://docs.polkadot.com/ai/pages/smart-contracts-libraries-wagmi.md to find the exact deployed contract address, then replace INSERT_STORAGE_CONTRACT_ADDRESS below. Alternatively, deploy your own using the deploy-basic-contract-hardhat skill and use that address.\n\nCreate src/components/StorageRead.tsx with:\n\n```typescript\n'use client';\nimport { useReadContract } from 'wagmi';\nimport { polkadotHubTestnet } from '../wagmi';\n\nconst STORAGE_ABI = [\n  {\n    inputs: [],\n    name: 'retrieve',\n    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],\n    stateMutability: 'view',\n    type: 'function',\n  },\n] as const;\n\nconst CONTRACT_ADDRESS = 'INSERT_STORAGE_CONTRACT_ADDRESS';\n\nexport function StorageRead() {\n  const { data, isLoading } = useReadContract({\n    address: CONTRACT_ADDRESS,\n    abi: STORAGE_ABI,\n    functionName: 'retrieve',\n    chainId: polkadotHubTestnet.id,\n  });\n\n  return (\n    <p>Stored value: {isLoading ? 'Loading...' : data?.toString() ?? 'N/A'}</p>\n  );\n}\n```\n\nReplace INSERT_STORAGE_CONTRACT_ADDRESS with the actual address from the source page."
+          "description": "The source page at https://docs.polkadot.com/smart-contracts/libraries/wagmi/ documents a pre-deployed Storage contract on Polkadot Hub TestNet. Load https://docs.polkadot.com/smart-contracts/libraries/wagmi.md to find the exact deployed contract address, then replace INSERT_STORAGE_CONTRACT_ADDRESS below. Alternatively, deploy your own using the deploy-basic-contract-hardhat skill and use that address.\n\nCreate src/components/StorageRead.tsx with:\n\n```typescript\n'use client';\nimport { useReadContract } from 'wagmi';\nimport { polkadotHubTestnet } from '../wagmi';\n\nconst STORAGE_ABI = [\n  {\n    inputs: [],\n    name: 'retrieve',\n    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],\n    stateMutability: 'view',\n    type: 'function',\n  },\n] as const;\n\nconst CONTRACT_ADDRESS = 'INSERT_STORAGE_CONTRACT_ADDRESS';\n\nexport function StorageRead() {\n  const { data, isLoading } = useReadContract({\n    address: CONTRACT_ADDRESS,\n    abi: STORAGE_ABI,\n    functionName: 'retrieve',\n    chainId: polkadotHubTestnet.id,\n  });\n\n  return (\n    <p>Stored value: {isLoading ? 'Loading...' : data?.toString() ?? 'N/A'}</p>\n  );\n}\n```\n\nReplace INSERT_STORAGE_CONTRACT_ADDRESS with the actual address from the source page."
         },
         {
           "order": 8,
@@ -10343,7 +10343,7 @@
     {
       "id": "interact-erc20-precompile-polkadot-hub",
       "title": "Interact with the ERC-20 Precompile on Polkadot Hub via Remix",
-      "description": "Guides through using the ERC-20 precompile on Polkadot Hub, which wraps the native PAS token as an ERC-20 compatible interface at a fixed precompile address. Workflow: connect MetaMask to Polkadot Hub TestNet, load the precompile ABI in Remix IDE, and call read functions (balanceOf, allowance) and write functions (transfer, approve, transferFrom). Use when you need to interact with native PAS as an ERC-20 token from a Solidity contract or Remix. Key capabilities: MetaMask wallet connection, Remix At Address deployment against precompile, ERC-20 standard function calls on the native token. NOTE: The exact precompile address is documented in the source page — load https://docs.polkadot.com/ai/pages/smart-contracts-precompiles-erc20.md to find it. Trigger phrases: 'erc20 precompile polkadot', 'native token as erc20', 'pas erc20 interface', 'precompile erc20 remix'.",
+      "description": "Guides through using the ERC-20 precompile on Polkadot Hub, which wraps the native PAS token as an ERC-20 compatible interface at a fixed precompile address. Workflow: connect MetaMask to Polkadot Hub TestNet, load the precompile ABI in Remix IDE, and call read functions (balanceOf, allowance) and write functions (transfer, approve, transferFrom). Use when you need to interact with native PAS as an ERC-20 token from a Solidity contract or Remix. Key capabilities: MetaMask wallet connection, Remix At Address deployment against precompile, ERC-20 standard function calls on the native token. NOTE: The exact precompile address is documented in the source page — load https://docs.polkadot.com/smart-contracts/precompiles/erc20.md to find it. Trigger phrases: 'erc20 precompile polkadot', 'native token as erc20', 'pas erc20 interface', 'precompile erc20 remix'.",
       "version": "1.0.0",
       "chain_role": "isolated",
       "invocation": "user",
@@ -10374,7 +10374,7 @@
           "action": "Find the ERC-20 precompile address from the source page",
           "working_directory": ".",
           "interactive": true,
-          "description": "Delegate to the user: Load the source page https://docs.polkadot.com/ai/pages/smart-contracts-precompiles-erc20.md to find the exact ERC-20 precompile address for Polkadot Hub TestNet. Note this address — it will be used in step 4 as the 'At Address' target in Remix. The address is a fixed precompile address that wraps the native PAS token."
+          "description": "Delegate to the user: Load the source page https://docs.polkadot.com/smart-contracts/precompiles/erc20.md to find the exact ERC-20 precompile address for Polkadot Hub TestNet. Note this address — it will be used in step 4 as the 'At Address' target in Remix. The address is a fixed precompile address that wraps the native PAS token."
         },
         {
           "order": 2,
@@ -10490,7 +10490,7 @@
     {
       "id": "interact-storage-precompile-remix",
       "title": "Interact with the Storage Precompile on Polkadot Hub via Remix",
-      "description": "Six-step workflow for using the Storage precompile on Polkadot Hub via Remix IDE. The Storage precompile provides a persistent key-value store accessible from smart contracts, mapping bytes32 keys to bytes values. Workflow: connect MetaMask, find the precompile address from the source page, create the precompile interface in Remix, load it via At Address, and call setBytes/getBytes. Use when you need on-chain persistent storage accessible directly from precompile calls without deploying a storage contract. Key capabilities: bytes32 key encoding, bytes value storage, Storage precompile ABI definition in Remix, MetaMask transaction signing. NOTE: The exact precompile address is documented in the source page — load https://docs.polkadot.com/ai/pages/smart-contracts-precompiles-storage.md to find it. Trigger phrases: 'storage precompile polkadot', 'setBytes getBytes precompile', 'polkadot hub key value storage', 'precompile storage remix'.",
+      "description": "Six-step workflow for using the Storage precompile on Polkadot Hub via Remix IDE. The Storage precompile provides a persistent key-value store accessible from smart contracts, mapping bytes32 keys to bytes values. Workflow: connect MetaMask, find the precompile address from the source page, create the precompile interface in Remix, load it via At Address, and call setBytes/getBytes. Use when you need on-chain persistent storage accessible directly from precompile calls without deploying a storage contract. Key capabilities: bytes32 key encoding, bytes value storage, Storage precompile ABI definition in Remix, MetaMask transaction signing. NOTE: The exact precompile address is documented in the source page — load https://docs.polkadot.com/smart-contracts/precompiles/storage.md to find it. Trigger phrases: 'storage precompile polkadot', 'setBytes getBytes precompile', 'polkadot hub key value storage', 'precompile storage remix'.",
       "version": "1.0.0",
       "chain_role": "isolated",
       "invocation": "user",
@@ -10521,7 +10521,7 @@
           "action": "Find the Storage precompile address from the source page",
           "working_directory": ".",
           "interactive": true,
-          "description": "Delegate to the user: Load https://docs.polkadot.com/ai/pages/smart-contracts-precompiles-storage.md to find the exact Storage precompile address for Polkadot Hub TestNet. Note this address — it will be used in step 4 as the 'At Address' target in Remix."
+          "description": "Delegate to the user: Load https://docs.polkadot.com/smart-contracts/precompiles/storage.md to find the exact Storage precompile address for Polkadot Hub TestNet. Note this address — it will be used in step 4 as the 'At Address' target in Remix."
         },
         {
           "order": 2,
@@ -10637,7 +10637,7 @@
     {
       "id": "interact-system-precompile-remix",
       "title": "Interact with the System Precompile on Polkadot Hub via Remix",
-      "description": "Guides through using the System precompile on Polkadot Hub via Remix IDE. The System precompile exposes Substrate-native operations to EVM contracts: BLAKE2b/BLAKE2s hashing, sr25519 signature verification, account existence checks, and contract lifecycle operations (self-destruct, code retrieval). Workflow: connect MetaMask, find the precompile address from the source page, create the interface in Remix, load it via At Address, and call individual functions. NOTE: Several example inputs (sig, pubKey) are placeholder values — the step descriptions mark these as INSERT_SIGNATURE and INSERT_PUBLIC_KEY with instructions on how to obtain them. NOTE: The exact precompile address is documented in the source page — load https://docs.polkadot.com/ai/pages/smart-contracts-precompiles-system.md to find it. Use when you need Substrate cryptographic primitives from an EVM contract. Trigger phrases: 'system precompile polkadot', 'blake2 hash solidity', 'sr25519 verification evm', 'polkadot hub system precompile remix'.",
+      "description": "Guides through using the System precompile on Polkadot Hub via Remix IDE. The System precompile exposes Substrate-native operations to EVM contracts: BLAKE2b/BLAKE2s hashing, sr25519 signature verification, account existence checks, and contract lifecycle operations (self-destruct, code retrieval). Workflow: connect MetaMask, find the precompile address from the source page, create the interface in Remix, load it via At Address, and call individual functions. NOTE: Several example inputs (sig, pubKey) are placeholder values — the step descriptions mark these as INSERT_SIGNATURE and INSERT_PUBLIC_KEY with instructions on how to obtain them. NOTE: The exact precompile address is documented in the source page — load https://docs.polkadot.com/smart-contracts/precompiles/system.md to find it. Use when you need Substrate cryptographic primitives from an EVM contract. Trigger phrases: 'system precompile polkadot', 'blake2 hash solidity', 'sr25519 verification evm', 'polkadot hub system precompile remix'.",
       "version": "1.0.0",
       "chain_role": "isolated",
       "invocation": "user",
@@ -10668,7 +10668,7 @@
           "action": "Find the System precompile address from the source page",
           "working_directory": ".",
           "interactive": true,
-          "description": "Delegate to the user: Load https://docs.polkadot.com/ai/pages/smart-contracts-precompiles-system.md to find the exact System precompile address for Polkadot Hub TestNet. Note this address — it will be used in step 4 as the 'At Address' target in Remix."
+          "description": "Delegate to the user: Load https://docs.polkadot.com/smart-contracts/precompiles/system.md to find the exact System precompile address for Polkadot Hub TestNet. Note this address — it will be used in step 4 as the 'At Address' target in Remix."
         },
         {
           "order": 2,
@@ -10682,7 +10682,7 @@
           "action": "Create the System precompile interface in Remix",
           "working_directory": ".",
           "interactive": true,
-          "description": "Delegate to the user: Open https://remix.ethereum.org. Create a new file named 'ISystem.sol' and paste the following interface:\n\n```solidity\n// SPDX-License-Identifier: MIT\npragma solidity ^0.8.20;\n\ninterface ISystem {\n    // BLAKE2 hashing\n    function blake2b(bytes memory data) external view returns (bytes memory);\n    function blake2s(bytes memory data) external view returns (bytes memory);\n    // sr25519 signature verification\n    function verifySignature(\n        bytes memory sig,\n        bytes memory pubKey,\n        bytes memory message\n    ) external view returns (bool);\n    // Account management\n    function accountExists(address account) external view returns (bool);\n    // Contract lifecycle\n    function killContract(address target) external;\n    function getCode(address target) external view returns (bytes memory);\n}\n```\n\nNote: Refer to the source page (https://docs.polkadot.com/ai/pages/smart-contracts-precompiles-system.md) for the authoritative function signatures — the interface above captures the key functions but the source page is the definitive reference. Go to the Solidity Compiler tab, set version to 0.8.20, and click 'Compile ISystem.sol'."
+          "description": "Delegate to the user: Open https://remix.ethereum.org. Create a new file named 'ISystem.sol' and paste the following interface:\n\n```solidity\n// SPDX-License-Identifier: MIT\npragma solidity ^0.8.20;\n\ninterface ISystem {\n    // BLAKE2 hashing\n    function blake2b(bytes memory data) external view returns (bytes memory);\n    function blake2s(bytes memory data) external view returns (bytes memory);\n    // sr25519 signature verification\n    function verifySignature(\n        bytes memory sig,\n        bytes memory pubKey,\n        bytes memory message\n    ) external view returns (bool);\n    // Account management\n    function accountExists(address account) external view returns (bool);\n    // Contract lifecycle\n    function killContract(address target) external;\n    function getCode(address target) external view returns (bytes memory);\n}\n```\n\nNote: Refer to the source page (https://docs.polkadot.com/smart-contracts/precompiles/system.md) for the authoritative function signatures — the interface above captures the key functions but the source page is the definitive reference. Go to the Solidity Compiler tab, set version to 0.8.20, and click 'Compile ISystem.sol'."
         },
         {
           "order": 4,
@@ -10735,7 +10735,7 @@
         {
           "pattern": "ISystem.sol compilation error: function not found in interface",
           "cause": "The interface in ISystem.sol may not match the exact ABI exposed by the precompile.",
-          "resolution": "Load https://docs.polkadot.com/ai/pages/smart-contracts-precompiles-system.md for the authoritative ABI and update the interface accordingly."
+          "resolution": "Load https://docs.polkadot.com/smart-contracts/precompiles/system.md for the authoritative ABI and update the interface accordingly."
         }
       ],
       "supplementary_context": {
@@ -10823,7 +10823,7 @@
           "action": "Find the XCM precompile address and IXcm ABI from the source page",
           "working_directory": ".",
           "interactive": true,
-          "description": "Delegate to the user: Load https://docs.polkadot.com/ai/pages/smart-contracts-precompiles-xcm.md to find the exact XCM precompile address for Polkadot Hub TestNet and the IXcm interface definition. Note the address — it will be used in step 4 as the 'At Address' target in Remix. The source page is the authoritative reference for the ABI."
+          "description": "Delegate to the user: Load https://docs.polkadot.com/smart-contracts/precompiles/xcm.md to find the exact XCM precompile address for Polkadot Hub TestNet and the IXcm interface definition. Note the address — it will be used in step 4 as the 'At Address' target in Remix. The source page is the authoritative reference for the ABI."
         },
         {
           "order": 2,
@@ -10890,7 +10890,7 @@
         {
           "pattern": "IXcm.sol compilation error: function not found",
           "cause": "The interface definition does not match the ABI the precompile exposes.",
-          "resolution": "Load https://docs.polkadot.com/ai/pages/smart-contracts-precompiles-xcm.md for the authoritative ABI and update IXcm.sol accordingly."
+          "resolution": "Load https://docs.polkadot.com/smart-contracts/precompiles/xcm.md for the authoritative ABI and update IXcm.sol accordingly."
         },
         {
           "pattern": "MetaMask: insufficient funds for gas",

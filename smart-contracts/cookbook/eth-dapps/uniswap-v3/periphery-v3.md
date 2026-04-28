@@ -221,7 +221,7 @@ Make sure you have [configured your private key](#configure-secure-key-managemen
 npx hardhat ignition deploy ./ignition/modules/UniswapV3Periphery.ts --network polkadotTestnet
 ```
 
-When prompted, confirm the target network name and chain ID. Ignition deploys the contracts in two batches — the Factory and WETH9 in parallel first, then the SwapRouter and NonfungiblePositionManager in parallel once their dependencies are available — and prints all deployed addresses. The output should look similar to the following:
+When prompted, confirm the target network name and chain ID. Ignition deploys the contracts in two batches. It first deploys the Factory and WETH9 in parallel, then deploys the `SwapRouter` and `NonfungiblePositionManager` once their dependencies are available. It prints all deployed addresses. The output should look similar to the following:
 
 --8<-- 'code/smart-contracts/cookbook/eth-dapps/uniswap-v3/periphery-v3/deployment-output.html'
 

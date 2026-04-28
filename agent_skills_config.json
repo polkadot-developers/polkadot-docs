@@ -1,7 +1,7 @@
 {
   "schema_version": "0.1",
-  "generated": "2026-04-28T14:09:54Z",
-  "content_hash": "sha256:fe2641ffec358bef3a966bbb39e209e04c1990c02059be4fc04edabaa6595408",
+  "generated": "2026-04-28T14:16:12Z",
+  "content_hash": "sha256:1f155a10affd4bf0b9d737d7f7e55331e9159f2b790b593c5d1d27e1f860de63",
   "skills": [
     {
       "id": "create-polkadot-account",
@@ -2803,9 +2803,9 @@
             "relevance": "Prerequisite: install Rust, system dependencies, and the Polkadot SDK build environment before building the template."
           },
           {
-            "slug": "parachains-launch-a-parachain-acquire-a-slot",
-            "title": "Parachains Launch A Parachain Acquire A Slot",
-            "url": "https://docs.polkadot.com/ai/pages/parachains-launch-a-parachain-acquire-a-slot.md",
+            "slug": "parachains-launch-a-parachain-deploy-to-polkadot",
+            "title": "Deploy on Polkadot",
+            "url": "https://docs.polkadot.com/parachains/launch-a-parachain/deploy-to-polkadot.md",
             "relevance": "Next step in the parachain launch series: acquire a para ID and slot on Paseo testnet after the template is built."
           },
           {
@@ -8527,9 +8527,9 @@
             "relevance": "Adding an existing SDK pallet to a runtime — prerequisite concepts for runtime integration."
           },
           {
-            "slug": "parachains-customize-runtime-pallet-development-set-up-pallet-mock-runtime",
-            "title": "Parachains Customize Runtime Pallet Development Set Up Pallet Mock Runtime",
-            "url": "https://docs.polkadot.com/ai/pages/parachains-customize-runtime-pallet-development-set-up-pallet-mock-runtime.md",
+            "slug": "parachains-customize-runtime-pallet-development-mock-runtime",
+            "title": "Mock Your Runtime",
+            "url": "https://docs.polkadot.com/parachains/customize-runtime/pallet-development/mock-runtime.md",
             "relevance": "Next step: setting up a mock runtime for unit testing the custom pallet."
           }
         ]
@@ -10300,9 +10300,9 @@
             "relevance": "Full Web3.py source page with complete code snippets and additional contract examples."
           },
           {
-            "slug": "smart-contracts-libraries-ethers",
-            "title": "Smart Contracts Libraries Ethers",
-            "url": "https://docs.polkadot.com/ai/pages/smart-contracts-libraries-ethers.md",
+            "slug": "smart-contracts-libraries-ethers-js",
+            "title": "Deploy Contracts to Polkadot Hub with Ethers.js",
+            "url": "https://docs.polkadot.com/smart-contracts/libraries/ethers-js.md",
             "relevance": "Ethers.js library — recommended JavaScript alternative to the sunset Web3.js library."
           },
           {

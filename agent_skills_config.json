@@ -1,7 +1,7 @@
 {
   "schema_version": "0.1",
-  "generated": "2026-04-28T14:29:30Z",
-  "content_hash": "sha256:eab18ac07e1236cc262b00bd02649cb698aab9de952def0211ce0b322eb917b2",
+  "generated": "2026-04-28T14:38:43Z",
+  "content_hash": "sha256:da06ee6ab4d98a7317facd1223827812c1fed07d72ec3484cdb1b0b30e027002",
   "skills": [
     {
       "id": "create-polkadot-account",
@@ -48,8 +48,7 @@
           "order": 3,
           "action": "Fetch the account creation script",
           "working_directory": "account-creator",
-          "reference_file": "create-account.ts",
-          "description": "Fetch the reference file and save it as 'create-account.ts'. No substitutions needed — the script generates a fresh random account on each execution. If the AI fetch tool is blocked, run: curl -sL https://raw.githubusercontent.com/polkadot-developers/polkadot-cookbook/main/polkadot-docs/chain-interactions/create-account/create-account.ts -o create-account.ts"
+          "description": "Create a file named `create-account.ts` in the project root with the following content:\n\n```typescript\nimport { cryptoWaitReady, mnemonicGenerate } from \"@polkadot/util-crypto\";\nimport { Keyring } from \"@polkadot/keyring\";\n\nasync function main() {\n  await cryptoWaitReady();\n\n  const mnemonic = mnemonicGenerate(12);\n  const keyring = new Keyring({ type: \"sr25519\", ss58Format: 0 });\n  const pair = keyring.addFromMnemonic(mnemonic);\n\n  console.log(`Address: ${pair.address}`);\n  console.log(`Mnemonic: ${mnemonic}`);\n}\n\nmain().catch(console.error);\n```\n\nNo substitutions needed — the script generates a fresh random account on each execution. `cryptoWaitReady()` initializes the @polkadot/util-crypto WASM module; `mnemonicGenerate(12)` produces a 12-word BIP39 phrase; the keyring derives an SR25519 account at the standard Polkadot SS58 prefix (0). The mnemonic is printed in full so the user can record it for later signing — never log mnemonics in production code."
         },
         {
           "order": 4,
@@ -63,15 +62,10 @@
         }
       ],
       "reference_code": {
-        "repo": "polkadot-developers/polkadot-cookbook",
-        "branch": "master",
-        "base_path": "polkadot-docs/chain-interactions/create-account",
-        "files": [
-          {
-            "path": "create-account.ts",
-            "description": "Generates a new SR25519 keypair using mnemonicGenerate(); prints SS58 address and mnemonic"
-          }
-        ]
+        "repo": "none",
+        "branch": "",
+        "base_path": "",
+        "files": []
       },
       "error_patterns": [
         {

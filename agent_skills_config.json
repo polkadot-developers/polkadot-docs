@@ -1,7 +1,7 @@
 {
   "schema_version": "0.1",
-  "generated": "2026-04-28T16:22:25Z",
-  "content_hash": "sha256:9f45078388ad2f3255ec5f576de05a1c0ac6ea35b8ee6a21a065d1839d1737f3",
+  "generated": "2026-04-28T16:40:37Z",
+  "content_hash": "sha256:cfb3bfa97534a5144de3f69191610459e0dd0b9350ac1bb8ae68c59b4333bfba",
   "skills": [
     {
       "id": "create-polkadot-account",
@@ -1831,7 +1831,7 @@
           "order": 4,
           "action": "Create the fee estimation script",
           "working_directory": "papi-fee-estimate",
-          "description": "Create a file named 'estimate-fees.ts' in papi-fee-estimate with this content:\n\n```typescript\nimport { createClient } from \"polkadot-api\";\nimport { getWsProvider } from \"polkadot-api/ws-provider/node\";\nimport { polkadotTestNet } from \"@polkadot-api/descriptors\";\n```\n\n```typescript\nconst WS_ENDPOINT = \"INSERT_WS_ENDPOINT\";\nconst SENDER_ADDRESS = \"INSERT_SENDER_ADDRESS\";\nconst DEST_ADDRESS = \"INSERT_DEST_ADDRESS\";\n```\n\n```typescript\nasync function main() {\n  const client = createClient(getWsProvider(WS_ENDPOINT));\n  const api = client.getTypedApi(polkadotTestNet);\n  const tx = api.tx.Balances.transfer_keep_alive({\n    dest: { type: \"Id\", value: DEST_ADDRESS },\n    value: 10_000_000_000n,\n  });\n  const info = await tx.getPaymentInfo(SENDER_ADDRESS);\n  console.log(\"Fee (planck):\", info.partial_fee.toString());\n  console.log(\"Fee (PAS):\", (Number(info.partial_fee) / 1e10).toFixed(6));\n  console.log(\"Weight ref_time:\", info.weight.ref_time.toString());\n  client.destroy();\n}\nmain().catch(console.error);\n```\n\nAfter creating the file, apply these substitutions: (1) Replace INSERT_WS_ENDPOINT with your WS endpoint (e.g. 'wss://asset-hub-paseo.dotters.network'). (2) Replace INSERT_SENDER_ADDRESS with any valid funded SS58 address — sender address affects fee because weight depends on account state. (3) Replace INSERT_DEST_ADDRESS with any valid SS58 recipient address. Save the file."
+          "description": "Create a file named 'estimate-fees.ts' in papi-fee-estimate with this content:\n\n```typescript\nimport { createClient } from \"polkadot-api\";\nimport { getWsProvider } from \"polkadot-api/ws-provider/node\";\nimport { polkadotTestNet } from \"@polkadot-api/descriptors\";\n\nconst WS_ENDPOINT = \"INSERT_WS_ENDPOINT\";\nconst SENDER_ADDRESS = \"INSERT_SENDER_ADDRESS\";\nconst DEST_ADDRESS = \"INSERT_DEST_ADDRESS\";\n\nasync function main() {\n  const client = createClient(getWsProvider(WS_ENDPOINT));\n  const api = client.getTypedApi(polkadotTestNet);\n  const tx = api.tx.Balances.transfer_keep_alive({\n    dest: { type: \"Id\", value: DEST_ADDRESS },\n    value: 10_000_000_000n,\n  });\n  const info = await tx.getPaymentInfo(SENDER_ADDRESS);\n  console.log(\"Fee (planck):\", info.partial_fee.toString());\n  console.log(\"Fee (PAS):\", (Number(info.partial_fee) / 1e10).toFixed(6));\n  console.log(\"Weight ref_time:\", info.weight.ref_time.toString());\n  client.destroy();\n}\nmain().catch(console.error);\n```\n\nAfter creating the file, apply these substitutions: (1) Replace INSERT_WS_ENDPOINT with your WS endpoint (e.g. 'wss://asset-hub-paseo.dotters.network'). (2) Replace INSERT_SENDER_ADDRESS with any valid funded SS58 address — sender address affects fee because weight depends on account state. (3) Replace INSERT_DEST_ADDRESS with any valid SS58 recipient address. Save the file."
         },
         {
           "order": 5,
@@ -1993,7 +1993,7 @@
           "order": 4,
           "action": "Create the XCM transfer script",
           "working_directory": "paraspell-xcm-transfer",
-          "description": "Create a file named 'xcm-transfer.ts' with the following content:\n\n```typescript\nimport \"dotenv/config\";\nimport { ApiPromise, WsProvider } from \"@polkadot/api\";\nimport { Keyring } from \"@polkadot/keyring\";\nimport { Builder } from \"@paraspell/sdk-pjs\";\n```\n\n```typescript\nconst SOURCE_RPC = process.env.SOURCE_RPC!;\nconst MNEMONIC = process.env.MNEMONIC!;\nconst DEST_ADDRESS = process.env.DEST_ADDRESS!;\nconst SOURCE_CHAIN = \"AssetHubPaseo\";\nconst DEST_CHAIN = \"PeopleChainPaseo\";\nconst AMOUNT = \"10000000000\"; // 1 PAS (10 decimals)\n```\n\n```typescript\nasync function main() {\n  const api = await ApiPromise.create({ provider: new WsProvider(SOURCE_RPC) });\n  const keyring = new Keyring({ type: \"sr25519\" });\n  const sender = keyring.addFromMnemonic(MNEMONIC);\n  console.log(\"Sender:\", sender.address);\n```\n\n```typescript\n  const dryResult = await Builder(api)\n    .from(SOURCE_CHAIN).to(DEST_CHAIN)\n    .currency({ symbol: \"PAS\" }).amount(AMOUNT)\n    .address(DEST_ADDRESS).dryRun(sender);\n  console.log(\"Dry-run:\", dryResult.success ? \"OK\" : \"FAILED\");\n  if (!dryResult.success) { console.error(dryResult); process.exit(1); }\n```\n\n```typescript\n  const fee = await Builder(api)\n    .from(SOURCE_CHAIN).to(DEST_CHAIN)\n    .currency({ symbol: \"PAS\" }).amount(AMOUNT)\n    .address(DEST_ADDRESS).getOriginXcmFee();\n  console.log(\"Estimated fee:\", fee.toString());\n```\n\n```typescript\n  const tx = await Builder(api)\n    .from(SOURCE_CHAIN).to(DEST_CHAIN)\n    .currency({ symbol: \"PAS\" }).amount(AMOUNT)\n    .address(DEST_ADDRESS).build();\n  await tx.signAndSend(sender, { nonce: -1 }, ({ status, txHash }) => {\n    console.log(\"Status:\", status.type);\n    if (status.isFinalized) {\n      console.log(\"Finalized:\", status.asFinalized.toString(), \"tx:\", txHash.toString());\n      process.exit(0);\n    }\n  });\n}\nmain().catch((err) => { console.error(err); process.exit(1); });\n```\n\nSubstitutions: (1) Replace SOURCE_CHAIN ('AssetHubPaseo') and DEST_CHAIN ('PeopleChainPaseo') with the actual chain names from the ParaSpell supported chains list if your transfer uses different parachains — chain names are case-sensitive. (2) PAS has 10 decimals on Paseo; '10000000000' equals 1 PAS. Verify the decimal count for the asset being transferred."
+          "description": "Create a file named 'xcm-transfer.ts' with the following content:\n\n```typescript\nimport \"dotenv/config\";\nimport { ApiPromise, WsProvider } from \"@polkadot/api\";\nimport { Keyring } from \"@polkadot/keyring\";\nimport { Builder } from \"@paraspell/sdk-pjs\";\n\nconst SOURCE_RPC = process.env.SOURCE_RPC!;\nconst MNEMONIC = process.env.MNEMONIC!;\nconst DEST_ADDRESS = process.env.DEST_ADDRESS!;\nconst SOURCE_CHAIN = \"AssetHubPaseo\";\nconst DEST_CHAIN = \"PeopleChainPaseo\";\nconst AMOUNT = \"10000000000\"; // 1 PAS (10 decimals)\n\nasync function main() {\n  const api = await ApiPromise.create({ provider: new WsProvider(SOURCE_RPC) });\n  const keyring = new Keyring({ type: \"sr25519\" });\n  const sender = keyring.addFromMnemonic(MNEMONIC);\n  console.log(\"Sender:\", sender.address);\n\n  const dryResult = await Builder(api)\n    .from(SOURCE_CHAIN).to(DEST_CHAIN)\n    .currency({ symbol: \"PAS\" }).amount(AMOUNT)\n    .address(DEST_ADDRESS).dryRun(sender);\n  console.log(\"Dry-run:\", dryResult.success ? \"OK\" : \"FAILED\");\n  if (!dryResult.success) { console.error(dryResult); process.exit(1); }\n\n  const fee = await Builder(api)\n    .from(SOURCE_CHAIN).to(DEST_CHAIN)\n    .currency({ symbol: \"PAS\" }).amount(AMOUNT)\n    .address(DEST_ADDRESS).getOriginXcmFee();\n  console.log(\"Estimated fee:\", fee.toString());\n\n  const tx = await Builder(api)\n    .from(SOURCE_CHAIN).to(DEST_CHAIN)\n    .currency({ symbol: \"PAS\" }).amount(AMOUNT)\n    .address(DEST_ADDRESS).build();\n  await tx.signAndSend(sender, { nonce: -1 }, ({ status, txHash }) => {\n    console.log(\"Status:\", status.type);\n    if (status.isFinalized) {\n      console.log(\"Finalized:\", status.asFinalized.toString(), \"tx:\", txHash.toString());\n      process.exit(0);\n    }\n  });\n}\nmain().catch((err) => { console.error(err); process.exit(1); });\n```\n\nSubstitutions: (1) Replace SOURCE_CHAIN ('AssetHubPaseo') and DEST_CHAIN ('PeopleChainPaseo') with the actual chain names from the ParaSpell supported chains list if your transfer uses different parachains — chain names are case-sensitive. (2) PAS has 10 decimals on Paseo; '10000000000' equals 1 PAS. Verify the decimal count for the asset being transferred."
         },
         {
           "order": 5,
@@ -2147,7 +2147,7 @@
           "order": 5,
           "action": "Create the fee-proxy script",
           "working_directory": "fee-proxy-demo",
-          "description": "Create a file named 'fee-proxy.ts' with the following content:\n\n```typescript\nimport { createClient } from \"polkadot-api\";\nimport { getWsProvider } from \"polkadot-api/ws-provider/node\";\nimport { localFork } from \"@polkadot-api/descriptors\";\nimport { getPolkadotSigner } from \"polkadot-api/signer\";\n```\n\n```typescript\nconst ALICE = \"5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY\";\nconst BOB = \"5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty\";\nconst USDT_ID = 1984;\n```\n\n```typescript\nasync function main() {\n  const client = createClient(getWsProvider(\"ws://localhost:8000\"));\n  const api = client.getTypedApi(localFork);\n```\n\n```typescript\n  const transfer = api.tx.Balances.transfer_keep_alive({\n    dest: { type: \"Id\", value: BOB },\n    value: 1_000_000_000n,\n  });\n```\n\n```typescript\n  // Wrap in asset-conversion fee proxy — pay fees in USDT\n  const feeProxyTx = api.tx.AssetConversionTxPayment.asset_conversion_fee_proxy(\n    USDT_ID,\n    transfer\n  );\n```\n\n```typescript\n  // Mock signer works because Chopsticks has mock-signature-host: true\n  const mockSigner = getPolkadotSigner(\n    ALICE,\n    \"Sr25519\",\n    async () => new Uint8Array(64)\n  );\n```\n\n```typescript\n  const result = await feeProxyTx.signAndSubmit(mockSigner);\n  console.log(\"Included in block:\", result.block.hash);\n  console.log(\"Fees paid in USDT asset ID:\", USDT_ID);\n  client.destroy();\n}\nmain().catch(console.error);\n```\n\nNote: The exact pallet name for fee proxy varies by runtime version. If 'AssetConversionTxPayment' is not in the typed API, check the source page for the correct pallet and extrinsic name for the chain version in your fork. The mock signer returns an empty signature accepted by Chopsticks."
+          "description": "Create a file named 'fee-proxy.ts' with the following content:\n\n```typescript\nimport { createClient } from \"polkadot-api\";\nimport { getWsProvider } from \"polkadot-api/ws-provider/node\";\nimport { localFork } from \"@polkadot-api/descriptors\";\nimport { getPolkadotSigner } from \"polkadot-api/signer\";\n\nconst ALICE = \"5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY\";\nconst BOB = \"5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty\";\nconst USDT_ID = 1984;\n\nasync function main() {\n  const client = createClient(getWsProvider(\"ws://localhost:8000\"));\n  const api = client.getTypedApi(localFork);\n\n  const transfer = api.tx.Balances.transfer_keep_alive({\n    dest: { type: \"Id\", value: BOB },\n    value: 1_000_000_000n,\n  });\n\n  // Wrap in asset-conversion fee proxy — pay fees in USDT\n  const feeProxyTx = api.tx.AssetConversionTxPayment.asset_conversion_fee_proxy(\n    USDT_ID,\n    transfer\n  );\n\n  // Mock signer works because Chopsticks has mock-signature-host: true\n  const mockSigner = getPolkadotSigner(\n    ALICE,\n    \"Sr25519\",\n    async () => new Uint8Array(64)\n  );\n\n  const result = await feeProxyTx.signAndSubmit(mockSigner);\n  console.log(\"Included in block:\", result.block.hash);\n  console.log(\"Fees paid in USDT asset ID:\", USDT_ID);\n  client.destroy();\n}\nmain().catch(console.error);\n```\n\nNote: The exact pallet name for fee proxy varies by runtime version. If 'AssetConversionTxPayment' is not in the typed API, check the source page for the correct pallet and extrinsic name for the chain version in your fork. The mock signer returns an empty signature accepted by Chopsticks."
         },
         {
           "order": 6,
@@ -2567,7 +2567,7 @@
           "order": 2,
           "action": "Create Chopsticks configs for source and destination chains",
           "working_directory": "xcm-fee-estimate",
-          "description": "Create two Chopsticks config files:\n\n```yaml\nFile 1 — 'chopsticks-hub.yml':\nendpoint: wss://asset-hub-paseo.dotters.network\ndb: ./db-hub.sqlite\nport: 8000\nmock-signature-host: true\n```\n\n```yaml\nFile 2 — 'chopsticks-people.yml':\nendpoint: INSERT_PEOPLE_CHAIN_TESTNET_WS\ndb: ./db-people.sqlite\nport: 8001\nmock-signature-host: true\n```\n\nReplace INSERT_PEOPLE_CHAIN_TESTNET_WS with the People Chain TestNet WebSocket endpoint. The two forks run on different ports (8000 and 8001) so they can be active simultaneously."
+          "description": "Create two Chopsticks config files:\n\n```yaml\nFile 1 — 'chopsticks-hub.yml':\nendpoint: wss://asset-hub-paseo.dotters.network\ndb: ./db-hub.sqlite\nport: 8000\nmock-signature-host: true\n\nFile 2 — 'chopsticks-people.yml':\nendpoint: INSERT_PEOPLE_CHAIN_TESTNET_WS\ndb: ./db-people.sqlite\nport: 8001\nmock-signature-host: true\n```\n\nReplace INSERT_PEOPLE_CHAIN_TESTNET_WS with the People Chain TestNet WebSocket endpoint. The two forks run on different ports (8000 and 8001) so they can be active simultaneously."
         },
         {
           "order": 3,
@@ -2594,7 +2594,7 @@
           "order": 5,
           "action": "Create the fee estimation script",
           "working_directory": "xcm-fee-estimate",
-          "description": "Create a file named 'estimate-xcm-fees.ts' with the following content:\n\n```typescript\nimport { createClient } from \"polkadot-api\";\nimport { getWsProvider } from \"polkadot-api/ws-provider/node\";\nimport { hubFork } from \"@polkadot-api/descriptors\";\nimport { peopleFork } from \"@polkadot-api/descriptors\";\n```\n\n```typescript\nconst SENDER = \"INSERT_SENDER_SS58_ADDRESS\";\nconst RECIPIENT = \"INSERT_RECIPIENT_SS58_ADDRESS\";\nconst AMOUNT = 1_000_000_000_000_000_000n; // 1 PAS (18 decimals)\n```\n\n```typescript\nasync function main() {\n  const hubClient = createClient(getWsProvider(\"ws://localhost:8000\"));\n  const peopleClient = createClient(getWsProvider(\"ws://localhost:8001\"));\n  const hubApi = hubClient.getTypedApi(hubFork);\n  const peopleApi = peopleClient.getTypedApi(peopleFork);\n```\n\n```typescript\n  // 1. Local execution fee on Polkadot Hub (source)\n  const teleportTx = hubApi.tx.PolkadotXcm.limited_teleport_assets({\n    dest: { type: \"V4\", value: { parents: 0, interior: { type: \"X1\", value: { type: \"Parachain\", value: 1004 } } } },\n    beneficiary: { type: \"V4\", value: { parents: 0, interior: { type: \"X1\", value: { type: \"AccountId32\", value: { network: undefined, id: RECIPIENT } } } } },\n    assets: { type: \"V4\", value: [{ id: { parents: 1, interior: { type: \"Here\" } }, fun: { type: \"Fungible\", value: AMOUNT } }] },\n    fee_asset_item: 0,\n    weight_limit: { type: \"Unlimited\" }\n  });\n  const localFeeInfo = await teleportTx.getPaymentInfo(SENDER);\n  console.log(\"Local execution fee (planck):\", localFeeInfo.partial_fee.toString());\n```\n\n```typescript\n  // 2. Delivery fee\n  const deliveryFee = await hubApi.apis.XcmPaymentApi.query_delivery_fees(\n    { type: \"V4\", value: { parents: 0, interior: { type: \"X1\", value: { type: \"Parachain\", value: 1004 } } } },\n    { type: \"V4\", value: [] }\n  );\n  console.log(\"Delivery fee assets:\", JSON.stringify(deliveryFee.value));\n```\n\n```typescript\n  // 3. Remote execution fee on People Chain (destination)\n  const remoteWeight = await peopleApi.apis.XcmPaymentApi.query_xcm_weight(\n    { type: \"V4\", value: [{ type: \"ReceiveTeleportedAsset\", value: [] }, { type: \"BuyExecution\", value: { fees: { id: { parents: 1, interior: { type: \"Here\" } }, fun: { type: \"Fungible\", value: AMOUNT } }, weight_limit: { type: \"Unlimited\" } } }, { type: \"DepositAsset\", value: { assets: { type: \"Wild\", value: { type: \"AllCounted\", value: 1 } }, beneficiary: { parents: 0, interior: { type: \"X1\", value: { type: \"AccountId32\", value: { network: undefined, id: RECIPIENT } } } } } }] }\n  );\n  const remoteAsset = { parents: 1, interior: { type: \"Here\" } };\n  const remoteFee = await peopleApi.apis.XcmPaymentApi.query_weight_to_asset_fee(remoteWeight.value, { type: \"V4\", value: { Concrete: remoteAsset } });\n  console.log(\"Remote execution fee (planck):\", remoteFee.value?.toString());\n```\n\n  hubClient.destroy();\n  peopleClient.destroy();\n}\nmain().catch(console.error);\n\nSubstitutions: (1) Replace INSERT_SENDER_SS58_ADDRESS with the sender SS58 address on Polkadot Hub. (2) Replace INSERT_RECIPIENT_SS58_ADDRESS with the recipient SS58 address on People Chain. (3) The XCM V4 MultiLocation structures and parachain ID (1004 for People Chain) are shown as examples — consult the source page for exact structures for other destination chains. (4) PAS has 18 decimals on Polkadot Hub TestNet (TestNet Chain ID: 420420417)."
+          "description": "Create a file named 'estimate-xcm-fees.ts' with the following content:\n\n```typescript\nimport { createClient } from \"polkadot-api\";\nimport { getWsProvider } from \"polkadot-api/ws-provider/node\";\nimport { hubFork } from \"@polkadot-api/descriptors\";\nimport { peopleFork } from \"@polkadot-api/descriptors\";\n\nconst SENDER = \"INSERT_SENDER_SS58_ADDRESS\";\nconst RECIPIENT = \"INSERT_RECIPIENT_SS58_ADDRESS\";\nconst AMOUNT = 1_000_000_000_000_000_000n; // 1 PAS (18 decimals)\n\nasync function main() {\n  const hubClient = createClient(getWsProvider(\"ws://localhost:8000\"));\n  const peopleClient = createClient(getWsProvider(\"ws://localhost:8001\"));\n  const hubApi = hubClient.getTypedApi(hubFork);\n  const peopleApi = peopleClient.getTypedApi(peopleFork);\n\n  // 1. Local execution fee on Polkadot Hub (source)\n  const teleportTx = hubApi.tx.PolkadotXcm.limited_teleport_assets({\n    dest: { type: \"V4\", value: { parents: 0, interior: { type: \"X1\", value: { type: \"Parachain\", value: 1004 } } } },\n    beneficiary: { type: \"V4\", value: { parents: 0, interior: { type: \"X1\", value: { type: \"AccountId32\", value: { network: undefined, id: RECIPIENT } } } } },\n    assets: { type: \"V4\", value: [{ id: { parents: 1, interior: { type: \"Here\" } }, fun: { type: \"Fungible\", value: AMOUNT } }] },\n    fee_asset_item: 0,\n    weight_limit: { type: \"Unlimited\" }\n  });\n  const localFeeInfo = await teleportTx.getPaymentInfo(SENDER);\n  console.log(\"Local execution fee (planck):\", localFeeInfo.partial_fee.toString());\n\n  // 2. Delivery fee\n  const deliveryFee = await hubApi.apis.XcmPaymentApi.query_delivery_fees(\n    { type: \"V4\", value: { parents: 0, interior: { type: \"X1\", value: { type: \"Parachain\", value: 1004 } } } },\n    { type: \"V4\", value: [] }\n  );\n  console.log(\"Delivery fee assets:\", JSON.stringify(deliveryFee.value));\n\n  // 3. Remote execution fee on People Chain (destination)\n  const remoteWeight = await peopleApi.apis.XcmPaymentApi.query_xcm_weight(\n    { type: \"V4\", value: [{ type: \"ReceiveTeleportedAsset\", value: [] }, { type: \"BuyExecution\", value: { fees: { id: { parents: 1, interior: { type: \"Here\" } }, fun: { type: \"Fungible\", value: AMOUNT } }, weight_limit: { type: \"Unlimited\" } } }, { type: \"DepositAsset\", value: { assets: { type: \"Wild\", value: { type: \"AllCounted\", value: 1 } }, beneficiary: { parents: 0, interior: { type: \"X1\", value: { type: \"AccountId32\", value: { network: undefined, id: RECIPIENT } } } } } }] }\n  );\n  const remoteAsset = { parents: 1, interior: { type: \"Here\" } };\n  const remoteFee = await peopleApi.apis.XcmPaymentApi.query_weight_to_asset_fee(remoteWeight.value, { type: \"V4\", value: { Concrete: remoteAsset } });\n  console.log(\"Remote execution fee (planck):\", remoteFee.value?.toString());\n```\n\n  hubClient.destroy();\n  peopleClient.destroy();\n}\nmain().catch(console.error);\n\nSubstitutions: (1) Replace INSERT_SENDER_SS58_ADDRESS with the sender SS58 address on Polkadot Hub. (2) Replace INSERT_RECIPIENT_SS58_ADDRESS with the recipient SS58 address on People Chain. (3) The XCM V4 MultiLocation structures and parachain ID (1004 for People Chain) are shown as examples — consult the source page for exact structures for other destination chains. (4) PAS has 18 decimals on Polkadot Hub TestNet (TestNet Chain ID: 420420417)."
         },
         {
           "order": 6,
@@ -3484,7 +3484,7 @@
           "order": 2,
           "action": "Create a fork configuration file",
           "working_directory": ".",
-          "description": "Create a YAML configuration file (e.g., polkadot.yml) describing the chain to fork. Pre-built configs for common Polkadot SDK chains are available at https://github.com/AcalaNetwork/chopsticks/tree/master/configs — download one with:\n  curl -sL https://raw.githubusercontent.com/AcalaNetwork/chopsticks/master/configs/polkadot.yml -o polkadot.yml\n\n```yaml\nA minimal config for Polkadot looks like:\n  endpoint: wss://polkadot-rpc.dwellir.com\n  mock-signature-host: true\n  block: 1000  # optional: fork from this block number\n```\n\n```yaml\nThe 'import-storage' section (optional) lets you override storage values before the fork starts — useful for funding test accounts:\n  import-storage:\n    System:\n      Account:\n        - - - 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY  # Alice\n          - data:\n              free: '100000000000000000'\n```\n\nReplace the endpoint with the WSS RPC URL for your target chain."
+          "description": "Create a YAML configuration file (e.g., polkadot.yml) describing the chain to fork. Pre-built configs for common Polkadot SDK chains are available at https://github.com/AcalaNetwork/chopsticks/tree/master/configs — download one with:\n  curl -sL https://raw.githubusercontent.com/AcalaNetwork/chopsticks/master/configs/polkadot.yml -o polkadot.yml\n\n```yaml\nA minimal config for Polkadot looks like:\n  endpoint: wss://polkadot-rpc.dwellir.com\n  mock-signature-host: true\n  block: 1000  # optional: fork from this block number\n\nThe 'import-storage' section (optional) lets you override storage values before the fork starts — useful for funding test accounts:\n  import-storage:\n    System:\n      Account:\n        - - - 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY  # Alice\n          - data:\n              free: '100000000000000000'\n```\n\nReplace the endpoint with the WSS RPC URL for your target chain."
         },
         {
           "order": 3,
@@ -3649,7 +3649,7 @@
           "order": 4,
           "action": "Write a test suite",
           "working_directory": ".",
-          "description": "Create a test file in the tests directory (e.g., ./tests/balance.test.ts). Moonwall uses the describeSuite function to define test suites:\n\n```typescript\n  import { describeSuite, expect } from '@moonwall/cli';\n```\n\n```typescript\n  describeSuite({\n    id: 'D01',\n    title: 'Balance transfer test',\n    foundationMethods: 'dev',\n    testCases: ({ it, context }) => {\n      it('C100', 'Alice should have a balance', async () => {\n        const api = context.polkadotJs();\n        const accounts = await api.query.system.account('5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY');\n        expect(accounts.data.free.toBigInt()).toBeGreaterThan(0n);\n      });\n    },\n  });\n```\n\nEach test case requires a unique ID ('C100'), a title, and an async function receiving it (test runner) and context (provides the polkadotJs API). The API is initialized by Moonwall before tests run — do not create API connections manually."
+          "description": "Create a test file in the tests directory (e.g., ./tests/balance.test.ts). Moonwall uses the describeSuite function to define test suites:\n\n```typescript\n  import { describeSuite, expect } from '@moonwall/cli';\n\n  describeSuite({\n    id: 'D01',\n    title: 'Balance transfer test',\n    foundationMethods: 'dev',\n    testCases: ({ it, context }) => {\n      it('C100', 'Alice should have a balance', async () => {\n        const api = context.polkadotJs();\n        const accounts = await api.query.system.account('5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY');\n        expect(accounts.data.free.toBigInt()).toBeGreaterThan(0n);\n      });\n    },\n  });\n```\n\nEach test case requires a unique ID ('C100'), a title, and an async function receiving it (test runner) and context (provides the polkadotJs API). The API is initialized by Moonwall before tests run — do not create API connections manually."
         },
         {
           "order": 5,
@@ -4486,48 +4486,56 @@
         },
         {
           "order": 4,
-          "action": "Fetch the contract compilation script",
+          "action": "Fetch the provider connection helper",
           "working_directory": "ethers-deploy",
-          "description": "Fetch the Solidity compilation helper from polkadot-cookbook. Run:\n\nIf the path returns 404, try without the compile.ts extension or check the available files at:\ncurl -s https://api.github.com/repos/polkadot-developers/polkadot-cookbook/contents/polkadot-docs/smart-contracts/libraries/ethers-js\n\nSubstitutions to apply in compile.ts: none — the file compiles a contract inline or from a local .sol file.",
-          "reference_file": "compile.js"
+          "reference_file": "connectToProvider.js",
+          "description": "Fetch the reference file `connectToProvider.js` and save it to the project root. Verify it points at the Polkadot Hub TestNet RPC URL `https://services.polkadothub-rpc.com/testnet`; if it uses a placeholder, replace `INSERT_RPC_URL` with the testnet URL."
         },
         {
           "order": 5,
-          "action": "Fetch the contract and deployment scripts",
+          "action": "Fetch the Storage.sol contract",
           "working_directory": "ethers-deploy",
-          "description": "Fetch the main deployment script from polkadot-cookbook:\n\nAlso fetch the interaction script:\n\nIf a contract .sol file is referenced in the scripts, fetch it as well. Apply ALL of these substitutions across any fetched files:\n1. Add 'import \"dotenv/config\";' as the first line of each script.\n2. Replace INSERT_RPC_URL with process.env.RPC_URL.\n3. Replace INSERT_CHAIN_ID or any hardcoded chain ID with 420420417.\n4. Replace INSERT_PRIVATE_KEY, INSERT_MNEMONIC, or any hardcoded credential with process.env.PRIVATE_KEY.\n5. For any provider construction, ensure it points to 'https://services.polkadothub-rpc.com/testnet'.",
-          "reference_file": "deploy.js"
+          "reference_file": "Storage.sol",
+          "description": "Fetch the reference file `Storage.sol` and save it to the project root. This is the deployment target — a simple Solidity contract with `store(uint256)` and `retrieve()` functions. No substitutions needed."
         },
         {
           "order": 6,
-          "action": "Compile the Solidity contract",
+          "action": "Fetch the compilation script",
           "working_directory": "ethers-deploy",
-          "commands": [
-            "npx tsx compile.ts"
-          ],
-          "expected_output": "Compilation successful",
-          "description": "Run the compile script to generate the contract ABI and bytecode. If the output references a .json artifact file, confirm it was created before proceeding to deploy."
+          "reference_file": "compile.js",
+          "description": "Fetch the reference file `compile.js` and save it to the project root. The script invokes `solc` against `Storage.sol` and writes the ABI and bytecode to `artifacts/`."
         },
         {
           "order": 7,
-          "action": "Deploy the contract to Polkadot Hub TestNet",
+          "action": "Compile the Solidity contract",
           "working_directory": "ethers-deploy",
           "commands": [
-            "npx tsx deploy.ts"
+            "node compile.js"
           ],
-          "expected_output": "Contract deployed to: 0x...",
-          "description": "Run the deployment script. Save the deployed contract address from the output — needed for the interact script.\n\nIf deployment fails with 'insufficient funds': visit https://faucet.polkadot.io/ and fund the deployer account.\nIf the transaction is stuck or rejected: verify the RPC URL is correct and the account is funded, then retry."
+          "description": "Run the compile script to generate the contract ABI and bytecode. Confirm an `artifacts/` directory was created with `Storage.json` (or similar) before proceeding to deploy."
         },
         {
           "order": 8,
-          "action": "Interact with the deployed contract",
+          "action": "Fetch the deployment script",
+          "working_directory": "ethers-deploy",
+          "reference_file": "deploy.js",
+          "description": "Fetch the reference file `deploy.js` and save it to the project root. Then apply these substitutions:\n(1) Add `import \"dotenv/config\";` as the first line (or `require(\"dotenv\").config()` for CJS).\n(2) Replace `INSERT_RPC_URL` with `process.env.RPC_URL` (or hardcode the testnet URL).\n(3) Replace `INSERT_PRIVATE_KEY` with `process.env.PRIVATE_KEY`.\n(4) Replace any hardcoded chain ID with `420420417`."
+        },
+        {
+          "order": 9,
+          "action": "Deploy the contract to Polkadot Hub TestNet",
           "working_directory": "ethers-deploy",
           "commands": [
-            "npx tsx interact.ts"
+            "node deploy.js"
           ],
-          "expected_output": "Stored value retrieved",
-          "description": "Run the interact script. If it expects a CONTRACT_ADDRESS environment variable or argument, update interact.ts with the deployed address from step 7 before running. Verify the output shows successful read and write operations against the deployed contract.",
-          "reference_file": "checkStorage.js"
+          "description": "Run the deployment script. Save the deployed contract address from the output — needed for the interact step.\n\nIf deployment fails with `insufficient funds`: visit https://faucet.polkadot.io/ and fund the deployer account.\nIf the transaction is stuck or rejected: verify the RPC URL is correct and the account is funded, then retry."
+        },
+        {
+          "order": 10,
+          "action": "Fetch the interaction script and interact with the deployed contract",
+          "working_directory": "ethers-deploy",
+          "reference_file": "checkStorage.js",
+          "description": "Fetch the reference file `checkStorage.js` and save it as `checkStorage.js`. Then substitute `INSERT_CONTRACT_ADDRESS` with the deployed address from the previous step. Run it with `node checkStorage.js`. Verify the output shows successful read and write operations against the deployed contract."
         }
       ],
       "reference_code": {
@@ -4536,8 +4544,12 @@
         "base_path": ".snippets/code/smart-contracts/libraries/ethers-js",
         "files": [
           {
+            "path": "Storage.sol",
+            "description": "Simple Solidity Storage contract with `store(uint256)` and `retrieve()` functions"
+          },
+          {
             "path": "compile.js",
-            "description": "Solidity compiler wrapper using solc; produces ABI + bytecode artifacts"
+            "description": "Solidity compiler wrapper using solc; produces ABI + bytecode artifacts for Storage.sol"
           },
           {
             "path": "deploy.js",
@@ -4545,7 +4557,11 @@
           },
           {
             "path": "checkStorage.js",
-            "description": "Reads the deployed contract's stored value via ethers.js Contract.connect"
+            "description": "Reads + writes the deployed Storage contract via ethers.js Contract.connect; demonstrates retrieve() and store()"
+          },
+          {
+            "path": "connectToProvider.js",
+            "description": "Initializes ethers.js JsonRpcProvider for Polkadot Hub TestNet"
           }
         ]
       },
@@ -4690,40 +4706,70 @@
         },
         {
           "order": 4,
-          "action": "Fetch the chain configuration file",
+          "action": "Fetch the chain configuration",
           "working_directory": "viem-deploy",
-          "description": "Fetch the Polkadot Hub chain definition from polkadot-cookbook:\n\n```typescript\nApply substitutions in chain.ts:\n1. Ensure the chain ID is 420420417.\n2. Ensure the RPC URL is 'https://services.polkadothub-rpc.com/testnet'.\n3. If the file uses INSERT_RPC_URL or INSERT_CHAIN_ID placeholders, replace them.\nIf chain.ts does not exist in the cookbook, create it manually with this content:\nimport { defineChain } from 'viem';\nexport const polkadotHubTestnet = defineChain({ id: 420420417, name: 'Polkadot Hub TestNet', nativeCurrency: { name: 'PAS', symbol: 'PAS', decimals: 18 }, rpcUrls: { default: { http: ['https://services.polkadothub-rpc.com/testnet'] } } });\n```",
-          "reference_file": "chainConfig.ts"
+          "reference_file": "chainConfig.ts",
+          "description": "Fetch the reference file `chainConfig.ts` and save it to the project root. Verify or substitute:\n(1) Chain ID is `420420417`.\n(2) RPC URL is `https://services.polkadothub-rpc.com/testnet`.\n(3) If the file uses `INSERT_RPC_URL` or `INSERT_CHAIN_ID` placeholders, replace them."
         },
         {
           "order": 5,
-          "action": "Fetch the compilation and deployment scripts",
+          "action": "Fetch the Storage.sol contract",
           "working_directory": "viem-deploy",
-          "description": "Fetch the deployment script from polkadot-cookbook:\n\nFetch the interaction script:\n\nApply ALL substitutions across fetched files:\n1. Add 'import \"dotenv/config\";' as the first line of deploy.ts.\n2. Replace INSERT_PRIVATE_KEY with process.env.PRIVATE_KEY as `0x${string}`.\n3. Replace INSERT_RPC_URL with 'https://services.polkadothub-rpc.com/testnet'.\n4. Replace INSERT_CHAIN_ID with 420420417n (BigInt for Viem chain ID fields) or 420420417.\n5. Replace INSERT_CONTRACT_ADDRESS in read.ts/write.ts with the deployed address (available after step 6).\nIf any script is not found, check the cookbook directory listing: curl -s https://api.github.com/repos/polkadot-developers/polkadot-cookbook/contents/polkadot-docs/smart-contracts/libraries/viem",
-          "reference_file": "deploy.ts"
+          "reference_file": "Storage.sol",
+          "description": "Fetch the reference file `Storage.sol` and save it to the project root. This is the deployment target — a simple Solidity contract. No substitutions needed."
         },
         {
           "order": 6,
-          "action": "Compile the Solidity contract",
+          "action": "Fetch the public client setup",
           "working_directory": "viem-deploy",
-          "description": "If the deployment scripts reference a .sol file or require a compiled ABI/bytecode JSON, fetch or create the contract file first:\n\nThen compile with solc:\nnpx --yes solc@latest --combined-json abi,bin Storage.sol -o artifacts/\n\nAlternatively, if the script includes a compile step, run it: npx tsx compile.ts\n\nVerify ABI and bytecode artifacts exist in the artifacts/ directory before deploying."
+          "reference_file": "createClient.ts",
+          "description": "Fetch the reference file `createClient.ts` and save it to the project root. Constructs a viem `PublicClient` against the Polkadot Hub TestNet chain definition; used for reads and tx receipts."
         },
         {
           "order": 7,
+          "action": "Fetch the wallet client setup",
+          "working_directory": "viem-deploy",
+          "reference_file": "createWallet.ts",
+          "description": "Fetch the reference file `createWallet.ts` and save it to the project root. Add `import \"dotenv/config\";` as the first line; the client reads `PRIVATE_KEY` from env."
+        },
+        {
+          "order": 8,
+          "action": "Fetch the compilation script",
+          "working_directory": "viem-deploy",
+          "reference_file": "compile.ts",
+          "description": "Fetch the reference file `compile.ts` and save it to the project root. The script invokes `solc` against `Storage.sol` and writes ABI + bytecode artifacts."
+        },
+        {
+          "order": 9,
+          "action": "Compile the Solidity contract",
+          "working_directory": "viem-deploy",
+          "commands": [
+            "npx tsx compile.ts"
+          ],
+          "description": "Run the compile script. Verify that ABI and bytecode artifacts exist in the `artifacts/` directory before deploying."
+        },
+        {
+          "order": 10,
+          "action": "Fetch the deployment script",
+          "working_directory": "viem-deploy",
+          "reference_file": "deploy.ts",
+          "description": "Fetch the reference file `deploy.ts` and save it to the project root. Apply these substitutions:\n(1) Add `import \"dotenv/config\";` as the first line.\n(2) Replace `INSERT_PRIVATE_KEY` with `` process.env.PRIVATE_KEY as `0x${string}` ``.\n(3) Replace `INSERT_RPC_URL` with `https://services.polkadothub-rpc.com/testnet`.\n(4) Replace `INSERT_CHAIN_ID` with `420420417n` (BigInt)."
+        },
+        {
+          "order": 11,
           "action": "Deploy the contract to Polkadot Hub TestNet",
           "working_directory": "viem-deploy",
           "commands": [
             "npx tsx deploy.ts"
           ],
-          "expected_output": "Contract deployed to: 0x...",
-          "description": "Run the deployment script. Save the deployed contract address from the output.\n\n```typescript\nIf the transaction fails with 'insufficient funds': visit https://faucet.polkadot.io/ and fund the deployer account.\nIf the transaction fails with 'fee cap too low' or similar gas errors: add gasPrice override in deploy.ts:\nconst hash = await walletClient.deployContract({ ..., gasPrice: parseGwei('5000') });\nImport parseGwei from 'viem'.\n```"
+          "description": "Run the deployment script. Save the deployed contract address from the output.\n\nIf the transaction fails with `insufficient funds`: visit https://faucet.polkadot.io/ and fund the deployer account.\nIf the transaction fails with `fee cap too low` or similar gas errors: add a `gasPrice` override in `deploy.ts` (e.g. `gasPrice: parseGwei('5000')`)."
         },
         {
-          "order": 8,
-          "action": "Interact with the deployed contract",
+          "order": 12,
+          "action": "Fetch the interaction script and interact with the deployed contract",
           "working_directory": "viem-deploy",
-          "description": "Update read.ts and write.ts with the deployed contract address from step 7 (replace INSERT_CONTRACT_ADDRESS). Then run each script:\nnpx tsx read.ts   — reads the current stored value from the contract\nnpx tsx write.ts  — writes a new value and waits for transaction receipt\n\nVerify that the value returned by read.ts changes after write.ts has been executed.",
-          "reference_file": "interact.ts"
+          "reference_file": "interact.ts",
+          "description": "Fetch the reference file `interact.ts` and save it to the project root. Replace `INSERT_CONTRACT_ADDRESS` with the deployed address from the previous step. Run it with `npx tsx interact.ts`. Verify the value returned by `retrieve()` changes after `store()` is called."
         }
       ],
       "reference_code": {
@@ -4732,8 +4778,24 @@
         "base_path": ".snippets/code/smart-contracts/libraries/viem",
         "files": [
           {
+            "path": "Storage.sol",
+            "description": "Simple Solidity Storage contract with `store(uint256)` and `retrieve()` functions"
+          },
+          {
             "path": "chainConfig.ts",
             "description": "Custom Polkadot Hub TestNet chain definition for viem (chain ID, RPC, native currency)"
+          },
+          {
+            "path": "createClient.ts",
+            "description": "viem PublicClient construction against Polkadot Hub TestNet"
+          },
+          {
+            "path": "createWallet.ts",
+            "description": "viem WalletClient construction with PRIVATE_KEY from env"
+          },
+          {
+            "path": "compile.ts",
+            "description": "Solidity compiler wrapper that produces ABI + bytecode artifacts"
           },
           {
             "path": "deploy.ts",
@@ -4984,19 +5046,19 @@
           "order": 3,
           "action": "Write basic operation and event emission tests",
           "working_directory": "pallets/pallet-custom/src",
-          "description": "Append these tests to src/tests.rs. Call System::set_block_number(1) inside execute_with before any event assertion — events are suppressed on block 0:\n\n```rust\n#[test]\nfn increment_works() — uses new_test_ext(), signs with account 1, increments by 50, asserts CounterValue is 50 and CounterIncremented event with new_value:50/who:1/amount:50, asserts UserInteractions for account 1 is 1.\n```\n\n```rust\n#[test]\nfn set_counter_value_works() — uses new_test_ext(), sets block 1, calls set_counter_value(RuntimeOrigin::root(), 100), asserts CounterValue is 100 and CounterValueSet { new_value: 100 } event.\n```\n\n```rust\n#[test]\nfn decrement_works() — uses new_test_ext_with_counter(100), signs with account 2, decrements by 30, asserts CounterValue is 70 and CounterDecremented event.\n```"
+          "description": "Append these tests to src/tests.rs. Call System::set_block_number(1) inside execute_with before any event assertion — events are suppressed on block 0:\n\n```rust\n#[test]\nfn increment_works() — uses new_test_ext(), signs with account 1, increments by 50, asserts CounterValue is 50 and CounterIncremented event with new_value:50/who:1/amount:50, asserts UserInteractions for account 1 is 1.\n\n#[test]\nfn set_counter_value_works() — uses new_test_ext(), sets block 1, calls set_counter_value(RuntimeOrigin::root(), 100), asserts CounterValue is 100 and CounterValueSet { new_value: 100 } event.\n\n#[test]\nfn decrement_works() — uses new_test_ext_with_counter(100), signs with account 2, decrements by 30, asserts CounterValue is 70 and CounterDecremented event.\n```"
         },
         {
           "order": 4,
           "action": "Write error condition and access control tests",
           "working_directory": "pallets/pallet-custom/src",
-          "description": "Append these tests to src/tests.rs:\n\n```rust\n#[test]\nfn increment_fails_on_overflow() — uses new_test_ext_with_counter(u32::MAX), asserts assert_noop!(increment(signed(1), 1), Error::<Test>::Overflow). assert_noop! verifies both the error AND that no storage was modified.\n```\n\n```rust\n#[test]\nfn decrement_fails_on_underflow() — uses new_test_ext_with_counter(10), asserts noop on decrement(signed(1), 11) with Error::Underflow.\n```\n\n```rust\n#[test]\nfn set_counter_value_requires_root() — uses new_test_ext(), asserts noop on set_counter_value(signed(alice), 100) with DispatchError::BadOrigin, then asserts ok with RuntimeOrigin::root().\n```\n\n```rust\n#[test]\nfn increment_respects_max_value() — uses new_test_ext_with_counter(950), asserts noop on increment(signed(1), 51) with Error::CounterMaxValueExceeded, then asserts ok on increment of 50.\n```"
+          "description": "Append these tests to src/tests.rs:\n\n```rust\n#[test]\nfn increment_fails_on_overflow() — uses new_test_ext_with_counter(u32::MAX), asserts assert_noop!(increment(signed(1), 1), Error::<Test>::Overflow). assert_noop! verifies both the error AND that no storage was modified.\n\n#[test]\nfn decrement_fails_on_underflow() — uses new_test_ext_with_counter(10), asserts noop on decrement(signed(1), 11) with Error::Underflow.\n\n#[test]\nfn set_counter_value_requires_root() — uses new_test_ext(), asserts noop on set_counter_value(signed(alice), 100) with DispatchError::BadOrigin, then asserts ok with RuntimeOrigin::root().\n\n#[test]\nfn increment_respects_max_value() — uses new_test_ext_with_counter(950), asserts noop on increment(signed(1), 51) with Error::CounterMaxValueExceeded, then asserts ok on increment of 50.\n```"
         },
         {
           "order": 5,
           "action": "Write genesis configuration and interaction tracking tests",
           "working_directory": "pallets/pallet-custom/src",
-          "description": "Append these final tests to src/tests.rs:\n\n```rust\n#[test]\nfn genesis_config_works() — uses new_test_ext_with_interactions(42, vec![(1, 5), (2, 10)]), asserts CounterValue is 42, UserInteractions for account 1 is 5, for account 2 is 10.\n```\n\n```rust\n#[test]\nfn increment_tracks_multiple_interactions() — calls increment three times on same account, asserts UserInteractions count is 3.\n```\n\n```rust\n#[test]\nfn different_users_tracked_separately() — account 1 increments twice (total interactions: 2), account 2 decrements once (interactions: 1); asserts each account tracked independently.\n```"
+          "description": "Append these final tests to src/tests.rs:\n\n```rust\n#[test]\nfn genesis_config_works() — uses new_test_ext_with_interactions(42, vec![(1, 5), (2, 10)]), asserts CounterValue is 42, UserInteractions for account 1 is 5, for account 2 is 10.\n\n#[test]\nfn increment_tracks_multiple_interactions() — calls increment three times on same account, asserts UserInteractions count is 3.\n\n#[test]\nfn different_users_tracked_separately() — account 1 increments twice (total interactions: 2), account 2 decrements once (interactions: 1); asserts each account tracked independently.\n```"
         },
         {
           "order": 6,
@@ -5109,7 +5171,7 @@
           "commands": [
             "touch benchmarking.rs"
           ],
-          "description": "Create pallets/pallet-custom/src/benchmarking.rs with:\n\n```rust\n#![cfg(feature = \"runtime-benchmarks\")]\nuse super::*;\nuse frame::deps::frame_benchmarking::v2::*;\nuse frame::benchmarking::prelude::RawOrigin;\n```\n\n```rust\n#[benchmarks]\nmod benchmarks {\n    use super::*;\n```\n\n```rust\n    #[benchmark]\n    fn set_counter_value() {\n        let new_value: u32 = 100;\n        #[extrinsic_call]\n        _(RawOrigin::Root, new_value);\n        assert_eq!(CounterValue::<T>::get(), new_value);\n    }\n```\n\n```rust\n    #[benchmark]\n    fn increment() {\n        let caller: T::AccountId = whitelisted_caller();\n        let amount: u32 = 50;\n        #[extrinsic_call]\n        _(RawOrigin::Signed(caller.clone()), amount);\n        assert_eq!(CounterValue::<T>::get(), amount);\n        assert_eq!(UserInteractions::<T>::get(caller), 1);\n    }\n```\n\n```rust\n    #[benchmark]\n    fn decrement() {\n        CounterValue::<T>::put(100);\n        let caller: T::AccountId = whitelisted_caller();\n        let amount: u32 = 30;\n        #[extrinsic_call]\n        _(RawOrigin::Signed(caller.clone()), amount);\n        assert_eq!(CounterValue::<T>::get(), 70);\n    }\n```\n\n    impl_benchmark_test_suite!(Pallet, crate::mock::new_test_ext(), crate::mock::Test);\n}\n\nFor a different pallet, update function names and assertions accordingly."
+          "description": "Create pallets/pallet-custom/src/benchmarking.rs with:\n\n```rust\n#![cfg(feature = \"runtime-benchmarks\")]\nuse super::*;\nuse frame::deps::frame_benchmarking::v2::*;\nuse frame::benchmarking::prelude::RawOrigin;\n\n#[benchmarks]\nmod benchmarks {\n    use super::*;\n\n    #[benchmark]\n    fn set_counter_value() {\n        let new_value: u32 = 100;\n        #[extrinsic_call]\n        _(RawOrigin::Root, new_value);\n        assert_eq!(CounterValue::<T>::get(), new_value);\n    }\n\n    #[benchmark]\n    fn increment() {\n        let caller: T::AccountId = whitelisted_caller();\n        let amount: u32 = 50;\n        #[extrinsic_call]\n        _(RawOrigin::Signed(caller.clone()), amount);\n        assert_eq!(CounterValue::<T>::get(), amount);\n        assert_eq!(UserInteractions::<T>::get(caller), 1);\n    }\n\n    #[benchmark]\n    fn decrement() {\n        CounterValue::<T>::put(100);\n        let caller: T::AccountId = whitelisted_caller();\n        let amount: u32 = 30;\n        #[extrinsic_call]\n        _(RawOrigin::Signed(caller.clone()), amount);\n        assert_eq!(CounterValue::<T>::get(), 70);\n    }\n```\n\n    impl_benchmark_test_suite!(Pallet, crate::mock::new_test_ext(), crate::mock::Test);\n}\n\nFor a different pallet, update function names and assertions accordingly."
         },
         {
           "order": 2,
@@ -5118,7 +5180,7 @@
           "commands": [
             "touch weights.rs"
           ],
-          "description": "Create pallets/pallet-custom/src/weights.rs with a WeightInfo trait and () placeholder implementation:\n\n```rust\npub trait WeightInfo {\n    fn set_counter_value() -> frame::prelude::Weight;\n    fn increment() -> frame::prelude::Weight;\n    fn decrement() -> frame::prelude::Weight;\n}\n```\n\n```rust\nimpl WeightInfo for () {\n    fn set_counter_value() -> frame::prelude::Weight { frame::prelude::Weight::from_parts(10_000, 0) }\n    fn increment() -> frame::prelude::Weight { frame::prelude::Weight::from_parts(15_000, 0) }\n    fn decrement() -> frame::prelude::Weight { frame::prelude::Weight::from_parts(15_000, 0) }\n}\n```\n\nThe () impl is used in tests; benchmark-generated values will replace this file in the final step."
+          "description": "Create pallets/pallet-custom/src/weights.rs with a WeightInfo trait and () placeholder implementation:\n\n```rust\npub trait WeightInfo {\n    fn set_counter_value() -> frame::prelude::Weight;\n    fn increment() -> frame::prelude::Weight;\n    fn decrement() -> frame::prelude::Weight;\n}\n\nimpl WeightInfo for () {\n    fn set_counter_value() -> frame::prelude::Weight { frame::prelude::Weight::from_parts(10_000, 0) }\n    fn increment() -> frame::prelude::Weight { frame::prelude::Weight::from_parts(15_000, 0) }\n    fn decrement() -> frame::prelude::Weight { frame::prelude::Weight::from_parts(15_000, 0) }\n}\n```\n\nThe () impl is used in tests; benchmark-generated values will replace this file in the final step."
         },
         {
           "order": 3,
@@ -5615,7 +5677,8 @@
           "order": 3,
           "action": "Initialize a DedotClient and query account balance",
           "working_directory": "dedot-example",
-          "description": "Create 'main.ts' with the following content. Replace 'INSERT_ADDRESS' with the SS58 address to query, and replace 'wss://rpc.polkadot.io' with the target chain's WebSocket endpoint if needed.\nThen open main.ts and append:\n```typescript\nconst balance = await client.query.system.account('INSERT_ADDRESS');\nconsole.log('Free balance:', balance.data.free);\nawait client.disconnect();\n```\n\nFor the full example: the client connects via WsProvider to the node, uses PolkadotApi as the ChainApi interface for type safety, then queries System.Account storage. The PolkadotApi interface type comes from @dedot/chaintypes. If you target a different chain, replace PolkadotApi with the appropriate ChainApi (e.g., KusamaApi) or omit it to fall back to SubstrateApi."
+          "description": "Fetch the reference file `client-initialization-via-ws.ts` and save it as `main.ts`. Then make these substitutions:\n(1) Replace `INSERT_ADDRESS` with the SS58 address to query.\n(2) Replace `wss://rpc.polkadot.io` with the target chain's WebSocket endpoint if needed.\n\nOpen main.ts and append the following lines after the client initialization to query and print the account balance:\n\n```typescript\nconst balance = await client.query.system.account('INSERT_ADDRESS');\nconsole.log('Free balance:', balance.data.free);\nawait client.disconnect();\n```\n\nNotes: the client connects via WsProvider to the node, uses `PolkadotApi` as the ChainApi interface for type safety, then queries `System.Account` storage. The `PolkadotApi` interface type comes from `@dedot/chaintypes`. If you target a different chain, replace `PolkadotApi` with the appropriate ChainApi (e.g., `KusamaApi`) or omit it to fall back to `SubstrateApi`.",
+          "reference_file": "client-initialization-via-ws.ts"
         },
         {
           "order": 4,
@@ -5631,13 +5694,24 @@
           "order": 5,
           "action": "Sign and send a transaction",
           "working_directory": "dedot-example",
-          "description": "To send a balance transfer, create 'send-tx.ts'. The pattern uses @polkadot/keyring for signing. Replace 'INSERT_DEST_ADDRESS' with the recipient SS58 address and '2_000_000_000_000n' with the desired amount in planck (1 DOT = 10^10 planck).\n\nFetch the template:\ncurl -sL https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.snippets/code/reference/tools/dedot/sign-and-send-tx-with-keyring.ts -o send-tx.ts\n\nThen install the signer dependency:\nnpm install @polkadot/keyring @polkadot/util-crypto\n\nSubstitutions required in send-tx.ts:\n- Replace '//Alice' with the sender's mnemonic URI (use '//Alice' only on local dev nodes).\n- Replace 'INSERT_DEST_ADDRESS' with the recipient SS58 address.\n- Replace '2_000_000_000_000n' with the desired transfer amount in planck.\n\nDo NOT hardcode a real private key in the file. For testnet use, add 'import \"dotenv/config\"' and load the seed phrase from SEED_PHRASE in a .env file. Add .env to .gitignore before proceeding.\n\nRun: npx tsx send-tx.ts"
+          "description": "Fetch the reference file `sign-and-send-tx-with-keyring.ts` and save it as `send-tx.ts`. The pattern uses `@polkadot/keyring` for signing. Make these substitutions:\n(1) Replace `INSERT_DEST_ADDRESS` with the recipient SS58 address.\n(2) Replace `2_000_000_000_000n` with the desired amount in planck (1 DOT = 10^10 planck).\n\nThen install the signer dependency:\n\n```bash\nnpm install @polkadot/keyring @polkadot/util-crypto\n```\n\nRun with `npx tsx send-tx.ts`. The script will print the transaction hash on inclusion.",
+          "reference_file": "sign-and-send-tx-with-keyring.ts"
         }
       ],
       "reference_code": {
-        "repo": "none",
-        "base_path": "",
-        "files": []
+        "repo": "polkadot-developers/polkadot-docs",
+        "branch": "master",
+        "base_path": ".snippets/code/reference/tools/dedot",
+        "files": [
+          {
+            "path": "client-initialization-via-ws.ts",
+            "description": "DedotClient initialization via WsProvider against a Polkadot Hub WebSocket endpoint, typed against PolkadotApi from @dedot/chaintypes"
+          },
+          {
+            "path": "sign-and-send-tx-with-keyring.ts",
+            "description": "Signs and submits a Balances.transfer extrinsic using a @polkadot/keyring keypair; demonstrates the full signTx flow"
+          }
+        ]
       },
       "error_patterns": [
         {
@@ -7130,7 +7204,7 @@
           "order": 4,
           "action": "Create the Snowbridge transfer script",
           "working_directory": "snowbridge-transfer",
-          "description": "Create a file named 'bridge.ts' with the following content:\n\n```typescript\nimport 'dotenv/config';\nimport { ethers } from 'ethers';\nimport { Builder } from '@paraspell/sdk';\n```\n\n```typescript\nconst PRIVATE_KEY = process.env.PRIVATE_KEY!;\nconst ETH_RPC_URL = process.env.ETH_RPC_URL!;\nconst DEST = process.env.DEST_POLKADOT_ADDRESS!;\n// Token to bridge — WETH on Ethereum mainnet\nconst TOKEN_SYMBOL = 'WETH';\n// Amount in smallest units (WETH has 18 decimals; 1e15 = 0.001 WETH)\nconst AMOUNT = '1000000000000000';\n```\n\n```typescript\nasync function main() {\n  const provider = new ethers.JsonRpcProvider(ETH_RPC_URL);\n  const signer = new ethers.Wallet(PRIVATE_KEY, provider);\n  console.log('Sender:', signer.address);\n  const bal = await provider.getBalance(signer.address);\n  console.log('ETH balance:', ethers.formatEther(bal));\n```\n\n```typescript\n  const tx = await Builder()\n    .from('Ethereum')\n    .to('AssetHubPolkadot')\n    .currency({ symbol: TOKEN_SYMBOL, amount: AMOUNT })\n    .address(DEST)\n    .buildEthTransfer({ ethSigner: signer });\n```\n\n```typescript\n  console.log('Submitting Snowbridge transfer...');\n  const receipt = await tx.wait();\n  console.log('Transaction hash:', receipt.hash);\n  console.log('Relay in progress — monitor at https://bridge.polkadot.io/');\n  console.log('Tokens typically arrive in 15-30 minutes.');\n}\n```\n\nmain().catch(e => { console.error(e); process.exit(1); });\n\nSubstitutions: (1) TOKEN_SYMBOL — change 'WETH' to the ERC-20 symbol you are bridging (must be supported by Snowbridge). (2) AMOUNT — change '1000000000000000' to your intended amount in smallest units; WETH has 18 decimals so 1e18 = 1 WETH. (3) If buildEthTransfer is not available in your installed @paraspell/sdk version, consult https://paraspell.github.io/docs for the correct Snowbridge API."
+          "description": "Create a file named 'bridge.ts' with the following content:\n\n```typescript\nimport 'dotenv/config';\nimport { ethers } from 'ethers';\nimport { Builder } from '@paraspell/sdk';\n\nconst PRIVATE_KEY = process.env.PRIVATE_KEY!;\nconst ETH_RPC_URL = process.env.ETH_RPC_URL!;\nconst DEST = process.env.DEST_POLKADOT_ADDRESS!;\n// Token to bridge — WETH on Ethereum mainnet\nconst TOKEN_SYMBOL = 'WETH';\n// Amount in smallest units (WETH has 18 decimals; 1e15 = 0.001 WETH)\nconst AMOUNT = '1000000000000000';\n\nasync function main() {\n  const provider = new ethers.JsonRpcProvider(ETH_RPC_URL);\n  const signer = new ethers.Wallet(PRIVATE_KEY, provider);\n  console.log('Sender:', signer.address);\n  const bal = await provider.getBalance(signer.address);\n  console.log('ETH balance:', ethers.formatEther(bal));\n\n  const tx = await Builder()\n    .from('Ethereum')\n    .to('AssetHubPolkadot')\n    .currency({ symbol: TOKEN_SYMBOL, amount: AMOUNT })\n    .address(DEST)\n    .buildEthTransfer({ ethSigner: signer });\n\n  console.log('Submitting Snowbridge transfer...');\n  const receipt = await tx.wait();\n  console.log('Transaction hash:', receipt.hash);\n  console.log('Relay in progress — monitor at https://bridge.polkadot.io/');\n  console.log('Tokens typically arrive in 15-30 minutes.');\n}\n```\n\nmain().catch(e => { console.error(e); process.exit(1); });\n\nSubstitutions: (1) TOKEN_SYMBOL — change 'WETH' to the ERC-20 symbol you are bridging (must be supported by Snowbridge). (2) AMOUNT — change '1000000000000000' to your intended amount in smallest units; WETH has 18 decimals so 1e18 = 1 WETH. (3) If buildEthTransfer is not available in your installed @paraspell/sdk version, consult https://paraspell.github.io/docs for the correct Snowbridge API."
         },
         {
           "order": 5,
@@ -8479,19 +8553,19 @@
             "mkdir -p pallets/counter/src",
             "touch pallets/counter/src/lib.rs"
           ],
-          "description": "Create the pallet directory structure inside the parachain template workspace. The pallet name (counter) becomes the crate name. Create pallets/counter/Cargo.toml with the following content, replacing <SDK_VERSION> with the version matching your other workspace pallets:\n\n```toml\n[package]\nname = \"pallet-counter\"\nversion = \"0.1.0\"\nedition = \"2021\"\n```\n\n```toml\n[dependencies]\ncodec = { package = \"parity-scale-codec\", version = \"3\", default-features = false, features = [\"derive\"] }\nscale-info = { version = \"2\", default-features = false, features = [\"derive\"] }\nframe-support = { version = \"<SDK_VERSION>\", default-features = false }\nframe-system = { version = \"<SDK_VERSION>\", default-features = false }\nframe-benchmarking = { version = \"<SDK_VERSION>\", default-features = false, optional = true }\n```\n\n```toml\n[features]\ndefault = [\"std\"]\nstd = [\n    \"codec/std\",\n    \"scale-info/std\",\n    \"frame-support/std\",\n    \"frame-system/std\",\n]\nruntime-benchmarks = [\"frame-benchmarking/runtime-benchmarks\"]\n```\n\nAlso add pallet-counter to the workspace's root Cargo.toml members list:\nmembers = [\n    ...\n    \"pallets/counter\",\n]"
+          "description": "Create the pallet directory structure inside the parachain template workspace. The pallet name (counter) becomes the crate name. Create pallets/counter/Cargo.toml with the following content, replacing <SDK_VERSION> with the version matching your other workspace pallets:\n\n```toml\n[package]\nname = \"pallet-counter\"\nversion = \"0.1.0\"\nedition = \"2021\"\n\n[dependencies]\ncodec = { package = \"parity-scale-codec\", version = \"3\", default-features = false, features = [\"derive\"] }\nscale-info = { version = \"2\", default-features = false, features = [\"derive\"] }\nframe-support = { version = \"<SDK_VERSION>\", default-features = false }\nframe-system = { version = \"<SDK_VERSION>\", default-features = false }\nframe-benchmarking = { version = \"<SDK_VERSION>\", default-features = false, optional = true }\n\n[features]\ndefault = [\"std\"]\nstd = [\n    \"codec/std\",\n    \"scale-info/std\",\n    \"frame-support/std\",\n    \"frame-system/std\",\n]\nruntime-benchmarks = [\"frame-benchmarking/runtime-benchmarks\"]\n```\n\nAlso add pallet-counter to the workspace's root Cargo.toml members list:\nmembers = [\n    ...\n    \"pallets/counter\",\n]"
         },
         {
           "order": 2,
           "action": "Implement the pallet in pallets/counter/src/lib.rs",
           "working_directory": ".",
-          "description": "Write the pallet implementation in pallets/counter/src/lib.rs. A minimal counter pallet contains:\n\n#![cfg_attr(not(feature = \"std\"), no_std)]\n\npub use pallet::*;\n\n```rust\n#[frame_support::pallet]\npub mod pallet {\n    use frame_support::pallet_prelude::*;\n    use frame_system::pallet_prelude::*;\n```\n\n```rust\n    #[pallet::pallet]\n    pub struct Pallet<T>(_);\n```\n\n```rust\n    #[pallet::config]\n    pub trait Config: frame_system::Config {\n        type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;\n        #[pallet::constant]\n        type MaxValue: Get<u32>;\n    }\n```\n\n    #[pallet::storage]\n    pub type CounterValue<T> = StorageValue<_, u32, ValueQuery>;\n\n```rust\n    #[pallet::event]\n    #[pallet::generate_deposit(pub(super) fn deposit_event)]\n    pub enum Event<T: Config> {\n        CounterIncremented { new_value: u32 },\n        CounterDecremented { new_value: u32 },\n    }\n```\n\n```rust\n    #[pallet::error]\n    pub enum Error<T> {\n        CounterOverflow,\n        CounterUnderflow,\n    }\n```\n\n```rust\n    #[pallet::call]\n    impl<T: Config> Pallet<T> {\n        #[pallet::call_index(0)]\n        #[pallet::weight(10_000)]\n        pub fn increment(origin: OriginFor<T>) -> DispatchResult {\n            ensure_signed(origin)?;\n            let val = CounterValue::<T>::get();\n            let new_val = val.checked_add(1).ok_or(Error::<T>::CounterOverflow)?;\n            ensure!(new_val <= T::MaxValue::get(), Error::<T>::CounterOverflow);\n            CounterValue::<T>::put(new_val);\n            Self::deposit_event(Event::CounterIncremented { new_value: new_val });\n            Ok(())\n        }\n```\n\n```rust\n        #[pallet::call_index(1)]\n        #[pallet::weight(10_000)]\n        pub fn decrement(origin: OriginFor<T>) -> DispatchResult {\n            ensure_signed(origin)?;\n            let val = CounterValue::<T>::get();\n            let new_val = val.checked_sub(1).ok_or(Error::<T>::CounterUnderflow)?;\n            CounterValue::<T>::put(new_val);\n            Self::deposit_event(Event::CounterDecremented { new_value: new_val });\n            Ok(())\n        }\n    }\n}\n```\n\nThe MaxValue constant bounds the counter to prevent overflow. checked_add/checked_sub replace panicking arithmetic."
+          "description": "Write the pallet implementation in pallets/counter/src/lib.rs. A minimal counter pallet contains:\n\n#![cfg_attr(not(feature = \"std\"), no_std)]\n\npub use pallet::*;\n\n```rust\n#[frame_support::pallet]\npub mod pallet {\n    use frame_support::pallet_prelude::*;\n    use frame_system::pallet_prelude::*;\n\n    #[pallet::pallet]\n    pub struct Pallet<T>(_);\n\n    #[pallet::config]\n    pub trait Config: frame_system::Config {\n        type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;\n        #[pallet::constant]\n        type MaxValue: Get<u32>;\n    }\n```\n\n    #[pallet::storage]\n    pub type CounterValue<T> = StorageValue<_, u32, ValueQuery>;\n\n```rust\n    #[pallet::event]\n    #[pallet::generate_deposit(pub(super) fn deposit_event)]\n    pub enum Event<T: Config> {\n        CounterIncremented { new_value: u32 },\n        CounterDecremented { new_value: u32 },\n    }\n\n    #[pallet::error]\n    pub enum Error<T> {\n        CounterOverflow,\n        CounterUnderflow,\n    }\n\n    #[pallet::call]\n    impl<T: Config> Pallet<T> {\n        #[pallet::call_index(0)]\n        #[pallet::weight(10_000)]\n        pub fn increment(origin: OriginFor<T>) -> DispatchResult {\n            ensure_signed(origin)?;\n            let val = CounterValue::<T>::get();\n            let new_val = val.checked_add(1).ok_or(Error::<T>::CounterOverflow)?;\n            ensure!(new_val <= T::MaxValue::get(), Error::<T>::CounterOverflow);\n            CounterValue::<T>::put(new_val);\n            Self::deposit_event(Event::CounterIncremented { new_value: new_val });\n            Ok(())\n        }\n\n        #[pallet::call_index(1)]\n        #[pallet::weight(10_000)]\n        pub fn decrement(origin: OriginFor<T>) -> DispatchResult {\n            ensure_signed(origin)?;\n            let val = CounterValue::<T>::get();\n            let new_val = val.checked_sub(1).ok_or(Error::<T>::CounterUnderflow)?;\n            CounterValue::<T>::put(new_val);\n            Self::deposit_event(Event::CounterDecremented { new_value: new_val });\n            Ok(())\n        }\n    }\n}\n```\n\nThe MaxValue constant bounds the counter to prevent overflow. checked_add/checked_sub replace panicking arithmetic."
         },
         {
           "order": 3,
           "action": "Add pallet-counter to runtime/Cargo.toml",
           "working_directory": ".",
-          "description": "Open runtime/Cargo.toml and add pallet-counter as a workspace dependency:\n\n```toml\n[dependencies]\n...\npallet-counter = { path = \"../pallets/counter\", default-features = false }\n```\n\n```toml\nAdd to the std feature list:\n[features]\nstd = [\n    ...\n    \"pallet-counter/std\",\n]\n```\n\nNote: path = \"../pallets/counter\" is a relative path from the runtime/ directory to the pallet directory."
+          "description": "Open runtime/Cargo.toml and add pallet-counter as a workspace dependency:\n\n```toml\n[dependencies]\n...\npallet-counter = { path = \"../pallets/counter\", default-features = false }\n\nAdd to the std feature list:\n[features]\nstd = [\n    ...\n    \"pallet-counter/std\",\n]\n```\n\nNote: path = \"../pallets/counter\" is a relative path from the runtime/ directory to the pallet directory."
         },
         {
           "order": 4,
@@ -9396,7 +9470,7 @@
           "order": 3,
           "action": "Create the chain-query script",
           "working_directory": "polkadot-api-demo",
-          "description": "Create a file named query.ts with the following content. Replace INSERT_ADDRESS with the SS58-encoded address to query (e.g., an address from the create-polkadot-account skill output):\n\n```typescript\nimport 'dotenv/config';\nimport { ApiPromise, WsProvider } from '@polkadot/api';\n```\n\n```typescript\nasync function main() {\n  const provider = new WsProvider(process.env.WS_ENDPOINT!);\n  const api = await ApiPromise.create({ provider });\n  const chain = await api.rpc.system.chain();\n  const existentialDeposit = api.consts.balances.existentialDeposit;\n  console.log(`Connected to: ${chain}`);\n  console.log(`Existential deposit: ${existentialDeposit.toHuman()}`);\n  const account = await api.query.system.account('INSERT_ADDRESS');\n  console.log('Account data:', account.toHuman());\n  await api.disconnect();\n}\n```\n\nmain().catch(console.error);"
+          "description": "Create a file named query.ts with the following content. Replace INSERT_ADDRESS with the SS58-encoded address to query (e.g., an address from the create-polkadot-account skill output):\n\n```typescript\nimport 'dotenv/config';\nimport { ApiPromise, WsProvider } from '@polkadot/api';\n\nasync function main() {\n  const provider = new WsProvider(process.env.WS_ENDPOINT!);\n  const api = await ApiPromise.create({ provider });\n  const chain = await api.rpc.system.chain();\n  const existentialDeposit = api.consts.balances.existentialDeposit;\n  console.log(`Connected to: ${chain}`);\n  console.log(`Existential deposit: ${existentialDeposit.toHuman()}`);\n  const account = await api.query.system.account('INSERT_ADDRESS');\n  console.log('Account data:', account.toHuman());\n  await api.disconnect();\n}\n```\n\nmain().catch(console.error);"
         },
         {
           "order": 4,
@@ -9411,7 +9485,7 @@
           "order": 5,
           "action": "Create and run the transaction script",
           "working_directory": "polkadot-api-demo",
-          "description": "Create a file named transfer.ts. Only proceed if MNEMONIC is set in .env. Replace INSERT_RECIPIENT with the destination SS58 address and INSERT_AMOUNT with the transfer amount in planck units (e.g., 1000000000000 = 1 DOT with 10 decimals, or 1000000000000000000 = 1 PAS with 18 decimals):\n\n```typescript\nimport 'dotenv/config';\nimport { ApiPromise, WsProvider, Keyring } from '@polkadot/api';\n```\n\n```typescript\nasync function main() {\n  const provider = new WsProvider(process.env.WS_ENDPOINT!);\n  const api = await ApiPromise.create({ provider });\n  const keyring = new Keyring({ type: 'sr25519' });\n  const sender = keyring.addFromUri(process.env.MNEMONIC!);\n  console.log(`Sending from: ${sender.address}`);\n  const txHash = await api.tx.balances\n    .transferKeepAlive('INSERT_RECIPIENT', INSERT_AMOUNT)\n    .signAndSend(sender);\n  console.log(`Transaction hash: ${txHash}`);\n  await api.disconnect();\n}\n```\n\nmain().catch(console.error);\n\nThen run: npx tsx transfer.ts"
+          "description": "Create a file named transfer.ts. Only proceed if MNEMONIC is set in .env. Replace INSERT_RECIPIENT with the destination SS58 address and INSERT_AMOUNT with the transfer amount in planck units (e.g., 1000000000000 = 1 DOT with 10 decimals, or 1000000000000000000 = 1 PAS with 18 decimals):\n\n```typescript\nimport 'dotenv/config';\nimport { ApiPromise, WsProvider, Keyring } from '@polkadot/api';\n\nasync function main() {\n  const provider = new WsProvider(process.env.WS_ENDPOINT!);\n  const api = await ApiPromise.create({ provider });\n  const keyring = new Keyring({ type: 'sr25519' });\n  const sender = keyring.addFromUri(process.env.MNEMONIC!);\n  console.log(`Sending from: ${sender.address}`);\n  const txHash = await api.tx.balances\n    .transferKeepAlive('INSERT_RECIPIENT', INSERT_AMOUNT)\n    .signAndSend(sender);\n  console.log(`Transaction hash: ${txHash}`);\n  await api.disconnect();\n}\n```\n\nmain().catch(console.error);\n\nThen run: npx tsx transfer.ts"
         }
       ],
       "reference_code": {

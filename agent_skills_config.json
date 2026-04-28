@@ -1,7 +1,7 @@
 {
   "schema_version": "0.1",
-  "generated": "2026-04-21T23:59:00Z",
-  "content_hash": "sha256:baa77872cb276111bce49b6294c4964626a51bfb239f70ed353276956891ffbd",
+  "generated": "2026-04-28T13:23:02Z",
+  "content_hash": "sha256:22678a7f9640430a80bf7f26b03a1c197a4d555eb623ed5288329751e81003c7",
   "skills": [
     {
       "id": "create-polkadot-account",
@@ -8115,7 +8115,7 @@
       "primary_page": "parachains/customize-runtime/add-existing-pallets.md",
       "prerequisites": {
         "runtime": [
-          "Rust toolchain with the wasm32-unknown-unknown target (rustup target add wasm32-unknown-unknown)",
+          "Rust toolchain with the wasm32-unknown-unknown target (`rustup target add wasm32-unknown-unknown`)",
           "Polkadot SDK system dependencies installed (see parachains/install-polkadot-sdk.md)",
           "A working parachain template checkout with a successful local build (see parachains/launch-a-parachain/set-up-the-parachain-template.md)"
         ],

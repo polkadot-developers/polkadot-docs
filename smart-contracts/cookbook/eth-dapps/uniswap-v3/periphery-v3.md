@@ -112,7 +112,7 @@ Before interacting with the contracts, it is essential to understand how the Per
 
 Uniswap V3 allows liquidity providers to concentrate capital within a chosen price range defined by a lower tick and an upper tick. A position earns trading fees only when the current pool price falls within its range.
 
-The token composition of an out-of-range position is determined by its relationship to the current price. When the current price is below the position's range, the position holds 100% token0 because all liquidity has been converted to the cheaper asset as the price moved down through the range. When the current price is above the range, the position holds 100% token1 because all liquidity has been converted to the more expensive asset as the price moved up. Only an in-range position holds both tokens simultaneously.
+The token composition of an out-of-range position is determined by its relationship to the current price. When the current price is below the position's range, the position holds 100% `token0` because all liquidity has been converted to the cheaper asset as the price moved down through the range. When the current price is above the range, the position holds 100% token1 because all liquidity has been converted to the more expensive asset as the price moved up. Only an in-range position holds both tokens simultaneously.
 
 Accumulated fees are tracked separately from principal liquidity and are staged in `tokensOwed` fields on the position. Retrieving fees requires two explicit steps: calling `decreaseLiquidity` to move accrued principal and fees into `tokensOwed`, then calling `collect` to transfer those amounts to the owner's wallet.
 

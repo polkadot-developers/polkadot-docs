@@ -108,6 +108,12 @@ jobs:
           TRIAGE_BATCH_SIZE="${{ github.event.inputs['triage-batch-size'] || github.event.client_payload['triage-batch-size'] || 5 }}"
           BATCH_SIZE="${{ github.event.inputs['batch-size'] || github.event.client_payload['batch-size'] || 5 }}"
           NO_CHAIN="${{ github.event.inputs['no-chain'] || github.event.client_payload['no-chain'] || 'false' }}"
+          # Self-chain safety counters. Initial runs default to iteration 1; chained
+          # runs receive the next iteration via client_payload (set by workflows-private
+          # in the self-chain dispatch step). max-chain-iterations is the hard cap
+          # that gets propagated unchanged across the chain.
+          CURRENT_ITER="${{ github.event.client_payload['current-iteration'] || 1 }}"
+          MAX_ITER="${{ github.event.client_payload['max-chain-iterations'] || 20 }}"
 
           echo "Dispatching task-monitor-skills.yml with:"
           echo "  docs-owner: ${{ github.repository_owner }}"
@@ -117,6 +123,7 @@ jobs:
           echo "  triage-batch-size: $TRIAGE_BATCH_SIZE"
           echo "  batch-size: $BATCH_SIZE"
           echo "  no-chain: $NO_CHAIN"
+          echo "  current-iteration: $CURRENT_ITER / $MAX_ITER"
 
           gh workflow run task-monitor-skills.yml \
             --repo papermoonio/workflows-private \
@@ -130,4 +137,6 @@ jobs:
             -f mode="$MODE" \
             -f triage-batch-size="$TRIAGE_BATCH_SIZE" \
             -f batch-size="$BATCH_SIZE" \
-            -f no-chain="$NO_CHAIN"
+            -f no-chain="$NO_CHAIN" \
+            -f current-iteration="$CURRENT_ITER" \
+            -f max-chain-iterations="$MAX_ITER"

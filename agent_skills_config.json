@@ -1,7 +1,7 @@
 {
   "schema_version": "0.1",
-  "generated": "2026-04-28T16:40:37Z",
-  "content_hash": "sha256:cfb3bfa97534a5144de3f69191610459e0dd0b9350ac1bb8ae68c59b4333bfba",
+  "generated": "2026-04-29T07:49:09Z",
+  "content_hash": "sha256:599adea4cb0c8eeca3178f92fe0d25baca40ccef8232922df94d449f6c827b7f",
   "skills": [
     {
       "id": "create-polkadot-account",
@@ -5675,13 +5675,19 @@
         },
         {
           "order": 3,
-          "action": "Initialize a DedotClient and query account balance",
+          "action": "Fetch the DedotClient initialization script",
           "working_directory": "dedot-example",
-          "description": "Fetch the reference file `client-initialization-via-ws.ts` and save it as `main.ts`. Then make these substitutions:\n(1) Replace `INSERT_ADDRESS` with the SS58 address to query.\n(2) Replace `wss://rpc.polkadot.io` with the target chain's WebSocket endpoint if needed.\n\nOpen main.ts and append the following lines after the client initialization to query and print the account balance:\n\n```typescript\nconst balance = await client.query.system.account('INSERT_ADDRESS');\nconsole.log('Free balance:', balance.data.free);\nawait client.disconnect();\n```\n\nNotes: the client connects via WsProvider to the node, uses `PolkadotApi` as the ChainApi interface for type safety, then queries `System.Account` storage. The `PolkadotApi` interface type comes from `@dedot/chaintypes`. If you target a different chain, replace `PolkadotApi` with the appropriate ChainApi (e.g., `KusamaApi`) or omit it to fall back to `SubstrateApi`.",
-          "reference_file": "client-initialization-via-ws.ts"
+          "reference_file": "client-initialization-via-ws.ts",
+          "description": "Fetch the reference file `client-initialization-via-ws.ts` and save it as `main.ts`. Then make these substitutions:\n(1) Replace `INSERT_ADDRESS` with the SS58 address you'll query.\n(2) Replace `wss://rpc.polkadot.io` with the target chain's WebSocket endpoint if needed.\n\nThe script connects via `WsProvider` and uses `PolkadotApi` (from `@dedot/chaintypes`) as the ChainApi interface for type safety. If you target a different chain, replace `PolkadotApi` with the appropriate ChainApi (e.g. `KusamaApi`) or omit it to fall back to `SubstrateApi`."
         },
         {
           "order": 4,
+          "action": "Append the balance query and disconnect",
+          "working_directory": "dedot-example",
+          "description": "Open `main.ts` and append the following block immediately before the end of `main()` (or wherever the connection is established) so the script queries account balance and cleanly disconnects:\n\n```typescript\nconst balance = await client.query.system.account('INSERT_ADDRESS');\nconsole.log('Free balance:', balance.data.free);\nawait client.disconnect();\n```\n\nReplace `INSERT_ADDRESS` with the same SS58 address you used in the previous step."
+        },
+        {
+          "order": 5,
           "action": "Run the query script",
           "working_directory": "dedot-example",
           "commands": [
@@ -5691,7 +5697,7 @@
           "description": "Execute main.ts. The output prints the free balance of the queried address in the chain's smallest unit. A zero balance is valid for unfunded accounts — it will not throw an error."
         },
         {
-          "order": 5,
+          "order": 6,
           "action": "Sign and send a transaction",
           "working_directory": "dedot-example",
           "description": "Fetch the reference file `sign-and-send-tx-with-keyring.ts` and save it as `send-tx.ts`. The pattern uses `@polkadot/keyring` for signing. Make these substitutions:\n(1) Replace `INSERT_DEST_ADDRESS` with the recipient SS58 address.\n(2) Replace `2_000_000_000_000n` with the desired amount in planck (1 DOT = 10^10 planck).\n\nThen install the signer dependency:\n\n```bash\nnpm install @polkadot/keyring @polkadot/util-crypto\n```\n\nRun with `npx tsx send-tx.ts`. The script will print the transaction hash on inclusion.",

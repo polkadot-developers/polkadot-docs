@@ -1,0 +1,4036 @@
+{
+  "schema_version": "2",
+  "generated": "2026-04-21T23:30:00Z",
+  "project_id": "polkadot-docs",
+  "scoring_rubric_version": "1.0",
+  "candidates": [
+    {
+      "skill_id": "create-polkadot-account",
+      "title": "Create a Polkadot Account Programmatically",
+      "source_pages": [
+        "chain-interactions/accounts/create-account.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "status": "built",
+      "notes": "Complete, multi-language tutorial (TypeScript, Python, Rust) covering account key generation. Fully self-contained with cookbook-tested code. All three language variants could become one skill or three; one skill covering the PAPI/TypeScript path is recommended.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "K1",
+          "K2",
+          "K3",
+          "K4",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 20,
+          "reference": 0,
+          "conceptual": 0,
+          "not_applicable": 0
+        },
+        "priority_score": 25
+      },
+      "built_at": "2026-04-21T17:00:00Z"
+    },
+    {
+      "skill_id": "query-account-info-sdks",
+      "title": "Query Account Information with SDKs",
+      "source_pages": [
+        "chain-interactions/accounts/query-accounts.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "status": "built",
+      "notes": "Multi-SDK tutorial covering PAPI, Polkadot.js, Dedot, Python Substrate Interface, and Subxt. Each SDK variant is self-contained. Cookbook-backed with CI badges. Recommend one skill targeting the PAPI variant as the primary path.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "K1",
+          "K2",
+          "K3",
+          "K4",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 20,
+          "reference": 0,
+          "conceptual": 0,
+          "not_applicable": 0
+        },
+        "priority_score": 25
+      },
+      "built_at": "2026-04-21T17:00:00Z"
+    },
+    {
+      "skill_id": "query-chain-data-sidecar-rest",
+      "title": "Query On-Chain State with Sidecar REST API",
+      "source_pages": [
+        "chain-interactions/query-data/query-rest.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "status": "built",
+      "built_at": "2026-04-21T18:30:00Z",
+      "notes": "Covers querying account balances, asset metadata, and block info via curl against the Sidecar REST API. P3 absent (no files to create, only curl commands). Reference tables for response fields contribute to reference score but procedural score still meets tutorial threshold. Has cookbook CI badge (K4).",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P4",
+          "R1",
+          "R3",
+          "K1",
+          "K2",
+          "K3",
+          "K4",
+          "S1",
+          "S2"
+        ],
+        "category_scores": {
+          "procedural": 15,
+          "reference": 8,
+          "conceptual": 0,
+          "not_applicable": 0
+        },
+        "priority_score": 22
+      }
+    },
+    {
+      "skill_id": "query-chain-state-sdks",
+      "title": "Query On-Chain State with SDKs",
+      "source_pages": [
+        "chain-interactions/query-data/query-sdks.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "status": "built",
+      "notes": "Multi-SDK tutorial (PAPI, Polkadot.js, Dedot, Python Substrate Interface, Subxt) for querying account balance and asset info. Cookbook-backed. Recommend primary skill targeting PAPI TypeScript path.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "K1",
+          "K2",
+          "K3",
+          "K4",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 20,
+          "reference": 0,
+          "conceptual": 0,
+          "not_applicable": 0
+        },
+        "priority_score": 25
+      },
+      "built_at": "2026-04-21T17:00:00Z"
+    },
+    {
+      "skill_id": "call-runtime-apis-sdks",
+      "title": "Call Runtime APIs with SDKs",
+      "source_pages": [
+        "chain-interactions/query-data/runtime-api-calls.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "status": "built",
+      "notes": "Multi-SDK tutorial demonstrating AccountNonceApi and Metadata runtime API calls. Reference API table at the bottom is supplementary. Cookbook-backed with CI badge.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "R1",
+          "K1",
+          "K2",
+          "K3",
+          "K4",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 20,
+          "reference": 5,
+          "conceptual": 0,
+          "not_applicable": 0
+        },
+        "priority_score": 25
+      },
+      "built_at": "2026-04-21T17:00:00Z"
+    },
+    {
+      "skill_id": "calculate-transaction-fees-papi",
+      "title": "Calculate Transaction Fees Programmatically",
+      "source_pages": [
+        "chain-interactions/send-transactions/calculate-transaction-fees.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "status": "built",
+      "built_at": "2026-04-21T18:30:00Z",
+      "notes": "Covers fee estimation using PAPI and Polkadot.js SDK. Includes a GUI section via Polkadot.js Apps (S2 notes this adds non-deterministic path) but the primary SDK workflow is fully programmatic. No cookbook badge (K4 absent).",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "K1",
+          "K2",
+          "K3",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 20,
+          "reference": 0,
+          "conceptual": 0,
+          "not_applicable": 0
+        },
+        "priority_score": 22
+      }
+    },
+    {
+      "skill_id": "replay-dry-run-xcm-chopsticks",
+      "title": "Replay and Dry-Run XCMs Using Chopsticks",
+      "source_pages": [
+        "chain-interactions/send-transactions/interoperability/debug-and-preview-xcms.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "status": "built",
+      "built_at": "2026-04-21T19:00:00Z",
+      "notes": "Advanced tutorial covering XCM replay and dry-run via Chopsticks local fork. Requires building a Wasm binary and using Subscan to locate call data (partial manual step reduces S2). No cookbook badge. Specialized debugging skill for XCM developers.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "K1",
+          "K2",
+          "K3",
+          "S1",
+          "S2"
+        ],
+        "category_scores": {
+          "procedural": 20,
+          "reference": 0,
+          "conceptual": 0,
+          "not_applicable": 0
+        },
+        "priority_score": 19
+      }
+    },
+    {
+      "skill_id": "estimate-xcm-fees-teleport",
+      "title": "Estimate XCM Fees for Asset Teleport",
+      "source_pages": [
+        "chain-interactions/send-transactions/interoperability/estimate-xcm-fees.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "status": "built",
+      "built_at": "2026-04-21T19:00:00Z",
+      "notes": "Tutorial for estimating local execution, delivery, and remote execution fees for XCM teleports between Polkadot Hub TestNet and People Chain. Uses Chopsticks for forked chains. Code is presented in segments then assembled; full code collapsible available. No cookbook badge.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "K1",
+          "K2",
+          "K3",
+          "S1",
+          "S2"
+        ],
+        "category_scores": {
+          "procedural": 20,
+          "reference": 0,
+          "conceptual": 0,
+          "not_applicable": 0
+        },
+        "priority_score": 19
+      }
+    },
+    {
+      "skill_id": "bridge-eth-to-polkadot-snowbridge",
+      "title": "Bridge Assets from Ethereum to Polkadot via Snowbridge",
+      "source_pages": [
+        "chain-interactions/send-transactions/interoperability/transfer-assets-into-polkadot.md"
+      ],
+      "category": "tutorial",
+      "priority": "medium",
+      "status": "built",
+      "notes": "Covers bridging ERC-20 tokens (WETH) from Ethereum mainnet to Polkadot Hub using ParaSpell SDK and Snowbridge. K1 absent — requires real mainnet WETH tokens which an agent cannot autonomously obtain. S2 absent — bridge relay takes ~30 minutes with variable external state. Priority reduced to medium.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "K2",
+          "K3",
+          "S1"
+        ],
+        "category_scores": {
+          "procedural": 20,
+          "reference": 0,
+          "conceptual": 0,
+          "not_applicable": 0
+        },
+        "priority_score": 11
+      },
+      "built_at": "2026-04-21T22:00:00Z"
+    },
+    {
+      "skill_id": "transfer-assets-parachains-paraspell",
+      "title": "Transfer Assets Between Parachains with ParaSpell XCM SDK",
+      "source_pages": [
+        "chain-interactions/send-transactions/interoperability/transfer-assets-parachains.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "status": "built",
+      "built_at": "2026-04-21T18:30:00Z",
+      "notes": "Covers full XCM transfer workflow using ParaSpell SDK: build transaction, dry-run, verify existential deposit, get fee estimates, and submit. Uses Paseo testnet with faucet tokens. Self-contained. No cookbook badge.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "K1",
+          "K2",
+          "K3",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 20,
+          "reference": 0,
+          "conceptual": 0,
+          "not_applicable": 0
+        },
+        "priority_score": 22
+      }
+    },
+    {
+      "skill_id": "pay-fees-alternative-token",
+      "title": "Pay Transaction Fees with an Alternative Token",
+      "source_pages": [
+        "chain-interactions/send-transactions/pay-fees-with-different-tokens.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "status": "built",
+      "built_at": "2026-04-21T18:30:00Z",
+      "notes": "Demonstrates paying DOT transfer fees in USDT using PAPI, Polkadot.js, or Subxt against a Chopsticks local fork (Alice dev account — no real tokens needed). Self-contained. No cookbook badge.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "K1",
+          "K2",
+          "K3",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 20,
+          "reference": 0,
+          "conceptual": 0,
+          "not_applicable": 0
+        },
+        "priority_score": 22
+      }
+    },
+    {
+      "skill_id": "send-transactions-sdks",
+      "title": "Send Transactions with SDKs",
+      "source_pages": [
+        "chain-interactions/send-transactions/with-sdks.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "status": "built",
+      "notes": "Multi-SDK tutorial for constructing, signing, and submitting balance transfers (PAPI, Polkadot.js, Dedot, Python Substrate Interface, Subxt). Cookbook-backed. Fundamental SDK skill and likely prerequisite for other chain-interaction skills.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "K1",
+          "K2",
+          "K3",
+          "K4",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 20,
+          "reference": 0,
+          "conceptual": 0,
+          "not_applicable": 0
+        },
+        "priority_score": 25
+      },
+      "built_at": "2026-04-21T17:00:00Z"
+    },
+    {
+      "skill_id": "convert-assets-asset-hub",
+      "title": "Convert Assets on Asset Hub via AMM",
+      "source_pages": [
+        "chain-interactions/token-operations/convert-assets.md"
+      ],
+      "category": "tutorial",
+      "priority": "medium",
+      "status": "built",
+      "notes": "Covers creating liquidity pools, adding/removing liquidity, and swapping assets using the AssetConversion pallet via Polkadot.js Apps UI. P3 absent (no source files to create); workflow is GUI-dependent (S1 absent). K2 absent. Reaches tutorial threshold via P1+P2+P4=15 with P4 present. Priority medium due to GUI-only execution and absence of programmatic code.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P4",
+          "C2",
+          "K1",
+          "K3",
+          "S2"
+        ],
+        "category_scores": {
+          "procedural": 15,
+          "reference": 0,
+          "conceptual": 3,
+          "not_applicable": 0
+        },
+        "priority_score": 11
+      },
+      "built_at": "2026-04-21T22:00:00Z"
+    },
+    {
+      "skill_id": "register-foreign-asset-polkadot-hub",
+      "title": "Register a Foreign Asset on Polkadot Hub",
+      "source_pages": [
+        "chain-interactions/token-operations/register-foreign-asset.md"
+      ],
+      "category": "tutorial",
+      "priority": "medium",
+      "status": "built",
+      "notes": "Walks through registering a foreign asset via two-step XCM: generate encoded call data on Polkadot Hub, then dispatch via source parachain. Uses Polkadot.js Apps UI (GUI-dependent, S1 absent). P3 absent. Reaches tutorial threshold via P1+P2+P4=15. Priority medium due to GUI-only workflow.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P4",
+          "C2",
+          "K1",
+          "K3",
+          "S2"
+        ],
+        "category_scores": {
+          "procedural": 15,
+          "reference": 0,
+          "conceptual": 3,
+          "not_applicable": 0
+        },
+        "priority_score": 11
+      },
+      "built_at": "2026-04-21T22:00:00Z"
+    },
+    {
+      "skill_id": "register-local-asset-polkadot-hub",
+      "title": "Register a Local Asset on Polkadot Hub",
+      "source_pages": [
+        "chain-interactions/token-operations/register-local-asset.md"
+      ],
+      "category": "tutorial",
+      "priority": "medium",
+      "status": "built",
+      "notes": "Step-by-step guide for creating a local (integer-ID) asset on Polkadot Hub via the Network > Assets UI in Polkadot.js Apps. GUI-dependent throughout (S1 absent). P3 absent. Reaches tutorial threshold via P1+P2+P4=15. Priority medium due to GUI-only execution.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P4",
+          "C2",
+          "K1",
+          "K3",
+          "S2"
+        ],
+        "category_scores": {
+          "procedural": 15,
+          "reference": 0,
+          "conceptual": 3,
+          "not_applicable": 0
+        },
+        "priority_score": 11
+      },
+      "built_at": "2026-04-21T22:00:00Z"
+    },
+    {
+      "skill_id": "install-polkadot-sdk",
+      "title": "Install the Polkadot SDK",
+      "source_pages": [
+        "parachains/install-polkadot-sdk.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "status": "built",
+      "built_at": "2026-04-21T18:00:00Z",
+      "notes": "Multi-OS installation guide (macOS, Linux, Windows WSL) for the Polkadot SDK. Numbered steps throughout, multiple CLI commands (brew, apt, rustup, cargo build), and verification steps with expected output. Cookbook CI badge present (K4). Self-contained from scratch — covers all dependency installation and SDK build. Optional kitchensink explore step uses Polkadot.js Apps GUI but does not affect the primary installation workflow (S1 still fires). Serves as prerequisite for most parachain development skills (create-frame-pallet, set-up-the-parachain-template, etc.).",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P4",
+          "K1",
+          "K2",
+          "K3",
+          "K4",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 15,
+          "reference": 0,
+          "conceptual": 0,
+          "not_applicable": 0
+        },
+        "priority_score": 25
+      }
+    },
+    {
+      "skill_id": "set-up-parachain-template",
+      "title": "Set Up the Polkadot SDK Parachain Template",
+      "source_pages": [
+        "parachains/launch-a-parachain/set-up-the-parachain-template.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "status": "built",
+      "built_at": "2026-04-21T19:00:00Z",
+      "notes": "Full workflow for cloning, building, running, and verifying the Polkadot SDK Parachain Template locally. P1+P2+P4 present (15 = tutorial threshold). P3 absent — directory structure is shown illustratively, not as files to create. GUI verification step (Polkadot.js Apps) does not block S1 since the primary workflow is CLI-only. K1=0 — requires install-polkadot-sdk as prerequisite. Cookbook CI badge present (K4). First step in the three-page parachain launch series (set-up-the-parachain-template → deploy-to-polkadot → obtain-coretime).",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P4",
+          "C2",
+          "K2",
+          "K3",
+          "K4",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 15,
+          "reference": 0,
+          "conceptual": 3,
+          "not_applicable": 0
+        },
+        "priority_score": 20
+      }
+    },
+    {
+      "skill_id": "run-collator-system-parachain",
+      "title": "Run a Block-Producing Collator for a System Parachain",
+      "source_pages": [
+        "node-infrastructure/run-a-collator.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "status": "built",
+      "built_at": "2026-04-21T19:00:00Z",
+      "notes": "Covers full collator setup: install binary (Docker or systemd), generate node key, obtain chain spec, run collator, generate session keys, and register on-chain. Registration requires governance approval for system parachains (S2 absent for that step). Core node setup is deterministic. Matches node/validator setup skill shape.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "K1",
+          "K2",
+          "K3",
+          "S1",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 20,
+          "reference": 0,
+          "conceptual": 0,
+          "not_applicable": 0
+        },
+        "priority_score": 19
+      }
+    },
+    {
+      "skill_id": "run-parachain-rpc-node",
+      "title": "Run a Parachain RPC Node",
+      "source_pages": [
+        "node-infrastructure/run-a-node/parachain-rpc.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "status": "built",
+      "built_at": "2026-04-21T18:30:00Z",
+      "notes": "Comprehensive setup guide for any parachain RPC node (archive or pruned) via Docker or systemd. Uses People Chain as example; substitution table provided for other system parachains. Covers snapshot download, binary install, service config, and sync verification. Node/validator setup shape.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "K1",
+          "K2",
+          "K3",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 20,
+          "reference": 0,
+          "conceptual": 0,
+          "not_applicable": 0
+        },
+        "priority_score": 22
+      }
+    },
+    {
+      "skill_id": "run-polkadot-hub-rpc-node",
+      "title": "Run an RPC Node for Polkadot Hub",
+      "source_pages": [
+        "node-infrastructure/run-a-node/polkadot-hub-rpc.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "status": "built",
+      "built_at": "2026-04-21T19:00:00Z",
+      "notes": "Setup guide for Polkadot Hub RPC node (archive or pruned) via Docker or systemd, plus optional Ethereum RPC adapter (eth-rpc) for EVM compatibility. Includes snapshot download, service config, and sync verification. CLI flags reference table (R2) is supplementary. Node/validator setup shape.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "R2",
+          "K1",
+          "K2",
+          "K3",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 20,
+          "reference": 4,
+          "conceptual": 0,
+          "not_applicable": 0
+        },
+        "priority_score": 22
+      }
+    },
+    {
+      "skill_id": "set-up-relay-chain-bootnode",
+      "title": "Set Up a Relay Chain Bootnode",
+      "source_pages": [
+        "node-infrastructure/run-a-node/relay-chain/bootnode.md"
+      ],
+      "category": "guide",
+      "priority": "high",
+      "status": "built",
+      "notes": "Guide for running a Polkadot relay chain bootnode with P2P, WS, and WSS endpoints. P1 absent (no numbered-step lists; content is command blocks under section headings). Procedural score 14 → guide category. Includes nginx proxy config file. Prerequisites require an external polkadot binary and nginx install, but core steps are self-contained.",
+      "scoring": {
+        "signals": [
+          "P2",
+          "P3",
+          "P4",
+          "R2",
+          "K1",
+          "K2",
+          "K3",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 14,
+          "reference": 4,
+          "conceptual": 0,
+          "not_applicable": 0
+        },
+        "priority_score": 22
+      },
+      "built_at": "2026-04-21T19:30:00Z"
+    },
+    {
+      "skill_id": "set-up-relay-chain-full-node",
+      "title": "Set Up a Polkadot Relay Chain Full Node",
+      "source_pages": [
+        "node-infrastructure/run-a-node/relay-chain/full-node.md"
+      ],
+      "category": "guide",
+      "priority": "medium",
+      "status": "built",
+      "notes": "Guide covering binary installation (pre-built, compiled, snap, Docker) and startup commands for pruned, custom-pruned, and archive nodes. P1 absent (section headings, not numbered lists); no source files to create (P3 absent). Procedural score 9 → Rule 6 guide. K1=0 — prerequisites reference parachains/install-polkadot-sdk for system dependencies not covered on this page. Companion pages: secure-wss.md (WSS layer), polkadot-hub-rpc.md (hub-specific config).",
+      "scoring": {
+        "signals": [
+          "P2",
+          "P4",
+          "R2",
+          "K2",
+          "K3",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 9,
+          "reference": 4,
+          "conceptual": 0,
+          "not_applicable": 0
+        },
+        "priority_score": 17
+      },
+      "built_at": "2026-04-21T22:00:00Z"
+    },
+    {
+      "skill_id": "set-up-secure-wss-relay-node",
+      "title": "Set Up Secure WebSocket (WSS) for a Relay Chain Node",
+      "source_pages": [
+        "node-infrastructure/run-a-node/relay-chain/secure-wss.md"
+      ],
+      "category": "tutorial",
+      "priority": "medium",
+      "status": "built",
+      "notes": "Tutorial for enabling WSS on a running Polkadot node via nginx or Apache2 reverse proxy with SSL (Let's Encrypt or self-signed). P1+P2+P3+P4 all present — numbered steps, apt commands, nginx/apache2 config files, and connection verification. K1=0 (requires an existing running node; companion to set-up-relay-chain-full-node). K3=0 (no explicit prerequisites section). No cookbook badge.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "K2",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 20,
+          "reference": 0,
+          "conceptual": 0,
+          "not_applicable": 0
+        },
+        "priority_score": 14
+      },
+      "built_at": "2026-04-21T22:30:00Z"
+    },
+    {
+      "skill_id": "manage-validator-session-keys",
+      "title": "Manage Validator Session Keys and Node Key",
+      "source_pages": [
+        "node-infrastructure/run-a-validator/onboarding-and-offboarding/key-management.md"
+      ],
+      "category": "tutorial",
+      "priority": "low",
+      "status": "built",
+      "notes": "Covers generating session keys via author_rotateKeysWithOwner RPC, submitting set_keys on-chain (Polkadot Hub path and legacy relay chain path), and generating a static node key. P1+P2+P4 present; P3 absent (no source files). K1=0 — intro explicitly states prerequisite of set-up-validator page. GUI-dependent key submission steps (S1=0). Key output is non-deterministic (S2=0). Part of composite skill onboard-polkadot-validator.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P4",
+          "K2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 15,
+          "reference": 0,
+          "conceptual": 0,
+          "not_applicable": 0
+        },
+        "priority_score": 7
+      },
+      "built_at": "2026-04-21T23:30:00Z"
+    },
+    {
+      "skill_id": "set-up-polkadot-validator-node",
+      "title": "Set Up a Polkadot Validator Node",
+      "source_pages": [
+        "node-infrastructure/run-a-validator/onboarding-and-offboarding/set-up-validator.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "status": "built",
+      "notes": "Complete binary installation guide covering NTP setup, Landlock verification, and installing polkadot/polkadot-prepare-worker/polkadot-execute-worker via four methods (curl+GPG, APT, Docker, build from source). P1+P2+P4 present; P3 absent (no source files). K1=5 — the installation workflow itself is self-contained; listed prerequisites are knowledge reading, not procedural dependencies. No cookbook badge (K4 absent). First step in the broader validator onboarding flow; see composite onboard-polkadot-validator.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P4",
+          "K1",
+          "K2",
+          "K3",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 15,
+          "reference": 0,
+          "conceptual": 0,
+          "not_applicable": 0
+        },
+        "priority_score": 22
+      },
+      "built_at": "2026-04-21T19:30:00Z"
+    },
+    {
+      "skill_id": "start-validating-on-polkadot",
+      "title": "Start Validating on Polkadot",
+      "source_pages": [
+        "node-infrastructure/run-a-validator/onboarding-and-offboarding/start-validating.md"
+      ],
+      "category": "tutorial",
+      "priority": "low",
+      "status": "built",
+      "notes": "Covers syncing a validator node (full or warp sync), bonding DOT via Polkadot.js Apps staking UI, activating the validator, and running as a systemd service. P1+P2+P3+P4 all present; systemd unit file is a source file to create. K1=0 — intro states key-management must be completed first. GUI-heavy bonding and activation steps (S1=0). Bonding requires real DOT on mainnet (S2=0). C2 fired (multiple screenshots). Part of composite skill onboard-polkadot-validator.",
+      "built_at": "2026-04-21T23:59:00Z",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "C2",
+          "K2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 20,
+          "reference": 0,
+          "conceptual": 3,
+          "not_applicable": 0
+        },
+        "priority_score": 7
+      }
+    },
+    {
+      "skill_id": "onboard-polkadot-validator",
+      "title": "Onboard as a Polkadot Validator (Full Flow)",
+      "source_pages": [
+        "node-infrastructure/run-a-validator/onboarding-and-offboarding/set-up-validator.md",
+        "node-infrastructure/run-a-validator/onboarding-and-offboarding/key-management.md",
+        "node-infrastructure/run-a-validator/onboarding-and-offboarding/start-validating.md"
+      ],
+      "category": "tutorial",
+      "composite": true,
+      "priority": "medium",
+      "status": "built",
+      "notes": "Composite skill spanning the three validator onboarding pages. Together they cover the complete workflow: install binaries (set-up-validator), generate and register session keys and node key (key-management), sync chain, bond DOT, activate validator, and configure systemd (start-validating). K1 re-evaluated to 5 for the combined set. GUI-dependent bonding and on-chain key submission remain (S1=0, S2=0), limiting priority to medium. Priority score 15 → medium.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "K1",
+          "K2",
+          "K3",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 20,
+          "reference": 0,
+          "conceptual": 0,
+          "not_applicable": 0
+        },
+        "priority_score": 15
+      },
+      "built_at": "2026-04-21T22:30:00Z"
+    },
+    {
+      "skill_id": "set-up-validator-monitoring-stack",
+      "title": "Set Up Prometheus, Grafana, and Alertmanager for a Validator Node",
+      "source_pages": [
+        "node-infrastructure/run-a-validator/operational-tasks/general-management.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "status": "built",
+      "notes": "Broad operational guide covering CPU performance tuning (SMT/NUMA deactivation, Spectre mitigations), full Prometheus+Grafana+Alertmanager monitoring stack setup with systemd service files, and security best practices (key management, secure-validator mode, Linux hardening). P1+P2+P3+P4 all present. K1=5 for the monitoring subsections, which can be set up independently on any Linux server running a Polkadot node. K3 absent (no explicit prerequisites section). Code blocks use MkDocs snippet includes for config files (K2=4). Grafana UI steps required for dashboard configuration (C2 fired).",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "R2",
+          "C1",
+          "C2",
+          "K1",
+          "K2",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 20,
+          "reference": 4,
+          "conceptual": 8,
+          "not_applicable": 0
+        },
+        "priority_score": 19
+      },
+      "built_at": "2026-04-21T20:30:00Z"
+    },
+    {
+      "skill_id": "upgrade-validator-node-backup",
+      "title": "Upgrade a Validator Node Using a Backup Server",
+      "source_pages": [
+        "node-infrastructure/run-a-validator/operational-tasks/upgrade-your-node.md"
+      ],
+      "category": "guide",
+      "priority": "low",
+      "status": "built",
+      "notes": "Guide for safely rotating between Validator A and Validator B across session N and N+3 to allow maintenance without downtime or slashing. Numbered steps present (P1); outcome verification via session change logs (P4). No CLI commands on the page itself — delegates to key-management and set-up-validator guides for execution steps (K1=0). K3 present (prerequisites section). No source files. S1 absent (no runnable commands); S2 present (deterministic timing once session key propagation delay is understood). category_ambiguous: procedural=10 vs conceptual=7 (C1: session timing explanation, C3: no runnable code).",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P4",
+          "R3",
+          "C1",
+          "C3",
+          "K3",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 10,
+          "reference": 3,
+          "conceptual": 7,
+          "not_applicable": 0
+        },
+        "category_ambiguous": true,
+        "contending_categories": [
+          "guide",
+          "conceptual"
+        ],
+        "priority_score": 9
+      },
+      "built_at": "2026-04-21T23:30:00Z"
+    },
+    {
+      "skill_id": "add-existing-pallet-to-runtime",
+      "title": "Add an Existing Pallet to a Parachain Runtime",
+      "source_pages": [
+        "parachains/customize-runtime/add-existing-pallets.md"
+      ],
+      "category": "tutorial",
+      "priority": "medium",
+      "status": "built",
+      "notes": "Complete guide for integrating a new pallet (pallet-utility as example) into a Polkadot SDK parachain runtime: add Cargo.toml dependency, implement Config trait in mod.rs, register in runtime construct in lib.rs, compile, generate chain spec, and run locally. P1+P2+P3+P4 all present. K1=0 — requires an existing working parachain template dev environment (set-up-the-parachain-template.md as prerequisite). K4 present (cookbook CI badge). Final verification step uses Polkadot.js Apps GUI (S1 absent). Same applies to adding any SDK pallet. Priority score 16 → medium.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "K2",
+          "K3",
+          "K4",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 20,
+          "reference": 0,
+          "conceptual": 0,
+          "not_applicable": 0
+        },
+        "priority_score": 16
+      },
+      "built_at": "2026-04-21T22:30:00Z"
+    },
+    {
+      "skill_id": "configure-multiple-pallet-instances",
+      "title": "Configure Multiple Instances of a Pallet in a Runtime",
+      "source_pages": [
+        "parachains/customize-runtime/add-pallet-instances.md"
+      ],
+      "category": "tutorial",
+      "priority": "medium",
+      "status": "built",
+      "notes": "Demonstrates adding two instances of pallet-collective (TechnicalCommittee and Council) to a parachain runtime. Covers identifying instantiable pallets, defining instance parameters, implementing Config<Instance1> and Config<Instance2> traits, registering both in the runtime construct, compiling, generating a chain spec, and launching the node. P1+P2+P3+P4 all present. K1=0 — requires existing parachain template setup; also builds on add-existing-pallets.md concepts. K4 present (cookbook CI badge). Final instance-independence test uses Polkadot.js Apps GUI (S1 absent). Priority score 16 → medium.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "K2",
+          "K3",
+          "K4",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 20,
+          "reference": 0,
+          "conceptual": 0,
+          "not_applicable": 0
+        },
+        "priority_score": 16
+      },
+      "built_at": "2026-04-21T22:30:00Z"
+    },
+    {
+      "skill_id": "create-frame-pallet",
+      "title": "Create a Custom FRAME Pallet",
+      "source_pages": [
+        "parachains/customize-runtime/pallet-development/create-a-pallet.md"
+      ],
+      "category": "tutorial",
+      "priority": "medium",
+      "status": "built",
+      "notes": "Step-by-step guide building a counter pallet from scratch inside the Polkadot SDK parachain template: create Cargo project, configure FRAME dependencies, define Config trait, add events/errors/storage/genesis/extrinsics, integrate into runtime, generate chain spec, and launch locally. Verification step uses Polkadot.js Apps GUI (S1=0). K1=0 — requires parachains/install-polkadot-sdk and parachains/launch-a-parachain/set-up-the-parachain-template as prerequisites. Primary code blocks use MkDocs snippet includes (--8<--) but complete inline reference is available in a collapsible (K2=4). Cookbook CI badge present. Next in series: set-up-pallet-mock-runtime, unit-test-frame-pallet, benchmark-frame-pallet.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "C2",
+          "K2",
+          "K3",
+          "K4",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 20,
+          "reference": 0,
+          "conceptual": 3,
+          "not_applicable": 0
+        },
+        "priority_score": 16
+      },
+      "built_at": "2026-04-21T22:30:00Z"
+    },
+    {
+      "skill_id": "set-up-pallet-mock-runtime",
+      "title": "Set Up a Mock Runtime for Pallet Unit Testing",
+      "source_pages": [
+        "parachains/customize-runtime/pallet-development/mock-runtime.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "status": "built",
+      "notes": "Tutorial for creating a minimal mock runtime (mock.rs) using construct_runtime! and #[derive_impl] for isolated pallet testing: create mock module, configure frame_system and pallet Config traits, set up genesis storage helpers. K1=0 — requires completed create-frame-pallet (counter pallet in pallets/pallet-custom). Code uses MkDocs snippet includes but complete reference available in collapsible (K2=4). All CLI steps are programmatic (S1=4). Cookbook CI badge present. Part of pallet development series alongside create-frame-pallet, unit-test-frame-pallet, and benchmark-frame-pallet.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "C1",
+          "K2",
+          "K3",
+          "K4",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 20,
+          "reference": 0,
+          "conceptual": 5,
+          "not_applicable": 0
+        },
+        "priority_score": 20
+      },
+      "built_at": "2026-04-21T20:30:00Z"
+    },
+    {
+      "skill_id": "unit-test-frame-pallet",
+      "title": "Write Unit Tests for a FRAME Pallet",
+      "source_pages": [
+        "parachains/customize-runtime/pallet-development/pallet-testing.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "status": "built",
+      "notes": "Tutorial for writing comprehensive pallet unit tests using FRAME macros (assert_ok!, assert_noop!, System::assert_last_event!): create tests.rs, test basic operations, error conditions, access control, event emission, and genesis configuration. Inline Rust test code is fully shown (no snippet includes; K2=4). K1=0 — requires create-frame-pallet and set-up-pallet-mock-runtime. All steps are CLI/programmatic (S1=4). Cookbook CI badge present. Final step before benchmarking in the pallet development series.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "C1",
+          "K2",
+          "K3",
+          "K4",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 20,
+          "reference": 0,
+          "conceptual": 5,
+          "not_applicable": 0
+        },
+        "priority_score": 20
+      },
+      "built_at": "2026-04-21T20:30:00Z"
+    },
+    {
+      "skill_id": "benchmark-frame-pallet",
+      "title": "Benchmark a FRAME Pallet and Generate Weight Files",
+      "source_pages": [
+        "parachains/customize-runtime/pallet-development/benchmark-pallet.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "status": "built",
+      "notes": "Tutorial covering the full benchmarking workflow: create benchmarking.rs module, define WeightInfo trait, annotate extrinsics, enable runtime-benchmarks Cargo feature, build WASM runtime with benchmarks, install frame-omni-bencher, download weight template, execute benchmarks, and integrate generated weights.rs into production runtime. K1=0 — requires a working parachain template and pallet (e.g., from create-frame-pallet series), but page explicitly supports substitution with any pallet. R2 fires for CLI flag descriptions (--steps, --repeat, --heap-pages, --wasm-execution). Cookbook CI badge present.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "R2",
+          "K2",
+          "K3",
+          "K4",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 20,
+          "reference": 4,
+          "conceptual": 0,
+          "not_applicable": 0
+        },
+        "priority_score": 20
+      },
+      "built_at": "2026-04-21T20:30:00Z"
+    },
+    {
+      "skill_id": "open-hrmp-channel-between-parachains",
+      "title": "Open an HRMP Channel Between Parachains",
+      "source_pages": [
+        "parachains/interoperability/channels-between-parachains.md"
+      ],
+      "category": "guide",
+      "priority": "medium",
+      "status": "built",
+      "notes": "Two-step guide for establishing unidirectional (and then bidirectional) HRMP channels between two user parachains: fund sovereign accounts, encode hrmpInitOpenChannel and hrmpAcceptOpenChannel extrinsics, craft XCM messages, and submit via Polkadot.js Apps. No CLI commands; entirely GUI-driven. Cookbook CI badge present (K4). Ambiguous between guide and reference: numbered steps with P4 give procedural=10 (Rule 3 fires), reference=8 (extrinsic parameter tables R1 and R3). Tiebreaker: Rule 3 fires before Rule 4 because procedural=10 meets the guide threshold. GUI-only workflow (S1=0) and placeholder call data that must be recomputed per para ID (K2=0) limit priority to medium.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P4",
+          "R1",
+          "R3",
+          "C2",
+          "K1",
+          "K3",
+          "K4",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 10,
+          "reference": 8,
+          "conceptual": 3,
+          "not_applicable": 0
+        },
+        "category_ambiguous": true,
+        "contending_categories": [
+          "guide",
+          "reference"
+        ],
+        "priority_score": 17
+      },
+      "built_at": "2026-04-21T22:30:00Z"
+    },
+    {
+      "skill_id": "open-hrmp-channel-with-system-parachain",
+      "title": "Open an HRMP Channel with a System Parachain",
+      "source_pages": [
+        "parachains/interoperability/channels-with-system-parachains.md"
+      ],
+      "category": "guide",
+      "priority": "medium",
+      "status": "built",
+      "notes": "Simplified single-message procedure for bidirectional HRMP channel setup between a user parachain and a system parachain (e.g., Asset Hub): fund sovereign account, encode establish_channel_with_system extrinsic, submit XCM to relay chain via Polkadot.js Apps, verify at next session. More efficient than the two-step regular parachain flow. Entirely GUI-driven; no CLI commands. Cookbook CI badge present (K4). Same scoring pattern as channels-between-parachains: procedural=10 vs reference=8; Rule 3 fires first (guide). GUI-only (S1=0) and placeholder call data (K2=0) limit priority to medium.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P4",
+          "R1",
+          "R3",
+          "C2",
+          "K1",
+          "K3",
+          "K4",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 10,
+          "reference": 8,
+          "conceptual": 3,
+          "not_applicable": 0
+        },
+        "category_ambiguous": true,
+        "contending_categories": [
+          "guide",
+          "reference"
+        ],
+        "priority_score": 17
+      },
+      "built_at": "2026-04-21T22:30:00Z"
+    },
+    {
+      "skill_id": "deploy-parachain-to-polkadot-testnet",
+      "title": "Deploy a Parachain to the Polkadot TestNet",
+      "source_pages": [
+        "parachains/launch-a-parachain/deploy-to-polkadot.md"
+      ],
+      "category": "tutorial",
+      "priority": "low",
+      "status": "built",
+      "notes": "End-to-end tutorial for deploying a Polkadot SDK parachain to Paseo TestNet: obtain PAS tokens (faucet via UI), reserve a para ID (Polkadot.js Apps), generate collator keys (subkey Docker), produce and edit plain/raw chain specs (chain-spec-builder), export genesis wasm and state (polkadot-omni-node), register a parathread (UI), generate a node key, start the collator, and insert session keys (curl RPC). K1=0 — intro explicitly references set-up-the-parachain-template as required prior step. K2=0 — INSERT_SECRET_PHRASE, INSERT_PUBLIC_KEY_HEX_FORMAT, and INSERT_PARA_ID placeholders present. GUI steps for para ID reservation and parathread registration (S1=0). No cookbook badge. Part of a three-page launch series: set-up-the-parachain-template → deploy-to-polkadot → obtain-coretime. Consider proposing a composite once set-up-the-parachain-template is classified.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "R2",
+          "C2",
+          "K3",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 20,
+          "reference": 4,
+          "conceptual": 3,
+          "not_applicable": 0
+        },
+        "priority_score": 9
+      },
+      "built_at": "2026-04-21T23:30:00Z"
+    },
+    {
+      "skill_id": "obtain-coretime-parachain",
+      "title": "Obtain Coretime for a Parachain",
+      "source_pages": [
+        "parachains/launch-a-parachain/obtain-coretime.md"
+      ],
+      "category": "guide",
+      "priority": "low",
+      "status": "built",
+      "notes": "Guide for obtaining validation time after deploying a parachain: place on-demand coretime orders (Polkadot.js Apps onDemand extrinsic) or purchase and assign bulk coretime (RegionX marketplace web UI). No CLI commands; entirely GUI-driven across two different web interfaces. K1=0 — explicitly requires deploy-to-polkadot tutorial as prerequisite. No cookbook badge. Part of the three-page launch series: set-up-the-parachain-template → deploy-to-polkadot → obtain-coretime. Ambiguous between guide and reference: procedural=10 (R1 extrinsic descriptions, R3 parameter descriptions), reference=8; Rule 3 fires first (guide).",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P4",
+          "R1",
+          "R3",
+          "C2",
+          "K3",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 10,
+          "reference": 8,
+          "conceptual": 3,
+          "not_applicable": 0
+        },
+        "category_ambiguous": true,
+        "contending_categories": [
+          "guide",
+          "reference"
+        ],
+        "priority_score": 9
+      },
+      "built_at": "2026-04-21T23:30:00Z"
+    },
+    {
+      "skill_id": "renew-parachain-coretime",
+      "title": "Renew Coretime for a Parachain",
+      "source_pages": [
+        "parachains/runtime-maintenance/coretime-renewal.md"
+      ],
+      "category": "guide",
+      "priority": "low",
+      "status": "built",
+      "notes": "Guide covering manual coretime renewal (broker.renew extrinsic) and auto-renewal configuration (enable_auto_renew via XCM from the parachain). Entirely GUI-driven via Polkadot.js Apps (S1 absent). No CLI commands or code blocks (K2 absent). K1=0 — requires an existing parachain with active coretime and an HRMP channel to the Coretime chain (for auto-renewal). No explicit prerequisites section; no cookbook badge. Ambiguous between guide and reference: procedural=10 vs reference=8 (extrinsic parameter tables for enable_auto_renew/disable_auto_renew); Rule 3 fires first. C1+C3 fire for bulk sale phase explanations and query result descriptions.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P4",
+          "R1",
+          "R3",
+          "C1",
+          "C3",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 10,
+          "reference": 8,
+          "conceptual": 7,
+          "not_applicable": 0
+        },
+        "category_ambiguous": true,
+        "contending_categories": [
+          "guide",
+          "reference"
+        ],
+        "priority_score": 6
+      },
+      "built_at": "2026-04-21T23:59:00Z"
+    },
+    {
+      "skill_id": "perform-runtime-upgrade",
+      "title": "Perform a Forkless Runtime Upgrade",
+      "source_pages": [
+        "parachains/runtime-maintenance/runtime-upgrades.md"
+      ],
+      "category": "tutorial",
+      "priority": "medium",
+      "status": "built",
+      "notes": "Tutorial guiding through a full runtime upgrade cycle: add a new dispatchable function to a custom pallet, bump spec_version, rebuild the Wasm binary, and submit system.setCode via sudo through Polkadot.js Apps. P1+P2+P3+P4 all present (score 20). K1=0 — requires install-polkadot-sdk, set-up-the-parachain-template, and create-a-pallet as prerequisites. K2=4 — code uses --8<-- snippet includes rather than inline blocks, but complete code is referenced. Submission step is GUI-dependent (S1=0). Cookbook CI badge present. See storage-migrations.md as supplementary context for upgrade-related data transformations.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "C2",
+          "K2",
+          "K3",
+          "K4",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 20,
+          "reference": 0,
+          "conceptual": 3,
+          "not_applicable": 0
+        },
+        "priority_score": 16
+      },
+      "built_at": "2026-04-21T22:30:00Z"
+    },
+    {
+      "skill_id": "unlock-parachain-via-xcm",
+      "title": "Unlock a Parachain via XCM",
+      "source_pages": [
+        "parachains/runtime-maintenance/unlock-parachains.md"
+      ],
+      "category": "guide",
+      "priority": "low",
+      "status": "built",
+      "notes": "Guide for unlocking a locked parachain by sending a registrar.removeLock XCM from the parachain to the relay chain using sudo. Covers checking lock status (Chain State query), encoding the removeLock extrinsic, funding the sovereign account, and crafting the XCM via Polkadot.js Apps UI. P1+P4=10 → Rule 3 guide. Entirely GUI-driven (S1=0). No code blocks (K2 absent). K1=0 — requires an existing running parachain. No prerequisites section; no cookbook badge. Ambiguous between guide and reference: procedural=10 vs reference=8 (extrinsic descriptions for registrar.removeLock and registrar.paras, sovereign account derivation table); Rule 3 fires first.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P4",
+          "R1",
+          "R3",
+          "C1",
+          "C3",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 10,
+          "reference": 8,
+          "conceptual": 7,
+          "not_applicable": 0
+        },
+        "category_ambiguous": true,
+        "contending_categories": [
+          "guide",
+          "reference"
+        ],
+        "priority_score": 6
+      },
+      "built_at": "2026-04-21T23:59:00Z"
+    },
+    {
+      "skill_id": "fork-parachain-chopsticks",
+      "title": "Fork a Parachain Using Chopsticks",
+      "source_pages": [
+        "parachains/testing/fork-a-parachain.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "status": "built",
+      "notes": "Tutorial covering Chopsticks installation (global and local npm) plus reference documentation for WebSocket manipulation methods (dev_newBlock, dev_setStorage, dev_timeTravel, etc.) and configuration parameters. P1+P2+P4=15 — tutorial threshold met via Rule 2. Reference score also maxes at 12 (R1 method signatures, R2 config flag list, R3 parameter descriptions) → category_ambiguous with 3-point gap. Skill should focus on the installation and basic fork workflow; WebSocket API reference section is supplementary context. K1=5 (Node.js/npm are standard dev prerequisites). K2=0 (YAML config and JS examples use --8<-- snippet includes). Cookbook CI badge present (K4).",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P4",
+          "R1",
+          "R2",
+          "R3",
+          "C1",
+          "K1",
+          "K3",
+          "K4",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 15,
+          "reference": 12,
+          "conceptual": 5,
+          "not_applicable": 0
+        },
+        "category_ambiguous": true,
+        "contending_categories": [
+          "tutorial",
+          "reference"
+        ],
+        "priority_score": 21
+      },
+      "built_at": "2026-04-21T19:30:00Z"
+    },
+    {
+      "skill_id": "spawn-local-parachain-network-zombienet",
+      "title": "Spawn a Local Parachain Test Network with Zombienet",
+      "source_pages": [
+        "parachains/testing/run-a-parachain-network.md"
+      ],
+      "category": "tutorial",
+      "priority": "medium",
+      "status": "built",
+      "notes": "End-to-end tutorial for spawning a local two-validator relay chain + collator test network using Zombienet's native provider: clone and build the parachain template (cargo build), download relay chain binaries (curl), generate a Paseo local chain spec (chain-spec-builder), write network.toml, spawn with zombienet, and verify via curl RPC. P1+P2+P3+P4 all present — score 20, no ambiguity. K1=0 — Zombienet installation itself is delegated to reference/tools/zombienet.md. K2=0 — INSERT_PASEO_RUNTIME_VERSION placeholder present in the Paseo runtime download curl command. K3=3 (Prerequisites section lists Rust/Cargo, wasm32 target, Zombienet, Git). Cookbook CI badge present (K4=3). Fully CLI-based (S1=4). Priority score 16 → medium.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "K3",
+          "K4",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 20,
+          "reference": 0,
+          "conceptual": 0,
+          "not_applicable": 0
+        },
+        "priority_score": 16
+      },
+      "built_at": "2026-04-21T22:30:00Z"
+    },
+    {
+      "skill_id": "retrieve-runtime-metadata",
+      "title": "Retrieve Runtime Metadata",
+      "source_pages": [
+        "reference/parachains/chain-data.md"
+      ],
+      "category": "guide",
+      "priority": "medium",
+      "status": "built",
+      "notes": "Ambiguous between guide and reference (procedural=11, reference=12, diff=1); rule 3 fires first (procedural >= 10). Page explains metadata concepts but also provides complete, runnable curl and subxt CLI commands for fetching chain metadata. K1: self-contained via CLI paths. K2: commands are complete. S1: programmatic options exist despite Polkadot.js GUI section. S2: deterministic — same endpoint, same output. K3/K4/S3 absent.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "R1",
+          "R2",
+          "R3",
+          "C1"
+        ],
+        "category_scores": {
+          "procedural": 11,
+          "reference": 12,
+          "conceptual": 5,
+          "not_applicable": 0
+        },
+        "priority_score": 16,
+        "category_ambiguous": true,
+        "contending_categories": [
+          "guide",
+          "reference"
+        ]
+      },
+      "built_at": "2026-04-21T22:30:00Z"
+    },
+    {
+      "skill_id": "set-up-chopsticks-fork",
+      "title": "Set Up and Use Chopsticks for Chain Forking",
+      "source_pages": [
+        "reference/tools/chopsticks.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "status": "built",
+      "notes": "Full end-to-end workflow: install, configure, fork a live chain, interact via JS API, replay blocks, and test XCM. Verifiable outcome ('you will see output indicating the RPC is listening'). Also contains a rich WebSocket API reference section (R1+R2+R3=12) that co-exists with the procedural content, but procedural score dominates at 20.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "R1",
+          "R2",
+          "R3",
+          "K1",
+          "K2",
+          "K3",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 20,
+          "reference": 12,
+          "conceptual": 0,
+          "not_applicable": 0
+        },
+        "priority_score": 22
+      },
+      "built_at": "2026-04-21T19:30:00Z"
+    },
+    {
+      "skill_id": "interact-with-chain-dedot",
+      "title": "Interact with Polkadot Chains Using Dedot",
+      "source_pages": [
+        "reference/tools/dedot.md"
+      ],
+      "category": "guide",
+      "priority": "high",
+      "status": "built",
+      "notes": "Covers installation through reading on-chain data, querying storage, calling runtime APIs, and signing/sending transactions. No explicit prerequisites section (K3 absent) and no numbered ordered steps (P1 absent), so guide rather than tutorial. Category is ambiguous with reference (procedural=10, reference=8, diff=2); guide wins by Rule 3. High priority because the workflow is self-contained, code is complete, and the Dedot client is a first-class alternative to Polkadot.js in the ecosystem.",
+      "scoring": {
+        "signals": [
+          "P2",
+          "P3",
+          "R1",
+          "R3",
+          "K1",
+          "K2",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 10,
+          "reference": 8,
+          "conceptual": 0,
+          "not_applicable": 0
+        },
+        "priority_score": 19,
+        "category_ambiguous": true,
+        "contending_categories": [
+          "guide",
+          "reference"
+        ]
+      },
+      "built_at": "2026-04-21T21:00:00Z"
+    },
+    {
+      "skill_id": "set-up-e2e-testing-moonwall",
+      "title": "Set Up End-to-End Testing with Moonwall",
+      "source_pages": [
+        "reference/tools/moonwall.md"
+      ],
+      "category": "guide",
+      "priority": "high",
+      "status": "built",
+      "notes": "Sequential workflow: install, initialize config via wizard, write a test suite, run tests. Verifiable outcome ('The test runner will output detailed results'). P1 absent because main flow lacks explicit numbered lists (wizard prompts are bullets, not ordered steps), putting procedural at 14 (below 15 threshold for tutorial). High priority due to self-contained workflow with prerequisites section, complete runnable code, and deterministic CLI-based execution.",
+      "scoring": {
+        "signals": [
+          "P2",
+          "P3",
+          "P4",
+          "R2",
+          "K1",
+          "K2",
+          "K3",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 14,
+          "reference": 4,
+          "conceptual": 0,
+          "not_applicable": 0
+        },
+        "priority_score": 22
+      },
+      "built_at": "2026-04-21T19:30:00Z"
+    },
+    {
+      "skill_id": "run-parachain-node-omni-node",
+      "title": "Run a Parachain Node with Polkadot Omni Node",
+      "source_pages": [
+        "reference/tools/omninode.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "status": "built",
+      "notes": "Complete tutorial: install binary (macOS/Ubuntu/cargo), obtain chain spec via numbered steps, launch a full node, interact with it. Verifiable outcome ('You should see the installed version number' and node sync logs). Includes runtime compatibility requirements with Rust code examples. K3 absent (no explicit prerequisites section), K4 absent (no reference repo for the tutorial itself).",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "R2",
+          "K1",
+          "K2",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 20,
+          "reference": 4,
+          "conceptual": 0,
+          "not_applicable": 0
+        },
+        "priority_score": 19
+      },
+      "built_at": "2026-04-21T21:00:00Z"
+    },
+    {
+      "skill_id": "interact-with-chain-polkadart",
+      "title": "Interact with a Polkadot Chain Using Polkadart",
+      "source_pages": [
+        "reference/tools/polkadart.md"
+      ],
+      "category": "guide",
+      "priority": "high",
+      "status": "built",
+      "notes": "Covers the full Dart/Flutter SDK workflow: install packages, configure pubspec.yaml, generate types, create an API instance, read chain data, subscribe to new blocks, and send a signed transaction. Self-contained with complete code snippets. Ambiguous guide/reference (procedural=10, reference=9, diff=1) — Rule 3 wins because the page walks through a progressive workflow rather than cataloging an API surface.",
+      "scoring": {
+        "signals": [
+          "P2",
+          "P3",
+          "R1",
+          "R2",
+          "C1",
+          "K1",
+          "K2",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 10,
+          "reference": 9,
+          "conceptual": 5,
+          "not_applicable": 0
+        },
+        "category_ambiguous": true,
+        "contending_categories": [
+          "guide",
+          "reference"
+        ],
+        "priority_score": 19
+      },
+      "built_at": "2026-04-21T21:00:00Z"
+    },
+    {
+      "skill_id": "use-polkadot-js-api",
+      "title": "Query and Transact on Polkadot Chains with the Polkadot.js API",
+      "source_pages": [
+        "reference/tools/polkadot-js-api.md"
+      ],
+      "category": "guide",
+      "priority": "medium",
+      "status": "built",
+      "notes": "Covers installation, dynamic API generation, creating an API instance, reading chain constants/state, and sending transactions. Rubric yields priority=high (score=18) but overridden to medium: page carries a prominent maintenance-mode warning directing new projects to Dedot or PAPI. Building an agent skill around a deprecated library has limited value. Ambiguous guide/reference (procedural=11, reference=8, diff=3).",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "R1",
+          "R3",
+          "C1",
+          "K1",
+          "K3",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 11,
+          "reference": 8,
+          "conceptual": 5,
+          "not_applicable": 0
+        },
+        "category_ambiguous": true,
+        "contending_categories": [
+          "guide",
+          "reference"
+        ],
+        "priority_score": 18
+      },
+      "built_at": "2026-04-21T22:30:00Z"
+    },
+    {
+      "skill_id": "bootstrap-parachain-pop-cli",
+      "title": "Bootstrap Parachain Development with Pop CLI",
+      "source_pages": [
+        "reference/tools/pop-cli.md"
+      ],
+      "category": "tutorial",
+      "priority": "medium",
+      "status": "built",
+      "notes": "Sequential workflow from install (cargo install pop-cli) through environment setup (pop install), project scaffolding (pop new parachain), building (pop build --release), launching a local network (pop up network), and interacting via pop call chain. Verifiable install step (pop --help). Priority is medium because K2 and K3 don't fire: the network.toml config file is referenced but not shown, and prerequisites (Rust toolchain, Polkadot SDK dependencies) are not explicitly listed on the page.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P4",
+          "C1",
+          "K1",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 15,
+          "reference": 0,
+          "conceptual": 5,
+          "not_applicable": 0
+        },
+        "priority_score": 15
+      },
+      "built_at": "2026-04-21T22:30:00Z"
+    },
+    {
+      "skill_id": "interact-polkadot-node-py-substrate",
+      "title": "Interact with a Polkadot Node Using Python Substrate Interface",
+      "source_pages": [
+        "reference/tools/py-substrate-interface.md"
+      ],
+      "category": "guide",
+      "priority": "high",
+      "status": "built",
+      "notes": "Walks through installing the library, connecting to a node, reading chain state (account balance), and submitting a balance transfer — all CLI/SDK steps with no GUI dependencies. No explicit 'you should see' outcome language prevents P4 from firing. K2 not awarded because actual code lives in --8<-- snippet includes whose content is not visible in the page source.",
+      "scoring": {
+        "signals": [
+          "P2",
+          "P3",
+          "R3",
+          "K1",
+          "K3",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 10,
+          "reference": 3,
+          "conceptual": 0,
+          "not_applicable": 0
+        },
+        "priority_score": 18
+      },
+      "built_at": "2026-04-21T21:00:00Z"
+    },
+    {
+      "skill_id": "interact-polkadot-node-subxt",
+      "title": "Interact with a Polkadot Node Using Subxt (Rust)",
+      "source_pages": [
+        "reference/tools/subxt.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "status": "built",
+      "notes": "Numbered installation steps (install CLI, add core deps), Rust/TOML files to create, and verifiable outcome language ('your Cargo.toml should look like this'). Covers the full workflow from prerequisites through reading chain constants/state and submitting a signed transaction. K2 not awarded due to INSERT_* placeholders (INSERT_NODE_URL, INSERT_ADDRESS, INSERT_SECRET_PHRASE) and unresolved {{dependencies.crates.*}} template variables.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "R1",
+          "C1",
+          "K1",
+          "K3",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 20,
+          "reference": 5,
+          "conceptual": 5,
+          "not_applicable": 0
+        },
+        "priority_score": 18
+      },
+      "built_at": "2026-04-21T21:00:00Z"
+    },
+    {
+      "skill_id": "spawn-test-network-zombienet",
+      "title": "Spawn and Test a Parachain Network with Zombienet",
+      "source_pages": [
+        "reference/tools/zombienet.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "status": "built",
+      "notes": "Covers the full Zombienet lifecycle: install (executable/Nix/Docker), write TOML or JSON network config files, spawn a relay chain with validators and parachain collators, author .zndsl test files with DSL assertions, and run the test suite. Explicit numbered outcome steps ('Zombienet will: 1. Download binaries ... 5. Display endpoints') and 'test runner will report pass/fail' confirm P4. Extensive Settings/RelayChain/Parachain/Collator config reference tables are present alongside the procedural flow. K2 not awarded due to INSERT_* placeholders and --8<-- snippet includes.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "R1",
+          "R2",
+          "R3",
+          "C1",
+          "K1",
+          "K3",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 20,
+          "reference": 12,
+          "conceptual": 5,
+          "not_applicable": 0
+        },
+        "priority_score": 18
+      },
+      "built_at": "2026-04-21T21:30:00Z"
+    },
+    {
+      "skill_id": "connect-polkadot-hub-testnet",
+      "title": "Connect to Polkadot Hub and Get Test Tokens",
+      "source_pages": [
+        "smart-contracts/connect.md"
+      ],
+      "category": "guide",
+      "priority": "low",
+      "status": "built",
+      "notes": "Procedural score (10) triggers rule 3 guide classification, but reference score (12) is numerically higher — flagged ambiguous. The bulk of the page is network configuration reference data (chain IDs, RPC URLs, WSS endpoints for TestNet/MainNet/Kusama). The only procedural workflow is a 3-step GUI-only faucet interaction (navigate → paste address → click button); no CLI commands or file creation. S1 = 0 (GUI-only), K1 = 0 (requires pre-existing wallet), K3 = 0 (no prerequisites section), resulting in priority_score of 3. Page's primary agent-facing value is as supplementary reference context for network connection details used by other skills.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P4",
+          "R1",
+          "R2",
+          "R3",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 10,
+          "reference": 12,
+          "conceptual": 2,
+          "not_applicable": 0
+        },
+        "priority_score": 3,
+        "category_ambiguous": true,
+        "contending_categories": [
+          "guide",
+          "reference"
+        ]
+      },
+      "built_at": "2026-04-21T23:59:00Z"
+    },
+    {
+      "skill_id": "build-dapp-viem-nextjs",
+      "title": "Build a Zero-to-Hero Smart Contract DApp with Viem and Next.js",
+      "source_pages": [
+        "smart-contracts/cookbook/dapps/zero-to-hero.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "status": "built",
+      "notes": "End-to-end tutorial covering Hardhat contract creation and deployment plus a full Next.js/Viem dApp with wallet connect, read, and write components. All steps are on one page (K1 = 5). Reference repo revm-hardhat-examples is listed in context.md (K4 = 3). K2 = 0 due to INSERT_PRIVATE_KEY_HERE placeholder in .env. The CONTRACT_ADDRESS TODO comment in contract.ts is a developer note, not a blocking placeholder. Workflow is predominantly CLI-driven (S1 = 4); MetaMask interactions are the end-product being built, not tutorial build steps.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "C1",
+          "K1",
+          "K3",
+          "K4",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 20,
+          "reference": 0,
+          "conceptual": 5,
+          "not_applicable": 0
+        },
+        "priority_score": 21
+      },
+      "built_at": "2026-04-21T20:00:00Z"
+    },
+    {
+      "skill_id": "deploy-uniswap-v2-polkadot-hub",
+      "title": "Deploy Uniswap V2 on Polkadot Hub",
+      "source_pages": [
+        "smart-contracts/cookbook/eth-dapps/uniswap-v2.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "status": "built",
+      "notes": "Tutorial for cloning, compiling, testing, and deploying Uniswap V2 (Factory + Pair contracts) to Polkadot Hub TestNet using Hardhat. Reference repo polkavm-hardhat-examples is listed in context.md (K4 = 3). K2 = 0 due to INSERT_LOCAL_PRIVATE_KEY and INSERT_AH_PRIVATE_KEY placeholders in .env. Local testing step references the Local Development Node guide, but the core deployment workflow to TestNet is fully self-contained (K1 = 5). Includes an architectural explanation of Factory/Pair contracts (C1) that serves as useful background context but does not detract from the tutorial classification.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "C1",
+          "K1",
+          "K3",
+          "K4",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 20,
+          "reference": 0,
+          "conceptual": 5,
+          "not_applicable": 0
+        },
+        "priority_score": 21
+      },
+      "built_at": "2026-04-21T20:00:00Z"
+    },
+    {
+      "skill_id": "deploy-basic-contract-hardhat",
+      "title": "Deploy a Basic Smart Contract with Hardhat",
+      "source_pages": [
+        "smart-contracts/cookbook/smart-contracts/deploy-basic/basic-hardhat.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "status": "built",
+      "built_at": "2026-04-21T18:00:00Z",
+      "notes": "Concise end-to-end tutorial: scaffold Hardhat project, configure polkadotTestnet network, create Storage.sol, compile, deploy via Ignition to TestNet. All code uses --8<-- snippet includes from polkadot-cookbook (K4 = 3; CI badge confirms tested). K2 = 4 (includes expand to complete code in the published site). All steps are CLI-driven with no GUI interactions (S1 = 4). Explicit prerequisites section covers Node.js version, test tokens, and wallet (K3 = 3). Verified outcome shown via terminal output snippet.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "K1",
+          "K2",
+          "K3",
+          "K4",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 20,
+          "reference": 0,
+          "conceptual": 0,
+          "not_applicable": 0
+        },
+        "priority_score": 25
+      }
+    },
+    {
+      "skill_id": "deploy-basic-contract-remix",
+      "title": "Deploy a Basic Smart Contract with Remix IDE",
+      "source_pages": [
+        "smart-contracts/cookbook/smart-contracts/deploy-basic/basic-remix.md"
+      ],
+      "category": "guide",
+      "priority": "medium",
+      "status": "built",
+      "notes": "GUI-only guide for deploying the default Remix Storage.sol contract via Remix IDE browser interface. No CLI commands (P2 = 0) and no source files to create (P3 = 0) — uses Remix's built-in sample contract. All steps are click-based (S1 = 0). Procedural score (10) qualifies as guide via rule 3. Priority is medium (14) due to K1 = 5 (self-contained given MetaMask prerequisite), K3 = 3 (explicit prerequisites listed), S2 = 3, and S3 = 3 (deploy-contract-remix is a known skill shape in this vertical). K4 = 0 (no reference repo for Remix path); K2 = 0 (no code examples to assess).",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P4",
+          "K1",
+          "K3",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 10,
+          "reference": 0,
+          "conceptual": 0,
+          "not_applicable": 0
+        },
+        "priority_score": 14
+      },
+      "built_at": "2026-04-21T22:30:00Z"
+    },
+    {
+      "skill_id": "deploy-erc20-token-hardhat",
+      "title": "Deploy an ERC-20 Token Using Hardhat",
+      "source_pages": [
+        "smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-hardhat.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "status": "built",
+      "built_at": "2026-04-21T18:00:00Z",
+      "notes": "Complete end-to-end tutorial: clone template, compile, test, deploy to Polkadot Hub TestNet. Reference repo revm-hardhat-examples confirmed in context. P3 not fired — tutorial uses a cloned template repo rather than instructing the reader to create files from scratch. CI badge confirms recipe is tested in polkadot-cookbook.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P4",
+          "K1",
+          "K2",
+          "K3",
+          "K4",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 15,
+          "reference": 0,
+          "conceptual": 0,
+          "not_applicable": 0
+        },
+        "priority_score": 25
+      }
+    },
+    {
+      "skill_id": "deploy-erc20-token-remix",
+      "title": "Deploy an ERC-20 Token Using Remix IDE",
+      "source_pages": [
+        "smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "status": "built",
+      "notes": "Complete browser-based tutorial: create contract in Remix, compile, deploy, and mint via MetaMask. No CLI commands (P2 not fired). S1 not fired — workflow is GUI-driven (Remix IDE + MetaMask); a skill agent would require browser automation. Contract code sourced from revm-hardhat-examples (K4 awarded).",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P3",
+          "P4",
+          "K1",
+          "K2",
+          "K3",
+          "K4",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 15,
+          "reference": 0,
+          "conceptual": 0,
+          "not_applicable": 0
+        },
+        "priority_score": 21
+      },
+      "built_at": "2026-04-21T20:00:00Z"
+    },
+    {
+      "skill_id": "deploy-erc721-nft-hardhat",
+      "title": "Deploy an ERC-721 NFT Using Hardhat",
+      "source_pages": [
+        "smart-contracts/cookbook/smart-contracts/deploy-nft/nft-hardhat.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "status": "built",
+      "notes": "Complete CLI-based tutorial: initialise Hardhat project from scratch, create NFT contract and deployment module, compile, deploy. K2 not fired — deployment module contains INSERT_OWNER_ADDRESS placeholder that the reader must substitute. K4 not fired — code is served from local code/ snippets with no linked reference repo (unlike ERC-20 Hardhat which clones revm-hardhat-examples).",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "K1",
+          "K3",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 20,
+          "reference": 0,
+          "conceptual": 0,
+          "not_applicable": 0
+        },
+        "priority_score": 18
+      },
+      "built_at": "2026-04-21T21:30:00Z"
+    },
+    {
+      "skill_id": "deploy-erc721-nft-remix",
+      "title": "Deploy an ERC-721 NFT Using Remix IDE",
+      "source_pages": [
+        "smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "status": "built",
+      "notes": "Complete browser-based tutorial: create ERC-721 contract in Remix, compile, deploy via MetaMask. No CLI commands (P2 not fired). S1 not fired — entirely GUI-driven (Remix IDE + MetaMask). K4 not fired — contract code served from local code/ snippets, no linked reference repo. Code appears complete with no placeholders (K2 fired).",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P3",
+          "P4",
+          "K1",
+          "K2",
+          "K3",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 15,
+          "reference": 0,
+          "conceptual": 0,
+          "not_applicable": 0
+        },
+        "priority_score": 18
+      },
+      "built_at": "2026-04-21T21:30:00Z"
+    },
+    {
+      "skill_id": "set-up-foundry-polkadot-hub",
+      "title": "Use Foundry with Polkadot Hub",
+      "source_pages": [
+        "smart-contracts/dev-environments/foundry.md"
+      ],
+      "category": "guide",
+      "priority": "high",
+      "status": "built",
+      "notes": "Comprehensive dev-environment setup guide covering Foundry installation, project initialisation, compilation, configuration, deployment (forge create and forge script), verification (Blockscout and Routescan), contract interaction (cast), and testing. Classified as guide rather than tutorial: no numbered ordered lists (P1 not fired); primary structure is section headers with code blocks. R1 and R2 fire for the networks table and extensive CLI flag documentation. K2 not fired — multiple INSERT_* placeholders throughout (PRIVATE_KEY, CONTRACT_ADDRESS, DEPLOYER_ADDRESS, ACCOUNT_ADDRESS). K4 not fired — no linked reference repo. Ambiguity check: procedural=14, reference=9, delta=5 — not ambiguous.",
+      "scoring": {
+        "signals": [
+          "P2",
+          "P3",
+          "P4",
+          "R1",
+          "R2",
+          "K1",
+          "K3",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 14,
+          "reference": 9,
+          "conceptual": 0,
+          "not_applicable": 0
+        },
+        "priority_score": 18
+      },
+      "built_at": "2026-04-21T21:30:00Z"
+    },
+    {
+      "skill_id": "set-up-hardhat-pvm",
+      "title": "Set Up Hardhat with the Polkadot Plugin (PVM)",
+      "source_pages": [
+        "smart-contracts/dev-environments/hardhat-polkadot.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "status": "built",
+      "built_at": "2026-04-21T18:00:00Z",
+      "notes": "Complete workflow: initialize project, compile Solidity to PVM bytecode via resolc, test locally with a Substrate node, and deploy to TestNet. Has an explicit prerequisites section, numbered steps throughout, and clear outcome language ('You should see JSON files containing the contract ABIs and bytecodes'). Backed by polkadot-cookbook CI. PVM variant using @parity/hardhat-polkadot — mirrors the EVM skill but targets PolkaVM runtime. P3 not fired: the init wizard creates project files; no explicit file-creation code block on the page.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P4",
+          "K1",
+          "K2",
+          "K3",
+          "K4",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 15,
+          "reference": 0,
+          "conceptual": 0,
+          "not_applicable": 0
+        },
+        "priority_score": 25
+      }
+    },
+    {
+      "skill_id": "set-up-hardhat-evm",
+      "title": "Set Up Hardhat for Polkadot Hub (EVM)",
+      "source_pages": [
+        "smart-contracts/dev-environments/hardhat.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "status": "built",
+      "built_at": "2026-04-21T18:00:00Z",
+      "notes": "Covers Hardhat project initialization, network configuration for Polkadot Hub TestNet (full hardhat.config.ts file shown — P3 fires), and contract verification with Blockscout or Routescan. Self-contained setup workflow with explicit prerequisites and outcome language. Backed by polkadot-cookbook CI. Standard EVM variant with no PVM/resolc dependency.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "K1",
+          "K2",
+          "K3",
+          "K4",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 20,
+          "reference": 0,
+          "conceptual": 0,
+          "not_applicable": 0
+        },
+        "priority_score": 25
+      }
+    },
+    {
+      "skill_id": "connect-remix-polkadot",
+      "title": "Connect Remix IDE to Polkadot Hub",
+      "source_pages": [
+        "smart-contracts/dev-environments/remix.md"
+      ],
+      "category": "guide",
+      "priority": "medium",
+      "status": "built",
+      "notes": "Ambiguous: procedural=10 vs conceptual=7 (difference=3, within ambiguity threshold). Resolved as guide because numbered connection steps (1-4) and a verifiable outcome ('Remix will display your MetaMask account address') are present. However, all steps are GUI-only clicks/dropdowns (S1=0), reducing agent executability. K1=0: requires MetaMask already configured for Polkadot (references Wallet Integrations guide). No reference repo. Useful as a prerequisite context page before Remix-based deploy tutorials.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P4",
+          "C1",
+          "C3",
+          "K2",
+          "K3",
+          "S2"
+        ],
+        "category_scores": {
+          "procedural": 10,
+          "reference": 0,
+          "conceptual": 7,
+          "not_applicable": 0
+        },
+        "category_ambiguous": true,
+        "contending_categories": [
+          "guide",
+          "conceptual"
+        ],
+        "priority_score": 10
+      },
+      "built_at": "2026-04-21T22:30:00Z"
+    },
+    {
+      "skill_id": "get-testnet-tokens-faucet",
+      "title": "Get TestNet Tokens from the Polkadot Faucet",
+      "source_pages": [
+        "smart-contracts/faucet.md"
+      ],
+      "category": "guide",
+      "priority": "low",
+      "status": "built",
+      "notes": "Three-step UI-only workflow (navigate, paste address, click button). Self-contained (K1=5) and deterministic (S2=3) but S1 does not fire because there are no CLI or SDK steps. Useful as a prerequisite step in deployment tutorials; limited standalone programmatic skill value.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P4",
+          "C2",
+          "C3",
+          "K1",
+          "S2"
+        ],
+        "category_scores": {
+          "procedural": 10,
+          "reference": 0,
+          "conceptual": 5,
+          "not_applicable": 0
+        },
+        "priority_score": 8
+      },
+      "built_at": "2026-04-21T23:59:00Z"
+    },
+    {
+      "skill_id": "set-up-local-dev-node",
+      "title": "Set Up a Local Development Node",
+      "source_pages": [
+        "smart-contracts/dev-environments/local-dev-node.md"
+      ],
+      "category": "guide",
+      "priority": "high",
+      "status": "built",
+      "notes": "Step-by-step guide to cloning, building, and running the Revive Dev node plus ETH-RPC adapter. Not self-contained (K1=0): explicit prerequisite is the Install Polkadot SDK Dependencies guide. All steps are CLI-based with verifiable outcome (node ready at http://localhost:8545). CI badge and test link confirm polkadot-cookbook coverage (K4).",
+      "scoring": {
+        "signals": [
+          "P2",
+          "P4",
+          "K2",
+          "K3",
+          "K4",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 9,
+          "reference": 0,
+          "conceptual": 0,
+          "not_applicable": 0
+        },
+        "priority_score": 20
+      },
+      "built_at": "2026-04-21T20:30:00Z"
+    },
+    {
+      "skill_id": "connect-wallet-polkadot-hub",
+      "title": "Connect a Wallet to Polkadot Hub",
+      "source_pages": [
+        "smart-contracts/integrations/wallets.md"
+      ],
+      "category": "guide",
+      "priority": "medium",
+      "status": "built",
+      "notes": "Numbered GUI steps for connecting MetaMask and Talisman to Polkadot Hub TestNet. K1=0: step 4 for MetaMask defers to smart-contracts/connect/ for RPC parameters. S1=0: all steps are browser-extension UI clicks with no CLI equivalent. Medium priority reflects GUI-only workflow limiting automation fitness.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P4",
+          "C2",
+          "C3",
+          "K2",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 10,
+          "reference": 0,
+          "conceptual": 5,
+          "not_applicable": 0
+        },
+        "priority_score": 10
+      },
+      "built_at": "2026-04-21T22:30:00Z"
+    },
+    {
+      "skill_id": "deploy-contracts-ethers-js",
+      "title": "Deploy Contracts to Polkadot Hub with Ethers.js",
+      "source_pages": [
+        "smart-contracts/libraries/ethers-js.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "status": "built",
+      "notes": "Complete tutorial: project setup, Solidity compilation, deployment, and contract interaction via Ethers.js. Explicit numbered steps in the deploy section (P1). Self-contained with prerequisites listed. Code via --8<-- includes from polkadot-cookbook (K4). INSERT_* placeholders for RPC URL, chain ID, and mnemonic require substitution (K2=0).",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "K1",
+          "K3",
+          "K4",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 20,
+          "reference": 0,
+          "conceptual": 0,
+          "not_applicable": 0
+        },
+        "priority_score": 21
+      },
+      "built_at": "2026-04-21T20:00:00Z"
+    },
+    {
+      "skill_id": "deploy-contracts-viem",
+      "title": "Deploy Contracts to Polkadot Hub with viem",
+      "source_pages": [
+        "smart-contracts/libraries/viem.md"
+      ],
+      "category": "guide",
+      "priority": "high",
+      "status": "built",
+      "notes": "End-to-end TypeScript guide using viem: project init, chain config, wallet client, compilation, deployment, and contract interaction. No explicit numbered steps (P1=0) so scores as guide rather than tutorial despite full workflow coverage. Self-contained with prerequisites listed. INSERT_* placeholders for RPC URL, chain ID, and private key require substitution (K2=0). Companion to deploy-contracts-ethers-js.",
+      "scoring": {
+        "signals": [
+          "P2",
+          "P3",
+          "P4",
+          "K1",
+          "K3",
+          "K4",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 14,
+          "reference": 0,
+          "conceptual": 0,
+          "not_applicable": 0
+        },
+        "priority_score": 21
+      },
+      "built_at": "2026-04-21T20:00:00Z"
+    },
+    {
+      "skill_id": "use-wagmi-polkadot-hub",
+      "title": "Use Wagmi to Interact with Smart Contracts on Polkadot Hub",
+      "source_pages": [
+        "smart-contracts/libraries/wagmi.md"
+      ],
+      "category": "guide",
+      "priority": "medium",
+      "status": "built",
+      "notes": "Walks through creating a Next.js + Wagmi v3 dApp: project setup, provider config, wallet connection, querying chain data, and calling a pre-deployed Storage contract. No explicit prerequisites section and no verifiable CLI outcome (P4 absent) — hence guide rather than tutorial. Runtime wallet interaction is GUI-driven (S1=0). Code snippets use --8<-- includes with placeholder values (K2=0).",
+      "scoring": {
+        "signals": [
+          "P2",
+          "P3",
+          "K1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 10,
+          "reference": 0,
+          "conceptual": 0,
+          "not_applicable": 0
+        },
+        "priority_score": 11
+      },
+      "built_at": "2026-04-21T23:00:00Z"
+    },
+    {
+      "skill_id": "deploy-interact-contracts-web3js",
+      "title": "Deploy and Interact with Smart Contracts on Polkadot Hub Using Web3.js",
+      "source_pages": [
+        "smart-contracts/libraries/web3-js.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "status": "built",
+      "notes": "Complete end-to-end tutorial: project init, provider setup, Solidity compilation, contract deployment, and interaction — all via CLI Node.js scripts. Explicit prerequisites section (K3) and fully CLI-driven workflow (S1). Priority score hits the high threshold at 18. Note: the page carries a sunset warning for Web3.js and recommends Ethers.js or Viem instead; a skill built from this page should include that deprecation notice.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "K1",
+          "K3",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 20,
+          "reference": 0,
+          "conceptual": 0,
+          "not_applicable": 0
+        },
+        "priority_score": 18
+      },
+      "built_at": "2026-04-21T21:30:00Z"
+    },
+    {
+      "skill_id": "deploy-interact-contracts-web3py",
+      "title": "Deploy and Interact with Smart Contracts on Polkadot Hub Using Web3.py",
+      "source_pages": [
+        "smart-contracts/libraries/web3-py.md"
+      ],
+      "category": "tutorial",
+      "priority": "medium",
+      "status": "built",
+      "notes": "Complete Python workflow: project setup with virtualenv, py-solc-x compilation of a Solidity contract, deployment via Web3.py, and read/write interaction — all CLI-driven. No explicit prerequisites section (K3=0) keeps priority below high. Code uses --8<-- includes with unfilled placeholders (K2=0). Parallel to the Web3.js tutorial but targets Python developers.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "K1",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 20,
+          "reference": 3,
+          "conceptual": 0,
+          "not_applicable": 0
+        },
+        "priority_score": 15
+      },
+      "built_at": "2026-04-21T23:00:00Z"
+    },
+    {
+      "skill_id": "interact-erc20-precompile-polkadot-hub",
+      "title": "Interact with the ERC20 Precompile on Polkadot Hub",
+      "source_pages": [
+        "smart-contracts/precompiles/erc20.md"
+      ],
+      "category": "guide",
+      "priority": "medium",
+      "status": "built",
+      "notes": "Predominantly a reference page (function signatures, parameter tables, address format specs, asset ID table) with a numbered procedural section for using the precompile via Remix IDE. Scores are close: procedural=10 vs reference=12 (within 3-point ambiguity threshold). Rule 3 fires first (procedural ≥ 10) assigning guide, but the reference character is strong. The interaction steps are GUI-only in Remix (S1=0), which limits skill-fit. Code examples are complete Solidity snippets with real precompile addresses (K2=4).",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P4",
+          "R1",
+          "R2",
+          "R3",
+          "C1",
+          "C3",
+          "K1",
+          "K2",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 10,
+          "reference": 12,
+          "conceptual": 7,
+          "not_applicable": 0
+        },
+        "priority_score": 15,
+        "category_ambiguous": true,
+        "contending_categories": [
+          "guide",
+          "reference"
+        ]
+      },
+      "built_at": "2026-04-21T23:00:00Z"
+    },
+    {
+      "skill_id": "interact-storage-precompile-remix",
+      "title": "Interact with the Storage Precompile",
+      "source_pages": [
+        "smart-contracts/precompiles/storage.md"
+      ],
+      "category": "tutorial",
+      "priority": "medium",
+      "status": "built",
+      "notes": "Complete walkthrough of connecting to and using the Storage precompile via Remix IDE. Reference API documentation (R1, R3) dominates the bulk of the page but a discrete 6-step interaction workflow with verifiable outcome qualifies it as a tutorial by Rule 2 (procedural=15, P4 present). GUI-only Remix steps prevent S1 from firing, capping priority at medium.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P3",
+          "P4",
+          "R1",
+          "R3",
+          "K1",
+          "K2",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 15,
+          "reference": 8,
+          "conceptual": 0,
+          "not_applicable": 0
+        },
+        "priority_score": 15
+      },
+      "built_at": "2026-04-21T23:00:00Z"
+    },
+    {
+      "skill_id": "interact-system-precompile-remix",
+      "title": "Interact with the System Precompile",
+      "source_pages": [
+        "smart-contracts/precompiles/system.md"
+      ],
+      "category": "tutorial",
+      "priority": "medium",
+      "status": "built",
+      "notes": "Complete walkthrough of connecting to the System precompile (BLAKE2 hashing, sr25519 verification, account management, contract lifecycle) via Remix IDE. Rule 2 fires (procedural=15, P4 present). Several code examples contain unfilled placeholders (e.g. `sig = ...`, `pubKey = 0x...`), so K2 does not fire. GUI-only Remix steps prevent S1. Priority score=11 → medium.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P3",
+          "P4",
+          "R1",
+          "R3",
+          "K1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 15,
+          "reference": 8,
+          "conceptual": 0,
+          "not_applicable": 0
+        },
+        "priority_score": 11
+      },
+      "built_at": "2026-04-21T23:00:00Z"
+    },
+    {
+      "skill_id": "interact-xcm-precompile-remix",
+      "title": "Interact with the XCM Precompile",
+      "source_pages": [
+        "smart-contracts/precompiles/xcm.md"
+      ],
+      "category": "tutorial",
+      "priority": "medium",
+      "status": "built",
+      "notes": "Demonstrates weighing, executing, and sending XCM messages from a Solidity smart contract via Remix IDE using the XCM precompile. Rule 2 fires (procedural=15, P4 present), selecting tutorial over reference despite strong reference signals (R1+R2+R3=12) and conceptual XCM architecture context (C1=5). Category is ambiguous with reference (diff=3 points). A complete SCALE-encoded example message is provided (K2 fires). GUI-only Remix steps prevent S1.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P3",
+          "P4",
+          "R1",
+          "R2",
+          "R3",
+          "C1",
+          "K1",
+          "K2",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 15,
+          "reference": 12,
+          "conceptual": 5,
+          "not_applicable": 0
+        },
+        "priority_score": 15,
+        "category_ambiguous": true,
+        "contending_categories": [
+          "tutorial",
+          "reference"
+        ]
+      },
+      "built_at": "2026-04-21T23:30:00Z"
+    }
+  ],
+  "supplementary_only": [
+    {
+      "page": "parachains/customize-runtime/add-smart-contract-functionality.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "add-existing-pallet-to-runtime",
+        "configure-multiple-pallet-instances"
+      ],
+      "notes": "Conceptual overview comparing three smart contract integration approaches for Polkadot SDK runtimes: pallet-revive (PVM/EVM dual backend), Frontier (full Ethereum compatibility layer), and pallet-contracts (legacy Wasm). No procedural steps, CLI commands, or source files. Includes a language/compiler comparison table (C2) and design rationale for each approach (C1). Useful background when deciding which smart contract pallet to add to a parachain runtime.",
+      "scoring": {
+        "signals": [
+          "C1",
+          "C2",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 0,
+          "conceptual": 10,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "node-infrastructure/run-a-validator/onboarding-and-offboarding/stop-validating.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "onboard-polkadot-validator",
+        "start-validating-on-polkadot",
+        "manage-validator-session-keys"
+      ],
+      "notes": "Explains the three-step off-boarding process (chill, purge session keys, unbond) conceptually. No CLI commands or code blocks; steps are described in prose referencing UI actions on Polkadot.js Apps. Useful as background context for the full validator lifecycle.",
+      "scoring": {
+        "signals": [
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 0,
+          "conceptual": 7,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "node-infrastructure/run-a-validator/operational-tasks/pause-validating.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "onboard-polkadot-validator",
+        "start-validating-on-polkadot"
+      ],
+      "notes": "Short page explaining the chill/chillOther extrinsics and their timing behavior (era-based eligibility). No CLI, no code blocks; UI step references Polkadot.js Apps. Useful as conceptual context for any validator operational skill.",
+      "scoring": {
+        "signals": [
+          "R3",
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 3,
+          "conceptual": 7,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "node-infrastructure/run-a-validator/operational-tasks/staking-operator-proxy.md",
+      "category": "reference",
+      "relevant_to": [
+        "set-up-polkadot-validator-node",
+        "manage-validator-session-keys",
+        "onboard-polkadot-validator",
+        "set-up-validator-monitoring-stack"
+      ],
+      "notes": "Documents the Staking Operator proxy type: permission model, extrinsic comparison table (Staking vs StakingOperator), 4-step setup procedure, and security properties. Ambiguous between reference and conceptual (scores 12 vs 10). Classified as reference because the extrinsic permission table (R1=5) and parameter specs for proxy.addProxy (R2=4) are the primary value; the mermaid diagram and security rationale push conceptual close but reference rule fires first.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "R1",
+          "R2",
+          "R3",
+          "C1",
+          "C2",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 6,
+          "reference": 12,
+          "conceptual": 10,
+          "not_applicable": 0
+        },
+        "category_ambiguous": true,
+        "contending_categories": [
+          "reference",
+          "conceptual"
+        ]
+      }
+    },
+    {
+      "page": "node-infrastructure/run-a-validator/requirements.md",
+      "category": "reference",
+      "relevant_to": [
+        "set-up-polkadot-validator-node",
+        "onboard-polkadot-validator"
+      ],
+      "notes": "Covers hardware specs, VPS provider recommendations, minimum bond, minimum self-stake (10,000 DOT), and minimum commission (10%). No procedural steps or CLI commands. R2 fires for hardware spec listings and staking parameter tables; R3 for standalone parameter descriptions (min bond, self-stake, commission). C1 fires for design rationale explaining why self-stake and commission minimums are enforced. Reference and conceptual tie at 7; Rule 4 fires first and Rule 7 tiebreak favors reference. Essential pre-reading context for any validator setup skill.",
+      "scoring": {
+        "signals": [
+          "R2",
+          "R3",
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 7,
+          "conceptual": 7,
+          "not_applicable": 0
+        },
+        "category_ambiguous": true,
+        "contending_categories": [
+          "reference",
+          "conceptual"
+        ]
+      }
+    },
+    {
+      "page": "node-infrastructure/run-a-validator/staking-mechanics/offenses-and-slashes.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "onboard-polkadot-validator",
+        "start-validating-on-polkadot",
+        "set-up-polkadot-validator-node"
+      ],
+      "notes": "Pure conceptual page explaining the slashing system: offense types (invalid votes, equivocations), slash calculation formula, disabling mechanism, and reputation changes. Mermaid flowcharts illustrate formula outcomes for minor/moderate/major offenses. Historical incident table included. No CLI commands, no runnable code. C1+C2+C3 all fire; R3 for formula parameter descriptions. Useful background for any validator operating skill.",
+      "scoring": {
+        "signals": [
+          "R3",
+          "C1",
+          "C2",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 3,
+          "conceptual": 10,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "node-infrastructure/run-a-validator/staking-mechanics/rewards.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "onboard-polkadot-validator",
+        "start-validating-on-polkadot",
+        "set-up-polkadot-validator-node"
+      ],
+      "notes": "Explains era points, reward variance between para-validators and non-para-validators, payout scheme (equal base reward regardless of stake), running multiple validators, and commission-based nominator payment distribution. Multiple mermaid flowcharts illustrate reward split scenarios. No CLI commands, no runnable code. C1+C2+C3 all fire; R3 for commission rate and era point parameter descriptions. Useful background for any validator economics question.",
+      "scoring": {
+        "signals": [
+          "R3",
+          "C1",
+          "C2",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 3,
+          "conceptual": 10,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "parachains/interoperability/get-started.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "open-hrmp-channel-between-parachains",
+        "open-hrmp-channel-with-system-parachain",
+        "estimate-xcm-fees-teleport",
+        "replay-dry-run-xcm-chopsticks",
+        "transfer-assets-parachains-paraspell",
+        "bridge-eth-to-polkadot-snowbridge"
+      ],
+      "notes": "Conceptual introduction to XCM: the four principles (asynchronous, absolute, asymmetric, agnostic), the XCM tech stack diagram, core functionalities (programmability, multichain decomposition, bridging), and an annotated first-look example showing WithdrawAsset/BuyExecution/DepositAsset instructions. No procedural steps, no CLI commands, no source files to create. Code blocks are illustrative only (C3). Useful background for any XCM-related skill.",
+      "scoring": {
+        "signals": [
+          "R3",
+          "C1",
+          "C2",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 3,
+          "conceptual": 10,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "parachains/runtime-maintenance/storage-migrations.md",
+      "category": "reference",
+      "relevant_to": [
+        "perform-runtime-upgrade",
+        "create-frame-pallet",
+        "add-existing-pallet-to-runtime"
+      ],
+      "notes": "Reference guide for storage migrations in Polkadot SDK runtimes: explains when migrations are required (type changes, key changes, enum reordering), the OnRuntimeUpgrade trait (on_runtime_upgrade, pre_upgrade, post_upgrade), VersionedMigration pattern, single-block vs multi-block migration tradeoffs, and migration file organization. No numbered action steps or CLI commands. Code blocks are illustrative patterns pulled from the SDK (--8<-- includes), not files to create. R1 fires for OnRuntimeUpgrade trait method table; R3 for VersionedMigration type parameter descriptions. C1 fires for single-block vs multi-block rationale. Ambiguous between reference (8) and conceptual (7); Rule 4 fires first. Essential supplementary reading for any runtime upgrade or pallet modification skill.",
+      "scoring": {
+        "signals": [
+          "R1",
+          "R3",
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 8,
+          "conceptual": 7,
+          "not_applicable": 0
+        },
+        "category_ambiguous": true,
+        "contending_categories": [
+          "reference",
+          "conceptual"
+        ]
+      }
+    },
+    {
+      "page": "reference/glossary.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "deploy-erc20-token-hardhat",
+        "set-up-parachain-template",
+        "submit-governance-proposal",
+        "configure-runtime-pallet"
+      ],
+      "notes": "General-purpose ecosystem glossary covering consensus, pallets, extrinsics, accounts, and runtime concepts. Broadly useful as background context for any Polkadot SDK skill but provides no procedural content.",
+      "scoring": {
+        "signals": [
+          "R3",
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 3,
+          "conceptual": 7,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "reference/governance/origins-tracks.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "submit-governance-proposal",
+        "vote-on-referendum",
+        "create-opengov-referendum"
+      ],
+      "notes": "Conceptual overview of OpenGov origins and tracks — explains privilege levels, proposal lifecycle stages (Preparation, Voting, Confirmation, Enactment), and parameter customization per track. No procedural steps or commands; purely explanatory background for governance-related skills.",
+      "scoring": {
+        "signals": [
+          "R3",
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 3,
+          "conceptual": 7,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "reference/parachains/accounts.md",
+      "category": "reference",
+      "relevant_to": [
+        "manage-account-balances",
+        "validate-ss58-address",
+        "configure-runtime-pallet",
+        "set-up-parachain-template"
+      ],
+      "notes": "Comprehensive reference on Polkadot SDK account data structures (StorageMap, AccountInfo), reference counters (providers, consumers, sufficients), balance types (free, locked, reserved, spendable), SS58 address format, and address validation via subkey and Polkadot.js API. Category is reference; flagged ambiguous against guide because subkey CLI commands (P2) and a verifiable outcome (P4) narrow the procedural gap to 3 points — but the page's primary purpose is deep reference exposition, not a task workflow.",
+      "scoring": {
+        "signals": [
+          "P2",
+          "P4",
+          "R1",
+          "R2",
+          "R3",
+          "C1",
+          "C2"
+        ],
+        "category_scores": {
+          "procedural": 9,
+          "reference": 12,
+          "conceptual": 8,
+          "not_applicable": 0
+        },
+        "category_ambiguous": true,
+        "contending_categories": [
+          "reference",
+          "guide"
+        ]
+      }
+    },
+    {
+      "page": "reference/parachains/blocks-transactions-fees/blocks.md",
+      "category": "reference",
+      "relevant_to": [
+        "set-up-parachain-template",
+        "implement-custom-consensus",
+        "configure-runtime-pallet"
+      ],
+      "notes": "Reference page explaining block structure (header components), the block production lifecycle (initialize, finalize), and the block import queue traits (ImportQueue, BasicQueue, Verifier, BlockImport). Numbered lists describe internal system operations, not developer actions. No CLI commands or file-creation steps.",
+      "scoring": {
+        "signals": [
+          "R1",
+          "R2",
+          "R3",
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 12,
+          "conceptual": 7,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "reference/parachains/blocks-transactions-fees/fees.md",
+      "category": "reference",
+      "relevant_to": [
+        "benchmark-pallet",
+        "customize-runtime-fees"
+      ],
+      "notes": "Reference material covering the transaction weight system, fee calculation formula (base + weight + length fees), dispatch classes (Normal/Operational/Mandatory), weight annotations, and custom fee/weight implementations. Useful supplementary context for any skill involving pallet weight benchmarking or runtime fee customization.",
+      "scoring": {
+        "signals": [
+          "R1",
+          "R2",
+          "R3",
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 12,
+          "conceptual": 7,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "reference/parachains/blocks-transactions-fees/transactions.md",
+      "category": "reference",
+      "relevant_to": [
+        "submit-signed-transaction",
+        "construct-custom-extrinsic"
+      ],
+      "notes": "Ambiguous between reference and conceptual (reference=12, conceptual=10, diff=2); rule 4 fires (reference >= 7, procedural < 10). Covers transaction types (signed/unsigned/inherent), data structure fields, signed extensions, a numbered 5-step construction walkthrough, encoding format, lifecycle, and mortality. Strong supplementary reference for any skill involving transaction submission or custom extrinsic development.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "R1",
+          "R2",
+          "R3",
+          "C1",
+          "C2",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 6,
+          "reference": 12,
+          "conceptual": 10,
+          "not_applicable": 0
+        },
+        "category_ambiguous": true,
+        "contending_categories": [
+          "reference",
+          "conceptual"
+        ]
+      }
+    },
+    {
+      "page": "reference/parachains/consensus/async-backing.md",
+      "category": "reference",
+      "relevant_to": [
+        "enable-async-backing",
+        "configure-parachain-consensus"
+      ],
+      "notes": "Ambiguous between reference and conceptual (reference=12, conceptual=10, diff=2); rule 4 fires (reference >= 7, procedural < 10). Documents the two AsyncBackingParams configuration fields (max_candidate_depth, allowed_ancestry_len) with docs.rs links, alongside a thorough conceptual comparison of synchronous vs asynchronous backing using Gantt diagrams. Relevant supplementary context for any skill involving parachain consensus configuration.",
+      "scoring": {
+        "signals": [
+          "R1",
+          "R2",
+          "R3",
+          "C1",
+          "C2",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 12,
+          "conceptual": 10,
+          "not_applicable": 0
+        },
+        "category_ambiguous": true,
+        "contending_categories": [
+          "reference",
+          "conceptual"
+        ]
+      }
+    },
+    {
+      "page": "reference/parachains/consensus/elastic-scaling.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "acquire-coretime",
+        "enable-elastic-scaling"
+      ],
+      "notes": "Pure conceptual page explaining how elastic scaling works, its performance characteristics, benefits, and use cases. No API references, no configuration option specs, no procedural steps for the reader. Sequence diagrams illustrate single-core vs multi-core validation timing. Useful background context for coretime acquisition or elastic scaling enablement skills.",
+      "scoring": {
+        "signals": [
+          "C1",
+          "C2",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 0,
+          "conceptual": 10,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "reference/parachains/consensus/inclusion-pipeline.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "set-up-parachain-template",
+        "launch-parachain-testnet"
+      ],
+      "notes": "Explains the multi-stage validation pipeline (Context, Generation, Backing, Inclusion) through which every parachain block is validated before relay-chain finalization. Includes a mermaid flowchart. Foundational background for any skill covering parachain development or deployment.",
+      "scoring": {
+        "signals": [
+          "C1",
+          "C2",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 0,
+          "conceptual": 10,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "reference/parachains/cryptography.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "generate-account-keys",
+        "sign-transactions-polkadot-js"
+      ],
+      "notes": "Conceptual overview of cryptographic primitives used in Polkadot: hash functions (Blake2), symmetric vs asymmetric encryption trade-offs, digital signatures, and elliptic curve schemes (ECDSA/secp256k1, Ed25519, SR25519). No diagrams or runnable code. Background reading for skills involving key management or transaction signing.",
+      "scoring": {
+        "signals": [
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 0,
+          "conceptual": 7,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "reference/parachains/data-encoding.md",
+      "category": "reference",
+      "relevant_to": [
+        "build-parachain-runtime",
+        "set-up-parachain-template"
+      ],
+      "notes": "SCALE codec reference: function signatures for Encode, Decode, CompactAs, HasCompact, and EncodeLike traits; a data-types encoding table mapping Rust types to their SCALE byte representations; and a multi-language library listing. Scores are close between reference (12) and conceptual (10) — rule 4 assigns reference; ambiguity flag set. Useful supplementary context for any skill involving Polkadot SDK runtime or parachain development.",
+      "scoring": {
+        "signals": [
+          "R1",
+          "R2",
+          "R3",
+          "C1",
+          "C2",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 12,
+          "conceptual": 10,
+          "not_applicable": 0
+        },
+        "category_ambiguous": true,
+        "contending_categories": [
+          "reference",
+          "conceptual"
+        ]
+      }
+    },
+    {
+      "page": "reference/parachains/interoperability.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "send-xcm-message",
+        "transfer-assets-xcm",
+        "get-started-xcm"
+      ],
+      "notes": "High-level conceptual overview of interoperability in Polkadot: why it matters, XCM as the cross-consensus messaging standard, and bridges to external networks (Ethereum, Bitcoin). No code or diagrams. Background reading for XCM-related skills.",
+      "scoring": {
+        "signals": [
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 0,
+          "conceptual": 7,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "reference/parachains/networks.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "deploy-parachain-paseo",
+        "set-up-parachain-template",
+        "test-parachain-locally"
+      ],
+      "notes": "Describes the Polkadot network landscape (MainNet, Paseo TestNet, Kusama, Westend, local) and the recommended three-stage development progression (local → Paseo → production). Includes a mermaid development-flow diagram and descriptions of Zombienet and Chopsticks. The numbered development path fires P1 (procedural=6) but conceptual=10 wins by rule 5. No ambiguity (difference of 4 points). Relevant supplementary context for any skill covering parachain or dApp deployment and testing.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "C1",
+          "C2",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 6,
+          "reference": 0,
+          "conceptual": 10,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "reference/parachains/node-and-runtime.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "set-up-parachain-template",
+        "configure-parachain-node",
+        "build-custom-runtime"
+      ],
+      "notes": "Explains the client/runtime architectural split (meta-protocol vs protocol), forkless upgrade model, SCALE encoding, runtime APIs, and host functions. Pure conceptual background with no commands or code blocks.",
+      "scoring": {
+        "signals": [
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 0,
+          "conceptual": 7,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "reference/parachains/randomness.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "set-up-validator-node",
+        "configure-babe-consensus",
+        "understand-pos-consensus"
+      ],
+      "notes": "Conceptual explanation of VRF-based randomness in Polkadot PoS, including how BABE slots work, the RANDAO alternative, and VDF security model. Includes a diagram. No procedural steps or runnable code.",
+      "scoring": {
+        "signals": [
+          "C1",
+          "C2",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 0,
+          "conceptual": 10,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "reference/polkadot-hub/assets.md",
+      "category": "reference",
+      "relevant_to": [
+        "register-foreign-asset",
+        "register-local-asset",
+        "convert-assets",
+        "transfer-assets-xcm"
+      ],
+      "notes": "Reference overview of the Assets pallet on Polkadot Hub: asset structure fields, common asset IDs table (USDt/USDC), roles and permissions, freeze/thaw and delegated transfer mechanics, and foreign asset handling. Ends with navigation cards pointing to procedural guides. No runnable steps on this page.",
+      "scoring": {
+        "signals": [
+          "R1",
+          "R2",
+          "R3",
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 12,
+          "conceptual": 7,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "reference/polkadot-hub/bridging.md",
+      "category": "reference",
+      "relevant_to": [
+        "bridge-polkadot-ethereum-snowbridge",
+        "send-xcm-cross-chain-message",
+        "set-up-bridge-hub"
+      ],
+      "notes": "Reference overview of the Bridge Hub system parachain covering trustless bridging via on-chain light clients (BEEFY/GRANDPA), key pallets (Bridge GRANDPA, Bridge Parachains, Bridge Messages, XCM Bridge), and deployed bridges (Snowbridge, Hyperbridge, Polkadot<>Kusama). Ambiguous between reference and conceptual (8 vs 7): R1 fires on structured pallet listing; C1 fires on trustless bridging architecture prose. Rule 4 wins (reference_score >= 7, procedural < 10).",
+      "scoring": {
+        "signals": [
+          "R1",
+          "R3",
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 8,
+          "conceptual": 7,
+          "not_applicable": 0
+        },
+        "category_ambiguous": true,
+        "contending_categories": [
+          "reference",
+          "conceptual"
+        ]
+      }
+    },
+    {
+      "page": "reference/polkadot-hub/collectives-and-daos.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "join-technical-fellowship",
+        "participate-polkadot-governance",
+        "create-on-chain-collective"
+      ],
+      "notes": "Short conceptual overview of the Collectives chain and its key governance bodies (Technical Fellowship and Polkadot Alliance). Explains purpose, establishment via Referendum 81, and cross-network governance via Bridge Hub. No reference tables, no procedural steps, no code.",
+      "scoring": {
+        "signals": [
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 0,
+          "conceptual": 7,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "reference/polkadot-hub/consensus-and-security/agile-coretime.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "purchase-bulk-coretime",
+        "set-up-parachain-template"
+      ],
+      "notes": "Explains coretime scheduling concepts — bulk vs on-demand, interlacing, splitting. Pure conceptual overview with mermaid diagram but no executable steps or CLI commands.",
+      "scoring": {
+        "signals": [
+          "C1",
+          "C2",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 0,
+          "conceptual": 10,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "reference/polkadot-hub/consensus-and-security/pos-consensus.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "set-up-validator-node",
+        "stake-dot-tokens"
+      ],
+      "notes": "Deep architectural explanation of NPoS, BABE, GRANDPA, and BEEFY. No runnable steps — entirely conceptual with fork-choice diagram and external Web3 Foundation paper references.",
+      "scoring": {
+        "signals": [
+          "C1",
+          "C2",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 0,
+          "conceptual": 10,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "reference/polkadot-hub/consensus-and-security/relay-chain.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "set-up-parachain-template",
+        "purchase-bulk-coretime"
+      ],
+      "notes": "High-level overview of Polkadot relay chain architecture, DOT token, blockspace, and JAM. Background material with architectural diagram — no procedural content.",
+      "scoring": {
+        "signals": [
+          "C1",
+          "C2",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 0,
+          "conceptual": 10,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "reference/polkadot-hub/people-and-identity.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "establish-on-chain-identity"
+      ],
+      "notes": "Contains numbered steps for contacting registrars, but the workflow is an offline human process (research, contact, submit docs, pay fee) — not programmatically executable via CLI or SDK. R3 fires for judgment classification descriptions. Scores: conceptual=7, procedural=6 (gap=1, within 3 pts). Category_ambiguous resolved by Rule 5 (conceptual>=5, procedural<10, reference<7) firing before Rule 6.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "R3",
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 6,
+          "reference": 3,
+          "conceptual": 7,
+          "not_applicable": 0
+        },
+        "category_ambiguous": true,
+        "contending_categories": [
+          "conceptual",
+          "guide"
+        ]
+      }
+    },
+    {
+      "page": "reference/polkadot-hub/smart-contracts.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "deploy-basic-contract-remix",
+        "deploy-erc20-token-remix"
+      ],
+      "notes": "Overview of REVM and PVM smart contract engines on Polkadot Hub. No commands, no source files to create, no numbered steps — serves as conceptual background for smart contract deployment skills. Card-grid 'Where to Go Next' links out to actual tutorials.",
+      "scoring": {
+        "signals": [
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 0,
+          "conceptual": 7,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "reference/tools/light-clients.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "interact-with-chain-dedot",
+        "set-up-chopsticks-fork"
+      ],
+      "notes": "Explains light client architecture, the trust-minimized verification model, comparison with full nodes/JSON-RPC, and PAPI/Smoldot integration. No procedural content. Useful background for skills that use Dedot with Smoldot or Chopsticks (which also uses Smoldot internally).",
+      "scoring": {
+        "signals": [
+          "C1",
+          "C2",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 0,
+          "conceptual": 10,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "reference/tools/papi.md",
+      "category": "reference",
+      "relevant_to": [
+        "interact-with-chain-polkadart",
+        "use-polkadot-js-api"
+      ],
+      "notes": "API reference and quickstart for the Polkadot-API (PAPI) library. Covers API instantiation (Smoldot, WSS), reading chain data via constants/storage/runtime APIs, and sending transactions with tx and txFromCallData. Useful as supplementary context for any skill involving PAPI-based chain interaction. Classified as reference per Rule 4 (reference=8, procedural=5). Ambiguous with conceptual (diff=3) — reference wins because the bulk of the page catalogs API method patterns rather than explaining architectural rationale.",
+      "scoring": {
+        "signals": [
+          "P2",
+          "R1",
+          "R3",
+          "C1"
+        ],
+        "category_scores": {
+          "procedural": 5,
+          "reference": 8,
+          "conceptual": 5,
+          "not_applicable": 0
+        },
+        "category_ambiguous": true,
+        "contending_categories": [
+          "reference",
+          "conceptual"
+        ]
+      }
+    },
+    {
+      "page": "reference/tools/paraspell.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "transfer-assets-parachains"
+      ],
+      "notes": "Overview of the ParaSpell tool suite (XCM SDK, XCM API, XCM Router, XCM Analyser, XCM Visualizator, XCM Playground) with a brief npm install snippet and a navigation card linking to the transfer-assets-parachains tutorial. Primarily conceptual — explains the purpose and design of each component without walking through a workflow. Useful as supplementary context for XCM cross-chain transfer skills.",
+      "scoring": {
+        "signals": [
+          "P2",
+          "C1"
+        ],
+        "category_scores": {
+          "procedural": 5,
+          "reference": 0,
+          "conceptual": 5,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "reference/tools/sidecar.md",
+      "category": "reference",
+      "relevant_to": [
+        "interact-polkadot-node-py-substrate",
+        "interact-polkadot-node-subxt"
+      ],
+      "notes": "Installation and basic usage of Substrate API Sidecar, a REST caching layer for Polkadot SDK nodes. Tied procedural (9) and reference (9) scores make this ambiguous: Rule 4 fires first (reference >= 7 AND procedural < 10) assigning 'reference', but the guide-like installation workflow is equally significant. Useful supplementary context for any skill that queries Polkadot chain state, offering a REST alternative to direct RPC or Rust/Python SDK approaches.",
+      "scoring": {
+        "signals": [
+          "P2",
+          "P4",
+          "R1",
+          "R2",
+          "C1"
+        ],
+        "category_scores": {
+          "procedural": 9,
+          "reference": 9,
+          "conceptual": 5,
+          "not_applicable": 0
+        },
+        "category_ambiguous": true,
+        "contending_categories": [
+          "guide",
+          "reference"
+        ]
+      }
+    },
+    {
+      "page": "smart-contracts/explorers.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "set-up-hardhat-pvm",
+        "set-up-hardhat-evm",
+        "set-up-local-dev-node",
+        "connect-remix-polkadot"
+      ],
+      "notes": "Reference directory of available block explorers (BlockScout, Routescan, Subscan) for Polkadot Hub with descriptions, URLs, and screenshots. No procedural content. Useful supplementary context for any skill involving contract deployment or verification, as agents need explorer URLs for post-deployment steps. BlockScout and Routescan URLs are also referenced inline in the Hardhat config verification sections.",
+      "scoring": {
+        "signals": [
+          "C1",
+          "C2",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 0,
+          "conceptual": 10,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "smart-contracts/for-eth-devs/accounts.md",
+      "category": "reference",
+      "relevant_to": [
+        "set-up-local-dev-node",
+        "deploy-erc20-token-hardhat",
+        "deploy-erc20-token-remix"
+      ],
+      "notes": "Documents the AccountId32Mapper address conversion system (map_account, to_address, to_fallback_account_id, create1/create2), account mapping requirements, and security design for the Polkadot/Ethereum dual-format model. Essential context for any tutorial requiring wallet or address setup on Polkadot Hub. Flagged ambiguous: reference=8, conceptual=7, diff=1.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "R1",
+          "R3",
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 6,
+          "reference": 8,
+          "conceptual": 7,
+          "not_applicable": 0
+        },
+        "category_ambiguous": true,
+        "contending_categories": [
+          "reference",
+          "conceptual"
+        ]
+      }
+    },
+    {
+      "page": "smart-contracts/for-eth-devs/blocks-transactions-fees.md",
+      "category": "reference",
+      "relevant_to": [
+        "set-up-local-dev-node",
+        "deploy-erc20-token-hardhat",
+        "deploy-erc20-token-remix"
+      ],
+      "notes": "Reference documentation for EVM transaction types (Legacy, EIP-1559, EIP-2930, EIP-4844 via pallet_revive) and the multi-dimensional fee model (ref_time, proof_size, storage_deposit). Useful background for understanding gas estimation behavior in deployment tutorials.",
+      "scoring": {
+        "signals": [
+          "R1",
+          "R2",
+          "R3",
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 12,
+          "conceptual": 7,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "smart-contracts/for-eth-devs/contract-deployment.md",
+      "category": "reference",
+      "relevant_to": [
+        "deploy-erc20-token-hardhat",
+        "deploy-erc20-token-remix",
+        "set-up-local-dev-node"
+      ],
+      "notes": "Conceptual signals score highest (C1+C2+C3=10) since the page primarily explains REVM vs PVM deployment architecture differences, factory pattern constraints, and gas estimation behavior. Rule 4 assigns reference because reference_score=7 >= 7 and procedural_score=6 < 10. Flagged ambiguous: conceptual=10, reference=7, diff=3.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "R2",
+          "R3",
+          "C1",
+          "C2",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 6,
+          "reference": 7,
+          "conceptual": 10,
+          "not_applicable": 0
+        },
+        "category_ambiguous": true,
+        "contending_categories": [
+          "conceptual",
+          "reference"
+        ]
+      }
+    },
+    {
+      "page": "smart-contracts/for-eth-devs/dual-vm-stack.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "set-up-local-dev-node-revive",
+        "deploy-erc20-token-hardhat",
+        "deploy-erc20-token-remix"
+      ],
+      "notes": "Architecture overview of Polkadot's dual VM stack (REVM vs PVM). Provides background context on why REVM is used for Ethereum compatibility and when to choose PVM. Useful as supplementary context for any smart contract development skill on Polkadot Hub.",
+      "scoring": {
+        "signals": [
+          "C1",
+          "C2",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 0,
+          "conceptual": 10,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "smart-contracts/for-eth-devs/evm-vs-pvm.md",
+      "category": "reference",
+      "relevant_to": [
+        "set-up-local-dev-node-revive",
+        "deploy-erc20-token-hardhat",
+        "deploy-erc20-token-remix"
+      ],
+      "notes": "Detailed technical reference comparing EVM and PVM architectures, gas models, memory limits, account management, and YUL IR translation differences. Reference wins over conceptual (12 vs 10) due to structured comparison tables, memory limit tables, and YUL opcode listings. Ambiguous with conceptual given the volume of architectural prose. Essential supplementary context for any skill involving PVM contract development.",
+      "scoring": {
+        "signals": [
+          "R1",
+          "R2",
+          "R3",
+          "C1",
+          "C2",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 12,
+          "conceptual": 10,
+          "not_applicable": 0
+        },
+        "category_ambiguous": true,
+        "contending_categories": [
+          "reference",
+          "conceptual"
+        ]
+      }
+    },
+    {
+      "page": "smart-contracts/for-eth-devs/gas-model.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "set-up-local-dev-node-revive",
+        "deploy-erc20-token-hardhat",
+        "deploy-erc20-token-remix"
+      ],
+      "notes": "Conceptual explanation of how Polkadot Hub maps Ethereum gas onto its three-dimensional resource system (ref_time, proof_size, storage_deposit). Contains a mermaid transaction flow diagram and prose on dynamic pricing. No CLI commands or procedures. Relevant to any skill where gas estimation or fee handling matters.",
+      "scoring": {
+        "signals": [
+          "R3",
+          "C1",
+          "C2",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 3,
+          "conceptual": 10,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "smart-contracts/for-eth-devs/json-rpc-apis.md",
+      "category": "reference",
+      "relevant_to": [
+        "set-up-local-dev-node-revive",
+        "deploy-erc20-token-hardhat",
+        "deploy-erc20-token-remix"
+      ],
+      "notes": "Comprehensive reference for supported Ethereum JSON-RPC methods on Polkadot Hub, with parameter specs and curl examples for each method. High reference score (R1+R2+R3=12) from structured method documentation. Procedural score is 5 (curl commands present) but there is no ordered workflow or verifiable outcome, so rule 4 assigns reference. Useful supplementary context for any skill involving on-chain queries or transaction submission.",
+      "scoring": {
+        "signals": [
+          "P2",
+          "R1",
+          "R2",
+          "R3"
+        ],
+        "category_scores": {
+          "procedural": 5,
+          "reference": 12,
+          "conceptual": 0,
+          "not_applicable": 0
+        }
+      }
+    },
+    {
+      "page": "smart-contracts/precompiles/eth-native.md",
+      "category": "conceptual",
+      "relevant_to": [
+        "interact-storage-precompile-remix",
+        "interact-system-precompile-remix",
+        "interact-xcm-precompile-remix"
+      ],
+      "notes": "Overview of Ethereum-native precompiles in Polkadot Hub's Revive pallet: explains what precompiles are, how to call them, and lists all standard precompile addresses. No workflow, no commands, no file creation. Conceptual=7 (C1+C3) vs reference=5 (R1); ambiguous (diff=2). Rule 5 assigns conceptual because conceptual>=5, procedural<10, and reference<7. Useful background for any skill involving these precompiles.",
+      "scoring": {
+        "signals": [
+          "R1",
+          "C1",
+          "C3"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 5,
+          "conceptual": 7,
+          "not_applicable": 0
+        },
+        "category_ambiguous": true,
+        "contending_categories": [
+          "conceptual",
+          "reference"
+        ]
+      }
+    }
+  ],
+  "not_applicable": [
+    {
+      "page": "get-support.md",
+      "category": "not_applicable",
+      "reason": "Community support hub listing channels (Telegram, Discord, Matrix, Stack Exchange, Reddit, YouTube, X/Twitter, Forum, Polkassembly). No procedural content, code, or tutorials.",
+      "scoring": {
+        "signals": [
+          "N1",
+          "N2"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 0,
+          "conceptual": 0,
+          "not_applicable": 8
+        }
+      }
+    },
+    {
+      "page": "parachains/get-started.md",
+      "category": "not_applicable",
+      "reason": "Navigation landing page composed entirely of tables linking to other doc pages, grouped by topic (Quick Start, Launch, Customize, Testing, Runtime Upgrades, Interoperability, Integrations). No procedural steps, code, or substantive content of its own.",
+      "scoring": {
+        "signals": [
+          "C3",
+          "N1"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 0,
+          "conceptual": 2,
+          "not_applicable": 4
+        },
+        "category_ambiguous": true,
+        "contending_categories": [
+          "not_applicable",
+          "conceptual"
+        ]
+      }
+    },
+    {
+      "page": "parachains/integrations/indexers.md",
+      "category": "not_applicable",
+      "reason": "Tools directory listing Subsquid and SubQuery with external reference links. The brief conceptual intro ('What is a Blockchain Indexer?') scores conceptual higher (7) than not_applicable (4), but N1 fires because the page's primary purpose is a grid-card link directory to external tools. Rule 1 takes precedence over Rule 5.",
+      "scoring": {
+        "signals": [
+          "C1",
+          "C3",
+          "N1"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 0,
+          "conceptual": 7,
+          "not_applicable": 4
+        },
+        "category_ambiguous": true,
+        "contending_categories": [
+          "not_applicable",
+          "conceptual"
+        ]
+      }
+    },
+    {
+      "page": "parachains/integrations/oracles.md",
+      "category": "not_applicable",
+      "reason": "Tools directory listing Acurast and DIA oracle providers with external reference links. Same pattern as indexers.md: conceptual intro scores higher (7) than not_applicable (4), but N1 fires (grid-card link directory) and Rule 1 takes precedence.",
+      "scoring": {
+        "signals": [
+          "C1",
+          "C3",
+          "N1"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 0,
+          "conceptual": 7,
+          "not_applicable": 4
+        },
+        "category_ambiguous": true,
+        "contending_categories": [
+          "not_applicable",
+          "conceptual"
+        ]
+      }
+    },
+    {
+      "page": "parachains/integrations/wallets.md",
+      "category": "not_applicable",
+      "reason": "Tools directory listing hot wallets (Nova, Talisman, SubWallet), cold wallets (Ledger, Polkadot Vault), and wallet tools (LunoKit) with external reference links only. Same pattern as indexers/oracles: conceptual intro scores higher (7) than not_applicable (4), but N1 fires (grid-card link directory) and Rule 1 takes precedence.",
+      "scoring": {
+        "signals": [
+          "C1",
+          "C3",
+          "N1"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 0,
+          "conceptual": 7,
+          "not_applicable": 4
+        },
+        "category_ambiguous": true,
+        "contending_categories": [
+          "not_applicable",
+          "conceptual"
+        ]
+      }
+    },
+    {
+      "page": "policies/ai-chatbot-policy.md",
+      "category": "not_applicable",
+      "reason": "Legal policy page outlining AI chatbot usage terms and conditions. Content is legal boilerplate included via external snippet reference. N2 fires.",
+      "scoring": {
+        "signals": [
+          "N2"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 0,
+          "conceptual": 0,
+          "not_applicable": 4
+        }
+      }
+    },
+    {
+      "page": "policies/cookie-policy.md",
+      "category": "not_applicable",
+      "reason": "Legal policy page explaining cookie usage on the site. Content is legal boilerplate included via external snippet reference. N2 fires.",
+      "scoring": {
+        "signals": [
+          "N2"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 0,
+          "conceptual": 0,
+          "not_applicable": 4
+        }
+      }
+    },
+    {
+      "page": "policies/privacy-policy.md",
+      "category": "not_applicable",
+      "reason": "Legal policy page describing personal data collection and processing practices. Content is legal boilerplate included via external snippet reference. N2 fires.",
+      "scoring": {
+        "signals": [
+          "N2"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 0,
+          "conceptual": 0,
+          "not_applicable": 4
+        }
+      }
+    },
+    {
+      "page": "policies/terms-of-use.md",
+      "category": "not_applicable",
+      "reason": "Legal/policy page. Content is a terms-of-use document included via remote snippet — pure legal boilerplate with no procedural, reference, or conceptual developer content.",
+      "scoring": {
+        "signals": [
+          "N2"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 0,
+          "conceptual": 0,
+          "not_applicable": 4
+        }
+      }
+    },
+    {
+      "page": "reference/tools/xcm-tools.md",
+      "category": "not_applicable",
+      "reason": "Survey/index page presenting five XCM tools (Moonsong Labs XCM Tools, ParaSpell, Astar XCM Tools, Chopsticks, Moonbeam XCM SDK). Each section provides a short description and minimal bootstrap commands, then defers substantive usage to external documentation. No complete self-contained XCM workflow; primary function is discovery and navigation to the right tool. N1 fires (score 4), triggering Rule 1.",
+      "scoring": {
+        "signals": [
+          "P2",
+          "P4",
+          "C1",
+          "N1"
+        ],
+        "category_scores": {
+          "procedural": 9,
+          "reference": 0,
+          "conceptual": 5,
+          "not_applicable": 4
+        }
+      }
+    },
+    {
+      "page": "smart-contracts/get-started.md",
+      "category": "not_applicable",
+      "reason": "Navigation hub / landing page. Content is primarily link tables across Quick Starts, Build and Test, Cookbooks, Libraries, Integrations, and Precompiles sections. The Ethereum Tool Differences block is brief conceptual prose but secondary to the navigation function. No procedures, CLI commands, or files to create.",
+      "scoring": {
+        "signals": [
+          "C1",
+          "C3",
+          "N1"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 0,
+          "conceptual": 7,
+          "not_applicable": 4
+        }
+      }
+    },
+    {
+      "page": "smart-contracts/overview.md",
+      "category": "not_applicable",
+      "reason": "Landing/overview page. Explains the dual-VM architecture and Ethereum compatibility at a high level, then ends with a card grid pointing to Get Started, Cookbook, Ethereum Developers, and Precompiles sections. No CLI commands, no files to create, no verifiable outcome.",
+      "scoring": {
+        "signals": [
+          "C1",
+          "C3",
+          "N1"
+        ],
+        "category_scores": {
+          "procedural": 0,
+          "reference": 0,
+          "conceptual": 7,
+          "not_applicable": 4
+        }
+      }
+    }
+  ]
+}

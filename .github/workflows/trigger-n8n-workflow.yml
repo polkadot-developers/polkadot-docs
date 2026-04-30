@@ -4,11 +4,15 @@ on:
   workflow_dispatch:
     inputs:
       pr_number:
-        description: PR number to process 
+        description: PR number to process (maintainer-triggered runs)
         required: false
         type: string
       pr_selector:
         description: PR URL or branch name (used when pr_number is not provided)
+        required: false
+        type: string
+      trigger_source:
+        description: Source of the trigger — 'comment' or 'commit' (set by Nathan Gate; leave blank for manual runs)
         required: false
         type: string
 
@@ -47,6 +51,7 @@ jobs:
       PR_NUMBER: ${{ github.event.inputs.pr_number }}
       PR_SELECTOR: ${{ github.event.inputs.pr_selector }}
       IS_MANUAL_RUN: ${{ github.event_name == 'workflow_dispatch' && github.actor != 'github-actions[bot]' }}
+      TRIGGER_SOURCE: ${{ github.event.inputs.trigger_source }}
       N8N_ROSE_LANGUAGES: ${{ vars.N8N_ROSE_LANGUAGES }}
     steps:
       - name: Validate dispatcher permissions
@@ -67,7 +72,7 @@ jobs:
               echo "✅ ${ACTOR} has ${PERMISSION} permission."
               ;;
             *)
-              echo "❌ ${ACTOR} does not have sufficient permission (permission='${PERMISSION}')."
+              echo "❌ ${ACTOR} is not a maintainer (permission='${PERMISSION}')."
               exit 1
               ;;
           esac
@@ -165,7 +170,7 @@ jobs:
             triggered="false"
           fi
           shopt -u nocasematch
-          if [[ "${IS_MANUAL_RUN}" == "true" ]]; then
+          if [[ "${IS_MANUAL_RUN}" == "true" || "${TRIGGER_SOURCE:-}" == "comment" ]]; then
             triggered="true"
           fi
           if [[ "$triggered" == "true" ]]; then
@@ -359,7 +364,7 @@ jobs:
           fi
 
           if [[ ${IS_MANUAL_RUN} == true ]]; then
-            echo "ℹ️ run for PR #${PR_NUMBER}"
+            echo "ℹ️ Maintainer-triggered run for PR #${PR_NUMBER}"
           fi
 
       - name: Fetch PR metadata

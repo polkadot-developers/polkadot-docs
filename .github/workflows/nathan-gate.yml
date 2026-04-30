@@ -1,0 +1,207 @@
+name: Nathan Gate
+
+on:
+  pull_request:
+    types: [synchronize]
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: read
+  pull-requests: read
+  actions: write
+
+jobs:
+  dispatch-nathan:
+    # For pull_request events: skip fork PRs to avoid exposing secrets in fork-controlled code.
+    # For issue_comment events: only proceed if the comment is on an open PR (not a plain issue).
+    # issue_comment always runs in the base-repo context regardless of fork status, so
+    # the maintainer permission check is the primary security gate for that event type.
+    if: ${{ (github.event_name == 'pull_request' && github.event.pull_request != null && github.event.pull_request.head.repo.fork == false) || (github.event_name == 'issue_comment' && github.event.issue.pull_request != null && github.event.issue.state == 'open') }}
+    runs-on: ubuntu-latest
+    # One active run per PR at a time. If a run is in progress and a new trigger arrives,
+    # the new one queues rather than stacking — at most 1 running + 1 pending per PR.
+    concurrency:
+      group: nathan-pr-${{ github.event.issue.number || github.event.pull_request.number }}
+      cancel-in-progress: false
+    steps:
+      - name: Validate dispatcher permissions (maintainers only)
+        id: perm
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          ACTOR: ${{ github.actor }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          permission="$(gh api -H "Accept: application/vnd.github+json" \
+            "repos/${REPO}/collaborators/${ACTOR}/permission" \
+            --jq '.permission // ""' 2>/dev/null || true)"
+
+          case "${permission}" in
+            admin|maintain|write)
+              echo "allowed=true" >> "$GITHUB_OUTPUT"
+              echo "permission=${permission}" >> "$GITHUB_OUTPUT"
+              echo "✅ ${ACTOR} has ${permission} permission."
+              ;;
+            *)
+              echo "allowed=false" >> "$GITHUB_OUTPUT"
+              echo "permission=${permission}" >> "$GITHUB_OUTPUT"
+              echo "⏭️ ${ACTOR} is not a maintainer (permission='${permission:-none}'); skipping dispatch."
+              ;;
+          esac
+
+      - name: Cooldown check — prevent rapid re-triggers
+        id: cooldown
+        if: ${{ steps.perm.outputs.allowed == 'true' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event_name == 'issue_comment' && github.event.issue.number || github.event.pull_request.number }}
+          CURRENT_COMMENT_ID: ${{ github.event.comment.id }}
+          COOLDOWN_MINUTES: '2'
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [[ -z "${PR_NUMBER:-}" || ! "${PR_NUMBER}" =~ ^[0-9]+$ ]]; then
+            echo "blocked=false" >> "$GITHUB_OUTPUT"
+            echo "⚠️ No valid PR number for cooldown check; skipping."
+            exit 0
+          fi
+
+          cutoff="$(date -u -d "${COOLDOWN_MINUTES} minutes ago" +%Y-%m-%dT%H:%M:%SZ)"
+
+          # Fetch only comments created within the cooldown window (since= is server-side filtering).
+          # Exclude the current triggering comment so a fresh +Nathan is never self-blocked.
+          recent="$(gh api \
+            "repos/${REPO}/issues/${PR_NUMBER}/comments?since=${cutoff}&per_page=100" \
+            --jq "[.[] | select(.body | ascii_downcase | contains(\"+nathan\")) | select(.id | tostring != \"${CURRENT_COMMENT_ID:-}\")] | length" \
+            2>/dev/null || echo "0")"
+
+          if [[ "${recent}" -gt 0 ]]; then
+            echo "blocked=true" >> "$GITHUB_OUTPUT"
+            echo "⏭️ Nathan was already triggered within the last ${COOLDOWN_MINUTES} minutes; skipping to prevent duplicate reviews."
+          else
+            echo "blocked=false" >> "$GITHUB_OUTPUT"
+            echo "✅ No recent Nathan trigger found; proceeding."
+          fi
+
+      - name: Check latest commit message (+Nathan) — commit push trigger
+        id: gate_commit
+        if: ${{ steps.perm.outputs.allowed == 'true' && steps.cooldown.outputs.blocked != 'true' && github.event_name == 'pull_request' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          commits_json="$(gh api --paginate "repos/${REPO}/pulls/${PR_NUMBER}/commits" | jq -s 'add')"
+          sha="$(printf '%s' "$commits_json" | jq -r '.[-1].sha // ""')"
+          msg="$(printf '%s' "$commits_json" | jq -r '.[-1].commit.message // ""')"
+
+          shopt -s nocasematch
+          if [[ "$msg" == *"+nathan"* ]]; then
+            echo "triggered=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "triggered=false" >> "$GITHUB_OUTPUT"
+          fi
+          shopt -u nocasematch
+
+          first_line="$(printf '%s\n' "$msg" | head -n1 | tr -d '\r')"
+          echo "Latest PR commit: ${sha:-unknown} — ${first_line:-<no message>}"
+
+      - name: Check PR comment body (+Nathan) — comment trigger
+        id: gate_comment
+        if: ${{ steps.perm.outputs.allowed == 'true' && steps.cooldown.outputs.blocked != 'true' && github.event_name == 'issue_comment' }}
+        env:
+          COMMENT_BODY: ${{ github.event.comment.body }}
+          COMMENT_ID: ${{ github.event.comment.id }}
+          ACTOR: ${{ github.actor }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          body="$(printf '%s' "${COMMENT_BODY:-}")"
+
+          # Reject oversized comment bodies to prevent resource exhaustion
+          if [[ ${#body} -gt 65536 ]]; then
+            echo "⏭️ Comment body exceeds size limit; skipping."
+            echo "triggered=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          # Check only for the trigger phrase — comment content is never executed
+          shopt -s nocasematch
+          if [[ "$body" == *"+nathan"* ]]; then
+            echo "triggered=true" >> "$GITHUB_OUTPUT"
+            echo "✅ Found +Nathan trigger phrase in comment #${COMMENT_ID} by ${ACTOR}."
+          else
+            echo "triggered=false" >> "$GITHUB_OUTPUT"
+            echo "⏭️ Comment #${COMMENT_ID} does not contain '+Nathan'; skipping dispatch."
+          fi
+          shopt -u nocasematch
+
+      - name: Dispatch Nathan workflow
+        if: ${{ steps.perm.outputs.allowed == 'true' && steps.cooldown.outputs.blocked != 'true' && (steps.gate_commit.outputs.triggered == 'true' || steps.gate_comment.outputs.triggered == 'true') }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event_name == 'issue_comment' && github.event.issue.number || github.event.pull_request.number }}
+          HEAD_REF: ${{ github.event_name == 'issue_comment' && '' || github.event.pull_request.head.ref }}
+          DISPATCH_REF: ${{ github.event.repository.default_branch }}
+          EVENT_NAME: ${{ github.event_name }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [[ -z "${PR_NUMBER:-}" ]]; then
+            echo "Missing PR number; cannot dispatch."
+            exit 1
+          fi
+          if [[ ! "${PR_NUMBER}" =~ ^[0-9]+$ ]]; then
+            echo "Invalid PR number '${PR_NUMBER}'; cannot dispatch."
+            exit 1
+          fi
+          if [[ -z "${DISPATCH_REF:-}" ]]; then
+            echo "Missing repository default branch; cannot dispatch."
+            exit 1
+          fi
+
+          REF_INFO="${HEAD_REF:-<comment trigger>}"
+          TRIGGER_SOURCE="commit"
+          if [[ "${EVENT_NAME}" == "issue_comment" ]]; then
+            TRIGGER_SOURCE="comment"
+          fi
+          echo "Dispatching trigger-n8n-workflow.yml for PR #${PR_NUMBER} (event=${EVENT_NAME:-unknown}, trigger_source=${TRIGGER_SOURCE}, workflow ref=${DISPATCH_REF}, PR ref=${REF_INFO})"
+
+          dispatch_output=""
+          if dispatch_output="$(
+            gh api -X POST "repos/${REPO}/actions/workflows/trigger-n8n-workflow.yml/dispatches" \
+              -f ref="${DISPATCH_REF}" \
+              -f inputs[pr_number]="${PR_NUMBER}" \
+              -f inputs[trigger_source]="${TRIGGER_SOURCE}" 2>&1
+          )"; then
+            exit 0
+          fi
+
+          rc=$?
+          echo "$dispatch_output"
+          if [[ "$dispatch_output" == *"Failed to run workflow dispatch"* && "$dispatch_output" == *"\"status\":500"* ]]; then
+            echo "Transient GitHub 500 while dispatching workflow; retrying once..."
+            sleep 2
+            if dispatch_output="$(
+              gh api -X POST "repos/${REPO}/actions/workflows/trigger-n8n-workflow.yml/dispatches" \
+                -f ref="${DISPATCH_REF}" \
+                -f inputs[pr_number]="${PR_NUMBER}" \
+                -f inputs[trigger_source]="${TRIGGER_SOURCE}" 2>&1
+            )"; then
+              exit 0
+            fi
+            echo "$dispatch_output"
+          fi
+
+          exit $rc

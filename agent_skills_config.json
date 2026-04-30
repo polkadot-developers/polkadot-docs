@@ -1,7 +1,7 @@
 {
   "schema_version": "0.1",
-  "generated": "2026-04-29T10:00:30Z",
-  "content_hash": "sha256:926df29fe8e60b794e863e474027837198f4f6dd6158ba4ee39bb20287327b91",
+  "generated": "2026-04-30T12:22:38Z",
+  "content_hash": "sha256:d2b37aaa00803a7fe02c185eeec62fb6a93b0a12e9fde74dc18cd9eef2a8876d",
   "skills": [
     {
       "id": "create-polkadot-account",
@@ -4496,7 +4496,7 @@
           "action": "Fetch the Storage.sol contract",
           "working_directory": "ethers-deploy",
           "reference_file": "Storage.sol",
-          "description": "Fetch the reference file `Storage.sol` and save it to the project root. This is the deployment target — a simple Solidity contract with `store(uint256)` and `retrieve()` functions. No substitutions needed."
+          "description": "Fetch the reference file `Storage.sol` and save it as `contracts/Storage.sol`. This is the deployment target — a simple Solidity contract with a `storedNumber` public state variable and a `setNumber(uint256 _newNumber)` setter. No substitutions needed."
         },
         {
           "order": 6,
@@ -4545,7 +4545,7 @@
         "files": [
           {
             "path": "Storage.sol",
-            "description": "Simple Solidity Storage contract with `store(uint256)` and `retrieve()` functions"
+            "description": "Simple Solidity Storage contract: public `storedNumber` state variable + `setNumber(uint256 _newNumber)` setter."
           },
           {
             "path": "compile.js",
@@ -4557,7 +4557,7 @@
           },
           {
             "path": "checkStorage.js",
-            "description": "Reads + writes the deployed Storage contract via ethers.js Contract.connect; demonstrates retrieve() and store()"
+            "description": "Reads + writes the deployed Storage contract via ethers.js Contract.connect; calls the `storedNumber` getter and `setNumber(value)` setter."
           },
           {
             "path": "connectToProvider.js",
@@ -4679,10 +4679,10 @@
           "working_directory": ".",
           "commands": [
             "mkdir viem-deploy && cd viem-deploy",
-            "npm init -y",
-            "npm pkg set type=module"
+            "npm init -y && npm pkg set type=module",
+            "mkdir -p src contracts abis artifacts"
           ],
-          "description": "Create and initialize an ESM Node.js project in a new 'viem-deploy' directory. ESM is required for Viem v2."
+          "description": "Create and initialize an ESM Node.js project in a new `viem-deploy` directory. ESM is required for Viem v2. Pre-create the canonical layout directories (`src/`, `contracts/`, `abis/`, `artifacts/`) — the reference scripts assume this layout for relative paths."
         },
         {
           "order": 2,
@@ -4709,58 +4709,58 @@
           "action": "Fetch the chain configuration",
           "working_directory": "viem-deploy",
           "reference_file": "chainConfig.ts",
-          "description": "Fetch the reference file `chainConfig.ts` and save it to the project root. Verify or substitute:\n(1) Chain ID is `420420417`.\n(2) RPC URL is `https://services.polkadothub-rpc.com/testnet`.\n(3) If the file uses `INSERT_RPC_URL` or `INSERT_CHAIN_ID` placeholders, replace them."
+          "description": "Fetch the reference file `chainConfig.ts` and save it as `src/chainConfig.ts`. Verify or substitute:\n(1) Chain ID is `420420417`.\n(2) RPC URL is `https://services.polkadothub-rpc.com/testnet`.\n(3) Replace any `INSERT_RPC_URL`, `INSERT_CHAIN_ID`, `INSERT_CHAIN_NAME`, `INSERT_NETWORK_NAME`, `INSERT_CHAIN_DECIMALS`, `INSERT_CURRENCY_NAME`, `INSERT_CURRENCY_SYMBOL` placeholders.\n\n**Important:** the same set of placeholders also appears in `createClient.ts` (step 6) and `createWallet.ts` (step 7) — apply the same substitutions consistently in all three files."
         },
         {
           "order": 5,
           "action": "Fetch the Storage.sol contract",
           "working_directory": "viem-deploy",
           "reference_file": "Storage.sol",
-          "description": "Fetch the reference file `Storage.sol` and save it to the project root. This is the deployment target — a simple Solidity contract. No substitutions needed."
+          "description": "Fetch the reference file `Storage.sol` and save it as `contracts/Storage.sol`. The contract has a `storedNumber` public state variable and a `setNumber(uint256 _newNumber)` setter. No substitutions needed."
         },
         {
           "order": 6,
           "action": "Fetch the public client setup",
           "working_directory": "viem-deploy",
           "reference_file": "createClient.ts",
-          "description": "Fetch the reference file `createClient.ts` and save it to the project root. Constructs a viem `PublicClient` against the Polkadot Hub TestNet chain definition; used for reads and tx receipts."
+          "description": "Fetch the reference file `createClient.ts` and save it as `src/createClient.ts`. **Apply the same `INSERT_*` substitutions you applied to chainConfig.ts** (the file declares the chain locally and has the same 8 placeholders). Constructs a viem `PublicClient` against the Polkadot Hub TestNet chain definition; used for reads and tx receipts."
         },
         {
           "order": 7,
           "action": "Fetch the wallet client setup",
           "working_directory": "viem-deploy",
           "reference_file": "createWallet.ts",
-          "description": "Fetch the reference file `createWallet.ts` and save it to the project root. Add `import \"dotenv/config\";` as the first line; the client reads `PRIVATE_KEY` from env."
+          "description": "Fetch the reference file `createWallet.ts` and save it as `src/createWallet.ts`. **Apply the same `INSERT_*` substitutions you applied to chainConfig.ts** (this file also declares the chain locally and has 9 placeholders — including a duplicate RPC URL for the `public.http` rpcUrls entry). Add `import \"dotenv/config\";` as the first line; the client reads `PRIVATE_KEY` from env."
         },
         {
           "order": 8,
           "action": "Fetch the compilation script",
           "working_directory": "viem-deploy",
           "reference_file": "compile.ts",
-          "description": "Fetch the reference file `compile.ts` and save it to the project root. The script invokes `solc` against `Storage.sol` and writes ABI + bytecode artifacts."
+          "description": "Fetch the reference file `compile.ts` and save it as `src/compile.ts`. The script invokes `solc` against `contracts/Storage.sol` and writes ABI + bytecode artifacts to `abis/` and `artifacts/`."
         },
         {
           "order": 9,
           "action": "Compile the Solidity contract",
           "working_directory": "viem-deploy",
           "commands": [
-            "npx tsx compile.ts"
+            "npx tsx src/compile.ts"
           ],
-          "description": "Run the compile script. Verify that ABI and bytecode artifacts exist in the `artifacts/` directory before deploying."
+          "description": "Run the compile script. Verify that `abis/Storage.json` and `artifacts/Storage.bin` (or equivalent) exist before deploying."
         },
         {
           "order": 10,
           "action": "Fetch the deployment script",
           "working_directory": "viem-deploy",
           "reference_file": "deploy.ts",
-          "description": "Fetch the reference file `deploy.ts` and save it to the project root. Apply these substitutions:\n(1) Add `import \"dotenv/config\";` as the first line.\n(2) Replace `INSERT_PRIVATE_KEY` with `` process.env.PRIVATE_KEY as `0x${string}` ``.\n(3) Replace `INSERT_RPC_URL` with `https://services.polkadothub-rpc.com/testnet`.\n(4) Replace `INSERT_CHAIN_ID` with `420420417n` (BigInt)."
+          "description": "Fetch the reference file `deploy.ts` and save it as `src/deploy.ts`. Apply these substitutions:\n(1) Add `import \"dotenv/config\";` as the first line.\n(2) Replace `INSERT_PRIVATE_KEY` with `` process.env.PRIVATE_KEY as `0x${string}` ``.\n(3) Replace `INSERT_RPC_URL` with `https://services.polkadothub-rpc.com/testnet`.\n(4) Replace `INSERT_CHAIN_ID` with `420420417n` (BigInt).\n\nThe script reads from `../abis` and `../artifacts` relative to the script location, which resolves correctly when the script is in `src/`."
         },
         {
           "order": 11,
           "action": "Deploy the contract to Polkadot Hub TestNet",
           "working_directory": "viem-deploy",
           "commands": [
-            "npx tsx deploy.ts"
+            "npx tsx src/deploy.ts"
           ],
           "description": "Run the deployment script. Save the deployed contract address from the output.\n\nIf the transaction fails with `insufficient funds`: visit https://faucet.polkadot.io/ and fund the deployer account.\nIf the transaction fails with `fee cap too low` or similar gas errors: add a `gasPrice` override in `deploy.ts` (e.g. `gasPrice: parseGwei('5000')`)."
         },
@@ -4769,7 +4769,7 @@
           "action": "Fetch the interaction script and interact with the deployed contract",
           "working_directory": "viem-deploy",
           "reference_file": "interact.ts",
-          "description": "Fetch the reference file `interact.ts` and save it to the project root. Replace `INSERT_CONTRACT_ADDRESS` with the deployed address from the previous step. Run it with `npx tsx interact.ts`. Verify the value returned by `retrieve()` changes after `store()` is called."
+          "description": "Fetch the reference file `interact.ts` and save it as `src/interact.ts`. Replace `INSERT_CONTRACT_ADDRESS` with the deployed address from the previous step and `INSERT_PRIVATE_KEY` with `` process.env.PRIVATE_KEY as `0x${string}` ``. Run it with `npx tsx src/interact.ts`. Verify the value returned by reading `storedNumber` changes after calling `setNumber(value)`."
         }
       ],
       "reference_code": {
@@ -4779,7 +4779,7 @@
         "files": [
           {
             "path": "Storage.sol",
-            "description": "Simple Solidity Storage contract with `store(uint256)` and `retrieve()` functions"
+            "description": "Simple Solidity Storage contract: public `storedNumber` state variable + `setNumber(uint256 _newNumber)` setter."
           },
           {
             "path": "chainConfig.ts",
@@ -7002,7 +7002,7 @@
           "commands": [
             "mkdir -p contracts scripts abis artifacts"
           ],
-          "description": "Create the expected directory structure (contracts/, scripts/, abis/, artifacts/), then fetch the reference file `Storage.sol` and save it as `contracts/Storage.sol`. The contract is a simple Solidity Storage contract with `store(uint256)` and `retrieve()` functions:\n\n```solidity\n// SPDX-License-Identifier: GPL-3.0\npragma solidity ^0.8.9;\n\ncontract Storage {\n    uint256 number;\n    function store(uint256 num) public { number = num; }\n    function retrieve() public view returns (uint256) { return number; }\n}\n```",
+          "description": "Create the expected directory structure (contracts/, scripts/, abis/, artifacts/), then fetch the reference file `Storage.sol` and save it as `contracts/Storage.sol`. The contract has a `storedNumber` public state variable and a `setNumber(uint256 _newNumber)` setter:\n\n```solidity\n// SPDX-License-Identifier: GPL-3.0\npragma solidity ^0.8.9;\n\ncontract Storage {\n    uint256 public storedNumber;\n    function setNumber(uint256 _newNumber) public { storedNumber = _newNumber; }\n}\n```",
           "reference_file": "Storage.sol"
         },
         {
@@ -7044,7 +7044,7 @@
         "files": [
           {
             "path": "Storage.sol",
-            "description": "Simple Storage contract with uint256 store/retrieve functions"
+            "description": "Simple Solidity Storage contract: public `storedNumber` state variable + `setNumber(uint256 _newNumber)` setter."
           },
           {
             "path": "connectToProvider.js",
@@ -7060,7 +7060,7 @@
           },
           {
             "path": "updateStorage.js",
-            "description": "Calls store(value) on the deployed Storage contract via Web3.js"
+            "description": "Calls `setNumber(value)` on the deployed Storage contract via Web3.js, then reads `storedNumber` to confirm."
           }
         ],
         "branch": "master"

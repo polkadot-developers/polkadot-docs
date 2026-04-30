@@ -1934,7 +1934,7 @@ jobs:
       WORKFLOW_NAME: ${{ github.workflow }}
       RUN_ID: ${{ github.run_id }}
       RUN_ATTEMPT: ${{ github.run_attempt }}
-      ERROR_WEBHOOK_URL: ${{ secrets.ERROR_WEBHOOK_URL }}
+      ERROR_WEBHOOK_URL: ${{ secrets.N8N_ERROR_WEBHOOK_URL }}
       ACTOR: ${{ github.actor }}
       SEND_EXECUTED: ${{ needs.gather-and-send.outputs.send_executed }}
       SEND_ERROR: ${{ needs.gather-and-send.outputs.send_error }}

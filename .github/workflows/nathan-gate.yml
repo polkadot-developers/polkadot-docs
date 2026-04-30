@@ -1,8 +1,10 @@
 name: Nathan Gate
 
 on:
-  pull_request:
-    types: [synchronize]
+  # Commit-push trigger disabled — only the +Nathan comment triggers a run.
+  # To re-enable commit triggering, uncomment the two lines below.
+  # pull_request:
+  #   types: [synchronize]
   issue_comment:
     types: [created]
 
@@ -17,10 +19,14 @@ jobs:
     # For issue_comment events: only proceed if the comment is on an open PR (not a plain issue).
     # issue_comment always runs in the base-repo context regardless of fork status, so
     # the maintainer permission check is the primary security gate for that event type.
-    if: ${{ (github.event_name == 'pull_request' && github.event.pull_request != null && github.event.pull_request.head.repo.fork == false) || (github.event_name == 'issue_comment' && github.event.issue.pull_request != null && github.event.issue.state == 'open') }}
+    #
+    # Original (handles both event types — restore if commit trigger is re-enabled):
+    # if: ${{ (github.event_name == 'pull_request' && github.event.pull_request != null && github.event.pull_request.head.repo.fork == false) || (github.event_name == 'issue_comment' && github.event.issue.pull_request != null && github.event.issue.state == 'open') }}
+    if: ${{ github.event_name == 'issue_comment' && github.event.issue.pull_request != null && github.event.issue.state == 'open' }}
     runs-on: ubuntu-latest
     # One active run per PR at a time. If a run is in progress and a new trigger arrives,
     # the new one queues rather than stacking — at most 1 running + 1 pending per PR.
+    # The `||` fallback is kept so the group key still resolves correctly if the commit trigger is re-enabled.
     concurrency:
       group: nathan-pr-${{ github.event.issue.number || github.event.pull_request.number }}
       cancel-in-progress: false
@@ -88,31 +94,37 @@ jobs:
             echo "✅ No recent Nathan trigger found; proceeding."
           fi
 
-      - name: Check latest commit message (+Nathan) — commit push trigger
-        id: gate_commit
-        if: ${{ steps.perm.outputs.allowed == 'true' && steps.cooldown.outputs.blocked != 'true' && github.event_name == 'pull_request' }}
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          REPO: ${{ github.repository }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          commits_json="$(gh api --paginate "repos/${REPO}/pulls/${PR_NUMBER}/commits" | jq -s 'add')"
-          sha="$(printf '%s' "$commits_json" | jq -r '.[-1].sha // ""')"
-          msg="$(printf '%s' "$commits_json" | jq -r '.[-1].commit.message // ""')"
-
-          shopt -s nocasematch
-          if [[ "$msg" == *"+nathan"* ]]; then
-            echo "triggered=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "triggered=false" >> "$GITHUB_OUTPUT"
-          fi
-          shopt -u nocasematch
-
-          first_line="$(printf '%s\n' "$msg" | head -n1 | tr -d '\r')"
-          echo "Latest PR commit: ${sha:-unknown} — ${first_line:-<no message>}"
+      # ────────────────────────────────────────────────────────────────────────────
+      # Commit-push trigger step — DISABLED.
+      # To re-enable: uncomment this step, uncomment the `pull_request` trigger above,
+      # and add `steps.gate_commit.outputs.triggered == 'true' ||` back into the
+      # Dispatch step's `if:` (see commented-out original line on the dispatch step).
+      # ────────────────────────────────────────────────────────────────────────────
+      # - name: Check latest commit message (+Nathan) — commit push trigger
+      #   id: gate_commit
+      #   if: ${{ steps.perm.outputs.allowed == 'true' && steps.cooldown.outputs.blocked != 'true' && github.event_name == 'pull_request' }}
+      #   env:
+      #     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     REPO: ${{ github.repository }}
+      #     PR_NUMBER: ${{ github.event.pull_request.number }}
+      #   shell: bash
+      #   run: |
+      #     set -euo pipefail
+      #
+      #     commits_json="$(gh api --paginate "repos/${REPO}/pulls/${PR_NUMBER}/commits" | jq -s 'add')"
+      #     sha="$(printf '%s' "$commits_json" | jq -r '.[-1].sha // ""')"
+      #     msg="$(printf '%s' "$commits_json" | jq -r '.[-1].commit.message // ""')"
+      #
+      #     shopt -s nocasematch
+      #     if [[ "$msg" == *"+nathan"* ]]; then
+      #       echo "triggered=true" >> "$GITHUB_OUTPUT"
+      #     else
+      #       echo "triggered=false" >> "$GITHUB_OUTPUT"
+      #     fi
+      #     shopt -u nocasematch
+      #
+      #     first_line="$(printf '%s\n' "$msg" | head -n1 | tr -d '\r')"
+      #     echo "Latest PR commit: ${sha:-unknown} — ${first_line:-<no message>}"
 
       - name: Check PR comment body (+Nathan) — comment trigger
         id: gate_comment
@@ -146,7 +158,9 @@ jobs:
           shopt -u nocasematch
 
       - name: Dispatch Nathan workflow
-        if: ${{ steps.perm.outputs.allowed == 'true' && steps.cooldown.outputs.blocked != 'true' && (steps.gate_commit.outputs.triggered == 'true' || steps.gate_comment.outputs.triggered == 'true') }}
+        # Original (re-add `steps.gate_commit.outputs.triggered == 'true' ||` if commit trigger is re-enabled):
+        # if: ${{ steps.perm.outputs.allowed == 'true' && steps.cooldown.outputs.blocked != 'true' && (steps.gate_commit.outputs.triggered == 'true' || steps.gate_comment.outputs.triggered == 'true') }}
+        if: ${{ steps.perm.outputs.allowed == 'true' && steps.cooldown.outputs.blocked != 'true' && steps.gate_comment.outputs.triggered == 'true' }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}

@@ -1,7 +1,7 @@
 {
   "schema_version": "0.1",
-  "generated": "2026-04-30T12:22:38Z",
-  "content_hash": "sha256:d2b37aaa00803a7fe02c185eeec62fb6a93b0a12e9fde74dc18cd9eef2a8876d",
+  "generated": "2026-04-30T12:26:39Z",
+  "content_hash": "sha256:c9f95933674909683ad75ecdfd2cced12cd835b3a5b7d34b40cf6f8123b530f5",
   "skills": [
     {
       "id": "create-polkadot-account",
@@ -10136,9 +10136,11 @@
           "action": "Scaffold the Next.js project non-interactively",
           "working_directory": ".",
           "commands": [
-            "echo 'n\\nn\\nn\\nn\\nn\\nn' | npx create-next-app@15 wagmi-dapp"
+            "npx create-next-app@15 wagmi-dapp --ts --no-eslint --no-tailwind --no-src-dir --app --use-npm --skip-install",
+            "cd wagmi-dapp",
+            "npm install"
           ],
-          "description": "Run the create-next-app command with auto-answered 'no' prompts to avoid interactive input. This creates a new directory named 'wagmi-dapp' with Next.js 15 scaffolding. Once complete, change into the directory: cd wagmi-dapp."
+          "description": "Scaffold a Next.js 15 project using CLI flags (NOT piped input — `create-next-app@15+` ignores piped stdin and will hang waiting for keyboard input). The flags answer every interactive prompt: `--ts` (TypeScript), `--no-eslint`, `--no-tailwind`, `--no-src-dir` (files at project root, NOT in src/), `--app` (App Router), `--use-npm` (force npm — skip the package-manager prompt), `--skip-install` (defer install until after we cd in). Then `cd wagmi-dapp` and run `npm install`. The remaining steps assume the no-src-dir layout (so `app/`, `components/`, `wagmi.ts` all live at the project root)."
         },
         {
           "order": 2,

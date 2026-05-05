@@ -138,9 +138,7 @@
     "node-infrastructure/run-a-collator.md": {
       "last_edited": "2026-04-21T13:05:20+00:00",
       "last_scanned": "2026-04-21T19:00:00Z",
-      "skills": [
-        "run-collator-system-parachain"
-      ],
+      "skills": [],
       "status": "up_to_date"
     },
     "node-infrastructure/run-a-node/parachain-rpc.md": {
@@ -162,25 +160,19 @@
     "node-infrastructure/run-a-node/relay-chain/bootnode.md": {
       "last_edited": "2026-04-21T13:05:20+00:00",
       "last_scanned": "2026-04-21T19:30:00Z",
-      "skills": [
-        "set-up-relay-chain-bootnode"
-      ],
+      "skills": [],
       "status": "up_to_date"
     },
     "node-infrastructure/run-a-node/relay-chain/full-node.md": {
       "last_edited": "2026-04-21T13:05:20+00:00",
       "last_scanned": "2026-04-21T22:00:00Z",
-      "skills": [
-        "set-up-relay-chain-full-node"
-      ],
+      "skills": [],
       "status": "up_to_date"
     },
     "node-infrastructure/run-a-node/relay-chain/secure-wss.md": {
       "last_edited": "2026-04-21T13:05:20+00:00",
       "last_scanned": "2026-04-21T22:30:00Z",
-      "skills": [
-        "set-up-secure-wss-relay-node"
-      ],
+      "skills": [],
       "status": "up_to_date"
     },
     "node-infrastructure/run-a-validator/onboarding-and-offboarding/key-management.md": {
@@ -205,8 +197,7 @@
       "last_edited": "2026-04-21T13:05:20+00:00",
       "last_scanned": "2026-04-21T23:59:00Z",
       "skills": [
-        "onboard-polkadot-validator",
-        "start-validating-on-polkadot"
+        "onboard-polkadot-validator"
       ],
       "status": "up_to_date"
     },
@@ -219,9 +210,7 @@
     "node-infrastructure/run-a-validator/operational-tasks/general-management.md": {
       "last_edited": "2026-04-21T13:05:20+00:00",
       "last_scanned": "2026-04-21T20:30:00Z",
-      "skills": [
-        "set-up-validator-monitoring-stack"
-      ],
+      "skills": [],
       "status": "up_to_date"
     },
     "node-infrastructure/run-a-validator/operational-tasks/pause-validating.md": {
@@ -239,9 +228,7 @@
     "node-infrastructure/run-a-validator/operational-tasks/upgrade-your-node.md": {
       "last_edited": "2026-04-21T13:05:20+00:00",
       "last_scanned": "2026-04-21T23:30:00Z",
-      "skills": [
-        "upgrade-validator-node-backup"
-      ],
+      "skills": [],
       "status": "up_to_date"
     },
     "node-infrastructure/run-a-validator/requirements.md": {
@@ -361,9 +348,7 @@
     "parachains/interoperability/channels-with-system-parachains.md": {
       "last_edited": "2026-04-21T13:05:20+00:00",
       "last_scanned": "2026-04-21T22:30:00Z",
-      "skills": [
-        "open-hrmp-channel-with-system-parachain"
-      ],
+      "skills": [],
       "status": "up_to_date"
     },
     "parachains/interoperability/get-started.md": {
@@ -399,9 +384,7 @@
     "parachains/runtime-maintenance/coretime-renewal.md": {
       "last_edited": "2026-04-21T13:05:20+00:00",
       "last_scanned": "2026-04-21T23:59:00Z",
-      "skills": [
-        "renew-parachain-coretime"
-      ],
+      "skills": [],
       "status": "up_to_date"
     },
     "parachains/runtime-maintenance/runtime-upgrades.md": {
@@ -421,25 +404,19 @@
     "parachains/runtime-maintenance/unlock-parachains.md": {
       "last_edited": "2026-04-21T13:05:20+00:00",
       "last_scanned": "2026-04-21T23:59:00Z",
-      "skills": [
-        "unlock-parachain-via-xcm"
-      ],
+      "skills": [],
       "status": "up_to_date"
     },
     "parachains/testing/fork-a-parachain.md": {
       "last_edited": "2026-04-21T13:05:20+00:00",
       "last_scanned": "2026-04-21T19:30:00Z",
-      "skills": [
-        "fork-parachain-chopsticks"
-      ],
+      "skills": [],
       "status": "up_to_date"
     },
     "parachains/testing/run-a-parachain-network.md": {
       "last_edited": "2026-04-21T13:05:20+00:00",
       "last_scanned": "2026-04-21T22:30:00Z",
-      "skills": [
-        "spawn-local-parachain-network-zombienet"
-      ],
+      "skills": [],
       "status": "up_to_date"
     },
     "policies/ai-chatbot-policy.md": {
@@ -665,9 +642,7 @@
     "reference/tools/polkadart.md": {
       "last_edited": "2026-04-21T13:05:20+00:00",
       "last_scanned": "2026-04-21T21:00:00Z",
-      "skills": [
-        "interact-with-chain-polkadart"
-      ],
+      "skills": [],
       "status": "up_to_date"
     },
     "reference/tools/polkadot-js-api.md": {
@@ -741,9 +716,7 @@
     "smart-contracts/cookbook/eth-dapps/uniswap-v2.md": {
       "last_edited": "2026-04-21T13:05:20+00:00",
       "last_scanned": "2026-04-21T20:00:00Z",
-      "skills": [
-        "deploy-uniswap-v2-polkadot-hub"
-      ],
+      "skills": [],
       "status": "up_to_date"
     },
     "smart-contracts/cookbook/smart-contracts/deploy-basic/basic-hardhat.md": {
@@ -843,9 +816,7 @@
     "smart-contracts/faucet.md": {
       "last_edited": "2026-04-21T13:05:20+00:00",
       "last_scanned": "2026-04-21T23:59:00Z",
-      "skills": [
-        "get-testnet-tokens-faucet"
-      ],
+      "skills": [],
       "status": "up_to_date"
     },
     "smart-contracts/for-eth-devs/accounts.md": {

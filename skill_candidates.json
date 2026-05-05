@@ -566,8 +566,7 @@
       ],
       "category": "tutorial",
       "priority": "high",
-      "status": "built",
-      "built_at": "2026-04-21T19:00:00Z",
+      "status": "blocked",
       "notes": "Covers full collator setup: install binary (Docker or systemd), generate node key, obtain chain spec, run collator, generate session keys, and register on-chain. Registration requires governance approval for system parachains (S2 absent for that step). Core node setup is deterministic. Matches node/validator setup skill shape.",
       "scoring": {
         "signals": [
@@ -588,7 +587,8 @@
           "not_applicable": 0
         },
         "priority_score": 19
-      }
+      },
+      "blocked_reason": "Impractical prereq: system parachains are operated by Parity/W3F, not external developers."
     },
     {
       "skill_id": "run-parachain-rpc-node",
@@ -665,7 +665,7 @@
       ],
       "category": "guide",
       "priority": "high",
-      "status": "built",
+      "status": "blocked",
       "notes": "Guide for running a Polkadot relay chain bootnode with P2P, WS, and WSS endpoints. P1 absent (no numbered-step lists; content is command blocks under section headings). Procedural score 14 → guide category. Includes nginx proxy config file. Prerequisites require an external polkadot binary and nginx install, but core steps are self-contained.",
       "scoring": {
         "signals": [
@@ -688,7 +688,7 @@
         },
         "priority_score": 22
       },
-      "built_at": "2026-04-21T19:30:00Z"
+      "blocked_reason": "Impractical prereq: only relevant when bootstrapping a new network."
     },
     {
       "skill_id": "set-up-relay-chain-full-node",
@@ -698,7 +698,7 @@
       ],
       "category": "guide",
       "priority": "medium",
-      "status": "built",
+      "status": "blocked",
       "notes": "Guide covering binary installation (pre-built, compiled, snap, Docker) and startup commands for pruned, custom-pruned, and archive nodes. P1 absent (section headings, not numbered lists); no source files to create (P3 absent). Procedural score 9 → Rule 6 guide. K1=0 — prerequisites reference parachains/install-polkadot-sdk for system dependencies not covered on this page. Companion pages: secure-wss.md (WSS layer), polkadot-hub-rpc.md (hub-specific config).",
       "scoring": {
         "signals": [
@@ -719,7 +719,7 @@
         },
         "priority_score": 17
       },
-      "built_at": "2026-04-21T22:00:00Z"
+      "blocked_reason": "Impractical prereq: hundreds of GB to sync; most developers use public RPC endpoints."
     },
     {
       "skill_id": "set-up-secure-wss-relay-node",
@@ -729,7 +729,7 @@
       ],
       "category": "tutorial",
       "priority": "medium",
-      "status": "built",
+      "status": "blocked",
       "notes": "Tutorial for enabling WSS on a running Polkadot node via nginx or Apache2 reverse proxy with SSL (Let's Encrypt or self-signed). P1+P2+P3+P4 all present — numbered steps, apt commands, nginx/apache2 config files, and connection verification. K1=0 (requires an existing running node; companion to set-up-relay-chain-full-node). K3=0 (no explicit prerequisites section). No cookbook badge.",
       "scoring": {
         "signals": [
@@ -750,7 +750,7 @@
         },
         "priority_score": 14
       },
-      "built_at": "2026-04-21T22:30:00Z"
+      "blocked_reason": "Impractical prereq: mostly TLS/nginx config; minimal Polkadot value."
     },
     {
       "skill_id": "manage-validator-session-keys",
@@ -820,9 +820,8 @@
       ],
       "category": "tutorial",
       "priority": "low",
-      "status": "built",
+      "status": "blocked",
       "notes": "Covers syncing a validator node (full or warp sync), bonding DOT via Polkadot.js Apps staking UI, activating the validator, and running as a systemd service. P1+P2+P3+P4 all present; systemd unit file is a source file to create. K1=0 — intro states key-management must be completed first. GUI-heavy bonding and activation steps (S1=0). Bonding requires real DOT on mainnet (S2=0). C2 fired (multiple screenshots). Part of composite skill onboard-polkadot-validator.",
-      "built_at": "2026-04-21T23:59:00Z",
       "scoring": {
         "signals": [
           "P1",
@@ -840,7 +839,8 @@
           "not_applicable": 0
         },
         "priority_score": 7
-      }
+      },
+      "blocked_reason": "Redundant with `onboard-polkadot-validator` (same flow; onboard is the more comprehensive name)."
     },
     {
       "skill_id": "onboard-polkadot-validator",
@@ -884,7 +884,7 @@
       ],
       "category": "tutorial",
       "priority": "high",
-      "status": "built",
+      "status": "blocked",
       "notes": "Broad operational guide covering CPU performance tuning (SMT/NUMA deactivation, Spectre mitigations), full Prometheus+Grafana+Alertmanager monitoring stack setup with systemd service files, and security best practices (key management, secure-validator mode, Linux hardening). P1+P2+P3+P4 all present. K1=5 for the monitoring subsections, which can be set up independently on any Linux server running a Polkadot node. K3 absent (no explicit prerequisites section). Code blocks use MkDocs snippet includes for config files (K2=4). Grafana UI steps required for dashboard configuration (C2 fired).",
       "scoring": {
         "signals": [
@@ -909,7 +909,7 @@
         },
         "priority_score": 19
       },
-      "built_at": "2026-04-21T20:30:00Z"
+      "blocked_reason": "Impractical prereq: generic Prometheus/Grafana setup, not Polkadot-specific."
     },
     {
       "skill_id": "upgrade-validator-node-backup",
@@ -919,7 +919,7 @@
       ],
       "category": "guide",
       "priority": "low",
-      "status": "built",
+      "status": "blocked",
       "notes": "Guide for safely rotating between Validator A and Validator B across session N and N+3 to allow maintenance without downtime or slashing. Numbered steps present (P1); outcome verification via session change logs (P4). No CLI commands on the page itself — delegates to key-management and set-up-validator guides for execution steps (K1=0). K3 present (prerequisites section). No source files. S1 absent (no runnable commands); S2 present (deterministic timing once session key propagation delay is understood). category_ambiguous: procedural=10 vs conceptual=7 (C1: session timing explanation, C3: no runnable code).",
       "scoring": {
         "signals": [
@@ -945,7 +945,7 @@
         ],
         "priority_score": 9
       },
-      "built_at": "2026-04-21T23:30:00Z"
+      "blocked_reason": "Impractical prereq: requires two pre-configured validator servers (primary + standby)."
     },
     {
       "skill_id": "add-existing-pallet-to-runtime",
@@ -1192,7 +1192,7 @@
       ],
       "category": "guide",
       "priority": "medium",
-      "status": "built",
+      "status": "blocked",
       "notes": "Simplified single-message procedure for bidirectional HRMP channel setup between a user parachain and a system parachain (e.g., Asset Hub): fund sovereign account, encode establish_channel_with_system extrinsic, submit XCM to relay chain via Polkadot.js Apps, verify at next session. More efficient than the two-step regular parachain flow. Entirely GUI-driven; no CLI commands. Cookbook CI badge present (K4). Same scoring pattern as channels-between-parachains: procedural=10 vs reference=8; Rule 3 fires first (guide). GUI-only (S1=0) and placeholder call data (K2=0) limit priority to medium.",
       "scoring": {
         "signals": [
@@ -1220,7 +1220,7 @@
         ],
         "priority_score": 17
       },
-      "built_at": "2026-04-21T22:30:00Z"
+      "blocked_reason": "Redundant with `open-hrmp-channel-between-parachains` (system parachain is a special case of the general flow)."
     },
     {
       "skill_id": "deploy-parachain-to-polkadot-testnet",
@@ -1298,7 +1298,7 @@
       ],
       "category": "guide",
       "priority": "low",
-      "status": "built",
+      "status": "blocked",
       "notes": "Guide covering manual coretime renewal (broker.renew extrinsic) and auto-renewal configuration (enable_auto_renew via XCM from the parachain). Entirely GUI-driven via Polkadot.js Apps (S1 absent). No CLI commands or code blocks (K2 absent). K1=0 — requires an existing parachain with active coretime and an HRMP channel to the Coretime chain (for auto-renewal). No explicit prerequisites section; no cookbook badge. Ambiguous between guide and reference: procedural=10 vs reference=8 (extrinsic parameter tables for enable_auto_renew/disable_auto_renew); Rule 3 fires first. C1+C3 fire for bulk sale phase explanations and query result descriptions.",
       "scoring": {
         "signals": [
@@ -1324,7 +1324,7 @@
         ],
         "priority_score": 6
       },
-      "built_at": "2026-04-21T23:59:00Z"
+      "blocked_reason": "Redundant with `obtain-coretime-parachain` (renewing is a subset of obtaining)."
     },
     {
       "skill_id": "perform-runtime-upgrade",
@@ -1367,7 +1367,7 @@
       ],
       "category": "guide",
       "priority": "low",
-      "status": "built",
+      "status": "blocked",
       "notes": "Guide for unlocking a locked parachain by sending a registrar.removeLock XCM from the parachain to the relay chain using sudo. Covers checking lock status (Chain State query), encoding the removeLock extrinsic, funding the sovereign account, and crafting the XCM via Polkadot.js Apps UI. P1+P4=10 → Rule 3 guide. Entirely GUI-driven (S1=0). No code blocks (K2 absent). K1=0 — requires an existing running parachain. No prerequisites section; no cookbook badge. Ambiguous between guide and reference: procedural=10 vs reference=8 (extrinsic descriptions for registrar.removeLock and registrar.paras, sovereign account derivation table); Rule 3 fires first.",
       "scoring": {
         "signals": [
@@ -1393,7 +1393,7 @@
         ],
         "priority_score": 6
       },
-      "built_at": "2026-04-21T23:59:00Z"
+      "blocked_reason": "Too niche: rare one-off admin operation, unlikely most teams need it."
     },
     {
       "skill_id": "fork-parachain-chopsticks",
@@ -1403,7 +1403,7 @@
       ],
       "category": "tutorial",
       "priority": "high",
-      "status": "built",
+      "status": "blocked",
       "notes": "Tutorial covering Chopsticks installation (global and local npm) plus reference documentation for WebSocket manipulation methods (dev_newBlock, dev_setStorage, dev_timeTravel, etc.) and configuration parameters. P1+P2+P4=15 — tutorial threshold met via Rule 2. Reference score also maxes at 12 (R1 method signatures, R2 config flag list, R3 parameter descriptions) → category_ambiguous with 3-point gap. Skill should focus on the installation and basic fork workflow; WebSocket API reference section is supplementary context. K1=5 (Node.js/npm are standard dev prerequisites). K2=0 (YAML config and JS examples use --8<-- snippet includes). Cookbook CI badge present (K4).",
       "scoring": {
         "signals": [
@@ -1434,7 +1434,7 @@
         ],
         "priority_score": 21
       },
-      "built_at": "2026-04-21T19:30:00Z"
+      "blocked_reason": "Redundant with `set-up-chopsticks-fork` (parachain-specific is just the generic case)."
     },
     {
       "skill_id": "spawn-local-parachain-network-zombienet",
@@ -1444,7 +1444,7 @@
       ],
       "category": "tutorial",
       "priority": "medium",
-      "status": "built",
+      "status": "blocked",
       "notes": "End-to-end tutorial for spawning a local two-validator relay chain + collator test network using Zombienet's native provider: clone and build the parachain template (cargo build), download relay chain binaries (curl), generate a Paseo local chain spec (chain-spec-builder), write network.toml, spawn with zombienet, and verify via curl RPC. P1+P2+P3+P4 all present — score 20, no ambiguity. K1=0 — Zombienet installation itself is delegated to reference/tools/zombienet.md. K2=0 — INSERT_PASEO_RUNTIME_VERSION placeholder present in the Paseo runtime download curl command. K3=3 (Prerequisites section lists Rust/Cargo, wasm32 target, Zombienet, Git). Cookbook CI badge present (K4=3). Fully CLI-based (S1=4). Priority score 16 → medium.",
       "scoring": {
         "signals": [
@@ -1466,7 +1466,7 @@
         },
         "priority_score": 16
       },
-      "built_at": "2026-04-21T22:30:00Z"
+      "blocked_reason": "Redundant with `spawn-test-network-zombienet` (broader applicability)."
     },
     {
       "skill_id": "retrieve-runtime-metadata",
@@ -1649,7 +1649,7 @@
       ],
       "category": "guide",
       "priority": "high",
-      "status": "built",
+      "status": "blocked",
       "notes": "Covers the full Dart/Flutter SDK workflow: install packages, configure pubspec.yaml, generate types, create an API instance, read chain data, subscribe to new blocks, and send a signed transaction. Self-contained with complete code snippets. Ambiguous guide/reference (procedural=10, reference=9, diff=1) — Rule 3 wins because the page walks through a progressive workflow rather than cataloging an API surface.",
       "scoring": {
         "signals": [
@@ -1677,7 +1677,7 @@
         ],
         "priority_score": 19
       },
-      "built_at": "2026-04-21T21:00:00Z"
+      "blocked_reason": "Too niche: Dart/Flutter Polkadot developers are a very small audience."
     },
     {
       "skill_id": "use-polkadot-js-api",
@@ -1925,7 +1925,7 @@
       ],
       "category": "tutorial",
       "priority": "high",
-      "status": "built",
+      "status": "blocked",
       "notes": "Tutorial for cloning, compiling, testing, and deploying Uniswap V2 (Factory + Pair contracts) to Polkadot Hub TestNet using Hardhat. Reference repo polkavm-hardhat-examples is listed in context.md (K4 = 3). K2 = 0 due to INSERT_LOCAL_PRIVATE_KEY and INSERT_AH_PRIVATE_KEY placeholders in .env. Local testing step references the Local Development Node guide, but the core deployment workflow to TestNet is fully self-contained (K1 = 5). Includes an architectural explanation of Factory/Pair contracts (C1) that serves as useful background context but does not detract from the tutorial classification.",
       "scoring": {
         "signals": [
@@ -1949,7 +1949,7 @@
         },
         "priority_score": 21
       },
-      "built_at": "2026-04-21T20:00:00Z"
+      "blocked_reason": "Should be split into 4 sub-skills (env setup, deploy contracts, interact with router/pairs, add liquidity/swap). Sub-skills will be triaged separately."
     },
     {
       "skill_id": "deploy-basic-contract-hardhat",
@@ -2285,7 +2285,7 @@
       ],
       "category": "guide",
       "priority": "low",
-      "status": "built",
+      "status": "blocked",
       "notes": "Three-step UI-only workflow (navigate, paste address, click button). Self-contained (K1=5) and deterministic (S2=3) but S1 does not fire because there are no CLI or SDK steps. Useful as a prerequisite step in deployment tutorials; limited standalone programmatic skill value.",
       "scoring": {
         "signals": [
@@ -2304,7 +2304,7 @@
         },
         "priority_score": 8
       },
-      "built_at": "2026-04-21T23:59:00Z"
+      "blocked_reason": "Redundant with `connect-polkadot-hub-testnet` which already covers getting testnet tokens."
     },
     {
       "skill_id": "set-up-local-dev-node",

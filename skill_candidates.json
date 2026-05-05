@@ -433,7 +433,7 @@
       "built_at": "2026-04-21T22:00:00Z"
     },
     {
-      "skill_id": "register-foreign-asset-polkadot-hub",
+      "skill_id": "register-foreign-asset-via-xcm-polkadot-hub",
       "title": "Register a Foreign Asset on Polkadot Hub",
       "source_pages": [
         "chain-interactions/token-operations/register-foreign-asset.md"

@@ -1,7 +1,7 @@
 {
   "schema_version": "0.1",
-  "generated": "2026-05-05T11:01:01Z",
-  "content_hash": "sha256:69b72b3401b7a7452663761a8897a36dfa0da1fb4f9e66fc4fd82614e341e76c",
+  "generated": "2026-05-05T11:01:45Z",
+  "content_hash": "sha256:51b74606e149f0b051993db07bc8186a45d7a5c077c49a7851508b60d1934e7b",
   "skills": [
     {
       "id": "create-polkadot-account",
@@ -6505,7 +6505,7 @@
       ]
     },
     {
-      "id": "register-foreign-asset-polkadot-hub",
+      "id": "register-foreign-asset-via-xcm-polkadot-hub",
       "title": "Register a Foreign Asset on Polkadot Hub",
       "description": "Registers a cross-chain asset from another parachain on Polkadot Hub Asset Hub using the foreignAssets pallet. Covers generating the encoded forceCreate call data on Asset Hub, funding the source parachain sovereign account on Asset Hub, and dispatching the registration XCM from the source parachain. Use when a parachain team needs their token available on Polkadot Hub for swapping or bridging. Trigger phrases: 'register foreign asset Polkadot Hub', 'foreignAssets forceCreate', 'XCM asset registration', 'list token Asset Hub', 'register cross-chain asset'. Requires sudo or governance rights on the source parachain. All steps use Polkadot.js Apps — no CLI required.",
       "version": "1.0.0",

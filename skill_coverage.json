@@ -108,25 +108,19 @@
     "chain-interactions/token-operations/convert-assets.md": {
       "last_edited": "2026-04-21T13:05:20+00:00",
       "last_scanned": "2026-04-21T22:00:00Z",
-      "skills": [
-        "convert-assets-asset-hub"
-      ],
+      "skills": [],
       "status": "up_to_date"
     },
     "chain-interactions/token-operations/register-foreign-asset.md": {
       "last_edited": "2026-04-21T13:05:20+00:00",
       "last_scanned": "2026-04-21T22:00:00Z",
-      "skills": [
-        "register-foreign-asset-via-xcm-polkadot-hub"
-      ],
+      "skills": [],
       "status": "up_to_date"
     },
     "chain-interactions/token-operations/register-local-asset.md": {
       "last_edited": "2026-04-21T13:05:20+00:00",
       "last_scanned": "2026-04-21T22:00:00Z",
-      "skills": [
-        "register-local-asset-polkadot-hub"
-      ],
+      "skills": [],
       "status": "up_to_date"
     },
     "get-support.md": {
@@ -178,27 +172,21 @@
     "node-infrastructure/run-a-validator/onboarding-and-offboarding/key-management.md": {
       "last_edited": "2026-04-21T13:05:20+00:00",
       "last_scanned": "2026-04-21T23:30:00Z",
-      "skills": [
-        "onboard-polkadot-validator",
-        "manage-validator-session-keys"
-      ],
+      "skills": [],
       "status": "up_to_date"
     },
     "node-infrastructure/run-a-validator/onboarding-and-offboarding/set-up-validator.md": {
       "last_edited": "2026-04-21T13:05:20+00:00",
       "last_scanned": "2026-04-21T22:30:00Z",
       "skills": [
-        "set-up-polkadot-validator-node",
-        "onboard-polkadot-validator"
+        "set-up-polkadot-validator-node"
       ],
       "status": "up_to_date"
     },
     "node-infrastructure/run-a-validator/onboarding-and-offboarding/start-validating.md": {
       "last_edited": "2026-04-21T13:05:20+00:00",
       "last_scanned": "2026-04-21T23:59:00Z",
-      "skills": [
-        "onboard-polkadot-validator"
-      ],
+      "skills": [],
       "status": "up_to_date"
     },
     "node-infrastructure/run-a-validator/onboarding-and-offboarding/stop-validating.md": {
@@ -340,9 +328,7 @@
     "parachains/interoperability/channels-between-parachains.md": {
       "last_edited": "2026-04-21T13:05:20+00:00",
       "last_scanned": "2026-04-21T22:30:00Z",
-      "skills": [
-        "open-hrmp-channel-between-parachains"
-      ],
+      "skills": [],
       "status": "up_to_date"
     },
     "parachains/interoperability/channels-with-system-parachains.md": {
@@ -368,9 +354,7 @@
     "parachains/launch-a-parachain/obtain-coretime.md": {
       "last_edited": "2026-04-21T13:05:20+00:00",
       "last_scanned": "2026-04-21T23:30:00Z",
-      "skills": [
-        "obtain-coretime-parachain"
-      ],
+      "skills": [],
       "status": "up_to_date"
     },
     "parachains/launch-a-parachain/set-up-the-parachain-template.md": {
@@ -390,9 +374,7 @@
     "parachains/runtime-maintenance/runtime-upgrades.md": {
       "last_edited": "2026-04-21T13:05:20+00:00",
       "last_scanned": "2026-04-21T22:30:00Z",
-      "skills": [
-        "perform-runtime-upgrade"
-      ],
+      "skills": [],
       "status": "up_to_date"
     },
     "parachains/runtime-maintenance/storage-migrations.md": {
@@ -656,9 +638,7 @@
     "reference/tools/pop-cli.md": {
       "last_edited": "2026-04-21T13:05:20+00:00",
       "last_scanned": "2026-04-21T22:30:00Z",
-      "skills": [
-        "bootstrap-parachain-pop-cli"
-      ],
+      "skills": [],
       "status": "up_to_date"
     },
     "reference/tools/py-substrate-interface.md": {

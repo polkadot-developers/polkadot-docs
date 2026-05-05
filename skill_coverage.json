@@ -76,9 +76,7 @@
     "chain-interactions/send-transactions/interoperability/transfer-assets-into-polkadot.md": {
       "last_edited": "2026-04-21T13:05:20+00:00",
       "last_scanned": "2026-04-21T22:00:00Z",
-      "skills": [
-        "bridge-eth-to-polkadot-snowbridge"
-      ],
+      "skills": [],
       "status": "up_to_date"
     },
     "chain-interactions/send-transactions/interoperability/transfer-assets-parachains.md": {

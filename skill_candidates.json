@@ -280,7 +280,7 @@
       ],
       "category": "tutorial",
       "priority": "medium",
-      "status": "built",
+      "status": "blocked",
       "notes": "Covers bridging ERC-20 tokens (WETH) from Ethereum mainnet to Polkadot Hub using ParaSpell SDK and Snowbridge. K1 absent \u2014 requires real mainnet WETH tokens which an agent cannot autonomously obtain. S2 absent \u2014 bridge relay takes ~30 minutes with variable external state. Priority reduced to medium.",
       "scoring": {
         "signals": [
@@ -300,7 +300,7 @@
         },
         "priority_score": 11
       },
-      "built_at": "2026-04-21T22:00:00Z"
+      "blocked_reason": "Manual test (2026-05-05) showed the skill cannot run as written. The skill installs @paraspell/sdk (PAPI/viem variant) but Ethereum->Polkadot Snowbridge transfers are only implemented in @paraspell/sdk-pjs. Even sdk-pjs's EvmBuilder hardcodes origin to mainnet chains ('Ethereum' | 'Moonbeam' | 'Moonriver' | 'Darwinia'); no Sepolia/testnet origin exists. The inline bridge.ts calls APIs (.address, .buildEthTransfer with ethSigner) that don't exist in the current SDK. End-to-end testing requires real mainnet WETH + ETH for gas + rewriting the script against sdk-pjs. ParaSpell's Snowbridge surface is in-flux (per upstream docs, PJS-only until migration to PAPI/viem completes). Revisit when the SDK stabilizes."
     },
     {
       "skill_id": "transfer-assets-parachains-paraspell",

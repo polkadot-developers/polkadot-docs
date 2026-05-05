@@ -1,7 +1,7 @@
 {
   "schema_version": "0.1",
-  "generated": "2026-05-05T11:21:19Z",
-  "content_hash": "sha256:36f98cfde86cfa4d58cc54a331c6f6ccbebc680fcd06b8bf9699777fdfc954dc",
+  "generated": "2026-05-05T11:38:31Z",
+  "content_hash": "sha256:e5f58ef44fb9a133ae87fa3e5d754bc4ad4c1c55149e2826a826fd2157608d68",
   "skills": [
     {
       "id": "create-polkadot-account",
@@ -4267,6 +4267,7 @@
       "primary_page": "parachains/customize-runtime/pallet-development/mock-runtime.md",
       "prerequisites": {
         "runtime": [
+          "Required: a working parachain template checkout with a successful local build (see https://docs.polkadot.com/parachains/launch-a-parachain/set-up-the-parachain-template.md)",
           "Rust toolchain (stable, via rustup)",
           "Cargo",
           "Completed the Make a Custom Pallet guide — the counter pallet must exist in pallets/pallet-custom"
@@ -4388,6 +4389,7 @@
       "primary_page": "parachains/customize-runtime/pallet-development/pallet-testing.md",
       "prerequisites": {
         "runtime": [
+          "Required: a working parachain template checkout with a successful local build (see https://docs.polkadot.com/parachains/launch-a-parachain/set-up-the-parachain-template.md)",
           "Rust toolchain (stable, via rustup)",
           "Cargo",
           "Completed the Make a Custom Pallet guide — counter pallet in pallets/pallet-custom",
@@ -4525,9 +4527,9 @@
       "primary_page": "parachains/customize-runtime/pallet-development/benchmark-pallet.md",
       "prerequisites": {
         "runtime": [
+          "Required: a working parachain template checkout with a successful local build (see https://docs.polkadot.com/parachains/launch-a-parachain/set-up-the-parachain-template.md)",
           "Rust toolchain with wasm32-unknown-unknown target",
           "Cargo",
-          "A working parachain template with the custom pallet integrated (from create-a-pallet series)",
           "The custom counter pallet in pallets/pallet-custom with mock runtime set up (from mock-runtime guide)"
         ],
         "network": [],
@@ -6389,9 +6391,9 @@
       "primary_page": "parachains/customize-runtime/add-existing-pallets.md",
       "prerequisites": {
         "runtime": [
+          "Required: a working parachain template checkout with a successful local build (see https://docs.polkadot.com/parachains/launch-a-parachain/set-up-the-parachain-template.md)",
           "Rust toolchain with the wasm32-unknown-unknown target (`rustup target add wasm32-unknown-unknown`)",
-          "Polkadot SDK system dependencies installed (see https://docs.polkadot.com/parachains/install-polkadot-sdk.md)",
-          "A working parachain template checkout with a successful local build (see https://docs.polkadot.com/parachains/launch-a-parachain/set-up-the-parachain-template.md)"
+          "Polkadot SDK system dependencies installed (see https://docs.polkadot.com/parachains/install-polkadot-sdk.md)"
         ],
         "network": [
           "No external network required — all compilation and testing is local"
@@ -6542,9 +6544,9 @@
       "primary_page": "parachains/customize-runtime/add-pallet-instances.md",
       "prerequisites": {
         "runtime": [
+          "Required: a working parachain template checkout with a successful local build (see https://docs.polkadot.com/parachains/launch-a-parachain/set-up-the-parachain-template.md)",
           "Rust toolchain with wasm32-unknown-unknown target",
           "Polkadot SDK system dependencies (see https://docs.polkadot.com/parachains/install-polkadot-sdk.md)",
-          "Working parachain template with a successful build (see https://docs.polkadot.com/parachains/launch-a-parachain/set-up-the-parachain-template.md)",
           "Familiarity with adding a single pallet to a runtime (see add-existing-pallet-to-runtime)"
         ],
         "network": [
@@ -6692,9 +6694,9 @@
       "primary_page": "parachains/customize-runtime/pallet-development/create-a-pallet.md",
       "prerequisites": {
         "runtime": [
+          "Required: a working parachain template checkout with a successful local build (see https://docs.polkadot.com/parachains/launch-a-parachain/set-up-the-parachain-template.md)",
           "Rust toolchain with wasm32-unknown-unknown target (rustup target add wasm32-unknown-unknown)",
-          "Polkadot SDK system dependencies (see https://docs.polkadot.com/parachains/install-polkadot-sdk.md)",
-          "Working parachain template checkout with a successful build (see https://docs.polkadot.com/parachains/launch-a-parachain/set-up-the-parachain-template.md)"
+          "Polkadot SDK system dependencies (see https://docs.polkadot.com/parachains/install-polkadot-sdk.md)"
         ],
         "network": [
           "No external network required — all work is local"

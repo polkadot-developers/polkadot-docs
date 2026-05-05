@@ -1,7 +1,7 @@
 {
   "schema_version": "0.1",
-  "generated": "2026-05-05T11:38:31Z",
-  "content_hash": "sha256:e5f58ef44fb9a133ae87fa3e5d754bc4ad4c1c55149e2826a826fd2157608d68",
+  "generated": "2026-05-05T12:04:15Z",
+  "content_hash": "sha256:23ceeb9055bcb44b859823879751b83636237753f15adb1d94478fd76ea00eaf",
   "skills": [
     {
       "id": "create-polkadot-account",
@@ -4267,7 +4267,8 @@
       "primary_page": "parachains/customize-runtime/pallet-development/mock-runtime.md",
       "prerequisites": {
         "runtime": [
-          "Required: a working parachain template checkout with a successful local build (see https://docs.polkadot.com/parachains/launch-a-parachain/set-up-the-parachain-template.md)",
+          "Git (steps 1-2 clone and build the polkadot-sdk-parachain-template inline; see also the standalone set-up-parachain-template skill at https://docs.polkadot.com/parachains/launch-a-parachain/set-up-the-parachain-template.md)",
+          "Disk: at least 5 GB free for build artifacts",
           "Rust toolchain (stable, via rustup)",
           "Cargo",
           "Completed the Make a Custom Pallet guide — the counter pallet must exist in pallets/pallet-custom"
@@ -4280,24 +4281,42 @@
       "steps": [
         {
           "order": 1,
+          "action": "Clone the Polkadot SDK parachain template",
+          "working_directory": ".",
+          "commands": [
+            "git clone https://github.com/paritytech/polkadot-sdk-parachain-template.git"
+          ],
+          "description": "Clone the canonical parachain template. All subsequent steps assume `polkadot-sdk-parachain-template/` exists at the project root. The full standalone walkthrough is the `set-up-parachain-template` skill."
+        },
+        {
+          "order": 2,
+          "action": "Build the parachain template node in release mode",
+          "working_directory": "polkadot-sdk-parachain-template",
+          "commands": [
+            "cargo build --release"
+          ],
+          "description": "Compile the template once so the runtime crate, pallet-template, and dependencies are resolved before pallet work begins. First build can take 10-20 minutes."
+        },
+        {
+          "order": 3,
           "action": "Create mock.rs and add module declaration to lib.rs",
-          "working_directory": "pallets/pallet-custom/src",
+          "working_directory": "polkadot-sdk-parachain-template/pallets/pallet-custom/src",
           "commands": [
             "touch mock.rs"
           ],
           "description": "Create the empty mock.rs file. Then open src/lib.rs and insert the following two lines immediately after the 'pub use pallet::*;' line:\n\n```rust\n#[cfg(test)]\nmod mock;\n```\n\nThe #[cfg(test)] attribute ensures this module is only compiled when running tests, keeping it out of production builds."
         },
         {
-          "order": 2,
+          "order": 4,
           "action": "Fetch and save the complete mock.rs",
-          "working_directory": "pallets/pallet-custom/src",
+          "working_directory": "polkadot-sdk-parachain-template/pallets/pallet-custom/src",
           "reference_file": "mock.rs",
           "description": "Fetch the reference file and save it as 'mock.rs', replacing the empty placeholder. The file must contain: (1) imports including construct_runtime!, frame_system, and IdentityLookup; (2) Test runtime type and Block type alias via construct_runtime!; (3) #[derive_impl(frame_system::config_preludes::TestDefaultConfig)] for System with AccountId = u64, Lookup = IdentityLookup, Block = Block; (4) impl pallet_custom::Config for Test with type RuntimeEvent = RuntimeEvent and type CounterMaxValue = ConstU32<1000>; (5) new_test_ext() genesis helper; (6) new_test_ext_with_counter(val: u32) helper; (7) new_test_ext_with_interactions() helper accepting counter value and Vec of (AccountId, u32) interactions."
         },
         {
-          "order": 3,
+          "order": 5,
           "action": "Verify mock runtime compiles",
-          "working_directory": "pallets/pallet-custom",
+          "working_directory": "polkadot-sdk-parachain-template/pallets/pallet-custom",
           "commands": [
             "cargo test --package pallet-custom --lib"
           ],
@@ -4389,7 +4408,8 @@
       "primary_page": "parachains/customize-runtime/pallet-development/pallet-testing.md",
       "prerequisites": {
         "runtime": [
-          "Required: a working parachain template checkout with a successful local build (see https://docs.polkadot.com/parachains/launch-a-parachain/set-up-the-parachain-template.md)",
+          "Git (steps 1-2 clone and build the polkadot-sdk-parachain-template inline; see also the standalone set-up-parachain-template skill at https://docs.polkadot.com/parachains/launch-a-parachain/set-up-the-parachain-template.md)",
+          "Disk: at least 5 GB free for build artifacts",
           "Rust toolchain (stable, via rustup)",
           "Cargo",
           "Completed the Make a Custom Pallet guide — counter pallet in pallets/pallet-custom",
@@ -4403,41 +4423,59 @@
       "steps": [
         {
           "order": 1,
+          "action": "Clone the Polkadot SDK parachain template",
+          "working_directory": ".",
+          "commands": [
+            "git clone https://github.com/paritytech/polkadot-sdk-parachain-template.git"
+          ],
+          "description": "Clone the canonical parachain template. All subsequent steps assume `polkadot-sdk-parachain-template/` exists at the project root. The full standalone walkthrough is the `set-up-parachain-template` skill."
+        },
+        {
+          "order": 2,
+          "action": "Build the parachain template node in release mode",
+          "working_directory": "polkadot-sdk-parachain-template",
+          "commands": [
+            "cargo build --release"
+          ],
+          "description": "Compile the template once so the runtime crate, pallet-template, and dependencies are resolved before pallet work begins. First build can take 10-20 minutes."
+        },
+        {
+          "order": 3,
           "action": "Create tests.rs and add module declaration to lib.rs",
-          "working_directory": "pallets/pallet-custom/src",
+          "working_directory": "polkadot-sdk-parachain-template/pallets/pallet-custom/src",
           "commands": [
             "touch tests.rs"
           ],
           "description": "Create the empty tests.rs file. Then open src/lib.rs and add the following two lines immediately after the mock module declaration:\n\n```rust\n#[cfg(test)]\nmod tests;\n```\n\nThe module declarations in lib.rs should now read:\n#[cfg(test)] mod mock;\n#[cfg(test)] mod tests;"
         },
         {
-          "order": 2,
+          "order": 4,
           "action": "Write test module imports",
-          "working_directory": "pallets/pallet-custom/src",
+          "working_directory": "polkadot-sdk-parachain-template/pallets/pallet-custom/src",
           "description": "Open src/tests.rs and write these imports at the top:\n\n```rust\nuse crate::{mock::*, Error, Event};\nuse frame::deps::frame_support::{assert_noop, assert_ok};\nuse frame::deps::sp_runtime::DispatchError;\n```\n\nThese bring in: all mock runtime items (Test, new_test_ext*, RuntimeOrigin, System, CustomPallet, CounterValue, UserInteractions), the pallet Error and Event enums, FRAME assertion macros, and DispatchError for origin checks."
         },
         {
-          "order": 3,
+          "order": 5,
           "action": "Write basic operation and event emission tests",
-          "working_directory": "pallets/pallet-custom/src",
+          "working_directory": "polkadot-sdk-parachain-template/pallets/pallet-custom/src",
           "description": "Append these tests to src/tests.rs. Call System::set_block_number(1) inside execute_with before any event assertion — events are suppressed on block 0:\n\n```rust\n#[test]\nfn increment_works() — uses new_test_ext(), signs with account 1, increments by 50, asserts CounterValue is 50 and CounterIncremented event with new_value:50/who:1/amount:50, asserts UserInteractions for account 1 is 1.\n\n#[test]\nfn set_counter_value_works() — uses new_test_ext(), sets block 1, calls set_counter_value(RuntimeOrigin::root(), 100), asserts CounterValue is 100 and CounterValueSet { new_value: 100 } event.\n\n#[test]\nfn decrement_works() — uses new_test_ext_with_counter(100), signs with account 2, decrements by 30, asserts CounterValue is 70 and CounterDecremented event.\n```"
         },
         {
-          "order": 4,
+          "order": 6,
           "action": "Write error condition and access control tests",
-          "working_directory": "pallets/pallet-custom/src",
+          "working_directory": "polkadot-sdk-parachain-template/pallets/pallet-custom/src",
           "description": "Append these tests to src/tests.rs:\n\n```rust\n#[test]\nfn increment_fails_on_overflow() — uses new_test_ext_with_counter(u32::MAX), asserts assert_noop!(increment(signed(1), 1), Error::<Test>::Overflow). assert_noop! verifies both the error AND that no storage was modified.\n\n#[test]\nfn decrement_fails_on_underflow() — uses new_test_ext_with_counter(10), asserts noop on decrement(signed(1), 11) with Error::Underflow.\n\n#[test]\nfn set_counter_value_requires_root() — uses new_test_ext(), asserts noop on set_counter_value(signed(alice), 100) with DispatchError::BadOrigin, then asserts ok with RuntimeOrigin::root().\n\n#[test]\nfn increment_respects_max_value() — uses new_test_ext_with_counter(950), asserts noop on increment(signed(1), 51) with Error::CounterMaxValueExceeded, then asserts ok on increment of 50.\n```"
         },
         {
-          "order": 5,
+          "order": 7,
           "action": "Write genesis configuration and interaction tracking tests",
-          "working_directory": "pallets/pallet-custom/src",
+          "working_directory": "polkadot-sdk-parachain-template/pallets/pallet-custom/src",
           "description": "Append these final tests to src/tests.rs:\n\n```rust\n#[test]\nfn genesis_config_works() — uses new_test_ext_with_interactions(42, vec![(1, 5), (2, 10)]), asserts CounterValue is 42, UserInteractions for account 1 is 5, for account 2 is 10.\n\n#[test]\nfn increment_tracks_multiple_interactions() — calls increment three times on same account, asserts UserInteractions count is 3.\n\n#[test]\nfn different_users_tracked_separately() — account 1 increments twice (total interactions: 2), account 2 decrements once (interactions: 1); asserts each account tracked independently.\n```"
         },
         {
-          "order": 6,
+          "order": 8,
           "action": "Run the complete test suite",
-          "working_directory": "pallets/pallet-custom",
+          "working_directory": "polkadot-sdk-parachain-template/pallets/pallet-custom",
           "commands": [
             "cargo test --package pallet-custom"
           ],
@@ -4527,7 +4565,8 @@
       "primary_page": "parachains/customize-runtime/pallet-development/benchmark-pallet.md",
       "prerequisites": {
         "runtime": [
-          "Required: a working parachain template checkout with a successful local build (see https://docs.polkadot.com/parachains/launch-a-parachain/set-up-the-parachain-template.md)",
+          "Git (steps 1-2 clone and build the polkadot-sdk-parachain-template inline; see also the standalone set-up-parachain-template skill at https://docs.polkadot.com/parachains/launch-a-parachain/set-up-the-parachain-template.md)",
+          "Disk: at least 5 GB free for build artifacts",
           "Rust toolchain with wasm32-unknown-unknown target",
           "Cargo",
           "The custom counter pallet in pallets/pallet-custom with mock runtime set up (from mock-runtime guide)"
@@ -4540,44 +4579,62 @@
       "steps": [
         {
           "order": 1,
+          "action": "Clone the Polkadot SDK parachain template",
+          "working_directory": ".",
+          "commands": [
+            "git clone https://github.com/paritytech/polkadot-sdk-parachain-template.git"
+          ],
+          "description": "Clone the canonical parachain template. All subsequent steps assume `polkadot-sdk-parachain-template/` exists at the project root. The full standalone walkthrough is the `set-up-parachain-template` skill."
+        },
+        {
+          "order": 2,
+          "action": "Build the parachain template node in release mode",
+          "working_directory": "polkadot-sdk-parachain-template",
+          "commands": [
+            "cargo build --release"
+          ],
+          "description": "Compile the template once so the runtime crate, pallet-template, and dependencies are resolved before pallet work begins. First build can take 10-20 minutes."
+        },
+        {
+          "order": 3,
           "action": "Create benchmarking.rs with benchmark functions",
-          "working_directory": "pallets/pallet-custom/src",
+          "working_directory": "polkadot-sdk-parachain-template/pallets/pallet-custom/src",
           "commands": [
             "touch benchmarking.rs"
           ],
           "description": "Create pallets/pallet-custom/src/benchmarking.rs with:\n\n```rust\n#![cfg(feature = \"runtime-benchmarks\")]\nuse super::*;\nuse frame::deps::frame_benchmarking::v2::*;\nuse frame::benchmarking::prelude::RawOrigin;\n\n#[benchmarks]\nmod benchmarks {\n    use super::*;\n\n    #[benchmark]\n    fn set_counter_value() {\n        let new_value: u32 = 100;\n        #[extrinsic_call]\n        _(RawOrigin::Root, new_value);\n        assert_eq!(CounterValue::<T>::get(), new_value);\n    }\n\n    #[benchmark]\n    fn increment() {\n        let caller: T::AccountId = whitelisted_caller();\n        let amount: u32 = 50;\n        #[extrinsic_call]\n        _(RawOrigin::Signed(caller.clone()), amount);\n        assert_eq!(CounterValue::<T>::get(), amount);\n        assert_eq!(UserInteractions::<T>::get(caller), 1);\n    }\n\n    #[benchmark]\n    fn decrement() {\n        CounterValue::<T>::put(100);\n        let caller: T::AccountId = whitelisted_caller();\n        let amount: u32 = 30;\n        #[extrinsic_call]\n        _(RawOrigin::Signed(caller.clone()), amount);\n        assert_eq!(CounterValue::<T>::get(), 70);\n    }\n```\n\n    impl_benchmark_test_suite!(Pallet, crate::mock::new_test_ext(), crate::mock::Test);\n}\n\nFor a different pallet, update function names and assertions accordingly."
         },
         {
-          "order": 2,
+          "order": 4,
           "action": "Define WeightInfo trait in weights.rs",
-          "working_directory": "pallets/pallet-custom/src",
+          "working_directory": "polkadot-sdk-parachain-template/pallets/pallet-custom/src",
           "commands": [
             "touch weights.rs"
           ],
           "description": "Create pallets/pallet-custom/src/weights.rs with a WeightInfo trait and () placeholder implementation:\n\n```rust\npub trait WeightInfo {\n    fn set_counter_value() -> frame::prelude::Weight;\n    fn increment() -> frame::prelude::Weight;\n    fn decrement() -> frame::prelude::Weight;\n}\n\nimpl WeightInfo for () {\n    fn set_counter_value() -> frame::prelude::Weight { frame::prelude::Weight::from_parts(10_000, 0) }\n    fn increment() -> frame::prelude::Weight { frame::prelude::Weight::from_parts(15_000, 0) }\n    fn decrement() -> frame::prelude::Weight { frame::prelude::Weight::from_parts(15_000, 0) }\n}\n```\n\nThe () impl is used in tests; benchmark-generated values will replace this file in the final step."
         },
         {
-          "order": 3,
+          "order": 5,
           "action": "Wire WeightInfo into pallet Config and extrinsic annotations",
-          "working_directory": "pallets/pallet-custom/src",
+          "working_directory": "polkadot-sdk-parachain-template/pallets/pallet-custom/src",
           "description": "Edit src/lib.rs with four changes:\n1. At the top add: pub mod weights;  (expose weights module)\n2. After 'pub use pallet::*;' add: #[cfg(feature = \"runtime-benchmarks\")] mod benchmarking;\n3. In #[pallet::config] trait add: type WeightInfo: weights::WeightInfo;\n4. Replace hardcoded weight attributes on each extrinsic:\n   - #[pallet::weight(T::WeightInfo::set_counter_value())]\n   - #[pallet::weight(T::WeightInfo::increment())]\n   - #[pallet::weight(T::WeightInfo::decrement())]"
         },
         {
-          "order": 4,
+          "order": 6,
           "action": "Update pallet Cargo.toml with runtime-benchmarks feature",
-          "working_directory": "pallets/pallet-custom",
+          "working_directory": "polkadot-sdk-parachain-template/pallets/pallet-custom",
           "description": "Open pallets/pallet-custom/Cargo.toml and add the runtime-benchmarks feature under [features]:\n\n```toml\n[features]\ndefault = [\"std\"]\nruntime-benchmarks = [\n    \"frame/runtime-benchmarks\",\n]\nstd = [\n    \"codec/std\",\n    \"scale-info/std\",\n    \"frame/std\",\n]\n```"
         },
         {
-          "order": 5,
+          "order": 7,
           "action": "Update mock.rs, runtime Cargo.toml, runtime config, and benchmarks.rs",
-          "working_directory": ".",
+          "working_directory": "polkadot-sdk-parachain-template",
           "description": "Four integration edits required:\n1. src/mock.rs: add type WeightInfo = (); to impl pallet_custom::Config for Test.\n2. runtime/Cargo.toml: add 'pallet-custom/runtime-benchmarks' to the runtime-benchmarks feature list.\n3. runtime/src/configs/mod.rs: add type WeightInfo = (); to impl pallet_custom::Config for Runtime (placeholder).\n4. runtime/src/benchmarks.rs: add [pallet_custom, CustomPallet] inside the define_benchmarks! macro."
         },
         {
-          "order": 6,
+          "order": 8,
           "action": "Test benchmark compilation",
-          "working_directory": "pallets/pallet-custom",
+          "working_directory": "polkadot-sdk-parachain-template/pallets/pallet-custom",
           "commands": [
             "cargo test -p pallet-custom --features runtime-benchmarks"
           ],
@@ -4585,9 +4642,9 @@
           "description": "Run benchmark unit tests generated by impl_benchmark_test_suite!. All three benchmark functions must pass before building the full runtime. These tests verify the benchmark code compiles and the assertions hold."
         },
         {
-          "order": 7,
+          "order": 9,
           "action": "Build the release runtime with benchmarks enabled",
-          "working_directory": ".",
+          "working_directory": "polkadot-sdk-parachain-template",
           "commands": [
             "cargo build --release --features runtime-benchmarks"
           ],
@@ -4595,9 +4652,9 @@
           "description": "Compile the full runtime in release mode. Produces the WASM at target/release/wbuild/parachain-template-runtime/parachain_template_runtime.wasm. Build may take 15-30 minutes. This WASM is only for benchmarking — do not use for production deployment."
         },
         {
-          "order": 8,
+          "order": 10,
           "action": "Install frame-omni-bencher",
-          "working_directory": ".",
+          "working_directory": "polkadot-sdk-parachain-template",
           "commands": [
             "cargo install frame-omni-bencher --locked"
           ],
@@ -4605,15 +4662,15 @@
           "description": "Install via cargo, or download a pre-built binary from the Polkadot SDK releases page. Replace VERSION with the SDK version tag used by the parachain template (e.g., polkadot-stable2412):\nmacOS: curl -L -o frame-omni-bencher https://github.com/paritytech/polkadot-sdk/releases/download/VERSION/frame-omni-bencher-aarch64-apple-darwin && chmod +x frame-omni-bencher && sudo mv frame-omni-bencher /usr/local/bin/\nUbuntu: curl -L -o frame-omni-bencher https://github.com/paritytech/polkadot-sdk/releases/download/VERSION/frame-omni-bencher && chmod +x frame-omni-bencher && sudo mv frame-omni-bencher /usr/local/bin/"
         },
         {
-          "order": 9,
+          "order": 11,
           "action": "Create the weight Handlebars template file",
-          "working_directory": ".",
+          "working_directory": "polkadot-sdk-parachain-template",
           "description": "Create the file `./pallets/pallet-custom/frame-weight-template.hbs` with the following content. This is the canonical Substrate weight template (a Handlebars template used by `frame-omni-bencher` to render the generated `weights.rs`). Save this exact content — needed in step 10:\n\n```handlebars\n{{header}}\n//! Autogenerated weights for `{{pallet}}`\n//!\n//! THIS FILE WAS AUTO-GENERATED USING THE SUBSTRATE BENCHMARK CLI VERSION {{version}}\n//! DATE: {{date}}, STEPS: `{{cmd.steps}}`, REPEAT: `{{cmd.repeat}}`, LOW RANGE: `{{cmd.lowest_range_values}}`, HIGH RANGE: `{{cmd.highest_range_values}}`\n//! WORST CASE MAP SIZE: `{{cmd.worst_case_map_values}}`\n//! HOSTNAME: `{{hostname}}`, CPU: `{{cpuname}}`\n//! WASM-EXECUTION: `{{cmd.wasm_execution}}`, CHAIN: `{{cmd.chain}}`, DB CACHE: `{{cmd.db_cache}}`\n\n// Executed Command:\n{{#each args as |arg|}}\n// {{arg}}\n{{/each}}\n\n#![cfg_attr(rustfmt, rustfmt_skip)]\n#![allow(unused_parens)]\n#![allow(unused_imports)]\n#![allow(missing_docs)]\n\nuse frame_support::{traits::Get, weights::{Weight, constants::RocksDbWeight}};\nuse core::marker::PhantomData;\n\n/// Weight functions needed for `{{pallet}}`.\npub trait WeightInfo {\n\t{{#each benchmarks as |benchmark|}}\n\tfn {{benchmark.name~}}\n\t(\n\t\t{{~#each benchmark.components as |c| ~}}\n\t\t{{c.name}}: u32, {{/each~}}\n\t) -> Weight;\n\t{{/each}}\n}\n\n/// Weights for `{{pallet}}` using the Substrate node and recommended hardware.\npub struct SubstrateWeight<T>(PhantomData<T>);\n{{#if (or (eq pallet \"frame_system\") (eq pallet \"frame_system_extensions\"))}}\nimpl<T: crate::Config> WeightInfo for SubstrateWeight<T> {\n{{else}}\nimpl<T: frame_system::Config> WeightInfo for SubstrateWeight<T> {\n{{/if}}\n\t{{#each benchmarks as |benchmark|}}\n\t{{#each benchmark.comments as |comment|}}\n\t/// {{comment}}\n\t{{/each}}\n\t{{#each benchmark.component_ranges as |range|}}\n\t/// The range of component `{{range.name}}` is `[{{range.min}}, {{range.max}}]`.\n\t{{/each}}\n\tfn {{benchmark.name~}}\n\t(\n\t\t{{~#each benchmark.components as |c| ~}}\n\t\t{{~#if (not c.is_used)}}_{{/if}}{{c.name}}: u32, {{/each~}}\n\t) -> Weight {\n\t\t// Proof Size summary in bytes:\n\t\t//  Measured:  `{{benchmark.base_recorded_proof_size}}{{#each benchmark.component_recorded_proof_size as |cp|}} + {{cp.name}} * ({{cp.slope}} ±{{underscore cp.error}}){{/each}}`\n\t\t//  Estimated: `{{benchmark.base_calculated_proof_size}}{{#each benchmark.component_calculated_proof_size as |cp|}} + {{cp.name}} * ({{cp.slope}} ±{{underscore cp.error}}){{/each}}`\n\t\t// Minimum execution time: {{underscore benchmark.min_execution_time}}_000 picoseconds.\n\t\tWeight::from_parts({{underscore benchmark.base_weight}}, {{benchmark.base_calculated_proof_size}})\n\t\t\t{{#each benchmark.component_weight as |cw|}}\n\t\t\t// Standard Error: {{underscore cw.error}}\n\t\t\t.saturating_add(Weight::from_parts({{underscore cw.slope}}, 0).saturating_mul({{cw.name}}.into()))\n\t\t\t{{/each}}\n\t\t\t{{#if (ne benchmark.base_reads \"0\")}}\n\t\t\t.saturating_add(T::DbWeight::get().reads({{benchmark.base_reads}}_u64))\n\t\t\t{{/if}}\n\t\t\t{{#each benchmark.component_reads as |cr|}}\n\t\t\t.saturating_add(T::DbWeight::get().reads(({{cr.slope}}_u64).saturating_mul({{cr.name}}.into())))\n\t\t\t{{/each}}\n\t\t\t{{#if (ne benchmark.base_writes \"0\")}}\n\t\t\t.saturating_add(T::DbWeight::get().writes({{benchmark.base_writes}}_u64))\n\t\t\t{{/if}}\n\t\t\t{{#each benchmark.component_writes as |cw|}}\n\t\t\t.saturating_add(T::DbWeight::get().writes(({{cw.slope}}_u64).saturating_mul({{cw.name}}.into())))\n\t\t\t{{/each}}\n\t\t\t{{#each benchmark.component_calculated_proof_size as |cp|}}\n\t\t\t.saturating_add(Weight::from_parts(0, {{cp.slope}}).saturating_mul({{cp.name}}.into()))\n\t\t\t{{/each}}\n\t}\n\t{{/each}}\n}\n\n// For backwards compatibility and tests.\nimpl WeightInfo for () {\n\t{{#each benchmarks as |benchmark|}}\n\t{{#each benchmark.comments as |comment|}}\n\t/// {{comment}}\n\t{{/each}}\n\t{{#each benchmark.component_ranges as |range|}}\n\t/// The range of component `{{range.name}}` is `[{{range.min}}, {{range.max}}]`.\n\t{{/each}}\n\tfn {{benchmark.name~}}\n\t(\n\t\t{{~#each benchmark.components as |c| ~}}\n\t\t{{~#if (not c.is_used)}}_{{/if}}{{c.name}}: u32, {{/each~}}\n\t) -> Weight {\n\t\t// Proof Size summary in bytes:\n\t\t//  Measured:  `{{benchmark.base_recorded_proof_size}}{{#each benchmark.component_recorded_proof_size as |cp|}} + {{cp.name}} * ({{cp.slope}} ±{{underscore cp.error}}){{/each}}`\n\t\t//  Estimated: `{{benchmark.base_calculated_proof_size}}{{#each benchmark.component_calculated_proof_size as |cp|}} + {{cp.name}} * ({{cp.slope}} ±{{underscore cp.error}}){{/each}}`\n\t\t// Minimum execution time: {{underscore benchmark.min_execution_time}}_000 picoseconds.\n\t\tWeight::from_parts({{underscore benchmark.base_weight}}, {{benchmark.base_calculated_proof_size}})\n\t\t\t{{#each benchmark.component_weight as |cw|}}\n\t\t\t// Standard Error: {{underscore cw.error}}\n\t\t\t.saturating_add(Weight::from_parts({{underscore cw.slope}}, 0).saturating_mul({{cw.name}}.into()))\n\t\t\t{{/each}}\n\t\t\t{{#if (ne benchmark.base_reads \"0\")}}\n\t\t\t.saturating_add(RocksDbWeight::get().reads({{benchmark.base_reads}}_u64))\n\t\t\t{{/if}}\n\t\t\t{{#each benchmark.component_reads as |cr|}}\n\t\t\t.saturating_add(RocksDbWeight::get().reads(({{cr.slope}}_u64).saturating_mul({{cr.name}}.into())))\n\t\t\t{{/each}}\n\t\t\t{{#if (ne benchmark.base_writes \"0\")}}\n\t\t\t.saturating_add(RocksDbWeight::get().writes({{benchmark.base_writes}}_u64))\n\t\t\t{{/if}}\n\t\t\t{{#each benchmark.component_writes as |cw|}}\n\t\t\t.saturating_add(RocksDbWeight::get().writes(({{cw.slope}}_u64).saturating_mul({{cw.name}}.into())))\n\t\t\t{{/each}}\n\t\t\t{{#each benchmark.component_calculated_proof_size as |cp|}}\n\t\t\t.saturating_add(Weight::from_parts(0, {{cp.slope}}).saturating_mul({{cp.name}}.into()))\n\t\t\t{{/each}}\n\t}\n\t{{/each}}\n}\n```\n\n**Note on versioning:** This template content is taken from `paritytech/polkadot-sdk` at tag `polkadot-stable2412`. The template format is stable across SDK versions — you should not need to update it for routine SDK bumps. If `frame-omni-bencher` reports a template-version mismatch (rare, only on major SDK breaking changes), fetch the latest from `https://github.com/paritytech/polkadot-sdk/blob/master/substrate/.maintain/frame-weight-template.hbs` and update this skill."
         },
         {
-          "order": 10,
+          "order": 12,
           "action": "Execute benchmarks and generate weights.rs",
-          "working_directory": ".",
+          "working_directory": "polkadot-sdk-parachain-template",
           "commands": [
             "frame-omni-bencher v1 benchmark pallet --runtime ./target/release/wbuild/parachain-template-runtime/parachain_template_runtime.wasm --pallet pallet_custom --extrinsic \"\" --template ./pallets/pallet-custom/frame-weight-template.hbs --output ./pallets/pallet-custom/src/weights.rs"
           ],
@@ -4621,9 +4678,9 @@
           "description": "Run benchmarks against the WASM runtime and generate production weights.rs. This overwrites the placeholder weights.rs from step 2. The output contains a SubstrateWeight<T> struct implementing WeightInfo with actual measured values. For more precise measurements, add: --steps 50 --repeat 20"
         },
         {
-          "order": 11,
+          "order": 13,
           "action": "Update runtime config to use generated weights",
-          "working_directory": ".",
+          "working_directory": "polkadot-sdk-parachain-template",
           "description": "Open runtime/src/configs/mod.rs and update the pallet Config to use measured weights instead of ():\n\n```rust\nimpl pallet_custom::Config for Runtime {\n    type RuntimeEvent = RuntimeEvent;\n    type CounterMaxValue = ConstU32<1000>;\n    type WeightInfo = pallet_custom::weights::SubstrateWeight<Runtime>;\n}\n```\n\nThen rebuild for production without the benchmarks flag:\ncargo build --release"
         }
       ],
@@ -6391,7 +6448,8 @@
       "primary_page": "parachains/customize-runtime/add-existing-pallets.md",
       "prerequisites": {
         "runtime": [
-          "Required: a working parachain template checkout with a successful local build (see https://docs.polkadot.com/parachains/launch-a-parachain/set-up-the-parachain-template.md)",
+          "Git (steps 1-2 clone and build the polkadot-sdk-parachain-template inline; see also the standalone set-up-parachain-template skill at https://docs.polkadot.com/parachains/launch-a-parachain/set-up-the-parachain-template.md)",
+          "Disk: at least 5 GB free for build artifacts",
           "Rust toolchain with the wasm32-unknown-unknown target (`rustup target add wasm32-unknown-unknown`)",
           "Polkadot SDK system dependencies installed (see https://docs.polkadot.com/parachains/install-polkadot-sdk.md)"
         ],
@@ -6403,44 +6461,62 @@
       "steps": [
         {
           "order": 1,
-          "action": "Identify the pallet version to use",
+          "action": "Clone the Polkadot SDK parachain template",
           "working_directory": ".",
+          "commands": [
+            "git clone https://github.com/paritytech/polkadot-sdk-parachain-template.git"
+          ],
+          "description": "Clone the canonical parachain template. All subsequent steps assume `polkadot-sdk-parachain-template/` exists at the project root. The full standalone walkthrough is the `set-up-parachain-template` skill."
+        },
+        {
+          "order": 2,
+          "action": "Build the parachain template node in release mode",
+          "working_directory": "polkadot-sdk-parachain-template",
+          "commands": [
+            "cargo build --release"
+          ],
+          "description": "Compile the template once so the runtime crate, pallet-template, and dependencies are resolved before pallet work begins. First build can take 10-20 minutes."
+        },
+        {
+          "order": 3,
+          "action": "Identify the pallet version to use",
+          "working_directory": "polkadot-sdk-parachain-template",
           "commands": [
             "grep 'polkadot-sdk' runtime/Cargo.toml | head -5"
           ],
           "description": "Check the existing Polkadot SDK version in your runtime's Cargo.toml. All new pallets must use the same version to avoid dependency conflicts. Look for entries like polkadot-sdk = { version = \"0.X.0\", ... } or per-crate pins. Note the version — you will use it in step 2. The docs use pallet-utility as the example pallet; substitute any SDK pallet name."
         },
         {
-          "order": 2,
+          "order": 4,
           "action": "Add the pallet dependency to runtime/Cargo.toml",
-          "working_directory": ".",
+          "working_directory": "polkadot-sdk-parachain-template",
           "description": "Open runtime/Cargo.toml and add pallet-utility (or your target pallet) to the [dependencies] section. Use the same version and features pattern as existing pallets:\n\n```toml\n[dependencies]\n...\npallet-utility = { version = \"<SDK_VERSION>\", default-features = false }\n```\n\nAlso add pallet-utility to the std features list so it compiles correctly for native (non-WASM) targets:\n\n```toml\n[features]\nstd = [\n    ...\n    \"pallet-utility/std\",\n]\n```\n\nReplace <SDK_VERSION> with the version you identified in step 1. After editing, run: cargo check -p runtime 2>&1 | head -20 — the output should not show dependency resolution errors."
         },
         {
-          "order": 3,
+          "order": 5,
           "action": "Implement the pallet's Config trait in runtime/src/lib.rs",
-          "working_directory": ".",
+          "working_directory": "polkadot-sdk-parachain-template",
           "description": "Open runtime/src/lib.rs. Add the Config implementation for the pallet. For pallet-utility, add:\n\n```rust\nimpl pallet_utility::Config for Runtime {\n    type RuntimeEvent = RuntimeEvent;\n    type RuntimeCall = RuntimeCall;\n    type PalletsOrigin = OriginCaller;\n    type WeightInfo = pallet_utility::weights::SubstrateWeight<Runtime>;\n}\n```\n\nFor other pallets, refer to the pallet's documentation or source for required Config fields. Each required associated type must be specified — the Rust compiler will list missing types if any are omitted. Place this impl block near other pallet Config impls for consistency."
         },
         {
-          "order": 4,
+          "order": 6,
           "action": "Register the pallet in construct_runtime!",
-          "working_directory": ".",
+          "working_directory": "polkadot-sdk-parachain-template",
           "description": "Find the construct_runtime! macro invocation in runtime/src/lib.rs (typically near the bottom of the file). Add the new pallet entry following the existing pattern:\n\n```rust\nconstruct_runtime!(\n    pub enum Runtime where\n        Block = Block,\n        NodeBlock = opaque::Block,\n        UncheckedExtrinsic = UncheckedExtrinsic\n    {\n        // ... existing pallets ...\n        Utility: pallet_utility,\n    }\n);\n```\n\nThe name before the colon (Utility) is the on-chain pallet name used in storage keys and extrinsic prefixes — choose carefully as it cannot be changed without a migration. Save the file."
         },
         {
-          "order": 5,
+          "order": 7,
           "action": "Compile the runtime",
-          "working_directory": ".",
+          "working_directory": "polkadot-sdk-parachain-template",
           "commands": [
             "cargo build --release 2>&1 | tail -20"
           ],
           "description": "Build the full parachain node (includes the runtime WASM blob). This typically takes 5-15 minutes on first build. A successful build ends with: Compiling node-template vX.X.X ... Finished release [optimized] target(s). If compilation fails with 'the trait `Config` for `pallet_utility` is not satisfied', check that all required associated types are implemented in step 3."
         },
         {
-          "order": 6,
+          "order": 8,
           "action": "Generate a fresh chain spec and start the node locally",
-          "working_directory": ".",
+          "working_directory": "polkadot-sdk-parachain-template",
           "commands": [
             "./target/release/parachain-template-node build-spec --disable-default-bootnode --chain local > /tmp/local-spec.json",
             "./target/release/parachain-template-node --dev --tmp --chain /tmp/local-spec.json"
@@ -6544,7 +6620,8 @@
       "primary_page": "parachains/customize-runtime/add-pallet-instances.md",
       "prerequisites": {
         "runtime": [
-          "Required: a working parachain template checkout with a successful local build (see https://docs.polkadot.com/parachains/launch-a-parachain/set-up-the-parachain-template.md)",
+          "Git (steps 1-2 clone and build the polkadot-sdk-parachain-template inline; see also the standalone set-up-parachain-template skill at https://docs.polkadot.com/parachains/launch-a-parachain/set-up-the-parachain-template.md)",
+          "Disk: at least 5 GB free for build artifacts",
           "Rust toolchain with wasm32-unknown-unknown target",
           "Polkadot SDK system dependencies (see https://docs.polkadot.com/parachains/install-polkadot-sdk.md)",
           "Familiarity with adding a single pallet to a runtime (see add-existing-pallet-to-runtime)"
@@ -6557,47 +6634,65 @@
       "steps": [
         {
           "order": 1,
-          "action": "Verify pallet supports instantiation",
+          "action": "Clone the Polkadot SDK parachain template",
           "working_directory": ".",
-          "description": "Not all pallets support multiple instances. An instantiable pallet uses a second generic type parameter (the Instance) in its Config trait definition, e.g.: `pub trait Config<I: 'static = ()>: frame_system::Config`. Check the pallet's source or documentation for this pattern. pallet-collective and pallet-membership are standard examples. If the pallet does not have the Instance generic, it cannot be instantiated multiple times."
+          "commands": [
+            "git clone https://github.com/paritytech/polkadot-sdk-parachain-template.git"
+          ],
+          "description": "Clone the canonical parachain template. All subsequent steps assume `polkadot-sdk-parachain-template/` exists at the project root. The full standalone walkthrough is the `set-up-parachain-template` skill."
         },
         {
           "order": 2,
-          "action": "Add pallet dependencies to runtime/Cargo.toml",
-          "working_directory": ".",
-          "description": "Open runtime/Cargo.toml. A single pallet crate covers all instances — add it once:\n\n```toml\n[dependencies]\n...\npallet-collective = { version = \"<SDK_VERSION>\", default-features = false }\npallet-membership = { version = \"<SDK_VERSION>\", default-features = false }\n```\n\nReplace `<SDK_VERSION>` with the version matching your other SDK pallets (check existing entries). Add both to the std feature list:\n\n```toml\n[features]\nstd = [\n    ...\n    \"pallet-collective/std\",\n    \"pallet-membership/std\",\n]\n```\n\nVerify: `cargo check -p runtime 2>&1 | head -20`"
+          "action": "Build the parachain template node in release mode",
+          "working_directory": "polkadot-sdk-parachain-template",
+          "commands": [
+            "cargo build --release"
+          ],
+          "description": "Compile the template once so the runtime crate, pallet-template, and dependencies are resolved before pallet work begins. First build can take 10-20 minutes."
         },
         {
           "order": 3,
-          "action": "Implement Config<Instance1> for TechnicalCommittee",
-          "working_directory": ".",
-          "description": "Open runtime/src/lib.rs. Add the first instance's Config implementation. For pallet-collective as TechnicalCommittee:\n\n```rust\ntype TechnicalCommitteeInstance = pallet_collective::Instance1;\n\nimpl pallet_collective::Config<TechnicalCommitteeInstance> for Runtime {\n    type RuntimeOrigin = RuntimeOrigin;\n    type Proposal = RuntimeCall;\n    type RuntimeEvent = RuntimeEvent;\n    type MotionDuration = ConstU32<5>;\n    type MaxProposals = ConstU32<100>;\n    type MaxMembers = ConstU32<100>;\n    type DefaultVote = pallet_collective::PrimeDefaultVote;\n    type WeightInfo = pallet_collective::weights::SubstrateWeight<Runtime>;\n    type SetMembersOrigin = EnsureRoot<AccountId>;\n    type MaxProposalWeight = BlockWeights;\n}\n```\n\nSubstitute `ConstU32` values with the desired governance parameters."
+          "action": "Verify pallet supports instantiation",
+          "working_directory": "polkadot-sdk-parachain-template",
+          "description": "Not all pallets support multiple instances. An instantiable pallet uses a second generic type parameter (the Instance) in its Config trait definition, e.g.: `pub trait Config<I: 'static = ()>: frame_system::Config`. Check the pallet's source or documentation for this pattern. pallet-collective and pallet-membership are standard examples. If the pallet does not have the Instance generic, it cannot be instantiated multiple times."
         },
         {
           "order": 4,
-          "action": "Implement Config<Instance2> for Council",
-          "working_directory": ".",
-          "description": "Add the second instance's Config implementation immediately after the first:\n\n```rust\ntype CouncilInstance = pallet_collective::Instance2;\n\nimpl pallet_collective::Config<CouncilInstance> for Runtime {\n    type RuntimeOrigin = RuntimeOrigin;\n    type Proposal = RuntimeCall;\n    type RuntimeEvent = RuntimeEvent;\n    type MotionDuration = ConstU32<7>;\n    type MaxProposals = ConstU32<50>;\n    type MaxMembers = ConstU32<20>;\n    type DefaultVote = pallet_collective::PrimeDefaultVote;\n    type WeightInfo = pallet_collective::weights::SubstrateWeight<Runtime>;\n    type SetMembersOrigin = EnsureRoot<AccountId>;\n    type MaxProposalWeight = BlockWeights;\n}\n```\n\nThe instances share the same pallet code but maintain completely independent storage — `MotionDuration`, `MaxProposals`, and `MaxMembers` can differ per instance."
+          "action": "Add pallet dependencies to runtime/Cargo.toml",
+          "working_directory": "polkadot-sdk-parachain-template",
+          "description": "Open runtime/Cargo.toml. A single pallet crate covers all instances — add it once:\n\n```toml\n[dependencies]\n...\npallet-collective = { version = \"<SDK_VERSION>\", default-features = false }\npallet-membership = { version = \"<SDK_VERSION>\", default-features = false }\n```\n\nReplace `<SDK_VERSION>` with the version matching your other SDK pallets (check existing entries). Add both to the std feature list:\n\n```toml\n[features]\nstd = [\n    ...\n    \"pallet-collective/std\",\n    \"pallet-membership/std\",\n]\n```\n\nVerify: `cargo check -p runtime 2>&1 | head -20`"
         },
         {
           "order": 5,
-          "action": "Register both instances in construct_runtime!",
-          "working_directory": ".",
-          "description": "Find `construct_runtime!` in runtime/src/lib.rs and add both instances with unique names:\n\n```rust\nconstruct_runtime!(\n    pub enum Runtime where ... {\n        // ... existing pallets ...\n        TechnicalCommittee: pallet_collective::<Instance1>,\n        Council: pallet_collective::<Instance2>,\n    }\n);\n```\n\nThe names `TechnicalCommittee` and `Council` become the on-chain pallet identifiers for storage and extrinsics — choose carefully as renaming requires a migration. The `::<Instance1>` and `::<Instance2>` syntax tells the macro which Instance type alias to bind to each pallet entry."
+          "action": "Implement Config<Instance1> for TechnicalCommittee",
+          "working_directory": "polkadot-sdk-parachain-template",
+          "description": "Open runtime/src/lib.rs. Add the first instance's Config implementation. For pallet-collective as TechnicalCommittee:\n\n```rust\ntype TechnicalCommitteeInstance = pallet_collective::Instance1;\n\nimpl pallet_collective::Config<TechnicalCommitteeInstance> for Runtime {\n    type RuntimeOrigin = RuntimeOrigin;\n    type Proposal = RuntimeCall;\n    type RuntimeEvent = RuntimeEvent;\n    type MotionDuration = ConstU32<5>;\n    type MaxProposals = ConstU32<100>;\n    type MaxMembers = ConstU32<100>;\n    type DefaultVote = pallet_collective::PrimeDefaultVote;\n    type WeightInfo = pallet_collective::weights::SubstrateWeight<Runtime>;\n    type SetMembersOrigin = EnsureRoot<AccountId>;\n    type MaxProposalWeight = BlockWeights;\n}\n```\n\nSubstitute `ConstU32` values with the desired governance parameters."
         },
         {
           "order": 6,
+          "action": "Implement Config<Instance2> for Council",
+          "working_directory": "polkadot-sdk-parachain-template",
+          "description": "Add the second instance's Config implementation immediately after the first:\n\n```rust\ntype CouncilInstance = pallet_collective::Instance2;\n\nimpl pallet_collective::Config<CouncilInstance> for Runtime {\n    type RuntimeOrigin = RuntimeOrigin;\n    type Proposal = RuntimeCall;\n    type RuntimeEvent = RuntimeEvent;\n    type MotionDuration = ConstU32<7>;\n    type MaxProposals = ConstU32<50>;\n    type MaxMembers = ConstU32<20>;\n    type DefaultVote = pallet_collective::PrimeDefaultVote;\n    type WeightInfo = pallet_collective::weights::SubstrateWeight<Runtime>;\n    type SetMembersOrigin = EnsureRoot<AccountId>;\n    type MaxProposalWeight = BlockWeights;\n}\n```\n\nThe instances share the same pallet code but maintain completely independent storage — `MotionDuration`, `MaxProposals`, and `MaxMembers` can differ per instance."
+        },
+        {
+          "order": 7,
+          "action": "Register both instances in construct_runtime!",
+          "working_directory": "polkadot-sdk-parachain-template",
+          "description": "Find `construct_runtime!` in runtime/src/lib.rs and add both instances with unique names:\n\n```rust\nconstruct_runtime!(\n    pub enum Runtime where ... {\n        // ... existing pallets ...\n        TechnicalCommittee: pallet_collective::<Instance1>,\n        Council: pallet_collective::<Instance2>,\n    }\n);\n```\n\nThe names `TechnicalCommittee` and `Council` become the on-chain pallet identifiers for storage and extrinsics — choose carefully as renaming requires a migration. The `::<Instance1>` and `::<Instance2>` syntax tells the macro which Instance type alias to bind to each pallet entry."
+        },
+        {
+          "order": 8,
           "action": "Compile the runtime",
-          "working_directory": ".",
+          "working_directory": "polkadot-sdk-parachain-template",
           "commands": [
             "cargo build --release 2>&1 | tail -20"
           ],
           "description": "Build the parachain node. Compilation succeeds when both instance Config impls are complete and construct_runtime! entries are correct. Expected output: Finished release [optimized] target(s). If you see 'conflicting implementations of trait Config<Instance1>', check that each instance type alias (TechnicalCommitteeInstance, CouncilInstance) is distinct."
         },
         {
-          "order": 7,
+          "order": 9,
           "action": "Verify instance independence",
-          "working_directory": ".",
+          "working_directory": "polkadot-sdk-parachain-template",
           "commands": [
             "./target/release/parachain-template-node build-spec --disable-default-bootnode --chain local > /tmp/instances-spec.json",
             "./target/release/parachain-template-node --dev --tmp --chain /tmp/instances-spec.json"
@@ -6694,7 +6789,8 @@
       "primary_page": "parachains/customize-runtime/pallet-development/create-a-pallet.md",
       "prerequisites": {
         "runtime": [
-          "Required: a working parachain template checkout with a successful local build (see https://docs.polkadot.com/parachains/launch-a-parachain/set-up-the-parachain-template.md)",
+          "Git (steps 1-2 clone and build the polkadot-sdk-parachain-template inline; see also the standalone set-up-parachain-template skill at https://docs.polkadot.com/parachains/launch-a-parachain/set-up-the-parachain-template.md)",
+          "Disk: at least 5 GB free for build artifacts",
           "Rust toolchain with wasm32-unknown-unknown target (rustup target add wasm32-unknown-unknown)",
           "Polkadot SDK system dependencies (see https://docs.polkadot.com/parachains/install-polkadot-sdk.md)"
         ],
@@ -6706,8 +6802,26 @@
       "steps": [
         {
           "order": 1,
-          "action": "Create the pallet directory and Cargo.toml",
+          "action": "Clone the Polkadot SDK parachain template",
           "working_directory": ".",
+          "commands": [
+            "git clone https://github.com/paritytech/polkadot-sdk-parachain-template.git"
+          ],
+          "description": "Clone the canonical parachain template. All subsequent steps assume `polkadot-sdk-parachain-template/` exists at the project root. The full standalone walkthrough is the `set-up-parachain-template` skill."
+        },
+        {
+          "order": 2,
+          "action": "Build the parachain template node in release mode",
+          "working_directory": "polkadot-sdk-parachain-template",
+          "commands": [
+            "cargo build --release"
+          ],
+          "description": "Compile the template once so the runtime crate, pallet-template, and dependencies are resolved before pallet work begins. First build can take 10-20 minutes."
+        },
+        {
+          "order": 3,
+          "action": "Create the pallet directory and Cargo.toml",
+          "working_directory": "polkadot-sdk-parachain-template",
           "commands": [
             "mkdir -p pallets/counter/src",
             "touch pallets/counter/src/lib.rs"
@@ -6715,33 +6829,33 @@
           "description": "Create the pallet directory structure inside the parachain template workspace. The pallet name (counter) becomes the crate name. Create pallets/counter/Cargo.toml with the following content, replacing <SDK_VERSION> with the version matching your other workspace pallets:\n\n```toml\n[package]\nname = \"pallet-counter\"\nversion = \"0.1.0\"\nedition = \"2021\"\n\n[dependencies]\ncodec = { package = \"parity-scale-codec\", version = \"3\", default-features = false, features = [\"derive\"] }\nscale-info = { version = \"2\", default-features = false, features = [\"derive\"] }\nframe-support = { version = \"<SDK_VERSION>\", default-features = false }\nframe-system = { version = \"<SDK_VERSION>\", default-features = false }\nframe-benchmarking = { version = \"<SDK_VERSION>\", default-features = false, optional = true }\n\n[features]\ndefault = [\"std\"]\nstd = [\n    \"codec/std\",\n    \"scale-info/std\",\n    \"frame-support/std\",\n    \"frame-system/std\",\n]\nruntime-benchmarks = [\"frame-benchmarking/runtime-benchmarks\"]\n```\n\nAlso add pallet-counter to the workspace's root Cargo.toml members list:\nmembers = [\n    ...\n    \"pallets/counter\",\n]"
         },
         {
-          "order": 2,
+          "order": 4,
           "action": "Implement the pallet in pallets/counter/src/lib.rs",
-          "working_directory": ".",
+          "working_directory": "polkadot-sdk-parachain-template",
           "description": "Write the pallet implementation in pallets/counter/src/lib.rs. A minimal counter pallet contains:\n\n#![cfg_attr(not(feature = \"std\"), no_std)]\n\npub use pallet::*;\n\n```rust\n#[frame_support::pallet]\npub mod pallet {\n    use frame_support::pallet_prelude::*;\n    use frame_system::pallet_prelude::*;\n\n    #[pallet::pallet]\n    pub struct Pallet<T>(_);\n\n    #[pallet::config]\n    pub trait Config: frame_system::Config {\n        type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;\n        #[pallet::constant]\n        type MaxValue: Get<u32>;\n    }\n```\n\n    #[pallet::storage]\n    pub type CounterValue<T> = StorageValue<_, u32, ValueQuery>;\n\n```rust\n    #[pallet::event]\n    #[pallet::generate_deposit(pub(super) fn deposit_event)]\n    pub enum Event<T: Config> {\n        CounterIncremented { new_value: u32 },\n        CounterDecremented { new_value: u32 },\n    }\n\n    #[pallet::error]\n    pub enum Error<T> {\n        CounterOverflow,\n        CounterUnderflow,\n    }\n\n    #[pallet::call]\n    impl<T: Config> Pallet<T> {\n        #[pallet::call_index(0)]\n        #[pallet::weight(10_000)]\n        pub fn increment(origin: OriginFor<T>) -> DispatchResult {\n            ensure_signed(origin)?;\n            let val = CounterValue::<T>::get();\n            let new_val = val.checked_add(1).ok_or(Error::<T>::CounterOverflow)?;\n            ensure!(new_val <= T::MaxValue::get(), Error::<T>::CounterOverflow);\n            CounterValue::<T>::put(new_val);\n            Self::deposit_event(Event::CounterIncremented { new_value: new_val });\n            Ok(())\n        }\n\n        #[pallet::call_index(1)]\n        #[pallet::weight(10_000)]\n        pub fn decrement(origin: OriginFor<T>) -> DispatchResult {\n            ensure_signed(origin)?;\n            let val = CounterValue::<T>::get();\n            let new_val = val.checked_sub(1).ok_or(Error::<T>::CounterUnderflow)?;\n            CounterValue::<T>::put(new_val);\n            Self::deposit_event(Event::CounterDecremented { new_value: new_val });\n            Ok(())\n        }\n    }\n}\n```\n\nThe MaxValue constant bounds the counter to prevent overflow. checked_add/checked_sub replace panicking arithmetic."
         },
         {
-          "order": 3,
+          "order": 5,
           "action": "Add pallet-counter to runtime/Cargo.toml",
-          "working_directory": ".",
+          "working_directory": "polkadot-sdk-parachain-template",
           "description": "Open runtime/Cargo.toml and add pallet-counter as a workspace dependency:\n\n```toml\n[dependencies]\n...\npallet-counter = { path = \"../pallets/counter\", default-features = false }\n\nAdd to the std feature list:\n[features]\nstd = [\n    ...\n    \"pallet-counter/std\",\n]\n```\n\nNote: path = \"../pallets/counter\" is a relative path from the runtime/ directory to the pallet directory."
         },
         {
-          "order": 4,
+          "order": 6,
           "action": "Implement pallet_counter::Config in runtime/src/lib.rs",
-          "working_directory": ".",
+          "working_directory": "polkadot-sdk-parachain-template",
           "description": "Open runtime/src/lib.rs. Add the Config implementation for the counter pallet:\n\n```rust\nimpl pallet_counter::Config for Runtime {\n    type RuntimeEvent = RuntimeEvent;\n    type MaxValue = ConstU32<100>;\n}\n```\n\nConstU32<100> sets the MaxValue constant to 100 — adjust as needed. ConstU32 is from frame_support::traits and is already imported in the parachain template runtime."
         },
         {
-          "order": 5,
+          "order": 7,
           "action": "Register the pallet in construct_runtime!",
-          "working_directory": ".",
+          "working_directory": "polkadot-sdk-parachain-template",
           "description": "Find construct_runtime! in runtime/src/lib.rs and add the counter pallet:\n\n```rust\nconstruct_runtime!(\n    pub enum Runtime where ... {\n        // ... existing pallets ...\n        Counter: pallet_counter,\n    }\n);\n```\n\nThe name Counter is the on-chain pallet identifier. Save the file."
         },
         {
-          "order": 6,
+          "order": 8,
           "action": "Compile and run locally",
-          "working_directory": ".",
+          "working_directory": "polkadot-sdk-parachain-template",
           "commands": [
             "cargo build --release 2>&1 | tail -20",
             "./target/release/parachain-template-node build-spec --disable-default-bootnode --chain local > /tmp/counter-spec.json",

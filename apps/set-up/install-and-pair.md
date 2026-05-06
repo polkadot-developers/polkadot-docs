@@ -1,6 +1,6 @@
 ---
 title: Install and Pair Polkadot Desktop
-description: Set up Polkadot Desktop and pair it with a signing device to create a local environment for building and testing Polkadot Products.
+description: Set up the Polkadot Desktop and pair it with a signing device to create a local environment for building and testing Polkadot Products.
 categories: Apps
 ---
 

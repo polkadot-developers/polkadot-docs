@@ -122,6 +122,7 @@ plugins:
       enabled: !ENV [ENABLED_LLMS_PLUGINS, True]
       ai_page_actions_anchor: page-header-row
       ai_page_actions_style: dropdown
+      agent_skills_config: polkadot-docs/agent_skills_config.json
   - awesome-nav
   - git-revision-date-localized:
       type: date

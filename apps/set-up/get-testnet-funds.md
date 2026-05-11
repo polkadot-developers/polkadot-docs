@@ -6,13 +6,15 @@ categories: Apps
 
 # Get TestNet Funds
 
+## Introduction
+
 This guide assumes you are using Paseo Next — the default environment selected on the Polkadot Desktop login screen. If you selected Preview or Stable instead, see [Choose a Network](/apps/set-up/choose-a-network/){target=\_blank} for environment-specific guidance.
 
 PAS is the test token for Paseo Next. It pays transaction fees for any extrinsic you submit while developing your Product, similar to gas on EVM networks.
 
-Some Polkadot infrastructure services use a separate allowance-based access model. An allowance is a permissioned quota that authorizes your account to consume a specific service — for example, how much data it can store on the Bulletin Chain, how many statements it can publish to the Statement Store, or whether it can register a .dot name. This quota is independent of your token balance: even with enough PAS to cover fees, a missing allowance will cause the service to reject your request.
+Some Polkadot infrastructure services use a separate allowance-based access model. An allowance is a permissioned quota that authorizes your account to consume a specific service — for example, how much data it can store on the Bulletin Chain, how many statements it can publish to the Statement Store, or whether it can register a `.dot` name. This quota is independent of your token balance: even with enough PAS to cover fees, a missing allowance will cause the service to reject your request.
 
-By the end of this page, your account will have a PAS balance and the allowances needed to store data, publish statements, and register .dot names on TestNet.
+By the end of this page, your account will have a PAS balance and the allowances needed to store data, publish statements, and register `.dot` names on TestNet.
 
 ## Prerequisites
 
@@ -20,9 +22,6 @@ Before requesting funds and allowances, ensure you have:
 
 - Complete the [Install and Pair](/apps/set-up/install-and-pair/){target=\_blank} setup so Polkadot Desktop is paired with your signer.
 - Complete [identity verification](/apps/set-up/verify-your-identity/){target=\_blank} so your account has a Proof of Personhood status.
-
-!!! note "Coming Soon"
-    The Install and Pair and Verify Your Identity guides are in progress. Check back for the completed setup steps.
 
 ## Get Tokens
 
@@ -69,7 +68,7 @@ On TestNet, allowances are provisioned by calling the `increase_allowance_by` ex
 
 ### dotNS Names
 
-dotNS (.dot name registration) uses a hybrid model. Open names — those that anyone can register — require a deposit paid in PAS. Names reserved for accounts with Proof of Personhood Full or PoP Lite status are free to register for eligible accounts, with no deposit required.
+dotNS (`.dot` name registration) uses a hybrid model. Open names — those that anyone can register — require a deposit paid in PAS. Names reserved for accounts with Proof of Personhood Full or PoP Lite status are free to register for eligible accounts, with no deposit required.
 
 !!! note "Personhood-Gated Quotas"
     Several allowances on Polkadot TestNet are tied to your Proof of Personhood status. Accounts that have completed [identity verification](/apps/set-up/verify-your-identity/){target=\_blank} may receive higher quotas, lower deposits, or access to PoP-gated name spaces. If your allowances look smaller than expected, confirm your account's PoP status before requesting more capacity.
@@ -94,6 +93,3 @@ A new gas mechanism will be applied to facilitate the transactions and operation
     [:octicons-arrow-right-24: Get Started](/apps/set-up/choose-a-network/){target=\_blank}
 
 </div>
-
-!!! note "Coming Soon"
-    The Choose a Network guide is in progress.

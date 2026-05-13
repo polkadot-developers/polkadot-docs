@@ -1,0 +1,40 @@
+name: Vale style check
+
+on:
+  pull_request:
+    paths:
+      - "**.md"
+      - ".vale.ini"
+      - "styles/**"
+      - ".github/workflows/vale.yml"
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  vale:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: List changed markdown files
+        id: changed
+        run: |
+          base="${{ github.event.pull_request.base.sha }}"
+          head="${{ github.event.pull_request.head.sha }}"
+          files=$(git diff --name-only --diff-filter=AM "$base...$head" -- '*.md' | tr '\n' ' ')
+          echo "files=$files" >> "$GITHUB_OUTPUT"
+          echo "Changed markdown files: $files"
+
+      - name: Run Vale on changed files
+        if: steps.changed.outputs.files != ''
+        uses: errata-ai/vale-action@reviewdog
+        with:
+          files: ${{ steps.changed.outputs.files }}
+          fail_on_error: true
+          reporter: github-pr-review
+          filter_mode: added
+          token: ${{ secrets.GITHUB_TOKEN }}

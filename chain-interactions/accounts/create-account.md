@@ -3,6 +3,7 @@ title: Create an Account
 description: Step-by-step guide to creating Polkadot accounts using different programming languages and libraries, including JavaScript, Python, and Rust examples.
 categories: Basics, Chain Interactions
 page_badges:
+  tutorial_badge: Beginner
   test_workflow: polkadot-docs-create-account
 page_tests:
   path: polkadot-docs/chain-interactions/create-account/tests/docs.test.ts

@@ -3,6 +3,7 @@ title: Transfer Assets Between Parachains
 description: A step-by-step guide to using the ParaSpell XCM SDK to build, verify, and execute a transfer from one Parachain to another.
 categories: Interoperability, Parachains
 page_badges:
+  tutorial_badge: Intermediate
   test_workflow: polkadot-docs-transfer-assets-parachains
 page_tests:
   path: polkadot-docs/chain-interactions/transfer-assets-parachains/tests/docs.test.ts

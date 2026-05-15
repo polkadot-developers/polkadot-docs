@@ -46,13 +46,16 @@ To set up the structure, follow these steps:
 
 ### Set Up Python Environment
 
-Navigate to the `polkadot-mkdocs` directory and create a Python virtual environment:
+Navigate to the `polkadot-mkdocs` directory and install dependencies:
 
 ```bash
-cd polkadot-mkdocs
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-pip install -r requirements.txt
+make install
+```
+
+On Windows:
+
+```bat
+Makefile.bat install
 ```
 
 ### Install Dependencies and Serve Site
@@ -66,10 +69,16 @@ pip install -r requirements.txt
 2. Serve the site:
 
     ```bash
-    mkdocs serve
+    make serve
     ```
 
-After a successful build, the site should be available at http://127.0.0.1:8000.
+    On Windows:
+
+    ```bat
+    Makefile.bat serve
+    ```
+
+After a successful build, the site should be available at http://127.0.0.1:8000 with live reload on file changes.
 
 ### Working with the Docs
 

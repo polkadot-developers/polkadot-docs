@@ -1,13 +1,13 @@
 {
   "schema_version": "0.1",
-  "generated": "2026-05-05T12:44:56Z",
-  "content_hash": "sha256:c8996d340d4f325a26903aea637c62d540ad63f6752d73d84dcc776bafc4ba01",
+  "generated": "2026-05-15T15:00:00Z",
+  "content_hash": "sha256:45a722aa580ffc79a0c0f1cab2e23fbc65779ea366852e285e996cf342003a99",
   "skills": [
     {
       "id": "create-polkadot-account",
       "title": "Create a Polkadot Account Programmatically",
       "description": "Generates a new Polkadot SR25519 account (mnemonic, public key, SS58 address) using @polkadot/util-crypto and @polkadot/keyring. Use when you need to create a wallet, automate key generation, or produce a signing account for testing. Supports TypeScript (primary), Python (substrate-interface), and Rust (sp-core). Trigger phrases: 'create a Polkadot account', 'generate wallet keypair', 'new account', 'key generation'. Output: console-printed 12-word BIP39 mnemonic and SS58 address. No network connection required.",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "chain_role": "isolated",
       "invocation": "user",
       "workflow_pattern": "sequential",
@@ -130,13 +130,14 @@
           ],
           "result": "SR25519 keypair generated; mnemonic and SS58 address printed to console"
         }
-      ]
+      ],
+      "project_structure": "account-creator/\n├── create-account.ts\n└── package.json"
     },
     {
       "id": "query-account-info-sdks",
       "title": "Query Account Information with SDKs",
       "description": "Queries Polkadot Hub for account balance, nonce, and account state using the Polkadot API (PAPI) TypeScript library. Use when you need to inspect an account's free/reserved/frozen balance or transaction count programmatically. Also supports Polkadot.js, Dedot, Python Substrate Interface, and Subxt. Trigger phrases: 'query account balance', 'check account info', 'get account nonce', 'read wallet balance'. No tokens required — read-only operation against any funded or unfunded address.",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "chain_role": "isolated",
       "invocation": "user",
       "workflow_pattern": "sequential",
@@ -271,13 +272,14 @@
           ],
           "result": "After funding, account data is returned correctly"
         }
-      ]
+      ],
+      "project_structure": "papi-query-account-example/\n├── .papi/\n│   └── descriptors/\n├── query-account.ts\n└── package.json"
     },
     {
       "id": "query-chain-state-sdks",
       "title": "Query On-Chain State with SDKs",
       "description": "Queries on-chain storage on Polkadot Hub using PAPI TypeScript library: System.Account for account balance and Assets pallet for USDT (asset ID 1984) metadata and balance. Use when you need to read chain state programmatically beyond account info — including asset balances and pallet storage. Also supports Polkadot.js, Dedot, Python Substrate Interface, and Subxt. Trigger phrases: 'query chain state', 'read on-chain storage', 'get asset balance', 'check USDT balance on Asset Hub'. No tokens required — read-only.",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "chain_role": "isolated",
       "invocation": "user",
       "workflow_pattern": "sequential",
@@ -424,13 +426,14 @@
           ],
           "result": "USDC metadata and address balance returned"
         }
-      ]
+      ],
+      "project_structure": "papi-query-example/\n├── .papi/\n│   └── descriptors/\n├── query-asset.ts\n├── query-balance.ts\n└── package.json"
     },
     {
       "id": "call-runtime-apis-sdks",
       "title": "Call Runtime APIs with SDKs",
       "description": "Executes Polkadot SDK runtime APIs — AccountNonceApi.account_nonce and Metadata.metadata_versions — using the PAPI TypeScript library. Use when you need computed results from runtime logic rather than raw storage reads, such as the current transaction nonce or supported metadata versions. Also supports Polkadot.js, Dedot, Python Substrate Interface, and Subxt. Trigger phrases: 'call runtime API', 'get account nonce via runtime', 'query metadata versions', 'AccountNonceApi'. No tokens required — read-only operation.",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "chain_role": "isolated",
       "invocation": "user",
       "workflow_pattern": "sequential",
@@ -565,13 +568,14 @@
           ],
           "result": "User understands nonce 0 is correct for a new or never-transacted account"
         }
-      ]
+      ],
+      "project_structure": "papi-runtime-api-example/\n├── .papi/\n│   └── descriptors/\n├── runtime-apis.ts\n└── package.json"
     },
     {
       "id": "send-transactions-sdks",
       "title": "Send Transactions with SDKs",
       "description": "Constructs, signs, and submits a Balances.transfer_keep_alive extrinsic to Polkadot Hub using the PAPI TypeScript library. Use when you need to send tokens programmatically from a funded account. Also supports Polkadot.js, Dedot, Python Substrate Interface, and Subxt. Requires a funded account mnemonic and testnet PAS tokens. Trigger phrases: 'send a transaction', 'transfer tokens programmatically', 'sign and submit extrinsic', 'send PAS balance'. Uses dotenv to protect the sender mnemonic.",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "chain_role": "isolated",
       "invocation": "user",
       "workflow_pattern": "sequential",
@@ -756,7 +760,8 @@
           ],
           "result": "Account funded; transaction succeeds on retry"
         }
-      ]
+      ],
+      "project_structure": "papi-send-tx-example/\n├── .papi/\n│   └── descriptors/\n├── send-transfer.ts\n├── .env\n├── .gitignore\n└── package.json"
     },
     {
       "id": "install-polkadot-sdk",
@@ -918,7 +923,7 @@
       "id": "deploy-basic-contract-hardhat",
       "title": "Deploy a Basic Smart Contract with Hardhat",
       "description": "Scaffolds a Hardhat v2 TypeScript project, configures it for Polkadot Hub TestNet (chain ID 420420417), creates a Storage.sol contract, compiles it, and deploys via Hardhat Ignition. Use when deploying a first EVM smart contract to Polkadot Hub using a professional Hardhat workflow. Uses dotenv for private key security. Trigger phrases: 'deploy smart contract with Hardhat', 'Hardhat deployment Polkadot', 'deploy Storage contract', 'Hardhat Ignition deploy'. Requires testnet PAS tokens. Do NOT use for PVM (PolkaVM) deployments; use set-up-hardhat-pvm for that.",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "chain_role": "isolated",
       "invocation": "user",
       "workflow_pattern": "sequential",
@@ -1115,7 +1120,8 @@
           ],
           "result": "Fresh deployment succeeds with correct gas configuration"
         }
-      ]
+      ],
+      "project_structure": "hardhat-deployment/\n├── contracts/\n│   └── Storage.sol\n├── ignition/\n│   └── modules/\n│       └── Storage.ts\n├── .env\n├── .gitignore\n├── hardhat.config.ts\n└── package.json"
     },
     {
       "id": "deploy-erc20-token-hardhat",
@@ -3788,7 +3794,7 @@
       "id": "deploy-contracts-ethers-js",
       "title": "Deploy Contracts to Polkadot Hub with Ethers.js",
       "description": "Sets up a Node.js project, compiles a Solidity contract with solc, deploys to Polkadot Hub TestNet using Ethers.js v6, and interacts with the deployed contract via read and write script calls. Use when integrating Ethers.js into a new or existing Node.js project targeting Polkadot Hub. Trigger phrases: 'deploy with ethers.js polkadot', 'ethers.js contract deployment', 'use ethers polkadot hub', 'ethersjs testnet'. Covers dotenv credential setup, custom Polkadot Hub provider configuration, and the compile-deploy-interact workflow. Produces a deployed contract with verified read/write interaction.",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "chain_role": "isolated",
       "invocation": "user",
       "workflow_pattern": "sequential",
@@ -4007,13 +4013,14 @@
           ],
           "result": "Deployment succeeds with sufficient gas price for Polkadot Hub TestNet"
         }
-      ]
+      ],
+      "project_structure": "ethers-deploy/\n├── artifacts/\n├── contracts/\n│   └── Storage.sol\n├── checkStorage.js\n├── compile.js\n├── connectToProvider.js\n├── deploy.js\n├── .env\n├── .gitignore\n└── package.json"
     },
     {
       "id": "deploy-contracts-viem",
       "title": "Deploy Contracts to Polkadot Hub with Viem",
       "description": "Sets up a TypeScript project, compiles a Solidity contract, deploys to Polkadot Hub TestNet using Viem v2 walletClient.deployContract, and interacts with the deployed contract via publicClient and walletClient. Use when building a TypeScript project that needs direct Viem integration with Polkadot Hub without a Hardhat setup. Trigger phrases: 'deploy with viem polkadot', 'viem contract deployment', 'use viem polkadot hub', 'deploy viem typescript'. Covers custom Polkadot Hub chain definition, dotenv credential setup, and the compile-deploy-interact pattern. Companion to deploy-contracts-ethers-js.",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "chain_role": "isolated",
       "invocation": "user",
       "workflow_pattern": "sequential",
@@ -4250,13 +4257,14 @@
           ],
           "result": "Deployment succeeds with 5000 gwei gas price, above the 1000 gwei TestNet base fee"
         }
-      ]
+      ],
+      "project_structure": "viem-deploy/\n├── abis/\n├── artifacts/\n├── contracts/\n│   └── Storage.sol\n├── src/\n│   ├── chainConfig.ts\n│   ├── compile.ts\n│   ├── createClient.ts\n│   ├── createWallet.ts\n│   ├── deploy.ts\n│   └── interact.ts\n├── .env\n├── .gitignore\n└── package.json"
     },
     {
       "id": "set-up-pallet-mock-runtime",
       "title": "Set Up a Mock Runtime for Pallet Unit Testing",
       "description": "Creates a mock runtime module for FRAME pallet unit testing using construct_runtime! and derive_impl. Use when you need a self-contained test environment for a custom FRAME pallet before writing unit tests. Configures frame_system with test defaults, satisfies pallet Config traits, and provides genesis storage helpers for different initial states. Trigger phrases: 'mock runtime pallet', 'set up pallet testing', 'construct_runtime test', 'pallet test environment', 'derive_impl TestDefaultConfig'. Requires a completed FRAME pallet in pallets/pallet-custom. Do NOT use for full parachain runtime integration testing.",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "chain_role": "isolated",
       "invocation": "user",
       "workflow_pattern": "sequential",
@@ -4391,7 +4399,8 @@
           ],
           "result": "Compilation succeeds with the () placeholder WeightInfo, appropriate for test environments."
         }
-      ]
+      ],
+      "project_structure": "polkadot-sdk-parachain-template/\n└── pallets/\n    └── pallet-custom/\n        └── src/\n            └── mock.rs"
     },
     {
       "id": "unit-test-frame-pallet",
@@ -4903,7 +4912,7 @@
       "id": "interact-with-chain-dedot",
       "title": "Interact with Polkadot Chains Using Dedot",
       "description": "Sets up a lightweight Dedot TypeScript client to read chain state and send transactions on any Polkadot SDK blockchain. Use when you need a modern, tree-shakable alternative to Polkadot.js for querying storage, subscribing to events, calling runtime APIs, or submitting signed extrinsics. Trigger phrases: 'use Dedot', 'query chain with Dedot', 'Dedot client', 'interact with chain TypeScript'. Output: account balance, runtime constants, and submitted transaction hash. No testnet tokens required for read-only steps.",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "chain_role": "isolated",
       "invocation": "user",
       "workflow_pattern": "sequential",
@@ -5051,7 +5060,8 @@
           ],
           "result": "Type-safe access to custom pallet storage with IntelliSense for the target chain's specific APIs."
         }
-      ]
+      ],
+      "project_structure": "dedot-example/\n├── main.ts\n├── send-tx.ts\n└── package.json"
     },
     {
       "id": "run-parachain-node-omni-node",
@@ -6074,7 +6084,7 @@
       "id": "deploy-interact-contracts-web3js",
       "title": "Deploy and Interact with Smart Contracts Using Web3.js",
       "description": "Sets up a Node.js project with Web3.js and solc, creates a Storage Solidity contract, configures a provider for Polkadot Hub TestNet, compiles to EVM bytecode, deploys, and interacts via read/write scripts. Use when integrating Polkadot Hub with Web3.js. Trigger phrases: 'Web3.js Polkadot', 'deploy contract Web3', 'web3js smart contract Polkadot'. NOTE: Web3.js has been sunset — for new projects use deploy-contracts-ethers-js or deploy-contracts-viem instead. All code files require substituting INSERT_* placeholders before execution.",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "chain_role": "isolated",
       "invocation": "user",
       "workflow_pattern": "sequential",
@@ -6259,7 +6269,8 @@
           ],
           "result": "User directed to deploy-contracts-ethers-js or deploy-contracts-viem for modern contract interaction"
         }
-      ]
+      ],
+      "project_structure": "web3js-project/\n├── abis/\n├── artifacts/\n├── contracts/\n│   └── Storage.sol\n├── scripts/\n│   ├── compile.js\n│   ├── connectToProvider.js\n│   ├── deploy.js\n│   └── updateStorage.js\n├── contract-address.json\n└── package.json"
     },
     {
       "id": "add-existing-pallet-to-runtime",

@@ -2798,6 +2798,77 @@
         "priority_score": 25
       },
       "built_at": "2026-05-15T15:30:00Z"
+    },
+    {
+      "skill_id": "deploy-uniswap-v3-core-evm",
+      "title": "Deploy Uniswap V3 Core with EVM on Polkadot Hub",
+      "source_pages": [
+        "smart-contracts/cookbook/eth-dapps/uniswap-v3/core-v3.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "status": "built",
+      "notes": "K1=0: test step references external Local Development Node guide; deployment workflow itself is self-contained. K4=3: revm-hardhat-examples repo with pinned commit (3ff28ae). No P3: reader clones the repo, not creates files.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P4",
+          "R2",
+          "C1",
+          "C2",
+          "K2",
+          "K3",
+          "K4",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 15,
+          "reference": 4,
+          "conceptual": 8,
+          "not_applicable": 0
+        },
+        "priority_score": 20
+      },
+      "built_at": "2026-05-15T15:30:00Z"
+    },
+    {
+      "skill_id": "deploy-uniswap-v3-periphery-evm",
+      "title": "Deploy Uniswap V3 Periphery with EVM on Polkadot Hub",
+      "source_pages": [
+        "smart-contracts/cookbook/eth-dapps/uniswap-v3/periphery-v3.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "status": "pending",
+      "notes": "Full deploy+test workflow for SwapRouter and NonfungiblePositionManager. The 'complete V3 Core tutorial' prereq is a code dependency resolved automatically via local npm file reference in the cloned monorepo; the Ignition module deploys Factory+WETH9+SwapRouter+NFPM in one shot, making this self-contained. Pinned to commit 96696ad15c3cf01b9168a71ad5114f27c34a8726 with docs.test.ts confirming CI-tested code.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "R1",
+          "R2",
+          "C1",
+          "K1",
+          "K2",
+          "K3",
+          "K4",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 20,
+          "reference": 9,
+          "conceptual": 5,
+          "not_applicable": 0
+        },
+        "priority_score": 25
+      }
     }
   ],
   "supplementary_only": [

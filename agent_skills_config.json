@@ -1,7 +1,7 @@
 {
   "schema_version": "0.1",
   "generated": "2026-05-15T15:30:00Z",
-  "content_hash": "sha256:ef1cb2bf98721bdbe9f835d261011c01ca05b85a93f19c68124e56d2e442e2b5",
+  "content_hash": "sha256:1e942f0bea9b650ee643e6d7957d81984fe9990af06b540e4e1736c2850e16a9",
   "skills": [
     {
       "id": "create-polkadot-account",
@@ -8713,7 +8713,7 @@
     {
       "id": "store-retrieve-data-bulletin-chain",
       "title": "Store and Retrieve Data on the Bulletin Chain",
-      "description": "Authorizes an account on the Polkadot Bulletin Chain, stores a file on-chain via the TransactionStorage pallet using PAPI, retrieves it by CID through the IPFS gateway, and renews storage before expiry. Use when you need decentralized, IPFS-compatible file storage on Polkadot without EVM smart contracts. Key capabilities: Console UI walkthrough for account authorization (Root-origin faucet required); PAPI TypeScript script for programmatic store; CID-based retrieval; renewal workflow. Trigger phrases: 'store data on Bulletin Chain', 'upload file to Polkadot on-chain', 'get CID for image on Polkadot', 'renew Bulletin Chain data'. Authorization must be obtained from the Console UI faucet before PAPI store.",
+      "description": "Stores a file on the Polkadot Bulletin Chain using PAPI TypeScript and retrieves it by CID via the IPFS gateway. Use when you need decentralized IPFS-compatible file storage for dApp assets, NFT metadata, or files under 8 MiB. Requires a Polkadot account authorized via the Bulletin Chain Console UI faucet (no programmatic self-authorization). Trigger phrases: 'store file Bulletin Chain', 'PAPI TransactionStorage store', 'Polkadot decentralized storage', 'Bulletin Chain IPFS'.",
       "version": "1.0.0",
       "chain_role": "isolated",
       "invocation": "user",
@@ -8725,37 +8725,37 @@
       "primary_page": "chain-interactions/store-data/bulletin-chain.md",
       "prerequisites": {
         "runtime": [
-          "Node.js v18+",
+          "Node.js v18 or later",
           "npm"
         ],
         "network": [
-          "Polkadot Bulletin Chain TestNet WebSocket: wss://paseo-bulletin-rpc.polkadot.io"
+          "Bulletin Chain TestNet WebSocket: wss://paseo-bulletin-rpc.polkadot.io"
         ],
         "tokens": [
-          "Account authorization from the Bulletin Chain Console UI faucet at https://paritytech.github.io/polkadot-bulletin-chain/ (authorization is free but requires wallet approval)"
+          "Bulletin Chain storage authorization (not DOT/PAS) — obtained from Console UI faucet at https://paritytech.github.io/polkadot-bulletin-chain/. The authorize_account extrinsic requires Root origin; self-authorization is not available programmatically."
         ],
         "wallet": [
-          "A Polkadot account with a browser wallet extension (Polkadot.js, Talisman, SubWallet, or Fearless Wallet) to approve the authorization transaction via the Console UI"
+          "A Polkadot account (SS58) with active Bulletin Chain authorization, plus its 12-word mnemonic for signing"
         ]
       },
       "env_vars": [
         {
-          "name": "SEED_PHRASE",
-          "description": "12- or 24-word BIP39 mnemonic for the account that was authorized on the Bulletin Chain in the Console UI step. This account must hold authorization (bytes + transactions) before store operations will succeed.",
-          "required": true,
-          "secret": true
+          "name": "MNEMONIC",
+          "description": "12-word mnemonic of the authorized Polkadot account. Do NOT ask user to paste mnemonic in chat — they must edit .env directly.",
+          "required": true
         }
       ],
+      "project_structure": "bulletin-store-example/\n├── .papi/\n│   └── (generated Bulletin Chain descriptors)\n├── store-data.ts\n├── .env\n├── .gitignore\n├── node_modules/\n└── package.json",
       "steps": [
         {
           "order": 1,
-          "action": "Authorize your account via the Console UI faucet",
+          "action": "Authorize account via Bulletin Chain Console UI",
           "working_directory": ".",
-          "description": "Navigate to the Bulletin Chain Console at https://paritytech.github.io/polkadot-bulletin-chain/ and connect your wallet. Go to the Faucet page, select the Storage Faucet tab, and under 'Authorize Account' enter the number of Transactions and Bytes you need, then click 'Authorize Account'. Approve the transaction in your wallet extension. Verify your authorization balance on the Accounts tab. Note: the 'authorize_account' extrinsic requires Root origin and cannot be called programmatically — the Console UI faucet is the only path. Authorization is consumed as files are stored and expires if unused transactions lapse."
+          "description": "This step requires manual browser interaction — delegate to the user.\n\n1. Open https://paritytech.github.io/polkadot-bulletin-chain/ and click Connect to link a wallet (Polkadot.js, Talisman, SubWallet, or Fearless).\n2. Go to Faucet > Storage Faucet tab.\n3. Under Authorize Account, enter the number of Transactions and Bytes needed, click Authorize Account, and approve in the wallet extension.\n4. Verify authorization on the Accounts tab — note the expiration block number.\n\nNote: Authorization expires at a block. Once expired, data cannot be renewed without re-authorizing."
         },
         {
           "order": 2,
-          "action": "Initialize the project",
+          "action": "Create and initialize the project",
           "working_directory": ".",
           "commands": [
             "mkdir bulletin-store-example",
@@ -8763,128 +8763,53 @@
             "npm init -y",
             "npm pkg set type=module"
           ],
-          "description": "Create the 'bulletin-store-example' directory and initialize it as an ESM Node.js project. The `type=module` flag is required — PAPI uses ESM imports."
+          "description": "Create a new Node.js ESM project. The ESM module type is required for polkadot-api and hdkd packages."
         },
         {
           "order": 3,
           "action": "Install dependencies",
           "working_directory": "bulletin-store-example",
           "commands": [
-            "npm install polkadot-api @polkadot-labs/hdkd @polkadot-labs/hdkd-helpers multiformats dotenv"
+            "npm install polkadot-api @polkadot-labs/hdkd @polkadot-labs/hdkd-helpers multiformats dotenv tsx"
           ],
-          "description": "Install polkadot-api (PAPI), @polkadot-labs/hdkd and hdkd-helpers for SR25519 key derivation, multiformats for CID decoding, and dotenv for loading the seed phrase from .env."
+          "description": "Install polkadot-api (typed chain client), hdkd and hdkd-helpers (key derivation), multiformats (CID decoding), dotenv (secure mnemonic loading), and tsx (TypeScript runner)."
         },
         {
           "order": 4,
-          "action": "Fetch Bulletin Chain metadata",
+          "action": "Add Bulletin Chain metadata",
           "working_directory": "bulletin-store-example",
           "commands": [
             "npx papi add bulletin -w wss://paseo-bulletin-rpc.polkadot.io"
           ],
-          "description": "Download Bulletin Chain metadata and generate typed PAPI descriptors with the 'bulletin' export key under @polkadot-api/descriptors. This provides full type safety for all TransactionStorage pallet interactions."
+          "expected_output": "Descriptors generated successfully",
+          "description": "Connect to the Bulletin Chain RPC, download chain metadata, and generate typed descriptors in .papi/. These descriptors provide compile-time type safety for all pallet interactions."
         },
         {
           "order": 5,
-          "action": "Create the .env file",
+          "action": "Create .env with mnemonic placeholder",
           "working_directory": "bulletin-store-example",
-          "description": "Create a file named `.env` in the `bulletin-store-example` directory with the following content:\n\n```text\nSEED_PHRASE=\"INSERT_SEED_PHRASE\"\n```\n\nAlso create `.gitignore` with `.env` on its own line so the seed phrase is never committed.\n\nStop and ask the user to edit the `.env` file directly, replacing `INSERT_SEED_PHRASE` with the mnemonic of the account they authorized in step 1. Do NOT ask for the seed phrase in chat. Wait for confirmation before proceeding."
+          "commands": [
+            "printf 'MNEMONIC=\\n' > .env",
+            "echo '.env' >> .gitignore"
+          ],
+          "description": "Create .env with an empty MNEMONIC placeholder and exclude it from git. Stop here and ask the user to edit .env directly — fill in MNEMONIC with the 12-word mnemonic of the authorized account. Do NOT ask for the mnemonic in chat. Wait for user confirmation before proceeding."
         },
         {
           "order": 6,
-          "action": "Fetch the store-data script and apply substitutions",
+          "action": "Create store-data.ts",
           "working_directory": "bulletin-store-example",
           "reference_file": "store-data.ts",
-          "description": "Fetch the reference file and save it as `store-data.ts`. Apply these two substitutions:\n\n1. Replace the `FILE_PATH` placeholder: change `const FILE_PATH = 'INSERT_IMAGE_PATH';` to the path of the file you want to store (e.g., `const FILE_PATH = './logo.png';`).\n\n2. Replace the DEV_PHRASE signer with dotenv. Change the import block:\n```typescript\nimport {\n  DEV_PHRASE,\n  entropyToMiniSecret,\n  mnemonicToEntropy,\n} from '@polkadot-labs/hdkd-helpers';\n```\nto:\n```typescript\nimport 'dotenv/config';\nimport {\n  entropyToMiniSecret,\n  mnemonicToEntropy,\n} from '@polkadot-labs/hdkd-helpers';\n```\n\nAnd change:\n```typescript\nconst miniSecret = entropyToMiniSecret(mnemonicToEntropy(DEV_PHRASE));\n```\nto:\n```typescript\nconst miniSecret = entropyToMiniSecret(mnemonicToEntropy(process.env.SEED_PHRASE!));\n```\n\nThe signer now uses the authorized account from .env instead of the Alice dev account."
+          "description": "Fetch the reference file and save as store-data.ts. Then apply these modifications:\n1. Add `import 'dotenv/config';` as the very first line.\n2. Remove `DEV_PHRASE` from the `@polkadot-labs/hdkd-helpers` import (keep `entropyToMiniSecret` and `mnemonicToEntropy`).\n3. Change `mnemonicToEntropy(DEV_PHRASE)` to `mnemonicToEntropy(process.env.MNEMONIC as string)`.\n4. Replace `'INSERT_IMAGE_PATH'` with the path to the file the user wants to store (ask the user for this path before running).\nSave the file."
         },
         {
           "order": 7,
-          "action": "Store the file on-chain",
+          "action": "Run the store script",
           "working_directory": "bulletin-store-example",
           "commands": [
             "npx tsx store-data.ts"
           ],
-          "expected_output": "Connected to Bulletin Chain (Polkadot TestNet)\nRead file: ./logo.png (N bytes)\nSubmitting store transaction...\nTransaction included in block: 0x...\nTransaction index: N\n\nImage stored successfully!\nIndex: N\nCID: bafk2bzace...\n\nRetrieve via IPFS gateway:\nhttps://paseo-ipfs.polkadot.io/ipfs/bafk2bzace...",
-          "description": "Run the store script. On success it prints the CID, block hash, and transaction index. Save the **block hash** and **transaction index** — they are required to renew stored data before it expires (approximately 2 weeks on TestNet)."
-        },
-        {
-          "order": 8,
-          "action": "Retrieve the stored file",
-          "working_directory": "bulletin-store-example",
-          "description": "Retrieve your file using the CID from step 7. Option A — fetch via IPFS gateway (programmatic):\n\n```typescript\nconst cid = 'INSERT_CID_FROM_STEP_7';\nconst response = await fetch(`https://paseo-ipfs.polkadot.io/ipfs/${cid}`);\nconst data = await response.arrayBuffer();\nconsole.log(`Retrieved ${data.byteLength} bytes`);\n```\n\nOption B — open the IPFS gateway URL directly in a browser: `https://paseo-ipfs.polkadot.io/ipfs/<CID>`.\n\nOption C — use the Console UI Download page at https://paritytech.github.io/polkadot-bulletin-chain/ and enter the CID.",
-          "expected_output": "File content returned from gateway; byteLength matches the original file size."
-        },
-        {
-          "order": 9,
-          "action": "Renew stored data before expiry",
-          "working_directory": "bulletin-store-example",
-          "description": "Data is retained for approximately 2 weeks on TestNet. To renew, call `api.tx.TransactionStorage.renew()` with the block number and transaction index recorded in step 7. Add a renewal script or paste this into a TypeScript file:\n\n```typescript\nimport 'dotenv/config';\nimport { createClient } from 'polkadot-api';\nimport { getWsProvider } from 'polkadot-api/ws';\nimport { bulletin } from '@polkadot-api/descriptors';\nimport { sr25519CreateDerive } from '@polkadot-labs/hdkd';\nimport { entropyToMiniSecret, mnemonicToEntropy } from '@polkadot-labs/hdkd-helpers';\nimport { getPolkadotSigner } from 'polkadot-api/signer';\n\nconst BLOCK_NUMBER = INSERT_BLOCK_NUMBER_FROM_STEP_7;\nconst TX_INDEX = INSERT_TX_INDEX_FROM_STEP_7;\n\nconst client = createClient(getWsProvider('wss://paseo-bulletin-rpc.polkadot.io'));\nconst api = client.getTypedApi(bulletin);\nconst miniSecret = entropyToMiniSecret(mnemonicToEntropy(process.env.SEED_PHRASE!));\nconst derive = sr25519CreateDerive(miniSecret);\nconst hdkdKeyPair = derive('//your-path');\nconst signer = getPolkadotSigner(hdkdKeyPair.publicKey, 'Sr25519', hdkdKeyPair.sign);\n\nconst result = await api.tx.TransactionStorage.renew({ block: BLOCK_NUMBER, index: TX_INDEX }).signAndSubmit(signer);\nconsole.log('Renewed in block:', result.block.hash);\nclient.destroy();\n```\n\nReplace `INSERT_BLOCK_NUMBER_FROM_STEP_7` and `INSERT_TX_INDEX_FROM_STEP_7` with the values recorded in step 7. Each successful renewal emits a 'Renewed' event with a new block number and index — record the new values for subsequent renewals. Using stale values after a renewal will fail."
-        }
-      ],
-      "project_structure": "bulletin-store-example/\n├── .papi/\n│   └── descriptors/\n├── store-data.ts\n├── .env\n├── .gitignore\n├── package.json\n└── <your-file-to-store>",
-      "error_patterns": [
-        {
-          "pattern": "InsufficientAuthorization / account has no authorization",
-          "cause": "The signing account has not been authorized on the Bulletin Chain, or all authorized bytes/transactions have been consumed.",
-          "resolution": "Complete step 1: use the Console UI faucet at https://paritytech.github.io/polkadot-bulletin-chain/ to authorize your account. Verify your remaining authorization on the Accounts tab."
-        },
-        {
-          "pattern": "Error: Cannot find module '@polkadot-api/descriptors'",
-          "cause": "PAPI type descriptors were not generated for the Bulletin Chain.",
-          "resolution": "Run `npx papi add bulletin -w wss://paseo-bulletin-rpc.polkadot.io` in the bulletin-store-example directory (step 4)."
-        },
-        {
-          "pattern": "ENOENT: no such file or directory (reading the FILE_PATH)",
-          "cause": "The file path in store-data.ts does not exist or is incorrect.",
-          "resolution": "Update FILE_PATH in store-data.ts to point to an existing file. Use an absolute path or a relative path from the bulletin-store-example directory."
-        },
-        {
-          "pattern": "Renewal fails with 'UnexpectedStatus' or wrong block/index",
-          "cause": "Stale block number or transaction index used after a previous renewal.",
-          "resolution": "Each renewal emits a 'Renewed' event with a new (block, index) pair. Always use the most recent values from the last successful renew transaction — not the original store values."
-        }
-      ],
-      "supplementary_context": {
-        "description": "Load these pages for technical background on Bulletin Chain storage mechanics, size limits, and retrieval methods.",
-        "pages": [
-          {
-            "slug": "reference-polkadot-hub-data-storage",
-            "title": "Data Storage",
-            "url": "https://docs.polkadot.com/reference/polkadot-hub/data-storage/",
-            "relevance": "Full technical reference for the Bulletin Chain: all extrinsics, storage items, events, size limits (8 MiB per transaction), and retrieval methods."
-          },
-          {
-            "slug": "chain-interactions-accounts-create-account",
-            "title": "Create a Polkadot Account Programmatically",
-            "url": "https://docs.polkadot.com/chain-interactions/accounts/create-account/",
-            "relevance": "How to create a Polkadot SS58 account if the user does not already have one to authorize."
-          }
-        ]
-      },
-      "examples": [
-        {
-          "scenario": "Common scenario: store an image and retrieve it by CID",
-          "user_says": "Store an image file on the Polkadot Bulletin Chain and give me its IPFS CID",
-          "actions": [
-            "Authorize account via Console UI faucet (must be done manually — Root origin required)",
-            "Initialize bulletin-store-example ESM Node.js project with npm",
-            "Install polkadot-api, hdkd, hdkd-helpers, multiformats, dotenv",
-            "Fetch Bulletin Chain metadata with `npx papi add bulletin`",
-            "Create .env with SEED_PHRASE; ask user to fill in their authorized account mnemonic",
-            "Fetch store-data.ts; substitute FILE_PATH and replace DEV_PHRASE with dotenv SEED_PHRASE",
-            "Run `npx tsx store-data.ts`; record CID, block number, and transaction index from output",
-            "Retrieve file via https://paseo-ipfs.polkadot.io/ipfs/<CID>"
-          ],
-          "result": "File stored on-chain; CID printed (e.g. bafk2bzace...); file accessible at the IPFS gateway URL"
-        },
-        {
-          "scenario": "Edge case: stored data nearing expiry, renewal needed",
-          "user_says": "My Bulletin Chain data is about to expire, how do I renew it?",
-          "actions": [
-            "Confirm the user has the block number and transaction index from their original store (or last renewal) transaction",
-            "Provide the renewal script with substituted BLOCK_NUMBER and TX_INDEX values",
-            "Run the renewal script; record the new (block, index) pair from the Renewed event for future renewals"
-          ],
-          "result": "Retention timer reset; data available for another ~2-week period. New (block, index) pair recorded for next renewal."
+          "expected_output": "Image stored successfully! CID: bafk2bzace...",
+          "description": "Run the script to submit the file to the Bulletin Chain. On success it prints the block hash, transaction index, CID, and an IPFS gateway URL. Save the CID and (block, index) pair — needed to retrieve or renew the stored data."
         }
       ],
       "reference_code": {
@@ -8894,17 +8819,74 @@
         "files": [
           {
             "path": "store-data.ts",
-            "description": "PAPI TypeScript script that connects to the Bulletin Chain, reads a file, submits TransactionStorage.store, and decodes the Stored event to print the CID and block reference"
+            "description": "PAPI TypeScript script that connects to Bulletin Chain, reads a local file, and submits it via TransactionStorage.store. Uses DEV_PHRASE by default — replace with process.env.MNEMONIC as instructed in step 6."
           }
         ]
       },
-      "generated": "2026-05-15T15:30:00Z",
-      "content_hash": "sha256:c38c3743e7262e82cc82da3bafff3d1c68a5bf29048d98bb8634e94c1a0eb8b2"
+      "error_patterns": [
+        {
+          "pattern": "Error: account has no authorization",
+          "cause": "The signing account has no active authorization on the Bulletin Chain, or it has expired.",
+          "resolution": "Re-authorize via the Console UI faucet at https://paritytech.github.io/polkadot-bulletin-chain/ before retrying."
+        },
+        {
+          "pattern": "file too large / data exceeds per-transaction limit",
+          "cause": "File exceeds the ~8 MiB per-transaction size limit.",
+          "resolution": "Split into chunks under 8 MiB and submit multiple store transactions, recording (block, index) per chunk."
+        },
+        {
+          "pattern": "MNEMONIC is undefined / Cannot derive key from undefined",
+          "cause": ".env not populated or dotenv not loaded.",
+          "resolution": "Verify .env contains MNEMONIC=<mnemonic> and that `import 'dotenv/config';` is the first line of store-data.ts."
+        },
+        {
+          "pattern": "WebSocket connection failed / ECONNREFUSED wss://paseo-bulletin-rpc.polkadot.io",
+          "cause": "Network issue or RPC temporarily unavailable.",
+          "resolution": "Check internet connectivity and retry after a few minutes. Monitor the Polkadot Discord for outage announcements."
+        }
+      ],
+      "supplementary_context": {
+        "description": "Load when the user asks about Bulletin Chain architecture, data retention, retrieval methods (P2P vs IPFS gateway), or the renewal workflow.",
+        "pages": [
+          {
+            "slug": "reference-polkadot-hub-data-storage",
+            "title": "Data Storage",
+            "url": "https://docs.polkadot.com/reference/polkadot-hub/data-storage.md",
+            "relevance": "Technical reference for TransactionStorage pallet extrinsics, storage size limits, retention period, retrieval methods (IPFS gateway, P2P Helia), and renewal mechanics."
+          }
+        ]
+      },
+      "examples": [
+        {
+          "scenario": "Common scenario: store an image for an NFT collection",
+          "user_says": "Store my NFT artwork on the Polkadot Bulletin Chain and get its IPFS CID",
+          "actions": [
+            "Authorize Polkadot account via Console UI faucet",
+            "Set up Node.js ESM project and install polkadot-api + hdkd + dotenv",
+            "Run npx papi add bulletin to generate chain descriptors",
+            "Create .env with MNEMONIC, modify store-data.ts to use process.env.MNEMONIC",
+            "Set FILE_PATH to the image path, run npx tsx store-data.ts",
+            "Receive CID for use in NFT metadata"
+          ],
+          "result": "File stored on-chain; CID like bafk2bzacea6wlxy... retrievable at https://paseo-ipfs.polkadot.io/ipfs/<CID>"
+        },
+        {
+          "scenario": "Edge case: stored data approaches expiry",
+          "user_says": "My stored data is about to expire — how do I renew it?",
+          "actions": [
+            "Retrieve the (block, index) pair from when the data was stored",
+            "Confirm expiration block has not yet passed (check Bulletin Chain Explorer)",
+            "Call TransactionStorage.renew({block, index}) using PAPI with the same authorized signer",
+            "Record new (block, index) from the Renewed event for future renewals"
+          ],
+          "result": "Retention timer reset; original CID remains valid for another full retention period"
+        }
+      ]
     },
     {
       "id": "deploy-uniswap-v2-core-pvm",
-      "title": "Deploying Uniswap V2 Core on Polkadot",
-      "description": "Clones polkavm-hardhat-examples, compiles Uniswap V2 Core contracts (UniswapV2ERC20, UniswapV2Factory, UniswapV2Pair, Solidity 0.8.28) using the @parity/hardhat-polkadot plugin and revive compiler targeting PolkaVM (PVM), runs tests against a local revive-dev-node, and deploys to Polkadot Hub TestNet via the passetHub network. Use when you need AMM-based DEX infrastructure on the PVM execution path. Key capabilities: @parity/hardhat-polkadot plugin config; dotenv-based private key management; UniswapV2Pair deployed via direct JsonRpcProvider to handle contract size. Trigger phrases: 'deploy Uniswap V2 PVM', 'AMM on Polkadot PolkaVM', 'UniswapV2Factory PVM Polkadot'. Requires PAS testnet tokens from https://faucet.polkadot.io/.",
+      "title": "Deploy Uniswap V2 Core on Polkadot Hub (PVM)",
+      "description": "Clones the polkavm-hardhat-examples repo, compiles Uniswap V2 Factory and Pair contracts to the Polkadot Virtual Machine (PVM) using the Hardhat Polkadot plugin and resolc compiler, and deploys to Polkadot Hub TestNet. Use when deploying a DEX AMM factory on Polkadot Hub with PVM bytecode. Requires testnet PAS tokens. Trigger phrases: 'deploy Uniswap V2 PVM', 'UniswapV2Factory PVM Polkadot', 'deploy AMM Polkadot Hub PVM', 'polkavm-hardhat-examples uniswap'.",
       "version": "1.0.0",
       "chain_role": "isolated",
       "invocation": "user",
@@ -8916,44 +8898,43 @@
       "primary_page": "smart-contracts/cookbook/eth-dapps/uniswap-v2/core-v2-pvm.md",
       "prerequisites": {
         "runtime": [
-          "Node.js v16+",
-          "npm"
+          "Node.js v16 or later",
+          "npm",
+          "Git"
         ],
         "network": [
-          "Local revive-dev-node for testing (http://127.0.0.1:8545) — see the Local Development Node guide at https://docs.polkadot.com/smart-contracts/dev-environments/local-dev-node/",
-          "Polkadot Hub TestNet RPC: https://testnet-passet-hub-eth-rpc.polkadot.io"
+          "Polkadot Hub TestNet RPC: https://testnet-passet-hub-eth-rpc.polkadot.io (chain ID 420420417, base fee 1000 gwei)"
         ],
         "tokens": [
-          "PAS testnet tokens from https://faucet.polkadot.io/ for the account set in AH_PRIV_KEY"
+          "Testnet PAS tokens for gas fees — get from https://faucet.polkadot.io/"
         ],
         "wallet": [
-          "An EVM-compatible account (MetaMask or similar) with the private key exported for AH_PRIV_KEY"
+          "An EVM private key (0x-prefixed) for a funded testnet account (AH_PRIV_KEY)"
         ]
       },
       "env_vars": [
         {
-          "name": "LOCAL_PRIV_KEY",
-          "description": "Private key for the local revive-dev-node account. A default dev key (0x5fb92d6e...) is pre-configured in hardhat.config.js; set this only if you need a different local account.",
-          "required": false,
-          "secret": true
+          "name": "AH_PRIV_KEY",
+          "description": "0x-prefixed EVM private key for the account deploying to Polkadot Hub TestNet (passetHub network). Must be funded with testnet PAS. Do NOT ask user to paste key in chat — they must edit .env directly.",
+          "required": true
         },
         {
-          "name": "AH_PRIV_KEY",
-          "description": "Private key of the account used to deploy contracts to Polkadot Hub TestNet (passetHub network). Export from MetaMask or another EVM wallet. This account must hold PAS testnet tokens.",
-          "required": true,
-          "secret": true
+          "name": "LOCAL_PRIV_KEY",
+          "description": "0x-prefixed EVM private key for local testing. For local-only use, Alice's dev key (0x5fb92d6e98884f76de468fa3f6278f8807c48bebc13595d45af5bdc4da702133) is the default in the config. Not required for TestNet deployment.",
+          "required": false
         }
       ],
+      "project_structure": "polkavm-hardhat-examples/\n└── uniswap-v2-polkadot/\n    ├── contracts/\n    │   ├── interfaces/\n    │   ├── libraries/\n    │   ├── test/\n    │   ├── UniswapV2ERC20.sol\n    │   ├── UniswapV2Factory.sol\n    │   └── UniswapV2Pair.sol\n    ├── scripts/\n    │   └── deploy.js\n    ├── test/\n    ├── .env\n    ├── .gitignore\n    ├── hardhat.config.js\n    └── package.json",
       "steps": [
         {
           "order": 1,
-          "action": "Clone the repository and navigate to the project",
+          "action": "Clone the polkavm-hardhat-examples repository",
           "working_directory": ".",
           "commands": [
             "git clone https://github.com/polkadot-developers/polkavm-hardhat-examples.git",
             "cd polkavm-hardhat-examples/uniswap-v2-polkadot"
           ],
-          "description": "Clone polkavm-hardhat-examples (default branch: master). Navigate to the `uniswap-v2-polkadot` subdirectory which contains the Hardhat project."
+          "description": "Clone the repository and navigate to the Uniswap V2 project. The hardhat.config.js already uses dotenv (require('dotenv').config()) and process.env variables — no Hardhat vars conversion needed."
         },
         {
           "order": 2,
@@ -8962,14 +8943,16 @@
           "commands": [
             "npm install"
           ],
-          "description": "Install all project dependencies including `@parity/hardhat-polkadot` (PolkaVM Hardhat plugin) and the revive Solidity compiler."
+          "description": "Install all project dependencies including @parity/hardhat-polkadot and the resolc PVM compiler."
         },
         {
           "order": 3,
-          "action": "Create the .env file with private keys",
+          "action": "Create .env with private key placeholders",
           "working_directory": "polkavm-hardhat-examples/uniswap-v2-polkadot",
-          "reference_file": ".env.example",
-          "description": "Fetch the reference file and save it as `.env` (note: save as `.env`, not `.env.example`). The file already contains the correct variable names:\n\n```text\nLOCAL_PRIV_KEY=\"\"\nAH_PRIV_KEY=\"\"\n```\n\nStop and ask the user to edit the `.env` file directly. Do NOT ask for the private key in chat. The user should:\n- Set `AH_PRIV_KEY` to the private key of an account holding PAS testnet tokens on Polkadot Hub TestNet.\n- Optionally set `LOCAL_PRIV_KEY` for a custom local dev account (a default dev key is already in hardhat.config.js if this is left empty).\nWait for confirmation before proceeding."
+          "commands": [
+            "printf 'AH_PRIV_KEY=\\nLOCAL_PRIV_KEY=\\n' > .env"
+          ],
+          "description": "Create .env with empty placeholders. The .gitignore already includes .env. Stop here and ask the user to edit .env directly — fill in AH_PRIV_KEY with the 0x-prefixed private key of the account that will deploy to Polkadot Hub TestNet. Do NOT ask for the key in chat. For LOCAL_PRIV_KEY, Alice's dev key is the default in hardhat.config.js for local testing. Wait for confirmation before proceeding."
         },
         {
           "order": 4,
@@ -8978,139 +8961,95 @@
           "commands": [
             "npx hardhat compile"
           ],
-          "expected_output": "Compiled N Solidity files successfully (solc 0.8.28)",
-          "description": "Compile the Uniswap V2 contracts using the revive compiler configured via `@parity/hardhat-polkadot`. Compiled PVM artifacts (ABI and PolkaVM bytecode) are written to the `artifacts` directory."
+          "expected_output": "Compiled 1 Solidity file successfully",
+          "description": "Compile the Uniswap V2 contracts to PVM bytecode using the Hardhat Polkadot plugin and the resolc compiler. Compiled artifacts (ABI and PVM bytecode) appear in the artifacts/ directory."
         },
         {
           "order": 5,
-          "action": "Start the local revive-dev-node",
-          "working_directory": ".",
-          "description": "Start the local development node as described at https://docs.polkadot.com/smart-contracts/dev-environments/local-dev-node/. The node must be accessible at http://127.0.0.1:8545 before running tests."
-        },
-        {
-          "order": 6,
-          "action": "Run the test suite against the local node",
-          "working_directory": "polkavm-hardhat-examples/uniswap-v2-polkadot",
-          "commands": [
-            "npx hardhat test --network localNode"
-          ],
-          "expected_output": "passing (N tests covering UniswapV2ERC20, UniswapV2Factory, and UniswapV2Pair)",
-          "description": "Run all tests against the local revive-dev-node. Tests cover ERC-20 token operations, factory pair creation, and pair AMM swap operations. If tests time out, verify the local revive-dev-node is running at http://127.0.0.1:8545."
-        },
-        {
-          "order": 7,
-          "action": "Review the deployment script",
-          "working_directory": "polkavm-hardhat-examples/uniswap-v2-polkadot",
-          "reference_file": "scripts/deploy.js",
-          "description": "Review `scripts/deploy.js`. It deploys three contracts in sequence: UniswapV2ERC20, UniswapV2Factory (with deployer as fee recipient), and UniswapV2Pair. UniswapV2Pair is deployed using `JsonRpcProvider` with a direct wallet (bypassing Hardhat's default contract size checks which would reject the large PVM bytecode). Output includes the address of all three contracts."
-        },
-        {
-          "order": 8,
           "action": "Deploy to Polkadot Hub TestNet",
           "working_directory": "polkavm-hardhat-examples/uniswap-v2-polkadot",
           "commands": [
             "npx hardhat run scripts/deploy.js --network passetHub"
           ],
-          "expected_output": "Deploying contracts using 0x...\nDeploying UniswapV2ERC20...\nETH deployed to : 0x...\nDeploying UniswapV2Factory...\nFactory deployed to : 0x...\nDeploying UniswapV2Pair...\nPair deployed to : 0x...",
-          "description": "Deploy to Polkadot Hub TestNet. The script reads `AH_PRIV_KEY` from `.env` via dotenv. Save all three deployed addresses — they are needed for any subsequent AMM interactions."
+          "expected_output": "Factory deployed to : 0x...",
+          "description": "Deploy UniswapV2ERC20, UniswapV2Factory, and UniswapV2Pair to Polkadot Hub TestNet via the passetHub network config. The script outputs the deployed addresses — save them, especially the Factory address, which is needed for creating liquidity pairs.\n\nNote: The documentation shows `--network polkadotHubTestNet` but the actual network name in hardhat.config.js is `passetHub`."
         }
       ],
-      "project_structure": "polkavm-hardhat-examples/\n└── uniswap-v2-polkadot/\n    ├── contracts/\n    │   ├── interfaces/\n    │   ├── libraries/\n    │   ├── test/\n    │   ├── UniswapV2ERC20.sol\n    │   ├── UniswapV2Factory.sol\n    │   └── UniswapV2Pair.sol\n    ├── scripts/\n    │   └── deploy.js\n    ├── test/\n    ├── artifacts/\n    ├── .env\n    ├── .gitignore\n    ├── hardhat.config.js\n    └── package.json",
+      "reference_code": {
+        "repo": "none",
+        "branch": "",
+        "base_path": "",
+        "files": []
+      },
       "error_patterns": [
         {
-          "pattern": "Error: AH_PRIV_KEY is undefined / wallet private key not found",
-          "cause": ".env file not created or AH_PRIV_KEY not set.",
-          "resolution": "Create the .env file in the uniswap-v2-polkadot directory (step 3). Set AH_PRIV_KEY to the private key of your PAS-funded account. The hardhat.config.js loads dotenv automatically."
+          "pattern": "Error: insufficient funds / Priority is too low",
+          "cause": "Account not funded with testnet PAS, or network base fee (1000 gwei on Polkadot Hub TestNet) exceeds the transaction gas price.",
+          "resolution": "Get testnet tokens at https://faucet.polkadot.io/. If gas issues persist, add gasPrice: 5000000000000 (5000 gwei) to the passetHub network block in hardhat.config.js."
         },
         {
-          "pattern": "ECONNREFUSED 127.0.0.1:8545",
-          "cause": "Local revive-dev-node is not running.",
-          "resolution": "Start the local development node before running tests. See https://docs.polkadot.com/smart-contracts/dev-environments/local-dev-node/."
+          "pattern": "Error: AH_PRIV_KEY is undefined / invalid private key",
+          "cause": ".env file not populated or not loaded by dotenv.",
+          "resolution": "Verify .env exists in uniswap-v2-polkadot/ and contains AH_PRIV_KEY=0x<your-key>. The config uses require('dotenv').config() automatically."
         },
         {
-          "pattern": "insufficient funds / Error: insufficient balance",
-          "cause": "The AH_PRIV_KEY account has no PAS tokens on Polkadot Hub TestNet.",
-          "resolution": "Obtain PAS testnet tokens from https://faucet.polkadot.io/ for the deployer account address."
+          "pattern": "Error: network passetHub not found / unknown network",
+          "cause": "Using wrong --network flag; documentation shows polkadotHubTestNet but the config defines passetHub.",
+          "resolution": "Use --network passetHub instead of --network polkadotHubTestNet."
         },
         {
-          "pattern": "Error: contract size too large / contract size exceeds limit",
-          "cause": "UniswapV2Pair PVM bytecode exceeds the deployment size check.",
-          "resolution": "The deploy.js script deploys UniswapV2Pair via direct JsonRpcProvider to bypass size checks. Ensure you are using the unmodified deploy.js from the reference repo."
+          "pattern": "Compilation error: resolc not found / PVM compiler unavailable",
+          "cause": "The resolc compiler is not installed or not accessible.",
+          "resolution": "Run npm install to reinstall @parity/hardhat-polkadot and its bundled resolc compiler. Verify package.json includes the plugin."
         }
       ],
       "supplementary_context": {
-        "description": "Load these pages for background on the PolkaVM execution path, the @parity/hardhat-polkadot plugin setup, and the local development node.",
+        "description": "Load when the user asks about PVM vs EVM differences, local development setup, or testing the deployed contracts.",
         "pages": [
-          {
-            "slug": "smart-contracts-dev-environments-hardhat-polkadot",
-            "title": "Use Hardhat with Polkadot Hub (PolkaVM)",
-            "url": "https://docs.polkadot.com/smart-contracts/dev-environments/hardhat-polkadot/",
-            "relevance": "Full guide to configuring @parity/hardhat-polkadot for PolkaVM contract compilation and deployment."
-          },
           {
             "slug": "smart-contracts-dev-environments-local-dev-node",
             "title": "Local Development Node",
-            "url": "https://docs.polkadot.com/smart-contracts/dev-environments/local-dev-node/",
-            "relevance": "How to install and start the local revive-dev-node required for testing in step 5."
+            "url": "https://docs.polkadot.com/smart-contracts/dev-environments/local-dev-node.md",
+            "relevance": "Set up a local Polkadot development node and ETH-RPC adapter to test the Uniswap V2 PVM contracts locally before deploying to TestNet."
           },
           {
-            "slug": "smart-contracts-faucet",
-            "title": "Get Tokens from the Official Faucet",
-            "url": "https://docs.polkadot.com/smart-contracts/faucet/",
-            "relevance": "How to obtain PAS testnet tokens for the AH_PRIV_KEY deployer account."
+            "slug": "smart-contracts-dev-environments-hardhat-polkadot",
+            "title": "Set Up Hardhat with the Polkadot Plugin",
+            "url": "https://docs.polkadot.com/smart-contracts/dev-environments/hardhat-polkadot.md",
+            "relevance": "Configure the @parity/hardhat-polkadot plugin and resolc compiler for PVM smart contract development."
           }
         ]
       },
       "examples": [
         {
-          "scenario": "Common scenario: deploy Uniswap V2 Core to Polkadot Hub TestNet via PVM",
-          "user_says": "Deploy Uniswap V2 Core contracts on Polkadot Hub using PolkaVM",
+          "scenario": "Common scenario: deploy Uniswap V2 Core to Polkadot Hub TestNet using PVM",
+          "user_says": "Deploy Uniswap V2 on Polkadot Hub using PVM",
           "actions": [
-            "Clone polkavm-hardhat-examples; navigate to uniswap-v2-polkadot/",
+            "Clone polkavm-hardhat-examples and cd uniswap-v2-polkadot",
             "Run npm install",
-            "Fetch .env.example, save as .env; ask user to fill in AH_PRIV_KEY",
-            "Run npx hardhat compile",
-            "Start local revive-dev-node; run npx hardhat test --network localNode",
-            "Review scripts/deploy.js",
-            "Run npx hardhat run scripts/deploy.js --network passetHub; save contract addresses"
+            "Create .env with AH_PRIV_KEY for testnet deployment",
+            "Run npx hardhat compile to compile to PVM bytecode",
+            "Run npx hardhat run scripts/deploy.js --network passetHub",
+            "Save deployed Factory and Pair addresses"
           ],
-          "result": "UniswapV2ERC20, UniswapV2Factory, and UniswapV2Pair deployed to Polkadot Hub TestNet; three contract addresses printed"
+          "result": "UniswapV2ERC20, UniswapV2Factory, and UniswapV2Pair deployed to Polkadot Hub TestNet with PVM bytecode"
         },
         {
-          "scenario": "Edge case: user wants to test locally only without TestNet deployment",
-          "user_says": "Test the Uniswap V2 PVM contracts locally, skip TestNet",
+          "scenario": "Edge case: deployment fails with insufficient funds",
+          "user_says": "My Uniswap V2 deployment is failing with insufficient funds",
           "actions": [
-            "Clone polkavm-hardhat-examples; navigate to uniswap-v2-polkadot/",
-            "Run npm install",
-            "Create .env with LOCAL_PRIV_KEY (AH_PRIV_KEY not needed for local testing)",
-            "Start local revive-dev-node",
-            "Run npx hardhat test --network localNode"
+            "Confirm account has testnet PAS at https://faucet.polkadot.io/",
+            "If gas price issue, add gasPrice: 5000000000000 to passetHub config in hardhat.config.js",
+            "Retry deployment with npx hardhat run scripts/deploy.js --network passetHub"
           ],
-          "result": "All tests pass against the local development node; no TestNet deployment and no PAS tokens needed"
+          "result": "Deployment succeeds after funding the account and optionally raising gas price"
         }
-      ],
-      "reference_code": {
-        "repo": "polkadot-developers/polkavm-hardhat-examples",
-        "branch": "master",
-        "base_path": "uniswap-v2-polkadot",
-        "files": [
-          {
-            "path": ".env.example",
-            "description": "Template .env file with LOCAL_PRIV_KEY and AH_PRIV_KEY variable placeholders"
-          },
-          {
-            "path": "scripts/deploy.js",
-            "description": "Deploys UniswapV2ERC20, UniswapV2Factory, and UniswapV2Pair; uses JsonRpcProvider directly for UniswapV2Pair to bypass contract size restrictions"
-          }
-        ]
-      },
-      "generated": "2026-05-15T15:30:00Z",
-      "content_hash": "sha256:f7cab3d8a1306847479141cfc85e4a7c08f4c2d8a83555788c8b9a82cec77873"
+      ]
     },
     {
       "id": "deploy-uniswap-v2-core-evm",
-      "title": "Uniswap V2 Core with EVM on Polkadot",
-      "description": "Clones revm-hardhat-examples, compiles unmodified Uniswap V2 Core contracts (UniswapV2Factory, UniswapV2Pair, UniswapV2ERC20, Solidity 0.5.16) using standard Hardhat and TypeScript on the EVM path, runs 28 tests against a local development node, and deploys UniswapV2Factory plus two test ERC-20 tokens with a trading pair to Polkadot Hub TestNet via REVM. Use when you need AMM DEX infrastructure on the standard EVM execution path without PVM or revive. Key capabilities: vanilla Hardhat TypeScript config; dotenv-based private key management (converted from Hardhat vars); Hardhat Ignition module for Factory-only deployment. Trigger phrases: 'deploy Uniswap V2 Core EVM', 'AMM on Polkadot EVM', 'UniswapV2Factory Polkadot EVM'. Requires PAS testnet tokens.",
+      "title": "Deploy Uniswap V2 Core on Polkadot Hub (EVM)",
+      "description": "Clones the revm-hardhat-examples repo, compiles unmodified Uniswap V2 Core contracts (Factory and Pair) with standard Hardhat and TypeScript, converts Hardhat vars to dotenv for agent-compatible key management, and deploys to Polkadot Hub TestNet via the EVM execution path. Use when deploying a DEX AMM factory on Polkadot Hub using standard EVM bytecode. Requires testnet PAS tokens. Trigger phrases: 'deploy Uniswap V2 EVM Polkadot', 'UniswapV2Factory EVM Polkadot Hub', 'deploy AMM Polkadot REVM'.",
       "version": "1.0.0",
       "chain_role": "isolated",
       "invocation": "user",
@@ -9122,61 +9061,66 @@
       "primary_page": "smart-contracts/cookbook/eth-dapps/uniswap-v2/core-v2.md",
       "prerequisites": {
         "runtime": [
-          "Node.js v22+",
-          "npm"
+          "Node.js v22 or later",
+          "npm",
+          "Git"
         ],
         "network": [
-          "Local development node at http://127.0.0.1:8545 for testing — see https://docs.polkadot.com/smart-contracts/dev-environments/local-dev-node/",
-          "Polkadot Hub TestNet RPC: https://services.polkadothub-rpc.com/testnet"
+          "Polkadot Hub TestNet RPC: https://services.polkadothub-rpc.com/testnet (chain ID 420420417, base fee 1000 gwei)"
         ],
         "tokens": [
-          "PAS testnet tokens from https://faucet.polkadot.io/ for the deployer account"
+          "Testnet PAS tokens for gas fees — get from https://faucet.polkadot.io/"
         ],
         "wallet": [
-          "An EVM-compatible account (MetaMask or similar) with the private key exported for PRIVATE_KEY in .env"
+          "An EVM private key (0x-prefixed) for a funded testnet account"
         ]
       },
       "env_vars": [
         {
-          "name": "PRIVATE_KEY",
-          "description": "Private key of the deployer account on Polkadot Hub TestNet. Required only for TestNet deployment (step 8). Local testing works without it.",
-          "required": true,
-          "secret": true
+          "name": "TESTNET_PRIVATE_KEY",
+          "description": "0x-prefixed EVM private key for the account deploying contracts to Polkadot Hub TestNet. Must be funded with testnet PAS. Do NOT ask user to paste key in chat — edit .env directly.",
+          "required": true
         }
       ],
+      "project_structure": "revm-hardhat-examples/\n└── uniswap-v2-core-hardhat/\n    ├── contracts/\n    │   ├── interfaces/\n    │   ├── libraries/\n    │   ├── test/\n    │   ├── UniswapV2ERC20.sol\n    │   ├── UniswapV2Factory.sol\n    │   └── UniswapV2Pair.sol\n    ├── ignition/\n    │   └── modules/\n    │       └── UniswapV2Factory.ts\n    ├── scripts/\n    │   └── deploy.ts\n    ├── test/\n    ├── artifacts/\n    ├── hardhat.config.ts\n    ├── .env\n    └── package.json",
       "steps": [
         {
           "order": 1,
-          "action": "Clone the repository and navigate to the project",
+          "action": "Clone the revm-hardhat-examples repository",
           "working_directory": ".",
           "commands": [
             "git clone https://github.com/polkadot-developers/revm-hardhat-examples.git",
-            "cd revm-hardhat-examples/uniswap-v2-core-hardhat"
+            "cd revm-hardhat-examples",
+            "git checkout b0a8627059a9d9cb759682310219557550186bc4",
+            "cd uniswap-v2-core-hardhat"
           ],
-          "description": "Clone revm-hardhat-examples (default branch: master) and navigate to the `uniswap-v2-core-hardhat` subdirectory."
+          "description": "Clone the repository, check out the pinned commit (tested configuration), and navigate to the Uniswap V2 Core project."
         },
         {
           "order": 2,
           "action": "Install dependencies",
           "working_directory": "revm-hardhat-examples/uniswap-v2-core-hardhat",
           "commands": [
-            "npm install dotenv",
-            "npm install"
+            "npm install",
+            "npm install dotenv"
           ],
-          "description": "Install dotenv for private key loading, then install all other project dependencies including @nomicfoundation/hardhat-toolbox. Run `npm install dotenv` first to ensure dotenv is available."
+          "description": "Install project dependencies, then additionally install dotenv. dotenv is required to replace Hardhat's interactive vars system with a .env-based private key approach usable in agent shells."
         },
         {
           "order": 3,
-          "action": "Fetch hardhat.config.ts and apply dotenv substitution",
+          "action": "Create .env with private key placeholder",
           "working_directory": "revm-hardhat-examples/uniswap-v2-core-hardhat",
-          "reference_file": "hardhat.config.ts",
-          "description": "Fetch the reference file and save it as `hardhat.config.ts`. Then apply these substitutions to convert from Hardhat vars to dotenv (required — Hardhat's interactive `vars.get()` cannot be used in agent sessions):\n\n1. Replace the import line:\n```typescript\nimport { HardhatUserConfig, vars } from \"hardhat/config\";\n```\nwith:\n```typescript\nimport { HardhatUserConfig } from \"hardhat/config\";\nimport \"dotenv/config\";\n```\n\n2. Replace the `accounts` field in the `polkadotTestnet` network:\n```typescript\naccounts: vars.has(\"TESTNET_PRIVATE_KEY\")\n  ? [vars.get(\"TESTNET_PRIVATE_KEY\")]\n  : [],\n```\nwith:\n```typescript\naccounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],\n```\n\nAll other config fields (Solidity version 0.5.16 with optimizer, localNode URL, mocha timeout 120000) remain unchanged."
+          "commands": [
+            "printf 'TESTNET_PRIVATE_KEY=\\n' > .env",
+            "echo '.env' >> .gitignore"
+          ],
+          "description": "Create .env with an empty TESTNET_PRIVATE_KEY placeholder and exclude it from git. Stop here and ask the user to edit .env directly — fill in TESTNET_PRIVATE_KEY with the 0x-prefixed EVM private key for the testnet deployer account. Do NOT ask for the key in chat. Wait for confirmation before proceeding."
         },
         {
           "order": 4,
-          "action": "Create the .env file",
+          "action": "Convert hardhat.config.ts to use dotenv and add gas configuration",
           "working_directory": "revm-hardhat-examples/uniswap-v2-core-hardhat",
-          "description": "Create a file named `.env` in the `uniswap-v2-core-hardhat` directory with the following content:\n\n```text\nPRIVATE_KEY=\"INSERT_PRIVATE_KEY\"\n```\n\nAlso create `.gitignore` (or append to the existing one) with `.env` to prevent committing the key.\n\nStop and ask the user to edit the `.env` file directly, replacing `INSERT_PRIVATE_KEY` with their Polkadot Hub TestNet account private key (0x-prefixed). Do NOT ask for the key in chat. Wait for confirmation before proceeding. (This step is only required for TestNet deployment; local testing works without a private key.)"
+          "description": "Modify hardhat.config.ts with all of the following changes:\n1. Add `import 'dotenv/config';` as the very first line.\n2. Change `import { HardhatUserConfig, vars } from 'hardhat/config';` to `import { HardhatUserConfig } from 'hardhat/config';`.\n3. In the polkadotTestnet network block, replace `accounts: vars.has('TESTNET_PRIVATE_KEY') ? [vars.get('TESTNET_PRIVATE_KEY')] : []` with `accounts: process.env.TESTNET_PRIVATE_KEY ? [process.env.TESTNET_PRIVATE_KEY] : []`.\n4. In the polkadotTestnet network block, add `gasPrice: 5000000000000,` (5000 gwei — 5x the TestNet 1000 gwei base fee) to prevent 'Priority is too low' errors.\n5. Confirm `ignition.requiredConfirmations` is 1 (not 0) — zero-confirmation only works on local dev nodes with instant finality.\nSave the file."
         },
         {
           "order": 5,
@@ -9185,131 +9129,97 @@
           "commands": [
             "npx hardhat compile"
           ],
-          "expected_output": "Compiled N Solidity files successfully (solc 0.5.16)",
-          "description": "Compile the Uniswap V2 Core contracts. The config specifies Solidity 0.5.16 with optimizer enabled (200 runs). Artifacts (ABI and bytecode) are written to the `artifacts` directory."
+          "expected_output": "Compiled 3 Solidity files successfully",
+          "description": "Compile UniswapV2ERC20, UniswapV2Factory, and UniswapV2Pair (Solidity 0.5.16). Artifacts (ABI and EVM bytecode) appear in the artifacts/ directory."
         },
         {
           "order": 6,
-          "action": "Start the local development node",
-          "working_directory": ".",
-          "description": "Start the local development node as described at https://docs.polkadot.com/smart-contracts/dev-environments/local-dev-node/. The node must be accessible at http://127.0.0.1:8545 before running tests."
-        },
-        {
-          "order": 7,
-          "action": "Run the test suite against the local node",
+          "action": "Deploy to Polkadot Hub TestNet",
           "working_directory": "revm-hardhat-examples/uniswap-v2-core-hardhat",
-          "commands": [
-            "npx hardhat test --network localNode"
-          ],
-          "expected_output": "28 passing",
-          "description": "Run all 28 tests across UniswapV2ERC20.test.ts, UniswapV2Factory.test.ts, and UniswapV2Pair.test.ts. Tests use a 120-second Mocha timeout for Polkadot block times. If tests time out, verify the local development node is running at http://127.0.0.1:8545."
-        },
-        {
-          "order": 8,
-          "action": "Review the deployment script and deploy to TestNet",
-          "working_directory": "revm-hardhat-examples/uniswap-v2-core-hardhat",
-          "reference_file": "scripts/deploy.ts",
           "commands": [
             "npx hardhat run scripts/deploy.ts --network polkadotTestnet"
           ],
-          "expected_output": "Deploying contracts with account: 0x...\nUniswapV2Factory deployed to: 0x...\nTokenA deployed to: 0x...\nTokenB deployed to: 0x...\nPair created at: 0x...",
-          "description": "Review `scripts/deploy.ts` before running. The script deploys UniswapV2Factory (with deployer as fee recipient), two test ERC-20 tokens (10,000 tokens each at 18 decimals), and calls `factory.createPair()` to create a trading pair. The deployer address and all four contract addresses are printed. Save the output — the Factory and Pair addresses are needed for any periphery or interaction work."
+          "expected_output": "UniswapV2Factory deployed to: 0x...",
+          "description": "Deploy UniswapV2Factory, two test ERC-20 tokens, and create a trading pair. The script outputs all deployed addresses. Save the Factory address — needed for creating additional pairs and for the Periphery (Router) deployment."
         }
       ],
-      "project_structure": "revm-hardhat-examples/\n└── uniswap-v2-core-hardhat/\n    ├── contracts/\n    │   ├── interfaces/\n    │   ├── libraries/\n    │   ├── test/\n    │   ├── UniswapV2ERC20.sol\n    │   ├── UniswapV2Factory.sol\n    │   └── UniswapV2Pair.sol\n    ├── ignition/\n    │   └── modules/\n    │       └── UniswapV2Factory.ts\n    ├── scripts/\n    │   └── deploy.ts\n    ├── test/\n    ├── artifacts/\n    ├── .env\n    ├── .gitignore\n    ├── hardhat.config.ts\n    ├── package.json\n    └── tsconfig.json",
+      "reference_code": {
+        "repo": "none",
+        "branch": "",
+        "base_path": "",
+        "files": []
+      },
       "error_patterns": [
         {
-          "pattern": "Error: process.env.PRIVATE_KEY is undefined / no accounts configured",
-          "cause": ".env file not created or PRIVATE_KEY not set.",
-          "resolution": "Create the .env file in the uniswap-v2-core-hardhat directory (step 4) and set PRIVATE_KEY. Verify that the dotenv substitution in hardhat.config.ts was applied correctly (step 3)."
+          "pattern": "Error: insufficient funds / Priority is too low",
+          "cause": "Account underfunded or gasPrice below the 1000 gwei TestNet base fee.",
+          "resolution": "Fund the account at https://faucet.polkadot.io/. Ensure gasPrice: 5000000000000 is set in the polkadotTestnet block of hardhat.config.ts."
         },
         {
-          "pattern": "Error: timeout exceeded / test timeout of 120000ms exceeded",
-          "cause": "Local development node is not running or not reachable at http://127.0.0.1:8545.",
-          "resolution": "Start the local development node before running tests. See https://docs.polkadot.com/smart-contracts/dev-environments/local-dev-node/."
+          "pattern": "Error: vars is not defined / Cannot read properties of undefined",
+          "cause": "hardhat.config.ts still uses vars.get() instead of dotenv.",
+          "resolution": "Ensure `import 'dotenv/config';` is the first line of hardhat.config.ts and replace vars.get('TESTNET_PRIVATE_KEY') with process.env.TESTNET_PRIVATE_KEY."
         },
         {
-          "pattern": "Error: insufficient funds for gas",
-          "cause": "The PRIVATE_KEY account has no PAS tokens on Polkadot Hub TestNet.",
-          "resolution": "Obtain PAS testnet tokens from https://faucet.polkadot.io/ for the deployer account."
+          "pattern": "TESTNET_PRIVATE_KEY is undefined",
+          "cause": ".env not populated or not in the correct directory.",
+          "resolution": "Verify .env exists in uniswap-v2-core-hardhat/ and contains TESTNET_PRIVATE_KEY=0x<key>."
         },
         {
-          "pattern": "SyntaxError or TS compilation error after dotenv substitution",
-          "cause": "The vars.get() substitution in step 3 was incomplete or introduced a syntax error.",
-          "resolution": "Re-apply the substitutions from step 3 carefully. The final hardhat.config.ts polkadotTestnet accounts entry should read: `accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : []`."
+          "pattern": "IGN401: Transaction dropped / Transaction Already Imported",
+          "cause": "Ignition lost track of deployment — missing gasPrice or requiredConfirmations: 0.",
+          "resolution": "Delete ignition/deployments/, ensure gasPrice: 5000000000000 and requiredConfirmations: 1 in config, then redeploy."
         }
       ],
       "supplementary_context": {
-        "description": "Load these pages for background on the EVM execution path, Hardhat configuration, and TestNet token acquisition.",
+        "description": "Load when the user asks about the V2 Periphery Router deployment, local testing, or Hardhat configuration for Polkadot.",
         "pages": [
           {
-            "slug": "smart-contracts-dev-environments-hardhat",
-            "title": "Use Hardhat with Polkadot Hub",
-            "url": "https://docs.polkadot.com/smart-contracts/dev-environments/hardhat/",
-            "relevance": "Full guide to Hardhat configuration for Polkadot Hub EVM, including network settings and TypeScript setup."
+            "slug": "smart-contracts-cookbook-eth-dapps-uniswap-v2-periphery-v2",
+            "title": "Uniswap V2 Periphery with EVM on Polkadot",
+            "url": "https://docs.polkadot.com/smart-contracts/cookbook/eth-dapps/uniswap-v2/periphery-v2.md",
+            "relevance": "Next step: deploy the Uniswap V2 Router (WETH9, Router02) on top of the deployed V2 Core."
           },
           {
             "slug": "smart-contracts-dev-environments-local-dev-node",
             "title": "Local Development Node",
-            "url": "https://docs.polkadot.com/smart-contracts/dev-environments/local-dev-node/",
-            "relevance": "How to install and run the local development node required for test execution in step 6."
-          },
-          {
-            "slug": "smart-contracts-cookbook-eth-dapps-uniswap-v2-periphery-v2",
-            "title": "Uniswap V2 Periphery with EVM on Polkadot",
-            "url": "https://docs.polkadot.com/smart-contracts/cookbook/eth-dapps/uniswap-v2/periphery-v2/",
-            "relevance": "Next step after Core deployment — deploys WETH9, UniswapV2Factory, and Router02 for full DEX liquidity and swap functionality."
+            "url": "https://docs.polkadot.com/smart-contracts/dev-environments/local-dev-node.md",
+            "relevance": "Set up a local Polkadot development node to run the test suite against a local node before TestNet deployment."
           }
         ]
       },
       "examples": [
         {
-          "scenario": "Common scenario: deploy Uniswap V2 Core to Polkadot Hub TestNet via EVM",
-          "user_says": "Deploy Uniswap V2 Core on Polkadot Hub using the EVM execution path",
+          "scenario": "Common scenario: deploy Uniswap V2 Core to Polkadot Hub TestNet using EVM",
+          "user_says": "Deploy Uniswap V2 on Polkadot Hub using EVM Hardhat",
           "actions": [
-            "Clone revm-hardhat-examples; navigate to uniswap-v2-core-hardhat/",
-            "Run npm install dotenv && npm install",
-            "Fetch hardhat.config.ts; apply dotenv substitution (replace vars import and vars.get() with process.env.PRIVATE_KEY)",
-            "Create .env; ask user to fill in PRIVATE_KEY",
+            "Clone revm-hardhat-examples, checkout pinned commit, cd uniswap-v2-core-hardhat",
+            "Run npm install && npm install dotenv",
+            "Create .env with TESTNET_PRIVATE_KEY",
+            "Convert hardhat.config.ts: replace vars.get with process.env, add gasPrice",
             "Run npx hardhat compile",
-            "Start local development node; run npx hardhat test --network localNode (28 tests pass)",
-            "Review scripts/deploy.ts; run npx hardhat run scripts/deploy.ts --network polkadotTestnet; save all addresses"
+            "Run npx hardhat run scripts/deploy.ts --network polkadotTestnet",
+            "Save Factory, TokenA, TokenB, and Pair addresses"
           ],
-          "result": "UniswapV2Factory, TokenA, TokenB, and trading Pair deployed to Polkadot Hub TestNet; addresses printed"
+          "result": "UniswapV2Factory, two test ERC-20 tokens, and a trading pair deployed to Polkadot Hub TestNet via EVM"
         },
         {
-          "scenario": "Edge case: deploy only the Factory using Hardhat Ignition",
-          "user_says": "I just need the UniswapV2Factory deployed, no test tokens",
+          "scenario": "Edge case: deployment stuck with IGN401 Transaction dropped",
+          "user_says": "Ignition says my V2 Core deployment transaction was dropped",
           "actions": [
-            "Ensure the hardhat.config.ts dotenv substitution has been applied (step 3)",
-            "Run: npx hardhat ignition deploy ./ignition/modules/UniswapV2Factory.ts --network polkadotTestnet",
-            "Confirm the network name when prompted"
+            "Verify gasPrice: 5000000000000 is set in polkadotTestnet network config",
+            "Delete ignition/deployments/ directory",
+            "Confirm TESTNET_PRIVATE_KEY account still has PAS balance",
+            "Redeploy with npx hardhat run scripts/deploy.ts --network polkadotTestnet"
           ],
-          "result": "Only UniswapV2Factory deployed; factory address printed"
+          "result": "Clean deployment after resolving gas configuration and clearing stale Ignition state"
         }
-      ],
-      "reference_code": {
-        "repo": "polkadot-developers/revm-hardhat-examples",
-        "branch": "master",
-        "base_path": "uniswap-v2-core-hardhat",
-        "files": [
-          {
-            "path": "hardhat.config.ts",
-            "description": "Hardhat config with Solidity 0.5.16, localNode and polkadotTestnet networks, Hardhat vars for TESTNET_PRIVATE_KEY (must be converted to dotenv in step 3)"
-          },
-          {
-            "path": "scripts/deploy.ts",
-            "description": "Deploys UniswapV2Factory, two ERC-20 test tokens with 10,000 supply each, and creates a trading pair; prints Factory, TokenA, TokenB, and Pair addresses"
-          }
-        ]
-      },
-      "generated": "2026-05-15T15:30:00Z",
-      "content_hash": "sha256:af77b281cf97b9d4924e398dd8b0f9b48c741bd4879052831c92612d2628d831"
+      ]
     },
     {
       "id": "deploy-uniswap-v2-periphery-evm",
-      "title": "Uniswap V2 Periphery with EVM on Polkadot",
-      "description": "Clones revm-hardhat-examples, compiles unmodified Uniswap V2 Periphery contracts (WETH9, UniswapV2Router01, UniswapV2Router02, multi-compiler Solidity 0.5.16 + 0.6.6) using standard Hardhat and TypeScript on the EVM path, runs 50 tests against a local development node, and deploys WETH9, UniswapV2Factory, and UniswapV2Router02 to Polkadot Hub TestNet via Hardhat Ignition. Use when you need the full Router layer for liquidity management and token swaps on top of V2 Core. Key capabilities: multi-compiler Hardhat config; local '@uniswap/v2-core' file dependency resolved automatically; dotenv-based private key management (converted from Hardhat vars); Ignition two-batch deployment. Trigger phrases: 'deploy Uniswap V2 Periphery', 'deploy UniswapV2Router02 Polkadot', 'AMM router EVM'. Requires PAS testnet tokens.",
+      "title": "Deploy Uniswap V2 Periphery (Router) on Polkadot Hub (EVM)",
+      "description": "Clones the revm-hardhat-examples repo, compiles unmodified Uniswap V2 Periphery contracts (WETH9, Router02) with Hardhat, converts Hardhat vars to dotenv, and deploys to Polkadot Hub TestNet via Hardhat Ignition. Use when adding the Router layer (liquidity, swaps, slippage protection) on top of Uniswap V2 Core. V2 Core Solidity dependency is a local file reference — no pre-deployed core required. Trigger phrases: 'deploy Uniswap V2 Router EVM Polkadot', 'UniswapV2Router02 Polkadot Hub', 'Uniswap periphery Polkadot REVM'.",
       "version": "1.0.0",
       "chain_role": "isolated",
       "invocation": "user",
@@ -9321,61 +9231,66 @@
       "primary_page": "smart-contracts/cookbook/eth-dapps/uniswap-v2/periphery-v2.md",
       "prerequisites": {
         "runtime": [
-          "Node.js v22+",
-          "npm"
+          "Node.js v22 or later",
+          "npm",
+          "Git"
         ],
         "network": [
-          "Local development node at http://127.0.0.1:8545 for testing — see https://docs.polkadot.com/smart-contracts/dev-environments/local-dev-node/",
-          "Polkadot Hub TestNet RPC: https://services.polkadothub-rpc.com/testnet"
+          "Polkadot Hub TestNet RPC: https://services.polkadothub-rpc.com/testnet (chain ID 420420417, base fee 1000 gwei)"
         ],
         "tokens": [
-          "PAS testnet tokens from https://faucet.polkadot.io/ for the deployer account"
+          "Testnet PAS tokens for gas fees — get from https://faucet.polkadot.io/"
         ],
         "wallet": [
-          "An EVM-compatible account (MetaMask or similar) with the private key exported for PRIVATE_KEY in .env"
+          "An EVM private key (0x-prefixed) for a funded testnet account"
         ]
       },
       "env_vars": [
         {
-          "name": "PRIVATE_KEY",
-          "description": "Private key of the deployer account on Polkadot Hub TestNet. Required only for TestNet deployment. Local testing works without it.",
-          "required": true,
-          "secret": true
+          "name": "TESTNET_PRIVATE_KEY",
+          "description": "0x-prefixed EVM private key for the account deploying contracts to Polkadot Hub TestNet. Must be funded with testnet PAS. Do NOT ask user to paste key in chat — edit .env directly.",
+          "required": true
         }
       ],
+      "project_structure": "revm-hardhat-examples/\n└── uniswap-v2-periphery-hardhat/\n    ├── contracts/\n    │   ├── interfaces/\n    │   ├── libraries/\n    │   ├── test/\n    │   ├── UniswapV2Router01.sol\n    │   └── UniswapV2Router02.sol\n    ├── ignition/\n    │   └── modules/\n    │       └── UniswapV2Router02.ts\n    ├── scripts/\n    │   └── deploy.ts\n    ├── test/\n    ├── artifacts/\n    ├── hardhat.config.ts\n    ├── .env\n    └── package.json",
       "steps": [
         {
           "order": 1,
-          "action": "Clone the repository and navigate to the project",
+          "action": "Clone the revm-hardhat-examples repository",
           "working_directory": ".",
           "commands": [
             "git clone https://github.com/polkadot-developers/revm-hardhat-examples.git",
-            "cd revm-hardhat-examples/uniswap-v2-periphery-hardhat"
+            "cd revm-hardhat-examples",
+            "git checkout a871364c8f4da052855b5c8ee4ed6b89fd182cb1",
+            "cd uniswap-v2-periphery-hardhat"
           ],
-          "description": "Clone revm-hardhat-examples (default branch: master) and navigate to the `uniswap-v2-periphery-hardhat` subdirectory. Both `uniswap-v2-core-hardhat/` and `uniswap-v2-periphery-hardhat/` must be present since the Periphery project depends on V2 Core via a local file reference: `'@uniswap/v2-core': 'file:../uniswap-v2-core-hardhat'`."
+          "description": "Clone the repository, check out the pinned commit, and navigate to the Uniswap V2 Periphery project. The sibling directory uniswap-v2-core-hardhat/ (at the same commit) is automatically used for the local V2 Core Solidity dependency."
         },
         {
           "order": 2,
           "action": "Install dependencies",
           "working_directory": "revm-hardhat-examples/uniswap-v2-periphery-hardhat",
           "commands": [
-            "npm install dotenv",
-            "npm install"
+            "npm install",
+            "npm install dotenv"
           ],
-          "description": "Install dotenv for private key loading, then install all other project dependencies. npm resolves the local `@uniswap/v2-core` reference from the sibling `uniswap-v2-core-hardhat/` directory automatically — no separate Core installation needed."
+          "description": "Install project dependencies including the local V2 Core reference (resolved automatically from ../uniswap-v2-core-hardhat/). Then install dotenv to replace Hardhat's interactive vars system."
         },
         {
           "order": 3,
-          "action": "Fetch hardhat.config.ts and apply dotenv substitution",
+          "action": "Create .env with private key placeholder",
           "working_directory": "revm-hardhat-examples/uniswap-v2-periphery-hardhat",
-          "reference_file": "hardhat.config.ts",
-          "description": "Fetch the reference file and save it as `hardhat.config.ts`. Apply these substitutions to convert from Hardhat vars to dotenv (required — Hardhat's interactive `vars.get()` cannot be used in agent sessions):\n\n1. Replace the import line:\n```typescript\nimport { HardhatUserConfig, vars } from \"hardhat/config\";\n```\nwith:\n```typescript\nimport { HardhatUserConfig } from \"hardhat/config\";\nimport \"dotenv/config\";\n```\n\n2. Replace the `accounts` field in the `polkadotTestnet` network:\n```typescript\naccounts: vars.has(\"TESTNET_PRIVATE_KEY\")\n  ? [vars.get(\"TESTNET_PRIVATE_KEY\")]\n  : [],\n```\nwith:\n```typescript\naccounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],\n```\n\nAll other config fields (multi-compiler with Solidity 0.5.16 + 0.6.6 both with optimizer enabled, hardhat network with `allowUnlimitedContractSize: true`, localNode URL, mocha timeout 120000) remain unchanged."
+          "commands": [
+            "printf 'TESTNET_PRIVATE_KEY=\\n' > .env",
+            "echo '.env' >> .gitignore"
+          ],
+          "description": "Create .env with an empty TESTNET_PRIVATE_KEY placeholder and exclude it from git. Stop here and ask the user to edit .env directly — fill in TESTNET_PRIVATE_KEY with the 0x-prefixed EVM private key. Do NOT ask for the key in chat. Wait for confirmation before proceeding."
         },
         {
           "order": 4,
-          "action": "Create the .env file",
+          "action": "Convert hardhat.config.ts to use dotenv and add gas configuration",
           "working_directory": "revm-hardhat-examples/uniswap-v2-periphery-hardhat",
-          "description": "Create a file named `.env` in the `uniswap-v2-periphery-hardhat` directory with the following content:\n\n```text\nPRIVATE_KEY=\"INSERT_PRIVATE_KEY\"\n```\n\nAlso create `.gitignore` (or append to the existing one) with `.env` to prevent committing the key.\n\nStop and ask the user to edit the `.env` file directly, replacing `INSERT_PRIVATE_KEY` with their Polkadot Hub TestNet account private key (0x-prefixed). Do NOT ask for the key in chat. Wait for confirmation before proceeding. (Skip this step if only testing locally.)"
+          "description": "Modify hardhat.config.ts with all of the following changes:\n1. Add `import 'dotenv/config';` as the very first line.\n2. Change `import { HardhatUserConfig, vars } from 'hardhat/config';` to `import { HardhatUserConfig } from 'hardhat/config';`.\n3. In the polkadotTestnet network block, replace `accounts: vars.has('TESTNET_PRIVATE_KEY') ? [vars.get('TESTNET_PRIVATE_KEY')] : []` with `accounts: process.env.TESTNET_PRIVATE_KEY ? [process.env.TESTNET_PRIVATE_KEY] : []`.\n4. In the polkadotTestnet network block, add `gasPrice: 5000000000000,` (5000 gwei — 5x the TestNet 1000 gwei base fee).\n5. Confirm `ignition.requiredConfirmations` is 1.\nSave the file."
         },
         {
           "order": 5,
@@ -9384,133 +9299,262 @@
           "commands": [
             "npx hardhat compile"
           ],
-          "expected_output": "Compiled N Solidity files successfully",
-          "description": "Compile the Periphery contracts with the multi-compiler setup: Solidity 0.5.16 for V2 Core dependency contracts and 0.6.6 for Router contracts. Artifacts are written to the `artifacts` directory."
+          "expected_output": "Compiled 5 Solidity files successfully",
+          "description": "Compile the Uniswap V2 Periphery contracts using a multi-compiler setup (Solidity 0.5.16 for V2 Core dependency and 0.6.6 for Router contracts). Artifacts appear in the artifacts/ directory."
         },
         {
           "order": 6,
-          "action": "Start the local development node",
-          "working_directory": ".",
-          "description": "Start the local development node as described at https://docs.polkadot.com/smart-contracts/dev-environments/local-dev-node/. The node must be accessible at http://127.0.0.1:8545 before running tests. The hardhat network config has `allowUnlimitedContractSize: true` to accommodate Router bytecode size during local testing."
-        },
-        {
-          "order": 7,
-          "action": "Run the test suite against the local node",
-          "working_directory": "revm-hardhat-examples/uniswap-v2-periphery-hardhat",
-          "commands": [
-            "npx hardhat test --network localNode"
-          ],
-          "expected_output": "50 passing",
-          "description": "Run all 50 tests: 38 in UniswapV2Router01.test.ts (liquidity add/remove, token swaps, ETH swaps, permit-based removal) and 12 in UniswapV2Router02.test.ts (fee-on-transfer token support). Tests use a 120-second Mocha timeout. If tests time out, verify the local development node is running at http://127.0.0.1:8545."
-        },
-        {
-          "order": 8,
-          "action": "Review the Ignition deployment module",
-          "working_directory": "revm-hardhat-examples/uniswap-v2-periphery-hardhat",
-          "reference_file": "ignition/modules/UniswapV2Router02.ts",
-          "description": "Review the Ignition module at `ignition/modules/UniswapV2Router02.ts`. It deploys three contracts: WETH9 and UniswapV2Factory in parallel (first batch, both independent), then UniswapV2Router02 with the factory and WETH addresses as constructor arguments (second batch). The deployer account (index 0, from `m.getAccount(0)`) is set as the Factory fee recipient."
-        },
-        {
-          "order": 9,
           "action": "Deploy to Polkadot Hub TestNet via Hardhat Ignition",
           "working_directory": "revm-hardhat-examples/uniswap-v2-periphery-hardhat",
           "commands": [
             "npx hardhat ignition deploy ./ignition/modules/UniswapV2Router02.ts --network polkadotTestnet"
           ],
-          "expected_output": "UniswapV2Router02Module#WETH9 - 0x...\nUniswapV2Router02Module#UniswapV2Factory - 0x...\nUniswapV2Router02Module#UniswapV2Router02 - 0x...",
-          "description": "Deploy to Polkadot Hub TestNet (RPC: https://services.polkadothub-rpc.com/testnet). When Ignition prompts to confirm the network, enter the exact network name `polkadotTestnet` and verify the chain ID is 420420417. Ignition deploys in two batches. Save the three addresses from the output (WETH9, UniswapV2Factory, UniswapV2Router02) — they are the entry point for all liquidity and swap operations."
+          "expected_output": "UniswapV2Router02Module#UniswapV2Router02 deployed at 0x...",
+          "interactive": true,
+          "description": "Deploy WETH9, UniswapV2Factory, and UniswapV2Router02 using Hardhat Ignition. Ignition will prompt to confirm the target network name and chain ID — delegate this confirmation to the user. After confirmation, contracts are deployed in two batches (Factory+WETH9 in parallel, then Router02). Save all three deployed addresses."
         }
       ],
-      "project_structure": "revm-hardhat-examples/\n├── uniswap-v2-core-hardhat/\n│   └── contracts/  (local dependency, must be present)\n└── uniswap-v2-periphery-hardhat/\n    ├── contracts/\n    │   ├── interfaces/\n    │   ├── libraries/\n    │   ├── test/\n    │   ├── UniswapV2Router01.sol\n    │   └── UniswapV2Router02.sol\n    ├── ignition/\n    │   └── modules/\n    │       └── UniswapV2Router02.ts\n    ├── scripts/\n    │   └── deploy.ts\n    ├── test/\n    ├── artifacts/\n    ├── .env\n    ├── .gitignore\n    ├── hardhat.config.ts\n    ├── package.json\n    └── tsconfig.json",
+      "reference_code": {
+        "repo": "none",
+        "branch": "",
+        "base_path": "",
+        "files": []
+      },
       "error_patterns": [
         {
-          "pattern": "Error: Cannot find module '@uniswap/v2-core'",
-          "cause": "The local V2 Core dependency is not resolved. The sibling `uniswap-v2-core-hardhat/` directory must exist.",
-          "resolution": "Ensure you cloned the full revm-hardhat-examples repo (not just the periphery subdirectory) and ran `npm install` from within `uniswap-v2-periphery-hardhat/`. Do not clone periphery in isolation."
+          "pattern": "Error: insufficient funds / Priority is too low",
+          "cause": "Account underfunded or gasPrice below the 1000 gwei TestNet base fee.",
+          "resolution": "Fund the account at https://faucet.polkadot.io/. Ensure gasPrice: 5000000000000 is set in the polkadotTestnet block of hardhat.config.ts."
         },
         {
-          "pattern": "Error: process.env.PRIVATE_KEY is undefined / no accounts configured",
-          "cause": ".env file not created or PRIVATE_KEY not set, or dotenv substitution in step 3 was not applied.",
-          "resolution": "Apply the substitution in step 3 to hardhat.config.ts, then create .env with PRIVATE_KEY in step 4. Verify `import \"dotenv/config\"` appears at the top of hardhat.config.ts."
+          "pattern": "Error: Cannot find module '@uniswap/v2-core' / ENOENT uniswap-v2-core-hardhat",
+          "cause": "The local V2 Core Solidity dependency (../../uniswap-v2-core-hardhat) is not accessible. Likely cloning only the periphery subdirectory or checking out different commits for each.",
+          "resolution": "Ensure the full revm-hardhat-examples repo is cloned and both uniswap-v2-core-hardhat/ and uniswap-v2-periphery-hardhat/ are at the same commit. Run npm install from uniswap-v2-periphery-hardhat/."
         },
         {
-          "pattern": "Error: timeout exceeded / test timeout of 120000ms exceeded",
-          "cause": "Local development node is not running or not reachable at http://127.0.0.1:8545.",
-          "resolution": "Start the local development node before running tests. See https://docs.polkadot.com/smart-contracts/dev-environments/local-dev-node/."
+          "pattern": "vars is not defined / Cannot read properties of undefined",
+          "cause": "hardhat.config.ts still uses Hardhat vars.get() instead of dotenv.",
+          "resolution": "Add `import 'dotenv/config';` as first line and replace vars.get with process.env.TESTNET_PRIVATE_KEY."
         },
         {
-          "pattern": "Ignition deploy fails: confirmation prompt not answered correctly",
-          "cause": "Ignition requires confirming the network name when deploying to a non-default network.",
-          "resolution": "When prompted, type the exact network name `polkadotTestnet` and verify the chain ID is 420420417 (Polkadot Hub TestNet)."
+          "pattern": "IGN401: Transaction dropped / Transaction Already Imported",
+          "cause": "Ignition lost transaction state — missing gasPrice or requiredConfirmations: 0.",
+          "resolution": "Delete ignition/deployments/, ensure gasPrice: 5000000000000 and requiredConfirmations: 1, then redeploy."
         }
       ],
       "supplementary_context": {
-        "description": "Load these pages for background on V2 Core (prerequisite), Hardhat multi-compiler config, and local development node setup.",
+        "description": "Load when the user asks about the V2 Core prerequisite, testing the Router, or V3 upgrades.",
         "pages": [
           {
             "slug": "smart-contracts-cookbook-eth-dapps-uniswap-v2-core-v2",
             "title": "Uniswap V2 Core with EVM on Polkadot",
-            "url": "https://docs.polkadot.com/smart-contracts/cookbook/eth-dapps/uniswap-v2/core-v2/",
-            "relevance": "Prerequisite context: the Periphery Router depends on V2 Core contracts. The Core guide explains Factory and Pair deployment."
-          },
-          {
-            "slug": "smart-contracts-dev-environments-hardhat",
-            "title": "Use Hardhat with Polkadot Hub",
-            "url": "https://docs.polkadot.com/smart-contracts/dev-environments/hardhat/",
-            "relevance": "Full Hardhat configuration guide for Polkadot Hub EVM including multi-compiler setup."
+            "url": "https://docs.polkadot.com/smart-contracts/cookbook/eth-dapps/uniswap-v2/core-v2.md",
+            "relevance": "V2 Core tutorial covering Factory and Pair deployment — the Periphery Router builds on top of the same Core contracts included as a local dependency."
           },
           {
             "slug": "smart-contracts-dev-environments-local-dev-node",
             "title": "Local Development Node",
-            "url": "https://docs.polkadot.com/smart-contracts/dev-environments/local-dev-node/",
-            "relevance": "How to install and run the local development node required for test execution in step 6."
+            "url": "https://docs.polkadot.com/smart-contracts/dev-environments/local-dev-node.md",
+            "relevance": "Set up a local development node to run the test suite against localNode before TestNet deployment."
           }
         ]
       },
       "examples": [
         {
-          "scenario": "Common scenario: deploy full Uniswap V2 Periphery to Polkadot Hub TestNet",
-          "user_says": "Deploy the Uniswap V2 Router contracts on Polkadot Hub using EVM and Hardhat Ignition",
+          "scenario": "Common scenario: deploy Uniswap V2 Periphery Router to Polkadot Hub TestNet",
+          "user_says": "Deploy the Uniswap V2 Router on Polkadot Hub EVM",
           "actions": [
-            "Clone revm-hardhat-examples; navigate to uniswap-v2-periphery-hardhat/",
-            "Run npm install dotenv && npm install (resolves local V2 Core dependency automatically)",
-            "Fetch hardhat.config.ts; apply dotenv substitution (replace vars with process.env.PRIVATE_KEY)",
-            "Create .env; ask user to fill in PRIVATE_KEY",
+            "Clone revm-hardhat-examples, checkout pinned commit, cd uniswap-v2-periphery-hardhat",
+            "Run npm install && npm install dotenv",
+            "Create .env with TESTNET_PRIVATE_KEY",
+            "Convert hardhat.config.ts: replace vars.get with process.env, add gasPrice",
             "Run npx hardhat compile",
-            "Start local development node; run npx hardhat test --network localNode (50 tests pass)",
-            "Review ignition/modules/UniswapV2Router02.ts",
-            "Run npx hardhat ignition deploy ./ignition/modules/UniswapV2Router02.ts --network polkadotTestnet; confirm network; save addresses"
+            "Run npx hardhat ignition deploy with --network polkadotTestnet, confirm when prompted",
+            "Save WETH9, Factory, and Router02 addresses"
           ],
-          "result": "WETH9, UniswapV2Factory, and UniswapV2Router02 deployed to Polkadot Hub TestNet via two Ignition batches; three addresses printed"
+          "result": "WETH9, UniswapV2Factory, and UniswapV2Router02 deployed to Polkadot Hub TestNet"
         },
         {
-          "scenario": "Edge case: use the imperative deploy script instead of Ignition",
-          "user_says": "I prefer a plain deploy script over Hardhat Ignition",
+          "scenario": "Edge case: npm install fails with missing V2 Core module",
+          "user_says": "npm install is failing because it cannot find @uniswap/v2-core",
           "actions": [
-            "Ensure the dotenv substitution in hardhat.config.ts has been applied (step 3) and .env is set",
-            "Run: npx hardhat run scripts/deploy.ts --network polkadotTestnet",
-            "The script deploys WETH9, UniswapV2Factory, UniswapV2Router02, two ERC-20 test tokens, and creates a trading pair"
+            "Verify the full repo is cloned (both uniswap-v2-core-hardhat/ and uniswap-v2-periphery-hardhat/ must exist)",
+            "Ensure git checkout used the same commit for the whole repo (a871364...)",
+            "Re-run npm install from uniswap-v2-periphery-hardhat/ — the local file reference resolves to ../uniswap-v2-core-hardhat/"
           ],
-          "result": "All six contracts deployed sequentially; WETH, Factory, Router, TokenA, TokenB, and Pair addresses printed"
+          "result": "npm install succeeds and @uniswap/v2-core is resolved from the sibling directory"
+        }
+      ]
+    },
+    {
+      "id": "deploy-uniswap-v3-core-evm",
+      "title": "Deploy Uniswap V3 Core on Polkadot Hub (EVM)",
+      "description": "Clones the revm-hardhat-examples repo, compiles unmodified Uniswap V3 Core contracts (UniswapV3Factory) with Hardhat, converts Hardhat vars to dotenv, and deploys to Polkadot Hub TestNet via Hardhat Ignition. V3 config requires bytecodeHash set to none to keep Factory under the 24KB EIP-170 contract size limit. Use when deploying a concentrated-liquidity DEX on Polkadot Hub. Trigger phrases: 'deploy Uniswap V3 EVM Polkadot', 'UniswapV3Factory Polkadot Hub', 'concentrated liquidity Polkadot REVM'.",
+      "version": "1.0.0",
+      "chain_role": "isolated",
+      "invocation": "user",
+      "workflow_pattern": "sequential",
+      "license": "CC-BY-4.0",
+      "source_pages": [
+        "smart-contracts/cookbook/eth-dapps/uniswap-v3/core-v3.md"
+      ],
+      "primary_page": "smart-contracts/cookbook/eth-dapps/uniswap-v3/core-v3.md",
+      "prerequisites": {
+        "runtime": [
+          "Node.js v22 or later",
+          "npm",
+          "Git"
+        ],
+        "network": [
+          "Polkadot Hub TestNet RPC: https://services.polkadothub-rpc.com/testnet (chain ID 420420417, base fee 1000 gwei)"
+        ],
+        "tokens": [
+          "Testnet PAS tokens for gas fees — get from https://faucet.polkadot.io/"
+        ],
+        "wallet": [
+          "An EVM private key (0x-prefixed) for a funded testnet account"
+        ]
+      },
+      "env_vars": [
+        {
+          "name": "TESTNET_PRIVATE_KEY",
+          "description": "0x-prefixed EVM private key for the account deploying contracts to Polkadot Hub TestNet. Must be funded with testnet PAS. Do NOT ask user to paste key in chat — edit .env directly.",
+          "required": true
+        }
+      ],
+      "project_structure": "revm-hardhat-examples/\n└── uniswap-v3-core-hardhat/\n    ├── contracts/\n    │   ├── interfaces/\n    │   ├── libraries/\n    │   ├── test/\n    │   ├── NoDelegateCall.sol\n    │   ├── UniswapV3Factory.sol\n    │   ├── UniswapV3Pool.sol\n    │   └── UniswapV3PoolDeployer.sol\n    ├── ignition/\n    │   └── modules/\n    │       └── UniswapV3Factory.ts\n    ├── scripts/\n    │   └── deploy.ts\n    ├── test/\n    ├── artifacts/\n    ├── hardhat.config.ts\n    ├── .env\n    └── package.json",
+      "steps": [
+        {
+          "order": 1,
+          "action": "Clone the revm-hardhat-examples repository",
+          "working_directory": ".",
+          "commands": [
+            "git clone https://github.com/polkadot-developers/revm-hardhat-examples.git",
+            "cd revm-hardhat-examples",
+            "git checkout 3ff28ae44c4ab041a96953f49d0e2dae0408f28f",
+            "cd uniswap-v3-core-hardhat"
+          ],
+          "description": "Clone the repository, check out the pinned commit, and navigate to the Uniswap V3 Core project."
+        },
+        {
+          "order": 2,
+          "action": "Install dependencies",
+          "working_directory": "revm-hardhat-examples/uniswap-v3-core-hardhat",
+          "commands": [
+            "npm install",
+            "npm install dotenv"
+          ],
+          "description": "Install project dependencies then add dotenv to replace Hardhat's interactive vars system with .env-based private key management."
+        },
+        {
+          "order": 3,
+          "action": "Create .env with private key placeholder",
+          "working_directory": "revm-hardhat-examples/uniswap-v3-core-hardhat",
+          "commands": [
+            "printf 'TESTNET_PRIVATE_KEY=\\n' > .env",
+            "echo '.env' >> .gitignore"
+          ],
+          "description": "Create .env with an empty TESTNET_PRIVATE_KEY placeholder and exclude from git. Stop here and ask the user to edit .env directly — fill in TESTNET_PRIVATE_KEY with the 0x-prefixed EVM private key. Do NOT ask for the key in chat. Wait for confirmation before proceeding."
+        },
+        {
+          "order": 4,
+          "action": "Convert hardhat.config.ts to use dotenv and add gas configuration",
+          "working_directory": "revm-hardhat-examples/uniswap-v3-core-hardhat",
+          "description": "Modify hardhat.config.ts with all of the following changes:\n1. Add `import 'dotenv/config';` as the very first line.\n2. Change `import { HardhatUserConfig, vars } from 'hardhat/config';` to `import { HardhatUserConfig } from 'hardhat/config';`.\n3. In the polkadotTestnet network block, replace `accounts: vars.has('TESTNET_PRIVATE_KEY') ? [vars.get('TESTNET_PRIVATE_KEY')] : []` with `accounts: process.env.TESTNET_PRIVATE_KEY ? [process.env.TESTNET_PRIVATE_KEY] : []`.\n4. In the polkadotTestnet network block, add `gasPrice: 5000000000000,` (5000 gwei).\n5. Confirm `ignition.requiredConfirmations` is 1.\n6. Preserve the existing `bytecodeHash: 'none'` in the Solidity compiler settings — this is required to keep UniswapV3Factory under the EIP-170 24KB contract size limit.\nSave the file."
+        },
+        {
+          "order": 5,
+          "action": "Compile the contracts",
+          "working_directory": "revm-hardhat-examples/uniswap-v3-core-hardhat",
+          "commands": [
+            "npx hardhat compile"
+          ],
+          "expected_output": "Compiled 5 Solidity files successfully",
+          "description": "Compile UniswapV3Factory, UniswapV3Pool, UniswapV3PoolDeployer, NoDelegateCall, and math libraries (Solidity 0.7.6). The bytecodeHash: 'none' setting in the Solidity config is critical — without it, UniswapV3Factory exceeds the EIP-170 24KB contract size limit."
+        },
+        {
+          "order": 6,
+          "action": "Deploy to Polkadot Hub TestNet via Hardhat Ignition",
+          "working_directory": "revm-hardhat-examples/uniswap-v3-core-hardhat",
+          "commands": [
+            "npx hardhat ignition deploy ./ignition/modules/UniswapV3Factory.ts --network polkadotTestnet"
+          ],
+          "expected_output": "UniswapV3FactoryModule#UniswapV3Factory deployed at 0x...",
+          "interactive": true,
+          "description": "Deploy UniswapV3Factory using Hardhat Ignition. Ignition prompts to confirm the network name and chain ID — delegate this confirmation to the user. Save the deployed Factory address — it is the entry point for creating V3 pools and is needed for the Periphery (SwapRouter, NonfungiblePositionManager) deployment."
         }
       ],
       "reference_code": {
-        "repo": "polkadot-developers/revm-hardhat-examples",
-        "branch": "master",
-        "base_path": "uniswap-v2-periphery-hardhat",
-        "files": [
+        "repo": "none",
+        "branch": "",
+        "base_path": "",
+        "files": []
+      },
+      "error_patterns": [
+        {
+          "pattern": "Error: contract code too large / Contract creation code storage out of gas",
+          "cause": "bytecodeHash is not set to 'none', causing UniswapV3Factory to exceed the EIP-170 24KB limit.",
+          "resolution": "In hardhat.config.ts under the Solidity compiler settings, ensure metadata: { bytecodeHash: 'none' } is present. Recompile after the fix."
+        },
+        {
+          "pattern": "Error: insufficient funds / Priority is too low",
+          "cause": "Account underfunded or gasPrice below the 1000 gwei TestNet base fee.",
+          "resolution": "Fund the account at https://faucet.polkadot.io/ and ensure gasPrice: 5000000000000 is set in the polkadotTestnet config."
+        },
+        {
+          "pattern": "vars is not defined / Cannot read properties of undefined",
+          "cause": "hardhat.config.ts still uses Hardhat vars.get().",
+          "resolution": "Add `import 'dotenv/config';` as first line and replace vars.get with process.env.TESTNET_PRIVATE_KEY."
+        },
+        {
+          "pattern": "IGN401: Transaction dropped / Transaction Already Imported",
+          "cause": "Ignition lost transaction state.",
+          "resolution": "Delete ignition/deployments/, verify gas config (gasPrice: 5000000000000, requiredConfirmations: 1), and redeploy."
+        }
+      ],
+      "supplementary_context": {
+        "description": "Load when the user asks about V3 Periphery (SwapRouter, NFPM) deployment, local testing, or concentrated liquidity mechanics.",
+        "pages": [
           {
-            "path": "hardhat.config.ts",
-            "description": "Hardhat config with multi-compiler (Solidity 0.5.16 + 0.6.6), hardhat/localNode/polkadotTestnet network configs, Hardhat vars for TESTNET_PRIVATE_KEY (must be converted to dotenv in step 3)"
+            "slug": "smart-contracts-cookbook-eth-dapps-uniswap-v3-periphery-v3",
+            "title": "Uniswap V3 Periphery with EVM on Polkadot Hub",
+            "url": "https://docs.polkadot.com/smart-contracts/cookbook/eth-dapps/uniswap-v3/periphery-v3.md",
+            "relevance": "Next step: deploy SwapRouter and NonfungiblePositionManager on top of the deployed V3 Factory."
           },
           {
-            "path": "ignition/modules/UniswapV2Router02.ts",
-            "description": "Hardhat Ignition module deploying WETH9 and UniswapV2Factory in parallel (batch 1), then UniswapV2Router02 with factory and WETH addresses (batch 2)"
+            "slug": "smart-contracts-dev-environments-local-dev-node",
+            "title": "Local Development Node",
+            "url": "https://docs.polkadot.com/smart-contracts/dev-environments/local-dev-node.md",
+            "relevance": "Set up a local development node to run the 187-test V3 suite before TestNet deployment."
           }
         ]
       },
-      "generated": "2026-05-15T15:30:00Z",
-      "content_hash": "sha256:a6be4ba82c68b70d5b48c46ed3490c6f441ed9e65ab849ddb92c01259c717d1c"
+      "examples": [
+        {
+          "scenario": "Common scenario: deploy Uniswap V3 Core to Polkadot Hub TestNet",
+          "user_says": "Deploy Uniswap V3 on Polkadot Hub EVM",
+          "actions": [
+            "Clone revm-hardhat-examples, checkout pinned commit, cd uniswap-v3-core-hardhat",
+            "Run npm install && npm install dotenv",
+            "Create .env with TESTNET_PRIVATE_KEY",
+            "Convert hardhat.config.ts: replace vars.get with process.env, add gasPrice, preserve bytecodeHash: 'none'",
+            "Run npx hardhat compile",
+            "Run npx hardhat ignition deploy UniswapV3Factory.ts --network polkadotTestnet, confirm when prompted",
+            "Save deployed UniswapV3Factory address"
+          ],
+          "result": "UniswapV3Factory deployed to Polkadot Hub TestNet — entry point for creating V3 concentrated-liquidity pools"
+        },
+        {
+          "scenario": "Edge case: compilation fails with contract too large",
+          "user_says": "Hardhat compilation fails saying UniswapV3Factory is too large",
+          "actions": [
+            "Check hardhat.config.ts Solidity compiler settings for the existence of metadata: { bytecodeHash: 'none' }",
+            "If missing, add it under settings: { optimizer: {...}, metadata: { bytecodeHash: 'none' } }",
+            "Recompile with npx hardhat compile"
+          ],
+          "result": "Compilation succeeds after setting bytecodeHash: 'none' to exclude metadata hash and keep contract under the 24KB EIP-170 limit"
+        }
+      ]
     }
   ],
   "outputs": {

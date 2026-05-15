@@ -499,6 +499,14 @@ input.md-search__input::placeholder {
     max-width: 100%;
     opacity: 1;
   }
+
+  [data-md-toggle="search"]:checked ~ .md-header .md-header__tools,
+  [data-md-toggle="search"]:checked
+    ~ .md-header
+    .md-header__option[data-md-component="palette"]
+    .md-header__button {
+    z-index: 0;
+  }
 }
 
 @media screen and (max-width: 59.9844em) {

@@ -1,6 +1,6 @@
 {
   "schema_version": "2",
-  "generated": "2026-05-15T14:48:53Z",
+  "generated": "2026-05-15T14:49:29Z",
   "project_id": "polkadot-docs",
   "scoring_rubric_version": "1.0",
   "candidates": [
@@ -2673,7 +2673,7 @@
       "category": "tutorial",
       "priority": "high",
       "status": "pending",
-      "notes": "Covers the full store/retrieve/renew cycle via two paths (Console UI and PAPI). Authorization requires Root origin, but the tutorial directs users to the testnet faucet — this is the intended developer onboarding flow, not a privileged on-chain role disqualifier. Code is embedded via --8<-- includes in the docs repo (no separate reference repo).",
+      "notes": "Covers the full data lifecycle (authorize, store, verify, retrieve, renew) via Console UI and PAPI. S1 not awarded because the authorization step requires the Console UI faucet (no programmatic self-authorization on TestNet). K4 not awarded — the code lives in `code/chain-interactions/...` snippets rather than a named reference repo from context.md.",
       "scoring": {
         "signals": [
           "P1",
@@ -2683,7 +2683,6 @@
           "K1",
           "K2",
           "K3",
-          "S1",
           "S2",
           "S3"
         ],
@@ -2693,19 +2692,19 @@
           "conceptual": 0,
           "not_applicable": 0
         },
-        "priority_score": 22
+        "priority_score": 18
       }
     },
     {
       "skill_id": "deploy-uniswap-v2-core-pvm",
-      "title": "Deploy Uniswap V2 Core (PVM) on Polkadot Hub",
+      "title": "Deploy Uniswap V2 Core on Polkadot Hub (PVM)",
       "source_pages": [
         "smart-contracts/cookbook/eth-dapps/uniswap-v2/core-v2-pvm.md"
       ],
       "category": "tutorial",
       "priority": "high",
       "status": "pending",
-      "notes": "PVM variant using polkavm-hardhat-examples repo. K1=0 because the testing step defers to the Local Development Node guide; TestNet deployment is self-contained. The .env file contains INSERT_* private key placeholders (expected user-specific inputs, not missing code). C1 fires for the Uniswap V2 architecture section but does not compete with the dominant procedural score.",
+      "notes": "PVM variant using polkavm-hardhat-examples repo. K1 awarded for the deploy-to-TestNet workflow, which is standalone; the local-node testing step references the Local Dev Node guide but the deployment outcome is achievable without it. K4 awarded — polkavm-hardhat-examples is listed in context.md.",
       "scoring": {
         "signals": [
           "P1",
@@ -2713,6 +2712,7 @@
           "P3",
           "P4",
           "C1",
+          "K1",
           "K2",
           "K3",
           "K4",
@@ -2726,26 +2726,26 @@
           "conceptual": 5,
           "not_applicable": 0
         },
-        "priority_score": 20
+        "priority_score": 25
       }
     },
     {
       "skill_id": "deploy-uniswap-v2-core-evm",
-      "title": "Deploy Uniswap V2 Core (EVM) on Polkadot Hub",
+      "title": "Deploy Uniswap V2 Core on Polkadot Hub (EVM)",
       "source_pages": [
         "smart-contracts/cookbook/eth-dapps/uniswap-v2/core-v2.md"
       ],
       "category": "tutorial",
       "priority": "high",
       "status": "pending",
-      "notes": "EVM (REVM) variant using revm-hardhat-examples repo with standard Hardhat + TypeScript. Canonical toggle variant (toggle.canonical: true). K1=0 because the testing step defers to the Local Development Node guide; TestNet deployment is self-contained. Uses Hardhat configuration variables for secure private key management.",
+      "notes": "EVM variant using revm-hardhat-examples repo and standard Hardhat + TypeScript; no PVM compiler plugin. P3 not awarded — key management is via `npx hardhat vars set` CLI, no file to write. K4 awarded — revm-hardhat-examples is listed in context.md. Testing step references Local Dev Node guide but TestNet deployment is self-contained.",
       "scoring": {
         "signals": [
           "P1",
           "P2",
-          "P3",
           "P4",
           "C1",
+          "K1",
           "K2",
           "K3",
           "K4",
@@ -2754,12 +2754,45 @@
           "S3"
         ],
         "category_scores": {
-          "procedural": 20,
+          "procedural": 15,
           "reference": 0,
           "conceptual": 5,
           "not_applicable": 0
         },
-        "priority_score": 20
+        "priority_score": 25
+      }
+    },
+    {
+      "skill_id": "deploy-uniswap-v2-periphery-evm",
+      "title": "Deploy Uniswap V2 Periphery (Router) on Polkadot Hub (EVM)",
+      "source_pages": [
+        "smart-contracts/cookbook/eth-dapps/uniswap-v2/periphery-v2.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "status": "pending",
+      "notes": "Deploys WETH9, UniswapV2Factory, and UniswapV2Router02 via Hardhat Ignition. The V2 Core Solidity dependency is a local file reference resolved automatically by npm install from the same cloned repo — no separately deployed Core contracts are needed. K1 awarded as self-contained; the editorial prerequisite 'complete Core tutorial first' is educational context, not a technical blocker for deployment. K4 awarded — revm-hardhat-examples is listed in context.md.",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P4",
+          "C1",
+          "K1",
+          "K2",
+          "K3",
+          "K4",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 15,
+          "reference": 0,
+          "conceptual": 5,
+          "not_applicable": 0
+        },
+        "priority_score": 25
       }
     }
   ],
@@ -3907,27 +3940,21 @@
       "relevant_to": [
         "store-retrieve-data-bulletin-chain"
       ],
-      "notes": "Technical reference for the Bulletin Chain: full extrinsic table with origins, storage items, events, retrieval methods comparison, size limits, and authorization model. Useful supplementary context for the store/retrieve tutorial skill.",
+      "notes": "Full technical reference for the Bulletin Chain: all extrinsics (with origins), storage items, events, size limits, retrieval methods, and network endpoints. Useful context for the storage tutorial skill.",
       "scoring": {
         "signals": [
           "R1",
           "R2",
           "R3",
           "C1",
-          "C2",
           "C3"
         ],
         "category_scores": {
           "procedural": 0,
           "reference": 12,
-          "conceptual": 10,
+          "conceptual": 7,
           "not_applicable": 0
-        },
-        "category_ambiguous": true,
-        "contending_categories": [
-          "reference",
-          "conceptual"
-        ]
+        }
       }
     }
   ],

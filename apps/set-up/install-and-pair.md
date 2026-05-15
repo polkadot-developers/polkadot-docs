@@ -6,9 +6,11 @@ categories: Apps
 
 # Install and Pair Polkadot Desktop
 
+*Set-up · Step 1 of 4 — **Install & Pair** → [Choose a Network](/apps/set-up/choose-a-network/) → [Verify Identity](/apps/set-up/verify-your-identity/) → [Get TestNet Funds](/apps/set-up/get-testnet-funds/)*
+
 ## Introduction
 
-For developers building Polkadot Products, this page sets up Polkadot Desktop and the Polkadot App you will use to load and test what you build. By the end, you will have Desktop paired with the Polkadot App. Your Products run inside Desktop, and every signing request routes to the App for approval.
+Before you can build anything, two pieces of the Polkadot Products stack need to be talking to each other: **Polkadot Desktop**, where your Product runs, and the **Polkadot App** on your phone, where signing happens. This page pairs them. By the end, Desktop knows who you are, and every signing request your Product makes routes to your phone for approval.
 
 The setup spans two of the three Triangle Hosts. Polkadot Desktop is a specialized browser that loads Polkadot Products (addressed by `.dot` names) inside a sandbox; the Polkadot App runs on your phone, stores your private key, and approves every transaction. The third Host, Polkadot Web (`dot.li`), is not covered here.
 
@@ -95,12 +97,12 @@ After pairing, your identity on the People Chain is bound to PWallet for this De
 
 <div class="grid cards" markdown>
 
--   <span class="badge guide">Guide</span> **Verify Your Identity**
+-   <span class="badge guide">Guide</span> **Choose a Network**
 
     ---
 
-    Continue setup by verifying your developer identity against your paired PWallet.
+    Pick the Polkadot Desktop environment your identity, funds, and Product will live on before you go any further.
 
-    [:octicons-arrow-right-24: Get Started](/apps/set-up/verify-your-identity/)
+    [:octicons-arrow-right-24: Get Started](/apps/set-up/choose-a-network/)
 
 </div>

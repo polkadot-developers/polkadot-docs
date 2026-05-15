@@ -6,6 +6,8 @@ categories: Apps
 
 # Choose a Network
 
+*Set-up · Step 2 of 4 — [Install & Pair](/apps/set-up/install-and-pair/) → **Choose a Network** → [Verify Identity](/apps/set-up/verify-your-identity/) → [Get TestNet Funds](/apps/set-up/get-testnet-funds/)*
+
 ## Introduction
 
 Polkadot Desktop targets one of three network environments when you build and test: Preview, Stable, or Paseo Next. Each environment is isolated, so identities, balances, and history do not carry across them.
@@ -68,12 +70,12 @@ If you are already logged in, you can switch environments from Polkadot Desktop'
 
 <div class="grid cards" markdown>
 
--   <span class="badge guide">Guide</span> **Start a Local Dev Loop**
+-   <span class="badge guide">Guide</span> **Verify Your Identity**
 
     ---
 
-    With your environment selected, run your Product against a local dev server using Polkadot Desktop's `localhost:PORT` bypass.
+    With your environment selected, verify your developer identity with Proof of Personhood to unlock funds, names, and PoP-gated features.
 
-    [:octicons-arrow-right-24: Get Started](/apps/build/start-a-local-dev-loop/)
+    [:octicons-arrow-right-24: Get Started](/apps/set-up/verify-your-identity/)
 
 </div>

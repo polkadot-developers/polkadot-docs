@@ -6,17 +6,20 @@ categories: Apps
 
 # Verify Your Identity
 
+*Set-up · Step 3 of 4 — [Install & Pair](/apps/set-up/install-and-pair/) → [Choose a Network](/apps/set-up/choose-a-network/) → **Verify Identity** → [Get TestNet Funds](/apps/set-up/get-testnet-funds/)*
+
 ## Introduction
 
-This page covers verifying your developer identity using Proof of Personhood (PoP) and what it unlocks for your build.
+Verifying your developer identity with **Proof of Personhood (PoP)** unlocks the developer surface you need: TestNet funds, short `.dot` names, and the ability to build and test features that gate on personhood. You do it once, in the Polkadot App.
 
-PoP is Polkadot's privacy-preserving "real human" check. It runs on the People Chain using Ring-VRF cryptography — a primitive that lets a verified person prove "I'm one of the real users in this set" without revealing which one — and it never asks for a government ID or any personal information. As a developer, you complete it once in the Polkadot App; from then on, a single proof unlocks the developer-facing surface area you need: TestNet funds, short `.dot` names, and the ability to develop and test features that gate on personhood.
+PoP is Polkadot's privacy-preserving "real human" check. It runs on the People Chain using Ring-VRF cryptography — a primitive that lets a verified person prove "I'm one of the real users in this set" without revealing which one — and it never asks for a government ID or any personal information.
 
 You only need PoP on the **dev account** you'll build against — the same account as the one you have paired with Polkadot Desktop.
 
 ## Prerequisites
 
 - The Polkadot App installed and paired with Polkadot Desktop. See [Install and Pair](/apps/set-up/install-and-pair/){target=\_blank}.
+- Your target environment selected. See [Choose a Network](/apps/set-up/choose-a-network/){target=\_blank}.
 
 !!! note "PWallet as interim signer"
     While the official Polkadot App for iOS and Android is in development, this guide uses **PWallet** (`app.dotsamalabs.com`) as a dev stand-in for the Polkadot App — the same one you paired in [Install and Pair](/apps/set-up/install-and-pair/){target=\_blank}. PWallet is an interim mobile signer only and does not perform PoP verification itself. Tapping **Verify Identity** in PWallet may trigger your device's biometric prompt (Face ID / Touch ID) to authorize the action — that's iOS-level device auth, not the PoP biometric scan. Today, this step just registers an identity for your account on the People Chain; the PoP biometric scan and ongoing peer-attestation arrive with the official Polkadot App.

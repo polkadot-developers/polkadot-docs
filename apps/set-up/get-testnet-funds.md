@@ -6,11 +6,13 @@ categories: Apps
 
 # Get TestNet Funds
 
+*Set-up · Step 4 of 4 — [Install & Pair](/apps/set-up/install-and-pair/) → [Choose a Network](/apps/set-up/choose-a-network/) → [Verify Identity](/apps/set-up/verify-your-identity/) → **Get TestNet Funds***
+
 ## Introduction
 
-This guide assumes you are using Paseo Next — the default environment selected on the Polkadot Desktop login screen. If you selected Preview or Stable instead, see [Choose a Network](/apps/set-up/choose-a-network/){target=\_blank} for environment-specific guidance.
+To build and test, your account needs two things on TestNet: a balance of **PAS** (the Paseo TestNet token, which pays transaction fees — like gas on EVM networks) and per-service **allowances** for the infrastructure your Product uses. This page provisions both.
 
-PAS is the test token for Paseo Next. It pays transaction fees for any extrinsic you submit while developing your Product, similar to gas on EVM networks.
+Your funds and allowances live on whichever environment you selected in [Choose a Network](/apps/set-up/choose-a-network/){target=\_blank}; this guide uses **Paseo Next**, the default.
 
 Some Polkadot infrastructure services use a separate allowance-based access model. An allowance is a permissioned quota that authorizes your account to consume a specific service — for example, how much data it can store on the Bulletin Chain, how many statements it can publish to the Statement Store, or whether it can register a `.dot` name. This quota is independent of your token balance: even with enough PAS to cover fees, a missing allowance will cause the service to reject your request.
 
@@ -21,6 +23,7 @@ By the end of this page, your account will have a PAS balance and the allowances
 Before requesting funds and allowances, ensure you have:
 
 - Complete the [Install and Pair](/apps/set-up/install-and-pair/){target=\_blank} setup so Polkadot Desktop is paired with your signer.
+- Select your target environment. See [Choose a Network](/apps/set-up/choose-a-network/){target=\_blank}.
 - Complete [identity verification](/apps/set-up/verify-your-identity/){target=\_blank} so your account has a Proof of Personhood status.
 
 ## Get Tokens
@@ -84,12 +87,12 @@ A new gas mechanism will be applied to facilitate the transactions and operation
 
 <div class="grid cards" markdown>
 
--   <span class="badge guide">Guide</span> **Choose a Network**
+-   <span class="badge guide">Guide</span> **Start a Local Dev Loop**
 
     ---
 
-    Pick the right Polkadot TestNet for your Product and point Polkadot Desktop at it before you start building.
+    Setup is complete. Run your Product against a local dev server using Polkadot Desktop's `localhost` bypass for fast iteration.
 
-    [:octicons-arrow-right-24: Get Started](/apps/set-up/choose-a-network/){target=\_blank}
+    [:octicons-arrow-right-24: Get Started](/apps/build/start-a-local-dev-loop/){target=\_blank}
 
 </div>

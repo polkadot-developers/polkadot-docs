@@ -1,11 +1,11 @@
 {
   "schema_version": "1",
-  "generated": "2026-05-15T15:30:00Z",
+  "generated": "2026-05-15T16:00:00Z",
   "summary": {
     "total_candidates": 142,
-    "up_to_date": 60,
+    "up_to_date": 62,
     "stale": 0,
-    "uncovered": 59,
+    "uncovered": 57,
     "reviewed_no_skill": 23
   },
   "pages": {
@@ -739,9 +739,11 @@
     },
     "smart-contracts/cookbook/eth-dapps/uniswap-v3/periphery-v3.md": {
       "last_edited": "2026-05-15T14:44:17+00:00",
-      "last_scanned": null,
-      "skills": [],
-      "status": "uncovered"
+      "last_scanned": "2026-05-15T16:00:00Z",
+      "skills": [
+        "deploy-uniswap-v3-periphery-evm"
+      ],
+      "status": "up_to_date"
     },
     "smart-contracts/cookbook/smart-contracts/deploy-basic/basic-hardhat.md": {
       "last_edited": "2026-05-15T14:44:17+00:00",

@@ -1,6 +1,6 @@
 {
   "schema_version": "2",
-  "generated": "2026-05-15T14:49:29Z",
+  "generated": "2026-05-15T14:53:24Z",
   "project_id": "polkadot-docs",
   "scoring_rubric_version": "1.0",
   "candidates": [
@@ -2793,6 +2793,82 @@
           "not_applicable": 0
         },
         "priority_score": 25
+      }
+    },
+    {
+      "skill_id": "deploy-uniswap-v3-core-evm",
+      "title": "Deploy Uniswap V3 Core with EVM on Polkadot Hub",
+      "source_pages": [
+        "smart-contracts/cookbook/eth-dapps/uniswap-v3/core-v3.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "status": "pending",
+      "notes": "Standalone tutorial: clone pinned revm-hardhat-examples commit, compile, test against local dev node, deploy UniswapV3Factory to TestNet via Hardhat Ignition. All workflow steps are CLI-only. Local dev node required only for the test step; TestNet deployment is self-contained. Reference repo exists (revm-hardhat-examples).",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P4",
+          "R2",
+          "C1",
+          "C2",
+          "K1",
+          "K2",
+          "K3",
+          "K4",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 15,
+          "reference": 4,
+          "conceptual": 8,
+          "not_applicable": 0
+        },
+        "priority_score": 25
+      }
+    },
+    {
+      "skill_id": "deploy-uniswap-v3-periphery-evm",
+      "title": "Deploy Uniswap V3 Periphery with EVM on Polkadot Hub",
+      "source_pages": [
+        "smart-contracts/cookbook/eth-dapps/uniswap-v3/periphery-v3.md"
+      ],
+      "category": "tutorial",
+      "priority": "high",
+      "status": "pending",
+      "notes": "Standalone tutorial: clone same monorepo at pinned commit, npm install auto-resolves the @uniswap/v3-core local file reference from the sibling directory — no need to have run the core tutorial beforehand. Deploys SwapRouter and NonfungiblePositionManager to TestNet. High reference score (12) from detailed SwapRouter/NFPM method and parameter documentation in the architecture section; Rule 2 takes precedence (procedural=15, P4 present).",
+      "scoring": {
+        "signals": [
+          "P1",
+          "P2",
+          "P4",
+          "R1",
+          "R2",
+          "R3",
+          "C1",
+          "K1",
+          "K2",
+          "K3",
+          "K4",
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "category_scores": {
+          "procedural": 15,
+          "reference": 12,
+          "conceptual": 5,
+          "not_applicable": 0
+        },
+        "priority_score": 25,
+        "category_ambiguous": true,
+        "contending_categories": [
+          "tutorial",
+          "reference"
+        ]
       }
     }
   ],

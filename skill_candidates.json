@@ -2673,7 +2673,7 @@
       "category": "tutorial",
       "priority": "high",
       "status": "built",
-      "notes": "Covers the full data lifecycle (authorize, store, verify, retrieve, renew) via Console UI and PAPI. S1 not awarded because the authorization step requires the Console UI faucet (no programmatic self-authorization on TestNet). K4 not awarded \u2014 the code lives in `code/chain-interactions/...` snippets rather than a named reference repo from context.md.",
+      "notes": "Covers the full data lifecycle (authorize, store, verify, retrieve, renew) via Console UI and PAPI. S1 not awarded because the authorization step requires the Console UI faucet (no programmatic self-authorization on TestNet). K4 not awarded — the code lives in `code/chain-interactions/...` snippets rather than a named reference repo from context.md.",
       "scoring": {
         "signals": [
           "P1",
@@ -2694,7 +2694,7 @@
         },
         "priority_score": 18
       },
-      "built_at": "2026-05-15T16:00:00Z"
+      "built_at": "2026-05-15T15:30:00Z"
     },
     {
       "skill_id": "deploy-uniswap-v2-core-pvm",
@@ -2705,7 +2705,7 @@
       "category": "tutorial",
       "priority": "high",
       "status": "built",
-      "notes": "PVM variant using polkavm-hardhat-examples repo. K1 awarded for the deploy-to-TestNet workflow, which is standalone; the local-node testing step references the Local Dev Node guide but the deployment outcome is achievable without it. K4 awarded \u2014 polkavm-hardhat-examples is listed in context.md.",
+      "notes": "PVM variant using polkavm-hardhat-examples repo. K1 awarded for the deploy-to-TestNet workflow, which is standalone; the local-node testing step references the Local Dev Node guide but the deployment outcome is achievable without it. K4 awarded — polkavm-hardhat-examples is listed in context.md.",
       "scoring": {
         "signals": [
           "P1",
@@ -2729,7 +2729,7 @@
         },
         "priority_score": 25
       },
-      "built_at": "2026-05-15T16:00:00Z"
+      "built_at": "2026-05-15T15:30:00Z"
     },
     {
       "skill_id": "deploy-uniswap-v2-core-evm",
@@ -2740,7 +2740,7 @@
       "category": "tutorial",
       "priority": "high",
       "status": "built",
-      "notes": "EVM variant using revm-hardhat-examples repo and standard Hardhat + TypeScript; no PVM compiler plugin. P3 not awarded \u2014 key management is via `npx hardhat vars set` CLI, no file to write. K4 awarded \u2014 revm-hardhat-examples is listed in context.md. Testing step references Local Dev Node guide but TestNet deployment is self-contained.",
+      "notes": "EVM variant using revm-hardhat-examples repo and standard Hardhat + TypeScript; no PVM compiler plugin. P3 not awarded — key management is via `npx hardhat vars set` CLI, no file to write. K4 awarded — revm-hardhat-examples is listed in context.md. Testing step references Local Dev Node guide but TestNet deployment is self-contained.",
       "scoring": {
         "signals": [
           "P1",
@@ -2763,7 +2763,7 @@
         },
         "priority_score": 25
       },
-      "built_at": "2026-05-15T16:00:00Z"
+      "built_at": "2026-05-15T15:30:00Z"
     },
     {
       "skill_id": "deploy-uniswap-v2-periphery-evm",
@@ -2774,7 +2774,7 @@
       "category": "tutorial",
       "priority": "high",
       "status": "built",
-      "notes": "Deploys WETH9, UniswapV2Factory, and UniswapV2Router02 via Hardhat Ignition. The V2 Core Solidity dependency is a local file reference resolved automatically by npm install from the same cloned repo \u2014 no separately deployed Core contracts are needed. K1 awarded as self-contained; the editorial prerequisite 'complete Core tutorial first' is educational context, not a technical blocker for deployment. K4 awarded \u2014 revm-hardhat-examples is listed in context.md.",
+      "notes": "Deploys WETH9, UniswapV2Factory, and UniswapV2Router02 via Hardhat Ignition. The V2 Core Solidity dependency is a local file reference resolved automatically by npm install from the same cloned repo — no separately deployed Core contracts are needed. K1 awarded as self-contained; the editorial prerequisite 'complete Core tutorial first' is educational context, not a technical blocker for deployment. K4 awarded — revm-hardhat-examples is listed in context.md.",
       "scoring": {
         "signals": [
           "P1",
@@ -2797,42 +2797,7 @@
         },
         "priority_score": 25
       },
-      "built_at": "2026-05-15T16:00:00Z"
-    },
-    {
-      "skill_id": "deploy-uniswap-v3-core-evm",
-      "title": "Deploy Uniswap V3 Core with EVM on Polkadot Hub",
-      "source_pages": [
-        "smart-contracts/cookbook/eth-dapps/uniswap-v3/core-v3.md"
-      ],
-      "category": "tutorial",
-      "priority": "high",
-      "status": "built",
-      "notes": "K1=0: test step references external Local Development Node guide; deployment workflow itself is self-contained. K4=3: revm-hardhat-examples repo with pinned commit (3ff28ae). No P3: reader clones the repo, not creates files.",
-      "scoring": {
-        "signals": [
-          "P1",
-          "P2",
-          "P4",
-          "R2",
-          "C1",
-          "C2",
-          "K2",
-          "K3",
-          "K4",
-          "S1",
-          "S2",
-          "S3"
-        ],
-        "category_scores": {
-          "procedural": 15,
-          "reference": 4,
-          "conceptual": 8,
-          "not_applicable": 0
-        },
-        "priority_score": 20
-      },
-      "built_at": "2026-05-15T16:00:00Z"
+      "built_at": "2026-05-15T15:30:00Z"
     }
   ],
   "supplementary_only": [

@@ -1,3 +1,4 @@
 nav:
 - 'Overview': index.md
 - 'V3 Core': core-v3.md
+- 'V3 Periphery': periphery-v3.md

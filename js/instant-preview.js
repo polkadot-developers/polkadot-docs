@@ -172,6 +172,7 @@
     }
 
     function hidePreview() {
+      requestToken += 1;
       window.clearTimeout(showTimer);
       cancelHide();
 
@@ -359,21 +360,25 @@
         return pageCache.get(key);
       }
 
-      const response = await fetch(key, {
-        credentials: 'same-origin',
-        signal: signal,
-      });
-      if (!response.ok) {
+      try {
+        const response = await fetch(key, {
+          credentials: 'same-origin',
+          signal: signal,
+        });
+        if (!response.ok) {
+          return null;
+        }
+
+        const text = await response.text();
+        const doc = new DOMParser().parseFromString(text, 'text/html');
+        const registry = parseRegistry(doc, key);
+        if (registry) {
+          pageCache.set(key, registry);
+        }
+        return registry;
+      } catch (_error) {
         return null;
       }
-
-      const text = await response.text();
-      const doc = new DOMParser().parseFromString(text, 'text/html');
-      const registry = parseRegistry(doc, key);
-      if (registry) {
-        pageCache.set(key, registry);
-      }
-      return registry;
     }
 
     function getFetchKey(url) {

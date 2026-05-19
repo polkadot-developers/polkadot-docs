@@ -29,7 +29,7 @@
     },
     "chain-interactions/query-data/query-rest.md": {
       "last_edited": "2026-05-15T14:44:17+00:00",
-      "last_scanned": "2026-05-15T15:00:00Z",
+      "last_scanned": null,
       "skills": [
         "query-chain-data-sidecar-rest"
       ],
@@ -53,7 +53,7 @@
     },
     "chain-interactions/send-transactions/calculate-transaction-fees.md": {
       "last_edited": "2026-05-15T14:44:17+00:00",
-      "last_scanned": "2026-05-15T15:00:00Z",
+      "last_scanned": null,
       "skills": [
         "calculate-transaction-fees-papi"
       ],
@@ -61,7 +61,7 @@
     },
     "chain-interactions/send-transactions/interoperability/debug-and-preview-xcms.md": {
       "last_edited": "2026-05-15T14:44:17+00:00",
-      "last_scanned": "2026-05-15T15:00:00Z",
+      "last_scanned": null,
       "skills": [
         "replay-dry-run-xcm-chopsticks"
       ],
@@ -69,7 +69,7 @@
     },
     "chain-interactions/send-transactions/interoperability/estimate-xcm-fees.md": {
       "last_edited": "2026-05-15T14:44:17+00:00",
-      "last_scanned": "2026-05-15T15:00:00Z",
+      "last_scanned": null,
       "skills": [
         "estimate-xcm-fees-teleport"
       ],
@@ -83,7 +83,7 @@
     },
     "chain-interactions/send-transactions/interoperability/transfer-assets-parachains.md": {
       "last_edited": "2026-05-15T14:44:17+00:00",
-      "last_scanned": "2026-05-15T15:00:00Z",
+      "last_scanned": null,
       "skills": [
         "transfer-assets-parachains-paraspell"
       ],
@@ -91,7 +91,7 @@
     },
     "chain-interactions/send-transactions/pay-fees-with-different-tokens.md": {
       "last_edited": "2026-05-15T14:44:17+00:00",
-      "last_scanned": "2026-05-15T15:00:00Z",
+      "last_scanned": null,
       "skills": [
         "pay-fees-alternative-token"
       ],
@@ -145,7 +145,7 @@
     },
     "node-infrastructure/run-a-node/parachain-rpc.md": {
       "last_edited": "2026-05-15T14:44:17+00:00",
-      "last_scanned": "2026-05-15T15:00:00Z",
+      "last_scanned": null,
       "skills": [
         "run-parachain-rpc-node"
       ],
@@ -153,7 +153,7 @@
     },
     "node-infrastructure/run-a-node/polkadot-hub-rpc.md": {
       "last_edited": "2026-05-15T14:44:17+00:00",
-      "last_scanned": "2026-05-15T15:00:00Z",
+      "last_scanned": null,
       "skills": [
         "run-polkadot-hub-rpc-node"
       ],
@@ -185,7 +185,7 @@
     },
     "node-infrastructure/run-a-validator/onboarding-and-offboarding/set-up-validator.md": {
       "last_edited": "2026-05-15T14:44:17+00:00",
-      "last_scanned": "2026-05-15T15:00:00Z",
+      "last_scanned": null,
       "skills": [
         "set-up-polkadot-validator-node"
       ],
@@ -249,7 +249,7 @@
     },
     "parachains/customize-runtime/add-existing-pallets.md": {
       "last_edited": "2026-05-15T14:44:17+00:00",
-      "last_scanned": "2026-05-15T15:00:00Z",
+      "last_scanned": null,
       "skills": [
         "add-existing-pallet-to-runtime"
       ],
@@ -257,7 +257,7 @@
     },
     "parachains/customize-runtime/add-pallet-instances.md": {
       "last_edited": "2026-05-15T14:44:17+00:00",
-      "last_scanned": "2026-05-15T15:00:00Z",
+      "last_scanned": null,
       "skills": [
         "configure-multiple-pallet-instances"
       ],
@@ -271,7 +271,7 @@
     },
     "parachains/customize-runtime/pallet-development/benchmark-pallet.md": {
       "last_edited": "2026-05-15T14:44:17+00:00",
-      "last_scanned": "2026-05-15T15:00:00Z",
+      "last_scanned": null,
       "skills": [
         "benchmark-frame-pallet"
       ],
@@ -279,7 +279,7 @@
     },
     "parachains/customize-runtime/pallet-development/create-a-pallet.md": {
       "last_edited": "2026-05-15T14:44:17+00:00",
-      "last_scanned": "2026-05-15T15:00:00Z",
+      "last_scanned": null,
       "skills": [
         "create-frame-pallet"
       ],
@@ -295,7 +295,7 @@
     },
     "parachains/customize-runtime/pallet-development/pallet-testing.md": {
       "last_edited": "2026-05-15T14:44:17+00:00",
-      "last_scanned": "2026-05-15T15:00:00Z",
+      "last_scanned": null,
       "skills": [
         "unit-test-frame-pallet"
       ],
@@ -309,7 +309,7 @@
     },
     "parachains/install-polkadot-sdk.md": {
       "last_edited": "2026-05-15T14:44:17+00:00",
-      "last_scanned": "2026-05-15T15:00:00Z",
+      "last_scanned": null,
       "skills": [
         "install-polkadot-sdk"
       ],
@@ -353,7 +353,7 @@
     },
     "parachains/launch-a-parachain/deploy-to-polkadot.md": {
       "last_edited": "2026-05-15T14:44:17+00:00",
-      "last_scanned": "2026-05-15T15:00:00Z",
+      "last_scanned": null,
       "skills": [
         "deploy-parachain-to-polkadot-testnet"
       ],
@@ -367,7 +367,7 @@
     },
     "parachains/launch-a-parachain/set-up-the-parachain-template.md": {
       "last_edited": "2026-05-15T14:44:17+00:00",
-      "last_scanned": "2026-05-15T15:00:00Z",
+      "last_scanned": null,
       "skills": [
         "set-up-parachain-template"
       ],
@@ -471,7 +471,7 @@
     },
     "reference/parachains/chain-data.md": {
       "last_edited": "2026-05-15T14:44:17+00:00",
-      "last_scanned": "2026-05-15T15:00:00Z",
+      "last_scanned": null,
       "skills": [
         "retrieve-runtime-metadata"
       ],
@@ -587,7 +587,7 @@
     },
     "reference/tools/chopsticks.md": {
       "last_edited": "2026-05-15T14:44:17+00:00",
-      "last_scanned": "2026-05-15T15:00:00Z",
+      "last_scanned": null,
       "skills": [
         "set-up-chopsticks-fork"
       ],
@@ -609,7 +609,7 @@
     },
     "reference/tools/moonwall.md": {
       "last_edited": "2026-05-15T14:44:17+00:00",
-      "last_scanned": "2026-05-15T15:00:00Z",
+      "last_scanned": null,
       "skills": [
         "set-up-e2e-testing-moonwall"
       ],
@@ -617,7 +617,7 @@
     },
     "reference/tools/omninode.md": {
       "last_edited": "2026-05-15T14:44:17+00:00",
-      "last_scanned": "2026-05-15T15:00:00Z",
+      "last_scanned": null,
       "skills": [
         "run-parachain-node-omni-node"
       ],
@@ -643,7 +643,7 @@
     },
     "reference/tools/polkadot-js-api.md": {
       "last_edited": "2026-05-15T14:44:17+00:00",
-      "last_scanned": "2026-05-15T15:00:00Z",
+      "last_scanned": null,
       "skills": [
         "use-polkadot-js-api"
       ],
@@ -657,7 +657,7 @@
     },
     "reference/tools/py-substrate-interface.md": {
       "last_edited": "2026-05-15T14:44:17+00:00",
-      "last_scanned": "2026-05-15T15:00:00Z",
+      "last_scanned": null,
       "skills": [
         "interact-polkadot-node-py-substrate"
       ],
@@ -671,7 +671,7 @@
     },
     "reference/tools/subxt.md": {
       "last_edited": "2026-05-15T14:44:17+00:00",
-      "last_scanned": "2026-05-15T15:00:00Z",
+      "last_scanned": null,
       "skills": [
         "interact-polkadot-node-subxt"
       ],
@@ -685,7 +685,7 @@
     },
     "reference/tools/zombienet.md": {
       "last_edited": "2026-05-15T14:44:17+00:00",
-      "last_scanned": "2026-05-15T15:00:00Z",
+      "last_scanned": null,
       "skills": [
         "spawn-test-network-zombienet"
       ],
@@ -693,7 +693,7 @@
     },
     "smart-contracts/connect.md": {
       "last_edited": "2026-05-15T14:44:17+00:00",
-      "last_scanned": "2026-05-15T15:00:00Z",
+      "last_scanned": null,
       "skills": [
         "connect-polkadot-hub-testnet"
       ],
@@ -701,7 +701,7 @@
     },
     "smart-contracts/cookbook/dapps/zero-to-hero.md": {
       "last_edited": "2026-05-15T14:44:17+00:00",
-      "last_scanned": "2026-05-15T15:00:00Z",
+      "last_scanned": null,
       "skills": [
         "build-dapp-viem-nextjs"
       ],
@@ -757,7 +757,7 @@
     },
     "smart-contracts/cookbook/smart-contracts/deploy-basic/basic-remix.md": {
       "last_edited": "2026-05-15T14:44:17+00:00",
-      "last_scanned": "2026-05-15T15:00:00Z",
+      "last_scanned": null,
       "skills": [
         "deploy-basic-contract-remix"
       ],
@@ -765,7 +765,7 @@
     },
     "smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-hardhat.md": {
       "last_edited": "2026-05-15T14:44:17+00:00",
-      "last_scanned": "2026-05-15T15:00:00Z",
+      "last_scanned": null,
       "skills": [
         "deploy-erc20-token-hardhat"
       ],
@@ -773,7 +773,7 @@
     },
     "smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix.md": {
       "last_edited": "2026-05-15T14:44:17+00:00",
-      "last_scanned": "2026-05-15T15:00:00Z",
+      "last_scanned": null,
       "skills": [
         "deploy-erc20-token-remix"
       ],
@@ -781,7 +781,7 @@
     },
     "smart-contracts/cookbook/smart-contracts/deploy-nft/nft-hardhat.md": {
       "last_edited": "2026-05-15T14:44:17+00:00",
-      "last_scanned": "2026-05-15T15:00:00Z",
+      "last_scanned": null,
       "skills": [
         "deploy-erc721-nft-hardhat"
       ],
@@ -789,7 +789,7 @@
     },
     "smart-contracts/cookbook/smart-contracts/deploy-nft/nft-remix.md": {
       "last_edited": "2026-05-15T14:44:17+00:00",
-      "last_scanned": "2026-05-15T15:00:00Z",
+      "last_scanned": null,
       "skills": [
         "deploy-erc721-nft-remix"
       ],
@@ -797,7 +797,7 @@
     },
     "smart-contracts/dev-environments/foundry.md": {
       "last_edited": "2026-05-15T14:44:17+00:00",
-      "last_scanned": "2026-05-15T15:00:00Z",
+      "last_scanned": null,
       "skills": [
         "set-up-foundry-polkadot-hub"
       ],
@@ -805,7 +805,7 @@
     },
     "smart-contracts/dev-environments/hardhat-polkadot.md": {
       "last_edited": "2026-05-15T14:44:17+00:00",
-      "last_scanned": "2026-05-15T15:00:00Z",
+      "last_scanned": null,
       "skills": [
         "set-up-hardhat-pvm"
       ],
@@ -813,7 +813,7 @@
     },
     "smart-contracts/dev-environments/hardhat.md": {
       "last_edited": "2026-05-15T14:44:17+00:00",
-      "last_scanned": "2026-05-15T15:00:00Z",
+      "last_scanned": null,
       "skills": [
         "set-up-hardhat-evm"
       ],
@@ -821,7 +821,7 @@
     },
     "smart-contracts/dev-environments/local-dev-node.md": {
       "last_edited": "2026-05-15T14:44:17+00:00",
-      "last_scanned": "2026-05-15T15:00:00Z",
+      "last_scanned": null,
       "skills": [
         "set-up-local-dev-node"
       ],
@@ -829,7 +829,7 @@
     },
     "smart-contracts/dev-environments/remix.md": {
       "last_edited": "2026-05-15T14:44:17+00:00",
-      "last_scanned": "2026-05-15T15:00:00Z",
+      "last_scanned": null,
       "skills": [
         "connect-remix-polkadot"
       ],
@@ -897,7 +897,7 @@
     },
     "smart-contracts/integrations/wallets.md": {
       "last_edited": "2026-05-15T14:44:17+00:00",
-      "last_scanned": "2026-05-15T15:00:00Z",
+      "last_scanned": null,
       "skills": [
         "connect-wallet-polkadot-hub"
       ],
@@ -921,7 +921,7 @@
     },
     "smart-contracts/libraries/wagmi.md": {
       "last_edited": "2026-05-15T14:44:17+00:00",
-      "last_scanned": "2026-05-15T15:00:00Z",
+      "last_scanned": null,
       "skills": [
         "use-wagmi-polkadot-hub"
       ],
@@ -937,7 +937,7 @@
     },
     "smart-contracts/libraries/web3-py.md": {
       "last_edited": "2026-05-15T14:44:17+00:00",
-      "last_scanned": "2026-05-15T15:00:00Z",
+      "last_scanned": null,
       "skills": [
         "deploy-interact-contracts-web3py"
       ],
@@ -951,7 +951,7 @@
     },
     "smart-contracts/precompiles/erc20.md": {
       "last_edited": "2026-05-15T14:44:17+00:00",
-      "last_scanned": "2026-05-15T15:00:00Z",
+      "last_scanned": null,
       "skills": [
         "interact-erc20-precompile-polkadot-hub"
       ],
@@ -965,7 +965,7 @@
     },
     "smart-contracts/precompiles/storage.md": {
       "last_edited": "2026-05-15T14:44:17+00:00",
-      "last_scanned": "2026-05-15T15:00:00Z",
+      "last_scanned": null,
       "skills": [
         "interact-storage-precompile-remix"
       ],
@@ -973,7 +973,7 @@
     },
     "smart-contracts/precompiles/system.md": {
       "last_edited": "2026-05-15T14:44:17+00:00",
-      "last_scanned": "2026-05-15T15:00:00Z",
+      "last_scanned": null,
       "skills": [
         "interact-system-precompile-remix"
       ],
@@ -981,7 +981,7 @@
     },
     "smart-contracts/precompiles/xcm.md": {
       "last_edited": "2026-05-15T14:44:17+00:00",
-      "last_scanned": "2026-05-15T15:00:00Z",
+      "last_scanned": null,
       "skills": [
         "interact-xcm-precompile-remix"
       ],

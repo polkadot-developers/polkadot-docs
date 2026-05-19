@@ -1,6 +1,6 @@
 {
-  "content_hash": "sha256:b167c591346ca56feb66be77ba1bcea6aab5c53b60d4f95c4f52fea3528d8595",
-  "generated": "2026-05-19T21:30:00Z",
+  "content_hash": "sha256:3d406376984a08683679ce1243d050c6d117b2f2913347dbc68fbc8e230ef470",
+  "generated": "2026-05-19T22:00:00Z",
   "outputs": {
     "public_root": "/ai/",
     "skills_dir": "skills"
@@ -1217,6 +1217,7 @@
         ]
       },
       "primary_page": "smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-hardhat.md",
+      "project_structure": "erc20-hardhat/\n├── artifacts/\n│   └── contracts/\n│       └── MyToken.sol/\n│           └── MyToken.json\n├── contracts/\n│   └── MyToken.sol\n├── ignition/\n│   ├── deployments/\n│   └── modules/\n│       └── MyToken.ts\n├── test/\n│   └── MyToken.test.ts\n├── .env\n├── .gitignore\n├── hardhat.config.ts\n└── package.json",
       "reference_code": {
         "base_path": "",
         "files": [],
@@ -1242,7 +1243,7 @@
             "npm i",
             "npm install dotenv"
           ],
-          "description": "Install all template dependencies from package.json, then additionally install dotenv. dotenv is needed to replace Hardhat's interactive vars system (which cannot be used in agent shells) with a .env-based private key approach.",
+          "description": "Install all template dependencies from `package.json`, then additionally install `dotenv`. The docs page only runs `npm i`; the extra `npm install dotenv` step is required here because the next step converts the Hardhat `vars` system (which requires interactive shell input) to dotenv-based key loading.",
           "order": 2,
           "working_directory": "revm-hardhat-examples/erc20-hardhat"
         },
@@ -1258,7 +1259,7 @@
         },
         {
           "action": "Convert hardhat.config.ts to use dotenv and add gas configuration",
-          "description": "Open hardhat.config.ts and apply all of the following modifications:\n(1) Add 'import \"dotenv/config\";' as the very first line of the file.\n(2) Replace 'vars.has(\"TESTNET_PRIVATE_KEY\") ? [vars.get(\"TESTNET_PRIVATE_KEY\")] : []' with '[process.env.TESTNET_PRIVATE_KEY as string]'.\n(3) Remove the 'import { HardhatUserConfig, vars } from \"hardhat/config\";' line and replace with 'import type { HardhatUserConfig } from \"hardhat/config\";'.\n(4) In the polkadotTestnet network block, add 'gasPrice: 5000000000000,' (5000 gwei — 5x the TestNet 1000 gwei base fee).\n(5) Add 'evmVersion: \"cancun\"' inside the solidity settings block — required because the template uses OpenZeppelin Contracts v5.4.0+ which uses the mcopy opcode from the Cancun EVM upgrade.\n(6) Confirm ignition.requiredConfirmations is 1 (not 0).\nSave the file.",
+          "description": "Open `hardhat.config.ts` and apply ALL of the following modifications:\n\n(1) Add `import \"dotenv/config\";` as the very first line of the file.\n(2) Replace `import { HardhatUserConfig, vars } from \"hardhat/config\";` with `import type { HardhatUserConfig } from \"hardhat/config\";`.\n(3) Replace `vars.has(\"TESTNET_PRIVATE_KEY\") ? [vars.get(\"TESTNET_PRIVATE_KEY\")] : []` with `[process.env.TESTNET_PRIVATE_KEY as string]`.\n(4) In the `polkadotTestnet` network block, add `chainId: 420420417,` and `gasPrice: 5000000000000,` (5000 gwei — 5× the TestNet 1000 gwei base fee). The original config does not include these values; both are required for Ignition to target the correct chain and avoid stuck transactions.\n(5) Add `evmVersion: \"cancun\"` inside `solidity.settings`: `solidity: { version: \"0.8.28\", settings: { optimizer: { enabled: true, runs: 200 }, evmVersion: \"cancun\" } }`. Preserve the existing `optimizer` block — it is already in the template. The `evmVersion` addition is required because the template uses OpenZeppelin Contracts v5.4.0+ which uses the `mcopy` opcode from the Cancun EVM upgrade.\n(6) Add `ignition: { requiredConfirmations: 1 }` at the top level of the config object (the original config omits this field; without it, Ignition may misinterpret pending transactions as dropped on TestNet).\n(7) Preserve the existing `mocha: { timeout: 40000 }` block.\n\nSave the file.",
           "order": 4,
           "working_directory": "revm-hardhat-examples/erc20-hardhat"
         },
@@ -1312,7 +1313,7 @@
         ]
       },
       "title": "Deploy an ERC-20 Token Using Hardhat",
-      "version": "1.0.1",
+      "version": "1.1.0",
       "workflow_pattern": "sequential"
     },
     {
@@ -1397,6 +1398,7 @@
         ]
       },
       "primary_page": "smart-contracts/dev-environments/hardhat-polkadot.md",
+      "project_structure": "hardhat-pvm-example/\n├── artifacts/\n│   └── contracts/\n│       └── MyToken.sol/\n│           └── MyToken.json\n├── contracts/\n│   └── MyToken.sol\n├── ignition/\n│   └── modules/\n│       └── MyToken.js\n├── test/\n│   └── MyToken.test.js\n├── .env\n├── .gitignore\n├── hardhat.config.ts\n└── package.json",
       "reference_code": {
         "base_path": "",
         "branch": "",
@@ -1460,7 +1462,7 @@
         },
         {
           "action": "Configure hardhat.config.ts for TestNet",
-          "description": "The init wizard generated a hardhat.config.ts in the project root. Modify it to apply all of the following changes:\n(1) Add 'import \"dotenv/config\";' as the very first line of the file.\n(2) Replace any vars.get('PRIVATE_KEY') with process.env.PRIVATE_KEY as string.\n(3) Remove any 'import { vars } from \"hardhat/config\";' line if present.\n(4) Ensure the polkadotTestnet network block contains: url: 'https://services.polkadothub-rpc.com/testnet', chainId: 420420417, and accounts: [process.env.PRIVATE_KEY as string].\n(5) Add 'gasPrice: 5000000000000,' to the polkadotTestnet block (5000 gwei — 5x the 1000 gwei TestNet base fee).\n(6) Set or confirm 'ignition: { requiredConfirmations: 1 }' in the top-level config object.\nSave the file.",
+          "description": "The init wizard generated a `hardhat.config.ts` in the project root. Modify it to apply all of the following changes:\n\n(1) Add `import \"dotenv/config\";` as the very first line of the file.\n(2) Replace any `vars.get('PRIVATE_KEY')` with `process.env.PRIVATE_KEY as string`. Remove any `import { vars } from \"hardhat/config\";` if present.\n(3) Ensure the `polkadotTestnet` network block contains: `url: 'https://services.polkadothub-rpc.com/testnet'`, `chainId: 420420417`, and `accounts: [process.env.PRIVATE_KEY as string]`.\n(4) Add `gasPrice: 5000000000000,` to the `polkadotTestnet` block (5000 gwei — 5× the 1000 gwei TestNet base fee).\n(5) Set or confirm `ignition: { requiredConfirmations: 1 }` in the top-level config object.\n\nSave the file.",
           "order": 6,
           "working_directory": "hardhat-pvm-example"
         },
@@ -1493,7 +1495,7 @@
         ]
       },
       "title": "Set Up Hardhat with the Polkadot Plugin (PVM)",
-      "version": "1.0.1",
+      "version": "1.1.0",
       "workflow_pattern": "sequential"
     },
     {
@@ -1552,6 +1554,17 @@
           "result": "Project loads private key from .env; works in agent shells and CI without interactive prompts",
           "scenario": "Edge case: existing project uses Hardhat vars and breaks in CI or agent shell",
           "user_says": "My Hardhat config uses vars.get and it fails with 'vars is not defined'"
+        },
+        {
+          "actions": [
+            "Install @nomicfoundation/hardhat-verify@^2.0.0",
+            "Add import '@nomicfoundation/hardhat-verify' to hardhat.config.ts",
+            "Add etherscan config block for Blockscout or Routescan to hardhat.config.ts",
+            "Run npx hardhat verify --network polkadotTestnet INSERT_CONTRACT_ADDRESS"
+          ],
+          "result": "Contract source code verified and published on the chosen block explorer",
+          "scenario": "Edge case: add contract verification to an existing project",
+          "user_says": "How do I verify my deployed contract on Polkadot Hub with Hardhat?"
         }
       ],
       "id": "set-up-hardhat-evm",
@@ -1567,6 +1580,7 @@
         ]
       },
       "primary_page": "smart-contracts/dev-environments/hardhat.md",
+      "project_structure": "hardhat-example/\n├── contracts/\n├── ignition/\n│   └── modules/\n├── test/\n├── .env\n├── .gitignore\n├── hardhat.config.ts\n└── package.json",
       "reference_code": {
         "base_path": "",
         "branch": "",
@@ -1624,6 +1638,15 @@
           "description": "Create hardhat.config.ts in the project root with the following content:\n\n```typescript\nimport type { HardhatUserConfig } from \"hardhat/config\";\nimport \"@nomicfoundation/hardhat-toolbox\";\nimport \"dotenv/config\";\n\nconst config: HardhatUserConfig = {\n  solidity: \"0.8.28\",\n  networks: {\n    polkadotTestnet: {\n      url: \"https://services.polkadothub-rpc.com/testnet\",\n      chainId: 420420417,\n      accounts: [process.env.PRIVATE_KEY as string],\n      gasPrice: 5000000000000,\n    },\n  },\n  ignition: {\n    requiredConfirmations: 1,\n  },\n};\n\nexport default config;\n```\n\nDo NOT use vars.get() or vars.has() from Hardhat's configuration variables system — it requires interactive shell input which agents cannot provide. The config above loads PRIVATE_KEY from .env via dotenv and sets gasPrice to 5000 gwei (5x the 1000 gwei TestNet base fee) to prevent stuck deployment transactions.",
           "order": 5,
           "working_directory": "hardhat-example"
+        },
+        {
+          "action": "Optionally configure contract verification",
+          "commands": [
+            "npm install --save-dev @nomicfoundation/hardhat-verify@^2.0.0"
+          ],
+          "description": "To verify deployed contracts on a block explorer, install the verification plugin and extend `hardhat.config.ts`.\n\nInstall the plugin:\n\n```bash\nnpm install --save-dev @nomicfoundation/hardhat-verify@^2.0.0\n```\n\nUse `@nomicfoundation/hardhat-verify@^2.0.0` for Hardhat 2.x compatibility.\n\nAdd the import to the top of `hardhat.config.ts`:\n\n```typescript\nimport \"@nomicfoundation/hardhat-verify\";\n```\n\nThen add an `etherscan` block to the config object. Choose Blockscout (no API key required) or Routescan:\n\n**Blockscout:**\n```typescript\netherscan: {\n  apiKey: { polkadotTestnet: 'no-api-key-needed' },\n  customChains: [{\n    network: 'polkadotTestnet',\n    chainId: 420420417,\n    urls: {\n      apiURL: 'https://blockscout-testnet.polkadot.io/api',\n      browserURL: 'https://blockscout-testnet.polkadot.io/',\n    },\n  }],\n},\n```\n\n**Routescan:**\n```typescript\netherscan: {\n  apiKey: { polkadotTestnet: 'verifyContract' },\n  customChains: [{\n    network: 'polkadotTestnet',\n    chainId: 420420417,\n    urls: {\n      apiURL: 'https://api.routescan.io/v2/network/testnet/evm/420420417/etherscan',\n      browserURL: 'https://polkadot.testnet.routescan.io/',\n    },\n  }],\n},\n```\n\nAfter deploying a contract, verify it with:\n\n```bash\nnpx hardhat verify --network polkadotTestnet INSERT_CONTRACT_ADDRESS\n```\n\nReplace `INSERT_CONTRACT_ADDRESS` with the deployed contract address. For contracts with constructor arguments, append the arguments:\n\n```bash\nnpx hardhat verify --network polkadotTestnet INSERT_CONTRACT_ADDRESS \"arg1\" \"arg2\"\n```",
+          "order": 6,
+          "working_directory": "hardhat-example"
         }
       ],
       "supplementary_context": {
@@ -1644,7 +1667,7 @@
         ]
       },
       "title": "Set Up Hardhat for Polkadot Hub (EVM)",
-      "version": "1.0.1",
+      "version": "1.1.0",
       "workflow_pattern": "sequential"
     },
     {

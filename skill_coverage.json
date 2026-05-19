@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-19T21:30:00Z",
+  "generated": "2026-05-19T22:00:00Z",
   "pages": {
     "chain-interactions/accounts/create-account.md": {
       "last_edited": "2026-05-19T14:51:13+00:00",
@@ -755,11 +755,11 @@
     },
     "smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-hardhat.md": {
       "last_edited": "2026-05-19T14:51:13+00:00",
-      "last_scanned": "2026-05-19T12:00:00Z",
+      "last_scanned": "2026-05-19T22:00:00Z",
       "skills": [
         "deploy-erc20-token-hardhat"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/cookbook/smart-contracts/deploy-erc20/erc20-remix.md": {
       "last_edited": "2026-05-19T14:51:13+00:00",
@@ -795,19 +795,19 @@
     },
     "smart-contracts/dev-environments/hardhat-polkadot.md": {
       "last_edited": "2026-05-19T14:51:13+00:00",
-      "last_scanned": "2026-05-19T12:00:00Z",
+      "last_scanned": "2026-05-19T22:00:00Z",
       "skills": [
         "set-up-hardhat-pvm"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/dev-environments/hardhat.md": {
       "last_edited": "2026-05-19T14:51:13+00:00",
-      "last_scanned": "2026-05-19T12:00:00Z",
+      "last_scanned": "2026-05-19T22:00:00Z",
       "skills": [
         "set-up-hardhat-evm"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/dev-environments/local-dev-node.md": {
       "last_edited": "2026-05-19T14:51:13+00:00",
@@ -982,10 +982,10 @@
   "summary": {
     "blocked": 23,
     "not_applicable": 12,
-    "stale": 8,
+    "stale": 0,
     "supplementary": 45,
     "total_candidates": 142,
     "uncovered": 0,
-    "up_to_date": 54
+    "up_to_date": 62
   }
 }

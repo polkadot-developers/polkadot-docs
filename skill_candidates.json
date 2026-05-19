@@ -2011,7 +2011,7 @@
       "title": "Deploy a Basic Smart Contract with Remix IDE"
     },
     {
-      "built_at": "2026-05-19T12:00:00Z",
+      "built_at": "2026-05-19T22:00:00Z",
       "category": "tutorial",
       "notes": "Complete end-to-end tutorial: clone template, compile, test, deploy to Polkadot Hub TestNet. Reference repo revm-hardhat-examples confirmed in context. P3 not fired — tutorial uses a cloned template repo rather than instructing the reader to create files from scratch. CI badge confirms recipe is tested in polkadot-cookbook.",
       "priority": "high",
@@ -2172,7 +2172,7 @@
       "title": "Use Foundry with Polkadot Hub"
     },
     {
-      "built_at": "2026-05-19T12:00:00Z",
+      "built_at": "2026-05-19T22:00:00Z",
       "category": "tutorial",
       "notes": "Complete workflow: initialize project, compile Solidity to PVM bytecode via resolc, test locally with a Substrate node, and deploy to TestNet. Has an explicit prerequisites section, numbered steps throughout, and clear outcome language ('You should see JSON files containing the contract ABIs and bytecodes'). Backed by polkadot-cookbook CI. PVM variant using @parity/hardhat-polkadot — mirrors the EVM skill but targets PolkaVM runtime. P3 not fired: the init wizard creates project files; no explicit file-creation code block on the page.",
       "priority": "high",
@@ -2205,7 +2205,7 @@
       "title": "Set Up Hardhat with the Polkadot Plugin (PVM)"
     },
     {
-      "built_at": "2026-05-19T12:00:00Z",
+      "built_at": "2026-05-19T22:00:00Z",
       "category": "tutorial",
       "notes": "Covers Hardhat project initialization, network configuration for Polkadot Hub TestNet (full hardhat.config.ts file shown — P3 fires), and contract verification with Blockscout or Routescan. Self-contained setup workflow with explicit prerequisites and outcome language. Backed by polkadot-cookbook CI. Standard EVM variant with no PVM/resolc dependency.",
       "priority": "high",
@@ -2868,7 +2868,7 @@
       "title": "Deploy Uniswap V3 Periphery with EVM on Polkadot Hub"
     }
   ],
-  "generated": "2026-05-15T16:00:00Z",
+  "generated": "2026-05-19T22:00:00Z",
   "not_applicable": [
     {
       "category": "not_applicable",

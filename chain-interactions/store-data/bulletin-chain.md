@@ -3,7 +3,7 @@ title: Store and Retrieve Data on the Bulletin Chain
 description: Learn how to store and retrieve an image on the Polkadot Bulletin Chain using the Console UI or PAPI, with step-by-step instructions.
 categories: Chain Interactions
 page_badges:
-  tutorial_badge: Beginner
+  tutorial_badge: Intermediate
 ---
 
 # Store and Retrieve Data on the Bulletin Chain

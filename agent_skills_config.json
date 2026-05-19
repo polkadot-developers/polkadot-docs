@@ -1,6 +1,6 @@
 {
-  "content_hash": "sha256:8f1981cd2254979c1eae6364cb7c1813e206a07541811685ce124cc9494a13c9",
-  "generated": "2026-05-19T20:00:00Z",
+  "content_hash": "sha256:0d3c227e341b8ebfbc1896ef230dcb2f1bdf971ea4f8d9f27f7b8f04a63c9837",
+  "generated": "2026-05-19T21:00:00Z",
   "outputs": {
     "public_root": "/ai/",
     "skills_dir": "skills"
@@ -2266,7 +2266,7 @@
         ]
       },
       "title": "Pay Transaction Fees with an Alternative Token",
-      "version": "1.1.1",
+      "version": "1.1.2",
       "workflow_pattern": "sequential"
     },
     {
@@ -2418,7 +2418,7 @@
         ]
       },
       "title": "Run a Parachain RPC Node",
-      "version": "1.1.1",
+      "version": "1.1.2",
       "workflow_pattern": "sequential"
     },
     {
@@ -3134,7 +3134,7 @@
         ]
       },
       "title": "Run an RPC Node for Polkadot Hub",
-      "version": "1.1.1",
+      "version": "1.1.2",
       "workflow_pattern": "sequential"
     },
     {
@@ -3291,7 +3291,7 @@
         ]
       },
       "title": "Set Up a Polkadot Validator Node",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "workflow_pattern": "sequential"
     },
     {
@@ -9221,7 +9221,7 @@
         ]
       },
       "title": "Store and Retrieve Data on the Bulletin Chain",
-      "version": "1.0.2",
+      "version": "1.0.3",
       "workflow_pattern": "sequential"
     },
     {

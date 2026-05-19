@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-19T21:00:00Z",
+  "generated": "2026-05-19T21:30:00Z",
   "pages": {
     "chain-interactions/accounts/create-account.md": {
       "last_edited": "2026-05-19T14:51:13+00:00",
@@ -239,19 +239,19 @@
     },
     "parachains/customize-runtime/add-existing-pallets.md": {
       "last_edited": "2026-05-19T14:51:13+00:00",
-      "last_scanned": "2026-05-19T14:30:00Z",
+      "last_scanned": "2026-05-19T21:30:00Z",
       "skills": [
         "add-existing-pallet-to-runtime"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "parachains/customize-runtime/add-pallet-instances.md": {
       "last_edited": "2026-05-19T14:51:13+00:00",
-      "last_scanned": "2026-05-19T14:30:00Z",
+      "last_scanned": "2026-05-19T21:30:00Z",
       "skills": [
         "configure-multiple-pallet-instances"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "parachains/customize-runtime/add-smart-contract-functionality.md": {
       "last_edited": "2026-05-19T14:51:13+00:00",
@@ -269,11 +269,11 @@
     },
     "parachains/customize-runtime/pallet-development/create-a-pallet.md": {
       "last_edited": "2026-05-19T14:51:13+00:00",
-      "last_scanned": "2026-05-19T14:30:00Z",
+      "last_scanned": "2026-05-19T21:30:00Z",
       "skills": [
         "create-frame-pallet"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "parachains/customize-runtime/pallet-development/mock-runtime.md": {
       "last_edited": "2026-05-19T14:51:13+00:00",
@@ -343,11 +343,11 @@
     },
     "parachains/launch-a-parachain/deploy-to-polkadot.md": {
       "last_edited": "2026-05-19T14:51:13+00:00",
-      "last_scanned": "2026-05-19T14:30:00Z",
+      "last_scanned": "2026-05-19T21:30:00Z",
       "skills": [
         "deploy-parachain-to-polkadot-testnet"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "parachains/launch-a-parachain/obtain-coretime.md": {
       "last_edited": "2026-05-19T14:51:13+00:00",
@@ -739,11 +739,11 @@
     },
     "smart-contracts/cookbook/smart-contracts/deploy-basic/basic-hardhat.md": {
       "last_edited": "2026-05-19T14:51:13+00:00",
-      "last_scanned": "2026-05-19T12:00:00Z",
+      "last_scanned": "2026-05-19T21:30:00Z",
       "skills": [
         "deploy-basic-contract-hardhat"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "smart-contracts/cookbook/smart-contracts/deploy-basic/basic-remix.md": {
       "last_edited": "2026-05-19T14:51:13+00:00",

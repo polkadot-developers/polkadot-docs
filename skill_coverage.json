@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-19T14:00:00Z",
+  "generated": "2026-05-19T14:30:00Z",
   "pages": {
     "chain-interactions/accounts/create-account.md": {
       "last_edited": "2026-05-19T08:40:20+00:00",
@@ -239,19 +239,19 @@
     },
     "parachains/customize-runtime/add-existing-pallets.md": {
       "last_edited": "2026-05-19T08:40:20+00:00",
-      "last_scanned": null,
+      "last_scanned": "2026-05-19T14:30:00Z",
       "skills": [
         "add-existing-pallet-to-runtime"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "parachains/customize-runtime/add-pallet-instances.md": {
       "last_edited": "2026-05-19T08:40:20+00:00",
-      "last_scanned": null,
+      "last_scanned": "2026-05-19T14:30:00Z",
       "skills": [
         "configure-multiple-pallet-instances"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "parachains/customize-runtime/add-smart-contract-functionality.md": {
       "last_edited": "2026-05-19T08:40:20+00:00",
@@ -261,35 +261,35 @@
     },
     "parachains/customize-runtime/pallet-development/benchmark-pallet.md": {
       "last_edited": "2026-05-19T08:40:20+00:00",
-      "last_scanned": null,
+      "last_scanned": "2026-05-19T14:30:00Z",
       "skills": [
         "benchmark-frame-pallet"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "parachains/customize-runtime/pallet-development/create-a-pallet.md": {
       "last_edited": "2026-05-19T08:40:20+00:00",
-      "last_scanned": null,
+      "last_scanned": "2026-05-19T14:30:00Z",
       "skills": [
         "create-frame-pallet"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "parachains/customize-runtime/pallet-development/mock-runtime.md": {
       "last_edited": "2026-05-19T08:40:20+00:00",
-      "last_scanned": "2026-05-15T15:00:00Z",
+      "last_scanned": "2026-05-19T14:30:00Z",
       "skills": [
         "set-up-pallet-mock-runtime"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "parachains/customize-runtime/pallet-development/pallet-testing.md": {
       "last_edited": "2026-05-19T08:40:20+00:00",
-      "last_scanned": null,
+      "last_scanned": "2026-05-19T14:30:00Z",
       "skills": [
         "unit-test-frame-pallet"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "parachains/get-started.md": {
       "last_edited": "2026-05-19T08:40:20+00:00",
@@ -343,11 +343,11 @@
     },
     "parachains/launch-a-parachain/deploy-to-polkadot.md": {
       "last_edited": "2026-05-19T08:40:20+00:00",
-      "last_scanned": null,
+      "last_scanned": "2026-05-19T14:30:00Z",
       "skills": [
         "deploy-parachain-to-polkadot-testnet"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "parachains/launch-a-parachain/obtain-coretime.md": {
       "last_edited": "2026-05-19T08:40:20+00:00",
@@ -982,10 +982,10 @@
   "summary": {
     "blocked": 23,
     "not_applicable": 12,
-    "stale": 41,
+    "stale": 34,
     "supplementary": 45,
     "total_candidates": 142,
     "uncovered": 0,
-    "up_to_date": 21
+    "up_to_date": 28
   }
 }

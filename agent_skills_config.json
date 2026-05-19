@@ -1,6 +1,6 @@
 {
-  "content_hash": "sha256:dbf02382dccebdb84371d6202cac7c69433df0182f9e3981ddabafc555c91a45",
-  "generated": "2026-05-19T14:00:00Z",
+  "content_hash": "sha256:162429d7bfe728d7904fba39ed0632bcb6f5e5d36198353584383f123cf7f0aa",
+  "generated": "2026-05-19T14:30:00Z",
   "outputs": {
     "public_root": "/ai/",
     "skills_dir": "skills"
@@ -4519,7 +4519,7 @@
         ]
       },
       "title": "Set Up a Mock Runtime for Pallet Unit Testing",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "workflow_pattern": "sequential"
     },
     {
@@ -4586,11 +4586,12 @@
         "wallet": []
       },
       "primary_page": "parachains/customize-runtime/pallet-development/pallet-testing.md",
+      "project_structure": "polkadot-sdk-parachain-template/\n└── pallets/\n    └── pallet-custom/\n        └── src/\n            ├── lib.rs (modified)\n            └── tests.rs",
       "reference_code": {
-        "base_path": "polkadot-docs/parachains/customize-runtime/pallet-development/pallet-testing",
-        "branch": "master",
+        "base_path": "",
+        "branch": "",
         "files": [],
-        "repo": "polkadot-developers/polkadot-cookbook"
+        "repo": "none"
       },
       "source_pages": [
         "parachains/customize-runtime/pallet-development/pallet-testing.md"
@@ -4676,7 +4677,7 @@
         ]
       },
       "title": "Write Unit Tests for a FRAME Pallet",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "workflow_pattern": "sequential"
     },
     {
@@ -4746,11 +4747,12 @@
         "wallet": []
       },
       "primary_page": "parachains/customize-runtime/pallet-development/benchmark-pallet.md",
+      "project_structure": "polkadot-sdk-parachain-template/\n├── pallets/\n│   └── pallet-custom/\n│       ├── Cargo.toml (modified)\n│       ├── frame-weight-template.hbs\n│       └── src/\n│           ├── lib.rs (modified)\n│           ├── benchmarking.rs\n│           └── weights.rs\n├── runtime/\n│   ├── Cargo.toml (modified)\n│   └── src/\n│       ├── configs/\n│       │   └── mod.rs (modified)\n│       └── lib.rs (modified)\n└── Cargo.toml (modified)",
       "reference_code": {
-        "base_path": ".snippets/code/parachains/customize-runtime/pallet-development/benchmark-pallet",
-        "branch": "master",
+        "base_path": "",
+        "branch": "",
         "files": [],
-        "repo": "polkadot-developers/polkadot-docs"
+        "repo": "none"
       },
       "source_pages": [
         "parachains/customize-runtime/pallet-development/benchmark-pallet.md"
@@ -4881,7 +4883,7 @@
         ]
       },
       "title": "Benchmark a FRAME Pallet and Generate Weight Files",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "workflow_pattern": "sequential"
     },
     {
@@ -6456,11 +6458,12 @@
         ]
       },
       "primary_page": "parachains/customize-runtime/add-existing-pallets.md",
+      "project_structure": "polkadot-sdk-parachain-template/\n└── runtime/\n    ├── Cargo.toml (modified)\n    └── src/\n        └── lib.rs (modified)",
       "reference_code": {
         "base_path": "",
-        "branch": "master",
+        "branch": "",
         "files": [],
-        "repo": "polkadot-developers/polkadot-cookbook"
+        "repo": "none"
       },
       "source_pages": [
         "parachains/customize-runtime/add-existing-pallets.md"
@@ -6561,7 +6564,7 @@
         ]
       },
       "title": "Add an Existing Pallet to a Parachain Runtime",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "workflow_pattern": "sequential"
     },
     {
@@ -6628,11 +6631,12 @@
         ]
       },
       "primary_page": "parachains/customize-runtime/add-pallet-instances.md",
+      "project_structure": "polkadot-sdk-parachain-template/\n└── runtime/\n    ├── Cargo.toml (modified)\n    └── src/\n        └── lib.rs (modified)",
       "reference_code": {
         "base_path": "",
-        "branch": "master",
+        "branch": "",
         "files": [],
-        "repo": "polkadot-developers/polkadot-cookbook"
+        "repo": "none"
       },
       "source_pages": [
         "parachains/customize-runtime/add-pallet-instances.md"
@@ -6730,7 +6734,7 @@
         ]
       },
       "title": "Configure Multiple Instances of a Pallet in a Runtime",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "workflow_pattern": "sequential"
     },
     {
@@ -6802,11 +6806,12 @@
         ]
       },
       "primary_page": "parachains/customize-runtime/pallet-development/create-a-pallet.md",
+      "project_structure": "polkadot-sdk-parachain-template/\n├── pallets/\n│   └── counter/\n│       ├── Cargo.toml\n│       └── src/\n│           └── lib.rs\n├── runtime/\n│   ├── Cargo.toml (modified)\n│   └── src/\n│       └── lib.rs (modified)\n└── Cargo.toml (modified)",
       "reference_code": {
         "base_path": "",
-        "branch": "master",
+        "branch": "",
         "files": [],
-        "repo": "polkadot-developers/polkadot-cookbook"
+        "repo": "none"
       },
       "source_pages": [
         "parachains/customize-runtime/pallet-development/create-a-pallet.md"
@@ -6906,7 +6911,7 @@
         ]
       },
       "title": "Create a Custom FRAME Pallet",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "workflow_pattern": "sequential"
     },
     {
@@ -8598,6 +8603,7 @@
         ]
       },
       "primary_page": "parachains/launch-a-parachain/deploy-to-polkadot.md",
+      "project_structure": "parachain-template/\n├── chain_spec.json\n├── chain_spec_raw.json\n├── genesis_wasm\n├── genesis_state\n└── node-key.dat",
       "reference_code": {
         "base_path": "",
         "files": [],
@@ -8723,7 +8729,7 @@
         ]
       },
       "title": "Deploy a Parachain to the Polkadot TestNet (Paseo)",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "workflow_pattern": "sequential"
     },
     {

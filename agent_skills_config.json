@@ -1,6 +1,6 @@
 {
-  "content_hash": "sha256:0dd644408aa84c6de37485b22d1a24ff6f8622bae7383c3c153762c5f4f49e98",
-  "generated": "2026-05-19T15:30:00Z",
+  "content_hash": "de9bedab12699557c2904586fa456600f638523884ecacdebdf20f1536278153",
+  "generated": "2026-05-19T16:00:00Z",
   "outputs": {
     "public_root": "/ai/",
     "skills_dir": "skills"
@@ -3601,11 +3601,11 @@
         {
           "actions": [
             "Clone revm-hardhat-examples and navigate to zero-to-hero-dapp/storage-contract",
-            "Install dependencies and create .env with PRIVATE_KEY (user fills in)",
-            "Update hardhat.config.ts: dotenv, gasPrice 5000 gwei, evmVersion cancun, requiredConfirmations 1",
-            "Compile Storage.sol and deploy to polkadotTestnet via Ignition",
-            "Scaffold Next.js 14 frontend with create-next-app@14",
-            "Install viem, wagmi, react-query; update contract.ts with deployed address",
+            "Install dependencies, create .env with PRIVATE_KEY (user fills in)",
+            "Update hardhat.config.ts: dotenv import, replace hardcoded key with process.env.PRIVATE_KEY, set testnet URL, chain ID 420420417, gasPrice 5000 gwei, evmVersion cancun, requiredConfirmations 1",
+            "Compile Storage.sol and deploy to polkadotTestNet via Ignition; save contract address",
+            "Install dApp deps in dapp/; update viem.ts with testnet chain ID and RPC URL",
+            "Update utils/contract.ts with deployed contract address",
             "Run npm run dev and test at localhost:3000"
           ],
           "result": "Storage contract deployed to TestNet; Next.js app at localhost:3000 with working wallet connect, read, and write contract interactions via MetaMask",
@@ -3615,7 +3615,7 @@
         {
           "actions": [
             "Check ignition/deployments/<chainId>/deployed_addresses.json for a Storage address",
-            "If address is present: deployment succeeded — use that address in contract.ts and proceed to step 7",
+            "If address is present: deployment succeeded — use that address in utils/contract.ts and proceed to step 9",
             "If absent: delete ignition/deployments/ and redeploy with gasPrice: 5000000000000 confirmed in config"
           ],
           "result": "Contract address recovered from deployment state or clean redeployment completed",
@@ -3644,11 +3644,12 @@
         ]
       },
       "primary_page": "smart-contracts/cookbook/dapps/zero-to-hero.md",
+      "project_structure": "revm-hardhat-examples/\n└── zero-to-hero-dapp/\n    ├── storage-contract/\n    │   ├── contracts/\n    │   │   └── Storage.sol\n    │   ├── ignition/\n    │   │   └── modules/\n    │   │       └── Storage.ts\n    │   ├── hardhat.config.ts\n    │   ├── .env\n    │   └── package.json\n    └── dapp/\n        ├── abis/\n        │   └── Storage.json\n        ├── app/\n        ├── utils/\n        │   └── contract.ts\n        ├── viem.ts\n        └── package.json",
       "reference_code": {
-        "base_path": "zero-to-hero-dapp",
-        "branch": "master",
+        "base_path": "",
+        "branch": "",
         "files": [],
-        "repo": "polkadot-developers/revm-hardhat-examples"
+        "repo": "none"
       },
       "source_pages": [
         "smart-contracts/cookbook/dapps/zero-to-hero.md"
@@ -3659,7 +3660,7 @@
           "commands": [
             "git clone https://github.com/polkadot-developers/revm-hardhat-examples.git"
           ],
-          "description": "Clone revm-hardhat-examples. This repo contains the complete zero-to-hero-dapp with both the Hardhat contract project and the Next.js frontend.",
+          "description": "Clone revm-hardhat-examples. This repo contains the complete zero-to-hero-dapp with a pre-built Hardhat contract project (storage-contract/) and a pre-built Next.js dApp (dapp/).",
           "order": 1,
           "working_directory": "."
         },
@@ -3669,7 +3670,7 @@
             "npm install",
             "npm install dotenv"
           ],
-          "description": "Install Hardhat and contract dependencies, then add dotenv. dotenv replaces Hardhat's interactive vars system, which cannot be used in agent shells.",
+          "description": "Install Hardhat and contract dependencies, then add dotenv for private key management.",
           "order": 2,
           "working_directory": "revm-hardhat-examples/zero-to-hero-dapp/storage-contract"
         },
@@ -3684,8 +3685,8 @@
           "working_directory": "revm-hardhat-examples/zero-to-hero-dapp/storage-contract"
         },
         {
-          "action": "Update hardhat.config.ts for TestNet and security",
-          "description": "Open hardhat.config.ts and apply ALL of the following changes:\n1. Add 'import \"dotenv/config\";' as the very first line.\n2. Replace any vars.get('PRIVATE_KEY') with process.env.PRIVATE_KEY as string — Hardhat interactive vars do not work in agent shells.\n3. Remove 'import { vars } from \"hardhat/config\";' if present.\n4. In the polkadotTestnet network block, set url: 'https://services.polkadothub-rpc.com/testnet' and chainId: 420420417.\n5. Add gasPrice: 5000000000000 to the polkadotTestnet network block (5000 gwei = 5x the 1000 gwei TestNet base fee).\n6. Add or confirm evmVersion: 'cancun' in the Solidity compiler settings — required for OpenZeppelin v5.4.0+ (mcopy opcode).\n7. Ensure requiredConfirmations is 1 in any ignition config block (never 0 — zero causes IGN401 errors on TestNet).\nSave the file.",
+          "action": "Update hardhat.config.ts for TestNet",
+          "description": "The reference `hardhat.config.ts` uses Hardhat v3 plugin syntax and currently targets localhost. Apply ALL of the following changes:\n1. Add `import 'dotenv/config';` as the very first line.\n2. In the `polkadotTestNet` network block, replace the hardcoded private key string with `process.env.PRIVATE_KEY as string`.\n3. Replace `url: 'http://127.0.0.1:8545'` with `url: 'https://services.polkadothub-rpc.com/testnet'`.\n4. Add `chainId: 420420417` to the `polkadotTestNet` network block.\n5. Add `gasPrice: 5000000000000` (5000 gwei = 5x the 1000 gwei TestNet base fee).\n6. Change `requiredConfirmations: 0` to `requiredConfirmations: 1` — zero causes IGN401 errors on TestNet.\n7. In the Solidity `profiles.default` block, add `settings: { evmVersion: 'cancun' }` — required for OpenZeppelin v5.4.0+ (mcopy opcode).\nSave the file.",
           "order": 4,
           "working_directory": "revm-hardhat-examples/zero-to-hero-dapp/storage-contract"
         },
@@ -3694,7 +3695,7 @@
           "commands": [
             "npx hardhat compile"
           ],
-          "description": "Compile Storage.sol. If you see 'invalid opcode: MCOPY', verify evmVersion: 'cancun' is set in the Solidity compiler settings in hardhat.config.ts and recompile.",
+          "description": "Compile Storage.sol. If you see 'invalid opcode: MCOPY', verify `settings: { evmVersion: 'cancun' }` is set in the Solidity profiles block and recompile.",
           "expected_output": "Compiled 1 Solidity file successfully",
           "order": 5,
           "working_directory": "revm-hardhat-examples/zero-to-hero-dapp/storage-contract"
@@ -3702,46 +3703,43 @@
         {
           "action": "Deploy the contract to Polkadot Hub TestNet",
           "commands": [
-            "npx hardhat ignition deploy ignition/modules/Storage.ts --network polkadotTestnet"
+            "npx hardhat ignition deploy ignition/modules/Storage.ts --network polkadotTestNet"
           ],
-          "description": "Deploy via Hardhat Ignition. When prompted 'Do you want to deploy this?', answer 'yes'. Save the deployed contract address — needed in step 9.\n\nRecovery guidance:\n- 'priority is too low': verify gasPrice: 5000000000000 is in hardhat.config.ts, then redeploy.\n- IGN401 (transaction dropped): first check ignition/deployments/<chainId>/deployed_addresses.json — if the address is listed, deployment succeeded despite the error; use that address. If absent, delete ignition/deployments/ and redeploy.\n- 'Transaction Already Imported': do NOT retry at the same gas price. Delete ignition/deployments/ and add a higher gasPrice, then redeploy.",
+          "description": "Deploy via Hardhat Ignition. When prompted 'Do you want to deploy this?', answer 'yes'. Save the deployed contract address — needed in step 9.\n\nRecovery guidance:\n- 'priority is too low': verify `gasPrice: 5000000000000` is set, then redeploy.\n- IGN401 (transaction dropped): check `ignition/deployments/<chainId>/deployed_addresses.json` first — if the address is listed, deployment succeeded; use that address. If absent, delete `ignition/deployments/` and redeploy.\n- 'Transaction Already Imported': delete `ignition/deployments/` and redeploy with higher gasPrice.",
           "expected_output": "Storage deployed to: 0x...",
           "order": 6,
           "working_directory": "revm-hardhat-examples/zero-to-hero-dapp/storage-contract"
         },
         {
-          "action": "Scaffold the Next.js frontend",
+          "action": "Install dApp dependencies",
           "commands": [
-            "echo 'n\\nn\\nn\\nn\\nn\\nn' | npx create-next-app@14 frontend --typescript --no-eslint --no-tailwind --no-src-dir --app"
+            "npm install"
           ],
-          "description": "Scaffold Next.js 14 TypeScript app named 'frontend'. Piped 'n' answers handle any unexpected interactive prompts from create-next-app. If this fails due to prompt changes, run: npx create-next-app@14 frontend and answer No to all questions except TypeScript (Yes) and App Router (Yes).",
+          "description": "Install the pre-built dApp dependencies. The repo's `dapp/` directory already contains the complete Next.js application with Viem and Wagmi configured — no scaffolding needed.",
           "order": 7,
-          "working_directory": "revm-hardhat-examples/zero-to-hero-dapp"
+          "working_directory": "revm-hardhat-examples/zero-to-hero-dapp/dapp"
         },
         {
-          "action": "Install frontend dependencies",
-          "commands": [
-            "npm install viem wagmi @tanstack/react-query"
-          ],
-          "description": "Install viem for contract interaction, wagmi for React hooks, and React Query (required by wagmi v2).",
+          "action": "Update viem.ts with TestNet network parameters",
+          "description": "Open `viem.ts` at the dapp root. It currently targets localhost. Replace with TestNet values:\n1. Change `id: 420420420` to `id: 420420417`.\n2. Change `name: 'Polkadot Testnet'` (or similar) to `name: 'Polkadot Hub TestNet'`.\n3. Replace all `http://127.0.0.1:8545` occurrences with `https://services.polkadothub-rpc.com/testnet`.\nSave the file.",
           "order": 8,
-          "working_directory": "revm-hardhat-examples/zero-to-hero-dapp/frontend"
+          "working_directory": "revm-hardhat-examples/zero-to-hero-dapp/dapp"
         },
         {
-          "action": "Update contract address in contract config",
-          "description": "Open src/contracts/contract.ts (or the equivalent contract config file in the frontend). Replace the CONTRACT_ADDRESS placeholder or any hardcoded example address with the deployed contract address saved in step 6. Save the file.",
+          "action": "Update contract address in utils/contract.ts",
+          "description": "Open `utils/contract.ts`. Replace the existing `CONTRACT_ADDRESS` value with the deployed contract address saved in step 6. Example: `export const CONTRACT_ADDRESS = '0x<your-deployed-address>';`. Save the file.",
           "order": 9,
-          "working_directory": "revm-hardhat-examples/zero-to-hero-dapp/frontend"
+          "working_directory": "revm-hardhat-examples/zero-to-hero-dapp/dapp"
         },
         {
-          "action": "Start the development server",
+          "action": "Start the development server and test",
           "commands": [
             "npm run dev"
           ],
           "description": "Start the Next.js dev server. Open http://localhost:3000 in a browser. Click 'Connect Wallet' and approve the MetaMask popup. Read the current stored value, then write a new value and confirm the MetaMask transaction. Verify the displayed value updates after the transaction is mined.",
           "expected_output": "ready - started server on 0.0.0.0:3000",
           "order": 10,
-          "working_directory": "revm-hardhat-examples/zero-to-hero-dapp/frontend"
+          "working_directory": "revm-hardhat-examples/zero-to-hero-dapp/dapp"
         }
       ],
       "supplementary_context": {
@@ -3768,7 +3766,7 @@
         ]
       },
       "title": "Build a Zero-to-Hero Smart Contract DApp with Viem and Next.js",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "workflow_pattern": "sequential"
     },
     {
@@ -3926,8 +3924,8 @@
       "description": "Sets up a Node.js project, compiles a Solidity contract with solc, deploys to Polkadot Hub TestNet using Ethers.js v6, and interacts with the deployed contract via read and write script calls. Use when integrating Ethers.js into a new or existing Node.js project targeting Polkadot Hub. Trigger phrases: 'deploy with ethers.js polkadot', 'ethers.js contract deployment', 'use ethers polkadot hub', 'ethersjs testnet'. Covers dotenv credential setup, custom Polkadot Hub provider configuration, and the compile-deploy-interact workflow. Produces a deployed contract with verified read/write interaction.",
       "env_vars": [
         {
-          "description": "0x-prefixed EVM private key of the deployer wallet. Must be funded with testnet PAS. Edit .env directly — never paste in chat.",
-          "name": "PRIVATE_KEY",
+          "description": "12-word BIP-39 mnemonic phrase for the deployer wallet. Must be funded with testnet PAS. Edit .env directly — never paste in chat.",
+          "name": "MNEMONIC",
           "required": true
         },
         {
@@ -3945,29 +3943,32 @@
         {
           "cause": "The RPC_URL in .env is incorrect or the endpoint is unreachable.",
           "pattern": "Error: could not detect network",
-          "resolution": "Verify RPC_URL=https://services.polkadothub-rpc.com/testnet in .env. Test connectivity: curl -s -X POST https://services.polkadothub-rpc.com/testnet -H 'Content-Type: application/json' -d '{\"jsonrpc\":\"2.0\",\"method\":\"eth_blockNumber\",\"params\":[],\"id\":1}'"
+          "resolution": "Verify RPC_URL=https://services.polkadothub-rpc.com/testnet in .env. Test connectivity: `curl -s -X POST https://services.polkadothub-rpc.com/testnet -H 'Content-Type: application/json' -d '{\"jsonrpc\":\"2.0\",\"method\":\"eth_blockNumber\",\"params\":[],\"id\":1}'`"
         },
         {
-          "cause": "Project is not configured as ESM.",
-          "pattern": "SyntaxError: Cannot use import statement in a module",
-          "resolution": "Run 'npm pkg set type=module' in the ethers-deploy directory to enable ES modules."
+          "cause": "Project is not configured as a CommonJS module, or solc is not installed.",
+          "pattern": "Error: Cannot find module 'solc' or SyntaxError",
+          "resolution": "Ensure solc is installed (`npm install solc`) and package.json does NOT have `\"type\": \"module\"` — the reference scripts use CommonJS require()."
         },
         {
           "cause": "The gas price in the transaction is below the 1000 gwei TestNet base fee.",
           "pattern": "Error: transaction underpriced",
-          "resolution": "Add an explicit gasPrice to the transaction options: { gasPrice: ethers.parseUnits('5000', 'gwei') }. Polkadot Hub TestNet has a base fee of 1000 gwei."
+          "resolution": "Add an explicit gasPrice to the transaction options in deploy.js: `{ gasPrice: ethers.parseUnits('5000', 'gwei') }`. Polkadot Hub TestNet has a base fee of 1000 gwei."
         }
       ],
       "examples": [
         {
           "actions": [
-            "Create ethers-deploy ESM project and install ethers, dotenv, solc, tsx",
-            "Create .env with RPC_URL and empty PRIVATE_KEY (user fills in)",
-            "Fetch compile.ts, deploy.ts, interact.ts from polkadot-cookbook",
-            "Apply substitutions: dotenv import, process.env.RPC_URL, process.env.PRIVATE_KEY, chainId 420420417",
-            "Run npx tsx compile.ts to build ABI/bytecode",
-            "Run npx tsx deploy.ts and save deployed contract address",
-            "Run npx tsx interact.ts to verify read/write contract operations"
+            "Create ethers-deploy CJS project and install ethers, dotenv, solc",
+            "Create directory structure: contracts/, scripts/, abis/, artifacts/",
+            "Create .env with RPC_URL and empty MNEMONIC (user fills in BIP-39 mnemonic)",
+            "Fetch reference files: connectToProvider.js → scripts/, Storage.sol → contracts/, compile.js → scripts/",
+            "Substitute INSERT_RPC_URL, INSERT_CHAIN_ID, INSERT_CHAIN_NAME in connectToProvider.js",
+            "Run node scripts/compile.js to build ABI/bytecode in abis/ and artifacts/",
+            "Fetch deploy.js → scripts/; substitute INSERT_MNEMONIC with process.env.MNEMONIC; fix artifactsDir paths",
+            "Run node scripts/deploy.js and save deployed contract address",
+            "Fetch checkStorage.js → scripts/; substitute MNEMONIC and CONTRACT_ADDRESS; fix ABI path",
+            "Run node scripts/checkStorage.js to verify read/write operations"
           ],
           "result": "Solidity contract compiled, deployed to Polkadot Hub TestNet, and verified with read/write operations via Ethers.js scripts",
           "scenario": "Common scenario: deploy and interact with a Storage contract",
@@ -3975,9 +3976,9 @@
         },
         {
           "actions": [
-            "Open deploy.ts and add gasPrice override to the deployment transaction options",
-            "Set gasPrice: ethers.parseUnits('5000', 'gwei') — 5x the 1000 gwei TestNet base fee",
-            "Retry with npx tsx deploy.ts"
+            "Open scripts/deploy.js and add gasPrice override to the deployment transaction options",
+            "Set `gasPrice: ethers.parseUnits('5000', 'gwei')` — 5x the 1000 gwei TestNet base fee",
+            "Retry with node scripts/deploy.js"
           ],
           "result": "Deployment succeeds with sufficient gas price for Polkadot Hub TestNet",
           "scenario": "Edge case: transaction underpriced error during deployment",
@@ -4003,7 +4004,7 @@
         ]
       },
       "primary_page": "smart-contracts/libraries/ethers-js.md",
-      "project_structure": "ethers-deploy/\n├── artifacts/\n├── contracts/\n│   └── Storage.sol\n├── checkStorage.js\n├── compile.js\n├── connectToProvider.js\n├── deploy.js\n├── .env\n├── .gitignore\n└── package.json",
+      "project_structure": "ethers-deploy/\n├── abis/\n│   └── Storage.json    (created by compile.js)\n├── artifacts/\n│   └── Storage.bin     (created by compile.js)\n├── contracts/\n│   └── Storage.sol\n├── scripts/\n│   ├── checkStorage.js\n│   ├── compile.js\n│   ├── connectToProvider.js\n│   └── deploy.js\n├── contract-address.json    (created by deploy.js)\n├── .env\n├── .gitignore\n└── package.json",
       "reference_code": {
         "base_path": ".snippets/code/smart-contracts/libraries/ethers-js",
         "branch": "master",
@@ -4039,50 +4040,49 @@
           "action": "Create the project directory and initialize",
           "commands": [
             "mkdir ethers-deploy && cd ethers-deploy",
-            "npm init -y",
-            "npm pkg set type=module"
+            "npm init -y"
           ],
-          "description": "Create and initialize an ESM Node.js project. ESM is required for Ethers.js v6 imports.",
+          "description": "Create and initialize a CommonJS Node.js project. Do NOT set `\"type\": \"module\"` — the reference scripts use CommonJS `require()`.",
           "order": 1,
           "working_directory": "."
         },
         {
-          "action": "Install dependencies",
+          "action": "Install dependencies and create directory structure",
           "commands": [
-            "npm install ethers dotenv",
-            "npm install --save-dev solc typescript tsx @types/node"
+            "npm install ethers dotenv solc",
+            "mkdir contracts scripts abis artifacts"
           ],
-          "description": "Install ethers (v6), dotenv for credential management, solc for Solidity compilation, and TypeScript tooling.",
+          "description": "Install ethers (v6), dotenv for credential management, and solc for Solidity compilation. Create the directory structure: `contracts/` for Solidity source, `scripts/` for JS scripts, `abis/` and `artifacts/` for compiled output.",
           "order": 2,
           "working_directory": "ethers-deploy"
         },
         {
           "action": "Create .env file and .gitignore",
           "commands": [
-            "printf 'PRIVATE_KEY=\\nRPC_URL=https://services.polkadothub-rpc.com/testnet\\n' > .env",
+            "printf 'MNEMONIC=\\nRPC_URL=https://services.polkadothub-rpc.com/testnet\\n' > .env",
             "echo '.env' > .gitignore"
           ],
-          "description": "Create .env with RPC_URL pre-filled and empty PRIVATE_KEY. Stop and ask the user to edit .env directly by adding their 0x-prefixed private key as PRIVATE_KEY=0x<their_key>. Do NOT ask for the key in chat. Wait for confirmation before continuing.",
+          "description": "Create .env with RPC_URL pre-filled and empty MNEMONIC. Stop and ask the user to edit .env directly by adding their 12-word BIP-39 mnemonic as MNEMONIC=word1 word2 ... word12. Do NOT ask for the mnemonic in chat. Wait for confirmation before continuing.",
           "order": 3,
           "working_directory": "ethers-deploy"
         },
         {
           "action": "Fetch the provider connection helper",
-          "description": "Fetch the reference file `connectToProvider.js` and save it to the project root. Verify it points at the Polkadot Hub TestNet RPC URL `https://services.polkadothub-rpc.com/testnet`; if it uses a placeholder, replace `INSERT_RPC_URL` with the testnet URL.",
+          "description": "Fetch the reference file `connectToProvider.js` and save it as `scripts/connectToProvider.js`. Then apply these substitutions:\n(1) Replace `INSERT_RPC_URL` with `process.env.RPC_URL`.\n(2) Replace `INSERT_CHAIN_ID` with `420420417`.\n(3) Replace `INSERT_CHAIN_NAME` with `'polkadot-hub-testnet'`.\nAdd `require('dotenv/config');` as the first line.\nSave the file.",
           "order": 4,
           "reference_file": "connectToProvider.js",
           "working_directory": "ethers-deploy"
         },
         {
           "action": "Fetch the Storage.sol contract",
-          "description": "Fetch the reference file `Storage.sol` and save it as `contracts/Storage.sol`. This is the deployment target — a simple Solidity contract with a `storedNumber` public state variable and a `setNumber(uint256 _newNumber)` setter. No substitutions needed.",
+          "description": "Fetch the reference file `Storage.sol` and save it as `contracts/Storage.sol`. This is the deployment target — a Solidity contract with a `storedNumber` public state variable and a `setNumber(uint256 _newNumber)` setter. No substitutions needed.",
           "order": 5,
           "reference_file": "Storage.sol",
           "working_directory": "ethers-deploy"
         },
         {
           "action": "Fetch the compilation script",
-          "description": "Fetch the reference file `compile.js` and save it to the project root. The script invokes `solc` against `Storage.sol` and writes the ABI and bytecode to `artifacts/`.",
+          "description": "Fetch the reference file `compile.js` and save it as `scripts/compile.js`. The script reads `../contracts/Storage.sol`, compiles it with solc, and writes the ABI to `../abis/Storage.json` and bytecode to `../artifacts/Storage.bin`. No substitutions needed — all paths use `__dirname` relative references.",
           "order": 6,
           "reference_file": "compile.js",
           "working_directory": "ethers-deploy"
@@ -4090,15 +4090,15 @@
         {
           "action": "Compile the Solidity contract",
           "commands": [
-            "node compile.js"
+            "node scripts/compile.js"
           ],
-          "description": "Run the compile script to generate the contract ABI and bytecode. Confirm an `artifacts/` directory was created with `Storage.json` (or similar) before proceeding to deploy.",
+          "description": "Run the compile script to generate the contract ABI and bytecode. Confirm `abis/Storage.json` and `artifacts/Storage.bin` were created before deploying.",
           "order": 7,
           "working_directory": "ethers-deploy"
         },
         {
           "action": "Fetch the deployment script",
-          "description": "Fetch the reference file `deploy.js` and save it to the project root. Then apply these substitutions:\n(1) Add `import \"dotenv/config\";` as the first line (or `require(\"dotenv\").config()` for CJS).\n(2) Replace `INSERT_RPC_URL` with `process.env.RPC_URL` (or hardcode the testnet URL).\n(3) Replace `INSERT_PRIVATE_KEY` with `process.env.PRIVATE_KEY`.\n(4) Replace any hardcoded chain ID with `420420417`.",
+          "description": "Fetch the reference file `deploy.js` and save it as `scripts/deploy.js`. Then apply these substitutions:\n(1) Add `require('dotenv/config');` as the first line.\n(2) Replace `const mnemonic = 'INSERT_MNEMONIC';` with `const mnemonic = process.env.MNEMONIC;`.\n(3) The deploy.js reads ABI from `join(__dirname, '../contracts')` but compile.js writes to `abis/` and `artifacts/`. Fix the paths:\n  - Replace `const artifactsDir = join(__dirname, '../contracts');` with:\n    `const abiDir = join(__dirname, '../abis');\n    const bytecodeDir = join(__dirname, '../artifacts');`\n  - In `getAbi`, change `join(artifactsDir, ...)` to `join(abiDir, ...)`.\n  - In `getByteCode`, change `join(artifactsDir, ...)` to `join(bytecodeDir, ...)`.\nSave the file.",
           "order": 8,
           "reference_file": "deploy.js",
           "working_directory": "ethers-deploy"
@@ -4106,15 +4106,15 @@
         {
           "action": "Deploy the contract to Polkadot Hub TestNet",
           "commands": [
-            "node deploy.js"
+            "node scripts/deploy.js"
           ],
-          "description": "Run the deployment script. Save the deployed contract address from the output — needed for the interact step.\n\nIf deployment fails with `insufficient funds`: visit https://faucet.polkadot.io/ and fund the deployer account.\nIf the transaction is stuck or rejected: verify the RPC URL is correct and the account is funded, then retry.",
+          "description": "Run the deployment script. Save the deployed contract address from the output — needed for the interact step.\n\nIf deployment fails with `insufficient funds`: visit https://faucet.polkadot.io/ and fund the deployer account.\nIf the transaction is underpriced: add `gasPrice: ethers.parseUnits('5000', 'gwei')` to the factory.deploy() options in deploy.js and retry.",
           "order": 9,
           "working_directory": "ethers-deploy"
         },
         {
           "action": "Fetch the interaction script and interact with the deployed contract",
-          "description": "Fetch the reference file `checkStorage.js` and save it as `checkStorage.js`. Then substitute `INSERT_CONTRACT_ADDRESS` with the deployed address from the previous step. Run it with `node checkStorage.js`. Verify the output shows successful read and write operations against the deployed contract.",
+          "description": "Fetch the reference file `checkStorage.js` and save it as `scripts/checkStorage.js`. Then apply these substitutions:\n(1) Add `require('dotenv/config');` as the first line.\n(2) Replace `const mnemonic = 'INSERT_MNEMONIC'` with `const mnemonic = process.env.MNEMONIC;`.\n(3) Replace `const contractAddress = 'INSERT_CONTRACT_ADDRESS'` with the deployed address from step 9.\n(4) Fix the ABI path: change `const artifactsDir = join(__dirname, '../contracts');` to `const artifactsDir = join(__dirname, '../abis');` so it reads from the compiled ABI location.\nRun `node scripts/checkStorage.js`. Verify the output shows successful read and write operations.",
           "order": 10,
           "reference_file": "checkStorage.js",
           "working_directory": "ethers-deploy"
@@ -4144,7 +4144,7 @@
         ]
       },
       "title": "Deploy Contracts to Polkadot Hub with Ethers.js",
-      "version": "1.0.1",
+      "version": "1.1.0",
       "workflow_pattern": "sequential"
     },
     {
@@ -6160,6 +6160,7 @@
         ]
       },
       "primary_page": "reference/tools/zombienet.md",
+      "project_structure": "./\n├── network.toml             (inline config from step 3)\n├── network-test.zndsl       (inline test file from step 5)\n└── paseo-asset-hub.json     (downloaded in step 3, if using parachain)",
       "reference_code": {
         "base_path": "",
         "files": [],
@@ -6241,7 +6242,7 @@
         ]
       },
       "title": "Spawn and Test a Parachain Network with Zombienet",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "workflow_pattern": "sequential"
     },
     {
@@ -6433,7 +6434,7 @@
         ]
       },
       "title": "Deploy and Interact with Smart Contracts Using Web3.js",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "workflow_pattern": "sequential"
     },
     {
@@ -7677,6 +7678,7 @@
         ]
       },
       "primary_page": "smart-contracts/libraries/wagmi.md",
+      "project_structure": "wagmi-dapp/\n├── src/\n│   ├── app/\n│   │   ├── layout.tsx\n│   │   ├── page.tsx\n│   │   └── providers.tsx\n│   └── components/\n│       ├── BlockNumber.tsx\n│       ├── ConnectWallet.tsx\n│       ├── StorageRead.tsx\n│       └── StorageWrite.tsx\n├── wagmi.ts\n├── tsconfig.json\n├── next.config.ts\n└── package.json",
       "reference_code": {
         "base_path": "",
         "files": [],
@@ -7738,7 +7740,7 @@
         },
         {
           "action": "Add Storage contract write interaction using useWriteContract",
-          "description": "Create `src/components/StorageWrite.tsx` to send a `store(uint256)` transaction to the same contract used in step 6:\n\n```typescript\n'use client';\nimport { useWriteContract, useAccount } from 'wagmi';\nimport { polkadotHubTestnet } from '../wagmi';\nimport { useState } from 'react';\n\nconst STORAGE_ABI = [\n  {\n    inputs: [{ internalType: 'uint256', name: 'num', type: 'uint256' }],\n    name: 'store',\n    outputs: [],\n    stateMutability: 'nonpayable',\n    type: 'function',\n  },\n] as const;\n\nconst CONTRACT_ADDRESS = '0xc01Ee7f10EA4aF4673cFff62710E1D7792aBa8f3' as `0x${string}`;\n\nexport function StorageWrite() {\n  const { isConnected } = useAccount();\n  const { writeContract, isPending, isSuccess } = useWriteContract();\n  const [value, setValue] = useState('');\n\n  const handleStore = () => {\n    writeContract({\n      address: CONTRACT_ADDRESS,\n      abi: STORAGE_ABI,\n      functionName: 'store',\n      args: [BigInt(value)],\n      chainId: polkadotHubTestnet.id,\n    });\n  };\n\n  if (!isConnected) return <p>Connect your wallet to write.</p>;\n\n  return (\n    <div>\n      <input value={value} onChange={e => setValue(e.target.value)} placeholder='Enter number' />\n      <button onClick={handleStore} disabled={isPending}>\n        {isPending ? 'Storing...' : 'Store'}\n      </button>\n      {isSuccess && <p>Transaction submitted!</p>}\n    </div>\n  );\n}\n```\n\nSame address as step 6. This step requires a connected wallet (from step 3's `ConnectWallet`) and PAS tokens for the transaction fee — get tokens from <https://faucet.polkadot.io/>.",
+          "description": "Create `src/components/StorageWrite.tsx` to send a `store(uint256)` transaction to the same contract used in step 7:\n\n```typescript\n'use client';\nimport { useWriteContract, useAccount } from 'wagmi';\nimport { polkadotHubTestnet } from '../wagmi';\nimport { useState } from 'react';\n\nconst STORAGE_ABI = [\n  {\n    inputs: [{ internalType: 'uint256', name: 'num', type: 'uint256' }],\n    name: 'store',\n    outputs: [],\n    stateMutability: 'nonpayable',\n    type: 'function',\n  },\n] as const;\n\nconst CONTRACT_ADDRESS = '0xc01Ee7f10EA4aF4673cFff62710E1D7792aBa8f3' as `0x${string}`;\n\nexport function StorageWrite() {\n  const { isConnected } = useAccount();\n  const { writeContract, isPending, isSuccess } = useWriteContract();\n  const [value, setValue] = useState('');\n\n  const handleStore = () => {\n    writeContract({\n      address: CONTRACT_ADDRESS,\n      abi: STORAGE_ABI,\n      functionName: 'store',\n      args: [BigInt(value)],\n      chainId: polkadotHubTestnet.id,\n    });\n  };\n\n  if (!isConnected) return <p>Connect your wallet to write.</p>;\n\n  return (\n    <div>\n      <input value={value} onChange={e => setValue(e.target.value)} placeholder='Enter number' />\n      <button onClick={handleStore} disabled={isPending}>\n        {isPending ? 'Storing...' : 'Store'}\n      </button>\n      {isSuccess && <p>Transaction submitted!</p>}\n    </div>\n  );\n}\n```\n\nSame address as step 6. This step requires a connected wallet (from step 3's `ConnectWallet`) and PAS tokens for the transaction fee — get tokens from <https://faucet.polkadot.io/>.",
           "order": 8,
           "working_directory": "wagmi-dapp"
         },
@@ -7785,7 +7787,7 @@
         ]
       },
       "title": "Build a Wagmi dApp Connected to Polkadot Hub",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "workflow_pattern": "sequential"
     },
     {
@@ -8777,13 +8779,13 @@
     },
     {
       "chain_role": "isolated",
-      "description": "Provides Polkadot Hub TestNet and MainNet network parameters and walks through adding the network to MetaMask and requesting PAS test tokens from the faucet. Use when setting up a new smart contract development environment or when a skill needs TestNet connection reference data (RPC URLs, WSS endpoints, chain IDs). Trigger phrases: 'connect to Polkadot Hub', 'add TestNet to MetaMask', 'Polkadot Hub network config', 'chain ID 420420417', 'configure RPC endpoint'. Output: MetaMask configured with Polkadot Hub TestNet (chain ID 420420417) and account funded with PAS. This skill is primarily a network reference — consult it for endpoint URLs and chain IDs needed by other skills.",
+      "description": "Provides network parameters for Polkadot Hub TestNet, Polkadot Hub MainNet, and Kusama Hub, and walks through adding a network to MetaMask and requesting PAS test tokens from the faucet. Use when setting up a smart contract development environment or when a skill needs network reference data (RPC URLs, WSS endpoints, chain IDs, currency symbols). Trigger phrases: 'connect to Polkadot Hub', 'add TestNet to MetaMask', 'Polkadot Hub network config', 'chain ID 420420417', 'configure RPC endpoint', 'Kusama Hub network', 'Polkadot Hub MainNet RPC'. Output: MetaMask configured with the selected network; TestNet account funded with PAS.",
       "env_vars": [],
       "error_patterns": [
         {
           "cause": "Incorrect chain ID or RPC URL entered in MetaMask network settings.",
           "pattern": "MetaMask: 'Invalid chain ID' or cannot connect to network",
-          "resolution": "Verify the chain ID is exactly 420420417 (decimal) and the RPC URL is https://services.polkadothub-rpc.com/testnet. Remove and re-add the network if the error persists."
+          "resolution": "For TestNet: chain ID 420420417, RPC https://services.polkadothub-rpc.com/testnet. For MainNet: chain ID 420420419, RPC https://eth-rpc.polkadot.io/. Remove and re-add the network in MetaMask if the error persists."
         },
         {
           "cause": "The address already received tokens within the 24-hour rate limit window.",
@@ -8793,27 +8795,28 @@
         {
           "cause": "TestNet may be under maintenance, or the public RPC endpoint URL has changed.",
           "pattern": "RPC endpoint returns errors or is unreachable",
-          "resolution": "Check https://docs.polkadot.com/smart-contracts/connect/ for the latest endpoint URLs. The WSS alternative is wss://services.polkadothub-rpc.com/testnet."
+          "resolution": "Try the alternative TestNet endpoint: https://eth-rpc-testnet.polkadot.io/. Check https://docs.polkadot.com/smart-contracts/connect/ for the latest endpoint URLs."
         }
       ],
       "examples": [
         {
           "actions": [
-            "Add Polkadot Hub TestNet to MetaMask with chain ID 420420417 and RPC https://services.polkadothub-rpc.com/testnet",
+            "Select Polkadot Hub TestNet (chain ID 420420417, RPC https://services.polkadothub-rpc.com/testnet)",
+            "Add TestNet to MetaMask with PAS as currency symbol",
             "Request PAS tokens from https://faucet.polkadot.io/",
             "Verify funded balance in MetaMask"
           ],
           "result": "MetaMask connected to Polkadot Hub TestNet with funded PAS balance, ready for smart contract deployment",
-          "scenario": "Common scenario: set up development environment from scratch",
+          "scenario": "Common scenario: set up TestNet development environment from scratch",
           "user_says": "I want to deploy a smart contract on Polkadot Hub — how do I connect to TestNet?"
         },
         {
           "actions": [
-            "Reference the MainNet network parameters from the source page",
+            "Select Polkadot Hub MainNet parameters: chain ID 420420419, RPC https://eth-rpc.polkadot.io/, currency DOT",
             "Warn: MainNet uses real DOT — use TestNet (chain ID 420420417) for development and testing"
           ],
           "result": "User receives Polkadot Hub MainNet network parameters with a caution about real token usage",
-          "scenario": "Edge case: looking up MainNet connection parameters",
+          "scenario": "Edge case: looking up MainNet or Kusama Hub connection parameters",
           "user_says": "What RPC endpoint and chain ID do I use for Polkadot Hub MainNet?"
         }
       ],
@@ -8822,8 +8825,8 @@
       "license": "CC-BY-4.0",
       "prerequisites": {
         "network": [
-          "Internet access to Polkadot Hub TestNet RPC: https://services.polkadothub-rpc.com/testnet",
-          "Internet access to the faucet: https://faucet.polkadot.io/"
+          "Internet access to Polkadot Hub TestNet RPC: https://services.polkadothub-rpc.com/testnet (alt: https://eth-rpc-testnet.polkadot.io/)",
+          "Internet access to the PAS faucet: https://faucet.polkadot.io/"
         ],
         "wallet": [
           "MetaMask browser extension installed (https://metamask.io/download/)"
@@ -8840,21 +8843,27 @@
       ],
       "steps": [
         {
-          "action": "Add Polkadot Hub TestNet to MetaMask",
-          "description": "In MetaMask, open Settings > Networks > Add a network > Add a network manually. Enter these parameters: Network name: 'Polkadot Hub TestNet'; New RPC URL: 'https://services.polkadothub-rpc.com/testnet'; Chain ID: '420420417'; Currency symbol: 'PAS'. For the Block Explorer URL, check https://docs.polkadot.com/smart-contracts/connect/ for the current explorer URL, as it may change. Click Save and switch MetaMask to this network. This step must be delegated to the user.",
+          "action": "Select the target network and note its parameters",
+          "description": "Choose the network to configure. Reference parameters:\n\n**Polkadot Hub TestNet** (for development):\n- Chain ID: `420420417`\n- RPC: `https://services.polkadothub-rpc.com/testnet` (alt: `https://eth-rpc-testnet.polkadot.io/`)\n- Currency: PAS (18 decimals)\n- Block explorer: https://blockscout.passet-hub.parity-testnet.parity.io/\n\n**Polkadot Hub MainNet** (uses real DOT — use TestNet for development):\n- Chain ID: `420420419`\n- RPC: `https://eth-rpc.polkadot.io/`\n- Currency: DOT (10 decimals)\n\n**Kusama Hub** (canary network):\n- Chain ID: `420420418`\n- RPC: `https://eth-rpc-kusama.polkadot.io/`\n- Currency: KSM\n\nFor smart contract development, use Polkadot Hub TestNet (chain ID 420420417).",
           "order": 1,
           "working_directory": "."
         },
         {
-          "action": "Request PAS test tokens from the faucet",
-          "description": "Navigate to https://faucet.polkadot.io/. Select 'Polkadot Hub TestNet', paste your 0x-prefixed EVM address, and click the request button. The faucet credits PAS tokens within seconds. Rate limit: approximately 500 PAS per 24 hours per address. This step must be delegated to the user.",
+          "action": "Add the network to MetaMask",
+          "description": "In MetaMask, open Settings > Networks > Add a network > Add a network manually. Enter the parameters for your chosen network from step 1. For TestNet: Network name 'Polkadot Hub TestNet', RPC URL 'https://services.polkadothub-rpc.com/testnet', Chain ID '420420417', Currency symbol 'PAS'. Click Save and switch MetaMask to this network. This step must be delegated to the user — agents cannot interact with browser extensions.",
           "order": 2,
           "working_directory": "."
         },
         {
-          "action": "Verify MetaMask balance",
-          "description": "In MetaMask, confirm the PAS balance is non-zero on the Polkadot Hub TestNet network. To verify programmatically: curl -s -X POST https://services.polkadothub-rpc.com/testnet -H 'Content-Type: application/json' -d '{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBalance\",\"params\":[\"YOUR_ADDRESS\",\"latest\"],\"id\":1}'. Replace YOUR_ADDRESS with the 0x-prefixed address. A non-zero hex result confirms the account is funded.",
+          "action": "Request PAS test tokens from the faucet (TestNet only)",
+          "description": "Navigate to https://faucet.polkadot.io/. Select 'Polkadot Hub TestNet', paste your 0x-prefixed EVM address, and click the request button. The faucet credits PAS tokens within seconds. Rate limit: approximately 500 PAS per 24 hours per address. This step must be delegated to the user. Skip this step if configuring MainNet or Kusama Hub — those require real tokens.",
           "order": 3,
+          "working_directory": "."
+        },
+        {
+          "action": "Verify balance",
+          "description": "In MetaMask, confirm a non-zero balance on the selected network. To verify programmatically (TestNet example):\n```bash\ncurl -s -X POST https://services.polkadothub-rpc.com/testnet \\\n  -H 'Content-Type: application/json' \\\n  -d '{\"jsonrpc\":\"2.0\",\"method\":\"eth_getBalance\",\"params\":[\"YOUR_ADDRESS\",\"latest\"],\"id\":1}'\n```\nReplace YOUR_ADDRESS with the 0x-prefixed address. A non-zero hex result confirms the account is funded.",
+          "order": 4,
           "working_directory": "."
         }
       ],
@@ -8875,8 +8884,8 @@
           }
         ]
       },
-      "title": "Connect to Polkadot Hub and Get Test Tokens",
-      "version": "1.0.0",
+      "title": "Connect to Polkadot Hub Networks and Get Test Tokens",
+      "version": "1.1.0",
       "workflow_pattern": "sequential"
     },
     {
@@ -9722,7 +9731,7 @@
         ]
       },
       "title": "Deploy Uniswap V3 Core on Polkadot Hub (EVM)",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "workflow_pattern": "sequential"
     },
     {

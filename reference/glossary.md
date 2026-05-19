@@ -132,7 +132,7 @@ Function objects that act as the entry points in FRAME [pallets](#pallet). Inter
 
 ## Events
 
-A means of recording that some particular [state](#state) transition happened.
+A means of recording that some particular [chain state](#chain-state) transition happened.
 
 In the context of [FRAME](#frame-framework-for-runtime-aggregation-of-modularized-entities), events are composable data types that each [pallet](#pallet) can individually define. Events in FRAME are implemented as a set of transient storage items inspected immediately after a block has been executed and reset during block initialization.
 
@@ -143,7 +143,7 @@ There are two orchestration engines in Polkadot SDK, _WebAssembly_ and _native_.
 
 - The _native executor_ uses a natively compiled runtime embedded in the node to execute calls. This is a performance optimization available to up-to-date nodes.
 
-- The _WebAssembly executor_ uses a [Wasm](#webassembly-wasm) binary and a Wasm interpreter to execute calls. The binary is guaranteed to be up-to-date regardless of the version of the blockchain node because it is persisted in the [state](#state) of the Polkadot SDK-based chain.
+- The _WebAssembly executor_ uses a [Wasm](#webassembly-wasm) binary and a Wasm interpreter to execute calls. The binary is guaranteed to be up-to-date regardless of the version of the blockchain node because it is persisted in the [chain state](#chain-state) of the Polkadot SDK-based chain.
 
 ## Existential Deposit
 
@@ -225,7 +225,7 @@ Polkadot SDK uses the [Rust implementation](https://github.com/libp2p/rust-libp2
 
 ## Light Client
 
-A type of blockchain node that doesn't store the [chain state](#state) or produce blocks.
+A type of blockchain node that doesn't store the [chain state](#chain-state) or produce blocks.
 
 A light client can verify cryptographic primitives and provides a [remote procedure call (RPC)](https://en.wikipedia.org/wiki/Remote_procedure_call){target=\_blank} server, enabling blockchain users to interact with the network.
 
@@ -303,6 +303,10 @@ The sovereign account for each chain is a root-level account that can only be ac
 A public key address based on the Bitcoin [`Base-58-check`](https://en.bitcoin.it/wiki/Base58Check_encoding){target=\_blank} encoding. Each Polkadot SDK SS58 address uses a `base-58` encoded value to identify a specific account on a specific Polkadot SDK-based chain
 
 The [canonical `ss58-registry`](https://github.com/paritytech/ss58-registry){target=\_blank} provides additional details about the address format used by different Polkadot SDK-based chains, including the network prefix and website used for different networks
+
+## Chain State
+
+Chain state (also referred to as on-chain state) is the complete set of data stored in a Polkadot SDK-based blockchain's key-value database at any given point in time. It represents everything the runtime currently knows and manages about the network.
 
 ## State Transition Function (STF)
 

@@ -1,6 +1,6 @@
 {
-  "content_hash": "sha256:162429d7bfe728d7904fba39ed0632bcb6f5e5d36198353584383f123cf7f0aa",
-  "generated": "2026-05-19T14:30:00Z",
+  "content_hash": "sha256:d0535fc734923b45a55d343292ae46d0691cdb31262ca9febd1dfa12a83d2d1e",
+  "generated": "2026-05-19T15:00:00Z",
   "outputs": {
     "public_root": "/ai/",
     "skills_dir": "skills"
@@ -3272,7 +3272,7 @@
     },
     {
       "chain_role": "isolated",
-      "description": "Installs Chopsticks and creates a local fork of any Polkadot SDK-based chain for testing, debugging, and XCM simulation without touching live state. Covers global and local npm installation, YAML config file setup, fork creation via CLI flags or config, Polkadot.js interaction, block replay, and multi-chain XCM testing. Use when you need to test extrinsics, replay historical blocks, override chain storage, or simulate XCM messages locally. Trigger phrases: 'fork a chain with Chopsticks', 'local chain fork', 'replay blocks Chopsticks', 'test XCM locally', 'Chopsticks install'. Version: 1.2.7. Note: Chopsticks uses the Smoldot light client and does not support Ethereum JSON-RPC — MetaMask cannot connect to a Chopsticks fork.",
+      "description": "Installs Chopsticks and creates a local fork of any Polkadot SDK-based chain for testing, debugging, and XCM simulation without touching live state. Covers global and local npm installation, YAML config file setup, fork creation via CLI flags or config, Polkadot.js interaction, block replay, and multi-chain XCM testing. Use when you need to test extrinsics, replay historical blocks, override chain storage, or simulate XCM messages locally. Trigger phrases: 'fork a chain with Chopsticks', 'local chain fork', 'replay blocks Chopsticks', 'test XCM locally', 'Chopsticks install'. Version: 1.3.0. Note: Chopsticks uses the Smoldot light client and does not support Ethereum JSON-RPC — MetaMask cannot connect to a Chopsticks fork.",
       "env_vars": [],
       "error_patterns": [
         {
@@ -3332,8 +3332,10 @@
         ]
       },
       "primary_page": "reference/tools/chopsticks.md",
+      "project_structure": "my-chopsticks-project/\n├── package.json\n├── node_modules/\n└── polkadot.yml",
       "reference_code": {
         "base_path": "",
+        "branch": "",
         "files": [],
         "repo": "none"
       },
@@ -3344,9 +3346,9 @@
         {
           "action": "Install Chopsticks globally",
           "commands": [
-            "npm i -g @acala-network/chopsticks@1.2.7"
+            "npm i -g @acala-network/chopsticks@1.3.0"
           ],
-          "description": "Install Chopsticks 1.2.7 globally. After installation, 'chopsticks' is available system-wide. For a project-local installation instead: mkdir my-chopsticks-project && cd my-chopsticks-project && npm init -y && npm i @acala-network/chopsticks@1.2.7. With local installation, run via 'npx @acala-network/chopsticks' instead of 'chopsticks' in subsequent steps.",
+          "description": "Install Chopsticks 1.3.0 globally. After installation, 'chopsticks' is available system-wide. For a project-local installation instead: mkdir my-chopsticks-project && cd my-chopsticks-project && npm init -y && npm i @acala-network/chopsticks@1.3.0. With local installation, run via 'npx @acala-network/chopsticks' instead of 'chopsticks' in subsequent steps.",
           "expected_output": "added N packages",
           "order": 1,
           "working_directory": "."
@@ -3416,7 +3418,7 @@
         ]
       },
       "title": "Set Up and Use Chopsticks for Chain Forking",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "workflow_pattern": "sequential"
     },
     {
@@ -3482,8 +3484,10 @@
         ]
       },
       "primary_page": "reference/tools/moonwall.md",
+      "project_structure": "my-moonwall-project/\n├── node_modules/\n├── package.json\n├── moonwall.config.json\n└── tests/\n    └── balance.test.ts",
       "reference_code": {
         "base_path": "",
+        "branch": "",
         "files": [],
         "repo": "none"
       },
@@ -3552,7 +3556,7 @@
         ]
       },
       "title": "Set Up End-to-End Testing with Moonwall",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "workflow_pattern": "sequential"
     },
     {
@@ -3839,7 +3843,12 @@
       "reference_code": {
         "base_path": "erc20-hardhat",
         "branch": "master",
-        "files": [],
+        "files": [
+          {
+            "description": "OpenZeppelin ERC-20 token contract (MyToken) with mint function and configurable name/symbol/owner",
+            "path": "contracts/MyToken.sol"
+          }
+        ],
         "repo": "polkadot-developers/revm-hardhat-examples"
       },
       "source_pages": [
@@ -3848,8 +3857,9 @@
       "steps": [
         {
           "action": "Fetch the ERC-20 contract source",
-          "description": "Fetch the OpenZeppelin ERC-20 contract source from the reference repository. The contract file is at: https://raw.githubusercontent.com/polkadot-developers/revm-hardhat-examples/master/erc20-hardhat/contracts/MyToken.sol\n\nRun: curl -sL https://raw.githubusercontent.com/polkadot-developers/revm-hardhat-examples/master/erc20-hardhat/contracts/MyToken.sol and display the contract source to the user. The user will paste this into Remix in the next step.",
+          "description": "Fetch the reference file `contracts/MyToken.sol` and display its contents to the user. This is an OpenZeppelin ERC-20 contract (MyToken) with a configurable name, symbol, and mint function. The user will paste this into Remix IDE in the next step.",
           "order": 1,
+          "reference_file": "contracts/MyToken.sol",
           "working_directory": "."
         },
         {
@@ -3907,7 +3917,7 @@
         ]
       },
       "title": "Deploy an ERC-20 Token Using Remix IDE",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "workflow_pattern": "sequential"
     },
     {
@@ -4331,7 +4341,7 @@
         },
         {
           "action": "Fetch the deployment script",
-          "description": "Fetch the reference file `deploy.ts` and save it as `src/deploy.ts`. Apply these substitutions:\n(1) Add `import \"dotenv/config\";` as the first line.\n(2) Replace `INSERT_PRIVATE_KEY` with `` process.env.PRIVATE_KEY as `0x${string}` ``.\n(3) Replace `INSERT_RPC_URL` with `https://services.polkadothub-rpc.com/testnet`.\n(4) Replace `INSERT_CHAIN_ID` with `420420417n` (BigInt).\n\nThe script reads from `../abis` and `../artifacts` relative to the script location, which resolves correctly when the script is in `src/`.",
+          "description": "Fetch the reference file `deploy.ts` and save it as `src/deploy.ts`. Apply these substitutions:\n(1) Add `import \"dotenv/config\";` as the very first line.\n(2) Replace `INSERT_PRIVATE_KEY` with `process.env.PRIVATE_KEY as \\`0x${string}\\``.\n\nThe script reads chain config and RPC endpoint from `createClient.ts` and `createWallet.ts` (already substituted in steps 6-7). It reads artifacts from `../abis` and `../artifacts` relative to the script location, which resolves correctly when the script is in `src/`.",
           "order": 10,
           "reference_file": "deploy.ts",
           "working_directory": "viem-deploy"
@@ -4377,7 +4387,7 @@
         ]
       },
       "title": "Deploy Contracts to Polkadot Hub with Viem",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "workflow_pattern": "sequential"
     },
     {
@@ -9339,7 +9349,7 @@
         ]
       },
       "title": "Deploy Uniswap V2 Core on Polkadot Hub (EVM)",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "workflow_pattern": "sequential"
     },
     {
@@ -9509,7 +9519,7 @@
         ]
       },
       "title": "Deploy Uniswap V2 Periphery (Router) on Polkadot Hub (EVM)",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "workflow_pattern": "sequential"
     },
     {
@@ -9863,7 +9873,7 @@
         ]
       },
       "title": "Deploy Uniswap V3 Periphery on Polkadot Hub (EVM)",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "workflow_pattern": "sequential"
     }
   ]

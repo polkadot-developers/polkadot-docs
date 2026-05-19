@@ -522,7 +522,7 @@
       "title": "Install the Polkadot SDK"
     },
     {
-      "built_at": "2026-04-21T19:00:00Z",
+      "built_at": "2026-05-19T15:30:00Z",
       "category": "tutorial",
       "notes": "Full workflow for cloning, building, running, and verifying the Polkadot SDK Parachain Template locally. P1+P2+P4 present (15 = tutorial threshold). P3 absent — directory structure is shown illustratively, not as files to create. GUI verification step (Polkadot.js Apps) does not block S1 since the primary workflow is CLI-only. K1=0 — requires install-polkadot-sdk as prerequisite. Cookbook CI badge present (K4). First step in the three-page parachain launch series (set-up-the-parachain-template → deploy-to-polkadot → obtain-coretime).",
       "priority": "high",
@@ -1465,7 +1465,7 @@
       "title": "Spawn a Local Parachain Test Network with Zombienet"
     },
     {
-      "built_at": "2026-04-21T22:30:00Z",
+      "built_at": "2026-05-19T15:30:00Z",
       "category": "guide",
       "notes": "Ambiguous between guide and reference (procedural=11, reference=12, diff=1); rule 3 fires first (procedural >= 10). Page explains metadata concepts but also provides complete, runnable curl and subxt CLI commands for fetching chain metadata. K1: self-contained via CLI paths. K2: commands are complete. S1: programmatic options exist despite Polkadot.js GUI section. S2: deterministic — same endpoint, same output. K3/K4/S3 absent.",
       "priority": "medium",
@@ -1535,7 +1535,7 @@
       "title": "Set Up and Use Chopsticks for Chain Forking"
     },
     {
-      "built_at": "2026-04-21T21:00:00Z",
+      "built_at": "2026-05-19T15:30:00Z",
       "category": "guide",
       "notes": "Covers installation through reading on-chain data, querying storage, calling runtime APIs, and signing/sending transactions. No explicit prerequisites section (K3 absent) and no numbered ordered steps (P1 absent), so guide rather than tutorial. Category is ambiguous with reference (procedural=10, reference=8, diff=2); guide wins by Rule 3. High priority because the workflow is self-contained, code is complete, and the Dedot client is a first-class alternative to Polkadot.js in the ecosystem.",
       "priority": "high",
@@ -1605,7 +1605,7 @@
       "title": "Set Up End-to-End Testing with Moonwall"
     },
     {
-      "built_at": "2026-04-21T21:00:00Z",
+      "built_at": "2026-05-19T15:30:00Z",
       "category": "tutorial",
       "notes": "Complete tutorial: install binary (macOS/Ubuntu/cargo), obtain chain spec via numbered steps, launch a full node, interact with it. Verifiable outcome ('You should see the installed version number' and node sync logs). Includes runtime compatibility requirements with Rust code examples. K3 absent (no explicit prerequisites section), K4 absent (no reference repo for the tutorial itself).",
       "priority": "high",
@@ -1676,7 +1676,7 @@
       "title": "Interact with a Polkadot Chain Using Polkadart"
     },
     {
-      "built_at": "2026-04-21T22:30:00Z",
+      "built_at": "2026-05-19T15:30:00Z",
       "category": "guide",
       "notes": "Covers installation, dynamic API generation, creating an API instance, reading chain constants/state, and sending transactions. Rubric yields priority=high (score=18) but overridden to medium: page carries a prominent maintenance-mode warning directing new projects to Dedot or PAPI. Building an agent skill around a deprecated library has limited value. Ambiguous guide/reference (procedural=11, reference=8, diff=3).",
       "priority": "medium",
@@ -1745,7 +1745,7 @@
       "title": "Bootstrap Parachain Development with Pop CLI"
     },
     {
-      "built_at": "2026-04-21T21:00:00Z",
+      "built_at": "2026-05-19T15:30:00Z",
       "category": "guide",
       "notes": "Walks through installing the library, connecting to a node, reading chain state (account balance), and submitting a balance transfer — all CLI/SDK steps with no GUI dependencies. No explicit 'you should see' outcome language prevents P4 from firing. K2 not awarded because actual code lives in --8<-- snippet includes whose content is not visible in the page source.",
       "priority": "high",
@@ -1776,7 +1776,7 @@
       "title": "Interact with a Polkadot Node Using Python Substrate Interface"
     },
     {
-      "built_at": "2026-04-21T21:00:00Z",
+      "built_at": "2026-05-19T15:30:00Z",
       "category": "tutorial",
       "notes": "Numbered installation steps (install CLI, add core deps), Rust/TOML files to create, and verifiable outcome language ('your Cargo.toml should look like this'). Covers the full workflow from prerequisites through reading chain constants/state and submitting a signed transaction. K2 not awarded due to INSERT_* placeholders (INSERT_NODE_URL, INSERT_ADDRESS, INSERT_SECRET_PHRASE) and unresolved {{dependencies.crates.*}} template variables.",
       "priority": "high",

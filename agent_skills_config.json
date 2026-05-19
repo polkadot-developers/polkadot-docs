@@ -1,6 +1,6 @@
 {
-  "content_hash": "sha256:d0535fc734923b45a55d343292ae46d0691cdb31262ca9febd1dfa12a83d2d1e",
-  "generated": "2026-05-19T15:00:00Z",
+  "content_hash": "sha256:0dd644408aa84c6de37485b22d1a24ff6f8622bae7383c3c153762c5f4f49e98",
+  "generated": "2026-05-19T15:30:00Z",
   "outputs": {
     "public_root": "/ai/",
     "skills_dir": "skills"
@@ -2866,11 +2866,12 @@
         ]
       },
       "primary_page": "parachains/launch-a-parachain/set-up-the-parachain-template.md",
+      "project_structure": "polkadot-sdk-parachain-template/\n├── node/\n├── pallets/\n│   └── template/\n├── runtime/\n├── Cargo.toml\n└── Cargo.lock",
       "reference_code": {
-        "base_path": "polkadot-docs/parachains/parachain-template",
-        "branch": "master",
+        "base_path": "",
+        "branch": "",
         "files": [],
-        "repo": "polkadot-developers/polkadot-cookbook"
+        "repo": "none"
       },
       "source_pages": [
         "parachains/launch-a-parachain/set-up-the-parachain-template.md"
@@ -2947,7 +2948,7 @@
         ]
       },
       "title": "Set Up the Polkadot SDK Parachain Template",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "workflow_pattern": "sequential"
     },
     {
@@ -5192,7 +5193,7 @@
         ]
       },
       "title": "Interact with Polkadot Chains Using Dedot",
-      "version": "1.0.1",
+      "version": "1.1.0",
       "workflow_pattern": "sequential"
     },
     {
@@ -5309,7 +5310,7 @@
         ]
       },
       "title": "Run a Parachain Node with Polkadot Omni Node",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "workflow_pattern": "sequential"
     },
     {
@@ -5380,10 +5381,25 @@
         ]
       },
       "primary_page": "reference/tools/py-substrate-interface.md",
+      "project_structure": "py-substrate-example/\n├── connect.py\n├── read_state.py\n├── send_tx.py\n├── .env\n└── .gitignore",
       "reference_code": {
-        "base_path": "",
-        "files": [],
-        "repo": "none"
+        "base_path": ".snippets/code/reference/tools/py-substrate-interface",
+        "branch": "master",
+        "files": [
+          {
+            "description": "Creates a SubstrateInterface connection to a Polkadot SDK node via WebSocket; verifies the connection by printing the chain name",
+            "path": "substrate_interface.py"
+          },
+          {
+            "description": "Queries System.Account storage for the given SS58 address and prints free balance, reserved balance, and nonce (code fragment — prepend a SubstrateInterface connection)",
+            "path": "read_state.py"
+          },
+          {
+            "description": "Composes and submits a Balances.transfer_keep_alive extrinsic using a keypair; waits for block inclusion and prints the extrinsic and block hash (code fragment — prepend connection and keypair setup)",
+            "path": "send_tx.py"
+          }
+        ],
+        "repo": "polkadot-developers/polkadot-docs"
       },
       "source_pages": [
         "reference/tools/py-substrate-interface.md"
@@ -5402,20 +5418,23 @@
         },
         {
           "action": "Create the connection script",
-          "description": "Create 'connect.py' with the following content. Replace 'INSERT_WS_URL' with the WebSocket endpoint for your target node (e.g., 'wss://rpc.polkadot.io' for Polkadot mainnet or 'ws://127.0.0.1:9944' for a local dev node).\n\nFetch the template:\ncurl -sL https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.snippets/code/reference/tools/py-substrate-interface/substrate_interface.py -o connect.py\n\nThen replace INSERT_WS_URL in connect.py with the target endpoint. Run to verify the connection:\npython3 connect.py\n\nExpected output: 'Connected to chain: Polkadot' (or your target chain name). If the chain name is wrong or absent, the URL may be incorrect.",
+          "description": "Fetch the reference file `substrate_interface.py` and save it as `connect.py`. Make this substitution:\n- Replace `INSERT_WS_URL` with the WebSocket endpoint for your target node (e.g., `'wss://rpc.polkadot.io'` for Polkadot mainnet, or `'ws://127.0.0.1:9944'` for a local dev node).\n\nRun to verify the connection:\n```bash\npython3 connect.py\n```\nExpected output: `Connected to chain: Polkadot` (or your target chain name). If the chain name is wrong or absent, check the URL.",
           "order": 2,
+          "reference_file": "substrate_interface.py",
           "working_directory": "py-substrate-example"
         },
         {
           "action": "Query account balance",
-          "description": "Create 'read_state.py'. Fetch the template:\ncurl -sL https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.snippets/code/reference/tools/py-substrate-interface/read_state.py -o read_state.py\n\nSubstitutions required:\n- At the top of the file, add the SubstrateInterface connection (same as connect.py, replacing INSERT_WS_URL with the endpoint).\n- Replace 'INSERT_ADDRESS' with the SS58 address to query.\n\nRun:\npython3 read_state.py\n\nExpected output:\n  Account Details:\n  - Free Balance: <planck amount>\n  - Reserved: <planck amount>\n  - Nonce: <integer>\n\nThe values are in planck (smallest unit). Divide by 10^10 for DOT values on Polkadot mainnet.",
+          "description": "Fetch the reference file `read_state.py` and save it as `read_state.py`. The file is a code fragment (starts with `# ...`). Prepend the following to the top of `read_state.py` so the script has a connection:\n\n```python\nfrom substrateinterface import SubstrateInterface\n\nsubstrate = SubstrateInterface(url='INSERT_WS_URL')\n```\n\nApply these substitutions:\n- Replace `INSERT_WS_URL` with the same WebSocket endpoint used in `connect.py`.\n- Replace `INSERT_ADDRESS` with the SS58 address to query.\n\nRun:\n```bash\npython3 read_state.py\n```\nExpected output:\n```\nAccount Details:\n- Free Balance: <planck amount>\n- Reserved: <planck amount>\n- Nonce: <integer>\n```",
           "order": 3,
+          "reference_file": "read_state.py",
           "working_directory": "py-substrate-example"
         },
         {
           "action": "Submit a balance transfer",
-          "description": "Create '.env' file:\nMNEMONIC=\n\nAdd '.env' to .gitignore:\necho '.env' >> .gitignore\n\nStop and ask the user to fill in their mnemonic phrase in the .env file. Do NOT ask for the mnemonic phrase in chat. Wait for confirmation before continuing.\n\nInstall dotenv:\npip install python-dotenv\n\nCreate 'send_tx.py'. Fetch the template:\ncurl -sL https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.snippets/code/reference/tools/py-substrate-interface/send_tx.py -o send_tx.py\n\nAt the top of send_tx.py, add:\n```python\nimport os\nfrom dotenv import load_dotenv\nload_dotenv()\nfrom substrateinterface import SubstrateInterface, Keypair\n\nsubstrate = SubstrateInterface(url='INSERT_WS_URL')\nkeypair = Keypair.create_from_mnemonic(os.environ['MNEMONIC'])\n```\n\nThen add the template content below. Substitutions in send_tx.py:\n- Replace INSERT_WS_URL with the WebSocket endpoint.\n- Replace 'INSERT_ADDRESS' (in call_params 'dest') with the recipient SS58 address.\n- Replace 'INSERT_VALUE' with the transfer amount in planck (e.g., 1000000000000 for 0.1 DOT).\n\nRun:\npython3 send_tx.py\n\nExpected output:\n  Transaction successful:\n  - Extrinsic Hash: 0x...\n  - Block Hash: 0x...",
+          "description": "Create `.env` with an empty placeholder and protect it from git:\n```bash\nprintf 'MNEMONIC=\\n' > .env\necho '.env' >> .gitignore\n```\n\nStop and ask the user to fill in their mnemonic phrase in the `.env` file. Do NOT ask for the mnemonic phrase in chat. Wait for confirmation before continuing.\n\nInstall python-dotenv:\n```bash\npip install python-dotenv\n```\n\nFetch the reference file `send_tx.py` and save it as `send_tx.py`. The file is a code fragment (starts with `# ...`). Prepend the following to the top of `send_tx.py`:\n\n```python\nimport os\nfrom dotenv import load_dotenv\nfrom substrateinterface import SubstrateInterface, Keypair\n\nload_dotenv()\nsubstrate = SubstrateInterface(url='INSERT_WS_URL')\nkeypair = Keypair.create_from_mnemonic(os.environ['MNEMONIC'])\n```\n\nApply these substitutions in `send_tx.py`:\n- Replace `INSERT_WS_URL` with the same WebSocket endpoint used in `connect.py`.\n- Replace `INSERT_ADDRESS` in `call_params['dest']` with the recipient SS58 address.\n- Replace `INSERT_VALUE` in `call_params['value']` with the transfer amount in planck (e.g., `1000000000000` for 0.1 DOT on Polkadot mainnet with 10 decimal places).\n\nRun:\n```bash\npython3 send_tx.py\n```\nExpected output:\n```\nTransaction successful:\n- Extrinsic Hash: 0x...\n- Block Hash: 0x...\n```",
           "order": 4,
+          "reference_file": "send_tx.py",
           "working_directory": "py-substrate-example"
         }
       ],
@@ -5437,7 +5456,7 @@
         ]
       },
       "title": "Interact with a Polkadot Node Using Python Substrate Interface",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "workflow_pattern": "sequential"
     },
     {
@@ -5506,10 +5525,21 @@
         ]
       },
       "primary_page": "reference/tools/subxt.md",
+      "project_structure": "subxt-example/\n├── polkadot_metadata.scale\n├── subxt.rs\n├── Cargo.toml\n├── .env\n└── .gitignore",
       "reference_code": {
-        "base_path": "",
-        "files": [],
-        "repo": "none"
+        "base_path": ".snippets/code/reference/tools/subxt",
+        "branch": "master",
+        "files": [
+          {
+            "description": "Rust workspace manifest declaring subxt 0.50.0, subxt-signer 0.50.0, and tokio 1.44.2 dependencies; sets binary name to 'subxt' pointing to subxt.rs",
+            "path": "Cargo.toml"
+          },
+          {
+            "description": "Async Rust main querying the existential deposit constant and account info, then submitting a signed balance transfer; contains INSERT_NODE_URL, INSERT_ADDRESS, INSERT_DEST_ADDRESS, INSERT_AMOUNT, and INSERT_SECRET_PHRASE placeholders",
+            "path": "subxt.rs"
+          }
+        ],
+        "repo": "polkadot-developers/polkadot-docs"
       },
       "source_pages": [
         "reference/tools/subxt.md"
@@ -5532,8 +5562,9 @@
         },
         {
           "action": "Add Subxt dependencies to Cargo.toml",
-          "description": "Open Cargo.toml and replace the [dependencies] section with the following. Replace version numbers with the latest from crates.io if needed (reference: subxt 0.50.0, subxt-signer 0.50.0, tokio 1.44.2):\n\nFetch the reference Cargo.toml:\ncurl -sL https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.snippets/code/reference/tools/subxt/Cargo.toml -o Cargo.toml\n\nThis Cargo.toml sets:\n- subxt = \"0.50.0\" — the main RPC and codec library\n- subxt-signer = \"0.50.0\" — provides Keypair for signing transactions\n- tokio = { version = \"1.44.2\", features = [\"rt\", \"macros\"] } — async runtime\n\nThe file also sets the binary name to 'subxt' pointing to 'subxt.rs'. Keep the [[bin]] section as-is.",
+          "description": "Fetch the reference file `Cargo.toml` and replace the existing `Cargo.toml` in the project root entirely. No substitutions are needed — the file is ready to use as-is. It defines:\n- `subxt = \"0.50.0\"` — the main RPC and codec library\n- `subxt-signer = \"0.50.0\"` — provides `Keypair` for signing transactions\n- `tokio = { version = \"1.44.2\", features = [\"rt\", \"macros\"] }` — async runtime\n- A `[[bin]]` section with `name = \"subxt\"` pointing to `subxt.rs`",
           "order": 3,
+          "reference_file": "Cargo.toml",
           "working_directory": "subxt-example"
         },
         {
@@ -5544,8 +5575,9 @@
         },
         {
           "action": "Create the main Rust source file",
-          "description": "Fetch the reference subxt.rs file:\ncurl -sL https://raw.githubusercontent.com/polkadot-developers/polkadot-docs/master/.snippets/code/reference/tools/subxt/subxt.rs -o subxt.rs\n\nSubstitutions required in subxt.rs — each INSERT_* placeholder must be replaced before building:\n- INSERT_NODE_URL: WebSocket URL (same as used in step 4, e.g., 'wss://rpc.polkadot.io').\n- INSERT_ADDRESS: SS58 address to query for account info (e.g., a known validator address).\n- INSERT_DEST_ADDRESS: SS58 recipient address for the balance transfer.\n- INSERT_AMOUNT: Transfer amount as a u128 integer in planck (e.g., 1000000000000 for 0.1 DOT on Polkadot).\n- INSERT_SECRET_PHRASE: Sender's BIP39 mnemonic. Do NOT put a real mnemonic in the file — instead, store it in a .env file, add .env to .gitignore, and load it with std::env::var(\"SECRET_PHRASE\") at runtime.\n\nFor the SECRET_PHRASE substitution: create .env with SECRET_PHRASE= and stop to ask the user to fill it in before proceeding. Wait for confirmation.",
+          "description": "Fetch the reference file `subxt.rs` and save it as `subxt.rs` in the project root. Apply ALL of the following substitutions before building — each `INSERT_*` placeholder must be replaced:\n\n- `INSERT_NODE_URL`: WebSocket URL for the target node (e.g., `\"wss://rpc.polkadot.io\"` for Polkadot mainnet). Use the same URL you used for `subxt metadata` in step 4.\n- `INSERT_ADDRESS`: SS58 address to query for account info (e.g., a known validator address on the target network).\n- `INSERT_DEST_ADDRESS`: SS58 recipient address for the balance transfer.\n- `INSERT_AMOUNT`: Transfer amount as a `u128` integer in planck (e.g., `1000000000000u128` = 0.1 DOT on Polkadot mainnet with 10 decimal places). Do not include a string — this is a Rust numeric literal.\n- `INSERT_SECRET_PHRASE`: Sender's BIP39 mnemonic. Do NOT put a real mnemonic in the source file. Instead, store it in `.env` as `SECRET_PHRASE=your words here`, add `.env` to `.gitignore`, and replace the literal with `std::env::var(\"SECRET_PHRASE\").expect(\"SECRET_PHRASE not set\").as_str()`. Stop and ask the user to fill in `.env` before proceeding — do not ask for the phrase in chat.",
           "order": 5,
+          "reference_file": "subxt.rs",
           "working_directory": "subxt-example"
         },
         {
@@ -5577,7 +5609,7 @@
         ]
       },
       "title": "Interact with a Polkadot Node Using Subxt (Rust)",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "workflow_pattern": "sequential"
     },
     {
@@ -7040,7 +7072,7 @@
         ]
       },
       "title": "Retrieve Polkadot Runtime Metadata",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "workflow_pattern": "sequential"
     },
     {
@@ -7116,6 +7148,7 @@
         ]
       },
       "primary_page": "reference/tools/polkadot-js-api.md",
+      "project_structure": "polkadot-api-demo/\n├── query.ts\n├── transfer.ts\n├── .env\n├── .gitignore\n└── package.json",
       "reference_code": {
         "base_path": "",
         "files": [],
@@ -7192,7 +7225,7 @@
         ]
       },
       "title": "Query and Transact on Polkadot Chains with the Polkadot.js API",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "workflow_pattern": "sequential"
     },
     {

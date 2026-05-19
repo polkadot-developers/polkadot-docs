@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-19T15:00:00Z",
+  "generated": "2026-05-19T15:30:00Z",
   "pages": {
     "chain-interactions/accounts/create-account.md": {
       "last_edited": "2026-05-19T08:40:20+00:00",
@@ -357,11 +357,11 @@
     },
     "parachains/launch-a-parachain/set-up-the-parachain-template.md": {
       "last_edited": "2026-05-19T08:40:20+00:00",
-      "last_scanned": null,
+      "last_scanned": "2026-05-19T15:30:00Z",
       "skills": [
         "set-up-parachain-template"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "parachains/runtime-maintenance/coretime-renewal.md": {
       "last_edited": "2026-05-19T08:40:20+00:00",
@@ -461,11 +461,11 @@
     },
     "reference/parachains/chain-data.md": {
       "last_edited": "2026-05-19T08:40:20+00:00",
-      "last_scanned": null,
+      "last_scanned": "2026-05-19T15:30:00Z",
       "skills": [
         "retrieve-runtime-metadata"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "reference/parachains/consensus/async-backing.md": {
       "last_edited": "2026-05-19T08:40:20+00:00",
@@ -585,11 +585,11 @@
     },
     "reference/tools/dedot.md": {
       "last_edited": "2026-05-19T08:40:20+00:00",
-      "last_scanned": "2026-05-15T15:00:00Z",
+      "last_scanned": "2026-05-19T15:30:00Z",
       "skills": [
         "interact-with-chain-dedot"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "reference/tools/light-clients.md": {
       "last_edited": "2026-05-19T08:40:20+00:00",
@@ -607,11 +607,11 @@
     },
     "reference/tools/omninode.md": {
       "last_edited": "2026-05-19T08:40:20+00:00",
-      "last_scanned": null,
+      "last_scanned": "2026-05-19T15:30:00Z",
       "skills": [
         "run-parachain-node-omni-node"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "reference/tools/papi.md": {
       "last_edited": "2026-05-19T08:40:20+00:00",
@@ -633,11 +633,11 @@
     },
     "reference/tools/polkadot-js-api.md": {
       "last_edited": "2026-05-19T08:40:20+00:00",
-      "last_scanned": null,
+      "last_scanned": "2026-05-19T15:30:00Z",
       "skills": [
         "use-polkadot-js-api"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "reference/tools/pop-cli.md": {
       "last_edited": "2026-05-19T08:40:20+00:00",
@@ -647,11 +647,11 @@
     },
     "reference/tools/py-substrate-interface.md": {
       "last_edited": "2026-05-19T08:40:20+00:00",
-      "last_scanned": null,
+      "last_scanned": "2026-05-19T15:30:00Z",
       "skills": [
         "interact-polkadot-node-py-substrate"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "reference/tools/sidecar.md": {
       "last_edited": "2026-05-19T08:40:20+00:00",
@@ -661,11 +661,11 @@
     },
     "reference/tools/subxt.md": {
       "last_edited": "2026-05-19T08:40:20+00:00",
-      "last_scanned": null,
+      "last_scanned": "2026-05-19T15:30:00Z",
       "skills": [
         "interact-polkadot-node-subxt"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "reference/tools/xcm-tools.md": {
       "last_edited": "2026-05-19T08:40:20+00:00",
@@ -982,10 +982,10 @@
   "summary": {
     "blocked": 23,
     "not_applicable": 12,
-    "stale": 27,
+    "stale": 20,
     "supplementary": 45,
     "total_candidates": 142,
     "uncovered": 0,
-    "up_to_date": 35
+    "up_to_date": 42
   }
 }

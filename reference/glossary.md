@@ -64,6 +64,10 @@ In the context of pallets containing functions to be dispatched to the runtime, 
 
 A chain specification file defines the properties required to run a node in an active or new Polkadot SDK-built network. It often contains the initial genesis runtime code, network properties (such as the network's name), the initial state for some pallets, and the boot node list. The chain specification file makes it easy to use a single Polkadot SDK codebase as the foundation for multiple independently configured chains.
 
+## Chain State
+
+Chain state (also referred to as on-chain state) is the complete set of data stored in a Polkadot SDK-based blockchain's key-value database at any given point in time. It represents everything the runtime currently knows and manages about the network.
+
 ## Collator
 
 An [author](#block-author) of a [parachain](#parachain) network.
@@ -303,10 +307,6 @@ The sovereign account for each chain is a root-level account that can only be ac
 A public key address based on the Bitcoin [`Base-58-check`](https://en.bitcoin.it/wiki/Base58Check_encoding){target=\_blank} encoding. Each Polkadot SDK SS58 address uses a `base-58` encoded value to identify a specific account on a specific Polkadot SDK-based chain
 
 The [canonical `ss58-registry`](https://github.com/paritytech/ss58-registry){target=\_blank} provides additional details about the address format used by different Polkadot SDK-based chains, including the network prefix and website used for different networks
-
-## Chain State
-
-Chain state (also referred to as on-chain state) is the complete set of data stored in a Polkadot SDK-based blockchain's key-value database at any given point in time. It represents everything the runtime currently knows and manages about the network.
 
 ## State Transition Function (STF)
 

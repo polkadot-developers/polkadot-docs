@@ -1,31 +1,21 @@
 {
-  "schema_version": "1",
-  "generated": "2026-05-19T14:51:43Z",
-  "summary": {
-    "total_candidates": 142,
-    "up_to_date": 34,
-    "stale": 28,
-    "uncovered": 0,
-    "blocked": 23,
-    "not_applicable": 12,
-    "supplementary": 45
-  },
+  "generated": "2026-05-19T15:00:00Z",
   "pages": {
     "chain-interactions/accounts/create-account.md": {
       "last_edited": "2026-05-19T14:51:13+00:00",
-      "last_scanned": "2026-05-19T12:00:00Z",
+      "last_scanned": "2026-05-19T15:00:00Z",
       "skills": [
         "create-polkadot-account"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "chain-interactions/accounts/query-accounts.md": {
       "last_edited": "2026-05-19T14:51:13+00:00",
-      "last_scanned": "2026-05-19T12:00:00Z",
+      "last_scanned": "2026-05-19T15:00:00Z",
       "skills": [
         "query-account-info-sdks"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "chain-interactions/query-data/query-rest.md": {
       "last_edited": "2026-05-19T14:51:13+00:00",
@@ -37,19 +27,19 @@
     },
     "chain-interactions/query-data/query-sdks.md": {
       "last_edited": "2026-05-19T14:51:13+00:00",
-      "last_scanned": "2026-05-19T12:00:00Z",
+      "last_scanned": "2026-05-19T15:00:00Z",
       "skills": [
         "query-chain-state-sdks"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "chain-interactions/query-data/runtime-api-calls.md": {
       "last_edited": "2026-05-19T14:51:13+00:00",
-      "last_scanned": "2026-05-19T12:00:00Z",
+      "last_scanned": "2026-05-19T15:00:00Z",
       "skills": [
         "call-runtime-apis-sdks"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "chain-interactions/send-transactions/calculate-transaction-fees.md": {
       "last_edited": "2026-05-19T14:51:13+00:00",
@@ -99,11 +89,11 @@
     },
     "chain-interactions/send-transactions/with-sdks.md": {
       "last_edited": "2026-05-19T14:51:13+00:00",
-      "last_scanned": "2026-05-19T12:00:00Z",
+      "last_scanned": "2026-05-19T15:00:00Z",
       "skills": [
         "send-transactions-sdks"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "chain-interactions/store-data/bulletin-chain.md": {
       "last_edited": "2026-05-19T14:51:13+00:00",
@@ -987,5 +977,15 @@
       ],
       "status": "up_to_date"
     }
+  },
+  "schema_version": "1",
+  "summary": {
+    "blocked": 23,
+    "not_applicable": 12,
+    "stale": 28,
+    "supplementary": 45,
+    "total_candidates": 142,
+    "uncovered": 0,
+    "up_to_date": 34
   }
 }

@@ -1,6 +1,6 @@
 {
-  "content_hash": "sha256:fe346a7e88c1f046e27b9003e71f8343e66d85d2ed727d4625501fb0a3b5b4cb",
-  "generated": "2026-05-19T20:00:00Z",
+  "content_hash": "sha256:ec25b679f6bf8a874fcdf551c3ea522aff48ae345aecd2ad896f413147daa71b",
+  "generated": "2026-05-19T15:00:00Z",
   "outputs": {
     "public_root": "/ai/",
     "skills_dir": "skills"
@@ -134,7 +134,7 @@
         ]
       },
       "title": "Create a Polkadot Account Programmatically",
-      "version": "1.0.2",
+      "version": "1.0.3",
       "workflow_pattern": "sequential"
     },
     {
@@ -276,7 +276,7 @@
         ]
       },
       "title": "Query Account Information with SDKs",
-      "version": "1.0.2",
+      "version": "1.0.3",
       "workflow_pattern": "sequential"
     },
     {
@@ -430,7 +430,7 @@
         ]
       },
       "title": "Query On-Chain State with SDKs",
-      "version": "1.0.2",
+      "version": "1.0.3",
       "workflow_pattern": "sequential"
     },
     {
@@ -572,7 +572,7 @@
         ]
       },
       "title": "Call Runtime APIs with SDKs",
-      "version": "1.0.2",
+      "version": "1.0.3",
       "workflow_pattern": "sequential"
     },
     {
@@ -764,7 +764,7 @@
         ]
       },
       "title": "Send Transactions with SDKs",
-      "version": "1.0.3",
+      "version": "1.0.4",
       "workflow_pattern": "sequential"
     },
     {

@@ -1,6 +1,6 @@
 {
-  "content_hash": "sha256:ec25b679f6bf8a874fcdf551c3ea522aff48ae345aecd2ad896f413147daa71b",
-  "generated": "2026-05-19T15:00:00Z",
+  "content_hash": "sha256:8f1981cd2254979c1eae6364cb7c1813e206a07541811685ce124cc9494a13c9",
+  "generated": "2026-05-19T20:00:00Z",
   "outputs": {
     "public_root": "/ai/",
     "skills_dir": "skills"
@@ -1780,7 +1780,7 @@
         ]
       },
       "title": "Query On-Chain Data with Sidecar REST API",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "workflow_pattern": "sequential"
     },
     {
@@ -1926,7 +1926,7 @@
         ]
       },
       "title": "Estimate Transaction Fees with PAPI",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "workflow_pattern": "sequential"
     },
     {
@@ -1934,8 +1934,8 @@
       "description": "Transfers assets cross-chain between Polkadot parachains using the ParaSpell XCM SDK with PAPI. Covers the full workflow: install the SDK, build an XCM transfer, dry-run for feasibility, verify existential deposit requirements, estimate fees, and submit against Paseo testnet. Use when you need to move tokens programmatically between parachains (e.g., Asset Hub to People Chain). Requires a funded Paseo testnet mnemonic. Trigger phrases: 'XCM transfer ParaSpell', 'cross-chain transfer Polkadot', 'transfer assets between parachains', 'send tokens XCM', 'ParaSpell SDK'.",
       "env_vars": [
         {
-          "description": "Seed phrase (mnemonic or derivation path) for the sender account on Paseo Asset Hub. Must be funded with testnet PAS. Never commit to version control.",
-          "name": "SENDER_SEED",
+          "description": "SR25519 or Ed25519 seed phrase (mnemonic) for the sender account on Paseo Asset Hub. Must be funded with testnet PAS. Never commit to version control.",
+          "name": "SEED_PHRASE",
           "required": true
         }
       ],
@@ -1964,14 +1964,14 @@
       "examples": [
         {
           "actions": [
-            "Scaffold 'paraspell-xcm-transfer/' as an ESM project",
-            "Install @paraspell/sdk-pjs, @polkadot/api, keyring, dotenv",
-            "Create .env; ask user to fill MNEMONIC and DEST_ADDRESS without asking in chat",
-            "Create xcm-transfer.ts with the inline script",
-            "Verify sender has 2+ PAS at https://faucet.polkadot.io/",
-            "Run npx tsx xcm-transfer.ts"
+            "Scaffold 'paraspell-transfer/' as an ESM project: mkdir paraspell-transfer && cd paraspell-transfer && npm init -y",
+            "Install @paraspell/sdk, polkadot-api, hdkd helpers, and dotenv",
+            "Create .env; ask user to fill SEED_PHRASE without asking in chat; add .gitignore",
+            "Fetch index.ts; add 'import dotenv/config' as first line; replace SEED_PHRASE placeholder with process.env.SEED_PHRASE",
+            "Verify sender has 10+ PAS at https://faucet.polkadot.io/",
+            "Run npx tsx index.ts to execute dryRunTransfer()"
           ],
-          "result": "Dry-run passes, fee estimated, transaction finalized, PAS transferred cross-chain",
+          "result": "Dry-run passes, fee estimated, transaction finalized, PAS transferred cross-chain from Asset Hub to People Chain on Paseo testnet",
           "scenario": "Common scenario: transfer PAS from Asset Hub Paseo to People Chain Paseo",
           "user_says": "Transfer 1 PAS from Asset Hub to People Chain on Paseo testnet"
         },
@@ -1979,7 +1979,7 @@
           "actions": [
             "Check the existential deposit for the destination chain using the ParaSpell SDK",
             "Increase AMOUNT in the script above the existential deposit threshold",
-            "Re-run xcm-transfer.ts"
+            "Re-run index.ts"
           ],
           "result": "Dry-run passes once the transfer amount covers the destination existential deposit",
           "scenario": "Edge case: dry-run fails with existential deposit error",
@@ -2005,7 +2005,7 @@
         ]
       },
       "primary_page": "chain-interactions/send-transactions/interoperability/transfer-assets-parachains.md",
-      "project_structure": "paraspell-transfer/\n├── index.ts\n└── package.json",
+      "project_structure": "paraspell-transfer/\n├── .env\n├── .gitignore\n├── index.ts\n└── package.json",
       "reference_code": {
         "base_path": ".snippets/code/chain-interactions/send-transactions/interoperability/transfer-assets-parachains",
         "branch": "master",
@@ -2035,16 +2035,26 @@
           "action": "Install dependencies",
           "commands": [
             "npm install --save-dev @types/node tsx typescript",
-            "npm install --save @paraspell/sdk polkadot-api @polkadot-labs/hdkd-helpers @polkadot-labs/hdkd"
+            "npm install --save @paraspell/sdk polkadot-api @polkadot-labs/hdkd-helpers @polkadot-labs/hdkd dotenv"
           ],
           "description": "Install the ParaSpell SDK (PAPI variant), polkadot-api, @polkadot-labs/hdkd (key derivation), and TypeScript tooling.",
           "order": 2,
           "working_directory": "paraspell-transfer"
         },
         {
-          "action": "Create the transfer script",
-          "description": "Fetch the reference file and save it as 'index.ts'. The script: (1) sets up PAPI client and connects to Paseo Asset Hub, (2) builds an XCM transfer of 10 PAS from Asset Hub to People Chain using Builder API, (3) dry-runs the transfer to confirm success before submitting, (4) verifies existential deposit requirements on the destination, (5) retrieves transfer info and fee estimates, (6) submits the transfer and waits for finalization. Replace INSERT_YOUR_SEED_PHRASE with your funded Paseo testnet seed phrase. For production, use an environment variable.",
+          "action": "Create .env and .gitignore",
+          "commands": [
+            "echo 'SEED_PHRASE=' > .env",
+            "echo '.env' >> .gitignore"
+          ],
+          "description": "Create a '.env' file with an empty SEED_PHRASE placeholder, and a '.gitignore' that excludes it from version control. Stop and ask the user to edit the '.env' file directly with their funded Paseo testnet seed phrase. Do NOT ask for the seed phrase in chat. Wait for confirmation before proceeding to step 4.",
           "order": 3,
+          "working_directory": "paraspell-transfer"
+        },
+        {
+          "action": "Fetch the transfer script and configure dotenv",
+          "description": "Fetch the reference file and save it as 'index.ts'. Make these two modifications to the fetched file: (1) Add `import 'dotenv/config';` as the very first line of the file. (2) Replace the line `const SEED_PHRASE = 'INSERT_YOUR_SEED_PHRASE';` with `const SEED_PHRASE = process.env.SEED_PHRASE || '';`. All other values (RECIPIENT_ADDRESS and SENDER_ADDRESS) are derived from the seed phrase automatically — no further substitutions needed.",
+          "order": 4,
           "reference_file": "index.ts",
           "working_directory": "paraspell-transfer"
         },
@@ -2055,7 +2065,7 @@
           ],
           "description": "Run the script to execute the dry run first. Comment out functions selectively per the source page instructions: run dryRunTransfer() first, then verifyED(), then XcmTransferInfo(), then the final transfer() call. If dry-run fails, check the error before proceeding — common causes are insufficient balance or mismatched chain names.",
           "expected_output": "Dry run successful: { success: true, ... }",
-          "order": 4,
+          "order": 5,
           "working_directory": "paraspell-transfer"
         },
         {
@@ -2065,7 +2075,7 @@
           ],
           "description": "Comment out dryRunTransfer(), uncomment verifyED(), run. Then comment out verifyED(), uncomment XcmTransferInfo(), run to see fee estimates and account balances.",
           "expected_output": "ED verification: { enough: true, ... }\nTransfer info: { xcmFee: ..., balance: ... }",
-          "order": 5,
+          "order": 6,
           "working_directory": "paraspell-transfer"
         },
         {
@@ -2075,7 +2085,7 @@
           ],
           "description": "Comment out XcmTransferInfo(), uncomment transfer(), run. The transfer signs and submits the XCM transaction and waits for finalization. Check Paseo Asset Hub and People Chain accounts on Polkadot.js Apps to confirm the 10 PAS arrived.",
           "expected_output": "Transfer submitted: { txHash: 0x... }\nFinalized: 0x...",
-          "order": 6,
+          "order": 7,
           "working_directory": "paraspell-transfer"
         }
       ],
@@ -2103,7 +2113,7 @@
         ]
       },
       "title": "Transfer Assets Between Parachains with ParaSpell XCM SDK",
-      "version": "1.1.1",
+      "version": "1.2.0",
       "workflow_pattern": "sequential"
     },
     {
@@ -2623,7 +2633,7 @@
         ]
       },
       "title": "Replay and Dry-Run XCMs Using Chopsticks",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "workflow_pattern": "sequential"
     },
     {
@@ -2634,7 +2644,7 @@
         {
           "cause": "One or both Chopsticks forks are not running.",
           "pattern": "ECONNREFUSED ws://localhost:8000 or ws://localhost:8001",
-          "resolution": "Start each Chopsticks instance in a separate terminal. Run 'npx @acala-network/chopsticks --config=chopsticks-hub.yml' and 'npx @acala-network/chopsticks --config=chopsticks-people.yml'. Wait for 'Listening on port 8000/8001' before proceeding."
+          "resolution": "Start each Chopsticks instance in a separate terminal. Run `chopsticks --config=.chopsticks/paseo-people-chain.yml` first (port 8000), then `chopsticks --config=.chopsticks/paseo-asset-hub.yml` (port 8001). Wait for both 'Listening on port XXXX' messages before re-running the script."
         },
         {
           "cause": "The chain runtime version does not implement the XcmPaymentApi runtime API at this method name.",
@@ -2650,6 +2660,11 @@
           "cause": "The XCM message structure passed to query_xcm_weight does not match the expected format for the chain runtime.",
           "pattern": "Fee estimate returns 0 or undefined for remote execution fee",
           "resolution": "Inspect the source page for the exact XCM instruction sequence expected by the destination chain. Verify that the MultiLocation structures use the correct XCM version (V3 vs V4) matching the chain runtime."
+        },
+        {
+          "cause": "The Chopsticks config file contains `block: ${env.PASEO_ASSET_HUB_BLOCK_NUMBER}` or `block: ${env.PASEO_PEOPLE_CHAIN_BLOCK_NUMBER}` but the environment variable is not set, so Chopsticks receives a literal string instead of a block number.",
+          "pattern": "Error: invalid block number / Cannot parse '${env.PASEO_ASSET_HUB_BLOCK_NUMBER}'",
+          "resolution": "Set the required environment variables before starting Chopsticks: `export PASEO_ASSET_HUB_BLOCK_NUMBER=<recent_block>` and `export PASEO_PEOPLE_CHAIN_BLOCK_NUMBER=<recent_block>`. Alternatively, remove the `block:` line from each config file to fork the latest block."
         }
       ],
       "examples": [
@@ -2682,7 +2697,7 @@
       "license": "CC-BY-4.0",
       "prerequisites": {
         "network": [
-          "Internet connection to fork chain state from Polkadot Hub TestNet (paseo_asset_hub)",
+          "Internet connection to fork Polkadot Hub TestNet chain state (endpoint: wss://asset-hub-paseo-rpc.n.dwellir.com)",
           "Internet connection to fork People Chain TestNet (wss://people-paseo.rpc.amforc.com)"
         ],
         "runtime": [
@@ -2747,12 +2762,20 @@
           "working_directory": "xcm-fee-estimation"
         },
         {
-          "action": "Create Chopsticks configuration files",
+          "action": "Fetch and configure the Polkadot Hub Chopsticks config",
           "commands": [
             "mkdir -p .chopsticks"
           ],
-          "description": "Create a '.chopsticks' directory and add two config files:\n\nFile 1 — '.chopsticks/paseo-asset-hub.yml':\n```yaml\nendpoint: wss://asset-hub-paseo.dotters.network\nport: 8000\n```\n\nFile 2 — '.chopsticks/paseo-people-chain.yml':\n```yaml\nendpoint: wss://people-paseo.rpc.amforc.com\nport: 8001\n```\n\nThese fork Polkadot Hub on port 8000 and People Chain on port 8001. The reference configs are available at the reference_code base_path as paseo-asset-hub.yml and paseo-people-chain.yml.",
+          "description": "Create a '.chopsticks' directory. Fetch the reference file and save it as '.chopsticks/paseo-asset-hub.yml'. After saving, add `port: 8001` as a new line to the file — the TypeScript script connects to Polkadot Hub on port 8001. The `block:` field in the config reads the `PASEO_ASSET_HUB_BLOCK_NUMBER` environment variable. Set it in your shell to a recent Polkadot Hub block number before starting Chopsticks (e.g. `export PASEO_ASSET_HUB_BLOCK_NUMBER=9080000`), or remove the `block:` line entirely to fork the latest block.",
           "order": 4,
+          "reference_file": "paseo-asset-hub.yml",
+          "working_directory": "xcm-fee-estimation"
+        },
+        {
+          "action": "Fetch the People Chain Chopsticks config",
+          "description": "Fetch the reference file and save it as '.chopsticks/paseo-people-chain.yml'. This config does not specify a port, so Chopsticks uses its default port 8000 — the TypeScript script connects to People Chain on port 8000. The `block:` field reads `PASEO_PEOPLE_CHAIN_BLOCK_NUMBER` from the environment. Set it in your shell to a recent People Chain block number before starting Chopsticks (e.g. `export PASEO_PEOPLE_CHAIN_BLOCK_NUMBER=1200000`), or remove the `block:` line entirely to fork the latest block.",
+          "order": 5,
+          "reference_file": "paseo-people-chain.yml",
           "working_directory": "xcm-fee-estimation"
         },
         {
@@ -2761,9 +2784,9 @@
             "chopsticks --config=.chopsticks/paseo-people-chain.yml",
             "chopsticks --config=.chopsticks/paseo-asset-hub.yml"
           ],
-          "description": "Start each Chopsticks instance in a separate terminal. The first forks People Chain on port 8001; the second forks Polkadot Hub on port 8000. Both must be running before proceeding. The first run downloads several MB of state.",
-          "expected_output": "Listening on port 8001\nListening on port 8000",
-          "order": 5,
+          "description": "Start each Chopsticks instance in a separate terminal. Start People Chain FIRST: `chopsticks --config=.chopsticks/paseo-people-chain.yml` (defaults to port 8000, which the TypeScript script expects for People Chain). Start Polkadot Hub SECOND: `chopsticks --config=.chopsticks/paseo-asset-hub.yml` (uses port 8001 set in step 4, which the TypeScript script expects for Polkadot Hub). Wait for both instances to print their 'Listening on port XXXX' message before proceeding. Keep both terminals running throughout the remaining steps. If block number env vars are not set, set them before launching: `export PASEO_ASSET_HUB_BLOCK_NUMBER=<block>` and `export PASEO_PEOPLE_CHAIN_BLOCK_NUMBER=<block>` using recent block heights from the respective networks, or remove the `block:` lines from the config files to fork the latest block.",
+          "expected_output": "Listening on port 8000\nListening on port 8001",
+          "order": 6,
           "working_directory": "xcm-fee-estimation"
         },
         {
@@ -2773,7 +2796,7 @@
           ],
           "description": "Execute the script while both Chopsticks forks are running. The output shows all three fee components and their total. The sum is the total fee budget needed for the XCM BuyExecution instruction. If an XcmPaymentApi method is not available, check the source page for the correct API method names for your chain runtime version.",
           "expected_output": "Local execution fee: ...\nDelivery fee: ...\nRemote execution fee: ...\nTotal fee: ...",
-          "order": 6,
+          "order": 7,
           "working_directory": "xcm-fee-estimation"
         }
       ],
@@ -2801,7 +2824,7 @@
         ]
       },
       "title": "Estimate XCM Fees for Asset Teleport",
-      "version": "1.1.1",
+      "version": "1.2.0",
       "workflow_pattern": "sequential"
     },
     {

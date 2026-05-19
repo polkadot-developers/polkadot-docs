@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-19T15:00:00Z",
+  "generated": "2026-05-19T20:00:00Z",
   "pages": {
     "chain-interactions/accounts/create-account.md": {
       "last_edited": "2026-05-19T14:51:13+00:00",
@@ -19,11 +19,11 @@
     },
     "chain-interactions/query-data/query-rest.md": {
       "last_edited": "2026-05-19T14:51:13+00:00",
-      "last_scanned": "2026-05-19T12:00:00Z",
+      "last_scanned": "2026-05-19T20:00:00Z",
       "skills": [
         "query-chain-data-sidecar-rest"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "chain-interactions/query-data/query-sdks.md": {
       "last_edited": "2026-05-19T14:51:13+00:00",
@@ -43,27 +43,27 @@
     },
     "chain-interactions/send-transactions/calculate-transaction-fees.md": {
       "last_edited": "2026-05-19T14:51:13+00:00",
-      "last_scanned": "2026-05-19T12:00:00Z",
+      "last_scanned": "2026-05-19T20:00:00Z",
       "skills": [
         "calculate-transaction-fees-papi"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "chain-interactions/send-transactions/interoperability/debug-and-preview-xcms.md": {
       "last_edited": "2026-05-19T14:51:13+00:00",
-      "last_scanned": "2026-05-19T12:00:00Z",
+      "last_scanned": "2026-05-19T20:00:00Z",
       "skills": [
         "replay-dry-run-xcm-chopsticks"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "chain-interactions/send-transactions/interoperability/estimate-xcm-fees.md": {
       "last_edited": "2026-05-19T14:51:13+00:00",
-      "last_scanned": "2026-05-19T14:00:00Z",
+      "last_scanned": "2026-05-19T20:00:00Z",
       "skills": [
         "estimate-xcm-fees-teleport"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "chain-interactions/send-transactions/interoperability/transfer-assets-into-polkadot.md": {
       "last_edited": "2026-05-19T14:51:13+00:00",
@@ -73,11 +73,11 @@
     },
     "chain-interactions/send-transactions/interoperability/transfer-assets-parachains.md": {
       "last_edited": "2026-05-19T14:51:13+00:00",
-      "last_scanned": "2026-05-19T14:00:00Z",
+      "last_scanned": "2026-05-19T20:00:00Z",
       "skills": [
         "transfer-assets-parachains-paraspell"
       ],
-      "status": "stale"
+      "status": "up_to_date"
     },
     "chain-interactions/send-transactions/pay-fees-with-different-tokens.md": {
       "last_edited": "2026-05-19T14:51:13+00:00",

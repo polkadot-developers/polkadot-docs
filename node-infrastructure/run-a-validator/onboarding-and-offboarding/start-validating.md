@@ -143,7 +143,7 @@ Ensure the following requirements are met before proceeding with the systemd set
 
 - Confirm your system meets the [requirements](/node-infrastructure/run-a-validator/requirements/){target=\_blank} for running a validator.
 - Ensure you meet the [minimum bond requirements](https://wiki.polkadot.com/general/chain-state-values/#minimum-validator-bond){target=\_blank} for validating.
-- Verify the Polkadot binary is [installed](#install-the-polkadot-binaries).
+- Verify the Polkadot binary is [installed](/node-infrastructure/run-a-validator/onboarding-and-offboarding/set-up-validator/#install-the-polkadot-binaries).
 
 ### Create the Systemd Service File
 
@@ -191,4 +191,3 @@ journalctl -f -u polkadot-validator
 With these steps, you can effectively manage and monitor your validator as a systemd service.
 
 Once your validator is active, it's officially part of Polkadot's security infrastructure. For questions or further support, you can reach out to the [Polkadot Validator chat](https://matrix.to/#/!NZrbtteFeqYKCUGQtr:matrix.parity.io?via=matrix.parity.io&via=matrix.org&via=web3.foundation){target=\_blank} for tips and troubleshooting.
-

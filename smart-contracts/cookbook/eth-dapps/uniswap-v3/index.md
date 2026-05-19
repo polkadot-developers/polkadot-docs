@@ -6,7 +6,7 @@ categories: Smart Contracts, Tooling
 
 # Uniswap V3 on Polkadot
 
-[Uniswap V3](https://docs.uniswap.org/contracts/v3/overview){target=\_blank} is the next evolution of the Uniswap protocol. It introduces concentrated liquidity, allowing liquidity providers to allocate capital within custom price ranges instead of across the entire price curve. This results in dramatically improved capital efficiency compared to V2's uniform distribution model.
+[Uniswap V3](https://developers.uniswap.org/docs/protocols/v3/overview){target=\_blank} is the next evolution of the Uniswap protocol. It introduces concentrated liquidity, allowing liquidity providers to allocate capital within custom price ranges instead of across the entire price curve. This results in dramatically improved capital efficiency compared to V2's uniform distribution model.
 
 Key innovations in Uniswap V3 include:
 

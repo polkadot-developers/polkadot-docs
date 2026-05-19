@@ -14,7 +14,7 @@ page_tests:
 
 ## Introduction
 
-The [Uniswap V3 Periphery](https://docs.uniswap.org/contracts/v3/overview){target=\_blank} contracts provide the user-facing layer that sits on top of the [Uniswap V3 Core](/smart-contracts/cookbook/eth-dapps/uniswap-v3/core-v3/){target=\_blank} Factory and Pool contracts. While V3 Core handles the low-level concentrated liquidity engine, the Periphery contracts expose the functions that users and applications interact with directly: executing token swaps through one or more pools and managing concentrated liquidity positions as ERC-721 NFTs.
+The [Uniswap V3 Periphery](https://developers.uniswap.org/docs/protocols/v3/overview){target=\_blank} contracts provide the user-facing layer that sits on top of the [Uniswap V3 Core](/smart-contracts/cookbook/eth-dapps/uniswap-v3/core-v3/){target=\_blank} Factory and Pool contracts. While V3 Core handles the low-level concentrated liquidity engine, the Periphery contracts expose the functions that users and applications interact with directly: executing token swaps through one or more pools and managing concentrated liquidity positions as ERC-721 NFTs.
 
 This tutorial follows the EVM execution path. With EVM (powered by [REVM](https://github.com/bluealloy/revm){target=\_blank}, a Rust implementation of the Ethereum Virtual Machine), you deploy the same unmodified Solidity contracts using the same standard Hardhat toolchain you already know. No special compiler plugins, no contract rewrites, and no porting effort. If your project compiles with vanilla Hardhat, it runs on Polkadot Hub through EVM.
 

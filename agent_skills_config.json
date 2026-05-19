@@ -1,6 +1,6 @@
 {
-  "content_hash": "sha256:6ef9119d0f883942811154fbd5097abb22a46239cf39519ba47113a277f87a2e",
-  "generated": "2026-05-19T12:00:00Z",
+  "content_hash": "sha256:dbf02382dccebdb84371d6202cac7c69433df0182f9e3981ddabafc555c91a45",
+  "generated": "2026-05-19T14:00:00Z",
   "outputs": {
     "public_root": "/ai/",
     "skills_dir": "skills"
@@ -2103,7 +2103,7 @@
         ]
       },
       "title": "Transfer Assets Between Parachains with ParaSpell XCM SDK",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "workflow_pattern": "sequential"
     },
     {
@@ -2256,7 +2256,7 @@
         ]
       },
       "title": "Pay Transaction Fees with an Alternative Token",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "workflow_pattern": "sequential"
     },
     {
@@ -2327,6 +2327,7 @@
         ]
       },
       "primary_page": "node-infrastructure/run-a-node/parachain-rpc.md",
+      "project_structure": "./\n├── chain-spec.json\n└── my-node-data/\n    ├── chains/\n    │   ├── people-polkadot/\n    │   │   └── db/\n    │   └── polkadot/\n    │       └── db/",
       "reference_code": {
         "base_path": "",
         "files": [],
@@ -2407,7 +2408,7 @@
         ]
       },
       "title": "Run a Parachain RPC Node",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "workflow_pattern": "sequential"
     },
     {
@@ -2800,7 +2801,7 @@
         ]
       },
       "title": "Estimate XCM Fees for Asset Teleport",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "workflow_pattern": "sequential"
     },
     {
@@ -3022,6 +3023,7 @@
         ]
       },
       "primary_page": "node-infrastructure/run-a-node/polkadot-hub-rpc.md",
+      "project_structure": "./\n├── asset-hub-polkadot.json\n└── my-node-data/\n    ├── chains/\n    │   ├── asset-hub-polkadot/\n    │   │   └── db/\n    │   └── polkadot/\n    │       └── db/",
       "reference_code": {
         "base_path": "",
         "files": [],
@@ -3108,7 +3110,7 @@
         ]
       },
       "title": "Run an RPC Node for Polkadot Hub",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "workflow_pattern": "sequential"
     },
     {
@@ -3173,6 +3175,7 @@
         ]
       },
       "primary_page": "node-infrastructure/run-a-validator/onboarding-and-offboarding/set-up-validator.md",
+      "project_structure": "/usr/local/bin/\n├── polkadot\n├── polkadot-prepare-worker\n└── polkadot-execute-worker",
       "reference_code": {
         "base_path": "",
         "files": [],
@@ -3264,7 +3267,7 @@
         ]
       },
       "title": "Set Up a Polkadot Validator Node",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "workflow_pattern": "sequential"
     },
     {
@@ -8997,7 +9000,7 @@
         ]
       },
       "title": "Store and Retrieve Data on the Bulletin Chain",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "workflow_pattern": "sequential"
     },
     {

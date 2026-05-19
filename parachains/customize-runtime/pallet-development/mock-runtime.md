@@ -3,6 +3,7 @@ title: Mock Your Runtime
 description: Learn how to create a mock runtime environment for testing your custom pallets in isolation, enabling comprehensive unit testing before runtime integration.
 categories: Parachains
 page_badges:
+  tutorial_badge: Intermediate
   test_workflow: polkadot-docs-mock-runtime
 page_tests:
   path: polkadot-docs/parachains/customize-runtime/pallet-development/mock-runtime/tests/docs.test.ts

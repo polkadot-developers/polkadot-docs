@@ -3,6 +3,7 @@ title: Pay Transaction Fees with Different Tokens
 description: Learn how to send a DOT transfer transaction while paying the fees using a different token on Polkadot Hub using multiple SDKs.
 categories: Chain Interactions, Tooling
 page_badges:
+  tutorial_badge: Intermediate
   test_workflow: polkadot-docs-pay-fees-different-tokens
 page_tests:
   path: polkadot-docs/chain-interactions/pay-fees-different-tokens/tests/docs.test.ts

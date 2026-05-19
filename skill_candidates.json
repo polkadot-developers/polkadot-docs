@@ -365,7 +365,7 @@
       "title": "Pay Transaction Fees with an Alternative Token"
     },
     {
-      "built_at": "2026-04-21T17:00:00Z",
+      "built_at": "2026-05-19T12:00:00Z",
       "category": "tutorial",
       "notes": "Multi-SDK tutorial for constructing, signing, and submitting balance transfers (PAPI, Polkadot.js, Dedot, Python Substrate Interface, Subxt). Cookbook-backed. Fundamental SDK skill and likely prerequisite for other chain-interaction skills.",
       "priority": "high",
@@ -489,7 +489,7 @@
       "title": "Register a Local Asset on Polkadot Hub"
     },
     {
-      "built_at": "2026-04-21T18:00:00Z",
+      "built_at": "2026-05-19T12:00:00Z",
       "category": "tutorial",
       "notes": "Multi-OS installation guide (macOS, Linux, Windows WSL) for the Polkadot SDK. Numbered steps throughout, multiple CLI commands (brew, apt, rustup, cargo build), and verification steps with expected output. Cookbook CI badge present (K4). Self-contained from scratch — covers all dependency installation and SDK build. Optional kitchensink explore step uses Polkadot.js Apps GUI but does not affect the primary installation workflow (S1 still fires). Serves as prerequisite for most parachain development skills (create-frame-pallet, set-up-the-parachain-template, etc.).",
       "priority": "high",
@@ -1948,7 +1948,7 @@
       "title": "Deploy Uniswap V2 on Polkadot Hub"
     },
     {
-      "built_at": "2026-04-21T18:00:00Z",
+      "built_at": "2026-05-19T12:00:00Z",
       "category": "tutorial",
       "notes": "Concise end-to-end tutorial: scaffold Hardhat project, configure polkadotTestnet network, create Storage.sol, compile, deploy via Ignition to TestNet. All code uses --8<-- snippet includes from polkadot-cookbook (K4 = 3; CI badge confirms tested). K2 = 4 (includes expand to complete code in the published site). All steps are CLI-driven with no GUI interactions (S1 = 4). Explicit prerequisites section covers Node.js version, test tokens, and wallet (K3 = 3). Verified outcome shown via terminal output snippet.",
       "priority": "high",
@@ -2011,7 +2011,7 @@
       "title": "Deploy a Basic Smart Contract with Remix IDE"
     },
     {
-      "built_at": "2026-04-21T18:00:00Z",
+      "built_at": "2026-05-19T12:00:00Z",
       "category": "tutorial",
       "notes": "Complete end-to-end tutorial: clone template, compile, test, deploy to Polkadot Hub TestNet. Reference repo revm-hardhat-examples confirmed in context. P3 not fired — tutorial uses a cloned template repo rather than instructing the reader to create files from scratch. CI badge confirms recipe is tested in polkadot-cookbook.",
       "priority": "high",
@@ -2172,7 +2172,7 @@
       "title": "Use Foundry with Polkadot Hub"
     },
     {
-      "built_at": "2026-04-21T18:00:00Z",
+      "built_at": "2026-05-19T12:00:00Z",
       "category": "tutorial",
       "notes": "Complete workflow: initialize project, compile Solidity to PVM bytecode via resolc, test locally with a Substrate node, and deploy to TestNet. Has an explicit prerequisites section, numbered steps throughout, and clear outcome language ('You should see JSON files containing the contract ABIs and bytecodes'). Backed by polkadot-cookbook CI. PVM variant using @parity/hardhat-polkadot — mirrors the EVM skill but targets PolkaVM runtime. P3 not fired: the init wizard creates project files; no explicit file-creation code block on the page.",
       "priority": "high",
@@ -2205,7 +2205,7 @@
       "title": "Set Up Hardhat with the Polkadot Plugin (PVM)"
     },
     {
-      "built_at": "2026-04-21T18:00:00Z",
+      "built_at": "2026-05-19T12:00:00Z",
       "category": "tutorial",
       "notes": "Covers Hardhat project initialization, network configuration for Polkadot Hub TestNet (full hardhat.config.ts file shown — P3 fires), and contract verification with Blockscout or Routescan. Self-contained setup workflow with explicit prerequisites and outcome language. Backed by polkadot-cookbook CI. Standard EVM variant with no PVM/resolc dependency.",
       "priority": "high",
@@ -2693,7 +2693,7 @@
       "title": "Store and Retrieve Data on the Bulletin Chain"
     },
     {
-      "built_at": "2026-05-15T15:30:00Z",
+      "built_at": "2026-05-19T12:00:00Z",
       "category": "tutorial",
       "notes": "PVM variant using polkavm-hardhat-examples repo. K1 awarded for the deploy-to-TestNet workflow, which is standalone; the local-node testing step references the Local Dev Node guide but the deployment outcome is achievable without it. K4 awarded — polkavm-hardhat-examples is listed in context.md.",
       "priority": "high",

@@ -489,7 +489,7 @@
       "title": "Register a Local Asset on Polkadot Hub"
     },
     {
-      "built_at": "2026-05-19T12:00:00Z",
+      "built_at": "2026-05-19T21:30:00Z",
       "category": "tutorial",
       "notes": "Multi-OS installation guide (macOS, Linux, Windows WSL) for the Polkadot SDK. Numbered steps throughout, multiple CLI commands (brew, apt, rustup, cargo build), and verification steps with expected output. Cookbook CI badge present (K4). Self-contained from scratch — covers all dependency installation and SDK build. Optional kitchensink explore step uses Polkadot.js Apps GUI but does not affect the primary installation workflow (S1 still fires). Serves as prerequisite for most parachain development skills (create-frame-pallet, set-up-the-parachain-template, etc.).",
       "priority": "high",
@@ -1041,7 +1041,7 @@
       "title": "Create a Custom FRAME Pallet"
     },
     {
-      "built_at": "2026-04-21T20:30:00Z",
+      "built_at": "2026-05-19T21:30:00Z",
       "category": "tutorial",
       "notes": "Tutorial for creating a minimal mock runtime (mock.rs) using construct_runtime! and #[derive_impl] for isolated pallet testing: create mock module, configure frame_system and pallet Config traits, set up genesis storage helpers. K1=0 — requires completed create-frame-pallet (counter pallet in pallets/pallet-custom). Code uses MkDocs snippet includes but complete reference available in collapsible (K2=4). All CLI steps are programmatic (S1=4). Cookbook CI badge present. Part of pallet development series alongside create-frame-pallet, unit-test-frame-pallet, and benchmark-frame-pallet.",
       "priority": "high",
@@ -1075,7 +1075,7 @@
       "title": "Set Up a Mock Runtime for Pallet Unit Testing"
     },
     {
-      "built_at": "2026-04-21T20:30:00Z",
+      "built_at": "2026-05-19T21:30:00Z",
       "category": "tutorial",
       "notes": "Tutorial for writing comprehensive pallet unit tests using FRAME macros (assert_ok!, assert_noop!, System::assert_last_event!): create tests.rs, test basic operations, error conditions, access control, event emission, and genesis configuration. Inline Rust test code is fully shown (no snippet includes; K2=4). K1=0 — requires create-frame-pallet and set-up-pallet-mock-runtime. All steps are CLI/programmatic (S1=4). Cookbook CI badge present. Final step before benchmarking in the pallet development series.",
       "priority": "high",
@@ -1109,7 +1109,7 @@
       "title": "Write Unit Tests for a FRAME Pallet"
     },
     {
-      "built_at": "2026-04-21T20:30:00Z",
+      "built_at": "2026-05-19T21:30:00Z",
       "category": "tutorial",
       "notes": "Tutorial covering the full benchmarking workflow: create benchmarking.rs module, define WeightInfo trait, annotate extrinsics, enable runtime-benchmarks Cargo feature, build WASM runtime with benchmarks, install frame-omni-bencher, download weight template, execute benchmarks, and integrate generated weights.rs into production runtime. K1=0 — requires a working parachain template and pallet (e.g., from create-frame-pallet series), but page explicitly supports substitution with any pallet. R2 fires for CLI flag descriptions (--steps, --repeat, --heap-pages, --wasm-execution). Cookbook CI badge present.",
       "priority": "high",
@@ -2693,7 +2693,7 @@
       "title": "Store and Retrieve Data on the Bulletin Chain"
     },
     {
-      "built_at": "2026-05-19T12:00:00Z",
+      "built_at": "2026-05-19T21:30:00Z",
       "category": "tutorial",
       "notes": "PVM variant using polkavm-hardhat-examples repo. K1 awarded for the deploy-to-TestNet workflow, which is standalone; the local-node testing step references the Local Dev Node guide but the deployment outcome is achievable without it. K4 awarded — polkavm-hardhat-examples is listed in context.md.",
       "priority": "high",

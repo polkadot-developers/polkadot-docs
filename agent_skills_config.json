@@ -1,6 +1,6 @@
 {
-  "content_hash": "sha256:0d3c227e341b8ebfbc1896ef230dcb2f1bdf971ea4f8d9f27f7b8f04a63c9837",
-  "generated": "2026-05-19T21:00:00Z",
+  "content_hash": "sha256:60a64e33eff75b5f6d4b8dee3edb0b684603e782a003bf7ce587ff8bcd97e266",
+  "generated": "2026-05-19T21:30:00Z",
   "outputs": {
     "public_root": "/ai/",
     "skills_dir": "skills"
@@ -833,6 +833,7 @@
         ]
       },
       "primary_page": "parachains/install-polkadot-sdk.md",
+      "project_structure": "polkadot-sdk/\n└── target/\n    └── release/\n        ├── polkadot\n        ├── polkadot-parachain\n        ├── polkadot-omni-node\n        └── substrate-node",
       "reference_code": {
         "base_path": "",
         "files": [],
@@ -844,7 +845,7 @@
       "steps": [
         {
           "action": "Install OS-level system dependencies",
-          "description": "Install the packages required to compile the Polkadot SDK. Run the command block for your OS:\n\nmacOS: First install Homebrew if missing (/bin/bash -c \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)\"), then run: brew install protobuf openssl cmake\n\nUbuntu or Debian: sudo apt install --assume-yes git clang curl libssl-dev llvm libclang-dev libudev-dev make protobuf-compiler\n\nArch Linux: pacman -Syu --needed --noconfirm curl git clang make protobuf\n\nFedora: sudo dnf update && sudo dnf install clang curl git openssl-devel make protobuf-compiler\n\nOpenSUSE: sudo zypper install clang curl git openssl-devel llvm-devel libudev-devel make protobuf\n\nWindows WSL (Ubuntu): open the WSL Ubuntu terminal, then run: sudo apt install --assume-yes git clang curl libssl-dev llvm libclang-dev libudev-dev make protobuf-compiler",
+          "description": "Install the packages required to compile the Polkadot SDK. Run the command block for your OS:\n\nmacOS: First run `xcode-select --install` to install command line tools (if not already installed), then install Homebrew if missing (/bin/bash -c \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)\"), then run: brew install protobuf openssl cmake\n\nUbuntu or Debian: sudo apt install --assume-yes git clang curl libssl-dev llvm libclang-dev libudev-dev make protobuf-compiler\n\nArch Linux: pacman -Syu --needed --noconfirm curl git clang make protobuf\n\nFedora: sudo dnf update && sudo dnf install clang curl git openssl-devel make protobuf-compiler\n\nOpenSUSE: sudo zypper install clang curl git openssl-devel llvm-devel libudev-devel make protobuf\n\nWindows WSL (Ubuntu): open the WSL Ubuntu terminal, then run: sudo apt install --assume-yes git clang curl libssl-dev llvm libclang-dev libudev-dev make protobuf-compiler",
           "order": 1,
           "working_directory": "."
         },
@@ -894,11 +895,22 @@
         {
           "action": "Verify the build",
           "commands": [
+            "ls target/release",
             "./target/release/polkadot --version"
           ],
-          "description": "Confirm the polkadot binary runs and prints its version. If you see version output without errors, the development environment is correctly configured and ready for Polkadot SDK work. Save this version string — needed when matching binary versions in parachain template setup.",
+          "description": "Verify the build by listing the release binaries and checking the polkadot binary version. You should see binaries including: polkadot (relay chain node), polkadot-parachain (parachain collator), polkadot-omni-node (omni node for running parachains), and substrate-node (kitchensink node with many pre-configured pallets). The polkadot version command should print version info similar to polkadot 1.x.x-xxxxxxx.",
           "expected_output": "polkadot 1.x.x-xxxxxxx",
           "order": 6,
+          "working_directory": "polkadot-sdk"
+        },
+        {
+          "action": "Optional: run the kitchensink node in dev mode",
+          "commands": [
+            "./target/release/substrate-node --dev"
+          ],
+          "description": "The substrate-node (kitchensink) comes pre-configured with many pallets and is useful for exploring Polkadot SDK capabilities. Run it in development mode with --dev to start a single-node chain with pre-configured accounts (Alice, Bob, etc.) and automatic block production. The node is accessible at ws://localhost:9944. To stop it, press Control-C. This step is optional — skip it if you only need the SDK compiled.",
+          "expected_output": "Idle (0 peers), best: #N finalized #N",
+          "order": 7,
           "working_directory": "polkadot-sdk"
         }
       ],
@@ -920,7 +932,7 @@
         ]
       },
       "title": "Install the Polkadot SDK",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "workflow_pattern": "sequential"
     },
     {
@@ -4624,7 +4636,7 @@
           "commands": [
             "touch mock.rs"
           ],
-          "description": "Create the empty mock.rs file. Then open src/lib.rs and insert the following two lines immediately after the 'pub use pallet::*;' line:\n\n```rust\n#[cfg(test)]\nmod mock;\n```\n\nThe #[cfg(test)] attribute ensures this module is only compiled when running tests, keeping it out of production builds.",
+          "description": "Navigate to the pallet source directory: `cd pallets/pallet-custom/src`. Create the empty mock.rs file. Then open src/lib.rs and insert the following two lines immediately after the 'pub use pallet::*;' line:\n\n```rust\n#[cfg(test)]\nmod mock;\n```\n\nThe #[cfg(test)] attribute ensures this module is only compiled during testing, keeping it out of production builds.",
           "order": 3,
           "working_directory": "polkadot-sdk-parachain-template/pallets/pallet-custom/src"
         },
@@ -4658,13 +4670,13 @@
           {
             "relevance": "Prerequisite: the custom counter pallet that this mock runtime is written for.",
             "slug": "parachains-customize-runtime-pallet-development-create-a-pallet",
-            "title": "Create a Custom Pallet",
+            "title": "Make a Custom Pallet",
             "url": "https://docs.polkadot.com/parachains/customize-runtime/pallet-development/create-a-pallet.md"
           }
         ]
       },
       "title": "Set Up a Mock Runtime for Pallet Unit Testing",
-      "version": "1.0.2",
+      "version": "1.0.3",
       "workflow_pattern": "sequential"
     },
     {
@@ -4783,13 +4795,13 @@
         },
         {
           "action": "Write error condition and access control tests",
-          "description": "Append these tests to src/tests.rs:\n\n```rust\n#[test]\nfn increment_fails_on_overflow() — uses new_test_ext_with_counter(u32::MAX), asserts assert_noop!(increment(signed(1), 1), Error::<Test>::Overflow). assert_noop! verifies both the error AND that no storage was modified.\n\n#[test]\nfn decrement_fails_on_underflow() — uses new_test_ext_with_counter(10), asserts noop on decrement(signed(1), 11) with Error::Underflow.\n\n#[test]\nfn set_counter_value_requires_root() — uses new_test_ext(), asserts noop on set_counter_value(signed(alice), 100) with DispatchError::BadOrigin, then asserts ok with RuntimeOrigin::root().\n\n#[test]\nfn increment_respects_max_value() — uses new_test_ext_with_counter(950), asserts noop on increment(signed(1), 51) with Error::CounterMaxValueExceeded, then asserts ok on increment of 50.\n```",
+          "description": "Append these tests to src/tests.rs:\n\n```rust\n#[test]\nfn increment_fails_on_overflow() — uses new_test_ext_with_counter(u32::MAX), asserts assert_noop!(increment(signed(1), 1), Error::<Test>::Overflow). assert_noop! verifies both the error AND that no storage was modified.\n\n#[test]\nfn decrement_fails_on_underflow() — uses new_test_ext_with_counter(10), asserts noop on decrement(signed(1), 11) with Error::Underflow.\n\n#[test]\nfn set_counter_value_requires_root() — uses new_test_ext(), asserts noop on set_counter_value(signed(alice), 100) with DispatchError::BadOrigin, then asserts ok with RuntimeOrigin::root().\n\n#[test]\nfn increment_respects_max_value() — uses new_test_ext_with_counter(950), asserts noop on increment(signed(1), 51) with Error::CounterMaxValueExceeded, then asserts ok on increment of 50.\n\n#[test]\nfn set_counter_value_respects_max_value() — uses new_test_ext(), asserts noop on set_counter_value(root, 1001) with Error::CounterMaxValueExceeded, then asserts ok on set_counter_value(root, 1000) and verifies CounterValue is 1000.\n```",
           "order": 6,
           "working_directory": "polkadot-sdk-parachain-template/pallets/pallet-custom/src"
         },
         {
           "action": "Write genesis configuration and interaction tracking tests",
-          "description": "Append these final tests to src/tests.rs:\n\n```rust\n#[test]\nfn genesis_config_works() — uses new_test_ext_with_interactions(42, vec![(1, 5), (2, 10)]), asserts CounterValue is 42, UserInteractions for account 1 is 5, for account 2 is 10.\n\n#[test]\nfn increment_tracks_multiple_interactions() — calls increment three times on same account, asserts UserInteractions count is 3.\n\n#[test]\nfn different_users_tracked_separately() — account 1 increments twice (total interactions: 2), account 2 decrements once (interactions: 1); asserts each account tracked independently.\n```",
+          "description": "Append these final tests to src/tests.rs:\n\n```rust\n#[test]\nfn genesis_config_works() — uses new_test_ext_with_interactions(42, vec![(1, 5), (2, 10)]), asserts CounterValue is 42, UserInteractions for account 1 is 5, for account 2 is 10.\n\n#[test]\nfn increment_tracks_multiple_interactions() — calls increment three times on same account, asserts UserInteractions count is 3.\n\n#[test]\nfn different_users_tracked_separately() — account 1 increments twice (total interactions: 2), account 2 decrements once (interactions: 1); asserts each account tracked independently with CounterValue of 15 (10+10-5).\n\n#[test]\nfn decrement_tracks_multiple_interactions() — uses new_test_ext_with_counter(100), account 3 decrements twice (10, then 20), asserts CounterValue is 70, UserInteractions for account 3 is 2.\n\n#[test]\nfn mixed_increment_and_decrement_works() — uses new_test_ext_with_counter(50), account 4 increments by 25 (→75), decrements by 15 (→60), increments by 10 (→70), asserts final CounterValue is 70 and UserInteractions for account 4 is 3.\n```",
           "order": 7,
           "working_directory": "polkadot-sdk-parachain-template/pallets/pallet-custom/src"
         },
@@ -4798,7 +4810,7 @@
           "commands": [
             "cargo test --package pallet-custom"
           ],
-          "description": "Run all tests. Expected output shows 15 passing tests: 13 pallet tests plus 2 auto-generated mock tests. If fewer appear, verify every function has #[test]. If an event test fails with 'left: []', confirm System::set_block_number(1) is the first call inside the execute_with closure.",
+          "description": "Run all tests. Expected output shows 15 passing tests: 13 pallet tests plus 2 auto-generated mock tests (mock::__construct_runtime_integrity_test::runtime_integrity_tests and mock::test_genesis_config_builds). If an event test fails with 'left: []', confirm System::set_block_number(1) is the first call inside the execute_with closure.",
           "expected_output": "test result: ok. 15 passed; 0 failed; 0 ignored",
           "order": 8,
           "working_directory": "polkadot-sdk-parachain-template/pallets/pallet-custom"
@@ -4822,7 +4834,7 @@
         ]
       },
       "title": "Write Unit Tests for a FRAME Pallet",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "workflow_pattern": "sequential"
     },
     {
@@ -4982,14 +4994,17 @@
           "commands": [
             "cargo install frame-omni-bencher --locked"
           ],
-          "description": "Install via cargo, or download a pre-built binary from the Polkadot SDK releases page. Replace VERSION with the SDK version tag used by the parachain template (e.g., polkadot-stable2412):\nmacOS: curl -L -o frame-omni-bencher https://github.com/paritytech/polkadot-sdk/releases/download/VERSION/frame-omni-bencher-aarch64-apple-darwin && chmod +x frame-omni-bencher && sudo mv frame-omni-bencher /usr/local/bin/\nUbuntu: curl -L -o frame-omni-bencher https://github.com/paritytech/polkadot-sdk/releases/download/VERSION/frame-omni-bencher && chmod +x frame-omni-bencher && sudo mv frame-omni-bencher /usr/local/bin/",
+          "description": "frame-omni-bencher is the official Polkadot SDK benchmarking tool. Install it using one of the following methods:\n\n**Option A — Pre-built binary (recommended for macOS and Ubuntu):**\n\nmacOS:\n```bash\ncurl -L -o frame-omni-bencher https://github.com/paritytech/polkadot-sdk/releases/download/$(polkadot --version | grep -o 'polkadot-[0-9a-f]*')/frame-omni-bencher-aarch64-apple-darwin\nchmod +x frame-omni-bencher\nsudo mv frame-omni-bencher /usr/local/bin/\n```\n\nUbuntu:\n```bash\ncurl -L -o frame-omni-bencher https://github.com/paritytech/polkadot-sdk/releases/download/$(polkadot --version | grep -o 'polkadot-[0-9a-f]*')/frame-omni-bencher\nchmod +x frame-omni-bencher\nsudo mv frame-omni-bencher /usr/local/bin/\n```\n\n**Option B — Build from source:**\n```bash\ncargo install frame-omni-bencher --locked\n```\n\nUse Option B if pre-built binaries are not available for your OS or architecture. After installation, verify with: `frame-omni-bencher --version`.",
           "expected_output": "Installed package `frame-omni-bencher`",
           "order": 10,
           "working_directory": "polkadot-sdk-parachain-template"
         },
         {
           "action": "Create the weight Handlebars template file",
-          "description": "Create the file `./pallets/pallet-custom/frame-weight-template.hbs` with the following content. This is the canonical Substrate weight template (a Handlebars template used by `frame-omni-bencher` to render the generated `weights.rs`). Save this exact content — needed in step 10:\n\n```handlebars\n{{header}}\n//! Autogenerated weights for `{{pallet}}`\n//!\n//! THIS FILE WAS AUTO-GENERATED USING THE SUBSTRATE BENCHMARK CLI VERSION {{version}}\n//! DATE: {{date}}, STEPS: `{{cmd.steps}}`, REPEAT: `{{cmd.repeat}}`, LOW RANGE: `{{cmd.lowest_range_values}}`, HIGH RANGE: `{{cmd.highest_range_values}}`\n//! WORST CASE MAP SIZE: `{{cmd.worst_case_map_values}}`\n//! HOSTNAME: `{{hostname}}`, CPU: `{{cpuname}}`\n//! WASM-EXECUTION: `{{cmd.wasm_execution}}`, CHAIN: `{{cmd.chain}}`, DB CACHE: `{{cmd.db_cache}}`\n\n// Executed Command:\n{{#each args as |arg|}}\n// {{arg}}\n{{/each}}\n\n#![cfg_attr(rustfmt, rustfmt_skip)]\n#![allow(unused_parens)]\n#![allow(unused_imports)]\n#![allow(missing_docs)]\n\nuse frame_support::{traits::Get, weights::{Weight, constants::RocksDbWeight}};\nuse core::marker::PhantomData;\n\n/// Weight functions needed for `{{pallet}}`.\npub trait WeightInfo {\n\t{{#each benchmarks as |benchmark|}}\n\tfn {{benchmark.name~}}\n\t(\n\t\t{{~#each benchmark.components as |c| ~}}\n\t\t{{c.name}}: u32, {{/each~}}\n\t) -> Weight;\n\t{{/each}}\n}\n\n/// Weights for `{{pallet}}` using the Substrate node and recommended hardware.\npub struct SubstrateWeight<T>(PhantomData<T>);\n{{#if (or (eq pallet \"frame_system\") (eq pallet \"frame_system_extensions\"))}}\nimpl<T: crate::Config> WeightInfo for SubstrateWeight<T> {\n{{else}}\nimpl<T: frame_system::Config> WeightInfo for SubstrateWeight<T> {\n{{/if}}\n\t{{#each benchmarks as |benchmark|}}\n\t{{#each benchmark.comments as |comment|}}\n\t/// {{comment}}\n\t{{/each}}\n\t{{#each benchmark.component_ranges as |range|}}\n\t/// The range of component `{{range.name}}` is `[{{range.min}}, {{range.max}}]`.\n\t{{/each}}\n\tfn {{benchmark.name~}}\n\t(\n\t\t{{~#each benchmark.components as |c| ~}}\n\t\t{{~#if (not c.is_used)}}_{{/if}}{{c.name}}: u32, {{/each~}}\n\t) -> Weight {\n\t\t// Proof Size summary in bytes:\n\t\t//  Measured:  `{{benchmark.base_recorded_proof_size}}{{#each benchmark.component_recorded_proof_size as |cp|}} + {{cp.name}} * ({{cp.slope}} ±{{underscore cp.error}}){{/each}}`\n\t\t//  Estimated: `{{benchmark.base_calculated_proof_size}}{{#each benchmark.component_calculated_proof_size as |cp|}} + {{cp.name}} * ({{cp.slope}} ±{{underscore cp.error}}){{/each}}`\n\t\t// Minimum execution time: {{underscore benchmark.min_execution_time}}_000 picoseconds.\n\t\tWeight::from_parts({{underscore benchmark.base_weight}}, {{benchmark.base_calculated_proof_size}})\n\t\t\t{{#each benchmark.component_weight as |cw|}}\n\t\t\t// Standard Error: {{underscore cw.error}}\n\t\t\t.saturating_add(Weight::from_parts({{underscore cw.slope}}, 0).saturating_mul({{cw.name}}.into()))\n\t\t\t{{/each}}\n\t\t\t{{#if (ne benchmark.base_reads \"0\")}}\n\t\t\t.saturating_add(T::DbWeight::get().reads({{benchmark.base_reads}}_u64))\n\t\t\t{{/if}}\n\t\t\t{{#each benchmark.component_reads as |cr|}}\n\t\t\t.saturating_add(T::DbWeight::get().reads(({{cr.slope}}_u64).saturating_mul({{cr.name}}.into())))\n\t\t\t{{/each}}\n\t\t\t{{#if (ne benchmark.base_writes \"0\")}}\n\t\t\t.saturating_add(T::DbWeight::get().writes({{benchmark.base_writes}}_u64))\n\t\t\t{{/if}}\n\t\t\t{{#each benchmark.component_writes as |cw|}}\n\t\t\t.saturating_add(T::DbWeight::get().writes(({{cw.slope}}_u64).saturating_mul({{cw.name}}.into())))\n\t\t\t{{/each}}\n\t\t\t{{#each benchmark.component_calculated_proof_size as |cp|}}\n\t\t\t.saturating_add(Weight::from_parts(0, {{cp.slope}}).saturating_mul({{cp.name}}.into()))\n\t\t\t{{/each}}\n\t}\n\t{{/each}}\n}\n\n// For backwards compatibility and tests.\nimpl WeightInfo for () {\n\t{{#each benchmarks as |benchmark|}}\n\t{{#each benchmark.comments as |comment|}}\n\t/// {{comment}}\n\t{{/each}}\n\t{{#each benchmark.component_ranges as |range|}}\n\t/// The range of component `{{range.name}}` is `[{{range.min}}, {{range.max}}]`.\n\t{{/each}}\n\tfn {{benchmark.name~}}\n\t(\n\t\t{{~#each benchmark.components as |c| ~}}\n\t\t{{~#if (not c.is_used)}}_{{/if}}{{c.name}}: u32, {{/each~}}\n\t) -> Weight {\n\t\t// Proof Size summary in bytes:\n\t\t//  Measured:  `{{benchmark.base_recorded_proof_size}}{{#each benchmark.component_recorded_proof_size as |cp|}} + {{cp.name}} * ({{cp.slope}} ±{{underscore cp.error}}){{/each}}`\n\t\t//  Estimated: `{{benchmark.base_calculated_proof_size}}{{#each benchmark.component_calculated_proof_size as |cp|}} + {{cp.name}} * ({{cp.slope}} ±{{underscore cp.error}}){{/each}}`\n\t\t// Minimum execution time: {{underscore benchmark.min_execution_time}}_000 picoseconds.\n\t\tWeight::from_parts({{underscore benchmark.base_weight}}, {{benchmark.base_calculated_proof_size}})\n\t\t\t{{#each benchmark.component_weight as |cw|}}\n\t\t\t// Standard Error: {{underscore cw.error}}\n\t\t\t.saturating_add(Weight::from_parts({{underscore cw.slope}}, 0).saturating_mul({{cw.name}}.into()))\n\t\t\t{{/each}}\n\t\t\t{{#if (ne benchmark.base_reads \"0\")}}\n\t\t\t.saturating_add(RocksDbWeight::get().reads({{benchmark.base_reads}}_u64))\n\t\t\t{{/if}}\n\t\t\t{{#each benchmark.component_reads as |cr|}}\n\t\t\t.saturating_add(RocksDbWeight::get().reads(({{cr.slope}}_u64).saturating_mul({{cr.name}}.into())))\n\t\t\t{{/each}}\n\t\t\t{{#if (ne benchmark.base_writes \"0\")}}\n\t\t\t.saturating_add(RocksDbWeight::get().writes({{benchmark.base_writes}}_u64))\n\t\t\t{{/if}}\n\t\t\t{{#each benchmark.component_writes as |cw|}}\n\t\t\t.saturating_add(RocksDbWeight::get().writes(({{cw.slope}}_u64).saturating_mul({{cw.name}}.into())))\n\t\t\t{{/each}}\n\t\t\t{{#each benchmark.component_calculated_proof_size as |cp|}}\n\t\t\t.saturating_add(Weight::from_parts(0, {{cp.slope}}).saturating_mul({{cp.name}}.into()))\n\t\t\t{{/each}}\n\t}\n\t{{/each}}\n}\n```\n\n**Note on versioning:** This template content is taken from `paritytech/polkadot-sdk` at tag `polkadot-stable2412`. The template format is stable across SDK versions — you should not need to update it for routine SDK bumps. If `frame-omni-bencher` reports a template-version mismatch (rare, only on major SDK breaking changes), fetch the latest from `https://github.com/paritytech/polkadot-sdk/blob/master/substrate/.maintain/frame-weight-template.hbs` and update this skill.",
+          "commands": [
+            "curl -L https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/<SDK_TAG>/substrate/.maintain/frame-weight-template.hbs --output ./pallets/pallet-custom/frame-weight-template.hbs"
+          ],
+          "description": "Download the official Polkadot SDK weight template. Replace `<SDK_TAG>` with the specific Polkadot SDK release tag matching your runtime (e.g., `polkadot-stable2412-2`). Check the template download URL in the docs at https://docs.polkadot.com/parachains/customize-runtime/pallet-development/benchmark-pallet/ for the exact version.\n\n```bash\ncurl -L https://raw.githubusercontent.com/paritytech/polkadot-sdk/refs/tags/<SDK_TAG>/substrate/.maintain/frame-weight-template.hbs \\\n--output ./pallets/pallet-custom/frame-weight-template.hbs\n```\n\nThe weight template is a Handlebars file that transforms raw benchmark data into a formatted Rust source file following Polkadot SDK conventions.",
           "order": 11,
           "working_directory": "polkadot-sdk-parachain-template"
         },
@@ -5005,7 +5020,7 @@
         },
         {
           "action": "Update runtime config to use generated weights",
-          "description": "Open runtime/src/configs/mod.rs and update the pallet Config to use measured weights instead of ():\n\n```rust\nimpl pallet_custom::Config for Runtime {\n    type RuntimeEvent = RuntimeEvent;\n    type CounterMaxValue = ConstU32<1000>;\n    type WeightInfo = pallet_custom::weights::SubstrateWeight<Runtime>;\n}\n```\n\nThen rebuild for production without the benchmarks flag:\ncargo build --release",
+          "description": "After running benchmarks, weights.rs is generated with measured weights. Follow these steps to integrate them:\n\n1. The generated weights.rs includes a SubstrateWeight struct. The file structure looks like:\n\n```rust\npub trait WeightInfo {\n    fn set_counter_value() -> Weight;\n    fn increment() -> Weight;\n    fn decrement() -> Weight;\n}\n\npub struct SubstrateWeight<T>(PhantomData<T>);\nimpl<T: frame_system::Config> WeightInfo for SubstrateWeight<T> {\n    fn set_counter_value() -> Weight {\n        Weight::from_parts(8_234_000, 0)\n            .saturating_add(T::DbWeight::get().reads(1))\n            .saturating_add(T::DbWeight::get().writes(1))\n    }\n    // ... increment and decrement similarly\n}\n```\n\n2. Update runtime/src/configs/mod.rs to use the measured weights instead of the () placeholder:\n\n```rust\nimpl pallet_custom::Config for Runtime {\n    type RuntimeEvent = RuntimeEvent;\n    type CounterMaxValue = ConstU32<1000>;\n    type WeightInfo = pallet_custom::weights::SubstrateWeight<Runtime>;\n}\n```\n\nThe actual weight values will vary based on your hardware. The DbWeight accounts for database read/write operations. Now users' transactions will be charged using accurate measured weights.",
           "order": 13,
           "working_directory": "polkadot-sdk-parachain-template"
         }
@@ -5028,7 +5043,7 @@
         ]
       },
       "title": "Benchmark a FRAME Pallet and Generate Weight Files",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "workflow_pattern": "sequential"
     },
     {
@@ -9226,7 +9241,7 @@
     },
     {
       "chain_role": "isolated",
-      "description": "Clones the polkavm-hardhat-examples repo, compiles Uniswap V2 Factory and Pair contracts to the Polkadot Virtual Machine (PVM) using the Hardhat Polkadot plugin and resolc compiler, and deploys to Polkadot Hub TestNet. Use when deploying a DEX AMM factory on Polkadot Hub with PVM bytecode. Requires testnet PAS tokens. Trigger phrases: 'deploy Uniswap V2 PVM', 'UniswapV2Factory PVM Polkadot', 'deploy AMM Polkadot Hub PVM', 'polkavm-hardhat-examples uniswap'.",
+      "description": "Clones the polkavm-hardhat-examples repo (hardhat-polkadot-evm branch), compiles Uniswap V2 Factory, ERC20, and Pair contracts using standard Hardhat, tests them on a local dev node, and deploys to Polkadot Hub TestNet. Use when deploying a DEX AMM factory on Polkadot Hub. Requires testnet PAS tokens. Trigger phrases: 'deploy Uniswap V2 Polkadot', 'UniswapV2Factory Polkadot Hub', 'deploy AMM Polkadot Hub', 'polkavm-hardhat-examples uniswap'.",
       "env_vars": [
         {
           "description": "0x-prefixed EVM private key for the account deploying to Polkadot Hub TestNet (passetHub network). Must be funded with testnet PAS. Do NOT ask user to paste key in chat — they must edit .env directly.",
@@ -9249,11 +9264,6 @@
           "cause": ".env file not populated or not loaded by dotenv.",
           "pattern": "Error: AH_PRIV_KEY is undefined / invalid private key",
           "resolution": "Verify .env exists in uniswap-v2-polkadot/ and contains AH_PRIV_KEY=0x<your-key>. The config uses require('dotenv').config() automatically."
-        },
-        {
-          "cause": "Some documentation examples use --network polkadotHubTestNet but the hardhat.config.js defines the network as passetHub.",
-          "pattern": "HardhatError: Cannot find network 'polkadotHubTestNet' / unknown network",
-          "resolution": "Use --network passetHub (not polkadotHubTestNet). The correct network name defined in hardhat.config.js is passetHub."
         },
         {
           "cause": "The resolc compiler is not installed or not accessible.",
@@ -9321,9 +9331,10 @@
           "action": "Clone the polkavm-hardhat-examples repository",
           "commands": [
             "git clone https://github.com/polkadot-developers/polkavm-hardhat-examples.git",
+            "git -C polkavm-hardhat-examples checkout hardhat-polkadot-evm",
             "cd polkavm-hardhat-examples/uniswap-v2-polkadot"
           ],
-          "description": "Clone the repository and navigate to the Uniswap V2 project. The hardhat.config.js already uses dotenv (require('dotenv').config()) and process.env variables — no Hardhat vars conversion needed.",
+          "description": "Clone the repository, checkout the hardhat-polkadot-evm branch, and navigate to the Uniswap V2 project. Note: the hardhat.config.js in this branch uses the standard Hardhat toolbox (@nomicfoundation/hardhat-toolbox) — the PVM plugin is not active on this branch. The config already uses dotenv (require('dotenv').config()) and process.env variables.",
           "order": 1,
           "working_directory": "."
         },
@@ -9356,13 +9367,22 @@
           "working_directory": "polkavm-hardhat-examples/uniswap-v2-polkadot"
         },
         {
+          "action": "Test contracts on the local dev node",
+          "commands": [
+            "npx hardhat test --network localNode"
+          ],
+          "description": "Run the provided test suite against a local revive-dev-node. Before running this step, ensure you have a local Polkadot dev node running (see https://docs.polkadot.com/smart-contracts/dev-environments/local-dev-node/ for setup). The LOCAL_PRIV_KEY in .env must be set to a local dev account key (e.g., Alice's dev key: 0xe5be9a5092b81bca64be81d212e7f2f9eba183bb7a90954f7b76361f6edb5c0a). The tests cover pair creation, liquidity addition, and swap scenarios.",
+          "order": 5,
+          "working_directory": "polkavm-hardhat-examples/uniswap-v2-polkadot"
+        },
+        {
           "action": "Deploy to Polkadot Hub TestNet",
           "commands": [
-            "npx hardhat run scripts/deploy.js --network passetHub"
+            "npx hardhat run scripts/deploy.js --network polkadotHubTestNet"
           ],
-          "description": "Deploy UniswapV2ERC20, UniswapV2Factory, and UniswapV2Pair to Polkadot Hub TestNet via the passetHub network config. The script outputs the deployed addresses — save them, especially the Factory address, which is needed for creating liquidity pairs.\n\nNote: The documentation shows `--network polkadotHubTestNet` but the actual network name in hardhat.config.js is `passetHub`.",
+          "description": "Deploy UniswapV2ERC20, UniswapV2Factory, and UniswapV2Pair to Polkadot Hub TestNet via the polkadotHubTestNet network config. The script outputs the deployed addresses — save them, especially the Factory address, which is needed for creating liquidity pairs.\n\nNote: The documentation shows `--network polkadotHubTestNet` but the actual network name in hardhat.config.js is `polkadotHubTestNet`.",
           "expected_output": "Factory deployed to : 0x...",
-          "order": 5,
+          "order": 6,
           "working_directory": "polkavm-hardhat-examples/uniswap-v2-polkadot"
         }
       ],
@@ -9384,7 +9404,7 @@
         ]
       },
       "title": "Deploy Uniswap V2 Core on Polkadot Hub (PVM)",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "workflow_pattern": "sequential"
     },
     {
